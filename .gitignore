@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Personal cost data - the Personas passport reads it locally; never in VCS
+app-cost.json
