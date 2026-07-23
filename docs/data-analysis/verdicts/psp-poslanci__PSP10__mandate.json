@@ -1,0 +1,31 @@
+{
+  "slice": "psp-poslanci×PSP10×mandate",
+  "rowsAnalyzed": 207,
+  "quality": {
+    "completeness": { "score": 5, "reason": "100% of the 207 current-term mandates carry a resolvable person, a term, a region and a party list — the identity a seat needs. (Note the count: 207 mandates for 200 seats, because a mid-term replacement creates a new mandate row when a predecessor's seat ends — expected, not duplication.)" },
+    "freshness": { "score": 3, "reason": "syncAgeDays=0 but rowLagDays is null — mandate rows carry no per-row date, so only sync age contributes and the deterministic scorer averages it against a null lag → 3. This is a structural property of the entity (a mandate is a standing fact, not an event), not staleness." },
+    "categorization": { "score": 5, "reason": "207/207 mandates resolve to a parliamentary CLUB via the organ tree (membership→organ where the organ's parent is the PSP10 chamber and its type is Klub). Critically this is the club, NOT the party_list an MP was elected on — the two differ and conflating them is the classic error; here they are kept separate." },
+    "validity": { "score": 5, "reason": "100% referential integrity: every personPspId, termPspId, regionPspId and partyListPspId resolves to a real organ/person row. No dangling edges." },
+    "richness": { "score": 1, "reason": "0% of rows are 'rich' (a reachable contact AND a photo): email/web/facebook are EMPTY corpus-wide for the current term (0/207) even though 203/207 have photos. This is UPSTREAM-ABSENT — psp.cz has not yet published PSP10 contact details — so 'backfill email' is not a scrape fix. The score is honest but structurally capped." },
+    "volume": { "score": 4, "reason": "207 mandates is in the 200–999 band. It is the full current chamber (200 seats + 7 replacement rows), so 4 is the ceiling this slice can reach — not a coverage shortfall." }
+  },
+  "composite": 3.8,
+  "entityGaps": [
+    { "entityId": "psp:poslanec:1954", "field": "email", "note": "Representative current-term mandate with email/web/facebook all null but hasPhoto true — the corpus-wide empty-contact pattern, upstream-absent rather than un-scraped." }
+  ],
+  "miscategorized": [],
+  "patterns": [
+    "Current-term MP contact fields (email/web/facebook) are empty on ALL 207 mandates while 203/207 have photos — the publisher populates contacts later in a term, so the gap is a freshness-of-source signal, not a scrape target.",
+    "Club membership and elected party-list are separately resolved and both present on 100% of rows — the dataset can distinguish 'elected for party X, sits in club Y', which is exactly what a non-partisan discipline metric requires.",
+    "207 mandates vs 200 seats reflects mid-term replacements (a náhradník gets a fresh mandate row when a seat ends) — any per-seat count must dedupe on the current holder, not on mandate rows."
+  ],
+  "opportunities": [
+    { "title": "Club-vs-party divergence surface", "evidence": "Every mandate carries both partyListPspId and a resolved club; they are not always equal.", "productImpact": "FollowTheMoney and CivicScore both need 'elected party ≠ current club' to attribute votes and ties correctly — the mock layer collapses them into one 'party' field." },
+    { "title": "Contact-completeness as a published freshness signal", "evidence": "0/207 contacts vs 203/207 photos.", "productImpact": "A profile page can honestly show 'contact not yet published by psp.cz' instead of an empty field, reinforcing the brand rule that every absence is sourced." }
+  ],
+  "backlog": [
+    { "title": "Model elected-party-list separately from current club everywhere", "kind": "data-quality", "why": "The graph distinguishes them; the product must not re-merge them or discipline metrics mis-attribute." },
+    { "title": "Empty-state for un-published MP contacts on the profile (Spis)", "kind": "ui-ux", "why": "PSP10 contacts are upstream-absent; the profile must source the absence rather than render a blank." },
+    { "title": "Deduplicate mandates to current seat-holders for chamber counts", "kind": "methodology", "why": "207 mandate rows cover 200 seats due to replacements; a headline seat count must resolve to current holders." }
+  ]
+}

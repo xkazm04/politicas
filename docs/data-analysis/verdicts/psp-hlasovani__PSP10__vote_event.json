@@ -1,0 +1,31 @@
+{
+  "slice": "psp-hlasovani×PSP10×vote_event",
+  "rowsAnalyzed": 2030,
+  "quality": {
+    "completeness": { "score": 5, "reason": "97% of rows carry timestamp + session/vote number + long title + a full reconciling tally (yes/no/abstain/notVoting/present). The 3% incomplete are procedural roll calls with an empty long title (e.g. psp:hlasovani:86345, 86346, 86347) — bod<1, a documented record type, not a scrape gap. Rounds to 5 on the deterministic scale." },
+    "freshness": { "score": 4, "reason": "syncAgeDays=0 (ingested today) and rowLagDays=8 (newest roll call 2026-07-15 vs the snapshot) → deterministic freshness 4.5. The 8-day lag is a summer sitting gap, not a broken pipeline — the Chamber simply did not vote in the interval." },
+    "categorization": { "score": 5, "reason": "100% of rows resolve to a non-fallback kind (all normal; 0 manual, 0 technical_fault) AND a real outcome (accepted/rejected/quorum_not_reached), never the unknown/void fallback. The vocabulary maps cleanly." },
+    "validity": { "score": 5, "reason": "100% pass the arithmetic check yes+no+abstain+notVoting==present — the publisher's own tallies reconcile on every one of the 2030 rows — and no title carries U+FFFD. This is the strongest validity signal in the corpus because it is an internal-consistency proof, not just a referential one." },
+    "richness": { "score": 1, "reason": "0% of rows have BOTH a long AND a short title with a positive agenda item: nazev_kratky (short title) is empty for ~all PSP10 votes. This is a STRUCTURAL publisher cap for the current term, not a per-row defect — the long title carries the content, so the low score is honest but must not be read as 'missing data to scrape'." },
+    "volume": { "score": 5, "reason": "2030 roll calls ≥ 1000 → top band. A full term's voting record." }
+  },
+  "composite": 4.2,
+  "entityGaps": [
+    { "entityId": "psp:hlasovani:86345", "field": "titleLong", "note": "Procedural vote (bod<1) with an empty long title; expected for the record type, flagged not as a scrape target but so the completeness gap is attributable." }
+  ],
+  "miscategorized": [],
+  "patterns": [
+    "Vote-tally integrity is perfect: yes+no+abstain+notVoting==present on 100% of 2030 rows — the arithmetic invariant holds, so any downstream discipline/attendance metric can trust the aggregate counts without re-deriving them from ballots.",
+    "16 roll calls are voided (zmatečné) — their result was disregarded by the Chamber and they MUST be excluded from any discipline/attendance/outcome metric, or a rebellion will be attributed to a vote that legally did not count.",
+    "Short titles are empty corpus-wide for the current term, so any UI that shows a compact vote label has only the long title to truncate — a product concern, not a data-repair one."
+  ],
+  "opportunities": [
+    { "title": "Void-aware vote metrics", "evidence": "16/2030 PSP10 votes are zmatečné; the mock VoteTrack layer has no notion of voided votes.", "productImpact": "Excluding voided votes from discipline/attendance is a correctness requirement for CivicScore's Independence pillar — including them would fabricate rebellions against non-votes." },
+    { "title": "Bill linkage via agenda item", "evidence": "97% of rows carry a positive agendaItem and a long title referencing a sněmovní tisk.", "productImpact": "The agenda item is the join key to LawWatch's bill pipeline — it closes the vote→impact loop the mock currently fakes." }
+  ],
+  "backlog": [
+    { "title": "Exclude voided (zmatečné) votes from all discipline/attendance aggregates", "kind": "data-quality", "why": "16 PSP10 roll calls are legally disregarded; counting them would mis-score MPs." },
+    { "title": "Ingest sněmovní tisky (tisky.zip) to resolve agenda items to bills", "kind": "feature", "why": "vote_event.agendaItem is present but points at nothing until the bill dump is ingested — the vote→law link the product promises." },
+    { "title": "Surface the empty-short-title cap in the vote-label component", "kind": "ui-ux", "why": "Short titles are absent for the current term; a compact label must fall back to a truncated long title, not render blank." }
+  ]
+}
