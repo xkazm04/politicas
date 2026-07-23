@@ -7,7 +7,10 @@
  * needs the log line, not the comment.
  *
  * Minimum acceptable: `catch (err) { console.warn("[context]", err); }`.
- * Once an error-reporting layer exists (Sentry etc.), route through it.
+ * The error-reporting layer now exists: prefer routing caught errors through
+ * `Sentry.captureException(err)` from `@sentry/nextjs` over a bare log. It is a
+ * silent no-op when NEXT_PUBLIC_SENTRY_DSN is unset (see instrumentation-client.ts
+ * and sentry.server.config.ts), so it is always safe to call.
  */
 
 /** @type {import('eslint').Rule.RuleModule} */
