@@ -112,6 +112,17 @@ GitHub only reads workflows from the repo root; `npm run check` is the local
 equivalent. Same for `lefthook.yml` (pre-commit staged lint, pre-push
 typecheck+test) — install lefthook only after the repo split.
 
+## Agent memory
+
+Durable, cross-session knowledge lives in `MEMORY.md` (a one-line-per-entry
+index) + `memory/*.md` (one hard-won fact per file). **Read `MEMORY.md` at
+session start** — it's the fast path to decisions already taken and gotchas
+already paid for, before you touch code. At session end, record any durable,
+non-obvious learning as a new `memory/<slug>.md` entry (terse `name` +
+`description` frontmatter, then the fact + why it matters) and add its index
+line to `MEMORY.md`. Bar for an entry: worth recalling in three months **and**
+not derivable in ten seconds from `docs/` — no filler, no restating the docs.
+
 ## Git discipline (ported from personas' parallel-safety primitives)
 
 - Stage per-file (`git add <path>`) — never `git add -A`/`.`/`-u`; other
