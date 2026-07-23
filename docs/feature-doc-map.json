@@ -1,0 +1,38 @@
+{
+  "_comment": "Source -> docs coupling map for Politicas. When a turn edits source matching an entry's sourceGlobs with user- or contributor-visible effect (new/removed route, changed module architecture, new command, design-token or lint-rule change, sample-data-layer status), update the coupled doc in the SAME change. Internal-only edits (refactors, bugfixes with no behavior shift) need no doc update. A single source glob may couple to several docs.",
+  "entries": [
+    {
+      "doc": "README.md",
+      "sourceGlobs": [
+        "app/**",
+        "features/**",
+        "lib/civic/**",
+        "package.json"
+      ]
+    },
+    {
+      "doc": "docs/DESIGN.md",
+      "sourceGlobs": [
+        "app/globals.css",
+        "features/shared/**",
+        "eslint-rules/**"
+      ]
+    },
+    {
+      "doc": "docs/ROADMAP.md",
+      "sourceGlobs": [
+        "lib/civic/**",
+        "features/**"
+      ]
+    },
+    {
+      "doc": "CLAUDE.md",
+      "sourceGlobs": [
+        "app/**",
+        "features/**",
+        "lib/**",
+        "eslint-rules/**"
+      ]
+    }
+  ]
+}
