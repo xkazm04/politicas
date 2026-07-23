@@ -1,0 +1,44 @@
+# CI — kvalitativní brána (vzor: personas/.github/workflows/ci.yml, zeštíhleno).
+#
+# POZN.: politicas zatím žije uvnitř monorepa `kiro` — GitHub Actions čte
+# workflow jen z kořene repozitáře, takže tenhle soubor se aktivuje až ve
+# chvíli, kdy se politicas osamostatní do vlastního repa (plánováno).
+# Do té doby je lokálním ekvivalentem `npm run check` (viz lefthook.yml).
+
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint (incl. custom rules)
+        run: npm run lint
+
+      - name: Test
+        run: npm run test
+
+      - name: Build
+        run: npm run build

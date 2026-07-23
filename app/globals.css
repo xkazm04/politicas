@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+/*
+ * Politicas — design tokens.
+ * Vítězná výtvarná řeč: „Konstrukt" (sutnarovský funkcionalistický plakát).
+ * Tohle je jediné místo, kde barvy vznikají — komponenty konzumují třídy
+ * (bg-paper, text-ink, bg-signal, …). Výjimky s literálními hexy:
+ *   1. features/landing/palette.ts — zrcadlo tokenů pro recharts chrome
+ *      (mřížky/tooltips potřebují literální řetězce),
+ *   2. features/labs/** — archivované výtvarné směry (Rentgen),
+ *   3. datové barvy stran v lib/civic/data.ts (barva je datový údaj).
+ * Lint rule custom/no-hardcoded-colors tyhle hranice hlídá.
+ */
+
+@theme {
+  /* jádro plakátu */
+  --color-ink: #131313; /* černá — text, linky, plné plochy */
+  --color-paper: #f0eee7; /* teplá galerijnní bílá — plátno */
+  --color-paper-strong: #e9e6dc; /* hover / vybraný řádek */
+  --color-signal: #d5372c; /* červená — akcent, pilíř Aktivita */
+  --color-cobalt: #1f3fa8; /* modrá — sekundární, pilíř Docházka */
+  --color-ochre: #dfa321; /* okr — pilíř Integrita */
+  --color-steel: #77726a; /* šedá — sekundární text */
+  --color-hairline: #d7d3c8; /* vlasové linky, mřížky */
+}
+
+@theme inline {
+  --font-sans: var(--font-archivo), system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), Georgia, serif;
+  --font-mono: var(--font-plex), ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--color-signal);
+  color: var(--color-paper);
+}
+
+/* Posuvník vah — součást výtvarné řeči plakátu (viz docs/DESIGN.md §Motion). */
+.k-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  width: 100%;
+  background: var(--color-hairline);
+  outline: none;
+}
+.k-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 22px;
+  width: 22px;
+  border-radius: 9999px;
+  background: var(--color-signal);
+  border: 3px solid var(--color-ink);
+  cursor: pointer;
+}
+.k-range::-moz-range-thumb {
+  height: 22px;
+  width: 22px;
+  border-radius: 9999px;
+  background: var(--color-signal);
+  border: 3px solid var(--color-ink);
+  cursor: pointer;
+}

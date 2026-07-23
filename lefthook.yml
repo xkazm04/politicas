@@ -1,0 +1,25 @@
+# Lefthook git hooks (vzor: personas/lefthook.yml).
+#
+# POZN.: politicas zatím žije uvnitř monorepa `kiro` — instalace hooků by
+# ovlivnila celé kiro repo, takže lefthook zatím NENÍ v devDependencies a
+# hooky se neinstalují. Aktivace až po osamostatnění repa:
+#   npm i -D lefthook && npx lefthook install
+#
+# Zásady (převzato z personas):
+# - pre-commit musí zůstat rychlý (<5 s) — jen lint staged souborů
+# - hooky NIKDY nestashují ani nepřepisují working tree
+# - těžší validace (plný typecheck, testy) patří na pre-push
+
+pre-commit:
+  parallel: true
+  jobs:
+    - name: eslint-staged
+      glob: "*.{ts,tsx,mjs,cjs}"
+      run: npx eslint --quiet --no-warn-ignored {staged_files}
+
+pre-push:
+  jobs:
+    - name: typecheck
+      run: npx tsc --noEmit
+    - name: test
+      run: npx vitest run
