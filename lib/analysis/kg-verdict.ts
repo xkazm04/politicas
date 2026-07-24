@@ -30,6 +30,7 @@ export const KG_EDGE_RELS = [
   "supplies",
   "sponsors",
   "amends",
+  "assigned_to",
 ] as const;
 export type KgEdgeRel = (typeof KG_EDGE_RELS)[number];
 

@@ -54,10 +54,30 @@ So F6 moves from *"no adapter"* to **"join + gate BUILT; blocked only on the thr
 feeds"**. The node/edge kinds (`company`/`contract`, `linked_to`/`supplies`) are in the
 schema; `kg-money.ts` turns typed feeds into gated edges the moment they exist.
 
-## F15 — formal bill → committee (still blocked, source identified)
+## F15 — formal bill → committee (DONE, pass 12, deterministic)
 
-F12's `owns` mapping is by committee *remit* (name-based, gated). The *formal* per-bill
-assignment (which výbor a specific tisk was `přikázán` to) needs the psp.cz **`tisky`**
-(sněmovní tisky) dataset — same UNL bulk-download format as the ingested poslanci/hlasovani
-bundles, but not yet ingested. That is the one, well-identified source that upgrades F12
-from heuristic remit to formal per-bill routing.
+> **UPDATE 2026-07-24 — F15 IS NOW POPULATED.** F12's `owns` mapping is committee *remit*
+> (name-based, gated). The *formal* per-bill assignment — which výbor a specific tisk was
+> `přikázán` to — lives in `tisky.zip` → **`hist_vybory.unl`** (the "přikázání tisku
+> výborům" table; psp.cz open-data k=1303), joined to `hist.unl` for the assignment date.
+> A new deterministic parser (`parseCommitteeAssignments` in `psp-legislation.ts`) collapses
+> the event rows to one assignment per (tisk, committee) and `da:kg-routing` materialized
+> **150 `assigned_to` edges** (bill → organ), props `{role: garanční|další, status:
+> přikázáno|navrženo|iniciativně, assignedOn}`, provenance `pass 12 · deterministic · F15`.
+
+**131 of 141 bills are formally routed** (133 garanční + 17 další committee assignments); the
+**10 unrouted** bills (tisky 43143, 43354, 43360, 43365, 43366, 43370, 43372, 43379, 43382,
+43383) are prints not yet proposed for assignment in a term opened 2025-10-04 — an honest
+structural gap, not a miss. Status is recorded per edge (86 navrženo / 63 přikázáno / 1
+iniciativně) so a consumer can restrict to House-confirmed assignments. Concentration is where
+you'd expect: **ÚPV (justice) 31 garanční, RV (budget) 26, HV (economy) 19.**
+
+**Formal routing vs the heuristic `owns` — they agree, and the one disagreement is F12's own
+declared gap.** Of the 12 committees that receive at least one *garanční* bill, **11 also carry
+an F12 `owns` remit**. The single exception is **VVVMS** (education/science), which formally
+takes 4 garanční bills yet has no `owns` edge — because it is one of the exact **4 committees
+F12 flagged as having no matching theme** (the F2 taxonomy, built from the 47 head vote
+subjects, doesn't cover education/science/defence/foreign). So the formal per-bill routing
+independently *confirms* F12's honest taxonomy gap rather than contradicting the remit mapping.
+The `owns` heuristic was right about who owns what; F15 now pins it to the specific tisk.
+Feeds LawWatch (route a bill to its gestor committee) off real assignment, not name matching.

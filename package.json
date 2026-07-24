@@ -21,6 +21,7 @@
     "da:validate-kg-verdict": "tsx scripts/data-analysis/validate-kg-verdict.ts",
     "da:kg-promote": "tsx scripts/data-analysis/kg-promote.ts",
     "da:kg-metrics": "tsx scripts/data-analysis/kg-metrics.ts",
+    "da:kg-routing": "tsx scripts/data-analysis/kg-committee-routing.ts",
     "da:kg-datahub-sync": "tsx scripts/data-analysis/kg-datahub-sync.ts",
     "hybrid:semop": "tsx scripts/hybrid-bench/run.ts",
     "hybrid:semagg": "tsx scripts/hybrid-bench/agg.ts",

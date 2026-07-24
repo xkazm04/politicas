@@ -345,3 +345,24 @@ Partially addresses F15 (`tisky` now ingested; formal per-bill→výbor routing 
 The four feature surfaces were wired off the `lib/civic` mock onto these real nodes the same day
 (server-loader pattern per `/hlasovani`; mock kept only as graceful fallback).
 
+## Case ③ Law forensics — pass 12 — 2026-07-24 — F15 formal committee routing (method: `deterministic`)
+
+Upgraded F12's name-based committee *remit* (`owns`: organ→theme) to the FORMAL per-bill routing.
+psp.cz `tisky.zip` carries `hist_vybory.unl` — the "přikázání tisku výborům" table (schema: psp.cz
+open-data k=1303) — joined to `hist.unl` for the step date. New parser
+`parseCommitteeAssignments` (`lib/ingest/sources/psp-legislation.ts`) collapses the event rows to one
+assignment per (tisk, committee); `scripts/data-analysis/kg-committee-routing.ts` (`da:kg-routing`)
+gates them to graph nodes and writes. **Edges: +150 `assigned_to` (bill→organ)**, props `{role:
+garancni|dalsi, status: prikazano|navrzeno|iniciativne, assignedOn}`. **131 of 141 bills routed**
+(133 garanční + 17 další); the 10 unrouted are bills not yet proposed for assignment in a term
+opened 2025-10-04 (honest gap, not a miss). Of the 289 hist_vybory pairs over PSP10 prints, 11 174
+event rows for other terms + non-graph prints were dropped by the endpoint gate. Status split (86
+navrženo / 63 přikázáno / 1 iniciativně) is recorded per edge so a consumer can filter to
+House-confirmed assignments. **Formal-vs-heuristic agreement: 11 of 12 committees that receive a
+garanční bill also carry an F12 `owns` remit; the lone exception is VVVMS (education/science)** — one
+of the exact 4 committees F12 flagged as having no matching theme (F2 taxonomy gap). The formal
+routing independently confirms that honest gap rather than contradicting it. Concentration matches
+expectation: ÚPV (justice) 31, RV (budget) 26, HV (economy) 19. F15 → `done`. → `/zakony`, LawWatch.
+
+**⇒ Graph: 2 989 nodes / 24 899 edges** (+150 `assigned_to`).
+

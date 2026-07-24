@@ -14,7 +14,7 @@ version is the enum set in `lib/analysis/kg-verdict.ts` (`KG_NODE_KINDS`,
 > effort that reuses the same `kg_node`/`kg_edge` tables, so their pass numbers are an
 > independent sequence, not a continuation of the loop's. This unblocked the layers the
 > older passes (and [[onboarding]], [[coverage-ledger]], [[cluster-committees-and-money]])
-> recorded as *data-blocked*. Graph is now **2 989 nodes / 24 749 edges** (was 263 / 21 359
+> recorded as *data-blocked*. Graph is now **2 989 nodes / 24 899 edges** (was 263 / 21 359
 > at loop convergence). All three trio layers are `deterministic`; the only `verdict` money/law
 > product is the human gate (below) and one bill forensic posudek.
 
@@ -53,6 +53,7 @@ Every node/edge carries `provenance = {pass, method, ref, computedAt}`. Two meth
 | `supplies` | company → contract | ✅ **pass 10 (2 290)** | contract amount | join (`kg-money.ts`) over Registr smluv IČO |
 | `sponsors` | person → bill | ✅ **pass 11 (528)** | — | `psp-legislation.ts` (tisk předkladatelé) |
 | `amends` | bill → law | ✅ **pass 11 (150)** | — | `psp-legislation.ts` (title `č. N/RRRR Sb.` citation → law node) |
+| `assigned_to` | bill → organ (committee) | ✅ **pass 12 (150)** | — | `psp-legislation.ts` `parseCommitteeAssignments` (tisky `hist_vybory` ⋈ `hist`); props `role` (garanční/další), `status` (přikázáno/navrženo/iniciativně), `assignedOn`. Formal per-bill routing; **F15** upgrade of the heuristic `owns` remit |
 
 ## Bases & caveats (shared with the deterministic layer)
 
