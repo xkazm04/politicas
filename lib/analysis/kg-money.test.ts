@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import {
   buildMoneyGraph,
+  isPreservedTiePropKey,
+  mergePreservedTieProps,
   moneyTrails,
   type Company,
   type Contract,
@@ -64,5 +66,102 @@ describe("moneyTrails", () => {
   it("marks a trail with any pending linkage as NOT fully verified", () => {
     const t = trails.find((x) => x.personPspId === 6791)!;
     expect(t).toMatchObject({ contractCount: 0, totalAmount: 0, fullyVerified: false });
+  });
+});
+
+describe("mergePreservedTieProps (D1, batch 004)", () => {
+  const fresh = { role: "jednatel", source: "oi-declaration-2026", review_state: "pending_review" };
+
+  it("no existing edge (first ingest) → fresh wins entirely", () => {
+    expect(mergePreservedTieProps(undefined, fresh)).toEqual(fresh);
+  });
+
+  it("existing edge with a preserved key present → existing wins for that key", () => {
+    const existing = {
+      role: "jednatel",
+      source: "oi-declaration-2026",
+      review_state: "verified",
+      last_decision: "confirm",
+      last_reviewer: "tester",
+      last_reviewed_at: "2026-07-01T00:00:00.000Z",
+      review_note: "confirmed via ARES VR",
+      corroboration: "registry-confirmed",
+    };
+    const merged = mergePreservedTieProps(existing, fresh);
+    expect(merged.review_state).toBe("verified");
+    expect(merged.last_decision).toBe("confirm");
+    expect(merged.last_reviewer).toBe("tester");
+    expect(merged.last_reviewed_at).toBe("2026-07-01T00:00:00.000Z");
+    expect(merged.review_note).toBe("confirmed via ARES VR");
+    expect(merged.corroboration).toBe("registry-confirmed");
+    // non-preserved keys still come from fresh
+    expect(merged.role).toBe("jednatel");
+    expect(merged.source).toBe("oi-declaration-2026");
+  });
+
+  it("existing edge missing a preserved key → fresh fills it in (never forces undefined)", () => {
+    const existing = { role: "jednatel", source: "old-source" }; // no review_state at all
+    const merged = mergePreservedTieProps(existing, fresh);
+    expect(merged.review_state).toBe("pending_review"); // fresh's default, not erased to undefined
+    expect(merged.source).toBe("oi-declaration-2026"); // non-preserved key: fresh still wins
+  });
+
+  it("preserves prefixed/suffixed preserved-key families: corroboration*, role_valid_*, false_edge_*, owner_stake_*, *_provenance", () => {
+    const existing = {
+      corroboration_source: "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/29442044",
+      corroboration_provenance: "ares-vr:2026-06-01",
+      corroboration_confidence: "high",
+      role_valid_from: "2016-01-01",
+      role_valid_to: "2020-01-01",
+      temporal_status: "ended",
+      tie_class: "owner-operator",
+      false_edge_suspected: true,
+      false_edge_reason: "name collision candidate",
+      role_provenance: "ares-vr:2026-06-01",
+      owner_stake_pct: 25,
+      owner_stake_from: "2015-11-11",
+    };
+    const merged = mergePreservedTieProps(existing, fresh);
+    expect(merged).toMatchObject(existing);
+  });
+
+  // D2 (batch 004, Opus re-audit): the preserve list was originally hand-written from
+  // a defect writeup and missed real fields. This is the fix's regression guard:
+  // the COMPLETE real key set reconcile-ares-vr.ts's propsMerge + the batch-001
+  // corroboration payload actually write onto a `linked_to` edge (verified against a
+  // live census of all 260 edges, see kg-money.ts's PRESERVED_TIE_PROP_KEYS comment).
+  // If a future edit narrows the preserve list, this test catches it structurally
+  // instead of relying on someone re-deriving the list from a writeup again.
+  it("covers every prop key the live graph's 260 linked_to edges + reconcile-ares-vr.ts actually write (D2 regression)", () => {
+    const liveGraphKeySnapshot = {
+      // present on all 260 edges (base link fields — NOT preserved, fresh legitimately wins)
+      role: "jednatel",
+      source: "oi-declaration-2026",
+      // human-gated / annotation fields — MUST be preserved
+      tie_class: "owner-operator",
+      review_state: "verified",
+      corroboration: "registry-confirmed",
+      reviewer_note: "ARES VR: jednatel/společník 2017-08-29→trvá (25% podíl) · peníze: current",
+      corroboration_source: "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04934482",
+      corroboration_provenance: "ares-vr:2026-06-01",
+      corroboration_confidence: "high",
+      temporal_status: "current",
+      role_valid_to: "2020-01-01",
+      role_valid_from: "2016-01-01",
+      flags: ["stale-ongoing-in-graph"],
+      false_edge_reason: "name collision candidate",
+      false_edge_suspected: true,
+      false_edge_provenance: "ares-vr:2026-06-01",
+      signal: 5,
+      owner_stake_pct: 25,
+      corroboration_note: "not a real field — corroboration* prefix must still not choke on it",
+      owner_stake_from: "2015-11-11",
+      prior_term: "2005-04-15..2011-02-21",
+    };
+    const NOT_PRESERVED = new Set(["role", "source"]); // base fields; fresh legitimately overwrites
+    for (const key of Object.keys(liveGraphKeySnapshot)) {
+      if (NOT_PRESERVED.has(key)) continue;
+      expect(isPreservedTiePropKey(key), `expected "${key}" to be preserved`).toBe(true);
+    }
   });
 });

@@ -10,6 +10,8 @@ import {
   dedupeCompanies,
   enrichMoneyCompanies,
   foldLower,
+  GENERIC_NAME_BLACKLIST,
+  isGenericNameToken,
   isoDay,
   normalizeCompanyName,
   parseAresCompany,
@@ -172,6 +174,24 @@ describe("pickExactIco — strict name→IČO (never guesses)", () => {
     expect(
       pickExactIco("Foo, a.s.", parseAresSearch({ ekonomickeSubjekty: [{ ico: "1", obchodniJmeno: "Foo a.s." }, { ico: "2", obchodniJmeno: "Foo, a.s." }] })),
     ).toBeNull();
+  });
+
+  // Pass-21 / C10 regression: IČO 04627695 (Agrární demokratická strana) has ARES
+  // obchodniJmeno literally "OSVČ" — an MP's private-role occupation "OSVČ" must NEVER
+  // exact-match it (this created 49 false linked_to edges before the blacklist fix).
+  it("never resolves a GENERIC_NAME_BLACKLIST token, even with a real ARES candidate of that exact name (OSVČ regression, C10/pass 21)", () => {
+    expect(GENERIC_NAME_BLACKLIST).toContain("OSVČ");
+    const osvcCandidates = parseAresSearch({
+      ekonomickeSubjekty: [{ ico: "04627695", obchodniJmeno: "OSVČ" }],
+    });
+    // Query name comes straight from the MP's private-role event.organizace text.
+    expect(pickExactIco("OSVČ", osvcCandidates)).toBeNull();
+    // Case/diacritic-insensitive and whitespace-padded variants must also be rejected.
+    expect(pickExactIco("osvč", osvcCandidates)).toBeNull();
+    expect(pickExactIco("  OSVC  ", osvcCandidates)).toBeNull();
+    expect(isGenericNameToken("OSVČ")).toBe(true);
+    expect(isGenericNameToken("osvc")).toBe(true);
+    expect(isGenericNameToken("AGROFERT, a.s.")).toBe(false);
   });
 });
 
