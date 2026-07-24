@@ -97,17 +97,53 @@ improvement candidate for `gate-verdicts.ts`).
 4. Vote→law→impact chain UI: roll call → bill → amended § → effective date
    (closes the loop with `/hlasovani`).
 
-## Batch-005 priorities (set at batch-004 integration)
+## Batch-006 priorities (set at batch-005 integration)
+
+1. **P1: independent re-audit of the batch-005 remediated payload** — the
+   driver fixed 6 of the 11 defects its OWN Opus audit found; that is not
+   equivalent to a second independent check. Audit
+   `batch-005-amends-regen.json`/`batch-005-missing-law-nodes.json` fresh
+   before any live apply.
+2. **Full precision measurement on all 567 regenerated edges** (only 3
+   hand-proven false cases were fixed; a ~6.3% proxy false-positive rate
+   flagged pre-remediation was never re-measured post-fix) — run the
+   amending-context proxy as a reported metric, not a spot-check.
+3. **A durable apply path** (D3/D4) — `persist-batch.ts` is shared and
+   props-merge-only; this and every future case that needs to GROW the
+   node/edge set (not just annotate) needs an insert-capable path,
+   node-then-edge ordered, preserving pre-existing edges' provenance rather
+   than blind-overwriting it.
+4. **Re-triage** the moment the regen applies (churn ranking flips, 40/2009
+   takes #1; sector-adjacency needs §-level recomputation, not naive
+   re-run over the new edge set — see batch-004's reflection warning).
+5. **Collision army wave** on the remaining ~171 partition-survivor pairs
+   (583 raw / 186 partitioned, only 15 close-read so far) — WITH a properly
+   validated ranking signal first; batch-005's `moneyLiteral` candidate was
+   found NOT statistically distinguishable from the partition-survivor
+   baseline (Fisher p=1.00) and should not be trusted to order the sweep
+   as-is.
+
+## Batch-005 priorities (DONE — see ledger/batch-005.md/handoff.md; kept for history)
 
 1. **P1 (paired, land together): missing-law-node ingest** (Q-law-12 — 188
    statutes / 289 citations = 50.6% have no node; e-Sbírka SPARQL resolves
    ELIs cheaply, autonomous authority) **+ apply the validated 282-edge
    amends regeneration** (Q-law-11's set-difference trigger first; the
-   payload passed 282/282 and is HELD at the orchestrator).
+   payload passed 282/282 and is HELD at the orchestrator). — DONE:
+   187/187 statutes resolved (e-Sbírka bulk registry, not SPARQL — see
+   batch-005.md §1 for why), regen closes to 567 edges/0 missing. Opus
+   audit found the first pass NOT READY (11 defects), 6 remediated
+   same-batch; a FRESH audit is batch-006's P1, not a formality.
 2. Re-run the collision pre-check on the regenerated topology (~5× candidate
-   universe; expect ~170 surviving pairs) — feed `/zakony/kolize`.
+   universe; expect ~170 surviving pairs) — feed `/zakony/kolize`. — DONE:
+   583 raw / 186 partitioned pairs, 15 close-read (5 confirmed / 7
+   coordination-risk / 3 incidental), rendered as a labeled batch-5/
+   post-regen-pending section.
 3. Ranking-signal validation for the sweep order (P52 — shared-§ count does
-   not discriminate).
+   not discriminate). — DONE, result is NULL: the proposed replacement
+   (moneyLiteral) was implemented and honestly found NOT statistically
+   validated at n=15 against the partition-survivor baseline — do not
+   treat it as proven before a larger sample runs.
 
 ## Batch-004 priorities (DONE — see ledger; kept for history)
 

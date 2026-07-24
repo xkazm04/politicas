@@ -505,3 +505,36 @@ statutes / 289 citations = 50.6% of real citations have no law node) + Q-law-11 
 THEN apply. Also batch 004: 24 more collision close-reads (4-batch totals 17 confirmed / 9 risk /
 12 incidental, scoped to the 150-edge topology), §88 diff (23 hunks), **/zakony/kolize shipped**
 (commit a44fe5f — a driver commit, fleet-rule breach, boundary-clean, retained; rule sharpened).
+
+## Pass 24 (track: money) — Case ① batch-005: review order, leads, closures (2026-07-25)
+
+**211 `linked_to` edges gain `review_tier`/`review_rank`** (confirmed owner-operators first: 34 ·
+managers 20 · stewards 125 · unconfirmed 32) driving `/penize/kontrola`'s session order; the
+`review_audit` CHECK migration applied live. **Two Opus-verified lead annotations** land
+`pending_review`: Q-money-5 Juchelka (evidence HOLDS — a structural advisor-conflict story re
+SIPTRADE, not personal enrichment; 3 corrections applied) and Q-money-6 Okamura (PARTIAL — the
+Opus layer caught a **fabricated ownership-successor detail that had silently propagated since
+batch 002**, plus a mislabeled source and a mis-date; 5 corrections; medium confidence). Q-money-13
+closed: 26/26 stale OSVČ mentions surgically corrected (currentText guards, 0 failures) across 24
+effort/law nodes. Console session-support UX shipped (205/205 tests).
+
+## Pass 25 (track: effort) — Case ② batch-005: 45 dossiers, coverage nears (2026-07-25)
+
+**45 person nodes props-merged** (P51 double-verified: the Opus layer caught 4 blocking errors on
+first full use, incl. REVERSING a false company-tie clear on Černochová and a truncated ARES fetch
+missing Stržínek's active board seat). Coverage 165/207 (79.7%); mean signal 0.771→0.458 —
+convergence evidence recorded, declaration deferred to steering. CRO reality check: cro.justice.cz
+needs a ~30-day manual Ministry process (NOT autonomous — corrects batch-004's optimism);
+volby.cz/ČSÚ candidate registry IS freely buildable. Tenure-aware profile copy shipped.
+
+## Held again: law batch-005 change-set (NOT READY — the audit said so)
+
+The paired landing grew to **187/187 nodes resolved + 150→567 edges** — but the Opus paired-landing
+audit returned **NOT READY TO APPLY** (11 defects: unmeasured precision on new citations with 3
+proven-false footnote edges, an Sb. m. s. treaty-citation collision, no sanctioned apply path, a
+value-overwrite gap in the deletion-diff gate). The driver remediated 6/11 same-batch and honestly
+flagged the result as validator-PASS but NOT re-audited. **Batch-006 P1: independent fresh audit +
+full precision measurement before any live apply** — a self-fixed payload does not apply on the
+fixer's word. Post-regen collision pre-check (on the copy): 583 raw → 186 partitioned pairs, 15
+close-read (5 confirmed / 7 risk / 3 incidental); the P52 replacement ranking honestly reported as
+NOT statistically validated (Fisher p=1.00). /zakony/kolize batch-5 preview shipped (labeled pending).

@@ -156,3 +156,18 @@ Foldyna carried a second undisclosed historical company tie; Výborný's Gymnáz
 statutory role (2012–2022, the entity behind his 9.25M CZK figure) had been wrongly cleared
 since batch 003. Both caught by the second verification layer (direct VR curl + Opus), both
 fixed before persist. Lesson: money-touching rewrites get TWO independent verification layers.
+
+## C14 [money batch 005] — a fabricated detail survived from batch 002 to batch 005
+
+The Okamura dossier carried a fabricated ownership-successor detail that propagated unchallenged
+through three batches until the independent Opus verification layer re-fetched the registry
+(plus: a source labeled "independent" that wasn't, and a mis-dated event). All corrected; the
+lead landed at medium confidence, pending_review. This is the first confirmed multi-batch
+fabrication survival — and the strongest argument yet for P51's two independent layers on every
+money-touching claim: the FIRST layer had passed this.
+
+## C15 [effort batch 005] — CRO access assumption corrected
+
+Batch-004's probe implied cro.justice.cz might be fetchable; batch-005 established it requires a
+manually-approved, per-person, ~30-day Ministry of Justice process — outside autonomous-ingest
+authority (user-gated). volby.cz/ČSÚ is the buildable employment-signal source instead.
