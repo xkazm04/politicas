@@ -252,3 +252,42 @@ substring-collision check before being trusted.
 in the identical clause §88 odst. 2 písm. c) of 40/2009 for UNRELATED reasons — a
 drafting-coordination risk without shared subject matter. Corroborated by three independent
 sources (two blind Sonnet agents + the deterministic pre-check); softer than 120↔244.
+
+## P44 [money] A props-merge writer is mandatory over human-gated fields (batch 003)
+
+`upsertKgEdges` does `props = excluded.props` — wholesale replace. Any ingest that re-derives
+props from a source feed silently destroys human-written fields (`review_state`,
+`last_decision`) on re-run. `persist-batch.ts` merges correctly; `kg-money.ts`'s ingest does not
+(defect D1, HIGH — write path committed but NOT enabled until closed). Rule: a human write layer
+over a re-derivable ingest needs an explicit durability contract — merge-preserve or audit-replay.
+
+## P45 [effort] ARES endpoint doctrine — never assert ABSENCE without the VR endpoint (batch 003)
+
+The plain `/ekonomicke-subjekty/` endpoint never contains officers; only
+`/ekonomicke-subjekty-vr/{ico}` does. Asserting "no personal link found" from the former is an
+unverified negative — batch 003 caught 5 such false clearances (C11). Kernel-level rule now.
+
+## P46 [effort] role_window_mismatch — the young-term floor artifact meta-class (batch 003)
+
+Three sub-cases unified: never-seated (phantom), seated-late (replacement), role-changed-mid-term
+(6 army MPs became PM/ministers/Deputy Speaker Dec 2025–Jun 2026). All read as "low effort" in
+raw props; all are score-window artifacts. Tenure props (pass 19) ground the class deterministically.
+
+## P47 [effort] Lens exhaustion is observable — the loop visibly converges (batch 003)
+
+Oversight-flavour quiet workhorses hit 5/5 population coverage (lens returned 0 picks);
+high-triage filler grew 1/30 → 17/35; mean signal 0.744 → 0.500 is composition, not decay.
+The triage design's convergence signature, working as intended.
+
+## P48 [law] Boilerplate amendment-lineage citations are a second over-counting failure mode (batch 003)
+
+Distinct from the `.includes()` substring bug: every novela's body cites its target law's FULL
+amendment history ("ve znění zákona č. …/… Sb., č. …/… Sb., …") — naive citation extraction
+counts the lineage as amended statutes. Fixed by per-Čl.-article extraction. Czech legal-text
+parsers must treat lineage citations as noise.
+
+## P49 [law] Deterministic grep beats a second LLM read for presence claims (batch 003)
+
+Both confirmed collision clusters were verified by direct grep of cached novelization text —
+cheaper and stronger than a second model read. For "does text X appear in bill Y" class claims,
+grep IS the verification.

@@ -115,7 +115,18 @@ resume → triage → dispatch army → gate + persist → reflect → build-rev
   where needed. **Payment always waits for the user.**
 - **The human gate is never delegated.** No loop, at any autonomy level, flips
   a `review_state`. Corroboration annotates and raises reviewer confidence;
-  only a human verifies.
+  only a human verifies — since batch 003, exclusively through `ReviewRepository`
+  + the token-gated `/penize/kontrola` server action, with an append-only
+  `review_audit` row before every flip.
+- **A human write layer over a re-derivable ingest needs an explicit durability
+  contract** (P44/D1): the ingest must merge-preserve human-written fields (or
+  the audit trail must replay after ingest) — `props = excluded.props`
+  wholesale-replace silently erases a reviewer's work. When reviewing ANY
+  write-path build, the reflection must ask "what ELSE in this repo writes to
+  this same field/table", not just "does the write path work".
+- **Deferred-three-batches is a decision point**: an item that rolls through
+  three build-reviews without running gets committed to the next batch or
+  retired — never deferred a fourth time.
 
 ## Fleet mode (parallel runs)
 
@@ -155,6 +166,18 @@ analytical-loop vs investigative-track numbering ambiguity documented in
 - **Primary registries outrank media**: psp.cz, e-Sbírka, ARES/VR (justice.cz),
   Registr smluv, Hlídač státu > news. Media coverage is *context* in narrative
   notes, never a graph fact.
+- **Never assert ABSENCE of a company tie without the ARES VR endpoint**
+  (`/ekonomicke-subjekty-vr/{ico}`) — the plain `/ekonomicke-subjekty/` endpoint
+  never contains officers, so a negative from it is an unverified negative
+  (batch 003 caught 5 false clearances this way, C11). Over-claiming AND
+  under-claiming are both live failure modes on money-touching claims.
+- **A research agent's confidence label is a claim to verify, not a fact** —
+  independently spot-check the primary source before accepting "high"
+  (batch 003: PRaK "high" → medium once ARES 404s were checked).
+- **Presence claims verify by grep, not by a second model read** — for
+  "does text X appear in document Y", deterministic search of the fetched
+  text is cheaper and stronger (P49). Corollary: a prose-vs-props numeric
+  cross-check belongs in the gate, in code (Q-effort-11).
 - **Public-role facts only.** The platform holds public officials accountable
   for public roles; private life is out of scope, always.
 - **Non-partisan symmetry.** Positive findings get equal surface: the quiet

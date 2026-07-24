@@ -96,8 +96,23 @@ quiet-workhorse slots (both flavours, P31) are FIXED allocation every batch.
 4. Profile deepening: bill-fate section, committee-flow section on
    `/poslanec/<pspId>`.
 
-## First batch (calibration)
+## Batch-004 priorities (set at batch-003 integration)
 
-~20 MPs: top 5 + bottom 5 composite, 5 absentee leads, 5 quiet workhorses.
-Full stages; establish dossier schema, signal-yield baseline, cost/unit.
-Then reflect and steer.
+1. **Rewrite the 8 held-back money dossiers** (Q-effort-9) under the VR
+   doctrine — their `effort_notes` were stripped at persist (C11).
+2. **Prose-vs-props cross-check in the gate** (Q-effort-11) — deterministic;
+   would have caught the Výborný/Bartošek contradictions in code.
+3. Employment-based COI signal (Q-effort-10 — the Kott class the
+   linkedCompanies filter can't see; Opus routing stays claim-type-based).
+4. Divergence V2 residuals (Q-effort-12): MIN_COHORT ~8, pool replacements
+   cross-club, filter role_window_mismatch artifacts from the lens.
+5. Remaining population: ~122 MPs unprocessed; lens exhaustion is visible
+   (P47) — expect convergence, don't force signal.
+
+## History
+
+Batch 001 (pass 14): 20 dossiers + phantom-mandate discovery + PSP9 trend
+restoration. Batch 002 (pass 17): 30 dossiers + never_cast_ballot pre-filter
++ LowScoreReasonBadge. Batch 003 (pass 19): tenure on all 207 + divergence
+V2 + 35 dossiers (money notes held back) + WorkhorseBadge. Ledger:
+`docs/data-analysis/case-effort/`.

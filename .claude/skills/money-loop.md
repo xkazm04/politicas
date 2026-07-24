@@ -100,8 +100,26 @@ tie rendered anywhere states its review state honestly.
 4. Registr smluv direct ingest adapter (autonomous — open bulk XML dumps;
    the Pumper `smlouvy-dump-watch` app already watches releases).
 
-## First batch (calibration)
+## Batch-004 priorities (set at batch-003 integration)
 
-Top ~15 ties by triage; full four stages; deliberately modest. Establish:
-signal-yield baseline, cost/unit, dossier schema, ledger format. Then reflect
-and steer.
+1. **D1 — ingest durability (Q-money-10, TOP):** kg-money's ingest must
+   merge-preserve human-gated fields (`review_state`, `last_decision`,
+   `review_note`) or replay `review_audit` after every run. The committed
+   write path stays DISABLED (no `REVIEWER_TOKEN`) until this closes.
+2. **OSVČ purge (Q-money-11, TOP):** generic-token blacklist ("OSVČ",
+   "advokát", …) before the exact-name ARES pick + purge the **49** edges
+   annotated `false_edge_suspected` (pass 21) — 19% of the tie population is
+   this one false-edge class; effective real population ~211.
+3. Write-path polish (Q-money-12): honest counter (D3), revalidate (D4),
+   decision whitelist + CHECK (D5), terminal `rejected` state (D7).
+4. PRaK (Q-money-7): Bendl end-date vs or.justice.cz úplný výpis; any
+   re-point reclassifies the tie `steward` in the same change.
+5. Q-money-2 (pgvector splitting): **commit or retire** — deferred three
+   batches (kernel heuristic).
+
+## History
+
+Batch 001 (pass 13): top-15 corroboration + tie-class + `/penize/kontrola`
+console. Batch 002 (pass 16): full-population ARES-VR reconciliation
+(260/260) + temporal badge. Batch 003: write path built (NOT enabled, D1) +
+PRaK candidate (medium). Ledger: `docs/data-analysis/case-money/`.

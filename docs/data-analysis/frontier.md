@@ -100,3 +100,30 @@ and the graph-metrics block in [[coverage-ledger]] for progress.
 | Q-law-6 | is the amends undercount origin-correlated (government omnibus vs MP bills)? Deterministic full-sample check over all 141 | C8, 3 bills checked so far | open |
 | Q-law-7 | extend the SPARQL §-diff to more statutes (§35c child credit next) / a full-corpus tsvector ingest | point-query proven cheap | open |
 | Q-law-4 | ~~sibling-print §-collision pre-check~~ | ✅ batch 002: systematic, 72 pairs, 2 confirmed/corroborated | **done** |
+
+### Money (batch 003 additions)
+| id | target | why | status |
+|---|---|---|---|
+| Q-money-10 | **D1: ingest durability** — kg-money ingest merge-preserves human fields (or audit-replay) | HIGH; write path committed but NOT enabled until closed | open (batch-004 TOP) |
+| Q-money-11 | **OSVČ purge** — generic-token blacklist + purge the 49 annotated false edges | C10; 19% of the tie population; hard blocker on crossover surfaces | open (batch-004 TOP) |
+| Q-money-12 | write-path polish: D3 honest counter, D4 revalidate, D5 decision whitelist, D7 terminal rejected state | Opus defect list, handoff §2 | open |
+| Q-money-7 | PRaK: resolve Bendl end-date conflict vs or.justice.cz úplný výpis; re-point requires steward reclass | C9, medium confidence | open |
+| Q-money-2 | pgvector contract-splitting | deferred 3 batches — commit in 004/005 or retire (kernel heuristic) | open |
+
+### Effort (batch 003 additions)
+| id | target | why | status |
+|---|---|---|---|
+| Q-effort-9 | rewrite the 8 held-back money dossiers under the VR doctrine | C11; stripped at persist | open |
+| Q-effort-10 | employment-based COI signal (Kott/Agrofert/Control Committee confirmed) — udalosti without IČO match? | invisible to linkedCompanies filter | open |
+| Q-effort-11 | prose-vs-props deterministic cross-check before gating | would have caught Výborný + Bartošek in code | open |
+| Q-effort-12 | divergence V2 residuals: MIN_COHORT ~8, pool replacements cross-club, filter artifacts from the lens | batch-003 reflection | open |
+| Q-effort-5 | ~~tenure normalization~~ | ✅ pass 19: effort_tenure_* on all 207 | **done (annotation)** |
+
+### Law (batch 003 additions)
+| id | target | why | status |
+|---|---|---|---|
+| Q-law-8 | amends edge regeneration from amended_laws_full (census props live on 53 bills) | orchestrator held edge rewrite; 420 unrecorded citations | open (batch-004 decision) |
+| Q-law-9 | close-read the remaining 58 collision pairs | 25% confirmed hit rate on the first 12 — backlog undervalued | open |
+| Q-law-10 | partition collision-check by statute for omnibus PDFs (tisk 248 contamination) | batch-003 lesson (d) | open |
+| Q-law-6 | ~~amends undercount census~~ | ✅ pass 20: 140/141, gov 2.3× MP, tisk 64 = 148 vs 1 | **done** |
+| Q-law-5 | ~~collision close-read (first 12)~~ | ✅ 3 confirmed / 2 risk / 7 incidental | **done (head)** |

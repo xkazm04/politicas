@@ -436,3 +436,38 @@ first REAL e-Sbírka §-diff on /zakony** (§35ba of 586/1992, 2021→2024, 8 hu
 SPARQL endpoint — point-query, not the shelved 1.24GB bulk. Also fixed: THEME_KEYWORDS
 `.includes()` substring bug (likely a driver of batch-001's 89% routing over-fire).
 → `case-law/batch-002.md`.
+
+## Pass 19 (track: effort) — Case ② batch-003 tenure + dossiers (2026-07-24)
+
+Deterministic first: `effort_tenure_*` on ALL 207 person nodes (end-date-aware; 193 full_term /
+7 replacement / 3 departed / 4 never_seated — the Opus reflection caught the fromAt-only version
+misclassifying vacated seats); `effort_workhorse_flavour` on 15 (departure-guarded);
+componentDivergence retuned to (club × tenure_class)-cohort z-scores (validated sd 0.098→0.323
+before ranking use). Army of 35 (7×5 Sonnet groups, gate 35/35, 152 citations) — **money
+sentences held back from persist** per the Opus money-crossover verification (6/14 verified units
+carried false NEGATIVES from the officer-less ARES endpoint; orchestrator stripped effort_notes
+for the 8 flagged units, batch 004 rewrites under the VR doctrine). Kott employment-based COI
+confirmed (invisible to the linkedCompanies filter — Opus routing stays claim-type-based).
+→ `case-effort/batch-003.md`.
+
+## Pass 20 (track: law) — Case ③ batch-003 verdicts + census + collisions (2026-07-24)
+
+**8 bill nodes enriched** (tisky 112, 132, 143, 210, 146, 28, 181, 24; all severity=low; gate
+26/26; forensicCount 19→27) + **53 bills carry `amended_laws_full`/`amends_undercount` census
+props** (additive; edges NOT regenerated — batch-004 decision). Census: government bills
+undercount real amended statutes 2.3× worse than MP bills (mean 4.80 vs 2.10); outlier tisk 64:
+148 real vs 1 recorded. Collision close-read (12 pairs): 3 confirmed — the 4↔120↔244 three-way
+§35ba cluster + new 210↔248 §134l — 2 coordination-risk, 7 incidental (tisk 248's omnibus PDF
+contaminates §-matching). 4 new real e-Sbírka §-diffs → 15 bills render diffs on /zakony.
+gate-verdicts.ts gained the citation-scope check (10/26 soft warnings). Armed Opus trigger
+correctly not fired. → `case-law/batch-003.md`.
+
+## Pass 21 (track: money) — orchestrator: OSVČ false-edge annotation (2026-07-24)
+
+**49 of 260 `linked_to` edges** (19% of the population — far beyond the army's 10-MP sample)
+point at `company:ico:04627695`, the Agrární demokratická strana, whose ARES `obchodniJmeno` is
+the literal junk string "OSVČ" — the exact-name pick matched every self-employed MP to a micro
+political party. All 49 annotated `false_edge_suspected` (deterministic; contractCzk 0 on all, so
+no money totals were inflated). Purge + generic-token blacklist = money batch-004 top item with
+D1. Effective real tie population: ~211. Money batch 003 itself made NO graph write (write-path
+build + PRaK research only; console committed but NOT enabled pending D1).

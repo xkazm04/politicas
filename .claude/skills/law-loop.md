@@ -97,8 +97,27 @@ improvement candidate for `gate-verdicts.ts`).
 4. Vote→law→impact chain UI: roll call → bill → amended § → effective date
    (closes the loop with `/hlasovani`).
 
-## First batch (calibration)
+## Batch-004 priorities (set at batch-003 integration)
 
-Top ~8 bills by triage (forensic severity → flagged_conflict CZK → amends
-count). Full stages; establish the dossier + diff-artifact schema,
-signal-yield baseline, cost/unit. Then reflect and steer.
+1. **Q-law-8 — amends edge regeneration decision:** `amended_laws_full`
+   census props are live on 53 bills (420 unrecorded citations; gov omnibus
+   2.3× worse, tisk 64 = 148 vs 1). Regenerating the `amends` edges from
+   them re-ranks churn and most-amended statutes — coordinate with the
+   orchestrator (edge topology change, not a props merge).
+2. **Q-law-9 — the remaining 58 collision pairs:** 25% confirmed hit rate on
+   the first 12 means this backlog is undervalued; partition omnibus PDFs by
+   statute first (Q-law-10, the tisk 248 contamination fix).
+3. More SPARQL diffs — each is one command; target the §s the collision
+   clusters fight over (§35ba cluster, §134l, §88).
+4. Czech legal-text parsing rules now in force: word-boundary keywords
+   (P42), amendment-lineage citations are noise (P48), grep verifies
+   presence claims (P49).
+
+## History
+
+Batch 001 (pass 15): 8 verdicts + routing render + e-Sbírka scoping. Batch
+002 (pass 18): 10 verdicts + collision pre-check + THE first real §-diff
+(SPARQL). Batch 003 (pass 20): 8 verdicts + census (140/141) + 3 confirmed
+collisions + 4 more diffs (15 bills render). All 27 gated verdicts severity
+low — two independent conflict signals agree. Ledger:
+`docs/data-analysis/case-law/`.

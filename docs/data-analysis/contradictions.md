@@ -112,3 +112,32 @@ biased low by a larger factor than batch 001 estimated — a body-text parse is 
 The Opus reflection cross-checked Demjanová↔Brabec, Penc↔Kubis, Bendl/Haas bill-slate overlap,
 Činčila/Brzesková pension-novela split against batch-001 facts: all consistent. Recorded per
 the "absence of signal is a finding" rule.
+
+## C9 [money batch 003] — PRaK candidate found; confidence downgraded on review
+
+Batch 002's wrong-IČO flag (C7) partially resolved: candidate IČO 61858111 ("PRaK, a.s.
+v likvidaci", the Praha–Kladno rychlodráha SPV, dissolved 2012), both Bendl and Brabec
+corroborated as board members. Opus downgraded confidence high→medium: ARES returns 404 on both
+endpoints (dissolved pre-ARES reach — same structural gap as Q-money-8), and Bendl's claimed end
+date (1999-07-28) conflicts with the source's own history page (2002-12-31). NOT applied.
+Consequential: PRaK is a municipal rail SPV — any future re-point MUST reclassify the tie
+`steward` (mayoral ex-officio appointment), or the console would present a public appointment as
+a private conflict against a named sitting MP.
+
+## C10 [effort batch 003 → money] — the "OSVČ" false-edge class (49/260 edges)
+
+IČO 04627695's ARES obchodniJmeno is literally "OSVČ" (a registered micro party, Agrární
+demokratická strana). kg-money-ingest's exact-name pick linked **49 of 260** ties to it — every
+self-employed MP (independently flagged by 6/7 isolated army groups; orchestrator write revealed
+the true repo-wide count, ~5× the army sample). All 49 annotated `false_edge_suspected` (pass
+21). contractCzk 0 throughout, so no money totals inflated — but they are false accusatory
+edges. Fix (money batch 004): generic-token blacklist ("OSVČ", "advokát", …) before the
+exact-name pick + purge. HARD BLOCKER on money-crossover surfaces until then.
+
+## C11 [effort batch 003] — Sonnet's money failure mode INVERTED vs batch 002
+
+Batch 002 found over-claiming; batch 003's Opus verification found systematic UNDER-claiming:
+"no personal link found" asserted via ARES's plain /ekonomicke-subjekty/ endpoint, which never
+contains officers — factually clearing 5 MPs of documented (some currently-active) register
+roles (Válková, Hladík, Bartošek, Hrnčíř, Pařil). New kernel doctrine: never assert ABSENCE of a
+company tie without a /ekonomicke-subjekty-vr/{ico} lookup.

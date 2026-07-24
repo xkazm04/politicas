@@ -148,3 +148,19 @@ a hallucinated MP. See [[frontier]] for the analyses that will fill this out and
   across both flavours. Strong batch-003 candidate.
 - **O-money-crossover-QA** — route money-linked units through an Opus verification step even in
   Sonnet armies (both effort quality gaps were money claims). Adopted into the kernel tiering.
+
+### Batch 003 (2026-07-24)
+- **O-money-4 — Human-review write path — ✅ SHIPPED, NOT ENABLED.** ReviewRepository (sole
+  review_state writer) + append-only review_audit + REVIEWER_TOKEN-gated server action, wired
+  into /penize/kontrola. 5/5 new tests, 176/176 suite. **Held from real reviewers until D1
+  (ingest durability) closes** — a re-ingest would silently erase verified decisions. Also open:
+  D3 (optimistic counter), D7 (no terminal rejected state).
+- **O-effort-3 — Quiet-workhorse surface — ✅ SHIPPED** on /zebricek: symmetric
+  legislative/oversight badge + filter (workhorse-flavour.ts, 5 tests), hidden when props absent.
+- **O-law diffs ×4 — ✅ SHIPPED**: /zakony now renders real §-diffs on 15 bills (was 7);
+  each additional diff is one SPARQL command.
+- **Open (new): tenure-aware profile copy** ("mandát vznikl <date>", replacement/departed
+  context; suppress TrendPanel rate comparisons under ~90 tenure days) — effort_tenure_* is live
+  on all 207.
+- **Open (new): role_window_mismatch badge** — the six mid-term promotions deserve the same
+  honest-correction treatment as declined mandates.
