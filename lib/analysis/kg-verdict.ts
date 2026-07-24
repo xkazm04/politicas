@@ -16,7 +16,7 @@
 //   Run EVERY returned verdict through it and discard/re-run on drift; never persist
 //   a drifted or fabricated proposal.
 
-export const KG_NODE_KINDS = ["person", "party", "organ", "bloc", "theme", "company", "contract"] as const;
+export const KG_NODE_KINDS = ["person", "party", "organ", "bloc", "theme", "company", "contract", "bill", "law"] as const;
 export type KgNodeKind = (typeof KG_NODE_KINDS)[number];
 
 export const KG_EDGE_RELS = [
@@ -28,6 +28,8 @@ export const KG_EDGE_RELS = [
   "influential_in",
   "linked_to",
   "supplies",
+  "sponsors",
+  "amends",
 ] as const;
 export type KgEdgeRel = (typeof KG_EDGE_RELS)[number];
 
