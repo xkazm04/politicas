@@ -366,3 +366,35 @@ expectation: ÚPV (justice) 31, RV (budget) 26, HV (economy) 19. F15 → `done`.
 
 **⇒ Graph: 2 989 nodes / 24 899 edges** (+150 `assigned_to`).
 
+
+## Pass 13 (track: money) — Case ① batch-001 corroboration (2026-07-24)
+
+The money loop's calibration batch. **15 `linked_to` edges props-merged** (`corroboration_provenance`
+nested; identity provenance untouched): ARES-VR corroboration verdict, real `role_valid_from/to`,
+`temporal_status`, `tie_class`, reviewer notes. Gate 15/15, 0 fabricated ids. **No `review_state`
+changed** — the human gate holds. Headline: 11/15 top ties carried stale-"ongoing" or misattributed
+periods vs ARES VR; tie-class (owner-operator 37 · manager 23 · steward 200) added as the
+load-bearing triage dimension. 3 registry-confirmed live owner-operator conflicts (Teleky, Petrtýl,
+Karpíšek). → `case-money/batch-001.md`.
+
+## Pass 14 (track: effort) — Case ② batch-001 dossiers + PSP9 restoration (2026-07-24)
+
+The effort loop's calibration batch. **20 person nodes props-merged** (`effort_*` namespaced,
+gate 20/20; no contribution number touched) + **`contribution_psp9` complete profiles on 109
+continuing MPs** after the live PSP9 ingest (`ingest.ts --term=PSP9`: 9,016 roll calls, 1.8M
+ballots — the full prior term). Headline: **all 4 `absentee_manager_lead` flags are structural
+false positives** (phantom mandates — Zarzycký/Brabec/Kubis/Kučerová relinquished seats for
+executive office; Faltýnek trust-held; Karpíšek office-held board seats) → `never_cast_ballot`
+pre-filter frontier item. Positive symmetry: Richter (jednací-řád novela in Senate, 0 speeches),
+Brzesková. → `case-effort/batch-001.md`.
+
+## Pass 15 (track: law) — Case ③ batch-001 forensic verdicts (2026-07-24)
+
+The law loop's calibration batch. **8 bill nodes enriched with `pending_review` `forensic_*`
+props** (kg-forensics --write, gate 8/8 after the knownIds widening): tisky 4, 40, 115, 119,
+120, 121, 244, 248. **All severity=low — 0 self-dealing channels among the top-flagged bills**
+(non-partisan symmetry at scale; the honest headline). Richest yield was non-conflict leads:
+the tisk 120↔244 §35ba drafting collision, quiet riders (wine excise in tisk 4, beer in 40),
+and the `amends`-undercount contradiction (tisk 4 amends FOUR statutes, title-regex recorded
+one). forensicCount 1→9. Also shipped: /zakony committee-routing render (no graph change).
+→ `case-law/batch-001.md`.

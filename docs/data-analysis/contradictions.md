@@ -61,3 +61,30 @@ reuse-rate / contradiction-rate metrics that quantify the flywheel.
   coverage change. (New: `foreign-affairs-treaties` scores 0.133 — treaty ratification is
   bipartisan **consensus**.)
 
+
+## C4 [money batch 001, 2026-07-24] — graph tie periods vs ARES VR
+
+Graph `linked_to` edges assert "ongoing" (Hlídač `datumDo` absent ⇒ open); ARES VR contradicts
+for 8 of the top 15: Okamura/MIKI TRAVEL (ended 2021-06-02), Ženíšek/Pojišťovna VZP (3-month
+2013 board seat), Černochová/Komwag (ended 2021-12-20, + an omitted 2005–2011 term), Juchelka,
+Decroix, Vondráček, Fiala ×2. Graph also asserts "no party donation" for STYLE PD / OCCAM PR /
+Delices de papa where Hlídač shows donations (215k ODS / 240k TOP 09 / 40k ODS) — needs a
+donor-registry pass. Resolution: annotated in props (pass 13), review_state untouched; period
+reconciliation feeds next triage.
+
+## C5 [effort vs pass-11 crossover, 2026-07-24] — absentee_manager_lead false positives
+
+`absentee_manager_lead=true` for Zarzycký (7063), Brabec (6184), Faltýnek (6190), Karpíšek (6603)
+is contradicted by public role: the first two RELINQUISHED their PSP10 seats (regional executives)
+and never voted; Faltýnek's 6.27M is Agrofert-in-trust (board exit 2016); Karpíšek's 235M is
+regional public-body board seats held by office. Arithmetically correct, semantically false
+positive. Resolution: `never_cast_ballot` pre-filter + `effort_low_score_reason` annotation
+(pass 14); computeContribution numbers unchanged.
+
+## C6 [law batch 001, 2026-07-24] — `amends` edges UNDERCOUNT the real amended-law set
+
+tisk 4's bill text amends FOUR statutes; the graph's `amends` (title-regex on "č. N/RRRR Sb.")
+recorded ONE (586/1992). psp-legislation.ts extracts only laws NAMED IN THE TITLE; bills amending
+further statutes in the body ("a další související zákony") are undercounted — churn counts,
+routing-domain checks and "most-amended" rankings are all biased low. Fix: parse the tisk body /
+e-Sbírka novelization instructions. Recorded so downstream passes don't trust `amends` as complete.

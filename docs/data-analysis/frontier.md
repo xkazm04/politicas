@@ -49,3 +49,29 @@ and the graph-metrics block in [[coverage-ledger]] for progress.
 
 > **Honesty rule (design §11):** F6 stays `blocked` — do not fabricate money edges.
 > The gap is tracked here, not hidden.
+
+## Case-loop frontiers (generation 3 — see docs/case-loops.md)
+
+### Money (batch 001)
+| id | target | why | status |
+|---|---|---|---|
+| Q-money-1 | reconcile all 260 tie periods vs ARES VR `role_valid_to` | 11/15 of the head were stale; deterministic once VR fetch is in triage | open |
+| Q-money-2 | contract-splitting via pgvector subject-similarity (R6) | deferred from batch 001 | open |
+| Q-money-3 | confirm 3 company→party donation leads (STYLE PD/OCCAM/Delices) vs sponzoring registry | needs Hlídač API token (user gate) | blocked (token) |
+| Q-money-4 | revolving-door pattern (Žbánek's mayor-era contract) | public-office-era ties the MP-mandate graph doesn't track | open |
+
+### Effort (batch 001)
+| id | target | why | status |
+|---|---|---|---|
+| Q-effort-1 | deterministic `never_cast_ballot` pre-filter before the absentee crossover | 4 phantom mandates sat at the score floor; all 4 leads false positives | open |
+| Q-effort-2 | split `bills_authored` provenance: first-signatory vs co-signer | top scorers are never předkladatel | open |
+| Q-effort-3 | committee_count inflation (friendship groups pad the count) | should only COMMITTEE_ORGAN_TYPES count? | open |
+| Q-effort-4 | PSP9 steno substance beyond turn counts | needs tsvector index (R9–R11) | open |
+
+### Law (batch 001)
+| id | target | why | status |
+|---|---|---|---|
+| Q-law-1 | conflict-by-sector-adjacency (tie NACE vs law domain) vs raw CZK | raw flag saturated by municipal/SOE roles (P32) | open |
+| Q-law-2 | bill→roll-call linkage (`voted_in`) | needs hlasovani-agenda ingest; hist.unl col5 is a document id, NOT a vote id (dead-end documented) | blocked (ingest) |
+| Q-law-3 | how many bills amend statutes NOT named in the title? | amends undercount (C6, tisk 4 proof) | open |
+| Q-law-4 | sibling-print §-collision pre-check | tisk 120↔244 (P33) | open |

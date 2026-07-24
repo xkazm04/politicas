@@ -83,7 +83,7 @@ async function main() {
   const all: CommitteeAssignment[] = normalizeCommitteeRouting(tiskyZip);
   const pass = Number(arg("pass")) || 12;
   const computedAt = new Date().toISOString();
-  const provenance = { pass, method: "deterministic", ref: "F15", computedAt };
+  const provenance = { track: "law", pass, method: "deterministic", ref: "F15", computedAt };
 
   // GATE: only (bill, organ) pairs where BOTH endpoints are real graph nodes become edges.
   let droppedBill = 0;

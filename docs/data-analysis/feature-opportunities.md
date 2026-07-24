@@ -95,3 +95,39 @@ a hallucinated MP. See [[frontier]] for the analyses that will fill this out and
   *Honest gap:* the graph carries **no paragraph before/after diffs and no pipeline-stage**
   data — the `č. N/RRRR Sb.` title citation is the only structured bill→law link psp.cz
   publishes. `/zakony` dropped the mock's diff/stepper views rather than fabricate them.
+
+---
+
+## Case-loop opportunities (generation 3, batch 001 — 2026-07-24)
+
+### FollowTheMoney
+- **O-money-1 — Verification console (`/penize/kontrola`) — ✅ SHIPPED (batch 001).** Human-review
+  UI for the 260 pending ties: per-tie dossier (reachable money, role, parsed period, tie-class +
+  triangle/near-threshold/stale flags), primary-registry deep-links, confirm/reject/needs-more
+  stubbed behind "zápis čeká na backend". THE Integrity-pillar bottleneck (0/260 verified). Next:
+  the human-only write path (authenticated reviewer + audit trail).
+- **O-money-2 — Temporal-status badge on the /penize ledger.** Surface `role_valid_to` /
+  `temporal_status` so a stale tie never renders as active. Cheap — the corroboration props are
+  live (pass 13).
+- **O-money-3 — Indirect-ownership (owns/controls) company layer.** Babiš→Agrofert→DEZA→CS CABOT:
+  the direct MP↔company edge structurally misses indirect chains.
+
+### CivicScore (effort)
+- **O-effort-1 — Term-over-term trend — ✅ SHIPPED (batch 001).** `contribution-trend.ts` (pure,
+  tested) + `TrendPanel` on `/poslanec`, reading `contribution_psp9` (COMPLETE on 109 continuing
+  MPs after the live PSP9 ingest — 9,016 roll calls, 1.8M ballots).
+- **O-effort-2 — Phantom-mandate badge.** An honest "mandátu se vzdal, zůstal hejtmanem" label
+  correcting a misleadingly low score. Non-accusatory, cited.
+- **O-effort-3 — Quiet-workhorse surface on /zebricek** — label + filter, two flavours (P31),
+  symmetric and sourced.
+
+### LawWatch
+- **O-law-1 — Committee routing on /zakony — ✅ SHIPPED (batch 001)** (assigned_to render:
+  garanční/další + status + date, 131/141 bills).
+- **O-law-2 — e-Sbírka §-diff (flagship — scoped, deferred with evidence).** Consolidated text
+  EXISTS (dataset 001 versions 176MB + 003 fragments 1.24GB + 007 chain) but needs a dedicated
+  long-running ingest (~1MB/min observed throughput; 600s timeout hit at ~6MB). And PENDING bills
+  have no enacted "after" — the prospective diff needs the tisk-PDF novelization pipeline.
+  Distinguish historical (enacted↔enacted) from prospective (bill↔current) diffs.
+- **O-law-3 — Lobbying-footprint surface.** DZ memoranda now carry structured lobbyist
+  disclosures under zák. 168/2025 (tisk 120: PAQ Research) — a citable transparency dataset.

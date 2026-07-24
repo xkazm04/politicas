@@ -147,3 +147,48 @@ per-cluster notes (e.g. [[cluster-blocs]]) for context.
   (F9) Bloc A (ANO-SPD-MS) is a tight *flat* trio (pairs 0.974–0.985), **not** a 2+1 core — the
   pass-2 ANO↔MS perfect *individual* pairs don't scale to a club-level sub-alliance (ANO–SPD is
   marginally tightest). Recorded because a negative result is a result — the loop doesn't force a story.
+
+## P28 [money] Stale "ongoing" is the norm, not the exception (batch 001)
+
+The `linked_to` period derives from Hlídač `datumDo` (absent ⇒ "ongoing"); ARES VR shows the real
+end date. In the top 15 owner/steward ties, 11/15 were stale or misattributed: 8 roles had ENDED,
+2 had money post-dating the role, 1 missed an indirect chain. No tie should render as "active"
+until reconciled against ARES VR. Hlídač start dates are year-rounded (~months off ARES vznik).
+
+## P29 [money] Owner-operator vs steward is the load-bearing tie distinction (batch 001)
+
+Raw reachable-money ranks public-body supervisory seats (hospitals/utilities) at the top, where
+money is the body's own public activity and does NOT flow to the MP. Tie-class (owner-operator 37 ·
+manager 23 · steward 200), keyed on role × legal-form/public-marker, separates the real
+FollowTheMoney from stewardship. Steward totals (VaK Kroměříž ~602M) must never attach to the MP.
+
+## P30 [effort] Young-term floor artifact (batch 001)
+
+In a ~8-month term the effort index's bottom tail is dominated by role artifacts, not
+disengagement: declined mandates (floor ~10.4, participation 0), executive handovers (Fiala 28.6),
+dual-mandate regional executives. The Case-①×② absentee crossover mis-fires — 4/4 leads were
+structural false positives; corroboration should DOWN-weight these.
+
+## P31 [effort] Two flavours of quiet workhorse (batch 001)
+
+Legislative-authorship (high bills, low speech: Richter) vs oversight-institutional (high
+committee load, ~0 bills: Sedláčková, Ratiborský). Both positive; the product should not
+collapse them into one label.
+
+## P32 [law] The money flag is a weak conflict proxy (batch 001)
+
+`sponsor_contract_czk` flags 65/141 bills but the top-8 yielded 0 real conflicts — it saturates on
+municipal/SOE board roles (ARENA BRNO, Pražské služby, ČEPRO) that are not self-dealing channels.
+General tax/pension/criminal statutes distribute to statutory classes, not sponsor-linked firms.
+Rank conflict by tie SECTOR-ADJACENCY to the amended law's domain; exclude municipal/SOE roles.
+
+## P33 [law] Sibling bills collide — read them together (batch 001)
+
+tisk 120 ↔ 244 both amend §35ba of 586/1992 with renumbering assuming different starting
+letterings; whichever enacts second strikes the wrong provision. Only visible reading sibling
+prints in one batch — a "same-statute, same-§, overlapping prints" pre-check is worth building.
+
+## P34 [law] Quiet riders hide under a headline title (batch 001)
+
+tisk 4 (an "income-tax" bill) carries a new 2,340 Kč/hl wine excise; tisk 40 adds beer beyond its
+stated wine scope. The churn-target triage signal (busy statutes) surfaces these correctly.

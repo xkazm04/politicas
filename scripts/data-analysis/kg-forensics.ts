@@ -80,7 +80,9 @@ async function prepare(nodes: KgNodeRow[], edges: KgEdgeRow[], persons: Map<numb
 
   // The reference sets a verdict may cite (anti-fabrication scope), shipped with the targets.
   const knownLawRefs = [...new Set(nodes.filter((n) => n.kind === "law").map((n) => String(n.props.ref)))];
-  const knownIds = nodes.filter((n) => n.kind === "company" || n.kind === "person" || n.kind === "law").map((n) => n.id);
+  // Widened batch-001: ALL graph node ids are citable graph_facts (a truthful claim may cite a
+  // bill/organ node — verdict-248 proved the narrower scope rejected a real id). Still a membership gate.
+  const knownIds = nodes.map((n) => n.id);
 
   mkdirSync(".kg-analysis", { recursive: true });
   writeFileSync(TARGETS, JSON.stringify({ generated: "prepare", targets, knownLawRefs, knownIds }, null, 1));
@@ -106,9 +108,12 @@ async function write(store: NonNullable<Awaited<ReturnType<typeof getStore>>>, n
   } catch {
     console.log("  (⚠ no e-Sbírka registry — gate scope limited to graph laws; run esbirka-laws.ts to widen it)");
   }
-  const knownIds = new Set(nodes.filter((n) => n.kind === "company" || n.kind === "person" || n.kind === "law").map((n) => n.id));
+  // Widened batch-001: all graph node ids are citable graph_facts (see prepare()).
+  const knownIds = new Set(nodes.map((n) => n.id));
   const billByCislo = new Map(nodes.filter((n) => n.kind === "bill").map((n) => [Number(n.props.cislo), n]));
-  const pass = Math.max(0, ...nodes.map((n) => n.firstSeenPass)) + 1;
+  // Pass is assigned by the write-lock holder (kernel §Provenance); --pass overrides the computed default.
+  const passFlag = Number(process.argv.find((a) => a.startsWith("--pass="))?.split("=")[1]);
+  const pass = Number.isFinite(passFlag) && passFlag > 0 ? passFlag : Math.max(0, ...nodes.map((n) => n.firstSeenPass)) + 1;
   const computedAt = new Date().toISOString();
 
   const toWrite: KgNodeRow[] = [];
@@ -137,7 +142,7 @@ async function write(store: NonNullable<Awaited<ReturnType<typeof getStore>>>, n
         forensic_confidence: v.confidence,
         forensic_citations: v.citations,
         forensic_review_state: "pending_review",
-        forensic_provenance: { pass, method: "verdict", ref: "law-forensics", computedAt },
+        forensic_provenance: { track: "law", pass, method: "verdict", ref: "law-forensics", computedAt },
       },
     });
   }
