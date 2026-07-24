@@ -1,0 +1,3801 @@
+{
+  "generatedAt": "2026-07-24T17:09:54.359Z",
+  "term": "PSP10",
+  "dossiers": [
+    {
+      "pspId": 6751,
+      "name": "Karel Haas",
+      "club": "ODS",
+      "region": "Pardubický",
+      "lens": [
+        "top5",
+        "high-triage"
+      ],
+      "props": {
+        "contribution_score": 96.8,
+        "participation_rate": 0.9,
+        "committee_count": 6,
+        "leadership_count": 2,
+        "absence_rate": 0.2,
+        "bills_authored": 5,
+        "interpellations": 3,
+        "speech_turns": 114,
+        "absentee_manager_lead": false,
+        "contested_vote_rebellion": 21.428,
+        "rebellion_rate": 0.02
+      },
+      "triage": {
+        "zVsClub": 1.72,
+        "quietWorkhorse": false,
+        "quietWorkhorseIndex": 0,
+        "triageScore": 33.862
+      },
+      "committees": [
+        {
+          "abbrev": "ÚPV",
+          "organType": "Výbor",
+          "nameCz": "Ústavně-právní výbor",
+          "role": "vice",
+          "weight": 0.6
+        },
+        {
+          "abbrev": "MIV",
+          "organType": "Výbor",
+          "nameCz": "Mandátový a imunitní výbor",
+          "role": "member",
+          "weight": 0.3
+        },
+        {
+          "abbrev": "SKÚPP",
+          "organType": "Komise",
+          "nameCz": "Stálá komise pro Ústavu České republiky a parlamentní procedury",
+          "role": "member",
+          "weight": 0.3
+        },
+        {
+          "abbrev": "SKCEÚ",
+          "organType": "Komise",
+          "nameCz": "Stálá komise pro kontrolu poskytnutí údajů z centrální evidence účtů",
+          "role": "member",
+          "weight": 0.3
+        }
+      ],
+      "sponsoredBills": [
+        {
+          "tiskId": "43179",
+          "cislo": 72,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Vondráček R. a další",
+          "amended_laws": [
+            "90/1995"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Radek Vondráček",
+            "Andrej Babiš",
+            "Tomio Okamura",
+            "Petr Macinka",
+            "Marek Benda",
+            "Radim Fiala",
+            "Štěpán Slovák",
+            "Miloslav Janulík",
+            "Igor Hendrych",
+            "Marek Novák",
+            "Tomáš Helebrant",
+            "Jana Murová",
+            "Helena Válková",
+            "Renata Oulehlová",
+            "Stanislav Fridrich",
+            "Josef Váňa",
+            "Jan Richter",
+            "Pavel Outrata",
+            "Václav Trojan",
+            "Patrik Pařil",
+            "Robert Stržínek",
+            "Josef Kott",
+            "Jiří Strýček",
+            "Ivana Mádlová",
+            "Jana Hanzlíková",
+            "Věra Adámková",
+            "David Štolpa",
+            "Taťána Malá",
+            "Boris Šťastný"
+          ],
+          "committees": [
+            {
+              "organ": "PV",
+              "role": "dalsi",
+              "status": "prikazano"
+            },
+            {
+              "organ": "VMZ",
+              "role": "dalsi",
+              "status": "prikazano"
+            },
+            {
+              "organ": "ÚPV",
+              "role": "garancni",
+              "status": "prikazano"
+            },
+            {
+              "organ": "SKÚPP",
+              "role": "dalsi",
+              "status": "iniciativne"
+            }
+          ]
+        },
+        {
+          "tiskId": "43213",
+          "cislo": 103,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Bureš J. a další",
+          "amended_laws": [
+            "300/2008"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Jan Bureš",
+            "Štěpán Slovák",
+            "Petr Sokol",
+            "Jana Černochová",
+            "Libor Hoppe",
+            "Jakub Janda",
+            "Petr Bendl",
+            "Jan Skopeček",
+            "Renáta Zajíčková"
+          ],
+          "committees": [
+            {
+              "organ": "VSR",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        },
+        {
+          "tiskId": "43250",
+          "cislo": 129,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Bureš J. a další",
+          "amended_laws": [
+            "223/2016"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Jan Bureš",
+            "Martin Baxa",
+            "Renáta Zajíčková",
+            "Štěpán Slovák",
+            "Petr Sokol",
+            "Jana Černochová",
+            "Libor Hoppe",
+            "Jakub Janda",
+            "Petr Bendl",
+            "Jan Skopeček"
+          ],
+          "committees": [
+            {
+              "organ": "HV",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        },
+        {
+          "tiskId": "43330",
+          "cislo": 208,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Slovák Š. a další",
+          "amended_laws": [
+            "65/2017"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Štěpán Slovák",
+            "Martin Kupka",
+            "Renáta Zajíčková",
+            "Zdenka Němečková Crkvenjaš",
+            "Lucie Bartošová",
+            "Martin Baxa",
+            "Petr Bendl",
+            "Petr Sokol"
+          ],
+          "committees": [
+            {
+              "organ": "VZ",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        },
+        {
+          "tiskId": "43383",
+          "cislo": 261,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Bureš J. a další",
+          "amended_laws": [
+            "114/1992"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Jan Bureš",
+            "Petr Bendl",
+            "Jakub Janda",
+            "Marek Benda",
+            "Jan Bauer",
+            "Ivan Adamec",
+            "Jana Bačíková"
+          ],
+          "committees": []
+        }
+      ],
+      "coVoters": [
+        {
+          "name": "Martin Kupka",
+          "club": "ODS",
+          "agreement": 0.995,
+          "shared": 860
+        },
+        {
+          "name": "Zdenka Němečková Crkvenjaš",
+          "club": "ODS",
+          "agreement": 0.995,
+          "shared": 915
+        },
+        {
+          "name": "Pavel Karpíšek",
+          "club": "ODS",
+          "agreement": 0.994,
+          "shared": 879
+        },
+        {
+          "name": "Jakub Janda",
+          "club": "ODS",
+          "agreement": 0.993,
+          "shared": 1366
+        },
+        {
+          "name": "Vojtěch Munzar",
+          "club": "ODS",
+          "agreement": 0.993,
+          "shared": 1053
+        },
+        {
+          "name": "Libor Hoppe",
+          "club": "ODS",
+          "agreement": 0.989,
+          "shared": 787
+        }
+      ],
+      "rebellions": [
+        {
+          "club": "ODS",
+          "rate": 0.02,
+          "rebelVotes": 32,
+          "eligibleVotes": 1586
+        }
+      ],
+      "linkedCompanies": [
+        {
+          "company": "OSVČ",
+          "ico": "04627695",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        },
+        {
+          "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+          "ico": "45534306",
+          "reviewState": "pending_review",
+          "contractCzk": 3156026.12
+        }
+      ]
+    },
+    {
+      "pspId": 6623,
+      "name": "Ondřej Babka",
+      "club": "ANO2011",
+      "region": "Jihočeský",
+      "lens": [
+        "high-triage"
+      ],
+      "props": {
+        "contribution_score": 76.9,
+        "participation_rate": 1,
+        "committee_count": 5,
+        "leadership_count": 1,
+        "absence_rate": 0.2,
+        "bills_authored": 1,
+        "interpellations": 0,
+        "speech_turns": 25,
+        "absentee_manager_lead": false,
+        "contested_vote_rebellion": 21.765,
+        "rebellion_rate": 0.028
+      },
+      "triage": {
+        "zVsClub": 0.88,
+        "quietWorkhorse": false,
+        "quietWorkhorseIndex": 0.01,
+        "triageScore": 33.528
+      },
+      "committees": [
+        {
+          "abbrev": "VMZ",
+          "organType": "Výbor",
+          "nameCz": "Výbor pro mediální záležitosti",
+          "role": "vice",
+          "weight": 0.6
+        },
+        {
+          "abbrev": "VK",
+          "organType": "Komise",
+          "nameCz": "Volební komise",
+          "role": "member",
+          "weight": 0.3
+        },
+        {
+          "abbrev": "VŽP",
+          "organType": "Výbor",
+          "nameCz": "Výbor pro životní prostředí",
+          "role": "member",
+          "weight": 0.3
+        },
+        {
+          "abbrev": "SKPKPS",
+          "organType": "Komise",
+          "nameCz": "Stálá komise pro práci Kanceláře Poslanecké sněmovny",
+          "role": "member",
+          "weight": 0.3
+        }
+      ],
+      "sponsoredBills": [
+        {
+          "tiskId": "43339",
+          "cislo": 217,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Babka O. a další",
+          "amended_laws": [
+            "166/1993"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Jan Richter",
+            "Patrik Nacher",
+            "Robert Stržínek",
+            "Gabriela Sedláčková"
+          ],
+          "committees": [
+            {
+              "organ": "KV",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        }
+      ],
+      "coVoters": [
+        {
+          "name": "Andrej Babiš",
+          "club": "ANO2011",
+          "agreement": 0.99,
+          "shared": 574
+        },
+        {
+          "name": "Jana Pastuchová",
+          "club": "ANO2011",
+          "agreement": 0.989,
+          "shared": 1169
+        },
+        {
+          "name": "Jaroslav Faltýnek",
+          "club": "ANO2011",
+          "agreement": 0.988,
+          "shared": 1082
+        },
+        {
+          "name": "Karel Tureček",
+          "club": "ANO2011",
+          "agreement": 0.988,
+          "shared": 1028
+        },
+        {
+          "name": "Robert Plaga",
+          "club": "ANO2011",
+          "agreement": 0.988,
+          "shared": 654
+        },
+        {
+          "name": "Igor Červený",
+          "club": "MS",
+          "agreement": 0.988,
+          "shared": 1125
+        }
+      ],
+      "rebellions": [
+        {
+          "club": "ANO2011",
+          "rate": 0.028,
+          "rebelVotes": 45,
+          "eligibleVotes": 1626
+        }
+      ],
+      "linkedCompanies": []
+    },
+    {
+      "pspId": 5899,
+      "name": "Jan Bureš",
+      "club": "ODS",
+      "region": "Karlovarský",
+      "lens": [
+        "high-triage"
+      ],
+      "props": {
+        "contribution_score": 90.5,
+        "participation_rate": 0.8,
+        "committee_count": 4,
+        "leadership_count": 2,
+        "absence_rate": 0.5,
+        "bills_authored": 4,
+        "interpellations": 0,
+        "speech_turns": 56,
+        "absentee_manager_lead": false,
+        "contested_vote_rebellion": 14.891,
+        "rebellion_rate": 0.023
+      },
+      "triage": {
+        "zVsClub": 1.38,
+        "quietWorkhorse": false,
+        "quietWorkhorseIndex": -0.087,
+        "triageScore": 23.717
+      },
+      "committees": [
+        {
+          "abbrev": "VŽP",
+          "organType": "Výbor",
+          "nameCz": "Výbor pro životní prostředí",
+          "role": "vice",
+          "weight": 0.6
+        },
+        {
+          "abbrev": "SKVZ",
+          "organType": "Komise",
+          "nameCz": "Stálá komise pro kontrolu činnosti Vojenského zpravodajství",
+          "role": "vice",
+          "weight": 0.6
+        }
+      ],
+      "sponsoredBills": [
+        {
+          "tiskId": "43213",
+          "cislo": 103,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Bureš J. a další",
+          "amended_laws": [
+            "300/2008"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Karel Haas",
+            "Štěpán Slovák",
+            "Petr Sokol",
+            "Jana Černochová",
+            "Libor Hoppe",
+            "Jakub Janda",
+            "Petr Bendl",
+            "Jan Skopeček",
+            "Renáta Zajíčková"
+          ],
+          "committees": [
+            {
+              "organ": "VSR",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        },
+        {
+          "tiskId": "43250",
+          "cislo": 129,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Bureš J. a další",
+          "amended_laws": [
+            "223/2016"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Martin Baxa",
+            "Karel Haas",
+            "Renáta Zajíčková",
+            "Štěpán Slovák",
+            "Petr Sokol",
+            "Jana Černochová",
+            "Libor Hoppe",
+            "Jakub Janda",
+            "Petr Bendl",
+            "Jan Skopeček"
+          ],
+          "committees": [
+            {
+              "organ": "HV",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        },
+        {
+          "tiskId": "43383",
+          "cislo": 261,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Bureš J. a další",
+          "amended_laws": [
+            "114/1992"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Petr Bendl",
+            "Karel Haas",
+            "Jakub Janda",
+            "Marek Benda",
+            "Jan Bauer",
+            "Ivan Adamec",
+            "Jana Bačíková"
+          ],
+          "committees": []
+        }
+      ],
+      "coVoters": [
+        {
+          "name": "Martin Kupka",
+          "club": "ODS",
+          "agreement": 0.989,
+          "shared": 800
+        },
+        {
+          "name": "Lucie Bartošová",
+          "club": "ODS",
+          "agreement": 0.988,
+          "shared": 1127
+        },
+        {
+          "name": "Petr Fiala",
+          "club": "ODS",
+          "agreement": 0.987,
+          "shared": 980
+        },
+        {
+          "name": "Libor Turek",
+          "club": "ODS",
+          "agreement": 0.987,
+          "shared": 1141
+        },
+        {
+          "name": "Ivan Adamec",
+          "club": "ODS",
+          "agreement": 0.986,
+          "shared": 938
+        },
+        {
+          "name": "Pavel Karpíšek",
+          "club": "ODS",
+          "agreement": 0.986,
+          "shared": 838
+        }
+      ],
+      "rebellions": [
+        {
+          "club": "ODS",
+          "rate": 0.023,
+          "rebelVotes": 33,
+          "eligibleVotes": 1415
+        }
+      ],
+      "linkedCompanies": [
+        {
+          "company": "ZPS holding s.r.o.",
+          "ico": "01686682",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        },
+        {
+          "company": "Česká asociace věřitelů, z.s.",
+          "ico": "02504421",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        },
+        {
+          "company": "Údržba silnic Karlovarského kraje, a.s.",
+          "ico": "26402068",
+          "reviewState": "pending_review",
+          "contractCzk": 18622895.009999998
+        },
+        {
+          "company": "Chráněná dílna Ostrov, s.r.o.",
+          "ico": "29156271",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        },
+        {
+          "company": "Léčebné lázně Jáchymov a. s.",
+          "ico": "29211808",
+          "reviewState": "pending_review",
+          "contractCzk": 3069768.1399999997
+        },
+        {
+          "company": "Vodárny a kanalizace Karlovy Vary, a.s.",
+          "ico": "49789228",
+          "reviewState": "pending_review",
+          "contractCzk": 3244963.76
+        },
+        {
+          "company": "Ostrovská teplárenská, a.s.",
+          "ico": "49790498",
+          "reviewState": "pending_review",
+          "contractCzk": 211517.69
+        },
+        {
+          "company": "Povodí Ohře, státní podnik",
+          "ico": "70889988",
+          "reviewState": "pending_review",
+          "contractCzk": 66995646.349999994
+        }
+      ]
+    },
+    {
+      "pspId": 7045,
+      "name": "Petr Sokol",
+      "club": "ODS",
+      "region": "Olomoucký",
+      "lens": [
+        "high-triage"
+      ],
+      "props": {
+        "contribution_score": 80.2,
+        "participation_rate": 0.8,
+        "committee_count": 9,
+        "leadership_count": 3,
+        "absence_rate": 0.4,
+        "bills_authored": 3,
+        "interpellations": 0,
+        "speech_turns": 27,
+        "absentee_manager_lead": false,
+        "contested_vote_rebellion": 12.681,
+        "rebellion_rate": 0.015
+      },
+      "triage": {
+        "zVsClub": 0.82,
+        "quietWorkhorse": false,
+        "quietWorkhorseIndex": 0.411,
+        "triageScore": 19.842
+      },
+      "committees": [
+        {
+          "abbrev": "VEZ",
+          "organType": "Výbor",
+          "nameCz": "Výbor pro evropské záležitosti",
+          "role": "chair",
+          "weight": 1
+        },
+        {
+          "abbrev": "ZAV",
+          "organType": "Výbor",
+          "nameCz": "Zahraniční výbor",
+          "role": "vice",
+          "weight": 0.6
+        },
+        {
+          "abbrev": "SKÚZSI",
+          "organType": "Komise",
+          "nameCz": "Stálá komise pro kontrolu činnosti Úřadu pro zahraniční styky a informace",
+          "role": "vice",
+          "weight": 0.6
+        },
+        {
+          "abbrev": "VK",
+          "organType": "Komise",
+          "nameCz": "Volební komise",
+          "role": "member",
+          "weight": 0.3
+        }
+      ],
+      "sponsoredBills": [
+        {
+          "tiskId": "43213",
+          "cislo": 103,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Bureš J. a další",
+          "amended_laws": [
+            "300/2008"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Jan Bureš",
+            "Karel Haas",
+            "Štěpán Slovák",
+            "Jana Černochová",
+            "Libor Hoppe",
+            "Jakub Janda",
+            "Petr Bendl",
+            "Jan Skopeček",
+            "Renáta Zajíčková"
+          ],
+          "committees": [
+            {
+              "organ": "VSR",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        },
+        {
+          "tiskId": "43250",
+          "cislo": 129,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Bureš J. a další",
+          "amended_laws": [
+            "223/2016"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Jan Bureš",
+            "Martin Baxa",
+            "Karel Haas",
+            "Renáta Zajíčková",
+            "Štěpán Slovák",
+            "Jana Černochová",
+            "Libor Hoppe",
+            "Jakub Janda",
+            "Petr Bendl",
+            "Jan Skopeček"
+          ],
+          "committees": [
+            {
+              "organ": "HV",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        },
+        {
+          "tiskId": "43330",
+          "cislo": 208,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Slovák Š. a další",
+          "amended_laws": [
+            "65/2017"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Štěpán Slovák",
+            "Martin Kupka",
+            "Karel Haas",
+            "Renáta Zajíčková",
+            "Zdenka Němečková Crkvenjaš",
+            "Lucie Bartošová",
+            "Martin Baxa",
+            "Petr Bendl"
+          ],
+          "committees": [
+            {
+              "organ": "VZ",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        }
+      ],
+      "coVoters": [
+        {
+          "name": "Zdenka Němečková Crkvenjaš",
+          "club": "ODS",
+          "agreement": 0.998,
+          "shared": 849
+        },
+        {
+          "name": "Martin Kupka",
+          "club": "ODS",
+          "agreement": 0.994,
+          "shared": 724
+        },
+        {
+          "name": "Štěpán Slovák",
+          "club": "ODS",
+          "agreement": 0.994,
+          "shared": 995
+        },
+        {
+          "name": "Vojtěch Munzar",
+          "club": "ODS",
+          "agreement": 0.993,
+          "shared": 856
+        },
+        {
+          "name": "Libor Turek",
+          "club": "ODS",
+          "agreement": 0.991,
+          "shared": 1081
+        },
+        {
+          "name": "Jan Bauer",
+          "club": "ODS",
+          "agreement": 0.99,
+          "shared": 863
+        }
+      ],
+      "rebellions": [
+        {
+          "club": "ODS",
+          "rate": 0.015,
+          "rebelVotes": 20,
+          "eligibleVotes": 1312
+        }
+      ],
+      "linkedCompanies": []
+    },
+    {
+      "pspId": 5512,
+      "name": "Boris Šťastný",
+      "club": "MS",
+      "region": "Hlavní město Praha",
+      "lens": [
+        "top5"
+      ],
+      "props": {
+        "contribution_score": 94.4,
+        "participation_rate": 0.9,
+        "committee_count": 4,
+        "leadership_count": 1,
+        "absence_rate": 0.4,
+        "bills_authored": 8,
+        "interpellations": 0,
+        "speech_turns": 78,
+        "absentee_manager_lead": false,
+        "contested_vote_rebellion": 9.716,
+        "rebellion_rate": 0.01
+      },
+      "triage": {
+        "zVsClub": 2.15,
+        "quietWorkhorse": false,
+        "quietWorkhorseIndex": -0.043,
+        "triageScore": 16.724
+      },
+      "committees": [
+        {
+          "abbrev": "VZ",
+          "organType": "Výbor",
+          "nameCz": "Výbor pro zdravotnictví",
+          "role": "vice",
+          "weight": 0.6
+        },
+        {
+          "abbrev": "ORGV",
+          "organType": "Výbor",
+          "nameCz": "Organizační výbor",
+          "role": "member",
+          "weight": 0.3
+        },
+        {
+          "abbrev": "SKVZ",
+          "organType": "Komise",
+          "nameCz": "Stálá komise pro kontrolu činnosti Vojenského zpravodajství",
+          "role": "member",
+          "weight": 0.3
+        }
+      ],
+      "sponsoredBills": [
+        {
+          "tiskId": "43118",
+          "cislo": 11,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Schillerová A. a další",
+          "amended_laws": [
+            "589/1992"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Igor Hendrych",
+            "Patrik Nacher",
+            "Marek Novák",
+            "Jiří Strýček",
+            "Tomáš Helebrant",
+            "Jitka Volfová",
+            "Jana Murová",
+            "Jana Hanzlíková",
+            "Patrik Pařil",
+            "Pavel Outrata",
+            "Lenka Dražilová",
+            "Václav Trojan",
+            "David Štolpa",
+            "Jan Richter",
+            "Alena Schillerová",
+            "Tomio Okamura",
+            "Petr Macinka",
+            "Aleš Juchelka",
+            "Karel Havlíček",
+            "Radim Fiala",
+            "Andrej Babiš",
+            "Taťána Malá"
+          ],
+          "committees": [
+            {
+              "organ": "VSP",
+              "role": "garancni",
+              "status": "prikazano"
+            },
+            {
+              "organ": "RV",
+              "role": "dalsi",
+              "status": "prikazano"
+            }
+          ]
+        },
+        {
+          "tiskId": "43174",
+          "cislo": 67,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Babiš A. a další",
+          "amended_laws": [
+            "283/2021"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Andrej Babiš",
+            "Zuzana Mrázová",
+            "Radim Fiala",
+            "Vojtěch Krňanský",
+            "Karel Havlíček",
+            "Marie Pošarová",
+            "Tomio Okamura",
+            "Petr Macinka",
+            "Alena Schillerová"
+          ],
+          "committees": [
+            {
+              "organ": "HV",
+              "role": "garancni",
+              "status": "prikazano"
+            },
+            {
+              "organ": "ÚPV",
+              "role": "dalsi",
+              "status": "prikazano"
+            },
+            {
+              "organ": "VSR",
+              "role": "dalsi",
+              "status": "prikazano"
+            }
+          ]
+        },
+        {
+          "tiskId": "43179",
+          "cislo": 72,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Vondráček R. a další",
+          "amended_laws": [
+            "90/1995"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Radek Vondráček",
+            "Andrej Babiš",
+            "Tomio Okamura",
+            "Petr Macinka",
+            "Marek Benda",
+            "Radim Fiala",
+            "Karel Haas",
+            "Štěpán Slovák",
+            "Miloslav Janulík",
+            "Igor Hendrych",
+            "Marek Novák",
+            "Tomáš Helebrant",
+            "Jana Murová",
+            "Helena Válková",
+            "Renata Oulehlová",
+            "Stanislav Fridrich",
+            "Josef Váňa",
+            "Jan Richter",
+            "Pavel Outrata",
+            "Václav Trojan",
+            "Patrik Pařil",
+            "Robert Stržínek",
+            "Josef Kott",
+            "Jiří Strýček",
+            "Ivana Mádlová",
+            "Jana Hanzlíková",
+            "Věra Adámková",
+            "David Štolpa",
+            "Taťána Malá"
+          ],
+          "committees": [
+            {
+              "organ": "PV",
+              "role": "dalsi",
+              "status": "prikazano"
+            },
+            {
+              "organ": "VMZ",
+              "role": "dalsi",
+              "status": "prikazano"
+            },
+            {
+              "organ": "ÚPV",
+              "role": "garancni",
+              "status": "prikazano"
+            },
+            {
+              "organ": "SKÚPP",
+              "role": "dalsi",
+              "status": "iniciativne"
+            }
+          ]
+        },
+        {
+          "tiskId": "43225",
+          "cislo": 115,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Babiš A. a další",
+          "amended_laws": [
+            "40/2009",
+            "45/2013"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Andrej Babiš",
+            "Taťána Malá",
+            "Radek Vondráček",
+            "Helena Válková",
+            "Radim Fiala"
+          ],
+          "committees": [
+            {
+              "organ": "ÚPV",
+              "role": "garancni",
+              "status": "prikazano"
+            }
+          ]
+        },
+        {
+          "tiskId": "43230",
+          "cislo": 119,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Schillerová A. a další",
+          "amended_laws": [
+            "427/2011",
+            "586/1992"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Alena Schillerová",
+            "Patrik Nacher",
+            "Tomio Okamura",
+            "Taťána Malá"
+          ],
+          "committees": [
+            {
+              "organ": "RV",
+              "role": "garancni",
+              "status": "prikazano"
+            }
+          ]
+        },
+        {
+          "tiskId": "43294",
+          "cislo": 173,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Babiš A. a další",
+          "amended_laws": [
+            "40/2009"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Andrej Babiš",
+            "Tomio Okamura",
+            "Lucie Šafránková",
+            "Petr Macinka",
+            "Taťána Malá",
+            "Jana Hanzlíková",
+            "Radim Fiala",
+            "Renata Vesecká"
+          ],
+          "committees": [
+            {
+              "organ": "ÚPV",
+              "role": "garancni",
+              "status": "prikazano"
+            }
+          ]
+        },
+        {
+          "tiskId": "43295",
+          "cislo": 174,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Šafránková L. a další",
+          "amended_laws": [
+            "246/1992"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Lucie Šafránková",
+            "Tomio Okamura",
+            "Petr Macinka",
+            "Taťána Malá",
+            "Jana Hanzlíková",
+            "Andrej Babiš",
+            "Radim Fiala",
+            "Renata Vesecká"
+          ],
+          "committees": [
+            {
+              "organ": "VŽP",
+              "role": "garancni",
+              "status": "prikazano"
+            },
+            {
+              "organ": "ZEV",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        },
+        {
+          "tiskId": "43338",
+          "cislo": 216,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Malá T. a další",
+          "amended_laws": [
+            "40/2009"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Taťána Malá",
+            "Tomio Okamura",
+            "Andrej Babiš"
+          ],
+          "committees": [
+            {
+              "organ": "ÚPV",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        }
+      ],
+      "coVoters": [
+        {
+          "name": "Karel Beran",
+          "club": "MS",
+          "agreement": 0.994,
+          "shared": 722
+        },
+        {
+          "name": "Ladislav Okleštěk",
+          "club": "ANO2011",
+          "agreement": 0.992,
+          "shared": 1194
+        },
+        {
+          "name": "Stanislav Fridrich",
+          "club": "ANO2011",
+          "agreement": 0.992,
+          "shared": 1357
+        },
+        {
+          "name": "Aleš Juchelka",
+          "club": "ANO2011",
+          "agreement": 0.992,
+          "shared": 1101
+        },
+        {
+          "name": "Igor Červený",
+          "club": "MS",
+          "agreement": 0.992,
+          "shared": 1180
+        },
+        {
+          "name": "Milan Brázdil",
+          "club": "ANO2011",
+          "agreement": 0.991,
+          "shared": 1387
+        }
+      ],
+      "rebellions": [
+        {
+          "club": "MS",
+          "rate": 0.01,
+          "rebelVotes": 16,
+          "eligibleVotes": 1650
+        }
+      ],
+      "linkedCompanies": [
+        {
+          "company": "OSVČ",
+          "ico": "04627695",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        },
+        {
+          "company": "GEKO SPORT s.r.o.",
+          "ico": "26141761",
+          "reviewState": "pending_review",
+          "contractCzk": 1851058
+        },
+        {
+          "company": "Nadační fond manželů Livie a Václava Klausových",
+          "ico": "27082857",
+          "reviewState": "pending_review",
+          "contractCzk": 680504
+        },
+        {
+          "company": "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+          "ico": "41197518",
+          "reviewState": "pending_review",
+          "contractCzk": 383197.3
+        },
+        {
+          "company": "Pražské služby, a.s.",
+          "ico": "60194120",
+          "reviewState": "pending_review",
+          "contractCzk": 1470325335.8600001
+        },
+        {
+          "company": "ASPEN SPORT a.s.",
+          "ico": "60196459",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        },
+        {
+          "company": "Česká lékařská komora - o.s., z.s.",
+          "ico": "70885117",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        }
+      ]
+    },
+    {
+      "pspId": 6523,
+      "name": "Michal Ratiborský",
+      "club": "ANO2011",
+      "region": "Moravskoslezský",
+      "lens": [
+        "quiet-workhorse"
+      ],
+      "props": {
+        "contribution_score": 61.1,
+        "participation_rate": 0.9,
+        "committee_count": 10,
+        "leadership_count": 1,
+        "absence_rate": 0.2,
+        "bills_authored": 0,
+        "interpellations": 0,
+        "speech_turns": 2,
+        "absentee_manager_lead": false,
+        "contested_vote_rebellion": 5.112,
+        "rebellion_rate": 0.009
+      },
+      "triage": {
+        "zVsClub": -0.02,
+        "quietWorkhorse": true,
+        "quietWorkhorseIndex": 0.691,
+        "triageScore": 9.188
+      },
+      "committees": [
+        {
+          "abbrev": "SKKPO",
+          "organType": "Komise",
+          "nameCz": "Stálá komise pro kontrolu použití odposlechu a záznamu telekomunikačního provozu, použití sledování osob a věcí a rušení provozu elektronických komunikací",
+          "role": "vice",
+          "weight": 0.6
+        },
+        {
+          "abbrev": "VO",
+          "organType": "Výbor",
+          "nameCz": "Výbor pro obranu",
+          "role": "member",
+          "weight": 0.3
+        },
+        {
+          "abbrev": "ZAV",
+          "organType": "Výbor",
+          "nameCz": "Zahraniční výbor",
+          "role": "member",
+          "weight": 0.3
+        },
+        {
+          "abbrev": "SKNÚKIB",
+          "organType": "Komise",
+          "nameCz": "Stálá komise pro kontrolu činnosti Národního úřadu pro kybernetickou a informační bezpečnost",
+          "role": "member",
+          "weight": 0.3
+        }
+      ],
+      "sponsoredBills": [],
+      "coVoters": [
+        {
+          "name": "Andrej Babiš",
+          "club": "ANO2011",
+          "agreement": 0.996,
+          "shared": 504
+        },
+        {
+          "name": "Ladislav Okleštěk",
+          "club": "ANO2011",
+          "agreement": 0.996,
+          "shared": 1088
+        },
+        {
+          "name": "Karel Tureček",
+          "club": "ANO2011",
+          "agreement": 0.996,
+          "shared": 977
+        },
+        {
+          "name": "Petr Sadovský",
+          "club": "ANO2011",
+          "agreement": 0.996,
+          "shared": 1396
+        },
+        {
+          "name": "Jaroslav Faltýnek",
+          "club": "ANO2011",
+          "agreement": 0.995,
+          "shared": 1048
+        },
+        {
+          "name": "Lenka Dražilová",
+          "club": "ANO2011",
+          "agreement": 0.995,
+          "shared": 1109
+        }
+      ],
+      "rebellions": [
+        {
+          "club": "ANO2011",
+          "rate": 0.009,
+          "rebelVotes": 14,
+          "eligibleVotes": 1520
+        }
+      ],
+      "linkedCompanies": []
+    },
+    {
+      "pspId": 7054,
+      "name": "Renata Vesecká",
+      "club": "MS",
+      "region": "Královéhradecký",
+      "lens": [
+        "top5"
+      ],
+      "props": {
+        "contribution_score": 95.4,
+        "participation_rate": 0.9,
+        "committee_count": 12,
+        "leadership_count": 4,
+        "absence_rate": 0.3,
+        "bills_authored": 5,
+        "interpellations": 0,
+        "speech_turns": 57,
+        "absentee_manager_lead": false,
+        "contested_vote_rebellion": 4.359,
+        "rebellion_rate": 0.008
+      },
+      "triage": {
+        "zVsClub": 2.22,
+        "quietWorkhorse": false,
+        "quietWorkhorseIndex": 0.164,
+        "triageScore": 8.759
+      },
+      "committees": [
+        {
+          "abbrev": "ÚPV",
+          "organType": "Výbor",
+          "nameCz": "Ústavně-právní výbor",
+          "role": "chair",
+          "weight": 1
+        },
+        {
+          "abbrev": "VK",
+          "organType": "Komise",
+          "nameCz": "Volební komise",
+          "role": "vice",
+          "weight": 0.6
+        },
+        {
+          "abbrev": "VZ",
+          "organType": "Výbor",
+          "nameCz": "Výbor pro zdravotnictví",
+          "role": "vice",
+          "weight": 0.6
+        },
+        {
+          "abbrev": "SKÚPP",
+          "organType": "Komise",
+          "nameCz": "Stálá komise pro Ústavu České republiky a parlamentní procedury",
+          "role": "member",
+          "weight": 0.3
+        },
+        {
+          "abbrev": "SKGIBS",
+          "organType": "Komise",
+          "nameCz": "Stálá komise pro kontrolu činnosti Generální inspekce bezpečnostních sborů",
+          "role": "member",
+          "weight": 0.3
+        },
+        {
+          "abbrev": "VKDOZIMETR",
+          "organType": "Komise",
+          "nameCz": "Vyšetřovací komise k prošetření okolností, systémových souvislostí a institucionálního fungování Dopravního podniku hlavního města Prahy, akciová společnost, Krajské správy a údržby silnic Středočeského kraje, příspěvková organizace a Všeobecné zdravotní pojišťovny ve věci podezření z korupčního jednání (tzv. &bdquo;kauza Dozimetr&ldquo;)",
+          "role": "member",
+          "weight": 0.3
+        }
+      ],
+      "sponsoredBills": [
+        {
+          "tiskId": "43183",
+          "cislo": 76,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Vondráček R. a další",
+          "amended_laws": [],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Radek Vondráček",
+            "Zuzana Ožanová",
+            "Libor Vondráček"
+          ],
+          "committees": [
+            {
+              "organ": "ÚPV",
+              "role": "garancni",
+              "status": "prikazano"
+            }
+          ]
+        },
+        {
+          "tiskId": "43184",
+          "cislo": 77,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Vondráček R. a další",
+          "amended_laws": [],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Radek Vondráček",
+            "Zuzana Ožanová",
+            "Libor Vondráček"
+          ],
+          "committees": [
+            {
+              "organ": "ÚPV",
+              "role": "garancni",
+              "status": "prikazano"
+            }
+          ]
+        },
+        {
+          "tiskId": "43226",
+          "cislo": 116,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Ožanová Z. a další",
+          "amended_laws": [
+            "353/2019"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Zuzana Ožanová",
+            "Patrik Pařil",
+            "Jaroslav Foldyna",
+            "Berenika Peštová",
+            "Josef Kott"
+          ],
+          "committees": [
+            {
+              "organ": "HV",
+              "role": "garancni",
+              "status": "prikazano"
+            }
+          ]
+        },
+        {
+          "tiskId": "43294",
+          "cislo": 173,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Babiš A. a další",
+          "amended_laws": [
+            "40/2009"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Andrej Babiš",
+            "Tomio Okamura",
+            "Lucie Šafránková",
+            "Petr Macinka",
+            "Boris Šťastný",
+            "Taťána Malá",
+            "Jana Hanzlíková",
+            "Radim Fiala"
+          ],
+          "committees": [
+            {
+              "organ": "ÚPV",
+              "role": "garancni",
+              "status": "prikazano"
+            }
+          ]
+        },
+        {
+          "tiskId": "43295",
+          "cislo": 174,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Šafránková L. a další",
+          "amended_laws": [
+            "246/1992"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Lucie Šafránková",
+            "Tomio Okamura",
+            "Petr Macinka",
+            "Taťána Malá",
+            "Jana Hanzlíková",
+            "Andrej Babiš",
+            "Boris Šťastný",
+            "Radim Fiala"
+          ],
+          "committees": [
+            {
+              "organ": "VŽP",
+              "role": "garancni",
+              "status": "prikazano"
+            },
+            {
+              "organ": "ZEV",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        }
+      ],
+      "coVoters": [
+        {
+          "name": "Karel Beran",
+          "club": "MS",
+          "agreement": 1,
+          "shared": 738
+        },
+        {
+          "name": "Lubomír Metnar",
+          "club": "ANO2011",
+          "agreement": 0.999,
+          "shared": 1103
+        },
+        {
+          "name": "Petr Macinka",
+          "club": "MS",
+          "agreement": 0.998,
+          "shared": 813
+        },
+        {
+          "name": "Zuzana Mrázová",
+          "club": "ANO2011",
+          "agreement": 0.998,
+          "shared": 1236
+        },
+        {
+          "name": "Jiří Kotlík",
+          "club": "ANO2011",
+          "agreement": 0.998,
+          "shared": 464
+        },
+        {
+          "name": "Oto Klempíř",
+          "club": "MS",
+          "agreement": 0.997,
+          "shared": 1058
+        }
+      ],
+      "rebellions": [
+        {
+          "club": "MS",
+          "rate": 0.008,
+          "rebelVotes": 13,
+          "eligibleVotes": 1638
+        }
+      ],
+      "linkedCompanies": []
+    },
+    {
+      "pspId": 6474,
+      "name": "Zuzana Ožanová",
+      "club": "ANO2011",
+      "region": "Moravskoslezský",
+      "lens": [
+        "top5"
+      ],
+      "props": {
+        "contribution_score": 94.6,
+        "participation_rate": 1,
+        "committee_count": 5,
+        "leadership_count": 2,
+        "absence_rate": 0,
+        "bills_authored": 3,
+        "interpellations": 0,
+        "speech_turns": 183,
+        "absentee_manager_lead": false,
+        "contested_vote_rebellion": 3.331,
+        "rebellion_rate": 0.003
+      },
+      "triage": {
+        "zVsClub": 1.88,
+        "quietWorkhorse": false,
+        "quietWorkhorseIndex": -0.213,
+        "triageScore": 6.877
+      },
+      "committees": [
+        {
+          "abbrev": "ÚPV",
+          "organType": "Výbor",
+          "nameCz": "Ústavně-právní výbor",
+          "role": "vice",
+          "weight": 0.6
+        },
+        {
+          "abbrev": "SKNBÚ",
+          "organType": "Komise",
+          "nameCz": "Stálá komise pro kontrolu činnosti Národního bezpečnostního úřadu",
+          "role": "vice",
+          "weight": 0.6
+        },
+        {
+          "abbrev": "HV",
+          "organType": "Výbor",
+          "nameCz": "Hospodářský výbor",
+          "role": "member",
+          "weight": 0.3
+        }
+      ],
+      "sponsoredBills": [
+        {
+          "tiskId": "43183",
+          "cislo": 76,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Vondráček R. a další",
+          "amended_laws": [],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Radek Vondráček",
+            "Renata Vesecká",
+            "Libor Vondráček"
+          ],
+          "committees": [
+            {
+              "organ": "ÚPV",
+              "role": "garancni",
+              "status": "prikazano"
+            }
+          ]
+        },
+        {
+          "tiskId": "43184",
+          "cislo": 77,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Vondráček R. a další",
+          "amended_laws": [],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Radek Vondráček",
+            "Renata Vesecká",
+            "Libor Vondráček"
+          ],
+          "committees": [
+            {
+              "organ": "ÚPV",
+              "role": "garancni",
+              "status": "prikazano"
+            }
+          ]
+        },
+        {
+          "tiskId": "43226",
+          "cislo": 116,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Ožanová Z. a další",
+          "amended_laws": [
+            "353/2019"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Patrik Pařil",
+            "Renata Vesecká",
+            "Jaroslav Foldyna",
+            "Berenika Peštová",
+            "Josef Kott"
+          ],
+          "committees": [
+            {
+              "organ": "HV",
+              "role": "garancni",
+              "status": "prikazano"
+            }
+          ]
+        }
+      ],
+      "coVoters": [
+        {
+          "name": "Robert Plaga",
+          "club": "ANO2011",
+          "agreement": 1,
+          "shared": 710
+        },
+        {
+          "name": "Ladislav Okleštěk",
+          "club": "ANO2011",
+          "agreement": 0.999,
+          "shared": 1265
+        },
+        {
+          "name": "Aleš Juchelka",
+          "club": "ANO2011",
+          "agreement": 0.999,
+          "shared": 1222
+        },
+        {
+          "name": "Alena Schillerová",
+          "club": "ANO2011",
+          "agreement": 0.999,
+          "shared": 1005
+        },
+        {
+          "name": "Andrej Babiš",
+          "club": "ANO2011",
+          "agreement": 0.998,
+          "shared": 605
+        },
+        {
+          "name": "Jaroslav Faltýnek",
+          "club": "ANO2011",
+          "agreement": 0.998,
+          "shared": 1186
+        }
+      ],
+      "rebellions": [
+        {
+          "club": "ANO2011",
+          "rate": 0.003,
+          "rebelVotes": 6,
+          "eligibleVotes": 1799
+        }
+      ],
+      "linkedCompanies": []
+    },
+    {
+      "pspId": 6603,
+      "name": "Pavel Karpíšek",
+      "club": "ODS",
+      "region": "Plzeňský",
+      "lens": [
+        "absentee"
+      ],
+      "props": {
+        "contribution_score": 31.4,
+        "participation_rate": 0.6,
+        "committee_count": 2,
+        "leadership_count": 0,
+        "absence_rate": 0.7,
+        "bills_authored": 0,
+        "interpellations": 0,
+        "speech_turns": 2,
+        "absentee_manager_lead": true,
+        "contested_vote_rebellion": 1.733,
+        "rebellion_rate": 0.004
+      },
+      "triage": {
+        "zVsClub": -1.85,
+        "quietWorkhorse": false,
+        "quietWorkhorseIndex": -0.097,
+        "triageScore": 6.45
+      },
+      "committees": [
+        {
+          "abbrev": "VSR",
+          "organType": "Výbor",
+          "nameCz": "Výbor pro veřejnou správu a regionální rozvoj",
+          "role": "member",
+          "weight": 0.3
+        },
+        {
+          "abbrev": "SKKPO",
+          "organType": "Komise",
+          "nameCz": "Stálá komise pro kontrolu použití odposlechu a záznamu telekomunikačního provozu, použití sledování osob a věcí a rušení provozu elektronických komunikací",
+          "role": "member",
+          "weight": 0.3
+        }
+      ],
+      "sponsoredBills": [],
+      "coVoters": [
+        {
+          "name": "Jana Bačíková",
+          "club": "ODS",
+          "agreement": 0.998,
+          "shared": 648
+        },
+        {
+          "name": "Zdenka Němečková Crkvenjaš",
+          "club": "ODS",
+          "agreement": 0.998,
+          "shared": 609
+        },
+        {
+          "name": "Lucie Bartošová",
+          "club": "ODS",
+          "agreement": 0.998,
+          "shared": 862
+        },
+        {
+          "name": "Štěpán Slovák",
+          "club": "ODS",
+          "agreement": 0.998,
+          "shared": 816
+        },
+        {
+          "name": "Marek Benda",
+          "club": "ODS",
+          "agreement": 0.997,
+          "shared": 732
+        },
+        {
+          "name": "Pavel Žáček",
+          "club": "ODS",
+          "agreement": 0.997,
+          "shared": 671
+        }
+      ],
+      "rebellions": [
+        {
+          "club": "ODS",
+          "rate": 0.004,
+          "rebelVotes": 4,
+          "eligibleVotes": 938
+        }
+      ],
+      "linkedCompanies": [
+        {
+          "company": "OSVČ",
+          "ico": "04627695",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        },
+        {
+          "company": "Truhlářství Za farou s.r.o.",
+          "ico": "04934482",
+          "reviewState": "pending_review",
+          "contractCzk": 10185052.65
+        },
+        {
+          "company": "Akademie individuálních sportů Plzeňského kraje, z. s.",
+          "ico": "06646042",
+          "reviewState": "pending_review",
+          "contractCzk": 32899000
+        },
+        {
+          "company": "Krajská hospodářská komora v Plzeňském kraji",
+          "ico": "07739044",
+          "reviewState": "pending_review",
+          "contractCzk": 15829164.1
+        },
+        {
+          "company": "Centrum lidských zdrojů Plzeňského kraje, z.ú.",
+          "ico": "08160902",
+          "reviewState": "pending_review",
+          "contractCzk": 8459500
+        },
+        {
+          "company": "Tenisový klub Vodní stavby Plzeň, z.s.",
+          "ico": "14704234",
+          "reviewState": "pending_review",
+          "contractCzk": 5600171.180000001
+        },
+        {
+          "company": "Regionální rozvojová agentura Plzeňského kraje, obecně prospěšná společnost",
+          "ico": "25245091",
+          "reviewState": "pending_review",
+          "contractCzk": 4248566
+        },
+        {
+          "company": "STYLE PD, s.r.o.",
+          "ico": "26350416",
+          "reviewState": "pending_review",
+          "contractCzk": 448668
+        },
+        {
+          "company": "Baculus, o.p.s.",
+          "ico": "26997355",
+          "reviewState": "pending_review",
+          "contractCzk": 34613841
+        },
+        {
+          "company": "Chronos Vejprnice o.p.s.",
+          "ico": "29118336",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        },
+        {
+          "company": "Akademie HK PK, o.p.s.",
+          "ico": "29123348",
+          "reviewState": "pending_review",
+          "contractCzk": 25000
+        },
+        {
+          "company": "Vodárenská a kanalizační a.s.",
+          "ico": "49786709",
+          "reviewState": "pending_review",
+          "contractCzk": 123099565.49
+        }
+      ]
+    },
+    {
+      "pspId": 6074,
+      "name": "Petr Fiala",
+      "club": "ODS",
+      "region": "Jihomoravský",
+      "lens": [
+        "bottom5"
+      ],
+      "props": {
+        "contribution_score": 28.6,
+        "participation_rate": 0.7,
+        "committee_count": 1,
+        "leadership_count": 0,
+        "absence_rate": 0.6,
+        "bills_authored": 0,
+        "interpellations": 0,
+        "speech_turns": 4,
+        "absentee_manager_lead": false,
+        "contested_vote_rebellion": 2.789,
+        "rebellion_rate": 0.006
+      },
+      "triage": {
+        "zVsClub": -2.01,
+        "quietWorkhorse": false,
+        "quietWorkhorseIndex": -0.213,
+        "triageScore": 6.194
+      },
+      "committees": [
+        {
+          "abbrev": "VVVMS",
+          "organType": "Výbor",
+          "nameCz": "Výbor pro vědu, vzdělávání, mládež a sport",
+          "role": "member",
+          "weight": 0.3
+        }
+      ],
+      "sponsoredBills": [],
+      "coVoters": [
+        {
+          "name": "Marek Benda",
+          "club": "ODS",
+          "agreement": 0.999,
+          "shared": 881
+        },
+        {
+          "name": "Martin Kupka",
+          "club": "ODS",
+          "agreement": 0.999,
+          "shared": 675
+        },
+        {
+          "name": "Jan Lipavský",
+          "club": "ODS",
+          "agreement": 0.998,
+          "shared": 877
+        },
+        {
+          "name": "Lucie Bartošová",
+          "club": "ODS",
+          "agreement": 0.998,
+          "shared": 968
+        },
+        {
+          "name": "Petr Bendl",
+          "club": "ODS",
+          "agreement": 0.997,
+          "shared": 895
+        },
+        {
+          "name": "Pavel Žáček",
+          "club": "ODS",
+          "agreement": 0.997,
+          "shared": 780
+        }
+      ],
+      "rebellions": [
+        {
+          "club": "ODS",
+          "rate": 0.006,
+          "rebelVotes": 6,
+          "eligibleVotes": 1090
+        }
+      ],
+      "linkedCompanies": [
+        {
+          "company": "STUDIO ARX s.r.o.",
+          "ico": "26254590",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        },
+        {
+          "company": "Evropský informační projekt, z. ú.",
+          "ico": "70282960",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        }
+      ]
+    },
+    {
+      "pspId": 6994,
+      "name": "Monika Brzesková",
+      "club": "KDU-ČSL",
+      "region": "Moravskoslezský",
+      "lens": [
+        "quiet-workhorse"
+      ],
+      "props": {
+        "contribution_score": 76.2,
+        "participation_rate": 0.8,
+        "committee_count": 5,
+        "leadership_count": 2,
+        "absence_rate": 0.7,
+        "bills_authored": 9,
+        "interpellations": 0,
+        "speech_turns": 8,
+        "absentee_manager_lead": false,
+        "contested_vote_rebellion": 2.674,
+        "rebellion_rate": 0.003
+      },
+      "triage": {
+        "zVsClub": -0.19,
+        "quietWorkhorse": true,
+        "quietWorkhorseIndex": 0.643,
+        "triageScore": 5.701
+      },
+      "committees": [
+        {
+          "abbrev": "VSP",
+          "organType": "Výbor",
+          "nameCz": "Výbor pro sociální politiku",
+          "role": "chair",
+          "weight": 1
+        },
+        {
+          "abbrev": "VEZ",
+          "organType": "Výbor",
+          "nameCz": "Výbor pro evropské záležitosti",
+          "role": "member",
+          "weight": 0.3
+        },
+        {
+          "abbrev": "SKRRP",
+          "organType": "Komise",
+          "nameCz": "Stálá komise pro rodinu a rovné příležitosti",
+          "role": "member",
+          "weight": 0.3
+        }
+      ],
+      "sponsoredBills": [
+        {
+          "tiskId": "43190",
+          "cislo": 74,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Hladík P. a další",
+          "amended_laws": [
+            "167/2008"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Petr Hladík",
+            "Bohuslav Niemiec",
+            "Václav Pláteník",
+            "Jana Filipovičová",
+            "Marie Kršková",
+            "Jana Krutáková",
+            "Gabriela Svárovská",
+            "Helena Langšádlová"
+          ],
+          "committees": [
+            {
+              "organ": "VŽP",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        },
+        {
+          "tiskId": "43191",
+          "cislo": 50,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Jurečka M. a další",
+          "amended_laws": [
+            "155/1995",
+            "417/2024"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Marian Jurečka",
+            "Tom Philipp",
+            "Marek Výborný",
+            "Benjamin Činčila",
+            "Róbert Teleky",
+            "Petr Hladík",
+            "Václav Pláteník",
+            "Jana Filipovičová",
+            "František Talíř",
+            "Marie Kršková",
+            "Bohuslav Niemiec",
+            "Hayato Okamura",
+            "Jiří Vojáček"
+          ],
+          "committees": [
+            {
+              "organ": "VSP",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        },
+        {
+          "tiskId": "43192",
+          "cislo": 75,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Hladík P. a další",
+          "amended_laws": [
+            "254/2001"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Petr Hladík",
+            "Bohuslav Niemiec",
+            "Václav Pláteník",
+            "Jana Filipovičová",
+            "Marie Kršková",
+            "Jana Krutáková",
+            "Gabriela Svárovská",
+            "Helena Langšádlová"
+          ],
+          "committees": [
+            {
+              "organ": "ZEV",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        },
+        {
+          "tiskId": "43199",
+          "cislo": 89,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Činčila B. a další",
+          "amended_laws": [
+            "218/2000"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Marian Jurečka",
+            "Marek Výborný",
+            "Václav Pláteník",
+            "Benjamin Činčila",
+            "Tom Philipp",
+            "Bohuslav Niemiec",
+            "Hayato Okamura",
+            "Jiří Vojáček",
+            "František Talíř",
+            "Marie Kršková"
+          ],
+          "committees": [
+            {
+              "organ": "RV",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        },
+        {
+          "tiskId": "43214",
+          "cislo": 104,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Pláteník V. a další",
+          "amended_laws": [
+            "561/2004"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Václav Pláteník",
+            "Jiří Vojáček",
+            "Benjamin Činčila",
+            "Marie Kršková",
+            "Jiří Horák",
+            "Marian Jurečka"
+          ],
+          "committees": [
+            {
+              "organ": "VVVMS",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        },
+        {
+          "tiskId": "43219",
+          "cislo": 109,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Jurečka M. a další",
+          "amended_laws": [
+            "187/2006"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Marian Jurečka",
+            "Tom Philipp",
+            "Benjamin Činčila",
+            "Václav Pláteník",
+            "Jana Filipovičová",
+            "František Talíř",
+            "Marie Kršková",
+            "Hayato Okamura",
+            "Jiří Vojáček"
+          ],
+          "committees": [
+            {
+              "organ": "VSP",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        },
+        {
+          "tiskId": "43220",
+          "cislo": 110,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Jurečka M. a další",
+          "amended_laws": [
+            "589/1992"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Marian Jurečka",
+            "Tom Philipp",
+            "Marek Výborný",
+            "Benjamin Činčila",
+            "Róbert Teleky",
+            "Petr Hladík",
+            "Václav Pláteník",
+            "Jana Filipovičová",
+            "František Talíř",
+            "Marie Kršková",
+            "Bohuslav Niemiec",
+            "Hayato Okamura",
+            "Jiří Vojáček"
+          ],
+          "committees": [
+            {
+              "organ": "VSP",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        },
+        {
+          "tiskId": "43233",
+          "cislo": 121,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Jurečka M. a další",
+          "amended_laws": [
+            "586/1992",
+            "117/1995",
+            "187/2006"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Marian Jurečka",
+            "Tom Philipp",
+            "Marek Výborný",
+            "Benjamin Činčila",
+            "Róbert Teleky",
+            "Petr Hladík",
+            "Václav Pláteník",
+            "Jana Filipovičová",
+            "František Talíř",
+            "Marie Kršková",
+            "Bohuslav Niemiec",
+            "Hayato Okamura",
+            "Jiří Vojáček"
+          ],
+          "committees": [
+            {
+              "organ": "VSP",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        },
+        {
+          "tiskId": "43282",
+          "cislo": 161,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Hladík P. a další",
+          "amended_laws": [
+            "541/2020"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Petr Hladík",
+            "Jana Filipovičová",
+            "Zdena Kašparová",
+            "Marie Kršková",
+            "Jana Krutáková",
+            "Helena Langšádlová",
+            "Bohuslav Niemiec",
+            "Hayato Okamura",
+            "Tom Philipp",
+            "Gabriela Svárovská",
+            "Martin Šmída"
+          ],
+          "committees": [
+            {
+              "organ": "VŽP",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        }
+      ],
+      "coVoters": [
+        {
+          "name": "Jana Filipovičová",
+          "club": "KDU-ČSL",
+          "agreement": 0.999,
+          "shared": 1166
+        },
+        {
+          "name": "Hayato Okamura",
+          "club": "KDU-ČSL",
+          "agreement": 0.997,
+          "shared": 1010
+        },
+        {
+          "name": "František Talíř",
+          "club": "KDU-ČSL",
+          "agreement": 0.997,
+          "shared": 1156
+        },
+        {
+          "name": "Jiří Horák",
+          "club": "KDU-ČSL",
+          "agreement": 0.996,
+          "shared": 1109
+        },
+        {
+          "name": "Marie Kršková",
+          "club": "KDU-ČSL",
+          "agreement": 0.996,
+          "shared": 1286
+        },
+        {
+          "name": "Jiří Vojáček",
+          "club": "KDU-ČSL",
+          "agreement": 0.996,
+          "shared": 1028
+        }
+      ],
+      "rebellions": [
+        {
+          "club": "KDU-ČSL",
+          "rate": 0.003,
+          "rebelVotes": 4,
+          "eligibleVotes": 1449
+        }
+      ],
+      "linkedCompanies": [
+        {
+          "company": "OSVČ",
+          "ico": "04627695",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        }
+      ]
+    },
+    {
+      "pspId": 6184,
+      "name": "Richard Brabec",
+      "club": "ANO2011",
+      "region": "Ústecký",
+      "lens": [
+        "bottom5",
+        "absentee"
+      ],
+      "props": {
+        "contribution_score": 10.4,
+        "participation_rate": 0,
+        "committee_count": 0,
+        "leadership_count": 0,
+        "absence_rate": 0,
+        "bills_authored": 0,
+        "interpellations": 0,
+        "speech_turns": 1,
+        "absentee_manager_lead": true,
+        "contested_vote_rebellion": null,
+        "rebellion_rate": null
+      },
+      "triage": {
+        "zVsClub": -2.91,
+        "quietWorkhorse": false,
+        "quietWorkhorseIndex": -0.072,
+        "triageScore": 4.91
+      },
+      "committees": [],
+      "sponsoredBills": [],
+      "coVoters": [],
+      "rebellions": [],
+      "linkedCompanies": [
+        {
+          "company": "OSVČ",
+          "ico": "04627695",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        },
+        {
+          "company": "SPOLANA s.r.o.",
+          "ico": "45147787",
+          "reviewState": "pending_review",
+          "contractCzk": 22111737.59
+        },
+        {
+          "company": "Lovochemie, a.s.",
+          "ico": "49100262",
+          "reviewState": "pending_review",
+          "contractCzk": 8498641.384
+        },
+        {
+          "company": "PRAK spol. s r.o.",
+          "ico": "49683144",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        }
+      ]
+    },
+    {
+      "pspId": 7063,
+      "name": "Roman Zarzycký",
+      "club": "ANO2011",
+      "region": "Plzeňský",
+      "lens": [
+        "bottom5",
+        "absentee"
+      ],
+      "props": {
+        "contribution_score": 10.4,
+        "participation_rate": 0,
+        "committee_count": 0,
+        "leadership_count": 0,
+        "absence_rate": 0,
+        "bills_authored": 0,
+        "interpellations": 0,
+        "speech_turns": 1,
+        "absentee_manager_lead": true,
+        "contested_vote_rebellion": null,
+        "rebellion_rate": null
+      },
+      "triage": {
+        "zVsClub": -2.91,
+        "quietWorkhorse": false,
+        "quietWorkhorseIndex": -0.072,
+        "triageScore": 4.91
+      },
+      "committees": [],
+      "sponsoredBills": [],
+      "coVoters": [],
+      "rebellions": [],
+      "linkedCompanies": [
+        {
+          "company": "Nadační fond regionální fotbalové Akademie Plzeňského kraje",
+          "ico": "03849988",
+          "reviewState": "pending_review",
+          "contractCzk": 18294560
+        },
+        {
+          "company": "OSVČ",
+          "ico": "04627695",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        },
+        {
+          "company": "RAILREKLAM, spol. s r.o.",
+          "ico": "17047234",
+          "reviewState": "pending_review",
+          "contractCzk": 1421191.64
+        },
+        {
+          "company": "Plzeňské městské dopravní podniky, a.s.",
+          "ico": "25220683",
+          "reviewState": "pending_review",
+          "contractCzk": 4132961.91
+        },
+        {
+          "company": "HC Plzeň z.s.",
+          "ico": "26602351",
+          "reviewState": "pending_review",
+          "contractCzk": 2927100
+        },
+        {
+          "company": "Výzkumný Ústav Železniční, a.s.",
+          "ico": "27257258",
+          "reviewState": "pending_review",
+          "contractCzk": 25000
+        },
+        {
+          "company": "Čistá Plzeň, s.r.o.",
+          "ico": "28046153",
+          "reviewState": "pending_review",
+          "contractCzk": 284386356.19999987
+        }
+      ]
+    },
+    {
+      "pspId": 6500,
+      "name": "Jan Richter",
+      "club": "ANO2011",
+      "region": "Ústecký",
+      "lens": [
+        "quiet-workhorse"
+      ],
+      "props": {
+        "contribution_score": 75.2,
+        "participation_rate": 0.8,
+        "committee_count": 7,
+        "leadership_count": 1,
+        "absence_rate": 0.5,
+        "bills_authored": 5,
+        "interpellations": 0,
+        "speech_turns": 0,
+        "absentee_manager_lead": false,
+        "contested_vote_rebellion": 1.482,
+        "rebellion_rate": 0.005
+      },
+      "triage": {
+        "zVsClub": 0.78,
+        "quietWorkhorse": true,
+        "quietWorkhorseIndex": 0.87,
+        "triageScore": 4.503
+      },
+      "committees": [
+        {
+          "abbrev": "KV",
+          "organType": "Výbor",
+          "nameCz": "Kontrolní výbor",
+          "role": "vice",
+          "weight": 0.6
+        },
+        {
+          "abbrev": "VVVMS",
+          "organType": "Výbor",
+          "nameCz": "Výbor pro vědu, vzdělávání, mládež a sport",
+          "role": "member",
+          "weight": 0.3
+        },
+        {
+          "abbrev": "SKBIS",
+          "organType": "Komise",
+          "nameCz": "Stálá komise pro kontrolu činnosti Bezpečnostní informační služby",
+          "role": "member",
+          "weight": 0.3
+        }
+      ],
+      "sponsoredBills": [
+        {
+          "tiskId": "43118",
+          "cislo": 11,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Schillerová A. a další",
+          "amended_laws": [
+            "589/1992"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Igor Hendrych",
+            "Patrik Nacher",
+            "Marek Novák",
+            "Jiří Strýček",
+            "Tomáš Helebrant",
+            "Jitka Volfová",
+            "Jana Murová",
+            "Jana Hanzlíková",
+            "Patrik Pařil",
+            "Pavel Outrata",
+            "Lenka Dražilová",
+            "Václav Trojan",
+            "David Štolpa",
+            "Alena Schillerová",
+            "Tomio Okamura",
+            "Petr Macinka",
+            "Aleš Juchelka",
+            "Karel Havlíček",
+            "Boris Šťastný",
+            "Radim Fiala",
+            "Andrej Babiš",
+            "Taťána Malá"
+          ],
+          "committees": [
+            {
+              "organ": "VSP",
+              "role": "garancni",
+              "status": "prikazano"
+            },
+            {
+              "organ": "RV",
+              "role": "dalsi",
+              "status": "prikazano"
+            }
+          ]
+        },
+        {
+          "tiskId": "43177",
+          "cislo": 70,
+          "druh": 2,
+          "origin": "mp",
+          "submitter": "Vojtěch Adam",
+          "amended_laws": [
+            "592/1992"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Jana Murová",
+            "Ivana Mádlová",
+            "Patrik Pařil",
+            "Pavel Outrata",
+            "Lenka Dražilová",
+            "Václav Trojan",
+            "David Štolpa",
+            "Jiří Mašek",
+            "Jana Hanzlíková"
+          ],
+          "committees": [
+            {
+              "organ": "VZ",
+              "role": "garancni",
+              "status": "prikazano"
+            }
+          ]
+        },
+        {
+          "tiskId": "43179",
+          "cislo": 72,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Vondráček R. a další",
+          "amended_laws": [
+            "90/1995"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Radek Vondráček",
+            "Andrej Babiš",
+            "Tomio Okamura",
+            "Petr Macinka",
+            "Marek Benda",
+            "Radim Fiala",
+            "Karel Haas",
+            "Štěpán Slovák",
+            "Miloslav Janulík",
+            "Igor Hendrych",
+            "Marek Novák",
+            "Tomáš Helebrant",
+            "Jana Murová",
+            "Helena Válková",
+            "Renata Oulehlová",
+            "Stanislav Fridrich",
+            "Josef Váňa",
+            "Pavel Outrata",
+            "Václav Trojan",
+            "Patrik Pařil",
+            "Robert Stržínek",
+            "Josef Kott",
+            "Jiří Strýček",
+            "Ivana Mádlová",
+            "Jana Hanzlíková",
+            "Věra Adámková",
+            "David Štolpa",
+            "Taťána Malá",
+            "Boris Šťastný"
+          ],
+          "committees": [
+            {
+              "organ": "PV",
+              "role": "dalsi",
+              "status": "prikazano"
+            },
+            {
+              "organ": "VMZ",
+              "role": "dalsi",
+              "status": "prikazano"
+            },
+            {
+              "organ": "ÚPV",
+              "role": "garancni",
+              "status": "prikazano"
+            },
+            {
+              "organ": "SKÚPP",
+              "role": "dalsi",
+              "status": "iniciativne"
+            }
+          ]
+        },
+        {
+          "tiskId": "43197",
+          "cislo": 87,
+          "druh": 2,
+          "origin": "mp",
+          "submitter": "Vondráček R.",
+          "amended_laws": [],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Marek Novák",
+            "Monika Hubíková",
+            "Patrik Pařil",
+            "Pavel Outrata",
+            "Lenka Dražilová",
+            "Václav Trojan",
+            "David Štolpa",
+            "Karin Gajdová",
+            "Jiří Mašek",
+            "Renata Oulehlová",
+            "Taťána Malá",
+            "Igor Hendrych",
+            "Tomáš Kohoutek",
+            "Barbora Rázga",
+            "Drahoslav Ryba",
+            "František Petrtýl",
+            "Jana Murová",
+            "Alena Schillerová",
+            "Milan Brázdil",
+            "Miloslav Janulík",
+            "Vladimír Kolek",
+            "Martin Kupec",
+            "Ladislav Okleštěk",
+            "Roman Kubíček",
+            "Denis Doksanský",
+            "Lucie Šafránková",
+            "Jindřich Rajchl",
+            "Jan Hrnčíř",
+            "Libor Vondráček",
+            "Tomáš Doležal",
+            "Miroslav Ševčík",
+            "Jaroslav Foldyna",
+            "Jan Síla",
+            "Markéta Šichtařová",
+            "Marie Pošarová",
+            "Tomio Okamura",
+            "Radim Fiala",
+            "Tomáš Helebrant",
+            "Miroslav Žbánek",
+            "Jiří Strýček",
+            "Josef Kott"
+          ],
+          "committees": [
+            {
+              "organ": "ÚPV",
+              "role": "dalsi",
+              "status": "navrzeno"
+            },
+            {
+              "organ": "VVVMS",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        },
+        {
+          "tiskId": "43339",
+          "cislo": 217,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Babka O. a další",
+          "amended_laws": [
+            "166/1993"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Ondřej Babka",
+            "Patrik Nacher",
+            "Robert Stržínek",
+            "Gabriela Sedláčková"
+          ],
+          "committees": [
+            {
+              "organ": "KV",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        }
+      ],
+      "coVoters": [
+        {
+          "name": "Jiří Kotlík",
+          "club": "ANO2011",
+          "agreement": 1,
+          "shared": 228
+        },
+        {
+          "name": "Karel Havlíček",
+          "club": "ANO2011",
+          "agreement": 0.997,
+          "shared": 580
+        },
+        {
+          "name": "Lubomír Metnar",
+          "club": "ANO2011",
+          "agreement": 0.996,
+          "shared": 935
+        },
+        {
+          "name": "Hubert Lang",
+          "club": "ANO2011",
+          "agreement": 0.996,
+          "shared": 850
+        },
+        {
+          "name": "Berenika Peštová",
+          "club": "ANO2011",
+          "agreement": 0.996,
+          "shared": 907
+        },
+        {
+          "name": "Denis Doksanský",
+          "club": "ANO2011",
+          "agreement": 0.996,
+          "shared": 1189
+        }
+      ],
+      "rebellions": [
+        {
+          "club": "ANO2011",
+          "rate": 0.005,
+          "rebelVotes": 7,
+          "eligibleVotes": 1330
+        }
+      ],
+      "linkedCompanies": [
+        {
+          "company": "OSVČ",
+          "ico": "04627695",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        },
+        {
+          "company": "CHOMUTOVSKÁ BYTOVÁ a.s.",
+          "ico": "27341313",
+          "reviewState": "pending_review",
+          "contractCzk": 104065984
+        },
+        {
+          "company": "Sportovní klub policie Kadaň, z.s.",
+          "ico": "47795808",
+          "reviewState": "pending_review",
+          "contractCzk": 480005
+        },
+        {
+          "company": "Dopravní podnik měst Chomutova a Jirkova a.s.",
+          "ico": "64053466",
+          "reviewState": "pending_review",
+          "contractCzk": 1000000
+        }
+      ]
+    },
+    {
+      "pspId": 6190,
+      "name": "Jaroslav Faltýnek",
+      "club": "ANO2011",
+      "region": "Olomoucký",
+      "lens": [
+        "absentee"
+      ],
+      "props": {
+        "contribution_score": 37.7,
+        "participation_rate": 0.7,
+        "committee_count": 2,
+        "leadership_count": 0,
+        "absence_rate": 0.3,
+        "bills_authored": 0,
+        "interpellations": 0,
+        "speech_turns": 0,
+        "absentee_manager_lead": true,
+        "contested_vote_rebellion": 0.411,
+        "rebellion_rate": 0.001
+      },
+      "triage": {
+        "zVsClub": -1.36,
+        "quietWorkhorse": false,
+        "quietWorkhorseIndex": 0.039,
+        "triageScore": 3.977
+      },
+      "committees": [
+        {
+          "abbrev": "ORGV",
+          "organType": "Výbor",
+          "nameCz": "Organizační výbor",
+          "role": "member",
+          "weight": 0.3
+        },
+        {
+          "abbrev": "ZEV",
+          "organType": "Výbor",
+          "nameCz": "Zemědělský výbor",
+          "role": "member",
+          "weight": 0.3
+        }
+      ],
+      "sponsoredBills": [],
+      "coVoters": [
+        {
+          "name": "Andrej Babiš",
+          "club": "ANO2011",
+          "agreement": 1,
+          "shared": 457
+        },
+        {
+          "name": "Ladislav Okleštěk",
+          "club": "ANO2011",
+          "agreement": 1,
+          "shared": 1013
+        },
+        {
+          "name": "Milan Brázdil",
+          "club": "ANO2011",
+          "agreement": 1,
+          "shared": 1202
+        },
+        {
+          "name": "David Kasal",
+          "club": "ANO2011",
+          "agreement": 1,
+          "shared": 929
+        },
+        {
+          "name": "Karel Tureček",
+          "club": "ANO2011",
+          "agreement": 1,
+          "shared": 882
+        },
+        {
+          "name": "Stanislav Fridrich",
+          "club": "ANO2011",
+          "agreement": 1,
+          "shared": 1084
+        }
+      ],
+      "rebellions": [
+        {
+          "club": "ANO2011",
+          "rate": 0.001,
+          "rebelVotes": 1,
+          "eligibleVotes": 1236
+        }
+      ],
+      "linkedCompanies": [
+        {
+          "company": "OSVČ",
+          "ico": "04627695",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        },
+        {
+          "company": "AGROFERT, a.s.",
+          "ico": "26185610",
+          "reviewState": "pending_review",
+          "contractCzk": 6274453.5
+        }
+      ]
+    },
+    {
+      "pspId": 6468,
+      "name": "Taťána Malá",
+      "club": "ANO2011",
+      "region": "Jihomoravský",
+      "lens": [
+        "top5"
+      ],
+      "props": {
+        "contribution_score": 95.4,
+        "participation_rate": 1,
+        "committee_count": 5,
+        "leadership_count": 1,
+        "absence_rate": 0.4,
+        "bills_authored": 9,
+        "interpellations": 0,
+        "speech_turns": 122,
+        "absentee_manager_lead": false,
+        "contested_vote_rebellion": 0.989,
+        "rebellion_rate": 0.001
+      },
+      "triage": {
+        "zVsClub": 1.93,
+        "quietWorkhorse": false,
+        "quietWorkhorseIndex": -0.029,
+        "triageScore": 3.414
+      },
+      "committees": [
+        {
+          "abbrev": "ÚPV",
+          "organType": "Výbor",
+          "nameCz": "Ústavně-právní výbor",
+          "role": "vice",
+          "weight": 0.6
+        },
+        {
+          "abbrev": "ORGV",
+          "organType": "Výbor",
+          "nameCz": "Organizační výbor",
+          "role": "member",
+          "weight": 0.3
+        },
+        {
+          "abbrev": "VZ",
+          "organType": "Výbor",
+          "nameCz": "Výbor pro zdravotnictví",
+          "role": "member",
+          "weight": 0.3
+        },
+        {
+          "abbrev": "SKÚZSI",
+          "organType": "Komise",
+          "nameCz": "Stálá komise pro kontrolu činnosti Úřadu pro zahraniční styky a informace",
+          "role": "member",
+          "weight": 0.3
+        }
+      ],
+      "sponsoredBills": [
+        {
+          "tiskId": "43118",
+          "cislo": 11,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Schillerová A. a další",
+          "amended_laws": [
+            "589/1992"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Igor Hendrych",
+            "Patrik Nacher",
+            "Marek Novák",
+            "Jiří Strýček",
+            "Tomáš Helebrant",
+            "Jitka Volfová",
+            "Jana Murová",
+            "Jana Hanzlíková",
+            "Patrik Pařil",
+            "Pavel Outrata",
+            "Lenka Dražilová",
+            "Václav Trojan",
+            "David Štolpa",
+            "Jan Richter",
+            "Alena Schillerová",
+            "Tomio Okamura",
+            "Petr Macinka",
+            "Aleš Juchelka",
+            "Karel Havlíček",
+            "Boris Šťastný",
+            "Radim Fiala",
+            "Andrej Babiš"
+          ],
+          "committees": [
+            {
+              "organ": "VSP",
+              "role": "garancni",
+              "status": "prikazano"
+            },
+            {
+              "organ": "RV",
+              "role": "dalsi",
+              "status": "prikazano"
+            }
+          ]
+        },
+        {
+          "tiskId": "43179",
+          "cislo": 72,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Vondráček R. a další",
+          "amended_laws": [
+            "90/1995"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Radek Vondráček",
+            "Andrej Babiš",
+            "Tomio Okamura",
+            "Petr Macinka",
+            "Marek Benda",
+            "Radim Fiala",
+            "Karel Haas",
+            "Štěpán Slovák",
+            "Miloslav Janulík",
+            "Igor Hendrych",
+            "Marek Novák",
+            "Tomáš Helebrant",
+            "Jana Murová",
+            "Helena Válková",
+            "Renata Oulehlová",
+            "Stanislav Fridrich",
+            "Josef Váňa",
+            "Jan Richter",
+            "Pavel Outrata",
+            "Václav Trojan",
+            "Patrik Pařil",
+            "Robert Stržínek",
+            "Josef Kott",
+            "Jiří Strýček",
+            "Ivana Mádlová",
+            "Jana Hanzlíková",
+            "Věra Adámková",
+            "David Štolpa",
+            "Boris Šťastný"
+          ],
+          "committees": [
+            {
+              "organ": "PV",
+              "role": "dalsi",
+              "status": "prikazano"
+            },
+            {
+              "organ": "VMZ",
+              "role": "dalsi",
+              "status": "prikazano"
+            },
+            {
+              "organ": "ÚPV",
+              "role": "garancni",
+              "status": "prikazano"
+            },
+            {
+              "organ": "SKÚPP",
+              "role": "dalsi",
+              "status": "iniciativne"
+            }
+          ]
+        },
+        {
+          "tiskId": "43197",
+          "cislo": 87,
+          "druh": 2,
+          "origin": "mp",
+          "submitter": "Vondráček R.",
+          "amended_laws": [],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Marek Novák",
+            "Monika Hubíková",
+            "Patrik Pařil",
+            "Pavel Outrata",
+            "Lenka Dražilová",
+            "Václav Trojan",
+            "David Štolpa",
+            "Jan Richter",
+            "Karin Gajdová",
+            "Jiří Mašek",
+            "Renata Oulehlová",
+            "Igor Hendrych",
+            "Tomáš Kohoutek",
+            "Barbora Rázga",
+            "Drahoslav Ryba",
+            "František Petrtýl",
+            "Jana Murová",
+            "Alena Schillerová",
+            "Milan Brázdil",
+            "Miloslav Janulík",
+            "Vladimír Kolek",
+            "Martin Kupec",
+            "Ladislav Okleštěk",
+            "Roman Kubíček",
+            "Denis Doksanský",
+            "Lucie Šafránková",
+            "Jindřich Rajchl",
+            "Jan Hrnčíř",
+            "Libor Vondráček",
+            "Tomáš Doležal",
+            "Miroslav Ševčík",
+            "Jaroslav Foldyna",
+            "Jan Síla",
+            "Markéta Šichtařová",
+            "Marie Pošarová",
+            "Tomio Okamura",
+            "Radim Fiala",
+            "Tomáš Helebrant",
+            "Miroslav Žbánek",
+            "Jiří Strýček",
+            "Josef Kott"
+          ],
+          "committees": [
+            {
+              "organ": "ÚPV",
+              "role": "dalsi",
+              "status": "navrzeno"
+            },
+            {
+              "organ": "VVVMS",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        },
+        {
+          "tiskId": "43225",
+          "cislo": 115,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Babiš A. a další",
+          "amended_laws": [
+            "40/2009",
+            "45/2013"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Andrej Babiš",
+            "Radek Vondráček",
+            "Helena Válková",
+            "Boris Šťastný",
+            "Radim Fiala"
+          ],
+          "committees": [
+            {
+              "organ": "ÚPV",
+              "role": "garancni",
+              "status": "prikazano"
+            }
+          ]
+        },
+        {
+          "tiskId": "43230",
+          "cislo": 119,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Schillerová A. a další",
+          "amended_laws": [
+            "427/2011",
+            "586/1992"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Alena Schillerová",
+            "Patrik Nacher",
+            "Boris Šťastný",
+            "Tomio Okamura"
+          ],
+          "committees": [
+            {
+              "organ": "RV",
+              "role": "garancni",
+              "status": "prikazano"
+            }
+          ]
+        },
+        {
+          "tiskId": "43294",
+          "cislo": 173,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Babiš A. a další",
+          "amended_laws": [
+            "40/2009"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Andrej Babiš",
+            "Tomio Okamura",
+            "Lucie Šafránková",
+            "Petr Macinka",
+            "Boris Šťastný",
+            "Jana Hanzlíková",
+            "Radim Fiala",
+            "Renata Vesecká"
+          ],
+          "committees": [
+            {
+              "organ": "ÚPV",
+              "role": "garancni",
+              "status": "prikazano"
+            }
+          ]
+        },
+        {
+          "tiskId": "43295",
+          "cislo": 174,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Šafránková L. a další",
+          "amended_laws": [
+            "246/1992"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Lucie Šafránková",
+            "Tomio Okamura",
+            "Petr Macinka",
+            "Jana Hanzlíková",
+            "Andrej Babiš",
+            "Boris Šťastný",
+            "Radim Fiala",
+            "Renata Vesecká"
+          ],
+          "committees": [
+            {
+              "organ": "VŽP",
+              "role": "garancni",
+              "status": "prikazano"
+            },
+            {
+              "organ": "ZEV",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        },
+        {
+          "tiskId": "43323",
+          "cislo": 201,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Nacher P. a další",
+          "amended_laws": [
+            "348/2005"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Patrik Nacher",
+            "Tomio Okamura",
+            "Radim Fiala",
+            "Filip Turek",
+            "Barbora Rázga",
+            "Martin Kolovratník"
+          ],
+          "committees": [
+            {
+              "organ": "VMZ",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        },
+        {
+          "tiskId": "43338",
+          "cislo": 216,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Malá T. a další",
+          "amended_laws": [
+            "40/2009"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Boris Šťastný",
+            "Tomio Okamura",
+            "Andrej Babiš"
+          ],
+          "committees": [
+            {
+              "organ": "ÚPV",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        }
+      ],
+      "coVoters": [
+        {
+          "name": "Ladislav Okleštěk",
+          "club": "ANO2011",
+          "agreement": 1,
+          "shared": 1187
+        },
+        {
+          "name": "Milan Brázdil",
+          "club": "ANO2011",
+          "agreement": 1,
+          "shared": 1494
+        },
+        {
+          "name": "František Petrtýl",
+          "club": "ANO2011",
+          "agreement": 1,
+          "shared": 1682
+        },
+        {
+          "name": "Stanislav Fridrich",
+          "club": "ANO2011",
+          "agreement": 1,
+          "shared": 1390
+        },
+        {
+          "name": "Aleš Juchelka",
+          "club": "ANO2011",
+          "agreement": 1,
+          "shared": 1175
+        },
+        {
+          "name": "Petr Vrána",
+          "club": "ANO2011",
+          "agreement": 1,
+          "shared": 1674
+        }
+      ],
+      "rebellions": [
+        {
+          "club": "ANO2011",
+          "rate": 0.001,
+          "rebelVotes": 1,
+          "eligibleVotes": 1709
+        }
+      ],
+      "linkedCompanies": []
+    },
+    {
+      "pspId": 7041,
+      "name": "Gabriela Sedláčková",
+      "club": "MS",
+      "region": "Olomoucký",
+      "lens": [
+        "quiet-workhorse"
+      ],
+      "props": {
+        "contribution_score": 67.6,
+        "participation_rate": 1,
+        "committee_count": 12,
+        "leadership_count": 4,
+        "absence_rate": 0.3,
+        "bills_authored": 1,
+        "interpellations": 0,
+        "speech_turns": 5,
+        "absentee_manager_lead": false,
+        "contested_vote_rebellion": 1.119,
+        "rebellion_rate": 0.002
+      },
+      "triage": {
+        "zVsClub": 0.22,
+        "quietWorkhorse": true,
+        "quietWorkhorseIndex": 0.739,
+        "triageScore": 3.399
+      },
+      "committees": [
+        {
+          "abbrev": "SKNBÚ",
+          "organType": "Komise",
+          "nameCz": "Stálá komise pro kontrolu činnosti Národního bezpečnostního úřadu",
+          "role": "chair",
+          "weight": 1
+        },
+        {
+          "abbrev": "PV",
+          "organType": "Výbor",
+          "nameCz": "Petiční výbor",
+          "role": "vice",
+          "weight": 0.6
+        },
+        {
+          "abbrev": "VMZ",
+          "organType": "Výbor",
+          "nameCz": "Výbor pro mediální záležitosti",
+          "role": "member",
+          "weight": 0.3
+        },
+        {
+          "abbrev": "VB",
+          "organType": "Výbor",
+          "nameCz": "Výbor pro bezpečnost",
+          "role": "member",
+          "weight": 0.3
+        },
+        {
+          "abbrev": "SKRRP",
+          "organType": "Komise",
+          "nameCz": "Stálá komise pro rodinu a rovné příležitosti",
+          "role": "member",
+          "weight": 0.3
+        },
+        {
+          "abbrev": "SKBIS",
+          "organType": "Komise",
+          "nameCz": "Stálá komise pro kontrolu činnosti Bezpečnostní informační služby",
+          "role": "member",
+          "weight": 0.3
+        }
+      ],
+      "sponsoredBills": [
+        {
+          "tiskId": "43339",
+          "cislo": 217,
+          "druh": 2,
+          "origin": "mp_group",
+          "submitter": "Babka O. a další",
+          "amended_laws": [
+            "166/1993"
+          ],
+          "flagged_conflict": true,
+          "coSponsors": [
+            "Ondřej Babka",
+            "Jan Richter",
+            "Patrik Nacher",
+            "Robert Stržínek"
+          ],
+          "committees": [
+            {
+              "organ": "KV",
+              "role": "garancni",
+              "status": "navrzeno"
+            }
+          ]
+        }
+      ],
+      "coVoters": [
+        {
+          "name": "Karel Beran",
+          "club": "MS",
+          "agreement": 0.999,
+          "shared": 737
+        },
+        {
+          "name": "Petr Macinka",
+          "club": "MS",
+          "agreement": 0.999,
+          "shared": 818
+        },
+        {
+          "name": "Milan Brázdil",
+          "club": "ANO2011",
+          "agreement": 0.998,
+          "shared": 1421
+        },
+        {
+          "name": "Stanislav Fridrich",
+          "club": "ANO2011",
+          "agreement": 0.998,
+          "shared": 1327
+        },
+        {
+          "name": "Jiří Barták",
+          "club": "MS",
+          "agreement": 0.998,
+          "shared": 1333
+        },
+        {
+          "name": "Jiří Kotlík",
+          "club": "ANO2011",
+          "agreement": 0.998,
+          "shared": 454
+        }
+      ],
+      "rebellions": [
+        {
+          "club": "MS",
+          "rate": 0.002,
+          "rebelVotes": 4,
+          "eligibleVotes": 1674
+        }
+      ],
+      "linkedCompanies": []
+    },
+    {
+      "pspId": 7020,
+      "name": "Šárka Kučerová",
+      "club": "Piráti",
+      "region": "Olomoucký",
+      "lens": [
+        "bottom5"
+      ],
+      "props": {
+        "contribution_score": 9.4,
+        "participation_rate": 0,
+        "committee_count": 0,
+        "leadership_count": 0,
+        "absence_rate": 0.1,
+        "bills_authored": 0,
+        "interpellations": 0,
+        "speech_turns": 0,
+        "absentee_manager_lead": false,
+        "contested_vote_rebellion": null,
+        "rebellion_rate": null
+      },
+      "triage": {
+        "zVsClub": -3.33,
+        "quietWorkhorse": false,
+        "quietWorkhorseIndex": 0,
+        "triageScore": 3.33
+      },
+      "committees": [],
+      "sponsoredBills": [],
+      "coVoters": [],
+      "rebellions": [],
+      "linkedCompanies": []
+    },
+    {
+      "pspId": 7019,
+      "name": "Petr Kubis",
+      "club": "ANO2011",
+      "region": "Karlovarský",
+      "lens": [
+        "bottom5"
+      ],
+      "props": {
+        "contribution_score": 10.4,
+        "participation_rate": 0,
+        "committee_count": 0,
+        "leadership_count": 0,
+        "absence_rate": 0,
+        "bills_authored": 0,
+        "interpellations": 0,
+        "speech_turns": 1,
+        "absentee_manager_lead": false,
+        "contested_vote_rebellion": null,
+        "rebellion_rate": null
+      },
+      "triage": {
+        "zVsClub": -2.91,
+        "quietWorkhorse": false,
+        "quietWorkhorseIndex": -0.072,
+        "triageScore": 2.91
+      },
+      "committees": [],
+      "sponsoredBills": [],
+      "coVoters": [],
+      "rebellions": [],
+      "linkedCompanies": []
+    },
+    {
+      "pspId": 6990,
+      "name": "Karel Beran",
+      "club": "MS",
+      "region": "Vysočina",
+      "lens": [
+        "quiet-workhorse"
+      ],
+      "props": {
+        "contribution_score": 47,
+        "participation_rate": 0.4,
+        "committee_count": 9,
+        "leadership_count": 1,
+        "absence_rate": 0.4,
+        "bills_authored": 0,
+        "interpellations": 0,
+        "speech_turns": 0,
+        "absentee_manager_lead": false,
+        "contested_vote_rebellion": 0,
+        "rebellion_rate": 0
+      },
+      "triage": {
+        "zVsClub": -1.26,
+        "quietWorkhorse": true,
+        "quietWorkhorseIndex": 0.783,
+        "triageScore": 2.76
+      },
+      "committees": [
+        {
+          "abbrev": "VO",
+          "organType": "Výbor",
+          "nameCz": "Výbor pro obranu",
+          "role": "vice",
+          "weight": 0.6
+        },
+        {
+          "abbrev": "ZAV",
+          "organType": "Výbor",
+          "nameCz": "Zahraniční výbor",
+          "role": "member",
+          "weight": 0.3
+        },
+        {
+          "abbrev": "ZEV",
+          "organType": "Výbor",
+          "nameCz": "Zemědělský výbor",
+          "role": "member",
+          "weight": 0.3
+        },
+        {
+          "abbrev": "SKVZ",
+          "organType": "Komise",
+          "nameCz": "Stálá komise pro kontrolu činnosti Vojenského zpravodajství",
+          "role": "member",
+          "weight": 0.3
+        },
+        {
+          "abbrev": "SKÚZSI",
+          "organType": "Komise",
+          "nameCz": "Stálá komise pro kontrolu činnosti Úřadu pro zahraniční styky a informace",
+          "role": "member",
+          "weight": 0.3
+        }
+      ],
+      "sponsoredBills": [],
+      "coVoters": [
+        {
+          "name": "Andrej Babiš",
+          "club": "ANO2011",
+          "agreement": 1,
+          "shared": 243
+        },
+        {
+          "name": "Ladislav Okleštěk",
+          "club": "ANO2011",
+          "agreement": 1,
+          "shared": 615
+        },
+        {
+          "name": "Milan Brázdil",
+          "club": "ANO2011",
+          "agreement": 1,
+          "shared": 793
+        },
+        {
+          "name": "Jaroslav Faltýnek",
+          "club": "ANO2011",
+          "agreement": 1,
+          "shared": 677
+        },
+        {
+          "name": "Miloslav Janulík",
+          "club": "ANO2011",
+          "agreement": 1,
+          "shared": 737
+        },
+        {
+          "name": "David Kasal",
+          "club": "ANO2011",
+          "agreement": 1,
+          "shared": 594
+        }
+      ],
+      "rebellions": [
+        {
+          "club": "MS",
+          "rate": 0,
+          "rebelVotes": 0,
+          "eligibleVotes": 819
+        }
+      ],
+      "linkedCompanies": []
+    }
+  ]
+}

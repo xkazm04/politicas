@@ -1,0 +1,233 @@
+{
+  "case": "effort",
+  "batch": 1,
+  "generatedAt": "2026-07-24",
+  "note": "Gated wire proposals from the army of 20. All props are namespaced effort_* on person nodes. NO contribution number is proposed (computeContribution owns those). low_score_reason enum currently {minister,deputy_pm,prime_minister,opposition_leader,replacement,new_mp,dual_mandate,genuine_absentee,low_legislative_output,unknown} + PROPOSED addition `declined_mandate` (elected but never sworn / relinquished pre-oath) — see handoff. review_state of every prop = pending_review (annotation only; never flips a human gate).",
+  "proposals": [
+    {
+      "id": "psp:person:6751", "name": "Karel Haas", "club": "ODS", "lens": ["top5"],
+      "props": {
+        "effort_work_themes": ["ústavní a procesní právo", "veřejná správa a e-government", "ochrana přírody a krajiny", "zdraví a návykové látky", "obchod a podnikání"],
+        "effort_bill_focus": "5 spolupodepsaných tisků (72, 103, 129, 208, 261); garanční role přes ÚPV u tisku 72 (schválen, v Senátu)",
+        "effort_public_role": "Místopředseda ústavně-právního výboru (ÚPV); člen MIV a dvou stálých komisí",
+        "effort_notes": "Nikdy první předkladatel u svých 5 tisků — skóre odráží šíři spolupodpisů skupinové legislativy ODS, ne osobní autorství."
+      },
+      "signal": 0.85, "headline": "Místopředseda ústavně-právního výboru s pěti návrhy zákonů za první rok — jednací řád, e-government i ochrana přírody.",
+      "citations": ["https://www.psp.cz/sqw/historie.sqw?o=10&t=72", "https://www.psp.cz/sqw/historie.sqw?o=10&t=261"]
+    },
+    {
+      "id": "psp:person:5512", "name": "Boris Šťastný", "club": "MS", "lens": ["top5"],
+      "props": {
+        "effort_work_themes": ["trestní právo", "stavební právo", "sociální pojištění a důchody", "daně", "ochrana zvířat", "zdravotnictví"],
+        "effort_bill_focus": "8 spolupodepsaných tisků, žádný jako první předkladatel: stavební zákon (67, schválen), sociální pojištění (11 → zákon 90/2026 Sb.), penzijní spoření (119 → zákon 128/2026 Sb.), trestní zákoník (115,173,216), ochrana zvířat (174, zastaveno)",
+        "effort_public_role": "Místopředseda Výboru pro zdravotnictví (VZ); člen Organizačního výboru a Stálé komise pro kontrolu Vojenského zpravodajství",
+        "effort_notes": "0 interpelací, absence 0.4; skóre nese objem spolupodpisů a výborová pozice, ne osobní autorství či kontrolní aktivita."
+      },
+      "signal": 0.72, "headline": "Osm spolupodepsaných tisků napříč stavebním, trestním i sociálním právem — bez vlastního tisku.",
+      "citations": ["https://www.psp.cz/sqw/historie.sqw?o=10&t=67", "https://www.psp.cz/sqw/historie.sqw?o=10&t=11", "https://www.psp.cz/sqw/historie.sqw?o=10&t=119"]
+    },
+    {
+      "id": "psp:person:7054", "name": "Renata Vesecká", "club": "MS", "lens": ["top5"],
+      "props": {
+        "effort_work_themes": ["ústavní a procesní právo", "státní služba a veřejná správa", "trestní právo", "protikorupční dohled"],
+        "effort_bill_focus": "5 spolupodepsaných tisků: státní zaměstnanci (76/77, schválen, v Senátu), zrušení nominačního zákona (116, ve výboru), trestní zákoník (173) a ochrana zvířat (174, obojí zastaveno v 1. čtení)",
+        "effort_public_role": "Předsedkyně ÚPV (od 14.11.2025) a předsedkyně jeho podvýboru pro justici; místopředsedkyně VZ; členka vyšetřovací komise 'Dozimetr'",
+        "effort_notes": "Nejsilnější výborové vedení z pětice (12 orgánů, 4 vedoucí posty); nikdy první předkladatel u tisku."
+      },
+      "signal": 0.88, "headline": "Předsedkyně ústavně-právního výboru od prvního měsíce mandátu — nejsilnější výborové vedení z celé pětice.",
+      "citations": ["https://www.psp.cz/sqw/detail.sqw?id=7054&o=10", "https://www.psp.cz/sqw/historie.sqw?o=10&t=76", "https://www.psp.cz/sqw/historie.sqw?o=10&t=116"]
+    },
+    {
+      "id": "psp:person:6474", "name": "Zuzana Ožanová", "club": "ANO2011", "lens": ["top5"],
+      "props": {
+        "effort_work_themes": ["ústavní právo", "personální nominace do státních firem", "státní služba"],
+        "effort_bill_focus": "První předkladatelka tisku 116 (zrušení nominačního zákona 353/2019, ve výboru); spolupředkladatelka zákona o státních zaměstnancích 76/77 (schválen)",
+        "effort_public_role": "Místopředsedkyně ÚPV; místopředsedkyně Stálé komise pro kontrolu NBÚ; členka Hospodářského výboru",
+        "effort_notes": "Jediná z pětice se 100% účastí a 0% absencí; 183 vystoupení (nejvíce z pětice) — skóre váženo k činnosti v sále nad objemem tisků (3)."
+      },
+      "signal": 0.80, "headline": "Stoprocentní docházka, 183 vystoupení a vlastní návrh na zrušení nominačního zákona.",
+      "citations": ["https://www.psp.cz/sqw/historie.sqw?o=10&t=116", "https://www.zakonyprolidi.cz/cs/2019-353"]
+    },
+    {
+      "id": "psp:person:6468", "name": "Taťána Malá", "club": "ANO2011", "lens": ["top5"],
+      "props": {
+        "effort_work_themes": ["trestní právo", "ústavní a procesní právo", "sociální pojištění a důchody", "daně", "média a vysílací poplatky", "státní symboly"],
+        "effort_bill_focus": "9 tisků, nejvíce z pětice; první předkladatelka novely trestního zákoníku (216); spolupředkladatelka dvou přijatých zákonů (11 → 90/2026 Sb., 119 → 128/2026 Sb.)",
+        "effort_public_role": "Místopředsedkyně ÚPV; členka Organizačního výboru, VZ a Stálé komise SKÚZSI",
+        "effort_notes": "100% účast a nejvyšší počet tisků z pětice; jedna ze dvou (s Ožanovou), kdo je první předkladatel u některého tisku."
+      },
+      "signal": 0.87, "headline": "Devět tisků za první rok, včetně vlastní novely trestního zákoníku — nejplodnější zákonodárkyně z pětice.",
+      "citations": ["https://www.psp.cz/sqw/historie.sqw?o=10&t=216", "https://www.psp.cz/sqw/historie.sqw?o=10&t=119"]
+    },
+    {
+      "id": "psp:person:6500", "name": "Jan Richter", "club": "ANO2011", "lens": ["quiet-workhorse"],
+      "props": {
+        "effort_committee_focus": "Místopředseda Kontrolního výboru; člen komise pro kontrolu BIS",
+        "effort_work_themes": ["jednací řád / parlamentní procedura", "audit a kontrola (NKÚ)", "sociální/zdravotní pojištění"],
+        "effort_public_role": "Místopředseda Kontrolního výboru; člen Výboru pro vědu/vzdělání; člen komise pro kontrolu BIS; předseda skupiny přátel ČR–Albánie",
+        "effort_workhorse": true,
+        "effort_notes": "Nula vystoupení v sále za ~8 měsíců, ale 5 spolupodepsaných tisků, vč. novely jednacího řádu ve 3. čtení (nyní v Senátu) a novely zákona o NKÚ před vlastním Kontrolním výborem. committee_count v props je pravděpodobně nadhodnocen nesubstantivními skupinami přátelství — viz kalibrace."
+      },
+      "signal": 0.82, "headline": "Tichý pracant kontroly: 5 tisků včetně novely jednacího řádu už v Senátu, ani jedno vystoupení v sále.",
+      "citations": ["https://www.psp.cz/sqw/detail.sqw?id=6500", "https://www.psp.cz/sqw/historie.sqw?o=10&t=72", "https://www.psp.cz/sqw/historie.sqw?o=10&t=217"]
+    },
+    {
+      "id": "psp:person:6994", "name": "Monika Brzesková", "club": "KDU-ČSL", "lens": ["quiet-workhorse"],
+      "props": {
+        "effort_committee_focus": "Předsedkyně Výboru pro sociální politiku",
+        "effort_work_themes": ["důchodové a nemocenské pojištění", "sociální právo", "rodinná politika", "právo životního prostředí (spolupředkladatel)"],
+        "effort_public_role": "Předsedkyně Výboru pro sociální politiku; členka Výboru pro evropské záležitosti; ověřovatelka komise pro rodinu a rovné příležitosti",
+        "effort_workhorse": true,
+        "effort_notes": "9 tisků, většina garantovaných vlastním výborem, vč. vládou napadené důchodové novely. absence_rate 0.7 ve zdrojových datech není vysvětlena žádným veřejným záznamem — příznak k prověření, ne tvrzení příčiny."
+      },
+      "signal": 0.83, "headline": "Předsedkyně sociálního výboru s devíti tisky — vládou napadenou důchodovou novelu vede přes vlastní výbor, v sále jen osmkrát.",
+      "citations": ["https://www.psp.cz/sqw/detail.sqw?id=6994", "https://www.psp.cz/sqw/historie.sqw?o=10&t=50", "https://www.psp.cz/sqw/historie.sqw?o=10&t=74"]
+    },
+    {
+      "id": "psp:person:7041", "name": "Gabriela Sedláčková", "club": "MS", "lens": ["quiet-workhorse"],
+      "props": {
+        "effort_committee_focus": "Předsedkyně komise pro kontrolu NBÚ; místopředsedkyně Petičního výboru; místopředsedkyně klubu",
+        "effort_work_themes": ["dohled nad národní bezpečností", "kontrola zpravodajských služeb", "petice/stížnosti občanů", "audit a kontrola (spolupředkladatel)"],
+        "effort_public_role": "Předsedkyně Stálé komise pro kontrolu NBÚ; místopředsedkyně Petičního výboru; místopředsedkyně klubu Motoristé sobě",
+        "effort_workhorse": true,
+        "effort_notes": "Nejtěžší výborová zátěž z pětice (12 orgánů) a 4 vedoucí posty, ale jen 1 tisk (spolupředkladatel). Práce je kontrolně-institucionální, ne legislativně-autorská — app by měla tyto dva typy 'tichého pracanta' rozlišit."
+      },
+      "signal": 0.78, "headline": "Šéfka dozoru nad NBÚ a místopředsedkyně klubu: 12 orgánů, čtyři vedoucí posty, jen pět vystoupení v sále.",
+      "citations": ["https://www.psp.cz/sqw/detail.sqw?id=7041", "https://www.psp.cz/sqw/historie.sqw?o=10&t=217"]
+    },
+    {
+      "id": "psp:person:6523", "name": "Michal Ratiborský", "club": "ANO2011", "lens": ["quiet-workhorse"],
+      "props": {
+        "effort_committee_focus": "Místopředseda komise pro kontrolu odposlechů (SKKPO); člen Zahraničního a Obranného výboru",
+        "effort_work_themes": ["dohled nad odposlechy/sledováním", "zahraniční věci", "obrana", "kybernetická bezpečnost"],
+        "effort_public_role": "Místopředseda SKKPO; vedoucí delegace do PS OBSE; předseda skupin přátel ČR–Čína a ČR–Ázerbájdžán",
+        "effort_workhorse": true,
+        "effort_notes": "Nula tisků za ~8 měsíců — celý příspěvek je výborový/kontrolní dohled plus mezinárodní reprezentace. Nejvíce výborů, nejméně legislativy z pětice."
+      },
+      "signal": 0.75, "headline": "Deset výborů a komisí, nula tisků: tichý dozorce odposlechů a zahraniční diplomacie za scénou.",
+      "citations": ["https://www.psp.cz/sqw/detail.sqw?id=6523"]
+    },
+    {
+      "id": "psp:person:6990", "name": "Karel Beran", "club": "MS", "lens": ["quiet-workhorse"],
+      "props": {
+        "effort_committee_focus": "Místopředseda Výboru pro obranu (do 05/2026); člen Zahraničního výboru",
+        "effort_work_themes": ["dohled nad obranou", "dohled nad zahraniční službou", "dohled nad vojenským zpravodajstvím"],
+        "effort_public_role": "Bývalý místopředseda Výboru pro obranu — v květnu 2026 se vzdal mandátu a stal se vedoucím Stálé mise ČR při OSN v Ženevě",
+        "effort_low_score_reason": "declined_mandate",
+        "effort_notes": "Nízká participation je artefakt délky mandátu (raná rezignace kariérního diplomata na post při OSN), ne odpojení — držel reálný post místopředsedy výboru pro obranu a nikdy v sále nepromluvil. psp.cz nyní eviduje 0 aktivních rolí."
+      },
+      "signal": 0.58, "headline": "Místopředseda výboru pro obranu, který v sále nikdy nepromluvil — a v květnu odešel na misi OSN v Ženevě.",
+      "citations": ["https://ekonomickydenik.cz/poslanec-motoristu-beran-konci-snemovna/", "https://www.psp.cz/sqw/detail.sqw?id=6990"]
+    },
+    {
+      "id": "psp:person:6623", "name": "Ondřej Babka", "club": "ANO2011", "lens": ["high-triage", "contested"],
+      "props": {
+        "effort_work_themes": ["mediální záležitosti", "životní prostředí", "kontrola veřejných financí (NKÚ)"],
+        "effort_public_role": "Místopředseda Výboru pro mediální záležitosti; člen Výboru pro životní prostředí, Volební komise, Stálé komise pro Kancelář; jediný tisk (217) novelizuje zákon o NKÚ",
+        "effort_independence_note": "Láme klubovou (ANO2011) linii u 21,8 % těsných/sporných hlasování; celková míra rebelie 2,8 % (45 z 1 626) — nejvyšší nezávislost u těsných hlasování v této kohortě.",
+        "effort_notes": "Poslanec prvního období (od 4.10.2025); 100% účast spolu s nejvyšší rebelií u těsných hlasování; jen 1 tisk, aktivita soustředěná do výborové/kontrolní práce."
+      },
+      "signal": 0.78, "headline": "Stoprocentní docházka, ale nejméně poslušný: nováček ANO láme klubovou linii u pětiny těsných hlasování.",
+      "citations": ["https://www.psp.cz/sqw/detail.sqw?id=6623", "https://www.zakonyprolidi.cz/cs/1993-166"]
+    },
+    {
+      "id": "psp:person:5899", "name": "Jan Bureš", "club": "ODS", "lens": ["high-triage", "contested"],
+      "props": {
+        "effort_work_themes": ["životní prostředí / ochrana přírody", "dohled nad vojenským zpravodajstvím", "e-government / veřejná správa", "regulace maloobchodu"],
+        "effort_public_role": "Místopředseda Výboru pro životní prostředí; místopředseda Stálé komise pro kontrolu Vojenského zpravodajství; spolupředkladatel zákonů ODS o ochraně přírody, e-governmentu a otevírací době obchodů",
+        "effort_independence_note": "Láme klubovou (ODS) linii u 14,9 % těsných/sporných hlasování; celková míra rebelie 2,3 % (33 z 1 415).",
+        "effort_notes": "Nejvyšší kontribuční skóre z trojice (90,5), přitom regionální tisk ho označil za 'největšího absentéra' domovského kraje (absence 0.5) — dva výborové místopředsednické posty naznačují práci mimo plénum."
+      },
+      "signal": 0.72, "headline": "Nejpracovitější, přesto nejvíc chybí: silná legislativní stopa a nezávislost u těsných hlasování, ale i nejhorší docházka z pětice krajských poslanců.",
+      "citations": ["https://www.psp.cz/sqw/detail.sqw?id=5899", "https://karlovarsky.denik.cz/zpravy_region/poslanec-jan-bures-liska-neni-nejsilnejsi-zvire-v-lese-ale-umi-byt-uspesna-20250.html"]
+    },
+    {
+      "id": "psp:person:7045", "name": "Petr Sokol", "club": "ODS", "lens": ["high-triage", "contested"],
+      "props": {
+        "effort_work_themes": ["evropské záležitosti", "zahraniční politika", "dohled nad zpravodajstvím (ÚZSI)", "regulace veřejného zdraví"],
+        "effort_public_role": "Předseda Výboru pro evropské záležitosti; místopředseda Zahraničního výboru a komise pro kontrolu ÚZSI; zároveň místopředseda klubu ODS; spolupředkladatel zákonů o e-governmentu, otevírací době a návykových látkách",
+        "effort_independence_note": "Láme klubovou (ODS) linii u 12,7 % těsných/sporných hlasování; celková míra rebelie 1,5 % (20 z 1 312) — pozoruhodné vzhledem k tomu, že sám je místopředsedou klubu ODS.",
+        "effort_notes": "Nejvíce vedoucích výborových postů z trojice (1 předseda + 2 místopředsedové) a nejvyšší committee_count (9); přesto registrován jako rebel u těsných hlasování proti vlastnímu klubu, jehož je místopředsedou — vnitřní napětí, uvedeno věcně bez motivu."
+      },
+      "signal": 0.75, "headline": "Místopředseda vlastního klubu, který se přesto neváhá postavit proti: šéfuje evropskému výboru, ale u těsných hlasování láme linii ODS.",
+      "citations": ["https://www.psp.cz/sqw/detail.sqw?id=7045", "https://olomoucky.denik.cz/zpravy_region/ods-olomoucky-kraj-lidr-petr-sokol-martin-major-2025.html"]
+    },
+    {
+      "id": "psp:person:6074", "name": "Petr Fiala", "club": "ODS", "lens": ["bottom5", "exec"],
+      "props": {
+        "effort_public_role": "Bývalý předseda vlády ČR (do cca 9.–15.12.2025, rezignace 6.11.2025) a bývalý předseda ODS (do 17.–18.1.2026); nyní řadový poslanec v opozici.",
+        "effort_low_score_reason": "prime_minister",
+        "effort_mandate_note": "Mandát od 4.10.2025, klub ODS od 8.10.2025. Do 16.1.2026 (kdy přijal místo ve VVVMS) neměl žádnou výborovou pozici — souběh s předáním vlády Babišovi a kongresem ODS.",
+        "effort_notes": "Nízký kontribuční index je artefakt měření: první třetina období strávena předáváním vlády a stranickým vedením, ne absencí na půdě Sněmovny. Od 16.1.2026 se zapojuje jako běžný poslanec."
+      },
+      "signal": 0.85, "headline": "Nízké skóre je artefakt: odcházející premiér a předseda ODS v přechodu, teprve nedávno běžný poslanec.",
+      "citations": ["https://www.psp.cz/sqw/detail.sqw?id=6074", "https://cs.wikipedia.org/wiki/Vl%C3%A1da_Petra_Fialy"]
+    },
+    {
+      "id": "psp:person:7020", "name": "Šárka Kučerová", "club": "Piráti", "lens": ["bottom5", "replacement"],
+      "props": {
+        "effort_public_role": "Zvolena poslankyní za Piráty (Olomoucký kraj) ve volbách 3.–4.10.2025; mandátu se vzdala 7.10.2025, před ustavující schůzí a před složením slibu.",
+        "effort_low_score_reason": "declined_mandate",
+        "effort_mandate_note": "Nahradil ji Martin Šmída (1. náhradník, místopředseda Pirátů). Kučerová byla původně zvolenou osobou, nikoli náhradnicí — nikdy nesložila poslanecký slib.",
+        "effort_notes": "Nulové skóre neznamená absenci v úřadu, ale nulové funkční období: rezignace 7.10.2025 z rodinných důvodů. Veřejná role jen; soukromí mimo rozsah."
+      },
+      "signal": 0.90, "headline": "Nulové skóre není lenost: mandátu se vzdala týden po volbách z rodinných důvodů, nikdy nesložila slib.",
+      "citations": ["https://www.pirati.cz/jak-pirati-pracuji/sarka-kucerova-rezignuje-na-poslanecky-mandat-v-olomouckem-kraji-z-vaznych-osobnich-duvodu-nahradi-ji-martin-smida/", "https://www.psp.cz/sqw/detail.sqw?id=7020"]
+    },
+    {
+      "id": "psp:person:7019", "name": "Petr Kubis", "club": "ANO2011", "lens": ["bottom5", "replacement"],
+      "props": {
+        "effort_public_role": "Zvolen poslancem za ANO (Karlovarský kraj) ve volbách 3.–4.10.2025; slib nesložil, mandátu se vzdal koncem října 2025. Od 8.12.2025 hejtman Karlovarského kraje (dříve starosta Sokolova).",
+        "effort_low_score_reason": "declined_mandate",
+        "effort_mandate_note": "Nahradil ho Jiří Penc (5. náhradník ANO). Kubis byl původně zvolenou osobou, nikoli náhradníkem — mandátu se nikdy neujal.",
+        "effort_notes": "Nulové skóre odráží nulové funkční období: zvolen, ale slib nesložil, aby přijal/udržel krajskou exekutivní funkci (hejtman Karlovarského kraje od 8.12.2025)."
+      },
+      "signal": 0.90, "headline": "Nulové skóre není lenost: mandát nikdy nepřevzal, zvolil místo něj funkci hejtmana Karlovarského kraje.",
+      "citations": ["https://sokolovsky.denik.cz/zpravy_region/petr-kubis-odmitne-poslanecky-mandat-chce-dokoncit-rozdelanou-praci-v-sokolove-2.html", "https://www.psp.cz/sqw/detail.sqw?id=7019"]
+    },
+    {
+      "id": "psp:person:7063", "name": "Roman Zarzycký", "club": "ANO2011", "lens": ["bottom5", "absentee"],
+      "props": {
+        "effort_public_role": "Primátor statutárního města Plzně (od 2022); náměstek hejtmana Plzeňského kraje.",
+        "effort_low_score_reason": "declined_mandate",
+        "effort_concurrent_mandate": "Primátor Plzně; mandát PSP10 se vzdal 2025-11-03, nahradil ho Vlastimil Hebr.",
+        "effort_notes": "Zvolen na rekordních 12 103 preferenčních hlasů, pak se mandátu vzdal při 1. schůzi; nikdy nehlasoval. committee_count 0 potvrzeno psp.cz. ~311 mil. Kč linkovaných kontraktů se váže k plzeňským městským firmám (Čistá Plzeň 284 mil., PMDP 4,1 mil.) přes primátorský úřad — pending_review, ne parlamentní zjištění. absentee_manager_lead je FALSE POSITIVE."
+      },
+      "signal": 0.60, "headline": "Rekordní preferenční hlasy, pak se mandátu vzdal — zůstal primátorem Plzně; nulová účast není absence, ale odchod ze Sněmovny.",
+      "citations": ["https://www.psp.cz/sqw/detail.sqw?id=7063", "https://www.echo24.cz/a/HhDMq/zpravy-domaci-zarzycky-se-vzdava-postu-poslance-zustane-primatorem-plzne", "https://cs.wikipedia.org/wiki/Roman_Zarzyck%C3%BD"]
+    },
+    {
+      "id": "psp:person:6184", "name": "Richard Brabec", "club": "ANO2011", "lens": ["bottom5", "absentee"],
+      "props": {
+        "effort_public_role": "Hejtman Ústeckého kraje; vzdal se mandátu PSP10 dne 2025-10-08, mandát převzala náhradnice Jana Demjanová.",
+        "effort_government_member": false,
+        "effort_low_score_reason": "declined_mandate",
+        "effort_notes": "Nula hlasů/výborů/tisků = mandátu se nikdy neujal; hned po volbách rezignoval, aby zůstal hejtmanem. Není člen vlády (kabinet Babiš 12/2025) ani skutečný absentér. 30,6 mil. Kč firemní vazby (SPOLANA, Lovochemie — chemická skupina Agrofert) odráží předpolitické role před r. 2014, pending_review; současná kontrola neověřena. absentee_manager_lead je FALSE POSITIVE."
+      },
+      "signal": 0.88, "headline": "Nulová účast není absence: Brabec se hned po volbách vzdal mandátu a zůstal hejtmanem Ústeckého kraje — nesedí ve vládě ani ve Sněmovně.",
+      "citations": ["https://www.irozhlas.cz/zpravy-domov/brabec-z-ano-se-rozhodl-vzdat-poslaneckeho-mandatu-chce-dal-ridit-ustecky-kraj_2510081210_nel", "https://www.psp.cz/sqw/detail.sqw?id=6184", "https://vlada.gov.cz/cz/media-centrum/ocekavane-udalosti/15--prosince-2025-premier-andrej-babis-uvede-do-uradu-cleny-sve-vlady-223868/"]
+    },
+    {
+      "id": "psp:person:6190", "name": "Jaroslav Faltýnek", "club": "ANO2011", "lens": ["absentee"],
+      "props": {
+        "effort_public_role": "Poslanec PSP ČR (Olomoucký kraj, PSP10, od 4.10.2025); místopředseda poslaneckého klubu ANO 2011 a Organizačního výboru (od 8.10.2025); člen Zemědělského výboru.",
+        "effort_party_function": "Místopředseda poslaneckého klubu ANO 2011; dříve 1. místopředseda hnutí ANO 2015–2020.",
+        "effort_low_score_reason": "low_legislative_output",
+        "effort_notes": "absentee_manager_lead=true je FALSE POSITIVE: 6,27 mil. Kč se váže k AGROFERT a.s. (IČO 26185610), jehož akcie jsou od 2017 ve svěřenských fondech Babiše; Faltýnek opustil představenstvo 2016 a nemá vlastnictví. Model kóduje leadership_count 0, ale je místopředseda klubu + člen Organizačního výboru — index podceňuje jeho organizační roli."
+      },
+      "signal": 0.80, "headline": "Přítomný a loajální, ale bez vlastní legislativní stopy: dílenský manažer klubu ANO, ne skutečný absentér — a 6,3 mil. Kč patří Agrofertu ve svěřenském fondu, ne jemu.",
+      "citations": ["https://www.psp.cz/sqw/detail.sqw?id=6190", "https://www.podnikatel.cz/rejstrik/agrofert-a-s-26185610/", "https://cs.wikipedia.org/wiki/Jaroslav_Falt%C3%BDnek"]
+    },
+    {
+      "id": "psp:person:6603", "name": "Pavel Karpíšek", "club": "ODS", "lens": ["absentee"],
+      "props": {
+        "effort_public_role": "Poslanec od 10/2025; souběžně starosta obce Vejprnice (od 2010) a radní Plzeňského kraje (od 2020); bývalý senátor 2018–2024.",
+        "effort_business_sector": "vodárenství/veřejná infrastruktura, regionální rozvoj, hospodářská komora, sociální služby, sport, truhlářství",
+        "effort_low_score_reason": "dual_mandate",
+        "effort_notes": "Nízké sněmovní skóre je strukturální: první mandát ve Sněmovně (od 10/2025) při souběhu se starostou a krajským radním. Loajální hlasování (0.998 shoda s ODS), ne skutečná absence u hlasování. Firemní vazby jsou převážně regionální veřejné/poloveřejné instituce, kde zasedá z titulu voleného úřadu; jediná ryze soukromá vazba je Truhlářství Za farou s.r.o. (~10,2 mil.). Case-① nechat pending_review, ale snížit poplach."
+      },
+      "signal": 0.35, "headline": "Nový poslanec, ale zároveň starosta i krajský radní: nízká sněmovní aktivita po 8 měsících je souběh mandátů, ne skutečná absence.",
+      "citations": ["https://cs.wikipedia.org/wiki/Pavel_Karpíšek", "https://www.hlidacstatu.cz/Osoba/Vazby/pavel-karpisek?aktualnost=Aktualni"]
+    }
+  ]
+}

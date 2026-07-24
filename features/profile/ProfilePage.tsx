@@ -20,6 +20,8 @@ import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { COMPONENT_FILL } from "@/features/civicscore/components/LeaderboardTable";
+import TrendPanel from "@/features/civicscore/components/TrendPanel";
+import type { ComponentKey } from "@/lib/analysis/contribution-trend";
 
 export default function ProfilePage({ data }: { data: ProfileData }) {
   const reduceMotion = useReducedMotion();
@@ -103,6 +105,15 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
           <p className="mt-6 max-w-2xl border-l-4 border-signal pl-4 text-base italic leading-relaxed text-steel">
             {person.absenteeManagerLead ? t("absenteeFlag") : topComponent.label}
           </p>
+
+          {/* Vývoj proti minulému období — vykreslí se jen když existuje reálné
+              srovnání (contribution_psp9). Jinak zůstává jednoobdobový pohled. */}
+          {person.trend && (
+            <TrendPanel
+              trend={person.trend}
+              componentLabels={Object.fromEntries(components.map((c) => [c.key, c.label])) as Partial<Record<ComponentKey, string>>}
+            />
+          )}
         </motion.div>
 
         {/* ── 01 Složky přispění ────────────────────────────── */}

@@ -1,0 +1,3337 @@
+{
+  "case": "effort",
+  "term": "PSP10",
+  "generatedAt": "2026-07-24T17:08:17.645Z",
+  "population": 207,
+  "batch": 1,
+  "units": [
+    {
+      "pspId": 6751,
+      "name": "Karel Haas",
+      "club": "ODS",
+      "rank": 1,
+      "contribution_score": 96.8,
+      "stage": "signal",
+      "batch": 1,
+      "signal": 0.85,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 21.428,
+        "z_vs_club": 1.72
+      }
+    },
+    {
+      "pspId": 6468,
+      "name": "Taťána Malá",
+      "club": "ANO2011",
+      "rank": 2,
+      "contribution_score": 95.4,
+      "stage": "signal",
+      "batch": 1,
+      "signal": 0.87,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.989,
+        "z_vs_club": 1.93
+      }
+    },
+    {
+      "pspId": 7054,
+      "name": "Renata Vesecká",
+      "club": "MS",
+      "rank": 3,
+      "contribution_score": 95.4,
+      "stage": "signal",
+      "batch": 1,
+      "signal": 0.88,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 4.359,
+        "z_vs_club": 2.22
+      }
+    },
+    {
+      "pspId": 6474,
+      "name": "Zuzana Ožanová",
+      "club": "ANO2011",
+      "rank": 4,
+      "contribution_score": 94.6,
+      "stage": "signal",
+      "batch": 1,
+      "signal": 0.8,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 3.331,
+        "z_vs_club": 1.88
+      }
+    },
+    {
+      "pspId": 5512,
+      "name": "Boris Šťastný",
+      "club": "MS",
+      "rank": 5,
+      "contribution_score": 94.4,
+      "stage": "signal",
+      "batch": 1,
+      "signal": 0.72,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 9.716,
+        "z_vs_club": 2.15
+      }
+    },
+    {
+      "pspId": 6165,
+      "name": "Radek Vondráček",
+      "club": "ANO2011",
+      "rank": 6,
+      "contribution_score": 94.3,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 6.244,
+        "z_vs_club": 1.87
+      }
+    },
+    {
+      "pspId": 7028,
+      "name": "Bohuslav Niemiec",
+      "club": "KDU-ČSL",
+      "rank": 7,
+      "contribution_score": 93.4,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 3.66,
+        "z_vs_club": 1.25
+      }
+    },
+    {
+      "pspId": 346,
+      "name": "Petr Bendl",
+      "club": "ODS",
+      "rank": 8,
+      "contribution_score": 92.6,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.498,
+        "z_vs_club": 1.49
+      }
+    },
+    {
+      "pspId": 6998,
+      "name": "Benjamin Činčila",
+      "club": "KDU-ČSL",
+      "rank": 9,
+      "contribution_score": 91.9,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.935,
+        "z_vs_club": 1.12
+      }
+    },
+    {
+      "pspId": 6479,
+      "name": "Lucie Šafránková",
+      "club": "SPD",
+      "rank": 10,
+      "contribution_score": 91.6,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.025,
+        "z_vs_club": 1.38
+      }
+    },
+    {
+      "pspId": 6534,
+      "name": "Jiří Mašek",
+      "club": "ANO2011",
+      "rank": 11,
+      "contribution_score": 91,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 4.034,
+        "z_vs_club": 1.68
+      }
+    },
+    {
+      "pspId": 6762,
+      "name": "Pavla Pivoňka Vaňková",
+      "club": "STAN",
+      "rank": 12,
+      "contribution_score": 90.9,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.146,
+        "z_vs_club": 1.22
+      }
+    },
+    {
+      "pspId": 6789,
+      "name": "Lukáš Vlček",
+      "club": "STAN",
+      "rank": 13,
+      "contribution_score": 90.6,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.995,
+        "z_vs_club": 1.19
+      }
+    },
+    {
+      "pspId": 7046,
+      "name": "Eva Šrámková",
+      "club": "Piráti",
+      "rank": 14,
+      "contribution_score": 90.6,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.756,
+        "z_vs_club": 1.2
+      }
+    },
+    {
+      "pspId": 5899,
+      "name": "Jan Bureš",
+      "club": "ODS",
+      "rank": 15,
+      "contribution_score": 90.5,
+      "stage": "signal",
+      "batch": 1,
+      "signal": 0.72,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 14.891,
+        "z_vs_club": 1.38
+      }
+    },
+    {
+      "pspId": 6513,
+      "name": "Marek Výborný",
+      "club": "KDU-ČSL",
+      "rank": 16,
+      "contribution_score": 90.4,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.476,
+        "z_vs_club": 1
+      }
+    },
+    {
+      "pspId": 7031,
+      "name": "Patrik Pařil",
+      "club": "ANO2011",
+      "rank": 17,
+      "contribution_score": 90.2,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.64,
+        "z_vs_club": 1.63
+      }
+    },
+    {
+      "pspId": 6788,
+      "name": "Barbora Urbanová",
+      "club": "STAN",
+      "rank": 18,
+      "contribution_score": 90,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.649,
+        "z_vs_club": 1.14
+      }
+    },
+    {
+      "pspId": 6555,
+      "name": "Tom Philipp",
+      "club": "KDU-ČSL",
+      "rank": 19,
+      "contribution_score": 89.8,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 3.216,
+        "z_vs_club": 0.95
+      }
+    },
+    {
+      "pspId": 7042,
+      "name": "Lucie Sedmihradská",
+      "club": "STAN",
+      "rank": 20,
+      "contribution_score": 89.7,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.606,
+        "z_vs_club": 1.11
+      }
+    },
+    {
+      "pspId": 6796,
+      "name": "Michal Zuna",
+      "club": "TOP09",
+      "rank": 21,
+      "contribution_score": 89.4,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.08,
+        "z_vs_club": 1.8
+      }
+    },
+    {
+      "pspId": 6881,
+      "name": "Petr Hladík",
+      "club": "KDU-ČSL",
+      "rank": 22,
+      "contribution_score": 89.3,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 5.132,
+        "z_vs_club": 0.9
+      }
+    },
+    {
+      "pspId": 6214,
+      "name": "Věra Kovářová",
+      "club": "STAN",
+      "rank": 23,
+      "contribution_score": 89.2,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.008,
+        "z_vs_club": 1.07
+      }
+    },
+    {
+      "pspId": 6722,
+      "name": "Jan Berki",
+      "club": "STAN",
+      "rank": 24,
+      "contribution_score": 89.2,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 10.491,
+        "z_vs_club": 1.07
+      }
+    },
+    {
+      "pspId": 5459,
+      "name": "Radim Fiala",
+      "club": "SPD",
+      "rank": 25,
+      "contribution_score": 87.9,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.76,
+        "z_vs_club": 1.17
+      }
+    },
+    {
+      "pspId": 7018,
+      "name": "Marie Kršková",
+      "club": "KDU-ČSL",
+      "rank": 26,
+      "contribution_score": 87.6,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.302,
+        "z_vs_club": 0.76
+      }
+    },
+    {
+      "pspId": 6753,
+      "name": "Jana Hanzlíková",
+      "club": "ANO2011",
+      "rank": 27,
+      "contribution_score": 87.3,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": true,
+        "contested_vote_rebellion": 0.859,
+        "z_vs_club": 1.47
+      }
+    },
+    {
+      "pspId": 6487,
+      "name": "Patrik Nacher",
+      "club": "ANO2011",
+      "rank": 28,
+      "contribution_score": 85.7,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 11.817,
+        "z_vs_club": 1.38
+      }
+    },
+    {
+      "pspId": 6756,
+      "name": "Tomáš Helebrant",
+      "club": "ANO2011",
+      "rank": 29,
+      "contribution_score": 85.4,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 8.638,
+        "z_vs_club": 1.36
+      }
+    },
+    {
+      "pspId": 5943,
+      "name": "Helena Langšádlová",
+      "club": "TOP09",
+      "rank": 30,
+      "contribution_score": 85.3,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.401,
+        "z_vs_club": 1.37
+      }
+    },
+    {
+      "pspId": 7052,
+      "name": "František Talíř",
+      "club": "KDU-ČSL",
+      "rank": 31,
+      "contribution_score": 85.2,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.733,
+        "z_vs_club": 0.56
+      }
+    },
+    {
+      "pspId": 7002,
+      "name": "Karel Dvořák",
+      "club": "STAN",
+      "rank": 32,
+      "contribution_score": 85.1,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.798,
+        "z_vs_club": 0.72
+      }
+    },
+    {
+      "pspId": 7058,
+      "name": "Libor Vondráček",
+      "club": "SPD",
+      "rank": 33,
+      "contribution_score": 85,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.119,
+        "z_vs_club": 1.01
+      }
+    },
+    {
+      "pspId": 6473,
+      "name": "Olga Richterová",
+      "club": "Piráti",
+      "rank": 34,
+      "contribution_score": 84.2,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0,
+        "z_vs_club": 0.85
+      }
+    },
+    {
+      "pspId": 6986,
+      "name": "Hana Ančincová",
+      "club": "Piráti",
+      "rank": 35,
+      "contribution_score": 83.9,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.061,
+        "z_vs_club": 0.83
+      }
+    },
+    {
+      "pspId": 6105,
+      "name": "Tomio Okamura",
+      "club": "SPD",
+      "rank": 36,
+      "contribution_score": 83.4,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 3.122,
+        "z_vs_club": 0.92
+      }
+    },
+    {
+      "pspId": 7036,
+      "name": "Václav Pláteník",
+      "club": "KDU-ČSL",
+      "rank": 37,
+      "contribution_score": 83.2,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 4.204,
+        "z_vs_club": 0.39
+      }
+    },
+    {
+      "pspId": 7030,
+      "name": "Jan Papajanovský",
+      "club": "STAN",
+      "rank": 38,
+      "contribution_score": 82.9,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.346,
+        "z_vs_club": 0.53
+      }
+    },
+    {
+      "pspId": 6533,
+      "name": "Marek Novák",
+      "club": "ANO2011",
+      "rank": 39,
+      "contribution_score": 82.8,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 5.145,
+        "z_vs_club": 1.21
+      }
+    },
+    {
+      "pspId": 7043,
+      "name": "Štěpán Slovák",
+      "club": "ODS",
+      "rank": 40,
+      "contribution_score": 82.1,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.399,
+        "z_vs_club": 0.92
+      }
+    },
+    {
+      "pspId": 7025,
+      "name": "Jana Murová",
+      "club": "ANO2011",
+      "rank": 41,
+      "contribution_score": 81.5,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 4.235,
+        "z_vs_club": 1.14
+      }
+    },
+    {
+      "pspId": 7011,
+      "name": "Matěj Hlavatý",
+      "club": "STAN",
+      "rank": 42,
+      "contribution_score": 81.2,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.14,
+        "z_vs_club": 0.39
+      }
+    },
+    {
+      "pspId": 6763,
+      "name": "Michaela Šebelová",
+      "club": "STAN",
+      "rank": 43,
+      "contribution_score": 81.1,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.069,
+        "z_vs_club": 0.38
+      }
+    },
+    {
+      "pspId": 7065,
+      "name": "Martin Šmída",
+      "club": "Piráti",
+      "rank": 44,
+      "contribution_score": 81.1,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.969,
+        "z_vs_club": 0.67
+      }
+    },
+    {
+      "pspId": 6793,
+      "name": "Renáta Zajíčková",
+      "club": "ODS",
+      "rank": 45,
+      "contribution_score": 80.6,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 4.795,
+        "z_vs_club": 0.84
+      }
+    },
+    {
+      "pspId": 7049,
+      "name": "Gabriela Svárovská",
+      "club": "Piráti",
+      "rank": 46,
+      "contribution_score": 80.6,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.885,
+        "z_vs_club": 0.64
+      }
+    },
+    {
+      "pspId": 6418,
+      "name": "Jan Skopeček",
+      "club": "ODS",
+      "rank": 47,
+      "contribution_score": 80.5,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 10.771,
+        "z_vs_club": 0.83
+      }
+    },
+    {
+      "pspId": 6803,
+      "name": "Jiří Horák",
+      "club": "KDU-ČSL",
+      "rank": 48,
+      "contribution_score": 80.4,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.091,
+        "z_vs_club": 0.16
+      }
+    },
+    {
+      "pspId": 7045,
+      "name": "Petr Sokol",
+      "club": "ODS",
+      "rank": 49,
+      "contribution_score": 80.2,
+      "stage": "signal",
+      "batch": 1,
+      "signal": 0.75,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 12.681,
+        "z_vs_club": 0.82
+      }
+    },
+    {
+      "pspId": 7048,
+      "name": "Kateřina Stojanová",
+      "club": "Piráti",
+      "rank": 50,
+      "contribution_score": 80.1,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.102,
+        "z_vs_club": 0.62
+      }
+    },
+    {
+      "pspId": 7057,
+      "name": "Samuel Volpe",
+      "club": "Piráti",
+      "rank": 51,
+      "contribution_score": 80,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.014,
+        "z_vs_club": 0.61
+      }
+    },
+    {
+      "pspId": 6758,
+      "name": "Igor Hendrych",
+      "club": "ANO2011",
+      "rank": 52,
+      "contribution_score": 79.9,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.748,
+        "z_vs_club": 1.05
+      }
+    },
+    {
+      "pspId": 6459,
+      "name": "Jakub Janda",
+      "club": "ODS",
+      "rank": 53,
+      "contribution_score": 79.7,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 8.269,
+        "z_vs_club": 0.79
+      }
+    },
+    {
+      "pspId": 7035,
+      "name": "Barbora Pipášová",
+      "club": "Piráti",
+      "rank": 54,
+      "contribution_score": 78.6,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.938,
+        "z_vs_club": 0.53
+      }
+    },
+    {
+      "pspId": 6457,
+      "name": "Eva Fialová",
+      "club": "ANO2011",
+      "rank": 55,
+      "contribution_score": 78.2,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 3.445,
+        "z_vs_club": 0.95
+      }
+    },
+    {
+      "pspId": 6466,
+      "name": "Jana Krutáková",
+      "club": "STAN",
+      "rank": 56,
+      "contribution_score": 78,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": true,
+        "contested_vote_rebellion": 2.076,
+        "z_vs_club": 0.11
+      }
+    },
+    {
+      "pspId": 7038,
+      "name": "Barbora Rázga",
+      "club": "ANO2011",
+      "rank": 57,
+      "contribution_score": 78,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.583,
+        "z_vs_club": 0.94
+      }
+    },
+    {
+      "pspId": 6770,
+      "name": "Renata Oulehlová",
+      "club": "ANO2011",
+      "rank": 58,
+      "contribution_score": 77.9,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.045,
+        "z_vs_club": 0.93
+      }
+    },
+    {
+      "pspId": 7003,
+      "name": "Irena Ferčíková Konečná",
+      "club": "Piráti",
+      "rank": 59,
+      "contribution_score": 77.8,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.061,
+        "z_vs_club": 0.49
+      }
+    },
+    {
+      "pspId": 6433,
+      "name": "Ivan Bartoš",
+      "club": "Piráti",
+      "rank": 60,
+      "contribution_score": 77.7,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.503,
+        "z_vs_club": 0.48
+      }
+    },
+    {
+      "pspId": 6745,
+      "name": "Marie Pošarová",
+      "club": "SPD",
+      "rank": 61,
+      "contribution_score": 77.3,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.516,
+        "z_vs_club": 0.58
+      }
+    },
+    {
+      "pspId": 6225,
+      "name": "Jana Pastuchová",
+      "club": "ANO2011",
+      "rank": 62,
+      "contribution_score": 77.1,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.931,
+        "z_vs_club": 0.89
+      }
+    },
+    {
+      "pspId": 6623,
+      "name": "Ondřej Babka",
+      "club": "ANO2011",
+      "rank": 63,
+      "contribution_score": 76.9,
+      "stage": "signal",
+      "batch": 1,
+      "signal": 0.78,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 21.765,
+        "z_vs_club": 0.88
+      }
+    },
+    {
+      "pspId": 6994,
+      "name": "Monika Brzesková",
+      "club": "KDU-ČSL",
+      "rank": 64,
+      "contribution_score": 76.2,
+      "stage": "signal",
+      "batch": 1,
+      "signal": 0.83,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": true,
+        "contested_vote_rebellion": 2.674,
+        "z_vs_club": -0.19
+      }
+    },
+    {
+      "pspId": 6064,
+      "name": "Miroslav Ševčík",
+      "club": "SPD",
+      "rank": 65,
+      "contribution_score": 76,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.88,
+        "z_vs_club": 0.51
+      }
+    },
+    {
+      "pspId": 7061,
+      "name": "Ester Weimerová",
+      "club": "STAN",
+      "rank": 66,
+      "contribution_score": 76,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0,
+        "z_vs_club": -0.06
+      }
+    },
+    {
+      "pspId": 6743,
+      "name": "Robert Stržínek",
+      "club": "ANO2011",
+      "rank": 67,
+      "contribution_score": 75.8,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.582,
+        "z_vs_club": 0.81
+      }
+    },
+    {
+      "pspId": 7044,
+      "name": "Julie Smejkalová",
+      "club": "STAN",
+      "rank": 68,
+      "contribution_score": 75.7,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0,
+        "z_vs_club": -0.08
+      }
+    },
+    {
+      "pspId": 6524,
+      "name": "Vít Rakušan",
+      "club": "STAN",
+      "rank": 69,
+      "contribution_score": 75.4,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0,
+        "z_vs_club": -0.11
+      }
+    },
+    {
+      "pspId": 6500,
+      "name": "Jan Richter",
+      "club": "ANO2011",
+      "rank": 70,
+      "contribution_score": 75.2,
+      "stage": "signal",
+      "batch": 1,
+      "signal": 0.82,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": true,
+        "contested_vote_rebellion": 1.482,
+        "z_vs_club": 0.78
+      }
+    },
+    {
+      "pspId": 6766,
+      "name": "Eliška Olšáková",
+      "club": "STAN",
+      "rank": 71,
+      "contribution_score": 75.2,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.654,
+        "z_vs_club": -0.13
+      }
+    },
+    {
+      "pspId": 6780,
+      "name": "Berenika Peštová",
+      "club": "ANO2011",
+      "rank": 72,
+      "contribution_score": 75.2,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.968,
+        "z_vs_club": 0.78
+      }
+    },
+    {
+      "pspId": 6484,
+      "name": "David Štolpa",
+      "club": "ANO2011",
+      "rank": 73,
+      "contribution_score": 74.8,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 5.313,
+        "z_vs_club": 0.76
+      }
+    },
+    {
+      "pspId": 6537,
+      "name": "Jan Lipavský",
+      "club": "ODS",
+      "rank": 74,
+      "contribution_score": 74.7,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.994,
+        "z_vs_club": 0.51
+      }
+    },
+    {
+      "pspId": 6216,
+      "name": "Michal Kučera",
+      "club": "TOP09",
+      "rank": 75,
+      "contribution_score": 74.5,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.286,
+        "z_vs_club": 0.22
+      }
+    },
+    {
+      "pspId": 6168,
+      "name": "Helena Válková",
+      "club": "ANO2011",
+      "rank": 76,
+      "contribution_score": 74.3,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 6.443,
+        "z_vs_club": 0.73
+      }
+    },
+    {
+      "pspId": 6246,
+      "name": "Josef Kott",
+      "club": "ANO2011",
+      "rank": 77,
+      "contribution_score": 73.5,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 6.097,
+        "z_vs_club": 0.68
+      }
+    },
+    {
+      "pspId": 6992,
+      "name": "Zdeňka Blišťanová",
+      "club": "TOP09",
+      "rank": 78,
+      "contribution_score": 73.3,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.24,
+        "z_vs_club": 0.09
+      }
+    },
+    {
+      "pspId": 7037,
+      "name": "Jindřich Rajchl",
+      "club": "SPD",
+      "rank": 79,
+      "contribution_score": 72.7,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.346,
+        "z_vs_club": 0.32
+      }
+    },
+    {
+      "pspId": 7000,
+      "name": "Denis Doksanský",
+      "club": "ANO2011",
+      "rank": 80,
+      "contribution_score": 72.6,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.686,
+        "z_vs_club": 0.63
+      }
+    },
+    {
+      "pspId": 6486,
+      "name": "Vojtěch Munzar",
+      "club": "ODS",
+      "rank": 81,
+      "contribution_score": 72.4,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 4.61,
+        "z_vs_club": 0.39
+      }
+    },
+    {
+      "pspId": 6997,
+      "name": "Adriana Chochelová",
+      "club": "STAN",
+      "rank": 82,
+      "contribution_score": 72.3,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0,
+        "z_vs_club": -0.37
+      }
+    },
+    {
+      "pspId": 6754,
+      "name": "Matěj Ondřej Havel",
+      "club": "TOP09",
+      "rank": 83,
+      "contribution_score": 71.5,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0,
+        "z_vs_club": -0.1
+      }
+    },
+    {
+      "pspId": 6527,
+      "name": "David Pražák",
+      "club": "ANO2011",
+      "rank": 84,
+      "contribution_score": 71.3,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.085,
+        "z_vs_club": 0.56
+      }
+    },
+    {
+      "pspId": 4,
+      "name": "Marek Benda",
+      "club": "ODS",
+      "rank": 85,
+      "contribution_score": 71.1,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 3.713,
+        "z_vs_club": 0.32
+      }
+    },
+    {
+      "pspId": 6506,
+      "name": "Tomáš Kohoutek",
+      "club": "ANO2011",
+      "rank": 86,
+      "contribution_score": 71.1,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 4.453,
+        "z_vs_club": 0.55
+      }
+    },
+    {
+      "pspId": 6755,
+      "name": "Jiří Havránek",
+      "club": "ODS",
+      "rank": 87,
+      "contribution_score": 71.1,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 8.058,
+        "z_vs_club": 0.32
+      }
+    },
+    {
+      "pspId": 6782,
+      "name": "Drahoslav Ryba",
+      "club": "ANO2011",
+      "rank": 88,
+      "contribution_score": 71,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.103,
+        "z_vs_club": 0.54
+      }
+    },
+    {
+      "pspId": 5903,
+      "name": "Jana Černochová",
+      "club": "ODS",
+      "rank": 89,
+      "contribution_score": 70.9,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.667,
+        "z_vs_club": 0.31
+      }
+    },
+    {
+      "pspId": 7039,
+      "name": "Vítězslav Schrek",
+      "club": "ODS",
+      "rank": 90,
+      "contribution_score": 70.5,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 3.684,
+        "z_vs_club": 0.28
+      }
+    },
+    {
+      "pspId": 6211,
+      "name": "Martin Kolovratník",
+      "club": "ANO2011",
+      "rank": 91,
+      "contribution_score": 70.4,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 3.392,
+        "z_vs_club": 0.51
+      }
+    },
+    {
+      "pspId": 6769,
+      "name": "Hayato Okamura",
+      "club": "KDU-ČSL",
+      "rank": 92,
+      "contribution_score": 70.4,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.138,
+        "z_vs_club": -0.68
+      }
+    },
+    {
+      "pspId": 5700,
+      "name": "Ivan Adamec",
+      "club": "ODS",
+      "rank": 93,
+      "contribution_score": 70.2,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 3.848,
+        "z_vs_club": 0.27
+      }
+    },
+    {
+      "pspId": 6482,
+      "name": "Vlastimil Válek",
+      "club": "TOP09",
+      "rank": 94,
+      "contribution_score": 70,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.215,
+        "z_vs_club": -0.26
+      }
+    },
+    {
+      "pspId": 7066,
+      "name": "Vlastimil Hebr",
+      "club": "ANO2011",
+      "rank": 95,
+      "contribution_score": 69.7,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.71,
+        "z_vs_club": 0.47
+      }
+    },
+    {
+      "pspId": 6520,
+      "name": "Pavel Růžička",
+      "club": "ANO2011",
+      "rank": 96,
+      "contribution_score": 69.6,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 6.119,
+        "z_vs_club": 0.46
+      }
+    },
+    {
+      "pspId": 6435,
+      "name": "Martin Baxa",
+      "club": "ODS",
+      "rank": 97,
+      "contribution_score": 69.5,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 4.381,
+        "z_vs_club": 0.23
+      }
+    },
+    {
+      "pspId": 7029,
+      "name": "Pavel Outrata",
+      "club": "ANO2011",
+      "rank": 98,
+      "contribution_score": 69.4,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.812,
+        "z_vs_club": 0.45
+      }
+    },
+    {
+      "pspId": 7051,
+      "name": "Vendula Svobodová",
+      "club": "Piráti",
+      "rank": 99,
+      "contribution_score": 69.3,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.162,
+        "z_vs_club": 0.01
+      }
+    },
+    {
+      "pspId": 6205,
+      "name": "Marian Jurečka",
+      "club": "KDU-ČSL",
+      "rank": 100,
+      "contribution_score": 69,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 3.216,
+        "z_vs_club": -0.8
+      }
+    },
+    {
+      "pspId": 7015,
+      "name": "Jakub Krainer",
+      "club": "STAN",
+      "rank": 101,
+      "contribution_score": 69,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0,
+        "z_vs_club": -0.66
+      }
+    },
+    {
+      "pspId": 5911,
+      "name": "Jaroslav Foldyna",
+      "club": "SPD",
+      "rank": 102,
+      "contribution_score": 68.8,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 6.76,
+        "z_vs_club": 0.1
+      }
+    },
+    {
+      "pspId": 6455,
+      "name": "Jan Hrnčíř",
+      "club": "SPD",
+      "rank": 103,
+      "contribution_score": 68.8,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 5.671,
+        "z_vs_club": 0.1
+      }
+    },
+    {
+      "pspId": 7055,
+      "name": "Jiří Vojáček",
+      "club": "KDU-ČSL",
+      "rank": 104,
+      "contribution_score": 68.6,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 3.265,
+        "z_vs_club": -0.83
+      }
+    },
+    {
+      "pspId": 6730,
+      "name": "Lubomír Wenzl",
+      "club": "ANO2011",
+      "rank": 105,
+      "contribution_score": 68.4,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.733,
+        "z_vs_club": 0.39
+      }
+    },
+    {
+      "pspId": 7001,
+      "name": "Tomáš Doležal",
+      "club": "SPD",
+      "rank": 106,
+      "contribution_score": 68.2,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.23,
+        "z_vs_club": 0.07
+      }
+    },
+    {
+      "pspId": 6687,
+      "name": "Jan Jakob",
+      "club": "TOP09",
+      "rank": 107,
+      "contribution_score": 68.1,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.82,
+        "z_vs_club": -0.47
+      }
+    },
+    {
+      "pspId": 7004,
+      "name": "Jana Filipovičová",
+      "club": "KDU-ČSL",
+      "rank": 108,
+      "contribution_score": 67.6,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": true,
+        "contested_vote_rebellion": 0.575,
+        "z_vs_club": -0.91
+      }
+    },
+    {
+      "pspId": 7041,
+      "name": "Gabriela Sedláčková",
+      "club": "MS",
+      "rank": 109,
+      "contribution_score": 67.6,
+      "stage": "signal",
+      "batch": 1,
+      "signal": 0.78,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": true,
+        "contested_vote_rebellion": 1.119,
+        "z_vs_club": 0.22
+      }
+    },
+    {
+      "pspId": 7064,
+      "name": "Miroslav Žbánek",
+      "club": "ANO2011",
+      "rank": 110,
+      "contribution_score": 67.4,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": true,
+        "contested_vote_rebellion": 2.706,
+        "z_vs_club": 0.33
+      }
+    },
+    {
+      "pspId": 6431,
+      "name": "Lenka Dražilová",
+      "club": "ANO2011",
+      "rank": 111,
+      "contribution_score": 67,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.024,
+        "z_vs_club": 0.31
+      }
+    },
+    {
+      "pspId": 6996,
+      "name": "Igor Červený",
+      "club": "MS",
+      "rank": 112,
+      "contribution_score": 66.6,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.799,
+        "z_vs_club": 0.15
+      }
+    },
+    {
+      "pspId": 6767,
+      "name": "Michaela Řehková",
+      "club": "STAN",
+      "rank": 113,
+      "contribution_score": 66.4,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 4.025,
+        "z_vs_club": -0.88
+      }
+    },
+    {
+      "pspId": 7021,
+      "name": "Martin Kupec",
+      "club": "ANO2011",
+      "rank": 114,
+      "contribution_score": 66.4,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": true,
+        "contested_vote_rebellion": 0.814,
+        "z_vs_club": 0.28
+      }
+    },
+    {
+      "pspId": 7013,
+      "name": "Veronika Kovářová",
+      "club": "Piráti",
+      "rank": 115,
+      "contribution_score": 66,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.109,
+        "z_vs_club": -0.17
+      }
+    },
+    {
+      "pspId": 6201,
+      "name": "Miloslav Janulík",
+      "club": "ANO2011",
+      "rank": 116,
+      "contribution_score": 65.9,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.803,
+        "z_vs_club": 0.25
+      }
+    },
+    {
+      "pspId": 6989,
+      "name": "Lucie Bartošová",
+      "club": "ODS",
+      "rank": 117,
+      "contribution_score": 65.7,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.395,
+        "z_vs_club": 0.02
+      }
+    },
+    {
+      "pspId": 7017,
+      "name": "Vojtěch Krňanský",
+      "club": "MS",
+      "rank": 118,
+      "contribution_score": 65.7,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.555,
+        "z_vs_club": 0.08
+      }
+    },
+    {
+      "pspId": 6999,
+      "name": "Katerina Demetrashvili",
+      "club": "Piráti",
+      "rank": 119,
+      "contribution_score": 65.5,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.096,
+        "z_vs_club": -0.2
+      }
+    },
+    {
+      "pspId": 6509,
+      "name": "Robert Králíček",
+      "club": "ANO2011",
+      "rank": 120,
+      "contribution_score": 65.4,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.082,
+        "z_vs_club": 0.22
+      }
+    },
+    {
+      "pspId": 7006,
+      "name": "Matěj Gregor",
+      "club": "MS",
+      "rank": 121,
+      "contribution_score": 64.8,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 10.385,
+        "z_vs_club": 0.02
+      }
+    },
+    {
+      "pspId": 6738,
+      "name": "Hubert Lang",
+      "club": "ANO2011",
+      "rank": 122,
+      "contribution_score": 64.1,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 3.439,
+        "z_vs_club": 0.15
+      }
+    },
+    {
+      "pspId": 6515,
+      "name": "Jiří Strýček",
+      "club": "ANO2011",
+      "rank": 123,
+      "contribution_score": 63.7,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.368,
+        "z_vs_club": 0.12
+      }
+    },
+    {
+      "pspId": 6732,
+      "name": "Ivana Mádlová",
+      "club": "ANO2011",
+      "rank": 124,
+      "contribution_score": 63.7,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.99,
+        "z_vs_club": 0.12
+      }
+    },
+    {
+      "pspId": 7053,
+      "name": "Václav Trojan",
+      "club": "ANO2011",
+      "rank": 125,
+      "contribution_score": 63.7,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.283,
+        "z_vs_club": 0.12
+      }
+    },
+    {
+      "pspId": 6688,
+      "name": "Miroslav Samaš",
+      "club": "ANO2011",
+      "rank": 126,
+      "contribution_score": 63.4,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": true,
+        "contested_vote_rebellion": 2.244,
+        "z_vs_club": 0.11
+      }
+    },
+    {
+      "pspId": 6783,
+      "name": "Jan Síla",
+      "club": "SPD",
+      "rank": 127,
+      "contribution_score": 63,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": true,
+        "contested_vote_rebellion": 5.457,
+        "z_vs_club": -0.23
+      }
+    },
+    {
+      "pspId": 7023,
+      "name": "Lenka Martínková Španihelová",
+      "club": "Piráti",
+      "rank": 128,
+      "contribution_score": 63,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.042,
+        "z_vs_club": -0.34
+      }
+    },
+    {
+      "pspId": 6552,
+      "name": "Zdeněk Hřib",
+      "club": "Piráti",
+      "rank": 129,
+      "contribution_score": 62.7,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0,
+        "z_vs_club": -0.36
+      }
+    },
+    {
+      "pspId": 6447,
+      "name": "Kamal Farhan",
+      "club": "ANO2011",
+      "rank": 130,
+      "contribution_score": 62.6,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.819,
+        "z_vs_club": 0.06
+      }
+    },
+    {
+      "pspId": 6750,
+      "name": "Josef Flek",
+      "club": "STAN",
+      "rank": 131,
+      "contribution_score": 62.5,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": true,
+        "contested_vote_rebellion": 0.643,
+        "z_vs_club": -1.21
+      }
+    },
+    {
+      "pspId": 7016,
+      "name": "Miroslav Krejčí",
+      "club": "MS",
+      "rank": 132,
+      "contribution_score": 62.2,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": true,
+        "contested_vote_rebellion": 2.434,
+        "z_vs_club": -0.17
+      }
+    },
+    {
+      "pspId": 7034,
+      "name": "Vladimír Pikora",
+      "club": "MS",
+      "rank": 133,
+      "contribution_score": 61.9,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 3.921,
+        "z_vs_club": -0.19
+      }
+    },
+    {
+      "pspId": 7050,
+      "name": "Jan Sviták",
+      "club": "STAN",
+      "rank": 134,
+      "contribution_score": 61.9,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.332,
+        "z_vs_club": -1.26
+      }
+    },
+    {
+      "pspId": 6475,
+      "name": "Monika Oborná",
+      "club": "ANO2011",
+      "rank": 135,
+      "contribution_score": 61.8,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.164,
+        "z_vs_club": 0.02
+      }
+    },
+    {
+      "pspId": 6154,
+      "name": "Marek Ženíšek",
+      "club": "TOP09",
+      "rank": 136,
+      "contribution_score": 61.2,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.838,
+        "z_vs_club": -1.2
+      }
+    },
+    {
+      "pspId": 7027,
+      "name": "Irena Němcová",
+      "club": "SPD",
+      "rank": 137,
+      "contribution_score": 61.2,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.718,
+        "z_vs_club": -0.33
+      }
+    },
+    {
+      "pspId": 6523,
+      "name": "Michal Ratiborský",
+      "club": "ANO2011",
+      "rank": 138,
+      "contribution_score": 61.1,
+      "stage": "signal",
+      "batch": 1,
+      "signal": 0.75,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": true,
+        "contested_vote_rebellion": 5.112,
+        "z_vs_club": -0.02
+      }
+    },
+    {
+      "pspId": 6508,
+      "name": "Radek Koten",
+      "club": "SPD",
+      "rank": 139,
+      "contribution_score": 60.9,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.873,
+        "z_vs_club": -0.34
+      }
+    },
+    {
+      "pspId": 6215,
+      "name": "Roman Kubíček",
+      "club": "ANO2011",
+      "rank": 140,
+      "contribution_score": 60.7,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 5.142,
+        "z_vs_club": -0.05
+      }
+    },
+    {
+      "pspId": 7059,
+      "name": "Filip Turek",
+      "club": "MS",
+      "rank": 141,
+      "contribution_score": 60.6,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": true,
+        "contested_vote_rebellion": 3.663,
+        "z_vs_club": -0.28
+      }
+    },
+    {
+      "pspId": 6185,
+      "name": "Milan Brázdil",
+      "club": "ANO2011",
+      "rank": 142,
+      "contribution_score": 60.5,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0,
+        "z_vs_club": -0.06
+      }
+    },
+    {
+      "pspId": 6409,
+      "name": "František Petrtýl",
+      "club": "ANO2011",
+      "rank": 143,
+      "contribution_score": 60,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.723,
+        "z_vs_club": -0.09
+      }
+    },
+    {
+      "pspId": 6987,
+      "name": "Jiří Barták",
+      "club": "MS",
+      "rank": 144,
+      "contribution_score": 60,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.024,
+        "z_vs_club": -0.33
+      }
+    },
+    {
+      "pspId": 6804,
+      "name": "Zdenka Němečková Crkvenjaš",
+      "club": "ODS",
+      "rank": 145,
+      "contribution_score": 59.3,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 5.089,
+        "z_vs_club": -0.33
+      }
+    },
+    {
+      "pspId": 5273,
+      "name": "Jiří Pospíšil",
+      "club": "TOP09",
+      "rank": 146,
+      "contribution_score": 58.9,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.004,
+        "z_vs_club": -1.44
+      }
+    },
+    {
+      "pspId": 6545,
+      "name": "Alena Schillerová",
+      "club": "ANO2011",
+      "rank": 147,
+      "contribution_score": 58.9,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.245,
+        "z_vs_club": -0.15
+      }
+    },
+    {
+      "pspId": 7022,
+      "name": "Petr Macinka",
+      "club": "MS",
+      "rank": 148,
+      "contribution_score": 57.5,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.511,
+        "z_vs_club": -0.51
+      }
+    },
+    {
+      "pspId": 7024,
+      "name": "Michaela Moricová",
+      "club": "Piráti",
+      "rank": 149,
+      "contribution_score": 57.5,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.654,
+        "z_vs_club": -0.65
+      }
+    },
+    {
+      "pspId": 7005,
+      "name": "Karin Gajdová",
+      "club": "ANO2011",
+      "rank": 150,
+      "contribution_score": 57.4,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.368,
+        "z_vs_club": -0.24
+      }
+    },
+    {
+      "pspId": 6786,
+      "name": "Róbert Teleky",
+      "club": "KDU-ČSL",
+      "rank": 151,
+      "contribution_score": 57.1,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 4.401,
+        "z_vs_club": -1.79
+      }
+    },
+    {
+      "pspId": 7032,
+      "name": "Jana Patková",
+      "club": "Piráti",
+      "rank": 152,
+      "contribution_score": 57.1,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.945,
+        "z_vs_club": -0.67
+      }
+    },
+    {
+      "pspId": 7007,
+      "name": "Monika Hubíková",
+      "club": "ANO2011",
+      "rank": 153,
+      "contribution_score": 56.8,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.877,
+        "z_vs_club": -0.27
+      }
+    },
+    {
+      "pspId": 7012,
+      "name": "Vladimír Kolek",
+      "club": "ANO2011",
+      "rank": 154,
+      "contribution_score": 56.7,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.376,
+        "z_vs_club": -0.28
+      }
+    },
+    {
+      "pspId": 6178,
+      "name": "Jan Bartošek",
+      "club": "KDU-ČSL",
+      "rank": 155,
+      "contribution_score": 56,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 3.195,
+        "z_vs_club": -1.88
+      }
+    },
+    {
+      "pspId": 7040,
+      "name": "Zuzana Mrázová",
+      "club": "ANO2011",
+      "rank": 156,
+      "contribution_score": 55.8,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.989,
+        "z_vs_club": -0.33
+      }
+    },
+    {
+      "pspId": 6723,
+      "name": "Jana Berkovcová",
+      "club": "ANO2011",
+      "rank": 157,
+      "contribution_score": 55.6,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.077,
+        "z_vs_club": -0.34
+      }
+    },
+    {
+      "pspId": 6463,
+      "name": "Aleš Juchelka",
+      "club": "ANO2011",
+      "rank": 158,
+      "contribution_score": 55.5,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0,
+        "z_vs_club": -0.34
+      }
+    },
+    {
+      "pspId": 6995,
+      "name": "František Bureš",
+      "club": "ANO2011",
+      "rank": 159,
+      "contribution_score": 54.9,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.679,
+        "z_vs_club": -0.38
+      }
+    },
+    {
+      "pspId": 7060,
+      "name": "Otto Vopěnka",
+      "club": "ANO2011",
+      "rank": 160,
+      "contribution_score": 54.9,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.593,
+        "z_vs_club": -0.38
+      }
+    },
+    {
+      "pspId": 7008,
+      "name": "Zdena Kašparová",
+      "club": "STAN",
+      "rank": 161,
+      "contribution_score": 54.8,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.75,
+        "z_vs_club": -1.87
+      }
+    },
+    {
+      "pspId": 7067,
+      "name": "Jiří Penc",
+      "club": "ANO2011",
+      "rank": 162,
+      "contribution_score": 54.5,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.899,
+        "z_vs_club": -0.4
+      }
+    },
+    {
+      "pspId": 6991,
+      "name": "Drahomír Blažej",
+      "club": "ANO2011",
+      "rank": 163,
+      "contribution_score": 54.4,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 4.153,
+        "z_vs_club": -0.41
+      }
+    },
+    {
+      "pspId": 6518,
+      "name": "Petr Sadovský",
+      "club": "ANO2011",
+      "rank": 164,
+      "contribution_score": 54.2,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 5.11,
+        "z_vs_club": -0.42
+      }
+    },
+    {
+      "pspId": 7068,
+      "name": "Jana Demjanová",
+      "club": "ANO2011",
+      "rank": 165,
+      "contribution_score": 54.2,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.592,
+        "z_vs_club": -0.42
+      }
+    },
+    {
+      "pspId": 7014,
+      "name": "Petr Kowanda",
+      "club": "ANO2011",
+      "rank": 166,
+      "contribution_score": 53.9,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 3.615,
+        "z_vs_club": -0.44
+      }
+    },
+    {
+      "pspId": 7009,
+      "name": "Jiřina Klčová",
+      "club": "ANO2011",
+      "rank": 167,
+      "contribution_score": 53.8,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.909,
+        "z_vs_club": -0.44
+      }
+    },
+    {
+      "pspId": 6451,
+      "name": "Stanislav Fridrich",
+      "club": "ANO2011",
+      "rank": 168,
+      "contribution_score": 52.7,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0,
+        "z_vs_club": -0.5
+      }
+    },
+    {
+      "pspId": 6491,
+      "name": "Adam Vojtěch",
+      "club": "ANO2011",
+      "rank": 169,
+      "contribution_score": 52.5,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.781,
+        "z_vs_club": -0.51
+      }
+    },
+    {
+      "pspId": 6254,
+      "name": "Věra Adámková",
+      "club": "ANO2011",
+      "rank": 170,
+      "contribution_score": 52.4,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.326,
+        "z_vs_club": -0.52
+      }
+    },
+    {
+      "pspId": 6240,
+      "name": "Karel Tureček",
+      "club": "ANO2011",
+      "rank": 171,
+      "contribution_score": 52.1,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.167,
+        "z_vs_club": -0.54
+      }
+    },
+    {
+      "pspId": 6946,
+      "name": "Josef Váňa",
+      "club": "ANO2011",
+      "rank": 172,
+      "contribution_score": 51.5,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.979,
+        "z_vs_club": -0.57
+      }
+    },
+    {
+      "pspId": 7010,
+      "name": "Oto Klempíř",
+      "club": "MS",
+      "rank": 173,
+      "contribution_score": 51,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.397,
+        "z_vs_club": -0.98
+      }
+    },
+    {
+      "pspId": 6693,
+      "name": "Libor Hoppe",
+      "club": "ODS",
+      "rank": 174,
+      "contribution_score": 50.8,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 3.676,
+        "z_vs_club": -0.79
+      }
+    },
+    {
+      "pspId": 7056,
+      "name": "Jitka Volfová",
+      "club": "ANO2011",
+      "rank": 175,
+      "contribution_score": 50.5,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.866,
+        "z_vs_club": -0.63
+      }
+    },
+    {
+      "pspId": 7026,
+      "name": "Anežka Nedomová",
+      "club": "STAN",
+      "rank": 176,
+      "contribution_score": 49.9,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.487,
+        "z_vs_club": -2.29
+      }
+    },
+    {
+      "pspId": 6538,
+      "name": "Martin Kupka",
+      "club": "ODS",
+      "rank": 177,
+      "contribution_score": 49.7,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.601,
+        "z_vs_club": -0.85
+      }
+    },
+    {
+      "pspId": 7106,
+      "name": "Libor Forman",
+      "club": "MS",
+      "rank": 178,
+      "contribution_score": 48.8,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.883,
+        "z_vs_club": -1.13
+      }
+    },
+    {
+      "pspId": 5379,
+      "name": "Jan Bauer",
+      "club": "ODS",
+      "rank": 179,
+      "contribution_score": 48.5,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 3.963,
+        "z_vs_club": -0.92
+      }
+    },
+    {
+      "pspId": 6490,
+      "name": "Petr Vrána",
+      "club": "ANO2011",
+      "rank": 180,
+      "contribution_score": 48.2,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.989,
+        "z_vs_club": -0.76
+      }
+    },
+    {
+      "pspId": 6787,
+      "name": "Libor Turek",
+      "club": "ODS",
+      "rank": 181,
+      "contribution_score": 47.8,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.146,
+        "z_vs_club": -0.96
+      }
+    },
+    {
+      "pspId": 6993,
+      "name": "Jiří Bouška",
+      "club": "ANO2011",
+      "rank": 182,
+      "contribution_score": 47.5,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 11.543,
+        "z_vs_club": -0.8
+      }
+    },
+    {
+      "pspId": 6905,
+      "name": "Andrea Hoffmannová",
+      "club": "Piráti",
+      "rank": 183,
+      "contribution_score": 47.2,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.33,
+        "z_vs_club": -1.22
+      }
+    },
+    {
+      "pspId": 6467,
+      "name": "Zuzana Majerová",
+      "club": "SPD",
+      "rank": 184,
+      "contribution_score": 47.1,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.058,
+        "z_vs_club": -1.12
+      }
+    },
+    {
+      "pspId": 6990,
+      "name": "Karel Beran",
+      "club": "MS",
+      "rank": 185,
+      "contribution_score": 47,
+      "stage": "signal",
+      "batch": 1,
+      "signal": 0.58,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": true,
+        "contested_vote_rebellion": 0,
+        "z_vs_club": -1.26,
+        "low_score_reason": "declined_mandate"
+      }
+    },
+    {
+      "pspId": 7062,
+      "name": "Martin Záhoř",
+      "club": "ANO2011",
+      "rank": 186,
+      "contribution_score": 46.6,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.16,
+        "z_vs_club": -0.85
+      }
+    },
+    {
+      "pspId": 6719,
+      "name": "Jana Bačíková",
+      "club": "ODS",
+      "rank": 187,
+      "contribution_score": 46,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 5.752,
+        "z_vs_club": -1.06
+      }
+    },
+    {
+      "pspId": 6988,
+      "name": "Pavel Bartoň",
+      "club": "ANO2011",
+      "rank": 188,
+      "contribution_score": 45.8,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.828,
+        "z_vs_club": -0.9
+      }
+    },
+    {
+      "pspId": 7033,
+      "name": "Jiří Svoboda",
+      "club": "ANO2011",
+      "rank": 189,
+      "contribution_score": 45.7,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.86,
+        "z_vs_club": -0.9
+      }
+    },
+    {
+      "pspId": 5226,
+      "name": "Pavel Žáček",
+      "club": "ODS",
+      "rank": 190,
+      "contribution_score": 44.7,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": true,
+        "contested_vote_rebellion": 1.964,
+        "z_vs_club": -1.13
+      }
+    },
+    {
+      "pspId": 6150,
+      "name": "Andrej Babiš",
+      "club": "ANO2011",
+      "rank": 191,
+      "contribution_score": 44.7,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.582,
+        "z_vs_club": -0.96
+      }
+    },
+    {
+      "pspId": 6209,
+      "name": "David Kasal",
+      "club": "ANO2011",
+      "rank": 192,
+      "contribution_score": 41,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.411,
+        "z_vs_club": -1.17
+      }
+    },
+    {
+      "pspId": 6172,
+      "name": "Ladislav Okleštěk",
+      "club": "ANO2011",
+      "rank": 193,
+      "contribution_score": 40.8,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0,
+        "z_vs_club": -1.18
+      }
+    },
+    {
+      "pspId": 6190,
+      "name": "Jaroslav Faltýnek",
+      "club": "ANO2011",
+      "rank": 194,
+      "contribution_score": 37.7,
+      "stage": "signal",
+      "batch": 1,
+      "signal": 0.8,
+      "flags": {
+        "absentee_manager_lead": true,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.411,
+        "z_vs_club": -1.36,
+        "low_score_reason": "low_legislative_output"
+      }
+    },
+    {
+      "pspId": 6544,
+      "name": "Lubomír Metnar",
+      "club": "ANO2011",
+      "rank": 195,
+      "contribution_score": 37.7,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0,
+        "z_vs_club": -1.36
+      }
+    },
+    {
+      "pspId": 6621,
+      "name": "Karel Havlíček",
+      "club": "ANO2011",
+      "rank": 196,
+      "contribution_score": 37.6,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.809,
+        "z_vs_club": -1.36
+      }
+    },
+    {
+      "pspId": 6727,
+      "name": "Eva Decroix",
+      "club": "ODS",
+      "rank": 197,
+      "contribution_score": 37.1,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.029,
+        "z_vs_club": -1.54
+      }
+    },
+    {
+      "pspId": 6549,
+      "name": "Robert Plaga",
+      "club": "ANO2011",
+      "rank": 198,
+      "contribution_score": 35.5,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0.411,
+        "z_vs_club": -1.48
+      }
+    },
+    {
+      "pspId": 6603,
+      "name": "Pavel Karpíšek",
+      "club": "ODS",
+      "rank": 199,
+      "contribution_score": 31.4,
+      "stage": "signal",
+      "batch": 1,
+      "signal": 0.35,
+      "flags": {
+        "absentee_manager_lead": true,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.733,
+        "z_vs_club": -1.85,
+        "low_score_reason": "dual_mandate"
+      }
+    },
+    {
+      "pspId": 7047,
+      "name": "Markéta Šichtařová",
+      "club": "SPD",
+      "rank": 200,
+      "contribution_score": 30.3,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 1.129,
+        "z_vs_club": -2.06
+      }
+    },
+    {
+      "pspId": 6664,
+      "name": "Josef Nerušil",
+      "club": "SPD",
+      "rank": 201,
+      "contribution_score": 30,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.515,
+        "z_vs_club": -2.08
+      }
+    },
+    {
+      "pspId": 7108,
+      "name": "Jiří Kotlík",
+      "club": "ANO2011",
+      "rank": 202,
+      "contribution_score": 29.7,
+      "stage": "pending",
+      "batch": null,
+      "signal": null,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 0,
+        "z_vs_club": -1.81
+      }
+    },
+    {
+      "pspId": 6074,
+      "name": "Petr Fiala",
+      "club": "ODS",
+      "rank": 203,
+      "contribution_score": 28.6,
+      "stage": "signal",
+      "batch": 1,
+      "signal": 0.85,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": 2.789,
+        "z_vs_club": -2.01,
+        "low_score_reason": "prime_minister"
+      }
+    },
+    {
+      "pspId": 6184,
+      "name": "Richard Brabec",
+      "club": "ANO2011",
+      "rank": 204,
+      "contribution_score": 10.4,
+      "stage": "signal",
+      "batch": 1,
+      "signal": 0.88,
+      "flags": {
+        "absentee_manager_lead": true,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": null,
+        "z_vs_club": -2.91,
+        "low_score_reason": "declined_mandate"
+      }
+    },
+    {
+      "pspId": 7019,
+      "name": "Petr Kubis",
+      "club": "ANO2011",
+      "rank": 205,
+      "contribution_score": 10.4,
+      "stage": "signal",
+      "batch": 1,
+      "signal": 0.9,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": null,
+        "z_vs_club": -2.91,
+        "low_score_reason": "declined_mandate"
+      }
+    },
+    {
+      "pspId": 7063,
+      "name": "Roman Zarzycký",
+      "club": "ANO2011",
+      "rank": 206,
+      "contribution_score": 10.4,
+      "stage": "signal",
+      "batch": 1,
+      "signal": 0.6,
+      "flags": {
+        "absentee_manager_lead": true,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": null,
+        "z_vs_club": -2.91,
+        "low_score_reason": "declined_mandate"
+      }
+    },
+    {
+      "pspId": 7020,
+      "name": "Šárka Kučerová",
+      "club": "Piráti",
+      "rank": 207,
+      "contribution_score": 9.4,
+      "stage": "signal",
+      "batch": 1,
+      "signal": 0.9,
+      "flags": {
+        "absentee_manager_lead": false,
+        "quiet_workhorse": false,
+        "contested_vote_rebellion": null,
+        "z_vs_club": -3.33,
+        "low_score_reason": "declined_mandate"
+      }
+    }
+  ],
+  "metrics": {
+    "batch": 1,
+    "units_done": 20,
+    "population": 207,
+    "coverage": "20/207",
+    "signal_yield": 0.771,
+    "army_size": 20
+  }
+}

@@ -28,6 +28,7 @@ import { getStore } from "@/lib/db/store";
 import { CONTRIBUTION_WEIGHTS } from "@/lib/analysis/contribution";
 import { PARTIES } from "@/lib/civic/data";
 import { OCHRE, STEEL } from "@/features/landing/palette";
+import { computeTrend, type ContributionTrend } from "@/lib/analysis/contribution-trend";
 
 // Saturation caps MIRROR the (module-private) constants in
 // lib/analysis/contribution.ts — kept in sync there. Count-based components
@@ -120,6 +121,9 @@ export interface LeaderboardEntry {
   billsAuthored: number;
   interpellations: number;
   speechTurns: number;
+  // Term-over-term (PSP9→PSP10) movement — null until the prior term is restored
+  // onto the node (contribution_psp9). Null ⇒ the UI shows today's single-term view.
+  trend: ContributionTrend | null;
 }
 
 export interface ClubFacet {
@@ -186,6 +190,13 @@ export async function buildLeaderboard(): Promise<{ data: LeaderboardData; direc
         const prov = p.props.contribution_provenance as { pass?: number } | undefined;
         if (prov && typeof prov.pass === "number") provenancePass = prov.pass;
       }
+      const components = componentPoints(p.props);
+      const score = num(p.props.contribution_score);
+      const billsAuthored = num(p.props.bills_authored);
+      const interpellations = num(p.props.interpellations);
+      const speechTurns = num(p.props.speech_turns);
+      const committeeCount = num(p.props.committee_count);
+      const leadershipCount = num(p.props.leadership_count);
       return {
         pspId,
         name: p.label,
@@ -193,16 +204,20 @@ export async function buildLeaderboard(): Promise<{ data: LeaderboardData; direc
         clubName: meta.name,
         clubColor: meta.color,
         region: regionByPersonPspId.get(pspId) ?? null,
-        score: num(p.props.contribution_score),
-        components: componentPoints(p.props),
+        score,
+        components,
         absenteeManagerLead: p.props.absentee_manager_lead === true,
         participationRate: num(p.props.participation_rate),
-        committeeCount: num(p.props.committee_count),
-        leadershipCount: num(p.props.leadership_count),
+        committeeCount,
+        leadershipCount,
         absenceRate: num(p.props.absence_rate),
-        billsAuthored: num(p.props.bills_authored),
-        interpellations: num(p.props.interpellations),
-        speechTurns: num(p.props.speech_turns),
+        billsAuthored,
+        interpellations,
+        speechTurns,
+        trend: computeTrend(
+          { score, components, billsAuthored, interpellations, speechTurns, committeeCount, leadershipCount },
+          p.props.contribution_psp9,
+        ),
       };
     });
 
