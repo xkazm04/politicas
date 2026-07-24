@@ -83,5 +83,26 @@ export function makeKgRepo(pg: Pglite): KnowledgeGraphRepository {
       await pg.query(`delete from kg_edge`);
       await pg.query(`delete from kg_node`);
     },
+
+    async deleteKgEdges(keys) {
+      let deleted = 0;
+      for (const k of keys) {
+        const { rows } = await pg.query<{ n: string | number }>(
+          `with d as (delete from kg_edge where src = $1 and rel = $2 and dst = $3 returning 1) select count(*)::int as n from d`,
+          [k.src, k.rel, k.dst],
+        );
+        deleted += num(rows[0]?.n);
+      }
+      return deleted;
+    },
+
+    async deleteKgNodes(ids) {
+      if (ids.length === 0) return 0;
+      const { rows } = await pg.query<{ n: string | number }>(
+        `with d as (delete from kg_node where id = any($1::text[]) returning 1) select count(*)::int as n from d`,
+        [ids],
+      );
+      return num(rows[0]?.n);
+    },
   };
 }

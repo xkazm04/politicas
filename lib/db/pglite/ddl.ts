@@ -255,7 +255,7 @@ create table if not exists review_audit (
   src          text not null,
   rel          text not null,
   dst          text not null,
-  decision     text not null,
+  decision     text not null check (decision in ('confirm', 'reject', 'needs-more')),
   reviewer     text not null,
   note         text,
   decided_at   timestamptz not null default now(),

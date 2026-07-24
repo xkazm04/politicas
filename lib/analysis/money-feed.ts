@@ -238,19 +238,58 @@ export function parseAresSearch(raw: unknown): AresCandidate[] {
 }
 
 /**
+ * Generic role/occupation tokens ARES has, at least once, returned as an actual
+ * registered `obchodniJmeno` — i.e. words that describe what a PERSON does, not what a
+ * COMPANY is called. Confirmed via pass 21 (batch 003) / C10: IČO 04627695 (Agrární
+ * demokratická strana, a registered micro political party) has `obchodniJmeno` literally
+ * "OSVČ" ("self-employed person"), so an MP whose Hlídač private-role event lists their
+ * occupation loosely as "OSVČ" got exact-matched to this unrelated party — 49/260
+ * `linked_to` edges, all false (see docs/data-analysis/contradictions.md C10,
+ * docs/data-analysis/graph-log.md "Pass 21").
+ *
+ * ONLY entries with confirmed evidence belong here — this is not a guessed list of
+ * "occupation-sounding words". A grep of every `company` name across
+ * docs/data-analysis/case-money/{ledger.json,reconcile-summary.json,triage-dump.json,
+ * payloads/*.json} and docs/data-analysis/case-effort/ batch notes turned up exactly ONE
+ * such token: "OSVČ" (~200 distinct real institution/company names, zero other generic
+ * role words like "advokát"/"poslanec"/"podnikatel" appear as a `company` value — those
+ * only ever appear as the event's `role`, never as the organization name). Extend this
+ * list only when a new case turns up equivalent evidence.
+ */
+export const GENERIC_NAME_BLACKLIST: readonly string[] = ["OSVČ"];
+
+const GENERIC_NAME_BLACKLIST_KEYS = new Set(GENERIC_NAME_BLACKLIST.map((s) => normalizeCompanyName(s)));
+
+/** True when `name` normalizes to a confirmed generic role/occupation token rather than
+ *  a real company name — see `GENERIC_NAME_BLACKLIST` for the evidence trail. */
+export function isGenericNameToken(name: string): boolean {
+  return GENERIC_NAME_BLACKLIST_KEYS.has(normalizeCompanyName(name));
+}
+
+/**
  * Resolve a dirty company name to an authoritative IČO — the STRICT resolver the
  * FollowTheMoney pipeline hands to `buildPersonCompanyLinks`. It accepts an IČO ONLY
  * when exactly ONE candidate's normalized name equals the query's normalized name;
  * anything ambiguous or merely similar returns null (the link is then dropped, never
  * guessed). This is what keeps "AGROFERT" from wrongly binding to "AGROFERT HOLDING":
  * they normalize to different keys, so no exact match, so no fabricated IČO.
+ *
+ * Also rejects on `GENERIC_NAME_BLACKLIST`: if the query name itself is a generic
+ * role/occupation token (e.g. "OSVČ" — not a company name at all) OR the sole matching
+ * candidate's `obchodniJmeno` is one, the match is treated as unresolved (returns null),
+ * never guessed. This is the pass-21/C10 fix: it stops "OSVČ" (the free-text occupation
+ * on an MP's private-role event) from exact-matching the unrelated micro-party whose
+ * ARES `obchodniJmeno` happens to literally be "OSVČ".
  */
 export function pickExactIco(name: string, candidates: readonly AresCandidate[]): string | null {
+  if (isGenericNameToken(name)) return null;
   const key = normalizeCompanyName(name);
   const hits = candidates.filter(
     (c) => c.ico && c.obchodniJmeno && normalizeCompanyName(c.obchodniJmeno) === key,
   );
-  return hits.length === 1 ? hits[0].ico! : null;
+  if (hits.length !== 1) return null;
+  if (isGenericNameToken(hits[0].obchodniJmeno!)) return null;
+  return hits[0].ico!;
 }
 
 /**

@@ -1,0 +1,214 @@
+{
+  "batch": 4,
+  "track": "money",
+  "item": "Q-money-11",
+  "kind": "osvc-false-edge-purge",
+  "generatedAt": "2026-07-24T21:34:14.517Z",
+  "edgesToDelete": [
+    {
+      "src": "psp:person:346",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:4",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:5459",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:5512",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:5911",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:5943",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6105",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6150",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6154",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6168",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6172",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6184",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6185",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6190",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6201",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6205",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6209",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6214",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6215",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6216",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6409",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6433",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6459",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6463",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6479",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6487",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6500",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6524",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6527",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6538",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6603",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6688",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6723",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6727",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6745",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6751",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6786",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6789",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6881",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6905",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6986",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:6994",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:7013",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:7031",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:7039",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:7052",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:7056",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:7063",
+      "dst": "company:ico:04627695"
+    },
+    {
+      "src": "psp:person:7064",
+      "dst": "company:ico:04627695"
+    }
+  ],
+  "nodeToDelete": "company:ico:04627695",
+  "dryRunOutput": "edges matching dst=company:ico:04627695: 49 | edges confirmed false_edge_suspected (to delete): 49 | edges excluded (not annotated): 0 | node company:ico:04627695 qualifies for deletion: true | other references to node: 0",
+  "counts": {
+    "edgesMatchingTarget": 49,
+    "edgesConfirmedFalseEdgeSuspected": 49,
+    "edgesExcludedNotAnnotated": 0,
+    "nodeQualifiesForDeletion": true,
+    "otherReferencesToNode": 0
+  }
+}

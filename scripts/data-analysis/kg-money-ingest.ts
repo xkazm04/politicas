@@ -42,7 +42,14 @@ import {
   type HlidacPersonDetail,
   type RosterPerson,
 } from "@/lib/analysis/money-feed";
-import { buildMoneyGraph, moneyTrails, type Company, type Contract, type MoneyGraph } from "@/lib/analysis/kg-money";
+import {
+  buildMoneyGraph,
+  mergePreservedTieProps,
+  moneyTrails,
+  type Company,
+  type Contract,
+  type MoneyGraph,
+} from "@/lib/analysis/kg-money";
 import { getStore } from "@/lib/db/store";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
 
@@ -54,15 +61,33 @@ const flag = (name: string) => process.argv.includes(`--${name}`);
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const fmt = (n: number) => new Intl.NumberFormat("cs-CZ").format(Math.round(n));
 
-/** MoneyGraph → kg rows. Pure: field rename + a shared provenance stamp. */
+/** kg_edge (src, rel, dst) triple → the key `existingLinkedToProps` is keyed on. */
+export const tieKey = (src: string, rel: string, dst: string): string => `${src} ${rel} ${dst}`;
+
+/**
+ * MoneyGraph → kg rows. Pure: field rename + a shared provenance stamp — EXCEPT for
+ * `linked_to` edges, where D1 (batch 004) requires merge-preserving human-gated props
+ * across re-ingests (see `mergePreservedTieProps` in lib/analysis/kg-money.ts):
+ * `upsertKgEdges` does a wholesale `props = excluded.props` replace on conflict, so
+ * writing the freshly source-derived props straight through would silently erase every
+ * human review decision on each re-run. `existingLinkedToProps` is the CURRENT props for
+ * `linked_to` edges already in the store, read once before this run's writes; absent
+ * (or missing a given triple) → fresh props win entirely, same as before this fix.
+ */
 export function moneyGraphToKgRows(
   g: MoneyGraph,
-  opts: { pass: number; computedAt: string; ref: string },
+  opts: { pass: number; computedAt: string; ref: string; existingLinkedToProps?: Map<string, Record<string, unknown>> },
 ): { nodes: KgNodeRow[]; edges: KgEdgeRow[] } {
   const provenance = { pass: opts.pass, method: "deterministic", ref: opts.ref, computedAt: opts.computedAt };
   return {
     nodes: g.nodes.map((n) => ({ id: n.id, kind: n.kind, label: n.label, props: n.props, firstSeenPass: opts.pass, provenance })),
-    edges: g.edges.map((e) => ({ src: e.src, rel: e.rel, dst: e.dst, weight: e.weight, props: e.props, provenance })),
+    edges: g.edges.map((e) => {
+      const props =
+        e.rel === "linked_to"
+          ? mergePreservedTieProps(opts.existingLinkedToProps?.get(tieKey(e.src, e.rel, e.dst)), e.props)
+          : e.props;
+      return { src: e.src, rel: e.rel, dst: e.dst, weight: e.weight, props, provenance };
+    }),
   };
 }
 
@@ -96,6 +121,11 @@ async function main() {
   const nameOf = new Map(persons.map((p) => [p.pspId, p.nameFull]));
   const existingNodes = await store.listKgNodes();
   const pass = Number(arg("pass")) || Math.max(0, ...existingNodes.map((n) => n.firstSeenPass)) + 1;
+  // D1: read the CURRENT linked_to props once, up front, so re-derived props can be
+  // merge-preserved against them instead of wholesale-replacing human review decisions.
+  const existingLinkedToProps = new Map<string, Record<string, unknown>>(
+    (await store.listKgEdges({ rel: "linked_to" })).map((e) => [tieKey(e.src, e.rel, e.dst), e.props]),
+  );
 
   console.log(`FollowTheMoney ingest · ${chamber ? `chamber ${chamber}` : `${slugs.length} slug(s)`} · pass ${pass} · ${commit ? "COMMIT" : "DRY-RUN"}\n`);
 
@@ -284,7 +314,12 @@ async function main() {
         `${subTotal ? ` · +${fmt(subTotal)} subsidies` : ""}${donTotal ? ` · ${fmt(donTotal)}→party` : ""} · PENDING`,
     );
 
-    const { nodes, edges } = moneyGraphToKgRows(g, { pass, computedAt: new Date().toISOString(), ref: "money-feed:hlidac+ares+registr-smluv" });
+    const { nodes, edges } = moneyGraphToKgRows(g, {
+      pass,
+      computedAt: new Date().toISOString(),
+      ref: "money-feed:hlidac+ares+registr-smluv",
+      existingLinkedToProps,
+    });
     if (commit) {
       totalNodes += await store.upsertKgNodes(nodes);
       totalEdges += await store.upsertKgEdges(edges);

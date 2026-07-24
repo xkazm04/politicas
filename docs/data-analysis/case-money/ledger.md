@@ -174,3 +174,57 @@ reconciliation pass before any tie is presented as "active".
 5. Q-money-9 (new, batch 003): the ingest/human-write durability gap found in money is
    likely present in any other case-loop that layers a human write path onto a
    re-derivable ingest — worth a repo-wide audit, not just money-scoped.
+
+### Batch 004 — D1 durability close + OSVČ purge prep + PRaK/Q-money-2 decided (2026-07-24)
+
+- **No army this batch** — scope was the batch-003 steering list. D1 closed in TWO
+  passes: an initial `mergePreservedTieProps` fix, then an Opus re-audit found two
+  real gaps (`kg-promote.ts`'s own wholesale-replace risk on `linked_to`/`supplies`;
+  6 live prop fields missing from the first preserve list, incl. a one-character
+  `review_note`/`reviewer_note` near-miss present on 260/260 ties) — both closed in a
+  second Sonnet pass, re-verified against the live graph. D3/D4/D5/D7 write-path
+  polish all closed with tests (D5's DB `CHECK` only applies to freshly-created DBs —
+  flagged, not silently accepted).
+- **OSVČ purge (Q-money-11) prepared, not executed:** `GENERIC_NAME_BLACKLIST`
+  ingest guard + `scripts/case-loops/money/purge-osvc.ts` dry-run, verified end-to-end
+  on a scratch copy — 49/260 edges confirmed, all `false_edge_suspected`, company node
+  qualifies for deletion structurally. Opus found a real caveat: 11 OTHER nodes'
+  props (5 MP dossiers, 5 law citations) reference the company as text data, not as
+  an edge — orchestrator must sequence a cross-loop cleanup note, not just execute
+  the purge blind.
+- **PRaK (Q-money-7): dead end.** 6 or.justice.cz-family URLs unreachable (JS-walled
+  SPAs or genuine 404 on the dissolved entity). Kept as-is.
+- **Q-money-2: RETIRED**, not deferred a fourth time — no pgvector/embeddings infra
+  exists in the repo; running a new signal while the console was blocked and 19% of
+  ties are confirmed false would be the wrong investment this batch.
+- **Opus re-audit verdict:** initial fix PARTIAL (2 gaps found); after the closure
+  pass, D1/D3/D4/D7 HOLD and D5's runtime whitelist HOLDS (DB-level CHECK caveat
+  noted). Full detail + top risk flags in `batch-004.md` and `handoff.md`.
+- 194/194 tests, tsc clean. No commit, no live write, no `review_state` flipped
+  outside isolated fixtures.
+
+## Metrics block — batch 004
+
+| metric | batch 004 |
+|---|---|
+| units processed | 0 (no army — scope was durability/purge/decision work) |
+| D1 durability | **CLOSED** (2 Sonnet passes + 1 Opus re-audit; merge-preserve proven end-to-end on isolated PGlite) |
+| D3/D4/D5/D7 | **CLOSED** (D5's DB CHECK constraint caveat: live-DB migration still needed) |
+| OSVČ purge (Q-money-11) | prepared, NOT executed — 49/260 edges confirmed, dry-run verified, cross-loop staleness flagged |
+| PRaK (Q-money-7) | dead end — or.justice.cz unreachable, annotation kept as-is |
+| Q-money-2 (pgvector) | **RETIRED** |
+| tests | 194/194, tsc clean |
+| console-enablement verdict | durability gate closed; recommend enabling AFTER the OSVČ purge executes and the orchestrator accepts/reverts the `lib/db` delete-method addition |
+
+## Steering (next batch — batch 005)
+
+1. **Orchestrator executes the OSVČ purge** (`purge-osvc.ts --commit` against live,
+   with an explicit non-default `PGLITE_PATH` guard added first) + sequences the
+   effort/law cross-loop cleanup for the 5+5 orphaned prop references.
+2. **Enable the console** once the purge lands and the `lib/db` delete-method
+   addition is reviewed/accepted.
+3. **D5 DB-level CHECK migration** — add `ALTER TABLE review_audit ADD CONSTRAINT ...`
+   so the live database (not just fresh test fixtures) enforces the decision whitelist.
+4. Q-money-3 (sponzoring pass) stays blocked on `HLIDAC_API_TOKEN` (user gate).
+5. Q-money-9 repo-wide audit (batch 003) still open — this batch's `kg-promote.ts`
+   finding is a concrete instance of exactly that risk class, worth generalizing.

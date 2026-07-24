@@ -123,6 +123,19 @@ export interface KnowledgeGraphRepository {
   /** rel → edge count, for the ledger's graph-metrics block. */
   countKgEdgesByRel(): Promise<Record<string, number>>;
   clearKg(): Promise<void>;
+  /**
+   * Delete specific edges by their composite key. Narrow, targeted counterpart
+   * to `clearKg()` — for case-loop purges of a confirmed-bad edge set (e.g. a
+   * false-match class caught by review), never a bulk wipe. Returns the number
+   * of edges actually deleted (a key with no matching row does not error).
+   */
+  deleteKgEdges(keys: readonly { src: string; rel: string; dst: string }[]): Promise<number>;
+  /**
+   * Delete specific nodes by id. Callers must verify a node has no remaining
+   * edges referencing it before deleting (kg_edge has no FK-cascade by design —
+   * this is a plain row delete, not an integrity-checked operation).
+   */
+  deleteKgNodes(ids: readonly string[]): Promise<number>;
 }
 
 /**

@@ -10,7 +10,10 @@
 // against ARES VR / Registr smluv themselves. The write path is intentionally NOT wired
 // in fleet mode (see the console's "zápis čeká na backend" state + handoff.md).
 
-export type ReviewState = "verified" | "pending_review";
+// D7 (batch 004): "rejected" is a terminal state distinct from "pending_review" — a
+// reject decision must not be re-served in the pending queue forever (see
+// getVerificationQueue's filter). "needs-more" legitimately stays "pending_review".
+export type ReviewState = "verified" | "pending_review" | "rejected";
 
 /** Owner-operator = MP controls/owns a private company that supplies the state (the real
  *  FollowTheMoney). Manager = board-of-directors seat. Steward = supervisory seat on a

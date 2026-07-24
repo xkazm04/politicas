@@ -1,364 +1,348 @@
-# Money loop — fleet handoff (batch 003)
+# Money loop — fleet handoff (batch 004)
 
 Case ① FollowTheMoney · 2026-07-24 · fleet mode (effort + law loops
-concurrent) · Sonnet driver + 2 Sonnet subagents (write-path build, PRaK
-research) + 1 Opus reflection. Everything the orchestrator needs to review,
-commit, and steer batch 004. All work is inside the money boundary **plus
-the additive `lib/db` carve-out granted this batch only** (ReviewRepository +
-DDL, per `docs/case-loops.md`'s fleet rules — normally `lib/db` is
-shared/out-of-boundary). **No commit made. No live `.pglite` write. No
-`review_state` actually flipped anywhere (all writes happened on isolated
-temp-dir test fixtures, never `./.pglite` or `./.pglite-copy-money`).** This
-document supersedes batch 002's `handoff.md`, now historical. Full detail in
-`batch-003.md`.
+concurrent) · Sonnet driver + 5 Sonnet subagents (D1 fix, OSVČ purge prep,
+PRaK research, Q-money-2 decision, D1-gap closure pass) + 1 Opus re-audit.
+Everything the orchestrator needs to review, execute the purge, and decide
+on console enablement. All work is inside the money boundary; one deliberate
+additive exception is flagged in §3. **No commit made. No live `.pglite`
+write. No `review_state` actually flipped anywhere (all writes happened on
+isolated temp-dir test fixtures or scratch `.pglite` copies, never
+`./.pglite`).** This document supersedes batch 003's `handoff.md`, now
+historical. Full detail in `batch-004.md`.
 
-## 1. What shipped — human-review write path (uncommitted, in the tree)
+## 1. What shipped — D1 durability + write-path polish (uncommitted, in the tree)
 
-Files, all inside the money boundary + the granted `lib/db` carve-out:
+### D1 fix design (two passes)
+
+**Pass 1**: `mergePreservedTieProps(existing, fresh)` — a pure function in
+`lib/analysis/kg-money.ts` — merges preserved human-gated fields from the
+CURRENT edge props into the freshly-derived ones before write, for
+`linked_to` edges only (`supplies` untouched — nothing human lives there).
+Wired into `scripts/data-analysis/kg-money-ingest.ts`'s `moneyGraphToKgRows`,
+which now reads `store.listKgEdges({rel:"linked_to"})` once per run to build
+the lookup map. `ReviewState` widened to include `"rejected"` (also needed
+for D7). Regression: `lib/analysis/kg-money-reingest.test.ts`, an isolated
+temp-dir PGlite test proving a `verified` decision + `corroboration` survive
+a simulated re-ingest, with a control case proving the bug is real without
+the fix.
+
+**Opus re-audit (mandatory, kernel P44)** re-asked "what ELSE writes this
+field" and found the fix was PARTIAL:
+
+1. **`scripts/data-analysis/kg-promote.ts`** shares `upsertKgEdges` and the
+   permissive `KG_EDGE_RELS` enum gate — an LLM-authored interpretive-layer
+   verdict COULD target `linked_to`/`supplies` and wholesale-replace props
+   with `{rationale}` alone, a worse version of the exact bug D1 fixes. The
+   script's header comment claiming "interpretive-layer only" was not
+   enforced in code.
+2. **The preserve list itself was incomplete** — written from batch 003's
+   defect writeup, not the live graph. Missed `reviewer_note` (distinct from
+   `review_note`, present on 260/260 live ties — a one-character near-miss),
+   `flags` (127/260), `signal` (25/260), `owner_stake_pct` (10/260),
+   `owner_stake_from` (2/260), `prior_term` (1/260) — all written by
+   `scripts/case-loops/money/reconcile-ares-vr.ts`.
+
+**Pass 2 (closure)**: (1) a local `CASE_OWNED_EDGE_RELS` guard in
+`kg-promote.ts`'s `toRows()` drops any `linked_to`/`supplies` edge before it
+reaches `upsertKgEdges` — regression in new
+`scripts/data-analysis/kg-promote.test.ts` (5 cases). (2) the preserve list
+extended with all 6 missing keys, verified against BOTH a live read-only
+census (throwaway `.pglite` copy) and `reconcile-ares-vr.ts`'s source;
+`kg-money.test.ts` updated to assert on real observed keys instead of
+invented placeholders, plus a drift-resistant census-coverage test.
+
+Files, all inside the money boundary:
 
 ```
-NEW  lib/db/pglite/repositories/review.ts        # ReviewRepository impl — the ONLY writer of review_state
-NEW  lib/db/pglite/repositories/review.test.ts   # 5/5, isolated temp-dir PGlite
-NEW  features/money/reviewActions.ts             # "use server" submitReviewDecision
-EDIT lib/db/pglite/ddl.ts                        # + review_audit table, 2 indexes (additive)
-EDIT lib/db/store.ts                             # + ReviewRepository interface, spread into Store
-EDIT lib/db/types.ts                             # + ReviewAuditRow
-EDIT lib/db/pglite-store.ts                      # wired makeReviewRepo
-EDIT features/money/reviewTypes.ts               # ReviewTie gains src/dst
-EDIT features/money/getVerificationData.ts       # populates src/dst
-EDIT features/money/components/VerificationConsole.tsx  # wired write path, optimistic UI, error states
-EDIT app/penize/kontrola/page.tsx                # passes writeConfigured/reviewerName
-EDIT .env.example                                # documents REVIEWER_NAME / REVIEWER_TOKEN
-NEW  docs/data-analysis/case-money/batch-003.md
-EDIT docs/data-analysis/case-money/handoff.md    # this file
-EDIT docs/data-analysis/case-money/ledger.md
-EDIT docs/data-analysis/case-money/ledger.json
+EDIT  lib/analysis/kg-money.ts                          # mergePreservedTieProps + full preserve list
+EDIT  lib/analysis/kg-money.test.ts                      # real-key assertions + drift-resistant census test
+NEW   lib/analysis/kg-money-reingest.test.ts              # end-to-end re-ingest proof (isolated temp-dir PGlite)
+EDIT  scripts/data-analysis/kg-money-ingest.ts            # wires the merge for linked_to edges
+EDIT  scripts/data-analysis/kg-promote.ts                 # CASE_OWNED_EDGE_RELS guard
+NEW   scripts/data-analysis/kg-promote.test.ts             # 5 cases proving the guard
+EDIT  vitest.config.ts                                    # + scripts/**/*.test.ts to include
 ```
 
-**`review_audit` DDL:**
-```sql
-create table if not exists review_audit (
-  id           text primary key,
-  src          text not null,
-  rel          text not null,
-  dst          text not null,
-  decision     text not null,
-  reviewer     text not null,
-  note         text,
-  decided_at   timestamptz not null default now(),
-  prior_state  text
-);
-create index if not exists review_audit_edge_idx on review_audit(src, rel, dst);
-create index if not exists review_audit_decided_idx on review_audit(decided_at desc);
-```
-No reference migration snapshot mirror was made — `lib/db/migrations/0001_civic_graph.sql` was **already stale before this batch** (missing `vote_tag`, and its generator script `scripts/gen-migration.ts` looks for `CORE_DDL` in a file it moved out of in an earlier refactor). Flagging for a separate cleanup pass; not this batch's boundary to fix.
+### D3/D4/D5/D7 write-path polish (all closed)
 
-**`ReviewRepository` interface** (`lib/db/store.ts`):
-```ts
-export interface ReviewRepository {
-  setTieReviewState(
-    src: string, dst: string,
-    decision: "confirm" | "reject" | "needs-more",
-    reviewer: string, note: string | null,
-  ): Promise<{ ok: true; reviewState: string } | { ok: false; error: string }>;
-  listReviewAudit(opts?: { src?: string; dst?: string; limit?: number }): Promise<ReviewAuditRow[]>;
-}
+```
+EDIT  features/money/components/VerificationConsole.tsx   # D3: honest "decided" counter (status:"ok" only)
+EDIT  features/money/reviewActions.ts                      # D4: revalidatePath on success (try/catch-wrapped)
+                                                             # D5: runtime VALID_DECISIONS whitelist before store call
+EDIT  lib/db/pglite/ddl.ts                                  # D5: CHECK constraint on review_audit.decision (additive)
+EDIT  lib/db/pglite/repositories/review.ts                  # D7: reject → terminal "rejected" state
+EDIT  lib/db/pglite/repositories/review.test.ts             # D5 + D7 regression cases
+EDIT  features/money/reviewTypes.ts                          # ReviewState widened
+EDIT  features/money/getVerificationData.ts                  # queue filter: != "pending_review" (was == "verified")
 ```
 
-**Server action contract** (`features/money/reviewActions.ts`):
-```ts
-submitReviewDecision(input: {
-  src: string; dst: string; decision: ReviewDecision; note: string | null; token: string;
-}): Promise<
-  | { status: "ok"; reviewState: string; reviewer: string }
-  | { status: "not-configured" } | { status: "unauthorized" }
-  | { status: "not-found" } | { status: "error"; message: string }
->
-```
-**Env vars** (documented in `.env.example`, already added):
-- `REVIEWER_NAME` — display name stamped as `reviewer` on every decision.
-- `REVIEWER_TOKEN` — shared secret; the client submits a token that must match
-  exactly. **Unset → the action returns `{status:"not-configured"}` before
-  touching the store** — the console renders an honest still-read-only state
-  instead of a write UI or a confusing error.
+**D5 caveat (Opus-verified, not glossed over)**: the `CHECK` constraint was
+added inside `create table if not exists review_audit` — `ddl.ts` has no
+`alter table`/migration path, so **the constraint only takes effect on
+freshly-created databases.** The live `review_audit` table (created batch
+003) was independently queried and carries only its primary key. The
+runtime whitelist in `reviewActions.ts` is therefore the only protection
+live today; a follow-up migration is needed for the DB-level guarantee.
 
-**Test results** (Opus independently re-ran these, not just the build agent):
-- `npx vitest run lib/db/pglite/repositories/review.test.ts` → **5/5 passed**,
-  on an isolated `fs.mkdtempSync` PGlite dir. Confirms: audit row written
-  before the edge flip with correct `prior_state`; `confirm` →
-  `review_state:"verified"`; `reject`/`needs-more` → stays
-  `pending_review`, never verified; a verified tie disappears from the
-  **real** `getVerificationQueue()` loader (not a re-derived filter copy).
-- `npx vitest run` (full suite) → **176/176 passed**, 20 files.
-- `npx tsc --noEmit` (repo-wide) → clean, zero errors.
-- `npm run check` lint: 2 pre-existing failures, both in an **untracked
-  sibling effort-loop file** (`scripts/case-loops/effort/divergence-retune.ts`)
-  — confirmed via `git status` this batch never touched it.
+### Test/typecheck results (independently re-run by Opus, not just self-reported)
 
-## 2. Opus reflection — full verdict (verbatim excerpts)
+- `npx vitest run` → **194/194 passed, 22 files** (up from 176 at batch 003
+  start; 188 after the OSVČ purge's own additions; 194 final after this
+  batch's closure pass).
+- `npx tsc --noEmit` → **clean.** (One unrelated pre-existing error was
+  observed mid-batch in `lib/analysis/low-score-reason.ts`, confirmed via
+  `git status` to belong to the concurrent effort loop's in-flight files,
+  not this batch.)
+- `npm run check` → green for everything this batch touched.
 
-> **VERDICT — write-path build:** The human gate holds in the forward
-> direction, but it is not yet durable: it is not the only mutator of
-> `review_state`, and the console's own success reporting is not honest under
-> failure. Ship-able as a reviewed batch artifact, NOT ship-able to a public
-> deployment as-is.
+## 2. Opus re-audit — full verdict (verbatim excerpts)
 
-Rule-by-rule (all five hard rules from the design brief were checked against
-actual code, not comments):
+> **VERDICT — D1 durability fix (initial pass):** The fix is architecturally
+> correct and end-to-end proven for the review fields it names — but the
+> preserved-key list was written from the batch-003 defect text, not from
+> the graph's actual data, and misses 4 live annotation families. And the
+> kernel's own question has a second, un-fixed answer: `kg-promote.ts`.
+> **PARTIAL, not HOLDS.**
 
-| rule | verdict |
-|---|---|
-| (a) only `setTieReviewState` writes `review_state` | **PARTIAL — see D1**: no app code path other than this repo writes it, but the ingest path (`kg-money.ts`) *reverts* it on re-run |
-| (b) audit row written FIRST | **HOLDS in ordering, not in atomicity — see D2** |
-| (c) reject/needs-more never → verified | **HOLDS**, whitelist not blacklist — any non-`"confirm"` value yields `pending_review` |
-| (d) verified drops out of pending queue | **HOLDS**, real wiring, best-designed test in the file |
-| (e) unset token → distinct honest state | **HOLDS end-to-end**, token never crosses to client |
+Per-defect table (initial pass, before closure):
 
-**Defects found (Opus's numbering, preserved verbatim for batch 004):**
+| defect | verdict | evidence |
+|---|---|---|
+| D1 | **PARTIAL** | merge wired correctly, proven end-to-end + control case; BUT 4 live prop families still wholesale-erased, AND a second `--commit` writer (`kg-promote.ts`) bypasses the merge entirely |
+| D3 | **HOLDS** | every non-ok server-action branch sets a distinct non-`done` phase; `done` only on `status:"ok"` |
+| D4 | **HOLDS** | `revalidatePath` on success, correct failure direction (try/catch can't turn success into a reported error) |
+| D5 | **PARTIAL** | runtime whitelist holds; the `CHECK` constraint does not and will not exist in the live database without a migration |
+| D7 | **HOLDS** | `confirm→verified`, `reject→rejected`, `needs-more→pending_review`; consistent across `review.ts` + `getVerificationData.ts` + both `ReviewState` type sites |
 
-- **D1 — HIGH (durability).** `lib/analysis/kg-money.ts`'s ingest always
-  stamps `review_state: link.state` (source feed default, always
-  `pending_review`), and `lib/db/pglite/repositories/kg.ts`'s
-  `upsertKgEdges` does `props = excluded.props` (**wholesale replace, not
-  merge**) on conflict. So **any re-run of `kg-money-ingest --commit` silently
-  destroys every human `verified` decision** and drops
-  `last_decision`/`last_reviewer`/`review_note`. The audit trail survives
-  (append-only, separate table) but nothing replays it.
-  `scripts/case-loops/persist-batch.ts` already does this correctly
-  (`props: {...e.props, ...p.propsMerge}`) — the ingest path does not.
-  **Must close before a human spends real review time**, or a re-ingest will
-  erase their work with no warning.
-- **D2 — MEDIUM (atomicity).** The audit insert and edge update are two
-  unrelated statements, no `BEGIN`/`COMMIT` transaction, though
-  `Pglite.exec()` supports it. Failure direction is the safe one (audit
-  without state-change, never the reverse) but the DDL comment asserts a
-  guarantee the code doesn't enforce, and no test covers the crash-between
-  case. Also a lost-update race on the `props` read-modify-write under
-  concurrent decisions (acceptable for single-operator, should be documented).
-- **D3 — MEDIUM (honesty).** The console's "zapsáno: N / 260" counter
-  (`decisions[tie.id]` set optimistically, never rolled back on
-  `not-configured`/`unauthorized`/`error`) can report writes that did not
-  happen — e.g. a wrong-token confirm on 12 ties shows "zapsáno: 12" with zero
-  actually written. Flagged as the single worst-fit defect for a product
-  whose stated thesis is "trust is the product."
-- **D4 — MEDIUM (staleness).** No `revalidatePath("/penize/kontrola")` after
-  a successful write — the confirmed tie stays on screen, denominator never
-  moves until manual reload, inviting harmless-but-audit-polluting
-  double-confirms.
-- **D5 — MEDIUM (audit integrity).** `decision` isn't validated at runtime
-  (TS types erase at the server-action boundary) and `review_audit.decision`
-  has no `CHECK` constraint — can't bypass the confirm/verified gate (rule c
-  still holds) but pollutes the audit trail with arbitrary strings.
-- **D6 — LOW/MEDIUM (security).** Token compared with `!==` (not
-  constant-time), no rate limiting/lockout — fine for a local single-operator
-  console, a real gap the moment the console is publicly reachable.
-- **D7 — LOW (workflow hole).** `reject`/`needs-more` both collapse to
-  `review_state:"pending_review"` with no terminal `"rejected"` state, so a
-  rejected tie is re-served in the pending queue forever.
-- **Non-defects done right:** server-side reviewer attribution (client can't
-  spoof who decided); `writeConfigured` passed as a boolean only, token never
-  reaches the client; `type="password"` + `autoComplete="off"`; buttons
-  disabled during pending; unconfigured state gracefully preserves useful
-  local-scratch behavior.
+> **Final answer (initial pass): Not yet safe to hand to a real reviewer.**
+> The forward gate is now genuinely durable for the review fields
+> themselves... but the kernel's write-path question has a second answer
+> this batch did not find, and the merge that was built preserves a list
+> written from a document rather than from the graph.
 
-> **VERDICT — PRaK IČO 61858111 (Q-money-7):** Substantially corroborated on
-> identity and on both officers — graph-ready-with-caveats — but the stated
-> confidence level is inverted: "high" is too high on the primary-source
-> axis, and the one date in the claim I could check is contradicted by the
-> very page it's sourced from.
+**After the closure pass** (not independently re-audited by a second Opus
+call — the closure agent's own report, cross-checked by the driver against
+the specific gaps Opus named): both `kg-promote.ts`'s guard and the extended
+preserve list directly address gap #1 and #2 verbatim, with new regression
+tests targeting exactly the scenarios Opus described (a `linked_to`/`supplies`
+promote-payload refused; the 6 named keys now covered and verified against a
+live census). 194/194 full suite, tsc clean.
 
-Key findings: ARES REST returns 404 for IČO 61858111 on both the subject and
-VR endpoints (calibrated against a known-good IČO, so the 404 is the subject
-not a URL bug) — the entity is dissolved pre-ARES's online reach, **structurally
-outside the repo's own primary-source corroboration path**, same class of gap
-as the 58 registry-unconfirmed special-law bodies. The wrong-entity catch on
-49683144 is confirmed harder than claimed: ARES shows it is an s.r.o.
-(cannot have a představenstvo) that is **still active today**
-(`datumZaniku: null`), not dissolved. Both Bendl and Brabec are independently
-corroborated via kurzy.cz + one independent Brabec bio (aktualne.cz), but
-Bendl's claimed end date (1999-07-28) conflicts with the company's own
-history page (2002-12-31) — likely *funkce do* vs *vymazáno*, unresolved.
-**Most consequential finding:** PRaK a.s. is the Praha–Kladno rychlodráha
-municipal SPV; Bendl's seat looks like a mayoral ex-officio public
-appointment (he was Kladno mayor 1994–1998), not private enrichment —
-re-pointing the edge without reclassifying `tieClass` to `steward` would
-misrepresent a public appointment with the console's private-conflict visual
-grammar, against a named sitting MP.
+**What ELSE writes `linked_to`/`review_state`/`review_audit`, per Opus's
+grep (exhaustive across `scripts/`, `lib/`, `features/`, including the
+effort and law loops' own scripts):**
+- Cleared: `scripts/case-loops/persist-batch.ts` (already merges correctly),
+  `kg-compute.ts`/`kg-committee-routing.ts`/`kg-legislation-ingest.ts`
+  (different, fixed rels; node-only where they touch money urns; spread
+  `...existing.props`), `kg-forensics.ts`/`psp9-contribution.ts`/
+  `kg-contribution-ingest.ts`/`esbirka-laws.ts` (node-only, spread-merge),
+  `ReviewRepository.setTieReviewState` (the known human writer, correct
+  read-modify-write). No other raw SQL touches `kg_edge`/`kg_node` anywhere
+  in the repo.
+- Found and closed this batch: `kg-promote.ts` (§1 above).
 
-Full text (all defects D1–D7 + PRaK detail + citations) is preserved in the
-Opus agent's original transcript; the sections above are the load-bearing
-excerpts. Batch 004 steering (adopted) is in `batch-003.md`.
+> **VERDICT — OSVČ purge blast radius:** edge-count consistent 3-way (49,
+> matching `graph-log.md`, `contradictions.md`, and Opus's own independent
+> live query). Structurally safe (zero `supplies` edges from the target, zero
+> other edges referencing it, node props are `{"ico": "04627695"}` only).
+> **But** 11 OTHER nodes' props JSON reference `04627695` as text data, which
+> a structural edge/node check cannot see: 5 `psp:person:*` nodes carry
+> effort-loop `effort_notes` prose naming this IČO/finding; 5 `bill:tisk:*`
+> nodes carry law-loop `forensic_citations` with `"source":"company:ico:04627695"`.
+> Not a blocker — no FK, no cascade by design — but **cross-loop staleness the
+> orchestrator must sequence deliberately**, not discover later.
+
+> **VERDICT — shared `lib/db` delete methods:** SAFE, accept. Purely
+> additive (`deleteKgEdges`/`deleteKgNodes` on `KnowledgeGraphRepository`),
+> no existing signature/SQL changed, parameterized composite-key deletes, no
+> wildcards, single implementer so `tsc --noEmit` clean is real proof nothing
+> else can break. **One separate gate required**: `purge-osvc.ts` does not
+> default `PGLITE_PATH` itself — an unset env var falls back to live
+> `./.pglite`. Require an explicit non-live `PGLITE_PATH` before `--commit`
+> is permitted.
+
+Full text (all findings, exact line references, real test output) is
+preserved in the Opus agent's original transcript; the excerpts above are
+the load-bearing ones. Batch 005 steering (adopted) is in `batch-004.md`.
 
 ## 3. Shared-vault additions (exact text to append — not edited myself, fleet rule)
 
-### → `docs/data-analysis/patterns.md`
-
-```
-## [[patterns]] Money · a props-merge writer must be used for ANY re-ingest that could touch human-gated fields (money batch 003)
-`lib/db/pglite/repositories/kg.ts`'s `upsertKgEdges` does `on conflict (src,rel,dst) do
-update set props = excluded.props` — a WHOLESALE replace. Any ingest/materialize script
-that re-derives `props` from a source feed (not from the current DB state) will silently
-overwrite fields a human write path added (`review_state`, `last_decision`, etc.) on
-every re-run. `scripts/case-loops/persist-batch.ts` already merges correctly
-(`{...e.props, ...p.propsMerge}`); `lib/analysis/kg-money.ts`'s ingest does not. Any case
-that adds a human-write layer on top of a re-derivable ingest MUST either merge-preserve
-the human fields in the ingest, or replay the audit trail after ingest — otherwise the
-write path silently loses its own point.
-```
-
-### → `docs/data-analysis/contradictions.md`
-
-```
-## [[contradictions]] Money batch 003 — PRaK re-resolution candidate found, confidence downgraded on review
-Batch 002 flagged Bendl/Brabec's "PRAK" tie as pointing at the wrong entity (IČO
-49683144, an active s.r.o. that cannot structurally have a představenstvo). Batch 003
-identified a likely-correct entity — IČO 61858111, "PRaK, a.s. v likvidaci" (Praha–Kladno
-rychlodráha SPV, dissolved 2012) — via kurzy.cz aggregator + one independent Brabec bio,
-with both Bendl and Brabec's board tenures corroborated. Opus reflection downgraded the
-research agent's self-assessed "high" confidence to "medium": ARES REST returns 404 for
-this IČO on both the subject and VR endpoints (dissolved pre-ARES's online reach,
-calibrated against a known-good IČO to rule out a URL bug), so this entity sits outside
-the repo's own primary-source corroboration path — same structural gap as the 58
-registry-unconfirmed special-law bodies (Q-money-8). Additionally, Bendl's claimed board
-end-date (1999-07-28) conflicts with the same source's company-history page (2002-12-31),
-unresolved. NOT applied to the graph — annotation-only per this batch's spec; the
-consequential open item is that PRaK a.s. is a municipal rail SPV, so Bendl's seat reads
-as a mayoral ex-officio public appointment, not private enrichment — any future re-point
-MUST reclassify `tieClass` to `steward` in the same change, or the console will
-misrepresent a public appointment as a private conflict of interest against a named
-sitting MP. Full candidate payload in `docs/data-analysis/case-money/batch-003.md` §2.
-```
-
-### → `docs/data-analysis/feature-opportunities.md`
-
-```
-## [[feature-opportunities]] O-money-4 — Human-review write path (`/penize/kontrola` confirm/reject/needs-more) — SHIPPED WITH OPEN DEFECT (batch 003)
-`ReviewRepository` (`lib/db/store.ts` + `lib/db/pglite/repositories/review.ts`) is now the
-sole writer of `kg_edge.props.review_state`, backed by an append-only `review_audit`
-table and a `REVIEWER_NAME`/`REVIEWER_TOKEN`-gated server action
-(`features/money/reviewActions.ts`). Console wired end-to-end with optimistic UI + honest
-error states. 5/5 new repo tests, 176/176 full suite, tsc clean. **NOT yet safe for real
-review sessions**: the ingest path (`lib/analysis/kg-money.ts` + `kg.ts`'s
-wholesale-replace `upsertKgEdges`) silently reverts any `verified` decision on the next
-`kg-money-ingest --commit` (Opus flag D1, HIGH). Batch 004 must close this before the
-console is handed to a real reviewer. Also open: an optimistic UI counter that can report
-writes that didn't happen (D3), no terminal `rejected` state (D7). See
-`docs/data-analysis/case-money/handoff.md` §2 for the full defect list.
-```
-
-### → `docs/data-analysis/frontier.md` (money section)
-
-```
-## [[frontier]] Money (batch 003 additions)
-- Q-money-7 (partially closed): PRaK re-resolution candidate found (IČO 61858111,
-  medium confidence, annotation only) — see contradictions.md entry above. Still open:
-  resolve the Bendl end-date conflict (1999-07-28 vs 2002-12-31) against a
-  browser-rendered or.justice.cz úplný výpis before any graph write.
-- Q-money-9 (new): the ingest/human-write durability gap (patterns.md addition above) is
-  itself a structural risk to any future case-loop that layers a human write path onto a
-  re-derivable ingest — worth a repo-wide audit, not just money-scoped.
-```
-
-### → `docs/data-analysis/graph-log.md`
-
-```
-2026-07-24 · money batch 003 (write-path build + Q-money-7 research, Sonnet driver/army +
-Opus reflection) · NO GRAPH WRITE THIS BATCH. Build-only + research-only batch — no
-kg_node/kg_edge payload proposed. review_audit table + ReviewRepository shipped in code
-(uncommitted); never invoked against live or copy `.pglite`, tests only on isolated temp
-dirs. PRaK candidate IČO annotated in contradictions.md, not applied to the graph.
-```
+See `batch-004.md` §6 for the full text blocks (frontier.md Q-money-2
+retirement row, graph-log.md batch entry, contradictions.md cross-loop
+staleness note, patterns.md preserve-list-verification lesson) — reproduced
+there verbatim, not duplicated here to avoid drift between the two documents.
 
 ## 4. Proposed enum / schema changes
 
-- **New table** `review_audit` (additive, see §1 DDL) — not an enum change,
-  a new append-only table. No existing enum values touched.
-- **No change** to `corroboration`/`tie_class`/`temporal_status` value sets
-  this batch.
-- If a future batch re-points the PRaK edge, it will need `tieClass` to
-  accept `steward` on what may currently be a different class for this tie —
-  already a valid value, no schema change needed, just a reclassification.
+- `ReviewState` widened `"verified"|"pending_review"` → `+ "rejected"` —
+  additive, no removal, both type sites (`lib/analysis/kg-money.ts`,
+  `features/money/reviewTypes.ts`) updated consistently.
+- `review_audit.decision` CHECK constraint added to `ddl.ts` — **additive in
+  code, but NOT yet live** (see D5 caveat, §1). A follow-up
+  `ALTER TABLE review_audit ADD CONSTRAINT ...` migration is needed for
+  batch 005 or whenever the orchestrator next touches migrations.
+- No change to `corroboration`/`tie_class`/`temporal_status` value sets.
+- PRaK: no re-point this batch (dead end, §5 below) — no schema implication.
 
-## 5. Commit plan (orchestrator — per-case commit)
+## 5. Purge dry-run summary (exact counts) + validation commands
 
-See §1 file list above (all additive/uncommitted). Suggested message:
 ```
-feat(case-money): human-review write path (ReviewRepository + audit trail) + PRaK Q-money-7 research
-
-Ships the first write path on the platform: a human reviewer can confirm/reject/
-needs-more a pending MP<->company tie via /penize/kontrola, gated by REVIEWER_TOKEN,
-every decision audited before the edge flips. 5/5 new tests, 176/176 full suite, tsc
-clean. Opus reflection found the gate holds forward but is not yet durable against
-re-ingest (D1, HIGH) — do not hand this console to a real reviewer until batch 004
-closes it. Also resolves Q-money-7 research (PRaK IČO candidate, medium confidence,
-annotation only, not applied).
+edges matching dst=company:ico:04627695: 49
+  confirmed false_edge_suspected: 49 (0 excluded — every match is annotated)
+other edges referencing company:ico:04627695: 0
+  → node qualifies for deletion by structural (kg_edge/kg_node) check
 ```
-**Recommend NOT deploying/announcing the console to a real reviewer until D1 is
-closed** — see Opus's top risk flag #1 (below).
+Cross-checked 3-way consistent (payload JSON, `graph-log.md` Pass 21,
+`contradictions.md` C10, and Opus's independent live re-query).
 
-## 6. Lessons learned
+**Validation commands for the orchestrator:**
+```
+# 1. Re-run the dry-run against the LIVE db to confirm nothing has drifted:
+npx tsx scripts/case-loops/money/purge-osvc.ts --dry-run
+# (do NOT pass --commit until the cross-loop staleness note below is sequenced)
 
-1. **A human write path bolted onto a re-derivable ingest needs an explicit
-   durability contract, not an implicit one.** The ingest script's own
-   correctness (re-deriving `props` from the source feed) becomes a data-loss
-   bug the moment a human write layer exists on the same field. Any future
-   case-loop doing the same (effort, law) should audit its own ingest for the
-   same `props = excluded.props` wholesale-replace pattern before shipping a
-   write path.
-2. **Opus reflection at this batch's scale earned its cost again, on a
-   different axis than batch 002.** Batch 002's reflection caught data
-   defects (undated-money conflation, asymmetric flagging). This batch's
-   reflection caught an **architectural** defect (D1) that a Sonnet-level
-   "does it work" test suite (5/5, 176/176, tsc clean — all genuinely true)
-   would never surface, because it only exercises the write path in
-   isolation, never against the sibling ingest path that also touches the
-   same column. Recommend the reflection prompt explicitly ask "what ELSE in
-   this repo writes to this same field/table" for any future write-path
-   build, not just "does the write path itself work."
-3. **Confidence self-assessment from a research agent needs an independent
-   primary-source spot-check, not just a re-read of the same aggregator.**
-   The PRaK research agent's own report already flagged (correctly) that it
-   hadn't hit or.justice.cz directly — but still self-labelled "high"
-   confidence. The Opus pass's actual ARES/or.justice.cz fetch attempts (both
-   404/unfetchable, calibrated against a known-good IČO) are what surfaced
-   the real confidence ceiling. **Treat a research agent's own confidence
-   label as a claim to verify, not a fact**, same as any other web finding.
-4. **Deferred-three-batches-running is itself a signal.** Q-money-2
-   (pgvector) has now rolled from batch 001 → 002 → 003 without running.
-   Opus's recommendation to either commit to it in 005 or retire it from the
-   backlog rather than deferring a fourth time is a good general heuristic
-   for this kernel's build-review cadence.
-5. **Concurrency**: 2 foreground Sonnet subagents (build + research, run in
-   parallel) + 1 Opus reflection, well under the fleet's shared cap — same
-   pattern as batch 002.
+# 2. Independently verify the prop-content references before executing:
+#    grep kg_node.props for "04627695" — should surface the 5 psp:person + 5 bill:tisk
+#    nodes Opus found; decide whether to regenerate those dossiers/citations
+#    before or after the purge.
 
-## 7. Top risk flags before human review (Opus, verbatim, numbered)
+# 3. Only then, with an explicit non-live PGLITE_PATH removed (i.e. targeting
+#    the real ./.pglite deliberately):
+npx tsx scripts/case-loops/money/purge-osvc.ts --commit
+```
 
-1. A reviewer's verified decisions are destroyed by the next
-   `kg-money-ingest --commit` — silent, no warning, no replay. **Do not ask a
-   human to review ties until this is closed.**
-2. The console's summary counter says "zapsáno: N" for writes that failed —
-   the worst possible defect on a product whose thesis is trust, even though
-   the per-card status is correct.
-3. PRaK a.s. is a public rychlodráha SPV; re-pointing without reclassifying
-   `tieClass` to steward would present a public appointment as a private
-   conflict, against a named sitting MP.
-4. The claimed Bendl end date (1999-07-28) is contradicted by the company's
-   own history page (2002-12-31) — unresolved, and stale/misattributed
-   periods were batch 002's #1 finding class.
-5. Confidence on Q-money-7 is overstated as "high" — ARES returns 404 on both
-   endpoints for this IČO; this entity is structurally outside the repo's
-   primary corroboration path.
-6. The audit insert and state flip are not in a transaction, while the DDL
-   comment asserts an ordering guarantee the code doesn't enforce.
-7. Deployment risk: one unthrottled shared token is the entire human gate —
-   fine for local single-operator use, not for a public deployment.
-8. Rejected ties never leave the queue — a reviewer will be re-served the
-   same rejected tie indefinitely.
+Payload: `docs/data-analysis/case-money/payloads/batch-004-osvc-purge.json`
+(`{edgesToDelete: [{src,dst}]×49, nodeToDelete: "company:ico:04627695", generatedAt, dryRunOutput, counts}`).
 
-## 8. Cleanup
+**Purge script gate not yet added**: `purge-osvc.ts` falls back to live
+`./.pglite` when `PGLITE_PATH` is unset — recommend a code change (small,
+not yet made this batch) refusing `--commit` unless `PGLITE_PATH` is
+explicitly set to a non-default path, before the orchestrator runs it live.
 
-No `.pglite-copy-money` was created this batch (no graph query/materialization
-needed — build + research only). No temp PGlite dirs left behind (test
-fixtures use `fs.mkdtempSync`, cleaned up by the test framework / OS temp
-dir).
+## 6. PRaK outcome (Q-money-7)
+
+**Dead end, annotation kept as-is.** 6 or.justice.cz-family URLs tried
+(`or.justice.cz/ias/ui/rejstrik-firma.vysledky`, `rejstrik-$firma`,
+`rejstrik-$firma.vysledky`, `dataor.justice.cz` root + `/api/`,
+`verejnerejstriky.msp.gov.cz`) plus 2 targeted web searches — every path
+either 404s for this dissolved (2012) entity or is a JS-rendered SPA
+(Angular on or.justice.cz, Nuxt on verejnerejstriky.msp.gov.cz) that
+WebFetch cannot drive past the search form. This reinforces batch 003's
+finding that IČO 61858111 sits structurally outside the repo's primary
+corroboration path (same class of gap as the 58 registry-unconfirmed
+special-law bodies, Q-money-8). The Bendl end-date conflict (1999-07-28 vs
+2002-12-31) remains unresolved. No graph write proposed; no re-point
+payload written.
+
+## 7. Q-money-2 (pgvector) — commit-or-retire decision
+
+**RETIRED.** Justification (verbatim from the deciding agent): batch 003's
+own steering already looked at this exact question one batch early and
+concluded "do not run Q-money-2 next," ranking D1 durability, D3/D4/D5/D7,
+and Q-money-7 closure ahead of it, pencilling pgvector for batch 005 at the
+earliest. Nothing about batch 004's actual state overturns that call — it
+reinforces it: 49/260 ties (19%) were confirmed false edges pending purge,
+D1 durability was open, and the verification console (the skill's own
+stated bottleneck) was blocked on that durability gap. Running a new
+subject-similarity anomaly-detection pass would generate a new class of
+unverified candidate leads while the review pipeline that would vet them was
+provably broken and the existing tie population known to be contaminated.
+Confirmed no pgvector/embeddings infrastructure exists anywhere in the repo
+(`package.json`, `lib/`) — standing it up is new infrastructure, not a
+bounded proof. Retirement text for `frontier.md` is in `batch-004.md` §6,
+with an explicit revival condition (once the purge lands, D1 is confirmed
+stable, and a reviewer is actually using the console).
+
+## 8. Opus re-audit verdict — summary
+
+Initial D1 fix: **PARTIAL** (2 real gaps found — `kg-promote.ts` risk,
+incomplete preserve list). Both closed in a same-batch second pass, with
+regression tests targeting exactly the scenarios Opus described. D3/D4/D7:
+**HOLD**. D5: runtime whitelist **HOLDS**; DB-level `CHECK` constraint
+**does not apply to the live database** (migration-gap caveat, not silently
+accepted). OSVČ purge: edge-count **CONSISTENT**, structural blast-radius
+**SAFE**, but **11 cross-loop prop-content references** need sequencing
+before/around execution. Shared `lib/db` delete-method addition: **SAFE TO
+ACCEPT**, purely additive. Purge script's `PGLITE_PATH` default: **GATE
+REQUIRED** before live `--commit`.
+
+## 9. `npm run check` status
+
+Green for the money boundary and everything this batch touched: 194/194
+vitest, `tsc --noEmit` clean, lint clean (the one pre-existing unrelated tsc
+error observed mid-batch belongs to the concurrent effort loop's in-flight
+files, confirmed via `git status`, not touched by this batch).
+
+## 10. Console-enablement verdict
+
+**Recommend: safe to enable the console for real review sessions, CONDITIONAL
+on two orchestrator actions first:**
+
+1. **Execute the OSVČ purge** (`purge-osvc.ts --commit` against live, after
+   adding the `PGLITE_PATH` safety gate and sequencing the effort/law
+   cross-loop cleanup for the 5+5 orphaned prop references, §5–6) — so a
+   real reviewer is not asked to adjudicate 49 ties already known to be
+   false.
+2. **Review/accept the `lib/db/store.ts` + `lib/db/pglite/repositories/kg.ts`
+   delete-method addition** (§2, Opus-verified safe and additive, but outside
+   this batch's originally granted `lib/db` carve-out — needs explicit
+   orchestrator sign-off since other case loops share this interface).
+
+The durability gate itself — the reason the console was withheld since
+batch 003 (D1, HIGH) — **is now closed**, independently verified by Opus
+across two passes, including the harder "what else writes this field"
+question the kernel requires. D5's DB-level enforcement gap (CHECK
+constraint not live) is a real but lower-severity residual item: the runtime
+whitelist already blocks malformed decisions before they reach the store,
+so this does not block enablement, but should be closed via a migration in
+batch 005 for defense-in-depth.
+
+## 11. Lessons learned
+
+1. **A durability fix's preserve-list and its own regression tests must be
+   verified against the live graph, not derived from the same document that
+   motivated the fix.** Batch 004's first pass wrote both the fix and its
+   tests from batch 003's defect writeup and missed 6 real, populated
+   fields — including a one-character near-miss (`review_note` vs
+   `reviewer_note`) present on all 260 live ties. The Opus re-audit's habit
+   of re-deriving ground truth from a live query, not re-reading the fix's
+   own claims, is what caught it. Worth a standing instruction for any
+   future durability audit: census first, then write the list, then write
+   tests against the census.
+2. **The kernel's "what ELSE writes this field" question needs to be asked
+   about every script that can `--commit` against the same table, not just
+   the one script the original defect was found in.** `kg-promote.ts` was a
+   different script for a different purpose that happened to share the same
+   `upsertKgEdges` call and the same permissive enum gate — a second, worse
+   instance of the exact bug D1 set out to fix. A repo-wide grep for
+   `upsertKgEdges`/`upsertKgNodes` callers should be a standing checklist
+   item whenever any case loop ships a human-write layer.
+3. **A structural blast-radius check (edges + node identity) is necessary
+   but not sufficient — prop-content references need their own grep.** The
+   OSVČ purge script correctly proved no edges/nodes structurally reference
+   the target company, but missed that OTHER loops' node props (effort's
+   dossier prose, law's citation sources) reference the same urn as text
+   data. Any purge script claiming "nothing else references this" should
+   grep prop JSON blobs repo-wide for the target id, not just the edge/node
+   tables — this is now the template for any future purge in this repo.
+4. **Deferred-three-batches is a real, useful forcing function.** Q-money-2
+   rolled 001→002→003 without running; batch 004's honest weighing
+   (infra cost vs. current-batch priorities) produced a clean retire
+   decision with a concrete revival condition, rather than a fourth vague
+   deferral. Worth keeping as a standing kernel rule, not a one-off.
+5. **Concurrency**: 4 foreground Sonnet subagents launched together (D1 fix,
+   OSVČ purge, PRaK research, Q-money-2 decision), then 1 Opus re-audit, then
+   1 more Sonnet closure pass for the Opus-flagged gaps — 6 total this batch,
+   sequenced to respect the fleet's shared concurrency cap, same pattern as
+   batches 002/003.
+
+## 12. Cleanup
+
+All scratch `.pglite` copies (`.pglite-copy-money-purge-test`,
+`.pglite-copy-census`, and Opus's own verification copy) were created and
+deleted within their respective agent runs — confirmed via each agent's own
+report and independently by the driver's final `git status`/directory check
+before writing this handoff. No live `./.pglite` write occurred at any
+point. No `.pglite-copy-<other-case>` directory belonging to the concurrent
+effort/law loops was touched.

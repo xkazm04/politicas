@@ -21,7 +21,7 @@
 //     or OR officer records) + human gate     ─┘─►  linked_to: person → company  (review-gated)
 //   ⇒ traversable trail  MP —linked_to→ Company —supplies→ Contract
 
-export type ReviewState = "verified" | "pending_review";
+export type ReviewState = "verified" | "pending_review" | "rejected";
 
 /** A company keyed by IČO (Czech business id). From ARES / obchodní rejstřík. */
 export interface Company {
@@ -169,6 +169,88 @@ export function buildMoneyGraph(
     },
     danglingContracts,
   };
+}
+
+/**
+ * D1 (batch 004): preserve human-gated/annotation fields on re-ingest.
+ *
+ * `kg.ts`'s `upsertKgEdges` does a WHOLESALE `props = excluded.props` replace on
+ * conflict (by design — other case loops rely on that for recomputable layers). The
+ * money ingest re-derives the ENTIRE graph from source feeds every run, so writing
+ * `moneyGraphToKgRows`'s freshly-derived props straight through would silently erase
+ * every human review decision (`review_state`, `last_decision`, …) on each re-run.
+ *
+ * This function is the fix, scoped to the money ingest path only: given the CURRENT
+ * props row for a `linked_to` edge (read from the store before writing) and the FRESH
+ * props this run just derived from source feeds, return the props to actually write —
+ * existing values win for the preserved keys (a human already looked at this tie and
+ * said something about it), fresh values win for everything else (role/source/etc. may
+ * have legitimately changed upstream). No existing edge (first ingest) → fresh wins
+ * entirely, since there is nothing human-gated to preserve yet.
+ *
+ * Preserved keys (existing wins when present, fresh fills in when the key is absent
+ * from existing): review_state, last_decision, last_reviewer, last_reviewed_at,
+ * review_note, corroboration (+ any `corroboration*`-prefixed key, e.g.
+ * corroboration_source/_provenance/_confidence), role_valid_from, role_valid_to
+ * (+ any `role_valid_*`-prefixed key), temporal_status, tie_class, false_edge_suspected
+ * (+ any `false_edge_*`-prefixed key), and any `*_provenance`-suffixed key.
+ *
+ * batch 004 (D2, Opus re-audit): the original list above was written from the
+ * batch-003 defect writeup, not from the live graph, and missed fields
+ * `scripts/case-loops/money/reconcile-ares-vr.ts` (propsMerge) and the batch-001
+ * corroboration payload actually write onto `linked_to` edges. Verified against a
+ * live census of all 260 `linked_to` edges (read-only copy, `listKgEdges({rel:
+ * "linked_to"})`, distinct prop keys + counts) AND against reconcile-ares-vr.ts's
+ * source — both agree on this set. Added: reviewer_note (a DIFFERENT field from
+ * review_note above — review_note is ReviewRepository's field via setTieReviewState,
+ * reviewer_note is written by reconcile-ares-vr.ts; a one-character near-miss, do not
+ * conflate them), flags, signal, owner_stake_pct, owner_stake_from (+ any
+ * `owner_stake_*`-prefixed key), prior_term.
+ *
+ * Pure, DB-free, unit-tested — never call this for `supplies` edges, which are not
+ * human-gated.
+ */
+const PRESERVED_TIE_PROP_KEYS = [
+  "review_state",
+  "last_decision",
+  "last_reviewer",
+  "last_reviewed_at",
+  "review_note",
+  "reviewer_note",
+  "corroboration",
+  "role_valid_from",
+  "role_valid_to",
+  "temporal_status",
+  "tie_class",
+  "false_edge_suspected",
+  "flags",
+  "signal",
+  "owner_stake_pct",
+  "owner_stake_from",
+  "prior_term",
+] as const;
+
+export function isPreservedTiePropKey(key: string): boolean {
+  return (
+    (PRESERVED_TIE_PROP_KEYS as readonly string[]).includes(key) ||
+    key.startsWith("corroboration") ||
+    key.startsWith("role_valid_") ||
+    key.startsWith("false_edge_") ||
+    key.startsWith("owner_stake_") ||
+    key.endsWith("_provenance")
+  );
+}
+
+export function mergePreservedTieProps(
+  existing: Record<string, unknown> | undefined,
+  fresh: Record<string, unknown>,
+): Record<string, unknown> {
+  if (!existing) return { ...fresh };
+  const merged: Record<string, unknown> = { ...fresh };
+  for (const [key, value] of Object.entries(existing)) {
+    if (isPreservedTiePropKey(key)) merged[key] = value;
+  }
+  return merged;
 }
 
 /**

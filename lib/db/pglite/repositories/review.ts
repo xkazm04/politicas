@@ -45,9 +45,11 @@ export function makeReviewRepo(pg: Pglite): ReviewRepository {
         [id, src, LINKED_TO, dst, decision, reviewer, note, priorState],
       );
 
-      // 2) only THEN update the edge. confirm → verified; reject/needs-more record the
-      // decision but must NEVER flip review_state to verified.
-      const nextReviewState = decision === "confirm" ? "verified" : "pending_review";
+      // 2) only THEN update the edge. confirm → verified; reject → rejected (D7, batch
+      // 004: a terminal state so a rejected tie is not re-served in the pending queue
+      // forever); needs-more legitimately stays pending_review ("come back to this").
+      // Neither reject nor needs-more may ever flip review_state to verified.
+      const nextReviewState = decision === "confirm" ? "verified" : decision === "reject" ? "rejected" : "pending_review";
       const nextProps: Record<string, unknown> = {
         ...props,
         review_state: nextReviewState,

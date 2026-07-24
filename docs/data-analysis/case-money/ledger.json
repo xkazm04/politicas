@@ -73,6 +73,45 @@
           "tieClass reclassification to steward if repointed"
         ]
       }
+    },
+    "batch4": {
+      "processed": 0,
+      "generatedAt": "2026-07-24",
+      "note": "no army — scope was D1 durability close, D3/D4/D5/D7 write-path polish, OSVČ purge prep (not executed), PRaK closure, Q-money-2 decision.",
+      "d1Durability": {
+        "status": "closed",
+        "passes": 2,
+        "opusGapsFound": 2,
+        "opusGapsClosed": 2,
+        "notes": "mergePreservedTieProps in lib/analysis/kg-money.ts; kg-promote.ts guarded against linked_to/supplies; preserve list verified against live graph census"
+      },
+      "writePathPolish": {
+        "d3": "closed",
+        "d4": "closed",
+        "d5": "closed (runtime whitelist live; DB CHECK constraint only on freshly-created DBs, live migration still needed)",
+        "d7": "closed (terminal rejected state)"
+      },
+      "osvcPurge": {
+        "status": "prepared, NOT executed",
+        "edgesConfirmed": 49,
+        "targetIco": "04627695",
+        "nodeQualifiesForDeletion": true,
+        "crossLoopStaleness": "5 psp:person effort_notes + 5 bill:tisk forensic_citations reference the target IČO as prop-content data, not as edges — orchestrator must sequence cleanup"
+      },
+      "prak": {
+        "status": "dead end",
+        "attempted": "6 or.justice.cz-family URLs + 2 web searches",
+        "annotationChange": "none — kept as-is"
+      },
+      "qMoney2": {
+        "status": "retired",
+        "reason": "no pgvector/embeddings infra in repo; deferred 3 batches; false-edge purge + D1 higher priority"
+      },
+      "tests": {
+        "fullSuite": "194/194",
+        "tsc": "clean"
+      },
+      "consoleEnablementVerdict": "durability gate closed; recommend enabling after OSVČ purge executes and lib/db delete-method addition is reviewed"
     }
   },
   "units": [

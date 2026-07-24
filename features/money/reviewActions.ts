@@ -16,8 +16,11 @@
 // Follows the shape/simplicity of the repo's one existing server action,
 // lib/i18n/locale.ts.
 
+import { revalidatePath } from "next/cache";
 import { getStore } from "@/lib/db/store";
 import type { ReviewDecision } from "./reviewTypes";
+
+const VALID_DECISIONS: readonly ReviewDecision[] = ["confirm", "reject", "needs-more"];
 
 export interface SubmitReviewInput {
   src: string; // kg_edge.src, "psp:person:<pspId>"
@@ -46,6 +49,12 @@ export async function submitReviewDecision(input: SubmitReviewInput): Promise<Su
   if (!input.token || input.token !== reviewerToken) {
     return { status: "unauthorized" };
   }
+  // D5 (batch 004): TS types erase at the server-action boundary, so a malformed
+  // client payload could otherwise reach the store and pollute review_audit.decision
+  // with an arbitrary string. Runtime whitelist, checked BEFORE any store call.
+  if (!VALID_DECISIONS.includes(input.decision)) {
+    return { status: "error", message: "invalid decision" };
+  }
 
   try {
     const store = await getStore();
@@ -63,6 +72,16 @@ export async function submitReviewDecision(input: SubmitReviewInput): Promise<Su
       return result.error === "tie not found"
         ? { status: "not-found" }
         : { status: "error", message: result.error };
+    }
+    // D4 (batch 004): without this the confirmed/rejected tie stays visible in the
+    // pending queue until a manual reload, inviting harmless-but-audit-polluting
+    // double-decisions on the same tie. Best-effort: the write already succeeded, so a
+    // revalidation failure (e.g. called outside a Next request scope, as in a unit
+    // test) must not turn an honest success into a reported error.
+    try {
+      revalidatePath("/penize/kontrola");
+    } catch (err) {
+      console.warn("[submitReviewDecision] revalidatePath failed; write still succeeded", err);
     }
     return { status: "ok", reviewState: result.reviewState, reviewer };
   } catch (err) {

@@ -16,6 +16,14 @@
  *
  * Značka Politicas: důkaz na prvním místě (SourceNote u každého čísla), čeština
  * napřed, barvy jen z tokenů. Data čte server-only getVerificationQueue().
+ *
+ * D7 (batch 004): a "reject" decision now sets a terminal review_state "rejected"
+ * (lib/db/pglite/repositories/review.ts). getVerificationQueue() already excludes
+ * rejected ties from the pending queue it returns, same as it excludes verified ones
+ * -- so this console, which only ever renders the queue it is given, never sees a
+ * rejected tie and needs no rejected-state badge or detail view. Out-of-queue is the
+ * whole UI contract here; a dedicated rejected-ties surface (audit history, an undo
+ * path) is a real feature but out of this batch's scope.
  */
 
 import { useMemo, useState } from "react";
@@ -130,7 +138,17 @@ export default function VerificationConsole({
     );
   }
 
-  const decidedCount = Object.keys(decisions).length;
+  // D3 (batch 004): "zapsáno" must only count writes that actually landed. When the
+  // write path is configured, `decisions` is set OPTIMISTICALLY before the server
+  // action resolves (see handleDecide) — counting it directly would report writes
+  // that never happened (e.g. a wrong-token confirm on N ties showing "zapsáno: N"
+  // with zero rows actually written). Count only ties whose real write result came
+  // back "done" (submitReviewDecision returned status "ok"). In the unconfigured
+  // local-scratch mode there is no server result to reconcile against, so the
+  // optimistic toggle count is already honest.
+  const decidedCount = writeConfigured
+    ? Object.values(writeStatus).filter((s) => s.phase === "done").length
+    : Object.keys(decisions).length;
 
   const TILES = [
     { label: "nepotvrzené vazby", value: int(data.stats.pending), sub: "čekají na lidskou kontrolu", src: "kg_edge linked_to · pending_review" },

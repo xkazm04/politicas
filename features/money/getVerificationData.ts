@@ -78,8 +78,12 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
     const ties: ReviewTie[] = [];
     for (const e of linked) {
       const rawState = (e.props?.review_state ?? e.props?.state) as string | undefined;
-      const reviewState: ReviewState = rawState === "verified" ? "verified" : "pending_review";
-      if (reviewState === "verified") continue; // the console shows the PENDING queue
+      const reviewState: ReviewState =
+        rawState === "verified" ? "verified" : rawState === "rejected" ? "rejected" : "pending_review";
+      // the console shows the PENDING queue only — verified ties are resolved, and
+      // rejected ties (D7, batch 004) are a terminal decision that must not be
+      // re-served forever, same as verified.
+      if (reviewState !== "pending_review") continue;
 
       const comp = companyById.get(e.dst);
       const pspId = pspIdFromNodeId(e.src);
