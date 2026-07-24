@@ -1,0 +1,72 @@
+{
+  "billTisk": 196,
+  "statedReasoning": "Per the fetched full print (PDF, idd=270351, 30 pages incl. obecná and zvláštní část důvodové zprávy) submitted by the government (předseda vlády Andrej Babiš, ministr spravedlnosti Jeroným Tejc, 11 May 2026): this is a technical EU-transposition bill adapting Czech law to Nařízení Evropského parlamentu a Rady (EU) 2024/3011 on the transfer of criminal proceedings between EU member states (effective 1 February 2027, binding on all member states except Denmark, Ireland opted in). Part One amends zákon č. 104/2013 Sb. (ZMJS, mezinárodní justiční spolupráce ve věcech trestních): inserts a new Hlava XIII (§395n–§395r) governing transfer/receipt of proceedings under the EU regulation; shifts several procedural competencies from 'soud'/'senát' to 'předseda senátu' (presiding judge alone) tracking an earlier lay-judge-reduction reform (zák. 319/2024); adds §193a implementing Art. 20(2) of the European Arrest Warrant framework decision (immunity-waiver requests) and a new §203 odst. 8 / §205a on videoconference witness examination, both closing gaps flagged in EU infringement proceeding No. 2020/2312 against the Czech Republic; removes the existing 10-day statutory cap on 'temporary transfer' duration under §211, leaving duration to bilateral agreement per the framework decision. Part Two makes one consequential amendment to §122 odst. 1 trestního řádu (141/1961) on judgment content when jurisdiction rests solely on the EU regulation. Part Three amends §9 trestního zákoníku (40/2009) to add 'přímo použitelný předpis Evropské unie' (directly applicable EU law) as an independent basis for Czech criminal jurisdiction, alongside the existing international-treaty basis — enabling Czech courts to try cases transferred to them under the regulation even where none of the traditional territorial/personality jurisdiction grounds (§4–§8) would otherwise apply. The DZ states corruption risk is not elevated beyond the existing baseline, no impact on the business environment, no state aid, and quantifies the financial impact at approximately 1,172,000 CZK/year (translation and notification costs to victims/defendants), absorbed within the Ministry of Justice's existing budget chapter 336 without a funding increase; a formal RIA was not prepared per the government's 2026 legislative work plan. Effective date 1 February 2027, matching the EU regulation's own entry into force.",
+  "researchedContext": "Fetched and read the entire 30-page bill PDF (idd=270351) via the psp.cz tiskt.sqw index — obecná část (incl. the full statistical basis for the cost estimate: ~350 outbound and ~320 inbound proceedings/year, 2016–2024 caseload tables), zvláštní část (paragraph-by-paragraph rationale), and the signature block confirming government sponsorship. Also fetched the tisk index page (submission date 15 May 2026, documents including a separate 'Soulad s právem EU' compatibility note not separately fetched). The graph's amendedLaws for this print — 104/2013, 141/1961, 40/2009 — match the bill's three-part structure exactly (Part One/104/2013, Part Two/141/1961, Part Three/40/2009); no data-quality undercount found. This is the cleanest dossier of my three assignments: a single sponsor (Jeroným Tejc, Minister of Justice) with zero recorded money ties, and content that is a mandated, deadline-driven EU regulation adaptation rather than discretionary policy. Cross-bill: within the batch's busiest 40/2009 cluster (churn 6: tisk 111, 115, 173, 196, 207, 216), tisk 196 touches only §9 tr. zák. — a jurisdiction-basis provision untouched by tisk 173 (§199/§302/§303) or tisk 216 (§175a/§283/§283a/§286a), and by batch-001's tisk 115 (§196/§55(2)). No drafting collision found among any 40/2009 print I have visibility into. Separately, tisk 196 is also in a siblingCollisionGroup on 104/2013 with tisk 46, which is outside my assignment and which I could not fetch or compare — flagged as an open cross-check for the batch coordinator, since both prints amend the same justiční-spolupráce statute in the same term.",
+  "unstatedEffects": [
+    {
+      "effect": "Several provisions shift decision-making authority in cross-border proceedings-transfer matters from the full court/senát to the předseda senátu (presiding judge) acting alone (e.g. §106 odst. 1 ZMJS, §205a witness-examination decisions). The DZ frames this purely as continuity with the 2024 reduction of lay-judge participation and as reflecting that these are non-merits ('not meritorní') procedural decisions — but the practical effect is a modest reduction in collegial oversight of decisions in the specific context of international criminal-proceedings transfer, a category the DZ itself elsewhere describes as requiring judgment calls about jurisdictional expediency (e.g. balancing where 'the offender's rehabilitation is better secured').",
+      "whoBenefits": "Judicial administration gains procedural efficiency and faster throughput on an anticipated ~350-670 transfer requests/year; defendants and victims in transfer proceedings lose the (already limited) additional scrutiny a multi-judge panel would provide on these specific procedural junctures.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270351"
+    },
+    {
+      "effect": "The new §9 trestního zákoníku basis lets Czech courts assert criminal jurisdiction over conduct with no traditional territorial or personality nexus to the Czech Republic whenever a proceeding is transferred to Czech authorities under the EU regulation — a genuine, if EU-mandated, expansion of the circumstances in which Czech courts can try non-Czech conduct by non-Czech nationals. The DZ discloses this directly and frames it as EU-driven and narrower than the pre-existing 1972 European Convention basis it partly displaces, so this is disclosed rather than hidden, but the practical jurisdictional reach is nonetheless new.",
+      "whoBenefits": "EU cross-border law enforcement coordination overall; specifically, member states seeking to offload proceedings onto the Czech Republic for efficiency (e.g. because the accused resides here) gain a forum even absent a traditional Czech nexus to the underlying conduct.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270351"
+    }
+  ],
+  "conflictAssessment": "No conflict of interest is possible on the facts available: the bill's sole named sponsor in the target dossier is Jeroným Tejc (Minister of Justice), who has no recorded money ties in the graph, and the print is a government bill (vládní návrh) formally co-signed by the Prime Minister as a routine constitutional matter of course for all government bills, not a personal financial interest. The bill's substance — EU cross-border criminal-proceedings-transfer procedure, EAW infringement-gap fixes, and a criminal-jurisdiction basis clause — has no channel to any private commercial interest; it governs inter-state judicial administration, not any regulated industry, procurement process, or licensing regime. The DZ's own corruption-risk assessment (no elevation above baseline) and business-environment assessment (no impact) are consistent with the bill's genuinely administrative character, and the quantified ~1.17M CZK/year cost is transparently sourced from nine years of caseload statistics rather than asserted without basis. This is the honest, unambiguous low-severity finding: there is no sponsor-money-tie signal to assess in the first place, and the content is EU-mandated technical transposition with a hard external deadline (1 February 2027).",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Inserts new Hlava XIII (§395n–§395r) into zákon č. 104/2013 Sb. implementing Nařízení (EU) 2024/3011 on transfer of criminal proceedings between EU member states.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270351"
+    },
+    {
+      "claim": "Shifts several procedural decisions in ZMJS (e.g. §106 odst. 1, new §205a) from the full senát to the předseda senátu acting alone, tracking the 2024 lay-judge-participation reduction (zák. 319/2024).",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270351"
+    },
+    {
+      "claim": "Adds §193a (immunity-waiver requests) and new §203 odst. 8 (videoconference examination) to ZMJS, closing gaps in implementation of Art. 18 and Art. 20(2) of the EAW framework decision flagged in EU infringement proceeding No. 2020/2312; removes the existing 10-day statutory cap on temporary-transfer duration under §211.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270351"
+    },
+    {
+      "claim": "Amends §122 odst. 1 trestního řádu (141/1961) on judgment content when jurisdiction rests solely on the EU regulation, and §9 trestního zákoníku (40/2009) to add directly applicable EU law as an independent basis for Czech criminal jurisdiction.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270351"
+    },
+    {
+      "claim": "DZ quantifies the financial impact at approximately 1,172,000 CZK/year (translation and notification costs), absorbed within Ministry of Justice budget chapter 336 without a funding increase; states no impact on the business environment, no state aid, no elevated corruption risk; a formal RIA was not prepared per the 2026 government legislative work plan; effective date 1 February 2027 matching the EU regulation.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270351"
+    },
+    {
+      "claim": "Sněmovní tisk 196/0 index page listing documents (bill+DZ, consolidated text with changes marked, EU-law compatibility note, additional materials) and submission date 15 May 2026 at 13:07.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=196&ct1=0"
+    },
+    {
+      "claim": "Legislative history page for tisk 196, garanční committee ÚPV, proposed assignment 27 May 2026.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=196"
+    },
+    {
+      "claim": "Amended statute: zákon č. 104/2013 Sb., o mezinárodní justiční spolupráci ve věcech trestních.",
+      "kind": "law",
+      "source": "104/2013"
+    },
+    {
+      "claim": "Amended statute: zákon č. 141/1961 Sb., o trestním řízení soudním (trestní řád) — §122 odst. 1.",
+      "kind": "law",
+      "source": "141/1961"
+    },
+    {
+      "claim": "Amended statute: zákon č. 40/2009 Sb., trestní zákoník — §9.",
+      "kind": "law",
+      "source": "40/2009"
+    }
+  ]
+}

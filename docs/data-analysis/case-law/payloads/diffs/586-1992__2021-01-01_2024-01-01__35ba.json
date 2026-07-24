@@ -1,0 +1,74 @@
+{
+ "law": "586/1992",
+ "source": "e-Sbírka SPARQL endpoint (opendata.eselpoint.gov.cz/sparql) — point queries, real fetched text",
+ "fetchedAt": "2026-07-24T18:19:48.312Z",
+ "from": {
+  "date": "2021-01-01",
+  "effectiveFrom": "2021-01-01",
+  "effectiveTo": "2021-02-03",
+  "eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1992/586/2021-01-01"
+ },
+ "to": {
+  "date": "2024-01-01",
+  "effectiveFrom": "2024-01-01",
+  "effectiveTo": "2024-06-19",
+  "eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1992/586/2024-01-01"
+ },
+ "parScope": "§ 35ba",
+ "hunks": [
+  {
+   "fragment": "§ 35ba odst. 1 písm. a)",
+   "op": "modified",
+   "before": "<var>a)</var> základní slevu ve výši 27 840 Kč na poplatníka,",
+   "after": "<var>a)</var> základní slevu ve výši 30 840 Kč na poplatníka,"
+  },
+  {
+   "fragment": "§ 35ba odst. 1 písm. b)",
+   "op": "modified",
+   "before": "<var>b)</var> slevu na manžela ve výši 24 840 Kč na manžela žijící s poplatníkem ve společně hospodařící domácnosti, pokud nemá vlastní příjem přesahující za zdaňovací období 68 000 Kč; je-li manželovi přiznán nárok na průkaz ZTP/P, zvyšuje se částka 24 840 Kč na dvojnásobek. Do vlastního příjmu manžela se nezahrnují dávky státní sociální podpory, dávky pěstounské péče s výjimkou odměny pěstouna, dávky osobám se zdravotním postižením, dávky pomoci v hmotné nouzi, příspěvek na péči, sociální služby, státní příspěvky na penzijní připojištění se státním příspěvkem<a data-odkaz-id=\"25910503\" href=\"#\" class=\"int_odkaz\"><sup>9a</sup>)</a>, státní příspěvky na doplňkové penzijní spoření, státní příspěvky podle zákona o stavebním spoření a o státní podpoře stavebního spoření<a data-odkaz-id=\"25910551\" href=\"#\" class=\"int_odkaz\"><sup>4a</sup>)</a> a stipendium poskytované studujícím soustavně se připravujícím na budoucí povolání a příjem plynoucí z důvodu péče o blízkou nebo jinou osobu, která má nárok na příspěvek na péči podle zákona <a data-odkaz-id=\"25910599\" href=\"#\" class=\"ext_odkaz\">o sociálních službách</a><a data-odkaz-id=\"25910647\" href=\"#\" class=\"int_odkaz\"><sup>4j</sup>)</a>, který je od daně osvobozen podle <a data-odkaz-id=\"25910695\" href=\"#\" class=\"int_odkaz\">§ 4</a>. U manželů, kteří mají majetek ve společném jmění manželů, se do vlastního příjmu manžela nezahrnuje příjem, který plyne druhému z manželů nebo se pro účely daně z příjmů považuje za příjem druhého z manželů,",
+   "after": "<var>b)</var> slevu na manžela,"
+  },
+  {
+   "fragment": "§ 35ba odst. 1 písm. e)",
+   "op": "modified",
+   "before": "<var>e)</var> slevu na držitele průkazu ZTP/P ve výši 16 140 Kč, je-li poplatníkovi přiznán nárok na průkaz ZTP/P,",
+   "after": "<var>e)</var> slevu na držitele průkazu ZTP/P ve výši 16 140 Kč, je-li poplatníkovi přiznán nárok na průkaz ZTP/P."
+  },
+  {
+   "fragment": "§ 35ba odst. 1 písm. f)",
+   "op": "removed",
+   "before": "<var>f)</var> slevu na studenta ve výši 4 020 Kč u poplatníka po dobu, po kterou se soustavně připravuje na budoucí povolání studiem nebo předepsaným výcvikem, a to až do dovršení věku 26 let nebo po dobu prezenční formy studia v doktorském studijním programu, který poskytuje vysokoškolské vzdělání až do dovršení věku 28 let. Dobou soustavné přípravy na budoucí povolání studiem nebo předepsaným výcvikem se rozumí doba uvedená podle zvláštních právních předpisů<a data-odkaz-id=\"25452625\" href=\"#\" class=\"int_odkaz\"><sup>14d</sup>)</a> pro účely státní sociální podpory,",
+   "after": null
+  },
+  {
+   "fragment": "§ 35ba odst. 1 písm. g)",
+   "op": "removed",
+   "before": "<var>g)</var> slevu za umístění dítěte,",
+   "after": null
+  },
+  {
+   "fragment": "§ 35ba odst. 1 písm. h)",
+   "op": "removed",
+   "before": "<var>h)</var> slevu na evidenci tržeb.",
+   "after": null
+  },
+  {
+   "fragment": "§ 35ba odst. 2",
+   "op": "modified",
+   "before": "<var>(2)</var> U poplatníka uvedeného v <a data-odkaz-id=\"25867553\" href=\"#\" class=\"int_odkaz\">§ 2 odst. 3</a> se daň sníží za zdaňovací období o částky uvedené v <a data-odkaz-id=\"25867625\" href=\"#\" class=\"int_odkaz\">odstavci 1 písm. g)</a> a <a data-odkaz-id=\"25867697\" href=\"#\" class=\"int_odkaz\">písm. b) až e)</a>, pouze pokud se jedná o poplatníka, který je daňovým rezidentem členského státu Evropské unie nebo státu tvořícího Evropský hospodářský prostor a pokud úhrn jeho příjmů ze zdrojů na území České republiky podle <a data-odkaz-id=\"25867769\" href=\"#\" class=\"int_odkaz\">§ 22</a> činí nejméně 90 % všech jeho příjmů s výjimkou příjmů, které nejsou předmětem daně podle <a data-odkaz-id=\"25867841\" href=\"#\" class=\"int_odkaz\">§ 3</a> nebo <a data-odkaz-id=\"25867913\" href=\"#\" class=\"int_odkaz\">6</a>, nebo jsou od daně osvobozeny podle <a data-odkaz-id=\"25867985\" href=\"#\" class=\"int_odkaz\">§ 4</a>, <a data-odkaz-id=\"25868057\" href=\"#\" class=\"int_odkaz\">6</a> nebo <a data-odkaz-id=\"25868129\" href=\"#\" class=\"int_odkaz\">10</a>, nebo příjmů, z nichž je daň vybírána srážkou podle zvláštní sazby daně. Výši příjmů ze zdrojů v zahraničí prokazuje poplatník potvrzením zahraničního správce daně.",
+   "after": "<var>(2)</var> U poplatníka uvedeného v <a data-odkaz-id=\"26052263\" href=\"#\" class=\"int_odkaz\">§ 2 odst. 3</a> se daň sníží za zdaňovací období o výši slev uvedených v <a data-odkaz-id=\"26052267\" href=\"#\" class=\"int_odkaz\">odstavci 1 písm. b) až e)</a>, pouze pokud se jedná o poplatníka, který je daňovým rezidentem členského státu Evropské unie nebo státu tvořícího Evropský hospodářský prostor a pokud úhrn jeho příjmů ze zdrojů na území České republiky podle <a data-odkaz-id=\"26052271\" href=\"#\" class=\"int_odkaz\">§ 22</a> činí nejméně 90 % všech jeho příjmů s výjimkou příjmů, které nejsou předmětem daně podle <a data-odkaz-id=\"26052275\" href=\"#\" class=\"int_odkaz\">§ 3</a> nebo <a data-odkaz-id=\"26052279\" href=\"#\" class=\"int_odkaz\">6</a>, nebo jsou od daně osvobozeny podle <a data-odkaz-id=\"26052283\" href=\"#\" class=\"int_odkaz\">§ 4</a>, <a data-odkaz-id=\"26052287\" href=\"#\" class=\"int_odkaz\">6</a> nebo <a data-odkaz-id=\"26052291\" href=\"#\" class=\"int_odkaz\">10</a>, nebo příjmů, z nichž je daň vybírána srážkou podle zvláštní sazby daně. Výši příjmů ze zdrojů v zahraničí prokazuje poplatník potvrzením zahraničního správce daně."
+  },
+  {
+   "fragment": "§ 35ba odst. 3",
+   "op": "modified",
+   "before": "<var>(3)</var> Poplatník může uplatnit snížení daně podle <a data-odkaz-id=\"25404349\" href=\"#\" class=\"int_odkaz\">odstavce 1 písm. b) až f)</a> o částku ve výši jedné dvanáctiny za každý kalendářní měsíc, na jehož počátku byly podmínky pro uplatnění nároku na snížení daně splněny.",
+   "after": "<var>(3)</var> Poplatník může uplatnit slevu na dani podle <a data-odkaz-id=\"26052295\" href=\"#\" class=\"int_odkaz\">odstavce 1 písm. b) až e)</a> o částku ve výši jedné dvanáctiny za každý kalendářní měsíc, na jehož počátku byly podmínky pro uplatnění nároku na slevu na dani splněny."
+  }
+ ],
+ "provenance": {
+  "track": "law",
+  "pass": 0,
+  "method": "deterministic",
+  "ref": "esbirka-sparql-diff"
+ }
+}

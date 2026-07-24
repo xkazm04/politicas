@@ -1,0 +1,287 @@
+{
+ "generatedAt": "2026-07-24T18:31:09.702Z",
+ "method": "deterministic (amends edge join) — GROUPING only; §-level confirmation needs collision-check.ts",
+ "groups": [
+  {
+   "lawUrn": "law:sb:586-1992",
+   "lawRef": "586/1992",
+   "lawTitle": "zákon č. 586/1992 Sb. — Zákon České národní rady o daních z příjmů",
+   "bills": [
+    4,
+    40,
+    119,
+    121,
+    120,
+    244,
+    248
+   ]
+  },
+  {
+   "lawUrn": "law:sb:40-2009",
+   "lawRef": "40/2009",
+   "lawTitle": "zákon č. 40/2009 Sb. — Zákon trestní zákoník",
+   "bills": [
+    111,
+    115,
+    173,
+    196,
+    207,
+    216
+   ]
+  },
+  {
+   "lawUrn": "law:sb:427-2011",
+   "lawRef": "427/2011",
+   "lawTitle": "zákon č. 427/2011 Sb. — Zákon o doplňkovém penzijním spoření",
+   "bills": [
+    71,
+    86,
+    119,
+    248
+   ]
+  },
+  {
+   "lawUrn": "law:sb:117-1995",
+   "lawRef": "117/1995",
+   "lawTitle": "zákon č. 117/1995 Sb. — Zákon o státní sociální podpoře",
+   "bills": [
+    112,
+    121,
+    124,
+    198
+   ]
+  },
+  {
+   "lawUrn": "law:sb:256-2004",
+   "lawRef": "256/2004",
+   "lawTitle": "zákon č. 256/2004 Sb. — Zákon o podnikání na kapitálovém trhu",
+   "bills": [
+    132,
+    143,
+    210,
+    248
+   ]
+  },
+  {
+   "lawUrn": "law:sb:491-2001",
+   "lawRef": "491/2001",
+   "lawTitle": "zákon č. 491/2001 Sb. — Zákon o volbách do zastupitelstev obcí a o změně některých zákonů",
+   "bills": [
+    12,
+    131,
+    181
+   ]
+  },
+  {
+   "lawUrn": "law:sb:128-2000",
+   "lawRef": "128/2000",
+   "lawTitle": "zákon č. 128/2000 Sb. — Zákon o obcích (obecní zřízení)",
+   "bills": [
+    24,
+    100,
+    146
+   ]
+  },
+  {
+   "lawUrn": "law:sb:243-2000",
+   "lawRef": "243/2000",
+   "lawTitle": "zákon č. 243/2000 Sb. — Zákon o rozpočtovém určení výnosů některých daní územním samosprávným celkům a některým státním fondům (zákon o rozpočto",
+   "bills": [
+    28,
+    140,
+    141
+   ]
+  },
+  {
+   "lawUrn": "law:sb:1-1993",
+   "lawRef": "1/1993",
+   "lawTitle": "zákon č. 1/1993 Sb. — Ústava České republiky",
+   "bills": [
+    47,
+    135,
+    214
+   ]
+  },
+  {
+   "lawUrn": "law:sb:187-2006",
+   "lawRef": "187/2006",
+   "lawTitle": "zákon č. 187/2006 Sb. — Zákon o nemocenském pojištění",
+   "bills": [
+    109,
+    121,
+    257
+   ]
+  },
+  {
+   "lawUrn": "law:sb:589-1992",
+   "lawRef": "589/1992",
+   "lawTitle": "zákon č. 589/1992 Sb. — Zákon České národní rady o pojistném na sociální zabezpečení a příspěvku na státní politiku zaměstnanosti",
+   "bills": [
+    11,
+    110
+   ]
+  },
+  {
+   "lawUrn": "law:sb:90-1995",
+   "lawRef": "90/1995",
+   "lawTitle": "zákon č. 90/1995 Sb. — Zákon o jednacím řádu Poslanecké sněmovny",
+   "bills": [
+    15,
+    72
+   ]
+  },
+  {
+   "lawUrn": "law:sb:89-2012",
+   "lawRef": "89/2012",
+   "lawTitle": "zákon č. 89/2012 Sb. — Zákon občanský zákoník",
+   "bills": [
+    36,
+    53
+   ]
+  },
+  {
+   "lawUrn": "law:sb:104-2013",
+   "lawRef": "104/2013",
+   "lawTitle": "zákon č. 104/2013 Sb. — Zákon o mezinárodní justiční spolupráci ve věcech trestních",
+   "bills": [
+    46,
+    196
+   ]
+  },
+  {
+   "lawUrn": "law:sb:634-1992",
+   "lawRef": "634/1992",
+   "lawTitle": "zákon č. 634/1992 Sb. — Zákon o ochraně spotřebitele",
+   "bills": [
+    53,
+    62
+   ]
+  },
+  {
+   "lawUrn": "law:sb:375-2022",
+   "lawRef": "375/2022",
+   "lawTitle": "zákon č. 375/2022 Sb. — Zákon o zdravotnických prostředcích a diagnostických zdravotnických prostředcích in vitro",
+   "bills": [
+    57,
+    153
+   ]
+  },
+  {
+   "lawUrn": "law:sb:283-2021",
+   "lawRef": "283/2021",
+   "lawTitle": "zákon č. 283/2021 Sb. — Zákon stavební zákon",
+   "bills": [
+    67,
+    167
+   ]
+  },
+  {
+   "lawUrn": "law:sb:592-1992",
+   "lawRef": "592/1992",
+   "lawTitle": "zákon č. 592/1992 Sb. — Zákon České národní rady  o pojistném na veřejné zdravotní pojištění",
+   "bills": [
+    70,
+    235
+   ]
+  },
+  {
+   "lawUrn": "law:sb:477-2001",
+   "lawRef": "477/2001",
+   "lawTitle": "zákon č. 477/2001 Sb. — Zákon o obalech a o změně některých zákonů (zákon o obalech)",
+   "bills": [
+    73,
+    193
+   ]
+  },
+  {
+   "lawUrn": "law:sb:245-2000",
+   "lawRef": "245/2000",
+   "lawTitle": "zákon č. 245/2000 Sb. — Zákon o státních svátcích, o ostatních svátcích, o významných dnech a o dnech pracovního klidu",
+   "bills": [
+    78,
+    238
+   ]
+  },
+  {
+   "lawUrn": "law:sb:110-2006",
+   "lawRef": "110/2006",
+   "lawTitle": "zákon č. 110/2006 Sb. — Zákon o životním a existenčním minimu",
+   "bills": [
+    85,
+    88
+   ]
+  },
+  {
+   "lawUrn": "law:sb:561-2004",
+   "lawRef": "561/2004",
+   "lawTitle": "zákon č. 561/2004 Sb. — Zákon o předškolním, základním, středním, vyšším odborném a jiném vzdělávání (školský zákon)",
+   "bills": [
+    104,
+    232
+   ]
+  },
+  {
+   "lawUrn": "law:sb:159-1999",
+   "lawRef": "159/1999",
+   "lawTitle": "zákon č. 159/1999 Sb. — Zákon o některých podmínkách podnikání v oblasti cestovního ruchu a o změně zákona č. 40/1964 Sb., občanský zákoník, ve ",
+   "bills": [
+    106,
+    107
+   ]
+  },
+  {
+   "lawUrn": "law:sb:353-2019",
+   "lawRef": "353/2019",
+   "lawTitle": "zákon č. 353/2019 Sb. — Zákon o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou účastí státu (nominační zákon)",
+   "bills": [
+    116,
+    138
+   ]
+  },
+  {
+   "lawUrn": "law:sb:223-2016",
+   "lawRef": "223/2016",
+   "lawTitle": "zákon č. 223/2016 Sb. — Zákon o prodejní době v maloobchodě a velkoobchodě",
+   "bills": [
+    129,
+    243
+   ]
+  },
+  {
+   "lawUrn": "law:sb:235-2004",
+   "lawRef": "235/2004",
+   "lawTitle": "zákon č. 235/2004 Sb. — Zákon o dani z přidané hodnoty",
+   "bills": [
+    168,
+    218
+   ]
+  },
+  {
+   "lawUrn": "law:sb:13-1997",
+   "lawRef": "13/1997",
+   "lawTitle": "zákon č. 13/1997 Sb. — Zákon o pozemních komunikacích",
+   "bills": [
+    171,
+    246
+   ]
+  },
+  {
+   "lawUrn": "law:sb:348-2005",
+   "lawRef": "348/2005",
+   "lawTitle": "zákon č. 348/2005 Sb. — Zákon o rozhlasových a televizních poplatcích a o změně některých zákonů",
+   "bills": [
+    201,
+    231
+   ]
+  },
+  {
+   "lawUrn": "law:sb:134-2016",
+   "lawRef": "134/2016",
+   "lawTitle": "zákon č. 134/2016 Sb. — Zákon o zadávání veřejných zakázek",
+   "bills": [
+    206,
+    222
+   ]
+  }
+ ]
+}

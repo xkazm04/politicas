@@ -13,7 +13,64 @@
 // unavailable. getStore() carries its own client guard, so this module must NEVER
 // be imported into a client component (only `import type` is safe there).
 
+import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { join } from "node:path";
+
 import { getStore } from "@/lib/db/store";
+
+/** A real §-level fragment change between two ENACTED e-Sbírka versions of a statute.
+ * `before`/`after` are the verbatim `text-fragmentu` values actually fetched from the
+ * e-Sbírka SPARQL endpoint for that exact version+fragment — NEVER synthesized. See
+ * `scripts/case-loops/law/esbirka-sparql-diff.ts` (the producer) and
+ * `docs/data-analysis/case-law/payloads/diffs/*.json` (the artifacts). */
+export interface ParagraphDiffHunk {
+  fragment: string; // e.g. "§ 35ba odst. 1 písm. b)"
+  op: "modified" | "added" | "removed";
+  before: string | null; // null only when op === "added"
+  after: string | null; // null only when op === "removed"
+}
+export interface ParagraphDiff {
+  law: string; // "586/1992"
+  source: string;
+  fetchedAt: string;
+  from: { date: string; effectiveFrom: string | null; effectiveTo: string | null; eli: string };
+  to: { date: string; effectiveFrom: string | null; effectiveTo: string | null; eli: string };
+  parScope: string;
+  hunks: ParagraphDiffHunk[];
+}
+
+/** The artifact stores the verbatim e-Sbírka `text-fragmentu` value (incl. internal <a>/<var>
+ * cross-ref markup) as the anti-fabrication source-of-truth. Strip markup only for display —
+ * the substance is unchanged, this is presentation, not synthesis. */
+function stripHtml(s: string | null): string | null {
+  if (s == null) return null;
+  return s
+    .replace(/<[^>]+>/g, "")
+    .replace(/&nbsp;/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+const DIFFS_DIR = "docs/data-analysis/case-law/payloads/diffs";
+function loadParagraphDiffs(): ParagraphDiff[] {
+  try {
+    if (!existsSync(DIFFS_DIR)) return [];
+    return readdirSync(DIFFS_DIR)
+      .filter((f) => f.endsWith(".json"))
+      .flatMap((f) => {
+        try {
+          const raw = JSON.parse(readFileSync(join(DIFFS_DIR, f), "utf8")) as Partial<ParagraphDiff>;
+          if (!raw.law || !Array.isArray(raw.hunks) || raw.hunks.length === 0) return [];
+          const hunks = raw.hunks.map((h) => ({ ...h, before: stripHtml(h.before ?? null), after: stripHtml(h.after ?? null) }));
+          return [{ ...raw, hunks } as ParagraphDiff];
+        } catch {
+          return []; // a malformed artifact file must not break the page — skip, don't fabricate
+        }
+      });
+  } catch {
+    return [];
+  }
+}
 
 export type BillOrigin = "government" | "mp" | "mp_group" | "senate" | "other";
 
@@ -59,6 +116,7 @@ export interface LawBillView {
   sponsorContractCzk: number; // worst-case sponsor's flagged public-contract flow
   sponsorMoneyCompanies: number;
   forensic: LawForensicView | null;
+  paragraphDiffs: ParagraphDiff[]; // real e-Sbírka §-diffs on any statute this bill amends (may be empty)
 }
 
 export interface TopLawView {
@@ -78,6 +136,7 @@ export interface LawData {
   totalAmends: number;
   flaggedCount: number;
   forensicCount: number;
+  paragraphDiffCount: number; // bills carrying ≥1 real e-Sbírka §-diff artifact
   committeeRoutedBills: number; // bills carrying ≥1 formal committee assignment (F15)
   pass: number | null;
 }
@@ -143,6 +202,10 @@ export async function getLawData(): Promise<LawData | null> {
     const persons = await store.listPersons();
     const nameById = new Map(persons.map((p) => [p.pspId, p.nameFull]));
 
+    const paragraphDiffs = loadParagraphDiffs();
+    const diffsByLawRef = new Map<string, ParagraphDiff[]>();
+    for (const d of paragraphDiffs) diffsByLawRef.set(d.law, [...(diffsByLawRef.get(d.law) ?? []), d]);
+
     const lawByUrn = new Map(lawNodes.map((n) => [n.id, n]));
     const organLabelByUrn = new Map(organNodes.map((n) => [n.id, n.label]));
 
@@ -206,6 +269,7 @@ export async function getLawData(): Promise<LawData | null> {
       const amendedUrns = lawsByBill.get(n.id) ?? [];
       const amendedLaws = amendedUrns.map(lawRefOf);
       const committees = committeesByBill.get(n.id) ?? [];
+      const paragraphDiffsForBill = amendedLaws.flatMap((l) => diffsByLawRef.get(l.ref) ?? []);
 
       return {
         tiskId: Number(n.id.replace(/^bill:tisk:/, "")) || 0,
@@ -220,13 +284,17 @@ export async function getLawData(): Promise<LawData | null> {
         sponsorContractCzk: asNum(p.sponsor_contract_czk),
         sponsorMoneyCompanies: asNum(p.sponsor_money_companies),
         forensic,
+        paragraphDiffs: paragraphDiffsForBill,
       };
     });
 
-    // Sort: prints carrying a forensic verdict first (the richest story), then
-    // flagged-conflict prints, then those that amend the most statutes, then by
+    // Sort: prints carrying a real §-diff first (the flagship — actual before/after text),
+    // then a forensic verdict, then flagged-conflict prints, then most statutes amended, then
     // print number — so the default-selected bill is the most informative one.
     bills.sort((a, b) => {
+      const aDiff = a.paragraphDiffs.length > 0;
+      const bDiff = b.paragraphDiffs.length > 0;
+      if (bDiff !== aDiff) return bDiff ? 1 : -1;
       if (!!b.forensic !== !!a.forensic) return b.forensic ? 1 : -1;
       if (b.flaggedConflict !== a.flaggedConflict) return b.flaggedConflict ? 1 : -1;
       if (b.amendedLaws.length !== a.amendedLaws.length) return b.amendedLaws.length - a.amendedLaws.length;
@@ -254,6 +322,7 @@ export async function getLawData(): Promise<LawData | null> {
       totalAmends: amends.length,
       flaggedCount,
       forensicCount,
+      paragraphDiffCount: bills.filter((b) => b.paragraphDiffs.length > 0).length,
       committeeRoutedBills: new Set(assignedTo.map((e) => e.src)).size,
       pass,
     };

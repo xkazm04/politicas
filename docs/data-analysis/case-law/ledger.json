@@ -1,47 +1,20 @@
 {
  "case": "law",
- "generatedAt": "2026-07-24T17:16:15.263Z",
+ "generatedAt": "2026-07-24T18:31:09.703Z",
  "source": "PGLITE_PATH copy (read-only)",
+ "batch002TriagePolicy": "churn PRIMARY, sector-adjacency SECONDARY (company-sectors.ts heuristic, excludes municipal/SOE), money log-scaled TERTIARY, amends quaternary",
  "totals": {
   "bills": 141,
   "laws": 101,
   "amends": 150,
   "assignedTo": 150,
-  "flaggedConflict": 65,
-  "routingAnomalies": 126,
-  "existingForensic": 1
+  "sectorAdjacencyHits": 5,
+  "municipalSoeExcludedBills": 60,
+  "existingForensic": 9,
+  "collisionCandidateGroups": 29,
+  "collisionCandidateBills": 71
  },
- "triageFormula": "sev*1e9 + sponsorCzk + amends*5e6 + churn*2e6 + routeAnom*2.5e8",
  "rows": [
-  {
-   "tiskId": 43165,
-   "billNodeId": "bill:tisk:43165",
-   "cislo": 58,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 542/2020 Sb., o výrobcích s ukončenou životností, ve znění pozdějších předpisů, a další související zákony",
-   "amendedLaws": [
-    "542/2020"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 5397460397.25,
-   "sponsorMoneyCompanies": 6,
-   "sponsorCount": 1,
-   "garancniCommittee": "VŽP",
-   "committeeCount": 1,
-   "routingAnomaly": true,
-   "forensicSeverity": "low",
-   "forensicState": "pending_review",
-   "triageScore": 1046732,
-   "stage": "verdict",
-   "batch": 0,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly"
-   ]
-  },
   {
    "tiskId": 43233,
    "billNodeId": "bill:tisk:43233",
@@ -55,27 +28,115 @@
    ],
    "amendsCount": 3,
    "maxTargetChurn": 7,
-   "flaggedConflict": true,
    "sponsorContractCzk": 5397460397.25,
-   "sponsorMoneyCompanies": 7,
-   "sponsorCount": 14,
-   "garancniCommittee": "VSP",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": "low",
    "forensicState": "pending_review",
-   "triageScore": 236732,
    "stage": "verdict",
    "batch": 1,
    "signal": 2,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "high_churn_target",
-    "mp_group"
-   ],
+   "verdictFile": "payloads/verdicts/verdict-121.json",
    "forensicConfidence": 4,
-   "verdictFile": "payloads/verdicts/verdict-121.json"
+   "flags": [
+    "sector_adjacent_conflict",
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": true,
+   "sectorAdjacentCompanies": [
+    {
+     "company": "Teleky Medicus s.r.o.",
+     "sector": "health",
+     "sponsor": "Róbert Teleky"
+    }
+   ],
+   "municipalExcludedCompanies": [
+    "Gymnázium, Pardubice, Mozartova 449",
+    "Vsetínská nemocnice a.s.",
+    "Kroměřížská nemocnice a.s.",
+    "Uherskohradišťská nemocnice a.s.",
+    "Krajská nemocnice T. Bati, a. s.",
+    "Dopravní podnik města Brna, a.s.",
+    "Teplárny Brno, a.s.",
+    "MERO ČR, a.s."
+   ],
+   "triageScoreV2": 5753446
+  },
+  {
+   "tiskId": 43237,
+   "billNodeId": "bill:tisk:43237",
+   "cislo": 120,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Lucie Sedmihradské, Jana Papajanovského, Věry Kovářové, Matěje Hlavatého, Jakuba Krainera, Pavly Pivoňky Vaňkové, Víta Rakušana, Julie Smejkalové, Lukáše Vlčka, Jana Berkiho, Elišky Olš",
+   "amendedLaws": [
+    "586/1992"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 235543222.2,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 1,
+   "signal": 2,
+   "verdictFile": "payloads/verdicts/verdict-120.json",
+   "forensicConfidence": 4,
+   "flags": [
+    "sector_adjacent_conflict",
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": true,
+   "sectorAdjacentCompanies": [
+    {
+     "company": "SOMPO, a.s.",
+     "sector": "economy",
+     "sponsor": "Lukáš Vlček"
+    }
+   ],
+   "municipalExcludedCompanies": [
+    "ČEPRO, a.s.",
+    "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
+    "Nadační fond Gymnázia Kutná Hora",
+    "PRO VYSOČINU, občanské sdružení",
+    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
+   ],
+   "triageScoreV2": 5752174
+  },
+  {
+   "tiskId": 43230,
+   "billNodeId": "bill:tisk:43230",
+   "cislo": 119,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Aleny Schillerové, Patrika Nachera, Borise Šťastného, Tomia Okamury a Taťány Malé na vydání zákona, kterým se mění zákon č. 427/2011 Sb., o doplňkovém penzijním spoření, ve znění pozděj",
+   "amendedLaws": [
+    "427/2011",
+    "586/1992"
+   ],
+   "amendsCount": 2,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 1473240095.16,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 1,
+   "signal": 2,
+   "verdictFile": "payloads/verdicts/verdict-119.json",
+   "forensicConfidence": 5,
+   "flags": [
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Nadační fond manželů Livie a Václava Klausových",
+    "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+    "Česká lékařská komora - o.s., z.s."
+   ],
+   "triageScoreV2": 5702834
   },
   {
    "tiskId": 43370,
@@ -92,91 +153,21 @@
    ],
    "amendsCount": 5,
    "maxTargetChurn": 7,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 0,
-   "garancniCommittee": null,
-   "committeeCount": 0,
-   "routingAnomaly": false,
    "forensicSeverity": "low",
    "forensicState": "pending_review",
-   "triageScore": 235000,
    "stage": "verdict",
    "batch": 1,
    "signal": 2,
+   "verdictFile": "payloads/verdicts/verdict-248.json",
+   "forensicConfidence": 4,
    "flags": [
     "high_churn_target"
    ],
-   "forensicConfidence": 4,
-   "verdictFile": "payloads/verdicts/verdict-248.json"
-  },
-  {
-   "tiskId": 43230,
-   "billNodeId": "bill:tisk:43230",
-   "cislo": 119,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Aleny Schillerové, Patrika Nachera, Borise Šťastného, Tomia Okamury a Taťány Malé na vydání zákona, kterým se mění zákon č. 427/2011 Sb., o doplňkovém penzijním spoření, ve znění pozděj",
-   "amendedLaws": [
-    "427/2011",
-    "586/1992"
-   ],
-   "amendsCount": 2,
-   "maxTargetChurn": 7,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 1473240095.16,
-   "sponsorMoneyCompanies": 7,
-   "sponsorCount": 5,
-   "garancniCommittee": "RV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
-   "forensicSeverity": "low",
-   "forensicState": "pending_review",
-   "triageScore": 231168,
-   "stage": "verdict",
-   "batch": 1,
-   "signal": 2,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "high_churn_target",
-    "mp_group"
-   ],
-   "forensicConfidence": 5,
-   "verdictFile": "payloads/verdicts/verdict-119.json"
-  },
-  {
-   "tiskId": 43237,
-   "billNodeId": "bill:tisk:43237",
-   "cislo": 120,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Lucie Sedmihradské, Jana Papajanovského, Věry Kovářové, Matěje Hlavatého, Jakuba Krainera, Pavly Pivoňky Vaňkové, Víta Rakušana, Julie Smejkalové, Lukáše Vlčka, Jana Berkiho, Elišky Olš",
-   "amendedLaws": [
-    "586/1992"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 7,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 235543222.2,
-   "sponsorMoneyCompanies": 7,
-   "sponsorCount": 19,
-   "garancniCommittee": "RV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
-   "forensicSeverity": "low",
-   "forensicState": "pending_review",
-   "triageScore": 225372,
-   "stage": "verdict",
-   "batch": 1,
-   "signal": 2,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "high_churn_target",
-    "mp_group"
-   ],
-   "forensicConfidence": 4,
-   "verdictFile": "payloads/verdicts/verdict-120.json"
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 5702500
   },
   {
    "tiskId": 43366,
@@ -189,26 +180,25 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 7,
-   "flaggedConflict": true,
    "sponsorContractCzk": 235543222.2,
-   "sponsorMoneyCompanies": 2,
-   "sponsorCount": 4,
-   "garancniCommittee": null,
-   "committeeCount": 0,
-   "routingAnomaly": false,
    "forensicSeverity": "low",
    "forensicState": "pending_review",
-   "triageScore": 223372,
    "stage": "verdict",
    "batch": 1,
    "signal": 2,
-   "flags": [
-    "money_conflict",
-    "high_churn_target",
-    "mp_group"
-   ],
+   "verdictFile": "payloads/verdicts/verdict-244.json",
    "forensicConfidence": 4,
-   "verdictFile": "payloads/verdicts/verdict-244.json"
+   "flags": [
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "ČEPRO, a.s."
+   ],
+   "triageScoreV2": 5702174
   },
   {
    "tiskId": 43111,
@@ -221,26 +211,22 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 7,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 1,
-   "sponsorCount": 2,
-   "garancniCommittee": "RV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": "low",
    "forensicState": "pending_review",
-   "triageScore": 215000,
    "stage": "verdict",
    "batch": 1,
    "signal": 2,
+   "verdictFile": "payloads/verdicts/verdict-4.json",
+   "forensicConfidence": 5,
    "flags": [
-    "routing_anomaly",
     "high_churn_target",
     "mp_group"
    ],
-   "forensicConfidence": 5,
-   "verdictFile": "payloads/verdicts/verdict-4.json"
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 5700500
   },
   {
    "tiskId": 43147,
@@ -253,25 +239,21 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 7,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 0,
-   "garancniCommittee": "RV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": "low",
    "forensicState": "pending_review",
-   "triageScore": 215000,
    "stage": "verdict",
    "batch": 1,
    "signal": 2,
+   "verdictFile": "payloads/verdicts/verdict-40.json",
+   "forensicConfidence": 4,
    "flags": [
-    "routing_anomaly",
     "high_churn_target"
    ],
-   "forensicConfidence": 4,
-   "verdictFile": "payloads/verdicts/verdict-40.json"
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 5700500
   },
   {
    "tiskId": 43225,
@@ -285,27 +267,59 @@
    ],
    "amendsCount": 2,
    "maxTargetChurn": 6,
-   "flaggedConflict": true,
    "sponsorContractCzk": 1473240095.16,
-   "sponsorMoneyCompanies": 15,
-   "sponsorCount": 6,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": "low",
    "forensicState": "pending_review",
-   "triageScore": 201168,
    "stage": "verdict",
    "batch": 1,
    "signal": 2,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "high_churn_target",
-    "mp_group"
-   ],
+   "verdictFile": "payloads/verdicts/verdict-115.json",
    "forensicConfidence": 5,
-   "verdictFile": "payloads/verdicts/verdict-115.json"
+   "flags": [
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Nadace AGROFERT",
+    "Vodovody a kanalizace Kroměříž, a.s.",
+    "Nadační fond manželů Livie a Václava Klausových",
+    "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+    "Česká lékařská komora - o.s., z.s.",
+    "Lesy města Prostějova, s.r.o."
+   ],
+   "triageScoreV2": 5602834
+  },
+  {
+   "tiskId": 43165,
+   "billNodeId": "bill:tisk:43165",
+   "cislo": 58,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 542/2020 Sb., o výrobcích s ukončenou životností, ve znění pozdějších předpisů, a další související zákony",
+   "amendedLaws": [
+    "542/2020"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 1,
+   "sponsorContractCzk": 5397460397.25,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 0,
+   "signal": null,
+   "flags": [
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Dopravní podnik města Brna, a.s.",
+    "Teplárny Brno, a.s.",
+    "MERO ČR, a.s."
+   ],
+   "triageScoreV2": 5102446
   },
   {
    "tiskId": 43294,
@@ -318,25 +332,30 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 6,
-   "flaggedConflict": true,
    "sponsorContractCzk": 1473240095.16,
-   "sponsorMoneyCompanies": 15,
-   "sponsorCount": 9,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 196168,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
+   "stage": "verdict_pending_persist",
+   "batch": 2,
+   "signal": 2,
    "flags": [
-    "money_conflict",
-    "routing_anomaly",
     "high_churn_target",
-    "mp_group"
-   ]
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Nadace AGROFERT",
+    "Pražská vysoká škola psychosociálních studií, s.r.o.",
+    "Nadační fond manželů Livie a Václava Klausových",
+    "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+    "Česká lékařská komora - o.s., z.s.",
+    "Lesy města Prostějova, s.r.o."
+   ],
+   "triageScoreV2": 602334,
+   "verdictFile": "payloads/verdicts/verdict-173.json",
+   "forensicConfidence": 4
   },
   {
    "tiskId": 43338,
@@ -349,25 +368,28 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 6,
-   "flaggedConflict": true,
    "sponsorContractCzk": 1473240095.16,
-   "sponsorMoneyCompanies": 15,
-   "sponsorCount": 4,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 196168,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
+   "stage": "verdict_pending_persist",
+   "batch": 2,
+   "signal": 2,
    "flags": [
-    "money_conflict",
-    "routing_anomaly",
     "high_churn_target",
-    "mp_group"
-   ]
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Nadační fond manželů Livie a Václava Klausových",
+    "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+    "Česká lékařská komora - o.s., z.s.",
+    "Nadace AGROFERT"
+   ],
+   "triageScoreV2": 602334,
+   "verdictFile": "payloads/verdicts/verdict-216.json",
+   "forensicConfidence": 4
   },
   {
    "tiskId": 43317,
@@ -382,23 +404,21 @@
    ],
    "amendsCount": 3,
    "maxTargetChurn": 6,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 195000,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
+   "stage": "verdict_pending_persist",
+   "batch": 2,
+   "signal": 2,
    "flags": [
-    "routing_anomaly",
     "high_churn_target"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 601500,
+   "verdictFile": "payloads/verdicts/verdict-196.json",
+   "forensicConfidence": 4
   },
   {
    "tiskId": 43221,
@@ -411,23 +431,21 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 6,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 185000,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
+   "stage": "verdict_pending_persist",
+   "batch": 2,
+   "signal": 3,
    "flags": [
-    "routing_anomaly",
     "high_churn_target"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 600500,
+   "verdictFile": "payloads/verdicts/verdict-111.json",
+   "forensicConfidence": 5
   },
   {
    "tiskId": 43329,
@@ -440,23 +458,21 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 6,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 185000,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
+   "stage": "verdict_pending_persist",
+   "batch": 2,
+   "signal": 3,
    "flags": [
-    "routing_anomaly",
     "high_churn_target"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 600500,
+   "verdictFile": "payloads/verdicts/verdict-207.json",
+   "forensicConfidence": 5
   },
   {
    "tiskId": 43239,
@@ -471,24 +487,25 @@
    ],
    "amendsCount": 3,
    "maxTargetChurn": 4,
-   "flaggedConflict": true,
    "sponsorContractCzk": 40100696.57,
-   "sponsorMoneyCompanies": 3,
-   "sponsorCount": 2,
-   "garancniCommittee": "VSP",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 144603,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
+   "stage": "verdict_pending_persist",
+   "batch": 2,
+   "signal": 2,
    "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "high_churn_target"
-   ]
+    "high_churn_target",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Nemocnice Jablonec nad Nisou, p.o.",
+    "Zdravotnická záchranná služba Libereckého kraje, příspěvková organizace"
+   ],
+   "triageScoreV2": 403021,
+   "verdictFile": "payloads/verdicts/verdict-124.json",
+   "forensicConfidence": 5
   },
   {
    "tiskId": 43319,
@@ -501,24 +518,25 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 4,
-   "flaggedConflict": true,
    "sponsorContractCzk": 7656486.475,
-   "sponsorMoneyCompanies": 5,
-   "sponsorCount": 1,
-   "garancniCommittee": "VSP",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 133884,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
+   "stage": "verdict_pending_persist",
+   "batch": 2,
+   "signal": 2,
    "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "high_churn_target"
-   ]
+    "high_churn_target",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "ČESKÁ TELEVIZE",
+    "ČESKÝ ROZHLAS"
+   ],
+   "triageScoreV2": 401877,
+   "verdictFile": "payloads/verdicts/verdict-198.json",
+   "forensicConfidence": 5
   },
   {
    "tiskId": 43178,
@@ -531,25 +549,22 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 4,
-   "flaggedConflict": true,
    "sponsorContractCzk": 1197779,
-   "sponsorMoneyCompanies": 1,
-   "sponsorCount": 7,
-   "garancniCommittee": "RV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 133078,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
+   "stage": "verdict_pending_persist",
+   "batch": 2,
+   "signal": 2,
    "flags": [
-    "money_conflict",
-    "routing_anomaly",
     "high_churn_target",
     "mp_group"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 401716,
+   "verdictFile": "payloads/verdicts/verdict-71.json",
+   "forensicConfidence": 5
   },
   {
    "tiskId": 43196,
@@ -562,25 +577,22 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 4,
-   "flaggedConflict": true,
    "sponsorContractCzk": 1197779,
-   "sponsorMoneyCompanies": 1,
-   "sponsorCount": 7,
-   "garancniCommittee": "RV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 133078,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
+   "stage": "verdict_pending_persist",
+   "batch": 2,
+   "signal": 2,
    "flags": [
-    "money_conflict",
-    "routing_anomaly",
     "high_churn_target",
     "mp_group"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 401716,
+   "verdictFile": "payloads/verdicts/verdict-86.json",
+   "forensicConfidence": 5
   },
   {
    "tiskId": 43222,
@@ -593,23 +605,19 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 4,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 0,
-   "garancniCommittee": "VSP",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 125000,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "routing_anomaly",
     "high_churn_target"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 400500
   },
   {
    "tiskId": 43248,
@@ -622,23 +630,19 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 4,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 0,
-   "garancniCommittee": "RV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 125000,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "routing_anomaly",
     "high_churn_target"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 400500
   },
   {
    "tiskId": 43263,
@@ -651,23 +655,19 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 4,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "RV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 125000,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "routing_anomaly",
     "high_churn_target"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 400500
   },
   {
    "tiskId": 43332,
@@ -680,23 +680,19 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 4,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "VSP",
-   "committeeCount": 3,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 125000,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "routing_anomaly",
     "high_churn_target"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 400500
   },
   {
    "tiskId": 43267,
@@ -711,25 +707,25 @@
    ],
    "amendsCount": 3,
    "maxTargetChurn": 3,
-   "flaggedConflict": true,
    "sponsorContractCzk": 235543222.2,
-   "sponsorMoneyCompanies": 5,
-   "sponsorCount": 12,
-   "garancniCommittee": "VSR",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 115372,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "money_conflict",
-    "routing_anomaly",
     "high_churn_target",
-    "mp_group"
-   ]
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "ČEPRO, a.s.",
+    "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
+    "Nadační fond Gymnázia Kutná Hora"
+   ],
+   "triageScoreV2": 303174
   },
   {
    "tiskId": 43135,
@@ -742,25 +738,27 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 3,
-   "flaggedConflict": true,
    "sponsorContractCzk": 5397460397.25,
-   "sponsorMoneyCompanies": 6,
-   "sponsorCount": 5,
-   "garancniCommittee": "RV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 106732,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "money_conflict",
-    "routing_anomaly",
     "high_churn_target",
-    "mp_group"
-   ]
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Gymnázium, Pardubice, Mozartova 449",
+    "Vodovody a kanalizace Vyškov,a.s.",
+    "Dopravní podnik města Brna, a.s.",
+    "Teplárny Brno, a.s.",
+    "MERO ČR, a.s."
+   ],
+   "triageScoreV2": 302446
   },
   {
    "tiskId": 43302,
@@ -773,25 +771,30 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 3,
-   "flaggedConflict": true,
    "sponsorContractCzk": 884856389,
-   "sponsorMoneyCompanies": 9,
-   "sponsorCount": 9,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 105947,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "money_conflict",
-    "routing_anomaly",
     "high_churn_target",
-    "mp_group"
-   ]
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Nadace Charty 77",
+    "Muzeum paměti XX. století, z.ú.",
+    "Regionální rozvojová agentura Plzeňského kraje, obecně prospěšná společnost",
+    "Nadace Věry a Vladimíra Janouškových",
+    "Plzeňské městské dopravní podniky, a.s.",
+    "Pojišťovna VZP, a.s.",
+    "Pražská energetika, a.s.",
+    "Kongresové centrum Praha, a.s."
+   ],
+   "triageScoreV2": 302289
   },
   {
    "tiskId": 43131,
@@ -804,25 +807,27 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 3,
-   "flaggedConflict": true,
    "sponsorContractCzk": 235543222.2,
-   "sponsorMoneyCompanies": 7,
-   "sponsorCount": 11,
-   "garancniCommittee": "VSR",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 105372,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "money_conflict",
-    "routing_anomaly",
     "high_churn_target",
-    "mp_group"
-   ]
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
+    "Nadační fond Gymnázia Kutná Hora",
+    "PRO VYSOČINU, občanské sdružení",
+    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov",
+    "ČEPRO, a.s."
+   ],
+   "triageScoreV2": 302174
   },
   {
    "tiskId": 43219,
@@ -835,25 +840,20 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 3,
-   "flaggedConflict": true,
    "sponsorContractCzk": 10864254.9,
-   "sponsorMoneyCompanies": 2,
-   "sponsorCount": 10,
-   "garancniCommittee": "VSP",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 104036,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "money_conflict",
-    "routing_anomaly",
     "high_churn_target",
     "mp_group"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 301907
   },
   {
    "tiskId": 43336,
@@ -866,25 +866,26 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 3,
-   "flaggedConflict": true,
    "sponsorContractCzk": 3728628.859,
-   "sponsorMoneyCompanies": 7,
-   "sponsorCount": 5,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 103572,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "money_conflict",
-    "routing_anomaly",
     "high_churn_target",
-    "mp_group"
-   ]
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
+    "Nadační fond Gymnázia Kutná Hora",
+    "PRO VYSOČINU, občanské sdružení",
+    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
+   ],
+   "triageScoreV2": 301814
   },
   {
    "tiskId": 43119,
@@ -897,23 +898,19 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 3,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 0,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 2,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 95000,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "routing_anomaly",
     "high_churn_target"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 300500
   },
   {
    "tiskId": 43154,
@@ -926,23 +923,19 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 3,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 0,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 4,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 95000,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "routing_anomaly",
     "high_churn_target"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 300500
   },
   {
    "tiskId": 43210,
@@ -955,24 +948,20 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 3,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 2,
-   "garancniCommittee": "VSR",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 95000,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "routing_anomaly",
     "high_churn_target",
     "mp_group"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 300500
   },
   {
    "tiskId": 43247,
@@ -985,23 +974,19 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 3,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 0,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 95000,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "routing_anomaly",
     "high_churn_target"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 300500
   },
   {
    "tiskId": 43253,
@@ -1014,23 +999,19 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 3,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 0,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 95000,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "routing_anomaly",
     "high_churn_target"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 300500
   },
   {
    "tiskId": 43260,
@@ -1043,23 +1024,19 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 3,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 0,
-   "garancniCommittee": "RV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 95000,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "routing_anomaly",
     "high_churn_target"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 300500
   },
   {
    "tiskId": 43261,
@@ -1072,23 +1049,19 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 3,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 0,
-   "garancniCommittee": "RV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 95000,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "routing_anomaly",
     "high_churn_target"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 300500
   },
   {
    "tiskId": 43379,
@@ -1101,22 +1074,321 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 3,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 0,
-   "garancniCommittee": null,
-   "committeeCount": 0,
-   "routingAnomaly": false,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 95000,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
     "high_churn_target"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 300500
+  },
+  {
+   "tiskId": 43118,
+   "billNodeId": "bill:tisk:43118",
+   "cislo": 11,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Aleny Schillerové, Andreje Babiše, Tomia Okamury, Petra Macinky, Aleše Juchelky, Karla Havlíčka, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 5",
+   "amendedLaws": [
+    "589/1992"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 2,
+   "sponsorContractCzk": 1473240095.16,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "verdict_pending_persist",
+   "batch": 2,
+   "signal": 3,
+   "flags": [
+    "sector_adjacent_conflict",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": true,
+   "sectorAdjacentCompanies": [
+    {
+     "company": "IF Holding a.s.",
+     "sector": "economy",
+     "sponsor": "Radim Fiala"
+    },
+    {
+     "company": "IF FACILITY a.s.",
+     "sector": "economy",
+     "sponsor": "Radim Fiala"
+    },
+    {
+     "company": "Hartenberg Holding, s.r.o.",
+     "sector": "economy",
+     "sponsor": "Andrej Babiš"
+    },
+    {
+     "company": "IMOBA, a.s.",
+     "sector": "economy",
+     "sponsor": "Andrej Babiš"
+    }
+   ],
+   "municipalExcludedCompanies": [
+    "CHOMUTOVSKÁ BYTOVÁ a.s.",
+    "Dopravní podnik měst Chomutova a Jirkova a.s.",
+    "ČESKÁ TELEVIZE",
+    "ČESKÝ ROZHLAS",
+    "Nadační fond manželů Livie a Václava Klausových",
+    "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+    "Česká lékařská komora - o.s., z.s.",
+    "Lesy města Prostějova, s.r.o.",
+    "Nadace AGROFERT"
+   ],
+   "triageScoreV2": 252334,
+   "verdictFile": "payloads/verdicts/verdict-11.json",
+   "forensicConfidence": 5
+  },
+  {
+   "tiskId": 43323,
+   "billNodeId": "bill:tisk:43323",
+   "cislo": 201,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Patrika Nachera, Tomia Okamury, Taťány Malé, Radima Fialy, Filipa Turka, Barbory Rázgy a Martina Kolovratníka na vydání zákona, kterým se mění zákon č. 348/2005 Sb., o rozhlasových a te",
+   "amendedLaws": [
+    "348/2005"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 2,
+   "sponsorContractCzk": 884856389,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "sector_adjacent_conflict",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": true,
+   "sectorAdjacentCompanies": [
+    {
+     "company": "IF Holding a.s.",
+     "sector": "economy",
+     "sponsor": "Radim Fiala"
+    },
+    {
+     "company": "IF FACILITY a.s.",
+     "sector": "economy",
+     "sponsor": "Radim Fiala"
+    }
+   ],
+   "municipalExcludedCompanies": [
+    "Lesy města Prostějova, s.r.o.",
+    "SKP-CENTRUM, o.p.s.",
+    "ČESKÝ ROZHLAS",
+    "Dopravní podnik města Pardubic a.s."
+   ],
+   "triageScoreV2": 252289
+  },
+  {
+   "tiskId": 43180,
+   "billNodeId": "bill:tisk:43180",
+   "cislo": 73,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Petra Hladíka, Václava Pláteníka a Gabriely Svárovské na vydání zákona, kterým se mění zákon č. 477/2001 Sb., o obalech a o změně některých zákonů (zákon o obalech), ve znění pozdějších",
+   "amendedLaws": [
+    "477/2001"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 2,
+   "sponsorContractCzk": 5397460397.25,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Dopravní podnik města Brna, a.s.",
+    "Teplárny Brno, a.s.",
+    "MERO ČR, a.s."
+   ],
+   "triageScoreV2": 202446
+  },
+  {
+   "tiskId": 43220,
+   "billNodeId": "bill:tisk:43220",
+   "cislo": 110,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Mariana Jurečky, Moniky Brzeskové, Toma Philippa, Marka Výborného a dalších na vydání zákona, kterým se mění zákon č. 589/1992 Sb., o pojistném na sociální zabezpečení a příspěvku na st",
+   "amendedLaws": [
+    "589/1992"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 2,
+   "sponsorContractCzk": 5397460397.25,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Gymnázium, Pardubice, Mozartova 449",
+    "Vsetínská nemocnice a.s.",
+    "Kroměřížská nemocnice a.s.",
+    "Uherskohradišťská nemocnice a.s.",
+    "Krajská nemocnice T. Bati, a. s.",
+    "Dopravní podnik města Brna, a.s.",
+    "Teplárny Brno, a.s.",
+    "MERO ČR, a.s."
+   ],
+   "triageScoreV2": 202446
+  },
+  {
+   "tiskId": 43365,
+   "billNodeId": "bill:tisk:43365",
+   "cislo": 243,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Marka Výborného, Petra Hladíka a Františka Talíře na vydání zákona, kterým se mění zákon č. 223/2016 Sb., o prodejní době v maloobchodě, ve znění pozdějších předpisů",
+   "amendedLaws": [
+    "223/2016"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 2,
+   "sponsorContractCzk": 5397460397.25,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Gymnázium, Pardubice, Mozartova 449",
+    "Dopravní podnik města Brna, a.s.",
+    "Teplárny Brno, a.s.",
+    "MERO ČR, a.s."
+   ],
+   "triageScoreV2": 202446
+  },
+  {
+   "tiskId": 43174,
+   "billNodeId": "bill:tisk:43174",
+   "cislo": 67,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+   "amendedLaws": [
+    "283/2021"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 2,
+   "sponsorContractCzk": 1473240095.16,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Nadace AGROFERT",
+    "Lesy města Prostějova, s.r.o.",
+    "Nadační fond manželů Livie a Václava Klausových",
+    "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+    "Česká lékařská komora - o.s., z.s."
+   ],
+   "triageScoreV2": 202334
+  },
+  {
+   "tiskId": 43179,
+   "billNodeId": "bill:tisk:43179",
+   "cislo": 72,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Radka Vondráčka, Andreje Babiše, Tomia Okamury, Petra Macinky, Marka Bendy, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednací",
+   "amendedLaws": [
+    "90/1995"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 2,
+   "sponsorContractCzk": 1473240095.16,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Vodovody a kanalizace Kroměříž, a.s.",
+    "Nadace AGROFERT",
+    "Společenství vlastníků Vlastislavova 605/20, Praha 4",
+    "Lesy města Prostějova, s.r.o.",
+    "Poliklinika Břeclav, s. r. o.",
+    "POLIKLINIKA - servis s.r.o.",
+    "Nemocnice Valtice s.r.o.",
+    "CHOMUTOVSKÁ BYTOVÁ a.s.",
+    "Dopravní podnik měst Chomutova a Jirkova a.s.",
+    "Nemocnice AGEL Valašské Meziříčí a.s.",
+    "Vodovody a kanalizace Vsetín, a.s.",
+    "VODÁRNA PLZEŇ a.s.",
+    "DOMOVINKA - sociální služby, o.p.s.",
+    "Nadační fond manželů Livie a Václava Klausových",
+    "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+    "Česká lékařská komora - o.s., z.s."
+   ],
+   "triageScoreV2": 202334
+  },
+  {
+   "tiskId": 43354,
+   "billNodeId": "bill:tisk:43354",
+   "cislo": 232,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Andreje Babiše a Roberta Plagy na vydání zákona, kterým se mění zákon č. 561/2004 Sb., o předškolním, základním, středním, vyšším odborném a jiném vzdělávání (školský zákon), ve znění p",
+   "amendedLaws": [
+    "561/2004"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 2,
+   "sponsorContractCzk": 1238034699.1190002,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Nadace AGROFERT"
+   ],
+   "triageScoreV2": 202319
   },
   {
    "tiskId": 43160,
@@ -1130,173 +1402,22 @@
    ],
    "amendsCount": 2,
    "maxTargetChurn": 2,
-   "flaggedConflict": true,
    "sponsorContractCzk": 3728628.859,
-   "sponsorMoneyCompanies": 7,
-   "sponsorCount": 1,
-   "garancniCommittee": "HV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 78572,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "money_conflict",
-    "routing_anomaly"
-   ]
-  },
-  {
-   "tiskId": 43180,
-   "billNodeId": "bill:tisk:43180",
-   "cislo": 73,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Petra Hladíka, Václava Pláteníka a Gabriely Svárovské na vydání zákona, kterým se mění zákon č. 477/2001 Sb., o obalech a o změně některých zákonů (zákon o obalech), ve znění pozdějších",
-   "amendedLaws": [
-    "477/2001"
+    "municipal_soe_excluded"
    ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 5397460397.25,
-   "sponsorMoneyCompanies": 6,
-   "sponsorCount": 3,
-   "garancniCommittee": "VŽP",
-   "committeeCount": 1,
-   "routingAnomaly": true,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 76732,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
-  },
-  {
-   "tiskId": 43220,
-   "billNodeId": "bill:tisk:43220",
-   "cislo": 110,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Mariana Jurečky, Moniky Brzeskové, Toma Philippa, Marka Výborného a dalších na vydání zákona, kterým se mění zákon č. 589/1992 Sb., o pojistném na sociální zabezpečení a příspěvku na st",
-   "amendedLaws": [
-    "589/1992"
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "PRO VYSOČINU, občanské sdružení",
+    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
    ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 5397460397.25,
-   "sponsorMoneyCompanies": 7,
-   "sponsorCount": 14,
-   "garancniCommittee": "VSP",
-   "committeeCount": 1,
-   "routingAnomaly": true,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 76732,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
-  },
-  {
-   "tiskId": 43118,
-   "billNodeId": "bill:tisk:43118",
-   "cislo": 11,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Aleny Schillerové, Andreje Babiše, Tomia Okamury, Petra Macinky, Aleše Juchelky, Karla Havlíčka, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 5",
-   "amendedLaws": [
-    "589/1992"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 1473240095.16,
-   "sponsorMoneyCompanies": 15,
-   "sponsorCount": 23,
-   "garancniCommittee": "VSP",
-   "committeeCount": 2,
-   "routingAnomaly": true,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 76168,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
-  },
-  {
-   "tiskId": 43174,
-   "billNodeId": "bill:tisk:43174",
-   "cislo": 67,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
-   "amendedLaws": [
-    "283/2021"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 1473240095.16,
-   "sponsorMoneyCompanies": 15,
-   "sponsorCount": 10,
-   "garancniCommittee": "HV",
-   "committeeCount": 3,
-   "routingAnomaly": true,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 76168,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
-  },
-  {
-   "tiskId": 43179,
-   "billNodeId": "bill:tisk:43179",
-   "cislo": 72,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Radka Vondráčka, Andreje Babiše, Tomia Okamury, Petra Macinky, Marka Bendy, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednací",
-   "amendedLaws": [
-    "90/1995"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 1473240095.16,
-   "sponsorMoneyCompanies": 15,
-   "sponsorCount": 30,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 4,
-   "routingAnomaly": true,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 76168,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
+   "triageScoreV2": 202314
   },
   {
    "tiskId": 43177,
@@ -1309,53 +1430,24 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 2,
-   "flaggedConflict": true,
    "sponsorContractCzk": 935964309.85,
-   "sponsorMoneyCompanies": 4,
-   "sponsorCount": 10,
-   "garancniCommittee": "VZ",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 75971,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "money_conflict",
-    "routing_anomaly"
-   ]
-  },
-  {
-   "tiskId": 43323,
-   "billNodeId": "bill:tisk:43323",
-   "cislo": 201,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Patrika Nachera, Tomia Okamury, Taťány Malé, Radima Fialy, Filipa Turka, Barbory Rázgy a Martina Kolovratníka na vydání zákona, kterým se mění zákon č. 348/2005 Sb., o rozhlasových a te",
-   "amendedLaws": [
-    "348/2005"
+    "municipal_soe_excluded"
    ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 884856389,
-   "sponsorMoneyCompanies": 6,
-   "sponsorCount": 7,
-   "garancniCommittee": "VMZ",
-   "committeeCount": 1,
-   "routingAnomaly": true,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 75947,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "VODÁRNA PLZEŇ a.s.",
+    "DOMOVINKA - sociální služby, o.p.s.",
+    "CHOMUTOVSKÁ BYTOVÁ a.s.",
+    "Dopravní podnik měst Chomutova a Jirkova a.s."
+   ],
+   "triageScoreV2": 202294
   },
   {
    "tiskId": 43250,
@@ -1368,24 +1460,42 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 2,
-   "flaggedConflict": true,
    "sponsorContractCzk": 551584148.19,
-   "sponsorMoneyCompanies": 9,
-   "sponsorCount": 11,
-   "garancniCommittee": "HV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 75742,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Česká asociace věřitelů, z.s.",
+    "Údržba silnic Karlovarského kraje, a.s.",
+    "Chráněná dílna Ostrov, s.r.o.",
+    "Léčebné lázně Jáchymov a. s.",
+    "Vodárny a kanalizace Karlovy Vary, a.s.",
+    "Povodí Ohře, státní podnik",
+    "Plzeňské městské dopravní podniky, a.s.",
+    "Plzeňská filharmonie, obecně prospěšná společnost",
+    "Galerie města Plzně, o.p.s.",
+    "Regionální rozvojová agentura Plzeňského kraje, obecně prospěšná společnost",
+    "Techmania Science Center o.p.s.",
+    "Nadace Věry a Vladimíra Janouškových",
+    "Nadace 700 let města Plzně",
+    "Sdružení měst a obcí Plzeňského kraje",
+    "Společenství vlastníků jednotek v domě čp. 2122, Na Folimance 13, Praha 2 - Vinohrady",
+    "Nadační fond Českého rozhlasu",
+    "Komwag, podnik čistoty a údržby města, a.s.",
+    "Vzdělávací centrum pro veřejnou správu ČR, o.p.s.",
+    "MERO ČR, a.s.",
+    "Svaz měst a obcí České republiky",
+    "Povodí Vltavy, státní podnik"
+   ],
+   "triageScoreV2": 202248
   },
   {
    "tiskId": 43289,
@@ -1398,24 +1508,222 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 2,
-   "flaggedConflict": true,
    "sponsorContractCzk": 224319743.1,
-   "sponsorMoneyCompanies": 2,
-   "sponsorCount": 18,
-   "garancniCommittee": "RV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 75351,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Hvězdárna a planetárium v Hradci Králové",
+    "Univerzita Palackého v Olomouci"
+   ],
+   "triageScoreV2": 202170
+  },
+  {
+   "tiskId": 43226,
+   "billNodeId": "bill:tisk:43226",
+   "cislo": 116,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Zuzany Ožanové, Patrika Pařila a Renaty Vesecké na vydání zákona, kterým se zrušuje zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou úča",
+   "amendedLaws": [
+    "353/2019"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 2,
+   "sponsorContractCzk": 82683361.6,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Krajská zdravotní, a.s.",
+    "Dopravní podnik města Děčína, a.s."
+   ],
+   "triageScoreV2": 202083
+  },
+  {
+   "tiskId": 43214,
+   "billNodeId": "bill:tisk:43214",
+   "cislo": 104,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Václava Pláteníka, Jiřího Vojáčka, Mariana Jurečky, Benjamina Činčily, Marie Krškové, Jiřího Horáka a Moniky Brzeskové na vydání zákona, kterým se mění zákon č. 561/2004 Sb., o předškol",
+   "amendedLaws": [
+    "561/2004"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 2,
+   "sponsorContractCzk": 10864254.9,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Vodovody a kanalizace Vyškov,a.s."
+   ],
+   "triageScoreV2": 201907
+  },
+  {
+   "tiskId": 43185,
+   "billNodeId": "bill:tisk:43185",
+   "cislo": 78,
+   "origin": "mp",
+   "title": "Návrh poslance Andreje Babiše na vydání zákona, kterým se mění zákon č. 245/2000 Sb., o státních svátcích, o ostatních svátcích, o významných dnech a o dnech pracovního klidu, ve znění pozdějších před",
+   "amendedLaws": [
+    "245/2000"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 2,
+   "sponsorContractCzk": 4432684.16,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Vodovody a kanalizace Kroměříž, a.s."
+   ],
+   "triageScoreV2": 201829
+  },
+  {
+   "tiskId": 43169,
+   "billNodeId": "bill:tisk:43169",
+   "cislo": 62,
+   "origin": "government",
+   "title": "Vládní návrh zákona o některých povinnostech souvisejících s opravou výrobku a o změně zákona č. 634/1992 Sb., o ochraně spotřebitele, ve znění pozdějších předpisů",
+   "amendedLaws": [
+    "634/1992"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 2,
+   "sponsorContractCzk": 3728628.859,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "PRO VYSOČINU, občanské sdružení",
+    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
+   ],
+   "triageScoreV2": 201814
+  },
+  {
+   "tiskId": 43328,
+   "billNodeId": "bill:tisk:43328",
+   "cislo": 206,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Víta Rakušana, Karla Dvořáka a Lukáše Vlčka na vydání zákona, kterým se mění zákon č. 134/2016 Sb., o zadávání veřejných zakázek, ve znění pozdějších předpisů, a některé další zákony v ",
+   "amendedLaws": [
+    "134/2016"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 2,
+   "sponsorContractCzk": 3728628.859,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
+    "Nadační fond Gymnázia Kutná Hora",
+    "PRO VYSOČINU, občanské sdružení",
+    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
+   ],
+   "triageScoreV2": 201814
+  },
+  {
+   "tiskId": 43216,
+   "billNodeId": "bill:tisk:43216",
+   "cislo": 106,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Elišky Olšákové, Karla Dvořáka, Lucie Sedmihradské, Julie Smejkalové, Michala Zuny, Jiřího Horáka a Zdeňky Blišťanové na vydání zákona, kterým se mění zákon č. 159/1999 Sb., o některých",
+   "amendedLaws": [
+    "159/1999"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 2,
+   "sponsorContractCzk": 1296198.5,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Vodovody a kanalizace Vyškov,a.s."
+   ],
+   "triageScoreV2": 201723
+  },
+  {
+   "tiskId": 43236,
+   "billNodeId": "bill:tisk:43236",
+   "cislo": 107,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Elišky Olšákové, Karla Dvořáka, Lucie Sedmihradské, Julie Smejkalové, Michala Zuny, Jiřího Horáka a Zdeňky Blišťanové na vydání zákona, kterým se mění zákon č. 159/1999 Sb., o některých",
+   "amendedLaws": [
+    "159/1999"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 2,
+   "sponsorContractCzk": 1296198.5,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Vodovody a kanalizace Vyškov,a.s."
+   ],
+   "triageScoreV2": 201723
   },
   {
    "tiskId": 43198,
@@ -1430,22 +1738,17 @@
    ],
    "amendsCount": 3,
    "maxTargetChurn": 2,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 0,
-   "garancniCommittee": "VSP",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 75000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 201500
   },
   {
    "tiskId": 43274,
@@ -1460,22 +1763,17 @@
    ],
    "amendsCount": 3,
    "maxTargetChurn": 2,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "VZ",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 75000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 201500
   },
   {
    "tiskId": 43353,
@@ -1490,286 +1788,40 @@
    ],
    "amendsCount": 3,
    "maxTargetChurn": 2,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "VMZ",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 75000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 201500
   },
   {
-   "tiskId": 43226,
-   "billNodeId": "bill:tisk:43226",
-   "cislo": 116,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Zuzany Ožanové, Patrika Pařila a Renaty Vesecké na vydání zákona, kterým se zrušuje zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou úča",
-   "amendedLaws": [
-    "353/2019"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 82683361.6,
-   "sponsorMoneyCompanies": 3,
-   "sponsorCount": 6,
-   "garancniCommittee": "HV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 74917,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
-  },
-  {
-   "tiskId": 43365,
-   "billNodeId": "bill:tisk:43365",
-   "cislo": 243,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Marka Výborného, Petra Hladíka a Františka Talíře na vydání zákona, kterým se mění zákon č. 223/2016 Sb., o prodejní době v maloobchodě, ve znění pozdějších předpisů",
-   "amendedLaws": [
-    "223/2016"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 5397460397.25,
-   "sponsorMoneyCompanies": 6,
-   "sponsorCount": 3,
-   "garancniCommittee": null,
-   "committeeCount": 0,
-   "routingAnomaly": false,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 74732,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "mp_group"
-   ]
-  },
-  {
-   "tiskId": 43354,
-   "billNodeId": "bill:tisk:43354",
-   "cislo": 232,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Andreje Babiše a Roberta Plagy na vydání zákona, kterým se mění zákon č. 561/2004 Sb., o předškolním, základním, středním, vyšším odborném a jiném vzdělávání (školský zákon), ve znění p",
-   "amendedLaws": [
-    "561/2004"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 1238034699.1190002,
-   "sponsorMoneyCompanies": 15,
-   "sponsorCount": 2,
-   "garancniCommittee": null,
-   "committeeCount": 0,
-   "routingAnomaly": false,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 74093,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "mp_group"
-   ]
-  },
-  {
-   "tiskId": 43169,
-   "billNodeId": "bill:tisk:43169",
-   "cislo": 62,
+   "tiskId": 43153,
+   "billNodeId": "bill:tisk:43153",
+   "cislo": 46,
    "origin": "government",
-   "title": "Vládní návrh zákona o některých povinnostech souvisejících s opravou výrobku a o změně zákona č. 634/1992 Sb., o ochraně spotřebitele, ve znění pozdějších předpisů",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 104/2013 Sb., o mezinárodní justiční spolupráci ve věcech trestních, ve znění pozdějších předpisů",
    "amendedLaws": [
-    "634/1992"
+    "104/2013"
    ],
    "amendsCount": 1,
    "maxTargetChurn": 2,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 3728628.859,
-   "sponsorMoneyCompanies": 7,
-   "sponsorCount": 1,
-   "garancniCommittee": "HV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
+   "sponsorContractCzk": 594,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 73572,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly"
-   ]
-  },
-  {
-   "tiskId": 43328,
-   "billNodeId": "bill:tisk:43328",
-   "cislo": 206,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Víta Rakušana, Karla Dvořáka a Lukáše Vlčka na vydání zákona, kterým se mění zákon č. 134/2016 Sb., o zadávání veřejných zakázek, ve znění pozdějších předpisů, a některé další zákony v ",
-   "amendedLaws": [
-    "134/2016"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 3728628.859,
-   "sponsorMoneyCompanies": 7,
-   "sponsorCount": 3,
-   "garancniCommittee": "VSR",
-   "committeeCount": 1,
-   "routingAnomaly": true,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 73572,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
-  },
-  {
-   "tiskId": 43216,
-   "billNodeId": "bill:tisk:43216",
-   "cislo": 106,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Elišky Olšákové, Karla Dvořáka, Lucie Sedmihradské, Julie Smejkalové, Michala Zuny, Jiřího Horáka a Zdeňky Blišťanové na vydání zákona, kterým se mění zákon č. 159/1999 Sb., o některých",
-   "amendedLaws": [
-    "159/1999"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 1296198.5,
-   "sponsorMoneyCompanies": 1,
-   "sponsorCount": 7,
-   "garancniCommittee": "VSR",
-   "committeeCount": 1,
-   "routingAnomaly": true,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 73113,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
-  },
-  {
-   "tiskId": 43236,
-   "billNodeId": "bill:tisk:43236",
-   "cislo": 107,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Elišky Olšákové, Karla Dvořáka, Lucie Sedmihradské, Julie Smejkalové, Michala Zuny, Jiřího Horáka a Zdeňky Blišťanové na vydání zákona, kterým se mění zákon č. 159/1999 Sb., o některých",
-   "amendedLaws": [
-    "159/1999"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 1296198.5,
-   "sponsorMoneyCompanies": 1,
-   "sponsorCount": 7,
-   "garancniCommittee": "VSR",
-   "committeeCount": 1,
-   "routingAnomaly": true,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 73113,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
-  },
-  {
-   "tiskId": 43214,
-   "billNodeId": "bill:tisk:43214",
-   "cislo": 104,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Václava Pláteníka, Jiřího Vojáčka, Mariana Jurečky, Benjamina Činčily, Marie Krškové, Jiřího Horáka a Moniky Brzeskové na vydání zákona, kterým se mění zákon č. 561/2004 Sb., o předškol",
-   "amendedLaws": [
-    "561/2004"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 10864254.9,
-   "sponsorMoneyCompanies": 2,
-   "sponsorCount": 7,
-   "garancniCommittee": "VVVMS",
-   "committeeCount": 1,
-   "routingAnomaly": false,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 72036,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "mp_group"
-   ]
-  },
-  {
-   "tiskId": 43185,
-   "billNodeId": "bill:tisk:43185",
-   "cislo": 78,
-   "origin": "mp",
-   "title": "Návrh poslance Andreje Babiše na vydání zákona, kterým se mění zákon č. 245/2000 Sb., o státních svátcích, o ostatních svátcích, o významných dnech a o dnech pracovního klidu, ve znění pozdějších před",
-   "amendedLaws": [
-    "245/2000"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 4432684.16,
-   "sponsorMoneyCompanies": 3,
-   "sponsorCount": 1,
-   "garancniCommittee": "VVVMS",
-   "committeeCount": 1,
-   "routingAnomaly": false,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 71647,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 201055
   },
   {
    "tiskId": 43143,
@@ -1783,50 +1835,19 @@
    ],
    "amendsCount": 2,
    "maxTargetChurn": 2,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 2,
-   "garancniCommittee": null,
-   "committeeCount": 0,
-   "routingAnomaly": false,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 70000,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
     "mp_group"
-   ]
-  },
-  {
-   "tiskId": 43153,
-   "billNodeId": "bill:tisk:43153",
-   "cislo": 46,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 104/2013 Sb., o mezinárodní justiční spolupráci ve věcech trestních, ve znění pozdějších předpisů",
-   "amendedLaws": [
-    "104/2013"
    ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "flaggedConflict": false,
-   "sponsorContractCzk": 594,
-   "sponsorMoneyCompanies": 4,
-   "sponsorCount": 1,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 67775,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 201000
   },
   {
    "tiskId": 43122,
@@ -1839,23 +1860,19 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 2,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 1,
-   "sponsorCount": 3,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 65000,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "routing_anomaly",
     "mp_group"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 200500
   },
   {
    "tiskId": 43164,
@@ -1868,22 +1885,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 2,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "VZ",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 65000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 200500
   },
   {
    "tiskId": 43195,
@@ -1896,22 +1908,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 2,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 0,
-   "garancniCommittee": "VSP",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 65000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 200500
   },
   {
    "tiskId": 43259,
@@ -1924,22 +1931,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 2,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 0,
-   "garancniCommittee": "HV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 65000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 200500
   },
   {
    "tiskId": 43288,
@@ -1952,22 +1954,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 2,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 0,
-   "garancniCommittee": "HV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 65000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 200500
   },
   {
    "tiskId": 43292,
@@ -1980,22 +1977,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 2,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 0,
-   "garancniCommittee": "HV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 65000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 200500
   },
   {
    "tiskId": 43314,
@@ -2008,22 +2000,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 2,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 0,
-   "garancniCommittee": "VŽP",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 65000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 200500
   },
   {
    "tiskId": 43340,
@@ -2036,22 +2023,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 2,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "RV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 65000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 200500
   },
   {
    "tiskId": 43344,
@@ -2064,22 +2046,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 2,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "HV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 65000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 200500
   },
   {
    "tiskId": 43357,
@@ -2092,22 +2069,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 2,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "VZ",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 65000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 200500
   },
   {
    "tiskId": 43360,
@@ -2120,20 +2092,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 2,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 0,
-   "garancniCommittee": null,
-   "committeeCount": 0,
-   "routingAnomaly": false,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 65000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": []
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 200500
   },
   {
    "tiskId": 43368,
@@ -2146,22 +2115,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 2,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "HV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 65000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 200500
   },
   {
    "tiskId": 43275,
@@ -2176,23 +2140,33 @@
    ],
    "amendsCount": 3,
    "maxTargetChurn": 1,
-   "flaggedConflict": true,
    "sponsorContractCzk": 1238034699.1190002,
-   "sponsorMoneyCompanies": 15,
-   "sponsorCount": 1,
-   "garancniCommittee": "VSR",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 56093,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "money_conflict",
-    "routing_anomaly"
-   ]
+    "sector_adjacent_conflict",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": true,
+   "sectorAdjacentCompanies": [
+    {
+     "company": "Hartenberg Holding, s.r.o.",
+     "sector": "economy",
+     "sponsor": "Andrej Babiš"
+    },
+    {
+     "company": "IMOBA, a.s.",
+     "sector": "economy",
+     "sponsor": "Andrej Babiš"
+    }
+   ],
+   "municipalExcludedCompanies": [
+    "Nadace AGROFERT"
+   ],
+   "triageScoreV2": 153319
   },
   {
    "tiskId": 43191,
@@ -2206,24 +2180,29 @@
    ],
    "amendsCount": 2,
    "maxTargetChurn": 1,
-   "flaggedConflict": true,
    "sponsorContractCzk": 5397460397.25,
-   "sponsorMoneyCompanies": 7,
-   "sponsorCount": 14,
-   "garancniCommittee": "VSP",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 51732,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Gymnázium, Pardubice, Mozartova 449",
+    "Vsetínská nemocnice a.s.",
+    "Kroměřížská nemocnice a.s.",
+    "Uherskohradišťská nemocnice a.s.",
+    "Krajská nemocnice T. Bati, a. s.",
+    "Dopravní podnik města Brna, a.s.",
+    "Teplárny Brno, a.s.",
+    "MERO ČR, a.s."
+   ],
+   "triageScoreV2": 102946
   },
   {
    "tiskId": 43240,
@@ -2237,24 +2216,25 @@
    ],
    "amendsCount": 2,
    "maxTargetChurn": 1,
-   "flaggedConflict": true,
    "sponsorContractCzk": 40100696.57,
-   "sponsorMoneyCompanies": 5,
-   "sponsorCount": 3,
-   "garancniCommittee": "VSP",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 49603,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "ČESKÁ TELEVIZE",
+    "ČESKÝ ROZHLAS",
+    "Nemocnice Jablonec nad Nisou, p.o.",
+    "Zdravotnická záchranná služba Libereckého kraje, příspěvková organizace"
+   ],
+   "triageScoreV2": 102521
   },
   {
    "tiskId": 43121,
@@ -2267,23 +2247,23 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": true,
    "sponsorContractCzk": 5397460397.25,
-   "sponsorMoneyCompanies": 6,
-   "sponsorCount": 1,
-   "garancniCommittee": "VŽP",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 46732,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "money_conflict",
-    "routing_anomaly"
-   ]
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Dopravní podnik města Brna, a.s.",
+    "Teplárny Brno, a.s.",
+    "MERO ČR, a.s."
+   ],
+   "triageScoreV2": 102446
   },
   {
    "tiskId": 43190,
@@ -2296,24 +2276,24 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": true,
    "sponsorContractCzk": 5397460397.25,
-   "sponsorMoneyCompanies": 6,
-   "sponsorCount": 9,
-   "garancniCommittee": "VŽP",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 46732,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Dopravní podnik města Brna, a.s.",
+    "Teplárny Brno, a.s.",
+    "MERO ČR, a.s."
+   ],
+   "triageScoreV2": 102446
   },
   {
    "tiskId": 43192,
@@ -2326,24 +2306,24 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": true,
    "sponsorContractCzk": 5397460397.25,
-   "sponsorMoneyCompanies": 6,
-   "sponsorCount": 9,
-   "garancniCommittee": "ZEV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 46732,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Dopravní podnik města Brna, a.s.",
+    "Teplárny Brno, a.s.",
+    "MERO ČR, a.s."
+   ],
+   "triageScoreV2": 102446
   },
   {
    "tiskId": 43282,
@@ -2356,24 +2336,24 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": true,
    "sponsorContractCzk": 5397460397.25,
-   "sponsorMoneyCompanies": 6,
-   "sponsorCount": 12,
-   "garancniCommittee": "VŽP",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 46732,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Dopravní podnik města Brna, a.s.",
+    "Teplárny Brno, a.s.",
+    "MERO ČR, a.s."
+   ],
+   "triageScoreV2": 102446
   },
   {
    "tiskId": 43295,
@@ -2386,24 +2366,27 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": true,
    "sponsorContractCzk": 1473240095.16,
-   "sponsorMoneyCompanies": 15,
-   "sponsorCount": 9,
-   "garancniCommittee": "ZEV",
-   "committeeCount": 2,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 46168,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Pražská vysoká škola psychosociálních studií, s.r.o.",
+    "Nadace AGROFERT",
+    "Nadační fond manželů Livie a Václava Klausových",
+    "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+    "Česká lékařská komora - o.s., z.s.",
+    "Lesy města Prostějova, s.r.o."
+   ],
+   "triageScoreV2": 102334
   },
   {
    "tiskId": 43142,
@@ -2416,24 +2399,22 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": true,
    "sponsorContractCzk": 1238034699.1190002,
-   "sponsorMoneyCompanies": 15,
-   "sponsorCount": 3,
-   "garancniCommittee": "RV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 46093,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Nadace AGROFERT"
+   ],
+   "triageScoreV2": 102319
   },
   {
    "tiskId": 43339,
@@ -2446,24 +2427,25 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": true,
    "sponsorContractCzk": 884856389,
-   "sponsorMoneyCompanies": 4,
-   "sponsorCount": 5,
-   "garancniCommittee": "KV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 45947,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "CHOMUTOVSKÁ BYTOVÁ a.s.",
+    "Dopravní podnik měst Chomutova a Jirkova a.s.",
+    "Nemocnice AGEL Valašské Meziříčí a.s.",
+    "Vodovody a kanalizace Vsetín, a.s."
+   ],
+   "triageScoreV2": 102289
   },
   {
    "tiskId": 43213,
@@ -2476,24 +2458,34 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": true,
    "sponsorContractCzk": 551584148.19,
-   "sponsorMoneyCompanies": 8,
-   "sponsorCount": 10,
-   "garancniCommittee": "VSR",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 45742,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Česká asociace věřitelů, z.s.",
+    "Údržba silnic Karlovarského kraje, a.s.",
+    "Chráněná dílna Ostrov, s.r.o.",
+    "Léčebné lázně Jáchymov a. s.",
+    "Vodárny a kanalizace Karlovy Vary, a.s.",
+    "Povodí Ohře, státní podnik",
+    "Společenství vlastníků jednotek v domě čp. 2122, Na Folimance 13, Praha 2 - Vinohrady",
+    "Nadační fond Českého rozhlasu",
+    "Komwag, podnik čistoty a údržby města, a.s.",
+    "Vzdělávací centrum pro veřejnou správu ČR, o.p.s.",
+    "MERO ČR, a.s.",
+    "Svaz měst a obcí České republiky",
+    "Povodí Vltavy, státní podnik"
+   ],
+   "triageScoreV2": 102248
   },
   {
    "tiskId": 43330,
@@ -2506,24 +2498,76 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": true,
    "sponsorContractCzk": 551584148.19,
-   "sponsorMoneyCompanies": 9,
-   "sponsorCount": 9,
-   "garancniCommittee": "VZ",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 45742,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Plzeňské městské dopravní podniky, a.s.",
+    "Plzeňská filharmonie, obecně prospěšná společnost",
+    "Galerie města Plzně, o.p.s.",
+    "Regionální rozvojová agentura Plzeňského kraje, obecně prospěšná společnost",
+    "Techmania Science Center o.p.s.",
+    "Nadace Věry a Vladimíra Janouškových",
+    "Nadace 700 let města Plzně",
+    "Sdružení měst a obcí Plzeňského kraje",
+    "Vzdělávací centrum pro veřejnou správu ČR, o.p.s.",
+    "MERO ČR, a.s.",
+    "Svaz měst a obcí České republiky",
+    "Povodí Vltavy, státní podnik"
+   ],
+   "triageScoreV2": 102248
+  },
+  {
+   "tiskId": 43383,
+   "billNodeId": "bill:tisk:43383",
+   "cislo": 261,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Jana Bureše, Petra Bendla, Karla Haase, Marka Bendy, Ivana Adamce, Jakuba Jandy, Jana Bauera a Jany Bačíkové na vydání zákona, kterým se mění zákon č. 114/1992 Sb., o ochraně přírody a ",
+   "amendedLaws": [
+    "114/1992"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 1,
+   "sponsorContractCzk": 551584148.19,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Česká asociace věřitelů, z.s.",
+    "Údržba silnic Karlovarského kraje, a.s.",
+    "Chráněná dílna Ostrov, s.r.o.",
+    "Léčebné lázně Jáchymov a. s.",
+    "Vodárny a kanalizace Karlovy Vary, a.s.",
+    "Povodí Ohře, státní podnik",
+    "Vzdělávací centrum pro veřejnou správu ČR, o.p.s.",
+    "MERO ČR, a.s.",
+    "Svaz měst a obcí České republiky",
+    "Povodí Vltavy, státní podnik",
+    "Společenství vlastníků Vlastislavova 605/20, Praha 4",
+    "RERA a.s.",
+    "Technické služby Trutnov s.r.o.",
+    "Lesy a parky Trutnov s.r.o.",
+    "Oblastní nemocnice Trutnov a.s.",
+    "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY"
+   ],
+   "triageScoreV2": 102248
   },
   {
    "tiskId": 43199,
@@ -2536,24 +2580,22 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": true,
    "sponsorContractCzk": 278778307,
-   "sponsorMoneyCompanies": 2,
-   "sponsorCount": 11,
-   "garancniCommittee": "RV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 45445,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Gymnázium, Pardubice, Mozartova 449"
+   ],
+   "triageScoreV2": 102189
   },
   {
    "tiskId": 43132,
@@ -2567,22 +2609,133 @@
    ],
    "amendsCount": 2,
    "maxTargetChurn": 1,
-   "flaggedConflict": false,
    "sponsorContractCzk": 200000,
-   "sponsorMoneyCompanies": 5,
-   "sponsorCount": 1,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 45301,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "routing_anomaly"
-   ]
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
+    "Nadační fond Gymnázia Kutná Hora"
+   ],
+   "triageScoreV2": 102060
+  },
+  {
+   "tiskId": 43343,
+   "billNodeId": "bill:tisk:43343",
+   "cislo": 221,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Radka Vondráčka, Davida Pražáka, Marie Pošarové a Filipa Turka na vydání zákona, kterým se mění zákon č. 159/2006 Sb., o střetu zájmů, ve znění pozdějších předpisů, a další související ",
+   "amendedLaws": [
+    "159/2006"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 1,
+   "sponsorContractCzk": 62959422.74260001,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Vodovody a kanalizace Kroměříž, a.s."
+   ],
+   "triageScoreV2": 102060
+  },
+  {
+   "tiskId": 43155,
+   "billNodeId": "bill:tisk:43155",
+   "cislo": 48,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 326/2004 Sb., o rostlinolékařské péči a o změně některých souvisejících zákonů, ve znění pozdějších předpisů",
+   "amendedLaws": [
+    "326/2004"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 1,
+   "sponsorContractCzk": 9253982.84,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Gymnázium, Pardubice, Mozartova 449"
+   ],
+   "triageScoreV2": 101893
+  },
+  {
+   "tiskId": 43256,
+   "billNodeId": "bill:tisk:43256",
+   "cislo": 133,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Martina Kupky, Jana Skopečka, Jiřího Havránka a Vojtěcha Munzara na vydání zákona, kterým se mění zákon č. 353/2003 Sb., o spotřebních daních, ve znění pozdějších předpisů",
+   "amendedLaws": [
+    "353/2003"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 1,
+   "sponsorContractCzk": 3968570,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "mp_group"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 101820
+  },
+  {
+   "tiskId": 43327,
+   "billNodeId": "bill:tisk:43327",
+   "cislo": 205,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Barbory Urbanové, Víta Rakušana, Karla Dvořáka, Lukáše Vlčka a Adriany Chochelové na vydání zákona, kterým se mění zákon č. 2/1969 Sb., zákon České národní rady o zřízení ministerstev a",
+   "amendedLaws": [
+    "2/1969"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 1,
+   "sponsorContractCzk": 3728628.859,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
+    "Nadační fond Gymnázia Kutná Hora",
+    "PRO VYSOČINU, občanské sdružení",
+    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
+   ],
+   "triageScoreV2": 101814
   },
   {
    "tiskId": 43283,
@@ -2597,22 +2750,17 @@
    ],
    "amendsCount": 3,
    "maxTargetChurn": 1,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 45000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 101500
   },
   {
    "tiskId": 43313,
@@ -2627,170 +2775,40 @@
    ],
    "amendsCount": 3,
    "maxTargetChurn": 1,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "VMZ",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 45000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 101500
   },
   {
-   "tiskId": 43343,
-   "billNodeId": "bill:tisk:43343",
-   "cislo": 221,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Radka Vondráčka, Davida Pražáka, Marie Pošarové a Filipa Turka na vydání zákona, kterým se mění zákon č. 159/2006 Sb., o střetu zájmů, ve znění pozdějších předpisů, a další související ",
-   "amendedLaws": [
-    "159/2006"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 62959422.74260001,
-   "sponsorMoneyCompanies": 3,
-   "sponsorCount": 4,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 44799,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
-  },
-  {
-   "tiskId": 43155,
-   "billNodeId": "bill:tisk:43155",
-   "cislo": 48,
+   "tiskId": 43168,
+   "billNodeId": "bill:tisk:43168",
+   "cislo": 61,
    "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 326/2004 Sb., o rostlinolékařské péči a o změně některých souvisejících zákonů, ve znění pozdějších předpisů",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 218/2003 Sb., o odpovědnosti mládeže za protiprávní činy a o soudnictví ve věcech mládeže a o změně některých zákonů (zákon o soudnictví ve věcech mládeže)",
    "amendedLaws": [
-    "326/2004"
+    "218/2003"
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 9253982.84,
-   "sponsorMoneyCompanies": 1,
-   "sponsorCount": 1,
-   "garancniCommittee": "ZEV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
+   "sponsorContractCzk": 594,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 43966,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly"
-   ]
-  },
-  {
-   "tiskId": 43383,
-   "billNodeId": "bill:tisk:43383",
-   "cislo": 261,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Jana Bureše, Petra Bendla, Karla Haase, Marka Bendy, Ivana Adamce, Jakuba Jandy, Jana Bauera a Jany Bačíkové na vydání zákona, kterým se mění zákon č. 114/1992 Sb., o ochraně přírody a ",
-   "amendedLaws": [
-    "114/1992"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 551584148.19,
-   "sponsorMoneyCompanies": 8,
-   "sponsorCount": 8,
-   "garancniCommittee": null,
-   "committeeCount": 0,
-   "routingAnomaly": false,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 43742,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "mp_group"
-   ]
-  },
-  {
-   "tiskId": 43256,
-   "billNodeId": "bill:tisk:43256",
-   "cislo": 133,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Martina Kupky, Jana Skopečka, Jiřího Havránka a Vojtěcha Munzara na vydání zákona, kterým se mění zákon č. 353/2003 Sb., o spotřebních daních, ve znění pozdějších předpisů",
-   "amendedLaws": [
-    "353/2003"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 3968570,
-   "sponsorMoneyCompanies": 2,
-   "sponsorCount": 4,
-   "garancniCommittee": "RV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 43599,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
-  },
-  {
-   "tiskId": 43327,
-   "billNodeId": "bill:tisk:43327",
-   "cislo": 205,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Barbory Urbanové, Víta Rakušana, Karla Dvořáka, Lukáše Vlčka a Adriany Chochelové na vydání zákona, kterým se mění zákon č. 2/1969 Sb., zákon České národní rady o zřízení ministerstev a",
-   "amendedLaws": [
-    "2/1969"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 3728628.859,
-   "sponsorMoneyCompanies": 7,
-   "sponsorCount": 5,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 43572,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 101055
   },
   {
    "tiskId": 43112,
@@ -2804,23 +2822,19 @@
    ],
    "amendsCount": 2,
    "maxTargetChurn": 1,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 1,
-   "sponsorCount": 2,
-   "garancniCommittee": "HV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 40000,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "routing_anomaly",
     "mp_group"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 101000
   },
   {
    "tiskId": 43149,
@@ -2834,22 +2848,17 @@
    ],
    "amendsCount": 2,
    "maxTargetChurn": 1,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 0,
-   "garancniCommittee": "HV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 40000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 101000
   },
   {
    "tiskId": 43293,
@@ -2863,50 +2872,17 @@
    ],
    "amendsCount": 2,
    "maxTargetChurn": 1,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "VSR",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 40000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
-  },
-  {
-   "tiskId": 43168,
-   "billNodeId": "bill:tisk:43168",
-   "cislo": 61,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 218/2003 Sb., o odpovědnosti mládeže za protiprávní činy a o soudnictví ve věcech mládeže a o změně některých zákonů (zákon o soudnictví ve věcech mládeže)",
-   "amendedLaws": [
-    "218/2003"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "flaggedConflict": false,
-   "sponsorContractCzk": 594,
-   "sponsorMoneyCompanies": 4,
-   "sponsorCount": 1,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 37775,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 101000
   },
   {
    "tiskId": 43120,
@@ -2919,22 +2895,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "RV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 35000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 100500
   },
   {
    "tiskId": 43156,
@@ -2947,23 +2918,19 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 3,
-   "garancniCommittee": "VŽP",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 35000,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "routing_anomaly",
     "mp_group"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 100500
   },
   {
    "tiskId": 43166,
@@ -2976,23 +2943,19 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 2,
-   "garancniCommittee": "VSP",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 35000,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "routing_anomaly",
     "mp_group"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 100500
   },
   {
    "tiskId": 43171,
@@ -3005,22 +2968,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "RV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 35000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 100500
   },
   {
    "tiskId": 43175,
@@ -3033,22 +2991,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "RV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 35000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 100500
   },
   {
    "tiskId": 43189,
@@ -3061,22 +3014,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "VSR",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 35000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 100500
   },
   {
    "tiskId": 43193,
@@ -3089,22 +3037,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "HV",
-   "committeeCount": 2,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 35000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 100500
   },
   {
    "tiskId": 43208,
@@ -3117,22 +3060,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "RV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 35000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 100500
   },
   {
    "tiskId": 43209,
@@ -3145,22 +3083,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 0,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 35000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 100500
   },
   {
    "tiskId": 43246,
@@ -3173,22 +3106,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 0,
-   "garancniCommittee": "VZ",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 35000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 100500
   },
   {
    "tiskId": 43266,
@@ -3201,22 +3129,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "RV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 35000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 100500
   },
   {
    "tiskId": 43284,
@@ -3229,20 +3152,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": null,
-   "committeeCount": 1,
-   "routingAnomaly": false,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 35000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": []
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 100500
   },
   {
    "tiskId": 43307,
@@ -3255,22 +3175,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 0,
-   "garancniCommittee": "HV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 35000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 100500
   },
   {
    "tiskId": 43311,
@@ -3283,22 +3198,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 0,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 35000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 100500
   },
   {
    "tiskId": 43320,
@@ -3311,22 +3221,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "VŽP",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 35000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 100500
   },
   {
    "tiskId": 43337,
@@ -3339,23 +3244,19 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 1,
-   "sponsorCount": 4,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 35000,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "routing_anomaly",
     "mp_group"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 100500
   },
   {
    "tiskId": 43341,
@@ -3368,22 +3269,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "HV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 35000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 100500
   },
   {
    "tiskId": 43356,
@@ -3396,22 +3292,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "VSR",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 35000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 100500
   },
   {
    "tiskId": 43382,
@@ -3424,20 +3315,17 @@
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": null,
-   "committeeCount": 0,
-   "routingAnomaly": false,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 35000,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": []
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 100500
   },
   {
    "tiskId": 43117,
@@ -3448,241 +3336,28 @@
    "amendedLaws": [],
    "amendsCount": 0,
    "maxTargetChurn": 0,
-   "flaggedConflict": true,
    "sponsorContractCzk": 174822781.92,
-   "sponsorMoneyCompanies": 9,
-   "sponsorCount": 1,
-   "garancniCommittee": "VMZ",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 10243,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "money_conflict",
-    "routing_anomaly"
-   ]
-  },
-  {
-   "tiskId": 43161,
-   "billNodeId": "bill:tisk:43161",
-   "cislo": 54,
-   "origin": "government",
-   "title": "Vládní návrh zákona o správě dat, o řízeném přístupu k datům a o změně některých souvisejících zákonů (zákon o správě dat a o řízeném přístupu k datům)",
-   "amendedLaws": [],
-   "amendsCount": 0,
-   "maxTargetChurn": 0,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 10864254.9,
-   "sponsorMoneyCompanies": 2,
-   "sponsorCount": 1,
-   "garancniCommittee": "VSR",
-   "committeeCount": 1,
-   "routingAnomaly": true,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 9036,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly"
-   ]
-  },
-  {
-   "tiskId": 43172,
-   "billNodeId": "bill:tisk:43172",
-   "cislo": 65,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti s úpravou vybraných agend v působnosti Digitální a informační agentury",
-   "amendedLaws": [],
-   "amendsCount": 0,
-   "maxTargetChurn": 0,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 10864254.9,
-   "sponsorMoneyCompanies": 2,
-   "sponsorCount": 1,
-   "garancniCommittee": "VSR",
-   "committeeCount": 1,
-   "routingAnomaly": true,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 9036,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly"
-   ]
-  },
-  {
-   "tiskId": 43183,
-   "billNodeId": "bill:tisk:43183",
-   "cislo": 76,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státníc",
-   "amendedLaws": [],
-   "amendsCount": 0,
-   "maxTargetChurn": 0,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 4432684.16,
-   "sponsorMoneyCompanies": 3,
-   "sponsorCount": 4,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 8647,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
-  },
-  {
-   "tiskId": 43184,
-   "billNodeId": "bill:tisk:43184",
-   "cislo": 77,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o právních poměrech státních zaměstnan",
-   "amendedLaws": [],
-   "amendsCount": 0,
-   "maxTargetChurn": 0,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 4432684.16,
-   "sponsorMoneyCompanies": 3,
-   "sponsorCount": 4,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 8647,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly",
-    "mp_group"
-   ]
-  },
-  {
-   "tiskId": 43159,
-   "billNodeId": "bill:tisk:43159",
-   "cislo": 52,
-   "origin": "government",
-   "title": "Vládní návrh zákona o určování provozoven a jmenování zástupců některých poskytovatelů služeb za účelem shromažďování elektronických důkazů v trestním řízení",
-   "amendedLaws": [],
-   "amendsCount": 0,
-   "maxTargetChurn": 0,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 3728628.859,
-   "sponsorMoneyCompanies": 7,
-   "sponsorCount": 1,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 8572,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly"
-   ]
-  },
-  {
-   "tiskId": 43162,
-   "billNodeId": "bill:tisk:43162",
-   "cislo": 55,
-   "origin": "government",
-   "title": "Vládní návrh zákona o opatřeních ke snížení nákladů na zavádění sítí elektronických komunikací s velmi vysokou kapacitou",
-   "amendedLaws": [],
-   "amendsCount": 0,
-   "maxTargetChurn": 0,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 3728628.859,
-   "sponsorMoneyCompanies": 7,
-   "sponsorCount": 1,
-   "garancniCommittee": "HV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 8572,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly"
-   ]
-  },
-  {
-   "tiskId": 43163,
-   "billNodeId": "bill:tisk:43163",
-   "cislo": 56,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o opatřeních ke snížení nákladů na zavádění sítí elektronických komunikací s velmi vysokou kapacitou",
-   "amendedLaws": [],
-   "amendsCount": 0,
-   "maxTargetChurn": 0,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 3728628.859,
-   "sponsorMoneyCompanies": 7,
-   "sponsorCount": 1,
-   "garancniCommittee": "HV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 8572,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly"
-   ]
-  },
-  {
-   "tiskId": 43176,
-   "billNodeId": "bill:tisk:43176",
-   "cislo": 69,
-   "origin": "government",
-   "title": "Vládní návrh zákona o digitální ekonomice a o změně některých souvisejících zákonů",
-   "amendedLaws": [],
-   "amendsCount": 0,
-   "maxTargetChurn": 0,
-   "flaggedConflict": true,
-   "sponsorContractCzk": 3728628.859,
-   "sponsorMoneyCompanies": 7,
-   "sponsorCount": 1,
-   "garancniCommittee": "HV",
-   "committeeCount": 4,
-   "routingAnomaly": true,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "triageScore": 8572,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "money_conflict",
-    "routing_anomaly"
-   ]
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Plzeňské městské dopravní podniky, a.s.",
+    "Plzeňská filharmonie, obecně prospěšná společnost",
+    "Galerie města Plzně, o.p.s.",
+    "Regionální rozvojová agentura Plzeňského kraje, obecně prospěšná společnost",
+    "Techmania Science Center o.p.s.",
+    "Nadace Věry a Vladimíra Janouškových",
+    "Nadace 700 let města Plzně",
+    "Sdružení měst a obcí Plzeňského kraje"
+   ],
+   "triageScoreV2": 1649
   },
   {
    "tiskId": 43197,
@@ -3693,22 +3368,233 @@
    "amendedLaws": [],
    "amendsCount": 0,
    "maxTargetChurn": 0,
-   "flaggedConflict": true,
    "sponsorContractCzk": 115513739.87,
-   "sponsorMoneyCompanies": 6,
-   "sponsorCount": 42,
-   "garancniCommittee": "VVVMS",
-   "committeeCount": 2,
-   "routingAnomaly": false,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 8063,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "money_conflict"
-   ]
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "CHOMUTOVSKÁ BYTOVÁ a.s.",
+    "Dopravní podnik měst Chomutova a Jirkova a.s.",
+    "Vojenská nemocnice Olomouc",
+    "Poliklinika Břeclav, s. r. o.",
+    "POLIKLINIKA - servis s.r.o.",
+    "Nemocnice Valtice s.r.o.",
+    "Povodí Moravy, s.p.",
+    "Pražská vysoká škola psychosociálních studií, s.r.o.",
+    "Krajská zdravotní, a.s.",
+    "Dopravní podnik města Děčína, a.s.",
+    "Lesy města Prostějova, s.r.o.",
+    "Výstaviště Flora Olomouc, a.s.",
+    "Lesy města Olomouce, a.s.",
+    "Obecně prospěšná společnost pro památkovou ochranu Hradiska u Olomouce a za další rozvoj kulturního, uměleckého a duchovního života a humanitní zdravotní péče na něm.",
+    "Svaz měst a obcí České republiky"
+   ],
+   "triageScoreV2": 1613
+  },
+  {
+   "tiskId": 43161,
+   "billNodeId": "bill:tisk:43161",
+   "cislo": 54,
+   "origin": "government",
+   "title": "Vládní návrh zákona o správě dat, o řízeném přístupu k datům a o změně některých souvisejících zákonů (zákon o správě dat a o řízeném přístupu k datům)",
+   "amendedLaws": [],
+   "amendsCount": 0,
+   "maxTargetChurn": 0,
+   "sponsorContractCzk": 10864254.9,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 1407
+  },
+  {
+   "tiskId": 43172,
+   "billNodeId": "bill:tisk:43172",
+   "cislo": 65,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti s úpravou vybraných agend v působnosti Digitální a informační agentury",
+   "amendedLaws": [],
+   "amendsCount": 0,
+   "maxTargetChurn": 0,
+   "sponsorContractCzk": 10864254.9,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 1407
+  },
+  {
+   "tiskId": 43183,
+   "billNodeId": "bill:tisk:43183",
+   "cislo": 76,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státníc",
+   "amendedLaws": [],
+   "amendsCount": 0,
+   "maxTargetChurn": 0,
+   "sponsorContractCzk": 4432684.16,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Vodovody a kanalizace Kroměříž, a.s."
+   ],
+   "triageScoreV2": 1329
+  },
+  {
+   "tiskId": 43184,
+   "billNodeId": "bill:tisk:43184",
+   "cislo": 77,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o právních poměrech státních zaměstnan",
+   "amendedLaws": [],
+   "amendsCount": 0,
+   "maxTargetChurn": 0,
+   "sponsorContractCzk": 4432684.16,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Vodovody a kanalizace Kroměříž, a.s."
+   ],
+   "triageScoreV2": 1329
+  },
+  {
+   "tiskId": 43159,
+   "billNodeId": "bill:tisk:43159",
+   "cislo": 52,
+   "origin": "government",
+   "title": "Vládní návrh zákona o určování provozoven a jmenování zástupců některých poskytovatelů služeb za účelem shromažďování elektronických důkazů v trestním řízení",
+   "amendedLaws": [],
+   "amendsCount": 0,
+   "maxTargetChurn": 0,
+   "sponsorContractCzk": 3728628.859,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "PRO VYSOČINU, občanské sdružení",
+    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
+   ],
+   "triageScoreV2": 1314
+  },
+  {
+   "tiskId": 43162,
+   "billNodeId": "bill:tisk:43162",
+   "cislo": 55,
+   "origin": "government",
+   "title": "Vládní návrh zákona o opatřeních ke snížení nákladů na zavádění sítí elektronických komunikací s velmi vysokou kapacitou",
+   "amendedLaws": [],
+   "amendsCount": 0,
+   "maxTargetChurn": 0,
+   "sponsorContractCzk": 3728628.859,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "PRO VYSOČINU, občanské sdružení",
+    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
+   ],
+   "triageScoreV2": 1314
+  },
+  {
+   "tiskId": 43163,
+   "billNodeId": "bill:tisk:43163",
+   "cislo": 56,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o opatřeních ke snížení nákladů na zavádění sítí elektronických komunikací s velmi vysokou kapacitou",
+   "amendedLaws": [],
+   "amendsCount": 0,
+   "maxTargetChurn": 0,
+   "sponsorContractCzk": 3728628.859,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "PRO VYSOČINU, občanské sdružení",
+    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
+   ],
+   "triageScoreV2": 1314
+  },
+  {
+   "tiskId": 43176,
+   "billNodeId": "bill:tisk:43176",
+   "cislo": 69,
+   "origin": "government",
+   "title": "Vládní návrh zákona o digitální ekonomice a o změně některých souvisejících zákonů",
+   "amendedLaws": [],
+   "amendsCount": 0,
+   "maxTargetChurn": 0,
+   "sponsorContractCzk": 3728628.859,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "PRO VYSOČINU, občanské sdružení",
+    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
+   ],
+   "triageScoreV2": 1314
   },
   {
    "tiskId": 43113,
@@ -3719,23 +3605,19 @@
    "amendedLaws": [],
    "amendsCount": 0,
    "maxTargetChurn": 0,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 1,
-   "sponsorCount": 3,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 0,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "routing_anomaly",
     "mp_group"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 0
   },
   {
    "tiskId": 43114,
@@ -3746,23 +3628,19 @@
    "amendedLaws": [],
    "amendsCount": 0,
    "maxTargetChurn": 0,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 1,
-   "sponsorCount": 3,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 0,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "routing_anomaly",
     "mp_group"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 0
   },
   {
    "tiskId": 43123,
@@ -3773,22 +3651,17 @@
    "amendedLaws": [],
    "amendsCount": 0,
    "maxTargetChurn": 0,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "RV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 0,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 0
   },
   {
    "tiskId": 43170,
@@ -3799,22 +3672,17 @@
    "amendedLaws": [],
    "amendsCount": 0,
    "maxTargetChurn": 0,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "RV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 0,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 0
   },
   {
    "tiskId": 43200,
@@ -3825,22 +3693,17 @@
    "amendedLaws": [],
    "amendsCount": 0,
    "maxTargetChurn": 0,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "RV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 0,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 0
   },
   {
    "tiskId": 43211,
@@ -3851,22 +3714,17 @@
    "amendedLaws": [],
    "amendsCount": 0,
    "maxTargetChurn": 0,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 0,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 0
   },
   {
    "tiskId": 43212,
@@ -3877,22 +3735,17 @@
    "amendedLaws": [],
    "amendsCount": 0,
    "maxTargetChurn": 0,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "ÚPV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 0,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 0
   },
   {
    "tiskId": 43223,
@@ -3903,22 +3756,17 @@
    "amendedLaws": [],
    "amendsCount": 0,
    "maxTargetChurn": 0,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "HV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 0,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 0
   },
   {
    "tiskId": 43224,
@@ -3929,22 +3777,17 @@
    "amendedLaws": [],
    "amendsCount": 0,
    "maxTargetChurn": 0,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "RV",
-   "committeeCount": 2,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 0,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 0
   },
   {
    "tiskId": 43264,
@@ -3955,22 +3798,17 @@
    "amendedLaws": [],
    "amendsCount": 0,
    "maxTargetChurn": 0,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "VB",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 0,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 0
   },
   {
    "tiskId": 43308,
@@ -3981,23 +3819,19 @@
    "amendedLaws": [],
    "amendsCount": 0,
    "maxTargetChurn": 0,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 4,
-   "garancniCommittee": "VSR",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 0,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "routing_anomaly",
     "mp_group"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 0
   },
   {
    "tiskId": 43310,
@@ -4008,22 +3842,17 @@
    "amendedLaws": [],
    "amendsCount": 0,
    "maxTargetChurn": 0,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "RV",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 0,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 0
   },
   {
    "tiskId": 43335,
@@ -4034,22 +3863,17 @@
    "amendedLaws": [],
    "amendsCount": 0,
    "maxTargetChurn": 0,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "VB",
-   "committeeCount": 1,
-   "routingAnomaly": true,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 0,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "routing_anomaly"
-   ]
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 0
   },
   {
    "tiskId": 43350,
@@ -4060,20 +3884,17 @@
    "amendedLaws": [],
    "amendsCount": 0,
    "maxTargetChurn": 0,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 1,
-   "garancniCommittee": "VVVMS",
-   "committeeCount": 1,
-   "routingAnomaly": false,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 0,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": []
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 0
   },
   {
    "tiskId": 43372,
@@ -4084,34 +3905,20 @@
    "amendedLaws": [],
    "amendsCount": 0,
    "maxTargetChurn": 0,
-   "flaggedConflict": false,
    "sponsorContractCzk": 0,
-   "sponsorMoneyCompanies": 0,
-   "sponsorCount": 2,
-   "garancniCommittee": null,
-   "committeeCount": 0,
-   "routingAnomaly": false,
    "forensicSeverity": null,
    "forensicState": null,
-   "triageScore": 0,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
     "mp_group"
-   ]
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 0
   }
  ],
- "batch001": {
-  "processedAt": "2026-07-24T17:28:32.459Z",
-  "units": 8,
-  "severityHistogram": {
-   "low": 8,
-   "medium": 0,
-   "high": 0
-  },
-  "signalYield": 2,
-  "conflictsDetected": 0,
-  "note": "8/8 top-triage flagged bills → 0 self-dealing conflicts (all low); rich cross-cutting/data-quality signals instead"
- }
+ "batch002Note": "Batch head = top-9 churn-led (173,216,196,111,207,124,198,71,86) + tisk 11 swapped in for tisk 112 to empirically test the corrected sector-adjacency signal (private real-estate/investment-holding ties vs 589/1992 social-insurance-premium law). Army confirmed: coincidental economy-bucket match, no real channel (same calibration as batch-001, now validated for a sector-matched signal too). This re-run also fixed a municipal-exclusion gap (CHOMUTOVSKA BYTOVA a.s. — 100% city-of-Chomutov owned, found by the tisk-11 army dossier) which dropped raw sector-adjacency hits from 6 to 5."
 }

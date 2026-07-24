@@ -1,0 +1,87 @@
+{
+  "billTisk": 207,
+  "statedReasoning": "Government bill (Ministry of Justice, signed by ministr spravedlnosti JUDr. Jeroným Tejc) amending trestní zákoník (40/2009 Sb.) to transpose EU directive 2024/1203 on criminal-law protection of the environment, which replaces and expands directives 2008/99/EC and 2009/123/EC. It creates a new 'grave environmental damage' tier (§ 292a and its negligent counterpart § 292b) carrying an 8-10-year sentence ceiling for catastrophic pollution events, adds a mercury-specific offense (new § 283 odst. 2, new § 283b for negligence) covering use/handling of mercury not previously reached, adds a new § 119b disregarding permits obtained via fraud, corruption or manifest illegality, and creates a cluster of brand-new offenses that did not exist before: § 297a (illegal ship recycling), § 298b/298c (illegal handling of ozone-depleting substances, F-gases, restricted chemicals, pesticides, biocides, mercury use), § 298d/298e (illegal placing on the market of products/commodities linked to deforestation, implementing the EUDR), § 298f (unauthorized environmental-impact-assessment projects), § 298g/298h (unauthorized operation of hazardous-substance facilities), § 298i/298j (unauthorized offshore oil/gas installations), plus a rewritten § 299/300/301 (protected species, invasive species, protected-area damage) and materially higher sentences across the board.",
+  "researchedContext": "Fetched and read the full bill text + explanatory memorandum (56 pages, https://www.psp.cz/sqw/text/orig2.sqw?idd=271152) and the legislative-history page. The bill was distributed to the Chamber on 28 May 2026 as tisk 207/0 (eKLEP ref. 1101/25), Organizational Committee recommendation 3 Jun 2026 (usnesení č. 70), rapporteur JUDr. Jana Demjanovská, garanční committee ÚPV; as of 24 Jul 2026 it remains in preliminary review with 8 proposed amendments, no floor vote yet. Notably, the bill's own explanatory memorandum concedes the Czech Republic will miss the EU transposition deadline: directive 2024/1203 art. 28(1) requires national measures in force by 21 May 2026, and the DZ states plainly 'Jelikož se nepodaří přijmout návrh zákona v tomto termínu, je zapotřebí dosáhnout slučitelnosti vnitrostátních právních předpisů s požadavky plynoucími z implementované směrnice co nejdříve po uplynutí implementační lhůty' - the bill itself was only submitted to Parliament a week AFTER that deadline had already lapsed (28 May 2026 vs. 21 May 2026). The graph's amendedLaws field records only 40/2009, but the bill's own Part headers amend EIGHT statutes: 40/2009 (trestní zákoník), 141/1961 (trestní řád), 359/1999 (sociálně-právní ochrana dětí), 273/2008 (Policie ČR), 341/2011 (Generální inspekce bezpečnostních sborů), 17/2012 (Celní správa ČR), 300/2013 (Vojenská policie), 59/2017 (použití peněžních prostředků z majetkových trestních sankcí) - all of them minor terminology fixes threading 'rtuť/sloučeniny rtuti' (mercury) into existing 'jedy' (poisons) references, but real, textual amendments nonetheless.",
+  "unstatedEffects": [
+    {
+      "effect": "The graph records only one amended statute (40/2009) for tisk 207 when the bill text amends eight (40/2009, 141/1961, 359/1999, 273/2008, 341/2011, 17/2012, 300/2013, 59/2017). This is the same title-regex undercounting failure batch-001 flagged in tisk 4 (1 vs 4 real), now observed at even greater scale (1 vs 8) and, combined with tisk 111's identical failure mode (1 vs 7), shows the undercounting is systematic for omnibus 'a další související zákony' government bills, not a one-off.",
+      "whoBenefits": "No person; a data-completeness gap in the bill-to-law extraction pipeline.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271152"
+    },
+    {
+      "effect": "The government submitted this EU-directive transposition bill to Parliament on 28 May 2026 - one week after the directive's own 21 May 2026 implementation deadline had already passed - and the bill's explanatory memorandum explicitly acknowledges the deadline will be missed. As of 24 Jul 2026 the bill is still in preliminary committee review with no floor vote scheduled, meaning Czech environmental-crime law will remain non-compliant with EU minimums for an indeterminate period beyond the missed deadline.",
+      "whoBenefits": "No named party; this is a state-compliance/process fact worth tracking (possible EU infringement exposure), not a self-dealing signal.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271152"
+    },
+    {
+      "effect": "Tisk 207 and its sibling tisk 111 (both government bills from the same Ministry of Justice, both amending 40/2009 in the same term) independently amend the identical clause § 88 odst. 2 písm. c) trestního zákoníku for unrelated reasons: tisk 207 renumbers the § 283 (jedy/mercury) cross-reference, tisk 111 renumbers the § 168 (human-trafficking) cross-reference. Both edits target the same statutory sentence in the same term - a concrete drafting-coordination point of the same class flagged in batch-001 (tisk 120<->244 on § 35ba), though anchored to distinct substrings rather than a literal overlap.",
+      "whoBenefits": "No one; a legislative-drafting coordination watch-item.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267623"
+    }
+  ],
+  "conflictAssessment": "The graph's sole listed sponsor is pspId 5513 Jeroným Tejc with moneyTies: []. As with tisk 111, the bill text confirms he is the sitting Ministr spravedlnosti whose signature closes the explanatory memorandum ('Ministr spravedlnosti: JUDr. Jeroným Tejc, podepsáno elektronicky') - the graph's sponsor attribution correctly reflects government-bill provenance, not an MP's private interest. No sectorAdjacentCompanies were flagged, and there are no sponsor money ties to weigh against a subject (environmental-crime sentencing, mercury/chemical/waste regulation, offshore-facility and deforestation-commodity offenses) that in any case has no channel to a named individual's private holdings in this dossier. Honest low.",
+  "severity": "low",
+  "confidence": 5,
+  "citations": [
+    {
+      "claim": "Tisk 207 is a government bill amending trestní zákoník (40/2009 Sb.) to transpose EU directive 2024/1203 on criminal-law protection of the environment; explanatory memorandum signed by Ministr spravedlnosti JUDr. Jeroným Tejc, dated 18 May 2026.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271152"
+    },
+    {
+      "claim": "Bill distributed to the Chamber of Deputies on 28 May 2026 as tisk 207/0, registered under eKLEP 1101/25; Organizational Committee recommendation 3 Jun 2026 (usnesení č. 70), rapporteur JUDr. Jana Demjanovská, garanční committee ÚPV; as of 24 Jul 2026 in preliminary review, no floor vote.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=207"
+    },
+    {
+      "claim": "The bill's own explanatory memorandum states the government will miss the 21 May 2026 implementation deadline set by directive 2024/1203 art. 28(1).",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271152"
+    },
+    {
+      "claim": "40/2009 Sb. (trestní zákoník) is the statute the bill primarily amends.",
+      "kind": "law",
+      "source": "40/2009"
+    },
+    {
+      "claim": "The bill's Part Two (Čl. II) amends 141/1961 Sb., trestní řád - not recorded in the graph's amendedLaws list for this bill.",
+      "kind": "law",
+      "source": "141/1961"
+    },
+    {
+      "claim": "The bill's Part Three (Čl. III) amends 359/1999 Sb., zákon o sociálně-právní ochraně dětí - not recorded in the graph.",
+      "kind": "law",
+      "source": "359/1999"
+    },
+    {
+      "claim": "The bill's Part Four (Čl. IV) amends 273/2008 Sb., zákon o Policii České republiky - not recorded in the graph.",
+      "kind": "law",
+      "source": "273/2008"
+    },
+    {
+      "claim": "The bill's Part Five (Čl. V) amends 341/2011 Sb., zákon o Generální inspekci bezpečnostních sborů - not recorded in the graph.",
+      "kind": "law",
+      "source": "341/2011"
+    },
+    {
+      "claim": "The bill's Part Six (Čl. VI) amends 17/2012 Sb., zákon o Celní správě České republiky - not recorded in the graph.",
+      "kind": "law",
+      "source": "17/2012"
+    },
+    {
+      "claim": "The bill's Part Seven (Čl. VII) amends 300/2013 Sb., zákon o Vojenské policii - not recorded in the graph.",
+      "kind": "law",
+      "source": "300/2013"
+    },
+    {
+      "claim": "The bill's Part Eight (Čl. VIII) amends 59/2017 Sb., zákon o použití peněžních prostředků z majetkových trestních sankcí uložených v trestním řízení - not recorded in the graph.",
+      "kind": "law",
+      "source": "59/2017"
+    },
+    {
+      "claim": "Tisk 111, sponsored by the same ministry, independently amends the identical clause § 88 odst. 2 písm. c) trestního zákoníku for an unrelated (§ 168 human-trafficking renumbering) reason in the same term.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267623"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "billTisk": 216,
+  "statedReasoning": "Per the fetched bill text and důvodová zpráva (PDF, idd=271414): sponsors Malá, Babiš, Šťastný and Okamura propose inserting a new §175a trestního zákoníku, 'Omezování svobody rozhodování' (restriction of freedom of decision), to explicitly criminalise 'spiking' — administering a psychoactive substance ('návyková látka') to another person against their ascertainable will, without their knowledge, or by exploiting their helplessness, thereby affecting their psyche, self-control, discernment, or social behaviour. Base penalty: up to one year imprisonment; up to three years if done to facilitate another crime or with another person; two to eight years if it causes serious bodily harm; three to ten years if it causes death. The DZ explains current law only reaches spiking indirectly — either when it is a means to another crime (via the 'lest'/deceit-as-violence doctrine) or when the substance administered happens to be a controlled substance under §283/283a/286a (per NS judgment 8 Tdo 1415/2013). The bill also amends §283 odst. 1, §283a odst. 1 and §286a odst. 1 to add 'podá' (administers) explicitly to the list of prohibited acts, codifying that 2014 judicial interpretation directly into the statute text for legal-certainty reasons. The new offence is placed among crimes against personal freedom (not against health), reflecting that its protected interest is autonomy of decision, not bodily integrity per se; concurrent liability (jednočinný souběh) with sexual or property offences (znásilnění §185, sexuální útok §185a, loupež §173, omezování osobní svobody §171) is expressly excluded (those specific offences absorb it), while concurrent liability with the drug-trafficking offences §283/283a/286a is expressly preserved given their different protected interest. The DZ states no state-budget impact beyond one-off statistics costs, no impact on the business environment, no state aid, and no elevated corruption risk. Effective date 1 July 2027.",
+  "researchedContext": "Fetched and read the full 'Návrh zákona včetně důvodové zprávy' PDF (idd=271414, 10 pages incl. obecná and zvláštní část) via the psp.cz tiskt.sqw index — the actual bill text and stated reasoning. Also fetched the tisk index page (documents list, submission date 5 June 2026). The graph's amendedLaws for this print (40/2009 only) matches the bill text exactly — the bill touches only §175a (new), §283, §283a and §286a of the trestní zákoník, no other statute; no data-quality undercount found. This is a public-safety/personal-autonomy bill (colloquially 'drink spiking' law) with no nexus to any sponsor's declared business interests. Cross-bill: this print is one of six in the batch's busiest 40/2009 cluster (churn 6: tisk 111, 115, 173, 196, 207, 216). Against batch-001's tisk 115 (Babiš-led §196/§55(2) child-support re-criminalisation) and this batch's own tisk 173 (§199/§302/§303) and tisk 196 (§9 only, a jurisdiction provision in an unrelated part of the print), tisk 216 touches an entirely disjoint set of paragraphs (§175a new insertion, §283/283a/286a wording additions) — no drafting collision with any sibling I have visibility into. I could not verify tisk 111 or tisk 207 (assigned to a parallel agent this batch) against these same paragraphs, and flag that as an open cross-check, particularly because §175a is a brand-new section number — if another 40/2009 print in this batch also proposes inserting a section at or near §175a, a renumbering collision (the tisk 120↔244 pattern from batch-001) becomes possible and would not be visible from this dossier alone.",
+  "unstatedEffects": [
+    {
+      "effect": "§175a odst. 1 as drafted criminalises administering ANY 'návyková látka' (defined in §130 tr. zák. to include ordinary alcohol, not only controlled/'date-rape' substances) against a person's ascertainable will or without their knowledge, provided it 'really' affects at least one of psyche, self-control, discernment, or social behaviour — a materiality threshold, but not a seriousness threshold. On a plain reading this could sweep in low-harm social conduct (e.g., surreptitiously strengthening a friend's drink as a prank) into an offence carrying up to one year's imprisonment; the DZ does not discuss this lower-harm boundary or how subsidiarity-of-criminal-repression is expected to be applied to it in practice.",
+      "whoBenefits": "Potential victims of genuinely harmful spiking gain a dedicated, easier-to-prove offence; conversely, people engaged in comparatively minor, non-predatory conduct involving alcohol or other legal substances gain new, unstated criminal exposure not flagged as a risk in the DZ's impact assessments.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271414"
+    },
+    {
+      "effect": "Like batch-001's tisk 115 and this batch's tisk 173, this print opens the trestní zákoník's chapter on crimes against freedom, creating a further legislative vehicle to which germane amendments (including on unrelated topics) could in principle be attached at committee or second-reading stage. No evidence of any such attached amendment was found in the fetched materials; this is a structural watch-item only, consistent with the observation already made for tisk 115.",
+      "whoBenefits": "Any deputy seeking to amend criminal law under cover of this print, hypothetically; on the submitted text, the direct beneficiaries are potential spiking victims via a new dedicated offence.",
+      "evidence": "https://www.psp.cz/sqw/historie.sqw?o=10&t=216"
+    }
+  ],
+  "conflictAssessment": "No conflict of interest connects the sponsors' documented money ties to this bill's subject matter (unauthorised administration of psychoactive substances / 'spiking'). Lead co-sponsor Taťána Malá has no recorded money ties. Andrej Babiš is tied to the AGROFERT industrial/agro-food empire — AGROFERT a.s. (company:ico:26185610, 6,274,454 CZK), Synthesia a.s. (company:ico:60108916, 796,873,826 CZK, an industrial chemicals producer) — which could in the abstract raise a question about chemical/substance-industry adjacency, but Synthesia manufactures industrial chemicals (explosives precursors, agrochemicals), not the pharmaceutical, alcohol, or recreational-substance products the bill's 'návyková látka' definition targets in practice; no channel from this bill's criminal-liability provisions to AGROFERT's commercial activity was found. Boris Šťastný is tied to Pražské služby a.s. (company:ico:60194120, 1,470,325,336 CZK, Prague municipal services) and hospitality/sport entities (GEKO SPORT, ASPEN SPORT) — unrelated. Tomio Okamura is tied to MIKI TRAVEL PRAGUE, spol. s r.o. (company:ico:25124188, 6,050,000 CZK, a travel agency) and U Machtů s.r.o. (company:ico:27145433, a restaurant business with no recorded contract value) — hospitality/tourism adjacency exists in the loosest sense (venues where spiking incidents are often reported), but the bill imposes no new duty, licensing burden, or liability on venues or operators themselves; it criminalises the individual perpetrator's act only. This is the honest low-severity finding: no sponsor money tie intersects this bill's actual legal mechanism, and the direction of change is toward more, not less, protection for potential victims.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Inserts new §175a trestního zákoníku ('Omezování svobody rozhodování'), criminalising unauthorised administration of a psychoactive substance against a person's ascertainable will, without their knowledge, or by exploiting their helplessness, with tiered sentencing from one year (base) up to ten years (causing death).",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271414"
+    },
+    {
+      "claim": "Amends §283 odst. 1, §283a odst. 1 and §286a odst. 1 tr. zák. to add 'podá' (administers) to the prohibited acts, codifying Nejvyšší soud judgment sp. zn. 8 Tdo 1415/2013-176 into statute text.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271414"
+    },
+    {
+      "claim": "Concurrent liability (jednočinný souběh) with §185/§185a/§173/§171/§170 is expressly excluded (those offences absorb §175a); concurrent liability with §283/283a/286a is expressly preserved given the differing protected legal interests.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271414"
+    },
+    {
+      "claim": "DZ states no impact on the state budget beyond one-off statistics/reporting costs, no impact on the business environment, no state aid created, and no elevated corruption risk; effective date 1 July 2027.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271414"
+    },
+    {
+      "claim": "Sněmovní tisk 216/0 index page listing documents and submission date 5 June 2026 at 12:00.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=216&ct1=0"
+    },
+    {
+      "claim": "Legislative history page for tisk 216, garanční committee ÚPV, proposed assignment 24 June 2026.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=216"
+    },
+    {
+      "claim": "Amended statute: zákon č. 40/2009 Sb., trestní zákoník — new §175a, §283, §283a, §286a.",
+      "kind": "law",
+      "source": "40/2009"
+    },
+    {
+      "claim": "Sponsor Andrej Babiš holds state-contract money ties via AGROFERT a.s. (6,274,454 CZK) and Synthesia a.s. (796,873,826 CZK, industrial chemicals) — neither connected to the pharmaceutical/alcohol/recreational-substance domain this bill's offence targets.",
+      "kind": "graph_fact",
+      "source": "company:ico:26185610"
+    },
+    {
+      "claim": "Sponsor Andrej Babiš holds state-contract money ties via Synthesia a.s. (796,873,826 CZK) — an industrial chemicals producer unrelated to this bill's subject.",
+      "kind": "graph_fact",
+      "source": "company:ico:60108916"
+    },
+    {
+      "claim": "Sponsor Boris Šťastný holds state-contract money ties via Pražské služby a.s. (1,470,325,336 CZK, municipal services) — unrelated to this bill's subject.",
+      "kind": "graph_fact",
+      "source": "company:ico:60194120"
+    },
+    {
+      "claim": "Sponsor Tomio Okamura holds money ties via MIKI TRAVEL PRAGUE, spol. s r.o. (6,050,000 CZK, travel agency) — a hospitality/tourism adjacency, but the bill imposes no venue-level duty or liability, only individual criminal liability for the perpetrator.",
+      "kind": "graph_fact",
+      "source": "company:ico:25124188"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "billTisk": 111,
+  "statedReasoning": "Government bill (Ministry of Justice, signed by ministr spravedlnosti JUDr. Jeroným Tejc) amending trestní zákoník (40/2009 Sb.) to transpose EU directive 2024/1712 (amending the 2011 anti-trafficking directive 2011/36/EU) plus GRETA (Council of Europe) recommendations. It rewrites § 168 obchodování s lidmi to add new exploitation forms (surrogacy abuse, forced adoption, forced marriage/partnership, forced criminality), adds a new offense § 168a (knowingly using a service provided by a trafficking victim) with a narrow effective-repentance carve-out § 168b, extends the intimate-image offense (§ 191a/§ 192, already newly created by zák. 270/2025) to cover 'intimate' (not just pornographic) material and material exploiting a trafficking victim, adds a non-punishment ground for trafficking victims forced into crime (new § 172 odst. 3 trestního řádu), and renames § 169 (svěření dítěte do moci jiného -> péče jiného a jeho přijetí za odměnu, also criminalizing the paying 'recipient' side, not just the person who hands the child over). A separate, unrelated Part B fixes an insurance/BOZP gap for community-service-work (obecně prospěšné práce): work-injury liability rules, mandatory insurance for providers with state reimbursement via Probační a mediační služba, staggered effective dates 1 Jul 2026 - 1 Jan 2028.",
+  "researchedContext": "Fetched and read the full bill text + explanatory memorandum (56 pages, https://www.psp.cz/sqw/text/orig2.sqw?idd=267623) and the legislative-history page. The bill was distributed to the Chamber on 16 Feb 2026 as tisk 111/0, the Organizational Committee recommended proceeding on 19 Feb 2026 (usnesení č. 31), rapporteur Mgr. Václav Pláteník, garanční committee ÚPV (Constitutional-Legal Committee). As of 24 Jul 2026 it remains in early committee stage (1 written speech, 7 proposed amendments), no floor vote yet. The DZ's stated legal basis (implementation deadline 15 Jul 2026 for směrnice 2024/1712) and content check out as coherent and internally consistent; every cited law number and CELEX reference in the bill text is consistent with a real, traceable EU instrument. The graph's amendedLaws field records only 40/2009, but the bill's own text (part headers) amends SEVEN statutes: 40/2009 (trestní zákoník), 141/1961 (trestní řád), 269/1994 (rejstřík trestů a evidence přestupků), 82/1998 (odpovědnost za škodu při výkonu veřejné moci), 359/1999 (sociálně-právní ochrana dětí), 218/2003 (soudnictví ve věcech mládeže), 45/2013 (oběti trestných činů) - a is 'kterým se mění zákon č. 40/2009 Sb. ... a další související zákony' ('and other related laws') in its own title, which the title-regex extraction evidently does not expand. This is the same undercounting failure mode batch-001 found in tisk 4 (1 recorded vs 4 real), now at greater scale (1 vs 7).",
+  "unstatedEffects": [
+    {
+      "effect": "The bill→law graph edge for tisk 111 records only one amended statute (40/2009) when the bill text amends seven (40/2009, 141/1961, 269/1994, 82/1998, 359/1999, 218/2003, 45/2013). Any downstream analysis relying on the graph's amendedLaws field (e.g. committee-jurisdiction matching, sibling-collision detection) will silently miss six of the seven statutes actually touched.",
+      "whoBenefits": "No person benefits; this is a data-completeness gap in the extraction pipeline, worth a fix (title-regex undercounting, same class of bug flagged in batch-001).",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267623"
+    },
+    {
+      "effect": "Tisk 111 and its sibling tisk 207 (both government bills from the same Ministry of Justice, both amending 40/2009) independently amend the identical clause § 88 odst. 2 písm. c) trestního zákoníku in the same legislative session: tisk 111 renumbers internal cross-references from the § 168 restructuring ('4, 5' -> '5, 6'), tisk 207 renumbers a different embedded cross-reference from the § 283 restructuring ('podle § 283 odst. 4' -> 'podle § 283 odst. 5', also inserting rtuť/mercury language). Both edits target the same statutory sentence for unrelated reasons in the same term - a concrete legislative-drafting coordination point (same pattern class as batch-001's tisk 120<->244 collision on § 35ba), though here the two edits are anchored to distinct substrings rather than a literal same-word clash, so it is a coordination risk rather than a guaranteed drafting error.",
+      "whoBenefits": "No one; a process/drafting-quality watch-item for legislative counsel, not a conflict of interest.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271152"
+    }
+  ],
+  "conflictAssessment": "The graph's sole listed sponsor is pspId 5513 Jeroným Tejc with moneyTies: []. The bill text itself confirms he is the sitting Ministr spravedlnosti (Minister of Justice) whose electronic signature closes the explanatory memorandum ('Ministr spravedlnosti: JUDr. Jeroným Tejc') - so the graph's sponsor attribution correctly reflects his role as the government minister who tabled this bill, not an independent MP with a private financial stake; there is no data-quality problem here, just a government-bill provenance that happens to route through a single named official. No sectorAdjacentCompanies were flagged for this bill, and no sponsor money ties exist to weigh. The bill's substance (trafficking-offense expansion, community-service-work insurance) has no plausible channel to any state-contract or private-company interest visible in this dossier. Honest low.",
+  "severity": "low",
+  "confidence": 5,
+  "citations": [
+    {
+      "claim": "Tisk 111 is a government bill amending trestní zákoník (40/2009 Sb.) to transpose EU directive 2024/1712 on combating human trafficking and to add insurance/BOZP rules for community-service work (obecně prospěšné práce); explanatory memorandum signed by Ministr spravedlnosti JUDr. Jeroným Tejc, dated 9 Feb 2026.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267623"
+    },
+    {
+      "claim": "Bill distributed to the Chamber of Deputies on 16 Feb 2026 as tisk 111/0; Organizational Committee recommendation 19 Feb 2026 (usnesení č. 31); garanční committee ÚPV; as of 24 Jul 2026 remains in early committee stage with no floor vote.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=111"
+    },
+    {
+      "claim": "Tisk 111 document index lists the bill text + explanatory memorandum, a marked-changes version, and an EU-law-compatibility assessment, all distributed 16 Feb 2026.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=111&ct1=0"
+    },
+    {
+      "claim": "40/2009 Sb. (trestní zákoník) is the statute the bill primarily amends.",
+      "kind": "law",
+      "source": "40/2009"
+    },
+    {
+      "claim": "The bill's Part Two (Čl. II) amends 141/1961 Sb., trestní řád (Code of Criminal Procedure) - not recorded in the graph's amendedLaws list for this bill.",
+      "kind": "law",
+      "source": "141/1961"
+    },
+    {
+      "claim": "The bill's Part Three (Čl. III) amends 269/1994 Sb., zákon o rejstříku trestů a evidenci přestupků - not recorded in the graph.",
+      "kind": "law",
+      "source": "269/1994"
+    },
+    {
+      "claim": "The bill's Part Four (Čl. IV) amends 82/1998 Sb., zákon o odpovědnosti za škodu způsobenou při výkonu veřejné moci - not recorded in the graph.",
+      "kind": "law",
+      "source": "82/1998"
+    },
+    {
+      "claim": "The bill's Part Five (Čl. V) amends 359/1999 Sb., zákon o sociálně-právní ochraně dětí - not recorded in the graph.",
+      "kind": "law",
+      "source": "359/1999"
+    },
+    {
+      "claim": "The bill's Part Six (Čl. VI) amends 218/2003 Sb., zákon o soudnictví ve věcech mládeže - not recorded in the graph.",
+      "kind": "law",
+      "source": "218/2003"
+    },
+    {
+      "claim": "The bill's Part Seven (Čl. VII) amends 45/2013 Sb., zákon o obětech trestných činů - not recorded in the graph.",
+      "kind": "law",
+      "source": "45/2013"
+    },
+    {
+      "claim": "Tisk 207, sponsored by the same ministry, independently amends the identical clause § 88 odst. 2 písm. c) trestního zákoníku for an unrelated (§ 283 mercury-renumbering) reason in the same term.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271152"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "billTisk": 173,
+  "statedReasoning": "Per the fetched bill text and důvodová zpráva (PDF, idd=269587): the sponsors (Babiš, Okamura, Šafránková, Macinka, Šťastný, Malá, Fiala, Vesecká, Hanzlíková) propose eight changes to the trestní zákoník (40/2009), all confined to two clusters. Cluster 1 — mistreatment sentencing: raises the minimum sentence for týrání osoby žijící ve společném obydlí (mistreatment of a person sharing a household, §199 odst. 1) from six months to one year, and the minimum for the base animal-cruelty offence (týrání zvířat, §302 odst. 1) likewise from six months to one year; the aggravated neglect-of-animal-care offence (§303 odst. 2) rises from a two-year to a three-year cap. The DZ argues the current six-month floor understates the social harm of both offences and cites comparative sentencing ranges (Croatia, Portugal, Sweden for §199; Poland, Germany, France, Slovakia for §302). Cluster 2 — new offence: inserts §302 odst. 2, criminalising killing a dog or cat from a 'zavrženíhodná pohnutka' (reprehensible motive) absent a lawful ground under zákon č. 246/1992 Sb. (animal-protection act) — filling a gap where non-cruel-manner killing currently falls only under administrative (přestupek) law. Paragraphs 3–4 of §302 are renumbered/cross-referenced accordingly. The DZ ties both clusters explicitly to two separate commitments in the government's programové prohlášení: strengthening animal-cruelty penalties, and strengthening penalties for violence against vulnerable groups (seniors, women, children). The DZ states no impact on the state budget beyond one-off statistics/reporting costs, no impact on the business environment, no state aid created, and no corruption risk beyond the baseline already present in existing law. Sponsors requested §90 odst. 2 fast-track approval already at first reading, citing the need for timely protection; effective date 1 January 2027.",
+  "researchedContext": "Fetched and read the full 'Návrh zákona včetně důvodové zprávy' PDF (idd=269587, 9 pages incl. obecná and zvláštní část) via the psp.cz tiskt.sqw index (duvodovaZpravaUrl) — this is the actual bill text and its stated reasoning, not a secondary summary. Also fetched the tisk index page (documents list, distribution date 22 Apr 2026) and confirmed the graph's amendedLaws (40/2009 only) matches the bill text exactly — no undercounting, unlike batch-001's tisk 4 finding. The subject matter is domestic mistreatment of cohabitants and animal cruelty/killing — a combination directly traceable to two distinct planks of the same government programové prohlášení, not a hidden rider under a misleading title (the print's title is a generic 'trestní zákoník' amendment, so nothing is concealed). Cross-bill: this bill is one of six in the batch's busiest 40/2009 cluster (churn 6: tisk 111, 115, 173, 196, 207, 216). Against batch-001's already-gated tisk 115 (Babiš-led §196/§55(2) maintenance-neglect re-criminalisation, verdict-115.json) there is zero provision overlap — 115 touches §196/§55(2); 173 touches §199, §302, §303. Against my own sibling group (216: new §175a, §283/283a/286a; 196: §9 only), 173 again shares no touched paragraph — no drafting collision among tisk 173/216/196. I could not verify tisk 111 or tisk 207 (the parallel agent's assignment) against these same paragraphs and flag this as an open cross-check for the batch coordinator.",
+  "unstatedEffects": [
+    {
+      "effect": "The bill bundles two policy-distinct criminal-law reforms — raised minimum sentences for domestic mistreatment of a cohabitant (§199) and a materially expanded animal-cruelty regime (new §302 odst. 2 killing offence plus raised §302/§303 sentences) — into a single print, for which sponsors requested §90 odst. 2 first-reading fast-track approval. This compresses floor debate and amendment opportunity on two independently significant social-policy questions into one up-or-down vote.",
+      "whoBenefits": "The sponsor bloc secures accelerated, undivided passage of both planks; conversely, any deputy who supports one cluster but wants to amend or oppose the other loses the ability to do so without affecting the whole print.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269587"
+    },
+    {
+      "effect": "The new §302 odst. 2 offence criminalises killing a dog or cat from a 'reprehensible motive,' and the bill's own special-part commentary (K bodu 3) states that simply losing interest in keeping a pet — without pursuing an available legitimate alternative such as donating it or placing it in a shelter — will 'generally' itself satisfy the reprehensible-motive element. This sets a comparatively low, subjectively-assessed threshold for what becomes an imprisonable offence.",
+      "whoBenefits": "Companion animals gain a materially wider protective net; pet owners face newly criminalised exposure for a category of conduct (informal disposal decisions) that previously carried, at most, administrative liability.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269587"
+    }
+  ],
+  "conflictAssessment": "No conflict of interest connects the sponsors' documented money ties to this bill's subject matter (domestic mistreatment of cohabitants and animal cruelty/killing). Lead sponsor Andrej Babiš carries large state-contract exposure via AGROFERT a.s. (company:ico:26185610, 6,274,454 CZK) and Synthesia a.s. (company:ico:60108916, 796,873,826 CZK) — agrochemical/industrial holdings with no nexus to household violence or animal welfare. Co-sponsor Boris Šťastný is tied to Pražské služby a.s. (company:ico:60194120, 1,470,325,336 CZK, Prague municipal waste/public services) and other municipal or sport entities, none touching veterinary, animal-welfare, or domestic-violence services. Co-sponsor Radim Fiala is tied to IF FACILITY a.s. (company:ico:27720152, 11,253,147 CZK, facility management) — again unrelated. Co-sponsor Lucie Šafránková is tied to Pražská vysoká škola psychosociálních studií, s.r.o. (company:ico:47122099, 12,885,858 CZK, a private higher-education institution) — a psychosocial-studies school could in principle be adjacent to domestic-violence research or victim services, but the bill contains no funding, licensing, or institutional provision that would channel any benefit to an educational or psychosocial-services provider; it is purely a sentencing/offence-definition amendment. This is the honest low-severity finding: substantial sponsor money ties exist across the sponsor bloc, but none intersect the specific subject matter of this print, and the direction of change is toward more, not less, criminal liability and protection for vulnerable persons and animals.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Raises the minimum prison sentence for domestic mistreatment of a cohabitant (§199 odst. 1) and for base animal cruelty (§302 odst. 1) from six months to one year.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269587"
+    },
+    {
+      "claim": "Inserts new §302 odst. 2, criminalising killing a dog or cat from a reprehensible motive absent a lawful ground under the animal-protection act; renumbers existing odst. 2–3 to odst. 3–4 and updates cross-references in §302 odst. 3–4.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269587"
+    },
+    {
+      "claim": "Raises the aggravated sentence for neglect of animal care causing harm to multiple animals (§303 odst. 2) from two years to three years.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269587"
+    },
+    {
+      "claim": "Effective date 1 January 2027; sponsors requested §90 odst. 2 fast-track first-reading approval; DZ states no impact on the state budget beyond one-off reporting costs, no impact on the business environment, no state aid created, and no corruption risk above the existing baseline; the print was not subject to lobbying under zákon č. 168/2025 Sb.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269587"
+    },
+    {
+      "claim": "The DZ ties both the domestic-mistreatment and animal-cruelty clusters to two distinct commitments in the government's programové prohlášení (protection against animal cruelty, and protection of vulnerable groups from violence).",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269587"
+    },
+    {
+      "claim": "Sněmovní tisk 173/0 index page listing documents (Návrh zákona včetně důvodové zprávy, Platné znění s vyznačením změn, Celý sněmovní tisk) and distribution date 22 April 2026 at 10:15.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=173&ct1=0"
+    },
+    {
+      "claim": "Legislative history page for tisk 173, garanční committee ÚPV, assigned 30 June 2026.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=173"
+    },
+    {
+      "claim": "Amended statute: zákon č. 40/2009 Sb., trestní zákoník — §199, §302, §303.",
+      "kind": "law",
+      "source": "40/2009"
+    },
+    {
+      "claim": "Sponsor Andrej Babiš holds state-contract money ties via AGROFERT a.s. (6,274,454 CZK) — unrelated to this bill's domestic-mistreatment/animal-cruelty subject.",
+      "kind": "graph_fact",
+      "source": "company:ico:26185610"
+    },
+    {
+      "claim": "Sponsor Andrej Babiš holds state-contract money ties via Synthesia a.s. (796,873,826 CZK) — unrelated to this bill's subject.",
+      "kind": "graph_fact",
+      "source": "company:ico:60108916"
+    },
+    {
+      "claim": "Sponsor Boris Šťastný holds state-contract money ties via Pražské služby a.s. (1,470,325,336 CZK, municipal waste/public services) — unrelated to this bill's subject.",
+      "kind": "graph_fact",
+      "source": "company:ico:60194120"
+    },
+    {
+      "claim": "Sponsor Radim Fiala holds state-contract money ties via IF FACILITY a.s. (11,253,147 CZK, facility management) — unrelated to this bill's subject.",
+      "kind": "graph_fact",
+      "source": "company:ico:27720152"
+    },
+    {
+      "claim": "Sponsor Lucie Šafránková holds money ties via Pražská vysoká škola psychosociálních studií, s.r.o. (12,885,858 CZK, private higher-education institution) — the bill contains no funding or institutional provision touching educational or psychosocial-services providers.",
+      "kind": "graph_fact",
+      "source": "company:ico:47122099"
+    }
+  ]
+}

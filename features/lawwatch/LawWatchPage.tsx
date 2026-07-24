@@ -7,9 +7,9 @@
  * možného střetu zájmů z peněžních vazeb předkladatele (Case ①), formální
  * přikázání výborům (hrana `assigned_to`, F15: garanční / další, stav, datum) a
  * — u tisků, které jej nesou — gatovaný forenzní posudek (návrh k revizi, ne
- * publikovaný verdikt). Úplné znění paragrafů drží e-Sbírka zvlášť, takže §-diff
- * „před/po" se zatím nevykresluje ze smyšlených dat; když graf není dostupný,
- * spadne stránka na jasně označený ukázkový mock.
+ * publikovaný verdikt) a — u zákonů, kde jsme jej reálně dopočítali z e-Sbírky
+ * (SPARQL point-query, ne smyšlená data) — skutečný §-diff mezi dvěma platnými
+ * zněními. Když graf není dostupný, spadne stránka na jasně označený ukázkový mock.
  */
 
 import { useState } from "react";
@@ -208,6 +208,7 @@ function RealLawWatch({ data }: { data: LawData }) {
                       {b.cislo != null ? `sn. tisk ${b.cislo}` : `tisk ${b.tiskId}`}
                     </span>
                     <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-steel">
+                      {b.paragraphDiffs.length > 0 && <span className="font-black text-ochre">§-diff</span>}
                       {b.forensic && <span className="font-black text-cobalt">posudek</span>}
                       {b.flaggedConflict && <span className="font-black text-signal">možný střet</span>}
                       <span>{b.amendedLaws.length}× zákon</span>
@@ -341,6 +342,9 @@ function RealLawWatch({ data }: { data: LawData }) {
                 </div>
               )}
 
+              {/* reálný §-diff (e-Sbírka) */}
+              {bill.paragraphDiffs.length > 0 && <ParagraphDiffBlock diffs={bill.paragraphDiffs} />}
+
               {/* gatovaný forenzní posudek */}
               {bill.forensic && <ForensicBlock forensic={bill.forensic} />}
             </motion.div>
@@ -377,9 +381,12 @@ function RealLawWatch({ data }: { data: LawData }) {
         <p className="mt-4 max-w-3xl text-sm italic leading-relaxed text-steel">
           Vazba tisk → zákon je vyčtena z názvu tisku (citace „č. N/RRRR Sb.“), jediného strukturovaného
           odkazu, který psp.cz o novelizovaném zákoně nese. Formální přikázání výborům (garanční / další, stav
-          a datum) se nově vykresluje z reálných dat psp.cz (hist_vybory). Úplné znění paragrafů drží e-Sbírka
-          zvlášť (samostatný datový balík), takže diff „před/po“ na úrovni § se zatím nevykresluje — Politicas
-          nezobrazuje smyšlená data.
+          a datum) se vykresluje z reálných dat psp.cz (hist_vybory). Úplné znění paragrafů drží e-Sbírka
+          zvlášť — {data.paragraphDiffCount > 0 ? (
+            <>u {f.int(data.paragraphDiffCount)} tisku{data.paragraphDiffCount === 1 ? "" : "ů"} u nejčastěji novelizovaného zákona nese skutečný §-diff mezi dvěma platnými zněními, dopočítaný přímo z veřejného SPARQL rozhraní e-Sbírky (žádný hromadný výpis, žádná smyšlená data); u ostatních tisků se diff zatím nevykresluje.</>
+          ) : (
+            <>diff „před/po“ na úrovni § se zatím nevykresluje — Politicas nezobrazuje smyšlená data.</>
+          )}
         </p>
       </section>
     </>
@@ -473,6 +480,65 @@ function ForensicBlock({ forensic }: { forensic: NonNullable<LawBillView["forens
           Uložen jako <span className="font-bold not-italic">pending_review</span> — podnět pro člověka, ne publikovaný verdikt.
         </p>
       </div>
+    </div>
+  );
+}
+
+const DIFF_OP_CZ: Record<string, string> = { modified: "změněno", added: "přidáno", removed: "zrušeno" };
+
+/** Reálný §-diff mezi dvěma PLATNÝMI zněními zákona z e-Sbírky (SPARQL point-query — žádný
+ * hromadný výpis, žádná syntetizovaná data). Text před/po je doslovný `text-fragmentu`
+ * z e-Sbírky (jen bez HTML značek), nikdy dopočítaný. */
+function ParagraphDiffBlock({ diffs }: { diffs: LawBillView["paragraphDiffs"] }) {
+  const f = useFormat();
+  return (
+    <div className="mt-8 border-2 border-ochre">
+      {diffs.map((d, di) => (
+        <div key={`${d.law}-${d.parScope}-${di}`} className={di > 0 ? "border-t-2 border-ochre" : ""}>
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b-2 border-ochre bg-ochre/5 px-4 py-3">
+            <SourceNote tone="steel" className="!text-ochre">
+              reálný §-diff · č. {d.law} Sb. · e-Sbírka (SPARQL, ne hromadný výpis)
+            </SourceNote>
+            <span className="font-mono text-[11px] uppercase tracking-wider text-steel">
+              {f.date(d.from.date)} → {f.date(d.to.date)}
+            </span>
+          </div>
+          <ul className="space-y-4 px-4 py-4">
+            {d.hunks.map((h, hi) => (
+              <li key={hi} className="border-l-4 border-hairline pl-3">
+                <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-signal">
+                  {h.fragment} <span className="text-steel">— {DIFF_OP_CZ[h.op] ?? h.op}</span>
+                </span>
+                <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                  {h.before && (
+                    <div className="border-l-4 border-hairline bg-paper-strong p-3">
+                      <SourceNote className="!text-[10px]">{f.date(d.from.date)}</SourceNote>
+                      <p className="mt-1.5 text-[13px] leading-relaxed text-steel">{h.before}</p>
+                    </div>
+                  )}
+                  {h.after && (
+                    <div className="border-l-4 border-signal p-3">
+                      <SourceNote tone="signal" className="!text-[10px]">{f.date(d.to.date)}</SourceNote>
+                      <p className="mt-1.5 text-[13px] font-medium leading-relaxed">{h.after}</p>
+                    </div>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+          <p className="border-t border-hairline px-4 py-3 text-[13px] italic leading-relaxed text-steel">
+            Doslovný text obou znění z e-Sbírky (
+            <a href={d.from.eli} target="_blank" rel="noreferrer" className="text-cobalt hover:text-signal">
+              {d.from.date}
+            </a>
+            {" → "}
+            <a href={d.to.eli} target="_blank" rel="noreferrer" className="text-cobalt hover:text-signal">
+              {d.to.date}
+            </a>
+            ), nikdy dopočítaný. Zdroj: {d.source}.
+          </p>
+        </div>
+      ))}
     </div>
   );
 }

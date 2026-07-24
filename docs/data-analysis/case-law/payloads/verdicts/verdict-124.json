@@ -1,0 +1,67 @@
+{
+  "billTisk": 124,
+  "statedReasoning": "MP bill (Aleš Juchelka, joined later by co-sponsors Jana Pastuchová and Igor Hendrych) amending zákon č. 117/1995 Sb. (státní sociální podpora) and zákon č. 152/2025 Sb. The DZ frames it as a pure administrative-timing fix: zákon č. 152/2025 Sb. had already legislated a wholesale 'digitalization' of parental-benefit administration (electronic filing via the Jenda portal, digital-only case files, new doručování/lhůty rules) to take effect en bloc on 1 Jul 2026, but the IT-system capacity needed to build that is fully consumed implementing the brand-new 'superdávka' (dávka státní sociální pomoci, live since 1 Oct 2025). The bill splits the digitalization rollout into staggered per-benefit effective dates from 1 Jul 2026 through 1 Sep 2027, permanently excludes the low-volume one-off benefits (porodné, pohřebné) from ever being digitalized, fixes an accounting gap between the new 'rodičovský příspěvek před porodem' (a new flat 15,000 Kč/month prenatal parental allowance starting 1 Jan 2027) and the existing rodičovský příspěvek when birth occurs early, and extends the existing objective-liability overpayment-recovery rule to the new 'podpora studujícího rodiče' benefit.",
+  "researchedContext": "Fetched and read the full bill text + explanatory memorandum (https://www.psp.cz/sqw/text/orig2.sqw?idd=268364) and the legislative-history page. The bill was submitted by Ing. Aleš Juchelka on 6 Feb 2026 (co-sponsors Pastuchová/Hendrych joined later); first reading 22 Apr 2026 (expedited procedure rejected, referred to committee for 10 days); Social Policy Committee favourable recommendation 29 Apr 2026; second reading 6 May 2026; third reading approved 15 May 2026; transmitted to the Senate as Senate tisk 238; Senate Social Policy and Constitutional-Legal committees approved 20/26 May 2026; full Senate approved 27 May 2026; President signed 5 Jun 2026; published in the Sbírka zákonů as zákon č. 93/2026 Sb. on 10 Jun 2026. This bill has therefore ALREADY completed the entire legislative process, matching the batch-001 pattern (tisk 119) that the term is a mix of enacted and pending prints. The graph's amendedLaws array lists three statutes - 117/1995, 152/2025, 300/2025 - but the enacted bill text has only TWO substantive Parts: Part One amends 117/1995 Sb., Part Two amends zákon č. 152/2025 Sb. 300/2025 appears nowhere as a target of amendment; it appears only inside the bill's own citation string identifying which version of 152/2025 is being amended ('zákon č. 152/2025 Sb., kterým se mění některé zákony ... ve znění zákona č. 300/2025 Sb.') - i.e. 300/2025 is a law that PREVIOUSLY amended 152/2025 in an unrelated, earlier act, not a statute this bill itself touches.",
+  "unstatedEffects": [
+    {
+      "effect": "The graph's amendedLaws array for tisk 124 lists 300/2025 as a law this bill amends, but the bill's operative text only has two Parts (117/1995 and 152/2025); 300/2025 appears solely inside a 've znění zákona č. 300/2025 Sb.' qualifier describing the current form of the OTHER amended statute (152/2025), not as an independent amendment target. This is a false-positive over-count - the opposite failure mode from batch-001's tisk 4 undercounting (and from tisk 111/207's undercounting in this same batch), suggesting the extraction pipeline sometimes sweeps up laws named only inside nested 've znění' citation chains as if they were directly amended.",
+      "whoBenefits": "No person; a distinct data-quality failure mode worth flagging alongside the undercounting pattern, since it points the opposite direction (spurious extra edge, not a missing one).",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268364"
+    },
+    {
+      "effect": "The bill's real-world effect is to keep paper/in-person and non-digital channels as the default way to claim rodičovský příspěvek and podpora studujícího rodiče for up to a year longer than zákon č. 152/2025 Sb. originally scheduled (pushing full digitalization from 1 Jul 2026 out to as late as 1 Sep 2027 for some provisions). The DZ frames this entirely as an IT-capacity/backend problem for the Ministry and Úřad práce; it does not discuss the claimant-facing consequence, which is that parents without reliable internet access, a datová schránka, or digital literacy incidentally keep non-digital filing options a year longer than the digitized-by-default design would have given them.",
+      "whoBenefits": "Claimants with low digital access/literacy benefit incidentally from the delay; Úřad práce/MPSV benefit from more IT-implementation runway.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268364"
+    },
+    {
+      "effect": "This bill completed the entire legislative process (Chamber, Senate, presidential signature, promulgation as zákon č. 93/2026 Sb.) within four months of introduction - a markedly fast, uncontested passage for what the DZ itself calls a low-controversy technical/IT-scheduling bill, consistent with the batch-001 finding that some prints in this term are already enacted law while most are still in committee; graph consumers should not assume 'tisk' status implies pending legislation.",
+      "whoBenefits": "N/A - a legislative-process/coverage fact for the graph, not a self-dealing signal.",
+      "evidence": "https://www.psp.cz/sqw/historie.sqw?o=10&t=124"
+    }
+  ],
+  "conflictAssessment": "Primary sponsor Aleš Juchelka and co-sponsor Igor Hendrych carry no moneyTies in this dossier. Co-sponsor Jana Pastuchová holds contract-value ties to three entities - Nemocnice Jablonec nad Nisou (35,484,660 CZK), Horská služba ČR (1,641,845 CZK), and Zdravotnická záchranná služba Libereckého kraje (2,974,191 CZK) - all municipal/regional public health-and-rescue bodies (already flagged as municipalExcludedCompanies in this dossier, consistent with batch-001's finding that publicly-owned-institution board/contract roles saturate the sponsor-money signal without indicating self-dealing). None of these three bodies has any plausible channel to this bill's subject matter (IT-scheduling for parental-benefit digitalization, a flat prenatal-allowance accounting fix, and overpayment-liability language) - they are hospitals and rescue services, not IT vendors, benefit claimants' organizations, or social-policy contractors. Honest low; no conflict found.",
+  "severity": "low",
+  "confidence": 5,
+  "citations": [
+    {
+      "claim": "Tisk 124 is an MP bill (Aleš Juchelka; co-sponsors Jana Pastuchová, Igor Hendrych) amending zákon č. 117/1995 Sb. (státní sociální podpora) and zákon č. 152/2025 Sb. to delay and stagger digitalization of parental-benefit administration originally set for 1 Jul 2026, and to fix rodičovský-příspěvek-před-porodem accounting.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268364"
+    },
+    {
+      "claim": "Bill submitted 6 Feb 2026; first reading 22 Apr 2026; third reading approved 15 May 2026; Senate approved 27 May 2026; President signed 5 Jun 2026; promulgated as zákon č. 93/2026 Sb. on 10 Jun 2026 - the bill has fully completed the legislative process.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=124"
+    },
+    {
+      "claim": "The bill's operative text has only two substantive Parts, amending 117/1995 Sb. and 152/2025 Sb.; 300/2025 Sb. is referenced only as a 've znění' qualifier of 152/2025's current form, not as an amendment target.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268364"
+    },
+    {
+      "claim": "117/1995 Sb. (zákon o státní sociální podpoře) is the primary statute amended by this bill.",
+      "kind": "law",
+      "source": "117/1995"
+    },
+    {
+      "claim": "152/2025 Sb. (zákon, kterým se mění některé zákony v souvislosti s přijetím zákona o dávce státní sociální pomoci) is the second statute amended by this bill.",
+      "kind": "law",
+      "source": "152/2025"
+    },
+    {
+      "claim": "Sponsor Jana Pastuchová holds a contract-value tie to Nemocnice Jablonec nad Nisou, p.o. (35,484,660 CZK) - a municipal/regional public hospital unrelated to this bill's subject.",
+      "kind": "graph_fact",
+      "source": "company:ico:00829838"
+    },
+    {
+      "claim": "Sponsor Jana Pastuchová holds a contract-value tie to Horská služba ČR, o.p.s. (1,641,845 CZK) - a mountain-rescue service unrelated to this bill's subject.",
+      "kind": "graph_fact",
+      "source": "company:ico:27467759"
+    },
+    {
+      "claim": "Sponsor Jana Pastuchová holds a contract-value tie to Zdravotnická záchranná služba Libereckého kraje, p.o. (2,974,191 CZK) - a regional emergency-medical service unrelated to this bill's subject.",
+      "kind": "graph_fact",
+      "source": "company:ico:46744991"
+    }
+  ]
+}
