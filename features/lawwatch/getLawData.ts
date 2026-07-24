@@ -37,6 +37,15 @@ export interface AmendedLawRef {
   title: string | null; // esbirka_title, when the statute is in the e-Sbírka registry
 }
 
+/** Formal per-bill committee routing (assigned_to edge, F15 — psp.cz hist_vybory ⋈ hist). */
+export interface CommitteeRoutingView {
+  organUrn: string; // psp:organ:<id>
+  organLabel: string; // výbor name (node label)
+  role: "garancni" | "dalsi" | string; // garanční (věcně příslušný) vs a further committee
+  status: "prikazano" | "navrzeno" | "iniciativne" | string; // strongest routing state reached
+  assignedOn: string | null; // YYYY-MM-DD from the linked hist step
+}
+
 export interface LawBillView {
   tiskId: number;
   cislo: number | null; // public print number → psp.cz URL
@@ -45,6 +54,7 @@ export interface LawBillView {
   submitter: string | null; // ministry / MP names free text
   sponsors: { pspId: number; name: string }[]; // resolved MP sponsors (/poslanec/<pspId>)
   amendedLaws: AmendedLawRef[]; // statutes this print changes
+  committees: CommitteeRoutingView[]; // formal committee routing (garanční first) — F15, may be empty
   flaggedConflict: boolean; // a sponsor has real money ties over the threshold
   sponsorContractCzk: number; // worst-case sponsor's flagged public-contract flow
   sponsorMoneyCompanies: number;
@@ -68,6 +78,7 @@ export interface LawData {
   totalAmends: number;
   flaggedCount: number;
   forensicCount: number;
+  committeeRoutedBills: number; // bills carrying ≥1 formal committee assignment (F15)
   pass: number | null;
 }
 
@@ -126,11 +137,32 @@ export async function getLawData(): Promise<LawData | null> {
     const billNodes = await store.listKgNodes({ kind: "bill", limit: 100_000 });
     if (billNodes.length === 0) return null;
     const lawNodes = await store.listKgNodes({ kind: "law", limit: 100_000 });
+    const organNodes = await store.listKgNodes({ kind: "organ", limit: 100_000 });
     const amends = await store.listKgEdges({ rel: "amends", limit: 100_000 });
+    const assignedTo = await store.listKgEdges({ rel: "assigned_to", limit: 100_000 });
     const persons = await store.listPersons();
     const nameById = new Map(persons.map((p) => [p.pspId, p.nameFull]));
 
     const lawByUrn = new Map(lawNodes.map((n) => [n.id, n]));
+    const organLabelByUrn = new Map(organNodes.map((n) => [n.id, n.label]));
+
+    // bill → formal committee routing (garanční first, then další), from the assigned_to edges.
+    const ROLE_RANK: Record<string, number> = { garancni: 0, dalsi: 1 };
+    const committeesByBill = new Map<string, CommitteeRoutingView[]>();
+    for (const e of assignedTo) {
+      const p = (e.props ?? {}) as Record<string, unknown>;
+      const arr = committeesByBill.get(e.src) ?? [];
+      arr.push({
+        organUrn: e.dst,
+        organLabel: organLabelByUrn.get(e.dst) ?? e.dst,
+        role: asStr(p.role) ?? "dalsi",
+        status: asStr(p.status) ?? "navrzeno",
+        assignedOn: asStr(p.assignedOn),
+      });
+      committeesByBill.set(e.src, arr);
+    }
+    for (const arr of committeesByBill.values())
+      arr.sort((a, b) => (ROLE_RANK[a.role] ?? 9) - (ROLE_RANK[b.role] ?? 9) || a.organLabel.localeCompare(b.organLabel));
 
     // bill → the law urns it amends (from the edge table, the authoritative link)
     const lawsByBill = new Map<string, string[]>();
@@ -173,6 +205,7 @@ export async function getLawData(): Promise<LawData | null> {
 
       const amendedUrns = lawsByBill.get(n.id) ?? [];
       const amendedLaws = amendedUrns.map(lawRefOf);
+      const committees = committeesByBill.get(n.id) ?? [];
 
       return {
         tiskId: Number(n.id.replace(/^bill:tisk:/, "")) || 0,
@@ -182,6 +215,7 @@ export async function getLawData(): Promise<LawData | null> {
         submitter: asStr(p.submitter),
         sponsors,
         amendedLaws,
+        committees,
         flaggedConflict: flagged,
         sponsorContractCzk: asNum(p.sponsor_contract_czk),
         sponsorMoneyCompanies: asNum(p.sponsor_money_companies),
@@ -220,6 +254,7 @@ export async function getLawData(): Promise<LawData | null> {
       totalAmends: amends.length,
       flaggedCount,
       forensicCount,
+      committeeRoutedBills: new Set(assignedTo.map((e) => e.src)).size,
       pass,
     };
   } catch {

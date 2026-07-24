@@ -1,0 +1,62 @@
+{
+  "billTisk": 244,
+  "statedReasoning": "Sponsors state the bill modernizes tax support for families with young children by shifting it from spousal-status-based support to child-based support. The current 'sleva na manžela nebo manželku' (non-refundable spousal tax credit, 24,840 Kč/year, doubled for a ZTP/P-disabled spouse) is available only to married/registered couples where the non-earning spouse's own income stays under 68,000 Kč/year -- a hard income cliff the DZ says discourages second earners (typically mothers of small children) from returning to work, and which excludes cohabiting unmarried parents and single parents entirely. The bill repeals this credit (§35ba odst.1 písm.b, §35bb) and instead raises the child tax credit ('daňové zvýhodnění na dítě') for children under 3 by 1,000 Kč/month (12,000 Kč/year), or 4,000 Kč/month (48,000 Kč/year) if at least one co-residing parent/caregiver holds a ZTP/P card -- a credit that, unlike the spousal credit, is refundable as a bonus even to low-tax households and is neutral to marital status. The DZ cites two IDEA/CERGE-EI labour-market studies and a 2025 PAQ Research/IDEA/Centrum veřejných financí 'Chytřejší daně' reform proposal as its analytical basis. It projects a net public-budget revenue loss of roughly 0.3-1.2 billion Kč/year (gross child-credit cost ~2.7-3.0 bn, offset by ~2.1-2.5 bn saved from repealing the spousal credit), declares no lobbyist was involved in drafting it, and sets effectiveness at 1 January 2027 with a savings clause preserving old rules for tax years that began before that date.",
+  "researchedContext": "Confirmed via psp.cz primary sources: tisk 244 was submitted 26 June 2026 by only 4 of the same MPs (Pivoňka Vaňková, Kovářová, Papajanovský, Sedmihradská) who lead the 21-signature tisk 120, filed four months earlier (3 March 2026) and also amending 586/1992. The two prints are NOT duplicates or a reprint/companion pair -- they amend different provisions of the same statute. Tisk 120 converts the basic personal tax credit (§35ba odst.1 písm.a, 30,840 Kč/year) into an insurance-linked refundable bonus available only to employees with §6 income, and separately caps the existing child-credit bonus by paid social/health-insurance contributions; the government registered formal disagreement (nesouhlas) with it on 31 March 2026, and it has sat with the Budget Committee as garant (assigned 2 April 2026) ever since, with no further floor action as of 24 July 2026. Tisk 244 is narrower and newer: it was only just forwarded to the government for its position (deadline 30 July 2026) and has no committee assignment yet. Both carry the identical 1 January 2027 effective date, suggesting the two prints function as parallel pieces of one broader personal/family tax-credit overhaul pushed by the same core group of MPs, rather than one superseding or replacing the other. A concrete legislative-drafting risk follows from reading both texts together: tisk 120's amending clause deletes §35ba odst.1 písm.a) and renumbers b)-e) to a)-d); tisk 244's amending clause deletes písm.b) and renumbers c)-e) to b)-d) -- which only produces the intended result (repealing the spousal credit) if §35ba's letters are still in their current a)-e) form at the moment 244 takes effect. Because tisk 120 is procedurally ahead (past first reading, in committee) while tisk 244 has not even received a government opinion, if 120 is enacted first, tisk 244's clause as literally drafted would strike whatever is then lettered b) -- under 120's post-enactment scheme that is the credit originally lettered c), not the spousal credit -- unless the Chamber's legislative-technical staff reconcile the two texts before final passage.",
+  "unstatedEffects": [
+    {
+      "effect": "If tisk 120 (personal-credit reform, currently in Budget Committee) is enacted before tisk 244, tisk 244's own amending instruction for §35ba odst.1 -- 'písmeno b) se zrušuje ... dosavadní písmena c) až e) se označují jako b) až d)' -- would no longer target the spousal credit it intends to repeal, because tisk 120 already deletes písm. a) and shifts every subsequent letter down by one. Tisk 244 as drafted silently assumes the pre-120 lettering of §35ba still holds.",
+      "whoBenefits": "No sponsor or party benefits from this outcome; it is a coordination gap between two related bills from an overlapping sponsor group moving through Parliament on different timelines. Resolution requires legislative-technical reconciliation before final passage, deliberate sequencing or withdrawal of one print, or one bill simply failing.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=277769"
+    },
+    {
+      "effect": "Repealing the spousal credit while boosting only the under-3 child credit leaves married single-income households with children older than 3 (or with no children) worse off, with no replacement credit offered to them.",
+      "whoBenefits": "Benefits single parents, unmarried cohabiting parents, and low-income working households with children under 3 (who can access the new credit as a refundable bonus, unlike the old non-refundable spousal credit); disadvantages single-earner married couples with older or no young children who currently claim the spousal credit in full. The bill's own důvodová zpráva acknowledges this redistribution as a deliberate consequence of retargeting support from marital status to the child.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=277769"
+    }
+  ],
+  "conflictAssessment": "Of the 4 sponsors, only Věra Kovářová carries a flagged money tie in the graph: ČEPRO, a.s. (company:ico:60193531), a state-owned fuel-distribution company, with 235,543,222 CZK in state contracts -- the same tie already flagged on tisk 120, where Kovářová is also a sponsor. ČEPRO's business (fuel storage and pipeline distribution logistics) has no substantive connection to personal income-tax credits for children, spouses, or disability status; nothing in this bill touches excise/fuel taxation, corporate tax, or public procurement. Kovářová's other listed tie (OSVČ, company:ico:04627695, 0 CZK) is a zero-value self-employment registration and immaterial. Pivoňka Vaňková, Papajanovský, and Sedmihradská carry no flagged company ties in the graph. This is a case where the honest finding is the absence of a conflict: a real, sizeable state-contractor money tie exists on one sponsor, but it sits nowhere near this bill's actual subject matter -- family/child tax policy, not fuel procurement.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Amends zákon č. 586/1992 Sb., o daních z příjmů (income tax law)",
+      "kind": "law",
+      "source": "586/1992"
+    },
+    {
+      "claim": "Tisk 244 repeals the spousal tax credit (§35ba odst.1 písm.b, §35bb) and increases the child tax credit for children under 3 by 1,000 Kč/month (4,000 Kč/month if a co-residing parent/caregiver holds a ZTP/P card), effective 1 January 2027, with a savings clause for prior tax years",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=277769"
+    },
+    {
+      "claim": "Estimated net impact on public budgets: revenue loss of approximately 0.3-1.2 billion Kč/year (gross child-credit-increase cost ~2.7-3.0 bn Kč/year, offset by ~2.1-2.5 bn Kč/year saved from repealing the spousal credit); no lobbyist identified in the drafting of the bill per its lobbying-footprint disclosure",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=277769"
+    },
+    {
+      "claim": "Tisk 244 was submitted 26 June 2026 by 4 deputies (Pivoňka Vaňková, Kovářová, Papajanovský, Sedmihradská), distributed 29 June 2026, and sent to the government for its position on 30 June 2026 with a response deadline of 30 July 2026; no committee has yet been assigned",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=244"
+    },
+    {
+      "claim": "Tisk 120 (same 4 core sponsors among 21 total signatories) amends the same law 586/1992 but a different provision: it converts the basic personal tax credit (§35ba odst.1 písm.a, 30,840 Kč/year) into a refundable tax advantage capped at paid social/health-insurance contributions, restricted to employees with §6 income, and also caps the existing child-credit bonus by paid insurance",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268221"
+    },
+    {
+      "claim": "Tisk 120 was submitted 3 March 2026; the government registered formal disagreement (nesouhlas) on 31 March 2026; the Organizational Committee assigned the Budget Committee (rozpočtový výbor) as garant on 2 April 2026, and it remains under committee review as of 24 July 2026",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=120"
+    },
+    {
+      "claim": "Tisk 120's amending instruction deletes §35ba odst.1 písm. a) and renumbers písm. b)-e) to a)-d); tisk 244's amending instruction deletes §35ba odst.1 písm. b) and renumbers písm. c)-e) to b)-d), assuming the pre-120, five-letter (a-e) numbering is still in force -- if tisk 120 is enacted first, tisk 244's instruction as literally drafted would strike a different provision than intended",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268221"
+    },
+    {
+      "claim": "Sponsor Věra Kovářová holds a money tie to ČEPRO, a.s. (state-owned fuel-distribution company) worth 235,543,222 CZK in state contracts",
+      "kind": "graph_fact",
+      "source": "company:ico:60193531"
+    }
+  ]
+}

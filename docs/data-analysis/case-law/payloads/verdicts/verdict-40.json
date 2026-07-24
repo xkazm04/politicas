@@ -1,0 +1,77 @@
+{
+  "billTisk": 40,
+  "statedReasoning": "The explanatory memorandum (DZ) argues that until 2023, still wine (tiché víno) could be given as a tax-deductible advertising/promotional gift under § 25 odst. 1 písm. t) zákona č. 586/1992 Sb. (income tax act), provided its acquisition cost stayed at or below 500 Kč excl. VAT — a carve-out Parliament created in 2005 to put wine on equal footing with other promotional items, since wine is formally an excise-taxed commodity under EU law even though its actual Czech excise rate is 0 Kč/hl. It argues that figure was never adjusted for inflation (500 Kč in 2005 had materially higher real value than in 2025), and — more importantly — that a 2023 fiscal 'konsolidační balíček' removed the wine carve-out outright effective 1 January 2024, while leaving every other category of ≤500 Kč promotional gift (including foreign-made items such as golf balls) fully deductible. The DZ frames this as discriminatory and economically harmful specifically to Moravian and Czech wineries, some of which sold 40%+ of production for this promotional-gift use, concentrated in higher-value 'přívlastková' wines destined for a gastronomy sector still recovering from COVID-19. The bill (Čl. I) restores wine's eligibility and, going beyond the pre-2023 status quo, newly also makes beer (especially small-brewery specialty product) an eligible deductible promotional gift, aligning the income-tax treatment with the parallel provision already in the VAT act (§ 13 odst. 7 písm. c) zákona č. 235/2004 Sb.). The DZ explicitly states the bill has zero effect on the state budget or on kraj/obec budgets, creates no new public subsidy, has no gender, social, environmental, security, privacy, or corruption-risk dimension, and proposes an effective date of 1 January 2027 to align with the tax year, given the expected length of the legislative process.",
+  "researchedContext": "Primary source: the full bill text and explanatory memorandum were fetched and read directly (psp.cz orig2.sqw?idd=265587, 6-page PDF, signed electronically by Mgr. Jan Grolich, hejtman/governor of the Jihomoravský kraj, 20 Nov 2025). This confirms the graph's single-law scope (586/1992) is accurate and complete — the bill amends only § 25 odst. 1 písm. t) of the income tax act and adds no rider articles. The DZ's central factual premise was independently corroborated (not merely taken on the region's word): multiple Czech tax-advisory and media sources (Deník.cz, e15.cz, danebeznervu.cz, podnikatel.cz) confirm that the 2023 fiscal consolidation package did remove still wine's exemption from the non-deductible 'representation expense' rule effective 1 January 2024, matching the DZ's account exactly. Separately and materially: a podnikatel.cz article dated 17 July 2026 — one week before this research — reports that the SPD parliamentary party pursued the identical wine-deductibility fix via an amendment riding on unrelated sales/receipt-recording legislation, and that this SPD wine fix reportedly already succeeded, while SPD's parallel attempt to extend the same deductibility to beer and spirits (on the argument that beer is part of Czech national identity) did not pass. If accurate, this means the core policy goal of tisk 40 (restoring wine's deductibility) may already be substantively achieved through a faster-moving, unrelated national vehicle, while tisk 40's beer provision — which failed once already via SPD's route — remains the one piece not yet secured elsewhere. Procedurally, per psp.cz's legislative-history page: the bill was submitted by the Jihomoravský kraj regional assembly on 24 November 2025 (represented procedurally by hejtman Jan Grolich and J. Zámečník), distributed as tisk 40/0 on 25 November 2025, forwarded to the government for comment on 28 November 2025; the government returned a neutral ('bez stanoviska/neutral') opinion on 23 December 2025 (tisk 40/1, registered under eKLEP OVA 1067/25); the Chamber speaker recommended proceeding on 5 January 2026, assigning the Rozpočtový výbor (Budget Committee) as garanční výbor with rapporteur Ing. Jitka Volfová. As of the research date (24 July 2026) the bill remains at that committee stage with no first reading yet — consistent with the doctrine that regionally-initiated bills (Art. 41 Ústavy route) typically move slowly and rarely reach a floor vote.",
+  "unstatedEffects": [
+    {
+      "effect": "Framed procedurally as a technical 'non-discrimination fix' between goods, the bill functions substantively as a narrow, sector-specific tax expenditure benefiting South Moravian viticulture (the DZ states some wineries sold 40%+ of output for this exact promotional-gift use) and, if the beer clause survives, national craft breweries — industries concentrated in or connected to the sponsoring region's own economic base.",
+      "whoBenefits": "Moravian and Czech wine producers, and secondarily small/craft beer producers nationally.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265587"
+    },
+    {
+      "effect": "The DZ's claim of zero impact on state, regional, or municipal budgets (§ 8 of the obecná část) is asserted outright with no modeling or quantification. Broadening the range of goods that qualify as a deductible marketing expense mechanically narrows the taxable base for participating businesses; the DZ does not attempt to estimate the resulting revenue effect, however small, before declaring it to be none.",
+      "whoBenefits": "Businesses that give wine/beer as promotional gifts, and indirectly wine/beer producers via increased demand for gift-eligible product; the state budget bears an unquantified, unestimated marginal revenue cost that the DZ does not attempt to size.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265587"
+    },
+    {
+      "effect": "Per contemporaneous media reporting, the substantive wine-deductibility goal this bill pursues was, one week before this research, reportedly already achieved through a separate and faster-moving legislative vehicle (an SPD amendment to unrelated sales-recording legislation) — while that vehicle's attempt to add beer failed. If this reporting holds, tisk 40 continuing through the slower regional-initiative track now functions mainly as the surviving path for the beer carve-on, with its wine provision at risk of being moot/duplicative rather than being the bill that actually delivers the fix.",
+      "whoBenefits": "Beer/craft-brewing producers specifically, who now depend on tisk 40 rather than the (already-exhausted) SPD vehicle to obtain the same tax treatment as wine.",
+      "evidence": "https://www.podnikatel.cz/clanky/tiche-vino-do-500-kc-bude-opet-jako-dar-danove-uznatelne/"
+    }
+  ],
+  "conflictAssessment": "No personal conflict-of-interest frame applies here. The bill's sponsor of record is the Zastupitelstvo Jihomoravského kraje (South Moravian Regional Assembly) exercising its Art. 41 Ústavy legislative-initiative right as a self-governing region, procedurally represented by hejtman Jan Grolich and J. Zámečník — not by an individual Member of Parliament acting on personal financial interest. The batch-001 graph dossier for this print carries zero MP sponsors and zero recorded money ties (sponsorContractCzk: 0, sponsors: []), so there is no company:ico:/psp:person: urn available in this brief against which to test a personal-enrichment conflict, and none should be manufactured. The closest analogue to a 'conflict' here is institutional rather than personal: a regional government using its national legislative-initiative power to favor an economic sector (viticulture) geographically concentrated in its own territory. That interest is openly disclosed on the face of the bill (the DZ names Moravia/wine explicitly as the intended beneficiary) rather than hidden, and produces no identifiable personal financial benefit to any office-holder. Consistent with the batch's non-partisan-symmetry doctrine, the honest finding is the absence of a conflict; flagging this as a scandal would be manufacturing one where the record shows a transparent, structural regional-economic-policy motive instead.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Čl. I of the bill amends § 25 odst. 1 písm. t) zákona č. 586/1992 Sb. so that gifting still wine, and newly beer, as an advertising/promotional item worth ≤500 Kč excl. VAT (or free trade samples) is no longer treated as a non-deductible 'representation expense.'",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265587"
+    },
+    {
+      "claim": "The bill's Čl. II sets its proposed effective date as 1 January 2027, chosen to align with the start of a tax year given the expected length of the legislative process.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265587"
+    },
+    {
+      "claim": "The DZ states some Moravian wineries sold 40% or more of their output for promotional-gift purposes, concentrated in higher-value 'přívlastková' wines sold into a gastronomy sector still affected by post-COVID conditions, and that the bill's positive effect falls on producers of the now-restored eligible goods (wine, and beer via small breweries).",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265587"
+    },
+    {
+      "claim": "The DZ (§ 8) states the bill has no effect on the state budget or on kraj/obec budgets and creates no new public subsidy or deductible category, only removing a claimed discriminatory carve-out from an existing one.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265587"
+    },
+    {
+      "claim": "The bill's drafting is explicitly modeled on the parallel treatment of promotional gifts already present in § 13 odst. 7 písm. c) zákona č. 235/2004 Sb. (VAT act), cited by the DZ as the reason income-tax and VAT treatment of the same goods should not diverge.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265587"
+    },
+    {
+      "claim": "Zákon č. 586/1992 Sb. is the real Czech income tax act, the sole statute this bill amends.",
+      "kind": "law",
+      "source": "586/1992"
+    },
+    {
+      "claim": "Zákon č. 235/2004 Sb. is the real Czech VAT act, cited by the DZ as the model provision for consistent tax treatment of promotional gifts.",
+      "kind": "law",
+      "source": "235/2004"
+    },
+    {
+      "claim": "Print 40 (10th term) was submitted by the Jihomoravský kraj regional assembly on 24 November 2025, distributed as tisk 40/0 on 25 November 2025, forwarded to government on 28 November 2025; the government issued a neutral opinion on 23 December 2025 (tisk 40/1, eKLEP OVA 1067/25); the Chamber speaker recommended proceeding on 5 January 2026, assigning the Rozpočtový výbor as garanční výbor with rapporteur Ing. Jitka Volfová; as of 24 July 2026 the bill remains at committee stage with no first reading.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=40"
+    },
+    {
+      "claim": "Independent tax-advisory and media reporting (Deník.cz, e15.cz, danebeznervu.cz) confirms that the 2023 fiscal consolidation package removed still wine's exception from the non-deductible representation-expense rule, effective 1 January 2024, corroborating the DZ's own historical account.",
+      "kind": "web",
+      "source": "https://www.denik.cz/podnikani/danova-vyjimka-na-ticha-vina-konci-20231116.html"
+    },
+    {
+      "claim": "A podnikatel.cz article dated 17 July 2026 reports the SPD party pursued the same wine-deductibility fix via an amendment to unrelated sales-record-keeping legislation; the wine provision reportedly passed there, while SPD's attempt to also add beer and spirits under the same conditions did not.",
+      "kind": "web",
+      "source": "https://www.podnikatel.cz/clanky/tiche-vino-do-500-kc-bude-opet-jako-dar-danove-uznatelne/"
+    }
+  ]
+}

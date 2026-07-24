@@ -1,0 +1,67 @@
+{
+  "billTisk": 120,
+  "statedReasoning": "The DZ (Part A-D) states the bill's purpose is to fix a regressive flaw in the basic taxpayer credit (základní sleva na poplatníka, §35ba odst.1 písm.a ZDP, CZK 30,840/yr): because the credit is non-refundable, low-income employees whose tax liability falls below CZK 30,840 cannot use the full amount, so part of the credit 'propadá' (is forfeited). The bill abolishes that credit line and re-issues the same nominal amount as a new §35c odst.1 písm.a) 'daňové zvýhodnění' (tax advantage), using the same institution already used for the child tax bonus, but capped so it can be claimed as a refundable bonus only up to the amount of social+health insurance the taxpayer (and employer) actually paid on their §6 (employment) income — this cap is explicitly designed to prevent a fully negative income tax / turning the credit into a pure cash transfer. Only §6 (employment) earners get the refundable-bonus form of the basic credit; §7 (self-employed) earners do not. In parallel, the existing child tax bonus (§35c odst.4) is tightened with the same insurance-paid cap, but remains available to both §6 and §7 earners. Effective date: 1 Jan 2027. Stated fiscal impact: -0.5bn CZK/yr total (-0.6bn from reduced withholding on main employment, +0.1bn recovered from below-threshold 'dohoda' workers and OSVČ), split per standard RUD shares (kraje -50M, obce -125M, state -325M), modeled in Euromod on EU-SILC data. Stated effect: cuts the average tax rate for the bottom income quintile of full-time employees from 33.6% to 32.3%. DZ section K states no corruption risk. DZ section M (lobbying-footprint disclosure required under zákon č. 168/2025 Sb.) names PAQ Research, z.ú. (via Petr Vilím) as the lobbyist consulted specifically on the fiscal-impact and average-tax-rate modeling in section E. Sponsors requested expedited passage in first reading under §90(2) jednacího řádu, characterizing it as a narrow, broadly-agreed technical fix.",
+  "researchedContext": "586/1992 Sb. is the Czech Income Tax Act; §35ba is the basic (non-refundable) personal tax credit, §35c the child tax bonus/credit mechanism (already refundable). The bill text (Čl. I, points 1-11) confirms the DZ's description exactly: it deletes §35ba odst.1 písm.a), renumbers the remaining sub-items, inserts a new §35c odst.1 písm.a) carrying the same CZK 30,840/yr amount, rewrites §35c odst.4 to cap both the new basic-credit bonus and the existing child bonus at paid social/health insurance, and cascades ~8 consequential cross-reference fixes across §35d, §38g, §38gb, §38h, §38k, §38l. This is a structural/mechanical reform of how one existing credit is delivered (refundable vs non-refundable), not a new tax break, new exemption, or a change touching corporate income tax, specific industries, or specific companies. Legislative history (psp.cz historie.sqw) shows: submitted 3 Mar 2026 by a group of 27 deputies led by Sedmihradská; distributed 4 Mar 2026 as print 120/0; referred to government the same day; government returned a 'nesouhlas' (disagreement) position 31 Mar 2026 (print 120/1) — the specific grounds for government disagreement were not visible on the history page and were not independently retrieved; assigned 2 Apr 2026 to the Budget Committee (rozpočtový výbor) as garanční výbor, rapporteur Ing. Jana Filipovičová; as of 24 Jul 2026 the bill is still pending, with one pozměňovací návrh (amendment) registered but not reviewed here. No independent media coverage of tisk 120 specifically was found via search; the topic mostly surfaces alongside general 2026 tax-code news, not this bill by name.",
+  "unstatedEffects": [
+    {
+      "effect": "The refundable form of the basic credit is available only to §6 (employment) earners, not §7 (self-employed/OSVČ) earners — OSVČ keep the old non-refundable basic credit and only gain refundability on the child bonus. The DZ frames this uniformly as 'poplatníci se závislou činností' without stating the differential impact by taxpayer class.",
+      "whoBenefits": "Standard wage employees with below-median income gain the most (fuller use of the credit); self-employed persons with comparably low taxable income do not gain the same refundability upgrade for the basic credit.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268221"
+    },
+    {
+      "effect": "The insurance-paid cap creates a small offsetting revenue gain (+0.1bn CZK/yr per DZ section E) collected specifically from 'podlimitní dohodáři' (workers on below-threshold side-agreements) and OSVČ, i.e. a narrow slice of lower-attachment workers effectively pays part of the cost of the credit's main benefit to full-time low-income employees.",
+      "whoBenefits": "State budget recovers ~100M CZK/yr from below-threshold gig/side-income workers, partially offsetting the ~600M CZK/yr cost of the main measure aimed at full-time low earners.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268221"
+    }
+  ],
+  "conflictAssessment": "Sponsor money ties on file: Věra Kovářová → ČEPRO, a.s. (company:ico:60193531, state-owned fuel/oil logistics company, CZK 235,543,222); Vít Rakušan → Nadační fond Gymnázia Kutná Hora (company:ico:68404999, school foundation, CZK 200,000); Lukáš Vlček → SOMPO (company:ico:25172263), PEVAK (company:ico:26039907), Via rustica (company:ico:26982170) — small municipal-utility-type companies. None of these entities are individual income-tax payers, tax-credit administrators, payroll processors, or otherwise operationally touched by a mechanism change to how a single personal income-tax credit (§35ba/§35c) is delivered to wage earners. ČEPRO is a wholesale fuel-distribution company with no plausible link to personal income-tax-credit refundability; the Kutná Hora gymnasium foundation and the small municipal companies tied to Vlček likewise have no connection to this bill's subject. Kovářová's association with ČEPRO (including any board role) is noted only as context per the brief — it does not intersect with a bill that restructures how individual employees claim a flat tax credit. This is the honest low-severity, non-partisan finding the case calls for: sponsors carry disclosed money ties, but none of them supply a self-dealing channel into this specific bill's subject matter. The one disclosed relationship worth naming for completeness is not a sponsor money tie at all but the bill's own lobbying-footprint disclosure: PAQ Research (via Petr Vilím) was consulted on the fiscal-impact and tax-rate figures — PAQ Research is a non-partisan, independent socioeconomic research non-profit, and its role is transparently disclosed under the 2025 lobbying-transparency law, not evidence of concealment.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Full bill text and důvodová zpráva for tisk 120: converts §35ba odst.1 písm.a) základní sleva into a new §35c odst.1 písm.a) refundable daňové zvýhodnění capped at paid pojistné, also tightens §35c odst.4 child bonus the same way, effective 1.1.2027; fiscal impact -0.5bn CZK/yr (-0.6bn main employment, +0.1bn dohodáři/OSVČ), bottom-quintile average tax rate falls from 33.6% to 32.3%; lobbying-footprint disclosure names PAQ Research (Petr Vilím) as consulted on fiscal-impact/tax-rate sections; no corruption risk stated (section K); requested consent in first reading under §90(2).",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268221"
+    },
+    {
+      "claim": "Tisk 120/0 index: amendment to zákon č. 586/1992 Sb., distributed 4 March 2026.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=120&ct1=0"
+    },
+    {
+      "claim": "Legislative history: submitted 3 Mar 2026 by deputy group led by Sedmihradská; government position 'nesouhlas' returned 31 Mar 2026; assigned to rozpočtový výbor as garanční committee 2 Apr 2026 (rapporteur Jana Filipovičová); still pending as of 24 Jul 2026 with one pozměňovací návrh registered.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=120"
+    },
+    {
+      "claim": "The bill amends zákon č. 586/1992 Sb., o daních z příjmů (Income Tax Act).",
+      "kind": "law",
+      "source": "586/1992"
+    },
+    {
+      "claim": "Sponsor Věra Kovářová has a disclosed money tie to ČEPRO, a.s.",
+      "kind": "graph_fact",
+      "source": "company:ico:60193531"
+    },
+    {
+      "claim": "Sponsor Vít Rakušan has a disclosed money tie to Nadační fond Gymnázia Kutná Hora.",
+      "kind": "graph_fact",
+      "source": "company:ico:68404999"
+    },
+    {
+      "claim": "Sponsor Lukáš Vlček has a disclosed money tie to SOMPO.",
+      "kind": "graph_fact",
+      "source": "company:ico:25172263"
+    },
+    {
+      "claim": "Sponsor Lukáš Vlček has a disclosed money tie to PEVAK.",
+      "kind": "graph_fact",
+      "source": "company:ico:26039907"
+    },
+    {
+      "claim": "Sponsor Lukáš Vlček has a disclosed money tie to Via rustica.",
+      "kind": "graph_fact",
+      "source": "company:ico:26982170"
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "billTisk": 121,
+  "statedReasoning": "The explanatory memorandum (důvodová zpráva) frames tisk 121 as a KDU-ČSL-led pro-family package with three prongs. (1) Income tax (586/1992, §35c): the annual child tax advantage (daňové zvýhodnění na vyživované dítě) is raised — 1st child by 7,176 Kč (15,204→22,380), 2nd by 7,488 Kč (22,320→29,808), 3rd-and-further by 9,336 Kč (27,840→37,176) — because the amounts had not been valorised since 2021 while household costs rose, eroding the instrument's real value and its function of compensating families and motivating legal work income; applicable already for tax year 2026 via the 2027 return. (2) State social support (117/1995): the total parental allowance (rodičovský příspěvek, §30 odst.1) rises 350,000→400,000 Kč (double for multiples) for the youngest child born/taken into care from 1 July 2026; the 70% cap on the monthly draw rate (§30 odst.3) is lifted to 100% of the 30× daily assessment base so parents with a higher prior wage can front-load the fixed total and return to work sooner (the 15,000 Kč monthly cap for those without a sufficient base is unchanged); and the 120-hour/month limit on kindergarten attendance for under-2s (§31 odst.3) is abolished as an unnecessary intrusion into parental autonomy. (3) Sickness insurance (187/2006): the paternity benefit (otcovská) window is extended from 6 weeks to 12 months after birth for flexibility (fewer than half of eligible fathers used it), and the caregiver's benefit (ošetřovné, §40) support period is unified at 16 calendar days for all insured, removing the current inequality where non-single caregivers get only 9 days versus 16 for single parents. The DZ states the package is consistent with the constitutional order (Art. 32 Listiny) and EU/international obligations. Fiscal estimates in the DZ: child credit +16 bn Kč/yr (on a 42 bn base), parental allowance +~4 bn Kč/yr, ošetřovné +310–370 M Kč/yr, paternity +20–40 M Kč/yr.",
+  "researchedContext": "The full bill text and důvodová zpráva were retrieved from the primary psp.cz print PDF, and the legislative history confirms the print was submitted 2 March 2026 by a group of 14 deputies (Jurečka et al.), assigned to the Social Policy Committee (VSP) as garanční výbor with rapporteur K. Gajdová, and cleared by the organisational committee on 2 April 2026 (resolution 46). Notably the Government issued a formal negative opinion — 'nesouhlas' — distributed as tisk 121/1 on 31 March 2026, consistent with the roughly 20 bn Kč/yr aggregate cost the DZ itself concedes. Substantively this is universal family policy: every provision flows to broad statutory classes — all taxpayers with dependent children, all parents drawing the parental allowance, all insured fathers and caregivers — not to any named entity, contract, or sector. The child tax advantage is partly refundable as a daňový bonus, so lower-income working families also benefit, though the pure credit portion helps only those with sufficient tax liability; the largest per-child absolute gain (9,336 Kč) accrues to third-and-further children, favouring larger families. The lifting of the 70% draw cap is, by the DZ's own admission, most useful to parents with a high prior wage.",
+  "unstatedEffects": [
+    {
+      "effect": "Removing the 70% cap on the monthly parental-allowance draw rate advantages higher-earning parents specifically: only those with a high daily assessment base can draw the fixed 400,000 Kč faster and return to work sooner, while parents reliant on the unchanged 15,000 Kč monthly floor-cap see no change in their draw rate — a flexibility gain concentrated at the upper end of the earnings distribution, even though the total entitlement is identical for all.",
+      "whoBenefits": "Higher-earning parents with a large daily assessment base (vyměřovací základ)",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268020"
+    },
+    {
+      "effect": "The child tax advantage increase is tiered so the third-and-further child gains the most in absolute terms (+9,336 Kč vs +7,176 Kč for a first child), so the package's per-child value rises with family size, modestly favouring larger families over one-child households.",
+      "whoBenefits": "Families with three or more children",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268020"
+    },
+    {
+      "effect": "Abolishing the 120-hour/month cap on institutional childcare attendance for children under 2 lets parents combine full-time daycare with an undiminished parental allowance, expanding an entitlement whose incremental fiscal cost is not separately quantified in the memorandum; the Government's formal 'nesouhlas' signals disputed budget impact on the ~20 bn Kč/yr aggregate.",
+      "whoBenefits": "Parents using full-time institutional childcare while drawing the allowance; disputed against the state budget",
+      "evidence": "https://www.psp.cz/sqw/historie.sqw?o=10&t=121"
+    }
+  ],
+  "conflictAssessment": "No plausible self-dealing channel connects any sponsor's recorded money ties to the subject matter of this bill. The provisions are universal income-tax and social-benefit parameters paid to statutory classes of natural persons (taxpayers with children, parents, insured fathers/caregivers) via the tax authority and ČSSZ — not procurement, subsidy, or payments routed to any company. Marian Jurečka's tie to AGRO 2000 s.r.o. (company:ico:25586521, 10,864,255 CZK) is an agribusiness link with no nexus to child tax credits or family benefits. Marek Výborný's tie to Gymnázium Pardubice (company:ico:48161063, 9,253,983 CZK) is a secondary school, not a beneficiary of the child tax advantage or parental allowance. Róbert Teleky's healthcare ties — the Vsetín/Kroměříž/Uherské Hradiště hospitals (company:ico:26871068, company:ico:27660532, company:ico:27660915, ~33M CZK) and Teleky Medicus (company:ico:29442044, ~11M CZK) — are the closest thematic adjacency because Part Three touches sickness insurance, but ošetřovné and otcovská are cash benefits paid to insured individuals, not to healthcare providers; hospitals are not payees under these provisions, so no channel exists. Petr Hladík's ARENA BRNO tie (company:ico:09133267, 5,390,760,300 CZK) is a municipal stadium already found in the prior tisk-58 verdict not to be a self-dealing channel, and it has no connection to family policy. Bohuslav Niemiec's CEVYKO a.s. tie (company:ico:08599254, 278,778,307 CZK) is unrelated to the bill's subject. The honest finding is the ABSENCE of a conflict: this is broad, generally-applicable family policy whose benefits the sponsors would receive only as ordinary parents/taxpayers, like every other eligible household.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Part One raises the annual child tax advantage in §35c odst.1 of the Income Tax Act: 1st child 15,204→22,380 Kč, 2nd 22,320→29,808 Kč, 3rd+ 27,840→37,176 Kč, applicable for tax year 2026.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268020"
+    },
+    {
+      "claim": "Part Two raises the total parental allowance (§30 odst.1) from 350,000 to 400,000 Kč (double for multiples) for the youngest child from 1 July 2026, lifts the 70% cap on monthly drawing to 100% of the 30× daily assessment base (15,000 Kč floor-cap unchanged), and abolishes the 120-hour/month kindergarten limit for under-2s (§31 odst.3).",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268020"
+    },
+    {
+      "claim": "Part Three extends the paternity benefit window from 6 weeks to 12 months after birth (§38a/§38b) and unifies the caregiver's benefit support period at 16 calendar days for all insured, up from 9 days for non-single caregivers (§40), effective 1 January 2027.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268020"
+    },
+    {
+      "claim": "The důvodová zpráva estimates the fiscal impact at +16 bn Kč/yr for the child tax credit (on a 42 bn base), +~4 bn Kč/yr for the parental allowance, +310–370 M Kč/yr for ošetřovné, and +20–40 M Kč/yr for paternity benefit.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268020"
+    },
+    {
+      "claim": "The print was submitted 2 March 2026 by a group of deputies (Jurečka et al.), assigned to the Social Policy Committee as guarantor, and the Government issued a negative opinion ('nesouhlas') distributed as tisk 121/1 on 31 March 2026.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=121"
+    },
+    {
+      "claim": "The print index page lists the bill and its explanatory memorandum documents for print 121/0.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=121&ct1=0"
+    },
+    {
+      "claim": "The bill amends the Income Tax Act.",
+      "kind": "law",
+      "source": "586/1992"
+    },
+    {
+      "claim": "The bill amends the State Social Support Act.",
+      "kind": "law",
+      "source": "117/1995"
+    },
+    {
+      "claim": "The bill amends the Sickness Insurance Act.",
+      "kind": "law",
+      "source": "187/2006"
+    },
+    {
+      "claim": "Sponsor Marian Jurečka holds a recorded money tie to AGRO 2000 s.r.o. of 10,864,255 CZK; unrelated to the bill's income-tax and family-benefit subject.",
+      "kind": "graph_fact",
+      "source": "company:ico:25586521"
+    },
+    {
+      "claim": "Sponsor Marek Výborný holds a recorded money tie to Gymnázium Pardubice of 9,253,983 CZK; a secondary school, not a beneficiary of the amended provisions.",
+      "kind": "graph_fact",
+      "source": "company:ico:48161063"
+    },
+    {
+      "claim": "Sponsor Róbert Teleky holds recorded ties to the Uherské Hradiště hospital (part of ~33M CZK across three regional hospitals); ošetřovné/otcovská are cash benefits to insured individuals, not payments to hospitals, so no channel exists.",
+      "kind": "graph_fact",
+      "source": "company:ico:27660915"
+    },
+    {
+      "claim": "Sponsor Petr Hladík holds a recorded tie to ARENA BRNO of 5,390,760,300 CZK; a municipal stadium found in the prior tisk-58 verdict not to be a self-dealing channel and unrelated to family policy.",
+      "kind": "graph_fact",
+      "source": "company:ico:09133267"
+    },
+    {
+      "claim": "Sponsor Bohuslav Niemiec holds a recorded tie to CEVYKO a.s. of 278,778,307 CZK; unrelated to the bill's subject.",
+      "kind": "graph_fact",
+      "source": "company:ico:08599254"
+    }
+  ]
+}

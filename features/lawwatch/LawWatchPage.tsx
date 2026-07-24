@@ -4,11 +4,12 @@
  * LawWatch — monitor legislativy (/zakony, roadmapa Fáze 3).
  * REÁLNÁ data z grafu Case ③: sněmovní tisky → zákony, které novelizují
  * (hrana `amends`), předkladatelé (proklik na profil poslance), příznak
- * možného střetu zájmů z peněžních vazeb předkladatele (Case ①) a — u tisků,
- * které jej nesou — gatovaný forenzní posudek (návrh k revizi, ne publikovaný
- * verdikt). Graf nenese znění paragrafů ani fázi projednávání, takže původní
- * diff „před/po" a potrubí fází se nevykreslují ze smyšlených dat; když graf
- * není dostupný, spadne stránka na jasně označený ukázkový mock.
+ * možného střetu zájmů z peněžních vazeb předkladatele (Case ①), formální
+ * přikázání výborům (hrana `assigned_to`, F15: garanční / další, stav, datum) a
+ * — u tisků, které jej nesou — gatovaný forenzní posudek (návrh k revizi, ne
+ * publikovaný verdikt). Úplné znění paragrafů drží e-Sbírka zvlášť, takže §-diff
+ * „před/po" se zatím nevykresluje ze smyšlených dat; když graf není dostupný,
+ * spadne stránka na jasně označený ukázkový mock.
  */
 
 import { useState } from "react";
@@ -52,6 +53,19 @@ const SEVERITY_CZ: Record<string, string> = {
   low: "nízká",
   medium: "střední",
   high: "vysoká",
+};
+
+/** assigned_to.props.role → český štítek (F15 formální přikázání výborům). */
+const ROLE_CZ: Record<string, string> = {
+  garancni: "garanční výbor",
+  dalsi: "další výbor",
+};
+
+/** assigned_to.props.status → český štítek (nejsilnější dosažený stav přikázání). */
+const STATUS_CZ: Record<string, string> = {
+  prikazano: "přikázáno",
+  navrzeno: "navrženo",
+  iniciativne: "projednáno iniciativně",
 };
 
 /** psp.cz historie tisku (PSP10 = o=10) — jediný stabilní veřejný odkaz na tisk. */
@@ -153,7 +167,9 @@ function RealLawWatch({ data }: { data: LawData }) {
         ))}
       </div>
       <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
-        <SourceNote>psp.cz tisky · graf pass {data.pass ?? "?"} · hrana amends</SourceNote>
+        <SourceNote>
+          psp.cz tisky · graf pass {data.pass ?? "?"} · hrany amends + assigned_to · {f.int(data.committeeRoutedBills)} tisků přikázáno výborům
+        </SourceNote>
         <span className="flex flex-wrap gap-x-3 font-mono text-[11px] uppercase tracking-wider text-steel">
           {originOrder
             .filter((o) => data.originCounts[o])
@@ -260,6 +276,38 @@ function RealLawWatch({ data }: { data: LawData }) {
                 )}
               </div>
 
+              {/* formální přikázání výborům (F15) */}
+              {bill.committees.length > 0 && (
+                <div className="mt-6 border-t-2 border-ink pt-4">
+                  <SourceNote>projednávají výbory — psp.cz hist_vybory ⋈ hist (F15)</SourceNote>
+                  <ul className="mt-3 space-y-2">
+                    {bill.committees.map((c) => (
+                      <li
+                        key={c.organUrn}
+                        className={`flex flex-wrap items-baseline justify-between gap-2 border-l-4 px-3 py-2 ${
+                          c.role === "garancni" ? "border-cobalt bg-cobalt/5" : "border-hairline"
+                        }`}
+                      >
+                        <span className="flex items-baseline gap-2">
+                          <span className="text-[15px] font-bold">{c.organLabel}</span>
+                          <span
+                            className={`font-mono text-[10px] font-black uppercase tracking-wider ${
+                              c.role === "garancni" ? "text-cobalt" : "text-steel"
+                            }`}
+                          >
+                            {ROLE_CZ[c.role] ?? c.role}
+                          </span>
+                        </span>
+                        <span className="font-mono text-[11px] uppercase tracking-wider text-steel">
+                          {STATUS_CZ[c.status] ?? c.status}
+                          {c.assignedOn && <> · {c.assignedOn}</>}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
               {/* předkladatelé */}
               {bill.sponsors.length > 0 && (
                 <div className="mt-6 border-t-2 border-ink pt-4">
@@ -328,8 +376,10 @@ function RealLawWatch({ data }: { data: LawData }) {
         </div>
         <p className="mt-4 max-w-3xl text-sm italic leading-relaxed text-steel">
           Vazba tisk → zákon je vyčtena z názvu tisku (citace „č. N/RRRR Sb.“), jediného strukturovaného
-          odkazu, který psp.cz o novelizovaném zákoně nese. Znění paragrafů ani fázi projednávání graf zatím
-          nedrží, proto se diff „před/po“ a potrubí fází nevykreslují — Politicas nezobrazuje smyšlená data.
+          odkazu, který psp.cz o novelizovaném zákoně nese. Formální přikázání výborům (garanční / další, stav
+          a datum) se nově vykresluje z reálných dat psp.cz (hist_vybory). Úplné znění paragrafů drží e-Sbírka
+          zvlášť (samostatný datový balík), takže diff „před/po“ na úrovni § se zatím nevykresluje — Politicas
+          nezobrazuje smyšlená data.
         </p>
       </section>
     </>

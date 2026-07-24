@@ -1,0 +1,92 @@
+{
+  "billTisk": 115,
+  "statedReasoning": "Per the důvodová zpráva (fetched PDF, idd=267684): a prior criminal-law amendment, zákon č. 270/2025 Sb. effective 1 January 2026, decriminalized non-payment of court-ordered maintenance so that failure to pay was punishable only where it exposed the entitled person to 'nebezpečí nouze' (danger of destitution). The DZ states this caused 302 prisoners to be released as of 1 Jan 2026 (282 for §196(1), 16 for §196(2), 4 in concurrence), with further sentence adjustments for hundreds more. The sponsors consider this liberalization inappropriate because it harms minor children, and — citing the government's programové prohlášení (program declaration) — propose to re-criminalize INTENTIONAL (úmyslné) failure to fulfil a maintenance/support obligation lasting more than four months, even when the entitled person is NOT put in danger of destitution, while deliberately NOT restoring criminal liability for merely negligent non-payment (ultima ratio). The bill: (1) rewrites §196 trestní zákoník — new §196(1) punishes intentional non-payment >4 months with up to 1 year imprisonment, §196(2) (where danger of destitution results) up to 2 years; (2) amends §55(2) to instruct courts to impose unconditional imprisonment for §196(1) only where effective protection of society requires it or rehabilitation by another sentence is hopeless, so as not to destroy the offender's earning capacity needed to actually pay maintenance; (3) makes a consequential amendment to §5(1) of zákon č. 45/2013 Sb. (victims of crime) for victims of the §196(1) offence. Stated effective date 1 July 2026, with a request for §90(2) fast-track approval in first reading. The DZ expressly states the measure has NO impact on the business environment ('není spojena s dopady na podnikatelské prostředí'), creates no state aid, and carries no elevated corruption risk.",
+  "researchedContext": "Independent media corroborate the primary DZ: iROZHLAS and Aktuálně.cz reported that zákon č. 270/2025 Sb. (effective 1 Jan 2026) limited the maintenance-neglect offence to danger-of-destitution cases and led to the early release of 500+ convicts. This tisk 115 is the reversal: an ANO-led sponsor group in the new PSP10 term (submitted 18 Feb 2026, first reading 21 Apr 2026, assigned to the ústavně-právní výbor/ÚPV as garanční committee, ÚPV recommended approval 30 Apr 2026, scheduled for the 27th session from 10 Jul 2026) restoring criminality of intentional non-payment. The subject matter is family-law criminal enforcement (child support) — it does NOT touch economic/property crime, dotační podvod (subsidy fraud, §212 tr. zák.), damage thresholds (výše škody), statute of limitations (promlčení), or any provision bearing on EU-subsidy or corporate-crime exposure. The two subject-matter sponsors are appropriate: Helena Válková (criminologist/law professor) and Taťána Malá (former justice minister); the DZ notes the sanction levels track an earlier pozměňovací návrh by Válková, Malá and Ožanová to tisk 861 of the previous term. One structural observation: opening the trestní zákoník creates a procedural vehicle to which germane criminal-code amendments (including economic-crime provisions) could be attached during committee/reading stages — the history page shows written amendments were submitted for the 27th session — but the bill AS SUBMITTED is narrowly confined to §196/§55(2) and §5(1) of 45/2013, with no economic-crime content.",
+  "unstatedEffects": [
+    {
+      "effect": "Opening the trestní zákoník (40/2009) for a narrow child-support fix simultaneously creates a legislative vehicle to which germane economic-crime amendments could be attached at committee/second-reading stage; the legislative-history page records that written amendments were tabled for the 27th session. This is a structural watch-item only — the bill as submitted contains no economic-crime, subsidy-fraud, threshold or limitations change, and no evidence of any such attached amendment was found.",
+      "whoBenefits": "Potentially any deputy (including sponsors) seeking to amend criminal law under cover of this print; on the submitted text, the beneficiaries are dependent persons (predominantly minor children) owed maintenance, via restored criminal deterrence.",
+      "evidence": "https://www.psp.cz/sqw/historie.sqw?o=10&t=115"
+    }
+  ],
+  "conflictAssessment": "No conflict of interest connects the sponsors' documented money ties to this bill's subject matter. The lead sponsor Andrej Babiš carries very large state-contract exposure through the AGROFERT empire — AGROFERT a.s. (company:ico:26185610, 6,274,454 CZK), Synthesia a.s. (company:ico:60108916, 796,873,826 CZK), Kostelecké uzeniny a.s. (company:ico:46900411, 201,742,491 CZK), PRECHEZA a.s. (company:ico:26872307, 106,593,110 CZK), Fatra a.s. (company:ico:27465021, 107,928,168 CZK) — and co-sponsor Boris Šťastný is tied to Pražské služby a.s. (company:ico:60194120, 1,470,325,336 CZK); Radim Fiala to IF FACILITY a.s. (company:ico:27720152, 11,253,147 CZK). Given Babiš's well-documented EU-subsidy-fraud exposure (the 'Čapí hnízdo' matter), a criminal-code amendment authored by him warrants scrutiny for any softening of economic-crime, subsidy-fraud, damage-threshold or statute-of-limitations provisions from which he or AGROFERT could benefit. The actual bill contains NONE of that: it re-criminalizes intentional non-payment of child support and makes a consequential victims'-rights change. The offence touched (§196, zanedbání povinné výživy) is unrelated to fraud, subsidy or property crime, and the DZ itself states the measure has no impact on the business environment. This is therefore the honest low-severity finding — substantial sponsor money ties exist but none intersect the bill's subject — and the direction of the change is toward MORE, not less, criminal liability. Symmetry note: the reversal of a previous-government decriminalization is a coherent policy/political act aligned with the stated government program, not a self-dealing one.",
+  "severity": "low",
+  "confidence": 5,
+  "citations": [
+    {
+      "claim": "The bill rewrites §196 trestního zákoníku to re-criminalize intentional non-payment/avoidance of a maintenance or support obligation lasting more than four months even without danger of destitution (§196(1), up to 1 year; §196(2) with danger of destitution, up to 2 years), while excluding the negligent form.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267684"
+    },
+    {
+      "claim": "The bill amends §55(2) trestního zákoníku so that an unconditional prison sentence for §196(1) may be imposed only where effective protection of society requires it or rehabilitation by another sentence is hopeless, to preserve the offender's earning capacity.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267684"
+    },
+    {
+      "claim": "Part Two amends §5(1) of the victims-of-crime act (45/2013) as a consequential change tied to the §196(1) offence; stated effective date 1 July 2026, with a §90(2) fast-track request.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267684"
+    },
+    {
+      "claim": "The důvodová zpráva states the measure has no impact on the business environment, creates no state aid, and carries no elevated corruption risk; its rationale is protecting minor children harmed by non-payment, per the government program declaration.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267684"
+    },
+    {
+      "claim": "Zákon č. 270/2025 Sb., effective 1 January 2026, decriminalized ordinary and intentional-avoidance non-payment of maintenance, limiting the offence to danger-of-destitution cases and leading to the early release of 500+ convicts.",
+      "kind": "web",
+      "source": "https://www.irozhlas.cz/zpravy-domov/zanedbavani-vyzivneho-uz-nebude-trestne-na-svobodu-se-dostane-vice-nez-500_2508191200_akp"
+    },
+    {
+      "claim": "Media confirm 270/2025 released hundreds of maintenance-neglect prisoners as the offence became non-criminal absent danger of destitution.",
+      "kind": "web",
+      "source": "https://zpravy.aktualne.cz/domaci/z-vezeni-se-dostanou-stovky-neplaticu-zanedbani-alimentu-pre/r~285eb1427cd511f0bb77ac1f6b220ee8/"
+    },
+    {
+      "claim": "Legislative history: submitted 18 Feb 2026; first reading 21 Apr 2026 (fast-track rejected); assigned to the ústavně-právní výbor (ÚPV) as garanční committee, which recommended approval 30 Apr 2026; scheduled for the 27th session; written amendments tabled.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=115"
+    },
+    {
+      "claim": "Sněmovní tisk 115/0 index page listing the bill, its documents and the amended laws (40/2009 trestní zákoník, 45/2013 o obětech trestných činů).",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=115&ct1=0"
+    },
+    {
+      "claim": "Amended statute: zákon č. 40/2009 Sb., trestní zákoník (the Criminal Code) — §196 and §55(2).",
+      "kind": "law",
+      "source": "40/2009"
+    },
+    {
+      "claim": "Amended statute: zákon č. 45/2013 Sb., o obětech trestných činů (victims of crime) — §5(1).",
+      "kind": "law",
+      "source": "45/2013"
+    },
+    {
+      "claim": "Prior amendment being reversed: zákon č. 270/2025 Sb., which decriminalized maintenance-neglect effective 1 January 2026.",
+      "kind": "law",
+      "source": "270/2025"
+    },
+    {
+      "claim": "Sponsor Andrej Babiš holds state-contract money ties via AGROFERT a.s. (6,274,454 CZK) — none connected to this bill's child-support subject matter.",
+      "kind": "graph_fact",
+      "source": "company:ico:26185610"
+    },
+    {
+      "claim": "Sponsor Andrej Babiš holds state-contract money ties via Synthesia a.s. (796,873,826 CZK) — unrelated to this bill's subject.",
+      "kind": "graph_fact",
+      "source": "company:ico:60108916"
+    },
+    {
+      "claim": "Sponsor Boris Šťastný holds state-contract money ties via Pražské služby a.s. (1,470,325,336 CZK) — unrelated to this bill's subject.",
+      "kind": "graph_fact",
+      "source": "company:ico:60194120"
+    },
+    {
+      "claim": "Sponsor Radim Fiala holds state-contract money ties via IF FACILITY a.s. (11,253,147 CZK) — unrelated to this bill's subject.",
+      "kind": "graph_fact",
+      "source": "company:ico:27720152"
+    }
+  ]
+}

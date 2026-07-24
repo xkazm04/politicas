@@ -1,0 +1,97 @@
+{
+  "billTisk": 4,
+  "statedReasoning": "The explanatory memorandum (DZ) argues the basic taxpayer tax credit (sleva na poplatníka, § 35ba odst. 1 písm. a) zákona č. 586/1992 Sb.) has been frozen at 30,840 Kč since 2022 while cumulative inflation reached 29.25% (ČSÚ) to 32% (Eurostat HICP) over 2022-2024, eroding its real value; the bill raises it to 34,624 Kč for 2026 and indexes it going forward to 75% of the national average gross monthly wage two years prior. It argues the first-child tax credit (§ 35c odst. 1) has been frozen at 15,204 Kč since 2018 (47% cumulative inflation since), while the second-child credit already sits at 22,320 Kč, so the bill equalizes the first-child credit to that level on fairness grounds ('costs of a first child are not lower than a second'). It argues the parental allowance (rodičovský příspěvek, zákon č. 117/1995 Sb.) has been frozen at 350,000 Kč since 2020 and proposes raising it to 420,000 Kč plus a new automatic CPI + one-third real-wage-growth valorization formula (new § 31a) starting 1 January 2027, to avoid future ad-hoc legislative fixes. It argues a newly enacted state social assistance benefit (zákon č. 151/2025 Sb., o dávce státní sociální pomoci) contains a 'paradox' where households in the lowest income tier receive a smaller per-child component (500 Kč) than a slightly-higher tier (1,000 Kč), and proposes merging those tiers. Separately, and without connecting it to the income-tax framing in the title, the DZ argues Czech still wine has been taxed at 0 Kč/hl while spirits and sparkling wine carry meaningful excise rates, and proposes a new 2,340 Kč/hl still-wine excise (zákon č. 353/2003 Sb.) to remove that 'asymmetry' and raise roughly +4 bn Kč/year, partly offsetting the tax-relief cost. The DZ requests fast-track adoption in a single first reading (§ 90 odst. 2 jednacího řádu PS) since the changes are 'purely parametric.' Total stated public-budget impact: approx. -22.839 to -23.431 bn Kč/year (state: -16.1 to -16.7 bn, kraje: -1.85 bn, obce: -4.9 bn).",
+  "researchedContext": "Primary sources fetched directly: the full bill text with explanatory memorandum (psp.cz orig2.sqw?idd=265051), the print index page (tiskt.sqw), and the procedural history page (historie.sqw). These confirm the graph's dossier is materially incomplete on scope: the graph records only one amended law (586/1992, daně z příjmů), but the actual bill text amends four statutes across Čl. I-IV — 586/1992 (income tax credits), 117/1995 (parental allowance + new valorization mechanism), 353/2003 (a brand-new still-wine excise duty), and 151/2025 (state social assistance benefit tiers) — none of which surface if one reads only the bill's title or the graph's amendedLaws field. Procedurally: the bill was submitted 15 October 2025 by MPs Richterová and Bartoš, distributed as tisk 4/0 on 6 November 2025, sent to the government for comment on 10 November 2025; the government returned a 'nesouhlas' (disagreement) statement on 4 December 2025 (tisk 4/1); the Organizational Committee assigned the Rozpočtový výbor (Budget Committee, RV) as garanční výbor on 17 December 2025 with rapporteur Patrik Pažil. As of 24 July 2026 (today), the bill remains stalled at that committee-assignment stage and has not reached first reading, even though the bill's own § V sets its effective date as 1 January 2026 — a date that has already passed unmet. This is consistent with the government's stated disagreement and with the bill needing significant further legislative work (its self-requested fast-track single-reading procedure did not happen).",
+  "unstatedEffects": [
+    {
+      "effect": "A brand-new 2,340 Kč/hl excise duty on still wine is inserted via Čl. III into an unrelated statute (zákon č. 353/2003 Sb., o spotřebních daních) — a fiscal rider riding on a bill whose title, graph classification, and dossier are entirely framed around income-tax relief (zákon 586/1992). Anyone scanning the bill by its title or the graph's single recorded amendedLaws entry would miss that it also creates a new consumer tax with no textual link to income-tax relief.",
+      "whoBenefits": "The state budget gains an estimated +4 bn Kč/year in new excise revenue (DZ § 4.4); still-wine producers and sellers, previously taxed at 0 Kč/hl, absorb a new cost — the DZ itself concedes room is left for 'future fine calibration' for small producers, meaning no such carve-out exists yet in the bill text.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265051"
+    },
+    {
+      "effect": "The bill requests fast-track adoption in a single first reading under § 90 odst. 2 of the Chamber's rules of procedure for a package with a stated combined annual public-budget impact of roughly -22.8 to -23.4 billion Kč, split unevenly across state, regional (kraje), and municipal (obce) budgets under the statutory revenue-sharing formula (zákon o rozpočtovém určení daní) — those subnational budgets bear a mandated revenue loss set entirely by national legislators.",
+      "whoBenefits": "Low- and middle-income taxpayers and parents of a first child gain expanded tax relief, potentially quickly if fast-tracked; regional budgets (-1.85 bn Kč) and municipal budgets (-4.9 bn Kč) absorb losses they had no part in setting.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265051"
+    }
+  ],
+  "conflictAssessment": "Non-partisan symmetry check on both co-sponsors. Olga Richterová (psp:person:6473) carries no recorded money ties in the graph at all. Ivan Bartoš (psp:person:6433) has exactly one recorded tie — to an OSVČ (self-employed) entity, company:ico:04627695 — but its recorded contract value is 0 Kč, meaning no actual public money changed hands, and the entity has no plausible connection to this bill's subject matter (personal income-tax credits, parental allowance, or the new wine excise). This matches the brief's prediction: the honest finding here is the absence of a conflict rather than its presence. Neither sponsor benefits financially from any provision in this bill, including the wine-excise rider (neither has recorded ties to wine producers or importers). Applying the same standard used against money-flagged bills in this batch, a zero-value, subject-unrelated graph entry does not constitute a conflict and is recorded here for transparency, not as an accusation.",
+  "severity": "low",
+  "confidence": 5,
+  "citations": [
+    {
+      "claim": "The bill raises the basic taxpayer tax credit in § 35ba odst. 1 písm. a) zákona č. 586/1992 Sb. from a fixed 30,840 Kč/year to an indexed formula (75% of the national average gross monthly wage two years prior), worth 34,624 Kč for 2026, with automatic annual valorization going forward.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265051"
+    },
+    {
+      "claim": "The bill raises the tax credit for a first dependent child in § 35c odst. 1 zákona č. 586/1992 Sb. from 15,204 Kč to 22,320 Kč/year, equalizing it with the existing second-child credit and removing the separate second-child figure from that clause.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265051"
+    },
+    {
+      "claim": "The bill raises the parental allowance (rodičovský příspěvek) under § 30 odst. 1 zákona č. 117/1995 Sb. from 350,000 Kč to 420,000 Kč and inserts a new § 31a establishing annual CPI + one-third real-wage-growth valorization starting 1 January 2027.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265051"
+    },
+    {
+      "claim": "Čl. III of the bill inserts a new 2,340 Kč/hl excise duty on still wine into § 96 zákona č. 353/2003 Sb., o spotřebních daních, replacing the previous 0 Kč/hl rate — a change with no textual connection to the bill's income-tax-relief title.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265051"
+    },
+    {
+      "claim": "Čl. IV amends §§ 38-39 zákona č. 151/2025 Sb., o dávce státní sociální pomoci, merging two income tiers of the per-child benefit component into one flat 1,000 Kč/child tier for households up to 3x the subsistence minimum.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265051"
+    },
+    {
+      "claim": "The explanatory memorandum states a combined public-budget impact of approximately -22.839 to -23.431 billion Kč/year (state: -16.1 to -16.7 bn, kraje: -1.85 bn, obce: -4.9 bn), partly offset by an estimated +4 bn Kč/year in new wine-excise revenue.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265051"
+    },
+    {
+      "claim": "The explanatory memorandum cites 29.25% (ČSÚ) to 32% (Eurostat HICP) cumulative inflation for 2022-2024 as justification for raising the frozen basic taxpayer credit, and 47% cumulative inflation 2018-2024 as justification for raising the frozen first-child credit.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265051"
+    },
+    {
+      "claim": "Print 4 (10th term) was submitted 15 October 2025 by MPs Olga Richterová and Ivan Bartoš, distributed as tisk 4/0 on 6 November 2025, sent to the government for comment on 10 November 2025; the government returned a 'nesouhlas' (disagreement) statement on 4 December 2025 (tisk 4/1); the Organizational Committee assigned the Rozpočtový výbor as garanční výbor on 17 December 2025 (rapporteur Patrik Pažil), and as of 24 July 2026 the bill remains at that stage without a first reading.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=4"
+    },
+    {
+      "claim": "The psp.cz print index lists print 4 as 'Novela z. o daních z příjmů - RJ', distributed 6 November 2025 (12:33), with linked bill and explanatory-report documents in PDF/DOCX.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=4&ct1=0"
+    },
+    {
+      "claim": "Zákon č. 586/1992 Sb. is the real Czech income tax act, the law this bill's title and graph record as amended.",
+      "kind": "law",
+      "source": "586/1992"
+    },
+    {
+      "claim": "Zákon č. 117/1995 Sb. (o státní sociální podpoře) is the real statute governing the parental allowance; it is amended by Čl. II of this bill though not present in the graph's recorded amendedLaws for this print.",
+      "kind": "law",
+      "source": "117/1995"
+    },
+    {
+      "claim": "Zákon č. 353/2003 Sb. (o spotřebních daních) is the real excise-duties act into which the new still-wine tax is inserted by Čl. III of this bill.",
+      "kind": "law",
+      "source": "353/2003"
+    },
+    {
+      "claim": "Zákon č. 151/2025 Sb. (o dávce státní sociální pomoci) is the real, newly enacted 2025 statute amended by Čl. IV of this bill.",
+      "kind": "law",
+      "source": "151/2025"
+    },
+    {
+      "claim": "Graph records co-sponsor Olga Richterová (pspId 6473) with no recorded money ties.",
+      "kind": "graph_fact",
+      "source": "psp:person:6473"
+    },
+    {
+      "claim": "Graph records co-sponsor Ivan Bartoš (pspId 6433) with one recorded money tie, an OSVČ entity (ičo 04627695), carrying a contract value of 0 Kč — no actual public money flow and no connection to this bill's subject matter.",
+      "kind": "graph_fact",
+      "source": "company:ico:04627695"
+    }
+  ]
+}
