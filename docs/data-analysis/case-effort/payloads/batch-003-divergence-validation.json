@@ -1,0 +1,171 @@
+{
+  "case": "effort",
+  "batch": 3,
+  "generatedAt": "2026-07-24T19:18:58.849Z",
+  "method": "componentDivergenceV2 = stddev of 6 per-component z-scores computed against a (club × tenure_class) cohort baseline (fallback club-wide, then population-wide, for cohorts under 3 members). Old metric: stddev of the 6 raw 0-1 normalized components with no cohort comparison at all.",
+  "old": {
+    "mean": 0.314,
+    "sd": 0.098,
+    "min": 0.076,
+    "max": 0.496,
+    "distinctValuesAt2dp": 38,
+    "histogram": [
+      {
+        "bucket": "0.05-0.1",
+        "count": 6
+      },
+      {
+        "bucket": "0.1-0.15",
+        "count": 15
+      },
+      {
+        "bucket": "0.15-0.2",
+        "count": 7
+      },
+      {
+        "bucket": "0.2-0.25",
+        "count": 19
+      },
+      {
+        "bucket": "0.25-0.3",
+        "count": 33
+      },
+      {
+        "bucket": "0.3-0.35",
+        "count": 42
+      },
+      {
+        "bucket": "0.35-0.4",
+        "count": 48
+      },
+      {
+        "bucket": "0.4-0.45",
+        "count": 23
+      },
+      {
+        "bucket": "0.45-0.5",
+        "count": 14
+      }
+    ]
+  },
+  "new": {
+    "mean": 0.762,
+    "sd": 0.323,
+    "min": 0.2,
+    "max": 2.074,
+    "distinctValuesAt2dp": 95,
+    "histogram": [
+      {
+        "bucket": "0.13-0.25",
+        "count": 1
+      },
+      {
+        "bucket": "0.25-0.38",
+        "count": 16
+      },
+      {
+        "bucket": "0.38-0.5",
+        "count": 25
+      },
+      {
+        "bucket": "0.5-0.63",
+        "count": 32
+      },
+      {
+        "bucket": "0.63-0.75",
+        "count": 41
+      },
+      {
+        "bucket": "0.75-0.88",
+        "count": 30
+      },
+      {
+        "bucket": "0.88-1",
+        "count": 23
+      },
+      {
+        "bucket": "1-1.13",
+        "count": 17
+      },
+      {
+        "bucket": "1.13-1.25",
+        "count": 7
+      },
+      {
+        "bucket": "1.25-1.38",
+        "count": 3
+      },
+      {
+        "bucket": "1.38-1.5",
+        "count": 4
+      },
+      {
+        "bucket": "1.5-1.63",
+        "count": 5
+      },
+      {
+        "bucket": "1.63-1.75",
+        "count": 1
+      },
+      {
+        "bucket": "1.88-2",
+        "count": 1
+      },
+      {
+        "bucket": "2-2.13",
+        "count": 1
+      }
+    ]
+  },
+  "verdict": "PASS — new metric shows materially higher spread (sd 0.323 vs 0.098), safe to use for ranking.",
+  "cohortSizes": [
+    {
+      "cohort": "ODS::full_term",
+      "n": 27
+    },
+    {
+      "cohort": "TOP09::full_term",
+      "n": 9
+    },
+    {
+      "cohort": "SPD::full_term",
+      "n": 15
+    },
+    {
+      "cohort": "MS::full_term",
+      "n": 13
+    },
+    {
+      "cohort": "ANO2011::full_term",
+      "n": 80
+    },
+    {
+      "cohort": "KDU-ČSL::full_term",
+      "n": 16
+    },
+    {
+      "cohort": "STAN::full_term",
+      "n": 22
+    },
+    {
+      "cohort": "Piráti::full_term",
+      "n": 18
+    },
+    {
+      "cohort": "SPD::replacement",
+      "n": 1
+    },
+    {
+      "cohort": "Piráti::replacement",
+      "n": 1
+    },
+    {
+      "cohort": "ANO2011::replacement",
+      "n": 4
+    },
+    {
+      "cohort": "MS::replacement",
+      "n": 1
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "case": "effort",
+  "batch": 3,
+  "group": "A",
+  "generatedAt": "2026-07-24",
+  "note": "5/5 MPs full_term (no replacement-tenure cases in this group, so no predecessor research needed); no pspId corrections were required — all five psp.cz detail.sqw?id= profiles matched name/club/region from the input; sourcing leaned on psp.cz historie.sqw for bill fate and ARES/rejstřík mirrors for the two linkedCompanies flags (Foldyna, Válková), both of which turned out to be weakly identified (a generic OSVČ IČO shared across two dossiers, and public/municipal entities rather than private business ties) — flagged honestly rather than asserted as real crossover.",
+  "proposals": [
+    {
+      "id": "psp:person:6755",
+      "name": "Jiří Havránek",
+      "club": "ODS",
+      "lens": ["contested", "high-triage"],
+      "props": {
+        "effort_work_themes": ["rozpočet", "bezpečnostní dohled (GIBS)", "sociální politika"],
+        "effort_bill_focus": "Jediným sněmovním tiskem, na kterém je Havránek uveden jako spolupředkladatel, je tisk 133 (novela zákona č. 353/2003 Sb., o spotřebních daních), podaný 10. 3. 2026 společně s Martinem Kupkou, Janem Skopečkem a Vojtěchem Munzarem. Vláda k němu 14. 4. 2026 zaujala nesouhlasné stanovisko; k 24. 7. 2026 je tisk stále v projednávání (po 1. čtení, zpravodajkou je Jana Filipovičová) a zákonem se dosud nestal.",
+        "effort_public_role": "Předsedá Stálé komisi pro kontrolu činnosti Generální inspekce bezpečnostních sborů (GIBS) a je místopředsedou Rozpočtového výboru; dále je řadovým členem Výboru pro sociální politiku a dvou dalších stálých komisí (kontrola Kanceláře PS, kontrola Finančního analytického úřadu). Od 4. 2. 2026 je také místopředsedou poslaneckého klubu ODS.",
+        "effort_notes": "Vstupní data (participation_rate 0.7, committee_count 7, bills_authored 1) odpovídají nalezenému stavu — jeden sponzorovaný tisk a pět výborových/komisních rolí včetně jednoho předsednictví. Žádné propojení na firmy (linkedCompanies je prázdné pole) — bez peněžního zjištění k ověření z Case ①. tenureClass je full_term, není tedy potřeba dohledávat nástupnictví."
+      },
+      "signal": 0.32,
+      "headline": "Havránek vede bezpečnostní dozorovou komisi GIBS, jeho jediný vlastní návrh (spotřební daně) narazil na nesouhlas vlády a zatím nebyl přijat.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6755",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=133"
+      ]
+    },
+    {
+      "id": "psp:person:6168",
+      "name": "Helena Válková",
+      "club": "ANO2011",
+      "lens": ["contested", "high-triage"],
+      "props": {
+        "effort_work_themes": ["ústavní právo", "lidská práva", "petice", "vyšetřovací komise (kauza Dozimetr)"],
+        "effort_bill_focus": "Válková je spolupředkladatelkou dvou tisků: tisku 72 (novela zákona č. 90/1995 Sb., jednacího řádu PS), podaného 18. 12. 2025 skupinou poslanců kolem Radka Vondráčka — ten prošel všemi třemi čteními, byl schválen 3. 7. 2026 (hlasování č. 242/usnesení č. 243) a 21. 7. 2026 postoupen Senátu; a tisku 115 (novela trestního zákoníku, zákon č. 40/2009 Sb., a zákona o obětech trestných činů č. 45/2013 Sb.), podaného 18. 2. 2026 skupinou kolem Andreje Babiše — ten je po 1. čtení a kladném stanovisku ÚPV z 30. 4. 2026, k 24. 7. 2026 zákonem ještě není.",
+        "effort_public_role": "Bývalá ministryně spravedlnosti (2014–2015) a vládní zmocněnkyně pro lidská práva (2019–2022); v současném volebním období (od 4. 10. 2025) předsedá Mandátovému a imunitnímu výboru, je členkou Ústavně-právního výboru, Petičního výboru a vyšetřovací komise k tzv. kauze Dozimetr (DPP, KSÚS Středočeského kraje, VZP — podezření z korupce).",
+        "effort_notes": "Vstupní data ukazují 2 sponzorované tisky a 8 výborových/komisních vazeb — to sedí s nalezeným obrazem (2 tisky + výbor/petiční/komise/vyšetřovací komise + meziparlamentní skupiny). Dvě položky linkedCompanies (OSVČ IČO 04627695, contractCzk 0; Družstvo Nárožní dům Plavecká 12, IČO 61463647, contractCzk 0) se nepodařilo ověřit jako reálnou obchodní vazbu: IČO 04627695 je generický záznam OSVČ bez odlišujícího jména a — nápadně — figuruje s nulovou hodnotou i u jiné poslankyně v tomto vzorku (Foldyna, dossier níže), což silně naznačuje neresolvovaný placeholder v datovém pipeline Case ① spíše než skutečnou vazbu; družstvo Plavecká 12 je pražské bytové družstvo bez zjevné souvislosti s její agendou. Doporučuji ponechat obě položky v pending_review a prioritně re-resolvovat IČO 04627695 napříč dossiery."
+      },
+      "signal": 0.5,
+      "headline": "Bývalá ministryně spravedlnosti Válková vede vyšetřovací komisi ke kauze Dozimetr; její dvě firemní vazby v datech jsou pravděpodobně nedořešený placeholder, ne reálné propojení.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6168",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=115",
+        "https://www.finmag.cz/obchodni-rejstrik/61463647-druzstvo-narozni-dum-plavecka-12"
+      ]
+    },
+    {
+      "id": "psp:person:5911",
+      "name": "Jaroslav Foldyna",
+      "club": "SPD",
+      "lens": ["contested", "high-triage"],
+      "props": {
+        "effort_work_themes": ["hospodářství", "media", "veřejná doprava (region)", "meziparlamentní vztahy (Řecko, Srbsko)"],
+        "effort_bill_focus": "Foldyna je spolupředkladatelem tisku 87 (návrh zákona o zemských znacích a vlajkách, předložil R. Vondráček 22. 1. 2026) — k 24. 7. 2026 je stále ve výborech (garanční VVVMS, ÚPV) a zákonem se nestal; a tisku 116 (zrušení tzv. nominačního zákona č. 353/2019 Sb. o výběru kandidátů do orgánů státem ovládaných obchodních společností), předloženého Z. Ožanovou a dalšími — Hospodářský výbor jej 15. 6. 2026 doporučil ke schválení, projednávání pokračovalo na 27. schůzi od 10. 7. 2026, dosud nepřijato.",
+        "effort_public_role": "Bývalý místopředseda ČSSD (do 2019), od 2020 v SPD. V aktuálním období je ověřovatelem Sněmovny (od 5. 11. 2025), místopředsedou Výboru pro mediální záležitosti (od 4. 12. 2025), členem Hospodářského výboru a Stálé komise pro kontrolu BIS; předsedá meziparlamentním skupinám ČR-Řecko a ČR-Srbsko. Regionální kancelář v Děčíně odpovídá jeho ústeckému volebnímu obvodu.",
+        "effort_notes": "committee_count 4 a bills_authored 2 odpovídají nalezenému stavu. linkedCompanies obsahuje tři položky: (1) stejný generický OSVČ IČO 04627695 s contractCzk 0 jako u Válkové v tomto vzorku — pravděpodobně nedořešený placeholder, viz poznámka u jejího dossieru; (2) Krajská zdravotní, a.s. (IČO 25488627), provozovatel krajských nemocnic v Ústeckém kraji (Ústí n. L., Most, Děčín, Litoměřice) s contractCzk 81 683 361,6 — veřejná akciová společnost vlastněná krajem, nikoli soukromá firma s osobní vazbou; (3) Dopravní podnik města Děčína, a.s. (IČO 62240935), městský dopravní podnik v Děčíně (Foldynův region) s contractCzk 1 000 000. U obou posledních jde o velké veřejné/municipální subjekty v jeho volebním kraji — nepodařilo se dohledat nezávislé potvrzení, jaký konkrétní smluvní vztah (dodávka, poradenství, jiná role) částku vygeneroval; doporučuji, aby to ověřil tým Case ① přes Registr smluv, než se položky posunou z pending_review."
+      },
+      "signal": 0.68,
+      "headline": "Foldynovy dva návrhy zákonů čekají na dokončení projednání; nápadněji vyčnívá nevysvětlená 81,7mil. Kč vazba na krajskou nemocnici v jeho vlastním kraji, kterou je třeba dořešit přes Registr smluv.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=5911",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=116",
+        "https://rejstrik.penize.cz/25488627-krajska-zdravotni-a-s",
+        "https://rejstrik.penize.cz/62240935-dopravni-podnik-mesta-decina-a-s"
+      ]
+    },
+    {
+      "id": "psp:person:6246",
+      "name": "Josef Kott",
+      "club": "ANO2011",
+      "lens": ["contested", "high-triage"],
+      "props": {
+        "effort_work_themes": ["zemědělství", "kontrola veřejných financí", "legislativní procedura"],
+        "effort_bill_focus": "Kott je spolupředkladatelem tří tisků: tisku 72 (novela jednacího řádu PS, zákon 90/1995 Sb.) — přijat 3. 7. 2026, postoupen Senátu 21. 7. 2026; tisku 87 (zákon o zemských znacích a vlajkách) — dosud ve výborech; a tisku 116 (zrušení nominačního zákona 353/2019 Sb.) — doporučen Hospodářským výborem 15. 6. 2026, dosud nepřijat. Žádný z jeho tří tisků tedy zatím nenabyl platnosti kromě tisku 72, který čeká na Senát.",
+        "effort_public_role": "Poslancem od prosince 2013 (mandát v tomto vzorku končí zvolením do NKÚ), byl místopředsedou Kontrolního výboru a členem Zemědělského výboru. Profesně je (podle veřejných zdrojů) produktovým manažerem pro komoditní obchod ve společnosti ZZN Pelhřimov a.s., která patří do koncernu Agrofert — tedy souběh kontrolní/legislativní role poslance ANO se zaměstnaneckým vztahem k firmě spojené s předsedou hnutí Andrejem Babišem.",
+        "effort_notes": "committee_count 3, bills_authored 3 a interpellations 27 odpovídají nálezu (aktivní interpelant, tři spolupředkladatelství). Nejvýznamnější zjištění nad rámec vstupních dat: Kott byl v červnu 2026 zvolen (131 hlasy) členem Rady Nejvyššího kontrolního úřadu, čímž ukončil poslanecký mandát — což je zásadní kontext pro interpretaci `contribution_score`/`triage`, protože jde o částečné, nikoli celé volební období, a přechod z kontrolní role v PS do kontrolní role v NKÚ. Vazba na Agrofert (ZZN Pelhřimov) není v linkedCompanies uvedena (pole je prázdné) — doporučuji doplnit v příští revizi Case ①, protože jde o zdokumentovaný konflikt zájmů (poslanec kontrolního výboru zaměstnaný firmou koncernu spojeného s předsedou vládnoucího hnutí)."
+      },
+      "signal": 0.72,
+      "headline": "Kott, zaměstnanec agrofertí firmy ZZN Pelhřimov a místopředseda Kontrolního výboru, v červnu 2026 přešel rovnou do Rady Nejvyššího kontrolního úřadu.",
+      "citations": [
+        "https://cs.wikipedia.org/wiki/Josef_Kott_(politik)",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=116",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87"
+      ]
+    },
+    {
+      "id": "psp:person:6520",
+      "name": "Pavel Růžička",
+      "club": "ANO2011",
+      "lens": ["contested", "high-triage"],
+      "props": {
+        "effort_work_themes": ["obrana", "vojenské zpravodajství", "bezpečnost"],
+        "effort_bill_focus": "Vstupní data uvádějí sponsoredBills jako prázdné pole a bills_authored 0 — to potvrzuje i psp.cz profil, kde Růžička nefiguruje jako (spolu)předkladatel žádného sněmovního tisku v tomto období. Jeho příspěvek je tedy výhradně výborová/dozorová práce, ne legislativní iniciativa.",
+        "effort_public_role": "Bývalý voják z povolání (21 let služby, mise v Kosovu a Iráku); v aktuálním období je místopředsedou Výboru pro obranu (od 12. 11. 2025), předsedou Stálé komise pro kontrolu Vojenského zpravodajství (od 27. 11. 2025) a členem Mandátového a imunitního výboru i Výboru pro bezpečnost. Vede meziparlamentní skupiny ČR-Bahrajn a ČR-Irák.",
+        "effort_notes": "Vstup ukazuje participation_rate 1.0, absence_rate 0 a committee_count 7 — extrémně vysoká docházka a široké výborové zapojení bez jediného vlastního tisku je konzistentní obraz \"tichého\" dozorového pracovníka v obranné/bezpečnostní agendě, nikoli legislativního iniciátora. Žádné linkedCompanies (prázdné pole) — bez peněžního zjištění k ověření z Case ①."
+      },
+      "signal": 0.28,
+      "headline": "Růžička, bývalý voják, má stoprocentní docházku a předsedá dozoru nad vojenským zpravodajstvím, ale za celé období nepodal jediný vlastní zákon.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6520",
+        "https://cs.wikipedia.org/wiki/Pavel_R%C5%AF%C5%BEi%C4%8Dka_(politik)"
+      ]
+    }
+  ]
+}

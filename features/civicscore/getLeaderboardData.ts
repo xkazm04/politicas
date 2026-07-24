@@ -131,6 +131,11 @@ export interface LeaderboardEntry {
   // structural explanation (graceful null; never fabricated).
   effortLowScoreReason: string | null;
   effortPublicRole: string | null;
+  // Quiet-workhorse surface (batch 003, O-effort-3): P31's two positive-symmetry
+  // flavours — legislative-authorship vs oversight-institutional. Null/false for the
+  // ~191/207 MPs not (yet) flagged by the deterministic triage lens; never fabricated.
+  effortWorkhorse: boolean;
+  effortWorkhorseFlavour: string | null;
 }
 
 export interface ClubFacet {
@@ -227,6 +232,8 @@ export async function buildLeaderboard(): Promise<{ data: LeaderboardData; direc
         ),
         effortLowScoreReason: typeof p.props.effort_low_score_reason === "string" ? p.props.effort_low_score_reason : null,
         effortPublicRole: typeof p.props.effort_public_role === "string" ? p.props.effort_public_role : null,
+        effortWorkhorse: p.props.effort_workhorse === true,
+        effortWorkhorseFlavour: typeof p.props.effort_workhorse_flavour === "string" ? p.props.effort_workhorse_flavour : null,
       };
     });
 

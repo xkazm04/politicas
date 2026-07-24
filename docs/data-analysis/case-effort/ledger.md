@@ -14,6 +14,7 @@ population is feasible; triage decides depth, not whether.
 |---|---|---|---|---|---|---|
 | 001 | 20 | 20/207 (9.7 %) | 0.771 | R=1 · PSP9 trend restoration (partial on copy, live ingest handed off) | 20/20 PASS | calibration; absentee crossover = systemic false-positive in young term |
 | 002 | 30 | 50/207 (24.2 %) | 0.744 | R=1 · low-score-reason badge on `/poslanec` (O-effort-2, generalized) | 30/30 PASS | Sonnet-majority (0 Opus in army); Q-effort-1 `never_cast_ballot` pre-filter live in triage — 0 new phantom mandates; NEW `replacement`-MP tenure class discovered |
+| 003 | 35 | 85/207 (41.1 %) | 0.500 | R=1 · quiet-workhorse flavour badge+filter on `/zebricek` (O-effort-3) | 35/35 PASS | Sonnet army (7×5) + 2 Opus calls (money verification + reflection); Q-effort-5 end-date-aware tenure annotation (207/207: 193 full_term / 7 replacement / 3 departed / 4 never_seated) + Q-effort-6 componentDivergence retune (sd 0.098→0.323, validated) both shipped; NEW mid-term-role-change structural class (6 MPs); oversight-flavour quiet-workhorse population now fully covered (5/5); signal dip is composition (17/35 high-triage filler), not quality decay |
 
 **Signal-yield** is the convergence measure (new signals ÷ units). Batch 001 is the
 baseline — every unit produced a citable dossier, so raw yield ≈ 1.0; the 0.771 above is
@@ -92,3 +93,56 @@ mean story-worthiness. Convergence (K=3 batches under threshold) not yet applica
   divergence lenses so `replacement` MPs stop reading as low-effort; de-saturate
   `componentDivergence` (near-degenerate in a young term — most MPs score 0.4+); route
   money-linked units to an Opus verification pass per the reflection's recommendation.
+
+### Batch 003 — tenure + divergence retune, Opus money-verification routing (2026-07-24)
+- **Q-effort-5 shipped**: deterministic `effort_tenure_days`/`effort_tenure_class`/`effort_tenure_start`
+  for all 207 MPs, sourced from `membership.fromAt` on organ 174 (the PSP10 chamber itself) — the mandate
+  table's own date columns turned out to be almost entirely null in this ingest. 7 replacement MPs found
+  (up from batch 002's 4 named cases), gated 207/207. Annotation-only; `computeContribution` untouched.
+- **Q-effort-6 shipped**: `componentDivergence` re-tuned from an absolute 0-1 stddev (batch 002: sd 0.098,
+  38 distinct values/207 — near-degenerate) to a `club × tenure_class`-cohort z-score stddev (sd 0.323,
+  95 distinct values/207 — validated 3.3× spread increase BEFORE being used for ranking, per the kernel's
+  own discriminative-power guardrail). Full evidence in `payloads/batch-003-divergence-validation.json`.
+- Army of 35 (7 grouped Sonnet agents × 5): 6 top + 4 bottom (now tenure-normalized) + 4 quiet-workhorse-
+  legislative + 0 quiet-workhorse-oversight (**population exhausted — 5/5 covered across batches 001-002**)
+  + 5 contested-rebellion + 6 divergence + 17 high-triage filler. Gate 35/35 PASS, 0 DROP (one fix: a
+  mis-namespaced `raw_flag` prop from one group corrected to `effort_data_flag` before merge). 152 citations.
+- **Key finding — a THIRD floor-artifact class**: mid-term role change. 6 MPs (Havlíček→1st Deputy PM,
+  Macinka→Deputy PM/Foreign Min., Schillerová→Finance Min., Babiš→PM, Metnar→Interior Min., Urbanová→Deputy
+  Speaker) all took a bigger job in Dec 2025–Jun 2026, explaining their low plenary-activity props —
+  distinct from batch 001's never-sworn phantom mandate and batch 002's replacement-MP tenure artifact.
+- **Cross-cutting lead (count corrected by the Opus reflection)**: the same suspicious "OSVČ" IČO
+  `04627695` contaminates the `linkedCompanies` data of **10 of the 13 money-linked army MPs** (flagged
+  independently by 6 of 7 groups; two groups resolved it to mutually inconsistent entities) — a systemic
+  entity-resolution defect in the money loop's `linked_to` ingest, recommended as a hard blocker on any
+  money-crossover product surface until reconciled against ARES REST (escalated in handoff, not touched).
+- **Money-crossover Opus verification** (13 MPs + the Kott conflict-of-interest lead): verdict — **do NOT
+  persist the money/company sentences as-is**; 6/14 carry real errors, 5 the same way (false negatives on
+  personal register roles — the army used ARES's officer-less plain endpoint; the fix is the VR endpoint).
+  Shared-IČO mystery solved: 04627695 = Agrární demokratická strana with a junk "OSVČ" name field —
+  ingest-level false-edge class affecting every self-employed MP. Kott's Agrofert COI CONFIRMED (and his
+  empty linkedCompanies proves the mechanical filter misses claim-type COIs). Full verdicts in
+  `payloads/batch-003-props.json` → `opusMoneyVerification` and `batch-003.md`.
+- **Opus reflection** (the 2nd and final Opus call this batch): quality held on effort claims (0
+  contradictions with prior batches), 4 concrete defects found (2 of them NON-money — qualifying batch
+  002's "only weakness class is money"); tenure end-date gap + workhorse departure-guard both caught and
+  FIXED in-batch; divergence V2 validated but flagged as artifact-dominated at the top. Full text in
+  `handoff.md` / `batch-003.md`.
+- **Build (R=1)**: quiet-workhorse flavour badge + symmetric filter on `/zebricek` (O-effort-3). Backfilled
+  `effort_workhorse_flavour` (legislative|oversight) deterministically for the 15 currently-flagged,
+  still-serving MPs (gate 15/15 — a departure guard added after the reflection caught that Beran, resigned
+  May 2026, would otherwise be badged as current), shipped `lib/analysis/workhorse-flavour.ts` (+5 tests)
+  and `WorkhorseBadge.tsx`, wired into `LeaderboardTable.tsx`. `npm run check`: typecheck ✅ · lint ✅ ·
+  tests 176/176 ✅ (+10 new).
+- **Tenure classifier hardened in-batch**: the Opus reflection caught that a fromAt-only version
+  misclassified all 7 departed seats (incl. the 4 never-sworn phantoms) as 293-day full_term — fixed with
+  `membership.toAt`; final classes 193 full_term / 7 replacement / 3 departed / 4 never_seated, re-gated
+  207/207.
+- Gate 35/35 (+207/207 tenure +15/15 workhorse-flavour). No live write, no commit (fleet) — see `handoff.md`.
+  Fleet collision confirmed again this batch (unrelated `features/money/*`/`lib/db/*` changes present in
+  the working tree from the concurrent money loop — not touched).
+- Steering for batch 004: the high-triage-filler share (17/35) signals the sharpest lenses are exhausting;
+  consider widening or adding a new lens (e.g. tenure-class-crossed-with-club-baseline) before it becomes
+  the dominant share; resolve the shared-IČO anomaly's root cause with the money loop if it recurs a 5th
+  time; `mid-term role change` deserves an `effort_low_score_reason` vocabulary review (Metnar/Urbanová
+  don't cleanly fit existing values).

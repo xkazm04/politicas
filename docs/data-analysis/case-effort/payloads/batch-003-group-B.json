@@ -1,0 +1,114 @@
+{
+  "case": "effort",
+  "batch": 3,
+  "group": "B",
+  "generatedAt": "2026-07-24",
+  "note": "All 5 pspIds resolved cleanly against public.psp.cz detail pages (no corrections needed); all five dossiers are tenureClass=full_term (PSP10, elected Oct 2025, ~293 tenure days), so no replacement-predecessor research applied this batch. Sourcing: psp.cz detail.sqw for MP profile, historie.sqw for bill fate (queried by cislo, not internal tiskId), plus ARES/kdu.cz/vlada.gov.cz/news for role and company verification. Petr Hladík's large ARENA BRNO contractCzk figure was traced as far as public sources allow (his long tenure as Brno city councillor / first deputy mayor and a confirmed supervisory-board seat at a sister municipal company) but a direct personal decision-making tie to the arena contract itself could not be documented, so it is flagged, not asserted, in his effort_notes; a duplicate mis-attributed OSVČ IČO (04627695) shared identically between Teleky's and Hladík's linkedCompanies is flagged as a likely entity-resolution error in the money loop.",
+  "proposals": [
+    {
+      "id": "psp:person:6719",
+      "name": "Jana Bačíková",
+      "club": "ODS",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["zemědělství", "kontrola centrální evidence bankovních účtů", "komunální politika"],
+        "effort_bill_focus": "Jana Bačíková je zatím spoluřešitelkou jediného poslaneckého tisku 261 (novela zákona č. 114/1992 Sb., o ochraně přírody a krajiny), který skupina poslanců ODS kolem Jana Bureše podala teprve 14. července 2026 — návrh byl 17. 7. 2026 postoupen vládě k vyjádření (lhůta do 16. 8. 2026), takže jeho osud je zatím zcela otevřený.",
+        "effort_public_role": "Od roku 2010 je starostkou obce Vacenovice (okres Hodonín), v ODS je předsedkyní místní organizace a místopředsedkyní krajského sdružení v Jihomoravském kraji. V současném volebním období je členkou Zemědělského výboru a Stálé komise pro kontrolu poskytnutí údajů z centrální evidence účtů.",
+        "effort_notes": "Vstupní data (contribution_score 46, participation_rate 0.7, bills_authored 1) odpovídají zjištěnému stavu — jediný sponzorovaný tisk je čerstvý a bez dopadu na skóre legislativní aktivity zatím nemůže být. Žádné propojené firmy (linkedCompanies je prázdné), triage tenureClass=full_term je v pořádku (zvolena podzim 2025)."
+      },
+      "signal": 0.3,
+      "headline": "Starostka Vacenovic z Jihomoravska podala svůj první poslanecký návrh zákona (ochrana přírody) až 14. července 2026 — zatím je bez výsledku.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6719",
+        "https://www.ods.cz/profil/3701-jana-bacikova",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&T=261",
+        "https://cs.wikipedia.org/wiki/Jana_Ba%C4%8D%C3%ADkov%C3%A1"
+      ]
+    },
+    {
+      "id": "psp:person:6484",
+      "name": "David Štolpa",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["cestovní ruch", "veřejná správa a regionální rozvoj", "hybridní hrozby"],
+        "effort_bill_focus": "Spoluautorsky se podílel na tisku 11 (novela zákona o pojistném na sociální zabezpečení, 589/1992 Sb.), který Sněmovna schválila 25. 3. 2026, po zamítnutí Senátem 6. 5. 2026 setrvala na původním znění 26. 5. 2026 a prezident jej podepsal — vyhlášen jako zákon č. 90/2026 Sb. (snížení odvodového zatížení OSVČ a rodičů vracejících se z rodičovské). Dále spoluautor tisku 72 (novela jednacího řádu Sněmovny, 90/1995 Sb.), který prošel 3. čtením 1.–3. 7. 2026 a je nyní v Senátu (do 20. 8. 2026), a tisků 70 a 87.",
+        "effort_public_role": "Podnikatel v cestovním ruchu a prodeji výpočetní techniky ze Znojma, městský zastupitel/radní Znojma od roku 2014/2015. Od 5. 2. 2026 předsedá podvýboru pro cestovní ruch.",
+        "effort_notes": "Vysoká participation_rate (1,0) a nulová absence_rate v datech odpovídají aktivnímu profilu; nulové interpellations v aktuálním období proti 14 v PSP9 a componentDivergence 0.982 (nejvyšší v této skupině vedle Teleky) je nejspíš dáno tím, že jde teprve o cca 9 měsíců nového mandátu — doporučujeme sledovat v dalších vlnách, ne brát jako anomálii. Žádné propojené firmy."
+      },
+      "signal": 0.45,
+      "headline": "Znojemský podnikatel v cestovním ruchu dotáhl spoluautorskou novelu zákona o pojistném na sociální zabezpečení až do Sbírky zákonů jako zákon č. 90/2026 Sb.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6484",
+        "https://cs.wikipedia.org/wiki/David_%C5%A0tolpa",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&T=11",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&T=72"
+      ]
+    },
+    {
+      "id": "psp:person:6786",
+      "name": "Róbert Teleky",
+      "club": "KDU-ČSL",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["zdravotnictví", "hospodářství", "regionální nemocnice"],
+        "effort_bill_focus": "Spoluautor tří tisků skupiny kolem Mariana Jurečky: tisk 50 (novela zákona o důchodovém pojištění 155/1995 Sb. a 417/2024 Sb.) — vláda k němu 17. 2. 2026 vydala nesouhlasné stanovisko, návrh dál čeká na projednání ve Výboru pro sociální politiku; tisky 110 a 121 patří do stejného legislativního balíčku KDU-ČSL, jejich detailní stav nebyl v tomto kole ověřen jednotlivě.",
+        "effort_public_role": "Chirurg působící ve Vsetíně a Valašském Meziříčí od roku 1995, od roku 2012 jednatel a společník Teleky Medicus s.r.o. (chirurgická ambulance v areálu Vsetínské nemocnice). Od roku 2014 je členem dozorčí rady Vsetínské nemocnice a.s. (dříve, 2007–2010, byl ve statutárním orgánu), 2016–2024 zastupitel Zlínského kraje, od 2014 zastupitel města Vsetín. Pro volby 2025 byl krajským lídrem KDU-ČSL ve Zlínském kraji.",
+        "effort_notes": "Propojené firmy (Vsetínská nemocnice, Kroměřížská nemocnice, Uherskohradišťská nemocnice, Krajská nemocnice T. Bati, Vsetínská sportovní, Teleky Medicus) logicky odpovídají jeho profesní/dozorčí roli v regionálním zdravotnictví — u Vsetínské nemocnice je vazba přímo doložitelná (dozorčí rada). Naopak položka 'OSVČ' s IČO 04627695 (contractCzk 0) je podle veřejného rejstříku ARES vedena na fyzickou osobu se sídlem ve Všerubech (okres Plzeň-sever) — bez zjevné vazby na Teleky ani jeho známé působiště; identické IČO se navíc objevuje i v dossieru Petra Hladíka v tomtéž batchi, což ukazuje na pravděpodobnou chybu při párování subjektů v money-loopu, ne na skutečnou vazbu. componentDivergence 1.244 (nejvyšší v batchi) odpovídá výraznému poklesu speech_turns (3 vs. 40 v PSP9) — pravděpodobně jde jen o časnou fázi nového mandátu."
+      },
+      "signal": 0.55,
+      "headline": "Vsetínský chirurg z KDU-ČSL má reálné vazby na regionální nemocnice přes dozorčí radu, ale v datech ho spojuje s Petrem Hladíkem i jedno stejné, nejspíš špatně přiřazené IČO.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6786",
+        "https://cs.wikipedia.org/wiki/R%C3%B3bert_Teleky",
+        "https://www.telekymedicus.cz/",
+        "https://www.kdu.cz/o-nas/nasi-lide/poslanci/teleky",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&T=50",
+        "https://www.finmag.cz/obchodni-rejstrik/ares/04627695-osvc"
+      ]
+    },
+    {
+      "id": "psp:person:6533",
+      "name": "Marek Novák",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["hospodářství", "sociální politika", "hybridní hrozby"],
+        "effort_bill_focus": "Spoluautor stejné trojice tisků jako David Štolpa: tisk 11 (novela zákona o pojistném na sociální zabezpečení), který byl vyhlášen jako zákon č. 90/2026 Sb.; tisk 72 (novela jednacího řádu Sněmovny), po 3. čtení nyní v Senátu; a tisk 87 bez uvedeného novelizovaného zákona.",
+        "effort_public_role": "Poslanec za ANO ve Zlínském kraji, v aktuálním období je členem Hospodářského výboru, Výboru pro sociální politiku a Stálé komise pro hybridní hrozby, bez vedoucí funkce (leadership_count 0). V předchozím období vedl podvýbor pro ICT/AI/digitální ekonomiku — v aktuálním volebním období tuto pozici podle dostupných zdrojů nezastává. Mimo politiku je činný ve výkonném výboru amatérského fotbalového klubu SK Zlín 1931.",
+        "effort_notes": "Nejvyšší contribution_score v této skupině (82,8) i nejvyšší legislativní skóre v PSP9 (20 bodů, 23 návrhů, 246 řečnických vystoupení, 38 interpelací) — silný 'workhorse' profil bez vedoucí funkce v aktuálním období, což odpovídá triage komponentě leadership_count 0 a je vidět i v quietWorkhorseIndex. Žádné propojené firmy (linkedCompanies prázdné)."
+      },
+      "signal": 0.4,
+      "headline": "Nejvýkonnější poslanec skupiny B podle skóre je i bez jediné vedoucí funkce spoluautorem zákona č. 90/2026 Sb.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6533",
+        "https://cs.wikipedia.org/wiki/Marek_Nov%C3%A1k",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&T=11",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&T=72"
+      ]
+    },
+    {
+      "id": "psp:person:6881",
+      "name": "Petr Hladík",
+      "club": "KDU-ČSL",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["životní prostředí", "evropské záležitosti", "finanční dohled", "komunální politika Brna"],
+        "effort_bill_focus": "Jako poslanec je hlavním předkladatelem čtyř vlastních tisků z odpadové/obalové legislativy: tisk 73 (novela zákona o obalech 477/2001 Sb., podán 22. 12. 2025) — vláda k němu 20. 1. 2026 vydala nesouhlasné stanovisko a čeká na projednání ve Výboru pro životní prostředí; tisky 74, 75 a 161 patří do stejné odpadové agendy. Dva další tisky v jeho dossieru (14 — novela zákona o látkách poškozujících ozonovou vrstvu, a 58) jsou ale VLÁDNÍ návrhy podané 'min. živ. prostředí' — jde nejspíš o data z období, kdy byl sám ministrem životního prostředí, a jejich zařazení mezi jeho 'poslanecké' sponzorované tisky je datová anomálie, ne osobní poslanecká iniciativa (odpovídá to i příznaku flagged_conflict=true u obou).",
+        "effort_public_role": "Ministrem životního prostředí byl od 10. 3. 2023 do rezignace 6. 11. 2025 (ve funkci do 15. 12. 2025) ve vládě Petra Fialy; po odchodu koalice SPOLU do opozice v prosinci 2025 je řadovým poslancem. Od 4. 3. 2026 je místopředsedou poslaneckého klubu KDU-ČSL, od 25. 3. 2026 předsedou Stálé komise pro kontrolu činnosti Finančního analytického úřadu a od 16. 1. 2026 členem Výboru pro evropské záležitosti a Výboru pro životní prostředí. Předtím byl 2016–2022 prvním náměstkem primátorky Brna a dlouhodobě je zastupitelem města Brna.",
+        "effort_notes": "VYSOCE RIZIKOVÉ PENĚŽNÍ TVRZENÍ — POUZE ČÁSTEČNĚ OVĚŘENO: propojená firma ARENA BRNO, a.s. s contractCzk 5 390 760 300 Kč (přes 5,3 mld. Kč) odpovídá reálné brněnské multifunkční hale (celkový rozpočet projektu se v médiích uvádí kolem 7 mld. Kč), ale nepodařilo se dohledat, že by Hladík zasedal v představenstvu či dozorčí radě ARENA BRNO, a.s. — předsedou představenstva je dle dostupných zdrojů Petr Kratochvíl. Doloženo je naopak jeho členství v dozorčí radě sesterské městské firmy Dopravní podnik města Brna, a.s. (druhá položka v seznamu, 6,7 mil. Kč), a jeho dlouholetá role brněnského zastupitele/náměstka primátorky dává obecný důvod, proč se objevuje u městských akciovek (Teplárny Brno, SAKO Brno) — jde ale o institucionální dohled přes zastupitelstvo, ne o doloženou osobní smluvní vazbu. Doporučujeme ponechat reviewState=pending_review a ověřit konkrétní hlasování zastupitelstva/smlouvu v Registru smluv, než se částka použije jako přímé tvrzení o osobním propojení. MERO ČR, a.s. (státní ropovodní společnost) v seznamu s contractCzk 0 nemá zjevnou vazbu na Brno ani na Hladíka a může jít o další chybu párování. Položka 'OSVČ' IČO 04627695 je stejná jako u Teleky v tomto batchi a podle ARES patří osobě se sídlem ve Všerubech — pravděpodobná chyba entity-resolution, ne skutečná vazba na Hladíka."
+      },
+      "signal": 0.85,
+      "headline": "Bývalý ministr životního prostředí se po pádu do opozice vrátil k vlastní odpadové agendě, ale jeho datová vazba na 5,3miliardovou zakázku brněnské arény se nepodařilo doložit jako osobní — spíš jde o dlouholetou roli městského zastupitele.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6881",
+        "https://vlada.gov.cz/cz/clenove-vlady/petr-hladik-203664/",
+        "https://www.irozhlas.cz/zpravy-domov/s-motoristy-na-zivotnim-prostredi-hrozi-lobbisticke-vazby-uhli-a-vekslacke_2511201100_jgr",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&T=73",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&T=14",
+        "https://arenabrno.cz/ridici-vybor",
+        "https://www.finmag.cz/obchodni-rejstrik/ares/04627695-osvc"
+      ]
+    }
+  ]
+}

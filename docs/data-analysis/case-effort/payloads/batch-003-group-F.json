@@ -1,0 +1,107 @@
+{
+  "case": "effort",
+  "batch": 3,
+  "group": "F",
+  "generatedAt": "2026-07-24",
+  "note": "5/5 dossiers cross-checked against psp.cz detail.sqw (MP profile) and historie.sqw (bill status, keyed by 'cislo' not the internal 'tiskId'); no pspId corrections needed, all five show tenureClass=full_term/293 days consistent with the PSP10 term start (4.10.2025) so no replacement research was triggered; Babiš's linkedCompanies/contractCzk figures are referenced as-is from the money loop (Case ①) and not re-derived here.",
+  "proposals": [
+    {
+      "id": "psp:person:6150",
+      "name": "Andrej Babiš",
+      "club": "ANO2011",
+      "lens": ["divergence"],
+      "props": {
+        "effort_work_themes": ["daně a rozpočet", "školská legislativa", "platy ústavních činitelů"],
+        "effort_bill_focus": "Babiš je v PSP10 uveden jako (spolu)předkladatel u řady poslaneckých návrhů klubu ANO, ale primárním navrhovatelem je vlastně jen u menšiny z nich. Tisk 232 (novela školského zákona, s R. Plagou, zákaz mobilů ve školách) prošel 22.6.2026 do sněmovny a 22.7.2026 k němu vláda vydala souhlasné stanovisko; k 24.7.2026 čeká na projednání v plénu. Tisk 35 (novela zákona o platu představitelů státní moci, s T. Okamurou a P. Macinkou) má vládní souhlas z 16.12.2025 a je přikázán rozpočtovému výboru, k 24.7.2026 dosud neprojednán. Tisk 11 (novela zákona o pojistném na sociální zabezpečení, primární předkladatelka A. Schillerová, Babiš mezi spolupředkladateli) byl schválen, Senátem 6.5.2026 zamítnut, Sněmovnou 26.5.2026 přehlasován a vyhlášen jako zákon č. 90/2026 Sb. — jde o jediný z jeho devíti tisků v datovém setu, který byl v tomto okně dotažen do publikace ve Sbírce.",
+        "effort_public_role": "Babiš je od 9.12.2025 předsedou vlády ČR (potvrzeno na psp.cz), poslancem od 4.10.2025 za Moravskoslezský kraj. Funkce premiéra vysvětluje nízkou floor-aktivitu v datech (participation_rate 0.4, absence_rate 1 v aktuálních props) — jde o formální nepřítomnost při hlasováních kvůli vládním povinnostem, ne o rezignaci na mandát.",
+        "effort_notes": "Datová nesrovnalost k prověření: props uvádí absence_rate=1 (100% absencí) společně se speech_turns=95 a bills_authored=9, což je vnitřně napjaté (nulová účast by typicky nekorelovala s aktivním předkládáním); pravděpodobné vysvětlení je přechod na roli premiéra v prosinci 2025, ale doporučuji ověřit metodiku absence_rate u členů vlády. componentDivergence=1.964 (nejvyšší v této skupině) odpovídá srovnání PSP9 (score 43.3, interpelace 44, 499 řečnických vystoupení) vs. PSP10 (score 44.7, 0 interpelací, 95 vystoupení) — napříč komponentami jde o plošný pokles floor-aktivity, konzistentní s vládní rolí, nikoli o anomálii k řešení. K linkedCompanies (Agrofert, Hartenberg, SynBiol atd., stav pending_review, Case ① provenience) doplňuji už veřejně známý kontext: Babiš vložil podíl v Agrofertu do svěřenského fondu RSVP Trust (dokončeno 20.2.2026 po schválení regulátory tří zemí EU), střet zájmů podle něj vyřešen, Transparency International a Evropská komise (žádost o doplnění z 20.5.2026) to zpochybňují — toto je již medializovaný veřejný spor, ne nový nález této skupiny, a čísla u linkedCompanies nejsou touto skupinou přepočítávána ani rozporována."
+      },
+      "signal": 0.9,
+      "headline": "Babiš jako premiér skoro nehlasuje a nepřednáší interpelace, ale u zákazu mobilů ve školách a zákona o pojistném zůstává formálně spolupředkladatelem — svěřenský fond s Agrofertem řeší už měsíce Brusel i Transparency International.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6150",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=232",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=35",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11",
+        "https://forbes.cz/babis-vlozil-agrofert-do-sverenskeho-fondu-stret-zajmu-povazuje-za-vyreseny/"
+      ]
+    },
+    {
+      "id": "psp:person:7004",
+      "name": "Jana Filipovičová",
+      "club": "KDU-ČSL",
+      "lens": ["quiet-workhorse-legislative"],
+      "props": {
+        "effort_work_themes": ["rozpočtové určení daní", "sociální politika", "kontrolní komise"],
+        "effort_bill_focus": "Ve všech 8 tiscích v datovém setu je Filipovičová uvedena pouze jako spolupředkladatelka, nikdy jako první podpisatelka — hlavními navrhovateli jsou M. Výborný, P. Hladík nebo M. Jurečka. Tisk 28 (novela zákona o rozpočtovém určení daní, s Výborným a dalšími) má od 22.12.2025 vládní neutrální stanovisko a organizační výbor doporučil postup 17.12.2025; k 24.7.2026 stále čeká na projednání v plénu. Profil odpovídá 'tichému koňovi' legislativní práce — nízký počet řečnických vystoupení (9) při 4 výborových členstvích a 8 spolupodepsaných návrzích.",
+        "effort_public_role": "Poslankyně od 4.10.2025 za Jihomoravský kraj (SPOLU/KDU-ČSL). Je členkou rozpočtového výboru, výboru pro sociální politiku a obou stálých komisí pro kontrolu odposlechů a přístupu k centrální evidenci účtů. Před vstupem do Sněmovny byla od 2014 starostkou obce Hrušky na Břeclavsku, kde v roce 2021 řídila obnovu obce po tornádu — tato exekutivní zkušenost je pravděpodobným zdrojem její orientace na rozpočtovou/samosprávnou agendu.",
+        "effort_notes": "contributionPsp9 je null — Filipovičová v PSP9 zjevně nezasedala, nelze tedy počítat componentDivergence proti minulému období (uvedená hodnota 0.683 je tedy vnitro-termínová, ne mezitermínová divergence). tenureClass=full_term/293 dní odpovídá běžnému nástupu k 4.10.2025, žádná anomálie k dohledání. linkedCompanies je prázdné pole — bez indicií o obchodních vazbách v tomto datasetu."
+      },
+      "signal": 0.35,
+      "headline": "Filipovičová nikdy nevede návrh sama, ale podepisuje se pod klíčové daňové a sociální novely KDU-ČSL — typický profil tiché legislativní pracovnice bez mediální stopy.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7004",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=28",
+        "https://cs.wikipedia.org/wiki/Jana_Filipovi%C4%8Dov%C3%A1"
+      ]
+    },
+    {
+      "id": "psp:person:6513",
+      "name": "Marek Výborný",
+      "club": "KDU-ČSL",
+      "lens": ["top"],
+      "props": {
+        "effort_work_themes": ["školství a věda", "zemědělství", "daně a sociální pojištění"],
+        "effort_bill_focus": "Výborný je hlavním předkladatelem tisku 28 (rozpočtové určení daní, s Filipovičovou aj.) a tisku 243 (v datasetu 43365, s Hladíkem a Talířem) a spolupředkladatelem u daňově-sociálního balíku tisku 121 (novela zákona o daních z příjmů, hlavní předkladatel M. Jurečka), který k 24.7.2026 čeká na projednání po zamítavém vládním stanovisku z 31.3.2026. Tisk 28 má od prosince 2025 doporučení organizačního výboru, ale k datu přístupu ještě neprošel plénem — v datech je tedy 'sponsored' spíše rozpracovaná agenda než dokončený výsledek.",
+        "effort_public_role": "Poslanec od 4.10.2025 za Pardubický kraj (SPOLU/KDU-ČSL), místopředseda Výboru pro vědu, vzdělávání, mládež a sport (od 21.1.2026), člen zemědělského výboru a ověřovatel Stálé komise pro Ústavu ČR a parlamentní procedury. Nejvyšší contribution_score (90.4) v této skupině a zVsClub=1 odpovídají profilu 'top' výkonu — kombinace vedení výboru, vysoké účasti (0.9) a šesti autorsky vedených tisků.",
+        "effort_notes": "componentDivergence 0.707 je u něj nízké a kontribuce PSP9→PSP10 rostla (80.8→90.4) — konzistentní obraz dlouhodobě aktivního poslance bez anomálií k řešení. tenureClass=full_term/293 dní bez náhradnických otázek. Jediná linked company (Gymnázium Pardubice, Mozartova 449, smlouva 9,25 mil. Kč, stav pending_review) pochází z Case ①; jde o veřejnou střední školu v jeho volebním kraji — kontext smlouvy (typ, období) nebyl touto skupinou dohledáván, ponechávám na money-loop review."
+      },
+      "signal": 0.55,
+      "headline": "Výborný vede daňový i školský návrh KDU-ČSL a řídí sněmovní výbor pro vědu a vzdělávání, ale klíčové tisky k 24.7.2026 ještě čekají na hlasování v plénu.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6513",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=28",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=121",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=74"
+      ]
+    },
+    {
+      "id": "psp:person:6545",
+      "name": "Alena Schillerová",
+      "club": "ANO2011",
+      "lens": ["divergence"],
+      "props": {
+        "effort_work_themes": ["státní rozpočet", "daňová legislativa", "penzijní spoření"],
+        "effort_bill_focus": "Většina jejích 12 tisků v datasetu jsou vládní návrhy Ministerstva financí (druh=1, submitter 'min. financí') — jde o formální roli ministryně, ne o klasické poslanecké iniciativy. Výjimkou je tisk 119 (novela zákona o doplňkovém penzijním spoření, s P. Nacherem, B. Šťastným, T. Okamurou a T. Malou), který Sněmovna schválila 27.5.2026, Senát 8.7.2026 a prezident podepsal 16.7.2026 — vyhlášen jako zákon č. 128/2026 Sb., jediný dokončený legislativní úspěch z jejího setu v tomto okně. Tisk 11 (pojistné na sociální zabezpečení, s Babišem) rovněž prošel do zákona 90/2026 Sb., ale jako primární předkladatelka je tam ona, ne Babiš.",
+        "effort_public_role": "Poslankyně od 4.10.2025 za Jihomoravský kraj, místopředsedkyně klubu ANO 2011 (od 8.10.2025), od 15.12.2025 ministryně financí a místopředsedkyně vlády. Nástup do vlády v polovině prosince 2025 časově odpovídá poklesu floor-metrik v datasetu.",
+        "effort_notes": "componentDivergence 1.483 a pokles contribution_score (86.3 v PSP9 → 58.9 v PSP10) jsou vysvětlitelné přechodem do vlády v prosinci 2025: interpelace klesly ze 72 na 0, řečnická vystoupení z 1253 na 152, absence_rate vzrostla z 0.2 na 0.7 — to je očekávaný vzorec pro ministryni, ne datová chyba. bills_authored=4 v props ale sponsoredBills obsahuje 12 položek — rozdíl je pravděpodobně dán tím, že řada položek jsou vládní tisky, kde je uvedena jako formální předkladatelka za resort, ne jako 'autorka' v poslaneckém smyslu; doporučuji ověřit definici bills_authored vůči vládním předlohám u členů kabinetu. linkedCompanies prázdné."
+      },
+      "signal": 0.75,
+      "headline": "Schillerová jako ministryně financí skoro přestala interpelovat a mluvit na plénu, ale její vlastní novela penzijního spoření už je zákonem 128/2026 Sb.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6545",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=119",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11"
+      ]
+    },
+    {
+      "id": "psp:person:7046",
+      "name": "Eva Šrámková",
+      "club": "Piráti",
+      "lens": ["top"],
+      "props": {
+        "effort_work_themes": ["zdravotnictví", "bezpečnost potravin", "kontrola sněmovní kanceláře"],
+        "effort_bill_focus": "V datasetu má jediný sponzorovaný tisk — 168 (novela zákona o DPH, hlavní předkladatelka O. Richterová, Šrámková mezi ~17 spolupodpisujícími piráty), k němuž vláda 12.5.2026 vydala nesouhlasné stanovisko a organizační výbor doporučil postup 14.5.2026; k 24.7.2026 neuzavřeno. Jde o klubovou solidaritu k daňovému návrhu, ne o její tematické těžiště — to leží v komisi pro zdravotnictví.",
+        "effort_public_role": "Poslankyně od 4.10.2025 za Plzeňský kraj (Piráti), lékařka. Členka a od 13.11.2025 ověřovatelka Výboru pro zdravotnictví, členka tří podvýborů (zdravotní pojištění a přímo řízené organizace, urgentní medicína, nelékařské profese) a Stálé komise pro práci Kanceláře PS. V dubnu 2026 interpelovala ministra zdravotnictví ve věci kontaminace kojenecké výživy toxinem cereulid; zdravotní výbor přijal její usnesení požadující mj. povinné informování lékařů při stahování šarží výživy a jasné lhůty pro varování veřejnosti.",
+        "effort_notes": "Vysoký contribution_score (90.6) a zVsClub=1.2 při jediném sponzorovaném tisku ukazují, že její příspěvek je tažen komisní/interpelační prací a řečnickými vystoupeními (48), ne autorstvím zákonů — konzistentní s workhorseFlavour=null (žádný jednostranný profil) a s tím, že bills_authored=1 v props odpovídá přesně jednomu záznamu v sponsoredBills. tenureClass=full_term/293 dní bez anomálie. linkedCompanies prázdné."
+      },
+      "signal": 0.6,
+      "headline": "Šrámková legislativně skoro nic nepředkládá, ale jako ověřovatelka zdravotního výboru prosadila usnesení k toxinu v kojenecké výživě, které zavazuje ministerstvo k rychlejšímu varování rodičů.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7046",
+        "https://www.pirati.cz/jak-pirati-pracuji/poslankyne-piratu-sramkova-interpeluje-ministra-zdravotnictvi-ve-veci-toxinu-v-kojenecke-vyzive-cesko-spi-zatimco-francie-jedna/",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168"
+      ]
+    }
+  ]
+}

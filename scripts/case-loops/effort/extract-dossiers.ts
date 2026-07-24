@@ -17,7 +17,17 @@ const num = (x: unknown): number => (typeof x === "number" && Number.isFinite(x)
 async function main() {
   const store = await getStore();
   if (!store) throw new Error("no store");
-  type TriageRow = { pspId: number; zScoreVsClub?: number; quietWorkhorse?: boolean; quietWorkhorseIndex?: number; triageScore?: number };
+  type TriageRow = {
+    pspId: number;
+    zScoreVsClub?: number;
+    quietWorkhorse?: boolean;
+    quietWorkhorseIndex?: number;
+    triageScore?: number;
+    componentDivergence?: number;
+    tenureClass?: "full_term" | "replacement";
+    tenureDays?: number | null;
+    workhorseFlavour?: "legislative" | "oversight" | null;
+  };
   const triage = JSON.parse(readFileSync(`${OUT}/triage.json`, "utf8")) as {
     army: { pspId: number; lens: string[] }[];
     rows: TriageRow[];
@@ -153,7 +163,16 @@ async function main() {
       // PSP9 term-over-term profile (pass-14 restoration) — real prior-term comparison
       // where the MP continued from PSP9; null when not a continuing MP.
       contributionPsp9: node?.props.contribution_psp9 ?? null,
-      triage: { zVsClub: t.zScoreVsClub, quietWorkhorse: t.quietWorkhorse, quietWorkhorseIndex: t.quietWorkhorseIndex, triageScore: t.triageScore },
+      triage: {
+        zVsClub: t.zScoreVsClub,
+        quietWorkhorse: t.quietWorkhorse,
+        quietWorkhorseIndex: t.quietWorkhorseIndex,
+        workhorseFlavour: t.workhorseFlavour ?? null,
+        triageScore: t.triageScore,
+        componentDivergence: t.componentDivergence ?? null,
+        tenureClass: t.tenureClass ?? "full_term",
+        tenureDays: t.tenureDays ?? null,
+      },
       committees,
       sponsoredBills,
       coVoters,

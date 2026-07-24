@@ -61,7 +61,12 @@ interface MpRow {
   quietWorkhorseIndex: number;
   workhorseFlavour: "legislative" | "oversight" | null; // P31: two positive-symmetry flavours
   neverCastBallot: boolean; // batch-002 pre-filter (Q-effort-1)
-  componentDivergence: number; // std dev across the 6 normalized components — one-sided vs balanced
+  tenureClass: "full_term" | "replacement"; // Q-effort-5 (batch 003)
+  tenureDays: number | null;
+  componentDivergence: number; // batch-003 retune (Q-effort-6): stddev of 6 (club×tenure_class)-cohort
+  // z-scored components — one-sided vs COMPARABLE peers, not vs an absolute 0-1 scale.
+  // See scripts/case-loops/effort/divergence-retune.ts for the discriminative-power validation
+  // (old sd 0.098 → new sd 0.323, distinct values 38→95 of 207) that justified this replacement.
   triageScore: number;
   lens: string[]; // which selection lenses caught this MP
 }
@@ -88,6 +93,28 @@ async function main() {
   const mandates = (await store.listMandates({ termCode: TERM })) ?? [];
   const clubByMandate = await store.clubByMandate(TERM);
   const edges = await store.listKgEdges({ limit: 200_000 });
+  const memberships = (await store.listMemberships({ termCode: TERM, limit: 200_000 })) ?? [];
+
+  // ── Q-effort-5 (batch 003): tenure, from membership.fromAt on organ 174 (the PSP10
+  // chamber itself) — the only reliable per-person start date in this ingest (mandate
+  // table's own mandateFrom/mandateTo columns are almost entirely null). Used both for
+  // the tenure annotation payload (tenure.ts) and to cohort componentDivergence below.
+  const CHAMBER_ORGAN_PSP_ID = 174;
+  const chamberFromByPerson = new Map<number, string>();
+  for (const m of memberships) {
+    if (m.organPspId === CHAMBER_ORGAN_PSP_ID && m.kind === "member" && m.fromAt) {
+      const existing = chamberFromByPerson.get(m.personPspId);
+      if (!existing || m.fromAt < existing) chamberFromByPerson.set(m.personPspId, m.fromAt);
+    }
+  }
+  const startFreq = new Map<string, number>();
+  for (const d of chamberFromByPerson.values()) startFreq.set(d.slice(0, 10), (startFreq.get(d.slice(0, 10)) ?? 0) + 1);
+  let modeStartDay = "", modeStartCount = 0;
+  for (const [d, n] of startFreq) if (n > modeStartCount) { modeStartDay = d; modeStartCount = n; }
+  const tenureClassOf = (pspId: number): "full_term" | "replacement" => {
+    const iso = chamberFromByPerson.get(pspId);
+    return iso && iso.slice(0, 10) === modeStartDay ? "full_term" : "replacement";
+  };
 
   // personPspId → club
   const clubByPerson = new Map<number, string>();
@@ -142,6 +169,10 @@ async function main() {
       quietWorkhorseIndex: 0,
       workhorseFlavour: null,
       neverCastBallot: participationRate === 0 && committeeCount === 0,
+      tenureClass: tenureClassOf(pspId),
+      tenureDays: chamberFromByPerson.has(pspId)
+        ? Math.round((new Date("2026-07-24T00:00:00.000Z").getTime() - new Date(chamberFromByPerson.get(pspId)!).getTime()) / 86_400_000)
+        : null,
       componentDivergence: 0,
       triageScore: 0,
       lens: [],
@@ -189,22 +220,51 @@ async function main() {
     }
   }
 
-  // ── component divergence: one-sided score composition vs balanced (batch-002 lens) ─
-  // Re-derive the same 6 weighted components computeContribution() would produce, from
-  // the already-normalized rates/counts on the node (same formulas, same saturation caps).
+  // ── component divergence V2 (batch-003 retune, Q-effort-6) ──────────────────
+  // Old (batch-002) definition: stddev of the 6 raw 0-1 normalized components, same
+  // absolute yardstick for every MP — near-degenerate (most MPs clustered 0.4-0.48,
+  // sd 0.098 over the full population, per divergence-retune.ts's validation run).
+  // New: CLUB-RELATIVE (z-score each component against a cohort mean/sd, not an absolute
+  // 0-1 scale) and PARTICIPATION-PAIRED (the cohort is club × tenure_class, using the
+  // Q-effort-5 tenure annotation above, so a 35-day replacement MP is never compared
+  // against full-term clubmates' participation denominators). Cohorts under 3 members
+  // fall back to club-wide, then population-wide. Validated: sd 0.098 → 0.323, distinct
+  // values (2dp) 38 → 95 of 207 — see payloads/batch-003-divergence-validation.json.
   const COMMITTEE_SAT = 3, LEGIS_SAT = 4, SPEECH_SAT = 40;
   const clamp01 = (x: number) => Math.max(0, Math.min(1, x));
+  const meanSd = (vals: number[]) => {
+    const mean = vals.reduce((a, b) => a + b, 0) / vals.length;
+    const sd = Math.sqrt(vals.reduce((a, b) => a + (b - mean) ** 2, 0) / vals.length) || 1e-9;
+    return { mean, sd };
+  };
+  const compsOf = (r: MpRow) => [
+    clamp01(r.committeeCount / COMMITTEE_SAT),
+    r.leadershipCount > 0 ? 1 : 0,
+    r.participationRate,
+    1 - r.absenceRate,
+    clamp01((r.billsAuthored + r.interpellations) / LEGIS_SAT),
+    clamp01(r.speechTurns / SPEECH_SAT),
+  ];
+  const cohortKey = (r: MpRow) => `${r.club}::${r.tenureClass}`;
+  const byCohort = new Map<string, MpRow[]>();
+  const byClubAll = new Map<string, MpRow[]>();
   for (const r of rows) {
-    const committee = clamp01(r.committeeCount / COMMITTEE_SAT) * 20;
-    const leadership = r.leadershipCount > 0 ? 10 : 0;
-    const participation = r.participationRate * 25;
-    const attendance = (1 - r.absenceRate) * 10;
-    const legislative = clamp01((r.billsAuthored + r.interpellations) / LEGIS_SAT) * 20;
-    const speech = clamp01(r.speechTurns / SPEECH_SAT) * 15;
-    const comps = [committee / 20, leadership / 10, participation / 25, attendance / 10, legislative / 20, speech / 15];
-    const mean = comps.reduce((a, b) => a + b, 0) / comps.length;
-    const variance = comps.reduce((a, b) => a + (b - mean) ** 2, 0) / comps.length;
-    r.componentDivergence = round(Math.sqrt(variance), 3);
+    (byCohort.get(cohortKey(r)) ?? byCohort.set(cohortKey(r), []).get(cohortKey(r))!).push(r);
+    (byClubAll.get(r.club) ?? byClubAll.set(r.club, []).get(r.club)!).push(r);
+  }
+  const MIN_COHORT = 3;
+  const popCompStats = [0, 1, 2, 3, 4, 5].map((i) => meanSd(rows.map((r) => compsOf(r)[i])));
+  for (const r of rows) {
+    let group = byCohort.get(cohortKey(r))!;
+    let basis: "cohort" | "club" | "population" = "cohort";
+    if (group.length < MIN_COHORT) { group = byClubAll.get(r.club)!; basis = "club"; }
+    if (group.length < MIN_COHORT) basis = "population";
+    const myComps = compsOf(r);
+    const zScores = [0, 1, 2, 3, 4, 5].map((i) => {
+      const { mean, sd } = basis === "population" ? popCompStats[i] : meanSd(group.map((g) => compsOf(g)[i]));
+      return (myComps[i] - mean) / sd;
+    });
+    r.componentDivergence = round(meanSd(zScores).sd, 3);
   }
 
   // ── composite triage score: |z| (outlierness) + money crossover + rebellion ─
@@ -234,7 +294,14 @@ async function main() {
   //    component-divergence (mid-band, one-sided composition) ──────────────────
   const byScorePool = [...pool].sort((a, b) => b.score - a.score);
   const topN = byScorePool.slice(0, 6);
-  const bottomN = byScorePool.slice(-4).filter((r) => !r.neverCastBallot); // structural floor already explained in batch 001; skip pure phantoms
+  // batch-003 tenure-normalization (Q-effort-5 steering): exclude replacement MPs from the
+  // "bottom" lens too — a short-tenure MP's low ABSOLUTE score is a tenure artifact, not a
+  // laggard signal (same reasoning as the never_cast_ballot pre-filter, extended). Filter
+  // FIRST, then take the true lowest 4 by score (filtering after slicing would bias toward
+  // the higher-scoring end of the sliced window — fixed during batch-003 development).
+  const bottomN = byScorePool
+    .filter((r) => !r.neverCastBallot && r.tenureClass !== "replacement")
+    .slice(-4);
   const absenteeLeadsPool = pool
     .filter((r) => r.absenteeManagerLead && !r.neverCastBallot) // pre-filter FIRST
     .sort((a, b) => b.contractCzk - a.contractCzk);
@@ -250,8 +317,12 @@ async function main() {
     .filter((r) => (r.contestedVoteRebellion ?? 0) >= 5)
     .sort((a, b) => (b.contestedVoteRebellion ?? 0) - (a.contestedVoteRebellion ?? 0))
     .slice(0, 5);
+  // threshold recalibrated for the V2 scale (was 0.35 on the old ~0-0.5 scale; new metric
+  // runs roughly 0-2, population mean ~0.76 — use the top-quartile-ish 0.9 cut, still
+  // paired with the mid-band score condition so a "divergent" pick means one-sided WORK,
+  // not just a structural floor/ceiling score)
   const divergent = pool
-    .filter((r) => r.componentDivergence >= 0.35 && r.score >= 35 && r.score <= 75) // mid-band, one-sided
+    .filter((r) => r.componentDivergence >= 0.9 && r.score >= 35 && r.score <= 75) // mid-band, one-sided
     .sort((a, b) => b.componentDivergence - a.componentDivergence)
     .slice(0, 6);
 
@@ -314,6 +385,8 @@ async function main() {
             contested_vote_rebellion: r.contestedVoteRebellion,
             z_vs_club: r.zScoreVsClub,
             component_divergence: r.componentDivergence,
+            tenure_class: r.tenureClass,
+            tenure_days: r.tenureDays,
           },
         };
       }),

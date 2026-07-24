@@ -1,0 +1,115 @@
+{
+  "case": "effort",
+  "batch": 3,
+  "group": "G",
+  "generatedAt": "2026-07-24",
+  "note": "5 MP dossiers enriched via psp.cz (detail.sqw pro profily, historie.sqw pro osud tisků dle skutečného 'cislo', ne tiskId) plus Wikipedia, hlidacstatu.cz a dobové zpravodajství; u firemních vazeb (Vlček, Okleštěk) ověřeno jen to, co lze doložit veřejným zdrojem — číslo IČO 04627695 označené 'OSVČ' se v datasetu opakuje u obou poslanců a nepodařilo se ho spolehlivě přiřadit ke konkrétní osobě, proto je u obou vedeno jako neověřená položka, nikoli tvrzení. Všechny tenureClass v této dávce jsou 'full_term' (293 dní), takže náhradnický scénář se u žádného z pěti neuplatňuje.",
+  "proposals": [
+    {
+      "id": "psp:person:6789",
+      "name": "Lukáš Vlček",
+      "club": "STAN",
+      "lens": ["top"],
+      "props": {
+        "effort_work_themes": ["průmysl a energetika", "veřejná správa a regionální rozvoj", "komunální/lokální rozvoj Vysočiny"],
+        "effort_bill_focus": "Vlček byl ministrem průmyslu a obchodu od 8. 10. 2024 do 15. 12. 2025; i po odchodu z vlády zůstává garantem řady vládních novel svého bývalého resortu v Hospodářském výboru (sněmovní tisky 53, 55, 56, 62, 69 — obsah jednotlivých tisků nebyl u všech položek jednotlivě ověřen, jde o standardní EU-transpoziční agendu MPO). Jako poslanec spoluautorsky podepsal i skupinové návrhy STAN, např. tisk 24 (novela zákona o obcích, garantní výbor VSR, kde je od 6. 3. 2026 předsedou), tisk 52 (vládní novela v gesci MPO, 2. čtení proběhlo 24. 6. 2026), tisk 120 (novela zákona o daních z příjmů, vládní stanovisko negativní) a tisk 205 (novela kompetenčního zákona, vládní stanovisko též negativní, 23. 6. 2026).",
+        "effort_public_role": "Místopředseda poslaneckého klubu STAN (od 10. 10. 2025), od 6. 3. 2026 předseda Výboru pro veřejnou správu a regionální rozvoj, člen Hospodářského výboru a několika podvýborů (energetika, ochrana spotřebitele — místopředseda, startupy). Předtím starosta Pacova a dlouholetý krajský zastupitel Kraje Vysočina; do vlády nastoupil jako ministr průmyslu a obchodu (10/2024–12/2025).",
+        "effort_notes": "Vysoký component_divergence (0.364) i vysoký triageScore odpovídá profilu bývalého ministra s rozsáhlou legislativní stopou — bez datové anomálie. Firemní vazby: SOMPO, a.s. (svazková odpadová firma 117 obcí Pelhřimovska) — dle Wikipedie byl místopředsedou představenstva 2007–2020 a předsedou 2020–2024; aktuální stav funkce k roku 2026 se nepodařilo nezávisle potvrdit, kontrakt 350 213 Kč v datasetu tedy nelze jistě přiřadit k jeho současné roli. PEVAK Pelhřimov, družstvo (vodárenské družstvo) — členem představenstva potvrzeno Wikipedií, kontrakt 1 370 157 Kč konzistentní. Via rustica z.s. (MAS Pelhřimovsko/Pacovsko) — byl jejím předsedou (kontakt starosta@mestopacov.cz), kontrakt 2 008 259 Kč odpovídá dotačním výzvám MAS z Programu rozvoje venkova. W.H.V. Projekt spol. s r.o. a PRO VYSOČINU s nulovým kontraktem nebyly nezávisle ověřeny nad rámec obecné shody jména/regionu. Položka 'OSVČ' IČO 04627695 s nulovým kontraktem je sporná — totéž IČO figuruje v datasetu i u Ladislava Okleštěka a veřejné zdroje (finmag.cz/ARES) jej spojují s jiným subjektem (Agrární demokratická strana), nikoli jednoznačně s žádným z obou poslanců — jde o datovou anomálii ke kontrole ve zdrojovém pipeline, ne o ověřenou vazbu."
+      },
+      "signal": 0.72,
+      "headline": "Bývalý ministr průmyslu dál dotahuje zákony svého resortu a k tomu spravuje síť lokálních firem a spolků na Pelhřimovsku.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6789",
+        "https://cs.wikipedia.org/wiki/Luk%C3%A1%C5%A1_Vl%C4%8Dek_(politik)",
+        "https://mpo.gov.cz/en/guidepost/ministry/minister/profile-of-the-minister-of-industry-and-trade-of-czech-republic--ing--lukas-vlcek--283477/",
+        "https://www.hlidacstatu.cz/osoba/lukas-vlcek",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=52",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=24",
+        "https://www.viarustica.cz/",
+        "https://www.finmag.cz/obchodni-rejstrik/ares/04627695-agrarni-demokraticka-strana"
+      ]
+    },
+    {
+      "id": "psp:person:6788",
+      "name": "Barbora Urbanová",
+      "club": "STAN",
+      "lens": ["top"],
+      "props": {
+        "effort_work_themes": ["ústavně-právní a rodinné právo", "veřejná správa", "zahraniční a lidskoprávní agenda"],
+        "effort_public_role": "Dne 5. 6. 2026 byla tajnou volbou (126 hlasů) zvolena místopředsedkyní Poslanecké sněmovny za STAN — nahradila v této funkci Víta Rakušana, který z volby ustoupil v její prospěch. Dříve ověřovatelka (od 5. 11. 2025), místopředsedkyně Organizačního výboru, členka Ústavně-právního a Zahraničního výboru a Stálé komise pro rodinu a rovné příležitosti.",
+        "effort_bill_focus": "Spoluautorka skupinových návrhů STAN: tisk 24 (novela o obcích), tisk 36 (vlastní/spoluautorský návrh s A. Chochelovou — novela občanského zákoníku v oblasti rozvodů a výživného, vládní stanovisko k němu bylo dne 8. 12. 2025 vzato zpět), tisk 120, tisk 146 (novela o obcích, vládní stanovisko negativní) a tisk 205 (novela kompetenčního zákona jako první podepsaná/gestorka, vládní stanovisko negativní).",
+        "effort_notes": "Vysoký component_divergence (0.532) odpovídá kombinaci vysoké řečnické aktivity (speech_turns 42, ale 112 v PSP9 datech — nutno brát jako jinou škálu/term, ne rozpor) a nižší legislativní autorství; zvolení místopředsedkyní Sněmovny v červnu 2026 je reálný nárůst veřejné role oproti vstupním datům. Žádné propojené firmy v datasetu (linkedCompanies prázdné) — bez peněžní stopy k prošetření."
+      },
+      "signal": 0.55,
+      "headline": "Z řadové poslankyně STAN se v červnu 2026 stala místopředsedkyní Sněmovny — reálný kariérní postup, ne jen papírová aktivita.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6788",
+        "https://www.psp.cz/zprava/22390",
+        "https://www.denik.cz/z_domova/poslanci-zvolili-nominantku-stan-urbanovou-mistopredsedkyni-snemovny.html",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=36",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=205"
+      ]
+    },
+    {
+      "id": "psp:person:6544",
+      "name": "Lubomír Metnar",
+      "club": "ANO2011",
+      "lens": ["bottom"],
+      "props": {
+        "effort_work_themes": ["vnitřní bezpečnost", "migrace a cizinecké právo", "krizové řízení"],
+        "effort_public_role": "Od 15. 12. 2025 ministr vnitra ve třetí vládě Andreje Babiše — nahradil v úřadu Víta Rakušana. Jde o jeho třetí ministerský post v kariéře: ministrem vnitra byl už v letech 2017–2018 a ministrem obrany 2018–2021; předtím dlouholetý policista (krajská kriminální služba). Jako řadový poslanec je členem jen jednoho výboru (Výbor pro bezpečnost).",
+        "effort_bill_focus": "Jako ministr vnitra je předkladatelem/garantem vládních novel projednávaných jeho vlastním výborem: tisk 144 (zákon o vstupu a pobytu cizinců — EU, 2. čtení 24. 6. 2026), tisk 172 (novela zákona o cestovních dokladech — EU, 6 pozměňovacích návrhů) a tisk 213 (novela zákona k ozbrojenému konfliktu na Ukrajině — EU, výbor doporučil schválit 2. 7. 2026). Nízký props.bills_authored (0) odpovídá tomu, že jde formálně o vládní předlohy, ne poslanecké návrhy.",
+        "effort_notes": "Nízký contribution_score (37,7) při vysokém componentDivergence (0,967) je logický: props zachycují jen část volebního období před nástupem do funkce ministra (15. 12. 2025), zatímco vládní agenda běží mimo poslanecké skóre. Doporučuji přehodnotit v dalším kole s aktualizovanými daty po půl roce ve funkci — současný obraz 'tichého' poslance je zavádějící vzhledem k jeho exekutivní roli."
+      },
+      "signal": 0.45,
+      "headline": "Metnar řídí vnitro potřetí v kariéře; nízké poslanecké skóre je artefakt dat, ne skutečné neaktivity — vládní agendu vede jako ministr, ne jako řadový poslanec.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6544",
+        "https://www.irozhlas.cz/zpravy-domov/policista-severomoravske-kriminalky-ci-bezpecnostni-manazer-metnar-usedne-do_2512141324_ntu",
+        "https://en.wikipedia.org/wiki/Lubom%C3%ADr_Metnar",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=144",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=213"
+      ]
+    },
+    {
+      "id": "psp:person:7015",
+      "name": "Jakub Krainer",
+      "club": "STAN",
+      "lens": ["divergence"],
+      "props": {
+        "effort_work_themes": ["bezpečnost a kontrola", "dozor nad NÚKIB", "veřejné finance (kontrolní podvýbor)"],
+        "effort_bill_focus": "Vlastní autorství tisků nemá; figuruje jen jako jeden z mnoha spolupředkladatelů skupinových návrhů STAN — tisk 120 (novela o daních z příjmů) a tisk 146 (novela o obcích, oba s negativním stanoviskem vlády). Jde o typický 'podpisový' spoluautorský vzorec bez vlastní iniciativy.",
+        "effort_public_role": "Členem Kontrolního výboru a Výboru pro bezpečnost (oba od 11. 11. 2025) a Stálé komise pro kontrolu NÚKIB; od 12. 3. 2026 místopředseda podvýboru pro kontrolu veřejných financí. Bez ministerské či vedoucí funkce.",
+        "effort_notes": "contributionPsp9 chybí (null) — jde o nového poslance bez předchozího období, takže srovnání napříč termíny u něj není možné, na rozdíl od ostatních čtyř v této skupině; to je nutné zohlednit při interpretaci vysokého componentDivergence (1,432), který u něj s velkou pravděpodobností jen odráží chybějící baseline, ne skutečnou anomálii chování. Žádné propojené firmy v datasetu."
+      },
+      "signal": 0.22,
+      "headline": "Krainerova stopa je tenká — dva spolupodpisy bez vlastního autorství a chybějící historická data k porovnání, žádný skandál ani výrazný výkon.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7015",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=120",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=146"
+      ]
+    },
+    {
+      "id": "psp:person:6172",
+      "name": "Ladislav Okleštěk",
+      "club": "ANO2011",
+      "lens": ["bottom"],
+      "props": {
+        "effort_work_themes": ["veřejná správa a regionální rozvoj", "rozpočet", "krajská samospráva (souběžný mandát)"],
+        "effort_public_role": "Souběh mandátů: Okleštěk je od 4. 10. 2025 poslancem a zároveň (od 21. 10. 2024, znovuzvolen po volbách 2024) hejtmanem Olomouckého kraje za ANO — druhé funkční období v této roli po předchozím 2017–2020. V roce 2020 hejtmanský post ztratil ve prospěch STAN/Pirátů, po volbách 2024 se vrátil. V poslanecké sněmovně je od 28. 1. 2026 členem jediného výboru (Výbor pro veřejnou správu a regionální rozvoj), ke kterému později přibyl Rozpočtový výbor.",
+        "effort_bill_focus": "Jediný sponzorovaný tisk v datasetu: tisk 87 (návrh zákona o zemských znacích a vlajkách, iniciátor R. Vondráček, cross-klubní skupina cca 40 poslanců). Garančním výborem je Výbor pro vědu, vzdělávání, mládež a sport, návrh je od 7. 3. 2026 ve stavu 'další projednávání možné' — bez pokroku od té doby. Okleštěk je zde jedním z mnoha spolupodpisů, ne iniciátorem.",
+        "effort_notes": "Nízké skóre (40,8) a nulové speech_turns v aktuálním období jsou u něj pravděpodobně vysvětlitelné souběžným výkonem funkce hejtmana Olomouckého kraje, která zabírá velkou část kapacity — podobně jako u Metnara jde o strukturální, ne behaviorální nízkou aktivitu. Firemní vazby: sdílené IČO 04627695 'OSVČ' s nulovým kontraktem je stejná sporná položka jako u L. Vlčka (viz jeho dossier) — nepodařilo se ji spolehlivě ověřit a nedoporučuji ji prezentovat jako fakt. Prostějov venkov o.p.s. (kontrakt 416 771 Kč) leží v regionu jeho kanceláře (Prostějov) — geografická shoda, osobní/statutární roli v organizaci se ale nepodařilo v dostupném čase nezávisle dohledat. Povodí Moravy, s.p. (kontrakt 2 138 863 Kč) je státní podnik pro správu vodních toků v Olomouckém a Zlínském kraji — vazba je pravděpodobně institucionální (kraj jako partner státního podniku při povodňové ochraně), ne osobní obchodní vazba Okleštěka; bez dokladu o jeho konkrétní roli by šlo o spekulaci, proto ji neuvádím jako prokázanou."
+      },
+      "signal": 0.68,
+      "headline": "Okleštěk souběžně řídí Olomoucký kraj jako hejtman i sedí ve Sněmovně — jeho pražská legislativní stopa je proto téměř nulová, což je vysvětlitelné, ne podezřelé.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6172",
+        "https://cs.wikipedia.org/wiki/Ladislav_Okle%C5%A1t%C4%9Bk",
+        "https://www.ceskenoviny.cz/zpravy/2585102",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
+        "https://www.finmag.cz/obchodni-rejstrik/ares/04627695-agrarni-demokraticka-strana"
+      ]
+    }
+  ]
+}

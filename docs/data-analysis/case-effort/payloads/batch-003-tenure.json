@@ -1,0 +1,1885 @@
+{
+  "case": "effort",
+  "batch": 3,
+  "generatedAt": "2026-07-24T19:28:24.957Z",
+  "note": "Q-effort-5 tenure annotation (deterministic, no LLM). Source: membership.fromAt/toAt on organ 174 (the PSP10 chamber itself). Mode start date = 2025-10-04 (200/207 MPs, the 2025-10-04 general election). END-DATE-AWARE (batch-003 reflection fix): toAt-bearing rows classify as departed/never_seated with tenure_days bounded by the departure date, not the reference date. fromAt = date the mandate AROSE (mandát vznikl), NOT the oath date. Annotation-only: no contribution_* number touched. review_state stays pending_review.",
+  "modeStartDate": "2025-10-04",
+  "modeCount": 200,
+  "referenceDate": "2026-07-24",
+  "missingCount": 0,
+  "missingPspIds": [],
+  "replacementCount": 7,
+  "departedCount": 7,
+  "proposals": [
+    {
+      "id": "psp:person:346",
+      "name": "Petr Bendl",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:4",
+      "name": "Marek Benda",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:5226",
+      "name": "Pavel Žáček",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:5273",
+      "name": "Jiří Pospíšil",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:5379",
+      "name": "Jan Bauer",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:5459",
+      "name": "Radim Fiala",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:5512",
+      "name": "Boris Šťastný",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:5700",
+      "name": "Ivan Adamec",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:5899",
+      "name": "Jan Bureš",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:5903",
+      "name": "Jana Černochová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:5911",
+      "name": "Jaroslav Foldyna",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:5943",
+      "name": "Helena Langšádlová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6064",
+      "name": "Miroslav Ševčík",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6074",
+      "name": "Petr Fiala",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6105",
+      "name": "Tomio Okamura",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6150",
+      "name": "Andrej Babiš",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6154",
+      "name": "Marek Ženíšek",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6165",
+      "name": "Radek Vondráček",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6168",
+      "name": "Helena Válková",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6172",
+      "name": "Ladislav Okleštěk",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6178",
+      "name": "Jan Bartošek",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6184",
+      "name": "Richard Brabec",
+      "props": {
+        "effort_tenure_days": 30,
+        "effort_tenure_class": "never_seated",
+        "effort_tenure_start": "2025-10-04",
+        "effort_tenure_end": "2025-11-03"
+      }
+    },
+    {
+      "id": "psp:person:6185",
+      "name": "Milan Brázdil",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6190",
+      "name": "Jaroslav Faltýnek",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6201",
+      "name": "Miloslav Janulík",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6205",
+      "name": "Marian Jurečka",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6209",
+      "name": "David Kasal",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6211",
+      "name": "Martin Kolovratník",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6214",
+      "name": "Věra Kovářová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6215",
+      "name": "Roman Kubíček",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6216",
+      "name": "Michal Kučera",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6225",
+      "name": "Jana Pastuchová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6240",
+      "name": "Karel Tureček",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6246",
+      "name": "Josef Kott",
+      "props": {
+        "effort_tenure_days": 258,
+        "effort_tenure_class": "departed",
+        "effort_tenure_start": "2025-10-04",
+        "effort_tenure_end": "2026-06-18"
+      }
+    },
+    {
+      "id": "psp:person:6254",
+      "name": "Věra Adámková",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6409",
+      "name": "František Petrtýl",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6418",
+      "name": "Jan Skopeček",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6431",
+      "name": "Lenka Dražilová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6433",
+      "name": "Ivan Bartoš",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6435",
+      "name": "Martin Baxa",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6447",
+      "name": "Kamal Farhan",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6451",
+      "name": "Stanislav Fridrich",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6455",
+      "name": "Jan Hrnčíř",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6457",
+      "name": "Eva Fialová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6459",
+      "name": "Jakub Janda",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6463",
+      "name": "Aleš Juchelka",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6466",
+      "name": "Jana Krutáková",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6467",
+      "name": "Zuzana Majerová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6468",
+      "name": "Taťána Malá",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6473",
+      "name": "Olga Richterová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6474",
+      "name": "Zuzana Ožanová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6475",
+      "name": "Monika Oborná",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6479",
+      "name": "Lucie Šafránková",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6482",
+      "name": "Vlastimil Válek",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6484",
+      "name": "David Štolpa",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6486",
+      "name": "Vojtěch Munzar",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6487",
+      "name": "Patrik Nacher",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6490",
+      "name": "Petr Vrána",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6491",
+      "name": "Adam Vojtěch",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6500",
+      "name": "Jan Richter",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6506",
+      "name": "Tomáš Kohoutek",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6508",
+      "name": "Radek Koten",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6509",
+      "name": "Robert Králíček",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6513",
+      "name": "Marek Výborný",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6515",
+      "name": "Jiří Strýček",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6518",
+      "name": "Petr Sadovský",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6520",
+      "name": "Pavel Růžička",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6523",
+      "name": "Michal Ratiborský",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6524",
+      "name": "Vít Rakušan",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6527",
+      "name": "David Pražák",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6533",
+      "name": "Marek Novák",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6534",
+      "name": "Jiří Mašek",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6537",
+      "name": "Jan Lipavský",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6538",
+      "name": "Martin Kupka",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6544",
+      "name": "Lubomír Metnar",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6545",
+      "name": "Alena Schillerová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6549",
+      "name": "Robert Plaga",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6552",
+      "name": "Zdeněk Hřib",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6555",
+      "name": "Tom Philipp",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6603",
+      "name": "Pavel Karpíšek",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6621",
+      "name": "Karel Havlíček",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6623",
+      "name": "Ondřej Babka",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6664",
+      "name": "Josef Nerušil",
+      "props": {
+        "effort_tenure_days": 135,
+        "effort_tenure_class": "replacement",
+        "effort_tenure_start": "2026-03-11"
+      }
+    },
+    {
+      "id": "psp:person:6687",
+      "name": "Jan Jakob",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6688",
+      "name": "Miroslav Samaš",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6693",
+      "name": "Libor Hoppe",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6719",
+      "name": "Jana Bačíková",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6722",
+      "name": "Jan Berki",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6723",
+      "name": "Jana Berkovcová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6727",
+      "name": "Eva Decroix",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6730",
+      "name": "Lubomír Wenzl",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6732",
+      "name": "Ivana Mádlová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6738",
+      "name": "Hubert Lang",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6743",
+      "name": "Robert Stržínek",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6745",
+      "name": "Marie Pošarová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6750",
+      "name": "Josef Flek",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6751",
+      "name": "Karel Haas",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6753",
+      "name": "Jana Hanzlíková",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6754",
+      "name": "Matěj Ondřej Havel",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6755",
+      "name": "Jiří Havránek",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6756",
+      "name": "Tomáš Helebrant",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6758",
+      "name": "Igor Hendrych",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6762",
+      "name": "Pavla Pivoňka Vaňková",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6763",
+      "name": "Michaela Šebelová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6766",
+      "name": "Eliška Olšáková",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6767",
+      "name": "Michaela Řehková",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6769",
+      "name": "Hayato Okamura",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6770",
+      "name": "Renata Oulehlová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6780",
+      "name": "Berenika Peštová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6782",
+      "name": "Drahoslav Ryba",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6783",
+      "name": "Jan Síla",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6786",
+      "name": "Róbert Teleky",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6787",
+      "name": "Libor Turek",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6788",
+      "name": "Barbora Urbanová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6789",
+      "name": "Lukáš Vlček",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6793",
+      "name": "Renáta Zajíčková",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6796",
+      "name": "Michal Zuna",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6803",
+      "name": "Jiří Horák",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6804",
+      "name": "Zdenka Němečková Crkvenjaš",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6881",
+      "name": "Petr Hladík",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6905",
+      "name": "Andrea Hoffmannová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6946",
+      "name": "Josef Váňa",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6986",
+      "name": "Hana Ančincová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6987",
+      "name": "Jiří Barták",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6988",
+      "name": "Pavel Bartoň",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6989",
+      "name": "Lucie Bartošová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6990",
+      "name": "Karel Beran",
+      "props": {
+        "effort_tenure_days": 238,
+        "effort_tenure_class": "departed",
+        "effort_tenure_start": "2025-10-04",
+        "effort_tenure_end": "2026-05-29"
+      }
+    },
+    {
+      "id": "psp:person:6991",
+      "name": "Drahomír Blažej",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6992",
+      "name": "Zdeňka Blišťanová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6993",
+      "name": "Jiří Bouška",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6994",
+      "name": "Monika Brzesková",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6995",
+      "name": "František Bureš",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6996",
+      "name": "Igor Červený",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6997",
+      "name": "Adriana Chochelová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6998",
+      "name": "Benjamin Činčila",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:6999",
+      "name": "Katerina Demetrashvili",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7000",
+      "name": "Denis Doksanský",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7001",
+      "name": "Tomáš Doležal",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7002",
+      "name": "Karel Dvořák",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7003",
+      "name": "Irena Ferčíková Konečná",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7004",
+      "name": "Jana Filipovičová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7005",
+      "name": "Karin Gajdová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7006",
+      "name": "Matěj Gregor",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7007",
+      "name": "Monika Hubíková",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7008",
+      "name": "Zdena Kašparová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7009",
+      "name": "Jiřina Klčová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7010",
+      "name": "Oto Klempíř",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7011",
+      "name": "Matěj Hlavatý",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7012",
+      "name": "Vladimír Kolek",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7013",
+      "name": "Veronika Kovářová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7014",
+      "name": "Petr Kowanda",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7015",
+      "name": "Jakub Krainer",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7016",
+      "name": "Miroslav Krejčí",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7017",
+      "name": "Vojtěch Krňanský",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7018",
+      "name": "Marie Kršková",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7019",
+      "name": "Petr Kubis",
+      "props": {
+        "effort_tenure_days": 30,
+        "effort_tenure_class": "never_seated",
+        "effort_tenure_start": "2025-10-04",
+        "effort_tenure_end": "2025-11-03"
+      }
+    },
+    {
+      "id": "psp:person:7020",
+      "name": "Šárka Kučerová",
+      "props": {
+        "effort_tenure_days": 33,
+        "effort_tenure_class": "never_seated",
+        "effort_tenure_start": "2025-10-04",
+        "effort_tenure_end": "2025-11-05"
+      }
+    },
+    {
+      "id": "psp:person:7021",
+      "name": "Martin Kupec",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7022",
+      "name": "Petr Macinka",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7023",
+      "name": "Lenka Martínková Španihelová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7024",
+      "name": "Michaela Moricová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7025",
+      "name": "Jana Murová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7026",
+      "name": "Anežka Nedomová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7027",
+      "name": "Irena Němcová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7028",
+      "name": "Bohuslav Niemiec",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7029",
+      "name": "Pavel Outrata",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7030",
+      "name": "Jan Papajanovský",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7031",
+      "name": "Patrik Pařil",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7032",
+      "name": "Jana Patková",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7033",
+      "name": "Jiří Svoboda",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7034",
+      "name": "Vladimír Pikora",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7035",
+      "name": "Barbora Pipášová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7036",
+      "name": "Václav Pláteník",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7037",
+      "name": "Jindřich Rajchl",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7038",
+      "name": "Barbora Rázga",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7039",
+      "name": "Vítězslav Schrek",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7040",
+      "name": "Zuzana Mrázová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7041",
+      "name": "Gabriela Sedláčková",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7042",
+      "name": "Lucie Sedmihradská",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7043",
+      "name": "Štěpán Slovák",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7044",
+      "name": "Julie Smejkalová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7045",
+      "name": "Petr Sokol",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7046",
+      "name": "Eva Šrámková",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7047",
+      "name": "Markéta Šichtařová",
+      "props": {
+        "effort_tenure_days": 158,
+        "effort_tenure_class": "departed",
+        "effort_tenure_start": "2025-10-04",
+        "effort_tenure_end": "2026-03-11"
+      }
+    },
+    {
+      "id": "psp:person:7048",
+      "name": "Kateřina Stojanová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7049",
+      "name": "Gabriela Svárovská",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7050",
+      "name": "Jan Sviták",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7051",
+      "name": "Vendula Svobodová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7052",
+      "name": "František Talíř",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7053",
+      "name": "Václav Trojan",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7054",
+      "name": "Renata Vesecká",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7055",
+      "name": "Jiří Vojáček",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7056",
+      "name": "Jitka Volfová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7057",
+      "name": "Samuel Volpe",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7058",
+      "name": "Libor Vondráček",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7059",
+      "name": "Filip Turek",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7060",
+      "name": "Otto Vopěnka",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7061",
+      "name": "Ester Weimerová",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7062",
+      "name": "Martin Záhoř",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7063",
+      "name": "Roman Zarzycký",
+      "props": {
+        "effort_tenure_days": 30,
+        "effort_tenure_class": "never_seated",
+        "effort_tenure_start": "2025-10-04",
+        "effort_tenure_end": "2025-11-03"
+      }
+    },
+    {
+      "id": "psp:person:7064",
+      "name": "Miroslav Žbánek",
+      "props": {
+        "effort_tenure_days": 293,
+        "effort_tenure_class": "full_term",
+        "effort_tenure_start": "2025-10-04"
+      }
+    },
+    {
+      "id": "psp:person:7065",
+      "name": "Martin Šmída",
+      "props": {
+        "effort_tenure_days": 260,
+        "effort_tenure_class": "replacement",
+        "effort_tenure_start": "2025-11-05"
+      }
+    },
+    {
+      "id": "psp:person:7066",
+      "name": "Vlastimil Hebr",
+      "props": {
+        "effort_tenure_days": 262,
+        "effort_tenure_class": "replacement",
+        "effort_tenure_start": "2025-11-03"
+      }
+    },
+    {
+      "id": "psp:person:7067",
+      "name": "Jiří Penc",
+      "props": {
+        "effort_tenure_days": 262,
+        "effort_tenure_class": "replacement",
+        "effort_tenure_start": "2025-11-03"
+      }
+    },
+    {
+      "id": "psp:person:7068",
+      "name": "Jana Demjanová",
+      "props": {
+        "effort_tenure_days": 262,
+        "effort_tenure_class": "replacement",
+        "effort_tenure_start": "2025-11-03"
+      }
+    },
+    {
+      "id": "psp:person:7106",
+      "name": "Libor Forman",
+      "props": {
+        "effort_tenure_days": 55,
+        "effort_tenure_class": "replacement",
+        "effort_tenure_start": "2026-05-29"
+      }
+    },
+    {
+      "id": "psp:person:7108",
+      "name": "Jiří Kotlík",
+      "props": {
+        "effort_tenure_days": 35,
+        "effort_tenure_class": "replacement",
+        "effort_tenure_start": "2026-06-18"
+      }
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "case": "effort",
+  "batch": 3,
+  "group": "D",
+  "generatedAt": "2026-07-24",
+  "note": "Všech pět pspId ověřeno na psp.cz/sqw/detail.sqw (term PSP10, poslanci od 4.10.2025). Žádná oprava pspId nebyla nutná. Zdroje: psp.cz (detail.sqw pro profily, historie.sqw pro osud sněmovních tisků 43xxx dle interního čísla tisku), vlada.gov.cz/mpo.gov.cz pro vládní funkci K. Havlíčka, ARES pro ověření firemní vazby R. Kubíčka (bez výsledku – viz effort_notes), doplňkově Wikipedie/deníky pro biografický kontext. U Turka a Krutákové (workhorse-legislative) je důraz na reálný legislativní obsah, ne na řečnickou aktivitu.",
+  "proposals": [
+    {
+      "id": "psp:person:6178",
+      "name": "Jan Bartošek",
+      "club": "KDU-ČSL",
+      "lens": [
+        "divergence",
+        "high-triage"
+      ],
+      "props": {
+        "effort_work_themes": [
+          "bezpečnost",
+          "kontrola tajných služeb",
+          "meziparlamentní vztahy"
+        ],
+        "effort_bill_focus": "V aktuálním volebním období (PSP10, od 10/2025) nemá Bartošek zatím žádný vlastní sněmovní tisk (bills_authored: 0) – to odpovídá krátké době mandátu (tenureDays 293 od začátku období) a jeho zaměření na výborovou a kontrolní práci spíš než na vlastní legislativní iniciativu. V minulém volebním období PSP9 mu ale kontribuční komponenty přisuzují 6 spoluautorství zákonů (billsAuthored: 6, viz contributionPsp9) – jde tedy o pokles legislativní aktivity mezi obdobími, ne o nováčka bez zkušeností.",
+        "effort_public_role": "Člen Výboru pro bezpečnost a všech tří stálých kontrolních komisí dolní komory (SKBIS – kontrola BIS, SKVZ – kontrola Vojenského zpravodajství, SKFAÚ – kontrola Finančního analytického úřadu) – tzn. má přístup ke kontrole všech tří klíčových bezpečnostních/zpravodajských složek státu najednou. Podle psp.cz je také členem Stálé delegace do Meziparlamentní unie a předsedá meziparlamentní skupině pro Tádžikistán.",
+        "effort_notes": "Datová nesrovnalost k ověření: absence_rate v aktuálních props je 0.4, což je stejná hodnota jako absenceRate v contributionPsp9 (rovněž 0.4) – shoda mezi obdobími působí spíš jako artefakt přebírání staré hodnoty než jako reálně naměřená 40% absence za pouhých ~4 měsíce nového mandátu; doporučuji ověřit zdroj metriky pro PSP10 přímo z hlasovacích dat. Firemní vazba: Nadační fond Nemocnice Dačice (IČO 26025027, contractCzk 433 586, pending_review) – Bartošek byl v letech 2010–2013 místostarostou Dačic a fond je veřejně spjatý s jeho domovským městem; nepodařilo se ale dohledat přímou personální vazbu (statutární orgán) mezi Bartoškem a fondem, jde tedy o kontextovou, nikoli prokázanou vazbu – ponechávám jako otevřenou k dalšímu ověření přes veřejný rejstřík nadací."
+      },
+      "signal": 0.35,
+      "headline": "Bartošek kontroluje BIS, vojenskou rozvědku i finanční zpravodajku najednou, ale v novém volebním období zatím nemá vlastní zákon.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6178",
+        "https://www.janbartosek.cz/",
+        "https://www.hlidacstatu.cz/osoba/jan-bartosek"
+      ]
+    },
+    {
+      "id": "psp:person:6215",
+      "name": "Roman Kubíček",
+      "club": "ANO2011",
+      "lens": [
+        "high-triage"
+      ],
+      "props": {
+        "effort_work_themes": [
+          "hospodářství",
+          "obrana",
+          "finanční dohled",
+          "regionální politika (Jihočeský kraj)"
+        ],
+        "effort_bill_focus": "Spoluautor tisku 43197 (interní č. 87) – novela zákona o zemských znacích a vlajkách, předložil R. Vondráček a další (40 spolupředkladatelů). Vládní stanovisko je souhlasné (25. 2. 2026), tisk projednávají Výbor pro vědu, vzdělání, kulturu, mládež a tělovýchovu (garanční) a Ústavně-právní výbor. K 24. 7. 2026 je stále v projednávání ve sněmovně, hlasování o zákonu neproběhlo.",
+        "effort_public_role": "Člen Hospodářského výboru, Výboru pro obranu a od ledna 2026 předseda Podvýboru pro energetiku; dále člen Stálé komise pro kontrolu Finančního analytického úřadu. Bývalý vojenský pilot (stíhací letectvo). V krajských volbách 2024 vedl kandidátku ANO v Jihočeském kraji do pozice hejtmana, mandát hejtmana ale podle dostupných zdrojů nezískal – zůstal krajským zastupitelem od 21. 9. 2024 souběžně s poslaneckým mandátem.",
+        "effort_notes": "Silný pokles legislativní aktivity mezi obdobími: contributionPsp9 uvádí 16 zákonů a 25 interpelací za PSP9, v aktuálním období props ukazují jen 1 sponzorovaný tisk a 0 interpelací – částečně vysvětlitelné krátkou dobou nového mandátu (293 dní), ale componentDivergence 0.649 naznačuje reálný posun profilu, ne jen efekt času. Firemní vazba 'OSVČ' (IČO 04627695, contractCzk 0, pending_review) nebyla přes ARES dohledatelná (endpoint nevrátil čitelná data) – s nulovou hodnotou smlouvy jde pravděpodobně o formální záznam vlastního OSVČ, ne o zjištěnou peněžní vazbu; nepotvrzuji ani nevyvracím."
+      },
+      "signal": 0.25,
+      "headline": "Kubíček z bývalého stíhacího pilota a téměř-hejtmana Jihočeského kraje řídí ve sněmovně energetický podvýbor, ale se skromnou legislativní stopou.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6215",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
+        "https://cs.wikipedia.org/wiki/Roman_Kub%C3%AD%C4%8Dek",
+        "https://ceskobudejovicky.denik.cz/z_regionu/krajske-volby-ano-politika-roman-kubicek-ceske-budejovice.html"
+      ]
+    },
+    {
+      "id": "psp:person:7059",
+      "name": "Filip Turek",
+      "club": "MS",
+      "lens": [
+        "quiet-workhorse-legislative"
+      ],
+      "props": {
+        "effort_work_themes": [
+          "zahraniční politika",
+          "evropské záležitosti",
+          "protikorupční/konfliktní legislativa",
+          "mediální právo"
+        ],
+        "effort_bill_focus": "Přes jen 8 vystoupení na plénu je spoluautorem dvou konkrétních novel: tisk 43323 (č. 201) – novela zákona o rozhlasových a televizních poplatcích (skupina 7 poslanců okolo P. Nachera a T. Okamury, předloženo 22. 5. 2026, vládní souhlas 24. 6. 2026, k 24. 7. 2026 čeká na projednání ve výboru pro média); a tisk 43343 (č. 221) – novela zákona o střetu zájmů (s R. Vondráčkem, D. Pražákem a M. Pošarovou, předloženo 8. 6. 2026, vládní stanovisko neutrální, Ústavně-právní výbor jako garanční, projednávání možné od 10. 7. 2026). Obě témata – médiím placené poplatky a střet zájmů – jsou přímo v jádru veřejné kontroly politiků, což k jeho vlastní pozici přidává ironický kontext.",
+        "effort_public_role": "Místopředseda Zahraničního výboru a místopředseda Výboru pro evropské záležitosti (dle interních dat; psp.cz profil explicitně potvrzuje místopředsednictví Zahraničního výboru). Od ledna 2026 zároveň zmocněnec vlády pro klimatickou politiku a Green Deal a čestný prezident hnutí Motoristé sobě – tedy souběh regulatorní role v klimatu s dřívější kariérou automobilového influencera/závodníka, což je sám o sobě pozoruhodný kontrast, ne nutně nekonzistence.",
+        "effort_notes": "Triáž ho správně řadí jako 'quiet workhorse' (quietWorkhorseIndex 0.348, workhorseFlavour legislative) – nízká řečnická viditelnost (8 vystoupení) kontrastuje se dvěma konkrétními, věcně nosnými legislativními iniciativami a dvěma místopředsednickými posty. contributionPsp9 je null – Turek byl v minulém období (do 10/2025) europoslancem, ne poslancem Sněmovny, takže srovnání mezi obdobími zde není k dispozici a chybějící pole je očekávané, nikoli chyba dat. Mediálně je spojen s kontroverzemi (nacistická symbolika na přilbě, sporné závodní úspěchy, nákup bytu za 18 mil. Kč) – ty se ale netýkají jeho legislativní práce popsané zde a nejsou v tomto props zahrnuty jako fakt, jen jako kontext důvěryhodnosti."
+      },
+      "signal": 0.55,
+      "headline": "Turek téměř nemluví na plénu, ale spoluautorsky tlačí novelu zákona o střetu zájmů a rozhlasových poplatcích – a mezitím řídí vládní klimatickou agendu.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7059",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=201",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=221",
+        "https://www.irozhlas.cz/zpravy-domov/dva-mesice-sporu-o-turka-velky-prehled-vyroku-kdo-se-za-nej-stavi-a-kdo-uz-ho-z_2512080620_jgr"
+      ]
+    },
+    {
+      "id": "psp:person:6621",
+      "name": "Karel Havlíček",
+      "club": "ANO2011",
+      "lens": [
+        "bottom",
+        "divergence"
+      ],
+      "props": {
+        "effort_work_themes": [
+          "průmysl a obchod",
+          "hospodářská strategie",
+          "ekodesign/EU regulace",
+          "reklama a zdravotnictví"
+        ],
+        "effort_bill_focus": "committee_count 0 a nízké skóre v aktuálním období nejsou náhodné – Havlíček je od 15. 12. 2025 ministrem průmyslu a obchodu a 1. místopředsedou vlády, což standardně znamená rezignaci na výborovou práci ve prospěch exekutivy. I tak je uveden jako spolupředkladatel/spolupodpisatel šesti tisků, z nichž nejméně dva mají hmatatelný osud: tisk 43118 (č. 11, novela zákona o pojistném na sociální zabezpečení, s A. Schillerovou) byl schválen, Senátem vrácen, Sněmovnou přehlasován a vyhlášen jako zákon č. 90/2026 Sb. (platnost od 10. 6. 2026); tisk 43174 (č. 67, rozsáhlá novela stavebního zákona, s A. Babišem a T. Okamurou) prošel 3. čtením 10. 7. 2026 a byl 23. 7. 2026 postoupen Senátu. Zbylé tisky (43223/113 – ekodesign výrobků, vládní; 43274/153 – novela zákona o regulaci reklamy, vládní, zaseklá u výboru pro zdravotnictví; 43341/219 a 43344/222, oba vládní, u Hospodářského výboru) jsou vládní předlohy, kde figuruje jako předkladatel z titulu ministerstva, ne jako řadový poslanec-iniciátor.",
+        "effort_public_role": "Ministr průmyslu a obchodu a 1. místopředseda vlády od 15. 12. 2025 (jmenován prezidentem Petrem Pavlem), od ledna 2026 také 1. místopředseda hnutí ANO. Hlavní autor vládního koncepčního dokumentu 'Česko: země pro budoucnost 2.0', schváleného vládou v únoru 2026.",
+        "effort_notes": "Komponenta contributionPsp9 (77.7 bodu, 13 zákonů, 6 interpelací za PSP9) je z minulého období, kdy nebyl ministrem – přímé srovnání s aktuálním obdobím (committee_count 0, contribution_score 37.6) je tedy zavádějící bez kontextu exekutivní role; componentDivergence 1.439 a triáž 'bottom/divergence' by měly být čteny jako 'poslanec přešel do vlády', ne jako pokles pracovní morálky. Toto je hlavní data-quality flag pro tento dossier."
+      },
+      "signal": 0.4,
+      "headline": "Havlíčkovo nízké skóre 'bottom/divergence' je artefakt vládní funkce – od prosince 2025 je 1. místopředsedou vlády a ministrem průmyslu, ne řadovým poslancem bez výborů.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6621",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=67",
+        "https://vlada.gov.cz/cz/vlada/clenove-vlady/karel-havlicek-223969/",
+        "https://mpo.gov.cz/cz/rozcestnik/pro-media/tiskove-zpravy/ministrem-prumyslu-a-obchodu-se-stal-karel-havlicek---290911/"
+      ]
+    },
+    {
+      "id": "psp:person:6466",
+      "name": "Jana Krutáková",
+      "club": "STAN",
+      "lens": [
+        "quiet-workhorse-legislative"
+      ],
+      "props": {
+        "effort_work_themes": [
+          "životní prostředí",
+          "zemědělství a rozvoj venkova",
+          "odpadové a vodní hospodářství",
+          "kontrola centrální evidence účtů"
+        ],
+        "effort_bill_focus": "Pouhých 5 vystoupení na plénu, ale čtyři spoluautorské tisky přesně v jejím oboru: tisk 43190 (č. 74, novela zákona o předcházení ekologické újmě, s P. Hladíkem, vládní stanovisko negativní 10. 2. 2026, u Výboru pro životní prostředí); tisk 43192 (č. 75, novela vodního zákona, vládní stanovisko negativní 17. 2. 2026, u Zemědělského výboru); tisk 43237 (č. 120, novela zákona o daních z příjmů, s L. Sedmihradskou, vládní stanovisko negativní 31. 3. 2026); tisk 43282 (č. 161, novela zákona o odpadech, s P. Hladíkem, vládní nesouhlas 5. 5. 2026, u Výboru pro životní prostředí). Všechny čtyři narazily na negativní vládní stanovisko, ale všechny prošly organizačním výborem k dalšímu projednání – žádný zatím nebyl zamítnut ani schválen k 24. 7. 2026.",
+        "effort_public_role": "Členka Výboru pro životní prostředí a Zemědělského výboru, předsedkyně Podvýboru pro rozvoj venkova (od 20. 1. 2026) a předsedkyně Stálé komise pro kontrolu poskytování údajů z centrální evidence účtů (od 27. 11. 2025) – tedy dvě předsednické role současně. Profesně bývalá ředitelka HANTÁLY Velké Pavlovice (odpadové hospodářství Břeclavsko/Hustopečsko) a bývalá starostka Moravské Nové Vsi (2002–2010); legislativní zaměření na odpady, vodu a venkov tak přímo navazuje na její profesní kariéru před politikou.",
+        "effort_notes": "Triáž ji correctně řadí jako 'quiet workhorse' (quietWorkhorseIndex 0.406, nejvyšší z celé skupiny D) – nízká řečnická aktivita (5 vystoupení, speech komponenta v PSP9 byla také nejnižší z jejích komponent, 5.3 bodu) kontrastuje se čtyřmi konkrétními legislativními iniciativami a dvěma předsednickými funkcemi. Žádná firemní vazba v datech (linkedCompanies prázdné) a žádná nesrovnalost mezi PSP9 a aktuálním obdobím nebyla nalezena – profil je interně konzistentní."
+      },
+      "signal": 0.5,
+      "headline": "Krutáková mluví na plénu nejméně ze skupiny, ale řídí hned dvě komise a tlačí čtyři konkrétní zákony o odpadech, vodě a venkově navazující na její kariéru v odpadovém hospodářství.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6466",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=74",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=75",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=120",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=161",
+        "https://cs.wikipedia.org/wiki/Jana_Krut%C3%A1kov%C3%A1"
+      ]
+    }
+  ]
+}

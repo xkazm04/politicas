@@ -1,0 +1,112 @@
+{
+  "case": "effort",
+  "batch": 3,
+  "group": "C",
+  "generatedAt": "2026-07-24",
+  "note": "Všech 5 poslanců má tenureClass full_term (293 dní, žádná náhrada za jiného poslance), takže replacement-výzkum nebyl relevantní; psp.cz detail.sqw u dvou jmen vrátil chybný přepis (Zdenka Němečková Crkvenjašová a Jana Murovská/Murová) — v props použito jméno z inputu. Zdroje: psp.cz detail.sqw a historie.sqw pro fakta o mandátu a osudu sněmovních tisků, ARES a Hlídač státu pro firemní vazbu u J. Hrnčíře, dobové zpravodajství (Deník, Zdravotnický deník, Forum24, ParlamentníListy) pro veřejnou roli a kontext.",
+  "proposals": [
+    {
+      "id": "psp:person:6793",
+      "name": "Renáta Zajíčková",
+      "club": "ODS",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["školství a vzdělávání", "zdravotnictví", "rodinná politika"],
+        "effort_bill_focus": "Zajíčková je spolupředkladatelkou tří poslaneckých novel z jara 2026: tisk 103 (novela zákona o elektronických úkonech a autorizované konverzi dokumentů, novela zákona č. 300/2008 Sb., podán 10. 2. 2026, vláda k němu vydala nesouhlasné stanovisko, k 24. 7. 2026 stále v projednávání), tisk 129 (zrušení zákona o prodejní době, novela zákona č. 223/2016 Sb., podán 10. 3. 2026, přikázán hospodářskému výboru, dosud neschválen) a tisk 208 (novela zákona č. 65/2017 Sb. o ochraně zdraví před škodlivými účinky návykových látek, podán 27. 5. 2026, vláda opět nesouhlasí, dosud v projednávání). U žádného z tisků nešlo o osobní iniciativu — ve všech je hlavním předkladatelem jiný poslanec klubu ODS (Bureš, Slovák), Zajíčková je jednou z devíti až deseti spolupodpisů.",
+        "effort_public_role": "Poslankyně za ODS/SPOLU (Praha), místopředsedkyně Výboru pro vědu, vzdělávání, mládež a sport a členka Petičního výboru, Výboru pro zdravotnictví a dvou stálých komisí. V letech 2019–2022 byla starostkou Prahy 5, předtím místostarostkou a radní; v roce 2005 založila soukromé gymnázium. Aktuálně vede podvýbor pro regionální školství a celoživotní vzdělávání a prosazuje reformu vzdělávací soustavy '8+2'.",
+        "effort_notes": "contribution_score 80,6 a triageScore 9,02 odpovídají profilu aktivní, ale ne osamocené legislativní práce — všechny tři sponzorované tisky jsou skupinové novely s desítkou spolupodpisů, žádný není její vlastní iniciativou. componentDivergence 0,823 (vysoký rozptyl mezi PSP9 a PSP10 komponentami) je konzistentní s přechodem z exekutivní komunální funkce (starostka) do sněmovny až v říjnu 2025 — méně než rok mandátu, žádné legislativní srovnání s předchozím obdobím k dispozici. Bez linked companies."
+      },
+      "signal": 0.42,
+      "headline": "Bývalá starostka Prahy 5 se v Sněmovně soustředí na skupinové novely v oblasti dat, obchodu a drog — žádný z jejích tří tisků letos zatím neprošel a vláda dvěma z nich vyslovila nesouhlas.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6793",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&T=103",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&T=129",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&T=208",
+        "https://cs.wikipedia.org/wiki/Ren%C3%A1ta_Zaj%C3%AD%C4%8Dkov%C3%A1"
+      ]
+    },
+    {
+      "id": "psp:person:6804",
+      "name": "Zdenka Němečková Crkvenjaš",
+      "club": "ODS",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["zdravotnictví", "veřejné zdravotní pojištění", "mezinárodní parlamentní spolupráce"],
+        "effort_bill_focus": "Jediným sponzorovaným tiskem je 208 — novela zákona č. 65/2017 Sb. o ochraně zdraví před škodlivými účinky návykových látek (podán 27. 5. 2026 skupinou devíti poslanců vedenou Š. Slovákem, gestorem je Výbor pro zdravotnictví, jehož je sama místopředsedkyní). Vláda 23. 6. 2026 vydala nesouhlasné stanovisko; k 24. 7. 2026 tisk dále projednáván bez rozhodnutí.",
+        "effort_public_role": "Lékařka (primářka popáleninového centra FN Ostrava dle dobového tisku), místopředsedkyně sněmovního Výboru pro zdravotnictví a členka tří zdravotnických podvýborů. Vede meziparlamentní skupinu Česko-Bosna a Hercegovina. Působí jako členka správní rady Všeobecné zdravotní pojišťovny (VZP) — veřejně vystupuje ke statistikám pojištění uprchlíků VZP.",
+        "effort_notes": "contribution_score 59,3 je nejnižší v této skupině a odpovídá jedinému sponzorovanému tisku a jen 14 řečnickým vystoupením — nízký legislativní výstup je ale kompenzován funkcí ve výboru pro zdravotnictví a v dozorovém orgánu VZP, kde má reálný vliv na politiku zdravotního pojištění mimo sněmovní sál. Bez linked companies. Jméno v psp.cz detail.sqw je přepsáno jako 'Zdenka Němčková Crkvenjašová' — jde o stejnou osobu jako input (rozdíl v diakritice/skloňování, ne o jinou pspId)."
+      },
+      "signal": 0.38,
+      "headline": "Lékařka a členka správní rady VZP s nízkým legislativním výstupem v Sněmovně, ale reálným vlivem na politiku veřejného zdravotního pojištění mimo parlament.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6804",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&T=208",
+        "https://www.parlamentnilisty.cz/politika/politici-volicum/Nemeckova-Crkvenjas-ODS-VZP-pojistila-90-procent-uprchliku-788061"
+      ]
+    },
+    {
+      "id": "psp:person:6455",
+      "name": "Jan Hrnčíř",
+      "club": "SPD",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["symboly a státní/regionální identita", "veřejné rozpočty", "kontrola finanční analytiky"],
+        "effort_bill_focus": "Jediný sponzorovaný tisk 87 (návrh zákona o zemských znacích a vlajkách, podán R. Vondráčkem 22. 1. 2026, Hrnčíř je jedním ze čtyřiceti spolupodpisů napříč SPD, ANO a dalšími kluby) — vláda 25. 2. 2026 vyjádřila souhlas, tisk je gestorován Výborem pro vědu, vzdělávání, mládež a sport, k 24. 7. 2026 stále v projednávání, nikoli přijat.",
+        "effort_public_role": "Předseda Petičního výboru (od 14. 11. 2025), člen Rozpočtového výboru a Stálé komise pro kontrolu činnosti Finančního analytického úřadu. Od 25. 3. 2026 také člen dozorčí rady Státního fondu podpory investic. Vede meziparlamentní skupiny s Kazachstánem, Arménií, Izraelem, Gruzií, Čínou a Slovenskem.",
+        "effort_notes": "contribution_score 68,8 s jediným sponzorovaným tiskem, ale předsednictvím výboru (leadership_count 1, weight 1.0) odpovídá spíš roli organizátora a kontrolora než autora zákonů. Linked company 'Česká informatika s.r.o.' (IČO 27720004, pending_review, contractCzk 0) ověřena přes ARES a Hlídač státu: Hrnčíř byl společníkem s vkladem a členem statutárního orgánu firmy od jejího založení 21. 2. 2007 do 1. 11. 2021, tedy před nástupem do současného mandátu; firma dle Hlídače státu nemá evidované žádné veřejné zakázky (0 smluv, 0 Kč) — vazba je tedy historická a bez zjevného veřejného financování, což odpovídá contractCzk 0 v datech."
+      },
+      "signal": 0.45,
+      "headline": "Předseda Petičního výboru s minimální legislativní stopou (jeden spolupodepsaný tisk), jehož bývalá IT firma bez veřejných zakázek zůstává v datech jako 'pending_review' historická vazba, nikoli aktivní konflikt zájmu.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6455",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&T=87",
+        "https://www.hlidacstatu.cz/osoba/vazby/jan-hrncir",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/27720004",
+        "https://rejstrik-firem.kurzy.cz/27720004/ceska-informatika-s-r-o/"
+      ]
+    },
+    {
+      "id": "psp:person:6518",
+      "name": "Petr Sadovský",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["bezpečnost a vězeňství", "kontrola veřejné správy", "volby"],
+        "effort_bill_focus": "Nemá žádný sponzorovaný tisk (bills_authored 0, sponsoredBills prázdné) — jeho příspěvek je čistě výborová a kontrolní práce, nikoli autorská legislativa.",
+        "effort_public_role": "Člen Výboru pro bezpečnost a Kontrolního výboru, předseda Podvýboru pro vězeňství (od 22. 1. 2026), člen Volební komise a tří stálých bezpečnostních komisí (SKKPO, SKBIS, SKNBÚ) — tedy plný dohledový profil nad zpravodajskými a bezpečnostními službami. Vede meziparlamentní skupinu Česko-Mongolsko a je aktivní v dalších osmi přátelských skupinách. V komunální politice od roku 2014 zastupitel a v letech 2016–2022 místostarosta Dobrušky, od 2022 radní; podnikatelsky od 1998 jednatel a společník firmy ACT CZ (prodej a servis počítačové techniky).",
+        "effort_notes": "contribution_score 54,2 je v souladu s nulovým bills_authored a jen 4 řečnickými vystoupeními — nejnižší legislativní/řečnická aktivita ve skupině, ale participation_rate 1,0 a absence_rate 0,2 ukazují na vysokou docházku a formální disciplínu. Profil odpovídá typu 'dohledový specialista' (bezpečnostní komise) spíš než zákonodárce. Firma ACT CZ (IT prodej/servis, součástí i sázkové kanceláře dle dobových zdrojů) není v inputu uvedena jako linkedCompanies — nebylo možné ověřit případnou veřejnou zakázku, doporučuje se prověřit v navazujícím kole. Bez linked companies v datech."
+      },
+      "signal": 0.3,
+      "headline": "Bezpečnostní 'watchdog' bez jediného vlastního zákona — plná členská karta ve zpravodajských kontrolních komisích, nulová autorská legislativní stopa.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6518",
+        "https://cs.wikipedia.org/wiki/Petr_Sadovsk%C3%BD",
+        "https://www.hlidacstatu.cz/Osoba/Funkce/petr-sadovsky-4"
+      ]
+    },
+    {
+      "id": "psp:person:7025",
+      "name": "Jana Murová",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["evropské a rozpočtové záležitosti", "digitální ekonomika a AI", "místní samospráva"],
+        "effort_bill_focus": "Spolupodepsala čtyři poslanecké tisky napříč ANO a SPD: tisk 11 (novela zákona o pojistném na sociální zabezpečení, sleva pro OSVČ a rodiče vracející se z rodičovské) — PŘIJAT jako zákon č. 90/2026 Sb. (podepsán prezidentem 5. 6. 2026, publikován 10. 6. 2026, po zamítnutí Senátem 6. 5. 2026 Sněmovna setrvala na svém stanovisku 26. 5. 2026); tisk 70 (novela zákona o veřejném zdravotním pojištění) — rovněž PŘIJAT jako zákon č. 71/2026 Sb. (schválen 25. 3. 2026, podepsán prezidentem 19. 5. 2026); tisk 72 (novela jednacího řádu Sněmovny, zákon č. 90/1995 Sb.) — schválen Sněmovnou 1.–3. 7. 2026, k 24. 7. 2026 postoupen Senátu; a tisk 87 (zákon o zemských znacích a vlajkách, sdílený spolupodpis s J. Hrnčířem) — dosud v projednávání. Ze čtyř tisků jsou tedy dva už platným zákonem a třetí těsně před dokončením — nejvyšší 'úspěšnost' spolupodpisů v této skupině.",
+        "effort_public_role": "Od roku 2018 starostka Města Albrechtice (plný úvazek), od října 2024 zároveň neuvolněná zastupitelka Moravskoslezského kraje (do 2024 náměstkyně hejtmana pro informatiku a kybernetickou bezpečnost) a od října 2025 poslankyně — tedy současný výkon mandátů na obecní, krajské i celostátní úrovni. Ve Sněmovně členka Rozpočtového výboru a Výboru pro evropské záležitosti, místopředsedkyně podvýboru pro financování samospráv a EU fondy a předsedkyně podvýboru pro digitální ekonomiku, AI a ochranu spotřebitele.",
+        "effort_notes": "contribution_score 81,5 a nejvyšší zVsClub (1,14) v této skupině odpovídají reálně vysoké legislativní aktivitě (4 tisky, 2 už zákonem) i řečnické účasti (54 vystoupení) — ale contributionPsp9 je null, tzn. bez PSP9 historie k porovnání (poprvé zvolena 2025, dříve nebyla poslankyní). Souběh tří úrovní politických funkcí byl v regionálním tisku (Forum24) kritizován jako koncentrace moci s odhadovaným ročním příjmem kolem milionu Kč jen za první dva měsíce mandátu; stejný zdroj zaznamenal kontroverzní výrok Murové na adresu Pirátů v diskusi o zákazu alkoholu/drog ve Sněmovně. componentDivergence 1,01 je nejvyšší v celé skupině — částečně vysvětlitelné chybějící PSP9 baseline. Bez linked companies."
+      },
+      "signal": 0.62,
+      "headline": "Starostka, krajská radní a poslankyně v jedné osobě má za sebou dva už platné zákony, ale i kritiku za souběh tří politických funkcí a kontroverzní výrok na adresu Pirátů.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7025",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&T=11",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&T=70",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&T=72",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&T=87",
+        "https://cs.wikipedia.org/wiki/Jana_Murov%C3%A1",
+        "https://www.forum24.cz/neznama-poslankyne-murova-z-ano-ktera-urazila-piraty-je-sberatelkou-funkci-zvlada-politicky-hattrick"
+      ]
+    }
+  ]
+}

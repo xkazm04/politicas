@@ -1,0 +1,152 @@
+{
+  "case": "effort",
+  "batch": 3,
+  "generatedAt": "2026-07-24T19:29:07.017Z",
+  "note": "O-effort-3 build-support backfill: effort_workhorse_flavour (legislative|oversight, P31) for every MP currently flagged quiet_workhorse by the deterministic triage lens (stable recompute of batch-001/002's known 12 plus this batch's new picks), MINUS departed/never_seated MPs (batch-003 reflection catch: the badge asserts a CURRENT role). Deterministic — no LLM. review_state stays pending_review.",
+  "droppedDeparted": [
+    {
+      "pspId": 6990,
+      "name": "Karel Beran"
+    }
+  ],
+  "count": 15,
+  "legislativeCount": 11,
+  "oversightCount": 4,
+  "proposals": [
+    {
+      "id": "psp:person:6783",
+      "name": "Jan Síla",
+      "club": "SPD",
+      "props": {
+        "effort_workhorse": true,
+        "effort_workhorse_flavour": "legislative"
+      }
+    },
+    {
+      "id": "psp:person:6523",
+      "name": "Michal Ratiborský",
+      "club": "ANO2011",
+      "props": {
+        "effort_workhorse": true,
+        "effort_workhorse_flavour": "oversight"
+      }
+    },
+    {
+      "id": "psp:person:7059",
+      "name": "Filip Turek",
+      "club": "MS",
+      "props": {
+        "effort_workhorse": true,
+        "effort_workhorse_flavour": "legislative"
+      }
+    },
+    {
+      "id": "psp:person:6994",
+      "name": "Monika Brzesková",
+      "club": "KDU-ČSL",
+      "props": {
+        "effort_workhorse": true,
+        "effort_workhorse_flavour": "legislative"
+      }
+    },
+    {
+      "id": "psp:person:7064",
+      "name": "Miroslav Žbánek",
+      "club": "ANO2011",
+      "props": {
+        "effort_workhorse": true,
+        "effort_workhorse_flavour": "legislative"
+      }
+    },
+    {
+      "id": "psp:person:5226",
+      "name": "Pavel Žáček",
+      "club": "ODS",
+      "props": {
+        "effort_workhorse": true,
+        "effort_workhorse_flavour": "oversight"
+      }
+    },
+    {
+      "id": "psp:person:7016",
+      "name": "Miroslav Krejčí",
+      "club": "MS",
+      "props": {
+        "effort_workhorse": true,
+        "effort_workhorse_flavour": "oversight"
+      }
+    },
+    {
+      "id": "psp:person:6688",
+      "name": "Miroslav Samaš",
+      "club": "ANO2011",
+      "props": {
+        "effort_workhorse": true,
+        "effort_workhorse_flavour": "oversight"
+      }
+    },
+    {
+      "id": "psp:person:6466",
+      "name": "Jana Krutáková",
+      "club": "STAN",
+      "props": {
+        "effort_workhorse": true,
+        "effort_workhorse_flavour": "legislative"
+      }
+    },
+    {
+      "id": "psp:person:6500",
+      "name": "Jan Richter",
+      "club": "ANO2011",
+      "props": {
+        "effort_workhorse": true,
+        "effort_workhorse_flavour": "legislative"
+      }
+    },
+    {
+      "id": "psp:person:6753",
+      "name": "Jana Hanzlíková",
+      "club": "ANO2011",
+      "props": {
+        "effort_workhorse": true,
+        "effort_workhorse_flavour": "legislative"
+      }
+    },
+    {
+      "id": "psp:person:6750",
+      "name": "Josef Flek",
+      "club": "STAN",
+      "props": {
+        "effort_workhorse": true,
+        "effort_workhorse_flavour": "legislative"
+      }
+    },
+    {
+      "id": "psp:person:7041",
+      "name": "Gabriela Sedláčková",
+      "club": "MS",
+      "props": {
+        "effort_workhorse": true,
+        "effort_workhorse_flavour": "legislative"
+      }
+    },
+    {
+      "id": "psp:person:7004",
+      "name": "Jana Filipovičová",
+      "club": "KDU-ČSL",
+      "props": {
+        "effort_workhorse": true,
+        "effort_workhorse_flavour": "legislative"
+      }
+    },
+    {
+      "id": "psp:person:7021",
+      "name": "Martin Kupec",
+      "club": "ANO2011",
+      "props": {
+        "effort_workhorse": true,
+        "effort_workhorse_flavour": "legislative"
+      }
+    }
+  ]
+}

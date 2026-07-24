@@ -1,0 +1,148 @@
+{
+  "case": "effort",
+  "batch": 3,
+  "group": "E",
+  "generatedAt": "2026-07-24",
+  "note": "5/5 zpracováno; žádná korekce pspId. Zdroje: psp.cz (detail.sqw, historie.sqw), ARES REST, Hlídač státu, vláda.gov.cz, dobové zpravodajství. Dvě datové anomálie odhaleny a NE potichu opraveny: (1) u Decroix jsou oba 'sponsoredBills' ve skutečnosti vládní tisky, kde je jen členkou garančního výboru, ne navrhovatelkou; (2) OSVČ IČO 04627695 (Všeruby, Plzeň-sever) figuruje jako 'linkedCompany' u Decroix i Pařila současně, přestože oba mají volební obvod jinde — pravděpodobná chyba párování, nikoli reálná vazba.",
+  "proposals": [
+    {
+      "id": "psp:person:6727",
+      "name": "Eva Decroix",
+      "club": "ODS",
+      "lens": [
+        "bottom"
+      ],
+      "props": {
+        "effort_work_themes": [
+          "justice",
+          "trestní právo",
+          "mezinárodní justiční spolupráce"
+        ],
+        "effort_bill_focus": "Oba tisky uvedené jako 'sponsoredBills' (tisk 46/2025 – novela zákona o mezinárodní justiční spolupráci ve věcech trestních, mění zákon 104/2013 Sb.; tisk 61/2025 – novela zákona o soudnictví ve věcech mládeže, mění zákon 218/2003 Sb.) jsou VLÁDNÍ předlohy podané Ministerstvem spravedlnosti, kde Decroix figuruje pouze jako členka garančního Ústavně-právního výboru, nikoli jako navrhovatelka. Tisk 46 prošel 1. čtením (24. 3. 2026) a ÚPV jej doporučil ke schválení (30. 4. 2026); tisk 61 čeká na projednání ve výboru od prosince 2025. Reálný autorský přínos v tomto vzorku je tedy nulový — bills_authored=0 v datech odpovídá realitě.",
+        "effort_public_role": "Bývalá ministryně spravedlnosti (10. 6. 2025 – 15. 12. 2025, v demisi od 6. 11. 2025) po odchodu Pavla Blažka kvůli kauze kryptoměnového daru; od října 2025 poslankyně za Vysočinu a místopředsedkyně poslaneckého klubu ODS, od dubna 2024 místopředsedkyně strany. V opozici od prosince 2025 je členkou Ústavně-právního výboru a jeho podvýborů pro justici, rodinné právo a oběti trestné činnosti.",
+        "effort_notes": "Nízké participation_rate (0,6) a vysoké absence_rate (0,8) odpovídají přechodu z exekutivní funkce (ministryně) do opoziční lavice v polovině/na konci roku 2025 — přechod na plný poslanecký mandát proběhl teprve v lednu 2026 (první výborové členství 16. 1. 2026), takže velká část tenure (293 dní) předchází reálné parlamentní aktivitě. Firma 'Delices de papa s.r.o.' (IČO 03709698, contractCzk 594) je ověřitelně provozovna francouzské bistro restaurace 'Bistrot de Papa' jejího manžela Rémiho Decroixe v Horní Dubenky na Vysočině — jde o rodinný gastro-podnik, smluvní částka je zanedbatelná a nejde o veřejnou zakázku. 'ELEMENTA Agency s.r.o.' (IČO 03265889, Praha) a 'Park Volmanec s.r.o.' (IČO 03921727) se mi ve veřejných zdrojích nepodařilo ve zbývajícím čase spojit s osobou Decroix — ponechávám neověřené, doporučuji ruční kontrolu v OR. OSVČ IČO 04627695 (Všeruby, Plzeň-sever, NACE 94920 'profesní organizace') je zeměpisně nesourodé s jejím vysočinským obvodem a stejné IČO je přiřazeno i Patriku Pařilovi (Jihomoravský kraj) v této dávce — jde téměř jistě o chybu párování v datovém pipeline, ne o reálnou vazbu; needs review.",
+        "effort_data_flag": "sponsoredBills obsahuje vládní (druh=1) tisky, kde MP je jen výborový garant — navrhuji odlišit od skutečného autorství v datovém modelu."
+      },
+      "signal": 0.5,
+      "headline": "Bývalá ministryně spravedlnosti Eva Decroix skončila v opozici bez jediného vlastního zákona a s nejasně proúčtovanou firemní vazbou v datech.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6727",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=46",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=61",
+        "https://zpravy.aktualne.cz/eva-decroix-ministryne-spravedlnosti-ods-mistopredsedkyne-po/r~13dcefaa79b911f0b689ac1f6b220ee8/r~f235b56aae8511f0b2180cc47ab5f122/?lp=1",
+        "https://zena-in.cz/clanek/kousek-francie-na-vysocine-bistrot-de-papa",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/03709698"
+      ]
+    },
+    {
+      "id": "psp:person:6750",
+      "name": "Josef Flek",
+      "club": "STAN",
+      "lens": [
+        "quiet-workhorse-legislative"
+      ],
+      "props": {
+        "effort_work_themes": [
+          "obrana",
+          "vojenské zpravodajství",
+          "zdravotnictví",
+          "sociální podnikání"
+        ],
+        "effort_bill_focus": "Jediný tisk v datech (43237 / sněmovní tisk 120, novela zákona o daních z příjmů 586/1992 — sociální podnikání) má 18 spolupředkladatelů vedených Lucií Sedmihradskou; Flek je jeden ze spolupodpisů, ne hlavní navrhovatel. Tisk byl rozeslán 4. 3. 2026, vláda k němu 31. 3. 2026 zaujala nesouhlasné stanovisko, k dalšímu čtení je způsobilý od 11. 4. 2026 — v Poslanecké sněmovně dosud neprošel dál.",
+        "effort_public_role": "Předseda Výboru pro obranu (od 14. 11. 2025) a člen Stálé komise pro kontrolu činnosti Vojenského zpravodajství — nejvyšší formální odpovědnost v bezpečnostní/obranné agendě v této skupině pěti poslanců. Dále člen Výboru pro zdravotnictví a podvýborů pro letectví a astronautiku, ekonomiku zdravotnictví a urgentní medicínu.",
+        "effort_notes": "tenureClass=full_term, tenureDays=293 — žádný náhradnický scénář, nesedí tedy dotaz na 'koho nahradil'. Vysoké quietWorkhorseIndex (0,338) a workhorseFlavour='legislative' odpovídají profilu: nízký počet vlastních řečnických vystoupení (8 v aktuálních props, byť PSP9 baseline uvádí 112 — ale ten baseline je z JINÉHO volebního období/osoby srovnání a nelze jej brát jako přímou kontrolu konzistence pro PSP10 data), ale předsednictví klíčového výboru a šest výborových/komisních členství. linkedCompanies je prázdné — žádná firemní vazba k prověření.",
+        "effort_data_flag": "kontrolní contributionPsp9 blok je z odlišného volebního období (PSP9) a jeho hodnoty (billsAuthored=5, speechTurns=112) nelze mechanicky porovnávat s aktuálními PSP10 props (bills_authored=1, speech_turns=8) jako chybu — je to jiná časová řada."
+      },
+      "signal": 0.35,
+      "headline": "Josef Flek řídí sněmovní Výbor pro obranu, ale legislativně se v datech objevuje jen jako jeden z osmnácti spolupodpisů cizího návrhu.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6750",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=120",
+        "https://cs.wikipedia.org/wiki/Josef_Flek"
+      ]
+    },
+    {
+      "id": "psp:person:6762",
+      "name": "Pavla Pivoňka Vaňková",
+      "club": "STAN",
+      "lens": [
+        "top"
+      ],
+      "props": {
+        "effort_work_themes": [
+          "sociální politika",
+          "zemědělství",
+          "daně z příjmů",
+          "rodina a rovné příležitosti"
+        ],
+        "effort_bill_focus": "Na rozdíl od ostatních ve skupině je u dvou z pěti tisků skutečně hlavní navrhovatelkou: tisk 59/2025 (novela zákona o integračním sociálním podniku, spolu se Zdeňkou Blišťanovou) — vláda k němu 13. 1. 2026 vydala nesouhlasné stanovisko, projednávání ve Výboru pro sociální politiku možné od 23. 1. 2026; a tisk 244/2026 (novela zákona o daních z příjmů 586/1992, se třemi spolupředkladateli) — rozeslán 29. 6. 2026, u vlády čeká na stanovisko do 30. 7. 2026, tedy v nejranější fázi. Dále spolupodepsala tisky 24, 120 a 214 vedené kolegy z STAN.",
+        "effort_public_role": "Místopředsedkyně poslaneckého klubu STAN (od 10. 10. 2025), místopředsedkyně Výboru pro sociální politiku a členka Zemědělského výboru; aktivní v sedmi podvýborech včetně mysliveckého/rybářského/včelařského a sociálních služeb pro osoby se zdravotním postižením.",
+        "effort_notes": "Data jsou interně konzistentní — nejvyšší contribution_score ve skupině (90,9) odpovídá reálně doloženému vlastnímu legislativnímu výstupu (2 tisky jako hlavní navrhovatelka + 3 spolupodpisy), nikoli jen administrativnímu přiřazení jako u Decroix. componentDivergence (0,296) i quietWorkhorseIndex (0,053, workhorse=false) sedí k profilu viditelné, ne tiché aktivistky. linkedCompanies prázdné."
+      },
+      "signal": 0.3,
+      "headline": "Pavla Pivoňka Vaňková je jedinou z pětice, kde vysoké skóre odpovídá reálnému autorství vlastních zákonů, ne jen spolupodpisům.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6762",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=59",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=244"
+      ]
+    },
+    {
+      "id": "psp:person:7022",
+      "name": "Petr Macinka",
+      "club": "MS",
+      "lens": [
+        "divergence"
+      ],
+      "props": {
+        "effort_work_themes": [
+          "zahraniční politika (nyní exekutiva)",
+          "zemědělství",
+          "bezpečnostní dohled (BIS)",
+          "šest spolupodpisů vládních novel ANO/SPD/MS bloku"
+        ],
+        "effort_bill_focus": "Šest tisků v datech (43118, 43142, 43174, 43179, 43294, 43295) jsou vesměs vícečlenné poslanecké návrhy vedené Alenou Schillerovou, Andrejem Babišem, Radkem Vondráčkem a Lucií Šafránkovou — Macinka je všude spolupodpisem mezi desítkami dalších (např. tisk 72/2025 má 29 spolupředkladatelů), nikde není hlavním navrhovatelem.",
+        "effort_public_role": "Od 15. 12. 2025 místopředseda vlády a ministr zahraničních věcí ČR (a přechodně, do 23. 2. 2026, pověřen řízením Ministerstva životního prostředí) — souběžně zůstává poslancem za Jihomoravský kraj a předsedou strany Motoristé sobě. Před vstupem do vlády pracoval 2013–2025 jako manažer Institutu Václava Klause a 2008–2013 na Kanceláři prezidenta republiky.",
+        "effort_notes": "Toto je klíč k vysoké componentDivergence (1,626, nejvyšší v celé skupině): nízké participation_rate (0,5) a vysoké absence_rate (0,8) NEJSOU známkou nezájmu, ale přímým důsledkem toho, že od poloviny prosince 2025 souběžně řídí ministerstvo zahraničí (a dočasně i životního prostředí) jako místopředseda vlády — časový střet exekutivní a poslanecké role, ne 'lenošení'. contributionPsp9 je null, protože jde o jeho první mandát v Poslanecké sněmovně (PSP9 baseline pro něj neexistuje). linkedCompanies prázdné."
+      },
+      "signal": 0.75,
+      "headline": "Petr Macinka je od prosince 2025 místopředsedou vlády a ministrem zahraničí — jeho nízká poslanecká aktivita v datech je logickým důsledkem souběhu funkcí, ne pasivity.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7022",
+        "https://vlada.gov.cz/cz/vlada/clenove-vlady/petr-macinka-223973/",
+        "https://zpravy.kurzy.cz/843207-petr-macinka-motoriste-vicepremier-ministr-zahranicnich-veci-predseda-strany-7-1-2026/",
+        "https://cs.wikipedia.org/wiki/Motorist%C3%A9_sob%C4%9B"
+      ]
+    },
+    {
+      "id": "psp:person:7031",
+      "name": "Patrik Pařil",
+      "club": "ANO2011",
+      "lens": [
+        "top"
+      ],
+      "props": {
+        "effort_work_themes": [
+          "rozpočet",
+          "hospodářská politika",
+          "doprava",
+          "startupy a inovace",
+          "finanční analytický dohled"
+        ],
+        "effort_bill_focus": "Ve všech pěti tiscích (43118, 43177, 43179, 43197, 43226) figuruje jako jeden z řady spolupodpisů (od 5 do 41 spolupředkladatelů), nikde jako hlavní navrhovatel — tisky vedou Alena Schillerová, Adam Vojtěch, Radek Vondráček a Zuzana Ožanová. Reálný osobní legislativní otisk je tedy převážně kolektivní.",
+        "effort_public_role": "Místopředseda Rozpočtového výboru (od 12. 11. 2025) a auditor Hospodářského výboru (od 30. 4. 2026), člen Stálé komise pro kontrolu Finančního analytického úřadu a od 28. 1. 2026 člen dozorčí rady Státního fondu dopravní infrastruktury. Souběžně od 2018 první místostarosta města Pohořelice (Jihomoravský kraj) a krajský zastupitel — kombinuje komunální exekutivu s poslaneckým mandátem.",
+        "effort_notes": "Peněžní stopa: firmy 'RAPAJA s.r.o.' (IČO 06386237, založena 2017) a 'RMPJ s.r.o.' (IČO 09187944, vznikla 2020 odštěpením z DB OIL s.r.o.) sídlí obě na stejné adrese Znojemská 1146, Pohořelice — v jeho domovském městě, kde působí jako místostarosta. Adresní shoda je reálná a ověřená přes ARES, ALE jeho osobní roli jednatele/společníka se mi ve veřejně dostupných zdrojích v čase určeném na tento úkol nepodařilo potvrdit (Hlídač státu jen obecně uvádí 3 soukromé firmy bez jmen) — nepotvrzuji tedy vlastnictví, jen adresní/lokální vazbu, a doporučuji ruční ověření ve výpisu z obchodního rejstříku (justice.cz/or). contractCzk u obou firem je 0 (žádná veřejná zakázka evidována). Stejná anomálie jako u Decroix: OSVČ IČO 04627695 (Všeruby, Plzeň-sever) je v datech přiřazeno i jemu, což zeměpisně nesedí k jeho jihomoravskému obvodu — pravděpodobná chyba párování dat, needs review, nebrat jako reálnou vazbu.",
+        "effort_data_flag": "vlastnická role u RAPAJA/RMPJ nepotvrzena veřejným zdrojem — neuvádět jako fakt bez ověření v OR."
+      },
+      "signal": 0.55,
+      "headline": "Patrik Pařil má dvě firmy na adrese svého vlastního starostenského úřadu v Pohořelicích, ale kdo je skutečně vlastní, veřejné zdroje nepotvrzují.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7031",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/06386237",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/09187944",
+        "https://www.hlidacstatu.cz/osoba/patrik-paril",
+        "https://www.pohorelice.cz/mesto/povinne-informace/osoba-mgr-patrik-paril-2.html"
+      ]
+    }
+  ]
+}
