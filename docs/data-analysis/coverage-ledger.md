@@ -1,5 +1,53 @@
 # Coverage ledger — civic corpus analysis
 
+> **Next major direction:** a self-expanding **knowledge-graph loop** is designed in
+> [`../knowledge-graph-loop.md`](../knowledge-graph-loop.md) (Case 2 — agents build a derived
+> graph that accretes across passes; memory lives here in the vault + the app DB, DataHub is an
+> optional mirror). The per-slice loop below is its deterministic foundation.
+>
+> **Phases 1–3 are BUILT (2026-07-23).**
+> - **Phase 1** (schema + deterministic edges): `kg_node`/`kg_edge` in the store (`lib/db/`,
+>   snapshot `migrations/0001`); `lib/analysis/kg.ts` (unit-tested); `npm run da:kg-compute [--commit]`.
+>   Committed seed graph: **248 nodes** (207 person · 8 party · 33 organ), **21 304 edges**
+>   (co_votes_with 20 496 · influential_in 605 · rebels_against 203).
+> - **Phase 2** (vault): [[frontier]] (F1–F6 seeded), [[graph-schema]], [[graph-log]],
+>   [[feature-opportunities]], [[contradictions]], + the graph-metrics block below.
+> - **Phase 3** (the loop): skill `.claude/skills/knowledge-graph.md`; the gate
+>   `lib/analysis/kg-verdict.ts` (schema + membership check, unit-tested) via
+>   `npm run da:validate-kg-verdict`; verdict-derived nodes/edges persist through
+>   `npm run da:kg-promote`.
+>
+> **Six passes run** (graph: 263 nodes / 21 359 edges + contestedness, rebellion & control props):
+> **P2 F1 blocs** ([[cluster-blocs]]); **P3 F2 themes** ([[cluster-themes]]); **P4 F11
+> bloc × theme** ([[cluster-bloc-theme]]); **P5 F16 theme-grain rebellion**
+> ([[cluster-theme-rebellion]]); **P6 F17 agenda control over time** ([[cluster-agenda-control]]).
+> P4–P6 are deterministic, reuse-rate ~1.0 at ~0 tokens — findings: deep polarization, ODS
+> the fiscal outlier, contestedness-reweighted independence, and control that is
+> consensus→majoritarian (bloc A the majority governs). **Two self-corrections** held
+> ([[contradictions]] C1, C2). Frontier 5 → 8 → 11 → 12 → 12 → 12 open (F1/F2/F8/F11/F14/F16/F17
+> done; spawned F7–F21) — converging. See [[graph-log]] + graph-metrics below.
+> **Phase 4 DONE** ([[phase4-controlled-test]], `da:kg-metrics`): a blind judge confirmed the
+> flywheel — WARM beats COLD on depth 4.6 vs 2.0 at equal grounding and lower cost. **Pass 7
+> convergence** closed F19/F20/F21 ([[cluster-convergence]]) — the frontier **turned down** 12 → 9.
+> **Phase 5 DONE** ([[phase5-datahub-projection]], `da:kg-datahub-sync`): the optional, disposable
+> DataHub projection of `kg_*` as datasets + lineage (a bloc traces back to the raw ballots).
+> **Pass 8** ([[cluster-committees-and-money]]): **F12 done** — new `owns` relation, 27
+> committee→theme edges (vote→theme→committee chain closed). **F6 money graph WIRED** —
+> `lib/analysis/kg-money.ts` (IČO join + human gate, 6 tests) is built and tested but emits
+> **nothing** here: it is blocked on three real feeds (Registr smluv, ARES, and the sensitive
+> MP↔company linkage) that cannot be fabricated. F15 blocked on the psp.cz `tisky` dataset.
+> **Case 2 phases 1–5 complete; the money layer is code-ready, data-blocked.**
+> **Passes 9–13** closed the remaining analytical items: **F23** (foreign-affairs theme; education
+> declined), **F13** (full theme coverage), **F18** (contestedness re-score; oversight → mixed, C3),
+> **F3/F7** ([[cluster-contested]] — blocs sharpen to **0.998 opposition on close votes**; CivicScore
+> Independence = f(`contested_vote_rebellion`)), **F4/F9** (both modest/negative, honestly recorded).
+>
+> **⇒ THE LOOP HAS CONVERGED (13 passes).** Frontier grew 5 → 12 then shrank to **2 open**, both
+> **staleness-only** (F5/F10 — nothing to recompute until the corpus re-ingests). No open item can add
+> new knowledge from the current corpus. Everything genuinely new needs **external data**: the money
+> layer (F6 — built + tested, blocked on Registr smluv/ARES + MP-linkage) or the psp.cz `tisky`
+> dataset (F15). Design doc §0 carries the full build sync. §10 = phase list.
+
 THE DRIVER for `/data-analysis`. One row per slice (`source × term × entity`).
 The loop picks the stalest `pending`/`stale` row; a slice goes `stale` when its
 source re-ingests after `lastAnalyzed`. Numbers come from the deterministic
@@ -29,3 +77,56 @@ also rejects a cited `entityId` that is not a real row). The deterministic
 `slice_quality` rows (all 8) were promoted via
 `scripts/data-analysis/promote-verdicts.ts --commit`. Verdict scores were
 cross-checked against the deterministic composite (no deviation > 0.6).
+
+---
+
+# Graph-metrics block — the self-awareness surface (KG loop §7)
+
+Per-pass metrics for the [[knowledge-graph-loop]]. The flywheel hypothesis is that
+discovery **compounds**; these columns are how we'd see it. **reuse-rate** = fraction
+of a pass's cited evidence that references *prior-pass* findings/edges (should rise);
+**cost/edge** and **cost/pattern** should *fall* across warm-arm passes while a
+cold-control arm stays flat (§7). Numbers here come from `kg_node`/`kg_edge` counts +
+per-pass token accounting — never from an LLM. `kg_edge`/`kg_node` are the source of
+truth if this table and the DB disagree.
+
+| pass | date | method | nodes (Δ) | edges (Δ) | by rel | frontier open | reuse-rate | cost |
+|---|---|---|---|---|---|---|---|---|
+| 1 | 2026-07-23 | deterministic | 248 (+248) | 21 304 (+21 304) | co_votes 20 496 · influential 605 · rebels 203 | 5 (+1 blocked) | n/a (seed) | ~0 (no tokens) |
+| 2 | 2026-07-23 | verdict (Sonnet) | 250 (+2) | 21 312 (+8) | + belongs_to 8 | 8 (F1 done; +F7–F10) | ~1.0 | ~33.6k tok (F1 blocs) |
+| 3 | 2026-07-23 | verdict (Sonnet) | 263 (+13) | 21 359 (+47) | + about 47 | 11 (F2 done; +F11–F14, F15 blocked) | ~0.1 | ~56.5k tok (F2 themes) |
+| 4 | 2026-07-23 | deterministic | 263 (+0, **13 enriched**) | 21 359 (+0) | props: contestedness on 13 themes | 12 (F11,F14 done; +F16–F18) | **~1.0** | **~0 tok** |
+| 5 | 2026-07-23 | deterministic | 263 (+0, **203 enriched**) | 21 359 (+0) | props: contested-rebellion on 203 persons | 12 (F8,F16 done; +F19–F20) | **~1.0** | **~0 tok** |
+| 6 | 2026-07-23 | deterministic | 263 (+0, **2 enriched**) | 21 359 (+0) | props: control-timeline on 2 blocs | 12 (F17 done; +F21) | **~1.0** | **~0 tok** |
+| 7 | 2026-07-23 | deterministic | 263 (+0, **204 enriched**) | 21 359 (+0) | props: ODS fiscal-divergence + cross-bloc-agreement | **9** (F19/F20/F21 done; +0 spawned) | **~1.0** | **~0 tok** |
+| 8 | 2026-07-23 | verdict (Sonnet) | 263 (+0) | 21 386 (+27) | + **owns** 27 (new rel) | 9 (F12 done; +F23; F6/F15/F22 data-blocked) | ~0.6 | ~42.5k tok (F12) |
+| 9 | 2026-07-23 | verdict (self-authored) | 264 (+1) | 21 397 (+11) | + about 8, owns 3 | 8 (F23 done; education declined) | ~0.5 | ~0 tok |
+| 10 | 2026-07-23 | verdict (Sonnet) | 264 (+0) | 21 521 (+124) | + about 124 (full coverage) | 7 (F13 done) | ~0.7 | ~41.4k tok |
+| 11 | 2026-07-23 | deterministic | 264 (+0, **14 re-scored**) | 21 521 (+0) | props: contestedness re-score | **6** (F18 done) | ~1.0 | ~0 tok |
+| 12 | 2026-07-23 | deterministic | 264 (+0, **205 enriched**) | 21 521 (+0) | props: per-vote contestedness (F3/F7) | **4** (F3/F7 done) | ~1.0 | ~0 tok |
+| 13 | 2026-07-23 | deterministic | 264 (+0) | 21 521 (+0) | read-only (F4/F9 → vault) | **2** (F4/F9 done → **DRY**) | ~1.0 | ~0 tok |
+
+**Flywheel signals so far:** three distinct signatures are now visible.
+**(1) Compounding at near-zero cost.** Passes 4–6 are all deterministic, reuse-rate ~1.0,
+**~0 tokens** — each reuses prior passes' written-back output (pass 5 fused *three* layers)
+to produce headline findings (polarization; ODS the fiscal outlier; consensus→majoritarian).
+The write-back thesis, three times.
+**(2) Expansion → convergence — now confirmed.** Open count went 5 → 8 → 11 → 12 → 12 → 12
+→ **9**: it grew early, plateaued, then **turned down** at pass 7, which closed three items
+and spawned *nothing* (leaf closures). Exactly the "grows early, then converges" signature
+the design predicts — the loop has stopped expanding; remaining open items are data-blocked,
+staleness-driven, or narrow.
+**(3) Self-correction — the graph catches its own errors.** *Two* contradictions in six
+passes ([[contradictions]] C1, C2), both deterministic passes correcting an earlier
+*interpretive* read (procedure ≠ churn; support ≠ control). This is write-back's other
+payoff (§7): a durable graph lets later work refute earlier claims — impossible read-only.
+
+**(4) Phase 4 controlled test — the flywheel confirmed, quantified** ([[phase4-controlled-test]]).
+Same synthesis task, two arms: **WARM** (6 passes of accumulated graph+vault) vs **COLD**
+(deterministic substrate only). A **blind** judge (not told which was which) scored WARM
+higher on depth (4.6 vs 2.0) and derivability-requires-prior-analysis (4.6 vs 1.2) at **equal
+grounding** — and WARM cost **less** (36k vs 41k tokens). The judge independently reconstructed
+the manipulation: COLD's findings are re-derivable from raw stats; WARM's *require* the derived
+layers. **Nuance:** the *first* interpretive layer (blocs) is cheaply re-derivable — write-back's
+payoff is **accumulated depth** (contestedness, control, theme-rebellion), not first interpretation.
+Not a null result: `da:kg-metrics` renders the per-pass curves.

@@ -45,6 +45,8 @@ next-env.d.ts
 /.pglite-*
 /.data
 /.data-analysis
+/.kg-analysis
+/.hybrid-bench
 
 # Personal cost data - the Personas passport reads it locally; never in VCS (rule committed on master)
 app-cost.json

@@ -217,3 +217,29 @@ create table if not exists slice_quality (
   analyzed_at      timestamptz not null
 );
 
+-- ── derived knowledge graph (tier 2 of the self-expanding KG loop, §3) ───────
+-- Typed nodes + typed, weighted, provenanced edges. DERIVED metadata like
+-- slice_quality: recomputable from raw ballots/memberships, never source-of-truth.
+create table if not exists kg_node (
+  id               text primary key,
+  kind             text not null,
+  label            text not null,
+  props            jsonb not null default '{}'::jsonb,
+  first_seen_pass  integer,
+  provenance       jsonb not null default '{}'::jsonb
+);
+create index if not exists kg_node_kind_idx on kg_node(kind);
+
+create table if not exists kg_edge (
+  src         text not null,
+  rel         text not null,
+  dst         text not null,
+  weight      real,
+  props       jsonb not null default '{}'::jsonb,
+  provenance  jsonb not null default '{}'::jsonb,
+  primary key (src, rel, dst)
+);
+create index if not exists kg_edge_src_idx on kg_edge(src);
+create index if not exists kg_edge_dst_idx on kg_edge(dst);
+create index if not exists kg_edge_rel_idx on kg_edge(rel);
+

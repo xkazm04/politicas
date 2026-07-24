@@ -18,6 +18,8 @@ import { dbDriver } from "./config";
 import type {
   AbsenceRow,
   IngestRunRow,
+  KgEdgeRow,
+  KgNodeRow,
   MandateRow,
   MembershipRow,
   OrganRow,
@@ -91,11 +93,30 @@ export interface AnalysisRepository {
   clearAllAnalysis(): Promise<void>;
 }
 
+/**
+ * The derived knowledge graph (tier 2 of the self-expanding KG loop). Typed nodes
+ * and typed, weighted, provenanced edges the app's features read directly. Like
+ * `AnalysisRepository` this is DERIVED, recomputable metadata — the deterministic
+ * `kg-compute` layer and (later) gated verdicts are the only writers.
+ */
+export interface KnowledgeGraphRepository {
+  upsertKgNodes(rows: KgNodeRow[]): Promise<number>;
+  upsertKgEdges(rows: KgEdgeRow[]): Promise<number>;
+  listKgNodes(opts?: { kind?: string; limit?: number }): Promise<KgNodeRow[]>;
+  listKgEdges(opts?: { rel?: string; limit?: number }): Promise<KgEdgeRow[]>;
+  countKgNodes(): Promise<number>;
+  countKgEdges(): Promise<number>;
+  /** rel → edge count, for the ledger's graph-metrics block. */
+  countKgEdgesByRel(): Promise<Record<string, number>>;
+  clearKg(): Promise<void>;
+}
+
 export interface Store
   extends GraphRepository,
     VoteRepository,
     ProvenanceRepository,
-    AnalysisRepository {
+    AnalysisRepository,
+    KnowledgeGraphRepository {
   /** Release the underlying connection (PGlite is single-connection). */
   close(): Promise<void>;
 }

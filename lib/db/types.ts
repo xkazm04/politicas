@@ -164,6 +164,43 @@ export interface IngestRunRow {
   note: string | null;
 }
 
+/**
+ * A derived knowledge-graph node (tier 2 of the self-expanding KG loop — see
+ * docs/knowledge-graph-loop.md §3). Like `slice_quality`, this is DERIVED
+ * metadata: never a source-of-truth for a raw entity, always recomputable, and
+ * never clobbered by a corpus re-sync. `id` is a urn — a raw one (`psp:person:6790`,
+ * `psp:organ:174`) or a derived one (`bloc:eu-sceptics`, `theme:defense`).
+ */
+export interface KgNodeRow {
+  id: string;
+  /** person | party | organ | bloc | theme | company | contract (extensible). */
+  kind: string;
+  label: string;
+  /** Derived attributes (rebellion_rate, cohesion, committee_count, …). */
+  props: Record<string, unknown>;
+  /** Which pass created the node — the loop's self-awareness surface. */
+  firstSeenPass: number;
+  /** How it was derived: {pass, method:"deterministic"|"verdict", ref, computedAt}. */
+  provenance: Record<string, unknown>;
+}
+
+/**
+ * A derived, provenanced, recomputable edge between two `kg_node`s. Composite
+ * primary key (src, rel, dst) — an upsert on the same triple replaces the weight
+ * in place rather than duplicating the relationship.
+ */
+export interface KgEdgeRow {
+  src: string;
+  /** co_votes_with | rebels_against | belongs_to | about | influential_in | linked_to | supplies. */
+  rel: string;
+  dst: string;
+  /** agreement rate, rebellion rate, centrality, amount… (nullable for pure links). */
+  weight: number | null;
+  props: Record<string, unknown>;
+  /** {pass, method:"deterministic"|"verdict", ref, computedAt} — required, never unbacked. */
+  provenance: Record<string, unknown>;
+}
+
 /** The six universal criteria, scored 1–5, plus their mean. */
 export interface SliceQualityRow {
   slice: string;
