@@ -54,9 +54,15 @@ resume → triage → dispatch army → gate + persist → reflect → build-rev
    date) → **wire** (proposed KG nodes/edges/props — gated, never direct) →
    **signal** (story-worthiness score + a one-line why — AND cross-cutting
    leads: data-quality gaps, sibling-unit collisions, quiet riders; batch 001's
-   richest yield was non-headline classes). Model tiering: Sonnet is the
-   default worker; Opus for top-signal units, synthesis, and build phases;
-   deterministic code for anything countable. **Pre-extract each unit's full
+   richest yield was non-headline classes). **Model tiering (batch-002
+   policy):** the loop DRIVER and the army run **Sonnet** — the majority of
+   the work, over pre-extracted context. **Opus is reserved for the
+   analytical layer on top**: the batch reflection/synthesis step, cross-unit
+   analytical reads (collisions, contradictions, steering), and gated
+   verdicts on the very top-signal units only — and every Opus call runs at
+   **maximum reasoning effort** (`effort: 'xhigh'` where the harness exposes
+   it; otherwise instruct the agent explicitly to reason at maximum depth).
+   Deterministic code for anything countable, always. **Pre-extract each unit's full
    context into a batch inputs file** (effort's `dossier-inputs.json` pattern)
    so army agents never open the single-connection DB copy; grouped Sonnet
    agents hold quality at 3–5 units each. **Concurrency budget:** the platform
