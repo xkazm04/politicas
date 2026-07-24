@@ -1,0 +1,113 @@
+{
+  "leadId": "Q-money-6",
+  "subject": {
+    "name": "Tomio Okamura",
+    "role": "Předseda Poslanecké sněmovny (Speaker of the Chamber of Deputies) — deputy since 2013, elected Speaker 2025-11-05 for the 10th electoral term; deputy speaker 2017-2021; deputy 2021-10-09 to 2025-10-08",
+    "party": "SPD (party chairman / leader)"
+  },
+  "company": {
+    "name": "U Machtů s.r.o.",
+    "ico": "27145433",
+    "legalForm": "s.r.o. (limited liability company), registered 2004-05-20, status active; operates the restaurant \"Staré časy\" in central Prague"
+  },
+  "claims": [
+    {
+      "claim": "Okamura is currently Speaker of the Chamber of Deputies (Předseda Poslanecké sněmovny), elected 2025-11-05 for the 10th electoral term. psp.cz confirms the current-Speaker fact but does not itself carry the election date; the date is independently sourced to ČT/iROZHLAS live coverage of the 2025-11-05 Speaker vote.",
+      "url": "https://www.psp.cz/sqw/detail.sqw?id=6105",
+      "accessedAt": "2026-07-25",
+      "sourceKind": "primary"
+    },
+    {
+      "claim": "Okamura was a deputy from 2013, deputy speaker 2017-2021, and a deputy 2021-10-09 to 2025-10-08.",
+      "url": "https://psp.cz/sqw/text/detail.sqw?id=6105&s=1&o=9",
+      "accessedAt": "2026-07-25",
+      "sourceKind": "primary"
+    },
+    {
+      "claim": "ARES-VR record for IČO 27145433 (U Machtů s.r.o.): Tomio Okamura held a 20,000 CZK / 10% share (společník) valid 2004-05-20 to 2016-02-01. His entire 10% stake was absorbed the SAME DAY (2016-02-01) by Marcel Zákostelecký, whose share rose from 140,000 CZK/70% to 160,000 CZK/80% — an exact +20,000 CZK match to Okamura's former stake. Roman Wurst's 40,000 CZK / 20% share is unchanged from 2004-05-20 through the present; his 2016-10-29 registry entry is a re-registration at the same value, not an increase. Okamura does not appear in the current or any later partner listing.",
+      "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27145433",
+      "accessedAt": "2026-07-25",
+      "sourceKind": "primary"
+    },
+    {
+      "claim": "Prior batch-002 Sonnet review of this same ARES-VR record recorded role_valid_from 2004-05-20 / role_valid_to 2016-02-01 and a generic 'sold to existing co-owners Wurst/Zákostelecký' note with no share-level math. This batch's own independent re-derivation from the primary ARES-VR endpoint (not from batch-002's prose) is what established the actual successor: Zákostelecký alone, same-day, exact-value. batch-002's note should NOT be read as independent corroboration of successor detail — it is the same underlying registry fact restated without the arithmetic; treat the two passes as one source, not two.",
+      "url": "internal:docs/data-analysis/case-money/payloads/batch-002-ares-vr-reconciliation.json (tie:6105:27145433)",
+      "accessedAt": "2026-07-25",
+      "sourceKind": "primary"
+    },
+    {
+      "claim": "Okamura co-owned U Machtů s.r.o. for twelve years until early 2016; the company (operating restaurant Staré časy) reported ~12 million CZK turnover and over 500,000 CZK profit for 2016, and per business-registry records he sold his stake early that year, but this information is absent from his 2016 mandatory asset declaration (majetkové přiznání).",
+      "url": "https://hlidacipes.org/tomio-okamura-uz-neni-restaurater-prodej-podilu-prazske-restauraci-vsak-majetkovem-priznani-neuvedl/",
+      "accessedAt": "2026-07-25",
+      "sourceKind": "media"
+    },
+    {
+      "claim": "The same sale/disclosure gap is also reported by Týden.cz — but Týden is NOT an independent source: its own text states 'Na informaci upozornil server Hlídací pes' (HlídacíPes flagged this information), i.e. Týden credits HlídacíPes as the origin. The media basis for this lead is therefore ONE original investigation (HlídacíPes) plus pickups (Týden, Tiscali), not two independent investigations. Týden separately adds the turnover/profit reasoning about the 100,000 CZK disclosure threshold.",
+      "url": "https://www.tyden.cz/rubriky/domaci/okamura-neuvedl-do-majetkoveho-priznani-prodej-podilu-restaurace_458429.html",
+      "accessedAt": "2026-07-25",
+      "sourceKind": "media"
+    },
+    {
+      "claim": "Okamura's assistant initially told journalists the sale happened in a period the latest asset declaration did not cover (implying 2017); after being shown registry evidence dating the transaction to early 2016, she gave no further response.",
+      "url": "https://hlidacipes.org/tomio-okamura-uz-neni-restaurater-prodej-podilu-prazske-restauraci-vsak-majetkovem-priznani-neuvedl/",
+      "accessedAt": "2026-07-25",
+      "sourceKind": "media"
+    },
+    {
+      "claim": "Prague administrative authority (Praha 15) had not opened proceedings; the article notes deputies are subject to special procedural handling under the conflict-of-interest law (parliamentary immunity considerations), which the article states complicates enforcement — no legal/administrative finding of a violation is reported to have been made.",
+      "url": "https://www.tyden.cz/rubriky/domaci/okamura-neuvedl-do-majetkoveho-priznani-prodej-podilu-restaurace_458429.html",
+      "accessedAt": "2026-07-25",
+      "sourceKind": "media"
+    },
+    {
+      "claim": "Neither article reports a transfer/purchase document filed in the public register specifying the sale price; HlídacíPes states the exact sale price is unclear and no transfer document was filed with the public register, and that Okamura did not respond to questions about the transaction's terms.",
+      "url": "https://hlidacipes.org/tomio-okamura-uz-neni-restaurater-prodej-podilu-prazske-restauraci-vsak-majetkovem-priznani-neuvedl/",
+      "accessedAt": "2026-07-25",
+      "sourceKind": "media"
+    },
+    {
+      "claim": "HlídacíPes additionally reports Okamura similarly omitted disclosure of a 10% stake sale in Sensepocket (owner of the Hiro Japanese restaurant), without disclosing the sale price — a second, separate non-disclosure allegation not scoped to this lead's registry (U Machtů) verification. NOTE: HlídacíPes dates the Sensepocket sale to spring 2017, not 2016 — so this does not support an 'omitted from the SAME 2016 declaration' framing; if it belongs anywhere it is a separate, later-year lead.",
+      "url": "https://hlidacipes.org/tomio-okamura-uz-neni-restaurater-prodej-podilu-prazske-restauraci-vsak-majetkovem-priznani-neuvedl/",
+      "accessedAt": "2026-07-25",
+      "sourceKind": "media"
+    }
+  ],
+  "registryFindings": {
+    "endpoint": "ARES VR /ekonomicke-subjekty-vr/27145433 (per doctrine, the VR endpoint that carries officer/partner history, not the plain economic-subjects endpoint)",
+    "okamura_role": "společník (partner), 20,000 CZK nominal / 10% share",
+    "role_valid_from": "2004-05-20",
+    "role_valid_to": "2016-02-01",
+    "successors": "Marcel Zákostelecký absorbed the ENTIRE 10% stake on the same day, 2016-02-01 (140,000 CZK/70% -> 160,000 CZK/80%, an exact +20,000 CZK match). Roman Wurst's 40,000 CZK / 20% share is unchanged since 2004-05-20; his 2016-10-29 record is a re-registration at the same value, not an increase — he did NOT acquire any part of Okamura's stake.",
+    "assessment": "Registry timing places the exit at 2016-02-01 — a same-day, exact-value transfer squarely inside the 2016 calendar year the disputed asset declaration covers, which flatly contradicts (not merely 'is consistent with') Okamura's assistant's suggestion that the sale fell in a later, uncovered period (2017). The registry does NOT contain a sale price or a transfer contract; it records only that Okamura's partner registration ended 2016-02-01 with the exact share value moving to Zákostelecký the same day. This confirms the OWNERSHIP TIMING and SUCCESSOR claim independently of media (re-derived directly from the primary ARES-VR endpoint, not from batch-002's prose), but the registry alone cannot confirm the DISCLOSURE OBLIGATION claim (asset value threshold, whether a legally reportable 'income' event occurred, or what Okamura's actual filed 2016 declaration contains) — that rests on the majetkové přiznání document itself and the media's characterization of it, neither of which was independently re-read by this pass (the underlying filed declaration was not located as a standalone primary document during this research; the claim about its contents traces to HlídacíPes's own review of it, relayed by Týden, not to a primary document fetched here)."
+  },
+  "mediaContext": [
+    {
+      "outlet": "HlídacíPes.org",
+      "url": "https://hlidacipes.org/tomio-okamura-uz-neni-restaurater-prodej-podilu-prazske-restauraci-vsak-majetkovem-priznani-neuvedl/",
+      "gist": "Primary investigative piece: registry-dated sale (early 2016) missing from the 2016 asset declaration; turnover/profit figures used to infer the sale likely crossed the disclosure threshold; assistant's shifting explanation; also flags a second, separate Sensepocket/Hiro non-disclosure allegation."
+    },
+    {
+      "outlet": "Týden.cz",
+      "url": "https://www.tyden.cz/rubriky/domaci/okamura-neuvedl-do-majetkoveho-priznani-prodej-podilu-restaurace_458429.html",
+      "gist": "NOT independent — Týden's own text credits HlídacíPes as the source ('Na informaci upozornil server Hlídací pes'). A pickup/expansion of the HlídacíPes investigation, not a second investigation; adds that Praha 15 had not opened proceedings and notes deputies get distinct procedural handling under conflict-of-interest law."
+    },
+    {
+      "outlet": "Tiscali.cz",
+      "url": "https://zpravy.tiscali.cz/tomio-okamura-uz-neni-restaurater-prodej-podilu-v-prazske-restauraci-vsak-v-majetkovem-priznani-neuvedl-306583",
+      "gist": "Syndicated/aggregated version of the same HlídacíPes story, not an independent investigation."
+    }
+  ],
+  "signalScore": 3,
+  "signalWhy": "A registry-corroborated, same-day exact-value ownership exit that squarely lands inside the disputed 2016 calendar year, matched to a credible non-disclosure claim about a sitting party leader's mandatory asset filing — real story material, but capped below top signal because the actual filed declaration was not independently examined, the media basis is ONE investigation (HlídacíPes) plus pickups rather than two independent ones, and no institutional/legal finding of a violation exists.",
+  "whatSourcesSustain": "1) Okamura held a 10% stake in U Machtů s.r.o. (owner of restaurant Staré časy) from 2004-05-20 to 2016-02-01, per ARES-VR, the primary registry, independently re-fetched from the primary endpoint (not just matched against batch-002's prose). His entire stake was absorbed the SAME DAY by Marcel Zákostelecký at an exact matching value (140,000->160,000 CZK); Roman Wurst's holding is unchanged throughout. 2) The exit date (2016-02-01) falls squarely within the calendar year that his 2016 majetkové přiznání would be expected to cover, flatly contradicting his assistant's claim (per media) that the sale fell in a later, uncovered period. 3) HlídacíPes's original investigation reports — as its own review of the filed declaration, not something this pass independently verified — that the sale is absent from the 2016 declaration, and (per Týden's pickup) reasons from the company's 2016 turnover/profit that the transaction likely exceeded the 100,000 CZK disclosure threshold. 4) Okamura's office was given the opportunity to respond and did not substantively rebut the registry-dated timing.",
+  "whatSourcesDoNotSustain": "This pass did NOT independently locate or read the actual filed 2016 majetkové přiznání document — the 'declaration omits the sale' claim rests on the two media outlets' own review, relayed here as media claims with citation, not verified against a primary filing by this dossier. No primary legal or institutional finding exists in any source found: the article itself states the relevant Prague administrative office had not opened proceedings, and notes deputies receive distinct procedural handling (parliamentary channels) under the conflict-of-interest law, which the coverage frames as a reason enforcement is unresolved, not evidence of a violation. The exact sale price and the existence/non-existence of a filed transfer contract are explicitly stated by HlídacíPes as unclear/unfiled — so the inference that the transaction crossed the disclosure threshold is the media's inference from turnover/profit, not a documented sale price. No source establishes that a competent authority (Sněmovna mandátový a imunitní výbor, court, or administrative body) has found Okamura in breach of any disclosure law. Conclusion: 'undisclosed asset' is a well-corroborated ownership-timing claim; 'illegal non-disclosure' / 'violated the law' remains an unresolved media allegation, not a verified legal conclusion, and must not be asserted as fact.",
+  "proposedAnnotation": {
+    "type": "annotation_only_proposal",
+    "target": "tie:6105:27145433 (Tomio Okamura -> U Machtů s.r.o., IČO 27145433)",
+    "proposedFields": {
+      "frontier_note": "Q-money-6 verified pass (batch-005, Opus-corrected 2026-07-25): ARES-VR re-confirms společník role 2004-05-20-2016-02-01; the entire 10% stake was absorbed the SAME DAY by Marcel Zákostelecký at an exact matching value — Roman Wurst's holding is unchanged (correcting an earlier fabricated 'Wurst increased his stake' detail). Media basis is ONE original investigation (HlídacíPes), with Týden.cz explicitly crediting HlídacíPes as source (not an independent second investigation) — Týden adds the turnover/profit disclosure-threshold reasoning. Registry timing (same-day, exact-value, inside calendar 2016) corroborates the claim that the sale predates and falls within the 2016 declaration period, but the declaration document itself and any institutional finding were not independently verified. Treat as an open non-disclosure LEAD, not a confirmed violation."
+    },
+    "note": "This is a proposal for annotation metadata only. No change to review_state. No new person<->company edge is proposed — the existing tie already reflects this ownership relationship; this proposal only adds a cited narrative note on the tie's existing record."
+  },
+  "confidence": "medium"
+}

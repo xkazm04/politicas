@@ -16,7 +16,9 @@ import {
   isDeMinimis,
   nearThresholdCount,
   parsePeriod,
+  reviewRank,
   reviewSignal,
+  reviewTier,
   type ReviewQueue,
   type ReviewState,
   type ReviewTie,
@@ -103,6 +105,7 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
       const near = nearThresholdCount(a.amounts);
       const absenteeManagerLead = Boolean(person?.props?.absentee_manager_lead);
       const triangle = contractCzk > 0 && subsidiesCzk > 0 && (donatedToPartyCzk ?? 0) > 0;
+      const corroboration = (e.props?.corroboration as ReviewTie["corroboration"]) ?? null;
 
       ties.push({
         id: `tie:${pspId}:${ico}`,
@@ -130,7 +133,7 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
         triangle,
         nearThresholdCount: near,
         deMinimis: isDeMinimis(contractCzk, subsidiesCzk),
-        corroboration: (e.props?.corroboration as ReviewTie["corroboration"]) ?? null,
+        corroboration,
         roleValidFrom: (e.props?.role_valid_from as string | null | undefined) ?? null,
         roleValidTo: (e.props?.role_valid_to as string | null | undefined) ?? null,
         temporalStatus: (e.props?.temporal_status as string | null | undefined) ?? null,
@@ -143,11 +146,20 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
           donatedToPartyCzk,
           absenteeManagerLead,
         }),
+        reviewTier: reviewTier({ tieClass, corroboration }),
+        reviewRank: reviewRank({ tieClass, corroboration, contractCzk, subsidiesCzk }),
         links: buildRegistryLinks(ico, source),
       });
     }
 
-    ties.sort((a, b) => b.signalScore - a.signalScore);
+    // Batch-005: PRIMARY sort is the review-order axis (registry-confirmed
+    // owner-operators → managers → confirmed stewards → unconfirmed, money desc within
+    // tier) — this is what drives a real review session, not the raw story-worthiness
+    // signalScore (still computed per-tie above and shown on the card for context).
+    ties.sort((a, b) => a.reviewRank - b.reviewRank);
+
+    const tierCounts: [number, number, number, number] = [0, 0, 0, 0];
+    for (const t of ties) tierCounts[t.reviewTier] += 1;
 
     const stats = {
       pending: ties.length,
@@ -157,6 +169,7 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
       triangles: ties.filter((t) => t.triangle).length,
       nearThreshold: ties.filter((t) => t.nearThresholdCount > 0).length,
       totalReachableCzk: ties.reduce((s, t) => s + t.contractCzk + t.subsidiesCzk, 0),
+      tierCounts,
     };
 
     const pass = num((linked[0]?.provenance as Record<string, unknown> | undefined)?.pass) || 0;

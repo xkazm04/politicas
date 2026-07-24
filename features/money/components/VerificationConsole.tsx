@@ -26,7 +26,7 @@
  * path) is a real feature but out of this batch's scope.
  */
 
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, ExternalLink } from "lucide-react";
 import { useLocale } from "next-intl";
@@ -46,6 +46,18 @@ const CLASS_LABEL: Record<TieClass, string> = {
   manager: "představenstvo",
   steward: "dozorčí / správní",
 };
+
+// Batch-005 review-order tiers (features/money/reviewTypes.ts::reviewTier) — the order
+// the queue is now PRIMARILY sorted by (reviewRank asc), distinct from signalScore.
+const TIER_LABEL: Record<0 | 1 | 2 | 3, string> = {
+  0: "potvrzeno OR · vlastník",
+  1: "potvrzeno OR · představenstvo",
+  2: "potvrzeno OR · dozorčí",
+  3: "nepotvrzeno",
+};
+const TIER_ORDER: (0 | 1 | 2 | 3)[] = [0, 1, 2, 3];
+
+const DECISION_KEYS: Record<string, ReviewDecision> = { "1": "confirm", "2": "needs-more", "3": "reject" };
 
 const DECISIONS: { key: ReviewDecision; label: string; cls: string }[] = [
   { key: "confirm", label: "Potvrdit", cls: "border-cobalt text-cobalt hover:bg-cobalt hover:text-paper" },
@@ -84,13 +96,16 @@ export default function VerificationConsole({
   const [decisions, setDecisions] = useState<Record<string, ReviewDecision>>({});
   const [writeStatus, setWriteStatus] = useState<Record<string, WriteStatus>>({});
   const [token, setToken] = useState("");
+  const [focusedId, setFocusedId] = useState<string | null>(null);
 
+  // data.ties already arrives sorted by reviewRank ASC (batch-005 review order) — the
+  // filter narrows the CLASS but never re-sorts, so tier blocks stay contiguous.
   const shown = useMemo(
     () => (data ? (filter === "all" ? data.ties : data.ties.filter((t) => t.tieClass === filter)) : []),
     [data, filter],
   );
 
-  async function handleDecide(tie: ReviewTie, decision: ReviewDecision) {
+  const handleDecide = useCallback(async (tie: ReviewTie, decision: ReviewDecision) => {
     if (!writeConfigured) {
       // No write path configured server-side — keep the old local-scratch behavior
       // (toggle a decision on/off) so the console stays USABLE for prep work
@@ -121,7 +136,36 @@ export default function VerificationConsole({
     } else {
       setWriteStatus((prev) => ({ ...prev, [tie.id]: { phase: "error", message: result.message } }));
     }
-  }
+  }, [writeConfigured, token]);
+
+  // Keyboard flow for a humane 211-tie review session: ↓/↑ (or j/k) move the focused
+  // card, 1/2/3 apply confirm/doplnit/zamítnout to the focused card. Disabled while
+  // typing in the reviewer-token field so it never steals a keystroke there.
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      const target = e.target as HTMLElement | null;
+      if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA")) return;
+      if (!shown.length) return;
+      const idx = focusedId ? shown.findIndex((t) => t.id === focusedId) : -1;
+
+      if (e.key === "ArrowDown" || e.key === "j") {
+        e.preventDefault();
+        const next = shown[Math.min(idx + 1, shown.length - 1)] ?? shown[0];
+        setFocusedId(next.id);
+        document.getElementById(`tie-${next.id}`)?.scrollIntoView({ block: "center", behavior: "smooth" });
+      } else if (e.key === "ArrowUp" || e.key === "k") {
+        e.preventDefault();
+        const prev = shown[Math.max(idx - 1, 0)] ?? shown[0];
+        setFocusedId(prev.id);
+        document.getElementById(`tie-${prev.id}`)?.scrollIntoView({ block: "center", behavior: "smooth" });
+      } else if (idx >= 0 && DECISION_KEYS[e.key]) {
+        e.preventDefault();
+        void handleDecide(shown[idx], DECISION_KEYS[e.key]);
+      }
+    }
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [shown, focusedId, handleDecide]);
 
   if (!data) {
     return (
@@ -149,6 +193,13 @@ export default function VerificationConsole({
   const decidedCount = writeConfigured
     ? Object.values(writeStatus).filter((s) => s.phase === "done").length
     : Object.keys(decisions).length;
+
+  // Same honest-counting rule as decidedCount above, broken out per batch-005 review
+  // tier — "registry-confirmed owner-operator: X/Y" etc., not just one aggregate number.
+  const isTieDecided = (id: string) =>
+    writeConfigured ? writeStatus[id]?.phase === "done" : decisions[id] != null;
+  const decidedByTier: [number, number, number, number] = [0, 0, 0, 0];
+  for (const t of data.ties) if (isTieDecided(t.id)) decidedByTier[t.reviewTier] += 1;
 
   const TILES = [
     { label: "nepotvrzené vazby", value: int(data.stats.pending), sub: "čekají na lidskou kontrolu", src: "kg_edge linked_to · pending_review" },
@@ -212,52 +263,77 @@ export default function VerificationConsole({
           ))}
         </div>
 
-        {/* filter + progress */}
-        <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-b-2 border-ink pb-3">
-          <div className="flex flex-wrap gap-2">
-            {(["all", "owner-operator", "manager", "steward"] as ClassFilter[]).map((c) => (
-              <button
-                key={c}
-                type="button"
-                onClick={() => setFilter(c)}
-                className={`border-2 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider transition-colors ${
-                  filter === c ? "border-ink bg-ink text-paper" : "border-hairline text-steel hover:border-ink hover:text-ink"
-                }`}
-              >
-                {c === "all" ? "vše" : CLASS_LABEL[c]}
-                <span className="ml-1.5 font-normal">
-                  {c === "all"
-                    ? int(data.stats.pending)
-                    : int(c === "owner-operator" ? data.stats.ownerOperator : c === "manager" ? data.stats.manager : data.stats.steward)}
-                </span>
-              </button>
+        {/* filter + progress — sticky so it stays visible while scrolling a 211-card queue */}
+        <div className="sticky top-0 z-10 mt-10 space-y-3 border-b-2 border-ink bg-paper/95 pb-3 pt-2 backdrop-blur-sm">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex flex-wrap gap-2">
+              {(["all", "owner-operator", "manager", "steward"] as ClassFilter[]).map((c) => (
+                <button
+                  key={c}
+                  type="button"
+                  onClick={() => setFilter(c)}
+                  className={`border-2 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider transition-colors ${
+                    filter === c ? "border-ink bg-ink text-paper" : "border-hairline text-steel hover:border-ink hover:text-ink"
+                  }`}
+                >
+                  {c === "all" ? "vše" : CLASS_LABEL[c]}
+                  <span className="ml-1.5 font-normal">
+                    {c === "all"
+                      ? int(data.stats.pending)
+                      : int(c === "owner-operator" ? data.stats.ownerOperator : c === "manager" ? data.stats.manager : data.stats.steward)}
+                  </span>
+                </button>
+              ))}
+            </div>
+            <p className="font-mono text-[11px] uppercase tracking-widest text-steel">
+              {writeConfigured ? "zapsáno" : "rozhodnuto lokálně"}: <span className="font-bold text-ink">{int(decidedCount)}</span> / {int(data.stats.pending)}
+              <span className="ml-2 hidden text-steel sm:inline">· ↑↓ pohyb · 1/2/3 potvrdit/doplnit/zamítnout</span>
+            </p>
+          </div>
+          {/* per-tier progress (batch-005): the review-order axis, not just one aggregate */}
+          <div className="flex flex-wrap gap-x-5 gap-y-1 font-mono text-[10px] uppercase tracking-widest text-steel">
+            {TIER_ORDER.map((tier) => (
+              <span key={tier}>
+                {TIER_LABEL[tier]}: <span className="font-bold text-ink">{int(decidedByTier[tier])}</span> / {int(data.stats.tierCounts[tier])}
+              </span>
             ))}
           </div>
-          <p className="font-mono text-[11px] uppercase tracking-widest text-steel">
-            {writeConfigured ? "zapsáno" : "rozhodnuto lokálně"}: <span className="font-bold text-ink">{int(decidedCount)}</span> / {int(data.stats.pending)}
-          </p>
         </div>
 
-        {/* review cards — value order (deterministic signal) */}
+        {/* review cards — batch-005 review order (tier asc, reachable CZK desc within tier) */}
         <div className="mt-8 space-y-6">
-          {shown.map((tie) => (
-            <ReviewCard
-              key={tie.id}
-              tie={tie}
-              locale={locale}
-              int={int}
-              decision={decisions[tie.id] ?? null}
-              writeConfigured={writeConfigured}
-              writeStatus={writeStatus[tie.id] ?? { phase: "idle" }}
-              onDecide={(d) => handleDecide(tie, d)}
-            />
-          ))}
+          {shown.map((tie, i) => {
+            const showTierHeader = i === 0 || shown[i - 1].reviewTier !== tie.reviewTier;
+            return (
+              <div key={tie.id}>
+                {showTierHeader && (
+                  <p className="mb-3 border-l-4 border-signal pl-3 font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
+                    {TIER_LABEL[tie.reviewTier]} <span className="font-normal">({int(data.stats.tierCounts[tie.reviewTier])})</span>
+                  </p>
+                )}
+                <ReviewCard
+                  tie={tie}
+                  locale={locale}
+                  int={int}
+                  decision={decisions[tie.id] ?? null}
+                  writeConfigured={writeConfigured}
+                  writeStatus={writeStatus[tie.id] ?? { phase: "idle" }}
+                  focused={focusedId === tie.id}
+                  onFocus={() => setFocusedId(tie.id)}
+                  onDecide={(d) => handleDecide(tie, d)}
+                />
+              </div>
+            );
+          })}
         </div>
 
         <p className="mt-10 max-w-3xl text-sm italic leading-relaxed text-steel">
-          Pořadí je dané deterministickým skóre signálu (peněžní objem × třída vazby × trojúhelník ×
-          blízkost limitu). Korroborace v primárním rejstříku pouze zvyšuje důvěru recenzenta — potvrdit
-          vazbu může jedině člověk. Řazení ani skóre nejsou obvinění.
+          Fronta je řazená podle pořadí kontroly (batch 005): nejdřív vazby s vlastníkem/jednatelem
+          potvrzené v obchodním rejstříku, pak představenstvo, pak dozorčí funkce, nakonec nepotvrzené.
+          V rámci každé skupiny podle dosažitelných veřejných peněz sestupně. Skóre signálu na kartě je
+          samostatná míra „jak zajímavý je příběh“, ne pořadí kontroly. Korroborace v primárním rejstříku
+          pouze zvyšuje důvěru recenzenta — potvrdit vazbu může jedině člověk. Řazení ani skóre nejsou
+          obvinění.
         </p>
       </Shell>
     </main>
@@ -306,6 +382,8 @@ function ReviewCard({
   decision,
   writeConfigured,
   writeStatus,
+  focused,
+  onFocus,
   onDecide,
 }: {
   tie: ReviewTie;
@@ -314,6 +392,8 @@ function ReviewCard({
   decision: ReviewDecision | null;
   writeConfigured: boolean;
   writeStatus: WriteStatus;
+  focused: boolean;
+  onFocus: () => void;
   onDecide: (d: ReviewDecision) => void;
 }) {
   const reach = tie.contractCzk + tie.subsidiesCzk;
@@ -328,7 +408,16 @@ function ReviewCard({
   ];
 
   return (
-    <article className={`border-2 ${decision ? "border-ink" : "border-hairline"} bg-paper`}>
+    <article
+      id={`tie-${tie.id}`}
+      tabIndex={0}
+      onFocus={onFocus}
+      onClick={onFocus}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") onFocus();
+      }}
+      className={`border-2 bg-paper outline-none ${focused ? "border-signal ring-2 ring-signal ring-offset-2 ring-offset-paper" : decision ? "border-ink" : "border-hairline"}`}
+    >
       {/* head */}
       <div className="flex flex-wrap items-start justify-between gap-3 border-b-2 border-ink px-5 py-4">
         <div>
@@ -358,6 +447,9 @@ function ReviewCard({
             {temporalBadge(tie).labelCs}
           </span>
           <span className="font-mono text-[10px] uppercase tracking-widest text-steel">třída: {CLASS_LABEL[tie.tieClass]}</span>
+          <span className="border border-hairline px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-steel">
+            pořadí: {TIER_LABEL[tie.reviewTier]}
+          </span>
           <span className="font-mono text-[10px] uppercase tracking-widest text-steel">signál {tie.signalScore.toFixed(1)}</span>
         </div>
       </div>

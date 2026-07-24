@@ -228,3 +228,86 @@ reconciliation pass before any tie is presented as "active".
 4. Q-money-3 (sponzoring pass) stays blocked on `HLIDAC_API_TOKEN` (user gate).
 5. Q-money-9 repo-wide audit (batch 003) still open — this batch's `kg-promote.ts`
    finding is a concrete instance of exactly that risk class, worth generalizing.
+
+### Batch 005 — review-order triage + console session support + Q-money-13 + two lead dossiers (2026-07-25)
+
+- **No fresh army over the tie population this batch** — 211 real ties
+  (post-OSVČ-purge) were re-ranked, not re-enriched. Scope: batch-005
+  priorities from `.claude/skills/money-loop.md` §"Batch-005 priorities".
+- **Review-order triage + console build (priority #1):** deterministic
+  `reviewTier`/`reviewRank` (registry-confirmed owner-operator → manager →
+  steward → unconfirmed; money-desc within tier) now drives
+  `getVerificationData.ts`'s primary sort and `/penize/kontrola`'s
+  rendering order, with per-tier progress tiles, tier badges/section
+  headers, sticky filter bar, and keyboard shortcuts shipped in
+  `VerificationConsole.tsx`. `scripts/case-loops/money/triage.ts` mirrors
+  the same logic. Distribution: tier0 (confirmed owner-op) 34, tier1
+  (confirmed manager) 20, tier2 (confirmed steward) 125, tier3
+  (unconfirmed) 32. Incidental fix: `triage.ts`'s `ledger.json` write was a
+  blind overwrite wiping batch1–4 history — caught and fixed to
+  merge-preserve.
+- **D5 closure — live-table CHECK migration:** `migrate-review-audit-check.ts`
+  built, dry-run-by-default, idempotent, pre-checks for violating rows,
+  proven end-to-end on a scratch copy. Not yet applied to the live table —
+  orchestrator command in `handoff.md` §2.
+- **Q-money-13 done:** located the actual stale-mention population — **26
+  prop-content mentions of purged IČO 04627695 across 24 distinct nodes**
+  (19 effort `effort_notes`, 5 law `forensic_citations`/
+  `forensic_conflict_assessment`), not the ~10 the batch spec estimated.
+  Most effort dossiers had already independently flagged the IČO as a
+  non-finding before the purge — the proposed payload appends a closure
+  annotation rather than rewriting, preserving the original reasoning.
+  Payload + coordination note for effort/law drivers in `handoff.md` §3.
+- **Q-money-5 (Juchelka) and Q-money-6 (Okamura), both closed with full
+  four-stage treatment + Opus verification:** Juchelka — evidence chain
+  HOLDS on independent Opus re-fetch, but 3 corrections applied (a
+  self-contradictory ministerial date, an over-broad registry negative,
+  and a "reimbursement forfeited" overstatement); the real story is a
+  structural conflict of interest around advisor Alexandra Semancová's
+  SIPTRADE s.r.o., not personal enrichment by Juchelka, with 81.4M CZK in
+  confirmed EU non-reimbursement. Okamura — evidence chain PARTIAL on
+  independent Opus re-derivation from the primary ARES-VR endpoint; a
+  fabricated successor detail (Wurst's share "increasing") that had
+  silently propagated since batch 002 was corrected to the actual registry
+  fact (Zákostelecký alone absorbed the full 10% stake, same day, exact
+  value); Týden.cz was wrongly labeled independent of HlídacíPes (it
+  credits HlídacíPes as source); a Sensepocket detail was mis-dated. Both
+  dossiers now confidence medium, safe to land as `pending_review`
+  annotations.
+- **Process finding:** the Q-money-13 subagent initially stopped mid-task
+  ("waiting for a background script") — a kernel-rule violation caught by
+  the driver and resolved by resuming it directly; documented as a
+  standing lesson (a subagent's own stop is not evidence of completion).
+- Full detail, exact corrections applied, and all payload paths in
+  `handoff.md` (batch 005).
+
+## Metrics block — batch 005
+
+| metric | batch 005 |
+|---|---|
+| units re-ranked (not re-enriched) | 211 / 211 (100%, post-purge population) |
+| review-order tiers | tier0 34 · tier1 20 · tier2 125 · tier3 32 |
+| D5 live-table CHECK migration | built + proven on scratch copy, **not yet applied live** |
+| Q-money-13 stale mentions found | **26** across **24** nodes (vs ~10 estimated) — payload prepared, not applied (sibling-owned props) |
+| Q-money-5 (Juchelka) | Opus verdict HOLDS, 3 corrections applied, confidence medium |
+| Q-money-6 (Okamura) | Opus verdict PARTIAL, 5 corrections applied (1 fabricated detail corrected), confidence medium |
+| tests | 205/205 (194 at batch-004 close), tsc clean, eslint clean on touched files |
+| process defect caught | 1 subagent stopped mid-task, resumed correctly; 1 `ledger.json` overwrite bug found+fixed |
+
+## Steering (next batch — batch 006)
+
+1. **Orchestrator applies this batch's payloads**: the review-rank sort is
+   already live in the console code (no orchestrator action needed to
+   render it); the CHECK migration, Q-money-13 stale-mention payload, and
+   both lead-dossier annotations need explicit orchestrator persist steps
+   (commands in `handoff.md` §11).
+2. **Coordinate Q-money-13 wording with the effort/law drivers** before
+   applying — the payload proposes closure annotations on sibling-owned
+   props, not a unilateral edit.
+3. The batch-004 steering items (OSVČ purge live execution, console
+   enablement, `lib/db` delete-method sign-off, Q-money-9 repo-wide audit)
+   remain open if not yet actioned by the orchestrator — batch 005 assumed
+   the purge had already landed (211, not 260, ties observed) but did not
+   itself verify the live purge ran; confirm before treating tier counts
+   as final.
+4. Q-money-3 (sponzoring pass) stays blocked on `HLIDAC_API_TOKEN`.

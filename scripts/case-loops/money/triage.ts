@@ -63,6 +63,21 @@ function foldLowerLite(s: string): string {
   return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/\s+/g, " ").trim();
 }
 
+// Batch-005 review order (mirrors features/money/reviewTypes.ts reviewTier/reviewRank —
+// MUST agree exactly): 0 = registry-confirmed owner-operator, 1 = registry-confirmed
+// manager, 2 = registry-confirmed steward, 3 = everything else unconfirmed/conflicting.
+function reviewTier(tieClass: "owner-operator" | "manager" | "steward", corroboration: string | null): 0 | 1 | 2 | 3 {
+  if (corroboration !== "registry-confirmed") return 3;
+  if (tieClass === "owner-operator") return 0;
+  if (tieClass === "manager") return 1;
+  return 2;
+}
+const REVIEW_RANK_MONEY_CAP = 1_000_000_000_000; // 1e12 — headroom above any reachable CZK figure
+function reviewRank(tier: 0 | 1 | 2 | 3, contractCzk: number, subsidiesCzk: number): number {
+  const money = Math.min(Math.max(contractCzk + subsidiesCzk, 0), REVIEW_RANK_MONEY_CAP - 1);
+  return tier * REVIEW_RANK_MONEY_CAP + (REVIEW_RANK_MONEY_CAP - money);
+}
+
 interface ContractAgg {
   count: number;
   czk: number;
@@ -102,6 +117,9 @@ async function main() {
 
   interface Unit {
     id: string;
+    src: string;
+    dst: string;
+    falseEdgeSuspected: boolean;
     personPspId: number;
     personName: string;
     absenteeManagerLead: boolean;
@@ -123,7 +141,13 @@ async function main() {
     nearThresholdCount: number;
     triangle: boolean;
     tieClass: "owner-operator" | "manager" | "steward";
+    corroboration: string | null;
     signalScore: number;
+    // Batch-005: review-ORDER axis, distinct from signalScore — mirrors
+    // reviewTier/reviewRank in features/money/reviewTypes.ts EXACTLY (same duplication
+    // pattern as classifyTie/reviewSignal above — the two implementations must agree).
+    reviewTier: 0 | 1 | 2 | 3;
+    reviewRank: number;
     stage: "pending";
     batch: number | null;
     flags: string[];
@@ -153,6 +177,9 @@ async function main() {
     const donatedToPartyCzk = cp.donated_to_party_czk != null ? num(cp.donated_to_party_czk) : null;
     const triangle = agg.czk > 0 && subsidiesCzk > 0 && (donatedToPartyCzk ?? 0) > 0;
     const rawState = (e.props?.review_state ?? e.props?.state) as string | undefined;
+    const corroboration = (e.props?.corroboration as string | undefined) ?? null;
+    const tieClass = classifyTie(String(e.props?.role ?? ""), comp.label);
+    const tier = reviewTier(tieClass, corroboration);
 
     const flags: string[] = [];
     if (!/IČO \d/.test(source) && !/ico \d/i.test(source)) flags.push("source-missing-ico");
@@ -161,6 +188,9 @@ async function main() {
 
     units.push({
       id: `tie:${pspId}:${String(cp.ico ?? comp.id.split(":").pop() ?? "")}`,
+      src: e.src,
+      dst: e.dst,
+      falseEdgeSuspected: (e.props as Record<string, unknown> | null)?.false_edge_suspected === true,
       personPspId: pspId,
       personName: person?.label ?? String(pspId),
       absenteeManagerLead: Boolean(person?.props?.absentee_manager_lead),
@@ -181,8 +211,11 @@ async function main() {
       temporalAlignedCount: alignedCount,
       nearThresholdCount: agg.nearThreshold,
       triangle,
-      tieClass: classifyTie(String(e.props?.role ?? ""), comp.label),
+      tieClass,
+      corroboration,
       signalScore: 0,
+      reviewTier: tier,
+      reviewRank: reviewRank(tier, agg.czk, subsidiesCzk),
       stage: "pending",
       batch: null,
       flags,
@@ -242,11 +275,46 @@ async function main() {
 
   const fs = await import("node:fs/promises");
   const dir = "docs/data-analysis/case-money";
+  // Preserve prior batches' `summaryN` annotations (hand-appended per batch, e.g.
+  // batch1..batch4) instead of blind-overwriting — a plain `writeFile` here silently
+  // erased that history once already (batch-005 fix). Merge the freshly computed
+  // summary fields OVER any stale ones of the same name, but keep every batchN key.
+  let priorSummary: Record<string, unknown> = {};
+  try {
+    const existing = JSON.parse(await fs.readFile(`${dir}/ledger.json`, "utf8"));
+    if (existing && typeof existing.summary === "object") priorSummary = existing.summary;
+  } catch (err) {
+    console.warn("[triage] no prior ledger.json to preserve batch history from (first run?)", err);
+  }
+  const mergedSummary = { ...priorSummary, ...summary };
   await fs.writeFile(
     `${dir}/ledger.json`,
-    JSON.stringify({ summary, units: units.map((u) => ({ id: u.id, personPspId: u.personPspId, personName: u.personName, ico: u.ico, company: u.company, role: u.role, tieClass: u.tieClass, reviewState: u.reviewState, signalScore: u.signalScore, stage: u.stage, batch: u.batch, flags: u.flags })) }, null, 2),
+    JSON.stringify({ summary: mergedSummary, units: units.map((u) => ({ id: u.id, personPspId: u.personPspId, personName: u.personName, ico: u.ico, company: u.company, role: u.role, tieClass: u.tieClass, corroboration: u.corroboration, reviewState: u.reviewState, signalScore: u.signalScore, reviewTier: u.reviewTier, reviewRank: u.reviewRank, stage: u.stage, batch: u.batch, flags: u.flags })) }, null, 2),
   );
   await fs.writeFile(`${dir}/triage-dump.json`, JSON.stringify({ summary, units }, null, 2));
+
+  // Batch-005 review-order payload (Q-money priority #1): {src,dst,reviewRank} for the
+  // real (non-purged) ties, per-tie recomputable — NOT written to kg_edge.props this
+  // batch (read-time-only value, same pattern as signalScore). Excludes edges annotated
+  // false_edge_suspected (the 49-edge OSVČ class, Q-money-11) so the payload reflects
+  // the REAL population a reviewer will actually see, not the raw 260-edge graph.
+  const realUnits = units.filter((u) => !u.falseEdgeSuspected);
+  const reviewRankPayload = {
+    generatedAt: new Date().toISOString(),
+    batch: 5,
+    track: "money",
+    item: "batch-005-review-order",
+    note:
+      "review_rank/review_tier computed at read time (features/money/reviewTypes.ts::reviewRank), " +
+      "NOT persisted to kg_edge.props this batch — this payload is the prepared materialization " +
+      "for a future ingest pass, mirroring the pattern used for signalScore.",
+    count: realUnits.length,
+    ties: realUnits
+      .slice()
+      .sort((a, b) => a.reviewRank - b.reviewRank)
+      .map((u) => ({ src: u.src, dst: u.dst, reviewTier: u.reviewTier, reviewRank: u.reviewRank })),
+  };
+  await fs.writeFile(`${dir}/payloads/batch-005-review-rank.json`, JSON.stringify(reviewRankPayload, null, 2));
 
   const fmt = (n: number) => new Intl.NumberFormat("cs-CZ").format(Math.round(n));
   console.log("=== MONEY TRIAGE ===");
@@ -259,6 +327,14 @@ async function main() {
         `${u.triangle ? " ▲TRI" : ""}${u.temporalAlignedCzk ? ` ⏱${fmt(u.temporalAlignedCzk)}` : ""}` +
         `${u.nearThresholdCount ? ` ~${u.nearThresholdCount}` : ""}${u.absenteeManagerLead ? " ✚ABS" : ""}` +
         ` [${u.periodFrom ?? "?"}→${u.periodTo ?? "?"}]`,
+    );
+  }
+  const TIER_LABEL = ["confirmed owner-op", "confirmed manager", "confirmed steward", "unconfirmed"];
+  console.log("\n=== TOP 20 BY REVIEW ORDER (batch-005, real ties only) ===");
+  for (const u of realUnits.slice().sort((a, b) => a.reviewRank - b.reviewRank).slice(0, 20)) {
+    console.log(
+      `tier${u.reviewTier} ${TIER_LABEL[u.reviewTier].padEnd(18)} ${u.personName} → ${u.company} [${u.role}] · ` +
+        `${fmt(u.contractCzk + u.subsidiesCzk)} CZK reachable`,
     );
   }
   await store.close();

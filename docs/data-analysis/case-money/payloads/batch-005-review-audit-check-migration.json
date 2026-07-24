@@ -1,0 +1,13 @@
+{
+  "batch": 5,
+  "track": "money",
+  "item": "D5-live-migration",
+  "kind": "review-audit-check-constraint-migration",
+  "generatedAt": "2026-07-24T22:59:59.831Z",
+  "dryRun": false,
+  "alreadyExists": true,
+  "violatingRowCount": 0,
+  "violatingRows": [],
+  "applied": false,
+  "constraintName": "review_audit_decision_check"
+}

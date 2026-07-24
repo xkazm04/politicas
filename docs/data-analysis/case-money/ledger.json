@@ -1,24 +1,24 @@
 {
   "summary": {
-    "generatedAt": "2026-07-24T17:10:22.467Z",
+    "generatedAt": "2026-07-24T22:14:11.205Z",
     "counts": {
-      "linkedEdges": 260,
-      "tiesEnumerated": 260,
-      "companies": 196,
+      "linkedEdges": 211,
+      "tiesEnumerated": 211,
+      "companies": 195,
       "contracts": 2287,
       "suppliesEdges": 2290,
       "persons": 207
     },
     "droppedTies": 0,
-    "withPeriod": 255,
+    "withPeriod": 207,
     "withMoney": 177,
     "triangles": 2,
-    "absenteeManagerLeads": 25,
+    "absenteeManagerLeads": 21,
     "nearThresholdTies": 24,
     "tieClass": {
       "ownerOperator": 37,
       "manager": 23,
-      "steward": 200
+      "steward": 151
     },
     "totalContractCzk": 19761807779.1646,
     "batch1": {
@@ -112,6 +112,17 @@
         "tsc": "clean"
       },
       "consoleEnablementVerdict": "durability gate closed; recommend enabling after OSVČ purge executes and lib/db delete-method addition is reviewed"
+    },
+    "batch5": {
+      "processed": 0,
+      "generatedAt": "2026-07-24",
+      "note": "no army — build-only. Added deterministic review-order (reviewTier/reviewRank) over the 211 real (post-OSVC-purge) ties: registry-confirmed owner-operator/manager/steward tiers 0-2, unconfirmed tier 3, money-desc within tier. Wired as PRIMARY sort in getVerificationQueue + /penize/kontrola console (was signalScore desc). triage.ts mirrors the same helpers and emits payloads/batch-005-review-rank.json.",
+      "reviewTierCounts": {
+        "ownerOperatorConfirmed": 34,
+        "managerConfirmed": 20,
+        "stewardConfirmed": 125,
+        "unconfirmed": 32
+      }
     }
   },
   "units": [
@@ -123,14 +134,14 @@
       "company": "Teleky Medicus s.r.o.",
       "role": "Jednatel",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 83.31,
-      "stage": "signal",
-      "batch": 1,
-      "flags": [],
-      "signal": 5,
-      "corroboration": "registry-confirmed",
-      "temporalStatus": "current"
+      "reviewTier": 0,
+      "reviewRank": 999988933302.5,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6603:04934482",
@@ -140,14 +151,14 @@
       "company": "Truhlářství Za farou s.r.o.",
       "role": "jednatel a společník",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 73.08,
-      "stage": "signal",
-      "batch": 1,
-      "flags": [],
-      "signal": 5,
-      "corroboration": "registry-confirmed",
-      "temporalStatus": "current"
+      "reviewTier": 0,
+      "reviewRank": 999989668502.35,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6409:61681679",
@@ -157,14 +168,14 @@
       "company": "GEMA MB s.r.o.",
       "role": "jednatel a společník",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 68.55,
-      "stage": "signal",
-      "batch": 1,
-      "flags": [],
-      "signal": 5,
-      "corroboration": "registry-confirmed",
-      "temporalStatus": "current"
+      "reviewTier": 0,
+      "reviewRank": 999983333277.46,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6105:25124188",
@@ -174,14 +185,14 @@
       "company": "MIKI TRAVEL PRAGUE, spol. s r.o.",
       "role": "jednatel",
       "tieClass": "owner-operator",
+      "corroboration": "conflicting",
       "reviewState": "pending_review",
       "signalScore": 67.31,
-      "stage": "signal",
-      "batch": 1,
-      "flags": [],
-      "signal": 3,
-      "corroboration": "conflicting",
-      "temporalStatus": "historical"
+      "reviewTier": 3,
+      "reviewRank": 3999982569735,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6603:26350416",
@@ -191,14 +202,14 @@
       "company": "STYLE PD, s.r.o.",
       "role": "společník",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 63.56,
-      "stage": "signal",
-      "batch": 1,
-      "flags": [],
-      "signal": 4,
-      "corroboration": "registry-confirmed",
-      "temporalStatus": "current"
+      "reviewTier": 0,
+      "reviewRank": 999999551332,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6463:27840531",
@@ -208,14 +219,14 @@
       "company": "OCCAM PR s.r.o.",
       "role": "jednatel a společník",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 54.75,
-      "stage": "signal",
-      "batch": 1,
-      "flags": [],
-      "signal": 3,
-      "corroboration": "registry-confirmed",
-      "temporalStatus": "historical"
+      "reviewTier": 0,
+      "reviewRank": 999999822130,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5459:25332589",
@@ -225,14 +236,14 @@
       "company": "B.S. - KINGS s.r.o.",
       "role": "společník",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 53.46,
-      "stage": "signal",
-      "batch": 1,
-      "flags": [],
-      "signal": 2,
-      "corroboration": "registry-confirmed",
-      "temporalStatus": "historical"
+      "reviewTier": 0,
+      "reviewRank": 999999883840,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6727:03709698",
@@ -242,14 +253,14 @@
       "company": "Delices de papa s.r.o.",
       "role": "jednatel a společník",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 47.44,
-      "stage": "signal",
-      "batch": 1,
-      "flags": [],
-      "signal": 1,
-      "corroboration": "registry-confirmed",
-      "temporalStatus": "historical"
+      "reviewTier": 0,
+      "reviewRank": 999999810020,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6154:27116913",
@@ -259,14 +270,14 @@
       "company": "Pojišťovna VZP, a.s.",
       "role": "člen představenstva",
       "tieClass": "manager",
+      "corroboration": "conflicting",
       "reviewState": "pending_review",
       "signalScore": 43.92,
-      "stage": "signal",
-      "batch": 1,
-      "flags": [],
-      "signal": 1,
-      "corroboration": "conflicting",
-      "temporalStatus": "historical"
+      "reviewTier": 3,
+      "reviewRank": 3999930392328.02,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5459:27720152",
@@ -276,14 +287,14 @@
       "company": "IF FACILITY a.s.",
       "role": "společník",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 43.08,
-      "stage": "signal",
-      "batch": 1,
-      "flags": [],
-      "signal": 2,
-      "corroboration": "registry-confirmed",
-      "temporalStatus": "historical"
+      "reviewTier": 0,
+      "reviewRank": 999813408670.02,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6150:14612411",
@@ -293,14 +304,14 @@
       "company": "CS CABOT, spol. s r.o.",
       "role": "jednatel",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 42.27,
-      "stage": "signal",
-      "batch": 1,
-      "flags": [],
-      "signal": 3,
-      "corroboration": "registry-confirmed",
-      "temporalStatus": "historical-direct-indirect-current"
+      "reviewTier": 0,
+      "reviewRank": 999883177548.09,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:7064:27068897",
@@ -310,14 +321,14 @@
       "company": "TAXONIA CZ, s.r.o.",
       "role": "jednatel a společník",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 41.2,
-      "stage": "signal",
-      "batch": 1,
-      "flags": [],
-      "signal": 1,
-      "corroboration": "registry-confirmed",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 0,
+      "reviewRank": 999936855024.3,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5903:61057606",
@@ -327,14 +338,14 @@
       "company": "Komwag, podnik čistoty a údržby města, a.s.",
       "role": "člen představenstva",
       "tieClass": "manager",
+      "corroboration": "conflicting",
       "reviewState": "pending_review",
       "signalScore": 41.13,
-      "stage": "signal",
-      "batch": 1,
-      "flags": [],
-      "signal": 1,
-      "corroboration": "conflicting",
-      "temporalStatus": "historical"
+      "reviewTier": 3,
+      "reviewRank": 3999965640628.3,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6165:49451871",
@@ -344,14 +355,14 @@
       "company": "Vodovody a kanalizace Kroměříž, a.s.",
       "role": "člen představenstva",
       "tieClass": "manager",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 40.58,
-      "stage": "signal",
-      "batch": 1,
-      "flags": [],
-      "signal": 1,
-      "corroboration": "registry-confirmed",
-      "temporalStatus": "historical"
+      "reviewTier": 1,
+      "reviewRank": 1999397422592.27,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:7062:18251129",
@@ -361,14 +372,14 @@
       "company": "TAZATA, spol. s r.o.",
       "role": "jednatel",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 39.17,
-      "stage": "signal",
-      "batch": 1,
-      "flags": [],
-      "signal": 0,
-      "corroboration": "registry-confirmed",
-      "temporalStatus": "historical"
+      "reviewTier": 0,
+      "reviewRank": 999980366067.73,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6150:48207918",
@@ -378,19 +389,14 @@
       "company": "AGROPROFIT, spol. s r.o.",
       "role": "jednatel",
       "tieClass": "owner-operator",
+      "corroboration": "conflicting",
       "reviewState": "pending_review",
       "signalScore": 37.31,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-birthdate-match-in-vr",
-        "sonnet-reviewed"
-      ],
-      "corroboration": "conflicting",
-      "signal": 2,
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      "reviewTier": 3,
+      "reviewRank": 3999993272013.1,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6463:02751232",
@@ -400,19 +406,14 @@
       "company": "YOU STORY UP! s.r.o.",
       "role": "jednatel a společník",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 37.25,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "sonnet-reviewed",
-        "clean-handoff-not-revolving-door"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2014-03-10",
-      "roleValidTo": "2016-08-18",
-      "temporalStatus": "money-postdates-role",
-      "signal": 1
+      "reviewTier": 0,
+      "reviewRank": 999993514238.2,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6789:25172263",
@@ -422,17 +423,14 @@
       "company": "SOMPO, a.s.",
       "role": "místopředseda představenstva",
       "tieClass": "manager",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 36.39,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2006-12-28",
-      "roleValidTo": "2024-10-31",
-      "temporalStatus": "historical"
+      "reviewTier": 1,
+      "reviewRank": 1999993104832.17,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6789:26039907",
@@ -442,17 +440,14 @@
       "company": "PEVAK Pelhřimov, družstvo",
       "role": "člen představenstva",
       "tieClass": "manager",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 36.05,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2007-05-02",
-      "roleValidTo": "2025-01-04",
-      "temporalStatus": "historical"
+      "reviewTier": 1,
+      "reviewRank": 1999998129843.141,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5512:26141761",
@@ -462,19 +457,14 @@
       "company": "GEKO SPORT s.r.o.",
       "role": "jednatel a společník",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 36.02,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "sonnet-reviewed",
-        "clean-handoff-not-revolving-door"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "1999-12-22",
-      "roleValidTo": "2003-04-28",
-      "temporalStatus": "money-postdates-role",
-      "signal": 1
+      "reviewTier": 0,
+      "reviewRank": 999996798942,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6201:46978593",
@@ -484,21 +474,14 @@
       "company": "Poliklinika Břeclav, s. r. o.",
       "role": "jednatel",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 35.84,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-birthdate-match-in-vr",
-        "sonnet-reviewed",
-        "vr-missing-dob-on-old-record",
-        "approximate-dates-no-day-precision"
-      ],
-      "corroboration": "registry-confirmed",
-      "signal": 3,
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": "historical"
+      "reviewTier": 0,
+      "reviewRank": 999997109901,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6105:27145433",
@@ -508,20 +491,14 @@
       "company": "U Machtů s.r.o.",
       "role": "společník",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 34.27,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "sonnet-reviewed",
-        "clean-handoff-not-revolving-door",
-        "undisclosed-asset-declaration-lead"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2004-05-20",
-      "roleValidTo": "2016-02-01",
-      "temporalStatus": "money-postdates-role",
-      "signal": 3
+      "reviewTier": 0,
+      "reviewRank": 999998828760.9,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:7031:09187944",
@@ -531,15 +508,14 @@
       "company": "RMPJ s.r.o.",
       "role": "jednatel a společník",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 33.55,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2020-05-25",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 0,
+      "reviewRank": 999999227014.78,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5899:01686682",
@@ -549,15 +525,14 @@
       "company": "ZPS holding s.r.o.",
       "role": "jednatel a společník",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 33.46,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2013-05-20",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 0,
+      "reviewRank": 999999267872,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6184:45147787",
@@ -567,15 +542,14 @@
       "company": "SPOLANA s.r.o.",
       "role": "člen představenstva",
       "tieClass": "manager",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 32.47,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2003-03-01",
-      "roleValidTo": "2005-08-19",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 1,
+      "reviewRank": 1997163818270.81,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6727:03265889",
@@ -585,19 +559,14 @@
       "company": "ELEMENTA Agency s.r.o.",
       "role": "jednatel a společník",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 31.45,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "sonnet-reviewed",
-        "clean-handoff-not-revolving-door"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2014-08-05",
-      "roleValidTo": "2017-01-27",
-      "temporalStatus": "money-postdates-role",
-      "signal": 1
+      "reviewTier": 0,
+      "reviewRank": 999999769529,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6409:25713817",
@@ -607,15 +576,14 @@
       "company": "SPARING MB s.r.o.",
       "role": "jednatel a společník",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 30.86,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "1998-11-26",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 0,
+      "reviewRank": 999999836405,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6603:06646042",
@@ -625,15 +593,14 @@
       "company": "Akademie individuálních sportů Plzeňského kraje, z. s.",
       "role": "člen kontrolní komise, místopředseda výboru",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 30.38,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2018-04-16",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 2,
+      "reviewRank": 2999940401000,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5700:46506306",
@@ -643,15 +610,14 @@
       "company": "Společnost Horní Labe a.s.",
       "role": "člen představenstva",
       "tieClass": "manager",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 30.07,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "1999-08-16",
-      "roleValidTo": "2016-03-01",
-      "temporalStatus": "historical"
+      "reviewTier": 1,
+      "reviewRank": 1999997427296,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6603:49786709",
@@ -661,17 +627,14 @@
       "company": "Vodárenská a kanalizační a.s.",
       "role": "člen dozorčí rady, člen správní rady, předseda",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 28.82,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "1999-12-28",
-      "roleValidTo": "2025-06-30",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999828556688.51,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6603:26997355",
@@ -681,15 +644,14 @@
       "company": "Baculus, o.p.s.",
       "role": "člen dozorčí rady, člen",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 28.02,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2013-12-20",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 2,
+      "reviewRank": 2999881547351.67,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:7063:03849988",
@@ -699,17 +661,14 @@
       "company": "Nadační fond regionální fotbalové Akademie Plzeňského kraje",
       "role": "člen správní rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 27.15,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2019-01-08",
-      "roleValidTo": "2023-04-05",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999976705440,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6603:07739044",
@@ -719,15 +678,14 @@
       "company": "Krajská hospodářská komora v Plzeňském kraji",
       "role": "místopředseda představenstva",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 26.95,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2019-01-01",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 2,
+      "reviewRank": 2999963266970.9,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6603:08160902",
@@ -737,17 +695,14 @@
       "company": "Centrum lidských zdrojů Plzeňského kraje, z.ú.",
       "role": "člen správní rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 26.8,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2019-05-13",
-      "roleValidTo": "2021-08-07",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999954124552.59,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6881:09133267",
@@ -757,17 +712,14 @@
       "company": "ARENA BRNO, a.s.",
       "role": "předseda dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 26.72,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2020-05-04",
-      "roleValidTo": "2022-10-31",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2993912054605,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6603:25245091",
@@ -777,17 +729,14 @@
       "company": "Regionální rozvojová agentura Plzeňského kraje, obecně prospěšná společnost",
       "role": "člen správní rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 25.77,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2010-05-18",
-      "roleValidTo": "2025-05-26",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999985783274.37,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6803:49454587",
@@ -797,17 +746,14 @@
       "company": "Vodovody a kanalizace Vyškov,a.s.",
       "role": "člen představenstva",
       "tieClass": "manager",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 25.62,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2019-07-09",
-      "roleValidTo": "2022-01-17",
-      "temporalStatus": "historical"
+      "reviewTier": 1,
+      "reviewRank": 1998582049339.8901,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6603:14704234",
@@ -817,17 +763,14 @@
       "company": "Tenisový klub Vodní stavby Plzeň, z.s.",
       "role": "člen",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 25.46,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2016-04-06",
-      "roleValidTo": "2023-01-10",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999993150830.82,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:7063:26602351",
@@ -837,17 +780,14 @@
       "company": "HC Plzeň z.s.",
       "role": "výkonný ředitel",
       "tieClass": "steward",
+      "corroboration": "conflicting",
       "reviewState": "pending_review",
       "signalScore": 25.13,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-birthdate-match-in-vr"
-      ],
-      "corroboration": "conflicting",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      "reviewTier": 3,
+      "reviewRank": 3999993459204,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6732:25205625",
@@ -857,15 +797,14 @@
       "company": "VODÁRNA PLZEŇ a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 25.05,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2016-01-18",
-      "roleValidTo": "2018-12-31",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2998506437811.25,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6993:27256456",
@@ -875,15 +814,14 @@
       "company": "Oblastní nemocnice Mladá Boleslav, a.s., nemocnice Středočeského kraje",
       "role": "člen představenstva, mástopředseda představenstva, člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 24.94,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2016-12-20",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 2,
+      "reviewRank": 2996436584608.27,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6154:49790480",
@@ -893,15 +831,14 @@
       "company": "Plzeňská teplárenská, a.s.",
       "role": "člen představenstva",
       "tieClass": "manager",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 24.35,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2018-12-20",
-      "roleValidTo": "2019-10-17",
-      "temporalStatus": "historical"
+      "reviewTier": 1,
+      "reviewRank": 1999503520615.25,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6603:29123348",
@@ -911,15 +848,14 @@
       "company": "Akademie HK PK, o.p.s.",
       "role": "člen správní rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 24.17,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2011-12-21",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 2,
+      "reviewRank": 2999952373615.17,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6154:60193913",
@@ -929,17 +865,14 @@
       "company": "Pražská energetika, a.s.",
       "role": "místopředseda představenstva",
       "tieClass": "manager",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 23.86,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2019-10-29",
-      "roleValidTo": "2023-06-23",
-      "temporalStatus": "historical"
+      "reviewTier": 1,
+      "reviewRank": 1999668199677.47,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6743:47674652",
@@ -949,15 +882,14 @@
       "company": "Vodovody a kanalizace Vsetín, a.s.",
       "role": "předseda představenstva",
       "tieClass": "manager",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 23.75,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2015-06-04",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 1,
+      "reviewRank": 1999697590976.6099,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:7028:08599254",
@@ -967,15 +899,14 @@
       "company": "CEVYKO a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 23.49,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2019-10-10",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 2,
+      "reviewRank": 2999721221693,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6993:28168151",
@@ -985,15 +916,14 @@
       "company": "Městská společnost sportovní a rekreační areály, s.r.o.",
       "role": "jednatel",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 23.41,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2015-01-01",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 2,
+      "reviewRank": 2999731488409.17,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6905:61989592",
@@ -1003,17 +933,14 @@
       "company": "Univerzita Palackého v Olomouci",
       "role": "odborný asistent",
       "tieClass": "steward",
+      "corroboration": "registry-unconfirmed",
       "reviewState": "pending_review",
       "signalScore": 23.26,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      "reviewTier": 3,
+      "reviewRank": 3999775680256.9,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6211:25918206",
@@ -1023,15 +950,14 @@
       "company": "Smetanova Litomyšl, o.p.s.",
       "role": "člen správní rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 22.79,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2015-02-12",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 2,
+      "reviewRank": 2999876534773,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6211:48154938",
@@ -1041,15 +967,14 @@
       "company": "EAST BOHEMIAN AIRPORT a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 22.66,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2015-04-04",
-      "roleValidTo": "2017-08-31",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999434140511.31,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6435:25234994",
@@ -1059,17 +984,14 @@
       "company": "Galerie města Plzně, o.p.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 22.58,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2015-05-22",
-      "roleValidTo": "2021-07-16",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999965786923.06,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5273:49370499",
@@ -1079,17 +1001,14 @@
       "company": "Museum Kampa - Nadace Jana a Medy Mládkových",
       "role": "člen správní rady, předseda správní rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 22.3,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2011-11-24",
-      "roleValidTo": "2023-05-27",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999907395073,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6688:47781131",
@@ -1099,15 +1018,14 @@
       "company": "SKLÁDKA VRBIČKA s.r.o.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 22.3,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2016-01-08",
-      "roleValidTo": "2019-07-23",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999903542307.34,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6881:46347534",
@@ -1117,15 +1035,14 @@
       "company": "Teplárny Brno, a.s.",
       "role": "předseda představenstva",
       "tieClass": "manager",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 22.17,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2014-12-15",
-      "roleValidTo": "2023-02-09",
-      "temporalStatus": "historical-no-money"
+      "reviewTier": 1,
+      "reviewRank": 1999917186669.1099,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6225:27467759",
@@ -1135,15 +1052,14 @@
       "company": "Horská služba ČR, o.p.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 22.13,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2014-06-17",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 2,
+      "reviewRank": 2998593405788.45,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6184:49100262",
@@ -1153,15 +1069,14 @@
       "company": "Lovochemie, a.s.",
       "role": "předseda dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 21.79,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2005-06-10",
-      "roleValidTo": "2014-01-31",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999895044390.046,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5899:26402068",
@@ -1171,15 +1086,14 @@
       "company": "Údržba silnic Karlovarského kraje, a.s.",
       "role": "člen představenstva",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 21.72,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2015-06-15",
-      "roleValidTo": "2017-02-14",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999963326389.99,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6185:28338766",
@@ -1189,17 +1103,14 @@
       "company": "Národní Centrum Tkání a Buněk a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 21.5,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2015-01-09",
-      "roleValidTo": "2017-04-10",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999557070457.84,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5379:25187937",
@@ -1209,15 +1120,14 @@
       "company": "RERA a.s.",
       "role": "předseda představenstva",
       "tieClass": "manager",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 21.49,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "1999-11-25",
-      "roleValidTo": "2011-06-06",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 1,
+      "reviewRank": 1999985001347.13,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6150:26124459",
@@ -1227,15 +1137,14 @@
       "company": "IMOBA, a.s.",
       "role": "předseda představenstva",
       "tieClass": "manager",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 21.46,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2007-04-02",
-      "roleValidTo": "2014-01-30",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 1,
+      "reviewRank": 1999953805971.37,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6435:25224662",
@@ -1245,15 +1154,14 @@
       "company": "Plzeňská filharmonie, obecně prospěšná společnost",
       "role": "člen dozorčí rady, člen správní rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 21.45,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2005-09-29",
-      "roleValidTo": "2019-10-04",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999939363347.8,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6150:26185610",
@@ -1263,15 +1171,14 @@
       "company": "AGROFERT, a.s.",
       "role": "předseda představenstva",
       "tieClass": "manager",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 21.4,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2000-07-01",
-      "roleValidTo": "2014-01-22",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 1,
+      "reviewRank": 1999955931801.5,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6435:45332657",
@@ -1281,17 +1188,14 @@
       "company": "Nadace 700 let města Plzně",
       "role": "člen správní rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 21.38,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2018-04-21",
-      "roleValidTo": "2021-07-23",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999971051761.73,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:7064:28633032",
@@ -1301,15 +1205,14 @@
       "company": "Lesy města Olomouce, a.s.",
       "role": "člen dozorčí rady, místopředseda představenstva",
       "tieClass": "manager",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 21.24,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2019-01-15",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 1,
+      "reviewRank": 1999961469348.26,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6786:27660532",
@@ -1319,17 +1222,14 @@
       "company": "Kroměřížská nemocnice a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 21.22,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2014-10-24",
-      "roleValidTo": "2021-02-26",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999925491725.84,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6527:27267351",
@@ -1339,15 +1239,14 @@
       "company": "KORID LK, spol. s r.o.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 21.18,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2017-02-03",
-      "roleValidTo": "2021-06-29",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999938604687.0073,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5273:08694508",
@@ -1357,15 +1256,14 @@
       "company": "Muzeum paměti XX. století, z.ú.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 21.16,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2019-11-17",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 2,
+      "reviewRank": 2999911995632.14,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6172:70890013",
@@ -1375,17 +1273,14 @@
       "company": "Povodí Moravy, s.p.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 21.05,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2015-03-31",
-      "roleValidTo": "2020-08-16",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999806751393.01,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5700:25968084",
@@ -1395,17 +1290,14 @@
       "company": "Technické služby Trutnov s.r.o.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 21.01,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2002-05-07",
-      "roleValidTo": "2022-04-15",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999959553881.96,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6538:01398717",
@@ -1415,17 +1307,14 @@
       "company": "MAS Nad Prahou o.p.s.",
       "role": "předseda správní rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 20.83,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2013-02-08",
-      "roleValidTo": "2023-12-28",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999915641714.06,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6786:27660915",
@@ -1435,17 +1324,14 @@
       "company": "Uherskohradišťská nemocnice a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 20.72,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2014-10-16",
-      "roleValidTo": "2021-02-26",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999969964767.2803,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6786:28593987",
@@ -1455,17 +1341,14 @@
       "company": "Vsetínská sportovní, s.r.o.",
       "role": "předseda dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 20.63,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2015-03-24",
-      "roleValidTo": "2022-11-21",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999977645275.98,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5273:00417904",
@@ -1475,15 +1358,14 @@
       "company": "Nadace Charty 77",
       "role": "člen statutárního orgánu",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 20.39,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2015-10-30",
-      "roleValidTo": "2018-07-15",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999948718907.69,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6743:47997826",
@@ -1493,15 +1375,14 @@
       "company": "Tenisový klub DEZA Valašské Meziříčí, z.s.",
       "role": "člen správní rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 20.35,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2016-07-29",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 2,
+      "reviewRank": 2999972312886,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6789:26982170",
@@ -1511,17 +1392,14 @@
       "company": "Via rustica z.s.",
       "role": "předseda",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 20.3,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2015-11-24",
-      "roleValidTo": "2019-12-05",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999940742268.14,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6751:45534306",
@@ -1531,15 +1409,14 @@
       "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
       "role": "člen představenstva, člen dozorčí rady",
       "tieClass": "manager",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 20.26,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2002-03-12",
-      "roleValidTo": "2014-07-02",
-      "temporalStatus": "historical"
+      "reviewTier": 1,
+      "reviewRank": 1999994577282.48,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:7039:71184465",
@@ -1549,15 +1426,14 @@
       "company": "Domov pro seniory Velké Meziříčí, příspěvková organizace",
       "role": "ředitel",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 20.18,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2014-09-01",
-      "roleValidTo": "2021-07-11",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999924612090,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6435:69972061",
@@ -1567,17 +1443,14 @@
       "company": "Sdružení měst a obcí Plzeňského kraje",
       "role": "čestný předseda",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 19.93,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2014-01-01",
-      "roleValidTo": "2015-04-10",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999978074618.2197,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6500:64053466",
@@ -1587,15 +1460,14 @@
       "company": "Dopravní podnik měst Chomutova a Jirkova a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 19.86,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2015-06-16",
-      "roleValidTo": "2019-03-29",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999951657536,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6500:27341313",
@@ -1605,15 +1477,14 @@
       "company": "CHOMUTOVSKÁ BYTOVÁ a.s.",
       "role": "předseda dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 19.71,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2015-03-02",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 2,
+      "reviewRank": 2999895874016,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6993:15045838",
@@ -1623,15 +1494,14 @@
       "company": "Sdružení Český ráj, z.s.",
       "role": "člen správní rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 19.55,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2016-09-15",
-      "roleValidTo": "2020-10-07",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999989836850.06,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6150:24188581",
@@ -1641,17 +1511,14 @@
       "company": "Nadace AGROFERT",
       "role": "předseda správní rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 19.35,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2011-12-05",
-      "roleValidTo": "2026-02-16",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999994327680,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6172:27693058",
@@ -1661,15 +1528,14 @@
       "company": "Prostějov venkov o.p.s.",
       "role": "zakladatel",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 19.16,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2006-07-03",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 2,
+      "reviewRank": 2999970550570.76,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5700:25968700",
@@ -1679,17 +1545,14 @@
       "company": "Lesy a parky Trutnov s.r.o.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 19.03,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2002-05-30",
-      "roleValidTo": "2022-04-06",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999992297959,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6743:26822105",
@@ -1699,15 +1562,14 @@
       "company": "Nemocnice AGEL Valašské Meziříčí a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 18.97,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2015-08-18",
-      "roleValidTo": "2023-02-22",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999870861572.95,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:7064:25848526",
@@ -1717,15 +1579,14 @@
       "company": "Výstaviště Flora Olomouc, a.s.",
       "role": "člen představenstva",
       "tieClass": "manager",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 18.95,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2019-01-16",
-      "roleValidTo": "2019-04-18",
-      "temporalStatus": "historical"
+      "reviewTier": 1,
+      "reviewRank": 1999994148335.83,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:7063:25220683",
@@ -1735,17 +1596,14 @@
       "company": "Plzeňské městské dopravní podniky, a.s.",
       "role": "předseda představenstva",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 18.69,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2019-01-23",
-      "roleValidTo": "2023-01-06",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2998832994428.05,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6154:28338766",
@@ -1755,15 +1613,14 @@
       "company": "Národní Centrum Tkání a Buněk a.s.",
       "role": "člen představenstva",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 18.58,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2013-05-16",
-      "roleValidTo": "2015-01-09",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999557070457.84,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:7063:28046153",
@@ -1773,15 +1630,14 @@
       "company": "Čistá Plzeň, s.r.o.",
       "role": "člen dozorčí rady, místopředseda dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 18.55,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2019-03-29",
-      "roleValidTo": "2019-11-04",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999709434421.11,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5700:62063588",
@@ -1791,17 +1647,14 @@
       "company": "TRANSPORT Trutnov s.r.o.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 18.43,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2000-03-31",
-      "roleValidTo": "2023-07-04",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999989316212.4,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:7063:27257258",
@@ -1811,17 +1664,14 @@
       "company": "Výzkumný Ústav Železniční, a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 17.95,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2017-04-01",
-      "roleValidTo": "2022-04-01",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999657759104.7197,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6168:61463647",
@@ -1831,15 +1681,14 @@
       "company": "Družstvo Nárožní dům Plavecká 12",
       "role": "předseda představenstva",
       "tieClass": "manager",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 17.86,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2001-10-23",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 1,
+      "reviewRank": 1999997600000,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6435:25245091",
@@ -1849,17 +1698,14 @@
       "company": "Regionální rozvojová agentura Plzeňského kraje, obecně prospěšná společnost",
       "role": "člen správní rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 17.78,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2017-05-17",
-      "roleValidTo": "2023-05-16",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999985783274.37,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:7039:26637863",
@@ -1869,17 +1715,14 @@
       "company": "AlternativaPro, z.s.",
       "role": "zakladatel",
       "tieClass": "steward",
+      "corroboration": "conflicting",
       "reviewState": "pending_review",
       "signalScore": 17.46,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-birthdate-match-in-vr"
-      ],
-      "corroboration": "conflicting",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      "reviewTier": 3,
+      "reviewRank": 3999999040000,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6435:27149994",
@@ -1889,17 +1732,14 @@
       "company": "Nadace Věry a Vladimíra Janouškových",
       "role": "člen",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 17.4,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2004-05-12",
-      "roleValidTo": "2022-05-12",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999998605000,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6435:06919511",
@@ -1909,17 +1749,14 @@
       "company": "SUTNAR - NADACE RADOSLAVA A ELAINE SUTNAROVÝCH",
       "role": "člen správní rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 17.04,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2018-03-07",
-      "roleValidTo": "2022-09-20",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999999259960,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6211:22827668",
@@ -1929,15 +1766,14 @@
       "company": "Hi-Tech inovační klastr z. s.    (anglická verze: Hi-Tech innovation cluster)",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 17,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2016-02-04",
-      "roleValidTo": "2018-05-07",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999970710395.5303,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:7062:26318903",
@@ -1947,15 +1783,14 @@
       "company": "Správa majetku města Stříbra, s.r.o.",
       "role": "jednatel",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 16.91,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2015-05-11",
-      "roleValidTo": "2017-03-31",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999981347919.84,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6500:47795808",
@@ -1965,17 +1800,14 @@
       "company": "Sportovní klub policie Kadaň, z.s.",
       "role": "člen výboru",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 16.72,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2017-02-18",
-      "roleValidTo": "2024-12-17",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999999519995,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6190:26185610",
@@ -1985,15 +1817,14 @@
       "company": "AGROFERT, a.s.",
       "role": "zaměstnanec",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 16.7,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2007-05-09",
-      "roleValidTo": "2017-03-16",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999955931801.5,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6178:26025027",
@@ -2003,15 +1834,14 @@
       "company": "Nadační fond Nemocnice Dačice",
       "role": "předseda správní rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 16.61,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2012-12-07",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 2,
+      "reviewRank": 2999999566414,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6205:25586521",
@@ -2021,17 +1851,14 @@
       "company": "AGRO 2000 s.r.o.",
       "role": "vedoucí",
       "tieClass": "steward",
+      "corroboration": "conflicting",
       "reviewState": "pending_review",
       "signalScore": 15.85,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-birthdate-match-in-vr"
-      ],
-      "corroboration": "conflicting",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      "reviewTier": 3,
+      "reviewRank": 3999978939462.12,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:7063:17047234",
@@ -2041,15 +1868,14 @@
       "company": "RAILREKLAM, spol. s r.o.",
       "role": "člen",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 15.84,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2018-08-23",
-      "roleValidTo": "2018-11-15",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999989291888.36,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:7064:47654465",
@@ -2059,15 +1885,14 @@
       "company": "Obecně prospěšná společnost pro památkovou ochranu Hradiska u Olomouce a za další rozvoj kulturního, uměleckého a duchovního života a humanitní zdravotní péče na něm.",
       "role": "člen správní rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 14.73,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2019-05-07",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 2,
+      "reviewRank": 2999999767075,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6150:27771245",
@@ -2077,15 +1902,14 @@
       "company": "PROFROST a.s.",
       "role": "předseda představenstva",
       "tieClass": "manager",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 14.43,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2006-06-15",
-      "roleValidTo": "2014-01-16",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 1,
+      "reviewRank": 1999999857529,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6688:27256537",
@@ -2095,17 +1919,14 @@
       "company": "Oblastní nemocnice Kladno, a.s., nemocnice Středočeského kraje",
       "role": "člen dozorčí rady, člen představenstva",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 13.57,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2018-12-17",
-      "roleValidTo": "2020-12-17",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2998439371699.96,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6603:29118336",
@@ -2115,15 +1936,14 @@
       "company": "Chronos Vejprnice o.p.s.",
       "role": "zakladatel, člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 13.17,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2011-06-27",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 2,
+      "reviewRank": 2999999868000,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:7039:28274466",
@@ -2133,15 +1953,14 @@
       "company": "DS Stříbrné Terasy o.p.s.",
       "role": "člen správní rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 13.1,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2011-02-23",
-      "roleValidTo": "2015-10-30",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999770957974.46,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5512:60194120",
@@ -2151,15 +1970,14 @@
       "company": "Pražské služby, a.s.",
       "role": "místopředseda dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 12.84,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2011-06-20",
-      "roleValidTo": "2012-01-12",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2998519258707.14,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6881:60713470",
@@ -2169,17 +1987,14 @@
       "company": "SAKO Brno, a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 12.75,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2019-01-03",
-      "roleValidTo": "2021-12-22",
-      "temporalStatus": "historical-no-money"
+      "reviewTier": 2,
+      "reviewRank": 2998725778441.45,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6154:25220683",
@@ -2189,17 +2004,14 @@
       "company": "Plzeňské městské dopravní podniky, a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 12.69,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2011-03-30",
-      "roleValidTo": "2023-01-01",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2998832994428.05,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6435:25220683",
@@ -2209,15 +2021,14 @@
       "company": "Plzeňské městské dopravní podniky, a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 12.69,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2003-09-10",
-      "roleValidTo": "2005-12-20",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2998832994428.05,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6881:25508881",
@@ -2227,15 +2038,14 @@
       "company": "Dopravní podnik města Brna, a.s.",
       "role": "místopředseda dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 12.63,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2014-12-09",
-      "roleValidTo": "2015-10-31",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2998956211421,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6150:60108916",
@@ -2245,15 +2055,14 @@
       "company": "Synthesia, a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 12.59,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2000-12-07",
-      "roleValidTo": "2005-09-13",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999008797657.96,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6214:60193531",
@@ -2263,15 +2072,14 @@
       "company": "ČEPRO, a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 12.58,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2011-09-01",
-      "roleValidTo": "2013-10-14",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999035634383.6,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6487:02795281",
@@ -2281,15 +2089,14 @@
       "company": "Operátor ICT, a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 12.53,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2015-04-13",
-      "roleValidTo": "2016-07-09",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999114983028,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6687:02795281",
@@ -2299,17 +2106,14 @@
       "company": "Operátor ICT, a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 12.53,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2019-03-14",
-      "roleValidTo": "2021-03-27",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999114983028,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5379:46678735",
@@ -2319,17 +2123,14 @@
       "company": "Robert Bosch, spol. s r.o.",
       "role": "ekonom",
       "tieClass": "steward",
+      "corroboration": "conflicting",
       "reviewState": "pending_review",
       "signalScore": 12.36,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-birthdate-match-in-vr"
-      ],
-      "corroboration": "conflicting",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      "reviewTier": 3,
+      "reviewRank": 3999325218095.35,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6150:26872307",
@@ -2339,15 +2140,14 @@
       "company": "PRECHEZA a.s.",
       "role": "předseda dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 12.33,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2006-10-16",
-      "roleValidTo": "2009-04-30",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999797136010.9053,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5899:70889988",
@@ -2357,15 +2157,14 @@
       "company": "Povodí Ohře, státní podnik",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 12.3,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2012-07-11",
-      "roleValidTo": "2014-02-01",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999808498872.46,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6240:70889988",
@@ -2375,15 +2174,14 @@
       "company": "Povodí Ohře, státní podnik",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 12.3,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2001-04-05",
-      "roleValidTo": "2004-04-14",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999808498872.46,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5700:26000237",
@@ -2393,15 +2191,14 @@
       "company": "Oblastní nemocnice Trutnov a.s.",
       "role": "předseda dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 12.25,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2003-11-12",
-      "roleValidTo": "2006-08-16",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999823223873.74,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:346:45146802",
@@ -2411,15 +2208,14 @@
       "company": "Energie - stavební a báňská a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 12.22,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "1996-11-08",
-      "roleValidTo": "2001-02-23",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999463216210.81,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6211:63217066",
@@ -2429,15 +2225,14 @@
       "company": "Dopravní podnik města Pardubic a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 12.12,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2015-02-23",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 2,
+      "reviewRank": 2999549265006.1,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6786:27661989",
@@ -2447,17 +2242,14 @@
       "company": "Krajská nemocnice T. Bati, a. s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 12.1,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2014-09-26",
-      "roleValidTo": "2021-03-24",
-      "temporalStatus": "historical-no-money"
+      "reviewTier": 2,
+      "reviewRank": 2999563031657.2803,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5911:25488627",
@@ -2467,15 +2259,14 @@
       "company": "Krajská zdravotní, a.s.",
       "role": "Předseda představenstva",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 11.92,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2004-05-05",
-      "roleValidTo": "2005-06-15",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999895943810.88,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6225:46744991",
@@ -2485,17 +2276,14 @@
       "company": "Zdravotnická záchranná služba Libereckého kraje, příspěvková organizace",
       "role": "zaměstnanec",
       "tieClass": "steward",
+      "corroboration": "conflicting",
       "reviewState": "pending_review",
       "signalScore": 11.92,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-birthdate-match-in-vr"
-      ],
-      "corroboration": "conflicting",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      "reviewTier": 3,
+      "reviewRank": 3999671571025.13,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6150:46900411",
@@ -2505,15 +2293,14 @@
       "company": "Kostelecké uzeniny a.s.",
       "role": "předseda dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 11.8,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2004-06-26",
-      "roleValidTo": "2006-09-04",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999732112460.18,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:7039:70100969",
@@ -2523,17 +2310,14 @@
       "company": "Charita Česká republika",
       "role": "zaměstnanec",
       "tieClass": "steward",
+      "corroboration": "registry-unconfirmed",
       "reviewState": "pending_review",
       "signalScore": 11.77,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      "reviewTier": 3,
+      "reviewRank": 3999745438034.8,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5226:75112779",
@@ -2543,17 +2327,14 @@
       "company": "Ústav pro studium totalitních režimů",
       "role": "ředitel",
       "tieClass": "steward",
+      "corroboration": "registry-unconfirmed",
       "reviewState": "pending_review",
       "signalScore": 11.69,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      "reviewTier": 3,
+      "reviewRank": 3999777518655.15,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6201:63488329",
@@ -2563,15 +2344,14 @@
       "company": "Nemocnice Valtice s.r.o.",
       "role": "jednatel",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 11.66,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "1998-02-12",
-      "roleValidTo": "1999-05-18",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999932294203.52,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6185:60800691",
@@ -2581,17 +2361,14 @@
       "company": "Vojenská nemocnice Olomouc",
       "role": "lékař",
       "tieClass": "steward",
+      "corroboration": "registry-unconfirmed",
       "reviewState": "pending_review",
       "signalScore": 11.57,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      "reviewTier": 3,
+      "reviewRank": 3999814827062.4,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5899:49790498",
@@ -2601,17 +2378,14 @@
       "company": "Ostrovská teplárenská, a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 11.54,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2003-06-25",
-      "roleValidTo": "2024-10-23",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999824815300.32,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6150:27465021",
@@ -2621,15 +2395,14 @@
       "company": "Fatra, a.s.",
       "role": "předseda dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 11.54,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2005-03-01",
-      "roleValidTo": "2008-06-30",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999824835246.29,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5911:62240935",
@@ -2639,15 +2412,14 @@
       "company": "Dopravní podnik města Děčína, a.s.",
       "role": "předseda představenstva",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 11.45,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2011-02-04",
-      "roleValidTo": "2014-12-31",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999848295953.33,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:346:63113074",
@@ -2657,17 +2429,14 @@
       "company": "Svaz měst a obcí České republiky",
       "role": "místopředseda",
       "tieClass": "steward",
+      "corroboration": "conflicting",
       "reviewState": "pending_review",
       "signalScore": 11.4,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-birthdate-match-in-vr"
-      ],
-      "corroboration": "conflicting",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      "reviewTier": 3,
+      "reviewRank": 3999860676628.09,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:7064:63113074",
@@ -2677,15 +2446,14 @@
       "company": "Svaz měst a obcí České republiky",
       "role": "místopředseda svazu",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 11.4,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2020-08-21",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 2,
+      "reviewRank": 2999860676628.09,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:4:24227901",
@@ -2695,15 +2463,14 @@
       "company": "Společenství vlastníků Vlastislavova 605/20, Praha 4",
       "role": "pověřený vlastník",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 11.37,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2012-01-30",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 2,
+      "reviewRank": 2999999996866.1,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6435:26396645",
@@ -2713,15 +2480,14 @@
       "company": "Techmania Science Center o.p.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 11.32,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2005-09-14",
-      "roleValidTo": "2010-01-13",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999878233525.38,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6150:49100262",
@@ -2731,15 +2497,14 @@
       "company": "Lovochemie, a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 11.23,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "1997-03-26",
-      "roleValidTo": "2009-02-25",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999895044390.046,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6240:60826851",
@@ -2749,17 +2514,14 @@
       "company": "Rybářství Třeboň a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "conflicting",
       "reviewState": "pending_review",
       "signalScore": 11.23,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-birthdate-match-in-vr"
-      ],
-      "corroboration": "conflicting",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      "reviewTier": 3,
+      "reviewRank": 3999895122973.18,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:346:60193468",
@@ -2769,15 +2531,14 @@
       "company": "MERO ČR, a.s.",
       "role": "místopředseda dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 11.17,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2001-06-28",
-      "roleValidTo": "2003-10-21",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999905588480,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6881:60193468",
@@ -2787,15 +2548,14 @@
       "company": "MERO ČR, a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 11.17,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2015-11-19",
-      "roleValidTo": "2019-03-08",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999905588480,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:346:70889953",
@@ -2805,17 +2565,14 @@
       "company": "Povodí Vltavy, státní podnik",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "conflicting",
       "reviewState": "pending_review",
       "signalScore": 11.15,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-birthdate-match-in-vr"
-      ],
-      "corroboration": "conflicting",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      "reviewTier": 3,
+      "reviewRank": 3999907494187.67,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6154:63080249",
@@ -2825,15 +2582,14 @@
       "company": "Kongresové centrum Praha, a.s.",
       "role": "člen představenstva",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 11.13,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2019-02-22",
-      "roleValidTo": "2020-12-08",
-      "temporalStatus": "historical-no-money"
+      "reviewTier": 2,
+      "reviewRank": 2999910656669.89,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6732:29123747",
@@ -2843,15 +2599,14 @@
       "company": "DOMOVINKA - sociální služby, o.p.s.",
       "role": "člen správní rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 11.1,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2012-01-16",
-      "roleValidTo": "2014-09-22",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999973306604.07,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6786:26871068",
@@ -2861,17 +2616,14 @@
       "company": "Vsetínská nemocnice a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 11.08,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2008-03-03",
-      "roleValidTo": "2022-09-09",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999917556856.86,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6225:00829838",
@@ -2881,17 +2633,14 @@
       "company": "Nemocnice Jablonec nad Nisou, p.o.",
       "role": "zdravotní bratr",
       "tieClass": "steward",
+      "corroboration": "conflicting",
       "reviewState": "pending_review",
       "signalScore": 11.06,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-birthdate-match-in-vr"
-      ],
-      "corroboration": "conflicting",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      "reviewTier": 3,
+      "reviewRank": 3999921158865.1,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5903:27251918",
@@ -2901,15 +2650,14 @@
       "company": "Obecní dům, a.s.",
       "role": "předseda dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 10.66,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2012-03-22",
-      "roleValidTo": "2015-02-03",
-      "temporalStatus": "historical-no-money"
+      "reviewTier": 2,
+      "reviewRank": 2999959080357.35,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:346:26187639",
@@ -2919,15 +2667,14 @@
       "company": "Vzdělávací centrum pro veřejnou správu ČR, o.p.s.",
       "role": "člen správní rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 10.63,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2000-07-11",
-      "roleValidTo": "2001-02-09",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999960557850.7,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6527:60914351",
@@ -2937,15 +2684,14 @@
       "company": "AGROCENTRUM JIZERAN a.s.",
       "role": "člen představenstva",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 10.58,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2004-03-22",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 2,
+      "reviewRank": 2999964205148.09,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6479:47122099",
@@ -2955,18 +2701,16 @@
       "company": "Pražská vysoká škola psychosociálních studií, s.r.o.",
       "role": "absolvent, titul Bc.",
       "tieClass": "steward",
+      "corroboration": "conflicting",
       "reviewState": "pending_review",
       "signalScore": 10.28,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 3,
+      "reviewRank": 3999978047401.84,
+      "stage": "pending",
+      "batch": null,
       "flags": [
-        "no-period-in-source",
-        "no-birthdate-match-in-vr"
-      ],
-      "corroboration": "conflicting",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+        "no-period-in-source"
+      ]
     },
     {
       "id": "tie:6513:48161063",
@@ -2976,15 +2720,14 @@
       "company": "Gymnázium, Pardubice, Mozartova 449",
       "role": "Ředitel",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 10.23,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2012-08-01",
-      "roleValidTo": "2022-02-28",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999979689513.21,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6165:26232987",
@@ -2994,15 +2737,14 @@
       "company": "NEXNET, a.s.",
       "role": "předseda dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 10.14,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2000-12-14",
-      "roleValidTo": "2014-08-06",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999982504985.64,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5903:26419068",
@@ -3012,17 +2754,14 @@
       "company": "Nadační fond Českého rozhlasu",
       "role": "člen správní rady",
       "tieClass": "steward",
+      "corroboration": "conflicting",
       "reviewState": "pending_review",
       "signalScore": 10.06,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-birthdate-match-in-vr"
-      ],
-      "corroboration": "conflicting",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      "reviewTier": 3,
+      "reviewRank": 3999984771000.26,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5273:25245091",
@@ -3032,15 +2771,14 @@
       "company": "Regionální rozvojová agentura Plzeňského kraje, obecně prospěšná společnost",
       "role": "člen správní rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 10.01,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2003-11-27",
-      "roleValidTo": "2009-04-16",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999985783274.37,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5459:28323297",
@@ -3050,17 +2788,16 @@
       "company": "Studio PN Prostějov s.r.o.",
       "role": "jednatel a společník",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 0,
+      "reviewRank": 1000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
         "no-money-reachable"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2009-01-28",
-      "roleValidTo": "2014-05-30",
-      "temporalStatus": "historical-no-money"
+      ]
     },
     {
       "id": "tie:6074:26254590",
@@ -3070,17 +2807,16 @@
       "company": "STUDIO ARX s.r.o.",
       "role": "společník",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 0,
+      "reviewRank": 1000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
         "no-money-reachable"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2001-08-11",
-      "roleValidTo": "2012-06-11",
-      "temporalStatus": "historical-no-money"
+      ]
     },
     {
       "id": "tie:6105:25643461",
@@ -3090,17 +2826,16 @@
       "company": "MEBIUS s.r.o.",
       "role": "společník",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 0,
+      "reviewRank": 1000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
         "no-money-reachable"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "1998-02-05",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      ]
     },
     {
       "id": "tie:6105:28406354",
@@ -3110,17 +2845,16 @@
       "company": "Japa Foods s.r.o.",
       "role": "jednatel a společník",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 0,
+      "reviewRank": 1000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
         "no-money-reachable"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2008-06-05",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      ]
     },
     {
       "id": "tie:6150:01801261",
@@ -3130,17 +2864,16 @@
       "company": "Hartenberg Holding, s.r.o.",
       "role": "jednatel",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 0,
+      "reviewRank": 1000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
         "no-money-reachable"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2013-06-18",
-      "roleValidTo": "2014-01-20",
-      "temporalStatus": "historical-no-money"
+      ]
     },
     {
       "id": "tie:6150:64258998",
@@ -3150,22 +2883,16 @@
       "company": "AGRONOVA CS s.r.o.",
       "role": "jednatel",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 0,
+      "reviewRank": 1000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
-        "no-money-reachable",
-        "no-birthdate-match-in-vr",
-        "sonnet-reviewed",
-        "vr-missing-dob-on-old-record",
-        "approximate-dates-no-day-precision"
-      ],
-      "corroboration": "registry-confirmed",
-      "signal": 4,
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": "historical-no-money"
+        "no-money-reachable"
+      ]
     },
     {
       "id": "tie:6201:49437674",
@@ -3175,22 +2902,16 @@
       "company": "POLIKLINIKA - servis s.r.o.",
       "role": "jednatel",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 0,
+      "reviewRank": 1000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
-        "no-money-reachable",
-        "no-birthdate-match-in-vr",
-        "sonnet-reviewed",
-        "vr-missing-dob-on-old-record",
-        "approximate-dates-no-day-precision"
-      ],
-      "corroboration": "registry-confirmed",
-      "signal": 2,
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": "historical-no-money"
+        "no-money-reachable"
+      ]
     },
     {
       "id": "tie:6216:19840659",
@@ -3200,21 +2921,16 @@
       "company": "Sirius Praha s.r.o.",
       "role": "jednatel",
       "tieClass": "owner-operator",
+      "corroboration": "conflicting",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 3,
+      "reviewRank": 4000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
-        "no-money-reachable",
-        "no-birthdate-match-in-vr",
-        "sonnet-reviewed",
-        "inconclusive"
-      ],
-      "corroboration": "conflicting",
-      "signal": 1,
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+        "no-money-reachable"
+      ]
     },
     {
       "id": "tie:6216:26123550",
@@ -3224,17 +2940,16 @@
       "company": "LIHT s.r.o.",
       "role": "jednatel",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 0,
+      "reviewRank": 1000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
         "no-money-reachable"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2003-07-07",
-      "roleValidTo": "2005-04-12",
-      "temporalStatus": "historical-no-money"
+      ]
     },
     {
       "id": "tie:6409:29054117",
@@ -3244,17 +2959,16 @@
       "company": "F.M.S. Consulting s.r.o.",
       "role": "společník",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 0,
+      "reviewRank": 1000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
         "no-money-reachable"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2010-08-25",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      ]
     },
     {
       "id": "tie:6409:49825950",
@@ -3264,17 +2978,16 @@
       "company": "COMBIN BOHEMIA spol. s r.o.",
       "role": "jednatel",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 0,
+      "reviewRank": 1000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
         "no-money-reachable"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "1994-11-30",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      ]
     },
     {
       "id": "tie:6455:27720004",
@@ -3284,17 +2997,16 @@
       "company": "Česká informatika s.r.o.",
       "role": "jednatel a společník",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 0,
+      "reviewRank": 1000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
         "no-money-reachable"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2007-02-21",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      ]
     },
     {
       "id": "tie:6727:03921727",
@@ -3304,17 +3016,16 @@
       "company": "Park Volmanec s.r.o.",
       "role": "jednatel a společník",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 0,
+      "reviewRank": 1000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
         "no-money-reachable"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2015-03-24",
-      "roleValidTo": "2015-10-20",
-      "temporalStatus": "historical-no-money"
+      ]
     },
     {
       "id": "tie:6789:26109859",
@@ -3324,17 +3035,16 @@
       "company": "W.H.V. Projekt spol. s r.o.",
       "role": "jednatel a společník",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 0,
+      "reviewRank": 1000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
         "no-money-reachable"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2006-10-04",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      ]
     },
     {
       "id": "tie:7031:06386237",
@@ -3344,17 +3054,16 @@
       "company": "RAPAJA s.r.o.",
       "role": "jednatel a společník",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 0,
+      "reviewRank": 1000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
         "no-money-reachable"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2017-08-29",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      ]
     },
     {
       "id": "tie:7062:26387816",
@@ -3364,17 +3073,16 @@
       "company": "JISE stavby s.r.o.",
       "role": "společník",
       "tieClass": "owner-operator",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 0,
+      "reviewRank": 1000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
         "no-money-reachable"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2008-05-02",
-      "roleValidTo": "2013-03-26",
-      "temporalStatus": "historical-no-money"
+      ]
     },
     {
       "id": "tie:5899:29211808",
@@ -3384,17 +3092,14 @@
       "company": "Léčebné lázně Jáchymov a. s.",
       "role": "zaměstnanec",
       "tieClass": "steward",
+      "corroboration": "conflicting",
       "reviewState": "pending_review",
       "signalScore": 9.96,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-birthdate-match-in-vr"
-      ],
-      "corroboration": "conflicting",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      "reviewTier": 3,
+      "reviewRank": 3999986927879.96,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:7039:25513290",
@@ -3404,15 +3109,14 @@
       "company": "Prádelna a čistírna Jihlava, s.r.o.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 9.95,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2011-01-06",
-      "roleValidTo": "2011-09-22",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999987259896.6,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6211:27534804",
@@ -3422,15 +3126,14 @@
       "company": "SKP-CENTRUM, o.p.s.",
       "role": "spoluzakladatel",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 9.94,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2008-03-13",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 2,
+      "reviewRank": 2999987455080.79,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6211:45245053",
@@ -3440,17 +3143,14 @@
       "company": "ČESKÝ ROZHLAS",
       "role": "zaměstnanec",
       "tieClass": "steward",
+      "corroboration": "registry-unconfirmed",
       "reviewState": "pending_review",
       "signalScore": 9.87,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      "reviewTier": 3,
+      "reviewRank": 3999988806916.325,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6463:45245053",
@@ -3460,18 +3160,16 @@
       "company": "ČESKÝ ROZHLAS",
       "role": "moderátor",
       "tieClass": "steward",
+      "corroboration": "registry-unconfirmed",
       "reviewState": "pending_review",
       "signalScore": 9.87,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 3,
+      "reviewRank": 3999988806916.325,
+      "stage": "pending",
+      "batch": null,
       "flags": [
-        "no-period-in-source",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+        "no-period-in-source"
+      ]
     },
     {
       "id": "tie:5459:25321692",
@@ -3481,15 +3179,14 @@
       "company": "Lesy města Prostějova, s.r.o.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 9.77,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2003-03-12",
-      "roleValidTo": "2007-04-30",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999990455279,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6524:26745615",
@@ -3499,15 +3196,14 @@
       "company": "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
       "role": "místopředseda výboru",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 9.68,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2006-04-27",
-      "roleValidTo": "2013-11-14",
-      "temporalStatus": "historical-no-money"
+      "reviewTier": 2,
+      "reviewRank": 2999991840665.52,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6463:00027383",
@@ -3517,17 +3213,14 @@
       "company": "ČESKÁ TELEVIZE",
       "role": "zaměstnanec",
       "tieClass": "steward",
+      "corroboration": "registry-unconfirmed",
       "reviewState": "pending_review",
       "signalScore": 9.51,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      "reviewTier": 3,
+      "reviewRank": 3999993831695,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6209:27485013",
@@ -3537,15 +3230,14 @@
       "company": "Sportovní areály města Chrudim, s.r.o.",
       "role": "předseda dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 9.43,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2011-02-21",
-      "roleValidTo": "2012-07-31",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999994601600,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5899:02504421",
@@ -3555,17 +3247,14 @@
       "company": "Česká asociace věřitelů, z.s.",
       "role": "viceprezident",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 9.38,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2014-03-01",
-      "roleValidTo": "2017-02-28",
-      "temporalStatus": "historical-no-money"
+      "reviewTier": 2,
+      "reviewRank": 2999995006200,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5899:49789228",
@@ -3575,15 +3264,14 @@
       "company": "Vodárny a kanalizace Karlovy Vary, a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 9.18,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2008-12-08",
-      "roleValidTo": "2011-05-25",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999996365438.44,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:7023:24766216",
@@ -3593,15 +3281,14 @@
       "company": "MATURUS, o.p.s.",
       "role": "ředitel",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 9.17,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2011-06-29",
-      "roleValidTo": "2014-10-07",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999996429692.86,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5512:41197518",
@@ -3611,17 +3298,14 @@
       "company": "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
       "role": "člen správní rady",
       "tieClass": "steward",
+      "corroboration": "registry-unconfirmed",
       "reviewState": "pending_review",
       "signalScore": 8.88,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      "reviewTier": 3,
+      "reviewRank": 3999997794590.7,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5700:41197518",
@@ -3631,18 +3315,16 @@
       "company": "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-unconfirmed",
       "reviewState": "pending_review",
       "signalScore": 8.88,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 3,
+      "reviewRank": 3999997794590.7,
+      "stage": "pending",
+      "batch": null,
       "flags": [
-        "no-period-in-source",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+        "no-period-in-source"
+      ]
     },
     {
       "id": "tie:6074:70282960",
@@ -3652,17 +3334,14 @@
       "company": "Evropský informační projekt, z. ú.",
       "role": "zakladatel",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 8.62,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2015-06-16",
-      "roleValidTo": "2022-04-28",
-      "temporalStatus": "historical"
+      "reviewTier": 2,
+      "reviewRank": 2999998555480,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6165:29186315",
@@ -3672,15 +3351,14 @@
       "company": "MAE invest a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 8.61,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2009-10-27",
-      "roleValidTo": "2015-03-02",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999998595000,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5273:27149994",
@@ -3690,15 +3368,14 @@
       "company": "Nadace Věry a Vladimíra Janouškových",
       "role": "předseda správní rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 8.6,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2004-05-12",
-      "roleValidTo": "2021-10-06",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999998605000,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:5512:27082857",
@@ -3708,15 +3385,14 @@
       "company": "Nadační fond manželů Livie a Václava Klausových",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 8.23,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2003-08-25",
-      "roleValidTo": "2012-02-24",
-      "temporalStatus": "money-postdates-role"
+      "reviewTier": 2,
+      "reviewRank": 2999999246897.21,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:7032:00084018",
@@ -3726,18 +3402,16 @@
       "company": "Hvězdárna a planetárium v Hradci Králové",
       "role": "marketingový specialista",
       "tieClass": "steward",
+      "corroboration": "conflicting",
       "reviewState": "pending_review",
       "signalScore": 8.14,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 3,
+      "reviewRank": 3999999351092.02,
+      "stage": "pending",
+      "batch": null,
       "flags": [
-        "no-period-in-source",
-        "no-birthdate-match-in-vr"
-      ],
-      "corroboration": "conflicting",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+        "no-period-in-source"
+      ]
     },
     {
       "id": "tie:5899:29156271",
@@ -3747,15 +3421,14 @@
       "company": "Chráněná dílna Ostrov, s.r.o.",
       "role": "prokurista",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 8.06,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2012-04-28",
-      "roleValidTo": null,
-      "temporalStatus": "current"
+      "reviewTier": 2,
+      "reviewRank": 2999999432715,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6524:68404999",
@@ -3765,36 +3438,14 @@
       "company": "Nadační fond Gymnázia Kutná Hora",
       "role": "člen správní rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 7.84,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2010-06-19",
-      "roleValidTo": "2014-07-18",
-      "temporalStatus": "money-postdates-role"
-    },
-    {
-      "id": "tie:6184:04627695",
-      "personPspId": 6184,
-      "personName": "Richard Brabec",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "soukromý podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 6,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      "reviewTier": 2,
+      "reviewRank": 2999999600000,
+      "stage": "pending",
+      "batch": null,
+      "flags": []
     },
     {
       "id": "tie:6184:49683144",
@@ -3804,105 +3455,16 @@
       "company": "PRAK spol. s r.o.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 6,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "no-birthdate-match-in-vr",
-        "wrong-entity-suspected",
-        "needs-ico-re-resolution",
-        "sonnet-reviewed-by-analogy"
-      ],
       "corroboration": "conflicting",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6190:04627695",
-      "personPspId": 6190,
-      "personName": "Jaroslav Faltýnek",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "soukromý podnikatel",
-      "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 6,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 3,
+      "reviewRank": 4000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6603:04627695",
-      "personPspId": 6603,
-      "personName": "Pavel Karpíšek",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 6,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:7063:04627695",
-      "personPspId": 7063,
-      "personName": "Roman Zarzycký",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 6,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:346:04627695",
-      "personPspId": 346,
-      "personName": "Petr Bendl",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "soukromý podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+        "no-money-reachable"
+      ]
     },
     {
       "id": "tie:346:49683144",
@@ -3912,43 +3474,16 @@
       "company": "PRAK spol. s r.o.",
       "role": "člen představenstva",
       "tieClass": "manager",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "no-birthdate-match-in-vr",
-        "sonnet-reviewed",
-        "wrong-entity-suspected",
-        "needs-ico-re-resolution"
-      ],
       "corroboration": "conflicting",
-      "signal": 0,
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:4:04627695",
-      "personPspId": 4,
-      "personName": "Marek Benda",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "soukromý podnikatel",
-      "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 3,
+      "reviewRank": 4000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+        "no-money-reachable"
+      ]
     },
     {
       "id": "tie:5379:28094573",
@@ -3958,17 +3493,16 @@
       "company": "Wellness sv. Markéta a.s.",
       "role": "člen dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 2,
+      "reviewRank": 3000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
         "no-money-reachable"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2009-01-24",
-      "roleValidTo": "2011-07-28",
-      "temporalStatus": "historical-no-money"
+      ]
     },
     {
       "id": "tie:5379:61065480",
@@ -3978,18 +3512,16 @@
       "company": "TAMPA s.r.o.",
       "role": "konkursní správce",
       "tieClass": "steward",
+      "corroboration": "conflicting",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 3,
+      "reviewRank": 4000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
-        "no-money-reachable",
-        "no-birthdate-match-in-vr"
-      ],
-      "corroboration": "conflicting",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+        "no-money-reachable"
+      ]
     },
     {
       "id": "tie:5459:02867681",
@@ -3999,59 +3531,16 @@
       "company": "IF Holding a.s.",
       "role": "předseda představenstva",
       "tieClass": "manager",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 1,
+      "reviewRank": 2000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
         "no-money-reachable"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2014-04-07",
-      "roleValidTo": "2014-10-01",
-      "temporalStatus": "historical-no-money"
-    },
-    {
-      "id": "tie:5459:04627695",
-      "personPspId": 5459,
-      "personName": "Radim Fiala",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "soukromý podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:5512:04627695",
-      "personPspId": 5512,
-      "personName": "Boris Šťastný",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "soukromý podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      ]
     },
     {
       "id": "tie:5512:60196459",
@@ -4061,18 +3550,16 @@
       "company": "ASPEN SPORT a.s.",
       "role": "zakladatel",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 2,
+      "reviewRank": 3000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
-        "no-money-reachable",
-        "stale-ongoing-in-graph"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "1998-05-13",
-      "roleValidTo": "2006-04-04",
-      "temporalStatus": "historical-no-money"
+        "no-money-reachable"
+      ]
     },
     {
       "id": "tie:5512:70885117",
@@ -4082,18 +3569,16 @@
       "company": "Česká lékařská komora - o.s., z.s.",
       "role": "člen",
       "tieClass": "steward",
+      "corroboration": "conflicting",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 3,
+      "reviewRank": 4000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
-        "no-money-reachable",
-        "no-birthdate-match-in-vr"
-      ],
-      "corroboration": "conflicting",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+        "no-money-reachable"
+      ]
     },
     {
       "id": "tie:5903:26419050",
@@ -4103,38 +3588,16 @@
       "company": "Společenství vlastníků jednotek v domě čp. 2122, Na Folimance 13, Praha 2 - Vinohrady",
       "role": "statutární orgán",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 2,
+      "reviewRank": 3000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
         "no-money-reachable"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2000-12-15",
-      "roleValidTo": "2004-04-21",
-      "temporalStatus": "historical-no-money"
-    },
-    {
-      "id": "tie:5911:04627695",
-      "personPspId": 5911,
-      "personName": "Jaroslav Foldyna",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      ]
     },
     {
       "id": "tie:5943:02086778",
@@ -4144,80 +3607,16 @@
       "company": "Fórum Karla Schwarzenberga, o.p.s.",
       "role": "člen správní rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 2,
+      "reviewRank": 3000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
         "no-money-reachable"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2013-09-10",
-      "roleValidTo": null,
-      "temporalStatus": "current"
-    },
-    {
-      "id": "tie:5943:04627695",
-      "personPspId": 5943,
-      "personName": "Helena Langšádlová",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "soukromý podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6105:04627695",
-      "personPspId": 6105,
-      "personName": "Tomio Okamura",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6150:04627695",
-      "personPspId": 6150,
-      "personName": "Andrej Babiš",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "soukromý podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      ]
     },
     {
       "id": "tie:6150:26014343",
@@ -4227,17 +3626,16 @@
       "company": "SynBiol, a.s.",
       "role": "člen představenstva",
       "tieClass": "manager",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 1,
+      "reviewRank": 2000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
         "no-money-reachable"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2008-08-08",
-      "roleValidTo": "2014-01-30",
-      "temporalStatus": "historical-no-money"
+      ]
     },
     {
       "id": "tie:6154:02086778",
@@ -4247,38 +3645,16 @@
       "company": "Fórum Karla Schwarzenberga, o.p.s.",
       "role": "člen správní rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 2,
+      "reviewRank": 3000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
         "no-money-reachable"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2013-09-10",
-      "roleValidTo": null,
-      "temporalStatus": "current"
-    },
-    {
-      "id": "tie:6154:04627695",
-      "personPspId": 6154,
-      "personName": "Marek Ženíšek",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      ]
     },
     {
       "id": "tie:6154:22745696",
@@ -4288,353 +3664,16 @@
       "company": "TOPAZ, z.s.",
       "role": "člen",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 2,
+      "reviewRank": 3000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
         "no-money-reachable"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2016-12-27",
-      "roleValidTo": null,
-      "temporalStatus": "current"
-    },
-    {
-      "id": "tie:6168:04627695",
-      "personPspId": 6168,
-      "personName": "Helena Válková",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "soukromý podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6172:04627695",
-      "personPspId": 6172,
-      "personName": "Ladislav Okleštěk",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "soukromý podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6185:04627695",
-      "personPspId": 6185,
-      "personName": "Milan Brázdil",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "soukromý podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6201:04627695",
-      "personPspId": 6201,
-      "personName": "Miloslav Janulík",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "soukromý podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6205:04627695",
-      "personPspId": 6205,
-      "personName": "Marian Jurečka",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "soukromý podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6209:04627695",
-      "personPspId": 6209,
-      "personName": "David Kasal",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "soukromý podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6214:04627695",
-      "personPspId": 6214,
-      "personName": "Věra Kovářová",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6215:04627695",
-      "personPspId": 6215,
-      "personName": "Roman Kubíček",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "soukromý podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6216:04627695",
-      "personPspId": 6216,
-      "personName": "Michal Kučera",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "soukromý podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6409:04627695",
-      "personPspId": 6409,
-      "personName": "František Petrtýl",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "soukromý podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6433:04627695",
-      "personPspId": 6433,
-      "personName": "Ivan Bartoš",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "soukromý podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6459:04627695",
-      "personPspId": 6459,
-      "personName": "Jakub Janda",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "soukromý podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6463:04627695",
-      "personPspId": 6463,
-      "personName": "Aleš Juchelka",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "soukromý podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6479:04627695",
-      "personPspId": 6479,
-      "personName": "Lucie Šafránková",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6487:04627695",
-      "personPspId": 6487,
-      "personName": "Patrik Nacher",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6500:04627695",
-      "personPspId": 6500,
-      "personName": "Jan Richter",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "soukromý podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      ]
     },
     {
       "id": "tie:6524:02312701",
@@ -4644,38 +3683,16 @@
       "company": "Vodní cesty na Labi, o.p.s.",
       "role": "předseda dozorčí rady",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 2,
+      "reviewRank": 3000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
         "no-money-reachable"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2013-11-12",
-      "roleValidTo": "2017-02-28",
-      "temporalStatus": "historical-no-money"
-    },
-    {
-      "id": "tie:6524:04627695",
-      "personPspId": 6524,
-      "personName": "Vít Rakušan",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "soukromý podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      ]
     },
     {
       "id": "tie:6524:22874381",
@@ -4685,59 +3702,16 @@
       "company": "Změna pro Kolín z.s.",
       "role": "člen výboru",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 2,
+      "reviewRank": 3000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
         "no-money-reachable"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2017-01-14",
-      "roleValidTo": null,
-      "temporalStatus": "current"
-    },
-    {
-      "id": "tie:6527:04627695",
-      "personPspId": 6527,
-      "personName": "David Pražák",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6538:04627695",
-      "personPspId": 6538,
-      "personName": "Martin Kupka",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      ]
     },
     {
       "id": "tie:6687:72046422",
@@ -4747,165 +3721,16 @@
       "company": "Zákládní organizace Českého zahrádkářského svazu Roztoky Třebízského",
       "role": "člen",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 2,
+      "reviewRank": 3000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
         "no-money-reachable"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2015-12-24",
-      "roleValidTo": "2018-01-19",
-      "temporalStatus": "historical-no-money"
-    },
-    {
-      "id": "tie:6688:04627695",
-      "personPspId": 6688,
-      "personName": "Miroslav Samaš",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-period-in-source",
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6723:04627695",
-      "personPspId": 6723,
-      "personName": "Jana Berkovcová",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6727:04627695",
-      "personPspId": 6727,
-      "personName": "Eva Decroix",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6745:04627695",
-      "personPspId": 6745,
-      "personName": "Marie Pošarová",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6751:04627695",
-      "personPspId": 6751,
-      "personName": "Karel Haas",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6786:04627695",
-      "personPspId": 6786,
-      "personName": "Róbert Teleky",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6789:04627695",
-      "personPspId": 6789,
-      "personName": "Lukáš Vlček",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "soukromý podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      ]
     },
     {
       "id": "tie:6789:27043843",
@@ -4915,18 +3740,16 @@
       "company": "PRO VYSOČINU, občanské sdružení",
       "role": "člen",
       "tieClass": "steward",
+      "corroboration": "conflicting",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 3,
+      "reviewRank": 4000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
-        "no-money-reachable",
-        "no-birthdate-match-in-vr"
-      ],
-      "corroboration": "conflicting",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+        "no-money-reachable"
+      ]
     },
     {
       "id": "tie:6789:28095405",
@@ -4936,80 +3759,16 @@
       "company": "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov",
       "role": "předseda výboru",
       "tieClass": "steward",
+      "corroboration": "registry-confirmed",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 2,
+      "reviewRank": 3000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
         "no-money-reachable"
-      ],
-      "corroboration": "registry-confirmed",
-      "roleValidFrom": "2008-12-15",
-      "roleValidTo": "2012-03-14",
-      "temporalStatus": "historical-no-money"
-    },
-    {
-      "id": "tie:6881:04627695",
-      "personPspId": 6881,
-      "personName": "Petr Hladík",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6905:04627695",
-      "personPspId": 6905,
-      "personName": "Andrea Hoffmannová",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:6986:04627695",
-      "personPspId": 6986,
-      "personName": "Hana Ančincová",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+      ]
     },
     {
       "id": "tie:6993:09925856",
@@ -5019,165 +3778,16 @@
       "company": "Nadační fond - NOVÉ LÉČEBNÉ POSTUPY CHIRURGIE RUKY",
       "role": "člen správní rady",
       "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "stale-ongoing-in-graph"
-      ],
       "corroboration": "registry-confirmed",
-      "roleValidFrom": "2021-02-22",
-      "roleValidTo": "2025-08-22",
-      "temporalStatus": "historical-no-money"
-    },
-    {
-      "id": "tie:6994:04627695",
-      "personPspId": 6994,
-      "personName": "Monika Brzesková",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
+      "reviewTier": 2,
+      "reviewRank": 3000000000000,
+      "stage": "pending",
+      "batch": null,
       "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:7013:04627695",
-      "personPspId": 7013,
-      "personName": "Veronika Kovářová",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:7031:04627695",
-      "personPspId": 7031,
-      "personName": "Patrik Pařil",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:7039:04627695",
-      "personPspId": 7039,
-      "personName": "Vítězslav Schrek",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:7052:04627695",
-      "personPspId": 7052,
-      "personName": "František Talíř",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:7056:04627695",
-      "personPspId": 7056,
-      "personName": "Jitka Volfová",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
-    },
-    {
-      "id": "tie:7064:04627695",
-      "personPspId": 7064,
-      "personName": "Miroslav Žbánek",
-      "ico": "04627695",
-      "company": "OSVČ",
-      "role": "podnikatel",
-      "tieClass": "steward",
-      "reviewState": "pending_review",
-      "signalScore": 0,
-      "stage": "signal",
-      "batch": 2,
-      "flags": [
-        "no-money-reachable",
-        "vr-ico-not-found"
-      ],
-      "corroboration": "registry-unconfirmed",
-      "roleValidFrom": null,
-      "roleValidTo": null,
-      "temporalStatus": null
+        "no-money-reachable"
+      ]
     }
   ]
 }

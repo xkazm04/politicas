@@ -1,0 +1,76 @@
+{
+  "leadId": "Q-money-5",
+  "subject": {
+    "name": "Ing. Aleš Juchelka",
+    "role": "Minister of Labour and Social Affairs (MPSV) since 2025-12-15; sitting MP, Chamber of Deputies (current term from 2025-10-04, Moravian-Silesian Region); previously MP 2017-2025",
+    "party": "ANO 2011"
+  },
+  "claims": [
+    {
+      "claim": "Aleš Juchelka is a sitting MP for the Moravian-Silesian Region (ANO 2011), holding a mandate in the current Chamber of Deputies term beginning 2025-10-04; PSP profile id 6463.",
+      "url": "https://www.psp.cz/sqw/detail.sqw?id=6463",
+      "accessedAt": "2026-07-25",
+      "sourceKind": "primary"
+    },
+    {
+      "claim": "Juchelka was appointed Minister of Labour and Social Affairs on 2025-12-15.",
+      "url": "https://mpsv.gov.cz/novym-ministrem-prace-a-socialnich-veci-se-stal-ales-juchelka",
+      "accessedAt": "2026-07-25",
+      "sourceKind": "primary"
+    },
+    {
+      "claim": "Alexandra Semancová, an advisor to Minister Juchelka, oversaw subsidy-distribution rules and directed senior officials responsible for them, while owning SIPTRADE s.r.o., a firm that earns commissions helping clients obtain the same category of subsidies. Semancová managed a portfolio described as 17 billion CZK from the National Recovery Plan (Národní plán obnovy); SIPTRADE was separately reported to be claiming/seeking over 100 million CZK in EU reimbursement for its clients. Semancová transferred SIPTRADE's managing-director post to her teenage daughter before joining the ministry but retained ownership; the firm operates from the family home. Published 2026-03-19, originally reported by Seznam Zprávy and covered by ČT24.",
+      "url": "https://ct24.ceskatelevize.cz/clanek/domaci/juchelkova-poradkyne-resi-dotace-a-vlastni-firmu-jez-s-nimi-pomaha-pisi-seznam-zpravy-371461",
+      "accessedAt": "2026-07-25",
+      "sourceKind": "media"
+    },
+    {
+      "claim": "A companion Forum24 piece (also 2026-03-19) states the same figures explicitly in Czech koruna (Kč), not euros: 17 miliard Kč in EU/NPO funds under Semancová's purview, 650,000 Kč paid to SIPTRADE by Prague 8's deputy mayor, 70+ million Kč tied to a children's-groups network, and 100+ million Kč sought by SIPTRADE from public funds. Juchelka responded on Facebook calling the reporting a 'spiknutí' (conspiracy) and 'hon na její osobu' (a hunt/persecution against her), and described Semancová as 'člověk na svém místě' (the right person for the role).",
+      "url": "https://www.forum24.cz/obri-stret-zajmu-juchelkovy-poradkyne-ve-hre-je-17-miliard-podle-ministra-je-to-spiknuti",
+      "accessedAt": "2026-07-25",
+      "sourceKind": "media"
+    },
+    {
+      "claim": "Published 2026-04-16: Juchelka confirmed Semancová ended her ministry role after returning from sick leave, and stated that monitoring conflicts of interest of the ~dozens of staff turning over monthly is 'not the minister's job' ('není práce ministra hlídat střety zájmů'). Semancová had originally been hired by his predecessor Marian Jurečka (KDU-ČSL), i.e. the hire predates Juchelka's ministry. Potential EU-fund exposure cited as up to 103 million CZK (the wider figure; 81.4M CZK is this dossier's own sum of the two confirmed non-claimed tranches, not a ministry-stated total). NOTE: the specific quote 'Bylo jí jasné, že by byla pořád terčem různých udání' did not resurface on independent re-fetch (2026-07-25) — treat as unverified verbatim, the substance (she left the role, citing continued scrutiny) is corroborated by the article's framing.",
+      "url": "https://ct24.ceskatelevize.cz/clanek/domaci/semancova-s-moznym-stretem-zajmu-uz-pro-resort-nepracuje-rekl-juchelka-372467",
+      "accessedAt": "2026-07-25",
+      "sourceKind": "media"
+    },
+    {
+      "claim": "Published 2026-07-24: after a three-month delay driven by freedom-of-information requests, MPSV confirmed it will NOT CLAIM EU reimbursement for four National Recovery Plan projects worth 63.8 million CZK, plus 17.6 million CZK from the Employment Plus Operational Programme (OP Zaměstnanost+), citing the conflict-of-interest exposure, pending an administrative check into 'zda vznikla škoda' (whether a loss/damage occurred); the ministry will instead fund them from the state budget in the meantime. ODS deputy Jiří Havránek called on Juchelka to file a criminal complaint against Semancová or resign and take political responsibility.",
+      "url": "https://ct24.ceskatelevize.cz/clanek/domaci/kvuli-moznemu-stretu-zajmu-juchelkovy-exporadkyne-resort-nepozada-eu-o-proplaceni-nekterych-projektu-375914",
+      "accessedAt": "2026-07-25",
+      "sourceKind": "media"
+    },
+    {
+      "claim": "ARES VR record for SIPTRADE s.r.o. (IČO 24225525, Za Hotelem 220/9, Strašín, 251 01 Říčany): Alexandra Semancová (SK) was jednatel 2012-06-04 to 2025-02-27, ceased as director immediately before/around her ministry hire, then briefly re-listed as jednatel 2025-02-27 to 2025-12-05, then her daughter Rebeka Semancová (SK) as jednatel 2025-12-05 to 2026-03-25, and Roman Novotný (CZ) as jednatel from 2026-03-25 to present. Alexandra Semancová has held 100% shareholding continuously since 2012-06-04 (interrupted only by the 2012 founder Vladimíra Slavíková) through the present. No person named Aleš Juchelka appears in any statutární orgán, společník, or jiný orgán role for this IČO.",
+      "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/24225525",
+      "accessedAt": "2026-07-25",
+      "sourceKind": "primary"
+    }
+  ],
+  "registryFindings": {
+    "psp_cz": "Confirms Juchelka is a sitting MP (current term from 2025-10-04) and, per government/MPSV sources, Minister of Labour and Social Affairs since 2025-12-15. No mandate ambiguity — this is the correct person.",
+    "ares_vr_siptrade_24225525": "Alexandra Semancová is the sole/majority owner of SIPTRADE s.r.o. throughout the period in question and was its director immediately before and briefly after joining the ministry as advisor; directorship was passed to her daughter and later to an unrelated third party (Roman Novotný) once the story broke publicly (director change dated 2026-03-25, six days after the first ČT24/Seznam Zprávy report of 2026-03-19). NO officer or shareholder record ties Aleš Juchelka himself to SIPTRADE s.r.o. (IČO 24225525) — this negative is confirmed by direct ARES-VR query on that IČO. This dossier did NOT run a broader sweep of every other Semancová-linked entity, so the negative should be read as scoped to SIPTRADE specifically, not to 'any related entity' — a wider sweep is a follow-up-pass gap, noted below alongside the Registr smluv gap.",
+    "registr_smluv_hlidac_statu": "Not directly queried for SIPTRADE-linked state contracts in this pass — the reported financial exposure (63.8M + 17.6M CZK) comes from the ministry's own FOI-compelled disclosure as reported by ČT24, not yet cross-checked against Registr smluv/Hlídač státu contract records. This is a gap for a follow-up pass if the lead is escalated."
+  },
+  "mediaContext": [
+    "Seznam Zprávy broke the original conflict-of-interest reporting (2026-03-19), picked up and re-reported by ČT24 the same day.",
+    "ČT24 maintains a running topic page aggregating coverage: https://ct24.ceskatelevize.cz/tema/alexandra-semancova-105944 (accessed 2026-07-25).",
+    "Forum24 and Reflex.cz opinion/commentary pieces frame this as part of a pattern of government conflict-of-interest scandals; treated here as context only, not fact.",
+    "Opposition (ODS's Jiří Havránek) has called for Juchelka to file a criminal complaint or resign — a political demand, not an established fact of wrongdoing by Juchelka personally."
+  ],
+  "signalScore": 4,
+  "signalWhy": "Sustained, multi-month (Mar-Jul 2026), primary-corroborated conflict-of-interest story with a confirmed public-money impact (63.8M + 17.6M CZK not claimed from the EU pending an administrative check) directly tied to a minister's own advisor and her private firm; story-worthy but centers on the advisor, not a direct financial benefit to Juchelka himself.",
+  "whatSourcesSustain": "That Juchelka's ministerial advisor, Alexandra Semancová, held a structural conflict of interest (setting subsidy-distribution rules while owning a firm, SIPTRADE, that earned commissions securing subsidies for clients); that this was reported from 2026-03-19 onward and confirmed materially by the ministry itself on 2026-07-24, which will not claim EU reimbursement for at least 81.4M CZK (63.8M + 17.6M, this dossier's own sum of the two confirmed tranches — media cite a wider 103M CZK exposure figure) in projects pending an administrative check into whether a loss occurred; that Juchelka publicly defended Semancová and downplayed the issue ('conspiracy'/'not the minister's job') and retained her for roughly a month after the story broke before she left the post; that ARES VR independently confirms Semancová's ownership/directorship of SIPTRADE spanning the relevant period, with a director change occurring six days after the story broke; that Semancová was originally hired by Juchelka's predecessor Marian Jurečka (KDU-ČSL), so the hire itself predates Juchelka — his exposure is retention/oversight, not the original hiring decision.",
+  "whatSourcesDoNotSustain": "No registry evidence (ARES VR) places Aleš Juchelka himself as an officer, shareholder, or beneficiary of SIPTRADE s.r.o. — there is no basis for a person-company edge from Juchelka to Siptrade. This negative is confirmed only for SIPTRADE itself, not swept across every other entity Semancová may be linked to. No source establishes that Juchelka personally received money or a direct financial advantage; the financial beneficiary in the reporting is Semancová/SIPTRADE, and the harmed party is the Czech state/EU funding pool. 'Ministr údajně zvýhodnil poradkyni' (minister allegedly favored the advisor) is the media framing, but the sustained claim is closer to 'minister retained/publicly defended an advisor with an unmanaged conflict of interest, and treats conflict-of-interest monitoring of ministry staff as outside his own responsibility' — a governance/oversight allegation, not a proven act of favoritism or personal enrichment. No criminal proceeding or independent audit finding has been reported as of 2026-07-25; the administrative check referenced by the ministry is still pending, and the 'sale/reimbursement forfeited' framing overstates a ministry decision described as 'will not claim, pending a check into whether a loss occurred.'",
+  "proposedAnnotation": {
+    "type": "media_lead_annotation",
+    "targetNode": "psp:person:6463 (Aleš Juchelka)",
+    "note": "Sustained conflict-of-interest lead re: advisor Alexandra Semancová / SIPTRADE s.r.o. (IČO 24225525), 2026-03 to 2026-07. No registry tie (ARES VR, scoped to SIPTRADE) between Juchelka and SIPTRADE; confirmed ministry decision not to claim 81.4M CZK (dossier-summed) of EU reimbursement pending an administrative check. Media/context only — NOT a person-company edge proposal, since no officer/shareholder record names Juchelka. Opus-verified 2026-07-25 (evidence chain HOLDS on independent re-fetch of all primary sources; edits applied for date accuracy, 'forfeited' overstatement, and negative-claim scoping).",
+    "requiresGate": true,
+    "edgeProposed": false,
+    "edgeReason": "No ARES VR record identifies Aleš Juchelka as an officer, shareholder, or beneficiary of SIPTRADE s.r.o. (IČO 24225525) — the only entity independently checked. Per doctrine, no person-company edge may be proposed without direct registry evidence, and the negative claim itself must not be over-extended beyond the entity actually queried."
+  },
+  "confidence": "medium"
+}

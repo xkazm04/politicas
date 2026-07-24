@@ -58,7 +58,15 @@ export interface ReviewTie {
   triangle: boolean; // contracts + subsidies + party donation all present
   nearThresholdCount: number; // contracts within 10% below a 2M/6M zadávací limit
   deMinimis: boolean; // reachable money below a materiality floor (likely noise)
-  signalScore: number; // deterministic triage rank key
+  signalScore: number; // deterministic triage rank key (money/triangle/near-threshold weighting)
+  /** Batch-005 review-ORDER axis — DIFFERENT from signalScore. 0 = registry-confirmed
+   *  owner-operator, 1 = registry-confirmed manager, 2 = registry-confirmed steward,
+   *  3 = everything else (unconfirmed/conflicting/registry-unconfirmed). See `reviewTier`. */
+  reviewTier: 0 | 1 | 2 | 3;
+  /** Stable per-tie sort key: tier ascending, then reachable CZK (contractCzk +
+   *  subsidiesCzk) descending WITHIN the tier. Lower = reviewed first. Recomputable from
+   *  the tie's own fields (no global sort needed) — see `reviewRank`. */
+  reviewRank: number;
   links: RegistryLinks;
   /** ARES-VR reconciliation (case-money batch 001/002, Q-money-1) — absent when the
    *  tie hasn't been through the registry corroboration pass yet. `periodFrom/To` above
@@ -78,10 +86,14 @@ export interface ReviewStats {
   triangles: number;
   nearThreshold: number;
   totalReachableCzk: number;
+  /** Batch-005 review-order tiers (see `reviewTier`) — the population size a reviewer
+   *  must clear in each pass: registry-confirmed owner-operator / manager / steward,
+   *  then everything unconfirmed. Sums to `pending`. */
+  tierCounts: [number, number, number, number];
 }
 
 export interface ReviewQueue {
-  ties: ReviewTie[]; // pending ties only, ranked by signalScore desc
+  ties: ReviewTie[]; // pending ties only, ranked by reviewRank ASC (batch-005 review order)
   stats: ReviewStats;
   source: string;
   pass: number;
@@ -182,4 +194,46 @@ export function reviewSignal(t: {
     (t.tieClass === "owner-operator" ? 10 : 0) +
     (t.absenteeManagerLead ? 6 : 0);
   return Math.round(s * 100) / 100;
+}
+
+/* ── batch-005: deterministic REVIEW-ORDER (distinct from signalScore above) ──────
+ * signalScore ranks "how story-worthy is this tie" (money × class-weight × triangle
+ * × near-threshold). reviewTier/reviewRank rank "what order should a human clear the
+ * 211-tie queue in" — the batch-005 spec: registry-confirmed owner-operators first,
+ * then managers, then confirmed stewards, unconfirmed/conflicting last; WITHIN each
+ * tier by reachable CZK (contractCzk + subsidiesCzk) descending. Corroboration
+ * ("is this MP really tied to this company, per ARES VR") gates trust BEFORE money
+ * gates urgency — an unconfirmed 500M-CZK tie is not yet known to be real, so it
+ * must not out-rank a confirmed 5M-CZK one. */
+
+/** Tier 0 = registry-confirmed owner-operator, 1 = registry-confirmed manager,
+ *  2 = registry-confirmed steward, 3 = everything else (registry-unconfirmed,
+ *  conflicting, or corroboration not yet run). */
+export function reviewTier(t: { tieClass: TieClass; corroboration: ReviewTie["corroboration"] }): 0 | 1 | 2 | 3 {
+  if (t.corroboration !== "registry-confirmed") return 3;
+  if (t.tieClass === "owner-operator") return 0;
+  if (t.tieClass === "manager") return 1;
+  return 2; // steward
+}
+
+// Headroom above any realistic reachable-CZK figure (population total is ~19.8 bn CZK,
+// no single tie approaches 1 trillion) — keeps the within-tier money-desc ordering exact
+// while the tier term dominates so tiers never interleave.
+const REVIEW_RANK_MONEY_CAP = 1_000_000_000_000; // 1e12
+
+/** Stable, recomputable per-tie sort key (mirrors triage.ts). Ascending sort = the
+ *  batch-005 review order: tier ascending, reachable CZK descending within tier. No
+ *  global list needed — pure function of the tie's own fields, same pattern as
+ *  `reviewSignal`. Persisted at read time only this batch (not written to `kg_edge.props`
+ *  — see `docs/data-analysis/case-money/payloads/batch-005-review-rank.json` for the
+ *  precomputed payload if a future ingest wants to persist it). */
+export function reviewRank(t: {
+  tieClass: TieClass;
+  corroboration: ReviewTie["corroboration"];
+  contractCzk: number;
+  subsidiesCzk: number;
+}): number {
+  const tier = reviewTier(t);
+  const money = Math.min(Math.max(t.contractCzk + t.subsidiesCzk, 0), REVIEW_RANK_MONEY_CAP - 1);
+  return tier * REVIEW_RANK_MONEY_CAP + (REVIEW_RANK_MONEY_CAP - money);
 }
