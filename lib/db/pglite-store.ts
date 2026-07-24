@@ -24,6 +24,7 @@ import { makeProvenanceRepo } from "./pglite/repositories/provenance";
 import { makeAnalysisRepo } from "./pglite/repositories/analysis";
 import { makeVoteTagRepo } from "./pglite/repositories/voteTags";
 import { makeKgRepo } from "./pglite/repositories/kg";
+import { makeReviewRepo } from "./pglite/repositories/review";
 
 export async function getPgliteStore(): Promise<Store> {
   const pg = await open();
@@ -34,6 +35,7 @@ export async function getPgliteStore(): Promise<Store> {
     ...makeAnalysisRepo(pg),
     ...makeVoteTagRepo(pg),
     ...makeKgRepo(pg),
+    ...makeReviewRepo(pg),
     async close() {
       const g = globalThis as GlobalWithPglite;
       delete g[PGLITE_KEY];

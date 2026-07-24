@@ -3,11 +3,16 @@
 /*
  * Ověřovací konzole (/penize/kontrola) — lidská kontrola 260 nepotvrzených vazeb
  * poslanec↔firma (Case ① FollowTheMoney). KAŽDÁ vazba je human-gated: konzole
- * NIKDY nepřepíná review_state — pouze předkládá důkazní složku (dosažitelné
- * veřejné peníze, role, období z provenience, odkazy do primárních rejstříků),
- * aby ji člověk mohl proti ARES VR / Registru smluv sám potvrdit, zamítnout nebo
- * si vyžádat doplnění. Zápis rozhodnutí zatím není napojen (fleet mód) — akce
- * drží lokální stav a jsou zřetelně označené „zápis čeká na backend".
+ * NIKDY nepřepíná review_state sama od sebe — volá jediný zápisový vstup na
+ * platformě, `submitReviewDecision` (server action), který stojí PŘED
+ * `ReviewRepository.setTieReviewState` (jediný kód, co kdy smí zapsat
+ * `review_state`). Rozhodnutí se zobrazí OPTIMISTICKY hned po kliknutí a pak se
+ * sesouhlasí se skutečným výsledkem zápisu — chybové stavy (zápis nenastaven /
+ * neautorizováno / síťová chyba) jsou zřetelně odlišené, nikdy tiché.
+ *
+ * Když REVIEWER_TOKEN není v env nastavený vůbec, server to řekne narovinu
+ * (`not-configured`) a konzole se drží čestného read-only stavu — banner
+ * „zápis čeká na backend" se ukazuje JEN v tomto případě, ne jako výchozí.
  *
  * Značka Politicas: důkaz na prvním místě (SourceNote u každého čísla), čeština
  * napřed, barvy jen z tokenů. Data čte server-only getVerificationQueue().
@@ -18,6 +23,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, ExternalLink } from "lucide-react";
 import { useLocale } from "next-intl";
 import { compactCzk, temporalBadge } from "../moneyTypes";
+import { submitReviewDecision } from "../reviewActions";
 
 const BADGE_TONE_CLS: Record<string, string> = {
   current: "border-cobalt text-cobalt",
@@ -44,18 +50,70 @@ const DECISION_LABEL: Record<ReviewDecision, string> = {
   reject: "navrženo zamítnout",
 };
 
+/** Per-tie write status — drives the optimistic-then-reconciled UI on each card. */
+type WritePhase = "idle" | "pending" | "done" | "not-configured" | "unauthorized" | "error";
+interface WriteStatus {
+  phase: WritePhase;
+  message?: string;
+}
+
 type ClassFilter = TieClass | "all";
 
-export default function VerificationConsole({ data }: { data: ReviewQueue | null }) {
+export default function VerificationConsole({
+  data,
+  writeConfigured,
+  reviewerName,
+}: {
+  data: ReviewQueue | null;
+  /** Whether REVIEWER_TOKEN is set server-side — gates the live-write UI vs. the honest stub. */
+  writeConfigured: boolean;
+  /** process.env.REVIEWER_NAME, display-only (not a secret) — null if unset. */
+  reviewerName: string | null;
+}) {
   const locale = useLocale();
   const int = (n: number) => n.toLocaleString(locale === "en" ? "en-US" : "cs-CZ");
   const [filter, setFilter] = useState<ClassFilter>("all");
   const [decisions, setDecisions] = useState<Record<string, ReviewDecision>>({});
+  const [writeStatus, setWriteStatus] = useState<Record<string, WriteStatus>>({});
+  const [token, setToken] = useState("");
 
   const shown = useMemo(
     () => (data ? (filter === "all" ? data.ties : data.ties.filter((t) => t.tieClass === filter)) : []),
     [data, filter],
   );
+
+  async function handleDecide(tie: ReviewTie, decision: ReviewDecision) {
+    if (!writeConfigured) {
+      // No write path configured server-side — keep the old local-scratch behavior
+      // (toggle a decision on/off) so the console stays USABLE for prep work
+      // even without a wired backend, but never pretends anything was written.
+      setDecisions((prev) => {
+        const next = { ...prev };
+        if (prev[tie.id] === decision) delete next[tie.id];
+        else next[tie.id] = decision;
+        return next;
+      });
+      return;
+    }
+
+    // optimistic: show the decision immediately, reconcile with the real result after.
+    setDecisions((prev) => ({ ...prev, [tie.id]: decision }));
+    setWriteStatus((prev) => ({ ...prev, [tie.id]: { phase: "pending" } }));
+
+    const result = await submitReviewDecision({ src: tie.src, dst: tie.dst, decision, note: null, token });
+
+    if (result.status === "ok") {
+      setWriteStatus((prev) => ({ ...prev, [tie.id]: { phase: "done", message: result.reviewState } }));
+    } else if (result.status === "not-configured") {
+      setWriteStatus((prev) => ({ ...prev, [tie.id]: { phase: "not-configured" } }));
+    } else if (result.status === "unauthorized") {
+      setWriteStatus((prev) => ({ ...prev, [tie.id]: { phase: "unauthorized" } }));
+    } else if (result.status === "not-found") {
+      setWriteStatus((prev) => ({ ...prev, [tie.id]: { phase: "error", message: "vazba v grafu nenalezena" } }));
+    } else {
+      setWriteStatus((prev) => ({ ...prev, [tie.id]: { phase: "error", message: result.message } }));
+    }
+  }
 
   if (!data) {
     return (
@@ -84,15 +142,45 @@ export default function VerificationConsole({ data }: { data: ReviewQueue | null
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
       <Shell>
-        {/* stub-write banner — the honest fleet-mode state */}
-        <div className="mb-8 border-l-4 border-ochre bg-ochre/10 px-4 py-3">
-          <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-ink">zápis čeká na backend</p>
-          <p className="mt-1 text-sm leading-relaxed text-steel">
-            Rozhodnutí se zatím zaznamenávají jen lokálně v prohlížeči. Zápisové API pro schválení
-            vazby (změnu <span className="font-mono">review_state</span>) není v tomto módu napojené — lidská
-            brána zůstává nedotčená. Konzole slouží k přípravě rozhodnutí a k prokliku do primárních rejstříků.
-          </p>
-        </div>
+        {writeConfigured ? (
+          // live-write banner — the write path IS wired; reviewer identifies with a shared token.
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-4 border-l-4 border-cobalt bg-cobalt/10 px-4 py-3">
+            <div>
+              <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-ink">zápis aktivní</p>
+              <p className="mt-1 max-w-2xl text-sm leading-relaxed text-steel">
+                Rozhodnutí se zapisují do <span className="font-mono">review_audit</span> a teprve poté do{" "}
+                <span className="font-mono">review_state</span> vazby — každý zápis je auditovaný.
+                {reviewerName ? (
+                  <>
+                    {" "}Recenzent: <span className="font-bold text-ink">{reviewerName}</span>.
+                  </>
+                ) : null}
+              </p>
+            </div>
+            <label className="flex flex-col gap-1">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-steel">token recenzenta</span>
+              <input
+                type="password"
+                value={token}
+                onChange={(e) => setToken(e.target.value)}
+                placeholder="REVIEWER_TOKEN"
+                autoComplete="off"
+                className="border-2 border-hairline bg-paper px-2 py-1 font-mono text-xs text-ink outline-none focus:border-cobalt"
+              />
+            </label>
+          </div>
+        ) : (
+          // stub-write banner — the honest not-configured state, ONLY when actually not-configured.
+          <div className="mb-8 border-l-4 border-ochre bg-ochre/10 px-4 py-3">
+            <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-ink">zápis čeká na backend</p>
+            <p className="mt-1 text-sm leading-relaxed text-steel">
+              Rozhodnutí se zatím zaznamenávají jen lokálně v prohlížeči. Zápisové API pro schválení
+              vazby (změnu <span className="font-mono">review_state</span>) není v tomto prostředí nastavené
+              (chybí <span className="font-mono">REVIEWER_TOKEN</span>) — lidská brána zůstává nedotčená. Konzole
+              slouží k přípravě rozhodnutí a k prokliku do primárních rejstříků.
+            </p>
+          </div>
+        )}
 
         {/* summary tiles */}
         <div className="grid gap-px border border-ink bg-ink sm:grid-cols-2 lg:grid-cols-4">
@@ -128,7 +216,7 @@ export default function VerificationConsole({ data }: { data: ReviewQueue | null
             ))}
           </div>
           <p className="font-mono text-[11px] uppercase tracking-widest text-steel">
-            rozhodnuto lokálně: <span className="font-bold text-ink">{int(decidedCount)}</span> / {int(data.stats.pending)}
+            {writeConfigured ? "zapsáno" : "rozhodnuto lokálně"}: <span className="font-bold text-ink">{int(decidedCount)}</span> / {int(data.stats.pending)}
           </p>
         </div>
 
@@ -141,14 +229,9 @@ export default function VerificationConsole({ data }: { data: ReviewQueue | null
               locale={locale}
               int={int}
               decision={decisions[tie.id] ?? null}
-              onDecide={(d) =>
-                setDecisions((prev) => {
-                  const next = { ...prev };
-                  if (prev[tie.id] === d) delete next[tie.id];
-                  else next[tie.id] = d;
-                  return next;
-                })
-              }
+              writeConfigured={writeConfigured}
+              writeStatus={writeStatus[tie.id] ?? { phase: "idle" }}
+              onDecide={(d) => handleDecide(tie, d)}
             />
           ))}
         </div>
@@ -203,12 +286,16 @@ function ReviewCard({
   locale,
   int,
   decision,
+  writeConfigured,
+  writeStatus,
   onDecide,
 }: {
   tie: ReviewTie;
   locale: string;
   int: (n: number) => string;
   decision: ReviewDecision | null;
+  writeConfigured: boolean;
+  writeStatus: WriteStatus;
   onDecide: (d: ReviewDecision) => void;
 }) {
   const reach = tie.contractCzk + tie.subsidiesCzk;
@@ -309,28 +396,82 @@ function ReviewCard({
         </div>
       </div>
 
-      {/* actions (stub) */}
+      {/* actions */}
       <div className="flex flex-wrap items-center gap-2 border-t-2 border-hairline px-5 py-3">
         {DECISIONS.map((d) => (
           <button
             key={d.key}
             type="button"
+            disabled={writeStatus.phase === "pending"}
             onClick={() => onDecide(d.key)}
-            className={`border-2 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider transition-colors ${
+            className={`border-2 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
               decision === d.key ? "bg-ink text-paper border-ink" : d.cls
             }`}
           >
             {d.label}
           </button>
         ))}
-        {decision && (
-          <span className="ml-1 font-mono text-[10px] uppercase tracking-widest text-steel">
-            {DECISION_LABEL[decision]} · zápis čeká na backend
-          </span>
-        )}
+        {decision && <WriteStatusNote decision={decision} writeConfigured={writeConfigured} status={writeStatus} />}
       </div>
     </article>
   );
+}
+
+/** Honest, clearly-visible reconciliation of the optimistic decision with the real
+ *  write result — a not-configured state and a network/validation error must never
+ *  look the same, and neither may look like a successful write. */
+function WriteStatusNote({
+  decision,
+  writeConfigured,
+  status,
+}: {
+  decision: ReviewDecision;
+  writeConfigured: boolean;
+  status: WriteStatus;
+}) {
+  if (!writeConfigured) {
+    return (
+      <span className="ml-1 font-mono text-[10px] uppercase tracking-widest text-steel">
+        {DECISION_LABEL[decision]} · zápis čeká na backend
+      </span>
+    );
+  }
+  switch (status.phase) {
+    case "pending":
+      return (
+        <span className="ml-1 font-mono text-[10px] uppercase tracking-widest text-steel">zapisuje se…</span>
+      );
+    case "done":
+      return (
+        <span className="ml-1 font-mono text-[10px] font-bold uppercase tracking-widest text-cobalt">
+          zapsáno · review_state = {status.message}
+        </span>
+      );
+    case "not-configured":
+      return (
+        <span className="ml-1 font-mono text-[10px] font-bold uppercase tracking-widest text-ochre">
+          zápis není nastavený (chybí REVIEWER_TOKEN)
+        </span>
+      );
+    case "unauthorized":
+      return (
+        <span className="ml-1 font-mono text-[10px] font-bold uppercase tracking-widest text-signal">
+          neplatný token recenzenta
+        </span>
+      );
+    case "error":
+      return (
+        <span className="ml-1 font-mono text-[10px] font-bold uppercase tracking-widest text-signal">
+          chyba zápisu{status.message ? `: ${status.message}` : ""}
+        </span>
+      );
+    default:
+      return (
+        <span className="ml-1 font-mono text-[10px] uppercase tracking-widest text-steel">
+          {DECISION_LABEL[decision]}
+        </span>
+      );
+  }
 }
 
 function Metric({ label, value, sub }: { label: string; value: string; sub: string }) {

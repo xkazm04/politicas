@@ -24,6 +24,7 @@ import type {
   MembershipRow,
   OrganRow,
   PersonRow,
+  ReviewAuditRow,
   SliceQualityRow,
   SourceReleaseRow,
   VoteBallotRow,
@@ -124,13 +125,44 @@ export interface KnowledgeGraphRepository {
   clearKg(): Promise<void>;
 }
 
+/**
+ * The human-review write path for `linked_to` ties (Case ① FollowTheMoney
+ * verification console). THIS is the only code path in the app that is ever
+ * allowed to write `kg_edge.props.review_state` — every other consumer
+ * (including `kg-compute`) only reads it. Every decision is audited to
+ * `review_audit` BEFORE the edge is touched (see `ReviewAuditRow`).
+ */
+export interface ReviewRepository {
+  /**
+   * Record a human decision on the `linked_to` tie `src → dst` and update its
+   * review state accordingly:
+   *  - `confirm`     → `props.review_state = "verified"`.
+   *  - `reject` / `needs-more` → the decision + reviewer + note are recorded on
+   *    the edge (`props.last_decision`, `props.last_reviewer`,
+   *    `props.review_note`), but `review_state` is left at `"pending_review"` —
+   *    it is NEVER flipped to `"verified"` by these decisions.
+   * Errors (rather than throwing) when the tie doesn't exist, so callers can
+   * render an honest message instead of a stack trace.
+   */
+  setTieReviewState(
+    src: string,
+    dst: string,
+    decision: "confirm" | "reject" | "needs-more",
+    reviewer: string,
+    note: string | null,
+  ): Promise<{ ok: true; reviewState: string } | { ok: false; error: string }>;
+  /** The audit trail, newest first; filter by edge endpoint for one tie's history. */
+  listReviewAudit(opts?: { src?: string; dst?: string; limit?: number }): Promise<ReviewAuditRow[]>;
+}
+
 export interface Store
   extends GraphRepository,
     VoteRepository,
     ProvenanceRepository,
     AnalysisRepository,
     VoteTagRepository,
-    KnowledgeGraphRepository {
+    KnowledgeGraphRepository,
+    ReviewRepository {
   /** Release the underlying connection (PGlite is single-connection). */
   close(): Promise<void>;
 }

@@ -121,3 +121,56 @@ reconciliation pass before any tie is presented as "active".
 5. **Write path** for the verification console (§5 of `handoff.md`, batch 001) is still the
    top build-ready item after O-money-2 — now more valuable since 260/260 ties carry a
    registry corroboration verdict for reviewers to act on.
+
+### Batch 003 — human-review write path + Q-money-7 research (2026-07-24)
+
+- **No army this batch** — population already 100% reconciled (batch 002). Scope: ship
+  the write path (top build-ready item, three batches running) + re-resolve the PRaK IČO.
+- **Build (O-money-4):** `ReviewRepository` + append-only `review_audit` table +
+  `REVIEWER_NAME`/`REVIEWER_TOKEN`-gated server action + wired console (optimistic UI,
+  honest error states). 5/5 new tests, 176/176 full suite, tsc clean. **Additive carve-out
+  into `lib/db` used this batch only** (granted per the batch spec).
+- **Q-money-7:** re-resolution candidate found — IČO 61858111 "PRaK, a.s. v likvidaci"
+  (Praha–Kladno rychlodráha SPV, dissolved 2012), Bendl + Brabec both corroborated as
+  board members. Medium confidence (downgraded from the research agent's "high" — ARES
+  returns 404 for this IČO, entity outside the repo's primary corroboration path).
+  Annotation only, not applied; open item is a Bendl end-date conflict (1999 vs 2002) and
+  a needed `tieClass: steward` reclassification if ever re-pointed.
+- **Opus reflection — the batch's most consequential output:** the write path holds its
+  five stated hard rules in the FORWARD direction, but is **not yet durable**: the money
+  ingest path (`kg-money.ts` + `kg.ts`'s wholesale-replace `upsertKgEdges`) silently
+  reverts any human `verified` decision on the next `--commit` re-run (flag D1, HIGH,
+  audit trail survives but nothing replays it), and the console's own "zapsáno: N" counter
+  can report writes that failed (D3). **Recommendation: do not hand the console to a real
+  reviewer until D1 closes.** Full defect list D1–D7 in `handoff.md` §2.
+- **Build-review cadence note:** R=1 → a build shipped, but Opus assessed it unsafe for
+  real use — **this does NOT count as a settled/converged ship.** Batch 004 must close
+  D1 (+D3/D4/D5/D7) as its own build-review item before R resets.
+
+## Metrics block — batch 003
+
+| metric | batch 003 |
+|---|---|
+| units processed | 0 (no army — population already 100% reconciled) |
+| build shipped | write-path (`ReviewRepository` + server action + console wiring) |
+| build safety | **NOT durable** — Opus flag D1 (HIGH): human decisions lost on next ingest re-run |
+| tests | 5/5 new (review repo, isolated temp-dir PGlite), 176/176 full suite, tsc clean |
+| Q-money-7 | re-resolution candidate found (medium confidence), annotation only, not applied |
+| Opus defects found | 8 total (1 HIGH, 5 MEDIUM, 2 LOW/MEDIUM) — see handoff.md §2 |
+
+## Steering (next batch)
+
+1. **Batch 004 = durability + honesty fix batch, NOT Q-money-2.** Close D1 (props-merge or
+   audit-replay in the money ingest), D3 (optimistic-rollback on the console counter), D4
+   (`revalidatePath`), D5 (runtime decision whitelist + DDL `CHECK`), D7 (decide whether
+   `reject` needs a terminal state).
+2. **Q-money-7 closure:** resolve the Bendl end-date conflict against a browser-rendered
+   or.justice.cz úplný výpis; land as annotation + `tieClass: steward` reclassification if
+   the edge is ever re-pointed — never a silent re-point.
+3. **Q-money-2 (pgvector) → batch 005**, not before. Deferred three batches running
+   (001, 002, 003) — Opus's recommendation: commit to it in 005 or retire it from the
+   backlog rather than rolling it a fourth time.
+4. Q-money-3 (sponzoring pass) stays blocked on `HLIDAC_API_TOKEN` (user gate).
+5. Q-money-9 (new, batch 003): the ingest/human-write durability gap found in money is
+   likely present in any other case-loop that layers a human write path onto a
+   re-derivable ingest — worth a repo-wide audit, not just money-scoped.

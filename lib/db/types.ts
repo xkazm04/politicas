@@ -201,6 +201,26 @@ export interface KgEdgeRow {
   provenance: Record<string, unknown>;
 }
 
+/**
+ * One append-only audit row for a human review decision on a `linked_to` tie
+ * (Case ① FollowTheMoney verification console). Written by
+ * `ReviewRepository.setTieReviewState` BEFORE the corresponding `kg_edge.props`
+ * update — `priorState` is always the edge's `review_state` immediately before
+ * this decision, so the trail can reconstruct every flip.
+ */
+export interface ReviewAuditRow {
+  id: string;
+  src: string;
+  rel: string;
+  dst: string;
+  decision: "confirm" | "reject" | "needs-more";
+  reviewer: string;
+  note: string | null;
+  decidedAt: string;
+  /** `review_state` the edge carried immediately before this decision (null if unset). */
+  priorState: string | null;
+}
+
 /** The six universal criteria, scored 1–5, plus their mean. */
 export interface SliceQualityRow {
   slice: string;

@@ -12,5 +12,10 @@ export default async function KontrolaPage() {
   // Pending money-ties from the materialized knowledge graph. Null when no store /
   // no materialized layer → the console renders its labelled empty state.
   const data = await getVerificationQueue();
-  return <VerificationConsole data={data} />;
+  // Write-path gate: only tell the client WHETHER it's configured + the display
+  // name (not a secret) — the token itself never leaves the server unexamined;
+  // it's checked inside submitReviewDecision against process.env.REVIEWER_TOKEN.
+  const writeConfigured = Boolean(process.env.REVIEWER_TOKEN?.trim());
+  const reviewerName = process.env.REVIEWER_NAME?.trim() || null;
+  return <VerificationConsole data={data} writeConfigured={writeConfigured} reviewerName={reviewerName} />;
 }

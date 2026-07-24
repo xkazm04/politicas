@@ -31,6 +31,9 @@ export interface RegistryLinks {
 /** One pending tie, everything a reviewer needs on one card. */
 export interface ReviewTie {
   id: string; // "tie:<pspId>:<ico>"
+  /** kg_edge.src / kg_edge.dst for this linked_to tie — the key the write path needs. */
+  src: string;
+  dst: string;
   pspId: number;
   mpName: string;
   club: string | null;

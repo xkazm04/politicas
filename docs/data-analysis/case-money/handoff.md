@@ -1,275 +1,364 @@
-# Money loop — fleet handoff (batch 002)
+# Money loop — fleet handoff (batch 003)
 
-Case ① FollowTheMoney · 2026-07-24 · fleet mode · **Sonnet-only driver + army, Opus
-reflection only** (batch-002 model-tiering experiment). Everything the orchestrator needs to
-serialize this batch's writes and aggregate cross-case. All work is inside the money
-boundary; nothing shared was edited. **No commit, no live `.pglite` write, no
-`review_state` change made.** (Batch 001's payload/handoff is already persisted live at
-pass 13 — confirmed by reading `.pglite`'s `linked_to` edge props directly before starting
-this batch. This document supersedes batch 001's handoff.md, which is now historical.)
+Case ① FollowTheMoney · 2026-07-24 · fleet mode (effort + law loops
+concurrent) · Sonnet driver + 2 Sonnet subagents (write-path build, PRaK
+research) + 1 Opus reflection. Everything the orchestrator needs to review,
+commit, and steer batch 004. All work is inside the money boundary **plus
+the additive `lib/db` carve-out granted this batch only** (ReviewRepository +
+DDL, per `docs/case-loops.md`'s fleet rules — normally `lib/db` is
+shared/out-of-boundary). **No commit made. No live `.pglite` write. No
+`review_state` actually flipped anywhere (all writes happened on isolated
+temp-dir test fixtures, never `./.pglite` or `./.pglite-copy-money`).** This
+document supersedes batch 002's `handoff.md`, now historical. Full detail in
+`batch-003.md`.
 
-## 1. Graph-write payloads (validated — orchestrator writes under the `.pglite` lock)
+## 1. What shipped — human-review write path (uncommitted, in the tree)
 
-- **File:** `docs/data-analysis/case-money/payloads/batch-002-ares-vr-reconciliation.json`
-- **What:** 245 props-merge annotations onto **existing** `linked_to` edges — the full
-  remaining population (260 total − 15 batch 1). Same prop shape as batch 001:
-  `corroboration`, `corroboration_source`, `role_valid_from`/`role_valid_to`,
-  `temporal_status`, `tie_class`, `signal` (only on the 10 Sonnet-reviewed units),
-  `reviewer_note`, `flags`. **No new edges, no node creation, no `review_state` change.**
-- **Provenance to stamp at write:** `{track:"money", pass:<assigned by orchestrator,
-  expected 16+>, method:"verdict", ref:"case-money/batch-002 · ARES VR full-population
-  reconciliation (deterministic) + Sonnet judgment on 10 ambiguous units",
-  computedAt:"2026-07-24"}`.
-- **Re-verify before writing:**
-  ```
-  cp -r .pglite .pglite-copy-money        # if the copy was cleaned up
-  PGLITE_PATH=./.pglite-copy-money npx tsx scripts/case-loops/money/validate-payloads.ts
-  # expect: GATE TOTAL: 260/260 proposals validate across 2 file(s). Cross-file duplicates: 0.
-  ```
-- **Gate result this batch:** 245/245 validated (260/260 population total including
-  batch 1), 0 drops, 0 fabricated ids, 0 cross-file duplicates.
-- **Write order matters:** apply `batch-001-corroboration.json` (already live — SKIP, it's
-  there) then `batch-002-ares-vr-reconciliation.json`. The gate script's dedup guard will
-  catch it if applied twice.
+Files, all inside the money boundary + the granted `lib/db` carve-out:
 
-## 2. Shared-vault additions (exact text to append — I did not edit these files)
+```
+NEW  lib/db/pglite/repositories/review.ts        # ReviewRepository impl — the ONLY writer of review_state
+NEW  lib/db/pglite/repositories/review.test.ts   # 5/5, isolated temp-dir PGlite
+NEW  features/money/reviewActions.ts             # "use server" submitReviewDecision
+EDIT lib/db/pglite/ddl.ts                        # + review_audit table, 2 indexes (additive)
+EDIT lib/db/store.ts                             # + ReviewRepository interface, spread into Store
+EDIT lib/db/types.ts                             # + ReviewAuditRow
+EDIT lib/db/pglite-store.ts                      # wired makeReviewRepo
+EDIT features/money/reviewTypes.ts               # ReviewTie gains src/dst
+EDIT features/money/getVerificationData.ts       # populates src/dst
+EDIT features/money/components/VerificationConsole.tsx  # wired write path, optimistic UI, error states
+EDIT app/penize/kontrola/page.tsx                # passes writeConfigured/reviewerName
+EDIT .env.example                                # documents REVIEWER_NAME / REVIEWER_TOKEN
+NEW  docs/data-analysis/case-money/batch-003.md
+EDIT docs/data-analysis/case-money/handoff.md    # this file
+EDIT docs/data-analysis/case-money/ledger.md
+EDIT docs/data-analysis/case-money/ledger.json
+```
+
+**`review_audit` DDL:**
+```sql
+create table if not exists review_audit (
+  id           text primary key,
+  src          text not null,
+  rel          text not null,
+  dst          text not null,
+  decision     text not null,
+  reviewer     text not null,
+  note         text,
+  decided_at   timestamptz not null default now(),
+  prior_state  text
+);
+create index if not exists review_audit_edge_idx on review_audit(src, rel, dst);
+create index if not exists review_audit_decided_idx on review_audit(decided_at desc);
+```
+No reference migration snapshot mirror was made — `lib/db/migrations/0001_civic_graph.sql` was **already stale before this batch** (missing `vote_tag`, and its generator script `scripts/gen-migration.ts` looks for `CORE_DDL` in a file it moved out of in an earlier refactor). Flagging for a separate cleanup pass; not this batch's boundary to fix.
+
+**`ReviewRepository` interface** (`lib/db/store.ts`):
+```ts
+export interface ReviewRepository {
+  setTieReviewState(
+    src: string, dst: string,
+    decision: "confirm" | "reject" | "needs-more",
+    reviewer: string, note: string | null,
+  ): Promise<{ ok: true; reviewState: string } | { ok: false; error: string }>;
+  listReviewAudit(opts?: { src?: string; dst?: string; limit?: number }): Promise<ReviewAuditRow[]>;
+}
+```
+
+**Server action contract** (`features/money/reviewActions.ts`):
+```ts
+submitReviewDecision(input: {
+  src: string; dst: string; decision: ReviewDecision; note: string | null; token: string;
+}): Promise<
+  | { status: "ok"; reviewState: string; reviewer: string }
+  | { status: "not-configured" } | { status: "unauthorized" }
+  | { status: "not-found" } | { status: "error"; message: string }
+>
+```
+**Env vars** (documented in `.env.example`, already added):
+- `REVIEWER_NAME` — display name stamped as `reviewer` on every decision.
+- `REVIEWER_TOKEN` — shared secret; the client submits a token that must match
+  exactly. **Unset → the action returns `{status:"not-configured"}` before
+  touching the store** — the console renders an honest still-read-only state
+  instead of a write UI or a confusing error.
+
+**Test results** (Opus independently re-ran these, not just the build agent):
+- `npx vitest run lib/db/pglite/repositories/review.test.ts` → **5/5 passed**,
+  on an isolated `fs.mkdtempSync` PGlite dir. Confirms: audit row written
+  before the edge flip with correct `prior_state`; `confirm` →
+  `review_state:"verified"`; `reject`/`needs-more` → stays
+  `pending_review`, never verified; a verified tie disappears from the
+  **real** `getVerificationQueue()` loader (not a re-derived filter copy).
+- `npx vitest run` (full suite) → **176/176 passed**, 20 files.
+- `npx tsc --noEmit` (repo-wide) → clean, zero errors.
+- `npm run check` lint: 2 pre-existing failures, both in an **untracked
+  sibling effort-loop file** (`scripts/case-loops/effort/divergence-retune.ts`)
+  — confirmed via `git status` this batch never touched it.
+
+## 2. Opus reflection — full verdict (verbatim excerpts)
+
+> **VERDICT — write-path build:** The human gate holds in the forward
+> direction, but it is not yet durable: it is not the only mutator of
+> `review_state`, and the console's own success reporting is not honest under
+> failure. Ship-able as a reviewed batch artifact, NOT ship-able to a public
+> deployment as-is.
+
+Rule-by-rule (all five hard rules from the design brief were checked against
+actual code, not comments):
+
+| rule | verdict |
+|---|---|
+| (a) only `setTieReviewState` writes `review_state` | **PARTIAL — see D1**: no app code path other than this repo writes it, but the ingest path (`kg-money.ts`) *reverts* it on re-run |
+| (b) audit row written FIRST | **HOLDS in ordering, not in atomicity — see D2** |
+| (c) reject/needs-more never → verified | **HOLDS**, whitelist not blacklist — any non-`"confirm"` value yields `pending_review` |
+| (d) verified drops out of pending queue | **HOLDS**, real wiring, best-designed test in the file |
+| (e) unset token → distinct honest state | **HOLDS end-to-end**, token never crosses to client |
+
+**Defects found (Opus's numbering, preserved verbatim for batch 004):**
+
+- **D1 — HIGH (durability).** `lib/analysis/kg-money.ts`'s ingest always
+  stamps `review_state: link.state` (source feed default, always
+  `pending_review`), and `lib/db/pglite/repositories/kg.ts`'s
+  `upsertKgEdges` does `props = excluded.props` (**wholesale replace, not
+  merge**) on conflict. So **any re-run of `kg-money-ingest --commit` silently
+  destroys every human `verified` decision** and drops
+  `last_decision`/`last_reviewer`/`review_note`. The audit trail survives
+  (append-only, separate table) but nothing replays it.
+  `scripts/case-loops/persist-batch.ts` already does this correctly
+  (`props: {...e.props, ...p.propsMerge}`) — the ingest path does not.
+  **Must close before a human spends real review time**, or a re-ingest will
+  erase their work with no warning.
+- **D2 — MEDIUM (atomicity).** The audit insert and edge update are two
+  unrelated statements, no `BEGIN`/`COMMIT` transaction, though
+  `Pglite.exec()` supports it. Failure direction is the safe one (audit
+  without state-change, never the reverse) but the DDL comment asserts a
+  guarantee the code doesn't enforce, and no test covers the crash-between
+  case. Also a lost-update race on the `props` read-modify-write under
+  concurrent decisions (acceptable for single-operator, should be documented).
+- **D3 — MEDIUM (honesty).** The console's "zapsáno: N / 260" counter
+  (`decisions[tie.id]` set optimistically, never rolled back on
+  `not-configured`/`unauthorized`/`error`) can report writes that did not
+  happen — e.g. a wrong-token confirm on 12 ties shows "zapsáno: 12" with zero
+  actually written. Flagged as the single worst-fit defect for a product
+  whose stated thesis is "trust is the product."
+- **D4 — MEDIUM (staleness).** No `revalidatePath("/penize/kontrola")` after
+  a successful write — the confirmed tie stays on screen, denominator never
+  moves until manual reload, inviting harmless-but-audit-polluting
+  double-confirms.
+- **D5 — MEDIUM (audit integrity).** `decision` isn't validated at runtime
+  (TS types erase at the server-action boundary) and `review_audit.decision`
+  has no `CHECK` constraint — can't bypass the confirm/verified gate (rule c
+  still holds) but pollutes the audit trail with arbitrary strings.
+- **D6 — LOW/MEDIUM (security).** Token compared with `!==` (not
+  constant-time), no rate limiting/lockout — fine for a local single-operator
+  console, a real gap the moment the console is publicly reachable.
+- **D7 — LOW (workflow hole).** `reject`/`needs-more` both collapse to
+  `review_state:"pending_review"` with no terminal `"rejected"` state, so a
+  rejected tie is re-served in the pending queue forever.
+- **Non-defects done right:** server-side reviewer attribution (client can't
+  spoof who decided); `writeConfigured` passed as a boolean only, token never
+  reaches the client; `type="password"` + `autoComplete="off"`; buttons
+  disabled during pending; unconfigured state gracefully preserves useful
+  local-scratch behavior.
+
+> **VERDICT — PRaK IČO 61858111 (Q-money-7):** Substantially corroborated on
+> identity and on both officers — graph-ready-with-caveats — but the stated
+> confidence level is inverted: "high" is too high on the primary-source
+> axis, and the one date in the claim I could check is contradicted by the
+> very page it's sourced from.
+
+Key findings: ARES REST returns 404 for IČO 61858111 on both the subject and
+VR endpoints (calibrated against a known-good IČO, so the 404 is the subject
+not a URL bug) — the entity is dissolved pre-ARES's online reach, **structurally
+outside the repo's own primary-source corroboration path**, same class of gap
+as the 58 registry-unconfirmed special-law bodies. The wrong-entity catch on
+49683144 is confirmed harder than claimed: ARES shows it is an s.r.o.
+(cannot have a představenstvo) that is **still active today**
+(`datumZaniku: null`), not dissolved. Both Bendl and Brabec are independently
+corroborated via kurzy.cz + one independent Brabec bio (aktualne.cz), but
+Bendl's claimed end date (1999-07-28) conflicts with the company's own
+history page (2002-12-31) — likely *funkce do* vs *vymazáno*, unresolved.
+**Most consequential finding:** PRaK a.s. is the Praha–Kladno rychlodráha
+municipal SPV; Bendl's seat looks like a mayoral ex-officio public
+appointment (he was Kladno mayor 1994–1998), not private enrichment —
+re-pointing the edge without reclassifying `tieClass` to `steward` would
+misrepresent a public appointment with the console's private-conflict visual
+grammar, against a named sitting MP.
+
+Full text (all defects D1–D7 + PRaK detail + citations) is preserved in the
+Opus agent's original transcript; the sections above are the load-bearing
+excerpts. Batch 004 steering (adopted) is in `batch-003.md`.
+
+## 3. Shared-vault additions (exact text to append — not edited myself, fleet rule)
 
 ### → `docs/data-analysis/patterns.md`
 
 ```
-## [[patterns]] Money · ARES VR ostatniOrgany (supervisory boards) is a load-bearing section, not optional (money batch 002)
-The VR (veřejný rejstřík) JSON has TWO parallel officer sections with identical shape:
-`statutarniOrgany` (statutory officers — jednatel/představenstvo) and `ostatniOrgany`
-(supervisory/other bodies — dozorčí rada, kontrolní komise). Reading only the first
-mis-scored 91/245 ties as "conflicting" (unconfirmed); most `steward`-class ties (200/260 of
-the population) are exactly supervisory-board seats, which live in `ostatniOrgany`. Adding
-it: conflicting 91→23, registry-confirmed 96→164. Any future ARES-VR consumer must read
-BOTH sections (and `spolecnici` for ownership stakes) — omitting one systematically
-under-confirms whichever tie-class maps to it.
-
-## [[patterns]] Money · pre-2000s ARES VR historical entries often lack birth dates (money batch 002)
-Officer/shareholder records added under paper-era filings (roughly pre-1997/2002) frequently
-have no `datumNarozeni` on the `fyzickaOsoba` object, even when name + role period match the
-claimed tie exactly. A strict birth-date-exact matcher (correctly conservative for modern
-records — see money-feed.ts's `bridgePerson` discipline) produces false "conflicting" on
-these older ties. Batch 002 caught 3/10 reviewed ambiguous units this way (Babiš/AGRONOVA CS,
-Janulík×2). Recommended fix for a future batch: a name-similarity fallback pass, gated to
-ONLY entries with a null birth date, before defaulting to conflicting — not yet implemented,
-so the residual `conflicting`/`registry-unconfirmed` buckets likely still under-read this
-vintage (Opus reflection risk flag #1).
-
-## [[patterns]] Money · undated contracts must not be silently treated as "after" a date (money batch 002)
-A `money-postdates-role` classification requires an ACTUAL dated contract signed after the
-confirmed role end — a contract with `signedOn: null` is UNDATED, not "later". The first
-version of `reconcile-ares-vr.ts` conflated the two (caught by the Opus reflection); fixed to
-require `datedSigned.length > 0` before classifying postdate vs within-tenure, with a new
-honest bucket `historical-undated-money` for the has-money-no-dates case. 0 ties were
-affected in this run (every company with reachable money had at least one dated contract),
-but the design gap is now closed for future runs/other cases with the same pattern.
+## [[patterns]] Money · a props-merge writer must be used for ANY re-ingest that could touch human-gated fields (money batch 003)
+`lib/db/pglite/repositories/kg.ts`'s `upsertKgEdges` does `on conflict (src,rel,dst) do
+update set props = excluded.props` — a WHOLESALE replace. Any ingest/materialize script
+that re-derives `props` from a source feed (not from the current DB state) will silently
+overwrite fields a human write path added (`review_state`, `last_decision`, etc.) on
+every re-run. `scripts/case-loops/persist-batch.ts` already merges correctly
+(`{...e.props, ...p.propsMerge}`); `lib/analysis/kg-money.ts`'s ingest does not. Any case
+that adds a human-write layer on top of a re-derivable ingest MUST either merge-preserve
+the human fields in the ingest, or replay the audit trail after ingest — otherwise the
+write path silently loses its own point.
 ```
 
 ### → `docs/data-analysis/contradictions.md`
 
 ```
-## [[contradictions]] Money batch 002 — wrong IČO suspected (Bendl + Brabec → "PRAK")
-Both Petr Bendl and Richard Brabec carry a `linked_to` tie sourced from Hlídač as "PRAK,
-member of the board of directors (představenstvo)" against IČO 49683144 ("PRAK spol.
-s r.o."). That IČO has been an s.r.o. since 1993 (jednatelé/společníci only) and
-structurally cannot have a představenstvo. Sonnet-review independent lookup
-(rejstrik-firem.kurzy.cz) found a SEPARATE, dissolved "PRaK, a.s." where an "Ing. Petr
-Bendl (Kladno)" is a documented board member 1996–1999, liquidated 2012 — almost certainly
-the correct entity under a DIFFERENT IČO. Resolution: kept `conflicting`/`signal:0` on both
-ties (never asserted false, never re-pointed without evidence), flagged
-`wrong-entity-suspected`/`needs-ico-re-resolution` on both. Re-resolving the correct IČO
-for "PRaK, a.s." is next-batch work, not done here (no IČO minted without confirmation).
+## [[contradictions]] Money batch 003 — PRaK re-resolution candidate found, confidence downgraded on review
+Batch 002 flagged Bendl/Brabec's "PRAK" tie as pointing at the wrong entity (IČO
+49683144, an active s.r.o. that cannot structurally have a představenstvo). Batch 003
+identified a likely-correct entity — IČO 61858111, "PRaK, a.s. v likvidaci" (Praha–Kladno
+rychlodráha SPV, dissolved 2012) — via kurzy.cz aggregator + one independent Brabec bio,
+with both Bendl and Brabec's board tenures corroborated. Opus reflection downgraded the
+research agent's self-assessed "high" confidence to "medium": ARES REST returns 404 for
+this IČO on both the subject and VR endpoints (dissolved pre-ARES's online reach,
+calibrated against a known-good IČO to rule out a URL bug), so this entity sits outside
+the repo's own primary-source corroboration path — same structural gap as the 58
+registry-unconfirmed special-law bodies (Q-money-8). Additionally, Bendl's claimed board
+end-date (1999-07-28) conflicts with the same source's company-history page (2002-12-31),
+unresolved. NOT applied to the graph — annotation-only per this batch's spec; the
+consequential open item is that PRaK a.s. is a municipal rail SPV, so Bendl's seat reads
+as a mayoral ex-officio public appointment, not private enrichment — any future re-point
+MUST reclassify `tieClass` to `steward` in the same change, or the console will
+misrepresent a public appointment as a private conflict of interest against a named
+sitting MP. Full candidate payload in `docs/data-analysis/case-money/batch-003.md` §2.
 ```
 
 ### → `docs/data-analysis/feature-opportunities.md`
 
 ```
-## [[feature-opportunities]] O-money-2 — Temporal-status badge on /penize ledger + console — SHIPPED (batch 002)
-`features/money/moneyTypes.ts`'s `temporalBadge()` is the single source of truth: renders
-"trvá" only when corroboration=registry-confirmed AND the role has no recorded end;
-"ukončeno {year}" for a confirmed-ended role; "peníze po roli (do {date})" (warn tone) for
-money-postdates-role; a neutral "neověřeno vůči ARES VR" for any tie not yet reconciled or
-whose registry match failed. Wired into both `/penize` (`TiesLedger.tsx`) and
-`/penize/kontrola` (`VerificationConsole.tsx`), which now shows the actual confirmed period
-instead of a generic "go check ARES VR" nudge once a tie is reconciled. Graceful degradation:
-absent props render the neutral badge, never "active". No `messages/*.json` edit — followed
-the established VerificationConsole precedent of hardcoding Czech-first copy directly.
-
-## [[feature-opportunities]] Q-money-1 — Full-population ARES-VR reconciliation — DONE (batch 002)
-All 260/260 ties now carry a corroboration verdict (179 registry-confirmed / 23 conflicting /
-58 registry-unconfirmed) + temporal_status where confirmable. `AresClient.vrRecord()`
-(`lib/analysis/money-feed.ts`) is the reusable fetch method any future batch/case can build
-on. See `docs/data-analysis/case-money/batch-002.md` for the full breakdown.
+## [[feature-opportunities]] O-money-4 — Human-review write path (`/penize/kontrola` confirm/reject/needs-more) — SHIPPED WITH OPEN DEFECT (batch 003)
+`ReviewRepository` (`lib/db/store.ts` + `lib/db/pglite/repositories/review.ts`) is now the
+sole writer of `kg_edge.props.review_state`, backed by an append-only `review_audit`
+table and a `REVIEWER_NAME`/`REVIEWER_TOKEN`-gated server action
+(`features/money/reviewActions.ts`). Console wired end-to-end with optimistic UI + honest
+error states. 5/5 new repo tests, 176/176 full suite, tsc clean. **NOT yet safe for real
+review sessions**: the ingest path (`lib/analysis/kg-money.ts` + `kg.ts`'s
+wholesale-replace `upsertKgEdges`) silently reverts any `verified` decision on the next
+`kg-money-ingest --commit` (Opus flag D1, HIGH). Batch 004 must close this before the
+console is handed to a real reviewer. Also open: an optimistic UI counter that can report
+writes that didn't happen (D3), no terminal `rejected` state (D7). See
+`docs/data-analysis/case-money/handoff.md` §2 for the full defect list.
 ```
 
 ### → `docs/data-analysis/frontier.md` (money section)
 
 ```
-## [[frontier]] Money (batch 002 additions)
-- Q-money-5: Aleš Juchelka, as sitting minister (2026), reportedly gave subsidy-influence
-  advantage to an advisor who runs her own subsidy-adjacent firm (ct24.ceskatelevize.cz
-  coverage) — surfaced incidentally while reviewing a stale 2014–2016 tie; UNRELATED to that
-  tie, a fresh live lead worth its own pass.
-- Q-money-6: Tomio Okamura's 2016 sale of his U Machtů s.r.o. stake appears undisclosed in
-  that year's mandatory MP asset declaration (Týden.cz, HlídacíPes independently report this)
-  — a distinct, verifiable non-disclosure story separate from the money-flow tie itself.
-- Q-money-7: re-resolve the correct IČO for "PRaK, a.s." (Bendl + Brabec ties currently point
-  at the wrong entity, 49683144 — a same-named but structurally incompatible s.r.o.).
-- Q-money-8: 58 ties are structurally unreachable via ARES VR (special-law public bodies —
-  VZP, ČT, ČRo, universities, state hospitals not in the Obchodní rejstřík). If this
-  population is ever prioritized, corroboration would need a different source (the body's
-  founding statute/zákon) — low urgency, all are steward-class by construction.
-- Q-money-1 (closed): full-population reconciliation done, see batch-002.md.
+## [[frontier]] Money (batch 003 additions)
+- Q-money-7 (partially closed): PRaK re-resolution candidate found (IČO 61858111,
+  medium confidence, annotation only) — see contradictions.md entry above. Still open:
+  resolve the Bendl end-date conflict (1999-07-28 vs 2002-12-31) against a
+  browser-rendered or.justice.cz úplný výpis before any graph write.
+- Q-money-9 (new): the ingest/human-write durability gap (patterns.md addition above) is
+  itself a structural risk to any future case-loop that layers a human write path onto a
+  re-derivable ingest — worth a repo-wide audit, not just money-scoped.
 ```
 
 ### → `docs/data-analysis/graph-log.md`
 
 ```
-2026-07-24 · money batch 002 (Sonnet-only, full-population ARES-VR reconciliation +
-O-money-2 build) · NOT YET WRITTEN (fleet handoff). 245 linked_to corroboration annotations
-proposed (payloads/batch-002-ares-vr-reconciliation.json), gate 245/245 (260/260 population
-total with batch 1). No review_state change. Provenance track:"money", pass TBD by lock
-holder (expected 16+, after effort/law's batch-002 passes if run in the same window).
+2026-07-24 · money batch 003 (write-path build + Q-money-7 research, Sonnet driver/army +
+Opus reflection) · NO GRAPH WRITE THIS BATCH. Build-only + research-only batch — no
+kg_node/kg_edge payload proposed. review_audit table + ReviewRepository shipped in code
+(uncommitted); never invoked against live or copy `.pglite`, tests only on isolated temp
+dirs. PRaK candidate IČO annotated in contradictions.md, not applied to the graph.
 ```
 
-## 3. Proposed enum / schema changes
+## 4. Proposed enum / schema changes
 
-- **No new enum values needed** — `corroboration` and `tie_class` stay within batch 001's
-  value sets. `temporal_status` gains two ADDITIVE values used this batch:
-  `money-postdates-role` (already documented in batch 001's handoff) plus
-  `historical-undated-money` (new — "has reachable money but none of it carries a
-  disclosed date to compare against the role end"). If `kg-verdict.ts` enum-gates edge
-  props, add `historical-undated-money` to the `temporal_status` value set there (SHARED
-  file — orchestrator's edit, not mine).
-- **No new node/edge KIND** proposed. `O-money-3` (indirect-ownership `owns`/`controls`
-  layer) remains a candidate for a later batch, still not implemented.
+- **New table** `review_audit` (additive, see §1 DDL) — not an enum change,
+  a new append-only table. No existing enum values touched.
+- **No change** to `corroboration`/`tie_class`/`temporal_status` value sets
+  this batch.
+- If a future batch re-points the PRaK edge, it will need `tieClass` to
+  accept `steward` on what may currently be a different class for this tie —
+  already a valid value, no schema change needed, just a reclassification.
 
-## 4. Commit plan (orchestrator — per-case commit)
+## 5. Commit plan (orchestrator — per-case commit)
 
-Files, all inside the money boundary:
-
+See §1 file list above (all additive/uncommitted). Suggested message:
 ```
-NEW  scripts/case-loops/money/reconcile-ares-vr.ts             # the batch's core: deterministic ARES-VR reconciliation
-EDIT scripts/case-loops/money/validate-payloads.ts              # multi-file gate + cross-file duplicate guard
-EDIT lib/analysis/money-feed.ts                                 # AresClient.vrRecord() — new token-free VR fetch method
-EDIT features/money/moneyTypes.ts                                # temporalBadge() + Corroboration type + MoneyTie fields
-EDIT features/money/getMoneyData.ts                              # reads corroboration/role_valid_to/temporal_status
-EDIT features/money/components/TiesLedger.tsx                    # renders the O-money-2 badge
-EDIT features/money/reviewTypes.ts                                # ReviewTie gains corroboration/roleValidFrom/To/temporalStatus
-EDIT features/money/getVerificationData.ts                       # reads the same props for the console
-EDIT features/money/components/VerificationConsole.tsx           # renders the badge, replaces the generic "check ARES VR" nudge
-EDIT docs/data-analysis/case-money/{ledger.md,ledger.json}
-NEW  docs/data-analysis/case-money/batch-002.md
-EDIT docs/data-analysis/case-money/handoff.md                    # this file (supersedes batch-001's)
-NEW  docs/data-analysis/case-money/payloads/batch-002-ares-vr-reconciliation.json
-NEW  docs/data-analysis/case-money/payloads/batch-002-ambiguous-inputs.json  # dossier-inputs for the 10 Sonnet-reviewed units
-NEW  docs/data-analysis/case-money/reconcile-summary.json         # machine summary the script emits
+feat(case-money): human-review write path (ReviewRepository + audit trail) + PRaK Q-money-7 research
+
+Ships the first write path on the platform: a human reviewer can confirm/reject/
+needs-more a pending MP<->company tie via /penize/kontrola, gated by REVIEWER_TOKEN,
+every decision audited before the edge flips. 5/5 new tests, 176/176 full suite, tsc
+clean. Opus reflection found the gate holds forward but is not yet durable against
+re-ingest (D1, HIGH) — do not hand this console to a real reviewer until batch 004
+closes it. Also resolves Q-money-7 research (PRaK IČO candidate, medium confidence,
+annotation only, not applied).
 ```
+**Recommend NOT deploying/announcing the console to a real reviewer until D1 is
+closed** — see Opus's top risk flag #1 (below).
 
-Suggested message:
-```
-feat(case-money): full-population ARES-VR reconciliation (Q-money-1) + O-money-2 temporal badge
+## 6. Lessons learned
 
-Reconciles all 245 remaining pending MP<->company ties (batch 001 covered the top 15)
-against ARES VR deterministically — birth-date-exact officer/shareholder matching, no LLM
-for the bulk. Gate 260/260 population, 0 fabricated, 0 duplicates. 10 ambiguous units
-Sonnet-judged (3 false negatives corrected, 1 wrong-entity catch, 4 clean-handoff
-confirmations). Ships the temporal-status badge on /penize + /penize/kontrola so a stale
-tie never renders as active. No review_state changed.
-```
+1. **A human write path bolted onto a re-derivable ingest needs an explicit
+   durability contract, not an implicit one.** The ingest script's own
+   correctness (re-deriving `props` from the source feed) becomes a data-loss
+   bug the moment a human write layer exists on the same field. Any future
+   case-loop doing the same (effort, law) should audit its own ingest for the
+   same `props = excluded.props` wholesale-replace pattern before shipping a
+   write path.
+2. **Opus reflection at this batch's scale earned its cost again, on a
+   different axis than batch 002.** Batch 002's reflection caught data
+   defects (undated-money conflation, asymmetric flagging). This batch's
+   reflection caught an **architectural** defect (D1) that a Sonnet-level
+   "does it work" test suite (5/5, 176/176, tsc clean — all genuinely true)
+   would never surface, because it only exercises the write path in
+   isolation, never against the sibling ingest path that also touches the
+   same column. Recommend the reflection prompt explicitly ask "what ELSE in
+   this repo writes to this same field/table" for any future write-path
+   build, not just "does the write path itself work."
+3. **Confidence self-assessment from a research agent needs an independent
+   primary-source spot-check, not just a re-read of the same aggregator.**
+   The PRaK research agent's own report already flagged (correctly) that it
+   hadn't hit or.justice.cz directly — but still self-labelled "high"
+   confidence. The Opus pass's actual ARES/or.justice.cz fetch attempts (both
+   404/unfetchable, calibrated against a known-good IČO) are what surfaced
+   the real confidence ceiling. **Treat a research agent's own confidence
+   label as a claim to verify, not a fact**, same as any other web finding.
+4. **Deferred-three-batches-running is itself a signal.** Q-money-2
+   (pgvector) has now rolled from batch 001 → 002 → 003 without running.
+   Opus's recommendation to either commit to it in 005 or retire it from the
+   backlog rather than deferring a fourth time is a good general heuristic
+   for this kernel's build-review cadence.
+5. **Concurrency**: 2 foreground Sonnet subagents (build + research, run in
+   parallel) + 1 Opus reflection, well under the fleet's shared cap — same
+   pattern as batch 002.
 
-**Check status:** `npx tsc --noEmit` clean (repo-wide). `npx eslint features/money app/penize
-scripts/case-loops/money lib/analysis/money-feed.ts` clean. `npx vitest run` 166/166 green.
-`npm run check`'s single failure (`features/lawwatch/LawWatchPage.tsx`,
-`react/jsx-no-undef`) is the concurrent sibling **law** loop's file — not touched by this
-batch, same pattern batch 001 documented for sibling fleet-loop errors.
+## 7. Top risk flags before human review (Opus, verbatim, numbered)
 
-## 5. Write-path handoff (unchanged from batch 001, now higher-value)
-
-Still open: `POST /penize/kontrola` server action to let a human reviewer set
-`review_state:"verified"` (confirm) or write a `review_note` (reject/needs-more). Now more
-valuable — every one of the 260 pending ties carries a registry corroboration verdict a
-reviewer can act on immediately, versus batch 001's 15. Still explicitly out of scope for
-fleet mode (single-writer `.pglite`).
-
-## 6. Opus reflection — quality-vs-batch-001 verdict + cost/unit (verbatim)
-
-> **VERDICT: Quality HOLDS against batch 001's bar for the reconciliation objective
-> (Q-money-1), and on honest-negative discipline it EXCEEDS it** — with one systematic
-> under-confirmation caveat and two semantics that can mislead a reviewer.
->
-> **Why it holds.** Batch 001 itself concluded that ARES-VR birth-date matching is a clean
-> deterministic gate and full-population reconciliation "is deterministic once the VR fetch
-> is wired in." Batch 002 executes exactly that. The birth-date-exact hinge is the same
-> discipline the Sonnet army applied by hand in 001 — coded, it loses nothing on the
-> confirmable majority (164/245 registry-confirmed) and gains consistency across 200
-> steward seats. The `ostatniOrgany` fix is real and correct (91→23 conflicting is the
-> right direction).
->
-> **Honest-negative rate exceeds 001.** 81/245 (33%) left conflicting/unconfirmed rather
-> than force-fit; ~50/58 unconfirmed share one correctly-declined OSVČ sentinel. Nothing
-> manufactured; gate 260/260 with a real cross-file duplicate guard.
->
-> **Where it does genuinely LESS than 001** (a different pass, not a regression): the
-> deterministic bulk carries none of 001's discovery-grade narrative (indirect ownership
-> chains, donation leads, media corroboration). The 10 hand-reviewed ambiguous units match
-> 001's dossier depth and citation discipline exactly, and the depth was spent precisely
-> where determinism was blind.
->
-> **Cost/unit.** Batch 001: ~30k tokens/tie all-in. Batch 002: deterministic bulk ≈0 LLM
-> tokens; ~10k/unit on the 10 reviewed; one Opus reflection call. Amortized ≈**400
-> tokens/unit — ~75× cheaper.** A genuine efficiency win FOR reconciliation — cheaper
-> because it defers narrative discovery, not because it skimps on the task it set.
->
-> **Top 3 risk flags before human review:**
-> 1. The pre-2000s null-birthdate false-negative was hand-corrected for only 3 units; the
->    deterministic pass was not re-run with a name-similarity fallback, so residual
->    conflicting/unconfirmed buckets still likely hide confirmable older-cohort roles.
-> 2. `money-postdates-role`'s undated-contract conflation (fixed same-session after this
->    flag — see §3 and patterns.md addition above).
-> 3. The Bendl/Brabec wrong-IČO catch was asymmetrically flagged (fixed same-session —
->    Brabec's tie now carries the same `wrong-entity-suspected` flag as Bendl's).
->
-> Bendl/PRAK handled safely: kept `conflicting`/`signal:0`, never asserted the tie false,
-> only "probably wrong IČO, re-resolve." Correct restraint. The temporalBadge/console/ledger
-> build is sound: graceful degradation, token-only colors, Czech-first hardcoded copy
-> consistent with the fleet-locked-i18n pattern.
-
-*(Both flags #2 and #3 the reflection raised were fixed in this same session before this
-handoff was finalized — see the `patterns.md` addition and the Bendl/Brabec contradiction
-entry above.)*
-
-## 7. Lessons learned (calibrates the skill/kernel — be specific)
-
-1. **The ARES-VR `ostatniOrgany` section is load-bearing, not optional** — see
-   patterns.md addition. Any future ARES-VR consumer (this case or another) must read
-   `statutarniOrgany` + `ostatniOrgany` + `spolecnici`, not just the first.
-2. **Pre-2000s VR records often lack birth dates** — a real limitation of the
-   birth-date-exact discipline (correctly conservative for modern records) that a future
-   batch should close with a gated name-similarity fallback, not loosen the modern-record
-   matcher.
-3. **Model tiering held**: near-zero LLM cost for population-scale deterministic
-   reconciliation, Sonnet depth preserved exactly where the deterministic pass couldn't
-   judge, Opus reserved for the one reflection call that caught two real bugs (undated-money
-   conflation, asymmetric flagging) a Sonnet-only pass might have missed or accepted.
-   **Recommend keeping this tiering for future population-scale batches** — Opus-as-QA on
-   the batch's own output, not on unit processing, is where it earned its cost this time.
-4. **The "conflicting" semantic needed a cleaner, deterministic definition than batch 001's
-   narrative "graph says ongoing but registry disagrees" framing** (which wasn't itself a
-   strict rule — see batch-001 payload spot-check). Batch 002's identity-match-based
-   semantics (`registry-confirmed` = positively identified the MP among registry roles;
-   `conflicting` = registry exists but could NOT identify this MP; `registry-unconfirmed` =
-   couldn't even attempt the check) is more defensible at population scale and should be the
-   skill's stated definition going forward.
-5. **Concurrency**: this batch used 2 foreground Sonnet subagents (5 units each) + 1 Opus
-   reflection, well under the fleet's shared cap — a full-population deterministic pass
-   needs almost no subagent budget, freeing the concurrency cap for the sibling effort/law
-   loops running in the same window.
+1. A reviewer's verified decisions are destroyed by the next
+   `kg-money-ingest --commit` — silent, no warning, no replay. **Do not ask a
+   human to review ties until this is closed.**
+2. The console's summary counter says "zapsáno: N" for writes that failed —
+   the worst possible defect on a product whose thesis is trust, even though
+   the per-card status is correct.
+3. PRaK a.s. is a public rychlodráha SPV; re-pointing without reclassifying
+   `tieClass` to steward would present a public appointment as a private
+   conflict, against a named sitting MP.
+4. The claimed Bendl end date (1999-07-28) is contradicted by the company's
+   own history page (2002-12-31) — unresolved, and stale/misattributed
+   periods were batch 002's #1 finding class.
+5. Confidence on Q-money-7 is overstated as "high" — ARES returns 404 on both
+   endpoints for this IČO; this entity is structurally outside the repo's
+   primary corroboration path.
+6. The audit insert and state flip are not in a transaction, while the DDL
+   comment asserts an ordering guarantee the code doesn't enforce.
+7. Deployment risk: one unthrottled shared token is the entire human gate —
+   fine for local single-operator use, not for a public deployment.
+8. Rejected ties never leave the queue — a reviewer will be re-served the
+   same rejected tie indefinitely.
 
 ## 8. Cleanup
 
-`.pglite-copy-money` removed at end of run (`rm -rf`). Re-create from `.pglite` to
-re-validate payloads (command in §1).
+No `.pglite-copy-money` was created this batch (no graph query/materialization
+needed — build + research only). No temp PGlite dirs left behind (test
+fixtures use `fs.mkdtempSync`, cleaned up by the test framework / OS temp
+dir).

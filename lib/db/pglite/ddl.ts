@@ -244,6 +244,26 @@ create index if not exists kg_edge_src_idx on kg_edge(src);
 create index if not exists kg_edge_dst_idx on kg_edge(dst);
 create index if not exists kg_edge_rel_idx on kg_edge(rel);
 
+-- ── review audit trail (human-gate write path, Case ① verification console) ──
+-- Append-only: the ONLY writer is ReviewRepository.setTieReviewState. Records every
+-- human decision on a linked_to tie BEFORE kg_edge.props.review_state is touched, so
+-- the audit row for a given decision always predates (or is concurrent with, never
+-- after) the state flip it explains. \`id\` is a client-generated UUID (crypto.randomUUID
+-- in the writer), not a bigserial, so the writer can log the id before the insert lands.
+create table if not exists review_audit (
+  id           text primary key,
+  src          text not null,
+  rel          text not null,
+  dst          text not null,
+  decision     text not null,
+  reviewer     text not null,
+  note         text,
+  decided_at   timestamptz not null default now(),
+  prior_state  text
+);
+create index if not exists review_audit_edge_idx on review_audit(src, rel, dst);
+create index if not exists review_audit_decided_idx on review_audit(decided_at desc);
+
 -- ── derived theme tags on roll calls (Silver-layer sem_classify enrichment) ──
 -- DERIVED metadata like slice_quality/kg_node: recomputable from vote titles,
 -- never source-of-truth. Stamped with model+method so a rendered tag cites how

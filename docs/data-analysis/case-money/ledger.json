@@ -45,6 +45,34 @@
       },
       "vrIcoNotFound": 58,
       "sonnetReviewedAmbiguous": 10
+    },
+    "batch3": {
+      "processed": 0,
+      "generatedAt": "2026-07-24",
+      "note": "no army — population already 100% reconciled at batch 2. Build-only + research-only batch.",
+      "build": {
+        "shipped": "ReviewRepository + review_audit + server action + console wiring (O-money-4)",
+        "durable": false,
+        "openDefects": {
+          "high": 1,
+          "medium": 5,
+          "lowMedium": 2
+        },
+        "tests": {
+          "new": "5/5",
+          "fullSuite": "176/176",
+          "tsc": "clean"
+        }
+      },
+      "qMoney7": {
+        "status": "candidate found, not applied",
+        "icoCandidate": "61858111",
+        "confidence": "medium (downgraded from research agent self-assessed high)",
+        "openItems": [
+          "Bendl end-date conflict 1999-07-28 vs 2002-12-31",
+          "tieClass reclassification to steward if repointed"
+        ]
+      }
     }
   },
   "units": [

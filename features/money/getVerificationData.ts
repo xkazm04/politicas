@@ -102,6 +102,8 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
 
       ties.push({
         id: `tie:${pspId}:${ico}`,
+        src: e.src,
+        dst: e.dst,
         pspId,
         mpName: person?.label ?? String(pspId),
         club: clubByPerson.get(pspId) ?? null,
