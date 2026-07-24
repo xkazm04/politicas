@@ -1,0 +1,108 @@
+{
+  "generatedAt": "2026-07-25T00:00:00.000Z",
+  "proposals": [
+    {
+      "id": "psp:person:7002",
+      "name": "Karel Dvořák",
+      "club": "STAN",
+      "lens": ["top", "high-triage"],
+      "props": {
+        "effort_work_themes": ["ústavní právo a kompetenční zákony", "podmínky podnikání v cestovním ruchu", "veřejné zakázky", "mandátová a imunitní agenda"],
+        "effort_bill_focus": "Dvořák je spolupodepsaným (nikoli prvním předkladatelem) u všech 7 tisků ze svého vzorku — v žádném podacím řetězci (submitter) není uveden jako první jméno, vždy je druhý nebo mezi 'a další'. Žádný z tisků k 25. 7. 2026 nebyl přijat: tisk 100 (novela zákona o obcích, vedla E. Olšáková, 5. 2. 2026) má nesouhlas vlády (3. 3. 2026) a je ve VSR; tisky 106 a 107 (oba novela zákona o podmínkách podnikání v cestovním ruchu 159/1999, vedla E. Olšáková, 10. 2. 2026) mají nesouhlasné, resp. neutrální vládní stanovisko; tisk 120 (daně z příjmů, vedla L. Sedmihradská, 3. 3. 2026) má nesouhlas vlády (31. 3. 2026); tisk 205 (kompetenční zákon, vedla B. Urbanová, 27. 5. 2026) má nesouhlas vlády (23. 6. 2026); tisky 206 (veřejné zakázky) a 214 (novela Ústavy ČR, oba vedl V. Rakušan, 27. 5. a 4. 6. 2026) mají oba nesouhlas vlády. Shrnutí: sedm aktivních spolupodpisů, nulová vlastní iniciativa, konzistentně negativní vládní stanoviska napříč celým vzorkem.",
+        "effort_public_role": "Místopředsedou Ústavně-právního výboru — instituce, která je garančním výborem právě pro ústavní a kompetenční tisky (205, 214) v jeho vlastním vzorku, tedy věcně koherentní role. Dále členem Mandátového a imunitního výboru a Stálé komise pro Ústavu ČR a parlamentní procedury.",
+        "effort_notes": "bills_authored=7 odpovídá přesně počtu položek v sponsoredBills, ale ani u jednoho není Dvořák první předkladatel (schema poznámka e) — jde o sedm spolupodpisů. Datová nesrovnalost: props uvádí committee_count=6, ale pole committees v poskytnutém kontextu obsahuje jen 3 položky (ÚPV, MIV, SKÚPP) — stejný typ chybějící vazby jako u Řehkové, Langa a Kovářové v batch-004, doporučuji prioritně ověřit v pipeline Case ①. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.38,
+      "headline": "Dvořák, místopředseda ústavně-právního výboru, spolupodepsal sedm tisků (kompetenční zákon, Ústava, zakázky) — žádný zatím neprošel a vláda k většině zaujala nesouhlas — a vstupní počet výborů (6) opět neodpovídá třem reálně uvedeným.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=100",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=106",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=107",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=120",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=205",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=206",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=214"
+      ]
+    },
+    {
+      "id": "psp:person:6732",
+      "name": "Ivana Mádlová",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["veřejná správa a regionální rozvoj", "zdravotnictví", "rodina a rovné příležitosti", "pojistné na veřejné zdravotní pojištění"],
+        "effort_bill_focus": "Mádlová je spolupodepsanou (ne první předkladatelkou) u obou tisků ze svého vzorku, ale oba mají mnohem lepší osud než většina této skupiny: tisk 70 (novela zákona o pojistném na veřejné zdravotní pojištění, vedl A. Vojtěch, 12. 12. 2025) byl PŘIJAT a vyhlášen jako zákon č. 71/2026 Sb. (kladné stanovisko vlády, tři čtení, Senát, podpis prezidenta 19. 5. 2026); tisk 72 (novela jednacího řádu PS, vedl R. Vondráček, 18. 12. 2025, 28 spolupodepsaných) prošel 3. čtením (1.–3. 7. 2026) a je od 21. 7. 2026 v Senátu. Oba tisky jsou tedy věcně v souladu s jejím členstvím ve zdravotním výboru (VZ), resp. obecnou parlamentní agendou.",
+        "effort_public_role": "Členkou Výboru pro veřejnou správu a regionální rozvoj, Výboru pro zdravotnictví a Stálé komise pro rodinu a rovné příležitosti.",
+        "effort_notes": "MONEY-TOUCHING — ověřeno přes ARES VR REST (ekonomicke-subjekty-vr), OBĚ vazby jsou HISTORICKÉ, skončily roky před začátkem jejího mandátu PSP10 (tenureDays=293, tj. mandát od cca října 2025): (1) VODÁRNA PLZEŇ a.s. (IČO 25205625, contractCzk 915 796 079,85 Kč — zdaleka nejvyšší částka v tomto vzorku) — byla místopředsedkyní dozorčí rady 2016–2018, členství skončilo 23. 2. 2019, tedy cca 6,5 roku před nástupem do Sněmovny; nezávisle potvrzeno druhým zdrojem (výroční zpráva 2017, Hlídač státu). Vodárna Plzeň je klíčová regionální veřejná infrastrukturní firma (vodohospodářství pro město Plzeň) — tematicky souvisí s jejím výborem VSR, ale jde o dozorčí roli skončenou dávno před mandátem, ne o současné angažmá. (2) DOMOVINKA - sociální služby, o.p.s. (IČO 29123747, contractCzk 20 168 230 Kč) — byla členkou správní rady 16. 1. 2012 – 22. 9. 2014 (příp. do 30. 6. 2014), tedy více než 11 let před mandátem; sociální služby tematicky souvisí s jejím VZ výborem, ale opět jde o dávno ukončenou roli. ZÁVĚR: obě vazby jsou dvakrát nezávisle ověřené (přímý ARES VR dotaz + druhý zdroj), žádná není aktuální osobní finanční angažovanost — konzervativně je popisuji jako historické institucionální role, ne jako current money-touching konflikt. Datová nesrovnalost: props uvádí committee_count=6, jen 3 položky v seznamu committees (stejný vzorec jako u Dvořáka výše). Trendová poznámka (opatrně, mladý mandát P30): PSP9 skóre 83,8 (16 tisků, 33 interpelací) je vyšší než dosavadní PSP10 63,7 (2 tisky, 0 interpelací), ale při 293 dnech mandátu jde o částečné srovnání, ne o potvrzený pokles."
+      },
+      "signal": 0.52,
+      "headline": "Mádlová má obě spolupodepsané tisky s reálným úspěchem (jeden už zákonem), ale i dvě dvakrát ověřené — a historické, roky před mandátem skončené — dozorčí role ve firmách v hodnotě přes 935 mil. Kč smluv, tematicky blízké jejím dnešním výborům.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=70",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25205625",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/29123747",
+        "https://www.vodarna.cz/data/folders/vodarnaplzen_vz2017-f48.pdf",
+        "https://www.hlidacstatu.cz/osoba/Funkce/ivana-madlova"
+      ]
+    },
+    {
+      "id": "psp:person:6743",
+      "name": "Robert Stržínek",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["mediální záležitosti", "veřejná správa a regionální rozvoj", "kybernetická bezpečnost (dozor NÚKIB)", "kontrola Nejvyššího kontrolního úřadu"],
+        "effort_bill_focus": "Stržínek je spolupodepsaným (ne první předkladatelem) u obou tisků ze svého vzorku: tisk 72 (novela jednacího řádu PS, vedl R. Vondráček, 18. 12. 2025, mezi 28 spolupodepsanými) prošel 3. čtením (1.–3. 7. 2026) a je od 21. 7. 2026 v Senátu; tisk 217 (novela zákona o Nejvyšším kontrolním úřadu, vedl O. Babka, podán 5. 6. 2026) — Stržínek se připojil jako spolupodepsaný dodatečně 9. 6. 2026 — má KLADNÉ stanovisko vlády (17. 6. 2026, souhlas) a Kontrolní výbor jako garanční, tedy nadějná trajektorie i když zatím nepřijat.",
+        "effort_public_role": "Místopředsedou Výboru pro mediální záležitosti, členem Výboru pro veřejnou správu a regionální rozvoj a Stálé komise pro kontrolu NÚKIB. DŮLEŽITÉ ZJIŠTĚNÍ nad rámec vstupního kontextu: Stržínek je souběžně starostou Valašského Meziříčí (od 2014, nezávisle potvrzeno: Wikipedie, valassky.denik.cz, strzinek.cz) a krajským zastupitelem Zlínského kraje (od 2020) — tedy trojí mandát (obec + kraj + Sněmovna) souběžně, stejný vzorec jako u Martina Záhoře v batch-004.",
+        "effort_notes": "MONEY-TOUCHING, DVĚ NEZÁVISLÉ VRSTVY OVĚŘENÍ (P51/C13) přes ARES VR REST + druhý zdroj (WebSearch): (1) Nemocnice AGEL Valašské Meziříčí a.s. (IČO 26822105, contractCzk 30 122 633,36 Kč) — byl členem představenstva 1. 3. 2020 – 30. 9. 2022 a členem dozorčí rady 4. 8. 2015 – 3. 8. 2020 a znovu 4. 8. 2020 – 1. 2. 2023, tedy skončilo cca 2,5 roku před začátkem PSP10 mandátu (tenureDays=293, mandát od cca října 2025); DRUHÝ ZDROJ (valassky.denik.cz) POTVRZUJE A VYSVĚTLUJE KONTEXT: jde o zastoupení MĚSTA ve zdravotnickém zařízení, které město smluvně kontroluje jako součást provozovatelské smlouvy s AGEL (35 let) — institucionální, ne osobní obchodní vazba, vykonávaná z titulu starosty. (2) Vodovody a kanalizace Vsetín, a.s. (IČO 47674652, contractCzk 745 152,49 Kč) — přímý ARES VR dotaz NEOBSAHOVAL sekci se statutárními orgány vůbec (jen evidence akcií a navýšení kapitálu), nelze tedy ani potvrdit, ani vyloučit osobní vazbu — jde o NEDOŘEŠENÝ případ, doporučuji ověřit přes or.justice.cz, ne uzavřenou negativní zprávu. (3) Tenisový klub DEZA Valašské Meziříčí, z.s. (IČO 47997826, contractCzk 6 221 902 Kč) — byl členem výboru 25. 4. 2016 – 25. 4. 2021, tedy skončilo cca 4,5 roku před mandátem PSP10; historická role. ZÁVĚR: money-touching vazby jsou z většiny historické a kontextualizované trojím veřejným mandátem (starosta + kraj + Sněmovna), ne skryté osobní podnikání — ale jeden případ (Vsetín) zůstává nedořešený a nemělo by se o něm tvrdit ani potvrzení, ani vyvrácení. Datová nesrovnalost: props uvádí committee_count=4, jen 3 položky v poskytnutém seznamu committees."
+      },
+      "signal": 0.66,
+      "headline": "Stržínek je zároveň poslancem, starostou Valašského Meziříčí a krajským zastupitelem — jeho tři firemní vazby jsou většinou historické a plynou z role starosty (např. město dozoruje nemocnici AGEL), ale vazba na vodárenskou firmu Vsetín zůstává nedořešená.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=217",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26822105",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/47674652",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/47997826",
+        "https://valassky.denik.cz/zpravy_region/robert-strzinek-valasske-mezirici-poslanec-starosta-anketa-2025.html",
+        "https://valassky.denik.cz/zpravy_region/valasske-mezirici-nemocnice-agel-provozovatel-smlouva-prodlouzeni.html",
+        "https://cs.wikipedia.org/wiki/Robert_Str%C5%BE%C3%ADnek",
+        "https://www.strzinek.cz/"
+      ]
+    },
+    {
+      "id": "psp:person:7056",
+      "name": "Jitka Volfová",
+      "club": "ANO2011",
+      "lens": ["bottom", "high-triage"],
+      "props": {
+        "effort_work_themes": ["pojistné na sociální zabezpečení", "veřejná správa a regionální rozvoj", "rozpočet"],
+        "effort_bill_focus": "Volfová je spolupodepsanou (ne první předkladatelkou) u jediného tisku ve svém vzorku: tisk 11 (novela zákona o pojistném na sociální zabezpečení, vedla A. Schillerová a dalších cca 21 spolupodepsaných, podán 6. 11. 2025) — tento tisk byl PŘIJAT a vyhlášen jako zákon č. 90/2026 Sb. (Senát jej 6. 5. 2026 zamítl, Sněmovna 26. 5. 2026 setrvala na původním znění, podpis prezidenta 5. 6. 2026), přestože vláda k němu 10. 12. 2025 zaujala nesouhlas. Byť jde o jediný spolupodpis v celém vzorku, výsledek je konkrétní a ověřitelný.",
+        "effort_public_role": "Členkou Výboru pro veřejnou správu a regionální rozvoj a Rozpočtového výboru — obě role odpovídají přesně 2 položkám v poskytnutém seznamu committees, BEZ obvyklé nesrovnalosti pozorované u ostatních čtyř poslanců v této skupině.",
+        "effort_notes": "committee_count=2 odpovídá přesně 2 uvedeným výborům — na rozdíl od Dvořáka, Mádlové, Stržínka a Kotena v tomto vzorku zde není datová nesrovnalost, stojí za zaznamenání jako čistý případ. bills_authored=1 odpovídá počtu položek v sponsoredBills, spolupodpis (schema poznámka e), ne vlastní iniciativa. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření.",
+        "effort_low_score_reason": "Nízké skóre plyne z minimální řečnické aktivity (speech_turns=2), nulového vedení výboru (leadership_count=0) a jediného spolupodepsaného (nikoli vlastního) tisku — nejde o proces nebo datovou vadu, ale o reálně nižší legislativní stopu; mírně kontrastuje s tím, že její jediný tisk skutečně prošel do zákona."
+      },
+      "signal": 0.27,
+      "headline": "Volfová má nejnižší skóre příspěvku ve vzorku a jediný spolupodepsaný tisk — ten se ale skutečně stal zákonem navzdory nesouhlasu vlády, a její výborová data jsou jako jediná v této skupině bez zjištěné nesrovnalosti.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11"
+      ]
+    },
+    {
+      "id": "psp:person:6508",
+      "name": "Radek Koten",
+      "club": "SPD",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["bezpečnost", "mandátová a imunitní agenda", "dozor nad Národním bezpečnostním úřadem", "vyšetřovací komise (kauza Dozimetr)"],
+        "effort_bill_focus": "Koten nemá v poskytnutém vzorku žádný sponzorovaný tisk (sponsoredBills je prázdné pole, bills_authored=0) — v PSP10 se dosud jako spolupodepsaný ani jako předkladatel neobjevil na žádném z tisků z jeho výborů. Kontrast: v PSP9 měl 26 spoluautorství a 199 interpelací (contributionPsp9), tedy velmi odlišný vzorec aktivity v předchozím volebním období.",
+        "effort_public_role": "Místopředsedou Výboru pro bezpečnost, členem Mandátového a imunitního výboru, Stálé komise pro kontrolu Národního bezpečnostního úřadu a vyšetřovací komise k tzv. kauze Dozimetr (DPP hl. m. Prahy, KSÚS Středočeského kraje, VZP — podezření z korupčního jednání) — husté bezpečnostně-dozorové portfolio.",
+        "effort_notes": "bills_authored=0 odpovídá prázdnému sponsoredBills poli — bez nesrovnalosti. Datová nesrovnalost jinde: props uvádí committee_count=5, poskytnutý seznam committees obsahuje jen 4 položky (VB, MIV, SKNBÚ, VKDOZIMETR). Nejvyšší absence_rate v celém vzorku (0,5) společně s nulovou legislativní i interpelační aktivitou v PSP10 kontrastuje s hustým výborovým portfoliem a s jeho vlastní PSP9 historií (199 interpelací, 26 tisků) — POZOR na mladý mandát (P30, tenureDays=293, částečné srovnání, ne potvrzený trend), ale rozsah poklesu (199→0 interpelací, 26→0 tisků) je natolik velký, že stojí za honestní zaznamenání jako otevřenou otázku, ne jako definitivní úsudek o poklesu výkonu. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.47,
+      "headline": "Koten sedí ve čtyřech bezpečnostně-dozorových rolích včetně vyšetřovací komise Dozimetr, ale v PSP10 má zatím nulovou legislativní i interpelační stopu a nejvyšší absenci ve vzorku — ostrý kontrast k jeho 199 interpelacím a 26 tiskům z PSP9.",
+      "citations": []
+    }
+  ]
+}

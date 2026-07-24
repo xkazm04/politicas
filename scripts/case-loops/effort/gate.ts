@@ -65,10 +65,17 @@ function extractNumericClaims(text: string): NumericClaim[] {
   // NOTE: plain \b is ASCII-only in JS (\w = [A-Za-z0-9_]) and silently fails to bound
   // words starting/ending in Czech diacritics (š, č, ř, ě…) — use \p{L} lookaround
   // (unicode flag) instead, or "šesti" never matches at all.
+  // batch-005 reflection fix: "ani jednoho tisku" / "žádného tisku" are Czech NEGATIVES
+  // ("not one bill" / "no bill"), not a claim of count 1 — a preceding "ani"/"žádn*"
+  // (allowing a short gap, e.g. "ani u jednoho") flips the numeral into a negation and
+  // must not be read as a numeric claim at all (caught false-positiving on Ančincová's
+  // "u ani jednoho tisku není prvním předkladatelem").
   const spelledRe = new RegExp(`(?<![\\p{L}])(${Object.keys(CZECH_NUM_WORDS).join("|")})(?![\\p{L}])([^.,;]{0,40})`, "giu");
   while ((m = spelledRe.exec(text))) {
     const num = CZECH_NUM_WORDS[m[1].toLowerCase()];
     const tail = m[2];
+    const precedingWindow = text.slice(Math.max(0, m.index - 20), m.index);
+    if (/\b(ani|žádn[ýáéíůouě]*)\b\s*(u\s+)?$/iu.test(precedingWindow)) continue; // negation, not a count
     const group = nounGroups.find((g) => g.re.test(tail));
     if (group) claims.push({ count: num, noun: group.noun, raw: m[0].trim() });
   }

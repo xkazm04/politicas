@@ -1,0 +1,119 @@
+{
+  "generatedAt": "2026-07-25T00:00:00.000Z",
+  "proposals": [
+    {
+      "id": "psp:person:6201",
+      "name": "Miloslav Janulík",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["zdravotnictví (lékařská expertiza)", "sociální politika", "organizace Kanceláře PS"],
+        "effort_bill_focus": "Janulík je spolupodepsaný (nikoli první předkladatel) u obou tisků svého vzorku: tisk 72 (novela zákona o jednacím řádu PS, vedl R. Vondráček a další, podán 18. 12. 2025) — JEDINÝ přijatý tisk v celém tomto vzorku pěti poslanců, schválen 1.–3. 7. 2026 a postoupen Senátu 21. 7. 2026 jako senátní tisk 268/0 (lhůta do 20. 8. 2026); a tisk 87 (zákon o zemských znacích a vlajkách, vedl R. Vondráček, podán 22. 1. 2026) — vládní stanovisko souhlasné (25. 2. 2026), Organizační výbor doporučil postup 4. 3. 2026, k 25. 7. 2026 čeká ve výboru pro vědu, vzdělávání, mládež a sport.",
+        "effort_public_role": "MUDr. Miloslav Janulík je lékař (gynekologie-porodnictví, sexuologie) — v letech 1992–1997 byl ředitelem Polikliniky Břeclav, do roku 2003 ředitelem Nemocnice Břeclav, dnes provozuje soukromou gynekologickou ambulanci v areálu břeclavské nemocnice. Ve Sněmovně byl 2017–2021 předsedou Výboru pro zdravotnictví, nyní je řadovým členem Výboru pro sociální politiku (VSP), Výboru pro zdravotnictví (VZ) a Stálé komise pro práci Kanceláře PS (SKPKPS) — výborové zařazení přímo odpovídá jeho profesní kvalifikaci.",
+        "effort_notes": "MONEY-TOUCHING, 3 firmy — ověřeno přes ARES VR REST endpoint pro všechna 3 IČO (na rozdíl od SPA URL, která nic nevrací). Poliklinika Břeclav, s.r.o. (IČO 46978593) a POLIKLINIKA - servis s.r.o. (IČO 49437674): u OBOU je MUDr. Miloslav Janulík veden mezi HISTORICKÝMI jednateli, jejichž funkce skončila před přeregistrací současných jednatelů (PharmDr. Petr Nalevajka, Mgr. Radim Fiala) k 2018-05-03/04 — tedy potvrzená MINULÁ, nikoli současná statutární vazba na obě zdravotnická zařízení, kde dříve sám působil jako ředitel. Nemocnice Valtice s.r.o. (IČO 63488329): current i dostupní historičtí jednatelé (MUDr. Karel Klanica, PhDr. Evženie Klanicová) NEZAHRNUJÍ Janulíka — žádná osobní statutární vazba v dostupných VR datech nalezena, přestože contractCzk u této položky je nejvyšší z trojice (18 538 621,4 Kč); doporučuji ponechat pending_review a případně dohledat nikoli-statutární vazbu (např. smluvní dodavatel) přes Registr smluv. Kombinace lékař-politik na Výboru pro zdravotnictví s historickými řídicími vazbami na dvě ze tří spojených zdravotnických firem je přesně typ vazby, kterou kernel žádá prověřovat, ne mlčky vyřadit."
+      },
+      "signal": 0.55,
+      "headline": "Janulík, lékař s dokonalou docházkou (participation_rate 1,0), sedí ve Výboru pro zdravotnictví i s historickou (do 2018) jednatelskou vazbou na dvě ze tří spojených zdravotnických firem — a jeho jediný přijatý spolupodepsaný tisk už postoupil do Senátu.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/46978593",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49437674",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/63488329",
+        "https://cs.wikipedia.org/wiki/Miloslav_Janul%C3%ADk",
+        "https://www.janulik.cz/doktor/"
+      ]
+    },
+    {
+      "id": "psp:person:7065",
+      "name": "Martin Šmída",
+      "club": "Piráti",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["životní prostředí", "zemědělství", "kontrola GIBS", "veřejné finance (spolupodpisy)"],
+        "effort_bill_focus": "Šmída je spolupodepsaný — nikdy první předkladatel — u všech 4 tisků svého vzorku: tisk 71 (novela zákona o doplňkovém penzijním spoření, vedla O. Richterová a další, 8. 12. 2025) — vládní stanovisko neutrální (13. 1. 2026), ve výboru od 23. 1. 2026; tisk 86 (další novela téhož zákona, vedla O. Richterová, 22. 1. 2026) — vládní nesouhlas (24. 2. 2026); tisk 161 (novela zákona o odpadech, vedl P. Hladík a další, 7. 4. 2026) — vládní nesouhlas (5. 5. 2026), garanční je Výbor pro životní prostředí, konzistentně s jeho vlastním členstvím tam; tisk 168 (novela zákona o DPH, vedla O. Richterová a další, 15. 4. 2026) — vládní nesouhlas (12. 5. 2026). Žádný ze 4 tisků k 25. 7. 2026 nebyl přijat.",
+        "effort_public_role": "Náhradník (tenureClass = replacement, nastoupil v průběhu volebního období, tenureDays 260) — je členem Výboru pro životní prostředí (VŽP), Zemědělského výboru (ZEV) a Stálé komise pro kontrolu činnosti GIBS (SKGIBS); jeho environmentálně-zemědělské výborové zařazení se kryje s tématy jeho jediných spolupodepsaných tisků (odpady).",
+        "effort_notes": "bills_authored=4 odpovídá přesně počtu položek v sponsoredBills, ale u žádného není první předkladatel (schema poznámka e) — jde čistě o spolupodpisy. Jako náhradník má PŘESTO nejvyšší contribution_score (81,1) z celého tohoto pětičlenného vzorku — floor-artefakt tenure normalizace (kernel P38) zde neplatí negativně, naopak ukazuje silný výkon i přes kratší mandát. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.34,
+      "headline": "Šmída, náhradník s nejvyšším skóre v tomto vzorku, spolupodepsal čtyři nepřijaté tisky v tématech přesně odpovídajících jeho výborům (životní prostředí, zemědělství) a nemá žádnou firemní vazbu k prověření.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=71",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=86",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=161",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168"
+      ]
+    },
+    {
+      "id": "psp:person:6433",
+      "name": "Ivan Bartoš",
+      "club": "Piráti",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["obrana a kontrola zpravodajských/vojenských služeb", "protikorupční legislativa", "ochrana hospodářské soutěže", "daně z příjmů"],
+        "effort_bill_focus": "Bartoš JE skutečným prvním předkladatelem (společně s O. Richterovou, u dvou i s K. Stojanovou) u 3 z 8 tisků svého vzorku: tisk 5 (novela zákona o ochraně hospodářské soutěže, 15. 10. 2025) — vládní SOUHLAS (4. 12. 2025), ve výboru; tisk 6 a tisk 7 (dvojice protikorupčních návrhů — zřízení úřadu pro prevenci korupce a řešení střetu zájmů, oba 15. 10. 2025) — u obou vládní nesouhlas (4. 12. 2025), oba v Ústavně-právním výboru. U zbylých 5 tisků je pouze spolupodepsaný, ne vedoucí předkladatel: tisk 4 (daně z příjmů), tisk 15 (jednací řád PS, vládní nesouhlas), tisk 71 a tisk 86 (penzijní spoření) a tisk 168 (DPH) — všechny vedla O. Richterová. Žádný z 8 tisků k 25. 7. 2026 nebyl přijat.",
+        "effort_public_role": "Bartoš byl od prosince 2021 do října 2024 místopředsedou vlády pro digitalizaci a ministrem pro místní rozvoj — TATO FUNKCE JIŽ SKONČILA; od října 2025 je řadovým poslancem a od 5. 2. 2026 místopředsedou poslaneckého klubu Piráti. Ve výborech je členem Výboru pro obranu (VO) a obou stálých komisí pro kontrolu tajných služeb — Vojenského zpravodajství (SKVZ) i NÚKIB (SKNÚKIB) — jeho agenda se tak od dřívější digitalizační role zcela přesunula k obranně-bezpečnostnímu dozoru.",
+        "effort_notes": "bills_authored=8 odpovídá počtu položek v sponsoredBills, ale schema poznámka (e) zde platí jen ČÁSTEČNĚ opačným směrem, než by intuice napovídala: Bartoš je skutečným prvním předkladatelem u 3 z 8 tisků (ochrana hospodářské soutěže + oba protikorupční návrhy) — nejde tedy jen o pasivní spolupodpisy, což odpovídá i nejvyššímu speech_turns (103) v celém vzorku. Explicitní kontrola stálosti veřejné role (zadání batche): titul 'místopředseda vlády' je ZASTARALÝ (funkce skončila v říjnu 2024) a nesmí se uvádět jako současný — potvrzeno nezávisle přes vlada.gov.cz i pirati.cz. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.48,
+      "headline": "Bartoš, dnes řadový poslanec (dřívější titul místopředsedy vlády je od října 2024 neplatný), je skutečným prvním předkladatelem tří ze svých osmi tisků — méně 'jen spolupodpisů', než by se dalo čekat — a jeho agenda se přesunula k dozoru nad zpravodajskými službami.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=4",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=5",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=6",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=7",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=15",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=71",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=86",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168",
+        "https://vlada.gov.cz/cz/clenove-vlady/ivan-bartos-191704/",
+        "https://www.pirati.cz/lide/ivan-bartos-poslanec/"
+      ]
+    },
+    {
+      "id": "psp:person:6996",
+      "name": "Igor Červený",
+      "club": "MS",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["bezpečnost a kybernetická bezpečnost (NÚKIB)", "hospodářství", "zdravotnictví", "od února 2026 souběžně životní prostředí (ministerská agenda)"],
+        "effort_bill_focus": "Vstupní vzorek obsahuje jediný tisk — tisk 199 (novela chemického zákona kvůli právu EU, amended_laws 350/2011), podaný 22. 5. 2026 vládou s 'ministr živ. prostředí' jako předkladatelem. props uvádí bills_authored=0, což na první pohled vypadá jako rozpor s existencí položky v sponsoredBills, ale vysvětlení je klíčovým zjištěním tohoto profilu (viz effort_public_role): Červený je od února 2026 sám ministrem životního prostředí, takže 'ministr živ. prostředí' jako předkladatel je FAKTICKY ON, jednající ale v ministerské, nikoli poslanecké roli — bills_authored=0 tak správně odráží, že jde o vládní, nikoli poslaneckou legislativní iniciativu, i když je fakticky jeho. Organizační výbor doporučil postup 27. 5. 2026, garanční je Výbor pro životní prostředí (jehož ale sám NENÍ členem jako poslanec — viz notes), další projednávání možné od 2. 6. 2026, k 25. 7. 2026 eviduje jeden pozměňovací návrh.",
+        "effort_public_role": "Igor Červený je od října 2025 poslancem za Motoristy sobě a OD ÚNORA 2026 SOUČASNĚ ministrem životního prostředí ve vládě Andreje Babiše — souběžný výkon poslaneckého i ministerského mandátu. Jako poslanec předsedá Stálé komisi pro kontrolu NÚKIB (SKNÚKIB) a je místopředsedou Hospodářského výboru (HV) i Výboru pro zdravotnictví (VZ).",
+        "effort_notes": "Nesrovnalost: props uvádí leadership_count=4, ale poskytnutý seznam committees obsahuje jen 3 role s vedením (1 předseda + 2 místopředsedové) — doporučuji ověřit čtvrtou vedoucí roli v pipeline Case ①, možná souvisí s jeho ministerskou funkcí, která se do committee-dat nepromítá. Dále: jediný tisk ve vzorku (199, chemický zákon) je garantován Výborem pro životní prostředí, jehož Červený jako poslanec NENÍ členem — to je konzistentní se zjištěním, že jde o ministerskou, ne o poslaneckou vazbu na tento tisk, přesto se objevuje v jeho sponsoredBills; doporučuji v pipeline Case ① explicitně odlišit ministerskou od poslanecké autorské role, ne jen sčítat vše pod jedno pole. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.68,
+      "headline": "Červený je od února 2026 souběžně poslancem I ministrem životního prostředí — což vysvětluje jediný (vládní) tisk v jeho datech, ale i datovou nesrovnalost ve výborovém vedení (4 vs. 3 role) a garanční výbor, jehož není členem.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=199",
+        "https://vlada.gov.cz/cz/vlada/clenove-vlady/igor-cerveny-225455/",
+        "https://mzp.gov.cz/cz/ministerstvo/ministr",
+        "https://ct24.ceskatelevize.cz/clanek/domaci/novym-kandidatem-na-ministra-zivotniho-prostredi-je-poslanec-cerveny-370384",
+        "https://cs.wikipedia.org/wiki/Igor_%C4%8Cerven%C3%BD"
+      ]
+    },
+    {
+      "id": "psp:person:5273",
+      "name": "Jiří Pospíšil",
+      "club": "TOP09",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["kontrola veřejné správy", "ústavní právo a parlamentní procedura", "kulturní a paměťové instituce (mimoparlamentní angažmá)"],
+        "effort_bill_focus": "Pospíšil je spolupodepsaný — ne první předkladatel — u jediného tisku svého vzorku: tisk 181 (novela zákona o volbách do zastupitelstev obcí, vedl M. O. Havel a další, podán 4. 5. 2026) — vládní nesouhlas (3. 6. 2026), Organizační výbor doporučil postup týž den, k 25. 7. 2026 čeká na další projednávání (možné od 13. 6. 2026).",
+        "effort_public_role": "Pospíšil je členem Kontrolního výboru (KV), Ústavně-právního výboru (ÚPV) a Stálé komise pro Ústavu ČR a parlamentní procedury (SKÚPP) — 3 role, odpovídá committee_count=3 — dozorová a ústavně-právní agenda konzistentní s jeho dlouholetou kariérou bývalého ministra spravedlnosti.",
+        "effort_notes": "MONEY-TOUCHING, 5 firem — nejvyšší počet v tomto batchi, prověřeno DVĚMA nezávislými vrstvami (case gate P51/C13): (1) přímé dotazy na ARES VR REST endpoint pro všech 5 IČO tentokrát uspěly (na rozdíl od dřívějších zkušeností s JS-renderovanou SPA v batch-003/004) a (2) křížová kontrola s veřejnými mediálními zdroji. VÝSLEDEK: ze všech pěti vazeb je AKTUÁLNÍ pouze JEDNA — Muzeum paměti XX. století, z.ú. (IČO 08694508), kde je Pospíšil znovu členem dozorčí rady od 9. 12. 2024. Zbylé čtyři jsou UZAVŘENÉ kapitoly: Nadace Charty 77 (IČO 00417904) — člen statutárního orgánu 2015–2017 a únor–srpen 2018, dnes mimo radu (aktuální předsedkyně Božena Jirků); Regionální rozvojová agentura Plzeňského kraje (IČO 25245091) — člen 2003–2009, uzavřeno přes 15 let; Nadace Věry a Vladimíra Janouškových (IČO 27149994) — předseda 2016–2017, člen v různých obdobích 2005–2021, poslední odvolání 6. 10. 2021; Museum Kampa - Nadace Jana a Medy Mládkových (IČO 49370499) — předseda správní rady od června 2016 DO 27. 5. 2023, kdy jej nahradil Filip Melzer. DŮLEŽITÉ ZJIŠTĚNÍ (kernel: 'confidence label je claim k ověření, ne fakt'): dostupné mediální/stranické zdroje (TOP09.cz, X/@TOP09cz) stále prezentují Pospíšila jako 'dlouholetého předsedu' Museum Kampa v přítomném čase — TOTO JE ZASTARALÉ, ARES VR jasně dokládá konec funkce v květnu 2023. contractCzk částky u všech pěti položek (8,6M / 7,8M / 4,2M / 0,51M / 88,1M Kč) jsou veřejné smlouvy TĚCHTO NEZISKOVÝCH INSTITUCÍ (nadace, muzeum, rozvojová agentura) — NE osobní příjem Pospíšila; jde o institucionální, ne osobní peněžní vazbu, a u čtyř z pěti navíc o vazbu historickou, nikoli současnou."
+      },
+      "signal": 0.58,
+      "headline": "Pospíšilova zažitá nálepka 'předseda Museum Kampa' je od května 2023 zastaralá; z pěti spojených neziskovek mu ARES VR potvrzuje jedinou AKTUÁLNÍ vazbu (dozorčí rada Muzea paměti XX. století), zbylé čtyři jsou uzavřené kapitoly z let 2003–2021.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=181",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/00417904",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/08694508",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25245091",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27149994",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49370499",
+        "https://www.top09.cz/kdo-jsme/judr-jiri-pospisil-15862.html",
+        "https://www.museumkampa.cz/foundation/"
+      ]
+    }
+  ]
+}

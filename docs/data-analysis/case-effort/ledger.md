@@ -15,6 +15,8 @@ population is feasible; triage decides depth, not whether.
 | 001 | 20 | 20/207 (9.7 %) | 0.771 | R=1 · PSP9 trend restoration (partial on copy, live ingest handed off) | 20/20 PASS | calibration; absentee crossover = systemic false-positive in young term |
 | 002 | 30 | 50/207 (24.2 %) | 0.744 | R=1 · low-score-reason badge on `/poslanec` (O-effort-2, generalized) | 30/30 PASS | Sonnet-majority (0 Opus in army); Q-effort-1 `never_cast_ballot` pre-filter live in triage — 0 new phantom mandates; NEW `replacement`-MP tenure class discovered |
 | 003 | 35 | 85/207 (41.1 %) | 0.500 | R=1 · quiet-workhorse flavour badge+filter on `/zebricek` (O-effort-3) | 35/35 PASS | Sonnet army (7×5) + 2 Opus calls (money verification + reflection); Q-effort-5 end-date-aware tenure annotation (207/207: 193 full_term / 7 replacement / 3 departed / 4 never_seated) + Q-effort-6 componentDivergence retune (sd 0.098→0.323, validated) both shipped; NEW mid-term-role-change structural class (6 MPs); oversight-flavour quiet-workhorse population now fully covered (5/5); signal dip is composition (17/35 high-triage filler), not quality decay |
+| 004 | 35 | 120/207 (58.0 %) | 0.500 | R=1 · role_window_mismatch badge (O-effort-4) | 35/35 + 8/8 rewrites + 6/6 backfill PASS | Sonnet army (5×7) + Opus money-verification + Opus reflection; 8 held-back money dossiers rewritten under VR doctrine; Q-effort-11 prose-vs-props gate shipped; Kott-signal (Q-effort-10) reopened, not closed |
+| 005 | 45 | 165/207 (79.7 %) | 0.458 | R=1 · tenure-aware profile copy (mandate note + TrendPanel suppression <90d) | 45/45 PASS (post-fix; 13 initial DROPs on `effort_low_score_reason` misuse, fixed) | Sonnet army (9×5) — 80% high-triage filler (36/45), lens exhaustion now dominant; CRO/volby.cz access probe: volby.cz POVOLANI worth building, cro.justice.cz NOT autonomously accessible (corrects batch-004 framing); P51/C13 two-layer money gate first full exercise — 4/10 BLOCKING catches (false-clearance reversal, truncated-fetch active tie missed, wrong entity+dates, ambiguity resolved); Opus reflection held batch back one fix pass — found `committee_count` mismatch (29/45 dossiers) is an EFFORT-OWNED extractor bug (not Case ① ingest), 3/7 driver-applied Opus fixes were not actually applied on first pass (re-fixed), public-render leakage on 4 low-score-reason profiles cleaned |
 
 **Signal-yield** is the convergence measure (new signals ÷ units). Batch 001 is the
 baseline — every unit produced a citable dossier, so raw yield ≈ 1.0; the 0.771 above is
@@ -146,3 +148,47 @@ mean story-worthiness. Convergence (K=3 batches under threshold) not yet applica
   the dominant share; resolve the shared-IČO anomaly's root cause with the money loop if it recurs a 5th
   time; `mid-term role change` deserves an `effort_low_score_reason` vocabulary review (Metnar/Urbanová
   don't cleanly fit existing values).
+
+### Batch 004 — VR-doctrine rewrites, prose-vs-props gate, role-window badge (2026-07-24, committed)
+- Committed to master before batch 005 began (`c454399`); full detail in `batch-004.md`/its own handoff
+  (superseded by this batch's). Summary row added to the metrics table above for continuity. Rewrote the 8
+  held-back money dossiers (Q-effort-9) under the ARES VR REST doctrine; shipped Q-effort-11 (prose-vs-props
+  numeric cross-check); role_window_mismatch backfill (O-effort-4, 6 MPs); Kott-signal (Q-effort-10) reopened
+  rather than closed as absent.
+
+### Batch 005 — 45-MP army, two-layer money gate, CRO/volby.cz probe, tenure-aware build (2026-07-25)
+- **CRO/volby.cz access assessment** (Q-effort-10 follow-up, headline finding): volby.cz/ČSÚ Open Data
+  (PS2025 `POVOLANI` field) is a genuine free/no-auth/bulk-downloadable primary source, worth a real ingest
+  build — full detail in `batch-005.md` §1. cro.justice.cz requires a manually-approved, per-person, ~30-day
+  government paperwork process — NOT autonomously accessible, correcting batch-004's more optimistic framing.
+- Triage (`--army=45`) over the 87-MP remaining pool. **Army composition 80% (36/45) high-triage filler**
+  (up from 49% batch 004) — sharpest lenses now visibly exhausted. Mean signal continues declining:
+  0.771→0.744→0.500→0.500→**0.458**. Recorded as steering evidence for batch 006's coverage-declaration call,
+  not unilaterally declared this batch.
+- Army of 45 (9 Sonnet groups × 5), gate 45/45 PASS after fixing 13 initial `effort_low_score_reason`
+  closed-vocabulary DROPs. 197 citations. One group (B) needed a retry (first attempt produced no output
+  file); reconciled cleanly, no data loss.
+- **P51/C13 two-layer money-verification gate, first full exercise**: 10 money-touching dossiers, dedicated
+  Opus re-fetch (full `clenoveOrganu`, not just current officers) found 4 BLOCKING errors — including
+  reversing a false-clearance recommendation on Černochová (the exact C11 failure class) and catching a
+  truncated-ARES-fetch that missed Stržínek's ACTIVE current board seat — plus 3 NEEDS_CORRECTION items, all
+  fixed in the payload.
+- **Opus reflection held the batch back one fix pass**: found the recurring `committee_count` mismatch
+  (29/45 dossiers, 5th+ occurrence across batches) is an EFFORT-OWNED extractor bug in `extract-dossiers.ts`
+  (excludes Podvýbor + ověřovatel roles), NOT a Case ① ingest defect — 21 dossiers' false escalation claims
+  corrected, no escalation sent to the money loop. Also found 3 of 7 driver-applied Opus-verification fixes
+  were not actually applied on the first pass (payload claimed they were) — re-applied for real. Public-role
+  render leakage (pipeline narration rendering via `LowScoreReasonBadge`) cleaned on 4 profiles. Confirmed
+  the `npm run check` "green" claim was true for effort-owned paths but false repo-wide (two untracked
+  law-loop scratch files break shared typecheck/lint — flagged to orchestrator, not this case's to fix).
+  1 genuine `gate.ts` false positive found and fixed (Czech negation "ani jednoho" misread as numeral 1).
+- **Build (R=1)**: tenure-aware profile copy — `lib/analysis/tenure-copy.ts` (+16 test assertions),
+  `TenureNote.tsx` (mandate-began/departed note for replacement/departed tenure classes), `TenureTrendGate.tsx`
+  (suppresses PSP9 trend comparison under 90 tenure days, graceful "too early" state instead). `npm run check`
+  green over effort-owned paths (205/205 tests, independently re-verified by the reflection call).
+- Gate 45/45 (post-fix). No live write, no commit (fleet) — see `handoff.md`.
+- Steering for batch 006: **decide on population-coverage declaration** given the 5-batch signal decline
+  (0.771→0.458) and lens exhaustion (80% high-triage); if continuing, widen/retune triage lenses first (the
+  kernel's own guardrail — don't keep ranking on a saturating signal); pick up the `extract-dossiers.ts`
+  committee-extraction fix (1-line-scope, closes a 5-batch-old false-anomaly source) and the volby.cz POVOLANI
+  ingest build as the next build-backlog items.

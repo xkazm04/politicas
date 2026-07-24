@@ -20,8 +20,9 @@ import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { COMPONENT_FILL } from "@/features/civicscore/components/LeaderboardTable";
-import TrendPanel from "@/features/civicscore/components/TrendPanel";
 import LowScoreReasonBadge from "@/features/profile/components/LowScoreReasonBadge";
+import TenureNote from "@/features/profile/components/TenureNote";
+import TenureTrendGate from "@/features/profile/components/TenureTrendGate";
 import type { ComponentKey } from "@/lib/analysis/contribution-trend";
 
 export default function ProfilePage({ data }: { data: ProfileData }) {
@@ -112,14 +113,22 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
               slovníku (batch 001+ postupně pokrývá dalších poslanců). */}
           <LowScoreReasonBadge reason={person.effortLowScoreReason} publicRole={person.effortPublicRole} />
 
+          {/* Mandátová poznámka — vykreslí se jen pro replacement/departed
+              tenure_class (batch 005, Q-effort-5 follow-through). */}
+          <TenureNote
+            tenureClass={data.effortTenureClass}
+            tenureStart={data.effortTenureStart}
+            tenureEnd={data.effortTenureEnd}
+          />
+
           {/* Vývoj proti minulému období — vykreslí se jen když existuje reálné
-              srovnání (contribution_psp9). Jinak zůstává jednoobdobový pohled. */}
-          {person.trend && (
-            <TrendPanel
-              trend={person.trend}
-              componentLabels={Object.fromEntries(components.map((c) => [c.key, c.label])) as Partial<Record<ComponentKey, string>>}
-            />
-          )}
+              srovnání (contribution_psp9); pod ~90 dní tenure je srovnání
+              potlačeno (TenureTrendGate) místo zavádějících sazeb. */}
+          <TenureTrendGate
+            trend={person.trend}
+            componentLabels={Object.fromEntries(components.map((c) => [c.key, c.label])) as Partial<Record<ComponentKey, string>>}
+            tenureDays={data.effortTenureDays}
+          />
         </motion.div>
 
         {/* ── 01 Složky přispění ────────────────────────────── */}

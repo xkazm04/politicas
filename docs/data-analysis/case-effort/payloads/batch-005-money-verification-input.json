@@ -1,0 +1,489 @@
+{
+  "generatedAt": "2026-07-24T22:21:30.883Z",
+  "note": "Money-touching proposals from batch-005 army + their original linkedCompanies graph context, for the required second independent (Opus) verification layer per P51/C13.",
+  "items": [
+    {
+      "proposal": {
+        "id": "psp:person:5903",
+        "name": "Jana Černochová",
+        "club": "ODS",
+        "lens": [
+          "high-triage",
+          "money-touching"
+        ],
+        "props": {
+          "effort_work_themes": [
+            "bezpečnost (předsednictví výboru)",
+            "obrana a vojenské zpravodajství",
+            "veřejná správa (spolupodpisy)"
+          ],
+          "effort_bill_focus": "Černochová je spolupodepsanou (ne první předkladatelkou) u obou tisků svého vzorku: tisk 103 (elektronické úkony a autorizovaná konverze, vedl J. Bureš, 10. 2. 2026) čeká ve VSR po vládním nesouhlasu z 10. 3. 2026; tisk 129 (zrušení zákona o prodejní době, vedl J. Bureš, 10. 3. 2026) je v Hospodářském výboru s neutrálním vládním stanoviskem. V datech není žádný tisk, kde by byla první předkladatelkou (schema poznámka e).",
+          "effort_public_role": "Od 6. 3. 2026 předsedkyní Výboru pro bezpečnost (dříve v letech 2017–2021 předsedkyní Výboru pro obranu); souběžně dlouhodobě komunální političkou — zastupitelkou Prahy 2 od roku 1998, aktuálně radní Prahy 2 pro oblast školství. Členkou Výboru pro obranu a Stálé komise pro kontrolu Vojenského zpravodajství.",
+          "effort_notes": "MONEY-TOUCHING dossier — čtyři vazby, všechny ověřeny přímo přes ARES VR REST endpoint (ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/<ICO>), ne přes nefunkční SPA: (1) SVJ Na Folimance 13, Praha 2 (IČO 26419050, contractCzk 0) — statutárním orgánem jsou M. Hrouda a L. Pokorný, Černochová mezi členy výboru NENÍ, jde nejspíš o SVJ domu v jejím volebním obvodu Praha 2, ne o její vlastní bydliště ani obchodní vazbu; (2) Nadační fond Českého rozhlasu (IČO 26419068, contractCzk 6 034 624,74 Kč) — správní i dozorčí rada uvádí jiná jména (F. Beránek, A. Líškay Králíková, P. Zavadil aj.), Černochová v orgánech NENÍ; (3) Obecní dům, a.s. (IČO 27251918, contractCzk 0) — jediným akcionářem je Hlavní město Praha, představenstvo/dozorčí rada neobsahuje Černochovou; (4) Komwag, podnik čistoty a údržby města, a.s. (IČO 61057606, contractCzk 7 399 794,70 Kč) — jde o městskou (pražskou) firmu pro úklid a údržbu, představenstvo i dozorčí rada uvádí jiná jména, Černochová v orgánech NENÍ. Ve všech čtyřech případech nebyl ARES VR nalezen žádný osobní statutární vztah — jde o instituce spojené s pražskou veřejnou správou/kulturou v obvodu, kde je Černochová dlouholetá komunální politička, nikoli o doloženou osobní finanční vazbu; doporučuji review_state posunout z pending_review na cleared, pokud Case ① nemá jiný zdroj vazby. Samostatně: kontribuční skóre vzrostlo z PSP9 29,1 na PSP10 70,9, ale ne díky větší řečnické aktivitě — počet vystoupení klesl ze 207 (PSP9) na 27 (PSP10); nárůst táhne především nové předsednictví výboru (leadership váha 1,0) a vyšší účast (absence_rate 0,8→0,6). Jde tedy o posun v roli (řadová poslankyně → předsedkyně výboru), ne o plošně vyšší aktivitu — honestní upřesnění, ne alarm."
+        },
+        "signal": 0.5,
+        "headline": "Černochová se stala předsedkyní Výboru pro bezpečnost a její kontribuční skóre vyskočilo z 29 na 71 body, ale hnací silou je nová řídicí role, ne více řečnických vystoupení; všechny čtyři firemní vazby v jejích datech jsou přes ARES VR ověřeny jako pražské veřejné instituce bez její osobní statutární role.",
+        "citations": [
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=103",
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=129",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26419050",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26419068",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27251918",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/61057606",
+          "https://www.hlidacstatu.cz/Osoba/Funkce/jana-cernochova",
+          "https://janacernochova.cz/o-mne/"
+        ]
+      },
+      "graphLinkedCompanies": [
+        {
+          "company": "Společenství vlastníků jednotek v domě čp. 2122, Na Folimance 13, Praha 2 - Vinohrady",
+          "ico": "26419050",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        },
+        {
+          "company": "Nadační fond Českého rozhlasu",
+          "ico": "26419068",
+          "reviewState": "pending_review",
+          "contractCzk": 6034624.74
+        },
+        {
+          "company": "Obecní dům, a.s.",
+          "ico": "27251918",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        },
+        {
+          "company": "Komwag, podnik čistoty a údržby města, a.s.",
+          "ico": "61057606",
+          "reviewState": "pending_review",
+          "contractCzk": 7399794.699999999
+        }
+      ]
+    },
+    {
+      "proposal": {
+        "id": "psp:person:5943",
+        "name": "Helena Langšádlová",
+        "club": "TOP09",
+        "lens": [
+          "top",
+          "high-triage"
+        ],
+        "props": {
+          "effort_work_themes": [
+            "evropské záležitosti",
+            "životní prostředí a odpady",
+            "kontrola BIS a hybridních hrozeb",
+            "bezpečnostní dozor"
+          ],
+          "effort_bill_focus": "Langšádlová je spolupodepsanou (nikoli první předkladatelkou) u všech 4 tisků svého vzorku, žádný z nich k 25. 7. 2026 neprošel a všechny narazily na nesouhlasné stanovisko vlády: tisk 74 (novela zákona o předcházení ekologické újmě, vedl P. Hladík, podán 22. 12. 2025, nesouhlas vlády 10. 2. 2026) čeká ve VŽP; tisk 75 (novela vodního zákona, vedl P. Hladík, podán 22. 12. 2025, nesouhlas vlády 17. 2. 2026) čeká v zemědělském výboru; tisk 161 (novela zákona o odpadech, vedl P. Hladík, podán 7. 4. 2026, nesouhlas vlády 5. 5. 2026) čeká ve VŽP; tisk 181 (novela zákona o volbách do zastupitelstev obcí, vedl M. O. Havel, podán 4. 5. 2026, nesouhlas vlády 3. 6. 2026) čeká v ÚPV. Čtyři ze čtyř tisků jsou tedy spolupodpisy bez vlastní iniciativy a žádný dosud nezískal souhlasné stanovisko vlády.",
+          "effort_public_role": "Místopředsedkyní Stálé komise pro hybridní hrozby, členkou Výboru pro evropské záležitosti, Výboru pro životní prostředí a Stálé komise pro kontrolu činnosti BIS — hustý bezpečnostně-dozorový profil. Bývalá ministryně pro vědu, výzkum a inovace (vláda P. Fialy, do voleb 2025/pádu vlády) — v aktuálním PSP10 kontextu žádný zdroj neuvádí ministerský titul, funkce je korektně omezena na výborové role, takže žádná stará ministerská nálepka nepřežila do aktuální datové sady.",
+          "effort_notes": "Datová nesrovnalost: props uvádí committee_count=7, ale poskytnutý seznam committees obsahuje jen 4 položky (SKHH, VEZ, VŽP, SKBIS) — rozdíl tří nedoložených vazeb, doporučuji ověřit v pipeline Case ①. Peněžní zjištění (MONEY-TOUCHING, linkedCompanies neprázdné): Fórum Karla Schwarzenberga, o.p.s. (IČO 02086778), contractCzk 0. Ověřeno přes ARES VR REST endpoint (ekonomicke-subjekty-vr, ne SPA verzi) — Langšádlová je aktuálně vedena jako členka správní rady (spolu s M. Ženíškem, J. Farským a dalšími), statutárním orgánem je Filip Štědrý. Jde o vzdělávací/politickou o.p.s. založenou zesnulým Karlem Schwarzenbergem (zakladatelem TOP 09, zemřel 2023, zápis zakladatele vymazán 3. 11. 2025) — konzistentní s její stranickou příslušností, nulová smluvní částka, žádná obchodní vazba. Jde o transparentní politicko-institucionální roli, ne skrytý obchodní konflikt zájmů, ale patří do evidence jako aktivní správní funkce."
+        },
+        "signal": 0.55,
+        "headline": "Langšádlová spolupodepsala všechny čtyři tisky svého vzorku (žádný vlastní), sedí ve správní radě Schwarzenbergovy o.p.s. bez finanční hodnoty, a vstupní počet výborů (7) neodpovídá čtyřem reálně uvedeným.",
+        "citations": [
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=74",
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=75",
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=161",
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=181",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/02086778",
+          "https://www.hlidacstatu.cz/osoba/Funkce/helena-langsadlova"
+        ]
+      },
+      "graphLinkedCompanies": [
+        {
+          "company": "Fórum Karla Schwarzenberga, o.p.s.",
+          "ico": "02086778",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        }
+      ]
+    },
+    {
+      "proposal": {
+        "id": "psp:person:7032",
+        "name": "Jana Patková",
+        "club": "Piráti",
+        "lens": [
+          "high-triage"
+        ],
+        "props": {
+          "effort_work_themes": [
+            "rozpočet a kontrola centrální evidence účtů",
+            "daň z přidané hodnoty (spolupodpis)"
+          ],
+          "effort_bill_focus": "Patková je spolupodepsanou (ne první předkladatelkou) jediného tisku ve vzorku: tisk 168 (novela zákona o dani z přidané hodnoty, první předkladatelkou O. Richterová a další, podán 12. 5. 2026 nebo dříve) dostal 12. 5. 2026 nesouhlasné stanovisko vlády a k 25. 7. 2026 čeká na projednání v Rozpočtovém výboru (zpravodajka Ing. Jitka Volfová jmenována 14. 5. 2026).",
+          "effort_public_role": "Členkou Rozpočtového výboru a Stálé komise pro kontrolu poskytnutí údajů z centrální evidence účtů (2 role, přesně odpovídá committee_count=2 i poskytnutému seznamu committees) — kombinace rozpočtové a kontrolní/dozorové agendy nad bankovním dohledem.",
+          "effort_notes": "MONEY-TOUCHING OVĚŘENO (gate: ARES VR, ne SPA): jediná položka v linkedCompanies je Hvězdárna a planetárium v Hradci Králové (IČO 00084018, contractCzk 648 907,98 Kč, reviewState pending_review). Dotaz na https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/00084018 potvrzuje: jde o příspěvkovou organizaci (právní forma 331) zřizovanou Královéhradeckým krajem, jejím statutárním orgánem je od 1. 3. 2014 Mgr. Miroslav Krejčí (ředitel) — Jana Patková se v seznamu statutárních zástupců NEVYSKYTUJE. Jde tedy o vztah instituce z jejího volebního regionu (Královéhradecký kraj) k veřejné krajské organizaci, ne o osobní ani obchodní vazbu Patkové — konzervativně hodnotím jako OVĚŘENOU NEPŘÍTOMNOST osobní vazby, ne jako nevyřešené riziko. bills_authored=1 odpovídá počtu položek v sponsoredBills, ale nejde o vlastní iniciativu, jde o spolupodpis (gate e). committee_count souhlasí přesně (2=2)."
+        },
+        "signal": 0.42,
+        "headline": "Patková spolupodepsala jedinou (vládou odmítnutou) novelu DPH; její jediná peněžní vazba — krajská hvězdárna v jejím regionu — je po ověření přes ARES VR institucionální, ne osobní: ředitelem je od 2014 M. Krejčí, ne ona.",
+        "citations": [
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=168",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/00084018",
+          "https://www.khk.cz/oblasti/kultura-pamatkova-pece/oddeleni-kultury-pamatkove-pece-0/organizace-v-kulture-knihovny/hvezdarna-planetarium-v-hradci-kralove"
+        ]
+      },
+      "graphLinkedCompanies": [
+        {
+          "company": "Hvězdárna a planetárium v Hradci Králové",
+          "ico": "00084018",
+          "reviewState": "pending_review",
+          "contractCzk": 648907.98
+        }
+      ]
+    },
+    {
+      "proposal": {
+        "id": "psp:person:6732",
+        "name": "Ivana Mádlová",
+        "club": "ANO2011",
+        "lens": [
+          "high-triage"
+        ],
+        "props": {
+          "effort_work_themes": [
+            "veřejná správa a regionální rozvoj",
+            "zdravotnictví",
+            "rodina a rovné příležitosti",
+            "pojistné na veřejné zdravotní pojištění"
+          ],
+          "effort_bill_focus": "Mádlová je spolupodepsanou (ne první předkladatelkou) u obou tisků ze svého vzorku, ale oba mají mnohem lepší osud než většina této skupiny: tisk 70 (novela zákona o pojistném na veřejné zdravotní pojištění, vedl A. Vojtěch, 12. 12. 2025) byl PŘIJAT a vyhlášen jako zákon č. 71/2026 Sb. (kladné stanovisko vlády, tři čtení, Senát, podpis prezidenta 19. 5. 2026); tisk 72 (novela jednacího řádu PS, vedl R. Vondráček, 18. 12. 2025, 28 spolupodepsaných) prošel 3. čtením (1.–3. 7. 2026) a je od 21. 7. 2026 v Senátu. Oba tisky jsou tedy věcně v souladu s jejím členstvím ve zdravotním výboru (VZ), resp. obecnou parlamentní agendou.",
+          "effort_public_role": "Členkou Výboru pro veřejnou správu a regionální rozvoj, Výboru pro zdravotnictví a Stálé komise pro rodinu a rovné příležitosti.",
+          "effort_notes": "MONEY-TOUCHING — ověřeno přes ARES VR REST (ekonomicke-subjekty-vr), OBĚ vazby jsou HISTORICKÉ, skončily roky před začátkem jejího mandátu PSP10 (tenureDays=293, tj. mandát od cca října 2025): (1) VODÁRNA PLZEŇ a.s. (IČO 25205625, contractCzk 915 796 079,85 Kč — zdaleka nejvyšší částka v tomto vzorku) — byla místopředsedkyní dozorčí rady 2016–2018, členství skončilo 23. 2. 2019, tedy cca 6,5 roku před nástupem do Sněmovny; nezávisle potvrzeno druhým zdrojem (výroční zpráva 2017, Hlídač státu). Vodárna Plzeň je klíčová regionální veřejná infrastrukturní firma (vodohospodářství pro město Plzeň) — tematicky souvisí s jejím výborem VSR, ale jde o dozorčí roli skončenou dávno před mandátem, ne o současné angažmá. (2) DOMOVINKA - sociální služby, o.p.s. (IČO 29123747, contractCzk 20 168 230 Kč) — byla členkou správní rady 16. 1. 2012 – 22. 9. 2014 (příp. do 30. 6. 2014), tedy více než 11 let před mandátem; sociální služby tematicky souvisí s jejím VZ výborem, ale opět jde o dávno ukončenou roli. ZÁVĚR: obě vazby jsou dvakrát nezávisle ověřené (přímý ARES VR dotaz + druhý zdroj), žádná není aktuální osobní finanční angažovanost — konzervativně je popisuji jako historické institucionální role, ne jako current money-touching konflikt. Datová nesrovnalost: props uvádí committee_count=6, jen 3 položky v seznamu committees (stejný vzorec jako u Dvořáka výše). Trendová poznámka (opatrně, mladý mandát P30): PSP9 skóre 83,8 (16 tisků, 33 interpelací) je vyšší než dosavadní PSP10 63,7 (2 tisky, 0 interpelací), ale při 293 dnech mandátu jde o částečné srovnání, ne o potvrzený pokles."
+        },
+        "signal": 0.52,
+        "headline": "Mádlová má obě spolupodepsané tisky s reálným úspěchem (jeden už zákonem), ale i dvě dvakrát ověřené — a historické, roky před mandátem skončené — dozorčí role ve firmách v hodnotě přes 935 mil. Kč smluv, tematicky blízké jejím dnešním výborům.",
+        "citations": [
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=70",
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25205625",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/29123747",
+          "https://www.vodarna.cz/data/folders/vodarnaplzen_vz2017-f48.pdf",
+          "https://www.hlidacstatu.cz/osoba/Funkce/ivana-madlova"
+        ]
+      },
+      "graphLinkedCompanies": [
+        {
+          "company": "VODÁRNA PLZEŇ a.s.",
+          "ico": "25205625",
+          "reviewState": "pending_review",
+          "contractCzk": 915796079.85
+        },
+        {
+          "company": "DOMOVINKA - sociální služby, o.p.s.",
+          "ico": "29123747",
+          "reviewState": "pending_review",
+          "contractCzk": 20168230
+        }
+      ]
+    },
+    {
+      "proposal": {
+        "id": "psp:person:6743",
+        "name": "Robert Stržínek",
+        "club": "ANO2011",
+        "lens": [
+          "high-triage"
+        ],
+        "props": {
+          "effort_work_themes": [
+            "mediální záležitosti",
+            "veřejná správa a regionální rozvoj",
+            "kybernetická bezpečnost (dozor NÚKIB)",
+            "kontrola Nejvyššího kontrolního úřadu"
+          ],
+          "effort_bill_focus": "Stržínek je spolupodepsaným (ne první předkladatelem) u obou tisků ze svého vzorku: tisk 72 (novela jednacího řádu PS, vedl R. Vondráček, 18. 12. 2025, mezi 28 spolupodepsanými) prošel 3. čtením (1.–3. 7. 2026) a je od 21. 7. 2026 v Senátu; tisk 217 (novela zákona o Nejvyšším kontrolním úřadu, vedl O. Babka, podán 5. 6. 2026) — Stržínek se připojil jako spolupodepsaný dodatečně 9. 6. 2026 — má KLADNÉ stanovisko vlády (17. 6. 2026, souhlas) a Kontrolní výbor jako garanční, tedy nadějná trajektorie i když zatím nepřijat.",
+          "effort_public_role": "Místopředsedou Výboru pro mediální záležitosti, členem Výboru pro veřejnou správu a regionální rozvoj a Stálé komise pro kontrolu NÚKIB. DŮLEŽITÉ ZJIŠTĚNÍ nad rámec vstupního kontextu: Stržínek je souběžně starostou Valašského Meziříčí (od 2014, nezávisle potvrzeno: Wikipedie, valassky.denik.cz, strzinek.cz) a krajským zastupitelem Zlínského kraje (od 2020) — tedy trojí mandát (obec + kraj + Sněmovna) souběžně, stejný vzorec jako u Martina Záhoře v batch-004.",
+          "effort_notes": "MONEY-TOUCHING, DVĚ NEZÁVISLÉ VRSTVY OVĚŘENÍ (P51/C13) přes ARES VR REST + druhý zdroj (WebSearch): (1) Nemocnice AGEL Valašské Meziříčí a.s. (IČO 26822105, contractCzk 30 122 633,36 Kč) — byl členem představenstva 1. 3. 2020 – 30. 9. 2022 a členem dozorčí rady 4. 8. 2015 – 3. 8. 2020 a znovu 4. 8. 2020 – 1. 2. 2023, tedy skončilo cca 2,5 roku před začátkem PSP10 mandátu (tenureDays=293, mandát od cca října 2025); DRUHÝ ZDROJ (valassky.denik.cz) POTVRZUJE A VYSVĚTLUJE KONTEXT: jde o zastoupení MĚSTA ve zdravotnickém zařízení, které město smluvně kontroluje jako součást provozovatelské smlouvy s AGEL (35 let) — institucionální, ne osobní obchodní vazba, vykonávaná z titulu starosty. (2) Vodovody a kanalizace Vsetín, a.s. (IČO 47674652, contractCzk 745 152,49 Kč) — přímý ARES VR dotaz NEOBSAHOVAL sekci se statutárními orgány vůbec (jen evidence akcií a navýšení kapitálu), nelze tedy ani potvrdit, ani vyloučit osobní vazbu — jde o NEDOŘEŠENÝ případ, doporučuji ověřit přes or.justice.cz, ne uzavřenou negativní zprávu. (3) Tenisový klub DEZA Valašské Meziříčí, z.s. (IČO 47997826, contractCzk 6 221 902 Kč) — byl členem výboru 25. 4. 2016 – 25. 4. 2021, tedy skončilo cca 4,5 roku před mandátem PSP10; historická role. ZÁVĚR: money-touching vazby jsou z většiny historické a kontextualizované trojím veřejným mandátem (starosta + kraj + Sněmovna), ne skryté osobní podnikání — ale jeden případ (Vsetín) zůstává nedořešený a nemělo by se o něm tvrdit ani potvrzení, ani vyvrácení. Datová nesrovnalost: props uvádí committee_count=4, jen 3 položky v poskytnutém seznamu committees."
+        },
+        "signal": 0.66,
+        "headline": "Stržínek je zároveň poslancem, starostou Valašského Meziříčí a krajským zastupitelem — jeho tři firemní vazby jsou většinou historické a plynou z role starosty (např. město dozoruje nemocnici AGEL), ale vazba na vodárenskou firmu Vsetín zůstává nedořešená.",
+        "citations": [
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=217",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26822105",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/47674652",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/47997826",
+          "https://valassky.denik.cz/zpravy_region/robert-strzinek-valasske-mezirici-poslanec-starosta-anketa-2025.html",
+          "https://valassky.denik.cz/zpravy_region/valasske-mezirici-nemocnice-agel-provozovatel-smlouva-prodlouzeni.html",
+          "https://cs.wikipedia.org/wiki/Robert_Str%C5%BE%C3%ADnek",
+          "https://www.strzinek.cz/"
+        ]
+      },
+      "graphLinkedCompanies": [
+        {
+          "company": "Nemocnice AGEL Valašské Meziříčí a.s.",
+          "ico": "26822105",
+          "reviewState": "pending_review",
+          "contractCzk": 30122633.360000003
+        },
+        {
+          "company": "Vodovody a kanalizace Vsetín, a.s.",
+          "ico": "47674652",
+          "reviewState": "pending_review",
+          "contractCzk": 745152.49
+        },
+        {
+          "company": "Tenisový klub DEZA Valašské Meziříčí, z.s.",
+          "ico": "47997826",
+          "reviewState": "pending_review",
+          "contractCzk": 6221902
+        }
+      ]
+    },
+    {
+      "proposal": {
+        "id": "psp:person:6201",
+        "name": "Miloslav Janulík",
+        "club": "ANO2011",
+        "lens": [
+          "high-triage"
+        ],
+        "props": {
+          "effort_work_themes": [
+            "zdravotnictví (lékařská expertiza)",
+            "sociální politika",
+            "organizace Kanceláře PS"
+          ],
+          "effort_bill_focus": "Janulík je spolupodepsaný (nikoli první předkladatel) u obou tisků svého vzorku: tisk 72 (novela zákona o jednacím řádu PS, vedl R. Vondráček a další, podán 18. 12. 2025) — JEDINÝ přijatý tisk v celém tomto vzorku pěti poslanců, schválen 1.–3. 7. 2026 a postoupen Senátu 21. 7. 2026 jako senátní tisk 268/0 (lhůta do 20. 8. 2026); a tisk 87 (zákon o zemských znacích a vlajkách, vedl R. Vondráček, podán 22. 1. 2026) — vládní stanovisko souhlasné (25. 2. 2026), Organizační výbor doporučil postup 4. 3. 2026, k 25. 7. 2026 čeká ve výboru pro vědu, vzdělávání, mládež a sport.",
+          "effort_public_role": "MUDr. Miloslav Janulík je lékař (gynekologie-porodnictví, sexuologie) — v letech 1992–1997 byl ředitelem Polikliniky Břeclav, do roku 2003 ředitelem Nemocnice Břeclav, dnes provozuje soukromou gynekologickou ambulanci v areálu břeclavské nemocnice. Ve Sněmovně byl 2017–2021 předsedou Výboru pro zdravotnictví, nyní je řadovým členem Výboru pro sociální politiku (VSP), Výboru pro zdravotnictví (VZ) a Stálé komise pro práci Kanceláře PS (SKPKPS) — výborové zařazení přímo odpovídá jeho profesní kvalifikaci.",
+          "effort_notes": "MONEY-TOUCHING, 3 firmy — ověřeno přes ARES VR REST endpoint pro všechna 3 IČO (na rozdíl od SPA URL, která nic nevrací). Poliklinika Břeclav, s.r.o. (IČO 46978593) a POLIKLINIKA - servis s.r.o. (IČO 49437674): u OBOU je MUDr. Miloslav Janulík veden mezi HISTORICKÝMI jednateli, jejichž funkce skončila před přeregistrací současných jednatelů (PharmDr. Petr Nalevajka, Mgr. Radim Fiala) k 2018-05-03/04 — tedy potvrzená MINULÁ, nikoli současná statutární vazba na obě zdravotnická zařízení, kde dříve sám působil jako ředitel. Nemocnice Valtice s.r.o. (IČO 63488329): current i dostupní historičtí jednatelé (MUDr. Karel Klanica, PhDr. Evženie Klanicová) NEZAHRNUJÍ Janulíka — žádná osobní statutární vazba v dostupných VR datech nalezena, přestože contractCzk u této položky je nejvyšší z trojice (18 538 621,4 Kč); doporučuji ponechat pending_review a případně dohledat nikoli-statutární vazbu (např. smluvní dodavatel) přes Registr smluv. Kombinace lékař-politik na Výboru pro zdravotnictví s historickými řídicími vazbami na dvě ze tří spojených zdravotnických firem je přesně typ vazby, kterou kernel žádá prověřovat, ne mlčky vyřadit."
+        },
+        "signal": 0.55,
+        "headline": "Janulík, lékař s dokonalou docházkou (participation_rate 1,0), sedí ve Výboru pro zdravotnictví i s historickou (do 2018) jednatelskou vazbou na dvě ze tří spojených zdravotnických firem — a jeho jediný přijatý spolupodepsaný tisk už postoupil do Senátu.",
+        "citations": [
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/46978593",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49437674",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/63488329",
+          "https://cs.wikipedia.org/wiki/Miloslav_Janul%C3%ADk",
+          "https://www.janulik.cz/doktor/"
+        ]
+      },
+      "graphLinkedCompanies": [
+        {
+          "company": "Poliklinika Břeclav, s. r. o.",
+          "ico": "46978593",
+          "reviewState": "pending_review",
+          "contractCzk": 183300
+        },
+        {
+          "company": "POLIKLINIKA - servis s.r.o.",
+          "ico": "49437674",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        },
+        {
+          "company": "Nemocnice Valtice s.r.o.",
+          "ico": "63488329",
+          "reviewState": "pending_review",
+          "contractCzk": 18538621.4
+        }
+      ]
+    },
+    {
+      "proposal": {
+        "id": "psp:person:5273",
+        "name": "Jiří Pospíšil",
+        "club": "TOP09",
+        "lens": [
+          "high-triage"
+        ],
+        "props": {
+          "effort_work_themes": [
+            "kontrola veřejné správy",
+            "ústavní právo a parlamentní procedura",
+            "kulturní a paměťové instituce (mimoparlamentní angažmá)"
+          ],
+          "effort_bill_focus": "Pospíšil je spolupodepsaný — ne první předkladatel — u jediného tisku svého vzorku: tisk 181 (novela zákona o volbách do zastupitelstev obcí, vedl M. O. Havel a další, podán 4. 5. 2026) — vládní nesouhlas (3. 6. 2026), Organizační výbor doporučil postup týž den, k 25. 7. 2026 čeká na další projednávání (možné od 13. 6. 2026).",
+          "effort_public_role": "Pospíšil je členem Kontrolního výboru (KV), Ústavně-právního výboru (ÚPV) a Stálé komise pro Ústavu ČR a parlamentní procedury (SKÚPP) — 3 role, odpovídá committee_count=3 — dozorová a ústavně-právní agenda konzistentní s jeho dlouholetou kariérou bývalého ministra spravedlnosti.",
+          "effort_notes": "MONEY-TOUCHING, 5 firem — nejvyšší počet v tomto batchi, prověřeno DVĚMA nezávislými vrstvami (case gate P51/C13): (1) přímé dotazy na ARES VR REST endpoint pro všech 5 IČO tentokrát uspěly (na rozdíl od dřívějších zkušeností s JS-renderovanou SPA v batch-003/004) a (2) křížová kontrola s veřejnými mediálními zdroji. VÝSLEDEK: ze všech pěti vazeb je AKTUÁLNÍ pouze JEDNA — Muzeum paměti XX. století, z.ú. (IČO 08694508), kde je Pospíšil znovu členem dozorčí rady od 9. 12. 2024. Zbylé čtyři jsou UZAVŘENÉ kapitoly: Nadace Charty 77 (IČO 00417904) — člen statutárního orgánu 2015–2017 a únor–srpen 2018, dnes mimo radu (aktuální předsedkyně Božena Jirků); Regionální rozvojová agentura Plzeňského kraje (IČO 25245091) — člen 2003–2009, uzavřeno přes 15 let; Nadace Věry a Vladimíra Janouškových (IČO 27149994) — předseda 2016–2017, člen v různých obdobích 2005–2021, poslední odvolání 6. 10. 2021; Museum Kampa - Nadace Jana a Medy Mládkových (IČO 49370499) — předseda správní rady od června 2016 DO 27. 5. 2023, kdy jej nahradil Filip Melzer. DŮLEŽITÉ ZJIŠTĚNÍ (kernel: 'confidence label je claim k ověření, ne fakt'): dostupné mediální/stranické zdroje (TOP09.cz, X/@TOP09cz) stále prezentují Pospíšila jako 'dlouholetého předsedu' Museum Kampa v přítomném čase — TOTO JE ZASTARALÉ, ARES VR jasně dokládá konec funkce v květnu 2023. contractCzk částky u všech pěti položek (8,6M / 7,8M / 4,2M / 0,51M / 88,1M Kč) jsou veřejné smlouvy TĚCHTO NEZISKOVÝCH INSTITUCÍ (nadace, muzeum, rozvojová agentura) — NE osobní příjem Pospíšila; jde o institucionální, ne osobní peněžní vazbu, a u čtyř z pěti navíc o vazbu historickou, nikoli současnou."
+        },
+        "signal": 0.58,
+        "headline": "Pospíšilova zažitá nálepka 'předseda Museum Kampa' je od května 2023 zastaralá; z pěti spojených neziskovek mu ARES VR potvrzuje jedinou AKTUÁLNÍ vazbu (dozorčí rada Muzea paměti XX. století), zbylé čtyři jsou uzavřené kapitoly z let 2003–2021.",
+        "citations": [
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=181",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/00417904",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/08694508",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25245091",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27149994",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49370499",
+          "https://www.top09.cz/kdo-jsme/judr-jiri-pospisil-15862.html",
+          "https://www.museumkampa.cz/foundation/"
+        ]
+      },
+      "graphLinkedCompanies": [
+        {
+          "company": "Nadace Charty 77",
+          "ico": "00417904",
+          "reviewState": "pending_review",
+          "contractCzk": 8592827.14
+        },
+        {
+          "company": "Muzeum paměti XX. století, z.ú.",
+          "ico": "08694508",
+          "reviewState": "pending_review",
+          "contractCzk": 7760700.86
+        },
+        {
+          "company": "Regionální rozvojová agentura Plzeňského kraje, obecně prospěšná společnost",
+          "ico": "25245091",
+          "reviewState": "pending_review",
+          "contractCzk": 4248566
+        },
+        {
+          "company": "Nadace Věry a Vladimíra Janouškových",
+          "ico": "27149994",
+          "reviewState": "pending_review",
+          "contractCzk": 510000
+        },
+        {
+          "company": "Museum Kampa - Nadace Jana a Medy Mládkových",
+          "ico": "49370499",
+          "reviewState": "pending_review",
+          "contractCzk": 88111300
+        }
+      ]
+    },
+    {
+      "proposal": {
+        "id": "psp:person:6905",
+        "name": "Andrea Hoffmannová",
+        "club": "Piráti",
+        "lens": [
+          "bottom",
+          "divergence"
+        ],
+        "props": {
+          "effort_work_themes": [
+            "média a audiovize",
+            "věda, vzdělávání, mládež a sport",
+            "školský zákon"
+          ],
+          "effort_bill_focus": "Hoffmannová je spolupodepsána (nikoli první předkladatelkou) u jediného tisku svého vzorku: tisk 168 (novela školského zákona, vedla O. Richterová a další, 25. 7. 2026 čeká na projednání v RV, nesouhlas vlády z 12. 5. 2026).",
+          "effort_public_role": "Členkou Výboru pro mediální záležitosti a Výboru pro vědu, vzdělávání, mládež a sport (dle poskytnutého kontextu 2 role). Souběžně byla od prosince 2018 do ledna 2026 náměstkyní primátora Ostravy (jedno z časově nejnáročnějších exekutivních míst mezi statutárními městy) a od ledna 2026 je zastupitelkou města — tedy po většinu dosavadního poslaneckého mandátu (od října 2025) souběžně vykonávala i vysoce exponovanou exekutivní funkci ve druhém největším městě ČR, což je čtvrtý dual-mandate případ v tomto vzorku (po Vránovi, Blišťanové a částečně Dražilové).",
+          "effort_notes": "Datová nesrovnalost: props uvádí committee_count=4, ale pole committees v poskytnutém kontextu obsahuje jen 2 položky (VMZ, VVVMS) — stejný typ diskrepance jako u Řehkové a Langa v batch-004, doporučuji ověřit v pipeline Case ①. bills_authored=1 odpovídá jediné položce v sponsoredBills, spolupodpis (schema poznámka e). MONEY-TOUCHING (dvě nezávislé vrstvy ověření dle P51/C13): (1) základní ARES dotaz na ekonomicke-subjekty/61989592 potvrzuje, že jde o Univerzitu Palackého v Olomouci, právní forma 601 = veřejná vysoká škola zřízená zákonem; přímý dotaz na ARES VR endpoint (ekonomicke-subjekty-vr/61989592) vrátil HTTP 404 — na rozdíl od dřívějších 'JS-SPA bez obsahu' případů jde tu o OČEKÁVANÝ výsledek, protože veřejné vysoké školy nejsou zapisovány do obchodního rejstříku (nemají statutární orgán ve smyslu VR, mají rektora dle zákona o vysokých školách), takže absence VR záznamu sama o sobě potvrzuje typ subjektu, ne chybu; (2) Hlídač státu (nezávislý druhý zdroj) u Hoffmannové dokládá jen vzdělávací vazbu na UP Olomouc — doktorát (Ph.D.) dokončený do 2011 — a ŽÁDNOU zaměstnaneckou, obchodní ani poradenskou vazbu. Závěr: contractCzk 224 319 743,1 Kč je řádově institucionální částka (souhrn veřejných zakázek/grantů univerzity jako instituce), ne osobní platba Hoffmannové; nenalezena žádná aktuální osobní/obchodní vazba nad rámec historického doktorandského studia. Doporučuji Case ① ověřit v Registru smluv, zda konkrétní smlouva(y) za touto částkou vůbec jmenují Hoffmannovou, než položka opustí pending_review."
+        },
+        "signal": 0.5,
+        "headline": "Hoffmannové nízké skóre kryje z velké části souběh s náročnou funkcí náměstkyně primátora Ostravy do ledna 2026; peněžní vazba na Univerzitu Palackého se po dvou nezávislých ověřeních ukazuje jako stará doktorandská vazba, ne aktuální obchodní angažmá.",
+        "citations": [
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=168",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/61989592",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/61989592",
+          "https://www.hlidacstatu.cz/Osoba/Funkce/andrea-hoffmannova-3",
+          "https://cs.wikipedia.org/wiki/Andrea_Hoffmannov%C3%A1",
+          "https://moravskoslezsky.pirati.cz/lide/mgr-andrea-hoffmannova-phd/"
+        ]
+      },
+      "graphLinkedCompanies": [
+        {
+          "company": "Univerzita Palackého v Olomouci",
+          "ico": "61989592",
+          "reviewState": "pending_review",
+          "contractCzk": 224319743.1
+        }
+      ]
+    },
+    {
+      "proposal": {
+        "id": "psp:person:7023",
+        "name": "Lenka Martínková Španihelová",
+        "club": "Piráti",
+        "lens": [
+          "divergence"
+        ],
+        "props": {
+          "effort_work_themes": [
+            "sociální politika",
+            "penzijní spoření a DPH (spolupodpisy)"
+          ],
+          "effort_bill_focus": "Španihelová sdílí s Ančincovou stejnou trojici tisků (71, 86, 168, všechny vedla O. Richterová) — u žádného není prvním předkladatelem, všechny k 25. 7. 2026 nepřijaté a čekají ve výborech (viz fate popsáno u Ančincové, tento vzorek).",
+          "effort_public_role": "Členkou Výboru pro sociální politiku (jediná uvedená role, nejnižší committee_count=1 v tomto vzorku, bez vedoucí funkce). Mimo Sněmovnu je krajskou zastupitelkou Pardubického kraje a předsedkyní krajského výboru pro sociální péči a neziskový sektor.",
+          "effort_notes": "bills_authored=3 odpovídá přesně počtu položek v sponsoredBills, opět jde výhradně o spolupodpisy (schema poznámka e). PENĚŽNÍ ZJIŠTĚNÍ — MATURUS, o.p.s. (IČO 24766216, contractCzk 1 197 779 Kč): ověřeno přes ARES VR REST endpoint (ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/24766216) — aktuální ředitelkou je od 1. 7. 2026 Magdaléna Lindaurová, předchozí ředitelkou byla Jitka Čechová (4. 9. 2014 – 30. 6. 2026); Španihelová v primárním rejstříku VR NENÍ uvedena mezi statutárními orgány v období, které rejstřík vrátil. To je v ROZPORU s druhotnými zdroji (Wikipedie, pirátský medailonek, adresář sociálních podniků, Hlídač státu), které ji popisují jako zakládající/první ředitelku sociálního podniku MATURUS (od 1. 1. 2011, dle Hlídače státu) — společnost vznikla 18. 11. 2010, tedy krátce před uváděným nástupem Španihelové, a to je časově dřív, než sahá záznam o ředitelkách, který mi ARES VR vrátil (od 2014). Nejpravděpodobnější vysvětlení: byla zakládající ředitelkou cca 2011–2014, než ji vystřídala Čechová — ale toto NENÍ potvrzeno přímo z primárního zdroje pro toto období, jde o LEAD ze sekundárních zdrojů, ne o ověřený fakt. MATURUS je sociální podnik zaměstnávající lidi se zdravotním postižením, financovaný převážně z veřejných zdrojů (dle Hlídače státu 7 smluv za cca 1 mil. Kč, hlavní odběratel MPSV) — účelová dotační vazba na sociální podnikání, ne komerční zisková vazba. Doporučuji Case ① ověřit přesné datum konce jejího ředitelského působení přes sbírku listin na or.justice.cz, protože ARES VR REST v tomto dotazu nevrátil historii před rokem 2014."
+        },
+        "signal": 0.52,
+        "headline": "Španihelová má historickou vazbu na sociální podnik MATURUS (podle druhotných zdrojů zakládající ředitelka, ale aktuální primární rejstřík VR ji mezi statutárními orgány neuvádí) — nejnižší committee_count v pirátské trojici tohoto vzorku, doporučeno dohledat přes sbírku listin.",
+        "citations": [
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=71",
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=86",
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=168",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/24766216",
+          "https://cs.wikipedia.org/wiki/Lenka_Mart%C3%ADnkov%C3%A1_%C5%A0panihelov%C3%A1",
+          "https://ceske-socialni-podnikani.cz/adresar-socialnich-podniku/maturus-o-p-s/",
+          "https://www.hlidacstatu.cz/subjekt/24766216"
+        ]
+      },
+      "graphLinkedCompanies": [
+        {
+          "company": "MATURUS, o.p.s.",
+          "ico": "24766216",
+          "reviewState": "pending_review",
+          "contractCzk": 1197779
+        }
+      ]
+    },
+    {
+      "proposal": {
+        "id": "psp:person:6463",
+        "name": "Aleš Juchelka",
+        "club": "ANO2011",
+        "lens": [
+          "divergence"
+        ],
+        "props": {
+          "effort_work_themes": [
+            "sociální politika a služby (nyní jako ministr)",
+            "PR a mediální podnikání (vlastní firmy, historicky)"
+          ],
+          "effort_bill_focus": "Juchelka je prvním předkladatelem (spolu s J. Pastuchovou) tisku 125 (novela zákona o sociálních službách, podán 6. 3. 2026), který úspěšně prošel celým procesem a byl publikován jako zákon č. 92/2026 Sb. (podpis prezidenta 5. 6. 2026) — jde o skutečnou vlastní legislativní iniciativu (schema poznámka e), navíc jedinou zákonem zakončenou v celém tomto vzorku pěti poslanců. Dále je spolupodepsaným (ne prvním předkladatelem) u tisku 11 (pojistné na sociální zabezpečení, vedla A. Schillerová), který rovněž prošel a byl publikován jako zákon č. 90/2026 Sb. Třetí položka, tisk 198 (novela zákona o státní sociální podpoře), je vládní návrh s předkladatelem 'min. práce a soc. věcí' — tedy ministerstvem, které Juchelka od 15. 12. 2025 sám řídí; ve Sněmovně byl schválen 8. 7. 2026 a nyní čeká na Senát (do 8. 8. 2026). Juchelka zde figuruje jen jako garanční výbor (VSP), ne jako osobní předkladatel — schema poznámka (e) platí i obráceně: vládní tisk se nesmí připsat jemu jako 'předložil'.",
+          "effort_public_role": "MINISTREM PRÁCE A SOCIÁLNÍCH VĚCÍ od 15. 12. 2025 (vláda A. Babiše) — tento fakt zásadně mění interpretaci jeho PSP10 čísel: pokles kontribučního skóre z PSP9 (83,2) na PSP10 (55,5) je pravděpodobně z podstatné části strukturální artefakt exekutivní role (nulové interpelace, nižší committee_count=1, vyšší absence_rate=0,5), ne pokles pracovního nasazení — analogicky k floor-artefaktům u nováčků a náhradníků popsaným ve skill effort-loop.md, ale jde o TŘETÍ, dosud nepojmenovanou třídu (ministr). Doporučuji Case ① zvážit obdobný kvalifikační příznak jako u tenure/replacement tříd. Před politikou (2010, radní Ostravy za TOP 09) pracoval 1998–2012 v médiích — moderátor a dramaturg zábavních a dětských pořadů v České televizi a dříve v Rádiu Čas a Českém rozhlase.",
+          "effort_notes": "PENĚŽNÍ ZJIŠTĚNÍ — MONEY-TOUCHING, 4 firmy, ověřeno přes ARES VR REST endpoint kde to šlo: (1) OCCAM PR s.r.o. (IČO 27840531, contractCzk 177 870 Kč) — Juchelka byl JEDINÝM jednatelem a 100% vlastníkem od založení 31. 3. 2008 AŽ DO 8.–16. 1. 2026, tedy prakticky po CELÝ mandát PSP10 a i po nástupu do funkce ministra (15. 12. 2025); vlastnictví převedl na manželku Ing. Terezu Juchelkovou teprve v polovině ledna 2026. Podle Hlídače státu má firma od 2016 přesně 2 smlouvy v registru smluv za 177 870 Kč — číslo se PŘESNĚ shoduje se vstupním contractCzk, tedy jde o potvrzenou, nikoli historickou vazbu. Toto je nejvýraznější zjištění tohoto vzorku a doporučuji jej v pipeline označit jako aktivní/nedávno ukončenou osobní vazbu, ne jako uzavřenou historickou kapitolu. (2) YOU STORY UP! s.r.o. (IČO 02751232, contractCzk 6 271 561,8 Kč) — Juchelka byl spoluzakladatelem a jednatelem 10. 3. 2014 – 11. 8. 2016, vlastnictví opustil 18. 8. 2016. DATOVÝ ROZPOR: Hlídač státu uvádí u této firmy 0 smluv v registru smluv za 0 Kč od roku 2016 (kdy registr smluv začíná) — vstupní contractCzk 6,27 mil. Kč tedy NEODPOVÍDÁ žádné smlouvě uzavřené v období, kdy byl Juchelka jednatelem nebo vlastníkem, ani žádné smlouvě zachycené v registru smluv vůbec; doporučuji prioritně ověřit zdroj a datum tohoto čísla v pipeline Case ①, protože v současné podobě neprokazuje osobní peněžní vazbu k Juchelkovi. (3) ČESKÁ TELEVIZE (IČO 00027383, contractCzk 0) a (4) ČESKÝ ROZHLAS (IČO 45245053, contractCzk 1 207 054,67 Kč) — oba jsou veřejnoprávní vysílatelé zřízení zákonem, NEJSOU vedeni v obchodním rejstříku VR (ARES VR REST endpoint vrátil pro oba 404 Not Found, což je u zákonem zřízených veřejnoprávních institucí očekávané, ne chybějící ověření). Vzhledem k doloženému 1998–2012 působení Juchelky jako moderátora/dramaturga v ČT a dříve v Českém rozhlase jde nejpravděpodobněji o historické honoráře za moderátorskou/produkční činnost před vstupem do politiky (2010), ne o obchodní/vlastnickou vazbu — ale bez přístupu k detailu jednotlivých položek v Registru smluv nelze časové zařazení částky u ČRo (1,2 mil. Kč) potvrdit s jistotou; doporučuji ověřit přes plný výpis Registru smluv."
+        },
+        "signal": 0.72,
+        "headline": "Ministr práce Juchelka vlastnil svou PR firmu OCCAM PR se dvěma státními zakázkami prakticky po celý mandát a teprve v lednu 2026 ji převedl na manželku; jeho jediný vlastní tisk (125, sociální služby) se naopak stal zákonem, zatímco údaj o 6,27 mil. Kč u firmy YOU STORY UP! neodpovídá žádné smlouvě z období jeho angažmá, které skončilo už v roce 2016.",
+        "citations": [
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=11",
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=125",
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=198",
+          "https://mpsv.gov.cz/novym-ministrem-prace-a-socialnich-veci-se-stal-ales-juchelka",
+          "https://www.irozhlas.cz/zpravy-domov/juchelka-nastoupi-jako-ministr-prace-a-socialnich-veci-pred-politikou-pusobil_2512141617_ntu",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27840531",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/02751232",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/00027383",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/45245053",
+          "https://www.hlidacstatu.cz/osoba/ales-juchelka"
+        ]
+      },
+      "graphLinkedCompanies": [
+        {
+          "company": "ČESKÁ TELEVIZE",
+          "ico": "00027383",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        },
+        {
+          "company": "YOU STORY UP! s.r.o.",
+          "ico": "02751232",
+          "reviewState": "pending_review",
+          "contractCzk": 6271561.8
+        },
+        {
+          "company": "OCCAM PR s.r.o.",
+          "ico": "27840531",
+          "reviewState": "pending_review",
+          "contractCzk": 177870
+        },
+        {
+          "company": "ČESKÝ ROZHLAS",
+          "ico": "45245053",
+          "reviewState": "pending_review",
+          "contractCzk": 1207054.6749999998
+        }
+      ]
+    }
+  ]
+}

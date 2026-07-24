@@ -59,6 +59,13 @@ export interface ProfileData {
   contestedRebellion: number | null;
   rebellionRate: number | null;
   provenancePass: number | null;
+  // Tenure annotation (batch 003, Q-effort-5) — deterministic, from
+  // membership.fromAt/toAt on organ 174. May be absent for the ~0/207 MPs
+  // missing a chamber membership row (see tenure.ts's `missing` list).
+  effortTenureDays: number | null;
+  effortTenureClass: string | null;
+  effortTenureStart: string | null;
+  effortTenureEnd: string | null;
 }
 
 export async function getAllProfilePspIds(): Promise<number[]> {
@@ -141,6 +148,16 @@ export async function getProfileData(pspId: number): Promise<ProfileData | null>
     const personNode = (await store.listKgNodes({ kind: "person", limit: 1000 })).find((p) => p.id === selfId);
     const contestedRebellion = personNode ? nullableNum(personNode.props.contested_vote_rebellion) : null;
     const rebellionRate = personNode ? nullableNum(personNode.props.rebellion_rate) : null;
+    const effortTenureDays = personNode ? nullableNum(personNode.props.effort_tenure_days) : null;
+    const effortTenureClass = personNode && typeof personNode.props.effort_tenure_class === "string"
+      ? personNode.props.effort_tenure_class
+      : null;
+    const effortTenureStart = personNode && typeof personNode.props.effort_tenure_start === "string"
+      ? personNode.props.effort_tenure_start
+      : null;
+    const effortTenureEnd = personNode && typeof personNode.props.effort_tenure_end === "string"
+      ? personNode.props.effort_tenure_end
+      : null;
 
     return {
       person,
@@ -154,6 +171,10 @@ export async function getProfileData(pspId: number): Promise<ProfileData | null>
       contestedRebellion,
       rebellionRate,
       provenancePass: data.provenancePass,
+      effortTenureDays,
+      effortTenureClass,
+      effortTenureStart,
+      effortTenureEnd,
     };
   } catch {
     return null;

@@ -1,0 +1,104 @@
+{
+  "generatedAt": "2026-07-25T00:00:00.000Z",
+  "proposals": [
+    {
+      "id": "psp:person:7008",
+      "name": "Zdena Kašparová",
+      "club": "STAN",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["veřejná správa a obce", "odpadové hospodářství / životní prostředí"],
+        "effort_bill_focus": "Kašparová je spolupodepsanou (nikoli první předkladatelkou) u obou tisků ve svém vzorku, žádný zatím nebyl přijat: tisk 146 (novela zákona o obcích, první předkladatelkou V. Kovářová a další, podán 25. 3. 2026) dostal 21. 4. 2026 nesouhlasné stanovisko vlády a k 25. 7. 2026 čeká na projednání ve Výboru pro veřejnou správu a regionální rozvoj; tisk 161 (novela zákona o odpadech, první předkladatel P. Hladík a další, podán 7. 4. 2026) rovněž dostal v květnu 2026 nesouhlasné stanovisko vlády a čeká ve Výboru pro životní prostředí (zpravodaj jmenován 14. 5. 2026). U žádného z obou tisků tedy Kašparová nevedla iniciativu sama (schema poznámka e).",
+        "effort_public_role": "Členkou Výboru pro vědu, vzdělávání, mládež a sport a Výboru pro životní prostředí (2 role, přesně odpovídá committee_count=2 i poskytnutému seznamu committees) — tematicky konzistentní se zaměřením jejího spolupodpisu na odpadovou novelu.",
+        "effort_notes": "bills_authored=2 odpovídá počtu položek v sponsoredBills, ale u obou jde o spolupodpisy, ne o vlastní iniciativu (gate e). committee_count souhlasí přesně (2=2), žádná datová nesrovnalost zde nenalezena. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.3,
+      "headline": "Kašparová spolupodepsala dvě novely (obce, odpady), obě zatím odmítnuté vládou a uvízlé ve výboru — u žádné nebyla ona sama vedoucí předkladatelkou.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=146",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=161"
+      ]
+    },
+    {
+      "id": "psp:person:6482",
+      "name": "Vlastimil Válek",
+      "club": "TOP09",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["zdravotnictví (dozorová role po odchodu z vlády)", "kontrola tajných služeb (NBÚ, VZ)", "volby do obecních zastupitelstev"],
+        "effort_bill_focus": "Válkovo sponsoredBills obsahuje 2 tisky. Tisk 57 (novela zákona o zdravotních službách — diagnostika a asistovaná reprodukce v kontextu EU) je vládní návrh podaný 8. 12. 2025 s formálním předkladatelem 'ministr zdravotnictví'; sněmovna jej schválila 26. 5. 2026 včetně senátních pozměňovacích návrhů a prezident jej podepsal 5. 6. 2026 — jediný přijatý tisk z celého vzorku. Tisk 181 (novela zákona o volbách do obecních zastupitelstev, první předkladatel M. O. Havel a další, podán 3. 6. 2026) dostal nesouhlas vlády týž den a čeká na projednání v Ústavně-právním výboru.",
+        "effort_public_role": "Byl ministrem zdravotnictví a místopředsedou vlády od 17. 12. 2021, rezignaci oznámil 6. 11. 2025 a ve funkci byl formálně nahrazen až nástupem nové vlády 15. 12. 2025 (dnešním ministrem zdravotnictví je Adam Vojtěch, vláda A. Babiše). V současném PSP10 mandátu je Válek řadovým poslancem TOP 09, od 20. 1. 2026 místopředsedou Výboru pro zdravotnictví a členem obou stálých komisí pro kontrolu tajných služeb (NBÚ, Vojenské zpravodajství) — dozorová, nikoli řídící role. V červnu 2026 byl navíc zvolen do správní rady VZP ČR.",
+        "effort_notes": "DŮLEŽITÉ UPOZORNĚNÍ NA ZASTARALOST: jakýkoli existující graf-prop popisující Válka jako 'ministra zdravotnictví' je pro PSP10 kontext zastaralý — od 15. 12. 2025 již ve vládě není a jeho aktuální veřejná role je místopředseda výboru, ne exekutiva; doporučuji ověřit, zda pipeline Case ① tuto roli již aktualizovala. Atribuční nejasnost u tisku 57: jde o vládní (nikoli poslanecký) návrh podaný 8. 12. 2025 — tedy týden PŘED nástupem nové vlády (15. 12. 2025) a měsíc po Válkově oznámené rezignaci (6. 11. 2025); nepodařilo se ověřit, zda byl k datu podání ještě formálně on sám pověřeným ministrem, nebo zda jde o artefakt vládního/výborového routingu podobný Jurečkovu případu z batch-004 (dva 'vládní' tisky mylně připsané bývalému ministrovi). bills_authored=1 tedy nelze s jistotou označit za jeho osobní autorskou iniciativu (gate e analogicky platí i pro vládní návrhy). committee_count=5 v props neodpovídá počtu položek v poskytnutém seznamu committees (jen 3: VZ vice, SKNBÚ member, SKVZ member) — chybí dvě vazby, doporučuji ověřit v pipeline Case ①. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření.",
+        "effort_low_score_reason": null
+      },
+      "signal": 0.58,
+      "headline": "Válek už není ministrem zdravotnictví, ale dozorovým místopředsedou výboru — jediný přijatý zákon z jeho vzorku byl vládní návrh podaný týden před nástupem nové vlády, jehož osobní autorství nelze s jistotou potvrdit, a vstupní počet výborů (5) je poddoložen o dva.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=57",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=181",
+        "https://vlada.gov.cz/cz/clenove-vlady/vlastimil-valek-191700/",
+        "https://www.zdravezpravy.cz/2026/06/05/exministr-valek-se-na-paty-pokus-volby-dostal-do-rady-vzp-cr/"
+      ]
+    },
+    {
+      "id": "psp:person:6946",
+      "name": "Josef Váňa",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["jednací řád Sněmovny (spolupodpis)", "výborová práce v zemědělské a kontrolní agendě"],
+        "effort_bill_focus": "Váňovo jediné sponsoredBills je tisk 72 (novela zákona o jednacím řádu PS, první předkladatel R. Vondráček a další, podán 18. 12. 2025) — jediný přijatý tisk v tomto vzorku (3. čtení schváleno 1.–3. 7. 2026, postoupen Senátu 21. 7. 2026). Váňa u něj není prvním předkladatelem, ale JEHO JMÉNO SE NEOBJEVUJE ANI V POSKYTNUTÉM SEZNAMU 28 SPOLUPODEPSANÝCH poslanců u tohoto tisku (dle vstupních dat coSponsors) — nelze tedy ze zadaného kontextu ověřit, zda je zařazení tisku do jeho sponsoredBills korektní, nebo jde o datový artefakt.",
+        "effort_public_role": "Bývalý žokej, osminásobný vítěz Velké pardubické, poslanec za ANO od roku 2024 (nastoupil jako náhradník za J. Mračkovou Vildumetzovou, mandát obhájil ve volbách 2025). Je členem Zemědělského výboru, Kontrolního výboru a Petičního výboru (3 role, odpovídá committee_count=3 i poskytnutému seznamu). Podle veřejných zdrojů je známý minimální řečnickou aktivitou ve Sněmovně (médii opakovaně citovaný údaj o řádově stovkách pronesených slov za rok) — to je konzistentní s jeho vstupním props speech_turns=0.",
+        "effort_notes": "Datová nesrovnalost: sponsoredBills u tisku 72 uvádí Váňu jako spolupodepsaného, ale jeho jméno chybí v poskytnutém poli coSponsors tohoto tisku (28 jmen, Váňa mezi nimi není) — doporučuji ověřit v pipeline Case ① přímo proti psp.cz seznamu podpisů, protože buď je vazba nesprávná, nebo je vstupní seznam coSponsors neúplný. committee_count souhlasí přesně (3=3). Veřejné zdroje zmiňují navíc podvýbor pro myslivost, rybářství, včelařství a zahrádkářství, který není v poskytnutém seznamu committees samostatně uveden — pravděpodobně podřazen pod ZEV, ne chyba, jen mezera v granularitě dat. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření.",
+        "effort_low_score_reason": "speech_turns=0 odpovídá veřejně známé a médii dokumentované minimální řečnické aktivitě, ne chybějícím datům — nejde o nízké skóre z důvodu datové mezery."
+      },
+      "signal": 0.5,
+      "headline": "Váňa, bývalý žokej s veřejně proslulou téměř nulovou řečnickou aktivitou, je zapsán jako spolupodepsaný u jediného (a jediného přijatého) tisku vzorku — ale jeho jméno v poskytnutém seznamu skutečných spolupodepsaných chybí, což je třeba ověřit.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
+        "https://www.hlidacstatu.cz/Osoba/Funkce/josef-vana-25",
+        "https://zpravy.aktualne.cz/domaci/poslancem-se-stal-i-zokej-vana-ktery-za-rok-rekl-117-slov-ud/r~e0ecd5aca45011f0b689ac1f6b220ee8/"
+      ]
+    },
+    {
+      "id": "psp:person:7032",
+      "name": "Jana Patková",
+      "club": "Piráti",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["rozpočet a kontrola centrální evidence účtů", "daň z přidané hodnoty (spolupodpis)"],
+        "effort_bill_focus": "Patková je spolupodepsanou (ne první předkladatelkou) jediného tisku ve vzorku: tisk 168 (novela zákona o dani z přidané hodnoty, první předkladatelkou O. Richterová a další, podán 12. 5. 2026 nebo dříve) dostal 12. 5. 2026 nesouhlasné stanovisko vlády a k 25. 7. 2026 čeká na projednání v Rozpočtovém výboru (zpravodajka Ing. Jitka Volfová jmenována 14. 5. 2026).",
+        "effort_public_role": "Členkou Rozpočtového výboru a Stálé komise pro kontrolu poskytnutí údajů z centrální evidence účtů (2 role, přesně odpovídá committee_count=2 i poskytnutému seznamu committees) — kombinace rozpočtové a kontrolní/dozorové agendy nad bankovním dohledem.",
+        "effort_notes": "MONEY-TOUCHING OVĚŘENO (gate: ARES VR, ne SPA): jediná položka v linkedCompanies je Hvězdárna a planetárium v Hradci Králové (IČO 00084018, contractCzk 648 907,98 Kč, reviewState pending_review). Dotaz na https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/00084018 potvrzuje: jde o příspěvkovou organizaci (právní forma 331) zřizovanou Královéhradeckým krajem, jejím statutárním orgánem je od 1. 3. 2014 Mgr. Miroslav Krejčí (ředitel) — Jana Patková se v seznamu statutárních zástupců NEVYSKYTUJE. Jde tedy o vztah instituce z jejího volebního regionu (Královéhradecký kraj) k veřejné krajské organizaci, ne o osobní ani obchodní vazbu Patkové — konzervativně hodnotím jako OVĚŘENOU NEPŘÍTOMNOST osobní vazby, ne jako nevyřešené riziko. bills_authored=1 odpovídá počtu položek v sponsoredBills, ale nejde o vlastní iniciativu, jde o spolupodpis (gate e). committee_count souhlasí přesně (2=2).",
+        "effort_low_score_reason": null
+      },
+      "signal": 0.42,
+      "headline": "Patková spolupodepsala jedinou (vládou odmítnutou) novelu DPH; její jediná peněžní vazba — krajská hvězdárna v jejím regionu — je po ověření přes ARES VR institucionální, ne osobní: ředitelem je od 2014 M. Krejčí, ne ona.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/00084018",
+        "https://www.khk.cz/oblasti/kultura-pamatkova-pece/oddeleni-kultury-pamatkove-pece-0/organizace-v-kulture-knihovny/hvezdarna-planetarium-v-hradci-kralove"
+      ]
+    },
+    {
+      "id": "psp:person:6475",
+      "name": "Monika Oborná",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["zemědělská politika a potravinová soběstačnost", "kontrola mandátů a imunit", "hospodářská agenda"],
+        "effort_bill_focus": "Oborná nemá v tomto vzorku žádný sponsorovaný tisk (sponsoredBills je prázdné pole, bills_authored=0) — celý její příspěvek v tomto vzorku je výborová a vedoucí práce, ne legislativní iniciativa.",
+        "effort_public_role": "Od listopadu 2025 předsedkyní Zemědělského výboru Poslanecké sněmovny (zvolena proti jedinému protikandidátovi M. Šmídovi z Pirátů) — vedoucí, nikoli řadová role, konzistentní s props leadership_count=1 a weight=1 u ZEV v poskytnutém seznamu committees. Dále členkou Mandátového a imunitního výboru a Hospodářského výboru (celkem 3 role v poskytnutém seznamu). Jako předsedkyně výboru veřejně deklarovala prioritu dostupnosti českých potravin a spravedlivých dotačních podmínek pro zemědělce. V Poslanecké sněmovně od 2017, dříve zastupitelka Náměště nad Oslavou (2014–2018).",
+        "effort_notes": "Datová nesrovnalost: props uvádí committee_count=5, ale poskytnutý seznam committees obsahuje jen 3 položky (ZEV chair, MIV member, HV member) — chybí dvě vazby, doporučuji ověřit v pipeline Case ①, zejména zda předsednictví výboru samo o sobě generuje duplicitní počítání. Divergence oproti PSP9: kontribuce klesla z 75,4 (PSP9, kompletní komponenty včetně 23 interpelací a 6 tisků) na 61,8 (PSP10) navzdory nově získanému předsednictví výboru — nejde o pokles aktivity per se (participation_rate stoupla z 0,5 na 0,9, absence_rate klesla z 0,2 na 0,2 shodně), spíš o posun těžiště z legislativní iniciativy a interpelací (PSP9: 6 tisků, 23 interpelací) k výkonné výborové roli (PSP10: 0 tisků, 0 interpelací) — legitimní změna profilu práce po nástupu do vedoucí funkce, ne nutně slabší mandát. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření.",
+        "effort_low_score_reason": null
+      },
+      "signal": 0.45,
+      "headline": "Oborná od listopadu 2025 vede Zemědělský výbor a má nejvyšší docházku ve vzorku (0,9), ale její kontribuční skóre kleslo oproti PSP9 — profil se přesunul od tisků a interpelací k výkonné výborové práci, a vstupní počet výborů (5) opět neodpovídá třem doloženým.",
+      "citations": [
+        "https://www.ceskenoviny.cz/zpravy/v-cele-zemedelskeho-vyboru-snemovny-bude-monika-oborna-ano/2746966",
+        "https://www.psp.cz/sqw/detail.sqw?id=6475",
+        "https://ekonomickydenik.cz/zemedelsky-vybor-povede-oborna-chce-ceske-potraviny-a-ferove-dotace/"
+      ]
+    }
+  ]
+}

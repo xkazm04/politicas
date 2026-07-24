@@ -1,9 +1,9 @@
 {
   "case": "effort",
   "term": "PSP10",
-  "generatedAt": "2026-07-24T20:48:12.428Z",
+  "generatedAt": "2026-07-24T22:07:44.862Z",
   "population": 207,
-  "batch": 4,
+  "batch": 5,
   "units": [
     {
       "pspId": 6751,
@@ -42,7 +42,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.989,
         "z_vs_club": 1.93,
-        "component_divergence": 0.755,
+        "component_divergence": 0.723,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -63,7 +63,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 4.359,
         "z_vs_club": 2.22,
-        "component_divergence": 0.453,
+        "component_divergence": 0.418,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -84,7 +84,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 3.331,
         "z_vs_club": 1.88,
-        "component_divergence": 0.343,
+        "component_divergence": 0.313,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -105,7 +105,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 9.716,
         "z_vs_club": 2.15,
-        "component_divergence": 0.474,
+        "component_divergence": 0.433,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -126,7 +126,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 6.244,
         "z_vs_club": 1.87,
-        "component_divergence": 0.671,
+        "component_divergence": 0.762,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -210,7 +210,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 2.025,
         "z_vs_club": 1.38,
-        "component_divergence": 0.428,
+        "component_divergence": 0.568,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -231,7 +231,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 4.034,
         "z_vs_club": 1.68,
-        "component_divergence": 0.398,
+        "component_divergence": 0.41,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -294,7 +294,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.756,
         "z_vs_club": 1.2,
-        "component_divergence": 0.747,
+        "component_divergence": 0.72,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -357,7 +357,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.64,
         "z_vs_club": 1.63,
-        "component_divergence": 0.521,
+        "component_divergence": 0.526,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -525,7 +525,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.76,
         "z_vs_club": 1.17,
-        "component_divergence": 0.534,
+        "component_divergence": 0.608,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -567,7 +567,7 @@
         "workhorse_flavour": "legislative",
         "contested_vote_rebellion": 0.859,
         "z_vs_club": 1.47,
-        "component_divergence": 0.647,
+        "component_divergence": 0.65,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -588,7 +588,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 11.817,
         "z_vs_club": 1.38,
-        "component_divergence": 1.042,
+        "component_divergence": 1.076,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -609,7 +609,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 8.638,
         "z_vs_club": 1.36,
-        "component_divergence": 0.319,
+        "component_divergence": 0.326,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -620,8 +620,8 @@
       "club": "TOP09",
       "rank": 30,
       "contribution_score": 85.3,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -641,8 +641,8 @@
       "club": "KDU-ČSL",
       "rank": 31,
       "contribution_score": 85.2,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -662,8 +662,8 @@
       "club": "STAN",
       "rank": 32,
       "contribution_score": 85.1,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -683,8 +683,8 @@
       "club": "SPD",
       "rank": 33,
       "contribution_score": 85,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -693,7 +693,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 2.119,
         "z_vs_club": 1.01,
-        "component_divergence": 0.26,
+        "component_divergence": 0.31,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -704,8 +704,8 @@
       "club": "Piráti",
       "rank": 34,
       "contribution_score": 84.2,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -714,7 +714,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0,
         "z_vs_club": 0.85,
-        "component_divergence": 0.499,
+        "component_divergence": 0.652,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -725,8 +725,8 @@
       "club": "Piráti",
       "rank": 35,
       "contribution_score": 83.9,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -735,7 +735,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.061,
         "z_vs_club": 0.83,
-        "component_divergence": 0.986,
+        "component_divergence": 1.112,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -756,7 +756,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 3.122,
         "z_vs_club": 0.92,
-        "component_divergence": 1.313,
+        "component_divergence": 1.666,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -819,7 +819,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 5.145,
         "z_vs_club": 1.21,
-        "component_divergence": 0.727,
+        "component_divergence": 0.732,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -830,8 +830,8 @@
       "club": "ODS",
       "rank": 40,
       "contribution_score": 82.1,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -861,7 +861,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 4.235,
         "z_vs_club": 1.14,
-        "component_divergence": 1.01,
+        "component_divergence": 1.063,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -872,8 +872,8 @@
       "club": "STAN",
       "rank": 42,
       "contribution_score": 81.2,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -914,8 +914,8 @@
       "club": "Piráti",
       "rank": 44,
       "contribution_score": 81.1,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -924,7 +924,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.969,
         "z_vs_club": 0.67,
-        "component_divergence": 0.423,
+        "component_divergence": 1.372,
         "tenure_class": "replacement",
         "tenure_days": 260
       }
@@ -966,7 +966,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.885,
         "z_vs_club": 0.64,
-        "component_divergence": 0.44,
+        "component_divergence": 0.478,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -1050,7 +1050,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.102,
         "z_vs_club": 0.62,
-        "component_divergence": 0.429,
+        "component_divergence": 0.466,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -1071,7 +1071,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.014,
         "z_vs_club": 0.61,
-        "component_divergence": 0.493,
+        "component_divergence": 0.488,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -1092,7 +1092,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.748,
         "z_vs_club": 1.05,
-        "component_divergence": 0.771,
+        "component_divergence": 0.777,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -1134,7 +1134,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.938,
         "z_vs_club": 0.53,
-        "component_divergence": 0.986,
+        "component_divergence": 1.143,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -1187,8 +1187,8 @@
       "club": "ANO2011",
       "rank": 57,
       "contribution_score": 78,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -1197,7 +1197,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 2.583,
         "z_vs_club": 0.94,
-        "component_divergence": 0.402,
+        "component_divergence": 0.408,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -1208,8 +1208,8 @@
       "club": "ANO2011",
       "rank": 58,
       "contribution_score": 77.9,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -1218,7 +1218,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 2.045,
         "z_vs_club": 0.93,
-        "component_divergence": 0.372,
+        "component_divergence": 0.366,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -1239,7 +1239,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.061,
         "z_vs_club": 0.49,
-        "component_divergence": 0.539,
+        "component_divergence": 0.779,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -1250,8 +1250,8 @@
       "club": "Piráti",
       "rank": 60,
       "contribution_score": 77.7,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -1260,7 +1260,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.503,
         "z_vs_club": 0.48,
-        "component_divergence": 0.66,
+        "component_divergence": 0.849,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -1281,7 +1281,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.516,
         "z_vs_club": 0.58,
-        "component_divergence": 0.506,
+        "component_divergence": 0.521,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -1302,7 +1302,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 2.931,
         "z_vs_club": 0.89,
-        "component_divergence": 1.06,
+        "component_divergence": 1.067,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -1323,7 +1323,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 21.765,
         "z_vs_club": 0.88,
-        "component_divergence": 0.443,
+        "component_divergence": 0.453,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -1365,7 +1365,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.88,
         "z_vs_club": 0.51,
-        "component_divergence": 0.622,
+        "component_divergence": 0.644,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -1397,8 +1397,8 @@
       "club": "ANO2011",
       "rank": 67,
       "contribution_score": 75.8,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -1407,7 +1407,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.582,
         "z_vs_club": 0.81,
-        "component_divergence": 0.619,
+        "component_divergence": 0.641,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -1470,7 +1470,7 @@
         "workhorse_flavour": "legislative",
         "contested_vote_rebellion": 1.482,
         "z_vs_club": 0.78,
-        "component_divergence": 0.999,
+        "component_divergence": 1.021,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -1502,8 +1502,8 @@
       "club": "ANO2011",
       "rank": 72,
       "contribution_score": 75.2,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -1512,7 +1512,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.968,
         "z_vs_club": 0.78,
-        "component_divergence": 0.794,
+        "component_divergence": 0.825,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -1533,7 +1533,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 5.313,
         "z_vs_club": 0.76,
-        "component_divergence": 0.982,
+        "component_divergence": 1,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -1544,8 +1544,8 @@
       "club": "ODS",
       "rank": 74,
       "contribution_score": 74.7,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -1596,7 +1596,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 6.443,
         "z_vs_club": 0.73,
-        "component_divergence": 1.11,
+        "component_divergence": 1.181,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -1617,9 +1617,9 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 6.097,
         "z_vs_club": 0.68,
-        "component_divergence": 0.658,
-        "tenure_class": "full_term",
-        "tenure_days": 293
+        "component_divergence": 0.67,
+        "tenure_class": "departed",
+        "tenure_days": 258
       }
     },
     {
@@ -1628,8 +1628,8 @@
       "club": "TOP09",
       "rank": 78,
       "contribution_score": 73.3,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -1659,7 +1659,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.346,
         "z_vs_club": 0.32,
-        "component_divergence": 0.742,
+        "component_divergence": 0.83,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -1670,8 +1670,8 @@
       "club": "ANO2011",
       "rank": 80,
       "contribution_score": 72.6,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -1680,7 +1680,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 2.686,
         "z_vs_club": 0.63,
-        "component_divergence": 0.458,
+        "component_divergence": 0.476,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -1764,7 +1764,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.085,
         "z_vs_club": 0.56,
-        "component_divergence": 0.651,
+        "component_divergence": 0.631,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -1806,7 +1806,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 4.453,
         "z_vs_club": 0.55,
-        "component_divergence": 0.506,
+        "component_divergence": 0.522,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -1848,7 +1848,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.103,
         "z_vs_club": 0.54,
-        "component_divergence": 0.778,
+        "component_divergence": 0.804,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -1859,8 +1859,8 @@
       "club": "ODS",
       "rank": 89,
       "contribution_score": 70.9,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -1911,7 +1911,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 3.392,
         "z_vs_club": 0.51,
-        "component_divergence": 1.024,
+        "component_divergence": 1.101,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -1922,8 +1922,8 @@
       "club": "KDU-ČSL",
       "rank": 92,
       "contribution_score": 70.4,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -1964,8 +1964,8 @@
       "club": "TOP09",
       "rank": 94,
       "contribution_score": 70,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -1985,8 +1985,8 @@
       "club": "ANO2011",
       "rank": 95,
       "contribution_score": 69.7,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -1995,7 +1995,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 2.71,
         "z_vs_club": 0.47,
-        "component_divergence": 0.952,
+        "component_divergence": 0.717,
         "tenure_class": "replacement",
         "tenure_days": 262
       }
@@ -2016,7 +2016,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 6.119,
         "z_vs_club": 0.46,
-        "component_divergence": 0.743,
+        "component_divergence": 0.769,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2048,8 +2048,8 @@
       "club": "ANO2011",
       "rank": 98,
       "contribution_score": 69.4,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -2058,7 +2058,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.812,
         "z_vs_club": 0.45,
-        "component_divergence": 0.909,
+        "component_divergence": 0.911,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2079,7 +2079,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.162,
         "z_vs_club": 0.01,
-        "component_divergence": 0.563,
+        "component_divergence": 0.639,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2142,7 +2142,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 6.76,
         "z_vs_club": 0.1,
-        "component_divergence": 0.39,
+        "component_divergence": 0.527,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2163,7 +2163,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 5.671,
         "z_vs_club": 0.1,
-        "component_divergence": 0.291,
+        "component_divergence": 0.276,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2195,8 +2195,8 @@
       "club": "ANO2011",
       "rank": 105,
       "contribution_score": 68.4,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -2205,7 +2205,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 2.733,
         "z_vs_club": 0.39,
-        "component_divergence": 0.703,
+        "component_divergence": 0.727,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2226,7 +2226,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.23,
         "z_vs_club": 0.07,
-        "component_divergence": 0.722,
+        "component_divergence": 0.854,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2289,7 +2289,7 @@
         "workhorse_flavour": "legislative",
         "contested_vote_rebellion": 1.119,
         "z_vs_club": 0.22,
-        "component_divergence": 0.906,
+        "component_divergence": 1.001,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2310,7 +2310,7 @@
         "workhorse_flavour": "legislative",
         "contested_vote_rebellion": 2.706,
         "z_vs_club": 0.33,
-        "component_divergence": 0.579,
+        "component_divergence": 0.585,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2321,8 +2321,8 @@
       "club": "ANO2011",
       "rank": 111,
       "contribution_score": 67,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -2331,7 +2331,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.024,
         "z_vs_club": 0.31,
-        "component_divergence": 1.056,
+        "component_divergence": 1.115,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2342,8 +2342,8 @@
       "club": "MS",
       "rank": 112,
       "contribution_score": 66.6,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -2352,7 +2352,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.799,
         "z_vs_club": 0.15,
-        "component_divergence": 0.729,
+        "component_divergence": 0.732,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2394,7 +2394,7 @@
         "workhorse_flavour": "legislative",
         "contested_vote_rebellion": 0.814,
         "z_vs_club": 0.28,
-        "component_divergence": 0.629,
+        "component_divergence": 0.634,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2415,7 +2415,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.109,
         "z_vs_club": -0.17,
-        "component_divergence": 0.66,
+        "component_divergence": 0.994,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2426,8 +2426,8 @@
       "club": "ANO2011",
       "rank": 116,
       "contribution_score": 65.9,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -2436,7 +2436,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.803,
         "z_vs_club": 0.25,
-        "component_divergence": 0.709,
+        "component_divergence": 0.743,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2468,8 +2468,8 @@
       "club": "MS",
       "rank": 118,
       "contribution_score": 65.7,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -2478,7 +2478,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 2.555,
         "z_vs_club": 0.08,
-        "component_divergence": 0.31,
+        "component_divergence": 0.34,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2499,7 +2499,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.096,
         "z_vs_club": -0.2,
-        "component_divergence": 0.566,
+        "component_divergence": 0.633,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2510,8 +2510,8 @@
       "club": "ANO2011",
       "rank": 120,
       "contribution_score": 65.4,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -2520,7 +2520,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 2.082,
         "z_vs_club": 0.22,
-        "component_divergence": 1.05,
+        "component_divergence": 1.115,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2541,7 +2541,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 10.385,
         "z_vs_club": 0.02,
-        "component_divergence": 0.454,
+        "component_divergence": 0.465,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2562,7 +2562,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 3.439,
         "z_vs_club": 0.15,
-        "component_divergence": 0.834,
+        "component_divergence": 0.918,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2583,7 +2583,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.368,
         "z_vs_club": 0.12,
-        "component_divergence": 0.777,
+        "component_divergence": 0.761,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2594,8 +2594,8 @@
       "club": "ANO2011",
       "rank": 124,
       "contribution_score": 63.7,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -2604,7 +2604,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.99,
         "z_vs_club": 0.12,
-        "component_divergence": 0.679,
+        "component_divergence": 0.713,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2625,7 +2625,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.283,
         "z_vs_club": 0.12,
-        "component_divergence": 0.913,
+        "component_divergence": 0.946,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2646,7 +2646,7 @@
         "workhorse_flavour": "oversight",
         "contested_vote_rebellion": 2.244,
         "z_vs_club": 0.11,
-        "component_divergence": 0.782,
+        "component_divergence": 0.806,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2667,7 +2667,7 @@
         "workhorse_flavour": "legislative",
         "contested_vote_rebellion": 5.457,
         "z_vs_club": -0.23,
-        "component_divergence": 0.499,
+        "component_divergence": 0.454,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2678,8 +2678,8 @@
       "club": "Piráti",
       "rank": 128,
       "contribution_score": 63,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -2688,7 +2688,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.042,
         "z_vs_club": -0.34,
-        "component_divergence": 0.856,
+        "component_divergence": 1.215,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2709,7 +2709,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0,
         "z_vs_club": -0.36,
-        "component_divergence": 0.598,
+        "component_divergence": 0.691,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2730,7 +2730,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.819,
         "z_vs_club": 0.06,
-        "component_divergence": 0.733,
+        "component_divergence": 0.806,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2772,7 +2772,7 @@
         "workhorse_flavour": "oversight",
         "contested_vote_rebellion": 2.434,
         "z_vs_club": -0.17,
-        "component_divergence": 0.918,
+        "component_divergence": 0.983,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2793,7 +2793,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 3.921,
         "z_vs_club": -0.19,
-        "component_divergence": 0.985,
+        "component_divergence": 0.993,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2804,8 +2804,8 @@
       "club": "STAN",
       "rank": 134,
       "contribution_score": 61.9,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -2825,8 +2825,8 @@
       "club": "ANO2011",
       "rank": 135,
       "contribution_score": 61.8,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -2835,7 +2835,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 2.164,
         "z_vs_club": 0.02,
-        "component_divergence": 0.721,
+        "component_divergence": 0.726,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2867,8 +2867,8 @@
       "club": "SPD",
       "rank": 137,
       "contribution_score": 61.2,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -2877,7 +2877,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 2.718,
         "z_vs_club": -0.33,
-        "component_divergence": 0.814,
+        "component_divergence": 0.824,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2898,7 +2898,7 @@
         "workhorse_flavour": "oversight",
         "contested_vote_rebellion": 5.112,
         "z_vs_club": -0.02,
-        "component_divergence": 0.745,
+        "component_divergence": 0.749,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2909,8 +2909,8 @@
       "club": "SPD",
       "rank": 139,
       "contribution_score": 60.9,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -2919,7 +2919,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.873,
         "z_vs_club": -0.34,
-        "component_divergence": 0.597,
+        "component_divergence": 0.582,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2940,7 +2940,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 5.142,
         "z_vs_club": -0.05,
-        "component_divergence": 0.649,
+        "component_divergence": 0.69,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2961,7 +2961,7 @@
         "workhorse_flavour": "legislative",
         "contested_vote_rebellion": 3.663,
         "z_vs_club": -0.28,
-        "component_divergence": 0.651,
+        "component_divergence": 0.728,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -2982,7 +2982,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0,
         "z_vs_club": -0.06,
-        "component_divergence": 0.55,
+        "component_divergence": 0.56,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3003,7 +3003,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.723,
         "z_vs_club": -0.09,
-        "component_divergence": 0.786,
+        "component_divergence": 0.824,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3014,8 +3014,8 @@
       "club": "MS",
       "rank": 144,
       "contribution_score": 60,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -3024,7 +3024,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 2.024,
         "z_vs_club": -0.33,
-        "component_divergence": 0.94,
+        "component_divergence": 0.938,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3056,8 +3056,8 @@
       "club": "TOP09",
       "rank": 146,
       "contribution_score": 58.9,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -3087,7 +3087,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.245,
         "z_vs_club": -0.15,
-        "component_divergence": 1.483,
+        "component_divergence": 1.648,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3108,7 +3108,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.511,
         "z_vs_club": -0.51,
-        "component_divergence": 1.626,
+        "component_divergence": 1.559,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3129,7 +3129,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.654,
         "z_vs_club": -0.65,
-        "component_divergence": 0.461,
+        "component_divergence": 0.664,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3150,7 +3150,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.368,
         "z_vs_club": -0.24,
-        "component_divergence": 0.63,
+        "component_divergence": 0.671,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3182,8 +3182,8 @@
       "club": "Piráti",
       "rank": 152,
       "contribution_score": 57.1,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -3192,7 +3192,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.945,
         "z_vs_club": -0.67,
-        "component_divergence": 0.336,
+        "component_divergence": 0.473,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3213,7 +3213,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.877,
         "z_vs_club": -0.27,
-        "component_divergence": 0.554,
+        "component_divergence": 0.556,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3234,7 +3234,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.376,
         "z_vs_club": -0.28,
-        "component_divergence": 0.655,
+        "component_divergence": 0.696,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3276,7 +3276,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.989,
         "z_vs_club": -0.33,
-        "component_divergence": 1.01,
+        "component_divergence": 0.998,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3297,7 +3297,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.077,
         "z_vs_club": -0.34,
-        "component_divergence": 0.806,
+        "component_divergence": 0.81,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3308,8 +3308,8 @@
       "club": "ANO2011",
       "rank": 158,
       "contribution_score": 55.5,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -3318,7 +3318,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0,
         "z_vs_club": -0.34,
-        "component_divergence": 1.106,
+        "component_divergence": 1.249,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3339,7 +3339,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.679,
         "z_vs_club": -0.38,
-        "component_divergence": 0.776,
+        "component_divergence": 0.818,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3360,7 +3360,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.593,
         "z_vs_club": -0.38,
-        "component_divergence": 0.864,
+        "component_divergence": 0.904,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3371,8 +3371,8 @@
       "club": "STAN",
       "rank": 161,
       "contribution_score": 54.8,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -3402,7 +3402,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 2.899,
         "z_vs_club": -0.4,
-        "component_divergence": 0.835,
+        "component_divergence": 0.644,
         "tenure_class": "replacement",
         "tenure_days": 262
       }
@@ -3423,7 +3423,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 4.153,
         "z_vs_club": -0.41,
-        "component_divergence": 0.785,
+        "component_divergence": 0.827,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3444,7 +3444,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 5.11,
         "z_vs_club": -0.42,
-        "component_divergence": 0.703,
+        "component_divergence": 0.745,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3465,7 +3465,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.592,
         "z_vs_club": -0.42,
-        "component_divergence": 0.768,
+        "component_divergence": 0.598,
         "tenure_class": "replacement",
         "tenure_days": 262
       }
@@ -3486,7 +3486,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 3.615,
         "z_vs_club": -0.44,
-        "component_divergence": 0.776,
+        "component_divergence": 0.818,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3507,7 +3507,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.909,
         "z_vs_club": -0.44,
-        "component_divergence": 0.785,
+        "component_divergence": 0.827,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3528,7 +3528,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0,
         "z_vs_club": -0.5,
-        "component_divergence": 0.476,
+        "component_divergence": 0.477,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3539,8 +3539,8 @@
       "club": "ANO2011",
       "rank": 169,
       "contribution_score": 52.5,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -3549,7 +3549,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.781,
         "z_vs_club": -0.51,
-        "component_divergence": 0.968,
+        "component_divergence": 0.957,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3570,7 +3570,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.326,
         "z_vs_club": -0.52,
-        "component_divergence": 0.548,
+        "component_divergence": 0.59,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3591,7 +3591,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.167,
         "z_vs_club": -0.54,
-        "component_divergence": 0.953,
+        "component_divergence": 0.992,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3602,8 +3602,8 @@
       "club": "ANO2011",
       "rank": 172,
       "contribution_score": 51.5,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -3612,7 +3612,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.979,
         "z_vs_club": -0.57,
-        "component_divergence": 0.503,
+        "component_divergence": 0.516,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3623,8 +3623,8 @@
       "club": "MS",
       "rank": 173,
       "contribution_score": 51,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -3633,7 +3633,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 2.397,
         "z_vs_club": -0.98,
-        "component_divergence": 0.717,
+        "component_divergence": 0.686,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3665,8 +3665,8 @@
       "club": "ANO2011",
       "rank": 175,
       "contribution_score": 50.5,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -3675,7 +3675,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.866,
         "z_vs_club": -0.63,
-        "component_divergence": 0.375,
+        "component_divergence": 0.398,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3738,7 +3738,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.883,
         "z_vs_club": -1.13,
-        "component_divergence": 1.308,
+        "component_divergence": 1.237,
         "tenure_class": "replacement",
         "tenure_days": 55
       }
@@ -3770,8 +3770,8 @@
       "club": "ANO2011",
       "rank": 180,
       "contribution_score": 48.2,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -3780,7 +3780,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.989,
         "z_vs_club": -0.76,
-        "component_divergence": 0.841,
+        "component_divergence": 0.913,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3822,7 +3822,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 11.543,
         "z_vs_club": -0.8,
-        "component_divergence": 0.833,
+        "component_divergence": 0.906,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3833,8 +3833,8 @@
       "club": "Piráti",
       "rank": 183,
       "contribution_score": 47.2,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 5,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -3843,7 +3843,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.33,
         "z_vs_club": -1.22,
-        "component_divergence": 1.028,
+        "component_divergence": 1.277,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3864,7 +3864,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.058,
         "z_vs_club": -1.12,
-        "component_divergence": 1.176,
+        "component_divergence": 1.125,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3885,9 +3885,9 @@
         "workhorse_flavour": "oversight",
         "contested_vote_rebellion": 0,
         "z_vs_club": -1.26,
-        "component_divergence": 1.005,
-        "tenure_class": "full_term",
-        "tenure_days": 293
+        "component_divergence": 0.838,
+        "tenure_class": "departed",
+        "tenure_days": 238
       }
     },
     {
@@ -3906,7 +3906,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.16,
         "z_vs_club": -0.85,
-        "component_divergence": 0.646,
+        "component_divergence": 0.724,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3948,7 +3948,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 2.828,
         "z_vs_club": -0.9,
-        "component_divergence": 0.648,
+        "component_divergence": 0.673,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -3969,7 +3969,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.86,
         "z_vs_club": -0.9,
-        "component_divergence": 0.648,
+        "component_divergence": 0.673,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -4011,7 +4011,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.582,
         "z_vs_club": -0.96,
-        "component_divergence": 1.964,
+        "component_divergence": 2.256,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -4032,7 +4032,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.411,
         "z_vs_club": -1.17,
-        "component_divergence": 0.258,
+        "component_divergence": 0.202,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -4053,7 +4053,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0,
         "z_vs_club": -1.18,
-        "component_divergence": 0.3,
+        "component_divergence": 0.306,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -4074,7 +4074,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.411,
         "z_vs_club": -1.36,
-        "component_divergence": 0.298,
+        "component_divergence": 0.377,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -4095,7 +4095,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0,
         "z_vs_club": -1.36,
-        "component_divergence": 0.967,
+        "component_divergence": 1.052,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -4116,7 +4116,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.809,
         "z_vs_club": -1.36,
-        "component_divergence": 1.439,
+        "component_divergence": 1.736,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -4158,7 +4158,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0.411,
         "z_vs_club": -1.48,
-        "component_divergence": 1.029,
+        "component_divergence": 1.271,
         "tenure_class": "full_term",
         "tenure_days": 293
       }
@@ -4200,9 +4200,9 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.129,
         "z_vs_club": -2.06,
-        "component_divergence": 1.427,
-        "tenure_class": "full_term",
-        "tenure_days": 293
+        "component_divergence": 1.148,
+        "tenure_class": "departed",
+        "tenure_days": 158
       }
     },
     {
@@ -4221,7 +4221,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 2.515,
         "z_vs_club": -2.08,
-        "component_divergence": 1.154,
+        "component_divergence": 0.665,
         "tenure_class": "replacement",
         "tenure_days": 135
       }
@@ -4242,7 +4242,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0,
         "z_vs_club": -1.81,
-        "component_divergence": 1.012,
+        "component_divergence": 0.645,
         "tenure_class": "replacement",
         "tenure_days": 35
       }
@@ -4284,9 +4284,9 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": null,
         "z_vs_club": -2.91,
-        "component_divergence": 1.616,
-        "tenure_class": "full_term",
-        "tenure_days": 293
+        "component_divergence": 1.598,
+        "tenure_class": "never_seated",
+        "tenure_days": 30
       }
     },
     {
@@ -4305,9 +4305,9 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": null,
         "z_vs_club": -2.91,
-        "component_divergence": 1.616,
-        "tenure_class": "full_term",
-        "tenure_days": 293
+        "component_divergence": 1.598,
+        "tenure_class": "never_seated",
+        "tenure_days": 30
       }
     },
     {
@@ -4326,9 +4326,9 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": null,
         "z_vs_club": -2.91,
-        "component_divergence": 1.616,
-        "tenure_class": "full_term",
-        "tenure_days": 293
+        "component_divergence": 1.598,
+        "tenure_class": "never_seated",
+        "tenure_days": 30
       }
     },
     {
@@ -4347,9 +4347,9 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": null,
         "z_vs_club": -3.33,
-        "component_divergence": 2.074,
-        "tenure_class": "full_term",
-        "tenure_days": 293
+        "component_divergence": 2.122,
+        "tenure_class": "never_seated",
+        "tenure_days": 33
       }
     }
   ]

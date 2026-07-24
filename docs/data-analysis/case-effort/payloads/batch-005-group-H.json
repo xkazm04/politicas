@@ -1,0 +1,113 @@
+{
+  "generatedAt": "2026-07-25T00:00:00.000Z",
+  "proposals": [
+    {
+      "id": "psp:person:6769",
+      "name": "Hayato Okamura",
+      "club": "KDU-ČSL",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["zahraniční a bezpečnostní politika", "hybridní hrozby", "petice a lidská práva"],
+        "effort_bill_focus": "Okamura je spolupodepsán (nikoli prvním předkladatelem) u všech 6 tisků ze svého vzorku, žádný k 25. 7. 2026 nebyl přijat: tisk 50 (důchodové pojištění, vedl M. Jurečka, čeká na projednání ve VSP), tisk 89 (rozpočtová pravidla, vedl B. Činčila, čeká na projednání v RV), tisk 109 (nemocenské pojištění, vedl M. Jurečka, čeká na VSP), tisk 110 (pojistné na sociální zabezpečení, vedl M. Jurečka, čeká na VSP), tisk 121 (daně z příjmů, vedl M. Jurečka, čeká na VSP) a tisk 161 (zákon o odpadech, vedl P. Hladík, čeká na VŽP se zamítavým stanoviskem vlády). Všech 6 je tedy spolupodpisů u klubových kolegů KDU-ČSL, žádná vlastní iniciativa (schema poznámka e).",
+        "effort_public_role": "Členem Zahraničního výboru, Petičního výboru a Stálé komise pro hybridní hrozby (3 role, přesně odpovídá committee_count=3) — konzistentní s jeho veřejně deklarovaným zaměřením na zahraniční a bezpečnostní politiku a otázky národnostních menšin (je japonsko-český překladatel, člen Zahraničního výboru dle veřejných zdrojů).",
+        "effort_notes": "bills_authored=6 odpovídá přesně počtu položek v sponsoredBills, ale u žádného tisku není Okamura prvním předkladatelem — jde výhradně o klubové spolupodpisy (schema poznámka e). committee_count souhlasí přesně (3=3), žádná datová nesrovnalost na rozdíl od jiných poslanců v tomto vzorku. Skóre mírně pokleslo oproti PSP9 (73.7 → 70.4), ale tenureClass je full_term (293 dní), takže nejde o artefakt nástupu. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.32,
+      "headline": "Okamura drží stabilní tříčlenné výborové zázemí soustředěné na zahraniční a bezpečnostní agendu (vč. hybridních hrozeb), ale u žádného ze šesti spolupodepsaných tisků nebyl vlastním předkladatelem.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=50",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=89",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=109",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=110",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=121",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=161",
+        "https://en.wikipedia.org/wiki/Hayato_Okamura"
+      ]
+    },
+    {
+      "id": "psp:person:6490",
+      "name": "Petr Vrána",
+      "club": "ANO2011",
+      "lens": ["bottom"],
+      "props": {
+        "effort_work_themes": ["výborová práce bez legislativní iniciativy nebo řečnické aktivity — souběh s exekutivní funkcí primátora"],
+        "effort_bill_focus": "Vstupní data uvádějí sponsoredBills jako prázdné pole a bills_authored=0 — Vrána v tomto vzorku nemá žádný vlastní ani spolupodepsaný tisk.",
+        "effort_public_role": "Členem Petičního výboru a Kontrolního výboru (2 role, odpovídá committee_count=2). Zároveň je od poloviny října 2022 primátorem Přerova (cca 40 tisíc obyvatel) — mandát poslance vykonává SOUBĚŽNĚ s exekutivní funkcí v čele krajského města, dříve (do prosince 2018) byl též náměstkem hejtmana Olomouckého kraje pro kulturu, sport a památkovou péči.",
+        "effort_low_score_reason": "Nulová řečnická a legislativní aktivita (speech_turns=0, bills_authored=0, interpellations=0) při současné perfektní účasti (participation_rate=1.0, absence_rate=0) je konzistentní se strukturálním artefaktem, ne s nezájmem: Vrána od října 2022 souběžně vykonává funkci primátora Přerova, což je časově náročná exekutivní role srovnatelná s dřívějšími case-effort artefaktovými třídami (P30 mladý mandát, P38 náhradník) — zde jde o TŘETÍ třídu, dual-mandate starosta/primátor, patrnou i u dalších dvou poslankyň v tomto vzorku (Blišťanová, Dražilová). Skóre pokleslo oproti PSP9 (66.8 → 48.2), což časově odpovídá nástupu do funkce primátora v polovině probíhajícího volebního období PSP9 a jeho pokračování do PSP10.",
+        "effort_notes": "Numerika souhlasí: participation_rate=1.0 a bills_authored=0 přesně odpovídají nálezu čisté výborové docházky bez legislativní iniciativy. committee_count souhlasí přesně (2=2). linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření. Doporučuji Case ① zvážit tenure/dual-mandate normalizaci pro tuto a podobné poslance (Q-effort-5 rozšířený o dual-mandate třídu)."
+      },
+      "signal": 0.55,
+      "headline": "Vránovo nejnižší skóre ve vzorku (nulová řeč, nulová legislativa) při stoprocentní účasti je vysvětlitelné strukturálně — od října 2022 je souběžně primátorem Přerova, ne projevem nezájmu o poslaneckou práci.",
+      "citations": [
+        "https://prerovsky.denik.cz/ostatni_region/petr-vrana-se-stal-namestkem-olomouckeho-hejtmana-20181218.html",
+        "https://www.anobudelip.cz/cs/olomoucky-kraj/kandidati/petr-vrana-28903.shtml",
+        "https://cs.wikipedia.org/wiki/Petr_Vr%C3%A1na_(politik)"
+      ]
+    },
+    {
+      "id": "psp:person:6992",
+      "name": "Zdeňka Blišťanová",
+      "club": "TOP09",
+      "lens": ["divergence"],
+      "props": {
+        "effort_work_themes": ["sociální politika", "veřejná správa a regionální rozvoj", "regiony v transformaci a znevýhodněné oblasti", "volební agenda"],
+        "effort_bill_focus": "Blišťanová je spolupodepsána (nikoli první předkladatelkou) u všech 4 tisků svého vzorku, žádný k 25. 7. 2026 nebyl přijat: tisk 59 (sociální podnikání, vedla P. Pivoňka Vaňková, nesouhlas vlády, čeká ve VSP), tisk 106 a tisk 107 (oba veřejná správa/podnikání v cestovním ruchu, vedla E. Olšáková, oba nesouhlas vlády, čekají ve VSR), a tisk 181 (ústavně-právní novela, vedl M. O. Havel, nesouhlas vlády, čeká v ÚPV).",
+        "effort_public_role": "Členkou Volební komise, Výboru pro sociální politiku a Výboru pro veřejnou správu a regionální rozvoj (3 role, přesně odpovídá committee_count=3) a místopředsedkyní podvýboru pro regiony v transformaci a hospodářsky a sociálně znevýhodněné oblasti (dle veřejných zdrojů). Souběžně je od roku 2018 starostkou Jeseníku — třetí případ dual-mandate starosty v tomto vzorku (viz Vrána) — do prosince 2025 byla navíc krajskou zastupitelkou Olomouckého kraje, kde ji nahradil náhradník.",
+        "effort_notes": "bills_authored=4 odpovídá přesně počtu položek v sponsoredBills, ale u žádného tisku není první předkladatelkou (schema poznámka e). committee_count souhlasí přesně (3=3). Její výborové zařazení (veřejná správa, sociální politika, regiony v transformaci) je tematicky konzistentní s dlouholetou praxí starostky menšího města — komponentDivergence (1.082) tak může odrážet legitimní specializaci na komunální/regionální agendu spíš než nevyváženost. contributionPsp9 je null (dřívější mandát byl krajský, ne poslanecký, takže srovnání PSP9 zde neplatí). linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření.",
+        "effort_low_score_reason": "Není v lens 'bottom', ale patří do stejné dual-mandate strukturální třídy jako Vrána: souběžný výkon funkce starostky Jeseníku od 2018 je pravděpodobným časovým omezením i zde, byť její skóre (73.3) samo o sobě není nízké."
+      },
+      "signal": 0.38,
+      "headline": "Blišťanová spojuje tříčlenné výborové portfolio (sociální politika, veřejná správa, regiony v transformaci) s dlouholetou funkcí starostky Jeseníku, ale žádný ze čtyř spolupodepsaných tisků dosud neprošel.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=59",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=106",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=107",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=181",
+        "https://olomoucky.denik.cz/zpravy_region/zdenka-blistanova-jesenik-olomoucky-kraj-psp-cr-ales-jakubec.html",
+        "https://cs.wikipedia.org/wiki/Zde%C5%88ka_Bli%C5%A1%C5%A5anov%C3%A1"
+      ]
+    },
+    {
+      "id": "psp:person:6905",
+      "name": "Andrea Hoffmannová",
+      "club": "Piráti",
+      "lens": ["bottom", "divergence"],
+      "props": {
+        "effort_work_themes": ["média a audiovize", "věda, vzdělávání, mládež a sport", "školský zákon"],
+        "effort_bill_focus": "Hoffmannová je spolupodepsána (nikoli první předkladatelkou) u jediného tisku svého vzorku: tisk 168 (novela školského zákona, vedla O. Richterová a další, 25. 7. 2026 čeká na projednání v RV, nesouhlas vlády z 12. 5. 2026).",
+        "effort_public_role": "Členkou Výboru pro mediální záležitosti a Výboru pro vědu, vzdělávání, mládež a sport (dle poskytnutého kontextu 2 role). Souběžně byla od prosince 2018 do ledna 2026 náměstkyní primátora Ostravy (jedno z časově nejnáročnějších exekutivních míst mezi statutárními městy) a od ledna 2026 je zastupitelkou města — tedy po většinu dosavadního poslaneckého mandátu (od října 2025) souběžně vykonávala i vysoce exponovanou exekutivní funkci ve druhém největším městě ČR, což je čtvrtý dual-mandate případ v tomto vzorku (po Vránovi, Blišťanové a částečně Dražilové).",
+        "effort_notes": "Datová nesrovnalost: props uvádí committee_count=4, ale pole committees v poskytnutém kontextu obsahuje jen 2 položky (VMZ, VVVMS) — stejný typ diskrepance jako u Řehkové a Langa v batch-004, doporučuji ověřit v pipeline Case ①. bills_authored=1 odpovídá jediné položce v sponsoredBills, spolupodpis (schema poznámka e). MONEY-TOUCHING (dvě nezávislé vrstvy ověření dle P51/C13): (1) základní ARES dotaz na ekonomicke-subjekty/61989592 potvrzuje, že jde o Univerzitu Palackého v Olomouci, právní forma 601 = veřejná vysoká škola zřízená zákonem; přímý dotaz na ARES VR endpoint (ekonomicke-subjekty-vr/61989592) vrátil HTTP 404 — na rozdíl od dřívějších 'JS-SPA bez obsahu' případů jde tu o OČEKÁVANÝ výsledek, protože veřejné vysoké školy nejsou zapisovány do obchodního rejstříku (nemají statutární orgán ve smyslu VR, mají rektora dle zákona o vysokých školách), takže absence VR záznamu sama o sobě potvrzuje typ subjektu, ne chybu; (2) Hlídač státu (nezávislý druhý zdroj) u Hoffmannové dokládá jen vzdělávací vazbu na UP Olomouc — doktorát (Ph.D.) dokončený do 2011 — a ŽÁDNOU zaměstnaneckou, obchodní ani poradenskou vazbu. Závěr: contractCzk 224 319 743,1 Kč je řádově institucionální částka (souhrn veřejných zakázek/grantů univerzity jako instituce), ne osobní platba Hoffmannové; nenalezena žádná aktuální osobní/obchodní vazba nad rámec historického doktorandského studia. Doporučuji Case ① ověřit v Registru smluv, zda konkrétní smlouva(y) za touto částkou vůbec jmenují Hoffmannovou, než položka opustí pending_review."
+      },
+      "signal": 0.5,
+      "headline": "Hoffmannové nízké skóre kryje z velké části souběh s náročnou funkcí náměstkyně primátora Ostravy do ledna 2026; peněžní vazba na Univerzitu Palackého se po dvou nezávislých ověřeních ukazuje jako stará doktorandská vazba, ne aktuální obchodní angažmá.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/61989592",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/61989592",
+        "https://www.hlidacstatu.cz/Osoba/Funkce/andrea-hoffmannova-3",
+        "https://cs.wikipedia.org/wiki/Andrea_Hoffmannov%C3%A1",
+        "https://moravskoslezsky.pirati.cz/lide/mgr-andrea-hoffmannova-phd/"
+      ]
+    },
+    {
+      "id": "psp:person:6431",
+      "name": "Lenka Dražilová",
+      "club": "ANO2011",
+      "lens": ["divergence"],
+      "props": {
+        "effort_work_themes": ["sociální politika a pojistné", "zdravotnictví (pojistné na veřejné zdravotní pojištění)", "školský zákon a symboly obcí"],
+        "effort_bill_focus": "Dražilová je spolupodepsána (nikoli první předkladatelkou) u všech 3 tisků svého vzorku, ale DVA z nich se staly zákonem: tisk 11 (novela zákona o pojistném na sociální zabezpečení, vedla A. Schillerová a další) prošel Sněmovnou 25. 3. 2026, Senát jej 6. 5. 2026 zamítl, Sněmovna 26. 5. 2026 setrvala na svém návrhu, prezident podepsal a byl vyhlášen jako zákon č. 90/2026 Sb. (10. 6. 2026); tisk 70 (novela zákona o pojistném na veřejné zdravotní pojištění, vedl Vojtěch Adam) prošel celým procesem a byl vyhlášen jako zákon č. 71/2026 Sb. (26. 5. 2026). Třetí, tisk 87 (o symbolech obcí, vedl R. Vondráček), zůstává k 25. 7. 2026 v projednávání ve VVVMS.",
+        "effort_public_role": "Místopředsedkyní Výboru pro sociální politiku (weight 0.6, odpovídá leadership_count=1) a členkou Výboru pro zdravotnictví (2 role uvedeny v kontextu). Souběžně je od roku 2022 místostarostkou Blanska — pátý dual-mandate případ v tomto vzorku (byť místostarostka je typicky méně časově náročná než primátor/starosta plného úvazku u Vrány a Blišťanové); dříve pracovala jako ředitelka Domova pro seniory v Blansku, což koresponduje s jejím zaměřením na sociální/zdravotní agendu.",
+        "effort_notes": "bills_authored=3 odpovídá přesně počtu položek v sponsoredBills; u žádného není první předkladatelkou (schema poznámka e), ale přesto jde o pozitivní zjištění — dva ze tří spolupodepsaných tisků skutečně prošly celým legislativním procesem a staly se zákonem, což je jiná kategorie úspěchu než pouhé podání. Datová nesrovnalost: props uvádí committee_count=3, ale pole committees obsahuje jen 2 položky (VSP vice, VZ member) — třetí případ tohoto typu diskrepance v tomto vzorku (po Hoffmannové a obdobných nálezech v batch-004), doporučuji Case ① ověřit systematicky napříč pipeline. Skóre mírně pokleslo oproti PSP9 (70.8 → 67), ale zůstává nad klubovým průměrem (zVsClub=0.31). linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.45,
+      "headline": "Dražilová nikdy nebyla první předkladatelkou, ale dva ze tří tisků, které spolupodepsala, se skutečně staly zákonem (č. 90/2026 a č. 71/2026 Sb.) — vzácný pozitivní nález v tomto vzorku, vedle souběžné funkce místostarostky Blanska.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=70",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
+        "https://cs.wikipedia.org/wiki/Lenka_Dra%C5%BEilov%C3%A1"
+      ]
+    }
+  ]
+}

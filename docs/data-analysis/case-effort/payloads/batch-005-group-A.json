@@ -1,0 +1,94 @@
+{
+  "generatedAt": "2026-07-25T00:00:00.000Z",
+  "proposals": [
+    {
+      "id": "psp:person:6537",
+      "name": "Jan Lipavský",
+      "club": "ODS",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["zahraniční politika", "evropské záležitosti", "kontrola BIS"],
+        "effort_bill_focus": "V poskytnutém vzorku nemá Lipavský žádný sponzorovaný tisk (sponsoredBills je prázdné pole), což odpovídá props bills_authored=0 — v tomto období tedy nevedl ani nespolupodepsal žádnou legislativní iniciativu.",
+        "effort_public_role": "Lipavský byl ministrem zahraničních věcí od 17. 12. 2021 do 15. 12. 2025 (vláda P. Fialy) a po vládní obměně po volbách 2025 přešel na řadové poslanecké křeslo za ODS. Nyní je členem Výboru pro evropské záležitosti (od 16. 1. 2026, zároveň ověřovatelem tohoto výboru od 22. 1. 2026), Zahraničního výboru (od 16. 1. 2026), podvýboru pro krajany (od 18. 2. 2026) a Stálé komise pro kontrolu činnosti BIS (od 16. 1. 2026) — profesně navazuje na svou předchozí zahraničně-politickou roli.",
+        "effort_notes": "Datová nesrovnalost: props uvádí committee_count=4, ale poskytnutý seznam committees obsahuje jen 3 položky (VEZ, ZAV, SKBIS); psp.cz přitom uvádí 5 samostatných funkčních vazeb (člen VEZ, ověřovatel VEZ, člen ZAV, člen podvýboru pro krajany, člen SKBIS). Ani props, ani vstupní pole committees tedy přesně neodpovídají oficiálnímu profilu — doporučuji ověřit metodiku počítání v Case ①. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.42,
+      "headline": "Lipavský, bývalý ministr zahraničí (2021–2025), je dnes řadový poslanec ODS v zahraničně-bezpečnostních výborech — bez vlastní legislativní iniciativy ve vzorku a s neúplně zachyceným výborovým zařazením v datech.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6537&o=10"
+      ]
+    },
+    {
+      "id": "psp:person:7010",
+      "name": "Oto Klempíř",
+      "club": "MS",
+      "lens": ["bottom", "high-triage"],
+      "props": {
+        "effort_work_themes": ["kultura a média", "audiovize a veřejnoprávní vysílání", "knihovnictví"],
+        "effort_bill_focus": "Nejde o klasické poslanecké tisky, které by Klempíř sám předložil nebo spolupodepsal (shodně s props bills_authored=0) — jde o dva vládní návrhy, jejichž předkladatelem je dle materiálu 'ministr kultury', tedy fakticky on sám z titulu členství ve vládě, nikoli poslanecké iniciativy (gate e nerozlišuje předkladatel/spolupodpis, protože nejde o poslanecký tisk vůbec). Tisk 192 (novela knihovního zákona s vazbou na EU, amended_laws 257/2001, 37/1995, 46/2000; podán 13. 5. 2026) prošel 1. čtením 1. 7. 2026 a byl přikázán výborům (usnesení 237); garančním je Výbor pro mediální záležitosti, který k němu 3. 7. 2026 vydal procedurální usnesení (tisk 192/1); zpravodajem je Mgr. Martin Baxa. Tisk 231 (novela zákona o ČT a ČRo, amended_laws 483/1991, 484/1991, 348/2005; podán 19. 6. 2026) byl 24. 6. 2026 doporučen organizačním výborem k projednání (usnesení 79) se zpravodajkou Gabrielou Sedlačkovou a navrženým garančním výborem opět VMZ; eviduje 14 pozměňovacích návrhů. Oba tisky jsou k 25. 7. 2026 stále v projednávání, žádný neprošel ani nebyl zamítnut.",
+        "effort_public_role": "Klempíř byl místopředsedou Výboru pro mediální záležitosti od 13. 11. do 15. 12. 2025, kdy byl jmenován ministrem kultury (vláda A. Babiše) — datum konce jeho výborové role se přesně shoduje s datem jmenování, což naznačuje, že se funkce ve výboru vzdal při nástupu do vlády. Jako ministr nyní zaštiťuje legislativu v mediální/kulturní oblasti, kterou posuzuje výbor, v němž dříve sám seděl.",
+        "effort_notes": "Datová nesrovnalost: props uvádí committee_count=2, ale poskytnutý seznam committees obsahuje jen 1 položku (VMZ vice) a dle psp.cz je navíc tato role od 15. 12. 2025 ukončená (nahrazena ministerským postem) — ani vstupní pole, ani props tedy nereflektují jeho aktuální stav (0 aktivních výborových rolí, 1 ministerská funkce). Toto je významnější artefakt než obvyklá odchylka o jednotku a doporučuji prioritně ověřit v Case ①, protože zkresluje interpretaci celého dossieru (vypadá jako aktivní řadový poslanec-výborář, ve skutečnosti je členem vlády). linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.58,
+      "headline": "Klempíř, bývalý místopředseda mediálního výboru, je od prosince 2025 ministrem kultury a v této roli zaštiťuje dva sněmovní tisky (novela knihovního zákona a novela zákona o ČT a ČRo) posuzované výborem, v němž sám dříve seděl — data jej ale stále vedou jako řadového výborového člena.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7010&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=192",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=231",
+        "https://mk.gov.cz/novinky-a-media-cs-4/6509cs-ministr-kultury-oto-klempir-se-ujal-uradu"
+      ]
+    },
+    {
+      "id": "psp:person:7027",
+      "name": "Irena Němcová",
+      "club": "SPD",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["životní prostředí", "sociální politika", "kybernetická bezpečnost"],
+        "effort_bill_focus": "Žádný sponzorovaný tisk v poskytnutém vzorku (sponsoredBills prázdné, bills_authored=0) — čistě výborová a hlasovací práce bez legislativní iniciativy v tomto období.",
+        "effort_public_role": "Místopředsedkyní Výboru pro životní prostředí, členkou Volební komise, Výboru pro sociální politiku a Stálé komise pro kontrolu činnosti NÚKIB (4 role odpovídají 4 položkám ve vstupním seznamu committees, ale props uvádí committee_count=5 — viz poznámka o nesrovnalosti).",
+        "effort_notes": "Datová nesrovnalost: props committee_count=5 vs. 4 položky ve vstupním poli committees — stejný vzorec (počítadlo o 1 vyšší než doložený seznam) jako u Lipavského a Wenzla v tomto vzorku, což naznačuje systematickou, ne náhodnou odchylku v pipeline. Profil je nápadně tichý: participation_rate=0.9 a absence_rate=0.2 (vysoká docházka), ale speech_turns=3 a 0 interpelací — přesto triage.quietWorkhorse=false navzdory kladnému quietWorkhorseIndex=0.251; componentDivergence=0.824 je nejvyšší v celém vzorku pěti MPs, což by mělo k workhorse-flagu spíše směřovat. Doporučuji přezkoumat práh quietWorkhorse detekce (Q-effort-6 z kernelu — 'komponentDivergence je téměř degenerovaná'). linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.24,
+      "headline": "Němcová, místopředsedkyně Výboru pro životní prostředí za SPD, má při vysoké docházce (90 %) jen 3 řečnické vstupy a žádný tisk — tichý, nekonfliktní profil bez peněžních zjištění, který triage systém přesto neoznačil jako quiet workhorse.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7027&o=10"
+      ]
+    },
+    {
+      "id": "psp:person:7066",
+      "name": "Vlastimil Hebr",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["rozpočet", "evropské záležitosti a fondy", "kontrola centrální evidence účtů"],
+        "effort_bill_focus": "Žádný sponzorovaný tisk v poskytnutém vzorku (sponsoredBills prázdné, bills_authored=0) — výhradně výborová a hlasovací práce.",
+        "effort_public_role": "Náhradník (triage.tenureClass='replacement', nastoupil 3. 11. 2025, ne 4. 10. 2025 jako řádně zvolení kolegové) — členem Rozpočtového výboru (od 11. 11. 2025), Výboru pro evropské záležitosti (od 14. 11. 2025) a Stálé komise pro kontrolu poskytnutí údajů z centrální evidence účtů (od 14. 11. 2025) — 3 role odpovídají committee_count=3. Nad rámec poskytnutého seznamu committees dle psp.cz od 11. 2. 2026 předsedá Podvýboru pro evropské fondy, přeshraniční spolupráci a zelenou tranzici — nezanedbatelná podvýborová odpovědnost pro poslance nastoupivšího teprve v listopadu.",
+        "effort_notes": "Numerika souhlasí (committee_count=3 = 3 doložené položky). Pro náhradníka je profil nadprůměrně aktivní, ne oslabený tenurou: participation_rate=1.0, absence_rate=0, speech_turns=91 (druhý nejvyšší v tomto vzorku) a contribution_score=69.7 — P38 caveat o skórové podlaze u náhradníků (nízké skóre kvůli kratší tenuře, ne kvůli neaktivitě) se zde tedy neuplatňuje, protože skóre je nadprůměrné navzdory kratší tenuře (262 dní). linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.38,
+      "headline": "Hebr, náhradník ANO nastoupivší až v listopadu 2025, už předsedá podvýboru pro evropské fondy a patří k nejaktivnějším řečníkům vzorku (91 vstupů) při stoprocentní účasti — nadprůměrný start bez vlastní legislativní iniciativy a bez peněžních zjištění.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7066&o=10"
+      ]
+    },
+    {
+      "id": "psp:person:6730",
+      "name": "Lubomír Wenzl",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["obrana a vojenská zpravodajská kontrola", "rozpočet", "váleční veteráni"],
+        "effort_bill_focus": "Žádný sponzorovaný tisk v PSP10 vzorku (sponsoredBills prázdné, bills_authored=0), na rozdíl od jeho PSP9 historie (contributionPsp9.billsAuthored=15) — viz poznámka o možném neúplném záznamu raného období PSP10.",
+        "effort_public_role": "Místopředsedou Stálé komise pro kontrolu činnosti Vojenského zpravodajství, členem Výboru pro obranu, Rozpočtového výboru a Stálé komise pro kontrolu činnosti ÚZSI (4 role odpovídají 4 položkám ve vstupním seznamu committees, props ale uvádí committee_count=5 — viz poznámka). Dle psp.cz navíc předsedá Podvýboru pro válečné veterány a je zvoleným členem dozorčí rady Všeobecné zdravotní pojišťovny (VZP) — druhá role je institucionální dozor nad veřejnou zdravotní pojišťovnou z titulu poslaneckého mandátu, nikoli obchodní vazba.",
+        "effort_notes": "Datová nesrovnalost: committee_count=5 vs. 4 doložené položky ve vstupním seznamu — třetí výskyt stejného vzorce (počítadlo o 1 vyšší) v tomto vzorku pěti MPs (viz i Lipavský, Němcová), silně naznačuje systematický, ne náhodný pipeline artefakt hodný prioritního přezkoumání v Case ①. Trendová pozorování: PSP9→PSP10 skóre kleslo z 78 na 68.4, ale PSP9 měl billsAuthored=15 a interpellations=89, zatímco PSP10 vzorek uvádí 0 a 0 pro obě metriky — může jít o reálný pokles aktivity, nebo o neúplně zachycená pole tak brzy v mandátu (tenureDays=293); doporučuji ověřit úplnost PSP10 sponsoredBills/interpellations dat, než se pokles interpretuje jako skutečný trend. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření.",
+        "effort_low_score_reason": "Ne nízké skóre samo o sobě (68.4 je nadprůměrné), ale meziroční pokles vůči PSP9 (78) je pravděpodobně částečně artefakt neúplných raných PSP10 dat (billsAuthored a interpellations obě na 0), ne čistě reálný pokles výkonu."
+      },
+      "signal": 0.45,
+      "headline": "Wenzl dozoruje vojenské zpravodajství i ÚZSI a sedí v dozorčí radě VZP, ale jeho PSP10 skóre (68.4) je oproti PSP9 (78) nižší s nulovou legislativní a interpelační aktivitou zatím zachycenou v datech — nejasné, zda jde o skutečný pokles, nebo o neúplný zápis raného období.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6730&o=10"
+      ]
+    }
+  ]
+}

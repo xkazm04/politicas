@@ -1,0 +1,119 @@
+{
+  "generatedAt": "2026-07-25T00:00:00.000Z",
+  "proposals": [
+    {
+      "id": "psp:person:7052",
+      "name": "František Talíř",
+      "club": "KDU-ČSL",
+      "lens": ["top"],
+      "props": {
+        "effort_work_themes": ["média a veřejnoprávní vysílání (dozor ČT/ČRo)", "životní prostředí", "sociální a rozpočtová agenda (spolupodpisy)"],
+        "effort_bill_focus": "Talíř je spolupodepsaným (nikoli prvním předkladatelem) u všech 6 tisků svého vzorku — u žádného tedy nešlo o jeho vlastní legislativní iniciativu (schema poznámka e). Pět z šesti k 25. 7. 2026 nepřijato a uvízlo po nesouhlasném stanovisku vlády: tisk 50 (důchodové pojištění, vedl M. Jurečka, nesouhlas vlády 17. 2. 2026), tisk 89 (rozpočtová pravidla, vedl B. Činčila, nesouhlas 24. 2. 2026), tisk 109 (nemocenské pojištění, vedl M. Jurečka, nesouhlas 18.–19. 3. 2026), tisk 110 (pojistné na sociální zabezpečení, vedl M. Jurečka, nesouhlas 18.–19. 3. 2026) a tisk 121 (daně z příjmů/sociální pojištění, vedl M. Jurečka, nesouhlas 31. 3. 2026) — všechny čekají ve výboru. Šestý, tisk 243 (novela zákona o prodejní době, vedl M. Výborný spolu s P. Hladíkem a Talířem, podán 26. 6. 2026), je nejčerstvější a čeká na stanovisko vlády do 30. 7. 2026.",
+        "effort_public_role": "Předsedá Výboru pro mediální záležitosti (VMZ) — stálý sněmovní výbor, který mimo jiné volí členy Rady České televize a Rady Českého rozhlasu, tedy reálná dozorová pravomoc nad veřejnoprávními médii; dále je řadovým členem Výboru pro životní prostředí. Předsednictví výboru odpovídá leadership_count=1.",
+        "effort_notes": "bills_authored=6 odpovídá přesně počtu položek v sponsoredBills, ale u žádného tisku není prvním předkladatelem (jde výhradně o spolupodpisy, schema poznámka e). Datová nesrovnalost: props uvádí committee_count=3, ale pole committees v poskytnutém kontextu obsahuje jen 2 položky (VMZ chair, VŽP member) — chybí buď třetí vazba, nebo je počítadlo nadhodnocené (stejný vzorec jako u Řehkové a Langa v batch-004); doporučuji ověřit v pipeline Case ①. Zajímavý (neanalyzovaný v pipeline) rys: contested_vote_rebellion=0.733 je výrazně vyšší než celkový rebellion_rate=0.003 — na skutečně kontestovaných hlasováních se od klubu odklání citelně častěji než v běžném provozu, i když jde stále o extrémně nízké absolutní číslo (4 vzbouřenecké hlasy z 1414). linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.35,
+      "headline": "Talíř předsedá Výboru pro mediální záležitosti (volí radu ČT i ČRo) a u žádného ze šesti tisků nebyl prvním předkladatelem — pět z nich uvízlo po nesouhlasu vlády; vstupní počet výborů (3) opět neodpovídá dvěma reálně uvedeným.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=50",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=89",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=109",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=110",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=121",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=243",
+        "https://www.psp.cz/sqw/hp.sqw?k=4100"
+      ]
+    },
+    {
+      "id": "psp:person:6986",
+      "name": "Hana Ančincová",
+      "club": "Piráti",
+      "lens": ["top"],
+      "props": {
+        "effort_work_themes": ["sociální politika", "kontrola veřejných zakázek (vyšetřovací komise Dozimetr)", "penzijní spoření a DPH (spolupodpisy)"],
+        "effort_bill_focus": "Ančincová je spolupodepsanou (ne první předkladatelkou) u všech 3 tisků svého vzorku, všechny vedla O. Richterová a další, všechny k 25. 7. 2026 nepřijaté: tisk 71 (doplňkové penzijní spoření, podán 8. 12. 2025, neutrální stanovisko vlády 13. 1. 2026, čeká na projednání v Rozpočtovém výboru), tisk 86 (další novela stejného zákona, podán 22. 1. 2026, nesouhlas vlády 24. 2. 2026, rovněž v Rozpočtovém výboru) a tisk 168 (novela zákona o DPH, podán 15. 4. 2026, nesouhlas vlády 12. 5. 2026, čeká na projednání).",
+        "effort_public_role": "Místopředsedkyní vyšetřovací komise k tzv. kauze Dozimetr (DPP, KSÚS Středočeského kraje, VZP — podezření z korupčního jednání) — jedna z nejvýznamnějších kontrolních rolí v této Sněmovně; dále členkou Výboru pro sociální politiku.",
+        "effort_notes": "bills_authored=3 odpovídá přesně počtu položek v sponsoredBills, ale ani u jednoho tisku není prvním předkladatelem (spolupodpisy, schema poznámka e). Datová nesrovnalost: props uvádí committee_count=3, ale pole committees obsahuje jen 2 položky (VKDOZIMETR vice, VSP member) — stejný vzorec neshody jako u Talíře v tomto vzorku a u Řehkové/Langa v batch-004, doporučuji systémově ověřit v pipeline Case ①. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.32,
+      "headline": "Ančincová je místopředsedkyní vyšetřovací komise ke kauze Dozimetr a spolupodepsala tři sociální/penzijní tisky bez vlastního prvenství; vstupní počet výborů (3) opět neodpovídá dvěma reálně uvedeným.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=71",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=86",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168"
+      ]
+    },
+    {
+      "id": "psp:person:7023",
+      "name": "Lenka Martínková Španihelová",
+      "club": "Piráti",
+      "lens": ["divergence"],
+      "props": {
+        "effort_work_themes": ["sociální politika", "penzijní spoření a DPH (spolupodpisy)"],
+        "effort_bill_focus": "Španihelová sdílí s Ančincovou stejnou trojici tisků (71, 86, 168, všechny vedla O. Richterová) — u žádného není prvním předkladatelem, všechny k 25. 7. 2026 nepřijaté a čekají ve výborech (viz fate popsáno u Ančincové, tento vzorek).",
+        "effort_public_role": "Členkou Výboru pro sociální politiku (jediná uvedená role, nejnižší committee_count=1 v tomto vzorku, bez vedoucí funkce). Mimo Sněmovnu je krajskou zastupitelkou Pardubického kraje a předsedkyní krajského výboru pro sociální péči a neziskový sektor.",
+        "effort_notes": "bills_authored=3 odpovídá přesně počtu položek v sponsoredBills, opět jde výhradně o spolupodpisy (schema poznámka e). PENĚŽNÍ ZJIŠTĚNÍ — MATURUS, o.p.s. (IČO 24766216, contractCzk 1 197 779 Kč): ověřeno přes ARES VR REST endpoint (ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/24766216) — aktuální ředitelkou je od 1. 7. 2026 Magdaléna Lindaurová, předchozí ředitelkou byla Jitka Čechová (4. 9. 2014 – 30. 6. 2026); Španihelová v primárním rejstříku VR NENÍ uvedena mezi statutárními orgány v období, které rejstřík vrátil. To je v ROZPORU s druhotnými zdroji (Wikipedie, pirátský medailonek, adresář sociálních podniků, Hlídač státu), které ji popisují jako zakládající/první ředitelku sociálního podniku MATURUS (od 1. 1. 2011, dle Hlídače státu) — společnost vznikla 18. 11. 2010, tedy krátce před uváděným nástupem Španihelové, a to je časově dřív, než sahá záznam o ředitelkách, který mi ARES VR vrátil (od 2014). Nejpravděpodobnější vysvětlení: byla zakládající ředitelkou cca 2011–2014, než ji vystřídala Čechová — ale toto NENÍ potvrzeno přímo z primárního zdroje pro toto období, jde o LEAD ze sekundárních zdrojů, ne o ověřený fakt. MATURUS je sociální podnik zaměstnávající lidi se zdravotním postižením, financovaný převážně z veřejných zdrojů (dle Hlídače státu 7 smluv za cca 1 mil. Kč, hlavní odběratel MPSV) — účelová dotační vazba na sociální podnikání, ne komerční zisková vazba. Doporučuji Case ① ověřit přesné datum konce jejího ředitelského působení přes sbírku listin na or.justice.cz, protože ARES VR REST v tomto dotazu nevrátil historii před rokem 2014."
+      },
+      "signal": 0.52,
+      "headline": "Španihelová má historickou vazbu na sociální podnik MATURUS (podle druhotných zdrojů zakládající ředitelka, ale aktuální primární rejstřík VR ji mezi statutárními orgány neuvádí) — nejnižší committee_count v pirátské trojici tohoto vzorku, doporučeno dohledat přes sbírku listin.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=71",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=86",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/24766216",
+        "https://cs.wikipedia.org/wiki/Lenka_Mart%C3%ADnkov%C3%A1_%C5%A0panihelov%C3%A1",
+        "https://ceske-socialni-podnikani.cz/adresar-socialnich-podniku/maturus-o-p-s/",
+        "https://www.hlidacstatu.cz/subjekt/24766216"
+      ]
+    },
+    {
+      "id": "psp:person:6463",
+      "name": "Aleš Juchelka",
+      "club": "ANO2011",
+      "lens": ["divergence"],
+      "props": {
+        "effort_work_themes": ["sociální politika a služby (nyní jako ministr)", "PR a mediální podnikání (vlastní firmy, historicky)"],
+        "effort_bill_focus": "Juchelka je prvním předkladatelem (spolu s J. Pastuchovou) tisku 125 (novela zákona o sociálních službách, podán 6. 3. 2026), který úspěšně prošel celým procesem a byl publikován jako zákon č. 92/2026 Sb. (podpis prezidenta 5. 6. 2026) — jde o skutečnou vlastní legislativní iniciativu (schema poznámka e), navíc jedinou zákonem zakončenou v celém tomto vzorku pěti poslanců. Dále je spolupodepsaným (ne prvním předkladatelem) u tisku 11 (pojistné na sociální zabezpečení, vedla A. Schillerová), který rovněž prošel a byl publikován jako zákon č. 90/2026 Sb. Třetí položka, tisk 198 (novela zákona o státní sociální podpoře), je vládní návrh s předkladatelem 'min. práce a soc. věcí' — tedy ministerstvem, které Juchelka od 15. 12. 2025 sám řídí; ve Sněmovně byl schválen 8. 7. 2026 a nyní čeká na Senát (do 8. 8. 2026). Juchelka zde figuruje jen jako garanční výbor (VSP), ne jako osobní předkladatel — schema poznámka (e) platí i obráceně: vládní tisk se nesmí připsat jemu jako 'předložil'.",
+        "effort_public_role": "MINISTREM PRÁCE A SOCIÁLNÍCH VĚCÍ od 15. 12. 2025 (vláda A. Babiše) — tento fakt zásadně mění interpretaci jeho PSP10 čísel: pokles kontribučního skóre z PSP9 (83,2) na PSP10 (55,5) je pravděpodobně z podstatné části strukturální artefakt exekutivní role (nulové interpelace, nižší committee_count=1, vyšší absence_rate=0,5), ne pokles pracovního nasazení — analogicky k floor-artefaktům u nováčků a náhradníků popsaným ve skill effort-loop.md, ale jde o TŘETÍ, dosud nepojmenovanou třídu (ministr). Doporučuji Case ① zvážit obdobný kvalifikační příznak jako u tenure/replacement tříd. Před politikou (2010, radní Ostravy za TOP 09) pracoval 1998–2012 v médiích — moderátor a dramaturg zábavních a dětských pořadů v České televizi a dříve v Rádiu Čas a Českém rozhlase.",
+        "effort_notes": "PENĚŽNÍ ZJIŠTĚNÍ — MONEY-TOUCHING, 4 firmy, ověřeno přes ARES VR REST endpoint kde to šlo: (1) OCCAM PR s.r.o. (IČO 27840531, contractCzk 177 870 Kč) — Juchelka byl JEDINÝM jednatelem a 100% vlastníkem od založení 31. 3. 2008 AŽ DO 8.–16. 1. 2026, tedy prakticky po CELÝ mandát PSP10 a i po nástupu do funkce ministra (15. 12. 2025); vlastnictví převedl na manželku Ing. Terezu Juchelkovou teprve v polovině ledna 2026. Podle Hlídače státu má firma od 2016 přesně 2 smlouvy v registru smluv za 177 870 Kč — číslo se PŘESNĚ shoduje se vstupním contractCzk, tedy jde o potvrzenou, nikoli historickou vazbu. Toto je nejvýraznější zjištění tohoto vzorku a doporučuji jej v pipeline označit jako aktivní/nedávno ukončenou osobní vazbu, ne jako uzavřenou historickou kapitolu. (2) YOU STORY UP! s.r.o. (IČO 02751232, contractCzk 6 271 561,8 Kč) — Juchelka byl spoluzakladatelem a jednatelem 10. 3. 2014 – 11. 8. 2016, vlastnictví opustil 18. 8. 2016. DATOVÝ ROZPOR: Hlídač státu uvádí u této firmy 0 smluv v registru smluv za 0 Kč od roku 2016 (kdy registr smluv začíná) — vstupní contractCzk 6,27 mil. Kč tedy NEODPOVÍDÁ žádné smlouvě uzavřené v období, kdy byl Juchelka jednatelem nebo vlastníkem, ani žádné smlouvě zachycené v registru smluv vůbec; doporučuji prioritně ověřit zdroj a datum tohoto čísla v pipeline Case ①, protože v současné podobě neprokazuje osobní peněžní vazbu k Juchelkovi. (3) ČESKÁ TELEVIZE (IČO 00027383, contractCzk 0) a (4) ČESKÝ ROZHLAS (IČO 45245053, contractCzk 1 207 054,67 Kč) — oba jsou veřejnoprávní vysílatelé zřízení zákonem, NEJSOU vedeni v obchodním rejstříku VR (ARES VR REST endpoint vrátil pro oba 404 Not Found, což je u zákonem zřízených veřejnoprávních institucí očekávané, ne chybějící ověření). Vzhledem k doloženému 1998–2012 působení Juchelky jako moderátora/dramaturga v ČT a dříve v Českém rozhlase jde nejpravděpodobněji o historické honoráře za moderátorskou/produkční činnost před vstupem do politiky (2010), ne o obchodní/vlastnickou vazbu — ale bez přístupu k detailu jednotlivých položek v Registru smluv nelze časové zařazení částky u ČRo (1,2 mil. Kč) potvrdit s jistotou; doporučuji ověřit přes plný výpis Registru smluv."
+      },
+      "signal": 0.72,
+      "headline": "Ministr práce Juchelka vlastnil svou PR firmu OCCAM PR se dvěma státními zakázkami prakticky po celý mandát a teprve v lednu 2026 ji převedl na manželku; jeho jediný vlastní tisk (125, sociální služby) se naopak stal zákonem, zatímco údaj o 6,27 mil. Kč u firmy YOU STORY UP! neodpovídá žádné smlouvě z období jeho angažmá, které skončilo už v roce 2016.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=125",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=198",
+        "https://mpsv.gov.cz/novym-ministrem-prace-a-socialnich-veci-se-stal-ales-juchelka",
+        "https://www.irozhlas.cz/zpravy-domov/juchelka-nastoupi-jako-ministr-prace-a-socialnich-veci-pred-politikou-pusobil_2512141617_ntu",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27840531",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/02751232",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/00027383",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/45245053",
+        "https://www.hlidacstatu.cz/osoba/ales-juchelka"
+      ]
+    },
+    {
+      "id": "psp:person:6473",
+      "name": "Olga Richterová",
+      "club": "Piráti",
+      "lens": ["top"],
+      "props": {
+        "effort_work_themes": ["kontrola a veřejná správa", "penzijní spoření a DPH", "ústavní/procedurální agenda (jednací řád)"],
+        "effort_bill_focus": "Richterová je prvním předkladatelem 5 z 9 tisků svého vzorku: tisk 4 (daně z příjmů, s I. Bartošem, podán 15. 10. 2025, nesouhlas vlády 4. 12. 2025, čeká), tisk 15 (jednací řád PS, s Bartošem a K. Stojanovou, podán 10. 11. 2025, nesouhlas vlády 12. 12. 2025, čeká), tisk 71 (doplňkové penzijní spoření, neutrální stanovisko vlády, čeká), tisk 86 (další novela penzijního spoření, nesouhlas vlády, čeká) a tisk 168 (DPH, nesouhlas vlády, čeká) — u posledních tří je spolupodepsaná i Ančincová a Španihelová z tohoto vzorku. Zbylé 4 tisky (5, 6, 7, 156) vede jako druhá v pořadí za I. Bartošem nebo Z. Hříbem — jde tedy o spolupodpisy (schema poznámka e). Žádný z jejích 9 tisků k 25. 7. 2026 dosud neprošel.",
+        "effort_public_role": "Předsedkyní poslaneckého klubu Piráti od 5. 10. 2025 — NIKOLI předsedkyní celé strany (tou je od podzimu 2025 Zdeněk Hřib); je jednou z místopředsedkyň vedení strany. Ve Sněmovně je členkou Kontrolního výboru, Organizačního výboru a Výboru pro veřejnou správu a regionální rozvoj (3 role, přesně odpovídá committee_count=3 i seznamu committees).",
+        "effort_notes": "bills_authored=9 odpovídá přesně počtu položek v sponsoredBills, s korektním rozlišením 5 vlastních vs. 4 spolupodepsaných tisků dle pole submitter (schema poznámka e). committee_count souhlasí bezezbytku se seznamem committees — bez datové nesrovnalosti, na rozdíl od Talíře a Ančincové v tomto vzorku. Kontribuční skóre je mezi termíny prakticky stabilní (PSP9: 85,4 → PSP10: 84,2, pokles jen 1,2 bodu) — na rozdíl od Juchelky v tomto vzorku jde o čistý, konzistentní výkon bez exekutivních nebo tenure artefaktů. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.4,
+      "headline": "Richterová vede pirátský poslanecký klub (nikoli celou stranu, tu vede Zdeněk Hřib) a je vlastní předkladatelkou u 5 z 9 tisků; její kontribuční skóre zůstává mezi PSP9 a PSP10 prakticky beze změny (85,4 → 84,2), bez jediné datové nesrovnalosti v tomto vzorku.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=4",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=15",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=71",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=86",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168",
+        "https://www.pirati.cz/lide/olga-richterova/",
+        "https://www.psp.cz/sqw/detail.sqw?id=6473"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "generatedAt": "2026-07-25T00:00:00.000Z",
+  "proposals": [
+    {
+      "id": "psp:person:6509",
+      "name": "Robert Králíček",
+      "club": "ANO2011",
+      "lens": ["divergence", "high-triage"],
+      "props": {
+        "effort_work_themes": ["kontrola zpravodajských služeb (BIS, Vojenské zpravodajství, NÚKIB, ÚZSI)", "kybernetická bezpečnost", "vedení klubu/hnutí ANO"],
+        "effort_bill_focus": "V poskytnutém vzorku nemá Králíček žádný sponzorovaný tisk (sponsoredBills je prázdné pole) a props to potvrzuje: bills_authored=0 i interpellations=0 — v tomto volebním období dosud nepředložil ani nespolupodepsal žádnou legislativní iniciativu ze vzorku.",
+        "effort_public_role": "Od 27. 11. 2025 předsedá Stálé komisi pro kontrolu činnosti BIS (SKBIS); dále je členem Organizačního výboru, Výboru pro bezpečnost a tří dalších stálých kontrolních komisí (Vojenské zpravodajství, NÚKIB, ÚZSI) — nezvykle husté zpravodajsko-dozorové portfolio. V předchozím volebním období (PSP9) předsedal Stálé komisi pro kontrolu Vojenského zpravodajství (12/2021–10/2025) a byl místopředsedou SKBIS (3/2022–10/2025); od roku 2024 je také místopředsedou hnutí ANO. Věnuje se především kybernetické bezpečnosti a digitalizaci státní správy.",
+        "effort_notes": "Toto je 'divergence' lens případ: vysoký výborový/dozorový podíl (committee_count=10, leadership_count=1) proti nulové legislativní stopě (bills_authored=0, interpellations=0) a zvýšené absenci (absence_rate=0.6 při současně vysokém participation_rate=0.7 — obě hodnoty najednou vysoké působí protichůdně, doporučuji ověřit přesnou definici obou metrik v pipeline Case ①). Datová nesrovnalost: props uvádí committee_count=10, ale pole committees v poskytnutém kontextu obsahuje jen 6 položek; rozdíl je zdaleka největší mezi všemi pěti poslanci tohoto batche a může odrážet historické (PSP9) členství započtené do součtu, ale bez zdrojového rozpadu to nelze potvrdit — doporučuji prioritně ověřit v pipeline. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.58,
+      "headline": "Králíček, místopředseda ANO a od listopadu 2025 šéf dozorové komise nad BIS, má v tomto vzorku nulovou legislativní stopu i zvýšenou absenci — a jeho vstupní počet deseti výborových vazeb neodpovídá šesti reálně uvedeným.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6509",
+        "https://www.hlidacstatu.cz/osoba/Funkce/robert-kralicek",
+        "https://www.czdefence.cz/clanek/robert-kralicek-kyberbezpecnost-musi-byt-jednim-z-piliru-obrany-naseho-statu"
+      ]
+    },
+    {
+      "id": "psp:person:7058",
+      "name": "Libor Vondráček",
+      "club": "SPD",
+      "lens": ["top", "high-triage"],
+      "props": {
+        "effort_work_themes": ["ústavní právo a jednací řád Sněmovny", "evropské záležitosti", "státní zaměstnanci (služební zákon)"],
+        "effort_bill_focus": "Vondráček je spolupodepsaným (nikoli prvním předkladatelem) u všech tří tisků svého vzorku — první předkladatel je ve všech třech případech Radek Vondráček, odlišný poslanec téhož příjmení, ne Libor Vondráček (schema poznámka e). Tisk 76 (novela zákona o státních zaměstnancích) byl schválen ve 3. čtení 26. 6. 2026 a 21. 7. 2026 postoupen Senátu jako tisk 266/0. Tisk 77 (související novela) byl rovněž schválen (26. 6.–1. 7. 2026) a 21. 7. 2026 postoupen Senátu jako tisk 267/0. Tisk 87 (zákon o zemských znacích a vlajkách) je teprve na začátku cesty — organizační výbor doporučil postup 4. 3. 2026, garančním výborem je VVVMS.",
+        "effort_public_role": "Předsedou Stálé komise pro Ústavu ČR a parlamentní procedury; místopředsedou Výboru pro evropské záležitosti a Ústavně-právního výboru (3 role, odpovídá poskytnutému seznamu committees).",
+        "effort_notes": "bills_authored=3 odpovídá počtu položek v sponsoredBills, ale u žádného tisku není Vondráček prvním předkladatelem — jde o tři spolupodpisy. Submitter pole u všech tří zní 'Vondráček R. a další', což se na první pohled mohlo jevit jako jeho vlastní iniciativa, ale přímé ověření na psp.cz potvrdilo, že jde o Radka Vondráčka (jiného poslance), nikoli o Libora Vondráčka — jména se shodují jen příjmením, iniciála 'R.' neodpovídá jeho křestnímu jménu. Datová nesrovnalost: committee_count=6 v props, ale committees pole obsahuje jen 3 položky — doporučuji ověřit v pipeline Case ①. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.5,
+      "headline": "Vondráček (SPD) spolupodepsal tři tisky vedené Radkem Vondráčkem — jiným poslancem stejného příjmení — dva už prošly Sněmovnou a míří do Senátu, ale sám nebyl u žádného prvním předkladatelem.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=76",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=77",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87"
+      ]
+    },
+    {
+      "id": "psp:person:6987",
+      "name": "Jiří Barták",
+      "club": "MS",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["standardizace / technická normalizace", "organizace práce Sněmovny"],
+        "effort_bill_focus": "Barták je spolupodepsaným u jediného tisku svého vzorku: tisk 250 (zákon o standardizaci), jehož prvním předkladatelem je Drahoslav Ryba. Návrh byl 2. 7. 2026 rozeslán poslancům a 3. 7. 2026 postoupen vládě k vyjádření; k 25. 7. 2026 čeká na vládní stanovisko (lhůta do 2. 8. 2026) — jde o nejčerstvější a nejméně rozpracovaný tisk celé skupiny C.",
+        "effort_public_role": "Místopředsedou Organizačního výboru — jediná uvedená výborová role v poskytnutém seznamu committees.",
+        "effort_notes": "bills_authored=1 odpovídá jedinému tisku ve vzorku, ale Barták je spolupodepsaným, ne předkladatelem (schema poznámka e). Datová nesrovnalost: committee_count=2 v props, ale committees pole obsahuje jen 1 položku (ORGV) — doporučuji ověřit v pipeline Case ①. Nejnižší speech_turns (10) a nejnižší contribution_score (60) z celého tohoto vzorku pěti poslanců — legitimní nízkoenergetický profil, ne chyba dat. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.26,
+      "headline": "Barták má v tomto vzorku nejtenčí legislativní i řečnickou stopu — jediný spolupodepsaný tisk čerstvě čeká na vládní stanovisko a jeho jediná uvedená výborová role (místopředseda ORGV) neodpovídá vstupnímu počtu dvou vazeb.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=250"
+      ]
+    },
+    {
+      "id": "psp:person:6770",
+      "name": "Renata Oulehlová",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["petice a lidská práva", "sociální politika", "jednací řád Sněmovny", "obce a veřejná správa"],
+        "effort_bill_focus": "Oulehlová je spolupodepsanou u obou tisků svého vzorku, u žádného není první předkladatelkou. Tisk 72 (novela jednacího řádu PS, vedl Radek Vondráček) byl schválen ve 3. čtení 1.–3. 7. 2026 a 21. 7. 2026 postoupen Senátu jako tisk 268/0 — jediný přijatý tisk mezi jejími dvěma položkami. Tisk 87 (zemské znaky a vlajky, vedl Radek Vondráček) je teprve na začátku cesty, garančním výborem je VVVMS.",
+        "effort_public_role": "Místopředsedkyní Petičního výboru a členkou Výboru pro sociální politiku (2 role, odpovídá poskytnutému seznamu committees).",
+        "effort_notes": "bills_authored=2 odpovídá počtu položek v sponsoredBills, ale u obou je Oulehlová spolupodepsanou, ne předkladatelkou (schema poznámka e). Datová nesrovnalost: committee_count=3 v props, ale committees pole obsahuje jen 2 položky — doporučuji ověřit v pipeline Case ①. Pozitivní trend PSP9→PSP10: contribution_score vzrostl ze 72,9 na 77,9, konzistentní práce napříč obdobími. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.44,
+      "headline": "Oulehlová zvýšila skóre přínosu mezi PSP9 a PSP10 (72,9→77,9) a jeden z jejích dvou spolupodepsaných tisků (jednací řád PS) už prošel Sněmovnou — byť u žádného nebyla první předkladatelkou.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87"
+      ]
+    },
+    {
+      "id": "psp:person:7011",
+      "name": "Matěj Hlavatý",
+      "club": "STAN",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["obce a veřejná správa", "daně z příjmů", "média", "obrana"],
+        "effort_bill_focus": "Hlavatý je spolupodepsaným u všech tří tisků svého vzorku, žádný z nich zatím nebyl přijat. Tisk 24 (novela zákona o obcích, vedl Vít Rakušan) je od prosince 2025 v garančním Výboru pro veřejnou správu a regionální rozvoj. Tisk 120 (novela zákona o daních z příjmů, vedla Lucie Sedmihradská) dostal nesouhlasné stanovisko vlády 31. 3. 2026 a čeká v Rozpočtovém výboru. Tisk 146 (další novela zákona o obcích, vedla Věra Kovářová) rovněž dostal nesouhlas vlády 21. 4. 2026 a čeká ve stejném výboru jako tisk 24.",
+        "effort_public_role": "Místopředsedou Stálé komise pro kontrolu použití odposlechu a záznamu telekomunikačního provozu (SKKPO); členem Výboru pro mediální záležitosti a Výboru pro obranu (3 role, odpovídá poskytnutému seznamu committees).",
+        "effort_notes": "bills_authored=3 odpovídá počtu položek v sponsoredBills, ale u žádného tisku není Hlavatý prvním předkladatelem — všechny tři vede jiný poslanec STAN (schema poznámka e). Datová nesrovnalost: committee_count=4 v props, ale committees pole obsahuje jen 3 položky — doporučuji ověřit v pipeline Case ①. Všechny tři tisky patří do stejné rodiny skupinových návrhů klubu STAN (Rakušan/Sedmihradská/Kovářová), dva ze tří už narazily na nesouhlas vlády. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.4,
+      "headline": "Hlavatý spolupodepsal tři tisky vedené kolegy z klubu STAN (obce, daně), dva z nich už dostaly nesouhlas vlády a žádný dosud neprošel — sám nebyl u žádného prvním předkladatelem.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=24",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=120",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=146"
+      ]
+    }
+  ]
+}

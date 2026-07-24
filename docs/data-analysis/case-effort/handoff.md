@@ -1,9 +1,9 @@
-# Case ② Effort — Batch 004 handoff (fleet)
+# Case ② Effort — Batch 005 handoff (fleet)
 
 For the orchestrator holding the single-writer resources (live `.pglite`, shared vault, git). Everything
-below is validated on `.pglite-copy-effort` (disposable — recreate + re-verify with the commands in §1). This
-handoff REPLACES batch-003's `handoff.md` as current; batch 003 has already been committed (working tree was
-clean at this batch's start).
+below is validated on `.pglite-copy-effort` (disposable — recreate + re-verify with the commands in §1).
+This handoff REPLACES batch-004's `handoff.md`; batch 004 was already committed (`c454399`) before this
+batch began, so the working tree at batch-005 start was clean for this case.
 
 ---
 
@@ -11,49 +11,45 @@ clean at this batch's start).
 
 ```
 cp -r .pglite .pglite-copy-effort
-PGLITE_PATH=./.pglite-copy-effort npx tsx scripts/case-loops/effort/gate.ts batch-004-props.json                  # expect 35/35 PASS
-PGLITE_PATH=./.pglite-copy-effort npx tsx scripts/case-loops/effort/gate.ts batch-004-rewrites.json                # expect 8/8 PASS
-PGLITE_PATH=./.pglite-copy-effort npx tsx scripts/case-loops/effort/gate.ts batch-004-role-window-mismatch.json    # expect 6/6 PASS
+PGLITE_PATH=./.pglite-copy-effort npx tsx scripts/case-loops/effort/gate.ts batch-005-props.json   # expect 45/45 PASS, 19 warnings
 ```
 
-### 1a. Army dossiers — 35 MPs (`payloads/batch-004-props.json`) — SAFE TO PERSIST
-Merged from 5 group payloads (A–E), gated 35/35. Two rounds of post-Opus-reflection fixes applied directly
-(Fiala, Okamura, Majerová — see batch-004.md §Post-reflection fixes for full before/after). 10 Q-effort-11
-warnings remain, all inspected and confirmed legitimate case-gate-(e) předkladatel-rank distinctions, **except
-Kolovratník's headline order-of-magnitude slip ("desítky milionů" vs his own notes' 564 mil. Kč), which the
-gate cannot catch (vague quantifier, no bare number) and which was NOT fixed this session** — reviewer should
-correct before/at persist. Also NOT fixed: 5 committee_count mismatches (Řehková, Lang, Kovářová, Okamura,
-Adamec — see batch-004.md) and the 8 dossiers that re-describe the already-SOLVED OSVČ IČO 04627695 as
-unsolved (low harm — all `contractCzk 0`/`pending_review`, but inconsistent with batch-003's finding).
+### 1a. Army dossiers — 45 MPs (`payloads/batch-005-props.json`) — SAFE TO PERSIST
+Merged from 9 group payloads (A–I), gated 45/45 PASS after two driver fix passes:
+1. 13 initial DROPs (`effort_low_score_reason` closed-vocabulary violations — free text or literal `"null"`)
+   fixed: 9 field removals, 4 remaps (`minister`→Vojtěch, `dual_mandate`→Vrána/Blišťanová,
+   `low_legislative_output`→Volfová — the last later reverted, see below).
+2. Post-Opus-reflection fix pass (batch-005.md §4 has full detail): 21 dossiers' false
+   `"doporučuji ověřit v pipeline Case ①"` escalations corrected (the real cause is an effort-owned
+   extractor gap, not a Case ① ingest defect — see §3 below); 3 false "clean case" counter-claims annotated;
+   3 of 7 driver-applied Opus-verification fixes that the payload falsely claimed were applied (Juchelka,
+   Pospíšil, Mádlová) were re-applied for real; Černochová's B1–B3 fixes corrected (wrong "primátorství"
+   framing → "starostky", missing 2021–2025 Minister of Defence fact added, contradictory "aktuálně radní"
+   claim softened to unverified); public-role render leakage cleaned on 4 profiles (Vojtěch, Vrána,
+   Blišťanová, Volfová — pipeline narration was rendering verbatim via `LowScoreReasonBadge`); Volfová's
+   `low_legislative_output` reason removed (forced fit, contradicted her own `zVsClub`); minor date/framing
+   fixes (Janulík, Slovák's impossible "30. 2. 2026" date, Dražilová's unsourced editorial aside, a misspelled
+   name "Ošanová"→"Ožanová").
 
-### 1b. The 8 rewritten money dossiers (`payloads/batch-004-rewrites.json`) — SAFE TO PERSIST, WILL OVERWRITE LIVE PROPS
-Rewrites of the 8 held-back money dossiers (Q-effort-9), independently re-verified via the real ARES VR REST
-API (`https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/<ICO>` — NOT the SPA at
-`/ekonomicke-subjekty-vr/<ICO>`, which returns no usable content via fetch tools). Two independent
-verification passes (a Sonnet rewrite agent's own or.justice.cz checks + a dedicated Opus verification call
-that found 2 BLOCKING omissions and 5 minor defects, all fixed) — full detail in batch-004.md §Q-effort-9 and
-§Opus money-crossover verification. **IMPORTANT: `Marek Výborný`'s proposal includes an `effort_public_role`
-correction that OVERWRITES an already-live, defective persisted value** (the "šesti autorsky vedených tisků"
-overclaim from batch 003 — confirmed live in `.pglite-copy-effort` before this fix). This is the one entry in
-this payload that is a correction to existing graph state, not a first-time fill. Gated 8/8 PASS.
-**Deliberately NOT applied** (Opus verification's own recommendation, logged not actioned): stripping
-pipeline-internal narration ("batch-003 draft byl chybný" etc.) from the public-facing `effort_notes` prose in
-6 of 8 entries — flagged as a copy-edit item for the human reviewer pass before these render publicly, not a
-data-accuracy blocker.
+10 of 45 dossiers are money-touching, all independently re-verified (see §1b). 19 Q-effort-11
+(prose-vs-props) warnings remain, all inspected — legitimate PSP9-scoped or subset-of-subset framings under
+case gate (e), soft-fail by design, reviewer's call.
 
-### 1c. `role_window_mismatch` build backfill — 6 MPs (`payloads/batch-004-role-window-mismatch.json`) — SAFE TO PERSIST
-Deterministic `effort_low_score_reason` + `effort_public_role` for the 6 batch-003 mid-term role-change MPs
-(Havlíček, Macinka, Schillerová, Babiš, Metnar → existing minister/deputy_pm/prime_minister vocabulary;
-Urbanová → new `institutional_promotion` value). Sourced from batch-003's own already-cited facts — no new
-enrichment call. Gated 6/6 PASS. Renders automatically via the EXISTING `LowScoreReasonBadge` component
-(batch 002) — no new component shipped.
+### 1b. Money-crossover verification — P51/C13 gate, first full two-layer exercise
+`payloads/batch-005-money-verification-input.json` (input) → `payloads/batch-005-opus-verification.json`
+(dedicated Opus verdicts, 3 CONFIRMED / 3 NEEDS_CORRECTION / 4 BLOCKING) → all corrections already folded
+into `batch-005-props.json` (§1a), nothing further to apply. Full narrative in `batch-005.md` §3.
+**Highest-severity catch**: the army's Černochová dossier recommended *clearing* all 4 company ties; she is
+actually a registered officer in 3 of 4 — the exact C11 false-clearance failure class recurring at scale
+(5 of 10 army dossiers read only currently-registered officers instead of the full historical record).
 
-### 1d. `ledger.json` / `triage.json` — current state is batch 004's, NOT advanced to batch 5
-A scratch validation run of the fixed `triage.ts` (see §3) briefly advanced these files to a batch-5 pool
-before being restored to batch 004's actual state (one-batch-per-cycle kernel rule). The orchestrator's
-`persist-batch.ts` run against §1a–1c should be followed by a **fresh** `triage.ts` run for batch 005 (the
-fix is already in the file; the scratch run's ranking-diff validation — sd 0.323→0.338, 100 distinct values,
-Forman dropped from the divergence pick — is documented in batch-004.md, not re-derived here).
+### 1c. `ledger.json` / `triage.json` — advanced to batch 5, army marked `triaged` (not yet `signal`)
+Both files are the direct output of `triage.ts --army=45` run on the copy — 45 MPs newly picked into batch
+5's army carry `stage: "triaged"`, `batch: 5`; the other 162 carry their prior batches' `signal` stage. The
+orchestrator's `persist-batch.ts` run against §1a should flip these 45 to `stage: "signal"` with the payload's
+`signal` scores, per the existing batch-004 pattern — no separate re-run of `triage.ts` needed for this step.
+
+### 1d. Build artifacts (code, not graph payloads) — see §4 below for file list.
 
 ---
 
@@ -61,169 +57,194 @@ Forman dropped from the divergence pick — is documented in batch-004.md, not r
 
 ### → `frontier.md` (Case ② section)
 ```
-- [effort] Q-effort-10 (Kott-class employment-COI signal) reopened, NOT closed as "data does not exist":
-  cro.justice.cz (Centrální registr oznámení, zák. 159/2006 Sb. — statutory MP conflict-of-interest
-  declarations including employment, free registration, inside loop Authority) and volby.cz/ČSÚ Open Data
-  (PS2025 candidate XML, POVOLANI field for all 207 MPs, frozen at election date) both carry occupation-
-  adjacent primary data that a batch-004 probe initially declared absent from this repo — corrected by that
-  same batch's Opus reflection. A deterministic keyword+committee-sector lens over the existing 85-MP dossier
-  corpus already probes well (Kott seed case recovered, 3 plausible non-Kott candidates, correctly declines
-  on committee-coincidence and public-office cases) — batch 005 should re-probe with these two sources before
-  the PARTIAL/defer verdict hardens further. (opened 2026-07-24, batch 004)
-- [effort] ARES VR endpoint trap, distinct from the batch-003 no-officer-data trap: the human-facing
-  `https://ares.gov.cz/ekonomicke-subjekty-vr/<ICO>` URL is a client-rendered SPA that returns no usable
-  content via WebFetch/fetch tools — the REAL REST API is
-  `https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/<ICO>`, confirmed working via
-  direct curl and by 2 of 3 batch-004 research passes. At least 12 of batch 004's 35 army dossiers logged a
-  failed VR lookup against the SPA URL — proposed as a kernel-level web-research doctrine addition (currently
-  only in this case's batch note). (opened 2026-07-24, batch 004)
-- [effort] Driver-authored deterministic code needs the SAME reflection-call scrutiny as army dossiers, not
-  less: batch 004's own MIN_COHORT/replacement-pooling fix was a no-op on arrival (7 replacement MPs pooled
-  into one cohort of 7, MIN_COHORT set to 8 — self-canceling), caught only because the batch's Opus reflection
-  call was explicitly briefed to review the batch's OWN new code, not just its dossiers. Proposed as a kernel
-  practice: "treat driver-authored deterministic code as in-scope for the reflection call by default."
-  (opened 2026-07-24, batch 004)
+- [effort] Q-effort-10 (Kott-class employment-COI signal) access assessment complete: volby.cz/ČSÚ Open Data
+  (PS2025 registry, POVOLANI field) is free, no-auth, bulk-downloadable — worth a real ingest build, comparable
+  effort to the existing osoby.unl ingest, one-time backfill (re-syncs only at the next election). cro.justice.cz
+  (Centrální registr oznámení, zák. 159/2006 Sb.) requires a manually-approved, per-named-official, ~30-day
+  Ministry of Justice paperwork process — NOT autonomously accessible by a loop, correcting batch-004's more
+  optimistic "loops register for FREE API keys/accounts autonomously" framing. Recommend: build the POVOLANI
+  ingest next; treat cro.justice.cz as a possible human-mediated follow-up, not an automatable source.
+  (closed as assessed, batch 005 — access model now known; ingest itself remains open)
+- [effort] extract-dossiers.ts committees[] extractor bug (root-caused this batch): the array only includes
+  organs that are DIRECT CHILDREN of the chamber organ (kg-compute.ts), silently excluding Podvýbor
+  (subcommittee) memberships, while contribution.ts's committee_count correctly counts them — and separately,
+  extract-dossiers.ts's committees[] carries no fromAt/toAt, so an ended committee seat is indistinguishable
+  from a current one (this is what made 3+ army dossiers this batch render a minister's vacated committee
+  seat as still active). Both are effort-owned fixes (extract-dossiers.ts), not Case ① ingest defects — 21
+  batch-005 dossiers initially misattributed this to Case ①, corrected in the payload. Recommended build item
+  for the next R=1 slot: rebuild committees[] from the same membership rows computeContribution uses (organ
+  types incl. Podvýbor, ověřovatel preserved as leadership, fromAt/toAt carried through). This also closes the
+  batch-005/batch-004 recurring "committee_count mismatch" cross-cutting lead for good (29/45 this batch, 5th+
+  occurrence). (opened 2026-07-25, batch 005)
+- [effort] Stale-executive-role detection needs extending from historical to CURRENT transitions: batch-004's
+  role_window_mismatch detector (deterministic, `toAt`-based) only catches MPs whose role changed before the
+  triage snapshot. This batch found 4 MPs (Klempíř→Culture Minister, Vojtěch→Health Minister, Červený→
+  Environment Minister, Černochová's PSP9 Defence Minister tenure) whose committee/leadership props are stale
+  relative to a role that changed DURING or just before the batch's own processing window. Once extract-
+  dossiers.ts carries membership toAt (see above), "seat with a past toAt still counted as current" becomes a
+  deterministic code check rather than something only a web-researching army agent catches by chance.
+  (opened 2026-07-25, batch 005)
 ```
 
 ### → `patterns.md`
 ```
-- [effort, 2026-07-24, batch 004] "SD-UNCHANGED" IS NOT A SAFETY SIGNAL FOR A RETUNE — IT CAN BE A NO-OP
-  SIGNATURE: batch-004's divergence retune validated itself by checking population sd before/after (unchanged
-  at 0.323 to 3dp) and read that as "did not degrade." The batch's Opus reflection showed the correct read was
-  the opposite: an sd that holds EXACTLY steady across a structural change to the cohorting logic is more
-  consistent with the change doing nothing than with it doing no harm — confirmed when a concrete case
-  (Libor Forman, a 55-day replacement MP) still took a divergence slot the retune was supposed to prevent.
-  Corollary for future retunes: validate by RANKING DIFF (who enters/leaves the affected pick list), not by a
-  single aggregate statistic holding steady.
-- [effort, 2026-07-24, batch 004] A SEMANTIC OVERCLAIM CAN BE NUMERICALLY INVISIBLE: Q-effort-11's prose-vs-
-  props numeric cross-check was built specifically to catch Výborný's "šesti autorsky vedených tisků" claim,
-  but even after full field-coverage expansion (effort_public_role + headline), it still cannot catch this
-  exact case — because his aggregate bills_authored genuinely equals 6, so the NUMBER is correct; the defect
-  is using "autorsky vedených" (authored/led) framing for a count that conflates first-signatory and co-signer
-  bills (case gate (e)). A numeric checker cannot detect a framing/rank violation where the number itself is
-  accurate. This class of defect needs a different check (verb/framing-sensitive, not regex-numeric) or stays
-  in the Opus-reflection layer.
+- [effort, 2026-07-25, batch 005] A DRIVER'S "I APPLIED THE FIX" CLAIM NEEDS THE SAME AUDIT AS AN ARMY
+  DOSSIER'S CLAIM: of 7 driver-applied Opus-verification text fixes in this batch's first pass, 3 were not
+  actually applied to the payload despite the payload text claiming they were (one — Juchelka's neutral-
+  phrasing fix — was completely unapplied; the successor's name was still asserted as "manželka" without
+  citation, on a public-role-facts-only doctrine item). The mechanical fault: the driver APPENDED a correction
+  sentence to effort_notes describing what should change, instead of EDITING the wrong text in place, leaving
+  the error and its stated correction sitting side by side. Batch-004's lesson ("the reflection call's scope
+  includes the driver's own new code") generalises further than written: the driver's fix-application claims
+  need the same omission-scoped audit ("did you apply what you said you applied") as any other claim in the
+  batch, not exemption because they're framed as corrections rather than original assertions.
+- [effort, 2026-07-25, batch 005] A RECURRING CROSS-BATCH ANOMALY DESERVES A ROOT-CAUSE TRACE BEFORE AN
+  ESCALATION RECOMMENDATION, NOT AFTER 5 OCCURRENCES OF NOTING IT: the committee_count/committees[] mismatch
+  was independently flagged by army agents in at least 2 prior batches (each time recommending "ověřit v
+  pipeline Case ①") without anyone tracing it to a specific line of effort-owned code. This batch's reflection
+  traced it in one pass (two files, two definitions of "committee membership," neither wrong, both
+  undocumented against each other) and found it was NEVER a Case ① defect. Lesson: a cross-cutting lead that
+  recurs across batches should trigger a driver-owned root-cause trace at the NEXT occurrence, not accumulate
+  as unresolved escalation-recommendations that risk actually being escalated to the wrong case eventually.
+- [effort, 2026-07-25, batch 005] PUBLIC-RENDER FIELDS NEED A "WOULD I SHOW THIS TO A VOTER" CHECK, SEPARATE
+  FROM FACTUAL-ACCURACY CHECKS: effort_public_role renders verbatim on `/poslanec` via LowScoreReasonBadge for
+  any MP carrying effort_low_score_reason. 4 of this batch's dossiers had factually-accurate but pipeline-
+  internal prose in that exact field (prop-name cross-references like "(2 role, odpovídá committee_count=2)",
+  batch-internal asides like "třetí případ dual-mandate v tomto vzorku, viz Vrána"). None of these were
+  factual errors — they would have passed any accuracy-only gate — but they read as debugging notes on a
+  public page. A field-level render-audience check (is this field rendered verbatim to end users? if so, does
+  it read as end-user copy?) is a distinct QA question from "is this true," and this batch's reflection is the
+  first to have caught it at scale rather than per-dossier.
 ```
 
 ### → `contradictions.md`
 ```
-- [effort, 2026-07-24, batch 004] Three found, all resolved or logged, none surviving into persisted state:
-  (1) IČO 04627695 re-opened as "unsolved" by 8 of batch 004's own army dossiers, contradicting batch 003's
-  (twice-verified) SOLVED finding — not fixed in the 8 dossiers' text (low harm, all contractCzk 0/
-  pending_review), logged as a process gap (army briefs need a solved-facts block).
-  (2) Libor Forman's dossier said his predecessor Karel Beran "se v listopadu 2025 vzdal mandátu" —
-  contradicts batch 003's deterministic finding that Beran departed 2026-05-29 (238 served days); Forman was
-  confused with the 2025-11-03 replacement wave. Root cause was the ledger.json tenure-classifier bug (§3),
-  now fixed; the dossier text itself was not corrected this session (low priority — the underlying deterministic
-  props were never wrong, only the narrative aside).
-  (3) ledger.json (git-tracked machine state) contradicted payloads/batch-003-tenure.json for exactly the 3
-  departed MPs (Beran/Šichtařová/Kott) — RESOLVED, triage.ts's tenure classifier now matches tenure.ts's.
+- [effort, 2026-07-25, batch 005] Two found, both resolved before persist:
+  (1) Group-B fleet mechanics: the first dossier-group-B agent attempt produced no output file and a
+  "Waiting." result; a retry succeeded and was used for merge/gate; the ORIGINAL agent then completed late
+  and independently overwrote the same file path with a different-but-factually-consistent version (same 5
+  MPs, same facts, different phrasing/one misspelled name "Ošanová"→corrected to "Ožanová" in the final
+  payload). No data was lost — the merge into batch-005-props.json had already captured the retry's version
+  before the late overwrite landed, and the one substantive spelling difference was caught and fixed
+  independently by this batch's reflection. Root cause: a group payload output path is not write-once-
+  guarded — recommend the orchestrator consider a per-attempt suffix convention (or a lockfile check before
+  write) for any group/dossier output path that a retry might target, to make this class of race impossible
+  rather than merely harmless.
+  (2) Ambiguous primary-vs-secondary-source contradiction (Martínková Španihelová's MATURUS tie) — flagged
+  unresolved by the army, RESOLVED by the dedicated Opus verification pass in favour of the secondary sources
+  (she is confirmed in the primary ARES VR record after all — the army's earlier fetch had been incomplete,
+  same failure class as the Stržínek/Černochová false negatives). No longer a contradiction as of this batch.
 ```
 
 ### → `graph-log.md`
 ```
-- pass <assigned> (effort track, batch 004): effort_notes/effort_bill_focus/effort_public_role corrections on
-  the 8 batch-003 held-back MPs (Q-effort-9, includes one correction to an already-live prop — Výborný's
-  effort_public_role); effort_* enrichment props on 35 new army MPs (2 rounds of post-verification fixes
-  applied — Fiala/Okamura/Majerová); effort_low_score_reason (institutional_promotion, new vocabulary value) +
-  effort_public_role on 6 role_window_mismatch MPs. No new node kinds / edge rels. No contribution_* number
-  touched anywhere in this batch.
+- pass <assigned> (effort track, batch 005): effort_* enrichment props on 45 new army MPs (2 driver fix
+  passes applied post-gate and post-reflection — see batch-005.md); effort_low_score_reason set for Vojtěch
+  (minister), Vrána/Blišťanová (dual_mandate), Černochová (minister, retroactive PSP9 explanation); no new
+  vocabulary values (dual_mandate/minister both pre-existing since batch 002, first at-scale use this batch).
+  No new node kinds / edge rels. No contribution_* number touched anywhere in this batch.
 ```
 
 ### → `feature-opportunities.md`
 ```
-- [effort · batch 004] SHIPPED (build, this batch): role_window_mismatch badge — 0 new components (reused
-  LowScoreReasonBadge/low-score-reason.ts from batch 002), 1 new closed-vocabulary value
-  (institutional_promotion), deterministic backfill for 6 MPs. npm run check 194/194 green.
-- [effort · batch 004, open] Deterministic citation-coverage gate check: every IČO in an MP's linkedCompanies
-  must appear in that dossier's citations, else WARN — ~15 lines in gate.ts, would have mechanically caught
-  both of this batch's Opus-verification blocking findings (Foldyna/DP Děčín, Výborný/Gymnázium Pardubice).
-  Recommended as a batch-005 build item.
-- [effort · batch 004, open] Kolovratník-class headline-vs-notes order-of-magnitude check (prose-vs-prose, not
-  prose-vs-props) — cheaper and more common a failure mode than the numeric-vs-graph-prop check Q-effort-11
-  currently does; not implemented this session.
+- [effort · batch 005] SHIPPED (build, this batch): tenure-aware profile copy on /poslanec — 2 new components
+  (TenureNote, TenureTrendGate), 1 new pure module (lib/analysis/tenure-copy.ts, 16 test assertions), 0 new
+  graph props (reuses batch-003's effort_tenure_* props). npm run check green over effort-owned paths
+  (205/205 tests) — repo-wide check currently fails on unrelated law-loop scratch files, see §5.
+- [effort · batch 005, open] extract-dossiers.ts committees[] rebuild (root-caused this batch, ~1-line-scope
+  fix per organ type + fromAt/toAt passthrough) — closes a 5-batch-old recurring false-anomaly source and
+  extends role_window_mismatch detection to CURRENT (not just historical) minister transitions. Recommended
+  as the next R=1 build item.
+- [effort · batch 005, open] volby.cz POVOLANI ingest (Q-effort-10 access-assessment now closed, build itself
+  still open) — free, no-auth, bulk ZIP, one-time backfill, comparable effort to the existing osoby.unl
+  ingest. See frontier.md addition above for the full access-model summary.
 ```
 
 ---
 
 ## 3. Proposed enum / schema changes
 
-1. **`effort_low_score_reason` vocabulary**: `institutional_promotion` added (Urbanová's Deputy Speaker
-   promotion — doesn't fit minister/deputy_pm/prime_minister). Already added to `gate.ts`'s
-   `LOW_SCORE_REASONS` and `lib/analysis/low-score-reason.ts`'s `LOW_SCORE_REASONS` + `COPY`.
-2. **Kernel doctrine addition** (`docs/case-loops.md`, Web-research doctrine): the ARES VR REST-vs-SPA
-   endpoint trap (§2 frontier.md text above) — proposed as kernel-level, not just effort-loop, since any case
-   loop resolving ARES VR company officers will hit the same SPA trap.
-3. **Kernel practice addition** (`docs/case-loops.md`, batch cycle §5 Reflect): "the reflection call's scope
-   includes the batch's own new deterministic code, not just dossier/enrichment output" — this batch's
-   MIN_COHORT no-op was caught only because the reflection prompt explicitly named the new triage.ts sections
-   as in-scope; a dossier-only reflection would have missed it entirely.
+None this batch. `dual_mandate` and `minister` (used in `effort_low_score_reason` this batch) were both
+already in the closed vocabulary since batch 002 — no vocabulary change needed or made. (The reflection
+specifically flagged that these should NOT be recorded as "new classes discovered" in the loop's memory —
+`.claude/skills/effort-loop.md`'s History section, if updated, should say "first at-scale use of existing
+vocabulary," not "new class found.")
 
-## 4. Commit plan (per-case; suggested)
+## 4. Build file list (all inside boundary, all working-tree, none committed)
+
+- `lib/analysis/tenure-copy.ts` (new) + `lib/analysis/tenure-copy.test.ts` (new)
+- `features/profile/components/TenureNote.tsx` (new)
+- `features/profile/components/TenureTrendGate.tsx` (new)
+- `features/profile/getProfileData.ts` (edited — reads effort_tenure_* off the person node)
+- `features/profile/ProfilePage.tsx` (edited — wires TenureNote + swaps TrendPanel for TenureTrendGate)
+- `scripts/case-loops/effort/gate.ts` (edited — Q-effort-11 negation-guard fix for the Ančincová false positive)
+
+## 5. Commit plan (per-case; suggested)
 
 One atomic Conventional commit inside the effort boundary:
 
 **Files (all inside boundary):**
-- `docs/data-analysis/case-effort/` — batch-004.md, handoff.md, ledger.json, triage.json, dossier-inputs.json,
-  payloads/batch-004-{props,rewrites,rewrite-input,role-window-mismatch,kott-signal-probe,opus-verification,
-  opus-reflection}.json, payloads/batch-004-group-{A..E}.json, payloads/batch-004-group-{A..E}-input.json
-- `lib/analysis/low-score-reason.ts` (+ test file already covers new vocabulary value generically, no test
-  changes needed — verified `npm run check` green)
-- `scripts/case-loops/effort/` — gate.ts (Q-effort-11 prose-vs-props check + field-scope expansion),
-  triage.ts (Q-effort-12 divergence retune + MIN_COHORT-no-op fix + tenure-classifier sync fix),
-  role-window-mismatch.ts (new)
+- `docs/data-analysis/case-effort/` — batch-005.md, handoff.md (this file, replacing batch-004's), ledger.md,
+  ledger.json, triage.json, dossier-inputs.json, payloads/batch-005-{props,group-A..I,group-A..I-input,
+  money-verification-input,opus-verification}.json
+- `lib/analysis/tenure-copy.ts` (+ test)
+- `features/profile/components/{TenureNote,TenureTrendGate}.tsx`
+- `features/profile/{getProfileData.ts,ProfilePage.tsx}`
+- `scripts/case-loops/effort/gate.ts`
 
 **Suggested message:**
 ```
-feat(effort): batch 004 — 8 money-dossier rewrites (VR re-verified), Q-effort-11/12 deterministic gates,
-role_window_mismatch build, Opus-caught driver bugs fixed
+feat(effort): batch 005 — 45-MP army, two-layer money gate proves itself, tenure-aware profile build
 
-Q-effort-9: rewrote the 8 batch-003 held-back money dossiers under the ARES VR doctrine, independently
-re-verified twice (Sonnet rewrite + dedicated Opus call) — found and fixed 2 blocking omissions (Foldyna's
-second historical tie, Výborný's decade-long Gymnázium Pardubice statutory role, the latter correcting an
-already-live persisted prop). Q-effort-11: new gate.ts prose-vs-props numeric cross-check, retroactively
-validated (1/2 claimed catches genuine; the real defect proved numerically uncatchable and was fixed
-directly — see batch note). Q-effort-12: divergence V2 residual fixes — MIN_COHORT/replacement-pooling
-found to be a no-op by the batch's own Opus reflection call, fixed and re-validated by ranking diff; a stale
-tenure classifier in triage.ts (out of sync with batch-003's tenure.ts fix) also found and fixed. 35-MP
-Sonnet army (5x7 groups, 176 citations, gate 35/35) with 2 post-hoc fixes (Fiala/Okamura money claims
-independently re-verified via ARES VR; Majerová's misread contribution.ts flag corrected). Kott-signal
-probe (Q-effort-10): PARTIAL/defer, with an initial "data does not exist" conclusion corrected by the
-reflection call (cro.justice.cz + volby.cz both carry occupation-adjacent primary data, unprobed). Ships
-role_window_mismatch backfill (O-effort-4): 0 new components, reuses batch-002's LowScoreReasonBadge, 1 new
-vocabulary value. npm run check green (194/194 tests).
+CRO/volby.cz access assessment (Q-effort-10): volby.cz/ČSÚ POVOLANI is a genuine free bulk-downloadable
+primary source worth building; cro.justice.cz requires a ~30-day manually-approved government request, NOT
+autonomously accessible — corrects batch-004's optimistic framing. 45-MP Sonnet army (9x5 groups, 197
+citations), gate 45/45 PASS after fixing 13 effort_low_score_reason vocabulary violations. P51/C13
+two-layer money-verification gate exercised in full for the first time: dedicated Opus re-fetch of all 10
+money-touching dossiers' full ARES VR officer records found 4 BLOCKING errors (including reversing a false
+company-tie clearance recommendation on Černochová, and catching a truncated-fetch that missed Stržínek's
+ACTIVE current board seat) — the exact false-clearance failure class the kernel's C11 doctrine warns about,
+proving the gate's value on first full use. Opus reflection held the batch back one fix pass: found the
+5-batch-old "committee_count mismatch" cross-cutting lead is an EFFORT-OWNED extract-dossiers.ts bug, not a
+Case ① ingest defect (root-caused to line level, no cross-case escalation sent); found 3 of 7 driver-applied
+Opus fixes were not actually applied on the first pass despite being claimed as applied (re-applied for
+real); cleaned public-render leakage (pipeline narration rendering verbatim via LowScoreReasonBadge) on 4
+profiles. Ships tenure-aware profile copy: mandate-began/departed note for replacement/departed MPs,
+PSP9-trend suppression under 90 tenure days, both graceful-null. npm run check green over effort-owned
+paths (205/205 tests).
 
 Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
 ```
-**Do NOT commit** `.pglite-copy-effort` (to be deleted at batch end). The working tree also carries unrelated
-concurrent money-loop and law-loop changes (`features/money/*`, `lib/analysis/kg-money*`, `lib/db/pglite/*`,
-`docs/data-analysis/case-law/*`, `scripts/case-loops/law/*`, `scripts/data-analysis/kg-money-ingest.ts`) —
-live fleet concurrency, do not fold into this commit.
 
-## 5. Lessons learned (tiering + process)
+**Do NOT commit** `.pglite-copy-effort` (to be deleted at batch end). **Before any commit, the orchestrator
+must resolve two untracked law-loop scratch files** (`scripts/case-loops/law/_audit-probe.ts`,
+`_audit-probe2.ts`) that currently break repo-wide `npm run check` (typecheck + lint) — they are outside this
+case's boundary to touch, but they will block CI for all three cases if committed as-is or left untracked
+past this batch. The working tree also carries unrelated concurrent money-loop and law-loop changes
+(`features/money/*`, `docs/data-analysis/case-money/*`, `docs/data-analysis/case-law/*`,
+`lib/ingest/sources/psp-legislation.ts`, `scripts/case-loops/{law,money}/*`) — live fleet concurrency, do not
+fold into this commit.
 
-- **The reflection call's value this batch came from reviewing the DRIVER, not just the army.** Every
-  material defect the reflection found in the 35 army dossiers was a real but bounded issue (5 dossiers, 2
-  fixed); the two most consequential findings — the MIN_COHORT no-op and the false "2/2 Q-effort-11 catches"
-  claim — were both driver-authored. Kernel tiering rule (a) ("batch QA/reflection... Opus audit caught real
-  defects a Sonnet-only pass had accepted") needs an explicit corollary: the driver's own deterministic code
-  and its own validation claims are not exempt from this scrutiny by default, and should be named in-scope
-  in the reflection prompt every batch, not assumed safe because they're code rather than prose.
-- **Confirmation-scoped re-verification has near-zero marginal value; omission-scoped re-verification is
-  where the value is.** The driver's own curl re-check of the 8 rewrites (done in parallel with, then before,
-  the dedicated Opus call) matched the rewrite's findings on every single IČO checked — zero yield, because it
-  checked exactly what the rewrite had already chosen to check. The dedicated Opus call's two blocking findings
-  were both OMISSIONS (an IČO already in the MP's own linkedCompanies list that nothing had looked up at all).
-  The generalizable lesson: a "did I get this right" second pass and a "what did I not check" second pass are
-  different tools — one catches transcription errors, the other catches gaps, and only the second one is worth
-  paying for once a first pass already exists.
-- **Money-verification routing regressed from claim-type-based to payload-based, and nobody flagged it until
-  the reflection did.** Batch 003 routed every army money-crossover MP to Opus; batch 004 only routed the 8
-  separately-scoped rewrites, silently leaving 6 of the army's own new money claims (including the batch's
-  highest-signal dossier, Fiala at 0.9) unreviewed by Opus. The driver closed part of this gap directly rather
-  than spend a third Opus call mid-batch, but batch 005 should explicitly re-scope call 1 to "every dossier
-  making a personal-company-role claim or citing contractCzk above ~10M, regardless of which payload it sits
-  in" — the kernel rule was never payload-scoped, the batch's own execution drifted into being so.
-- **"sd held steady" is not automatically "did no harm" for a retune** — see §patterns.md above. Validate
-  structural changes to a ranking/cohorting mechanism by diffing WHO the change moves, not just by an
-  aggregate statistic holding within tolerance.
+## 6. Lessons learned (tiering + process)
+
+- **The P51/C13 two-layer money gate justified its own existence on first full use.** 4 of 10 money-touching
+  dossiers this batch had a BLOCKING defect the army's own ARES check missed — and the failure mode was
+  consistent (reading only currently-registered officers, missing the full historical/current record) across
+  independent army agents, meaning a single-layer gate would have persisted at least 2 materially wrong
+  claims (a false clearance recommendation, a missed active current tie) into the live graph.
+- **The reflection call's value keeps concentrating on driver-authored work, not army work**, confirming and
+  extending batch 004's finding: of this batch's material defects, the driver's own fix-application gaps
+  (3/7 unapplied), false escalation attribution (21 dossiers), and stale claim ("npm run check green" when it
+  wasn't repo-wide) outweighed the army's own analytical defects in both count and severity. The 45-MP
+  Sonnet army's raw analysis — gate-(e) framing discipline especially — was assessed as the best of the loop
+  so far.
+- **A recurring cross-batch anomaly is a root-cause-trace trigger, not just a re-flag trigger.** The
+  committee_count mismatch had been independently noted by army agents across 2+ prior batches without ever
+  being traced to source; one focused pass this batch resolved it definitively and for free (in the sense
+  that no new research was needed — both files already existed and just needed to be read against each
+  other). Future batches should trace a lead after its 2nd occurrence, not accumulate escalation
+  recommendations toward a case that doesn't own the actual defect.
+- **A fleet output path needs write-once discipline for retried agents**, or a benign-looking race (§
+  contradictions.md #1) becomes a live risk in a batch where the two versions genuinely disagree rather than
+  merely differing in phrasing. This batch got lucky; the fix belongs in the harness/orchestrator layer
+  (path suffixing or a lock check), not in driver discipline alone.

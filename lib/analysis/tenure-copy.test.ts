@@ -1,0 +1,86 @@
+import { describe, expect, it } from "vitest";
+import {
+  formatCzechDate,
+  isTenureClass,
+  isTrendTooEarly,
+  mandateNoteCopy,
+  TREND_MIN_TENURE_DAYS,
+} from "./tenure-copy";
+
+describe("isTenureClass", () => {
+  it("accepts every vocabulary value", () => {
+    for (const c of ["full_term", "replacement", "departed", "never_seated"]) {
+      expect(isTenureClass(c)).toBe(true);
+    }
+  });
+
+  it("rejects unknown strings, non-strings, null and undefined", () => {
+    expect(isTenureClass("mid_term")).toBe(false);
+    expect(isTenureClass("")).toBe(false);
+    expect(isTenureClass(42)).toBe(false);
+    expect(isTenureClass(null)).toBe(false);
+    expect(isTenureClass(undefined)).toBe(false);
+  });
+});
+
+describe("formatCzechDate", () => {
+  it("formats an ISO date day-first without leading zeros", () => {
+    expect(formatCzechDate("2025-11-12")).toBe("12. 11. 2025");
+    expect(formatCzechDate("2026-03-01")).toBe("1. 3. 2026");
+  });
+
+  it("returns null for malformed input", () => {
+    expect(formatCzechDate("not-a-date")).toBeNull();
+    expect(formatCzechDate("")).toBeNull();
+  });
+});
+
+describe("isTrendTooEarly", () => {
+  it("is true below the threshold and false at/above it", () => {
+    expect(isTrendTooEarly(0)).toBe(true);
+    expect(isTrendTooEarly(TREND_MIN_TENURE_DAYS - 1)).toBe(true);
+    expect(isTrendTooEarly(TREND_MIN_TENURE_DAYS)).toBe(false);
+    expect(isTrendTooEarly(400)).toBe(false);
+  });
+
+  it("degrades to false (do not suppress) for missing/malformed tenure", () => {
+    expect(isTrendTooEarly(null)).toBe(false);
+    expect(isTrendTooEarly(undefined)).toBe(false);
+    expect(isTrendTooEarly("90")).toBe(false);
+  });
+});
+
+describe("mandateNoteCopy", () => {
+  it("renders a replacement note with the mandate-arose date", () => {
+    const c = mandateNoteCopy("replacement", "2025-11-12", null);
+    expect(c).not.toBeNull();
+    expect(c!.detail).toContain("12. 11. 2025");
+    expect(c!.detail).toContain("náhradník/nice");
+  });
+
+  it("renders a departed note with start and end dates when both are present", () => {
+    const c = mandateNoteCopy("departed", "2025-10-04", "2026-02-01");
+    expect(c).not.toBeNull();
+    expect(c!.detail).toContain("4. 10. 2025");
+    expect(c!.detail).toContain("1. 2. 2026");
+  });
+
+  it("renders a departed note without an end date gracefully", () => {
+    const c = mandateNoteCopy("departed", "2025-10-04", undefined);
+    expect(c).not.toBeNull();
+    expect(c!.detail).toContain("4. 10. 2025");
+    expect(c!.detail).not.toContain("zanikl");
+  });
+
+  it("degrades to null for full_term and never_seated — no note needed", () => {
+    expect(mandateNoteCopy("full_term", "2025-10-04")).toBeNull();
+    expect(mandateNoteCopy("never_seated", "2025-10-04")).toBeNull();
+  });
+
+  it("degrades to null for missing/unrecognized class or missing start date", () => {
+    expect(mandateNoteCopy(undefined, "2025-10-04")).toBeNull();
+    expect(mandateNoteCopy("unknown_class", "2025-10-04")).toBeNull();
+    expect(mandateNoteCopy("replacement", undefined)).toBeNull();
+    expect(mandateNoteCopy("replacement", 12345)).toBeNull();
+  });
+});

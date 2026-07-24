@@ -1,0 +1,111 @@
+{
+  "generatedAt": "2026-07-25T00:00:00.000Z",
+  "proposals": [
+    {
+      "id": "psp:person:5943",
+      "name": "Helena Langšádlová",
+      "club": "TOP09",
+      "lens": ["top", "high-triage"],
+      "props": {
+        "effort_work_themes": ["evropské záležitosti", "životní prostředí a odpady", "kontrola BIS a hybridních hrozeb", "bezpečnostní dozor"],
+        "effort_bill_focus": "Langšádlová je spolupodepsanou (nikoli první předkladatelkou) u všech 4 tisků svého vzorku, žádný z nich k 25. 7. 2026 neprošel a všechny narazily na nesouhlasné stanovisko vlády: tisk 74 (novela zákona o předcházení ekologické újmě, vedl P. Hladík, podán 22. 12. 2025, nesouhlas vlády 10. 2. 2026) čeká ve VŽP; tisk 75 (novela vodního zákona, vedl P. Hladík, podán 22. 12. 2025, nesouhlas vlády 17. 2. 2026) čeká v zemědělském výboru; tisk 161 (novela zákona o odpadech, vedl P. Hladík, podán 7. 4. 2026, nesouhlas vlády 5. 5. 2026) čeká ve VŽP; tisk 181 (novela zákona o volbách do zastupitelstev obcí, vedl M. O. Havel, podán 4. 5. 2026, nesouhlas vlády 3. 6. 2026) čeká v ÚPV. Čtyři ze čtyř tisků jsou tedy spolupodpisy bez vlastní iniciativy a žádný dosud nezískal souhlasné stanovisko vlády.",
+        "effort_public_role": "Místopředsedkyní Stálé komise pro hybridní hrozby, členkou Výboru pro evropské záležitosti, Výboru pro životní prostředí a Stálé komise pro kontrolu činnosti BIS — hustý bezpečnostně-dozorový profil. Bývalá ministryně pro vědu, výzkum a inovace (vláda P. Fialy, do voleb 2025/pádu vlády) — v aktuálním PSP10 kontextu žádný zdroj neuvádí ministerský titul, funkce je korektně omezena na výborové role, takže žádná stará ministerská nálepka nepřežila do aktuální datové sady.",
+        "effort_notes": "Datová nesrovnalost: props uvádí committee_count=7, ale poskytnutý seznam committees obsahuje jen 4 položky (SKHH, VEZ, VŽP, SKBIS) — rozdíl tří nedoložených vazeb, doporučuji ověřit v pipeline Case ①. Peněžní zjištění (MONEY-TOUCHING, linkedCompanies neprázdné): Fórum Karla Schwarzenberga, o.p.s. (IČO 02086778), contractCzk 0. Ověřeno přes ARES VR REST endpoint (ekonomicke-subjekty-vr, ne SPA verzi) — Langšádlová je aktuálně vedena jako členka správní rady (spolu s M. Ženíškem, J. Farským a dalšími), statutárním orgánem je Filip Štědrý. Jde o vzdělávací/politickou o.p.s. založenou zesnulým Karlem Schwarzenbergem (zakladatelem TOP 09, zemřel 2023, zápis zakladatele vymazán 3. 11. 2025) — konzistentní s její stranickou příslušností, nulová smluvní částka, žádná obchodní vazba. Jde o transparentní politicko-institucionální roli, ne skrytý obchodní konflikt zájmů, ale patří do evidence jako aktivní správní funkce.",
+        "effort_low_score_reason": null
+      },
+      "signal": 0.55,
+      "headline": "Langšádlová spolupodepsala všechny čtyři tisky svého vzorku (žádný vlastní), sedí ve správní radě Schwarzenbergovy o.p.s. bez finanční hodnoty, a vstupní počet výborů (7) neodpovídá čtyřem reálně uvedeným.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=74",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=75",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=161",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=181",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/02086778",
+        "https://www.hlidacstatu.cz/osoba/Funkce/helena-langsadlova"
+      ]
+    },
+    {
+      "id": "psp:person:6491",
+      "name": "Adam Vojtěch",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["zdravotnictví (jako ministr, nikoli jen jako poslanec)", "evropské záležitosti"],
+        "effort_bill_focus": "Jediná položka v jeho vzorku, tisk 235 (novela zákona o veřejném zdravotním pojištění, podán 23. 6. 2026), NENÍ jeho poslanecká iniciativa — jde o vládní návrh, kde je předkladatelem 'ministr zdravotnictví', a Vojtěch je od 15. 12. 2025 sám ministrem zdravotnictví. Tisk prošel 1. čtením 8. 7. 2026 (sněmovna odmítla zkrácené schválení již v 1. čtení) a byl přikázán výborům; garanční Výbor pro zdravotnictví — jehož je Vojtěch sám členem — jej k 25. 7. 2026 ještě neprojednal. bills_authored=0 v datech je tedy technicky konzistentní s tím, že jde o vládní, nikoli poslaneckou iniciativu, ale skrývá klíčový fakt, že návrh fakticky vede on sám jako ministr.",
+        "effort_public_role": "KLÍČOVÉ ZJIŠTĚNÍ: Vojtěch je od 15. 12. 2025 ministrem zdravotnictví ve vládě Andreje Babiše (jmenován prezidentem Pavlem na návrh Babiše) — návrat do funkce, kterou zastával už 2017–2019/2020 v předchozí Babišově vládě. Vstupní effort props (leadership_count=0, participation_rate=0.8, žádný příznak ministerské funkce) tento fakt vůbec nezachycují — profil jej řadí mezi řadové poslance jen s členstvím ve VEZ a VZ (Výbor pro zdravotnictví), přitom sedí ve výboru, který dozoruje jeho vlastní ministerstvo. Toto je nejzávažnější zjištění dávky: kontribuční skóre a jeho komponenty (absence 0.6, žádné vedení výboru) je třeba číst v kontextu plného ministerského vytížení, ne jako signál nízkého nasazení řadového poslance.",
+        "effort_notes": "Silné doporučení pro Case ①/Case ② pipeline: přidat příznak současné vládní funkce (ministr/náměstek) do person-node props, protože bez něj se ministrův nízký legislativní 'authored' počet a nižší docházka mylně interpretují jako nezájem, zatímco jde o strukturální artefakt souběhu mandátu a exekutivní funkce (analogie k dřívějším 'never_cast_ballot' a tenure artefaktům z batch 001–003). linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření zde.",
+        "effort_low_score_reason": "Nízké leadership_count a absence_rate 0.6 jsou pravděpodobně artefaktem souběhu s ministerskou funkcí (viz effort_public_role), ne skutečného nezájmu — komponenty je nutné číst v tomto kontextu, ne izolovaně."
+      },
+      "signal": 0.72,
+      "headline": "Vojtěch je od prosince 2025 znovu ministrem zdravotnictví ve vládě Babiše, ale jeho effort profil to nikde nezachycuje a řadí jej jako běžného poslance s nulovou legislativní iniciativou — datová mezera s reálným dopadem na interpretaci skóre.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=235",
+        "https://vlada.gov.cz/cz/media-centrum/aktualne/premier-babis-uvedl-do-funkce-noveho-ministra-zdravotnictvi-184578/",
+        "https://www.irozhlas.cz/zpravy-domov/adam-vojtech-se-vraci-do-vlady-staronovy-ministr-zdravotnictvi-ma-za-cil_2512131600_jar",
+        "https://www.psp.cz/sqw/detail.sqw?id=6491"
+      ]
+    },
+    {
+      "id": "psp:person:7017",
+      "name": "Vojtěch Krňanský",
+      "club": "MS",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["stavební právo", "veřejná správa a regionální rozvoj", "rozpočet", "hybridní hrozby a kontrola centrální evidence účtů"],
+        "effort_bill_focus": "Jediný tisk v jeho vzorku, tisk 67 (novela stavebního zákona, vedl A. Babiš a další, podán 12. 12. 2025, souhlas vlády 16. 12. 2025) je spolupodpis, ne vlastní iniciativa — Krňanský je jedním z devíti spolupodepsaných. Tisk je zdaleka nejúspěšnější z celého vzorku dávky D: prošel 1. čtením (28.–30. 1. 2026), 2. čtením (11. 6. 2026) i 3. čtením (10. 7. 2026) a byl 23. 7. 2026 postoupen Senátu (lhůta do 22. 8. 2026) — s více než 130 písemnými pozměňovacími návrhy v průběhu projednávání.",
+        "effort_public_role": "Předsedou Stálé komise pro hybridní hrozby od 5. 6. 2026 (nominace za Motoristy sobě), místopředsedou Výboru pro veřejnou správu a regionální rozvoj, členem Rozpočtového výboru a Stálé komise pro kontrolu poskytnutí údajů z centrální evidence účtů. Dlouholetý starosta Chrasti (Pardubický kraj) a odborník na regionální rozvoj a bytovou politiku — komise pro hybridní hrozby dozoruje odolnost státu vůči dezinformačním a hybridním kampaním, funkce předsedy je tedy věcně navázaná na jeho profil ve veřejné správě jen částečně, jde spíše o novou bezpečnostní agendu.",
+        "effort_notes": "bills_authored=1 odpovídá jediné položce v sponsoredBills, ale jde o spolupodpis, ne vlastní iniciativu (schema poznámka e) — přesto je to tisk, který v tomto vzorku nejdál pokročil (u Senátu). linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření.",
+        "effort_low_score_reason": null
+      },
+      "signal": 0.5,
+      "headline": "Krňanský předsedá Stálé komisi pro hybridní hrozby a jeho jediný spolupodepsaný tisk — novela stavebního zákona — je z celého vzorku dávky D nejblíže dokončení, už u Senátu.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=67",
+        "https://motoristesobe.cz/vojtech-krnansky",
+        "https://www.psp.cz/sqw/hp.sqw?k=8301"
+      ]
+    },
+    {
+      "id": "psp:person:7050",
+      "name": "Jan Sviták",
+      "club": "STAN",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["veřejná správa a obce", "daně z příjmů", "hospodářská politika", "mandátové a imunitní záležitosti"],
+        "effort_bill_focus": "Sviták je spolupodepsaným (ne prvním předkladatelem) u obou tisků svého vzorku, žádný neprošel: tisk 24 (novela zákona o obcích, vedl V. Rakušan, podán 12. 11. 2025, neutrální stanovisko vlády 12. 12. 2025) čeká ve VSR; tisk 120 (novela zákona o daních z příjmů, vedla L. Sedmihradská, podán 3. 3. 2026, nesouhlas vlády 31. 3. 2026) čeká v Rozpočtovém výboru.",
+        "effort_public_role": "Místopředsedou Hospodářského výboru (od 12. 11. 2025) a členem Mandátového a imunitního výboru (řeší ověřování mandátů a zbavování poslanecké imunity) — druhá role je procedurálně důležitá, ale nízkoprofilová. Členem podvýborů pro energetiku a dopravu od 22. 1. 2026.",
+        "effort_notes": "bills_authored=2 odpovídá počtu položek v sponsoredBills, ale u žádného není prvním předkladatelem (schema poznámka e). speech_turns=10 je nejnižší v tomto vzorku kromě Outraty (0), společně s zVsClub=-1.26 (nejnižší z pětice) — konzistentní obraz nízkoprofilového, ale ne nulového působení. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření.",
+        "effort_low_score_reason": "zVsClub -1.26 a nízké speech_turns odpovídají procedurální, nikoli řečnické roli (místopředseda hospodářského výboru + mandátový výbor) — nejde o odhalenou anomálii, jen o jiný typ přínosu."
+      },
+      "signal": 0.3,
+      "headline": "Sviták je místopředsedou Hospodářského výboru a sedí v mandátovém výboru, ale jeho dva spolupodepsané tisky (obce, daně) zatím neprošly a jeho viditelnost (10 řečnických vystoupení) je v tomto vzorku nejnižší po Outratovi.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=24",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=120",
+        "https://www.psp.cz/sqw/snem.sqw?l=cz&id=1761"
+      ]
+    },
+    {
+      "id": "psp:person:7029",
+      "name": "Pavel Outrata",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["sociální pojištění", "zdravotní pojištění", "jednací řád Sněmovny", "regionální symboly", "sport (jako předseda podvýboru)"],
+        "effort_bill_focus": "Outrata je spolupodepsaným (ne prvním předkladatelem) u všech 4 tisků svého vzorku, přesto tři ze čtyř dosáhly reálného pokroku: tisk 11 (novela zákona o pojistném na sociální zabezpečení, vedla A. Schillerová a další, podán 6. 11. 2025, nesouhlas vlády) prošel všemi třemi čteními (3. čtení 25. 3. 2026), Senát jej zamítl (6. 5. 2026), Sněmovna setrvala na svém znění (26. 5. 2026), prezident podepsal a byl vyhlášen jako zákon č. 90/2026 Sb. — tedy prošel navzdory nesouhlasu vlády. Tisk 70 (novela zákona o veřejném zdravotním pojištění, první předkladatel Adam Vojtěch — v této dávce samostatně profilovaný jako současný ministr zdravotnictví, souhlas vlády) byl rovněž schválen, podepsán prezidentem a vyhlášen jako zákon č. 71/2026 Sb. Tisk 72 (novela jednacího řádu Sněmovny, vedl R. Vondráček, souhlas vlády) prošel 3. čtením (1.–3. 7. 2026) a čeká u Senátu (lhůta do 20. 8. 2026). Jediný neúspěšný/nedokončený je tisk 87 (zákon o zemských znacích a vlajkách, vedl R. Vondráček, souhlas vlády), který zatím čeká v ÚPV. Tři ze čtyř spolupodepsaných tisků tedy buď již platí, nebo jsou těsně před dokončením — nejvyšší úspěšnost spolupodpisů v celém vzorku dávky D.",
+        "effort_public_role": "Členem Výboru pro evropské záležitosti a Výboru pro vědu, vzdělávání, mládež a sport, členem Stálé komise pro kontrolu činnosti Finančního analytického úřadu (AML dozor) a od 18. 2. 2026 předsedou Podvýboru pro sport — bývalý profesionální fotbalista a dnes brněnský zastupitel a podnikatel ve financích a realitách, což dává předsednictví sportovního podvýboru věcnou vazbu na jeho profesní minulost.",
+        "effort_notes": "bills_authored=4 odpovídá počtu položek v sponsoredBills, ale ani u jednoho není Outrata prvním předkladatelem (schema poznámka e) — přesto tři ze čtyř spolupodepsaných tisků uspěly nebo jsou blízko úspěchu, což je pozitivní zjištění hodné stejné váhy jako negativní nálezy (non-partisan symetrie). speech_turns=0 je jediná nulová hodnota v tomto vzorku a stojí v kontrastu s vysokým podílem na úspěšné legislativě — nízká řečnická viditelnost, ale reálný podíl na přijatých zákonech. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření.",
+        "effort_low_score_reason": null
+      },
+      "signal": 0.6,
+      "headline": "Outrata nepředložil sám žádný tisk, ale tři ze čtyř spolupodepsaných návrhů už jsou zákonem nebo těsně před ním — nejvyšší úspěšnost spolupodpisů v dávce D, i přes nulovou řečnickou viditelnost.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=70",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
+        "https://cs.wikipedia.org/wiki/Pavel_Outrata"
+      ]
+    }
+  ]
+}
