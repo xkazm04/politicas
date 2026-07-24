@@ -1,0 +1,757 @@
+[
+ {
+  "cislo": 112,
+  "billNodeId": "bill:tisk:43222",
+  "title": "Návrh poslankyně Pavly Pivoňka Vaňkové na vydání zákona, kterým se mění zákon č. 117/1995 Sb., o státní sociální podpoře, ve znění pozdějších předpisů",
+  "origin": "mp",
+  "submitter": "Pivoňka Vaňková P.",
+  "amendedLawsRecorded": [
+   {
+    "urn": "law:sb:117-1995",
+    "ref": "117/1995",
+    "label": "zákon č. 117/1995 Sb. — Zákon o státní sociální podpoře"
+   }
+  ],
+  "amendedLawsRealFromCensus": {
+   "realLaws": [
+    "117/1995"
+   ],
+   "recordedLaws": [
+    "117/1995"
+   ],
+   "undercount": 0,
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267665"
+  },
+  "sponsors": [],
+  "flaggedConflict": false,
+  "sponsorContractCzk": 0
+ },
+ {
+  "cislo": 132,
+  "billNodeId": "bill:tisk:43248",
+  "title": "Senátní návrh zákona, kterým se mění zákon č. 256/2004 Sb., o podnikání na kapitálovém trhu, ve znění pozdějších předpisů",
+  "origin": "senate",
+  "submitter": "Aschenbrenner L. a další",
+  "amendedLawsRecorded": [
+   {
+    "urn": "law:sb:256-2004",
+    "ref": "256/2004",
+    "label": "zákon č. 256/2004 Sb. — Zákon o podnikání na kapitálovém trhu"
+   }
+  ],
+  "amendedLawsRealFromCensus": {
+   "realLaws": [
+    "256/2004"
+   ],
+   "recordedLaws": [
+    "256/2004"
+   ],
+   "undercount": 0,
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268465"
+  },
+  "sponsors": [],
+  "flaggedConflict": false,
+  "sponsorContractCzk": 0
+ },
+ {
+  "cislo": 143,
+  "billNodeId": "bill:tisk:43263",
+  "title": "Vládní návrh zákona, kterým se mění zákon č. 256/2004 Sb., o podnikání na kapitálovém trhu, ve znění pozdějších předpisů, a další související zákony",
+  "origin": "government",
+  "submitter": "min. financí",
+  "amendedLawsRecorded": [
+   {
+    "urn": "law:sb:256-2004",
+    "ref": "256/2004",
+    "label": "zákon č. 256/2004 Sb. — Zákon o podnikání na kapitálovém trhu"
+   }
+  ],
+  "amendedLawsRealFromCensus": {
+   "realLaws": [
+    "15/1998",
+    "190/2004",
+    "21/1992",
+    "256/2004",
+    "87/1995",
+    "90/2012"
+   ],
+   "recordedLaws": [
+    "256/2004"
+   ],
+   "undercount": 5,
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268781"
+  },
+  "sponsors": [
+   {
+    "urn": "psp:person:6545",
+    "name": "Alena Schillerová",
+    "tiedCompanies": []
+   }
+  ],
+  "flaggedConflict": false,
+  "sponsorContractCzk": 0
+ },
+ {
+  "cislo": 210,
+  "billNodeId": "bill:tisk:43332",
+  "title": "Vládní návrh zákona, kterým se mění zákon č. 256/2004 Sb., o podnikání na kapitálovém trhu, ve znění pozdějších předpisů, a další související zákony v souvislosti s podporou vyváženého zastoupení žen ",
+  "origin": "government",
+  "submitter": "ministr spravedlnosti",
+  "amendedLawsRecorded": [
+   {
+    "urn": "law:sb:256-2004",
+    "ref": "256/2004",
+    "label": "zákon č. 256/2004 Sb. — Zákon o podnikání na kapitálovém trhu"
+   }
+  ],
+  "amendedLawsRealFromCensus": {
+   "realLaws": [
+    "198/2009",
+    "256/2004",
+    "99/1963"
+   ],
+   "recordedLaws": [
+    "256/2004"
+   ],
+   "undercount": 2,
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271236"
+  },
+  "sponsors": [],
+  "flaggedConflict": false,
+  "sponsorContractCzk": 0
+ },
+ {
+  "cislo": 146,
+  "billNodeId": "bill:tisk:43267",
+  "title": "Návrh poslanců Věry Kovářové, Matěje Hlavatého, Zdeny Kašparové, Jakuba Krainera, Elišky Olšákové, Michaely Opltové, Jana Papajanovského, Víta Rakušana, Lucie Sedmihradské, Julie Smejkalové, Michaely ",
+  "origin": "mp_group",
+  "submitter": "Kovářová V. a další",
+  "amendedLawsRecorded": [
+   {
+    "urn": "law:sb:128-2000",
+    "ref": "128/2000",
+    "label": "zákon č. 128/2000 Sb. — Zákon o obcích (obecní zřízení)"
+   },
+   {
+    "urn": "law:sb:129-2000",
+    "ref": "129/2000",
+    "label": "zákon č. 129/2000 Sb. — Zákon o krajích (krajské zřízení)"
+   },
+   {
+    "urn": "law:sb:131-2000",
+    "ref": "131/2000",
+    "label": "zákon č. 131/2000 Sb. — Zákon o hlavním městě Praze"
+   }
+  ],
+  "amendedLawsRealFromCensus": {
+   "realLaws": [
+    "128/2000",
+    "129/2000",
+    "131/2000"
+   ],
+   "recordedLaws": [
+    "128/2000",
+    "129/2000",
+    "131/2000"
+   ],
+   "undercount": 0,
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268822"
+  },
+  "sponsors": [
+   {
+    "urn": "psp:person:6214",
+    "name": "Věra Kovářová",
+    "tiedCompanies": [
+     {
+      "urn": "company:ico:04627695",
+      "name": "OSVČ",
+      "role": "podnikatel",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:60193531",
+      "name": "ČEPRO, a.s.",
+      "role": "člen dozorčí rady",
+      "contractCzk": null
+     }
+    ]
+   },
+   {
+    "urn": "psp:person:6524",
+    "name": "Vít Rakušan",
+    "tiedCompanies": [
+     {
+      "urn": "company:ico:02312701",
+      "name": "Vodní cesty na Labi, o.p.s.",
+      "role": "předseda dozorčí rady",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:04627695",
+      "name": "OSVČ",
+      "role": "soukromý podnikatel",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:22874381",
+      "name": "Změna pro Kolín z.s.",
+      "role": "člen výboru",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:26745615",
+      "name": "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
+      "role": "místopředseda výboru",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:68404999",
+      "name": "Nadační fond Gymnázia Kutná Hora",
+      "role": "člen správní rady",
+      "contractCzk": null
+     }
+    ]
+   },
+   {
+    "urn": "psp:person:6763",
+    "name": "Michaela Šebelová",
+    "tiedCompanies": []
+   },
+   {
+    "urn": "psp:person:6766",
+    "name": "Eliška Olšáková",
+    "tiedCompanies": []
+   },
+   {
+    "urn": "psp:person:6767",
+    "name": "Michaela Řehková",
+    "tiedCompanies": []
+   },
+   {
+    "urn": "psp:person:6788",
+    "name": "Barbora Urbanová",
+    "tiedCompanies": []
+   },
+   {
+    "urn": "psp:person:7008",
+    "name": "Zdena Kašparová",
+    "tiedCompanies": []
+   },
+   {
+    "urn": "psp:person:7011",
+    "name": "Matěj Hlavatý",
+    "tiedCompanies": []
+   },
+   {
+    "urn": "psp:person:7015",
+    "name": "Jakub Krainer",
+    "tiedCompanies": []
+   },
+   {
+    "urn": "psp:person:7030",
+    "name": "Jan Papajanovský",
+    "tiedCompanies": []
+   },
+   {
+    "urn": "psp:person:7042",
+    "name": "Lucie Sedmihradská",
+    "tiedCompanies": []
+   },
+   {
+    "urn": "psp:person:7044",
+    "name": "Julie Smejkalová",
+    "tiedCompanies": []
+   }
+  ],
+  "flaggedConflict": true,
+  "sponsorContractCzk": 235543222.2
+ },
+ {
+  "cislo": 28,
+  "billNodeId": "bill:tisk:43135",
+  "title": "Návrh poslanců Marka Výborného, Marie Krškové, Jiřího Horáka, Petra Hladíka a Jany Filipovičové na vydání zákona, kterým se mění zákon č. 243/2000 Sb., o rozpočtovém určení výnosů některých daní územn",
+  "origin": "mp_group",
+  "submitter": "Výborný M. a další",
+  "amendedLawsRecorded": [
+   {
+    "urn": "law:sb:243-2000",
+    "ref": "243/2000",
+    "label": "zákon č. 243/2000 Sb. — Zákon o rozpočtovém určení výnosů některých daní územním samosprávným celkům a některým státním fondům (zákon o rozpočto"
+   }
+  ],
+  "amendedLawsRealFromCensus": {
+   "realLaws": [
+    "243/2000",
+    "349/2023"
+   ],
+   "recordedLaws": [
+    "243/2000"
+   ],
+   "undercount": 1,
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265349"
+  },
+  "sponsors": [
+   {
+    "urn": "psp:person:6513",
+    "name": "Marek Výborný",
+    "tiedCompanies": [
+     {
+      "urn": "company:ico:48161063",
+      "name": "Gymnázium, Pardubice, Mozartova 449",
+      "role": "Ředitel",
+      "contractCzk": null
+     }
+    ]
+   },
+   {
+    "urn": "psp:person:6803",
+    "name": "Jiří Horák",
+    "tiedCompanies": [
+     {
+      "urn": "company:ico:49454587",
+      "name": "Vodovody a kanalizace Vyškov,a.s.",
+      "role": "člen představenstva",
+      "contractCzk": null
+     }
+    ]
+   },
+   {
+    "urn": "psp:person:6881",
+    "name": "Petr Hladík",
+    "tiedCompanies": [
+     {
+      "urn": "company:ico:04627695",
+      "name": "OSVČ",
+      "role": "podnikatel",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:09133267",
+      "name": "ARENA BRNO, a.s.",
+      "role": "předseda dozorčí rady",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:25508881",
+      "name": "Dopravní podnik města Brna, a.s.",
+      "role": "místopředseda dozorčí rady",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:46347534",
+      "name": "Teplárny Brno, a.s.",
+      "role": "předseda představenstva",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:60193468",
+      "name": "MERO ČR, a.s.",
+      "role": "člen dozorčí rady",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:60713470",
+      "name": "SAKO Brno, a.s.",
+      "role": "člen dozorčí rady",
+      "contractCzk": null
+     }
+    ]
+   },
+   {
+    "urn": "psp:person:7004",
+    "name": "Jana Filipovičová",
+    "tiedCompanies": []
+   },
+   {
+    "urn": "psp:person:7018",
+    "name": "Marie Kršková",
+    "tiedCompanies": []
+   }
+  ],
+  "flaggedConflict": true,
+  "sponsorContractCzk": 5397460397.25
+ },
+ {
+  "cislo": 181,
+  "billNodeId": "bill:tisk:43302",
+  "title": "Návrh poslanců Matěje Ondřeje Havla, Zdeňky Blišťanové, Jana Jakoba,  Michala Kučery, Heleny Langšádlové, Jiřího Pospíšila, Vlastimila Válka, Michala Zuny a Marka Ženíška na vydání zákona, kterým se m",
+  "origin": "mp_group",
+  "submitter": "Havel M. O. a další",
+  "amendedLawsRecorded": [
+   {
+    "urn": "law:sb:491-2001",
+    "ref": "491/2001",
+    "label": "zákon č. 491/2001 Sb. — Zákon o volbách do zastupitelstev obcí a o změně některých zákonů"
+   }
+  ],
+  "amendedLawsRealFromCensus": {
+   "realLaws": [
+    "491/2001"
+   ],
+   "recordedLaws": [
+    "491/2001"
+   ],
+   "undercount": 0,
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269996"
+  },
+  "sponsors": [
+   {
+    "urn": "psp:person:5273",
+    "name": "Jiří Pospíšil",
+    "tiedCompanies": [
+     {
+      "urn": "company:ico:00417904",
+      "name": "Nadace Charty 77",
+      "role": "člen statutárního orgánu",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:08694508",
+      "name": "Muzeum paměti XX. století, z.ú.",
+      "role": "člen dozorčí rady",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:25245091",
+      "name": "Regionální rozvojová agentura Plzeňského kraje, obecně prospěšná společnost",
+      "role": "člen správní rady",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:27149994",
+      "name": "Nadace Věry a Vladimíra Janouškových",
+      "role": "předseda správní rady",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:49370499",
+      "name": "Museum Kampa - Nadace Jana a Medy Mládkových",
+      "role": "člen správní rady, předseda správní rady",
+      "contractCzk": null
+     }
+    ]
+   },
+   {
+    "urn": "psp:person:5943",
+    "name": "Helena Langšádlová",
+    "tiedCompanies": [
+     {
+      "urn": "company:ico:02086778",
+      "name": "Fórum Karla Schwarzenberga, o.p.s.",
+      "role": "člen správní rady",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:04627695",
+      "name": "OSVČ",
+      "role": "soukromý podnikatel",
+      "contractCzk": null
+     }
+    ]
+   },
+   {
+    "urn": "psp:person:6154",
+    "name": "Marek Ženíšek",
+    "tiedCompanies": [
+     {
+      "urn": "company:ico:02086778",
+      "name": "Fórum Karla Schwarzenberga, o.p.s.",
+      "role": "člen správní rady",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:04627695",
+      "name": "OSVČ",
+      "role": "podnikatel",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:22745696",
+      "name": "TOPAZ, z.s.",
+      "role": "člen",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:25220683",
+      "name": "Plzeňské městské dopravní podniky, a.s.",
+      "role": "člen dozorčí rady",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:27116913",
+      "name": "Pojišťovna VZP, a.s.",
+      "role": "člen představenstva",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:28338766",
+      "name": "Národní Centrum Tkání a Buněk a.s.",
+      "role": "člen představenstva",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:49790480",
+      "name": "Plzeňská teplárenská, a.s.",
+      "role": "člen představenstva",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:60193913",
+      "name": "Pražská energetika, a.s.",
+      "role": "místopředseda představenstva",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:63080249",
+      "name": "Kongresové centrum Praha, a.s.",
+      "role": "člen představenstva",
+      "contractCzk": null
+     }
+    ]
+   },
+   {
+    "urn": "psp:person:6216",
+    "name": "Michal Kučera",
+    "tiedCompanies": [
+     {
+      "urn": "company:ico:04627695",
+      "name": "OSVČ",
+      "role": "soukromý podnikatel",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:19840659",
+      "name": "Sirius Praha s.r.o.",
+      "role": "jednatel",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:26123550",
+      "name": "LIHT s.r.o.",
+      "role": "jednatel",
+      "contractCzk": null
+     }
+    ]
+   },
+   {
+    "urn": "psp:person:6482",
+    "name": "Vlastimil Válek",
+    "tiedCompanies": []
+   },
+   {
+    "urn": "psp:person:6687",
+    "name": "Jan Jakob",
+    "tiedCompanies": [
+     {
+      "urn": "company:ico:02795281",
+      "name": "Operátor ICT, a.s.",
+      "role": "člen dozorčí rady",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:72046422",
+      "name": "Zákládní organizace Českého zahrádkářského svazu Roztoky Třebízského",
+      "role": "člen",
+      "contractCzk": null
+     }
+    ]
+   },
+   {
+    "urn": "psp:person:6754",
+    "name": "Matěj Ondřej Havel",
+    "tiedCompanies": []
+   },
+   {
+    "urn": "psp:person:6796",
+    "name": "Michal Zuna",
+    "tiedCompanies": []
+   },
+   {
+    "urn": "psp:person:6992",
+    "name": "Zdeňka Blišťanová",
+    "tiedCompanies": []
+   }
+  ],
+  "flaggedConflict": true,
+  "sponsorContractCzk": 884856389
+ },
+ {
+  "cislo": 24,
+  "billNodeId": "bill:tisk:43131",
+  "title": "Návrh poslanců Víta Rakušana, Lukáše Vlčka, Věry Kovářové, Michaely Šebelové, Pavly Pivoňka Vaňkové, Jana Berkiho, Michaely Opltové, Barbory Urbanové, Jana Papajanovského, Matěje Hlavatého a Jana Svit",
+  "origin": "mp_group",
+  "submitter": "Rakušan V. a další",
+  "amendedLawsRecorded": [
+   {
+    "urn": "law:sb:128-2000",
+    "ref": "128/2000",
+    "label": "zákon č. 128/2000 Sb. — Zákon o obcích (obecní zřízení)"
+   }
+  ],
+  "amendedLawsRealFromCensus": {
+   "realLaws": [
+    "12/2020",
+    "128/2000",
+    "194/2010",
+    "262/2006",
+    "35/2021",
+    "365/2000",
+    "500/2004",
+    "553/1991",
+    "553/2020",
+    "82/1998"
+   ],
+   "recordedLaws": [
+    "128/2000"
+   ],
+   "undercount": 9,
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265302"
+  },
+  "sponsors": [
+   {
+    "urn": "psp:person:6214",
+    "name": "Věra Kovářová",
+    "tiedCompanies": [
+     {
+      "urn": "company:ico:04627695",
+      "name": "OSVČ",
+      "role": "podnikatel",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:60193531",
+      "name": "ČEPRO, a.s.",
+      "role": "člen dozorčí rady",
+      "contractCzk": null
+     }
+    ]
+   },
+   {
+    "urn": "psp:person:6524",
+    "name": "Vít Rakušan",
+    "tiedCompanies": [
+     {
+      "urn": "company:ico:02312701",
+      "name": "Vodní cesty na Labi, o.p.s.",
+      "role": "předseda dozorčí rady",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:04627695",
+      "name": "OSVČ",
+      "role": "soukromý podnikatel",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:22874381",
+      "name": "Změna pro Kolín z.s.",
+      "role": "člen výboru",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:26745615",
+      "name": "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
+      "role": "místopředseda výboru",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:68404999",
+      "name": "Nadační fond Gymnázia Kutná Hora",
+      "role": "člen správní rady",
+      "contractCzk": null
+     }
+    ]
+   },
+   {
+    "urn": "psp:person:6722",
+    "name": "Jan Berki",
+    "tiedCompanies": []
+   },
+   {
+    "urn": "psp:person:6762",
+    "name": "Pavla Pivoňka Vaňková",
+    "tiedCompanies": []
+   },
+   {
+    "urn": "psp:person:6763",
+    "name": "Michaela Šebelová",
+    "tiedCompanies": []
+   },
+   {
+    "urn": "psp:person:6767",
+    "name": "Michaela Řehková",
+    "tiedCompanies": []
+   },
+   {
+    "urn": "psp:person:6788",
+    "name": "Barbora Urbanová",
+    "tiedCompanies": []
+   },
+   {
+    "urn": "psp:person:6789",
+    "name": "Lukáš Vlček",
+    "tiedCompanies": [
+     {
+      "urn": "company:ico:04627695",
+      "name": "OSVČ",
+      "role": "soukromý podnikatel",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:25172263",
+      "name": "SOMPO, a.s.",
+      "role": "místopředseda představenstva",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:26039907",
+      "name": "PEVAK Pelhřimov, družstvo",
+      "role": "člen představenstva",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:26109859",
+      "name": "W.H.V. Projekt spol. s r.o.",
+      "role": "jednatel a společník",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:26982170",
+      "name": "Via rustica z.s.",
+      "role": "předseda",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:27043843",
+      "name": "PRO VYSOČINU, občanské sdružení",
+      "role": "člen",
+      "contractCzk": null
+     },
+     {
+      "urn": "company:ico:28095405",
+      "name": "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov",
+      "role": "předseda výboru",
+      "contractCzk": null
+     }
+    ]
+   },
+   {
+    "urn": "psp:person:7011",
+    "name": "Matěj Hlavatý",
+    "tiedCompanies": []
+   },
+   {
+    "urn": "psp:person:7030",
+    "name": "Jan Papajanovský",
+    "tiedCompanies": []
+   },
+   {
+    "urn": "psp:person:7050",
+    "name": "Jan Sviták",
+    "tiedCompanies": []
+   }
+  ],
+  "flaggedConflict": true,
+  "sponsorContractCzk": 235543222.2
+ }
+]

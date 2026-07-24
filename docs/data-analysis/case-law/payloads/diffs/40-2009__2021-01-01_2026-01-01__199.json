@@ -1,0 +1,44 @@
+{
+ "law": "40/2009",
+ "source": "e-Sbírka SPARQL endpoint (opendata.eselpoint.gov.cz/sparql) — point queries, real fetched text",
+ "fetchedAt": "2026-07-24T19:12:04.603Z",
+ "from": {
+  "date": "2021-01-01",
+  "effectiveFrom": "2021-01-01",
+  "effectiveTo": "2021-05-25",
+  "eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2009/40/2021-01-01"
+ },
+ "to": {
+  "date": "2026-01-01",
+  "effectiveFrom": "2026-01-01",
+  "effectiveTo": null,
+  "eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2009/40/2026-01-01"
+ },
+ "parScope": "§ 199",
+ "hunks": [
+  {
+   "fragment": "§ 199 odst. 2 písm. c)",
+   "op": "modified",
+   "before": "<var>c)</var> spáchá-li takový čin nejméně na dvou osobách, nebo",
+   "after": "<var>c)</var> spáchá-li takový čin na jiném pro jeho skutečnou nebo domnělou rasu, příslušnost k etnické nebo sociální skupině, národnost, věk, pohlaví, sexuální orientaci, zdravotní postižení, politické přesvědčení, vyznání nebo proto, že je skutečně nebo domněle bez vyznání, anebo pro jeho skutečnou nebo domnělou příslušnost k jiné skupině osob,"
+  },
+  {
+   "fragment": "§ 199 odst. 2 písm. d)",
+   "op": "modified",
+   "before": "<var>d)</var> páchá-li takový čin po delší dobu.",
+   "after": "<var>d)</var> spáchá-li takový čin nejméně na dvou osobách, nebo"
+  },
+  {
+   "fragment": "§ 199 odst. 2 písm. e)",
+   "op": "added",
+   "before": null,
+   "after": "<var>e)</var> páchá-li takový čin po delší dobu."
+  }
+ ],
+ "provenance": {
+  "track": "law",
+  "pass": 0,
+  "method": "deterministic",
+  "ref": "esbirka-sparql-diff"
+ }
+}

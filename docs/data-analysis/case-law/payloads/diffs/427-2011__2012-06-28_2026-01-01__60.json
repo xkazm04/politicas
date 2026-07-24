@@ -1,0 +1,56 @@
+{
+ "law": "427/2011",
+ "source": "e-Sbírka SPARQL endpoint (opendata.eselpoint.gov.cz/sparql) — point queries, real fetched text",
+ "fetchedAt": "2026-07-24T19:12:47.669Z",
+ "from": {
+  "date": "2012-06-28",
+  "effectiveFrom": "2012-06-28",
+  "effectiveTo": "2012-10-31",
+  "eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2011/427/2012-06-28"
+ },
+ "to": {
+  "date": "2026-01-01",
+  "effectiveFrom": "2026-01-01",
+  "effectiveTo": null,
+  "eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2011/427/2026-01-01"
+ },
+ "parScope": "§ 60",
+ "hunks": [
+  {
+   "fragment": "§ 60 odst. 2 písm. c)",
+   "op": "modified",
+   "before": "<var>c)</var> odměna jiným osobám než penzijní společnosti nabízejícím a zprostředkovávajícím doplňkové penzijní spoření (<a data-odkaz-id=\"37958431\" href=\"#\" class=\"int_odkaz\">§ 74</a>),",
+   "after": "<var>c)</var> odměna jiným osobám než penzijní společnosti nabízejícím a zprostředkovávajícím doplňkové penzijní spoření (<a data-odkaz-id=\"37840753\" href=\"#\" class=\"int_odkaz\">§ 74</a>) a provádějícím správu smluv o doplňkovém penzijním spoření a související činnosti,"
+  },
+  {
+   "fragment": "§ 60 odst. 3",
+   "op": "modified",
+   "before": "<var>(3)</var> Výše úplaty podle <a data-odkaz-id=\"37958441\" href=\"#\" class=\"int_odkaz\">odstavce 1 písm. a)</a> nesmí v případě povinného konzervativního fondu překročit 0,4 % a v případě ostatních účastnických fondů 0,8 % z průměrné roční hodnoty fondového vlastního kapitálu v účastnickém fondu. Takto stanovená úplata se sníží o náklady na nákup, prodej a držení cenných papírů vydávaných fondem kolektivního investování. Průměrná roční hodnota fondového vlastního kapitálu v každém účastnickém fondu se stanoví k poslednímu dni příslušného období jako prostý aritmetický průměr hodnot fondového vlastního kapitálu účastnického fondu za každý den příslušného období.",
+   "after": "<var>(3)</var> Výše úplaty podle <a data-odkaz-id=\"37960561\" href=\"#\" class=\"int_odkaz\">odstavce 1 písm. a)</a> nesmí v případě povinného konzervativního fondu překročit 0,4 % a v případě ostatních účastnických fondů 1 % z průměrné roční hodnoty fondového vlastního kapitálu v účastnickém fondu. Takto stanovená úplata se sníží o náklady na nákup, prodej a držení cenných papírů vydávaných investičním fondem nebo zahraničním investičním fondem. Průměrná roční hodnota fondového vlastního kapitálu v každém účastnickém fondu se stanoví k poslednímu dni příslušného období jako prostý aritmetický průměr hodnot fondového vlastního kapitálu účastnického fondu za každý den příslušného období."
+  },
+  {
+   "fragment": "§ 60 odst. 4",
+   "op": "modified",
+   "before": "<var>(4)</var> Výše úplaty podle <a data-odkaz-id=\"37958455\" href=\"#\" class=\"int_odkaz\">odstavce 1 písm. b)</a> je nejvýše 10 % z rozdílu průměrné roční hodnoty penzijní jednotky v příslušném období a nejvyšší průměrné roční hodnoty penzijní jednotky v letech předcházejících příslušnému období od vzniku účastnického fondu vynásobené průměrným ročním počtem penzijních jednotek.",
+   "after": "<var>(4)</var> Výše úplaty podle <a data-odkaz-id=\"37569073\" href=\"#\" class=\"int_odkaz\">odstavce 1 písm. b)</a> je v případě povinného konzervativního fondu nejvýše 10 % a v případě ostatních účastnických fondů nejvýše 15 % z rozdílu průměrné hodnoty penzijní jednotky v příslušném období a nejvyšší průměrné roční hodnoty penzijní jednotky v letech předcházejících příslušnému období od vzniku účastnického fondu vynásobeného průměrným počtem penzijních jednotek v příslušném období."
+  },
+  {
+   "fragment": "§ 60 odst. 6",
+   "op": "modified",
+   "before": "<var>(6)</var> Za období kratší než 1 rok náleží penzijní společnosti úplata podle <a data-odkaz-id=\"37958501\" href=\"#\" class=\"int_odkaz\">odstavce 1 písm. b)</a>, pokud průměrná hodnota penzijní jednotky účastnického fondu od počátku roku ke dni ukončení smlouvy byla vyšší než nejvyšší průměrná roční hodnota penzijní jednotky v předchozích letech od vzniku účastnického fondu.",
+   "after": "<var>(6)</var> Průměrná hodnota penzijní jednotky účastnického fondu se stanoví k poslednímu dni příslušného období jako prostý aritmetický průměr hodnot penzijních jednotek účastnického fondu za každý den příslušného období."
+  },
+  {
+   "fragment": "§ 60 odst. 7",
+   "op": "modified",
+   "before": "<var>(7)</var> Průměrná hodnota penzijní jednotky účastnického fondu se stanoví k poslednímu dni příslušného období jako prostý aritmetický průměr hodnot penzijních jednotek účastnického fondu za každý den příslušného období.",
+   "after": "<var>(7)</var> Pro účely stanovení úplaty podle <a data-odkaz-id=\"37840785\" href=\"#\" class=\"int_odkaz\">odstavce 3</a> se náklady na držení cenných papírů vydávaných fondem kolektivního investování rozumí zejména podíl na celkové výši nákladů hrazených z majetku fondu kolektivního investování, který odpovídá investici v tomto fondu kolektivního investování."
+  }
+ ],
+ "provenance": {
+  "track": "law",
+  "pass": 0,
+  "method": "deterministic",
+  "ref": "esbirka-sparql-diff"
+ }
+}

@@ -1,0 +1,187 @@
+{
+ "generatedAt": "2026-07-24T19:27:59.819Z",
+ "method": "LLM close-read (3 grouped Sonnet agents, 4 pairs each) of the top-12 unconfirmed pairs from collision-report.json, ranked by shared-paragraph count; deterministic pre-check excerpts as candidates, actual cached bill text (.data/law-collision-cache) as evidence; driver spot-verified the two confirmed collisions by direct grep of the novelization instructions in the cached texts.",
+ "priorConfirmed": [
+  "120-244 (batch-001, confirmed-collision §35ba)",
+  "111-207 (batch-002, coordination-risk §88 40/2009)"
+ ],
+ "classificationCounts": {
+  "confirmed-collision": 3,
+  "coordination-risk": 2,
+  "incidental-overlap": 7
+ },
+ "driverVerification": {
+  "4-120-244_cluster": "Deterministic grep of cached texts: tisk 4 \"V § 35ba odst. 1 písmeno a) zní:\" (265051.txt:77); tisk 120 \"V § 35ba se v odst. 1 zrušuje písm. a) a dosavadní písmena b) až e) se označují jako a) až…\" (268221.txt:15); tisk 244 \"V § 35ba odst. 1 se písmeno b) zrušuje a dosavadní písmena c) až e) se označují jako…\" (277769.txt:19). Three simultaneously-pending bills each assume the current a)-e) lettering and restructure it incompatibly — a three-way drafting-collision cluster upgrading batch-001 pairwise 120↔244. tisk 248 confirmed NOT in the cluster (0 occurrences of 35ba in its texts).",
+  "210-248_134l": "Deterministic grep: tisk 248 \"Za § 134k se vkládá nový § 134l\" (277937.txt:133, DIP state-contribution content); tisk 210 inserts § 134l–134p (271236.txt:93+, gender-balance definitions per EU 2022/2381). Two pending bills independently originate a NEW § 134l of 256/2004 with unrelated content — same failure mode as 120↔244."
+ },
+ "pairs": [
+  {
+   "pairId": "4-120",
+   "billA": 4,
+   "billB": 120,
+   "lawRef": "586/1992",
+   "classification": "confirmed-collision",
+   "sharedParagraph": "35ba (corroborated by §35c)",
+   "evidence": {
+    "billAExcerpt": "tisk 4, .data/law-collision-cache/tisk-4/265053.txt lines 8-17 (§35ba odst.1): 'a) základní slevu ve výši 30 840 Kč na poplatníka, / a) základní slevu na poplatníka ve výši odpovídající 75 % průměrné hrubé měsíční nominální mzdy přepočtené na plně zaměstnané ... b) slevu na manžela, c) základní slevu na invaliditu ... d) rozšířenou slevu na invaliditu ... e) slevu na držitele průkazu ZTP/P' -- tisk 4 REPLACES only the amount/formula of item a) (fixed 30,840 Kč -> 75%-of-average-wage formula) and leaves b), c), d), e) untouched at their existing letters. Corroborating: tisk 4's §35c(1) stays a single unlettered paragraph, only the child-benefit amounts are changed (15204->22320 Kč etc.), lines 59-67.",
+    "billBExcerpt": "tisk 120, .data/law-collision-cache/tisk-120/268223.txt lines 11-31 (§35ba odst.1): 'a) základní slevu ve výši 30 840 Kč na poplatníka, / b)a) slevu na manžela, / c)b) základní slevu na invaliditu ... / d)c) rozšířenou slevu na invaliditu ... / e)d) slevu na držitele průkazu ZTP/P'. Tisk 120 REMOVES the basic relief from §35ba(1)(a) altogether -- it relocates it to a brand-new §35c(1)(a) 'na poplatníka ve výši 30 840 Kč ročně' (line 55) -- and renumbers all remaining §35ba(1) letters down by one (b->a, c->b, d->c, e->d). Corroborating: tisk 120's §35c(1) is explicitly split into new a)/b) (lines 53-57), unlike tisk 4's unlettered single paragraph."
+   },
+   "reasoning": "Both bills amend §35ba(1) of 586/1992 with mutually incompatible assumptions about what letter 'a)' means after their own change. Tisk 4 keeps 'a)' as the basic per-taxpayer relief (just changes its formula from a flat 30,840 Kč to 75% of average wage) and leaves b)-e) as-is. Tisk 120 deletes the basic-relief item from §35ba(1) entirely (moving it to a new §35c(1)(a)) and shifts every remaining letter down by one, so its 'a)' becomes 'sleva na manžela' (spousal relief) -- a completely different substantive meaning at the same letter. If both were enacted, a court/drafter would face two irreconcilable pictures of §35ba(1)(a): a wage-linked basic relief (tisk 4) vs. a spousal relief that used to be 'b)' (tisk 120). This is structurally the same failure mode as the already-confirmed 120<->244 collision (both amend §35ba assuming different starting letterings), and it is corroborated independently by the parallel, equally incompatible restructuring of §35c(1) between the two bills (unlettered single paragraph in tisk 4 vs. a)/b) split in tisk 120).",
+   "group": 1
+  },
+  {
+   "pairId": "67-167",
+   "billA": 67,
+   "billB": 167,
+   "lawRef": "283/2021",
+   "classification": "coordination-risk",
+   "sharedParagraph": "334b odst. 1",
+   "evidence": {
+    "billAExcerpt": "tisk 67, .data/law-collision-cache/tisk-67/266190.txt lines 9285-9330 (§334b, as part of a comprehensive rewrite of the whole stavební zákon): '(1) Přechodným obdobím se pro účely odstavce 2 rozumí období do 31. prosince 2027 2030 a pro účely odstavců 3 a 5 až 9 období do 30. června 2026.' and '...do 31. prosince 2026 2030' in odst.8 -- tisk 67 extends the odst.2 transitional deadline from end-2027 to end-2030, leaving the '30. června 2026' (odst.3,5-9 deadline) untouched.",
+    "billBExcerpt": "tisk 167, .data/law-collision-cache/tisk-167/269349.txt (návrh, Čl. I): 'V § 334b odst. 1 zákona č. 283/2021 Sb., stavební zákon ... se číslo „2026“ nahrazuje číslem „2027“.' -- a single targeted numeral substitution extending only the odst.3/5-9 deadline from mid-2026 to mid-2027, leaving '31. prosince 2027' (odst.2 deadline) untouched. Its own důvodová zpráva (lines 32-36) states explicitly: 'S ohledem na připravované změny ve sněmovním tisku 67 je zde potřeba zajistit dostatečný prostor ... Přechodné období je proto nezbytné prodloužit.' -- tisk 167 names tisk 67 by number as the reason it exists."
+   },
+   "reasoning": "Both bills amend the exact same sentence of §334b odst.1 (the stavební zákon's IT-systems transitional-period clause), but each targets a different numeral within it: tisk 67 (a full-statute rewrite) extends '2027'->'2030' for the odst.2 deadline as part of replacing the whole section; tisk 167 makes a narrow 'number X replaced by number Y' instruction changing only '2026'->'2027' for the odst.3/5-9 deadline. The two edits are not textually contradictory (a combined result of 'do 31.12.2030' + 'do 30.6.2027' is coherent), so this is not a literal same-text clash like 120<->244/confirmed. But it is a genuine, not incidental, coordination hazard: tisk 167's narrow search-and-replace instruction is only guaranteed to land correctly if it is applied to the same base text tisk 67 is simultaneously rewriting wholesale, and tisk 167's own explanatory report explicitly cites tisk 67 by number as the reason for its existence -- this is corroborated, acknowledged coordination between the two bills' drafters, not an artifact of the detector.",
+   "group": 1
+  },
+  {
+   "pairId": "73-193",
+   "billA": 73,
+   "billB": 193,
+   "lawRef": "477/2001",
+   "classification": "coordination-risk",
+   "sharedParagraph": "16 (corroborated by §21 odst. 1)",
+   "evidence": {
+    "billAExcerpt": "tisk 73, .data/law-collision-cache/tisk-73/266491.txt lines 127-131 (Čl. I items 27-28): 'V nadpisu § 16 se slovo „obalová“ zrušuje.' / 'V § 16 se slova „obalová společnost (dále jen „autorizovaná společnost“) nahrazují slovem „společnost“ a slova „Autorizací se pro účely tohoto zákona rozumí oprávnění“ se nahrazují slovy „Autorizovaná společnost je oprávněna“.' Corroborating, lines 156-168 (items 35-39): tisk 73 also edits §21 odst.1 písm. d), m), o) (word substitutions) and odst.6 písm. a), b).",
+    "billBExcerpt": "tisk 193, .data/law-collision-cache/tisk-193/270285.txt lines 41-56 (Čl. I item 2): 'V § 16 se dosavadní text označuje jako odstavec 1 a doplňují se odstavce 2 a 3, které znějí: „(2) Činnost autorizované společnosti podle tohoto zákona je službou obecného hospodářského zájmu ...“.' Corroborating, lines 175-187 (item 10): tisk 193 appends new §21 odst.1 písmena q) and r) at the end of the existing list (after p))."
+   },
+   "reasoning": "Both bills make genuine, independently-drafted edits to the live text of §16 and to §21 odst.1 of the packaging act (477/2001) -- these are not citation artifacts (both bills' novelization instructions target the actual operative wording, confirmed by reading each bill's own numbered Čl. I amendment list, not just the deterministic excerpt). At §16, tisk 73 rewrites specific phrases within the existing unstructured paragraph (terminology cleanup), while tisk 193 takes that same existing text, designates it 'odstavec 1', and appends two new numbered paragraphs after it -- a restructuring that changes the paragraph's shape while tisk 73 is simultaneously editing words inside it. At §21 odst.1, tisk 73 edits the wording of existing písmena d), m), o) while tisk 193 appends new písmena q) and r). Neither collision is a literal contradiction (both sets of edits are combinable), but both require the enacting body to sequence/reconcile independently-drafted amendments to the same operative sentences -- the hallmark of coordination-risk (analogous to 111<->207), not incidental overlap on a generic/definitional section.",
+   "group": 1
+  },
+  {
+   "pairId": "143-248",
+   "billA": 143,
+   "billB": 248,
+   "lawRef": "256/2004",
+   "classification": "incidental-overlap",
+   "sharedParagraph": "none genuine -- see reasoning (data artifact)",
+   "evidence": {
+    "billAExcerpt": "tisk 143's platne-zneni doc (.data/law-collision-cache/tisk-143/268785.txt) covers genuine 256/2004 (kapitálový trh) provisions, e.g. '§6 Požadavky na obchodníka s cennými papíry'.",
+    "billBExcerpt": "tisk 248, .data/law-collision-cache/tisk-248/277939.txt: the platne-zneni document is a sequential dump covering FIVE separate statutes tisk 248 amends (per its návrh header at .data/law-collision-cache/tisk-248/277937.txt lines 6-9: 586/1992, 427/2011, 256/2004, 262/2006, 324/2025). Its actual 256/2004 section is only lines 1304-1338 and covers exactly two paragraphs, §134ha and §134l (long-term investment product transfer to supplementary pension savings, and the state contribution to it) -- neither of which appears anywhere in the 143<->248 'shared §' list of 47 items. Every one of the 47 listed 'shared' paragraph numbers for this pair (e.g. §6, §16, §37, §90, §94) is matched against text drawn from tisk 248's UNRELATED sections on 586/1992 (income tax, e.g. '§6 Příjmy ze závislé činnosti') or 262/2006 (labor code, e.g. '§ 37 Informování o obsahu pracovního poměru'), which merely happen to share a paragraph NUMBER with an unrelated provision in 256/2004 that tisk 143 touches."
+   },
+   "reasoning": "This pair is a false-positive artifact of the deterministic detector, not a genuine drafting overlap. Tisk 248 is a 5-statute omnibus bill; the paragraph-number extraction that seeded the 256/2004 collision group evidently pulled §-numbers from tisk 248's platne-zneni text across ALL FIVE amended statutes rather than scoping to the 256/2004 section only, so most of the 47 'shared §' hits are same-number-different-statute coincidences (256/2004 §6 vs. 586/1992 §6, etc.). Reading tisk 248's actual 256/2004 section shows it touches only §134ha and §134l of that law, and neither is in tisk 143's touched-§ set at all, meaning there is zero genuine same-statute § overlap between these two bills within 256/2004. Classified incidental-overlap as the most conservative honest label (no real interaction exists), with the caveat that most of the 47 candidates are not even real overlaps in this statute, let alone drafting interactions.",
+   "group": 1
+  },
+  {
+   "pairId": "4-244",
+   "billA": 4,
+   "billB": 244,
+   "lawRef": "586/1992",
+   "classification": "confirmed-collision",
+   "sharedParagraph": "35ba (odst. 1 - seznam slev na dani, písm. a)-e))",
+   "evidence": {
+    "billAExcerpt": "tisk 4, own heading '§ 35ba / Slevy na dani pro poplatníky daně z příjmů fyzických osob', (1)...: 'a) základní slevu ve výši 30 840 Kč na poplatníka, a) základní slevu na poplatníka ve výši odpovídající 75 % průměrné hrubé měsíční nominální mzdy přepočtené na plně zaměstnané v národním hospodářství za předminulý kalendářní rok..., b) slevu na manžela, c) základní slevu na invaliditu ve výši 2 520 Kč..., d) rozšířenou slevu na invaliditu ve výši 5 040 Kč...' -- tisk 4 inserts a SECOND competing 'a)' item (percentage-of-average-wage formula replacing the fixed 30 840 Kč base credit) and shows b)/c)/d) with NO old-letter strike-marks, i.e. its baseline assumes 'sleva na manžela' is ALREADY at letter b) today.",
+    "billBExcerpt": "tisk 244, own heading '§ 35ba / Slevy na dani pro poplatníky daně z příjmů fyzických osob', (1)...: 'a) základní slevu ve výši 30 840 Kč na poplatníka, b) slevu na manžela, c) b) základní slevu na invaliditu ve výši 2 520 Kč..., d) c) rozšířenou slevu na invaliditu ve výši 5 040 Kč...' -- tisk 244 inserts 'b) slevu na manžela' as a brand-new item (no prior letter shown) and explicitly renumbers the old b)->c) and old c)->d) using dual-letter strike notation, i.e. its baseline assumes 'sleva na manžela' does NOT yet exist and must be freshly inserted."
+   },
+   "reasoning": "Both bills carry a genuine, verified own-heading amendment to §35ba(1) of 586/1992 (confirmed via '\\n§ 35ba\\n' heading match in both cached texts, not a citation coincidence). This is the SAME clause already confirmed as a 120<->244 collision (both renumber §35ba assuming different starting letterings). Reading tisk 4's own text shows it is a THIRD, independent bill that also rewrites §35ba(1): it changes the base-credit amount itself (fixed sum -> wage-formula) via a duplicated, unmarked 'a)' item, and its downstream b)/c)/d) items carry no dual-letter renumbering markers at all -- a third, distinct baseline/lettering assumption that differs from both 120's (b)a) - manžel currently at 'a', renumbered to 'b') and 244's (fresh insertion at 'b', pushing existing items down). Checked tisk 248 specifically: zero occurrences of '35ba' anywhere in its 586/1992 section (chars 0-68710), and its only real headings there are §6, §15b, §24 -- 248 is confirmed NOT part of this cluster. Net result: this is a genuine THREE-WAY collision cluster on §35ba(1) (tisk 4, 120, 244), each assuming a different current lettering/content for the personal-tax-credit list -- materially larger than a simple pairwise clash, though 248 does not join it.",
+   "group": 2
+  },
+  {
+   "pairId": "244-248",
+   "billA": 244,
+   "billB": 248,
+   "lawRef": "586/1992",
+   "classification": "incidental-overlap",
+   "sharedParagraph": "6 / 13 / 35-series (own-heading vs. citation mismatch)",
+   "evidence": {
+    "billAExcerpt": "tisk 244's real own-heading amendments in 586/1992 are: §13, §35ba, §35bb, §35c, §35d, §38g, §38h, §38k, §38l (all family/personal tax-credit and withholding-mechanics provisions). Its mentions of '§ 6', '§ 7', '§ 22', '§ 10', '§ 4', '§ 3', '§ 2', '§ 36', '§ 38f' inside the shared-paragraph list are all citations embedded in the §35-series text (e.g. '...příjem podle § 6 nebo 7 alespoň ve výši šestinásobku minimální mzdy...'), not separate amendments to those sections.",
+    "billBExcerpt": "tisk 248's ONLY real own-heading amendments to 586/1992 (verified by heading-pattern scan of its cached text, offsets 0-68710) are §6, §15b, §24 -- an entirely different part of the act (definition of employment income, valuation of benefits-in-kind). Its citation of '§ 13' ('...pracovní cesty...spolupracujících osob (§ 13)...') and of '§ 35ba'/'§ 38k' inside its §6 text are cross-references, not amendments -- confirmed by a zero-hit heading scan for '35ba' anywhere in tisk 248's 586/1992 section."
+   },
+   "reasoning": "The deterministic pre-check flagged 16 shared § numbers, but a heading-vs-citation scan of both cached texts shows the two bills amend disjoint sets of provisions: 244 rewrites the §35-family-tax-credit series plus procedural withholding mechanics (§38g/h/k/l); 248 rewrites §6/§15b/§24 (employment-income definition and benefit valuation). Every shared § number in the report is one bill's own heading being cited by name inside the OTHER bill's unrelated provision (e.g. 244 cites §6 as an income threshold test inside §35d; 248 cites §13 and §35ba as cross-references inside its §6 rewrite). No shared clause is actually edited by both bills. Confirmed 248 does not touch §35ba at all, so it is not part of the 4-244-120 cluster.",
+   "group": 2
+  },
+  {
+   "pairId": "143-210",
+   "billA": 143,
+   "billB": 210,
+   "lawRef": "256/2004",
+   "classification": "incidental-overlap",
+   "sharedParagraph": "121k / 127 / 122b-134m offenses catalogue, and §37/77/84/191/227 (false positives -- citations to zakonik prace, not 256/2004)",
+   "evidence": {
+    "billAExcerpt": "tisk 143 (a large EU-transposition/MiFID omnibus, headings tagged with CELEX directive numbers) has real own-heading amendments including §121k ('Předložení, schválení a uveřejnění politiky odměňování') and §127 ('Základní ustanovení' -- definition of mandatorily-disclosed information, citing §120/120a/120b/120c as the sub-provisions it cross-references).",
+    "billBExcerpt": "tisk 210's header explicitly states: 'Platné znění zákona ve svém textu zohledňuje ... ST 143 - návrh vládního návrhu zákona, kterým se mění zákon č. 256/2004 Sb. ...' -- i.e. tisk 210's own baseline text is deliberately built ON TOP OF tisk 143's proposed changes. Its real edit is to the offenses/sanctions catalogue (§134l-p range: 'Právnická nebo podnikající fyzická osoba se ... dopustí přestupku dále tím, že a) nesplní některou z povinností podle § 120, 120a, 120b nebo 120c ... b) poruší povinnost podle § 121k odst. 4 ... nebo c) ... podle § 127 odst. 2'), which lists §120/121k/127 as offense-triggering citations, not as provisions it edits. Separately, its §37/§77/§84/§191/§227 hits are confirmed citations to a DIFFERENT statute: 'práva na informace ... podle § 37 nebo § 77a zákoníku práce', 'právo na rozvržení pracovní doby ... podle § 74 odst. 2 nebo § 84 zákoníku práce', 'práva na odborný rozvoj podle § 227 až 230 zákoníku práce' -- these are Labor Code (262/2006) section numbers that happen to numerically coincide with unrelated 256/2004 sections 143 touches."
+   },
+   "reasoning": "Two independent reasons converge on incidental: (1) roughly a third of the reported shared-§ hits (37, 77, 84, 191, 227) are outright false positives -- 210's own text explicitly labels those citations 'zákoníku práce' (Labor Code), a different statute from 256/2004, so there is no shared-clause interaction at all, just numeric coincidence. (2) For the genuine 256/2004 hits that remain (120/120a/120b/121k/127/127d), 143 edits the substantive provisions themselves while 210 only updates/references the separate offenses catalogue that cross-refers to them -- and 210's own document header states its baseline text was deliberately built to already incorporate ST 143's proposed changes, meaning any interaction here is intentional legislative sequencing by the drafters, not an accidental drafting collision.",
+   "group": 2
+  },
+  {
+   "pairId": "120-248",
+   "billA": 120,
+   "billB": 248,
+   "lawRef": "586/1992",
+   "classification": "incidental-overlap",
+   "sharedParagraph": "6 / 35-series (own-heading vs. citation mismatch, same pattern as 244-248)",
+   "evidence": {
+    "billAExcerpt": "tisk 120's real own-heading amendments to 586/1992 are §35ba, §35c, §35d, §38gb, §38h, §38k, §38l (the same family/personal-credit and withholding-mechanics cluster as tisk 244; this is the bill already confirmed to collide with 244 on §35ba). Its '§ 6', '§ 7', '§ 17', '§ 5', '§ 36' hits in the shared-paragraph list are citations inside that §35-series text (e.g. threshold and cross-reference language), not separate amendments.",
+    "billBExcerpt": "tisk 248's only real own-heading amendments to 586/1992 (same heading scan as used for the 244-248 pair) are §6, §15b, §24. Confirmed zero occurrences of '35ba' anywhere in tisk 248's 586/1992 section, so 248 is not part of the §35ba cluster involving 120/4/244."
+   },
+   "reasoning": "Identical structural pattern to the 244-248 pair: 120 amends the §35-family-tax-credit series (and is itself part of the confirmed 120<->244 §35ba collision), while 248 amends an unrelated part of the act (§6 employment-income definition, §15b, §24). Every shared § number in the deterministic report is a cross-reference citation in one bill's text pointing at the other bill's own-heading provision, not a genuine dual edit of the same clause. 248 independently confirmed NOT to touch §35ba, so this pair does not extend the 4/120/244 cluster.",
+   "group": 2
+  },
+  {
+   "pairId": "132-143",
+   "billA": 132,
+   "billB": 143,
+   "lawRef": "256/2004",
+   "classification": "incidental-overlap",
+   "sharedParagraph": "§32 (bill 132's sole edit target) vs. §12ad/§15/§15ca/§15e (bill 143's genuine edit targets)",
+   "evidence": {
+    "billAExcerpt": "Bill 132's entire cached text (.data/law-collision-cache/tisk-132/268467.txt, 54 lines) has exactly one § heading: '§ 32 Obdobné/Přiměřené plnění povinností obchodníka s cennými papíry' -- and its body is a cross-reference list ('Pro investičního zprostředkovatele se § 10, 10a a § 10ab až 10ad použijí obdobně přiměřeně... § 11a, 12, 12a, 12d a § 12ad... § 14, § 14a odst. 2 a § 14b... hlavy II dílu 3 oddílu 5... s výjimkou § 15 odst. 1 a 2, § 15b a § 15l až 15r... § 17') that says which other provisions apply 'by analogy' to investment intermediaries. It does not amend the text of any of those other sections.",
+    "billBExcerpt": "Bill 143's cached text (.data/law-collision-cache/tisk-143/268785.txt, 6638 lines) genuinely amends dozens of §s of 256/2004 including §12ad ('Řízení rizik', line 505), §15 ('Obecné povinnosti při jednání se zákazníky', line 604), §15ca/§15cb/§15cc (research/inducement rules, lines 679-863), §15e (line 864), §16/§16a (lines 931-1060), §30, §36, §39, etc. §32 itself never appears as an edited heading anywhere in bill 143's document -- it appears only once, at line 3350, inside §199's list of sanctionable-breach provisions ('§ 32 odst. 7, § 38 odst. 4, ...')."
+   },
+   "reasoning": "The deterministic pre-check flagged 14 shared '§' tokens because bill 132's single provision (§32) is a blanket cross-reference clause naming ~15 other sections by number, and several of those numbers coincide with sections bill 143 substantively rewrites. But bill 132 never touches the text of §12ad/§15/§15ca/§15e etc. -- it only says an unrelated actor (investiční zprostředkovatel) must follow them 'by analogy'. Bill 143 rewriting the substance of those provisions is ordinary law-updating, not a clash with 132's cross-reference, which continues to point at 'the current version of §X' either way. No literal text clash, no drafting conflict -- classic incidental overlap from a short cross-reference bill sharing numbers with a large omnibus.",
+   "group": 3
+  },
+  {
+   "pairId": "4-248",
+   "billA": 4,
+   "billB": 248,
+   "lawRef": "586/1992",
+   "classification": "incidental-overlap",
+   "sharedParagraph": "none genuinely shared -- bill 4 edits §35ba/§35c; bill 248 edits §6 (within 586/1992)",
+   "evidence": {
+    "billAExcerpt": "Bill 4's cached text (.data/law-collision-cache/tisk-4/265053.txt) bundles FOUR separate laws in one 'platné znění' PDF (line 1: 586/1992; line 147: 117/1995 státní sociální podpora; line 242: 353/2003 spotřební daně; line 255: 151/2025). Its only real 586/1992 edit targets are '§ 35ba' (line 4, tax-credit amounts, e.g. '30 840 Kč' -> new 75%-of-average-wage formula) and '§ 35c' (line 55, child tax allowance amounts, '15204 Kč' -> '22320 Kč'/'27840 Kč'). The pre-check's shared-§ list for this pair (§10,16,2,3,30,35,36,38f,39,4,6,93,96) is almost entirely cross-references cited inside §35ba/§35c's own text, plus contamination: bill 4's own '§30' excerpt ('Podmínky nároku na rodičovský příspěvek') is actually from 117/1995 (parental allowance law), not income tax law at all (confirmed at line 152).",
+    "billBExcerpt": "Bill 248's cached text (.data/law-collision-cache/tisk-248/277939.txt) is a 5-statute omnibus (586/1992, 427/2011, 256/2004, 262/2006, 324/2025 -- confirmed via verdict-248.json). Within its 586/1992 section (lines 3-880) there is exactly ONE § heading: '§6' (line 6, Příjmy ze závislé činnosti). Every other pre-check-flagged number in that range (§4, §10, §16, §36, §38f, etc.) is a cross-reference cited inside §6's own subsections, not a separately edited provision. The pre-check's §93/§96/§16/§35/§39 matches for bill 248 are confirmed contamination from the labor-code section of the same PDF (line 1412: the zákoník práce EU-transposition footnote lists '§16 odst. 2 a 3... § 35 odst. 2 az 5... § 37 odst.1 az4... §39...' -- labor-code numbering coincidentally overlapping income-tax numbering), and §2/§3 are from the brand-new 324/2025 savings law bundled in the same document (lines 1483-1509)."
+   },
+   "reasoning": "Bill 4 amends only §35ba and §35c (tax-credit amounts); bill 248 amends only §6 (employment income) within 586/1992. None of the 13 pre-check-flagged 'shared' §s represent an actual edit target in both bills -- most are cross-references embedded in the one section each bill really touches, and several (§30, §93, §96, §2, §3, and most of §16/§35/§36/§39's matches on bill 248's side) are outright artifacts of the naive same-number regex matching across a multi-law bundled PDF, picking up provisions from entirely different statutes (117/1995, 353/2003, 262/2006, 324/2025) that happen to share a paragraph number with 586/1992. No genuine drafting interaction.",
+   "group": 3
+  },
+  {
+   "pairId": "210-248",
+   "billA": 210,
+   "billB": 248,
+   "lawRef": "256/2004",
+   "classification": "confirmed-collision",
+   "sharedParagraph": "§134l of 256/2004 (o podnikání na kapitálovém trhu)",
+   "evidence": {
+    "billAExcerpt": "Bill 210's cached text (.data/law-collision-cache/tisk-210/271240.txt, lines 436-497): directly after amending §118 (annual report), the bill opens a wholly new 'ČÁST TŘINÁCTÁ / VYVÁŽENÉ ZASTOUPENÍ ŽEN A MUŽŮ MEZI ČLENY VEDOUCÍHO ORGÁNU EMITENTA' (Part 13, gender balance among issuer board members, transposing EU Directive 2022/2381) starting at '§ 134l / Člen vedoucího orgánu emitenta -- (1) Pro účely této části se členem vedoucího orgánu emitenta rozumí výkonný člen vedoucího orgánu a nevýkonný člen...', followed by §134m (scope thresholds: 250+ employees, EUR 50m turnover/EUR 43m balance sheet) and §134n (the 40%/33% board-composition targets). This is independently confirmed as a real, still-in-committee government bill in verdict-210.json (Justice Ministry submission, transposing Directive (EU) 2022/2381, first reading rejected 2 Jul 2026, sent to committees).",
+    "billBExcerpt": "Bill 248's cached text (.data/law-collision-cache/tisk-248/277939.txt, line 1318): '§ 134l / Státní příspěvek k dlouhodobému investičnímu produktu -- (1) Majiteli dlouhodobého investičního produktu, který do konce kalendářního měsíce, za který se státní příspěvek poskytuje, nedosáhl věku 30 let... náleží státní příspěvek k dlouhodobému investičnímu produktu. (2) Státní příspěvek... činí 50 % hodnoty peněžních prostředků... nejvýše však 1 000 Kč měsíčně.' This is independently confirmed as a NEW insertion by verdict-248.json's statedReasoning, written from a separate research pass over bill 248's own text/dùvodová zpráva: '...this incentive is extended to DIP as well as DPS (§14 odst.3 of 427/2011; new §134l of 256/2004)' -- explicitly labeling §134l as new content this bill is creating, for the unrelated topic of a young-saver state contribution to long-term investment products."
+   },
+   "reasoning": "Two independently-sourced reads agree: bill 210 (my direct read of its cached text, corroborated by verdict-210.json's account of the still-pending gender-balance directive transposition) inserts a brand-new §134l defining board-member gender-balance terms, while bill 248 (my direct read of its cached text, corroborated by verdict-248.json's independently-written summary explicitly calling it 'new §134l of 256/2004') inserts a brand-new, unrelated §134l for a DIP young-saver state contribution. Both bills are simultaneously pending and both propose to originate fresh content at the identical section number of the same statute for completely unrelated subject matter -- an exact structural match to the confirmed 120-244 §35ba precedent (two bills each assuming they get a virgin §-slot). If both were enacted as drafted, one §134l would silently overwrite or numerically collide with the other; at minimum, whichever passes second needs renumbering that neither bill's text currently provides for. This is a genuine, actionable drafting-collision candidate, not adjacency.",
+   "group": 3
+  },
+  {
+   "pairId": "40-248",
+   "billA": 40,
+   "billB": 248,
+   "lawRef": "586/1992",
+   "classification": "incidental-overlap",
+   "sharedParagraph": "none genuinely shared -- bill 40 edits §25; bill 248 edits §6 (within 586/1992)",
+   "evidence": {
+    "billAExcerpt": "Bill 40's cached text (.data/law-collision-cache/tisk-40/265589.txt, 218 lines) has exactly ONE § heading in the whole file: '§ 25' (line 6, 'Za výdaje (náklady) vynaložené k dosažení, zajištění a udržení příjmů pro daňové účely nelze uznat zejména...' -- the non-deductible-expense list). All 11 pre-check-flagged numbers (§10, §2, §23, §24, §26, §29, §33, §4, §7, §9, plus §25 itself) are cross-references cited within that single §25 list (e.g. 'a) výdaje... s výjimkou uvedenou v § 24 odst. 2', 'c) pořizovací cenu... s výjimkou uvedenou v § 24 odst. 2 písm. r), w) a ze)').",
+    "billBExcerpt": "Bill 248's 586/1992 section (.data/law-collision-cache/tisk-248/277939.txt, lines 3-880) has exactly one § heading, '§6' (line 6, employment income), as established for pair 4-248 above. §25 itself does not appear as an edited heading anywhere in bill 248's document."
+   },
+   "reasoning": "Bill 40's single provision (§25, non-deductible expenses) never overlaps with bill 248's single provision (§6, employment income) inside 586/1992 -- the two bills simply don't touch the same text. The 11 'shared' §s in the pre-check are entirely cross-references bill 40's §25 makes to nearby provisions (§4, §7, §9, §10, §23, §24, §26, §29, §33), none of which bill 248 amends. Pure incidental overlap; same root cause as 4-248 -- bill 248 is a multi-provision, multi-statute omnibus whose 'platné znění' PDF mechanically shares paragraph numbers with almost anything.",
+   "group": 3
+  }
+ ]
+}

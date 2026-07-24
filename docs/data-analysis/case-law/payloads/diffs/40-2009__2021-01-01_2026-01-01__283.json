@@ -1,0 +1,182 @@
+{
+ "law": "40/2009",
+ "source": "e-Sbírka SPARQL endpoint (opendata.eselpoint.gov.cz/sparql) — point queries, real fetched text",
+ "fetchedAt": "2026-07-24T19:12:06.751Z",
+ "from": {
+  "date": "2021-01-01",
+  "effectiveFrom": "2021-01-01",
+  "effectiveTo": "2021-05-25",
+  "eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2009/40/2021-01-01"
+ },
+ "to": {
+  "date": "2026-01-01",
+  "effectiveFrom": "2026-01-01",
+  "effectiveTo": null,
+  "eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2009/40/2026-01-01"
+ },
+ "parScope": "§ 283",
+ "hunks": [
+  {
+   "fragment": "§ 283 odst. 1",
+   "op": "modified",
+   "before": "<var>(1)</var> Kdo neoprávněně vyrobí, doveze, vyveze, proveze, nabídne, zprostředkuje, prodá nebo jinak jinému opatří nebo pro jiného přechovává omamnou nebo psychotropní látku, přípravek obsahující omamnou nebo psychotropní látku, prekursor nebo jed, bude potrestán odnětím svobody na jeden rok až pět let nebo peněžitým trestem.",
+   "after": "<var>(1)</var> Kdo neoprávněně vyrobí, doveze, vyveze, proveze, nabídne, zprostředkuje, prodá nebo jinak jinému opatří nebo pro jiného přechovává omamnou nebo psychotropní látku, přípravek obsahující omamnou nebo psychotropní látku, prekursor nebo jed, nebo kdo neoprávněně pro jiného pěstuje, sklízí, sbírá nebo zpracovává rostlinu nebo houbu obsahující omamnou nebo psychotropní látku, bude potrestán odnětím svobody na jeden rok až pět let."
+  },
+  {
+   "fragment": "§ 283 odst. 3",
+   "op": "modified",
+   "before": "<var>(3)</var> Odnětím svobody na osm až dvanáct let nebo propadnutím majetku bude pachatel potrestán,",
+   "after": "<var>(3)</var> Odnětím svobody na pět až dvanáct let nebo propadnutím majetku bude pachatel potrestán,"
+  },
+  {
+   "fragment": "§ 283 odst. 4",
+   "op": "modified",
+   "before": "<var>(4)</var> Odnětím svobody na deset až osmnáct let nebo propadnutím majetku bude pachatel potrestán,",
+   "after": "<var>(4)</var> Odnětím svobody na osm až osmnáct let nebo propadnutím majetku bude pachatel potrestán,"
+  },
+  {
+   "fragment": "§ 283a",
+   "op": "added",
+   "before": null,
+   "after": "<var>§ 283a</var>"
+  },
+  {
+   "fragment": "§ 283a odst. 1",
+   "op": "added",
+   "before": null,
+   "after": "<var>(1)</var> Kdo neoprávněně vyrobí, doveze, vyveze, proveze, nabídne, zprostředkuje, prodá nebo jinak jinému opatří konopí nebo přípravek obsahující omamnou nebo psychotropní látku získanou z konopí, bude potrestán odnětím svobody až na jeden rok."
+  },
+  {
+   "fragment": "§ 283a odst. 2",
+   "op": "added",
+   "before": null,
+   "after": "<var>(2)</var> Odnětím svobody až na dvě léta bude pachatel potrestán, spáchá-li čin uvedený v <a data-odkaz-id=\"195781991\" href=\"#\" class=\"int_odkaz\">odstavci 1</a> ve větším rozsahu."
+  },
+  {
+   "fragment": "§ 283a odst. 3",
+   "op": "added",
+   "before": null,
+   "after": "<var>(3)</var> Odnětím svobody až na tři léta bude pachatel potrestán, spáchá-li čin uvedený v <a data-odkaz-id=\"195781993\" href=\"#\" class=\"int_odkaz\">odstavci 1</a>"
+  },
+  {
+   "fragment": "§ 283a odst. 3 písm. a)",
+   "op": "added",
+   "before": null,
+   "after": "<var>a)</var> jako člen organizované skupiny,"
+  },
+  {
+   "fragment": "§ 283a odst. 3 písm. b)",
+   "op": "added",
+   "before": null,
+   "after": "<var>b)</var> ač byl za takový čin v posledních třech letech odsouzen nebo potrestán,"
+  },
+  {
+   "fragment": "§ 283a odst. 3 písm. c)",
+   "op": "added",
+   "before": null,
+   "after": "<var>c)</var> ve značném rozsahu."
+  },
+  {
+   "fragment": "§ 283a odst. 4",
+   "op": "added",
+   "before": null,
+   "after": "<var>(4)</var> Odnětím svobody až na pět let bude pachatel potrestán, spáchá-li čin uvedený v <a data-odkaz-id=\"195781995\" href=\"#\" class=\"int_odkaz\">odstavci 1</a>"
+  },
+  {
+   "fragment": "§ 283a odst. 4 písm. a)",
+   "op": "added",
+   "before": null,
+   "after": "<var>a)</var> ve velkém rozsahu,"
+  },
+  {
+   "fragment": "§ 283a odst. 4 písm. b)",
+   "op": "added",
+   "before": null,
+   "after": "<var>b)</var> vůči dítěti."
+  },
+  {
+   "fragment": "§ 283a odst. 5",
+   "op": "added",
+   "before": null,
+   "after": "<var>(5)</var> Odnětím svobody na dvě léta až osm let nebo propadnutím majetku bude pachatel potrestán, spáchá-li čin uvedený v <a data-odkaz-id=\"195781997\" href=\"#\" class=\"int_odkaz\">odstavci 1</a>"
+  },
+  {
+   "fragment": "§ 283a odst. 5 písm. a)",
+   "op": "added",
+   "before": null,
+   "after": "<var>a)</var> v úmyslu získat pro sebe nebo pro jiného značný prospěch,"
+  },
+  {
+   "fragment": "§ 283a odst. 5 písm. b)",
+   "op": "added",
+   "before": null,
+   "after": "<var>b)</var> ve spojení s organizovanou skupinou působící ve více státech."
+  },
+  {
+   "fragment": "§ 283a odst. 6",
+   "op": "added",
+   "before": null,
+   "after": "<var>(6)</var> Odnětím svobody na pět až deset let nebo propadnutím majetku bude pachatel potrestán, spáchá-li čin uvedený v <a data-odkaz-id=\"195781999\" href=\"#\" class=\"int_odkaz\">odstavci 1</a>"
+  },
+  {
+   "fragment": "§ 283a odst. 6 písm. a)",
+   "op": "added",
+   "before": null,
+   "after": "<var>a)</var> ve větším rozsahu vůči dítěti nebo vůči dítěti mladšímu patnácti let,"
+  },
+  {
+   "fragment": "§ 283a odst. 6 písm. b)",
+   "op": "added",
+   "before": null,
+   "after": "<var>b)</var> v úmyslu získat pro sebe nebo pro jiného prospěch velkého rozsahu."
+  },
+  {
+   "fragment": "§ 283a odst. 7",
+   "op": "added",
+   "before": null,
+   "after": "<var>(7)</var> Odnětím svobody na pět až dvanáct let nebo propadnutím majetku bude pachatel potrestán,"
+  },
+  {
+   "fragment": "§ 283a odst. 7 písm. a)",
+   "op": "added",
+   "before": null,
+   "after": "<var>a)</var> způsobí-li činem uvedeným v <a data-odkaz-id=\"195782001\" href=\"#\" class=\"int_odkaz\">odstavci 1</a> těžkou újmu na zdraví,"
+  },
+  {
+   "fragment": "§ 283a odst. 7 písm. b)",
+   "op": "added",
+   "before": null,
+   "after": "<var>b)</var> spáchá-li takový čin ve větším rozsahu vůči dítěti mladšímu patnácti let."
+  },
+  {
+   "fragment": "§ 283a odst. 8",
+   "op": "added",
+   "before": null,
+   "after": "<var>(8)</var> Odnětím svobody na osm až osmnáct let nebo propadnutím majetku bude pachatel potrestán,"
+  },
+  {
+   "fragment": "§ 283a odst. 8 písm. a)",
+   "op": "added",
+   "before": null,
+   "after": "<var>a)</var> způsobí-li činem uvedeným v <a data-odkaz-id=\"195782003\" href=\"#\" class=\"int_odkaz\">odstavci 1</a> těžkou újmu na zdraví nejméně dvou osob nebo smrt,"
+  },
+  {
+   "fragment": "§ 283a odst. 8 písm. b)",
+   "op": "added",
+   "before": null,
+   "after": "<var>b)</var> spáchá-li čin uvedený v <a data-odkaz-id=\"195782005\" href=\"#\" class=\"int_odkaz\">odstavci 1</a> ve spojení s organizovanou skupinou působící ve více státech v úmyslu získat značný prospěch pro sebe nebo pro jiného."
+  },
+  {
+   "fragment": "§ 283a odst. 9",
+   "op": "added",
+   "before": null,
+   "after": "<var>(9)</var> Příprava je trestná."
+  }
+ ],
+ "provenance": {
+  "track": "law",
+  "pass": 0,
+  "method": "deterministic",
+  "ref": "esbirka-sparql-diff"
+ }
+}

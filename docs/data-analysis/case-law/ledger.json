@@ -10,9 +10,13 @@
   "assignedTo": 150,
   "sectorAdjacencyHits": 5,
   "municipalSoeExcludedBills": 60,
-  "existingForensic": 9,
+  "existingForensic": 19,
   "collisionCandidateGroups": 29,
-  "collisionCandidateBills": 71
+  "collisionCandidateBills": 71,
+  "batch003NewVerdicts": 8,
+  "gatePassRate": "26/26",
+  "collisionPairsCloseRead": 12,
+  "paragraphDiffCount": 15
  },
  "rows": [
   {
@@ -606,18 +610,22 @@
    "amendsCount": 1,
    "maxTargetChurn": 4,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict_pending_persist",
+   "batch": 3,
+   "signal": 2,
    "flags": [
     "high_churn_target"
    ],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 400500
+   "triageScoreV2": 400500,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts/verdict-112.json",
+   "amendsRealCount": 1,
+   "amendsUndercount": 0
   },
   {
    "tiskId": 43248,
@@ -631,18 +639,22 @@
    "amendsCount": 1,
    "maxTargetChurn": 4,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict_pending_persist",
+   "batch": 3,
+   "signal": 2,
    "flags": [
     "high_churn_target"
    ],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 400500
+   "triageScoreV2": 400500,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts/verdict-132.json",
+   "amendsRealCount": 1,
+   "amendsUndercount": 0
   },
   {
    "tiskId": 43263,
@@ -656,18 +668,22 @@
    "amendsCount": 1,
    "maxTargetChurn": 4,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict_pending_persist",
+   "batch": 3,
+   "signal": 2,
    "flags": [
     "high_churn_target"
    ],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 400500
+   "triageScoreV2": 400500,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts/verdict-143.json",
+   "amendsRealCount": 6,
+   "amendsUndercount": 5
   },
   {
    "tiskId": 43332,
@@ -681,18 +697,22 @@
    "amendsCount": 1,
    "maxTargetChurn": 4,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict_pending_persist",
+   "batch": 3,
+   "signal": 2,
    "flags": [
     "high_churn_target"
    ],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 400500
+   "triageScoreV2": 400500,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts/verdict-210.json",
+   "amendsRealCount": 3,
+   "amendsUndercount": 2
   },
   {
    "tiskId": 43267,
@@ -708,11 +728,11 @@
    "amendsCount": 3,
    "maxTargetChurn": 3,
    "sponsorContractCzk": 235543222.2,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict_pending_persist",
+   "batch": 3,
+   "signal": 2,
    "flags": [
     "high_churn_target",
     "mp_group",
@@ -725,7 +745,11 @@
     "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
     "Nadační fond Gymnázia Kutná Hora"
    ],
-   "triageScoreV2": 303174
+   "triageScoreV2": 303174,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts/verdict-146.json",
+   "amendsRealCount": 3,
+   "amendsUndercount": 0
   },
   {
    "tiskId": 43135,
@@ -739,11 +763,11 @@
    "amendsCount": 1,
    "maxTargetChurn": 3,
    "sponsorContractCzk": 5397460397.25,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict_pending_persist",
+   "batch": 3,
+   "signal": 2,
    "flags": [
     "high_churn_target",
     "mp_group",
@@ -758,7 +782,11 @@
     "Teplárny Brno, a.s.",
     "MERO ČR, a.s."
    ],
-   "triageScoreV2": 302446
+   "triageScoreV2": 302446,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts/verdict-28.json",
+   "amendsRealCount": 2,
+   "amendsUndercount": 1
   },
   {
    "tiskId": 43302,
@@ -772,11 +800,11 @@
    "amendsCount": 1,
    "maxTargetChurn": 3,
    "sponsorContractCzk": 884856389,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict_pending_persist",
+   "batch": 3,
+   "signal": 2,
    "flags": [
     "high_churn_target",
     "mp_group",
@@ -794,7 +822,11 @@
     "Pražská energetika, a.s.",
     "Kongresové centrum Praha, a.s."
    ],
-   "triageScoreV2": 302289
+   "triageScoreV2": 302289,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts/verdict-181.json",
+   "amendsRealCount": 1,
+   "amendsUndercount": 0
   },
   {
    "tiskId": 43131,
@@ -808,11 +840,11 @@
    "amendsCount": 1,
    "maxTargetChurn": 3,
    "sponsorContractCzk": 235543222.2,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict_pending_persist",
+   "batch": 3,
+   "signal": 2,
    "flags": [
     "high_churn_target",
     "mp_group",
@@ -827,7 +859,11 @@
     "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov",
     "ČEPRO, a.s."
    ],
-   "triageScoreV2": 302174
+   "triageScoreV2": 302174,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts/verdict-24.json",
+   "amendsRealCount": 10,
+   "amendsUndercount": 9
   },
   {
    "tiskId": 43219,
@@ -3920,5 +3956,6 @@
    "triageScoreV2": 0
   }
  ],
- "batch002Note": "Batch head = top-9 churn-led (173,216,196,111,207,124,198,71,86) + tisk 11 swapped in for tisk 112 to empirically test the corrected sector-adjacency signal (private real-estate/investment-holding ties vs 589/1992 social-insurance-premium law). Army confirmed: coincidental economy-bucket match, no real channel (same calibration as batch-001, now validated for a sector-matched signal too). This re-run also fixed a municipal-exclusion gap (CHOMUTOVSKA BYTOVA a.s. — 100% city-of-Chomutov owned, found by the tisk-11 army dossier) which dropped raw sector-adjacency hits from 6 to 5."
+ "batch002Note": "Batch head = top-9 churn-led (173,216,196,111,207,124,198,71,86) + tisk 11 swapped in for tisk 112 to empirically test the corrected sector-adjacency signal (private real-estate/investment-holding ties vs 589/1992 social-insurance-premium law). Army confirmed: coincidental economy-bucket match, no real channel (same calibration as batch-001, now validated for a sector-matched signal too). This re-run also fixed a municipal-exclusion gap (CHOMUTOVSKA BYTOVA a.s. — 100% city-of-Chomutov owned, found by the tisk-11 army dossier) which dropped raw sector-adjacency hits from 6 to 5.",
+ "batch003Note": "Batch head: next-8 by triageScoreV2 not yet verdicted (112,132,143,210,146,28,181,24). Q-law-6 full-population amends-census (140/141 checked, 1 skip): government mean undercount 4.80 (n=55) vs mp/mp_group mean 2.10 (n=71) — origin-correlation holds, ~2.3x. Q-law-5: 12 collision pairs close-read — 3 confirmed-collision (4-120, 4-244 [upgrading 120-244 to a 3-way §35ba cluster], 210-248 [new §134l clash]), 2 coordination-risk (67-167, 73-193), 7 incidental-overlap. Q-law-7: 4 new real e-Sbirka diffs (35c@586/1992, 199@40/2009, 283@40/2009, 60@427/2011) — paragraphDiffCount 7->15 bills. Army: 8 new verdicts, all severity=low, gate 26/26 (18 carried + 8 new). gate-verdicts.ts: added citation-scope check (10/26 verdicts flagged with a WARNING, not hard-fail) + collapsed --wide/canonical into one scope. Opus top-signal trigger NOT fired — all 26 verdicts low severity, the 3 confirmed collisions are drafting-conflicts (numbering/section clashes) not self-dealing channels, so none meets the genuine-medium+-self-dealing bar."
 }

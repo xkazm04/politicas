@@ -1,0 +1,38 @@
+{
+ "law": "586/1992",
+ "source": "e-Sbírka SPARQL endpoint (opendata.eselpoint.gov.cz/sparql) — point queries, real fetched text",
+ "fetchedAt": "2026-07-24T19:11:43.539Z",
+ "from": {
+  "date": "2021-01-01",
+  "effectiveFrom": "2021-01-01",
+  "effectiveTo": "2021-02-03",
+  "eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1992/586/2021-01-01"
+ },
+ "to": {
+  "date": "2024-01-01",
+  "effectiveFrom": "2024-01-01",
+  "effectiveTo": "2024-06-19",
+  "eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1992/586/2024-01-01"
+ },
+ "parScope": "§ 35c",
+ "hunks": [
+  {
+   "fragment": "§ 35c odst. 1",
+   "op": "modified",
+   "before": "<var>(1)</var> Poplatník uvedený v <a data-odkaz-id=\"25890877\" href=\"#\" class=\"int_odkaz\">§ 2</a> má nárok na daňové zvýhodnění na vyživované dítě žijící s ním ve společně hospodařící domácnosti na území členského státu Evropské unie nebo státu tvořícího Evropský hospodářský prostor (dále jen „daňové zvýhodnění“) ve výši 15 204 Kč ročně na jedno dítě, 19 404 Kč ročně na druhé dítě a 24 204 Kč ročně na třetí a každé další dítě, pokud neuplatňuje slevu na dani podle <a data-odkaz-id=\"25890903\" href=\"#\" class=\"int_odkaz\">§ 35a</a> nebo <a data-odkaz-id=\"25890929\" href=\"#\" class=\"int_odkaz\">§ 35b</a>. Poplatník o daňové zvýhodnění sníží daň vypočtenou podle <a data-odkaz-id=\"25890955\" href=\"#\" class=\"int_odkaz\">§ 16</a>, případně sníženou podle <a data-odkaz-id=\"25890981\" href=\"#\" class=\"int_odkaz\">§ 35</a>, <a data-odkaz-id=\"25891007\" href=\"#\" class=\"int_odkaz\">§ 35ba</a>. Daňové zvýhodnění může poplatník uplatnit formou slevy na dani, daňového bonusu nebo slevy na dani a daňového bonusu. Je-li v jedné společně hospodařící domácnosti více vyživovaných dětí poplatníka, posuzují se pro účely tohoto ustanovení dohromady.",
+   "after": "<var>(1)</var> Poplatník uvedený v <a data-odkaz-id=\"25914765\" href=\"#\" class=\"int_odkaz\">§ 2</a> má nárok na daňové zvýhodnění na vyživované dítě žijící s ním ve společně hospodařící domácnosti na území členského státu Evropské unie nebo státu tvořícího Evropský hospodářský prostor (dále jen „daňové zvýhodnění“) ve výši 15 204 Kč ročně na jedno dítě, 22 320 Kč ročně na druhé dítě a 27 840 Kč ročně na třetí a každé další dítě, pokud neuplatňuje slevu na dani podle <a data-odkaz-id=\"25914785\" href=\"#\" class=\"int_odkaz\">§ 35a</a> nebo <a data-odkaz-id=\"25914805\" href=\"#\" class=\"int_odkaz\">§ 35b</a>. Poplatník o daňové zvýhodnění sníží daň vypočtenou podle <a data-odkaz-id=\"25914825\" href=\"#\" class=\"int_odkaz\">§ 16</a>, případně sníženou podle <a data-odkaz-id=\"25914845\" href=\"#\" class=\"int_odkaz\">§ 35</a>, <a data-odkaz-id=\"25914865\" href=\"#\" class=\"int_odkaz\">§ 35ba</a>. Daňové zvýhodnění může poplatník uplatnit formou slevy na dani, daňového bonusu nebo slevy na dani a daňového bonusu. Je-li v jedné společně hospodařící domácnosti více vyživovaných dětí poplatníka, posuzují se pro účely tohoto ustanovení dohromady."
+  },
+  {
+   "fragment": "§ 35c odst. 8",
+   "op": "modified",
+   "before": "<var>(8)</var> Uzavře-li dítě uvedené v <a data-odkaz-id=\"25864807\" href=\"#\" class=\"int_odkaz\">odstavci 6 písm. b)</a> manželství a žije-li ve společně hospodařící domácnosti s manželem (manželkou), může uplatnit manžel (manželka) slevu na dani při splnění podmínek uvedených v <a data-odkaz-id=\"25864885\" href=\"#\" class=\"int_odkaz\">§ 35ba</a>. Nemá-li manžel (manželka) dostatečné příjmy, z nichž by mohl (mohla) uplatnit slevu na dani při splnění podmínek uvedených v <a data-odkaz-id=\"25864963\" href=\"#\" class=\"int_odkaz\">§ 35ba</a>, může daňové zvýhodnění uplatnit rodič dítěte nebo poplatník, u něhož jde ve vztahu k dítěti o péči nahrazující péči rodičů, pokud dítě s ním žije ve společně hospodařící domácnosti.",
+   "after": "<var>(8)</var> Uzavře-li dítě uvedené v <a data-odkaz-id=\"26052299\" href=\"#\" class=\"int_odkaz\">odstavci 6</a> manželství a žije-li ve společně hospodařící domácnosti s manželem, může uplatnit manžel slevu na manžela při splnění podmínek pro její uplatnění. Nemá-li manžel dostatečné příjmy, z nichž by mohl uplatnit slevu na manžela při splnění podmínek pro její uplatnění, může daňové zvýhodnění uplatnit rodič dítěte nebo poplatník, u něhož jde ve vztahu k dítěti o péči nahrazující péči rodičů, pokud dítě a vyživované dítě tohoto dítěte vymezené pro uplatnění slevy na manžela s ním žije ve společně hospodařící domácnosti."
+  }
+ ],
+ "provenance": {
+  "track": "law",
+  "pass": 0,
+  "method": "deterministic",
+  "ref": "esbirka-sparql-diff"
+ }
+}
