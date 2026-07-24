@@ -1,0 +1,104 @@
+{
+  "case": "effort", "batch": 2, "group": "E", "generatedAt": "2026-07-24",
+  "note": "5 MP: dvě kontinuitní poslankyně z PSP9 s reálným meziobdobním růstem (Hanzlíková, Šafránková — obě posunuly skóre i výborové vedení nahoru), jeden zkrácený mandát z principiálních důvodů (Šichtařová, rezignace v březnu 2026 — ne lenost), a dva noví 'divergence' poslanci ANO2011 se souběžným komunálním mandátem (Klčová/Pardubice, Bureš/Kladno) — druhé nezávislé potvrzení vzorce 'dual_mandate' z batch-001 (Karpíšek), tentokrát bez peněžní stopy. Žádný effort_* prop nezasahuje do deterministických čísel; review_state všech props = pending_review. Every rendered claim traced to a URL accessed 2026-07-24.",
+  "proposals": [
+    {
+      "id": "psp:person:6753", "name": "Jana Hanzlíková", "club": "ANO2011", "lens": ["quiet-workhorse-legislative"],
+      "props": {
+        "effort_committee_focus": "Předsedkyně podvýboru pro regionální školství, celoživotní učení a inkluzi; místopředsedkyně podvýboru pro ochranu zvířat (oba posty od 18.2.2026); členka Výboru pro sociální politiku a Výboru pro vědu, vzdělávání, mládež a sport",
+        "effort_work_themes": ["sociální politika a rodina", "vzdělávání a inkluze", "ochrana zvířat", "zdravotní pojištění", "trestní právo (spolupodpis)"],
+        "effort_bill_focus": "5 spolupodepsaných tisků, nikdy první předkladatelka: sociální pojištění (11 → zákon 90/2026 Sb.), veřejné zdravotní pojištění (70 → zákon 71/2026 Sb.), jednací řád PS (72, v Senátu od 21.7.2026), trestní zákoník (173, ve výboru) a ochrana zvířat (174, ve výboru, vede Šafránková)",
+        "effort_public_role": "Bývalá náměstkyně ministryně práce a sociálních věcí (2014–2019) a náměstkyně ministryně pro místní rozvoj (2020–2021); nyní členka správní rady VZP",
+        "effort_psp9_trend_note": "Kontinuita z PSP9 (2021–2025, ANO2011, tehdy Výbor pro sociální politiku + místopředsedkyně komise pro rodinu): skóre vzrostlo z 83,8 na 87,3, participation_rate ze 50 % na 100 %, počet vedoucích postů z 1 na 2. Bills authored (5 vs. 15) a interpelace (0 vs. 29) jsou nižší v absolutním počtu, ale PSP10 je v čase enrichmentu jen ~9 měsíců stará proti plnému 4letému PSP9 období — tempo tisků je proto srovnatelné nebo vyšší, ne pokles aktivity.",
+        "effort_workhorse": true,
+        "effort_notes": "0 interpelací a jen 8 vystoupení za ~9 měsíců, ale 5 spolupodepsaných tisků včetně dvou už vyhlášených zákonů a jednoho v Senátu. leadership_count (2) odpovídá aktuálně aktivním podvýborovým postům — dřívější místopředsednický post v komisi pro rodinu skončil 21.1.2026, proto se už do aktuálního počtu nepočítá; interní konzistence dat OK."
+      },
+      "signal": 0.80,
+      "headline": "Bývalá náměstkyně dvou ministerstev jako tichá pracovnice sociální politiky: pět spolupodepsaných tisků včetně dvou už platných zákonů, skóre oproti minulému období vzrostlo.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6753&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=70",
+        "https://pardubice.rozhlas.cz/roky-v-opozici-nebyly-vesele-spoustu-veci-upravime-rika-poslankyne-ano-9582981"
+      ]
+    },
+    {
+      "id": "psp:person:6479", "name": "Lucie Šafránková", "club": "SPD", "lens": ["top"],
+      "props": {
+        "effort_committee_focus": "Předsedkyně Stálé komise pro rodinu a rovné příležitosti (od 27.11.2025); místopředsedkyně Výboru pro sociální politiku (od 12.11.2025)",
+        "effort_work_themes": ["rodinná politika a rovné příležitosti", "sociální politika", "ochrana zvířat", "trestní právo (spolupodpis)", "veřejná správa"],
+        "effort_bill_focus": "3 tisky; jediná ze skupiny první předkladatelka vlastního tisku — novela zákona na ochranu zvířat proti týrání (174): 1. čtení prošlo 30.6.2026, vláda vyjádřila souhlas (5.5.2026), nyní čeká na garanční Výbor pro životní prostředí. Dále spolupodepsala trestní zákoník (173, ve výboru) a tisk o zemských znacích a vlajkách (87, ve výboru).",
+        "effort_public_role": "Poslankyně nepřetržitě od 2017 (PSP8), zastupitelka města Brna 2018–2022; v PSP9 (2021–2025) se věnovala sociální politice a covidové krizi. Nyní náhradnice v dozorčí radě VZP.",
+        "effort_psp9_trend_note": "Skóre vzrostlo z 85,3 (PSP9) na 91,6 (PSP10); leadershipCount z 1 na 2 — z členky postoupila k předsednictví komise pro rodinu a místopředsednictví výboru. participation_rate ze 50 % na 100 %. Absolutní počet tisků (3 vs. 25) odráží kratší dosavadní trvání PSP10 (~9 měsíců vs. plné 4leté období), ne pokles.",
+        "effort_notes": "12,9 mil. Kč vazba na Pražskou vysokou školu psychosociálních studií se v otevřených zdrojích potvrzuje pouze jako její alma mater (Bc. titul) — žádná obchodní/vlastnická vazba nenalezena. Suma je řádově vyšší než školné, položka zůstává pending_review jako možná záměna jména nebo institucionální kontrakt nesouvisející s její osobou. Druhá vazba (OSVČ) má nulovou hodnotu kontraktu, bez významu."
+      },
+      "signal": 0.83,
+      "headline": "Jediná v obou skupinách, kdo je sama první předkladatelkou vlastního tisku — vládou podpořená novela na ochranu zvířat po prvním čtení.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6479&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=174",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=173",
+        "https://cs.wikipedia.org/wiki/Pra%C5%BEsk%C3%A1_vysok%C3%A1_%C5%A1kola_psychosoci%C3%A1ln%C3%ADch_studi%C3%AD"
+      ]
+    },
+    {
+      "id": "psp:person:7047", "name": "Markéta Šichtařová", "club": "SPD", "lens": ["bottom"],
+      "props": {
+        "effort_public_role": "Bývalá hlavní ekonomka a ředitelka Next Finance / Trinity Bank, dlouholetá ekonomická komentátorka; do Sněmovny zvolena na kandidátce SPD, členkou koaliční strany Svobodní.",
+        "effort_low_score_reason": "declined_mandate",
+        "effort_mandate_note": "Mandát trval 4.10.2025–11.3.2026 (~5 měsíců z cca 9,5měsíčního období do 24.7.2026, tedy méně než polovina). Rezignovala v reakci na postoupení unijního zákona o digitálních službách do druhého čtení, který označila za hrozbu svobody slova pod záminkou boje s dezinformacemi ('nemožnost pokračovat v plnění slibů voličům'). První pokus o rezignaci byl formálně neplatný (chybělo notářské ověření), opravila jej 11.3.2026. Nahradil ji Josef Nerušil, předseda pražské organizace SPD.",
+        "effort_notes": "Nízké skóre je z velké části artefakt zkráceného mandátu, ne jen laxnosti — ale ani v rámci svých 5 měsíců nebyla nijak aktivní: členka Hospodářského výboru a Výboru pro zdravotnictví (ten opustila už 16.1.2026), 0 interpelací, 1 vystoupení za celou dobu, žádný vlastní tisk — jen spolupodpis tisku 87 (zemské znaky a vlajky) mezi 40 signatáři. Poctivé čtení dat: mandátové zkrácení vysvětluje část, nikoli celý, nízký výsledek."
+      },
+      "signal": 0.78,
+      "headline": "Rezignovala v březnu 2026 na protest proti unijnímu zákonu o digitálních službách — nízké skóre je zčásti zkrácený mandát, zčásti i skutečně nízká aktivita v době, kdy ještě zasedala.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7047&o=10",
+        "https://www.irozhlas.cz/zpravy-domov/napodruhe-spravne-sichtarova-svou-rezignaci-na-post-ve-snemovne-opatrila_2603112118_elev",
+        "https://tn.nova.cz/zpravodajstvi/clanek/642747-sichtarova-konci-ve-snemovne-vadi-ji-zakon-o-digitalnich-sluzbach",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87"
+      ]
+    },
+    {
+      "id": "psp:person:7009", "name": "Jiřina Klčová", "club": "ANO2011", "lens": ["divergence"],
+      "props": {
+        "effort_committee_focus": "Členka Výboru pro životní prostředí a Výboru pro vědu, vzdělávání, mládež a sport; místopředsedkyně podvýboru pro cestovní ruch (od 12.3.2026); členka Stálé komise pro rodinu a rovné příležitosti a 7 meziparlamentních skupin přátelství",
+        "effort_work_themes": ["životní prostředí", "cestovní ruch", "vzdělávání a kultura", "veřejná správa (souběžný mandát)"],
+        "effort_bill_focus": "0 tisků, 1 vystoupení v sále za ~9 měsíců — souběžný komunální mandát omezuje kapacitu na legislativní práci",
+        "effort_public_role": "Náměstkyně primátora Pardubic (od 2022) a bývalá krajská zastupitelka (2016–2020); nový poslanecký mandát vědomě drží souběžně s exekutivní funkcí ve městě, aby dokončila rozjeté projekty (vlastní vyjádření pro Pardubický deník).",
+        "effort_low_score_reason": "dual_mandate",
+        "effort_notes": "100% účast (participation_rate 1) a jen 10% absence, ale nulová legislativní stopa — vzorec typický pro souběžný komunální mandát (paralela s Karpíškem, batch-001): hlasuje spolehlivě, ale nepíše zákony ani nemluví v sále. Podvýborové místopředsednictví (cestovní ruch, od 12.3.2026) se v leadership_count (0) neodráží — možná mezera v ingesci dat mezi hlavními výbory/komisemi a podvýbory, stejný jev jako u Bureše (viz cross-cutting lead). committee_count (3) odpovídá přesně hlavním výborům/komisi bez 7 skupin přátelství — ty zjevně nejsou počítány, kalibrační obava z batch-001 se zde nepotvrzuje."
+      },
+      "signal": 0.58,
+      "headline": "Náměstkyně primátora Pardubic se stoprocentní účastí, ale nulovou legislativní stopou — souběh mandátů, ne nezájem.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7009&o=10",
+        "https://pardubicky.denik.cz/zpravy_region/poslankyne-i-namestkyne-primatora-najednou-klcova-to-chce-zkusit-20251020.html",
+        "https://cs.wikipedia.org/wiki/Ji%C5%99ina_Kl%C4%8Dov%C3%A1"
+      ]
+    },
+    {
+      "id": "psp:person:6995", "name": "František Bureš", "club": "ANO2011", "lens": ["divergence"],
+      "props": {
+        "effort_committee_focus": "Člen Výboru pro veřejnou správu a regionální rozvoj a Ústavně-právního výboru; místopředseda podvýboru pro bytovou politiku a výstavbu (od 13.3.2026); předseda podvýboru pro exekuce, insolvenci a oddlužení (od 29.4.2026); člen Stálé komise pro kontrolu poskytnutí údajů z centrální evidence účtů",
+        "effort_work_themes": ["veřejná správa a regionální rozvoj", "bytová politika", "exekuce a insolvence", "ústavní právo", "kontrola bankovních dat (CEÚ)"],
+        "effort_bill_focus": "0 tisků, 2 vystoupení v sále za ~9 měsíců — nejmladší poslanec skupiny (nar. 1995), souběžně náměstek primátora Kladna a krajský zastupitel",
+        "effort_public_role": "Náměstek primátora Kladna (od 2022), zastupitel Středočeského kraje (od 2024), předseda kladenské organizace ANO; souběžně studuje ekonomii na VŠE (fakulta v Jindřichově Hradci, od 2024).",
+        "effort_low_score_reason": "dual_mandate",
+        "effort_notes": "100% účast, 10% absence, ale nulová legislativní stopa — stejný vzorec jako Klčová: souběžný komunální/krajský mandát pohlcuje kapacitu na tisky a vystoupení. Od 13.3. a 29.4.2026 drží dva čerstvé podvýborové vedoucí posty (místopředseda bydlení, předseda exekucí/insolvence), které se v leadership_count (0) vůbec neprojevují — stejná možná ingesční mezera jako u Klčové, hodná prověření."
+      },
+      "signal": 0.60,
+      "headline": "Nejmladší poslanec skupiny, náměstek primátora Kladna: stoprocentní účast, nula tisků — a dva čerstvé podvýborové vedoucí posty, které skóre nezachytilo.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6995&o=10",
+        "https://kladensky.denik.cz/zpravy_region/kladno-poslanec-frantisek-bures.html",
+        "https://cs.wikipedia.org/wiki/Franti%C5%A1ek_Bure%C5%A1_(politik)"
+      ]
+    }
+  ],
+  "crossCuttingLeads": [
+    "leadership_count possible ingestion lag: Klčová (podvýborová místopředsedkyně cestovní ruch, od 12.3.2026) a Bureš (podvýborový místopředseda bydlení od 13.3.2026, předseda exekucí/insolvence od 29.4.2026) mají podle psp.cz aktivní podvýborové vedoucí posty, které leadership_count vůbec nezachycuje (obě hodnoty 0), zatímco Hanzlíkové podvýborová vedení z února 2026 se v jejím leadership_count (2) projevují. Možný datový cutoff mezi únorem a březnem 2026 pro toto pole — vlajkováno, ne tvrzeno jako jistá příčina.",
+    "Šichtařové contributionPsp9 je null a její psp.cz mandátové okno (4.10.2025–11.3.2026) ukazuje, že už není zasedající poslankyní — participation_rate/absence_rate se pro ni počítají stejně jako pro aktivní poslance, což podhodnocuje fakt, že skóre popisuje osobu, která ve Sněmovně reálně skončila před ~4,5 měsíci. Doporučení: analogicky k declined_mandate z batch-001 (tam pro nikdy nesložený slib) zvážit odlišení 'mandát ukončen v průběhu období' od 'mandát nikdy nezačal'.",
+    "Klčová a Bureš tvoří párový nález: obě/oba noví poslanci PSP10 za ANO2011 se souběžným postem náměstka primátora (Pardubice / Kladno), 0 tisků a téměř nulovými vystoupeními při 100% účasti — druhé nezávislé potvrzení strukturálního vzorce 'dual_mandate' poprvé popsaného u Karpíška v batch-001 (tam ODS), tentokrát v rámci hnutí ANO a bez peněžní stopy.",
+    "Šafránkové 12,9 mil. Kč vazba na Pražskou vysokou školu psychosociálních studií se ověřuje jen jako vztah alumny (Bc. titul); suma neodpovídá školnému a žádná obchodní vazba nenalezena — vhodné pro Case-① review pass, zda jde o záměnu jména nebo nesouvisející institucionální kontrakt."
+  ]
+}

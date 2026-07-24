@@ -1,0 +1,80 @@
+{
+  "case": "effort",
+  "batch": 2,
+  "group": "D",
+  "generatedAt": "2026-07-24",
+  "note": "Group D (Sonnet, 5 MPs) of batch 002's army of 6 groups. All props are namespaced effort_* on person nodes; no deterministic-owned number is touched. review_state of every prop = pending_review (annotation only). Two oversight-workhorse MPs found (Krejčí, Samaš) extending batch 001's quiet-workhorse-oversight pattern into the defense/cyber-security domain; one confirmed replacement MP (Penc, cross-checked against batch 001's phantom-mandate cluster — he is the 'other side' of the Kubis→hejtman story); two veteran/continuity top scorers with real PSP9→PSP10 comparisons (Samaš improved sharply, Bendl stayed elite across a sixth mandate).",
+  "proposals": [
+    {
+      "id": "psp:person:7016", "name": "Miroslav Krejčí", "club": "MS", "lens": ["quiet-workhorse-oversight"],
+      "props": {
+        "effort_committee_focus": "Předseda Stálé komise pro hybridní hrozby (zvolen 27.11.2025); předseda Stálé komise pro kontrolu NÚKIB (od 27.5.2026); místopředseda Výboru pro vědu, vzdělávání, mládež a sport (VVVMS); člen Hospodářského výboru.",
+        "effort_work_themes": ["kybernetická bezpečnost", "hybridní hrozby a dezinformace", "vzdělávací politika a zkouškové systémy", "digitalizace veřejné správy", "doprava (podvýbor)"],
+        "effort_public_role": "Bývalý ředitel státní organizace CERMAT (2022–2025, garant státních maturit a přijímacích zkoušek); v současnosti jediný z pětice, kdo vede dvě bezpečnostní dohledové komise Sněmovny zároveň.",
+        "effort_workhorse": true,
+        "effort_notes": "0 tisků a 8 vystoupení za ~8 měsíců, ale vede obě klíčové bezpečnostní dohledové komise Sněmovny (hybridní hrozby, NÚKIB) — jeho profesní expertíza v kyberbezpečnosti a digitalizaci veřejné správy přímo odpovídá agendě obou komisí i VVVMS. Automatizovaný výtah z psp.cz profilu prvně komisi pro hybridní hrozby vynechal (parsovací mezera nástroje) — ověřeno křížově přes tiskovou zprávu psp.cz o volbě předsedů komisí a stranický profil; committee_count(7) v datech odpovídá součtu výborů/podvýborů/komisí bez zjevné inflace osmi skupinami přátelství, na rozdíl od kalibrační obavy z batch 001."
+      },
+      "signal": 0.80,
+      "headline": "Bývalý šéf CERMATu vede obě klíčové bezpečnostní komise Sněmovny — hybridní hrozby i dohled nad NÚKIB — a nemá jediný vlastní tisk.",
+      "citations": ["https://www.psp.cz/sqw/detail.sqw?id=7016", "https://www.psp.cz/zprava/21429", "https://motoristesobe.cz/profil-miroslav-krejci"]
+    },
+    {
+      "id": "psp:person:6998", "name": "Benjamin Činčila", "club": "KDU-ČSL", "lens": ["top"],
+      "props": {
+        "effort_work_themes": ["rozpočtová politika", "důchodové pojištění", "hospodářská politika", "bankovnictví a finanční trhy", "veřejné rozpočty a rozpočtová pravidla"],
+        "effort_bill_focus": "6 tisků klubu KDU-ČSL; u tisku 89 (novela rozpočtových pravidel 218/2000, vládou zamítnuto) je prvním signatářem ('Činčila B. a další'); zbylých 5 (vč. tisku 50 — vládou napadená důchodová novela 155/1995, kterou v batch 001 vede jako garantka Monika Brzesková) vede Jurečka nebo Pláteník, Činčila je spolupodepsaný.",
+        "effort_public_role": "Místopředseda Rozpočtového výboru (od 12.11.2025); ověřovatel Hospodářského výboru (od 30.4.2026); místopředseda poslaneckého klubu KDU-ČSL (od 6.5.2026).",
+        "effort_notes": "Nejmladší z pětice (nar. 1996); vysoký kontribuční index (91,9) staví převážně na výborovém vedení a objemu spolupodpisů klubové legislativy — u jednoho ze 6 tisků je první signatář, u zbylých pěti spolupodepsaný."
+      },
+      "signal": 0.72,
+      "headline": "Místopředseda rozpočtového výboru a klubu KDU-ČSL v 29 letech — u pěti ze šesti tisků je ale jen spolupodepsaný.",
+      "citations": ["https://www.psp.cz/sqw/detail.sqw?id=6998", "https://www.psp.cz/sqw/historie.sqw?o=10&t=50", "https://www.psp.cz/sqw/historie.sqw?o=10&t=89"]
+    },
+    {
+      "id": "psp:person:6688", "name": "Miroslav Samaš", "club": "ANO2011", "lens": ["quiet-workhorse-oversight"],
+      "props": {
+        "effort_committee_focus": "Místopředseda Stálé komise pro hybridní hrozby (od 19.2.2026); předseda Podvýboru pro akvizice, obranný průmysl a obchod s vojenským materiálem MO (od 20.1.2026); člen Výboru pro obranu, Rozpočtového výboru a komise pro kontrolu Vojenského zpravodajství.",
+        "effort_work_themes": ["obranná politika a akvizice", "vojenský průmysl", "kontrola vojenského zpravodajství", "rozpočet", "hybridní hrozby"],
+        "effort_public_role": "Bývalý místostarosta Rakovníka (od 2014); krajský zastupitel Středočeského kraje (od 2020); v minulosti opakovaně krátkodobě poslancem (1–10/2025, 6/2024) před nynějším mandátem od 4.10.2025.",
+        "effort_workhorse": true,
+        "effort_psp9_trend_note": "PSP9 skóre 28,8 (0 tisků, 0 vedoucích postů, 0% účast, jen 2 výbory) → PSP10 skóre 63,4 (100% účast, 7 výborů/podvýborů/komisí, vede podvýbor pro akvizice MO): reálné zlepšení mezi obdobími z řadového člena na vedoucí roli v obranné agendě, ne artefakt měření.",
+        "effort_notes": "0 tisků, jen 2 vystoupení za ~8 měsíců — celý příspěvek je výborová/dohledová práce v obranné agendě. Vazby na Oblastní nemocnici Kladno a SKLÁDKA VRBIČKA s.r.o. (Hlídač státu eviduje 'angažmá' v posledních 5 letech, přesná role/dividenda neupřesněna) předcházejí mandátu a jsou regionální — pending_review, bez zjištěné souvislosti se sněmovní činností."
+      },
+      "signal": 0.79,
+      "headline": "Z nuly na šéfa akvizičního podvýboru obrany: skóre mezi PSP9 a PSP10 se víc než zdvojnásobilo, přesto 0 tisků a jen 2 vystoupení.",
+      "citations": ["https://www.psp.cz/sqw/detail.sqw?id=6688", "https://rakovnicky.denik.cz/zpravy_region/odchazejici-miroslav-samas-netruchli-jsem-rad-ze-ano-na-rakovnicku-opet-uspelo-2.html", "https://www.hlidacstatu.cz/osoba/miroslav-samas"]
+    },
+    {
+      "id": "psp:person:346", "name": "Petr Bendl", "club": "ODS", "lens": ["top"],
+      "props": {
+        "effort_work_themes": ["zemědělství", "životní prostředí a ochrana přírody", "e-government a autorizovaná konverze", "kybernetická bezpečnost", "regulace maloobchodu / otevírací doba"],
+        "effort_bill_focus": "4 spolupodepsané tisky klubu ODS (103 — e-government/autorizovaná konverze, vládou zamítnuto; 129 — kybernetická bezpečnost, novela 223/2016; 208 — otevírací doba maloobchodu, 65/2017; 261 — ochrana přírody a krajiny 114/1992, podán 7/2026); u žádného není první předkladatel — vede Jan Bureš nebo Štěpán Slovák; jde o stejnou sadu klubových tisků ODS, kterou v batch 001 spolupodepisoval i Karel Haas (72,103,129,208,261).",
+        "effort_public_role": "Bývalý hejtman Středočeského kraje (2000–2008) a ministr zemědělství ČR (10/2011–7/2013, vláda Nečase); nyní místopředseda Zemědělského výboru a člen Výboru pro životní prostředí; poslanec pošesté (mandáty 1998–2002, 2010–2017, 2017–2021, 2021–2025, 2025–).",
+        "effort_psp9_trend_note": "Kontinuita napříč obdobími: PSP9 skóre 85,4 (6 tisků, 1 vedoucí post, 69 vystoupení) → PSP10 skóre 92,6 (4 tisky, vede výbor, 52 vystoupení za ~8 měsíců) — nejvyšší skóre z obou období u kontinuujícího poslance v této skupině, bez poklesu mezi termy.",
+        "effort_notes": "Dlouhodobě nejzkušenější z pětice — šestý mandát od roku 1998. Vysoké skóre nese kombinaci výborového vedení, řečnické aktivity (52 vystoupení) a objemu klubové legislativy ODS, ne osobní prvopodpis u tisků."
+      },
+      "signal": 0.76,
+      "headline": "Bývalý ministr zemědělství a hejtman v šestém mandátu: skóre meziobdobně stouplo z 85 na 93, ale u žádného ze čtyř tisků není první podpis.",
+      "citations": ["https://www.psp.cz/sqw/detail.sqw?id=346", "https://vlada.gov.cz/cz/clenove-vlady/ing--petr-bendl--88037/", "https://www.psp.cz/sqw/historie.sqw?o=10&t=103", "https://www.psp.cz/sqw/historie.sqw?o=10&t=261"]
+    },
+    {
+      "id": "psp:person:7067", "name": "Jiří Penc", "club": "ANO2011", "lens": ["divergence"],
+      "props": {
+        "effort_public_role": "Ortoped/lékař; zastupitel a radní města Karlovy Vary (od 2018/2022); krajský zastupitel Karlovarského kraje (od 2024); poslancem od 3.11.2025 jako náhradník za Petra Kubise, který koncem října 2025 odmítl složit slib, aby zůstal starostou Sokolova (od 8.12.2025 hejtman Karlovarského kraje) — druhá strana phantom-mandate případu popsaného v batch 001.",
+        "effort_mandate_note": "Nastoupil o měsíc později než řádně zvolení poslanci (3.11. vs. 4.10.2025); výborové posty (Petiční a Kontrolní výbor) získal ve stejné vlně jako ostatní 11.11.2025, Výbor pro zdravotnictví až 16.1.2026 — odpovídá jeho lékařské profesi.",
+        "effort_low_score_reason": "replacement",
+        "effort_work_themes": ["zdravotnictví", "kontrola a audit", "petice občanů"],
+        "effort_notes": "100% účast, 0% absence, ale jen 1 vystoupení a 0 tisků za ~8 měsíců — silně jednostranný profil (přítomen a loajální, téměř beze stopy v sále), typický pro náhradníka, který nastoupil o měsíc později a teprve si buduje agendu. Zařazení do zdravotního výboru odpovídá jeho profesi ortopeda."
+      },
+      "signal": 0.70,
+      "headline": "Lékař, který nastoupil místo starosty odmítnuvšího mandát: stoprocentní docházka, ale jediné vystoupení a žádný vlastní tisk za osm měsíců.",
+      "citations": ["https://cs.wikipedia.org/wiki/Ji%C5%99%C3%AD_Penc", "https://vary.rozhlas.cz/petr-kubis-se-ve-snemovne-vzdal-poslaneckeho-mandatu-nahradi-ho-lekar-jiri-penc-9573581", "https://www.psp.cz/sqw/detail.sqw?id=7067"]
+    }
+  ],
+  "crossCuttingLeads": [
+    "Data-quality: the linkedCompanies 'OSVČ' entry with IČO 04627695 / contractCzk 0 appears identically for both Miroslav Samaš and Petr Bendl — looks like a generic placeholder entity in the source pipeline rather than a genuine personal identifier; worth a review of the OSVČ-linkage extraction before Case-① treats it as a real tie.",
+    "Sibling collision: Petr Bendl (this batch) and Karel Haas (batch 001, top5) co-sign the identical ODS club bill slate (Bendl: 103/129/208/261; Haas: 72/103/129/208/261) — this is one shared legislative package authored by Jan Bureš's group, not five independent efforts; per-MP bill_focus narratives across both batches should be read together, not as separate authorship stories.",
+    "Sibling collision: Benjamin Činčila's tisk 50 (government-opposed pension novela, 155/1995) is the same bill batch 001 credits Monika Brzesková with steering as guarantor committee chair — Činčila is a co-signer on the same KDU-ČSL bill; the merged writeup should attribute committee-guarantor credit to Brzesková and co-sponsorship to Činčila, not double-count it as two independent stories.",
+    "Quiet pattern: two of this group's five MPs (Krejčí, Samaš) are oversight-workhorses specifically in the defense/hybrid-threats/cyber domain (SKHH, SKNÚKIB, SKVZ, MO acquisitions subcommittee) rather than the healthcare/audit domains batch 001 surfaced — the app's 'oversight-institutional workhorse' label should be broad enough to cover security/defense commissions, not just NBÚ/odposlechy."
+  ]
+}

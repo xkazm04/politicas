@@ -124,6 +124,13 @@ export interface LeaderboardEntry {
   // Term-over-term (PSP9→PSP10) movement — null until the prior term is restored
   // onto the node (contribution_psp9). Null ⇒ the UI shows today's single-term view.
   trend: ContributionTrend | null;
+  // Effort-loop enrichment (batch 001+): a closed-vocabulary reason the score
+  // sits low that is a STRUCTURAL artifact, not disengagement (declined mandate,
+  // replacement, dual mandate, ministerial role, …) — see lib/analysis/low-score-reason.ts.
+  // Null for the ~189/207 MPs not yet enriched, or where enrichment found no
+  // structural explanation (graceful null; never fabricated).
+  effortLowScoreReason: string | null;
+  effortPublicRole: string | null;
 }
 
 export interface ClubFacet {
@@ -218,6 +225,8 @@ export async function buildLeaderboard(): Promise<{ data: LeaderboardData; direc
           { score, components, billsAuthored, interpellations, speechTurns, committeeCount, leadershipCount },
           p.props.contribution_psp9,
         ),
+        effortLowScoreReason: typeof p.props.effort_low_score_reason === "string" ? p.props.effort_low_score_reason : null,
+        effortPublicRole: typeof p.props.effort_public_role === "string" ? p.props.effort_public_role : null,
       };
     });
 

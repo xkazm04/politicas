@@ -150,6 +150,9 @@ async function main() {
         contested_vote_rebellion: node?.props.contested_vote_rebellion ?? null,
         rebellion_rate: node?.props.rebellion_rate ?? null,
       },
+      // PSP9 term-over-term profile (pass-14 restoration) — real prior-term comparison
+      // where the MP continued from PSP9; null when not a continuing MP.
+      contributionPsp9: node?.props.contribution_psp9 ?? null,
       triage: { zVsClub: t.zScoreVsClub, quietWorkhorse: t.quietWorkhorse, quietWorkhorseIndex: t.quietWorkhorseIndex, triageScore: t.triageScore },
       committees,
       sponsoredBills,

@@ -1,0 +1,100 @@
+{
+  "case": "effort",
+  "batch": 2,
+  "group": "C",
+  "generatedAt": "2026-07-24",
+  "note": "5 dossiers (group C of batch 002, Sonnet). Two real instances reinforce batch-001 patterns: an officer-by-office money link (Niemiec/CEVYKO, mirrors Karpíšek/Zarzycký) and a leadership_count undercount for a club vice-chair (Žáček, mirrors Faltýnek). One new structural class not seen in batch 001: a genuine mid-term replacement MP (Nerušil, sworn in 24.3.2026, not October 2025) whose low score is a tenure-length artifact, not the 'never sworn' phantom-mandate pattern. All props effort_*-namespaced; no deterministic-owned field touched.",
+  "proposals": [
+    {
+      "id": "psp:person:6991", "name": "Drahomír Blažej", "club": "ANO2011", "lens": ["divergence"],
+      "props": {
+        "effort_work_themes": ["obrana", "zahraniční politika", "kontrola NBÚ", "vztahy s krajany"],
+        "effort_committee_focus": "Člen Výboru pro obranu, Zahraničního výboru a Stálé komise pro kontrolu NBÚ — bezpečnostně-zahraniční trojice odpovídající jeho profesi (komerční pilot); od 18.2.2026 předseda podvýboru pro vztahy s krajany a od 25.2.2026 předseda skupiny přátel ČR-Thajsko.",
+        "effort_public_role": "Zastupitel města Čáslav (od 2014) a Středočeského kraje (od 2021); komerční pilot z povolání. Trojí mandát (poslanec + město + kraj), bez firemních vazeb v datech.",
+        "effort_divergence_note": "Skóre 54,4 stojí na 100% účasti a třech substantivních výborech/komisích (participation_rate 1, absence_rate 0,1), ale nula tisků a jediné vystoupení za ~8 měsíců — angažmá je čistě přítomnostní a výborové, bez legislativní nebo řečnické stopy. Na rozdíl od kalibračního rizika v batch 1 zde 3 committees NEJSOU nafouknuty skupinami přátelství (VO/ZAV/SKNBÚ jsou substantivní orgány; friendship-group role je vedena odděleně).",
+        "effort_notes": "Divergence je čistý typ: plná docházka a výborová práce, nulová legislativní/řečnická viditelnost. Neplyne z toho žádné hodnocení — u nováčka v bezpečnostním výboru po 8 měsících je to spíš očekávaný vzorec pozorovatele než pracanta v sále."
+      },
+      "signal": 0.55,
+      "headline": "Stoprocentní docházka ve třech bezpečnostních a zahraničních orgánech, ale za osm měsíců ani jeden návrh zákona a jediné vystoupení v sále.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6991",
+        "https://kutnohorsky.denik.cz/zpravy_region/caslav-volby-poslanecka-snemovna-parlament-drahomir-blazej-hnuti-ano-20251005.html"
+      ]
+    },
+    {
+      "id": "psp:person:7028", "name": "Bohuslav Niemiec", "club": "KDU-ČSL", "lens": ["top"],
+      "props": {
+        "effort_work_themes": ["životní prostředí a ekologická újma", "důchodové a sociální pojištění", "odpadové hospodářství", "zemědělství a venkov", "daně a rozpočtová pravidla"],
+        "effort_bill_focus": "7 spolupodepsaných tisků skupinové legislativy SPOLU/KDU-ČSL (74 – ekologická újma; 50 – důchodové pojištění; 75, 89, 110, 121 – zemědělství/daně/rozpočet; 161 – odpady), nikdy první předkladatel; vše zatím ve výboru, vláda vyjádřila nesouhlas k tisku 74 (10.2.2026) i tisku 50 (17.2.2026) a k tisku 161 (5.5.2026).",
+        "effort_public_role": "Místopředseda Výboru pro životní prostředí; ověřovatel (auditor) Hospodářského výboru; náměstek primátora Havířova (od 2021, souběžně se sněmovním mandátem); od dubna 2026 krajský předseda KDU-ČSL v Moravskoslezském kraji.",
+        "effort_notes": "Souběžný mandát (poslanec + náměstek primátora Havířova) se zde neprojevuje jako absentérství — 90% účast, absence_rate jen 0,4, nejvyšší skóre skupiny (93,4). Vazba na CEVYKO a.s. (IČO 08599254, 278,8 mil. Kč) je s vysokou pravděpodobností z titulu jeho radniční funkce, ne osobní podnikání: CEVYKO je odpadové centrum (Centrum pro využití komunálního odpadu, kapacita 100 000 t/rok, dokončení 2028) spoluvlastněné statutárním městem Havířov, ASOMPO a.s. a Svazkem pro odpadové hospodářství — týž 'officer_by_office' vzorec jako u Karpíška (vodárenství) a Zarzyckého (Čistá Plzeň) v batch 1. Zůstává pending_review; nejde o osobní obchodní vztah."
+      },
+      "signal": 0.82,
+      "headline": "Náměstek primátora Havířova s nejvyšším skóre skupiny: sedm spolupodepsaných tisků napříč životním prostředím a sociální politikou, plus vazba na 279milionový odpadový projekt vlastního města.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7028",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=74",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=50",
+        "https://www.firemniprofil.cz/firma/72160340/cevyko-a-s",
+        "https://polar.cz/zpravy/karvinsko/havirov/11000050076/projekt-cevyko-v-havirove-ziskal-stavebni-povoleni-mesto-chysta-infrastrukturu",
+        "https://karvinsky.denik.cz/zpravy_region/konference-lidovc-kdu-csl-tesin-clenove-podporili-brzeskova-niemiec-grolich-2026.html"
+      ]
+    },
+    {
+      "id": "psp:person:7064", "name": "Miroslav Žbánek", "club": "ANO2011", "lens": ["quiet-workhorse-legislative"],
+      "props": {
+        "effort_work_themes": ["veřejná správa a regionální rozvoj", "obecní samospráva", "životní prostředí", "kontrola centrální evidence účtů"],
+        "effort_committee_focus": "Místopředseda Výboru pro veřejnou správu a regionální rozvoj (VSR, od 13.11.2025) a místopředseda Stálé komise pro kontrolu poskytnutí údajů z centrální evidence účtů (od 3.3.2026); člen Výboru pro životní prostředí.",
+        "effort_bill_focus": "Spolupodepsal jediný tisk (87 – zákon o zemských znacích a vlajkách, předkladatel R. Vondrášek, ve výboru), není první předkladatel.",
+        "effort_public_role": "Bývalý primátor Olomouce (2018–2025); rezignoval na radnici při zvolení poslancem s odůvodněním, že nebude kumulovat funkce (nahradila ho M. Ferancová). Nyní řadový zastupitel města.",
+        "effort_workhorse": true,
+        "effort_notes": "Nízká viditelnost (4 vystoupení, 1 spolupodepsaný tisk) kontrastuje s věcně relevantním výborovým vedením — jako bývalý primátor vede právě výbor pro veřejnou správu a regionální rozvoj, obor odpovídající jeho 7leté praxi v čele krajského města. Firemní vazby (Výstaviště Flora Olomouc 2,7 mil., Lesy města Olomouce 30,9 mil., Svaz měst a obcí ČR 18,6 mil.) jsou dozvuk primátorského úřadu (městské a.s., zájmové sdružení obcí), ne osobní podnikání — pending_review, stejný 'officer_by_office' typ jako u Niemiece výše."
+      },
+      "signal": 0.74,
+      "headline": "Bývalý primátor Olomouce, který se vzdal radnice, aby nekumuloval funkce, teď vede sněmovní výbor pro veřejnou správu — jen čtyři vystoupení, žádný vlastní tisk.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7064",
+        "https://ct24.ceskatelevize.cz/clanek/regiony/olomoucky-kraj/primator-olomouce-zbanek-rezignoval-kvuli-zvoleni-poslancem-nahradi-ho-ferancova-368215",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87"
+      ]
+    },
+    {
+      "id": "psp:person:6664", "name": "Josef Nerušil", "club": "SPD", "lens": ["bottom"],
+      "props": {
+        "effort_low_score_reason": "replacement",
+        "effort_public_role": "Náhradník SPD (1. na pražské kandidátce), nastoupil místo poslankyně až 24.3.2026, kdy poslanecký slib složil po rezignaci Markéty Šichtařové (za Svobodné na kandidátce SPD). Dříve předseda pražské organizace SPD a městský zastupitel.",
+        "effort_notes": "Šichtařová rezignovala 11.–12.3.2026 poté, co ji předseda SPD Okamura i místopředseda ANO Vondráček veřejně vyzvali k větší aktivitě (opustila dva výbory a nepůsobila v žádném); její rezignační dopis musel být opraven kvůli formální vadě. Nerušilovo skóre 30 a z-skóre -2,08 vůči klubu SPD odráží ~4 měsíce reálného mandátu (od 24.3.2026) oproti ~9,5 měsíce u poslanců od začátku období — do jediného výboru (Výbor pro evropské záležitosti) nastoupil až 27.5.2026, dva měsíce po slibu. Nejde o srovnatelné funkční období s ostatními 'bottom' poslanci v batch 1 (ti byli buď fakticky nepřítomní od počátku, nebo se mandátu vzdali); Nerušil je jediný ze skupiny, kdo mandát reálně vykonává, jen krátce."
+      },
+      "signal": 0.78,
+      "headline": "Nulová aktivita po většinu období není lenost: do Sněmovny nastoupil až v březnu 2026 za rezignovavší Šichtařovou, do jediného výboru až v květnu.",
+      "citations": [
+        "https://www.psp.cz/zprava/21942",
+        "https://www.psp.cz/sqw/detail.sqw?id=6664",
+        "https://www.irozhlas.cz/zpravy-domov/napodruhe-spravne-sichtarova-svou-rezignaci-na-post-ve-snemovne-opatrila_2603112118_elev"
+      ]
+    },
+    {
+      "id": "psp:person:5226", "name": "Pavel Žáček", "club": "ODS", "lens": ["quiet-workhorse-oversight"],
+      "props": {
+        "effort_work_themes": ["obrana", "bezpečnost", "kontrola zpravodajských služeb (GIBS, BIS, ÚZSI)", "protikorupční vyšetřování (kauza Dozimetr)"],
+        "effort_committee_focus": "Člen Výboru pro obranu a Výboru pro bezpečnost; člen tří stálých komisí pro kontrolu zpravodajských/bezpečnostních složek (GIBS, BIS, ÚZSI) a vyšetřovací komise k případu Dozimetr (od 27.5.2026) — pět z osmi orgánů je bezpečnostní/zpravodajský dohled, žádný vlastní tisk.",
+        "effort_public_role": "Místopředseda poslaneckého klubu ODS (od 4.2.2026); předseda meziparlamentních skupin ČR–Spojené království (od 13.2.2026) a ČR–Ukrajina (od 25.2.2026); zakládající ředitel Ústavu pro studium totalitních režimů (2006–2010), dnes bez výkonné role v ÚSTR.",
+        "effort_workhorse": true,
+        "effort_psp9_trend_note": "V PSP9 dosáhl 84,3 bodu (6 tisků, 75 vystoupení, 1 vedoucí pozice, committee_count 8) — v PSP10 jen 44,7 (0 tisků, 7 vystoupení, leadership_count 0 přesto, že od února 2026 reálně zastává místopředsednictví klubu ODS). Posun je koncentrace do čistě kontrolně-dohledové role (bezpečnostní komise + Dozimetr) na úkor legislativní autorské práce, ne odpojení od Sněmovny.",
+        "effort_notes": "leadership_count 0 pravděpodobně podhodnocuje jeho klubovou funkci místopředsedy ODS — stejný kalibrační vzorec jako u Faltýnka (batch 1), kde index nezachytí klubové/organizační vedení mimo formální výborová křesla."
+      },
+      "signal": 0.80,
+      "headline": "Zakladatel ÚSTR dnes hlídá tajné služby zevnitř: pět z osmi orgánů je bezpečnostní dohled, skóre kleslo z 84 na 45 navzdory nedávnému místopředsednictví klubu ODS.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=5226",
+        "https://www.ods.cz/profil/pavel-zacek",
+        "https://www.irozhlas.cz/zpravy-domov/pavel-zacek-ustav-pro-studium-totalitnich-rezimu-poslanec_2205030010_cen"
+      ]
+    }
+  ],
+  "crossCuttingLeads": [
+    "Officer-by-office money link recurs a second time: Niemiec (náměstek primátora Havířova) → CEVYKO a.s. 278,8 mil. Kč is the same municipal-executive-seat pattern as Karpíšek/Zarzycký in batch 1, and Žbánek (ex-primátor Olomouc) shows the identical shape with three smaller city-linked entities. Two independent instances in one group of 5 strengthens the case for the deferred 'officer_by_office' edge-rel/prop convention from batch 1 rather than treating each as a one-off note.",
+    "leadership_count undercount recurs: Žáček's ODS club vice-chairmanship (since 4.2.2026) is invisible to leadership_count=0, mirroring Faltýnek's ANO club vice-chairmanship in batch 1. Two instances across two batches suggests this is a systemic gap in the deterministic component (club/organizational leadership vs. formal committee-chair seats), not coincidence — worth a real feature ticket.",
+    "New structural class for the low-score tail: Nerušil is a genuine mid-term replacement (sworn in 24.3.2026), distinct from batch 1's 'declined_mandate' phantom-mandate cluster (elected, never sworn) — he took the seat, just four months before this snapshot. contribution.ts has no join-date/tenure normalization, so a legitimately active but recently-seated MP scores identically to someone who was present the whole term and did little. Recommend the same pre-filter spirit as batch 1's proposed `never_cast_ballot` flag, extended to a `mandate_start_date`-aware normalization."
+  ]
+}

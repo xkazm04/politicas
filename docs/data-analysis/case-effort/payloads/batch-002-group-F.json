@@ -1,0 +1,79 @@
+{
+  "case": "effort",
+  "batch": 2,
+  "group": "F",
+  "generatedAt": "2026-07-24",
+  "note": "5-MP Sonnet group dossier, all ANO2011. Two clean structural finds (Plaga=sitting minister, Kotlík=5-week-old replacement) plus one dual-mandate (Vopěnka) and one direct batch-001 continuation (Demjanová succeeded Brabec's phantom mandate — flagged as cross-cutting). No contribution number touched; all props effort_*-namespaced.",
+  "proposals": [
+    {
+      "id": "psp:person:7021", "name": "Martin Kupec", "club": "ANO2011", "lens": ["quiet-workhorse-legislative"],
+      "props": {
+        "effort_committee_focus": "Místopředseda Stálé komise pro Ústavu ČR a parlamentní procedury (SKÚPP, od 18.2.2026) a místopředseda podvýboru pro letectví a kosmonautiku (od 12.3.2026); řadový člen ÚPV a Hospodářského výboru",
+        "effort_work_themes": ["ústavní právo a parlamentní procedura", "hospodářská politika", "letectví a kosmonautika (dohled)"],
+        "effort_bill_focus": "Jeden z 40 spolusignatářů tisku 87 (novela o zemských znacích a vlajkách, první předkladatel Radek Vondráček, vládní stanovisko souhlasné, ve výboru) — spolupodpis napříč kluby (ANO, SPD, Trikolóra aj.), ne vlastní autorství",
+        "effort_public_role": "Zvolený člen správní rady VZP (od 28.1.2026); člen 11 meziparlamentních skupin přátelství",
+        "effort_workhorse": true,
+        "effort_notes": "committee_count v datech (5) přesahuje tři substantivní orgány uvedené ve výpisu (SKÚPP, HV, ÚPV) — psp.cz eviduje navíc šest podvýborů a radu VZP, stejná kalibrační otázka jako v batch-001 (počet orgánů může zahrnovat podvýbory/neparlamentní rady, ne jen hlavní výbory). leadership_count 2 odpovídá přesně dvěma reálným místopředsednickým postům (SKÚPP + podvýbor pro letectví)."
+      },
+      "signal": 0.62,
+      "headline": "Místopředseda ústavní komise a letecko-kosmického podvýboru po pěti měsících v mandátu — jediný tisk je spolupodpis symbolického zákona o zemských znacích, ne vlastní autorství.",
+      "citations": ["https://www.psp.cz/sqw/detail.sqw?id=7021", "https://www.psp.cz/sqw/historie.sqw?o=10&t=87"]
+    },
+    {
+      "id": "psp:person:7068", "name": "Jana Demjanová", "club": "ANO2011", "lens": ["divergence", "replacement"],
+      "props": {
+        "effort_mandate_note": "Nahradila Richarda Brabce (ANO), který se mandátu PSP10 vzdal 8.10.2025, aby zůstal hejtmanem Ústeckého kraje (viz batch-001, phantom mandate). Demjanová složila slib až 3.11.2025 — cca čtyři týdny po ustavující schůzi Sněmovny.",
+        "effort_public_role": "Právnička, vedoucí oddělení administrativní podpory Severočeských dolů; tři volební období zastupitelka Kadaně a předsedkyně tamní kontrolní komise; členka kontrolního výboru Ústeckého kraje. Nyní členka Rozpočtového výboru, ÚPV, Petičního výboru a SKÚPP.",
+        "effort_work_themes": ["rozpočet a veřejné finance", "ústavní a procesní právo", "petice a stížnosti občanů"],
+        "effort_low_score_reason": "replacement",
+        "effort_notes": "Stoprocentní účast a jen 10% absence po devíti měsících mandátu, ale nula tisků, nula vedoucích postů a nula vystoupení — divergence mezi docházkou a produkcí je reálná, není artefaktem měření účasti. Nejvyšší míra rebelie proti klubu z celé pětice (0,4 %, 8 z 1801 hlasů), uvedeno věcně bez tvrzení o motivu."
+      },
+      "signal": 0.80,
+      "headline": "Žena, která převzala Brabcův mandát: stoprocentní docházka devět měsíců, ale zatím žádný tisk, vedoucí post ani slovo v sále.",
+      "citations": ["https://www.psp.cz/sqw/detail.sqw?id=7068", "https://chomutovsky.denik.cz/zpravy_region/kadan-jana-demjanova-nahradi-brabce-v-poslanecke-snemovne.html", "https://www.irozhlas.cz/zpravy-domov/brabec-z-ano-se-rozhodl-vzdat-poslaneckeho-mandatu-chce-dal-ridit-ustecky-kraj_2510081210_nel"]
+    },
+    {
+      "id": "psp:person:6549", "name": "Robert Plaga", "club": "ANO2011", "lens": ["bottom", "minister"],
+      "props": {
+        "effort_public_role": "Ministr školství, mládeže a tělovýchovy (od 15.12.2025, vláda Andreje Babiše) — podruhé v této funkci po 2017–2021; mezitím 2022–2025 vedl Národní akreditační úřad pro vysoké školství.",
+        "effort_low_score_reason": "minister",
+        "effort_bill_focus": "Vládní návrh zákona o registrech ve vzdělávání (tisk 228, jako ministr školství, projednáván ve VVVMS) a novela školského zákona spolupředložená s premiérem Babišem (tisk 232, mění zákon 561/2004; vládní souhlasné stanovisko 22.7.2026, projednávání možné od 2.8.2026)",
+        "effort_notes": "Absence_rate 1,0 a participation_rate 0,4 jsou strukturální artefakt ministerského postu (od 15.12.2025 nezasedá jako řadový poslanec) — 16 vystoupení a spoluautorství dvou tisků ukazují aktivitu v roli exekutivy, ne skutečnou pasivitu. Tisk 232 nese v grafových datech příznak flagged_conflict; z veřejných zdrojů se jeho konkrétní důvod nepodařilo ověřit (ministr a premiér jako spolupředkladatelé poslaneckého tisku) — uvedeno k prověření, ne jako tvrzení o konfliktu zájmu."
+      },
+      "signal": 0.82,
+      "headline": "Nízké skóre je artefakt: ministr školství podruhé v kariéře, aktivní na vládních tiscích, ne na lavicích Sněmovny.",
+      "citations": ["https://www.psp.cz/sqw/detail.sqw?id=6549", "https://vlada.gov.cz/cz/media-centrum/aktualne/premier-andrej-babis-uvedl-do-funkci-ministry-a-ministryne-nove-vlady-224215/", "https://www.psp.cz/sqw/historie.sqw?o=10&t=228", "https://www.psp.cz/sqw/historie.sqw?o=10&t=232"]
+    },
+    {
+      "id": "psp:person:7108", "name": "Jiří Kotlík", "club": "ANO2011", "lens": ["bottom", "replacement"],
+      "props": {
+        "effort_mandate_note": "Nastoupil jako náhradník 18.6.2026 (slib složil 23.6.2026) za Josefa Kotta (ANO), který rezignoval po jmenování do Nejvyššího kontrolního úřadu. K datu analýzy (24.7.2026) je poslancem pouhých cca pět týdnů.",
+        "effort_public_role": "Zastupitel města Jihlavy (od 2022); 1. náhradník ANO za Vysočinu ve volbách 2025. Nyní člen Zahraničního a Zemědělského výboru (od 24.6.2026) a podvýboru pro dopravu (od 9.7.2026).",
+        "effort_low_score_reason": "replacement",
+        "effort_notes": "Participation_rate 0,3 je počítán zjevně vůči celému období, ne vůči jeho cca pětitýdenní účasti — naproti tomu absence_rate 0 (žádná zaznamenaná absence od nástupu) ukazuje plnou docházku od složení slibu. Stejný strukturální jev jako u náhradních poslanců v batch-001 (Šmída, Penc, Hebr); skóre zůstává nedotčeno, poznámka slouží jen k interpretaci nízkého čísla."
+      },
+      "signal": 0.70,
+      "headline": "Nejnovější poslanec Sněmovny: nastoupil teprve před pěti týdny za Kotta, který odešel k NKÚ.",
+      "citations": ["https://www.psp.cz/sqw/detail.sqw?id=7108", "https://www.psp.cz/zprava/22492", "https://www.obcasnik.eu/poslanec-kott-ano-odchazi-na-nku-nahradi-ho-jihlavsti-politici-faltus-a-kotlik/"]
+    },
+    {
+      "id": "psp:person:7060", "name": "Otto Vopěnka", "club": "ANO2011", "lens": ["divergence", "dual_mandate"],
+      "props": {
+        "effort_mandate_note": "Souběžný mandát: 1. náměstek hejtmana Kraje Vysočina (od 2024, funkci podržel i po zvolení do Sněmovny) + poslanec od 4.10.2025.",
+        "effort_public_role": "1. náměstek hejtmana Kraje Vysočina; v Praze člen Kontrolního výboru a Výboru pro evropské záležitosti; místopředseda podvýboru pro lesní hospodářství (od 12.3.2026); předseda meziparlamentní skupiny přátelství ČR–Švýcarsko.",
+        "effort_low_score_reason": "dual_mandate",
+        "effort_notes": "Regionální médium ho k datu svého článku označilo za poslance s nula vystoupeními, kontaktovalo ho k mlčení bez odpovědi; dataset k dnešnímu dni eviduje jedno vystoupení — mezi nejtišší v kraji. Stoprocentní účast a nulová absence ukazují, že fyzicky sedí a hlasuje loajálně, ale krajská exekutivní role zjevně pohlcuje čas na legislativní a řečnickou aktivitu."
+      },
+      "signal": 0.68,
+      "headline": "Náměstek hejtmana i poslanec zároveň: stoprocentní docházka, ale ani jeden tisk a téměř nulová aktivita u mikrofonu.",
+      "citations": ["https://www.psp.cz/sqw/detail.sqw?id=7060", "https://jihlavska.drbna.cz/zpravy/politika/28523-vysocina-ma-aktivni-recniky-i-tiche-tvare-nekteri-poslanci-zatim-nerekli-ani-slovo.html"]
+    }
+  ],
+  "crossCuttingLeads": [
+    "Demjanová je přímé pokračování Brabcova 'fantomového mandátu' z batch-001 — devět měsíců po nástupu ukazuje plnou docházku, ale nulovou legislativní/řečnickou produkci; stojí za sledování ve druhém roce mandátu, zda se produkce rozjede.",
+    "Plaga (ministr) je stejný 'executive-role artifact' vzorec jako Fiala v batch-001 — nízké skóre kvůli exekutivní roli, ne absenci; produkt by měl mít deterministický pre-filtr na aktuální členství ve vládě, ne jen dohledávat ho ručně v enrichmentu.",
+    "Kotlík je čerstvý příklad stejného 'replacement' strukturálního jevu jako Šmída/Penc/Hebr v batch-001 — potvrzuje, že se náhradníci objevují průběžně celý první rok PSP10 (Kott odešel k NKÚ 18.6.2026), ne jen v prvních týdnech období.",
+    "Kupec: dataset committee_count (5) vs. tři substantivní orgány v přiloženém výpisu — stejná kalibrační mezera jako v batch-001 (počet orgánů pravděpodobně zahrnuje podvýbory/rady mimo hlavní committees pole); doporučeno pro schema review, ne opravováno zde.",
+    "flagged_conflict se objevuje u dvou tisků v této skupině (Kupec tisk 87, Plaga tisk 232) bez zjevné veřejně ověřitelné příčiny u ani jednoho — pokud tento příznak v grafu značí něco konkrétního (finanční vazba, procedurální kolize), stálo by za to zdokumentovat jeho zdroj/definici pro budoucí enrichment kola."
+  ]
+}

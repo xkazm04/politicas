@@ -1,21 +1,25 @@
-/* Case ② Effort — GATE the batch-001 wire proposals against the graph COPY.
+/* Case ② Effort — GATE the batch wire proposals against the graph COPY.
  *
  * id-membership validation (the kg-verdict pattern): every proposed prop target
  * must resolve to a real person node in the graph, and the enrichment props must
  * be structurally sane (no contribution_* number proposed — computeContribution
  * owns those). Drops + logs any failure; NEVER writes.
  *
- *   PGLITE_PATH=./.pglite-copy-effort npx tsx scripts/case-loops/effort/gate.ts
+ *   PGLITE_PATH=./.pglite-copy-effort npx tsx scripts/case-loops/effort/gate.ts [payload-file]
+ *   PGLITE_PATH=./.pglite-copy-effort npx tsx scripts/case-loops/effort/gate.ts payloads/batch-002-props.json
  */
 import { readFileSync } from "node:fs";
 import { getStore } from "@/lib/db/store";
 
 const FORBIDDEN_PROP = /^(contribution_score|participation_rate|committee_count|leadership_count|absence_rate|bills_authored|interpellations|speech_turns|contribution_provenance)$/;
+const LOW_SCORE_REASONS = new Set(["minister", "deputy_pm", "prime_minister", "opposition_leader", "replacement", "new_mp", "dual_mandate", "genuine_absentee", "low_legislative_output", "declined_mandate", "unknown"]);
 
 async function main() {
   const store = await getStore();
   if (!store) throw new Error("no store");
-  const payload = JSON.parse(readFileSync("docs/data-analysis/case-effort/payloads/batch-001-props.json", "utf8"));
+  const payloadFile = process.argv[2] ?? "batch-001-props.json";
+  const payloadPath = payloadFile.includes("/") ? `docs/data-analysis/case-effort/${payloadFile}` : `docs/data-analysis/case-effort/payloads/${payloadFile}`;
+  const payload = JSON.parse(readFileSync(payloadPath, "utf8"));
   const persons = await store.listKgNodes({ kind: "person", limit: 1000 });
   const personIds = new Set(persons.map((p) => p.id));
 
@@ -35,6 +39,12 @@ async function main() {
     const badNs = Object.keys(prop.props).filter((k) => !k.startsWith("effort_"));
     if (badNs.length) {
       drops.push(`${prop.id} (${prop.name}) — non-namespaced prop(s): ${badNs.join(", ")}`);
+      continue;
+    }
+    // effort_low_score_reason, if present, must be from the closed vocabulary
+    const reason = prop.props.effort_low_score_reason as string | undefined;
+    if (reason !== undefined && !LOW_SCORE_REASONS.has(reason)) {
+      drops.push(`${prop.id} (${prop.name}) — effort_low_score_reason "${reason}" not in the closed vocabulary`);
       continue;
     }
     ok++;

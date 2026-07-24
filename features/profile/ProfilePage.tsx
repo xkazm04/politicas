@@ -21,6 +21,7 @@ import SourceNote from "@/features/shared/components/SourceNote";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { COMPONENT_FILL } from "@/features/civicscore/components/LeaderboardTable";
 import TrendPanel from "@/features/civicscore/components/TrendPanel";
+import LowScoreReasonBadge from "@/features/profile/components/LowScoreReasonBadge";
 import type { ComponentKey } from "@/lib/analysis/contribution-trend";
 
 export default function ProfilePage({ data }: { data: ProfileData }) {
@@ -105,6 +106,11 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
           <p className="mt-6 max-w-2xl border-l-4 border-signal pl-4 text-base italic leading-relaxed text-steel">
             {person.absenteeManagerLead ? t("absenteeFlag") : topComponent.label}
           </p>
+
+          {/* Poctivý korektiv nízkého skóre — vykreslí se jen když enrichment
+              stage effort-loopu uložil effort_low_score_reason z uzavřeného
+              slovníku (batch 001+ postupně pokrývá dalších poslanců). */}
+          <LowScoreReasonBadge reason={person.effortLowScoreReason} publicRole={person.effortPublicRole} />
 
           {/* Vývoj proti minulému období — vykreslí se jen když existuje reálné
               srovnání (contribution_psp9). Jinak zůstává jednoobdobový pohled. */}

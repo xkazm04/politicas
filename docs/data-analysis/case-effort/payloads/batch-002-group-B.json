@@ -1,0 +1,88 @@
+{
+  "case": "effort",
+  "batch": 2,
+  "group": "B",
+  "generatedAt": "2026-07-24",
+  "note": "5 dossiers, all continuing (PSP9) MPs so every prop set includes an honest effort_psp9_trend_note. Sonnet group agent, gated wire proposals only (effort_* namespace, no deterministic-owned numbers touched). Primary registries (psp.cz) outrank media; all citations accessed 2026-07-24.",
+  "proposals": [
+    {
+      "id": "psp:person:6756", "name": "Tomáš Helebrant", "club": "ANO2011", "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["ochrana soukromí a odposlechy", "protikorupční vyšetřování (Dozimetr)", "mediální záležitosti", "evropské záležitosti", "kybernetická bezpečnost"],
+        "effort_committee_focus": "Předseda Stálé komise pro kontrolu odposlechů (SKKPO); místopředseda vyšetřovací komise Dozimetr; člen Výboru pro evropské záležitosti, Výboru pro mediální záležitosti a komise pro kontrolu NÚKIB",
+        "effort_bill_focus": "3 spolupodepsané tisky, nikdy první předkladatel: novela pojistného na sociální zabezpečení (11 → zákon 90/2026 Sb.), novela jednacího řádu (72, schválena, v Senátu), Vondráčkův návrh o zemských znacích a vlajkách (87, schválen vládou, čeká na přikázání výborům)",
+        "effort_public_role": "Předseda dohledové komise nad odposlechy a sledováním osob od prvních měsíců mandátu; místopředseda vyšetřovací komise k případu Dozimetr (VZP, DPP, KSÚS)",
+        "effort_psp9_trend_note": "Skóre vzrostlo z 67 (PSP9) na 85,4 (PSP10): plná účast (0,5→1,0) a nízká absence (0,4→0,1), zdvojnásobený počet orgánů (2→8) a nová vedoucí role (0→2) doprovázejí pokles vystoupení (43→17) a interpelací (2→0) — posun od řečnictví k výborovému vedení.",
+        "effort_notes": "committee_count 8 zahrnuje i dva čestné posty (předseda skupin přátelství ČR–Vietnam a ČR–Austrálie/N. Zéland) vedle 6 věcných orgánů z grafu — kalibrační poznámka batch-001 o možném nadhodnocení nesubstantivními funkcemi se zde částečně potvrzuje."
+      },
+      "signal": 0.75,
+      "headline": "Šéfuje dohledu nad odposlechy a spoluvede vyšetřování Dozimetru — skóre vzrostlo z 67 na 85,4, ale hnací silou je výborové vedení, ne vlastní legislativa.",
+      "citations": ["https://www.psp.cz/sqw/detail.sqw?id=6756&o=10", "https://www.psp.cz/sqw/historie.sqw?o=10&t=11", "https://www.psp.cz/sqw/historie.sqw?o=10&t=72", "https://www.psp.cz/sqw/historie.sqw?o=10&t=87"]
+    },
+    {
+      "id": "psp:person:6459", "name": "Jakub Janda", "club": "ODS", "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["kontrola a audit veřejných financí", "e-government / elektronické úkony", "maloobchod a otevírací doba", "ochrana přírody a krajiny (spolupodpis)"],
+        "effort_committee_focus": "Předseda Kontrolního výboru (od 14.11.2025); člen Petičního výboru a podvýborů pro sport a pro regiony v transformaci",
+        "effort_bill_focus": "3 spolupodepsané tisky za skupinou Jana Bureše (ODS), žádný jako první předkladatel a žádný zatím neschválen: novela o elektronických úkonech (103, vláda zaujala nesouhlasné stanovisko, ve výboru), zrušení zákona o maloobchodní otevírací době (129, vláda neutrální, v Hospodářském výboru), novela ochrany přírody a krajiny (261, podána 14.7.2026, u vlády k vyjádření)",
+        "effort_public_role": "Předseda Kontrolního výboru — stejný výbor, jehož místopředsedou je Jan Richter (ANO, batch-001); mezistranická dvojice ve vedení kontrolního orgánu.",
+        "effort_psp9_trend_note": "Skóre vzrostlo mírně z 69,6 (PSP9) na 79,7 (PSP10) díky nové vedoucí roli (0→1, nyní předseda výboru) a vyšší účasti (0,5→0,9); zároveň ale vzrostla absence (0,1→0,5) a klesl počet orgánů (4→3) — smíšený obrázek, ne jednoznačné zlepšení.",
+        "effort_notes": "Firemní vazba (OSVČ, IČO 04627695) má nulovou hodnotu evidovaných smluv (0 Kč) v datech — čistý nález, bez zjištění."
+      },
+      "signal": 0.62,
+      "headline": "Nový předseda Kontrolního výboru — ale žádný ze tří spolupodepsaných tisků ODS zatím neprošel a jeho vlastní absence u hlasování mezitím vzrostla.",
+      "citations": ["https://www.psp.cz/sqw/detail.sqw?id=6459&o=10", "https://www.psp.cz/sqw/historie.sqw?o=10&t=103", "https://www.psp.cz/sqw/historie.sqw?o=10&t=129", "https://www.psp.cz/sqw/historie.sqw?o=10&t=261"]
+    },
+    {
+      "id": "psp:person:6165", "name": "Radek Vondráček", "club": "ANO2011", "lens": ["top"],
+      "props": {
+        "effort_work_themes": ["zahraniční politika", "ústavní a procesní právo", "jednací řád / parlamentní procedura", "svoboda projevu", "střet zájmů", "státní symboly a zemské znaky"],
+        "effort_committee_focus": "Předseda Zahraničního výboru; místopředseda Ústavně-právního výboru; místopředseda klubu ANO 2011; předseda podvýboru pro svobodu projevu",
+        "effort_bill_focus": "První předkladatel čtyř tisků — nejvyšší autorský podíl z pětice: novela jednacího řádu (72, schválena, v Senátu), dvojice zákonů o státních zaměstnancích (76, 77, oba schváleny), návrh o zemských znacích a vlajkách (87, schválen vládou, čeká na přikázání výborům) a čerstvá novela zákona o střetu zájmů (221, podána 8.6.2026, v organizačním výboru); dále spolupředkladatel (3. jmenovaný za Babišem) novely trestního zákoníku (115, projednávání)",
+        "effort_public_role": "Předseda Poslanecké sněmovny ČR 2017–2021 (zvolen napříč ANO, SPD, KSČM a Piráty proti kandidátovi ODS); v PSP10 tento post nezastává — nyní je 'jen' předsedou výboru a místopředsedou klubu, přesto nejvyšší skóre z celé pětice.",
+        "effort_psp9_trend_note": "Skóre stouplo z 82,6 (PSP9, kde bylo už blízko stropu ve výborové i legislativní složce) na 94,3 (PSP10); účast vzrostla (0,4→0,8) a absence klesla (0,3→0,1), zatímco objem vystoupení (589→64) a interpelací (20→0) prudce klesl — typický posun ke koncentrované výborové práci u zkušeného poslance.",
+        "effort_notes": "Tři firemní vazby (NEXNET a.s., MAE invest a.s., Vodovody a kanalizace Kroměříž a.s.) jsou historické: členství v dozorčí radě/statutárním orgánu končící 2014–2018, roky před mandátem PSP10 (od 10/2025). Stejný strukturální vzorec jako u Brabce/Faltýnka v batch-001 — peníze patří k předpolitické/regionální kariéře, ne k současnému mandátu."
+      },
+      "signal": 0.9,
+      "headline": "Bývalý předseda Sněmovny (2017–2021), dnes 'jen' šéf zahraničního výboru — a přesto nejvyšší skóre pětice, s reálným autorstvím čtyř tisků včetně čerstvé novely o střetu zájmů.",
+      "citations": ["https://www.psp.cz/sqw/detail.sqw?id=6165&o=10", "https://www.reflex.cz/clanek/zpravy/83402/predsedou-poslanecke-snemovny-se-stal-radek-vondracek-z-babisova-ano.html", "https://www.psp.cz/sqw/historie.sqw?o=10&t=72", "https://www.psp.cz/sqw/historie.sqw?o=10&t=221", "https://www.hlidacstatu.cz/Osoba/Vazby/radek-vondracek?aktualnost=Libovolny"]
+    },
+    {
+      "id": "psp:person:6783", "name": "Jan Síla", "club": "SPD", "lens": ["quiet-workhorse-legislative"],
+      "props": {
+        "effort_work_themes": ["zdravotnictví a lékařská péče", "dozor nad veřejným zdravotním pojištěním", "ochrana životního prostředí", "epidemiologie a prevence"],
+        "effort_committee_focus": "Místopředseda a ověřovatel Výboru pro zdravotnictví; člen tří podvýborů (veřejné zdraví/epidemiologie, ekonomika zdravotnictví, nelékařská povolání); volený člen dozorčí rady VZP (od 28.1.2026)",
+        "effort_bill_focus": "1 spolupodepsaný tisk, mimo vlastní obor (87, Vondráčkův návrh o zemských znacích a vlajkách) — jako lékař a místopředseda zdravotního výboru zatím osobně nepředložil žádnou zdravotnickou legislativu.",
+        "effort_public_role": "MUDr., místopředseda Výboru pro zdravotnictví a volený dozorčí VZP — dohled nad největší českou zdravotní pojišťovnou kombinovaný s výborovou funkcí.",
+        "effort_workhorse": true,
+        "effort_psp9_trend_note": "V PSP9 patřil k nejhlasitějším poslancům SPD (175 vystoupení, 52 interpelací, 9 tisků, skóre 59,2) — v PSP10 (63,0) je téměř tichý na plénu (3 vystoupení, 0 interpelací), ale nově místopředsedá zdravotnímu výboru a sedí v dozorčí radě VZP. Objem řečnické aktivity klesl, institucionální váha vzrostla.",
+        "effort_notes": "Interpelace 0 v PSP10 i přes 52 v PSP9 — stejný vzorec (0 interpelací) má všech 5 poslanců této skupiny bez ohledu na klub; pravděpodobný artefakt sběru dat pro PSP10, ne nutně reálné chování — viz cross-cutting lead."
+      },
+      "signal": 0.85,
+      "headline": "Kdysi jeden z nejhlasitějších poslanců SPD (52 interpelací v PSP9) — dnes tichý místopředseda zdravotního výboru a dozorčí VZP, skoro bez vystoupení v sále.",
+      "citations": ["https://www.psp.cz/sqw/detail.sqw?id=6783&o=10"]
+    },
+    {
+      "id": "psp:person:6534", "name": "Jiří Mašek", "club": "ANO2011", "lens": ["top"],
+      "props": {
+        "effort_work_themes": ["zdravotnictví", "veřejné zdravotní pojištění", "dohled nad GIBS", "hybridní hrozby", "vyšetřování Dozimetr"],
+        "effort_committee_focus": "Předseda Výboru pro zdravotnictví; místopředseda Stálé komise pro kontrolu GIBS; člen Výboru pro bezpečnost, komise pro hybridní hrozby a vyšetřovací komise Dozimetr; volený člen dozorčí rady VZP (od 28.1.2026)",
+        "effort_bill_focus": "3 spolupodepsané tisky, nikdy první předkladatel: novela pojistného na veřejné zdravotní pojištění (70, garantoval vlastní Výbor pro zdravotnictví, schválena jako zákon 71/2026 Sb.), Vondráčkův návrh o zemských znacích (87, mimo obor), novela zákonů vnitřní správy / zátěžové testy základních registrů (187, po 2. čtení, blíží se 3. čtení)",
+        "effort_public_role": "Předseda zdravotního výboru, který dovedl vládní novelu zdravotního pojistného přes vlastní výbor až do zákona; zároveň dozorčí VZP a člen vyšetřovací komise Dozimetr, jejíž mandát zahrnuje i VZP.",
+        "effort_psp9_trend_note": "Skóre vzrostlo z 81,7 (PSP9) na 91,0 (PSP10): účast stoupla (0,4→0,9) a absence klesla (0,4→0,1), zatímco vystoupení (487→37) a interpelace (37→0) prudce klesly — stejný vzorec jako u ostatních čtyř poslanců skupiny: méně řečnictví, více výborové práce, vyšší skóre.",
+        "effort_notes": "Sdílí Výbor pro zdravotnictví (jako předseda) i dozorčí radu VZP s Janem Sílou (místopředseda výboru, SPD) — viz cross-cutting lead."
+      },
+      "signal": 0.83,
+      "headline": "Předseda zdravotního výboru dovedl vládní novelu pojistného přes vlastní výbor až do zákona (71/2026 Sb.) — a sedí v dozorčí radě VZP i ve vyšetřovací komisi Dozimetr, jejíž záběr VZP zahrnuje.",
+      "citations": ["https://www.psp.cz/sqw/detail.sqw?id=6534&o=10", "https://www.psp.cz/sqw/historie.sqw?o=10&t=70", "https://www.psp.cz/sqw/historie.sqw?o=10&t=187"]
+    }
+  ],
+  "crossCuttingLeads": [
+    "Interpelace = 0 v PSP10 u všech 5 poslanců skupiny (Helebrant, Janda, Vondráček, Síla, Mašek) navzdory nenulovým hodnotám v PSP9 (2 až 52) napříč třemi kluby (ANO, ODS, SPD) — podezřele jednotný vzorec; pravděpodobněji mezera ve sběru/výpočtu dat pro PSP10 než reálný pokles aktivity, doporučeno prověřit zdroj dřív, než se z toho vyvodí chování.",
+    "Systémový vzorec: u všech 5 kontinuujících poslanců (kompletní PSP9 data) skóre PSP10 rostlo navzdory prudkému poklesu vystoupení v sále (řádově -80 až -95 %) — index zjevně váží výborovou účast/vedení výše než řečnickou aktivitu. Stojí za zvážení jako obecné kalibrační zjištění napříč celou vlnou, ne jen touto pěticí.",
+    "flagged_conflict=true se objevuje u 14 z 15 tisků v datech této skupiny (jediná výjimka: ryze technický tisk 187 o zátěžových testech základních registrů) — praporek působí příliš široce nastavený, nejspíš technický artefakt spíš než skutečné zjištění konfliktu zájmů u jednotlivých tisků.",
+    "Mašek (předseda) a Síla (místopředseda) sedí spolu ve Výboru pro zdravotnictví i v dozorčí radě VZP; Mašek navíc sedí ve vyšetřovací komisi Dozimetr, jejíž záběr zahrnuje VZP — reálný institucionální přesah mezi vedením zdravotního výboru, dohledem nad pojišťovnou a vyšetřováním korupce v ní, hodný sledování jako celek.",
+    "Janda (ODS, předseda Kontrolního výboru) a Jan Richter (ANO, místopředseda Kontrolního výboru, batch-001) vedou tentýž kontrolní výbor napříč koalicí/opozicí — přirozený pár pro 'výborový spotlight' v produktu.",
+    "Vondráčkovy tři firemní vazby (NEXNET, MAE invest, VaK Kroměříž) opakují strukturální vzorec Brabce/Faltýnka z batch-001: angažmá končící 2014–2018, roky před mandátem PSP10 — case-① by je měl řadit jako nízkoprioritní pending_review, ne jako aktuální riziko."
+  ]
+}

@@ -3,13 +3,25 @@
  * Reads a COPY of the graph (PGLITE_PATH=./.pglite-copy-effort) — never the live
  * store — and emits the case ledger + triage ranking. NO LLM, NO writes to the
  * graph: this only READS person props (authored by kg-contribution-ingest) and
- * edges, computes club-baseline z-scores + the four triage lenses, and writes:
+ * edges, computes club-baseline z-scores + the triage lenses, and writes:
  *   docs/data-analysis/case-effort/ledger.json   (machine state, 207 rows)
  *   docs/data-analysis/case-effort/triage.json    (ranked signals + army pick)
  *
+ * Batch-aware (batch 002+): if ledger.json already exists from a prior batch, this
+ * run picks up where it left off — units whose stage != "pending" are DONE and are
+ * excluded from the new army pool; the new batch number is prior batch + 1.
+ *
+ * Batch-002 addition (Q-effort-1, the batch-001 lesson made real): a deterministic
+ * `never_cast_ballot` pre-filter (participation_rate==0 && committee_count==0) runs
+ * BEFORE the absentee-manager crossover, so phantom/declined mandates never consume
+ * an absentee-lead army slot again, and gets a deterministic `effort_low_score_reason`
+ * candidate (`declined_mandate`) attached directly — no Opus dossier needed for the
+ * mechanical case.
+ *
  *   PGLITE_PATH=./.pglite-copy-effort npx tsx scripts/case-loops/effort/triage.ts
+ *   PGLITE_PATH=./.pglite-copy-effort npx tsx scripts/case-loops/effort/triage.ts --army=30
  */
-import { mkdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { getStore } from "@/lib/db/store";
 
 const TERM = "PSP10";
@@ -18,6 +30,12 @@ const OUT = "docs/data-analysis/case-effort";
 const num = (x: unknown): number => (typeof x === "number" && Number.isFinite(x) ? x : 0);
 const nullableNum = (x: unknown): number | null => (typeof x === "number" && Number.isFinite(x) ? x : null);
 const round = (x: number, d = 2) => Math.round(x * 10 ** d) / 10 ** d;
+
+const argArmy = process.argv.find((a) => a.startsWith("--army="));
+const ARMY_SIZE = argArmy ? Number(argArmy.split("=")[1]) : 20;
+
+interface PriorUnit { pspId: number; stage: string; batch: number | null; signal: number | null }
+interface PriorLedger { batch: number; units: PriorUnit[] }
 
 interface MpRow {
   pspId: number;
@@ -36,10 +54,14 @@ interface MpRow {
   rebellionRate: number | null;
   linkedCompanies: number;
   contractCzk: number;
+  hasPsp9: boolean;
   // triage-derived
   zScoreVsClub: number; // composite z vs club mean
   quietWorkhorse: boolean;
   quietWorkhorseIndex: number;
+  workhorseFlavour: "legislative" | "oversight" | null; // P31: two positive-symmetry flavours
+  neverCastBallot: boolean; // batch-002 pre-filter (Q-effort-1)
+  componentDivergence: number; // std dev across the 6 normalized components — one-sided vs balanced
   triageScore: number;
   lens: string[]; // which selection lenses caught this MP
 }
@@ -47,6 +69,20 @@ interface MpRow {
 async function main() {
   const store = await getStore();
   if (!store) throw new Error("no store");
+
+  // ── resume state: prior ledger tells us the batch number + who is already done ──
+  let priorBatch = 0;
+  const doneIds = new Set<number>();
+  const priorUnitsById = new Map<number, PriorUnit>();
+  if (existsSync(`${OUT}/ledger.json`)) {
+    const prior = JSON.parse(readFileSync(`${OUT}/ledger.json`, "utf8")) as PriorLedger;
+    priorBatch = prior.batch ?? 0;
+    for (const u of prior.units) {
+      priorUnitsById.set(u.pspId, u);
+      if (u.stage && u.stage !== "pending") doneIds.add(u.pspId);
+    }
+  }
+  const BATCH = priorBatch + 1;
 
   const persons = (await store.listKgNodes({ kind: "person", limit: 1000 })) ?? [];
   const mandates = (await store.listMandates({ termCode: TERM })) ?? [];
@@ -81,13 +117,15 @@ async function main() {
     const club = clubByPerson.get(pspId) ?? "—";
     const companies = linkedByPerson.get(pspId) ?? new Set<string>();
     const contractCzk = [...companies].reduce((a, c) => a + (contractCzkByCompany.get(c) ?? 0), 0);
+    const participationRate = num(p.props.participation_rate);
+    const committeeCount = num(p.props.committee_count);
     return {
       pspId,
       name: p.label,
       club,
       score: num(p.props.contribution_score),
-      participationRate: num(p.props.participation_rate),
-      committeeCount: num(p.props.committee_count),
+      participationRate,
+      committeeCount,
       leadershipCount: num(p.props.leadership_count),
       absenceRate: num(p.props.absence_rate),
       billsAuthored: num(p.props.bills_authored),
@@ -98,9 +136,13 @@ async function main() {
       rebellionRate: nullableNum(p.props.rebellion_rate),
       linkedCompanies: companies.size,
       contractCzk,
+      hasPsp9: p.props.contribution_psp9 != null,
       zScoreVsClub: 0,
       quietWorkhorse: false,
       quietWorkhorseIndex: 0,
+      workhorseFlavour: null,
+      neverCastBallot: participationRate === 0 && committeeCount === 0,
+      componentDivergence: 0,
       triageScore: 0,
       lens: [],
     };
@@ -141,30 +183,77 @@ async function main() {
     // quiet workhorse: work >= 60th pct AND visibility <= 35th pct
     r.quietWorkhorseIndex = round(wp - vp, 3);
     r.quietWorkhorse = wp >= 0.6 && vp <= 0.35;
+    // P31: two positive-symmetry flavours — legislative-authorship vs oversight-institutional
+    if (r.quietWorkhorse) {
+      r.workhorseFlavour = r.billsAuthored > 0 ? "legislative" : "oversight";
+    }
+  }
+
+  // ── component divergence: one-sided score composition vs balanced (batch-002 lens) ─
+  // Re-derive the same 6 weighted components computeContribution() would produce, from
+  // the already-normalized rates/counts on the node (same formulas, same saturation caps).
+  const COMMITTEE_SAT = 3, LEGIS_SAT = 4, SPEECH_SAT = 40;
+  const clamp01 = (x: number) => Math.max(0, Math.min(1, x));
+  for (const r of rows) {
+    const committee = clamp01(r.committeeCount / COMMITTEE_SAT) * 20;
+    const leadership = r.leadershipCount > 0 ? 10 : 0;
+    const participation = r.participationRate * 25;
+    const attendance = (1 - r.absenceRate) * 10;
+    const legislative = clamp01((r.billsAuthored + r.interpellations) / LEGIS_SAT) * 20;
+    const speech = clamp01(r.speechTurns / SPEECH_SAT) * 15;
+    const comps = [committee / 20, leadership / 10, participation / 25, attendance / 10, legislative / 20, speech / 15];
+    const mean = comps.reduce((a, b) => a + b, 0) / comps.length;
+    const variance = comps.reduce((a, b) => a + (b - mean) ** 2, 0) / comps.length;
+    r.componentDivergence = round(Math.sqrt(variance), 3);
   }
 
   // ── composite triage score: |z| (outlierness) + money crossover + rebellion ─
+  // Batch-002: never_cast_ballot MPs are DOWN-weighted for the absentee dimension
+  // (pre-filter, Q-effort-1) — their z-outlierness alone can still surface them for
+  // clean-stage annotation, but they no longer inflate as "absentee" candidates.
   for (const r of rows) {
     r.triageScore = round(
       Math.abs(r.zScoreVsClub) +
-        (r.absenteeManagerLead ? 2 : 0) +
+        (r.absenteeManagerLead && !r.neverCastBallot ? 2 : 0) +
         (r.quietWorkhorse ? 1.5 : 0) +
-        (r.contestedVoteRebellion ?? 0) * 1.5,
+        (r.contestedVoteRebellion ?? 0) * 1.5 +
+        r.componentDivergence * 1.2,
       3,
     );
   }
 
-  // ── army selection: top5 + bottom5 composite, 5 absentee, 5 quiet workhorse ─
-  const byScore = [...rows].sort((a, b) => b.score - a.score);
-  const top5 = byScore.slice(0, 5);
-  const bottom5 = byScore.slice(-5);
-  const absenteeLeads = rows
-    .filter((r) => r.absenteeManagerLead)
-    .sort((a, b) => b.contractCzk - a.contractCzk)
+  // ── pool: remaining (not yet processed in a prior batch) ──────────────────
+  const pool = rows.filter((r) => !doneIds.has(r.pspId));
+
+  // ── Q-effort-1: never_cast_ballot pre-filter over ALL 207 (not just the pool) ──
+  const neverCastAll = rows.filter((r) => r.neverCastBallot);
+  const neverCastNew = neverCastAll.filter((r) => !doneIds.has(r.pspId)); // newly discovered this batch
+
+  // ── army selection from the POOL: extremes + absentee (phantom-filtered) +
+  //    quiet-workhorse (fixed slots, BOTH flavours) + contested-rebellion overlap +
+  //    component-divergence (mid-band, one-sided composition) ──────────────────
+  const byScorePool = [...pool].sort((a, b) => b.score - a.score);
+  const topN = byScorePool.slice(0, 6);
+  const bottomN = byScorePool.slice(-4).filter((r) => !r.neverCastBallot); // structural floor already explained in batch 001; skip pure phantoms
+  const absenteeLeadsPool = pool
+    .filter((r) => r.absenteeManagerLead && !r.neverCastBallot) // pre-filter FIRST
+    .sort((a, b) => b.contractCzk - a.contractCzk);
+  const quietLegislative = pool
+    .filter((r) => r.workhorseFlavour === "legislative")
+    .sort((a, b) => b.quietWorkhorseIndex - a.quietWorkhorseIndex)
+    .slice(0, 4);
+  const quietOversight = pool
+    .filter((r) => r.workhorseFlavour === "oversight")
+    .sort((a, b) => b.quietWorkhorseIndex - a.quietWorkhorseIndex)
+    .slice(0, 4);
+  const contestedOverlap = pool
+    .filter((r) => (r.contestedVoteRebellion ?? 0) >= 5)
+    .sort((a, b) => (b.contestedVoteRebellion ?? 0) - (a.contestedVoteRebellion ?? 0))
     .slice(0, 5);
-  const quietWorkhorses = rows
-    .filter((r) => r.quietWorkhorse)
-    .sort((a, b) => b.quietWorkhorseIndex - a.quietWorkhorseIndex);
+  const divergent = pool
+    .filter((r) => r.componentDivergence >= 0.35 && r.score >= 35 && r.score <= 75) // mid-band, one-sided
+    .sort((a, b) => b.componentDivergence - a.componentDivergence)
+    .slice(0, 6);
 
   const pick = new Map<number, { row: MpRow; lens: string[] }>();
   const add = (r: MpRow, lens: string) => {
@@ -172,21 +261,21 @@ async function main() {
     if (!e.lens.includes(lens)) e.lens.push(lens);
     pick.set(r.pspId, e);
   };
-  top5.forEach((r) => add(r, "top5"));
-  bottom5.forEach((r) => add(r, "bottom5"));
-  absenteeLeads.forEach((r) => add(r, "absentee"));
-  // fill quiet-workhorse slots up to 20 total, best-index first, not already picked
-  let qwCount = 0;
-  for (const r of quietWorkhorses) {
-    if (pick.size >= 20 && !pick.has(r.pspId)) break;
-    if (qwCount >= 5 && !pick.has(r.pspId)) continue;
-    add(r, "quiet-workhorse");
-    qwCount++;
-  }
-  // if still under 20, add next-highest triage-score MPs
-  const byTriage = [...rows].sort((a, b) => b.triageScore - a.triageScore);
-  for (const r of byTriage) {
-    if (pick.size >= 20) break;
+  topN.forEach((r) => add(r, "top"));
+  bottomN.forEach((r) => add(r, "bottom"));
+  absenteeLeadsPool.forEach((r) => add(r, "absentee"));
+  quietLegislative.forEach((r) => add(r, "quiet-workhorse-legislative"));
+  quietOversight.forEach((r) => add(r, "quiet-workhorse-oversight"));
+  contestedOverlap.forEach((r) => add(r, "contested"));
+  divergent.forEach((r) => add(r, "divergence"));
+  // never_cast_ballot MPs newly discovered this batch get a mechanical clean-stage slot
+  // too (cheap: declined_mandate is deterministic, but a one-line dossier still runs the
+  // enrich stage to confirm the executive-office story, per the batch-001 pattern).
+  neverCastNew.forEach((r) => add(r, "phantom-mandate"));
+  // fill remaining slots up to ARMY_SIZE with next-highest triage-score MPs from the pool
+  const byTriagePool = [...pool].sort((a, b) => b.triageScore - a.triageScore);
+  for (const r of byTriagePool) {
+    if (pick.size >= ARMY_SIZE) break;
     add(r, "high-triage");
   }
 
@@ -195,32 +284,39 @@ async function main() {
     r.lens = e.lens;
   }
 
-  // ── ledger.json: 207 rows, stage=pending ──────────────────────────────────
-  mkdirSync(OUT, { recursive: true });
+  // ── ledger.json: 207 rows, carry forward prior batches' stage/signal ──────
+  mkdirSync(`${OUT}/payloads`, { recursive: true });
   const ledger = {
     case: "effort",
     term: TERM,
     generatedAt: new Date().toISOString(),
     population: rows.length,
-    batch: 1,
+    batch: BATCH,
     units: rows
       .sort((a, b) => b.score - a.score)
-      .map((r, i) => ({
-        pspId: r.pspId,
-        name: r.name,
-        club: r.club,
-        rank: i + 1,
-        contribution_score: r.score,
-        stage: "pending" as const,
-        batch: null as number | null,
-        signal: null as number | null,
-        flags: {
-          absentee_manager_lead: r.absenteeManagerLead,
-          quiet_workhorse: r.quietWorkhorse,
-          contested_vote_rebellion: r.contestedVoteRebellion,
-          z_vs_club: r.zScoreVsClub,
-        },
-      })),
+      .map((r, i) => {
+        const prior = priorUnitsById.get(r.pspId);
+        const inArmy = pick.has(r.pspId);
+        return {
+          pspId: r.pspId,
+          name: r.name,
+          club: r.club,
+          rank: i + 1,
+          contribution_score: r.score,
+          stage: prior?.stage && prior.stage !== "pending" ? prior.stage : inArmy ? "triaged" : ("pending" as const),
+          batch: prior?.batch ?? (inArmy ? BATCH : null),
+          signal: prior?.signal ?? null,
+          flags: {
+            absentee_manager_lead: r.absenteeManagerLead,
+            never_cast_ballot: r.neverCastBallot,
+            quiet_workhorse: r.quietWorkhorse,
+            workhorse_flavour: r.workhorseFlavour,
+            contested_vote_rebellion: r.contestedVoteRebellion,
+            z_vs_club: r.zScoreVsClub,
+            component_divergence: r.componentDivergence,
+          },
+        };
+      }),
   };
   writeFileSync(`${OUT}/ledger.json`, JSON.stringify(ledger, null, 2));
 
@@ -230,27 +326,30 @@ async function main() {
     .sort((a, b) => b.triageScore - a.triageScore);
   const triage = {
     generatedAt: new Date().toISOString(),
+    batch: BATCH,
     clubStats: Object.fromEntries([...clubStats].map(([k, v]) => [k, { mean: round(v.mean, 1), sd: round(v.sd, 2), n: v.n }])),
+    neverCastBallot: { totalAcrossPopulation: neverCastAll.length, newThisBatch: neverCastNew.map((r) => ({ pspId: r.pspId, name: r.name, club: r.club })) },
     rows: [...rows].sort((a, b) => b.triageScore - a.triageScore),
-    army: army.map((r) => ({ pspId: r.pspId, name: r.name, club: r.club, score: r.score, lens: r.lens, triageScore: r.triageScore, z: r.zScoreVsClub })),
+    army: army.map((r) => ({
+      pspId: r.pspId,
+      name: r.name,
+      club: r.club,
+      score: r.score,
+      lens: r.lens,
+      triageScore: r.triageScore,
+      z: r.zScoreVsClub,
+      neverCastBallot: r.neverCastBallot,
+      hasPsp9: r.hasPsp9,
+    })),
   };
   writeFileSync(`${OUT}/triage.json`, JSON.stringify(triage, null, 2));
 
   // ── console summary ───────────────────────────────────────────────────────
-  console.log(`TRIAGE · ${rows.length} MPs · clubs ${clubStats.size}`);
-  console.log("\nClub baselines (mean score):");
-  [...clubStats].sort((a, b) => b[1].mean - a[1].mean).forEach(([c, s]) => console.log(`  ${c.padEnd(10)} n=${String(s.n).padStart(3)} mean ${round(s.mean, 1)} sd ${round(s.sd, 1)}`));
+  console.log(`TRIAGE batch ${BATCH} · ${rows.length} MPs · pool ${pool.length} (${doneIds.size} already done) · clubs ${clubStats.size}`);
+  console.log(`\nQ-effort-1 never_cast_ballot: ${neverCastAll.length} total across population, ${neverCastNew.length} new this batch:`);
+  neverCastNew.forEach((r) => console.log(`  ⚑ ${r.name.padEnd(26)} ${r.club.padEnd(8)} — participation 0, committee 0 → effort_low_score_reason candidate: declined_mandate`));
 
-  console.log(`\nTOP 5 score:`);
-  top5.forEach((r) => console.log(`  ${r.name.padEnd(26)} ${r.club.padEnd(8)} ${r.score}  z=${r.zScoreVsClub}`));
-  console.log(`BOTTOM 5 score:`);
-  bottom5.forEach((r) => console.log(`  ${r.name.padEnd(26)} ${r.club.padEnd(8)} ${r.score}  z=${r.zScoreVsClub}`));
-  console.log(`\nABSENTEE-MANAGER LEADS: ${rows.filter((r) => r.absenteeManagerLead).length}`);
-  absenteeLeads.forEach((r) => console.log(`  ⚑ ${r.name.padEnd(26)} ${r.club.padEnd(8)} score ${r.score} · ${r.linkedCompanies}co · ${new Intl.NumberFormat("cs-CZ").format(Math.round(r.contractCzk))} CZK`));
-  console.log(`\nQUIET WORKHORSES: ${quietWorkhorses.length}`);
-  quietWorkhorses.slice(0, 10).forEach((r) => console.log(`  ✎ ${r.name.padEnd(26)} ${r.club.padEnd(8)} score ${r.score} · ${r.committeeCount}cmte ${r.leadershipCount}lead ${r.billsAuthored}bills ${r.speechTurns}sp · qwi=${r.quietWorkhorseIndex}`));
-
-  console.log(`\nARMY (${army.length}):`);
+  console.log(`\nARMY (${army.length}) for batch ${BATCH}:`);
   army.forEach((r) => console.log(`  ${r.name.padEnd(26)} ${r.club.padEnd(8)} score ${String(r.score).padStart(5)} · triage ${String(r.triageScore).padStart(5)} · [${r.lens.join(", ")}]`));
 
   await store.close();

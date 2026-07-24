@@ -1,0 +1,100 @@
+{
+  "case": "effort",
+  "batch": 2,
+  "group": "A",
+  "generatedAt": "2026-07-24",
+  "note": "5-MP Sonnet group dossier, same spirit as batch-001: all props effort_*-namespaced, no deterministic-owned field touched, review_state implicitly pending_review. pspIds supplied in the brief were mistranscribed for 4/5 MPs — corrected by name match against dossier-inputs.json (Bouška 6614→6993, Skopeček 5920→6418, Berki 7011→6722, Gregor 7002→7006; Nacher 6487 was correct). Every claim sourced from psp.cz (primary) or named media, accessed 2026-07-24.",
+  "proposals": [
+    {
+      "id": "psp:person:6487", "name": "Patrik Nacher", "club": "ANO2011", "lens": ["contested", "high-triage"],
+      "props": {
+        "effort_work_themes": ["ochrana spotřebitele", "média a vysílací poplatky", "hazardní hry a sázení", "exekuce a insolvence", "svoboda projevu"],
+        "effort_bill_focus": "První předkladatel tisku 201 (novela zákona o rozhlasových a televizních poplatcích — osvobození osob 75+ a rozšíření okruhu osvobozených, ve výboru od 22.5.2026, vládní souhlas); spolupodepsal dva přijaté zákony (11 → 90/2026 Sb., 119 → 128/2026 Sb.) a tisk 217 (novela zákona o NKÚ, Babkova iniciativa).",
+        "effort_public_role": "Místopředseda Organizačního výboru (od 5.11.2025); předseda podvýboru pro ochranu spotřebitele (od 22.1.2026) a podvýboru pro návrhy státních vyznamenání (od 17.12.2025); člen podvýborů pro sport, pro exekuce/insolvenci/oddlužení a pro svobodu slova.",
+        "effort_psp9_trend_note": "Skóre vzrostlo z 79,9 (PSP9, celé období) na 85,7 (PSP10, ~8 měsíců) navzdory poklesu objemu legislativy (17→4 tisky, 859→264 vystoupení) — nárůst nese hlavně vyšší hlasovací účast (participation_rate 0,4→0,9) a nová vedoucí pozice (místopředseda Organizačního výboru + dva předsednické podvýbory).",
+        "effort_notes": "Na rozdíl od batch-001 caveatu 'nikdy první předkladatel' je Nacher výjimkou: tisk 201 je jeho vlastní iniciativa s reálným rozpočtovým dopadem (Nacher sám uvádí ~700 mil. Kč ročně pro ČT/ČRo, opozice a ČT počítaly až 2,1 mld.) — třetí doložený případ skutečného autorství v efortové kohortě po Ožanové a Malé z batch-001."
+      },
+      "signal": 0.86,
+      "headline": "Předkladatel nejsledovanější mediální novely roku — osekání televizních a rozhlasových poplatků o stovky milionů korun ročně — a nově i šéf podvýboru pro ochranu spotřebitele.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6487",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=201",
+        "https://www.lupa.cz/aktuality/skupina-vladnich-poslancu-navrhuje-osekat-televizni-a-rozhlasove-poplatky/",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11"
+      ]
+    },
+    {
+      "id": "psp:person:6993", "name": "Jiří Bouška", "club": "ANO2011", "lens": ["contested", "high-triage"],
+      "props": {
+        "effort_public_role": "Primátor Mladé Boleslavi (od dubna 2024, předtím náměstek primátora 2010–2024); zastupitel Středočeského kraje (od 2020); poslanec ANO od 10/2025 — všechny tři mandáty souběžně, primátorský post si výslovně ponechal.",
+        "effort_low_score_reason": "dual_mandate",
+        "effort_work_themes": ["komunální samospráva", "životní prostředí", "regionální rozpočet"],
+        "effort_committee_focus": "Člen Výboru pro životní prostředí a Rozpočtového výboru; místopředseda podvýboru pro inovace v ochraně životního prostředí (od 18.2.2026).",
+        "effort_notes": "100% účast a 0% absence, ale jen 1 vystoupení v sále a žádný vlastní tisk za ~8 měsíců — odpovídá profilu primátora ~44tis. města (sídlo Škoda Auto), který ve Sněmovně hlasuje loajálně, ale legislativní kapacitu nemá vedle vedení města. Firemní vazby v grafu (Oblastní nemocnice Mladá Boleslav, Městská společnost sportovní a rekreační areály) jsou instituce, kde sedí z titulu primátorského úřadu, ne soukromé podnikání — vzorec analogický Karpíškovi z batch-001; Case-① ponechat pending_review, poplach snížit."
+      },
+      "signal": 0.68,
+      "headline": "Primátor Mladé Boleslavi jako sněmovní nováček: stoprocentní docházka, ale skoro žádná vlastní stopa — kapacita zůstává na radnici.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6993",
+        "https://boleslavsky.denik.cz/zpravy_region/mlada-boleslav-volby-primator-bouska-posty-poslanec-zastupitel.html",
+        "https://www.irozhlas.cz/zpravy-domov/primator-mlada-boleslav-jiri-bouska-ano-raduan-nwelanti_2404291908_jud"
+      ]
+    },
+    {
+      "id": "psp:person:6418", "name": "Jan Skopeček", "club": "ODS", "lens": ["contested", "high-triage"],
+      "props": {
+        "effort_public_role": "Místopředseda Poslanecké sněmovny (zvolen 14.11.2025 se 121 hlasy ze 185; stejnou funkci zastával i v období 2021–2025); místopředseda Organizačního výboru; ekonom, dlouholetá hospodářsko-politická tvář ODS.",
+        "effort_work_themes": ["hospodářská a rozpočtová politika", "digitalizace veřejné správy", "regulace obchodu", "spotřební daně"],
+        "effort_bill_focus": "3 spolupodepsané tisky, žádný jako první předkladatel: elektronické úkony/autorizovaná konverze (103, vládní nesouhlas), zrušení zákona o prodejní době (129, vládní neutrál), spotřební daně (133, vládní nesouhlas) — všechny stále ve výboru.",
+        "effort_psp9_trend_note": "Skóre vzrostlo z 66 (PSP9) na 80,5 (PSP10) při zachování téže vedoucí funkce (místopředseda Sněmovny) v obou obdobích — nárůst nese hlavně vyšší účast (participation_rate 0,5→0,8) a nižší absence (0,4→0,3), ne změna role.",
+        "effort_notes": "Funkce místopředsedy Sněmovny se v deterministickém skóre promítá jako leadership_count 1 shodně v obou obdobích — jde o kontinuitu vedení, ne o nový post."
+      },
+      "signal": 0.74,
+      "headline": "Místopředseda Sněmovny podruhé v řadě — stejná funkce jako v minulém období, vyšší skóre táhne lepší docházka, ne nová legislativa.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6418",
+        "https://cnn.iprima.cz/on-line-skopecek-se-stal-mistopredsedou-snemovny-richterova-opet-neuspela-491671",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=103"
+      ]
+    },
+    {
+      "id": "psp:person:6722", "name": "Jan Berki", "club": "STAN", "lens": ["contested", "high-triage"],
+      "props": {
+        "effort_public_role": "Vysokoškolský pedagog (informatika/matematika) na Technické univerzitě v Liberci, předseda Akademického senátu TUL; místopředseda Výboru pro vědu, vzdělávání, mládež a sport; místopředseda poslaneckého klubu STAN; poslanec od 2021, obhájil mandát v PSP10.",
+        "effort_work_themes": ["vzdělávání a školství", "obecní samospráva", "rozpočtová a daňová politika"],
+        "effort_bill_focus": "2 spolupodepsané tisky: novela zákona o obcích (24, vládní neutrál, ve výboru) a novela zákona o daních z příjmů (120, vládní nesouhlas, ve výboru).",
+        "effort_psp9_trend_note": "Skóre stabilně vysoké v obou mandátech (84,6 PSP9 → 89,2 PSP10); participation_rate výrazně vzrostla (0,5→0,9) i přes pokles objemu tisků (6→2) a vystoupení (147→82 za kratší období) — konzistentní výkon s posunem od legislativní produkce k účasti a vedení klubu.",
+        "effort_notes": "Jediný z pětice s interpelací (1); odborné zaměření na vzdělávání přesně odpovídá výborové pozici."
+      },
+      "signal": 0.79,
+      "headline": "Univerzitní pedagog a šéf akademického senátu TUL, podruhé místopředseda výboru pro vzdělávání — nejvyšší skóre z pětice ve dvou obdobích za sebou.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6722",
+        "https://liberecky.denik.cz/zpravy_region/volby-poslanec-berki-liberec-stan.html",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=24"
+      ]
+    },
+    {
+      "id": "psp:person:7006", "name": "Matěj Gregor", "club": "MS", "lens": ["contested", "high-triage"],
+      "props": {
+        "effort_public_role": "Nejmladší poslanec kohorty (nar. 12.4.2002, zvolen ve 23 letech); krajský předseda Motoristů sobě pro Moravskoslezský kraj (od 2024); místopředseda poslaneckého klubu Motoristé sobě (od 7.10.2025); spoluzakladatel mládežnické organizace Motoristé Generation Motor.",
+        "effort_committee_focus": "Místopředseda Výboru pro životní prostředí (od 11.11.2025); člen Mandátového a imunitního výboru, Organizačního výboru, Výboru pro vědu/vzdělávání/mládež/sport a dvou stálých komisí (Kancelář PS, kontrola odposlechů).",
+        "effort_work_themes": ["životní prostředí", "mandátová a imunitní agenda", "mládež a sport"],
+        "effort_workhorse": true,
+        "effort_notes": "0 tisků a 0 interpelací za ~8 měsíců, ale 6 výborových/komisních členství a jeden vedoucí post (místopředseda VŽP), plus místopředseda klubu — aktivita soustředěná do výborové a stranicko-organizační práce, ne do legislativního autorství; typický profil nejmladšího poslance v prvním mandátu s manažerskou rolí v mladé straně."
+      },
+      "signal": 0.62,
+      "headline": "Nejmladší poslanec Sněmovny: žádný vlastní tisk, ale šest výborů a komisí a vedení krajské organizace Motoristů ve 23 letech.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7006",
+        "https://moravskoslezsky.denik.cz/zpravy_region/ostrava-volby-snemovna-motoriste-matej-gregor-pribeh-odmitnuti-babis.html",
+        "https://zpravy.aktualne.cz/domaci/rozhovor-s-nejmladsim-poslancem-za-motoristy-matejem-gregore/r~1a549122a2c611f0801c0cc47ab5f122/?lp=1"
+      ]
+    }
+  ],
+  "crossCuttingLeads": [
+    "committee_count v dossier props opakovaně převyšuje délku pole committees o 1 u 4/5 MPs (Nacher 2 vs. 1 uvedený, Skopeček 2 vs. 1, Berki 3 vs. 2, Gregor 7 vs. 6 — jen Bouška sedí přesně 2/2); psp.cz fetch potvrzuje reálné dodatečné podvýborové členství, které pole committees needle. To je OPAČNÝ směr než batch-001 teorie o nadhodnocení skupinami přátelství — zde jde spíš o neúplnost enumerovaného pole, ne o inflaci. Doporučeno prověřit rozsah pole na deterministické straně (jen výbory vs. všechny orgány včetně podvýborů).",
+    "Bouška (primátor Mladé Boleslavi + krajský zastupitel + poslanec) je druhý doložený případ souběhu exekutivního komunálního/krajského mandátu s nízkým efort-skóre po Karpíškovi z batch-001 — stejný vzorec (loajální hlasování, nulová legislativní autorská stopa, firemní vazby v grafu patřící městským/krajským institucím z titulu úřadu). Posiluje batch-001 doporučení na deterministický `dual/triple_mandate` prefilter před aplikací absentee heuristiky.",
+    "Nacher je vzácnou výjimkou vůči batch-001 caveatu 'nikdy první předkladatel u vlastního tisku' — tisk 201 (mediální poplatky) je jeho vlastní iniciativa s reálným rozpočtovým dopadem v řádu stovek milionů Kč ročně; třetí doložený případ skutečného autorství v efortové kohortě vedle Ožanové a Malé."
+  ]
+}
