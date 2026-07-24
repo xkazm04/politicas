@@ -107,6 +107,12 @@ export default function FollowTheMoneyPage({ data }: { data?: MoneyData | null }
           </div>
           <div className="flex items-center gap-4">
             <Link
+              href="/penize/kontrola"
+              className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+            >
+              kontrola vazeb
+            </Link>
+            <Link
               href="/dashboard"
               className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
             >
