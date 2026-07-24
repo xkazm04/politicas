@@ -34,6 +34,13 @@ resume → triage → dispatch army → gate + persist → reflect → build-rev
 2. **Triage (deterministic, no LLM).** Recompute per-unit **signal scores** and
    rank the queue. The army processes systematically but in VALUE ORDER — stop
    after any batch and the best-covered head is always the highest-value units.
+   **Validate discriminative power before trusting a signal** (batch-001 lesson):
+   a signal that saturates on one value or fires on >50% of units is degenerate —
+   fix it (log-scale, class-partition, densify its basis) before it ranks
+   anything. And **pre-filter structural false positives in code** before the
+   army runs: both money and effort spent Opus dossiers proving leads false that
+   a 5-line deterministic check (tie-class; `never_cast_ballot`) would have
+   filtered.
    Engine choice follows the measured guide (`docs/db-architecture-guide.md`):
    **R4** — populations under ~100k rows (ties, contracts, bills, MPs) triage
    fine in PGlite SQL on a copy; **R3** — reach for DuckDB only when the pass
@@ -45,9 +52,16 @@ resume → triage → dispatch army → gate + persist → reflect → build-rev
    stages: **clean** (anomaly flags — code-first; LLM only where judgment is
    needed) → **enrich** (web + API research; EVERY claim carries URL + access
    date) → **wire** (proposed KG nodes/edges/props — gated, never direct) →
-   **signal** (story-worthiness score + a one-line why). Model tiering: Sonnet
-   is the default worker; Opus for top-signal units, synthesis, and build
-   phases; deterministic code for anything countable.
+   **signal** (story-worthiness score + a one-line why — AND cross-cutting
+   leads: data-quality gaps, sibling-unit collisions, quiet riders; batch 001's
+   richest yield was non-headline classes). Model tiering: Sonnet is the
+   default worker; Opus for top-signal units, synthesis, and build phases;
+   deterministic code for anything countable. **Pre-extract each unit's full
+   context into a batch inputs file** (effort's `dossier-inputs.json` pattern)
+   so army agents never open the single-connection DB copy; grouped Sonnet
+   agents hold quality at 3–5 units each. **Concurrency budget:** the platform
+   caps ~20 parallel subagents TOTAL — in fleet mode budget ≤6–8 concurrent per
+   case or stage waves.
 4. **Gate + persist.** Every wire proposal passes schema + entity-id membership
    validation (the `kg-verdict.ts` pattern; case gates listed in each skill).
    Vault batch note written FIRST, graph second (exclusive `.pglite` window),
@@ -57,7 +71,10 @@ resume → triage → dispatch army → gate + persist → reflect → build-rev
    `[[feature-opportunities]]`; emergent questions → the case section of
    `[[frontier]]`; steering (batch size, ranking tweaks) + a metrics row into
    the case ledger: units done/total, **signal yield** (new signals ÷ units —
-   the convergence measure), cost/unit, reuse-rate.
+   the convergence measure), cost/unit, reuse-rate. **Absence of signal is a
+   finding, not a failure** — 0 conflicts in a top-flagged head, a clean-hands
+   population, a quiet workhorse are the non-partisan-symmetry outputs that
+   make the accusatory ones credible; record them with equal weight.
 6. **Build-review (adaptive cadence).** Review interval R in batches: **start
    R=1**; when a review ships nothing, R doubles; when something ships, R
    resets to 1. A build phase = implement the top build-ready opportunity end
@@ -89,7 +106,7 @@ single-writer and are handed off to the orchestrator instead:
 
 | Resource | Fleet rule |
 |---|---|
-| live `./.pglite` | NEVER write. Analyze on a case-suffixed copy (`cp -r .pglite .pglite-copy-<case>`; `PGLITE_PATH=`). Emit materialization payloads + scripts; the orchestrator serializes live writes. |
+| live `./.pglite` | NEVER write. Analyze on a case-suffixed copy (`cp -r .pglite .pglite-copy-<case>`; `PGLITE_PATH=`). Emit materialization payloads + scripts; the orchestrator serializes live writes via `scripts/case-loops/persist-batch.ts` (props-merge writer: nested annotation provenance, refuses to insert missing targets). |
 | shared vault files (`frontier`, `feature-opportunities`, `graph-log`, `patterns`, `contradictions`) + shared code (`lib/analysis/kg-verdict.ts` enums, `package.json`, `messages/*.json`) | do not edit; put proposed additions in the case handoff. |
 | git | do not commit. Leave changes in the tree inside your boundary; the orchestrator reviews and commits per case. |
 

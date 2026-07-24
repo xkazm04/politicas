@@ -24,13 +24,19 @@ unrouted).
 
 ## Triage signals (deterministic)
 
-- **Forensic severity + `flagged_conflict`** — the 65 bills whose sponsors
-  carry Case-① money ties, ranked by `sponsor_contract_czk`.
-- **Repeat-amendment targets** — laws amended by many prints (586/1992 daně
-  z příjmů leads with 7): high-churn statutes are where quiet riders hide.
-- **Origin × routing anomalies** — mp_group bills skipping the expected
-  gestor committee; bills whose garanční committee's owned themes don't match
-  the amended law's domain (use pass-12 `assigned_to` vs F12 `owns`).
+*(re-weighted after batch 001 — P32, two signals proved degenerate)*
+
+- **Repeat-amendment targets LEAD** — laws amended by many prints (586/1992
+  ×7): high-churn statutes are where quiet riders hide, and churn-led triage
+  found them (wine excise in tisk 4, beer in 40).
+- **Conflict by SECTOR-ADJACENCY, not raw CZK** — `sponsor_contract_czk`
+  saturates on municipal/SOE board roles (ARENA BRNO 5.39B ranked ten bills
+  identically) and the top-8 flagged bills yielded 0 real conflicts. Rank by
+  the tie company's sector vs the amended law's domain; exclude
+  municipal/SOE board roles; log-scale any money term. **Absence of conflict
+  is the expected, valuable output for general legislation.**
+- **Origin × routing anomalies — only after `owns` densifies** (currently 30
+  edges → 89% false-positive rate; Q-law-1 basis work first).
 - **EU-transposition flags** (O7) and effective-date urgency.
 
 ## Stages per unit (bill)
@@ -42,12 +48,19 @@ unrouted).
    hides); the 3rd-reading roll call (psp.cz hist → vote_event linkage);
    committee treatment (did the garanční výbor amend it?); submitter context;
    media only as narrative context.
-3. **wire** — proposals: `voted_in` edges (bill → vote_event, deterministic
-   from hist — new rel via handoff/finalize), paragraph-diff artifacts as
-   structured props/tables, per-bill **forensic verdicts through the
-   `law-verdict.ts` gate** (severity, conflict assessment, unstated effects,
-   citations — always `pending_review`, always rendered as derived).
+3. **wire** — proposals: paragraph-diff artifacts as structured props/tables,
+   per-bill **forensic verdicts through the `law-verdict.ts` gate** (severity,
+   conflict assessment, unstated effects, citations — always
+   `pending_review`, always rendered as derived). ⚠ `voted_in` (bill →
+   vote_event) is a documented DEAD-END from cached data: `hist.unl` col 5
+   is a document/usnesení id (58xxx), NOT the vote_event id-space (86xxx) —
+   the real join needs the hlasovani-agenda ingest (`hl-*.zip` `bod_schuze`
+   cross-ref, Q-law-2). Never link by title matching.
 4. **signal** — story-worthiness + the one-line what-this-actually-changes.
+   **Explicitly solicit non-conflict lead classes** (batch 001's richest
+   yield): drafting collisions between sibling prints on the same §
+   (120↔244), quiet riders under headline titles, data-quality gaps (the
+   `amends` undercount, C6), enacted-vs-pending status surprises.
 
 ## Case gates
 
@@ -59,10 +72,17 @@ claims pass the law-verdict gate and render as derived/gated, never as fact;
 
 ## Seed build backlog
 
-1. **Real paragraph diffs on `/zakony`.** Ingest e-Sbírka consolidated
-   versions (SPARQL/API — open, autonomous; index texts tsvector+GIN per
-   R9–R11), compute §-level before/after for the amended laws — restoring
-   the flagship mock feature with real data. The killer differentiator.
+1. **Real paragraph diffs on `/zakony`** — the flagship, now scoped with
+   evidence (batch 001): e-Sbírka DOES hold consolidated text (dataset 001
+   versions 176MB + 003 fragments **1.24GB** + 007 chain) but at ~1MB/min
+   observed throughput it is a **dedicated long-running ingest** (resume/
+   cache, tsvector+GIN per R9–R11), never a batch subtask. Two distinct
+   pipelines: **historical** diffs (enacted↔enacted versions — feasible from
+   e-Sbírka) vs **prospective** diffs (pending bill vs current text — needs
+   the tisk-PDF novelization instructions; pending bills have NO enacted
+   "after"). Diff-artifact schema in `case-law/handoff.md` §4c; adapter
+   scaffolded (`scripts/case-loops/law/esbirka-versions.ts`). Anti-
+   fabrication: before AND after must be actually-fetched text.
 2. Bill detail page: dossier + routing + vote + forensic block
    (`/zakony` drill-down or `/zakony/<tisk>`).
 3. Forensic verdicts at scale: the ranked head of the 65 flagged bills

@@ -37,6 +37,12 @@ feasible — ranking decides *depth*, not *whether*.
 
 1. **clean** — cross-check props against raw tables (mandate present, ballots
    nonzero, committee memberships resolve); flag placeholder dates.
+   **Code-first phantom-mandate check** (batch 001, C5): `participation_rate
+   == 0 && committee_count == 0` ⇒ candidate `never_cast_ballot` (elected,
+   never sworn / relinquished for executive office) — classify BEFORE the
+   absentee-manager crossover so Opus never dossiers a structural false
+   positive. Young-term caveat (P30): the score floor is dominated by role
+   artifacts, not disengagement; comparisons must be component-level.
 2. **enrich** — the work dossier: what did their bills DO and what happened to
    them (tisky fate via `bill` nodes + `sponsors` edges + psp.cz historie);
    interpellation subjects; committee roles vs `assigned_to` bill flow through
@@ -45,6 +51,10 @@ feasible — ranking decides *depth*, not *whether*.
 3. **wire** — proposals: per-MP enrichment props (bill success rate,
    interpellation themes, committee-load), possible `interpellates` edges if
    the data sustains them (new rel → enum change via handoff/finalize).
+   For MP↔company tie semantics use the money loop's LIVE `tie_class`
+   vocabulary (owner-operator | manager | steward, pass 13) — do not mint a
+   parallel `link_kind`/`officer_by_office` scheme on the same edges; the
+   `linked_to` edges are the money loop's boundary.
 4. **signal** — story-worthiness + the honest headline the profile page could
    carry (derived from real props, positive or negative).
 
@@ -54,7 +64,14 @@ Kernel gates plus: (a) the score and every component come ONLY from
 `computeContribution` — an analyst may call a score hollow but never adjust
 it; (b) no fabricated time series — trends require actually-ingested history;
 (c) club ≠ elected party list (the classic error); (d) voided votes and the
-merged K bucket never count against anyone.
+merged K bucket never count against anyone; (e) `bills_authored` conflates
+first-signatory with co-signer (Q-effort-2) — profiles may say
+"spolupodepsal" vs "předložil" only from the předkladatel rank, and the
+number stays untouched.
+
+**Army mechanics (proven batch 001):** pre-extract all unit context into
+`dossier-inputs.json`; grouped Sonnet agents hold quality at 3–5 MPs each;
+quiet-workhorse slots (both flavours, P31) are FIXED allocation every batch.
 
 ## Seed build backlog
 

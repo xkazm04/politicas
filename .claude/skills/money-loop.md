@@ -23,28 +23,44 @@ across 73 MPs.
 
 ## Triage signals (deterministic, PGlite SQL on a copy — R4)
 
-- **Money volume per tie** — contract CZK + subsidy CZK reachable through the
-  company (the head of the queue).
-- **Temporal alignment** — contracts signed *while* the MP held the role (tie
-  period from the `linked_to` source string vs `signedOn`). The strongest
-  signal in the population.
+*(re-weighted after batch 001 — see P28/P29, C4)*
+
+- **Tie-class FIRST** (`tie_class`: owner-operator | manager | steward, keyed
+  on role × legal-form/public-marker). 200/260 ties are public-body board
+  seats where money is the body's own activity and does NOT flow to the MP —
+  raw CZK ranking buries the 37 genuine owner-operator ties. **Steward
+  reachable-CZK must never be attributed to the MP** (VaK Kroměříž ~602M is
+  not Karpíšek's money).
+- **Period reconciliation vs ARES VR** — the primary temporal signal. Hlídač
+  periods are year-rounded and default "ongoing"; ARES VR `role_valid_to`
+  catches stale/ended ties and money-postdates-role (11/15 of batch 001's
+  head). The naive "contracts signed while in role" check barely
+  discriminates — demoted.
+- **Money volume per owner-operator tie** — contract + subsidy CZK, WITHIN
+  the owner-operator class.
 - **Near-threshold clustering** — amounts just under procurement limits
-  (2M/6M CZK zadávací limity) and repeated same-supplier awards.
-- **Subject-similarity splits** — pgvector over contract subjects (R6, embed
-  once): same supplier, similar subject, amounts under limits → candidate
-  contract splitting.
-- **Triangle completion** — company holds contracts AND subsidies AND donated
-  to a party (`donated_to_party_czk` props): the full accountability triangle.
-- **Cross-case** — `absentee_manager_lead` persons (Case ② crossover) rank up.
+  (2M/6M CZK zadávací limity), repeated same-supplier awards.
+- **Subject-similarity splits** — pgvector over contract subjects (R6):
+  candidate contract splitting (queued: Q-money-2).
+- **Triangle completion** — contracts AND subsidies AND party donations from
+  one IČO.
+- **Cross-case** — `absentee_manager_lead` persons rank up ONLY after the
+  effort loop's `never_cast_ballot` pre-filter (C5: 4/4 raw flags were
+  phantom-mandate false positives).
 
 ## Stages per unit (tie)
 
 1. **clean** — validate the tie's evidence chain (source string parses, IČO
    resolves, person bridge sound); flag defects.
 2. **enrich** — corroboration dossier: ARES VR / justice.cz officer records
-   (is the MP really jednatel/akcionář of this IČO, when?), Hlídač detail,
-   contract counterparty (who paid — state org? municipality?). Web/news only
-   as narrative context. Every claim: `{claim, url, accessedAt}`.
+   (is the MP really jednatel/akcionář of this IČO, when? — **ARES VR is the
+   corroboration hinge and needs no token**), Hlídač detail, contract
+   counterparty (who paid — state org? municipality?). `HLIDAC_API_TOKEN` is
+   OPTIONAL and currently absent from `.env` — without it, take
+   contract/subsidy figures from the already-materialized graph and
+   corroborate via token-free ARES; donation re-verification (Q-money-3)
+   stays blocked on the token. Web/news only as narrative context. Every
+   claim: `{claim, url, accessedAt}`.
 3. **wire** — proposals only: confidence annotations on the tie
    (`corroboration: registry-confirmed | registry-unconfirmed | conflicting`),
    enriched company/contract props, missing `supplies` edges found via direct
