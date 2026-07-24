@@ -128,6 +128,35 @@ path on ARM → materialize as a Pumper dataset+trigger → the app feature rege
 itself as new votes land. The benchmark tells us *which* paths are worth automating
 and *at what model/effort* — so we spend Opus only where Haiku won't do.
 
+### First materialization — vote theme tags (2026-07-23)
+
+The proven winner (haiku classification) is now materialized as a **Silver-layer
+`vote_tag` dataset** in PGlite:
+
+- **Store layer:** a `VoteTagRepository` (`upsertVoteTags` / `listVoteTags` /
+  `voteTagCountsByTheme`) + a `vote_tag` table — derived, recomputable metadata like
+  `slice_quality`/`kg_node`, stamped with model + method so a rendered tag cites how
+  it was made.
+- **Materialize script:** `scripts/hybrid-bench/materialize-tags.ts`
+  (`npm run hybrid:materialize`) runs a multi-class `sem_classify` (13-theme Czech
+  taxonomy) with **haiku** over the real PSP10 `vote_events` and upserts one theme
+  tag per roll call. Verified run (first 189 titled non-voided votes): distribution
+  **procedura 90 · personalie 77 · duvera-vlada 14 · rozpocet-finance 5 ·
+  socialni-bydleni 3** — matches the early-term corpus (mostly procedure +
+  personnel + the confidence vote). ~16k output tokens for 189 votes; near-zero $.
+- **Consumed by:** the `/hlasovani` VoteTrack theme filter — **wired 2026-07-23**,
+  the **first real-store read** in a feature surface (every other feature is still
+  `lib/civic/*` mock). `app/hlasovani/page.tsx` (server) calls `getVoteThemes()`
+  (joins `vote_tag` × `vote_events`) and passes the data to a new client
+  `VoteThemeFilter` (theme chips + filtered vote list) as section 04 of VoteTrack.
+  Degrades gracefully (section hidden) when no store/tags. Verified end-to-end
+  against a materialized copy: 377 tags, `getVoteThemes()` returns correctly-joined
+  {title, outcome, theme}. To light it up in the running app, materialize into the
+  **live** store with the dev server down: `DB_DRIVER=pglite npm run hybrid:materialize`.
+- **Automation path:** promote this exact script to a Pumper app that emits a
+  change-detected `politicas/vote_tags` dataset + a `dataset` trigger fanning the
+  haiku pass over changed rows only.
+
 ## 5. Suggested sequence (ARM, now)
 
 1. **#3 roll-call summaries** — smallest, purest llm-narrate test; sweep model×effort
@@ -338,12 +367,19 @@ prose).
 | derived aggregate | computation | **deterministic** for any cited number; if LLM, **sonnet/medium+** (haiku is flaky — variance); reasoning level irrelevant at Opus |
 | `sem_join` | entity linking | **haiku** for recall; but ALL tiers fabricate ~7% under near-collisions → **gate every link** (deterministic verify + human) |
 
-**Methodology flag:** every cell above is **n=1**. The derived haiku 75%→100% flip
-is proof that variance is real and repeats are mandatory before trusting any single
-scorecard — the same lesson the Tier-2 harness recorded. Next: add repeats
-(≥3/cell) to pin variance; the adversarial-`sem_join` probe (same-surname decoys);
-then materialize a winning path — the haiku `sem_filter` vote-type tags — as a
-Silver-layer Pumper dataset (§4).
+**Variance pinned (repeats=5 on the 3 hardest sessions, 2026-07-23):** on the
+large-column SUM — the one flaky field — **haiku 12/15 exact (80%; misses off by
+−504 / −486 / −30), sonnet/medium 15/15, opus/low 9/9** (the run aborted on a 240s
+call-timeout after 9 opus/low trials — the harness has since been hardened to skip a
+failed cell instead of crashing). So **haiku's arithmetic is genuinely unreliable —
+~1 in 5 large sums wrong — while sonnet/medium and opus/low are reliable.** Rule:
+never trust haiku for a computed number; use **sonnet/medium+** for LLM arithmetic;
+and route any *cited* number through the **deterministic engine** (even 100%-over-15
+is not a guarantee a civic product can publish on). Every other cell in the map is
+still **n=1** — pin before trusting.
+
+Next: **materialize the first winner** — the haiku `sem_filter` vote-type tags — as
+a Silver-layer Pumper dataset the app consumes (§4).
 
 ## References
 

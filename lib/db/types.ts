@@ -221,3 +221,24 @@ export interface SliceQualityRow {
   taxonomyVersion: string;
   analyzedAt: string;
 }
+
+/**
+ * A derived THEME tag on one roll call (the Silver-layer output of the hybrid
+ * `sem_filter`/`sem_classify` enrichment — see docs/hybrid-benchmark-plan.md).
+ * DERIVED, recomputable metadata like slice_quality / kg_node: never a
+ * source-of-truth for the vote itself, always re-materialisable, and stamped with
+ * the model + method that produced it so a rendered tag can cite how it was made.
+ */
+export interface VoteTagRow {
+  id: string; // `vote_tag:<votePspId>`
+  votePspId: number;
+  /** Canonical theme slug from the fixed taxonomy (e.g. `budget-finance`). */
+  theme: string;
+  /** The classifier's self-reported confidence, 0–1 (nullable). */
+  confidence: number | null;
+  /** Which model produced it, e.g. `haiku` — the benchmarked cheap classifier. */
+  model: string;
+  /** How it was derived, e.g. `sem_classify`. */
+  method: string;
+  taggedAt: string;
+}

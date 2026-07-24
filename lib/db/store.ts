@@ -28,6 +28,7 @@ import type {
   SourceReleaseRow,
   VoteBallotRow,
   VoteEventRow,
+  VoteTagRow,
 } from "./types";
 
 export interface ListOptions {
@@ -94,6 +95,18 @@ export interface AnalysisRepository {
 }
 
 /**
+ * Derived theme tags on roll calls — the Silver-layer output of the hybrid
+ * `sem_classify` enrichment (benchmarked in docs/hybrid-benchmark-plan.md).
+ * DERIVED, recomputable metadata; the materialize script is the only writer.
+ */
+export interface VoteTagRepository {
+  upsertVoteTags(rows: VoteTagRow[]): Promise<number>;
+  listVoteTags(opts?: { theme?: string; limit?: number }): Promise<VoteTagRow[]>;
+  /** theme slug → tagged-vote count, for a theme filter / breakdown. */
+  voteTagCountsByTheme(): Promise<Record<string, number>>;
+}
+
+/**
  * The derived knowledge graph (tier 2 of the self-expanding KG loop). Typed nodes
  * and typed, weighted, provenanced edges the app's features read directly. Like
  * `AnalysisRepository` this is DERIVED, recomputable metadata — the deterministic
@@ -116,6 +129,7 @@ export interface Store
     VoteRepository,
     ProvenanceRepository,
     AnalysisRepository,
+    VoteTagRepository,
     KnowledgeGraphRepository {
   /** Release the underlying connection (PGlite is single-connection). */
   close(): Promise<void>;

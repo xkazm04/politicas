@@ -50,3 +50,5 @@ next-env.d.ts
 
 # Personal cost data - the Personas passport reads it locally; never in VCS (rule committed on master)
 app-cost.json
+/scripts/**/node_modules/
+/.db-bench

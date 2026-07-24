@@ -109,7 +109,15 @@ async function main() {
     detail[armId] = [];
     for (let rep = 0; rep < repeats; rep++) for (const g of groups) {
       process.stdout.write(`${armId} · session ${g.session} (${g.truth.n_votes}) #${rep + 1} ... `);
-      const res = await runClaude(prompt(g.session, g.votes), cfg);
+      let res;
+      try {
+        res = await runClaude(prompt(g.session, g.votes), cfg);
+      } catch (e) {
+        // Survive a per-cell timeout/error instead of aborting the whole batch
+        // (a repeats run makes many calls; one slow one must not kill it).
+        console.log(`ENGINE ERROR (skipped): ${e instanceof Error ? e.message : String(e)}`);
+        continue;
+      }
       outTok += res.outputTokens;
       const o = extractObject(res.text);
       const got: Record<string, number> = {};

@@ -22,8 +22,10 @@ import VoteLedger from "./components/VoteLedger";
 import ChamberDetail from "./components/ChamberDetail";
 import DisciplineBoard from "./components/DisciplineBoard";
 import Rebellions from "./components/Rebellions";
+import VoteThemeFilter from "./components/VoteThemeFilter";
+import type { VoteThemeData } from "./themeTypes";
 
-export default function VoteTrackPage() {
+export default function VoteTrackPage({ themeData }: { themeData: VoteThemeData | null }) {
   const t = useTranslations("votetrack");
   const [selectedId, setSelectedId] = useState(ROLL_CALLS[0].id);
   const rc = ROLL_CALLS.find((r) => r.id === selectedId) ?? ROLL_CALLS[0];
@@ -101,7 +103,7 @@ export default function VoteTrackPage() {
         </section>
 
         {/* ── 03 Rebelie a nezávislost ──────────────────────── */}
-        <section className="mt-14 border-t-4 border-ink pt-10 pb-20">
+        <section className={`mt-14 border-t-4 border-ink pt-10 ${themeData?.votes.length ? "" : "pb-20"}`}>
           <SectionHeading
             index={3}
             title={t("section3Title")}
@@ -111,6 +113,20 @@ export default function VoteTrackPage() {
             <Rebellions />
           </div>
         </section>
+
+        {/* ── 04 Témata hlasování (reálná data ze store — Silver vrstva) ── */}
+        {themeData && themeData.votes.length > 0 && (
+          <section className="mt-14 border-t-4 border-ink pt-10 pb-20">
+            <SectionHeading
+              index={4}
+              title={t("section4Title")}
+              aside={<SourceNote>{t("section4Note")}</SourceNote>}
+            />
+            <div className="mt-8">
+              <VoteThemeFilter data={themeData} />
+            </div>
+          </section>
+        )}
       </div>
     </main>
   );

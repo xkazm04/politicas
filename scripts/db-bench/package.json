@@ -1,0 +1,11 @@
+{
+  "name": "politicas-db-bench",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Isolated benchmark-only deps for the DB-architecture experiments (docs/db-architecture-guide.md). Kept OUT of the product package.json so these native engines never touch the Next app's dependency tree or CI. node_modules is gitignored. PGlite (the incumbent) comes from the root install.",
+  "dependencies": {
+    "@duckdb/node-api": "^1.5.5-r.1",
+    "@lancedb/lancedb": "^0.31.0"
+  }
+}
