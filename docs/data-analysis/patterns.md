@@ -291,3 +291,22 @@ parsers must treat lineage citations as noise.
 Both confirmed collision clusters were verified by direct grep of cached novelization text —
 cheaper and stronger than a second model read. For "does text X appear in bill Y" class claims,
 grep IS the verification.
+
+## P50 [law] Edge-set regeneration is a write path — deletion-allowlist + sequencing (batch 004)
+
+Regenerating a relation from richer data is not "just additive": it re-ranks every downstream
+signal (churn, collisions, triage) and any dropped edge is a silent data loss (the replace-vs-
+union bug). Rules: diff against the LIVE set; explicit allowlist for every deletion; land the
+dependent-signal fixes WITH the topology change, not after.
+
+## P51 [effort] Money-touching rewrites need two independent verification layers (batch 004)
+
+Even the VR-doctrine rewrite pass left two blocking omissions (C13) that only a second,
+independent check (direct registry curl + Opus) caught. One verification layer over money
+claims about named people is not enough — structural rule, not a model-tier question.
+
+## P52 [kernel] A ranking signal inside a backlog sweep needs discriminative-power validation too
+
+Batch-003 ordered collision close-reads by shared-§ count; measured against final
+classifications it does not discriminate. P32's rule applies one level down: any ordering
+used to spend model time is a triage signal and gets validated like one.

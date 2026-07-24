@@ -97,7 +97,19 @@ improvement candidate for `gate-verdicts.ts`).
 4. Vote→law→impact chain UI: roll call → bill → amended § → effective date
    (closes the loop with `/hlasovani`).
 
-## Batch-004 priorities (set at batch-003 integration)
+## Batch-005 priorities (set at batch-004 integration)
+
+1. **P1 (paired, land together): missing-law-node ingest** (Q-law-12 — 188
+   statutes / 289 citations = 50.6% have no node; e-Sbírka SPARQL resolves
+   ELIs cheaply, autonomous authority) **+ apply the validated 282-edge
+   amends regeneration** (Q-law-11's set-difference trigger first; the
+   payload passed 282/282 and is HELD at the orchestrator).
+2. Re-run the collision pre-check on the regenerated topology (~5× candidate
+   universe; expect ~170 surviving pairs) — feed `/zakony/kolize`.
+3. Ranking-signal validation for the sweep order (P52 — shared-§ count does
+   not discriminate).
+
+## Batch-004 priorities (DONE — see ledger; kept for history)
 
 1. **Q-law-8 — amends edge regeneration decision:** `amended_laws_full`
    census props are live on 53 bills (420 unrecorded citations; gov omnibus

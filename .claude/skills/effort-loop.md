@@ -96,7 +96,17 @@ quiet-workhorse slots (both flavours, P31) are FIXED allocation every batch.
 4. Profile deepening: bill-fate section, committee-flow section on
    `/poslanec/<pspId>`.
 
-## Batch-004 priorities (set at batch-003 integration)
+## Batch-005 priorities (set at batch-004 integration)
+
+1. Kott-signal with real data (Q-effort-13): cro.justice.cz + volby.cz —
+   the two primary sources the batch-004 probe missed.
+2. Remaining population (~87 MPs) with convergence expected; declare
+   coverage when the yield threshold says so (kernel K=3 rule).
+3. **Money-touching rewrites get TWO independent verification layers**
+   (P51/C13) — now a case gate, not a suggestion.
+4. Tenure-aware profile copy (the build not picked in 004).
+
+## Batch-004 priorities (DONE — see ledger; kept for history)
 
 1. **Rewrite the 8 held-back money dossiers** (Q-effort-9) under the VR
    doctrine — their `effort_notes` were stripped at persist (C11).

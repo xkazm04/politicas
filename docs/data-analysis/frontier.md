@@ -127,3 +127,17 @@ and the graph-metrics block in [[coverage-ledger]] for progress.
 | Q-law-10 | partition collision-check by statute for omnibus PDFs (tisk 248 contamination) | batch-003 lesson (d) | open |
 | Q-law-6 | ~~amends undercount census~~ | ✅ pass 20: 140/141, gov 2.3× MP, tisk 64 = 148 vs 1 | **done** |
 | Q-law-5 | ~~collision close-read (first 12)~~ | ✅ 3 confirmed / 2 risk / 7 incidental | **done (head)** |
+
+### Batch-004 closures + batch-005 seeds
+| id | target | status |
+|---|---|---|
+| Q-money-10 (D1) | ingest durability | ✅ **done** (2 passes, Opus re-audited; kg-promote fixed too) |
+| Q-money-11 (OSVČ) | purge | ✅ **executed pass 22** — 49 edges + node deleted; 211 real ties |
+| Q-money-12 | write-path polish D3/D4/D5/D7 | ✅ done (CHECK constraint needs live-table migration — batch 005) |
+| Q-money-2 | pgvector splitting | **RETIRED** (no-fourth-deferral; revival condition in batch-004.md) |
+| Q-money-7 | PRaK | dead end (or.justice.cz SPA-walled); annotation stands |
+| Q-money-13 (new) | 10 stale prop-content mentions of the purged IČO in older dossiers/citations | open (batch-005 cleanup) |
+| Q-law-11 (new) | set-difference trigger for collision pre-check + apply the validated 282-edge regen | **batch-005 P1 (with the node ingest)** |
+| Q-law-12 (new) | missing-law-node ingest: 188 statutes / 289 citations (50.6%) have no law node — e-Sbírka SPARQL resolves ELIs cheaply | **batch-005 P1** |
+| Q-effort-13 (new) | Kott-signal sources identified (cro.justice.cz, volby.cz) — probe with real data | open |
+| Q-effort-9/11/12 | rewrites / prose-vs-props gate / divergence V3 | ✅ done |

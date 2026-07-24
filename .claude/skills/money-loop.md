@@ -100,7 +100,17 @@ tie rendered anywhere states its review state honestly.
 4. Registr smluv direct ingest adapter (autonomous — open bulk XML dumps;
    the Pumper `smlouvy-dump-watch` app already watches releases).
 
-## Batch-004 priorities (set at batch-003 integration)
+## Batch-005 priorities (set at batch-004 integration)
+
+1. **First real human review session support**: the console is ENABLED-ready
+   (D1 closed, purge executed, 211 real ties). Support the reviewer: triage
+   the queue into review-order (registry-confirmed owner-operators first),
+   live-table `CHECK` migration for review_audit, and act on review outcomes.
+2. Q-money-13: clean the 10 stale prop-content mentions of the purged IČO.
+3. Two open leads: Q-money-5 (Juchelka subsidy-influence), Q-money-6
+   (Okamura non-disclosure) — both need careful, cited treatment.
+
+## Batch-004 priorities (DONE — see ledger; kept for history)
 
 1. **D1 — ingest durability (Q-money-10, TOP):** kg-money's ingest must
    merge-preserve human-gated fields (`review_state`, `last_decision`,

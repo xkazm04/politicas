@@ -471,3 +471,37 @@ political party. All 49 annotated `false_edge_suspected` (deterministic; contrac
 no money totals were inflated). Purge + generic-token blacklist = money batch-004 top item with
 D1. Effective real tie population: ~211. Money batch 003 itself made NO graph write (write-path
 build + PRaK research only; console committed but NOT enabled pending D1).
+
+## Pass 22 (track: money) — orchestrator: OSVČ purge executed (2026-07-24)
+
+**49 `linked_to` edges + the `company:ico:04627695` node DELETED** (purge-osvc.ts, rehearsed on a
+copy, live run guarded by --confirm-live). Population: 260 → **211 ties**, all `pending_review`.
+Money batch 004 also closed D1 (ingest merge-preserves human-gated fields — two passes; the Opus
+re-audit found kg-promote shared the defect + 6 missing preserve fields incl. a review_note
+near-miss) and D3/D4/D5/D7; pgvector RETIRED (no-fourth-deferral rule); PRaK honest dead end.
+`deleteKgEdges`/`deleteKgNodes` accepted into the shared repo (Opus-verified additive). Ten
+prop-content mentions of the purged IČO remain in older dossier/citation prose — batch-005
+cleanup. **The console durability gate is CLOSED — enablement now only needs REVIEWER_NAME/
+REVIEWER_TOKEN set by the operator.**
+
+## Pass 23 (track: effort) — Case ② batch-004: rewrites + army + role-window (2026-07-24)
+
+**8 rewritten money dossiers restored** (VR doctrine, doubly verified — the second pass caught
+Foldyna's second undisclosed historical tie and un-cleared Výborný's Gymnázium Pardubice role;
+Hladík's tie count 1→5), **35 army dossiers**, **6 role_window_mismatch annotations**. The new
+prose-vs-props gate fired its first two soft warnings at persist — both the KNOWN
+co-signer-vs-first-author conflation (prose carries the corrected number). Divergence V3
+re-validated by ranking diff; triage tenure-classifier staleness bug fixed; Kott probe verdict
+PARTIAL (two missed primary sources identified for batch 005). role_window_mismatch badge shipped
+reusing LowScoreReasonBadge.
+
+## Held: law batch-004 amends regeneration (validated, NOT applied)
+
+`batch-004-amends-regen.json` validates PASS 282/282 (150 → 282 edges, fully additive after the
+Opus audit fixed a replace-vs-union bug). **Deliberately not applied** — the law reflection's
+sequencing finding: applying reopens the collision candidate universe ~5× un-pre-checked
+(88→436 bill-pairs) and invalidates triageScoreV2. Batch-005 P1: missing-law-node ingest (188
+statutes / 289 citations = 50.6% of real citations have no law node) + Q-law-11 trigger fix,
+THEN apply. Also batch 004: 24 more collision close-reads (4-batch totals 17 confirmed / 9 risk /
+12 incidental, scoped to the 150-edge topology), §88 diff (23 hunks), **/zakony/kolize shipped**
+(commit a44fe5f — a driver commit, fleet-rule breach, boundary-clean, retained; rule sharpened).

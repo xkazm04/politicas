@@ -164,3 +164,12 @@ a hallucinated MP. See [[frontier]] for the analyses that will fill this out and
   on all 207.
 - **Open (new): role_window_mismatch badge** — the six mid-term promotions deserve the same
   honest-correction treatment as declined mandates.
+
+### Batch 004 (2026-07-24)
+- **`/zakony/kolize` — ✅ SHIPPED**: the drafting-collision monitor (18 statute-§ clusters, 4
+  N-way; confirmed vs coordination-risk tones; grep-verified excerpts; rendered as coordination
+  findings, never wrongdoing verdicts). A surface no state institution offers.
+- **role_window_mismatch badge — ✅ SHIPPED** (zero new components — reused LowScoreReasonBadge).
+- **Console ENABLEMENT — READY**: D1 closed + purge executed. Operator action: set
+  `REVIEWER_NAME` + `REVIEWER_TOKEN` (.env.example documents both) and the 211-tie review
+  queue goes live with full audit trail. First real human review session can start.

@@ -141,3 +141,18 @@ Batch 002 found over-claiming; batch 003's Opus verification found systematic UN
 contains officers — factually clearing 5 MPs of documented (some currently-active) register
 roles (Válková, Hladík, Bartošek, Hrnčíř, Pařil). New kernel doctrine: never assert ABSENCE of a
 company tie without a /ekonomicke-subjekty-vr/{ico} lookup.
+
+## C12 [law batch 004] — "collision backlog CLOSED" is scoped-true, headline-false
+
+The 72-pair backlog closed against the 150-edge `amends` topology that the same batch's
+regeneration replaces (bill-pairs sharing a statute: 88 → 436). Restated: closed against the
+pre-regen topology; reopens at ~5× on apply (~170 partition-surviving pairs expected, ~half
+historically confirm). Also corrected: batch-003's claim that no confirmed collision touches
+sponsor money — 2 confirmed-collision bills DO carry sponsor-money flags.
+
+## C13 [effort batch 004] — two blocking omissions survived even the rewrite pass
+
+Foldyna carried a second undisclosed historical company tie; Výborný's Gymnázium Pardubice
+statutory role (2012–2022, the entity behind his 9.25M CZK figure) had been wrongly cleared
+since batch 003. Both caught by the second verification layer (direct VR curl + Opus), both
+fixed before persist. Lesson: money-touching rewrites get TWO independent verification layers.
