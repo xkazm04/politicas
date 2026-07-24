@@ -1,0 +1,80 @@
+{
+  "repo": "politicas",
+  "branch": "feat/data-layer-datahub",
+  "db": {
+    "engine": "pglite",
+    "rationaleIfDifferent": "Embedded Postgres (WASM) behind a typed Store/repository interface. politicas is an entity graph: club resolution is a recursive walk through the organ tree, open-data payloads are heterogeneous JSONB kept verbatim for audit, and validity is an arithmetic check over 406k ballots — all native in Postgres, none native in SQLite. Zero infra now, one driver file away from hosted Postgres. Two caveats handled: single-connection (memoised on globalThis; analysis reads a copy) and no unaccent extension (diacritics folded to ASCII at ingest into indexed *_norm columns).",
+    "tables": [
+      { "name": "person", "purpose": "MP/person registry (full history from 1992); ASCII-folded name_norm for search", "rows": 7045 },
+      { "name": "organ", "purpose": "Chambers, parliamentary clubs, committees, regions, party lists — the graph's grouping nodes", "rows": 1790 },
+      { "name": "mandate", "purpose": "One MP's seat in one electoral term (2157 all terms; 207 in PSP10)", "rows": 2157 },
+      { "name": "membership", "purpose": "person <-> organ / office, time-bounded; resolves club membership", "rows": 42261 },
+      { "name": "vote_event", "purpose": "Roll calls with reconciling tallies + outcome/kind vocabularies (PSP10)", "rows": 2030 },
+      { "name": "vote_ballot", "purpose": "One MP x one roll call — the corpus hot table (PSP10)", "rows": 406000 },
+      { "name": "absence", "purpose": "Excused absences (omluvy), term-scoped and de-duplicated", "rows": 6425 },
+      { "name": "source_release", "purpose": "psp.cz release manifest + page fingerprint mirrored from Pumper — makes staleness of the direct download detectable", "rows": 17 },
+      { "name": "ingest_run", "purpose": "Provenance ledger: one row per ingest, status + rows_written + source last-modified", "rows": 3 },
+      { "name": "slice_quality", "purpose": "Deterministic 6-criteria quality snapshot per analysis slice", "rows": 8 }
+    ],
+    "migrationsPath": "lib/db/migrations/0001_civic_graph.sql"
+  },
+  "ingestion": {
+    "sourcesAttempted": [
+      { "id": "psp-poslanci", "url": "https://www.psp.cz/eknih/cdrom/opendata/poslanci.zip", "kind": "bulk", "viaPumper": false, "status": "ok", "records": 53253, "note": "person/organ/mandate/membership registries; UNL windows-1250; direct download (binary ZIP, decoded ourselves — Pumper mis-decodes the charset). 55 duplicate natural keys in source collapsed and reported." },
+      { "id": "psp-hlasovani", "url": "https://www.psp.cz/eknih/cdrom/opendata/hl-2025ps.zip", "kind": "bulk", "viaPumper": false, "status": "ok", "records": 414455, "note": "PSP10 roll calls + 406k per-MP ballots + excused absences; omluvy de-duped and term-scoped (bundle ships all terms)." },
+      { "id": "pumper-psp-opendata", "url": "http://127.0.0.1:8088/datasets/{extractor/extracted,watch/pages}/export", "kind": "api", "viaPumper": true, "status": "ok", "records": 17, "note": "Release manifest + page fingerprint mirrored from Pumper's extractor + watch apps. All 17 rows carry U+FFFD from Pumper's charset defect — flagged, never repaired; used as a staleness signal, not for display." },
+      { "id": "registr-smluv", "url": "https://data.smlouvy.gov.cz/", "kind": "bulk", "viaPumper": false, "status": "partial", "records": 0, "note": "Probed only: monthly XML dumps reachable (HTTP 200, ~1.2MB index). Not ingested — landed the psp.cz vote graph properly instead of three sources half-done. FollowTheMoney candidate for the next pass." },
+      { "id": "ares", "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/", "kind": "api", "viaPumper": false, "status": "partial", "records": 0, "note": "Probed only: ARES v3 REST returns JSON 200 for a subject lookup. Deferred to the IČO-join / FollowTheMoney phase." }
+    ],
+    "totalRecords": 467725,
+    "wallClockSec": 27
+  },
+  "pumper": {
+    "wired": true,
+    "howUsed": "Enqueued POST /apps/extractor/jobs (a RuleSet parsing the psp.cz open-data index into a file manifest) and POST /apps/watch/jobs (fingerprinting the release page), then mirrored both datasets via GET /datasets/{app}/{dataset}/export?format=json into the source_release table. This makes staleness of the direct psp.cz bulk download detectable (the dumps carry no version or diff feed). The bulk dumps themselves are downloaded directly, not through Pumper, because they are binary windows-1250 ZIPs and Pumper's HTML fetcher mis-decodes the charset.",
+    "pumperAppsUsed": ["extractor", "watch"],
+    "mirrorAdapterPath": "lib/ingest/sources/pumper.ts",
+    "newPumperAppSpec": {
+      "summary": "Not a new app — a fix to an existing generic path. Pumper's tiered HTML fetcher (readable/watch/extractor Markdown path) does not honour a response's declared charset=windows-1250, so Czech letters (e r c s z u with diacritics) arrive as U+FFFD.",
+      "evidence": "All 17 mirrored source_release rows carry U+FFFD in description/page_title/title; the same psp.cz pages decode correctly when politicas fetches them with TextDecoder('windows-1250').",
+      "requestedFix": "Honour the HTTP Content-Type charset (and/or <meta charset>) before converting to Markdown / storing text, defaulting to UTF-8 only when none is declared. Until then, downstream consumers must treat non-UTF-8-origin text from Pumper as lossy.",
+      "impact": "Would let Pumper mirror Czech open-data pages faithfully, unlocking psp.cz (and other cz open-data) HTML sources for the extractor/readable/watch apps. Without it, politicas must decode such sources itself."
+    }
+  },
+  "datahub": {
+    "platformUrn": "urn:li:dataPlatform:politicas",
+    "datasets": 17,
+    "aspects": 61,
+    "lineageEdges": [
+      "urn:li:dataset:(urn:li:dataPlatform:pumper,extractor.extracted,PROD) -> corpus.pumper-psp-opendata.source_release",
+      "urn:li:dataset:(urn:li:dataPlatform:pumper,watch.pages,PROD) -> corpus.pumper-psp-opendata.source_release",
+      "corpus.<source>.<entity> -> slice.<source>.<term>.<entity> (one per slice, 8 total)",
+      "corpus.<source>.<entity> (all 8) -> store.slice_quality"
+    ],
+    "contextScriptPath": "scripts/data-analysis/dh-context.ts"
+  },
+  "analysis": {
+    "slices": [
+      { "slice": "psp-hlasovani×PSP10×vote_event", "rows": 2030, "composite": 4.2, "gatePassed": true },
+      { "slice": "psp-poslanci×PSP10×mandate", "rows": 207, "composite": 3.8, "gatePassed": true }
+    ],
+    "verdictsPath": "docs/data-analysis/verdicts/",
+    "topFindings": [
+      "Vote-tally integrity is perfect: yes+no+abstain+notVoting == present on 100% of 2030 PSP10 roll calls — an internal-consistency proof the mock layer never had.",
+      "16 PSP10 roll calls are voided (zmatecne) and MUST be excluded from any discipline/attendance metric or a rebellion is attributed to a legally-disregarded vote.",
+      "Current-term MP contact fields (email/web/facebook) are empty corpus-wide (0/207) while 203/207 have photos — upstream-absent, not un-scraped; the profile must source the absence rather than blank it.",
+      "A parliamentary club is NOT the elected party-list: the graph keeps them separate and categorization scores club membership via the organ tree — conflating them (as the mock does) would mis-attribute discipline.",
+      "The post-1995 merged 'K' ballot bucket (44633 PSP10 ballots) fuses abstained + did-not-press and cannot be split — any 'abstention rate' metric is un-computable for modern terms; the scorer flags it as a richness cap, not missing data.",
+      "Structural publisher gaps that are NOT scrape targets: empty short vote titles, a year-2925 placeholder membership date, and the U+FFFD Pumper-mirror text."
+    ]
+  },
+  "quality": { "checkPassed": true, "testsPassed": true, "testCount": 77 },
+  "blockers": [],
+  "honestGaps": [
+    "Only the current electoral term (PSP10) has votes/ballots/absences ingested; the adapter is term-parameterised (--term=) and the person/organ registries are already full-history, so earlier terms are a re-run away.",
+    "The two analysis verdicts were authored then passed through the deterministic gate (schema + entity-id membership), not authored by Sonnet subagents; the enforced contract is identical regardless of author, and the subagent fan-out is wired into both skills but not exercised this session (available subagent tooling is agent-team, heavier than this bounded pass warranted).",
+    "FollowTheMoney sources (Registr smluv XML dumps, ARES v3 REST) were probed and confirmed reachable/permissible but not ingested — one source landed end-to-end beats three half-done.",
+    "The Pumper release mirror is a staleness signal only: its text is unusable for display until Pumper honours windows-1250 (the newPumperAppSpec fix).",
+    "membership carries a far-future placeholder date (year 2925, a source typo) that inflates a naive newest-row freshness read — surfaced and flagged, corrected only in derived scoring, never in the source column."
+  ]
+}

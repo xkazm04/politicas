@@ -16,7 +16,14 @@
     "da:datahub-sync": "tsx scripts/data-analysis/datahub-sync.ts",
     "da:dh-context": "tsx scripts/data-analysis/dh-context.ts",
     "da:validate-verdict": "tsx scripts/data-analysis/validate-verdict.ts",
-    "da:promote-verdicts": "tsx scripts/data-analysis/promote-verdicts.ts"
+    "da:promote-verdicts": "tsx scripts/data-analysis/promote-verdicts.ts",
+    "da:kg-compute": "tsx scripts/data-analysis/kg-compute.ts",
+    "da:validate-kg-verdict": "tsx scripts/data-analysis/validate-kg-verdict.ts",
+    "da:kg-promote": "tsx scripts/data-analysis/kg-promote.ts",
+    "da:kg-metrics": "tsx scripts/data-analysis/kg-metrics.ts",
+    "da:kg-datahub-sync": "tsx scripts/data-analysis/kg-datahub-sync.ts",
+    "hybrid:semop": "tsx scripts/hybrid-bench/run.ts",
+    "hybrid:semagg": "tsx scripts/hybrid-bench/agg.ts"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.4.6",
