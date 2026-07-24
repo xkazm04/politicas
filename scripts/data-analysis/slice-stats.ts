@@ -36,23 +36,16 @@ import {
 } from "@/lib/analysis/quality";
 import { SOURCE_HLASOVANI, SOURCE_POSLANCI } from "@/lib/ingest/sources/psp";
 import { SOURCE_PUMPER } from "@/lib/ingest/sources/pumper";
+import type { SliceStats } from "@/lib/analysis/context-model";
+
+// SliceStats now lives with the shared context model (lib/analysis/context-model.ts)
+// so the DataHub-publish arm, the direct-read arm, and this producer all quote one
+// type. Re-exported here for existing importers (e.g. datahub-sync.ts).
+export type { SliceStats };
 
 function arg(name: string, fallback: string): string {
   const hit = process.argv.find((a) => a.startsWith(`--${name}=`));
   return hit ? hit.slice(name.length + 3) : fallback;
-}
-
-export interface SliceStats {
-  slice: string;
-  source: string;
-  term: string;
-  entity: string;
-  rows: number;
-  pct: Record<string, number>; // 0–100, rounded
-  composite: number;
-  criteria: Record<string, number>;
-  freshness: { syncAgeDays: number | null; rowLagDays: number | null; newestRow: string | null };
-  notes: string[]; // deterministic, factual observations (never a judgement)
 }
 
 const pctOf = (rows: RowFlags[], pick: (f: RowFlags) => boolean) =>
