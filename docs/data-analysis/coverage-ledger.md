@@ -33,20 +33,38 @@
 > DataHub projection of `kg_*` as datasets + lineage (a bloc traces back to the raw ballots).
 > **Pass 8** ([[cluster-committees-and-money]]): **F12 done** — new `owns` relation, 27
 > committee→theme edges (vote→theme→committee chain closed). **F6 money graph WIRED** —
-> `lib/analysis/kg-money.ts` (IČO join + human gate, 6 tests) is built and tested but emits
-> **nothing** here: it is blocked on three real feeds (Registr smluv, ARES, and the sensitive
-> MP↔company linkage) that cannot be fabricated. F15 blocked on the psp.cz `tisky` dataset.
-> **Case 2 phases 1–5 complete; the money layer is code-ready, data-blocked.**
+> `lib/analysis/kg-money.ts` (IČO join + human gate, 6 tests) is built and tested. **As of
+> 2026-07-23 it emitted nothing** (blocked on Registr smluv / ARES / the sensitive MP↔company
+> linkage). **UNBLOCKED 2026-07-24** — see the trio reconciliation note below. F15 (formal
+> per-bill committee routing) remains blocked on the psp.cz `tisky→výbor` assignment, but the
+> `tisky` dataset itself is now ingested (bill/law nodes exist). **Case 2 phases 1–5 complete.**
 > **Passes 9–13** closed the remaining analytical items: **F23** (foreign-affairs theme; education
 > declined), **F13** (full theme coverage), **F18** (contestedness re-score; oversight → mixed, C3),
 > **F3/F7** ([[cluster-contested]] — blocs sharpen to **0.998 opposition on close votes**; CivicScore
 > Independence = f(`contested_vote_rebellion`)), **F4/F9** (both modest/negative, honestly recorded).
 >
-> **⇒ THE LOOP HAS CONVERGED (13 passes).** Frontier grew 5 → 12 then shrank to **2 open**, both
-> **staleness-only** (F5/F10 — nothing to recompute until the corpus re-ingests). No open item can add
-> new knowledge from the current corpus. Everything genuinely new needs **external data**: the money
-> layer (F6 — built + tested, blocked on Registr smluv/ARES + MP-linkage) or the psp.cz `tisky`
-> dataset (F15). Design doc §0 carries the full build sync. §10 = phase list.
+> **⇒ THE ANALYTICAL LOOP CONVERGED (13 passes, 2026-07-23).** Frontier grew 5 → 12 then shrank to
+> **2 open**, both **staleness-only** (F5/F10 — nothing to recompute until the corpus re-ingests). No
+> open item could add new knowledge from *that* corpus — everything genuinely new needed **external
+> data**. Design doc §0 carries the full build sync. §10 = phase list.
+>
+> **⇒ THE EXTERNAL DATA LANDED (2026-07-24) — the "golden trio."** Three investigative cases
+> ingested the previously-blocked feeds and materialized them into the same `kg_node`/`kg_edge`
+> store (an independent pass-10/11 sequence, not a continuation of the loop above — see
+> [[graph-schema]] track note):
+> - **① FollowTheMoney (F6, pass 10, deterministic):** 196 `company` + 2 287 `contract` nodes;
+>   260 `linked_to` (person→company, **all `pending_review`** — the human gate holds) + 2 290
+>   `supplies` edges. ~18.7 bn CZK reachable public money across 73 MPs. → `/penize`.
+> - **② Effort / contribution (pass 11, deterministic):** all 207 `person` nodes carry a
+>   `contribution_score` + 6 exposed components + `absentee_manager_lead`
+>   (`lib/analysis/contribution.ts`). → `/zebricek` + `/poslanec`.
+> - **③ Law forensics (F15-adjacent, pass 11, deterministic):** 141 `bill` + 101 `law` nodes;
+>   150 `amends` (bill→law) + 528 `sponsors` (person→bill) edges; 1 bill (tisk 58) carries a
+>   gated `forensic_*` verdict (`pending_review`). → `/zakony`.
+>
+> Graph: **263 nodes / 21 359 edges** (loop) → **2 989 / 24 749** (trio). The four feature surfaces
+> `/penize`, `/zebricek`, `/poslanec`, `/zakony` were wired off the mock onto these real nodes on
+> 2026-07-24 (loader pattern per `/hlasovani`; mock retained only as graceful fallback).
 
 THE DRIVER for `/data-analysis`. One row per slice (`source × term × entity`).
 The loop picks the stalest `pending`/`stale` row; a slice goes `stale` when its

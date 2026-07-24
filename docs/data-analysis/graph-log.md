@@ -303,3 +303,45 @@ F4, F9 → `done`.
 the corpus re-ingests) and the data-blocked F6/F15/F22. No open item can add new knowledge from the
 current corpus. **The loop has converged** — 13 passes, grew 5→12 then shrank to 2 staleness-only.
 
+---
+
+# Investigative track — the "golden trio" (independent pass sequence)
+
+> A SEPARATE effort from the analytical loop above. On **2026-07-24** the previously
+> data-blocked external feeds were ingested, and three investigative cases materialized new
+> node/edge kinds into the same `kg_node`/`kg_edge` store. Pass numbers here are their OWN
+> sequence (10, 11) — not a continuation of the loop's 1–13. See [[graph-schema]] track note.
+
+## Case ① FollowTheMoney — pass 10 — 2026-07-24 (method: `deterministic`)
+
+Ingested Hlídač státu (proxying Registr smluv + ARES) and built the money sub-graph via the
+IČO join (`lib/analysis/kg-money.ts` + `money-feed.ts`). **Nodes: +196 `company`, +2 287
+`contract`. Edges: +260 `linked_to` (person→company), +2 290 `supplies` (company→contract).**
+~18.7 bn CZK of reachable public money across 73 MPs. **The human gate held: all 260
+`linked_to` edges are `pending_review`** (`review_state`) — an automated IČO+name+birthdate
+bridge is a *lead*, never a published fact about a real person; none auto-verified. Closes F6.
+→ `/penize`.
+
+## Case ② Effort / contribution — pass 11 — 2026-07-24 (method: `deterministic`)
+
+Computed a per-MP contribution index from the psp.cz activity data (`lib/analysis/contribution.ts`):
+committee engagement, voting participation, attendance, legislative output, floor presence,
+leadership. **Nodes 0 / edges 0 — enriched all 207 `person` nodes** with `contribution_score`
+(0–100) + its 6 exposed components + `absentee_manager_lead` (the Case-②×① crossover: real money
+ties + low contribution). Counts come from the deterministic layer, never an LLM. → `/zebricek`,
+`/poslanec`.
+
+## Case ③ Law forensics — pass 11 — 2026-07-24 (method: `deterministic` + 1 gated `verdict`)
+
+Ingested the psp.cz `tisky` (sněmovní tisky) + e-Sbírka (`lib/ingest/sources/psp-legislation.ts`).
+**Nodes: +141 `bill`, +101 `law`. Edges: +150 `amends` (bill→law, via the `č. N/RRRR Sb.` title
+citation), +528 `sponsors` (person→bill).** Bill nodes carry `origin`, `amended_laws`,
+`flagged_conflict` (a sponsor with Case-① money ties). **One bill (tisk 58) carries a gated
+`forensic_*` verdict** (`pending_review`) — the only LLM-authored product here, and it renders as
+*derived*, never as fact. No paragraph diffs / pipeline stages exist in the source (honest gap).
+Partially addresses F15 (`tisky` now ingested; formal per-bill→výbor routing still open). → `/zakony`.
+
+**⇒ TRIO COMPLETE.** Graph: **263 nodes / 21 359 edges** (loop convergence) → **2 989 / 24 749**.
+The four feature surfaces were wired off the `lib/civic` mock onto these real nodes the same day
+(server-loader pattern per `/hlasovani`; mock kept only as graceful fallback).
+

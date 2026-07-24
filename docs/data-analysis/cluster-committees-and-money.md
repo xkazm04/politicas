@@ -24,7 +24,15 @@ Closes the vote → theme → committee chain: a citizen can now trace a roll ca
 subject to the committee that shaped it. Feeds LawWatch (auto-route bills to gestor
 committees) and CivicScore (an oversight-cluster activity score).
 
-## F6 — the money graph is WIRED but cannot be populated here (honest)
+> **UPDATE 2026-07-24 — F6 IS NOW POPULATED.** The three feeds below were ingested (Hlídač
+> státu proxies Registr smluv + ARES; the MP↔company link uses Hlídač `/osoby` private-role
+> events, bridged to psp ids by name+birthdate). The graph now holds **196 `company` + 2 287
+> `contract` nodes, 260 `linked_to` (all `pending_review`) + 2 290 `supplies` edges** (pass 10,
+> deterministic). The gate held exactly as designed — every person↔company edge is
+> `pending_review`, none auto-verified. The section below is the pre-population record.
+> See [[graph-schema]], [[coverage-ledger]], [[feature-opportunities]] O2.
+
+## F6 — the money graph is WIRED but cannot be populated here (honest — pre-2026-07-24)
 
 The FollowTheMoney pipeline (`MP —linked_to→ Company —supplies→ Contract`) is now a
 real, unit-tested computation — **`lib/analysis/kg-money.ts`** (`buildMoneyGraph` +

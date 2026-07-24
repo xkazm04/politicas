@@ -62,11 +62,14 @@ a hallucinated MP. See [[frontier]] for the analyses that will fill this out and
 
 ## FollowTheMoney
 
-- **O2 — the money sub-graph is the module's spine, and it is data-blocked.**
-  *Status:* blocked ([[frontier]] F6). The expected edge shape is
-  `MP —linked-to→ Company —supplies→ Contract` via IČO joins to Registr smluv + ARES.
-  Declared in [[graph-schema]] (`company`/`contract` node kinds) but unpopulated.
-  *Dependency stated honestly:* no ingest adapter for Registr smluv/ARES yet.
+- **O2 — the money sub-graph is the module's spine. ✅ POPULATED (pass 10, 2026-07-24).**
+  *Status:* **unblocked** (was [[frontier]] F6). The edge shape `MP —linked_to→ Company
+  —supplies→ Contract` is live: **196 `company` + 2 287 `contract` nodes, 260 `linked_to`
+  + 2 290 `supplies` edges**, ~18.7 bn CZK reachable public money across 73 MPs (Hlídač ⋈
+  ARES IČO join, `lib/analysis/kg-money.ts` + `money-feed.ts`). **All 260 `linked_to` ties
+  are `pending_review`** — the human gate holds; none feeds the Integrity pillar until a
+  person verifies it. `/penize` renders this directly (unverified ties shown as such).
+  See [[graph-schema]] track note.
 
 ## BudgetMirror
 
@@ -83,5 +86,12 @@ a hallucinated MP. See [[frontier]] for the analyses that will fill this out and
   subjects (46 votes) split across four themes rather than one bloc ([[patterns]] P7).
   *Proposal:* tag every `- EU` subject regardless of theme and surface a cross-theme
   EU-transposition-deadline view, so citizens see harmonisation-bill progress by domain.
-- *(data-blocked)* paragraph-diff / pipeline opportunities captured once the
-  legislative-pipeline source ingests.
+- **O9 — bill → law amendment graph. ✅ POPULATED (pass 11, 2026-07-24).** The legislation
+  source ingested: **141 `bill` + 101 `law` nodes, 150 `amends` (bill→law) + 528 `sponsors`
+  (person→bill) edges** (`lib/ingest/sources/psp-legislation.ts`). Bill nodes carry `origin`
+  (government/mp/senate), `amended_laws`, `flagged_conflict` (Case-① money-tie overlap on a
+  sponsor), and one carries a gated `forensic_*` verdict (tisk 58, `pending_review`). `/zakony`
+  renders bills→laws grouped by most-amended statute.
+  *Honest gap:* the graph carries **no paragraph before/after diffs and no pipeline-stage**
+  data — the `č. N/RRRR Sb.` title citation is the only structured bill→law link psp.cz
+  publishes. `/zakony` dropped the mock's diff/stepper views rather than fabricate them.

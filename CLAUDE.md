@@ -38,27 +38,43 @@ Route map (politicas.md roadmap execution, sample data):
   production home, translated to Konstrukt — entity-trail graph (hover lights
   edges), kniha vazeb grouped by MP with verified/pending-review states, and
   the trail methodology (IČO join + human gate). Feeds pillar Integrita.
-- `/zebricek` — **CivicScore** (features/civicscore): full 200-MP leaderboard —
-  score histogram + computed chamber summary, party filter + name search, mini
+- `/zebricek` — **CivicScore** (features/civicscore): leaderboard — score
+  histogram + chamber summary, party filter + name search, mini
   weighted-breakdown bars per row, and Souboj (pick two via "vs" → mirrored
-  pillar-by-pillar comparison). The 195 non-sample MPs come from
-  `lib/civic/leaderboard.ts` — a deterministic, test-pinned mock generator
-  (sample anchors at exact ranks, party seats reconciled, composite(pillars)
-  == score, no Math.random so SSR == CSR). Dashboard chamber aggregates are
-  test-pinned to its computed CHAMBER_SUMMARY.
+  comparison). **Wired 2026-07-24 to the real graph** (`getLeaderboardData.ts`):
+  all **207 real MPs** ranked by `contribution_score`, broken down into the
+  index's **6 exposed components** (participation/committee/legislative/speech/
+  attendance/leadership) — not the 4 mock pillars. No fabricated quarterly
+  delta/trend (single term). Fallback when the store is unavailable:
+  `lib/civic/leaderboard.ts`, a deterministic test-pinned mock generator (still
+  feeds `/dashboard` chamber aggregates).
 - `/rozpocty` — **BudgetMirror** (features/budget): town vs peer-group mirror —
   metric duos against the computed peer median, debt-per-capita trend lines
   (town vs median), sortable peer table. Stewardship feeds only executive
   roles — stated explicitly on the page.
-- `/zakony` — **LawWatch** (features/lawwatch): paragraph diffs (before/after)
-  linked back to the roll-call that voted them + sample votes, and the
-  legislative pipeline (bill stage steppers incl. rejected state). Closes the
-  vote → impact loop with /hlasovani.
+- `/zakony` — **LawWatch** (features/lawwatch): **wired 2026-07-24 to the real
+  graph** (`getLawData.ts`) — **141 bills → 101 laws via 150 `amends` edges**,
+  grouped by most-amended statute, with sponsors (→ `/poslanec/<pspId>`),
+  Case-① conflict flags, and one gated forensic posudek (tisk 58, rendered as
+  derived/`pending_review`). The mock's **paragraph diffs (before/after) and the
+  bill-stage pipeline stepper were dropped** — the graph carries no such data
+  (the `č. N/RRRR Sb.` title citation is the only structured bill→law link
+  psp.cz publishes); fabricating them would violate the brand rule. Mock kept as
+  fallback.
 - `/rentgen` — archived art direction.
 
-All five politicas.md modules now have surfaces (Phase 1–3 complete on sample
-data). Next: real ingestion to replace the mock layer, or election-cycle
-hardening per §9 Phase 4.
+All five politicas.md modules now have surfaces. **Update 2026-07-24 — four
+surfaces are wired to the real knowledge graph** (`kg_node`/`kg_edge`, embedded
+Postgres via `lib/db/`): `/penize` (money: 196 companies / 2 287 contracts / 260
+human-gated ties), `/zebricek` + `/poslanec` (contribution index over 207 real
+MPs), `/zakony` (141 bills → 101 laws via `amends`). Pattern: an `async` server
+page awaits a server-only loader (`getStore()`) and passes typed props to the
+`"use client"` feature — see `/hlasovani` + `features/votetrack/getVoteThemes.ts`
+as the template, and the per-feature `get*Data.ts` loaders. The `lib/civic` mock
+is **retained only as a graceful fallback** (loader returns `null` → mock). See
+`docs/data-analysis/{graph-schema,coverage-ledger,graph-log}.md` for the graph
+provenance. Still on sample data: `/dashboard`, `/rozpocty`, landing. Next:
+port those, or election-cycle hardening per §9 Phase 4.
 
 ## Code structure (patterns adopted from the personas repo)
 

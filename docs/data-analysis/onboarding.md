@@ -167,9 +167,12 @@ scroll endpoint at 10 — the local GMS returns an empty body above that).
   identical regardless of author; the subagent fan-out is wired into the skills
   but not exercised this session (the available subagent tooling is agent-team,
   heavier than this bounded pass warranted).
-- **No FollowTheMoney data.** Registr smluv / ARES were probed and are reachable
-  (ARES v3 JSON 200; smlouvy.gov.cz XML dumps 200) but not ingested — the psp.cz
-  vote graph was landed properly instead of three sources half-done.
+- ~~**No FollowTheMoney data.**~~ **RESOLVED 2026-07-24.** Registr smluv / ARES / Hlídač
+  were ingested; the money layer (196 companies, 2 287 contracts, 260 human-gated
+  `linked_to` ties) plus the legislation layer (141 bills, 101 laws, 150 `amends`) and the
+  per-MP contribution index are now materialized into `kg_*` — the "golden trio" cases (see
+  [[graph-schema]] track note, [[coverage-ledger]]). This founding-session doc predates that
+  work; it is retained as the record of the *initial* vertical slice.
 - **Pumper mirror text is unusable for display** until the charset SPEC above is
   fixed; today it serves only as a change-detection / staleness signal.
 - **membership carries a far-future placeholder date** (a 'Předseda' row dated

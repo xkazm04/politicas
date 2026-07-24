@@ -7,6 +7,17 @@ here with its provenance method and how it's grounded. The machine-enforced
 version is the enum set in `lib/analysis/kg-verdict.ts` (`KG_NODE_KINDS`,
 `KG_EDGE_RELS`); keep the two in sync.
 
+> **Two provenance tracks share this store.** Passes 1–13 are the **analytical KG loop**
+> (blocs / themes / contestedness; converged 2026-07-23). Passes 10–11 in the *money*,
+> *law*, and *contribution* rows below are the **investigative "golden trio"** cases
+> (① FollowTheMoney, ② Effort, ③ Law forensics), materialized **2026-07-24** — a separate
+> effort that reuses the same `kg_node`/`kg_edge` tables, so their pass numbers are an
+> independent sequence, not a continuation of the loop's. This unblocked the layers the
+> older passes (and [[onboarding]], [[coverage-ledger]], [[cluster-committees-and-money]])
+> recorded as *data-blocked*. Graph is now **2 989 nodes / 24 749 edges** (was 263 / 21 359
+> at loop convergence). All three trio layers are `deterministic`; the only `verdict` money/law
+> product is the human gate (below) and one bill forensic posudek.
+
 Every node/edge carries `provenance = {pass, method, ref, computedAt}`. Two methods:
 - **`deterministic`** — computed in SQL/code from raw rows (`lib/analysis/kg.ts` via
   `npm run da:kg-compute`). Recomputable and exact; the LLM never authors these.
@@ -18,13 +29,15 @@ Every node/edge carries `provenance = {pass, method, ref, computedAt}`. Two meth
 
 | kind | id scheme | populated | props | how derived |
 |---|---|---|---|---|
-| `person` | `psp:person:<pspId>` | ✅ pass 1 (207) | `rebellion_rate`, `committee_count` | raw entity + deterministic props |
+| `person` | `psp:person:<pspId>` | ✅ pass 1 (207) | `rebellion_rate`, `committee_count`, `contested_vote_rebellion`; + **contribution index** (`contribution_score` + 6 components, `absentee_manager_lead`) pass 11 | raw entity + deterministic props |
 | `party` | `psp:organ:<pspId>` (a Klub organ) | ✅ pass 1 (8) | `cohesion`, `cohesion_votes`, `seats` | raw entity + deterministic cohesion |
 | `organ` | `psp:organ:<pspId>` (a výbor/komise) | ✅ pass 1 (33) | `member_count`, `organ_type` | raw entity |
 | `bloc` | `bloc:<slug>` | ✅ pass 2 (2) | `overall_win_rate`, `control_timeline` | verdict + deterministic enrichment |
-| `theme` | `theme:<slug>` | ✅ pass 3 (13) | `opposed_fraction`, `classification`, `bloc_support` | verdict + deterministic enrichment |
-| `company` | `company:ico:<ico>` | ⏳ **built, data-blocked (F6)** | ico, name | `kg-money.ts` (ARES); awaits data |
-| `contract` | `contract:<id>` | ⏳ **built, data-blocked (F6)** | amount, signedOn, supplierIco | `kg-money.ts` (Registr smluv); awaits data |
+| `theme` | `theme:<slug>` | ✅ pass 3 (14) | `opposed_fraction`, `classification`, `bloc_support` | verdict + deterministic enrichment |
+| `company` | `company:ico:<ico>` | ✅ **pass 10 (196)** | `ico`, `subsidies_total_czk`, `donated_to_party_czk` | `kg-money.ts` (Hlídač ⋈ ARES IČO join) |
+| `contract` | `contract:<id>` | ✅ **pass 10 (2 287)** | `amount`, `signedOn`, `supplierIco` | `kg-money.ts` (Registr smluv via Hlídač) |
+| `bill` | `bill:tisk:<tiskId>` | ✅ **pass 11 (141)** | `cislo`, `origin`, `amended_laws`, `sponsors`, `flagged_conflict`; gated `forensic_*` on 1 | `psp-legislation.ts` + `law-verdict.ts` gate |
+| `law` | `law:sb:<n>-<rok>` | ✅ **pass 11 (101)** | `ref`, `esbirka_title`, `esbirka_exists` | `psp-legislation.ts` (e-Sbírka) |
 
 ## Edge relations
 
@@ -35,9 +48,11 @@ Every node/edge carries `provenance = {pass, method, ref, computedAt}`. Two meth
 | `influential_in` | person → organ | ✅ pass 1 (605) | committee role rank (chair 1 / vice 0.6 / member 0.3) | deterministic (degree + role) |
 | `belongs_to` | party → bloc | ✅ pass 2 (8) | mean intra-bloc agreement | verdict |
 | `about` | vote → theme | ✅ pass 3 (47) | roll-call count on the subject | verdict |
-| `owns` | organ (committee) → theme | ✅ pass 8 (27) | — | verdict (committee remit → theme) |
-| `linked_to` | person → company | ⏳ **built, data-blocked (F6)** | — | join (`lib/analysis/kg-money.ts`) + **human gate** (verified/pending-review) |
-| `supplies` | company → contract | ⏳ **built, data-blocked (F6)** | contract amount | join (`kg-money.ts`) over Registr smluv IČO |
+| `owns` | organ (committee) → theme | ✅ pass 8 (30) | — | verdict (committee remit → theme) |
+| `linked_to` | person → company | ✅ **pass 10 (260, all `pending_review`)** | — | join (`lib/analysis/kg-money.ts`) + **human gate** (`review_state`: verified / pending_review) |
+| `supplies` | company → contract | ✅ **pass 10 (2 290)** | contract amount | join (`kg-money.ts`) over Registr smluv IČO |
+| `sponsors` | person → bill | ✅ **pass 11 (528)** | — | `psp-legislation.ts` (tisk předkladatelé) |
+| `amends` | bill → law | ✅ **pass 11 (150)** | — | `psp-legislation.ts` (title `č. N/RRRR Sb.` citation → law node) |
 
 ## Bases & caveats (shared with the deterministic layer)
 
