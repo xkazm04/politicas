@@ -140,6 +140,13 @@ single-writer and are handed off to the orchestrator instead:
 | shared vault files (`frontier`, `feature-opportunities`, `graph-log`, `patterns`, `contradictions`) + shared code (`lib/analysis/kg-verdict.ts` enums, `package.json`, `messages/*.json`) | do not edit; put proposed additions in the case handoff. |
 | git | do not commit. Leave changes in the tree inside your boundary; the orchestrator reviews and commits per case. |
 
+**A driver never ends its run waiting.** If a sub-agent is still working, the
+driver stays alive until the result lands and the handoff is WRITTEN — ending a
+turn with "I'll report when it finishes" strands the batch (it happened twice
+in batch 003; the orchestrator had to resume the driver both times). The
+handoff document is the only valid last act of a fleet run. Working scraps go
+in the case folder or a gitignored dir, never the repo root.
+
 Everything else — the case vault folder (`docs/data-analysis/case-<x>/`), the
 case's feature/app boundary, case-owned `lib/` modules, new scripts under
 `scripts/case-loops/<case>/` — is the agent's to write. Each fleet run ends
