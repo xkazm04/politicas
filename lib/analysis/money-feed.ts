@@ -22,7 +22,7 @@
 // AresClient at the bottom are the ONLY IO, kept separate so the graph-bearing logic
 // is fully fixture-tested. It must NEVER be run on invented data.
 
-import type { Company, Contract, PersonCompanyLink } from "@/lib/analysis/kg-money";
+import type { Company, Contract, MoneyGraph, PersonCompanyLink } from "@/lib/analysis/kg-money";
 
 /* ── raw response shapes (only the fields we read) ──────────────────────────── */
 
@@ -80,8 +80,8 @@ export interface AresSubject {
 /** Our own psp.cz person, supplied by the caller (keeps this module DB-free). */
 export interface RosterPerson {
   personPspId: number;
-  firstName: string;
-  lastName: string;
+  firstName: string | null;
+  lastName: string | null;
   birthDate: string | null; // ISO "yyyy-mm-dd" or null (publisher's unknown sentinel)
 }
 
@@ -253,6 +253,154 @@ export function pickExactIco(name: string, candidates: readonly AresCandidate[])
   return hits.length === 1 ? hits[0].ico! : null;
 }
 
+/**
+ * The query to send ARES name-search for a dirty company name: strip a trailing legal
+ * form so the search has better RECALL (candidates), while `pickExactIco` keeps the
+ * PRECISION (exact normalized-name match). "AGROFERT, a.s." → search "AGROFERT" → the
+ * candidate set contains both "AGROFERT, a.s." and "AGROFERT HOLDING, a.s.", and only
+ * the former matches the original name's key.
+ */
+export function aresSearchQuery(name: string): string {
+  const s = name.replace(/[,;]+/g, " ").replace(/\s+/g, " ").trim();
+  const words = s.split(" ");
+  for (let k = Math.min(3, words.length - 1); k >= 1; k--) {
+    const tail = foldLower(words.slice(-k).join(" "));
+    if (LEGAL_FORMS.some((f) => foldLower(f) === tail)) {
+      return words.slice(0, -k).join(" ").replace(/[\s,]+$/, "").trim() || s;
+    }
+  }
+  return s;
+}
+
+/* ── money DIMENSIONS: subsidies (dotace) + party donations (sponzoring) ─────── */
+
+/** A subsidy paid to a company (CEDR, via Hlídač /dotace/hledat). Recipient IČO is
+ *  pre-resolved by Hlídač — no fragile name hop. */
+export interface Subsidy {
+  id: string;
+  recipientIco: string;
+  amount: number | null; // CZK
+  year: number | null;
+  provider: string | null;
+}
+interface HlidacSubsidyResult {
+  id?: string;
+  recipient?: { ico?: string };
+  subsidyAmount?: number | null;
+  payedAmount?: number | null;
+  approvedYear?: number | null;
+  subsidyProvider?: string | null;
+}
+export function parseSubsidies(raw: unknown, opts: { recipientIco?: string } = {}): Subsidy[] {
+  const results = ((raw ?? {}) as { results?: HlidacSubsidyResult[] }).results ?? [];
+  const out: Subsidy[] = [];
+  for (const r of results) {
+    const ico = r.recipient?.ico;
+    if (!ico) continue;
+    if (opts.recipientIco && ico !== opts.recipientIco) continue;
+    out.push({
+      id: String(r.id ?? `${ico}:${out.length}`),
+      recipientIco: ico,
+      amount: isNum(r.subsidyAmount) ? r.subsidyAmount : isNum(r.payedAmount) ? r.payedAmount : null,
+      year: isNum(r.approvedYear) ? r.approvedYear : null,
+      provider: r.subsidyProvider ?? null,
+    });
+  }
+  return out;
+}
+export function subsidiesByCompany(subs: readonly Subsidy[]): Map<string, { total: number; count: number }> {
+  const m = new Map<string, { total: number; count: number }>();
+  for (const s of subs) {
+    const cur = m.get(s.recipientIco) ?? { total: 0, count: 0 };
+    cur.count++;
+    cur.total += s.amount ?? 0;
+    m.set(s.recipientIco, cur);
+  }
+  return m;
+}
+
+/** One political donation (Hlídač /sponzoring/{recipientPartyIco} — a flat list). */
+export interface Donation {
+  donorIco: string | null; // company donor
+  donorPersonSlug: string | null; // person donor
+  recipientPartyIco: string;
+  amount: number | null; // CZK
+  date: string | null;
+}
+interface HlidacDonation {
+  icoDarce?: string | null;
+  nameIdDarce?: string | null;
+  icoPrijemce?: string | null;
+  hodnotaDaru?: number | null;
+  darovanoDne?: string | null;
+}
+export function parseSponsorship(raw: unknown): Donation[] {
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .filter((x): x is HlidacDonation => !!x && typeof x === "object")
+    .map((d) => ({
+      donorIco: d.icoDarce ?? null,
+      donorPersonSlug: d.nameIdDarce ?? null,
+      recipientPartyIco: String(d.icoPrijemce ?? ""),
+      amount: isNum(d.hodnotaDaru) ? d.hodnotaDaru : null,
+      date: isoDay(d.darovanoDne),
+    }));
+}
+/** Which of the given companies donated to the party — the accountability triangle:
+ *  a company linked to an MP that ALSO funds the MP's party. */
+export function companyDonationsToParty(
+  donations: readonly Donation[],
+  companyIcos: ReadonlySet<string>,
+): Map<string, { total: number; count: number }> {
+  const m = new Map<string, { total: number; count: number }>();
+  for (const d of donations) {
+    if (!d.donorIco || !companyIcos.has(d.donorIco)) continue;
+    const cur = m.get(d.donorIco) ?? { total: 0, count: 0 };
+    cur.count++;
+    cur.total += d.amount ?? 0;
+    m.set(d.donorIco, cur);
+  }
+  return m;
+}
+
+/**
+ * Fold subsidy + party-donation aggregates into the company nodes of a money graph
+ * (pure — returns a new graph). Contracts (`supplies`) already carry the contract
+ * money; this adds `subsidies_*` and `donated_to_party_*` props so a company node
+ * shows the full picture: receives public contracts AND subsidies AND funds the party.
+ */
+export function enrichMoneyCompanies(
+  g: MoneyGraph,
+  opts: {
+    subsidies?: ReadonlyMap<string, { total: number; count: number }>;
+    donations?: ReadonlyMap<string, { total: number; count: number }>;
+    donationPartyLabel?: string;
+  },
+): MoneyGraph {
+  const nodes = g.nodes.map((n) => {
+    if (n.kind !== "company") return n;
+    const ico = String(n.props.ico ?? "");
+    const sub = opts.subsidies?.get(ico);
+    const don = opts.donations?.get(ico);
+    if (!sub && !don) return n;
+    return {
+      ...n,
+      props: {
+        ...n.props,
+        ...(sub ? { subsidies_total_czk: sub.total, subsidies_count: sub.count } : {}),
+        ...(don
+          ? {
+              donated_to_party_czk: don.total,
+              donation_count: don.count,
+              ...(opts.donationPartyLabel ? { donation_recipient_party: opts.donationPartyLabel } : {}),
+            }
+          : {}),
+      },
+    };
+  });
+  return { ...g, nodes };
+}
+
 /* ── identity bridge: Hlídač person slug → our psp.cz personId ──────────────── */
 
 export interface PersonBridge {
@@ -279,10 +427,29 @@ export function bridgePerson(
   const fits = roster.filter(
     (p) =>
       p.birthDate === day &&
+      p.firstName != null &&
+      p.lastName != null &&
       foldLower(p.firstName) === first &&
       foldLower(p.lastName) === last,
   );
   return fits.length === 1 ? { personPspId: fits[0].personPspId, matchedOn: "birthdate" } : null;
+}
+
+/**
+ * Resolve a Hlídač slug for one of OUR people from a name-scoped `hledatFtx` result,
+ * bridging on the search hit's BIRTH DATE. The ftx endpoint returns clean `narozeni`
+ * + `nameId` but MOJIBAKED names (double-encoded UTF-8, e.g. "Babiš" → "BabiÅ¡"), so
+ * a name match is unreliable there — the birth date is not. Because the search was
+ * scoped by the person's name, a UNIQUE birth-date hit is a high-confidence slug;
+ * ambiguity or no match returns null (caller then confirms on the clean detail).
+ */
+export function bridgeSearchByBirthdate(
+  hits: readonly HlidacPersonHit[],
+  birthDate: string | null,
+): string | null {
+  if (!birthDate) return null;
+  const matched = hits.filter((h) => h.nameId && isoDay(h.narozeni) === birthDate);
+  return matched.length === 1 ? matched[0].nameId! : null;
 }
 
 /* ── gated person↔company link builder ──────────────────────────────────────── */
@@ -359,6 +526,39 @@ export function dedupeContracts(contracts: readonly Contract[]): Contract[] {
 
 /* ── the IO edge: thin clients (the ONLY non-pure code here) ────────────────── */
 
+/**
+ * Fetch that RESPECTS rate limits: on 429/503 it backs off (honouring `Retry-After`
+ * when present, else exponential) and retries. Hlídač exposes no quota headers and
+ * WILL 429 under load — without this, a rate-limited request looks like a failure and
+ * an MP looks "unresolved" when it was only throttled.
+ */
+async function fetchRetry(
+  doFetch: typeof fetch,
+  url: string,
+  init: RequestInit,
+  maxRetries = 5,
+): Promise<Response> {
+  const backoff = (attempt: number) => new Promise((r) => setTimeout(r, Math.min(30_000, 750 * 2 ** attempt)));
+  for (let attempt = 0; ; attempt++) {
+    try {
+      // A 20s abort on EVERY request — a stalled connection must never freeze the run;
+      // it aborts, retries, and (after maxRetries) surfaces as a normal error the caller
+      // treats as a miss. Without this a single hung fetch stalls the whole sweep.
+      const res = await doFetch(url, { ...init, signal: AbortSignal.timeout(20_000) });
+      if ((res.status === 429 || res.status === 503) && attempt < maxRetries) {
+        const ra = Number(res.headers.get("retry-after"));
+        if (Number.isFinite(ra) && ra > 0) await new Promise((r) => setTimeout(r, ra * 1000));
+        else await backoff(attempt);
+        continue;
+      }
+      return res;
+    } catch (e) {
+      if (attempt >= maxRetries) throw e; // timeout / network — give up after retries (a miss, never a hang)
+      await backoff(attempt);
+    }
+  }
+}
+
 export interface HlidacClientOptions {
   token: string;
   base?: string;
@@ -377,7 +577,7 @@ export class HlidacClient {
     this.doFetch = opts.fetchImpl ?? fetch;
   }
   private async get(path: string): Promise<unknown> {
-    const res = await this.doFetch(`${this.base}${path}`, {
+    const res = await fetchRetry(this.doFetch, `${this.base}${path}`, {
       headers: { Authorization: `Token ${this.token}`, Accept: "application/json" },
     });
     if (!res.ok) throw new Error(`Hlidac ${path} → ${res.status} ${res.statusText}`);
@@ -395,6 +595,14 @@ export class HlidacClient {
   firmaByIco(ico: string): Promise<unknown> {
     return this.get(`/firmy/ico/${encodeURIComponent(ico)}`);
   }
+  /** Subsidies (CEDR) where this IČO is the recipient — recipient.ico is pre-resolved. */
+  subsidiesByIco(ico: string, page = 1): Promise<unknown> {
+    return this.get(`/dotace/hledat?dotaz=${encodeURIComponent(`ico:${ico}`)}&strana=${page}`);
+  }
+  /** Donations RECEIVED by a party (by its IČO) — flat list with donor IČO/slug. */
+  sponsorship(partyIco: string): Promise<unknown> {
+    return this.get(`/sponzoring/${encodeURIComponent(partyIco)}`);
+  }
 }
 
 export interface AresClientOptions {
@@ -411,7 +619,7 @@ export class AresClient {
     this.doFetch = opts.fetchImpl ?? fetch;
   }
   async subject(ico: string): Promise<unknown> {
-    const res = await this.doFetch(`${this.base}/ekonomicke-subjekty/${encodeURIComponent(ico)}`, {
+    const res = await fetchRetry(this.doFetch, `${this.base}/ekonomicke-subjekty/${encodeURIComponent(ico)}`, {
       headers: { Accept: "application/json" },
     });
     if (!res.ok) throw new Error(`ARES ${ico} → ${res.status} ${res.statusText}`);
@@ -419,7 +627,7 @@ export class AresClient {
   }
   /** Name search — POST /ekonomicke-subjekty/vyhledat {obchodniJmeno}. Feeds pickExactIco. */
   async subjectSearch(obchodniJmeno: string, pocet = 20): Promise<unknown> {
-    const res = await this.doFetch(`${this.base}/ekonomicke-subjekty/vyhledat`, {
+    const res = await fetchRetry(this.doFetch, `${this.base}/ekonomicke-subjekty/vyhledat`, {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify({ obchodniJmeno, pocet }),

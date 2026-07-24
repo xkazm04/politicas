@@ -2,17 +2,26 @@ import { describe, expect, it } from "vitest";
 
 import { buildMoneyGraph, moneyTrails } from "@/lib/analysis/kg-money";
 import {
+  aresSearchQuery,
   bridgePerson,
+  bridgeSearchByBirthdate,
   buildPersonCompanyLinks,
+  companyDonationsToParty,
   dedupeCompanies,
+  enrichMoneyCompanies,
   foldLower,
   isoDay,
   normalizeCompanyName,
   parseAresCompany,
+  parseAresSearch,
   parseContracts,
   parseHlidacCompany,
   parsePersonSearch,
+  parseSponsorship,
+  parseSubsidies,
+  pickExactIco,
   privateRoleEvents,
+  subsidiesByCompany,
   type HlidacPersonDetail,
   type RosterPerson,
 } from "@/lib/analysis/money-feed";
@@ -142,6 +151,30 @@ describe("parsers", () => {
   });
 });
 
+describe("pickExactIco — strict name→IČO (never guesses)", () => {
+  const candidates = parseAresSearch({
+    ekonomickeSubjekty: [
+      { ico: "26185610", obchodniJmeno: "AGROFERT HOLDING, a.s." },
+      { ico: "48136450", obchodniJmeno: "AGROFERT, a.s." },
+    ],
+  });
+  it("resolves only on an exact normalized-name match", () => {
+    // "AGROFERT, a.s." → key "agrofert" → the a.s. entity, NOT the HOLDING one
+    expect(pickExactIco("AGROFERT, a.s.", candidates)).toBe("48136450");
+    // "AGROFERT HOLDING" is a distinct key → its own entity
+    expect(pickExactIco("AGROFERT HOLDING a.s.", candidates)).toBe("26185610");
+  });
+  it("returns null when no candidate matches exactly (drops, never guesses)", () => {
+    expect(pickExactIco("Agrofert Trading s.r.o.", candidates)).toBeNull();
+    expect(pickExactIco("AGROFERT", [{ ico: "1", obchodniJmeno: "AGROFERT HOLDING, a.s." }])).toBeNull();
+  });
+  it("returns null on ambiguity (two exact matches)", () => {
+    expect(
+      pickExactIco("Foo, a.s.", parseAresSearch({ ekonomickeSubjekty: [{ ico: "1", obchodniJmeno: "Foo a.s." }, { ico: "2", obchodniJmeno: "Foo, a.s." }] })),
+    ).toBeNull();
+  });
+});
+
 /* ── identity bridge (conservative) ─────────────────────────────────────────── */
 
 describe("bridgePerson", () => {
@@ -157,6 +190,22 @@ describe("bridgePerson", () => {
       { personPspId: 11, firstName: "Andrej", lastName: "Babiš", birthDate: "1954-09-02" },
     ];
     expect(bridgePerson(babisDetail, dupes)).toBeNull();
+  });
+});
+
+describe("bridgeSearchByBirthdate — robust to mojibaked ftx names", () => {
+  // ftx returns clean narozeni + nameId but double-encoded names
+  const hits = parsePersonSearch([
+    { jmeno: "Andrej", prijmeni: "BabiÅ¡", narozeni: "1954-09-02T00:00:00", nameId: "andrej-babis" },
+    { jmeno: "Andrej", prijmeni: "BabiÅ¡", narozeni: "1970-01-01T00:00:00", nameId: "andrej-babis-2" },
+  ]);
+  it("picks the slug by unique birth date, ignoring the corrupted name", () => {
+    expect(bridgeSearchByBirthdate(hits, "1954-09-02")).toBe("andrej-babis");
+    expect(bridgeSearchByBirthdate(hits, "1970-01-01")).toBe("andrej-babis-2");
+  });
+  it("returns null with no birth date or no unique match", () => {
+    expect(bridgeSearchByBirthdate(hits, null)).toBeNull();
+    expect(bridgeSearchByBirthdate(hits, "1999-12-31")).toBeNull();
   });
 });
 
@@ -181,6 +230,69 @@ describe("buildPersonCompanyLinks — the human gate", () => {
     const agro = links.find((l) => l.ico === ICO_AGROFERT)!;
     expect(agro.source).toContain("ARES-VR-officer-confirmed");
     expect(agro.state).toBe("pending_review"); // still gated
+  });
+});
+
+/* ── money dimensions: subsidies (dotace) + party donations (sponzoring) ────── */
+
+describe("aresSearchQuery — strip legal form for recall", () => {
+  it("strips a trailing legal form, keeps distinguishing words", () => {
+    expect(aresSearchQuery("AGROFERT, a.s.")).toBe("AGROFERT");
+    expect(aresSearchQuery("SynBiol, a.s.")).toBe("SynBiol");
+    expect(aresSearchQuery("AGROFERT HOLDING, a.s.")).toBe("AGROFERT HOLDING");
+    expect(aresSearchQuery("Nadační fond")).toBe("Nadační fond"); // no legal form → unchanged
+  });
+});
+
+describe("subsidies (dotace)", () => {
+  const dotace = {
+    total: 2,
+    results: [
+      { id: "Cedr-aaa", recipient: { ico: "26185610" }, subsidyAmount: 9600, payedAmount: 9600, approvedYear: 2000, subsidyProvider: "MZe" },
+      { id: "Cedr-bbb", recipient: { ico: "26185610" }, subsidyAmount: null, payedAmount: 50000, approvedYear: 2015, subsidyProvider: "MPO" },
+      { id: "Cedr-ccc", recipient: { ico: "99999999" }, subsidyAmount: 1000, approvedYear: 2019, subsidyProvider: "X" },
+    ],
+  };
+  it("parses recipient IČO + amount (subsidyAmount, fallback payedAmount), filters by IČO", () => {
+    const subs = parseSubsidies(dotace, { recipientIco: "26185610" });
+    expect(subs.map((s) => s.recipientIco)).toEqual(["26185610", "26185610"]);
+    expect(subs.map((s) => s.amount)).toEqual([9600, 50000]);
+    const agg = subsidiesByCompany(subs);
+    expect(agg.get("26185610")).toEqual({ total: 59600, count: 2 });
+  });
+});
+
+describe("party donations (sponzoring) — the accountability triangle", () => {
+  const donors = [
+    { icoDarce: "26185610", nameIdDarce: null, icoPrijemce: "71443339", hodnotaDaru: 1000000, darovanoDne: "2016-01-01T00:00:00" },
+    { icoDarce: "26185610", nameIdDarce: null, icoPrijemce: "71443339", hodnotaDaru: 500000, darovanoDne: "2017-01-01T00:00:00" },
+    { icoDarce: "11111111", nameIdDarce: null, icoPrijemce: "71443339", hodnotaDaru: 999, darovanoDne: "2016-01-01T00:00:00" },
+    { icoDarce: null, nameIdDarce: "some-person", icoPrijemce: "71443339", hodnotaDaru: 200, darovanoDne: "2016-01-01T00:00:00" },
+  ];
+  it("keeps only donations from the MP's linked companies", () => {
+    const donations = parseSponsorship(donors);
+    expect(donations).toHaveLength(4);
+    const triangle = companyDonationsToParty(donations, new Set(["26185610"]));
+    expect(triangle.get("26185610")).toEqual({ total: 1500000, count: 2 });
+    expect(triangle.has("11111111")).toBe(false); // not a linked company
+  });
+});
+
+describe("enrichMoneyCompanies", () => {
+  it("folds subsidy + donation aggregates into company node props", () => {
+    const links = buildPersonCompanyLinks(babisDetail, 5878, { resolveIco });
+    const g0 = buildMoneyGraph(links, dedupeCompanies([parseAresCompany(aresAgrofert)!]), parseContracts(contractSearch, { supplierIco: ICO_AGROFERT }));
+    const g = enrichMoneyCompanies(g0, {
+      subsidies: new Map([[ICO_AGROFERT, { total: 59600, count: 2 }]]),
+      donations: new Map([[ICO_AGROFERT, { total: 1500000, count: 2 }]]),
+      donationPartyLabel: "ANO",
+    });
+    const company = g.nodes.find((n) => n.kind === "company")!;
+    expect(company.props.subsidies_total_czk).toBe(59600);
+    expect(company.props.donated_to_party_czk).toBe(1500000);
+    expect(company.props.donation_recipient_party).toBe("ANO");
+    // contract money still intact
+    expect(g.edges.filter((e) => e.rel === "supplies")).toHaveLength(2);
   });
 });
 
