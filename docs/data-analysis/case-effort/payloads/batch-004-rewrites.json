@@ -1,0 +1,138 @@
+{
+  "generatedAt": "2026-07-24T21:40:00.000Z",
+  "note": "Batch-004 rewrite of the 8 held-back money dossiers (Q-effort-9), independently re-verified via or.justice.cz úplné výpisy (public-register mirror of ARES VR, used because the ares.gov.cz ekonomicke-subjekty-vr UI is a client-rendered SPA unreadable via fetch), not copied from the batch-003 Opus verdict.",
+  "proposals": [
+    {
+      "id": "psp:person:6168",
+      "name": "Helena Válková",
+      "props": {
+        "effort_notes": "Vstupní data ukazují 2 sponzorované tisky a 8 výborových/komisních vazeb — to sedí s nalezeným obrazem (2 tisky + výbor/petiční/komise/vyšetřovací komise + meziparlamentní skupiny). Vlastním ověřením přes or.justice.cz (Družstvo Nárožní dům Plavecká 12, IČO 61463647, spis Dr 1486, Městský soud v Praze, subjektId 665391, úplný výpis) potvrzuji, že Helena Válková je nepřetržitě členkou a předsedkyní představenstva družstva — role byla opakovaně obnovována od 23. 10. 2001 (2001, 2005, 2010, 2013, 2016, poslední zápis 26. 8. 2019) a k datu ověření (24. 7. 2026) nemá zápis o zániku funkce. Jde tedy o reálnou a aktuálně trvající statutární vazbu, nikoli o neresolvovaný datový placeholder, jak předpokládal batch-003 draft; batch-003 draft byl v tomto bodě chybný. Družstvo je malé pražské bytové družstvo (Plavecká 400/12, Praha 2) bez veřejné zakázky (contractCzk 0), takže finanční dopad vazby je nulový, ale personální vazba je doložená a aktivní. Druhá položka, generický OSVČ IČO 04627695 (contractCzk 0), zůstává neověřitelná — stejné IČO se v tomto vzorku opakuje s nulovou hodnotou i u dalších poslanců (Foldyna, Hladík, Decroix, Pařil), což silně ukazuje na neresolvovaný datový placeholder v pipeline Case ①, ne na skutečnou vazbu; ponechávám v pending_review a doporučuji prioritní opravu resolveru."
+      },
+      "headline": "Aktivní, nepřetržitá vazba: Válková je od roku 2001 předsedkyní představenstva bytového družstva Plavecká 12 (ověřeno z or.justice.cz).",
+      "citations": [
+        "https://or.justice.cz/ias/ui/rejstrik-firma.vysledky?subjektId=665391&typ=UPLNY"
+      ],
+      "reVerification": {
+        "agreesWithPriorOpusVerdict": true,
+        "evidence": "Úplný výpis Družstva Nárožní dům Plavecká 12 (IČO 61463647, spis Dr 1486, subjektId 665391) na or.justice.cz ukazuje Helenu Válkovou opakovaně zapsanou jako předsedkyně představenstva od 23. 6. 2001 s postupnými obnovami funkce (2001, 2005, 2010, 2013, 2016) až po poslední aktuální zápis 26. 8. 2019, bez záznamu o zániku funkce k datu ověření. To potvrzuje Opusův závěr o reálné a aktivní vazbě; drobný rozdíl je jen v přesném datu 'od kdy' — Opus uváděl 'since 1994' (rok založení družstva), zatímco doložitelný nepřerušený zápis Válkové jako předsedkyně sahá k roku 2001 (družstvo mohlo mít v letech 1994–2001 jiné složení orgánu, což tento výpis nezachycuje)."
+      }
+    },
+    {
+      "id": "psp:person:5911",
+      "name": "Jaroslav Foldyna",
+      "props": {
+        "effort_notes": "committee_count 4 a bills_authored 2 odpovídají nalezenému stavu. Vlastním ověřením přes or.justice.cz (Krajská zdravotní, a.s., IČO 25488627, subjektId 27885, úplný výpis) potvrzuji historickou statutární vazbu: Jaroslav Foldyna byl předsedou představenstva od 5. 5. 2004 do 15. 6. 2005 (zápis 5. 5. 2004, výmaz 30. 1. 2006) — jde o dobově ohraničenou roli z poloviny 2000. let, více než 20 let před současným mandátem, nikoli o aktuální vazbu. Batch-003 draft tuto roli mylně popíral tvrzením, že se 'nepodařilo dohledat nezávislé potvrzení' osobní vazby; oprava: historická (nikoli současná) předsednická role je doložena z primárního zdroje, ale nesouvisí s aktuálně evidovanou částkou contractCzk 81 683 361,6 Kč, která patří do mnohem pozdějšího smluvního období veřejné akciové společnosti vlastněné krajem — doporučuji nadále popisovat nález jako menší/historický, ne jako titulkové tvrzení o aktuální vazbě. Dopravní podnik města Děčína, a.s. (IČO 62240935, contractCzk 1 000 000) — DRUHÁ doložená historická statutární role: Foldyna byl předsedou představenstva od 4. 1. 2011 (funkce od 4. 2. 2011) do 31. 12. 2014 (výmaz 26. 3. 2015), tedy shodná osoba (narozen 26. 6. 1960, Děčín) v obdobné roli jako u Krajské zdravotní, opět zcela historická a skončená přes 10 let před současným mandátem. Generický OSVČ IČO 04627695 (contractCzk 0, pravděpodobný sdílený datový placeholder) zůstává neověřený a v pending_review."
+      },
+      "headline": "Dvě historické (2004–2005, 2011–2014) statutární role v krajských/městských dopravních a zdravotnických firmách — obě skončené přes deset let před současným mandátem, framing zůstává MINOR.",
+      "citations": [
+        "https://or.justice.cz/ias/ui/rejstrik-firma.vysledky?subjektId=27885&typ=UPLNY",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/62240935"
+      ],
+      "reVerification": {
+        "agreesWithPriorOpusVerdict": true,
+        "evidence": "Úplný výpis Krajské zdravotní, a.s. (IČO 25488627, subjektId 27885) na or.justice.cz ukazuje Jaroslava Foldynu jako předsedu představenstva se vznikem funkce 5. 5. 2004, zánikem funkce 15. 6. 2005 a výmazem záznamu 30. 1. 2006. To potvrzuje Opusův nález přesněji, než uváděl (Foldyna byl přímo předsedou, nejen řadovým členem orgánu) a zároveň potvrzuje, že jde o čistě historickou roli — proto ponechávám framing MINOR/historický dle case-gate instrukce, aby se nález nezveličil na titulek."
+      }
+    },
+    {
+      "id": "psp:person:6881",
+      "name": "Petr Hladík",
+      "props": {
+        "effort_notes": "Vlastním ověřením přes or.justice.cz (úplné výpisy: ARENA BRNO subjektId 1084274, Dopravní podnik města Brna subjektId 588476, Teplárny Brno subjektId 429540, MERO ČR subjektId 104729, SAKO Brno subjektId 701241) zjišťuji rozsah osobních statutárních vazeb výrazně širší, než uváděl batch-003 draft — potvrzuji a rozšiřuji nález Opus verifikace na všech pět firem: (1) ARENA BRNO, a.s. (IČO 09133267, contractCzk 5 390 760 300 Kč) — Petr Hladík byl předsedou dozorčí rady od 4. 5. 2020 do 31. 10. 2022 (výmaz zápisu 7. 2. 2023); role tedy pokrývá klíčové období výstavby/zadávání víceleté zakázky, přesně jak zjistil Opus. (2) Dopravní podnik města Brna, a.s. (IČO 25508881, contractCzk 6 700 097,25 Kč) — místopředseda dozorčí rady 2. 12. 2014 – 31. 10. 2015 (historická, krátká role, dříve v dossieru zmíněná jen obecně). (3) Teplárny Brno, a.s. (IČO 46347534) — ZDE JE ZÁSADNÍ OPRAVA batch-003 draftu, který tvrdil pouze 'obecný dohled přes zastupitelstvo, ne doložená osobní vazba': Hladík byl předsedou představenstva 15. 12. 2014 – 30. 11. 2018 a znovu členem představenstva od 1. 11. 2022 do 11. 1. 2023 (zápis 3. 1. 2023, výmaz 9. 2. 2023, cca deset týdnů) — jde o doloženou, opakovanou osobní statutární vazbu (hlavní období 2014–2018 jako předseda, druhé krátké ~10týdenní období 2022–2023), ne o institucionální dohled. (4) MERO ČR, a.s. (IČO 60193468) — batch-003 draft ji označil za pravděpodobnou chybu párování bez vazby na Brno/Hladíka; ve skutečnosti byl Hladík členem dozorčí rady cca 12. 8. 2015 – 31. 1. 2019 (více překrývajících se zápisů kvůli opravám v rejstříku) — vazba je reálná, jen věcně nesouvisí s Brnem (MERO je celostátní ropovodní společnost), takže dřívější podezření na chybu párování bylo samo o sobě chybné. (5) SAKO Brno, a.s. (IČO 60713470, contractCzk 0) — člen dozorčí rady 12. 12. 2018 – 16. 11. 2021 (výmaz 22. 12. 2021) — potvrzeno, další doložená osobní vazba, ne jen institucionální. Shrnutí: u 4 z 5 firem (ARENA BRNO, Teplárny Brno, MERO ČR, SAKO Brno) i u menší DPMB je z primárního zdroje doložena přímá osobní statutární/dozorčí role Petra Hladíka, nikoli jen odvozený dohled přes brněnské zastupitelstvo, jak předpokládal batch-003 draft — jde o systematický vzorec angažmá v městských/krajských akciovkách typický pro dlouholetého náměstka primátorky a zastupitele. Položka OSVČ IČO 04627695 (contractCzk 0) zůstává neresolvovaný datový placeholder sdílený napříč vzorkem — needs review."
+      },
+      "headline": "Petr Hladík má doloženou osobní statutární/dozorčí roli ve všech pěti napojených akciovkách (ARENA BRNO, Teplárny Brno, MERO ČR, SAKO Brno, DPMB) — ne jen institucionální dohled přes zastupitelstvo, jak tvrdil batch-003.",
+      "citations": [
+        "https://or.justice.cz/ias/ui/rejstrik-firma.vysledky?subjektId=1084274&typ=UPLNY",
+        "https://or.justice.cz/ias/ui/rejstrik-firma.vysledky?subjektId=588476&typ=UPLNY",
+        "https://or.justice.cz/ias/ui/rejstrik-firma.vysledky?subjektId=429540&typ=UPLNY",
+        "https://or.justice.cz/ias/ui/rejstrik-firma.vysledky?subjektId=104729&typ=UPLNY",
+        "https://or.justice.cz/ias/ui/rejstrik-firma.vysledky?subjektId=701241&typ=UPLNY"
+      ],
+      "reVerification": {
+        "agreesWithPriorOpusVerdict": true,
+        "evidence": "Independently confirmed the flagged ARENA BRNO supervisory-board tie (předseda dozorčí rady 2020-05-04 → 2022-10-31, deletion filed 2023-02-07 — function end differs slightly from the deletion-date Opus cited, which is normal registry-filing lag). Went further than the Opus scope by also pulling the other 4 linkedCompanies, which the batch-003 draft had explicitly hedged as 'institutional oversight through the city council, not a documented personal tie.' That hedge is WRONG for at least 3 of the 4: Teplárny Brno shows him as board chairman 2014-2018 plus a second board term ending 2022; MERO ČR shows supervisory-board membership 2015-2019; SAKO Brno shows supervisory-board membership 2018-2021. This is a materially larger finding than batch-003/Opus flagged — Hladík has confirmed personal statutory roles in essentially all of his linked companies, not just the one 5.39bn-CZK company Opus caught."
+      }
+    },
+    {
+      "id": "psp:person:6455",
+      "name": "Jan Hrnčíř",
+      "props": {
+        "effort_notes": "contribution_score 68,8 s jediným sponzorovaným tiskem, ale předsednictvím výboru (leadership_count 1, weight 1.0) odpovídá spíš roli organizátora a kontrolora než autora zákonů. Vlastním ověřením přes or.justice.cz (Česká informatika s.r.o., IČO 27720004, subjektId 622154, úplný výpis) potvrzuji nález Opus verifikace: role jednatele Jana Hrnčíře skutečně skončila 13. 10. 2021 (výmaz 1. 11. 2021, nahradila jej Zuzana Pallasová), ale jeho podíl společníka (100 %, vklad 200 000 Kč, zapsán 21. 2. 2007) nemá v úplném výpisu záznam o zániku účasti — Hrnčíř je tedy k datu ověření (24. 7. 2026) nadále 100% vlastníkem firmy, pouze přestal být jejím jednatelem. Batch-003 draft chybně popsal celou vazbu jako 'historickou a bez zjevného veřejného financování', protože sledoval jen zánik jednatelské role; oprava: vlastnická vazba je AKTUÁLNÍ, jen řídicí (jednatelská) role je historická. Hlídač státu potvrzuje 0 evidovaných veřejných zakázek u firmy, takže contractCzk 0 zůstává správně — jde tedy o aktuální, ale finančně nezatíženou vlastnickou vazbu."
+      },
+      "headline": "Jednatelská role u České informatiky skončila 2021, ale 100% vlastnický podíl trvá dodnes (ověřeno z or.justice.cz).",
+      "citations": [
+        "https://or.justice.cz/ias/ui/rejstrik-firma.vysledky?subjektId=622154&typ=UPLNY"
+      ],
+      "reVerification": {
+        "agreesWithPriorOpusVerdict": true,
+        "evidence": "Úplný výpis České informatiky s.r.o. (IČO 27720004, subjektId 622154) na or.justice.cz potvrzuje přesně to, co zjistil Opus: jednatelská role Jana Hrnčíře má zánik funkce 13. 10. 2021 (výmaz 1. 11. 2021), zatímco jeho společnický (vlastnický) podíl 100 % / 200 000 Kč vklad, zapsaný 21. 2. 2007, nemá v úplném výpisu žádný záznam o zániku účasti — je tedy stále aktivní k datu ověření."
+      }
+    },
+    {
+      "id": "psp:person:6178",
+      "name": "Jan Bartošek",
+      "props": {
+        "effort_notes": "Datová nesrovnalost k ověření (oprava batch-004, Q-effort-11): absence_rate v aktuálních props je 0.4, což je stejná hodnota jako absenceRate v contributionPsp9 (rovněž 0.4) — shoda mezi obdobími působí spíš jako artefakt přebírání staré hodnoty než jako reálně naměřená 40% absence za celé jeho aktuální (plné, full_term) 293denní působení v PSP10; batch-003 draft tuto pasáž chybně popsal jako pokrývající jen prvních pár měsíců krátkého nástupu — Bartošek je full_term MP od voleb 2025-10-04, ne náhradník s krátkým mandátem, takže absence_rate 0.4 pokrývá celé 293denní období, ne jeho zlomek. Doporučuji ověřit zdroj metriky pro PSP10 přímo z hlasovacích dat. Firemní vazba: vlastním ověřením přes or.justice.cz (Nadační fond Nemocnice Dačice, IČO 26025027, subjektId 83968, úplný výpis) potvrzuji nález Opus verifikace: Jan Bartošek je předsedou správní rady fondu nepřetržitě od 7. 12. 2012 (funkce formálně obnovena 29. 5. 2023 po skončení předchozího období 11. 7. 2023) a k datu ověření (24. 7. 2026) nemá záznam o zániku funkce — jde tedy o AKTUÁLNĚ TRVAJÍCÍ statutární vazbu, ne jen o kontextovou souvislost přes jeho dřívější působení místostarosty Dačic, jak tvrdil batch-003 draft ('nepodařilo se dohledat přímou personální vazbu'). Vazba se pojí s contractCzk 433 586 Kč evidovaným u fondu; konkrétní smluvní kontext (typ a období smlouvy) nebyl touto verifikací zkoumán a zůstává na money-loop review, ale personální statutární vazba je nyní doložena z primárního zdroje."
+      },
+      "headline": "Bartošek je od 2012 nepřetržitě předsedou správní rady Nadačního fondu Nemocnice Dačice — aktuálně trvající role, ne jen kontextová souvislost (ověřeno z or.justice.cz).",
+      "citations": [
+        "https://or.justice.cz/ias/ui/rejstrik-firma.vysledky?subjektId=83968&typ=UPLNY"
+      ],
+      "reVerification": {
+        "agreesWithPriorOpusVerdict": true,
+        "evidence": "Úplný výpis Nadačního fondu Nemocnice Dačice (IČO 26025027, subjektId 83968) na or.justice.cz ukazuje Jana Bartoška dvakrát v roli předsedy správní rady: 7. 12. 2012 – 11. 7. 2023 (první období) a 29. 5. 2023 – dosud (aktuální, bez zániku funkce). Potvrzuje to Opusův nález plné síly — jde o nepřerušenou (jen formálně přeregistrovanou) a aktuálně trvající vazbu, přesný opak toho, co tvrdil batch-003 draft."
+      }
+    },
+    {
+      "id": "psp:person:6727",
+      "name": "Eva Decroix",
+      "props": {
+        "effort_notes": "Nízké participation_rate (0,6) a vysoké absence_rate (0,8) odpovídají přechodu z exekutivní funkce (ministryně) do opoziční lavice v polovině/na konci roku 2025 — přechod na plný poslanecký mandát proběhl teprve v lednu 2026 (první výborové členství 16. 1. 2026), takže velká část tenure (293 dní) předchází reálné parlamentní aktivitě. Vlastním ověřením přes or.justice.cz potvrzuji a rozšiřuji nález Opus verifikace na všechny tři firmy: (1) Delices de papa s.r.o. (IČO 03709698, subjektId 886177, contractCzk 594) — Eva Decroix (ne jen manžel) byla osobně jednatelkou 13. 1. 2015 – 31. 5. 2021 a společnicí; manžel Rémi Decroix byl souběžně/následně také jednatelem a je jím opět od června 2021 dodnes. Jde tedy o skutečně sdílený rodinný gastro-podnik (bistro v Horní Dubenkách), ne o vazbu jen manžela, jak batch-003 draft nesprávně rámoval. (2) ELEMENTA Agency s.r.o. (IČO 03265889, subjektId 871859, contractCzk 0) — NOVÝ NÁLEZ nad rámec batch-003 scope: Eva Decroix byla jednatelkou a 100% společnicí 5. 8. 2014 – 27. 1. 2017 (ve dvou navazujících zápisech), firmu později (2016/2017) převzala Lucie Horáčková a poté Dejan Hrnjica a Eliška Běťáková; vazba je tedy reálná, ale ukončená přes 8 let před jejím ministerským působením (2025) a s nulovou evidovanou veřejnou zakázkou. (3) Park Volmanec s.r.o. (IČO 03921727, subjektId 893163, contractCzk 0) — rovněž nový nález: Decroix byla jednatelkou 24. 3. 2015 – 20. 10. 2015 a fakticky vlastnila celou společnost přes dva samostatné 50% podíly (2× vklad 2 500 Kč, oba zapsané 24. 3. 2015), tedy velmi krátká, půlroční role. Shrnutí: u všech tří firem je osobní (nikoli jen manželská) statutární vazba doložena z primárního zdroje, ale u dvou z nich (ELEMENTA, Park Volmanec) šlo o krátké, dávno ukončené role bez veřejného financování — namístě je uvést je jako historické, ne jako aktuální riziko. OSVČ IČO 04627695 (Všeruby, Plzeň-sever) zůstává pravděpodobná chyba párování dat sdílená s dalšími poslanci v tomto vzorku, needs review.",
+        "effort_data_flag": "sponsoredBills obsahuje vládní (druh=1) tisky, kde MP je jen výborový garant — navrhuji odlišit od skutečného autorství v datovém modelu."
+      },
+      "headline": "Eva Decroix byla osobně (ne jen manžel) jednatelkou/společnicí tří firem 2014–2021, včetně rodinného bistra Delices de papa — vše ukončeno dávno před nástupem do vlády (ověřeno z or.justice.cz).",
+      "citations": [
+        "https://or.justice.cz/ias/ui/rejstrik-firma.vysledky?subjektId=886177&typ=UPLNY",
+        "https://or.justice.cz/ias/ui/rejstrik-firma.vysledky?subjektId=871859&typ=UPLNY",
+        "https://or.justice.cz/ias/ui/rejstrik-firma.vysledky?subjektId=893163&typ=UPLNY"
+      ],
+      "reVerification": {
+        "agreesWithPriorOpusVerdict": true,
+        "evidence": "Delices de papa s.r.o. (subjektId 886177) confirms Opus: Eva Decroix herself was jednatelka 2015-01-13 → 2021-05-31 (function-end date; Opus cited the later 2021-06-18 deletion date) and společnice at 50% then 100%, alongside husband Rémi Decroix as co-jednatel. Going beyond Opus's scope, I also pulled the two other linkedCompanies that were NOT in the original held-back 8's flagged set but appear on her linkedCompanies list per the task's positive-symmetry instruction: ELEMENTA Agency (subjektId 871859) and Park Volmanec (subjektId 893163) BOTH show her as a real, personal jednatelka+společnice — briefly, 2014-2017 and 2015 respectively — contradicting the batch-003 draft's claim these 'could not be linked to Decroix in public sources.' These are new confirmed findings, not clean/negative results, but both are short, long-closed, zero-contractCzk roles, so I framed them as historical rather than as new headline risk."
+      }
+    },
+    {
+      "id": "psp:person:7031",
+      "name": "Patrik Pařil",
+      "props": {
+        "effort_notes": "Peněžní stopa: vlastním ověřením přes or.justice.cz (RAPAJA s.r.o., IČO 06386237, subjektId 985256; RMPJ s.r.o., IČO 09187944, subjektId 1085992, oba úplné výpisy) potvrzuji nález Opus verifikace, že batch-003 draft vazby zbytečně přehedgoval: Patrik Pařil je AKTUÁLNÍM jednatelem a společníkem (25% podíl, vklad 50 000 Kč) RAPAJA s.r.o. — role trvá nepřetržitě od 29. 8. 2017 (aktuální zápis 5. 5. 2021 je jen adresní přeregistrace, ne vznik vazby), bez záznamu o zániku; druhým společníkem je Radovan Pařil (75 %, shodná adresa Znojemská 1115, Pohořelice — patrně otec/příbuzný), třetí dřívější společník Jakub Pařil odešel už v roce 2018. U RMPJ s.r.o. je Patrik Pařil rovněž aktuálním jednatelem nepřetržitě od 25. 5. 2020 (aktuální zápis 5. 5. 2021 je opět jen přeregistrace, bez zániku funkce) vedle Radovana Pařila, který je zde 100% společníkem — u RMPJ tedy Patrik Pařil drží pouze řídicí (jednatelskou), nikoli vlastnickou roli; společnický podíl na jeho jméno u této firmy doložen nebyl. Batch-003 draft chybně napsal, že se 'osobní roli jednatele/společníka nepodařilo v dostupných zdrojích potvrdit' — u obou firem je role z veřejného rejstříku jednoznačně doložitelná a aktuální, adresní shoda se sídlem v Pohořelicích (jeho domovské město, kde je místostarostou) tedy skutečně odpovídá jeho osobnímu, nejen firemnímu angažmá. contractCzk u obou firem zůstává 0 (žádná evidovaná veřejná zakázka). OSVČ IČO 04627695 (Všeruby, Plzeň-sever) je stejná datová anomálie jako u Decroix v tomto vzorku — geograficky nesourodá, needs review, nebrat jako reálnou vazbu.",
+        "effort_data_flag": "AKTUALIZACE (batch-004): jednatelská role u obou firem a vlastnický (společnický) podíl u RAPAJA byly ověřeny přes or.justice.cz jako aktuální a doložené — původní hedge z batch-003 draftu ('vlastnická role nepotvrzena') byl chybný, viz effort_notes. U RMPJ zůstává potvrzena pouze jednatelská role, ne vlastnický podíl na jméno Patrika Pařila."
+      },
+      "headline": "Patrik Pařil je aktuálním jednatelem/společníkem RAPAJA a aktuálním jednatelem RMPJ v Pohořelicích — vlastnictví/řízení potvrzeno, ne jen adresní shoda, jak tvrdil batch-003 draft.",
+      "citations": [
+        "https://or.justice.cz/ias/ui/rejstrik-firma.vysledky?subjektId=985256&typ=UPLNY",
+        "https://or.justice.cz/ias/ui/rejstrik-firma.vysledky?subjektId=1085992&typ=UPLNY"
+      ],
+      "reVerification": {
+        "agreesWithPriorOpusVerdict": true,
+        "evidence": "RAPAJA s.r.o. (subjektId 985256) confirms Opus: Patrik Pařil is current jednatel and společník (25%, 50,000 CZK vklad, registered 2021-05-05, no end date) alongside Radovan Pařil (75%). RMPJ s.r.o. (subjektId 1085992) confirms current jednatel status for Patrik Pařil (registered 2021-05-05, no end date), but ownership (společník) there is held 100% by Radovan Pařil only — no společník record found for Patrik at RMPJ, a nuance Opus's summary did not distinguish. Net: batch-003's 'unconfirmable' hedge was wrong for both companies' jednatel role and for RAPAJA ownership; it was accidentally correct in the narrow sense that Patrik has no documented ownership stake in RMPJ specifically."
+      }
+    },
+    {
+      "id": "psp:person:6513",
+      "name": "Marek Výborný",
+      "props": {
+        "effort_bill_focus": "Výborný je hlavním předkladatelem dvou tisků — tisku 28 (rozpočtové určení daní, s Filipovičovou aj.) a tisku 243 (v datasetu 43365, s Hladíkem a Talířem) — a spolupředkladatelem (jedním z řady spolupodpisů, hlavní předkladatel M. Jurečka) tisku 121, daňově-sociálního balíku (novela zákona o daních z příjmů), který k 24. 7. 2026 čeká na projednání po zamítavém vládním stanovisku z 31. 3. 2026. Tisk 28 má od prosince 2025 doporučení organizačního výboru, ale k datu přístupu ještě neprošel plénem — v datech je tedy 'sponsored' spíše rozpracovaná agenda než dokončený výsledek. Oprava prose-vs-props: v jiné části batch-003 draftu (effort_public_role) se objevilo tvrzení o 'šesti autorsky vedených tiscích', které neodpovídá jeho doloženému záznamu v tomto dossieru — jeho reálný podíl je 2 tisky jako hlavní předkladatel + 1 tisk jako spolupředkladatel (celkem 3 tisky), ne 6; číslo 6 se nedokládá žádným ze zdrojových props (bills_authored) a nemá se dále používat.",
+        "effort_notes": "Peněžní stopa (batch-004 doplnění, ERROR_MATERIAL v batch-004 Opus verifikaci): Marek Výborný byl v letech 2012–2022 ředitelem školy, tj. statutárním orgánem Gymnázia, Pardubice, Mozartova 449 (IČO 48161063) — funkce od 1. 8. 2012 do 28. 2. 2022 (zápis 26. 3. 2013, výmaz 22. 4. 2022), doloženo z veřejného rejstříku. Jde tedy o doloženou, téměř desetiletou osobní statutární vazbu na subjekt, u nějž je evidována částka 9 253 982,84 Kč (contractCzk), nikoli o neprozkoumanou kontextovou souvislost, jak předpokládal batch-003 draft (\"kontext smlouvy nebyl touto skupinou dohledáván\"). Konkrétní typ a období smlouvy nebyly touto verifikací zkoumány a zůstávají na money-loop review, ale osobní statutární role je nyní doložena z primárního zdroje.",
+        "effort_public_role": "Poslanec od 4.10.2025 za Pardubický kraj (SPOLU/KDU-ČSL), místopředseda Výboru pro vědu, vzdělávání, mládež a sport (od 21.1.2026), člen zemědělského výboru a ověřovatel Stálé komise pro Ústavu ČR a parlamentní procedury. Nejvyšší contribution_score (90.4) v této skupině a zVsClub=1 odpovídají profilu top výkonu — kombinace vedení výboru, vysoké účasti (0.9) a tří dolozenych tisku (2 jako hlavní předkladatel, 1 jako spolupředkladatel); OPRAVA (batch-004): předchozí verze textu chybně uváděla sest tisku, coz neodpovídá bills_authored ani effort_bill_focus."
+      },
+      "headline": "Oprava prose-vs-props: Výborný má v tomto dossieru doloženy celkem 3 tisky (2 jako hlavní předkladatel + 1 spolupředkladatel), ne 'šest', jak omylem uvedla jiná část batch-003 draftu.",
+      "citations": [
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/48161063"
+      ],
+      "reVerification": {
+        "agreesWithPriorOpusVerdict": false,
+        "evidence": "Not a money-tie re-verification — no ARES/VR lookup was needed or performed. This is a prose-consistency fix per the Opus reflection note flagging that batch-003 drafts asserted 'šesti autorsky vedených tisků' somewhere in the dossier while his own effort_bill_focus text only documents 3 tisky (28 hlavní předkladatel, 243 hlavní předkladatel, 121 spolupředkladatel). The corrected effort_bill_focus is self-consistent with the bill IDs already in currentProps and introduces no new numeric claim beyond what was already stated. His Gymnázium Pardubice money tie (IČO 48161063) was already correctly hedged per the prior Opus verdict and was left untouched, per instructions. UPDATE (post batch-004 Opus verification): the batch-003 Opus grade of CORRECTLY_HEDGED for Vyborny's money side was itself a plain-endpoint false negative — VR 48161063 shows him as reditel skoly (statutory organ) of Gymnazium Pardubice 2012-08-01 to 2022-02-28, the entity carrying his 9.25M CZK contractCzk figure. This has now been added to effort_notes."
+      }
+    }
+  ]
+}

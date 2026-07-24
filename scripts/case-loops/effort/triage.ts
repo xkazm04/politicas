@@ -27,6 +27,24 @@ import { getStore } from "@/lib/db/store";
 const TERM = "PSP10";
 const OUT = "docs/data-analysis/case-effort";
 
+// Q-effort-12 (batch 004): role_window_mismatch meta-class (batch-003 reflection) — the
+// mid-term role change floor-artifact (minister/deputy_pm/prime_minister/institutional
+// promotion). These MPs' low plenary props are a SCORE-WINDOW artifact, not a one-sided
+// work profile, so they must not consume a componentDivergence army slot. Sourced from
+// batch-003's own dossiers (§Headline finding) — effort_low_score_reason is set for
+// Fiala/Plaga already (prior batches); the 6 batch-003 instances get their reason payload
+// this batch (see batch-004-role-window-mismatch.json) but are excluded from the lens
+// here regardless of persist timing, since triage always reads the live graph BEFORE
+// this batch's own payload lands.
+const ROLE_WINDOW_MISMATCH_PSP_IDS = new Set([
+  6621, // Karel Havlíček — 1st Deputy PM + Industry & Trade, since 2025-12-15
+  7022, // Petr Macinka — Deputy PM + Foreign Affairs, since 2025-12
+  6545, // Alena Schillerová — Minister of Finance, since 2025-12-15
+  6150, // Andrej Babiš — Prime Minister, since 2025-12-09
+  6544, // Lubomír Metnar — Minister of Interior, since 2025-12-15
+  6788, // Barbora Urbanová — Deputy Speaker of the Chamber, since 2026-06-05
+]);
+
 const num = (x: unknown): number => (typeof x === "number" && Number.isFinite(x) ? x : 0);
 const nullableNum = (x: unknown): number | null => (typeof x === "number" && Number.isFinite(x) ? x : null);
 const round = (x: number, d = 2) => Math.round(x * 10 ** d) / 10 ** d;
@@ -61,7 +79,7 @@ interface MpRow {
   quietWorkhorseIndex: number;
   workhorseFlavour: "legislative" | "oversight" | null; // P31: two positive-symmetry flavours
   neverCastBallot: boolean; // batch-002 pre-filter (Q-effort-1)
-  tenureClass: "full_term" | "replacement"; // Q-effort-5 (batch 003)
+  tenureClass: "full_term" | "replacement" | "departed" | "never_seated"; // Q-effort-5 (batch 003), 4-class synced batch 004
   tenureDays: number | null;
   componentDivergence: number; // batch-003 retune (Q-effort-6): stddev of 6 (club×tenure_class)-cohort
   // z-scored components — one-sided vs COMPARABLE peers, not vs an absolute 0-1 scale.
@@ -95,24 +113,38 @@ async function main() {
   const edges = await store.listKgEdges({ limit: 200_000 });
   const memberships = (await store.listMemberships({ termCode: TERM, limit: 200_000 })) ?? [];
 
-  // ── Q-effort-5 (batch 003): tenure, from membership.fromAt on organ 174 (the PSP10
-  // chamber itself) — the only reliable per-person start date in this ingest (mandate
-  // table's own mandateFrom/mandateTo columns are almost entirely null). Used both for
-  // the tenure annotation payload (tenure.ts) and to cohort componentDivergence below.
+  // ── Q-effort-5 (batch 003) / batch-004 SYNC FIX: tenure, from membership.fromAt/toAt on
+  // organ 174 (the PSP10 chamber itself) — the only reliable per-person start date in this
+  // ingest (mandate table's own mandateFrom/mandateTo columns are almost entirely null).
+  // Used both for the tenure annotation payload (tenure.ts) and to cohort
+  // componentDivergence below. Batch-004 reflection (Opus QA) caught that THIS file still
+  // carried the OLD fromAt-only 2-class classifier after tenure.ts was made end-date-aware
+  // in batch 003 (toAt → departed/never_seated) — meaning ledger.json/triage.json recorded
+  // Beran, Šichtařová, Kott (all departed) as full_term/293d, the exact artefact batch 003
+  // shipped a fix for, just in the wrong file. Fixed here to match tenure.ts exactly.
   const CHAMBER_ORGAN_PSP_ID = 174;
   const chamberFromByPerson = new Map<number, string>();
+  const chamberToByPerson = new Map<number, string>();
   for (const m of memberships) {
     if (m.organPspId === CHAMBER_ORGAN_PSP_ID && m.kind === "member" && m.fromAt) {
       const existing = chamberFromByPerson.get(m.personPspId);
-      if (!existing || m.fromAt < existing) chamberFromByPerson.set(m.personPspId, m.fromAt);
+      if (!existing || m.fromAt < existing) {
+        chamberFromByPerson.set(m.personPspId, m.fromAt);
+        if (m.toAt) chamberToByPerson.set(m.personPspId, m.toAt); else chamberToByPerson.delete(m.personPspId);
+      }
     }
   }
   const startFreq = new Map<string, number>();
   for (const d of chamberFromByPerson.values()) startFreq.set(d.slice(0, 10), (startFreq.get(d.slice(0, 10)) ?? 0) + 1);
   let modeStartDay = "", modeStartCount = 0;
   for (const [d, n] of startFreq) if (n > modeStartCount) { modeStartDay = d; modeStartCount = n; }
-  const tenureClassOf = (pspId: number): "full_term" | "replacement" => {
+  const tenureClassOf = (pspId: number, participationRate: number, committeeCount: number): "full_term" | "replacement" | "departed" | "never_seated" => {
     const iso = chamberFromByPerson.get(pspId);
+    const toIso = chamberToByPerson.get(pspId);
+    if (toIso) {
+      const neverCast = participationRate === 0 && committeeCount === 0;
+      return neverCast ? "never_seated" : "departed";
+    }
     return iso && iso.slice(0, 10) === modeStartDay ? "full_term" : "replacement";
   };
 
@@ -169,9 +201,13 @@ async function main() {
       quietWorkhorseIndex: 0,
       workhorseFlavour: null,
       neverCastBallot: participationRate === 0 && committeeCount === 0,
-      tenureClass: tenureClassOf(pspId),
+      tenureClass: tenureClassOf(pspId, participationRate, committeeCount),
       tenureDays: chamberFromByPerson.has(pspId)
-        ? Math.round((new Date("2026-07-24T00:00:00.000Z").getTime() - new Date(chamberFromByPerson.get(pspId)!).getTime()) / 86_400_000)
+        ? Math.round(
+            ((chamberToByPerson.has(pspId) ? new Date(chamberToByPerson.get(pspId)!) : new Date("2026-07-24T00:00:00.000Z")).getTime() -
+              new Date(chamberFromByPerson.get(pspId)!).getTime()) /
+              86_400_000,
+          )
         : null,
       componentDivergence: 0,
       triageScore: 0,
@@ -245,20 +281,40 @@ async function main() {
     clamp01((r.billsAuthored + r.interpellations) / LEGIS_SAT),
     clamp01(r.speechTurns / SPEECH_SAT),
   ];
-  const cohortKey = (r: MpRow) => `${r.club}::${r.tenureClass}`;
+  // Q-effort-12 (batch 004): replacement MPs are pooled CROSS-CLUB (cohort key drops the
+  // club for tenureClass=="replacement") — batch 003's club::tenure_class cohorting put
+  // 3 of 7 replacements in cohorts <3, which fell all the way back to club-wide and undid
+  // the participation-pairing intent entirely. Pooling all replacements together (7 MPs,
+  // still short-tenure peers of each other regardless of club) keeps the comparison
+  // meaningful without falling back past it.
+  const cohortKey = (r: MpRow) => (r.tenureClass === "replacement" ? "replacement::ALL" : `${r.club}::${r.tenureClass}`);
   const byCohort = new Map<string, MpRow[]>();
   const byClubAll = new Map<string, MpRow[]>();
   for (const r of rows) {
     (byCohort.get(cohortKey(r)) ?? byCohort.set(cohortKey(r), []).get(cohortKey(r))!).push(r);
     (byClubAll.get(r.club) ?? byClubAll.set(r.club, []).get(r.club)!).push(r);
   }
-  const MIN_COHORT = 3;
+  // Q-effort-12: MIN_COHORT raised 3 → 8 (batch-003 reflection: tiny cohorts are
+  // self-referential — a 3-member cohort z-scores each member almost entirely against
+  // itself, which is not a meaningful "outlier vs peers" signal).
+  //
+  // BUG FOUND BY BATCH-004 OPUS REFLECTION, FIXED HERE: raising MIN_COHORT to 8 in the
+  // same change that pooled the 7 replacement MPs into "replacement::ALL" was a NO-OP —
+  // 7 < 8, so the pooled cohort was discarded on every replacement MP and all 7 fell
+  // straight back to club-wide, the exact distortion the pooling was written to remove
+  // (it now fired on 7/7 instead of the pre-fix 3/7). The "replacement::ALL" cohort is a
+  // deliberate DESIGN cohort (all short-tenure peers, intentionally pooled), not an
+  // accidental small one, so it is exempted from the MIN_COHORT floor below.
+  const MIN_COHORT = 8;
+  const REPLACEMENT_POOL_KEY = "replacement::ALL";
   const popCompStats = [0, 1, 2, 3, 4, 5].map((i) => meanSd(rows.map((r) => compsOf(r)[i])));
   for (const r of rows) {
-    let group = byCohort.get(cohortKey(r))!;
+    const key = cohortKey(r);
+    let group = byCohort.get(key)!;
     let basis: "cohort" | "club" | "population" = "cohort";
-    if (group.length < MIN_COHORT) { group = byClubAll.get(r.club)!; basis = "club"; }
-    if (group.length < MIN_COHORT) basis = "population";
+    const exemptFromMinCohort = key === REPLACEMENT_POOL_KEY; // deliberate design cohort, not accidental
+    if (!exemptFromMinCohort && group.length < MIN_COHORT) { group = byClubAll.get(r.club)!; basis = "club"; }
+    if (!exemptFromMinCohort && group.length < MIN_COHORT) basis = "population";
     const myComps = compsOf(r);
     const zScores = [0, 1, 2, 3, 4, 5].map((i) => {
       const { mean, sd } = basis === "population" ? popCompStats[i] : meanSd(group.map((g) => compsOf(g)[i]));
@@ -321,8 +377,16 @@ async function main() {
   // runs roughly 0-2, population mean ~0.76 — use the top-quartile-ish 0.9 cut, still
   // paired with the mid-band score condition so a "divergent" pick means one-sided WORK,
   // not just a structural floor/ceiling score)
+  // Q-effort-12: exclude never_cast_ballot (already its own "phantom-mandate" lens),
+  // role_window_mismatch, AND tenure_class=="replacement" (batch-004 reflection: a 55-day
+  // replacement MP — Forman — still took a divergence slot even after the MIN_COHORT/
+  // cohort-pooling fix, because pooling only changes the Z-SCORE BASIS, not whether a
+  // short-tenure MP's one-sided profile is a real signal or a structural artifact; the
+  // lens itself must exclude the class, the same way it already excludes never_cast_ballot
+  // and role_window_mismatch) from the divergence lens.
   const divergent = pool
     .filter((r) => r.componentDivergence >= 0.9 && r.score >= 35 && r.score <= 75) // mid-band, one-sided
+    .filter((r) => !r.neverCastBallot && !ROLE_WINDOW_MISMATCH_PSP_IDS.has(r.pspId) && r.tenureClass !== "replacement" && r.tenureClass !== "departed" && r.tenureClass !== "never_seated")
     .sort((a, b) => b.componentDivergence - a.componentDivergence)
     .slice(0, 6);
 

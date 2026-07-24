@@ -1,9 +1,9 @@
 {
   "case": "effort",
   "term": "PSP10",
-  "generatedAt": "2026-07-24T19:18:25.311Z",
+  "generatedAt": "2026-07-24T20:48:12.428Z",
   "population": 207,
-  "batch": 3,
+  "batch": 4,
   "units": [
     {
       "pspId": 6751,
@@ -389,8 +389,8 @@
       "club": "KDU-ČSL",
       "rank": 19,
       "contribution_score": 89.8,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -410,8 +410,8 @@
       "club": "STAN",
       "rank": 20,
       "contribution_score": 89.7,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -431,8 +431,8 @@
       "club": "TOP09",
       "rank": 21,
       "contribution_score": 89.4,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -473,8 +473,8 @@
       "club": "STAN",
       "rank": 23,
       "contribution_score": 89.2,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -515,8 +515,8 @@
       "club": "SPD",
       "rank": 25,
       "contribution_score": 87.9,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -536,8 +536,8 @@
       "club": "KDU-ČSL",
       "rank": 26,
       "contribution_score": 87.6,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -746,8 +746,8 @@
       "club": "SPD",
       "rank": 36,
       "contribution_score": 83.4,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -767,8 +767,8 @@
       "club": "KDU-ČSL",
       "rank": 37,
       "contribution_score": 83.2,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -1145,8 +1145,8 @@
       "club": "ANO2011",
       "rank": 55,
       "contribution_score": 78.2,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -1292,8 +1292,8 @@
       "club": "ANO2011",
       "rank": 62,
       "contribution_score": 77.1,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -1691,8 +1691,8 @@
       "club": "ODS",
       "rank": 81,
       "contribution_score": 72.4,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -1775,8 +1775,8 @@
       "club": "ODS",
       "rank": 85,
       "contribution_score": 71.1,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -1796,8 +1796,8 @@
       "club": "ANO2011",
       "rank": 86,
       "contribution_score": 71.1,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -1880,8 +1880,8 @@
       "club": "ODS",
       "rank": 90,
       "contribution_score": 70.5,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -1901,8 +1901,8 @@
       "club": "ANO2011",
       "rank": 91,
       "contribution_score": 70.4,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -1943,8 +1943,8 @@
       "club": "ODS",
       "rank": 93,
       "contribution_score": 70.2,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -1995,7 +1995,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 2.71,
         "z_vs_club": 0.47,
-        "component_divergence": 0.577,
+        "component_divergence": 0.952,
         "tenure_class": "replacement",
         "tenure_days": 262
       }
@@ -2027,8 +2027,8 @@
       "club": "ODS",
       "rank": 97,
       "contribution_score": 69.5,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -2090,8 +2090,8 @@
       "club": "KDU-ČSL",
       "rank": 100,
       "contribution_score": 69,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -2174,8 +2174,8 @@
       "club": "KDU-ČSL",
       "rank": 104,
       "contribution_score": 68.6,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -2363,8 +2363,8 @@
       "club": "STAN",
       "rank": 113,
       "contribution_score": 66.4,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -2552,8 +2552,8 @@
       "club": "ANO2011",
       "rank": 122,
       "contribution_score": 64.1,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -2783,8 +2783,8 @@
       "club": "MS",
       "rank": 133,
       "contribution_score": 61.9,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -2846,8 +2846,8 @@
       "club": "TOP09",
       "rank": 136,
       "contribution_score": 61.2,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -3402,7 +3402,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 2.899,
         "z_vs_club": -0.4,
-        "component_divergence": 0.419,
+        "component_divergence": 0.835,
         "tenure_class": "replacement",
         "tenure_days": 262
       }
@@ -3465,7 +3465,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 1.592,
         "z_vs_club": -0.42,
-        "component_divergence": 0.795,
+        "component_divergence": 0.768,
         "tenure_class": "replacement",
         "tenure_days": 262
       }
@@ -3476,8 +3476,8 @@
       "club": "ANO2011",
       "rank": 166,
       "contribution_score": 53.9,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -3644,8 +3644,8 @@
       "club": "ODS",
       "rank": 174,
       "contribution_score": 50.8,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -3686,8 +3686,8 @@
       "club": "STAN",
       "rank": 176,
       "contribution_score": 49.9,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -3707,8 +3707,8 @@
       "club": "ODS",
       "rank": 177,
       "contribution_score": 49.7,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -3728,8 +3728,8 @@
       "club": "MS",
       "rank": 178,
       "contribution_score": 48.8,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -3749,8 +3749,8 @@
       "club": "ODS",
       "rank": 179,
       "contribution_score": 48.5,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -3791,8 +3791,8 @@
       "club": "ODS",
       "rank": 181,
       "contribution_score": 47.8,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -3854,8 +3854,8 @@
       "club": "SPD",
       "rank": 184,
       "contribution_score": 47.1,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -3896,8 +3896,8 @@
       "club": "ANO2011",
       "rank": 186,
       "contribution_score": 46.6,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -3938,8 +3938,8 @@
       "club": "ANO2011",
       "rank": 188,
       "contribution_score": 45.8,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -3959,8 +3959,8 @@
       "club": "ANO2011",
       "rank": 189,
       "contribution_score": 45.7,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -4022,8 +4022,8 @@
       "club": "ANO2011",
       "rank": 192,
       "contribution_score": 41,
-      "stage": "pending",
-      "batch": null,
+      "stage": "triaged",
+      "batch": 4,
       "signal": null,
       "flags": {
         "absentee_manager_lead": false,
@@ -4242,7 +4242,7 @@
         "workhorse_flavour": null,
         "contested_vote_rebellion": 0,
         "z_vs_club": -1.81,
-        "component_divergence": 0.882,
+        "component_divergence": 1.012,
         "tenure_class": "replacement",
         "tenure_days": 35
       }

@@ -1,0 +1,167 @@
+{
+  "case": "effort",
+  "batch": 4,
+  "group": "D",
+  "generatedAt": "2026-07-24T21:30:00.000Z",
+  "note": "7/7 MPs full_term (tenureDays 293 for all, no replacement-tenure cases, no predecessor research needed). Bill fates pulled from psp.cz historie.sqw for all 26 unique tisky referenced across the group (several bills — 50/89/109/110/121/161 shared by Philipp+Kršková, 87 shared by Kohoutek+Okamura — were fetched once and reused). ARES VR (ares.gov.cz/ekonomicke-subjekty-vr) itself would not render for any of the 13 ICOs queried (WebFetch only received a bare JS-shell page with the single word 'ARES', no register data) — that is recorded honestly per dossier rather than silently treated as a confirmed negative. For Okamura and Ženíšek (the only two with non-empty linkedCompanies) I cross-checked via Hlídač Státu's Vazby aggregation and investigative-journalism pieces (HlídačPes, Aktuálně.cz, kurzy.cz) that themselves cite the same veřejný rejstřík VR source ARES failed to render — those found real, sourced personal ties for several companies; for the remainder no tie could be confirmed OR denied, and that is flagged explicitly as an unverified negative, not fact.",
+  "proposals": [
+    {
+      "id": "psp:person:6506",
+      "name": "Tomáš Kohoutek",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["ústavně-právní agenda", "mandátové a imunitní otázky", "zahraniční vztahy"],
+        "effort_bill_focus": "Kohoutek je uveden jako jeden ze 40 spolupředkladatelů tisku 87 (návrh zákona o zemských znacích a vlajkách), který 22. 1. 2026 podal R. Vondráček. Vláda k němu 25. 2. 2026 zaujala souhlasné stanovisko; k 24. 7. 2026 je tisk stále projednáván ve výborech (garanční VVVMS, dále ÚPV, zpravodaj J. Vojáček) a zákonem se dosud nestal. Je to jeho jediný sněmovní tisk za sledované období — s ohledem na schema note (e) jde o spolupředkladatelství, ne o vlastní autorský návrh (prvním jmenovaným předkladatelem je Vondráček).",
+        "effort_public_role": "Místopředseda Mandátového a imunitního výboru, řadový člen Ústavně-právního výboru a Zahraničního výboru, a člen Stálé komise pro Ústavu ČR a parlamentní procedury (SKÚPP). Dále je náhradníkem stálé delegace do CEI a členem delegace do Meziparlamentní unie; předsedá meziparlamentním skupinám s Tureckem a Uzbekistánem.",
+        "effort_notes": "Vstupní data (bills_authored 1, interpellations 0, speech_turns 11) odpovídají nalezenému obrazu — jediný sdílený tisk a čtyři výborové/komisní role bez vlastního předsednictví jádrového orgánu. linkedCompanies je prázdné pole, tedy bez peněžního zjištění k ověření. tenureClass je full_term (293 dní), nástupnictví se tedy netýká."
+      },
+      "signal": 0.28,
+      "headline": "Kohoutek je typický řadový výborový pracovník ANO — jediný sdílený návrh zákona zatím uvízl ve výborech, žádné firemní vazby k prověření.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6506",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87"
+      ]
+    },
+    {
+      "id": "psp:person:6105",
+      "name": "Tomio Okamura",
+      "club": "SPD",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["parlamentní procedura", "sociální a důchodové pojištění", "stavební právo", "trestní právo", "média a poplatky"],
+        "effort_bill_focus": "Okamura je spolupředkladatelem (nikdy prvním jmenovaným předkladatelem) u všech 10 svých tisků. Ze 4 přijatých: tisk 11 (novela zákona o pojistném na sociální zabezpečení, 589/1992 Sb.) — schválen 25. 3. 2026, podepsán prezidentem, vyhlášen 10. 6. 2026; tisk 119 (novela zákona o doplňkovém penzijním spoření) — schválen 27. 5. 2026, Senátem 8. 7. 2026, vyhlášen jako zákon 128/2026 Sb. 23. 7. 2026; tisk 67 (novela stavebního zákona, 283/2021 Sb.) — schválen 3. čtením 10. 7. 2026, postoupen Senátu 23. 7. 2026, k 24. 7. 2026 čeká na senátní projednání; tisk 72 (novela jednacího řádu PS) — schválen 1.–3. 7. 2026, postoupen Senátu 21. 7. 2026. Zbylých 6 tisků je k 24. 7. 2026 stále ve výborech beze schválení: 35 (platy státních představitelů), 87 (zemské znaky a vlajky), 173 a 216 (novely trestního zákoníku), 174 (ochrana zvířat proti týrání), 201 (rozhlasové a televizní poplatky).",
+        "effort_public_role": "Předseda Poslanecké sněmovny — z titulu této funkce z moci úřední předsedá Organizačnímu výboru (jediný výbor uvedený ve vstupních datech, weight 1.0). Interpelace 0 je konzistentní s formálně nestranickou rolí předsedy Sněmovny při řízení jednání.",
+        "effort_notes": "bills_authored 10 odpovídá počtu sponsoredBills ve vstupu, ale ŽÁDNÝ z nich není autorský tisk (Okamura je vždy dále v pořadí spolupředkladatelů) — schema note (e) platí plně. Peněžní vazby: MIKI TRAVEL PRAGUE, spol. s r.o. (IČO 25124188, contractCzk 6 050 000) — přímý ARES VR dotaz se nepodařilo načíst (JS aplikace vrátila jen prázdnou hlavičku 'ARES'), ale nezávislé zdroje (HlídačPes, Aktuálně.cz, kurzy.cz) shodně potvrzují, že Okamura je jednatelem této cestovní kanceláře (společník je britská GROUP MIKI HOLDINGS LIMITED, on sám vlastníkem není) — reálná osobní vazba k firmě, která má veřejnou zakázku v datech označenou k 6,05 mil. Kč, tedy relevantní konflikt zájmů k dořešení. MEBIUS s.r.o. (IČO 25643461, 0 Kč) — dle stejných zdrojů Okamura firmu vlastní (průvodcovské/překladatelské služby, bez tržeb v posledních letech). Japa Foods s.r.o. (IČO 28406354, 0 Kč) — Okamura je spoluvlastníkem a jednatelem (prodej japonských potravin). U Machtů s.r.o. (IČO 27145433, 0 Kč) — historicky spoluvlastnil restauraci Staré časy přes tuto firmu, ale dle HlídačPes svůj podíl na počátku roku prodal; přesné datum vůči aktuálnímu období (od 10/2025) se nepodařilo ověřit, takže vztah k současnému mandátu je nejistý. OSVČ IČO 04627695 (0 Kč) je stejný generický placeholder bez rozlišujícího jména, který se v tomto i minulých batchích (batch-003, Válková/Foldyna) opakovaně objevuje s nulovou hodnotou — silně naznačuje nedořešený artefakt v pipeline Case ①, ne skutečnou vazbu. Datová nesrovnalost: props.committee_count=2, ale ve vstupních datech je uveden jen 1 committee záznam (ORGV) — možná se počítá i samotná funkce předsedy Sněmovny jako druhý 'orgán', ale to není z dat jisté; doporučuji ověřit v Case ①."
+      },
+      "signal": 0.78,
+      "headline": "Předseda Sněmovny Okamura má nejvyšší státní funkci a zároveň reálnou, dobře zdokumentovanou vazbu na cestovní kancelář Miki Travel s veřejnou zakázkou za 6,05 mil. Kč, kde je jednatelem.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6105",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=35",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=67",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=119",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=173",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=174",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=201",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=216",
+        "https://hlidacipes.org/tomio-okamura-uz-neni-restaurater-prodej-podilu-prazske-restauraci-vsak-majetkovem-priznani-neuvedl/",
+        "https://web.kurzy.cz/wiki/w/index.php?title=Tomio_Okamura&oldid=19772613",
+        "https://ares.gov.cz/ekonomicke-subjekty-vr/25124188"
+      ]
+    },
+    {
+      "id": "psp:person:6555",
+      "name": "Tom Philipp",
+      "club": "KDU-ČSL",
+      "lens": ["top", "high-triage"],
+      "props": {
+        "effort_work_themes": ["zdravotnictví", "sociální politika", "veřejné finance", "odpadové hospodářství"],
+        "effort_bill_focus": "Philipp je spolupředkladatelem u všech 6 svých tisků (nikdy prvním jmenovaným, vždy skupina kolem M. Jurečky, B. Činčily nebo P. Hladíka). K 24. 7. 2026 je všech 6 stále ve výborech a žádný nebyl přijat, ke všem vláda vyjádřila nesouhlas: tisk 50 (důchodové pojištění), tisk 89 (rozpočtová pravidla), tisk 109 (nemocenské pojištění), tisk 110 (pojistné na sociální zabezpečení), tisk 121 (daně z příjmů) a tisk 161 (odpady). Šest z šesti tisků má tedy zatím nulovou úspěšnost navzdory vysokému contribution_score.",
+        "effort_public_role": "Místopředseda Výboru pro zdravotnictví, řadový člen Organizačního výboru a Výboru pro vědu, vzdělávání, mládež a sport, člen Stálé komise pro práci Kanceláře PS (SKPKPS); dále ověřovatel Sněmovny a od 6. 5. 2026 místopředseda poslaneckého klubu KDU-ČSL. Sněmovnou byl zvolen do správní rady VZP (mandát od 28. 1. 2026) — přímý dohledový kanál nad veřejným zdravotním pojištěním, tematicky navazující na jeho roli ve Výboru pro zdravotnictví.",
+        "effort_notes": "bills_authored 6 odpovídá 6 sponsoredBills ve vstupu, všechny spolupředkladatelství dle schema note (e). linkedCompanies je prázdné pole — bez peněžního zjištění k ověření z Case ①. Zajímavé zjištění nad rámec vstupu: členství ve správní radě VZP je institucionální dohledová role svěřená Sněmovnou, ne soukromá firemní vazba, ale tematicky se přímo kryje s jeho výborovou agendou zdravotnictví — vhodné doplnit do budoucí revize dat jako 'public_role', ne 'linkedCompany'."
+      },
+      "signal": 0.42,
+      "headline": "Philipp má nejvyšší contribution_score ve vzorku, ale všech jeho 6 spoluautorských návrhů zákonů narazilo na nesouhlas vlády a žádný zatím neprošel.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6555",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=50",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=89",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=109",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=110",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=121",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=161"
+      ]
+    },
+    {
+      "id": "psp:person:6154",
+      "name": "Marek Ženíšek",
+      "club": "TOP09",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["zahraniční politika", "obrana", "volební právo"],
+        "effort_bill_focus": "Ženíšek má za sledované období jediný sdílený tisk: 181 (novela zákona o volbách do zastupitelstev obcí), podaný 4. 5. 2026 skupinou kolem M. O. Havla. Vláda k němu 3. 6. 2026 zaujala nesouhlasné stanovisko; k 24. 7. 2026 je stále ve výboru (garanční ÚPV) a zákonem se nestal. Jde o spolupředkladatelství, ne o vlastní autorský návrh.",
+        "effort_public_role": "Místopředseda Zahraničního výboru, řadový člen Výboru pro obranu a Stálé komise pro kontrolu činnosti Úřadu pro zahraniční styky a informace (SKÚZSI, dohled nad vojenskou/zahraniční rozvědkou). Členem klubu TOP 09 zvolen za koalici SPOLU.",
+        "effort_notes": "bills_authored 1 odpovídá jedinému sponsoredBills záznamu. Peněžní vazby (9 položek v linkedCompanies) — přímý dotaz na ARES VR se pro žádnou z 9 ICO nepodařilo načíst (JS aplikace, prázdná hlavička), takže se opírám o agregaci Hlídače státu (sekce Vazby), která ze stejného rejstříku VR čerpá: TOPAZ, z.s. (IČO 22745696, 0 Kč) — Ženíšek je členem statutárního orgánu od 27. 12. 2016, trvá dosud. Fórum Karla Schwarzenberga, o.p.s. (IČO 02086778, 0 Kč) — člen dozorčí rady od 10. 9. 2013, trvá dosud (jiný zdroj jej uvádí jako 'správní radu' — terminologická nesrovnalost mezi zdroji, ale osobní vazba samotná je potvrzena oběma). Pražská energetika, a.s. (IČO 60193913, 44 038 612,5 Kč) — člen statutárního orgánu, ale POUZE 29. 10. 2019 – 23. 6. 2023, tedy role skončila přes dva roky před začátkem aktuálního volebního období (10/2025) — vazba je historická, ne aktuální. Plzeňské městské dopravní podniky, a.s. (IČO 25220683, 4 132 961,91 Kč) — člen dozorčí rady 20. 8. 2019 – 4. 11. 2022, rovněž skončilo před tímto obdobím. Pro zbylých 5 položek — Pojišťovna VZP, a.s. (65 574 261,58 Kč), Národní Centrum Tkání a Buněk, a.s. (14 062 219,43 Kč), Plzeňská teplárenská, a.s. (2 039 997,3 Kč), Kongresové centrum Praha, a.s. (0 Kč) a generický OSVČ IČO 04627695 (0 Kč, stejný placeholder jako u Okamury a v batch-003 u Válkové/Foldyny) — se NEPODAŘILO dohledat žádnou osobní vazbu, ale ani ji vyloučit; jde o neověřený negativní nález, ne o fakt, a ARES VR samotný zůstává nepřístupný pro tento nástroj. Datová poznámka: absence_rate 0.6 je nápadně vysoká i přes solidní contribution_score 61,2 — vhodné k dalšímu prověření."
+      },
+      "signal": 0.62,
+      "headline": "Ženíšek má dvě aktuální neziskové řídicí role (TOPAZ, Fórum Karla Schwarzenberga) a dvě zaniklé, ale reálné vazby na krajské podniky PRE a PMDP z předchozích let — u zbylých pěti firem se vazbu nepodařilo ani potvrdit, ani vyloučit.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6154",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=181",
+        "https://www.hlidacstatu.cz/Osoba/Vazby/marek-zenisek",
+        "https://rejstrik.penize.cz/02086778-forum-karla-schwarzenberga-o-p-s",
+        "https://ares.gov.cz/ekonomicke-subjekty-vr/02086778"
+      ]
+    },
+    {
+      "id": "psp:person:7018",
+      "name": "Marie Kršková",
+      "club": "KDU-ČSL",
+      "lens": ["top"],
+      "props": {
+        "effort_work_themes": ["veřejná správa a regionální rozvoj", "sociální a důchodové pojištění", "životní prostředí", "školství", "veřejné finance"],
+        "effort_bill_focus": "Kršková je spolupředkladatelkou u všech 10 svých tisků (nikdy první jmenovaná; skupiny kolem M. Výborného, P. Hladíka, M. Jurečky nebo V. Plátěníka). K 24. 7. 2026 je všech 10 stále ve výborech, žádný nebyl přijat: tisk 28 (rozpočtové určení daní, neutrální stanovisko vlády), tisk 74 (náprava ekologické újmy, nesouhlas), tisk 50 (důchodové pojištění, nesouhlas — sdílený s T. Philippem), tisk 75 (vodní zákon, nesouhlas), tisk 89 (rozpočtová pravidla, nesouhlas — sdílený s Philippem), tisk 104 (školský zákon, nesouhlas), tisk 109 (nemocenské pojištění, nesouhlas — sdílený s Philippem), tisk 110 (pojistné na sociální zabezpečení, nesouhlas — sdílený s Philippem), tisk 121 (daně z příjmů, nesouhlas — sdílený s Philippem) a tisk 161 (odpady, nesouhlas — sdílený s Philippem). Šest z jejích deseti tisků sdílí se stranickým kolegou Philippem.",
+        "effort_public_role": "Místopředsedkyně Výboru pro evropské záležitosti (a ověřovatelka výboru od 22. 1. 2026), řadová členka Výboru pro veřejnou správu a regionální rozvoj, členka Stálé komise pro kontrolu činnosti Úřadu pro zahraniční styky a informace (SKÚZSI). Dále členka čtyř podvýborů (venkov, migrace a azyl, evropské fondy a zelená transformace, modernizace veřejné správy).",
+        "effort_notes": "bills_authored 10 a interpellations 1 odpovídají vstupním datům; deset spolupředkladatelství (žádné autorské) plně sedí se schema note (e). linkedCompanies je prázdné pole — bez peněžního zjištění. contributionPsp9 je null, jde tedy o nováčka bez předchozího období ke srovnání — konzistentní s tenureClass full_term (293 dní) v tomto termínu."
+      },
+      "signal": 0.48,
+      "headline": "Kršková patří k top-lens nováčkům s deseti spoluautorskými návrhy, ale žádný z nich zatím neprošel — vládní nesouhlas provází devět z deseti, šest sdílí s klubovým kolegou Philippem.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7018",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=28",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=74",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=50",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=75",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=89",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=104",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=109",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=110",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=121",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=161"
+      ]
+    },
+    {
+      "id": "psp:person:6467",
+      "name": "Zuzana Majerová",
+      "club": "SPD",
+      "lens": ["divergence"],
+      "props": {
+        "effort_work_themes": ["věda, vzdělávání a sport", "evropské záležitosti", "meziparlamentní vztahy"],
+        "effort_bill_focus": "Vstupní data uvádějí sponsoredBills jako prázdné pole a bills_authored 0 — Majerová za sledované období nepředložila ani nespolupředkládala jediný sněmovní tisk.",
+        "effort_public_role": "Místopředsedkyně Výboru pro vědu, vzdělávání, mládež a sport, od 3. 7. 2026 nově i členka Výboru pro evropské záležitosti. Členka a místopředsedkyně Podvýboru pro regionální školství, celoživotní učení a inkluzi, členka Podvýboru pro oběti a problematiku násilí. Od 27. 11. 2025 vede Stálou delegaci do Meziparlamentní unie a předsedá meziparlamentním skupinám se Spojenými arabskými emiráty a Gruzií.",
+        "effort_notes": "Nejnápadnější zjištění je vnitřní rozpor ve vstupních datech: absence_rate je 0,9 (90 %) — extrémně vysoká — a přitom props.absentee_manager_lead je uvedeno jako false, ačkoliv Majerová zároveň VEDE Stálou delegaci do Meziparlamentní unie (leadership_count 1). Kombinace vedoucí delegátské role s 90% absencí a jen 3 řečnickými vystoupeními je přesně ten typ profilu, který by flag 'absentee_manager_lead' měl typicky zachytit — doporučuji ověřit výpočet tohoto flagu v Case ①, protože buď je práh nastaven příliš úzce, nebo jde o okrajový případ na hranici detekce. linkedCompanies je prázdné pole."
+      },
+      "signal": 0.58,
+      "headline": "Majerová vede delegaci do Meziparlamentní unie s 90% absencí a nulovou legislativní produkcí — profil, který nesedí s tím, že ji vstupní data neoznačují jako 'absentee manager'.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6467"
+      ]
+    },
+    {
+      "id": "psp:person:7042",
+      "name": "Lucie Sedmihradská",
+      "club": "STAN",
+      "lens": ["top"],
+      "props": {
+        "effort_work_themes": ["kontrola veřejných financí", "rozpočet", "cestovní ruch", "daně"],
+        "effort_bill_focus": "Sedmihradská je u tisku 120 (novela zákona o daních z příjmů, 586/1992 Sb., podáno 3. 3. 2026) první jmenovanou předkladatelkou — jde tedy o její vlastní autorský návrh, nikoli spolupředkladatelství. Zbylé 4 tisky jsou spolupředkladatelství: tisk 106 a tisk 107 (oba novely zákona o podmínkách podnikání v oblasti cestovního ruchu, u tisku 106 je uvedena jako jedna z předkladatelů vedle E. Olšákové a K. Dvořáka), tisk 146 (novela zákona o obcích, skupina V. Kovářové) a tisk 244 (novela zákona o daních z příjmů, skupina P. Pivoňky Vaňkové). K 24. 7. 2026 je všech 5 tisků stále v projednávání: 106 a 120 mají nesouhlasné stanovisko vlády, 107 neutrální, 146 nesouhlasné, 244 čeká na stanovisko vlády (lhůta do 30. 7. 2026). Žádný z pěti zatím zákonem není.",
+        "effort_public_role": "Místopředsedkyně Kontrolního výboru, řadová členka Rozpočtového výboru, členka Volební komise a Stálé komise pro kontrolu činnosti Finančního analytického úřadu (SKFAÚ) — souhrnně jasně fiskálně-kontrolní profil. Dále členka Podvýboru pro financování územní samosprávy a čerpání fondů EU a ověřovatelka Podvýboru pro kulturu. Předsedá delegaci Beneluxu.",
+        "effort_notes": "bills_authored 5 odpovídá 5 sponsoredBills ve vstupu; z nich je jeden (tisk 120) skutečně autorský (první jmenovaná předkladatelka), zbylé čtyři spolupředkladatelské — tato distinkce stojí za zaznamenání jako výjimka z obvyklého vzorce v tomto batchi, kde většina MPs má výhradně spolupředkladatelství. linkedCompanies je prázdné pole. contributionPsp9 je null (nováčka), tenureClass full_term (293 dní)."
+      },
+      "signal": 0.4,
+      "headline": "Sedmihradská kombinuje čistě kontrolně-rozpočtový výborový profil s jediným vlastním autorským návrhem zákona (daně z příjmů), který zatím čelí nesouhlasu vlády.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7042",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=106",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=107",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=120",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=146",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=244"
+      ]
+    }
+  ]
+}

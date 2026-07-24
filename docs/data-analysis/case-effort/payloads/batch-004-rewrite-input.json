@@ -1,0 +1,320 @@
+{
+  "generatedAt": "2026-07-24T20:49:02.816Z",
+  "note": "8 held-back money dossiers (Q-effort-9). Each carries its batch-003 text (persisted split already stripped effort_notes for these 8 in the live graph — see batch-003-props-filtered.json) plus the batch-003 Opus VR-verification verdict as STARTING evidence, not conclusion. Re-verify every company claim through /ekonomicke-subjekty-vr/{ico} yourself before writing the rewrite.",
+  "dossiers": [
+    {
+      "id": "psp:person:6168",
+      "name": "Helena Válková",
+      "currentProps": {
+        "effort_work_themes": [
+          "ústavní právo",
+          "lidská práva",
+          "petice",
+          "vyšetřovací komise (kauza Dozimetr)"
+        ],
+        "effort_bill_focus": "Válková je spolupředkladatelkou dvou tisků: tisku 72 (novela zákona č. 90/1995 Sb., jednacího řádu PS), podaného 18. 12. 2025 skupinou poslanců kolem Radka Vondráčka — ten prošel všemi třemi čteními, byl schválen 3. 7. 2026 (hlasování č. 242/usnesení č. 243) a 21. 7. 2026 postoupen Senátu; a tisku 115 (novela trestního zákoníku, zákon č. 40/2009 Sb., a zákona o obětech trestných činů č. 45/2013 Sb.), podaného 18. 2. 2026 skupinou kolem Andreje Babiše — ten je po 1. čtení a kladném stanovisku ÚPV z 30. 4. 2026, k 24. 7. 2026 zákonem ještě není.",
+        "effort_public_role": "Bývalá ministryně spravedlnosti (2014–2015) a vládní zmocněnkyně pro lidská práva (2019–2022); v současném volebním období (od 4. 10. 2025) předsedá Mandátovému a imunitnímu výboru, je členkou Ústavně-právního výboru, Petičního výboru a vyšetřovací komise k tzv. kauze Dozimetr (DPP, KSÚS Středočeského kraje, VZP — podezření z korupce).",
+        "effort_notes": "Vstupní data ukazují 2 sponzorované tisky a 8 výborových/komisních vazeb — to sedí s nalezeným obrazem (2 tisky + výbor/petiční/komise/vyšetřovací komise + meziparlamentní skupiny). Dvě položky linkedCompanies (OSVČ IČO 04627695, contractCzk 0; Družstvo Nárožní dům Plavecká 12, IČO 61463647, contractCzk 0) se nepodařilo ověřit jako reálnou obchodní vazbu: IČO 04627695 je generický záznam OSVČ bez odlišujícího jména a — nápadně — figuruje s nulovou hodnotou i u jiné poslankyně v tomto vzorku (Foldyna, dossier níže), což silně naznačuje neresolvovaný placeholder v datovém pipeline Case ① spíše než skutečnou vazbu; družstvo Plavecká 12 je pražské bytové družstvo bez zjevné souvislosti s její agendou. Doporučuji ponechat obě položky v pending_review a prioritně re-resolvovat IČO 04627695 napříč dossiery."
+      },
+      "opusVerdict": {
+        "verdict": "ERROR",
+        "issue": "Headline calls both ties a probable placeholder; ARES VR 61463647 shows a continuously registered statutory-organ membership (Družstvo Nárožní dům Plavecká 12, since 1994, current entry 2019-08-26, no deletion). Real active tie."
+      },
+      "linkedCompanies": [
+        {
+          "company": "OSVČ",
+          "ico": "04627695",
+          "reviewState": "pending_review",
+          "contractCzk": 0,
+          "tieClass": "steward"
+        },
+        {
+          "company": "Družstvo Nárožní dům Plavecká 12",
+          "ico": "61463647",
+          "reviewState": "pending_review",
+          "contractCzk": 0,
+          "tieClass": "manager"
+        }
+      ]
+    },
+    {
+      "id": "psp:person:5911",
+      "name": "Jaroslav Foldyna",
+      "currentProps": {
+        "effort_work_themes": [
+          "hospodářství",
+          "media",
+          "veřejná doprava (region)",
+          "meziparlamentní vztahy (Řecko, Srbsko)"
+        ],
+        "effort_bill_focus": "Foldyna je spolupředkladatelem tisku 87 (návrh zákona o zemských znacích a vlajkách, předložil R. Vondráček 22. 1. 2026) — k 24. 7. 2026 je stále ve výborech (garanční VVVMS, ÚPV) a zákonem se nestal; a tisku 116 (zrušení tzv. nominačního zákona č. 353/2019 Sb. o výběru kandidátů do orgánů státem ovládaných obchodních společností), předloženého Z. Ožanovou a dalšími — Hospodářský výbor jej 15. 6. 2026 doporučil ke schválení, projednávání pokračovalo na 27. schůzi od 10. 7. 2026, dosud nepřijato.",
+        "effort_public_role": "Bývalý místopředseda ČSSD (do 2019), od 2020 v SPD. V aktuálním období je ověřovatelem Sněmovny (od 5. 11. 2025), místopředsedou Výboru pro mediální záležitosti (od 4. 12. 2025), členem Hospodářského výboru a Stálé komise pro kontrolu BIS; předsedá meziparlamentním skupinám ČR-Řecko a ČR-Srbsko. Regionální kancelář v Děčíně odpovídá jeho ústeckému volebnímu obvodu.",
+        "effort_notes": "committee_count 4 a bills_authored 2 odpovídají nalezenému stavu. linkedCompanies obsahuje tři položky: (1) stejný generický OSVČ IČO 04627695 s contractCzk 0 jako u Válkové v tomto vzorku — pravděpodobně nedořešený placeholder, viz poznámka u jejího dossieru; (2) Krajská zdravotní, a.s. (IČO 25488627), provozovatel krajských nemocnic v Ústeckém kraji (Ústí n. L., Most, Děčín, Litoměřice) s contractCzk 81 683 361,6 — veřejná akciová společnost vlastněná krajem, nikoli soukromá firma s osobní vazbou; (3) Dopravní podnik města Děčína, a.s. (IČO 62240935), městský dopravní podnik v Děčíně (Foldynův region) s contractCzk 1 000 000. U obou posledních jde o velké veřejné/municipální subjekty v jeho volebním kraji — nepodařilo se dohledat nezávislé potvrzení, jaký konkrétní smluvní vztah (dodávka, poradenství, jiná role) částku vygeneroval; doporučuji, aby to ověřil tým Case ① přes Registr smluv, než se položky posunou z pending_review."
+      },
+      "opusVerdict": {
+        "verdict": "ERROR_MINOR",
+        "issue": "Asserts Krajská zdravotní has no personal link; VR 25488627 shows Foldyna in its statutory organ 2004-05-05 → 2006-01-30 (historical). Registr smluv hedges on the 81.7M figure are correct."
+      },
+      "linkedCompanies": [
+        {
+          "company": "OSVČ",
+          "ico": "04627695",
+          "reviewState": "pending_review",
+          "contractCzk": 0,
+          "tieClass": "steward"
+        },
+        {
+          "company": "Krajská zdravotní, a.s.",
+          "ico": "25488627",
+          "reviewState": "pending_review",
+          "contractCzk": 81683361.6,
+          "tieClass": "steward"
+        },
+        {
+          "company": "Dopravní podnik města Děčína, a.s.",
+          "ico": "62240935",
+          "reviewState": "pending_review",
+          "contractCzk": 1000000,
+          "tieClass": "steward"
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6881",
+      "name": "Petr Hladík",
+      "currentProps": {
+        "effort_work_themes": [
+          "životní prostředí",
+          "evropské záležitosti",
+          "finanční dohled",
+          "komunální politika Brna"
+        ],
+        "effort_bill_focus": "Jako poslanec je hlavním předkladatelem čtyř vlastních tisků z odpadové/obalové legislativy: tisk 73 (novela zákona o obalech 477/2001 Sb., podán 22. 12. 2025) — vláda k němu 20. 1. 2026 vydala nesouhlasné stanovisko a čeká na projednání ve Výboru pro životní prostředí; tisky 74, 75 a 161 patří do stejné odpadové agendy. Dva další tisky v jeho dossieru (14 — novela zákona o látkách poškozujících ozonovou vrstvu, a 58) jsou ale VLÁDNÍ návrhy podané 'min. živ. prostředí' — jde nejspíš o data z období, kdy byl sám ministrem životního prostředí, a jejich zařazení mezi jeho 'poslanecké' sponzorované tisky je datová anomálie, ne osobní poslanecká iniciativa (odpovídá to i příznaku flagged_conflict=true u obou).",
+        "effort_public_role": "Ministrem životního prostředí byl od 10. 3. 2023 do rezignace 6. 11. 2025 (ve funkci do 15. 12. 2025) ve vládě Petra Fialy; po odchodu koalice SPOLU do opozice v prosinci 2025 je řadovým poslancem. Od 4. 3. 2026 je místopředsedou poslaneckého klubu KDU-ČSL, od 25. 3. 2026 předsedou Stálé komise pro kontrolu činnosti Finančního analytického úřadu a od 16. 1. 2026 členem Výboru pro evropské záležitosti a Výboru pro životní prostředí. Předtím byl 2016–2022 prvním náměstkem primátorky Brna a dlouhodobě je zastupitelem města Brna.",
+        "effort_notes": "VYSOCE RIZIKOVÉ PENĚŽNÍ TVRZENÍ — POUZE ČÁSTEČNĚ OVĚŘENO: propojená firma ARENA BRNO, a.s. s contractCzk 5 390 760 300 Kč (přes 5,3 mld. Kč) odpovídá reálné brněnské multifunkční hale (celkový rozpočet projektu se v médiích uvádí kolem 7 mld. Kč), ale nepodařilo se dohledat, že by Hladík zasedal v představenstvu či dozorčí radě ARENA BRNO, a.s. — předsedou představenstva je dle dostupných zdrojů Petr Kratochvíl. Doloženo je naopak jeho členství v dozorčí radě sesterské městské firmy Dopravní podnik města Brna, a.s. (druhá položka v seznamu, 6,7 mil. Kč), a jeho dlouholetá role brněnského zastupitele/náměstka primátorky dává obecný důvod, proč se objevuje u městských akciovek (Teplárny Brno, SAKO Brno) — jde ale o institucionální dohled přes zastupitelstvo, ne o doloženou osobní smluvní vazbu. Doporučujeme ponechat reviewState=pending_review a ověřit konkrétní hlasování zastupitelstva/smlouvu v Registru smluv, než se částka použije jako přímé tvrzení o osobním propojení. MERO ČR, a.s. (státní ropovodní společnost) v seznamu s contractCzk 0 nemá zjevnou vazbu na Brno ani na Hladíka a může jít o další chybu párování. Položka 'OSVČ' IČO 04627695 je stejná jako u Teleky v tomto batchi a podle ARES patří osobě se sídlem ve Všerubech — pravděpodobná chyba entity-resolution, ne skutečná vazba na Hladíka."
+      },
+      "opusVerdict": {
+        "verdict": "ERROR_MATERIAL",
+        "issue": "Asserts he could not be found on ARENA BRNO board; VR 09133267 shows PETR HLADÍK on the supervisory board 2020-05-04 → 2023-02-07 — through the procurement window of the 5.39bn CZK company."
+      },
+      "linkedCompanies": [
+        {
+          "company": "OSVČ",
+          "ico": "04627695",
+          "reviewState": "pending_review",
+          "contractCzk": 0,
+          "tieClass": "steward"
+        },
+        {
+          "company": "ARENA BRNO, a.s.",
+          "ico": "09133267",
+          "reviewState": "pending_review",
+          "contractCzk": 5390760300,
+          "tieClass": "steward"
+        },
+        {
+          "company": "Dopravní podnik města Brna, a.s.",
+          "ico": "25508881",
+          "reviewState": "pending_review",
+          "contractCzk": 6700097.25,
+          "tieClass": "steward"
+        },
+        {
+          "company": "Teplárny Brno, a.s.",
+          "ico": "46347534",
+          "reviewState": "pending_review",
+          "contractCzk": 0,
+          "tieClass": "manager"
+        },
+        {
+          "company": "MERO ČR, a.s.",
+          "ico": "60193468",
+          "reviewState": "pending_review",
+          "contractCzk": 0,
+          "tieClass": "steward"
+        },
+        {
+          "company": "SAKO Brno, a.s.",
+          "ico": "60713470",
+          "reviewState": "pending_review",
+          "contractCzk": 0,
+          "tieClass": "steward"
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6455",
+      "name": "Jan Hrnčíř",
+      "currentProps": {
+        "effort_work_themes": [
+          "symboly a státní/regionální identita",
+          "veřejné rozpočty",
+          "kontrola finanční analytiky"
+        ],
+        "effort_bill_focus": "Jediný sponzorovaný tisk 87 (návrh zákona o zemských znacích a vlajkách, podán R. Vondráčkem 22. 1. 2026, Hrnčíř je jedním ze čtyřiceti spolupodpisů napříč SPD, ANO a dalšími kluby) — vláda 25. 2. 2026 vyjádřila souhlas, tisk je gestorován Výborem pro vědu, vzdělávání, mládež a sport, k 24. 7. 2026 stále v projednávání, nikoli přijat.",
+        "effort_public_role": "Předseda Petičního výboru (od 14. 11. 2025), člen Rozpočtového výboru a Stálé komise pro kontrolu činnosti Finančního analytického úřadu. Od 25. 3. 2026 také člen dozorčí rady Státního fondu podpory investic. Vede meziparlamentní skupiny s Kazachstánem, Arménií, Izraelem, Gruzií, Čínou a Slovenskem.",
+        "effort_notes": "contribution_score 68,8 s jediným sponzorovaným tiskem, ale předsednictvím výboru (leadership_count 1, weight 1.0) odpovídá spíš roli organizátora a kontrolora než autora zákonů. Linked company 'Česká informatika s.r.o.' (IČO 27720004, pending_review, contractCzk 0) ověřena přes ARES a Hlídač státu: Hrnčíř byl společníkem s vkladem a členem statutárního orgánu firmy od jejího založení 21. 2. 2007 do 1. 11. 2021, tedy před nástupem do současného mandátu; firma dle Hlídače státu nemá evidované žádné veřejné zakázky (0 smluv, 0 Kč) — vazba je tedy historická a bez zjevného veřejného financování, což odpovídá contractCzk 0 v datech."
+      },
+      "opusVerdict": {
+        "verdict": "ERROR",
+        "issue": "Claims the tie ended 2021-11-01 and is historical; VR 27720004 shows only the jednatel role ended — the společník/ownership record has no deletion date (still owner)."
+      },
+      "linkedCompanies": [
+        {
+          "company": "Česká informatika s.r.o.",
+          "ico": "27720004",
+          "reviewState": "pending_review",
+          "contractCzk": 0,
+          "tieClass": "owner-operator"
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6178",
+      "name": "Jan Bartošek",
+      "currentProps": {
+        "effort_work_themes": [
+          "bezpečnost",
+          "kontrola tajných služeb",
+          "meziparlamentní vztahy"
+        ],
+        "effort_bill_focus": "V aktuálním volebním období (PSP10, od 10/2025) nemá Bartošek zatím žádný vlastní sněmovní tisk (bills_authored: 0) – to odpovídá krátké době mandátu (tenureDays 293 od začátku období) a jeho zaměření na výborovou a kontrolní práci spíš než na vlastní legislativní iniciativu. V minulém volebním období PSP9 mu ale kontribuční komponenty přisuzují 6 spoluautorství zákonů (billsAuthored: 6, viz contributionPsp9) – jde tedy o pokles legislativní aktivity mezi obdobími, ne o nováčka bez zkušeností.",
+        "effort_public_role": "Člen Výboru pro bezpečnost a všech tří stálých kontrolních komisí dolní komory (SKBIS – kontrola BIS, SKVZ – kontrola Vojenského zpravodajství, SKFAÚ – kontrola Finančního analytického úřadu) – tzn. má přístup ke kontrole všech tří klíčových bezpečnostních/zpravodajských složek státu najednou. Podle psp.cz je také členem Stálé delegace do Meziparlamentní unie a předsedá meziparlamentní skupině pro Tádžikistán.",
+        "effort_notes": "Datová nesrovnalost k ověření: absence_rate v aktuálních props je 0.4, což je stejná hodnota jako absenceRate v contributionPsp9 (rovněž 0.4) – shoda mezi obdobími působí spíš jako artefakt přebírání staré hodnoty než jako reálně naměřená 40% absence za pouhých ~4 měsíce nového mandátu; doporučuji ověřit zdroj metriky pro PSP10 přímo z hlasovacích dat. Firemní vazba: Nadační fond Nemocnice Dačice (IČO 26025027, contractCzk 433 586, pending_review) – Bartošek byl v letech 2010–2013 místostarostou Dačic a fond je veřejně spjatý s jeho domovským městem; nepodařilo se ale dohledat přímou personální vazbu (statutární orgán) mezi Bartoškem a fondem, jde tedy o kontextovou, nikoli prokázanou vazbu – ponechávám jako otevřenou k dalšímu ověření přes veřejný rejstřík nadací."
+      },
+      "opusVerdict": {
+        "verdict": "ERROR",
+        "issue": "Claims no statutory link to Nadační fond Nemocnice Dačice; VR 26025027 shows Bartošek in its statutory organ since 2013, currently serving (entry 2023-07-11, open). Pairs with contractCzk 433,586."
+      },
+      "linkedCompanies": [
+        {
+          "company": "Nadační fond Nemocnice Dačice",
+          "ico": "26025027",
+          "reviewState": "pending_review",
+          "contractCzk": 433586,
+          "tieClass": "steward"
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6727",
+      "name": "Eva Decroix",
+      "currentProps": {
+        "effort_work_themes": [
+          "justice",
+          "trestní právo",
+          "mezinárodní justiční spolupráce"
+        ],
+        "effort_bill_focus": "Oba tisky uvedené jako 'sponsoredBills' (tisk 46/2025 – novela zákona o mezinárodní justiční spolupráci ve věcech trestních, mění zákon 104/2013 Sb.; tisk 61/2025 – novela zákona o soudnictví ve věcech mládeže, mění zákon 218/2003 Sb.) jsou VLÁDNÍ předlohy podané Ministerstvem spravedlnosti, kde Decroix figuruje pouze jako členka garančního Ústavně-právního výboru, nikoli jako navrhovatelka. Tisk 46 prošel 1. čtením (24. 3. 2026) a ÚPV jej doporučil ke schválení (30. 4. 2026); tisk 61 čeká na projednání ve výboru od prosince 2025. Reálný autorský přínos v tomto vzorku je tedy nulový — bills_authored=0 v datech odpovídá realitě.",
+        "effort_public_role": "Bývalá ministryně spravedlnosti (10. 6. 2025 – 15. 12. 2025, v demisi od 6. 11. 2025) po odchodu Pavla Blažka kvůli kauze kryptoměnového daru; od října 2025 poslankyně za Vysočinu a místopředsedkyně poslaneckého klubu ODS, od dubna 2024 místopředsedkyně strany. V opozici od prosince 2025 je členkou Ústavně-právního výboru a jeho podvýborů pro justici, rodinné právo a oběti trestné činnosti.",
+        "effort_notes": "Nízké participation_rate (0,6) a vysoké absence_rate (0,8) odpovídají přechodu z exekutivní funkce (ministryně) do opoziční lavice v polovině/na konci roku 2025 — přechod na plný poslanecký mandát proběhl teprve v lednu 2026 (první výborové členství 16. 1. 2026), takže velká část tenure (293 dní) předchází reálné parlamentní aktivitě. Firma 'Delices de papa s.r.o.' (IČO 03709698, contractCzk 594) je ověřitelně provozovna francouzské bistro restaurace 'Bistrot de Papa' jejího manžela Rémiho Decroixe v Horní Dubenky na Vysočině — jde o rodinný gastro-podnik, smluvní částka je zanedbatelná a nejde o veřejnou zakázku. 'ELEMENTA Agency s.r.o.' (IČO 03265889, Praha) a 'Park Volmanec s.r.o.' (IČO 03921727) se mi ve veřejných zdrojích nepodařilo ve zbývajícím čase spojit s osobou Decroix — ponechávám neověřené, doporučuji ruční kontrolu v OR. OSVČ IČO 04627695 (Všeruby, Plzeň-sever, NACE 94920 'profesní organizace') je zeměpisně nesourodé s jejím vysočinským obvodem a stejné IČO je přiřazeno i Patriku Pařilovi (Jihomoravský kraj) v této dávce — jde téměř jistě o chybu párování v datovém pipeline, ne o reálnou vazbu; needs review.",
+        "effort_data_flag": "sponsoredBills obsahuje vládní (druh=1) tisky, kde MP je jen výborový garant — navrhuji odlišit od skutečného autorství v datovém modelu."
+      },
+      "opusVerdict": {
+        "verdict": "ERROR_FRAMING",
+        "issue": "Delices de papa framed as her husband's; VR 03709698 shows Decroix herself jednatelka + společnice 2015-01-13 → 2021-06-18. NACE 94920 mislabeled professional (it is political organizations)."
+      },
+      "linkedCompanies": [
+        {
+          "company": "ELEMENTA Agency s.r.o.",
+          "ico": "03265889",
+          "reviewState": "pending_review",
+          "contractCzk": 0,
+          "tieClass": "owner-operator"
+        },
+        {
+          "company": "Delices de papa s.r.o.",
+          "ico": "03709698",
+          "reviewState": "pending_review",
+          "contractCzk": 594,
+          "tieClass": "owner-operator"
+        },
+        {
+          "company": "Park Volmanec s.r.o.",
+          "ico": "03921727",
+          "reviewState": "pending_review",
+          "contractCzk": 0,
+          "tieClass": "owner-operator"
+        },
+        {
+          "company": "OSVČ",
+          "ico": "04627695",
+          "reviewState": "pending_review",
+          "contractCzk": 0,
+          "tieClass": "steward"
+        }
+      ]
+    },
+    {
+      "id": "psp:person:7031",
+      "name": "Patrik Pařil",
+      "currentProps": {
+        "effort_work_themes": [
+          "rozpočet",
+          "hospodářská politika",
+          "doprava",
+          "startupy a inovace",
+          "finanční analytický dohled"
+        ],
+        "effort_bill_focus": "Ve všech pěti tiscích (43118, 43177, 43179, 43197, 43226) figuruje jako jeden z řady spolupodpisů (od 5 do 41 spolupředkladatelů), nikde jako hlavní navrhovatel — tisky vedou Alena Schillerová, Adam Vojtěch, Radek Vondráček a Zuzana Ožanová. Reálný osobní legislativní otisk je tedy převážně kolektivní.",
+        "effort_public_role": "Místopředseda Rozpočtového výboru (od 12. 11. 2025) a auditor Hospodářského výboru (od 30. 4. 2026), člen Stálé komise pro kontrolu Finančního analytického úřadu a od 28. 1. 2026 člen dozorčí rady Státního fondu dopravní infrastruktury. Souběžně od 2018 první místostarosta města Pohořelice (Jihomoravský kraj) a krajský zastupitel — kombinuje komunální exekutivu s poslaneckým mandátem.",
+        "effort_notes": "Peněžní stopa: firmy 'RAPAJA s.r.o.' (IČO 06386237, založena 2017) a 'RMPJ s.r.o.' (IČO 09187944, vznikla 2020 odštěpením z DB OIL s.r.o.) sídlí obě na stejné adrese Znojemská 1146, Pohořelice — v jeho domovském městě, kde působí jako místostarosta. Adresní shoda je reálná a ověřená přes ARES, ALE jeho osobní roli jednatele/společníka se mi ve veřejně dostupných zdrojích v čase určeném na tento úkol nepodařilo potvrdit (Hlídač státu jen obecně uvádí 3 soukromé firmy bez jmen) — nepotvrzuji tedy vlastnictví, jen adresní/lokální vazbu, a doporučuji ruční ověření ve výpisu z obchodního rejstříku (justice.cz/or). contractCzk u obou firem je 0 (žádná veřejná zakázka evidována). Stejná anomálie jako u Decroix: OSVČ IČO 04627695 (Všeruby, Plzeň-sever) je v datech přiřazeno i jemu, což zeměpisně nesedí k jeho jihomoravskému obvodu — pravděpodobná chyba párování dat, needs review, nebrat jako reálnou vazbu.",
+        "effort_data_flag": "vlastnická role u RAPAJA/RMPJ nepotvrzena veřejným zdrojem — neuvádět jako fakt bez ověření v OR."
+      },
+      "opusVerdict": {
+        "verdict": "WRONGLY_HEDGED",
+        "issue": "Data flag says RAPAJA/RMPJ ownership unconfirmable; VR shows Pařil current jednatel + společník of RAPAJA s.r.o. (2017–) and current jednatel of RMPJ s.r.o. (2020–)."
+      },
+      "linkedCompanies": [
+        {
+          "company": "OSVČ",
+          "ico": "04627695",
+          "reviewState": "pending_review",
+          "contractCzk": 0,
+          "tieClass": "steward"
+        },
+        {
+          "company": "RAPAJA s.r.o.",
+          "ico": "06386237",
+          "reviewState": "pending_review",
+          "contractCzk": 0,
+          "tieClass": "owner-operator"
+        },
+        {
+          "company": "RMPJ s.r.o.",
+          "ico": "09187944",
+          "reviewState": "pending_review",
+          "contractCzk": 0,
+          "tieClass": "owner-operator"
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6513",
+      "name": "Marek Výborný",
+      "currentProps": {
+        "effort_work_themes": [
+          "školství a věda",
+          "zemědělství",
+          "daně a sociální pojištění"
+        ],
+        "effort_bill_focus": "Výborný je hlavním předkladatelem tisku 28 (rozpočtové určení daní, s Filipovičovou aj.) a tisku 243 (v datasetu 43365, s Hladíkem a Talířem) a spolupředkladatelem u daňově-sociálního balíku tisku 121 (novela zákona o daních z příjmů, hlavní předkladatel M. Jurečka), který k 24.7.2026 čeká na projednání po zamítavém vládním stanovisku z 31.3.2026. Tisk 28 má od prosince 2025 doporučení organizačního výboru, ale k datu přístupu ještě neprošel plénem — v datech je tedy 'sponsored' spíše rozpracovaná agenda než dokončený výsledek.",
+        "effort_public_role": "Poslanec od 4.10.2025 za Pardubický kraj (SPOLU/KDU-ČSL), místopředseda Výboru pro vědu, vzdělávání, mládež a sport (od 21.1.2026), člen zemědělského výboru a ověřovatel Stálé komise pro Ústavu ČR a parlamentní procedury. Nejvyšší contribution_score (90.4) v této skupině a zVsClub=1 odpovídají profilu 'top' výkonu — kombinace vedení výboru, vysoké účasti (0.9) a šesti autorsky vedených tisků.",
+        "effort_notes": "componentDivergence 0.707 je u něj nízké a kontribuce PSP9→PSP10 rostla (80.8→90.4) — konzistentní obraz dlouhodobě aktivního poslance bez anomálií k řešení. tenureClass=full_term/293 dní bez náhradnických otázek. Jediná linked company (Gymnázium Pardubice, Mozartova 449, smlouva 9,25 mil. Kč, stav pending_review) pochází z Case ①; jde o veřejnou střední školu v jeho volebním kraji — kontext smlouvy (typ, období) nebyl touto skupinou dohledáván, ponechávám na money-loop review."
+      },
+      "opusVerdict": {
+        "verdict": "CORRECTLY_HEDGED",
+        "issue": "Money side correctly deferred. NOTE from reflection: non-money prose defect — \"šesti autorsky vedených tisků\" contradicts his own dossier (2 first-signatory + 1 co-sign)."
+      },
+      "linkedCompanies": [
+        {
+          "company": "Gymnázium, Pardubice, Mozartova 449",
+          "ico": "48161063",
+          "reviewState": "pending_review",
+          "contractCzk": 9253982.84,
+          "tieClass": "steward"
+        }
+      ]
+    }
+  ]
+}

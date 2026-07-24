@@ -1,0 +1,156 @@
+{
+  "case": "effort",
+  "batch": 4,
+  "group": "C",
+  "generatedAt": "2026-07-24T00:00:00Z",
+  "note": "7/7 MPs researched from input payload only. One replacement-tenure case (Forman, tenureDays 55) — predecessor Karel Beran resigned to return to diplomatic service, no further predecessor research needed since Forman's own sparse record (0 bills, 1 speech turn) is the story. ARES's ekonomicke-subjekty-vr/<ICO> pages are a JS SPA and returned no renderable content via WebFetch for every ICO tried (Kolovratník's and Fiala's linkedCompanies) — that failure is reported explicitly per dossier rather than silently downgraded. Where VR failed, cross-checked via investigative reporting (Fiala/IF Holding — multiple outlets citing justice.cz state-database extracts) or via public-office/employment record (Kolovratník/EBA supervisory board, Pastuchová/hospital employment) instead of asserting a clean or dirty tie from a page that didn't load.",
+  "proposals": [
+    {
+      "id": "psp:person:6486",
+      "name": "Vojtěch Munzar",
+      "club": "ODS",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["rozpočet", "spotřební daně"],
+        "effort_bill_focus": "Munzar má jediný sponzorovaný tisk: č. 133 (novela zákona č. 353/2003 Sb., o spotřebních daních), podaný 10. 3. 2026 se skupinou kolem Martina Kupky (spolu s Jiřím Havránkem a Janem Skopečkem). Vláda k němu 14. 4. 2026 zaujala nesouhlasné stanovisko; Organizační výbor 15. 4. 2026 doporučil pokračovat, zpravodajkou je Jana Filipovičová, garančním výborem Rozpočtový výbor. K 24. 7. 2026 je tisk stále na začátku projednávání a zákonem se nestal.",
+        "effort_public_role": "Místopředseda Rozpočtového výboru (RV) — jediná výborová role v datech, potvrzená i psp.cz profilem, který jej od 21. 1. 2026 vede jako místopředsedu tohoto výboru. Nenašel jsem potvrzení vedoucí funkce v poslaneckém klubu ODS pro toto období.",
+        "effort_notes": "Vstupní data (bills_authored 1, interpellations 0, speech_turns 100) odpovídají nálezu — jeden vlastní tisk, žádné interpelace, sto vystoupení. linkedCompanies je prázdné pole, žádnou peněžní vazbu tedy nebylo co ověřovat. contributionPsp9 (skóre 73,3 v PSP9) je z předchozího období a nesrovnávám ho s aktuálními čísly PSP10 — jde o jiný kontext."
+      },
+      "signal": 0.28,
+      "headline": "Munzar vede rozpočtový dozor jako místopředseda výboru, ale jeho jediný vlastní návrh (spotřební daně) narazil na nesouhlas vlády a zatím neprošel.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6486",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=133"
+      ]
+    },
+    {
+      "id": "psp:person:6693",
+      "name": "Libor Hoppe",
+      "club": "ODS",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["veřejná správa a regionální rozvoj", "hybridní hrozby", "kontrola GIBS"],
+        "effort_bill_focus": "Hoppe je spolupředkladatelem dvou tisků, oba jako součást skupiny kolem Jana Bureše: tisk 103 (novela zákona č. 300/2008 Sb., o elektronických úkonech a autorizované konverzi), podaný 10. 2. 2026 — vláda 10. 3. 2026 zaujala nesouhlasné stanovisko, Organizační výbor 11. 3. 2026 doporučil pokračovat (VSR jako garanční výbor), k 24. 7. 2026 stále na začátku projednávání; a tisk 129 (zrušení zákona o prodejní době, novela zákona č. 223/2016 Sb.), podaný 10. 3. 2026 — vláda 31. 3. 2026 zaujala neutrální stanovisko, Organizační výbor 2. 4. 2026 doporučil pokračovat (Hospodářský výbor jako garanční výbor), rovněž stále v raném stadiu. Žádný z obou tisků se dosud zákonem nestal.",
+        "effort_public_role": "Člen Výboru pro veřejnou správu a regionální rozvoj, Stálé komise pro hybridní hrozby a Stálé komise pro kontrolu činnosti GIBS — všechno řadové členství, žádné předsednictví. Podle veřejných zdrojů (Hlídač státu, ODS profil) je Hoppe zároveň podnikatel se společenskými podíly ve firmách SamRek CZ, OP Security a HOPPE F Group.",
+        "effort_notes": "Vstupní data (bills_authored 2, interpellations 0, speech_turns 6) odpovídají nálezu — dva spolupředkladatelství, nízká řečnická aktivita. Datová mezera: linkedCompanies je v tomto vzorku prázdné pole, ačkoliv veřejné zdroje ukazují jeho vlastní podnikatelské podíly (SamRek CZ, OP Security, HOPPE F Group) — nešlo je tedy ověřit přes ARES VR v rámci tohoto úkolu, protože v datech nejsou uvedena žádná IČO k prověření. Doporučuji, aby tým Case ① tyto firmy do dalšího průchodu doplnil a ověřil, zda mají veřejné zakázky."
+      },
+      "signal": 0.35,
+      "headline": "Hoppe má dva pending návrhy zákonů se skupinou Jana Bureše; datová mezera je nápadnější než cokoliv v samotné agendě — jeho známé podnikatelské podíly (SamRek CZ, OP Security, HOPPE F Group) v datech Case ① chybí úplně.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6693",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=103",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=129",
+        "https://www.hlidacstatu.cz/osoba/Funkce/libor-hoppe"
+      ]
+    },
+    {
+      "id": "psp:person:6211",
+      "name": "Martin Kolovratník",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["médiová politika", "hospodářství", "volby/organizace"],
+        "effort_bill_focus": "Kolovratník má jediný sponzorovaný tisk: č. 201 (novela zákona č. 348/2005 Sb., o rozhlasových a televizních poplatcích), podaný 22. 5. 2026 skupinou kolem Patrika Nachera. Vláda 24. 6. 2026 zaujala souhlasné stanovisko, Organizační výbor téhož dne doporučil pokračovat, garančním výborem je Výbor pro mediální záležitosti, jehož je Kolovratník řadovým členem. K 24. 7. 2026 je tisk stále ve výborové fázi, zákonem se ještě nestal.",
+        "effort_public_role": "Předsedá Volební komisi, je místopředsedou Hospodářského výboru a členem Výboru pro mediální záležitosti. Mimo Sněmovnu je zastupitelem města Pardubic (od 2014) a byl v letech 2020–2024 krajským zastupitelem Pardubického kraje.",
+        "effort_notes": "Vstupní data (bills_authored 1, interpellations 0, speech_turns 316) odpovídají nálezu. Peněžní vazba: mezi šesti linkedCompanies vyniká EAST BOHEMIAN AIRPORT a.s. (IČO 48154938, contractCzk 310 233 450,6 v datech Case ①) — přímý přístup na ARES VR (ekonomicke-subjekty-vr/48154938) se nepodařilo načíst přes WebFetch (JS aplikace bez staticky renderovaného obsahu, uvádím to jako neúspěch, nikoli jako potvrzenou negaci). Nezávisle dohledáno: Kolovratník byl členem dozorčí rady EBA od dubna 2015 do srpna 2017 a jako pardubický zastupitel v roce 2020 spolu s F. Brendlem navrhoval odvolání ředitele letiště; veřejné zdroje uvádějí 31 smluv v hodnotě 564 mil. Kč mezi EBA a veřejnou správou od roku 2016 — řádově konzistentní s číslem v datech. Zbylých pět firem (Hi-Tech inovační klastr, Smetanova Litomyšl, SKP-CENTRUM, Český rozhlas, Dopravní podnik Pardubic) jsou veřejné/neziskové instituce v jeho regionu nebo mediální agendě, u nichž se nepodařilo dohledat osobní řídící/vlastnický vztah — ARES VR se pro žádnou z nich nepodařilo načíst."
+      },
+      "signal": 0.72,
+      "headline": "Kolovratník byl v letech 2015–2017 v dozorčí radě East Bohemian Airport, které od té doby s veřejnou správou uzavřelo desítky milionů korun smluv — přímé ARES ověření selhalo, ale nezávislé zdroje vazbu potvrzují.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6211",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=201",
+        "https://cs.wikipedia.org/wiki/Martin_Kolovratn%C3%ADk",
+        "https://www.hlidacstatu.cz/osoba/martin-kolovratnik",
+        "https://ares.gov.cz/ekonomicke-subjekty-vr/48154938"
+      ]
+    },
+    {
+      "id": "psp:person:6225",
+      "name": "Jana Pastuchová",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["sociální politika", "zdravotnictví", "záchranné služby"],
+        "effort_bill_focus": "Vstup uvádí 2 sponzorované tisky, ale schéma (poznámka e) rozlišuje předkladatele od spolupředkladatele: tisk 124 (novela zákona o státní sociální podpoře č. 117/1995 Sb. a dalších) má jako jediného předkladatele Aleše Juchelku, Pastuchová je pouze spolupředkladatelkou — přijat a vyhlášen 10. 6. 2026 jako zákon č. 93/2026 Sb. Tisk 125 (novela zákona o sociálních službách č. 108/2006 Sb.) má jako předkladatele dvojici 'Juchelka A., Pastuchová J.' — zde tedy skutečně spolu-předložila jako první signatářka, ne jen spolupodepsala; přijat a vyhlášen 10. 6. 2026 jako zákon č. 92/2026 Sb. Oba tisky tedy prošly celým legislativním procesem a staly se zákonem.",
+        "effort_public_role": "Předsedá Stálé komisi pro práci Kanceláře Poslanecké sněmovny, je místopředsedkyní Výboru pro sociální politiku, řadovou členkou Organizačního výboru a Výboru pro zdravotnictví. Mimo Sněmovnu je zastupitelkou města Jablonce nad Nisou, místopředsedkyní Výboru zdravotnictví Libereckého kraje a bývalou (příležitostně stále sloužící) zdravotní sestrou/záchranářkou.",
+        "effort_notes": "Vstupní data (bills_authored 2, interpellations 0, speech_turns 50) souhlasí s počtem tisků, i když jde — viz výše — o jeden skutečný spolu-předklad a jeden pouhý co-sponsoring. Peněžní vazba: všechny tři linkedCompanies (Nemocnice Jablonec nad Nisou, Horská služba ČR, Zdravotnická záchranná služba Libereckého kraje) jsou veřejné zdravotnické/záchranářské instituce v jejím regionu — nejde o soukromý byznys, ale o přímý profesní vztah: dříve pracovala jako sestra na ARO Nemocnice Jablonec nad Nisou a stále příležitostně slouží u ZZS Libereckého kraje, jehož krajský zdravotní výbor místopředsedá. ARES VR (ekonomicke-subjekty-vr) se pro žádné ze tří IČO nepodařilo načíst přes WebFetch — vazba je tedy potvrzena nezávislými zdroji (regionální tisk, oficiální bio), ne přímým rejstříkovým ověřením statutárních orgánů. Jde o legitimní profesní/regionální propojení, ne o skrytý konflikt zájmů — pozitivně-symetrický nález (dělá práci v oboru, kterému rozumí)."
+      },
+      "signal": 0.5,
+      "headline": "Pastuchová jako bývalá zdravotní sestra a stálá záchranářka legislativně i finančně kryje přesně ty zdravotnické instituce, ve kterých sama pracovala — čistý profesní vztah, ne skrytá vazba.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6225&o=8",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=124",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=125",
+        "https://cs.wikipedia.org/wiki/Jana_Pastuchov%C3%A1",
+        "https://www.mestojablonec.cz/cs/mesto/jablonecky-mesicnik/rocnik-2021/04-2021/jana-pastuchova-snazim-se-byt-vnimava.html"
+      ]
+    },
+    {
+      "id": "psp:person:7106",
+      "name": "Libor Forman",
+      "club": "MS",
+      "lens": ["divergence"],
+      "props": {
+        "effort_work_themes": ["hospodářství", "obrana"],
+        "effort_bill_focus": "Vstupní data uvádějí sponsoredBills jako prázdné pole a bills_authored 0 — Forman za svůj krátký mandát nepředložil ani nespolupodepsal žádný sněmovní tisk.",
+        "effort_public_role": "Nastoupil jako náhradník za Karla Berana (Motoristé sobě), který se v listopadu 2025 vzdal mandátu a vrátil se k diplomatické službě (OSN). Podle dostupných zdrojů je Forman jihlavský stavební podnikatel a provozovatel čerpacích stanic. V datech figuruje jako místopředseda Hospodářského výboru a člen Výboru pro obranu.",
+        "effort_notes": "Vstupní data (participation_rate 0.3, absence_rate 0, bills_authored 0, speech_turns 1, tenureClass replacement, tenureDays 55) do sebe zapadají — krátký, pětapadesátidenní mandát náhradníka s jediným vystoupením a bez jediné legislativní iniciativy vysvětluje nízký contribution_score i extrémní divergenci komponent (componentDivergence 1.308). absence_rate 0 při participation_rate 0.3 je na první pohled protichůdné, ale je konzistentní s krátkým obdobím ve funkci, kdy stihl být přítomen na málu hlasování, ale při všech přítomných hlasoval. linkedCompanies je prázdné pole — bez peněžní vazby k ověření z dat, ačkoliv veřejné zdroje uvádějí jeho podnikání s čerpacími stanicemi (nebylo možné ověřit konkrétní IČO ani ARES vazbu v rámci tohoto úkolu)."
+      },
+      "signal": 0.25,
+      "headline": "Forman nastoupil jako náhradník za diplomaticky odcházejícího Berana a za 55 dní ve Sněmovně nestihl jediný vlastní návrh zákona ani prakticky žádné vystoupení.",
+      "citations": [
+        "https://cnn.iprima.cz/motoristy-opousti-poslanec-diplomata-berana-by-mel-nahradit-majitel-cerpacich-stanic-forman-513403",
+        "https://ekonomickydenik.cz/poslanec-motoristu-beran-konci-snemovna/"
+      ]
+    },
+    {
+      "id": "psp:person:6787",
+      "name": "Libor Turek",
+      "club": "ODS",
+      "lens": ["divergence"],
+      "props": {
+        "effort_work_themes": ["rozpočet", "bankovnictví a finanční trhy", "bezpečnost (NBÚ)"],
+        "effort_bill_focus": "Vstupní data uvádějí sponsoredBills jako prázdné pole a bills_authored 0 — Turek nemá v tomto období žádný vlastní ani spolupodepsaný sněmovní tisk.",
+        "effort_public_role": "Řadový člen Rozpočtového výboru a Stálé komise pro kontrolu činnosti Národního bezpečnostního úřadu. Podle veřejných zdrojů od 5. 2. 2026 předsedá Podvýboru pro bankovnictví, pojišťovnictví, finanční trhy a další finanční záležitosti; po volbách byl krátce (do února 2026) místopředsedou poslaneckého klubu ODS. Profesně je výkonným ředitelem Dopravního podniku města Ústí nad Labem.",
+        "effort_notes": "Vstupní data (bills_authored 0, interpellations 0, speech_turns 13, participation_rate 0.9, absence_rate 0.2) odpovídají nálezu — vysoká účast bez legislativní iniciativy, konzistentní s rolí předsedy finančního podvýboru spíš než navrhovatele zákonů. Datová mezera: linkedCompanies je prázdné pole, ačkoliv je Turek podle veřejných zdrojů výkonným ředitelem Dopravního podniku města Ústí nad Labem — obdobný typ vazby (poslanec × jím řízený městský dopravní podnik), jaký je u jiných MPs v tomto vzorku (viz Kolovratník/EBA) v datech zachycen jako linkedCompanies. Doporučuji, aby tým Case ① doplnil IČO Dopravního podniku Ústí nad Labem a ověřil případné smlouvy/dotace k tomuto subjektu."
+      },
+      "signal": 0.4,
+      "headline": "Turek nemá jediný vlastní zákon a jeho zaměstnavatel — Dopravní podnik Ústí nad Labem, který jako výkonný ředitel řídí — v datech Case ① chybí jako linkedCompany, ačkoliv jde o přesně ten typ vazby, který se jinde ve vzorku sleduje.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6787",
+        "https://www.hlidacstatu.cz/Osoba/Funkce/libor-turek",
+        "https://ustecky.denik.cz/zpravy_region/rozhovor-poslanec-libor-turek-20211012.html"
+      ]
+    },
+    {
+      "id": "psp:person:5459",
+      "name": "Radim Fiala",
+      "club": "SPD",
+      "lens": ["top"],
+      "props": {
+        "effort_work_themes": ["hospodářství a stavební právo", "trestní právo", "sociální pojištění", "životní prostředí", "veřejnoprávní média"],
+        "effort_bill_focus": "Fiala je spolupředkladatelem osmi tisků. Přijaty a vyhlášeny: tisk 11 (novela zákona o pojistném na sociální zabezpečení č. 589/1992 Sb.) — zákon č. 90/2026 Sb. od 10. 6. 2026, přičemž Senát jej 6. 5. 2026 zamítl a Sněmovna 26. 5. 2026 setrvala na původním návrhu (přehlasování Senátu). Schváleny Sněmovnou, čekají na Senát: tisk 67 (nový stavební zákon) — 3. čtení schváleno 10. 7. 2026, postoupen Senátu 23. 7. 2026 s lhůtou do 22. 8. 2026; tisk 72 (novela jednacího řádu PS, zákon č. 90/1995 Sb.) — schválen 1.–3. 7. 2026, postoupen Senátu 21. 7. 2026 s lhůtou do 20. 8. 2026. Zbylých pět tisků je k 24. 7. 2026 stále v projednávání: tisk 87 (zákon o zemských znacích a vlajkách) ve výborech; tisk 115 (novela trestního zákoníku, přísnější tresty za trestné činy na dětech) čeká na 27. schůzi od 10. 7. 2026; tisk 173 (další novela trestního zákoníku) po 1. čtení, ÚPV ji dosud neprojednal; tisk 174 (novela zákona na ochranu zvířat proti týrání) po 1. čtení, garanční výbor ji dosud neprojednal; tisk 201 (novela zákona o rozhlasových a televizních poplatcích) na začátku výborového projednávání. Celkem tedy: 1 přijatý a vyhlášený zákon, 2 schválené Sněmovnou a čekající na Senát, 5 stále v raných fázích.",
+        "effort_public_role": "Místopředseda hnutí SPD a od 12. 11. 2025 předseda Hospodářského výboru Sněmovny — výboru, který mj. posuzuje legislativu ke stavebnictví, dopravě, energetice a rozpočty ministerstev a státních agentur; dále řadový člen Organizačního výboru. Podle zpravodajství (iROZHLAS, červen 2026) se navíc stal předsedou dozorčí rady poloviční společnosti ČEZ.",
+        "effort_notes": "Vstupní data (bills_authored 8, interpellations 0, speech_turns 27) odpovídají nálezu — osm spolupředkladatelství, žádná interpelace. Peněžní vazba: mezi šesti linkedCompanies jsou IF Holding a.s. (IČO 02867681) a IF FACILITY a.s. (IČO 27720152, dříve IF KINGS SECURITY s.r.o. z Prostějova) — přímý přístup na ARES VR pro obě IČO se přes WebFetch nepodařilo (JS aplikace, žádný staticky renderovaný obsah), tento neúspěch uvádím explicitně. Namísto toho nezávisle dohledáno přes investigativní zpravodajství (Aktuálně.cz, iROZHLAS, Seznam Zprávy, říjen 2025): Fiala tvrdí, že IF Holding v roce 2018 prodal svěřenskému fondu, ale i po prodeji je nadále veden ve státních databázích jako jeden ze skutečných majitelů (fond založil prostějovský advokát Petr Přikryl, dlouhodobě spolupracující s SPD); podle majetkových přiznání 2021–2023 z fondu čerpal cca 16 mil. Kč. Firma inkasuje veřejné zakázky — např. úklid městských budov v Prostějově (29,6 mil. Kč za roky 2017–2025, původní smlouva 1,37 mil. Kč ročně navýšena osmi dodatky na 3,88 mil. Kč) — což odpovídá contractCzk 11 253 146,98 u IF FACILITY v datech Case ①. Kombinace: poslanec, který zároveň předsedá Hospodářskému výboru (dozor nad stavebnictvím a veřejnými zakázkami) a od června 2026 dozorčí radě ČEZ, si podle více nezávislých médií ponechává skutečné vlastnictví firmy inkasující veřejné zakázky navzdory tvrzenému prodeji — jde o zdokumentovaný, opakovaně médii ověřovaný konflikt zájmů, ne o vstupní data. Zbylé tři firmy (Lesy města Prostějova, B.S. - KINGS, Studio PN Prostějov) i generický záznam 'OSVČ' (IČO 04627695, contractCzk 0) se nepodařilo jednoznačně přiřadit k Fialovi osobně; IČO 04627695 se navíc v jiných dossierech tohoto projektu (batch-003-group-A, MP Foldyna) objevuje se stejnou nulovou hodnotou a matoucím alternativním názvem — silně to naznačuje neresolvovaný placeholder v datovém pipeline Case ①, ne skutečnou vazbu na Fialu; doporučuji jej z Fialova dossieru odstranit nebo přeresolvovat."
+      },
+      "signal": 0.9,
+      "headline": "Fiala předsedá Hospodářskému výboru i dozorčí radě ČEZ a přitom podle opakovaného investigativního zpravodajství (Aktuálně.cz, iROZHLAS, Seznam Zprávy) nadále skrytě vlastní IF Holding/IF Facility, firmu inkasující veřejné zakázky v jeho domovském Prostějově navzdory tvrzenému prodeji z roku 2018.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=5459",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=67",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=115",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=173",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=174",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=201",
+        "https://zpravy.aktualne.cz/domaci/radim-fiala-z-spd-nadale-spoluvlastni-firmu-ktera-dostava-st/r~5294edeea4e111f0b553ac1f6b220ee8/?lp=1",
+        "https://www.irozhlas.cz/zpravy-domov/fiala-spd-stale-spoluvlastni-holding-ktery-ziskava-statni-zakazky-firmy-jsem_2510091647_elev",
+        "https://www.seznamzpravy.cz/clanek/domaci-kauzy-mozne-poruseni-zakona-holding-radima-fialy-z-spd-inkasuje-miliony-za-uklid-293143?noredirect=1",
+        "https://hanacka.drbna.cz/zpravy/37907-urady-proveri-zakazku-na-uklid-mestskych-budov-v-prostejove-firma-souvisi-s-radimem-fialou-z-spd.html",
+        "https://www.irozhlas.cz/volby/v-cele-hospodarskeho-vyboru-snemovny-bude-radim-fiala-z-spd-vyzyvatel-hrib-z_2511121441_jva"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "generatedAt": "2026-07-24T20:52:49.715Z",
+  "note": "Q-effort-12 build: role_window_mismatch meta-class backfill (batch-003 §Headline finding, already-cited facts, deterministic encode-only — see docs/case-loops.md role_window_mismatch proposal).",
+  "proposals": [
+    {
+      "id": "psp:person:6621",
+      "name": "Karel Havlíček",
+      "props": {
+        "effort_low_score_reason": "deputy_pm",
+        "effort_public_role": "1. místopředseda vlády a ministr průmyslu a obchodu od 15. 12. 2025."
+      }
+    },
+    {
+      "id": "psp:person:7022",
+      "name": "Petr Macinka",
+      "props": {
+        "effort_low_score_reason": "deputy_pm",
+        "effort_public_role": "Místopředseda vlády a ministr zahraničních věcí od prosince 2025."
+      }
+    },
+    {
+      "id": "psp:person:6545",
+      "name": "Alena Schillerová",
+      "props": {
+        "effort_low_score_reason": "minister",
+        "effort_public_role": "Ministryně financí od 15. 12. 2025."
+      }
+    },
+    {
+      "id": "psp:person:6150",
+      "name": "Andrej Babiš",
+      "props": {
+        "effort_low_score_reason": "prime_minister",
+        "effort_public_role": "Předseda vlády od 9. 12. 2025."
+      }
+    },
+    {
+      "id": "psp:person:6544",
+      "name": "Lubomír Metnar",
+      "props": {
+        "effort_low_score_reason": "minister",
+        "effort_public_role": "Ministr vnitra od 15. 12. 2025 (jeho třetí ministerský post)."
+      }
+    },
+    {
+      "id": "psp:person:6788",
+      "name": "Barbora Urbanová",
+      "props": {
+        "effort_low_score_reason": "institutional_promotion",
+        "effort_public_role": "Zvolena místopředsedkyní Poslanecké sněmovny 5. 6. 2026."
+      }
+    }
+  ]
+}

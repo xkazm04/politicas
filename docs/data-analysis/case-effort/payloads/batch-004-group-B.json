@@ -1,0 +1,145 @@
+{
+  "case": "effort",
+  "batch": 4,
+  "group": "B",
+  "generatedAt": "2026-07-24T21:40:00.000Z",
+  "note": "7/7 MPs full_term. Three MPs (Baxa, Schrek, Adamec) are former municipal/regional executives (Plzeň deputy mayor/mayor, Vysočina hejtman, Trutnov mayor for 23 years) whose linkedCompanies lists read as leftover public/regional-government contract counterparties from those prior offices, not obviously personal business ties -- but this could not be confirmed: every ARES VR (ekonomicke-subjekty-vr) lookup attempted returned only the bare SPA shell with no officer data via WebFetch, and or.justice.cz / rejstrik.penize.cz mirrors either rendered no statutory-organ data or returned HTTP 403. These are reported as unverified, not as confirmed-clean. The generic zero-value OSVČ IČO 04627695 placeholder seen on two dossiers in batch-003-group-A (Válková, Foldyna) recurs a third time here on Schrek, reinforcing the pipeline-placeholder hypothesis over a real company tie.",
+  "proposals": [
+    {
+      "id": "psp:person:6435",
+      "name": "Martin Baxa",
+      "club": "ODS",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["kultura a média", "kontrola veřejné správy", "rodina a rovné příležitosti"],
+        "effort_bill_focus": "Vstupní data uvádějí tři sněmovní tisky u Baxova jména, ale jen na dvou je fakticky spolupředkladatelem (odpovídá to bills_authored = 2): tisk 129 (zrušení zákona o prodejní době, skupina kolem Jana Bureše, podán 10. 3. 2026) je od 2. 4. 2026 v Hospodářském výboru jako garančním, dosud bez 1. čtení; tisk 208 (novela zákona č. 65/2017 Sb. o ochraně zdraví před škodlivými účinky návykových látek, skupina kolem Štěpána Slováka, podán 27. 5. 2026) narazil 23. 6. 2026 na nesouhlasné stanovisko vlády a je v gesci Výboru pro zdravotnictví, rovněž bez 1. čtení. Třetí tisk v datech, č. 10 (vládní návrh zákona o podmínkách poskytování mediálních služeb, EU transpozice, předkladatel ministr kultury), je vládní předloha, kde Baxa není mezi předkladateli (coSponsors je prázdné pole) -- do jeho dossieru se dostala jen proto, že gesčním výborem je Výbor pro mediální záležitosti, jehož je členem. To přesně odpovídá poznámce (e): sponsoredBills může směšovat skutečné předkladatelství s pouhým výborovým routingem.",
+        "effort_public_role": "Členem Kontrolního výboru a Výboru pro mediální záležitosti (oba od 16. 1. 2026), předsedou podvýboru pro kulturu (od 5. 2. 2026), členem podvýborů pro regionální školství a pro regiony v transformaci a pro svobodu slova, a členem Stálé komise pro rodinu a rovné příležitosti a Stálé komise pro kontrolu Finančního analytického úřadu. Před sněmovním mandátem byl 1. náměstkem primátora Plzně pro kulturu, cestovní ruch a památkovou péči (2014-2018) a poté primátorem Plzně (2018-2021), než se stal ministrem kultury ve vládě Petra Fialy.",
+        "effort_notes": "Devět položek v linkedCompanies jsou převážně plzeňské kulturní/regionální instituce (Techmania, Plzeňská filharmonie, Galerie města Plzně, Nadace 700 let města Plzně aj.) -- typ organizací, které by přirozeně procházely rukama bývalého náměstka pro kulturu a primátora Plzně. To je nápadná shoda s jeho dřívější exekutivní rolí, ale nejde o důkaz osobní vazby: pokus ověřit statutární orgány přes ares.gov.cz/ekonomicke-subjekty-vr/06919511 (SUTNAR - nadace) a /26396645 (Techmania) vrátil jen prázdnou SPA schránku bez dat přes WebFetch; alternativní zdroj or.justice.cz vrátil jen základní rejstříkový záznam bez statutárních orgánů. Ověření se tedy nezdařilo -- nejde o potvrzeně čistý nález, jde o neověřený. Doporučuji, aby tým Case ① zkusil autentizovaný přístup k ARES VR nebo Sbírku listin přímo."
+      },
+      "signal": 0.55,
+      "headline": "Baxa má na kontě jen dva mp-skupinové návrhy, oba zatím zaseknuté ve výborech (jeden s nesouhlasem vlády); devět firemních vazeb kopíruje jeho bývalou plzeňskou kulturní agendu, ale ARES VR ověření osobní vazby se nepodařilo provést.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6435",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=129",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=208",
+        "https://www.irozhlas.cz/zpravy-domov/vizitky-ministr-kultury-martin-baxa-ods-primator-plzne-poslanec_2111301255_vtk",
+        "https://ares.gov.cz/ekonomicke-subjekty-vr/06919511",
+        "https://ares.gov.cz/ekonomicke-subjekty-vr/26396645",
+        "https://or.justice.cz/ias/ui/rejstrik-$firma?ico=06919511"
+      ]
+    },
+    {
+      "id": "psp:person:7034",
+      "name": "Vladimír Pikora",
+      "club": "MS",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["rozpočet a veřejné finance", "sociální politika", "kontrola finančního analytického úřadu"],
+        "effort_bill_focus": "Vstupní data uvádějí sponsoredBills jako prázdné pole a bills_authored = 0; na psp.cz profilu Pikora skutečně nefiguruje jako (spolu)předkladatel žádného sněmovního tisku v tomto období. Jeho příspěvek je tedy výhradně výborová práce v čele rozpočtové agendy, nikoli legislativní iniciativa.",
+        "effort_public_role": "Předsedá Rozpočtovému výboru (od 14. 11. 2025, členem od 11. 11. 2025), je členem Výboru pro sociální politiku a Stálé komise pro kontrolu činnosti Finančního analytického úřadu. Ekonom (známý mj. z komentátorské činnosti k makroekonomice), bez dřívější veřejné funkce zmíněné na psp.cz profilu.",
+        "effort_notes": "linkedCompanies je prázdné pole -- bez peněžního zjištění k ověření z Case ①. rebellion_rate 0.082 (89 rebelských hlasů z 1086) je v datech nejvyšší z celé této sedmičky, což při vedení rozpočtového výboru vlastního klubu stojí za sledování v případném dalším kole, ale samo o sobě nejde o datovou nesrovnalost."
+      },
+      "signal": 0.35,
+      "headline": "Pikora vede Rozpočtový výbor, ale za sledované období nepodal jediný vlastní zákon a nemá žádnou firemní vazbu v datech.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7034"
+      ]
+    },
+    {
+      "id": "psp:person:7039",
+      "name": "Vítězslav Schrek",
+      "club": "ODS",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["sociální politika", "veřejná správa a regionální rozvoj", "hybridní hrozby"],
+        "effort_bill_focus": "sponsoredBills je prázdné pole a bills_authored = 0; psp.cz profil nepotvrzuje žádné (spolu)předkladatelství v tomto období -- odpovídá vstupním datům.",
+        "effort_public_role": "Místopředsedou Výboru pro sociální politiku (od 12. 11. 2025, členem od 11. 11. 2025), členem Výboru pro veřejnou správu a regionální rozvoj a Stálé komise pro hybridní hrozby; vede meziparlamentní skupiny ČR-Ukrajina, ČR-Vietnam, ČR-Itálie a ČR-Keňa. Před sněmovním mandátem byl hejtmanem Kraje Vysočina (2020-2024/2025) a předtím ředitelem domova pro seniory a náměstkem ředitele Diecézní charity Jihlava.",
+        "effort_notes": "Šest položek v linkedCompanies zahrnuje sociální/regionální organizace z Vysočiny (Domov pro seniory Velké Meziříčí, DS Stříbrné Terasy, Charita ČR, AlternativaPro) i soukromou Prádelnu a čistírnu Jihlava -- profil odpovídající bývalému hejtmanovi a manažerovi v sociálních službách, ale nejde o potvrzenou osobní vazbu: ares.gov.cz/ekonomicke-subjekty-vr/25513290 vrátil jen prázdnou SPA schránku a or.justice.cz i mirror rejstrik.penize.cz selhaly (403 / bez dat statutárních orgánů) -- ověření se tedy nezdařilo, nejde o potvrzeně čistý nález. První položka, generický 'OSVČ' IČO 04627695 s contractCzk 0, je TOTOŽNÉ IČO jako u Válkové a Foldyny v batch-003-group-A (oba tam s contractCzk 0) -- třetí výskyt stejného placeholderu napříč nezávislými dossiery silně podporuje hypotézu nedořešeného datového placeholderu v Case ① pipeline, ne reálnou firmu. Doporučuji prioritní re-resolvaci IČO 04627695."
+      },
+      "signal": 0.5,
+      "headline": "Bývalý hejtman Vysočiny Schrek nepodal žádný vlastní zákon; jeho šest firemních vazeb kopíruje sociální/regionální agendu z jeho dřívějšího úřadu, ale ARES VR ověření selhalo a jedna položka je potřetí se opakující datový placeholder.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7039",
+        "https://vysocina.rozhlas.cz/vysocina-ma-po-12-letech-noveho-hejtmana-stal-se-jim-vitezslav-schrek-z-ods-8364287",
+        "https://cs.wikipedia.org/wiki/V%C3%ADt%C4%9Bzslav_Schrek",
+        "https://ares.gov.cz/ekonomicke-subjekty-vr/25513290",
+        "https://or.justice.cz/ias/ui/rejstrik-$firma?ico=25513290",
+        "https://rejstrik.penize.cz/25513290-pradelna-a-cistirna-jihlava-s-r-o"
+      ]
+    },
+    {
+      "id": "psp:person:5700",
+      "name": "Ivan Adamec",
+      "club": "ODS",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["hospodářství a doprava", "životní prostředí", "veřejná infrastruktura (region Trutnov)"],
+        "effort_bill_focus": "Jediný sponzorovaný tisk v datech (bills_authored = 1) je tisk 261, novela zákona č. 114/1992 Sb. o ochraně přírody a krajiny, podaná 14. 7. 2026 skupinou devíti poslanců kolem Jana Bureše (Adamec mezi spolupředkladateli, primárním předkladatelem je Bureš). K 24. 7. 2026 je zcela na začátku procesu: rozeslána poslancům 15. 7. 2026, 17. 7. 2026 odeslána vládě k vyjádření (lhůta do 16. 8. 2026), bez jakéhokoli čtení či hlasování.",
+        "effort_public_role": "Místopředsedou Hospodářského výboru (od 12. 11. 2025, členem od 11. 11. 2025) a členem Výboru pro životní prostředí; členem dozorčí rady Státního fondu dopravní infrastruktury (od 28. 1. 2026) a Česko-thajské meziparlamentní skupiny. Předtím 23 let (1998-2021) starostou Trutnova, rezignoval při zvolení do Sněmovny; sekundární zdroje (Krkonošský deník, ČT24) uvádějí, že se stal 'předsedou' hospodářského výboru při odchodu z radnice -- to však neodpovídá aktuálnímu psp.cz profilu ani vstupním datům (role 'vice', weight 0.6), takže beru psp.cz snapshot jako autoritativní a médijní formulaci jako nepřesnou nebo vztahující se k jinému okamžiku.",
+        "effort_notes": "committee_count 3 v datech odpovídá nálezu jen přibližně -- psp.cz uvádí 2 výbory (Hospodářský, Životní prostředí) plus dozorčí radu SFDI, což může být zdroj třetí položky. Šest firem v linkedCompanies (Technické služby Trutnov, Lesy a parky Trutnov, Oblastní nemocnice Trutnov, VZP, Společnost Horní Labe, TRANSPORT Trutnov) jsou vesměs trutnovské městské/regionální podniky odpovídající jeho 23letému starostenskému období -- opět nejde o potvrzenou osobní vazbu: ares.gov.cz/ekonomicke-subjekty-vr/25968084 vrátil prázdnou SPA schránku, or.justice.cz i rejstrik.penize.cz mirror selhaly stejně jako u ostatních dvou MPs v tomto batchi. Ověření se nezdařilo -- doporučuji Registr smluv jako další krok, ne uzavření na 'clean'."
+      },
+      "signal": 0.55,
+      "headline": "Adamec, 23letý starosta Trutnova, má jediný sponzorovaný zákon teprve na startu procesu; šest firemních vazeb jsou trutnovské městské podniky z jeho starostenské éry, ale ARES VR ověření osobní vazby se opět nezdařilo.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=5700",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=261",
+        "https://krkonossky.denik.cz/zpravy_region/ivan-adamec-skoncil-jako-starosta-trutnova-povede-hospodarsky-vybor-snemovny-202.html",
+        "https://ares.gov.cz/ekonomicke-subjekty-vr/25968084",
+        "https://or.justice.cz/ias/ui/rejstrik-$firma?ico=25968084",
+        "https://rejstrik.penize.cz/25968084-technicke-sluzby-trutnov-s-r-o"
+      ]
+    },
+    {
+      "id": "psp:person:6988",
+      "name": "Pavel Bartoň",
+      "club": "ANO2011",
+      "lens": ["bottom"],
+      "props": {
+        "effort_work_themes": ["média", "věda, vzdělávání, mládež a sport"],
+        "effort_bill_focus": "sponsoredBills je prázdné pole a bills_authored = 0; žádný sněmovní tisk s Bartoněm jako (spolu)předkladatelem nebyl dohledán.",
+        "effort_public_role": "Řadový člen Výboru pro mediální záležitosti a Výboru pro vědu, vzdělávání, mládež a sport (oba od 11. 11. 2025); dále člen tří podvýborů (alternativní výchovná péče; mládež a volný čas -- zde místopředseda od 29. 4. 2026; regionální školství, celoživotní učení a inkluze) a Česko-slovenské meziparlamentní skupiny. Žádná dřívější veřejná funkce dohledána nebyla.",
+        "effort_notes": "speech_turns = 0 a bills_authored = 0 odpovídají obrazu tichého, nekonfliktního poslance s vysokou účastí (participation_rate 0.9) a nízkou absencí (absence_rate 0.1) -- pozitivní varianta 'quiet workhorse' bez dramatu: dělá výborovou práci, nemluví do médií, žádná firemní vazba (linkedCompanies prázdné). Datově nekonzistentní nic nebylo nalezeno."
+      },
+      "signal": 0.15,
+      "headline": "Bartoň je typický tichý, nekonfliktní člen dvou výborů -- vysoká docházka, nulové vystoupení v plénu, žádný vlastní zákon, žádná firemní vazba k prošetření.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6988"
+      ]
+    },
+    {
+      "id": "psp:person:7026",
+      "name": "Anežka Nedomová",
+      "club": "STAN",
+      "lens": ["divergence"],
+      "props": {
+        "effort_work_themes": ["zahraniční vztahy a evropské záležitosti", "digitální ekonomika a AI", "rozvojová spolupráce a lidská práva v zahraničí"],
+        "effort_bill_focus": "sponsoredBills je prázdné pole a bills_authored = 0; žádný sněmovní tisk s Nedomovou jako (spolu)předkladatelkou nebyl dohledán.",
+        "effort_public_role": "Členkou Zahraničního výboru (od 11. 11. 2025) a Výboru pro evropské záležitosti (od 14. 11. 2025) a Stálé komise pro kontrolu Úřadu pro zahraniční styky a informace (BIS-adjacent zpravodajská komise, od 14. 11. 2025); dále pěti podvýborů (venkov; ICT/AI/digitální ekonomika/kryptoměny; startupy a inovace; digitální ekonomika a ochrana spotřebitele; rozvojová spolupráce a lidská práva v zahraničí). Členka deseti meziparlamentních skupin (SAE, Německo, Jižní Korea, Myanmar, Francie, Kanada, Izrael, Itálie, Japonsko, Slovinsko) -- síť diplomaticko-networkingových rolí je neobvykle široká na poslankyni narozenou 2001.",
+        "effort_notes": "committee_count 3 v datech přesně odpovídá (Zahraniční výbor, Výbor pro evropské záležitosti, Stálá komise SKÚZSI). zVsClub -2.29 je v tomto vzorku nejnižší (nejvíc pod klubovým průměrem STAN) a odpovídá triage lens 'divergence' -- profil sedí: nulová legislativní produkce, jen 8 vystoupení v plénu (speech_turns), ale velmi široké zahraničně-diplomatické zapojení, které kontribuční skóre nezachycuje. Žádná firemní vazba v datech (linkedCompanies prázdné) -- bez peněžního zjištění."
+      },
+      "signal": 0.3,
+      "headline": "Nedomová je nejvíc podprůměrná v kontribučním skóre vůči vlastnímu klubu STAN v celém vzorku -- žádný zákon, jen 8 vystoupení, ale nezvykle rozsáhlá síť deseti meziparlamentních skupin, kterou skóre nezachycuje.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7026"
+      ]
+    },
+    {
+      "id": "psp:person:7033",
+      "name": "Jiří Svoboda",
+      "club": "ANO2011",
+      "lens": ["bottom"],
+      "props": {
+        "effort_work_themes": ["kontrola veřejné správy", "hospodářství a doprava"],
+        "effort_bill_focus": "sponsoredBills je prázdné pole a bills_authored = 0; žádný sněmovní tisk se Svobodou jako (spolu)předkladatelem nebyl dohledán.",
+        "effort_public_role": "Řadový člen Kontrolního výboru a Hospodářského výboru (oba od 11. 11. 2025); dále pěti podvýborů (doprava; digitální ekonomika a AI; sport; migrační a azylová politika; startupy a inovace) a pěti meziparlamentních skupin (Gruzie, severské země, Japonsko, USA, Velká Británie). Žádná dřívější veřejná funkce dohledána nebyla.",
+        "effort_notes": "speech_turns = 0 a bills_authored = 0 při vysoké participation_rate (0.9) a nízké absence_rate (0.1) -- stejný profil jako u Bartoně v tomto vzorku (oba mají identickou triage.quietWorkhorseIndex 0.039 a stejnou triage.componentDivergence 0.648, což odpovídá jejich prakticky identickým vstupním komponentám -- pozoruhodná shoda, ale ne chyba: jde o dva samostatné poslance se skutečně shodným behaviorálním otiskem, ne o duplicitní záznam, protože pspId, jméno a kraj se liší). Žádná firemní vazba (linkedCompanies prázdné)."
+      },
+      "signal": 0.15,
+      "headline": "Svoboda je druhý 'tichý' poslanec v tomto vzorku s téměř identickým behaviorálním otiskem jako Bartoň -- vysoká docházka, nulová řečnická a legislativní aktivita, žádná firemní vazba.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7033"
+      ]
+    }
+  ]
+}

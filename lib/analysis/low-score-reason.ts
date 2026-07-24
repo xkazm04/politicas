@@ -25,6 +25,7 @@ export const LOW_SCORE_REASONS = [
   "genuine_absentee",
   "low_legislative_output",
   "declined_mandate",
+  "institutional_promotion",
   "unknown",
 ] as const;
 
@@ -57,6 +58,11 @@ const COPY: Record<LowScoreReason, LowScoreReasonCopy> = {
   replacement: {
     badge: "Nastoupil(a) jako náhradník/-ce",
     detail: "Mandátu se ujal(a) až v průběhu období — nízké skóre odráží kratší reálnou dobu ve Sněmovně, ne nezájem.",
+    tone: "positive",
+  },
+  institutional_promotion: {
+    badge: "Zvolen(a) do vedení Sněmovny",
+    detail: "V průběhu období byl(a) zvolen(a) do vedení Sněmovny (např. místopředseda/kyně) — nízké skóre v původní roli je artefaktem této institucionální změny, ne nezájmu.",
     tone: "positive",
   },
   dual_mandate: {

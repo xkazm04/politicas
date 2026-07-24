@@ -1,0 +1,157 @@
+{
+  "generatedAt": "2026-07-24T00:00:00.000Z",
+  "proposals": [
+    {
+      "id": "psp:person:6767",
+      "name": "Michaela Řehková",
+      "club": "STAN",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["veřejná správa a obce", "bezpečnost (GIBS dozor)", "daně z příjmů"],
+        "effort_bill_focus": "Řehková je spolupodepsanou (nikoli první předkladatelkou) u všech 3 tisků z jejího vzorku, žádný z nich zatím nebyl přijat: tisk 24 (novela zákona o obcích, předložil V. Rakušan a další, 12. 11. 2025) čeká na projednání ve VSR; tisk 120 (novela zákona o daních z příjmů, předložila L. Sedmihradská a další, 3. 3. 2026) narazil na nesouhlasné stanovisko vlády (31. 3. 2026) a čeká na výbor; tisk 146 (další novela zákona o obcích, tentokrát s V. Kovářovou jako první předkladatelkou, 25. 3. 2026) rovněž dostal nesouhlas vlády (21. 4. 2026) a je ve VSR. Žádný z jejích tří tisků tedy nebyla ona sama, kdo iniciativu vedl (dle schema poznámky (e) o rozlišení předkladatel/spolupodpis).",
+        "effort_public_role": "Místopředsedkyní Výboru pro bezpečnost a členkou Stálé komise pro kontrolu GIBS — obě role v bezpečnostně-dozorové agendě, konzistentní s in-put committees (2 role uvedeny).",
+        "effort_notes": "Numerika: bills_authored=3 odpovídá přesně počtu položek v sponsoredBills (3), ale ani u jednoho tisku není uvedena jako první předkladatelka — jde tedy o tři spolupodpisy, ne tři vlastní iniciativy (schema poznámka e). Datová nesrovnalost: props uvádí committee_count=3, ale pole committees v poskytnutém kontextu obsahuje jen 2 položky (VB, SKGIBS) — chybí buď třetí vazba v datech, nebo je počítadlo nadhodnocené; doporučuji ověřit v pipeline Case ①. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.28,
+      "headline": "Řehková spolupodepsala tři tisky (obce, daně) v dozorové bezpečnostní roli, ale u žádného nebyla první předkladatelkou — a vstupní počet výborů (3) neodpovídá dvěma reálně uvedeným.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=24",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=120",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=146"
+      ]
+    },
+    {
+      "id": "psp:person:7036",
+      "name": "Václav Pláteník",
+      "club": "KDU-ČSL",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["zdravotnictví", "životní prostředí (obaly, ekologické škody, voda)", "školství", "vyšetřovací komise (kauza Dozimetr)"],
+        "effort_bill_focus": "Pláteník se objevuje jako spolupodepsaný u 9 tisků, ale první předkladatel (dle pole submitter) je pouze u jediného z nich: tisk 104 (novela školského zákona, 10. 2. 2026, se 7 spolupředkladateli), který narazil na nesouhlas vlády (10. 3. 2026) a k 24. 7. 2026 zůstává ve výboru. Zbylých 8 tisků (73, 74, 50, 75, 89, 109, 110, 121) podepsal jako spolupředkladatel u návrhů vedených P. Hladíkem, M. Jurečkou nebo B. Činčilou — všechny jsou k datu 24. 7. 2026 stále nepřijaté a čekají na projednání ve výborech (obaly, ekologické škody, vodní zákon, rozpočtová pravidla, důchody, nemocenské, pojistné na soc. zabezpečení, daně z příjmů), většina s nesouhlasným stanoviskem vlády.",
+        "effort_public_role": "Členem Ústavně-právního výboru, Výboru pro zdravotnictví, Stálé komise pro Ústavu ČR a parlamentní procedury, Stálé komise pro kontrolu GIBS a vyšetřovací komise k tzv. kauze Dozimetr (DPP, KSÚS Středočeského kraje, VZP — podezření z korupce) — pětice rolí odpovídá 5 položkám v poskytnutém seznamu committees.",
+        "effort_notes": "bills_authored=9 odpovídá přesně počtu položek v sponsoredBills, ale jde primárně o spolupodpisy — jen 1 z 9 nese jeho jméno jako prvního předkladatele (schema poznámka e o rozlišení předkladatel/spolupodpis). committee_count=5 souhlasí s počtem uvedených rolí. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.42,
+      "headline": "Pláteník je aktivním spolupodpisujícím napříč devíti tisky (jen jeden vlastní) a sedí ve vyšetřovací komisi ke kauze Dozimetr, ale žádný z jeho tisků dosud neprošel.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=104",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=73",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=74",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=50",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=75",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=89",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=109",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=110",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=121"
+      ]
+    },
+    {
+      "id": "psp:person:6205",
+      "name": "Marian Jurečka",
+      "club": "KDU-ČSL",
+      "lens": ["divergence", "high-triage"],
+      "props": {
+        "effort_work_themes": ["sociální politika", "důchody a pojistné", "organizace Sněmovny"],
+        "effort_bill_focus": "Jurečka je prvním předkladatelem 4 mp_group tisků v sociální agendě, všechny k 24. 7. 2026 nepřijaté a všechny narazily na nesouhlas vlády: tisk 50 (důchodové pojištění, 5. 12. 2025, nesouhlas 17. 2. 2026), tisk 109 (nemocenské pojištění, 13. 2. 2026, nesouhlas 18.–19. 3. 2026), tisk 110 (pojistné na sociální zabezpečení, 13. 2. 2026, nesouhlas 18.–19. 3. 2026) a tisk 121 (daně z příjmů, 2. 3. 2026, nesouhlas 31. 3. 2026). Dále je spolupodepsán (ne první předkladatel) u tisku 89 (rozpočtová pravidla) a tisku 104 (školský zákon). Dvě zbývající položky v jeho sponsoredBills (tisk 54 a tisk 65, oba 'vládní' s předkladatelem 'min. práce a soc. věcí') jsou problematické — viz poznámka níže.",
+        "effort_public_role": "Bývalý ministr práce a sociálních věcí (do pádu vlády Fiala v souvislosti s volbami 2025); od 6. 5. 2026 je předsedou poslaneckého klubu KDU-ČSL v opozici. V aktuálním výborovém zařazení je členem Organizačního výboru a Výboru pro sociální politiku (2 role, odpovídá committee_count=2).",
+        "effort_notes": "bills_authored=6 odpovídá součtu 4 mp_group tisků, kde je uveden jako první předkladatel, plus 2 'vládní' tisky (54, 65) vedené 'min. práce a soc. věcí' — TYTO DVĚ ALE PRAVDĚPODOBNĚ NEJSOU JEHO VLASTNÍ: podle veřejných zdrojů je aktuálním ministrem práce a sociálních věcí Aleš Juchelka (vláda Babiš), zatímco Jurečka je od května 2026 předsedou opozičního klubu KDU-ČSL — jde tedy patrně o artefakt výborového routingu (VSR jako garanční výbor), ne o skutečné autorství, a doporučuji tento pár položek v pipeline Case ① přeřadit mimo 'authored'. Peněžní vazba: linkedCompanies obsahuje (1) generický OSVČ záznam IČO 04627695 s contractCzk 0 — stejný placeholder jako u Válkové a Foldyny v batch-003, nyní potvrzený i zde, silný signál nedořešeného datového artefaktu napříč pipeline; a (2) AGRO 2000 s.r.o. (IČO 25586521, Třebíč) s contractCzk 10 864 254,9 Kč — Jurečka v této firmě v letech 2010–listopad 2013 pracoval jako vedoucí agrochemického úseku, tedy PŘED nástupem do Sněmovny (2013); přímý přístup na ares.gov.cz/ekonomicke-subjekty-vr/25586521 selhal (stránka je JS-renderovaná SPA bez staticky dostupného obsahu), použil jsem tedy sekundární zdroj (agregovaný výpis), podle kterého jsou aktuálními jednateli od 19. 11. 2024 Radek Kružík a Lubomír Krejčí — Jurečka mezi současnými statutárními orgány NENÍ. Nejde tedy o potvrzenou aktuální osobní vazbu, ale o historický zaměstnanecký vztah předcházející politické kariéře; kdo/co vygenerovalo 10,86 mil. Kč smluvní částku, se nepodařilo dohledat a doporučuji ověřit přes Registr smluv."
+      },
+      "signal": 0.62,
+      "headline": "Jurečka, bývalý ministr a dnes předseda opoziční KDU-ČSL, má čtyři vlastní sociální tisky odmítnuté vládou; dvě 'vládní' položky v jeho datech patří pravděpodobně současnému ministrovi, ne jemu, a jeho firemní vazba na AGRO 2000 je desetiletí stará předpolitická kapitola, ne současné angažmá.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=50",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=109",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=110",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=121",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=89",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=104",
+        "https://mpsv.gov.cz/ministr",
+        "https://www.ceskenoviny.cz/zpravy/marian-jurecka-se-stal-predsedou-poslaneckeho-klubu-kdu-csl/2821490",
+        "https://ares.gov.cz/ekonomicke-subjekty-vr/25586521",
+        "https://www.podnikatel.cz/rejstrik/agro-2000-s-r-o-25586521/"
+      ]
+    },
+    {
+      "id": "psp:person:4",
+      "name": "Marek Benda",
+      "club": "ODS",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["ústavní právo a jednací řád", "zahraniční vztahy", "kontrola tajných služeb (NBÚ, ÚZSI)", "ochrana přírody"],
+        "effort_bill_focus": "Benda je spolupodepsaný (ne první předkladatel) u obou tisků z jeho vzorku: tisk 72 (novela jednacího řádu PS, vedl R. Vondráček, 18. 12. 2025) — jediný přijatý tisk v celém tomto vzorku sedmi poslanců, schválen 1.–3. 7. 2026 a postoupen Senátu 21. 7. 2026; a tisk 261 (novela zákona o ochraně přírody a krajiny, vedl J. Bureš, 14. 7. 2026) — čerstvě podaný, čeká na vládní stanovisko do 16. 8. 2026.",
+        "effort_public_role": "Předsedou poslaneckého klubu ODS (od 8. 10. 2025); ve výborech je členem Organizačního výboru, Ústavně-právního výboru, Zahraničního výboru a obou stálých komisí pro kontrolu tajných služeb — NBÚ i ÚZSI (5 rolí, odpovídá committee_count=5).",
+        "effort_notes": "bills_authored=2 odpovídá počtu položek v sponsoredBills, ale u žádného není první předkladatel (schema poznámka e). linkedCompanies obsahuje (1) generický OSVČ IČO 04627695 s contractCzk 0 — stejný placeholder jako u Jurečky v tomto vzorku a u Válkové/Foldyny v batch-003, nyní pátý výskyt napříč case-effort dossiers, silně naznačuje neresolvovaný pipeline artefakt; a (2) Společenství vlastníků jednotek Vlastislavova 605/20, Praha 4 (IČO 24227901, contractCzk 3 133,9 Kč) — dle veřejných zdrojů jde o SVJ v domě, kde Benda bydlí, tedy pravděpodobně jeho vlastní bytové společenství, ne obchodní vazba; přímý přístup na ares.gov.cz/ekonomicke-subjekty-vr/24227901 selhal (JS-renderovaná SPA), sekundární zdroje potvrzují jen typ subjektu (SVJ) a nulovou obchodní relevanci částky 3 134 Kč, ne jmenný seznam výboru SVJ — nelze tedy potvrzené tvrdit nic nad rámec 'pravděpodobně vlastní bydliště'."
+      },
+      "signal": 0.35,
+      "headline": "Benda, předseda klubu ODS, sedí v obou komisích pro dozor nad tajnými službami (NBÚ, ÚZSI); jeho jediná firemní položka mimo generický placeholder je zjevně SVJ vlastního domu za 3 134 Kč, ne obchodní vazba.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=261",
+        "https://ares.gov.cz/ekonomicke-subjekty-vr/24227901",
+        "https://www.hlidacstatu.cz/osoba/marek-benda"
+      ]
+    },
+    {
+      "id": "psp:person:6738",
+      "name": "Hubert Lang",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["bezpečnost a zpravodajské služby (GIBS, BIS, NBÚ)", "kontrola finanční analytiky (AML)", "veřejná správa", "vyšetřovací komise (kauza Dozimetr)"],
+        "effort_bill_focus": "Lang je jediným prvním předkladatelem tisku 187 (změna některých zákonů v oblasti vnitřní správy, podán 6. 5. 2026 se 3 spolupodepsanými), který je z celého vzorku nejblíže dokončení: vláda jej 20. 5. 2026 schválila, proběhlo 1. čtení (2. 6. 2026) i 2. čtení (8. 7. 2026), garanční výbor zaujal stanovisko 15. 7. 2026 a k 25. 7. 2026 je připraven k dalšímu projednávání (5 písemných pozměňovacích návrhů zpracováno).",
+        "effort_public_role": "Místopředsedou Výboru pro bezpečnost; dále členem Výboru pro vědu, vzdělávání, mládež a sport a čtyř stálých kontrolních komisí najednou — GIBS, BIS, NBÚ a Finančního analytického úřadu — plus vyšetřovací komise k tzv. kauze Dozimetr. To je nezvykle husté zpravodajsko-dozorové portfolio pro jednoho poslance.",
+        "effort_notes": "bills_authored=1 odpovídá jedinému tisku (187), u kterého je prvním předkladatelem — zde souhlasí i se schema poznámkou (e), protože jde skutečně o jeho vlastní iniciativu, ne spolupodpis. Datová nesrovnalost: props uvádí committee_count=8, ale pole committees v poskytnutém kontextu obsahuje jen 7 položek (VB, VVVMS, SKGIBS, SKBIS, SKNBÚ, SKFAÚ, VKDOZIMETR) — chybí jedna vazba oproti počítadlu, doporučuji ověřit v pipeline Case ①. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.4,
+      "headline": "Lang souběžně dozoruje GIBS, BIS, NBÚ i finanční analytiku a jeho jediný vlastní tisk je těsně před dokončením — ale vstupní počet výborů (8) opět neodpovídá sedmi reálně uvedeným.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=187"
+      ]
+    },
+    {
+      "id": "psp:person:6214",
+      "name": "Věra Kovářová",
+      "club": "STAN",
+      "lens": ["top"],
+      "props": {
+        "effort_work_themes": ["rozpočet a veřejná správa", "obce", "daně z příjmů"],
+        "effort_bill_focus": "Kovářová je prvním předkladatelem jediného ze 4 tisků svého vzorku: tisk 146 (novela zákona o obcích, 25. 3. 2026), který dostal nesouhlas vlády (21. 4. 2026) a k 24. 7. 2026 zůstává ve VSR. Zbylé tři jsou spolupodpisy: tisk 24 (obce, vedl V. Rakušan) a tisk 120 (daně z příjmů, vedla L. Sedmihradská) — oba nesouhlas vlády, oba nepřijaté; a tisk 244 (daně z příjmů, vedla P. Pivoňka Vaňková, podán 26. 6. 2026) — nejčerstvější, čeká na vládní stanovisko do 30. 7. 2026.",
+        "effort_public_role": "Místopředsedkyní Rozpočtového výboru a členkou Výboru pro veřejnou správu a regionální rozvoj (2 role odpovídají 2 položkám v poskytnutém seznamu committees).",
+        "effort_notes": "bills_authored=4 odpovídá přesně počtu položek v sponsoredBills, ale jen u 1 ze 4 je uvedena jako první předkladatelka (schema poznámka e). Výrazná datová nesrovnalost: props uvádí committee_count=6, ale pole committees obsahuje jen 2 položky (RV vice, VSR member) — rozdíl čtyř nedoložených vazeb je největší mezi všemi sedmi poslanci v tomto vzorku, doporučuji prioritně ověřit v pipeline Case ①. Peněžní zjištění: linkedCompanies obsahuje (1) generický OSVČ IČO 04627695 s contractCzk 0 — stejný napříč-batch placeholder jako u Jurečky a Bendy zde a Válkové/Foldyny v batch-003; a (2) ČEPRO, a.s. (IČO 60193531) s contractCzk 235 543 222,2 Kč — zdaleka nejvyšší částka v celém tomto vzorku. ČEPRO je stoprocentně státní logistická společnost pro pohonné hmoty (Ministerstvo financí), relevantní pro její roli místopředsedkyně Rozpočtového výboru. Přímý přístup na ares.gov.cz/ekonomicke-subjekty-vr/60193531 selhal (JS-renderovaná SPA); sekundární zdroj uvádí jako členy představenstva Ing. Martina Vojtíška a Mgr. Ing. Luboše Zítku — žádné jméno neodpovídá Kovářové ani nenaznačuje osobní vazbu, jde tedy o rozpočtově-dozorovou relevanci skrze výbor, ne o osobní angažmá ve firmě. Vzhledem k výši částky a selhání přímého ARES VR ověření doporučuji, aby tým Case ① dohledal konkrétní smluvní vztah přes Registr smluv, než se položka posune z pending_review — analogicky k doporučení u Foldynovy nemocniční vazby v batch-003."
+      },
+      "signal": 0.58,
+      "headline": "Kovářová, místopředsedkyně Rozpočtového výboru s nejvyšším contribution_score v tomto vzorku, má u svých dat 235,5mil. Kč vazbu na státní ČEPRO bez potvrzené osobní role a čtyřnásobně poddoložený počet výborů.",
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=146",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=24",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=120",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=244",
+        "https://ares.gov.cz/ekonomicke-subjekty-vr/60193531",
+        "https://www.ceproas.cz/o-nas/vedeni-firmy"
+      ]
+    },
+    {
+      "id": "psp:person:7062",
+      "name": "Martin Záhoř",
+      "club": "ANO2011",
+      "lens": ["bottom"],
+      "props": {
+        "effort_work_themes": ["hospodářství a rozpočet (výborová práce bez legislativní iniciativy)"],
+        "effort_bill_focus": "Vstupní data uvádějí sponsoredBills jako prázdné pole a bills_authored=0 — bez vlastního ani spolupodepsaného tisku v tomto vzorku; jde tedy výhradně o výborovou práci, ne legislativní iniciativu.",
+        "effort_public_role": "Členem Hospodářského výboru a Rozpočtového výboru v Poslanecké sněmovně (2 role, odpovídá committee_count=2). Zároveň je od 2019 starostou Stříbra a od 2024 náměstkem hejtmana Plzeňského kraje — tedy trojí mandát (obec + kraj + Sněmovna) souběžně.",
+        "effort_notes": "Numerika souhlasí: participation_rate 1.0 a bills_authored 0 odpovídají nálezu čisté výborové docházky bez legislativní iniciativy. Peněžní zjištění (nejvýraznější v tomto vzorku, i bez OSVČ placeholderu — ten se u Záhoře nevyskytuje): (1) TAZATA, spol. s r.o. (IČO 18251129, Stříbro), contractCzk 18 480 662,07 Kč — stavební firma v jeho vlastním městě. Zdroje se ROZCHÁZEJÍ v otázce jeho role: jeden agregovaný zdroj jej uvádí jako jednatele, ale aktuálnější přehled jednatelů (Zdeněk Takáč, Petr Takáč, Martin Pitra, Ing. Václav Štědrý, všichni od 9. 11. 2017) jej neobsahuje — nelze tedy s jistotou potvrdit ani vyvrátit současnou osobní statutární roli, doporučuji ověřit přímo přes or.justice.cz. (2) Správa majetku města Stříbra, s.r.o. (IČO 26318903), contractCzk 14 232 605,16 Kč — potvrzeno jako stoprocentně vlastněná městem Stříbro (jediný společník: Město Stříbro, IČO 00260177), jednatelem je Blahoslav Kupec, ne Záhoř osobně — ale jako starosta má nad touto městskou firmou přímou zřizovatelskou/dozorovou pravomoc, což je institucionální, nikoli osobní konflikt zájmů. (3) JISE stavby s.r.o. (IČO 26387816, Tlučná), contractCzk 0 — žádnou osobní ani institucionální vazbu na Záhoře se nepodařilo dohledat přes žádný zdroj. U všech tří selhal přímý přístup na ares.gov.cz/ekonomicke-subjekty-vr/<ICO> (JS-renderovaná SPA bez staticky dostupného obsahu), použity byly sekundární zdroje s výše popsanými omezeními — žádné tvrzení o (ne)existenci osobní vazby proto nepovažuji za definitivně potvrzené a doporučuji přímé ověření přes or.justice.cz."
+      },
+      "signal": 0.75,
+      "headline": "Záhoř má nejnižší contribution_score ve vzorku (nulová legislativní iniciativa), ale zároveň je současně starostou Stříbra, náměstkem hejtmana Plzeňského kraje i poslancem a jeho datová stopa zahrnuje stavební firmu s nejasnou statutární rolí a městem stoprocentně vlastněnou firmu, kterou z pozice starosty dozoruje.",
+      "citations": [
+        "https://cs.wikipedia.org/wiki/Martin_Z%C3%A1ho%C5%99",
+        "https://rejstrik.penize.cz/18251129-tazata-spol-s-r-o",
+        "https://ares.gov.cz/ekonomicke-subjekty-vr/18251129",
+        "https://ares.gov.cz/ekonomicke-subjekty-vr/26318903",
+        "https://www.mustribro.cz/urad-2/povinne-informace/subjekt-sprava-majetku-mesta-stribra-sro-32.html",
+        "https://ares.gov.cz/ekonomicke-subjekty-vr/26387816",
+        "https://www.finmag.cz/obchodni-rejstrik/26387816-jise-stavby-s-r-o"
+      ]
+    }
+  ]
+}
