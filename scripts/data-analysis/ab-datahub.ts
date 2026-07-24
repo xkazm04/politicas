@@ -76,13 +76,16 @@ const stripSource = (c: SliceContext | null) => (c ? { ...c, contextSource: unde
 
 async function main() {
   const { slices } = JSON.parse(readFileSync(arg("stats", "./.data-analysis/stats.json"), "utf8")) as { slices: SliceStats[] };
-  console.log(`DataHub-Lite A/B — ${slices.length} real slices · WITHOUT-Lite (direct) vs WITH-Lite (catalog)\n`);
+  const gms = arg("gms", ""); // when set, the lite arm hits a LIVE catalog over real HTTP
+  console.log(`DataHub-Lite A/B — ${slices.length} real slices · WITHOUT-Lite (direct) vs WITH-Lite (${gms ? `LIVE ${gms}, real HTTP transport` : "in-process simulation"})\n`);
 
   let identical = 0;
   let differing = 0;
   for (const s of slices) {
     const direct = await new DirectContextProvider(slices, ENV).getSliceContext(s.source, s.term, s.entity);
-    const lite = await new LiteContextProvider({ gms: "http://sim", env: ENV, fetchImpl: catalogFetch(slices, { source: s.source, entity: s.entity }) }).getSliceContext(s.source, s.term, s.entity);
+    const lite = gms
+      ? await new LiteContextProvider({ gms, env: ENV }).getSliceContext(s.source, s.term, s.entity)
+      : await new LiteContextProvider({ gms: "http://sim", env: ENV, fetchImpl: catalogFetch(slices, { source: s.source, entity: s.entity }) }).getSliceContext(s.source, s.term, s.entity);
     const same = JSON.stringify(canon(stripSource(direct))) === JSON.stringify(canon(stripSource(lite)));
     if (same) {
       identical++;

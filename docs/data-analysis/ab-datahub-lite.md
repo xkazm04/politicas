@@ -51,12 +51,33 @@ have been an artifact of one arm knowing less, not of the metalayer itself.
 *measured* it to be a faithful, content-transparent delivery layer rather than overclaiming
 an uplift it does not produce.
 
+## Transport-level confirmation (live, 2026-07-24)
+
+The result above was first produced against an in-process catalog simulation (mocked
+`fetch`). It was then **re-confirmed over real HTTP**: `scripts/data-analysis/lite-serve.ts`
+stands up a lightweight, read-only DataHub-OpenAPI-v3 catalog (functionally DataHub Lite —
+the same aspects `datahub-sync` publishes, served from `context-model`), and
+`ab-datahub.ts --gms=http://localhost:8090` runs the **real** `LiteContextProvider` (actual
+global `fetch`, real network) against it:
+
+```
+DataHub-Lite A/B — 8 real slices · WITHOUT-Lite (direct) vs WITH-Lite (LIVE http://localhost:8090, real HTTP transport)
+slices: 8 · content-identical: 8 · differing: 0
+```
+
+So the whole path — real fetch → live HTTP server → JSON parse → `SliceContext` — is
+byte-identical to the local arm. (Acryl's `datahub-lite` pip package does not install on
+this box's Python 3.14 — `pydantic-core` has no 3.14 wheel and there is no Rust toolchain —
+and the full multi-container GMS is the heavy path we avoid; `lite-serve.ts` is the
+equivalent lightweight, embeddable, read-only catalog for this confirmation. A production
+deploy would run acryl DataHub Lite on a supported Python.)
+
 ## Limitations — read before generalizing
 
-- Measured against an **in-process catalog simulation**, not a live GMS/DataHub-Lite serving
-  process (none was running; the module was dormant). The round-trip logic it exercises is
-  the real `LiteContextProvider` code and is unit-tested; a live serve would confirm the
-  transport, not the content mapping.
+- The live catalog is `lite-serve.ts` (a compatible OpenAPI-v3 read server), not the acryl
+  `datahub-lite` package (un-installable here on Python 3.14). It exercises the real
+  `LiteContextProvider` transport and content mapping end-to-end; only the serving
+  implementation differs from the shipped product.
 - Parity is a *property we engineered* (shared `context-model`), not luck — the value of the
   A/B is confirming we achieved it on real data, and documenting what Lite does and does not buy.
 - 8 slices, one corpus. The conclusion (content-transparency) is structural, not statistical,
