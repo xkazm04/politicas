@@ -88,3 +88,27 @@ recorded ONE (586/1992). psp-legislation.ts extracts only laws NAMED IN THE TITL
 further statutes in the body ("a další související zákony") are undercounted — churn counts,
 routing-domain checks and "most-amended" rankings are all biased low. Fix: parse the tisk body /
 e-Sbírka novelization instructions. Recorded so downstream passes don't trust `amends` as complete.
+
+## C7 [money batch 002] — wrong IČO suspected: Bendl + Brabec → "PRAK"
+
+Both ties cite IČO 49683144 ("PRAK spol. s r.o.", an s.r.o. since 1993 — structurally cannot
+have a představenstvo) for a "member of the board" role. Independent lookup found a SEPARATE,
+dissolved "PRaK, a.s." with a documented Bendl board seat 1996–1999 (liquidated 2012) — almost
+certainly the right entity under a different IČO. Resolution: both ties kept
+conflicting/signal:0, flagged `wrong-entity-suspected` — never re-pointed without evidence
+(no IČO minted). Re-resolution = Q-money-7.
+
+## C8 [law batch 002] — amends undercount is SYSTEMATIC for government omnibus bills
+
+Batch 001 flagged tisk 4 (4 real statutes vs 1 recorded) as a lead; batch 002 confirms the same
+failure at 7–8× scale on government EU-transposition omnibus prints (111: 7 vs 1; 207: 8 vs 1).
+The `LAW_CITATION` title-regex catches only the FIRST citation; the "a další související zákony"
+class undercounts systematically. Churn scores and most-amended rankings for this class are
+biased low by a larger factor than batch 001 estimated — a body-text parse is the fix
+(priority raised).
+
+## (positive) [effort batch 002] — zero contradictions across 4 batch-001 cross-references
+
+The Opus reflection cross-checked Demjanová↔Brabec, Penc↔Kubis, Bendl/Haas bill-slate overlap,
+Činčila/Brzesková pension-novela split against batch-001 facts: all consistent. Recorded per
+the "absence of signal is a finding" rule.

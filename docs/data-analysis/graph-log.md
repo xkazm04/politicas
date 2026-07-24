@@ -398,3 +398,41 @@ the tisk 120↔244 §35ba drafting collision, quiet riders (wine excise in tisk 
 and the `amends`-undercount contradiction (tisk 4 amends FOUR statutes, title-regex recorded
 one). forensicCount 1→9. Also shipped: /zakony committee-routing render (no graph change).
 → `case-law/batch-001.md`.
+
+## Pass 16 (track: money) — Case ① batch-002 full-population ARES-VR reconciliation (2026-07-24)
+
+Sonnet-only driver+army, Opus reflection only (the tiering experiment). **245 `linked_to` edges
+props-merged** — the full remaining population; with pass 13, all **260/260 ties now carry a
+corroboration verdict: 179 registry-confirmed · 23 conflicting · 58 registry-unconfirmed**
+(special-law public bodies with no OR record — structural). Deterministic birth-date-exact
+matching did the bulk (≈0 LLM tokens); 10 ambiguous units Sonnet-judged; the Opus reflection
+caught two real defects, fixed in-session. **No `review_state` changed.** Cost ≈400 tokens/unit
+(~75× under batch 001). Key fix: ARES VR `ostatniOrgany` is load-bearing (conflicting 91→23).
+Also shipped: O-money-2 temporal-status badge on /penize + /penize/kontrola. → `case-money/batch-002.md`.
+
+## Pass 17 (track: effort) — Case ② batch-002 dossiers + never_cast_ballot pre-filter (2026-07-24)
+
+Sonnet-only army (6 grouped agents × 5 MPs), Opus reflection only. **30 person nodes
+props-merged** (gate 30/30; 50 MPs annotated total). The batch-001 `never_cast_ballot`
+pre-filter now runs deterministically in triage (0 new phantom mandates, 0 wasted army slots).
+New structural class: **replacement MP** (mid-term seatings the index can't tenure-normalize);
+dual-mandate generalizes beyond ODS/money (4 ANO cases, mostly no money angle). Zero
+contradictions across 4 batch-001 cross-references (a positive finding). Opus verdict: Sonnet
+held the bar; both quality gaps were money-touching claims → route money-crossover units
+through Opus verification. Also shipped: generalized `LowScoreReasonBadge` on /poslanec
+(closed 10-value vocabulary). CEVYKO IČO discrepancy resolved at orchestration: ARES confirms
+08599254 = CEVYKO a.s.; the cited URL was the bad lead. → `case-effort/batch-002.md`.
+
+## Pass 18 (track: law) — Case ③ batch-002 forensic verdicts + real §-diff (2026-07-24)
+
+Sonnet-only army, Opus audit only. **10 bill nodes enriched** (tisky 11, 71, 86, 111, 124, 173,
+196, 198, 207, 216) — all severity=low; **two structurally different conflict signals (raw money
++ sector-adjacency) now agree: 0/19 gated bills show a real conflict channel.** Gate 18/18 wide,
+10/10 new pass canonical (better than batch 001's 7/8). forensicCount 9→19. Systematic
+§-collision pre-check over all 141 bills: 72 candidate pairs; 120↔244 confirmed, 111↔207
+corroborated (softer — coordination risk on shared scaffolding). `amends` undercount confirmed
+SYSTEMATIC for government omnibus bills (111: 7 real vs 1; 207: 8 vs 1). **Flagship shipped: the
+first REAL e-Sbírka §-diff on /zakony** (§35ba of 586/1992, 2021→2024, 8 hunks) via the e-Sbírka
+SPARQL endpoint — point-query, not the shelved 1.24GB bulk. Also fixed: THEME_KEYWORDS
+`.includes()` substring bug (likely a driver of batch-001's 89% routing over-fire).
+→ `case-law/batch-002.md`.

@@ -68,21 +68,28 @@ Kernel gates plus: (a) NEVER fabricate legal text — a paragraph diff exists
 only if both versions were actually fetched from e-Sbírka; (b) forensic
 claims pass the law-verdict gate and render as derived/gated, never as fact;
 (c) a bill→vote link requires the psp.cz hist record, not title matching;
-(d) the `č. N/RRRR Sb.` citation is the only sanctioned bill→law hinge.
+(d) the `č. N/RRRR Sb.` citation is the only sanctioned bill→law hinge —
+BUT it undercounts systematically for government omnibus bills (C8: 7–8
+real statutes vs 1 recorded); treat `amends` as incomplete for that class
+until the body-text parse lands (Q-law-6); (e) a `graph_fact` citation may
+only assert what the cited node's own props hold — web-researched substance
+(ownership, private status) cites its URL as `web` (batch-002 gate-
+improvement candidate for `gate-verdicts.ts`).
 
 ## Seed build backlog
 
-1. **Real paragraph diffs on `/zakony`** — the flagship, now scoped with
-   evidence (batch 001): e-Sbírka DOES hold consolidated text (dataset 001
-   versions 176MB + 003 fragments **1.24GB** + 007 chain) but at ~1MB/min
-   observed throughput it is a **dedicated long-running ingest** (resume/
-   cache, tsvector+GIN per R9–R11), never a batch subtask. Two distinct
-   pipelines: **historical** diffs (enacted↔enacted versions — feasible from
-   e-Sbírka) vs **prospective** diffs (pending bill vs current text — needs
-   the tisk-PDF novelization instructions; pending bills have NO enacted
-   "after"). Diff-artifact schema in `case-law/handoff.md` §4c; adapter
-   scaffolded (`scripts/case-loops/law/esbirka-versions.ts`). Anti-
-   fabrication: before AND after must be actually-fetched text.
+1. **Real paragraph diffs on `/zakony` — ✅ SHIPPED (batch 002) via the
+   e-Sbírka SPARQL endpoint.** The canonical method is now
+   `scripts/case-loops/law/esbirka-sparql-diff.ts` — point-query access to
+   any statute/version/§ at negligible bandwidth (supersedes the shelved
+   1.24GB bulk plan; keep `esbirka-versions.ts` only for a future
+   full-corpus tsvector ingest, Q-law-7). First artifact live: §35ba of
+   586/1992, 2021→2024, 8 hunks. Two distinct pipelines still hold:
+   **historical** (enacted↔enacted — the shipped method) vs **prospective**
+   (pending bill vs current — needs tisk-PDF novelization instructions;
+   pending bills have NO enacted "after"). Anti-fabrication: before AND
+   after are verbatim fetched fragment text; HTML stripped only at render.
+   Next diffs are one command each (§35c child credit queued).
 2. Bill detail page: dossier + routing + vote + forensic block
    (`/zakony` drill-down or `/zakony/<tisk>`).
 3. Forensic verdicts at scale: the ranked head of the 65 flagged bills

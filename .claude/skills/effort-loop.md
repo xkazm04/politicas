@@ -41,8 +41,17 @@ feasible — ranking decides *depth*, not *whether*.
    == 0 && committee_count == 0` ⇒ candidate `never_cast_ballot` (elected,
    never sworn / relinquished for executive office) — classify BEFORE the
    absentee-manager crossover so Opus never dossiers a structural false
-   positive. Young-term caveat (P30): the score floor is dominated by role
+   positive. (Now implemented in `scripts/case-loops/effort/triage.ts`.)
+   Young-term caveat (P30): the score floor is dominated by role
    artifacts, not disengagement; comparisons must be component-level.
+   **Second floor-artifact class (batch 002, P38): replacement MPs** —
+   mid-term seatings genuinely serve but score low on tenure alone
+   (contribution.ts has no tenure normalization, Q-effort-5); annotate,
+   don't alarm. `componentDivergence` is near-degenerate as defined
+   (Q-effort-6) — re-tune before trusting it.
+   **Money-crossover units route through an Opus verification step** even
+   in a Sonnet army (batch 002: both quality gaps were money-touching
+   claims — kernel tiering rule (b)).
 2. **enrich** — the work dossier: what did their bills DO and what happened to
    them (tisky fate via `bill` nodes + `sponsors` edges + psp.cz historie);
    interpellation subjects; committee roles vs `assigned_to` bill flow through

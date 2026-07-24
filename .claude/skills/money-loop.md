@@ -35,7 +35,18 @@ across 73 MPs.
   periods are year-rounded and default "ongoing"; ARES VR `role_valid_to`
   catches stale/ended ties and money-postdates-role (11/15 of batch 001's
   head). The naive "contracts signed while in role" check barely
-  discriminates — demoted.
+  discriminates — demoted. **DONE population-wide (batch 002, pass 16):
+  260/260** — refresh via `scripts/case-loops/money/reconcile-ares-vr.ts`
+  on re-ingest, don't re-derive. Reading rules that batch paid for: the VR
+  JSON's `statutarniOrgany` + `ostatniOrgany` + `spolecnici` are ALL
+  load-bearing (P35); pre-2000s records often lack birth dates — use a
+  name-similarity fallback GATED to null-birthdate entries only (P36);
+  undated money is `historical-undated-money`, never "postdates" (P37).
+  **Corroboration semantics (the stated definition since batch 002):**
+  `registry-confirmed` = the MP positively identified among registry roles;
+  `conflicting` = registry exists but this MP could NOT be identified;
+  `registry-unconfirmed` = the check could not be attempted (special-law
+  bodies with no OR record — 58, structural).
 - **Money volume per owner-operator tie** — contract + subsidy CZK, WITHIN
   the owner-operator class.
 - **Near-threshold clustering** — amounts just under procurement limits

@@ -75,3 +75,28 @@ and the graph-metrics block in [[coverage-ledger]] for progress.
 | Q-law-2 | bill→roll-call linkage (`voted_in`) | needs hlasovani-agenda ingest; hist.unl col5 is a document id, NOT a vote id (dead-end documented) | blocked (ingest) |
 | Q-law-3 | how many bills amend statutes NOT named in the title? | amends undercount (C6, tisk 4 proof) | open |
 | Q-law-4 | sibling-print §-collision pre-check | tisk 120↔244 (P33) | open |
+
+### Money (batch 002 additions)
+| id | target | why | status |
+|---|---|---|---|
+| Q-money-5 | Juchelka subsidy-influence lead (ČT24 coverage, 2026) — fresh, unrelated to the stale tie it surfaced from | incidental army find | open |
+| Q-money-6 | Okamura 2016 U Machtů stake sale vs that year's asset declaration (Týden, HlídacíPes) | verifiable non-disclosure story | open |
+| Q-money-7 | re-resolve the correct IČO for "PRaK, a.s." (Bendl+Brabec point at a structurally incompatible s.r.o.) | C7 | open |
+| Q-money-8 | 58 special-law bodies (VZP/ČT/universities) unreachable via OR — would need founding-statute corroboration | all steward-class; low urgency | open |
+| Q-money-1 | ~~full-population ARES-VR reconciliation~~ | ✅ batch 002: 260/260 (179/23/58) | **done** |
+
+### Effort (batch 002 additions)
+| id | target | why | status |
+|---|---|---|---|
+| Q-effort-5 | tenure normalization for replacement MPs (`mandate_start_date`-aware) | P38 — 4 mid-term seatings read as low effort | open |
+| Q-effort-6 | re-tune `componentDivergence` (near-degenerate: most MPs cluster 0.4–0.48) | kernel discriminative-power guardrail | open |
+| Q-effort-7 | should leadership_count include club/party-office roles? (Faltýnek b1, Žáček b2) | 2 independent instances | open |
+| Q-effort-8 | ~~CEVYKO IČO discrepancy (Niemiec)~~ | ✅ resolved at orchestration: ARES confirms 08599254 = CEVYKO a.s.; cited URL was the bad lead | **done** |
+
+### Law (batch 002 additions)
+| id | target | why | status |
+|---|---|---|---|
+| Q-law-5 | close-read the 70 unconfirmed collision-candidate pairs (111↔207's 91-shared-§ overlap = top) | collision-report.json exists | open |
+| Q-law-6 | is the amends undercount origin-correlated (government omnibus vs MP bills)? Deterministic full-sample check over all 141 | C8, 3 bills checked so far | open |
+| Q-law-7 | extend the SPARQL §-diff to more statutes (§35c child credit next) / a full-corpus tsvector ingest | point-query proven cheap | open |
+| Q-law-4 | ~~sibling-print §-collision pre-check~~ | ✅ batch 002: systematic, 72 pairs, 2 confirmed/corroborated | **done** |

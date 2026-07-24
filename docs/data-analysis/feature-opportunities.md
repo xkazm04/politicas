@@ -131,3 +131,20 @@ a hallucinated MP. See [[frontier]] for the analyses that will fill this out and
   Distinguish historical (enacted↔enacted) from prospective (bill↔current) diffs.
 - **O-law-3 — Lobbying-footprint surface.** DZ memoranda now carry structured lobbyist
   disclosures under zák. 168/2025 (tisk 120: PAQ Research) — a citable transparency dataset.
+
+### Batch 002 (2026-07-24)
+- **O-money-2 — Temporal-status badge — ✅ SHIPPED.** `temporalBadge()` in moneyTypes.ts is the
+  single source of truth: "trvá" ONLY when registry-confirmed with no recorded end; "ukončeno
+  {rok}"; "peníze po roli" (warn); neutral "neověřeno vůči ARES VR" otherwise. On /penize +
+  /penize/kontrola. A tie never renders active without registry confirmation.
+- **O-effort-2 → generalized — ✅ SHIPPED.** `LowScoreReasonBadge` on /poslanec: closed 10-value
+  vocabulary (declined_mandate, replacement, minister, dual_mandate…), positive tone for
+  structural corrections, absent = renders nothing. 10 MPs carry a reason so far.
+- **O-law-diff — ✅ SHIPPED (the flagship, finally real).** First real e-Sbírka paragraph diff
+  on /zakony: §35ba of 586/1992, 2021→2024, 8 hunks, verbatim fragment text (anti-fabrication:
+  stored verbatim, HTML stripped only at render). Method: e-Sbírka SPARQL point-query —
+  immediately re-runnable for any statute/version/§ with one command.
+- **O-effort-3 — quiet-workhorse surface** — still open; evidence base grew to 12+ examples
+  across both flavours. Strong batch-003 candidate.
+- **O-money-crossover-QA** — route money-linked units through an Opus verification step even in
+  Sonnet armies (both effort quality gaps were money claims). Adopted into the kernel tiering.

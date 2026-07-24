@@ -192,3 +192,63 @@ prints in one batch — a "same-statute, same-§, overlapping prints" pre-check 
 
 tisk 4 (an "income-tax" bill) carries a new 2,340 Kč/hl wine excise; tisk 40 adds beer beyond its
 stated wine scope. The churn-target triage signal (busy statutes) surfaces these correctly.
+
+## P35 [money] ARES VR ostatniOrgany is load-bearing, not optional (batch 002)
+
+The VR JSON has TWO parallel officer sections: `statutarniOrgany` (jednatel/představenstvo) and
+`ostatniOrgany` (dozorčí rada, kontrolní komise) — plus `spolecnici` for stakes. Reading only the
+first mis-scored 91/245 ties as conflicting; most steward-class ties are exactly supervisory
+seats. Adding it: conflicting 91→23, confirmed 96→164. Any ARES-VR consumer must read all three.
+
+## P36 [money] Pre-2000s VR records often lack birth dates (batch 002)
+
+Paper-era filings (~pre-1997/2002) frequently omit `datumNarozeni`, so the (correctly
+conservative) birth-date-exact matcher false-negatives older ties — 3/10 reviewed units. Future
+fix: a name-similarity fallback GATED to null-birth-date entries only; never loosen the modern
+matcher. Residual conflicting/unconfirmed buckets likely still under-read this vintage.
+
+## P37 [money] Undated contracts are UNDATED, not "later" (batch 002)
+
+`money-postdates-role` requires an actually-dated contract after the confirmed role end;
+`signedOn: null` gets the honest bucket `historical-undated-money`. (Opus-reflection catch,
+fixed in-session; 0 ties affected this run, design gap closed.)
+
+## P38 [effort] Replacement-MP tenure artifact (batch 002)
+
+Distinct from the phantom-mandate class: mid-term replacements (Demjanová, Penc, Nerušil,
+Kotlík) genuinely serve and vote but score low purely on shorter tenure — contribution.ts has
+no tenure normalization. A second, ongoing young-term floor-artifact class.
+
+## P39 [effort] Dual-mandate generalizes beyond ODS/money (batch 002)
+
+Batch 001's only case (Karpíšek) was ODS+money; batch 002 finds 4 more, all ANO2011, mostly
+without a money angle — a party-agnostic structural class. Officer-by-office money also recurs
+(4 instances over 2 batches) — strengthens the case for money's `tie_class` covering it.
+
+## P40 [effort] Score rises as speech collapses, term-over-term (batch 002)
+
+All 5 continuing MPs with complete PSP9 comparisons show PSP10 scores rising despite 80–95%
+drops in floor-speech volume — the index weights committee work far above rhetoric. First
+visible now that the PSP9 trend layer is live.
+
+## P41 [law] Two independent conflict signals agree: 0/19 gated bills (batch 002)
+
+Batch 001's raw money flag and batch 002's structurally different sector-adjacency signal
+(tested live on tisk 11) both find zero real conflict channels across 19 gated bills in three
+batches. The non-partisan-symmetry claim is now materially stronger than either signal alone —
+worth stating in any public methodology note.
+
+## P42 [law] Czech keyword classifiers must use word-boundary matching (batch 002)
+
+Naive `.includes()` false-positives on boilerplate: "…na vydání zákona…" contains "daní" as a
+mid-word substring, so every MP bill matched the economy domain. Likely a material driver of
+batch-001's 89% routing over-fire. Any THEME_KEYWORDS-style matcher defaults to word-boundary
+regex. Corollary: a triage signal with a suspiciously high hit rate deserves a
+substring-collision check before being trusted.
+
+## P43 [law] Sibling bills collide on shared statutory scaffolding (batch 002)
+
+111↔207: two Ministry-of-Justice EU-transposition bills independently renumber cross-references
+in the identical clause §88 odst. 2 písm. c) of 40/2009 for UNRELATED reasons — a
+drafting-coordination risk without shared subject matter. Corroborated by three independent
+sources (two blind Sonnet agents + the deterministic pre-check); softer than 120↔244.

@@ -34,14 +34,14 @@ Every node/edge carries `provenance = {pass, method, ref, computedAt}`. Two meth
 
 | kind | id scheme | populated | props | how derived |
 |---|---|---|---|---|
-| `person` | `psp:person:<pspId>` | ✅ pass 1 (207) | `rebellion_rate`, `committee_count`, `contested_vote_rebellion`; + **contribution index** (`contribution_score` + 6 components, `absentee_manager_lead`) pass 11; + `contribution_psp9` (prior-term profile, complete on 109 continuing MPs) + `effort_*` dossier props (20) pass 14 | raw entity + deterministic props |
+| `person` | `psp:person:<pspId>` | ✅ pass 1 (207) | `rebellion_rate`, `committee_count`, `contested_vote_rebellion`; + **contribution index** (`contribution_score` + 6 components, `absentee_manager_lead`) pass 11; + `contribution_psp9` (prior-term profile, complete on 109 continuing MPs) + `effort_*` dossier props (50, passes 14+17; `effort_low_score_reason` = closed 10-value vocabulary in `lib/analysis/low-score-reason.ts`) | raw entity + deterministic props |
 | `party` | `psp:organ:<pspId>` (a Klub organ) | ✅ pass 1 (8) | `cohesion`, `cohesion_votes`, `seats` | raw entity + deterministic cohesion |
 | `organ` | `psp:organ:<pspId>` (a výbor/komise) | ✅ pass 1 (33) | `member_count`, `organ_type` | raw entity |
 | `bloc` | `bloc:<slug>` | ✅ pass 2 (2) | `overall_win_rate`, `control_timeline` | verdict + deterministic enrichment |
 | `theme` | `theme:<slug>` | ✅ pass 3 (14) | `opposed_fraction`, `classification`, `bloc_support` | verdict + deterministic enrichment |
 | `company` | `company:ico:<ico>` | ✅ **pass 10 (196)** | `ico`, `subsidies_total_czk`, `donated_to_party_czk` | `kg-money.ts` (Hlídač ⋈ ARES IČO join) |
 | `contract` | `contract:<id>` | ✅ **pass 10 (2 287)** | `amount`, `signedOn`, `supplierIco` | `kg-money.ts` (Registr smluv via Hlídač) |
-| `bill` | `bill:tisk:<tiskId>` | ✅ **pass 11 (141)** | `cislo`, `origin`, `amended_laws`, `sponsors`, `flagged_conflict`; gated `forensic_*` on **9** (pass 15; all `pending_review`) | `psp-legislation.ts` + `law-verdict.ts` gate. ⚠ `amends` undercounts body-amended statutes ([[contradictions]] C6) |
+| `bill` | `bill:tisk:<tiskId>` | ✅ **pass 11 (141)** | `cislo`, `origin`, `amended_laws`, `sponsors`, `flagged_conflict`; gated `forensic_*` on **19** (passes 15+18; all `pending_review`, all severity=low) | `psp-legislation.ts` + `law-verdict.ts` gate. ⚠ `amends` undercounts body-amended statutes — SYSTEMATIC for government omnibus bills ([[contradictions]] C6, C8) |
 | `law` | `law:sb:<n>-<rok>` | ✅ **pass 11 (101)** | `ref`, `esbirka_title`, `esbirka_exists` | `psp-legislation.ts` (e-Sbírka) |
 
 ## Edge relations
@@ -54,7 +54,7 @@ Every node/edge carries `provenance = {pass, method, ref, computedAt}`. Two meth
 | `belongs_to` | party → bloc | ✅ pass 2 (8) | mean intra-bloc agreement | verdict |
 | `about` | vote → theme | ✅ pass 3 (47) | roll-call count on the subject | verdict |
 | `owns` | organ (committee) → theme | ✅ pass 8 (30) | — | verdict (committee remit → theme) |
-| `linked_to` | person → company | ✅ **pass 10 (260, all `pending_review`)** | — | join (`lib/analysis/kg-money.ts`) + **human gate** (`review_state`: verified / pending_review). Since pass 13, 15 head ties carry corroboration props: `corroboration` (registry-confirmed/unconfirmed/conflicting), `role_valid_from/to`, `temporal_status` (current/historical/money-postdates-role), `tie_class` (owner-operator/manager/steward) |
+| `linked_to` | person → company | ✅ **pass 10 (260, all `pending_review`)** | — | join (`lib/analysis/kg-money.ts`) + **human gate** (`review_state`: verified / pending_review). Since pass 16, **ALL 260** carry corroboration props: `corroboration` (registry-confirmed 179 / conflicting 23 / registry-unconfirmed 58 — identity-match semantics, see case-money/batch-002), `role_valid_from/to`, `temporal_status` (current / historical / money-postdates-role / historical-undated-money), `tie_class` (owner-operator 37 / manager 23 / steward 200) |
 | `supplies` | company → contract | ✅ **pass 10 (2 290)** | contract amount | join (`kg-money.ts`) over Registr smluv IČO |
 | `sponsors` | person → bill | ✅ **pass 11 (528)** | — | `psp-legislation.ts` (tisk předkladatelé) |
 | `amends` | bill → law | ✅ **pass 11 (150)** | — | `psp-legislation.ts` (title `č. N/RRRR Sb.` citation → law node) |

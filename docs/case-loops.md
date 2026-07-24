@@ -37,7 +37,10 @@ resume → triage → dispatch army → gate + persist → reflect → build-rev
    **Validate discriminative power before trusting a signal** (batch-001 lesson):
    a signal that saturates on one value or fires on >50% of units is degenerate —
    fix it (log-scale, class-partition, densify its basis) before it ranks
-   anything. And **pre-filter structural false positives in code** before the
+   anything. A suspiciously high hit rate also deserves a **substring-collision
+   check**: Czech keyword classifiers must use word-boundary regex, never
+   `.includes()` (P42 — "vydání" contains "daní"; the bug drove batch-001's 89%
+   routing over-fire and propagated silently through shared code). And **pre-filter structural false positives in code** before the
    army runs: both money and effort spent Opus dossiers proving leads false that
    a 5-line deterministic check (tie-class; `never_cast_ballot`) would have
    filtered.
@@ -51,18 +54,28 @@ resume → triage → dispatch army → gate + persist → reflect → build-rev
 3. **Dispatch the army.** N units → parallel subagents. Each unit passes four
    stages: **clean** (anomaly flags — code-first; LLM only where judgment is
    needed) → **enrich** (web + API research; EVERY claim carries URL + access
-   date) → **wire** (proposed KG nodes/edges/props — gated, never direct) →
+   date; when a planned pull is resource-constrained, spend a small bounded
+   probe on whether the SAME source exposes a cheaper access path — law's
+   e-Sbírka SPARQL discovery replaced a shelved 1.24GB bulk plan with
+   negligible point queries) → **wire** (proposed KG nodes/edges/props — gated, never direct) →
    **signal** (story-worthiness score + a one-line why — AND cross-cutting
    leads: data-quality gaps, sibling-unit collisions, quiet riders; batch 001's
-   richest yield was non-headline classes). **Model tiering (batch-002
-   policy):** the loop DRIVER and the army run **Sonnet** — the majority of
-   the work, over pre-extracted context. **Opus is reserved for the
-   analytical layer on top**: the batch reflection/synthesis step, cross-unit
-   analytical reads (collisions, contradictions, steering), and gated
-   verdicts on the very top-signal units only — and every Opus call runs at
-   **maximum reasoning effort** (`effort: 'xhigh'` where the harness exposes
-   it; otherwise instruct the agent explicitly to reason at maximum depth).
-   Deterministic code for anything countable, always. **Pre-extract each unit's full
+   richest yield was non-headline classes). **Model tiering (CONFIRMED by the
+   batch-002 experiment — three independent Opus audits):** the loop DRIVER
+   and the army run **Sonnet**; **deterministic code before either** (money's
+   population reconciliation ran at ~75× lower cost/unit with a BETTER
+   honest-negative rate by coding the bulk and spending Sonnet only on the
+   ambiguous slice). **Opus runs at maximum reasoning effort** (`effort:
+   'xhigh'` where exposed; otherwise instruct maximum depth) and is reserved
+   for three verified-value uses: (a) **batch QA/reflection** — in every
+   batch-002 loop the Opus audit caught real defects a Sonnet-only pass had
+   accepted (undated-money conflation, an IČO mismatch, a citation-kind
+   mislabel, an over-strong headline); (b) **targeted verification of
+   money-touching claims** — the ONE weakness class Sonnet showed (both
+   effort quality gaps were money claims); (c) **the conditional top-signal
+   trigger, kept ARMED** — batch 002's all-low populations provided zero
+   evidence on the high-signal case Opus exists for; fire it on genuine
+   severity, never retire it. **Pre-extract each unit's full
    context into a batch inputs file** (effort's `dossier-inputs.json` pattern)
    so army agents never open the single-connection DB copy; grouped Sonnet
    agents hold quality at 3–5 units each. **Concurrency budget:** the platform
