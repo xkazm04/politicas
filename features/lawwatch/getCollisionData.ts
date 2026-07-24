@@ -45,7 +45,8 @@ export interface CollisionPairView {
   sharedParagraph: string;
   evidence: CollisionEvidence;
   reasoning: string | null;
-  sourceBatch: number; // 1–4, which batch produced this close-read
+  sourceBatch: number; // 1–5, which batch produced this close-read
+  postRegenTopology: boolean; // true for batch-005 pairs found via the regenerated (not-yet-live) amends topology
   sourceMethod: string; // one-line method note for the SourceNote
 }
 
@@ -74,7 +75,15 @@ export interface CollisionData {
   coordinationRiskPairCount: number;
   clusterCount: number;
   nWayClusterCount: number; // clusters spanning ≥3 bills
-  batchesRun: number; // 4
+  batchesRun: number; // 5
+  /** batch-005 close-reads were surfaced from the REGENERATED amends topology (574→567 edges,
+   * corrected post-Opus-audit) — candidate discovery itself depended on edges/law-nodes that are
+   * NOT yet applied to the live graph (see docs/data-analysis/case-law/handoff.md). Every
+   * individual pair rendered here still only cites bills/statutes that already exist live (the
+   * pairs happen to all involve pre-existing law nodes), so nothing here is fabricated — but the
+   * SET of candidates that got read was found using topology the live graph doesn't have yet.
+   * Rendered as a clearly separate, labeled group; never merged silently into the batch 1-4 count. */
+  postRegenPendingCount: number;
 }
 
 const PAYLOADS_DIR = "docs/data-analysis/case-law/payloads";
@@ -179,22 +188,26 @@ function asStr(v: unknown): string | null {
 
 export async function getCollisionData(): Promise<CollisionData | null> {
   try {
+    const batch5Pairs = loadRawPairs("collision-close-reads-batch005.json");
     const rawAll = [
       ...PRIOR_PAIRS,
       ...loadRawPairs("collision-close-reads.json"),
       ...loadRawPairs("collision-close-reads-batch004.json"),
+      ...batch5Pairs,
     ].filter((p) => p.classification === "confirmed-collision" || p.classification === "coordination-risk");
 
     if (rawAll.length === 0) return null;
 
     // sourceBatch: prior pairs are batch 1/2 (their own pairId is the tell), the two JSON
-    // files are batch 3 and batch 4 respectively — assign in load order, prior pairs first.
+    // files are batch 3 and batch 4, batch-005's own file is batch 5.
     const priorIds = new Set(PRIOR_PAIRS.map((p) => p.pairId));
     const batch3Pairs = loadRawPairs("collision-close-reads.json");
     const batch3Ids = new Set(batch3Pairs.map((p) => p.pairId));
+    const batch5Ids = new Set(batch5Pairs.map((p) => p.pairId));
     const sourceBatchOf = (pairId: string): number => {
       if (priorIds.has(pairId)) return pairId === "120-244" ? 1 : 2;
       if (batch3Ids.has(pairId)) return 3;
+      if (batch5Ids.has(pairId)) return 5;
       return 4;
     };
 
@@ -267,10 +280,13 @@ export async function getCollisionData(): Promise<CollisionData | null> {
             },
             reasoning: asStr(p.reasoning ?? null),
             sourceBatch: sourceBatchOf(p.pairId),
+            postRegenTopology: sourceBatchOf(p.pairId) === 5,
             sourceMethod:
               sourceBatchOf(p.pairId) <= 2
                 ? "deterministic §-overlap pre-check + LLM close-read (narrated, batch-001/002)"
-                : "deterministic partitioned pre-check (--v2) + LLM close-read, grep-verified",
+                : sourceBatchOf(p.pairId) === 5
+                  ? "deterministic partitioned pre-check on the REGENERATED (not-yet-live) amends topology, ranked by a money/coefficient-literal signal (P52), LLM close-read"
+                  : "deterministic partitioned pre-check (--v2) + LLM close-read, grep-verified",
           }))
           .sort((a, b) => (a.classification === b.classification ? 0 : a.classification === "confirmed-collision" ? -1 : 1)),
       };
@@ -285,6 +301,7 @@ export async function getCollisionData(): Promise<CollisionData | null> {
 
     const confirmedPairCount = rawAll.filter((p) => p.classification === "confirmed-collision").length;
     const coordinationRiskPairCount = rawAll.filter((p) => p.classification === "coordination-risk").length;
+    const postRegenPendingCount = rawAll.filter((p) => batch5Ids.has(p.pairId)).length;
 
     return {
       clusters,
@@ -292,7 +309,8 @@ export async function getCollisionData(): Promise<CollisionData | null> {
       coordinationRiskPairCount,
       clusterCount: clusters.length,
       nWayClusterCount: clusters.filter((c) => c.bills.length >= 3).length,
-      batchesRun: 4,
+      batchesRun: 5,
+      postRegenPendingCount,
     };
   } catch {
     return null;

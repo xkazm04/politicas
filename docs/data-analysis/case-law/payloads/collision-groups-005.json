@@ -1,0 +1,1456 @@
+{
+ "generatedAt": "2026-07-24T22:49:36.195Z",
+ "method": "batch-005: same grouping rule as the original collision-groups.json (bills sharing an amended law, group size >= 2), regenerated from the 574-edge post-ingest/post-regen amends topology (batch-005-amends-regen.json) instead of the live 150-edge graph.",
+ "sourceEdges": "docs/data-analysis/case-law/payloads/batch-005-amends-regen.json",
+ "stats": {
+  "distinctAmendedLaws": 284,
+  "lawsWithSingleAmendingBill": 139,
+  "groupsWithMultipleBills": 145,
+  "totalCandidateBillPairs": 583
+ },
+ "groups": [
+  {
+   "lawUrn": "law:sb:40-2009",
+   "lawRef": "40/2009",
+   "lawTitle": "zákon č. 40/2009 Sb. — Zákon trestní zákoník",
+   "bills": [
+    7,
+    14,
+    64,
+    67,
+    102,
+    111,
+    115,
+    173,
+    196,
+    207,
+    213,
+    216
+   ]
+  },
+  {
+   "lawUrn": "law:sb:586-1992",
+   "lawRef": "586/1992",
+   "lawTitle": "zákon č. 586/1992 Sb. — Zákon České národní rady o daních z příjmů",
+   "bills": [
+    4,
+    40,
+    64,
+    119,
+    120,
+    121,
+    189,
+    244,
+    248
+   ]
+  },
+  {
+   "lawUrn": "law:sb:256-2004",
+   "lawRef": "256/2004",
+   "lawTitle": "zákon č. 256/2004 Sb. — Zákon o podnikání na kapitálovém trhu",
+   "bills": [
+    13,
+    16,
+    64,
+    132,
+    143,
+    210,
+    248
+   ]
+  },
+  {
+   "lawUrn": "law:sb:117-1995",
+   "lawRef": "117/1995",
+   "lawTitle": "zákon č. 117/1995 Sb. — Zákon o státní sociální podpoře",
+   "bills": [
+    4,
+    103,
+    112,
+    121,
+    124,
+    198
+   ]
+  },
+  {
+   "lawUrn": "law:sb:134-2016",
+   "lawRef": "134/2016",
+   "lawTitle": "zákon č. 134/2016 Sb. — Zákon o zadávání veřejných zakázek",
+   "bills": [
+    7,
+    64,
+    67,
+    206,
+    221,
+    222
+   ]
+  },
+  {
+   "lawUrn": "law:sb:141-1961",
+   "lawRef": "141/1961",
+   "lawTitle": "zákon č. 141/1961 Sb. — Zákon o trestním řízení soudním (trestní řád)",
+   "bills": [
+    7,
+    10,
+    102,
+    111,
+    196,
+    207
+   ]
+  },
+  {
+   "lawUrn": "law:sb:2-1969",
+   "lawRef": "2/1969",
+   "lawTitle": "zákon č. 2/1969 Sb. — Zákon České národní rady  o zřízení ministerstev a jiných ústředních orgánů státní správy České socialistické republiky",
+   "bills": [
+    7,
+    65,
+    67,
+    77,
+    100,
+    205
+   ]
+  },
+  {
+   "lawUrn": "law:sb:89-2012",
+   "lawRef": "89/2012",
+   "lawTitle": "zákon č. 89/2012 Sb. — Zákon občanský zákoník",
+   "bills": [
+    16,
+    36,
+    53,
+    64,
+    100,
+    174
+   ]
+  },
+  {
+   "lawUrn": "law:sb:243-2000",
+   "lawRef": "243/2000",
+   "lawTitle": "zákon č. 243/2000 Sb. — Zákon o rozpočtovém určení výnosů některých daní územním samosprávným celkům a některým státním fondům (zákon o rozpočto",
+   "bills": [
+    28,
+    64,
+    68,
+    90,
+    140,
+    141
+   ]
+  },
+  {
+   "lawUrn": "law:sb:187-2006",
+   "lawRef": "187/2006",
+   "lawTitle": "zákon č. 187/2006 Sb. — Zákon o nemocenském pojištění",
+   "bills": [
+    64,
+    77,
+    103,
+    109,
+    121,
+    257
+   ]
+  },
+  {
+   "lawUrn": "law:sb:427-2011",
+   "lawRef": "427/2011",
+   "lawTitle": "zákon č. 427/2011 Sb. — Zákon o doplňkovém penzijním spoření",
+   "bills": [
+    64,
+    65,
+    71,
+    86,
+    119,
+    248
+   ]
+  },
+  {
+   "lawUrn": "law:sb:166-1993",
+   "lawRef": "166/1993",
+   "lawTitle": "zákon č. 166/1993 Sb. — Zákon o Nejvyšším kontrolním úřadu",
+   "bills": [
+    7,
+    64,
+    90,
+    206,
+    217
+   ]
+  },
+  {
+   "lawUrn": "law:sb:21-1992",
+   "lawRef": "21/1992",
+   "lawTitle": "zákon č. 21/1992 Sb. — Zákon o bankách",
+   "bills": [
+    7,
+    63,
+    64,
+    65,
+    143
+   ]
+  },
+  {
+   "lawUrn": "law:sb:222-2016",
+   "lawRef": "222/2016",
+   "lawTitle": "zákon č. 222/2016 Sb. — Zákon o Sbírce zákonů a mezinárodních smluv a o tvorbě právních předpisů vyhlašovaných ve Sbírce zákonů a mezinárodních ",
+   "bills": [
+    7,
+    25,
+    68,
+    90,
+    187
+   ]
+  },
+  {
+   "lawUrn": "law:sb:634-1992",
+   "lawRef": "634/1992",
+   "lawTitle": "zákon č. 634/1992 Sb. — Zákon o ochraně spotřebitele",
+   "bills": [
+    16,
+    53,
+    62,
+    64,
+    73
+   ]
+  },
+  {
+   "lawUrn": "law:sb:283-2021",
+   "lawRef": "283/2021",
+   "lawTitle": "zákon č. 283/2021 Sb. — Zákon stavební zákon",
+   "bills": [
+    56,
+    64,
+    67,
+    167,
+    234
+   ]
+  },
+  {
+   "lawUrn": "law:sb:13-1997",
+   "lawRef": "13/1997",
+   "lawTitle": "zákon č. 13/1997 Sb. — Zákon o pozemních komunikacích",
+   "bills": [
+    64,
+    67,
+    83,
+    171,
+    246
+   ]
+  },
+  {
+   "lawUrn": "law:sb:218-2000",
+   "lawRef": "218/2000",
+   "lawTitle": "zákon č. 218/2000 Sb. — Zákon o rozpočtových pravidlech a o změně některých souvisejících zákonů (rozpočtová pravidla)",
+   "bills": [
+    64,
+    68,
+    89,
+    90,
+    221
+   ]
+  },
+  {
+   "lawUrn": "law:sb:424-1991",
+   "lawRef": "424/1991",
+   "lawTitle": "zákon č. 424/1991 Sb. — Zákon o sdružování v politických stranách a v politických hnutích",
+   "bills": [
+    6,
+    7,
+    64,
+    77
+   ]
+  },
+  {
+   "lawUrn": "law:sb:159-2006",
+   "lawRef": "159/2006",
+   "lawTitle": "zákon č. 159/2006 Sb. — Zákon o střetu zájmů",
+   "bills": [
+    7,
+    68,
+    90,
+    221
+   ]
+  },
+  {
+   "lawUrn": "law:sb:256-2000",
+   "lawRef": "256/2000",
+   "lawTitle": "zákon č. 256/2000 Sb. — Zákon o Státním zemědělském intervenčním fondu a o změně některých dalších zákonů (zákon o Státním zemědělském intervenč",
+   "bills": [
+    7,
+    64,
+    77,
+    221
+   ]
+  },
+  {
+   "lawUrn": "law:sb:634-2004",
+   "lawRef": "634/2004",
+   "lawTitle": "zákon č. 634/2004 Sb. — Zákon o správních poplatcích",
+   "bills": [
+    13,
+    56,
+    154,
+    172
+   ]
+  },
+  {
+   "lawUrn": "law:sb:12-2020",
+   "lawRef": "12/2020",
+   "lawTitle": "zákon č. 12/2020 Sb. — Zákon o právu na digitální služby a o změně některých zákonů",
+   "bills": [
+    24,
+    65,
+    77,
+    172
+   ]
+  },
+  {
+   "lawUrn": "law:sb:128-2000",
+   "lawRef": "128/2000",
+   "lawTitle": "zákon č. 128/2000 Sb. — Zákon o obcích (obecní zřízení)",
+   "bills": [
+    24,
+    64,
+    100,
+    146
+   ]
+  },
+  {
+   "lawUrn": "law:sb:262-2006",
+   "lawRef": "262/2006",
+   "lawTitle": "zákon č. 262/2006 Sb. — Zákon zákoník práce",
+   "bills": [
+    24,
+    68,
+    90,
+    248
+   ]
+  },
+  {
+   "lawUrn": "law:sb:365-2000",
+   "lawRef": "365/2000",
+   "lawTitle": "zákon č. 365/2000 Sb. — Zákon o informačních systémech veřejné správy a o změně některých dalších zákonů",
+   "bills": [
+    24,
+    64,
+    65,
+    77
+   ]
+  },
+  {
+   "lawUrn": "law:sb:416-2009",
+   "lawRef": "416/2009",
+   "lawTitle": "zákon č. 416/2009 Sb. — Zákon o urychlení výstavby dopravní infrastruktury",
+   "bills": [
+    42,
+    56,
+    64,
+    67
+   ]
+  },
+  {
+   "lawUrn": "law:sb:111-1998",
+   "lawRef": "111/1998",
+   "lawTitle": "zákon č. 111/1998 Sb. — Zákon o vysokých školách a o změně a doplnění dalších zákonů (zákon o vysokých školách)",
+   "bills": [
+    64,
+    145,
+    215,
+    228
+   ]
+  },
+  {
+   "lawUrn": "law:sb:235-2004",
+   "lawRef": "235/2004",
+   "lawTitle": "zákon č. 235/2004 Sb. — Zákon o dani z přidané hodnoty",
+   "bills": [
+    64,
+    67,
+    168,
+    218
+   ]
+  },
+  {
+   "lawUrn": "law:sb:326-1999",
+   "lawRef": "326/1999",
+   "lawTitle": "zákon č. 326/1999 Sb. — Zákon o pobytu cizinců na území České republiky a o změně některých zákonů",
+   "bills": [
+    64,
+    106,
+    144,
+    213
+   ]
+  },
+  {
+   "lawUrn": "law:sb:458-2000",
+   "lawRef": "458/2000",
+   "lawTitle": "zákon č. 458/2000 Sb. — Zákon o podmínkách podnikání a o výkonu státní správy v energetických odvětvích a o změně některých zákonů (energetický ",
+   "bills": [
+    64,
+    67,
+    77,
+    186
+   ]
+  },
+  {
+   "lawUrn": "law:sb:49-1997",
+   "lawRef": "49/1997",
+   "lawTitle": "zákon č. 49/1997 Sb. — Zákon o civilním letectví a o změně a doplnění zákona č. 455/1991 Sb., o živnostenském podnikání (živnostenský zákon), v",
+   "bills": [
+    64,
+    67,
+    77,
+    83
+   ]
+  },
+  {
+   "lawUrn": "law:sb:99-1963",
+   "lawRef": "99/1963",
+   "lawTitle": "zákon č. 99/1963 Sb. — Občanský soudní řád",
+   "bills": [
+    64,
+    162,
+    210,
+    215
+   ]
+  },
+  {
+   "lawUrn": "law:sb:150-2002",
+   "lawRef": "150/2002",
+   "lawTitle": "zákon č. 150/2002 Sb. — Zákon soudní řád správní",
+   "bills": [
+    67,
+    77,
+    213,
+    215
+   ]
+  },
+  {
+   "lawUrn": "law:sb:541-2020",
+   "lawRef": "541/2020",
+   "lawTitle": "zákon č. 541/2020 Sb. — Zákon o odpadech",
+   "bills": [
+    67,
+    73,
+    74,
+    161
+   ]
+  },
+  {
+   "lawUrn": "law:sb:234-2014",
+   "lawRef": "234/2014",
+   "lawTitle": "zákon č. 234/2014 Sb. — Zákon o státní službě",
+   "bills": [
+    7,
+    67,
+    76
+   ]
+  },
+  {
+   "lawUrn": "law:sb:280-2009",
+   "lawRef": "280/2009",
+   "lawTitle": "zákon č. 280/2009 Sb. — Zákon daňový řád",
+   "bills": [
+    7,
+    64,
+    215
+   ]
+  },
+  {
+   "lawUrn": "law:sb:37-2021",
+   "lawRef": "37/2021",
+   "lawTitle": "zákon č. 37/2021 Sb. — Zákon o evidenci skutečných majitelů",
+   "bills": [
+    7,
+    64,
+    260
+   ]
+  },
+  {
+   "lawUrn": "law:sb:372-2011",
+   "lawRef": "372/2011",
+   "lawTitle": "zákon č. 372/2011 Sb. — Zákon o zdravotních službách a podmínkách jejich poskytování (zákon o zdravotních službách)",
+   "bills": [
+    7,
+    14,
+    64
+   ]
+  },
+  {
+   "lawUrn": "law:sb:87-1995",
+   "lawRef": "87/1995",
+   "lawTitle": "zákon č. 87/1995 Sb. — Zákon o spořitelních a úvěrních družstvech a některých opatřeních s tím souvisejících a o doplnění zákona České národní ",
+   "bills": [
+    7,
+    64,
+    143
+   ]
+  },
+  {
+   "lawUrn": "law:sb:491-2001",
+   "lawRef": "491/2001",
+   "lawTitle": "zákon č. 491/2001 Sb. — Zákon o volbách do zastupitelstev obcí a o změně některých zákonů",
+   "bills": [
+    12,
+    131,
+    181
+   ]
+  },
+  {
+   "lawUrn": "law:sb:15-1998",
+   "lawRef": "15/1998",
+   "lawTitle": "zákon č. 15/1998 Sb. — Zákon o Komisi pro cenné papíry a o změně a doplnění dalších zákonů",
+   "bills": [
+    13,
+    64,
+    143
+   ]
+  },
+  {
+   "lawUrn": "law:sb:240-2013",
+   "lawRef": "240/2013",
+   "lawTitle": "zákon č. 240/2013 Sb. — Zákon o investičních společnostech a investičních fondech",
+   "bills": [
+    13,
+    16,
+    64
+   ]
+  },
+  {
+   "lawUrn": "law:sb:257-2016",
+   "lawRef": "257/2016",
+   "lawTitle": "zákon č. 257/2016 Sb. — Zákon o spotřebitelském úvěru",
+   "bills": [
+    16,
+    64,
+    145
+   ]
+  },
+  {
+   "lawUrn": "law:sb:82-1998",
+   "lawRef": "82/1998",
+   "lawTitle": "zákon č. 82/1998 Sb. — Zákon o odpovědnosti za škodu způsobenou při výkonu veřejné moci rozhodnutím nebo nesprávným úředním postupem a o změně ",
+   "bills": [
+    24,
+    111,
+    162
+   ]
+  },
+  {
+   "lawUrn": "law:sb:104-2013",
+   "lawRef": "104/2013",
+   "lawTitle": "zákon č. 104/2013 Sb. — Zákon o mezinárodní justiční spolupráci ve věcech trestních",
+   "bills": [
+    46,
+    102,
+    196
+   ]
+  },
+  {
+   "lawUrn": "law:sb:1-1993",
+   "lawRef": "1/1993",
+   "lawTitle": "zákon č. 1/1993 Sb. — Ústava České republiky",
+   "bills": [
+    47,
+    135,
+    214
+   ]
+  },
+  {
+   "lawUrn": "law:sb:127-2005",
+   "lawRef": "127/2005",
+   "lawTitle": "zákon č. 127/2005 Sb. — Zákon o elektronických komunikacích a o změně některých souvisejících zákonů (zákon o elektronických komunikacích)",
+   "bills": [
+    56,
+    64,
+    77
+   ]
+  },
+  {
+   "lawUrn": "law:sb:114-1995",
+   "lawRef": "114/1995",
+   "lawTitle": "zákon č. 114/1995 Sb. — Zákon o vnitrozemské plavbě",
+   "bills": [
+    64,
+    67,
+    83
+   ]
+  },
+  {
+   "lawUrn": "law:sb:131-2000",
+   "lawRef": "131/2000",
+   "lawTitle": "zákon č. 131/2000 Sb. — Zákon o hlavním městě Praze",
+   "bills": [
+    64,
+    100,
+    146
+   ]
+  },
+  {
+   "lawUrn": "law:sb:219-2000",
+   "lawRef": "219/2000",
+   "lawTitle": "zákon č. 219/2000 Sb. — Zákon o majetku České republiky a jejím vystupování v právních vztazích",
+   "bills": [
+    64,
+    67,
+    102
+   ]
+  },
+  {
+   "lawUrn": "law:sb:23-2017",
+   "lawRef": "23/2017",
+   "lawTitle": "zákon č. 23/2017 Sb. — Zákon o pravidlech rozpočtové odpovědnosti",
+   "bills": [
+    64,
+    68,
+    90
+   ]
+  },
+  {
+   "lawUrn": "law:sb:250-2000",
+   "lawRef": "250/2000",
+   "lawTitle": "zákon č. 250/2000 Sb. — Zákon o rozpočtových pravidlech územních rozpočtů",
+   "bills": [
+    64,
+    68,
+    90
+   ]
+  },
+  {
+   "lawUrn": "law:sb:258-2000",
+   "lawRef": "258/2000",
+   "lawTitle": "zákon č. 258/2000 Sb. — Zákon o ochraně veřejného zdraví a o změně některých souvisejících zákonů",
+   "bills": [
+    64,
+    67,
+    77
+   ]
+  },
+  {
+   "lawUrn": "law:sb:266-1994",
+   "lawRef": "266/1994",
+   "lawTitle": "zákon č. 266/1994 Sb. — Zákon o dráhách",
+   "bills": [
+    64,
+    67,
+    83
+   ]
+  },
+  {
+   "lawUrn": "law:sb:273-2008",
+   "lawRef": "273/2008",
+   "lawTitle": "zákon č. 273/2008 Sb. — Zákon o Policii České republiky",
+   "bills": [
+    64,
+    174,
+    207
+   ]
+  },
+  {
+   "lawUrn": "law:sb:277-2009",
+   "lawRef": "277/2009",
+   "lawTitle": "zákon č. 277/2009 Sb. — Zákon o pojišťovnictví",
+   "bills": [
+    64,
+    65,
+    145
+   ]
+  },
+  {
+   "lawUrn": "law:sb:29-2000",
+   "lawRef": "29/2000",
+   "lawTitle": "zákon č. 29/2000 Sb. — Zákon o poštovních službách a o změně některých zákonů (zákon o poštovních službách)",
+   "bills": [
+    64,
+    65,
+    187
+   ]
+  },
+  {
+   "lawUrn": "law:sb:477-2001",
+   "lawRef": "477/2001",
+   "lawTitle": "zákon č. 477/2001 Sb. — Zákon o obalech a o změně některých zákonů (zákon o obalech)",
+   "bills": [
+    64,
+    73,
+    193
+   ]
+  },
+  {
+   "lawUrn": "law:sb:561-2004",
+   "lawRef": "561/2004",
+   "lawTitle": "zákon č. 561/2004 Sb. — Zákon o předškolním, základním, středním, vyšším odborném a jiném vzdělávání (školský zákon)",
+   "bills": [
+    64,
+    104,
+    232
+   ]
+  },
+  {
+   "lawUrn": "law:sb:582-1991",
+   "lawRef": "582/1991",
+   "lawTitle": "zákon č. 582/1991 Sb. — Zákon České národní rady o organizaci a provádění sociálního zabezpečení",
+   "bills": [
+    64,
+    77,
+    125
+   ]
+  },
+  {
+   "lawUrn": "law:sb:254-2001",
+   "lawRef": "254/2001",
+   "lawTitle": "zákon č. 254/2001 Sb. — Zákon o vodách a o změně některých zákonů (vodní zákon)",
+   "bills": [
+    67,
+    74,
+    75
+   ]
+  },
+  {
+   "lawUrn": "law:sb:108-2006",
+   "lawRef": "108/2006",
+   "lawTitle": "zákon č. 108/2006 Sb. — Zákon o sociálních službách",
+   "bills": [
+    85,
+    88,
+    125
+   ]
+  },
+  {
+   "lawUrn": "law:sb:152-2025",
+   "lawRef": "152/2025",
+   "lawTitle": "zákon č. 152/2025 Sb. — Zákon, kterým se mění některé zákony v souvislosti s přijetím zákona o dávce státní sociální pomoci",
+   "bills": [
+    85,
+    88,
+    124
+   ]
+  },
+  {
+   "lawUrn": "law:sb:151-2025",
+   "lawRef": "151/2025",
+   "lawTitle": "zákon č. 151/2025 Sb. — Zákon o dávce státní sociální pomoci",
+   "bills": [
+    4,
+    88
+   ]
+  },
+  {
+   "lawUrn": "law:sb:353-2003",
+   "lawRef": "353/2003",
+   "lawTitle": "zákon č. 353/2003 Sb. — Zákon o spotřebních daních",
+   "bills": [
+    4,
+    133
+   ]
+  },
+  {
+   "lawUrn": "law:sb:143-2001",
+   "lawRef": "143/2001",
+   "lawTitle": "zákon č. 143/2001 Sb. — Zákon o ochraně hospodářské soutěže a o změně některých zákonů (zákon o ochraně hospodářské soutěže)",
+   "bills": [
+    5,
+    64
+   ]
+  },
+  {
+   "lawUrn": "law:sb:374-2015",
+   "lawRef": "374/2015",
+   "lawTitle": "zákon č. 374/2015 Sb. — Zákon o ozdravných postupech a řešení krize na finančním trhu",
+   "bills": [
+    5,
+    64
+   ]
+  },
+  {
+   "lawUrn": "law:sb:168-2025",
+   "lawRef": "168/2025",
+   "lawTitle": "zákon č. 168/2025 Sb. — Zákon o regulaci lobbování",
+   "bills": [
+    7,
+    64
+   ]
+  },
+  {
+   "lawUrn": "law:sb:231-2001",
+   "lawRef": "231/2001",
+   "lawTitle": "zákon č. 231/2001 Sb. — Zákon o provozování rozhlasového a televizního vysílání a o změně dalších zákonů",
+   "bills": [
+    7,
+    77
+   ]
+  },
+  {
+   "lawUrn": "law:sb:234-2025",
+   "lawRef": "234/2025",
+   "lawTitle": "zákon č. 234/2025 Sb. — Zákon o volebních kampaních a o transparentnosti a cílení politické reklamy",
+   "bills": [
+    7,
+    64
+   ]
+  },
+  {
+   "lawUrn": "law:sb:300-2013",
+   "lawRef": "300/2013",
+   "lawTitle": "zákon č. 300/2013 Sb. — Zákon o Vojenské policii a o změně některých zákonů (zákon o Vojenské policii)",
+   "bills": [
+    7,
+    207
+   ]
+  },
+  {
+   "lawUrn": "law:sb:88-2024",
+   "lawRef": "88/2024",
+   "lawTitle": "zákon č. 88/2024 Sb. — Zákon o správě voleb",
+   "bills": [
+    7,
+    190
+   ]
+  },
+  {
+   "lawUrn": "law:sb:589-1992",
+   "lawRef": "589/1992",
+   "lawTitle": "zákon č. 589/1992 Sb. — Zákon České národní rady o pojistném na sociální zabezpečení a příspěvku na státní politiku zaměstnanosti",
+   "bills": [
+    11,
+    110
+   ]
+  },
+  {
+   "lawUrn": "law:sb:84-2024",
+   "lawRef": "84/2024",
+   "lawTitle": "zákon č. 84/2024 Sb. — Zákon o trhu s nevýkonnými úvěry",
+   "bills": [
+    13,
+    145
+   ]
+  },
+  {
+   "lawUrn": "law:sb:90-1995",
+   "lawRef": "90/1995",
+   "lawTitle": "zákon č. 90/1995 Sb. — Zákon o jednacím řádu Poslanecké sněmovny",
+   "bills": [
+    15,
+    72
+   ]
+  },
+  {
+   "lawUrn": "law:sb:170-2018",
+   "lawRef": "170/2018",
+   "lawTitle": "zákon č. 170/2018 Sb. — Zákon o distribuci pojištění a zajištění",
+   "bills": [
+    16,
+    145
+   ]
+  },
+  {
+   "lawUrn": "law:sb:31-2025",
+   "lawRef": "31/2025",
+   "lawTitle": "zákon č. 31/2025 Sb. — Zákon o implementaci předpisů Evropské unie v oblasti digitalizace finančního trhu (zákon o digitalizaci finančního trhu",
+   "bills": [
+    16,
+    64
+   ]
+  },
+  {
+   "lawUrn": "law:sb:370-2017",
+   "lawRef": "370/2017",
+   "lawTitle": "zákon č. 370/2017 Sb. — Zákon o platebním styku",
+   "bills": [
+    16,
+    64
+   ]
+  },
+  {
+   "lawUrn": "law:sb:6-1993",
+   "lawRef": "6/1993",
+   "lawTitle": "zákon č. 6/1993 Sb. — Zákon České národní rady o České národní bance",
+   "bills": [
+    16,
+    64
+   ]
+  },
+  {
+   "lawUrn": "law:sb:194-2010",
+   "lawRef": "194/2010",
+   "lawTitle": "zákon č. 194/2010 Sb. — Zákon o veřejných službách v přepravě cestujících a o změně dalších zákonů",
+   "bills": [
+    24,
+    206
+   ]
+  },
+  {
+   "lawUrn": "law:sb:500-2004",
+   "lawRef": "500/2004",
+   "lawTitle": "zákon č. 500/2004 Sb. — Zákon správní řád",
+   "bills": [
+    24,
+    215
+   ]
+  },
+  {
+   "lawUrn": "law:sb:100-2001",
+   "lawRef": "100/2001",
+   "lawTitle": "zákon č. 100/2001 Sb. — Zákon o posuzování vlivů na životní prostředí a o změně některých souvisejících zákonů (zákon o posuzování vlivů na živo",
+   "bills": [
+    49,
+    67
+   ]
+  },
+  {
+   "lawUrn": "law:sb:269-1994",
+   "lawRef": "269/1994",
+   "lawTitle": "zákon č. 269/1994 Sb. — Zákon o Rejstříku trestů",
+   "bills": [
+    54,
+    111
+   ]
+  },
+  {
+   "lawUrn": "law:sb:200-1994",
+   "lawRef": "200/1994",
+   "lawTitle": "zákon č. 200/1994 Sb. — Zákon o zeměměřictví a o změně a doplnění některých zákonů souvisejících s jeho zavedením",
+   "bills": [
+    56,
+    234
+   ]
+  },
+  {
+   "lawUrn": "law:sb:375-2022",
+   "lawRef": "375/2022",
+   "lawTitle": "zákon č. 375/2022 Sb. — Zákon o zdravotnických prostředcích a diagnostických zdravotnických prostředcích in vitro",
+   "bills": [
+    57,
+    153
+   ]
+  },
+  {
+   "lawUrn": "law:sb:542-2020",
+   "lawRef": "542/2020",
+   "lawTitle": "zákon č. 542/2020 Sb. — Zákon o výrobcích s ukončenou životností",
+   "bills": [
+    58,
+    64
+   ]
+  },
+  {
+   "lawUrn": "law:sb:468-2024",
+   "lawRef": "468/2024",
+   "lawTitle": "zákon č. 468/2024 Sb. — Zákon o integračním sociálním podniku",
+   "bills": [
+    59,
+    64
+   ]
+  },
+  {
+   "lawUrn": "law:sb:218-2003",
+   "lawRef": "218/2003",
+   "lawTitle": "zákon č. 218/2003 Sb. — Zákon o odpovědnosti mládeže za protiprávní činy a o soudnictví ve věcech mládeže a o změně některých zákonů (zákon o so",
+   "bills": [
+    61,
+    111
+   ]
+  },
+  {
+   "lawUrn": "law:sb:104-2000",
+   "lawRef": "104/2000",
+   "lawTitle": "zákon č. 104/2000 Sb. — Zákon o Státním fondu dopravní infrastruktury a o změně zákona č. 171/1991 Sb., o působnosti orgánů České republiky ve v",
+   "bills": [
+    64,
+    77
+   ]
+  },
+  {
+   "lawUrn": "law:sb:111-1994",
+   "lawRef": "111/1994",
+   "lawTitle": "zákon č. 111/1994 Sb. — Zákon o silniční dopravě",
+   "bills": [
+    64,
+    83
+   ]
+  },
+  {
+   "lawUrn": "law:sb:111-2006",
+   "lawRef": "111/2006",
+   "lawTitle": "zákon č. 111/2006 Sb. — Zákon o pomoci v hmotné nouzi",
+   "bills": [
+    64,
+    103
+   ]
+  },
+  {
+   "lawUrn": "law:sb:115-2001",
+   "lawRef": "115/2001",
+   "lawTitle": "zákon č. 115/2001 Sb. — Zákon o podpoře sportu",
+   "bills": [
+    64,
+    77
+   ]
+  },
+  {
+   "lawUrn": "law:sb:129-2000",
+   "lawRef": "129/2000",
+   "lawTitle": "zákon č. 129/2000 Sb. — Zákon o krajích (krajské zřízení)",
+   "bills": [
+    64,
+    146
+   ]
+  },
+  {
+   "lawUrn": "law:sb:139-2002",
+   "lawRef": "139/2002",
+   "lawTitle": "zákon č. 139/2002 Sb. — Zákon o pozemkových úpravách a pozemkových úřadech a o změně zákona č. 229/1991 Sb., o úpravě vlastnických vztahů k půdě",
+   "bills": [
+    64,
+    67
+   ]
+  },
+  {
+   "lawUrn": "law:sb:166-1999",
+   "lawRef": "166/1999",
+   "lawTitle": "zákon č. 166/1999 Sb. — Zákon o veterinární péči a o změně některých souvisejících zákonů (veterinární zákon)",
+   "bills": [
+    64,
+    67
+   ]
+  },
+  {
+   "lawUrn": "law:sb:17-2012",
+   "lawRef": "17/2012",
+   "lawTitle": "zákon č. 17/2012 Sb. — Zákon o Celní správě České republiky",
+   "bills": [
+    64,
+    207
+   ]
+  },
+  {
+   "lawUrn": "law:sb:181-2007",
+   "lawRef": "181/2007",
+   "lawTitle": "zákon č. 181/2007 Sb. — Zákon o Ústavu pro studium totalitních režimů a o Archivu bezpečnostních složek a o změně některých zákonů",
+   "bills": [
+    64,
+    77
+   ]
+  },
+  {
+   "lawUrn": "law:sb:182-2006",
+   "lawRef": "182/2006",
+   "lawTitle": "zákon č. 182/2006 Sb. — Zákon o úpadku a způsobech jeho řešení (insolvenční zákon)",
+   "bills": [
+    64,
+    102
+   ]
+  },
+  {
+   "lawUrn": "law:sb:184-2006",
+   "lawRef": "184/2006",
+   "lawTitle": "zákon č. 184/2006 Sb. — Zákon o odnětí nebo omezení vlastnického práva k pozemku nebo ke stavbě (zákon o vyvlastnění)",
+   "bills": [
+    64,
+    67
+   ]
+  },
+  {
+   "lawUrn": "law:sb:190-2004",
+   "lawRef": "190/2004",
+   "lawTitle": "zákon č. 190/2004 Sb. — Zákon o dluhopisech",
+   "bills": [
+    64,
+    143
+   ]
+  },
+  {
+   "lawUrn": "law:sb:248-2000",
+   "lawRef": "248/2000",
+   "lawTitle": "zákon č. 248/2000 Sb. — Zákon o podpoře regionálního rozvoje",
+   "bills": [
+    64,
+    77
+   ]
+  },
+  {
+   "lawUrn": "law:sb:279-2003",
+   "lawRef": "279/2003",
+   "lawTitle": "zákon č. 279/2003 Sb. — Zákon o výkonu zajištění majetku a věcí v trestním řízení a o změně některých zákonů",
+   "bills": [
+    64,
+    102
+   ]
+  },
+  {
+   "lawUrn": "law:sb:282-1991",
+   "lawRef": "282/1991",
+   "lawTitle": "zákon č. 282/1991 Sb. — Zákon České národní rady o České inspekci životního prostředí a její působnosti v ochraně lesa",
+   "bills": [
+    64,
+    74
+   ]
+  },
+  {
+   "lawUrn": "law:sb:283-1993",
+   "lawRef": "283/1993",
+   "lawTitle": "zákon č. 283/1993 Sb. — Zákon o státním zastupitelství",
+   "bills": [
+    64,
+    102
+   ]
+  },
+  {
+   "lawUrn": "law:sb:284-2023",
+   "lawRef": "284/2023",
+   "lawTitle": "zákon č. 284/2023 Sb. — Zákon o preventivní restrukturalizaci",
+   "bills": [
+    64,
+    102
+   ]
+  },
+  {
+   "lawUrn": "law:sb:301-1992",
+   "lawRef": "301/1992",
+   "lawTitle": "zákon č. 301/1992 Sb. — Zákon České národní rady o Hospodářské komoře České republiky a Agrární komoře České republiky",
+   "bills": [
+    64,
+    219
+   ]
+  },
+  {
+   "lawUrn": "law:sb:312-2006",
+   "lawRef": "312/2006",
+   "lawTitle": "zákon č. 312/2006 Sb. — Zákon o insolvenčních správcích",
+   "bills": [
+    64,
+    102
+   ]
+  },
+  {
+   "lawUrn": "law:sb:328-2025",
+   "lawRef": "328/2025",
+   "lawTitle": "zákon č. 328/2025 Sb. — Zákon o výzkumu, vývoji, inovacích a transferu znalostí",
+   "bills": [
+    64,
+    77
+   ]
+  },
+  {
+   "lawUrn": "law:sb:338-1992",
+   "lawRef": "338/1992",
+   "lawTitle": "zákon č. 338/1992 Sb. — Zákon České národní rady  o dani z nemovitostí",
+   "bills": [
+    64,
+    67
+   ]
+  },
+  {
+   "lawUrn": "law:sb:341-2011",
+   "lawRef": "341/2011",
+   "lawTitle": "zákon č. 341/2011 Sb. — Zákon o Generální inspekci bezpečnostních sborů a o změně souvisejících zákonů",
+   "bills": [
+    64,
+    207
+   ]
+  },
+  {
+   "lawUrn": "law:sb:388-1991",
+   "lawRef": "388/1991",
+   "lawTitle": "zákon č. 388/1991 Sb. — Zákon České národní rady o Státním fondu životního prostředí České republiky",
+   "bills": [
+    64,
+    77
+   ]
+  },
+  {
+   "lawUrn": "law:sb:412-2005",
+   "lawRef": "412/2005",
+   "lawTitle": "zákon č. 412/2005 Sb. — Zákon o ochraně utajovaných informací a o bezpečnostní způsobilosti",
+   "bills": [
+    64,
+    215
+   ]
+  },
+  {
+   "lawUrn": "law:sb:44-1988",
+   "lawRef": "44/1988",
+   "lawTitle": "zákon č. 44/1988 Sb. — Zákon o ochraně a využití nerostného bohatství (horní zákon)",
+   "bills": [
+    64,
+    67
+   ]
+  },
+  {
+   "lawUrn": "law:sb:449-2001",
+   "lawRef": "449/2001",
+   "lawTitle": "zákon č. 449/2001 Sb. — Zákon o myslivosti",
+   "bills": [
+    64,
+    67
+   ]
+  },
+  {
+   "lawUrn": "law:sb:455-1991",
+   "lawRef": "455/1991",
+   "lawTitle": "zákon č. 455/1991 Sb. — Zákon o živnostenském podnikání (živnostenský zákon)",
+   "bills": [
+    64,
+    106
+   ]
+  },
+  {
+   "lawUrn": "law:sb:483-1991",
+   "lawRef": "483/1991",
+   "lawTitle": "zákon č. 483/1991 Sb. — Zákon České národní rady o České televizi",
+   "bills": [
+    64,
+    231
+   ]
+  },
+  {
+   "lawUrn": "law:sb:484-1991",
+   "lawRef": "484/1991",
+   "lawTitle": "zákon č. 484/1991 Sb. — Zákon České národní rady o Českém rozhlasu",
+   "bills": [
+    64,
+    231
+   ]
+  },
+  {
+   "lawUrn": "law:sb:503-2012",
+   "lawRef": "503/2012",
+   "lawTitle": "zákon č. 503/2012 Sb. — Zákon o Státním pozemkovém úřadu a o změně některých souvisejících zákonů",
+   "bills": [
+    64,
+    67
+   ]
+  },
+  {
+   "lawUrn": "law:sb:526-1990",
+   "lawRef": "526/1990",
+   "lawTitle": "zákon č. 526/1990 Sb. — Zákon o cenách",
+   "bills": [
+    64,
+    163
+   ]
+  },
+  {
+   "lawUrn": "law:sb:6-2002",
+   "lawRef": "6/2002",
+   "lawTitle": "zákon č. 6/2002 Sb. — Zákon o soudech, soudcích, přísedících a státní správě soudů a o změně některých dalších zákonů (zákon o soudech a soudc",
+   "bills": [
+    64,
+    77
+   ]
+  },
+  {
+   "lawUrn": "law:sb:72-2000",
+   "lawRef": "72/2000",
+   "lawTitle": "zákon č. 72/2000 Sb. — Zákon o investičních pobídkách a o změně některých zákonů (zákon o investičních pobídkách)",
+   "bills": [
+    64,
+    221
+   ]
+  },
+  {
+   "lawUrn": "law:sb:90-2012",
+   "lawRef": "90/2012",
+   "lawTitle": "zákon č. 90/2012 Sb. — Zákon o obchodních společnostech a družstvech (zákon o obchodních korporacích)",
+   "bills": [
+    64,
+    143
+   ]
+  },
+  {
+   "lawUrn": "law:sb:250-2017",
+   "lawRef": "250/2017",
+   "lawTitle": "zákon č. 250/2017 Sb. — Zákon o elektronické identifikaci",
+   "bills": [
+    65,
+    154
+   ]
+  },
+  {
+   "lawUrn": "law:sb:297-2016",
+   "lawRef": "297/2016",
+   "lawTitle": "zákon č. 297/2016 Sb. — Zákon o službách vytvářejících důvěru pro elektronické transakce",
+   "bills": [
+    65,
+    154
+   ]
+  },
+  {
+   "lawUrn": "law:sb:300-2008",
+   "lawRef": "300/2008",
+   "lawTitle": "zákon č. 300/2008 Sb. — Zákon o elektronických úkonech a autorizované konverzi dokumentů",
+   "bills": [
+    65,
+    103
+   ]
+  },
+  {
+   "lawUrn": "law:sb:114-1992",
+   "lawRef": "114/1992",
+   "lawTitle": "zákon č. 114/1992 Sb. — Zákon České národní rady o ochraně přírody a krajiny",
+   "bills": [
+    67,
+    261
+   ]
+  },
+  {
+   "lawUrn": "law:sb:360-1992",
+   "lawRef": "360/1992",
+   "lawTitle": "zákon č. 360/1992 Sb. — Zákon České národní rady  o výkonu povolání autorizovaných architektů a o výkonu povolání autorizovaných inženýrů a tech",
+   "bills": [
+    67,
+    234
+   ]
+  },
+  {
+   "lawUrn": "law:sb:61-1988",
+   "lawRef": "61/1988",
+   "lawTitle": "zákon č. 61/1988 Sb. — Zákon České národní rady o hornické činnosti, výbušninách a o státní báňské správě",
+   "bills": [
+    67,
+    113
+   ]
+  },
+  {
+   "lawUrn": "law:sb:177-2023",
+   "lawRef": "177/2023",
+   "lawTitle": "zákon č. 177/2023 Sb. — Zákon o financování obrany České republiky a o změně zákona č. 218/2000 Sb., o rozpočtových pravidlech a o změně některý",
+   "bills": [
+    68,
+    90
+   ]
+  },
+  {
+   "lawUrn": "law:sb:592-1992",
+   "lawRef": "592/1992",
+   "lawTitle": "zákon č. 592/1992 Sb. — Zákon České národní rady  o pojistném na veřejné zdravotní pojištění",
+   "bills": [
+    70,
+    235
+   ]
+  },
+  {
+   "lawUrn": "law:sb:273-1996",
+   "lawRef": "273/1996",
+   "lawTitle": "zákon č. 273/1996 Sb. — Zákon o působnosti Úřadu pro ochranu hospodářské soutěže",
+   "bills": [
+    77,
+    206
+   ]
+  },
+  {
+   "lawUrn": "law:sb:89-1995",
+   "lawRef": "89/1995",
+   "lawTitle": "zákon č. 89/1995 Sb. — Zákon o státní statistické službě",
+   "bills": [
+    77,
+    106
+   ]
+  },
+  {
+   "lawUrn": "law:sb:245-2000",
+   "lawRef": "245/2000",
+   "lawTitle": "zákon č. 245/2000 Sb. — Zákon o státních svátcích, o ostatních svátcích, o významných dnech a o dnech pracovního klidu",
+   "bills": [
+    78,
+    238
+   ]
+  },
+  {
+   "lawUrn": "law:sb:155-1995",
+   "lawRef": "155/1995",
+   "lawTitle": "zákon č. 155/1995 Sb. — Zákon o důchodovém pojištění",
+   "bills": [
+    50,
+    103
+   ]
+  },
+  {
+   "lawUrn": "law:sb:110-2006",
+   "lawRef": "110/2006",
+   "lawTitle": "zákon č. 110/2006 Sb. — Zákon o životním a existenčním minimu",
+   "bills": [
+    85,
+    88
+   ]
+  },
+  {
+   "lawUrn": "law:sb:329-2011",
+   "lawRef": "329/2011",
+   "lawTitle": "zákon č. 329/2011 Sb. — Zákon o poskytování dávek osobám se zdravotním postižením a o změně souvisejících zákonů",
+   "bills": [
+    103,
+    125
+   ]
+  },
+  {
+   "lawUrn": "law:sb:159-1999",
+   "lawRef": "159/1999",
+   "lawTitle": "zákon č. 159/1999 Sb. — Zákon o některých podmínkách podnikání v oblasti cestovního ruchu a o změně zákona č. 40/1964 Sb., občanský zákoník, ve ",
+   "bills": [
+    106,
+    107
+   ]
+  },
+  {
+   "lawUrn": "law:sb:359-1999",
+   "lawRef": "359/1999",
+   "lawTitle": "zákon č. 359/1999 Sb. — Zákon o sociálně-právní ochraně dětí",
+   "bills": [
+    111,
+    207
+   ]
+  },
+  {
+   "lawUrn": "law:sb:45-2013",
+   "lawRef": "45/2013",
+   "lawTitle": "zákon č. 45/2013 Sb. — Zákon o obětech trestných činů a o změně některých zákonů (zákon o obětech trestných činů)",
+   "bills": [
+    111,
+    115
+   ]
+  },
+  {
+   "lawUrn": "law:sb:353-2019",
+   "lawRef": "353/2019",
+   "lawTitle": "zákon č. 353/2019 Sb. — Zákon o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou účastí státu (nominační zákon)",
+   "bills": [
+    116,
+    138
+   ]
+  },
+  {
+   "lawUrn": "law:sb:300-2025",
+   "lawRef": "300/2025",
+   "lawTitle": "zákon č. 300/2025 Sb. — Zákon, kterým se mění zákon č. 108/2006 Sb., o sociálních službách, ve znění pozdějších předpisů, zákon č. 329/2011 Sb.,",
+   "bills": [
+    124,
+    125
+   ]
+  },
+  {
+   "lawUrn": "law:sb:223-2016",
+   "lawRef": "223/2016",
+   "lawTitle": "zákon č. 223/2016 Sb. — Zákon o prodejní době v maloobchodě a velkoobchodě",
+   "bills": [
+    129,
+    243
+   ]
+  },
+  {
+   "lawUrn": "law:sb:549-1991",
+   "lawRef": "549/1991",
+   "lawTitle": "zákon č. 549/1991 Sb. — Zákon České národní rady  o soudních poplatcích",
+   "bills": [
+    162,
+    206
+   ]
+  },
+  {
+   "lawUrn": "law:sb:348-2005",
+   "lawRef": "348/2005",
+   "lawTitle": "zákon č. 348/2005 Sb. — Zákon o rozhlasových a televizních poplatcích a o změně některých zákonů",
+   "bills": [
+    201,
+    231
+   ]
+  }
+ ]
+}

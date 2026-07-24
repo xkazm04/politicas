@@ -31,8 +31,13 @@ import { readZipMap } from "../zip";
 
 export const SOURCE_TISKY_LAW = "psp-tisky-law";
 
-/** `č. 37/2021 Sb.` — the only bill→law link the psp.cz data gives (free text in the title). */
-export const LAW_CITATION = /č\.\s*(\d{1,4})\s*\/\s*(\d{4})\s*Sb\./g;
+/** `č. 37/2021 Sb.` — the only bill→law link the psp.cz data gives (free text in the title).
+ * Batch-005 fix (D2, Opus audit): negative lookahead excludes `Sb. m. s.` (Sbírka mezinárodních
+ * smluv — international-treaty citations, e.g. "č. 64/2017 Sb. m. s." for the Paris Agreement),
+ * a genuinely DIFFERENT numbering collection that previously collided with real Sbírka-zákonů
+ * refs of the same number/year (proven false edges: tisk 63→64/2017, tisk 52→55/2006, tisk
+ * 144→108/2004 — each an international treaty, not a law). */
+export const LAW_CITATION = /č\.\s*(\d{1,4})\s*\/\s*(\d{4})\s*Sb\.(?!\s*m\.\s*s\.)/g;
 export function extractAmendedLaws(title: string | null): string[] {
   if (!title) return [];
   const out = new Set<string>();

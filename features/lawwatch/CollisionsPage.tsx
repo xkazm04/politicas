@@ -131,6 +131,17 @@ function RealCollisions({ data }: { data: CollisionData }) {
           jiný zákon) vyřazeny — nejsou zde zobrazeny
         </SourceNote>
       </div>
+      {data.postRegenPendingCount > 0 && (
+        <div className="mt-2 border-2 border-dashed border-ochre bg-ochre/5 px-4 py-3">
+          <p className="font-mono text-[11px] uppercase tracking-wider text-ochre">
+            {data.postRegenPendingCount}× nález z dávky 5 pochází z přeregenerované topologie (150 → 567 hran „amends&rdquo;), kterou
+            orchestrátor zatím neschválil pro živý graf — viz{" "}
+            <span className="font-bold">docs/data-analysis/case-law/handoff.md</span>. Označeno „dávka 5&rdquo; u
+            každé takové dvojice níže; nic zde citované není smyšlené, jde jen o to, ŽE byla dvojice nalezena přes
+            kandidátní univerzum, které live graf ještě nemá.
+          </p>
+        </div>
+      )}
 
       <section className="mt-12 pb-20">
         <SectionHeading
@@ -238,8 +249,18 @@ function PairCard({ pair }: { pair: CollisionPairView }) {
             § {pair.sharedParagraph}
           </span>
         </span>
-        <span className={`font-mono text-[10px] font-black uppercase tracking-wider ${tone.text}`}>
-          {CLASS_CZ[pair.classification]}
+        <span className="flex items-center gap-2">
+          {pair.postRegenTopology && (
+            <span
+              className="border border-ochre px-1 py-0.5 font-mono text-[9px] font-black uppercase tracking-wider text-ochre"
+              title="Nalezeno přes přeregenerovanou topologii, ještě neschválenou orchestrátorem pro živý graf"
+            >
+              dávka 5 · post-regen
+            </span>
+          )}
+          <span className={`font-mono text-[10px] font-black uppercase tracking-wider ${tone.text}`}>
+            {CLASS_CZ[pair.classification]}
+          </span>
         </span>
       </div>
 

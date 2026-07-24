@@ -1,0 +1,243 @@
+{
+ "generatedAt": "2026-07-25T00:00:00.000Z",
+ "method": "batch-005 Q-law-9: LLM close-read of the top-15 candidate pairs surfaced by collision-report-v2-005.json (_batch005-top15.json). Evidence = verbatim excerptA/excerptB text already extracted per shared paragraph in the input payload; no network fetch, no invented text -- classifications and reasoning are grounded strictly in the quoted excerpt fragments (numbers, wording, cross-references), with cross-checks limited to other excerpts already present in the same input file for the same billA (e.g. bill 4's §30 odst.1 edit visible in a sibling pair's excerpt).",
+ "classificationCounts": {
+  "confirmed-collision": 5,
+  "coordination-risk": 7,
+  "incidental": 3
+ },
+ "pairs": [
+  {
+   "pairId": "4-64",
+   "billA": 4,
+   "billB": 64,
+   "lawRef": "586/1992",
+   "batch": "batch-005",
+   "sourcePayload": "collision-report-v2-005.json",
+   "classification": "incidental",
+   "sharedParagraph": "35c (different odstavce -- billA odst.1, billB odst.7)",
+   "evidence": {
+    "billAExcerpt": "'...2. V § 35c odst. 1 se částka „15 204 Kč“ nahrazuje částkou „22 320 Kč“ a slova „, 22 320 Kč ročně na druhé dítě“ se zrušují.' -- targets §35c odst.1 (child tax-relief amount).",
+    "billBExcerpt": "'...320. V § 35c odst. 7 se část věty za středníkem včetně středníku zrušuje...' -- targets §35c odst.7, a wholly different subsection."
+   },
+   "reasoning": "Both excerpts share the § number '35c' but land on different odstavce (billA: odst.1, the child-amount sentence; billB: odst.7, an unrelated semicolon-clause deletion) with no textual overlap or dependency visible in either excerpt. This reads as the detector matching on the bare '§ 35c' token rather than a genuine same-subsection interaction; conservatively classified incidental."
+  },
+  {
+   "pairId": "4-198",
+   "billA": 4,
+   "billB": 198,
+   "lawRef": "117/1995",
+   "batch": "batch-005",
+   "sourcePayload": "collision-report-v2-005.json",
+   "classification": "coordination-risk",
+   "sharedParagraph": "30 (billA odst.3 valorization content, billB odst.1 amount substitution)",
+   "evidence": {
+    "billAExcerpt": "'§ 30 odst. 3. Výši takto zvýšených částek stanoví vláda nařízením do 30. září kalendářního roku, který o jeden rok předchází kalendářnímu roku, na něhož se celková částka rodičovského příspěvku určuje, a to poprvé k 1. lednu 2027.' -- substantive text of odst.3 (a valorization/indexation mechanism).",
+    "billBExcerpt": "'Čl. I V § 30 odst. 1 zákona č. 117/1995 Sb., ... se částka „350 000 Kč“ nahrazuje částkou „40[0 000 Kč]“' -- a narrow amount substitution in odst.1."
+   },
+   "reasoning": "Both bills genuinely and deliberately touch §30 of 117/1995, but at different, non-overlapping subsections as shown -- billA's excerpt is odst.3 content (a valorization rule), billB's is a plain odst.1 amount swap. No literal same-text clash is visible in these excerpts, but both are real, concurrent amendments to the same provision of the same statute (not a citation artifact), so classified coordination-risk rather than incidental."
+  },
+  {
+   "pairId": "64-71",
+   "billA": 64,
+   "billB": 71,
+   "lawRef": "427/2011",
+   "batch": "batch-005",
+   "sourcePayload": "collision-report-v2-005.json",
+   "classification": "coordination-risk",
+   "sharedParagraph": "192 odst. 3 (different písmena -- billA písm. b), billB písm. a))",
+   "evidence": {
+    "billAExcerpt": "'28. V § 192 odst. 3 písm. b) se za slova „vykázaného v“ vkládají slova „řádné individuální“, za slova „vykázaným v“ se vkládají slova „řádné individuální“...' -- word insertions into odst.3 písm. b).",
+    "billBExcerpt": "'...3. V § 192 odst. 3 písm. a) se číslo „0,8“ nahrazuje číslem „0,4“.' -- numeral substitution in odst.3 písm. a)."
+   },
+   "reasoning": "Both bills genuinely edit §192 odst.3 of 427/2011, but target different lettered items within it -- billA inserts words into písm. b), billB swaps a numeral in písm. a). The edits are combinable (non-overlapping substrings) with no visible clash, but it is a real, deliberate concurrent co-touch of the same subsection requiring coordination awareness, not an artifact; classified coordination-risk."
+  },
+  {
+   "pairId": "4-189",
+   "billA": 4,
+   "billB": 189,
+   "lawRef": "586/1992",
+   "batch": "batch-005",
+   "sourcePayload": "collision-report-v2-005.json",
+   "classification": "coordination-risk",
+   "sharedParagraph": "35ba (non-overlapping list items) and 35c (different odstavce)",
+   "evidence": {
+    "billAExcerpt": "35ba: 'V § 35ba odst. 1 písmeno a) zní: „a) základní slevu na poplatníka ve výši odpovídající 75 % ...“' (full rewrite of písm. a)). 35c: '2. V § 35c odst. 1 se částka „15 204 Kč“ nahrazuje částkou „22 320 Kč“...' (odst.1 amount swap).",
+    "billBExcerpt": "35ba: '12. V § 35ba se na konci odstavce 1 tečka nahrazuje čárkou a doplňují se písmena f) až h)... „f) slevu na studenta, g) slevu za umístění dítěte, h) slevu na evidenci tržeb.“' (appends new písmena f)-h), leaves písm. a) untouched). 35c: '16. V § 35c odst. 6 písm. b) bod 1 zní: „1. soustavně se připravuje na budoucí povolání,“...' (odst.6, not odst.1)."
+   },
+   "reasoning": "For §35ba: billA rewrites písm. a) itself; billB appends new písmena f)-h) at the end of the same odst.1 list without touching písm. a) -- combinable, but a genuine concurrent edit to the same list. For §35c: billA edits odst.1 (amount), billB edits odst.6 (a different subsection) -- non-overlapping, no clash shown. Both sub-paragraphs are real co-touches of the same statute with no demonstrated textual contradiction; classified coordination-risk overall."
+  },
+  {
+   "pairId": "4-121",
+   "billA": 4,
+   "billB": 121,
+   "lawRef": "117/1995",
+   "batch": "batch-005",
+   "sourcePayload": "collision-report-v2-005.json",
+   "classification": "confirmed-collision",
+   "sharedParagraph": "30 odst. 1 (same-substring, different replacement values), 31 (combinable)",
+   "evidence": {
+    "billAExcerpt": "30: '§ 30 odst. 3. Výši takto zvýšených částek stanoví vláda nařízením...' (odst.3 valorization text). 31: 'a „350 000 Kč“ nahrazuje částkou „420 000 Kč“. 2. Za § 31 se vkládá nový § 31a...' -- confirms bill 4's own odst.1 edit is 350 000 Kč -> 420 000 Kč (visible via its excerpt under the '31' shared-paragraph entry for this same pair).",
+    "billBExcerpt": "30: '1. V § 30 odst. 1 větě první a druhé se částka „350 000 Kč“ nahrazuje částkou „400 000 Kč“. 2. V § 30 odst. 3 písm. b) se slova „přesáhnout 70 % 30násobku“ nahrazují slovy „přesáhnout 30násobek“...' 31: '4. V § 31 odstavec 3 zní: „(3) Podmínka osobní celodenní péče se též považuje za splněnou...“' -- a full rewrite of odst.3, which bill 4 does not touch (bill 4 only inserts a new §31a after §31)."
+   },
+   "reasoning": "Both bills issue a literal search-and-replace on the identical source string '350 000 Kč' in §30 odst.1, with mutually exclusive replacement values -- bill 4 sets it to 420 000 Kč (per its own excerpt in this pair's §31 entry), bill 121 sets it to 400 000 Kč: a direct same-substring-different-value clash, the same failure mode confirmed repeatedly in batch-004 for this exact provision. §31 itself is not a literal clash (bill 4 only inserts a new §31a after §31; bill 121 rewrites §31 odst.3, untouched by bill 4's excerpt), so classified as a combinable sub-note, but the §30 odst.1 clash alone is sufficient for confirmed-collision."
+  },
+  {
+   "pairId": "28-64",
+   "billA": 28,
+   "billB": 64,
+   "lawRef": "243/2000",
+   "batch": "batch-005",
+   "sourcePayload": "collision-report-v2-005.json",
+   "classification": "confirmed-collision",
+   "sharedParagraph": "3 odst. 1 písm. f) (targeted substitution vs full rewrite)",
+   "evidence": {
+    "billAExcerpt": "'1. V § 3 odst. 1 se v úvodní části ustanovení vypouští slovo „jednotlivých“. 2. V § 3 odst. 1 písm. b) až g) se číslo „9,76“ nahrazuje číslem „10,26“. 3. V § 3 odstavce 2 a 3 znějí: „(2) Kraj se na části celostátního hrubého výnosu d[aně...]“' -- targeted numeral substitution across písm. b)-g), including f).",
+    "billBExcerpt": "'1. V § 3 odst. 1 písmeno f) zní: „f) podíl na 10,23 % z celostátního hrubého výnosu daně z příjmů právnických osob, s výjimkou 1. výnosů uvedených v písmenu a) a v § 4 odst. 1 písm. g), 2. daně z příjmů právnických osob hraz[ené v eurech...]“' -- wholesale replacement of písm. f)."
+   },
+   "reasoning": "Bill 28 issues a narrow numeral substitution ('9,76' -> '10,26') that presupposes písm. f) (among b)-g)) keeps its existing wording; bill 64 wholly replaces písm. f) ('zní:') with a new percentage and exception clauses ('10,23 %', new sub-items 1-2). If bill 64 is enacted, bill 28's search for '9,76' inside písm. f) finds no target (the whole clause has been replaced); if bill 28 is enacted first, bill 64's full rewrite discards bill 28's updated numeral entirely. Same rewrite-vs-substring-substitute clash pattern confirmed repeatedly in batch-004 (e.g. 121-120, 104-232): confirmed-collision."
+  },
+  {
+   "pairId": "64-140",
+   "billA": 64,
+   "billB": 140,
+   "lawRef": "243/2000",
+   "batch": "batch-005",
+   "sourcePayload": "collision-report-v2-005.json",
+   "classification": "coordination-risk",
+   "sharedParagraph": "3 (billA odst.1 písm. f) rewrite, billB odstavce 2-6 rewrite referencing písm. b)-g))",
+   "evidence": {
+    "billAExcerpt": "'1. V § 3 odst. 1 písmeno f) zní: „f) podíl na 10,23 % z celostátního hrubého výnosu daně z příjmů právnických osob...“' -- replaces odst.1 písm. f) itself.",
+    "billBExcerpt": "'1. V § 3 odstavce 2 až 6 znějí: „(2) Kraj se na části celostátního hrubého výnosu daně podle odstavce 1 písm. b) až f) a výnosu záloh a daně podle odstavce 1 písm. g) podílí procentem, které se vypočte jako součet a) po[...]“' -- rewrites odst.2-6, which merely cross-reference odst.1 písm. b)-f), not amend them."
+   },
+   "reasoning": "BillA amends odst.1 písm. f)'s own text; billB rewrites odst.2-6 wholesale, which reference (but do not themselves alter) písm. b)-f). No literal same-text clash is shown, but billB's new formula in odst.2-6 depends on the shape/content of odst.1 písm. f) that billA is simultaneously changing -- a genuine sequencing/coordination dependency between two real, concurrent edits of the same provision cluster; classified coordination-risk."
+  },
+  {
+   "pairId": "64-141",
+   "billA": 64,
+   "billB": 141,
+   "lawRef": "243/2000",
+   "batch": "batch-005",
+   "sourcePayload": "collision-report-v2-005.json",
+   "classification": "coordination-risk",
+   "sharedParagraph": "3 odst. 1 písm. b)-g) (billB's substitution target string is the exact string billA's rewrite introduces)",
+   "evidence": {
+    "billAExcerpt": "'1. V § 3 odst. 1 písmeno f) zní: „f) podíl na 10,23 % z celostátního hrubého výnosu daně z příjmů právnických osob...“' -- introduces the literal figure '10,23' into písm. f).",
+    "billBExcerpt": "'1. V § 3 odst. 1 písm. b) až g) se číslo „10,23“ nahrazuje číslem „10,97“. 2. V § 3 odstavce 2 až 6 znějí: „(2) Kraj se na části celostátního hrubého výnosu daně podle odstavce 1 písm. b) až f)...“'"
+   },
+   "reasoning": "Bill 141's instruction searches for the literal numeral '10,23' across písm. b)-g) and replaces it with '10,97' -- but bill 64 is the bill that introduces '10,23' into písm. f) in the first place (per this pair's own excerptA). Bill 141's edit is therefore contingent on bill 64's rewrite already being in force for at least písm. f); if bill 141 were enacted first (or alone), its '10,23' search would have no target in písm. f). Not a literal contradiction -- a genuine enactment-order dependency, the same pattern as the batch-004 57-153 §53a/§53b anchor case: classified coordination-risk."
+  },
+  {
+   "pairId": "64-193",
+   "billA": 64,
+   "billB": 193,
+   "lawRef": "477/2001",
+   "batch": "batch-005",
+   "sourcePayload": "collision-report-v2-005.json",
+   "classification": "incidental",
+   "sharedParagraph": "17 (odst.3 vs odst.7) and 20 (odst.5 vs odst.4) -- different, non-adjacent odstavce",
+   "evidence": {
+    "billAExcerpt": "17: 'V § 17 odst. 3 písm. c) se slova „výroční zpráva, pokud existuje“ nahrazují slovy „zpráva vedení žadatele a zpráva auditora...“. 2. V § 17 odst. 3 písm. d) bodě 6 se za slovo „zejména“ vkládají slova...' 20: '3. V § 20 odst. 5 se slova „vlastní zdroje“ nahrazují slovy „části vlastního kapitálu“.'",
+    "billBExcerpt": "17: '3. V § 17 odst. 7 se na konci písmene f) tečka nahrazuje čárkou a vkládají se písmena g) – i)...' 20: '11. V § 20 odst. 4 zní: „Základní kapitál autorizované společnosti činí 2 000 000 Kč...“'"
+   },
+   "reasoning": "In both shared sections the two bills edit different, non-adjacent odstavce with no textual overlap and no visible cross-reference or renumbering dependency between them (§17 odst.3 vs odst.7; §20 odst.5 vs odst.4). No collision mechanism is demonstrated by the excerpts; classified conservatively as incidental (a same-§ coincidence rather than a genuine interaction)."
+  },
+  {
+   "pairId": "64-244",
+   "billA": 64,
+   "billB": 244,
+   "lawRef": "586/1992",
+   "batch": "batch-005",
+   "sourcePayload": "collision-report-v2-005.json",
+   "classification": "incidental",
+   "sharedParagraph": "35 (citation-only on billB side), 35c (different odstavce), 35d (insertion-point only on billA side)",
+   "evidence": {
+    "billAExcerpt": "35: '310. V § 35 odst. 1 úvodní část ustanovení zní: „Daň poplatníka vypočtená...“' 35c: '320. V § 35c odst. 7 se část věty za středníkem včetně středníku zrušuje.' 35d: '321. Za § 35d se vkládá označení a nadpis hlavy XI...' -- a new-chapter insertion point after §35d, not an edit to §35d's own text.",
+    "billBExcerpt": "35: '14. V § 38k odst. 5 se slova „a ke slevě na dani podle § 35 odst. 4 a § 35ba odst. 1 písm. b)“ nahrazují slovy „a ke slevě na dani podle § 35 odst. 4“.' -- '§ 35' here is a citation inside a §38k edit, not an amendment of §35 itself. 35c: '6. V § 35c odst. 1 se za větu první vkládají věty „Daňové zvýhodnění se u vyživovaného dítěte zvyšuje o 1 000 Kč...“' -- odst.1, not billA's odst.7. 35d: '8. V § 35d odst. 1 se slova „a), c) až e)“ nahrazují slovy „a) až d)“...' -- billA never edits §35d's own text, only inserts a new heading after it."
+   },
+   "reasoning": "§35: billB's only occurrence of '§ 35' is a cross-reference inside its §38k edit, not a genuine amendment to §35 -- citation artifact. §35c: billA edits odst.7, billB inserts new sentences into odst.1 -- non-overlapping subsections, no clash shown. §35d: billA only marks an insertion point 'Za § 35d' for a new chapter heading, never editing §35d's own text, while billB edits §35d odst.1/2 directly -- a positional, non-conflicting touch. None of the three sub-matches shows a genuine textual clash or dependency; classified incidental overall."
+  },
+  {
+   "pairId": "4-112",
+   "billA": 4,
+   "billB": 112,
+   "lawRef": "117/1995",
+   "batch": "batch-005",
+   "sourcePayload": "collision-report-v2-005.json",
+   "classification": "confirmed-collision",
+   "sharedParagraph": "30 odst. 1 (same-substring, different values), 31a (competing new-section insertion in the same slot)",
+   "evidence": {
+    "billAExcerpt": "30/31a: 'a „350 000 Kč“ nahrazuje částkou „420 000 Kč“. 2. Za § 31 se vkládá nový § 31a, který včetně nadpisu zní: „§ 31a Valorizace rodičovského příspěvku (1) Celková částka rodičovského příspěvku podle § 30 odst. 1“'",
+    "billBExcerpt": "30: 'u studia za trvání služebního poměru příslušníků ozbrojených sil.“. 2. V § 30 odst. 1 se slova „350 000 Kč” nahrazují slovy „370 000 Kč”. 3. Za § 31 se vkládá nový § 31a, který včetně nadpisu zní: „§ 31a“' 31a: '§ 31a zákona č. 117/1995 Sb., ve znění účinném ode dne nabytí účinnosti tohoto zákona, je první den kalendářního měsíce, od něhož se naposledy zvýšila celková částka rodičovského příspěvku.'"
+   },
+   "reasoning": "Two independent clashes on the same statute. First, both bills replace the identical '350 000 Kč' string in §30 odst.1 with different values -- bill 4 sets 420 000 Kč, bill 112 sets 370 000 Kč -- the same same-substring-different-value pattern confirmed elsewhere in this project. Second, and more strikingly, BOTH bills independently instruct 'Za § 31 se vkládá nový § 31a' (insert a new §31a after §31) with their own distinct §31a content (bill 4: a valorization/indexation mechanism; bill 112: an effective-date clause referencing 'naposledy zvýšila celková částka'), i.e. two bills competing for the exact same new-section slot -- the same duplicate-slot failure mode as the confirmed 85-88 §7 odst.2 písm. h) bod 12 case in batch-004. Confirmed-collision on both grounds."
+  },
+  {
+   "pairId": "68-221",
+   "billA": 68,
+   "billB": 221,
+   "lawRef": "159/2006",
+   "batch": "batch-005",
+   "sourcePayload": "collision-report-v2-005.json",
+   "classification": "coordination-risk",
+   "sharedParagraph": "12, 14a, 14b (concurrent letter- vs numeral-reference edits to the same clauses); 2 (citation-only on billB side)",
+   "evidence": {
+    "billAExcerpt": "14b: 'y „j) až l)“ a slova „odstavce 1“ se nahrazují slovy „odstavců 1 a 3“. 13. V § 14b odst. 1 písm. a) se text „o)“ nahrazuje textem „p)“...' -- a letter-shift cascade (o)->p), p)->q), q)->r)) driven by billA's own new písm. k) inserted into §2 odst.1. 2: '1. V § 2 odst. 1 se za písmeno j) vkládá nové písmeno k), které zní: „k) člen Národní rozpočtové rady,“. Dosavadní písmena k) až q) se označují jako písmena l) až r).'",
+    "billBExcerpt": "12: '10. V § 12 odst. 4 a 5, § 13 odst. 2, § 14 odst. 2 písm. a), c) a d), § 14 odst. 4, § 14a odst. 3 a v § 14b odst. 1 písm. a) se číslo „11“ nahrazuje textem „11a“.' -- a numeral-reference cascade ('11'->'11a') into the SAME clause, §14b odst. 1 písm. a). 2: 'vy „poskytování dotací“ a slova „ve které veřejný funkcionář uvedený v § 2 odst. 1 písm. c) nebo jím ovládaná osoba vlastní podíl...' -- '§ 2 odst. 1 písm. c)' here is a citation inside a beneficial-ownership definition edit, not a genuine §2 amendment by billB."
+   },
+   "reasoning": "Bill 68 and bill 221 pursue two largely independent reforms (bill 68: adding 'člen Národní rozpočtové rady' as a new covered official, cascading a letter-shift through §2/§5/§6/§14a/§14b; bill 221: adding a new §11a and a 'skutečný majitel' terminology change, cascading a numeral-reference update '11'->'11a' through §12/§13/§14/§14a/§14b) that concurrently land on the identical clause §14b odst.1 písm. a) with different, non-overlapping tokens (a letter 'o)' vs the numeral '11'). This is combinable in principle but a genuine concurrent-edit hazard on the same anchor clause; §2 is citation-only on bill 221's side. Classified coordination-risk."
+  },
+  {
+   "pairId": "90-221",
+   "billA": 90,
+   "billB": 221,
+   "lawRef": "159/2006",
+   "batch": "batch-005",
+   "sourcePayload": "collision-report-v2-005.json",
+   "classification": "coordination-risk",
+   "sharedParagraph": "12, 14a, 14b (same pattern as 68-221 -- bill 90's text mirrors bill 68's); 2 (citation-only on billB side)",
+   "evidence": {
+    "billAExcerpt": "14b: '13. V § 14b odst. 1 písm. a) se text „o)“ nahrazuje textem „p)“. 14. ... písm. b) se text „p)“ nahrazuje textem „q)“.' (letter-shift cascade, o->p->q->r across 14b's písmena) 2: '1. V § 2 odst. 1 se za písmeno j) vkládá nové písmeno k) ... Dosavadní písmena k) až q) se označují jako písmena l) až r).' -- same NRR-member-insertion reform as bill 68.",
+    "billBExcerpt": "12/14a/14b: '10. V § 12 odst. 4 a 5, § 13 odst. 2, § 14 odst. 2 písm. a), c) a d), § 14 odst. 4, § 14a odst. 3 a v § 14b odst. 1 písm. a) se číslo „11“ nahrazuje textem „11a“.' 2: citation-only match (§2 odst.1 písm.c referenced inside an unrelated conflict-of-interest definition, not a genuine edit to §2)."
+   },
+   "reasoning": "CORRECTED (batch-005 Opus audit flagged the original quote as a splice that did not match the source excerpt -- re-verified directly against collision-report-v2-005.json). Bill 90 runs the same letter-shift cascade as bill 68 (o->p->q->r across 14b odst.1 pismena, driven by the same section 2 odst.1 new-pismeno-k insertion). Bill 221 runs a numeral-reference cascade (\"11\"->\"11a\") that ALSO touches 14b odst.1 pism. a), but through a different textual instruction (substituting a NUMBER reference, not a LETTER). Both bills issue a real amending instruction on the exact same 14b odst.1 pism. a) via non-identical mechanisms -- a genuine co-touch requiring drafting coordination (whichever bill enacts second must account for the other's renumbering), but not a hard content conflict (neither proposes a different VALUE for the same slot). Coordination-risk classification stands, now on verified quotes.",
+   "correctionNote": "Original entry's billAExcerpt quoted \"o)->q)\" which does not appear anywhere in the source payload for this pair; the real 14b excerpt shows \"o)->p)\" as its own instruction (a DIFFERENT letter pair, from the correct cascade). Fixed after Opus paired-landing audit flagged it as ungrounded."
+  },
+  {
+   "pairId": "7-68",
+   "billA": 7,
+   "billB": 68,
+   "lawRef": "159/2006",
+   "batch": "batch-005",
+   "sourcePayload": "collision-report-v2-005.json",
+   "classification": "confirmed-collision",
+   "sharedParagraph": "5 odst. 2 (full rewrite vs targeted substitution of the same clause); 2 odst. 1 (competing letter insertions with cascading renumbering)",
+   "evidence": {
+    "billAExcerpt": "5: '15. V § 5 odstavec 2 zní: „(2) Veřejnému funkcionáři uvedenému v § 2 odst. 1 písm. q) a r), který je pro výkon funkce dlouhodobě uvolněn...“' -- a full 'zní:' replacement of odst.2, already assuming letters extend to q)/r). 2: '2. V § 2 odst. 1 se za písmeno n) vkládají nová písmena o) a p), která znějí:...' -- inserts new písmena o) and p) after the CURRENT písm. n).",
+    "billBExcerpt": "5: '3. V § 5 odst. 2 se slova „o) a p)“ nahrazují slovy „p) a q)“.' -- a narrow substitution assuming odst.2 currently reads 'o) a p)' literally. 2: '1. V § 2 odst. 1 se za písmeno j) vkládá nové písmeno k), které zní: „k) člen Národní rozpočtové rady,“. Dosavadní písmena k) až q) se označují jako písmena l) až r).' -- inserts a new písm. k) after písm. j) and shifts ALL subsequent letters k)-q) down to l)-r)."
+   },
+   "reasoning": "Two direct clashes. First, §5 odst.2: bill 7 replaces the entire odstavec wholesale ('zní:'), while bill 68 issues a narrow search-and-replace assuming the pre-existing text literally contains 'o) a p)' -- if bill 7 applies first, bill 68's search string is gone (superseded by the full rewrite); if bill 68 applies first, bill 7's full rewrite discards it anyway. Classic rewrite-vs-substring-substitute collision (same pattern as 121-120 §35c odst.1 in batch-004). Second, §2 odst.1: bill 7 inserts new písmena o) and p) 'za písmeno n)' assuming the CURRENT (unshifted) lettering, while bill 68 inserts a new písm. k) 'za písmeno j)' and explicitly renumbers all of k)-q) down to l)-r) -- if bill 68 is enacted first, the letter bill 7 calls 'n)' becomes 'o)', silently breaking bill 7's own anchor. Two independent, corroborating confirmed-collision mechanisms on the same statute: confirmed-collision."
+  },
+  {
+   "pairId": "7-90",
+   "billA": 7,
+   "billB": 90,
+   "lawRef": "159/2006",
+   "batch": "batch-005",
+   "sourcePayload": "collision-report-v2-005.json",
+   "classification": "confirmed-collision",
+   "sharedParagraph": "5 odst. 2 (identical evidence to 7-68 -- bill 90's excerpts mirror bill 68's)",
+   "evidence": {
+    "billAExcerpt": "5: '15. V § 5 odstavec 2 zní: „(2) Veřejnému funkcionáři uvedenému v § 2 odst. 1 písm. q) a r), který je pro výkon funkce dlouhodobě uvolněn...“' -- same full 'zní:' rewrite as in the 7-68 pair.",
+    "billBExcerpt": "5: '3. V § 5 odst. 2 se slova „o) a p)“ nahrazují slovy „p) a q)“.' -- textually identical to bill 68's §5 odst.2 instruction."
+   },
+   "reasoning": "Bill 90's excerpt for §5 odst.2 is textually identical to bill 68's in the 7-68 pair ('se slova „o) a p)“ nahrazují slovy „p) a q)“'), confirming bill 90 carries the same content as bill 68 for this clause. The same rewrite-vs-substring-substitute clash applies: bill 7's full 'zní:' replacement of §5 odst.2 (already written for letters q)/r)) is incompatible with bill 90's narrow substitution assuming the pre-existing 'o) a p)' text -- whichever enacts first defeats the other's instruction as drafted. Confirmed-collision, corroborating 7-68."
+  }
+ ],
+ "stats": {
+  "confirmed-collision": 5,
+  "coordination-risk": 7,
+  "incidental": 3,
+  "total": 15
+ }
+}

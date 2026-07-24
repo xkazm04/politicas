@@ -146,6 +146,26 @@ interface Row {
  * contributes nothing). Single-subject bills (no "Čl." numbering at all) fall back to the first
  * citation in the whole operative text — matching the title-regex baseline for that class.
  */
+/** batch-005 fix (D1, Opus audit): a footnote citation ("1) Zákon č. 354/2019 Sb., o …") reads
+ * as a plain LAW_CITATION match with nothing in the regex to tell it apart from a real amending
+ * citation. Proven false positives (tisk 219/222/243, all single-subject bills with NO "Čl."
+ * numbering — a brand-new standalone act, not a novela — where the naive "first citation in the
+ * whole operative text" picked up the first FOOTNOTE instead of the real "Změna zákona č. X"
+ * part further down): a Czech legal-text footnote is its own paragraph starting with a bare
+ * footnote-number marker "N)" (no legal citation context on that line before it). Skip any
+ * citation whose enclosing line starts that way. */
+function isFootnoteLine(operative: string, matchIndex: number): boolean {
+  const lineStart = operative.lastIndexOf("\n", matchIndex) + 1;
+  const line = operative.slice(lineStart, matchIndex);
+  // the footnote DEFINITION line reads "N) Zákon č. X/Y Sb., …" — a bare footnote-number marker
+  // at the start of the line, before any legal-citation content (not just "N)" alone, since the
+  // citation itself follows on the same line, e.g. "1) Zákon č. 354/2019 Sb., o soudních …").
+  // The closing paren is not reliable — some PDFs' pdftotext extraction drops the superscript
+  // paren entirely (observed: "3 § 3 zákona č. 240/2000 Sb." with no ")" at all) — so also match
+  // a bare leading number directly followed by "Zákon"/"zákona"/"§"/"Čl." with no paren.
+  return /^\s*\d{1,3}\)?\s+[A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ§]/u.test(line);
+}
+
 function extractRealAmendedLaws(operative: string): Set<string> {
   const artRe = /\n\s*Čl\.\s*([IVXLCDM]+|\d+)\.?\s*\n/g;
   const arts: { label: string; idx: number }[] = [];
@@ -155,17 +175,30 @@ function extractRealAmendedLaws(operative: string): Set<string> {
   const out = new Set<string>();
   if (arts.length === 0) {
     // single-subject bill, no article numbering — the whole operative block amends one statute;
-    // take the first citation only (matches the title-regex extractor's own convention).
-    const m = LAW_CITATION.exec(operative);
+    // take the first NON-FOOTNOTE citation (matches the title-regex extractor's own convention,
+    // batch-005 fix: skip footnote-marker lines, see isFootnoteLine).
     LAW_CITATION.lastIndex = 0;
-    if (m) out.add(`${Number(m[1])}/${m[2]}`);
+    let m: RegExpExecArray | null;
+    while ((m = LAW_CITATION.exec(operative))) {
+      if (isFootnoteLine(operative, m.index)) continue;
+      out.add(`${Number(m[1])}/${m[2]}`);
+      break;
+    }
+    LAW_CITATION.lastIndex = 0;
     return out;
   }
   for (let i = 0; i < arts.length; i++) {
     const start = arts[i].idx;
     const end = i + 1 < arts.length ? arts[i + 1].idx : Math.min(operative.length, start + 4000);
     const slice = operative.slice(start, Math.min(end, start + 800)); // citation is always near the article's top
-    const m = LAW_CITATION.exec(slice);
+    LAW_CITATION.lastIndex = 0;
+    let m: RegExpExecArray | null = null;
+    let mm: RegExpExecArray | null;
+    while ((mm = LAW_CITATION.exec(slice))) {
+      if (isFootnoteLine(slice, mm.index)) continue;
+      m = mm;
+      break;
+    }
     LAW_CITATION.lastIndex = 0;
     if (m) out.add(`${Number(m[1])}/${m[2]}`);
   }

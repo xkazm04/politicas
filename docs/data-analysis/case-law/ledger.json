@@ -26,18 +26,44 @@
    "diedInPartition": 38
   },
   "amendsRegenPrepared": {
-   "status": "prepared, NOT applied to live graph — awaiting orchestrator",
+   "status": "batch-005: RE-prepared (v2, post Opus-audit remediation) — still NOT applied to live graph, awaiting orchestrator + a fresh audit pass on the remediated payload",
    "edgesBefore": 150,
-   "edgesAfter": 282,
-   "missingLawNodeStatutes": 188,
-   "missingLawNodeCitations": 289,
-   "validatorResult": "PASS 282/282, 0 errors (post Opus-audit union-fix)"
+   "edgesAfter": 567,
+   "missingLawNodeStatutes": 0,
+   "missingLawNodeCitations": 0,
+   "excludedNonActRefs": 4,
+   "validatorResult": "PASS 567/567, 0 errors; deletion-diff PASS, 0 unallowlisted drops",
+   "priorBatch004State": "prepared 282 edges / 188 missing law nodes — superseded this batch, see batch-005.md"
   },
   "kolizeTiskuShipped": {
    "commit": "a44fe5f",
    "route": "/zakony/kolize",
    "clusters": 18,
    "nWayClusters": 4
+  },
+  "missingLawNodeIngest": {
+   "status": "batch-005 P1a — resolved (COPY only, not live)",
+   "statutesResolved": 187,
+   "statutesUnresolvable": 0,
+   "method": "e-Sbírka bulk act-master registry (002PravniAkt.json.gz), title+ELI verified byte-exact by Opus audit",
+   "lawNodesAfter": 288
+  },
+  "collisionPreCheckBatch005": {
+   "status": "post-regen topology pre-check, COPY only",
+   "candidateGroupsMultiBill": 145,
+   "rawCandidatePairs": 583,
+   "postPartitionCandidatePairs": 186,
+   "moneyLiteralFlagged": 60,
+   "closeRead": 15,
+   "closeReadConfirmed": 5,
+   "closeReadCoordinationRisk": 7,
+   "closeReadIncidental": 3,
+   "rankingSignalNote": "P52 moneyLiteral signal NOT statistically validated at n=15 (Opus audit: Fisher p=1.00 vs 76% partition-survivor baseline) — treat as a candidate heuristic, not a proven ranking, until a larger sample runs"
+  },
+  "batch005OpusAudit": {
+   "verdict": "NOT READY TO APPLY at first pass; targeted remediation applied same-batch (Sb. m. s. regex exclusion, footnote-citation extraction fix, act-type edge gate, deletion-diff, provenance/pass fields, stale self-description text) — re-audit recommended before live apply, full precision measurement across all 567 edges still outstanding",
+   "defectsFound": 11,
+   "defectsRemediatedThisBatch": 6
   }
  },
  "rows": [

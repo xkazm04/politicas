@@ -1,0 +1,4046 @@
+{
+ "generatedAt": "2026-07-24T22:48:55.800Z",
+ "method": "For each of the 188 statutes in batch-004's missingLawNodeCensus (real amendment citations with no law node), resolve against the e-Sbírka act-master bulk registry (002PravniAkt.json.gz, cached .data/esbirka/002.json.gz) by exact 'N/RRRR Sb.' citation match. A node is emitted ONLY for a registry hit; the title (esbirka_title) is the verbatim akt-název-vyhlášený string, the ELI (esbirka_eli) is the expanded akt-iri. No node is fabricated for a registry miss — those are recorded honestly in `unresolvable` with a reason, split into genuinely-out-of-scope (pre-1918, outside the registry's stated coverage) vs needs-audit (post-1918 ref not found — likely a citation-extraction artifact upstream, not a real gap in the law).",
+ "boundary": "PREPARE only — no .pglite read or write. Node payloads for the orchestrator's persist step; amends-regen.ts must be RE-RUN after these land so the now-resolvable citations become edges (that is Q-law-11's job, not this script's).",
+ "stats": {
+  "totalStatutes": 187,
+  "resolved": 187,
+  "unresolvableTotal": 0,
+  "unresolvablePre1918": 0,
+  "unresolvableNeedsAudit": 0,
+  "totalCitingBillCitationsResolved": 289,
+  "totalCitingBillCitationsUnresolved": 0
+ },
+ "resolved": [
+  {
+   "id": "law:sb:21-1992",
+   "kind": "law",
+   "label": "zákon č. 21/1992 Sb. — Zákon o bankách",
+   "props": {
+    "ref": "21/1992",
+    "esbirka_title": "Zákon o bankách",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1992/21"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 5,
+   "sampleBillCislo": [
+    7,
+    63,
+    64,
+    65,
+    143
+   ]
+  },
+  {
+   "id": "law:sb:424-1991",
+   "kind": "law",
+   "label": "zákon č. 424/1991 Sb. — Zákon o sdružování v politických stranách a v politických hnutích",
+   "props": {
+    "ref": "424/1991",
+    "esbirka_title": "Zákon o sdružování v politických stranách a v politických hnutích",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1991/424"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 4,
+   "sampleBillCislo": [
+    6,
+    7,
+    64,
+    77
+   ]
+  },
+  {
+   "id": "law:sb:256-2000",
+   "kind": "law",
+   "label": "zákon č. 256/2000 Sb. — Zákon o Státním zemědělském intervenčním fondu a o změně některých dalších zákonů (zákon o Státním zemědělském intervenč",
+   "props": {
+    "ref": "256/2000",
+    "esbirka_title": "Zákon o Státním zemědělském intervenčním fondu a o změně některých dalších zákonů (zákon o Státním zemědělském intervenčním fondu)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2000/256"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 4,
+   "sampleBillCislo": [
+    7,
+    64,
+    77,
+    221
+   ]
+  },
+  {
+   "id": "law:sb:12-2020",
+   "kind": "law",
+   "label": "zákon č. 12/2020 Sb. — Zákon o právu na digitální služby a o změně některých zákonů",
+   "props": {
+    "ref": "12/2020",
+    "esbirka_title": "Zákon o právu na digitální služby a o změně některých zákonů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2020/12"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 4,
+   "sampleBillCislo": [
+    24,
+    65,
+    77,
+    172
+   ]
+  },
+  {
+   "id": "law:sb:365-2000",
+   "kind": "law",
+   "label": "zákon č. 365/2000 Sb. — Zákon o informačních systémech veřejné správy a o změně některých dalších zákonů",
+   "props": {
+    "ref": "365/2000",
+    "esbirka_title": "Zákon o informačních systémech veřejné správy a o změně některých dalších zákonů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2000/365"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 4,
+   "sampleBillCislo": [
+    24,
+    64,
+    65,
+    77
+   ]
+  },
+  {
+   "id": "law:sb:111-1998",
+   "kind": "law",
+   "label": "zákon č. 111/1998 Sb. — Zákon o vysokých školách a o změně a doplnění dalších zákonů (zákon o vysokých školách)",
+   "props": {
+    "ref": "111/1998",
+    "esbirka_title": "Zákon o vysokých školách a o změně a doplnění dalších zákonů (zákon o vysokých školách)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1998/111"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 4,
+   "sampleBillCislo": [
+    64,
+    145,
+    215,
+    228
+   ]
+  },
+  {
+   "id": "law:sb:326-1999",
+   "kind": "law",
+   "label": "zákon č. 326/1999 Sb. — Zákon o pobytu cizinců na území České republiky a o změně některých zákonů",
+   "props": {
+    "ref": "326/1999",
+    "esbirka_title": "Zákon o pobytu cizinců na území České republiky a o změně některých zákonů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1999/326"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 4,
+   "sampleBillCislo": [
+    64,
+    106,
+    144,
+    213
+   ]
+  },
+  {
+   "id": "law:sb:49-1997",
+   "kind": "law",
+   "label": "zákon č. 49/1997 Sb. — Zákon o civilním letectví a o změně a doplnění zákona č. 455/1991 Sb., o živnostenském podnikání (živnostenský zákon), v",
+   "props": {
+    "ref": "49/1997",
+    "esbirka_title": "Zákon o civilním letectví a o změně a doplnění zákona č. 455/1991 Sb., o živnostenském podnikání (živnostenský zákon), ve znění pozdějších předpisů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1997/49"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 4,
+   "sampleBillCislo": [
+    64,
+    67,
+    77,
+    83
+   ]
+  },
+  {
+   "id": "law:sb:234-2014",
+   "kind": "law",
+   "label": "zákon č. 234/2014 Sb. — Zákon o státní službě",
+   "props": {
+    "ref": "234/2014",
+    "esbirka_title": "Zákon o státní službě",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2014/234"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 3,
+   "sampleBillCislo": [
+    7,
+    67,
+    76
+   ]
+  },
+  {
+   "id": "law:sb:280-2009",
+   "kind": "law",
+   "label": "zákon č. 280/2009 Sb. — Zákon daňový řád",
+   "props": {
+    "ref": "280/2009",
+    "esbirka_title": "Zákon daňový řád",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2009/280"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 3,
+   "sampleBillCislo": [
+    7,
+    64,
+    215
+   ]
+  },
+  {
+   "id": "law:sb:372-2011",
+   "kind": "law",
+   "label": "zákon č. 372/2011 Sb. — Zákon o zdravotních službách a podmínkách jejich poskytování (zákon o zdravotních službách)",
+   "props": {
+    "ref": "372/2011",
+    "esbirka_title": "Zákon o zdravotních službách a podmínkách jejich poskytování (zákon o zdravotních službách)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2011/372"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 3,
+   "sampleBillCislo": [
+    7,
+    14,
+    64
+   ]
+  },
+  {
+   "id": "law:sb:87-1995",
+   "kind": "law",
+   "label": "zákon č. 87/1995 Sb. — Zákon o spořitelních a úvěrních družstvech a některých opatřeních s tím souvisejících a o doplnění zákona České národní ",
+   "props": {
+    "ref": "87/1995",
+    "esbirka_title": "Zákon o spořitelních a úvěrních družstvech a některých opatřeních s tím souvisejících a o doplnění zákona České národní rady č. 586/1992 Sb., o daních z příjmů, ve znění pozdějších předpisů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1995/87"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 3,
+   "sampleBillCislo": [
+    7,
+    64,
+    143
+   ]
+  },
+  {
+   "id": "law:sb:15-1998",
+   "kind": "law",
+   "label": "zákon č. 15/1998 Sb. — Zákon o Komisi pro cenné papíry a o změně a doplnění dalších zákonů",
+   "props": {
+    "ref": "15/1998",
+    "esbirka_title": "Zákon o Komisi pro cenné papíry a o změně a doplnění dalších zákonů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1998/15"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 3,
+   "sampleBillCislo": [
+    13,
+    64,
+    143
+   ]
+  },
+  {
+   "id": "law:sb:127-2005",
+   "kind": "law",
+   "label": "zákon č. 127/2005 Sb. — Zákon o elektronických komunikacích a o změně některých souvisejících zákonů (zákon o elektronických komunikacích)",
+   "props": {
+    "ref": "127/2005",
+    "esbirka_title": "Zákon o elektronických komunikacích a o změně některých souvisejících zákonů (zákon o elektronických komunikacích)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2005/127"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 3,
+   "sampleBillCislo": [
+    56,
+    64,
+    77
+   ]
+  },
+  {
+   "id": "law:sb:114-1995",
+   "kind": "law",
+   "label": "zákon č. 114/1995 Sb. — Zákon o vnitrozemské plavbě",
+   "props": {
+    "ref": "114/1995",
+    "esbirka_title": "Zákon o vnitrozemské plavbě",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1995/114"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 3,
+   "sampleBillCislo": [
+    64,
+    67,
+    83
+   ]
+  },
+  {
+   "id": "law:sb:219-2000",
+   "kind": "law",
+   "label": "zákon č. 219/2000 Sb. — Zákon o majetku České republiky a jejím vystupování v právních vztazích",
+   "props": {
+    "ref": "219/2000",
+    "esbirka_title": "Zákon o majetku České republiky a jejím vystupování v právních vztazích",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2000/219"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 3,
+   "sampleBillCislo": [
+    64,
+    67,
+    102
+   ]
+  },
+  {
+   "id": "law:sb:250-2000",
+   "kind": "law",
+   "label": "zákon č. 250/2000 Sb. — Zákon o rozpočtových pravidlech územních rozpočtů",
+   "props": {
+    "ref": "250/2000",
+    "esbirka_title": "Zákon o rozpočtových pravidlech územních rozpočtů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2000/250"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 3,
+   "sampleBillCislo": [
+    64,
+    68,
+    90
+   ]
+  },
+  {
+   "id": "law:sb:258-2000",
+   "kind": "law",
+   "label": "zákon č. 258/2000 Sb. — Zákon o ochraně veřejného zdraví a o změně některých souvisejících zákonů",
+   "props": {
+    "ref": "258/2000",
+    "esbirka_title": "Zákon o ochraně veřejného zdraví a o změně některých souvisejících zákonů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2000/258"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 3,
+   "sampleBillCislo": [
+    64,
+    67,
+    77
+   ]
+  },
+  {
+   "id": "law:sb:266-1994",
+   "kind": "law",
+   "label": "zákon č. 266/1994 Sb. — Zákon o dráhách",
+   "props": {
+    "ref": "266/1994",
+    "esbirka_title": "Zákon o dráhách",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1994/266"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 3,
+   "sampleBillCislo": [
+    64,
+    67,
+    83
+   ]
+  },
+  {
+   "id": "law:sb:273-2008",
+   "kind": "law",
+   "label": "zákon č. 273/2008 Sb. — Zákon o Policii České republiky",
+   "props": {
+    "ref": "273/2008",
+    "esbirka_title": "Zákon o Policii České republiky",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2008/273"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 3,
+   "sampleBillCislo": [
+    64,
+    174,
+    207
+   ]
+  },
+  {
+   "id": "law:sb:277-2009",
+   "kind": "law",
+   "label": "zákon č. 277/2009 Sb. — Zákon o pojišťovnictví",
+   "props": {
+    "ref": "277/2009",
+    "esbirka_title": "Zákon o pojišťovnictví",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2009/277"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 3,
+   "sampleBillCislo": [
+    64,
+    65,
+    145
+   ]
+  },
+  {
+   "id": "law:sb:29-2000",
+   "kind": "law",
+   "label": "zákon č. 29/2000 Sb. — Zákon o poštovních službách a o změně některých zákonů (zákon o poštovních službách)",
+   "props": {
+    "ref": "29/2000",
+    "esbirka_title": "Zákon o poštovních službách a o změně některých zákonů (zákon o poštovních službách)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2000/29"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 3,
+   "sampleBillCislo": [
+    64,
+    65,
+    187
+   ]
+  },
+  {
+   "id": "law:sb:582-1991",
+   "kind": "law",
+   "label": "zákon č. 582/1991 Sb. — Zákon České národní rady o organizaci a provádění sociálního zabezpečení",
+   "props": {
+    "ref": "582/1991",
+    "esbirka_title": "Zákon České národní rady o organizaci a provádění sociálního zabezpečení",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1991/582"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 3,
+   "sampleBillCislo": [
+    64,
+    77,
+    125
+   ]
+  },
+  {
+   "id": "law:sb:168-2025",
+   "kind": "law",
+   "label": "zákon č. 168/2025 Sb. — Zákon o regulaci lobbování",
+   "props": {
+    "ref": "168/2025",
+    "esbirka_title": "Zákon o regulaci lobbování",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2025/168"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    7,
+    64
+   ]
+  },
+  {
+   "id": "law:sb:231-2001",
+   "kind": "law",
+   "label": "zákon č. 231/2001 Sb. — Zákon o provozování rozhlasového a televizního vysílání a o změně dalších zákonů",
+   "props": {
+    "ref": "231/2001",
+    "esbirka_title": "Zákon o provozování rozhlasového a televizního vysílání a o změně dalších zákonů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2001/231"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    7,
+    77
+   ]
+  },
+  {
+   "id": "law:sb:234-2025",
+   "kind": "law",
+   "label": "zákon č. 234/2025 Sb. — Zákon o volebních kampaních a o transparentnosti a cílení politické reklamy",
+   "props": {
+    "ref": "234/2025",
+    "esbirka_title": "Zákon o volebních kampaních a o transparentnosti a cílení politické reklamy",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2025/234"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    7,
+    64
+   ]
+  },
+  {
+   "id": "law:sb:300-2013",
+   "kind": "law",
+   "label": "zákon č. 300/2013 Sb. — Zákon o Vojenské policii a o změně některých zákonů (zákon o Vojenské policii)",
+   "props": {
+    "ref": "300/2013",
+    "esbirka_title": "Zákon o Vojenské policii a o změně některých zákonů (zákon o Vojenské policii)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2013/300"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    7,
+    207
+   ]
+  },
+  {
+   "id": "law:sb:84-2024",
+   "kind": "law",
+   "label": "zákon č. 84/2024 Sb. — Zákon o trhu s nevýkonnými úvěry",
+   "props": {
+    "ref": "84/2024",
+    "esbirka_title": "Zákon o trhu s nevýkonnými úvěry",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2024/84"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    13,
+    145
+   ]
+  },
+  {
+   "id": "law:sb:170-2018",
+   "kind": "law",
+   "label": "zákon č. 170/2018 Sb. — Zákon o distribuci pojištění a zajištění",
+   "props": {
+    "ref": "170/2018",
+    "esbirka_title": "Zákon o distribuci pojištění a zajištění",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2018/170"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    16,
+    145
+   ]
+  },
+  {
+   "id": "law:sb:31-2025",
+   "kind": "law",
+   "label": "zákon č. 31/2025 Sb. — Zákon o implementaci předpisů Evropské unie v oblasti digitalizace finančního trhu (zákon o digitalizaci finančního trhu",
+   "props": {
+    "ref": "31/2025",
+    "esbirka_title": "Zákon o implementaci předpisů Evropské unie v oblasti digitalizace finančního trhu (zákon o digitalizaci finančního trhu)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2025/31"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    16,
+    64
+   ]
+  },
+  {
+   "id": "law:sb:370-2017",
+   "kind": "law",
+   "label": "zákon č. 370/2017 Sb. — Zákon o platebním styku",
+   "props": {
+    "ref": "370/2017",
+    "esbirka_title": "Zákon o platebním styku",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2017/370"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    16,
+    64
+   ]
+  },
+  {
+   "id": "law:sb:6-1993",
+   "kind": "law",
+   "label": "zákon č. 6/1993 Sb. — Zákon České národní rady o České národní bance",
+   "props": {
+    "ref": "6/1993",
+    "esbirka_title": "Zákon České národní rady o České národní bance",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1993/6"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    16,
+    64
+   ]
+  },
+  {
+   "id": "law:sb:194-2010",
+   "kind": "law",
+   "label": "zákon č. 194/2010 Sb. — Zákon o veřejných službách v přepravě cestujících a o změně dalších zákonů",
+   "props": {
+    "ref": "194/2010",
+    "esbirka_title": "Zákon o veřejných službách v přepravě cestujících a o změně dalších zákonů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2010/194"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    24,
+    206
+   ]
+  },
+  {
+   "id": "law:sb:500-2004",
+   "kind": "law",
+   "label": "zákon č. 500/2004 Sb. — Zákon správní řád",
+   "props": {
+    "ref": "500/2004",
+    "esbirka_title": "Zákon správní řád",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2004/500"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    24,
+    215
+   ]
+  },
+  {
+   "id": "law:sb:269-1994",
+   "kind": "law",
+   "label": "zákon č. 269/1994 Sb. — Zákon o Rejstříku trestů",
+   "props": {
+    "ref": "269/1994",
+    "esbirka_title": "Zákon o Rejstříku trestů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1994/269"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    54,
+    111
+   ]
+  },
+  {
+   "id": "law:sb:200-1994",
+   "kind": "law",
+   "label": "zákon č. 200/1994 Sb. — Zákon o zeměměřictví a o změně a doplnění některých zákonů souvisejících s jeho zavedením",
+   "props": {
+    "ref": "200/1994",
+    "esbirka_title": "Zákon o zeměměřictví a o změně a doplnění některých zákonů souvisejících s jeho zavedením",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1994/200"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    56,
+    234
+   ]
+  },
+  {
+   "id": "law:sb:104-2000",
+   "kind": "law",
+   "label": "zákon č. 104/2000 Sb. — Zákon o Státním fondu dopravní infrastruktury a o změně zákona č. 171/1991 Sb., o působnosti orgánů České republiky ve v",
+   "props": {
+    "ref": "104/2000",
+    "esbirka_title": "Zákon o Státním fondu dopravní infrastruktury a o změně zákona č. 171/1991 Sb., o působnosti orgánů České republiky ve věcech převodů majetku státu na jiné osoby a o Fondu národního majetku České republiky, ve znění pozdějších předpisů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2000/104"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    77
+   ]
+  },
+  {
+   "id": "law:sb:111-1994",
+   "kind": "law",
+   "label": "zákon č. 111/1994 Sb. — Zákon o silniční dopravě",
+   "props": {
+    "ref": "111/1994",
+    "esbirka_title": "Zákon o silniční dopravě",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1994/111"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    83
+   ]
+  },
+  {
+   "id": "law:sb:111-2006",
+   "kind": "law",
+   "label": "zákon č. 111/2006 Sb. — Zákon o pomoci v hmotné nouzi",
+   "props": {
+    "ref": "111/2006",
+    "esbirka_title": "Zákon o pomoci v hmotné nouzi",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2006/111"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    103
+   ]
+  },
+  {
+   "id": "law:sb:115-2001",
+   "kind": "law",
+   "label": "zákon č. 115/2001 Sb. — Zákon o podpoře sportu",
+   "props": {
+    "ref": "115/2001",
+    "esbirka_title": "Zákon o podpoře sportu",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2001/115"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    77
+   ]
+  },
+  {
+   "id": "law:sb:139-2002",
+   "kind": "law",
+   "label": "zákon č. 139/2002 Sb. — Zákon o pozemkových úpravách a pozemkových úřadech a o změně zákona č. 229/1991 Sb., o úpravě vlastnických vztahů k půdě",
+   "props": {
+    "ref": "139/2002",
+    "esbirka_title": "Zákon o pozemkových úpravách a pozemkových úřadech a o změně zákona č. 229/1991 Sb., o úpravě vlastnických vztahů k půdě a jinému zemědělskému majetku, ve znění pozdějších předpisů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2002/139"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    67
+   ]
+  },
+  {
+   "id": "law:sb:166-1999",
+   "kind": "law",
+   "label": "zákon č. 166/1999 Sb. — Zákon o veterinární péči a o změně některých souvisejících zákonů (veterinární zákon)",
+   "props": {
+    "ref": "166/1999",
+    "esbirka_title": "Zákon o veterinární péči a o změně některých souvisejících zákonů (veterinární zákon)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1999/166"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    67
+   ]
+  },
+  {
+   "id": "law:sb:17-2012",
+   "kind": "law",
+   "label": "zákon č. 17/2012 Sb. — Zákon o Celní správě České republiky",
+   "props": {
+    "ref": "17/2012",
+    "esbirka_title": "Zákon o Celní správě České republiky",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2012/17"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    207
+   ]
+  },
+  {
+   "id": "law:sb:181-2007",
+   "kind": "law",
+   "label": "zákon č. 181/2007 Sb. — Zákon o Ústavu pro studium totalitních režimů a o Archivu bezpečnostních složek a o změně některých zákonů",
+   "props": {
+    "ref": "181/2007",
+    "esbirka_title": "Zákon o Ústavu pro studium totalitních režimů a o Archivu bezpečnostních složek a o změně některých zákonů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2007/181"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    77
+   ]
+  },
+  {
+   "id": "law:sb:182-2006",
+   "kind": "law",
+   "label": "zákon č. 182/2006 Sb. — Zákon o úpadku a způsobech jeho řešení (insolvenční zákon)",
+   "props": {
+    "ref": "182/2006",
+    "esbirka_title": "Zákon o úpadku a způsobech jeho řešení (insolvenční zákon)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2006/182"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    102
+   ]
+  },
+  {
+   "id": "law:sb:184-2006",
+   "kind": "law",
+   "label": "zákon č. 184/2006 Sb. — Zákon o odnětí nebo omezení vlastnického práva k pozemku nebo ke stavbě (zákon o vyvlastnění)",
+   "props": {
+    "ref": "184/2006",
+    "esbirka_title": "Zákon o odnětí nebo omezení vlastnického práva k pozemku nebo ke stavbě (zákon o vyvlastnění)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2006/184"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    67
+   ]
+  },
+  {
+   "id": "law:sb:190-2004",
+   "kind": "law",
+   "label": "zákon č. 190/2004 Sb. — Zákon o dluhopisech",
+   "props": {
+    "ref": "190/2004",
+    "esbirka_title": "Zákon o dluhopisech",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2004/190"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    143
+   ]
+  },
+  {
+   "id": "law:sb:248-2000",
+   "kind": "law",
+   "label": "zákon č. 248/2000 Sb. — Zákon o podpoře regionálního rozvoje",
+   "props": {
+    "ref": "248/2000",
+    "esbirka_title": "Zákon o podpoře regionálního rozvoje",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2000/248"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    77
+   ]
+  },
+  {
+   "id": "law:sb:279-2003",
+   "kind": "law",
+   "label": "zákon č. 279/2003 Sb. — Zákon o výkonu zajištění majetku a věcí v trestním řízení a o změně některých zákonů",
+   "props": {
+    "ref": "279/2003",
+    "esbirka_title": "Zákon o výkonu zajištění majetku a věcí v trestním řízení a o změně některých zákonů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2003/279"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    102
+   ]
+  },
+  {
+   "id": "law:sb:282-1991",
+   "kind": "law",
+   "label": "zákon č. 282/1991 Sb. — Zákon České národní rady o České inspekci životního prostředí a její působnosti v ochraně lesa",
+   "props": {
+    "ref": "282/1991",
+    "esbirka_title": "Zákon České národní rady o České inspekci životního prostředí a její působnosti v ochraně lesa",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1991/282"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    74
+   ]
+  },
+  {
+   "id": "law:sb:283-1993",
+   "kind": "law",
+   "label": "zákon č. 283/1993 Sb. — Zákon o státním zastupitelství",
+   "props": {
+    "ref": "283/1993",
+    "esbirka_title": "Zákon o státním zastupitelství",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1993/283"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    102
+   ]
+  },
+  {
+   "id": "law:sb:284-2023",
+   "kind": "law",
+   "label": "zákon č. 284/2023 Sb. — Zákon o preventivní restrukturalizaci",
+   "props": {
+    "ref": "284/2023",
+    "esbirka_title": "Zákon o preventivní restrukturalizaci",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2023/284"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    102
+   ]
+  },
+  {
+   "id": "law:sb:312-2006",
+   "kind": "law",
+   "label": "zákon č. 312/2006 Sb. — Zákon o insolvenčních správcích",
+   "props": {
+    "ref": "312/2006",
+    "esbirka_title": "Zákon o insolvenčních správcích",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2006/312"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    102
+   ]
+  },
+  {
+   "id": "law:sb:328-2025",
+   "kind": "law",
+   "label": "zákon č. 328/2025 Sb. — Zákon o výzkumu, vývoji, inovacích a transferu znalostí",
+   "props": {
+    "ref": "328/2025",
+    "esbirka_title": "Zákon o výzkumu, vývoji, inovacích a transferu znalostí",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2025/328"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    77
+   ]
+  },
+  {
+   "id": "law:sb:338-1992",
+   "kind": "law",
+   "label": "zákon č. 338/1992 Sb. — Zákon České národní rady  o dani z nemovitostí",
+   "props": {
+    "ref": "338/1992",
+    "esbirka_title": "Zákon České národní rady  o dani z nemovitostí",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1992/338"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    67
+   ]
+  },
+  {
+   "id": "law:sb:341-2011",
+   "kind": "law",
+   "label": "zákon č. 341/2011 Sb. — Zákon o Generální inspekci bezpečnostních sborů a o změně souvisejících zákonů",
+   "props": {
+    "ref": "341/2011",
+    "esbirka_title": "Zákon o Generální inspekci bezpečnostních sborů a o změně souvisejících zákonů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2011/341"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    207
+   ]
+  },
+  {
+   "id": "law:sb:388-1991",
+   "kind": "law",
+   "label": "zákon č. 388/1991 Sb. — Zákon České národní rady o Státním fondu životního prostředí České republiky",
+   "props": {
+    "ref": "388/1991",
+    "esbirka_title": "Zákon České národní rady o Státním fondu životního prostředí České republiky",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1991/388"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    77
+   ]
+  },
+  {
+   "id": "law:sb:412-2005",
+   "kind": "law",
+   "label": "zákon č. 412/2005 Sb. — Zákon o ochraně utajovaných informací a o bezpečnostní způsobilosti",
+   "props": {
+    "ref": "412/2005",
+    "esbirka_title": "Zákon o ochraně utajovaných informací a o bezpečnostní způsobilosti",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2005/412"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    215
+   ]
+  },
+  {
+   "id": "law:sb:44-1988",
+   "kind": "law",
+   "label": "zákon č. 44/1988 Sb. — Zákon o ochraně a využití nerostného bohatství (horní zákon)",
+   "props": {
+    "ref": "44/1988",
+    "esbirka_title": "Zákon o ochraně a využití nerostného bohatství (horní zákon)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1988/44"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    67
+   ]
+  },
+  {
+   "id": "law:sb:449-2001",
+   "kind": "law",
+   "label": "zákon č. 449/2001 Sb. — Zákon o myslivosti",
+   "props": {
+    "ref": "449/2001",
+    "esbirka_title": "Zákon o myslivosti",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2001/449"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    67
+   ]
+  },
+  {
+   "id": "law:sb:455-1991",
+   "kind": "law",
+   "label": "zákon č. 455/1991 Sb. — Zákon o živnostenském podnikání (živnostenský zákon)",
+   "props": {
+    "ref": "455/1991",
+    "esbirka_title": "Zákon o živnostenském podnikání (živnostenský zákon)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1991/455"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    106
+   ]
+  },
+  {
+   "id": "law:sb:503-2012",
+   "kind": "law",
+   "label": "zákon č. 503/2012 Sb. — Zákon o Státním pozemkovém úřadu a o změně některých souvisejících zákonů",
+   "props": {
+    "ref": "503/2012",
+    "esbirka_title": "Zákon o Státním pozemkovém úřadu a o změně některých souvisejících zákonů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2012/503"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    67
+   ]
+  },
+  {
+   "id": "law:sb:6-2002",
+   "kind": "law",
+   "label": "zákon č. 6/2002 Sb. — Zákon o soudech, soudcích, přísedících a státní správě soudů a o změně některých dalších zákonů (zákon o soudech a soudc",
+   "props": {
+    "ref": "6/2002",
+    "esbirka_title": "Zákon o soudech, soudcích, přísedících a státní správě soudů a o změně některých dalších zákonů (zákon o soudech a soudcích)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2002/6"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    77
+   ]
+  },
+  {
+   "id": "law:sb:72-2000",
+   "kind": "law",
+   "label": "zákon č. 72/2000 Sb. — Zákon o investičních pobídkách a o změně některých zákonů (zákon o investičních pobídkách)",
+   "props": {
+    "ref": "72/2000",
+    "esbirka_title": "Zákon o investičních pobídkách a o změně některých zákonů (zákon o investičních pobídkách)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2000/72"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    221
+   ]
+  },
+  {
+   "id": "law:sb:90-2012",
+   "kind": "law",
+   "label": "zákon č. 90/2012 Sb. — Zákon o obchodních společnostech a družstvech (zákon o obchodních korporacích)",
+   "props": {
+    "ref": "90/2012",
+    "esbirka_title": "Zákon o obchodních společnostech a družstvech (zákon o obchodních korporacích)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2012/90"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    64,
+    143
+   ]
+  },
+  {
+   "id": "law:sb:61-1988",
+   "kind": "law",
+   "label": "zákon č. 61/1988 Sb. — Zákon České národní rady o hornické činnosti, výbušninách a o státní báňské správě",
+   "props": {
+    "ref": "61/1988",
+    "esbirka_title": "Zákon České národní rady o hornické činnosti, výbušninách a o státní báňské správě",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1988/61"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    67,
+    113
+   ]
+  },
+  {
+   "id": "law:sb:177-2023",
+   "kind": "law",
+   "label": "zákon č. 177/2023 Sb. — Zákon o financování obrany České republiky a o změně zákona č. 218/2000 Sb., o rozpočtových pravidlech a o změně některý",
+   "props": {
+    "ref": "177/2023",
+    "esbirka_title": "Zákon o financování obrany České republiky a o změně zákona č. 218/2000 Sb., o rozpočtových pravidlech a o změně některých souvisejících zákonů (rozpočtová pravidla), ve znění pozdějších předpisů, (zákon o financování obrany)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2023/177"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    68,
+    90
+   ]
+  },
+  {
+   "id": "law:sb:273-1996",
+   "kind": "law",
+   "label": "zákon č. 273/1996 Sb. — Zákon o působnosti Úřadu pro ochranu hospodářské soutěže",
+   "props": {
+    "ref": "273/1996",
+    "esbirka_title": "Zákon o působnosti Úřadu pro ochranu hospodářské soutěže",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1996/273"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    77,
+    206
+   ]
+  },
+  {
+   "id": "law:sb:89-1995",
+   "kind": "law",
+   "label": "zákon č. 89/1995 Sb. — Zákon o státní statistické službě",
+   "props": {
+    "ref": "89/1995",
+    "esbirka_title": "Zákon o státní statistické službě",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1995/89"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    77,
+    106
+   ]
+  },
+  {
+   "id": "law:sb:359-1999",
+   "kind": "law",
+   "label": "zákon č. 359/1999 Sb. — Zákon o sociálně-právní ochraně dětí",
+   "props": {
+    "ref": "359/1999",
+    "esbirka_title": "Zákon o sociálně-právní ochraně dětí",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1999/359"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 2,
+   "sampleBillCislo": [
+    111,
+    207
+   ]
+  },
+  {
+   "id": "law:sb:171-2023",
+   "kind": "law",
+   "label": "zákon č. 171/2023 Sb. — Zákon o ochraně oznamovatelů",
+   "props": {
+    "ref": "171/2023",
+    "esbirka_title": "Zákon o ochraně oznamovatelů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2023/171"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    7
+   ]
+  },
+  {
+   "id": "law:sb:563-1991",
+   "kind": "law",
+   "label": "zákon č. 563/1991 Sb. — Zákon o účetnictví",
+   "props": {
+    "ref": "563/1991",
+    "esbirka_title": "Zákon o účetnictví",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1991/563"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    7
+   ]
+  },
+  {
+   "id": "law:sb:340-2006",
+   "kind": "law",
+   "label": "zákon č. 340/2006 Sb. — Zákon o činnosti institucí zaměstnaneckého penzijního pojištění z členských států Evropské unie na území České republiky",
+   "props": {
+    "ref": "340/2006",
+    "esbirka_title": "Zákon o činnosti institucí zaměstnaneckého penzijního pojištění z členských států Evropské unie na území České republiky a o změně zákona č. 48/1997 Sb., o veřejném zdravotním pojištění a o změně a doplnění některých souvisejících zákonů, ve znění pozdějších předpisů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2006/340"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    16
+   ]
+  },
+  {
+   "id": "law:sb:91-2022",
+   "kind": "law",
+   "label": "zákon č. 91/2022 Sb. — Zákon o panevropském osobním penzijním produktu a o změně souvisejících zákonů (zákon o panevropském osobním penzijním p",
+   "props": {
+    "ref": "91/2022",
+    "esbirka_title": "Zákon o panevropském osobním penzijním produktu a o změně souvisejících zákonů (zákon o panevropském osobním penzijním produktu)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2022/91"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    16
+   ]
+  },
+  {
+   "id": "law:sb:35-2021",
+   "kind": "law",
+   "label": "zákon č. 35/2021 Sb. — Zákon o Sbírce právních předpisů územních samosprávných celků a některých správních úřadů",
+   "props": {
+    "ref": "35/2021",
+    "esbirka_title": "Zákon o Sbírce právních předpisů územních samosprávných celků a některých správních úřadů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2021/35"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    24
+   ]
+  },
+  {
+   "id": "law:sb:553-1991",
+   "kind": "law",
+   "label": "zákon č. 553/1991 Sb. — Zákon České národní rady o obecní policii",
+   "props": {
+    "ref": "553/1991",
+    "esbirka_title": "Zákon České národní rady o obecní policii",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1991/553"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    24
+   ]
+  },
+  {
+   "id": "law:sb:553-2020",
+   "kind": "law",
+   "label": "zákon č. 553/2020 Sb. — Vyhláška o seznamu obecních úřadů a úřadů městských částí nebo městských obvodů, které jsou kontaktními místy veřejné sp",
+   "props": {
+    "ref": "553/2020",
+    "esbirka_title": "Vyhláška o seznamu obecních úřadů a úřadů městských částí nebo městských obvodů, které jsou kontaktními místy veřejné správy",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2020/553"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    24
+   ]
+  },
+  {
+   "id": "law:sb:349-2023",
+   "kind": "law",
+   "label": "zákon č. 349/2023 Sb. — Zákon, kterým se mění některé zákony v souvislosti s konsolidací veřejných rozpočtů",
+   "props": {
+    "ref": "349/2023",
+    "esbirka_title": "Zákon, kterým se mění některé zákony v souvislosti s konsolidací veřejných rozpočtů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2023/349"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    28
+   ]
+  },
+  {
+   "id": "law:sb:194-2017",
+   "kind": "law",
+   "label": "zákon č. 194/2017 Sb. — Zákon o opatřeních ke snížení nákladů na zavádění vysokorychlostních sítí elektronických komunikací a o změně některých ",
+   "props": {
+    "ref": "194/2017",
+    "esbirka_title": "Zákon o opatřeních ke snížení nákladů na zavádění vysokorychlostních sítí elektronických komunikací a o změně některých souvisejících zákonů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2017/194"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    55
+   ]
+  },
+  {
+   "id": "law:sb:87-2023",
+   "kind": "law",
+   "label": "zákon č. 87/2023 Sb. — Zákon o dozoru nad trhem s výrobky a o změně některých souvisejících zákonů (zákon o dozoru nad trhem s výrobky)",
+   "props": {
+    "ref": "87/2023",
+    "esbirka_title": "Zákon o dozoru nad trhem s výrobky a o změně některých souvisejících zákonů (zákon o dozoru nad trhem s výrobky)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2023/87"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    58
+   ]
+  },
+  {
+   "id": "law:sb:90-2016",
+   "kind": "law",
+   "label": "zákon č. 90/2016 Sb. — Zákon o posuzování shody stanovených výrobků při jejich dodávání na trh",
+   "props": {
+    "ref": "90/2016",
+    "esbirka_title": "Zákon o posuzování shody stanovených výrobků při jejich dodávání na trh",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2016/90"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    58
+   ]
+  },
+  {
+   "id": "law:sb:12-2002",
+   "kind": "law",
+   "label": "zákon č. 12/2002 Sb. — Zákon o státní pomoci při obnově území postiženého živelní nebo jinou pohromou a o změně zákona č. 363/1999 Sb., o pojiš",
+   "props": {
+    "ref": "12/2002",
+    "esbirka_title": "Zákon o státní pomoci při obnově území postiženého živelní nebo jinou pohromou a o změně zákona č. 363/1999 Sb., o pojišťovnictví a o změně některých souvisejících zákonů (zákon o pojišťovnictví), ve znění pozdějších předpisů, (zákon o státní pomoci při obnově území)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2002/12"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:120-2001",
+   "kind": "law",
+   "label": "zákon č. 120/2001 Sb. — Zákon o soudních exekutorech a exekuční činnosti (exekuční řád) a o změně dalších zákonů",
+   "props": {
+    "ref": "120/2001",
+    "esbirka_title": "Zákon o soudních exekutorech a exekuční činnosti (exekuční řád) a o změně dalších zákonů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2001/120"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:121-2000",
+   "kind": "law",
+   "label": "zákon č. 121/2000 Sb. — Zákon o právu autorském, o právech souvisejících s právem autorským a o změně některých zákonů (autorský zákon)",
+   "props": {
+    "ref": "121/2000",
+    "esbirka_title": "Zákon o právu autorském, o právech souvisejících s právem autorským a o změně některých zákonů (autorský zákon)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2000/121"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:125-2008",
+   "kind": "law",
+   "label": "zákon č. 125/2008 Sb. — Zákon o přeměnách obchodních společností a družstev",
+   "props": {
+    "ref": "125/2008",
+    "esbirka_title": "Zákon o přeměnách obchodních společností a družstev",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2008/125"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:146-2002",
+   "kind": "law",
+   "label": "zákon č. 146/2002 Sb. — Zákon o Státní zemědělské a potravinářské inspekci a o změně některých souvisejících zákonů",
+   "props": {
+    "ref": "146/2002",
+    "esbirka_title": "Zákon o Státní zemědělské a potravinářské inspekci a o změně některých souvisejících zákonů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2002/146"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:147-2002",
+   "kind": "law",
+   "label": "zákon č. 147/2002 Sb. — Zákon o Ústředním kontrolním a zkušebním ústavu zemědělském a o změně některých souvisejících zákonů (zákon o Ústředním ",
+   "props": {
+    "ref": "147/2002",
+    "esbirka_title": "Zákon o Ústředním kontrolním a zkušebním ústavu zemědělském a o změně některých souvisejících zákonů (zákon o Ústředním kontrolním a zkušebním ústavu zemědělském)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2002/147"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:151-1997",
+   "kind": "law",
+   "label": "zákon č. 151/1997 Sb. — Zákon o oceňování majetku a o změně některých zákonů (zákon o oceňování majetku)",
+   "props": {
+    "ref": "151/1997",
+    "esbirka_title": "Zákon o oceňování majetku a o změně některých zákonů (zákon o oceňování majetku)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1997/151"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:151-2010",
+   "kind": "law",
+   "label": "zákon č. 151/2010 Sb. — Zákon o zahraniční rozvojové spolupráci a humanitární pomoci poskytované do zahraničí a o změně souvisejících zákonů",
+   "props": {
+    "ref": "151/2010",
+    "esbirka_title": "Zákon o zahraniční rozvojové spolupráci a humanitární pomoci poskytované do zahraničí a o změně souvisejících zákonů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2010/151"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:153-1994",
+   "kind": "law",
+   "label": "zákon č. 153/1994 Sb. — Zákon o zpravodajských službách České republiky",
+   "props": {
+    "ref": "153/1994",
+    "esbirka_title": "Zákon o zpravodajských službách České republiky",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1994/153"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:186-2016",
+   "kind": "law",
+   "label": "zákon č. 186/2016 Sb. — Zákon o hazardních hrách",
+   "props": {
+    "ref": "186/2016",
+    "esbirka_title": "Zákon o hazardních hrách",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2016/186"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:187-2016",
+   "kind": "law",
+   "label": "zákon č. 187/2016 Sb. — Zákon o dani z hazardních her",
+   "props": {
+    "ref": "187/2016",
+    "esbirka_title": "Zákon o dani z hazardních her",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2016/187"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:198-2002",
+   "kind": "law",
+   "label": "zákon č. 198/2002 Sb. — Zákon o dobrovolnické službě a o změně některých zákonů (zákon o dobrovolnické službě)",
+   "props": {
+    "ref": "198/2002",
+    "esbirka_title": "Zákon o dobrovolnické službě a o změně některých zákonů (zákon o dobrovolnické službě)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2002/198"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:20-1993",
+   "kind": "law",
+   "label": "zákon č. 20/1993 Sb. — Zákon České národní rady o zabezpečení výkonu státní správy v oblasti technické normalizace, metrologie a státního zkuše",
+   "props": {
+    "ref": "20/1993",
+    "esbirka_title": "Zákon České národní rady o zabezpečení výkonu státní správy v oblasti technické normalizace, metrologie a státního zkušebnictví",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1993/20"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:201-2002",
+   "kind": "law",
+   "label": "zákon č. 201/2002 Sb. — Zákon o Úřadu pro zastupování státu ve věcech majetkových",
+   "props": {
+    "ref": "201/2002",
+    "esbirka_title": "Zákon o Úřadu pro zastupování státu ve věcech majetkových",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2002/201"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:211-2000",
+   "kind": "law",
+   "label": "zákon č. 211/2000 Sb. — Zákon o Státním fondu podpory investic",
+   "props": {
+    "ref": "211/2000",
+    "esbirka_title": "Zákon o Státním fondu podpory investic",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2000/211"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:222-1999",
+   "kind": "law",
+   "label": "zákon č. 222/1999 Sb. — Zákon o zajišťování obrany České republiky",
+   "props": {
+    "ref": "222/1999",
+    "esbirka_title": "Zákon o zajišťování obrany České republiky",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1999/222"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:229-1992",
+   "kind": "law",
+   "label": "zákon č. 229/1992 Sb. — Zákon o komoditních burzách",
+   "props": {
+    "ref": "229/1992",
+    "esbirka_title": "Zákon o komoditních burzách",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1992/229"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:229-2002",
+   "kind": "law",
+   "label": "zákon č. 229/2002 Sb. — Zákon o finančním arbitrovi",
+   "props": {
+    "ref": "229/2002",
+    "esbirka_title": "Zákon o finančním arbitrovi",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2002/229"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:239-1992",
+   "kind": "law",
+   "label": "zákon č. 239/1992 Sb. — Zákon České národní rady o Státním fondu kultury České republiky",
+   "props": {
+    "ref": "239/1992",
+    "esbirka_title": "Zákon České národní rady o Státním fondu kultury České republiky",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1992/239"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:243-2022",
+   "kind": "law",
+   "label": "zákon č. 243/2022 Sb. — Zákon o omezení dopadu vybraných plastových výrobků na životní prostředí",
+   "props": {
+    "ref": "243/2022",
+    "esbirka_title": "Zákon o omezení dopadu vybraných plastových výrobků na životní prostředí",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2022/243"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:251-2005",
+   "kind": "law",
+   "label": "zákon č. 251/2005 Sb. — Zákon o inspekci práce",
+   "props": {
+    "ref": "251/2005",
+    "esbirka_title": "Zákon o inspekci práce",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2005/251"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:253-2008",
+   "kind": "law",
+   "label": "zákon č. 253/2008 Sb. — Zákon o některých opatřeních proti legalizaci výnosů z trestné činnosti a financování terorismu",
+   "props": {
+    "ref": "253/2008",
+    "esbirka_title": "Zákon o některých opatřeních proti legalizaci výnosů z trestné činnosti a financování terorismu",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2008/253"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:257-2000",
+   "kind": "law",
+   "label": "zákon č. 257/2000 Sb. — Zákon o Probační a mediační službě a o změně zákona č. 2/1969 Sb., o zřízení ministerstev a jiných ústředních orgánů stá",
+   "props": {
+    "ref": "257/2000",
+    "esbirka_title": "Zákon o Probační a mediační službě a o změně zákona č. 2/1969 Sb., o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, ve znění pozdějších předpisů, zákona č. 65/1965 Sb., zákoník práce, ve znění pozdějších předpisů a zákona č. 359/1999 Sb., o sociálně-právní ochraně dětí (zákon o Probační a mediační službě)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2000/257"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:263-2024",
+   "kind": "law",
+   "label": "zákon č. 263/2024 Sb. — Zákon o veřejných kulturních institucích a o změně souvisejících zákonů (zákon o veřejných kulturních institucích)",
+   "props": {
+    "ref": "263/2024",
+    "esbirka_title": "Zákon o veřejných kulturních institucích a o změně souvisejících zákonů (zákon o veřejných kulturních institucích)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2024/263"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:280-1992",
+   "kind": "law",
+   "label": "zákon č. 280/1992 Sb. — Zákon České národní rady o resortních, oborových, podnikových a dalších zdravotních pojišťovnách",
+   "props": {
+    "ref": "280/1992",
+    "esbirka_title": "Zákon České národní rady o resortních, oborových, podnikových a dalších zdravotních pojišťovnách",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1992/280"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:3-2002",
+   "kind": "law",
+   "label": "zákon č. 3/2002 Sb. — Zákon o svobodě náboženského vyznání a postavení církví a náboženských společností a o změně některých zákonů (zákon o c",
+   "props": {
+    "ref": "3/2002",
+    "esbirka_title": "Zákon o svobodě náboženského vyznání a postavení církví a náboženských společností a o změně některých zákonů (zákon o církvích a náboženských společnostech)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2002/3"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:30-2024",
+   "kind": "law",
+   "label": "zákon č. 30/2024 Sb. — Zákon o pojištění odpovědnosti z provozu vozidla",
+   "props": {
+    "ref": "30/2024",
+    "esbirka_title": "Zákon o pojištění odpovědnosti z provozu vozidla",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2024/30"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:304-2013",
+   "kind": "law",
+   "label": "zákon č. 304/2013 Sb. — Zákon o veřejných rejstřících právnických a fyzických osob",
+   "props": {
+    "ref": "304/2013",
+    "esbirka_title": "Zákon o veřejných rejstřících právnických a fyzických osob",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2013/304"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:306-1999",
+   "kind": "law",
+   "label": "zákon č. 306/1999 Sb. — Zákon o poskytování dotací soukromým školám, předškolním a školským zařízením",
+   "props": {
+    "ref": "306/1999",
+    "esbirka_title": "Zákon o poskytování dotací soukromým školám, předškolním a školským zařízením",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1999/306"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:307-2006",
+   "kind": "law",
+   "label": "zákon č. 307/2006 Sb. — Zákon o evropské družstevní společnosti",
+   "props": {
+    "ref": "307/2006",
+    "esbirka_title": "Zákon o evropské družstevní společnosti",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2006/307"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:317-2025",
+   "kind": "law",
+   "label": "zákon č. 317/2025 Sb. — Zákon, kterým se mění některé zákony v oblasti finančního trhu v souvislosti se zřízením a fungováním jednotného evropsk",
+   "props": {
+    "ref": "317/2025",
+    "esbirka_title": "Zákon, kterým se mění některé zákony v oblasti finančního trhu v souvislosti se zřízením a fungováním jednotného evropského přístupového místa",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2025/317"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:321-2004",
+   "kind": "law",
+   "label": "zákon č. 321/2004 Sb. — Zákon o vinohradnictví a vinařství a o změně některých souvisejících zákonů (zákon o vinohradnictví a vinařství)",
+   "props": {
+    "ref": "321/2004",
+    "esbirka_title": "Zákon o vinohradnictví a vinařství a o změně některých souvisejících zákonů (zákon o vinohradnictví a vinařství)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2004/321"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:335-2020",
+   "kind": "law",
+   "label": "zákon č. 335/2020 Sb. — Zákon o mezinárodní spolupráci při řešení daňových sporů v Evropské unii",
+   "props": {
+    "ref": "335/2020",
+    "esbirka_title": "Zákon o mezinárodní spolupráci při řešení daňových sporů v Evropské unii",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2020/335"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:341-2005",
+   "kind": "law",
+   "label": "zákon č. 341/2005 Sb. — Zákon o veřejných výzkumných institucích",
+   "props": {
+    "ref": "341/2005",
+    "esbirka_title": "Zákon o veřejných výzkumných institucích",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2005/341"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:359-1992",
+   "kind": "law",
+   "label": "zákon č. 359/1992 Sb. — Zákon České národní rady o zeměměřických a katastrálních orgánech",
+   "props": {
+    "ref": "359/1992",
+    "esbirka_title": "Zákon České národní rady o zeměměřických a katastrálních orgánech",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1992/359"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:360-2004",
+   "kind": "law",
+   "label": "zákon č. 360/2004 Sb. — Zákon o Evropském hospodářském zájmovém sdružení (EHZS) a o změně zákona č. 513/1991 Sb., obchodní zákoník, ve znění poz",
+   "props": {
+    "ref": "360/2004",
+    "esbirka_title": "Zákon o Evropském hospodářském zájmovém sdružení (EHZS) a o změně zákona č. 513/1991 Sb., obchodní zákoník, ve znění pozdějších předpisů, a zákona č. 586/1992 Sb., o daních z příjmů, ve znění pozdějších předpisů, (zákon o evropském hospodářském zájmovém sdružení)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2004/360"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:377-2005",
+   "kind": "law",
+   "label": "zákon č. 377/2005 Sb. — Zákon o doplňkovém dozoru nad bankami, spořitelními a úvěrními družstvy, institucemi elektronických peněz, pojišťovnami ",
+   "props": {
+    "ref": "377/2005",
+    "esbirka_title": "Zákon o doplňkovém dozoru nad bankami, spořitelními a úvěrními družstvy, institucemi elektronických peněz, pojišťovnami a obchodníky s cennými papíry ve finančních konglomerátech a o změně některých dalších zákonů (zákon o finančních konglomerátech)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2005/377"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:378-2005",
+   "kind": "law",
+   "label": "zákon č. 378/2005 Sb. — Zákon o podpoře výstavby družstevních bytů ze Státního fondu rozvoje bydlení, a o změně zákona č. 190/2004 Sb., o dluhop",
+   "props": {
+    "ref": "378/2005",
+    "esbirka_title": "Zákon o podpoře výstavby družstevních bytů ze Státního fondu rozvoje bydlení, a o změně zákona č. 190/2004 Sb., o dluhopisech, (zákon o podpoře výstavby družstevních bytů)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2005/378"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:395-2009",
+   "kind": "law",
+   "label": "zákon č. 395/2009 Sb. — Zákon o významné tržní síle a nekalých obchodních praktikách při prodeji zemědělských a potravinářských produktů",
+   "props": {
+    "ref": "395/2009",
+    "esbirka_title": "Zákon o významné tržní síle a nekalých obchodních praktikách při prodeji zemědělských a potravinářských produktů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2009/395"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:406-2000",
+   "kind": "law",
+   "label": "zákon č. 406/2000 Sb. — Zákon o hospodaření energií",
+   "props": {
+    "ref": "406/2000",
+    "esbirka_title": "Zákon o hospodaření energií",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2000/406"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:417-2004",
+   "kind": "law",
+   "label": "zákon č. 417/2004 Sb. — Zákon o patentových zástupcích a o změně zákona o opatřeních na ochranu průmyslového vlastnictví",
+   "props": {
+    "ref": "417/2004",
+    "esbirka_title": "Zákon o patentových zástupcích a o změně zákona o opatřeních na ochranu průmyslového vlastnictví",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2004/417"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:42-1992",
+   "kind": "law",
+   "label": "zákon č. 42/1992 Sb. — Zákon o úpravě majetkových vztahů a vypořádání majetkových nároků v družstvech",
+   "props": {
+    "ref": "42/1992",
+    "esbirka_title": "Zákon o úpravě majetkových vztahů a vypořádání majetkových nároků v družstvech",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1992/42"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:420-2004",
+   "kind": "law",
+   "label": "zákon č. 420/2004 Sb. — Zákon o přezkoumávání hospodaření územních samosprávných celků a dobrovolných svazků obcí",
+   "props": {
+    "ref": "420/2004",
+    "esbirka_title": "Zákon o přezkoumávání hospodaření územních samosprávných celků a dobrovolných svazků obcí",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2004/420"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:435-2004",
+   "kind": "law",
+   "label": "zákon č. 435/2004 Sb. — Zákon o zaměstnanosti",
+   "props": {
+    "ref": "435/2004",
+    "esbirka_title": "Zákon o zaměstnanosti",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2004/435"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:456-2011",
+   "kind": "law",
+   "label": "zákon č. 456/2011 Sb. — Zákon o Finanční správě České republiky",
+   "props": {
+    "ref": "456/2011",
+    "esbirka_title": "Zákon o Finanční správě České republiky",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2011/456"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:496-2012",
+   "kind": "law",
+   "label": "zákon č. 496/2012 Sb. — Zákon o audiovizuálních dílech a podpoře kinematografie a o změně některých zákonů (zákon o audiovizi)",
+   "props": {
+    "ref": "496/2012",
+    "esbirka_title": "Zákon o audiovizuálních dílech a podpoře kinematografie a o změně některých zákonů (zákon o audiovizi)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2012/496"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:551-1991",
+   "kind": "law",
+   "label": "zákon č. 551/1991 Sb. — Zákon České národní rady o Všeobecné zdravotní pojišťovně České republiky",
+   "props": {
+    "ref": "551/1991",
+    "esbirka_title": "Zákon České národní rady o Všeobecné zdravotní pojišťovně České republiky",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1991/551"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:555-1992",
+   "kind": "law",
+   "label": "zákon č. 555/1992 Sb. — Zákon České národní rady o Vězeňské službě a justiční stráži České republiky",
+   "props": {
+    "ref": "555/1992",
+    "esbirka_title": "Zákon České národní rady o Vězeňské službě a justiční stráži České republiky",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1992/555"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:58-1995",
+   "kind": "law",
+   "label": "zákon č. 58/1995 Sb. — Zákon o pojišťování a financování vývozu se státní podporou a o doplnění zákona č. 166/1993 Sb., o Nejvyšším kontrolním ",
+   "props": {
+    "ref": "58/1995",
+    "esbirka_title": "Zákon o pojišťování a financování vývozu se státní podporou a o doplnění zákona č. 166/1993 Sb., o Nejvyšším kontrolním úřadu, ve znění pozdějších předpisů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1995/58"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:593-1992",
+   "kind": "law",
+   "label": "zákon č. 593/1992 Sb. — Zákon České národní rady o rezervách pro zjištění základu daně z příjmů",
+   "props": {
+    "ref": "593/1992",
+    "esbirka_title": "Zákon České národní rady o rezervách pro zjištění základu daně z příjmů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1992/593"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:627-2004",
+   "kind": "law",
+   "label": "zákon č. 627/2004 Sb. — Zákon o evropské společnosti",
+   "props": {
+    "ref": "627/2004",
+    "esbirka_title": "Zákon o evropské společnosti",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2004/627"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:64-1986",
+   "kind": "law",
+   "label": "zákon č. 64/1986 Sb. — Zákon České národní rady o České obchodní inspekci",
+   "props": {
+    "ref": "64/1986",
+    "esbirka_title": "Zákon České národní rady o České obchodní inspekci",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1986/64"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:69-2006",
+   "kind": "law",
+   "label": "zákon č. 69/2006 Sb. — Zákon o provádění mezinárodních sankcí",
+   "props": {
+    "ref": "69/2006",
+    "esbirka_title": "Zákon o provádění mezinárodních sankcí",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2006/69"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:73-2011",
+   "kind": "law",
+   "label": "zákon č. 73/2011 Sb. — Zákon o Úřadu práce České republiky a o změně souvisejících zákonů",
+   "props": {
+    "ref": "73/2011",
+    "esbirka_title": "Zákon o Úřadu práce České republiky a o změně souvisejících zákonů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2011/73"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:77-1997",
+   "kind": "law",
+   "label": "zákon č. 77/1997 Sb. — Zákon o státním podniku",
+   "props": {
+    "ref": "77/1997",
+    "esbirka_title": "Zákon o státním podniku",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1997/77"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:77-2002",
+   "kind": "law",
+   "label": "zákon č. 77/2002 Sb. — Zákon o akciové společnosti České dráhy, státní organizaci Správa železniční dopravní cesty a o změně zákona č. 266/1994",
+   "props": {
+    "ref": "77/2002",
+    "esbirka_title": "Zákon o akciové společnosti České dráhy, státní organizaci Správa železniční dopravní cesty a o změně zákona č. 266/1994 Sb., o dráhách, ve znění pozdějších předpisů, a zákona č. 77/1997 Sb., o státním podniku, ve znění pozdějších předpisů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2002/77"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:92-1991",
+   "kind": "law",
+   "label": "zákon č. 92/1991 Sb. — Zákon o podmínkách převodu majetku státu na jiné osoby",
+   "props": {
+    "ref": "92/1991",
+    "esbirka_title": "Zákon o podmínkách převodu majetku státu na jiné osoby",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1991/92"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:93-2009",
+   "kind": "law",
+   "label": "zákon č. 93/2009 Sb. — Zákon o auditorech a o změně některých zákonů (zákon o auditorech)",
+   "props": {
+    "ref": "93/2009",
+    "esbirka_title": "Zákon o auditorech a o změně některých zákonů (zákon o auditorech)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2009/93"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    64
+   ]
+  },
+  {
+   "id": "law:sb:106-1999",
+   "kind": "law",
+   "label": "zákon č. 106/1999 Sb. — Zákon o svobodném přístupu k informacím",
+   "props": {
+    "ref": "106/1999",
+    "esbirka_title": "Zákon o svobodném přístupu k informacím",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1999/106"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    65
+   ]
+  },
+  {
+   "id": "law:sb:133-1985",
+   "kind": "law",
+   "label": "zákon č. 133/1985 Sb. — Zákon České národní rady o požární ochraně",
+   "props": {
+    "ref": "133/1985",
+    "esbirka_title": "Zákon České národní rady o požární ochraně",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1985/133"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    67
+   ]
+  },
+  {
+   "id": "law:sb:148-2023",
+   "kind": "law",
+   "label": "zákon č. 148/2023 Sb. — Zákon o jednotném environmentálním stanovisku",
+   "props": {
+    "ref": "148/2023",
+    "esbirka_title": "Zákon o jednotném environmentálním stanovisku",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2023/148"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    67
+   ]
+  },
+  {
+   "id": "law:sb:197-2022",
+   "kind": "law",
+   "label": "zákon č. 197/2022 Sb. — Zákon o zvláštních postupech v oblasti územního plánování a stavebního řádu v souvislosti s ozbrojeným konfliktem na úze",
+   "props": {
+    "ref": "197/2022",
+    "esbirka_title": "Zákon o zvláštních postupech v oblasti územního plánování a stavebního řádu v souvislosti s ozbrojeným konfliktem na území Ukrajiny vyvolaným invazí vojsk Ruské federace",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2022/197"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    67
+   ]
+  },
+  {
+   "id": "law:sb:20-1987",
+   "kind": "law",
+   "label": "zákon č. 20/1987 Sb. — Zákon České národní rady o státní památkové péči",
+   "props": {
+    "ref": "20/1987",
+    "esbirka_title": "Zákon České národní rady o státní památkové péči",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1987/20"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    67
+   ]
+  },
+  {
+   "id": "law:sb:201-2012",
+   "kind": "law",
+   "label": "zákon č. 201/2012 Sb. — Zákon o ochraně ovzduší",
+   "props": {
+    "ref": "201/2012",
+    "esbirka_title": "Zákon o ochraně ovzduší",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2012/201"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    67
+   ]
+  },
+  {
+   "id": "law:sb:224-2015",
+   "kind": "law",
+   "label": "zákon č. 224/2015 Sb. — Zákon o prevenci závažných havárií způsobených vybranými nebezpečnými chemickými látkami nebo chemickými směsmi a o změn",
+   "props": {
+    "ref": "224/2015",
+    "esbirka_title": "Zákon o prevenci závažných havárií způsobených vybranými nebezpečnými chemickými látkami nebo chemickými směsmi a o změně zákona č. 634/2004 Sb., o správních poplatcích, ve znění pozdějších předpisů, (zákon o prevenci závažných havárií)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2015/224"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    67
+   ]
+  },
+  {
+   "id": "law:sb:239-2000",
+   "kind": "law",
+   "label": "zákon č. 239/2000 Sb. — Zákon o integrovaném záchranném systému a o změně některých zákonů",
+   "props": {
+    "ref": "239/2000",
+    "esbirka_title": "Zákon o integrovaném záchranném systému a o změně některých zákonů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2000/239"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    67
+   ]
+  },
+  {
+   "id": "law:sb:249-2025",
+   "kind": "law",
+   "label": "zákon č. 249/2025 Sb. — Zákon o urychlení využívání některých obnovitelných zdrojů energie a o změně souvisejících zákonů (zákon o urychlení vyu",
+   "props": {
+    "ref": "249/2025",
+    "esbirka_title": "Zákon o urychlení využívání některých obnovitelných zdrojů energie a o změně souvisejících zákonů (zákon o urychlení využívání obnovitelných zdrojů energie)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2025/249"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    67
+   ]
+  },
+  {
+   "id": "law:sb:256-2001",
+   "kind": "law",
+   "label": "zákon č. 256/2001 Sb. — Zákon o pohřebnictví a o změně některých zákonů",
+   "props": {
+    "ref": "256/2001",
+    "esbirka_title": "Zákon o pohřebnictví a o změně některých zákonů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2001/256"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    67
+   ]
+  },
+  {
+   "id": "law:sb:263-2016",
+   "kind": "law",
+   "label": "zákon č. 263/2016 Sb. — Zákon atomový zákon",
+   "props": {
+    "ref": "263/2016",
+    "esbirka_title": "Zákon atomový zákon",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2016/263"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    67
+   ]
+  },
+  {
+   "id": "law:sb:289-1995",
+   "kind": "law",
+   "label": "zákon č. 289/1995 Sb. — Zákon o lesích a o změně a doplnění některých zákonů (lesní zákon)",
+   "props": {
+    "ref": "289/1995",
+    "esbirka_title": "Zákon o lesích a o změně a doplnění některých zákonů (lesní zákon)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1995/289"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    67
+   ]
+  },
+  {
+   "id": "law:sb:309-2006",
+   "kind": "law",
+   "label": "zákon č. 309/2006 Sb. — Zákon, kterým se upravují další požadavky bezpečnosti a ochrany zdraví při práci v pracovněprávních vztazích a o zajiště",
+   "props": {
+    "ref": "309/2006",
+    "esbirka_title": "Zákon, kterým se upravují další požadavky bezpečnosti a ochrany zdraví při práci v pracovněprávních vztazích a o zajištění bezpečnosti a ochrany zdraví při činnosti nebo poskytování služeb mimo pracovněprávní vztahy (zákon o zajištění dalších podmínek bezpečnosti a ochrany zdraví při práci)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2006/309"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    67
+   ]
+  },
+  {
+   "id": "law:sb:334-1992",
+   "kind": "law",
+   "label": "zákon č. 334/1992 Sb. — Zákon České národní rady o ochraně zemědělského půdního fondu",
+   "props": {
+    "ref": "334/1992",
+    "esbirka_title": "Zákon České národní rady o ochraně zemědělského půdního fondu",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1992/334"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    67
+   ]
+  },
+  {
+   "id": "law:sb:62-1988",
+   "kind": "law",
+   "label": "zákon č. 62/1988 Sb. — Zákon České národní rady  o geologických pracích a o Českém geologickém úřadu",
+   "props": {
+    "ref": "62/1988",
+    "esbirka_title": "Zákon České národní rady  o geologických pracích a o Českém geologickém úřadu",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1988/62"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    67
+   ]
+  },
+  {
+   "id": "law:sb:381-1991",
+   "kind": "law",
+   "label": "zákon č. 381/1991 Sb. — Zákon České národní rady o Komoře veterinárních lékařů České republiky",
+   "props": {
+    "ref": "381/1991",
+    "esbirka_title": "Zákon České národní rady o Komoře veterinárních lékařů České republiky",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1991/381"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    69
+   ]
+  },
+  {
+   "id": "law:sb:110-2019",
+   "kind": "law",
+   "label": "zákon č. 110/2019 Sb. — Zákon o zpracování osobních údajů",
+   "props": {
+    "ref": "110/2019",
+    "esbirka_title": "Zákon o zpracování osobních údajů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2019/110"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    77
+   ]
+  },
+  {
+   "id": "law:sb:150-2017",
+   "kind": "law",
+   "label": "zákon č. 150/2017 Sb. — Zákon o zahraniční službě a o změně některých zákonů (zákon o zahraniční službě)",
+   "props": {
+    "ref": "150/2017",
+    "esbirka_title": "Zákon o zahraniční službě a o změně některých zákonů (zákon o zahraniční službě)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2017/150"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    77
+   ]
+  },
+  {
+   "id": "law:sb:76-2005",
+   "kind": "law",
+   "label": "zákon č. 76/2005 Sb. — Vyhláška o stanovení způsobu výpočtu rozdílu mezi příjmy pojistného na důchodové pojištění a výdaji na dávky důchodového",
+   "props": {
+    "ref": "76/2005",
+    "esbirka_title": "Vyhláška o stanovení způsobu výpočtu rozdílu mezi příjmy pojistného na důchodové pojištění a výdaji na dávky důchodového pojištění",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2005/76"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    90
+   ]
+  },
+  {
+   "id": "law:sb:292-2013",
+   "kind": "law",
+   "label": "zákon č. 292/2013 Sb. — Zákon o zvláštních řízeních soudních",
+   "props": {
+    "ref": "292/2013",
+    "esbirka_title": "Zákon o zvláštních řízeních soudních",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2013/292"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    100
+   ]
+  },
+  {
+   "id": "law:sb:56-2001",
+   "kind": "law",
+   "label": "zákon č. 56/2001 Sb. — Zákon o podmínkách provozu vozidel na pozemních komunikacích",
+   "props": {
+    "ref": "56/2001",
+    "esbirka_title": "Zákon o podmínkách provozu vozidel na pozemních komunikacích",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2001/56"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    102
+   ]
+  },
+  {
+   "id": "law:sb:90-2024",
+   "kind": "law",
+   "label": "zákon č. 90/2024 Sb. — Zákon o zbraních a střelivu",
+   "props": {
+    "ref": "90/2024",
+    "esbirka_title": "Zákon o zbraních a střelivu",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2024/90"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    102
+   ]
+  },
+  {
+   "id": "law:sb:91-2024",
+   "kind": "law",
+   "label": "zákon č. 91/2024 Sb. — Zákon o munici",
+   "props": {
+    "ref": "91/2024",
+    "esbirka_title": "Zákon o munici",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2024/91"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    102
+   ]
+  },
+  {
+   "id": "law:sb:565-1990",
+   "kind": "law",
+   "label": "zákon č. 565/1990 Sb. — Zákon České národní rady o místních poplatcích",
+   "props": {
+    "ref": "565/1990",
+    "esbirka_title": "Zákon České národní rady o místních poplatcích",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1990/565"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    106
+   ]
+  },
+  {
+   "id": "law:sb:358-2022",
+   "kind": "law",
+   "label": "zákon č. 358/2022 Sb. — Zákon, kterým se mění zákon č. 329/2011 Sb., o poskytování dávek osobám se zdravotním postižením a o změně souvisejících",
+   "props": {
+    "ref": "358/2022",
+    "esbirka_title": "Zákon, kterým se mění zákon č. 329/2011 Sb., o poskytování dávek osobám se zdravotním postižením a o změně souvisejících zákonů, ve znění pozdějších předpisů, a některé další zákony",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2022/358"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    125
+   ]
+  },
+  {
+   "id": "law:sb:424-2023",
+   "kind": "law",
+   "label": "zákon č. 424/2023 Sb. — Zákon o požadavcích na přístupnost některých výrobků a služeb",
+   "props": {
+    "ref": "424/2023",
+    "esbirka_title": "Zákon o požadavcích na přístupnost některých výrobků a služeb",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2023/424"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    145
+   ]
+  },
+  {
+   "id": "law:sb:111-2009",
+   "kind": "law",
+   "label": "zákon č. 111/2009 Sb. — Zákon o základních registrech",
+   "props": {
+    "ref": "111/2009",
+    "esbirka_title": "Zákon o základních registrech",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2009/111"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    172
+   ]
+  },
+  {
+   "id": "law:sb:251-2016",
+   "kind": "law",
+   "label": "zákon č. 251/2016 Sb. — Zákon o některých přestupcích",
+   "props": {
+    "ref": "251/2016",
+    "esbirka_title": "Zákon o některých přestupcích",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2016/251"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    172
+   ]
+  },
+  {
+   "id": "law:sb:123-2024",
+   "kind": "law",
+   "label": "zákon č. 123/2024 Sb. — Zákon, kterým se mění zákon č. 89/2012 Sb., občanský zákoník, ve znění pozdějších předpisů, a další související zákony",
+   "props": {
+    "ref": "123/2024",
+    "esbirka_title": "Zákon, kterým se mění zákon č. 89/2012 Sb., občanský zákoník, ve znění pozdějších předpisů, a další související zákony",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2024/123"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    187
+   ]
+  },
+  {
+   "id": "law:sb:197-2024",
+   "kind": "law",
+   "label": "zákon č. 197/2024 Sb. — Zákon, kterým se mění zákon č. 499/2004 Sb., o archivnictví a spisové službě a o změně některých zákonů, ve znění pozděj",
+   "props": {
+    "ref": "197/2024",
+    "esbirka_title": "Zákon, kterým se mění zákon č. 499/2004 Sb., o archivnictví a spisové službě a o změně některých zákonů, ve znění pozdějších předpisů, zákon č. 261/2021 Sb., kterým se mění některé zákony v souvislosti s další elektronizací postupů orgánů veřejné moci, ve znění pozdějších předpisů, a zákon č. 106/1999 Sb., o svobodném přístupu k informacím, ve znění pozdějších předpisů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2024/197"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    187
+   ]
+  },
+  {
+   "id": "law:sb:261-2021",
+   "kind": "law",
+   "label": "zákon č. 261/2021 Sb. — Zákon, kterým se mění některé zákony v souvislosti s další elektronizací postupů orgánů veřejné moci",
+   "props": {
+    "ref": "261/2021",
+    "esbirka_title": "Zákon, kterým se mění některé zákony v souvislosti s další elektronizací postupů orgánů veřejné moci",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2021/261"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    187
+   ]
+  },
+  {
+   "id": "law:sb:332-2025",
+   "kind": "law",
+   "label": "zákon č. 332/2025 Sb. — Zákon, kterým se mění zákon č. 29/2000 Sb., o poštovních službách a o změně některých zákonů (zákon o poštovních službác",
+   "props": {
+    "ref": "332/2025",
+    "esbirka_title": "Zákon, kterým se mění zákon č. 29/2000 Sb., o poštovních službách a o změně některých zákonů (zákon o poštovních službách), ve znění pozdějších předpisů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2025/332"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    187
+   ]
+  },
+  {
+   "id": "law:sb:414-2023",
+   "kind": "law",
+   "label": "zákon č. 414/2023 Sb. — Zákon, kterým se mění zákon č. 301/2000 Sb., o matrikách, jménu a příjmení a o změně některých souvisejících zákonů, ve ",
+   "props": {
+    "ref": "414/2023",
+    "esbirka_title": "Zákon, kterým se mění zákon č. 301/2000 Sb., o matrikách, jménu a příjmení a o změně některých souvisejících zákonů, ve znění pozdějších předpisů, zákon č. 89/2012 Sb., občanský zákoník, ve znění pozdějších předpisů, a další související zákony",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2023/414"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    187
+   ]
+  },
+  {
+   "id": "law:sb:499-2004",
+   "kind": "law",
+   "label": "zákon č. 499/2004 Sb. — Zákon o archivnictví a spisové službě a o změně některých zákonů",
+   "props": {
+    "ref": "499/2004",
+    "esbirka_title": "Zákon o archivnictví a spisové službě a o změně některých zákonů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2004/499"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    187
+   ]
+  },
+  {
+   "id": "law:sb:247-1995",
+   "kind": "law",
+   "label": "zákon č. 247/1995 Sb. — Zákon o volbách do Parlamentu České republiky a o změně a doplnění některých dalších zákonů",
+   "props": {
+    "ref": "247/1995",
+    "esbirka_title": "Zákon o volbách do Parlamentu České republiky a o změně a doplnění některých dalších zákonů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1995/247"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    190
+   ]
+  },
+  {
+   "id": "law:sb:275-2012",
+   "kind": "law",
+   "label": "zákon č. 275/2012 Sb. — Zákon o volbě prezidenta republiky a o změně některých zákonů (zákon o volbě prezidenta republiky)",
+   "props": {
+    "ref": "275/2012",
+    "esbirka_title": "Zákon o volbě prezidenta republiky a o změně některých zákonů (zákon o volbě prezidenta republiky)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2012/275"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    190
+   ]
+  },
+  {
+   "id": "law:sb:89-2024",
+   "kind": "law",
+   "label": "zákon č. 89/2024 Sb. — Zákon, kterým se mění volební a některé další zákony v souvislosti s přijetím zákona o správě voleb",
+   "props": {
+    "ref": "89/2024",
+    "esbirka_title": "Zákon, kterým se mění volební a některé další zákony v souvislosti s přijetím zákona o správě voleb",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2024/89"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    190
+   ]
+  },
+  {
+   "id": "law:sb:59-2017",
+   "kind": "law",
+   "label": "zákon č. 59/2017 Sb. — Zákon o použití peněžních prostředků z majetkových trestních sankcí uložených v trestním řízení a o změně některých záko",
+   "props": {
+    "ref": "59/2017",
+    "esbirka_title": "Zákon o použití peněžních prostředků z majetkových trestních sankcí uložených v trestním řízení a o změně některých zákonů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2017/59"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    207
+   ]
+  },
+  {
+   "id": "law:sb:198-2009",
+   "kind": "law",
+   "label": "zákon č. 198/2009 Sb. — Zákon o rovném zacházení a o právních prostředcích ochrany před diskriminací a o změně některých zákonů (antidiskriminač",
+   "props": {
+    "ref": "198/2009",
+    "esbirka_title": "Zákon o rovném zacházení a o právních prostředcích ochrany před diskriminací a o změně některých zákonů (antidiskriminační zákon)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2009/198"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    210
+   ]
+  },
+  {
+   "id": "law:sb:325-1999",
+   "kind": "law",
+   "label": "zákon č. 325/1999 Sb. — Zákon o azylu a o změně zákona č. 283/1991 Sb., o Policii České republiky, ve znění pozdějších předpisů, (zákon o azylu)",
+   "props": {
+    "ref": "325/1999",
+    "esbirka_title": "Zákon o azylu a o změně zákona č. 283/1991 Sb., o Policii České republiky, ve znění pozdějších předpisů, (zákon o azylu)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1999/325"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    213
+   ]
+  },
+  {
+   "id": "law:sb:65-2022",
+   "kind": "law",
+   "label": "zákon č. 65/2022 Sb. — Zákon o některých opatřeních v souvislosti s ozbrojeným konfliktem na území Ukrajiny vyvolaným invazí vojsk Ruské federa",
+   "props": {
+    "ref": "65/2022",
+    "esbirka_title": "Zákon o některých opatřeních v souvislosti s ozbrojeným konfliktem na území Ukrajiny vyvolaným invazí vojsk Ruské federace",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2022/65"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    213
+   ]
+  },
+  {
+   "id": "law:sb:66-2022",
+   "kind": "law",
+   "label": "zákon č. 66/2022 Sb. — Zákon o opatřeních v oblasti zaměstnanosti a oblasti sociálního zabezpečení v souvislosti s ozbrojeným konfliktem na úze",
+   "props": {
+    "ref": "66/2022",
+    "esbirka_title": "Zákon o opatřeních v oblasti zaměstnanosti a oblasti sociálního zabezpečení v souvislosti s ozbrojeným konfliktem na území Ukrajiny vyvolaným invazí vojsk Ruské federace",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2022/66"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    213
+   ]
+  },
+  {
+   "id": "law:sb:67-2022",
+   "kind": "law",
+   "label": "zákon č. 67/2022 Sb. — Zákon o opatřeních v oblasti školství v souvislosti s ozbrojeným konfliktem na území Ukrajiny vyvolaným invazí vojsk Rus",
+   "props": {
+    "ref": "67/2022",
+    "esbirka_title": "Zákon o opatřeních v oblasti školství v souvislosti s ozbrojeným konfliktem na území Ukrajiny vyvolaným invazí vojsk Ruské federace",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2022/67"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    213
+   ]
+  },
+  {
+   "id": "law:sb:121-2008",
+   "kind": "law",
+   "label": "zákon č. 121/2008 Sb. — Zákon o vyšších soudních úřednících a vyšších úřednících státního zastupitelství a o změně souvisejících zákonů",
+   "props": {
+    "ref": "121/2008",
+    "esbirka_title": "Zákon o vyšších soudních úřednících a vyšších úřednících státního zastupitelství a o změně souvisejících zákonů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2008/121"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    215
+   ]
+  },
+  {
+   "id": "law:sb:252-1997",
+   "kind": "law",
+   "label": "zákon č. 252/1997 Sb. — Zákon o zemědělství",
+   "props": {
+    "ref": "252/1997",
+    "esbirka_title": "Zákon o zemědělství",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1997/252"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    221
+   ]
+  },
+  {
+   "id": "law:sb:176-2008",
+   "kind": "law",
+   "label": "zákon č. 176/2008 Sb. — Nařízení vlády o technických požadavcích na strojní zařízení",
+   "props": {
+    "ref": "176/2008",
+    "esbirka_title": "Nařízení vlády o technických požadavcích na strojní zařízení",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2008/176"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    222
+   ]
+  },
+  {
+   "id": "law:sb:357-2025",
+   "kind": "law",
+   "label": "zákon č. 357/2025 Sb. — Nařízení vlády o výši vyměřovacího základu pro pojistné na veřejné zdravotní pojištění hrazené státem pro rok 2026 ",
+   "props": {
+    "ref": "357/2025",
+    "esbirka_title": "Nařízení vlády o výši vyměřovacího základu pro pojistné na veřejné zdravotní pojištění hrazené státem pro rok 2026 ",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2025/357"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    235
+   ]
+  },
+  {
+   "id": "law:sb:22-1997",
+   "kind": "law",
+   "label": "zákon č. 22/1997 Sb. — Zákon o technických požadavcích na výrobky a o změně a doplnění některých zákonů",
+   "props": {
+    "ref": "22/1997",
+    "esbirka_title": "Zákon o technických požadavcích na výrobky a o změně a doplnění některých zákonů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1997/22"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-07-24T22:48:55.800Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    250
+   ]
+  }
+ ],
+ "unresolvable": []
+}

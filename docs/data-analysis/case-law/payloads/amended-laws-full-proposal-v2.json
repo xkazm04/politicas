@@ -1,6 +1,89 @@
 {
- "generatedAt": "2026-07-24T22:46:15.765Z",
- "note": "ADDITIVE proposal only — proposed amended_laws_full prop per bill (real body-extracted citation list). Does NOT rewrite existing `amends` edges; orchestrator decision, out of scope for batch-003.",
+ "generatedAt": "2026-07-24T22:46:47.087Z",
+ "method": "batch-005 Q-law-11 fix: set-difference trigger (recordedLaws set != realLaws set, either direction) instead of amends-census.ts's original count-based (undercount > 0) trigger. Same source data (amends-census.json), no new fetch. Strictly a superset: every undercount>0 row is also a set-difference row; adds rows where the sets differ but the COUNT happens to match or be lower (disjoint-statute or subset cases the count-based trigger structurally cannot see).",
+ "sourceCensus": "docs/data-analysis/case-law/payloads/amends-census.json",
+ "stats": {
+  "totalCensusRows": 140,
+  "oldTriggerCount": 52,
+  "newTriggerCount": 59,
+  "newlyIncludedByFix": 7
+ },
+ "newlyIncludedByFix": [
+  {
+   "cislo": 222,
+   "recordedLaws": [
+    "134/2016"
+   ],
+   "realLaws": [
+    "176/2008"
+   ],
+   "undercount": 0
+  },
+  {
+   "cislo": 36,
+   "recordedLaws": [
+    "268/2025",
+    "89/2012"
+   ],
+   "realLaws": [
+    "268/2025"
+   ],
+   "undercount": -1
+  },
+  {
+   "cislo": 42,
+   "recordedLaws": [
+    "416/2009",
+    "465/2023"
+   ],
+   "realLaws": [
+    "465/2023"
+   ],
+   "undercount": -1
+  },
+  {
+   "cislo": 107,
+   "recordedLaws": [
+    "159/1999"
+   ],
+   "realLaws": [],
+   "undercount": -1
+  },
+  {
+   "cislo": 124,
+   "recordedLaws": [
+    "117/1995",
+    "152/2025",
+    "300/2025"
+   ],
+   "realLaws": [
+    "117/1995",
+    "152/2025"
+   ],
+   "undercount": -1
+  },
+  {
+   "cislo": 153,
+   "recordedLaws": [
+    "375/2022",
+    "40/1995",
+    "468/1991"
+   ],
+   "realLaws": [
+    "375/2022",
+    "40/1995"
+   ],
+   "undercount": -1
+  },
+  {
+   "cislo": 243,
+   "recordedLaws": [
+    "223/2016"
+   ],
+   "realLaws": [],
+   "undercount": -1
+  }
+ ],
  "proposals": [
   {
    "billNodeId": "bill:tisk:43171",
@@ -937,6 +1020,87 @@
    ],
    "recordedLaws": [],
    "undercount": 1
+  },
+  {
+   "billNodeId": "bill:tisk:43344",
+   "cislo": 222,
+   "amended_laws_full": [
+    "176/2008"
+   ],
+   "recordedLaws": [
+    "134/2016"
+   ],
+   "undercount": 0
+  },
+  {
+   "billNodeId": "bill:tisk:43143",
+   "cislo": 36,
+   "amended_laws_full": [
+    "268/2025"
+   ],
+   "recordedLaws": [
+    "268/2025",
+    "89/2012"
+   ],
+   "undercount": -1
+  },
+  {
+   "billNodeId": "bill:tisk:43149",
+   "cislo": 42,
+   "amended_laws_full": [
+    "465/2023"
+   ],
+   "recordedLaws": [
+    "416/2009",
+    "465/2023"
+   ],
+   "undercount": -1
+  },
+  {
+   "billNodeId": "bill:tisk:43236",
+   "cislo": 107,
+   "amended_laws_full": [],
+   "recordedLaws": [
+    "159/1999"
+   ],
+   "undercount": -1
+  },
+  {
+   "billNodeId": "bill:tisk:43239",
+   "cislo": 124,
+   "amended_laws_full": [
+    "117/1995",
+    "152/2025"
+   ],
+   "recordedLaws": [
+    "117/1995",
+    "152/2025",
+    "300/2025"
+   ],
+   "undercount": -1
+  },
+  {
+   "billNodeId": "bill:tisk:43274",
+   "cislo": 153,
+   "amended_laws_full": [
+    "375/2022",
+    "40/1995"
+   ],
+   "recordedLaws": [
+    "375/2022",
+    "40/1995",
+    "468/1991"
+   ],
+   "undercount": -1
+  },
+  {
+   "billNodeId": "bill:tisk:43365",
+   "cislo": 243,
+   "amended_laws_full": [],
+   "recordedLaws": [
+    "223/2016"
+   ],
+   "undercount": -1
   }
  ]
 }

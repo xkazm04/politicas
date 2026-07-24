@@ -1,21 +1,21 @@
 {
- "generatedAt": "2026-07-24T19:10:54.115Z",
+ "generatedAt": "2026-07-24T22:46:15.763Z",
  "method": "body-text LAW_CITATION extraction (word-boundary-safe, shared regex from psp-legislation.ts) vs recorded `amends` graph edges",
  "totals": {
   "billsInGraph": 141,
   "billsChecked": 140,
   "billsSkipped": 1,
-  "billsWithAnyUndercount": 53,
-  "totalUndercountSum": 420
+  "billsWithAnyUndercount": 52,
+  "totalUndercountSum": 419
  },
  "originCorrelation": {
   "government": {
    "n": 55,
-   "mean": 4.8
+   "mean": 4.781818181818182
   },
   "mp_or_mp_group": {
    "n": 71,
-   "mean": 2.0985915492957745
+   "mean": 2.084507042253521
   },
   "senate": {
    "n": 9,
@@ -1068,7 +1068,7 @@
    "recordedAmends": 0,
    "recordedLaws": [],
    "realLaws": [
-    "250/2017"
+    "141/1961"
    ],
    "realCount": 1,
    "undercount": 1,
@@ -1094,21 +1094,6 @@
    "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265349"
   },
   {
-   "tiskId": "bill:tisk:43159",
-   "cislo": 52,
-   "origin": "government",
-   "title": "Vládní návrh zákona o určování provozoven a jmenování zástupců některých poskytovatelů služeb za účelem shromažďování elektronických důkazů v trestním řízení",
-   "recordedAmends": 0,
-   "recordedLaws": [],
-   "realLaws": [
-    "55/2006"
-   ],
-   "realCount": 1,
-   "undercount": 1,
-   "docType": "navrh-zakona",
-   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265978"
-  },
-  {
    "tiskId": "bill:tisk:43161",
    "cislo": 54,
    "origin": "government",
@@ -1116,7 +1101,7 @@
    "recordedAmends": 0,
    "recordedLaws": [],
    "realLaws": [
-    "499/2004"
+    "269/1994"
    ],
    "realCount": 1,
    "undercount": 1,
@@ -1131,7 +1116,7 @@
    "recordedAmends": 0,
    "recordedLaws": [],
    "realLaws": [
-    "200/1994"
+    "194/2017"
    ],
    "realCount": 1,
    "undercount": 1,
@@ -1146,7 +1131,7 @@
    "recordedAmends": 0,
    "recordedLaws": [],
    "realLaws": [
-    "64/2017"
+    "21/1992"
    ],
    "realCount": 1,
    "undercount": 1,
@@ -1161,7 +1146,7 @@
    "recordedAmends": 0,
    "recordedLaws": [],
    "realLaws": [
-    "220/1991"
+    "381/1991"
    ],
    "realCount": 1,
    "undercount": 1,
@@ -1213,7 +1198,7 @@
    "recordedAmends": 0,
    "recordedLaws": [],
    "realLaws": [
-    "20/1993"
+    "61/1988"
    ],
    "realCount": 1,
    "undercount": 1,
@@ -1228,7 +1213,7 @@
    "recordedAmends": 0,
    "recordedLaws": [],
    "realLaws": [
-    "108/2004"
+    "326/1999"
    ],
    "realCount": 1,
    "undercount": 1,
@@ -1291,7 +1276,7 @@
    "recordedAmends": 0,
    "recordedLaws": [],
    "realLaws": [
-    "330/2025"
+    "22/1997"
    ],
    "realCount": 1,
    "undercount": 1,
@@ -1488,6 +1473,19 @@
    "undercount": 0,
    "docType": "navrh-zakona",
    "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265762"
+  },
+  {
+   "tiskId": "bill:tisk:43159",
+   "cislo": 52,
+   "origin": "government",
+   "title": "Vládní návrh zákona o určování provozoven a jmenování zástupců některých poskytovatelů služeb za účelem shromažďování elektronických důkazů v trestním řízení",
+   "recordedAmends": 0,
+   "recordedLaws": [],
+   "realLaws": [],
+   "realCount": 0,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265978"
   },
   {
    "tiskId": "bill:tisk:43160",
@@ -2526,7 +2524,7 @@
     "301/1992"
    ],
    "realLaws": [
-    "354/2019"
+    "301/1992"
    ],
    "realCount": 1,
    "undercount": 0,
@@ -2543,7 +2541,7 @@
     "134/2016"
    ],
    "realLaws": [
-    "9/2002"
+    "176/2008"
    ],
    "realCount": 1,
    "undercount": 0,
@@ -2604,23 +2602,6 @@
    "undercount": 0,
    "docType": "navrh-zakona",
    "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=277551"
-  },
-  {
-   "tiskId": "bill:tisk:43365",
-   "cislo": 243,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Marka Výborného, Petra Hladíka a Františka Talíře na vydání zákona, kterým se mění zákon č. 223/2016 Sb., o prodejní době v maloobchodě, ve znění pozdějších předpisů",
-   "recordedAmends": 1,
-   "recordedLaws": [
-    "223/2016"
-   ],
-   "realLaws": [
-    "240/2000"
-   ],
-   "realCount": 1,
-   "undercount": 0,
-   "docType": "navrh-zakona",
-   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=277784"
   },
   {
    "tiskId": "bill:tisk:43366",
@@ -2822,6 +2803,21 @@
    "undercount": -1,
    "docType": "navrh-zakona",
    "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268952"
+  },
+  {
+   "tiskId": "bill:tisk:43365",
+   "cislo": 243,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Marka Výborného, Petra Hladíka a Františka Talíře na vydání zákona, kterým se mění zákon č. 223/2016 Sb., o prodejní době v maloobchodě, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "223/2016"
+   ],
+   "realLaws": [],
+   "realCount": 0,
+   "undercount": -1,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=277784"
   }
  ]
 }
