@@ -108,6 +108,11 @@ export async function getMoneyData(): Promise<MoneyData | null> {
         donatedToPartyCzk: cp.donated_to_party_czk != null ? num(cp.donated_to_party_czk) : null,
         donationRecipientParty:
           cp.donation_recipient_party != null ? String(cp.donation_recipient_party) : null,
+        // ARES-VR reconciliation (case-money batch 001/002) — absent on ties not yet
+        // reconciled; the component renders that as "not checked", never as active.
+        corroboration: (e.props?.corroboration as MoneyTie["corroboration"]) ?? null,
+        roleValidTo: (e.props?.role_valid_to as string | null | undefined) ?? null,
+        temporalStatus: (e.props?.temporal_status as string | null | undefined) ?? null,
       };
 
       const arr = tiesByPerson.get(e.src) ?? [];

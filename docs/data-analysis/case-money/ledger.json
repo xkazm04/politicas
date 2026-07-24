@@ -26,6 +26,25 @@
       "generatedAt": "2026-07-24",
       "gate": "15/15 validated",
       "signalGe4": 4
+    },
+    "batch2": {
+      "processed": 245,
+      "generatedAt": "2026-07-24",
+      "gate": "245/245 validated (260/260 population total incl. batch 1)",
+      "corroboration": {
+        "registryConfirmed": 179,
+        "conflicting": 23,
+        "registryUnconfirmed": 58
+      },
+      "temporalStatus": {
+        "current": 39,
+        "historical": 64,
+        "moneyPostdatesRole": 39,
+        "historicalNoMoney": 22,
+        "other": 1
+      },
+      "vrIcoNotFound": 58,
+      "sonnetReviewedAmbiguous": 10
     }
   },
   "units": [
@@ -294,9 +313,17 @@
       "tieClass": "owner-operator",
       "reviewState": "pending_review",
       "signalScore": 37.31,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "no-birthdate-match-in-vr",
+        "sonnet-reviewed"
+      ],
+      "corroboration": "conflicting",
+      "signal": 2,
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6463:02751232",
@@ -308,9 +335,17 @@
       "tieClass": "owner-operator",
       "reviewState": "pending_review",
       "signalScore": 37.25,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "sonnet-reviewed",
+        "clean-handoff-not-revolving-door"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2014-03-10",
+      "roleValidTo": "2016-08-18",
+      "temporalStatus": "money-postdates-role",
+      "signal": 1
     },
     {
       "id": "tie:6789:25172263",
@@ -322,9 +357,15 @@
       "tieClass": "manager",
       "reviewState": "pending_review",
       "signalScore": 36.39,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2006-12-28",
+      "roleValidTo": "2024-10-31",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6789:26039907",
@@ -336,9 +377,15 @@
       "tieClass": "manager",
       "reviewState": "pending_review",
       "signalScore": 36.05,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2007-05-02",
+      "roleValidTo": "2025-01-04",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:5512:26141761",
@@ -350,9 +397,17 @@
       "tieClass": "owner-operator",
       "reviewState": "pending_review",
       "signalScore": 36.02,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "sonnet-reviewed",
+        "clean-handoff-not-revolving-door"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "1999-12-22",
+      "roleValidTo": "2003-04-28",
+      "temporalStatus": "money-postdates-role",
+      "signal": 1
     },
     {
       "id": "tie:6201:46978593",
@@ -364,9 +419,19 @@
       "tieClass": "owner-operator",
       "reviewState": "pending_review",
       "signalScore": 35.84,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "no-birthdate-match-in-vr",
+        "sonnet-reviewed",
+        "vr-missing-dob-on-old-record",
+        "approximate-dates-no-day-precision"
+      ],
+      "corroboration": "registry-confirmed",
+      "signal": 3,
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6105:27145433",
@@ -378,9 +443,18 @@
       "tieClass": "owner-operator",
       "reviewState": "pending_review",
       "signalScore": 34.27,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "sonnet-reviewed",
+        "clean-handoff-not-revolving-door",
+        "undisclosed-asset-declaration-lead"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2004-05-20",
+      "roleValidTo": "2016-02-01",
+      "temporalStatus": "money-postdates-role",
+      "signal": 3
     },
     {
       "id": "tie:7031:09187944",
@@ -392,9 +466,13 @@
       "tieClass": "owner-operator",
       "reviewState": "pending_review",
       "signalScore": 33.55,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2020-05-25",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:5899:01686682",
@@ -406,9 +484,13 @@
       "tieClass": "owner-operator",
       "reviewState": "pending_review",
       "signalScore": 33.46,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2013-05-20",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6184:45147787",
@@ -420,9 +502,13 @@
       "tieClass": "manager",
       "reviewState": "pending_review",
       "signalScore": 32.47,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2003-03-01",
+      "roleValidTo": "2005-08-19",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:6727:03265889",
@@ -434,9 +520,17 @@
       "tieClass": "owner-operator",
       "reviewState": "pending_review",
       "signalScore": 31.45,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "sonnet-reviewed",
+        "clean-handoff-not-revolving-door"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2014-08-05",
+      "roleValidTo": "2017-01-27",
+      "temporalStatus": "money-postdates-role",
+      "signal": 1
     },
     {
       "id": "tie:6409:25713817",
@@ -448,9 +542,13 @@
       "tieClass": "owner-operator",
       "reviewState": "pending_review",
       "signalScore": 30.86,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "1998-11-26",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6603:06646042",
@@ -462,9 +560,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 30.38,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2018-04-16",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:5700:46506306",
@@ -476,9 +578,13 @@
       "tieClass": "manager",
       "reviewState": "pending_review",
       "signalScore": 30.07,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "1999-08-16",
+      "roleValidTo": "2016-03-01",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6603:49786709",
@@ -490,9 +596,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 28.82,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "1999-12-28",
+      "roleValidTo": "2025-06-30",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6603:26997355",
@@ -504,9 +616,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 28.02,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2013-12-20",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:7063:03849988",
@@ -518,9 +634,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 27.15,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2019-01-08",
+      "roleValidTo": "2023-04-05",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6603:07739044",
@@ -532,9 +654,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 26.95,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2019-01-01",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6603:08160902",
@@ -546,9 +672,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 26.8,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2019-05-13",
+      "roleValidTo": "2021-08-07",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6881:09133267",
@@ -560,9 +692,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 26.72,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2020-05-04",
+      "roleValidTo": "2022-10-31",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6603:25245091",
@@ -574,9 +712,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 25.77,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2010-05-18",
+      "roleValidTo": "2025-05-26",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6803:49454587",
@@ -588,9 +732,15 @@
       "tieClass": "manager",
       "reviewState": "pending_review",
       "signalScore": 25.62,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2019-07-09",
+      "roleValidTo": "2022-01-17",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6603:14704234",
@@ -602,9 +752,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 25.46,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2016-04-06",
+      "roleValidTo": "2023-01-10",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:7063:26602351",
@@ -616,9 +772,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 25.13,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "no-birthdate-match-in-vr"
+      ],
+      "corroboration": "conflicting",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6732:25205625",
@@ -630,9 +792,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 25.05,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2016-01-18",
+      "roleValidTo": "2018-12-31",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6993:27256456",
@@ -644,9 +810,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 24.94,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2016-12-20",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6154:49790480",
@@ -658,9 +828,13 @@
       "tieClass": "manager",
       "reviewState": "pending_review",
       "signalScore": 24.35,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2018-12-20",
+      "roleValidTo": "2019-10-17",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6603:29123348",
@@ -672,9 +846,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 24.17,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2011-12-21",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6154:60193913",
@@ -686,9 +864,15 @@
       "tieClass": "manager",
       "reviewState": "pending_review",
       "signalScore": 23.86,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2019-10-29",
+      "roleValidTo": "2023-06-23",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6743:47674652",
@@ -700,9 +884,13 @@
       "tieClass": "manager",
       "reviewState": "pending_review",
       "signalScore": 23.75,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2015-06-04",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:7028:08599254",
@@ -714,9 +902,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 23.49,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2019-10-10",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6993:28168151",
@@ -728,9 +920,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 23.41,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2015-01-01",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6905:61989592",
@@ -742,9 +938,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 23.26,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6211:25918206",
@@ -756,9 +958,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 22.79,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2015-02-12",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6211:48154938",
@@ -770,9 +976,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 22.66,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2015-04-04",
+      "roleValidTo": "2017-08-31",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6435:25234994",
@@ -784,9 +994,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 22.58,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2015-05-22",
+      "roleValidTo": "2021-07-16",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:5273:49370499",
@@ -798,9 +1014,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 22.3,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2011-11-24",
+      "roleValidTo": "2023-05-27",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6688:47781131",
@@ -812,9 +1034,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 22.3,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2016-01-08",
+      "roleValidTo": "2019-07-23",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6881:46347534",
@@ -826,9 +1052,13 @@
       "tieClass": "manager",
       "reviewState": "pending_review",
       "signalScore": 22.17,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2014-12-15",
+      "roleValidTo": "2023-02-09",
+      "temporalStatus": "historical-no-money"
     },
     {
       "id": "tie:6225:27467759",
@@ -840,9 +1070,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 22.13,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2014-06-17",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6184:49100262",
@@ -854,9 +1088,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 21.79,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2005-06-10",
+      "roleValidTo": "2014-01-31",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:5899:26402068",
@@ -868,9 +1106,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 21.72,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2015-06-15",
+      "roleValidTo": "2017-02-14",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6185:28338766",
@@ -882,9 +1124,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 21.5,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2015-01-09",
+      "roleValidTo": "2017-04-10",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:5379:25187937",
@@ -896,9 +1144,13 @@
       "tieClass": "manager",
       "reviewState": "pending_review",
       "signalScore": 21.49,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "1999-11-25",
+      "roleValidTo": "2011-06-06",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:6150:26124459",
@@ -910,9 +1162,13 @@
       "tieClass": "manager",
       "reviewState": "pending_review",
       "signalScore": 21.46,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2007-04-02",
+      "roleValidTo": "2014-01-30",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:6435:25224662",
@@ -924,9 +1180,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 21.45,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2005-09-29",
+      "roleValidTo": "2019-10-04",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6150:26185610",
@@ -938,9 +1198,13 @@
       "tieClass": "manager",
       "reviewState": "pending_review",
       "signalScore": 21.4,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2000-07-01",
+      "roleValidTo": "2014-01-22",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:6435:45332657",
@@ -952,9 +1216,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 21.38,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2018-04-21",
+      "roleValidTo": "2021-07-23",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:7064:28633032",
@@ -966,9 +1236,13 @@
       "tieClass": "manager",
       "reviewState": "pending_review",
       "signalScore": 21.24,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2019-01-15",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6786:27660532",
@@ -980,9 +1254,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 21.22,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2014-10-24",
+      "roleValidTo": "2021-02-26",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6527:27267351",
@@ -994,9 +1274,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 21.18,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2017-02-03",
+      "roleValidTo": "2021-06-29",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:5273:08694508",
@@ -1008,9 +1292,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 21.16,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2019-11-17",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6172:70890013",
@@ -1022,9 +1310,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 21.05,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2015-03-31",
+      "roleValidTo": "2020-08-16",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:5700:25968084",
@@ -1036,9 +1330,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 21.01,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2002-05-07",
+      "roleValidTo": "2022-04-15",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6538:01398717",
@@ -1050,9 +1350,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 20.83,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2013-02-08",
+      "roleValidTo": "2023-12-28",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6786:27660915",
@@ -1064,9 +1370,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 20.72,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2014-10-16",
+      "roleValidTo": "2021-02-26",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6786:28593987",
@@ -1078,9 +1390,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 20.63,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2015-03-24",
+      "roleValidTo": "2022-11-21",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:5273:00417904",
@@ -1092,9 +1410,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 20.39,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2015-10-30",
+      "roleValidTo": "2018-07-15",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6743:47997826",
@@ -1106,9 +1428,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 20.35,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2016-07-29",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6789:26982170",
@@ -1120,9 +1446,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 20.3,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2015-11-24",
+      "roleValidTo": "2019-12-05",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6751:45534306",
@@ -1134,9 +1466,13 @@
       "tieClass": "manager",
       "reviewState": "pending_review",
       "signalScore": 20.26,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2002-03-12",
+      "roleValidTo": "2014-07-02",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:7039:71184465",
@@ -1148,9 +1484,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 20.18,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2014-09-01",
+      "roleValidTo": "2021-07-11",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6435:69972061",
@@ -1162,9 +1502,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 19.93,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2014-01-01",
+      "roleValidTo": "2015-04-10",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:6500:64053466",
@@ -1176,9 +1522,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 19.86,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2015-06-16",
+      "roleValidTo": "2019-03-29",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6500:27341313",
@@ -1190,9 +1540,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 19.71,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2015-03-02",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6993:15045838",
@@ -1204,9 +1558,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 19.55,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2016-09-15",
+      "roleValidTo": "2020-10-07",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6150:24188581",
@@ -1218,9 +1576,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 19.35,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2011-12-05",
+      "roleValidTo": "2026-02-16",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6172:27693058",
@@ -1232,9 +1596,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 19.16,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2006-07-03",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:5700:25968700",
@@ -1246,9 +1614,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 19.03,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2002-05-30",
+      "roleValidTo": "2022-04-06",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6743:26822105",
@@ -1260,9 +1634,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 18.97,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2015-08-18",
+      "roleValidTo": "2023-02-22",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:7064:25848526",
@@ -1274,9 +1652,13 @@
       "tieClass": "manager",
       "reviewState": "pending_review",
       "signalScore": 18.95,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2019-01-16",
+      "roleValidTo": "2019-04-18",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:7063:25220683",
@@ -1288,9 +1670,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 18.69,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2019-01-23",
+      "roleValidTo": "2023-01-06",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6154:28338766",
@@ -1302,9 +1690,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 18.58,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2013-05-16",
+      "roleValidTo": "2015-01-09",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:7063:28046153",
@@ -1316,9 +1708,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 18.55,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2019-03-29",
+      "roleValidTo": "2019-11-04",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:5700:62063588",
@@ -1330,9 +1726,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 18.43,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2000-03-31",
+      "roleValidTo": "2023-07-04",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:7063:27257258",
@@ -1344,9 +1746,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 17.95,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2017-04-01",
+      "roleValidTo": "2022-04-01",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6168:61463647",
@@ -1358,9 +1766,13 @@
       "tieClass": "manager",
       "reviewState": "pending_review",
       "signalScore": 17.86,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2001-10-23",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6435:25245091",
@@ -1372,9 +1784,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 17.78,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2017-05-17",
+      "roleValidTo": "2023-05-16",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:7039:26637863",
@@ -1386,9 +1804,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 17.46,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "no-birthdate-match-in-vr"
+      ],
+      "corroboration": "conflicting",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6435:27149994",
@@ -1400,9 +1824,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 17.4,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2004-05-12",
+      "roleValidTo": "2022-05-12",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:6435:06919511",
@@ -1414,9 +1844,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 17.04,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2018-03-07",
+      "roleValidTo": "2022-09-20",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6211:22827668",
@@ -1428,9 +1864,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 17,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2016-02-04",
+      "roleValidTo": "2018-05-07",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:7062:26318903",
@@ -1442,9 +1882,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 16.91,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2015-05-11",
+      "roleValidTo": "2017-03-31",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6500:47795808",
@@ -1456,9 +1900,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 16.72,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2017-02-18",
+      "roleValidTo": "2024-12-17",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6190:26185610",
@@ -1470,9 +1920,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 16.7,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2007-05-09",
+      "roleValidTo": "2017-03-16",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6178:26025027",
@@ -1484,9 +1938,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 16.61,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2012-12-07",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6205:25586521",
@@ -1498,9 +1956,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 15.85,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "no-birthdate-match-in-vr"
+      ],
+      "corroboration": "conflicting",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:7063:17047234",
@@ -1512,9 +1976,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 15.84,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2018-08-23",
+      "roleValidTo": "2018-11-15",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:7064:47654465",
@@ -1526,9 +1994,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 14.73,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2019-05-07",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6150:27771245",
@@ -1540,9 +2012,13 @@
       "tieClass": "manager",
       "reviewState": "pending_review",
       "signalScore": 14.43,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2006-06-15",
+      "roleValidTo": "2014-01-16",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:6688:27256537",
@@ -1554,9 +2030,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 13.57,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2018-12-17",
+      "roleValidTo": "2020-12-17",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6603:29118336",
@@ -1568,9 +2050,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 13.17,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2011-06-27",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:7039:28274466",
@@ -1582,9 +2068,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 13.1,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2011-02-23",
+      "roleValidTo": "2015-10-30",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:5512:60194120",
@@ -1596,9 +2086,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 12.84,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2011-06-20",
+      "roleValidTo": "2012-01-12",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6881:60713470",
@@ -1610,9 +2104,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 12.75,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2019-01-03",
+      "roleValidTo": "2021-12-22",
+      "temporalStatus": "historical-no-money"
     },
     {
       "id": "tie:6154:25220683",
@@ -1624,9 +2124,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 12.69,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2011-03-30",
+      "roleValidTo": "2023-01-01",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6435:25220683",
@@ -1638,9 +2144,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 12.69,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2003-09-10",
+      "roleValidTo": "2005-12-20",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:6881:25508881",
@@ -1652,9 +2162,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 12.63,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2014-12-09",
+      "roleValidTo": "2015-10-31",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:6150:60108916",
@@ -1666,9 +2180,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 12.59,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2000-12-07",
+      "roleValidTo": "2005-09-13",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6214:60193531",
@@ -1680,9 +2198,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 12.58,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2011-09-01",
+      "roleValidTo": "2013-10-14",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:6487:02795281",
@@ -1694,9 +2216,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 12.53,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2015-04-13",
+      "roleValidTo": "2016-07-09",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6687:02795281",
@@ -1708,9 +2234,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 12.53,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2019-03-14",
+      "roleValidTo": "2021-03-27",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:5379:46678735",
@@ -1722,9 +2254,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 12.36,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "no-birthdate-match-in-vr"
+      ],
+      "corroboration": "conflicting",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6150:26872307",
@@ -1736,9 +2274,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 12.33,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2006-10-16",
+      "roleValidTo": "2009-04-30",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:5899:70889988",
@@ -1750,9 +2292,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 12.3,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2012-07-11",
+      "roleValidTo": "2014-02-01",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:6240:70889988",
@@ -1764,9 +2310,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 12.3,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2001-04-05",
+      "roleValidTo": "2004-04-14",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:5700:26000237",
@@ -1778,9 +2328,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 12.25,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2003-11-12",
+      "roleValidTo": "2006-08-16",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:346:45146802",
@@ -1792,9 +2346,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 12.22,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "1996-11-08",
+      "roleValidTo": "2001-02-23",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:6211:63217066",
@@ -1806,9 +2364,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 12.12,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2015-02-23",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6786:27661989",
@@ -1820,9 +2382,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 12.1,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2014-09-26",
+      "roleValidTo": "2021-03-24",
+      "temporalStatus": "historical-no-money"
     },
     {
       "id": "tie:5911:25488627",
@@ -1834,9 +2402,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 11.92,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2004-05-05",
+      "roleValidTo": "2005-06-15",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:6225:46744991",
@@ -1848,9 +2420,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 11.92,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "no-birthdate-match-in-vr"
+      ],
+      "corroboration": "conflicting",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6150:46900411",
@@ -1862,9 +2440,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 11.8,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2004-06-26",
+      "roleValidTo": "2006-09-04",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:7039:70100969",
@@ -1876,9 +2458,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 11.77,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:5226:75112779",
@@ -1890,9 +2478,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 11.69,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6201:63488329",
@@ -1904,9 +2498,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 11.66,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "1998-02-12",
+      "roleValidTo": "1999-05-18",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:6185:60800691",
@@ -1918,9 +2516,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 11.57,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:5899:49790498",
@@ -1932,9 +2536,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 11.54,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2003-06-25",
+      "roleValidTo": "2024-10-23",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6150:27465021",
@@ -1946,9 +2556,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 11.54,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2005-03-01",
+      "roleValidTo": "2008-06-30",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:5911:62240935",
@@ -1960,9 +2574,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 11.45,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2011-02-04",
+      "roleValidTo": "2014-12-31",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:346:63113074",
@@ -1974,9 +2592,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 11.4,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "no-birthdate-match-in-vr"
+      ],
+      "corroboration": "conflicting",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:7064:63113074",
@@ -1988,9 +2612,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 11.4,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2020-08-21",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:4:24227901",
@@ -2002,9 +2630,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 11.37,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2012-01-30",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6435:26396645",
@@ -2016,9 +2648,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 11.32,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2005-09-14",
+      "roleValidTo": "2010-01-13",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:6150:49100262",
@@ -2030,9 +2666,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 11.23,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "1997-03-26",
+      "roleValidTo": "2009-02-25",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:6240:60826851",
@@ -2044,9 +2684,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 11.23,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "no-birthdate-match-in-vr"
+      ],
+      "corroboration": "conflicting",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:346:60193468",
@@ -2058,9 +2704,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 11.17,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2001-06-28",
+      "roleValidTo": "2003-10-21",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:6881:60193468",
@@ -2072,9 +2722,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 11.17,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2015-11-19",
+      "roleValidTo": "2019-03-08",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:346:70889953",
@@ -2086,9 +2740,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 11.15,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "no-birthdate-match-in-vr"
+      ],
+      "corroboration": "conflicting",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6154:63080249",
@@ -2100,9 +2760,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 11.13,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2019-02-22",
+      "roleValidTo": "2020-12-08",
+      "temporalStatus": "historical-no-money"
     },
     {
       "id": "tie:6732:29123747",
@@ -2114,9 +2778,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 11.1,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2012-01-16",
+      "roleValidTo": "2014-09-22",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6786:26871068",
@@ -2128,9 +2796,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 11.08,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2008-03-03",
+      "roleValidTo": "2022-09-09",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6225:00829838",
@@ -2142,9 +2816,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 11.06,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "no-birthdate-match-in-vr"
+      ],
+      "corroboration": "conflicting",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:5903:27251918",
@@ -2156,9 +2836,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 10.66,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2012-03-22",
+      "roleValidTo": "2015-02-03",
+      "temporalStatus": "historical-no-money"
     },
     {
       "id": "tie:346:26187639",
@@ -2170,9 +2854,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 10.63,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2000-07-11",
+      "roleValidTo": "2001-02-09",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:6527:60914351",
@@ -2184,9 +2872,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 10.58,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2004-03-22",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6479:47122099",
@@ -2198,11 +2890,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 10.28,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-period-in-source"
-      ]
+        "no-period-in-source",
+        "no-birthdate-match-in-vr"
+      ],
+      "corroboration": "conflicting",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6513:48161063",
@@ -2214,9 +2911,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 10.23,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2012-08-01",
+      "roleValidTo": "2022-02-28",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6165:26232987",
@@ -2228,9 +2929,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 10.14,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2000-12-14",
+      "roleValidTo": "2014-08-06",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:5903:26419068",
@@ -2242,9 +2947,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 10.06,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "no-birthdate-match-in-vr"
+      ],
+      "corroboration": "conflicting",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:5273:25245091",
@@ -2256,9 +2967,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 10.01,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2003-11-27",
+      "roleValidTo": "2009-04-16",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:5459:28323297",
@@ -2270,11 +2985,15 @@
       "tieClass": "owner-operator",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
         "no-money-reachable"
-      ]
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2009-01-28",
+      "roleValidTo": "2014-05-30",
+      "temporalStatus": "historical-no-money"
     },
     {
       "id": "tie:6074:26254590",
@@ -2286,11 +3005,15 @@
       "tieClass": "owner-operator",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
         "no-money-reachable"
-      ]
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2001-08-11",
+      "roleValidTo": "2012-06-11",
+      "temporalStatus": "historical-no-money"
     },
     {
       "id": "tie:6105:25643461",
@@ -2302,11 +3025,15 @@
       "tieClass": "owner-operator",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
         "no-money-reachable"
-      ]
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "1998-02-05",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6105:28406354",
@@ -2318,11 +3045,15 @@
       "tieClass": "owner-operator",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
         "no-money-reachable"
-      ]
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2008-06-05",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6150:01801261",
@@ -2334,11 +3065,15 @@
       "tieClass": "owner-operator",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
         "no-money-reachable"
-      ]
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2013-06-18",
+      "roleValidTo": "2014-01-20",
+      "temporalStatus": "historical-no-money"
     },
     {
       "id": "tie:6150:64258998",
@@ -2350,11 +3085,20 @@
       "tieClass": "owner-operator",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "no-birthdate-match-in-vr",
+        "sonnet-reviewed",
+        "vr-missing-dob-on-old-record",
+        "approximate-dates-no-day-precision"
+      ],
+      "corroboration": "registry-confirmed",
+      "signal": 4,
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": "historical-no-money"
     },
     {
       "id": "tie:6201:49437674",
@@ -2366,11 +3110,20 @@
       "tieClass": "owner-operator",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "no-birthdate-match-in-vr",
+        "sonnet-reviewed",
+        "vr-missing-dob-on-old-record",
+        "approximate-dates-no-day-precision"
+      ],
+      "corroboration": "registry-confirmed",
+      "signal": 2,
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": "historical-no-money"
     },
     {
       "id": "tie:6216:19840659",
@@ -2382,11 +3135,19 @@
       "tieClass": "owner-operator",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "no-birthdate-match-in-vr",
+        "sonnet-reviewed",
+        "inconclusive"
+      ],
+      "corroboration": "conflicting",
+      "signal": 1,
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6216:26123550",
@@ -2398,11 +3159,15 @@
       "tieClass": "owner-operator",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
         "no-money-reachable"
-      ]
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2003-07-07",
+      "roleValidTo": "2005-04-12",
+      "temporalStatus": "historical-no-money"
     },
     {
       "id": "tie:6409:29054117",
@@ -2414,11 +3179,15 @@
       "tieClass": "owner-operator",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
         "no-money-reachable"
-      ]
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2010-08-25",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6409:49825950",
@@ -2430,11 +3199,15 @@
       "tieClass": "owner-operator",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
         "no-money-reachable"
-      ]
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "1994-11-30",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6455:27720004",
@@ -2446,11 +3219,15 @@
       "tieClass": "owner-operator",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
         "no-money-reachable"
-      ]
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2007-02-21",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6727:03921727",
@@ -2462,11 +3239,15 @@
       "tieClass": "owner-operator",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
         "no-money-reachable"
-      ]
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2015-03-24",
+      "roleValidTo": "2015-10-20",
+      "temporalStatus": "historical-no-money"
     },
     {
       "id": "tie:6789:26109859",
@@ -2478,11 +3259,15 @@
       "tieClass": "owner-operator",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
         "no-money-reachable"
-      ]
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2006-10-04",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:7031:06386237",
@@ -2494,11 +3279,15 @@
       "tieClass": "owner-operator",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
         "no-money-reachable"
-      ]
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2017-08-29",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:7062:26387816",
@@ -2510,11 +3299,15 @@
       "tieClass": "owner-operator",
       "reviewState": "pending_review",
       "signalScore": 10,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
         "no-money-reachable"
-      ]
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2008-05-02",
+      "roleValidTo": "2013-03-26",
+      "temporalStatus": "historical-no-money"
     },
     {
       "id": "tie:5899:29211808",
@@ -2526,9 +3319,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 9.96,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "no-birthdate-match-in-vr"
+      ],
+      "corroboration": "conflicting",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:7039:25513290",
@@ -2540,9 +3339,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 9.95,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2011-01-06",
+      "roleValidTo": "2011-09-22",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:6211:27534804",
@@ -2554,9 +3357,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 9.94,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2008-03-13",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6211:45245053",
@@ -2568,9 +3375,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 9.87,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6463:45245053",
@@ -2582,11 +3395,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 9.87,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-period-in-source"
-      ]
+        "no-period-in-source",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:5459:25321692",
@@ -2598,9 +3416,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 9.77,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2003-03-12",
+      "roleValidTo": "2007-04-30",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:6524:26745615",
@@ -2612,9 +3434,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 9.68,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2006-04-27",
+      "roleValidTo": "2013-11-14",
+      "temporalStatus": "historical-no-money"
     },
     {
       "id": "tie:6463:00027383",
@@ -2626,9 +3452,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 9.51,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6209:27485013",
@@ -2640,9 +3472,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 9.43,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2011-02-21",
+      "roleValidTo": "2012-07-31",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:5899:02504421",
@@ -2654,9 +3490,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 9.38,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2014-03-01",
+      "roleValidTo": "2017-02-28",
+      "temporalStatus": "historical-no-money"
     },
     {
       "id": "tie:5899:49789228",
@@ -2668,9 +3510,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 9.18,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2008-12-08",
+      "roleValidTo": "2011-05-25",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:7023:24766216",
@@ -2682,9 +3528,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 9.17,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2011-06-29",
+      "roleValidTo": "2014-10-07",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:5512:41197518",
@@ -2696,9 +3546,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 8.88,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:5700:41197518",
@@ -2710,11 +3566,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 8.88,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-period-in-source"
-      ]
+        "no-period-in-source",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6074:70282960",
@@ -2726,9 +3587,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 8.62,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2015-06-16",
+      "roleValidTo": "2022-04-28",
+      "temporalStatus": "historical"
     },
     {
       "id": "tie:6165:29186315",
@@ -2740,9 +3607,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 8.61,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2009-10-27",
+      "roleValidTo": "2015-03-02",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:5273:27149994",
@@ -2754,9 +3625,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 8.6,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2004-05-12",
+      "roleValidTo": "2021-10-06",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:5512:27082857",
@@ -2768,9 +3643,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 8.23,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2003-08-25",
+      "roleValidTo": "2012-02-24",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:7032:00084018",
@@ -2782,11 +3661,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 8.14,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-period-in-source"
-      ]
+        "no-period-in-source",
+        "no-birthdate-match-in-vr"
+      ],
+      "corroboration": "conflicting",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:5899:29156271",
@@ -2798,9 +3682,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 8.06,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2012-04-28",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6524:68404999",
@@ -2812,9 +3700,13 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 7.84,
-      "stage": "pending",
-      "batch": null,
-      "flags": []
+      "stage": "signal",
+      "batch": 2,
+      "flags": [],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2010-06-19",
+      "roleValidTo": "2014-07-18",
+      "temporalStatus": "money-postdates-role"
     },
     {
       "id": "tie:6184:04627695",
@@ -2826,11 +3718,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 6,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6184:49683144",
@@ -2842,11 +3739,19 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 6,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "no-birthdate-match-in-vr",
+        "wrong-entity-suspected",
+        "needs-ico-re-resolution",
+        "sonnet-reviewed-by-analogy"
+      ],
+      "corroboration": "conflicting",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6190:04627695",
@@ -2858,11 +3763,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 6,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6603:04627695",
@@ -2874,11 +3784,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 6,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:7063:04627695",
@@ -2890,11 +3805,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 6,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:346:04627695",
@@ -2906,11 +3826,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:346:49683144",
@@ -2922,11 +3847,20 @@
       "tieClass": "manager",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "no-birthdate-match-in-vr",
+        "sonnet-reviewed",
+        "wrong-entity-suspected",
+        "needs-ico-re-resolution"
+      ],
+      "corroboration": "conflicting",
+      "signal": 0,
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:4:04627695",
@@ -2938,11 +3872,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:5379:28094573",
@@ -2954,11 +3893,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
         "no-money-reachable"
-      ]
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2009-01-24",
+      "roleValidTo": "2011-07-28",
+      "temporalStatus": "historical-no-money"
     },
     {
       "id": "tie:5379:61065480",
@@ -2970,11 +3913,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "no-birthdate-match-in-vr"
+      ],
+      "corroboration": "conflicting",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:5459:02867681",
@@ -2986,11 +3934,15 @@
       "tieClass": "manager",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
         "no-money-reachable"
-      ]
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2014-04-07",
+      "roleValidTo": "2014-10-01",
+      "temporalStatus": "historical-no-money"
     },
     {
       "id": "tie:5459:04627695",
@@ -3002,11 +3954,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:5512:04627695",
@@ -3018,11 +3975,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:5512:60196459",
@@ -3034,11 +3996,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "1998-05-13",
+      "roleValidTo": "2006-04-04",
+      "temporalStatus": "historical-no-money"
     },
     {
       "id": "tie:5512:70885117",
@@ -3050,11 +4017,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "no-birthdate-match-in-vr"
+      ],
+      "corroboration": "conflicting",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:5903:26419050",
@@ -3066,11 +4038,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
         "no-money-reachable"
-      ]
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2000-12-15",
+      "roleValidTo": "2004-04-21",
+      "temporalStatus": "historical-no-money"
     },
     {
       "id": "tie:5911:04627695",
@@ -3082,11 +4058,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:5943:02086778",
@@ -3098,11 +4079,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
         "no-money-reachable"
-      ]
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2013-09-10",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:5943:04627695",
@@ -3114,11 +4099,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6105:04627695",
@@ -3130,11 +4120,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6150:04627695",
@@ -3146,11 +4141,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6150:26014343",
@@ -3162,11 +4162,15 @@
       "tieClass": "manager",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
         "no-money-reachable"
-      ]
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2008-08-08",
+      "roleValidTo": "2014-01-30",
+      "temporalStatus": "historical-no-money"
     },
     {
       "id": "tie:6154:02086778",
@@ -3178,11 +4182,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
         "no-money-reachable"
-      ]
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2013-09-10",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6154:04627695",
@@ -3194,11 +4202,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6154:22745696",
@@ -3210,11 +4223,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
         "no-money-reachable"
-      ]
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2016-12-27",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6168:04627695",
@@ -3226,11 +4243,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6172:04627695",
@@ -3242,11 +4264,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6185:04627695",
@@ -3258,11 +4285,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6201:04627695",
@@ -3274,11 +4306,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6205:04627695",
@@ -3290,11 +4327,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6209:04627695",
@@ -3306,11 +4348,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6214:04627695",
@@ -3322,11 +4369,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6215:04627695",
@@ -3338,11 +4390,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6216:04627695",
@@ -3354,11 +4411,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6409:04627695",
@@ -3370,11 +4432,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6433:04627695",
@@ -3386,11 +4453,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6459:04627695",
@@ -3402,11 +4474,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6463:04627695",
@@ -3418,11 +4495,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6479:04627695",
@@ -3434,11 +4516,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6487:04627695",
@@ -3450,11 +4537,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6500:04627695",
@@ -3466,11 +4558,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6524:02312701",
@@ -3482,11 +4579,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
         "no-money-reachable"
-      ]
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2013-11-12",
+      "roleValidTo": "2017-02-28",
+      "temporalStatus": "historical-no-money"
     },
     {
       "id": "tie:6524:04627695",
@@ -3498,11 +4599,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6524:22874381",
@@ -3514,11 +4620,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
         "no-money-reachable"
-      ]
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2017-01-14",
+      "roleValidTo": null,
+      "temporalStatus": "current"
     },
     {
       "id": "tie:6527:04627695",
@@ -3530,11 +4640,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6538:04627695",
@@ -3546,11 +4661,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6687:72046422",
@@ -3562,11 +4682,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
         "no-money-reachable"
-      ]
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2015-12-24",
+      "roleValidTo": "2018-01-19",
+      "temporalStatus": "historical-no-money"
     },
     {
       "id": "tie:6688:04627695",
@@ -3578,12 +4702,17 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
         "no-period-in-source",
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6723:04627695",
@@ -3595,11 +4724,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6727:04627695",
@@ -3611,11 +4745,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6745:04627695",
@@ -3627,11 +4766,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6751:04627695",
@@ -3643,11 +4787,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6786:04627695",
@@ -3659,11 +4808,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6789:04627695",
@@ -3675,11 +4829,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6789:27043843",
@@ -3691,11 +4850,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "no-birthdate-match-in-vr"
+      ],
+      "corroboration": "conflicting",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6789:28095405",
@@ -3707,11 +4871,15 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
         "no-money-reachable"
-      ]
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2008-12-15",
+      "roleValidTo": "2012-03-14",
+      "temporalStatus": "historical-no-money"
     },
     {
       "id": "tie:6881:04627695",
@@ -3723,11 +4891,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6905:04627695",
@@ -3739,11 +4912,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6986:04627695",
@@ -3755,11 +4933,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:6993:09925856",
@@ -3771,11 +4954,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "stale-ongoing-in-graph"
+      ],
+      "corroboration": "registry-confirmed",
+      "roleValidFrom": "2021-02-22",
+      "roleValidTo": "2025-08-22",
+      "temporalStatus": "historical-no-money"
     },
     {
       "id": "tie:6994:04627695",
@@ -3787,11 +4975,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:7013:04627695",
@@ -3803,11 +4996,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:7031:04627695",
@@ -3819,11 +5017,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:7039:04627695",
@@ -3835,11 +5038,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:7052:04627695",
@@ -3851,11 +5059,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:7056:04627695",
@@ -3867,11 +5080,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     },
     {
       "id": "tie:7064:04627695",
@@ -3883,11 +5101,16 @@
       "tieClass": "steward",
       "reviewState": "pending_review",
       "signalScore": 0,
-      "stage": "pending",
-      "batch": null,
+      "stage": "signal",
+      "batch": 2,
       "flags": [
-        "no-money-reachable"
-      ]
+        "no-money-reachable",
+        "vr-ico-not-found"
+      ],
+      "corroboration": "registry-unconfirmed",
+      "roleValidFrom": null,
+      "roleValidTo": null,
+      "temporalStatus": null
     }
   ]
 }

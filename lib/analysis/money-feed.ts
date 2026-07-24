@@ -625,6 +625,24 @@ export class AresClient {
     if (!res.ok) throw new Error(`ARES ${ico} → ${res.status} ${res.statusText}`);
     return res.json();
   }
+  /**
+   * ARES VR (veřejný rejstřík) — the official officer/shareholder register. This is
+   * the money loop's corroboration HINGE: statutarniOrgany[].clenoveOrganu[] (officer
+   * roles, with clenstvi.funkce.{vznikFunkce,zanikFunkce}) and spolecnici[].spolecnik[]
+   * (ownership stakes, with podil[].velikostPodilu), each carrying fyzickaOsoba.datumNarozeni
+   * for exact birth-date matching against our roster (never a name-only guess — see
+   * `bridgePerson`'s discipline above). A miss returns `{kod:"NENALEZENO", ...}` — NOT an
+   * HTTP error — the caller must check `.kod`. Token-free.
+   */
+  async vrRecord(ico: string): Promise<unknown> {
+    const res = await fetchRetry(
+      this.doFetch,
+      `${this.base}/ekonomicke-subjekty-vr/${encodeURIComponent(ico)}`,
+      { headers: { Accept: "application/json" } },
+    );
+    if (!res.ok) throw new Error(`ARES VR ${ico} → ${res.status} ${res.statusText}`);
+    return res.json();
+  }
   /** Name search — POST /ekonomicke-subjekty/vyhledat {obchodniJmeno}. Feeds pickExactIco. */
   async subjectSearch(obchodniJmeno: string, pocet = 20): Promise<unknown> {
     const res = await fetchRetry(this.doFetch, `${this.base}/ekonomicke-subjekty/vyhledat`, {

@@ -1,0 +1,4120 @@
+{
+  "batch": 2,
+  "track": "money",
+  "kind": "linked_to-corroboration-annotation",
+  "generatedAt": "2026-07-24",
+  "note": "PROPOSALS ONLY — props-merge onto EXISTING linked_to edges. Full-population ARES-VR reconciliation (Q-money-1), deterministic (no LLM). Never creates a person↔company edge, never touches review_state. Validate with: PGLITE_PATH=./.pglite-copy-money npx tsx scripts/case-loops/money/validate-payloads.ts -- --batch2",
+  "provenanceStamp": {
+    "track": "money",
+    "method": "verdict",
+    "ref": "case-money/batch-002 · ARES VR full-population reconciliation (deterministic)",
+    "computedAt": "2026-07-24"
+  },
+  "edges": [
+    {
+      "src": "psp:person:346",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Petr Bendl",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:346",
+      "rel": "linked_to",
+      "dst": "company:ico:26187639",
+      "mp": "Petr Bendl",
+      "company": "Vzdělávací centrum pro veřejnou správu ČR, o.p.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26187639",
+        "role_valid_from": "2000-07-11",
+        "role_valid_to": "2001-02-09",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen správní rady 2000-07-11→2001-02-09 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:346",
+      "rel": "linked_to",
+      "dst": "company:ico:45146802",
+      "mp": "Petr Bendl",
+      "company": "Energie - stavební a báňská a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/45146802",
+        "role_valid_from": "1996-11-08",
+        "role_valid_to": "2001-02-23",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady 1996-11-08→2001-02-23 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:346",
+      "rel": "linked_to",
+      "dst": "company:ico:49683144",
+      "mp": "Petr Bendl",
+      "company": "PRAK spol. s r.o.",
+      "propsMerge": {
+        "corroboration": "conflicting",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49683144",
+        "tie_class": "manager",
+        "reviewer_note": "Sonnet-review potvrzuje 'conflicting', ale najde hlubší problém: zdroj Hlídače tvrdí „PRaK, a.s. — člen představenstva“ (akciová společnost), zatímco IČO 49683144 je s.r.o. od roku 1993 (jednatelé/společníci) — strukturálně nemůže mít představenstvo. Nezávislé dohledání (rejstrik-firem.kurzy.cz) ukazuje SAMOSTATNÝ subjekt „PRaK, a.s.“, kde je „Ing. Petr Bendl (Kladno)“ veden jako člen představenstva 1996-01-15→1999-07-28, zaniklý likvidací 2012 — pravděpodobně SPRÁVNÁ firma, ale s JINÝM IČO než 49683144. Doporučeno: přeřešit IČO pro tuto vazbu (case backlog, ne toto IČO).",
+        "flags": [
+          "no-birthdate-match-in-vr",
+          "sonnet-reviewed",
+          "wrong-entity-suspected",
+          "needs-ico-re-resolution"
+        ],
+        "signal": 0
+      }
+    },
+    {
+      "src": "psp:person:346",
+      "rel": "linked_to",
+      "dst": "company:ico:60193468",
+      "mp": "Petr Bendl",
+      "company": "MERO ČR, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/60193468",
+        "role_valid_from": "2001-06-28",
+        "role_valid_to": "2003-10-21",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: místopředseda dozorčí rady 2001-06-28→2003-10-21 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:346",
+      "rel": "linked_to",
+      "dst": "company:ico:63113074",
+      "mp": "Petr Bendl",
+      "company": "Svaz měst a obcí České republiky",
+      "propsMerge": {
+        "corroboration": "conflicting",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/63113074",
+        "tie_class": "steward",
+        "reviewer_note": "Firma 63113074 v ARES VR existuje, ale žádný úředník/společník se shodným datem narození nenalezen — vazba tvrzená grafem (Hlídač) NENÍ v OR potvrzena.",
+        "flags": [
+          "no-birthdate-match-in-vr"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:346",
+      "rel": "linked_to",
+      "dst": "company:ico:70889953",
+      "mp": "Petr Bendl",
+      "company": "Povodí Vltavy, státní podnik",
+      "propsMerge": {
+        "corroboration": "conflicting",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/70889953",
+        "tie_class": "steward",
+        "reviewer_note": "Firma 70889953 v ARES VR existuje, ale žádný úředník/společník se shodným datem narození nenalezen — vazba tvrzená grafem (Hlídač) NENÍ v OR potvrzena.",
+        "flags": [
+          "no-birthdate-match-in-vr"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:4",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Marek Benda",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:4",
+      "rel": "linked_to",
+      "dst": "company:ico:24227901",
+      "mp": "Marek Benda",
+      "company": "Společenství vlastníků Vlastislavova 605/20, Praha 4",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/24227901",
+        "role_valid_from": "2012-01-30",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: pověřený vlastník 2012-01-30→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:5226",
+      "rel": "linked_to",
+      "dst": "company:ico:75112779",
+      "mp": "Pavel Žáček",
+      "company": "Ústav pro studium totalitních režimů",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/75112779",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:5273",
+      "rel": "linked_to",
+      "dst": "company:ico:00417904",
+      "mp": "Jiří Pospíšil",
+      "company": "Nadace Charty 77",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/00417904",
+        "role_valid_from": "2015-10-30",
+        "role_valid_to": "2018-07-15",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen statutárního orgánu 2015-10-30→2018-07-15 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:5273",
+      "rel": "linked_to",
+      "dst": "company:ico:08694508",
+      "mp": "Jiří Pospíšil",
+      "company": "Muzeum paměti XX. století, z.ú.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/08694508",
+        "role_valid_from": "2019-11-17",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady 2019-11-17→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:5273",
+      "rel": "linked_to",
+      "dst": "company:ico:25245091",
+      "mp": "Jiří Pospíšil",
+      "company": "Regionální rozvojová agentura Plzeňského kraje, obecně prospěšná společnost",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25245091",
+        "role_valid_from": "2003-11-27",
+        "role_valid_to": "2009-04-16",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen 2003-11-27→2009-04-16 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:5273",
+      "rel": "linked_to",
+      "dst": "company:ico:27149994",
+      "mp": "Jiří Pospíšil",
+      "company": "Nadace Věry a Vladimíra Janouškových",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27149994",
+        "role_valid_from": "2004-05-12",
+        "role_valid_to": "2021-10-06",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: předseda správní rady/předseda/člen správní rady 2004-05-12→2021-10-06 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:5273",
+      "rel": "linked_to",
+      "dst": "company:ico:49370499",
+      "mp": "Jiří Pospíšil",
+      "company": "Museum Kampa - Nadace Jana a Medy Mládkových",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49370499",
+        "role_valid_from": "2011-11-24",
+        "role_valid_to": "2023-05-27",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen správní rady/předseda správní rady 2011-11-24→2023-05-27 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:5379",
+      "rel": "linked_to",
+      "dst": "company:ico:25187937",
+      "mp": "Jan Bauer",
+      "company": "RERA a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25187937",
+        "role_valid_from": "1999-11-25",
+        "role_valid_to": "2011-06-06",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "manager",
+        "reviewer_note": "ARES VR: člen představenstva/předseda představenstva 1999-11-25→2011-06-06 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:5379",
+      "rel": "linked_to",
+      "dst": "company:ico:28094573",
+      "mp": "Jan Bauer",
+      "company": "Wellness sv. Markéta a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/28094573",
+        "role_valid_from": "2009-01-24",
+        "role_valid_to": "2011-07-28",
+        "temporal_status": "historical-no-money",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady 2009-01-24→2011-07-28 · peníze: historical-no-money"
+      }
+    },
+    {
+      "src": "psp:person:5379",
+      "rel": "linked_to",
+      "dst": "company:ico:46678735",
+      "mp": "Jan Bauer",
+      "company": "Robert Bosch, spol. s r.o.",
+      "propsMerge": {
+        "corroboration": "conflicting",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/46678735",
+        "tie_class": "steward",
+        "reviewer_note": "Firma 46678735 v ARES VR existuje, ale žádný úředník/společník se shodným datem narození nenalezen — vazba tvrzená grafem (Hlídač) NENÍ v OR potvrzena.",
+        "flags": [
+          "no-birthdate-match-in-vr"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:5379",
+      "rel": "linked_to",
+      "dst": "company:ico:61065480",
+      "mp": "Jan Bauer",
+      "company": "TAMPA s.r.o.",
+      "propsMerge": {
+        "corroboration": "conflicting",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/61065480",
+        "tie_class": "steward",
+        "reviewer_note": "Firma 61065480 v ARES VR existuje, ale žádný úředník/společník se shodným datem narození nenalezen — vazba tvrzená grafem (Hlídač) NENÍ v OR potvrzena.",
+        "flags": [
+          "no-birthdate-match-in-vr"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:5459",
+      "rel": "linked_to",
+      "dst": "company:ico:02867681",
+      "mp": "Radim Fiala",
+      "company": "IF Holding a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/02867681",
+        "role_valid_from": "2014-04-07",
+        "role_valid_to": "2014-10-01",
+        "temporal_status": "historical-no-money",
+        "tie_class": "manager",
+        "reviewer_note": "ARES VR: předseda představenstva 2014-04-07→2014-10-01 · peníze: historical-no-money"
+      }
+    },
+    {
+      "src": "psp:person:5459",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Radim Fiala",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:5459",
+      "rel": "linked_to",
+      "dst": "company:ico:25321692",
+      "mp": "Radim Fiala",
+      "company": "Lesy města Prostějova, s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25321692",
+        "role_valid_from": "2003-03-12",
+        "role_valid_to": "2007-04-30",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen 2003-03-12→2007-04-30 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:5459",
+      "rel": "linked_to",
+      "dst": "company:ico:28323297",
+      "mp": "Radim Fiala",
+      "company": "Studio PN Prostějov s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/28323297",
+        "role_valid_from": "2009-01-28",
+        "role_valid_to": "2014-05-30",
+        "temporal_status": "historical-no-money",
+        "tie_class": "owner-operator",
+        "reviewer_note": "ARES VR: jednatel/společník 2009-01-28→2014-05-30 · peníze: historical-no-money"
+      }
+    },
+    {
+      "src": "psp:person:5512",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Boris Šťastný",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:5512",
+      "rel": "linked_to",
+      "dst": "company:ico:26141761",
+      "mp": "Boris Šťastný",
+      "company": "GEKO SPORT s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26141761",
+        "role_valid_from": "1999-12-22",
+        "role_valid_to": "2003-04-28",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "owner-operator",
+        "reviewer_note": "Sonnet-review potvrzuje money-postdates-role jako čistý předěl: jednatel/společník (50 %) 1999-12-22→2003-04-28 se spoluvlastníkem Vladimírem Staňkem, vlastnictví dál přešlo na rodinu Cimburkových — Šťastný po roce 2003 nedohledatelný. Žádné otočné dveře nalezeny.",
+        "signal": 1,
+        "flags": [
+          "sonnet-reviewed",
+          "clean-handoff-not-revolving-door"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:5512",
+      "rel": "linked_to",
+      "dst": "company:ico:27082857",
+      "mp": "Boris Šťastný",
+      "company": "Nadační fond manželů Livie a Václava Klausových",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27082857",
+        "role_valid_from": "2003-08-25",
+        "role_valid_to": "2012-02-24",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen 2003-08-25→2012-02-24 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:5512",
+      "rel": "linked_to",
+      "dst": "company:ico:41197518",
+      "mp": "Boris Šťastný",
+      "company": "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/41197518",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:5512",
+      "rel": "linked_to",
+      "dst": "company:ico:60194120",
+      "mp": "Boris Šťastný",
+      "company": "Pražské služby, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/60194120",
+        "role_valid_from": "2011-06-20",
+        "role_valid_to": "2012-01-12",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: místopředseda dozorčí rady 2011-06-20→2012-01-12 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:5512",
+      "rel": "linked_to",
+      "dst": "company:ico:60196459",
+      "mp": "Boris Šťastný",
+      "company": "ASPEN SPORT a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/60196459",
+        "role_valid_from": "1998-05-13",
+        "role_valid_to": "2006-04-04",
+        "temporal_status": "historical-no-money",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: místopředseda/člen 1998-05-13→2006-04-04 · peníze: historical-no-money · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:5512",
+      "rel": "linked_to",
+      "dst": "company:ico:70885117",
+      "mp": "Boris Šťastný",
+      "company": "Česká lékařská komora - o.s., z.s.",
+      "propsMerge": {
+        "corroboration": "conflicting",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/70885117",
+        "tie_class": "steward",
+        "reviewer_note": "Firma 70885117 v ARES VR existuje, ale žádný úředník/společník se shodným datem narození nenalezen — vazba tvrzená grafem (Hlídač) NENÍ v OR potvrzena.",
+        "flags": [
+          "no-birthdate-match-in-vr"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:5700",
+      "rel": "linked_to",
+      "dst": "company:ico:25968084",
+      "mp": "Ivan Adamec",
+      "company": "Technické služby Trutnov s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25968084",
+        "role_valid_from": "2002-05-07",
+        "role_valid_to": "2022-04-15",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady 2002-05-07→2022-04-15 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:5700",
+      "rel": "linked_to",
+      "dst": "company:ico:25968700",
+      "mp": "Ivan Adamec",
+      "company": "Lesy a parky Trutnov s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25968700",
+        "role_valid_from": "2002-05-30",
+        "role_valid_to": "2022-04-06",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: Člen dozorčí rady 2002-05-30→2022-04-06 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:5700",
+      "rel": "linked_to",
+      "dst": "company:ico:26000237",
+      "mp": "Ivan Adamec",
+      "company": "Oblastní nemocnice Trutnov a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26000237",
+        "role_valid_from": "2003-11-12",
+        "role_valid_to": "2006-08-16",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: Předseda dozorčí rady/předseda dozorčí rady 2003-11-12→2006-08-16 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:5700",
+      "rel": "linked_to",
+      "dst": "company:ico:41197518",
+      "mp": "Ivan Adamec",
+      "company": "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/41197518",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:5700",
+      "rel": "linked_to",
+      "dst": "company:ico:46506306",
+      "mp": "Ivan Adamec",
+      "company": "Společnost Horní Labe a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/46506306",
+        "role_valid_from": "1999-08-16",
+        "role_valid_to": "2016-03-01",
+        "temporal_status": "historical",
+        "tie_class": "manager",
+        "reviewer_note": "ARES VR: Člen představenstva/člen představenstva 1999-08-16→2016-03-01 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:5700",
+      "rel": "linked_to",
+      "dst": "company:ico:62063588",
+      "mp": "Ivan Adamec",
+      "company": "TRANSPORT Trutnov s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/62063588",
+        "role_valid_from": "2000-03-31",
+        "role_valid_to": "2023-07-04",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady 2000-03-31→2023-07-04 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:5899",
+      "rel": "linked_to",
+      "dst": "company:ico:01686682",
+      "mp": "Jan Bureš",
+      "company": "ZPS holding s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/01686682",
+        "role_valid_from": "2013-05-20",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "owner-operator",
+        "reviewer_note": "ARES VR: jednatel/společník 2013-05-20→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:5899",
+      "rel": "linked_to",
+      "dst": "company:ico:02504421",
+      "mp": "Jan Bureš",
+      "company": "Česká asociace věřitelů, z.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/02504421",
+        "role_valid_from": "2014-03-01",
+        "role_valid_to": "2017-02-28",
+        "temporal_status": "historical-no-money",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: Viceprezident Výboru 2014-03-01→2017-02-28 · peníze: historical-no-money · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:5899",
+      "rel": "linked_to",
+      "dst": "company:ico:26402068",
+      "mp": "Jan Bureš",
+      "company": "Údržba silnic Karlovarského kraje, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26402068",
+        "role_valid_from": "2015-06-15",
+        "role_valid_to": "2017-02-14",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen představenstva 2015-06-15→2017-02-14 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:5899",
+      "rel": "linked_to",
+      "dst": "company:ico:29156271",
+      "mp": "Jan Bureš",
+      "company": "Chráněná dílna Ostrov, s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/29156271",
+        "role_valid_from": "2012-04-28",
+        "role_valid_to": null,
+        "owner_stake_pct": 100,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: jednatel/společník 2012-04-28→trvá (100% podíl) · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:5899",
+      "rel": "linked_to",
+      "dst": "company:ico:29211808",
+      "mp": "Jan Bureš",
+      "company": "Léčebné lázně Jáchymov a. s.",
+      "propsMerge": {
+        "corroboration": "conflicting",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/29211808",
+        "tie_class": "steward",
+        "reviewer_note": "Firma 29211808 v ARES VR existuje, ale žádný úředník/společník se shodným datem narození nenalezen — vazba tvrzená grafem (Hlídač) NENÍ v OR potvrzena.",
+        "flags": [
+          "no-birthdate-match-in-vr"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:5899",
+      "rel": "linked_to",
+      "dst": "company:ico:49789228",
+      "mp": "Jan Bureš",
+      "company": "Vodárny a kanalizace Karlovy Vary, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49789228",
+        "role_valid_from": "2008-12-08",
+        "role_valid_to": "2011-05-25",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady 2008-12-08→2011-05-25 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:5899",
+      "rel": "linked_to",
+      "dst": "company:ico:49790498",
+      "mp": "Jan Bureš",
+      "company": "Ostrovská teplárenská, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49790498",
+        "role_valid_from": "2003-06-25",
+        "role_valid_to": "2024-10-23",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: předseda/předseda dozorčí rady/člen dozorčí rady 2003-06-25→2024-10-23 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:5899",
+      "rel": "linked_to",
+      "dst": "company:ico:70889988",
+      "mp": "Jan Bureš",
+      "company": "Povodí Ohře, státní podnik",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/70889988",
+        "role_valid_from": "2012-07-11",
+        "role_valid_to": "2014-02-01",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: Člen dozorčí rady jmenován zakladatelem 2012-07-11→2014-02-01 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:5903",
+      "rel": "linked_to",
+      "dst": "company:ico:26419050",
+      "mp": "Jana Černochová",
+      "company": "Společenství vlastníků jednotek v domě čp. 2122, Na Folimance 13, Praha 2 - Vinohrady",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26419050",
+        "role_valid_from": "2000-12-15",
+        "role_valid_to": "2004-04-21",
+        "temporal_status": "historical-no-money",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen 2000-12-15→2004-04-21 · peníze: historical-no-money"
+      }
+    },
+    {
+      "src": "psp:person:5903",
+      "rel": "linked_to",
+      "dst": "company:ico:26419068",
+      "mp": "Jana Černochová",
+      "company": "Nadační fond Českého rozhlasu",
+      "propsMerge": {
+        "corroboration": "conflicting",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26419068",
+        "tie_class": "steward",
+        "reviewer_note": "Firma 26419068 v ARES VR existuje, ale žádný úředník/společník se shodným datem narození nenalezen — vazba tvrzená grafem (Hlídač) NENÍ v OR potvrzena.",
+        "flags": [
+          "no-birthdate-match-in-vr"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:5903",
+      "rel": "linked_to",
+      "dst": "company:ico:27251918",
+      "mp": "Jana Černochová",
+      "company": "Obecní dům, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27251918",
+        "role_valid_from": "2012-03-22",
+        "role_valid_to": "2015-02-03",
+        "temporal_status": "historical-no-money",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady/předseda dozorčí rady 2012-03-22→2015-02-03 · peníze: historical-no-money"
+      }
+    },
+    {
+      "src": "psp:person:5911",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Jaroslav Foldyna",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:5911",
+      "rel": "linked_to",
+      "dst": "company:ico:25488627",
+      "mp": "Jaroslav Foldyna",
+      "company": "Krajská zdravotní, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25488627",
+        "role_valid_from": "2004-05-05",
+        "role_valid_to": "2005-06-15",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: Předseda představenstva 2004-05-05→2005-06-15 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:5911",
+      "rel": "linked_to",
+      "dst": "company:ico:62240935",
+      "mp": "Jaroslav Foldyna",
+      "company": "Dopravní podnik města Děčína, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/62240935",
+        "role_valid_from": "2011-02-04",
+        "role_valid_to": "2014-12-31",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: Předseda představenstva 2011-02-04→2014-12-31 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:5943",
+      "rel": "linked_to",
+      "dst": "company:ico:02086778",
+      "mp": "Helena Langšádlová",
+      "company": "Fórum Karla Schwarzenberga, o.p.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/02086778",
+        "role_valid_from": "2013-09-10",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen správní rady 2013-09-10→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:5943",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Helena Langšádlová",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6074",
+      "rel": "linked_to",
+      "dst": "company:ico:26254590",
+      "mp": "Petr Fiala",
+      "company": "STUDIO ARX s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26254590",
+        "role_valid_from": "2001-08-11",
+        "role_valid_to": "2012-06-11",
+        "temporal_status": "historical-no-money",
+        "tie_class": "owner-operator",
+        "reviewer_note": "ARES VR: společník 2001-08-11→2012-06-11 · peníze: historical-no-money"
+      }
+    },
+    {
+      "src": "psp:person:6074",
+      "rel": "linked_to",
+      "dst": "company:ico:70282960",
+      "mp": "Petr Fiala",
+      "company": "Evropský informační projekt, z. ú.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/70282960",
+        "role_valid_from": "2015-06-16",
+        "role_valid_to": "2022-04-28",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen správní rady/společník 2015-06-16→2022-04-28 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6105",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Tomio Okamura",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6105",
+      "rel": "linked_to",
+      "dst": "company:ico:25643461",
+      "mp": "Tomio Okamura",
+      "company": "MEBIUS s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25643461",
+        "role_valid_from": "1998-02-05",
+        "role_valid_to": null,
+        "owner_stake_pct": 100,
+        "temporal_status": "current",
+        "tie_class": "owner-operator",
+        "reviewer_note": "ARES VR: Jednatel/společník 1998-02-05→trvá (100% podíl) · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6105",
+      "rel": "linked_to",
+      "dst": "company:ico:27145433",
+      "mp": "Tomio Okamura",
+      "company": "U Machtů s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27145433",
+        "role_valid_from": "2004-05-20",
+        "role_valid_to": "2016-02-01",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "owner-operator",
+        "reviewer_note": "Sonnet-review potvrzuje money-postdates-role jako čistý předěl: společník (20/200 podílu) 2004-05-20→2016-02-01, prodáno stávajícím spoluvlastníkům Wurstovi/Zákosteleckému. Žádné peníze po odchodu dohledatelné k Okamurovi osobně. NEZÁVISLE ale dohledána zdokumentovaná stopa: prodej podílu v roce 2016 nebyl uveden v majetkovém přiznání poslance (Týden.cz, HlídacíPes) — samostatná, ověřitelná kauza nedodržení oznamovací povinnosti, doporučeno pro frontier jako Q-money-6.",
+        "signal": 3,
+        "flags": [
+          "sonnet-reviewed",
+          "clean-handoff-not-revolving-door",
+          "undisclosed-asset-declaration-lead"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6105",
+      "rel": "linked_to",
+      "dst": "company:ico:28406354",
+      "mp": "Tomio Okamura",
+      "company": "Japa Foods s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/28406354",
+        "role_valid_from": "2008-06-05",
+        "role_valid_to": null,
+        "owner_stake_pct": 50,
+        "temporal_status": "current",
+        "tie_class": "owner-operator",
+        "reviewer_note": "ARES VR: jednatel/společník 2008-06-05→trvá (50% podíl) · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6150",
+      "rel": "linked_to",
+      "dst": "company:ico:01801261",
+      "mp": "Andrej Babiš",
+      "company": "Hartenberg Holding, s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/01801261",
+        "role_valid_from": "2013-06-18",
+        "role_valid_to": "2014-01-20",
+        "temporal_status": "historical-no-money",
+        "tie_class": "owner-operator",
+        "reviewer_note": "ARES VR: jednatel  2013-06-18→2014-01-20 · peníze: historical-no-money"
+      }
+    },
+    {
+      "src": "psp:person:6150",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Andrej Babiš",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6150",
+      "rel": "linked_to",
+      "dst": "company:ico:24188581",
+      "mp": "Andrej Babiš",
+      "company": "Nadace AGROFERT",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/24188581",
+        "role_valid_from": "2011-12-05",
+        "role_valid_to": "2026-02-16",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: předseda správní rady/Předseda správní rady 2011-12-05→2026-02-16 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6150",
+      "rel": "linked_to",
+      "dst": "company:ico:26014343",
+      "mp": "Andrej Babiš",
+      "company": "SynBiol, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26014343",
+        "role_valid_from": "2008-08-08",
+        "role_valid_to": "2014-01-30",
+        "temporal_status": "historical-no-money",
+        "tie_class": "manager",
+        "reviewer_note": "ARES VR: člen představenstva/člen představenstva  2008-08-08→2014-01-30 · peníze: historical-no-money"
+      }
+    },
+    {
+      "src": "psp:person:6150",
+      "rel": "linked_to",
+      "dst": "company:ico:26124459",
+      "mp": "Andrej Babiš",
+      "company": "IMOBA, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26124459",
+        "role_valid_from": "2007-04-02",
+        "role_valid_to": "2014-01-30",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "manager",
+        "reviewer_note": "ARES VR: předseda představenstva 2007-04-02→2014-01-30 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:6150",
+      "rel": "linked_to",
+      "dst": "company:ico:26185610",
+      "mp": "Andrej Babiš",
+      "company": "AGROFERT, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26185610",
+        "role_valid_from": "2000-07-01",
+        "role_valid_to": "2014-01-22",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "manager",
+        "reviewer_note": "ARES VR: předseda 2000-07-01→2014-01-22 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:6150",
+      "rel": "linked_to",
+      "dst": "company:ico:26872307",
+      "mp": "Andrej Babiš",
+      "company": "PRECHEZA a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26872307",
+        "role_valid_from": "2006-10-16",
+        "role_valid_to": "2009-04-30",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: předseda představenstva/člen dozorčí rady/předseda dozorčí rady 2006-10-16→2009-04-30 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:6150",
+      "rel": "linked_to",
+      "dst": "company:ico:27465021",
+      "mp": "Andrej Babiš",
+      "company": "Fatra, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27465021",
+        "role_valid_from": "2005-03-01",
+        "role_valid_to": "2008-06-30",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: předseda dozorčí rady 2005-03-01→2008-06-30 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:6150",
+      "rel": "linked_to",
+      "dst": "company:ico:27771245",
+      "mp": "Andrej Babiš",
+      "company": "PROFROST a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27771245",
+        "role_valid_from": "2006-06-15",
+        "role_valid_to": "2014-01-16",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "manager",
+        "reviewer_note": "ARES VR: předseda představenstva 2006-06-15→2014-01-16 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:6150",
+      "rel": "linked_to",
+      "dst": "company:ico:46900411",
+      "mp": "Andrej Babiš",
+      "company": "Kostelecké uzeniny a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/46900411",
+        "role_valid_from": "2004-06-26",
+        "role_valid_to": "2006-09-04",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: předseda představenstva/předseda 2004-06-26→2006-09-04 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:6150",
+      "rel": "linked_to",
+      "dst": "company:ico:48207918",
+      "mp": "Andrej Babiš",
+      "company": "AGROPROFIT, spol. s r.o.",
+      "propsMerge": {
+        "corroboration": "conflicting",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/48207918",
+        "tie_class": "owner-operator",
+        "reviewer_note": "Sonnet-review POTVRZUJE 'conflicting': úplný historický seznam jednatelů (Pokorný, Ženčuch, Weinerová, Liška, Skopal, Weiner, Prchlík, Bílý, 1993–2025) neobsahuje Babiše. Web našel Agrofertovo převzetí zemědělského družstva „Agroprofit“ v roce 1994, ale jde patrně o jiný právní subjekt než toto s.r.o. Vazba grafu na toto IČO NENÍ potvrzena.",
+        "flags": [
+          "no-birthdate-match-in-vr",
+          "sonnet-reviewed"
+        ],
+        "signal": 2
+      }
+    },
+    {
+      "src": "psp:person:6150",
+      "rel": "linked_to",
+      "dst": "company:ico:49100262",
+      "mp": "Andrej Babiš",
+      "company": "Lovochemie, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49100262",
+        "role_valid_from": "1997-03-26",
+        "role_valid_to": "2009-02-25",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: Předseda představenstva 1997-03-26→2009-02-25 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:6150",
+      "rel": "linked_to",
+      "dst": "company:ico:60108916",
+      "mp": "Andrej Babiš",
+      "company": "Synthesia, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/60108916",
+        "role_valid_from": "2000-12-07",
+        "role_valid_to": "2005-09-13",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: předseda představenstva/člen 2000-12-07→2005-09-13 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:6150",
+      "rel": "linked_to",
+      "dst": "company:ico:64258998",
+      "mp": "Andrej Babiš",
+      "company": "AGRONOVA CS s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/64258998",
+        "tie_class": "owner-operator",
+        "reviewer_note": "ARES VR historický záznam jmenuje přímo „Ing. Andrej Babiš, jednatel 1995–1996“ — jméno + období souhlasí s tvrzením grafu, ale záznam nemá datum narození (starý papírový zápis), takže deterministický birth-date matcher jej označil 'conflicting'. Sonnet-review: shoda jménem potvrzena, KOREKCE na registry-confirmed. Firma v Agrofertově orbitě. (přesná data dne nejsou v OR dostupná — starý zápis, roky 1995–1996 potvrzeny jmenovitě).",
+        "flags": [
+          "no-birthdate-match-in-vr",
+          "sonnet-reviewed",
+          "vr-missing-dob-on-old-record",
+          "approximate-dates-no-day-precision"
+        ],
+        "corroboration_confidence": "name-match-no-dob",
+        "signal": 4,
+        "temporal_status": "historical-no-money"
+      }
+    },
+    {
+      "src": "psp:person:6154",
+      "rel": "linked_to",
+      "dst": "company:ico:02086778",
+      "mp": "Marek Ženíšek",
+      "company": "Fórum Karla Schwarzenberga, o.p.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/02086778",
+        "role_valid_from": "2013-09-10",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen správní rady 2013-09-10→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6154",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Marek Ženíšek",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6154",
+      "rel": "linked_to",
+      "dst": "company:ico:22745696",
+      "mp": "Marek Ženíšek",
+      "company": "TOPAZ, z.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/22745696",
+        "role_valid_from": "2016-12-27",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen/místopředseda výkonné rady 2016-12-27→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6154",
+      "rel": "linked_to",
+      "dst": "company:ico:25220683",
+      "mp": "Marek Ženíšek",
+      "company": "Plzeňské městské dopravní podniky, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25220683",
+        "role_valid_from": "2011-03-30",
+        "role_valid_to": "2023-01-01",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: místopředseda dozorčí rady/člen dozorčí rady 2011-03-30→2023-01-01 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6154",
+      "rel": "linked_to",
+      "dst": "company:ico:28338766",
+      "mp": "Marek Ženíšek",
+      "company": "Národní Centrum Tkání a Buněk a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/28338766",
+        "role_valid_from": "2013-05-16",
+        "role_valid_to": "2015-01-09",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen představenstva 2013-05-16→2015-01-09 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:6154",
+      "rel": "linked_to",
+      "dst": "company:ico:49790480",
+      "mp": "Marek Ženíšek",
+      "company": "Plzeňská teplárenská, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49790480",
+        "role_valid_from": "2018-12-20",
+        "role_valid_to": "2019-10-17",
+        "temporal_status": "historical",
+        "tie_class": "manager",
+        "reviewer_note": "ARES VR: člen představenstva 2018-12-20→2019-10-17 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:6154",
+      "rel": "linked_to",
+      "dst": "company:ico:60193913",
+      "mp": "Marek Ženíšek",
+      "company": "Pražská energetika, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/60193913",
+        "role_valid_from": "2019-10-29",
+        "role_valid_to": "2023-06-23",
+        "temporal_status": "historical",
+        "tie_class": "manager",
+        "reviewer_note": "ARES VR: místopředseda představenstva 2019-10-29→2023-06-23 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6154",
+      "rel": "linked_to",
+      "dst": "company:ico:63080249",
+      "mp": "Marek Ženíšek",
+      "company": "Kongresové centrum Praha, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/63080249",
+        "role_valid_from": "2019-02-22",
+        "role_valid_to": "2020-12-08",
+        "temporal_status": "historical-no-money",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen představenstva 2019-02-22→2020-12-08 · peníze: historical-no-money"
+      }
+    },
+    {
+      "src": "psp:person:6165",
+      "rel": "linked_to",
+      "dst": "company:ico:26232987",
+      "mp": "Radek Vondráček",
+      "company": "NEXNET, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26232987",
+        "role_valid_from": "2000-12-14",
+        "role_valid_to": "2014-08-06",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen/předseda/předseda dozorčí rady 2000-12-14→2014-08-06 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:6165",
+      "rel": "linked_to",
+      "dst": "company:ico:29186315",
+      "mp": "Radek Vondráček",
+      "company": "MAE invest a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/29186315",
+        "role_valid_from": "2009-10-27",
+        "role_valid_to": "2015-03-02",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady 2009-10-27→2015-03-02 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:6168",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Helena Válková",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6168",
+      "rel": "linked_to",
+      "dst": "company:ico:61463647",
+      "mp": "Helena Válková",
+      "company": "Družstvo Nárožní dům Plavecká 12",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/61463647",
+        "role_valid_from": "2001-10-23",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "manager",
+        "reviewer_note": "ARES VR: předseda představenstva/Předseda představenstva/Předseda družstva 2001-10-23→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6172",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Ladislav Okleštěk",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6172",
+      "rel": "linked_to",
+      "dst": "company:ico:27693058",
+      "mp": "Ladislav Okleštěk",
+      "company": "Prostějov venkov o.p.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27693058",
+        "role_valid_from": "2006-07-03",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: společník 2006-07-03→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6172",
+      "rel": "linked_to",
+      "dst": "company:ico:70890013",
+      "mp": "Ladislav Okleštěk",
+      "company": "Povodí Moravy, s.p.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/70890013",
+        "role_valid_from": "2015-03-31",
+        "role_valid_to": "2020-08-16",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady jmenovaný zakladatelen/člen 2015-03-31→2020-08-16 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6178",
+      "rel": "linked_to",
+      "dst": "company:ico:26025027",
+      "mp": "Jan Bartošek",
+      "company": "Nadační fond Nemocnice Dačice",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26025027",
+        "role_valid_from": "2012-12-07",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: předseda správní rady 2012-12-07→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6184",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Richard Brabec",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6184",
+      "rel": "linked_to",
+      "dst": "company:ico:45147787",
+      "mp": "Richard Brabec",
+      "company": "SPOLANA s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/45147787",
+        "role_valid_from": "2003-03-01",
+        "role_valid_to": "2005-08-19",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "manager",
+        "reviewer_note": "ARES VR: člen 2003-03-01→2005-08-19 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:6184",
+      "rel": "linked_to",
+      "dst": "company:ico:49100262",
+      "mp": "Richard Brabec",
+      "company": "Lovochemie, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49100262",
+        "role_valid_from": "2005-06-10",
+        "role_valid_to": "2014-01-31",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: Předseda představenstva/Místopředseda představenstva/Člen představenstva/Předseda dozorčí rady 2005-06-10→2014-01-31 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:6184",
+      "rel": "linked_to",
+      "dst": "company:ico:49683144",
+      "mp": "Richard Brabec",
+      "company": "PRAK spol. s r.o.",
+      "propsMerge": {
+        "corroboration": "conflicting",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49683144",
+        "tie_class": "steward",
+        "reviewer_note": "Firma 49683144 v ARES VR existuje, ale žádný úředník/společník se shodným datem narození nenalezen — vazba tvrzená grafem (Hlídač) NENÍ v OR potvrzena. Sonnet-review (sesterská vazba Bendl→PRAK) našel STEJNÝ problém: zdroj Hlídače tvrdí „PRaK, a.s. — člen představenstva“, zatímco IČO 49683144 je s.r.o. od 1993 (nemůže mít představenstvo) — pravděpodobně JINÉ IČO (viz samostatná zaniklá „PRaK, a.s.“). Doporučeno přeřešit IČO, ne jen tuto osobu.",
+        "flags": [
+          "no-birthdate-match-in-vr",
+          "wrong-entity-suspected",
+          "needs-ico-re-resolution",
+          "sonnet-reviewed-by-analogy"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6185",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Milan Brázdil",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6185",
+      "rel": "linked_to",
+      "dst": "company:ico:28338766",
+      "mp": "Milan Brázdil",
+      "company": "Národní Centrum Tkání a Buněk a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/28338766",
+        "role_valid_from": "2015-01-09",
+        "role_valid_to": "2017-04-10",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady 2015-01-09→2017-04-10 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6185",
+      "rel": "linked_to",
+      "dst": "company:ico:60800691",
+      "mp": "Milan Brázdil",
+      "company": "Vojenská nemocnice Olomouc",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/60800691",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6190",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Jaroslav Faltýnek",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6190",
+      "rel": "linked_to",
+      "dst": "company:ico:26185610",
+      "mp": "Jaroslav Faltýnek",
+      "company": "AGROFERT, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26185610",
+        "role_valid_from": "2007-05-09",
+        "role_valid_to": "2017-03-16",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen představenstva 2007-05-09→2017-03-16 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:6201",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Miloslav Janulík",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6201",
+      "rel": "linked_to",
+      "dst": "company:ico:46978593",
+      "mp": "Miloslav Janulík",
+      "company": "Poliklinika Břeclav, s. r. o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/46978593",
+        "tie_class": "owner-operator",
+        "reviewer_note": "ARES VR jmenuje „MUDr. Miloslav Janulík, jednatel do 1999-05-06“, nezávisle potvrzeno cs.wikipedia.org + atlasvlivu.cz (spoluzakladatel/ředitel polikliniky ~1992–1999). Chybí datum narození ve starém zápisu → deterministický matcher chyboval. KOREKCE na registry-confirmed. Dosažitelné peníze: 183 tis. Kč zakázky + 2,7 mil. Kč dotace. (přesné datum dne z OR nedostupné — rok 1999 potvrzen jmenovitě).",
+        "flags": [
+          "no-birthdate-match-in-vr",
+          "sonnet-reviewed",
+          "vr-missing-dob-on-old-record",
+          "approximate-dates-no-day-precision"
+        ],
+        "corroboration_confidence": "name-match-no-dob",
+        "signal": 3,
+        "temporal_status": "historical"
+      }
+    },
+    {
+      "src": "psp:person:6201",
+      "rel": "linked_to",
+      "dst": "company:ico:49437674",
+      "mp": "Miloslav Janulík",
+      "company": "POLIKLINIKA - servis s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49437674",
+        "tie_class": "owner-operator",
+        "reviewer_note": "ARES VR jmenuje přímo „MUDr. Miloslav Janulík, jednatel 1993–2002“ — přesná shoda s grafem. Chybí datum narození ve starém zápisu. KOREKCE na registry-confirmed. Bez dosažitelných peněz (0 Kč zakázky/dotace) — role potvrzena, finanční materialita nulová. (přesné datum dne z OR nedostupné — rok 2002 potvrzen jmenovitě).",
+        "flags": [
+          "no-birthdate-match-in-vr",
+          "sonnet-reviewed",
+          "vr-missing-dob-on-old-record",
+          "approximate-dates-no-day-precision"
+        ],
+        "corroboration_confidence": "name-match-no-dob",
+        "signal": 2,
+        "temporal_status": "historical-no-money"
+      }
+    },
+    {
+      "src": "psp:person:6201",
+      "rel": "linked_to",
+      "dst": "company:ico:63488329",
+      "mp": "Miloslav Janulík",
+      "company": "Nemocnice Valtice s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/63488329",
+        "role_valid_from": "1998-02-12",
+        "role_valid_to": "1999-05-18",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: jednatel 1998-02-12→1999-05-18 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:6205",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Marian Jurečka",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6205",
+      "rel": "linked_to",
+      "dst": "company:ico:25586521",
+      "mp": "Marian Jurečka",
+      "company": "AGRO 2000 s.r.o.",
+      "propsMerge": {
+        "corroboration": "conflicting",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25586521",
+        "tie_class": "steward",
+        "reviewer_note": "Firma 25586521 v ARES VR existuje, ale žádný úředník/společník se shodným datem narození nenalezen — vazba tvrzená grafem (Hlídač) NENÍ v OR potvrzena.",
+        "flags": [
+          "no-birthdate-match-in-vr"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6209",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "David Kasal",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6209",
+      "rel": "linked_to",
+      "dst": "company:ico:27485013",
+      "mp": "David Kasal",
+      "company": "Sportovní areály města Chrudim, s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27485013",
+        "role_valid_from": "2011-02-21",
+        "role_valid_to": "2012-07-31",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: předseda dozorčí rady 2011-02-21→2012-07-31 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:6211",
+      "rel": "linked_to",
+      "dst": "company:ico:22827668",
+      "mp": "Martin Kolovratník",
+      "company": "Hi-Tech inovační klastr z. s.    (anglická verze: Hi-Tech innovation cluster)",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/22827668",
+        "role_valid_from": "2016-02-04",
+        "role_valid_to": "2018-05-07",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: Člen dozorčí rady 2016-02-04→2018-05-07 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:6211",
+      "rel": "linked_to",
+      "dst": "company:ico:25918206",
+      "mp": "Martin Kolovratník",
+      "company": "Smetanova Litomyšl, o.p.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25918206",
+        "role_valid_from": "2015-02-12",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen správní rady 2015-02-12→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6211",
+      "rel": "linked_to",
+      "dst": "company:ico:27534804",
+      "mp": "Martin Kolovratník",
+      "company": "SKP-CENTRUM, o.p.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27534804",
+        "role_valid_from": "2008-03-13",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: společník 2008-03-13→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6211",
+      "rel": "linked_to",
+      "dst": "company:ico:45245053",
+      "mp": "Martin Kolovratník",
+      "company": "ČESKÝ ROZHLAS",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/45245053",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6211",
+      "rel": "linked_to",
+      "dst": "company:ico:48154938",
+      "mp": "Martin Kolovratník",
+      "company": "EAST BOHEMIAN AIRPORT a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/48154938",
+        "role_valid_from": "2015-04-04",
+        "role_valid_to": "2017-08-31",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady 2015-04-04→2017-08-31 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:6211",
+      "rel": "linked_to",
+      "dst": "company:ico:63217066",
+      "mp": "Martin Kolovratník",
+      "company": "Dopravní podnik města Pardubic a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/63217066",
+        "role_valid_from": "2015-02-23",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen představenstva/předseda dozorčí rady/člen dozorčí rady 2015-02-23→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6214",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Věra Kovářová",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6214",
+      "rel": "linked_to",
+      "dst": "company:ico:60193531",
+      "mp": "Věra Kovářová",
+      "company": "ČEPRO, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/60193531",
+        "role_valid_from": "2011-09-01",
+        "role_valid_to": "2013-10-14",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady 2011-09-01→2013-10-14 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:6215",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Roman Kubíček",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6216",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Michal Kučera",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6216",
+      "rel": "linked_to",
+      "dst": "company:ico:19840659",
+      "mp": "Michal Kučera",
+      "company": "Sirius Praha s.r.o.",
+      "propsMerge": {
+        "corroboration": "conflicting",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/19840659",
+        "tie_class": "owner-operator",
+        "reviewer_note": "Sonnet-review: genuinely inconclusive. Aktuální VR výpis ukazuje jen dva ukrajinské společníky (nar. 1982, 1978), přidané 2023–2025; žádný dohledatelný historický záznam s Kučerou, žádná nezávislá zmínka na hlidacstatu.cz/psp.cz. Nelze vyloučit, že starší historie ve výpisu chybí. Bez dosažitelných peněz (0 Kč).",
+        "flags": [
+          "no-birthdate-match-in-vr",
+          "sonnet-reviewed",
+          "inconclusive"
+        ],
+        "signal": 1
+      }
+    },
+    {
+      "src": "psp:person:6216",
+      "rel": "linked_to",
+      "dst": "company:ico:26123550",
+      "mp": "Michal Kučera",
+      "company": "LIHT s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26123550",
+        "role_valid_from": "2003-07-07",
+        "role_valid_to": "2005-04-12",
+        "temporal_status": "historical-no-money",
+        "tie_class": "owner-operator",
+        "reviewer_note": "ARES VR: jednatel 2003-07-07→2005-04-12 · peníze: historical-no-money"
+      }
+    },
+    {
+      "src": "psp:person:6225",
+      "rel": "linked_to",
+      "dst": "company:ico:00829838",
+      "mp": "Jana Pastuchová",
+      "company": "Nemocnice Jablonec nad Nisou, p.o.",
+      "propsMerge": {
+        "corroboration": "conflicting",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/00829838",
+        "tie_class": "steward",
+        "reviewer_note": "Firma 00829838 v ARES VR existuje, ale žádný úředník/společník se shodným datem narození nenalezen — vazba tvrzená grafem (Hlídač) NENÍ v OR potvrzena.",
+        "flags": [
+          "no-birthdate-match-in-vr"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6225",
+      "rel": "linked_to",
+      "dst": "company:ico:27467759",
+      "mp": "Jana Pastuchová",
+      "company": "Horská služba ČR, o.p.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27467759",
+        "role_valid_from": "2014-06-17",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady/Člen dozorčí rady 2014-06-17→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6225",
+      "rel": "linked_to",
+      "dst": "company:ico:46744991",
+      "mp": "Jana Pastuchová",
+      "company": "Zdravotnická záchranná služba Libereckého kraje, příspěvková organizace",
+      "propsMerge": {
+        "corroboration": "conflicting",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/46744991",
+        "tie_class": "steward",
+        "reviewer_note": "Firma 46744991 v ARES VR existuje, ale žádný úředník/společník se shodným datem narození nenalezen — vazba tvrzená grafem (Hlídač) NENÍ v OR potvrzena.",
+        "flags": [
+          "no-birthdate-match-in-vr"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6240",
+      "rel": "linked_to",
+      "dst": "company:ico:60826851",
+      "mp": "Karel Tureček",
+      "company": "Rybářství Třeboň a.s.",
+      "propsMerge": {
+        "corroboration": "conflicting",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/60826851",
+        "tie_class": "steward",
+        "reviewer_note": "Firma 60826851 v ARES VR existuje, ale žádný úředník/společník se shodným datem narození nenalezen — vazba tvrzená grafem (Hlídač) NENÍ v OR potvrzena.",
+        "flags": [
+          "no-birthdate-match-in-vr"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6240",
+      "rel": "linked_to",
+      "dst": "company:ico:70889988",
+      "mp": "Karel Tureček",
+      "company": "Povodí Ohře, státní podnik",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/70889988",
+        "role_valid_from": "2001-04-05",
+        "role_valid_to": "2004-04-14",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: Člen dozorčí rady 2001-04-05→2004-04-14 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:6409",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "František Petrtýl",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6409",
+      "rel": "linked_to",
+      "dst": "company:ico:25713817",
+      "mp": "František Petrtýl",
+      "company": "SPARING MB s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25713817",
+        "role_valid_from": "1998-11-26",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "owner-operator",
+        "reviewer_note": "ARES VR: jednatel/společník 1998-11-26→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6409",
+      "rel": "linked_to",
+      "dst": "company:ico:29054117",
+      "mp": "František Petrtýl",
+      "company": "F.M.S. Consulting s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/29054117",
+        "role_valid_from": "2010-08-25",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "owner-operator",
+        "reviewer_note": "ARES VR: společník 2010-08-25→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6409",
+      "rel": "linked_to",
+      "dst": "company:ico:49825950",
+      "mp": "František Petrtýl",
+      "company": "COMBIN BOHEMIA spol. s r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49825950",
+        "role_valid_from": "1994-11-30",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "owner-operator",
+        "reviewer_note": "ARES VR: Jednatel 1994-11-30→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6433",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Ivan Bartoš",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6435",
+      "rel": "linked_to",
+      "dst": "company:ico:06919511",
+      "mp": "Martin Baxa",
+      "company": "SUTNAR - NADACE RADOSLAVA A ELAINE SUTNAROVÝCH",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/06919511",
+        "role_valid_from": "2018-03-07",
+        "role_valid_to": "2022-09-20",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen správní rady 2018-03-07→2022-09-20 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6435",
+      "rel": "linked_to",
+      "dst": "company:ico:25220683",
+      "mp": "Martin Baxa",
+      "company": "Plzeňské městské dopravní podniky, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25220683",
+        "role_valid_from": "2003-09-10",
+        "role_valid_to": "2005-12-20",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: Člen 2003-09-10→2005-12-20 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:6435",
+      "rel": "linked_to",
+      "dst": "company:ico:25224662",
+      "mp": "Martin Baxa",
+      "company": "Plzeňská filharmonie, obecně prospěšná společnost",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25224662",
+        "role_valid_from": "2005-09-29",
+        "role_valid_to": "2019-10-04",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen správní rady/člen dozorčí rady 2005-09-29→2019-10-04 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:6435",
+      "rel": "linked_to",
+      "dst": "company:ico:25234994",
+      "mp": "Martin Baxa",
+      "company": "Galerie města Plzně, o.p.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25234994",
+        "role_valid_from": "2015-05-22",
+        "role_valid_to": "2021-07-16",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady 2015-05-22→2021-07-16 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6435",
+      "rel": "linked_to",
+      "dst": "company:ico:25245091",
+      "mp": "Martin Baxa",
+      "company": "Regionální rozvojová agentura Plzeňského kraje, obecně prospěšná společnost",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25245091",
+        "role_valid_from": "2017-05-17",
+        "role_valid_to": "2023-05-16",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen správní rady 2017-05-17→2023-05-16 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6435",
+      "rel": "linked_to",
+      "dst": "company:ico:26396645",
+      "mp": "Martin Baxa",
+      "company": "Techmania Science Center o.p.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26396645",
+        "role_valid_from": "2005-09-14",
+        "role_valid_to": "2010-01-13",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady 2005-09-14→2010-01-13 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:6435",
+      "rel": "linked_to",
+      "dst": "company:ico:27149994",
+      "mp": "Martin Baxa",
+      "company": "Nadace Věry a Vladimíra Janouškových",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27149994",
+        "role_valid_from": "2004-05-12",
+        "role_valid_to": "2022-05-12",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen 2004-05-12→2022-05-12 · peníze: money-postdates-role · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6435",
+      "rel": "linked_to",
+      "dst": "company:ico:45332657",
+      "mp": "Martin Baxa",
+      "company": "Nadace 700 let města Plzně",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/45332657",
+        "role_valid_from": "2018-04-21",
+        "role_valid_to": "2021-07-23",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen správní rady 2018-04-21→2021-07-23 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6435",
+      "rel": "linked_to",
+      "dst": "company:ico:69972061",
+      "mp": "Martin Baxa",
+      "company": "Sdružení měst a obcí Plzeňského kraje",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/69972061",
+        "role_valid_from": "2014-01-01",
+        "role_valid_to": "2015-04-10",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: čestný předseda 2014-01-01→2015-04-10 · peníze: money-postdates-role · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6455",
+      "rel": "linked_to",
+      "dst": "company:ico:27720004",
+      "mp": "Jan Hrnčíř",
+      "company": "Česká informatika s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27720004",
+        "role_valid_from": "2007-02-21",
+        "role_valid_to": null,
+        "owner_stake_pct": 100,
+        "temporal_status": "current",
+        "tie_class": "owner-operator",
+        "reviewer_note": "ARES VR: jednatel/společník 2007-02-21→trvá (100% podíl) · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6459",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Jakub Janda",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6463",
+      "rel": "linked_to",
+      "dst": "company:ico:00027383",
+      "mp": "Aleš Juchelka",
+      "company": "ČESKÁ TELEVIZE",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/00027383",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6463",
+      "rel": "linked_to",
+      "dst": "company:ico:02751232",
+      "mp": "Aleš Juchelka",
+      "company": "YOU STORY UP! s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/02751232",
+        "role_valid_from": "2014-03-10",
+        "role_valid_to": "2016-08-18",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "owner-operator",
+        "reviewer_note": "Sonnet-review potvrzuje money-postdates-role jako ČISTÝ předěl, ne otočné dveře: jednatelství 2014-03-10→2016-08-11(18), 100% podíl následně přešel na spoluzakladatele Jana Škraňku bez zjevné rodinné vazby; všech 14 zakázek (6,27 mil. Kč) uzavřeno až po odchodu Juchelky. Samostatně nalezena AKTUÁLNÍ (2026) kauza: Juchelka jako ministr údajně zvýhodnil poradkyni v dotační věci — jiná stopa, NENÍ součástí této vazby, doporučeno pro frontier jako Q-money-5.",
+        "signal": 1,
+        "flags": [
+          "sonnet-reviewed",
+          "clean-handoff-not-revolving-door"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6463",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Aleš Juchelka",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6463",
+      "rel": "linked_to",
+      "dst": "company:ico:45245053",
+      "mp": "Aleš Juchelka",
+      "company": "ČESKÝ ROZHLAS",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/45245053",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6479",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Lucie Šafránková",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6479",
+      "rel": "linked_to",
+      "dst": "company:ico:47122099",
+      "mp": "Lucie Šafránková",
+      "company": "Pražská vysoká škola psychosociálních studií, s.r.o.",
+      "propsMerge": {
+        "corroboration": "conflicting",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/47122099",
+        "tie_class": "steward",
+        "reviewer_note": "Firma 47122099 v ARES VR existuje, ale žádný úředník/společník se shodným datem narození nenalezen — vazba tvrzená grafem (Hlídač) NENÍ v OR potvrzena.",
+        "flags": [
+          "no-birthdate-match-in-vr"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6487",
+      "rel": "linked_to",
+      "dst": "company:ico:02795281",
+      "mp": "Patrik Nacher",
+      "company": "Operátor ICT, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/02795281",
+        "role_valid_from": "2015-04-13",
+        "role_valid_to": "2016-07-09",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady 2015-04-13→2016-07-09 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:6487",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Patrik Nacher",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6500",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Jan Richter",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6500",
+      "rel": "linked_to",
+      "dst": "company:ico:27341313",
+      "mp": "Jan Richter",
+      "company": "CHOMUTOVSKÁ BYTOVÁ a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27341313",
+        "role_valid_from": "2015-03-02",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: Předseda dozorčí rady/předseda dozorčí rady 2015-03-02→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6500",
+      "rel": "linked_to",
+      "dst": "company:ico:47795808",
+      "mp": "Jan Richter",
+      "company": "Sportovní klub policie Kadaň, z.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/47795808",
+        "role_valid_from": "2017-02-18",
+        "role_valid_to": "2024-12-17",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: Člen výboru/člen výboru 2017-02-18→2024-12-17 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6500",
+      "rel": "linked_to",
+      "dst": "company:ico:64053466",
+      "mp": "Jan Richter",
+      "company": "Dopravní podnik měst Chomutova a Jirkova a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/64053466",
+        "role_valid_from": "2015-06-16",
+        "role_valid_to": "2019-03-29",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: Člen dozorčí rady 2015-06-16→2019-03-29 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:6513",
+      "rel": "linked_to",
+      "dst": "company:ico:48161063",
+      "mp": "Marek Výborný",
+      "company": "Gymnázium, Pardubice, Mozartova 449",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/48161063",
+        "role_valid_from": "2012-08-01",
+        "role_valid_to": "2022-02-28",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: ředitel školy 2012-08-01→2022-02-28 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:6524",
+      "rel": "linked_to",
+      "dst": "company:ico:02312701",
+      "mp": "Vít Rakušan",
+      "company": "Vodní cesty na Labi, o.p.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/02312701",
+        "role_valid_from": "2013-11-12",
+        "role_valid_to": "2017-02-28",
+        "temporal_status": "historical-no-money",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: předseda dozorčí rady 2013-11-12→2017-02-28 · peníze: historical-no-money"
+      }
+    },
+    {
+      "src": "psp:person:6524",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Vít Rakušan",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6524",
+      "rel": "linked_to",
+      "dst": "company:ico:22874381",
+      "mp": "Vít Rakušan",
+      "company": "Změna pro Kolín z.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/22874381",
+        "role_valid_from": "2017-01-14",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen výboru 2017-01-14→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6524",
+      "rel": "linked_to",
+      "dst": "company:ico:26745615",
+      "mp": "Vít Rakušan",
+      "company": "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26745615",
+        "role_valid_from": "2006-04-27",
+        "role_valid_to": "2013-11-14",
+        "temporal_status": "historical-no-money",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: místopředseda výboru 2006-04-27→2013-11-14 · peníze: historical-no-money"
+      }
+    },
+    {
+      "src": "psp:person:6524",
+      "rel": "linked_to",
+      "dst": "company:ico:68404999",
+      "mp": "Vít Rakušan",
+      "company": "Nadační fond Gymnázia Kutná Hora",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/68404999",
+        "role_valid_from": "2010-06-19",
+        "role_valid_to": "2014-07-18",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen správní rady 2010-06-19→2014-07-18 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:6527",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "David Pražák",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6527",
+      "rel": "linked_to",
+      "dst": "company:ico:27267351",
+      "mp": "David Pražák",
+      "company": "KORID LK, spol. s r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27267351",
+        "role_valid_from": "2017-02-03",
+        "role_valid_to": "2021-06-29",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady 2017-02-03→2021-06-29 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:6527",
+      "rel": "linked_to",
+      "dst": "company:ico:60914351",
+      "mp": "David Pražák",
+      "company": "AGROCENTRUM JIZERAN a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/60914351",
+        "role_valid_from": "2004-03-22",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: místopředseda představenstva/Člen představestva 2004-03-22→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6538",
+      "rel": "linked_to",
+      "dst": "company:ico:01398717",
+      "mp": "Martin Kupka",
+      "company": "MAS Nad Prahou o.p.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/01398717",
+        "role_valid_from": "2013-02-08",
+        "role_valid_to": "2023-12-28",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: Člen správní rady/Předseda správní rady/společník 2013-02-08→2023-12-28 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6538",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Martin Kupka",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6603",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Pavel Karpíšek",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6603",
+      "rel": "linked_to",
+      "dst": "company:ico:06646042",
+      "mp": "Pavel Karpíšek",
+      "company": "Akademie individuálních sportů Plzeňského kraje, z. s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/06646042",
+        "role_valid_from": "2018-04-16",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: Místopředseda výboru/Člen kontrolní komise 2018-04-16→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6603",
+      "rel": "linked_to",
+      "dst": "company:ico:07739044",
+      "mp": "Pavel Karpíšek",
+      "company": "Krajská hospodářská komora v Plzeňském kraji",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/07739044",
+        "role_valid_from": "2019-01-01",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: 1. místopředseda představenstva/1. místopředseda/místopředseda 2019-01-01→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6603",
+      "rel": "linked_to",
+      "dst": "company:ico:08160902",
+      "mp": "Pavel Karpíšek",
+      "company": "Centrum lidských zdrojů Plzeňského kraje, z.ú.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/08160902",
+        "role_valid_from": "2019-05-13",
+        "role_valid_to": "2021-08-07",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen správní rady 2019-05-13→2021-08-07 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6603",
+      "rel": "linked_to",
+      "dst": "company:ico:14704234",
+      "mp": "Pavel Karpíšek",
+      "company": "Tenisový klub Vodní stavby Plzeň, z.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/14704234",
+        "role_valid_from": "2016-04-06",
+        "role_valid_to": "2023-01-10",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen/člen kontrolní komise 2016-04-06→2023-01-10 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6603",
+      "rel": "linked_to",
+      "dst": "company:ico:25245091",
+      "mp": "Pavel Karpíšek",
+      "company": "Regionální rozvojová agentura Plzeňského kraje, obecně prospěšná společnost",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25245091",
+        "role_valid_from": "2010-05-18",
+        "role_valid_to": "2025-05-26",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen správní rady/člen správní rady obecně prospěšné společnosti 2010-05-18→2025-05-26 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6603",
+      "rel": "linked_to",
+      "dst": "company:ico:26997355",
+      "mp": "Pavel Karpíšek",
+      "company": "Baculus, o.p.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26997355",
+        "role_valid_from": "2013-12-20",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen/člen dozorčí rady 2013-12-20→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6603",
+      "rel": "linked_to",
+      "dst": "company:ico:29118336",
+      "mp": "Pavel Karpíšek",
+      "company": "Chronos Vejprnice o.p.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/29118336",
+        "role_valid_from": "2011-06-27",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: společník 2011-06-27→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6603",
+      "rel": "linked_to",
+      "dst": "company:ico:29123348",
+      "mp": "Pavel Karpíšek",
+      "company": "Akademie HK PK, o.p.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/29123348",
+        "role_valid_from": "2011-12-21",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen správní rady 2011-12-21→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6603",
+      "rel": "linked_to",
+      "dst": "company:ico:49786709",
+      "mp": "Pavel Karpíšek",
+      "company": "Vodárenská a kanalizační a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49786709",
+        "role_valid_from": "1999-12-28",
+        "role_valid_to": "2025-06-30",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen správní rady/Člen správní rady/člen dozorčí rady/předseda 1999-12-28→2025-06-30 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6687",
+      "rel": "linked_to",
+      "dst": "company:ico:02795281",
+      "mp": "Jan Jakob",
+      "company": "Operátor ICT, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/02795281",
+        "role_valid_from": "2019-03-14",
+        "role_valid_to": "2021-03-27",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: Člen dozorčí rady 2019-03-14→2021-03-27 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6687",
+      "rel": "linked_to",
+      "dst": "company:ico:72046422",
+      "mp": "Jan Jakob",
+      "company": "Zákládní organizace Českého zahrádkářského svazu Roztoky Třebízského",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/72046422",
+        "role_valid_from": "2015-12-24",
+        "role_valid_to": "2018-01-19",
+        "temporal_status": "historical-no-money",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: Člen 2015-12-24→2018-01-19 · peníze: historical-no-money"
+      }
+    },
+    {
+      "src": "psp:person:6688",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Miroslav Samaš",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6688",
+      "rel": "linked_to",
+      "dst": "company:ico:27256537",
+      "mp": "Miroslav Samaš",
+      "company": "Oblastní nemocnice Kladno, a.s., nemocnice Středočeského kraje",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27256537",
+        "role_valid_from": "2018-12-17",
+        "role_valid_to": "2020-12-17",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: Člen představenstva/předseda dozorčí rady 2018-12-17→2020-12-17 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6688",
+      "rel": "linked_to",
+      "dst": "company:ico:47781131",
+      "mp": "Miroslav Samaš",
+      "company": "SKLÁDKA VRBIČKA s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/47781131",
+        "role_valid_from": "2016-01-08",
+        "role_valid_to": "2019-07-23",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady 2016-01-08→2019-07-23 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:6723",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Jana Berkovcová",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6727",
+      "rel": "linked_to",
+      "dst": "company:ico:03265889",
+      "mp": "Eva Decroix",
+      "company": "ELEMENTA Agency s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/03265889",
+        "role_valid_from": "2014-08-05",
+        "role_valid_to": "2017-01-27",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "owner-operator",
+        "reviewer_note": "Sonnet-review potvrzuje money-postdates-role jako čistý předěl: jednatelka 2014-08-05→2016-12-21, 100% podíl do 2017-01-27, prodáno Lucii Horáčkové. Současní vlastníci (Horáčková, Hrnjica, Běťáková) nemají jmennou vazbu na Decroix. Žádný nezávislý zdroj nespojuje pozdější zakázky (230 471 Kč) s ní.",
+        "signal": 1,
+        "flags": [
+          "sonnet-reviewed",
+          "clean-handoff-not-revolving-door"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6727",
+      "rel": "linked_to",
+      "dst": "company:ico:03921727",
+      "mp": "Eva Decroix",
+      "company": "Park Volmanec s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/03921727",
+        "role_valid_from": "2015-03-24",
+        "role_valid_to": "2015-10-20",
+        "owner_stake_pct": 50,
+        "temporal_status": "historical-no-money",
+        "tie_class": "owner-operator",
+        "reviewer_note": "ARES VR: Jednatel/společník 2015-03-24→2015-10-20 (50% podíl) · peníze: historical-no-money"
+      }
+    },
+    {
+      "src": "psp:person:6727",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Eva Decroix",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6732",
+      "rel": "linked_to",
+      "dst": "company:ico:25205625",
+      "mp": "Ivana Mádlová",
+      "company": "VODÁRNA PLZEŇ a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25205625",
+        "role_valid_from": "2016-01-18",
+        "role_valid_to": "2018-12-31",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady/místopředseda dozorčí rady 2016-01-18→2018-12-31 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:6732",
+      "rel": "linked_to",
+      "dst": "company:ico:29123747",
+      "mp": "Ivana Mádlová",
+      "company": "DOMOVINKA - sociální služby, o.p.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/29123747",
+        "role_valid_from": "2012-01-16",
+        "role_valid_to": "2014-09-22",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen správní rady 2012-01-16→2014-09-22 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:6743",
+      "rel": "linked_to",
+      "dst": "company:ico:26822105",
+      "mp": "Robert Stržínek",
+      "company": "Nemocnice AGEL Valašské Meziříčí a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26822105",
+        "role_valid_from": "2015-08-18",
+        "role_valid_to": "2023-02-22",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady 2015-08-18→2023-02-22 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:6743",
+      "rel": "linked_to",
+      "dst": "company:ico:47674652",
+      "mp": "Robert Stržínek",
+      "company": "Vodovody a kanalizace Vsetín, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/47674652",
+        "role_valid_from": "2015-06-04",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "manager",
+        "reviewer_note": "ARES VR: předseda představenstva/Místopředseda představenstva 2015-06-04→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6743",
+      "rel": "linked_to",
+      "dst": "company:ico:47997826",
+      "mp": "Robert Stržínek",
+      "company": "Tenisový klub DEZA Valašské Meziříčí, z.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/47997826",
+        "role_valid_from": "2016-07-29",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: Člen správní rady 2016-07-29→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6745",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Marie Pošarová",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6751",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Karel Haas",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6751",
+      "rel": "linked_to",
+      "dst": "company:ico:45534306",
+      "mp": "Karel Haas",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/45534306",
+        "role_valid_from": "2002-03-12",
+        "role_valid_to": "2014-07-02",
+        "temporal_status": "historical",
+        "tie_class": "manager",
+        "reviewer_note": "ARES VR: člen představenstva/člen dozorčí rady 2002-03-12→2014-07-02 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:6786",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Róbert Teleky",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6786",
+      "rel": "linked_to",
+      "dst": "company:ico:26871068",
+      "mp": "Róbert Teleky",
+      "company": "Vsetínská nemocnice a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26871068",
+        "role_valid_from": "2008-03-03",
+        "role_valid_to": "2022-09-09",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady 2008-03-03→2022-09-09 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6786",
+      "rel": "linked_to",
+      "dst": "company:ico:27660532",
+      "mp": "Róbert Teleky",
+      "company": "Kroměřížská nemocnice a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27660532",
+        "role_valid_from": "2014-10-24",
+        "role_valid_to": "2021-02-26",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady 2014-10-24→2021-02-26 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6786",
+      "rel": "linked_to",
+      "dst": "company:ico:27660915",
+      "mp": "Róbert Teleky",
+      "company": "Uherskohradišťská nemocnice a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27660915",
+        "role_valid_from": "2014-10-16",
+        "role_valid_to": "2021-02-26",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady 2014-10-16→2021-02-26 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6786",
+      "rel": "linked_to",
+      "dst": "company:ico:27661989",
+      "mp": "Róbert Teleky",
+      "company": "Krajská nemocnice T. Bati, a. s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27661989",
+        "role_valid_from": "2014-09-26",
+        "role_valid_to": "2021-03-24",
+        "temporal_status": "historical-no-money",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady 2014-09-26→2021-03-24 · peníze: historical-no-money · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6786",
+      "rel": "linked_to",
+      "dst": "company:ico:28593987",
+      "mp": "Róbert Teleky",
+      "company": "Vsetínská sportovní, s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/28593987",
+        "role_valid_from": "2015-03-24",
+        "role_valid_to": "2022-11-21",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: Člen dozorčí rady/Předseda dozorčí rady 2015-03-24→2022-11-21 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6789",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Lukáš Vlček",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6789",
+      "rel": "linked_to",
+      "dst": "company:ico:25172263",
+      "mp": "Lukáš Vlček",
+      "company": "SOMPO, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25172263",
+        "role_valid_from": "2006-12-28",
+        "role_valid_to": "2024-10-31",
+        "temporal_status": "historical",
+        "tie_class": "manager",
+        "reviewer_note": "ARES VR: místopředseda představenstva/předseda představenstva 2006-12-28→2024-10-31 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6789",
+      "rel": "linked_to",
+      "dst": "company:ico:26039907",
+      "mp": "Lukáš Vlček",
+      "company": "PEVAK Pelhřimov, družstvo",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26039907",
+        "role_valid_from": "2007-05-02",
+        "role_valid_to": "2025-01-04",
+        "temporal_status": "historical",
+        "tie_class": "manager",
+        "reviewer_note": "ARES VR: člen představenstva/Člen představenstva 2007-05-02→2025-01-04 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6789",
+      "rel": "linked_to",
+      "dst": "company:ico:26109859",
+      "mp": "Lukáš Vlček",
+      "company": "W.H.V. Projekt spol. s r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26109859",
+        "role_valid_from": "2006-10-04",
+        "role_valid_to": null,
+        "owner_stake_pct": 100,
+        "temporal_status": "current",
+        "tie_class": "owner-operator",
+        "reviewer_note": "ARES VR: jednatel/společník 2006-10-04→trvá (100% podíl) · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6789",
+      "rel": "linked_to",
+      "dst": "company:ico:26982170",
+      "mp": "Lukáš Vlček",
+      "company": "Via rustica z.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26982170",
+        "role_valid_from": "2015-11-24",
+        "role_valid_to": "2019-12-05",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: předseda/Předseda 2015-11-24→2019-12-05 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6789",
+      "rel": "linked_to",
+      "dst": "company:ico:27043843",
+      "mp": "Lukáš Vlček",
+      "company": "PRO VYSOČINU, občanské sdružení",
+      "propsMerge": {
+        "corroboration": "conflicting",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27043843",
+        "tie_class": "steward",
+        "reviewer_note": "Firma 27043843 v ARES VR existuje, ale žádný úředník/společník se shodným datem narození nenalezen — vazba tvrzená grafem (Hlídač) NENÍ v OR potvrzena.",
+        "flags": [
+          "no-birthdate-match-in-vr"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6789",
+      "rel": "linked_to",
+      "dst": "company:ico:28095405",
+      "mp": "Lukáš Vlček",
+      "company": "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/28095405",
+        "role_valid_from": "2008-12-15",
+        "role_valid_to": "2012-03-14",
+        "temporal_status": "historical-no-money",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: předseda výboru 2008-12-15→2012-03-14 · peníze: historical-no-money"
+      }
+    },
+    {
+      "src": "psp:person:6803",
+      "rel": "linked_to",
+      "dst": "company:ico:49454587",
+      "mp": "Jiří Horák",
+      "company": "Vodovody a kanalizace Vyškov,a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49454587",
+        "role_valid_from": "2019-07-09",
+        "role_valid_to": "2022-01-17",
+        "temporal_status": "historical",
+        "tie_class": "manager",
+        "reviewer_note": "ARES VR: člen představenstva 2019-07-09→2022-01-17 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6881",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Petr Hladík",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6881",
+      "rel": "linked_to",
+      "dst": "company:ico:09133267",
+      "mp": "Petr Hladík",
+      "company": "ARENA BRNO, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/09133267",
+        "role_valid_from": "2020-05-04",
+        "role_valid_to": "2022-10-31",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: předseda dozorčí rady 2020-05-04→2022-10-31 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6881",
+      "rel": "linked_to",
+      "dst": "company:ico:25508881",
+      "mp": "Petr Hladík",
+      "company": "Dopravní podnik města Brna, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25508881",
+        "role_valid_from": "2014-12-09",
+        "role_valid_to": "2015-10-31",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: místopředseda dozorčí rady 2014-12-09→2015-10-31 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:6881",
+      "rel": "linked_to",
+      "dst": "company:ico:46347534",
+      "mp": "Petr Hladík",
+      "company": "Teplárny Brno, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/46347534",
+        "role_valid_from": "2014-12-15",
+        "role_valid_to": "2023-02-09",
+        "temporal_status": "historical-no-money",
+        "tie_class": "manager",
+        "reviewer_note": "ARES VR: člen představenstva/předseda představenstva 2014-12-15→2023-02-09 · peníze: historical-no-money"
+      }
+    },
+    {
+      "src": "psp:person:6881",
+      "rel": "linked_to",
+      "dst": "company:ico:60193468",
+      "mp": "Petr Hladík",
+      "company": "MERO ČR, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/60193468",
+        "role_valid_from": "2015-11-19",
+        "role_valid_to": "2019-03-08",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady 2015-11-19→2019-03-08 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:6881",
+      "rel": "linked_to",
+      "dst": "company:ico:60713470",
+      "mp": "Petr Hladík",
+      "company": "SAKO Brno, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/60713470",
+        "role_valid_from": "2019-01-03",
+        "role_valid_to": "2021-12-22",
+        "temporal_status": "historical-no-money",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady 2019-01-03→2021-12-22 · peníze: historical-no-money · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6905",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Andrea Hoffmannová",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6905",
+      "rel": "linked_to",
+      "dst": "company:ico:61989592",
+      "mp": "Andrea Hoffmannová",
+      "company": "Univerzita Palackého v Olomouci",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/61989592",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6986",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Hana Ančincová",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6993",
+      "rel": "linked_to",
+      "dst": "company:ico:09925856",
+      "mp": "Jiří Bouška",
+      "company": "Nadační fond - NOVÉ LÉČEBNÉ POSTUPY CHIRURGIE RUKY",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/09925856",
+        "role_valid_from": "2021-02-22",
+        "role_valid_to": "2025-08-22",
+        "temporal_status": "historical-no-money",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen správní rady 2021-02-22→2025-08-22 · peníze: historical-no-money · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:6993",
+      "rel": "linked_to",
+      "dst": "company:ico:15045838",
+      "mp": "Jiří Bouška",
+      "company": "Sdružení Český ráj, z.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/15045838",
+        "role_valid_from": "2016-09-15",
+        "role_valid_to": "2020-10-07",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen správní rady 2016-09-15→2020-10-07 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:6993",
+      "rel": "linked_to",
+      "dst": "company:ico:27256456",
+      "mp": "Jiří Bouška",
+      "company": "Oblastní nemocnice Mladá Boleslav, a.s., nemocnice Středočeského kraje",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27256456",
+        "role_valid_from": "2016-12-20",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: místopředseda představenstva/člen představenstva/člen dozorčí rady 2016-12-20→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6993",
+      "rel": "linked_to",
+      "dst": "company:ico:28168151",
+      "mp": "Jiří Bouška",
+      "company": "Městská společnost sportovní a rekreační areály, s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/28168151",
+        "role_valid_from": "2015-01-01",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: Jednatel 2015-01-01→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:6994",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Monika Brzesková",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:7013",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Veronika Kovářová",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:7023",
+      "rel": "linked_to",
+      "dst": "company:ico:24766216",
+      "mp": "Lenka Martínková Španihelová",
+      "company": "MATURUS, o.p.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/24766216",
+        "role_valid_from": "2011-06-29",
+        "role_valid_to": "2014-10-07",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: ředitel 2011-06-29→2014-10-07 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:7028",
+      "rel": "linked_to",
+      "dst": "company:ico:08599254",
+      "mp": "Bohuslav Niemiec",
+      "company": "CEVYKO a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/08599254",
+        "role_valid_from": "2019-10-10",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady 2019-10-10→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:7031",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Patrik Pařil",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:7031",
+      "rel": "linked_to",
+      "dst": "company:ico:06386237",
+      "mp": "Patrik Pařil",
+      "company": "RAPAJA s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/06386237",
+        "role_valid_from": "2017-08-29",
+        "role_valid_to": null,
+        "owner_stake_pct": 25,
+        "temporal_status": "current",
+        "tie_class": "owner-operator",
+        "reviewer_note": "ARES VR: jednatel/společník 2017-08-29→trvá (25% podíl) · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:7031",
+      "rel": "linked_to",
+      "dst": "company:ico:09187944",
+      "mp": "Patrik Pařil",
+      "company": "RMPJ s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/09187944",
+        "role_valid_from": "2020-05-25",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "owner-operator",
+        "reviewer_note": "ARES VR: Jednatel 2020-05-25→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:7032",
+      "rel": "linked_to",
+      "dst": "company:ico:00084018",
+      "mp": "Jana Patková",
+      "company": "Hvězdárna a planetárium v Hradci Králové",
+      "propsMerge": {
+        "corroboration": "conflicting",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/00084018",
+        "tie_class": "steward",
+        "reviewer_note": "Firma 00084018 v ARES VR existuje, ale žádný úředník/společník se shodným datem narození nenalezen — vazba tvrzená grafem (Hlídač) NENÍ v OR potvrzena.",
+        "flags": [
+          "no-birthdate-match-in-vr"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:7039",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Vítězslav Schrek",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:7039",
+      "rel": "linked_to",
+      "dst": "company:ico:25513290",
+      "mp": "Vítězslav Schrek",
+      "company": "Prádelna a čistírna Jihlava, s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25513290",
+        "role_valid_from": "2011-01-06",
+        "role_valid_to": "2011-09-22",
+        "temporal_status": "money-postdates-role",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady 2011-01-06→2011-09-22 · peníze: money-postdates-role"
+      }
+    },
+    {
+      "src": "psp:person:7039",
+      "rel": "linked_to",
+      "dst": "company:ico:26637863",
+      "mp": "Vítězslav Schrek",
+      "company": "AlternativaPro, z.s.",
+      "propsMerge": {
+        "corroboration": "conflicting",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26637863",
+        "tie_class": "steward",
+        "reviewer_note": "Firma 26637863 v ARES VR existuje, ale žádný úředník/společník se shodným datem narození nenalezen — vazba tvrzená grafem (Hlídač) NENÍ v OR potvrzena.",
+        "flags": [
+          "no-birthdate-match-in-vr"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:7039",
+      "rel": "linked_to",
+      "dst": "company:ico:28274466",
+      "mp": "Vítězslav Schrek",
+      "company": "DS Stříbrné Terasy o.p.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/28274466",
+        "role_valid_from": "2011-02-23",
+        "role_valid_to": "2015-10-30",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen správní rady 2011-02-23→2015-10-30 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:7039",
+      "rel": "linked_to",
+      "dst": "company:ico:70100969",
+      "mp": "Vítězslav Schrek",
+      "company": "Charita Česká republika",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/70100969",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:7039",
+      "rel": "linked_to",
+      "dst": "company:ico:71184465",
+      "mp": "Vítězslav Schrek",
+      "company": "Domov pro seniory Velké Meziříčí, příspěvková organizace",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/71184465",
+        "role_valid_from": "2014-09-01",
+        "role_valid_to": "2021-07-11",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: ředitel 2014-09-01→2021-07-11 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:7052",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "František Talíř",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:7056",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Jitka Volfová",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:7062",
+      "rel": "linked_to",
+      "dst": "company:ico:26318903",
+      "mp": "Martin Záhoř",
+      "company": "Správa majetku města Stříbra, s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26318903",
+        "role_valid_from": "2015-05-11",
+        "role_valid_to": "2017-03-31",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: Jednatel 2015-05-11→2017-03-31 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:7062",
+      "rel": "linked_to",
+      "dst": "company:ico:26387816",
+      "mp": "Martin Záhoř",
+      "company": "JISE stavby s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26387816",
+        "role_valid_from": "2008-05-02",
+        "role_valid_to": "2013-03-26",
+        "temporal_status": "historical-no-money",
+        "tie_class": "owner-operator",
+        "reviewer_note": "ARES VR: společník 2008-05-02→2013-03-26 · peníze: historical-no-money"
+      }
+    },
+    {
+      "src": "psp:person:7063",
+      "rel": "linked_to",
+      "dst": "company:ico:03849988",
+      "mp": "Roman Zarzycký",
+      "company": "Nadační fond regionální fotbalové Akademie Plzeňského kraje",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/03849988",
+        "role_valid_from": "2019-01-08",
+        "role_valid_to": "2023-04-05",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: Člen správní rady 2019-01-08→2023-04-05 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:7063",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Roman Zarzycký",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:7063",
+      "rel": "linked_to",
+      "dst": "company:ico:17047234",
+      "mp": "Roman Zarzycký",
+      "company": "RAILREKLAM, spol. s r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/17047234",
+        "role_valid_from": "2018-08-23",
+        "role_valid_to": "2018-11-15",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen 2018-08-23→2018-11-15 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:7063",
+      "rel": "linked_to",
+      "dst": "company:ico:25220683",
+      "mp": "Roman Zarzycký",
+      "company": "Plzeňské městské dopravní podniky, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25220683",
+        "role_valid_from": "2019-01-23",
+        "role_valid_to": "2023-01-06",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: předseda představenstva/člen představenstva 2019-01-23→2023-01-06 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:7063",
+      "rel": "linked_to",
+      "dst": "company:ico:26602351",
+      "mp": "Roman Zarzycký",
+      "company": "HC Plzeň z.s.",
+      "propsMerge": {
+        "corroboration": "conflicting",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26602351",
+        "tie_class": "steward",
+        "reviewer_note": "Firma 26602351 v ARES VR existuje, ale žádný úředník/společník se shodným datem narození nenalezen — vazba tvrzená grafem (Hlídač) NENÍ v OR potvrzena.",
+        "flags": [
+          "no-birthdate-match-in-vr"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:7063",
+      "rel": "linked_to",
+      "dst": "company:ico:27257258",
+      "mp": "Roman Zarzycký",
+      "company": "Výzkumný Ústav Železniční, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27257258",
+        "role_valid_from": "2017-04-01",
+        "role_valid_to": "2022-04-01",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen dozorčí rady 2017-04-01→2022-04-01 · peníze: historical · graf tvrdil „ongoing“ — nepřesné",
+        "flags": [
+          "stale-ongoing-in-graph"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:7063",
+      "rel": "linked_to",
+      "dst": "company:ico:28046153",
+      "mp": "Roman Zarzycký",
+      "company": "Čistá Plzeň, s.r.o.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/28046153",
+        "role_valid_from": "2019-03-29",
+        "role_valid_to": "2019-11-04",
+        "temporal_status": "historical",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: místopředseda dozorčí rady/člen dozorčí rady 2019-03-29→2019-11-04 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:7064",
+      "rel": "linked_to",
+      "dst": "company:ico:04627695",
+      "mp": "Miroslav Žbánek",
+      "company": "OSVČ",
+      "propsMerge": {
+        "corroboration": "registry-unconfirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04627695",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR nemá pro toto IČO záznam v OR (možná OSVČ/jiná evidence) — identita nepotvrzena.",
+        "flags": [
+          "vr-ico-not-found"
+        ]
+      }
+    },
+    {
+      "src": "psp:person:7064",
+      "rel": "linked_to",
+      "dst": "company:ico:25848526",
+      "mp": "Miroslav Žbánek",
+      "company": "Výstaviště Flora Olomouc, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25848526",
+        "role_valid_from": "2019-01-16",
+        "role_valid_to": "2019-04-18",
+        "temporal_status": "historical",
+        "tie_class": "manager",
+        "reviewer_note": "ARES VR: člen představenstva 2019-01-16→2019-04-18 · peníze: historical"
+      }
+    },
+    {
+      "src": "psp:person:7064",
+      "rel": "linked_to",
+      "dst": "company:ico:28633032",
+      "mp": "Miroslav Žbánek",
+      "company": "Lesy města Olomouce, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/28633032",
+        "role_valid_from": "2019-01-15",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "manager",
+        "reviewer_note": "ARES VR: místopředseda představenstva/člen dozorčí rady 2019-01-15→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:7064",
+      "rel": "linked_to",
+      "dst": "company:ico:47654465",
+      "mp": "Miroslav Žbánek",
+      "company": "Obecně prospěšná společnost pro památkovou ochranu Hradiska u Olomouce a za další rozvoj kulturního, uměleckého a duchovního života a humanitní zdravotní péče na něm.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/47654465",
+        "role_valid_from": "2019-05-07",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: člen správní rady 2019-05-07→trvá · peníze: current"
+      }
+    },
+    {
+      "src": "psp:person:7064",
+      "rel": "linked_to",
+      "dst": "company:ico:63113074",
+      "mp": "Miroslav Žbánek",
+      "company": "Svaz měst a obcí České republiky",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/63113074",
+        "role_valid_from": "2020-08-21",
+        "role_valid_to": null,
+        "temporal_status": "current",
+        "tie_class": "steward",
+        "reviewer_note": "ARES VR: Místopředseda svazu/Místopředseda Svazu 2020-08-21→trvá · peníze: current"
+      }
+    }
+  ],
+  "sonnetReviewNote": "3 of 5 units in review-group A ('conflicting' verdicts) were FALSE NEGATIVES: pre-1997/2002 ARES VR historical officer entries frequently omit datumNarozeni (birth date) entirely, so the deterministic birth-date-exact matcher cannot confirm even an exact name+date-range match on old paper-era filings. The name DID match on independent inspection (Babiš/AGRONOVA CS, Janulík/Poliklinika Břeclav, Janulík/POLIKLINIKA-servis). Recommended fix for the next batch: add a name-similarity fallback pass for VR entries with a null birth date before defaulting to 'conflicting' (see handoff.md lessons)."
+}

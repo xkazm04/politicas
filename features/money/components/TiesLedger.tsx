@@ -15,7 +15,14 @@ import { useLocale, useTranslations } from "next-intl";
 import { MONEY_TIES, MPS } from "@/lib/civic/data";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
-import { compactCzk, type MoneyData, type MoneyMp } from "../moneyTypes";
+import { compactCzk, temporalBadge, type MoneyData, type MoneyMp } from "../moneyTypes";
+
+const BADGE_TONE_CLS: Record<string, string> = {
+  current: "border-cobalt text-cobalt",
+  ended: "border-hairline text-steel",
+  warn: "border-ochre bg-ochre/15 text-ink",
+  unknown: "border-dashed border-hairline text-steel",
+};
 
 const CHIP_CAP = 36; // MPs without ties rendered as chips before "+ N more"
 
@@ -102,6 +109,7 @@ function MpCase({
 
       {mp.ties.map((tie) => {
         const hasReach = tie.contractCzk > 0 || tie.subsidiesCzk > 0 || tie.donatedToPartyCzk != null;
+        const temporal = temporalBadge(tie);
         return (
           <div
             key={tie.companyId}
@@ -120,6 +128,19 @@ function MpCase({
                     {tcom("pendingReview")}
                   </span>
                 )}
+                {/* ARES-VR temporal-status badge (O-money-2) — a tie NEVER renders as
+                    active unless the registry positively confirms it: "trvá" only when
+                    corroboration=registry-confirmed AND the role has no recorded end. */}
+                <span
+                  title={
+                    locale === "en"
+                      ? "ARES VR (official company registry) reconciliation status"
+                      : "stav podle ARES VR (veřejný rejstřík)"
+                  }
+                  className={`border-2 px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider ${BADGE_TONE_CLS[temporal.tone]}`}
+                >
+                  {locale === "en" ? temporal.labelEn : temporal.labelCs}
+                </span>
               </span>
               <span className="mt-0.5 block font-mono text-[11px] uppercase tracking-wider text-steel">
                 IČO {tie.ico}

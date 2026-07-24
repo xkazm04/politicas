@@ -54,6 +54,14 @@ export interface ReviewTie {
   deMinimis: boolean; // reachable money below a materiality floor (likely noise)
   signalScore: number; // deterministic triage rank key
   links: RegistryLinks;
+  /** ARES-VR reconciliation (case-money batch 001/002, Q-money-1) — absent when the
+   *  tie hasn't been through the registry corroboration pass yet. `periodFrom/To` above
+   *  stay the raw Hlídač-parsed period (often stale "ongoing"); these are the
+   *  REGISTRY-confirmed period + verdict a reviewer should trust instead. */
+  corroboration: "registry-confirmed" | "registry-unconfirmed" | "conflicting" | null;
+  roleValidFrom: string | null;
+  roleValidTo: string | null;
+  temporalStatus: string | null;
 }
 
 export interface ReviewStats {

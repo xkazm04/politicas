@@ -124,6 +124,10 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
         triangle,
         nearThresholdCount: near,
         deMinimis: isDeMinimis(contractCzk, subsidiesCzk),
+        corroboration: (e.props?.corroboration as ReviewTie["corroboration"]) ?? null,
+        roleValidFrom: (e.props?.role_valid_from as string | null | undefined) ?? null,
+        roleValidTo: (e.props?.role_valid_to as string | null | undefined) ?? null,
+        temporalStatus: (e.props?.temporal_status as string | null | undefined) ?? null,
         signalScore: reviewSignal({
           contractCzk,
           subsidiesCzk,

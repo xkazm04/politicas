@@ -14,6 +14,10 @@
 
 export type ReviewState = "verified" | "pending_review";
 
+/** ARES-VR corroboration verdict (case-money batch 002, Q-money-1 population
+ *  reconciliation) — annotates the tie, never auto-verifies it. */
+export type Corroboration = "registry-confirmed" | "registry-unconfirmed" | "conflicting";
+
 /** One MP↔company tie, enriched with the public money reachable through the firm. */
 export interface MoneyTie {
   companyId: string; // kg_node id, e.g. "company:ico:25586521"
@@ -29,6 +33,13 @@ export interface MoneyTie {
   subsidiesCzk: number;
   donatedToPartyCzk: number | null;
   donationRecipientParty: string | null;
+  /** ARES-VR reconciliation props (present once the tie has been through the money
+   *  loop's registry corroboration pass — batch 001 covers 15/260, batch 002 covers
+   *  the remaining 245; absent = "not yet reconciled", rendered as a neutral badge,
+   *  NEVER as "active"). */
+  corroboration?: Corroboration | null;
+  roleValidTo?: string | null; // ISO date, ARES-VR confirmed; null = role has no recorded end
+  temporalStatus?: string | null; // "current" | "historical" | "money-postdates-role" | "historical-no-money"
 }
 
 /** An MP with at least one tie, grouped for the ledger. */
@@ -85,6 +96,55 @@ export interface MoneyData {
   source: string;
   /** kg pass that materialized the money layer (self-awareness surface). */
   pass: number;
+}
+
+/** Rendered temporal-status badge — the single place that decides how a tie's ARES-VR
+ *  reconciliation state reads to a viewer. NEVER renders a stale/unreconciled tie as
+ *  "active": absent corroboration → neutral "not yet checked", never a green "trvá".
+ *  See docs/data-analysis/case-money/handoff.md (O-money-2) for the batch-002 rationale
+ *  — Hlídač-sourced periods default to open-ended "ongoing" for ~80% of ties, which is
+ *  frequently stale; ARES VR (veřejný rejstřík) is the ground truth this badge surfaces. */
+export interface TemporalBadge {
+  labelCs: string;
+  labelEn: string;
+  tone: "current" | "ended" | "warn" | "unknown";
+}
+export function temporalBadge(tie: {
+  corroboration?: string | null;
+  temporalStatus?: string | null;
+  roleValidTo?: string | null;
+}): TemporalBadge {
+  const year = (d?: string | null) => (d ? d.slice(0, 4) : "?");
+  if (!tie.corroboration) {
+    return { labelCs: "neověřeno vůči ARES VR", labelEn: "not checked against ARES VR", tone: "unknown" };
+  }
+  if (tie.corroboration === "conflicting") {
+    return { labelCs: "vazba v OR nepotvrzena", labelEn: "not confirmed in the registry", tone: "warn" };
+  }
+  if (tie.corroboration === "registry-unconfirmed") {
+    return { labelCs: "OR bez záznamu o vazbě", labelEn: "no registry record found", tone: "unknown" };
+  }
+  // registry-confirmed
+  switch (tie.temporalStatus) {
+    case "current":
+      return { labelCs: "trvá", labelEn: "current", tone: "current" };
+    case "money-postdates-role":
+      return {
+        labelCs: `peníze po roli (do ${tie.roleValidTo ?? "?"})`,
+        labelEn: `money postdates role (ended ${tie.roleValidTo ?? "?"})`,
+        tone: "warn",
+      };
+    case "historical":
+    case "historical-no-money":
+    case "historical-undated-money":
+      return {
+        labelCs: `ukončeno ${year(tie.roleValidTo)}`,
+        labelEn: `ended ${year(tie.roleValidTo)}`,
+        tone: "ended",
+      };
+    default:
+      return { labelCs: "neověřeno vůči ARES VR", labelEn: "not checked against ARES VR", tone: "unknown" };
+  }
 }
 
 /** Compact CZK for dense tiles/graph labels: data-derived Czech (en fallback). */

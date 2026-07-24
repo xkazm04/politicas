@@ -63,3 +63,61 @@ reconciliation pass before any tie is presented as "active".
 
 - **R=1 → shipped:** the **verification console** (`/penize/kontrola`) — the seed backlog's
   #1 build-ready increment. See `handoff.md`. R resets to 1 (something shipped).
+
+### Batch 002 — full-population ARES-VR reconciliation + O-money-2 (2026-07-24)
+
+- **Model tiering experiment:** driver + army = **Sonnet only**; Opus reserved for one
+  reflection call. See `batch-002.md` for full detail.
+- **Q-money-1 done:** all 245 remaining ties (batch 001 covered the top 15) reconciled
+  against ARES VR by a deterministic script (`scripts/case-loops/money/reconcile-ares-vr.ts`)
+  — birth-date-exact officer/shareholder matching, no LLM. Caught and fixed a real bug
+  mid-run (missing `ostatniOrgany`/supervisory-board section: `conflicting` 91→23,
+  `registry-confirmed` 96→164) and one flagged by the Opus reflection
+  (`money-postdates-role` was conflating undated contracts with genuinely-later ones — fixed,
+  0 cases affected in this run's data but the design gap is closed).
+- **Sonnet judgment (10 ambiguous units):** 2 agents, 5 units each, real WebFetch+WebSearch,
+  batch-001 dossier depth. 3 false negatives corrected (missing-birth-date VR records),
+  2 confirmed negatives, 4 money-postdates-role verdicts confirmed as clean handoffs (not
+  revolving-door — one independent non-disclosure lead surfaced, Okamura/U Machtů), 1
+  wrong-entity catch (Bendl+Brabec → PRAK, likely wrong IČO).
+- **Gate:** `validate-payloads.ts` (extended for multi-file + cross-file duplicate guard) →
+  **260/260** population validates, 0 fabricated, 0 duplicates.
+- **Build (R=1 → shipped, resets to 1):** O-money-2 temporal-status badge on `/penize`
+  ledger + `/penize/kontrola` console — a tie never renders as active without registry
+  confirmation. `npm run check` green for the money boundary (repo-wide typecheck clean,
+  money-scoped lint clean, 166/166 tests; the one failing lint is the sibling law loop's
+  file).
+- **Opus reflection verdict:** quality **holds** against batch 001's bar on the
+  reconciliation objective (honest-negative rate 33%, no fabrication, gate clean),
+  **exceeds** it on rigor for the reviewed 10%; the deterministic bulk necessarily carries
+  less narrative discovery-depth than batch 001's per-tie dossiers (expected — different
+  pass, not a regression). Cost/unit ≈75× cheaper amortized. Full verdict in `handoff.md`.
+
+## Metrics block — batch 002
+
+| metric | batch 002 |
+|---|---|
+| units done / total (cumulative) | **260 / 260** (100% — population reconciliation complete) |
+| corroboration | registry-confirmed 179 · conflicting 23 · registry-unconfirmed 58 |
+| temporal_status (registry-confirmed) | current 43 · historical ~76 · money-postdates-role 39 · historical-no-money/undated ~22 |
+| **signal yield** | 10/10 ambiguous units produced a judged verdict; 3 corrected, 1 wrong-entity catch, 1 new frontier lead (Okamura non-disclosure) |
+| gate pass rate | 260/260 (100%) |
+| est. cost / unit | ~420 tokens/unit amortized (vs batch 001's ~30k/tie) — deterministic bulk + Sonnet judgment only where ambiguous |
+| reuse-rate | `AresClient.vrRecord()` (new, in `lib/analysis/money-feed.ts`) is now reusable by any future money-loop batch; `temporalBadge()` (`moneyTypes.ts`) is the shared badge logic for both ledger and console |
+
+## Steering (next batch)
+
+1. **Frontier leads from this batch:** Q-money-5 (Juchelka advisor subsidy-influence,
+   2026 — surfaced incidentally, unrelated to this tie), Q-money-6 (Okamura 2016 asset
+   non-disclosure — independently sourced, worth its own verification pass).
+2. **Re-resolve PRAK IČO** for Bendl/Brabec — the correct entity is likely a dissolved
+   "PRaK, a.s." under a different IČO than 49683144.
+3. **58 registry-unconfirmed ties** are structurally out of ARES-VR's reach (special-law
+   public bodies) — a different corroboration source (zákon establishing the body, or the
+   body's own statute) would be needed if this population is ever prioritized; low urgency
+   since these are steward-class by construction.
+4. **pgvector subject-similarity** (Q-money-2) and the **donor-registry sponzoring pass**
+   (Q-money-3, still blocked on `HLIDAC_API_TOKEN`) remain deferred.
+5. **Write path** for the verification console (§5 of `handoff.md`, batch 001) is still the
+   top build-ready item after O-money-2 — now more valuable since 260/260 ties carry a
+   registry corroboration verdict for reviewers to act on.

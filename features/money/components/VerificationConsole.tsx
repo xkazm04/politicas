@@ -17,7 +17,14 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, ExternalLink } from "lucide-react";
 import { useLocale } from "next-intl";
-import { compactCzk } from "../moneyTypes";
+import { compactCzk, temporalBadge } from "../moneyTypes";
+
+const BADGE_TONE_CLS: Record<string, string> = {
+  current: "border-cobalt text-cobalt",
+  ended: "border-hairline text-steel",
+  warn: "border-ochre bg-ochre/15 text-ink",
+  unknown: "border-dashed border-hairline text-steel",
+};
 import type { ReviewDecision, ReviewQueue, ReviewTie, TieClass } from "../reviewTypes";
 
 const CLASS_LABEL: Record<TieClass, string> = {
@@ -238,6 +245,13 @@ function ReviewCard({
           <span className="border-2 border-ochre bg-ochre/15 px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-ink">
             čeká na kontrolu
           </span>
+          {/* ARES-VR temporal-status badge (O-money-2) — replaces a generic "go check
+              ARES VR" nudge with the actual registry-confirmed verdict once reconciled. */}
+          <span
+            className={`border-2 px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider ${BADGE_TONE_CLS[temporalBadge(tie).tone]}`}
+          >
+            {temporalBadge(tie).labelCs}
+          </span>
           <span className="font-mono text-[10px] uppercase tracking-widest text-steel">třída: {CLASS_LABEL[tie.tieClass]}</span>
           <span className="font-mono text-[10px] uppercase tracking-widest text-steel">signál {tie.signalScore.toFixed(1)}</span>
         </div>
@@ -258,7 +272,14 @@ function ReviewCard({
           <div className="mt-4 flex flex-wrap gap-2">
             {tie.triangle && <Flag>úplný trojúhelník</Flag>}
             {tie.nearThresholdCount > 0 && <Flag>{int(tie.nearThresholdCount)}× u limitu</Flag>}
-            {tie.periodTo === null && <Flag>období „trvá“ — ověřit v ARES VR</Flag>}
+            {tie.periodTo === null && !tie.corroboration && (
+              <Flag>období „trvá“ (dle Hlídače) — ověřit v ARES VR</Flag>
+            )}
+            {tie.corroboration && tie.roleValidFrom && (
+              <Flag>
+                ARES VR: {tie.roleValidFrom} – {tie.roleValidTo ?? "trvá"}
+              </Flag>
+            )}
             {tie.deMinimis && <Flag>bagatelní objem</Flag>}
             {tie.absenteeManagerLead && <Flag>křížení s Case ② (manažer)</Flag>}
           </div>

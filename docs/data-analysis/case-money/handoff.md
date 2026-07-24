@@ -1,201 +1,275 @@
-# Money loop — fleet handoff (batch 001)
+# Money loop — fleet handoff (batch 002)
 
-Case ① FollowTheMoney · 2026-07-24 · fleet mode. Everything the orchestrator needs to
+Case ① FollowTheMoney · 2026-07-24 · fleet mode · **Sonnet-only driver + army, Opus
+reflection only** (batch-002 model-tiering experiment). Everything the orchestrator needs to
 serialize this batch's writes and aggregate cross-case. All work is inside the money
 boundary; nothing shared was edited. **No commit, no live `.pglite` write, no
-`review_state` change made.**
+`review_state` change made.** (Batch 001's payload/handoff is already persisted live at
+pass 13 — confirmed by reading `.pglite`'s `linked_to` edge props directly before starting
+this batch. This document supersedes batch 001's handoff.md, which is now historical.)
 
 ## 1. Graph-write payloads (validated — orchestrator writes under the `.pglite` lock)
 
-- **File:** `docs/data-analysis/case-money/payloads/batch-001-corroboration.json`
-- **What:** 15 props-merge annotations onto **existing** `linked_to` edges (corroboration
-  verdict + ARES-VR `role_valid_from`/`role_valid_to` + `temporal_status` + `tie_class` +
-  reviewer note). **No new edges, no node creation, no `review_state` change.**
-- **Provenance to stamp at write:** `{track:"money", pass:<assigned by orchestrator>,
-  method:"verdict", ref:"case-money/batch-001 · ARES VR + Registr smluv", computedAt:"2026-07-24"}`
-  (the `track` field per kernel §Provenance; pass number assigned in write order by the lock
-  holder).
+- **File:** `docs/data-analysis/case-money/payloads/batch-002-ares-vr-reconciliation.json`
+- **What:** 245 props-merge annotations onto **existing** `linked_to` edges — the full
+  remaining population (260 total − 15 batch 1). Same prop shape as batch 001:
+  `corroboration`, `corroboration_source`, `role_valid_from`/`role_valid_to`,
+  `temporal_status`, `tie_class`, `signal` (only on the 10 Sonnet-reviewed units),
+  `reviewer_note`, `flags`. **No new edges, no node creation, no `review_state` change.**
+- **Provenance to stamp at write:** `{track:"money", pass:<assigned by orchestrator,
+  expected 16+>, method:"verdict", ref:"case-money/batch-002 · ARES VR full-population
+  reconciliation (deterministic) + Sonnet judgment on 10 ambiguous units",
+  computedAt:"2026-07-24"}`.
 - **Re-verify before writing:**
   ```
   cp -r .pglite .pglite-copy-money        # if the copy was cleaned up
   PGLITE_PATH=./.pglite-copy-money npx tsx scripts/case-loops/money/validate-payloads.ts
-  # expect: GATE: 15/15 corroboration proposals validate against the graph copy.
+  # expect: GATE TOTAL: 260/260 proposals validate across 2 file(s). Cross-file duplicates: 0.
   ```
-- **Gate result this batch:** 15/15 validated, 0 drops, 0 fabricated ids.
-
-> Recommendation: these annotations are safe to persist (they only enrich provenance and add
-> a reviewer-facing corroboration field). If the orchestrator prefers to hold graph writes
-> until an `owns`-layer decision (see §4), the batch note + console already carry the value.
+- **Gate result this batch:** 245/245 validated (260/260 population total including
+  batch 1), 0 drops, 0 fabricated ids, 0 cross-file duplicates.
+- **Write order matters:** apply `batch-001-corroboration.json` (already live — SKIP, it's
+  there) then `batch-002-ares-vr-reconciliation.json`. The gate script's dedup guard will
+  catch it if applied twice.
 
 ## 2. Shared-vault additions (exact text to append — I did not edit these files)
 
 ### → `docs/data-analysis/patterns.md`
 
 ```
-## [[patterns]] Money · stale "ongoing" is the norm, not the exception (money batch 001)
-The `linked_to` period is derived from Hlídač `datumDo` (absent ⇒ "ongoing"); ARES VR shows
-the real end date. In the top 15 owner/steward ties, 11/15 were stale or misattributed:
-8 roles had actually ENDED (Okamura 2021-06-02, Juchelka 2026-01-16, Decroix 2021-06-18,
-Ženíšek 2013-10-26, Černochová 2021-12-20, Vondráček 2018-09-05, Fiala 2018/2014); 2 had the
-money post-date the role (Žbánek, Záhoř); 1 missed an indirect chain (Babiš). Implication: no
-tie should render as "active" until its period is reconciled against ARES VR. Also: Hlídač
-start dates are year-rounded (Jan 1) and ~months off the ARES vznik date.
+## [[patterns]] Money · ARES VR ostatniOrgany (supervisory boards) is a load-bearing section, not optional (money batch 002)
+The VR (veřejný rejstřík) JSON has TWO parallel officer sections with identical shape:
+`statutarniOrgany` (statutory officers — jednatel/představenstvo) and `ostatniOrgany`
+(supervisory/other bodies — dozorčí rada, kontrolní komise). Reading only the first
+mis-scored 91/245 ties as "conflicting" (unconfirmed); most `steward`-class ties (200/260 of
+the population) are exactly supervisory-board seats, which live in `ostatniOrgany`. Adding
+it: conflicting 91→23, registry-confirmed 96→164. Any future ARES-VR consumer must read
+BOTH sections (and `spolecnici` for ownership stakes) — omitting one systematically
+under-confirms whichever tie-class maps to it.
 
-## [[patterns]] Money · owner-operator vs steward is the load-bearing tie distinction
-Raw reachable-money ranks public-body supervisory seats (hospitals/utilities/universities)
-at the top, where money is the body's own public activity and does NOT flow to the MP.
-A deterministic tie-class (owner-operator | manager | steward), keyed on role string ×
-company legal-form/public-marker, separates the real FollowTheMoney (37 owner-operator ties)
-from 200 stewardship seats. Steward subsidy totals (e.g. VaK Kroměříž ~602M) must never be
-attributed to the MP.
+## [[patterns]] Money · pre-2000s ARES VR historical entries often lack birth dates (money batch 002)
+Officer/shareholder records added under paper-era filings (roughly pre-1997/2002) frequently
+have no `datumNarozeni` on the `fyzickaOsoba` object, even when name + role period match the
+claimed tie exactly. A strict birth-date-exact matcher (correctly conservative for modern
+records — see money-feed.ts's `bridgePerson` discipline) produces false "conflicting" on
+these older ties. Batch 002 caught 3/10 reviewed ambiguous units this way (Babiš/AGRONOVA CS,
+Janulík×2). Recommended fix for a future batch: a name-similarity fallback pass, gated to
+ONLY entries with a null birth date, before defaulting to conflicting — not yet implemented,
+so the residual `conflicting`/`registry-unconfirmed` buckets likely still under-read this
+vintage (Opus reflection risk flag #1).
+
+## [[patterns]] Money · undated contracts must not be silently treated as "after" a date (money batch 002)
+A `money-postdates-role` classification requires an ACTUAL dated contract signed after the
+confirmed role end — a contract with `signedOn: null` is UNDATED, not "later". The first
+version of `reconcile-ares-vr.ts` conflated the two (caught by the Opus reflection); fixed to
+require `datedSigned.length > 0` before classifying postdate vs within-tenure, with a new
+honest bucket `historical-undated-money` for the has-money-no-dates case. 0 ties were
+affected in this run (every company with reachable money had at least one dated contract),
+but the design gap is now closed for future runs/other cases with the same pattern.
 ```
 
 ### → `docs/data-analysis/contradictions.md`
 
 ```
-## [[contradictions]] Money batch 001 — graph vs ARES VR (period)
-Graph edges assert "ongoing"; ARES VR contradicts for: Okamura/MIKI TRAVEL (ended 2021-06-02),
-Ženíšek/Pojišťovna VZP (board seat only 3 months in 2013, ended 2013-10-26), Černochová/Komwag
-(ended 2021-12-20, + an omitted earlier 2005–2011 term). Graph asserts "no party donation" for
-STYLE PD, OCCAM PR, Delices de papa — Hlídač shows donations (215k ODS / 240k TOP 09 / 40k ODS)
-requiring a donor-registry pass to confirm. Resolution: annotate (done in payloads), do not
-flip review_state; feed the temporal reconciliation into next triage.
+## [[contradictions]] Money batch 002 — wrong IČO suspected (Bendl + Brabec → "PRAK")
+Both Petr Bendl and Richard Brabec carry a `linked_to` tie sourced from Hlídač as "PRAK,
+member of the board of directors (představenstvo)" against IČO 49683144 ("PRAK spol.
+s r.o."). That IČO has been an s.r.o. since 1993 (jednatelé/společníci only) and
+structurally cannot have a představenstvo. Sonnet-review independent lookup
+(rejstrik-firem.kurzy.cz) found a SEPARATE, dissolved "PRaK, a.s." where an "Ing. Petr
+Bendl (Kladno)" is a documented board member 1996–1999, liquidated 2012 — almost certainly
+the correct entity under a DIFFERENT IČO. Resolution: kept `conflicting`/`signal:0` on both
+ties (never asserted false, never re-pointed without evidence), flagged
+`wrong-entity-suspected`/`needs-ico-re-resolution` on both. Re-resolving the correct IČO
+for "PRaK, a.s." is next-batch work, not done here (no IČO minted without confirmation).
 ```
 
 ### → `docs/data-analysis/feature-opportunities.md`
 
 ```
-## [[feature-opportunities]] O-money-1 — Verification console (/penize/kontrola) — SHIPPED (batch 001)
-The human-review UI for the 260 pending ties: evidence dossier per tie (reachable money, role,
-parsed period, tie-class + triangle/near-threshold/stale flags), primary-registry deep-links
-(ARES subject/VR, Registr smluv, Hlídač, or.justice.cz), and confirm/reject/needs-more actions
-STUBBED behind a labelled "zápis čeká na backend" state. Reads real graph data via
-getVerificationQueue(). BLOCKER for the whole Integrity pillar (0/260 verified). Next: the
-write path (§3).
+## [[feature-opportunities]] O-money-2 — Temporal-status badge on /penize ledger + console — SHIPPED (batch 002)
+`features/money/moneyTypes.ts`'s `temporalBadge()` is the single source of truth: renders
+"trvá" only when corroboration=registry-confirmed AND the role has no recorded end;
+"ukončeno {year}" for a confirmed-ended role; "peníze po roli (do {date})" (warn tone) for
+money-postdates-role; a neutral "neověřeno vůči ARES VR" for any tie not yet reconciled or
+whose registry match failed. Wired into both `/penize` (`TiesLedger.tsx`) and
+`/penize/kontrola` (`VerificationConsole.tsx`), which now shows the actual confirmed period
+instead of a generic "go check ARES VR" nudge once a tie is reconciled. Graceful degradation:
+absent props render the neutral badge, never "active". No `messages/*.json` edit — followed
+the established VerificationConsole precedent of hardcoding Czech-first copy directly.
 
-## [[feature-opportunities]] O-money-2 — Temporal-status badge on /penize ledger
-Surface role_valid_to / temporal_status ("trvá" vs "ukončeno YYYY" vs "peníze po roli") on the
-main ledger so a stale tie is never shown as active. Cheap once the corroboration props land.
-
-## [[feature-opportunities]] O-money-3 — Indirect-ownership (owns/controls) company layer
-Babiš/CS CABOT: the live tie is Agrofert→DEZA→48%-of-CS-CABOT, which the MP↔company edge cannot
-express. A company→company owns/controls layer would catch indirect conflicts the direct join
-misses.
+## [[feature-opportunities]] Q-money-1 — Full-population ARES-VR reconciliation — DONE (batch 002)
+All 260/260 ties now carry a corroboration verdict (179 registry-confirmed / 23 conflicting /
+58 registry-unconfirmed) + temporal_status where confirmable. `AresClient.vrRecord()`
+(`lib/analysis/money-feed.ts`) is the reusable fetch method any future batch/case can build
+on. See `docs/data-analysis/case-money/batch-002.md` for the full breakdown.
 ```
 
 ### → `docs/data-analysis/frontier.md` (money section)
 
 ```
-## [[frontier]] Money
-- Q-money-1: reconcile all 260 tie periods against ARES VR role_valid_to — how many of the full
-  population are stale/ended? (batch 001: 11/15 of the head). Deterministic once the VR fetch is
-  wired into triage.
-- Q-money-2: contract-splitting — pgvector over contract subjects (R6) for same-supplier,
-  similar-subject, sub-limit clusters. Deferred from batch 001.
-- Q-money-3: the three surfaced company→party donation leads (STYLE PD/OCCAM/Delices) — confirm
-  against the Hlídač sponzoring registry (needs API token → user gate) and propose donation edges.
-- Q-money-4: revolving-door — Žbánek's 2019 Olomouc-city contract to a former company while
-  mayor; a distinct pattern (public-office-era ties) the MP-mandate graph doesn't track.
+## [[frontier]] Money (batch 002 additions)
+- Q-money-5: Aleš Juchelka, as sitting minister (2026), reportedly gave subsidy-influence
+  advantage to an advisor who runs her own subsidy-adjacent firm (ct24.ceskatelevize.cz
+  coverage) — surfaced incidentally while reviewing a stale 2014–2016 tie; UNRELATED to that
+  tie, a fresh live lead worth its own pass.
+- Q-money-6: Tomio Okamura's 2016 sale of his U Machtů s.r.o. stake appears undisclosed in
+  that year's mandatory MP asset declaration (Týden.cz, HlídacíPes independently report this)
+  — a distinct, verifiable non-disclosure story separate from the money-flow tie itself.
+- Q-money-7: re-resolve the correct IČO for "PRaK, a.s." (Bendl + Brabec ties currently point
+  at the wrong entity, 49683144 — a same-named but structurally incompatible s.r.o.).
+- Q-money-8: 58 ties are structurally unreachable via ARES VR (special-law public bodies —
+  VZP, ČT, ČRo, universities, state hospitals not in the Obchodní rejstřík). If this
+  population is ever prioritized, corroboration would need a different source (the body's
+  founding statute/zákon) — low urgency, all are steward-class by construction.
+- Q-money-1 (closed): full-population reconciliation done, see batch-002.md.
 ```
 
 ### → `docs/data-analysis/graph-log.md`
 
 ```
-2026-07-24 · money batch 001 (calibration) · NOT YET WRITTEN (fleet handoff). 15 linked_to
-corroboration annotations proposed (payloads/batch-001-corroboration.json), gate 15/15. No
-review_state change. Provenance track:"money", pass TBD by lock holder.
+2026-07-24 · money batch 002 (Sonnet-only, full-population ARES-VR reconciliation +
+O-money-2 build) · NOT YET WRITTEN (fleet handoff). 245 linked_to corroboration annotations
+proposed (payloads/batch-002-ares-vr-reconciliation.json), gate 245/245 (260/260 population
+total with batch 1). No review_state change. Provenance track:"money", pass TBD by lock
+holder (expected 16+, after effort/law's batch-002 passes if run in the same window).
 ```
 
 ## 3. Proposed enum / schema changes
 
-- **`linked_to` edge props (additive, no migration — props is jsonb):** `corroboration`
-  ∈ {`registry-confirmed`|`registry-unconfirmed`|`conflicting`}; `role_valid_from`,
-  `role_valid_to` (ISO date, null=open); `temporal_status` ∈ {`current`|`historical`|
-  `money-postdates-role`|`historical-direct-indirect-current`}; `tie_class` ∈
-  {`owner-operator`|`manager`|`steward`}; `owner_stake_pct` (number, optional). These are the
-  fields the payloads set. If `kg-verdict.ts` enum-gates edge props, add the above value sets
-  there (SHARED file — orchestrator's edit, not mine).
-- **No new node/edge KIND** proposed this batch. An `owns`/`controls` company→company relation
-  is a candidate for a later batch (O-money-3), not now.
+- **No new enum values needed** — `corroboration` and `tie_class` stay within batch 001's
+  value sets. `temporal_status` gains two ADDITIVE values used this batch:
+  `money-postdates-role` (already documented in batch 001's handoff) plus
+  `historical-undated-money` (new — "has reachable money but none of it carries a
+  disclosed date to compare against the role end"). If `kg-verdict.ts` enum-gates edge
+  props, add `historical-undated-money` to the `temporal_status` value set there (SHARED
+  file — orchestrator's edit, not mine).
+- **No new node/edge KIND** proposed. `O-money-3` (indirect-ownership `owns`/`controls`
+  layer) remains a candidate for a later batch, still not implemented.
 
 ## 4. Commit plan (orchestrator — per-case commit)
 
 Files, all inside the money boundary:
 
 ```
-NEW  features/money/reviewTypes.ts                         # pure review types + helpers (client-safe)
-NEW  features/money/getVerificationData.ts                 # server-only review-queue loader
-NEW  features/money/components/VerificationConsole.tsx     # the console UI
-NEW  app/penize/kontrola/page.tsx                          # route
-EDIT features/money/FollowTheMoneyPage.tsx                 # header link → /penize/kontrola
-NEW  scripts/case-loops/money/triage.ts                    # deterministic triage + tie-class
-NEW  scripts/case-loops/money/validate-payloads.ts         # the gate
-NEW  docs/data-analysis/case-money/{ledger.md,ledger.json,batch-001.md,handoff.md,triage-dump.json}
-NEW  docs/data-analysis/case-money/payloads/batch-001-corroboration.json
+NEW  scripts/case-loops/money/reconcile-ares-vr.ts             # the batch's core: deterministic ARES-VR reconciliation
+EDIT scripts/case-loops/money/validate-payloads.ts              # multi-file gate + cross-file duplicate guard
+EDIT lib/analysis/money-feed.ts                                 # AresClient.vrRecord() — new token-free VR fetch method
+EDIT features/money/moneyTypes.ts                                # temporalBadge() + Corroboration type + MoneyTie fields
+EDIT features/money/getMoneyData.ts                              # reads corroboration/role_valid_to/temporal_status
+EDIT features/money/components/TiesLedger.tsx                    # renders the O-money-2 badge
+EDIT features/money/reviewTypes.ts                                # ReviewTie gains corroboration/roleValidFrom/To/temporalStatus
+EDIT features/money/getVerificationData.ts                       # reads the same props for the console
+EDIT features/money/components/VerificationConsole.tsx           # renders the badge, replaces the generic "check ARES VR" nudge
+EDIT docs/data-analysis/case-money/{ledger.md,ledger.json}
+NEW  docs/data-analysis/case-money/batch-002.md
+EDIT docs/data-analysis/case-money/handoff.md                    # this file (supersedes batch-001's)
+NEW  docs/data-analysis/case-money/payloads/batch-002-ares-vr-reconciliation.json
+NEW  docs/data-analysis/case-money/payloads/batch-002-ambiguous-inputs.json  # dossier-inputs for the 10 Sonnet-reviewed units
+NEW  docs/data-analysis/case-money/reconcile-summary.json         # machine summary the script emits
 ```
 
 Suggested message:
 ```
-feat(case-money): verification console (/penize/kontrola) + batch-001 triage & corroboration
+feat(case-money): full-population ARES-VR reconciliation (Q-money-1) + O-money-2 temporal badge
 
-Triage-ranks the 260 pending MP↔company ties with a deterministic tie-class (owner-operator
-vs steward); enriches the top 15 against ARES VR (gate 15/15, 0 fabricated ids). Ships the
-human-review console: per-tie dossier + registry deep-links + confirm/reject/needs-more
-(write path stubbed, fleet mode). No review_state changed.
+Reconciles all 245 remaining pending MP<->company ties (batch 001 covered the top 15)
+against ARES VR deterministically — birth-date-exact officer/shareholder matching, no LLM
+for the bulk. Gate 260/260 population, 0 fabricated, 0 duplicates. 10 ambiguous units
+Sonnet-judged (3 false negatives corrected, 1 wrong-entity catch, 4 clean-handoff
+confirmations). Ships the temporal-status badge on /penize + /penize/kontrola so a stale
+tie never renders as active. No review_state changed.
 ```
 
-**Check status:** typecheck green (repo-wide), lint green **for all money-boundary files**,
-tests 157/157 green. `npm run check` currently fails ONLY on 4 pre-existing lint errors in the
-concurrent sibling loops (`scripts/case-loops/effort/extract-dossiers.ts`,
-`scripts/case-loops/law/triage.ts`) — outside the money boundary, not mine to fix. Verify with:
-`npx eslint features/money app/penize scripts/case-loops/money` (clean).
+**Check status:** `npx tsc --noEmit` clean (repo-wide). `npx eslint features/money app/penize
+scripts/case-loops/money lib/analysis/money-feed.ts` clean. `npx vitest run` 166/166 green.
+`npm run check`'s single failure (`features/lawwatch/LawWatchPage.tsx`,
+`react/jsx-no-undef`) is the concurrent sibling **law** loop's file — not touched by this
+batch, same pattern batch 001 documented for sibling fleet-loop errors.
 
-## 5. Write-path handoff (the console's stubbed action)
+## 5. Write-path handoff (unchanged from batch 001, now higher-value)
 
-The console records confirm/reject/needs-more in browser-local state only, labelled "zápis
-čeká na backend". To wire it: a server action `POST /penize/kontrola` that, on a **human**
-decision, sets `review_state:"verified"` (confirm) on the `linked_to` edge or writes a
-`review_note` (reject/needs-more) — the ONLY place a tie may be verified, and always by a
-human. Needs an authenticated reviewer identity + an audit-trail row. Explicitly out of scope
-for fleet mode (single-writer `.pglite`), left as the top build-ready item after O-money-2.
+Still open: `POST /penize/kontrola` server action to let a human reviewer set
+`review_state:"verified"` (confirm) or write a `review_note` (reject/needs-more). Now more
+valuable — every one of the 260 pending ties carries a registry corroboration verdict a
+reviewer can act on immediately, versus batch 001's 15. Still explicitly out of scope for
+fleet mode (single-writer `.pglite`).
 
-## 6. Lessons learned (calibrates the skill/kernel — be specific)
+## 6. Opus reflection — quality-vs-batch-001 verdict + cost/unit (verbatim)
 
-1. **The skill assumes a Hlídač API token in `.env`; this repo has none** (`.env.example`
-   documents only Sentry; the var is `HLIDAC_API_TOKEN`). Enrichment still worked via
-   token-free ARES REST + web, but subsidy/donation/contract *re-verification* against Hlídač
-   was impossible — army confirmed the officer/ownership hinge (ARES VR) and took the graph's
-   contract/subsidy figures as given. **Skill fix:** state the token is optional and name the
-   token-free fallback (ARES subject + ARES VR are the corroboration hinge; the money figures
-   come from the already-materialized graph).
-2. **Triage's strongest listed signal — "temporal alignment" — is nearly useless as written.**
-   Hlídač periods are year-rounded and mostly open-ended ("ongoing"), so "contracts signed
-   while in role" evaluates true for almost everything and doesn't discriminate. The REAL
-   temporal signal is the opposite: **ARES-VR `role_valid_to` reconciliation** to catch ties
-   that are stale/ended or where money post-dates the role (11/15 here). **Skill fix:** demote
-   "temporal alignment (contract signedOn vs role window)" and promote "period reconciliation
-   against ARES VR" as the primary temporal signal.
-3. **The skill's population framing omits the owner-operator vs steward distinction** — yet it
-   is the single most important ranking lever. 200 of 260 ties are stewardship board seats on
-   public bodies (money doesn't flow to the MP); 37 are the genuine owner-operator archetype.
-   Ranking by raw reachable money (the skill's "head of the queue") buries the real signal.
-   **Skill fix:** add tie-class as a first-class triage dimension (role × legal-form/public-marker).
-4. **"Reachable CZK" over-attributes.** For a steward seat, the company's contract/subsidy
-   totals are its own public activity; the console and any score must NOT read them as MP money.
-   The graph has no flag distinguishing the two — hence the tie-class heuristic. **Kernel/skill
-   note:** non-partisan symmetry cuts both ways — a big number next to an MP is often *nothing*.
-5. **Concurrency cap bites at 15+ parallel subagents** (limit 20; 2 of 15 launches were
-   rejected and relaunched). **Kernel note:** with three fleet loops sharing the cap, a 15-unit
-   army should launch in a single wave and budget for ≤ ~6 concurrent per case, or stage in
-   two waves.
-6. **ARES VR is a genuinely strong, free primary gate** — it cleanly caught every stale period
-   and confirmed every real ownership stake, with exact dates. The web-research doctrine
-   (lead→cited→gate) held perfectly; media (iROZHLAS/Seznam) added context (Petrtýl, Fiala)
-   but never became a graph fact. This validates the kernel's registry-outranks-media rule.
-7. **Scope gap the direct join can't see:** indirect ownership (Babiš→Agrofert→DEZA→CS CABOT).
-   The MP↔company edge model structurally misses these; noted as O-money-3.
+> **VERDICT: Quality HOLDS against batch 001's bar for the reconciliation objective
+> (Q-money-1), and on honest-negative discipline it EXCEEDS it** — with one systematic
+> under-confirmation caveat and two semantics that can mislead a reviewer.
+>
+> **Why it holds.** Batch 001 itself concluded that ARES-VR birth-date matching is a clean
+> deterministic gate and full-population reconciliation "is deterministic once the VR fetch
+> is wired in." Batch 002 executes exactly that. The birth-date-exact hinge is the same
+> discipline the Sonnet army applied by hand in 001 — coded, it loses nothing on the
+> confirmable majority (164/245 registry-confirmed) and gains consistency across 200
+> steward seats. The `ostatniOrgany` fix is real and correct (91→23 conflicting is the
+> right direction).
+>
+> **Honest-negative rate exceeds 001.** 81/245 (33%) left conflicting/unconfirmed rather
+> than force-fit; ~50/58 unconfirmed share one correctly-declined OSVČ sentinel. Nothing
+> manufactured; gate 260/260 with a real cross-file duplicate guard.
+>
+> **Where it does genuinely LESS than 001** (a different pass, not a regression): the
+> deterministic bulk carries none of 001's discovery-grade narrative (indirect ownership
+> chains, donation leads, media corroboration). The 10 hand-reviewed ambiguous units match
+> 001's dossier depth and citation discipline exactly, and the depth was spent precisely
+> where determinism was blind.
+>
+> **Cost/unit.** Batch 001: ~30k tokens/tie all-in. Batch 002: deterministic bulk ≈0 LLM
+> tokens; ~10k/unit on the 10 reviewed; one Opus reflection call. Amortized ≈**400
+> tokens/unit — ~75× cheaper.** A genuine efficiency win FOR reconciliation — cheaper
+> because it defers narrative discovery, not because it skimps on the task it set.
+>
+> **Top 3 risk flags before human review:**
+> 1. The pre-2000s null-birthdate false-negative was hand-corrected for only 3 units; the
+>    deterministic pass was not re-run with a name-similarity fallback, so residual
+>    conflicting/unconfirmed buckets still likely hide confirmable older-cohort roles.
+> 2. `money-postdates-role`'s undated-contract conflation (fixed same-session after this
+>    flag — see §3 and patterns.md addition above).
+> 3. The Bendl/Brabec wrong-IČO catch was asymmetrically flagged (fixed same-session —
+>    Brabec's tie now carries the same `wrong-entity-suspected` flag as Bendl's).
+>
+> Bendl/PRAK handled safely: kept `conflicting`/`signal:0`, never asserted the tie false,
+> only "probably wrong IČO, re-resolve." Correct restraint. The temporalBadge/console/ledger
+> build is sound: graceful degradation, token-only colors, Czech-first hardcoded copy
+> consistent with the fleet-locked-i18n pattern.
 
-## 7. Cleanup
+*(Both flags #2 and #3 the reflection raised were fixed in this same session before this
+handoff was finalized — see the `patterns.md` addition and the Bendl/Brabec contradiction
+entry above.)*
 
-`.pglite-copy-money` was removed at end of run (`rm -rf`). Re-create from `.pglite` to
+## 7. Lessons learned (calibrates the skill/kernel — be specific)
+
+1. **The ARES-VR `ostatniOrgany` section is load-bearing, not optional** — see
+   patterns.md addition. Any future ARES-VR consumer (this case or another) must read
+   `statutarniOrgany` + `ostatniOrgany` + `spolecnici`, not just the first.
+2. **Pre-2000s VR records often lack birth dates** — a real limitation of the
+   birth-date-exact discipline (correctly conservative for modern records) that a future
+   batch should close with a gated name-similarity fallback, not loosen the modern-record
+   matcher.
+3. **Model tiering held**: near-zero LLM cost for population-scale deterministic
+   reconciliation, Sonnet depth preserved exactly where the deterministic pass couldn't
+   judge, Opus reserved for the one reflection call that caught two real bugs (undated-money
+   conflation, asymmetric flagging) a Sonnet-only pass might have missed or accepted.
+   **Recommend keeping this tiering for future population-scale batches** — Opus-as-QA on
+   the batch's own output, not on unit processing, is where it earned its cost this time.
+4. **The "conflicting" semantic needed a cleaner, deterministic definition than batch 001's
+   narrative "graph says ongoing but registry disagrees" framing** (which wasn't itself a
+   strict rule — see batch-001 payload spot-check). Batch 002's identity-match-based
+   semantics (`registry-confirmed` = positively identified the MP among registry roles;
+   `conflicting` = registry exists but could NOT identify this MP; `registry-unconfirmed` =
+   couldn't even attempt the check) is more defensible at population scale and should be the
+   skill's stated definition going forward.
+5. **Concurrency**: this batch used 2 foreground Sonnet subagents (5 units each) + 1 Opus
+   reflection, well under the fleet's shared cap — a full-population deterministic pass
+   needs almost no subagent budget, freeing the concurrency cap for the sibling effort/law
+   loops running in the same window.
+
+## 8. Cleanup
+
+`.pglite-copy-money` removed at end of run (`rm -rf`). Re-create from `.pglite` to
 re-validate payloads (command in §1).

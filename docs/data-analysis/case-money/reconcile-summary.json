@@ -1,0 +1,365 @@
+{
+  "processed": 245,
+  "skippedDone": 15,
+  "byCorrob": {
+    "registry-confirmed": 164,
+    "registry-unconfirmed": 58,
+    "conflicting": 23
+  },
+  "byTemporal": {
+    "money-postdates-role": 39,
+    "current": 39,
+    "historical": 64,
+    "historical-no-money": 22
+  },
+  "unresolvable": [
+    {
+      "mp": "Petr Bendl",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Marek Benda",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Pavel Žáček",
+      "company": "Ústav pro studium totalitních režimů",
+      "ico": "75112779",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Radim Fiala",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Boris Šťastný",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Boris Šťastný",
+      "company": "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+      "ico": "41197518",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Ivan Adamec",
+      "company": "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+      "ico": "41197518",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Jaroslav Foldyna",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Helena Langšádlová",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Tomio Okamura",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Andrej Babiš",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Marek Ženíšek",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Helena Válková",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Ladislav Okleštěk",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Richard Brabec",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Milan Brázdil",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Milan Brázdil",
+      "company": "Vojenská nemocnice Olomouc",
+      "ico": "60800691",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Jaroslav Faltýnek",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Miloslav Janulík",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Marian Jurečka",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "David Kasal",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Martin Kolovratník",
+      "company": "ČESKÝ ROZHLAS",
+      "ico": "45245053",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Věra Kovářová",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Roman Kubíček",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Michal Kučera",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "František Petrtýl",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Ivan Bartoš",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Jakub Janda",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Aleš Juchelka",
+      "company": "ČESKÁ TELEVIZE",
+      "ico": "00027383",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Aleš Juchelka",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Aleš Juchelka",
+      "company": "ČESKÝ ROZHLAS",
+      "ico": "45245053",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Lucie Šafránková",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Patrik Nacher",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Jan Richter",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Vít Rakušan",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "David Pražák",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Martin Kupka",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Pavel Karpíšek",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Miroslav Samaš",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Jana Berkovcová",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Eva Decroix",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Marie Pošarová",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Karel Haas",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Róbert Teleky",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Lukáš Vlček",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Petr Hladík",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Andrea Hoffmannová",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Andrea Hoffmannová",
+      "company": "Univerzita Palackého v Olomouci",
+      "ico": "61989592",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Hana Ančincová",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Monika Brzesková",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Veronika Kovářová",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Patrik Pařil",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Vítězslav Schrek",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Vítězslav Schrek",
+      "company": "Charita Česká republika",
+      "ico": "70100969",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "František Talíř",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Jitka Volfová",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Roman Zarzycký",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    },
+    {
+      "mp": "Miroslav Žbánek",
+      "company": "OSVČ",
+      "ico": "04627695",
+      "reason": "vr-ico-not-found"
+    }
+  ]
+}
