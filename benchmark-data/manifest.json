@@ -1,0 +1,55 @@
+{
+  "generatedFrom": "PSP10 PGlite store (public psp.cz open data)",
+  "tables": [
+    {
+      "table": "vote_ballot",
+      "rows": 406000,
+      "bytes": 16493313
+    },
+    {
+      "table": "vote_event",
+      "rows": 2030,
+      "bytes": 278546
+    },
+    {
+      "table": "person",
+      "rows": 7045,
+      "bytes": 480341
+    },
+    {
+      "table": "organ",
+      "rows": 1790,
+      "bytes": 147516
+    },
+    {
+      "table": "mandate",
+      "rows": 2157,
+      "bytes": 86187
+    },
+    {
+      "table": "membership",
+      "rows": 42261,
+      "bytes": 4942315
+    },
+    {
+      "table": "absence",
+      "rows": 6425,
+      "bytes": 623275
+    },
+    {
+      "table": "kg_node",
+      "rows": 1289,
+      "bytes": 329845
+    },
+    {
+      "table": "kg_edge",
+      "rows": 22560,
+      "bytes": 1935719
+    },
+    {
+      "table": "vote_tag",
+      "rows": 0,
+      "bytes": 1
+    }
+  ]
+}
