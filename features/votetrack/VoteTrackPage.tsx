@@ -11,8 +11,10 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { ArrowLeft } from "lucide-react";
 import { ROLL_CALLS } from "@/lib/civic/data";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
@@ -22,6 +24,7 @@ import DisciplineBoard from "./components/DisciplineBoard";
 import Rebellions from "./components/Rebellions";
 
 export default function VoteTrackPage() {
+  const t = useTranslations("votetrack");
   const [selectedId, setSelectedId] = useState(ROLL_CALLS[0].id);
   const rc = ROLL_CALLS.find((r) => r.id === selectedId) ?? ROLL_CALLS[0];
 
@@ -41,43 +44,41 @@ export default function VoteTrackPage() {
             </Link>
             <span className="font-mono text-xs uppercase tracking-widest text-steel">/ votetrack</span>
           </div>
-          <Link
-            href="/dashboard"
-            className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" /> velín
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/dashboard"
+              className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" /> {t("backToDashboard")}
+            </Link>
+            <LanguageSwitcher />
+          </div>
         </div>
       </header>
 
       <div className="mx-auto max-w-6xl px-6">
         {/* ── Titulní pás ───────────────────────────────────── */}
         <div className="py-10">
-          <SourceNote tone="signal">
-            votetrack · analýza hlasování · sytí pilíře aktivita + docházka + nezávislost
-          </SourceNote>
+          <SourceNote tone="signal">{t("heroSourceNote")}</SourceNote>
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             className="mt-3 text-5xl font-black uppercase leading-[0.95] tracking-tight sm:text-6xl"
           >
-            Hlasování sněmovny<span className="text-signal">.</span>
+            {t("title")}<span className="text-signal">.</span>
           </motion.h1>
           <div className="mt-4 max-w-xl">
             <SectionRule />
           </div>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">
-            Deník jmenovitých hlasování, pohled do sálu a linie klubů — tři perspektivy
-            nad týmiž daty. Vyberte zápis v deníku; sál se překreslí.
-          </p>
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">{t("lead")}</p>
         </div>
 
         {/* ── 01 Deník + sál ────────────────────────────────── */}
         <section>
           <SectionHeading
             index={1}
-            title="Deník a sál"
-            aside={<SourceNote>pruh = sál: kobalt pro · šedá zdržel/omluven · signální proti</SourceNote>}
+            title={t("section1Title")}
+            aside={<SourceNote>{t("section1Note")}</SourceNote>}
           />
           <div className="mt-8 grid gap-10 pb-4 lg:grid-cols-[5fr_7fr]">
             <VoteLedger selectedId={selectedId} onSelect={setSelectedId} />
@@ -91,8 +92,8 @@ export default function VoteTrackPage() {
         <section className="mt-14 border-t-4 border-ink pt-10">
           <SectionHeading
             index={2}
-            title="Linie klubů"
-            aside={<SourceNote>psp.cz — odchylky od stranické linie · počítáno z rozpadů</SourceNote>}
+            title={t("section2Title")}
+            aside={<SourceNote>{t("section2Note")}</SourceNote>}
           />
           <div className="mt-8">
             <DisciplineBoard />
@@ -103,8 +104,8 @@ export default function VoteTrackPage() {
         <section className="mt-14 border-t-4 border-ink pt-10 pb-20">
           <SectionHeading
             index={3}
-            title="Rebelie a nezávislost"
-            aside={<SourceNote>sytí pilíř nezávislost × 0.25 · metodika v1.4</SourceNote>}
+            title={t("section3Title")}
+            aside={<SourceNote>{t("section3Note")}</SourceNote>}
           />
           <div className="mt-8">
             <Rebellions />

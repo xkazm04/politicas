@@ -10,7 +10,9 @@
 
 import { useMemo, useState } from "react";
 import { Crosshair } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { GRAPH_EDGES, GRAPH_NODES } from "@/lib/civic/data";
+import { useFormat } from "@/lib/i18n/useFormat";
 
 const px = (x: number) => x * 6.4;
 const py = (y: number) => y * 4;
@@ -23,6 +25,9 @@ const NODE_FILL: Record<string, string> = {
 };
 
 export default function MoneyGraph() {
+  const t = useTranslations("money");
+  const tc = useTranslations("content");
+  const f = useFormat();
   const [hover, setHover] = useState<string | null>("mp");
   const connected = useMemo(() => {
     if (!hover) return new Set<string>();
@@ -41,18 +46,18 @@ export default function MoneyGraph() {
       <div className="flex items-center justify-between gap-3 border-b-2 border-ink px-4 py-2 font-mono text-[11px] uppercase tracking-widest text-steel">
         <span className="flex items-center gap-2">
           <Crosshair className="h-3.5 w-3.5 text-signal" />
-          graf entit · vzorek MSK-047
+          {t("graph.badge")}
         </span>
-        <span className="hidden sm:inline">registr smluv ⋈ ares ⋈ hlídač — klíč: IČO</span>
+        <span className="hidden sm:inline">{t("graph.joinCaption")}</span>
       </div>
-      <svg viewBox="0 0 640 400" className="w-full" role="img" aria-label="Graf peněžní stopy: poslanec, firmy, veřejné peníze">
+      <svg viewBox="0 0 640 400" className="w-full" role="img" aria-label={t("graph.ariaLabel")}>
         {Array.from({ length: 15 }, (_, i) => (
           <line key={`v${i}`} x1={i * 46} y1={0} x2={i * 46} y2={400} className="stroke-hairline" strokeWidth={0.5} />
         ))}
         {Array.from({ length: 9 }, (_, i) => (
           <line key={`h${i}`} x1={0} y1={i * 50} x2={640} y2={i * 50} className="stroke-hairline" strokeWidth={0.5} />
         ))}
-        {GRAPH_EDGES.map((e) => {
+        {GRAPH_EDGES.map((e, i) => {
           const a = GRAPH_NODES.find((n) => n.id === e.from)!;
           const b = GRAPH_NODES.find((n) => n.id === e.to)!;
           const lit = hover !== null && connected.has(e.from) && connected.has(e.to) && (e.from === hover || e.to === hover);
@@ -72,7 +77,7 @@ export default function MoneyGraph() {
               />
               {lit && (
                 <text x={mx} y={my - 8} textAnchor="middle" fontSize={11} fontFamily="var(--font-plex)" fontWeight={700} className="fill-signal uppercase">
-                  {e.label}
+                  {tc(`graphEdges.${i}`)}
                 </text>
               )}
             </g>
@@ -102,10 +107,10 @@ export default function MoneyGraph() {
                 fontWeight={700}
                 className={lit ? "fill-ink" : "fill-steel"}
               >
-                {n.label}
+                {tc(`graphNodes.${n.id}.label`)}
               </text>
               <text y={27} textAnchor="middle" fontSize={10.5} fontFamily="var(--font-plex)" className="fill-steel uppercase">
-                {n.sub}
+                {tc(`graphNodes.${n.id}.sub`)}
               </text>
             </g>
           );
@@ -114,16 +119,19 @@ export default function MoneyGraph() {
       <div className="flex min-h-[3.25rem] items-center justify-between gap-4 border-t-2 border-ink px-4 py-2.5 font-mono text-xs">
         {node ? (
           <span>
-            <span className="font-bold text-signal">▸ {node.label}</span>{" "}
+            <span className="font-bold text-signal">▸ {tc(`graphNodes.${node.id}.label`)}</span>{" "}
             <span className="text-steel">
-              — {node.sub} · {GRAPH_EDGES.filter((e) => e.from === node.id || e.to === node.id).length} hran v záznamu
+              — {tc(`graphNodes.${node.id}.sub`)} ·{" "}
+              {t("graph.edgesInRecord", {
+                count: f.int(GRAPH_EDGES.filter((e) => e.from === node.id || e.to === node.id).length),
+              })}
             </span>
           </span>
         ) : (
-          <span className="text-steel">najeďte na uzel a stopa se rozsvítí</span>
+          <span className="text-steel">{t("graph.hoverHint")}</span>
         )}
         <span className="hidden shrink-0 font-bold uppercase tracking-wider text-cobalt sm:inline">
-          ● všechny hrany datované + doložené
+          {t("graph.allEdgesVerified")}
         </span>
       </div>
     </div>

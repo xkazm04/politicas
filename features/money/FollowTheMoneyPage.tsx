@@ -12,7 +12,10 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { MODULES, MONEY_TIES } from "@/lib/civic/data";
+import { useFormat } from "@/lib/i18n/useFormat";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
@@ -21,36 +24,41 @@ import TiesLedger from "./components/TiesLedger";
 import TrailMethod from "./components/TrailMethod";
 
 const MODULE = MODULES.find((m) => m.key === "follow-the-money")!;
-const PENDING = MONEY_TIES.filter((t) => !t.verified).length;
-
-const STATS = [
-  {
-    label: "dohledáno k napojeným firmám",
-    value: MODULE.metric.value,
-    sub: "veřejné zakázky, dotace a dary za 9. období",
-    source: "registr smluv ⋈ ares ⋈ registr dotací",
-  },
-  {
-    label: "doložené vazby vzorku",
-    value: String(MONEY_TIES.length),
-    sub: "u 3 z 5 sledovaných poslanců",
-    source: "ares v3 · registr oznámení",
-  },
-  {
-    label: "čeká na lidskou kontrolu",
-    value: String(PENDING),
-    sub: "do pilíře Integrita se nepropisují",
-    source: "metodika v1.4 — práh spolehlivosti",
-  },
-  {
-    label: "spojovací klíč",
-    value: "IČO",
-    sub: "8 číslic: firma ↔ smlouva ↔ dotace ↔ dar",
-    source: "univerzální identifikátor",
-  },
-];
+const PENDING = MONEY_TIES.filter((tie) => !tie.verified).length;
 
 export default function FollowTheMoneyPage() {
+  const t = useTranslations("money");
+  const tc = useTranslations("content");
+  const tcom = useTranslations("common");
+  const f = useFormat();
+
+  const STATS = [
+    {
+      label: tc(`modules.${MODULE.key}.metricLabel`),
+      value: tc(`modules.${MODULE.key}.metricValue`),
+      sub: t("stats.contracted.sub"),
+      source: t("stats.contracted.source"),
+    },
+    {
+      label: t("stats.sampleTies.label"),
+      value: f.int(MONEY_TIES.length),
+      sub: t("stats.sampleTies.sub"),
+      source: t("stats.sampleTies.source"),
+    },
+    {
+      label: t("stats.pendingReview.label"),
+      value: f.int(PENDING),
+      sub: t("stats.pendingReview.sub"),
+      source: t("stats.pendingReview.source"),
+    },
+    {
+      label: t("stats.joinKey.label"),
+      value: "IČO",
+      sub: t("stats.joinKey.sub"),
+      source: t("stats.joinKey.source"),
+    },
+  ];
+
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
       {/* ── Lišta ───────────────────────────────────────────── */}
@@ -67,33 +75,34 @@ export default function FollowTheMoneyPage() {
             </Link>
             <span className="font-mono text-xs uppercase tracking-widest text-steel">/ followthemoney</span>
           </div>
-          <Link
-            href="/dashboard"
-            className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" /> velín
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/dashboard"
+              className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" /> {t("controlRoom")}
+            </Link>
+            <LanguageSwitcher className="my-auto" />
+          </div>
         </div>
       </header>
 
       <div className="mx-auto max-w-6xl px-6">
         {/* ── Titulní pás ───────────────────────────────────── */}
         <div className="py-10">
-          <SourceNote tone="signal">followthemoney · síť peněz · sytí pilíř integrita × 0.3</SourceNote>
+          <SourceNote tone="signal">{t("eyebrow")}</SourceNote>
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             className="mt-3 text-5xl font-black uppercase leading-[0.95] tracking-tight sm:text-6xl"
           >
-            Stopa peněz<span className="text-signal">.</span>
+            {t("title")}<span className="text-signal">.</span>
           </motion.h1>
           <div className="mt-4 max-w-xl">
             <SectionRule />
           </div>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">
-            Veřejné zakázky, dotace a dary dohledané přes firmy až k politikům, kteří
-            jsou s nimi spojeni. Tady CivicScore ukazuje důkazy za nízkou integritou —
-            jako datovaná fakta, nikdy jako obvinění.
+            {t("intro")}
           </p>
         </div>
 
@@ -110,7 +119,7 @@ export default function FollowTheMoneyPage() {
               <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">{s.label}</p>
               <p className="mt-3 text-4xl font-black tabular-nums tracking-tight">{s.value}</p>
               <p className="mt-2 text-sm text-steel">{s.sub}</p>
-              <SourceNote className="mt-3 !text-[10px]">zdroj: {s.source}</SourceNote>
+              <SourceNote className="mt-3 !text-[10px]">{tcom("sourcePrefix")} {s.source}</SourceNote>
             </motion.div>
           ))}
         </div>
@@ -119,15 +128,15 @@ export default function FollowTheMoneyPage() {
         <section className="mt-16">
           <SectionHeading
             index={1}
-            title="Graf entit"
-            aside={<SourceNote>plná čára = důkazní stopa · čárkovaná = evidovaná vazba</SourceNote>}
+            title={t("sections.graph.title")}
+            aside={<SourceNote>{t("sections.graph.aside")}</SourceNote>}
           />
           <div className="mt-8">
             <MoneyGraph />
           </div>
           <div className="mt-3">
             <SourceNote>
-              obr. — vzorek stopy K. Hrušky · osoba kobalt · firma čerň · strana ocel · peníze signální ◆
+              {t("graphCaption")}
             </SourceNote>
           </div>
         </section>
@@ -136,8 +145,8 @@ export default function FollowTheMoneyPage() {
         <section className="mt-16 border-t-4 border-ink pt-10">
           <SectionHeading
             index={2}
-            title="Kniha vazeb"
-            aside={<SourceNote>seskupeno po poslancích · jméno otevírá spis</SourceNote>}
+            title={t("sections.ledger.title")}
+            aside={<SourceNote>{t("sections.ledger.aside")}</SourceNote>}
           />
           <div className="mt-8">
             <TiesLedger />
@@ -148,8 +157,8 @@ export default function FollowTheMoneyPage() {
         <section className="mt-16 border-t-4 border-ink pt-10 pb-20">
           <SectionHeading
             index={3}
-            title="Jak stopa vzniká"
-            aside={<SourceNote>metodika v1.4 — verzovaná, veřejná</SourceNote>}
+            title={t("sections.method.title")}
+            aside={<SourceNote>{t("sections.method.aside")}</SourceNote>}
           />
           <div className="mt-8">
             <TrailMethod />

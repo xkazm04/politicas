@@ -23,7 +23,8 @@
     "da:kg-metrics": "tsx scripts/data-analysis/kg-metrics.ts",
     "da:kg-datahub-sync": "tsx scripts/data-analysis/kg-datahub-sync.ts",
     "hybrid:semop": "tsx scripts/hybrid-bench/run.ts",
-    "hybrid:semagg": "tsx scripts/hybrid-bench/agg.ts"
+    "hybrid:semagg": "tsx scripts/hybrid-bench/agg.ts",
+    "hybrid:materialize": "tsx scripts/hybrid-bench/materialize-tags.ts"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.4.6",
@@ -31,6 +32,7 @@
     "framer-motion": "^12.42.2",
     "lucide-react": "^1.25.0",
     "next": "16.2.11",
+    "next-intl": "^4.13.4",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "recharts": "^3.10.0"

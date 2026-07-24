@@ -2,9 +2,10 @@
 
 /** Řádky žebříčku — výběr řádku přepíná rozklad, trend i živý vzorek. */
 
+import { useTranslations } from "next-intl";
 import type { MP } from "@/lib/civic/data";
 import { MPS } from "@/lib/civic/data";
-import { czech } from "@/lib/format";
+import { useFormat } from "@/lib/i18n/useFormat";
 import RankDelta from "@/features/shared/components/RankDelta";
 
 export default function Standings({
@@ -14,6 +15,8 @@ export default function Standings({
   selected: MP;
   onSelect: (id: string) => void;
 }) {
+  const tc = useTranslations("content");
+  const f = useFormat();
   return (
     <div className="min-w-0 border-t-2 border-ink">
       {MPS.map((m) => (
@@ -34,16 +37,16 @@ export default function Standings({
             <span className="mt-0.5 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-steel">
               {/* barva strany je datový údaj — jediné povolené inline barvy */}
               <span className="inline-block h-2 w-2 rounded-full" style={{ background: m.partyColor }} />
-              {m.party} · {m.region}
+              {m.party} · {tc(`regions.${m.region}`)}
             </span>
           </span>
           <RankDelta delta={m.delta} />
           <span className={`text-2xl font-black tabular-nums ${m.id === selected.id ? "text-signal" : "text-ink"}`}>
-            {czech(m.score)}
+            {f.dec(m.score)}
           </span>
         </button>
       ))}
-      <p className="mt-3 text-sm italic text-steel">{selected.headline}</p>
+      <p className="mt-3 text-sm italic text-steel">{tc(`mpHeadlines.${selected.id}`)}</p>
     </div>
   );
 }

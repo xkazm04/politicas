@@ -1,0 +1,665 @@
+{
+  "meta": {
+    "rootTitle": "Politicas — the empirical record of the republic",
+    "rootDescription": "Votes, public money, budgets and laws fused into one methodology-transparent effectiveness index for every Czech politician. Every number cites its open data source.",
+    "dashboardTitle": "Politicas — the republic's control room",
+    "dashboardDescription": "Chamber overview: composite scores, the ranking, events in the public-money graph, and entry points to five tools.",
+    "votetrackTitle": "VoteTrack — Chamber votes · Politicas",
+    "votetrackDescription": "A ledger of roll-call votes, the chamber view and parliamentary-group discipline — three perspectives over psp.cz data. Feeds the Activity, Attendance and Independence pillars.",
+    "moneyTitle": "FollowTheMoney — the money trail · Politicas",
+    "moneyDescription": "Public contracts, subsidies and donations traced through firms to politicians — an entity graph, a ledger of evidenced ties, and the trail methodology. Feeds the Integrity pillar.",
+    "budgetTitle": "BudgetMirror — the budget mirror · Politicas",
+    "budgetDescription": "A town's finances against similarly sized peers: debt per capita, capital-spending share and balance, from MONITOR / State Treasury data.",
+    "lawwatchTitle": "LawWatch — section watch · Politicas",
+    "lawwatchDescription": "What actually changed in the law: section-by-section diffs linked to roll-call votes, and the legislative pipeline of House prints.",
+    "civicscoreTitle": "CivicScore — the republic's ranking · Politicas",
+    "civicscoreDescription": "All 200 MPs by composite effectiveness score: the chamber distribution, the full ranking with a party filter, and a head-to-head of two MPs pillar by pillar.",
+    "profileTitle": "{name} — file no. {rank} · Politicas",
+    "profileDescription": "Composite score {score}/100 ({party}, {region}): pillars, roll-call votes and evidenced money ties. Every number cites its open source.",
+    "profileNotFound": "Politicas — file not found",
+    "rentgenTitle": "Politicas/rentgen — investigative evidence terminal",
+    "rentgenDescription": "Archived art direction of Politicas: an X-ray of the state — the money-trail graph, an audit log and a source register."
+  },
+  "common": {
+    "languageSwitch": "Switch language",
+    "rankUp": "up {n}",
+    "rankDown": "down {n}",
+    "rankSame": "no change",
+    "sourcePrefix": "source:",
+    "pts": "pts",
+    "of100": "/100",
+    "verified": "verified",
+    "pendingReview": "pending review",
+    "voteChoice": {
+      "for": "for",
+      "against": "against",
+      "abstained": "abstained",
+      "excused": "excused"
+    },
+    "voteResult": {
+      "accepted": "passed",
+      "rejected": "rejected"
+    }
+  },
+  "content": {
+    "pillars": {
+      "activity": {
+        "label": "Activity",
+        "question": "How much legislative work does the MP actually do?",
+        "source": "psp.cz — bills, interpellations, floor speeches"
+      },
+      "attendance": {
+        "label": "Attendance",
+        "question": "Is the MP present when the Chamber votes?",
+        "source": "psp.cz — voting attendance, 9th term"
+      },
+      "independence": {
+        "label": "Independence",
+        "question": "Do they vote their conscience, or the party line?",
+        "source": "psp.cz — deviations from the party line"
+      },
+      "integrity": {
+        "label": "Integrity",
+        "question": "Does public money flow to firms tied to the MP?",
+        "source": "Hlídač /osoby · Contract Register · MONITOR"
+      }
+    },
+    "modules": {
+      "civic-score": {
+        "tag": "Synthesis",
+        "description": "A composite effectiveness index, 0–100, for every MP — four pillars, published weights, every number traceable to its dataset.",
+        "metricValue": "200",
+        "metricLabel": "MPs scored, every quarter",
+        "feeds": "The surface the other four modules feed"
+      },
+      "vote-track": {
+        "tag": "Vote analysis",
+        "description": "Every roll-call vote in the Chamber and the Senate — attendance, deviations from the party line, rebellions, and who tabled what.",
+        "metricValue": "5,214",
+        "metricLabel": "roll-call votes, 9th term",
+        "feeds": "Pillars Activity + Attendance"
+      },
+      "follow-the-money": {
+        "tag": "Money network",
+        "description": "Public contracts and subsidies traced through companies to the politicians tied to them — joined on the eight-digit company ID (IČO).",
+        "metricValue": "CZK 2.1B",
+        "metricLabel": "traced to connected firms",
+        "feeds": "Pillar Integrity"
+      },
+      "budget-mirror": {
+        "tag": "Budget comparison",
+        "description": "Municipal finances compared with peer towns — debt per capita, capital-spending share, stewardship over time.",
+        "metricValue": "6,254",
+        "metricLabel": "municipalities compared",
+        "feeds": "Stewardship, for executive roles"
+      },
+      "law-watch": {
+        "tag": "Legislation monitor",
+        "description": "What actually changed in the law — section-by-section diffs linked back to the vote and the MPs who passed it.",
+        "metricValue": "312",
+        "metricLabel": "laws amended this term",
+        "feeds": "Links votes → impact"
+      }
+    },
+    "sources": {
+      "0": {
+        "name": "psp.cz",
+        "what": "Roll-call votes, prints, transcripts",
+        "cadence": "daily",
+        "access": "bulk UNL/XML"
+      },
+      "1": {
+        "name": "Hlídač státu",
+        "what": "People, party ties, donors, salaries",
+        "cadence": "continuous",
+        "access": "REST API"
+      },
+      "2": {
+        "name": "ARES v3",
+        "what": "Company register + statutory bodies",
+        "cadence": "near real-time",
+        "access": "REST, 500 req/min"
+      },
+      "3": {
+        "name": "Contract Register",
+        "what": "Public contracts",
+        "cadence": "daily",
+        "access": "XML dumps"
+      },
+      "4": {
+        "name": "Subsidy Register",
+        "what": "Subsidies",
+        "cadence": "quarterly",
+        "access": "CSV"
+      },
+      "5": {
+        "name": "MONITOR",
+        "what": "State and municipal budgets",
+        "cadence": "quarterly",
+        "access": "CSV/XML + SOAP"
+      },
+      "6": {
+        "name": "e-Sbírka",
+        "what": "Laws and consolidated texts",
+        "cadence": "continuous",
+        "access": "SPARQL"
+      }
+    },
+    "regions": {
+      "Praha": "Prague",
+      "Jihomoravský kraj": "South Moravia Region",
+      "Plzeňský kraj": "Plzeň Region",
+      "Moravskoslezský kraj": "Moravia-Silesia Region",
+      "Ústecký kraj": "Ústí Region",
+      "Vysočina": "Vysočina Region",
+      "Středočeský kraj": "Central Bohemia Region",
+      "Karlovarský kraj": "Karlovy Vary Region",
+      "Jihočeský kraj": "South Bohemia Region",
+      "Liberecký kraj": "Liberec Region",
+      "Královéhradecký kraj": "Hradec Králové Region",
+      "Pardubický kraj": "Pardubice Region",
+      "Olomoucký kraj": "Olomouc Region",
+      "Zlínský kraj": "Zlín Region"
+    },
+    "mpHeadlines": {
+      "novakova-p": "High output, near-perfect attendance, no ties to public contracts.",
+      "pokorna-e": "Balanced across all four pillars; a steady top of the Chamber.",
+      "dvorak-m": "Strong committee work; one declared firm under review.",
+      "hruska-k": "Attendance improved; CZK 4.2M in contracts to a firm tied to the MP.",
+      "beran-t": "Bottom decile in attendance; three undeclared board roles."
+    },
+    "chamberStats": {
+      "avg": {
+        "label": "average composite",
+        "value": "56.8",
+        "sub": "median 55.4 · σ 11.6",
+        "source": "civicscore v1.4"
+      },
+      "attendance": {
+        "label": "average attendance",
+        "value": "78.3%",
+        "sub": "−1.2 pp vs Q1/25",
+        "source": "psp.cz — roll-call votes"
+      },
+      "money": {
+        "label": "money to connected firms",
+        "value": "CZK 2.1B",
+        "sub": "+CZK 180M this quarter",
+        "source": "Contract Register ⋈ ARES"
+      },
+      "laws": {
+        "label": "laws amended",
+        "value": "312",
+        "sub": "38 change sections that affect citizens",
+        "source": "e-Sbírka · psp.cz prints"
+      }
+    },
+    "events": {
+      "e1": {
+        "ts": "today 09:14",
+        "text": "New contract CZK 4.2M — Silnice MSK a.s. (tie: K. Hruška, board member)",
+        "source": "Contract Register"
+      },
+      "e2": {
+        "ts": "today 08:02",
+        "text": "K. Hruška's integrity pillar recomputed 68 → 61; awaiting human review before publication",
+        "source": "civicscore v1.4"
+      },
+      "e3": {
+        "ts": "Tue Jul 14",
+        "text": "Vote no. 412: amendment to the Public Procurement Act passed 108:62",
+        "source": "psp.cz"
+      },
+      "e4": {
+        "ts": "Tue Jul 14",
+        "text": "P. Nováková broke from the Pirates' line on the household energy price cap (4th rebellion this term)",
+        "source": "psp.cz — line deviations"
+      },
+      "e5": {
+        "ts": "Mon Jul 13",
+        "text": "Amendment changes Section 16 of the Conflict of Interest Act — in force 1 Jan 2027; diff ready",
+        "source": "e-Sbírka"
+      },
+      "e6": {
+        "ts": "Fri Jul 10",
+        "text": "CZK 350K donation to ANO 2011 from Agrofond s.r.o. — 38% owner overlap",
+        "source": "Hlídač státu /sponsorship"
+      },
+      "e7": {
+        "ts": "Thu Jul 9",
+        "text": "Quarterly ranking recompute: 200 MPs, 14 changes in the top twenty",
+        "source": "civicscore v1.4"
+      }
+    },
+    "rollCalls": {
+      "h-412": {
+        "title": "Amendment to the Public Procurement Act",
+        "tisk": "Print 486"
+      },
+      "h-409": {
+        "title": "Regional transport infrastructure budget",
+        "tisk": "Print 471"
+      },
+      "h-398": {
+        "title": "Whistleblower protection — expanded scope",
+        "tisk": "Print 455"
+      },
+      "h-391": {
+        "title": "Household energy price cap",
+        "tisk": "Print 448"
+      },
+      "h-387": {
+        "title": "Digitising building permits — delayed effect",
+        "tisk": "Print 440"
+      }
+    },
+    "lawChanges": {
+      "lc1": {
+        "law": "Public Procurement Act",
+        "lawRef": "No. 134/2016 Coll.",
+        "paragraph": "Section 16(2)",
+        "summary": "Beneficial-owner details of the supplier are now mandatory before contract signing.",
+        "before": "The contracting authority may request the beneficial-owner details of the selected supplier.",
+        "after": "The contracting authority requires the beneficial-owner details of the selected supplier before signing; without them, it will not conclude the contract."
+      },
+      "lc2": {
+        "law": "Whistleblower Protection Act",
+        "lawRef": "No. 171/2023 Coll.",
+        "paragraph": "Section 4",
+        "summary": "An internal reporting system is now required for municipalities over 5,000 residents.",
+        "before": "The duty to set up an internal reporting system applies to municipalities with more than 10,000 residents.",
+        "after": "The duty to set up an internal reporting system applies to municipalities with more than 5,000 residents."
+      },
+      "lc3": {
+        "law": "Building Act",
+        "lawRef": "No. 283/2021 Coll.",
+        "paragraph": "Section 312",
+        "summary": "Full digitisation of building permits postponed by 12 months.",
+        "before": "The builder portal applies to all proceedings started after 1 July 2026.",
+        "after": "The builder portal applies to all proceedings started after 1 July 2027."
+      }
+    },
+    "billStages": {
+      "0": "1st reading",
+      "1": "committees",
+      "2": "2nd reading",
+      "3": "3rd reading",
+      "4": "Senate",
+      "5": "signature",
+      "6": "in force"
+    },
+    "bills": {
+      "0": {
+        "tisk": "Print 440",
+        "title": "Digitising building permits — delayed effect"
+      },
+      "1": {
+        "tisk": "Print 455",
+        "title": "Whistleblower protection — expanded scope"
+      },
+      "2": {
+        "tisk": "Print 486",
+        "title": "Amendment to the Public Procurement Act"
+      },
+      "3": {
+        "tisk": "Print 471",
+        "title": "Regional transport infrastructure budget"
+      },
+      "4": {
+        "tisk": "Print 448",
+        "title": "Household energy price cap"
+      },
+      "5": {
+        "tisk": "Print 502",
+        "title": "Amendment to the Conflict of Interest Act"
+      },
+      "6": {
+        "tisk": "Print 509",
+        "title": "Lobbyist register"
+      }
+    },
+    "moneyTies": {
+      "0": {
+        "company": "Silnice MSK a.s.",
+        "kind": "board member (since 03/2019)",
+        "amount": "CZK 4.2M",
+        "note": "public contract — road maintenance, Moravia-Silesia Region",
+        "source": "Contract Register · ARES v3"
+      },
+      "1": {
+        "company": "Agrofond s.r.o.",
+        "kind": "38% owner",
+        "amount": "CZK 11.8M",
+        "note": "SZIF subsidy; the firm is also an ANO 2011 donor (CZK 350K)",
+        "source": "Subsidy Register · Hlídač státu"
+      },
+      "2": {
+        "company": "DK Stav s.r.o.",
+        "kind": "declared firm (50% partner)",
+        "amount": "—",
+        "note": "no public contracts; under entity-resolution review",
+        "source": "ARES v3 · Declarations Register"
+      },
+      "3": {
+        "company": "3 companies",
+        "kind": "undeclared board roles",
+        "amount": "—",
+        "note": "discrepancy between ARES and the Declarations Register; awaiting human review",
+        "source": "ARES v3 ⋈ Declarations Register"
+      }
+    },
+    "graphNodes": {
+      "mp": {
+        "label": "K. Hruška",
+        "sub": "MP · ANO"
+      },
+      "co1": {
+        "label": "Silnice MSK a.s.",
+        "sub": "IČO 258 41 991"
+      },
+      "co2": {
+        "label": "Agrofond s.r.o.",
+        "sub": "IČO 470 12 336"
+      },
+      "party": {
+        "label": "ANO 2011",
+        "sub": "party"
+      },
+      "k1": {
+        "label": "CZK 4.2M",
+        "sub": "road maintenance, 2025"
+      },
+      "k2": {
+        "label": "CZK 11.8M",
+        "sub": "SZIF subsidy, 2024"
+      },
+      "k3": {
+        "label": "CZK 350K",
+        "sub": "donation, 2024"
+      }
+    },
+    "graphEdges": {
+      "0": "board member",
+      "1": "38% owner",
+      "2": "supplier",
+      "3": "recipient",
+      "4": "donor",
+      "5": "received"
+    }
+  },
+  "landing": {
+    "nav": {
+      "index": "Index",
+      "ranking": "Ranking",
+      "system": "System",
+      "data": "Data",
+      "method": "Method"
+    },
+    "enter": "Enter",
+    "eyebrow": "fig. 1 — headline · 9th parliamentary term",
+    "titleLine1": "The measured",
+    "titleLine2": "republic",
+    "lead": "Every vote cast, every crown of public money, every amended section of law — fused into one score for each politician. Not an opinion: an index with published weights, where every number cites the public dataset it came from.",
+    "ctaRanking": "Ranking",
+    "ctaMethod": "Methodology",
+    "hemicycleCaption": "fig. 2 — 200 Chamber seats by score band",
+    "hemicycleSource": "psp.cz · Hlídač státu",
+    "hemicycleAria": "Hemicycle of 200 seats by score band",
+    "rankingTitle": "Ranking",
+    "rankingSource": "fig. 3 — composite = Σ pillar × weight · recomputed every quarter",
+    "rankingIntro": "Ranked by composite score; the full ranking covers all 200 MPs. Pick a row — the breakdown, the trend and the live specimen above all switch to the selected MP.",
+    "specimenLabel": "live specimen — {name}, {party}",
+    "publishedWeights": "published weights",
+    "scoreDefault": "computed with the published v1.4 weights",
+    "scoreCustom": "computed with YOUR weights — same evidence",
+    "pillarWeightAria": "Weight of the {pillar} pillar",
+    "specimenNote": "Pillar values are cited facts — {attendance}% attendance is psp.cz, contract ties are the Contract Register. Only the weighting is an opinion — and it is printed on the page.",
+    "breakdownSource": "score breakdown — how many points each pillar contributed",
+    "breakdownTooltipUnit": "{value} pts",
+    "trendSource": "composite trend — {name} · {count} quarters",
+    "trendTooltip": "composite",
+    "trendFootnote": "source: psp.cz · Hlídač státu · Contract Register — recomputed with methodology v1.4",
+    "systemTitlePart1": "One graph",
+    "systemTitlePart2": "Five tools",
+    "systemIntro": "Politician ↔ party ↔ firm ↔ contract ↔ vote ↔ budget ↔ law, joined through one universal eight-digit company ID (IČO). Every tool reads the same graph.",
+    "sourcesTitle": "Raw material",
+    "sourcesCaption": "fig. 4 — verified public sources",
+    "joinKeyLabel": "join key",
+    "joinKeyDesc": "8 digits joining firm ↔ contract ↔ subsidy ↔ donation.",
+    "methodTitle": "No black box",
+    "methodBody": "Versioned weights, a citation on every pillar, a click through to the evidenced fact. We publish ties between politicians and firms as dated, evidenced facts — never as accusations. Built and tested a full election cycle before it matters.",
+    "methodCtaFind": "Find your MP",
+    "methodCtaApi": "API for newsrooms",
+    "footerLeft": "Politicas — the empirical record of the republic",
+    "footerRight": "open data · cc by · methodology v1.4"
+  },
+  "dashboard": {
+    "headerTag": "control room",
+    "headerNote": "9th term · Q2/25 · recalculated {date}",
+    "title": "The republic's control room",
+    "lead": "What changed in the state while you weren't looking — Chamber aggregates, ranking moves, and new edges in the public-money graph. Every number cites its source.",
+    "rankingSectionTitle": "Ranking",
+    "allMpsLink": "all 200 MPs",
+    "rankingFootnote": "composite = Σ pillar × weight · civicscore v1.4 · row opens the MP's file",
+    "chamberTrendLabel": "Chamber average trend",
+    "chamberTrendTooltip": "average composite",
+    "chamberTrendSource": "source: psp.cz · Contract Register — methodology v1.4",
+    "pillarAvgLabel": "pillar averages — sample of {n} MPs",
+    "pillarAvgTooltip": "sample average",
+    "pillarAvgSource": "psp.cz · Hlídač státu — pillar values 0–100",
+    "feedSectionTitle": "What changed in the graph",
+    "feedIngestionNote": "ingestion: daily (psp, contracts) · quarterly (subsidies, budgets)",
+    "toolsSectionTitle": "Five tools",
+    "toolsJoinKeyNote": "person ⋈ party ⋈ firm ⋈ money ⋈ vote ⋈ law — key: company ID (IČO)"
+  },
+  "profile": {
+    "breadcrumb": "file",
+    "backToDashboard": "control room",
+    "fileNumber": "file no. {rank} / 200 · {party} · {region} · 9th parliamentary term",
+    "trendTooltip": "composite",
+    "trendMeta": "{count} quarters · v1.4",
+    "pillarsHeading": "Pillars",
+    "pillarsAside": "composite = Σ pillar × weight · methodology v1.4",
+    "votesHeading": "How they voted",
+    "votesAside": "psp.cz — roll-call votes · daily ingestion",
+    "dateHeader": "date",
+    "motionHeader": "motion",
+    "resultHeader": "result",
+    "choiceHeader": "vote",
+    "rebelTag": "broke party line",
+    "moneyHeading": "Money ties",
+    "moneyAside": "Contract Register ⋈ ARES ⋈ Hlídač — key: IČO",
+    "moneyLink": "full money network →",
+    "moneyEmptyTitle": "No evidenced ties to public money",
+    "moneyEmptyBody": "As of today, no firm tied to this MP has been traced to a public contract, subsidy or party donation. The check reruns with every daily ingestion.",
+    "moneyDisclaimer": "We publish ties as dated, evidenced facts — never as accusations. Disputed records await human review and are not reflected in the score until then.",
+    "prevFile": "previous file",
+    "nextFile": "next file"
+  },
+  "votetrack": {
+    "backToDashboard": "control room",
+    "heroSourceNote": "votetrack · roll-call vote analysis · feeds the activity + attendance + independence pillars",
+    "title": "Chamber of Deputies roll-call votes",
+    "lead": "A ledger of roll-call votes, a view onto the chamber floor, and party-line analysis — three perspectives on the same data. Pick an entry in the ledger; the chamber floor redraws.",
+    "section1Title": "Ledger and chamber floor",
+    "section1Note": "bar = chamber floor: cobalt for · gray abstained/excused · signal red against",
+    "section2Title": "Party lines",
+    "section2Note": "psp.cz — deviations from the party line · computed from the vote breakdowns",
+    "section3Title": "Rebellions and independence",
+    "section3Note": "feeds the independence pillar × 0.25 · methodology v1.4",
+    "hemicycleAria": "Hemicycle for the vote: {title}",
+    "splitNote": "breakdown by party — share of the group's votes · arrow = party line · number = discipline",
+    "sampleNote": "votes of the tracked sample — the tag opens the file",
+    "rebelTag": "rebel",
+    "disciplineNote": "party discipline — averaged across {count} votes",
+    "partyHeader": "party",
+    "matrixNote": "party-line matrix — ▲ for · ▼ against · solid color = discipline ≥ 90%",
+    "matrixFootnote": "An outline instead of solid color means the group split — that's exactly where the Independence pillar begins.",
+    "rebellionChronicleNote": "chronicle of rebellions in the tracked sample",
+    "votedVerb": "voted",
+    "againstPartyLine": "against the party line —",
+    "noRebellions": "No rebellions in the tracked sample during this period.",
+    "independencePillarNote": "independence pillar — tracked sample (0–100)",
+    "independenceFootnote": "Independence is neither a virtue nor a vice — it's a measured deviation from the party line. Interpretation is up to the reader; the numbers carry the citations.",
+    "rebelsCount": "{n}× against the line",
+    "sampleFootnote": "sample of {sample} out of {total} votes, 9th term · psp.cz — daily ingestion"
+  },
+  "civicscore": {
+    "backToControl": "control room",
+    "sourceNote": "civicscore · synthesis of every module · methodology v1.4 — versioned, public",
+    "title": "The republic's ranking",
+    "lead": "All 200 MPs by composite score — four pillars, published weights, every number traceable to its source. Detailed files exist so far only for the tracked sample; the rest of the Chamber is an illustrative mock shaped like the real data.",
+    "distributionTitle": "Chamber distribution",
+    "distributionSource": "composite 0–100 · recomputed every quarter",
+    "duelTitle": "Head-to-head",
+    "duelSource": "pick a pair with the “vs” button in the ranking below",
+    "allTitle": "All 200",
+    "allSource": "composite = Σ pillar × weight · civicscore v1.4",
+    "rank": "rank {rank}",
+    "emptyTitle": "Pick two MPs",
+    "emptyBody": "Use the “vs” button on a row in the ranking below to pick a pair — the head-to-head compares them pillar by pillar against the published weights.",
+    "leadLine": "{name} leads by <diff>{diffLabel}</diff> of composite",
+    "footnote": "composite = Σ pillar × weight · signal value = pillar winner · sources: psp.cz · Hlídač státu · Contract Register",
+    "allParties": "all · 200",
+    "searchPlaceholder": "search by name…",
+    "searchAriaLabel": "Search MPs by name",
+    "legendWidthNote": "· bar width = composite",
+    "toggleDuelAdd": "add to head-to-head",
+    "toggleDuelRemove": "remove from head-to-head",
+    "vsButton": "vs",
+    "emptyResults": "No one matches this filter — try another name or party.",
+    "shownOf": "showing {count} of 200 · MPs in the tracked sample have a file (arrow)",
+    "mockNote": "generated names are illustrative — a mock shaped like psp.cz",
+    "avgLabel": "average",
+    "medianLabel": "median",
+    "sigmaLabel": "spread σ",
+    "histogramCount": "{value} MPs",
+    "histogramBand": "in band",
+    "histogramSource": "composite histogram in bands of 5 {pts} · signal = below the Chamber median · civicscore v1.4",
+    "histogramFootnote": "computed from the full ranking of 200 MPs"
+  },
+  "money": {
+    "controlRoom": "control room",
+    "eyebrow": "followthemoney · money network · feeds the integrity pillar × 0.3",
+    "title": "The money trail",
+    "intro": "Public contracts, subsidies and donations traced through companies to the politicians tied to them. This is where CivicScore shows the evidence behind a low integrity score — as dated facts, never as accusations.",
+    "stats": {
+      "contracted": {
+        "sub": "public contracts, subsidies and donations, 9th term",
+        "source": "Contract Register ⋈ ARES ⋈ Subsidy Register"
+      },
+      "sampleTies": {
+        "label": "documented ties in the sample",
+        "sub": "across 3 of 5 tracked MPs",
+        "source": "ARES v3 · Declarations Register"
+      },
+      "pendingReview": {
+        "label": "awaiting human review",
+        "sub": "not yet reflected in the Integrity pillar",
+        "source": "methodology v1.4 — confidence threshold"
+      },
+      "joinKey": {
+        "label": "join key",
+        "sub": "8 digits: company ↔ contract ↔ subsidy ↔ donation",
+        "source": "universal identifier"
+      }
+    },
+    "sections": {
+      "graph": {
+        "title": "Entity graph",
+        "aside": "solid line = evidentiary trail · dashed = recorded tie"
+      },
+      "ledger": {
+        "title": "Ledger of ties",
+        "aside": "grouped by MP · name opens the case file"
+      },
+      "method": {
+        "title": "How the trail is built",
+        "aside": "methodology v1.4 — versioned, public"
+      }
+    },
+    "graphCaption": "fig. — sample trail, K. Hruška · person cobalt · company ink · party steel · money signal ◆",
+    "graph": {
+      "badge": "entity graph · sample MSK-047",
+      "joinCaption": "Contract Register ⋈ ARES ⋈ Hlídač státu — key: IČO",
+      "ariaLabel": "Money trail graph: MP, companies, public money",
+      "edgesInRecord": "{count} edges in the record",
+      "hoverHint": "hover a node to light up its trail",
+      "allEdgesVerified": "● every edge dated + documented"
+    },
+    "ledger": {
+      "caseFile": "case file no. {rank}",
+      "noTiesNote": "no documented ties — checked on every daily ingest",
+      "disclaimer": "We publish ties as dated, documented facts — never as accusations. Records tagged “{pendingLabel}” are not reflected in the Integrity pillar until a human approves them."
+    },
+    "method": {
+      "steps": {
+        "ares": {
+          "title": "ARES v3",
+          "body": "The register of companies and their board members — who sits on which board.",
+          "cadence": "near real-time · 500 req/min"
+        },
+        "registers": {
+          "title": "Contract + Subsidy Registers",
+          "body": "Public money flowing to companies — contracts daily, subsidies quarterly.",
+          "cadence": "daily / quarterly"
+        },
+        "watchdog": {
+          "title": "Hlídač státu",
+          "body": "People, party ties and donations — the other side of the graph.",
+          "cadence": "continuous · REST API"
+        },
+        "resolution": {
+          "title": "Entity resolution + human review",
+          "body": "A person has no public identifier — we match on name, birth year and address, and carry a confidence score. Disputed records aren't published.",
+          "cadence": "confidence threshold · human sign-off"
+        }
+      },
+      "footnote": "The join key across the whole graph is the eight-digit IČO — a clean link from company ↔ contract ↔ subsidy ↔ donation. The hardest edge is person ↔ company; that's why the last step of the methodology is a human, not a heuristic."
+    }
+  },
+  "budget": {
+    "backToDashboard": "control room",
+    "eyebrow": "budgetmirror · budget comparison · stewardship for executive roles",
+    "title": "The budget mirror",
+    "intro": "A town's finances don't mean much read alone — the mirror sets them beside peers of similar size. Sample group: towns of 20,000–40,000 residents (out of 6,254 municipalities in MONITOR).",
+    "section1Title": "Town vs. peers",
+    "section1Aside": "flagged value = worse than the group median · MONITOR, quarterly",
+    "residents": "{count} residents",
+    "metricDebtLabel": "debt per capita",
+    "metricCapexLabel": "capital-spending share of expenditure",
+    "metricSaldoLabel": "balance per capita",
+    "townLabel": "town",
+    "peerMedianValue": "median · {value}",
+    "peerMedianLabel": "peer median",
+    "section2Title": "Debt over time",
+    "section2Aside": "CZK per capita · solid line = {town} · dashed = peer median",
+    "section2Source": "source: MONITOR / State Treasury — quarterly ingestion, consolidated by year",
+    "section3Title": "Peer group",
+    "section3Aside": "sorted by debt per capita · click a row to switch the mirror",
+    "colPopulation": "residents",
+    "colDebt": "debt / capita",
+    "colCapex": "capex %",
+    "colSaldo": "balance / capita",
+    "stewardshipNote": "Stewardship only feeds into CivicScore for politicians in executive roles (mayors, regional governors) — an MP doesn't lose points for another town's poor budget. Town data is an illustrative mock built on MONITOR's shape."
+  },
+  "lawwatch": {
+    "back": "control room",
+    "eyebrow": "lawwatch · legislation monitor · links votes → impacts",
+    "title": "Section Watch",
+    "intro": "What actually changed in the law — section-by-section diffs linked back to the roll-call vote that passed them. Your MP voted for the amendment that changed a section — here both sit side by side.",
+    "section1Title": "Section changes",
+    "section1Aside": "e-Sbírka — consolidated wording · diff = before / after taking effect",
+    "effectiveFrom": "in force {date}",
+    "sampleNote": "sample of 3 of 312 amended laws · e-Sbírka SPARQL — ongoing",
+    "beforeLabel": "wording before the amendment",
+    "afterLabel": "wording after the amendment — in force from {date}",
+    "passedBy": "passed by — {tisk}",
+    "openInChamber": "open in the chamber →",
+    "section2Title": "Legislative pipeline",
+    "section2Aside": "psp.cz House prints — ingested daily · filled dot = stage reached",
+    "rejectedAtStage": "rejected at {stage}",
+    "voteLink": "vote {pro}:{proti} →",
+    "pipelineFootnote": "The pipeline reads House prints daily; section diffs are built from e-Sbírka's consolidated wording as soon as an amendment is published. Rejected prints drop out of the pipeline — that, too, is an impact worth recording."
+  }
+}

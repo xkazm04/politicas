@@ -8,18 +8,20 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { ArrowUpRight } from "lucide-react";
 import type { RollCall } from "@/lib/civic/data";
 import { MPS, PARTIES } from "@/lib/civic/data";
 import { chamberSplit, partyDiscipline, partyLine } from "@/lib/civic/votes";
+import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import VoteHemicycle from "../VoteHemicycle";
 
 const SPLIT_META = [
-  { key: "pro", label: "pro", cls: "bg-cobalt" },
-  { key: "proti", label: "proti", cls: "bg-signal" },
-  { key: "zdrzel", label: "zdržel se", cls: "bg-ochre" },
-  { key: "omluven", label: "omluven", cls: "bg-hairline" },
+  { key: "pro", voteChoiceKey: "for", cls: "bg-cobalt" },
+  { key: "proti", voteChoiceKey: "against", cls: "bg-signal" },
+  { key: "zdrzel", voteChoiceKey: "abstained", cls: "bg-ochre" },
+  { key: "omluven", voteChoiceKey: "excused", cls: "bg-hairline" },
 ] as const;
 
 const VOTE_TEXT: Record<string, string> = {
@@ -29,7 +31,25 @@ const VOTE_TEXT: Record<string, string> = {
   omluven: "text-steel",
 };
 
+/** Hodnota VoteChoice z dat (česky) → klíč common.voteChoice. */
+const VOTE_CHOICE_KEY: Record<string, string> = {
+  pro: "for",
+  proti: "against",
+  "zdržel se": "abstained",
+  omluven: "excused",
+};
+
+/** RollCall.result z dat (česky) → klíč common.voteResult. */
+const RESULT_KEY: Record<string, string> = {
+  přijato: "accepted",
+  zamítnuto: "rejected",
+};
+
 export default function ChamberDetail({ rc }: { rc: RollCall }) {
+  const t = useTranslations("votetrack");
+  const tc = useTranslations("content");
+  const tcom = useTranslations("common");
+  const f = useFormat();
   const reduceMotion = useReducedMotion();
   const split = chamberSplit(rc);
 
@@ -42,13 +62,15 @@ export default function ChamberDetail({ rc }: { rc: RollCall }) {
       className="min-w-0"
     >
       <div className="flex flex-wrap items-baseline justify-between gap-3 border-b-2 border-ink pb-3">
-        <h3 className="text-2xl font-black uppercase leading-tight tracking-tight">{rc.title}</h3>
+        <h3 className="text-2xl font-black uppercase leading-tight tracking-tight">
+          {tc(`rollCalls.${rc.id}.title`)}
+        </h3>
         <span
           className={`font-mono text-lg font-black uppercase tracking-wider ${
             rc.result === "přijato" ? "text-cobalt" : "text-signal"
           }`}
         >
-          {rc.result}
+          {tcom(`voteResult.${RESULT_KEY[rc.result]}`)}
         </span>
       </div>
 
@@ -60,15 +82,15 @@ export default function ChamberDetail({ rc }: { rc: RollCall }) {
         {SPLIT_META.map((s) => (
           <span key={s.key} className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider">
             <span className={`inline-block h-3 w-3 ${s.cls}`} />
-            <span className="font-bold tabular-nums">{split[s.key]}</span>
-            <span className="text-steel">{s.label}</span>
+            <span className="font-bold tabular-nums">{f.int(split[s.key])}</span>
+            <span className="text-steel">{tcom(`voteChoice.${s.voteChoiceKey}`)}</span>
           </span>
         ))}
       </div>
 
       {/* Rozpad po stranách — pruhy klubu + linie + disciplína */}
       <div className="mt-8 border-t-2 border-ink pt-4">
-        <SourceNote>rozpad po stranách — podíl hlasů klubu · šipka = linie · číslo = disciplína</SourceNote>
+        <SourceNote>{t("splitNote")}</SourceNote>
         <div className="mt-4 space-y-3">
           {PARTIES.map((p) => {
             const pv = rc.byParty[p.code];
@@ -90,7 +112,7 @@ export default function ChamberDetail({ rc }: { rc: RollCall }) {
                   <span className={line === "pro" ? "text-cobalt" : "text-signal"}>
                     {line === "pro" ? "▲" : "▼"}
                   </span>{" "}
-                  <span className="text-steel">{disc} %</span>
+                  <span className="text-steel">{f.int(disc)} %</span>
                 </span>
               </div>
             );
@@ -100,7 +122,7 @@ export default function ChamberDetail({ rc }: { rc: RollCall }) {
 
       {/* Vzorek */}
       <div className="mt-8 border-t-2 border-ink pt-4">
-        <SourceNote>hlasy sledovaného vzorku — štítek otevírá spis</SourceNote>
+        <SourceNote>{t("sampleNote")}</SourceNote>
         <div className="mt-3 flex flex-wrap gap-2">
           {MPS.map((m) => {
             const vote = rc.perMP[m.id];
@@ -113,10 +135,12 @@ export default function ChamberDetail({ rc }: { rc: RollCall }) {
               >
                 <span className="text-sm font-bold">{m.name.split(" ").at(-1)}</span>
                 <span className={`font-mono text-[11px] font-bold uppercase tracking-wider ${VOTE_TEXT[vote]}`}>
-                  {vote}
+                  {tcom(`voteChoice.${VOTE_CHOICE_KEY[vote]}`)}
                 </span>
                 {rebel && (
-                  <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-signal">rebel</span>
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-signal">
+                    {t("rebelTag")}
+                  </span>
                 )}
                 <ArrowUpRight className="h-3.5 w-3.5 text-signal opacity-0 transition-opacity group-hover:opacity-100" />
               </Link>

@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import CivicScorePage from "@/features/civicscore/CivicScorePage";
 
-export const metadata: Metadata = {
-  title: "CivicScore — žebříček republiky · Politicas",
-  description:
-    "Všech 200 poslanců podle kompozitního skóre efektivity: rozložení sněmovny, plný žebříček s filtrem po stranách a souboj dvou poslanců pilíř po pilíři.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("meta");
+  return {
+    title: t("civicscoreTitle"),
+    description: t("civicscoreDescription"),
+  };
+}
 
 export default function ZebricekPage() {
   return <CivicScorePage />;

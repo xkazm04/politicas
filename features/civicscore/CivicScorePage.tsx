@@ -10,16 +10,19 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { ArrowLeft } from "lucide-react";
 import { LEADERBOARD, type LeaderboardRow } from "@/lib/civic/leaderboard";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import ScoreHistogram from "./components/ScoreHistogram";
 import HeadToHead from "./components/HeadToHead";
 import LeaderboardTable from "./components/LeaderboardTable";
 
 export default function CivicScorePage() {
+  const t = useTranslations("civicscore");
   // Souboj: max dva vybraní; třetí výběr vyřadí staršího z dvojice.
   const [duel, setDuel] = useState<string[]>(["novakova-p", "hruska-k"]);
   const toggleDuel = (id: string) =>
@@ -49,33 +52,34 @@ export default function CivicScorePage() {
             </Link>
             <span className="font-mono text-xs uppercase tracking-widest text-steel">/ civicscore</span>
           </div>
-          <Link
-            href="/dashboard"
-            className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" /> velín
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/dashboard"
+              className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" /> {t("backToControl")}
+            </Link>
+            <LanguageSwitcher />
+          </div>
         </div>
       </header>
 
       <div className="mx-auto max-w-6xl px-6">
         {/* ── Titulní pás ───────────────────────────────────── */}
         <div className="py-10">
-          <SourceNote tone="signal">civicscore · syntéza všech modulů · metodika v1.4 — verzovaná, veřejná</SourceNote>
+          <SourceNote tone="signal">{t("sourceNote")}</SourceNote>
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             className="mt-3 text-5xl font-black uppercase leading-[0.95] tracking-tight sm:text-6xl"
           >
-            Žebříček republiky<span className="text-signal">.</span>
+            {t("title")}<span className="text-signal">.</span>
           </motion.h1>
           <div className="mt-4 max-w-xl">
             <SectionRule />
           </div>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">
-            Všech 200 poslanců podle kompozitního skóre — čtyři pilíře, zveřejněné váhy,
-            každé číslo dohledatelné ke zdroji. Detailní spisy zatím nese sledovaný
-            vzorek; zbytek sněmovny je ilustrativní mock nad tvarem skutečných dat.
+            {t("lead")}
           </p>
         </div>
 
@@ -83,8 +87,8 @@ export default function CivicScorePage() {
         <section>
           <SectionHeading
             index={1}
-            title="Rozložení sněmovny"
-            aside={<SourceNote>kompozit 0–100 · přepočet každé čtvrtletí</SourceNote>}
+            title={t("distributionTitle")}
+            aside={<SourceNote>{t("distributionSource")}</SourceNote>}
           />
           <div className="mt-8">
             <ScoreHistogram />
@@ -95,8 +99,8 @@ export default function CivicScorePage() {
         <section className="mt-14 border-t-4 border-ink pt-10">
           <SectionHeading
             index={2}
-            title="Souboj"
-            aside={<SourceNote>vyberte dvojici tlačítkem &bdquo;vs&ldquo; v žebříčku níže</SourceNote>}
+            title={t("duelTitle")}
+            aside={<SourceNote>{t("duelSource")}</SourceNote>}
           />
           <div className="mt-8">
             <HeadToHead pair={pair} />
@@ -107,8 +111,8 @@ export default function CivicScorePage() {
         <section className="mt-14 border-t-4 border-ink pt-10 pb-20">
           <SectionHeading
             index={3}
-            title="Všech 200"
-            aside={<SourceNote>kompozit = Σ pilíř × váha · civicscore v1.4</SourceNote>}
+            title={t("allTitle")}
+            aside={<SourceNote>{t("allSource")}</SourceNote>}
           />
           <div className="mt-8">
             <LeaderboardTable duel={duel} onToggleDuel={toggleDuel} />

@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import VariantRentgen from "@/features/labs/rentgen/VariantRentgen";
 
-export const metadata: Metadata = {
-  title: "Politicas/rentgen — investigativní důkazní terminál",
-  description:
-    "Archivní výtvarný směr Politicas: rentgen státu — graf peněžní stopy, auditní log a registr zdrojů.",
-  robots: { index: false },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("meta");
+  return {
+    title: t("rentgenTitle"),
+    description: t("rentgenDescription"),
+    robots: { index: false },
+  };
+}
 
 export default function RentgenPage() {
   return <VariantRentgen />;

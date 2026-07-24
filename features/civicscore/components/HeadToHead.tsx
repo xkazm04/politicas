@@ -8,14 +8,17 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { ArrowUpRight } from "lucide-react";
 import { PILLARS } from "@/lib/civic/data";
 import type { LeaderboardRow } from "@/lib/civic/leaderboard";
-import { czech } from "@/lib/format";
+import { useFormat } from "@/lib/i18n/useFormat";
 import AnimatedScore from "@/features/shared/components/AnimatedScore";
 import SourceNote from "@/features/shared/components/SourceNote";
 
 function Fighter({ row, align }: { row: LeaderboardRow; align: "left" | "right" }) {
+  const t = useTranslations("civicscore");
+  const f = useFormat();
   const right = align === "right";
   return (
     <div className={right ? "text-right" : "text-left"}>
@@ -34,23 +37,30 @@ function Fighter({ row, align }: { row: LeaderboardRow; align: "left" | "right" 
       </div>
       <div className={`mt-0.5 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-steel ${right ? "justify-end" : ""}`}>
         <span className="inline-block h-2 w-2 rounded-full" style={{ background: row.partyColor }} />
-        {row.party.split(" ")[0]} · pořadí {row.rank}
+        {row.party.split(" ")[0]} · {t("rank", { rank: row.rank })}
       </div>
-      <AnimatedScore value={row.score} className="mt-2 block text-6xl font-black leading-none tracking-tighter sm:text-7xl" />
+      <AnimatedScore
+        value={row.score}
+        format={f.dec}
+        className="mt-2 block text-6xl font-black leading-none tracking-tighter sm:text-7xl"
+      />
     </div>
   );
 }
 
 export default function HeadToHead({ pair }: { pair: [LeaderboardRow, LeaderboardRow] | null }) {
   const reduceMotion = useReducedMotion();
+  const t = useTranslations("civicscore");
+  const tc = useTranslations("content");
+  const tcom = useTranslations("common");
+  const f = useFormat();
 
   if (!pair) {
     return (
       <div className="border-2 border-dashed border-hairline p-8">
-        <p className="text-base font-black uppercase tracking-wide">Vyberte dva poslance</p>
+        <p className="text-base font-black uppercase tracking-wide">{t("emptyTitle")}</p>
         <p className="mt-2 max-w-xl text-[15px] leading-relaxed text-steel">
-          Tlačítkem &bdquo;vs&ldquo; u řádku žebříčku níže vyberte dvojici — souboj je
-          porovná pilíř po pilíři podle zveřejněných vah.
+          {t("emptyBody")}
         </p>
       </div>
     );
@@ -59,6 +69,7 @@ export default function HeadToHead({ pair }: { pair: [LeaderboardRow, Leaderboar
   const [a, b] = pair;
   const diff = Math.round((a.score - b.score) * 10) / 10;
   const leader = diff >= 0 ? a : b;
+  const diffLabel = `${f.dec(Math.abs(diff))} ${tcom("pts")}`;
 
   return (
     <AnimatePresence mode="wait">
@@ -74,7 +85,11 @@ export default function HeadToHead({ pair }: { pair: [LeaderboardRow, Leaderboar
           <Fighter row={b} align="right" />
         </div>
         <p className="mt-3 border-y-2 border-ink py-2 text-center font-mono text-xs font-bold uppercase tracking-widest">
-          {leader.name.split(" ").at(-1)} vede o <span className="text-signal">{czech(Math.abs(diff))} b.</span> kompozitu
+          {t.rich("leadLine", {
+            name: leader.name.split(" ").at(-1) ?? leader.name,
+            diffLabel,
+            diff: (chunks) => <span className="text-signal">{chunks}</span>,
+          })}
         </p>
 
         <div className="mt-6 space-y-4">
@@ -95,7 +110,7 @@ export default function HeadToHead({ pair }: { pair: [LeaderboardRow, Leaderboar
                   />
                 </div>
                 <span className="min-w-[7.5rem] text-center font-mono text-[11px] font-bold uppercase tracking-wider text-steel">
-                  {p.label} × {p.weight}
+                  {tc(`pillars.${p.key}.label`)} × {p.weight}
                 </span>
                 <div className="flex justify-start bg-hairline">
                   <motion.span
@@ -114,7 +129,7 @@ export default function HeadToHead({ pair }: { pair: [LeaderboardRow, Leaderboar
         </div>
         <div className="mt-4">
           <SourceNote>
-            kompozit = Σ pilíř × váha · signální hodnota = vítěz pilíře · zdroje: psp.cz · hlídač · registr smluv
+            {t("footnote")}
           </SourceNote>
         </div>
       </motion.div>

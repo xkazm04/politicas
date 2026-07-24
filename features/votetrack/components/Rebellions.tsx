@@ -7,9 +7,10 @@
  */
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { ArrowUpRight } from "lucide-react";
 import { MPS, ROLL_CALLS } from "@/lib/civic/data";
-import { czechDate } from "@/lib/format";
+import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 
 const REBELLIONS = ROLL_CALLS.flatMap((rc) =>
@@ -19,11 +20,23 @@ const REBELLIONS = ROLL_CALLS.flatMap((rc) =>
   }),
 ).sort((a, b) => b.rc.date.localeCompare(a.rc.date));
 
+/** Hodnota VoteChoice z dat (česky) → klíč common.voteChoice. */
+const VOTE_CHOICE_KEY: Record<string, string> = {
+  pro: "for",
+  proti: "against",
+  "zdržel se": "abstained",
+  omluven: "excused",
+};
+
 export default function Rebellions() {
+  const t = useTranslations("votetrack");
+  const tc = useTranslations("content");
+  const tcom = useTranslations("common");
+  const f = useFormat();
   return (
     <div className="grid gap-12 lg:grid-cols-2">
       <div className="min-w-0">
-        <SourceNote>kronika rebelií sledovaného vzorku</SourceNote>
+        <SourceNote>{t("rebellionChronicleNote")}</SourceNote>
         <div className="mt-3 border-t-2 border-ink">
           {REBELLIONS.map((r) => (
             <Link
@@ -32,27 +45,29 @@ export default function Rebellions() {
               className="group block border-b border-hairline px-2 py-4 transition-colors hover:bg-paper-strong"
             >
               <span className="flex items-center justify-between gap-3">
-                <span className="font-mono text-xs uppercase tracking-wider text-steel">{czechDate(r.rc.date)}</span>
+                <span className="font-mono text-xs uppercase tracking-wider text-steel">{f.date(r.rc.date)}</span>
                 <ArrowUpRight className="h-4 w-4 text-signal opacity-0 transition-opacity group-hover:opacity-100" />
               </span>
               <span className="mt-1 block text-[15px] leading-relaxed">
                 <span className="font-black uppercase">{r.mp.name}</span>{" "}
-                <span className="text-steel">({r.mp.party})</span> hlasoval(a){" "}
-                <span className="font-mono text-sm font-bold uppercase text-signal">{r.vote}</span>{" "}
-                proti linii klubu — {r.rc.title.toLowerCase()}
+                <span className="text-steel">({r.mp.party})</span> {t("votedVerb")}{" "}
+                <span className="font-mono text-sm font-bold uppercase text-signal">
+                  {tcom(`voteChoice.${VOTE_CHOICE_KEY[r.vote]}`)}
+                </span>{" "}
+                {t("againstPartyLine")} {tc(`rollCalls.${r.rc.id}.title`).toLowerCase()}
               </span>
             </Link>
           ))}
           {REBELLIONS.length === 0 && (
             <div className="border-2 border-dashed border-hairline p-6 text-sm text-steel">
-              V sledovaném období žádná rebelie ve vzorku.
+              {t("noRebellions")}
             </div>
           )}
         </div>
       </div>
 
       <div className="min-w-0">
-        <SourceNote>pilíř nezávislost — sledovaný vzorek (0–100)</SourceNote>
+        <SourceNote>{t("independencePillarNote")}</SourceNote>
         <div className="mt-3 border-t-2 border-ink">
           {[...MPS]
             .sort((a, b) => b.pillars.independence - a.pillars.independence)
@@ -69,14 +84,11 @@ export default function Rebellions() {
                 <span className="h-4 w-full bg-hairline">
                   <span className="block h-full bg-ink" style={{ width: `${m.pillars.independence}%` }} />
                 </span>
-                <span className="text-right text-lg font-black tabular-nums">{m.pillars.independence}</span>
+                <span className="text-right text-lg font-black tabular-nums">{f.int(m.pillars.independence)}</span>
               </Link>
             ))}
         </div>
-        <p className="mt-4 max-w-md text-sm italic leading-relaxed text-steel">
-          Nezávislost není ctnost ani hřích — je to měřená odchylka od linie klubu.
-          Interpretace patří čtenáři; čísla nesou citace.
-        </p>
+        <p className="mt-4 max-w-md text-sm italic leading-relaxed text-steel">{t("independenceFootnote")}</p>
       </div>
     </div>
   );

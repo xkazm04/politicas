@@ -12,9 +12,11 @@ import { useMemo, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Line, LineChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { BUDGET_YEARS, TOWNS, type Town } from "@/lib/civic/data";
-import { czech, czechInt } from "@/lib/format";
+import { useFormat } from "@/lib/i18n/useFormat";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
@@ -40,39 +42,49 @@ const CHART_TICK = { fill: STEEL, fontSize: 12, fontFamily: "var(--font-plex)" }
 /** Dvojice pruhů město vs. medián — metrika správcovství. */
 function MetricDuo({
   label,
-  unit,
+  kind,
   town,
   peer,
   max,
   lowerIsBetter,
 }: {
   label: string;
-  unit: string;
+  /** czk = f.czk (pozice měny se mění podle jazyka) · pct = f.dec + statické "%". */
+  kind: "czk" | "pct";
   town: number;
   peer: number;
   max: number;
   lowerIsBetter: boolean;
 }) {
+  const t = useTranslations("budget");
+  const f = useFormat();
+  const formatPlain = (n: number) => (kind === "czk" ? f.czk(n) : `${f.dec(n)} %`);
   const better = lowerIsBetter ? town <= peer : town >= peer;
   const width = (v: number) => `${Math.min(100, Math.max(2, (Math.abs(v) / max) * 100))}%`;
   return (
     <div className="bg-paper p-5">
       <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">{label}</p>
       <p className={`mt-2 text-3xl font-black tabular-nums ${better ? "text-ink" : "text-signal"}`}>
-        {czechInt(town)}
-        <span className="ml-1 text-base font-bold text-steel">{unit}</span>
+        {kind === "czk" ? (
+          f.czk(town)
+        ) : (
+          <>
+            {f.dec(town)}
+            <span className="ml-1 text-base font-bold text-steel">%</span>
+          </>
+        )}
       </p>
       <div className="mt-3 space-y-1.5">
         <div className="flex items-center gap-2">
           <span className="h-3 bg-ink" style={{ width: width(town) }} />
-          <span className="font-mono text-[10px] uppercase tracking-wider text-steel">město</span>
+          <span className="font-mono text-[10px] uppercase tracking-wider text-steel">{t("townLabel")}</span>
         </div>
         <div className="flex items-center gap-2">
           <span className="h-3 bg-hairline" style={{ width: width(peer) }}>
             <span className="block h-full w-full border border-steel/40" />
           </span>
           <span className="font-mono text-[10px] uppercase tracking-wider text-steel">
-            medián · {czechInt(peer)} {unit}
+            {t("peerMedianValue", { value: formatPlain(peer) })}
           </span>
         </div>
       </div>
@@ -82,17 +94,23 @@ function MetricDuo({
 
 export default function BudgetMirrorPage() {
   const reduceMotion = useReducedMotion();
+  const t = useTranslations("budget");
+  const tc = useTranslations("content");
+  const f = useFormat();
   const [selectedId, setSelectedId] = useState<Town["id"]>("beroun");
-  const town = TOWNS.find((t) => t.id === selectedId) ?? TOWNS[0];
+  const town = TOWNS.find((tw) => tw.id === selectedId) ?? TOWNS[0];
+
+  const townSeriesLabel = t("townLabel");
+  const peerSeriesLabel = t("peerMedianLabel");
 
   const trendData = useMemo(
     () =>
       BUDGET_YEARS.map((y, i) => ({
-        rok: y,
-        město: town.debtTrend[i],
-        "medián vrstevníků": PEER_TREND[i],
+        year: y,
+        [townSeriesLabel]: town.debtTrend[i],
+        [peerSeriesLabel]: PEER_TREND[i],
       })),
-    [town],
+    [town, townSeriesLabel, peerSeriesLabel],
   );
 
   return (
@@ -111,57 +129,55 @@ export default function BudgetMirrorPage() {
             </Link>
             <span className="font-mono text-xs uppercase tracking-widest text-steel">/ budgetmirror</span>
           </div>
-          <Link
-            href="/dashboard"
-            className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" /> velín
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/dashboard"
+              className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" /> {t("backToDashboard")}
+            </Link>
+            <LanguageSwitcher />
+          </div>
         </div>
       </header>
 
       <div className="mx-auto max-w-6xl px-6">
         {/* ── Titulní pás ───────────────────────────────────── */}
         <div className="py-10">
-          <SourceNote tone="signal">
-            budgetmirror · rozpočtové srovnání · správcovství pro exekutivní role
-          </SourceNote>
+          <SourceNote tone="signal">{t("eyebrow")}</SourceNote>
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             className="mt-3 text-5xl font-black uppercase leading-[0.95] tracking-tight sm:text-6xl"
           >
-            Zrcadlo rozpočtů<span className="text-signal">.</span>
+            {t("title")}
+            <span className="text-signal">.</span>
           </motion.h1>
           <div className="mt-4 max-w-xl">
             <SectionRule />
           </div>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">
-            Hospodaření města nemá smysl číst samo o sobě — zrcadlo ho staví vedle
-            vrstevníků podobné velikosti. Ukázková skupina: města 20–40 tisíc obyvatel
-            (z 6 254 obcí v MONITORu).
-          </p>
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">{t("intro")}</p>
         </div>
 
         {/* ── 01 Město vs. vrstevníci ───────────────────────── */}
         <section>
           <SectionHeading
             index={1}
-            title="Město vs. vrstevníci"
-            aside={<SourceNote>signální hodnota = horší než medián skupiny · MONITOR, čtvrtletně</SourceNote>}
+            title={t("section1Title")}
+            aside={<SourceNote>{t("section1Aside")}</SourceNote>}
           />
           <div className="mt-6 flex flex-wrap gap-1.5">
-            {TOWNS.map((t) => (
+            {TOWNS.map((tw) => (
               <button
-                key={t.id}
+                key={tw.id}
                 type="button"
-                onClick={() => setSelectedId(t.id)}
+                onClick={() => setSelectedId(tw.id)}
                 className={`border-2 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider transition-colors ${
-                  t.id === selectedId ? "border-ink bg-ink text-paper" : "border-hairline text-steel hover:text-ink"
+                  tw.id === selectedId ? "border-ink bg-ink text-paper" : "border-hairline text-steel hover:text-ink"
                 }`}
-                aria-pressed={t.id === selectedId}
+                aria-pressed={tw.id === selectedId}
               >
-                {t.name}
+                {tw.name}
               </button>
             ))}
           </div>
@@ -176,30 +192,30 @@ export default function BudgetMirrorPage() {
               <h3 className="text-2xl font-black uppercase tracking-tight">
                 {town.name}
                 <span className="ml-3 font-mono text-xs font-normal normal-case tracking-normal text-steel">
-                  {town.region} · {czechInt(town.population)} obyvatel
+                  {tc(`regions.${town.region}`)} · {t("residents", { count: f.int(town.population) })}
                 </span>
               </h3>
             </div>
             <div className="mt-6 grid gap-px border border-ink bg-ink sm:grid-cols-3">
               <MetricDuo
-                label="dluh na obyvatele"
-                unit="Kč"
+                label={t("metricDebtLabel")}
+                kind="czk"
                 town={town.debtPerCapita}
                 peer={PEER_MEDIAN.debt}
                 max={14000}
                 lowerIsBetter
               />
               <MetricDuo
-                label="podíl investic na výdajích"
-                unit="%"
+                label={t("metricCapexLabel")}
+                kind="pct"
                 town={town.capexRatio}
                 peer={PEER_MEDIAN.capex}
                 max={30}
                 lowerIsBetter={false}
               />
               <MetricDuo
-                label="saldo na obyvatele"
-                unit="Kč"
+                label={t("metricSaldoLabel")}
+                kind="czk"
                 town={town.saldoPerCapita}
                 peer={PEER_MEDIAN.saldo}
                 max={3000}
@@ -213,17 +229,17 @@ export default function BudgetMirrorPage() {
         <section className="mt-14 border-t-4 border-ink pt-10">
           <SectionHeading
             index={2}
-            title="Vývoj dluhu"
-            aside={<SourceNote>Kč na obyvatele · plná čára = {town.name} · čárkovaná = medián vrstevníků</SourceNote>}
+            title={t("section2Title")}
+            aside={<SourceNote>{t("section2Aside", { town: town.name })}</SourceNote>}
           />
           <div className="mt-8 w-full overflow-hidden" style={{ aspectRatio: "5 / 2", minHeight: 220 }}>
             <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
               <LineChart data={trendData} margin={{ top: 8, right: 8, left: -4, bottom: 0 }}>
                 <CartesianGrid stroke={HAIRLINE} vertical={false} />
-                <XAxis dataKey="rok" tick={CHART_TICK} tickLine={false} axisLine={{ stroke: INK, strokeWidth: 2 }} />
+                <XAxis dataKey="year" tick={CHART_TICK} tickLine={false} axisLine={{ stroke: INK, strokeWidth: 2 }} />
                 <YAxis
                   tick={CHART_TICK}
-                  tickFormatter={(v: number) => czechInt(v)}
+                  tickFormatter={(v: number) => f.int(v)}
                   tickLine={false}
                   axisLine={false}
                   width={64}
@@ -231,11 +247,11 @@ export default function BudgetMirrorPage() {
                 <Tooltip
                   cursor={{ stroke: INK, strokeDasharray: "4 4" }}
                   contentStyle={TOOLTIP_STYLE}
-                  formatter={(value, name) => [`${czechInt(Number(value))} Kč`, String(name)]}
+                  formatter={(value, name) => [f.czk(Number(value)), String(name)]}
                 />
                 <Line
                   type="linear"
-                  dataKey="město"
+                  dataKey={townSeriesLabel}
                   stroke={SIGNAL}
                   strokeWidth={3}
                   dot={{ r: 3.5, fill: SIGNAL, strokeWidth: 0 }}
@@ -244,7 +260,7 @@ export default function BudgetMirrorPage() {
                 />
                 <Line
                   type="linear"
-                  dataKey="medián vrstevníků"
+                  dataKey={peerSeriesLabel}
                   stroke={STEEL}
                   strokeWidth={2}
                   strokeDasharray="6 4"
@@ -255,7 +271,7 @@ export default function BudgetMirrorPage() {
             </ResponsiveContainer>
           </div>
           <div className="mt-2">
-            <SourceNote>zdroj: MONITOR / Státní pokladna — čtvrtletní ingesce, konsolidováno po letech</SourceNote>
+            <SourceNote>{t("section2Source")}</SourceNote>
           </div>
         </section>
 
@@ -263,74 +279,68 @@ export default function BudgetMirrorPage() {
         <section className="mt-14 border-t-4 border-ink pt-10 pb-20">
           <SectionHeading
             index={3}
-            title="Vrstevnická skupina"
-            aside={<SourceNote>řazeno podle dluhu na obyvatele · řádek přepíná zrcadlo</SourceNote>}
+            title={t("section3Title")}
+            aside={<SourceNote>{t("section3Aside")}</SourceNote>}
           />
           <div className="mt-8 overflow-x-auto">
             <table className="w-full min-w-[40rem] text-left">
               <thead>
                 <tr className="border-b-2 border-ink font-mono text-[11px] uppercase tracking-widest text-steel">
-                  <th className="py-3 pr-4 font-bold">město</th>
-                  <th className="py-3 pr-4 text-right font-bold">obyvatel</th>
-                  <th className="py-3 pr-4 font-bold">dluh / obyv.</th>
-                  <th className="py-3 pr-4 text-right font-bold">investice %</th>
-                  <th className="py-3 text-right font-bold">saldo / obyv.</th>
+                  <th className="py-3 pr-4 font-bold">{t("townLabel")}</th>
+                  <th className="py-3 pr-4 text-right font-bold">{t("colPopulation")}</th>
+                  <th className="py-3 pr-4 font-bold">{t("colDebt")}</th>
+                  <th className="py-3 pr-4 text-right font-bold">{t("colCapex")}</th>
+                  <th className="py-3 text-right font-bold">{t("colSaldo")}</th>
                 </tr>
               </thead>
               <tbody>
                 {[...TOWNS]
                   .sort((a, b) => a.debtPerCapita - b.debtPerCapita)
-                  .map((t) => (
+                  .map((tw) => (
                     <tr
-                      key={t.id}
-                      onClick={() => setSelectedId(t.id)}
+                      key={tw.id}
+                      onClick={() => setSelectedId(tw.id)}
                       className={`cursor-pointer border-b border-hairline transition-colors hover:bg-paper-strong ${
-                        t.id === selectedId ? "bg-paper-strong" : ""
+                        tw.id === selectedId ? "bg-paper-strong" : ""
                       }`}
                     >
                       <td className="py-3.5 pr-4">
-                        <span className="text-[15px] font-black uppercase tracking-tight">{t.name}</span>
+                        <span className="text-[15px] font-black uppercase tracking-tight">{tw.name}</span>
                         <span className="ml-2 font-mono text-[10px] uppercase tracking-wider text-steel">
-                          {t.region}
+                          {tc(`regions.${tw.region}`)}
                         </span>
                       </td>
                       <td className="py-3.5 pr-4 text-right font-mono text-sm tabular-nums text-steel">
-                        {czechInt(t.population)}
+                        {f.int(tw.population)}
                       </td>
                       <td className="py-3.5 pr-4">
                         <span className="flex items-center gap-3">
                           <span className="h-3 w-40 bg-hairline">
                             <span
-                              className={`block h-full ${t.debtPerCapita > PEER_MEDIAN.debt ? "bg-signal" : "bg-ink"}`}
-                              style={{ width: `${(t.debtPerCapita / 14000) * 100}%` }}
+                              className={`block h-full ${tw.debtPerCapita > PEER_MEDIAN.debt ? "bg-signal" : "bg-ink"}`}
+                              style={{ width: `${(tw.debtPerCapita / 14000) * 100}%` }}
                             />
                           </span>
-                          <span className="font-mono text-sm font-bold tabular-nums">
-                            {czechInt(t.debtPerCapita)} Kč
-                          </span>
+                          <span className="font-mono text-sm font-bold tabular-nums">{f.czk(tw.debtPerCapita)}</span>
                         </span>
                       </td>
                       <td className="py-3.5 pr-4 text-right font-mono text-sm tabular-nums">
-                        {czech(t.capexRatio)} %
+                        {f.dec(tw.capexRatio)} %
                       </td>
                       <td
                         className={`py-3.5 text-right font-mono text-sm font-bold tabular-nums ${
-                          t.saldoPerCapita < 0 ? "text-signal" : "text-ink"
+                          tw.saldoPerCapita < 0 ? "text-signal" : "text-ink"
                         }`}
                       >
-                        {t.saldoPerCapita > 0 ? "+" : ""}
-                        {czechInt(t.saldoPerCapita)} Kč
+                        {tw.saldoPerCapita > 0 ? "+" : ""}
+                        {f.czk(tw.saldoPerCapita)}
                       </td>
                     </tr>
                   ))}
               </tbody>
             </table>
           </div>
-          <p className="mt-4 max-w-3xl text-sm italic leading-relaxed text-steel">
-            Správcovství se propisuje do CivicScore jen u politiků v exekutivních rolích
-            (starostové, hejtmani) — poslanec za špatný rozpočet cizího města skóre
-            neztrácí. Data měst jsou ilustrativní mock nad tvarem MONITORu.
-          </p>
+          <p className="mt-4 max-w-3xl text-sm italic leading-relaxed text-steel">{t("stewardshipNote")}</p>
         </section>
       </div>
     </main>

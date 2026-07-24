@@ -9,8 +9,10 @@
  * spis je produkt.
  */
 
+import { useMemo } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import {
   Area,
@@ -33,7 +35,8 @@ import {
   PILLARS,
   TREND_QUARTERS,
 } from "@/lib/civic/data";
-import { czech } from "@/lib/format";
+import { useFormat } from "@/lib/i18n/useFormat";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import RankDelta from "@/features/shared/components/RankDelta";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
@@ -46,18 +49,32 @@ const TONE_DOT: Record<string, string> = {
   ink: "bg-steel",
 };
 
-const CHAMBER_TREND_DATA = CHAMBER_TREND.map((v, i) => ({ q: TREND_QUARTERS[i], průměr: v }));
-
-const PILLAR_AVG = PILLARS.map((p) => ({
-  key: p.key,
-  name: p.label,
-  průměr: Math.round((MPS.reduce((s, m) => s + m.pillars[p.key], 0) / MPS.length) * 10) / 10,
-}));
-
 const CHART_TICK = { fill: STEEL, fontSize: 12, fontFamily: "var(--font-plex)" } as const;
 
 export default function DashboardPage() {
   const reduceMotion = useReducedMotion();
+  const t = useTranslations("dashboard");
+  const tc = useTranslations("content");
+  const tcom = useTranslations("common");
+  const f = useFormat();
+
+  // Sněmovní trend přes 6 čtvrtletí — přesunuto do komponenty spolu s
+  // pilířovými průměry, aby dataKey zůstal neutrální (avg) a název série
+  // pilíře byl lokalizovaný.
+  const chamberTrendData = useMemo(
+    () => CHAMBER_TREND.map((v, i) => ({ q: TREND_QUARTERS[i], avg: v })),
+    [],
+  );
+
+  const pillarAvgData = useMemo(
+    () =>
+      PILLARS.map((p) => ({
+        key: p.key,
+        name: tc(`pillars.${p.key}.label`),
+        avg: Math.round((MPS.reduce((s, m) => s + m.pillars[p.key], 0) / MPS.length) * 10) / 10,
+      })),
+    [tc],
+  );
 
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
@@ -73,9 +90,12 @@ export default function DashboardPage() {
               </svg>
               <span className="text-xl font-black uppercase tracking-tight">Politicas</span>
             </Link>
-            <span className="font-mono text-xs uppercase tracking-widest text-steel">/ velín</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-steel">/ {t("headerTag")}</span>
           </div>
-          <SourceNote className="hidden sm:block">9. období · Q2/25 · přepočet 14. 7. 2026</SourceNote>
+          <div className="flex items-center gap-4">
+            <SourceNote className="hidden sm:block">{t("headerNote", { date: f.date("2026-07-14") })}</SourceNote>
+            <LanguageSwitcher className="my-auto" />
+          </div>
         </div>
       </header>
 
@@ -87,14 +107,13 @@ export default function DashboardPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-5xl font-black uppercase leading-[0.95] tracking-tight sm:text-6xl"
           >
-            Velín republiky<span className="text-signal">.</span>
+            {t("title")}<span className="text-signal">.</span>
           </motion.h1>
           <div className="mt-4 max-w-xl">
             <SectionRule />
           </div>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">
-            Co se ve státě změnilo, když jste se nedívali — agregáty sněmovny, pohyby
-            v žebříčku a nové hrany v grafu veřejných peněz. Každé číslo cituje svůj zdroj.
+            {t("lead")}
           </p>
         </div>
 
@@ -108,10 +127,16 @@ export default function DashboardPage() {
               transition={{ delay: i * 0.06 }}
               className="bg-paper p-6"
             >
-              <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">{s.label}</p>
-              <p className="mt-3 text-5xl font-black tabular-nums tracking-tight">{s.value}</p>
-              <p className="mt-2 text-sm text-steel">{s.sub}</p>
-              <SourceNote className="mt-3 !text-[10px]">zdroj: {s.source}</SourceNote>
+              <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
+                {tc(`chamberStats.${s.key}.label`)}
+              </p>
+              <p className="mt-3 text-5xl font-black tabular-nums tracking-tight">
+                {tc(`chamberStats.${s.key}.value`)}
+              </p>
+              <p className="mt-2 text-sm text-steel">{tc(`chamberStats.${s.key}.sub`)}</p>
+              <SourceNote className="mt-3 !text-[10px]">
+                {tcom("sourcePrefix")} {tc(`chamberStats.${s.key}.source`)}
+              </SourceNote>
             </motion.div>
           ))}
         </div>
@@ -120,13 +145,13 @@ export default function DashboardPage() {
         <section className="mt-16">
           <SectionHeading
             index={1}
-            title="Žebříček"
+            title={t("rankingSectionTitle")}
             aside={
               <Link
                 href="/zebricek"
                 className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
               >
-                všech 200 poslanců <ArrowRight className="h-3.5 w-3.5" />
+                {t("allMpsLink")} <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             }
           />
@@ -145,43 +170,43 @@ export default function DashboardPage() {
                     <span className="block truncate text-lg font-black uppercase tracking-tight">{m.name}</span>
                     <span className="mt-0.5 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-steel">
                       <span className="inline-block h-2 w-2 rounded-full" style={{ background: m.partyColor }} />
-                      {m.party} · {m.region}
+                      {m.party} · {tc(`regions.${m.region}`)}
                     </span>
                   </span>
                   <RankDelta delta={m.delta} />
-                  <span className="text-2xl font-black tabular-nums">{czech(m.score)}</span>
+                  <span className="text-2xl font-black tabular-nums">{f.dec(m.score)}</span>
                   <ArrowUpRight className="h-5 w-5 text-signal transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </Link>
               ))}
               <div className="mt-3">
-                <SourceNote>kompozit = Σ pilíř × váha · civicscore v1.4 · řádek otevírá spis poslance</SourceNote>
+                <SourceNote>{t("rankingFootnote")}</SourceNote>
               </div>
             </div>
 
             <div className="min-w-0 lg:col-span-5">
               <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
-                vývoj průměru sněmovny
+                {t("chamberTrendLabel")}
               </p>
               <div className="mt-4 w-full overflow-hidden" style={{ aspectRatio: "5 / 3", minHeight: 220 }}>
                 <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
-                  <AreaChart data={CHAMBER_TREND_DATA} margin={{ top: 8, right: 8, left: -14, bottom: 0 }}>
+                  <AreaChart data={chamberTrendData} margin={{ top: 8, right: 8, left: -14, bottom: 0 }}>
                     <CartesianGrid stroke={HAIRLINE} vertical={false} />
                     <XAxis dataKey="q" tick={CHART_TICK} tickLine={false} axisLine={{ stroke: INK, strokeWidth: 2 }} />
                     <YAxis
                       domain={["dataMin - 2", "dataMax + 2"]}
                       tick={CHART_TICK}
-                      tickFormatter={(v: number) => czech(v)}
+                      tickFormatter={(v: number) => f.dec(v)}
                       tickLine={false}
                       axisLine={false}
                     />
                     <Tooltip
                       cursor={{ stroke: INK, strokeDasharray: "4 4" }}
                       contentStyle={TOOLTIP_STYLE}
-                      formatter={(value) => [czech(Number(value)), "průměrný kompozit"]}
+                      formatter={(value) => [f.dec(Number(value)), t("chamberTrendTooltip")]}
                     />
                     <Area
                       type="linear"
-                      dataKey="průměr"
+                      dataKey="avg"
                       stroke={SIGNAL}
                       strokeWidth={3}
                       fill={SIGNAL}
@@ -194,15 +219,15 @@ export default function DashboardPage() {
                 </ResponsiveContainer>
               </div>
               <div className="mt-2">
-                <SourceNote>zdroj: psp.cz · registr smluv — metodika v1.4</SourceNote>
+                <SourceNote>{t("chamberTrendSource")}</SourceNote>
               </div>
 
               <p className="mt-8 font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
-                průměry pilířů — vzorek 5 poslanců
+                {t("pillarAvgLabel", { n: MPS.length })}
               </p>
               <div className="mt-4 w-full overflow-hidden" style={{ aspectRatio: "5 / 2.4", minHeight: 170 }}>
                 <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
-                  <BarChart data={PILLAR_AVG} margin={{ top: 8, right: 4, left: -14, bottom: 0 }}>
+                  <BarChart data={pillarAvgData} margin={{ top: 8, right: 4, left: -14, bottom: 0 }}>
                     <CartesianGrid stroke={HAIRLINE} vertical={false} />
                     <XAxis
                       dataKey="name"
@@ -215,10 +240,10 @@ export default function DashboardPage() {
                     <Tooltip
                       cursor={{ fill: PAPER_STRONG }}
                       contentStyle={TOOLTIP_STYLE}
-                      formatter={(value) => [czech(Number(value)), "průměr vzorku"]}
+                      formatter={(value) => [f.dec(Number(value)), t("pillarAvgTooltip")]}
                     />
-                    <Bar dataKey="průměr" isAnimationActive={!reduceMotion}>
-                      {PILLAR_AVG.map((p) => (
+                    <Bar dataKey="avg" isAnimationActive={!reduceMotion}>
+                      {pillarAvgData.map((p) => (
                         <Cell key={p.key} fill={PILLAR_FILL[p.key as keyof typeof PILLAR_FILL]} />
                       ))}
                     </Bar>
@@ -226,7 +251,7 @@ export default function DashboardPage() {
                 </ResponsiveContainer>
               </div>
               <div className="mt-2">
-                <SourceNote>psp.cz · hlídač státu — hodnoty pilířů 0–100</SourceNote>
+                <SourceNote>{t("pillarAvgSource")}</SourceNote>
               </div>
             </div>
           </div>
@@ -236,8 +261,8 @@ export default function DashboardPage() {
         <section className="mt-16 border-t-4 border-ink pt-10">
           <SectionHeading
             index={2}
-            title="Co se změnilo v grafu"
-            aside={<SourceNote>ingesce: denně (psp, smlouvy) · čtvrtletně (dotace, rozpočty)</SourceNote>}
+            title={t("feedSectionTitle")}
+            aside={<SourceNote>{t("feedIngestionNote")}</SourceNote>}
           />
           <div className="mt-8 border-t-2 border-ink">
             {EVENTS.map((e, i) => (
@@ -249,18 +274,20 @@ export default function DashboardPage() {
                 transition={{ delay: i * 0.04 }}
                 className="grid grid-cols-[6rem_auto_1fr] items-baseline gap-4 border-b border-hairline px-2 py-4 transition-colors hover:bg-paper-strong max-sm:grid-cols-[auto_1fr]"
               >
-                <span className="font-mono text-xs uppercase tracking-wider text-steel max-sm:hidden">{e.ts}</span>
+                <span className="font-mono text-xs uppercase tracking-wider text-steel max-sm:hidden">
+                  {tc(`events.${e.id}.ts`)}
+                </span>
                 <span className={`inline-block h-2.5 w-2.5 self-center ${TONE_DOT[e.tone]}`} aria-hidden />
                 <span className="min-w-0 text-[15px] leading-relaxed">
                   {e.mpId ? (
                     <Link href={`/poslanec/${e.mpId}`} className="font-medium underline-offset-2 hover:text-signal hover:underline">
-                      {e.text}
+                      {tc(`events.${e.id}.text`)}
                     </Link>
                   ) : (
-                    e.text
+                    tc(`events.${e.id}.text`)
                   )}
                   <span className="ml-2 whitespace-nowrap font-mono text-[11px] uppercase tracking-wider text-steel">
-                    [{e.source}]
+                    [{tc(`events.${e.id}.source`)}]
                   </span>
                 </span>
               </motion.div>
@@ -272,8 +299,8 @@ export default function DashboardPage() {
         <section className="mt-16 border-t-4 border-ink pt-10 pb-20">
           <SectionHeading
             index={3}
-            title="Pět nástrojů"
-            aside={<SourceNote>osoba ⋈ strana ⋈ firma ⋈ peníze ⋈ hlasování ⋈ zákon — klíč: IČO</SourceNote>}
+            title={t("toolsSectionTitle")}
+            aside={<SourceNote>{t("toolsJoinKeyNote")}</SourceNote>}
           />
           <div className="mt-8 grid gap-px border border-ink bg-ink sm:grid-cols-2 lg:grid-cols-5">
             {MODULES.map((m, i) => (
@@ -287,14 +314,17 @@ export default function DashboardPage() {
               >
                 <div>
                   <p className="font-mono text-[11px] uppercase tracking-widest text-steel">
-                    <span className={i === 0 ? "font-bold text-signal" : ""}>0{i + 1}</span> · {m.tag}
+                    <span className={i === 0 ? "font-bold text-signal" : ""}>0{i + 1}</span> ·{" "}
+                    {tc(`modules.${m.key}.tag`)}
                   </p>
                   <p className="mt-2 text-lg font-black uppercase leading-tight tracking-tight">{m.name}</p>
                 </div>
                 <div>
-                  <p className="text-3xl font-black tabular-nums text-cobalt">{m.metric.value}</p>
+                  <p className="text-3xl font-black tabular-nums text-cobalt">
+                    {tc(`modules.${m.key}.metricValue`)}
+                  </p>
                   <div className="mt-1 flex items-end justify-between gap-2">
-                    <SourceNote className="!text-[10px]">{m.metric.label}</SourceNote>
+                    <SourceNote className="!text-[10px]">{tc(`modules.${m.key}.metricLabel`)}</SourceNote>
                     <ArrowUpRight className="h-5 w-5 shrink-0 text-signal transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </div>
                 </div>

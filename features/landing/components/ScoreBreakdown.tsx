@@ -6,20 +6,13 @@
  * Kliknutí na pruh vybírá poslance (stejný stav jako řádky žebříčku).
  */
 
+import { useMemo } from "react";
+import { useTranslations } from "next-intl";
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { MPS, PILLARS } from "@/lib/civic/data";
-import { czech } from "@/lib/format";
+import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { HAIRLINE, INK, PAPER_STRONG, PILLAR_FILL, STEEL, TOOLTIP_STYLE } from "../palette";
-
-// Statická data — vážené příspěvky se nemění s výběrem, jen zvýraznění.
-const STACKED_DATA = MPS.map((m) => ({
-  id: m.id,
-  name: m.name.split(" ").at(-1) ?? m.name,
-  ...(Object.fromEntries(
-    PILLARS.map((p) => [p.label, Math.round(m.pillars[p.key] * p.weight * 10) / 10]),
-  ) as Record<string, number>),
-}));
 
 export default function ScoreBreakdown({
   selectedId,
@@ -28,12 +21,35 @@ export default function ScoreBreakdown({
   selectedId: string;
   onSelect: (id: string) => void;
 }) {
+  const t = useTranslations("landing");
+  const tc = useTranslations("content");
+  const f = useFormat();
+
+  // Pilíře v pořadí PILLARS; klíč série = lokalizovaný label (zobrazí se v tooltipu).
+  const pillarLabels = useMemo(
+    () => PILLARS.map((p) => ({ key: p.key, weight: p.weight, label: tc(`pillars.${p.key}.label`) })),
+    [tc],
+  );
+
+  // Vážené příspěvky se nemění s výběrem, jen zvýraznění.
+  const stackedData = useMemo(
+    () =>
+      MPS.map((m) => ({
+        id: m.id,
+        name: m.name.split(" ").at(-1) ?? m.name,
+        ...(Object.fromEntries(
+          pillarLabels.map((p) => [p.label, Math.round(m.pillars[p.key] * p.weight * 10) / 10]),
+        ) as Record<string, number>),
+      })),
+    [pillarLabels],
+  );
+
   return (
     <div>
-      <SourceNote>rozklad skóre — kolik bodů přinesl který pilíř</SourceNote>
+      <SourceNote>{t("breakdownSource")}</SourceNote>
       <div className="mt-3 w-full overflow-hidden" style={{ aspectRatio: "5 / 3", minHeight: 220 }}>
         <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
-          <BarChart data={STACKED_DATA} layout="vertical" margin={{ top: 0, right: 12, left: 0, bottom: 0 }}>
+          <BarChart data={stackedData} layout="vertical" margin={{ top: 0, right: 12, left: 0, bottom: 0 }}>
             <CartesianGrid stroke={HAIRLINE} horizontal={false} />
             <XAxis
               type="number"
@@ -54,9 +70,9 @@ export default function ScoreBreakdown({
             <Tooltip
               cursor={{ fill: PAPER_STRONG }}
               contentStyle={TOOLTIP_STYLE}
-              formatter={(value, name) => [`${czech(Number(value))} b.`, String(name)]}
+              formatter={(value, name) => [t("breakdownTooltipUnit", { value: f.dec(Number(value)) }), String(name)]}
             />
-            {PILLARS.map((p) => (
+            {pillarLabels.map((p) => (
               <Bar
                 key={p.key}
                 dataKey={p.label}
@@ -77,7 +93,7 @@ export default function ScoreBreakdown({
         </ResponsiveContainer>
       </div>
       <div className="mt-2 flex flex-wrap gap-3">
-        {PILLARS.map((p) => (
+        {pillarLabels.map((p) => (
           <span
             key={p.key}
             className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-steel"

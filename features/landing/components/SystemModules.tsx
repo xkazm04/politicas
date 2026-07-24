@@ -4,6 +4,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { MODULES } from "@/lib/civic/data";
 import SourceNote from "@/features/shared/components/SourceNote";
 
@@ -52,15 +53,16 @@ function ModuleGlyph({ index }: { index: number }) {
 }
 
 export default function SystemModules() {
+  const t = useTranslations("landing");
+  const tc = useTranslations("content");
   return (
     <section id="k-system" className="border-t-4 border-ink">
       <div className="mx-auto max-w-6xl px-6 py-16">
         <h2 className="text-4xl font-black uppercase tracking-tight sm:text-5xl">
-          Jeden graf<span className="text-signal">.</span> Pět nástrojů<span className="text-signal">.</span>
+          {t("systemTitlePart1")}<span className="text-signal">.</span> {t("systemTitlePart2")}<span className="text-signal">.</span>
         </h2>
         <p className="mt-3 max-w-2xl text-steel">
-          Politik ↔ strana ↔ firma ↔ smlouva ↔ hlasování ↔ rozpočet ↔ zákon, propojeno
-          přes univerzální osmimístné IČO. Každý nástroj čte tentýž graf.
+          {t("systemIntro")}
         </p>
         <div className="mt-10 border-t border-ink">
           {MODULES.map((m, i) => (
@@ -79,11 +81,11 @@ export default function SystemModules() {
               <ModuleGlyph index={i} />
               <span>
                 <span className="block text-2xl font-black uppercase tracking-tight">{m.name}</span>
-                <span className="mt-1 block text-sm text-steel">{m.description}</span>
+                <span className="mt-1 block text-sm text-steel">{tc(`modules.${m.key}.description`)}</span>
               </span>
               <span className="hidden sm:block">
-                <span className="block text-3xl font-black tabular-nums text-cobalt">{m.metric.value}</span>
-                <SourceNote>{m.metric.label}</SourceNote>
+                <span className="block text-3xl font-black tabular-nums text-cobalt">{tc(`modules.${m.key}.metricValue`)}</span>
+                <SourceNote>{tc(`modules.${m.key}.metricLabel`)}</SourceNote>
               </span>
               <ArrowRight className="h-6 w-6 text-signal transition-transform group-hover:translate-x-1" />
             </motion.a>

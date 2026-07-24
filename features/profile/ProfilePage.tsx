@@ -12,34 +12,47 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, YAxis } from "recharts";
 import type { MP, VoteChoice } from "@/lib/civic/data";
 import { MONEY_TIES, MPS, PILLARS, ROLL_CALLS, TREND_QUARTERS } from "@/lib/civic/data";
-import { czech, czechDate } from "@/lib/format";
+import { useFormat } from "@/lib/i18n/useFormat";
 import AnimatedScore from "@/features/shared/components/AnimatedScore";
 import RankDelta from "@/features/shared/components/RankDelta";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { INK, PILLAR_FILL, SIGNAL, TOOLTIP_STYLE } from "@/features/landing/palette";
 
 /** Hlas poslance jako plochý štítek — barvy drží řeč plakátu. */
 function VoteChip({ vote }: { vote: VoteChoice }) {
+  const tcom = useTranslations("common");
   const cls: Record<VoteChoice, string> = {
     pro: "bg-cobalt text-paper",
     proti: "bg-signal text-paper",
     "zdržel se": "bg-ochre text-ink",
     omluven: "border border-steel text-steel",
   };
+  const labels: Record<VoteChoice, string> = {
+    pro: tcom("voteChoice.for"),
+    proti: tcom("voteChoice.against"),
+    "zdržel se": tcom("voteChoice.abstained"),
+    omluven: tcom("voteChoice.excused"),
+  };
   return (
     <span className={`inline-block px-2.5 py-1 font-mono text-xs font-bold uppercase tracking-wider ${cls[vote]}`}>
-      {vote}
+      {labels[vote]}
     </span>
   );
 }
 
 export default function ProfilePage({ mp }: { mp: MP }) {
   const reduceMotion = useReducedMotion();
-  const ties = MONEY_TIES.filter((t) => t.mpId === mp.id);
+  const t = useTranslations("profile");
+  const tc = useTranslations("content");
+  const tcom = useTranslations("common");
+  const f = useFormat();
+  const ties = MONEY_TIES.map((tie, i) => ({ ...tie, i })).filter((tie) => tie.mpId === mp.id);
   const trendData = mp.trend.map((v, i) => ({ q: TREND_QUARTERS[i], skóre: v }));
   const idx = MPS.findIndex((m) => m.id === mp.id);
   const prev = MPS[(idx - 1 + MPS.length) % MPS.length];
@@ -59,14 +72,17 @@ export default function ProfilePage({ mp }: { mp: MP }) {
               </svg>
               <span className="text-xl font-black uppercase tracking-tight">Politicas</span>
             </Link>
-            <span className="font-mono text-xs uppercase tracking-widest text-steel">/ spis</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-steel">/ {t("breadcrumb")}</span>
           </div>
-          <Link
-            href="/dashboard"
-            className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" /> velín
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/dashboard"
+              className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" /> {t("backToDashboard")}
+            </Link>
+            <LanguageSwitcher />
+          </div>
         </div>
       </header>
 
@@ -78,7 +94,7 @@ export default function ProfilePage({ mp }: { mp: MP }) {
           className="border-b border-hairline py-12"
         >
           <SourceNote tone="signal">
-            spis č. {mp.rank} / 200 · {mp.party} · {mp.region} · 9. volební období
+            {t("fileNumber", { rank: mp.rank, party: mp.party, region: tc(`regions.${mp.region}`) })}
           </SourceNote>
           <div className="mt-4 flex flex-wrap items-end justify-between gap-8">
             <h1 className="text-6xl font-black uppercase leading-[0.92] tracking-tight sm:text-7xl">
@@ -90,11 +106,14 @@ export default function ProfilePage({ mp }: { mp: MP }) {
               <div className="text-right">
                 <AnimatedScore
                   value={mp.score}
+                  format={f.dec}
                   className="text-[7rem] font-black leading-[0.85] tracking-tighter sm:text-[8rem]"
                 />
                 <div className="mt-2 flex items-center justify-end gap-3">
                   <RankDelta delta={mp.delta} />
-                  <span className="font-mono text-xs uppercase tracking-widest text-steel">/100 · Q2/25</span>
+                  <span className="font-mono text-xs uppercase tracking-widest text-steel">
+                    {tcom("of100")} · {TREND_QUARTERS.at(-1)}
+                  </span>
                 </div>
               </div>
               <div>
@@ -105,7 +124,7 @@ export default function ProfilePage({ mp }: { mp: MP }) {
                       <Tooltip
                         cursor={false}
                         contentStyle={TOOLTIP_STYLE}
-                        formatter={(value) => [czech(Number(value)), "kompozit"]}
+                        formatter={(value) => [f.dec(Number(value)), t("trendTooltip")]}
                         labelFormatter={(_, payload) => payload?.[0]?.payload?.q ?? ""}
                       />
                       <Area
@@ -122,12 +141,14 @@ export default function ProfilePage({ mp }: { mp: MP }) {
                     </AreaChart>
                   </ResponsiveContainer>
                 </div>
-                <SourceNote className="mt-1 !text-[10px]">6 čtvrtletí · v1.4</SourceNote>
+                <SourceNote className="mt-1 !text-[10px]">
+                  {t("trendMeta", { count: TREND_QUARTERS.length })}
+                </SourceNote>
               </div>
             </div>
           </div>
           <p className="mt-6 max-w-2xl border-l-4 border-signal pl-4 text-base italic leading-relaxed text-steel">
-            {mp.headline}
+            {tc(`mpHeadlines.${mp.id}`)}
           </p>
         </motion.div>
 
@@ -135,16 +156,16 @@ export default function ProfilePage({ mp }: { mp: MP }) {
         <section className="pt-12">
           <SectionHeading
             index={1}
-            title="Pilíře"
-            aside={<SourceNote>kompozit = Σ pilíř × váha · metodika v1.4</SourceNote>}
+            title={t("pillarsHeading")}
+            aside={<SourceNote>{t("pillarsAside")}</SourceNote>}
           />
           <div className="mt-8 grid gap-px border border-ink bg-ink sm:grid-cols-2 lg:grid-cols-4">
             {PILLARS.map((p) => (
               <div key={p.key} className="bg-paper p-6">
                 <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
-                  {p.label} × {p.weight}
+                  {tc(`pillars.${p.key}.label`)} × {p.weight}
                 </p>
-                <p className="mt-3 text-5xl font-black tabular-nums">{mp.pillars[p.key]}</p>
+                <p className="mt-3 text-5xl font-black tabular-nums">{f.int(mp.pillars[p.key])}</p>
                 <div className="mt-3 h-2 w-full bg-hairline">
                   <motion.div
                     className="h-full"
@@ -155,8 +176,10 @@ export default function ProfilePage({ mp }: { mp: MP }) {
                     transition={reduceMotion ? { duration: 0 } : { duration: 0.6 }}
                   />
                 </div>
-                <p className="mt-3 text-sm leading-snug text-steel">{p.question}</p>
-                <SourceNote className="mt-3 !text-[10px]">zdroj: {p.source}</SourceNote>
+                <p className="mt-3 text-sm leading-snug text-steel">{tc(`pillars.${p.key}.question`)}</p>
+                <SourceNote className="mt-3 !text-[10px]">
+                  {tcom("sourcePrefix")} {tc(`pillars.${p.key}.source`)}
+                </SourceNote>
               </div>
             ))}
           </div>
@@ -166,17 +189,17 @@ export default function ProfilePage({ mp }: { mp: MP }) {
         <section className="mt-16 border-t-4 border-ink pt-10">
           <SectionHeading
             index={2}
-            title="Jak hlasoval(a)"
-            aside={<SourceNote>psp.cz — jmenovitá hlasování · denní ingesce</SourceNote>}
+            title={t("votesHeading")}
+            aside={<SourceNote>{t("votesAside")}</SourceNote>}
           />
           <div className="mt-8 overflow-x-auto">
             <table className="w-full min-w-[40rem] text-left">
               <thead>
                 <tr className="border-b-2 border-ink font-mono text-[11px] uppercase tracking-widest text-steel">
-                  <th className="py-3 pr-4 font-bold">datum</th>
-                  <th className="py-3 pr-4 font-bold">hlasování</th>
-                  <th className="py-3 pr-4 font-bold">výsledek</th>
-                  <th className="py-3 font-bold">hlas</th>
+                  <th className="py-3 pr-4 font-bold">{t("dateHeader")}</th>
+                  <th className="py-3 pr-4 font-bold">{t("motionHeader")}</th>
+                  <th className="py-3 pr-4 font-bold">{t("resultHeader")}</th>
+                  <th className="py-3 font-bold">{t("choiceHeader")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -186,12 +209,12 @@ export default function ProfilePage({ mp }: { mp: MP }) {
                   return (
                     <tr key={rc.id} className="border-b border-hairline align-top transition-colors hover:bg-paper-strong">
                       <td className="whitespace-nowrap py-4 pr-4 font-mono text-xs text-steel">
-                        {czechDate(rc.date)}
+                        {f.date(rc.date)}
                       </td>
                       <td className="py-4 pr-4">
-                        <span className="text-[15px] font-medium leading-snug">{rc.title}</span>
+                        <span className="text-[15px] font-medium leading-snug">{tc(`rollCalls.${rc.id}.title`)}</span>
                         <span className="mt-0.5 block font-mono text-[11px] uppercase tracking-wider text-steel">
-                          {rc.tisk} · {rc.pro}:{rc.proti}
+                          {tc(`rollCalls.${rc.id}.tisk`)} · {f.int(rc.pro)}:{f.int(rc.proti)}
                         </span>
                       </td>
                       <td className="py-4 pr-4">
@@ -200,14 +223,14 @@ export default function ProfilePage({ mp }: { mp: MP }) {
                             rc.result === "přijato" ? "text-cobalt" : "text-signal"
                           }`}
                         >
-                          {rc.result}
+                          {tcom(rc.result === "přijato" ? "voteResult.accepted" : "voteResult.rejected")}
                         </span>
                       </td>
                       <td className="whitespace-nowrap py-4">
                         <VoteChip vote={vote} />
                         {rebel && (
                           <span className="ml-2 font-mono text-[11px] font-bold uppercase tracking-wider text-signal">
-                            proti linii strany
+                            {t("rebelTag")}
                           </span>
                         )}
                       </td>
@@ -223,15 +246,15 @@ export default function ProfilePage({ mp }: { mp: MP }) {
         <section className="mt-16 border-t-4 border-ink pt-10 pb-8">
           <SectionHeading
             index={3}
-            title="Peněžní vazby"
+            title={t("moneyHeading")}
             aside={
               <span className="flex flex-wrap items-baseline gap-4">
-                <SourceNote>registr smluv ⋈ ares ⋈ hlídač — klíč: IČO</SourceNote>
+                <SourceNote>{t("moneyAside")}</SourceNote>
                 <Link
                   href="/penize"
                   className="font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
                 >
-                  celá síť peněz →
+                  {t("moneyLink")}
                 </Link>
               </span>
             }
@@ -239,33 +262,34 @@ export default function ProfilePage({ mp }: { mp: MP }) {
           {ties.length === 0 ? (
             <div className="mt-8 border-2 border-dashed border-hairline p-8">
               <p className="text-base font-black uppercase tracking-wide">
-                Žádné doložené vazby na veřejné peníze
+                {t("moneyEmptyTitle")}
               </p>
               <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-steel">
-                K dnešnímu dni nebyla dohledána žádná firma napojená na poslance s veřejnou
-                zakázkou, dotací ani darem straně. Kontrola běží při každé denní ingesci.
+                {t("moneyEmptyBody")}
               </p>
             </div>
           ) : (
             <div className="mt-8 border-t-2 border-ink">
-              {ties.map((t) => (
+              {ties.map((tie) => (
                 <div
-                  key={`${t.mpId}-${t.company}`}
+                  key={`${tie.mpId}-${tie.company}`}
                   className="grid gap-3 border-b border-hairline px-2 py-5 sm:grid-cols-[1.2fr_1fr_auto]"
                 >
                   <span>
-                    <span className="block text-lg font-black uppercase tracking-tight">{t.company}</span>
+                    <span className="block text-lg font-black uppercase tracking-tight">
+                      {tc(`moneyTies.${tie.i}.company`)}
+                    </span>
                     <span className="mt-0.5 block font-mono text-[11px] uppercase tracking-wider text-steel">
-                      IČO {t.ico} · {t.kind}
+                      IČO {tie.ico} · {tc(`moneyTies.${tie.i}.kind`)}
                     </span>
                   </span>
-                  <span className="text-[15px] leading-relaxed text-steel">{t.note}</span>
+                  <span className="text-[15px] leading-relaxed text-steel">{tc(`moneyTies.${tie.i}.note`)}</span>
                   <span className="text-right">
-                    <span className={`block text-2xl font-black tabular-nums ${t.amount === "—" ? "text-steel" : "text-signal"}`}>
-                      {t.amount}
+                    <span className={`block text-2xl font-black tabular-nums ${tie.amount === "—" ? "text-steel" : "text-signal"}`}>
+                      {tc(`moneyTies.${tie.i}.amount`)}
                     </span>
                     <span className="mt-0.5 block font-mono text-[11px] uppercase tracking-wider text-steel">
-                      {t.year} · {t.source}
+                      {tie.year} · {tc(`moneyTies.${tie.i}.source`)}
                     </span>
                   </span>
                 </div>
@@ -273,29 +297,28 @@ export default function ProfilePage({ mp }: { mp: MP }) {
             </div>
           )}
           <p className="mt-4 max-w-3xl text-sm italic leading-relaxed text-steel">
-            Vazby zveřejňujeme jako datovaná, doložená fakta — nikdy jako obvinění. Sporné
-            záznamy čekají na lidskou kontrolu a do té doby se nepropisují do skóre.
+            {t("moneyDisclaimer")}
           </p>
         </section>
 
         {/* ── Listování spisy ───────────────────────────────── */}
         <nav className="mb-20 grid gap-px border border-ink bg-ink sm:grid-cols-2">
           {[
-            { mp: prev, label: "předchozí spis", Icon: ArrowLeft, align: "text-left" },
-            { mp: next, label: "další spis", Icon: ArrowRight, align: "text-right sm:justify-items-end" },
-          ].map(({ mp: target, label, Icon, align }) => (
+            { mp: prev, dir: "prev" as const, label: t("prevFile"), Icon: ArrowLeft, align: "text-left" },
+            { mp: next, dir: "next" as const, label: t("nextFile"), Icon: ArrowRight, align: "text-right sm:justify-items-end" },
+          ].map(({ mp: target, dir, label, Icon, align }) => (
             <Link
-              key={label}
+              key={dir}
               href={`/poslanec/${target.id}`}
               className={`grid gap-1 bg-paper p-5 transition-colors hover:bg-paper-strong ${align}`}
             >
               <span className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
-                {label === "předchozí spis" && <Icon className="h-3.5 w-3.5" />}
+                {dir === "prev" && <Icon className="h-3.5 w-3.5" />}
                 {label}
-                {label === "další spis" && <Icon className="h-3.5 w-3.5" />}
+                {dir === "next" && <Icon className="h-3.5 w-3.5" />}
               </span>
               <span className="text-lg font-black uppercase tracking-tight">
-                {target.name} <span className="font-mono text-sm font-bold text-steel">· {czech(target.score)}</span>
+                {target.name} <span className="font-mono text-sm font-bold text-steel">· {f.dec(target.score)}</span>
               </span>
             </Link>
           ))}

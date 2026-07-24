@@ -9,6 +9,7 @@
  */
 
 import { useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import type { Pillar } from "@/lib/civic/data";
 import { MPS, PILLARS } from "@/lib/civic/data";
 import SectionRule from "@/features/shared/components/SectionRule";
@@ -28,6 +29,7 @@ const DEFAULT_WEIGHTS = () =>
   Object.fromEntries(PILLARS.map((p) => [p.key, p.weight * 100])) as Weights;
 
 export default function LandingPage() {
+  const t = useTranslations("landing");
   const [selectedId, setSelectedId] = useState(MPS[0].id);
   const mp = MPS.find((m) => m.id === selectedId) ?? MPS[0];
 
@@ -66,16 +68,15 @@ export default function LandingPage() {
         <div className="mx-auto max-w-6xl px-6 py-16">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <h2 className="text-4xl font-black uppercase tracking-tight sm:text-5xl">
-              Žebříček<span className="text-signal">.</span>
+              {t("rankingTitle")}<span className="text-signal">.</span>
             </h2>
-            <SourceNote>obr. 3 — kompozit = Σ pilíř × váha · přepočet každé čtvrtletí</SourceNote>
+            <SourceNote>{t("rankingSource")}</SourceNote>
           </div>
           <div className="mt-4">
             <SectionRule />
           </div>
           <p className="mt-4 max-w-2xl text-sm text-steel">
-            Pořadí podle kompozitního skóre; plný žebříček pokrývá všech 200 poslanců.
-            Vyberte řádek — rozklad, trend i živý vzorek nahoře se přepnou na vybraného poslance.
+            {t("rankingIntro")}
           </p>
           <div className="mt-8 grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
             <Standings selected={mp} onSelect={setSelectedId} />

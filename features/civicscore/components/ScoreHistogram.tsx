@@ -6,23 +6,31 @@
  * souhrnu přišité testem.
  */
 
+import { useMemo } from "react";
 import { useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { CHAMBER_SUMMARY, SCORE_HISTOGRAM } from "@/lib/civic/leaderboard";
-import { czech } from "@/lib/format";
+import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { COBALT, HAIRLINE, INK, PAPER_STRONG, SIGNAL, STEEL, TOOLTIP_STYLE } from "@/features/landing/palette";
-
-const SUMMARY_TILES = [
-  { label: "průměr", value: czech(CHAMBER_SUMMARY.avg) },
-  { label: "medián", value: czech(CHAMBER_SUMMARY.median) },
-  { label: "rozptyl σ", value: czech(CHAMBER_SUMMARY.sigma) },
-];
 
 const CHART_TICK = { fill: STEEL, fontSize: 12, fontFamily: "var(--font-plex)" } as const;
 
 export default function ScoreHistogram() {
   const reduceMotion = useReducedMotion();
+  const t = useTranslations("civicscore");
+  const tcom = useTranslations("common");
+  const f = useFormat();
+
+  const summaryTiles = useMemo(
+    () => [
+      { label: t("avgLabel"), value: f.dec(CHAMBER_SUMMARY.avg) },
+      { label: t("medianLabel"), value: f.dec(CHAMBER_SUMMARY.median) },
+      { label: t("sigmaLabel"), value: f.dec(CHAMBER_SUMMARY.sigma) },
+    ],
+    [t, f],
+  );
 
   return (
     <div className="grid gap-10 lg:grid-cols-[8fr_4fr]">
@@ -36,7 +44,7 @@ export default function ScoreHistogram() {
               <Tooltip
                 cursor={{ fill: PAPER_STRONG }}
                 contentStyle={TOOLTIP_STYLE}
-                formatter={(value) => [`${value} poslanců`, "v pásmu"]}
+                formatter={(value) => [t("histogramCount", { value: Number(value) }), t("histogramBand")]}
               />
               <Bar dataKey="count" isAnimationActive={!reduceMotion}>
                 {SCORE_HISTOGRAM.map((b) => (
@@ -48,19 +56,19 @@ export default function ScoreHistogram() {
         </div>
         <div className="mt-2">
           <SourceNote>
-            histogram kompozitů po 5 b. · signální = pod mediánem sněmovny · civicscore v1.4
+            {t("histogramSource", { pts: tcom("pts") })}
           </SourceNote>
         </div>
       </div>
       <div className="grid content-start gap-px self-start border border-ink bg-ink">
-        {SUMMARY_TILES.map((t) => (
-          <div key={t.label} className="flex items-baseline justify-between gap-4 bg-paper px-5 py-4">
-            <span className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">{t.label}</span>
-            <span className="text-3xl font-black tabular-nums">{t.value}</span>
+        {summaryTiles.map((tile) => (
+          <div key={tile.label} className="flex items-baseline justify-between gap-4 bg-paper px-5 py-4">
+            <span className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">{tile.label}</span>
+            <span className="text-3xl font-black tabular-nums">{tile.value}</span>
           </div>
         ))}
         <div className="bg-paper px-5 py-4">
-          <SourceNote className="!text-[10px]">počítáno z plného žebříčku 200 poslanců</SourceNote>
+          <SourceNote className="!text-[10px]">{t("histogramFootnote")}</SourceNote>
         </div>
       </div>
     </div>

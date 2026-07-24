@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import VoteTrackPage from "@/features/votetrack/VoteTrackPage";
 
-export const metadata: Metadata = {
-  title: "VoteTrack — hlasování sněmovny · Politicas",
-  description:
-    "Deník jmenovitých hlasování, pohled do sálu a linie klubů — tři perspektivy nad daty psp.cz. Sytí pilíře Aktivita, Docházka a Nezávislost.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("meta");
+  return {
+    title: t("votetrackTitle"),
+    description: t("votetrackDescription"),
+  };
+}
 
 export default function HlasovaniPage() {
   return <VoteTrackPage />;

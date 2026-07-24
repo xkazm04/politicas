@@ -1,0 +1,665 @@
+{
+  "meta": {
+    "rootTitle": "Politicas — empirický záznam republiky",
+    "rootDescription": "Hlasování, veřejné peníze, rozpočty a zákony spojené do jednoho metodicky transparentního indexu efektivity pro každého českého politika. Každé číslo cituje svůj otevřený datový zdroj.",
+    "dashboardTitle": "Politicas — velín republiky",
+    "dashboardDescription": "Přehled sněmovny: kompozitní skóre, žebříček, události v grafu veřejných peněz a vstupy do pěti nástrojů.",
+    "votetrackTitle": "VoteTrack — hlasování sněmovny · Politicas",
+    "votetrackDescription": "Deník jmenovitých hlasování, pohled do sálu a linie klubů — tři perspektivy nad daty psp.cz. Sytí pilíře Aktivita, Docházka a Nezávislost.",
+    "moneyTitle": "FollowTheMoney — stopa peněz · Politicas",
+    "moneyDescription": "Veřejné zakázky, dotace a dary dohledané přes firmy k politikům — graf entit, kniha doložených vazeb a metodika stopy. Sytí pilíř Integrita.",
+    "budgetTitle": "BudgetMirror — zrcadlo rozpočtů · Politicas",
+    "budgetDescription": "Hospodaření města proti vrstevníkům podobné velikosti: dluh na obyvatele, podíl investic a saldo z dat MONITOR / Státní pokladny.",
+    "lawwatchTitle": "LawWatch — hlídač paragrafů · Politicas",
+    "lawwatchDescription": "Co se v zákonech skutečně změnilo: rozdíly po paragrafech propojené na jmenovitá hlasování a legislativní potrubí sněmovních tisků.",
+    "civicscoreTitle": "CivicScore — žebříček republiky · Politicas",
+    "civicscoreDescription": "Všech 200 poslanců podle kompozitního skóre efektivity: rozložení sněmovny, plný žebříček s filtrem po stranách a souboj dvou poslanců pilíř po pilíři.",
+    "profileTitle": "{name} — spis č. {rank} · Politicas",
+    "profileDescription": "Kompozitní skóre {score}/100 ({party}, {region}): pilíře, jmenovitá hlasování a doložené peněžní vazby. Každé číslo cituje svůj otevřený zdroj.",
+    "profileNotFound": "Politicas — spis nenalezen",
+    "rentgenTitle": "Politicas/rentgen — investigativní důkazní terminál",
+    "rentgenDescription": "Archivní výtvarný směr Politicas: rentgen státu — graf peněžní stopy, auditní log a registr zdrojů."
+  },
+  "common": {
+    "languageSwitch": "Přepnout jazyk",
+    "rankUp": "vzestup o {n}",
+    "rankDown": "sestup o {n}",
+    "rankSame": "beze změny",
+    "sourcePrefix": "zdroj:",
+    "pts": "b.",
+    "of100": "/100",
+    "verified": "ověřeno",
+    "pendingReview": "čeká na kontrolu",
+    "voteChoice": {
+      "for": "pro",
+      "against": "proti",
+      "abstained": "zdržel se",
+      "excused": "omluven"
+    },
+    "voteResult": {
+      "accepted": "přijato",
+      "rejected": "zamítnuto"
+    }
+  },
+  "content": {
+    "pillars": {
+      "activity": {
+        "label": "Aktivita",
+        "question": "Kolik legislativní práce poslanec skutečně odvede?",
+        "source": "psp.cz — návrhy zákonů, interpelace, vystoupení"
+      },
+      "attendance": {
+        "label": "Docházka",
+        "question": "Je poslanec přítomen, když sněmovna hlasuje?",
+        "source": "psp.cz — účast na hlasování, 9. období"
+      },
+      "independence": {
+        "label": "Nezávislost",
+        "question": "Hlasuje podle svého přesvědčení, nebo podle stranické linie?",
+        "source": "psp.cz — odchylky od stranické linie"
+      },
+      "integrity": {
+        "label": "Integrita",
+        "question": "Tečou veřejné peníze firmám napojeným na poslance?",
+        "source": "Hlídač /osoby · Registr smluv · MONITOR"
+      }
+    },
+    "modules": {
+      "civic-score": {
+        "tag": "Syntéza",
+        "description": "Souhrnný index efektivity 0–100 pro každého poslance — čtyři pilíře, zveřejněné váhy, každé číslo dohledatelné ke svému datasetu.",
+        "metricValue": "200",
+        "metricLabel": "hodnocených poslanců, každé čtvrtletí",
+        "feeds": "Plocha, kterou sytí ostatní čtyři moduly"
+      },
+      "vote-track": {
+        "tag": "Analýza hlasování",
+        "description": "Každé jmenovité hlasování Sněmovny i Senátu — docházka, odchylky od stranické linie, rebelie a kdo co předložil.",
+        "metricValue": "5 214",
+        "metricLabel": "jmenovitých hlasování, 9. období",
+        "feeds": "Pilíře Aktivita + Docházka"
+      },
+      "follow-the-money": {
+        "tag": "Síť peněz",
+        "description": "Veřejné zakázky a dotace dohledané přes firmy až k politikům, kteří jsou s nimi spojeni — propojeno přes osmimístné IČO.",
+        "metricValue": "2,1 mld Kč",
+        "metricLabel": "dohledáno k napojeným firmám",
+        "feeds": "Pilíř Integrita"
+      },
+      "budget-mirror": {
+        "tag": "Rozpočtové srovnání",
+        "description": "Hospodaření obcí srovnané s podobnými městy — dluh na obyvatele, podíl investic, správcovství v čase.",
+        "metricValue": "6 254",
+        "metricLabel": "porovnávaných obcí",
+        "feeds": "Správcovství, pro exekutivní role"
+      },
+      "law-watch": {
+        "tag": "Monitor legislativy",
+        "description": "Co se v zákonech skutečně změnilo — rozdíly po paragrafech propojené zpět na hlasování a poslance, kteří je odhlasovali.",
+        "metricValue": "312",
+        "metricLabel": "novelizovaných zákonů v tomto období",
+        "feeds": "Propojuje hlasování → dopady"
+      }
+    },
+    "sources": {
+      "0": {
+        "name": "psp.cz",
+        "what": "Jmenovitá hlasování, tisky, stenozáznamy",
+        "cadence": "denně",
+        "access": "bulk UNL/XML"
+      },
+      "1": {
+        "name": "Hlídač státu",
+        "what": "Osoby, stranické vazby, dárci, platy",
+        "cadence": "průběžně",
+        "access": "REST API"
+      },
+      "2": {
+        "name": "ARES v3",
+        "what": "Rejstřík firem + statutární orgány",
+        "cadence": "téměř real-time",
+        "access": "REST, 500 req/min"
+      },
+      "3": {
+        "name": "Registr smluv",
+        "what": "Veřejné smlouvy",
+        "cadence": "denně",
+        "access": "XML dumpy"
+      },
+      "4": {
+        "name": "Registr dotací",
+        "what": "Dotace",
+        "cadence": "čtvrtletně",
+        "access": "CSV"
+      },
+      "5": {
+        "name": "MONITOR",
+        "what": "Státní a obecní rozpočty",
+        "cadence": "čtvrtletně",
+        "access": "CSV/XML + SOAP"
+      },
+      "6": {
+        "name": "e-Sbírka",
+        "what": "Zákony a konsolidovaná znění",
+        "cadence": "průběžně",
+        "access": "SPARQL"
+      }
+    },
+    "regions": {
+      "Praha": "Praha",
+      "Jihomoravský kraj": "Jihomoravský kraj",
+      "Plzeňský kraj": "Plzeňský kraj",
+      "Moravskoslezský kraj": "Moravskoslezský kraj",
+      "Ústecký kraj": "Ústecký kraj",
+      "Vysočina": "Vysočina",
+      "Středočeský kraj": "Středočeský kraj",
+      "Karlovarský kraj": "Karlovarský kraj",
+      "Jihočeský kraj": "Jihočeský kraj",
+      "Liberecký kraj": "Liberecký kraj",
+      "Královéhradecký kraj": "Královéhradecký kraj",
+      "Pardubický kraj": "Pardubický kraj",
+      "Olomoucký kraj": "Olomoucký kraj",
+      "Zlínský kraj": "Zlínský kraj"
+    },
+    "mpHeadlines": {
+      "novakova-p": "Vysoký výkon, téměř stoprocentní docházka, žádné vazby na veřejné zakázky.",
+      "pokorna-e": "Vyrovnaná ve všech čtyřech pilířích; stabilní špička sněmovny.",
+      "dvorak-m": "Silná práce ve výborech; jedna přiznaná firma v prověřování.",
+      "hruska-k": "Docházka se zlepšila; 4,2 mil. Kč v zakázkách firmě napojené na poslance.",
+      "beran-t": "Nejnižší decil v docházce; tři nepřiznané statutární role."
+    },
+    "chamberStats": {
+      "avg": {
+        "label": "průměrný kompozit",
+        "value": "56,8",
+        "sub": "medián 55,4 · rozptyl σ 11,6",
+        "source": "civicscore v1.4"
+      },
+      "attendance": {
+        "label": "průměrná docházka",
+        "value": "78,3 %",
+        "sub": "−1,2 p. b. proti Q1/25",
+        "source": "psp.cz — jmenovitá hlasování"
+      },
+      "money": {
+        "label": "peníze k napojeným firmám",
+        "value": "2,1 mld Kč",
+        "sub": "+180 mil. Kč toto čtvrtletí",
+        "source": "registr smluv ⋈ ares"
+      },
+      "laws": {
+        "label": "novelizované zákony",
+        "value": "312",
+        "sub": "38 mění § s dopadem na občany",
+        "source": "e-sbírka · psp.cz tisky"
+      }
+    },
+    "events": {
+      "e1": {
+        "ts": "dnes 09:14",
+        "text": "Nová smlouva 4,2 mil. Kč — Silnice MSK a.s. (vazba: K. Hruška, statutární orgán)",
+        "source": "registr smluv"
+      },
+      "e2": {
+        "ts": "dnes 08:02",
+        "text": "Pilíř integrity K. Hrušky přepočten 68 → 61; čeká na lidskou kontrolu před zveřejněním",
+        "source": "civicscore v1.4"
+      },
+      "e3": {
+        "ts": "út 14. 7.",
+        "text": "Hlasování č. 412: novela zákona o zadávání veřejných zakázek přijata 108:62",
+        "source": "psp.cz"
+      },
+      "e4": {
+        "ts": "út 14. 7.",
+        "text": "P. Nováková šla proti linii Pirátů u zastropování cen energií (4. rebelie v období)",
+        "source": "psp.cz — odchylky od linie"
+      },
+      "e5": {
+        "ts": "po 13. 7.",
+        "text": "Novela mění § 16 zákona o střetu zájmů — účinnost od 1. 1. 2027; diff připraven",
+        "source": "e-sbírka"
+      },
+      "e6": {
+        "ts": "pá 10. 7.",
+        "text": "Dar 350 tis. Kč pro ANO 2011 od Agrofond s.r.o. — překryv vlastníků 38 %",
+        "source": "hlídač státu /sponzoring"
+      },
+      "e7": {
+        "ts": "čt 9. 7.",
+        "text": "Čtvrtletní přepočet žebříčku: 200 poslanců, 14 změn v první dvacítce",
+        "source": "civicscore v1.4"
+      }
+    },
+    "rollCalls": {
+      "h-412": {
+        "title": "Novela zákona o zadávání veřejných zakázek",
+        "tisk": "sn. tisk 486"
+      },
+      "h-409": {
+        "title": "Rozpočet krajské dopravní infrastruktury",
+        "tisk": "sn. tisk 471"
+      },
+      "h-398": {
+        "title": "Ochrana oznamovatelů — rozšíření působnosti",
+        "tisk": "sn. tisk 455"
+      },
+      "h-391": {
+        "title": "Zastropování cen energií pro domácnosti",
+        "tisk": "sn. tisk 448"
+      },
+      "h-387": {
+        "title": "Digitalizace stavebního řízení — odklad účinnosti",
+        "tisk": "sn. tisk 440"
+      }
+    },
+    "lawChanges": {
+      "lc1": {
+        "law": "Zákon o zadávání veřejných zakázek",
+        "lawRef": "č. 134/2016 Sb.",
+        "paragraph": "§ 16 odst. 2",
+        "summary": "Údaje o skutečném majiteli dodavatele nově povinné před podpisem smlouvy.",
+        "before": "Zadavatel může požadovat předložení údajů o skutečném majiteli vybraného dodavatele.",
+        "after": "Zadavatel požaduje předložení údajů o skutečném majiteli vybraného dodavatele před podpisem smlouvy; bez nich smlouvu neuzavře."
+      },
+      "lc2": {
+        "law": "Zákon o ochraně oznamovatelů",
+        "lawRef": "č. 171/2023 Sb.",
+        "paragraph": "§ 4",
+        "summary": "Vnitřní oznamovací systém nově i pro obce nad 5 000 obyvatel.",
+        "before": "Povinnost zavést vnitřní oznamovací systém se vztahuje na obce s více než 10 000 obyvateli.",
+        "after": "Povinnost zavést vnitřní oznamovací systém se vztahuje na obce s více než 5 000 obyvateli."
+      },
+      "lc3": {
+        "law": "Stavební zákon",
+        "lawRef": "č. 283/2021 Sb.",
+        "paragraph": "§ 312",
+        "summary": "Plná digitalizace stavebního řízení odložena o 12 měsíců.",
+        "before": "Portál stavebníka se použije pro všechna řízení zahájená po 1. červenci 2026.",
+        "after": "Portál stavebníka se použije pro všechna řízení zahájená po 1. červenci 2027."
+      }
+    },
+    "billStages": {
+      "0": "1. čtení",
+      "1": "výbory",
+      "2": "2. čtení",
+      "3": "3. čtení",
+      "4": "Senát",
+      "5": "podpis",
+      "6": "účinnost"
+    },
+    "bills": {
+      "0": {
+        "tisk": "sn. tisk 440",
+        "title": "Digitalizace stavebního řízení — odklad účinnosti"
+      },
+      "1": {
+        "tisk": "sn. tisk 455",
+        "title": "Ochrana oznamovatelů — rozšíření působnosti"
+      },
+      "2": {
+        "tisk": "sn. tisk 486",
+        "title": "Novela zákona o zadávání veřejných zakázek"
+      },
+      "3": {
+        "tisk": "sn. tisk 471",
+        "title": "Rozpočet krajské dopravní infrastruktury"
+      },
+      "4": {
+        "tisk": "sn. tisk 448",
+        "title": "Zastropování cen energií pro domácnosti"
+      },
+      "5": {
+        "tisk": "sn. tisk 502",
+        "title": "Novela zákona o střetu zájmů"
+      },
+      "6": {
+        "tisk": "sn. tisk 509",
+        "title": "Registr lobbistů"
+      }
+    },
+    "moneyTies": {
+      "0": {
+        "company": "Silnice MSK a.s.",
+        "kind": "statutární orgán (od 03/2019)",
+        "amount": "4,2 mil. Kč",
+        "note": "veřejná zakázka — údržba silnic, Kraj MSK",
+        "source": "registr smluv · ares v3"
+      },
+      "1": {
+        "company": "Agrofond s.r.o.",
+        "kind": "vlastník 38 %",
+        "amount": "11,8 mil. Kč",
+        "note": "dotace SZIF; firma zároveň dárce ANO 2011 (350 tis. Kč)",
+        "source": "registr dotací · hlídač státu"
+      },
+      "2": {
+        "company": "DK Stav s.r.o.",
+        "kind": "přiznaná firma (společník 50 %)",
+        "amount": "—",
+        "note": "bez veřejných zakázek; v prověřování entity-resolution",
+        "source": "ares v3 · registr oznámení"
+      },
+      "3": {
+        "company": "3 společnosti",
+        "kind": "nepřiznané statutární role",
+        "amount": "—",
+        "note": "rozpor mezi ARES a registrem oznámení; čeká na lidskou kontrolu",
+        "source": "ares v3 ⋈ registr oznámení"
+      }
+    },
+    "graphNodes": {
+      "mp": {
+        "label": "K. Hruška",
+        "sub": "poslanec · ANO"
+      },
+      "co1": {
+        "label": "Silnice MSK a.s.",
+        "sub": "IČO 258 41 991"
+      },
+      "co2": {
+        "label": "Agrofond s.r.o.",
+        "sub": "IČO 470 12 336"
+      },
+      "party": {
+        "label": "ANO 2011",
+        "sub": "strana"
+      },
+      "k1": {
+        "label": "4,2 mil. Kč",
+        "sub": "údržba silnic, 2025"
+      },
+      "k2": {
+        "label": "11,8 mil. Kč",
+        "sub": "dotace SZIF, 2024"
+      },
+      "k3": {
+        "label": "350 tis. Kč",
+        "sub": "dar, 2024"
+      }
+    },
+    "graphEdges": {
+      "0": "statutární orgán",
+      "1": "vlastník 38 %",
+      "2": "dodavatel",
+      "3": "příjemce",
+      "4": "dárce",
+      "5": "obdržel"
+    }
+  },
+  "landing": {
+    "nav": {
+      "index": "Index",
+      "ranking": "Žebříček",
+      "system": "Systém",
+      "data": "Data",
+      "method": "Metoda"
+    },
+    "enter": "Vstoupit",
+    "eyebrow": "obr. 1 — hlavní zpráva · 9. volební období",
+    "titleLine1": "Změřená",
+    "titleLine2": "republika",
+    "lead": "Každý odevzdaný hlas, každá koruna veřejných peněz, každý změněný paragraf zákona — spojené do jednoho skóre pro každého politika. Ne názor: index se zveřejněnými váhami, kde každé číslo cituje veřejný dataset, ze kterého vzniklo.",
+    "ctaRanking": "Žebříček",
+    "ctaMethod": "Metodika",
+    "hemicycleCaption": "obr. 2 — 200 křesel sněmovny podle pásma skóre",
+    "hemicycleSource": "psp.cz · hlídač státu",
+    "hemicycleAria": "Hemicykl 200 křesel podle pásma skóre",
+    "rankingTitle": "Žebříček",
+    "rankingSource": "obr. 3 — kompozit = Σ pilíř × váha · přepočet každé čtvrtletí",
+    "rankingIntro": "Pořadí podle kompozitního skóre; plný žebříček pokrývá všech 200 poslanců. Vyberte řádek — rozklad, trend i živý vzorek nahoře se přepnou na vybraného poslance.",
+    "specimenLabel": "živý vzorek — {name}, {party}",
+    "publishedWeights": "zveřejněné váhy",
+    "scoreDefault": "spočteno podle zveřejněných vah v1.4",
+    "scoreCustom": "spočteno podle VAŠICH vah — stejné důkazy",
+    "pillarWeightAria": "Váha pilíře {pillar}",
+    "specimenNote": "Hodnoty pilířů jsou fakta s citacemi — {attendance} % docházky je psp.cz, vazby na zakázky Registr smluv. Názorem je jen váhování — a to je vytištěné na stránce.",
+    "breakdownSource": "rozklad skóre — kolik bodů přinesl který pilíř",
+    "breakdownTooltipUnit": "{value} b.",
+    "trendSource": "vývoj kompozitu — {name} · {count} čtvrtletí",
+    "trendTooltip": "kompozit",
+    "trendFootnote": "zdroj: psp.cz · hlídač státu · registr smluv — přepočet metodikou v1.4",
+    "systemTitlePart1": "Jeden graf",
+    "systemTitlePart2": "Pět nástrojů",
+    "systemIntro": "Politik ↔ strana ↔ firma ↔ smlouva ↔ hlasování ↔ rozpočet ↔ zákon, propojeno přes univerzální osmimístné IČO. Každý nástroj čte tentýž graf.",
+    "sourcesTitle": "Surový materiál",
+    "sourcesCaption": "obr. 4 — ověřené veřejné zdroje",
+    "joinKeyLabel": "spojovací klíč",
+    "joinKeyDesc": "8 číslic spojujících firmu ↔ smlouvu ↔ dotaci ↔ dar.",
+    "methodTitle": "Žádná černá skříňka",
+    "methodBody": "Verzované váhy, citace u každého pilíře, proklik až k doloženému faktu. Vazby mezi politiky a firmami zveřejňujeme jako datovaná, doložená fakta — nikdy jako obvinění. Postaveno a otestováno celý volební cyklus předtím, než na tom bude záležet.",
+    "methodCtaFind": "Najdi svého poslance",
+    "methodCtaApi": "API pro redakce",
+    "footerLeft": "Politicas — empirický záznam republiky",
+    "footerRight": "otevřená data · cc by · metodika v1.4"
+  },
+  "dashboard": {
+    "headerTag": "velín",
+    "headerNote": "9. období · Q2/25 · přepočet {date}",
+    "title": "Velín republiky",
+    "lead": "Co se ve státě změnilo, když jste se nedívali — agregáty sněmovny, pohyby v žebříčku a nové hrany v grafu veřejných peněz. Každé číslo cituje svůj zdroj.",
+    "rankingSectionTitle": "Žebříček",
+    "allMpsLink": "všech 200 poslanců",
+    "rankingFootnote": "kompozit = Σ pilíř × váha · civicscore v1.4 · řádek otevírá spis poslance",
+    "chamberTrendLabel": "vývoj průměru sněmovny",
+    "chamberTrendTooltip": "průměrný kompozit",
+    "chamberTrendSource": "zdroj: psp.cz · registr smluv — metodika v1.4",
+    "pillarAvgLabel": "průměry pilířů — vzorek {n} poslanců",
+    "pillarAvgTooltip": "průměr vzorku",
+    "pillarAvgSource": "psp.cz · hlídač státu — hodnoty pilířů 0–100",
+    "feedSectionTitle": "Co se změnilo v grafu",
+    "feedIngestionNote": "ingesce: denně (psp, smlouvy) · čtvrtletně (dotace, rozpočty)",
+    "toolsSectionTitle": "Pět nástrojů",
+    "toolsJoinKeyNote": "osoba ⋈ strana ⋈ firma ⋈ peníze ⋈ hlasování ⋈ zákon — klíč: IČO"
+  },
+  "profile": {
+    "breadcrumb": "spis",
+    "backToDashboard": "velín",
+    "fileNumber": "spis č. {rank} / 200 · {party} · {region} · 9. volební období",
+    "trendTooltip": "kompozit",
+    "trendMeta": "{count} čtvrtletí · v1.4",
+    "pillarsHeading": "Pilíře",
+    "pillarsAside": "kompozit = Σ pilíř × váha · metodika v1.4",
+    "votesHeading": "Jak hlasoval(a)",
+    "votesAside": "psp.cz — jmenovitá hlasování · denní ingesce",
+    "dateHeader": "datum",
+    "motionHeader": "hlasování",
+    "resultHeader": "výsledek",
+    "choiceHeader": "hlas",
+    "rebelTag": "proti linii strany",
+    "moneyHeading": "Peněžní vazby",
+    "moneyAside": "registr smluv ⋈ ares ⋈ hlídač — klíč: IČO",
+    "moneyLink": "celá síť peněz →",
+    "moneyEmptyTitle": "Žádné doložené vazby na veřejné peníze",
+    "moneyEmptyBody": "K dnešnímu dni nebyla dohledána žádná firma napojená na poslance s veřejnou zakázkou, dotací ani darem straně. Kontrola běží při každé denní ingesci.",
+    "moneyDisclaimer": "Vazby zveřejňujeme jako datovaná, doložená fakta — nikdy jako obvinění. Sporné záznamy čekají na lidskou kontrolu a do té doby se nepropisují do skóre.",
+    "prevFile": "předchozí spis",
+    "nextFile": "další spis"
+  },
+  "votetrack": {
+    "backToDashboard": "velín",
+    "heroSourceNote": "votetrack · analýza hlasování · sytí pilíře aktivita + docházka + nezávislost",
+    "title": "Hlasování sněmovny",
+    "lead": "Deník jmenovitých hlasování, pohled do sálu a linie klubů — tři perspektivy nad týmiž daty. Vyberte zápis v deníku; sál se překreslí.",
+    "section1Title": "Deník a sál",
+    "section1Note": "pruh = sál: kobalt pro · šedá zdržel/omluven · signální proti",
+    "section2Title": "Linie klubů",
+    "section2Note": "psp.cz — odchylky od stranické linie · počítáno z rozpadů",
+    "section3Title": "Rebelie a nezávislost",
+    "section3Note": "sytí pilíř nezávislost × 0.25 · metodika v1.4",
+    "hemicycleAria": "Hemicykl hlasování: {title}",
+    "splitNote": "rozpad po stranách — podíl hlasů klubu · šipka = linie · číslo = disciplína",
+    "sampleNote": "hlasy sledovaného vzorku — štítek otevírá spis",
+    "rebelTag": "rebel",
+    "disciplineNote": "disciplína klubů — průměr přes {count} hlasování",
+    "partyHeader": "strana",
+    "matrixNote": "matice linií — ▲ pro · ▼ proti · plná barva = disciplína ≥ 90 %",
+    "matrixFootnote": "Obrys místo plné barvy znamená, že se klub štěpil — přesně tam začíná pilíř Nezávislost.",
+    "rebellionChronicleNote": "kronika rebelií sledovaného vzorku",
+    "votedVerb": "hlasoval(a)",
+    "againstPartyLine": "proti linii klubu —",
+    "noRebellions": "V sledovaném období žádná rebelie ve vzorku.",
+    "independencePillarNote": "pilíř nezávislost — sledovaný vzorek (0–100)",
+    "independenceFootnote": "Nezávislost není ctnost ani hřích — je to měřená odchylka od linie klubu. Interpretace patří čtenáři; čísla nesou citace.",
+    "rebelsCount": "{n}× proti linii",
+    "sampleFootnote": "vzorek {sample} z {total} hlasování 9. období · psp.cz — denní ingesce"
+  },
+  "civicscore": {
+    "backToControl": "velín",
+    "sourceNote": "civicscore · syntéza všech modulů · metodika v1.4 — verzovaná, veřejná",
+    "title": "Žebříček republiky",
+    "lead": "Všech 200 poslanců podle kompozitního skóre — čtyři pilíře, zveřejněné váhy, každé číslo dohledatelné ke zdroji. Detailní spisy zatím nese sledovaný vzorek; zbytek sněmovny je ilustrativní mock nad tvarem skutečných dat.",
+    "distributionTitle": "Rozložení sněmovny",
+    "distributionSource": "kompozit 0–100 · přepočet každé čtvrtletí",
+    "duelTitle": "Souboj",
+    "duelSource": "vyberte dvojici tlačítkem „vs“ v žebříčku níže",
+    "allTitle": "Všech 200",
+    "allSource": "kompozit = Σ pilíř × váha · civicscore v1.4",
+    "rank": "pořadí {rank}",
+    "emptyTitle": "Vyberte dva poslance",
+    "emptyBody": "Tlačítkem „vs“ u řádku žebříčku níže vyberte dvojici — souboj je porovná pilíř po pilíři podle zveřejněných vah.",
+    "leadLine": "{name} vede o <diff>{diffLabel}</diff> kompozitu",
+    "footnote": "kompozit = Σ pilíř × váha · signální hodnota = vítěz pilíře · zdroje: psp.cz · hlídač · registr smluv",
+    "allParties": "vše · 200",
+    "searchPlaceholder": "hledat jméno…",
+    "searchAriaLabel": "Hledat poslance podle jména",
+    "legendWidthNote": "· šířka pruhu = kompozit",
+    "toggleDuelAdd": "vybrat do souboje",
+    "toggleDuelRemove": "odebrat ze souboje",
+    "vsButton": "vs",
+    "emptyResults": "Nikdo neodpovídá filtru — zkuste jiné jméno nebo stranu.",
+    "shownOf": "zobrazeno {count} z 200 · spis mají poslanci sledovaného vzorku (šipka)",
+    "mockNote": "dogenerovaná jména jsou ilustrativní — mock nad tvarem psp.cz",
+    "avgLabel": "průměr",
+    "medianLabel": "medián",
+    "sigmaLabel": "rozptyl σ",
+    "histogramCount": "{value} poslanců",
+    "histogramBand": "v pásmu",
+    "histogramSource": "histogram kompozitů po 5 {pts} · signální = pod mediánem sněmovny · civicscore v1.4",
+    "histogramFootnote": "počítáno z plného žebříčku 200 poslanců"
+  },
+  "money": {
+    "controlRoom": "velín",
+    "eyebrow": "followthemoney · síť peněz · sytí pilíř integrita × 0.3",
+    "title": "Stopa peněz",
+    "intro": "Veřejné zakázky, dotace a dary dohledané přes firmy až k politikům, kteří jsou s nimi spojeni. Tady CivicScore ukazuje důkazy za nízkou integritou — jako datovaná fakta, nikdy jako obvinění.",
+    "stats": {
+      "contracted": {
+        "sub": "veřejné zakázky, dotace a dary za 9. období",
+        "source": "registr smluv ⋈ ares ⋈ registr dotací"
+      },
+      "sampleTies": {
+        "label": "doložené vazby vzorku",
+        "sub": "u 3 z 5 sledovaných poslanců",
+        "source": "ares v3 · registr oznámení"
+      },
+      "pendingReview": {
+        "label": "čeká na lidskou kontrolu",
+        "sub": "do pilíře Integrita se nepropisují",
+        "source": "metodika v1.4 — práh spolehlivosti"
+      },
+      "joinKey": {
+        "label": "spojovací klíč",
+        "sub": "8 číslic: firma ↔ smlouva ↔ dotace ↔ dar",
+        "source": "univerzální identifikátor"
+      }
+    },
+    "sections": {
+      "graph": {
+        "title": "Graf entit",
+        "aside": "plná čára = důkazní stopa · čárkovaná = evidovaná vazba"
+      },
+      "ledger": {
+        "title": "Kniha vazeb",
+        "aside": "seskupeno po poslancích · jméno otevírá spis"
+      },
+      "method": {
+        "title": "Jak stopa vzniká",
+        "aside": "metodika v1.4 — verzovaná, veřejná"
+      }
+    },
+    "graphCaption": "obr. — vzorek stopy K. Hrušky · osoba kobalt · firma čerň · strana ocel · peníze signální ◆",
+    "graph": {
+      "badge": "graf entit · vzorek MSK-047",
+      "joinCaption": "registr smluv ⋈ ares ⋈ hlídač — klíč: IČO",
+      "ariaLabel": "Graf peněžní stopy: poslanec, firmy, veřejné peníze",
+      "edgesInRecord": "{count} hran v záznamu",
+      "hoverHint": "najeďte na uzel a stopa se rozsvítí",
+      "allEdgesVerified": "● všechny hrany datované + doložené"
+    },
+    "ledger": {
+      "caseFile": "spis č. {rank}",
+      "noTiesNote": "bez doložených vazeb — kontrola běží při každé denní ingesci",
+      "disclaimer": "Vazby zveřejňujeme jako datovaná, doložená fakta — nikdy jako obvinění. Záznamy se štítkem „{pendingLabel}“ se do pilíře Integrita nepropisují, dokud je neschválí člověk."
+    },
+    "method": {
+      "steps": {
+        "ares": {
+          "title": "ARES v3",
+          "body": "Rejstřík firem a statutárních orgánů — kdo ve které firmě figuruje.",
+          "cadence": "téměř real-time · 500 req/min"
+        },
+        "registers": {
+          "title": "Registr smluv + dotací",
+          "body": "Veřejné peníze tekoucí k firmám — smlouvy denně, dotace čtvrtletně.",
+          "cadence": "denně / čtvrtletně"
+        },
+        "watchdog": {
+          "title": "Hlídač státu",
+          "body": "Osoby, stranické vazby a dary — druhá strana grafu.",
+          "cadence": "průběžně · REST API"
+        },
+        "resolution": {
+          "title": "Rozlišení entit + lidská kontrola",
+          "body": "Osoba nemá veřejný identifikátor — párujeme jméno, ročník a adresu, neseme spolehlivost. Sporné záznamy nezveřejňujeme.",
+          "cadence": "práh spolehlivosti · člověk schvaluje"
+        }
+      },
+      "footnote": "Spojovacím klíčem celého grafu je osmimístné IČO — čisté spojení firma ↔ smlouva ↔ dotace ↔ dar. Nejtěžší hrana je osoba ↔ firma; proto je poslední krok metodiky člověk, ne heuristika."
+    }
+  },
+  "budget": {
+    "backToDashboard": "velín",
+    "eyebrow": "budgetmirror · rozpočtové srovnání · správcovství pro exekutivní role",
+    "title": "Zrcadlo rozpočtů",
+    "intro": "Hospodaření města nemá smysl číst samo o sobě — zrcadlo ho staví vedle vrstevníků podobné velikosti. Ukázková skupina: města 20–40 tisíc obyvatel (z 6 254 obcí v MONITORu).",
+    "section1Title": "Město vs. vrstevníci",
+    "section1Aside": "signální hodnota = horší než medián skupiny · MONITOR, čtvrtletně",
+    "residents": "{count} obyvatel",
+    "metricDebtLabel": "dluh na obyvatele",
+    "metricCapexLabel": "podíl investic na výdajích",
+    "metricSaldoLabel": "saldo na obyvatele",
+    "townLabel": "město",
+    "peerMedianValue": "medián · {value}",
+    "peerMedianLabel": "medián vrstevníků",
+    "section2Title": "Vývoj dluhu",
+    "section2Aside": "Kč na obyvatele · plná čára = {town} · čárkovaná = medián vrstevníků",
+    "section2Source": "zdroj: MONITOR / Státní pokladna — čtvrtletní ingesce, konsolidováno po letech",
+    "section3Title": "Vrstevnická skupina",
+    "section3Aside": "řazeno podle dluhu na obyvatele · řádek přepíná zrcadlo",
+    "colPopulation": "obyvatel",
+    "colDebt": "dluh / obyv.",
+    "colCapex": "investice %",
+    "colSaldo": "saldo / obyv.",
+    "stewardshipNote": "Správcovství se propisuje do CivicScore jen u politiků v exekutivních rolích (starostové, hejtmani) — poslanec za špatný rozpočet cizího města skóre neztrácí. Data měst jsou ilustrativní mock nad tvarem MONITORu."
+  },
+  "lawwatch": {
+    "back": "velín",
+    "eyebrow": "lawwatch · monitor legislativy · propojuje hlasování → dopady",
+    "title": "Hlídač paragrafů",
+    "intro": "Co se v zákonech skutečně změnilo — rozdíly po paragrafech propojené zpět na hlasování, které je odhlasovalo. Váš poslanec hlasoval pro novelu, která změnila § — tady je obojí vedle sebe.",
+    "section1Title": "Změny paragrafů",
+    "section1Aside": "e-sbírka — konsolidovaná znění · diff = před / po účinnosti",
+    "effectiveFrom": "účinnost {date}",
+    "sampleNote": "vzorek 3 z 312 novelizovaných zákonů · e-sbírka sparql — průběžně",
+    "beforeLabel": "znění před novelou",
+    "afterLabel": "znění po novele — účinnost od {date}",
+    "passedBy": "odhlasováno — {tisk}",
+    "openInChamber": "otevřít v sále →",
+    "section2Title": "Legislativní potrubí",
+    "section2Aside": "psp.cz tisky — denní ingesce · plný bod = dosažená fáze",
+    "rejectedAtStage": "zamítnuto ve {stage}",
+    "voteLink": "hlasování {pro}:{proti} →",
+    "pipelineFootnote": "Potrubí čte sněmovní tisky denně; diff paragrafů vzniká z konsolidovaných znění e-Sbírky, jakmile novela vyjde. Zamítnuté tisky v potrubí končí — i to je dopad, který stojí za zaznamenání."
+  }
+}

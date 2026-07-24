@@ -8,6 +8,7 @@
  */
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import type { RollCall } from "@/lib/civic/data";
 
 const ROWS = [26, 30, 34, 38, 34, 38];
@@ -49,6 +50,8 @@ function buildSeats(): Seat[] {
 const SEATS = buildSeats();
 
 export default function VoteHemicycle({ rc }: { rc: RollCall }) {
+  const t = useTranslations("votetrack");
+  const tc = useTranslations("content");
   const reduceMotion = useReducedMotion();
   // Křesla klínu: v rámci strany seskupit hlasy pro / zdržel / omluven / proti,
   // aby barvy tvořily čitelné bloky.
@@ -64,7 +67,12 @@ export default function VoteHemicycle({ rc }: { rc: RollCall }) {
   }
 
   return (
-    <svg viewBox="0 0 220 112" className="w-full" role="img" aria-label={`Hemicykl hlasování: ${rc.title}`}>
+    <svg
+      viewBox="0 0 220 112"
+      className="w-full"
+      role="img"
+      aria-label={t("hemicycleAria", { title: tc(`rollCalls.${rc.id}.title`) })}
+    >
       <motion.g
         key={rc.id}
         initial={reduceMotion ? false : { opacity: 0 }}

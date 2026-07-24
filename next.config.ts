@@ -1,5 +1,10 @@
 import type { NextConfig } from "next";
 import { withSentryConfig } from "@sentry/nextjs";
+import createNextIntlPlugin from "next-intl/plugin";
+
+// next-intl (App Router, no i18n routing): reads the active locale from the
+// NEXT_LOCALE cookie in ./lib/i18n/request.ts.
+const withNextIntl = createNextIntlPlugin("./lib/i18n/request.ts");
 
 const nextConfig: NextConfig = {
   // The parent kiro folder has its own lockfile; pin the root so Turbopack
@@ -20,7 +25,7 @@ const nextConfig: NextConfig = {
 // silently. `silent` keeps local builds quiet and lets CI surface logs.
 // (No `disableLogger`: it is deprecated and unsupported under Turbopack, which
 // this app builds with — leaving it in only produces build-time warn-spam.)
-export default withSentryConfig(nextConfig, {
+export default withSentryConfig(withNextIntl(nextConfig), {
   org: process.env.SENTRY_ORG,
   project: process.env.SENTRY_PROJECT,
   silent: !process.env.CI,

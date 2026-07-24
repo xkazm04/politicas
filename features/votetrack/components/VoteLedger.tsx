@@ -6,10 +6,17 @@
  * výběr řídí vedlejší pohled do sálu.
  */
 
+import { useTranslations } from "next-intl";
 import type { RollCall } from "@/lib/civic/data";
 import { ROLL_CALLS } from "@/lib/civic/data";
-import { czechDate } from "@/lib/format";
+import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
+
+/** RollCall.result z dat (česky) → klíč common.voteResult. */
+const RESULT_KEY: Record<string, string> = {
+  přijato: "accepted",
+  zamítnuto: "rejected",
+};
 
 /** Poměrový pruh sálu — 200 křesel jako šířky segmentů. */
 export function ResultBar({ rc }: { rc: RollCall }) {
@@ -30,6 +37,10 @@ export default function VoteLedger({
   selectedId: string;
   onSelect: (id: string) => void;
 }) {
+  const t = useTranslations("votetrack");
+  const tc = useTranslations("content");
+  const tcom = useTranslations("common");
+  const f = useFormat();
   return (
     <div className="min-w-0">
       <div className="border-t-2 border-ink">
@@ -45,31 +56,35 @@ export default function VoteLedger({
           >
             <span className="flex items-baseline justify-between gap-3">
               <span className="font-mono text-xs uppercase tracking-wider text-steel">
-                {czechDate(rc.date)} · {rc.tisk}
+                {f.date(rc.date)} · {tc(`rollCalls.${rc.id}.tisk`)}
               </span>
               <span
                 className={`font-mono text-[11px] font-black uppercase tracking-wider ${
                   rc.result === "přijato" ? "text-cobalt" : "text-signal"
                 }`}
               >
-                {rc.result}
+                {tcom(`voteResult.${RESULT_KEY[rc.result]}`)}
               </span>
             </span>
-            <span className="mt-1 block text-[15px] font-bold leading-snug">{rc.title}</span>
+            <span className="mt-1 block text-[15px] font-bold leading-snug">
+              {tc(`rollCalls.${rc.id}.title`)}
+            </span>
             <span className="mt-2 block">
               <ResultBar rc={rc} />
             </span>
             <span className="mt-1 flex items-center justify-between font-mono text-[11px] uppercase tracking-wider text-steel">
-              <span>{rc.pro}:{rc.proti}</span>
+              <span>{f.int(rc.pro)}:{f.int(rc.proti)}</span>
               {rc.rebels.length > 0 && (
-                <span className="font-bold text-signal">{rc.rebels.length}× proti linii</span>
+                <span className="font-bold text-signal">{t("rebelsCount", { n: rc.rebels.length })}</span>
               )}
             </span>
           </button>
         ))}
       </div>
       <div className="mt-3">
-        <SourceNote>vzorek 5 z 5 214 hlasování 9. období · psp.cz — denní ingesce</SourceNote>
+        <SourceNote>
+          {t("sampleFootnote", { sample: ROLL_CALLS.length, total: f.int(5214) })}
+        </SourceNote>
       </div>
     </div>
   );

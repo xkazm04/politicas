@@ -7,6 +7,7 @@
  */
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 const ROWS = [26, 30, 34, 38, 34, 38];
 
@@ -44,8 +45,9 @@ const SEAT_ROWS = buildRows();
 const bandClass = (b: number) => (b > 72 ? "fill-ink" : b > 38 ? "fill-cobalt" : "fill-signal");
 
 export default function Hemicycle() {
+  const t = useTranslations("landing");
   return (
-    <svg viewBox="0 0 220 112" className="w-full" role="img" aria-label="Hemicykl 200 křesel podle pásma skóre">
+    <svg viewBox="0 0 220 112" className="w-full" role="img" aria-label={t("hemicycleAria")}>
       {SEAT_ROWS.map((row, r) => (
         <motion.g
           key={r}

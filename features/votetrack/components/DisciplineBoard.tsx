@@ -7,19 +7,23 @@
  */
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { ROLL_CALLS } from "@/lib/civic/data";
-import { czech, czechDate } from "@/lib/format";
+import { useFormat } from "@/lib/i18n/useFormat";
 import { disciplineByParty, partyLine } from "@/lib/civic/votes";
 import SourceNote from "@/features/shared/components/SourceNote";
 
 const DISCIPLINE = disciplineByParty();
 
 export default function DisciplineBoard() {
+  const t = useTranslations("votetrack");
+  const tc = useTranslations("content");
+  const f = useFormat();
   return (
     <div className="grid gap-12 lg:grid-cols-[5fr_7fr]">
       {/* Žebříček disciplíny */}
       <div className="min-w-0">
-        <SourceNote>disciplína klubů — průměr přes {ROLL_CALLS.length} hlasování</SourceNote>
+        <SourceNote>{t("disciplineNote", { count: ROLL_CALLS.length })}</SourceNote>
         <div className="mt-3 border-t-2 border-ink">
           {DISCIPLINE.map((d, i) => (
             <motion.div
@@ -45,7 +49,7 @@ export default function DisciplineBoard() {
                   transition={{ duration: 0.5, delay: i * 0.04 }}
                 />
               </span>
-              <span className="text-right text-lg font-black tabular-nums">{czech(d.avg)} %</span>
+              <span className="text-right text-lg font-black tabular-nums">{f.dec(d.avg)} %</span>
             </motion.div>
           ))}
         </div>
@@ -53,17 +57,19 @@ export default function DisciplineBoard() {
 
       {/* Matice linií */}
       <div className="min-w-0">
-        <SourceNote>matice linií — ▲ pro · ▼ proti · plná barva = disciplína ≥ 90 %</SourceNote>
+        <SourceNote>{t("matrixNote")}</SourceNote>
         <div className="mt-3 overflow-x-auto">
           <table className="w-full min-w-[34rem] border-collapse text-center">
             <thead>
               <tr>
                 <th className="border-b-2 border-ink py-2 pr-3 text-left font-mono text-[11px] uppercase tracking-widest text-steel">
-                  strana
+                  {t("partyHeader")}
                 </th>
                 {ROLL_CALLS.map((rc) => (
                   <th key={rc.id} className="border-b-2 border-ink px-1.5 py-2 font-mono text-[10px] uppercase tracking-wider text-steel">
-                    <span className="block" title={rc.title}>{czechDate(rc.date)}</span>
+                    <span className="block" title={tc(`rollCalls.${rc.id}.title`)}>
+                      {f.date(rc.date)}
+                    </span>
                   </th>
                 ))}
               </tr>
@@ -94,7 +100,7 @@ export default function DisciplineBoard() {
                                 : "border-signal text-signal"
                           }`}
                         >
-                          {line === "pro" ? "▲" : "▼"} {Math.round(disc)}
+                          {line === "pro" ? "▲" : "▼"} {f.int(Math.round(disc))}
                         </span>
                       </td>
                     );
@@ -104,10 +110,7 @@ export default function DisciplineBoard() {
             </tbody>
           </table>
         </div>
-        <p className="mt-3 max-w-md text-sm italic leading-relaxed text-steel">
-          Obrys místo plné barvy znamená, že se klub štěpil — přesně tam začíná
-          pilíř Nezávislost.
-        </p>
+        <p className="mt-3 max-w-md text-sm italic leading-relaxed text-steel">{t("matrixFootnote")}</p>
       </div>
     </div>
   );

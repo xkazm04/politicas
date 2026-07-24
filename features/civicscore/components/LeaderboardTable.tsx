@@ -9,10 +9,11 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { ArrowUpRight, Swords } from "lucide-react";
 import { PARTIES, PILLARS } from "@/lib/civic/data";
 import { LEADERBOARD, type LeaderboardRow } from "@/lib/civic/leaderboard";
-import { czech } from "@/lib/format";
+import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { PILLAR_FILL } from "@/features/landing/palette";
 
@@ -38,6 +39,9 @@ export default function LeaderboardTable({
   duel: string[];
   onToggleDuel: (id: string) => void;
 }) {
+  const t = useTranslations("civicscore");
+  const tc = useTranslations("content");
+  const f = useFormat();
   const [party, setParty] = useState<string | null>(null);
   const [query, setQuery] = useState("");
 
@@ -60,7 +64,7 @@ export default function LeaderboardTable({
           }`}
           aria-pressed={party === null}
         >
-          vše · 200
+          {t("allParties")}
         </button>
         {PARTIES.map((p) => (
           <button
@@ -80,8 +84,8 @@ export default function LeaderboardTable({
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="hledat jméno…"
-          aria-label="Hledat poslance podle jména"
+          placeholder={t("searchPlaceholder")}
+          aria-label={t("searchAriaLabel")}
           className="ml-auto border-2 border-hairline bg-paper px-3 py-1.5 font-mono text-xs uppercase tracking-wider text-ink placeholder:text-steel focus:border-ink focus:outline-none"
         />
       </div>
@@ -91,11 +95,11 @@ export default function LeaderboardTable({
         {PILLARS.map((p) => (
           <span key={p.key} className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-steel">
             <span className="inline-block h-2.5 w-2.5" style={{ background: PILLAR_FILL[p.key] }} />
-            {p.label} × {p.weight}
+            {tc(`pillars.${p.key}.label`)} × {p.weight}
           </span>
         ))}
         <span className="font-mono text-[10px] uppercase tracking-wider text-steel">
-          · šířka pruhu = kompozit
+          {t("legendWidthNote")}
         </span>
       </div>
 
@@ -127,38 +131,38 @@ export default function LeaderboardTable({
                 )}
                 <span className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-steel">
                   <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: r.partyColor }} />
-                  {r.party.split(" ")[0]} · {r.region}
+                  {r.party.split(" ")[0]} · {tc(`regions.${r.region}`)}
                 </span>
               </span>
               <span className="max-sm:hidden">
                 <MiniBreakdown row={r} />
               </span>
-              <span className="w-12 text-right text-lg font-black tabular-nums">{czech(r.score)}</span>
+              <span className="w-12 text-right text-lg font-black tabular-nums">{f.dec(r.score)}</span>
               <button
                 type="button"
                 onClick={() => onToggleDuel(r.id)}
-                title={inDuel ? "odebrat ze souboje" : "vybrat do souboje"}
+                title={inDuel ? t("toggleDuelRemove") : t("toggleDuelAdd")}
                 aria-pressed={inDuel}
                 className={`inline-flex items-center gap-1 border-2 px-2 py-1 font-mono text-[10px] font-bold uppercase tracking-wider transition-colors ${
                   inDuel ? "border-signal bg-signal text-paper" : "border-hairline text-steel hover:border-ink hover:text-ink"
                 }`}
               >
-                <Swords className="h-3 w-3" /> vs
+                <Swords className="h-3 w-3" /> {t("vsButton")}
               </button>
             </div>
           );
         })}
         {rows.length === 0 && (
           <div className="border-2 border-dashed border-hairline p-6 text-sm text-steel">
-            Nikdo neodpovídá filtru — zkuste jiné jméno nebo stranu.
+            {t("emptyResults")}
           </div>
         )}
       </div>
       <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
         <SourceNote>
-          zobrazeno {rows.length} z 200 · spis mají poslanci sledovaného vzorku (šipka)
+          {t("shownOf", { count: rows.length })}
         </SourceNote>
-        <SourceNote className="!text-[10px]">dogenerovaná jména jsou ilustrativní — mock nad tvarem psp.cz</SourceNote>
+        <SourceNote className="!text-[10px]">{t("mockNote")}</SourceNote>
       </div>
     </div>
   );
