@@ -39,7 +39,9 @@ Fixed engine: **Claude Code CLI** (subscription-unmetered). Sweep axes:
 ARM-importable compute substrates (verified): **DuckDB** ⭐ (columnar OLAP for the
 406k-ballot joins), **PGlite + pgvector** (the app's own store + vectors),
 **LanceDB** (embeddings / semantic ops), **better-sqlite3** (arm-D substrate),
-**Qdrant client** (needs a server). Deferred to an x64 box: libSQL, Polars, Kuzu.
+**Qdrant client** (needs a server). Deferred to an x64 box: libSQL, Polars.
+**Kuzu** — now benchmarked on x64 (graph traversal; see `db-architecture-guide.md` case #4:
+no graph DB needed at this scale — recursive CTEs / DuckDB beat it).
 
 **Benchmark combination = {substrate} × {model × effort} × {hybrid pattern}**,
 where the hybrid patterns are the four arms already built plus two new ones:

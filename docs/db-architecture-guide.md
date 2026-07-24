@@ -26,13 +26,14 @@ Every rule here is backed by an experiment on Politicas's real datasets
 | **Full-text / fuzzy** | vote-title & MP-name search | when dedicated **FTS**? |
 | **Vector / semantic** | semantic vote/person search (embeddings) | **in-DB vector vs dedicated**? |
 
-**Engine candidates** (✓ = benchmarked on this ARM box):
+**Engine candidates** (✓ = benchmarked; cases #1–3 on the ARM box, #4 on an x64/Windows box):
 
 - **PGlite** ✓ — embedded Postgres (the incumbent); row store, JSONB, window fns, recursive CTEs.
 - **DuckDB** ✓ — in-process columnar, vectorized; analytical joins/aggregates; Parquet/Lance/Iceberg.
 - **node:sqlite** ✓ — built-in row store (Node 24, `--experimental-sqlite`); zero-dep baseline.
 - **pgvector / LanceDB / Qdrant** ✓ (installable) — vector similarity.
-- **Kuzu** ⚠ (x64) — embedded property graph. **ClickHouse / Polars** ⚠ (x64/service).
+- **Kuzu** ✓ (x64) — embedded property graph; **now benchmarked (case #4)** — installs from a
+  bundled prebuilt on win32-x64, no cmake build. **ClickHouse / Polars** ⚠ (x64/service).
 
 **Metrics.** correctness (cross-engine checksum) · warm-median latency · load/build
 time · memory · code ergonomics. **Decision axes for single-vs-hybrid:** data
@@ -115,6 +116,48 @@ at 69 hits each).
   Postgres-WASM per-row overhead. On PGlite, use `tsvector`+GIN, never rely on ILIKE
   for a hot text path.
 
+### Case #4 — graph traversal, recursive-CTE stores vs native graph (Kuzu) — 2026-07-24
+
+The deferred graph case, now run on an **x64/Windows** box (Kuzu is x64-only but installs
+from a bundled prebuilt — no build). Real KG `co_votes_with` at agreement **θ≥0.9: 10,056
+edges over 203 MPs** — a *near-complete, bimodal* graph (two voting blocs, ~0.99 intra /
+~0.4 cross agreement). Three workloads, warm-median latency, **counts identical across all
+four engines** (cross-checked):
+
+| Engine | build (ms) | G1 reach H2 | G1 reach H3 | G2 triangles | G3 hetero-join |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| PGlite (incumbent) | 86 | 4.1 | 7.1 | 412.6 | **0.6** |
+| node:sqlite | 11 | **2.5** | 6.0 | 188.3 | 0.9 |
+| **DuckDB** | 22 | 3.8 | **5.4** | **20.3** | 2.1 |
+| Kuzu (native graph) | 193 | 8.1 | **922** | 38.7 | 4.0 |
+
+- **G1** = distinct MPs within H hops of a seed (recursive traversal; median over 8 seeds) ·
+  **G2** = triangle count = mutually-≥θ triples (the graph self-join; **328,877**) · **G3** =
+  committee colleagues (`influential_in`) who also co-vote (heterogeneous typed multi-hop; 8 seeds).
+
+**What it shows:**
+- **The native graph engine won nothing here — and lost badly on deep traversal.** Kuzu's
+  idiomatic Cypher variable-length `*1..3` **enumerates every path** (~degree³ ≈ 10⁶ on a
+  dense graph) before `DISTINCT`-collapsing to the same 766 nodes → **922 ms, ~130× slower**
+  than the row stores' recursive CTE (5–7 ms), whose `UNION` dedups at every depth. On a dense
+  graph, **path-enumeration ≠ reachability**, and the set-deduping CTE is the right tool.
+- **Reachability saturates** — H2 == H3 (Σ 766 either way). On a near-complete graph 2 hops
+  already reaches the whole bloc; there is **no "multi-hop that outgrows recursive CTEs"** here
+  to justify a graph store (the exact trigger the recommended-architecture note reserved a graph
+  DB for). Reach is a **non-workload**: trivial for the row stores.
+- **The heavy graph aggregate is a *columnar* win, not a graph-DB win.** G2 (triangle
+  self-join — the graph analog of case #1's A3) → **DuckDB 20 ms**, 9–20× faster than the row
+  stores (PGlite 413 ms is again the worst) **and ~2× faster than Kuzu**. Same verdict as OLAP:
+  push the analytical self-join to DuckDB.
+- **The heterogeneous join (G3) is small and bounded** (committee links are sparse: 605 edges)
+  → sub-5 ms everywhere, **row stores fastest** (PGlite 0.6 ms). A fixed-length typed join over
+  a sparse relation doesn't need a graph engine either.
+- **Build cost:** Kuzu's on-disk DB creation (193 ms) is the heaviest; the in-memory
+  row/columnar stores stand up in 11–86 ms. Load is a non-issue for all.
+
+Harness: `scripts/db-bench/graph.ts` — PGlite/SQLite/DuckDB recursive-CTE vs Kuzu Cypher, same
+θ-filtered graph, cross-engine checksum on every count.
+
 ## Decision rules (accumulating)
 
 _Derived from the measured cases as they land. Each rule cites the case that backs it._
@@ -156,6 +199,23 @@ _Derived from the measured cases as they land. Each rule cites the case that bac
 - **R11 — FTS stays in the existing store — no new engine.** Postgres `tsvector`+GIN
   keeps full-text in PGlite (in-DB, transactional); SQLite FTS5 is the free, fastest
   option if you're already on SQLite. Never LIKE-scan a large corpus on PGlite. _(case #3)_
+- **R12 — No graph DB at Politicas's scale.** On the real co-voting graph (203 MPs,
+  ~10–20k edges, near-complete), **Kuzu lost every workload** to PGlite / DuckDB / SQLite.
+  Keep traversal in the incumbent (recursive CTE); push the heavy graph aggregate to DuckDB
+  (R3). Don't add a graph engine. _(case #4)_
+- **R13 — Reachability ≠ path enumeration; pick the set-deduping tool for dense graphs.**
+  A recursive CTE with `UNION` dedups at each depth (766 nodes, ~7 ms); Kuzu's variable-length
+  pattern enumerates all paths (degree^k → **922 ms at 3 hops** on a dense graph). For "who is
+  reachable" on a dense graph the row-store CTE wins big; reserve native variable-length paths
+  for **sparse** graphs and genuine *path* questions (enumerate/rank paths), not reach. _(case #4)_
+- **R14 — The graph self-join is columnar's job (same as OLAP).** Triangle/clique counting over
+  the agreement graph is an analytical self-join: **DuckDB 20 ms ≫ row stores (188–413 ms) and ≫
+  Kuzu (39 ms)** — R1/R3 extend cleanly from ballots to the KG. _(case #4)_
+- **R15 — When a graph DB WOULD earn its keep (untested, the honest boundary):** millions of
+  edges, a **sparse** topology, and deep (≥4-hop) *variable-length path* queries where SQL's
+  intermediate materialization explodes — none of which the dense 203-node co-voting graph
+  exhibits. Re-run case #4 if the graph turns large-and-sparse (cross-term co-voting,
+  bill-citation networks, the money graph at scale). _(case #4)_
 
 ### Recommended Politicas architecture (from the measured cases)
 
@@ -169,15 +229,16 @@ store at current scale:
   the `kg-compute` self-joins), reading the same canonical ballots (43× faster; §case #1).
 
 Add a dedicated **vector** store only past ~1M vectors or high re-embed churn (R7);
-add a dedicated **graph** store (Kuzu, x64) only if multi-hop traversals outgrow
-recursive CTEs (case #2-graph, deferred — ARM can't build Kuzu).
+**do not add a graph store** — case #4 measured Kuzu on the real co-voting graph and it
+**lost every workload** to the recursive-CTE row/columnar stores (R12–R15). Reconsider only
+for a millions-edge *sparse* graph with deep path queries.
 
 ## Roadmap — experiments to add
 
 1. **OLAP** over 406k ballots — PGlite vs DuckDB vs SQLite _(✓ done — case #1)_.
-2. **Graph traversal** — recursive-CTE co-votes/committee walks in PGlite vs a graph
-   engine (Kuzu) — **DEFERRED: Kuzu is x64-only, won't build on this ARM box.** The
-   recursive-CTE-across-row/columnar-stores half is still runnable on ARM.
+2. **Graph traversal** — recursive-CTE co-votes/committee walks vs Kuzu _(✓ done — case #4,
+   on an x64/Windows box; Kuzu installs from a bundled prebuilt, no build. Verdict: no graph
+   DB needed at this scale)_.
 3. **Full-text** — `tsvector`/GIN vs FTS5 vs LIKE _(✓ done — case #3)_.
 4. **Vector** — pgvector (in-DB) vs LanceDB _(✓ done — case #2)_.
 5. **OLTP** — one-MP-profile read path: PGlite vs SQLite; is Postgres overkill for
@@ -189,11 +250,18 @@ into a portable "single vs hybrid, and which engine" playbook.
 ## How to run
 
 ```bash
-# each experiment stages its own PGlite copy (single-connection):
+# cases #1–3 read the live store — stage a PGlite copy (single-connection):
 cp -r .pglite .pglite-bench
 NODE_OPTIONS=--experimental-sqlite npx tsx scripts/db-bench/olap.ts --pglite=.pglite-bench
 rm -rf .pglite-bench
+
+# case #4 (graph) reads the portable CSV export instead of a live .pglite —
+# so it runs on any device the data is shuttled to (x64, for Kuzu):
+NODE_OPTIONS=--experimental-sqlite npx tsx scripts/db-bench/graph.ts --th=0.9 --seeds=8 --hops=2,3
 ```
 
-Bench deps live in an isolated `scripts/db-bench/package.json` (DuckDB; SQLite is
-Node built-in) — never in the product tree. Output goes to `.db-bench/` (gitignored).
+Bench deps live in an isolated `scripts/db-bench/package.json` (DuckDB, LanceDB, **Kuzu**;
+SQLite is Node built-in, PGlite comes from the root install) — never in the product tree.
+Kuzu is **x64-only** but installs from a bundled prebuilt (no cmake build). Output goes to
+`.db-bench/` (gitignored). Case #4's data is the temporary `benchmark-data/*.csv` bundle
+(portable CSV export of the PSP store; see its README).
