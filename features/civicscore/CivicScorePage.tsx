@@ -1,18 +1,23 @@
 "use client";
 
 /*
- * CivicScore — plný žebříček republiky (/zebricek, roadmapa Fáze 2).
- * Syntéza modulu: rozložení sněmovny, žebříček všech 200 poslanců
- * (deterministický mock kotvený na detailním vzorku) a souboj dvou
- * poslanců pilíř po pilíři. Váhy zůstávají na očích u každého čísla.
+ * CivicScore — plný žebříček republiky (/zebricek).
+ * REÁLNÁ DATA: všech 207 poslanců 9. období seřazených podle indexu přispění
+ * (contribution_score) z deterministického znalostního grafu (psp.cz). Šest
+ * složek se zveřejněnou vahou nahrazuje původní čtyři mock pilíře — každé číslo
+ * pochází z grafu, žádné se zde nedopočítává ani nevymýšlí. Trend/delta
+ * (čtvrtletní řada) nemá reálné podloží (jedno období) → vynecháno.
+ *
+ * Data přicházejí jako typovaná prop z server-only loaderu getLeaderboardData.
+ * Null (bez storu / prázdný graf) → stránka se vykreslí s ohlášeným upozorněním.
  */
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { ArrowLeft } from "lucide-react";
-import { LEADERBOARD, type LeaderboardRow } from "@/lib/civic/leaderboard";
+import type { LeaderboardData, LeaderboardEntry } from "./getLeaderboardData";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
@@ -21,19 +26,21 @@ import ScoreHistogram from "./components/ScoreHistogram";
 import HeadToHead from "./components/HeadToHead";
 import LeaderboardTable from "./components/LeaderboardTable";
 
-export default function CivicScorePage() {
+export default function CivicScorePage({ data }: { data: LeaderboardData | null }) {
   const t = useTranslations("civicscore");
-  // Souboj: max dva vybraní; třetí výběr vyřadí staršího z dvojice.
-  const [duel, setDuel] = useState<string[]>(["novakova-p", "hruska-k"]);
-  const toggleDuel = (id: string) =>
-    setDuel((d) => (d.includes(id) ? d.filter((x) => x !== id) : [...d.slice(-1), id]));
+  // Souboj: max dva vybraní (klíč = pspId); třetí výběr vyřadí staršího.
+  const initial = data?.entries.slice(0, 2).map((e) => e.pspId) ?? [];
+  const [duel, setDuel] = useState<number[]>(initial);
+  const toggleDuel = (pspId: number) =>
+    setDuel((d) => (d.includes(pspId) ? d.filter((x) => x !== pspId) : [...d.slice(-1), pspId]));
 
+  const byId = useMemo(
+    () => new Map((data?.entries ?? []).map((e) => [e.pspId, e])),
+    [data],
+  );
   const pair =
-    duel.length === 2
-      ? ([
-          LEADERBOARD.find((r) => r.id === duel[0])!,
-          LEADERBOARD.find((r) => r.id === duel[1])!,
-        ] as [LeaderboardRow, LeaderboardRow])
+    duel.length === 2 && byId.has(duel[0]) && byId.has(duel[1])
+      ? ([byId.get(duel[0])!, byId.get(duel[1])!] as [LeaderboardEntry, LeaderboardEntry])
       : null;
 
   return (
@@ -83,41 +90,55 @@ export default function CivicScorePage() {
           </p>
         </div>
 
-        {/* ── 01 Rozložení ──────────────────────────────────── */}
-        <section>
-          <SectionHeading
-            index={1}
-            title={t("distributionTitle")}
-            aside={<SourceNote>{t("distributionSource")}</SourceNote>}
-          />
-          <div className="mt-8">
-            <ScoreHistogram />
+        {data === null ? (
+          <div className="mb-20 border-2 border-dashed border-hairline p-8">
+            <p className="text-base font-black uppercase tracking-wide">{t("noData")}</p>
           </div>
-        </section>
+        ) : (
+          <>
+            {/* ── 01 Rozložení ──────────────────────────────── */}
+            <section>
+              <SectionHeading
+                index={1}
+                title={t("distributionTitle")}
+                aside={<SourceNote>{t("realNote")}</SourceNote>}
+              />
+              <div className="mt-8">
+                <ScoreHistogram summary={data.summary} histogram={data.histogram} />
+              </div>
+            </section>
 
-        {/* ── 02 Souboj ─────────────────────────────────────── */}
-        <section className="mt-14 border-t-4 border-ink pt-10">
-          <SectionHeading
-            index={2}
-            title={t("duelTitle")}
-            aside={<SourceNote>{t("duelSource")}</SourceNote>}
-          />
-          <div className="mt-8">
-            <HeadToHead pair={pair} />
-          </div>
-        </section>
+            {/* ── 02 Souboj ─────────────────────────────────── */}
+            <section className="mt-14 border-t-4 border-ink pt-10">
+              <SectionHeading
+                index={2}
+                title={t("duelTitle")}
+                aside={<SourceNote>{t("duelSource")}</SourceNote>}
+              />
+              <div className="mt-8">
+                <HeadToHead pair={pair} components={data.components} />
+              </div>
+            </section>
 
-        {/* ── 03 Žebříček ───────────────────────────────────── */}
-        <section className="mt-14 border-t-4 border-ink pt-10 pb-20">
-          <SectionHeading
-            index={3}
-            title={t("allTitle")}
-            aside={<SourceNote>{t("allSource")}</SourceNote>}
-          />
-          <div className="mt-8">
-            <LeaderboardTable duel={duel} onToggleDuel={toggleDuel} />
-          </div>
-        </section>
+            {/* ── 03 Žebříček ───────────────────────────────── */}
+            <section className="mt-14 border-t-4 border-ink pt-10 pb-20">
+              <SectionHeading
+                index={3}
+                title={t("allTitle")}
+                aside={<SourceNote>{t("realNote")}</SourceNote>}
+              />
+              <div className="mt-8">
+                <LeaderboardTable
+                  entries={data.entries}
+                  clubs={data.clubs}
+                  components={data.components}
+                  duel={duel}
+                  onToggleDuel={toggleDuel}
+                />
+              </div>
+            </section>
+          </>
+        )}
       </div>
     </main>
   );

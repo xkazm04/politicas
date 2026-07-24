@@ -1,43 +1,39 @@
 "use client";
 
 /**
- * Souboj — dva poslanci vedle sebe, pilíř po pilíři. Zrcadlené pruhy se
- * potkávají uprostřed; vítěz pilíře nese signální hodnotu. Rozdíl kompozitu
- * v titulku, váhy pilířů u popisků — metodika zůstává na očích.
+ * Souboj — dva poslanci vedle sebe, složka po složce (REÁLNÁ DATA). Zrcadlené
+ * pruhy se potkávají uprostřed; vítěz složky nese signální hodnotu. Rozdíl
+ * kompozitu (indexu přispění) v titulku, váhy složek u popisků. Pruh = body
+ * složky / její váha; číslo = získané body.
  */
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { ArrowUpRight } from "lucide-react";
-import { PILLARS } from "@/lib/civic/data";
-import type { LeaderboardRow } from "@/lib/civic/leaderboard";
+import type { LeaderboardData, LeaderboardEntry } from "../getLeaderboardData";
 import { useFormat } from "@/lib/i18n/useFormat";
 import AnimatedScore from "@/features/shared/components/AnimatedScore";
 import SourceNote from "@/features/shared/components/SourceNote";
 
-function Fighter({ row, align }: { row: LeaderboardRow; align: "left" | "right" }) {
+function Fighter({ row, align }: { row: LeaderboardEntry; align: "left" | "right" }) {
   const t = useTranslations("civicscore");
   const f = useFormat();
   const right = align === "right";
   return (
     <div className={right ? "text-right" : "text-left"}>
       <div className={`flex items-center gap-2 ${right ? "justify-end" : ""}`}>
-        {row.sample ? (
-          <Link
-            href={`/poslanec/${row.id}`}
-            className="inline-flex items-center gap-1.5 text-2xl font-black uppercase tracking-tight hover:text-signal sm:text-3xl"
-          >
-            {row.name}
-            <ArrowUpRight className="h-5 w-5 text-signal" />
-          </Link>
-        ) : (
-          <span className="text-2xl font-black uppercase tracking-tight sm:text-3xl">{row.name}</span>
-        )}
+        <Link
+          href={`/poslanec/${row.pspId}`}
+          className="inline-flex items-center gap-1.5 text-2xl font-black uppercase tracking-tight hover:text-signal sm:text-3xl"
+        >
+          {row.name}
+          <ArrowUpRight className="h-5 w-5 text-signal" />
+        </Link>
       </div>
       <div className={`mt-0.5 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-steel ${right ? "justify-end" : ""}`}>
-        <span className="inline-block h-2 w-2 rounded-full" style={{ background: row.partyColor }} />
-        {row.party.split(" ")[0]} · {t("rank", { rank: row.rank })}
+        <span className="inline-block h-2 w-2 rounded-full" style={{ background: row.clubColor }} />
+        {row.clubName.split(" ")[0]} · {t("rank", { rank: row.rank })}
       </div>
       <AnimatedScore
         value={row.score}
@@ -48,10 +44,15 @@ function Fighter({ row, align }: { row: LeaderboardRow; align: "left" | "right" 
   );
 }
 
-export default function HeadToHead({ pair }: { pair: [LeaderboardRow, LeaderboardRow] | null }) {
+export default function HeadToHead({
+  pair,
+  components,
+}: {
+  pair: [LeaderboardEntry, LeaderboardEntry] | null;
+  components: LeaderboardData["components"];
+}) {
   const reduceMotion = useReducedMotion();
   const t = useTranslations("civicscore");
-  const tc = useTranslations("content");
   const tcom = useTranslations("common");
   const f = useFormat();
 
@@ -74,7 +75,7 @@ export default function HeadToHead({ pair }: { pair: [LeaderboardRow, Leaderboar
   return (
     <AnimatePresence mode="wait">
       <motion.div
-        key={`${a.id}-${b.id}`}
+        key={`${a.pspId}-${b.pspId}`}
         initial={reduceMotion ? false : { opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         exit={reduceMotion ? undefined : { opacity: 0 }}
@@ -93,34 +94,39 @@ export default function HeadToHead({ pair }: { pair: [LeaderboardRow, Leaderboar
         </p>
 
         <div className="mt-6 space-y-4">
-          {PILLARS.map((p) => {
-            const va = Math.round(a.pillars[p.key]);
-            const vb = Math.round(b.pillars[p.key]);
+          {components.map((c) => {
+            const pa = a.components[c.key];
+            const pb = b.components[c.key];
+            const va = Math.round(pa);
+            const vb = Math.round(pb);
+            // Pruh = podíl získaných bodů na max. váze složky.
+            const wa = (pa / c.weight) * 100;
+            const wb = (pb / c.weight) * 100;
             return (
-              <div key={p.key} className="grid grid-cols-[3rem_1fr_auto_1fr_3rem] items-center gap-3">
-                <span className={`text-right text-lg font-black tabular-nums ${va > vb ? "text-signal" : "text-ink"}`}>
+              <div key={c.key} className="grid grid-cols-[3rem_1fr_auto_1fr_3rem] items-center gap-3">
+                <span className={`text-right text-lg font-black tabular-nums ${pa > pb ? "text-signal" : "text-ink"}`}>
                   {va}
                 </span>
                 <div className="flex justify-end bg-hairline">
                   <motion.span
                     className="block h-4 bg-ink"
                     initial={false}
-                    animate={{ width: `${va}%` }}
+                    animate={{ width: `${wa}%` }}
                     transition={reduceMotion ? { duration: 0 } : { duration: 0.4 }}
                   />
                 </div>
                 <span className="min-w-[7.5rem] text-center font-mono text-[11px] font-bold uppercase tracking-wider text-steel">
-                  {tc(`pillars.${p.key}.label`)} × {p.weight}
+                  {c.label} × {c.weight}
                 </span>
                 <div className="flex justify-start bg-hairline">
                   <motion.span
                     className="block h-4 bg-ink"
                     initial={false}
-                    animate={{ width: `${vb}%` }}
+                    animate={{ width: `${wb}%` }}
                     transition={reduceMotion ? { duration: 0 } : { duration: 0.4 }}
                   />
                 </div>
-                <span className={`text-lg font-black tabular-nums ${vb > va ? "text-signal" : "text-ink"}`}>
+                <span className={`text-lg font-black tabular-nums ${pb > pa ? "text-signal" : "text-ink"}`}>
                   {vb}
                 </span>
               </div>

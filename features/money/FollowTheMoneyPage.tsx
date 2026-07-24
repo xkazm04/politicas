@@ -12,7 +12,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { MODULES, MONEY_TIES } from "@/lib/civic/data";
 import { useFormat } from "@/lib/i18n/useFormat";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
@@ -22,42 +22,72 @@ import SourceNote from "@/features/shared/components/SourceNote";
 import MoneyGraph from "./MoneyGraph";
 import TiesLedger from "./components/TiesLedger";
 import TrailMethod from "./components/TrailMethod";
+import { compactCzk, type MoneyData } from "./moneyTypes";
 
 const MODULE = MODULES.find((m) => m.key === "follow-the-money")!;
 const PENDING = MONEY_TIES.filter((tie) => !tie.verified).length;
 
-export default function FollowTheMoneyPage() {
+export default function FollowTheMoneyPage({ data }: { data?: MoneyData | null }) {
   const t = useTranslations("money");
   const tc = useTranslations("content");
   const tcom = useTranslations("common");
   const f = useFormat();
+  const locale = useLocale();
 
-  const STATS = [
-    {
-      label: tc(`modules.${MODULE.key}.metricLabel`),
-      value: tc(`modules.${MODULE.key}.metricValue`),
-      sub: t("stats.contracted.sub"),
-      source: t("stats.contracted.source"),
-    },
-    {
-      label: t("stats.sampleTies.label"),
-      value: f.int(MONEY_TIES.length),
-      sub: t("stats.sampleTies.sub"),
-      source: t("stats.sampleTies.source"),
-    },
-    {
-      label: t("stats.pendingReview.label"),
-      value: f.int(PENDING),
-      sub: t("stats.pendingReview.sub"),
-      source: t("stats.pendingReview.source"),
-    },
-    {
-      label: t("stats.joinKey.label"),
-      value: "IČO",
-      sub: t("stats.joinKey.sub"),
-      source: t("stats.joinKey.source"),
-    },
-  ];
+  // Real store data (kg money layer) when present; otherwise the labelled mock.
+  const STATS = data
+    ? [
+        {
+          label: t("real.stats.reachableLabel"),
+          value: compactCzk(data.stats.contractCzkReachable, locale),
+          sub: t("real.stats.reachableSub"),
+          source: t("real.stats.reachableSource"),
+        },
+        {
+          label: t("real.stats.mpsLabel"),
+          value: f.int(data.stats.mpsWithTies),
+          sub: t("real.stats.mpsSub"),
+          source: t("real.stats.mpsSource"),
+        },
+        {
+          label: t("real.stats.companiesLabel"),
+          value: f.int(data.stats.companiesLinked),
+          sub: t("real.stats.companiesSub"),
+          source: t("real.stats.companiesSource"),
+        },
+        {
+          label: t("real.stats.pendingLabel"),
+          value: f.int(data.stats.pendingTies),
+          sub: t("real.stats.pendingSub"),
+          source: t("real.stats.pendingSource"),
+        },
+      ]
+    : [
+        {
+          label: tc(`modules.${MODULE.key}.metricLabel`),
+          value: tc(`modules.${MODULE.key}.metricValue`),
+          sub: t("stats.contracted.sub"),
+          source: t("stats.contracted.source"),
+        },
+        {
+          label: t("stats.sampleTies.label"),
+          value: f.int(MONEY_TIES.length),
+          sub: t("stats.sampleTies.sub"),
+          source: t("stats.sampleTies.source"),
+        },
+        {
+          label: t("stats.pendingReview.label"),
+          value: f.int(PENDING),
+          sub: t("stats.pendingReview.sub"),
+          source: t("stats.pendingReview.source"),
+        },
+        {
+          label: t("stats.joinKey.label"),
+          value: "IČO",
+          sub: t("stats.joinKey.sub"),
+          source: t("stats.joinKey.source"),
+        },
+      ];
 
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
@@ -90,7 +120,7 @@ export default function FollowTheMoneyPage() {
       <div className="mx-auto max-w-6xl px-6">
         {/* ── Titulní pás ───────────────────────────────────── */}
         <div className="py-10">
-          <SourceNote tone="signal">{t("eyebrow")}</SourceNote>
+          <SourceNote tone="signal">{data ? t("real.eyebrow", { pass: data.pass }) : t("eyebrow")}</SourceNote>
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -104,6 +134,11 @@ export default function FollowTheMoneyPage() {
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">
             {t("intro")}
           </p>
+          {data && (
+            <div className="mt-6 max-w-2xl border-l-4 border-ochre bg-ochre/10 px-4 py-3">
+              <p className="text-sm leading-relaxed text-ink">{t("real.allPendingBanner")}</p>
+            </div>
+          )}
         </div>
 
         {/* ── Agregátní dlaždice ────────────────────────────── */}
@@ -132,11 +167,11 @@ export default function FollowTheMoneyPage() {
             aside={<SourceNote>{t("sections.graph.aside")}</SourceNote>}
           />
           <div className="mt-8">
-            <MoneyGraph />
+            <MoneyGraph data={data?.graph ?? null} />
           </div>
           <div className="mt-3">
             <SourceNote>
-              {t("graphCaption")}
+              {data?.graph ? t("real.graphCaption", { name: data.graph.mp.name }) : t("graphCaption")}
             </SourceNote>
           </div>
         </section>
@@ -149,7 +184,7 @@ export default function FollowTheMoneyPage() {
             aside={<SourceNote>{t("sections.ledger.aside")}</SourceNote>}
           />
           <div className="mt-8">
-            <TiesLedger />
+            <TiesLedger data={data ?? null} />
           </div>
         </section>
 

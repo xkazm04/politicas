@@ -1,23 +1,29 @@
 "use client";
 
 /**
- * Rozložení sněmovny — histogram kompozitů po 5 bodech + počítaný souhrn.
- * Vše z LEADERBOARD (jediný zdroj pravdy); dlaždice velína jsou k témuž
- * souhrnu přišité testem.
+ * Rozložení sněmovny — histogram indexu přispění po 5 bodech + počítaný souhrn.
+ * Vše z reálného grafu (getLeaderboardData); pruhy pod mediánem sněmovny nesou
+ * signální barvu. Žádné mock, žádná čtvrtletní řada.
  */
 
 import { useMemo } from "react";
 import { useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { CHAMBER_SUMMARY, SCORE_HISTOGRAM } from "@/lib/civic/leaderboard";
+import type { LeaderboardData } from "../getLeaderboardData";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { COBALT, HAIRLINE, INK, PAPER_STRONG, SIGNAL, STEEL, TOOLTIP_STYLE } from "@/features/landing/palette";
 
 const CHART_TICK = { fill: STEEL, fontSize: 12, fontFamily: "var(--font-plex)" } as const;
 
-export default function ScoreHistogram() {
+export default function ScoreHistogram({
+  summary,
+  histogram,
+}: {
+  summary: LeaderboardData["summary"];
+  histogram: LeaderboardData["histogram"];
+}) {
   const reduceMotion = useReducedMotion();
   const t = useTranslations("civicscore");
   const tcom = useTranslations("common");
@@ -25,11 +31,11 @@ export default function ScoreHistogram() {
 
   const summaryTiles = useMemo(
     () => [
-      { label: t("avgLabel"), value: f.dec(CHAMBER_SUMMARY.avg) },
-      { label: t("medianLabel"), value: f.dec(CHAMBER_SUMMARY.median) },
-      { label: t("sigmaLabel"), value: f.dec(CHAMBER_SUMMARY.sigma) },
+      { label: t("avgLabel"), value: f.dec(summary.avg) },
+      { label: t("medianLabel"), value: f.dec(summary.median) },
+      { label: t("sigmaLabel"), value: f.dec(summary.sigma) },
     ],
-    [t, f],
+    [t, f, summary],
   );
 
   return (
@@ -37,9 +43,9 @@ export default function ScoreHistogram() {
       <div className="min-w-0">
         <div className="w-full overflow-hidden" style={{ aspectRatio: "5 / 2", minHeight: 200 }}>
           <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
-            <BarChart data={SCORE_HISTOGRAM} margin={{ top: 8, right: 8, left: -18, bottom: 0 }}>
+            <BarChart data={histogram} margin={{ top: 8, right: 8, left: -18, bottom: 0 }}>
               <CartesianGrid stroke={HAIRLINE} vertical={false} />
-              <XAxis dataKey="label" tick={{ ...CHART_TICK, fontSize: 11 }} tickLine={false} axisLine={{ stroke: INK, strokeWidth: 2 }} interval={0} />
+              <XAxis dataKey="label" tick={{ ...CHART_TICK, fontSize: 11 }} tickLine={false} axisLine={{ stroke: INK, strokeWidth: 2 }} interval={0} angle={-45} textAnchor="end" height={44} />
               <YAxis tick={CHART_TICK} tickLine={false} axisLine={false} allowDecimals={false} />
               <Tooltip
                 cursor={{ fill: PAPER_STRONG }}
@@ -47,8 +53,8 @@ export default function ScoreHistogram() {
                 formatter={(value) => [t("histogramCount", { value: Number(value) }), t("histogramBand")]}
               />
               <Bar dataKey="count" isAnimationActive={!reduceMotion}>
-                {SCORE_HISTOGRAM.map((b) => (
-                  <Cell key={b.from} fill={b.from >= 55 ? COBALT : SIGNAL} fillOpacity={b.from >= 55 ? 1 : 0.85} />
+                {histogram.map((b) => (
+                  <Cell key={b.from} fill={b.from >= summary.median ? COBALT : SIGNAL} fillOpacity={b.from >= summary.median ? 1 : 0.85} />
                 ))}
               </Bar>
             </BarChart>
