@@ -181,6 +181,20 @@ function RealLawWatch({ data }: { data: LawData }) {
         </span>
       </div>
 
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-2 border-signal bg-signal/5 px-4 py-3">
+        <p className="text-[13px] leading-snug">
+          <span className="font-black uppercase tracking-wide text-signal">Kolize tisků</span> — souběžně
+          projednávané tisky, které novelizují stejný § téhož zákona neslučitelným nebo na pořadí citlivým
+          způsobem. Case ③, 4 dávky close-readu.
+        </p>
+        <Link
+          href="/zakony/kolize"
+          className="inline-flex shrink-0 items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-signal transition-colors hover:text-cobalt"
+        >
+          otevřít kolize <ArrowUpRight className="h-3.5 w-3.5" />
+        </Link>
+      </div>
+
       {/* ── 01 Které tisky mění které zákony ──────────────── */}
       <section className="mt-12">
         <SectionHeading
