@@ -1,0 +1,1603 @@
+{
+ "generatedAt": "2026-07-24T20:46:38.639Z",
+ "method": "batch-004 Q-law-10: same pairwise base-§ overlap as collision-report.json, but each bill's §-set is FIRST partitioned by which target statute its own Čl. N article block cites (reusing amends-census.ts's per-article first-citation convention), so a § only counts toward a group's lawRef if the bill's OWN novelization instructions place it under an article targeting that exact statute. Fixes the tisk-248-class false positive (an omnibus bill's platné znění PDF bundles multiple statutes' text; the old flat check matched §-numbers across bundled-but-unrelated statutes).",
+ "sourceOriginal": "docs/data-analysis/case-law/payloads/collision-report.json",
+ "sourceGroups": "docs/data-analysis/case-law/payloads/collision-groups.json",
+ "stats": {
+  "groupsTotal": 29,
+  "billsInWorklist": 71,
+  "billsFetched": 71,
+  "billsSkipped": 0,
+  "originalPairCount": 72,
+  "survivedCount": 34,
+  "diedCount": 38
+ },
+ "funnel": {
+  "originalPairs": 72,
+  "survivedPartitioning": 34,
+  "diedInPartitioning": 38
+ },
+ "survivedPairs": [
+  {
+   "lawRef": "586/1992",
+   "billA": 4,
+   "billB": 121,
+   "n": 9
+  },
+  {
+   "lawRef": "586/1992",
+   "billA": 4,
+   "billB": 120,
+   "n": 16
+  },
+  {
+   "lawRef": "586/1992",
+   "billA": 4,
+   "billB": 244,
+   "n": 16
+  },
+  {
+   "lawRef": "586/1992",
+   "billA": 119,
+   "billB": 248,
+   "n": 9
+  },
+  {
+   "lawRef": "586/1992",
+   "billA": 121,
+   "billB": 120,
+   "n": 8
+  },
+  {
+   "lawRef": "586/1992",
+   "billA": 121,
+   "billB": 244,
+   "n": 8
+  },
+  {
+   "lawRef": "586/1992",
+   "billA": 120,
+   "billB": 244,
+   "n": 26
+  },
+  {
+   "lawRef": "586/1992",
+   "billA": 120,
+   "billB": 248,
+   "n": 14
+  },
+  {
+   "lawRef": "40/2009",
+   "billA": 111,
+   "billB": 207,
+   "n": 109
+  },
+  {
+   "lawRef": "40/2009",
+   "billA": 207,
+   "billB": 216,
+   "n": 1
+  },
+  {
+   "lawRef": "427/2011",
+   "billA": 71,
+   "billB": 248,
+   "n": 2
+  },
+  {
+   "lawRef": "117/1995",
+   "billA": 112,
+   "billB": 121,
+   "n": 4
+  },
+  {
+   "lawRef": "117/1995",
+   "billA": 112,
+   "billB": 124,
+   "n": 1
+  },
+  {
+   "lawRef": "117/1995",
+   "billA": 112,
+   "billB": 198,
+   "n": 1
+  },
+  {
+   "lawRef": "117/1995",
+   "billA": 121,
+   "billB": 124,
+   "n": 1
+  },
+  {
+   "lawRef": "117/1995",
+   "billA": 121,
+   "billB": 198,
+   "n": 1
+  },
+  {
+   "lawRef": "117/1995",
+   "billA": 124,
+   "billB": 198,
+   "n": 1
+  },
+  {
+   "lawRef": "256/2004",
+   "billA": 132,
+   "billB": 143,
+   "n": 14
+  },
+  {
+   "lawRef": "256/2004",
+   "billA": 143,
+   "billB": 210,
+   "n": 16
+  },
+  {
+   "lawRef": "256/2004",
+   "billA": 210,
+   "billB": 248,
+   "n": 13
+  },
+  {
+   "lawRef": "491/2001",
+   "billA": 12,
+   "billB": 131,
+   "n": 11
+  },
+  {
+   "lawRef": "243/2000",
+   "billA": 28,
+   "billB": 140,
+   "n": 3
+  },
+  {
+   "lawRef": "243/2000",
+   "billA": 28,
+   "billB": 141,
+   "n": 4
+  },
+  {
+   "lawRef": "243/2000",
+   "billA": 140,
+   "billB": 141,
+   "n": 4
+  },
+  {
+   "lawRef": "90/1995",
+   "billA": 15,
+   "billB": 72,
+   "n": 10
+  },
+  {
+   "lawRef": "104/2013",
+   "billA": 46,
+   "billB": 196,
+   "n": 7
+  },
+  {
+   "lawRef": "634/1992",
+   "billA": 53,
+   "billB": 62,
+   "n": 1
+  },
+  {
+   "lawRef": "375/2022",
+   "billA": 57,
+   "billB": 153,
+   "n": 8
+  },
+  {
+   "lawRef": "283/2021",
+   "billA": 67,
+   "billB": 167,
+   "n": 21
+  },
+  {
+   "lawRef": "477/2001",
+   "billA": 73,
+   "billB": 193,
+   "n": 19
+  },
+  {
+   "lawRef": "245/2000",
+   "billA": 78,
+   "billB": 238,
+   "n": 1
+  },
+  {
+   "lawRef": "110/2006",
+   "billA": 85,
+   "billB": 88,
+   "n": 3
+  },
+  {
+   "lawRef": "561/2004",
+   "billA": 104,
+   "billB": 232,
+   "n": 1
+  },
+  {
+   "lawRef": "13/1997",
+   "billA": 171,
+   "billB": 246,
+   "n": 2
+  }
+ ],
+ "diedPairs": [
+  {
+   "lawRef": "586/1992",
+   "billA": 4,
+   "billB": 40,
+   "n": 3,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "586/1992",
+   "billA": 4,
+   "billB": 119,
+   "n": 3,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "586/1992",
+   "billA": 4,
+   "billB": 248,
+   "n": 13,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "586/1992",
+   "billA": 40,
+   "billB": 119,
+   "n": 2,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "586/1992",
+   "billA": 40,
+   "billB": 121,
+   "n": 2,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "586/1992",
+   "billA": 40,
+   "billB": 120,
+   "n": 4,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "586/1992",
+   "billA": 40,
+   "billB": 244,
+   "n": 4,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "586/1992",
+   "billA": 40,
+   "billB": 248,
+   "n": 11,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "586/1992",
+   "billA": 119,
+   "billB": 120,
+   "n": 3,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "586/1992",
+   "billA": 119,
+   "billB": 244,
+   "n": 4,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "586/1992",
+   "billA": 121,
+   "billB": 248,
+   "n": 8,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "586/1992",
+   "billA": 244,
+   "billB": 248,
+   "n": 16,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "40/2009",
+   "billA": 111,
+   "billB": 115,
+   "n": 1,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "40/2009",
+   "billA": 111,
+   "billB": 173,
+   "n": 1,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "40/2009",
+   "billA": 111,
+   "billB": 196,
+   "n": 10,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "40/2009",
+   "billA": 111,
+   "billB": 216,
+   "n": 1,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "40/2009",
+   "billA": 115,
+   "billB": 196,
+   "n": 1,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "40/2009",
+   "billA": 115,
+   "billB": 207,
+   "n": 1,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "40/2009",
+   "billA": 173,
+   "billB": 196,
+   "n": 1,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "40/2009",
+   "billA": 196,
+   "billB": 207,
+   "n": 7,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "427/2011",
+   "billA": 86,
+   "billB": 248,
+   "n": 1,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "427/2011",
+   "billA": 119,
+   "billB": 248,
+   "n": 9,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "256/2004",
+   "billA": 132,
+   "billB": 210,
+   "n": 1,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "256/2004",
+   "billA": 132,
+   "billB": 248,
+   "n": 6,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "256/2004",
+   "billA": 143,
+   "billB": 248,
+   "n": 47,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "491/2001",
+   "billA": 12,
+   "billB": 181,
+   "n": 1,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "491/2001",
+   "billA": 131,
+   "billB": 181,
+   "n": 1,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "128/2000",
+   "billA": 24,
+   "billB": 100,
+   "n": 1,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "128/2000",
+   "billA": 24,
+   "billB": 146,
+   "n": 1,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "128/2000",
+   "billA": 100,
+   "billB": 146,
+   "n": 1,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "187/2006",
+   "billA": 109,
+   "billB": 121,
+   "n": 1,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "187/2006",
+   "billA": 109,
+   "billB": 257,
+   "n": 5,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "187/2006",
+   "billA": 121,
+   "billB": 257,
+   "n": 2,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "589/1992",
+   "billA": 11,
+   "billB": 110,
+   "n": 1,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "592/1992",
+   "billA": 70,
+   "billB": 235,
+   "n": 1,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "159/1999",
+   "billA": 106,
+   "billB": 107,
+   "n": 1,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "348/2005",
+   "billA": 201,
+   "billB": 231,
+   "n": 1,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  },
+  {
+   "lawRef": "134/2016",
+   "billA": 206,
+   "billB": 222,
+   "n": 3,
+   "reason": "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact"
+  }
+ ],
+ "skips": [],
+ "groups": [
+  {
+   "lawUrn": "law:sb:586-1992",
+   "lawRef": "586/1992",
+   "lawTitle": "zákon č. 586/1992 Sb. — Zákon České národní rady o daních z příjmů",
+   "bills": [
+    4,
+    40,
+    119,
+    121,
+    120,
+    244,
+    248
+   ],
+   "billsFetched": [
+    4,
+    40,
+    119,
+    121,
+    120,
+    244,
+    248
+   ],
+   "billsSkipped": [],
+   "collisions": [
+    {
+     "billA": 4,
+     "billB": 121,
+     "sharedParagraphs": [
+      {
+       "paragraph": "35c",
+       "excerptA": "statistickým úřadem a zaokrouhlené na celé koruny dolů,“. 2. V § 35c odst. 1 se částka „15 204 Kč“ nahrazuje částkou „22 320 Kč“ a slova „, 22 320 Kč ročně na druhé dítě“ se zrušují. ČÁST DRUHÁ Změna zákona o s",
+       "excerptB": "Čl. I V § 35c odst. 1 zákona č. 586/1992 Sb., o daních z příjmů, ve znění zákona č. 669/2004 Sb., zákona č. 545/2005 Sb., zákona č. 261/2007 Sb., zákona č. 306/2008 Sb., zákona č. 326/2009 Sb., zákona č. 370/2011 Sb., zákona č. 458/2011 Sb., záko"
+      }
+     ]
+    },
+    {
+     "billA": 4,
+     "billB": 120,
+     "sharedParagraphs": [
+      {
+       "paragraph": "35ba",
+       "excerptA": "., zákona č. 176/2025 Sb. a zákona č. 275/2025 Sb., se mění takto: 1. V § 35ba odst. 1 písmeno a) zní: „a) základní slevu na poplatníka ve výši odpovídající 75 % průměrné hrubé měsíční nominální mzdy přepočtené na plně zaměstnané v národním hospodářství za předminulý kalendářní r",
+       "excerptB": "Zákon č. 586/1992 Sb., ve znění pozdějších předpisů, se mění takto: 1. V § 35ba se v odst. 1 zrušuje písm. a) a dosavadní písmena b) až e) se označují jako a) až d). 2. V § 35c odstavec 1 zní: „(1) Poplatník uvedený v § 2 má nárok na daňové zvýhodnění: a) na poplatníka ve výši 30 840 Kč ročně, a b)"
+      },
+      {
+       "paragraph": "35c",
+       "excerptA": "statistickým úřadem a zaokrouhlené na celé koruny dolů,“. 2. V § 35c odst. 1 se částka „15 204 Kč“ nahrazuje částkou „22 320 Kč“ a slova „, 22 320 Kč ročně na druhé dítě“ se zrušují. ČÁST DRUHÁ Změna zákona o s",
+       "excerptB": "ušuje písm. a) a dosavadní písmena b) až e) se označují jako a) až d). 2. V § 35c odstavec 1 zní: „(1) Poplatník uvedený v § 2 má nárok na daňové zvýhodnění: a) na poplatníka ve výši 30 840 Kč ročně, a b) na vyživované dítě žijící s ním ve společně hospodařící domácnosti na území členského státu Evropské"
+      }
+     ]
+    },
+    {
+     "billA": 4,
+     "billB": 244,
+     "sharedParagraphs": [
+      {
+       "paragraph": "35ba",
+       "excerptA": "., zákona č. 176/2025 Sb. a zákona č. 275/2025 Sb., se mění takto: 1. V § 35ba odst. 1 písmeno a) zní: „a) základní slevu na poplatníka ve výši odpovídající 75 % průměrné hrubé měsíční nominální mzdy přepočtené na plně zaměstnané v národním hospodářství za předminulý kalendářní r",
+       "excerptB": "e a dosavadní písmena d) až e) se označují jako c) až d). 2. V § 35ba odst. 1 se písmeno b) zrušuje a dosavadní písmena c) až e) se označují jako písmena b) až d). 3. V § 35ba odst. 2 se slova “b) až e)” nahrazují slovy “b) až d)”. 4. V §35ba odst. 3 se slova “b) až e)” nahrazují"
+      },
+      {
+       "paragraph": "35c",
+       "excerptA": "statistickým úřadem a zaokrouhlené na celé koruny dolů,“. 2. V § 35c odst. 1 se částka „15 204 Kč“ nahrazuje částkou „22 320 Kč“ a slova „, 22 320 Kč ročně na druhé dítě“ se zrušují. ČÁST DRUHÁ Změna zákona o s",
+       "excerptB": "ova “b) až e)” nahrazují slovy “b) až d)”. 5. § 35bb se zrušuje. 6. V § 35c odst. 1 se za větu první vkládají věty „Daňové zvýhodnění se u vyživovaného dítěte zvyšuje o 1 000 Kč za každý kalendářní měsíc, na jehož počátku dítě nedovršilo věku 3 let. Je-li alespoň jednomu z poplatníků vyž"
+      }
+     ]
+    },
+    {
+     "billA": 119,
+     "billB": 248,
+     "sharedParagraphs": [
+      {
+       "paragraph": "15b",
+       "excerptA": "2025 Sb., zákona č. 360/2025 Sb. a zákona č. .../2026 Sb., se mění takto: 1. V § 15b odst. 1 písm. a) bodě 1 se za slova „doba 120 kalendářních měsíců“ vkládají slova „a podmínka dosažení 60 let věku“, slovo „nepoužije“ se nahrazuje slovem „nepoužijí“ a na konec textu se doplňují slova „nebo dosažením 60",
+       "excerptB": "upravujícího povinný příspěvek na produkty spoření na stáří“. 2. V § 15b odst. 1 písm. a) bodě 1 se slova „po 120 kalendářních měsících od vzniku produktu“ nahrazují slovy „po 120 kalendářních měsících trvání doplňkového penzijního spoření a dlouhodobého investičního produktu poplatníka"
+      }
+     ]
+    },
+    {
+     "billA": 121,
+     "billB": 120,
+     "sharedParagraphs": [
+      {
+       "paragraph": "35c",
+       "excerptA": "Čl. I V § 35c odst. 1 zákona č. 586/1992 Sb., o daních z příjmů, ve znění zákona č. 669/2004 Sb., zákona č. 545/2005 Sb., zákona č. 261/2007 Sb., zákona č. 306/2008 Sb., zákona č. 326/2009 Sb., zákona č. 370/2011 Sb., zákona č. 458/2011 Sb., záko",
+       "excerptB": "ušuje písm. a) a dosavadní písmena b) až e) se označují jako a) až d). 2. V § 35c odstavec 1 zní: „(1) Poplatník uvedený v § 2 má nárok na daňové zvýhodnění: a) na poplatníka ve výši 30 840 Kč ročně, a b) na vyživované dítě žijící s ním ve společně hospodařící domácnosti na území členského státu Evropské"
+      }
+     ]
+    },
+    {
+     "billA": 121,
+     "billB": 244,
+     "sharedParagraphs": [
+      {
+       "paragraph": "35c",
+       "excerptA": "Čl. I V § 35c odst. 1 zákona č. 586/1992 Sb., o daních z příjmů, ve znění zákona č. 669/2004 Sb., zákona č. 545/2005 Sb., zákona č. 261/2007 Sb., zákona č. 306/2008 Sb., zákona č. 326/2009 Sb., zákona č. 370/2011 Sb., zákona č. 458/2011 Sb., záko",
+       "excerptB": "ova “b) až e)” nahrazují slovy “b) až d)”. 5. § 35bb se zrušuje. 6. V § 35c odst. 1 se za větu první vkládají věty „Daňové zvýhodnění se u vyživovaného dítěte zvyšuje o 1 000 Kč za každý kalendářní měsíc, na jehož počátku dítě nedovršilo věku 3 let. Je-li alespoň jednomu z poplatníků vyž"
+      }
+     ]
+    },
+    {
+     "billA": 120,
+     "billB": 244,
+     "sharedParagraphs": [
+      {
+       "paragraph": "35",
+       "excerptA": "§ 35, § 35ba. Je-li v jedné společně hospodařící domácnosti více vyživovaných dětí poplatníka, posuzují se pro účely tohoto ustanovení dohromady. Daňové zvýhodnění může poplatník uplatnit formou slevy na dani, daňového bonusu nebo",
+       "excerptB": "ařící domácnosti,“. 14. V § 38k odst. 5 se slova „a ke slevě na dani podle § 35 odst. 4 a § 35ba odst. 1 písm. b)“ nahrazují slovy „a ke slevě na dani podle § 35 odst. 4“. 15. V § 38k odst. 5 se písmeno c) zrušuje a dosavadní písmena d) až g) se označují jako písmena c) až f). 16. V §"
+      },
+      {
+       "paragraph": "35ba",
+       "excerptA": "Zákon č. 586/1992 Sb., ve znění pozdějších předpisů, se mění takto: 1. V § 35ba se v odst. 1 zrušuje písm. a) a dosavadní písmena b) až e) se označují jako a) až d). 2. V § 35c odstavec 1 zní: „(1) Poplatník uvedený v § 2 má nárok na daňové zvýhodnění: a) na poplatníka ve výši 30 840 Kč ročně, a b)",
+       "excerptB": "e a dosavadní písmena d) až e) se označují jako c) až d). 2. V § 35ba odst. 1 se písmeno b) zrušuje a dosavadní písmena c) až e) se označují jako písmena b) až d). 3. V § 35ba odst. 2 se slova “b) až e)” nahrazují slovy “b) až d)”. 4. V §35ba odst. 3 se slova “b) až e)” nahrazují"
+      },
+      {
+       "paragraph": "35c",
+       "excerptA": "ušuje písm. a) a dosavadní písmena b) až e) se označují jako a) až d). 2. V § 35c odstavec 1 zní: „(1) Poplatník uvedený v § 2 má nárok na daňové zvýhodnění: a) na poplatníka ve výši 30 840 Kč ročně, a b) na vyživované dítě žijící s ním ve společně hospodařící domácnosti na území členského státu Evropské",
+       "excerptB": "ova “b) až e)” nahrazují slovy “b) až d)”. 5. § 35bb se zrušuje. 6. V § 35c odst. 1 se za větu první vkládají věty „Daňové zvýhodnění se u vyživovaného dítěte zvyšuje o 1 000 Kč za každý kalendářní měsíc, na jehož počátku dítě nedovršilo věku 3 let. Je-li alespoň jednomu z poplatníků vyž"
+      },
+      {
+       "paragraph": "35d",
+       "excerptA": "s uplatnit souhrnně až do celkové výše pojistné částky dle věty druhé.“ 4. V § 35d odstavci 1 a § 35d odstavci 2 se text „písm. a), c) až e)“ nahrazuje textem „písm. b) až d)“. 5. V § 38g odstavci 2 a § 38h odst. 13 se text „písm. b) až e)“ nahrazuje textem „písm. a) až d)“. 6. V § 38gb odstavci 1 se text „§",
+       "excerptB": "savadní odstavce 9 až 12 se označují jako odstavce 8 až 11. 8. V § 35d odst. 1 se slova „a), c) až e)“ nahrazují slovy „a) až d)“. 9. V § 35d odst. 2 se slova „a), c) až e)“ nahrazují slovy „a) až d)“. 10. V § 38g odst. 2 se slova „b) až e)“ nahrazují slovy „b) až d)“. 11. V § 38h odst. 6"
+      },
+      {
+       "paragraph": "38g",
+       "excerptA": "avci 2 se text „písm. a), c) až e)“ nahrazuje textem „písm. b) až d)“. 5. V § 38g odstavci 2 a § 38h odst. 13 se text „písm. b) až e)“ nahrazuje textem „písm. a) až d)“. 6. V § 38gb odstavci 1 se text „§ 35ba odst. 1 písm. a)“ nahrazuje textem „§ 35c odst. 1 písm. a)“. 7. V § 38gb odstavci 1 se text „§ 35c",
+       "excerptB": "V § 35d odst. 2 se slova „a), c) až e)“ nahrazují slovy „a) až d)“. 10. V § 38g odst. 2 se slova „b) až e)“ nahrazují slovy „b) až d)“. 11. V § 38h odst. 6 se slova „a § 35ba odst. 1 písm. b)“ zrušují. 12. V § 38h odst. 13 se slova „b) až e)“ nahrazují slovy „b) až d)“. 13. V § 38k odst. 4 písm. c)"
+      },
+      {
+       "paragraph": "38h",
+       "excerptA": "m. a), c) až e)“ nahrazuje textem „písm. b) až d)“. 5. V § 38g odstavci 2 a § 38h odst. 13 se text „písm. b) až e)“ nahrazuje textem „písm. a) až d)“. 6. V § 38gb odstavci 1 se text „§ 35ba odst. 1 písm. a)“ nahrazuje textem „§ 35c odst. 1 písm. a)“. 7. V § 38gb odstavci 1 se text „§ 35c odst. 1“ nahrazuje",
+       "excerptB": "10. V § 38g odst. 2 se slova „b) až e)“ nahrazují slovy „b) až d)“. 11. V § 38h odst. 6 se slova „a § 35ba odst. 1 písm. b)“ zrušují. 12. V § 38h odst. 13 se slova „b) až e)“ nahrazují slovy „b) až d)“. 13. V § 38k odst. 4 písm. c) se doplňuje bod 6, který zní: „6. jméno, příjmení a rodné číslo"
+      },
+      {
+       "paragraph": "38k",
+       "excerptA": "odst. 1“ nahrazuje textem „§ 35c odst. 1 písm. b)“. 7. V § 38h odstavci 6 a § 38k odstavci 5 se text „§ 35ba odst. 1 písm. b)“ nahrazuje textem „§ 35ba odst. 1 písm. a)“. 8. V § 38k odstavci 4 písm. a) a § 38k odstavci 4 písm. b) se za text „§ 35ba“ vkládá text „nebo § 35c odst. 1 písm. a)“. 9. V § 38l odst",
+       "excerptB": "12. V § 38h odst. 13 se slova „b) až e)“ nahrazují slovy „b) až d)“. 13. V § 38k odst. 4 písm. c) se doplňuje bod 6, který zní: „6. jméno, příjmení a rodné číslo osoby, na základě jejíhož nároku na průkaz ZTP/P se uplatňuje zvýšené daňové zvýhodnění podle § 35c odst. 1 věty třetí, a prohlášení,"
+      },
+      {
+       "paragraph": "38l",
+       "excerptA": "ísm. b) se za text „§ 35ba“ vkládá text „nebo § 35c odst. 1 písm. a)“. 9. V § 38l odstavci 2 se text „§ 35 odst. 4 a § 35ba“ nahrazuje textem „§ 35 odst. 4, § 35ba a § 35c odst. 1 písm. a)“. 10. V § 38l odstavci 2 písm. b) se text „§ 35ba odst. 1 písm. c) nebo d)“ nahrazuje textem „§ 35ba odst. 1 písm. b) nebo",
+       "excerptB": "avadní písmena d) až g) se označují jako písmena c) až f). 16. V § 38l odst. 2 se písmeno a) zrušuje a dosavadní písmena b) až e) se označují jako písmena a) až d). 17. V § 38l odst. 2 písm. a) se slova „písm. c) nebo d)“ nahrazují slovy „písm. b) nebo c)”. 18. V § 38l odst. 2 písm."
+      }
+     ]
+    },
+    {
+     "billA": 120,
+     "billB": 248,
+     "sharedParagraphs": [
+      {
+       "paragraph": "6",
+       "excerptA": "§ 6 nebo § 7. Uplatňuje-li poplatník současně daňový bonus podle odst. 1 písm. a) a písm. b), lze tento bonus uplatnit souhrnně až do celkové výše pojistné částky dle věty druhé.“ 4. V § 35d odstavci 1 a § 35d odstavci 2 se text „písm. a), c) až e)“ nahrazuje textem „písm. b)",
+       "excerptB": "., o daních z příjmů, ve znění pozdějších předpisů, se mění takto: 1. V § 6 odst. 9 písm. m) se za slova „příspěvek zaměstnavatele“ vkládají slova „včetně příspěvku zaměstnavatele podle zákoníku práce a povinného příspěvku podle zákona upravujícího povinný příspěvek na produkty spoření na st"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "lawUrn": "law:sb:40-2009",
+   "lawRef": "40/2009",
+   "lawTitle": "zákon č. 40/2009 Sb. — Zákon trestní zákoník",
+   "bills": [
+    111,
+    115,
+    173,
+    196,
+    207,
+    216
+   ],
+   "billsFetched": [
+    111,
+    115,
+    173,
+    196,
+    207,
+    216
+   ],
+   "billsSkipped": [],
+   "collisions": [
+    {
+     "billA": 111,
+     "billB": 207,
+     "sharedParagraphs": [
+      {
+       "paragraph": "33",
+       "excerptA": "025 Sb., zákona č. 314/2025 Sb. a zákona č. …/2026 Sb., se mění takto: 1. V § 33 úvodní části ustanovení se slova „moci jiného“ nahrazují slovy „péče jiného a jeho přijetí za odměnu“. 2. V § 88 odst. 2 písm. c) se čísla „4, 5“ nahrazují čísly „5, 6“. 3. V § 92 odst. 1 písm. d) se text „c)“ nahrazuje t",
+       "excerptB": "025 Sb., zákona č. 314/2025 Sb. a zákona č. …/2026 Sb., se mění takto: 1. V § 33 se za text „(§ 294),“ vkládají slova „poškození vodního zdroje a neoprávněného odběru vody (§ 294a),“, za text „(§ 295),“ se vkládají slova „neoprávněného vypuštění znečišťujících látek z lodi (§ 296), neoprávněného vypuštění"
+      },
+      {
+       "paragraph": "88",
+       "excerptA": "jiného“ nahrazují slovy „péče jiného a jeho přijetí za odměnu“. 2. V § 88 odst. 2 písm. c) se čísla „4, 5“ nahrazují čísly „5, 6“. 3. V § 92 odst. 1 písm. d) se text „c)“ nahrazuje textem „d)“. 4. V § 102a odst. 1 se za slovo „pornografií“ vkládají slova „nebo intimním dílem“. 5. § 168 včetně nadpis",
+       "excerptB": "ných částí přírody (§ 301),“ a číslo „318“ se nahrazuje textem „§ 318“. 2. V § 88 odst. 2 písm. c) se slova „nebo s jedy podle § 283 odst. 4“ nahrazují slovy „, s jedy nebo se rtutí podle § 283 odst. 5“. 3. Za § 119a se vkládá nový § 119b, který včetně nadpisu zní:"
+      }
+     ]
+    },
+    {
+     "billA": 207,
+     "billB": 216,
+     "sharedParagraphs": [
+      {
+       "paragraph": "283",
+       "excerptA": "azuje textem „§ 318“. 2. V § 88 odst. 2 písm. c) se slova „nebo s jedy podle § 283 odst. 4“ nahrazují slovy „, s jedy nebo se rtutí podle § 283 odst. 5“. 3. Za § 119a se vkládá nový § 119b, který včetně nadpisu zní: „§ 119b Protiprávnost",
+       "excerptB": "i 1 smrt.“. 1 2. V § 283 odst. 1, § 283a odst. 1 a v § 286a odst. 1 se za slovo „prodá“ vkládá slovo „, podá“."
+      },
+      {
+       "paragraph": "283a",
+       "excerptA": "st. 5 písm. a) se za slova „odstavci 1“ vkládají slova „nebo 2“. 12. Za § 283a se vkládá nový § 283b, který včetně nadpisu zní: „§ 283b Neoprávněná výroba a jiné nakládání se rtutí z nedbalosti (1) Kdo v rozporu s nařízením Evropsk",
+       "excerptB": "1 2. V § 283 odst. 1, § 283a odst. 1 a v § 286a odst. 1 se za slovo „prodá“ vkládá slovo „, podá“."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "lawUrn": "law:sb:427-2011",
+   "lawRef": "427/2011",
+   "lawTitle": "zákon č. 427/2011 Sb. — Zákon o doplňkovém penzijním spoření",
+   "bills": [
+    71,
+    86,
+    119,
+    248
+   ],
+   "billsFetched": [
+    71,
+    86,
+    119,
+    248
+   ],
+   "billsSkipped": [],
+   "collisions": [
+    {
+     "billA": 71,
+     "billB": 248,
+     "sharedParagraphs": [
+      {
+       "paragraph": "60",
+       "excerptA": "Sb., zákona č. 176/2025 Sb. a zákona č. 324/2025 Sb., se mění takto: 1. V § 60 odst. 3 se slova „v případě povinného konzervativního fondu“ a slova „a v případě ostatních účastnických fondů 1 %“ zrušují. 2. V § 60 odst. 4 se slova „v případě povinného konzervativního fondu“ a slova „a v p",
+       "excerptB": "odbytným a jeho provedením doplňkové penzijní spoření nezaniká.“. 3. V § 60 odst. 4 se slova „v případě ostatních účastnických fondů nejvýše 15 %“ nahrazují slovy „v případě ostatních účastnických fondů nejvýše 10 %“. 4. Za § 113 se vkládá nový § 113a, který včetně nadpisu zní: „§ 113a Str"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "lawUrn": "law:sb:117-1995",
+   "lawRef": "117/1995",
+   "lawTitle": "zákon č. 117/1995 Sb. — Zákon o státní sociální podpoře",
+   "bills": [
+    112,
+    121,
+    124,
+    198
+   ],
+   "billsFetched": [
+    112,
+    121,
+    124,
+    198
+   ],
+   "billsSkipped": [],
+   "collisions": [
+    {
+     "billA": 112,
+     "billB": 121,
+     "sharedParagraphs": [
+      {
+       "paragraph": "30",
+       "excerptA": "u studia za trvání služebního poměru příslušníků ozbrojených sil.“. 2. V § 30 odst. 1 se slova „350 000 Kč” nahrazují slovy „370 000 Kč”. 3. Za § 31 se vkládá nový § 31a, který včetně nadpisu zní: „§ 31a",
+       "excerptB": "025 Sb., zákona č. 268/2025 Sb. a zákona č. 290/2025 Sb., se mění takto: 1. V § 30 odst. 1 větě první a druhé se částka „350 000 Kč“ nahrazuje částkou „400 000 Kč“. 2. V § 30 odst. 3 písm. b) se slova „přesáhnout 70 % 30násobku“ nahrazují slovy „přesáhnout 30násobek“. 3. V § 30 odst. 3 písm. c) se text „70 %“"
+      },
+      {
+       "paragraph": "31",
+       "excerptA": "., zákona č. 268/2025 Sb. a zákona č. 290/2025 Sb., se mění takto: 1. V § 31 odstavec 3 zní: „(3) Podmínka osobní celodenní péče se též považuje za splněnou, jestliže a) dítě navštěvuje dětskou skupinu, mateřskou školu, jiné obdobné zařízení pro děti předškolního věku, nebo",
+       "excerptB": "nout 30násobek“. 3. V § 30 odst. 3 písm. c) se text „70 %“ zrušuje. 4. V § 31 odstavec 3 zní: „(3) Podmínka osobní celodenní péče se též považuje za splněnou, jestliže dítě navštěvuje dětskou skupinu, mateřskou školu, jiné obdobné zařízení pro děti předškolního věku nebo léčebně rehabilitační zařízení, nebo"
+      }
+     ]
+    },
+    {
+     "billA": 112,
+     "billB": 124,
+     "sharedParagraphs": [
+      {
+       "paragraph": "30",
+       "excerptA": "u studia za trvání služebního poměru příslušníků ozbrojených sil.“. 2. V § 30 odst. 1 se slova „350 000 Kč” nahrazují slovy „370 000 Kč”. 3. Za § 31 se vkládá nový § 31a, který včetně nadpisu zní: „§ 31a",
+       "excerptB": "k před porodem musí rodič pro uplatnění nároku na rodičovský příspěvek podle § 30 odst. 1 podat novou žádost.\". 4. V § 33 se doplňuje odstavec 5, který zní: „(5) Rozhodnutí o nároku na podporu studujícího rodiče se vydává vždy společně s rozhodnutím o nároku na rodičovský příspěvek nebo s oznámením, ž"
+      }
+     ]
+    },
+    {
+     "billA": 112,
+     "billB": 198,
+     "sharedParagraphs": [
+      {
+       "paragraph": "30",
+       "excerptA": "u studia za trvání služebního poměru příslušníků ozbrojených sil.“. 2. V § 30 odst. 1 se slova „350 000 Kč” nahrazují slovy „370 000 Kč”. 3. Za § 31 se vkládá nový § 31a, který včetně nadpisu zní: „§ 31a",
+       "excerptB": "Čl. I V § 30 odst. 1 zákona č. 117/1995 Sb., o státní sociální podpoře, ve znění zákona č. 366/2011 Sb., zákona č. 200/2017 Sb., zákona č. 363/2019 Sb., zákona č. 407/2023 Sb. a zákona č. 290/2025 Sb., se částka „350 000 Kč“ nahrazuje částkou „40"
+      }
+     ]
+    },
+    {
+     "billA": 121,
+     "billB": 124,
+     "sharedParagraphs": [
+      {
+       "paragraph": "30",
+       "excerptA": "025 Sb., zákona č. 268/2025 Sb. a zákona č. 290/2025 Sb., se mění takto: 1. V § 30 odst. 1 větě první a druhé se částka „350 000 Kč“ nahrazuje částkou „400 000 Kč“. 2. V § 30 odst. 3 písm. b) se slova „přesáhnout 70 % 30násobku“ nahrazují slovy „přesáhnout 30násobek“. 3. V § 30 odst. 3 písm. c) se text „70 %“",
+       "excerptB": "k před porodem musí rodič pro uplatnění nároku na rodičovský příspěvek podle § 30 odst. 1 podat novou žádost.\". 4. V § 33 se doplňuje odstavec 5, který zní: „(5) Rozhodnutí o nároku na podporu studujícího rodiče se vydává vždy společně s rozhodnutím o nároku na rodičovský příspěvek nebo s oznámením, ž"
+      }
+     ]
+    },
+    {
+     "billA": 121,
+     "billB": 198,
+     "sharedParagraphs": [
+      {
+       "paragraph": "30",
+       "excerptA": "025 Sb., zákona č. 268/2025 Sb. a zákona č. 290/2025 Sb., se mění takto: 1. V § 30 odst. 1 větě první a druhé se částka „350 000 Kč“ nahrazuje částkou „400 000 Kč“. 2. V § 30 odst. 3 písm. b) se slova „přesáhnout 70 % 30násobku“ nahrazují slovy „přesáhnout 30násobek“. 3. V § 30 odst. 3 písm. c) se text „70 %“",
+       "excerptB": "Čl. I V § 30 odst. 1 zákona č. 117/1995 Sb., o státní sociální podpoře, ve znění zákona č. 366/2011 Sb., zákona č. 200/2017 Sb., zákona č. 363/2019 Sb., zákona č. 407/2023 Sb. a zákona č. 290/2025 Sb., se částka „350 000 Kč“ nahrazuje částkou „40"
+      }
+     ]
+    },
+    {
+     "billA": 124,
+     "billB": 198,
+     "sharedParagraphs": [
+      {
+       "paragraph": "30",
+       "excerptA": "k před porodem musí rodič pro uplatnění nároku na rodičovský příspěvek podle § 30 odst. 1 podat novou žádost.\". 4. V § 33 se doplňuje odstavec 5, který zní: „(5) Rozhodnutí o nároku na podporu studujícího rodiče se vydává vždy společně s rozhodnutím o nároku na rodičovský příspěvek nebo s oznámením, ž",
+       "excerptB": "Čl. I V § 30 odst. 1 zákona č. 117/1995 Sb., o státní sociální podpoře, ve znění zákona č. 366/2011 Sb., zákona č. 200/2017 Sb., zákona č. 363/2019 Sb., zákona č. 407/2023 Sb. a zákona č. 290/2025 Sb., se částka „350 000 Kč“ nahrazuje částkou „40"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "lawUrn": "law:sb:256-2004",
+   "lawRef": "256/2004",
+   "lawTitle": "zákon č. 256/2004 Sb. — Zákon o podnikání na kapitálovém trhu",
+   "bills": [
+    132,
+    143,
+    210,
+    248
+   ],
+   "billsFetched": [
+    132,
+    143,
+    210,
+    248
+   ],
+   "billsSkipped": [],
+   "collisions": [
+    {
+     "billA": 132,
+     "billB": 143,
+     "sharedParagraphs": [
+      {
+       "paragraph": "11a",
+       "excerptA": ". 3. V § 32 odstavec 2 zní: „(2) Pro investičního zprostředkovatele se § 11a, 12 a 12a odst. 3 použijí přiměřeně; pravidla pro odměňování vázaných zástupců investičních zprostředkovatelů zohledňují zvláštní postavení vázaných zástupců jako samostatně výdělečně činných obchodních zástupců.“.",
+       "excerptB": "c) informaci o tom, jak předchází střetu zájmů nebo jak tento střet řídí podle § 11a, poskytuje- li společnou úplatu za provádění pokynů a za investiční výzkum. (4) Obchodník s cennými papíry, který poskytuje úplatu za investiční výzkum odděleně od úplaty za provádění pokynů, platí úplatu za investi"
+      },
+      {
+       "paragraph": "15",
+       "excerptA": "vení hlavy II dílu 3 oddílu 5 upravující jednání se zákazníky, s výjimkou § 15 odst. 1 až 4, § 15b, § 15ca, § 15d odst. 1 písm. f), § 15e odst. 1 a 2, § 15f a § 15l až 15r.“. 5. V § 32 se za odstavec 6 vkládá nový odstavec 7, který včetně poznámky pod čarou č. 112 zní: „(7) Na plnění povi",
+       "excerptB": "písm. a) se slova „plně svéprávný, je-li fyzickou osobou, a“ zrušují. 20. V § 15 odst. 3 se slova „, včetně výzkumu“ zrušují. 21. V § 15 odst. 7 písmeno a) zní: „a) podrobnější požadavky při poskytování úplaty za investiční výzkum odděleně od úplaty za provádění pokynů podle § 15cb,“. 22. § 15ca včet"
+      },
+      {
+       "paragraph": "15ca",
+       "excerptA": "u 5 upravující jednání se zákazníky, s výjimkou § 15 odst. 1 až 4, § 15b, § 15ca, § 15d odst. 1 písm. f), § 15e odst. 1 a 2, § 15f a § 15l až 15r.“. 5. V § 32 se za odstavec 6 vkládá nový odstavec 7, který včetně poznámky pod čarou č. 112 zní: „(7) Na plnění povinností investičního zprost",
+       "excerptB": "ní výzkum odděleně od úplaty za provádění pokynů podle § 15cb,“. 22. § 15ca včetně nadpisu zní: 3 „§ 15ca Výzkum (1) Výzkumem se pro"
+      },
+      {
+       "paragraph": "15e",
+       "excerptA": "íky, s výjimkou § 15 odst. 1 až 4, § 15b, § 15ca, § 15d odst. 1 písm. f), § 15e odst. 1 a 2, § 15f a § 15l až 15r.“. 5. V § 32 se za odstavec 6 vkládá nový odstavec 7, který včetně poznámky pod čarou č. 112 zní: „(7) Na plnění povinností investičního zprostředkovatele podle odstavce 1 až 6 se",
+       "excerptB": "32024L2811 5 24. V § 15e odst. 1 se slova „a § 15ca“ zrušují. 25. V § 16 odst. 6 se na konci úvodní části ustanovení doplňují slova „se dozvěděl o změně,“. 26. V § 16 odst. 6 se písmeno a) zrušuje. Dosavadní písmena b) a c) se označují jako p"
+      }
+     ]
+    },
+    {
+     "billA": 143,
+     "billB": 210,
+     "sharedParagraphs": [
+      {
+       "paragraph": "172",
+       "excerptA": "32024R2809 85. V § 170 odst. 1 písm. a) se text „odst. 1“ zrušuje. 86. Za § 172 se vkládá nový § 172a, který včetně nadpisu zní: „§ 172a Přestupky spočívající v porušení povinnosti týkající se emisního dokumentu (1) Emitent, jehož cenné",
+       "excerptB": "á se označují jako části čtrnáctá až sedmnáctá. CELEX 32022L2381 8. V § 172 se za odstavec 4 vkládají nové odstavce 5 a 6, které znějí: „(5) Právnická osoba se jako emitent uvedený v § 134m dopustí přestupku tím, že a) nezajistí, aby zpráva o správě a řízení emitenta obsahovala informace"
+      },
+      {
+       "paragraph": "198a",
+       "excerptA": "změně nařízení (EU) 2019/2088 a (EU) 2023/2859.“. CELEX 32024R3005 104. V § 198a odst. 1 písm. c) se text „135b“ nahrazuje textem „135a“. CELEX 32019L2034 105. V § 198b odst. 3 se věta druhá zrušuje. 106. V § 199 odst. 2 se text „§ 7 odst. 5,“ a text „§ 39 odst. 7,“ zrušují. 107. V § 199 se za odstavec",
+       "excerptB": "dst. 9 se slova „3 nebo 4“ nahrazují slovy „až 6“. CELEX 32022L2381 10. V § 198a se na konci odstavce 1 tečka nahrazuje čárkou a doplňuje se písmeno e), které zní: „e) seznam emitentů podle § 134m, kteří plní zvolený cíl vyváženého zastoupení žen a mužů mezi členy vedoucího orgánu emitenta podle"
+      }
+     ]
+    },
+    {
+     "billA": 210,
+     "billB": 248,
+     "sharedParagraphs": [
+      {
+       "paragraph": "134l",
+       "excerptA": "§ 134l Člen vedoucího orgánu emitenta",
+       "excerptB": "dků z dlouhodobého investičního produktu.“. 2. Za § 134k se vkládá nový § 134l, který včetně nadpisu zní: „§ 134l Státní příspěvek k dlouhodobému investičnímu produktu (1) Majiteli dlouhodobého investičního produktu, který do konce kalendářního měsíce, za který se státní příspěvek poskytuje, nedosáhl vě"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "lawUrn": "law:sb:491-2001",
+   "lawRef": "491/2001",
+   "lawTitle": "zákon č. 491/2001 Sb. — Zákon o volbách do zastupitelstev obcí a o změně některých zákonů",
+   "bills": [
+    12,
+    131,
+    181
+   ],
+   "billsFetched": [
+    12,
+    131,
+    181
+   ],
+   "billsSkipped": [],
+   "collisions": [
+    {
+     "billA": 12,
+     "billB": 131,
+     "sharedParagraphs": [
+      {
+       "paragraph": "3",
+       "excerptA": "21 Sb., zákona č. 89/2024 Sb. a zákona č. 235/2025 Sb., se mění takto: 1. V § 3 odst. 2 se slova „a nové“ nahrazují slovy „ , nové volby a doplňovací“. 2. V § 22 odst. 2 se věta druhá zrušuje. 3. V § 25 odst. 1 se věta druhá zrušuje. 4. § 27 zní: „§",
+       "excerptB": "21 Sb., zákona č. 89/2024 Sb. a zákona č. 235/2025 Sb., se mění takto: 1. V § 3 odst. 2 se slova „a nové“ nahrazují slovy „ , nové volby a doplňovací“. 2. V části první v nadpisu hlavy VI se doplňují slova „A DOPLŇOVACÍ VOLBY“. 3. V § 56 odstavec 1 zní: „(1) Uprázdní-li se mandát v zastupitelstvu ob"
+      },
+      {
+       "paragraph": "45",
+       "excerptA": "olby do zastupitelstev obcí tvoří území každé obce jeden volební obvod.“. 5. V § 45 odst. 4 se číslo „10“ nahrazuje číslem „5“. 6. V § 45 se odstavec 6 zrušuje. 7. V § 46 odst. 2 se písmeno b) zrušuje. Dosavadní písmena c) až k) se označují jako písmena b) až j). 8. V části první v nadpisu hlavy VI se do",
+       "excerptB": "astupitelstva náhradník z kandidátní listiny téže volební strany v pořadí podle § 45 odst. 5. V případě uprázdnění mandátu získaného v doplňovacích volbách nastupuje náhradník podle § 58a odst. 7. Náhradník nastupuje dnem následujícím po dni, kdy došlo k zániku mandátu.“. 4. V § 56 se na konci textu odstavce"
+      },
+      {
+       "paragraph": "55",
+       "excerptA": "odst. 5. (8) V případě konání doplňovacích voleb se neuplatní ustanovení § 55 odst. 2 písm. e). (9) Registrační úřad vydá kandidátům zvoleným v doplňovacích volbách za členy zastupitelstva obce osvědčení o zvolení, a to bez zbytečného odkladu poté, kdy uplyne lhůta pro podání návrhu soudu na neplatnost",
+       "excerptB": "odst. 5. (8) V případě konání doplňovacích voleb se neuplatní ustanovení § 55 odst. 2 písm. e). (9) Registrační úřad vydá kandidátům zvoleným v doplňovacích volbách za členy zastupitelstva obce osvědčení o zvolení, a to bez zbytečného odkladu poté, kdy uplyne lhůta pro podání návrhu soudu na neplatnost"
+      },
+      {
+       "paragraph": "56",
+       "excerptA": "části první v nadpisu hlavy VI se doplňují slova „A DOPLŇOVACÍ VOLBY“. 9. V § 56 odstavec 1 zní: „(1) Uprázdní-li se mandát v zastupitelstvu obce, nastupuje za člena tohoto zastupitelstva náhradník z kandidátní listiny téže volební strany v pořadí podle § 45 odst. 5. V případě uprázdnění mandá",
+       "excerptB": "části první v nadpisu hlavy VI se doplňují slova „A DOPLŇOVACÍ VOLBY“. 3. V § 56 odstavec 1 zní: „(1) Uprázdní-li se mandát v zastupitelstvu obce, nastupuje za člena tohoto zastupitelstva náhradník z kandidátní listiny téže volební strany v pořadí podle § 45 odst. 5. V případě uprázdnění mandá"
+      },
+      {
+       "paragraph": "57",
+       "excerptA": "tí v případě, že jsou dány důvody pro konání doplňovacích voleb“. 11. V § 57 odst. 1 se za písmeno a) vkládá nové písmeno b), které zní: „b) dnem doplňovacích voleb, pokud se náhradník stal náhradníkem členů zastupitelstva obce zvolených v doplňovacích volbách,“. Dosavadní písmena b) až d) se ozn",
+       "excerptB": "atí v případě, že jsou dány důvody pro konání doplňovacích voleb“. 5. V § 57 odst. 1 se za písmeno a) vkládá nové písmeno b), které zní: „b) dnem doplňovacích voleb, pokud se náhradník stal náhradníkem členů zastupitelstva obce zvolených v doplňovacích volbách,“. Dosavadní písmena b) až d) se ozn"
+      },
+      {
+       "paragraph": "58",
+       "excerptA": "ch,“. Dosavadní písmena b) až d) se označují jako písmena c) až e). 12. § 58 zní: „§ 58 Nové volby a doplňovací volby (1) Nové volby do zastupitelstva obce podle tohoto zákona se konají, a) jestl",
+       "excerptB": "ách,“. Dosavadní písmena b) až d) se označují jako písmena c) až e). 6. § 58 zní: „§ 58 Nové volby a doplňovací volby (1) Nové volby do zastupitelstva obce podle tohoto zákona se konají, a) jestl"
+      },
+      {
+       "paragraph": "58a",
+       "excerptA": "§ 58a odst. 7. Náhradník nastupuje dnem následujícím po dni, kdy došlo k zániku mandátu.“. 1 10. V § 56 se na konci textu odstavce 3 doplňují slova „; to neplatí v případě, že jsou dány",
+       "excerptB": "§ 58a odst. 7. Náhradník nastupuje dnem následujícím po dni, kdy došlo k zániku mandátu.“. 4. V § 56 se na konci textu odstavce 3 doplňují slova „; to neplatí v případě, že jsou dány důvody pro konání doplňovacích voleb“."
+      },
+      {
+       "paragraph": "58b",
+       "excerptA": "§ 58b Nekonání doplňovacích voleb a nové volby",
+       "excerptB": "§ 58b Nekonání doplňovacích voleb a nové volby"
+      },
+      {
+       "paragraph": "66",
+       "excerptA": "skových volebních komisí spojené s přípravou doplňovacích voleb.“. 14. V § 66 se za slovo „nových“ vkládají slova „a doplňovacích“. 15. V příloze k zákonu se slova „ , popřípadě volební obvod“ a slova „ , popřípadě volebního obvodu“ zrušují. Čl.",
+       "excerptB": "rskových volebních komisí spojené s přípravou doplňovacích voleb.“. 8. V § 66 se za slovo „nových“ vkládají slova „a doplňovacích“. Čl. II Přechodné ustanovení Nastal-li důvod pro konání nových voleb"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "lawUrn": "law:sb:128-2000",
+   "lawRef": "128/2000",
+   "lawTitle": "zákon č. 128/2000 Sb. — Zákon o obcích (obecní zřízení)",
+   "bills": [
+    24,
+    100,
+    146
+   ],
+   "billsFetched": [
+    24,
+    100,
+    146
+   ],
+   "billsSkipped": [],
+   "collisions": []
+  },
+  {
+   "lawUrn": "law:sb:243-2000",
+   "lawRef": "243/2000",
+   "lawTitle": "zákon č. 243/2000 Sb. — Zákon o rozpočtovém určení výnosů některých daní územním samosprávným celkům a některým státním fondům (zákon o rozpočto",
+   "bills": [
+    28,
+    140,
+    141
+   ],
+   "billsFetched": [
+    28,
+    140,
+    141
+   ],
+   "billsSkipped": [],
+   "collisions": [
+    {
+     "billA": 28,
+     "billB": 140,
+     "sharedParagraphs": [
+      {
+       "paragraph": "3",
+       "excerptA": "Sb., zákona č. 609/2020 Sb. a zákona č. 349/2023 Sb., se mění takto: 1. V § 3 odst. 1 se v úvodní části ustanovení vypouští slovo „jednotlivých“. 2. V § 3 odst. 1 písm. b) až g) se číslo „9,76“ nahrazuje číslem „10,26“. 3. V § 3 odstavce 2 a 3 znějí: „(2) Kraj se na části celostátního hrubého výnosu d",
+       "excerptB": "č. 349/2023 Sb., 267/2025 Sb. a zákon č. 360/2025 Sb. se mění takto: 1. V § 3 odstavce 2 až 6 znějí: „(2) Kraj se na části celostátního hrubého výnosu daně podle odstavce 1 písm. b) až f) a výnosu záloh a daně podle odstavce 1 písm. g) podílí procentem, které se vypočte jako součet a) po"
+      },
+      {
+       "paragraph": "4",
+       "excerptA": "kých osob, s výjimkou výnosů uvedených v § 3 odst. 1 písm. a) a v § 4 odst. 1 písm. g), f) podíl ve výši 0,1 % výnosu záloh poplatníka v paušálním režimu na daň z příjmů fyzických osob a výnosu daně z příjmů fyzických osob, která je rovna paušální dani.“. 6. V § 4 odst. 2 písm.",
+       "excerptB": "le odstavce 1 písm. g).“. Poznámka pod čarou č. 4a se zrušuje. 3. V § 4 odst. 3 se text „č. 2“ nahrazuje textem „č. 1“. 4. V § 4 odst. 4 a 5 se text „č. 3“ nahrazuje textem „č. 2“. 5. V § 6 odst. 4 se odkaz „§ 3 odst. 6“ mění na odkaz „§ 3 odst. 12“. 6. Příloha č. 1 se zrušuje. Dosavadní přílohy"
+      },
+      {
+       "paragraph": "6",
+       "excerptA": "„č. 1“. 8. V § 4 odst. 4 a 5 se text „č. 3“ nahrazuje textem „č. 2“. 9. V § 6 odst. 4 se za slovo „podle“ vkládají slova „§ 3 odst. 13 a“. 10. Příloha č. 1 se zrušuje. -3- Dosavadní přílohy č. 2 a č. 3 se označují jako přílohy č. 1 a č. 2.",
+       "excerptB": "„č. 1“. 4. V § 4 odst. 4 a 5 se text „č. 3“ nahrazuje textem „č. 2“. 5. V § 6 odst. 4 se odkaz „§ 3 odst. 6“ mění na odkaz „§ 3 odst. 12“. 6. Příloha č. 1 se zrušuje. Dosavadní přílohy č. 2 a č. 3 se označují jako přílohy č. 1 a č. 2. Čl. II"
+      }
+     ]
+    },
+    {
+     "billA": 28,
+     "billB": 141,
+     "sharedParagraphs": [
+      {
+       "paragraph": "3",
+       "excerptA": "Sb., zákona č. 609/2020 Sb. a zákona č. 349/2023 Sb., se mění takto: 1. V § 3 odst. 1 se v úvodní části ustanovení vypouští slovo „jednotlivých“. 2. V § 3 odst. 1 písm. b) až g) se číslo „9,76“ nahrazuje číslem „10,26“. 3. V § 3 odstavce 2 a 3 znějí: „(2) Kraj se na části celostátního hrubého výnosu d",
+       "excerptB": "č. 349/2023 Sb., 267/2025 Sb. a zákon č. 360/2025 Sb. se mění takto: 1. V § 3 odst. 1 písm. b) až g) se číslo „10,23“ nahrazuje číslem „10,97“. 2. V § 3 odstavce 2 až 6 znějí: „(2) Kraj se na části celostátního hrubého výnosu daně podle odstavce 1 písm. b) až f) a výnosu záloh a daně podle odstavce"
+      },
+      {
+       "paragraph": "3a",
+       "excerptA": "písm. g).“. Poznámka pod čarou č. 4a se zrušuje. 5. Za § 3 se vkládá nový § 3a, který včetně nadpisu zní: „§ 3a Další daňové příjmy rozpočtu hlavního města Prahy (1) Daňové příjmy rozpočtu hlavního měst",
+       "excerptB": "obdobně.“. Poznámka pod čarou č. 4a se zrušuje. 4. Za § 3 se vkládá nový § 3a, který včetně nadpisu zní: „§ 3a Další daňové příjmy rozpočtu hlavního města Prahy (1) Daňové příjmy rozpočtu hlavního měst"
+      },
+      {
+       "paragraph": "4",
+       "excerptA": "kých osob, s výjimkou výnosů uvedených v § 3 odst. 1 písm. a) a v § 4 odst. 1 písm. g), f) podíl ve výši 0,1 % výnosu záloh poplatníka v paušálním režimu na daň z příjmů fyzických osob a výnosu daně z příjmů fyzických osob, která je rovna paušální dani.“. 6. V § 4 odst. 2 písm.",
+       "excerptB": "kých osob, s výjimkou výnosů uvedených v § 3 odst. 1 písm. a) a v § 4 odst. 1 písm. g), f) podíl ve výši 0,1 % výnosu záloh poplatníka v paušálním režimu na daň z příjmů fyzických osob a výnosu daně z příjmů fyzických osob, která je rovna paušální dani.“. 5. V § 4 odst. 3 se tex"
+      },
+      {
+       "paragraph": "6",
+       "excerptA": "„č. 1“. 8. V § 4 odst. 4 a 5 se text „č. 3“ nahrazuje textem „č. 2“. 9. V § 6 odst. 4 se za slovo „podle“ vkládají slova „§ 3 odst. 13 a“. 10. Příloha č. 1 se zrušuje. -3- Dosavadní přílohy č. 2 a č. 3 se označují jako přílohy č. 1 a č. 2.",
+       "excerptB": "„č. 1“. 6. V § 4 odst. 4 a 5 se text „č. 3“ nahrazuje textem „č. 2“. 7. V § 6 odst. 4 se odkaz „§ 3 odst. 6“ mění na odkaz „§ 3 odst. 12“. 8. Příloha č. 1 se zrušuje. Dosavadní přílohy č. 2 a č. 3 se označují jako přílohy č. 1 a č. 2. -3-"
+      }
+     ]
+    },
+    {
+     "billA": 140,
+     "billB": 141,
+     "sharedParagraphs": [
+      {
+       "paragraph": "3",
+       "excerptA": "č. 349/2023 Sb., 267/2025 Sb. a zákon č. 360/2025 Sb. se mění takto: 1. V § 3 odstavce 2 až 6 znějí: „(2) Kraj se na části celostátního hrubého výnosu daně podle odstavce 1 písm. b) až f) a výnosu záloh a daně podle odstavce 1 písm. g) podílí procentem, které se vypočte jako součet a) po",
+       "excerptB": "č. 349/2023 Sb., 267/2025 Sb. a zákon č. 360/2025 Sb. se mění takto: 1. V § 3 odst. 1 písm. b) až g) se číslo „10,23“ nahrazuje číslem „10,97“. 2. V § 3 odstavce 2 až 6 znějí: „(2) Kraj se na části celostátního hrubého výnosu daně podle odstavce 1 písm. b) až f) a výnosu záloh a daně podle odstavce"
+      },
+      {
+       "paragraph": "4",
+       "excerptA": "le odstavce 1 písm. g).“. Poznámka pod čarou č. 4a se zrušuje. 3. V § 4 odst. 3 se text „č. 2“ nahrazuje textem „č. 1“. 4. V § 4 odst. 4 a 5 se text „č. 3“ nahrazuje textem „č. 2“. 5. V § 6 odst. 4 se odkaz „§ 3 odst. 6“ mění na odkaz „§ 3 odst. 12“. 6. Příloha č. 1 se zrušuje. Dosavadní přílohy",
+       "excerptB": "kých osob, s výjimkou výnosů uvedených v § 3 odst. 1 písm. a) a v § 4 odst. 1 písm. g), f) podíl ve výši 0,1 % výnosu záloh poplatníka v paušálním režimu na daň z příjmů fyzických osob a výnosu daně z příjmů fyzických osob, která je rovna paušální dani.“. 5. V § 4 odst. 3 se tex"
+      },
+      {
+       "paragraph": "6",
+       "excerptA": "„č. 1“. 4. V § 4 odst. 4 a 5 se text „č. 3“ nahrazuje textem „č. 2“. 5. V § 6 odst. 4 se odkaz „§ 3 odst. 6“ mění na odkaz „§ 3 odst. 12“. 6. Příloha č. 1 se zrušuje. Dosavadní přílohy č. 2 a č. 3 se označují jako přílohy č. 1 a č. 2. Čl. II",
+       "excerptB": "„č. 1“. 6. V § 4 odst. 4 a 5 se text „č. 3“ nahrazuje textem „č. 2“. 7. V § 6 odst. 4 se odkaz „§ 3 odst. 6“ mění na odkaz „§ 3 odst. 12“. 8. Příloha č. 1 se zrušuje. Dosavadní přílohy č. 2 a č. 3 se označují jako přílohy č. 1 a č. 2. -3-"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "lawUrn": "law:sb:1-1993",
+   "lawRef": "1/1993",
+   "lawTitle": "zákon č. 1/1993 Sb. — Ústava České republiky",
+   "bills": [
+    47,
+    135,
+    214
+   ],
+   "billsFetched": [
+    47,
+    135,
+    214
+   ],
+   "billsSkipped": [],
+   "collisions": []
+  },
+  {
+   "lawUrn": "law:sb:187-2006",
+   "lawRef": "187/2006",
+   "lawTitle": "zákon č. 187/2006 Sb. — Zákon o nemocenském pojištění",
+   "bills": [
+    109,
+    121,
+    257
+   ],
+   "billsFetched": [
+    109,
+    121,
+    257
+   ],
+   "billsSkipped": [],
+   "collisions": []
+  },
+  {
+   "lawUrn": "law:sb:589-1992",
+   "lawRef": "589/1992",
+   "lawTitle": "zákon č. 589/1992 Sb. — Zákon České národní rady o pojistném na sociální zabezpečení a příspěvku na státní politiku zaměstnanosti",
+   "bills": [
+    11,
+    110
+   ],
+   "billsFetched": [
+    11,
+    110
+   ],
+   "billsSkipped": [],
+   "collisions": []
+  },
+  {
+   "lawUrn": "law:sb:90-1995",
+   "lawRef": "90/1995",
+   "lawTitle": "zákon č. 90/1995 Sb. — Zákon o jednacím řádu Poslanecké sněmovny",
+   "bills": [
+    15,
+    72
+   ],
+   "billsFetched": [
+    15,
+    72
+   ],
+   "billsSkipped": [],
+   "collisions": [
+    {
+     "billA": 15,
+     "billB": 72,
+     "sharedParagraphs": [
+      {
+       "paragraph": "54",
+       "excerptA": "Dosavadní odstavce 2 a 3 se označují jako odstavce 3 a 4. 3. V § 54 odst. 5 se za slovo „mohou“ vkládají slova „po zahájení schůze“ a za větu první se vkládají věty „Poslanec návrhy předkládá v jednom vystoupení nepřesahujícím 5 minut; řečník s přednostním právem (§ 67) v jednom vys",
+       "excerptB": "tosti“ nahrazují slovy „výbor pro kulturu a mediální záležitosti“. 5. V § 54 odst. 5 se za větu první vkládají věty druhá a třetí „Přednesení návrhu nebo návrhů nesmí překročit pět minut, u poslanců uvedených v § 67 odst. 1 písm. c), d) a e) třicet minut; každý poslanec může vystoupit pouze jednou. Ná"
+      },
+      {
+       "paragraph": "59",
+       "excerptA": "va „; doba takového vystoupení nesmí překročit 60 minut“. 6. V § 59 odstavce 1 a 2 znějí: „(1) Řečnická doba každého řečníka nesmí překročit 20 minut, nestanoví-li tento zákon jinak. Sněmovna se může k projednávanému bodu usnést bez rozpravy na prodloužení řečnické doby.",
+       "excerptB": "mohou být součástí pořadu uvedeného v žádosti podle věty první.“. 8. V § 59 odst. 1 se za větu první vkládá věta druhá „Usnese-li se Sněmovna na omezení řečnické doby, první vystoupení poslance pověřeného přednést k věci stanovisko poslaneckého klubu, zpravodaje a poslanců uvedených v § 67 odst. 1 pí"
+      },
+      {
+       "paragraph": "60",
+       "excerptA": "58 odst. 3), faktická poznámka poslance a odpověď na faktickou poznámku (§ 60). Sněmovna se může bez rozpravy usnést na vyšším počtu vystoupení.“. 7. V § 59 odst. 4 se za slova „projednávané věci“ vkládají slova „; to platí i pro řečníka s přednostním právem (§ 67), který vystupuje běh",
+       "excerptB": "pech předsedajícího rozhodne Sněmovna až v čase v usnesení určeném.“. 12. V § 60 odst. 2 se slova „ani případná odpověď na faktickou poznámku jiného poslance“ zrušují a na konci odstavce se doplňují věty „Sněmovna se může bez rozpravy usnést na omezení počtu faktických poznámek, se kterými v rozpravě může"
+      },
+      {
+       "paragraph": "67",
+       "excerptA": "ednom vystoupení nepřesahujícím 5 minut; řečník s přednostním právem (§ 67) v jednom vystoupení nepřesahujícím 30 minut. Návrhy lze předložit i písemně.“. 4. V § 54 odst. 6 se věta druhá nahrazuje větou „Takový návrh může předložit pouze předseda poslaneckého klubu v jednom vystoupe",
+       "excerptB": "esení návrhu nebo návrhů nesmí překročit pět minut, u poslanců uvedených v § 67 odst. 1 písm. c), d) a e) třicet minut; každý poslanec může vystoupit pouze jednou. Návrh lze podat i písemně, pokud poslanec odkáže ve svém vystoupení na stejnopis návrhu zveřejněný v elektronické podobě a současně před"
+      },
+      {
+       "paragraph": "95",
+       "excerptA": "nesou-li proti takovému návrhu námitku nejméně dva poslanecké kluby. Ustanovení § 95 odst. 1 tím není dotčeno.“.",
+       "excerptB": "esou-li proti takovému návrhu námitku nejméně dva poslanecké kluby. Ustanovení § 95 odst. 1 tím není dotčeno.“. 17. V § 99 odst. 7 se na konci textu věty první doplňují slova „ ; omezení řečnické doby podle tohoto ustanovení se nevztahuje na poslance pověřeného přednést k věci stanovisko poslaneckého klub"
+      },
+      {
+       "paragraph": "95a",
+       "excerptA": "principy soutěže politických stran a politických hnutí.“. 11. § 95a zní: „§ 95a Pro třetí čtení návrhů zákonů se ve stanovených jednacích dnech připadajících na středu a pátek, pokud Sněmovna do schválení pořadu schůze nerozhodla jin",
+       "excerptB": "publiky, předsedy Sněmovny a členů vlády se žádná omezení nevztahují.“. 16. § 95a zní: „§ 95a Nerozhodla-li Sněmovna jinak (§ 54 odst. 4), projednávají se třetí čtení návrhů zákonů ve středu v době od 9 hodin do 19 hodin a v pátek od 9 hodin do 14 hodin, jsou-li tyto dny stanovenými jed"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "lawUrn": "law:sb:89-2012",
+   "lawRef": "89/2012",
+   "lawTitle": "zákon č. 89/2012 Sb. — Zákon občanský zákoník",
+   "bills": [
+    36,
+    53
+   ],
+   "billsFetched": [
+    36,
+    53
+   ],
+   "billsSkipped": [],
+   "collisions": []
+  },
+  {
+   "lawUrn": "law:sb:104-2013",
+   "lawRef": "104/2013",
+   "lawTitle": "zákon č. 104/2013 Sb. — Zákon o mezinárodní justiční spolupráci ve věcech trestních",
+   "bills": [
+    46,
+    196
+   ],
+   "billsFetched": [
+    46,
+    196
+   ],
+   "billsSkipped": [],
+   "collisions": [
+    {
+     "billA": 46,
+     "billB": 196,
+     "sharedParagraphs": [
+      {
+       "paragraph": "113",
+       "excerptA": "etření, při tom může a) využít oprávnění podle § 8 odst. 1 a 5, § 78, § 79 a § 113 trestního řádu, b) vyžadovat vysvětlení od fyzických a právnických osob a státních orgánů nebo provádět výslechy osob, c) vyžadovat odborné vyjádření nebo znalecký posudek, d) obstarávat potřebné podklady, zejména spisy a",
+       "excerptB": "6 odst. 1 větě druhé se slovo „soud“ nahrazuje slovy „předseda senátu“. 4. V § 113 odst. 1 větě první se slova „O žádosti cizozemského orgánu o převzetí trestního řízení rozhodne“ nahrazují slovy „K přijetí žádosti cizozemského orgánu o převzetí trestního řízení a souvisejícím úkonům je příslušné“. 5."
+      },
+      {
+       "paragraph": "146a",
+       "excerptA": "(7) O stížnosti proti rozhodnutí státního zástupce rozhoduje soud uvedený v § 146a odst. 1 trestního řádu. (8) O stížnosti proti rozhodnutí útvaru Policie, je-li v jiném členském státu vedeno přípravné řízení, rozhoduje soud, v jehož obvodu je činný státní zástupce příslušný podle § 395b odst. 2. Věc pře",
+       "excerptB": "hodnutí státního zástupce o převzetí trestního řízení rozhoduje soud uvedený v § 146a odst. 1 trestního řádu. (6) Poté, co se rozhodnutí o převzetí trestního řízení stane vykonatelným, státní zástupce dá bezodkladně policejnímu orgánu pokyn k zahájení trestního řízení."
+      },
+      {
+       "paragraph": "193a",
+       "excerptA": "le § 192 odst. 1 a 2 trestního zákoníku, účasti na pornografickém představení (§ 193a trestního zákoníku), navazování nedovolených kontaktů s dítětem (§ 193b trestního zákoníku), ohrožování výchovy dítěte podle § 201 odst. 1 trestního zákoníku, svádění k pohlavnímu styku podle § 202 odst. 1 a 2 trestního zákoníku,",
+       "excerptB": "oti které se vede trestní řízení v cizím státu.“. 7. Za § 193 se vkládá nový § 193a, který včetně nadpisu zní: „§ 193a Výsady a imunity Požívá-li osoba, o jejíž předání jde, v předávajícím státě výsady nebo imu"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "lawUrn": "law:sb:634-1992",
+   "lawRef": "634/1992",
+   "lawTitle": "zákon č. 634/1992 Sb. — Zákon o ochraně spotřebitele",
+   "bills": [
+    53,
+    62
+   ],
+   "billsFetched": [
+    53,
+    62
+   ],
+   "billsSkipped": [],
+   "collisions": [
+    {
+     "billA": 53,
+     "billB": 62,
+     "sharedParagraphs": [
+      {
+       "paragraph": "13",
+       "excerptA": "í odstavce 6 a 7 se označují jako odstavce 7 a 8. CELEX: 32024L0825 11. V § 13 odst. 2 se slova „název nebo“ zrušují. 12. V § 15 se odstavec 2 včetně poznámky pod čarou č. 12 zrušuje. Dosavadní odstavec 3 se označuje jako odstavec 2. 13. V § 19 se za odstavec 1 vkládá nový odstavec 2, který zní:",
+       "excerptB": "§ 13 Dozor Dozor nad dodržováním povinností stanovených tímto zákonem provádí Česká obchodní"
+      },
+      {
+       "paragraph": "15",
+       "excerptA": "CELEX: 32024L0825 11. V § 13 odst. 2 se slova „název nebo“ zrušují. 12. V § 15 se odstavec 2 včetně poznámky pod čarou č. 12 zrušuje. Dosavadní odstavec 3 se označuje jako odstavec 2. 13. V § 19 se za odstavec 1 vkládá nový odstavec 2, který zní:",
+       "excerptB": "§ 15 Společná ustanovení k přestupkům (1) Přestupky podle tohoto zákona projednává Česká obchodní inspekce."
+      },
+      {
+       "paragraph": "2",
+       "excerptA": "í spotřebitelských sporů on-line).“ zrušuje. CELEX: 32024R3228 4. V § 2 se na konci odstavce 2 tečka nahrazuje čárkou a doplňují se písmena d) až l), která znějí: „d) environmentálním tvrzením jakékoliv sdělení nebo znázornění, včetně textového, obrazového, grafického nebo symbolického znáz",
+       "excerptB": "§2 Vymezení pojmů Pro účely tohoto zákona se rozumí a) opravářem podnikatel, který poskytuje opravu výrobku v rámci svého podnikání,"
+      },
+      {
+       "paragraph": "3",
+       "excerptA": "2 CELEX: 32024L0825, 32019L0771 5. V § 3 odst. 1 písm. d) se za slovo „výrobků“ vkládají slova „a poskytování služeb“. 6. V § 5 odst. 2 písm. b) se slovo „příslušenství“ nahrazuje slovy „dopadu na životní prostředí nebo společnost, příslušenství, vlastnostech umožňují",
+       "excerptB": "§3 (1) Výrobce opraví na žádost spotřebitele výrobek, pro který jsou stanoveny požadavky na opravitelnost přímo použitelnými předpisy Evropské unie uvedenými v příloze č. 1 k tomuto"
+      },
+      {
+       "paragraph": "5",
+       "excerptA": "1 písm. d) se za slovo „výrobků“ vkládají slova „a poskytování služeb“. 6. V § 5 odst. 2 písm. b) se slovo „příslušenství“ nahrazuje slovy „dopadu na životní prostředí nebo společnost, příslušenství, vlastnostech umožňující opětovné užití, jako je životnost, opravitelnost nebo recyklovatelnost“. CELEX",
+       "excerptB": "§5 (1) Výrobce zpřístupňuje informace o svých opravárenských službách snadno dostupným, jasným a srozumitelným způsobem, a to alespoň po dobu trvání jeho povinnosti opravy podle přímo použitelných předpisů Evropské unie uvedených v příloze č. 1 k tomuto zákonu."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "lawUrn": "law:sb:375-2022",
+   "lawRef": "375/2022",
+   "lawTitle": "zákon č. 375/2022 Sb. — Zákon o zdravotnických prostředcích a diagnostických zdravotnických prostředcích in vitro",
+   "bills": [
+    57,
+    153
+   ],
+   "billsFetched": [
+    57,
+    153
+   ],
+   "billsSkipped": [],
+   "collisions": [
+    {
+     "billA": 57,
+     "billB": 153,
+     "sharedParagraphs": [
+      {
+       "paragraph": "53a",
+       "excerptA": "no j), které zní: „j) vydává nebo ruší opatření obecné povahy podle § 53a.“. 3. V § 5 odst. 2 se na konci písmene v) slovo „a“ nahrazuje čárkou. 4. V § 5 se na konci odstavce 2 tečka nahrazuje čárkou a doplňují se písmena x) až z), která znějí: „x) přijímá, shromažďuje, prošetřuje a vyhodnocuje",
+       "excerptB": "a televizního vysílání, ve znění pozdějších předpisů“ zrušují. 2. Za § 53a se vkládá nový § 53b, který včetně nadpisu a poznámek pod čarou č. 26 a 27 zní: „§ 53b Program pro pacienty P"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "lawUrn": "law:sb:283-2021",
+   "lawRef": "283/2021",
+   "lawTitle": "zákon č. 283/2021 Sb. — Zákon stavební zákon",
+   "bills": [
+    67,
+    167
+   ],
+   "billsFetched": [
+    67,
+    167
+   ],
+   "billsSkipped": [],
+   "collisions": [
+    {
+     "billA": 67,
+     "billB": 167,
+     "sharedParagraphs": [
+      {
+       "paragraph": "334b",
+       "excerptA": "st. 3 se slova „dílu 4“ nahrazují slovy „dílu 3“. 523. V nadpisu pod označením § 334b se slova „stavební správy“ zrušují. 524. V § 334b odst. 1 se slova „pro účely odstavce 2“ zrušují, číslo „2027“ se nahrazuje číslem „2030“ a slova „a pro účely odstavců 3 a 5 až 9 období do 30. června 2026“ se zrušují.",
+       "excerptB": "Čl. I V § 334b odst. 1 zákona č. 283/2021 Sb., stavební zákon, ve znění zákona č. 437/2024 Sb. a zákona č. 223/2025 Sb., se číslo „2026“ nahrazuje číslem „2027“."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "lawUrn": "law:sb:592-1992",
+   "lawRef": "592/1992",
+   "lawTitle": "zákon č. 592/1992 Sb. — Zákon České národní rady  o pojistném na veřejné zdravotní pojištění",
+   "bills": [
+    70,
+    235
+   ],
+   "billsFetched": [
+    70,
+    235
+   ],
+   "billsSkipped": [],
+   "collisions": []
+  },
+  {
+   "lawUrn": "law:sb:477-2001",
+   "lawRef": "477/2001",
+   "lawTitle": "zákon č. 477/2001 Sb. — Zákon o obalech a o změně některých zákonů (zákon o obalech)",
+   "bills": [
+    73,
+    193
+   ],
+   "billsFetched": [
+    73,
+    193
+   ],
+   "billsSkipped": [],
+   "collisions": [
+    {
+     "billA": 73,
+     "billB": 193,
+     "sharedParagraphs": [
+      {
+       "paragraph": "16",
+       "excerptA": "§ 16 věty druhé, § 18 odst. 3, § 19 odst. 2, § 20 odst. 3, § 20a odst. 5 a § 21c odst. 6 písm. a) až c). Pro operátora zároveň platí výjimky z povinností a činností autorizované společnosti pro vratné zálohované obaly uvedené v § 21 odst. 6 písm. a).",
+       "excerptB": "dpadového podnikatele nebo osoba jednající s takovou osobou ve shodě.“. 2. V § 16 se dosavadní text označuje jako odstavec 1 a doplňují se odstavce 2 a 3, které znějí: „(2) Činnost autorizované společnosti podle tohoto zákona je službou obecného hospodářského zájmu. Účelem této činnosti je zajištění stab"
+      },
+      {
+       "paragraph": "17",
+       "excerptA": "§ 17 odst. 3 písm. a) a c), § 17 odst. 3 písm. d) bodů 1 až 6 a § 17 odst. 3 písm. e) bodu 1 také a) prohlášení žadatele o splnění podmínek uvedených v § 20 odst. 7,",
+       "excerptB": "m o změně autorizace na základě její žádosti nebo z moci úřední.“. 3. V § 17 odst. 7 se na konci písmene f) tečka nahrazuje čárkou a vkládají se písmena g) – i), která (včetně poznámek pod čarou č. 37 a 38) znějí: „g) pověření poskytováním služby obecného hospodářského zájmu, h) kritéria dost"
+      },
+      {
+       "paragraph": "18",
+       "excerptA": "ijí obdobně ustanovení o autorizované společnosti, s výjimkou § 16 věty druhé, § 18 odst. 3, § 19 odst. 2, § 20 odst. 3, § 20a odst. 5 a § 21c odst. 6 písm. a) až c). Pro operátora zároveň platí výjimky z povinností a činností autorizované společnosti pro vratné zálohované obaly uvedené v § 21 odst. 6 písm. a).",
+       "excerptB": "výrobcích s ukončenou životností, ve znění pozdějších předpisů.“. 4. V § 18 odst. 3 zní: „Podíl jednotlivého akcionáře nebo akcionářů jednajících ve shodě na základním kapitálu autorizované společnosti nebo na hlasovacích právech autorizované společnosti musí být menší než 3 % (dále jen „nejvyšší pří"
+      },
+      {
+       "paragraph": "19",
+       "excerptA": "zaci“. 30. V § 17 odst. 5 se slova „nebo 4“ nahrazují slovy „, 4 nebo 6 nebo § 19 odst. 2“ a za text „§ 20 odst.“ se vkládá text „3,“. 31. V § 17 odstavec 8 zní: „(8) Ministerstvo životního prostředí prodlouží platnost rozhodnutí o autorizaci, pokud autorizovaná společnost o toto prodloužení po",
+       "excerptB": "nikateli a vertikálně integrované skupině neuplatní zákazy a omezení podle § 19 odst. 1, 3 a 4. Ministerstvo životního prostředí rozhodnutí podle věty druhé z vlastního podnětu nebo na návrh autorizované společnosti nebo jejího akcionáře, jehož práva a povinnosti jsou předmětem tohoto rozhodnutí, změní n"
+      },
+      {
+       "paragraph": "2",
+       "excerptA": "3 Sb., zákona č. 218/2025 Sb. a zákona č. 344/2025 Sb., se mění takto: 1. V § 2 písm. a) úvodní části ustanovení se slova „spotřebiteli nebo jinému konečnému uživateli“ nahrazují slovy „jinému konečnému uživateli nebo spotřebiteli (dále jen „konečný uživatel“)“. 2. V § 2 písm. a) bodě 1 a v § 3 odst.",
+       "excerptB": "22 Sb., zákona č. 218/2025 Sb. a zákona č. 344/2025 Sb. se mění takto: 1. V § 2 se na konci písm. y) tečka nahrazuje čárkou a doplňují se písmena z) a za), která zní: „z) odpadovým podnikatelem právnická osoba nebo fyzická podnikající osoba, jejímž předmětem podnikání je nakládání s odpady, zejména s"
+      },
+      {
+       "paragraph": "20",
+       "excerptA": "ti rozhodnutí o autorizaci se použijí obdobně odstavce 1 až 6.“. 32. V § 20 se na konci odstavce 1 doplňuje věta „Autorizovaná společnost, jejíž sběrná síť splňuje požadavky uvedené v § 10 odst. 2 písm. a) a b), je oprávněna poskytovat administrativní podporu operátorovi a provozovatelům kolektivní",
+       "excerptB": "jiných úkolů autorizované společnosti podle tohoto zákona.“. 11. V § 20 odst. 4 zní: „Základní kapitál autorizované společnosti činí 2 000 000 Kč. Autorizovaná společnost smí vydávat pouze akcie, s nimiž nejsou spojena žádná zvláštní práva, a to pouze jako akcie zaknihované. Emisní kurs akcie mus"
+      },
+      {
+       "paragraph": "21",
+       "excerptA": "§ 21 písm. f) vyhlášky č. 248/2018 Sb., o požadavcích na nápoje, kvasný ocet a droždí.“. 72. Na konci přílohy č. 7 se doplňuje věta „Minimální úroveň zpětného odběru odpadu z vybraných zálohovaných jednorázových obalů se vypočítává pouze z vybraných",
+       "excerptB": ", která je členem stejné propojené skupiny jako odpadový podnikatel.“. 10. V § 21 odst. 1 se na konci písmene p) tečka nahrazuje čárkou a vkládají se písmena q) a r), která znějí: „q) zajišťovat sběrový komfort pro spotřebitele formou dostatečně husté a dostupné sítě míst zpětného odběru v s"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "lawUrn": "law:sb:245-2000",
+   "lawRef": "245/2000",
+   "lawTitle": "zákon č. 245/2000 Sb. — Zákon o státních svátcích, o ostatních svátcích, o významných dnech a o dnech pracovního klidu",
+   "bills": [
+    78,
+    238
+   ],
+   "billsFetched": [
+    78,
+    238
+   ],
+   "billsSkipped": [],
+   "collisions": [
+    {
+     "billA": 78,
+     "billB": 238,
+     "sharedParagraphs": [
+      {
+       "paragraph": "4",
+       "excerptA": "Čl. I V § 4 odst. 1 zákona č. 245/2000 Sb., o státních svátcích, o ostatních svátcích, o významných dnech a o dnech pracovního klidu, ve znění zákona č. 101/2004 Sb., zákona č. 129/2006 Sb., zákona č. 162/2013 Sb., zákona č. 226/2017 Sb., zákona",
+       "excerptB": "Čl. I V § 4 odst. 1 zákona č. 245/2000 Sb., o státních svátcích, o ostatních svátcích, o významných dnech a o dnech pracovního klidu, ve znění zákona č. 101/2004 Sb., zákona č. 129/2006 Sb., zákona č. 162/2013 Sb., zákona č. 226/2017 Sb., zákona"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "lawUrn": "law:sb:110-2006",
+   "lawRef": "110/2006",
+   "lawTitle": "zákon č. 110/2006 Sb. — Zákon o životním a existenčním minimu",
+   "bills": [
+    85,
+    88
+   ],
+   "billsFetched": [
+    85,
+    88
+   ],
+   "billsSkipped": [],
+   "collisions": [
+    {
+     "billA": 85,
+     "billB": 88,
+     "sharedParagraphs": [
+      {
+       "paragraph": "7",
+       "excerptA": "Čl. I V § 7 odst. 2 písm. h) zákona č. 110/2006 Sb., o životním a existenčním minimu, ve znění zákona č. 261/2007 Sb., zákona č. 458/2011 Sb., zákona č. 44/2013 Sb., zákonného opatření Senátu č. 344/2013 Sb., zákona č. 252/2014 Sb., zákona č. 297",
+       "excerptB": "Čl. III V § 7 odst. 2 písm. h) zákona č. 110/2006 Sb., o životním a existenčním minimu, ve znění zákona č. 261/2007 Sb., zákona č. 458/2011 Sb., zákona č. 44/2013 Sb., zákonného opatření 1"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "lawUrn": "law:sb:561-2004",
+   "lawRef": "561/2004",
+   "lawTitle": "zákon č. 561/2004 Sb. — Zákon o předškolním, základním, středním, vyšším odborném a jiném vzdělávání (školský zákon)",
+   "bills": [
+    104,
+    232
+   ],
+   "billsFetched": [
+    104,
+    232
+   ],
+   "billsSkipped": [],
+   "collisions": [
+    {
+     "billA": 104,
+     "billB": 232,
+     "sharedParagraphs": [
+      {
+       "paragraph": "30",
+       "excerptA": "25 Sb., zákona č. 268/2025 Sb. a zákona č. 314/2025 Sb. se mění takto: 1. V § 30 odstavec 3 zní: „(3) Školní řád nebo vnitřní řád dále upravuje a) podrobnosti podmínek povolení používání mobilních telefonů nebo jiných elektronických zařízení, které přispívá k naplnění školního vzdělávacího programu, a dále, kt",
+       "excerptB": "bo student poruší omezení nebo zákaz používání mobilního telefonu.“. 2. V § 30 se odstavec 3 zrušuje. Dosavadní odstavce 4 až 6 se označují jako odstavce 3 až 5. 3. V § 136 odst. 2 písm. d) se text „§ 30 odst. 5“ nahrazuje textem „§ 30 odst. 4“. ČÁST DRUHÁ"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "lawUrn": "law:sb:159-1999",
+   "lawRef": "159/1999",
+   "lawTitle": "zákon č. 159/1999 Sb. — Zákon o některých podmínkách podnikání v oblasti cestovního ruchu a o změně zákona č. 40/1964 Sb., občanský zákoník, ve ",
+   "bills": [
+    106,
+    107
+   ],
+   "billsFetched": [
+    106,
+    107
+   ],
+   "billsSkipped": [],
+   "collisions": []
+  },
+  {
+   "lawUrn": "law:sb:353-2019",
+   "lawRef": "353/2019",
+   "lawTitle": "zákon č. 353/2019 Sb. — Zákon o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou účastí státu (nominační zákon)",
+   "bills": [
+    116,
+    138
+   ],
+   "billsFetched": [
+    116,
+    138
+   ],
+   "billsSkipped": [],
+   "collisions": []
+  },
+  {
+   "lawUrn": "law:sb:223-2016",
+   "lawRef": "223/2016",
+   "lawTitle": "zákon č. 223/2016 Sb. — Zákon o prodejní době v maloobchodě a velkoobchodě",
+   "bills": [
+    129,
+    243
+   ],
+   "billsFetched": [
+    129,
+    243
+   ],
+   "billsSkipped": [],
+   "collisions": []
+  },
+  {
+   "lawUrn": "law:sb:235-2004",
+   "lawRef": "235/2004",
+   "lawTitle": "zákon č. 235/2004 Sb. — Zákon o dani z přidané hodnoty",
+   "bills": [
+    168,
+    218
+   ],
+   "billsFetched": [
+    168,
+    218
+   ],
+   "billsSkipped": [],
+   "collisions": []
+  },
+  {
+   "lawUrn": "law:sb:13-1997",
+   "lawRef": "13/1997",
+   "lawTitle": "zákon č. 13/1997 Sb. — Zákon o pozemních komunikacích",
+   "bills": [
+    171,
+    246
+   ],
+   "billsFetched": [
+    171,
+    246
+   ],
+   "billsSkipped": [],
+   "collisions": [
+    {
+     "billA": 171,
+     "billB": 246,
+     "sharedParagraphs": [
+      {
+       "paragraph": "21",
+       "excerptA": "Čl. I V § 21 odst. 2 a 4 zákona č. 13/1997 Sb., o pozemních komunikacích, ve znění zákona č. 102/2000 Sb., zákona č. 186/2004 Sb., zákona č. 80/2006 Sb., zákona č. 347/2009 Sb., zákona č. 227/2019 Sb., zákona č. 349/2023 Sb. a zákona č. 130/2025",
+       "excerptB": "č. 232/2025 Sb., zákona č. 330/2025 Sb. a zákona č. …, se mění takto: 1. V § 21 odstavce 3 až 5 znějí: „(3) Sazba časového poplatku na a) 1 rok činí 2 570 Kč, b) 30 dnů činí 480 Kč, c) 10 dnů činí 300 Kč a d) 1 den činí 230 Kč."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "lawUrn": "law:sb:348-2005",
+   "lawRef": "348/2005",
+   "lawTitle": "zákon č. 348/2005 Sb. — Zákon o rozhlasových a televizních poplatcích a o změně některých zákonů",
+   "bills": [
+    201,
+    231
+   ],
+   "billsFetched": [
+    201,
+    231
+   ],
+   "billsSkipped": [],
+   "collisions": []
+  },
+  {
+   "lawUrn": "law:sb:134-2016",
+   "lawRef": "134/2016",
+   "lawTitle": "zákon č. 134/2016 Sb. — Zákon o zadávání veřejných zakázek",
+   "bills": [
+    206,
+    222
+   ],
+   "billsFetched": [
+    206,
+    222
+   ],
+   "billsSkipped": [],
+   "collisions": []
+  }
+ ]
+}

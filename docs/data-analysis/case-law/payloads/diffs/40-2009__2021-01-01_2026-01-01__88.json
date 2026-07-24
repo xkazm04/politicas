@@ -1,0 +1,164 @@
+{
+ "law": "40/2009",
+ "source": "e-Sbírka SPARQL endpoint (opendata.eselpoint.gov.cz/sparql) — point queries, real fetched text",
+ "fetchedAt": "2026-07-24T20:45:45.849Z",
+ "from": {
+  "date": "2021-01-01",
+  "effectiveFrom": "2021-01-01",
+  "effectiveTo": "2021-05-25",
+  "eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2009/40/2021-01-01"
+ },
+ "to": {
+  "date": "2026-01-01",
+  "effectiveFrom": "2026-01-01",
+  "effectiveTo": null,
+  "eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2009/40/2026-01-01"
+ },
+ "parScope": "§ 88",
+ "hunks": [
+  {
+   "fragment": "§ 88 odst. 1",
+   "op": "modified",
+   "before": "<var>(1)</var> Soud může odsouzeného podmíněně propustit na svobodu, jestliže odsouzený po právní moci rozsudku, zejména ve výkonu trestu svým chováním a plněním svých povinností prokázal polepšení a může se od něho očekávat, že v budoucnu povede řádný život nebo soud přijme záruku za dovršení nápravy odsouzeného, a",
+   "after": "<var>(1)</var> Soud odsouzeného podmíněně propustí na svobodu, jestliže odsouzený vykonal stanovenou část trestu, svým chováním a plněním svých povinností po právní moci rozsudku prokázal polepšení a může se od něho očekávat, že v budoucnu povede řádný život nebo soud přijme záruku za dovršení nápravy odsouzeného."
+  },
+  {
+   "fragment": "§ 88 odst. 1 písm. a)",
+   "op": "removed",
+   "before": "<var>a)</var> odsouzený vykonal alespoň polovinu uloženého nebo podle rozhodnutí prezidenta České republiky zmírněného trestu odnětí svobody, nebo",
+   "after": null
+  },
+  {
+   "fragment": "§ 88 odst. 1 písm. b)",
+   "op": "removed",
+   "before": "<var>b)</var> odsouzený, jenž nebyl odsouzen za zvlášť závažný zločin,",
+   "after": null
+  },
+  {
+   "fragment": "§ 88 odst. 1 písm. b) bod 1",
+   "op": "removed",
+   "before": "<var>1.</var> kterým byla nebo měla být způsobena smrt, nejde-li o trestný čin zabití podle <a data-odkaz-id=\"37098807\" href=\"#\" class=\"int_odkaz\">§ 141 odst. 1</a>,",
+   "after": null
+  },
+  {
+   "fragment": "§ 88 odst. 1 písm. b) bod 2",
+   "op": "removed",
+   "before": "<var>2.</var> kterým byla nebo měla být způsobena těžká újma na zdraví,",
+   "after": null
+  },
+  {
+   "fragment": "§ 88 odst. 1 písm. b) bod 3",
+   "op": "removed",
+   "before": "<var>3.</var> jehož znakem je spáchání na těhotné ženě nebo na dítěti,",
+   "after": null
+  },
+  {
+   "fragment": "§ 88 odst. 1 písm. b) bod 4",
+   "op": "removed",
+   "before": "<var>4.</var> který spáchal jako člen organizované skupiny, ve spojení s organizovanou skupinou nebo ve prospěch organizované zločinecké skupiny, nebo zvlášť závažný zločin účasti na organizované zločinecké skupině (<a data-odkaz-id=\"37098831\" href=\"#\" class=\"int_odkaz\">§ 361</a>),",
+   "after": null
+  },
+  {
+   "fragment": "§ 88 odst. 1 písm. b) bod 5",
+   "op": "removed",
+   "before": "<var>5.</var> který spáchal v úmyslu umožnit nebo usnadnit spáchání teroristického trestného činu, trestného činu účasti na teroristické skupině (<a data-odkaz-id=\"37098855\" href=\"#\" class=\"int_odkaz\">§ 312a</a>), financování terorismu (<a data-odkaz-id=\"37098879\" href=\"#\" class=\"int_odkaz\">§ 312d</a>), podpory a propagace terorismu podle <a data-odkaz-id=\"37098903\" href=\"#\" class=\"int_odkaz\">§ 312e odst. 3</a> nebo vyhrožování teroristickým trestným činem (<a data-odkaz-id=\"37098927\" href=\"#\" class=\"int_odkaz\">§ 312f</a>), nebo",
+   "after": null
+  },
+  {
+   "fragment": "§ 88 odst. 1 písm. b) bod 6",
+   "op": "removed",
+   "before": "<var>6.</var> který je uveden v <a data-odkaz-id=\"37098951\" href=\"#\" class=\"int_odkaz\">hlavě třetí</a>, <a data-odkaz-id=\"37098975\" href=\"#\" class=\"int_odkaz\">sedmé</a>, <a data-odkaz-id=\"37098999\" href=\"#\" class=\"int_odkaz\">deváté</a>, <a data-odkaz-id=\"37099023\" href=\"#\" class=\"int_odkaz\">dvanácté</a> a <a data-odkaz-id=\"37099047\" href=\"#\" class=\"int_odkaz\">třinácté</a> zvláštní části tohoto zákona nebo v <a data-odkaz-id=\"37099071\" href=\"#\" class=\"int_odkaz\">odstavci 4</a>,",
+   "after": null
+  },
+  {
+   "fragment": "§ 88 odst. 2",
+   "op": "modified",
+   "before": "<var>(2)</var> Jestliže odsouzený za přečin prokázal svým vzorným chováním a plněním svých povinností, že dalšího výkonu trestu není třeba, může ho soud podmíněně propustit na svobodu i předtím, než vykonal část trestu odnětí svobody vyžadovanou pro podmíněné propuštění podle <a data-odkaz-id=\"36973439\" href=\"#\" class=\"int_odkaz\">odstavce 1.</a> Soud nevyhoví návrhu ředitele věznice na podmíněné propuštění odsouzeného na svobodu, jen je-li zjevné, že by odsouzený po propuštění na svobodu nevedl řádný život.",
+   "after": "<var>(2)</var> Stanovenou částí trestu, kterou podle <a data-odkaz-id=\"195793619\" href=\"#\" class=\"int_odkaz\">odstavce 1</a> musí odsouzený vykonat před tím, než může být podmíněně propuštěn, se rozumí"
+  },
+  {
+   "fragment": "§ 88 odst. 2 písm. a)",
+   "op": "added",
+   "before": null,
+   "after": "<var>a)</var> polovina uloženého nebo podle rozhodnutí prezidenta České republiky zmírněného trestu odnětí svobody,"
+  },
+  {
+   "fragment": "§ 88 odst. 2 písm. b)",
+   "op": "added",
+   "before": null,
+   "after": "<var>b)</var> třetina uloženého nebo podle rozhodnutí prezidenta České republiky zmírněného trestu odnětí svobody, jde-li o odsouzeného, který dosud nebyl ve výkonu trestu odnětí svobody a který nebyl odsouzen za zvlášť závažný zločin,"
+  },
+  {
+   "fragment": "§ 88 odst. 2 písm. b) bod 1",
+   "op": "added",
+   "before": null,
+   "after": "<var>1.</var> kterým byla nebo měla být způsobena smrt, nejde-li o trestný čin zabití podle <a data-odkaz-id=\"195793621\" href=\"#\" class=\"int_odkaz\">§ 141 odst. 1</a>,"
+  },
+  {
+   "fragment": "§ 88 odst. 2 písm. b) bod 2",
+   "op": "added",
+   "before": null,
+   "after": "<var>2.</var> kterým byla nebo měla být způsobena těžká újma na zdraví,"
+  },
+  {
+   "fragment": "§ 88 odst. 2 písm. b) bod 3",
+   "op": "added",
+   "before": null,
+   "after": "<var>3.</var> jehož znakem je spáchání na těhotné ženě nebo na dítěti,"
+  },
+  {
+   "fragment": "§ 88 odst. 2 písm. b) bod 4",
+   "op": "added",
+   "before": null,
+   "after": "<var>4.</var> který spáchal ve prospěch organizované zločinecké skupiny, nebo zvlášť závažný zločin účasti na organizované zločinecké skupině (<a data-odkaz-id=\"195793623\" href=\"#\" class=\"int_odkaz\">§ 361</a>),"
+  },
+  {
+   "fragment": "§ 88 odst. 2 písm. b) bod 5",
+   "op": "added",
+   "before": null,
+   "after": "<var>5.</var> který spáchal v úmyslu umožnit nebo usnadnit spáchání teroristického trestného činu, trestného činu účasti na teroristické skupině (<a data-odkaz-id=\"195793625\" href=\"#\" class=\"int_odkaz\">§ 312a</a>), financování terorismu (<a data-odkaz-id=\"195793627\" href=\"#\" class=\"int_odkaz\">§ 312d</a>), podpory a propagace terorismu podle <a data-odkaz-id=\"195793629\" href=\"#\" class=\"int_odkaz\">§ 312e odst. 3</a> nebo vyhrožování teroristickým trestným činem (<a data-odkaz-id=\"195793631\" href=\"#\" class=\"int_odkaz\">§ 312f</a>), nebo"
+  },
+  {
+   "fragment": "§ 88 odst. 2 písm. b) bod 6",
+   "op": "added",
+   "before": null,
+   "after": "<var>6.</var> který je uveden v <a data-odkaz-id=\"195793633\" href=\"#\" class=\"int_odkaz\">hlavě třetí</a>, <a data-odkaz-id=\"195793635\" href=\"#\" class=\"int_odkaz\">sedmé</a>, <a data-odkaz-id=\"195793637\" href=\"#\" class=\"int_odkaz\">deváté</a>, <a data-odkaz-id=\"195793639\" href=\"#\" class=\"int_odkaz\">dvanácté</a> a <a data-odkaz-id=\"195793641\" href=\"#\" class=\"int_odkaz\">třinácté</a> zvláštní části tohoto zákona nebo v <a data-odkaz-id=\"195793643\" href=\"#\" class=\"int_odkaz\">písmenu c)</a>,"
+  },
+  {
+   "fragment": "§ 88 odst. 2 písm. c)",
+   "op": "added",
+   "before": null,
+   "after": "<var>c)</var> dvě třetiny uloženého nebo podle rozhodnutí prezidenta České republiky zmírněného trestu odnětí svobody, jde-li o pachatele odsouzeného za trestný čin vraždy (<a data-odkaz-id=\"195793645\" href=\"#\" class=\"int_odkaz\">§ 140</a>), zabití podle <a data-odkaz-id=\"195793647\" href=\"#\" class=\"int_odkaz\">§ 141 odst. 2</a>, těžkého ublížení na zdraví podle <a data-odkaz-id=\"195793649\" href=\"#\" class=\"int_odkaz\">§ 145 odst. 3</a>, mučení a jiného nelidského a krutého zacházení podle <a data-odkaz-id=\"195793651\" href=\"#\" class=\"int_odkaz\">§ 149 odst. 4</a>, nedovoleného přerušení těhotenství bez souhlasu těhotné ženy podle <a data-odkaz-id=\"195793653\" href=\"#\" class=\"int_odkaz\">§ 159 odst. 3</a>, <a data-odkaz-id=\"195793655\" href=\"#\" class=\"int_odkaz\">4</a>, neoprávněného odebrání tkání a orgánů podle <a data-odkaz-id=\"195793657\" href=\"#\" class=\"int_odkaz\">§ 164 odst. 3</a>, <a data-odkaz-id=\"195793659\" href=\"#\" class=\"int_odkaz\">4</a>, obchodování s lidmi podle <a data-odkaz-id=\"195793661\" href=\"#\" class=\"int_odkaz\">§ 168 odst. 4</a>, <a data-odkaz-id=\"195793663\" href=\"#\" class=\"int_odkaz\">5</a>, zbavení osobní svobody podle <a data-odkaz-id=\"195793665\" href=\"#\" class=\"int_odkaz\">§ 170 odst. 2</a>, <a data-odkaz-id=\"195793667\" href=\"#\" class=\"int_odkaz\">3</a>, zavlečení podle <a data-odkaz-id=\"195793669\" href=\"#\" class=\"int_odkaz\">§ 172 odst. 2</a>, <a data-odkaz-id=\"195793671\" href=\"#\" class=\"int_odkaz\">3</a>, loupeže podle <a data-odkaz-id=\"195793673\" href=\"#\" class=\"int_odkaz\">§ 173 odst. 3</a>, <a data-odkaz-id=\"195793675\" href=\"#\" class=\"int_odkaz\">4</a>, braní rukojmí podle <a data-odkaz-id=\"195793677\" href=\"#\" class=\"int_odkaz\">§ 174 odst. 3</a>, <a data-odkaz-id=\"195793679\" href=\"#\" class=\"int_odkaz\">4</a>, vydírání podle <a data-odkaz-id=\"195793681\" href=\"#\" class=\"int_odkaz\">§ 175 odst. 3</a>, <a data-odkaz-id=\"195793683\" href=\"#\" class=\"int_odkaz\">4</a>, znásilnění podle <a data-odkaz-id=\"195793685\" href=\"#\" class=\"int_odkaz\">§ 185 odst. 3</a>, <a data-odkaz-id=\"195793687\" href=\"#\" class=\"int_odkaz\">4</a>, sexuálního útoku podle <a data-odkaz-id=\"195793689\" href=\"#\" class=\"int_odkaz\">§ 185a odst. 3</a>, <a data-odkaz-id=\"195793691\" href=\"#\" class=\"int_odkaz\">4</a>, sexuálního nátlaku podle <a data-odkaz-id=\"195793693\" href=\"#\" class=\"int_odkaz\">§ 186 odst. 5</a>, <a data-odkaz-id=\"195793695\" href=\"#\" class=\"int_odkaz\">6</a>, pohlavního zneužití podle <a data-odkaz-id=\"195793697\" href=\"#\" class=\"int_odkaz\">§ 187 odst. 2</a>, <a data-odkaz-id=\"195793699\" href=\"#\" class=\"int_odkaz\">3</a>, obecného ohrožení podle <a data-odkaz-id=\"195793701\" href=\"#\" class=\"int_odkaz\">§ 272 odst. 2</a>, <a data-odkaz-id=\"195793703\" href=\"#\" class=\"int_odkaz\">3</a>, neoprávněné výroby a jiného nakládání s omamnými nebo psychotropními látkami, s rostlinami nebo houbami je obsahujícími nebo s jedy podle <a data-odkaz-id=\"195793705\" href=\"#\" class=\"int_odkaz\">§ 283 odst. 4</a>, získání kontroly nad vzdušným dopravním prostředkem, civilním plavidlem a pevnou plošinou (<a data-odkaz-id=\"195793707\" href=\"#\" class=\"int_odkaz\">§ 290</a>), zavlečení vzdušného dopravního prostředku do ciziny podle <a data-odkaz-id=\"195793709\" href=\"#\" class=\"int_odkaz\">§ 292 odst. 3</a>, vlastizrady (<a data-odkaz-id=\"195793711\" href=\"#\" class=\"int_odkaz\">§ 309</a>), rozvracení republiky (<a data-odkaz-id=\"195793713\" href=\"#\" class=\"int_odkaz\">§ 310</a>), teroristického útoku (<a data-odkaz-id=\"195793715\" href=\"#\" class=\"int_odkaz\">§ 311</a>), teroru (<a data-odkaz-id=\"195793717\" href=\"#\" class=\"int_odkaz\">§ 312</a>), sabotáže (<a data-odkaz-id=\"195793719\" href=\"#\" class=\"int_odkaz\">§ 314</a>), vyzvědačství podle <a data-odkaz-id=\"195793721\" href=\"#\" class=\"int_odkaz\">§ 316 odst. 3</a>, <a data-odkaz-id=\"195793723\" href=\"#\" class=\"int_odkaz\">4</a>, válečné zrady (<a data-odkaz-id=\"195793725\" href=\"#\" class=\"int_odkaz\">§ 320</a>), násilného překročení státní hranice podle <a data-odkaz-id=\"195793727\" href=\"#\" class=\"int_odkaz\">§ 339 odst. 3</a>, organizování a umožnění nedovoleného překročení státní hranice podle <a data-odkaz-id=\"195793729\" href=\"#\" class=\"int_odkaz\">§ 340 odst. 4</a>, genocidia (<a data-odkaz-id=\"195793731\" href=\"#\" class=\"int_odkaz\">§ 400</a>), útoku proti lidskosti (<a data-odkaz-id=\"195793733\" href=\"#\" class=\"int_odkaz\">§ 401</a>), apartheidu a diskriminace skupiny lidí (<a data-odkaz-id=\"195793735\" href=\"#\" class=\"int_odkaz\">§ 402</a>), agrese (<a data-odkaz-id=\"195793737\" href=\"#\" class=\"int_odkaz\">§ 405a</a>), přípravy útočné války (<a data-odkaz-id=\"195793739\" href=\"#\" class=\"int_odkaz\">§ 406</a>), styků ohrožujících mír (<a data-odkaz-id=\"195793741\" href=\"#\" class=\"int_odkaz\">§ 409</a>), použití zakázaného bojového prostředku a nedovoleného vedení boje podle <a data-odkaz-id=\"195793743\" href=\"#\" class=\"int_odkaz\">§ 411 odst. 3</a>, válečné krutosti (<a data-odkaz-id=\"195793745\" href=\"#\" class=\"int_odkaz\">§ 412</a>), perzekuce obyvatelstva (<a data-odkaz-id=\"195793747\" href=\"#\" class=\"int_odkaz\">§ 413</a>), plenění v prostoru válečných operací (<a data-odkaz-id=\"195793749\" href=\"#\" class=\"int_odkaz\">§ 414</a>) nebo zneužití mezinárodně uznávaných a státních znaků podle <a data-odkaz-id=\"195793751\" href=\"#\" class=\"int_odkaz\">§ 415 odst. 3</a>, nebo k výjimečnému trestu odnětí svobody nad dvacet až do třiceti let, a"
+  },
+  {
+   "fragment": "§ 88 odst. 2 písm. d)",
+   "op": "added",
+   "before": null,
+   "after": "<var>d)</var> dvacet let, jde-li o pachatele odsouzeného k trestu odnětí svobody na doživotí."
+  },
+  {
+   "fragment": "§ 88 odst. 3",
+   "op": "modified",
+   "before": "<var>(3)</var> Soud při rozhodování o podmíněném propuštění odsouzeného za zločin přihlédne také k tomu, zda odsouzený včas nastoupil do výkonu trestu a zda částečně nebo zcela nahradil či jinak odčinil škodu nebo jinou újmu způsobenou trestným činem nebo zda vydal bezdůvodné obohacení získané trestným činem. Jestliže odsouzený vykonával ochranné léčení před nástupem výkonu trestu odnětí svobody nebo v jeho průběhu, přihlédne soud i k projevenému postoji odsouzeného k výkonu ochranného léčení.",
+   "after": "<var>(3)</var> Jestliže odsouzený za přečin prokázal svým vzorným chováním a plněním svých povinností, že dalšího výkonu trestu není třeba, soud ho podmíněně propustí na svobodu i předtím, než vykonal část trestu odnětí svobody vyžadovanou pro podmíněné propuštění podle <a data-odkaz-id=\"195793753\" href=\"#\" class=\"int_odkaz\">odstavce 2 písm. a)</a> nebo <a data-odkaz-id=\"195793755\" href=\"#\" class=\"int_odkaz\">b)</a>. Soud nevyhoví návrhu ředitele věznice na podmíněné propuštění odsouzeného na svobodu, jen je-li zjevné, že by odsouzený po propuštění na svobodu nevedl řádný život."
+  },
+  {
+   "fragment": "§ 88 odst. 4",
+   "op": "modified",
+   "before": "<var>(4)</var> Osoba odsouzená za trestný čin vraždy (<a data-odkaz-id=\"37090877\" href=\"#\" class=\"int_odkaz\">§ 140</a>), zabití podle <a data-odkaz-id=\"37090907\" href=\"#\" class=\"int_odkaz\">§ 141 odst. 2</a>, těžkého ublížení na zdraví podle <a data-odkaz-id=\"37090937\" href=\"#\" class=\"int_odkaz\">§ 145 odst. 3</a>, mučení a jiného nelidského a krutého zacházení podle <a data-odkaz-id=\"37090967\" href=\"#\" class=\"int_odkaz\">§ 149 odst. 4</a>, nedovoleného přerušení těhotenství bez souhlasu těhotné ženy podle <a data-odkaz-id=\"37090997\" href=\"#\" class=\"int_odkaz\">§ 159 odst. 3</a>, <a data-odkaz-id=\"37091027\" href=\"#\" class=\"int_odkaz\">4</a>, neoprávněného odebrání tkání a orgánů podle <a data-odkaz-id=\"37091057\" href=\"#\" class=\"int_odkaz\">§ 164 odst. 3</a>, <a data-odkaz-id=\"37091087\" href=\"#\" class=\"int_odkaz\">4</a>, obchodování s lidmi podle <a data-odkaz-id=\"37091117\" href=\"#\" class=\"int_odkaz\">§ 168 odst. 4</a>, <a data-odkaz-id=\"37091147\" href=\"#\" class=\"int_odkaz\">5</a>, zbavení osobní svobody podle <a data-odkaz-id=\"37091177\" href=\"#\" class=\"int_odkaz\">§ 170 odst. 2</a>, <a data-odkaz-id=\"37091207\" href=\"#\" class=\"int_odkaz\">3</a>, zavlečení podle <a data-odkaz-id=\"37091237\" href=\"#\" class=\"int_odkaz\">§ 172 odst. 2</a>, <a data-odkaz-id=\"37091267\" href=\"#\" class=\"int_odkaz\">3</a>, loupeže podle <a data-odkaz-id=\"37091297\" href=\"#\" class=\"int_odkaz\">§ 173 odst. 3</a>, <a data-odkaz-id=\"37091327\" href=\"#\" class=\"int_odkaz\">4</a>, braní rukojmí podle <a data-odkaz-id=\"37091357\" href=\"#\" class=\"int_odkaz\">§ 174 odst. 3</a>, <a data-odkaz-id=\"37091387\" href=\"#\" class=\"int_odkaz\">4</a>, vydírání podle <a data-odkaz-id=\"37091417\" href=\"#\" class=\"int_odkaz\">§ 175 odst. 3</a>, <a data-odkaz-id=\"37091447\" href=\"#\" class=\"int_odkaz\">4</a>, znásilnění podle <a data-odkaz-id=\"37091477\" href=\"#\" class=\"int_odkaz\">§ 185 odst. 3</a>, <a data-odkaz-id=\"37091507\" href=\"#\" class=\"int_odkaz\">4</a>, pohlavního zneužití podle <a data-odkaz-id=\"37091537\" href=\"#\" class=\"int_odkaz\">§ 187 odst. 3</a>, <a data-odkaz-id=\"37091567\" href=\"#\" class=\"int_odkaz\">4</a>, obecného ohrožení podle <a data-odkaz-id=\"37091597\" href=\"#\" class=\"int_odkaz\">§ 272 odst. 2</a>, <a data-odkaz-id=\"37091627\" href=\"#\" class=\"int_odkaz\">3</a>, nedovolené výroby a jiného nakládání s omamnými a psychotropními látkami a s jedy podle <a data-odkaz-id=\"37091657\" href=\"#\" class=\"int_odkaz\">§ 283 odst. 4</a>, získání kontroly nad vzdušným dopravním prostředkem, civilním plavidlem a pevnou plošinou (<a data-odkaz-id=\"37091687\" href=\"#\" class=\"int_odkaz\">§ 290</a>), zavlečení vzdušného dopravního prostředku do ciziny podle <a data-odkaz-id=\"37091717\" href=\"#\" class=\"int_odkaz\">§ 292 odst. 3</a>, vlastizrady (<a data-odkaz-id=\"37091747\" href=\"#\" class=\"int_odkaz\">§ 309</a>), rozvracení republiky (<a data-odkaz-id=\"37091777\" href=\"#\" class=\"int_odkaz\">§ 310</a>), teroristického útoku (<a data-odkaz-id=\"37091807\" href=\"#\" class=\"int_odkaz\">§ 311</a>), teroru (<a data-odkaz-id=\"37091837\" href=\"#\" class=\"int_odkaz\">§ 312</a>), sabotáže (<a data-odkaz-id=\"37091867\" href=\"#\" class=\"int_odkaz\">§ 314</a>), vyzvědačství podle <a data-odkaz-id=\"37091897\" href=\"#\" class=\"int_odkaz\">§ 316 odst. 3</a>, <a data-odkaz-id=\"37091927\" href=\"#\" class=\"int_odkaz\">4</a>, válečné zrady (<a data-odkaz-id=\"37091957\" href=\"#\" class=\"int_odkaz\">§ 320</a>), násilného překročení státní hranice podle <a data-odkaz-id=\"37091987\" href=\"#\" class=\"int_odkaz\">§ 339 odst. 3</a>, organizování a umožnění nedovoleného překročení státní hranice podle <a data-odkaz-id=\"37092017\" href=\"#\" class=\"int_odkaz\">§ 340 odst. 4</a>, genocidia (<a data-odkaz-id=\"37092047\" href=\"#\" class=\"int_odkaz\">§ 400</a>), útoku proti lidskosti (<a data-odkaz-id=\"37092077\" href=\"#\" class=\"int_odkaz\">§ 401</a>), apartheidu a diskriminace skupiny lidí (<a data-odkaz-id=\"37092107\" href=\"#\" class=\"int_odkaz\">§ 402</a>), agrese (<a data-odkaz-id=\"37092137\" href=\"#\" class=\"int_odkaz\">§ 405a</a>), přípravy útočné války (<a data-odkaz-id=\"37092167\" href=\"#\" class=\"int_odkaz\">§ 406</a>), styků ohrožujících mír (<a data-odkaz-id=\"37092197\" href=\"#\" class=\"int_odkaz\">§ 409</a>), použití zakázaného bojového prostředku a nedovoleného vedení boje podle <a data-odkaz-id=\"37092227\" href=\"#\" class=\"int_odkaz\">§ 411 odst. 3</a>, válečné krutosti (<a data-odkaz-id=\"37092257\" href=\"#\" class=\"int_odkaz\">§ 412</a>), perzekuce obyvatelstva (<a data-odkaz-id=\"37092287\" href=\"#\" class=\"int_odkaz\">§ 413</a>), plenění v prostoru válečných operací (<a data-odkaz-id=\"37092317\" href=\"#\" class=\"int_odkaz\">§ 414</a>) nebo zneužití mezinárodně uznávaných a státních znaků podle <a data-odkaz-id=\"37092347\" href=\"#\" class=\"int_odkaz\">§ 415 odst. 3</a>, jakož i osoba odsouzená k výjimečnému trestu odnětí svobody nad dvacet až do třiceti let (<a data-odkaz-id=\"37092377\" href=\"#\" class=\"int_odkaz\">§ 54 odst. 2</a>), mohou být podmíněně propuštěny až po výkonu dvou třetin uloženého trestu odnětí svobody, nehrozí-li s ohledem na okolnosti činu, za který byla odsouzena, a povahu její osobnosti opakování spáchaného nebo jiného obdobného zvlášť závažného zločinu.",
+   "after": "<var>(4)</var> Soud při posuzování, zda odsouzený prokázal polepšení, přihlédne zejména k jeho chování ve výkonu trestu, které umožňuje posoudit, do jaké míry se napravil, k plnění jeho povinností a k jeho snaze nahradit škodu nebo jinou újmu způsobenou trestným činem, vydat bezdůvodné obohacení získané trestným činem anebo odstranit jiné škodlivé následky činu. Jestliže odsouzený vykonával ochranné léčení před nástupem výkonu trestu odnětí svobody nebo v jeho průběhu, přihlédne soud i k projevenému postoji odsouzeného k výkonu ochranného léčení."
+  },
+  {
+   "fragment": "§ 88 odst. 5",
+   "op": "removed",
+   "before": "<var>(5)</var> Osoba odsouzená k výjimečnému trestu odnětí svobody na doživotí může být podmíněně propuštěna až po nejméně dvaceti letech výkonu tohoto trestu, nehrozí-li s ohledem na okolnosti činu, za který byla odsouzena, a povahu její osobnosti opakování spáchaného nebo jiného obdobného zvlášť závažného zločinu.",
+   "after": null
+  }
+ ],
+ "provenance": {
+  "track": "law",
+  "pass": 0,
+  "method": "deterministic",
+  "ref": "esbirka-sparql-diff"
+ }
+}

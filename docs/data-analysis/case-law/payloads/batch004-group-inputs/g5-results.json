@@ -1,0 +1,54 @@
+[
+  {
+    "pairId": "121-124",
+    "billA": 121,
+    "billB": 124,
+    "lawRef": "117/1995",
+    "classification": "incidental",
+    "sharedParagraph": "30",
+    "evidence": {
+      "billAExcerpt": "tisk 121, .data/law-collision-cache/tisk-121/268020.txt lines 27-61 (Čl. III, genuine amending instructions to zákon č. 117/1995 Sb.): '1. V § 30 odst. 1 větě první a druhé se částka „350 000 Kč“ nahrazuje částkou „400 000 Kč“. 2. V § 30 odst. 3 písm. b) se slova „přesáhnout 70 % 30násobku“ nahrazují slovy „přesáhnout 30násobek“. 3. V § 30 odst. 3 písm. c) se text „70 %“ zrušuje.' -- tisk 121 genuinely amends §30 odst.1 and odst.3 písm. b)/c).",
+      "billBExcerpt": "tisk 124, .data/law-collision-cache/tisk-124/268364.txt lines 18-66 (Čl. I, the only block amending 117/1995): the numbered amending items are '1. V § 30d odst. 1 se věta druhá zrušuje.' (line 50), '2. V § 30d odstavec 3 zní: ...' (line 52), '3. V § 30d odstavec 4 zní: „(4) ... nároku na rodičovský příspěvek podle § 30 odst. 1 podat novou žádost.“.' (lines 57-60), and '4. V § 33 se doplňuje odstavec 5 ...' (line 62). Tisk 124's Čl. I contains ZERO amending instructions targeting §30 itself -- the only occurrence of '§ 30 odst. 1' in this block (line 60) is a cross-reference INSIDE the new quoted text of §30d odst.4, not an instruction to change §30. Checked further occurrences of '§ 30' in the whole file (lines 146, 148, 227, 234) -- all are likewise cross-references embedded in newly-inserted §68b(1)/(2) and §69a(2)(b)(7) text (e.g. line 146: '...vyplacení zbývající částky rodičovského příspěvku podle § 30 odst. 6 a § 30a odst. 1'; line 234: '„7. jde o zamítnutí volby nároku rodiče na rodičovský příspěvek podle § 30.“.'), none of them an amending instruction to §30 itself."
+    },
+    "reasoning": "No genuine same-§ collision exists here even after the batch-004 partitioning fix. Tisk 121 genuinely amends §30 odst.1 and odst.3. Tisk 124 amends only §30d, §33, §62, §68b, §68e, §69, §69a, §70 etc. of the same statute (117/1995) -- it never issues an amending instruction to §30 anywhere in the document. The deterministic detector's 'shared §30' match is a data artifact: it picked up the literal string '§ 30' where it appears as a plain cross-reference inside tisk 124's OTHER, newly-drafted provisions (§30d odst.4, §68b, §69a), not as a target of a novelization instruction. Classified incidental per the case-loop's guidance for 'one bill's block doesn't actually amend that § at all -- it's a partition/extraction artifact'."
+  },
+  {
+    "pairId": "121-198",
+    "billA": 121,
+    "billB": 198,
+    "lawRef": "117/1995",
+    "classification": "confirmed-collision",
+    "sharedParagraph": "30 odst. 1",
+    "evidence": {
+      "billAExcerpt": "tisk 121, .data/law-collision-cache/tisk-121/268020.txt line 56 (Čl. III, item 1, genuinely amending §30 of 117/1995): '1. V § 30 odst. 1 větě první a druhé se částka „350 000 Kč“ nahrazuje částkou „400 000 Kč“.'",
+      "billBExcerpt": "tisk 198, .data/law-collision-cache/tisk-198/270530.txt lines 12-15 (Čl. I, the bill's sole substantive provision): 'V § 30 odst. 1 zákona č. 117/1995 Sb., o státní sociální podpoře, ve znění zákona č. 366/2011 Sb., zákona č. 200/2017 Sb., zákona č. 363/2019 Sb., zákona č. 407/2023 Sb. a zákona č. 290/2025 Sb., se částka „350 000 Kč“ nahrazuje částkou „400 000 Kč“.'"
+    },
+    "reasoning": "Both bills issue the literally identical amending instruction to §30 odst.1 of 117/1995: replace the fixed parental-allowance ceiling '350 000 Kč' with '400 000 Kč'. This is a genuine confirmed-collision, not merely coordination: if both were enacted, whichever bill is promulgated second would target text ('350 000 Kč') that the first bill's enactment has already removed, making its own novelization instruction textually inapplicable/void on arrival -- the classic 'two bills issue the same search-and-replace against the same live sentence' failure mode. (Tisk 121 additionally amends §30 odst.3 písm. b) and c), which tisk 198 does not touch, but that is a separate, non-overlapping addition and does not change the odst.1 collision.) Note: tisk 124, the third bill sharing a nominal '§30' match with both of these (per pairs 121-124 and 124-198), does NOT genuinely touch §30 (see those pairs' reasoning) -- so this is a genuine two-bill (121<->198) collision only, not a three-way cluster across all of 121/124/198."
+  },
+  {
+    "pairId": "124-198",
+    "billA": 124,
+    "billB": 198,
+    "lawRef": "117/1995",
+    "classification": "incidental",
+    "sharedParagraph": "30",
+    "evidence": {
+      "billAExcerpt": "tisk 124, .data/law-collision-cache/tisk-124/268364.txt lines 18-66 (Čl. I, the only block amending 117/1995): amending items target §30d, §33, §62 etc. only. The excerpt's '§ 30 odst. 1' text (line 60) is a cross-reference inside the NEW quoted wording of §30d odst.4 ('... nároku na rodičovský příspěvek podle § 30 odst. 1 podat novou žádost.'), not an instruction amending §30 -- see the 121-124 pair for the full accounting of every '§ 30' occurrence in this file (all are cross-references embedded in new §30d/§68b/§69a text, never a novelization target).",
+      "billBExcerpt": "tisk 198, .data/law-collision-cache/tisk-198/270530.txt lines 12-15 (Čl. I): 'V § 30 odst. 1 zákona č. 117/1995 Sb. ... se částka „350 000 Kč“ nahrazuje částkou „400 000 Kč“.' -- tisk 198 genuinely and solely amends §30 odst.1."
+    },
+    "reasoning": "As established in the 121-124 pair, tisk 124 never issues an amending instruction to §30 anywhere in the document -- every '§ 30' occurrence in its text is a cross-reference inside other, newly-drafted provisions (§30d, §68b, §69a), not a novelization target. Tisk 198 does genuinely amend §30 odst.1. Because only one side of this pair (tisk 198) actually touches §30, there is no genuine same-§ collision between 124 and 198; the deterministic '§30' match on tisk 124's side is a partition/extraction artifact (a plain-text cross-reference caught by the §-number scan, not a real amending overlap). Classified incidental."
+  },
+  {
+    "pairId": "140-141",
+    "billA": 140,
+    "billB": 141,
+    "lawRef": "243/2000",
+    "classification": "confirmed-collision",
+    "sharedParagraph": "3 (odst. 2-6/7-13), corroborated by §4 odst.3-5 and §6 odst.4",
+    "evidence": {
+      "billAExcerpt": "tisk 140, .data/law-collision-cache/tisk-140/268733.txt lines 27-108 (Čl. I item 1-2, full rewrite of §3 odstavce 2-6 plus new odstavce 7-12 of zákon č. 243/2000 Sb.): '(2) Kraj se na části celostátního hrubého výnosu daně ... podílí procentem, které se vypočte jako součet a) poměru počtu kilometrů silnic ... koeficientem 0,2 ... f) poměru počtu obyvatel kraje k počtu obyvatel všech krajů, vyjádřeného v procentech a násobeného koeficientem 0,4, g) poměru podílu počtu obcí v kraji k rozloze území kraje k součtu těchto podílů za všechny kraje, vyjádřeného v procentech a násobeného koeficientem 0,08 ...' and new '(12) Ministerstvo financí stanoví vyhláškou ... procento, kterým se jednotlivé kraje podílejí ...' (odstavce 7-12, ending at (12), lines 83-108). Also lines 112-116 (items 3-5): 'V § 4 odst. 3 se text „č. 2“ nahrazuje textem „č. 1“.' / 'V § 4 odst. 4 a 5 se text „č. 3“ nahrazuje textem „č. 2“.' / 'V § 6 odst. 4 se odkaz „§ 3 odst. 6“ mění na odkaz „§ 3 odst. 12“.'",
+      "billBExcerpt": "tisk 141, .data/law-collision-cache/tisk-141/268738.txt lines 26-136 (Čl. I items 1-4, its own full rewrite of §3 of the SAME statute): item 1 (line 26) FIRST changes the base coefficient in §3 odst.1: 'V § 3 odst. 1 písm. b) až g) se číslo „10,23“ nahrazuje číslem „10,97“.' -- an edit tisk 140 does not make at all. Item 2 (lines 28-79) rewrites odstavce 2-6 with textual differences from tisk 140's version at f) and g): 'f) poměru počtu obyvatel kraje k počtu obyvatel všech krajů s výjimkou hlavního města Prahy, ...' and 'g) ... za všechny kraje s výjimkou hlavního města Prahy, ...' (lines 53, 56-57) -- excluding Prague, unlike tisk 140's f)/g) which include Prague. Item 3 (lines 81-110) adds odstavce 7-13 (one MORE odstavec than tisk 140's 7-12), ending with a new '(13) V případě hlavního města Prahy se pro účely výpočtu procenta podle odstavce 2 použije ustanovení odstavce 2 písm. a) až e) obdobně.' (lines 109-110), and item 4 (lines 114-136) inserts an entirely new §3a granting Prague separate tax-share entitlements -- none of which exists in tisk 140. Items 5-7 (lines 138-142) are however textually IDENTICAL to tisk 140's items 3-5: 'V § 4 odst. 3 se text „č. 2“ nahrazuje textem „č. 1“.' / 'V § 4 odst. 4 a 5 se text „č. 3“ nahrazuje textem „č. 2“.' / 'V § 6 odst. 4 se odkaz „§ 3 odst. 6“ mění na odkaz „§ 3 odst. 12“.'"
+    },
+    "reasoning": "Both bills are titled 'Zákonodárná iniciativa Pardubického kraje' amending the same statute (243/2000, zákon o rozpočtovém určení daní) and both fully replace (znějí) §3 odstavce 2-6 with formulas that differ in substance: tisk 140's population/municipality-count factors (f, g) include hlavní město Praha in the pool, while tisk 141's do not ('s výjimkou hlavního města Prahy'), and tisk 141 additionally changes the base coefficient in §3 odst.1 (10,23->10,97, which tisk 140 leaves untouched) and adds a Prague-specific odst.13 plus an entirely new §3a carve-out that tisk 140 lacks. These are two textually incompatible, mutually exclusive rewrites of the identical odstavce (2-6) of §3 -- a direct confirmed-collision, since enacting one would completely overwrite the other's replacement text regardless of enactment order, and the underlying policy question (whether Prague is inside or outside the per-kraj formula pool) is genuinely contradictory between the two drafts. This is corroborated by §4 odst.3/4-5 and §6 odst.4, where both bills issue textually IDENTICAL search-and-replace instructions (e.g. '„č. 2“ nahrazuje textem „č. 1“'), which is itself a secondary confirmed-collision in the same failure mode as the 121-198 pair: whichever bill enacts second finds the target text already changed by the first. Together, these make 140<->141 a strong confirmed-collision, most plausibly two competing drafts/versions of the same regional (Pardubický kraj) legislative initiative rather than independent bills."
+  }
+]

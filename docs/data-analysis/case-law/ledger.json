@@ -15,8 +15,30 @@
   "collisionCandidateBills": 71,
   "batch003NewVerdicts": 8,
   "gatePassRate": "26/26",
-  "collisionPairsCloseRead": 12,
-  "paragraphDiffCount": 15
+  "collisionPairsCloseRead": 38,
+  "paragraphDiffCount": 15,
+  "batch004NewVerdicts": 0,
+  "collisionBacklog72Pairs": {
+   "closedAgainst": "150-edge/29-group topology only — reopens ~5x once Q-law-8 regen is applied (see amendsRegenPrepared)",
+   "confirmed": 17,
+   "coordinationRisk": 9,
+   "incidental": 12,
+   "diedInPartition": 38
+  },
+  "amendsRegenPrepared": {
+   "status": "prepared, NOT applied to live graph — awaiting orchestrator",
+   "edgesBefore": 150,
+   "edgesAfter": 282,
+   "missingLawNodeStatutes": 188,
+   "missingLawNodeCitations": 289,
+   "validatorResult": "PASS 282/282, 0 errors (post Opus-audit union-fix)"
+  },
+  "kolizeTiskuShipped": {
+   "commit": "a44fe5f",
+   "route": "/zakony/kolize",
+   "clusters": 18,
+   "nWayClusters": 4
+  }
  },
  "rows": [
   {
@@ -3957,5 +3979,6 @@
   }
  ],
  "batch002Note": "Batch head = top-9 churn-led (173,216,196,111,207,124,198,71,86) + tisk 11 swapped in for tisk 112 to empirically test the corrected sector-adjacency signal (private real-estate/investment-holding ties vs 589/1992 social-insurance-premium law). Army confirmed: coincidental economy-bucket match, no real channel (same calibration as batch-001, now validated for a sector-matched signal too). This re-run also fixed a municipal-exclusion gap (CHOMUTOVSKA BYTOVA a.s. — 100% city-of-Chomutov owned, found by the tisk-11 army dossier) which dropped raw sector-adjacency hits from 6 to 5.",
- "batch003Note": "Batch head: next-8 by triageScoreV2 not yet verdicted (112,132,143,210,146,28,181,24). Q-law-6 full-population amends-census (140/141 checked, 1 skip): government mean undercount 4.80 (n=55) vs mp/mp_group mean 2.10 (n=71) — origin-correlation holds, ~2.3x. Q-law-5: 12 collision pairs close-read — 3 confirmed-collision (4-120, 4-244 [upgrading 120-244 to a 3-way §35ba cluster], 210-248 [new §134l clash]), 2 coordination-risk (67-167, 73-193), 7 incidental-overlap. Q-law-7: 4 new real e-Sbirka diffs (35c@586/1992, 199@40/2009, 283@40/2009, 60@427/2011) — paragraphDiffCount 7->15 bills. Army: 8 new verdicts, all severity=low, gate 26/26 (18 carried + 8 new). gate-verdicts.ts: added citation-scope check (10/26 verdicts flagged with a WARNING, not hard-fail) + collapsed --wide/canonical into one scope. Opus top-signal trigger NOT fired — all 26 verdicts low severity, the 3 confirmed collisions are drafting-conflicts (numbering/section clashes) not self-dealing channels, so none meets the genuine-medium+-self-dealing bar."
+ "batch003Note": "Batch head: next-8 by triageScoreV2 not yet verdicted (112,132,143,210,146,28,181,24). Q-law-6 full-population amends-census (140/141 checked, 1 skip): government mean undercount 4.80 (n=55) vs mp/mp_group mean 2.10 (n=71) — origin-correlation holds, ~2.3x. Q-law-5: 12 collision pairs close-read — 3 confirmed-collision (4-120, 4-244 [upgrading 120-244 to a 3-way §35ba cluster], 210-248 [new §134l clash]), 2 coordination-risk (67-167, 73-193), 7 incidental-overlap. Q-law-7: 4 new real e-Sbirka diffs (35c@586/1992, 199@40/2009, 283@40/2009, 60@427/2011) — paragraphDiffCount 7->15 bills. Army: 8 new verdicts, all severity=low, gate 26/26 (18 carried + 8 new). gate-verdicts.ts: added citation-scope check (10/26 verdicts flagged with a WARNING, not hard-fail) + collapsed --wide/canonical into one scope. Opus top-signal trigger NOT fired — all 26 verdicts low severity, the 3 confirmed collisions are drafting-conflicts (numbering/section clashes) not self-dealing channels, so none meets the genuine-medium+-self-dealing bar.",
+ "batch004Note": "Q-law-8 (prepared, not applied): amends-regen.ts built the complete regenerated edge set from amended_laws_full census (53 bills) unioned with title-derived amended_laws (85 fallback, 3 no-data: tisky 87/101/114) — 150->282 edges. Opus audit #1 found a real blocking defect (replace-not-union dropped tisk 88->360/2025); fixed same batch, re-validated PASS 282/282. Missing-law-node census: 289/571 citations (50.6%) point at 188 statutes with no law node — flagged by the reflection as the batch's most important open finding, promoted to frontier P1. Q-law-10 fixed collision-check.ts (--v2 partition mode, splits a bill's Cl.-N-block §-set by target statute before matching, killing the tisk-248-class omnibus contamination): 72 candidate pairs -> 34 survive partitioning (53% were artifacts). Q-law-9 close-read all 24 newly-surviving pairs: 13 confirmed / 6 coordination-risk / 5 incidental (54% confirm rate, up from batch-003's adjusted 37.5%). 4-batch running total: 17 confirmed / 9 coordination-risk / 12 incidental across 38 pairs read; all 72 original candidates accounted for. Two new N-way clusters found (117/1995 §30(1) across tisky 112/121/198; 243/2000 §3 across tisky 28/140/141), extending 586/1992 §35c/§35ba to 4 bills total. 1 new real e-Sbirka diff (§88/40-2009, 23 hunks, coordination-risk per batch-002); two other targets (§35ba alt-range, §134l/256-2004) honestly yielded no new artifact (byte-identical / not-yet-enacted respectively) rather than being fabricated. Build-review shipped 'kolize tisku' at /zakony/kolize (commit a44fe5f, npm run check green 194/194 tests): 18 (statute,§) clusters, 4 N-way, grouping by statute+§ per the batch-003 handoff's own recommendation. Opus reflection (2nd Opus use) found: (1) batch-003's 'no sponsor-money channel in any confirmed collision' claim was factually wrong -- tisky 120 and 121 both carry sector_adjacent_conflict AND are in the confirmed set, colliding with each other on §35c(1) -- trigger verdict still correctly NOT-FIRE but on corrected grounds (universal-benefit parameters are not appropriable by the flagged companies); (2) 'backlog CLOSED' is topology-scoped, not headline-true -- applying the regen takes bill-pairs-sharing-a-statute 88->436 and re-opens the backlog at ~5x, estimated ~170 pairs / ~85 further confirms; (3) the amends-regen union bug is a class (title vs body citation sets should always be unioned with provenance, never replace) with an unmeasured recall gap (9/140 bills, 6.4%, miss a title-derived statute the body-parse drops) whose harmlessness is CONTINGENT on the missing-law-node gap staying open -- sequencing constraint for batch-005 (Q-law-11 must land before or with the node ingest). Forensic coverage flat at 27/141 (19.1%) -- 0 new verdicts this batch, army paused in favor of infrastructure/backlog-closure work; re-triage is now a precondition for the next army since the regen invalidates triageScoreV2 (40/2009 overtakes 586/1992 at #1). Citation-scope WARNING re-tagging (10/26 verdicts) has now deferred 3 batches -- batch-005 must commit or retire per kernel Authority."
 }

@@ -33,8 +33,11 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import path from "node:path";
 
+import { LAW_CITATION } from "@/lib/ingest/sources/psp-legislation";
+
 const GROUPS_PATH = "docs/data-analysis/case-law/payloads/collision-groups.json";
 const OUT_PATH = "docs/data-analysis/case-law/payloads/collision-report.json";
+const OUT_PATH_V2 = "docs/data-analysis/case-law/payloads/collision-report-v2.json";
 const CACHE_DIR = ".data/law-collision-cache";
 const PDFTOTEXT_BIN = existsSync("/clangarm64/bin/pdftotext") ? "/clangarm64/bin/pdftotext" : "pdftotext";
 const BASE = "https://www.psp.cz/sqw/text/";
@@ -262,6 +265,227 @@ async function processBill(cislo: number): Promise<{ extraction?: BillExtraction
   };
 }
 
+// ---------- batch-004 Q-law-10: omnibus-aware §-set partitioning ----------
+//
+// batch-003's handoff (patterns.md) diagnosed the tisk-248-class false positive: an omnibus
+// bill's "platné znění" PDF concatenates ALL of its amended statutes' text in one document
+// (tisk 248 bundles 586/1992, 427/2011, 256/2004, 262/2006, 324/2025), so the flat same-§-number
+// overlap check above spuriously "collides" §-numbers that actually belong to DIFFERENT bundled
+// statutes (e.g. §6/§16/§37/§90/§94 matching 586/1992 or 262/2006 text, not the 256/2004 the
+// collision group is actually about). The fix, reusing the SAME convention
+// `amends-census.ts`'s `extractRealAmendedLaws` uses for the boilerplate-citation bug: a bill's
+// NÁVRH ZÁKONA (the amending-instruction text, not the target-law "platné znění") is organized as
+// numbered "Čl. N" article blocks, each amending exactly ONE target statute cited once near the
+// block's top ("Zákon č. X/Y Sb. ... se mění takto:"). Partitioning §-references by which Čl. N
+// block they fall under — and by extension which statute that block targets — means a § is only
+// eligible to collide with another bill's § if both bills' OWN novelization instructions place it
+// under an article targeting the SAME statute. This directly fixes the 248-class contamination
+// (its 256/2004 §-set becomes just the §134ha/§134l article, not the whole 5-statute bundle).
+
+/** Fetch + return the operative NÁVRH ZÁKONA text for a bill (the amending-instruction document,
+ * not "platné znění" — partitioning needs the Čl. N article structure that only the amending
+ * instructions carry). Returns a skip reason if no "Návrh zákona" PDF exists in the index. */
+async function fetchNavrhOperative(cislo: number): Promise<{ text?: string; skip?: Skip }> {
+  let html: string;
+  try {
+    html = await fetchIndexHtml(cislo);
+  } catch (e) {
+    return { skip: { cislo, stage: "index", reason: (e as Error).message } };
+  }
+  const entries = parseIndex(html);
+  const navrh = entries.find((e) => /Návrh zákona/i.test(e.header));
+  if (!navrh) {
+    return { skip: { cislo, stage: "no-pdf", reason: `no "Návrh zákona" PDF found (partitioning needs the amending-instruction doc, not platné znění)` } };
+  }
+  let pdfPath: string;
+  try {
+    pdfPath = await fetchPdf(cislo, navrh.idd);
+  } catch (e) {
+    return { skip: { cislo, stage: "pdf-fetch", reason: `${navrh.filename} (idd=${navrh.idd}): ${(e as Error).message}` } };
+  }
+  let text: string;
+  try {
+    text = extractText(pdfPath);
+  } catch (e) {
+    return { skip: { cislo, stage: "pdftotext", reason: `${navrh.filename}: ${(e as Error).message}` } };
+  }
+  return { text: operativeSlice(text, "navrh-zakona") };
+}
+
+interface StatutePartition {
+  paragraphs: Set<string>;
+  text: string;
+}
+
+/** Split a bill's operative novelization text into per-target-statute §-sets, using the same
+ * Čl. N article-boundary + first-citation-per-block convention as amends-census.ts's
+ * `extractRealAmendedLaws`. Unlike that function (which only needs ONE citation per block), this
+ * keeps the FULL block text to extract every § referenced under that block, and concatenates
+ * blocks that target the same statute (a bill can have multiple articles amending the same law,
+ * e.g. a follow-up "Čl. N — přechodná ustanovení" article with no fresh citation of its own,
+ * which is intentionally bucketed under "unknown" rather than guessed). */
+function partitionParagraphsByStatute(operative: string): Map<string, StatutePartition> {
+  const artRe = /\n\s*Čl\.\s*([IVXLCDM]+|\d+)\.?\s*\n/g;
+  const arts: { label: string; idx: number }[] = [];
+  let am: RegExpExecArray | null;
+  while ((am = artRe.exec(operative))) arts.push({ label: am[1], idx: am.index });
+
+  const byStatute = new Map<string, StatutePartition>();
+  const addBlock = (ref: string, block: string) => {
+    const entry = byStatute.get(ref) ?? { paragraphs: new Set<string>(), text: "" };
+    for (const p of extractParagraphs(block)) entry.paragraphs.add(p);
+    entry.text = entry.text ? `${entry.text}\n${block}` : block;
+    byStatute.set(ref, entry);
+  };
+
+  if (arts.length === 0) {
+    // no article structure -- single-subject bill; the whole operative text amends one statute,
+    // matching amends-census's fallback convention (first citation in the whole text).
+    const m = LAW_CITATION.exec(operative);
+    LAW_CITATION.lastIndex = 0;
+    addBlock(m ? `${Number(m[1])}/${m[2]}` : "unknown", operative);
+    return byStatute;
+  }
+
+  for (let i = 0; i < arts.length; i++) {
+    const start = arts[i].idx;
+    const end = i + 1 < arts.length ? arts[i + 1].idx : operative.length;
+    const block = operative.slice(start, end);
+    const head = block.slice(0, 800); // citation is always near the article's top (amends-census convention)
+    const m = LAW_CITATION.exec(head);
+    LAW_CITATION.lastIndex = 0;
+    addBlock(m ? `${Number(m[1])}/${m[2]}` : "unknown", block);
+  }
+  return byStatute;
+}
+
+interface V2Extraction {
+  cislo: number;
+  partition: Map<string, StatutePartition>;
+}
+
+async function runV2() {
+  const groups: Group[] = JSON.parse(readFileSync(GROUPS_PATH, "utf8")).groups;
+  const worklist = [...new Set(groups.flatMap((g) => g.bills))].sort((a, b) => a - b);
+  const original = JSON.parse(readFileSync(OUT_PATH, "utf8"));
+
+  console.log(`collision-check --v2 (partitioned): ${groups.length} groups, ${worklist.length} unique bills\n`);
+
+  const extractions = new Map<number, V2Extraction>();
+  const skips: Skip[] = [];
+
+  await pool(worklist, CONCURRENCY, async (cislo) => {
+    const result = await fetchNavrhOperative(cislo);
+    if (result.skip) {
+      skips.push(result.skip);
+      console.log(`  ✗ tisk ${cislo}: SKIP [${result.skip.stage}] ${result.skip.reason}`);
+      return;
+    }
+    const partition = partitionParagraphsByStatute(result.text!);
+    extractions.set(cislo, { cislo, partition });
+    const summary = [...partition.entries()].map(([ref, p]) => `${ref}:${p.paragraphs.size}`).join(", ");
+    console.log(`  ✓ tisk ${cislo}: partitioned into ${partition.size} statute(s) — ${summary}`);
+  });
+
+  interface CollisionPairV2 {
+    billA: number;
+    billB: number;
+    sharedParagraphs: { paragraph: string; excerptA: string; excerptB: string }[];
+  }
+  interface GroupReportV2 {
+    lawUrn: string;
+    lawRef: string;
+    lawTitle: string;
+    bills: number[];
+    billsFetched: number[];
+    billsSkipped: number[];
+    collisions: CollisionPairV2[];
+  }
+
+  const groupReports: GroupReportV2[] = [];
+  const allPairsV2: { lawRef: string; billA: number; billB: number; paragraphs: string[] }[] = [];
+
+  for (const g of groups) {
+    const fetched = g.bills.filter((b) => extractions.has(b));
+    const skipped = g.bills.filter((b) => !extractions.has(b));
+    const collisions: CollisionPairV2[] = [];
+
+    for (let i = 0; i < fetched.length; i++) {
+      for (let j = i + 1; j < fetched.length; j++) {
+        const a = fetched[i];
+        const b = fetched[j];
+        const partA = extractions.get(a)!.partition.get(g.lawRef);
+        const partB = extractions.get(b)!.partition.get(g.lawRef);
+        if (!partA || !partB) continue; // this bill's own instructions never target g.lawRef at all
+        const shared = [...partB.paragraphs].filter((p) => partA.paragraphs.has(p));
+        if (shared.length === 0) continue;
+        collisions.push({
+          billA: a,
+          billB: b,
+          sharedParagraphs: shared.map((p) => ({
+            paragraph: p,
+            excerptA: excerptFor(partA.text, p),
+            excerptB: excerptFor(partB.text, p),
+          })),
+        });
+        allPairsV2.push({ lawRef: g.lawRef, billA: a, billB: b, paragraphs: shared });
+      }
+    }
+    groupReports.push({
+      lawUrn: g.lawUrn,
+      lawRef: g.lawRef,
+      lawTitle: g.lawTitle,
+      bills: g.bills,
+      billsFetched: fetched,
+      billsSkipped: skipped,
+      collisions,
+    });
+  }
+
+  // ---------- diff against the original (unpartitioned) 72-pair set ----------
+  const origPairs: { lawRef: string; billA: number; billB: number; n: number }[] = [];
+  for (const g of original.groups) {
+    for (const c of g.collisions) origPairs.push({ lawRef: g.lawRef, billA: c.billA, billB: c.billB, n: c.sharedParagraphs.length });
+  }
+  const v2Key = new Set(allPairsV2.map((p) => `${p.lawRef}|${p.billA}|${p.billB}`));
+  const survived = origPairs.filter((p) => v2Key.has(`${p.lawRef}|${p.billA}|${p.billB}`));
+  const died = origPairs.filter((p) => !v2Key.has(`${p.lawRef}|${p.billA}|${p.billB}`));
+
+  const report = {
+    generatedAt: new Date().toISOString(),
+    method:
+      "batch-004 Q-law-10: same pairwise base-§ overlap as collision-report.json, but each bill's §-set is FIRST partitioned by which target statute its own Čl. N article block cites (reusing amends-census.ts's per-article first-citation convention), so a § only counts toward a group's lawRef if the bill's OWN novelization instructions place it under an article targeting that exact statute. Fixes the tisk-248-class false positive (an omnibus bill's platné znění PDF bundles multiple statutes' text; the old flat check matched §-numbers across bundled-but-unrelated statutes).",
+    sourceOriginal: OUT_PATH,
+    sourceGroups: GROUPS_PATH,
+    stats: {
+      groupsTotal: groups.length,
+      billsInWorklist: worklist.length,
+      billsFetched: extractions.size,
+      billsSkipped: skips.length,
+      originalPairCount: origPairs.length,
+      survivedCount: survived.length,
+      diedCount: died.length,
+    },
+    funnel: {
+      originalPairs: origPairs.length,
+      survivedPartitioning: survived.length,
+      diedInPartitioning: died.length,
+    },
+    survivedPairs: survived,
+    diedPairs: died.map((p) => ({ ...p, reason: "no shared §-under-matching-article-block survives partitioning — same-number-different-statute (or different-article) artifact" })),
+    skips,
+    groups: groupReports,
+  };
+
+  mkdirSync(path.dirname(OUT_PATH_V2), { recursive: true });
+  writeFileSync(OUT_PATH_V2, JSON.stringify(report, null, 1));
+
+  console.log(`\n${"=".repeat(70)}`);
+  console.log(`original pairs: ${origPairs.length}  →  survived partitioning: ${survived.length}  →  died: ${died.length}`);
+  console.log(`bills fetched/parsed (navrh): ${extractions.size} / ${worklist.length} (skipped: ${skips.length})`);
+  console.log(`\n→ ${OUT_PATH_V2}`);
+}
+
 async function pool<T>(items: T[], concurrency: number, fn: (item: T) => Promise<void>) {
   let idx = 0;
   const workers = Array.from({ length: concurrency }, async () => {
@@ -423,7 +647,8 @@ async function main() {
   console.log(`\n→ ${OUT_PATH}`);
 }
 
-main()
+const entry = process.argv.includes("--v2") ? runV2() : main();
+entry
   .then(() => process.exit(0))
   .catch((e) => {
     console.error(e);

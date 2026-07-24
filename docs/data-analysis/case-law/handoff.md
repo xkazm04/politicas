@@ -1,240 +1,292 @@
-# Case ③ Law loop — fleet handoff (batch-003, 2026-07-24)
+# Case ③ Law loop — fleet handoff (batch-004, 2026-07-24)
 
-Fleet run, concurrent with money and effort loops in the same repo (confirmed live via `git
-status` — case-effort/case-money files modified outside this session). **No live `.pglite`
-writes, no commits, no shared-vault edits.** Everything below is for the orchestrator to
-serialize. Analysis ran read-only on `.pglite-copy-law` (delete after: `rm -rf
-.pglite-copy-law`). Full narrative: `docs/data-analysis/case-law/batch-003.md` (read that first —
-this file is the orchestrator action list). Batch-002's handoff is superseded by this file;
-`batch-002.md` narrative stays as history, unchanged.
+Fleet run, concurrent with money and effort loops in the same repo. **No live `.pglite` writes
+during analysis, no shared-vault edits, no commits from analysis subagents.** One build-review
+commit landed (`a44fe5f`, per Authority — build phases commit autonomously; not pushed). Full
+narrative: `docs/data-analysis/case-law/batch-004.md`; the load-bearing critical findings are in
+`docs/data-analysis/case-law/batch-004-reflection.md` (Opus, maximum depth — read that before
+acting on anything below, it corrects one prior-batch claim and qualifies another). This file
+supersedes batch-003's handoff as the orchestrator action list; `batch-003.md`/prior `handoff.md`
+content stay as history (batch-003.md unchanged; this file replaces the old handoff.md).
 
-## 1. What ran
+## 1. What ran (see batch-004.md for full detail)
 
-- **Q-law-6** — `scripts/case-loops/law/amends-census.ts` (new): full-population (140/141, 1
-  skip) real-vs-recorded amended-law citation census. Government-bill mean undercount 4.80 (n=55)
-  vs MP-bill 2.10 (n=71) — confirms and quantifies the batch-001/002 lead at population scale.
-  Found and fixed a real over-counting bug mid-run (boilerplate amendment-lineage citations
-  restating a target law's full history) — validated the fix against known batch-002 ground truth
-  (tisk 111→7, tisk 207→8, exact match).
-- **Q-law-5** — 12 collision-pair close-reads (2 grouped Sonnet agents' worth, driver-verified by
-  direct grep). **3 confirmed-collision** (4↔120, 4↔244 — upgrading 120↔244 to a 3-way §35ba
-  cluster; 210↔248 — new, independent §134l clash), **2 coordination-risk** (67↔167, 73↔193), **7
-  incidental-overlap** — several explained by a genuine data-quality finding (tisk 248's 5-statute
-  omnibus PDF causes spurious §-number matches across bundled statutes).
-- **Q-law-7** — 4 new real e-Sbírka §-diffs via `esbirka-sparql-diff.ts` (unchanged tooling):
-  §35c/586-1992, §199 & §283/40-2009, §60/427-2011. `paragraphDiffCount` 7→15 bills, verified live
-  against `getLawData()`.
-- **Army-8** — tisky 112, 132, 143, 210, 146, 28, 181, 24 (next-8 by `triageScoreV2`), all
-  severity=low, 0 conflicts, gate 26/26 (18 carried + 8 new).
-- **`gate-verdicts.ts` improvements**: (a) new citation-scope check (WARNING) — flags `graph_fact`
-  citations against company nodes asserting ownership/status the node's props don't hold; found
-  10/26 verdicts with the issue (8 pre-existing from batches 001/002, 2 new); (b) collapsed the
-  stale `--wide`/canonical split to one scope matching `kg-forensics.ts`'s live write-time gate.
-- **Opus top-signal trigger: NOT fired.** All 26 gated verdicts low severity; the 3 confirmed
-  collisions are drafting-numbering conflicts with no sponsor-money channel in either bill of any
-  pair, so none meets the armed bar (batch-003.md §7 has the full reasoning). Kept armed for
-  batch-004.
+Q-law-8 (amends regen, prepared not applied) + Opus audit (found+fixed a union-vs-replace bug) +
+Q-law-10 (collision-check.ts partition fix) + Q-law-9 (24 new close-reads, backlog closed against
+the pre-regen topology) + 1 new real §-diff (§88/40-2009) + build-review ("kolize tisků" shipped,
+commit `a44fe5f`) + Opus reflection (2 corrections to prior-batch framing, both now in
+`contradictions.md`'s proposed text below).
 
-## 2. Graph payloads to persist (validated)
+## 2. Graph payloads to persist (validated, NOT yet applied — orchestrator decision required)
 
-**No new nodes/edges.** The 8 new verdicts are prop-merges onto existing bill nodes
-(`forensic_*`, `review_state: pending_review`), same pattern as batches 001/002.
+**This is a topology change (edge count, not a props-merge), same status as batch-003 left it —
+still awaiting an explicit orchestrator decision on whether/how to apply.** The regen is now
+corrected (union fix) and validated:
 
 ```bash
 # from repo root, against LIVE .pglite (orchestrator holds the write lock)
-# 1. re-verify the gate first (should print 26/26 pass; 10/26 scope WARNINGS expected —
-#    review candidates, not hard failures):
-npx tsx scripts/case-loops/law/gate-verdicts.ts
-# 2. write each of the 8 NEW verdicts as pending_review forensic props:
-for t in 112 132 143 210 146 28 181 24; do
-  npx tsx scripts/data-analysis/kg-forensics.ts --write \
-    --verdicts=docs/data-analysis/case-law/payloads/verdicts/verdict-$t.json --commit
-done
+# 1. re-verify the validator first (should print PASS, 282/282, 0 errors):
+PGLITE_PATH=./.pglite npx tsx scripts/case-loops/law/validate-amends-regen.ts \
+  --payload=docs/data-analysis/case-law/payloads/batch-004-amends-regen.json
+# 2. IF the orchestrator decides to apply: this ADDS edges only (0 deletions after the union fix)
+#    — but per the reflection (§3/patterns.md), any edge-set regeneration should diff against the
+#    LIVE set and require an explicit allowlist for every deletion before writing. No apply
+#    script has been written this batch (deliberately — Q-law-11's set-difference trigger and the
+#    missing-law-node ingest should land first or with it, per the reflection's sequencing
+#    finding, not after).
 ```
 
-Expected result: **8 more bills enriched, 0 conflicts detected (all `severity: low`)**.
-`forensicCount` on `/zakony` goes 19 → 27. Re-verify with
-`PGLITE_PATH=./.pglite npx tsx` against `getLawData` (forensicCount + paragraphDiffCount, should
-read 27 and 15 respectively).
+**Read this before deciding to apply:** the reflection's §6 finding — applying the regen
+immediately reopens the "CLOSED" collision backlog at ~5× candidate volume (bill-pairs sharing a
+statute 88→436) and invalidates the current `triageScoreV2` ordering (churn re-ranks 40/2009 to
+#1). Applying it is not a low-risk purely-additive move from a triage-consistency standpoint, even
+though the edge-level diff itself is clean.
 
-**The 4 new §-diff artifacts are NOT graph payloads** — static JSON under
-`docs/data-analysis/case-law/payloads/diffs/{40-2009__2021-01-01_2026-01-01__199,
-40-2009__2021-01-01_2026-01-01__283, 427-2011__2012-06-28_2026-01-01__60,
-586-1992__2021-01-01_2024-01-01__35c}.json`, read directly by `getLawData.ts` — already live in
-this working tree, no persist step needed.
+**Missing-law-node census (188 statutes / 289 citations, 50.6% of real citations) is NOT a graph
+change this batch** — `payloads/batch-004-amends-regen.json`'s missing-law-node section holds the
+full list (statute, citing-bill-count, sample bills) as a proposed follow-up ingest item. The
+reflection recommends this become batch-005's P1: e-Sbírka SPARQL already resolves statute→ELI at
+negligible cost (proven 3 batches running via `esbirka-sparql-diff.ts`), and it's inside the
+kernel's autonomous-ingest authority for open sources — no orchestrator gate needed to start it,
+only sequencing awareness (land Q-law-11's trigger fix first/with it, not after, per §3 below).
 
-**`amended_laws_full` additive proposal is NOT applied this batch** —
-`payloads/amended-laws-full-proposal.json` holds the 53-bill proposal for the orchestrator's
-review; do not write it without an explicit decision on whether/how to widen the `amends` edge
-set (out of this batch's scope by the task brief).
+**The 24 collision close-reads are NOT graph payloads** — they're forensic-adjacent findings
+already rendered on `/zakony/kolize` via static payload JSON (`collision-close-reads-batch004.json`
++ `collision-report-v2.json`), no `.pglite` write needed, no persist step required. The confirmed
+classifications are NOT gated `forensic_*` verdicts (that gate is per-bill, not per-collision-pair)
+— they're a distinct finding class rendered directly from validated payloads.
+
+**The new §-diff artifact is NOT a graph payload** — static JSON at
+`docs/data-analysis/case-law/payloads/diffs/40-2009__2021-01-01_2026-01-01__88.json`, already live
+in this working tree via the file-based loader, no persist step needed.
+
+**Zero new `forensic_*` verdicts this batch** — forensic coverage unchanged, 27/141 (19.1%), no
+persist action needed for that surface.
 
 ## 3. Shared-file additions (append verbatim — could not edit these in fleet mode)
 
-### → `graph-log.md`
+All five blocks below are copied from `batch-004-reflection.md` §8 (the Opus reflection), which
+did the actual synthesis work. That file also has the reasoning behind each claim if the
+orchestrator wants to verify before appending.
+
+### → `contradictions.md`
 ```
-## Pass N (track: law) — Case ③ batch-003 forensic verdicts + collision cluster + 4 more §-diffs (2026-07-24)
-8 bill nodes enriched with pending_review forensic_* props (kg-forensics --write): tisky 112, 132,
-143, 210, 146, 28, 181, 24 — next-8 triage head. All severity=low: 8/8, 0 self-dealing channels
-(extends the non-partisan-symmetry finding to 27/141 gated bills, 19.1%, across four batches).
-Gate 26/26 (18 carried + 8 new), 10/26 flagged with a new citation-scope WARNING (review
-candidate, not a hard failure — 8 pre-existing, 2 new). No new nodes/edges. forensicCount 19→27.
-Also shipped: 4 more real e-Sbírka §-diffs on /zakony (§35c/586-1992, §199 & §283/40-2009,
-§60/427-2011) — paragraphDiffCount 7→15 bills. No graph change for diffs — static JSON read at
-request time.
+### Law: batch-003's "no sponsor-money channel in any confirmed collision" was factually wrong (conclusion stood, reasoning did not)
+batch-003.md §7 and handoff.md §1 justified not firing the Opus trigger with "the 3 confirmed
+collisions are drafting-numbering conflicts with no sponsor-money channel in either bill of any
+pair." Re-checked against ledger.json in batch-004: exactly 5 of 141 bills carry
+sector_adjacent_conflict (tisky 120, 121, 11, 201, 154), and TWO of them — 120 (SOMPO, a.s.,
+235.5M CZK, sponsor Lukáš Vlček) and 121 (Teleky Medicus s.r.o., 5.40B CZK, sponsor Róbert
+Teleky) — are in the confirmed-collision set. Tisk 120 was in batch-003's OWN confirmed pair
+4↔120. batch-004 then confirmed 121↔120 directly, putting the only two sector-adjacency-flagged
+bills in the case into a collision with each other on 586/1992 §35c(1). The trigger decision
+still stands, but on a DIFFERENT and stronger ground: the collision loci (§35c child tax credit,
+117/1995 §30 parental-allowance cap, 243/2000 §3 RUD formula) are universal-benefit parameters
+whose benefit is not appropriable by a waste utility or a physician's practice, and both
+adjacency flags are the known-degenerate sector-bucket class (economy-vs-income-tax tautology;
+health flagged against 187/2006 while the collision is in 586/1992). → a money×collision
+cross-reference must be a deterministic script joined to ledger.json flags, never a driver's
+prose assertion; two workstreams writing to different payload files will not cross-check
+themselves.
+
+### Law: "collision backlog CLOSED" (batch-004) is scoped-true, headline-false
+collision-batch004-summary.md declares the 72-pair backlog CLOSED, but the v2 pre-check ran on
+the 29-group / 150-edge topology that the SAME batch's amends-regen replaces (bill-pairs sharing
+a statute 88→436, statutes with ≥2 amending bills 29→75, ≥3 bills 10→42). The backlog is closed
+against a topology that no longer exists once Q-law-8 is applied; the candidate universe reopens
+at ~5× and has never been pre-checked. → restate as "closed against the 150-edge topology;
+reopens on regen apply." Estimated ~170 partition-surviving pairs at the observed rates, of which
+~half historically confirm.
 ```
 
 ### → `patterns.md`
 ```
-### Law: a pairwise drafting collision can actually be a 3-way (or wider) cluster
-batch-001/002 tracked 120↔244 as a pairwise §35ba collision. batch-003's close-read of adjacent
-candidates found tisk 4 ALSO restructures the exact same §35ba odst. 1 lettering while pending —
-three bills, not two, each assuming a different current state of the same enumerated list and
-rewriting it incompatibly. Confirmed by direct grep of each bill's novelization instructions (not
-an LLM judgment call). → any collision-tracking should group candidates by (statute, §), not just
-by pair, since a real drafting risk can span more than two simultaneously-pending bills; the
-existing collision-report.json's pairwise structure undercounted this cluster's true shape.
+### A ranking signal inside a backlog sweep needs the same discriminative-power validation as a triage signal (P32, one level down)
+batch-003 ordered its collision close-reads by "largest shared-§ count first". Measured against
+the final 4-batch classifications, shared-§ count does not discriminate: confirmed collisions have
+a MEDIAN of 4 shared §s and three had exactly 1 (e.g. 85↔88, both inserting a new "bod 12" into
+110/2006 §7(2)(h)), while the largest overlap in the whole set (109) is only a coordination-risk.
+Pre-partition it was actively an ANTI-predictor, because omnibus-PDF contamination inflates
+overlap volume — so the ranking selected for the artifact class. Overlap VOLUME measures shared
+text; a drafting collision is a property of one § and its instructions. → P32's "validate before
+you trust" applies to any ordering signal that decides what gets read, not only to the top-level
+triage score.
 
-### Law: full-population deterministic checks quantify what opportunistic sampling only suggests
-batch-001/002's amends-undercount lead came from 3 opportunistically-found bills (tisk 4, 111,
-207). batch-003's full 140-bill census confirms the SAME pattern at population scale (government
-mean undercount 4.80 vs MP 2.10, ~2.3x) and finds a far larger outlier than any prior sample
-surfaced (tisk 64: 148 real vs 1 recorded, a genuinely enormous accounting-harmonization omnibus).
-→ once an opportunistic finding looks structural (recurs across 2+ independently-found cases), a
-full-population deterministic check is worth budgeting before further batches keep relying on the
-pattern by inference.
+### Regenerating an edge set is a write path: diff against the live set, allowlist every deletion
+batch-004's amends regen replaced title-derived citations with body-derived ones for 53 bills and
+silently dropped a live edge (tisk 88 → 360/2025), leaving law node 360/2025 with zero amends
+edges; the headline said "+131" when the truth was "+132 added, −1 dropped." validate-amends-
+regen.ts could not catch it — every check it runs (id membership, duplicates, no fabrication) is
+forward-facing and structurally blind to deletion. This is P44/D1 in topology form: the kernel
+already requires asking "what ELSE writes to this field" on write-path builds; the analogue for
+edges is "what does this regeneration REMOVE". → any edge-set regeneration must diff against live
+edges and require an explicit allowlist for each deletion, before applying. Root cause was
+treating title-derived and body-derived citation sets as mutually exclusive alternatives chosen
+by a scalar trigger, rather than as two noisy observations of one truth to be UNIONED with
+per-ref provenance — the union fix generalizes, the trigger fix (count-based → set-difference)
+does not yet exist.
 
-### Law: omnibus bills bundling multiple statutes in one PDF contaminate naive same-§-number collision checks
-tisk 248 is a 5-statute omnibus whose "platné znění" PDF concatenates all five laws' text in one
-document. A same-paragraph-number pre-check (collision-check.ts) spuriously flagged "collisions"
-where matching § numbers actually belong to DIFFERENT statutes bundled in the one PDF (e.g. §30,
-§93, §96 matching provisions of 117/1995 or 262/2006, not the statute under comparison). Explains
-3/4 of tisk 248's flagged candidate pairs turning out incidental. → a future collision-check
-refinement should partition an omnibus bill's §-set by which statute each § actually belongs to
-(using Čl. N article boundaries, the same convention Q-law-6's amends-census extraction uses)
-before pairwise-matching § numbers across bills.
-```
+### Law: N-way collision clusters are the modal shape at high churn, and they cluster on distributive parameters
+Across four batches, 4 of 18 (statute, §) clusters are N-way and they contain 9 of the 17
+confirmed pairs — more than half of all confirmed collisions live in a shape the pairwise
+structure cannot represent. All three N-way clusters are fights over a distributive parameter
+stated as a literal in the text: 586/1992 §35c(1) child tax credit ("15 204 Kč"), 117/1995 §30(1)
+parental-allowance cap ("350 000 Kč"), 243/2000 §3 municipal revenue formula. Multiple actors
+independently propose competing numbers for the SAME literal string. → a § containing a bare
+monetary amount or an allocation coefficient is a high-prior collision locus; that is a cheap
+deterministic pre-rank for a candidate universe too large to close-read exhaustively.
 
-### → `contradictions.md`
-```
-(none new this batch — no findings contradicted prior-batch conclusions; the 3 confirmed
-collisions and the amends-undercount quantification both EXTEND prior findings rather than
-conflict with them.)
+### A validation that only measures precision leaves recall unknown — and recall is where silent loss lives
+batch-003's amends-census fix was validated against two known-good bills (tisk 111→7, 207→8,
+exact match) — a precision check on an over-counting bug. Its RECALL was never measured. batch-004
+data gives it: 9 of 140 bills (6.4%) have at least one title-derived statute the per-Čl.
+first-citation extraction misses, and all 9 of those statutes have law nodes. → whenever a
+deterministic extractor is fixed for over-counting, measure the under-counting side in the same
+pass; the cheap ground truth is usually the OTHER extraction method already in the pipeline.
 ```
 
 ### → `feature-opportunities.md`
 ```
-### /zakony now renders 15 real §-diffs across 5 statute/§ targets (extends batch-002's flagship)
-paragraphDiffCount 7→15 bills after batch-003's 4 new SPARQL-sourced diffs (§35c/586-1992,
-§199 & §283/40-2009, §60/427-2011), no new infrastructure — confirms batch-002's "one command
-each" claim. A bill-detail page (still on the seed backlog, law-loop.md item 2) would let a reader
-land directly on the diff for a specific bill rather than browsing the /zakony list.
+### The law graph resolves only ~35% of the statutes these bills actually amend — a bounded, deterministic ingest closes it
+batch-004's regen shows 571 real amendment citations across PSP10, of which 289 (50.6%) point at
+one of 188 statutes with NO law node (101 nodes exist). The gap is directionally biased: the 101
+existing nodes come from bill TITLES, so the missing 188 are disproportionately body-only
+citations — the government-omnibus tail that batch-003 proved undercounts 2.3× worse. Statutes
+currently invisible include 424/1991 (financing of political parties, cited by 4 bills),
+21/1992 (banks), 256/2000 (SZIF), 365/2000 (public-administration information systems),
+49/1997 (civil aviation). e-Sbírka SPARQL already resolves statute → title → ELI at negligible
+bandwidth (esbirka-sparql-diff.ts, three batches running), and the kernel grants autonomous
+ingest for open sources — so this is one deterministic script, no LLM in the loop. It unblocks a
+genuinely new product surface ("which statutes does this parliament quietly rewrite most?") that
+cannot be honest while half the citation base is unresolvable.
 
-### Collision-cluster view — the 4↔120↔244 three-way finding argues for a graph-native representation
-batch-003 found a real 3-way (not pairwise) drafting collision by manual cross-referencing across
-3 close-read pairs. A dedicated "collision cluster" view (grouping by statute+§, not by bill pair)
-would surface this class of finding directly instead of requiring a driver to notice 3 confirmed
-pairs share 2 bills. Worth scoping as a build-review item once more clusters are found (currently
-1 confirmed 3-way cluster + 1 new pairwise 210↔248).
+### /zakony/kolize shipped — 18 (statute, §) clusters, 4 N-way, 26 rendered pairs with verbatim excerpts
+The collision-cluster view proposed in batch-003's handoff is live (a44fe5f): grouping by
+(statute, §) rather than bill-pair, confirmed vs coordination-risk tone tokens, SourceNote per
+pair, framed as drafting-coordination findings rather than wrongdoing. 24 of 26 rendered pairs
+carry grep-verified verbatim excerpts with file+line provenance; the 2 batch-001/002 pairs
+predate the machine payload shape and are honestly labelled as narrated with no invented quotes.
+Next increments: backfill those 2 excerpts (2 greps against the existing cache), and link each
+cluster to the §-diff artifact where one exists (§35c and §60 already have real diffs, so the
+reader could see the enacted text the colliding bills are fighting over).
 ```
 
 ### → `frontier.md` (Case ③ section)
 ```
-- 58 of the original 70 unconfirmed collision-report.json pairs remain untouched after batch-003's
-  12. Given a 25% confirmed-collision hit rate this batch (3/12, higher than the "mostly
-  incidental" baseline expectation), a dedicated close-reading batch on the remainder looks
-  higher-value than its position in the general triage queue suggests.
-- The citation-scope WARNING (gate-verdicts.ts, new this batch) flags 10/26 verdicts (8
-  pre-existing from batches 001/002: tisky 11, 119, 121, 124, 173, 198, 216, 244; 2 new: 28) whose
-  graph_fact citations assert company ownership/status substance the graph doesn't hold. These are
-  NOT re-tagged or edited (batch-003 deliberately preserved the audit trail, matching batch-002's
-  non-edit discipline on the same class of issue found on verdict-11). A human/orchestrator review
-  pass to re-tag these citations as kind:"web" with proper URLs is now an open item across 3
-  batches' worth of verdicts.
-- Is the amends-undercount pattern's ~2.3x government/MP ratio stable if the 1 skipped bill (tisk
-  87) is eventually recovered from a different source (its PDF wasn't found in the standard
-  index)? Low priority (n=1) but worth closing for a complete population.
-- Could the omnibus-bill §-set partitioning (needed to fix the tisk-248-class false positive in
-  collision-check.ts) reuse the SAME Čl. N article-boundary parsing Q-law-6's amends-census built
-  for the boilerplate-citation fix? If so, both would share one parser module.
+- The collision backlog is closed only against the 150-edge topology. Applying Q-law-8's regen
+  takes bill-pairs sharing a statute 88→436 and ≥3-bill statutes 10→42; at the observed
+  §-matching and partition-survival rates that is ~170 pairs to re-screen, and the confirmed rate
+  among partition-survivors is 50%. Brute-force close-reading is no longer affordable — needs a
+  deterministic pre-rank (both bills issue an amending instruction on the same §; the § text
+  contains a monetary literal or an allocation coefficient; explicitly NOT shared-§ count, which
+  batch-004 showed is not predictive).
+- Applying the regen also invalidates the triage ranking itself (churn is PRIMARY in
+  batch002TriagePolicy; 40/2009 overtakes 586/1992 at #1, three new statutes enter the top 10,
+  three leave). Every row's maxTargetChurn and triageScoreV2 is stale — re-triage is a
+  PRECONDITION for army-9, not a refinement.
+- Sector-adjacency is computed against the amended STATUTE, which is too coarse: 586/1992 is
+  adjacent to every commercial sector, but §35c (child tax credit) is adjacent to none. Both
+  sector-flagged bills in the confirmed-collision set (120, 121) are adjacency-by-tautology cases.
+  With §-level targets now available from collision close-reads and §-diffs, adjacency should be
+  evaluated at §-level for those bills. Corollary warning: recomputing adjacency NAIVELY over the
+  regenerated edge set will re-degenerate it (tisk 64 goes from 1 to 35 amended statutes) — the
+  exact P32 failure mode, one level up.
+- Q-law-11: the regen's census_full trigger is count-based (undercount > 0), so 3 bills whose
+  title and body citation sets are COMPLETELY DISJOINT (tisk 219: 301/1992 vs 354/2019; 222:
+  134/2016 vs 9/2002; 243: 223/2016 vs 240/2000) never enter the proposal. Zero edge impact TODAY
+  only because 354/2019, 9/2002 and 240/2000 have no law nodes — i.e. its harmlessness is
+  contingent on the missing-law-node gap staying open. Land the set-difference trigger BEFORE or
+  WITH the 188-node ingest, never after.
+- The per-Čl. first-citation extraction (P48) has an unmeasured recall side: 9 of 140 bills
+  (6.4%) miss a title-derived statute that DOES have a law node (tisky 88, 219, 222, 243, 36, 42,
+  107, 124, 153). Hypothesis worth one cheap test: the rule fails on Čl. blocks whose first
+  citation is not the target — most plausibly repeal articles ("zrušuje se zákon č. X Sb.") and
+  articles opening with a cross-referenced statute.
+- The citation-scope WARNING re-tagging (10/26 verdicts) has now rolled through three
+  build-reviews. Per the kernel's Authority section, deferred-three-batches is a decision point:
+  batch-005 must commit it to a human review pass or retire it.
+```
+
+### → `graph-log.md`
+```
+## Pass N (track: law) — Case ③ batch-004: amends topology regen prepared (NOT yet applied), collision backlog closed, kolize tisků shipped (2026-07-24)
+No graph writes this batch. Prepared (awaiting orchestrator apply under the write lock):
+amends edge regeneration 150 → 282 edges (+132 added, 0 dropped after the Opus audit's
+union-vs-replace fix; validate-amends-regen.ts PASS, 282 edges, 0 errors). 53 bills switch to
+census-body-derived targets unioned with their title-derived prop, 85 keep title fallback, 3 have
+neither (tisky 87/101/114, logged). Applying it re-ranks churn (40/2009 6→12 takes #1 from
+586/1992; new top-10 entrants 134/2016, 2/1969, 89/2012; dropouts 1/1993, 128/2000, 491/2001) and
+therefore INVALIDATES the current triageScoreV2 ordering — re-triage before the next army.
+Structural finding recorded with the payload: 289 of 571 real amendment citations (50.6%) point
+at one of 188 statutes with no law node; the graph's law layer covers ~35% of the legislative
+surface these bills touch. Also: collision candidate topology grows 29→75 statutes with ≥2
+amending bills and 88→436 bill-pairs sharing a statute once applied. Analysis-side (no graph
+change): 24 collision close-reads (13 confirmed / 6 coordination-risk / 5 incidental), 4-batch
+totals 17 confirmed / 9 coordination-risk / 12 incidental over 38 close-reads, all 72 original
+candidate pairs accounted for; 1 new e-Sbírka §-diff (§88/40-2009, 23 hunks). Forensic coverage
+unchanged at 27/141 (19.1%), 0 new verdicts this batch.
 ```
 
 ## 4. Enum / schema proposals
 
-None new this batch. The `amended_laws_full` additive-prop proposal (§2) is NOT a schema change
-request — it's a data payload awaiting an orchestrator decision on whether to apply it, using the
-EXISTING bill-node prop pattern (no new prop name needs registering; `amended_laws_full` would
-sit alongside the existing `amended_laws` array as an array-of-string prop, same type).
+None new. `amended_laws_full`'s array-of-string prop pattern (proposed batch-003, still not
+applied) is unchanged; the regen payload's per-ref `source: census_full | title_fallback` tag is
+new metadata WITHIN that same proposal, not a new prop/enum registration.
 
 ## 5. Commit plan (orchestrator; per-case commit inside law boundary)
 
-Files (all within law boundary):
-- `docs/data-analysis/case-law/**` (ledger.json, batch-003.md, handoff.md, payloads/**)
-- `scripts/case-loops/law/amends-census.ts` (new), `scripts/case-loops/law/gate-verdicts.ts`
-  (citation-scope check + --wide/canonical collapse — modified, confirmed in `git status`)
-- `features/lawwatch/**` — unchanged this batch (diffs render via the existing generic loader; no
-  code edit needed)
+**One commit already landed autonomously this batch** (build-review, per Authority): `a44fe5f`
+— `feat(zakony): ship kolize tisků — drafting-collision surface for Case ③`. Not pushed.
 
-Suggested message (Conventional):
+**Remaining uncommitted work** (all within law boundary, orchestrator's call on batching):
+- `docs/data-analysis/case-law/**` (ledger.json updated, batch-004.md new, batch-004-reflection.md
+  new, handoff.md this file, payloads/** — regen payload + audit + collision v2/close-reads +
+  new §-diff)
+- `scripts/case-loops/law/amends-regen.ts` (new), `validate-amends-regen.ts` (new),
+  `collision-check.ts` (modified — `--v2` partition mode)
+
+Suggested message (Conventional), for whatever the orchestrator doesn't fold into the existing
+`a44fe5f`:
 ```
-feat(case-law): batch-003 amends census + collision cluster + 4 more diffs + army-8
+feat(case-law): batch-004 amends regen prep + collision backlog closure + §88 diff
 
-Law loop batch-003 — full-population amends-undercount census (140/141 bills, government 2.3x MP
-undercount confirmed at scale), 12-pair collision close-read (3 confirmed incl. a new 4-120-244
-three-way §35ba cluster and 210-248's independent §134l clash, 2 coordination-risk, 7 incidental),
-4 new real e-Sbirka paragraph diffs (paragraphDiffCount 7->15), army of 8 gated Sonnet-only
-verdicts (26/26 gate pass, all severity=low, extends non-partisan-symmetry to 27/141 bills), and
-two gate-verdicts.ts improvements (citation-scope WARNING check, --wide/canonical collapse).
-Verdicts land pending_review via kg-forensics --write (separate persist step, orchestrator-
-serialized). npm run check green within law's own boundary (tsc/eslint/vitest scoped to
-scripts/case-loops/law, features/lawwatch, app/zakony); full-repo npm run check currently blocked
-by unrelated concurrent effort-loop lint errors outside law's boundary.
+Law loop batch-004 — prepared (not applied) amends edge regeneration (150->282, Opus-audited and
+union-bug-fixed, 188 missing law nodes census'd), collision-check.ts partition fix (72 candidate
+pairs -> 34 survive omnibus-contamination correction), 24 newly close-read pairs (13 confirmed / 6
+coordination-risk / 5 incidental, closing the 72-pair backlog against the pre-regen topology),
+1 new real e-Sbirka diff (§88/40-2009). Opus reflection corrects a batch-003 factual claim
+(2 confirmed-collision bills DO carry sponsor-money flags; trigger verdict stands on stronger
+grounds) and flags that the backlog reopens ~5x once the regen is applied. npm run check green
+(the kolize-tisku build-review, commit a44fe5f, already landed this data on /zakony/kolize).
 ```
-NB: the `kg-forensics --write --commit` calls in §2 are a **separate live-graph step** the
-orchestrator runs under the write lock, not part of this working-tree commit.
+NB: the amends-regen apply step (topology change to the live graph) is intentionally NOT part of
+any commit plan here — it needs an explicit orchestrator decision, sequenced with Q-law-11's
+trigger fix and the missing-law-node ingest per §2/§3 above, not a default "apply it" action.
 
-## 6. Lessons learned (skill/kernel calibration)
+## 6. Lessons learned (skill/kernel calibration — see batch-004-reflection.md §9 for the full version)
 
-1. **Full-population checks are worth their cost once a lead recurs across 2+ independently-found
-   cases.** batch-003's 140-bill census turned a 3-bill opportunistic pattern into a quantified,
-   population-level finding (4.80 vs 2.10 mean undercount) and found a much larger outlier (tisk
-   64: 148 vs 1) than any sample would likely have surfaced. → don't wait for K=3 convergence
-   batches to trigger a full-population check on a structural-looking lead; budget it as soon as
-   2 independent occurrences appear.
-2. **A "collision" can be N-way, not just pairwise — the tracking structure should reflect that.**
-   The 4↔120↔244 cluster was only visible by cross-referencing 3 separate pairwise close-reads;
-   `collision-report.json`'s pairwise grouping structurally can't represent a 3-way cluster
-   directly. Group by (statute, §) going forward, not by bill-pair.
-3. **Omnibus bills contaminate their OWN deterministic pre-checks, a distinct failure mode from
-   the citation-undercount problem.** tisk 248's 5-statute-bundled PDF caused false-positive
-   §-number matches against unrelated statutes. Both this and Q-law-6's boilerplate-citation
-   over-count bug stem from the same root cause (Czech legislative drafting conventions that a
-   naive regex/pattern doesn't account for) — worth a standing checklist item: any new
-   text-extraction script over this corpus should explicitly consider omnibus-bill structure
-   before trusting its first-pass output.
-4. **Deterministic grep beats a second LLM read for presence/absence claims — reserve the model
-   for substantive judgment.** Both confirmed collisions this batch were driver-verified by direct
-   grep against cached text, faster and more certain than a second Sonnet close-read would have
-   been. The close-read agents are better spent judging whether an overlap SUBSTANTIVELY interacts
-   (irreducibly a judgment call) than confirming a string's presence (not one).
-5. **Cache-location context needs to be explicit in army/close-read briefs, not assumed.** Both
-   army groups initially reported extraction failures despite the target text already sitting on
-   disk from an earlier batch's fetch. One extra round-trip per group this batch; batch-004's
-   briefs should name the cache path up front.
-6. **The Opus trigger held under real pressure this batch, not just an easy default.** 3 confirmed
-   collisions (a 25% hit rate on the sample, well above the "mostly incidental" baseline) created
-   a genuine temptation to escalate, but none touched sponsor money — the trigger's bar (a real
-   self-dealing/conflict channel, not "a notable finding exists") correctly held. Four batches in,
-   this is the trigger's third evaluation against real candidate material (tisk 11, 111↔207,
-   this batch's collisions), always correctly not-fired — worth citing as evidence the tiering
-   policy isn't merely defaulting to "don't spend Opus."
-7. **Fleet discipline held under confirmed real concurrency** (not hypothetical this batch — `git
-   status` shows simultaneous, uncommitted money and effort loop changes in the same working
-   tree). No shared-vault edits, no `.pglite` live writes, no commits, boundary respected
-   throughout (only `docs/data-analysis/case-law/**`, `scripts/case-loops/law/**` touched — the
-   `gate-verdicts.ts` change is within the law-owned scripts directory).
-8. **`npm run check` at repo root is not a reliable law-boundary signal under real fleet
-   concurrency.** Full-repo check failed on unrelated effort-loop lint errors this batch (outside
-   law's boundary, out of law's control). Scoped checks (`tsc --noEmit` full-repo, `eslint`
-   restricted to law's own paths, full `vitest run`) are the correct verification under fleet mode
-   — batch-004+ should default to scoped checks and only insist on a clean full-repo `npm run
-   check` at the orchestrator's final merge step, not per-case.
+1. **A ranking signal used to decide "what gets read next" inside a backlog sweep needs the same
+   discriminative-power validation (P32) as a top-level triage score.** Shared-§ count actively
+   selected AGAINST real collisions pre-partition (it correlated with omnibus contamination).
+2. **An edge-set regeneration is a write path.** It needs a diff-against-live + deletion-allowlist
+   gate, the same discipline the kernel already requires for props-merge writes (P44/D1), just at
+   the topology level. `validate-amends-regen.ts` currently cannot see a deletion — general lesson
+   for money/effort's analogous regeneration work too, not just law.
+3. **A precision fix does not imply a recall fix.** batch-003's amends-census correction was
+   validated only on known over-counting cases; its under-counting rate (6.4%) was never measured
+   until this batch's reflection derived it from data already on disk.
+4. **Two workstreams' outputs can silently contradict each other's framing even when both are
+   individually correct** — "backlog CLOSED" and "edge topology regenerated 5×" are both true
+   statements that, read together, mean the backlog isn't actually closed. This is specifically
+   why the kernel reserves an Opus reflection pass every batch, not just an audit of the riskiest
+   single artifact — the batch-004 reflection's highest-value catch was a CROSS-artifact
+   inconsistency neither individual artifact's author could have seen.
+5. **A driver's prose assertion about a cross-cutting property (e.g. "no money channel in any
+   collision") is a claim that decays the moment a LATER batch adds data to either side of it.**
+   Cross-workstream claims like this should be scripts joined to the ledger, not paragraphs —
+   otherwise every future batch either re-derives it from scratch or repeats it unchecked.
+6. **Fleet discipline held under continued real concurrency** — 7 subagents total this batch (3
+   analysis, 1 Opus audit, 1 fix, 1 build-review, 1 Opus reflection), no shared-vault edits, no
+   live `.pglite` writes outside the DB-copy pattern, boundary respected throughout
+   (`docs/data-analysis/case-law/**`, `scripts/case-loops/law/**`, and the build-review's
+   `app/zakony/**` + `features/lawwatch/**`, per its explicit build-phase authority).

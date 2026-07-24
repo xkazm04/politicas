@@ -1,0 +1,67 @@
+[
+  {
+    "pairId": "4-121",
+    "billA": 4,
+    "billB": 121,
+    "lawRef": "586/1992",
+    "classification": "confirmed-collision",
+    "sharedParagraph": "35c odst. 1",
+    "evidence": {
+      "billAExcerpt": "tisk 4, .data/law-collision-cache/tisk-4/265051.txt lines 84-85 (§35c odst.1, Čl. I bod 2): 'V § 35c odst. 1 se částka „15 204 Kč“ nahrazuje částkou „22 320 Kč“ a slova „, 22 320 Kč ročně na druhé dítě“ se zrušují.' -- tisk 4 replaces the first-child amount 15,204 Kč with 22,320 Kč AND deletes the literal phrase ', 22 320 Kč ročně na druhé dítě' (the second-child amount clause) from the sentence entirely.",
+      "billBExcerpt": "tisk 121, .data/law-collision-cache/tisk-121/268020.txt lines 7-13 (Čl. I): 'V § 35c odst. 1 zákona č. 586/1992 Sb. ... se částka „15204 Kč“ nahrazuje částkou „22380 Kč“, částka „22320 Kč“ se nahrazuje částkou „29808 Kč“ a částka „27840 Kč“ se nahrazuje částkou „37176 Kč“.' -- tisk 121 makes three parallel numeral substitutions on the SAME unaltered §35c odst.1 sentence: 15204->22380, 22320->29808, 27840->37176."
+    },
+    "reasoning": "Both bills issue literal search-and-replace instructions against the identical, unrestructured text of §35c odst.1 (the child tax-relief amounts sentence), and they collide two ways. First, both target the exact same source string '15204/15 204 Kč' but specify mutually exclusive replacement values -- tisk 4 sets it to 22 320 Kč, tisk 121 sets it to 22 380 Kč -- so only one can literally apply; the other's search text would already be gone. Second, tisk 4 additionally DELETES the phrase ', 22 320 Kč ročně na druhé dítě' from the sentence, while tisk 121 independently instructs 'částka „22320 Kč“ se nahrazuje částkou „29808 Kč“' -- an instruction whose target text tisk 4 would have already erased. This is a direct, literal, same-sentence textual conflict, not a combinable or generic-section overlap: confirmed-collision."
+  },
+  {
+    "pairId": "119-248",
+    "billA": 119,
+    "billB": 248,
+    "lawRef": "586/1992",
+    "classification": "coordination-risk",
+    "sharedParagraph": "15b odst. 1 písm. a) bod 1 (plus a renumbering hazard on odst. 4)",
+    "evidence": {
+      "billAExcerpt": "tisk 119, .data/law-collision-cache/tisk-119/267928.txt lines 156-165 (Čl. III, bod 1-2): '1. V § 15b odst. 1 písm. a) bodě 1 se za slova „doba 120 kalendářních měsíců“ vkládají slova „a podmínka dosažení 60 let věku“, slovo „nepoužije“ se nahrazuje slovem „nepoužijí“ a na konec textu se doplňují slova „nebo dosažením 60 let věku“. / 2. V § 15b odst. 4 písm. a) se na konci bodu 2 slovo „nebo“ zrušuje...' -- tisk 119 edits the LATER clause of bod 1 (the 'doba 120 kalendářních měsíců se nepoužije...' exception sentence near the end of bod 1) and separately edits odst.4 písm.a) by its current number.",
+      "billBExcerpt": "tisk 248, .data/law-collision-cache/tisk-248/277937.txt lines 26-37 (Čl. I, body 2-3): '2. V § 15b odst. 1 písm. a) bodě 1 se slova „po 120 kalendářních měsících od vzniku produktu“ nahrazují slovy „po 120 kalendářních měsících trvání doplňkového penzijního spoření a dlouhodobého investičního produktu poplatníka v souhrnu“. / 3. V § 15b se za odstavec 1 vkládá nový odstavec 2 ... Dosavadní odstavce 2 až 7 se označují jako odstavce 3 až 8.' Corroborating original text at .data/law-collision-cache/tisk-248/277939.txt lines 403-414 shows bod 1 contains TWO separate '120 kalendářních měsíců' phrases: the opening clause ('po 120 kalendářních měsících od vzniku produktu', which tisk 248 rewrites) and a later exception clause ('doba 120 kalendářních měsíců se nepoužije ... v délce 120 kalendářních měsíců', which is what tisk 119 edits) -- confirming the two bills' bod-1 edits target different substrings of the same sentence-block."
+    },
+    "reasoning": "Both bills genuinely amend the live text of §15b: tisk 119's bod-1 edit targets the closing 'doba 120 kalendářních měsíců se nepoužije' exception clause of odst.1 písm.a) bod 1, while tisk 248's bod-1 edit targets the OPENING '120 kalendářních měsíců od vzniku produktu' phrase of the same bod 1 -- reading tisk 248's own platné-znění dump (277939.txt lines 403-414) confirms these are two distinct, non-overlapping substrings within the same paragraph, so the two edits are textually combinable rather than a literal clash (not confirmed-collision). However this is a real coordination hazard, not incidental: tisk 248 also inserts a brand-new odst.2 into §15b and explicitly renumbers 'Dosavadní odstavce 2 až 7 ... jako odstavce 3 až 8' (line 37), while tisk 119's SECOND edit references '§ 15b odst. 4 písm. a)' by its CURRENT number -- if tisk 248 is enacted first/simultaneously, the provision tisk 119 calls 'odst. 4' becomes 'odst. 5', so tisk 119's own instruction would silently land on the wrong (or a nonexistent) paragraph. That is a genuine drafting-sequencing risk requiring coordination between the two bills, matching the coordination-risk pattern (not a literal same-text clash, but not an artifact either)."
+  },
+  {
+    "pairId": "121-120",
+    "billA": 121,
+    "billB": 120,
+    "lawRef": "586/1992",
+    "classification": "confirmed-collision",
+    "sharedParagraph": "35c odst. 1",
+    "evidence": {
+      "billAExcerpt": "tisk 121, .data/law-collision-cache/tisk-121/268020.txt lines 7-13 (Čl. I): 'V § 35c odst. 1 zákona č. 586/1992 Sb. ... se částka „15204 Kč“ nahrazuje částkou „22380 Kč“, částka „22320 Kč“ se nahrazuje částkou „29808 Kč“ a částka „27840 Kč“ se nahrazuje částkou „37176 Kč“.' -- tisk 121 assumes §35c(1) REMAINS the current unlettered, single-block sentence and only substitutes the three numeral amounts within it.",
+      "billBExcerpt": "tisk 120, .data/law-collision-cache/tisk-120/268221.txt lines 18-33 (Čl. I, bod 2): 'V § 35c odstavec 1 zní: „(1) Poplatník uvedený v § 2 má nárok na daňové zvýhodnění: a) na poplatníka ve výši 30 840 Kč ročně, a b) na vyživované dítě ... ve výši 15204 Kč ročně na jedno dítě, 22320 Kč ročně na druhé dítě a 27840 Kč ročně na třetí a každé další dítě ...“.' -- tisk 120 REPLACES the entire odst.1 wholesale ('zní' = 'reads as'), restructuring it into lettered a)/b) items and folding in the basic personal relief (previously in §35ba(1)(a)) as new §35c(1)(a)."
+    },
+    "reasoning": "Both bills amend §35c odst.1 on incompatible assumptions about its shape. Tisk 121 issues a narrow, order-dependent numeral substitution ('částka X nahrazuje se částkou Y') that presupposes odst.1 stays the existing unlettered sentence containing the literal strings 15204/22320/27840 Kč. Tisk 120 wholly replaces odst.1's text ('zní') with a new two-item a)/b) structure that also merges in the basic personal relief from §35ba(1)(a). If tisk 120 is enacted, tisk 121's 'nahrazuje se' instruction is targeting a provision structure that no longer exists in that form (a full substitution supersedes rather than combines with a substring replace), and vice-versa tisk 120's full rewrite would silently discard tisk 121's updated 22380/29808/37176 Kč amounts. This is the same structural failure mode already confirmed for 4<->120 and 120<->244 in batch-003 (tisk 120 restructuring §35ba/§35c while sibling bills make narrow amount-only edits assuming the old, unlettered shape): confirmed-collision."
+  },
+  {
+    "pairId": "121-244",
+    "billA": 121,
+    "billB": 244,
+    "lawRef": "586/1992",
+    "classification": "coordination-risk",
+    "sharedParagraph": "35c odst. 1",
+    "evidence": {
+      "billAExcerpt": "tisk 121, .data/law-collision-cache/tisk-121/268020.txt lines 7-13 (Čl. I): 'V § 35c odst. 1 zákona č. 586/1992 Sb. ... se částka „15204 Kč“ nahrazuje částkou „22380 Kč“, částka „22320 Kč“ se nahrazuje částkou „29808 Kč“ a částka „27840 Kč“ se nahrazuje částkou „37176 Kč“.' -- edits are literal numeral substitutions INSIDE the first sentence of odst.1 (the amounts sentence, confirmed as 'věta první' by tisk 120's mirrored original text at .data/law-collision-cache/tisk-120/268221.txt lines 24-27, which ends '...pokud neuplatňuje slevu na dani podle § 35a nebo § 35b.').",
+      "billBExcerpt": "tisk 244, .data/law-collision-cache/tisk-244/277769.txt lines 25-32 (Čl. I, bod 6): '6. V § 35c odst. 1 se za větu první vkládají věty „Daňové zvýhodnění se u vyživovaného dítěte zvyšuje o 1 000 Kč za každý kalendářní měsíc ... 4 000 Kč. ... nepřihlíží.“.' -- tisk 244 INSERTS three brand-new sentences immediately AFTER the existing first sentence of odst.1, without altering that first sentence's own wording."
+    },
+    "reasoning": "Both bills genuinely touch §35c odst.1, but at non-overlapping textual locations: tisk 121 changes numeral tokens WITHIN the first sentence (the amounts clause), while tisk 244 inserts new sentences immediately AFTER that same first sentence, leaving its wording untouched. These are combinable, not a literal same-text clash -- applying tisk 121's substitutions and then tisk 244's insertion (or vice versa) produces a coherent single paragraph with updated amounts followed by the new age-based increase sentences. It is not incidental either, since both are real, deliberate edits to the identical sentence-boundary of the same subsection and would need to be sequenced/merged by the legislature if both pass concurrently (mirroring the 73-193 pattern from batch-003, where combinable-but-co-located edits to the same provision were classified coordination-risk rather than incidental)."
+  },
+  {
+    "pairId": "207-216",
+    "billA": 207,
+    "billB": 216,
+    "lawRef": "40/2009",
+    "classification": "coordination-risk",
+    "sharedParagraph": "283 odst. 1 (the 283a match is a partition artifact — see reasoning)",
+    "evidence": {
+      "billAExcerpt": "tisk 207, .data/law-collision-cache/tisk-207/271152.txt lines 129-146 (Čl. I, body 9-12): '9. V nadpisu § 283 se slova „nebo s jedy“ nahrazují slovy „, s jedy nebo se rtutí“. / 10. V § 283 se za odstavec 1 vkládá nový odstavec 2 ... Dosavadní odstavce 2 až 5 se označují jako odstavce 3 až 6. / 11. V § 283 odst. 3 úvodní části ustanovení, § 283 odst. 4 písm. a) a v § 283 odst. 5 písm. a) se za slova „odstavci 1“ vkládají slova „nebo 2“. / 12. Za § 283a se vkládá nový § 283b ...'. Tisk 207 does NOT edit the text of §283 odst.1 or §283a itself anywhere in the file -- it only changes the nadpis, inserts a new odst.2 after odst.1 (renumbering the OLD odst.2-5 to odst.3-6), adjusts cross-references in the renumbered odst.3/4/5, and inserts an entirely new §283b positioned 'za § 283a' (i.e. after, not inside, §283a).",
+      "billBExcerpt": "tisk 216, .data/law-collision-cache/tisk-216/271414.txt lines 47-48 (Čl. I, bod 2): 'V § 283 odst. 1, § 283a odst. 1 a v § 286a odst. 1 se za slovo „prodá“ vkládá slovo „, podá“.' -- tisk 216 inserts the word ', podá' into the operative verb list of §283 odst.1 (and, separately, of §283a odst.1 and §286a odst.1), without touching any other part of §283/§283a."
+    },
+    "reasoning": "For §283a, the deterministic match is a partition artifact, not a genuine same-provision touch: tisk 207's only reference to §283a is the insertion-point marker 'Za § 283a se vkládá nový § 283b' -- a NEW section placed after §283a, with §283a's own text left completely unamended by tisk 207. Tisk 216, by contrast, does genuinely edit §283a odst.1's text (inserting ', podá'), but since tisk 207 never touches §283a there is no interaction there at all -- incidental for that sub-match. For §283 odst.1, however, there IS a genuine (if non-conflicting) co-touch: tisk 207 restructures §283 around odst.1 (new nadpis, a new odst.2 inserted after odst.1, renumbering of the old odst.2-5, and reference fixes in the renumbered paragraphs) while leaving odst.1's own operative text untouched, and tisk 216 separately inserts a word into that untouched odst.1 text. The two edits are combinable (odst.1's content only changes via tisk 216; tisk 207's changes are all elsewhere in the section) with no textual contradiction and no renumbering hazard (odst.1 is never renumbered by either bill). Because both bills are nonetheless live, deliberate, concurrent amendments to the same operative provision (§283 odst.1) of the same statute, this is classified coordination-risk overall (driven by the genuine §283 odst.1 co-touch) rather than confirmed-collision (no literal clash) or a blanket incidental (the §283 sub-match is real, even though the §283a sub-match is an artifact)."
+  }
+]

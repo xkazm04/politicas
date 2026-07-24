@@ -1,0 +1,67 @@
+[
+  {
+    "pairId": "57-153",
+    "billA": 57,
+    "billB": 153,
+    "lawRef": "375/2022",
+    "classification": "coordination-risk",
+    "sharedParagraph": "53a (anchor point for new §53b)",
+    "evidence": {
+      "billAExcerpt": "tisk 57, .data/law-collision-cache/tisk-57/266021.txt lines 102-104: '9. Za § 53 se vkládá nový § 53a, který včetně nadpisu zní: „§ 53a' -- tisk 57 CREATES §53a as an entirely new provision (opatření pri zajištění dostupnosti prostředku). Corroborating, lines 314-320 (own důvodová zpráva): '...zákon o prostředcích... nebude... měněn prostřednictvím sněmovního tisku 918, který... předpokládal přijetí nového ustanovení § 53a, na které v posloupnosti legislativního procesu mělo navázat právě původní § 53b návrhu zákona... mění se i označení ustanovení § 53b na § 53a...' -- tisk 57's own explanatory report explicitly discusses this exact §53a/§53b anchor-numbering fragility with a (now-superseded) earlier bill, tisk 918.",
+      "billBExcerpt": "tisk 153, .data/law-collision-cache/tisk-153/268952.txt lines 830-838 (Čl. III): 'Zákon č. 375/2022 Sb.,... se mění takto: ... 2. Za § 53a se vkládá nový § 53b, který včetně nadpisu a poznámek pod čarou č. 26 a 27 zní: „§ 53b / Program pro pacienty...' -- tisk 153 anchors its new §53b insertion to an EXISTING §53a of law 375/2022."
+    },
+    "reasoning": "tisk 153's Čl. III item 2 assumes §53a already exists in the enacted text of law 375/2022 so that it can insert '§53b' immediately after it. But §53a does not currently exist in that law -- it is being newly created by tisk 57's own Čl. I item 9 ('Za § 53 se vkládá nový § 53a'). tisk 153's amending instruction is therefore contingent on tisk 57 (or an equivalent) being enacted and promulgated first; if tisk 153 passed first, its 'Za § 53a' anchor phrase would have no target in the law. This is not a literal textual clash -- the two bills insert into non-overlapping slots (§53a itself vs. the position immediately after it) and the results are combinable once correctly sequenced -- but it is a genuine, non-incidental coordination hazard, not a detector artifact: tisk 57's own explanatory report independently confirms this exact same anchor-numbering fragility occurred before with a different (superseded) bill, tisk 918, which likewise assumed §53a would exist and inserted a §53b after it. Classified coordination-risk."
+  },
+  {
+    "pairId": "78-238",
+    "billA": 78,
+    "billB": 238,
+    "lawRef": "245/2000",
+    "classification": "coordination-risk",
+    "sharedParagraph": "4 odst. 1",
+    "evidence": {
+      "billAExcerpt": "tisk 78, .data/law-collision-cache/tisk-78/266724.txt lines 8-14 (Čl. I): 'V § 4 odst. 1 zákona č. 245/2000 Sb.,... se za slova „28. březen - Den narození Jana Ámose Komenského,“ vkládají slova „30. březen – Den české vlajky,“.' -- inserts a new commemorative-day list entry immediately after the existing '28. březen' entry.",
+      "billBExcerpt": "tisk 238, .data/law-collision-cache/tisk-238/277551.txt lines 10-17 (Čl. I): 'V § 4 odst. 1 zákona č. 245/2000 Sb.,... se za slova „21. srpen – Den památky obětí invaze a následné okupace vojsky Varšavské smlouvy,“ vkládají slova „28. srpen – Den Orla,“.' -- inserts a different new commemorative-day list entry immediately after the existing '21. srpen' entry."
+    },
+    "reasoning": "Both bills amend the same operative sentence/list in §4 odst.1 of law 245/2000 (the enumerated list of 'významné dny'), confirmed by reading each bill's full Čl. I text (not just the deterministic excerpt). Each anchors its insertion to a different, non-overlapping existing phrase already present in that list ('28. březen...' vs '21. srpen...'), and each inserts a distinct new day. The two find-and-insert instructions are textually combinable -- applying both to the base list, in either order, yields one coherent expanded list with both new days added, with no letter/numbering collision like the confirmed 4-120 case. This is a genuine same-provision touch, not an incidental/artifact match, but it is not a literal contradiction either; classified coordination-risk because merging two independently-drafted amendments into the same list requires the anchor phrases in each instruction to still be present and correctly located when the other bill's edit is also applied -- the same order-sensitive-but-combinable risk pattern as the batch-003 67-167 precedent."
+  },
+  {
+    "pairId": "85-88",
+    "billA": 85,
+    "billB": 88,
+    "lawRef": "110/2006",
+    "classification": "confirmed-collision",
+    "sharedParagraph": "7 odst. 2 písm. h)",
+    "evidence": {
+      "billAExcerpt": "tisk 85, .data/law-collision-cache/tisk-85/266984.txt lines 14-20 (Čl. I): 'V § 7 odst. 2 písm. h) zákona č. 110/2006 Sb., o životním a existenčním minimu,... se vkládá nový bod 12, který zní: „12. příjmu plynoucího z dávky státní sociální pomoci,“.'",
+      "billBExcerpt": "tisk 88, .data/law-collision-cache/tisk-88/267095.txt lines 41-48 (Čl. III): 'V § 7 odst. 2 písm. h) zákona č. 110/2006 Sb., o životním a existenčním minimu,... se vkládá nový bod 12, který zní: „12. dávky státní sociální pomoci,“.'"
+    },
+    "reasoning": "Both bills insert a NEW 'bod 12' into the exact same enumerated list, §7 odst.2 písm. h) of law 110/2006 (a list of income items relevant to the life/subsistence minimum calculation), at the identical numeric slot, but with two different wordings ('příjmu plynoucího z dávky státní sociální pomoci' vs. 'dávky státní sociální pomoci'). If both bills are enacted there is no coherent single 'bod 12' -- either a duplicate-numbered item results, or whichever bill is promulgated second finds its 'insert new bod 12' instruction has no valid target because bod 12 already exists with the first bill's different wording. This is a direct structural confirmed-collision, the same failure mode as the previously-confirmed 4-120 pair: two bills each independently claiming exclusive ownership of the same new list slot in the same paragraph."
+  },
+  {
+    "pairId": "104-232",
+    "billA": 104,
+    "billB": 232,
+    "lawRef": "561/2004",
+    "classification": "confirmed-collision",
+    "sharedParagraph": "30 odst. 3 (with downstream §136 odst. 2 písm. d) cross-reference)",
+    "evidence": {
+      "billAExcerpt": "tisk 104, .data/law-collision-cache/tisk-104/267510.txt lines 33-46 (Čl. I item 1): '1. V § 30 odstavec 3 zní: „(3) Školní řád nebo vnitřní řád dále upravuje a) podrobnosti podmínek povolení používání mobilních telefonů nebo jiných elektronických zařízení,... c) podmínky používání mobilních telefonů nebo jiných elektronických zařízení v průběhu aktivit organizovaných školou mimo vyučovací hodiny,...“' -- REWRITES §30 odst.3 in place with new mobile-phone-use content, leaving odst.3 as a live, populated paragraph.",
+      "billBExcerpt": "tisk 232, .data/law-collision-cache/tisk-232/277445.txt lines 73-75 (Čl. I items 2-3): '2. V § 30 se odstavec 3 zrušuje. Dosavadní odstavce 4 až 6 se označují jako odstavce 3 až 5. 3. V § 136 odst. 2 písm. d) se text „§ 30 odst. 5“ nahrazuje textem „§ 30 odst. 4“.' -- DELETES §30 odst.3 entirely, renumbers the following odstavce down by one, and updates a cross-reference elsewhere in the same law accordingly."
+    },
+    "reasoning": "These are directly, literally incompatible instructions targeting the same provision: tisk 104 assumes §30 odst.3 continues to exist and replaces its content wholesale with new mobile-phone-policy text; tisk 232 assumes §30 odst.3 is abolished outright, with odst.4-6 shifting down to become odst.3-5 and a cross-reference in §136 updated to match. Both outcomes cannot coexist: if tisk 104 is enacted first, tisk 232's 'odstavec 3 se zrušuje' instruction would delete the newly-inserted mobile-phone text tisk 104 just added (defeating tisk 104's purpose), or the renumbering would misapply to a section whose content differs from what tisk 232's drafters analyzed; if tisk 232 is enacted first, §30 odst.3 no longer exists for tisk 104's 'odstavec 3 zní' instruction to act on. This is a genuine confirmed-collision -- the same rewrite-vs-delete conflict pattern as other confirmed pairs in this case loop."
+  },
+  {
+    "pairId": "171-246",
+    "billA": 171,
+    "billB": 246,
+    "lawRef": "13/1997",
+    "classification": "coordination-risk",
+    "sharedParagraph": "21 odst. 4",
+    "evidence": {
+      "billAExcerpt": "tisk 171, .data/law-collision-cache/tisk-171/269514.txt lines 8-12 (Čl. I): 'V § 21 odst. 2 a 4 zákona č. 13/1997 Sb.,... se slova „1 den“ nahrazují slovy „24 hodin“.' -- a narrow phrase substitution ('1 den' -> '24 hodin') applied wherever it occurs within the EXISTING text of odst.2 and odst.4.",
+      "billBExcerpt": "tisk 246, .data/law-collision-cache/tisk-246/277815.txt lines 33-61 (Čl. I items 1-2): '1. V § 21 odstavce 3 až 5 znějí: „(3) Sazba časového poplatku na... (4) Jde-li o vozidlo v systému časového zpoplatnění používající jako palivo elektrickou energii nebo vodík v kombinaci s jiným palivem,... sazba časového poplatku na a) 1 rok činí 640 Kč, b) 30 dnů činí 120 Kč, c) 10 dnů činí 70 Kč a d) 1 den činí 50 Kč. (5)...“. 2. V § 21 se odstavce 6 až 8 zrušují.' -- wholesale replaces odst.3, odst.4 AND odst.5 with a brand-new vehicle-type fee schedule, and separately deletes odst.6-8."
+    },
+    "reasoning": "odst.2 is left untouched by tisk 246, so no conflict arises there, but odst.4 is targeted by both bills in incompatible ways: tisk 171 assumes the CURRENT wording of odst.4 survives and merely swaps the phrase '1 den' for '24 hodin' within it; tisk 246 replaces the entirety of odst.4 with new vehicle-fuel-type fee-schedule text that coincidentally also contains a '1 den' occurrence in its own new item d) ('1 den činí 50 Kč'). If tisk 246 is enacted first, tisk 171's substitution would still technically find a '1 den' string to act on, but inside content its drafters never analyzed (a different, newly-created odst.4 about alternative-fuel vehicles); if tisk 171 is enacted first, tisk 246's full-paragraph rewrite of odst.3-5 discards tisk 171's '24 hodin' edit to the old odst.4 entirely, replacing it wholesale. The edits are order-dependent and only combinable by coincidence (both instructions happen to find a matching '1 den' string regardless of sequence), not a direct incompatible-outcome clash like the rewrite-vs-delete pattern seen in 104-232. This matches the coordination-risk precedent from batch-003's 67-167 pair (full-provision rewrite vs. narrow targeted phrase substitution touching the same paragraph)."
+  }
+]

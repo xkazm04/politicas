@@ -1,0 +1,67 @@
+[
+  {
+    "pairId": "112-121",
+    "billA": 112,
+    "billB": 121,
+    "lawRef": "117/1995",
+    "classification": "confirmed-collision",
+    "sharedParagraph": "30, 31",
+    "evidence": {
+      "billAExcerpt": "tisk 112, .data/law-collision-cache/tisk-112/267665.txt lines 45-53, 55 (§31 odst.3 and §30 odst.1): '1. V § 31 odstavec 3 zní: \"(3) Podmínka osobní celodenní péče se též považuje za splněnou, jestliže a) dítě navštěvuje dětskou skupinu, mateřskou školu, jiné obdobné zařízení pro děti předškolního věku, nebo b) rodič zajistí péči o dítě jinou zletilou osobou v době, kdy je výdělečně činný nebo je žákem nebo studentem soustavně se připravujícím na budoucí povolání (§ 12 až 15), s výjimkou studia za trvání služebního poměru příslušníků ozbrojených sil.\".' and '2. V § 30 odst. 1 se slova \"350 000 Kč\" nahrazují slovy \"370 000 Kč\".'",
+      "billBExcerpt": "tisk 121, .data/law-collision-cache/tisk-121/268020.txt lines 56, 63-67 (§30 odst.1 and §31 odst.3): '1. V § 30 odst. 1 větě první a druhé se částka \"350 000 Kč\" nahrazuje částkou \"400 000 Kč\".' and '4. V § 31 odstavec 3 zní: \"(3) Podmínka osobní celodenní péče se též považuje za splněnou, jestliže dítě navštěvuje dětskou skupinu, mateřskou školu, jiné obdobné zařízení pro děti předškolního věku nebo léčebně rehabilitační zařízení, nebo rodič zajistí péči o dítě jinou zletilou osobou.\".'"
+    },
+    "reasoning": "Both bills directly amend the live text of the same two provisions of 117/1995 in the same Čl. (Čl. I in tisk 112 / Čl. III in tisk 121), with mutually incompatible results. At §30 odst.1, both instructions target the identical literal string '350 000 Kč' in the same sentence and replace it with different amounts (370 000 Kč vs 400 000 Kč) -- a textbook 'search-and-replace on the same substring, two different replacement values' collision; whichever is applied second either overwrites the other's numeral or fails to find the (already-changed) target string. At §31 odst.3, both bills issue a full '... zní:' replacement of the entire odstavec, but with substantively different final texts: tisk 112's version adds a carve-out excluding 'studia za trvání služebního poměru příslušníků ozbrojených sil' from qualifying study, and lists two lettered alternatives a)/b); tisk 121's version instead adds a 'léčebně rehabilitační zařízení' (medical rehab facility) option, drops the armed-forces service exclusion, and collapses the lettered structure into a single unlettered sentence. Two 'X odstavec Y zní: ...' instructions to the same odstavec with different final text cannot both take effect as written -- genuine confirmed-collision on both shared paragraphs."
+  },
+  {
+    "pairId": "112-124",
+    "billA": 112,
+    "billB": 124,
+    "lawRef": "117/1995",
+    "classification": "incidental",
+    "sharedParagraph": "30 (not a genuine same-provision touch)",
+    "evidence": {
+      "billAExcerpt": "tisk 112, .data/law-collision-cache/tisk-112/267665.txt line 55 (§30 odst.1, genuine amending instruction): '2. V § 30 odst. 1 se slova \"350 000 Kč” nahrazují slovy \"370 000 Kč”.'",
+      "billBExcerpt": "tisk 124, .data/law-collision-cache/tisk-124/268364.txt lines 50-60 (Čl. I items 1-3, the only amendments this bill makes near §30): '1. V § 30d odst. 1 se věta druhá zrušuje.' / '2. V § 30d odstavec 3 zní: \"(3) Žena v žádosti o rodičovský příspěvek podle odstavce 1 doloží očekávaný den porodu. Výše rodičovského příspěvku před porodem činí 15000 Kč měsíčně.\".' / '3. V § 30d odstavec 4 zní: \"(4) Po zániku nároku na rodičovský příspěvek před porodem musí rodič pro uplatnění nároku na rodičovský příspěvek podle § 30 odst. 1 podat novou žádost.\".' -- the only occurrence of the string '§ 30 odst. 1' in tisk 124 is embedded INSIDE the new text of §30d odst.4 as a cross-reference, not as the target of an amending instruction. Grep for '§ ?30' (excluding §30d/§30b/§30a) across the whole file confirms every other occurrence (lines 146, 148, 227, 234) is likewise a citation within provisions the bill amends (§62, §30h note, §30j), never an instruction that amends §30 itself."
+    },
+    "reasoning": "Tisk 112 issues a genuine amending instruction to §30 odst.1 itself (replacing the '350 000 Kč' figure). Tisk 124, by contrast, amends a DIFFERENT, related-but-distinct provision -- §30d (studying-parent benefit before childbirth) -- and never issues any 'V § 30 ... se ...' instruction anywhere in its text. The only appearance of '§ 30 odst. 1' in tisk 124 is a cross-reference sitting inside the newly drafted text of §30d odst.4 ('...musí rodič pro uplatnění nároku na rodičovský příspěvek podle § 30 odst. 1 podat novou žádost'), pointing readers to the parent-benefit-amount provision, not amending it. This is exactly the kind of partition/extraction artifact the batch-004 fix was meant to catch: the deterministic scan picked up a §30 citation inside a §30d rewrite as if it were a §30 touch. No genuine same-provision collision exists between these two bills within 117/1995."
+  },
+  {
+    "pairId": "112-198",
+    "billA": 112,
+    "billB": 198,
+    "lawRef": "117/1995",
+    "classification": "confirmed-collision",
+    "sharedParagraph": "30",
+    "evidence": {
+      "billAExcerpt": "tisk 112, .data/law-collision-cache/tisk-112/267665.txt line 55 (Čl. I item 2, §30 odst.1): '2. V § 30 odst. 1 se slova \"350 000 Kč” nahrazují slovy \"370 000 Kč”.'",
+      "billBExcerpt": "tisk 198, .data/law-collision-cache/tisk-198/270530.txt lines 12-15 (Čl. I, §30 odst.1): 'Čl. I V § 30 odst. 1 zákona č. 117/1995 Sb., o státní sociální podpoře, ve znění zákona č. 366/2011 Sb., zákona č. 200/2017 Sb., zákona č. 363/2019 Sb., zákona č. 407/2023 Sb. a zákona č. 290/2025 Sb., se částka \"350 000 Kč\" nahrazuje částkou \"400 000 Kč\".'"
+    },
+    "reasoning": "Both bills' sole substantive amendment is an instruction to §30 odst.1 of 117/1995 that targets the exact same literal string '350 000 Kč' and replaces it with a different figure -- tisk 112 raises it to '370 000 Kč', tisk 198 (a government bill whose entire content is this single sentence) raises it to '400 000 Kč'. This is a direct, unambiguous same-substring-different-replacement collision: only one of the two numerals can be the enacted value, and if both bills pass the second-applied instruction either silently overwrites the first's change or fails to locate its target text (already altered). No partitioning ambiguity here -- both instructions are single-sentence, unmistakably targeting the identical clause."
+  },
+  {
+    "pairId": "28-140",
+    "billA": 28,
+    "billB": 140,
+    "lawRef": "243/2000",
+    "classification": "confirmed-collision",
+    "sharedParagraph": "3 (corroborated by §4 and §6)",
+    "evidence": {
+      "billAExcerpt": "tisk 28, .data/law-collision-cache/tisk-28/265349.txt lines 31, 55-58 (§3 odst.2, full 'znějí' rewrite) and lines 137-144 (§4, §6): '3. V § 3 odstavce 2 a 3 znějí: \"(2) ... f) poměru počtu obyvatel kraje k počtu obyvatel všech krajů s výjimkou hlavního města Prahy, vyjádřeného v procentech a násobeného koeficientem 0,4, g) poměru podílu počtu obcí v kraji k rozloze území kraje k součtu těchto podílů za všechny kraje s výjimkou hlavního města Prahy...\"' -- Prague is EXCLUDED from the population/municipality-count denominators. Also: '7. V § 4 odst. 3 se text \"č. 2\" nahrazuje textem \"č. 1\".' / '8. V § 4 odst. 4 a 5 se text \"č. 3\" nahrazuje textem \"č. 2\".' / '9. V § 6 odst. 4 se za slovo \"podle\" vkládají slova \"§ 3 odst. 13 a\".' Tisk 28's own §3 rewrite runs through a newly added odst. (13) (lines 64, 104-109), i.e. its §3 tops out at 13 subsections.",
+      "billBExcerpt": "tisk 140, .data/law-collision-cache/tisk-140/268733.txt lines 27, 54-55 (§3 odst.2, full 'znějí' rewrite covering odst.2-6) and lines 112-116 (§4, §6): '1. V § 3 odstavce 2 až 6 znějí: \"(2) ... f) poměru počtu obyvatel kraje k počtu obyvatel všech krajů, vyjádřeného v procentech a násobeného koeficientem 0,4, g) poměru podílu počtu obcí v kraji k rozloze území kraje k součtu těchto podílů za všechny kraje, vyjádřeného v procentech a násobeného koeficientem 0,08...\"' -- Prague is NOT excluded (the 's výjimkou hlavního města Prahy' clause present in tisk 28's f) and g) is absent here). Also identical §4 instructions: '3. V § 4 odst. 3 se text \"č. 2\" nahrazuje textem \"č. 1\".' / '4. V § 4 odst. 4 a 5 se text \"č. 3\" nahrazuje textem \"č. 2\".'; and a different §6 instruction: '5. V § 6 odst. 4 se odkaz \"§ 3 odst. 6\" mění na odkaz \"§ 3 odst. 12\".' Tisk 140's §3 rewrite tops out at a newly added odst. (12) (lines 81, 101-108), i.e. its §3 tops out at 12 subsections."
+    },
+    "reasoning": "Both bills issue an '... odstavce ... znějí' full-text replacement of §3 odst.2 (and overlapping subsequent odstavce) of 243/2000 with substantively different formulas: tisk 28 keeps a Prague carve-out in odst.2 písm. f) and g) ('s výjimkou hlavního města Prahy'), while tisk 140's version of the identical písm. f)/g) drops that carve-out entirely -- meaning Prague's population and municipality-count shares would be computed differently (included vs excluded from the national denominator) depending on which bill's text survives. That is a direct same-provision, different-outcome clash, not merely a formatting difference. It is corroborated by two follow-on effects that only exist because the two bills restructure §3 differently: (1) §4 items 7-8/3-4 are textually IDENTICAL redundant instructions in both bills ('č. 2'->'č. 1', 'č. 3'->'č. 2'), which is at minimum a sequencing hazard (the second bill's identical instruction becomes a no-op or fails once the first has already applied it); (2) §6 odst.4's cross-reference to §3 is fixed by DIFFERENT, incompatible methods -- tisk 28 additively inserts a reference to its own new '§ 3 odst. 13', while tisk 140 substitutively renumbers the existing '§ 3 odst. 6' reference to '§ 3 odst. 12' -- because the two bills' §3 rewrites produce differently-numbered subsection sequences (13 subsections vs 12). This is a genuine, corroborated confirmed-collision, not an artifact."
+  },
+  {
+    "pairId": "28-141",
+    "billA": 28,
+    "billB": 141,
+    "lawRef": "243/2000",
+    "classification": "confirmed-collision",
+    "sharedParagraph": "3, 6 (corroborated by duplicate §3a insertion)",
+    "evidence": {
+      "billAExcerpt": "tisk 28, .data/law-collision-cache/tisk-28/265349.txt lines 31, 61-62 (§3 odst.3, full rewrite) and line 144 (§6): '3. V § 3 odstavce 2 a 3 znějí: ... \"(3) V případě hlavního města Prahy se pro účely výpočtu procenta podle odstavce 2 použije ustanovení odstavce 2 písm. a) až e) obdobně.\".' -- tisk 28 assigns §3 odst.(3) to be the Prague-specific 'use items a)-e) only' calculation rule. Also: '9. V § 6 odst. 4 se za slovo \"podle\" vkládají slova \"§ 3 odst. 13 a\".'",
+      "billBExcerpt": "tisk 141, .data/law-collision-cache/tisk-141/268738.txt lines 28, 61-62, 109-110 (§3 odst.2-6 rewrite plus new odst.7-13) and line 142 (§6): '2. V § 3 odstavce 2 až 6 znějí: ... \"(3) Při stanovení počtu kilometrů silnic II. a III. třídy v kraji se pro účely propočtů podle odstavce 2 vychází z údajů Ministerstva dopravy...\"' -- tisk 141 assigns §3 odst.(3) to be a road-kilometers DATA-SOURCE rule (a completely different subject than tisk 28's odst.(3)); tisk 141 instead places its Prague-specific 'use items a)-e) only' rule at the newly-added odst.(13) (lines 109-110): '(13) V případě hlavního města Prahy se pro účely výpočtu procenta podle odstavce 2 použije ustanovení odstavce 2 písm. a) až e) obdobně.\".' Also: '7. V § 6 odst. 4 se odkaz \"§ 3 odst. 6\" mění na odkaz \"§ 3 odst. 12\".'"
+    },
+    "reasoning": "This is a genuine, subtler same-provision collision than 28-140. On odst.2 písm. f)/g), tisk 28 and tisk 141 actually AGREE (both keep the 's výjimkou hlavního města Prahy' carve-out, unlike tisk 140), so that sub-slice is not a clash. But both bills issue their own full '... znějí' rewrite that assigns DIFFERENT content to §3 odst.(3): tisk 28 puts the Prague-specific calculation rule there, while tisk 141 puts an unrelated road-kilometers data-source rule there (moving the Prague rule down to a newly-created odst.(13) instead). Two 'odstavec 3 zní: ...' instructions with mutually exclusive substantive content for the same subsection number is a direct textual collision -- whichever bill's text is applied last determines whether §3 odst.3 is about Prague's calculation method or about road-km data sourcing, an outcome-changing difference. It is corroborated by (1) the §6 odst.4 cross-reference fix, which tisk 141 (like tisk 140) points at '§ 3 odst. 12' while tisk 28 points at '§ 3 odst. 13' -- again incompatible because the two bills' §3 subsection counts/order diverge; and (2) both bills separately insert a brand-new '§ 3a' with near-identical text (tisk 28 item 5, tisk 141 item 4) -- a duplicate-insertion hazard when both are enacted, though not itself a substantive conflict since the content is the same. The core odst.(3) divergence is sufficient on its own for confirmed-collision."
+  }
+]
