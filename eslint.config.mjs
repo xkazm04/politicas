@@ -13,7 +13,10 @@ const noHardcodedColors = require("./eslint-rules/no-hardcoded-colors.cjs");
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
-  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
+  // `.justice-samples/` holds raw downloaded source samples (gitignored) for the
+  // open-data assessments in docs/data-analysis/justice-sources-*.md — vendored
+  // third-party bytes, never our code, so they are not linted.
+  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts", ".justice-samples/**"]),
   {
     files: ["**/*.{ts,tsx}"],
     plugins: {

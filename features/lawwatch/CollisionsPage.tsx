@@ -200,23 +200,28 @@ function ClusterCard({ cluster }: { cluster: CollisionClusterView }) {
       <div className="px-4 py-4">
         {cluster.lawTitle && <p className="text-sm leading-snug text-steel">{cluster.lawTitle}</p>}
 
-        {/* dotčené tisky */}
+        {/* dotčené tisky — dosje na /zakony/[cislo] (restrukturalizace), historie na psp.cz */}
         <div className="mt-2 flex flex-wrap gap-2">
           {cluster.bills.map((b) => (
-            <a
+            <span
               key={b.cislo}
-              href={pspBillUrl(b.cislo)}
-              target="_blank"
-              rel="noreferrer"
               className="group inline-flex max-w-full items-center gap-1.5 border-2 border-hairline px-3 py-1.5 transition-colors hover:border-ink hover:bg-paper-strong"
               title={b.title ?? undefined}
             >
-              <span className="whitespace-nowrap font-mono text-xs font-bold text-signal">
+              <Link href={`/zakony/${b.cislo}`} className="whitespace-nowrap font-mono text-xs font-bold text-signal hover:text-cobalt">
                 sn. tisk {b.cislo}
-              </span>
+              </Link>
               {b.title && <span className="truncate text-[13px] font-medium">{b.title}</span>}
-              <ExternalLink className="h-3 w-3 shrink-0 text-steel opacity-0 transition-opacity group-hover:opacity-100" />
-            </a>
+              <a
+                href={pspBillUrl(b.cislo)}
+                target="_blank"
+                rel="noreferrer"
+                title="historie na psp.cz"
+                className="shrink-0 text-steel opacity-0 transition-opacity group-hover:opacity-100 hover:text-signal"
+              >
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            </span>
           ))}
         </div>
 

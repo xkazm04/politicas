@@ -5,12 +5,17 @@
  * rozklad indexu přispění v každém řádku (šířka segmentu = složka × váha, celek
  * ≈ skóre) a výběr dvou poslanců do souboje. Každý řádek odkazuje na spis
  * /poslanec/<pspId>. Žádná dogenerovaná jména — všech 207 je skutečných.
+ *
+ * Manifestation pass (2026-07-25): řádek nese ikonu dosieru
+ * (effortHasDossier), přibyl souhrnný filtr "jen s dosierem" a kompaktní/
+ * rozšířený přepínač řádků — 207 řádků s mini rozkladem + odznaky se blíží
+ * nepřehlednosti, kompaktní režim nechá jen jméno/klub/skóre.
  */
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { ArrowUpRight, Gavel, ShieldCheck, Swords } from "lucide-react";
+import { ArrowUpRight, FileText, Gavel, Rows3, ShieldCheck, Swords } from "lucide-react";
 import type { ClubFacet, LeaderboardData, LeaderboardEntry } from "../getLeaderboardData";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
@@ -86,15 +91,28 @@ export default function LeaderboardTable({
   }, [entries]);
   const hasWorkhorseData = workhorseCounts.legislative + workhorseCounts.oversight > 0;
 
+  // Dosier k dispozici (effort-loop enrichment, batch 001+) — souhrnný filtr
+  // napříč všemi effort_* dosierovými poli (viz getLeaderboardData.hasDossierProps).
+  // Souměrný s workhorse-filtrem: jen jeden aktivní stav, vlastní tlačítko.
+  const [dossierOnly, setDossierOnly] = useState(false);
+  const dossierCount = useMemo(() => entries.filter((e) => e.effortHasDossier).length, [entries]);
+
+  // Kompaktní/rozšířený přepínač řádků (manifestation pass 2026-07-25) — 207
+  // řádků s mini rozkladem + odznaky se blíží nepřehlednosti; kompaktní režim
+  // skryje mini rozklad a klubovou/regionální meta řádku, nechá jen jméno,
+  // klub tečkou a skóre — čtenář může projít celý žebříček rychleji.
+  const [compact, setCompact] = useState(false);
+
   const rows = useMemo(() => {
     const q = query.trim().toLowerCase();
     return entries.filter(
       (r) =>
         (!club || r.clubAbbrev === club) &&
         (!q || r.name.toLowerCase().includes(q)) &&
-        (!workhorseFlavour || (r.effortWorkhorse && r.effortWorkhorseFlavour === workhorseFlavour)),
+        (!workhorseFlavour || (r.effortWorkhorse && r.effortWorkhorseFlavour === workhorseFlavour)) &&
+        (!dossierOnly || r.effortHasDossier),
     );
-  }, [entries, club, query, workhorseFlavour]);
+  }, [entries, club, query, workhorseFlavour, dossierOnly]);
 
   return (
     <div>
@@ -166,21 +184,51 @@ export default function LeaderboardTable({
         </div>
       )}
 
-      {/* legenda mini rozkladu */}
-      <div className="mt-4 flex flex-wrap items-center gap-3">
-        {components.map((c) => {
-          const fill = COMPONENT_FILL[c.key] ?? { color: STEEL };
-          return (
-            <span key={c.key} className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-steel">
-              <span className="inline-block h-2.5 w-2.5" style={{ background: fill.color, opacity: fill.opacity }} />
-              {c.label} × {c.weight}
-            </span>
-          );
-        })}
-        <span className="font-mono text-[10px] uppercase tracking-wider text-steel">
-          {t("componentLegendNote")}
-        </span>
+      {/* dosier filtr + kompaktní přepínač — jeden souvislý ovládací řádek */}
+      <div className="mt-3 flex flex-wrap items-center gap-2">
+        {dossierCount > 0 && (
+          <button
+            type="button"
+            onClick={() => setDossierOnly((v) => !v)}
+            title="Poslanci s pracovním profilem (effort-loop enrichment)"
+            aria-pressed={dossierOnly}
+            className={`inline-flex items-center gap-1.5 border-2 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider transition-colors ${
+              dossierOnly ? "border-cobalt bg-cobalt text-paper" : "border-hairline text-steel hover:text-ink"
+            }`}
+          >
+            <FileText className="h-3 w-3" aria-hidden />
+            Jen s dosierem · {dossierCount}
+          </button>
+        )}
+        <button
+          type="button"
+          onClick={() => setCompact((v) => !v)}
+          aria-pressed={compact}
+          title={compact ? "Rozšířené řádky" : "Kompaktní řádky"}
+          className="ml-auto inline-flex items-center gap-1.5 border-2 border-hairline px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-steel transition-colors hover:text-ink"
+        >
+          <Rows3 className="h-3 w-3" aria-hidden />
+          {compact ? "Rozšířit" : "Zúžit"}
+        </button>
       </div>
+
+      {/* legenda mini rozkladu */}
+      {!compact && (
+        <div className="mt-4 flex flex-wrap items-center gap-3">
+          {components.map((c) => {
+            const fill = COMPONENT_FILL[c.key] ?? { color: STEEL };
+            return (
+              <span key={c.key} className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-steel">
+                <span className="inline-block h-2.5 w-2.5" style={{ background: fill.color, opacity: fill.opacity }} />
+                {c.label} × {c.weight}
+              </span>
+            );
+          })}
+          <span className="font-mono text-[10px] uppercase tracking-wider text-steel">
+            {t("componentLegendNote")}
+          </span>
+        </div>
+      )}
 
       {/* řádky */}
       <div className="mt-4 border-t-2 border-ink">
@@ -202,17 +250,27 @@ export default function LeaderboardTable({
                   className="group inline-flex items-center gap-1.5 text-[15px] font-black uppercase tracking-tight hover:text-signal"
                 >
                   <span className="truncate">{r.name}</span>
+                  {r.effortHasDossier && (
+                    <FileText
+                      className="h-3 w-3 shrink-0 text-cobalt"
+                      aria-hidden
+                    />
+                  )}
                   <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-signal" />
                 </Link>
-                <span className="flex flex-wrap items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-steel">
-                  <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: r.clubColor }} />
-                  {r.clubName.split(" ")[0]}{r.region ? ` · ${r.region}` : ""}
-                  {r.effortWorkhorse && <WorkhorseBadge flavour={r.effortWorkhorseFlavour} compact />}
+                {!compact && (
+                  <span className="flex flex-wrap items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-steel">
+                    <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: r.clubColor }} />
+                    {r.clubName.split(" ")[0]}{r.region ? ` · ${r.region}` : ""}
+                    {r.effortWorkhorse && <WorkhorseBadge flavour={r.effortWorkhorseFlavour} compact />}
+                  </span>
+                )}
+              </span>
+              {!compact && (
+                <span className="max-sm:hidden">
+                  <MiniBreakdown entry={r} components={components} />
                 </span>
-              </span>
-              <span className="max-sm:hidden">
-                <MiniBreakdown entry={r} components={components} />
-              </span>
+              )}
               <span className="w-12 text-right text-lg font-black tabular-nums">{f.dec(r.score)}</span>
               <button
                 type="button"

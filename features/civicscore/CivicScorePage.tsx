@@ -88,6 +88,12 @@ export default function CivicScorePage({ data }: { data: LeaderboardData | null 
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">
             {t("lead")}
           </p>
+          {data && (
+            <SourceNote className="mt-3">
+              pokrytí analýzy: {data.dossierCoverage.withDossier}/{data.dossierCoverage.total} poslanců má
+              pracovní profil (effort-loop enrichment, dosud probíhá)
+            </SourceNote>
+          )}
         </div>
 
         {data === null ? (

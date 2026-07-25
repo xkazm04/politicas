@@ -15,6 +15,16 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: __dirname,
   },
+  // PGlite must NOT be bundled by the server compiler. Bundled, its WASM/FS
+  // loader hands Node a `URL` where a path string is expected and the store
+  // fails to open with
+  //   TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type
+  //   string or an instance of Buffer or URL. Received an instance of URL
+  // …which every server loader catches, so the whole app degrades SILENTLY to
+  // its labelled mock — the real cause of "the surfaces render no data" (found
+  // 2026-07-25 in the manifestation pass; CLI scripts were unaffected because
+  // they never go through the bundler).
+  serverExternalPackages: ["@electric-sql/pglite"],
 };
 
 // withSentryConfig wraps the Next config to enable Sentry's build-time

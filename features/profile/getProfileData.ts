@@ -46,6 +46,18 @@ export interface CommitteeSeat {
   weight: number; // role rank
 }
 
+/** A bill this MP sponsors, resolved to its psp.cz historie.sqw link.
+ * IMPORTANT: the URL is built from `cislo` (the public print number), NEVER
+ * from the internal `tiskId` — the two are unrelated ids and historie.sqw
+ * only resolves the former (batch-005 handoff §"known gotcha", independently
+ * rediscovered by multiple effort-loop army groups). `cislo === null` (rare,
+ * ingest gap) renders the title with no link rather than a broken one. */
+export interface SponsoredBill {
+  cislo: number | null;
+  title: string;
+  url: string | null;
+}
+
 export interface ProfileData {
   person: LeaderboardEntry; // includes rank
   total: number; // 207
@@ -66,6 +78,16 @@ export interface ProfileData {
   effortTenureClass: string | null;
   effortTenureStart: string | null;
   effortTenureEnd: string | null;
+  // Dossier layer (batch 001+, effort-loop enrichment) — free-text/array props
+  // written by a deterministic-gated Sonnet/Opus pipeline from psp.cz + public
+  // registries (lib/analysis/*, scripts/case-loops/effort/*), never ad hoc.
+  // 165/207 MPs carry at least one of these as of batch 005; graceful null for
+  // the rest — see ProfilePage's DossierSection for the render-or-omit rule.
+  effortWorkThemes: string[] | null;
+  effortBillFocus: string | null;
+  effortNotes: string | null;
+  effortDataFlag: string | null;
+  sponsoredBills: SponsoredBill[];
 }
 
 export async function getAllProfilePspIds(): Promise<number[]> {
@@ -158,6 +180,41 @@ export async function getProfileData(pspId: number): Promise<ProfileData | null>
     const effortTenureEnd = personNode && typeof personNode.props.effort_tenure_end === "string"
       ? personNode.props.effort_tenure_end
       : null;
+    const effortWorkThemesRaw = personNode?.props.effort_work_themes;
+    const effortWorkThemes = Array.isArray(effortWorkThemesRaw)
+      ? effortWorkThemesRaw.filter((x): x is string => typeof x === "string")
+      : null;
+    const effortBillFocus = personNode && typeof personNode.props.effort_bill_focus === "string"
+      ? personNode.props.effort_bill_focus
+      : null;
+    const effortNotes = personNode && typeof personNode.props.effort_notes === "string"
+      ? personNode.props.effort_notes
+      : null;
+    const effortDataFlag = personNode && typeof personNode.props.effort_data_flag === "string"
+      ? personNode.props.effort_data_flag
+      : null;
+
+    // sponsors — person → bill (kind "bill"), resolved to the psp.cz historie
+    // link via `cislo` (the public print number). See SponsoredBill's doc
+    // comment for why `tiskId` must never be used for this URL.
+    const sponsorEdges = await store.listKgEdges({ rel: "sponsors", limit: 100_000 });
+    const sponsoredBillIds = sponsorEdges.filter((e) => e.src === selfId).map((e) => e.dst);
+    let sponsoredBills: SponsoredBill[] = [];
+    if (sponsoredBillIds.length > 0) {
+      const billNodes = await store.listKgNodes({ kind: "bill", limit: 2000 });
+      const billById = new Map(billNodes.map((b) => [b.id, b]));
+      sponsoredBills = sponsoredBillIds
+        .map((bid) => {
+          const b = billById.get(bid);
+          const cislo = b && typeof b.props.cislo === "number" ? b.props.cislo : null;
+          return {
+            cislo,
+            title: b?.label ?? bid,
+            url: cislo != null ? `https://www.psp.cz/sqw/historie.sqw?o=10&t=${cislo}` : null,
+          };
+        })
+        .sort((a, b) => (a.cislo ?? 1e9) - (b.cislo ?? 1e9));
+    }
 
     return {
       person,
@@ -175,6 +232,11 @@ export async function getProfileData(pspId: number): Promise<ProfileData | null>
       effortTenureClass,
       effortTenureStart,
       effortTenureEnd,
+      effortWorkThemes,
+      effortBillFocus,
+      effortNotes,
+      effortDataFlag,
+      sponsoredBills,
     };
   } catch {
     return null;

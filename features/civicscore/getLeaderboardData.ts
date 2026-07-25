@@ -74,6 +74,19 @@ function clubMeta(abbrev: string | null | undefined): { name: string; color: str
   return { name: abbrev ?? "—", color: STEEL };
 }
 
+/** True when the person node carries at least one narrative dossier prop
+ * (effort-loop enrichment, batch 001+) — the closed-vocabulary props
+ * (tenure, low-score-reason, workhorse) don't count; those already have
+ * their own dedicated surfaces. */
+function hasDossierProps(props: Record<string, unknown>): boolean {
+  const themes = props.effort_work_themes;
+  if (Array.isArray(themes) && themes.length > 0) return true;
+  for (const key of ["effort_bill_focus", "effort_notes", "effort_public_role"]) {
+    if (typeof props[key] === "string" && (props[key] as string).length > 0) return true;
+  }
+  return false;
+}
+
 /** Volební kraj organ nameCz → the label we render. */
 function regionLabel(nameCz: string | null): string | null {
   if (!nameCz) return null;
@@ -136,6 +149,12 @@ export interface LeaderboardEntry {
   // ~191/207 MPs not (yet) flagged by the deterministic triage lens; never fabricated.
   effortWorkhorse: boolean;
   effortWorkhorseFlavour: string | null;
+  // Dossier coverage flag (Case ② effort-loop, batch 001–005): true when this
+  // MP carries at least one of the rich narrative dossier props (work themes,
+  // bill focus, notes, public role) — used to surface a "dossier available"
+  // affordance on the leaderboard and an honest coverage count. 165/207 as of
+  // batch 005; grows as later batches enrich the remaining army.
+  effortHasDossier: boolean;
 }
 
 export interface ClubFacet {
@@ -152,6 +171,7 @@ export interface LeaderboardData {
   histogram: { from: number; label: string; count: number }[];
   components: { key: ComponentKey; weight: number; label: string; source: string }[];
   provenancePass: number | null; // contribution-index pass that authored the scores
+  dossierCoverage: { withDossier: number; total: number }; // effort-loop enrichment reach
 }
 
 /**
@@ -234,6 +254,7 @@ export async function buildLeaderboard(): Promise<{ data: LeaderboardData; direc
         effortPublicRole: typeof p.props.effort_public_role === "string" ? p.props.effort_public_role : null,
         effortWorkhorse: p.props.effort_workhorse === true,
         effortWorkhorseFlavour: typeof p.props.effort_workhorse_flavour === "string" ? p.props.effort_workhorse_flavour : null,
+        effortHasDossier: hasDossierProps(p.props),
       };
     });
 
@@ -280,6 +301,7 @@ export async function buildLeaderboard(): Promise<{ data: LeaderboardData; direc
         histogram,
         components: COMPONENT_DEFS.map((c) => ({ key: c.key, weight: c.weight, label: c.label, source: c.source })),
         provenancePass,
+        dossierCoverage: { withDossier: entries.filter((e) => e.effortHasDossier).length, total: entries.length },
       },
     };
   } catch {

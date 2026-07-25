@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import ProfilePage from "@/features/profile/ProfilePage";
+import DataUnavailable from "@/features/shared/components/DataUnavailable";
 import { getAllProfilePspIds, getProfileData } from "@/features/profile/getProfileData";
 import { formatDecimal } from "@/lib/format";
 
@@ -32,7 +33,15 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 export default async function PoslanecPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const pspId = Number(id);
-  const data = Number.isFinite(pspId) ? await getProfileData(pspId) : null;
-  if (!data) notFound();
-  return <ProfilePage data={data} />;
+  if (!Number.isFinite(pspId)) notFound(); // a non-numeric slug is genuinely no MP
+  const data = await getProfileData(pspId);
+  if (data) return <ProfilePage data={data} />;
+  // Null means EITHER the graph is unreachable (single-connection PGlite held by
+  // another process) OR this pspId is not a real MP. getAllProfilePspIds() tells
+  // them apart: empty ⇒ no store. Never answer "neexistuje" for a busy database.
+  const known = await getAllProfilePspIds();
+  if (known.length === 0) {
+    return <DataUnavailable what="Profil poslance" backHref="/zebricek" backLabel="zpět na žebříček" />;
+  }
+  notFound();
 }

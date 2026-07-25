@@ -1,0 +1,306 @@
+"use client";
+
+/**
+ * Spis poslance (/penize/[pspId]) — plný důkazní řetězec pro jednoho poslance:
+ * každá vazba na firmu, u ní třída (P29 pravidlo), stav kontroly, korroborace v
+ * ARES VR, časový štítek, a rozpad dosažitelných veřejných peněz na smlouvy
+ * (top-N položek + zbytek), dotace a dary straně. Nic tu nepřepisuje
+ * review_state — je to čtecí spis, ne konzole.
+ */
+
+import Link from "next/link";
+import { ArrowLeft, ExternalLink } from "lucide-react";
+import { useLocale } from "next-intl";
+import SourceNote from "@/features/shared/components/SourceNote";
+import { buildRegistryLinks } from "./reviewTypes";
+import { compactCzk, temporalBadge, tieClassInfo, type MoneyMpDetail, type MoneyTieDetail } from "./moneyTypes";
+import TieClassExplainer from "./components/TieClassExplainer";
+
+const BADGE_TONE_CLS: Record<string, string> = {
+  current: "border-cobalt text-cobalt",
+  ended: "border-hairline text-steel",
+  warn: "border-ochre bg-ochre/15 text-ink",
+  unknown: "border-dashed border-hairline text-steel",
+};
+const CLASS_TONE_CLS: Record<string, string> = {
+  signal: "border-signal text-signal",
+  cobalt: "border-cobalt text-cobalt",
+  steel: "border-hairline text-steel",
+};
+
+export default function MpCaseFilePage({ data }: { data: MoneyMpDetail | null }) {
+  const locale = useLocale();
+  const en = locale === "en";
+
+  return (
+    <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
+      <header className="border-b-4 border-ink">
+        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-4">
+          <div className="flex items-center gap-3">
+            <Link href="/penize" className="flex items-center gap-3 transition-colors hover:text-signal">
+              <span className="text-xl font-black uppercase tracking-tight">Politicas</span>
+            </Link>
+            <span className="font-mono text-xs uppercase tracking-widest text-steel">/ penize / spis</span>
+          </div>
+          <Link
+            href="/penize"
+            className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" /> {en ? "money network" : "síť peněz"}
+          </Link>
+        </div>
+      </header>
+
+      <div className="mx-auto max-w-5xl px-6 py-10">
+        {!data ? (
+          <div className="border-2 border-dashed border-hairline p-8">
+            <SourceNote>{en ? "source: knowledge graph" : "zdroj: znalostní graf"}</SourceNote>
+            <p className="mt-3 text-lg">
+              {en
+                ? "No materialized money ties found for this MP."
+                : "Pro tohoto poslance nemá znalostní graf žádnou materializovanou vazbu."}
+            </p>
+          </div>
+        ) : (
+          <>
+            <SourceNote tone="signal">{en ? `case file · pass ${data.pass}` : `spis · pass ${data.pass}`}</SourceNote>
+            <h1 className="mt-3 text-4xl font-black uppercase leading-[0.95] tracking-tight sm:text-5xl">
+              {data.name}
+              <span className="text-signal">.</span>
+            </h1>
+            <p className="mt-2 font-mono text-xs uppercase tracking-widest text-steel">
+              {data.club ? `${data.club} · ` : ""}
+              {en ? `${data.ties.length} evidenced ties` : `${data.ties.length} evidovaných vazeb`}
+              {data.absenteeManagerLead ? ` · ${en ? "low chamber work (Case ②)" : "málo práce v sále (Case ②)"}` : ""}
+            </p>
+            <Link
+              href={`/poslanec/${data.pspId}`}
+              className="mt-3 inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+            >
+              {en ? "full MP profile" : "celý profil poslance"} →
+            </Link>
+
+            {/* totals */}
+            <div className="mt-8 grid gap-px border border-ink bg-ink sm:grid-cols-3">
+              <Tile label={en ? "contracts" : "zakázky"} value={compactCzk(data.totalContractCzk, locale)} />
+              <Tile label={en ? "subsidies" : "dotace"} value={compactCzk(data.totalSubsidiesCzk, locale)} />
+              <Tile
+                label={en ? "party donations" : "dary straně"}
+                value={data.totalDonatedCzk > 0 ? compactCzk(data.totalDonatedCzk, locale) : "—"}
+              />
+            </div>
+
+            {/* ties */}
+            <div className="mt-12 space-y-8">
+              {data.ties.map((tie) => (
+                <TieCard key={tie.companyId} tie={tie} locale={locale} en={en} />
+              ))}
+            </div>
+
+            <div className="mt-14 border-t-4 border-ink pt-8">
+              <SourceNote>{en ? "how to read the tie class" : "jak číst třídu vazby"}</SourceNote>
+              <div className="mt-4">
+                <TieClassExplainer compact />
+              </div>
+            </div>
+
+            <p className="mt-10 max-w-2xl text-sm italic leading-relaxed text-steel">
+              {en
+                ? "Every tie is published as a dated, sourced fact, never an accusation. Ties not yet human-confirmed carry a \"pending review\" label and do not feed the Integrity pillar."
+                : "Vazby zveřejňujeme jako datovaná, doložená fakta, nikdy jako obvinění. Vazby bez lidského schválení nesou štítek „čeká na kontrolu“ a do pilíře Integrita se nepropisují."}
+            </p>
+          </>
+        )}
+      </div>
+    </main>
+  );
+}
+
+function Tile({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="bg-paper p-6">
+      <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">{label}</p>
+      <p className="mt-2 text-3xl font-black tabular-nums tracking-tight">{value}</p>
+    </div>
+  );
+}
+
+function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en: boolean }) {
+  const reach = tie.contractCzk + tie.subsidiesCzk;
+  const temporal = temporalBadge(tie);
+  const info = tieClassInfo(tie.tieClass);
+  const links = buildRegistryLinks(tie.ico, tie.source);
+
+  return (
+    <article className="border-2 border-ink">
+      <div className="flex flex-wrap items-start justify-between gap-3 border-b-2 border-ink bg-paper-strong px-5 py-4">
+        <div>
+          <h2 className="text-xl font-black uppercase tracking-tight">{tie.company}</h2>
+          <p className="mt-1 font-mono text-[11px] uppercase tracking-wider text-steel">
+            IČO {tie.ico}
+            {tie.role ? ` · ${tie.role}` : ""}
+          </p>
+        </div>
+        <div className="flex flex-wrap items-center justify-end gap-1.5">
+          <span
+            className={`border-2 px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider ${CLASS_TONE_CLS[info.tone]}`}
+          >
+            {en ? info.labelEn : info.labelCs}
+          </span>
+          {tie.reviewState === "verified" ? (
+            <span className="border-2 border-cobalt px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-cobalt">
+              {en ? "verified" : "ověřeno"}
+            </span>
+          ) : tie.reviewState === "rejected" ? (
+            <span className="border-2 border-steel px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-steel">
+              {en ? "rejected" : "zamítnuto"}
+            </span>
+          ) : (
+            <span className="border-2 border-ochre bg-ochre/15 px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-ink">
+              {en ? "pending review" : "čeká na kontrolu"}
+            </span>
+          )}
+          <span
+            className={`border-2 px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider ${BADGE_TONE_CLS[temporal.tone]}`}
+          >
+            {en ? temporal.labelEn : temporal.labelCs}
+          </span>
+        </div>
+      </div>
+
+      <div className="grid gap-6 px-5 py-5 sm:grid-cols-[1.3fr_1fr]">
+        <div>
+          {/* reach */}
+          <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
+            <Metric label={en ? "contracts" : "zakázky"} value={tie.contractCzk > 0 ? compactCzk(tie.contractCzk, locale) : "—"} sub={`${tie.contractCount} ${en ? "contracts" : "smluv"}`} />
+            <Metric label={en ? "subsidies" : "dotace"} value={tie.subsidiesCzk > 0 ? compactCzk(tie.subsidiesCzk, locale) : "—"} sub={tie.subsidiesCount ? `${tie.subsidiesCount} ${en ? "titles" : "titulů"}` : "—"} />
+            <Metric
+              label={en ? "party donation" : "dar straně"}
+              value={tie.donatedToPartyCzk != null ? compactCzk(tie.donatedToPartyCzk, locale) : "—"}
+              sub={tie.donationRecipientParty ?? "—"}
+            />
+          </div>
+
+          {/* flags */}
+          <div className="mt-4 flex flex-wrap gap-2">
+            {tie.triangle && <Flag>{en ? "full triangle" : "úplný trojúhelník"}</Flag>}
+            {tie.nearThresholdCount > 0 && <Flag>{tie.nearThresholdCount}× {en ? "near limit" : "u limitu"}</Flag>}
+            {tie.deMinimis && <Flag>{en ? "de minimis" : "bagatelní objem"}</Flag>}
+            {tie.falseEdgeSuspected && <Flag>{en ? "suspected false edge" : "podezření na chybnou vazbu"}</Flag>}
+            {tie.ownerStakePct != null && <Flag>{tie.ownerStakePct}% {en ? "stake" : "podíl"}</Flag>}
+            {tie.priorTerm && <Flag>{en ? "prior term" : "předchozí období"}: {tie.priorTerm}</Flag>}
+            {tie.flags.map((fl) => (
+              <Flag key={fl}>{fl}</Flag>
+            ))}
+          </div>
+
+          {/* review provenance — reviewer notes, last decision */}
+          {(tie.reviewNote || tie.reviewerNote || tie.lastDecision) && (
+            <div className="mt-4 border-l-2 border-hairline pl-3">
+              {tie.reviewNote && (
+                <p className="text-sm leading-relaxed text-steel">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-ink">
+                    {en ? "review note" : "poznámka kontroly"}:{" "}
+                  </span>
+                  {tie.reviewNote}
+                </p>
+              )}
+              {tie.reviewerNote && (
+                <p className="mt-1 text-sm leading-relaxed text-steel">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-ink">
+                    {en ? "registry reconciliation note" : "poznámka rekonciliace"}:{" "}
+                  </span>
+                  {tie.reviewerNote}
+                </p>
+              )}
+              {tie.lastDecision && (
+                <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-steel">
+                  {en ? "last decision" : "poslední rozhodnutí"}: {tie.lastDecision}
+                  {tie.lastReviewer ? ` · ${tie.lastReviewer}` : ""}
+                  {tie.lastReviewedAt ? ` · ${tie.lastReviewedAt}` : ""}
+                </p>
+              )}
+            </div>
+          )}
+
+          <p className="mt-4 font-mono text-[10px] leading-relaxed uppercase tracking-wider text-steel">
+            {en ? "source" : "zdroj"}: {tie.source || "—"}
+          </p>
+        </div>
+
+        <div className="border-l-2 border-hairline pl-5">
+          <p className="font-mono text-[10px] uppercase tracking-widest text-steel">
+            {en ? "reachable public money" : "dosažitelné veřejné peníze"}
+          </p>
+          <p className="mt-1 text-2xl font-black tabular-nums text-signal">{reach > 0 ? compactCzk(reach, locale) : "—"}</p>
+          <p className="mt-3 font-mono text-[10px] uppercase tracking-widest text-steel">
+            {en ? "verify in registry" : "ověřit v rejstříku"}
+          </p>
+          <div className="mt-2 flex flex-col gap-1.5">
+            {[
+              { label: en ? "ARES subject" : "ARES subjekt", href: links.aresSubject },
+              { label: "ARES VR", href: links.aresVr },
+              { label: en ? "commercial register" : "obchodní rejstřík", href: links.justiceVr },
+              { label: en ? "contracts register" : "registr smluv", href: links.registrSmluv },
+              { label: en ? "Hlídač company" : "Hlídač firma", href: links.hlidacSubjekt },
+              ...(links.hlidacPerson ? [{ label: en ? "Hlídač person" : "Hlídač osoba", href: links.hlidacPerson }] : []),
+            ].map((l) => (
+              <a
+                key={l.label}
+                href={l.href}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+              >
+                <ExternalLink className="h-3 w-3" /> {l.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* contracts list */}
+      {tie.contracts.length > 0 && (
+        <div className="border-t-2 border-hairline px-5 py-4">
+          <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-steel">
+            {en ? "contracts via" : "smlouvy přes"} {tie.company}
+          </p>
+          <ul className="mt-2 divide-y divide-hairline">
+            {tie.contracts.map((c) => (
+              <li key={c.id} className="flex items-center justify-between gap-3 py-2 text-sm">
+                <span className="truncate text-steel">{c.label}</span>
+                <span className="shrink-0 font-mono text-xs font-bold tabular-nums">
+                  {c.amountCzk != null ? compactCzk(c.amountCzk, locale) : "—"}
+                  {c.signedOn ? <span className="ml-2 text-steel">{c.signedOn}</span> : null}
+                </span>
+              </li>
+            ))}
+          </ul>
+          {tie.contractsMoreCount > 0 && (
+            <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-steel">
+              + {tie.contractsMoreCount} {en ? "more contracts" : "dalších smluv"}
+            </p>
+          )}
+        </div>
+      )}
+    </article>
+  );
+}
+
+function Metric({ label, value, sub }: { label: string; value: string; sub: string }) {
+  return (
+    <div>
+      <p className="font-mono text-[10px] uppercase tracking-widest text-steel">{label}</p>
+      <p className="mt-0.5 text-lg font-black tabular-nums">{value}</p>
+      <p className="font-mono text-[10px] uppercase tracking-wider text-steel">{sub}</p>
+    </div>
+  );
+}
+
+function Flag({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="border border-ink px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-ink">
+      {children}
+    </span>
+  );
+}

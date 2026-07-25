@@ -117,6 +117,15 @@ export interface LawBillView {
   sponsorMoneyCompanies: number;
   forensic: LawForensicView | null;
   paragraphDiffs: ParagraphDiff[]; // real e-Sbírka §-diffs on any statute this bill amends (may be empty)
+  /** Census cross-check (pass 20, batch-003, 53 bills): the FULL list of statute refs this
+   * print actually novelizes, hand-derived from the print's body text — NOT the title-only
+   * citation the `amends` edges are built from. Empty when this bill has no census record
+   * (the other 88 bills only carry the title-derived `amendedLaws` above). Never silently
+   * merged into `amendedLaws` — the two are honestly different provenance (C6/C8). */
+  amendedLawsFull: string[];
+  /** amendedLawsFull.length − (refs also present in amendedLaws), i.e. how many body-amended
+   * statutes the title-only `amends` edges missed for this bill. 0 when no census record. */
+  amendsUndercount: number;
 }
 
 export interface TopLawView {
@@ -138,6 +147,8 @@ export interface LawData {
   forensicCount: number;
   paragraphDiffCount: number; // bills carrying ≥1 real e-Sbírka §-diff artifact
   committeeRoutedBills: number; // bills carrying ≥1 formal committee assignment (F15)
+  censusBillCount: number; // bills carrying a pass-20 census record (amended_laws_full)
+  censusUndercountTotal: number; // sum of amendsUndercount over census-carrying bills
   pass: number | null;
 }
 
@@ -271,6 +282,11 @@ export async function getLawData(): Promise<LawData | null> {
       const committees = committeesByBill.get(n.id) ?? [];
       const paragraphDiffsForBill = amendedLaws.flatMap((l) => diffsByLawRef.get(l.ref) ?? []);
 
+      const amendedLawsFull = Array.isArray(p.amended_laws_full)
+        ? (p.amended_laws_full as unknown[]).filter((r): r is string => typeof r === "string")
+        : [];
+      const amendsUndercount = typeof p.amends_undercount === "number" ? p.amends_undercount : 0;
+
       return {
         tiskId: Number(n.id.replace(/^bill:tisk:/, "")) || 0,
         cislo: typeof p.cislo === "number" ? p.cislo : null,
@@ -285,6 +301,8 @@ export async function getLawData(): Promise<LawData | null> {
         sponsorMoneyCompanies: asNum(p.sponsor_money_companies),
         forensic,
         paragraphDiffs: paragraphDiffsForBill,
+        amendedLawsFull,
+        amendsUndercount,
       };
     });
 
@@ -324,9 +342,34 @@ export async function getLawData(): Promise<LawData | null> {
       forensicCount,
       paragraphDiffCount: bills.filter((b) => b.paragraphDiffs.length > 0).length,
       committeeRoutedBills: new Set(assignedTo.map((e) => e.src)).size,
+      censusBillCount: bills.filter((b) => b.amendedLawsFull.length > 0).length,
+      censusUndercountTotal: bills.reduce((sum, b) => sum + b.amendsUndercount, 0),
       pass,
     };
   } catch {
     return null;
   }
+}
+
+export interface BillDossier {
+  bill: LawBillView;
+  prevCislo: number | null; // cyclic file-nav, ordered by print number (cislo)
+  nextCislo: number | null;
+}
+
+/** Pure lookup over an already-loaded LawData for the /zakony/[cislo] dossier route — no
+ * extra store round-trip. Navigation order is print number (`cislo`), not the `LawData.bills`
+ * relevance sort (posudek → §-diff → střet), so prev/next reads as "browse the register" rather
+ * than jumping around by salience. Bills without a `cislo` (rare) aren't independently routable
+ * and are excluded from the nav ring. */
+export function findBillByCislo(data: LawData, cislo: number): BillDossier | null {
+  const ordered = data.bills.filter((b) => b.cislo != null).sort((a, b) => a.cislo! - b.cislo!);
+  const idx = ordered.findIndex((b) => b.cislo === cislo);
+  if (idx === -1) return null;
+  const n = ordered.length;
+  return {
+    bill: ordered[idx],
+    prevCislo: n > 1 ? ordered[(idx - 1 + n) % n].cislo : null,
+    nextCislo: n > 1 ? ordered[(idx + 1) % n].cislo : null,
+  };
 }

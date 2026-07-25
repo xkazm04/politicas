@@ -1,7 +1,7 @@
 // Server-only: the REAL FollowTheMoney read for /penize. Walks the materialized
-// money layer of the knowledge graph — person --linked_to--> company
-// --supplies--> contract, plus subsidy/donation props on the company node — and
-// shapes it into the typed props the /penize surface renders. Degrades
+// money layer of the knowledge graph via moneyLoader.ts — person --linked_to-->
+// company --supplies--> contract, plus subsidy/donation props on the company node
+// — and shapes it into the typed props the /penize surface renders. Degrades
 // gracefully to null (→ the page keeps its labelled mock) if no store is
 // configured, the money layer hasn't been materialized, or PGlite is
 // unavailable at request time — so introducing the store read can never break
@@ -10,71 +10,34 @@
 // TRUST IS THE PRODUCT: every MP↔company `linked_to` edge is human-gated
 // (props.review_state). Ties that have not passed review are surfaced as
 // pending_review and excluded from `verifiedCount`/any score — exactly as the
-// mock's verified:false ties. Nothing here is presented as an accusation.
+// mock's verified:false ties.
+//
+// Each tie also carries the SAME deterministic annotation the /penize/kontrola
+// review console computes (tieClass, signalScore, reviewTier/Rank, triangle,
+// near-threshold, de-minimis) — reused verbatim from reviewTypes.ts's pure
+// helpers so the ledger and the console never disagree on what a tie "is".
 //
 // Called only from the /penize server component; getStore() carries its own
 // client guard, so this must never be imported into a client component.
 
-import { getStore } from "@/lib/db/store";
-import type {
-  MoneyData,
-  MoneyGraphData,
-  MoneyMp,
-  MoneyMpStub,
-  MoneyTie,
-  ReviewState,
-} from "./moneyTypes";
+import { loadMoneyLayer, num, pspIdFromNodeId } from "./moneyLoader";
+import type { MoneyData, MoneyGraphData, MoneyMp, MoneyMpStub, MoneyTie, ReviewState } from "./moneyTypes";
+import {
+  classifyTie,
+  isDeMinimis,
+  nearThresholdCount,
+  reviewRank,
+  reviewSignal,
+  reviewTier,
+} from "./reviewTypes";
 
-const TERM = "PSP10";
 const GRAPH_COMPANY_CAP = 5; // companies rendered in the featured entity graph
-
-function num(v: unknown): number {
-  return typeof v === "number" && Number.isFinite(v) ? v : 0;
-}
-
-function pspIdFromNodeId(id: string): number | null {
-  const tail = id.split(":").pop();
-  const n = tail ? Number(tail) : NaN;
-  return Number.isInteger(n) ? n : null;
-}
 
 export async function getMoneyData(): Promise<MoneyData | null> {
   try {
-    const store = await getStore();
-    if (!store) return null;
-
-    const companies = await store.listKgNodes({ kind: "company", limit: 100_000 });
-    const persons = await store.listKgNodes({ kind: "person", limit: 100_000 });
-    const linked = await store.listKgEdges({ rel: "linked_to", limit: 100_000 });
-    const supplies = await store.listKgEdges({ rel: "supplies", limit: 100_000 });
-    // No money layer materialized yet → hand back null, page keeps its mock.
-    if (linked.length === 0 || companies.length === 0) return null;
-
-    // company id → {count, czk} reachable via supplies
-    const contractByCompany = new Map<string, { count: number; czk: number }>();
-    for (const e of supplies) {
-      const agg = contractByCompany.get(e.src) ?? { count: 0, czk: 0 };
-      agg.count += 1;
-      agg.czk += num(e.weight);
-      contractByCompany.set(e.src, agg);
-    }
-
-    const companyById = new Map(companies.map((c) => [c.id, c]));
-    const personById = new Map(persons.map((p) => [p.id, p]));
-
-    // personPspId → club abbrev (clubByMandate keys on the MANDATE psp id).
-    const clubByPerson = new Map<number, string>();
-    try {
-      const mandates = await store.listMandates({ termCode: TERM });
-      const clubByMandate = await store.clubByMandate(TERM);
-      for (const m of mandates) {
-        const club = clubByMandate.get(m.pspId);
-        if (club) clubByPerson.set(m.personPspId, club);
-      }
-    } catch (err) {
-      // clubs are decorative here — absence must not drop the money picture.
-      console.warn("[getMoneyData] club resolution failed; continuing without clubs", err);
-    }
+    const layer = await loadMoneyLayer();
+    if (!layer) return null;
+    const { persons, linked, companyById, personById, clubByPerson, contractsByCompany, pass } = layer;
 
     // Group ties by MP.
     const tiesByPerson = new Map<string, MoneyTie[]>();
@@ -88,31 +51,68 @@ export async function getMoneyData(): Promise<MoneyData | null> {
       const comp = companyById.get(e.dst);
       if (!comp) continue; // unresolved company → drop, never guess
       const cp = comp.props ?? {};
-      const contracts = contractByCompany.get(comp.id) ?? { count: 0, czk: 0 };
+      const contracts = contractsByCompany.get(comp.id) ?? { count: 0, czk: 0, amounts: [], lines: [] };
       const rawState = (e.props?.review_state ?? e.props?.state) as string | undefined;
-      const reviewState: ReviewState = rawState === "verified" ? "verified" : "pending_review";
+      const reviewState: ReviewState =
+        rawState === "verified" ? "verified" : rawState === "rejected" ? "rejected" : "pending_review";
       if (reviewState === "verified") verifiedTies += 1;
-      else pendingTies += 1;
+      else if (reviewState === "pending_review") pendingTies += 1;
+
+      const person = personById.get(e.src);
+      const role = String(e.props?.role ?? "");
+      const contractCzk = contracts.czk;
+      const subsidiesCzk = num(cp.subsidies_total_czk);
+      const donatedToPartyCzk = cp.donated_to_party_czk != null ? num(cp.donated_to_party_czk) : null;
+      const tieClass = classifyTie(role, comp.label);
+      const triangle = contractCzk > 0 && subsidiesCzk > 0 && (donatedToPartyCzk ?? 0) > 0;
+      const near = nearThresholdCount(contracts.amounts);
+      const absenteeManagerLead = Boolean(person?.props?.absentee_manager_lead);
+      const corroboration = (e.props?.corroboration as MoneyTie["corroboration"]) ?? null;
 
       const tie: MoneyTie = {
         companyId: comp.id,
         ico: String(cp.ico ?? comp.id.split(":").pop() ?? ""),
         company: comp.label,
-        role: String(e.props?.role ?? ""),
+        role,
         reviewState,
         source: String(e.props?.source ?? ""),
         contractCount: contracts.count,
-        contractCzk: contracts.czk,
+        contractCzk,
         subsidiesCount: num(cp.subsidies_count),
-        subsidiesCzk: num(cp.subsidies_total_czk),
-        donatedToPartyCzk: cp.donated_to_party_czk != null ? num(cp.donated_to_party_czk) : null,
+        subsidiesCzk,
+        donatedToPartyCzk,
         donationRecipientParty:
           cp.donation_recipient_party != null ? String(cp.donation_recipient_party) : null,
         // ARES-VR reconciliation (case-money batch 001/002) — absent on ties not yet
         // reconciled; the component renders that as "not checked", never as active.
-        corroboration: (e.props?.corroboration as MoneyTie["corroboration"]) ?? null,
+        corroboration,
+        roleValidFrom: (e.props?.role_valid_from as string | null | undefined) ?? null,
         roleValidTo: (e.props?.role_valid_to as string | null | undefined) ?? null,
         temporalStatus: (e.props?.temporal_status as string | null | undefined) ?? null,
+        tieClass,
+        triangle,
+        nearThresholdCount: near,
+        deMinimis: isDeMinimis(contractCzk, subsidiesCzk),
+        signalScore: reviewSignal({
+          contractCzk,
+          subsidiesCzk,
+          tieClass,
+          triangle,
+          nearThresholdCount: near,
+          donatedToPartyCzk,
+          absenteeManagerLead,
+        }),
+        reviewTier: reviewTier({ tieClass, corroboration }),
+        reviewRank: reviewRank({ tieClass, corroboration, contractCzk, subsidiesCzk }),
+        reviewNote: (e.props?.review_note as string | null | undefined) ?? null,
+        reviewerNote: (e.props?.reviewer_note as string | null | undefined) ?? null,
+        lastDecision: (e.props?.last_decision as string | null | undefined) ?? null,
+        lastReviewer: (e.props?.last_reviewer as string | null | undefined) ?? null,
+        lastReviewedAt: (e.props?.last_reviewed_at as string | null | undefined) ?? null,
+        ownerStakePct: e.props?.owner_stake_pct != null ? num(e.props.owner_stake_pct) : null,
+        priorTerm: (e.props?.prior_term as string | null | undefined) ?? null,
+        falseEdgeSuspected: Boolean(e.props?.false_edge_suspected),
+        flags: Array.isArray(e.props?.flags) ? (e.props.flags as string[]) : [],
       };
 
       const arr = tiesByPerson.get(e.src) ?? [];
@@ -121,7 +121,7 @@ export async function getMoneyData(): Promise<MoneyData | null> {
       distinctCompanies.add(comp.id);
       if (!reachableSeen.has(comp.id)) {
         reachableSeen.add(comp.id);
-        contractCzkReachable += contracts.czk;
+        contractCzkReachable += contractCzk;
       }
     }
 
@@ -179,8 +179,6 @@ export async function getMoneyData(): Promise<MoneyData | null> {
         })),
       };
     }
-
-    const pass = num((linked[0]?.provenance as Record<string, unknown> | undefined)?.pass) || 0;
 
     return {
       mps,

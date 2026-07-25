@@ -12,11 +12,17 @@
 //   • company node props: {ico, subsidies_count, subsidies_total_czk,
 //     donated_to_party_czk?, donation_count?, donation_recipient_party?}
 
-export type ReviewState = "verified" | "pending_review";
+export type ReviewState = "verified" | "pending_review" | "rejected";
 
 /** ARES-VR corroboration verdict (case-money batch 002, Q-money-1 population
  *  reconciliation) — annotates the tie, never auto-verifies it. */
 export type Corroboration = "registry-confirmed" | "registry-unconfirmed" | "conflicting";
+
+// Re-exported from reviewTypes.ts (the /penize/kontrola console's pure classifier) so
+// the main ledger and per-MP case file can render the SAME tie-class taxonomy without
+// duplicating the definition. Plain module, no server imports — safe to share.
+export type { TieClass } from "./reviewTypes";
+import type { TieClass } from "./reviewTypes";
 
 /** One MP↔company tie, enriched with the public money reachable through the firm. */
 export interface MoneyTie {
@@ -38,8 +44,99 @@ export interface MoneyTie {
    *  the remaining 245; absent = "not yet reconciled", rendered as a neutral badge,
    *  NEVER as "active"). */
   corroboration?: Corroboration | null;
+  roleValidFrom?: string | null; // ISO date, ARES-VR confirmed
   roleValidTo?: string | null; // ISO date, ARES-VR confirmed; null = role has no recorded end
   temporalStatus?: string | null; // "current" | "historical" | "money-postdates-role" | "historical-no-money"
+  /** owner-operator / manager / steward — see `tieClassInfo` for the rendered P29 rule. */
+  tieClass: TieClass;
+  /** contracts + subsidies + party donation all present on the same firm. */
+  triangle: boolean;
+  /** contract amounts landing just under a 2M/6M CZK zadávací-limit threshold. */
+  nearThresholdCount: number;
+  /** reachable money below a materiality floor — likely noise, rendered muted. */
+  deMinimis: boolean;
+  /** deterministic "how story-worthy" rank key — see reviewTypes.ts::reviewSignal. */
+  signalScore: number;
+  /** batch-005 review-ORDER tier (0=confirmed owner-operator … 3=unconfirmed). */
+  reviewTier: 0 | 1 | 2 | 3;
+  /** stable per-tie sort key mirroring reviewTier (tier asc, reachable CZK desc). */
+  reviewRank: number;
+  /** free-text note from a human review decision (ReviewRepository.setTieReviewState). */
+  reviewNote: string | null;
+  /** DIFFERENT field written by the ARES-VR reconciliation pass, not review UI. */
+  reviewerNote: string | null;
+  lastDecision: string | null;
+  lastReviewer: string | null;
+  lastReviewedAt: string | null;
+  /** percentage stake, when the registry reconciliation recorded one. */
+  ownerStakePct: number | null;
+  /** ownership-period-start note when the tie predates the current term. */
+  priorTerm: string | null;
+  falseEdgeSuspected: boolean;
+  flags: string[];
+}
+
+/** One contract line reachable through a tied company (kg_node kind:"contract"). */
+export interface ContractLine {
+  id: string;
+  label: string;
+  amountCzk: number | null;
+  signedOn: string | null;
+}
+
+/** A tie enriched with its top-N contract line items — the per-MP case-file view. */
+export interface MoneyTieDetail extends MoneyTie {
+  contracts: ContractLine[];
+  /** contracts beyond the ones shown in `contracts` (same company). */
+  contractsMoreCount: number;
+}
+
+/** Full evidence chain for one MP — the /penize/[pspId] case-file surface. */
+export interface MoneyMpDetail {
+  pspId: number;
+  name: string;
+  club: string | null;
+  absenteeManagerLead: boolean;
+  ties: MoneyTieDetail[];
+  totalContractCzk: number;
+  totalSubsidiesCzk: number;
+  totalDonatedCzk: number;
+  source: string;
+  pass: number;
+}
+
+/** One claim in a lead dossier, cited verbatim with its primary/media source. */
+export interface DossierClaim {
+  claim: string;
+  url: string;
+  accessedAt: string;
+  sourceKind: string; // "primary" | "media"
+}
+export interface DossierMediaContext {
+  outlet: string;
+  url: string;
+  gist: string;
+}
+/** A "Kauzy / rozpracovaný podnět" dossier — batch-005 lead payload, rendered
+ *  verbatim-faithful. Every claim carries its own citation; `whatSourcesSustain` /
+ *  `whatSourcesDoNotSustain` are the honest two-column split the product renders —
+ *  NEVER collapsed into a single verdict. Always `pending_review`; nothing here
+ *  auto-verifies a tie or feeds a score. */
+export interface LeadDossier {
+  leadId: string;
+  subject: { name: string; role: string; party: string };
+  company?: { name: string; ico: string; legalForm: string } | null;
+  claims: DossierClaim[];
+  /** Free-form registry-findings block — shape varies per dossier, rendered as
+   *  labelled key/value pairs, never re-summarized. */
+  registryFindings: Record<string, unknown>;
+  mediaContext: DossierMediaContext[];
+  signalScore: number;
+  signalWhy: string;
+  whatSourcesSustain: string;
+  whatSourcesDoNotSustain: string;
+  proposedAnnotation: Record<string, unknown>;
+  confidence: string;
 }
 
 /** An MP with at least one tie, grouped for the ledger. */
@@ -144,6 +241,51 @@ export function temporalBadge(tie: {
       };
     default:
       return { labelCs: "neověřeno vůči ARES VR", labelEn: "not checked against ARES VR", tone: "unknown" };
+  }
+}
+
+/** The honest tie-class explainer — the P29 rule. A steward's big reachable-CZK
+ *  number is the body's OWN public activity flowing through it (a hospital, a
+ *  university, a state fund), not personal enrichment; rendering it next to an
+ *  owner-operator number without this label is how a supervisory seat gets
+ *  misread as graft. Single source of truth for the copy — import, never
+ *  re-word inline. */
+export function tieClassInfo(cls: TieClass): {
+  labelCs: string;
+  labelEn: string;
+  descCs: string;
+  descEn: string;
+  tone: "signal" | "cobalt" | "steel";
+} {
+  switch (cls) {
+    case "owner-operator":
+      return {
+        labelCs: "vlastník / jednatel",
+        labelEn: "owner-operator",
+        descCs:
+          "poslanec vlastní nebo řídí soukromou firmu, která dodává státu — reálná FollowTheMoney vazba.",
+        descEn: "the MP owns or runs a private firm that supplies the state — the real FollowTheMoney tie.",
+        tone: "signal",
+      };
+    case "manager":
+      return {
+        labelCs: "představenstvo",
+        labelEn: "manager",
+        descCs: "poslanec sedí ve statutárním orgánu (představenstvu) firmy.",
+        descEn: "the MP holds a seat on the company's statutory board.",
+        tone: "cobalt",
+      };
+    case "steward":
+    default:
+      return {
+        labelCs: "dozorčí / správní",
+        labelEn: "steward",
+        descCs:
+          "dozorčí nebo správní funkce ve veřejné/neziskové instituci — peníze jsou vlastní veřejnou činností té instituce, ne obohacením poslance. Velké číslo u stewarda proto NIKDY nečtěte jako u vlastníka.",
+        descEn:
+          "a supervisory/board seat in a public or nonprofit body — the money is that body's OWN public activity, not MP enrichment. A steward's big number must never be read like an owner-operator's.",
+        tone: "steel",
+      };
   }
 }
 

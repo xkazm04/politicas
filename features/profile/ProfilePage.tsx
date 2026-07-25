@@ -23,6 +23,7 @@ import { COMPONENT_FILL } from "@/features/civicscore/components/LeaderboardTabl
 import LowScoreReasonBadge from "@/features/profile/components/LowScoreReasonBadge";
 import TenureNote from "@/features/profile/components/TenureNote";
 import TenureTrendGate from "@/features/profile/components/TenureTrendGate";
+import DossierSection from "@/features/profile/components/DossierSection";
 import type { ComponentKey } from "@/lib/analysis/contribution-trend";
 
 export default function ProfilePage({ data }: { data: ProfileData }) {
@@ -170,10 +171,21 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
           </div>
         </section>
 
-        {/* ── 02 Nejbližší spojenci ─────────────────────────── */}
+        {/* ── 02 Pracovní profil (dosier) ────────────────────── */}
+        <DossierSection
+          index={2}
+          publicRole={person.effortPublicRole}
+          workThemes={data.effortWorkThemes}
+          billFocus={data.effortBillFocus}
+          notes={data.effortNotes}
+          dataFlag={data.effortDataFlag}
+          sponsoredBills={data.sponsoredBills}
+        />
+
+        {/* ── 03 Nejbližší spojenci ─────────────────────────── */}
         <section className="mt-16 border-t-4 border-ink pt-10">
           <SectionHeading
-            index={2}
+            index={3}
             title={t("alliesHeading")}
             aside={<SourceNote>{t("alliesAside")}</SourceNote>}
           />
@@ -205,10 +217,10 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
           </SourceNote>
         </section>
 
-        {/* ── 03 Rebelie proti klubu ────────────────────────── */}
+        {/* ── 04 Rebelie proti klubu ────────────────────────── */}
         <section className="mt-16 border-t-4 border-ink pt-10">
           <SectionHeading
-            index={3}
+            index={4}
             title={t("rebellionsHeading")}
             aside={<SourceNote>{t("rebellionsAside")}</SourceNote>}
           />
@@ -236,10 +248,10 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
           )}
         </section>
 
-        {/* ── 04 Výbory a komise ────────────────────────────── */}
+        {/* ── 05 Výbory a komise ────────────────────────────── */}
         <section className="mt-16 border-t-4 border-ink pt-10 pb-8">
           <SectionHeading
-            index={4}
+            index={5}
             title={t("committeesHeading")}
             aside={<SourceNote>{t("committeesAside")}</SourceNote>}
           />

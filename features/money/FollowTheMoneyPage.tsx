@@ -107,6 +107,12 @@ export default function FollowTheMoneyPage({ data }: { data?: MoneyData | null }
           </div>
           <div className="flex items-center gap-4">
             <Link
+              href="/penize/kauzy"
+              className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-signal transition-colors hover:text-ink"
+            >
+              kauzy
+            </Link>
+            <Link
               href="/penize/kontrola"
               className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
             >
@@ -192,6 +198,22 @@ export default function FollowTheMoneyPage({ data }: { data?: MoneyData | null }
           <div className="mt-8">
             <TiesLedger data={data ?? null} />
           </div>
+          <Link
+            href="/penize/kauzy"
+            className="group mt-8 flex items-center justify-between gap-4 border-l-4 border-signal bg-signal/5 px-5 py-4 transition-colors hover:bg-signal/10"
+          >
+            <span>
+              <span className="block font-mono text-[11px] font-bold uppercase tracking-widest text-signal">
+                {locale === "en" ? "kauzy / open leads" : "kauzy / rozpracované podněty"}
+              </span>
+              <span className="mt-1 block text-sm text-steel">
+                {locale === "en"
+                  ? "Two hand-researched dossiers, cited claim by claim — what the sources sustain and what they don't."
+                  : "Dva ručně dořešené spisy, tvrzení po tvrzení citované — co zdroje dokládají a co ne."}
+              </span>
+            </span>
+            <span className="shrink-0 font-mono text-xs font-bold uppercase tracking-wider text-signal">→</span>
+          </Link>
         </section>
 
         {/* ── 03 Jak stopa vzniká ───────────────────────────── */}
