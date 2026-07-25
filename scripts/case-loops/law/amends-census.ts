@@ -26,8 +26,11 @@ const PDFTOTEXT_BIN = existsSync("/clangarm64/bin/pdftotext") ? "/clangarm64/bin
 const BASE = "https://www.psp.cz/sqw/text/";
 const CONCURRENCY = 4;
 
-const CENSUS_OUT = "docs/data-analysis/case-law/payloads/amends-census.json";
-const PROPOSAL_OUT = "docs/data-analysis/case-law/payloads/amended-laws-full-proposal.json";
+// batch-007: re-run after the ČÁST/bare-§ splitter fix (N1). Written to NEW filenames — the
+// batch-004/005/006 census/proposal files stay untouched as history (amends-regen-005.ts and its
+// siblings still read the old ones; batch-007's own regen script points at these new outputs).
+const CENSUS_OUT = "docs/data-analysis/case-law/payloads/batch-007-amends-census.json";
+const PROPOSAL_OUT = "docs/data-analysis/case-law/payloads/batch-007-amended-laws-full-proposal.json";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -131,6 +134,8 @@ interface Row {
   undercount: number;
   docType: "platne-zneni" | "navrh-zakona";
   sourceUrl: string;
+  structure: "cl" | "cast" | "single-subject-amending" | "single-subject-non-amending";
+  skippedParts: { label: string; headingPreview: string }[];
 }
 
 /**
@@ -143,8 +148,27 @@ interface Row {
  * statute, cited ONCE near the top of that article ("Zákon č. X/Y Sb. … se mění takto:"). So the
  * real amended-laws set = the FIRST law citation found in each Čl. N block, deduped (an
  * "Účinnost" effective-date article, or a coordinating article that cites no new law, correctly
- * contributes nothing). Single-subject bills (no "Čl." numbering at all) fall back to the first
- * citation in the whole operative text — matching the title-regex baseline for that class.
+ * contributes nothing).
+ *
+ * batch-007 fix (N1, batch-006 independent audit): the Čl.-only splitter is structurally blind to
+ * the OTHER real-corpus bill structure — omnibus bills organised by "ČÁST <ordinal>" headings
+ * instead of "Čl. N" articles (confirmed on 12+ bills incl. the 7 the audit named — tisk
+ * 250/69/10/54/113/189/228 — plus 63/76/144, which turn out to ALSO be ČÁST-organised rather than
+ * truly single-subject as the old fallback assumed). The same drafting convention applies one
+ * level up: a ČÁST that amends another statute carries a "Změna …" sub-heading right after the
+ * ČÁST label, then cites its target near the top ("Zákon č. X/Y Sb. … se mění takto:") — but a
+ * bill's ČÁST PRVNÍ is almost always the bill's OWN new-law text (never a "Změna" sub-heading),
+ * and a "Zrušovací ustanovení" (repeal) or "Účinnost" (effective-date) ČÁST cites its target deep
+ * inside the part body, far past the heading window, or not at all. Gating each ČÁST block on a
+ * "Změna" sub-heading in its own heading area (not just windowing the citation search) is what
+ * correctly excludes those parts — and, as a side effect, fixes 3 of the 6 batch-006 N2 false
+ * edges (tisk 55/76/144, all REPEAL clauses the old whole-text fallback misread as amendments —
+ * none of those bills has a real "Změna" ČÁST once ČÁST structure is honoured).
+ *
+ * Structures checked against the real corpus and NOT found to denote amend-block boundaries:
+ * "Hlava"/"Oddíl"/"Díl" — sub-structuring WITHIN a bill's own new-law text (chapters, sections) or
+ * within a single ČÁST/Čl. block; none of the bills checked carries a "Změna zákona" sub-heading
+ * at that level, so they are correctly left unsplit.
  */
 /** batch-005 fix (D1, Opus audit): a footnote citation ("1) Zákon č. 354/2019 Sb., o …") reads
  * as a plain LAW_CITATION match with nothing in the regex to tell it apart from a real amending
@@ -153,8 +177,16 @@ interface Row {
  * whole operative text" picked up the first FOOTNOTE instead of the real "Změna zákona č. X"
  * part further down): a Czech legal-text footnote is its own paragraph starting with a bare
  * footnote-number marker "N)" (no legal citation context on that line before it). Skip any
- * citation whose enclosing line starts that way. */
+ * citation whose enclosing line starts that way.
+ *
+ * batch-007 fix (N4, batch-006 independent audit): the single-line check missed multi-line
+ * footnote CONTINUATIONS (tisk 69: "3) Například zákon č. 220/1991 Sb., / ve znění pozdějších
+ * předpisů, zákon č. 381/1991 Sb., …" — the citation lands on the wrapped second line, which does
+ * not itself start with a footnote marker). Generalized to a footnote BLOCK: walk backward through
+ * contiguous non-blank lines looking for a line that starts the footnote (bounded hop count so a
+ * long unrelated paragraph can't be misread as one big footnote). */
 function isFootnoteLine(operative: string, matchIndex: number): boolean {
+  const FOOTNOTE_START = /^\s*\d{1,3}\)?\s+[A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ§]/u;
   const lineStart = operative.lastIndexOf("\n", matchIndex) + 1;
   const line = operative.slice(lineStart, matchIndex);
   // the footnote DEFINITION line reads "N) Zákon č. X/Y Sb., …" — a bare footnote-number marker
@@ -163,49 +195,117 @@ function isFootnoteLine(operative: string, matchIndex: number): boolean {
   // The closing paren is not reliable — some PDFs' pdftotext extraction drops the superscript
   // paren entirely (observed: "3 § 3 zákona č. 240/2000 Sb." with no ")" at all) — so also match
   // a bare leading number directly followed by "Zákon"/"zákona"/"§"/"Čl." with no paren.
-  return /^\s*\d{1,3}\)?\s+[A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ§]/u.test(line);
+  if (FOOTNOTE_START.test(line)) return true;
+  // multi-line continuation: walk backward through contiguous non-blank lines (a blank line ends
+  // the footnote paragraph) looking for the footnote-start line, up to 5 hops back.
+  let cursor = lineStart - 1; // index of the \n immediately before this line, or -1 at text start
+  for (let hop = 0; hop < 5 && cursor > 0; hop++) {
+    const prevLineEnd = cursor;
+    const prevLineStart = operative.lastIndexOf("\n", prevLineEnd - 1) + 1;
+    const prevLine = operative.slice(prevLineStart, prevLineEnd);
+    if (prevLine.trim() === "") break; // blank line — not a continuation, stop looking
+    if (FOOTNOTE_START.test(prevLine)) return true;
+    cursor = prevLineStart - 1;
+  }
+  return false;
 }
 
-function extractRealAmendedLaws(operative: string): Set<string> {
+const AMENDING_TITLE_RE = /kter(?:ým|ou|ými)\s+se\s+mění/iu;
+const PART_RE = /\n\s*ČÁST\s+([A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+)\b([^\n]*)\n/g;
+const HEADING_WINDOW = 320; // how far past a ČÁST label its own "Změna …" sub-heading can sit
+const PART_CITATION_WINDOW = 1200; // citation is always near a real amending part's top
+const ART_CITATION_WINDOW = 800; // unchanged from the original Čl.-block logic
+
+function firstNonFootnoteCitation(text: string): { ref: string } | null {
+  LAW_CITATION.lastIndex = 0;
+  let m: RegExpExecArray | null;
+  while ((m = LAW_CITATION.exec(text))) {
+    if (isFootnoteLine(text, m.index)) continue;
+    const hit = { ref: `${Number(m[1])}/${m[2]}` };
+    LAW_CITATION.lastIndex = 0;
+    return hit;
+  }
+  LAW_CITATION.lastIndex = 0;
+  return null;
+}
+
+interface ExtractResult {
+  laws: Set<string>;
+  structure: "cl" | "cast" | "single-subject-amending" | "single-subject-non-amending";
+  skippedParts: { label: string; headingPreview: string }[];
+}
+
+function extractRealAmendedLaws(operative: string): ExtractResult {
   const artRe = /\n\s*Čl\.\s*([IVXLCDM]+|\d+)\.?\s*\n/g;
   const arts: { label: string; idx: number }[] = [];
   let am: RegExpExecArray | null;
   while ((am = artRe.exec(operative))) arts.push({ label: am[1], idx: am.index });
 
   const out = new Set<string>();
-  if (arts.length === 0) {
-    // single-subject bill, no article numbering — the whole operative block amends one statute;
-    // take the first NON-FOOTNOTE citation (matches the title-regex extractor's own convention,
-    // batch-005 fix: skip footnote-marker lines, see isFootnoteLine).
-    LAW_CITATION.lastIndex = 0;
-    let m: RegExpExecArray | null;
-    while ((m = LAW_CITATION.exec(operative))) {
-      if (isFootnoteLine(operative, m.index)) continue;
-      out.add(`${Number(m[1])}/${m[2]}`);
-      break;
+
+  if (arts.length > 0) {
+    // Čl.-organised bill — unchanged, proven logic (batch-001 through batch-006's live 150 edges).
+    for (let i = 0; i < arts.length; i++) {
+      const start = arts[i].idx;
+      const end = i + 1 < arts.length ? arts[i + 1].idx : Math.min(operative.length, start + 4000);
+      const slice = operative.slice(start, Math.min(end, start + ART_CITATION_WINDOW));
+      const hit = firstNonFootnoteCitation(slice);
+      if (hit) out.add(hit.ref);
     }
-    LAW_CITATION.lastIndex = 0;
-    return out;
+    return { laws: out, structure: "cl", skippedParts: [] };
   }
-  for (let i = 0; i < arts.length; i++) {
-    const start = arts[i].idx;
-    const end = i + 1 < arts.length ? arts[i + 1].idx : Math.min(operative.length, start + 4000);
-    const slice = operative.slice(start, Math.min(end, start + 800)); // citation is always near the article's top
-    LAW_CITATION.lastIndex = 0;
-    let m: RegExpExecArray | null = null;
-    let mm: RegExpExecArray | null;
-    while ((mm = LAW_CITATION.exec(slice))) {
-      if (isFootnoteLine(slice, mm.index)) continue;
-      m = mm;
-      break;
+
+  // No Čl. markers — check for ČÁST-organised structure (batch-007 N1 fix).
+  const parts: { label: string; headingLine: string; idx: number }[] = [];
+  PART_RE.lastIndex = 0;
+  let pm: RegExpExecArray | null;
+  while ((pm = PART_RE.exec(operative))) parts.push({ label: pm[1], headingLine: pm[2] ?? "", idx: pm.index });
+
+  const skippedParts: { label: string; headingPreview: string }[] = [];
+  if (parts.length > 0) {
+    for (let i = 0; i < parts.length; i++) {
+      const start = parts[i].idx;
+      const headingArea = operative.slice(start, Math.min(operative.length, start + HEADING_WINDOW));
+      // Only a part whose OWN heading area names itself as an amendment ("Změna zákona o …", "–
+      // změna …") gets its citation searched. This is what correctly excludes ČÁST PRVNÍ (the
+      // bill's own new-law body — never "Změna"), "Zrušovací ustanovení" (repeal, N2's tisk
+      // 55/76/144 class) and "Účinnost" (effective-date) parts, whose real target — if any — sits
+      // far past this window, not near the heading.
+      if (!/změn[aiy]/iu.test(headingArea)) {
+        skippedParts.push({ label: parts[i].label, headingPreview: headingArea.replace(/\s+/g, " ").trim().slice(0, 140) });
+        continue;
+      }
+      const end = i + 1 < parts.length ? parts[i + 1].idx : operative.length;
+      const slice = operative.slice(start, Math.min(end, start + PART_CITATION_WINDOW));
+      const hit = firstNonFootnoteCitation(slice);
+      if (hit) out.add(hit.ref);
     }
-    LAW_CITATION.lastIndex = 0;
-    if (m) out.add(`${Number(m[1])}/${m[2]}`);
+    return { laws: out, structure: "cast", skippedParts };
   }
-  return out;
+
+  // Truly single-subject bill — no Čl., no ČÁST. batch-007 fix: only treat this as an AMENDING
+  // novela (and search for a target) if the bill's OWN title/preamble (first ~600 chars of the
+  // operative text) says so ("kterým/kterou/kterými se mění …") — otherwise it is a brand-new
+  // standalone act (or a bare-§-organised bill whose only "č. N/RRRR Sb." citations are
+  // cross-references or a repeal clause, N2's tisk 6/63 class) and correctly amends nothing.
+  if (!AMENDING_TITLE_RE.test(operative.slice(0, 600))) {
+    return { laws: out, structure: "single-subject-non-amending", skippedParts: [] };
+  }
+  const hit = firstNonFootnoteCitation(operative);
+  if (hit) out.add(hit.ref);
+  return { laws: out, structure: "single-subject-amending", skippedParts: [] };
 }
 
-async function processBill(cislo: number): Promise<{ realLaws?: string[]; docType?: Row["docType"]; sourceUrl?: string; skip?: Skip }> {
+async function processBill(
+  cislo: number,
+): Promise<{
+  realLaws?: string[];
+  docType?: Row["docType"];
+  sourceUrl?: string;
+  structure?: Row["structure"];
+  skippedParts?: Row["skippedParts"];
+  skip?: Skip;
+}> {
   let html: string;
   try {
     html = await fetchIndexHtml(cislo);
@@ -251,8 +351,14 @@ async function processBill(cislo: number): Promise<{ realLaws?: string[]; docTyp
     const end = memoIdx > start ? memoIdx : text.length;
     operative = text.slice(start, end);
   }
-  const realLaws = extractRealAmendedLaws(operative);
-  return { realLaws: [...realLaws].sort(), docType, sourceUrl: `${BASE}orig2.sqw?idd=${chosen.idd}` };
+  const extracted = extractRealAmendedLaws(operative);
+  return {
+    realLaws: [...extracted.laws].sort(),
+    docType,
+    sourceUrl: `${BASE}orig2.sqw?idd=${chosen.idd}`,
+    structure: extracted.structure,
+    skippedParts: extracted.skippedParts,
+  };
 }
 
 async function pMapLimit<T, R>(items: T[], limit: number, fn: (t: T, i: number) => Promise<R>): Promise<R[]> {
@@ -316,6 +422,8 @@ async function main() {
       undercount: realLaws.length - recordedLaws.length,
       docType: r.docType!,
       sourceUrl: r.sourceUrl!,
+      structure: r.structure!,
+      skippedParts: r.skippedParts ?? [],
     });
   }
   rows.sort((a, b) => b.undercount - a.undercount);

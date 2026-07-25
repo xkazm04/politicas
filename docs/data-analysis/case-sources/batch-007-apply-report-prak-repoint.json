@@ -1,0 +1,47 @@
+{
+  "key": "prak-repoint",
+  "mode": "commit",
+  "pass": 28,
+  "nodes": {
+    "total": 1,
+    "byKind": {
+      "company": {
+        "inserted": 0,
+        "merged": 1
+      }
+    }
+  },
+  "edges": {
+    "total": 2,
+    "byRel": {
+      "linked_to": {
+        "inserted": 0,
+        "merged": 2
+      }
+    }
+  },
+  "excludedEdges": [],
+  "proposedDeletions": [
+    {
+      "entry": {
+        "src": "psp:person:346",
+        "rel": "linked_to",
+        "dst": "company:ico:49683144",
+        "reason": "repointed to corrected company node company:ico:61858111 (Q-money-7, batch-006) — old edge targeted the wrong IČO"
+      },
+      "allowlisted": true,
+      "deleted": true
+    },
+    {
+      "entry": {
+        "src": "psp:person:6184",
+        "rel": "linked_to",
+        "dst": "company:ico:49683144",
+        "reason": "repointed to corrected company node company:ico:61858111 (Q-money-7, batch-006) — old edge targeted the wrong IČO"
+      },
+      "allowlisted": true,
+      "deleted": true
+    }
+  ],
+  "rejections": []
+}

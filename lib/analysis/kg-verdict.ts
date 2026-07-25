@@ -16,7 +16,10 @@
 //   Run EVERY returned verdict through it and discard/re-run on drift; never persist
 //   a drifted or fabricated proposal.
 
-export const KG_NODE_KINDS = ["person", "party", "organ", "bloc", "theme", "company", "contract", "bill", "law"] as const;
+// batch-007 (case loops apply-insert path): "notice" added per case-sources' kiosek
+// handoff (docs/data-analysis/case-sources/handoff.md) — a kiosek.justice.cz úřední-deska
+// posting node.
+export const KG_NODE_KINDS = ["person", "party", "organ", "bloc", "theme", "company", "contract", "bill", "law", "notice"] as const;
 export type KgNodeKind = (typeof KG_NODE_KINDS)[number];
 
 export const KG_EDGE_RELS = [
@@ -31,6 +34,15 @@ export const KG_EDGE_RELS = [
   "sponsors",
   "amends",
   "assigned_to",
+  // batch-007 additions:
+  // "owns_stake" (company -> company, dated shareholder stake) per case-money's
+  // batch-006 ownership-chains payload (docs/data-analysis/case-money/payloads/
+  // batch-006-ownership-chains.json).
+  "owns_stake",
+  // "cites" (notice -> law) and "concerns" (notice -> company) per case-sources'
+  // kiosek handoff (docs/data-analysis/case-sources/handoff.md).
+  "cites",
+  "concerns",
 ] as const;
 export type KgEdgeRel = (typeof KG_EDGE_RELS)[number];
 

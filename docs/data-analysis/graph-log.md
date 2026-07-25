@@ -601,3 +601,40 @@ driver's own apply script** — 3 of 6 exclusion entries carried wrong bill-node
 no-op'd, so a live `--commit` would have written three audit-confirmed-FALSE edges. Fixed, with a
 startup assertion that refuses to run on any non-matching exclusion. Rework target is now concrete
 (the `ČÁST`/`§` splitter), not another audit round.
+
+## Pass 28 (track: money) — batch 007: the insert path opens the graph (2026-07-25)
+
+The first genuine TOPOLOGY growth since the trio landed, via the new
+`scripts/case-loops/apply-batch.ts` (insert-capable, node-then-edge ordered,
+provenance-preserving, enum-enforcing, deletion-allowlisted, dry-run default;
+13 tests). Its Opus audit caught a blocker before any write: the ownership
+period-merge picked "latest by date" as the summary row, which would have
+written `share: null` onto the AGROFERT→Synthesia edge and TERMINATED dates
+onto two still-active state-hospital stakes — false statements about real
+companies. Fixed to open-period-first precedence, plus 8 board-seat rows
+routed out of `owns_stake` entirely.
+
+- **Q-money-7 CLOSED in the graph**: +1 `company` node (IČO 61858111 "PRaK,
+  a.s. v likvidaci") and **2 re-pointed `linked_to` edges** (Bendl 346, Brabec
+  6184) with dated board records. The **2 superseded edges to the wrong IČO
+  49683144 were RETIRED** by explicit orchestrator allowlist entry — leaving
+  them would have made the graph assert both, i.e. a false tie about two named
+  MPs; same evidence standard as the pass-22 OSVČ purge, and the full record
+  survives in the payload, vault and git.
+- **Indirect ownership (O-money-3) LIVE**: +19 company nodes, **+33
+  `owns_stake` edges** (dated), incl. the real AGROFERT chain. The 2017 trust
+  transfer is NOT visible in this slice and is recorded as a lead, not a claim.
+- **Verification caught one more**: the 2 inserted ties had NO `review_state`
+  (renderers default to pending, but a person→company edge must be BORN gated
+  by construction — kg-money's contract). Set explicitly; all 211 ties now
+  carry `pending_review`.
+
+## Pass 29 (track: sources) — batch 007: kiosek notices enter the graph
+
+**+20 `notice` nodes, +36 `cites` edges** (notice → law) from the kiosek
+úřední-desky slice. 80 proposed edges excluded and reported, never applied (75
+unminted targets + 5 non-enum person-IČO markers). New enum values registered
+in `kg-verdict.ts`: node `notice`; rels `owns_stake`, `cites`, `concerns`.
+The `concerns` (notice → company) rel is registered but unused — kiosek's
+IČOs remain a disjoint population from our tied companies (batch-006 finding),
+so the money side stays a WATCH channel rather than an enrichment.

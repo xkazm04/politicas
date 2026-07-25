@@ -1,0 +1,507 @@
+{
+  "key": "kiosek",
+  "mode": "commit",
+  "pass": 29,
+  "nodes": {
+    "total": 20,
+    "byKind": {
+      "notice": {
+        "inserted": 20,
+        "merged": 0
+      }
+    }
+  },
+  "edges": {
+    "total": 36,
+    "byRel": {
+      "cites": {
+        "inserted": 36,
+        "merged": 0
+      }
+    }
+  },
+  "excludedEdges": [
+    {
+      "src": "notice:kiosek:201000:70_Cm_1999_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1999_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:90-2012",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1999_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1999_2026-3",
+      "rel": "concerns",
+      "dst": "company:ico:07043694",
+      "reason": "payload marks targetExists:false — money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1999_2026-3",
+      "rel": "concerns",
+      "dst": "company:ico:03007740",
+      "reason": "payload marks targetExists:false — money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:39_A_16_2026-23",
+      "rel": "cites",
+      "dst": "law:sb:65-2022",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:39_A_16_2026-23",
+      "rel": "cites",
+      "dst": "law:sb:221-2003",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:39_A_16_2026-23",
+      "rel": "cites",
+      "dst": "law:sb:177-1996",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1823_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1823_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1823_2026-2",
+      "rel": "concerns",
+      "dst": "company:ico:27027775",
+      "reason": "payload marks targetExists:false — money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1929_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1929_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1929_2026-2",
+      "rel": "concerns",
+      "dst": "company:ico:02484692",
+      "reason": "payload marks targetExists:false — money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1782_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1782_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1782_2026-2",
+      "rel": "concerns",
+      "dst": "company:ico:02506556",
+      "reason": "payload marks targetExists:false — money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1754_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1754_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1754_2026-2",
+      "rel": "concerns",
+      "dst": "company:ico:01593455",
+      "reason": "payload marks targetExists:false — money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1939_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1939_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1939_2026-2",
+      "rel": "concerns",
+      "dst": "company:ico:22883851",
+      "reason": "payload marks targetExists:false — money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2091_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2091_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:90-2012",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2091_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2091_2026-3",
+      "rel": "concerns",
+      "dst": "company:ico:07949588",
+      "reason": "payload marks targetExists:false — money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2091_2026-3",
+      "rel": "concerns_person_ico",
+      "dst": "person:ico:72015594",
+      "reason": "rel \"concerns_person_ico\" is not a real graph relation (NOT a company edge — personLikely=true (birth-date clause / person-title prefix detected); would need a person:ico:* node kind, out of this batch's scope. Excluded from the company/money edge set on purpose.)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2088_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2088_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:90-2012",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2088_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2088_2026-3",
+      "rel": "concerns",
+      "dst": "company:ico:03299759",
+      "reason": "payload marks targetExists:false — money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2090_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2090_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:90-2012",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2090_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2090_2026-3",
+      "rel": "concerns",
+      "dst": "company:ico:24821055",
+      "reason": "payload marks targetExists:false — money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2090_2026-3",
+      "rel": "concerns",
+      "dst": "company:ico:03007740",
+      "reason": "payload marks targetExists:false — money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_2070_2026-4",
+      "rel": "concerns",
+      "dst": "company:ico:06216609",
+      "reason": "payload marks targetExists:false — money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_2070_2026-4",
+      "rel": "concerns",
+      "dst": "company:ico:24291773",
+      "reason": "payload marks targetExists:false — money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1937_2026-5",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1937_2026-5",
+      "rel": "cites",
+      "dst": "law:sb:90-2012",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1937_2026-5",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1937_2026-5",
+      "rel": "concerns",
+      "dst": "company:ico:72080043",
+      "reason": "payload marks targetExists:false — money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1937_2026-5",
+      "rel": "concerns",
+      "dst": "company:ico:26778548",
+      "reason": "payload marks targetExists:false — money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1937_2026-5",
+      "rel": "concerns",
+      "dst": "company:ico:03007740",
+      "reason": "payload marks targetExists:false — money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2159_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2159_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:90-2012",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2159_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2159_2026-3",
+      "rel": "concerns",
+      "dst": "company:ico:24687774",
+      "reason": "payload marks targetExists:false — money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2159_2026-3",
+      "rel": "concerns_person_ico",
+      "dst": "person:ico:72015594",
+      "reason": "rel \"concerns_person_ico\" is not a real graph relation (NOT a company edge — personLikely=true (birth-date clause / person-title prefix detected); would need a person:ico:* node kind, out of this batch's scope. Excluded from the company/money edge set on purpose.)"
+    },
+    {
+      "src": "notice:kiosek:201000:85_Cm_2084_2026-8",
+      "rel": "cites",
+      "dst": "law:sb:90-2012",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:85_Cm_2084_2026-8",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:85_Cm_2084_2026-8",
+      "rel": "cites",
+      "dst": "law:sb:121-2008",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:85_Cm_2084_2026-8",
+      "rel": "concerns",
+      "dst": "company:ico:72080043",
+      "reason": "payload marks targetExists:false — money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:85_Cm_2084_2026-8",
+      "rel": "concerns",
+      "dst": "company:ico:10786449",
+      "reason": "payload marks targetExists:false — money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1440_2026-5",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1440_2026-5",
+      "rel": "cites",
+      "dst": "law:sb:90-2012",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1440_2026-5",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1440_2026-5",
+      "rel": "concerns",
+      "dst": "company:ico:05543592",
+      "reason": "payload marks targetExists:false — money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1440_2026-5",
+      "rel": "concerns_person_ico",
+      "dst": "person:ico:03536106",
+      "reason": "rel \"concerns_person_ico\" is not a real graph relation (NOT a company edge — personLikely=true (birth-date clause / person-title prefix detected); would need a person:ico:* node kind, out of this batch's scope. Excluded from the company/money edge set on purpose.)"
+    },
+    {
+      "src": "notice:kiosek:201000:80_Cm_71_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1636_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:90-2012",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1636_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1636_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1636_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:121-2008",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2009_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2009_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:90-2012",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2009_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2009_2026-3",
+      "rel": "concerns",
+      "dst": "company:ico:02547627",
+      "reason": "payload marks targetExists:false — money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2009_2026-3",
+      "rel": "concerns_person_ico",
+      "dst": "person:ico:69908664",
+      "reason": "rel \"concerns_person_ico\" is not a real graph relation (NOT a company edge — personLikely=true (birth-date clause / person-title prefix detected); would need a person:ico:* node kind, out of this batch's scope. Excluded from the company/money edge set on purpose.)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2010_2026-5",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2010_2026-5",
+      "rel": "cites",
+      "dst": "law:sb:90-2012",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2010_2026-5",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2010_2026-5",
+      "rel": "concerns",
+      "dst": "company:ico:17473900",
+      "reason": "payload marks targetExists:false — money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2010_2026-5",
+      "rel": "concerns",
+      "dst": "company:ico:03007740",
+      "reason": "payload marks targetExists:false — money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2000_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2000_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:90-2012",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2000_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "reason": "payload marks targetExists:false — law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2000_2026-3",
+      "rel": "concerns",
+      "dst": "company:ico:27242501",
+      "reason": "payload marks targetExists:false — money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)"
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2000_2026-3",
+      "rel": "concerns_person_ico",
+      "dst": "person:ico:72015594",
+      "reason": "rel \"concerns_person_ico\" is not a real graph relation (NOT a company edge — personLikely=true (birth-date clause / person-title prefix detected); would need a person:ico:* node kind, out of this batch's scope. Excluded from the company/money edge set on purpose.)"
+    }
+  ],
+  "proposedDeletions": [],
+  "rejections": []
+}
