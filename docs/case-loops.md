@@ -164,10 +164,18 @@ single-writer and are handed off to the orchestrator instead:
 
 **A driver never ends its run waiting.** If a sub-agent is still working, the
 driver stays alive until the result lands and the handoff is WRITTEN — ending a
-turn with "I'll report when it finishes" strands the batch (it happened twice
-in batch 003; the orchestrator had to resume the driver both times). The
-handoff document is the only valid last act of a fleet run. Working scraps go
-in the case folder or a gitignored dir, never the repo root.
+turn with "I'll report when it finishes" strands the batch. The handoff document
+is the only valid last act of a fleet run. Working scraps go in the case folder
+or a gitignored dir, never the repo root.
+
+> **This rule failed as prose — four times** (batches 003 ×2, 006 ×2), including
+> after it was written down in response to the first pair. Since batch 007 every
+> brief therefore makes completion **checkable instead of inferred**: the brief
+> names the handoff file, and the driver's final report must end with that
+> file's absolute path as its LAST LINE. An orchestrator that doesn't see the
+> path treats the run as unfinished and resumes it — no interpretation needed.
+> Generalisation worth carrying to any agent contract: when a behavioural rule
+> keeps being violated, stop restating it and give it an observable output.
 
 Everything else — the case vault folder (`docs/data-analysis/case-<x>/`), the
 case's feature/app boundary, case-owned `lib/` modules, new scripts under
