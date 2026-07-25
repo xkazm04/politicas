@@ -24,7 +24,7 @@ autonomous, payment always waits — [[case-loops]]).
 | Source | Ingest? | Effort | Consumer |
 |---|---|---|---|
 | **dataor.justice.cz bulk OR export** (CKAN, court×legal-form×year CSV/XML) | **Yes** | **M** | Case ① money (corroboration + indirect-ownership layer); Case ③ law (entity registry backdrop) |
-| **eisir.justice.cz / isir.justice.cz SOAP event feed** | Conditional — as a **watch/delta signal**, not a lookup | **S** (watch only) / blocked (no IČO search without Hlídač's paid tier) | Case ① money (insolvency-flag signal class) |
+| **eisir.justice.cz / isir.justice.cz SOAP event feed** | ✅ **DECIDED 2026-07-25 (operator): WATCH SIGNAL ONLY.** Build the event-feed watch; do NOT pursue the IČO-searchable lookup (Hlídač paid tier stays declined). An insolvency event on a tied company becomes a lead for the money loop; it never asserts a tie by itself. | **S** (watch only) | Case ① money (insolvency-flag signal class) |
 
 **The PRaK proof (the killer test the task asked for): SOLVED.** IČO
 61858111 "PRaK, a.s. v likvidaci" — 404 on ARES REST, unreachable through
