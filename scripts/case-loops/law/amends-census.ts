@@ -136,6 +136,7 @@ interface Row {
   sourceUrl: string;
   structure: "cl" | "cast" | "single-subject-amending" | "single-subject-non-amending";
   skippedParts: { label: string; headingPreview: string }[];
+  repealedRefs: string[];
 }
 
 /**
@@ -216,7 +217,60 @@ const HEADING_WINDOW = 320; // how far past a ČÁST label its own "Změna …" 
 const PART_CITATION_WINDOW = 1200; // citation is always near a real amending part's top
 const ART_CITATION_WINDOW = 800; // unchanged from the original Čl.-block logic
 
-function firstNonFootnoteCitation(text: string): { ref: string } | null {
+/** batch-007 fix, round 2 (independent audit N-A + the reflection pass that overturned the first
+ * "fix"): a citation inside a REPEAL clause ("Zrušovací ustanovení" / "Zrušují se: 1. Zákon č.
+ * X/Y Sb.") is not an amendment and must never become an `amends` edge — this class produced 3 of
+ * the 6 batch-006 false edges (55/76/144) and, the first attempt at fixing it in amends-regen-
+ * 007.ts (a BILL-TITLE-level regex) turned out unreliable in two directions the reflection pass
+ * caught: (a) bill node LABELS are truncated to 200 chars in the graph, so a repeal verb sitting
+ * past char 200 of a long sponsor list (tisk 129) never matched; (b) a MIXED-title bill (tisk 231:
+ * "kterým se mění zákon č. 483/1991 Sb. … a kterým se zrušuje zákon č. 348/2005 Sb.") legitimately
+ * carries both a real amend target and a repeal target in ONE title, so a title-level gate cannot
+ * discriminate PER CITATION. The structurally correct fix lives here instead, at the CENSUS layer,
+ * on the actual operative text (never truncated) and per-citation (not per-title): a citation is
+ * excluded if a "Zrušovací ustanovení" heading or a "Zrušují/Zruší se:" repeal-list opener appears
+ * within the preceding ~400 chars of TEXT ALREADY SCOPED TO THE SAME BLOCK the citation was found
+ * in (the Čl./ČÁST slice) — so a repeal heading in one part of a bill cannot suppress a genuine
+ * amend citation in an unrelated part. This closes tisk 129 (whole-bill repeal via `Čl. I`,
+ * previously slipped through the Čl. branch, which had no repeal check at all) and tisk 64 (a
+ * `Čl. CLIX ZRUŠOVACÍ USTANOVENÍ` block within an otherwise-real omnibus bill) at the SOURCE.
+ */
+const REPEAL_MARKER = /Zru[šš]ovac[íi]\s+ustanoven[íi]|Zru[šš]uj[íi]\s+se\s*:/iu;
+// batch-007 round 2: blacklist for a Čl. block's own heading area — "Přechodné ustanovení"
+// (transitional provision) and "Účinnost"/"Závěrečná ustanovení" companion articles never
+// introduce a NEW amend target in Czech legislative drafting convention; only the primary
+// amending article ("Zákon č. X/Y Sb. … se mění takto:") does. Kept narrower than a full
+// heading-word list (no "Zrušovací ustanovení" here — that is already handled per-citation by
+// isRepealContext/REPEAL_MARKER, which also captures the repealed ref for reporting).
+// NOTE: \w in JS regex is ASCII-only and does NOT match Czech diacritics (é, á, …) even with the
+// /u flag — "P[řr]echodn\w*\s+ustanoven[íi]" silently fails to match "Přechodné ustanovení"
+// because \w* cannot consume the "é" before the required \s+. Use \S* (any non-whitespace) for
+// the adjective-ending gap instead.
+const NON_AMEND_ART_HEADING_RE = /P[řr]echodn\S*\s+ustanoven[íi]|Z[áa]v[ěe]re[čc]n\S*\s+ustanoven[íi]|^\s*[ÚU][čc]innost\s*$/imu;
+function isRepealContext(text: string, matchIndex: number): boolean {
+  const windowStart = Math.max(0, matchIndex - 400);
+  return REPEAL_MARKER.test(text.slice(windowStart, matchIndex));
+}
+
+function firstEligibleCitation(text: string): { ref: string } | null {
+  LAW_CITATION.lastIndex = 0;
+  let m: RegExpExecArray | null;
+  while ((m = LAW_CITATION.exec(text))) {
+    if (isFootnoteLine(text, m.index) || isRepealContext(text, m.index)) continue;
+    const hit = { ref: `${Number(m[1])}/${m[2]}` };
+    LAW_CITATION.lastIndex = 0;
+    return hit;
+  }
+  LAW_CITATION.lastIndex = 0;
+  return null;
+}
+
+// Only skips footnotes (not repeal context) — used ONLY to capture what a repeal-gated-OUT block
+// is repealing, for reporting (`repealedRefs`) and so amends-regen-007.ts can suppress the SAME
+// ref if it also shows up via the title-derived union (the tisk-231 class: the census correctly
+// excludes 348/2005 from `realLaws`, but without this signal the regen script cannot tell that
+// ref apart from a real title-derived edge it is supposed to keep, like 483/1991 in the SAME bill).
+function firstFootnoteOnlySkipCitation(text: string): { ref: string } | null {
   LAW_CITATION.lastIndex = 0;
   let m: RegExpExecArray | null;
   while ((m = LAW_CITATION.exec(text))) {
@@ -233,6 +287,7 @@ interface ExtractResult {
   laws: Set<string>;
   structure: "cl" | "cast" | "single-subject-amending" | "single-subject-non-amending";
   skippedParts: { label: string; headingPreview: string }[];
+  repealedRefs: string[];
 }
 
 function extractRealAmendedLaws(operative: string): ExtractResult {
@@ -242,17 +297,49 @@ function extractRealAmendedLaws(operative: string): ExtractResult {
   while ((am = artRe.exec(operative))) arts.push({ label: am[1], idx: am.index });
 
   const out = new Set<string>();
+  const repealedRefs = new Set<string>();
 
   if (arts.length > 0) {
-    // Čl.-organised bill — unchanged, proven logic (batch-001 through batch-006's live 150 edges).
+    // Čl.-organised bill. batch-007 round 2: firstEligibleCitation now also skips repeal-context
+    // citations (previously unchecked here — the tisk 129/64 gap). A block whose only citation is
+    // a repeal target correctly contributes nothing to `laws`, and the ref is captured into
+    // `repealedRefs` (footnote-skip-only re-scan) for the regen script to cross-check against the
+    // title-derived union.
     for (let i = 0; i < arts.length; i++) {
       const start = arts[i].idx;
       const end = i + 1 < arts.length ? arts[i + 1].idx : Math.min(operative.length, start + 4000);
       const slice = operative.slice(start, Math.min(end, start + ART_CITATION_WINDOW));
-      const hit = firstNonFootnoteCitation(slice);
-      if (hit) out.add(hit.ref);
+      // batch-007 round 2 (reflection pass on tisk 64): a "Čl. N Přechodné ustanovení"
+      // (transitional-provision) companion article cites the PREDECESSOR/superseded law in its
+      // own right — not a new amend target — the exact same false-edge class batch-006 found on
+      // tisk 6 -> 424/1991 ("a transitional provision about a predecessor institution"), here
+      // occurring INSIDE an otherwise-real Čl.-organised omnibus (tisk 64's Čl. CXLIII cites
+      // 25/2017 while the bill's real target at that point is 23/2017, amended two articles
+      // earlier at Čl. CXLII — 25/2017 is then formally repealed later at Čl. CLIX). Any block
+      // whose own heading area names itself as non-amending content is skipped outright, the
+      // same principle the ČÁST "změn[aiy]" gate applies, just as a blacklist here since a
+      // genuine single-target novela's Čl. I never carries a heading word at all.
+      // Look back a short distance BEFORE the Čl. marker too — a bill that uses ČÁST as an outer
+      // wrapper around Čl. articles (tisk 231: "ČÁST ČTVRTÁ ZRUŠOVACÍ USTANOVENÍ" / "Čl. IV" /
+      // "Zrušují se: …") puts the repeal/non-amend heading word on the ČÁST line ABOVE the Čl.
+      // marker, outside a heading window that only looks forward from the marker itself.
+      const headingArea = operative.slice(Math.max(0, start - 150), start) + slice.slice(0, HEADING_WINDOW);
+      if (NON_AMEND_ART_HEADING_RE.test(headingArea) || REPEAL_MARKER.test(headingArea)) {
+        // capture the ref for reporting/union-suppression regardless of whether the repeal
+        // marker itself sat in the lookback (ČÁST line) or inside the block's own slice.
+        const raw = firstFootnoteOnlySkipCitation(slice);
+        if (raw) repealedRefs.add(raw.ref);
+        continue;
+      }
+      const hit = firstEligibleCitation(slice);
+      if (hit) {
+        out.add(hit.ref);
+      } else if (REPEAL_MARKER.test(slice)) {
+        const raw = firstFootnoteOnlySkipCitation(slice);
+        if (raw) repealedRefs.add(raw.ref);
+      }
     }
-    return { laws: out, structure: "cl", skippedParts: [] };
+    return { laws: out, structure: "cl", skippedParts: [], repealedRefs: [...repealedRefs] };
   }
 
   // No Čl. markers — check for ČÁST-organised structure (batch-007 N1 fix).
@@ -266,21 +353,29 @@ function extractRealAmendedLaws(operative: string): ExtractResult {
     for (let i = 0; i < parts.length; i++) {
       const start = parts[i].idx;
       const headingArea = operative.slice(start, Math.min(operative.length, start + HEADING_WINDOW));
+      const end = i + 1 < parts.length ? parts[i + 1].idx : operative.length;
+      const slice = operative.slice(start, Math.min(end, start + PART_CITATION_WINDOW));
       // Only a part whose OWN heading area names itself as an amendment ("Změna zákona o …", "–
       // změna …") gets its citation searched. This is what correctly excludes ČÁST PRVNÍ (the
       // bill's own new-law body — never "Změna"), "Zrušovací ustanovení" (repeal, N2's tisk
-      // 55/76/144 class) and "Účinnost" (effective-date) parts, whose real target — if any — sits
-      // far past this window, not near the heading.
+      // 55/76/144 class, and the tisk-231 ČÁST ČTVRTÁ class) and "Účinnost" (effective-date)
+      // parts, whose real target — if any — sits far past this window, not near the heading.
       if (!/změn[aiy]/iu.test(headingArea)) {
         skippedParts.push({ label: parts[i].label, headingPreview: headingArea.replace(/\s+/g, " ").trim().slice(0, 140) });
+        // batch-007 round 2: capture what this gated-out part repeals (if it does), so the regen
+        // script can suppress the SAME ref arriving via the title-derived union (tisk-231 class).
+        if (REPEAL_MARKER.test(slice)) {
+          const raw = firstFootnoteOnlySkipCitation(slice);
+          if (raw) repealedRefs.add(raw.ref);
+        }
         continue;
       }
-      const end = i + 1 < parts.length ? parts[i + 1].idx : operative.length;
-      const slice = operative.slice(start, Math.min(end, start + PART_CITATION_WINDOW));
-      const hit = firstNonFootnoteCitation(slice);
+      // Defense in depth: even a "Změna" part could, in principle, cite a repeal target before
+      // its real amend target (not observed in this corpus) — the same eligibility check applies.
+      const hit = firstEligibleCitation(slice);
       if (hit) out.add(hit.ref);
     }
-    return { laws: out, structure: "cast", skippedParts };
+    return { laws: out, structure: "cast", skippedParts, repealedRefs: [...repealedRefs] };
   }
 
   // Truly single-subject bill — no Čl., no ČÁST. batch-007 fix: only treat this as an AMENDING
@@ -289,11 +384,15 @@ function extractRealAmendedLaws(operative: string): ExtractResult {
   // standalone act (or a bare-§-organised bill whose only "č. N/RRRR Sb." citations are
   // cross-references or a repeal clause, N2's tisk 6/63 class) and correctly amends nothing.
   if (!AMENDING_TITLE_RE.test(operative.slice(0, 600))) {
-    return { laws: out, structure: "single-subject-non-amending", skippedParts: [] };
+    if (REPEAL_MARKER.test(operative)) {
+      const raw = firstFootnoteOnlySkipCitation(operative);
+      if (raw) repealedRefs.add(raw.ref);
+    }
+    return { laws: out, structure: "single-subject-non-amending", skippedParts: [], repealedRefs: [...repealedRefs] };
   }
-  const hit = firstNonFootnoteCitation(operative);
+  const hit = firstEligibleCitation(operative);
   if (hit) out.add(hit.ref);
-  return { laws: out, structure: "single-subject-amending", skippedParts: [] };
+  return { laws: out, structure: "single-subject-amending", skippedParts: [], repealedRefs: [...repealedRefs] };
 }
 
 async function processBill(
@@ -304,6 +403,7 @@ async function processBill(
   sourceUrl?: string;
   structure?: Row["structure"];
   skippedParts?: Row["skippedParts"];
+  repealedRefs?: Row["repealedRefs"];
   skip?: Skip;
 }> {
   let html: string;
@@ -358,6 +458,7 @@ async function processBill(
     sourceUrl: `${BASE}orig2.sqw?idd=${chosen.idd}`,
     structure: extracted.structure,
     skippedParts: extracted.skippedParts,
+    repealedRefs: extracted.repealedRefs,
   };
 }
 
@@ -424,6 +525,7 @@ async function main() {
       sourceUrl: r.sourceUrl!,
       structure: r.structure!,
       skippedParts: r.skippedParts ?? [],
+      repealedRefs: r.repealedRefs ?? [],
     });
   }
   rows.sort((a, b) => b.undercount - a.undercount);

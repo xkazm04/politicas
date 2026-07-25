@@ -49,6 +49,7 @@ interface CensusRow {
   undercount: number;
   docType: string;
   sourceUrl: string;
+  repealedRefs?: string[];
 }
 interface CensusFile {
   skips: { cislo: number; stage: string; reason: string }[];
@@ -74,6 +75,23 @@ async function main() {
   const proposal: ProposalFile = JSON.parse(readFileSync(PROPOSAL_IN, "utf8"));
   const proposalByBillId = new Map(proposal.proposals.map((p) => [p.billNodeId, p]));
   const skippedCislo = new Set(census.skips.map((s) => s.cislo));
+  // batch-007 round 2 (reflection pass on tisk 231): repealedRefs per bill (amends-census.ts,
+  // structurally captured — not a title-regex guess) is used below to suppress the SAME ref
+  // arriving via the title-derived union, even when the bill's title ALSO carries a real
+  // amendment (tisk 231: "kterým se mění zákon č. 483/1991 Sb. … a kterým se zrušuje zákon č.
+  // 348/2005 Sb." — a title-level regex cannot discriminate per-citation; the census already did,
+  // per-block, on the actual operative text).
+  // CAUGHT DURING THIS BATCH (before shipping — re-running the pipeline surfaced it as a huge
+  // edge-count drop, 585 -> 546, and a jump in no_data bills from 9 to 33): a ref can legitimately
+  // appear in BOTH `realLaws` (a genuine earlier amend block) AND `repealedRefs` (e.g. a LATER
+  // "Přechodné ustanovení" block for the SAME statute — normal Czech drafting: "for the period
+  // before this amendment's effect, the OLD text of law X applies", citing the very law being
+  // amended, not a different predecessor). Unconditionally suppressing any title-derived ref
+  // present in `repealedRefs` wrongly dropped these — exclude a ref ONLY when it is NOT also a
+  // genuinely real target elsewhere in the SAME bill.
+  const repealedRefsByCislo = new Map(
+    census.rows.map((r) => [r.cislo, new Set((r.repealedRefs ?? []).filter((ref) => !r.realLaws.includes(ref)))]),
+  );
 
   // ---- CURRENT (before) churn ranking, from the live 150 amends edges ----
   const lawNodeById = new Map(laws.map((n) => [n.id, n]));
@@ -116,11 +134,42 @@ async function main() {
   };
   const excludedNonActRefs: { ref: string; title: string; billCislo: number[] }[] = [];
 
+  // batch-007 fix (independent audit N-A, then the reflection pass's tisk-231 correction): the
+  // title-derived `amended_laws` prop (psp-legislation.ts's LAW_CITATION extractor) picks every
+  // "č. N/RRRR Sb." citation in the TITLE regardless of the surrounding verb — it cannot tell
+  // "kterým se MĚNÍ zákon č. X" (amends) from "kterým se ZRUŠUJE zákon č. X" (repeals). The
+  // census's title-verb gate correctly zeroes a PURE-repeal bill's census_full list (tisk 116),
+  // but the UNION below previously re-added the stale title-derived ref anyway.
+  //
+  // Two layers, kept together because they catch different bills:
+  //   1. isPureRepealTitle — a coarse title-level gate for bills with NO census proposal at all
+  //      (so `repealedRefsByCislo` has nothing to check against): if the bill's own title says
+  //      "kterým/kterou/kterými se RUŠÍ/ZRUŠUJE" and NEVER says "… se mění" anywhere, the whole
+  //      bill is a repeal — zero its title-derived union (tisk 116, tisk 129's class if it ever
+  //      lacked census data).
+  //   2. repealedRefsByCislo — a PER-CITATION exclusion built from the census's own structural
+  //      read of the operative text (amends-census.ts's repealedRefs, captured from
+  //      "Zrušovací ustanovení"/"Zrušují se:" blocks it deliberately did not extract as amend
+  //      targets). This is what correctly handles a MIXED title like tisk 231's ("kterým se mění
+  //      zákon č. 483/1991 Sb. … a kterým se zrušuje zákon č. 348/2005 Sb.") — a title-level
+  //      regex cannot discriminate WHICH of the title's several citations is the repealed one;
+  //      the census already worked that out per-block on the real text. A first attempt at this
+  //      fix used ONLY layer 1 with a blanket "any 'zrušuje' present -> blank titleLaws" rule,
+  //      which wrongly dropped tisk 231's two real amendments too (caught by re-running the
+  //      pipeline and seeing the edge count drop by more than the expected 1) — narrowing layer 1
+  //      to pure-repeal titles and adding layer 2 for the mixed case is the fix that held.
+  const REPEAL_TITLE_RE = /kter(?:ým|ou|ými)\s+se\s+(?:ruší|zrušuje)/iu;
+  const AMENDING_TITLE_RE = /kter(?:ým|ou|ými)\s+se\s+mění/iu;
+
   for (const bill of bills) {
     const p = bill.props as Record<string, unknown>;
     const cislo = Number(p.cislo);
     const censusProp = proposalByBillId.get(bill.id);
-    const titleLaws = Array.isArray(p.amended_laws) ? (p.amended_laws as string[]) : [];
+    const billTitle = String(bill.label ?? p.title ?? "");
+    const isPureRepealTitle = REPEAL_TITLE_RE.test(billTitle) && !AMENDING_TITLE_RE.test(billTitle);
+    const billRepealedRefs = repealedRefsByCislo.get(cislo) ?? new Set<string>();
+    const rawTitleLaws = isPureRepealTitle ? [] : Array.isArray(p.amended_laws) ? (p.amended_laws as string[]) : [];
+    const titleLaws = rawTitleLaws.filter((ref) => !billRepealedRefs.has(ref));
     // citationSource: per-ref provenance tag, since the union below can pull refs from either
     // the census body-extraction or the title-derived graph prop within the SAME bill.
     let citationSource: Map<string, "census_full" | "title_fallback">;
@@ -243,7 +292,18 @@ async function main() {
     generatedAt,
     method:
       "batch-007 (post-N1/N2 fix): for bills with a batch-007 census (set-difference-triggered, batch-007-amended-laws-full-proposal-v2.json) census_full proposal, use the UNION of the body-extracted citation list and the title-derived amended_laws prop (per-ref source tag preserved). For the other bills, fall back to title-derived only. Run against .pglite-copy-law-007 (a copy of .pglite-copy-law-005), which already carries the 187 law nodes resolved by ingest-missing-laws.ts — so citations unresolved before that ingest now resolve. A citation becomes an edge ONLY IF a law node exists for it AND that node's e-Sbírka title marks it as an act of parliament (zákon/ústavní zákon), not a government regulation/decree/communiqué (D8 fix) — non-act targets are logged in excludedNonActRefs, never silently dropped or fabricated into an edge. Unresolved (no node at all) citations are counted in missingLawNodeCensus. The census itself now splits bill bodies on Čl., ČÁST, AND a title-verb gate for true single-subject bills (amends-census.ts, batch-007 N1/N2/N4 fix) — closing the batch-006 independent audit's recall gap (ČÁST/§-organized omnibus bills were previously collapsed to a single, often-wrong citation).",
-    boundary: "PREPARE only — read-only against .pglite-copy-law-007, not applied to the live graph. Orchestrator executes the topology change via apply-amends-regen.ts (re-pointed at this payload) once a fresh independent audit clears it; see batch-007.md/handoff.md for the audit verdict.",
+    boundary:
+      "PREPARE only — read-only against .pglite-copy-law-007, not applied to the live graph. " +
+      "IMPORTANT: apply-amends-regen.ts (batch-006) is NOT re-pointed at this payload — its " +
+      "NODE_PAYLOAD/EDGE_PAYLOAD/REPORT_OUT constants and EXCLUDED_LOW_CONFIDENCE_EDGES list " +
+      "still name batch-005's files/edges (deliberately left untouched this batch — it belongs " +
+      "to a concurrent sibling agent generalizing its pattern elsewhere). Its own startup " +
+      "assertion will REFUSE to run against this payload unmodified (none of its hardcoded " +
+      "exclusion keys match batch-007's edges), which is a safe failure, not a working path — " +
+      "do not attempt to run it against this payload without first re-pointing those constants " +
+      "and re-deriving the exclusion list (this payload needs none — its false-edge exclusions " +
+      "are structural, not an allowlist). See docs/data-analysis/case-law/batch-007.md and " +
+      "handoff.md for the full audit trail before any live apply.",
     stats: {
       billsTotal: bills.length,
       billsUsingCensusFull: censusFullCount,
@@ -261,15 +321,28 @@ async function main() {
     },
     caveats: {
       precisionMeasurement:
-        "batch-006's independent audit (measure-precision-006.ts's method, re-run for this " +
+        "batch-006's precision-proxy method (measure-precision-006.ts, re-pointed for this " +
         "payload as measure-precision-007.ts) is the full-population precision check for THIS " +
         "regenerated set — see docs/data-analysis/case-law/payloads/batch-007-precision-" +
-        "measurement.json and batch-007.md for the result and the excluded-edge list.",
+        "measurement.json. Its own caveats note the proxy CANNOT distinguish a real amendment " +
+        "from a repeal clause (both satisfy its amending-verb regex) — that class is excluded " +
+        "upstream instead, structurally, by amends-census.ts's block-level heading gates, before " +
+        "an edge ever reaches this measurement.",
       auditStatus:
-        "This payload has NOT yet cleared an independent audit at generation time — batch-007's " +
-        "own driver-run precision review and regression tests against the 12 named bills (7 " +
-        "confirmed omnibus + 5 additional false-edge cases) pass, but per the kernel's audit " +
-        "doctrine a genuinely separate agent must check this fresh before any live apply.",
+        "This payload cleared TWO independent Opus passes this batch: (1) an adversarial audit " +
+        "verdict of READY WITH CAVEATS (3 required fixes, all applied), and (2) a SEPARATE " +
+        "reflection pass that found the driver's own fix for one of those 3 caveats (a title-" +
+        "level repeal gate) was itself incomplete — it missed 2 more false edges (a truncated-" +
+        "label case and a mixed-title case) plus a NEW false-edge class (transitional-provision " +
+        "companion articles citing a predecessor law) that neither prior batch nor the first " +
+        "audit pass had named. All of the reflection's findings were fixed by moving the repeal/" +
+        "transitional exclusion from a title-level regex to a structural, per-block check in " +
+        "amends-census.ts (REPEAL_MARKER / NON_AMEND_ART_HEADING_RE) — the driver's OWN " +
+        "verification after that (12+ regression bills, a full corpus re-run, validator, " +
+        "precision, deletion-diff) all pass, but this LAST round of fixes has NOT itself been " +
+        "independently re-audited by a fresh agent — disclosed here rather than re-declared " +
+        "ready, per the kernel's doctrine that self-review shares the blind spots of whatever " +
+        "produced the artifact under review.",
     },
     excludedNonActRefs,
     missingLawNodeCensus: missingLawCensus,

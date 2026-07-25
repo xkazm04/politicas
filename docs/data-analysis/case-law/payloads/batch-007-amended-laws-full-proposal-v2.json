@@ -1,12 +1,12 @@
 {
- "generatedAt": "2026-07-25T11:40:38.349Z",
+ "generatedAt": "2026-07-25T12:23:51.527Z",
  "method": "batch-007 re-run of batch-005 Q-law-11's set-difference trigger (recordedLaws set != realLaws set, either direction) against the batch-007 census (amends-census.ts post-N1/N2 fix: ČÁST/bare-§ splitter, footnote-block detection, repeal/non-amending-title exclusion). No new fetch.",
  "sourceCensus": "docs/data-analysis/case-law/payloads/batch-007-amends-census.json",
  "stats": {
   "totalCensusRows": 140,
-  "oldTriggerCount": 47,
-  "newTriggerCount": 54,
-  "newlyIncludedByFix": 7
+  "oldTriggerCount": 46,
+  "newTriggerCount": 55,
+  "newlyIncludedByFix": 9
  },
  "newlyIncludedByFix": [
   {
@@ -66,6 +66,15 @@
    "structure": "cl"
   },
   {
+   "cislo": 129,
+   "recordedLaws": [
+    "223/2016"
+   ],
+   "realLaws": [],
+   "undercount": -1,
+   "structure": "cl"
+  },
+  {
    "cislo": 153,
    "recordedLaws": [
     "375/2022",
@@ -75,6 +84,20 @@
    "realLaws": [
     "375/2022",
     "40/1995"
+   ],
+   "undercount": -1,
+   "structure": "cl"
+  },
+  {
+   "cislo": 231,
+   "recordedLaws": [
+    "348/2005",
+    "483/1991",
+    "484/1991"
+   ],
+   "realLaws": [
+    "483/1991",
+    "484/1991"
    ],
    "undercount": -1,
    "structure": "cl"
@@ -147,7 +170,6 @@
     "243/2000",
     "243/2022",
     "248/2000",
-    "25/2017",
     "250/2000",
     "251/2005",
     "253/2008",
@@ -246,7 +268,7 @@
    "recordedLaws": [
     "25/2017"
    ],
-   "undercount": 147
+   "undercount": 146
   },
   {
    "billNodeId": "bill:tisk:43174",
@@ -421,24 +443,6 @@
    "undercount": 11
   },
   {
-   "billNodeId": "bill:tisk:43200",
-   "cislo": 90,
-   "amended_laws_full": [
-    "159/2006",
-    "166/1993",
-    "177/2023",
-    "218/2000",
-    "222/2016",
-    "23/2017",
-    "243/2000",
-    "250/2000",
-    "262/2006",
-    "76/2005"
-   ],
-   "recordedLaws": [],
-   "undercount": 10
-  },
-  {
    "billNodeId": "bill:tisk:43372",
    "cislo": 250,
    "amended_laws_full": [
@@ -457,6 +461,23 @@
    "undercount": 10
   },
   {
+   "billNodeId": "bill:tisk:43200",
+   "cislo": 90,
+   "amended_laws_full": [
+    "159/2006",
+    "166/1993",
+    "177/2023",
+    "218/2000",
+    "222/2016",
+    "23/2017",
+    "243/2000",
+    "250/2000",
+    "262/2006"
+   ],
+   "recordedLaws": [],
+   "undercount": 9
+  },
+  {
    "billNodeId": "bill:tisk:43131",
    "cislo": 24,
    "amended_laws_full": [
@@ -468,13 +489,12 @@
     "365/2000",
     "500/2004",
     "553/1991",
-    "553/2020",
     "82/1998"
    ],
    "recordedLaws": [
     "128/2000"
    ],
-   "undercount": 9
+   "undercount": 8
   },
   {
    "billNodeId": "bill:tisk:43308",
@@ -576,23 +596,6 @@
    "undercount": 6
   },
   {
-   "billNodeId": "bill:tisk:43337",
-   "cislo": 215,
-   "amended_laws_full": [
-    "111/1998",
-    "121/2008",
-    "150/2002",
-    "280/2009",
-    "412/2005",
-    "500/2004",
-    "99/1963"
-   ],
-   "recordedLaws": [
-    "150/2002"
-   ],
-   "undercount": 6
-  },
-  {
    "billNodeId": "bill:tisk:43163",
    "cislo": 56,
    "amended_laws_full": [
@@ -666,6 +669,22 @@
    ],
    "recordedLaws": [
     "257/2016"
+   ],
+   "undercount": 5
+  },
+  {
+   "billNodeId": "bill:tisk:43337",
+   "cislo": 215,
+   "amended_laws_full": [
+    "111/1998",
+    "121/2008",
+    "150/2002",
+    "412/2005",
+    "500/2004",
+    "99/1963"
+   ],
+   "recordedLaws": [
+    "150/2002"
    ],
    "undercount": 5
   },
@@ -999,18 +1018,6 @@
    "undercount": 1
   },
   {
-   "billNodeId": "bill:tisk:43357",
-   "cislo": 235,
-   "amended_laws_full": [
-    "357/2025",
-    "592/1992"
-   ],
-   "recordedLaws": [
-    "592/1992"
-   ],
-   "undercount": 1
-  },
-  {
    "billNodeId": "bill:tisk:43143",
    "cislo": 36,
    "amended_laws_full": [
@@ -1067,6 +1074,15 @@
    "undercount": -1
   },
   {
+   "billNodeId": "bill:tisk:43250",
+   "cislo": 129,
+   "amended_laws_full": [],
+   "recordedLaws": [
+    "223/2016"
+   ],
+   "undercount": -1
+  },
+  {
    "billNodeId": "bill:tisk:43274",
    "cislo": 153,
    "amended_laws_full": [
@@ -1077,6 +1093,20 @@
     "375/2022",
     "40/1995",
     "468/1991"
+   ],
+   "undercount": -1
+  },
+  {
+   "billNodeId": "bill:tisk:43353",
+   "cislo": 231,
+   "amended_laws_full": [
+    "483/1991",
+    "484/1991"
+   ],
+   "recordedLaws": [
+    "348/2005",
+    "483/1991",
+    "484/1991"
    ],
    "undercount": -1
   },

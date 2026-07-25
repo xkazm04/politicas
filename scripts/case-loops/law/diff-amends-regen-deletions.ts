@@ -20,9 +20,42 @@ const arg = (name: string, fb = ""): string => {
 };
 
 // Allowlist: (from,to) keys the orchestrator has explicitly reviewed and approved for deletion.
-// EMPTY by design — batch-005 found 0 deletions (see below); any future regen with a genuine
-// deletion must add an entry here with a one-line justification, reviewed BEFORE applying.
-const DELETION_ALLOWLIST: string[] = [];
+// batch-005/006 found 0 deletions. batch-007 finds its first genuine one:
+const DELETION_ALLOWLIST: string[] = [
+  // tisk 116 ("Návrh poslanců ... kterým se zrušuje zákon č. 353/2019 Sb., o výběru osob do
+  // řídících a dozorčích orgánů právnických osob s majetkovou účastí státu") is a REPEAL bill,
+  // not an amendment — its title-derived `amends` edge (bill:tisk:43226 -> law:sb:353-2019) was
+  // wired by psp-legislation.ts's LAW_CITATION title extractor, which has no verb-semantics gate
+  // (it takes the first "č. N/RRRR Sb." in the title regardless of "mění" vs "zrušuje"). Found by
+  // the batch-007 independent audit (N-A) as a known-false edge the batch-007 census fix's
+  // title-verb gate correctly zeroed at the census layer but the title_fallback UNION was still
+  // re-adding; amends-regen-007.ts's pure-repeal-title gate now excludes it upstream too — this
+  // allowlist entry is what lets the live 150-edge graph's existing (also false) copy of the same
+  // edge be REMOVED rather than refused by the deletion-safety gate.
+  "bill:tisk:43226|law:sb:353-2019",
+  // tisk 129 ("... na vydání zákona, kterým se zrušuje zákon č. 223/2016 Sb., o prodejní době v
+  // maloobchodě") — same class as tisk 116, a pure-repeal bill title. Found by the batch-007
+  // reflection pass (its title verb sits past the graph's 200-char label truncation, so a
+  // title-regex gate alone missed it) — closed instead at the census layer (NON_AMEND_ART_HEADING_RE
+  // / REPEAL_MARKER now correctly zero this bill's Čl. I "Zrušují se: 1. Zákon č. 223/2016 Sb."
+  // block). The live edge (bill:tisk:43250 -> law:sb:223-2016) predates this batch and is false.
+  "bill:tisk:43250|law:sb:223-2016",
+  // tisk 231 ("... kterým se mění zákon č. 483/1991 Sb. ... a zákon č. 484/1991 Sb. ... a kterým
+  // se zrušuje zákon č. 348/2005 Sb.") — a MIXED title carrying both real amend targets (kept:
+  // 483/1991, 484/1991) and one repeal target (348/2005 — its ČÁST ČTVRTÁ "ZRUŠOVACÍ USTANOVENÍ"
+  // block, found by the reflection pass). The live edge (bill:tisk:43353 -> law:sb:348-2005)
+  // predates this batch and is false; the two real edges for this bill are unaffected.
+  "bill:tisk:43353|law:sb:348-2005",
+  // tisk 64 (a ~150-part omnibus) — its `Čl. CXLIII "Přechodné ustanovení"` companion article
+  // cites 25/2017 (the predecessor act being effectively superseded by new provisions this bill
+  // inserts into 23/2017) in a transitional context, and its later `Čl. CLIX "Zrušovací
+  // ustanovení"` formally repeals 25/2017 outright — neither is an amendment; the bill's REAL
+  // target at that point is 23/2017 (amended two articles earlier at Čl. CXLII, kept). Found by
+  // the reflection pass (the exact class batch-006 found once on tisk 6 -> 424/1991, recurring
+  // here one level deeper, inside an otherwise-real Čl.-organised bill). The live edge
+  // (bill:tisk:43171 -> law:sb:25-2017) predates this batch and is false.
+  "bill:tisk:43171|law:sb:25-2017",
+];
 
 async function main() {
   const payloadPath = arg("payload", "docs/data-analysis/case-law/payloads/batch-005-amends-regen.json");

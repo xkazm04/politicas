@@ -1,4 +1,4 @@
-/* Case ③ Law loop — batch-006 P1b: full precision measurement on ALL 567 regenerated `amends`
+/* Case ③ Law loop — batch-007: full precision measurement on ALL regenerated `amends`
  * edges (docs/data-analysis/case-law/payloads/batch-007-amends-regen.json), reported as a metric
  * with its method stated, not a spot-check.
  *
@@ -149,7 +149,8 @@ function main() {
   const out = {
     generatedAt: new Date().toISOString(),
     method:
-      "Amending-context proxy (the SAME method the batch-005 pre-remediation Opus audit used, per batch-005.md §6 item 2): for each of the 567 regen edges, search the bill's FULL cached text " +
+      "Amending-context proxy (the SAME method batch-006's measure-precision-006.ts used, re-pointed at the batch-007 payload): for each regen edge (see summary.totalEdges below for the exact " +
+        "population size measured THIS run — deliberately not hardcoded in this string, after a batch-007 self-review caught a stale count left over from an earlier pipeline iteration), search the bill's FULL cached text " +
       "(.data/law-collision-cache/tisk-<cislo>/*.txt, all pre-cached, zero new fetch) for every occurrence of the cited 'č. N/RRRR Sb.' string, and check whether an amending-verb marker " +
       "(se mění|se ruší|se vkládá|se nahrazuje|zní:) appears within ±2500 chars of ANY occurrence. high_confidence = at least one occurrence has verb context nearby. low_confidence = the ref " +
       "string DOES appear in the text but with NO amending-verb marker nearby on ANY occurrence (the proxy's flag for a possible footnote/boilerplate-amendment-lineage/explanatory-memo false " +
@@ -159,10 +160,14 @@ function main() {
     caveats: [
       "This is a DETERMINISTIC PROXY, not a ground-truth precision measurement — a low_confidence flag means 'no nearby amending verb found', which correlates with but is not proof of a false " +
         "edge (3 hand-proven false cases in batch-005 WERE low_confidence-shaped; the reverse implication does not hold in general).",
-      "unresolvable_by_proxy is large for title_fallback edges by construction (citation source is the title prop, not the body text) — this is a coverage gap of the PROXY, not a precision defect " +
+      "unresolvable_by_proxy CAN be large for title_fallback edges (citation source is the title prop, not necessarily reprinted in the body text) — in THIS run it happens to be 0 across all title_fallback edges (see bySource.title_fallback.unresolvable_by_proxy below for the exact count), meaning the batch-007 corpus's title-derived citations all also appear in the cached body text, but that is a property of this corpus, not a guarantee; treat a future run's 0 the same as a large figure — a coverage gap of the PROXY, not a precision defect " +
         "of those edges; title_fallback citations are the same class validated by the original 150-edge graph since batch-001/002 and are not new risk surface.",
       "Refs appearing in cached DŮVODOVÁ ZPRÁVA (explanatory memo) or full boilerplate amendment-history lineage text within the 2500-char window would still register a false 'se mění' hit if " +
         "the memo itself explains the change — this proxy is a bound on the false-positive rate, not an exact figure; treat the low_confidence rate as a floor on precision risk, not a ceiling.",
+      "batch-007 independent-audit finding (N-D): AMEND_VERB includes 'se ruší' (repeal), so this proxy CANNOT distinguish a real amendment from a REPEAL clause — a repeal-target edge with its " +
+        "own bill's repeal heading within the ±2500-char window scores high_confidence here, same as a real amendment. The high_confidence rate is NOT evidence against repeal-class false " +
+        "positives; that class is excluded upstream instead, structurally, by amends-census.ts's REPEAL_MARKER/NON_AMEND_ART_HEADING_RE checks (which operate on block structure, not a verb " +
+        "proxy) before an edge ever reaches this measurement — this proxy's job is limited to the amend-vs-nothing question, not amend-vs-repeal.",
     ],
     summary: {
       totalEdges: results.length,

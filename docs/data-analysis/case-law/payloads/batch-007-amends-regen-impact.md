@@ -1,7 +1,7 @@
 # batch-007 — amends edge regeneration (post-N1/N2 census fix): impact analysis (prepare only)
 
-Edge count: **150 (current) → 586 (regenerated)**, Δ+436. 54 bills use the census `amended_laws_full` list, 78 fall back to the title-derived `amended_laws` prop, 9 have neither (logged, not dropped).
-Missing law nodes: **5 distinct statutes** cited with no corresponding `law` node in the graph, affecting **8 bill-citations** — proposed follow-up census, not built this batch.
+Edge count: **150 (current) → 581 (regenerated)**, Δ+431. 55 bills use the census `amended_laws_full` list, 77 fall back to the title-derived `amended_laws` prop, 9 have neither (logged, not dropped).
+Missing law nodes: **5 distinct statutes** cited with no corresponding `law` node in the graph, affecting **5 bill-citations** — proposed follow-up census, not built this batch.
 
 ## Churn re-ranking — top 10 most-amended statutes, before vs after
 
