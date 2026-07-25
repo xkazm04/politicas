@@ -141,3 +141,15 @@ and the graph-metrics block in [[coverage-ledger]] for progress.
 | Q-law-12 (new) | missing-law-node ingest: 188 statutes / 289 citations (50.6%) have no law node — e-Sbírka SPARQL resolves ELIs cheaply | **batch-005 P1** |
 | Q-effort-13 (new) | Kott-signal sources identified (cro.justice.cz, volby.cz) — probe with real data | open |
 | Q-effort-9/11/12 | rewrites / prose-vs-props gate / divergence V3 | ✅ done |
+
+### New external sources (assessed 2026-07-25, operator-cleared)
+| id | source | verdict | effort | consumes |
+|---|---|---|---|---|
+| S1 | `dataor.justice.cz` bulk OR export | **INGEST** — licence conditions accepted (non-commercial + GDPR controller). Solves the dissolved-entity gap (PRaK proven) and unlocks the indirect-ownership layer (`AngazmaPravnicke` = dated company→company chains, O-money-3) | M | ① money |
+| S2 | `rozhodnuti.justice.cz` court decisions | **INGEST for law** (statute citations parse to `law:sb:*` at 85.2% on a 548-citation sample); SKIP for money (names + IČOs anonymized) | M | ③ law |
+| S3 | `kiosek.justice.cz/opendata/` úřední desky | **INGEST** — NOT the CSLAV replacement it was assumed to be: it's the national court/prosecutor notice-board catalogue (208 institutions, hourly, JSON-LD + PDFs). Per-posting granularity; **unanonymized IČOs**, dense statute citations across broader agenda than rozhodnuti, and `spisová značka` keyspaces that cross-reference ISIR (INS) and dataor (oddíl/vložka) | M first slice (PDF text extraction + boilerplate-vs-substantive classifier), S incremental | ③ law + ① money |
+| S4 | ISIR event feed (`eisir/isir.justice.cz`) | **WATCH SIGNAL ONLY** (operator decision) — insolvency events become money-loop leads; paid IČO-search tier declined | S | ① money |
+| S5 | MSP DWH (contract MSP-110/2024-MSP-CES, CCA Group, 66.9M Kč) | **SKIP** — infrastructure swap, not a data-scope expansion: the contract's own annex specifies the same "vybrané výstupní sestavy" aggregates as CSLAV. `cslav.justice.cz` still live (phased retirement, 2-month parallel run, cutover ~May 2026) | — | none |
+| S6 | `msp.gov.cz` justice statistics | **WATCH** — context-grade aggregates, nothing entity- or statute-linked | — | none |
+
+> Incidental find worth keeping: **`code.gov.cz` is a live public government GitLab** (MSP has a public group, 8 repos). A source-discovery surface for future civic-data work. The DWH's own source is contractually pushed to an unnamed "GitLab Objednatele" — no public URL confirmed.
