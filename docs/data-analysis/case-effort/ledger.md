@@ -17,10 +17,24 @@ population is feasible; triage decides depth, not whether.
 | 003 | 35 | 85/207 (41.1 %) | 0.500 | R=1 · quiet-workhorse flavour badge+filter on `/zebricek` (O-effort-3) | 35/35 PASS | Sonnet army (7×5) + 2 Opus calls (money verification + reflection); Q-effort-5 end-date-aware tenure annotation (207/207: 193 full_term / 7 replacement / 3 departed / 4 never_seated) + Q-effort-6 componentDivergence retune (sd 0.098→0.323, validated) both shipped; NEW mid-term-role-change structural class (6 MPs); oversight-flavour quiet-workhorse population now fully covered (5/5); signal dip is composition (17/35 high-triage filler), not quality decay |
 | 004 | 35 | 120/207 (58.0 %) | 0.500 | R=1 · role_window_mismatch badge (O-effort-4) | 35/35 + 8/8 rewrites + 6/6 backfill PASS | Sonnet army (5×7) + Opus money-verification + Opus reflection; 8 held-back money dossiers rewritten under VR doctrine; Q-effort-11 prose-vs-props gate shipped; Kott-signal (Q-effort-10) reopened, not closed |
 | 005 | 45 | 165/207 (79.7 %) | 0.458 | R=1 · tenure-aware profile copy (mandate note + TrendPanel suppression <90d) | 45/45 PASS (post-fix; 13 initial DROPs on `effort_low_score_reason` misuse, fixed) | Sonnet army (9×5) — 80% high-triage filler (36/45), lens exhaustion now dominant; CRO/volby.cz access probe: volby.cz POVOLANI worth building, cro.justice.cz NOT autonomously accessible (corrects batch-004 framing); P51/C13 two-layer money gate first full exercise — 4/10 BLOCKING catches (false-clearance reversal, truncated-fetch active tie missed, wrong entity+dates, ambiguity resolved); Opus reflection held batch back one fix pass — found `committee_count` mismatch (29/45 dossiers) is an EFFORT-OWNED extractor bug (not Case ① ingest), 3/7 driver-applied Opus fixes were not actually applied on first pass (re-fixed), public-render leakage on 4 low-score-reason profiles cleaned |
+| 006 | 42 | **207/207 (100 %) — POPULATION CLOSED** | 0.405 | R=1 · Q-effort-14 public-copy gate + committees rebuilt (extractor & profile render) + convergence rule made executable | 42/42 PASS (post-fix; all 42 initially DROPped by the NEW public-copy check) | population complete by ENUMERATION, not by the K=3 yield rule (which does not fire — see below). Batch-005's `committees[]` root cause found WRONG: Podvýbor was never the cause (0 PSP10 podvýbor memberships exist); real causes are Delegace organs (39 MPs) + duplicate member/function rows on one organ (121 MPs). 99 pipeline-jargon leaks in verbatim-rendered public fields across 42/42 dossiers → prose lesson converted to a hard-DROP gate check; internals preserved in new non-rendered `effort_analyst_note`. 10 `effort_low_score_reason:"unknown"` badges removed from MPs incl. the batch's TOP scorer. P51/C13: 2 BLOCKING false clearances reversed (Jakob, Horák), 1 CONFIRMED (Petrtýl, 4 active ties), systemic root cause = "mandate began 4.10.2025" assumption wrong for 6 of 8. Parallel: volby.cz Kott-signal ingest SHIPPED (205/207 joined, 33 sector↔committee hits/32 MPs, honest null on Kott's own self-referential POVOLANI) |
 
 **Signal-yield** is the convergence measure (new signals ÷ units). Batch 001 is the
 baseline — every unit produced a citable dossier, so raw yield ≈ 1.0; the 0.771 above is
-mean story-worthiness. Convergence (K=3 batches under threshold) not yet applicable.
+mean story-worthiness. **Convergence threshold pinned at batch 006: `SIGNAL_YIELD_THRESHOLD
+= 0.50`** (`scripts/case-loops/effort/triage.ts`, evaluated in code and printed every run).
+Before batch 006 the kernel's K=3 rule had **no number anywhere in the repo**, so it could
+never fire; batches 001–005's "not yet applicable" was therefore unfalsifiable rather than
+false. Against the pinned value the series 0.771 → 0.744 → 0.500 → 0.500 → 0.458 → 0.405
+puts only b5 and b6 strictly under threshold → **K=2 of 3, the yield rule does NOT fire**.
+Coverage is declared instead on **enumeration** (207/207 dossiered at batch 006) — the yield
+rule is an early-stop rule and is moot once the population is exhausted.
+
+**Coverage is counted two ways on purpose.** *Dossiered* = `stage != "pending"` (army + gate
+complete) — this is what "coverage" means and what triage's resume filter uses: **207/207**.
+*At stage `signal`* = additionally flipped by a live persist: **127/207**. The 80-unit gap is
+batches 004/005 awaiting the orchestrator's `persist-batch.ts` run — outstanding persist debt,
+not missing analysis. `finalize-ledger.ts` prints both so neither can be quietly overstated.
 
 ## Batch log
 
@@ -192,3 +206,89 @@ mean story-worthiness. Convergence (K=3 batches under threshold) not yet applica
   kernel's own guardrail — don't keep ranking on a saturating signal); pick up the `extract-dossiers.ts`
   committee-extraction fix (1-line-scope, closes a 5-batch-old false-anomaly source) and the volby.cz POVOLANI
   ingest build as the next build-backlog items.
+
+### Batch 006 — population closed (207/207), committee bug re-root-caused, public copy becomes a gate (2026-07-25)
+- **POPULATION COMPLETE: 207/207 dossiered.** The last 42 MPs, 9 Sonnet groups, gate 42/42 PASS,
+  146 citations, mean signal 0.405. Full detail in `batch-006.md`.
+- **Coverage declared on ENUMERATION, not on the K=3 rule — and the rule was found unenforceable.**
+  The kernel's signal-yield threshold had never been pinned to a number in this repo; the
+  "threshold recalibrated for the V2 scale" comment prior steering pointed at is the unrelated
+  `componentDivergence` lens cut (0.9). Pinned this batch at `SIGNAL_YIELD_THRESHOLD = 0.50` and made
+  executable in `triage.ts`. Against it, only b5/b6 are strictly under → **K=2, the rule does NOT
+  fire**; it was not back-fitted to make it appear to. Coverage stands because the population is
+  enumerated. Lens evidence corroborates independently: 27/42 (64 %) pure high-triage filler and the
+  absentee / quiet-workhorse / contested lenses ALL produced zero.
+- **Batch-005's `committees[]` root cause was WRONG, and three vault files had cited it.** It is not
+  a Podvýbor/ověřovatel exclusion: **0 PSP10 memberships reference any of the 430 Podvýbor organs**,
+  so `committee_count` never counted them either (the mechanism as first written was wrong twice over —
+  `/v[ýy]bor|komis/i` DOES match "Podvýbor"; subcommittees are kept out of `influential_in` by the
+  direct-child-of-chamber filter, all 430 hanging off 125 parent committees — corrected by the
+  reflection before persist). The real divergence is (a) **Delegace** organs —
+  counted by `COMMITTEE_ORGAN_TYPES`, missed by kg-compute's `/v[ýy]bor|komis/i` influential_in
+  filter (39 MPs); and (b) **duplicate membership rows** — psp.cz stores a leadership seat as a
+  `member` row PLUS a `function` row on the same organ (251/1062 pairs), so `committee_count` counts
+  it twice while `influential_in` dedupes (121 MPs — dominant cause). `committees[]` is now rebuilt
+  from raw membership rows through the exact `isCommitteeSeat` predicate `computeContribution` uses
+  (both predicates exported with an anti-fork comment): **0/42 mismatches**, and the extractor now
+  prints a mismatch count so a regression is loud. Lesson: a root-cause trace needs the same
+  verification bar as any other claim — batch 005's was confident, specific and wrong.
+- **`committee_count` genuinely double-counts leadership bodies** — a defect in the deterministic
+  index. Case gate (a) forbids this loop from touching `computeContribution`, so it is **escalated,
+  not fixed**. The extractor mirrors the double-count deliberately (so no phantom mismatch appears);
+  the profile page dedupes for render.
+- **Public-render defect at 25× the batch-005 scale → prose lesson converted to CODE.** 99
+  field-instances across **42/42** dossiers carried pipeline jargon in `effort_notes` /
+  `effort_public_role` / `effort_bill_focus`, all of which render verbatim to voters. Every statement
+  was true, which is why an accuracy-only gate passed all 99. New **Q-effort-14** hard-DROP check
+  (`publicCopyViolations` in `gate.ts`) dropped all 42; all rewritten as reader copy and re-gated
+  clean, with removed internals preserved verbatim in a **new non-rendered `effort_analyst_note`**
+  prop (39/42) — no silent truncation. Also removed 10 `effort_low_score_reason:"unknown"` values
+  that would have badged MPs — including the batch's **highest** scorer (82.9) — with "low score,
+  cause unexplained". Same class as batch-005's 9 vocabulary removals; argues for a score
+  precondition in code, not just a vocabulary check.
+- **P51/C13 two-layer money gate — 2 BLOCKING false clearances reversed.** 8 money dossiers, 20
+  entities independently re-verified from raw ARES VR history (4 disagreements). **Jakob**: army
+  wrote "no role" at Operátor ICT (884.86M CZK); he was on its supervisory board 2018–2020 (the C11
+  class exactly) — corrected, and symmetry held (seat ended 19 days before his first mandate, so no
+  overlap is implied). **Horák**: VR dates flawless but computed against the wrong mandate start —
+  his board seat overlapped his mandate by ~2.5 months; the denial sentence was deleted, kept as a
+  documented overlap and explicitly NOT a proven conflict (contract date unknown). **Petrtýl
+  CONFIRMED**: four active ties concurrent with a mandate held since 2017. **Systemic root cause:**
+  the army assumed every mandate began 4.10.2025, but 6 of 8 served earlier terms — that single
+  assumption produced both BLOCKINGs and most corrections. Two material misses recorded as sourced
+  LEADs: GEMA MB's 16.58M CZK is an aggregate (180 contracts) and the firm Petrtýl half-owns donated
+  ~946.5k CZK to ANO 2011 across 2016–2025; AGROCENTRUM's real exposure is a ~154M CZK MZe/**SZIF**
+  subsidy channel — SZIF being the fund Pražák joined the supervisory board of in March 2026.
+- **Corrections applied in place and independently audited by the driver** against a pre-correction
+  snapshot: **8/8 verified** (batch 005's failure — appending a correction beside the error — did not
+  recur). The one audit "failure" was a bug in the audit regex itself: Czech declension
+  (`příspěvkovou organizaci` vs `příspěvková organizace`) — the same morphology trap that caused a
+  batch-005 gate false positive.
+- **Positive symmetry**: of 8 money-touching MPs only Petrtýl carries active concurrent commercial
+  ties; Kučera's ended 2005, Tureček's 2003, Brázdil's 2016, Rakušan's single active tie is a
+  non-commercial local political association with zero money flow. Brázdil's dossier carries the
+  batch's best epistemics, preserved: Vojenská nemocnice Olomouc is a státní příspěvková organizace
+  structurally outside the commercial register — recorded as **not verifiable this way, NOT
+  "cleared"**.
+- **Manifestation check**: every effort_* prop verified consumed and rendered, no prop-name drift, no
+  orphaned UI field, `serverExternalPackages` guard intact. One real gap found and fixed: `/poslanec`'s
+  committee section had the identical `influential_in` bug — rebuilt from memberships, deduped by
+  organ at max role, past seats de-emphasized. That was the only thing built this batch; nothing was
+  constructed merely to demonstrate activity.
+- **`npm run check`**: effort-owned paths green (typecheck ✅ · lint ✅ · 264 tests ✅). **Repo-wide
+  lint FAILS** on `lib/ingest/sources/dataor.ts` (unused var + silent catch) — a sibling loop's file,
+  outside this boundary, flagged to the orchestrator.
+- Gate 42/42 (post-fix). No live write, no commit (fleet) — see `handoff.md`.
+- **Steering now that the population is closed** (the loop drops to staleness-driven mode):
+  (1) escalate the three ingest-scope gaps to Case ① — subcommittee memberships absent entirely,
+  `leadership_count` blind to club and subcommittee leadership, `committee_count` double-counting;
+  (2) ~~the volby.cz POVOLANI ingest~~ — SHIPPED this batch by a parallel fleet agent: `lib/ingest/
+  sources/volby.ts` (+19 tests), 205/207 MPs joined (99.0%), deterministic Kott-class classifier found
+  33 sector↔committee hits across 32 MPs (3 combined with Control Committee membership), and an honest
+  null on Kott's own case (his declared occupation is self-referential — "poslanec PSP ČR" — a blind
+  spot shared by 52.7% of joined incumbents). Recommendation: do not surface as a standalone COI badge
+  without a second, non-self-referential source. Full detail in `batch-006-volby-signal.md`;
+  (3) confirm the two batch-006 money LEADs (GEMA MB → ANO 2011 donations; AGROCENTRUM → SZIF
+  subsidy channel) through Case ①'s own gate before any surface renders them;
+  (4) re-open per-MP work only on staleness triggers (re-ingest, Pumper watch events), not on a new
+  full sweep — the lenses are exhausted and a seventh grind would be composition, not signal.

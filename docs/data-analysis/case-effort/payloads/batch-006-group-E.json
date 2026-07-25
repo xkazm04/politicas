@@ -1,0 +1,110 @@
+{
+  "generatedAt": "2026-07-25T00:00:00.000Z",
+  "proposals": [
+    {
+      "id": "psp:person:7024",
+      "name": "Michaela Moricová",
+      "club": "Piráti",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["evropské záležitosti", "digitalizace a umělá inteligence", "spotřebitelská ochrana"],
+        "effort_bill_focus": "Jediný sponzorovaný tisk ve vzorku je 168 (novela zákona o DPH, amended_laws 235/2004), podaný 15. 4. 2026 skupinou poslanců s O. Richterovou jako první podepsanou (submitter='Richterová O. a další') — Moricová je tedy spolupodepsala, nikoli předložila (gate e). Tisk je k 25. 7. 2026 stále v 1. čtení, Rozpočtový výbor je garančním výborem, zpravodajkou Ing. Jitka Volfová; vláda k němu 12. 5. 2026 vydala nesouhlasné stanovisko. Neprošel ani nebyl zamítnut.",
+        "effort_public_role": "Moricová je od 5. 11. 2025 ověřovatelkou Sněmovny. Je členkou Výboru pro evropské záležitosti (od 14. 11. 2025) a Stálé delegace Parlamentu do Meziparlamentní unie (od 14. 11. 2025); dle psp.cz dále sedí ve dvou digitálních podvýborech — Podvýboru pro ICT, AI, digitální ekonomiku a kryptoaktiva (od 22. 1. 2026) a Podvýboru pro digitální ekonomiku, AI a ochranu spotřebitele (od 11. 2. 2026) — a v Podvýboru pro sport (od 18. 2. 2026); žádná z těchto podvýborových rolí není v poskytnutém poli committees zachycena.",
+        "effort_notes": "Numerika souhlasí: committee_count=2 odpovídá 2 doloženým položkám (VEZ, SDMPU) — psp.cz ale ukazuje navíc 3 podvýborové role neuvedené ve vstupním poli, což committee_count patrně podhodnocuje jejího skutečného výborového zapojení. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření.",
+        "effort_low_score_reason": "unknown"
+      },
+      "signal": 0.22,
+      "headline": "Moricová, ověřovatelka Sněmovny za Piráty, se v prvním roce mandátu soustředí na evropskou a digitální agendu (dva podvýbory k AI/digitální ekonomice); jediný spolupodepsaný tisk k dani z přidané hodnoty zatím uvízl v 1. čtení s nesouhlasným stanoviskem vlády — klidný, nekonfliktní profil bez peněžních zjištění.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7024&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168"
+      ]
+    },
+    {
+      "id": "psp:person:6447",
+      "name": "Kamal Farhan",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["zdravotnictví", "zdravotní pojištění a hospodaření zdravotnictví"],
+        "effort_bill_focus": "Žádný sponzorovaný tisk v poskytnutém vzorku (sponsoredBills prázdné, bills_authored=0) — výhradně výborová a hlasovací práce v tomto období.",
+        "effort_public_role": "Farhan je místopředsedou Výboru pro zdravotnictví (od 13. 11. 2025) a jeho členem (od 11. 11. 2025) — obě role odpovídají 2 doloženým položkám v committees. Dle psp.cz je dále členem Podvýboru pro ekonomiku zdravotnictví, zdravotní pojištění a přímo řízené organizace (od 4. 2. 2026) a zvoleným členem Správní rady Všeobecné zdravotní pojišťovny (VZP) s mandátem od 28. 1. 2026 — jde o zákonný poslanecký dohled nad hospodařením veřejné zdravotní pojišťovny, nikoli obchodní vazbu.",
+        "effort_notes": "Numerika souhlasí: committee_count=2 odpovídá 2 doloženým položkám. Farhan má legitimní PSP9 srovnání (contributionPsp9 kompletní, ne null): skóre kleslo z 69,5 (PSP9) na 62,6 (PSP10 vzorek), zatímco v PSP9 měl 13 spolupodepsaných tisků a 14 interpelací, v PSP10 vzorku zatím 0 a 0 — může jít o skutečný pokles legislativní iniciativy v novém volebním období, nebo o brzy-mandátový artefakt (tenureDays=293); bez dalších dat nelze rozlišit, uvádím obě možnosti. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření.",
+        "effort_low_score_reason": "unknown"
+      },
+      "signal": 0.3,
+      "headline": "Farhan, místopředseda zdravotnického výboru za ANO a zvolený člen správní rady VZP, má oproti minulému období (PSP9 skóre 69,5) zatím nižší PSP10 skóre (62,6) s nulovou zaznamenanou legislativní iniciativou — nejasné, zda jde o reálný pokles nebo o brzký stav mandátu; bez peněžních zjištění.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6447&o=10"
+      ]
+    },
+    {
+      "id": "psp:person:7007",
+      "name": "Monika Hubíková",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["věda, vzdělávání a mládež", "životní prostředí", "ochrana zvířat", "rodinná politika"],
+        "effort_bill_focus": "Jediný sponzorovaný tisk ve vzorku je 87 (návrh zákona o zemských znacích a vlajkách), podaný 22. 1. 2026 s R. Vondráčkem jako prvním podepsaným (submitter='Vondráček R.') — Hubíková je tedy spolupodepsala, nikoli předložila (gate e). Tisk je k 25. 7. 2026 v projednávání ve výborech (garanční Výbor pro vědu, vzdělávání, mládež a sport, dále přikázán Ústavně-právnímu výboru), vláda vydala souhlasné stanovisko 25. 2. 2026. Neprošel ani nebyl zamítnut.",
+        "effort_public_role": "Hubíková je členkou Výboru pro vědu, vzdělávání, mládež a sport, Výboru pro životní prostředí a Stálé komise pro rodinu a rovné příležitosti (všechny od listopadu 2025) — 3 role odpovídají 3 doloženým položkám v committees. Dle psp.cz od 18. 2. 2026 navíc předsedá Podvýboru pro ochranu zvířat a je členkou Podvýboru pro regionální školství, celoživotní učení a inkluzi a Podvýboru pro sport — žádná z těchto podvýborových rolí, včetně předsednické, není v poskytnutém poli committees ani v leadership_count zachycena.",
+        "effort_notes": "Numerika souhlasí: committee_count=3 odpovídá 3 doloženým položkám. Datový artefakt: leadership_count=0, ale dle psp.cz reálně předsedá jednomu podvýboru (ochrana zvířat) — stejný vzorec chybějících podvýborových rolí jako u Moricové v tomto vzorku, což naznačuje, že se v pipeline systematicky nepočítají podvýborová předsednictví do leadership_count. Profil je tichý (speech_turns=2, interpellations=0) při solidní docházce (absence_rate=0.2) — nejde o quietWorkhorse dle triage, ale numericky se tomu blíží. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření.",
+        "effort_low_score_reason": "unknown"
+      },
+      "signal": 0.28,
+      "headline": "Hubíková (ANO) tiše předsedá Podvýboru pro ochranu zvířat a sedí ve třech dalších výborových tělesech vzdělávací a environmentální agendy, ale jen dvěma řečnickými vstupy a bez interpelace — její podvýborové předsednictví navíc chybí v datovém poli leadership_count; jediný spolupodepsaný tisk (zemské znaky a vlajky) zatím prochází výbory.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7007&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87"
+      ]
+    },
+    {
+      "id": "psp:person:6409",
+      "name": "František Petrtýl",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["mandátové a imunitní záležitosti", "petice", "evropské záležitosti", "podnikání ve stavebnictví a strojírenství (soukromá vazba)"],
+        "effort_bill_focus": "Jediný sponzorovaný tisk ve vzorku je 87 (návrh zákona o zemských znacích a vlajkách), s R. Vondráčkem jako prvním podepsaným (submitter='Vondráček R.') — Petrtýl jej tedy spolupodepsal, nikoli předložil (gate e). Tisk je k 25. 7. 2026 v projednávání ve výborech, vláda vydala souhlasné stanovisko. Neprošel ani nebyl zamítnut.",
+        "effort_public_role": "Petrtýl je členem Mandátového a imunitního výboru (od 5. 11. 2025), Petičního výboru (od 11. 11. 2025), Výboru pro evropské záležitosti (od 16. 1. 2026) a Volební komise (od 29. 10. 2025) — 4 role odpovídají 4 doloženým položkám v committees. Dle psp.cz je dále od 11. 2. 2026 členem Podvýboru pro migrační a azylovou politiku a od 17. 3. 2026 členem Podvýboru pro lidská práva a národnostní menšiny, žádná z těchto podvýborových rolí není v poskytnutém poli committees zachycena.",
+        "effort_notes": "PENĚŽNÍ OVĚŘENÍ (VR ARES, ne plain endpoint): Ověřeno u všech 4 firem z linkedCompanies přes veřejný rejstřík (přes zrcadlo dat or.justice.cz), s výslovným ohledem na historickou i aktuální oficiální/vlastnickou roli. (1) SPARING MB s.r.o. (IČO 25713817): Petrtýl je AKTUÁLNÍM jednatelem (společné jednání s Josefem Dufkem) a 50% společníkem (vklad 50 000 Kč) od založení firmy 26. 11. 1998, beze změny dle posledního zápisu 15. 11. 2022 — aktivní vazba trvá. (2) F.M.S. Consulting s.r.o. (IČO 29054117): Petrtýl NENÍ jednatelem (tím je Ing. Stanislav Ševčík od 2010), ale je AKTUÁLNÍM 33% společníkem (vklad 66 000 Kč) od zápisu 28. 5. 2014 — čistě vlastnická, nikoli statutární vazba, ale stále aktivní. (3) COMBIN BOHEMIA spol. s r.o. (IČO 49825950): Petrtýl je AKTUÁLNÍM samostatně jednajícím jednatelem; 100% vlastníkem firmy je slovenská mateřská COMBIN BÁNSKÁ ŠTIAVNICA s.r.o., Petrtýl zde tedy nemá osobní vlastnický podíl, jen statutární roli. (4) GEMA MB s.r.o. (IČO 61681679): Petrtýl je AKTUÁLNÍM jednatelem (společně s Josefem Dufkem) i 50% společníkem (vklad 2 500 000 Kč); zápis z 25. 10. 2021 ukazuje technický výmaz a téhož dne opětovný zápis se změněným podílem — jde o formální úpravu záznamu, ne o skutečný odchod a návrat. Ve všech 4 případech tedy jde o AKTUÁLNÍ (nikoli jen historické) statutární a/nebo vlastnické vazby souběžně s výkonem poslaneckého mandátu. K uvedené smluvní částce 16 575 162 Kč u GEMA MB (dossier pole contractCzk) jsem se v tomto sezení nedostal k samotnému záznamu ve smlouvy.gov.cz (vyhledávací rozhraní je čistě JS-řízené a nevrátilo výsledky přes fetch) — figuru tedy nemohu nezávisle dohledat, jen potvrzuji, že vlastnická/statutární vazba na GEMA MB je reálná a aktuální; doporučuji dohledat protistranu a účel smlouvy zvlášť. Datově committee_count=4 odpovídá 4 doloženým položkám committees.",
+        "effort_low_score_reason": "unknown"
+      },
+      "signal": 0.72,
+      "headline": "Petrtýl (ANO) je souběžně s poslaneckým mandátem AKTUÁLNÍM jednatelem a/nebo společníkem ve všech 4 dosud sledovaných firmách (SPARING MB, F.M.S. Consulting, COMBIN BOHEMIA, GEMA MB) — ověřeno přes veřejný rejstřík, žádná z vazeb není jen historická; u GEMA MB navíc figuruje smluvní částka 16,6 mil. Kč, jejíž protistranu se v tomto sezení nepodařilo dohledat.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6409&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
+        "https://rejstrik-firem.kurzy.cz/25713817/sparing-mb-sro/",
+        "https://rejstrik-firem.kurzy.cz/29054117/fms-consulting-sro/",
+        "https://rejstrik-firem.kurzy.cz/49825950/combin-bohemia-spol-s-r-o/",
+        "https://rejstrik-firem.kurzy.cz/61681679/gema-mb-sro/"
+      ]
+    },
+    {
+      "id": "psp:person:6745",
+      "name": "Marie Pošarová",
+      "club": "SPD",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["kontrola zpravodajských služeb", "zemědělství", "veřejná správa a regionální rozvoj", "stavební právo"],
+        "effort_bill_focus": "3 sponzorované tisky ve vzorku, ve všech je Pošarová spolupodepsaná, nikoli předkladatelka (gate e): tisk 67 (novela stavebního zákona, amended_laws 283/2021, submitter='Babiš A. a další') prošel 3. čtením 10. 7. 2026 a byl 23. 7. 2026 postoupen Senátu (lhůta do 22. 8. 2026) — jediný ze všech tisků v tomto vzorku skupiny E, který už reálně prošel Sněmovnou; tisk 87 (zemské znaky a vlajky, submitter='Vondráček R.') je v projednávání ve výborech; tisk 221 (novela zákona o střetu zájmů, amended_laws 159/2006, submitter='Vondráček R. a další') je od 8. 6. 2026 v projednávání, garančním je Ústavně-právní výbor, vláda zaujala neutrální stanovisko.",
+        "effort_public_role": "Pošarová předsedá Stálé komisi pro kontrolu činnosti Úřadu pro zahraniční styky a informace (ÚZSI, od 27. 11. 2025) a je místopředsedkyní Zemědělského výboru (od 13. 11. 2025) — obě odpovídají doloženým leadership položkám v committees (leadership_count=2). Dále je členkou Výboru pro veřejnou správu a regionální rozvoj, Zemědělského výboru, Stálé komise pro kontrolu poskytnutí údajů z centrální evidence účtů a členkou téže Stálé komise pro ÚZSI, jejíž je zároveň předsedkyní — 6 položek committees odpovídá committee_count=6. Dle psp.cz je od 22. 1. 2026 také členkou Podvýboru pro energetiku, což committees nezachycuje.",
+        "effort_notes": "Numerika souhlasí: committee_count=6 odpovídá 6 doloženým položkám (dvojí zápis u SKÚZSI a ZEV odráží souběžnou členskou a vedoucí roli, ne chybu). Legitimní PSP9 srovnání: skóre mírně vzrostlo ze 73,6 (PSP9) na 77,3 (PSP10 vzorek) — nejaktivnější profil této skupiny, s vysokou docházkou i podílem na legislativě, byť většinou jako spolupodepisující, ne jako předkladatelka. Sdílí spolupodpis tisku 87 s Hubíkovou a Petrtýlem (mega-tisk s ~40 spolupodepsanými napříč kluby), což naznačuje, že bills_authored může u širokých vícestranických tisků nadhodnocovat individuální legislativní iniciativu — jde o obecnější metodický bod, ne specifický nález u Pošarové. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření.",
+        "effort_low_score_reason": "unknown"
+      },
+      "signal": 0.42,
+      "headline": "Pošarová (SPD) předsedá Stálé komisi pro kontrolu ÚZSI a místopředsedá Zemědělskému výboru — jeden z jejích spolupodepsaných tisků (novela stavebního zákona) už prošel Sněmovnou a čeká na Senát; PSP9→PSP10 skóre mírně roste (73,6→77,3), nejaktivnější profil skupiny bez peněžních zjištění.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6745&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=67",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=221"
+      ]
+    }
+  ],
+  "crossCuttingLeads": [
+    "Systematický datový artefakt: podvýborové role (včetně předsednictví, např. Hubíková u Podvýboru pro ochranu zvířat) nejsou zachyceny ani v poli committees, ani v leadership_count — pouze plnohodnotné výbory/komise/delegace jsou v dossier vstupu. To se opakuje u 3 z 5 MPs v této skupině (Moricová, Hubíková, Petrtýl) a může systematicky podhodnocovat výborové zapojení a leadership_count napříč celým batchem, ne jen u této skupiny.",
+    "MONEY nález u Petrtýla (6409): u všech 4 sledovaných firem jde o AKTUÁLNÍ, ne jen historické, statutární a/nebo vlastnické vazby (ověřeno přes VR/or.justice.cz zrcadlo) — souběžný výkon poslaneckého mandátu (mj. v Petičním a Mandátovém a imunitním výboru) a aktivní jednatelství/spoluvlastnictví ve 4 firmách je nejsilnější peněžní nález této skupiny. Smluvní částka 16 575 162 Kč u GEMA MB (dossier pole contractCzk) se nepodařilo v tomto sezení dohledat na smlouvy.gov.cz (JS-only vyhledávání) — doporučuji dohledat protistranu/účel smlouvy zvlášť a ideálně přejít reviewState ze 'pending_review' na potvrzený nález u všech 4 firem.",
+    "Tisk 87 (zemské znaky a vlajky) sdílí 3 z 5 MPs této skupiny (Hubíková, Petrtýl, Pošarová) jako spolupodepsané mezi ~40 poslanci napříč kluby — ukazuje, že bills_authored u širokých vícestranických tisků může vážit stejně jako úzké iniciativy s několika signatáři; metodický bod k případnému zvážení v Case ②, ne chyba u konkrétních MPs."
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "generatedAt": "2026-07-25T00:00:00.000Z",
+  "proposals": [
+    {
+      "id": "psp:person:7013",
+      "name": "Veronika Kovářová",
+      "club": "Piráti",
+      "lens": ["divergence", "high-triage"],
+      "props": {
+        "effort_work_themes": ["veřejná správa a regionální rozvoj", "hospodářská politika", "územní rozvoj a bydlení"],
+        "effort_bill_focus": "Kovářová spolupodepsala, nikoli předložila, oba tisky ve vzorku (submitter pole u obou uvádí jiného poslance jako zástupce navrhovatelů, což odpovídá bills_authored=2 jako spolupodpisům, ne vlastní iniciativě). Tisk 168 (novela zákona o dani z přidané hodnoty, 235/2004 Sb.) předložila skupina poslanců za Piráty (zástupkyně O. Richterová) 15. 4. 2026; garančním výborem je Rozpočtový výbor (zpravodajka Ing. Jitka Volfová), vláda 12. 5. 2026 vyjádřila nesouhlas, k 25. 7. 2026 je tisk stále v projednávání. Tisk 215 (novela soudního řádu správního, 150/2002 Sb.) předložila skupina kolem K. Stojanové 4. 6. 2026; garančním je Ústavně-právní výbor (zpravodajka Eva Decroix), vláda 30. 6. 2026 rovněž vyjádřila nesouhlas, obsahuje 7 pozměňovacích návrhů a k 25. 7. 2026 dosud neprošel ani nebyl zamítnut.",
+        "effort_public_role": "Kovářová je architektka (Ing. arch.), v letech 2020–2024 byla zastupitelkou Jihočeského kraje (mandát v komunálních volbách 2024 neobhájila) a je 1. místopředsedkyní jihočeské krajské organizace Pirátů. Do Sněmovny se dostala v roce 2025 díky 2 787 preferenčním hlasům, které ji posunuly před lídra kandidátky. Nyní je členkou Hospodářského výboru (od 6. 3. 2026) a Výboru pro veřejnou správu a regionální rozvoj (od 11. 11. 2025) a dále sedí v osmi podvýborech (vodní hospodářství, lesní hospodářství, potravinářství/veterinářství a živočišná výroba, kultura — zde od 12. 3. 2026 i ověřovatelka, heraldika a vexilologie, cestovní ruch, bytová politika a výstavba, regiony v transformaci) — širokým portfoliem zahrnujícím územní rozvoj a bydlení, což odpovídá jejímu architektonickému profesnímu zázemí.",
+        "effort_notes": "Numerika souhlasí: props uvádí committee_count=2 a poskytnutý seznam committees obsahuje přesně 2 položky (HV, VSR) — žádná nesrovnalost. Její osm podvýborových členství (viz psp.cz) není v poskytnutém poli committees zachyceno vůbec, což je ale konzistentní se stejným škálováním u ostatních čtyř MPs v této skupině (pipeline zjevně sleduje jen výbory/komise/delegace, ne podvýbory) — nejde tedy o anomálii specifickou pro ni. Rebelie proti klubu jsou zanedbatelné (3 hlasy z 1498, rate 0.002) a shoda s piráty jako Ančincová/Bartoš/Richterová je téměř 100 %. Žádné peněžní zjištění — linkedCompanies je prázdné pole."
+      },
+      "signal": 0.28,
+      "headline": "Kovářová, architektka a bývalá krajská zastupitelka za Piráty, si v prvním sněmovním mandátu vybudovala široké, k profesi blízké podvýborové portfolio (bydlení, územní rozvoj) a spolupodepsala dvě legislativní novely bez vlastní iniciativy — klidný, nekonfliktní profil bez peněžních zjištění.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7013&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=215",
+        "https://cs.wikipedia.org/wiki/Veronika_Kov%C3%A1%C5%99ov%C3%A1"
+      ]
+    },
+    {
+      "id": "psp:person:7003",
+      "name": "Irena Ferčíková Konečná",
+      "club": "Piráti",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["evropské záležitosti", "obchod s lidmi a ochrana obětí", "migrační a azylová politika", "hybridní hrozby", "digitalizace a umělá inteligence"],
+        "effort_bill_focus": "Ve vzorku má jediný sponzorovaný tisk (odpovídá bills_authored=1) a je pouze spolupodepsaná, nikoli předkladatelka: tisk 168 (novela zákona o DPH, 235/2004 Sb.) předložila skupina poslanců vedená O. Richterovou 15. 4. 2026; garančním výborem je Rozpočtový výbor, vláda 12. 5. 2026 vyjádřila nesouhlas, k 25. 7. 2026 stále v projednávání.",
+        "effort_public_role": "Před vstupem do politiky vedla v letech 2008–2014 organizaci La Strada ČR bojující proti obchodu s lidmi, byla členkou správní rady a expertní konzultantkou La Strada International (Nizozemsko) a od roku 2018 pracuje jako politická poradkyně European Sex Workers' Rights Alliance (ESWA); má doktorát ze speciální pedagogiky (téma dětí uprchlíků a migrantů) a v roce 2026 získala LL.M. z evropského práva. Do Sněmovny se dostala v roce 2025 za Piráty díky preferenčním hlasům (posun ze 7. na 2. místo kandidátky) po dřívějších neúspěšných kandidaturách za Zelené (2021 sněmovní volby, 2024 eurovolby). Nyní je členkou Výboru pro evropské záležitosti (od 14. 11. 2025), Stálé komise pro hybridní hrozby a Stálé delegace do Parlamentního shromáždění Rady Evropy (obě od 14. 11. 2025), předsedkyní česko-moldavské meziparlamentní skupiny (od 12. 2. 2026) a sedí v podvýborech pro ICT/AI/digitální ekonomiku, migraci a azyl, oběti a násilí a svobodu slova — poslední dva přímo navazují na její dřívější profesní zaměření na obchod s lidmi a ochranu obětí.",
+        "effort_notes": "Datová anomálie — NOVÁ, ne dřívější známý off-by-one bug: props uvádí committee_count=4 a poskytnutý seznam committees má také 4 položky, ale dvě z nich jsou identický duplicitní záznam (Stálá delegace SDPSRE uvedena dvakrát se stejnou rolí i daty), takže reálně jde jen o 3 unikátní orgány (VEZ, SKHH, SDPSRE), ne o 4. Číslo committee_count tedy formálně 'sedí' na počtu řádků, ale ne na počtu skutečných těles — doporučuji ověřit v Case ① jako nový typ artefaktu (duplicitní řádek), odlišný od dříve zdokumentovaného posunu o jednotku. Interpelace=4 je v této skupině nejvyšší hodnota, ale konkrétní témata interpelací se v této relaci nepodařilo nezávisle ověřit (webový vyhledávací nástroj došel v rámci session limitu dřív, než jsem stihla dohledat detail interpelací na psp.cz) — uvádím to zde jako neověřené, raději než abych témata domýšlela. Žádné peněžní zjištění — linkedCompanies je prázdné pole."
+      },
+      "signal": 0.42,
+      "headline": "Ferčíková Konečná přenesla víc než deset let vedení protiobchodní organizace La Strada ČR přímo do výborového zařazení (podvýbory pro oběti/násilí, migraci, digitální ekonomiku) a má nejvyšší počet interpelací ve skupině — obsahově konzistentní profil, byť konkrétní témata interpelací se nepodařilo dohledat a data vykazují nový duplicitní záznam u jednoho výboru.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7003&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168",
+        "https://cs.wikipedia.org/wiki/Irena_Fer%C4%8D%C3%ADkov%C3%A1_Kone%C4%8Dn%C3%A1"
+      ]
+    },
+    {
+      "id": "psp:person:7001",
+      "name": "Tomáš Doležal",
+      "club": "SPD",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["veřejná správa a regionální rozvoj", "kontrolní a dozorová činnost", "energetika a infrastruktura"],
+        "effort_bill_focus": "Jediný sponzorovaný tisk ve vzorku (bills_authored=1) je spolupodpisem, ne vlastní iniciativou: tisk 87, nový zákon o zemských znacích a vlajkách (amended_laws je prázdné — jde o zcela nový zákon, ne novelu), předložil Mgr. Radek Vondráček 22. 1. 2026 s 39 dalšími spolupodepsanými napříč SPD i ANO; garančním je Výbor pro vědu, vzdělávání, mládež a sport, dále projednává i Ústavně-právní výbor. Vláda vyjádřila souhlas 25. 2. 2026, organizační výbor doporučil postup 4. 3. 2026, k 25. 7. 2026 je stále ve výborovém projednávání.",
+        "effort_public_role": "Doležal pracoval jako logistický manažer a podnikal v obchodu s energetickými komoditami; k SPD se přidal 2016, neúspěšně kandidoval do krajského zastupitelstva a v eurovolbách 2019 (jako asistent poslance Jiřího Kobzy), v roce 2024 byl zvolen krajským zastupitelem Středočeského kraje a v roce 2025 poslancem (2. místo na kandidátce, cca 3 474 preferenčních hlasů, posun ze 3. místa). Od 13. 11. 2025 je místopředsedou Výboru pro veřejnou správu a regionální rozvoj, dále je členem Kontrolního výboru a Stálé komise pro práci Kanceláře Poslanecké sněmovny. Od 24. 2. 2026 předsedá česko-černohorské meziparlamentní skupině a je členem devíti dalších bilaterálních skupin (mj. s Izraelem).",
+        "effort_notes": "Numerika souhlasí: committee_count=4 odpovídá 4 položkám v poskytnutém seznamu committees, byť VSR je v seznamu uvedena dvakrát (jednou jako místopředsednický řádek s vyšší vahou 0.6, jednou jako řadové členství s vahou 0.3) — jde o stejný vzorec dvojitého záznamu jednoho tělesa (leadership řádek + membership řádek), jaký se v této skupině objevuje i u Havla (VVVMS), takže to nepovažuji za novou anomálii, spíš za opakovaný designový vzorec hodný ověření coby záměr, ne bug. Nápadně tichý profil navzdory vedoucí funkci: speech_turns=2 při 100% účasti (participation_rate=1) a nulové absenci; contested_vote_rebellion=0.23 je v této skupině nejvyšší, i když samotný rebellion_rate zůstává nízký (0.002, 4 hlasy z 1770). Žádné peněžní zjištění — linkedCompanies je prázdné pole."
+      },
+      "signal": 0.3,
+      "headline": "Doležal, místopředseda Výboru pro veřejnou správu a regionální rozvoj za SPD, kombinuje stoprocentní docházku a formální vedoucí funkci s pouhými dvěma řečnickými vstupy — procedurálně aktivní, ale řečnicky téměř neviditelný profil bez peněžních zjištění.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7001&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
+        "https://cs.wikipedia.org/wiki/Tom%C3%A1%C5%A1_Dole%C5%BEal_(politik)"
+      ]
+    },
+    {
+      "id": "psp:person:7061",
+      "name": "Ester Weimerová",
+      "club": "STAN",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["mediální politika", "veřejné zdraví a duševní zdraví", "petice a lidská práva", "kontrola NBÚ"],
+        "effort_bill_focus": "Oba sponzorované tisky ve vzorku (bills_authored=2) jsou spolupodpisem, ne vlastní iniciativou. Tisk 120 (novela zákona o daních z příjmů, 586/1992 Sb.) předložila skupina kolem L. Sedmihradské 3. 3. 2026; garančním je Rozpočtový výbor (zpravodajka Ing. Jana Filipovičová), vláda 31. 3. 2026 vyjádřila nesouhlas, k 25. 7. 2026 stále v projednávání. Tisk 214 (novela Ústavy ČR, 1/1993 Sb.) předložila skupina kolem V. Rakušana 4. 6. 2026; garančním je Ústavně-právní výbor, vláda 30. 6. 2026 rovněž vyjádřila nesouhlas, k 25. 7. 2026 stále ve výboru.",
+        "effort_public_role": "Weimerová pracuje jako zdravotnická psycholožka v havířovské nemocnici; k STAN se přidala 2020, byla krajskou předsedkyní Mladých starostů v Moravskoslezském kraji a organizátorkou Milionu chvilek pro demokracii ve Frýdku-Místku (protesty mj. k obsazení vedení justice), v krajských volbách 2024 neuspěla. Do Sněmovny byla zvolena 2025. Je členkou Výboru pro mediální záležitosti a Petičního výboru (oba od 11. 11. 2025) a Stálé komise pro kontrolu činnosti Národního bezpečnostního úřadu (od 14. 11. 2025), dále sedí v podvýborech pro veřejné zdraví/epidemiologii, nelékařské profese, duševní zdraví a rozvojovou spolupráci/lidská práva v zahraničí — podvýbory veřejného a duševního zdraví přímo navazují na její psychologickou profesi.",
+        "effort_notes": "Numerika souhlasí: committee_count=3 odpovídá 3 položkám v poskytnutém seznamu committees, žádná nesrovnalost. Nulová rebelie (0 hlasů z 1560 eligible, rate=0) — plná shoda s klubem STAN u sledovaného hlasování, při solidní docházce (absence_rate=0.2, participation_rate=0.9). Žádné peněžní zjištění — linkedCompanies je prázdné pole."
+      },
+      "signal": 0.27,
+      "headline": "Weimerová, zdravotnická psycholožka a bývalá organizátorka Milionu chvilek, si zvolila podvýborové zařazení (veřejné a duševní zdraví) přímo odpovídající profesnímu zázemí a hlasuje bez jediné odchylky od klubu STAN — čistý, nekonfliktní profil bez peněžních zjištění.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7061&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=120",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=214",
+        "https://cs.wikipedia.org/wiki/Ester_Weimerov%C3%A1"
+      ]
+    },
+    {
+      "id": "psp:person:6754",
+      "name": "Matěj Ondřej Havel",
+      "club": "TOP09",
+      "lens": ["divergence", "high-triage"],
+      "props": {
+        "effort_work_themes": ["školství, věda a vzdělávání", "rodinná politika", "kontrola bezpečnostních sborů", "volební právo"],
+        "effort_bill_focus": "Havel je ve vzorku výjimkou v této skupině — u jediného sponzorovaného tisku (bills_authored=1) je skutečným prvním předkladatelem (submitter pole uvádí 'Havel M. O. a další', on sám tedy není v poli coSponsors, na rozdíl od ostatních čtyř MPs v této skupině, kteří vždy jen spolupodepisují). Tisk 181 (novela zákona o volbách do zastupitelstev obcí, 491/2001 Sb.) předložil s osmi dalšími poslanci TOP 09/SPOLU 4. 5. 2026; garančním je Ústavně-právní výbor, vláda 3. 6. 2026 vyjádřila nesouhlas, k 25. 7. 2026 stále v projednávání.",
+        "effort_public_role": "Havel byl učitelem dějepisu na Gymnáziu Bohuslava Balbína od 2010, poté zástupcem ředitele, v letech 2018–2024 ředitelem Gymnázia J. K. Tyla; má doktorát z katolické teologie (Univerzita Karlova) a je varhaníkem a skautským instruktorem. K TOP 09 se přidal 2017, po neúspěšných komunálních kandidaturách (2018, 2022) byl zvolen poprvé do Sněmovny už v PSP9 (2021) a znovu v PSP10 (2025) — což vysvětluje, proč má na rozdíl od ostatních čtyř MPs této skupiny dostupné srovnání contributionPsp9. Od 14. 11. 2025 předsedá Výboru pro vědu, vzdělávání, mládež a sport — oboru, ve kterém předtím profesně působil jako ředitel gymnázia — a dále je členem Petičního výboru, Stálé komise pro rodinu a rovné příležitosti a Stálé komise pro kontrolu Generální inspekce bezpečnostních sborů.",
+        "effort_notes": "Numerika souhlasí: committee_count=5 odpovídá 5 položkám v seznamu committees, byť VVVMS je uvedena dvakrát (předsednický řádek s vahou 1.0 a členský řádek s vahou 0.3) — stejný vzorec dvojitého záznamu jako u Doležala (VSR), nepovažuji za novou anomálii. Meziroční srovnání PSP9→PSP10: kompletní PSP9 skóre bylo 80.3 (absenceRate=0.2, committeeCount=6, billsAuthored=3, leadershipCount=2), zatímco PSP10 skóre kleslo na 71.5 a absence_rate vyskočila na 0.9 — výrazně vyšší než v PSP9 i než u zbytku této skupiny — přestože participation_rate (0.6) je oproti PSP9 (0.5) mírně vyšší a on jediný ze skupiny reálně předložil vlastní tisk a má funkci předsedy výboru. Nejde interpretovat příčinu vysoké absence bez dalších dat (může jít o kolizi s předsednickými povinnostmi, jinou legitimní neúčast, nebo cokoli jiného) — uvádím jen zjištěný nesoulad, bez domýšlení příčiny. Žádné peněžní zjištění — linkedCompanies je prázdné pole."
+      },
+      "signal": 0.4,
+      "headline": "Havel, bývalý ředitel gymnázia a od PSP9 opakovaně zvolený poslanec TOP 09, nyní předsedá školskému výboru a jako jediný v této skupině skutečně předložil vlastní tisk (novela volebního zákona) — ale jeho absence vyskočila z 20 % v PSP9 na 90 % v PSP10, což zaslouží další sledování bez unáhlené interpretace příčiny.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6754&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=181",
+        "https://cs.wikipedia.org/wiki/Mat%C4%9Bj_Ond%C5%99ej_Havel"
+      ]
+    }
+  ],
+  "crossCuttingLeads": [
+    "Nová (nikoli dříve zdokumentovaná off-by-one) datová anomálie u pspId 7003: committees[] obsahuje duplicitní identický řádek (Stálá delegace SDPSRE dvakrát se stejnými daty/rolí), takže committee_count=4 formálně sedí na počtu řádků, ale reálně pokrývá jen 3 unikátní tělesa — doporučuji ověřit v Case ①.",
+    "U pspId 7001 a 6754 se opakuje vzorec, kdy stejné výborové těleso má v committees[] dva řádky — jeden s vedoucí rolí/vyšší vahou, druhý jako řadové členství (VSR u Doležala, VVVMS u Havla) — numericky konzistentní s committee_count, ale stojí za potvrzení, že jde o záměrný design, ne o skrytou duplikaci stejného typu jako u 7003.",
+    "Webový vyhledávací nástroj (WebSearch) došel v rámci session limitu (200/200) uprostřed výzkumu této skupiny; zbylá fakta byla dohledána přes WebFetch (psp.cz, Wikipedia), což stačilo na jádro dossierů, ale znemožnilo ověřit konkrétní témata čtyř interpelací u pspId 7003 — ponecháno jako neověřené, ne domyšlené.",
+    "Napříč skupinou platí gate (e) zřetelně: čtyři z pěti MPs (7013, 7003, 7001, 7061) se ve svých sponzorovaných tiscích ve vzorku vždy objevují jen jako spolupodepsaní, nikdy jako první předkladatel (submitter pole vždy uvádí jiné jméno) — jediná výjimka v této skupině je 6754 Havel u tisku 181.",
+    "Žádný z pěti MPs v této skupině nemá linkedCompanies, takže se na ně gate o povinném ARES VR ověření nevztahuje — žádné peněžní zjištění k hlášení."
+  ]
+}

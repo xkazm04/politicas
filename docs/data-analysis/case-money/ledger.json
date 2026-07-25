@@ -123,6 +123,38 @@
         "stewardConfirmed": 125,
         "unconfirmed": 32
       }
+    },
+    "batch6": {
+      "processed": 30,
+      "generatedAt": "2026-07-25",
+      "note": "dataor bulk-ISVR ingest + corroboration sweep + PRaK re-point (Q-money-7 closed) + O-money-3 first slice. No army in the population-processing sense — targeted sweep over the 32 open ties.",
+      "dataorCorroboration": {
+        "closed": 2,
+        "notIsvrRegistered": 9,
+        "icoNotInDataset": 6,
+        "noMatch": 4,
+        "fetchIncomplete": 5,
+        "datasetNotFound": 1,
+        "courtFormUnresolved": 3
+      },
+      "prakRepoint": {
+        "status": "closed",
+        "edgesRepointed": 2,
+        "opusPasses": 1,
+        "defectsFixed": 4
+      },
+      "indirectOwnership": {
+        "ownsStakeProposals": 55,
+        "newParentNodes": 19,
+        "companiesConsidered": 195,
+        "agrofertChainFound": true
+      },
+      "opusVerification": {
+        "passes": 2,
+        "defectsFixed": 7
+      },
+      "totalClosedThisBatch": 4,
+      "totalOpenPopulation": 32
     }
   },
   "units": [

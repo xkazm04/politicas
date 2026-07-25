@@ -171,3 +171,24 @@ money-touching claim: the FIRST layer had passed this.
 Batch-004's probe implied cro.justice.cz might be fetchable; batch-005 established it requires a
 manually-approved, per-person, ~30-day Ministry of Justice process — outside autonomous-ingest
 authority (user-gated). volby.cz/ČSÚ is the buildable employment-signal source instead.
+
+## C16 [effort batch 006] — pipeline jargon reached READERS, 136/207 live nodes
+
+The dossier prose fields render verbatim on `/poslanec`. A new deterministic gate (Q-effort-14)
+found pipeline jargon in 99 field-instances across batch-006's dossiers — and retroactively in
+**133/165 prior dossiers**, growing monotonically (5→18→84→140→199 per batch) because no per-batch
+review ever looked. **The batch-006 handoff called this "latent, since no batch has been persisted"
+— that is FALSE and the orchestrator corrected it: batches 001–005 ARE live (passes 14/17/19/23/25)
+and, since the manifestation pass wired the dossier layer into the profile page, they were
+RENDERING.** Live measurement: **136/207 nodes, 436 field-instances**, e.g. "…v batch 001
+spolupodepisoval…", "bills_authored=2 odpovídá počtu položek v sponsoredBills". Resolution:
+`lib/analysis/public-copy.ts` — one rule set imported by BOTH the persist gate (no new leak enters)
+and the render loaders (no existing leak ships); violating strings are withheld WHOLE, never
+part-scrubbed, and stay in the graph for the rewrite pass. 194/207 render today; 13 withheld.
+
+## C17 [money batch 006] — ARES VR contradicts the money loop's own batch-002 reconciliation
+
+The second Opus verification pass proved a batch-006 v1 claim false and, in doing so, found that
+ARES VR's live endpoint already carried two matches the batch-002 full-population reconciliation
+had recorded as unresolved. Flagged, not swept: the batch-002 sweep's negatives are not all
+trustworthy, and a re-run against the live endpoint (not the cached snapshot) is warranted.

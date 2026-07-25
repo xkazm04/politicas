@@ -1,0 +1,58 @@
+{
+  "generatedAt": "2026-07-25T10:07:04.636Z",
+  "graphSize": {
+    "lawNodes": 101,
+    "companyNodes": 195
+  },
+  "statuteJoinKey": {
+    "totalDistinctExtracted": 11,
+    "resolvedToExistingLawNode": 4,
+    "hitRate": 0.36363636363636365,
+    "resolved": [
+      "law:sb:150-2002",
+      "law:sb:549-1991",
+      "law:sb:89-2012",
+      "law:sb:99-1963"
+    ],
+    "unresolved": [
+      "law:sb:121-2008",
+      "law:sb:177-1996",
+      "law:sb:221-2003",
+      "law:sb:292-2013",
+      "law:sb:304-2013",
+      "law:sb:65-2022",
+      "law:sb:90-2012"
+    ]
+  },
+  "icoJoinKey": {
+    "totalDistinctExtracted": 23,
+    "resolvedToExistingCompanyNode": 0,
+    "hitRate": 0,
+    "resolved": [],
+    "unresolvedIcos": [
+      "01593455",
+      "02484692",
+      "02506556",
+      "02547627",
+      "03007740",
+      "03299759",
+      "03536106",
+      "05543592",
+      "06216609",
+      "07043694",
+      "07949588",
+      "10786449",
+      "17473900",
+      "22883851",
+      "24291773",
+      "24687774",
+      "24821055",
+      "26778548",
+      "27027775",
+      "27242501",
+      "69908664",
+      "72015594",
+      "72080043"
+    ]
+  }
+}

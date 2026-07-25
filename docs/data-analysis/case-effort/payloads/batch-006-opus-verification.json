@@ -1,0 +1,358 @@
+{
+  "generatedAt": "2026-07-25T00:00:00.000Z",
+  "verifier": "opus, max reasoning effort, batch 006 P51/C13 second layer",
+  "method": {
+    "primarySource": "ARES VR REST (https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/{ICO}) — raw JSON re-fetched independently for all 18 IČOs on 2026-07-25; every zaznam walked recursively over statutarniOrgany / ostatniOrgany / spolecnici / prokura, extracting EVERY person row incl. datumZapisu, datumVymazu and the clenstvi.vznikClenstvi / zanikClenstvi / vznikFunkce / zanikFunkce fields (full historical úplný výpis, not the current snapshot).",
+    "identityCheck": "Every person hit cross-checked on datumNarozeni against the MP's birth date on psp.cz/sqw/detail.sqw, plus address/region where available.",
+    "mandateCheck": "Full parliamentary term history pulled per MP from psp.cz detail pages o=6..o=10 — this is where most of the batch's errors were found.",
+    "moneyTrace": "hlidacstatu.cz (registr smluv / dotace / sponzoring mirrors) used only to trace counterparties and money channels, recorded as sourced LEADS, never as VR-grade facts.",
+    "accessedAt": "2026-07-25"
+  },
+  "verdicts": [
+    {
+      "id": "psp:person:6240",
+      "name": "Karel Tureček",
+      "verdict": "NEEDS_CORRECTION",
+      "perEntity": [
+        {
+          "ico": "60826851",
+          "entity": "Rybářství Třeboň a.s. (do 1. 1. 2007 zapsána jako Rybářství Tábor, a.s.)",
+          "entityKind": "commercial",
+          "armyClaim": "Prověřen kompletní historický seznam statutárních orgánů (představenstvo, dozorčí rada, prokura) od roku 1994 do současnosti — jméno Karel Tureček se v žádné roli nevyskytuje.",
+          "verifiedFinding": "Nezávisle znovu staženo a rozebráno: 66 osobních záznamů napříč představenstvem, dozorčí radou a prokurou od 1994-01-01 do poslední aktualizace 2024-06-14. Žádný Tureček v žádné roli, v žádném období. Ověřena i shoda subjektu: IČO 60826851 nese od 2007-01-01 název 'Rybářství Třeboň a.s.' (dříve 'Rybářství Tábor, a.s.'), sídlo Rybářská 801, Třeboň — jde tedy o správný subjekt, jen s historickým přejmenováním, které army nezmínila. POTVRZENO. Limit zdroje: akcionáři a.s. se do VR nezapisují, takže z tohoto zdroje nelze vyloučit akcionářský podíl — to musí být řečeno, ne zamlčeno.",
+          "roleActive": "n/a",
+          "roleWindow": null,
+          "agreesWithArmy": true,
+          "sourceUrl": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/60826851"
+        },
+        {
+          "ico": "70889988",
+          "entity": "Povodí Ohře, státní podnik",
+          "entityKind": "state",
+          "armyClaim": "Ing. Karel Tureček (nar. 1. 2. 1971) byl zakladatelem jmenovaným členem dozorčí rady od 1. 2. 2001 do 8. 7. 2003, s formálním výmazem 14. 4. 2004 — více než 20 let před jeho nástupem do Sněmovny (4. 10. 2025).",
+          "verifiedFinding": "VR potvrzuje PŘESNĚ: člen dozorčí rady, vznikClenstvi 2001-02-01, zanikClenstvi 2003-07-08, datumZapisu 2001-04-05, datumVymazu 2004-04-14, datumNarozeni 1971-02-01. Shoda s psp.cz ('Narozen: 1. 2. 1971', Jihočeský kraj, ANO2011) je exaktní — jde nepochybně o téhož člověka. Právní forma 301 = státní podnik, nikoli obchodní společnost. Role je dávno uzavřená a NENÍ souběžná s žádným poslaneckým mandátem. Datumy army jsou bezchybné; chybný je pouze referenční bod mandátu (viz requiredCorrections).",
+          "roleActive": false,
+          "roleWindow": "2001-02-01 – 2003-07-08 (výmaz zapsán 2004-04-14)",
+          "agreesWithArmy": true,
+          "sourceUrl": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/70889988"
+        }
+      ],
+      "requiredCorrections": [
+        "NAHRADIT 'více než 20 let před jeho nástupem do Sněmovny (4. 10. 2025)' za 'přibližně 10 let před jeho prvním poslaneckým mandátem (poslancem je od 26. 10. 2013)'. psp.cz doloží mandáty 2013–2017, 2017–2021, 2021–2025 a od 4. 10. 2025; datum 4. 10. 2025 je začátek SOUČASNÉHO období, ne jeho nástupu do Sněmovny. Závěr (role dávno uzavřená, žádný souběh) platí i po opravě.",
+        "V headline nahradit 'dávno před dnešním mandátem' za 'ještě před jeho prvním poslaneckým mandátem (2013)'.",
+        "DOPLNIT k Rybářství Třeboň výslovný limit zdroje: 'akcionáři akciové společnosti se do veřejného rejstříku nezapisují, ověření se proto vztahuje na statutární orgán, dozorčí radu a prokuru, nikoli na vlastnictví akcií'.",
+        "DOPLNIT, že IČO 60826851 bylo do 1. 1. 2007 zapsáno jako 'Rybářství Tábor, a.s.' — historický výpis je proto veden pod oběma názvy."
+      ],
+      "reasoning": "Obě peněžní tvrzení army obstála v nezávislém přezkumu — negativní nález u Rybářství Třeboň jsem nepřebíral, ale sám přepočítal (66 osobních záznamů, nula shod) a pozitivní nález u Povodí Ohře sedí do dne přesně včetně data narození. To je poctivá práce, nikoli falešné vyčištění. Korekce je nutná jen u jednoho, ale systémově důležitého faktu: army počítala 'před mandátem' proti 4. 10. 2025, ačkoli Tureček je poslancem od roku 2013. Sám závěr se tím nemění, ale nesprávné datum nástupu by pokazilo jakýkoli navazující výpočet souběhu."
+    },
+    {
+      "id": "psp:person:6527",
+      "name": "David Pražák",
+      "verdict": "NEEDS_CORRECTION",
+      "perEntity": [
+        {
+          "ico": "60914351",
+          "entity": "AGROCENTRUM JIZERAN a.s.",
+          "entityKind": "commercial",
+          "armyClaim": "Pražák je AKTIVNÍ místopředseda představenstva od 29. 6. 2023 (poslední potvrzený záznam 23. 10. 2023, žádný záznam o ukončení), s nepřetržitou historií v představenstvu od roku 2007 (2007–2011, 2011–2015, 2015–2019, 2023–dosud); běžící vazba souběžná s poslaneckým mandátem (od 10/2025).",
+          "verifiedFinding": "AKTIVNÍ VAZBA POTVRZENA a je SILNĚJŠÍ, než army uvedla. DAVID PRAŽÁK, nar. 1979-09-13 (psp.cz: 'Narozen: 13. 9. 1979', Liberecký kraj) — místopředseda představenstva, datumZapisu 2023-10-23, BEZ datumVymazu, vznikClenstvi 2023-06-29, vznikFunkce 2023-08-02. Záznam VR byl naposledy aktualizován 2026-07-16, tedy devět dní před tímto ověřením — nejde o zastaralý snímek. Řetězec clenstvi je NEPŘETRŽITÝ, bez jediné mezery: 2003-09-11 → 2007-06-20 → 2011-08-12 → 2015-06-26 → 2019-07-18 → 2023-06-29 → dosud. Členem představenstva je tedy souvisle od 11. 9. 2003 a místopředsedou souvisle od 25. 6. 2007 — army vynechala jak start 2003, tak celý úsek 2019–2023, čímž nechtěně naznačila mezeru, která neexistuje. Akcionáři a.s. ve VR nejsou, vlastnický podíl proto nelze z tohoto zdroje tvrdit ani vyloučit — army jej správně netvrdila.",
+          "roleActive": true,
+          "roleWindow": "člen představenstva souvisle od 2003-09-11, místopředseda souvisle od 2007-06-25 (aktuální funkční období od 2023-06-29 / 2023-08-02) – dosud",
+          "agreesWithArmy": true,
+          "sourceUrl": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/60914351"
+        },
+        {
+          "ico": "27267351",
+          "entity": "KORID LK, spol. s r.o.",
+          "entityKind": "commercial",
+          "armyClaim": "Člen dozorčí rady od 7. 12. 2016 do 1. 12. 2020, záznam ukončen 29. 6. 2021 — role je HISTORICKÁ, ne aktivní.",
+          "verifiedFinding": "VR potvrzuje PŘESNĚ: člen dozorčí rady, vznikClenstvi 2016-12-07, zanikClenstvi 2020-12-01, datumZapisu 2017-02-03, datumVymazu 2021-06-29, nar. 1979-09-13. Aktuální dozorčí rada (zapsaná 2025-02-22) i jednatel jsou zcela jiné osoby. Jediným společníkem je Liberecký kraj — jde o krajskou organizační firmu, ne o soukromý podnik. Role skončila 1. 12. 2020, tedy i před začátkem jeho PRVNÍHO poslaneckého mandátu (9. 10. 2021) — historičnost tedy platí i po opravě data mandátu.",
+          "roleActive": false,
+          "roleWindow": "2016-12-07 – 2020-12-01 (výmaz zapsán 2021-06-29)",
+          "agreesWithArmy": true,
+          "sourceUrl": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27267351"
+        },
+        {
+          "ico": null,
+          "entity": "Dozorčí rada Státního zemědělského intervenčního fondu (SZIF)",
+          "entityKind": "state",
+          "armyClaim": "Od 25. 3. 2026 je zvoleným členem Dozorčí rady SZIF.",
+          "verifiedFinding": "POTVRZENO nezávisle na psp.cz, sekce 'Instituce': 'Dozorčí rada Státního zemědělského intervenčního fondu, člen - mandát od 25. 3. 2026'. Rovněž potvrzeno místopředsednictví Zemědělského výboru od 13. 11. 2025 a předsednictví Podvýboru pro potravinářství, veterinární činnost a živočišnou výrobu od 20. 1. 2026.",
+          "roleActive": true,
+          "roleWindow": "2026-03-25 – dosud",
+          "agreesWithArmy": true,
+          "sourceUrl": "https://www.psp.cz/sqw/detail.sqw?id=6527&o=10"
+        }
+      ],
+      "requiredCorrections": [
+        "OPRAVIT délku souběhu: 'souběžná s jeho poslaneckým mandátem (od 10/2025)' → Pražák byl poslancem už 9. 10. 2021 – 8. 10. 2025 a znovu od 4. 10. 2025 (psp.cz). Jeho místopředsednictví představenstva AGROCENTRA běží souběžně s poslaneckým mandátem přibližně 4,8 roku, ne devět měsíců.",
+        "OPRAVIT historii vazby: nahradit '(2007–2011, 2011–2015, 2015–2019, 2023–dosud)' za 'nepřetržitě členem představenstva od 11. 9. 2003 a místopředsedou od 25. 6. 2007, bez jediné přerušené periody'. Stávající výčet vynechává funkční období 2019–2023 a naznačuje mezeru, která ve VR není.",
+        "UPŘESNIT datumy aktuálního funkčního období: vznik členství 29. 6. 2023, vznik funkce místopředsedy 2. 8. 2023, zápis do rejstříku 23. 10. 2023 (army směšuje datum vzniku členství s datem zápisu).",
+        "OPRAVIT název podvýboru: 'Podvýbor pro potravinářství, veterinární činnost a živočišnou výrobu' (ne 'pro produkci potravin...').",
+        "DOPLNIT jako zdrojovaný LEAD (k potvrzení v Case ①, ne k publikaci jako hotové číslo): AGROCENTRUM JIZERAN a.s. je dlouhodobým příjemcem zemědělských dotací — Hlídač státu eviduje 153 dotačních záznamů v souhrnné hodnotě cca 154,0 mil. Kč od Ministerstva zemědělství a od Státního zemědělského intervenčního fondu, se záznamy SZIF i v letech 2022–2025. Peněžní expozice této firmy tedy neleží primárně ve veřejné zakázce za 2,84 mil. Kč, ale v dotačním kanálu — a právě ten spravuje instituce, v jejíž dozorčí radě Pražák od 25. 3. 2026 zasedá. Bez tohoto doplnění dossier popisuje konflikt zájmů, ale míjí jeho mechanismus.",
+        "PONECHAT beze změny formulaci, že finální tie_class náleží Case ① — to je správná dělba odpovědnosti."
+      ],
+      "reasoning": "Toto je po Petrtýlovi druhé nejsilnější zjištění dávky a v jádru je SPRÁVNÉ: aktivní, neukončená statutární funkce ve VR záznamu aktualizovaném devět dní před ověřením, s exaktní shodou data narození i adresy s poslaneckým profilem, souběžně s místopředsednictvím Zemědělského výboru i s křeslem v dozorčí radě SZIF. Nic z toho jsem nepřebíral — všechny tři pilíře jsem ověřil samostatně. Korekce jdou výhradně směrem 'army své vlastní zjištění podhodnotila': vazba není od 2007 s mezerou, ale nepřetržitě od 2003; souběh s mandátem není devět měsíců, ale skoro pět let; a hlavní peněžní tok k firmě není zakázka za 2,84 mil., ale dotace v řádu 150+ mil. Kč, z nichž část jde právě přes SZIF. Verdikt je NEEDS_CORRECTION, ne CONFIRMED, protože takto zformulovaný text by konflikt vykreslil slabší, než ve skutečnosti je — a podhodnocení je stejné selhání jako nadhodnocení."
+    },
+    {
+      "id": "psp:person:6687",
+      "name": "Jan Jakob",
+      "verdict": "BLOCKING",
+      "perEntity": [
+        {
+          "ico": "02795281",
+          "entity": "Operátor ICT, a.s. (do 22. 1. 2016 Operátor OPENCARD, a.s.)",
+          "entityKind": "commercial",
+          "armyClaim": "Jan Jakob se v žádné roli — statutární orgán, dozorčí rada ani akcionář — v tomto záznamu nevyskytuje. […] žádnou funkci ve firmě jsme nenašli. (headline: 'po plném ARES VR ověření ale bez jakékoli osobní role ve firmě Operátor ICT')",
+          "verifiedFinding": "NEPRAVDA — FALEŠNÉ VYČIŠTĚNÍ TŘÍDY C11. Ve VR záznamu je JAN JAKOB, nar. 1982-12-02, bytem Lidická 365, 252 63 Roztoky, veden jako ČLEN DOZORČÍ RADY: vznikClenstvi 2018-12-19, zanikClenstvi 2020-12-31, datumZapisu 2019-03-14, datumVymazu 2021-03-27. Datum narození se přesně shoduje s psp.cz ('Narozen: 2. 12. 1982') a adresa je Roztoky, kde byl v letech 2010–2022 starostou — jde nepochybně o téhož člověka. Army zjevně vyjmenovala pouze AKTUÁLNĚ zapsané představenstvo a dozorčí radu (Kratochvíl, Suška, Seigertschmidová, Ladin, Hrobský, Vodenka / Zmuda) a nepřítomnost v aktuálním snímku vydala za nepřítomnost vazby — přesně ta chyba, kvůli které tato brána existuje. Jediným akcionářem je hl. m. Praha (to army uvedla správně). POCTIVÉ OHRANIČENÍ: funkce skončila 31. 12. 2020 a poslancem se Jakob stal až 19. 1. 2021 (náhradník) — SOUBĚH S MANDÁTEM TEDY NENÍ, dělí je 19 dní. Zjištění se nesmí zostřovat na 'živý střet zájmů'; je to reálná, doložená osobní role v subjektu, k němuž dossier eviduje 884,86 mil. Kč, a nesmí být zamlčena.",
+          "roleActive": false,
+          "roleWindow": "2018-12-19 – 2020-12-31 (zápis 2019-03-14, výmaz 2021-03-27)",
+          "agreesWithArmy": false,
+          "sourceUrl": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/02795281"
+        },
+        {
+          "ico": "72046422",
+          "entity": "Zákládní organizace Českého zahrádkářského svazu Roztoky Třebízského (dříve Český zahrádkářský svaz ZO Roztoky Třebízského)",
+          "entityKind": "nonprofit",
+          "armyClaim": "Leží přímo v jeho bývalém starostenském městě — jde PRAVDĚPODOBNĚ o místní spolkovou vazbu z doby jeho starostování, nikoli o obchodní vztah.",
+          "verifiedFinding": "Domněnka byla ověřitelná a nebyla ověřena. Subjekt je veden ve SPOLKOVÉM rejstříku (rejstrik=SR, právní forma 736 = pobočný spolek), zakladatelem je Český zahrádkářský svaz, z. s., sídlo Masarykova 750, Roztoky. JAN JAKOB, nar. 1982-12-02, je zde zapsán jako ČLEN VÝBORU (statutárního orgánu): zápisy 2015-12-24 → 2017-08-05 → výmaz 2018-01-19. Nešlo tedy o 'pravděpodobnou' vazbu, ale o doloženou funkci ve statutárním orgánu, ukončenou v lednu 2018. Věcný závěr army (nezisková/spolková vazba, žádný peněžní tok, contractCzk=0) je správný — chybná je metoda: spekulace tam, kde stačilo přečíst záznam.",
+          "roleActive": false,
+          "roleWindow": "2015-12-24 – 2018-01-19 (dle zápisů v SR)",
+          "agreesWithArmy": false,
+          "sourceUrl": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/72046422"
+        }
+      ],
+      "requiredCorrections": [
+        "SMAZAT z effort_notes větu 'Jan Jakob se v žádné roli — statutární orgán, dozorčí rada ani akcionář — v tomto záznamu nevyskytuje' a větu '…ale žádnou funkci ve firmě jsme nenašli'. Jsou nepravdivé.",
+        "SMAZAT z headline 'po plném ARES VR ověření ale bez jakékoli osobní role ve firmě Operátor ICT'.",
+        "NAHRADIT textem v tomto smyslu: 'Veřejný rejstřík dokládá, že Jan Jakob (nar. 2. 12. 1982) byl členem dozorčí rady společnosti Operátor ICT, a.s. — pražské městské technologické firmy, jejímž jediným akcionářem je hlavní město Praha — od 19. 12. 2018 do 31. 12. 2020 (zapsáno 14. 3. 2019, vymazáno 27. 3. 2021). Funkce skončila devatenáct dní předtím, než 19. 1. 2021 poprvé usedl do Sněmovny, nešlo tedy o souběh s poslaneckým mandátem; v té době byl starostou Roztok. Dossier k této společnosti eviduje 884,86 mil. Kč, jde však o objem odpovídající velkoměstskému rozpočtu, nikoli o platbu poslanci.'",
+        "NAHRADIT spekulaci o zahrádkářském svazu faktem: 'Ve spolkovém rejstříku je Jan Jakob zapsán jako člen výboru Základní organizace Českého zahrádkářského svazu Roztoky Třebízského od 24. 12. 2015 do 19. 1. 2018 — nezisková spolková funkce v době jeho starostování v Roztokách, bez evidovaného peněžního toku (contractCzk = 0).'",
+        "NEZOSTŘOVAT: v žádné formulaci netvrdit ani nenaznačovat, že šlo o střet zájmů poslance nebo o vazbu souběžnou s mandátem — nebyl a nebyla."
+      ],
+      "reasoning": "BLOCKING bez váhání. Toto je přesně ta třída selhání, kvůli které tato brána vznikla: army napsala kategorický negativní výrok ('v žádné roli … nevyskytuje') o subjektu s 884,86 mil. Kč, přičemž ve stejném VR záznamu je dohledatelný jeho zápis do dozorčí rady s exaktní shodou data narození i s adresou v Roztokách, kde byl starostou. Rozdíl oproti batchi 005 je, že army tentokrát správně použila VR endpoint — ale přečetla z něj jen aktuální snímek orgánů a chybějící jméno v současné dozorčí radě vydala za neexistenci vazby. Druhé selhání ve stejném dossieru je zrcadlové: u zahrádkářského spolku napsala 'pravděpodobně', ačkoli tentýž stažený záznam obsahuje jeho zápis do výboru. Zároveň trvám na symetrii: vazba SKONČILA 31. 12. 2020, poslancem je od 19. 1. 2021 — souběh neexistuje a nesmí být vyroben. Opravený text je faktičtější, ale ne obviňující."
+    },
+    {
+      "id": "psp:person:6216",
+      "name": "Michal Kučera",
+      "verdict": "NEEDS_CORRECTION",
+      "perEntity": [
+        {
+          "ico": "19840659",
+          "entity": "Sirius Praha s.r.o.",
+          "entityKind": "commercial",
+          "armyClaim": "Jediným jednatelem je od 19. 10. 2023 Larysa Vlasenko, dříve (do 25. 4. 2025) i Iryna Hladka-Sachdeva, obě ukrajinské občanky s 50% podílem; Michal Kučera se v celé dostupné historii této firmy nevyskytuje v žádné roli.",
+          "verifiedFinding": "POTVRZENO nezávisle. Kompletní VR záznam obsahuje jen čtyři osobní řádky celkem: LARYSA VLASENKO (nar. 1982-06-01, jednatelka od 2023-10-19, bez výmazu, společník 50 %) a IRYNA HLADKA-SACHDEVA (nar. 1978-03-14, jednatelka 2023-10-19 – 2025-04-25, společník do 2025-04-25). Firma vznikla teprve 2023 — historie je krátká, ne useknutá. Žádný Kučera nikde. contractCzk = 0. Poznámka k přesnosti: údaj o ukrajinském občanství obou žen v datech VR, která jsem četl, není — jde o nezdrojovaný přívlastek a měl by být buď doložen, nebo vypuštěn (a v každém případě není pro veřejnou roli poslance relevantní).",
+          "roleActive": "n/a",
+          "roleWindow": null,
+          "agreesWithArmy": true,
+          "sourceUrl": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/19840659"
+        },
+        {
+          "ico": "26123550",
+          "entity": "LIHT s.r.o.",
+          "entityKind": "commercial",
+          "armyClaim": "Michal Kučera (nar. 4. 10. 1968) byl jednatelem od 28. 11. 2003 do 2. 7. 2005 — ukončeno více než 20 let před nástupem mandátu (2025).",
+          "verifiedFinding": "Osobní vazba POTVRZENA, datumy je ale třeba rozlišit. VR: Michal Kučera, nar. 1968-10-04 (psp.cz: 'Narozen: 4. 10. 1968' — exaktní shoda), jednatel, vznikFunkce 2003-07-07, zanikFunkce 2005-04-12; datumZapisu 2003-11-28, datumVymazu 2005-07-02. Data uvedená army jsou data ZÁPISU a VÝMAZU v rejstříku, nikoli data vzniku a zániku funkce. Ve zbytku historie firmy (jednatelé Vitsentiev, Samoylova; společníci Oteana Import & Export Limited, Samoylova) se Kučera nevyskytuje; ke dnešku nemá k firmě žádný vztah. contractCzk = 0, tedy žádný doložený tok veřejných peněz.",
+          "roleActive": false,
+          "roleWindow": "funkce 2003-07-07 – 2005-04-12 (zápis 2003-11-28, výmaz 2005-07-02)",
+          "agreesWithArmy": true,
+          "sourceUrl": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26123550"
+        }
+      ],
+      "requiredCorrections": [
+        "OPRAVIT datumy funkce: 'jednatelem od 28. 11. 2003 do 2. 7. 2005' → 'jednatelem od 7. 7. 2003 do 12. 4. 2005 (do rejstříku zapsáno 28. 11. 2003, vymazáno 2. 7. 2005)'.",
+        "OPRAVIT referenční bod mandátu: 'ukončenou více než 20 let před nástupem mandátu (2025)' → 'ukončenou zhruba osm a půl roku před jeho prvním poslaneckým mandátem — poslancem je od 26. 10. 2013 (dále 2021–2025 a od 4. 10. 2025)'. Věcný závěr (žádný souběh, žádné veřejné peníze) po opravě platí beze změny.",
+        "DOPLNIT do effort_public_role, že Kučera je od 7. 10. 2025 také místopředsedou poslaneckého klubu TOP 09 (psp.cz) — army tuto vedoucí roli mimo výborovou strukturu u Horáka doplnila, u Kučery ji vynechala; symetrie napříč dossiery.",
+        "VYPUSTIT nebo doložit přívlastek 'obě ukrajinské občanky' u jednatelek Sirius Praha — ve VR datech není a k veřejné roli poslance se nevztahuje."
+      ],
+      "reasoning": "Oba peněžní nálezy jsou v jádru správné a negativní nález u Sirius Praha jsem si ověřil sám, ne převzal: záznam je celý krátký (firma vznikla 2023), obsahuje jen čtyři osobní řádky a Kučera mezi nimi není — tady nešlo o useknutý fetch. Pozitivní nález u LIHT sedí na datum narození přesně. Korekce jsou dvě metodické: army zaměnila data zápisu do rejstříku za data trvání funkce, a znovu — stejně jako u Turečka, Horáka a Brázdila — počítala 'před mandátem' proti roku 2025, ačkoli Kučera je poslancem od 2013. Ani jedna oprava nález nezeslabuje ani neposiluje, obě ho jen dělají obhajitelným."
+    },
+    {
+      "id": "psp:person:6803",
+      "name": "Jiří Horák",
+      "verdict": "BLOCKING",
+      "perEntity": [
+        {
+          "ico": "49454587",
+          "entity": "Vodovody a kanalizace Vyškov, a.s.",
+          "entityKind": "commercial",
+          "armyClaim": "Horák byl členem představenstva od 30. 5. 2019 do 21. 12. 2021 (výmaz zapsán 17. 1. 2022) — jde o ukončenou minulou funkci; 'jeho členství v představenstvu skončilo v prosinci 2021, tedy téměř 4 roky před nástupem do sněmovního mandátu (říjen 2025), nejde tedy o souběžný konflikt zájmů poslance a člena statutárního orgánu dodavatelské firmy'.",
+          "verifiedFinding": "Datumy z VR jsou PŘESNÉ, ZÁVĚR JE VĚCNĚ NESPRÁVNÝ. VR: JIŘÍ HORÁK, nar. 1984-07-24 (psp.cz: 'Narozen: 24. 7. 1984', Jihomoravský kraj — exaktní shoda), člen představenstva, vznikClenstvi 2019-05-30, zanikClenstvi 2021-12-21, datumZapisu 2019-07-09, datumVymazu 2022-01-17. Jenže psp.cz dokládá, že Horák byl poslancem už od 9. 10. 2021 (období 2021–2025) a znovu od 4. 10. 2025. Jeho členství v představenstvu tedy BĚŽELO SOUBĚŽNĚ S POSLANECKÝM MANDÁTEM od 9. 10. 2021 do 21. 12. 2021, tj. zhruba dva a půl měsíce. Tvrzení, že 'nejde o souběžný konflikt zájmů poslance a člena statutárního orgánu dodavatelské firmy', je proto nepravdivé a nesmí být uloženo. Ověřeno také, že v současném (od 2023) představenstvu ani dozorčí radě Horák není — to army uvedla správně.",
+          "roleActive": false,
+          "roleWindow": "2019-05-30 – 2021-12-21 (výmaz zapsán 2022-01-17); souběh s poslaneckým mandátem 2021-10-09 – 2021-12-21",
+          "agreesWithArmy": false,
+          "sourceUrl": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49454587"
+        }
+      ],
+      "requiredCorrections": [
+        "SMAZAT větu 'vzhledem k tomu, že jeho členství v představenstvu skončilo v prosinci 2021, tedy téměř 4 roky před nástupem do sněmovního mandátu (říjen 2025), nejde o souběžný konflikt zájmů poslance a člena statutárního orgánu dodavatelské firmy'.",
+        "SMAZAT z headline 'funkce skončila skoro čtyři roky před jeho nástupem do Sněmovny, takže nejde o aktivní konflikt zájmů'.",
+        "NAHRADIT textem v tomto smyslu: 'Horák byl členem představenstva regionální vodárenské společnosti Vodovody a kanalizace Vyškov, a.s. od 30. 5. 2019 do 21. 12. 2021 (výmaz zapsán 17. 1. 2022). Poslancem je od 9. 10. 2021 — funkci ve statutárním orgánu tedy držel ještě přibližně dva a půl měsíce souběžně se svým prvním poslaneckým mandátem. Dnes ve firmě žádnou funkci nemá; představenstvo i dozorčí rada byly k 30. 5. 2023 kompletně obměněny.'",
+        "PONECHAT a zvýraznit poctivou výhradu army: dossier neuvádí datum smlouvy za 1 296 198,50 Kč, a proto nelze určit, zda smlouva spadá do období jeho členství v představenstvu ani zda spadá do onoho krátkého souběhu s mandátem. Bez data smlouvy se z tohoto souběhu NESMÍ vyvozovat střet zájmů — jde o doložený časový překryv, ne o prokázaný konflikt.",
+        "OPRAVIT všechny odvozené formulace typu 'nástup do Sněmovny (říjen 2025)' na 'poslancem od 9. 10. 2021'."
+      ],
+      "reasoning": "BLOCKING. Ironií je, že army zde odvedla VR práci bezchybně — datum vzniku, zániku i výmazu sedí do dne a identitu ověřila přes datum narození. Selhala na kroku, který se zdál triviální: převzala jako začátek mandátu 4. 10. 2025 a proti němu spočítala 'skoro čtyři roky před nástupem'. psp.cz přitom ukazuje mandát od 9. 10. 2021, takže překryv nejenže existuje, ale je to jediný doložený souběh 'poslanec + statutární orgán dodavatelské firmy' v celé této dávce kromě Pražáka a Petrtýla. Věta, kterou army napsala, aktivně popírá fakt, které sama téměř dokázala — to je přesně definice tvrzení, které nesmí být uloženo tak, jak je napsáno. Zároveň trvám na proporcionalitě: souběh je krátký, na samém začátku mandátu, a bez data smlouvy z něj neplyne prokázaný střet zájmů. Opravený text má být přesný, ne ostřejší."
+    },
+    {
+      "id": "psp:person:6409",
+      "name": "František Petrtýl",
+      "verdict": "CONFIRMED",
+      "perEntity": [
+        {
+          "ico": "25713817",
+          "entity": "SPARING MB s.r.o.",
+          "entityKind": "commercial",
+          "armyClaim": "Petrtýl je AKTUÁLNÍM jednatelem (společné jednání s Josefem Dufkem) a 50% společníkem (vklad 50 000 Kč) od založení firmy 26. 11. 1998, beze změny dle posledního zápisu 15. 11. 2022.",
+          "verifiedFinding": "POTVRZENO. VR: František Petrtýl, nar. 1959-03-09, jednatel — aktuální řádek datumZapisu 2009-04-15 BEZ datumVymazu, s navazujícím řetězcem od 1998-11-26. Společník s vkladem 50 000 Kč / 50 %, aktuální řádek od 2009-04-15 bez výmazu, poslední úprava podílu 2022-11-15. Druhým jednatelem a 50% společníkem je JOSEF DUFEK (nar. 1965-01-27). Vazba je statutární i vlastnická a je AKTIVNÍ.",
+          "roleActive": true,
+          "roleWindow": "jednatel a 50% společník souvisle od 1998-11-26 – dosud",
+          "agreesWithArmy": true,
+          "sourceUrl": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25713817"
+        },
+        {
+          "ico": "29054117",
+          "entity": "F.M.S. Consulting s.r.o.",
+          "entityKind": "commercial",
+          "armyClaim": "Petrtýl NENÍ jednatelem (tím je Ing. Stanislav Ševčík od 2010), ale je AKTUÁLNÍM 33% společníkem (vklad 66 000 Kč) od zápisu 28. 5. 2014 — čistě vlastnická, nikoli statutární vazba, ale stále aktivní.",
+          "verifiedFinding": "POTVRZENO, s upřesněním počátku. VR: jednatelem je STANISLAV ŠEVČÍK (nar. 1948-06-11, vznikFunkce 2010-04-23, bez výmazu) — Petrtýl skutečně NENÍ ve statutárním orgánu. FRANTIŠEK PETRTÝL (nar. 1959-03-09) je společníkem s vkladem 66 000 Kč / 33 %, aktuální řádek datumZapisu 2014-05-28 bez výmazu, ale s navazujícím předchozím řádkem od 2010-08-25 — vlastnictví tedy běží nepřetržitě od 25. 8. 2010, datum 28. 5. 2014 je jen verze záznamu. Dalšími společníky jsou IVANA DVOŘÁKOVÁ (33 %) a ANTE spol. s r.o. (34 %).",
+          "roleActive": true,
+          "roleWindow": "33% společník souvisle od 2010-08-25 – dosud (aktuální verze záznamu od 2014-05-28); statutární funkci nemá",
+          "agreesWithArmy": true,
+          "sourceUrl": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/29054117"
+        },
+        {
+          "ico": "49825950",
+          "entity": "COMBIN BOHEMIA spol. s r.o.",
+          "entityKind": "commercial",
+          "armyClaim": "Petrtýl je AKTUÁLNÍM samostatně jednajícím jednatelem; 100% vlastníkem firmy je slovenská mateřská COMBIN BÁNSKÁ ŠTIAVNICA s.r.o., Petrtýl zde tedy nemá osobní vlastnický podíl, jen statutární roli.",
+          "verifiedFinding": "POTVRZENO ve všech třech bodech. VR: František Petrtýl, nar. 1959-03-09, jednatel, datumZapisu 1994-11-30, BEZ datumVymazu; způsob jednání 'Za společnost jedná a podepisuje jednatel samostatně'; jediným společníkem je od 2002-01-29 COMBIN BÁNSKÁ ŠTIAVNICA s.r.o. (IČO 31631134, Banská Štiavnica, SK) se 100% podílem — Petrtýl osobní podíl nemá. stavSubjektu = AKTIVNI. VÝHRADA, kterou je třeba uvést: datumAktualizace tohoto záznamu je 2015-10-24, což je zdaleka nejstarší ze čtyř firem (ostatní 2022–2026); zápis není vymazán a formálně tedy trvá, ale je to nejméně čerstvě aktualizovaný ze čtyř nálezů.",
+          "roleActive": true,
+          "roleWindow": "jednatel od 1994-11-30 – dosud (bez záznamu o ukončení)",
+          "agreesWithArmy": true,
+          "sourceUrl": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49825950"
+        },
+        {
+          "ico": "61681679",
+          "entity": "GEMA MB s.r.o.",
+          "entityKind": "commercial",
+          "armyClaim": "Petrtýl je AKTUÁLNÍM jednatelem (společně s Josefem Dufkem) i 50% společníkem (vklad 2 500 000 Kč); zápis z 25. 10. 2021 ukazuje technický výmaz a téhož dne opětovný zápis se změněným podílem — jde o formální úpravu záznamu, ne o skutečný odchod a návrat.",
+          "verifiedFinding": "POTVRZENO včetně čtení onoho zápisu z 25. 10. 2021. VR: FRANTIŠEK PETRTÝL (nar. 1959-03-09) jednatel — aktuální řádek datumZapisu 2021-10-25 bez výmazu, s nepřetržitým řetězcem zpět k 1995-04-06; společník s vkladem 2 500 000 Kč / 50 %, aktuální řádek od 2021-10-25 bez výmazu. Interpretace army je správná: rozdíl mezi řádky před a po 25. 10. 2021 je pouze v tom, že velikost podílu přešla z textového zápisu '50%' na strukturovaný '50,00 %' — jde o formální úpravu, ne o převod. Druhým jednatelem a 50% společníkem je JOSEF DUFEK.",
+          "roleActive": true,
+          "roleWindow": "jednatel a 50% společník souvisle od 1995-04-06 – dosud",
+          "agreesWithArmy": true,
+          "sourceUrl": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/61681679"
+        }
+      ],
+      "requiredCorrections": [
+        "DOPLNIT (nikoli oslabit) délku souběhu: Petrtýl je poslancem nepřetržitě od 3. 1. 2017 (náhradník v období 2013–2017), dále 2017–2021, 2021–2025 a od 4. 10. 2025 (psp.cz o=7/8/9/10). Všechny čtyři statutární a vlastnické vazby proto běží souběžně s poslaneckým mandátem přibližně devět a půl roku, ne teprve od října 2025.",
+        "PŘERÁMOVAT částku u GEMA MB: 16 575 162,54 Kč není jedna smlouva s jednou protistranou. V registru smluv má GEMA MB s.r.o. 180 smluv v souhrnu cca 186 mil. Kč a nejvyšší JEDNOTLIVÁ smlouva je 17 517 512 Kč. Formulace 'smluvní částka, jejíž protistranu se nepodařilo dohledat' proto míří na neexistující objekt — jde o agregát, a to je třeba říct.",
+        "DOPLNIT jako zdrojovaný LEAD (k potvrzení v Case ①): dominantní veřejnou protistranou GEMA MB je Statutární město Mladá Boleslav — mj. 'Cyklostezka Jičínská' OStRM/2018/159 za 17 517 512 Kč (podepsáno 31. 10. 2018), oprava ulice Dukelská za 13 161 518 Kč (19. 3. 2018), oprava chodníků Okružní/Na Vandrovce/Bezručova za 6 712 029 Kč (15. 12. 2022) a smlouva o dílo za 5 898 446 Kč (11. 12. 2025); dále Obec Kolomuty (cyklotrasa Kolomuty–Plazy, 8 890 448 Kč, 15. 3. 2022) a CENTROTHERM Mladá Boleslav, a.s. Jako dodavatel figuruje v 11 veřejných zakázkách (2020: 1,05 mil.; 2022: 12,47 mil.; 2023: 12,40 mil.; 2024: 16,67 mil. Kč). Protistranu tedy DOHLEDAT LZE — army ji poctivě označila za nedohledanou, ale rezignovala příliš brzy.",
+        "DOPLNIT jako zdrojovaný LEAD s vysokou hodnotou (k potvrzení v Case ①): Hlídač státu eviduje GEMA MB s.r.o. jako dárce politických stran v úhrnu cca 946 500 Kč — ANO 2011 v každém roce 2016 až 2025 (2016: 10 000; 2017: 40 000; 2018: 40 000; 2019: 84 200; 2020: 384 200; 2021: 111 300; 2022: 51 700; 2023: 51 700; 2024: 71 700; 2025: 81 700 Kč) a Volba pro Mladou Boleslav 20 000 Kč v roce 2018; Ing. František Petrtýl figuruje i jako osobní dárce ANO v letech 2017 a 2018. Firma, kterou z 50 % vlastní a řídí, tedy dlouhodobě financuje stranu, za niž je poslancem, zatímco její hlavní veřejnou protistranou je město Mladá Boleslav. Toto je veřejná role, ne soukromý život, a v dossieru chybí úplně.",
+        "DOPLNIT k COMBIN BOHEMIA poznámku o stáří záznamu (datumAktualizace 2015-10-24) — funkce trvá, ale je vhodné ji před publikací potvrdit z or.justice.cz úplného výpisu."
+      ],
+      "reasoning": "CONFIRMED — a to bez jediné výhrady k podstatě. Toto je nejsilnější nález dávky a ustál nezávislý přezkum ve všech čtyřech firmách. Klíčovou věc, kterou army neuvedla a která zjištění cementuje, jsem doplnil sám: shoda identity je exaktní. psp.cz uvádí u poslance 'Ing. František Petrtýl, Narozen: 9. 3. 1959, Volební kraj Středočeský, ANO2011' a všechny čtyři VR záznamy nesou datumNarozeni 1959-03-09 — nejde o shodu jména, ale o shodu osoby. Ověřil jsem každý jednotlivý dílčí výrok zvlášť: aktivní jednatelství se skutečně opírá o řádky BEZ datumVymazu (ne o nepřítomnost výmazu v useknutém výpisu), u F.M.S. Consulting jsem potvrdil i negativní část tvrzení (jednatelem je Ševčík, Petrtýl opravdu ne), u COMBIN BOHEMIA jsem potvrdil, že 100% vlastníkem je slovenská matka a Petrtýl tam osobní podíl nemá — což je přesně ten typ sebeomezení, které odlišuje ověřování od budování obvinění, a army ho udělala správně. Interpretaci technického výmazu a znovuzápisu u GEMA MB z 25. 10. 2021 jsem přezkoumal na úrovni jednotlivých polí podílu a je správná. Verdikt je proto CONFIRMED: žádné tvrzení se nemá stahovat. Uvedené korekce jsou výhradně doplňující — souběh je devět a půl roku místo devíti měsíců, částka 16,6 mil. Kč je agregát a ne jedna smlouva, protistrana je dohledatelná (město Mladá Boleslav) a v dossieru chybí ta nejvýmluvnější veřejná skutečnost: firma, kterou poslanec z poloviny vlastní a řídí a která žije z městských zakázek, deset let po sobě sponzoruje ANO. Poctivost army u nedohledané částky oceňuji — nefabulovala. Rezignovala ale dřív, než bylo nutné."
+    },
+    {
+      "id": "psp:person:6524",
+      "name": "Vít Rakušan",
+      "verdict": "NEEDS_CORRECTION",
+      "perEntity": [
+        {
+          "ico": "02312701",
+          "entity": "Vodní cesty na Labi, o.p.s.",
+          "entityKind": "nonprofit",
+          "armyClaim": "Rakušan byl předsedou dozorčí rady od 12. 11. 2013 do 28. 2. 2017, role SKONČILA před 9 lety, dnes bez vazby.",
+          "verifiedFinding": "POTVRZENO PŘESNĚ. VR: VÍT RAKUŠAN, nar. 1978-06-16 (psp.cz: 'Narozen: 16. 6. 1978' — exaktní shoda), předseda dozorčí rady, vznikFunkce 2013-11-12, zanikFunkce a zanikClenstvi 2017-02-28, poslední záznam vymazán 2020-07-21. Právní forma o.p.s. = obecně prospěšná společnost, tedy nezisková, nikoli obchodní. contractCzk = 0. Role skončila zhruba osm měsíců předtím, než se 21. 10. 2017 poprvé stal poslancem — žádný souběh s poslaneckým mandátem.",
+          "roleActive": false,
+          "roleWindow": "2013-11-12 – 2017-02-28 (výmaz zapsán 2020-07-21)",
+          "agreesWithArmy": true,
+          "sourceUrl": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/02312701"
+        },
+        {
+          "ico": "22874381",
+          "entity": "Změna pro Kolín z.s.",
+          "entityKind": "civic",
+          "armyClaim": "AKTIVNÍ současný člen statutárního orgánu (výboru) od 31. 12. 2021 (s předchozím obdobím 2017–2021); jde o kolínský občanský spolek, tedy neziskovou/občanskou vazbu, ne komerční.",
+          "verifiedFinding": "AKTIVNÍ VAZBA POTVRZENA, počátek je ale starší a nepřetržitý. VR: člen výboru (statutární orgán), aktuální řádek datumZapisu 2021-12-31 BEZ výmazu, vznikClenstvi 2021-11-03; předchozí perioda vznikClenstvi 2016-12-14 → zanikClenstvi 2021-11-03. Mezi periodami NENÍ mezera — členem statutárního orgánu je tedy nepřetržitě od 14. 12. 2016, tj. po celou dobu svého poslaneckého mandátu (od 21. 10. 2017) i po celé své funkční období ministra vnitra a místopředsedy vlády (17. 12. 2021 – 15. 12. 2025). Datum 31. 12. 2021 uvedené army je pouze datum zápisu nové verze záznamu. Právní forma z.s. (spolek), contractCzk = 0 — vazba je nekomerční, o žádném peněžním toku nesvědčí. Upřesnění povahy: 'Změna pro Kolín' není jen občanský spolek, ale místní politické uskupení / volební vehikl — což je veřejná role, a jako taková má být pojmenována přesně.",
+          "roleActive": true,
+          "roleWindow": "člen výboru nepřetržitě od 2016-12-14 – dosud (aktuální perioda od 2021-11-03, zapsáno 2021-12-31)",
+          "agreesWithArmy": true,
+          "sourceUrl": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/22874381"
+        },
+        {
+          "ico": "26745615",
+          "entity": "Společenství vlastníků jednotek domu čp. 904, 905, 906, ulice Rimavské Soboty, Kolín II",
+          "entityKind": "SVJ",
+          "armyClaim": "Byl místopředsedou výboru 2006–2011, záznam vymazán 2013, tedy 13 let neaktivní a jde navíc o SVJ vlastního bydliště, ne o firmu.",
+          "verifiedFinding": "Podstata POTVRZENA, datum výmazu opraveno. VR: Vít Rakušan, nar. 1978-06-16, místopředseda výboru, vznikFunkce a vznikClenstvi 2006-04-27, zanikFunkce a zanikClenstvi 2011-04-27; první záznam zapsán 2006-08-05, poslední záznam vymazán 2015-07-27 (datum 2013-11-14 je jen mezilehlá změna verze záznamu, nikoli výmaz). Vazba je patnáct let neaktivní, contractCzk = 0, SVJ není obchodní společnost. Doktrinální poznámka: formulace 'SVJ vlastního bydliště' odvozuje bydliště poslance — to je krok do soukromého života, byť z veřejného rejstříku; stačí uvést 'SVJ bytového domu v Kolíně'.",
+          "roleActive": false,
+          "roleWindow": "2006-04-27 – 2011-04-27 (poslední záznam vymazán 2015-07-27)",
+          "agreesWithArmy": true,
+          "sourceUrl": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26745615"
+        },
+        {
+          "ico": "68404999",
+          "entity": "Nadační fond Gymnázia Kutná Hora",
+          "entityKind": "nonprofit",
+          "armyClaim": "Byl členem správní rady 2010–2013, dnes bez vazby; contractCzk = 200 000 se týká toku prostředků do nadačního fondu, nikoli plateb Rakušanovi osobně, a časově nespadá do období jeho členství ve správní radě.",
+          "verifiedFinding": "POTVRZENO, ale jedno tvrzení bylo nezdrojované a je nyní doloženo. VR: Vít Rakušan, nar. 1978-06-16, člen správní rady, vznikClenstvi 2010-01-26, poslední zanikClenstvi 2013-12-18 (mezizáznamy: zánik 2010-10-31 / nový vznik 2010-11-01, zánik 2013-11-01), poslední záznam vymazán 2014-07-18. Tvrzení o časovém nesouladu částky army vyslovila BEZ zdroje — dossier datum smlouvy neuvádí. Dohledáno: registr smluv obsahuje u tohoto IČO jedinou smlouvu, a to přesně na 200 000 Kč — veřejnoprávní smlouva o poskytnutí dotace na akci 'Výměnný pobyt studentů GJO', plátce Středočeský kraj, podepsáno 2. 5. 2018. Tvrzení army je tedy PRAVDIVÉ (2018 leží 4,5 roku po konci jeho členství), ale bylo štěstím, ne ověřením — nezdrojované negativní výroky se ukládat nesmějí.",
+          "roleActive": false,
+          "roleWindow": "2010-01-26 – 2013-12-18 (výmaz zapsán 2014-07-18)",
+          "agreesWithArmy": true,
+          "sourceUrl": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/68404999"
+        }
+      ],
+      "requiredCorrections": [
+        "OPRAVIT počátek aktivní vazby: 'AKTIVNÍ současný člen statutárního orgánu (výboru) od 31. 12. 2021 (s předchozím obdobím 2017–2021)' → 'nepřetržitě členem výboru od 14. 12. 2016 (aktuální funkční období od 3. 11. 2021, zapsáno 31. 12. 2021)'. Jediná aktivní vazba tedy trvá po celou dobu jeho poslaneckého mandátu i po celé jeho ministerské období.",
+        "UPŘESNIT povahu subjektu: 'Změna pro Kolín z.s.' je místní politické uskupení ve formě zapsaného spolku, ne jen 'občanský spolek'. Zůstává pravdou, že vazba není komerční a že u ní není evidován žádný peněžní tok (contractCzk = 0) — to se nemá zeslabovat.",
+        "OPRAVIT datum výmazu u SVJ: 'záznam vymazán 2013' → 'poslední záznam vymazán 27. 7. 2015'.",
+        "PŘEFORMULOVAT 'SVJ vlastního bydliště' na 'SVJ bytového domu v Kolíně' — doktrína veřejných rolí, ne soukromého života.",
+        "DOPLNIT zdroj k tvrzení o částce 200 000 Kč: 'registr smluv eviduje u nadačního fondu jedinou smlouvu — veřejnoprávní smlouva o poskytnutí dotace na výměnný pobyt studentů, plátce Středočeský kraj, podepsáno 2. 5. 2018, tedy 4,5 roku po konci Rakušanova členství ve správní radě'. Bez tohoto zdroje má být tvrzení o časovém nesouladu vypuštěno, ne ponecháno jako holé konstatování."
+      ],
+      "reasoning": "Zadání mě u Rakušana žádalo hlídat obě strany — a obě jsem hlídal. NADHODNOCENÍ: žádné. Army u nikoho z těch čtyř subjektů netvrdí komerční střet zájmů, a to je správně: o.p.s., spolek, SVJ a nadační fond nejsou obchodní společnosti, u tří ze čtyř je contractCzk nula a u čtvrtého jde o krajskou dotaci na studentskou výměnu, ne o platbu poslanci. Závěr 'ARES VR vyvrací komerční konflikt zájmů' je věcně obhajitelný. PODHODNOCENÍ: nic podstatného nechybí — prošel jsem všechny čtyři úplné výpisy a žádná další, natož aktivní obchodní role tam není. Korekce se týkají přesnosti, ne směru: jediná aktivní vazba není 'od konce roku 2021', ale nepřetržitě od prosince 2016, takže překrývá i jeho ministerské období (což je fakticky zajímavější a army si to nevšimla); povahu 'Změny pro Kolín' je poctivější popsat jako místní politické uskupení než jako občanský spolek; datum výmazu u SVJ je 2015, ne 2013; a jedno tvrzení o časovém nesouladu částky bylo vysloveno bez zdroje — náhodou správně, což je z hlediska doktríny horší, ne lepší, protože takový návyk příště vyprodukuje nepravdu. Doplnil jsem k němu zdroj. K datové anomálii: psp.cz uvádí delegaci do PS Rady Evropy pouze jednou (náhradník od 24. 6. 2026), což čtení army — že duplicita ve vstupním poli committees je datový artefakt, ne tři odlišné role — podporuje."
+    },
+    {
+      "id": "psp:person:6185",
+      "name": "Milan Brázdil",
+      "verdict": "NEEDS_CORRECTION",
+      "perEntity": [
+        {
+          "ico": "28338766",
+          "entity": "Národní Centrum Tkání a Buněk a.s.",
+          "entityKind": "commercial",
+          "armyClaim": "Brázdil byl členem dozorčí rady, role SKONČILA 8. 12. 2016 (výmaz zapsán 10. 4. 2017), tedy téměř 10 let před tímto mandátem; aktuální dozorčí rada a představenstvo jsou zcela jiné osoby.",
+          "verifiedFinding": "Datumy POTVRZENY, časové zarámování je ale zavádějící. VR: MILAN BRÁZDIL, nar. 1962-11-05 (psp.cz: 'Narozen: 5. 11. 1962', Olomoucký kraj — exaktní shoda), člen dozorčí rady, vznikClenstvi 2014-12-18, zanikClenstvi 2016-12-08, datumZapisu 2015-01-09, datumVymazu 2017-04-10. Konec i výmaz sedí přesně; army ale neuvedla ZAČÁTEK. A právě začátek je podstatný: psp.cz dokládá, že Brázdil je poslancem od 26. 10. 2013 (období 2013–2017, 2017–2021, 2021–2025 a od 4. 10. 2025). CELÉ jeho členství v dozorčí radě NCTB (prosinec 2014 – prosinec 2016) tedy proběhlo SOUBĚŽNĚ s jeho tehdejším poslaneckým mandátem, u společnosti, k níž dossier eviduje 14 062 219 Kč veřejných prostředků. Formulace 'téměř 10 let před tímto mandátem' je doslova pravdivá o SOUČASNÉM období, ale čtenáři sugeruje předpolitickou minulost a zakrývá doložený souběh. Potvrzeno rovněž, že v aktuálních orgánech Brázdil není.",
+          "roleActive": false,
+          "roleWindow": "2014-12-18 – 2016-12-08 (výmaz zapsán 2017-04-10); celé toto období souběžné s poslaneckým mandátem 2013–2017",
+          "agreesWithArmy": false,
+          "sourceUrl": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/28338766"
+        },
+        {
+          "ico": "60800691",
+          "entity": "Vojenská nemocnice Olomouc",
+          "entityKind": "state",
+          "armyClaim": "Ve veřejném rejstříku VR NENÍ vedena vůbec, protože jde o státní příspěvkovou organizaci bez statutárních orgánů zapisovaných do VR; je proto třeba explicitně uvést, že tento typ subjektu je mimo dosah VR endpointu, NE že byl 'vyčištěn'.",
+          "verifiedFinding": "POTVRZENO a doloženo tvrdými daty. VR REST endpoint pro IČO 60800691 vrací HTTP 404 (jediný ze všech 18 ověřovaných subjektů). Prostý ARES záznam uvádí 'Vojenská nemocnice Olomouc', právní forma 332 (příspěvková organizace), datum vzniku 1994-07-01, sídlo Sušilovo nám. 1/5, Klášterní Hradisko, 779 00 Olomouc. Subjekt tedy skutečně leží MIMO působnost obchodního rejstříku a 404 zde znamená 'mimo rozsah VR', nikoli 'bez vazby'. Toto je jediné místo v celé dávce, kde army zvládla epistemický okraj přesně tak, jak má — a ta formulace má být zachována. Nepodložené doplňky ale ano: zřizovatele (Ministerstvo obrany) jsem z tohoto zdroje nedoložil, takže se nesmí tvrdit; stejně tak se nesmí tvrdit zaměstnanecký ani profesní vztah Brázdila k této nemocnici, dokud nebude zdrojován.",
+          "roleActive": "n/a",
+          "roleWindow": null,
+          "agreesWithArmy": true,
+          "sourceUrl": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/60800691"
+        }
+      ],
+      "requiredCorrections": [
+        "PŘEFORMULOVAT zarámování NCTB: 'role SKONČILA 8. 12. 2016 …, tedy téměř 10 let před tímto mandátem' → 'Brázdil byl členem dozorčí rady Národního Centra Tkání a Buněk a.s. od 18. 12. 2014 do 8. 12. 2016 (výmaz zapsán 10. 4. 2017). Poslancem je od 26. 10. 2013 — celé toto členství v dozorčí radě tedy probíhalo souběžně s jeho tehdejším poslaneckým mandátem. V současných orgánech společnosti nefiguruje.'",
+        "STEJNĚ OPRAVIT headline: 'pouze historickou (NCTB, skončila 2016)' → doplnit, že šlo o funkci souběžnou s jeho tehdejším mandátem, byť dnes dávno ukončenou.",
+        "OZNAČIT jako neověřenou nebo vypustit spekulaci '(pravděpodobně související s tkáňovou/buněčnou bankou při jeho domovské nemocnici)' — jde o dohad o původu 14 mil. Kč bez zdroje.",
+        "NETVRDIT u Vojenské nemocnice Olomouc profesní ani zaměstnaneckou vazbu Brázdila ('jde svou povahou o profesní/zaměstnaneckou vazbu lékaře k nemocnici') — to je nezdrojovaný předpoklad. Ponechat pouze doložené: subjekt je příspěvková organizace (právní forma 332, vznik 1. 7. 1994), VR REST endpoint vrací 404, ověření tímto zdrojem tedy strukturálně nelze provést a subjekt NENÍ vyčištěn.",
+        "DOPLNIT tvrdý důkaz k výše uvedenému: VR REST vrátil pro IČO 60800691 HTTP 404, zatímco pro ostatních 17 subjektů dávky vrátil 200."
+      ],
+      "reasoning": "Nejde o falešné vyčištění a operativní tvrzení army — že u obou subjektů neexistuje ŽÁDNÁ AKTUÁLNÍ funkce — je po nezávislém přezkumu pravdivé; současné orgány NCTB jsem prošel a Brázdil v nich není. Verdikt proto není BLOCKING. Korekci ale vyžaduji důraznou: army napsala, že role skončila 'téměř 10 let před tímto mandátem', což je pravda pouze o období začínajícím v říjnu 2025 a co do vyznění zakrývá, že celé jeho členství v dozorčí radě NCTB spadlo do jeho poslaneckého mandátu 2013–2017 — u firmy, k níž je evidováno přes 14 mil. Kč veřejných peněz. To je podhodnocení, a podhodnocení je v tomto systému stejně diskvalifikující jako nadsazení. Zvlášť chci ocenit a zachovat způsob, jakým army zpracovala Vojenskou nemocnici Olomouc: sama od sebe odmítla vydat 404 za vyčištění a explicitně pojmenovala hranici zdroje. Ověřil jsem to nezávisle (404 z VR, právní forma 332 z prostého ARES) a je to přesně správně — jen k tomu patří důkaz, ne jen tvrzení, a nesmí se k tomu přilepovat nezdrojovaný předpoklad o Brázdilově zaměstnaneckém vztahu k nemocnici."
+    }
+  ],
+  "summary": {
+    "confirmed": 1,
+    "needsCorrection": 5,
+    "blocking": 2,
+    "notes": "BLOCKING: Jan Jakob (falešné vyčištění třídy C11 — army napsala, že se ve VR záznamu Operátor ICT, a.s. 'v žádné roli nevyskytuje', přitom je tam zapsán jako člen dozorčí rady 19. 12. 2018 – 31. 12. 2020, exaktní shoda data narození 2. 12. 1982 i adresy v Roztokách, kde byl starostou; army četla pouze aktuální snímek orgánů) a Jiří Horák (army měla data z VR bezchybná — člen představenstva VaK Vyškov 30. 5. 2019 – 21. 12. 2021 — ale spočítala 'skoro čtyři roky před nástupem do Sněmovny (říjen 2025)', ačkoli Horák je poslancem od 9. 10. 2021; funkci tedy držel ~2,5 měsíce SOUBĚŽNĚ s mandátem a věta popírající souběh nesmí být uložena). CONFIRMED: František Petrtýl — všechny čtyři aktivní statutární/vlastnické vazby (SPARING MB, F.M.S. Consulting, COMBIN BOHEMIA, GEMA MB) obstály v nezávislém přezkumu na úrovni jednotlivých polí VR, včetně negativní části (u F.M.S. Consulting jednatelem není) i sebeomezení (u COMBIN BOHEMIA nemá osobní podíl); identita potvrzena exaktní shodou data narození 9. 3. 1959 mezi psp.cz a všemi čtyřmi rejstříkovými záznamy. NEEDS_CORRECTION: Tureček, Pražák, Kučera, Rakušan, Brázdil. SYSTÉMOVÁ PŘÍČINA (nejdůležitější zjištění této brány): dominantní chybou dávky NENÍ špatný zdroj — army tentokrát VR endpoint použila správně a její extrakce datumů z VR byla přesná v 6 z 8 dossierů. Dominantní chybou je PŘEDPOKLAD, ŽE MANDÁT POSLANCE ZAČAL 4. 10. 2025. Šest z osmi těchto poslanců sloužilo i v dřívějších obdobích (Petrtýl od 2017, Tureček/Kučera/Brázdil od 2013, Pražák/Horák od 2021). Tento jediný předpoklad vyrobil oba BLOCKING nálezy i většinu korekcí. DOPORUČENÍ PRO CASE ①: zavést tvrdé pravidlo — souběh nikdy nepočítat proti současnému období, vždy načíst úplný seznam mandátů z psp.cz (o=6..o=10) a porovnávat proti PRVNÍMU mandátu; a k negativnímu nálezu vždy vypsat počet prošlých osobních záznamů, aby 'nenalezeno' bylo odlišitelné od 'nehledáno v historii'. DVA MATERIÁLNÍ NÁLEZY, KTERÉ ARMY MINULA A KTERÉ PATŘÍ DO CASE ① K POTVRZENÍ: (1) GEMA MB s.r.o., firma Petrtýla (50 % + jednatel), sponzorovala ANO 2011 v každém roce 2016–2025 v úhrnu cca 946 500 Kč (plus 20 000 Kč Volbě pro Mladou Boleslav v roce 2018), zatímco její dominantní veřejnou protistranou je Statutární město Mladá Boleslav (180 smluv, cca 186 mil. Kč; největší jednotlivá 17 517 512 Kč) — částka 16 575 162,54 Kč v grafu je tedy AGREGÁT, ne jedna nedohledatelná smlouva, a protistranu dohledat lze; (2) AGROCENTRUM JIZERAN a.s., kde je Pražák nepřetržitě místopředsedou představenstva od roku 2007 (členem od 2003), je příjemcem 153 dotačních záznamů v úhrnu cca 154 mil. Kč od Ministerstva zemědělství a od SZIF — instituce, v jejíž dozorčí radě Pražák od 25. 3. 2026 zasedá; dotační kanál, nikoli zakázka za 2,84 mil. Kč, je skutečným mechanismem toho střetu. Obojí je zaznamenáno jako zdrojovaný LEAD, ne jako hotový fakt."
+  }
+}

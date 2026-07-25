@@ -1,0 +1,107 @@
+{
+  "generatedAt": "2026-07-25T00:00:00.000Z",
+  "proposals": [
+    {
+      "id": "psp:person:6758",
+      "name": "Igor Hendrych",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["sociální politika a sociálně vyloučené lokality", "bezpečnost a kontrola zpravodajských služeb (ÚZSI)", "veřejné zdravotní pojištění (VZP)"],
+        "effort_bill_focus": "Ve všech šesti tiscích ve vzorku (sponsoredBills) je Hendrych spolupodepsaný, nikdy skutečný předkladatel (submitter je u všech Schillerová, Vondráček, Juchelka nebo Lang) — odpovídá to props bills_authored=6, ale gate (e) vyžaduje formulaci 'spolupodepsal', ne 'předložil'. Ověřený osud jednoho z nich: tisk 124 (novela zákona o státní sociální podpoře, předkladatel Aleš Juchelka) prošel celým procesem a byl vyhlášen jako zákon č. 93/2026 Sb. (podepsán prezidentem 5. 6. 2026, publikován 10. 6. 2026); zbylých pět tisků jsem pro časovou náročnost nedohledával jednotlivě, jejich osud tedy zůstává neověřen.",
+        "effort_public_role": "Hendrych je členem Výboru pro sociální politiku (od 11. 11. 2025) a Výboru pro bezpečnost (od 16. 1. 2026), členem Stálé komise pro kontrolu činnosti Úřadu pro zahraniční styky a informace (ÚZSI, od 14. 11. 2025) a Stálé delegace Parlamentu do Parlamentní dimenze Středoevropské iniciativy (od 14. 11. 2025). Dle psp.cz navíc předsedá Podvýboru pro sociálně vyloučené lokality a reintegraci (od 28. 1. 2026) a je členem podvýborů pro duševní zdraví, regionální školství a vězeňství. Od 28. 1. 2026 je také zvoleným členem správní rady Všeobecné zdravotní pojišťovny (VZP) — veřejná institucionální role, ne obchodní vazba.",
+        "effort_notes": "Datová nesrovnalost: vstupní pole committees obsahuje 5 položek, ale dvě z nich jsou identická duplicitní záznam (Stálá delegace do Parlamentní dimenze Středoevropské iniciativy, SDPDSEI, se shodným fromAt i toAt) — po odečtení duplicity odpovídá skutečnému počtu 4 samostatných výborových/komisních/delegačních rolí na psp.cz (VSP, VB, SKÚZSI, SDPDSEI), zatímco props uvádí committee_count=5. Jde o jiný vzorec než dříve zdokumentovaný off-by-one nedopočet (batch 005) — zde je to naopak přepočet způsobený duplicitním řádkem, hodné ohlášení Case ① jako nový typ artefaktu. Kladně: PSP9→PSP10 trend contribution_score roste (74.6 → 79.9), s vysokou účastí (participation_rate=1, absence_rate=0.2) a solidní PSP9 historií (billsAuthored=8, interpellations=53, speechTurns=264) — konzistentně aktivní poslanec bez peněžního zjištění (linkedCompanies prázdné)."
+      },
+      "signal": 0.32,
+      "headline": "Hendrych, poslanec ANO se stoupajícím kontribučním skóre (PSP9 74,6 → PSP10 79,9), sedí ve výboru pro sociální politiku i bezpečnost a předsedá podvýboru pro sociálně vyloučené lokality — solidní, nekonfliktní profil s jedinou vadou: duplicitní řádek v datech výborů, který mu uměle přidává jednu funkci navíc.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6758&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=124"
+      ]
+    },
+    {
+      "id": "psp:person:7040",
+      "name": "Zuzana Mrázová",
+      "club": "ANO2011",
+      "lens": ["divergence", "high-triage"],
+      "props": {
+        "effort_work_themes": ["bytová politika a bydlení", "místní rozvoj a evropské fondy", "veřejná správa a regionální rozvoj"],
+        "effort_bill_focus": "Mrázová sama nemá ve vzorku žádný poslanecký tisk, který by iniciovala jako poslankyně (bills_authored=1 odpovídá jedinému tisku 43174/cislo 67, kde je ale coSponsors s deseti dalšími poslanci a submitter je Babiš A. a další — tedy spolupodepsala, nepředložila). Zbylé dva tisky (82 a 234) jsou vládní návrhy s předkladatelem 'min. pro místní rozvoj' — nejde o poslaneckou iniciativu, ale o vládní legislativu, kterou z titulu funkce ministryně zaštiťuje. Ověřený osud: tisk 82 (novela zákona o podpoře bydlení, 175/2025) prošel celým procesem a byl vyhlášen jako zákon č. 129/2026 Sb. (podepsán prezidentem 16. 7. 2026); tisk 234 (novela zákona o výkonu povolání autorizovaných architektů, s vazbou na EU) je k 25. 7. 2026 teprve v organizačním výboru, po prvním čtení ještě neprošel.",
+        "effort_public_role": "Mrázová byla zvolena poslankyní 4. 10. 2025 a od 15. 12. 2025 — tedy po necelých třech měsících mandátu — je ministryní pro místní rozvoj (potvrzeno na mmr.gov.cz i sqw profilu psp.cz). Její výborové role (Výbor pro veřejnou správu a regionální rozvoj, Výbor pro evropské záležitosti, obě od 11.–14. 11. 2025) skončily přesně k datu jmenování ministryní (15. 12. 2025) — shodně jako u dříve zdokumentovaného vzorce (ministr přestává být řadovým výborovým členem při nástupu do vlády). Jako ministryně nyní zaštiťuje resortní legislativu (bydlení, autorizovaní architekti), kterou dříve jako výborová členka VSR mohla sama posuzovat.",
+        "effort_notes": "contributionPsp9 je null — nejde o chybějící data, ale o skutečnost, že šlo o nováčka v PSP9 (žádné předchozí funkční období, tedy žádné srovnání k dispozici, gate (b)). Nízké props (committee_count=2, oba záznamy ukončené 15. 12. 2025) přesně odpovídají poskytnutému seznamu committees — zde žádná nesrovnalost. Skóre 55,8 je nutné číst v kontextu: nejde o nedostatečnou aktivitu, ale o strukturální artefakt rychlého přechodu z řadové poslankyně do vlády uprostřed prvního čtvrt roku mandátu — obdobný vzorec jako u ministra Klempíře v batch 005 (Case ①). linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření.",
+        "effort_low_score_reason": "institutional_promotion"
+      },
+      "signal": 0.58,
+      "headline": "Mrázová se po necelých třech měsících poslaneckého mandátu (od října 2025) stala v prosinci 2025 ministryní pro místní rozvoj — dnes jako ministryně prosazuje resortní zákony (novela zákona o podpoře bydlení už vyhlášena jako zákon č. 129/2026 Sb.), zatímco její poslanecký kontribuční profil zůstává trvale nízký kvůli ukončeným výborovým rolím a chybějící PSP9 historii.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7040&o=10",
+        "https://mmr.gov.cz/",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=82",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=234",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=67"
+      ]
+    },
+    {
+      "id": "psp:person:6766",
+      "name": "Eliška Olšáková",
+      "club": "STAN",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["sociální politika a sociální služby", "obecní/komunální legislativa", "daně z příjmů (spolupodepsáno)"],
+        "effort_bill_focus": "Olšáková je u dvou z pěti tisků ve vzorku uvedena přímo v poli submitter (43210/cislo 100 'Olšáková E., Dvořák K.' a 43216/cislo 106 'Olšáková E. a další') — to jsou tedy skutečně jí předložené iniciativy, nikoli jen spolupodpisy, na rozdíl od zbylých tří (107, 120, 146), kde je submitter jiný poslanec/poslankyně a ona je jen mezi coSponsors. Ověřený osud tisku 100 (novela zákona o obcích, 128/2000): vláda k němu 3. 3. 2026 vyjádřila nesouhlas, dosud neprošel žádným čtením, k 25. 7. 2026 je stále v projednávání. Tisk 120 (novela zákona o daních z příjmů, 586/1992, kde je hlavní předkladatelkou L. Sedmihradská a Olšáková spolupodepsala) dostal rovněž negativní vládní stanovisko (31. 3. 2026) a čeká na projednání v Rozpočtovém výboru.",
+        "effort_public_role": "Olšáková je členkou Výboru pro sociální politiku (od 11. 11. 2025), Podvýboru pro sociální služby, osoby se zdravotním postižením a sociálně-zdravotní pomezí (od 28. 1. 2026) a Stálé komise pro práci Kanceláře Poslanecké sněmovny (od 14. 11. 2025). Její nejbližší hlasovací spojenci jsou výhradně poslanci STAN (Flek, Chochelová, Krainer, Sedmihradská, Rakušan, Pivoňka Vaňková) s dohodou 0,998–0,999 — typický obraz disciplinovaného klubového hlasování.",
+        "effort_notes": "committee_count=2 odpovídá přesně dvěma položkám ve vstupním poli committees (VSP, SKPKPS) — žádná nesrovnalost. PSP9→PSP10 trend mírně klesá (82,4 → 75,2), stále nadprůměrné skóre s vyváženými komponentami (leadership 10 bodů v PSP9, dnes leadership_count=0 — ztráta vedoucí funkce mezi obdobími, možný přirozený důsledek změny výborového zařazení, ne nutně pokles výkonu). linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.3,
+      "headline": "Olšáková (STAN) je jednou z mála poslankyň ve vzorku, kde jde skutečně o vlastní legislativní iniciativu (dva tisky s ní jako přímou předkladatelkou) — oba ale narazily na nesouhlasné vládní stanovisko a k červenci 2026 stále čekají na projednání; disciplinovaná klubová hlasovačka bez peněžního zjištění.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6766&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=100",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=120"
+      ]
+    },
+    {
+      "id": "psp:person:6527",
+      "name": "David Pražák",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["zemědělství a potravinářství", "myslivost, rybářství a lesní hospodářství", "střet zájmů (spolupředkladatel novely)"],
+        "effort_bill_focus": "Jediný tisk ve vzorku (43343/cislo 221) je novela zákona o střetu zájmů (159/2006), spolupodepsaná se čtyřmi dalšími poslanci (Vondráček R. a další — on je hlavním předkladatelem, Pražák spolupodepsal, gate (e): 'spolupodepsal', ne 'předložil'). Ověřený stav k 25. 7. 2026: vláda zaujala neutrální stanovisko (30. 6. 2026), Ústavně-právní výbor byl určen garančním výborem, tisk zatím neprošel žádným čtením — projednávání teprve možné od 10. 7. 2026.",
+        "effort_public_role": "Pražák je místopředsedou Zemědělského výboru (od 13. 11. 2025, člen od 11. 11. 2025) a členem Výboru pro životní prostředí (od 11. 11. 2025); dle psp.cz předsedá Podvýboru pro produkci potravin, veterinární činnost a živočišnou výrobu a je členem podvýborů pro myslivost/rybářství/včelařství/zahrádkářství, rozvoj venkova, dopravu, lesní hospodářství a ochranu zvířat. Od 25. 3. 2026 je navíc zvoleným členem Dozorčí rady Státního zemědělského intervenčního fondu (SZIF) — instituce, která spravuje zemědělské dotace a intervence.",
+        "effort_notes": "MONEY-TOUCHING OVĚŘENÍ (ARES VR endpoint, ne plochý /ekonomicke-subjekty/ endpoint — dle doktríny): (1) KORID LK, spol. s r.o. (IČO 27267351, dopravní organizátor Libereckého kraje s veřejnou zakázkou 60 118 595,61 Kč dle dossieru) — Pražák (nar. 13. 9. 1979, adresa Kozákovská 593, Podmoklice, Semily — shoduje se s jeho volebním regionem Liberecký a sídlem regionální kanceláře v Semilech) byl členem dozorčí rady od 7. 12. 2016 do 1. 12. 2020, záznam ukončen 29. 6. 2021 — role je HISTORICKÁ, ne aktivní, skončila roky před současným mandátem (od 10/2025). (2) AGROCENTRUM JIZERAN a.s. (IČO 60914351, zakázka 2 840 827,13 Kč dle dossieru) — Pražák je AKTIVNÍ místopředseda představenstva od 29. 6. 2023 (poslední potvrzený záznam 23. 10. 2023, žádný záznam o ukončení), s nepřetržitou historií v představenstvu od roku 2007 (2007–2011 člen/místopředseda, 2011–2015, 2015–2019, 2023–dosud). Toto je BĚŽÍCÍ, NEUKONČENÁ vazba souběžná s jeho poslaneckým mandátem i s místopředsednictvím Zemědělského výboru a členstvím v dozorčí radě SZIF — tři souběžné agrární role (poslanecká, korporátní, institucionální) v jedné osobě. reviewState u obou firem je stále 'pending_review' v dossieru; toto ověření VR záznamy potvrzuje, ale finální posouzení tie_class (owner-operator/manager/steward) náleží Case ① money loopu."
+      },
+      "signal": 0.72,
+      "headline": "Pražák, místopředseda Zemědělského výboru a od března 2026 také člen dozorčí rady SZIF, je zároveň aktivně sloužícím místopředsedou představenstva zemědělské firmy AGROCENTRUM JIZERAN a.s. (od 2023, nepřerušená vazba od 2007) s veřejnou zakázkou 2,84 mil. Kč — ARES VR potvrzuje běžící, neukončenou funkci souběžnou s jeho výborovou i institucionální rolí v zemědělství; dřívější dozorčí post v dopravním podniku KORID LK (60 mil. Kč zakázka) skončil už v roce 2020, mimo současný mandát.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6527&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=221",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27267351",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/60914351"
+      ]
+    },
+    {
+      "id": "psp:person:6723",
+      "name": "Jana Berkovcová",
+      "club": "ANO2011",
+      "lens": ["bottom", "high-triage"],
+      "props": {
+        "effort_work_themes": ["věda a vysoké školství", "regionální školství a celoživotní vzdělávání", "zahraniční politika"],
+        "effort_bill_focus": "Berkovcová nemá ve vzorku žádný sponzorovaný tisk (sponsoredBills prázdné pole, odpovídá props bills_authored=0) — žádnou legislativní iniciativu ani spolupodpis v tomto období nevykazuje.",
+        "effort_public_role": "Berkovcová je místopředsedkyní Výboru pro vědu, vzdělávání, mládež a sport (od 13. 11. 2025, členkou od 11. 11. 2025) a členkou Zahraničního výboru (od 11. 11. 2025); dle psp.cz je od 18. 2. 2026 též členkou podvýborů pro regionální školství/celoživotní vzdělávání/inkluzi a pro vědu a vysoké školství. Je také členkou sedmi meziparlamentních skupin (UK, Slovensko, Mexiko, Slovinsko, Maďarsko, USA, Izrael, vše od 2. 2. 2026).",
+        "effort_notes": "committee_count=3 odpovídá přesně třem položkám ve vstupním poli committees (VVVMS vice, VVVMS member, ZAV member) — žádná nesrovnalost. Nápadně tichý profil navzdory vedoucí funkci: speech_turns=1 (nejnižší v celé skupině), 0 tisků, 0 interpelací a absence_rate=0.5 (50% absencí) při participation_rate=0.8. To je kombinace, která u řadového poslance vypadá jako nízká aktivita, ale u místopředsedkyně výboru je to voličsky relevantní zjištění — vedoucí funkce ve výboru bez odpovídající viditelné aktivity v plénu. contributionPsp9 existuje (63,6 v PSP9, tedy nejde o nováčku) a i tam byla docházka slabší (absenceRate 0.5), takže vzorec není nový v PSP10, ale pokračuje z minulého období. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření.",
+        "effort_low_score_reason": "low_legislative_output"
+      },
+      "signal": 0.45,
+      "headline": "Berkovcová, místopředsedkyně Výboru pro vědu, vzdělávání, mládež a sport za ANO, má nejnižší viditelnou aktivitu v celé skupině — jediný řečnický vstup, žádný tisk a 50% absence při vedoucí výborové funkci — a stejný vzorec slabší docházky se opakuje už z jejího PSP9 období.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6723&o=10"
+      ]
+    }
+  ],
+  "crossCuttingLeads": [
+    "Zuzana Mrázová se stala ministryní pro místní rozvoj po necelých třech měsících poslaneckého mandátu (zvolena 4. 10. 2025, ministryní od 15. 12. 2025) — stejný strukturální vzorec jako u ministra Klempíře v batch 005 (rychlý přechod řadový poslanec → člen vlády, ukončené výborové role přesně k datu jmenování, nízké/chybějící kontribuční skóre jako artefakt role, ne neaktivity). Stojí za to v Case ① systematicky vytáhnout celou kohortu MP→ministr přechodů z PSP10 a označit je jednotně, než se jejich nízká skóre interpretují jako reálný pokles výkonu.",
+    "Hendrychovo pole committees obsahuje exaktní duplicitní řádek (stejná delegace SDPDSEI se shodným fromAt/toAt uvedena dvakrát), což přepočítává committee_count o jednu pozici nahoru oproti reálným 4 rolím na psp.cz. Jde o JINÝ vzorec artefaktu než dříve zdokumentovaný off-by-one nedopočet (batch 005: 'počítadlo o 1 vyšší než doložený seznam' bez duplicity) — zde je příčinou přímo duplicitní řádek ve zdrojových datech. Doporučuji Case ① přidat de-dup kontrolu na (pspId, abbrev, fromAt, toAt) při generování committees pole.",
+    "David Pražák (MONEY): ARES VR ověření potvrdilo AKTIVNÍ, neukončenou funkci místopředsedy představenstva u AGROCENTRUM JIZERAN a.s. souběžně s jeho místopředsednictvím Zemědělského výboru a (od 3/2026) členstvím v dozorčí radě SZIF — tři souběžné agrární role. Toto je přesně ten typ 'false clearance' rizika, který doktrína VR endpointu má odhalit, a zde skutečně odhalil aktivní, ne jen historickou vazbu. Doporučuji Case ① prioritně dotáhnout tie_class klasifikaci pro obě jeho firmy (KORID LK jako 'historical/terminated', AGROCENTRUM JIZERAN jako 'active') a zvážit přidání SZIF dozorčí rady jako samostatné institucionální vazby do grafu, protože jde o veřejnou instituci spravující zemědělské dotace přímo relevantní pro jeho výborovou agendu."
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "generatedAt": "2026-07-25T00:00:00.000Z",
+  "proposals": [
+    {
+      "id": "psp:person:6687",
+      "name": "Jan Jakob",
+      "club": "TOP09",
+      "lens": [
+        "divergence",
+        "high-triage"
+      ],
+      "props": {
+        "effort_work_themes": [
+          "mediální politika",
+          "veřejné rozpočty",
+          "komunální samospráva a decentralizace"
+        ],
+        "effort_bill_focus": "Jediný tisk ve vzorku (43302, sněmovní tisk 181, novela zákona č. 491/2001 o volbách do zastupitelstev obcí) předložila skupina poslanců s M. O. Havlem jako prvním předkladatelem ('Havel M. O. a další'); Jakob je jedním z osmi spolupodepsaných, nikoli předkladatelem — odpovídá gate (e), jde o 'spolupodepsal', ne 'předložil'. Tisk byl 6. 5. 2026 rozeslán poslancům, vláda k němu 3. 6. 2026 zaujala nesouhlasné stanovisko a organizační výbor doporučil pokračovat v projednávání; garančním výborem je ústavně-právní výbor. K 25. 7. 2026 nebyl ještě projednán v plénu.",
+        "effort_public_role": "Jakob je od 12. 10. 2021 (a nadále i po volbách 2025) předsedou poslaneckého klubu TOP 09 — jde o klubové vedení, které se neprojevuje v komitétovém leadership_count (ten zůstává 0, protože nejde o vedení výboru). V minulosti byl v letech 2010–2022 dvanáct let starostou Roztok u Prahy. Nyní je členem Organizačního výboru, Výboru pro mediální záležitosti a Rozpočtového výboru a dále pěti podvýborů/komisí (kulturní podvýbor — od března 2026 i ověřovatel, podvýbor pro svobodu slova, podvýbor pro obecní financování a evropské fondy, podvýbor pro kontrolu veřejného sektoru, komise pro státní vyznamenání, komise pro centrální evidenci účtů).",
+        "effort_notes": "Peněžní ověření provedeno přes ARES VR (plný historický výpis, ne zjednodušený endpoint): u Operátor ICT, a.s. (IČO 02795281, potvrzená shoda IČO i názvu) tvoří představenstvo Luboš Kratochvíl (předseda), Petr Suška, Iva Seigertschmidová, Jan Ladin, Roman Hrobský a Marek Vodenka, dozorčí radu vede Tomáš Zmuda se sedmi členy a jediným akcionářem je hlavní město Praha. Jan Jakob se v žádné roli — statutární orgán, dozorčí rada ani akcionář — v tomto záznamu nevyskytuje. Vysoká hodnota uvedené zakázky (884,86 mil. Kč) tedy zjevně odpovídá zakázce v řádu velkoměstského rozpočtu, nikoli osobní vazbě poslance na firmu; jako bývalý starosta sousedních Roztok mohl mít institucionální styk s pražským dopravně-technologickým operátorem, ale žádnou funkci ve firmě jsme nenašli. Druhý odkaz (Základní organizace Českého zahrádkářského svazu Roztoky Třebízského, IČO 72046422, contractCzk=0) leží přímo v jeho bývalém starostenském městě — jde pravděpodobně o místní spolkovou vazbu z doby jeho starostování, nikoli o obchodní vztah, a nulová hodnota zakázky navíc znamená, že u tohoto záznamu není evidován žádný peněžní tok."
+      },
+      "signal": 0.5,
+      "headline": "Jakob, dlouholetý předseda poslaneckého klubu TOP 09 a bývalý starosta Roztok, má ve vzorku jednu velkou (885 mil. Kč) peněžní vazbu — po plném ARES VR ověření ale bez jakékoli osobní role ve firmě Operátor ICT.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6687&o=10",
+        "https://ares.gov.cz/ekonomicke-subjekty-vr/02795281",
+        "https://cs.wikipedia.org/wiki/Jan_Jakob",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=181"
+      ]
+    },
+    {
+      "id": "psp:person:6216",
+      "name": "Michal Kučera",
+      "club": "TOP09",
+      "lens": [
+        "high-triage"
+      ],
+      "props": {
+        "effort_work_themes": [
+          "hospodářská politika",
+          "zemědělství a vodní hospodářství",
+          "energetika a doprava"
+        ],
+        "effort_bill_focus": "Jediný tisk ve vzorku (43302, sněmovní tisk 181, novela zákona č. 491/2001 o volbách do zastupitelstev obcí) je totožný s tiskem u Jana Jakoba — předkladatelem je skupina vedená M. O. Havlem, Kučera je jedním ze spolupodepsaných (gate e: 'spolupodepsal', ne 'předložil'). Stav k 25. 7. 2026: rozeslán 6. 5. 2026, vláda zaujala nesouhlasné stanovisko 3. 6. 2026, garančním výborem je ústavně-právní výbor, dosud neprojednáno v plénu.",
+        "effort_public_role": "Od 19. 3. 2026 místopředseda Hospodářského výboru (členem od 11. 11. 2025), dále člen Zemědělského výboru a od 28. 1. 2026 místopředseda podvýboru pro vodní hospodářství. Zasedá i ve Stálé komisi pro kontrolu použití odposlechu a sledování osob a věcí a ve Stálé komisi pro práci Kanceláře Poslanecké sněmovny.",
+        "effort_notes": "Peněžní ověření provedeno přes ARES VR plný historický výpis pro obě firmy. Sirius Praha s.r.o. (IČO 19840659): jediným jednatelem je od 19. 10. 2023 Larysa Vlasenko, dříve (do 25. 4. 2025) i Iryna Hladka-Sachdeva, obě ukrajinské občanky s 50% podílem; Michal Kučera se v celé dostupné historii této firmy nevyskytuje v žádné roli — žádná vazba nenalezena, navíc contractCzk=0. LIHT s.r.o. (IČO 26123550): plný historický výpis skutečně dokládá, že Michal Kučera (narozen 4. 10. 1968, shoda s datem narození tohoto poslance) byl jednatelem této společnosti od 28. 11. 2003 do 2. 7. 2005 — jde o reálnou, doloženou historickou korporátní vazbu, ale ukončenou více než 20 let před nástupem mandátu (2025) a bez jakéhokoli aktuálního postavení; contractCzk=0 znamená, že k této firmě není evidován žádný peněžní tok z veřejných zakázek."
+      },
+      "signal": 0.42,
+      "headline": "Kučera, místopředseda Hospodářského výboru, měl přes 20 let před svým mandátem doloženou roli jednatele (2003–2005) ve firmě LIHT s.r.o. — dávno ukončenou a bez vazby na veřejné peníze; druhá firma (Sirius Praha) s ním po ARES VR ověření nesouvisí vůbec.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6216&o=10",
+        "https://ares.gov.cz/ekonomicke-subjekty-vr/19840659",
+        "https://ares.gov.cz/ekonomicke-subjekty-vr/26123550",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=181"
+      ]
+    },
+    {
+      "id": "psp:person:6989",
+      "name": "Lucie Bartošová",
+      "club": "ODS",
+      "lens": [
+        "high-triage"
+      ],
+      "props": {
+        "effort_work_themes": [
+          "média a audiovize",
+          "školství, věda a sport",
+          "veřejné zdraví/protikuřácká politika"
+        ],
+        "effort_bill_focus": "Jediný tisk ve vzorku (43330, sněmovní tisk 208, novela zákona č. 65/2017 o ochraně zdraví před škodlivými účinky návykových látek) předložila skupina poslanců vedená Š. Slovákem ('Slovák Š. a další'); Bartošová je spolupodepsanou, nikoli předkladatelkou (gate e). Tisk byl organizačním výborem doporučen k projednání 24. 6. 2026, vláda k němu 23. 6. 2026 zaujala nesouhlasné stanovisko, garančním výborem je Výbor pro zdravotnictví; zpravodajem je V. Trojan. K 25. 7. 2026 stále neprojednáno v plénu.",
+        "effort_public_role": "Od 4. 2. 2026 místopředsedkyní poslaneckého klubu ODS — klubová leadership role, která se do committee leadership_count nepočítá. Je členkou Výboru pro mediální záležitosti a Výboru pro vědu, vzdělávání, mládež a sport, od 18. 2. 2026 předsedkyní podvýboru pro alternativní vzdělávání a od března 2026 ověřovatelkou kulturního podvýboru; dále členkou/ověřovatelkou Stálé komise pro kontrolu NÚKIB a náhradnicí v delegaci do Parlamentního shromáždění Rady Evropy.",
+        "effort_notes": "Sedm výborových/komisních/delegačních rolí ve vstupních datech přesně odpovídá committee_count=7 — žádná datová nesrovnalost tentokrát. Bartošová je s ročníkem narození 2000 jednou z nejmladších poslankyň ve vzorku, přesto zastává klubové místopředsednictví ODS. Žádné linkedCompanies, žádné peněžní zjištění k ověření. contributionPsp9 je null — jde o její první mandát, srovnání s PSP9 tedy neexistuje a žádný trend nelze tvrdit."
+      },
+      "signal": 0.3,
+      "headline": "Bartošová, nejmladší z pětice a místopředsedkyně poslaneckého klubu ODS, má široký, ale zatím spíše řadový výborový záběr (7 rolí) a čistý profil bez peněžních zjištění.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6989&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=208"
+      ]
+    },
+    {
+      "id": "psp:person:6763",
+      "name": "Michaela Šebelová",
+      "club": "STAN",
+      "lens": [
+        "top",
+        "high-triage"
+      ],
+      "props": {
+        "effort_work_themes": [
+          "zdravotnictví a zdravotní pojištění",
+          "veřejná správa",
+          "sociální politika"
+        ],
+        "effort_bill_focus": "Oba tisky ve vzorku (43131 = sněmovní tisk 24, novela zákona o obcích č. 128/2000; 43267 = sněmovní tisk 146, novela zákonů o obcích/krajích/hl. m. Praze č. 128/2000, 129/2000, 131/2000) mají jako první předkladatele V. Rakušana, resp. V. Kovářovou ('a další'); Šebelová je v obou případech spolupodepsanou, nikoli předkladatelkou (gate e). Tisk 24 má k 25. 7. 2026 neutrální stanovisko vlády a je u Výboru pro veřejnou správu a regionální rozvoj; tisk 146 má naopak nesouhlasné stanovisko vlády (21. 4. 2026) a je ve stejném výboru — ani jeden zatím neprojednán v plénu.",
+        "effort_public_role": "Od 10. 10. 2025 je předsedkyní celého poslaneckého klubu STAN — nejvyšší klubová funkce, kterou committee leadership_count nezachycuje. Je ověřovatelkou Výboru pro zdravotnictví (od 13. 11. 2025) a od 28. 1. 2026 zvolenou členkou správní rady Všeobecné zdravotní pojišťovny (VZP) — institucionální dohledová role logicky navazující na její zdravotnický výbor. Dále zasedá v podvýborech pro zdravotnickou ekonomiku a pojišťovnictví, pro nelékařské profese a práva pacientů, pro sport a pro veřejné zdraví a epidemiologii a je členkou delegací do Kanady, Francie, Velké Británie, Maroka a Beneluxu.",
+        "effort_notes": "Kontribuční skóre 81,1 je v této pětici nejvyšší a odpovídá reálné výborové i klubové zátěži (vedení celého poslaneckého klubu STAN). Srovnání s PSP9 je legitimní (contributionPsp9 dostupné, ne null) a ukazuje nárůst z 73,1 na 81,1 — reálné zlepšení mezi obdobími, ne domyšlený trend. Žádné linkedCompanies, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.6,
+      "headline": "Šebelová vede celý poslanecký klub STAN a zasedá ve správní radě VZP, přičemž má v této pětici nejvyšší kontribuční skóre (81,1, meziročně nahoru z 73,1) — silný a čistý profil bez peněžních zjištění.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6763&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=24",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=146"
+      ]
+    },
+    {
+      "id": "psp:person:6064",
+      "name": "Miroslav Ševčík",
+      "club": "SPD",
+      "lens": [
+        "high-triage"
+      ],
+      "props": {
+        "effort_work_themes": [
+          "veřejné rozpočty a hospodářská politika",
+          "vysoké školství",
+          "regionální/zemská identita"
+        ],
+        "effort_bill_focus": "Jediný tisk ve vzorku (43197, sněmovní tisk 87, nový zákon o zemských znacích a vlajkách) předložil samostatně R. Vondráček; Ševčík je jedním z asi čtyřiceti spolupodepsaných napříč ANO a SPD, nikoli předkladatelem (gate e). Organizační výbor doporučil pokračování 4. 3. 2026, vláda zaujala kladné stanovisko 25. 2. 2026, garančním výborem je Výbor pro vědu, vzdělávání, mládež a sport s dalším projednáním v ústavně-právním výboru; k 25. 7. 2026 stále neprojednáno v plénu.",
+        "effort_public_role": "Od 12. 11. 2025 — den po vstupu do výboru — místopředsedou Rozpočtového výboru; dále členem Výboru pro vědu, vzdělávání, mládež a sport, Stálé komise pro hybridní hrozby a Stálé komise pro kontrolu Generální inspekce bezpečnostních sborů. Před vstupem do politiky byl dlouholetým akademikem: v letech 2010–2018 a 2022–2023 děkanem Fakulty mezinárodních vztahů VŠE a spoluzakladatelem Liberálního institutu (1989) — veřejně známá ekonomická osobnost ještě před zvolením do Sněmovny.",
+        "effort_notes": "Míra vzpoury (rebellion_rate=0,01, tedy 14 z 1441 hlasů) je v této pětici nejvyšší v absolutním i relativním čísle vůči klubu SPD. Zároveň je jeho contested_vote_rebellion=0,88, tedy pod hodnotou 1 — což naznačuje, že se od klubové linie odchyluje spíše u běžných, ne u vysoce kontroverzních/těsných hlasování; obě čísla je třeba uvádět společně, ne izolovaně. contributionPsp9 je null — jde o jeho první mandát v tomto vzorku, srovnání s PSP9 tedy neexistuje. Žádné linkedCompanies, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.4,
+      "headline": "Ševčík, místopředseda Rozpočtového výboru za SPD a bývalý děkan Fakulty mezinárodních vztahů VŠE, má v této pětici nejvyšší počet hlasů proti vlastnímu klubu (14), byť spíše v běžných než v těsných hlasováních.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6064&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
+        "https://cs.wikipedia.org/wiki/Miroslav_%C5%A0ev%C4%8D%C3%ADk"
+      ]
+    }
+  ],
+  "crossCuttingLeads": [
+    "Ve všech pěti dossierech se committee_count přesně shoduje s délkou pole committees — na rozdíl od dřívějších batchí (Lipavský/Němcová/Wenzl v batch-005) zde tedy oprava metodiky drží; žádná nová anomálie k nahlášení.",
+    "Žádný z pěti MP ve skupině C nefiguruje jako skutečný předkladatel ('předložil') svého sponzorovaného tisku ve vzorku — všichni jsou pouze spolupodepsaní na tiscích typu mp_group vedených jiným poslancem. To je vzorec hodný sledování napříč celým batchem 006: pokud se opakuje i u dalších skupin, mohlo by jít o systematický rys extrakce sponsoredBills (možná preferuje zobrazovat tisky, kde je MP mezi spolupodpisy, i když má jiné tisky, kde je sám předkladatelem).",
+    "Money-verifikace u Jana Jakoba je příklad 'false clearance' ve prospěch MP — velké číslo zakázky (885 mil. Kč) u firmy, kde po plném ARES VR ověření nemá žádnou roli; naopak u Michala Kučery plný historický VR výpis LIHT s.r.o. potvrdil reálnou, byť starou (2003–2005) korporátní vazbu, kterou by zjednodušený/aktuální endpoint pravděpodobně minul. Oba případy dohromady jsou přesně ta dvojice chybových tříd (false clearance / missed historical seat), na které doktrína upozorňuje — stojí za to je uvést jako pozitivní příklad fungující metodiky v batch reflexi.",
+    "Tři z pěti MP (Jakob, Bartošová, Šebelová) zastávají klubové vedení (předseda/místopředseda poslaneckého klubu), které se nikde v deterministických props neprojevuje (leadership_count počítá jen výborové vedení) — jde o systematickou mezeru v tom, co contribution_score/leadership_count zachycuje, ne o chybu konkrétního záznamu; stojí za zvážení jako budoucí rozšíření deterministického datasetu, ne za opravu v tomto payloadu."
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "generatedAt": "2026-07-25T00:00:00.000Z",
+  "proposals": [
+    {
+      "id": "psp:person:6997",
+      "name": "Adriana Chochelová",
+      "club": "STAN",
+      "lens": [
+        "high-triage"
+      ],
+      "props": {
+        "effort_work_themes": [
+          "evropské záležitosti",
+          "digitalizace a AI",
+          "ústavně-právní agenda"
+        ],
+        "effort_bill_focus": "Tři spolupodepsané tisky, ve všech je uvedena jako druhá/další signatářka, nikoli předkladatelka (odpovídá bills_authored=3, gate e — všude 'spolupodepsala'). Tisk 36 (novela občanského zákoníku v rodinněprávní části — rozvod, výživné; s B. Urbanovou, podán 21. 11. 2025) byl po předložení vládě k vyjádření stažen navrhovateli 8. 12. 2025, tedy nedošel k žádnému hlasování. Tisk 120 (novela zákona o daních z příjmů, s L. Sedmihradskou a širokou skupinou STAN, podán 3. 3. 2026) čeká na projednání v Rozpočtovém výboru jako garančním, vláda 31. 3. 2026 vyjádřila nesouhlas. Tisk 205 (novela kompetenčního zákona, s B. Urbanovou a další, podán 27. 5. 2026) je přikázán Ústavně-právnímu výboru, vláda opět nesouhlasila (23. 6. 2026); k 25. 7. 2026 žádný z tisků neprošel ani nebyl zamítnut.",
+        "effort_public_role": "Členka Mandátového a imunitního výboru (od 5. 11. 2025), Výboru pro evropské záležitosti (od 14. 11. 2025) a od 24. 6. 2026 Ústavně-právního výboru. Dále členkou Volební komise a Stálé delegace Parlamentu do Parlamentního shromáždění Rady Evropy (nejprve jako náhradnice od 16. 1. 2026, členka od 24. 6. 2026). Ověřovatelkou Stálé komise pro kontrolu činnosti NÚKIB byla od 21. 1. do 24. 6. 2026 (jediná zaznamenaná vedoucí role, odpovídá leadership_count=1). Dle psp.cz je navíc členkou devíti podvýborů (ICT/AI a digitální ekonomika, startupy, kultura, digitální ekonomika a ochrana spotřebitele, evropské fondy a zelená tranzice, duševní zdraví, bytová politika, justice, oběti a násilí) a od 25. 2. 2026 předsedkyní meziparlamentní skupiny ČR–Chile — obě tyto agendy (podvýbory, meziparlamentní skupiny) nejsou v komponentě committee_count/leadership_count zahrnuty.",
+        "effort_notes": "committee_count=10 přesně odpovídá 10 položkám ve vstupním poli committees (vč. dvou dvojic SDPSRE a SKNÚKIB zachycujících přechody mezi rolemi/daty) — žádná nesrovnalost, metodika po opravě sedí. Zaznamenaná mimo tuto komponentu podvýborová a meziparlamentní agenda (viz výše) ukazuje, že leadership_count=1 podhodnocuje její celkovou funkční zátěž, protože nezahrnuje předsednictví meziparlamentní skupiny. Datová anomálie hodná pozornosti: participation_rate=0.7 a absence_rate=0.8 jsou obě vysoké současně (součet 1.5), na rozdíl od ostatních čtyř MPs v tomto vzorku, kde se tyto dvě metriky chovají spíše komplementárně (např. u Smejkalové 0.9/0.3) — nejde o nic, co bych sama opravovala, ale doporučuji ověřit, zda jde o dvě nezávisle měřené veličiny (různé jmenovatele) nebo o chybu v jedné z komponent. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.28,
+      "headline": "Chochelová, poslankyně STAN s deseti výborovými/komisními rolemi a devíti dalšími podvýbory, má tři spolupodepsané tisky (žádný neprošel, jeden stažen) a v datech nápadně vysokou souběžnou absenci i účast (0,8 vs. 0,7) — čistý profil bez peněžních zjištění, ale s otevřenou datovou otázkou.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6997&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=36",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=120",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=205"
+      ]
+    },
+    {
+      "id": "psp:person:7048",
+      "name": "Kateřina Stojanová",
+      "club": "Piráti",
+      "lens": [
+        "top",
+        "high-triage"
+      ],
+      "props": {
+        "effort_work_themes": [
+          "boj proti korupci a střet zájmů",
+          "jednací řád Sněmovny",
+          "veřejné finance"
+        ],
+        "effort_bill_focus": "Pět tisků odpovídá bills_authored=5. U čtyř je spolupodepsanou (gate e): tisk 6 a doprovodný tisk 7 (komplexní zákon o Úřadu pro prevenci korupce a střetu zájmů a související úpravy, oba podány Bartošem a Richterovou 15. 10. 2025 — Stojanová se dle historie.sqw připojila jako signatářka až 26. 2. 2026; ÚPV garanční, vláda nesouhlasila 4. 12. 2025, k 25. 7. 2026 stále projednáváno); tisk 15 (novela jednacího řádu PS, s Richterovou a Bartošem, podán 10. 11. 2025, ÚPV garanční, vláda nesouhlasila, navrženo schválení již v 1. čtení dle §90/2); tisk 168 (novela zákona o DPH, velký sedmnáctijmenný pirátský tisk, podán 15. 4. 2026, Rozpočtový výbor garanční, vláda nesouhlasila). U tisku 215 (novela soudního řádu správního, podán 4. 6. 2026, s S. Volpem, K. Demetrashvili a V. Kovářovou, zpravodajka Eva Decroix) je Stojanová dle 'Stojanová K. a další' vedoucí signatářkou — zde lze na rozdíl od ostatních čtyř legitimně mluvit o 'předložila', nikoli jen 'spolupodepsala'. Žádný z pěti tisků k 25. 7. 2026 neprošel ani nebyl zamítnut.",
+        "effort_public_role": "Členka Mandátového a imunitního výboru (od 5. 11. 2025), Ústavně-právního výboru (od 11. 11. 2025), Stálé komise pro kontrolu činnosti Finančního analytického úřadu a Stálé komise pro Ústavu ČR a parlamentní procedury (obě od 14. 11. 2025) — 4 role odpovídají committee_count=4. Dle psp.cz je od 5. 10. 2025 místopředsedkyní poslaneckého klubu Piráti — to je vedoucí role na úrovni klubu, nikoli výboru, takže leadership_count=0 v komponentě committee_count/leadership_count neznamená absenci vedoucí zodpovědnosti, jen jinou kategorii. Dále členkou tří podvýborů (sociální vyloučení a reintegrace, justice, exekuce/insolvence a oddlužení) nezahrnutých do committee_count.",
+        "effort_notes": "committee_count=4 přesně odpovídá 4 položkám ve vstupním poli committees — žádná nesrovnalost. Klubové místopředsednictví (viz výše) je systémově mimo měřenou komponentu leadership_count, podobně jako u Chochelové (meziparlamentní předsednictví) a Volpeho (podvýborové místopředsednictví) — napříč skupinou se ukazuje konzistentní vzorec, že klubové/podvýborové/meziparlamentní vedoucí role committee_count/leadership_count systematicky nezachycuje. Vzorek neobsahuje téma zaznamenaných 2 interpelací (props interpellations=2) — konkrétní předmět interpelací nebyl v dostupném materiálu dohledatelný, neuvádím proto konkrétní téma. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.5,
+      "headline": "Stojanová, místopředsedkyně poslaneckého klubu Piráti, je jedinou předkladatelkou z celé mé skupiny (tisk 215, novela soudního řádu správního) a spoluautorkou protikorupčního zákona o ÚPKSZ — aktivní legislativní profil bez dosud uzákoněného výsledku a bez peněžních zjištění.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7048&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=6",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=7",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=15",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=215"
+      ]
+    },
+    {
+      "id": "psp:person:7044",
+      "name": "Julie Smejkalová",
+      "club": "STAN",
+      "lens": [
+        "high-triage"
+      ],
+      "props": {
+        "effort_work_themes": [
+          "cestovní ruch a podnikání",
+          "veřejná správa a obce",
+          "daně"
+        ],
+        "effort_bill_focus": "Čtyři tisky, u všech je Smejkalová v pozici 'a další' za jinou vedoucí signatářkou, tedy spolupodepsala (gate e), bills_authored=4 souhlasí s počtem. Dvojice tisků 106 a 107 (novely zákona o podmínkách podnikání v cestovním ruchu, obě se sedmičlennou skupinou vedenou E. Olšákovou, podány 10. 2. 2026) čekají u Výboru pro veřejnou správu a regionální rozvoj jako garančního; vláda k tisku 106 zaujala nesouhlasné stanovisko (10. 3. 2026), k tisku 107 stanovisko neutrální (31. 3. 2026). Tisk 120 (novela zákona o daních z příjmů, s L. Sedmihradskou a širokou skupinou STAN vč. A. Chochelové, podán 3. 3. 2026) je u Rozpočtového výboru, vláda nesouhlasila. Tisk 146 (novela zákona o obcích, s V. Kovářovou a další, podán 25. 3. 2026) je rovněž u Výboru pro veřejnou správu a regionální rozvoj, vláda nesouhlasila 21. 4. 2026. K 25. 7. 2026 žádný ze čtyř tisků neprošel ani nebyl zamítnut.",
+        "effort_public_role": "Členka Petičního výboru a Výboru pro vědu, vzdělávání, mládež a sport (obě role od 11. 11. 2025) a Stálé komise pro hybridní hrozby (od 14. 11. 2025) — 3 role odpovídají committee_count=3. Dle psp.cz narozena 12. 7. 2004, tedy jedna z nejmladších poslankyň zvolených do Sněmovny v tomto volebním období (mandát od 4. 10. 2025 ve věku 21 let) — veřejně dohledatelný a relevantní biografický fakt, nikoli soukromá informace. Členství ve Výboru pro vědu, vzdělávání, mládež a sport a ve dvou podvýborech (duševní zdraví, ochrana zvířat) odpovídá profilu mladé poslankyně orientované na témata mládeže a vzdělávání.",
+        "effort_notes": "committee_count=3 přesně odpovídá 3 položkám ve vstupním poli committees — žádná nesrovnalost. componentDivergence=0.964 je nejvyšší v celém mém vzorku pěti MPs, ale quietWorkhorseIndex=-0.072 je mírně záporný a triage.quietWorkhorse=false — na rozdíl od jiných batchí zde vysoká divergence sama o sobě nenaznačuje skrytého workhorse, jen že komponenty skóre táhnou různými směry; neinterpretuji to jako anomálii k opravě. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.3,
+      "headline": "Smejkalová, jedna z nejmladších poslankyň Sněmovny (nastoupila v 21 letech), se v prvním mandátu drží čistě spolupodpisové role na čtyřech tiscích (cestovní ruch, obce, daně) bez vlastního prvenství a bez peněžních zjištění.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7044&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=106",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=107",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=120",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=146"
+      ]
+    },
+    {
+      "id": "psp:person:7057",
+      "name": "Samuel Volpe",
+      "club": "Piráti",
+      "lens": [
+        "top",
+        "high-triage"
+      ],
+      "props": {
+        "effort_work_themes": [
+          "doplňkové penzijní spoření",
+          "bezpečnost a zpravodajský dohled",
+          "kontrola veřejných financí"
+        ],
+        "effort_bill_focus": "Čtyři tisky, u všech spolupodepsal (gate e), bills_authored=4 souhlasí. Dvojice tisků 71 a 86 (novely zákona o doplňkovém penzijním spoření, obě vedeny O. Richterovou a skupinou pirátských poslanců, podány 8. 12. 2025 a 22. 1. 2026) čekají u Rozpočtového výboru jako garančního; vláda k tisku 71 zaujala neutrální stanovisko, k tisku 86 nesouhlasné (24. 2. 2026). Tisk 168 (novela zákona o DPH, velký sedmnáctijmenný pirátský tisk, podán 15. 4. 2026) je rovněž u Rozpočtového výboru, vláda nesouhlasila. Tisk 215 (novela soudního řádu správního, s K. Stojanovou jako vedoucí signatářkou, K. Demetrashvili a V. Kovářovou, podán 4. 6. 2026) je u Ústavně-právního výboru, zpravodajka Eva Decroix. K 25. 7. 2026 žádný ze čtyř tisků neprošel ani nebyl zamítnut.",
+        "effort_public_role": "Členem Hospodářského výboru byl od 11. 11. 2025 do 6. 3. 2026 (ukončeno, odpovídá poli toAt v committees), nyní členem Výboru pro bezpečnost (od 11. 11. 2025), Volební komise (od 29. 10. 2025) a Stálé komise pro kontrolu činnosti BIS (od 14. 11. 2025) — 4 role odpovídají committee_count=4. Dle psp.cz je dále členem pěti podvýborů (doprava, kontrola veřejných financí, sport, oběti a násilí, rozvojová spolupráce a lidská práva v zahraničí) a od 12. 3. 2026 místopředsedou Podvýboru pro kontrolu veřejných financí — reálná vedoucí role, kterou committee_count/leadership_count (leadership_count=0) nezachycuje, protože se týká podvýboru, nikoli výboru.",
+        "effort_notes": "committee_count=4 přesně odpovídá 4 položkám ve vstupním poli committees vč. správně zachyceného konce členství v HV (6. 3. 2026) — žádná nesrovnalost. Podvýborové místopředsednictví (viz výše) je stejný systémový jev jako u Chochelové a Stojanové v tomto vzorku (klubové/podvýborové/meziparlamentní vedení mimo měřenou komponentu) — třetí nezávislý výskyt v pěti MPs, což činí z tohoto vzorového jevu spíše zdokumentovanou metodickou hranici než náhodu. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.4,
+      "headline": "Volpe, poslanec Pirátů z bezpečnostního a rozpočtového výboru, od března 2026 místopředsedá podvýboru pro kontrolu veřejných financí — vedoucí roli, kterou datová komponenta committee_count nezachycuje — a spolupodepsal čtyři dosud neuzákoněné tisky bez peněžních zjištění.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7057&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=71",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=86",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=215"
+      ]
+    },
+    {
+      "id": "psp:person:6552",
+      "name": "Zdeněk Hřib",
+      "club": "Piráti",
+      "lens": [
+        "high-triage"
+      ],
+      "props": {
+        "effort_work_themes": [
+          "životní prostředí a EIA",
+          "zdravotnictví a e-health",
+          "hospodářská a rozpočtová politika DPH"
+        ],
+        "effort_bill_focus": "Dva tisky, bills_authored=2 souhlasí. U tisku 49 (novela zákona o posuzování vlivů na životní prostředí — EIA, podán 1. 12. 2025 s O. Richterovou a K. Demetrashvili) je dle 'Hřib Z. a další' skutečně vedoucím signatářem — zde lze na rozdíl od tisku 168 legitimně mluvit o 'předložil' (gate e); tisk čeká u Výboru pro životní prostředí jako garančního (mimo jeho vlastní výborové zařazení), zpravodajka Jana Krutáková, vláda zaujala neutrální stanovisko 23. 12. 2025. Tisk 168 (velká sedmnáctijmenná pirátská novela zákona o DPH, podán 15. 4. 2026) je u Rozpočtového výboru, zde je pouze jedním ze spolupodepsaných. K 25. 7. 2026 ani jeden tisk neprošel ani nebyl zamítnut.",
+        "effort_public_role": "Členem Hospodářského výboru a Výboru pro zdravotnictví (obě role od 11. 11. 2025) — 2 role odpovídají committee_count=2. Dle psp.cz dále členem čtyř podvýborů: energetika a doprava (oba od 22. 1. 2026, ve druhém místopředsedou od 2. 4. 2026) a elektronizace ve zdravotnictví/AI/evropská zdravotnická legislativa a léčebné konopí/zdravotnické prostředky (oba od 4. 2. 2026) — tematicky navazuje na jeho odbornost lékaře (MUDr.) a na digitalizační agendu z předchozího působení pražského primátora (2018–2022), ale tato role byla exekutivní funkcí na magistrátu, nikoli poslaneckým mandátem v předchozím volebním období — odpovídá tomu, že contributionPsp9 je u něj null (žádné srovnání s PSP9, protože v této komoře v minulém období pravděpodobně neseděl).",
+        "effort_notes": "committee_count=2 přesně odpovídá 2 položkám ve vstupním poli committees — žádná nesrovnalost. Nápadný rozpor v datech: speech_turns=308 je zdaleka nejvyšší v celém mém vzorku pěti MPs (víc než desetinásobek průměru ostatních čtyř), zatímco contribution_score=62,7 je v tomto vzorku nejnižší a absence_rate=0,6 nejvyšší — vysoký řečnický objem tedy nekoreluje s celkovým skóre ani s docházkou. Nejde o nic, co bych opravovala v samotném skóre (gate a), jen o popis toho, co komponenty ukazují: hodně mluví, ale s vyšší absencí, bez interpelací (interpellations=0) a s pouhými dvěma tisky. Podvýborové místopředsednictví (Doprava, od 2. 4. 2026) je opět mimo měřenou komponentu leadership_count, stejný vzorec jako u tří dalších MPs v tomto vzorku. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.55,
+      "headline": "Hřib, bývalý pražský primátor (2018–2022) a dnes poslanec Pirátů, má v datech zdaleka nejvyšší řečnický objem ze skupiny (308 vstupů) při současně nejnižším skóre a nejvyšší absenci ve vzorku — výrazný rozpor mezi viditelností a měřenou docházkou/výstupem, bez peněžních zjištění.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6552&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=49",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168"
+      ]
+    }
+  ],
+  "crossCuttingLeads": [
+    "committee_count/committees-array parity holds cleanly for all 5 group-H MPs (10/10, 4/4, 3/3, 4/4, 2/2) — the just-fixed methodology validates across this batch with zero anomalies, unlike the systematic +1 pattern seen in batch-005.",
+    "Systematic scope gap, seen independently in 4 of 5 MPs: committee_count/leadership_count never counts subcommittee (podvýbor) memberships or subcommittee leadership, nor parliamentary-club leadership, nor inter-parliamentary friendship-group chairmanship. Concretely: Chochelová chairs the CZ–Chile friendship group and sits on 9 uncounted subcommittees; Stojanová is Pirate club vice-chair (klub-level, uncounted); Volpe has chaired-adjacent vice-chair of a subcommittee since March 2026; Hřib vice-chairs the Transport subcommittee. leadership_count=0 for 4 of these 5 MPs therefore understates real functional leadership load — worth a methodology note for Case ① rather than a per-MP anomaly.",
+    "All 5 MPs share tenureClass=full_term, tenureDays=293, contributionPsp9=null — none are replacements and none have a PSP9 comparison; for Zdeněk Hřib specifically this null is expected (he was Prague mayor 2018-2022, not a PSP9 deputy), but the other four's null should be interpreted as 'first term in the Chamber', not a data gap, unless disproven.",
+    "Cross-MP bill-sharing is internally consistent: tisk 120 (income tax) correctly appears in both Chochelová's and Smejkalová's sponsoredBills with each other cross-listed as coSponsor; tisk 168 (VAT) and tisk 215 (soudní řád správní) correctly cross-reference Stojanová, Volpe, and Hřib. No double-counting artifacts observed.",
+    "Legislative-fate pattern across the whole group: of the ~14 unique tisky touched by these 5 MPs, none has passed or been rejected as of 2026-07-25; one (tisk 36, Chochelová) was withdrawn by its own submitters. Government issued 'nesouhlas' on the clear majority of the rest. This is consistent with a young opposition/coalition-fragmented term and should temper any 'legislative achievement' framing in bill_focus fields for this cohort — output so far is procedural traction, not enacted law.",
+    "None of the 5 group-H MPs have linkedCompanies — no ARES/VR money verification was required or performed for this group."
+  ]
+}

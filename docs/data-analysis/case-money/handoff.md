@@ -1,383 +1,295 @@
-# Money loop — fleet handoff (batch 005)
+# Money loop — fleet handoff (batch 006)
 
-Case ① FollowTheMoney · 2026-07-25 · fleet mode (effort + law loops
-concurrent) · Sonnet driver + 5 Sonnet subagents (review-order triage +
-console build, review_audit CHECK migration, Q-money-13 stale-mention
-cleanup, Juchelka dossier, Okamura dossier) + 2 Opus verification passes
-(one per lead dossier). Everything the orchestrator needs to review and
-persist. All work is inside the money boundary. **No commit made. No live
-`.pglite` write. No `review_state` flipped anywhere** (all reads happened on
-scratch `.pglite-copy-*` copies, deleted after use, never `./.pglite`). This
-document supersedes batch 004's `handoff.md`, now historical.
+Case ① FollowTheMoney · 2026-07-25 · fleet mode (effort + law + kiosek
+executors concurrent) · Sonnet driver + 2 Opus verification passes (max
+reasoning depth). Full narrative + Opus verdict excerpts in
+`docs/data-analysis/case-money/batch-006.md` — this document is the
+orchestrator's action list: exact payloads, validation commands, schema
+proposals, commit plan, lessons. **No commit made. No live `.pglite` write.
+No `review_state` flipped anywhere.** All work happened on a case-suffixed
+copy (`.pglite-copy-money-b6`, deleted at the end of this run — never
+`./.pglite`). This document supersedes batch-005's `handoff.md`, now
+historical.
 
-## 1. Review-order triage + console session-support build (batch-005 priority #1)
+## Headline number
+
+**dataor closed 4 of the 32 live open corroborations this batch**
+(2 via the general sweep + 2 via the PRaK re-point) — see batch-006.md §0
+for why "32" is the correct live figure, not the batch brief's stale "81"
+(pre-OSVČ-purge count).
+
+## 1. New source: dataor.justice.cz bulk-ISVR ingest adapter
 
 **Shipped, uncommitted, in the tree:**
 
 ```
-EDIT  features/money/reviewTypes.ts                # reviewTier() + reviewRank() pure helpers,
-                                                     # ReviewTie.reviewTier/reviewRank, ReviewStats.tierCounts
-EDIT  features/money/getVerificationData.ts         # computes reviewTier/reviewRank per tie;
-                                                     # PRIMARY sort now reviewRank asc (was signalScore desc);
-                                                     # stats.tierCounts added
-EDIT  features/money/components/VerificationConsole.tsx  # tier badge per card, tier section headers,
-                                                     # sticky filter/progress bar, per-tier reviewed/remaining
-                                                     # tiles, keyboard shortcuts (j/k or ↓/↑ to move focus,
-                                                     # 1/2/3 to confirm/needs-more/reject the focused card)
-EDIT  scripts/case-loops/money/triage.ts            # mirrors reviewTier/reviewRank exactly (comment: must
-                                                     # agree with reviewTypes.ts); merge-preserves ledger.json
-                                                     # summary history instead of blind-overwriting (bug found
-                                                     # + fixed this batch, see §7)
-NEW   docs/data-analysis/case-money/payloads/batch-005-review-rank.json   # 211 {src,dst,reviewTier,reviewRank}
+NEW   lib/ingest/sources/dataor.ts        # CKAN client + udaje grammar parser + court/
+                                            # legal-form resolver + CSV reader + high-level
+                                            # fetchAndFindRecord()
+NEW   lib/ingest/sources/dataor.test.ts   # 21/21 tests, real captured record fixtures
+EDIT  .gitignore                          # + .dataor-cache/ (raw bulk files, gitignored
+                                            # like .justice-samples/)
 ```
 
-**Logic**: tier 0 = registry-confirmed owner-operator, 1 = registry-confirmed
-manager, 2 = registry-confirmed steward, 3 = everything else (unconfirmed /
-conflicting). `reviewRank = tier·1e12 + (1e12 − reachableCzk)` — a pure
-per-tie value (same pattern as `signalScore`), ascending sort gives
-tier-first-then-money-desc-within-tier with no global re-sort needed.
+Licence note (logged per the source assessment): dataor's data is
+**non-commercial-use only** and carries personal data (officer birth
+dates/addresses) under a GDPR-controller obligation. This adapter extracts
+`narozDatum` **only** for identity-matching comparison against our own
+roster — never surfaced as narrative content, consistent with the platform's
+existing "public-role facts only" doctrine.
 
-**Distribution (211 real ties, post-OSVČ-purge population)**:
+**A real bug found and fixed mid-batch** (caught by an Opus verification
+pass, not the driver's own review): the first version's officer-type
+recognition only covered `STATUTARNI_ORGAN_CLEN`; dataor also uses
+`DOZORCI_RADA_CLEN` (dozorčí rada/supervisory board), `KONTROLNI_KOMISE_CLEN`,
+and `SPRAVNI_RADA_CLEN` for equally-real officer seats with the identical
+`osoba`/`narozDatum` shape — the pre-fix extractor silently dropped a
+birth-date-confirmed corroborating match entirely. Fixed
+(`OFFICER_TYPY` set expanded); regression tests added.
 
-| tier | class | count | max reachable CZK |
-|---|---|---|---|
-| 0 | registry-confirmed owner-operator | **34** | 186.6M |
-| 1 | registry-confirmed manager | **20** | 2.84bn |
-| 2 | registry-confirmed steward | **125** | 6.09bn |
-| 3 | unconfirmed / conflicting | **32** | 674.8M |
+Also fixed mid-batch: a CSV parser rewrite (index/`indexOf`-based row
+reading instead of character-by-character accumulation) after the first
+version OOM'd at 4GB heap on a real 321MB decompressed file.
 
-(Steward's much higher CZK ceiling — public-body money that is the body's
-own activity, not MP enrichment — is exactly why class-priority ranking was
-needed over raw signal/money order; this was the batch-001 finding this
-batch's build directly operationalizes.)
+**Validation**: `npx vitest run lib/ingest/sources/dataor.test.ts` → 21/21.
 
-**UX shipped**: tier badge next to the existing class/signal badges; a
-section header wherever the tier changes as the (now tier-ordered) queue is
-rendered; sticky filter+progress bar; per-tier X/Y counters reusing the
-existing honest-counting rule (D3, batch 004 — only `status:"done"` writes
-count when write-configured); focused-card ring in `border-signal`; footer
-copy updated to state the review-order axis is separate from `signalScore`.
-Existing design tokens only, no new colors, no new component files beyond
-what already existed.
-
-**Checks**: `npx tsc --noEmit` clean; scoped `eslint` clean (one
-unescaped-JSX-quote and one empty-catch fixed along the way); `npx vitest
-run` → **205/205** passed (194 at batch start; +11 from this batch's own +
-concurrent sibling work).
-
-## 2. Live-table `review_audit` CHECK migration (D5 closure)
+## 2. Job A — dataor corroboration sweep
 
 **Shipped, uncommitted:**
 
 ```
-NEW   scripts/case-loops/money/migrate-review-audit-check.ts
-NEW   docs/data-analysis/case-money/payloads/batch-005-review-audit-check-migration.json
+NEW   scripts/case-loops/money/dataor-corroborate.ts
+NEW   docs/data-analysis/case-money/payloads/batch-006-dataor-corroboration.json  # 30 proposals
+NEW   docs/data-analysis/case-money/dataor-corroboration-summary.json
 ```
 
-Adds the `review_audit_decision_check` CHECK constraint (`decision in
-('confirm','reject','needs-more')`) to the **existing, pre-batch-004**
-`review_audit` table via `ALTER TABLE`, closing the batch-004 D5 caveat
-(the CHECK in `ddl.ts` only applies to freshly-created databases; the live
-table, created batch 003, has none). Mirrors `purge-osvc.ts`'s exact
-dry-run/`--commit`/`--confirm-live` safety-gate convention. Idempotent
-(checks `information_schema.check_constraints` for the constraint name
-first) and refuses to add the constraint if any existing row would violate
-it (pre-check query, prints offenders, aborts).
+**Every proposal is a props-merge onto an EXISTING `linked_to` edge** — same
+discipline as batch-001/002's `reconcile-ares-vr.ts`. NEVER creates a
+person↔company edge, NEVER touches `review_state`.
 
-**End-to-end test** (against `.pglite-copy-migration-test`, deleted after):
-dry-run → `already exists: false`, `violating rows: 0`, prints the exact
-ALTER; `--commit` → constraint applied; re-run `--commit` → `already
-exists: true`, no-op, no error; a scratch insert of `decision =
-'bogus-decision'` after migration correctly raises a check-constraint
-violation.
+| result | count |
+|---|---|
+| `match` (upgrade to `registry-confirmed`) | 2 |
+| `not-isvr-registered` (structural, verified) | 9 |
+| `ico-not-in-dataset` (court/form guess wrong) | 6 |
+| `no-match` (checked, honest negative) | 4 |
+| `fetch-incomplete` (network budget, see lessons) | 5 |
+| `dataset-not-found` | 1 |
+| `court-form-unresolved` | 3 |
 
-**Orchestrator command for the live table**:
-```
-npx tsx scripts/case-loops/money/migrate-review-audit-check.ts --dry-run
-# then, when ready (PGLITE_PATH left unset → targets the default ./.pglite deliberately):
-npx tsx scripts/case-loops/money/migrate-review-audit-check.ts --commit --confirm-live
-```
+The 2 `match` proposals (Jana Černochová↔Komwag, Marek Ženíšek↔Pojišťovna
+VZP) are **Opus-verified and corrected** — see §5.
 
-`npx tsc --noEmit` clean for the script.
+## 3. Job B — PRaK re-point (Q-money-7), CLOSED
 
-## 3. Q-money-13 — stale IČO-04627695 prop-content cleanup
-
-**Payload only, not applied** (fleet rule: no sibling props edits):
+**Shipped, uncommitted:**
 
 ```
-NEW   scripts/case-loops/money/find-stale-ico-mentions.ts     # read-only
-NEW   scripts/case-loops/money/build-stale-ico-payload.ts     # read-only
-NEW   docs/data-analysis/case-money/payloads/batch-005-stale-ico-mentions.json
+NEW   scripts/case-loops/money/prak-repoint.ts
+NEW   docs/data-analysis/case-money/payloads/batch-006-prak-repoint.json  # v2, post-Opus-correction
 ```
 
-**Actual count: 26 prop-content mentions across 24 distinct nodes** (not
-~10 as the batch spec estimated) — **19 `psp:person:*` nodes** (effort
-loop's `effort_notes`) and **5 `bill:tisk:*` nodes** (law loop's
-`forensic_citations[i]` / `forensic_conflict_assessment`), 0 ambiguous
-(every hit is genuinely about the purged tie, nothing off-target).
+**Two proposals, MUST be applied together**:
 
-**Notable finding**: most `effort_notes` had *already independently
-flagged* IČO 04627695 as a suspected data-pipeline placeholder / zero-value
-non-conflict across multiple dossiers, before the batch-004 purge even
-happened — the effort loop's own analysts got there first. The proposed
-correction is therefore a **confirmation/closure annotation appended to the
-existing text**, not a rewrite, per the "don't erase history" instruction —
-representative sample (bill:tisk:43111, `forensic_citations[14]`):
+1. `nodeCreateProposal` — `company:ico:61858111` ("PRaK, a.s. v likvidaci")
+   does not exist in the graph yet (ARES never had it — 404 on both REST
+   endpoints, dissolved 2012).
+2. `edgeRepointProposals` — **2 edges**, both `psp:person:346` (Bendl) and
+   `psp:person:6184` (Brabec), currently pointed at the wrong IČO
+   (`49683144`, "PRAK spol. s r.o.", a different, still-active s.r.o.),
+   re-pointed to `company:ico:61858111`. Both edges are now
+   `corroboration: "registry-confirmed"` (exact birth-date matches for
+   both). `tie_class` is `"manager"` (Bendl, board-management role) /
+   `"steward"` (Brabec, non-management board seat) — computed by the SAME
+   deterministic classifier the rest of the 260-tie graph uses, with **no
+   asserted public-appointment narrative** (a v1 "mayoral ex-officio at a
+   rail SPV" claim was retracted after Opus found it unsupported by the
+   primary record — see §5).
 
-> *current*: `"Graph records co-sponsor Ivan Bartoš (pspId 6433) with one
-> recorded money tie, an OSVČ entity (ičo 04627695), carrying a contract
-> value of 0 Kč — no actual public money flow and no connection to this
-> bill's subject matter."`
->
-> *proposed* (appended): `... [BATCH-005 UPDATE, driver, money-loop]:
-> Money-loop batch 004 formally closed this question: IČO 04627695 is NOT
-> an unresolved data-pipeline placeholder but a real, unrelated entity
-> (Agrární demokratická strana, a registered micro political party) whose
-> ARES obchodniJmeno field literally contains the string "OSVČ" — an
-> exact-name-matching bug (pickExactIco in lib/analysis/money-feed.ts)
-> incorrectly linked this company to 49 MPs whose occupation was loosely
-> described as "OSVČ" in Hlídač data. All 49 zero-value linked_to edges to
-> company:ico:04627695 were deleted in batch 004 as confirmed
-> false_edge_suspected; the company:ico:04627695 node itself was also
-> deleted (nothing else referenced it). This entry's own conclusion (no
-> individuating substance / not a conflict) already stood — this note only
-> formalizes closure of the data-quality question already flagged here.`
+**Orchestrator persist order**: create the node FIRST, then re-point both
+edges (the re-point payloads reference the new node id — validated by
+`validate-batch006.ts`, §6).
 
-**Coordination note for the effort and law drivers** (orchestrator to
-relay before applying): *"Money-loop batch 004 purged 49 false `linked_to`
-edges + the `company:ico:04627695` node itself — a name-matching bug
-(literal ARES string "OSVČ") that had nothing to do with any MP's real
-occupation. Your dossiers/citations that mention this IČO in free text
-(effort: 19 `effort_notes`; law: 5 `forensic_citations`/
-`forensic_conflict_assessment`) already correctly treated it as a
-non-finding — the money loop's proposed payload only appends a short
-closure note confirming the purge, it does not change your original
-analysis or conclusion. Please review the exact wording in
-`batch-005-stale-ico-mentions.json` before the orchestrator applies it, in
-case any of your dossiers want different phrasing for their own voice."*
+## 4. Job C — indirect-ownership first slice (O-money-3)
 
-Payload: `docs/data-analysis/case-money/payloads/batch-005-stale-ico-mentions.json`
-(26 entries, `{nodeId, nodeKind, propKey, currentText, proposedText,
-rationale}`).
+**Shipped, uncommitted:**
 
-## 4. Q-money-5 — Juchelka lead dossier (Opus-verified)
+```
+NEW   scripts/case-loops/money/dataor-ownership-chains.ts
+NEW   docs/data-analysis/case-money/payloads/batch-006-ownership-chains.json  # 55 edges, 19 new nodes
+```
 
-Full four-stage treatment. Subject confirmed: **Aleš Juchelka** (ANO 2011),
-sitting MP (current term from 2025-10-04, Moravian-Silesian Region),
-Minister of Labour and Social Affairs since **2025-12-15**.
+**Schema proposal (additive — `kg-verdict.ts` is shared, NOT edited by this
+fleet run):**
 
-**The actual story** (corrected from the one-line ledger note, which
-implied the conflict was Juchelka's own): his ministerial advisor
-**Alexandra Semancová** owned SIPTRADE s.r.o. (IČO 24225525, confirmed
-100% via ARES-VR since 2012-06-04) while overseeing EU subsidy-distribution
-rules her firm's clients benefited from. Broken by Seznam Zprávy/ČT24
-2026-03-19; on 2026-07-24 ČT24 confirmed MPSV will **not claim** EU
-reimbursement for 63.8M + 17.6M CZK (= 81.4M CZK, this dossier's own sum;
-media cite a wider 103M CZK exposure figure) pending an administrative
-check, funding those projects from the state budget instead. Juchelka
-publicly defended Semancová ("spiknutí"/"hon na její osobu") and retained
-her roughly a month post-story before she left the role; she was originally
-hired by his predecessor Marian Jurečka (KDU-ČSL), so the hire itself
-predates Juchelka.
+```ts
+// KG_EDGE_RELS += "owns_stake"   (company -> company)
+// props shape: { role: string | null, from: string | null, to: string | null,
+//                share: number | null, source: string, note: string }
+```
 
-**Opus verdict (independent re-fetch of all 6 primary/media sources)**:
-evidence chain **HOLDS**. The ARES-VR negative ("no registry tie between
-Juchelka and SIPTRADE") is independently confirmed for SIPTRADE
-specifically — but the original draft over-extended it to "any
-Semancová-linked entity," which Opus flagged as unverified over-reach (a
-single-IČO query cannot support that claim). Three corrections required and
-**applied by the driver**: (1) a self-contradictory ministerial-appointment
-date fixed to 2025-12-15; (2) "reimbursement forfeited" softened to "will
-not claim, pending an administrative check into whether a loss occurred"
-(the ministry's actual framing); (3) the ARES-VR negative narrowed to
-SIPTRADE specifically, with the broader-sweep gap now stated explicitly
-rather than implied as closed. Framing verdict: honest, correctly separates
-"unmanaged conflict of interest around the advisor" from "personal
-enrichment by Juchelka" (Opus explicitly said not to loosen this line);
-symmetry check passed (political demands labeled as such, no edge
-proposed). **Final: confidence medium, safe to land as `pending_review`
-annotation after the applied edits** (done — payload is post-edit).
+Confirmed no collision with the existing `"owns"` rel (organ→theme, the
+law/effort loops' F12/F15 committee-remit edge — different node kinds,
+different semantics; checked directly in `kg-verdict.ts` before proposing a
+new name).
 
-Payload (post-Opus-edit): `docs/data-analysis/case-money/payloads/batch-005-lead-juchelka.json`.
-`proposedAnnotation.edgeProposed: false` (no registry evidence ties
-Juchelka to any company — correctly no graph edge proposed, annotation
-only, `requiresGate: true`).
+**AGROFERT, a.s. (IČO 26185610) — the task's flagship example — has a real,
+dated shareholder chain in the data**: AGROFERT HOLDING, a.s. (sole
+shareholder 2002-06-20→2004-08-31) → a predecessor AGROFERT a.s. entity
+(sole shareholder 2004-08-31→2005-06-30). **The chain does NOT reach the
+well-known post-2017 trust-fund (AB private trust) restructuring** — not
+investigated further this batch, flagged as a lead. **No MP-exposure
+inference drawn** — company-to-company facts only, per doctrine.
 
-## 5. Q-money-6 — Okamura lead dossier (Opus-verified)
+55 total `owns_stake` proposals across 19 new parent-company node proposals;
+195 companies considered, 153 not attempted (scope-bounded — logged with a
+reason each, see the payload's `notAttempted` array), 15 resolved with zero
+corporate shareholders (honest negative).
 
-Full four-stage treatment. Subject confirmed: **Tomio Okamura** (SPD),
-elected Speaker of the Chamber of Deputies **2025-11-05** (corrected — the
-Sonnet draft had a future/impossible 2026-11-05 date).
+## 5. Opus verification (P51) — full verdicts
 
-**The claim**: Okamura held a 10% stake (20,000 CZK) in **U Machtů s.r.o.**
-(IČO 27145433, restaurant "Staré časy," Prague), 2004-05-20 to 2016-02-01
-per ARES-VR. HlídacíPes's original investigation reports this sale is
-absent from his 2016 majetkové přiznání, inferring from the company's
-turnover that the price plausibly exceeded the 100,000 CZK disclosure
-threshold; no transfer document with a price was located in the public
-register.
+**Pass 1 (PRaK re-point, v1 draft): WITH CORRECTIONS.** Opus independently
+downloaded and decompressed the 321MB primary file itself (not the script's
+cached output) and found 4 real defects — parser gap (§1), a wrong
+`role_valid_from`, a false claim about a shared `vymazDatum` field's
+meaning, and an unsupported "mayoral ex-officio/rail SPV" narrative behind
+`tie_class: "steward"`. **All 4 corrected**, v2 payload in the tree.
 
-**Opus verdict (independently re-derived ARES-VR from the primary
-endpoint, not from prior-batch prose)**: evidence chain **PARTIAL** —
-core registry timing (2004-05-20 → 2016-02-01, 10%) holds, but Opus caught
-**a fabricated successor detail that had propagated silently across two
-batches**: the draft claimed Roman Wurst's share *increased* on
-2016-10-29; the primary ARES-VR record actually shows Okamura's *entire*
-10% stake was absorbed the **same day** (2016-02-01) by **Marcel
-Zákostelecký alone** (140,000→160,000 CZK, an exact +20,000 CZK match) —
-Wurst's holding is unchanged throughout, his 2016-10-29 record is a
-re-registration at the same value. batch-002's earlier note ("sold to
-existing co-owners Wurst/Zákostelecký") was NOT independent corroboration
-of this detail, just an under-specified restatement that batch-005 then
-over-specified incorrectly — corrected now to the actual registry math.
-Two further corrections: **Týden.cz is not an independent second source**
-— its own text credits HlídacíPes as origin, so the media basis is one
-original investigation plus pickups, not "twice-independently-published"
-as the draft claimed; and a Sensepocket/Hiro non-disclosure detail was
-mis-dated to 2016 when HlídacíPes actually places it in spring 2017 (now
-flagged as a separate, later-year matter, not evidence for the same 2016
-declaration). All 5 corrections **applied by the driver**. Opus explicitly
-confirmed the "what sources do/don't sustain" legal-hedging split (that a
-non-disclosure-law *violation* is not established, only the media's
-inference and the registry timing) was already honest and did not need
-loosening — the correction, if anything, makes the ownership-timing claim
-land MORE cleanly (same-day, exact-value, squarely inside calendar 2016).
-**Final: confidence medium, safe to land as `pending_review` annotation
-after the applied corrections** (done — payload is post-edit).
+**Pass 2 (general sweep, 2 closures): PARTIAL × 2, WITH CORRECTIONS.**
+Opus independently fetched ARES VR's own live endpoint for both IČOs and
+found the v1 draft's central justification ("ARES VR's live snapshot missed
+this match, dataor's bulk history caught it") **false** — ARES VR
+demonstrably has both memberships already. The actual cause of the
+batch-002 ARES-VR reconciliation's original "conflicting" classification
+was **not re-diagnosed this batch** (open item, below). Also caught:
+Černochová's tenure understated (4 terms, 2007–2021, not just the last one)
+and Ženíšek's bare `"člen"` role needing its organ qualifier restored.
+**All corrections applied and re-verified** (re-run confirms the corrected
+output).
 
-Payload (post-Opus-edit): `docs/data-analysis/case-money/payloads/batch-005-lead-okamura.json`.
-Annotation only on the existing `tie:6105:27145433` — no new edge proposed
-(the tie already exists in the graph); `requiresGate` implicit via
-`annotation_only_proposal` type, no `review_state` change.
+Full text of both verdicts (verbatim) is in `batch-006.md` §5.
 
-## 6. Process note — an agent that stopped mid-task
+## 6. Validation commands (for the orchestrator)
 
-The Q-money-13 subagent initially ended its run with "waiting for a
-background script to finish," violating the kernel's "a driver never ends
-its run waiting" rule. The driver caught this (no result had landed,
-report was incomplete) and resumed it via a direct message restating the
-rule and asking it to diagnose/finish rather than wait; it completed
-correctly on resume (§3 above). Worth a standing note for future batches:
-**a subagent's own stop is not evidence of completion** — the driver must
-verify a real result landed (payload file exists, report is substantive)
-before treating any dispatched unit as done, same discipline as
-"census-first" from batch 004's lesson 1.
+```bash
+# 1. Re-check the adapter + regression tests:
+npx vitest run lib/ingest/sources/dataor.test.ts
+npx tsc --noEmit
 
-## 7. Bug found and fixed (incidental, review-triage build)
+# 2. Gate ALL THREE batch-006 payloads (entity-id membership, no fabricated ids):
+PGLITE_PATH=./.pglite-copy-money-b6 npx tsx scripts/case-loops/money/validate-batch006.ts
+# (or point PGLITE_PATH at a fresh copy of the live ./.pglite before persisting)
 
-`scripts/case-loops/money/triage.ts`'s `ledger.json` write was a blind
-overwrite — running it to generate the `review_rank` payload this batch
-wiped the `batch1`–`batch4` history nested under `summary`. Caught and
-fixed within the same build pass: history restored from git HEAD, a
-`batch5` entry added, and the write changed to merge-preserve prior
-`summary` keys (warn-on-catch, not silent) so this cannot recur. No
-external data lost — caught before finalize.
+# 3. Inspect payloads directly before persisting:
+cat docs/data-analysis/case-money/payloads/batch-006-dataor-corroboration.json
+cat docs/data-analysis/case-money/payloads/batch-006-prak-repoint.json
+cat docs/data-analysis/case-money/payloads/batch-006-ownership-chains.json
 
-## 8. `npm run check` status
+# 4. Full suite:
+npx vitest run
+npx eslint lib/ingest/sources scripts/case-loops/money
+```
 
-`npx tsc --noEmit` clean across all touched files. `npx vitest run` →
-**205/205** (194 at batch-004 close; +11 from this batch's own additions).
-Scoped `eslint` clean on all touched files (two pre-existing style issues
-fixed incidentally: an unescaped JSX quote, an empty catch block). No
-commit run — orchestrator's call per fleet rules.
+**All 3 payloads validated cleanly this batch**: 30/30 corroboration
+proposals, 2/2 PRaK edge re-points (+ 1 node create), 55/55 owns_stake
+proposals (+ 19 node creates).
 
-## 9. Proposed enum / schema changes
+## 7. Open items / follow-ups for the next batch
 
-- `ReviewTie.reviewTier: 0|1|2|3` and `reviewRank: number` — additive,
-  derived/computed at read time (same pattern as `signalScore`), no DB
-  schema change. A standalone persistable payload
-  (`batch-005-review-rank.json`, 211 `{src,dst,reviewTier,reviewRank}`
-  entries) is prepared if the orchestrator wants to persist it into
-  `kg_edge.props` on next ingest — NOT written live this batch.
-- `review_audit_decision_check` CHECK constraint — additive, migration
-  script proven end-to-end on a copy, not yet applied live (§2, orchestrator
-  action required).
-- No change to `corroboration`/`tie_class`/`temporal_status` value sets.
+1. **5 `fetch-incomplete` ties** (Bauer↔TAMPA, Okamura↔MIKI TRAVEL,
+   Kučera↔Sirius Praha, Šafránková↔Pražská VŠPS — all `sro-full-praha-2026`;
+   Jurečka↔AGRO 2000 — `sro-full-brno-2026`). Retry command in
+   `batch-006.md` §7 lesson 4 — pre-fetch via curl with a long timeout, the
+   adapter's own cache will pick it up on the next `dataor-corroborate.ts`
+   run with zero code changes needed.
+2. **The batch-002 ARES-VR reconciliation's original "conflicting"
+   classification for Černochová↔Komwag and Ženíšek↔Pojišťovna VZP was
+   never actually explained** — Opus proved ARES VR's live endpoint DOES
+   carry both memberships, so something in the original reconcile pass (or
+   a later re-ingest) produced a false negative. Worth a targeted
+   diagnostic pass: re-run `reconcile-ares-vr.ts` fresh against these two
+   ICOs and diff against what's currently in the graph.
+3. **`nevlad_org` legal-form-slug mapping is unverified and empirically
+   often wrong** (4/4 misses this batch for z.s./spolek entities) — dataor's
+   catalog has several NGO-adjacent slugs
+   (`nevlad_org`/`pobspolek`/`z_pobocny_spolek`/`zaj_sdr_po`/`p_nevlad_org`)
+   with no documented ARES-`pravniForma`-code mapping. A future batch
+   should brute-force test each against a known z.s. IČO to fix
+   `PRAVNI_FORMA_TO_SLUG` in `lib/ingest/sources/dataor.ts`.
+4. **A Ženíšek↔CONTACID a.s. lead** (IČO 26360934, dozorčí rada
+   2004-2007, birth-date matched) surfaced as an Opus byproduct — not in
+   the graph, not proposed this batch, needs its own gated treatment.
+5. **The 3 `court-form-unresolved` ties** (Bendl↔Svaz měst a obcí,
+   Pastuchová↔Nemocnice Jablonec, Patková↔Hvězdárna a planetárium HK) need
+   a manual aggregator lead the way PRaK itself did — not attempted this
+   batch, structurally similar to the PRaK dead end before batch 003 found
+   kurzy.cz.
+6. **AGROFERT's post-2017 trust-fund restructuring is not visible in this
+   batch's chain** — worth a targeted follow-up (try the `sf` legal form,
+   or check whether the transfer used a different engagement mechanism this
+   extractor doesn't yet parse).
+7. **Indirect-ownership Job C's 153 not-attempted companies** are a real,
+   bounded scope decision (12-new-fetch budget this batch) — the payload's
+   `notAttempted` array has every reason logged; a future batch can widen
+   the fetch budget now that several large court×form files are already
+   cached.
 
-## 10. Shared-vault additions (exact text to append — not edited myself, fleet rule)
+## 8. Shared-vault additions (exact text to append — not edited myself, fleet rule)
 
-**`patterns.md`** (proposed new entry): *"A subagent's own stop is not
-evidence of completion — verify a real artifact/result landed before
-treating a dispatched unit as done (money batch-005, Q-money-13 initially
-stopped mid-task waiting on itself)."*
+**`patterns.md`** (proposed new entry): *"A driver's own background-task
+wait is not a substitute for finishing the work in-session — the kernel's
+'a driver never ends its run waiting' rule was violated mid-batch (money
+batch 006, Jobs A/C dispatched to background monitors and the driver
+genuinely stopped issuing tool calls); corrected by switching to
+bounded-timeout foreground execution (Promise.race with a short cap on any
+uncached large fetch) so the whole sweep completes deterministically within
+one session, never relying on out-of-band notifications to resume."*
 
-**`patterns.md`** (proposed new entry, batch-004 lesson generalized):
-*"Deterministic scripts that regenerate a shared/append-only JSON file
-(ledger.json, etc.) should merge-preserve prior history by default, not
-overwrite wholesale — money's `triage.ts` had this exact bug for its own
-`ledger.json` summary block, caught only because a build pass happened to
-re-run it (batch-005 §7)."*
+**`patterns.md`** (proposed new entry): *"A parser's own narration of what
+it extracted is not evidence it extracted everything — an Opus verification
+pass caught a real officer-type-code gap (dataor's `DOZORCI_RADA_CLEN` etc.)
+that a Sonnet-only build had silently missed, and a second Opus pass caught
+a false claim about why a primary source 'didn't see' a match it actually
+had. Independent re-derivation from the primary source, not trust in the
+script's own summary, is what caught both (money batch 006)."*
 
-**`contradictions.md`** (proposed new entry): *"batch-002's Okamura/U Machtů
-successor note ('sold to existing co-owners Wurst/Zákostelecký') was later
-(batch-005) found to be under-specified in a way that let a wrong specific
-detail (Wurst's share increasing) propagate as if corroborated across two
-passes — the actual registry math (Zákostelecký alone, same-day, exact
-value) was only caught by Opus independently re-deriving from the primary
-endpoint rather than trusting the prior batch's prose. General lesson:
-prose 'corroboration' between batches is not independent unless each pass
-re-derives from the primary source."*
+**`contradictions.md`** (proposed new entry): *"Money batch 002's ARES-VR
+reconciliation marked Černochová↔Komwag and Ženíšek↔Pojišťovna VZP as
+'conflicting' (no birth-date match found); batch 006 independently
+confirmed via Opus that ARES VR's own live endpoint DOES carry both
+matches. The batch-002 classification was therefore a false negative from
+this loop's own earlier pass, cause not yet diagnosed — flagged for a
+targeted re-run, not assumed to be dataor finding something ARES genuinely
+lacks."*
 
 No other shared vault files or shared code enums touched.
 
-## 11. Validation commands (for the orchestrator)
+## 9. Lessons learned
 
-```
-# 1. Re-check the review-order triage build:
-npx tsc --noEmit
-npx vitest run
-npx eslint features/money scripts/case-loops/money
+Full list with detail in `batch-006.md` §7. Summary:
 
-# 2. Live-table CHECK migration (dry-run first, always):
-npx tsx scripts/case-loops/money/migrate-review-audit-check.ts --dry-run
-npx tsx scripts/case-loops/money/migrate-review-audit-check.ts --commit --confirm-live
+1. A driver ending its run on background-task waits violates the kernel's
+   explicit rule — corrected mid-batch, documented as a standing pattern.
+2. Two real defects (a parser officer-type gap; a false claim about a
+   primary source's completeness) were caught ONLY by independent Opus
+   re-derivation, not by the driver's own review of its own script's
+   output — the third consecutive batch (004/005/006) with this exact
+   finding.
+3. Character-by-character CSV/text accumulation does not scale to real
+   200-300MB+ decompressed government bulk exports — index-based scanning
+   fixed a real 4GB-heap OOM.
+4. A single very large court×form file can stall an entire sweep if fetched
+   naively — bounded per-file network budgets (25s for any uncached file)
+   are now standard in both dataor scripts.
+5. Structural negatives (9 `not-isvr-registered` closures) are worth
+   verifying live, not inheriting from a prior batch's label — spot-checked
+   against ČESKÁ TELEVIZE's actual ARES subject record.
 
-# 3. Q-money-13 stale-mention payload — review before applying, coordinate
-#    wording with effort/law drivers per §3, then apply via the standard
-#    props-merge persist path (never props = excluded.props wholesale-replace,
-#    per kernel P44/D1):
-cat docs/data-analysis/case-money/payloads/batch-005-stale-ico-mentions.json
+## 10. Cleanup
 
-# 4. Lead dossiers — both Opus-verified and driver-corrected, ready to
-#    persist as pending_review annotation payloads:
-cat docs/data-analysis/case-money/payloads/batch-005-lead-juchelka.json
-cat docs/data-analysis/case-money/payloads/batch-005-lead-okamura.json
-
-# 5. Optional: persist review_rank into kg_edge.props on next ingest:
-cat docs/data-analysis/case-money/payloads/batch-005-review-rank.json
-```
-
-## 12. Lessons learned
-
-1. **A subagent's own stop is not evidence of completion** (§6) — the
-   driver must verify a real artifact landed, not just that the agent
-   returned without error.
-2. **Opus verification earned its keep exactly where the kernel predicts**:
-   both money-touching leads about named politicians had real defects a
-   Sonnet-only pass had accepted — Juchelka's over-broad registry negative
-   and date inconsistency, Okamura's fabricated successor detail and
-   mislabeled "independent" source. Neither was a fabrication from thin
-   air; both were plausible-sounding over-extensions of a real finding —
-   exactly the failure mode the doctrine warns about ("a research agent's
-   confidence label is a claim to verify, not a fact").
-3. **Prose "corroboration" across batches is not independent verification**
-   unless each pass re-derives from the primary source (§10,
-   contradictions.md entry) — this generalizes batch-002/003's own
-   lessons about re-deriving ground truth rather than trusting a prior
-   pass's writeup.
-4. **Deterministic regeneration scripts need merge-preserve by default**,
-   not just the human-write layer (§7) — this is the SAME durability
-   principle as D1 (batch 004), now shown to apply to a purely
-   analytical/derived artifact too, not just human-gated fields.
-5. **Fleet concurrency**: 5 foreground-dispatched Sonnet subagents (review
-   triage/console, CHECK migration, Q-money-13, 2 lead dossiers) + 2 Opus
-   verification passes, one resumed after an incomplete stop — 8 total
-   agent runs this batch, within the ≤6-8 concurrent budget per wave.
-
-## 13. Cleanup
-
-All scratch `.pglite-copy-*` directories (`.pglite-copy-money-batch5`,
-`.pglite-copy-migration-test`, `.pglite-copy-money-q13`) were created and
-deleted within their respective agent runs. No live `./.pglite` write
-occurred at any point. No `.pglite-copy-<other-case>` directory belonging
-to the concurrent effort/law loops was touched.
+`.pglite-copy-money-b6` deleted at the end of this run. No live `./.pglite`
+write occurred at any point. `.dataor-cache/` (raw bulk files, several
+hundred MB) is gitignored and left in place for the next batch to reuse
+(cache-hit is instant; a fresh checkout would need to re-fetch). No
+`.pglite-copy-<other-case>` directory belonging to the concurrent
+effort/law/kiosek loops was touched.

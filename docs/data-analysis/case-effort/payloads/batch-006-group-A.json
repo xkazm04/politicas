@@ -1,0 +1,109 @@
+{
+  "generatedAt": "2026-07-25T00:00:00.000Z",
+  "proposals": [
+    {
+      "id": "psp:person:6240",
+      "name": "Karel Tureček",
+      "club": "ANO2011",
+      "lens": ["bottom", "divergence", "high-triage"],
+      "props": {
+        "effort_work_themes": ["zemědělství", "vodní hospodářství", "evropské záležitosti"],
+        "effort_bill_focus": "V poskytnutém vzorku nemá Tureček žádný sponzorovaný tisk (sponsoredBills je prázdné pole, bills_authored=0) — v tomto období tedy nevedl ani nespolupodepsal žádnou legislativní iniciativu.",
+        "effort_public_role": "Tureček je místopředsedou Zemědělského výboru (od 13. 11. 2025) a řadovým členem téhož výboru (od 11. 11. 2025) i Výboru pro evropské záležitosti (od 14. 11. 2025); dle psp.cz od 20. 1. 2026 navíc předsedá podvýboru pro vodní hospodářství a je členem podvýboru pro lesní hospodářství — vodohospodářská a zemědělská agenda tak tvoří jasnou linii jeho výborové práce.",
+        "effort_notes": "Tureček je peněžně sledovaná MP se dvěma nahlášenými firemními vazbami (obě ve stavu pending_review): Rybářství Třeboň a.s. (IČO 60826851, smluvní hodnota cca 4,37 mil. Kč) a Povodí Ohře, státní podnik (IČO 70889988, smluvní hodnota cca 67 mil. Kč). Ověřeno přes ARES VR REST endpoint (ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/<ICO>), nikoli přes zjednodušený /ekonomicke-subjekty/ endpoint, který úředníky/statutáry vůbec neuvádí. U Rybářství Třeboň a.s. byl prověřen kompletní historický seznam statutárních orgánů (představenstvo, dozorčí rada, prokura) od roku 1994 do současnosti — jméno Karel Tureček se v žádné roli nevyskytuje. U Povodí Ohře, státní podnik, záznam ukazuje, že Ing. Karel Tureček (nar. 1. 2. 1971, shoda data narození s poslancem) byl zakladatelem jmenovaným členem dozorčí rady od 1. 2. 2001 do 8. 7. 2003, s formálním výmazem 14. 4. 2004 — tedy více než 20 let před jeho nástupem do Sněmovny (4. 10. 2025) a bez jakékoli aktuální funkce v podniku dnes. Vzhledem k tomu, že dnes předsedá podvýboru pro vodní hospodářství a je místopředsedou Zemědělského výboru, jde o tematicky blízký, ale časově dávno uzavřený vztah — stojí za sledování při budoucích smlouvách s podnikem, ne za obvinění na základě dnešních dat. Datová poznámka: participation_rate a absence_rate mají shodně hodnotu 0,7, což může být metodická náhoda dvou nezávislých metrik nebo skutečně vysoká absence — nejvyšší ve vzorku pěti MPs — stojí za ověření v Case ①.",
+        "effort_low_score_reason": "genuine_absentee"
+      },
+      "signal": 0.52,
+      "headline": "Tureček, místopředseda Zemědělského výboru a předseda podvýboru pro vodní hospodářství, má nejnižší kontribuční skóre v tomto vzorku (52,1) a nejvyšší absenci (0,7); ARES VR potvrzuje, že jeho členství v dozorčí radě Povodí Ohře skončilo už v roce 2003 — dávno před dnešním mandátem — a u druhé nahlášené firmy, Rybářství Třeboň, žádnou vazbu nenašla.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6240&o=10",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/60826851",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/70889988"
+      ]
+    },
+    {
+      "id": "psp:person:7035",
+      "name": "Barbora Pipášová",
+      "club": "Piráti",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["rodinná politika a rovné příležitosti", "věda, vzdělávání a mládež", "digitální ekonomika a spotřebitelská ochrana"],
+        "effort_bill_focus": "Všechny tři tisky ve vzorku (43178/71, 43196/86, 43289/168) jsou skupinové poslanecké návrhy vedené Olgou Richterovou, kde Pipášová figuruje jako spolupodepsaná, nikoli jako předkladatelka (gate e) — bills_authored=3 tedy znamená tři spolupodpisy, ne tři předložené tisky. Tisk 71 (novela zákona o doplňkovém penzijním spoření č. 427/2011, podán 8. 12. 2025) a tisk 86 (další novela téhož zákona, podán 22. 1. 2026, vláda k němu 24. 2. 2026 vydala nesouhlasné stanovisko) čekají na projednání, garančním je Rozpočtový výbor. Tisk 168 (novela zákona o DPH č. 235/2004, podán 15. 4. 2026) má rovněž nesouhlasné stanovisko vlády (12. 5. 2026) a čeká na projednání ve stejném výboru. K 25. 7. 2026 žádný z tisků neprošel ani nebyl zamítnut.",
+        "effort_public_role": "Pipášová je členkou Výboru pro vědu, vzdělávání, mládež a sport (od 11. 11. 2025) a ve Stálé komisi pro rodinu a rovné příležitosti zastává postupně tři role: členka (od 14. 11. 2025), ověřovatelka a místopředsedkyně (obě od 21. 1. 2026 dle psp.cz) — na poměrně čerstvou poslankyni jde o nadprůměrné vedoucí zapojení. Dále je členkou šesti podvýborů (startupy a inovace, digitální ekonomika a AI, duševní zdraví, náhradní péče, mládež a volný čas — zde od 29. 4. 2026 místopředsedkyní, a rodinné právo a civilní proces).",
+        "effort_notes": "Datová poznámka: committee_count=4 odpovídá počtu položek v poli committees (4), ale dvě z nich (SKRRP 'vice' a SKRRP 'member', obě datované 21. 1. 2026, obě s leadership=true) se překrývají v datu i příznaku vedení — psp.cz přitom u tohoto data uvádí dvě odlišné funkce (ověřovatelka i místopředsedkyně). Je možné, že druhý záznam s obecným popiskem 'member' ve skutečnosti reprezentuje roli ověřovatelky, ne duplicitní členství — celkový součet (4) souhlasí, ale stojí za ověření v Case ①. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.35,
+      "headline": "Pipášová, poslankyně Pirátů teprve od října 2025, už místopředsedá i ověřuje Stálou komisi pro rodinu a rovné příležitosti a spolupodepsala tři tisky (penzijní spoření, DPH) vedené Olgou Richterovou — žádný z nich zatím neprošel, dva mají nesouhlasné stanovisko vlády.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7035&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=71",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=86",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168"
+      ]
+    },
+    {
+      "id": "psp:person:7053",
+      "name": "Václav Trojan",
+      "club": "ANO2011",
+      "lens": ["divergence", "high-triage"],
+      "props": {
+        "effort_work_themes": ["zemědělství a veterinární politika", "zdravotnictví", "léčebné konopí a protidrogová politika"],
+        "effort_bill_focus": "Všechny čtyři tisky ve vzorku má Trojan jako spolupodepsaného, ne jako předkladatele (gate e): tisk 11 (novela zákona o pojistném na sociální zabezpečení, prvotní předkladatelka Alena Schillerová a další, podán 6. 11. 2025) byl schválen Sněmovnou 25. 3. 2026, po zamítnutí Senátem 6. 5. 2026 Sněmovna 26. 5. 2026 trvala na svém znění a prezident jej podepsal 5. 6. 2026 — vyšel jako zákon č. 90/2026 Sb. Tisk 70 (novela zákona o veřejném zdravotním pojištění, předkladatel Adam Vojtěch, podán 12. 12. 2025) vyšel jako zákon č. 71/2026 Sb. (26. 5. 2026). Tisk 72 (novela jednacího řádu Sněmovny, vedená Radkem Vondráčkem, podán 18. 12. 2025) prošel 3. čtením 1.–3. 7. 2026 a byl 21. 7. 2026 postoupen Senátu (dokument 268/0). Tisk 87 (novela zákona o zemských znacích a vlajkách, předkladatel Radek Vondráček, podán 22. 1. 2026) je k 25. 7. 2026 stále projednáván ve Výboru pro vědu, vzdělávání, mládež a sport jako garančním. Tři ze čtyř tisků, na nichž se Trojan podílel jako spolupodepsaný, tedy již prošly velkou částí legislativního procesu (dva vyhlášené zákony, jeden u Senátu).",
+        "effort_public_role": "Trojan je členem Zemědělského výboru (od 11. 11. 2025) a Výboru pro zdravotnictví (od 16. 1. 2026), v podvýborech předsedá Podvýboru pro léčebné konopí, přírodní látky, protidrogovou politiku a zdravotnické prostředky (od 21. 1. 2026) a je členem podvýborů pro potravinářský průmysl/veterinářství/živočišnou výrobu, pro myslivost/rybářství/včelařství/zahradnictví/chovatelství a pro veřejné zdraví/prevenci/epidemiologii/vědu a výzkum. Dle psp.cz byl 28. 1. 2026 zvolen do dozorčí rady VZP (Všeobecná zdravotní pojišťovna) a 27. 5. 2026 jmenován do dozorčí rady Státního zemědělského intervenčního fondu (SZIF) — obě jsou institucionální dozorové role plynoucí z poslaneckého mandátu, ne obchodní vazby; jeho vzdělání (MVDr., veterinář, i Ing.) odpovídá zemědělsko-zdravotnické profilaci jak výborové, tak dozorové práce.",
+        "effort_notes": "committee_count=2 souhlasí s počtem položek v poli committees (2) — žádná nesrovnalost. Dvě dozorové role (VZP, SZIF) nejsou ve vstupním poli committees vůbec zachyceny, protože nejde o sněmovní výbory/komise, ale o externí instituce obsazované volbou/jmenováním poslanců — legitimní mezera v datovém modelu, ne chyba, ale stojí za zvážení, zda by tyto dozorové role neměly být do dossieru zahrnuty samostatně vzhledem k jejich veřejné relevanci (VZP hospodaří s prostředky veřejného zdravotního pojištění). Podobná externí role (dozorčí rada VZP) byla zaznamenána i u Lubomíra Wenzla v batch 005. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.42,
+      "headline": "Trojan, veterinář a lékař za ANO, dozoruje VZP i SZIF a spolupodepsal čtyři tisky, z nichž tři už prošly velkou částí legislativního procesu (dva vyhlášené zákony, jeden u Senátu) — bez vlastní iniciativy jako předkladatel, ale s viditelným průchodem cizích návrhů legislativou.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7053&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=70",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87"
+      ]
+    },
+    {
+      "id": "psp:person:7012",
+      "name": "Vladimír Kolek",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["obrana a bezpečnost", "evropské záležitosti", "migrační a azylová politika"],
+        "effort_bill_focus": "Jediný tisk ve vzorku (43197/87, novela zákona o zemských znacích a vlajkách, předkladatel Radek Vondráček, podán 22. 1. 2026) má Kolek jako spolupodepsaného, ne předkladatele (gate e) — bills_authored=1 tedy neznamená vlastní iniciativu. Tisk je k 25. 7. 2026 stále projednáván, garančním výborem je Výbor pro vědu, vzdělávání, mládež a sport.",
+        "effort_public_role": "Kolek je členem Výboru pro obranu (od 11. 11. 2025) a od 28. 1. 2026 Výboru pro evropské záležitosti — do 28. 1. 2026 byl místo toho členem Výboru pro veřejnou správu a regionální rozvoj, jde tedy o přesný přechod mezi výbory ve stejný den, ne o souběh. Dále je členem Stálé komise pro kontrolu Vojenského zpravodajství a Stálé komise pro kontrolu Generální inspekce bezpečnostních sborů (obě od 14. 11. 2025) a od 11. 2. 2026 předsedá Podvýboru pro migrační a azylovou politiku.",
+        "effort_notes": "committee_count=5 souhlasí s počtem položek v poli committees (5, včetně jedné ukončené — VSR do 28. 1. 2026) — žádná nesrovnalost, pole fromAt/toAt/current je zde použito korektně a zachycuje reálný přechod mezi výbory. Profil je nápadně tichý navzdory širokému výborovému a komisnímu zapojení: speech_turns=0, interpellations=0, ale committee_count=5 a předsednictví jednoho podvýboru — přesto triage.quietWorkhorse=false navzdory quietWorkhorseIndex=0,382, což je nejvyšší hodnota tohoto ukazatele v celém vzorku pěti MPs. Podobný vzorec (kladný quietWorkhorseIndex bez odpovídajícího flagu) byl zaznamenán i v batch 005 (Němcová) — doporučuji přezkoumat práh detekce v Case ①. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.32,
+      "headline": "Kolek sedí v pěti výborech a komisích včetně dozoru nad vojenským zpravodajstvím a bezpečnostními sbory a předsedá podvýboru pro migraci, ale bez jediného řečnického vstupu či interpelace ve vzorku — tichý profil, který triage systém přesto neoznačil jako quiet workhorse.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7012&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87"
+      ]
+    },
+    {
+      "id": "psp:person:6782",
+      "name": "Drahoslav Ryba",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["bezpečnost a policie", "obrana a zpravodajské služby", "standardizace a veřejná správa"],
+        "effort_bill_focus": "Ryba má ve vzorku tři tisky s rozdílnou mírou vlastní iniciativy (gate e): u tisku 87 (novela zákona o zemských znacích a vlajkách, předkladatel Radek Vondráček) a tisku 187 (novela zákonů z oblasti vnitřní správy/základních registrů, vedená Hubertem Langem, podána 6. 5. 2026, k 25. 7. 2026 ve 2. čtení po obecné i podrobné rozpravě 8. 7. 2026) je pouze spolupodepsaným. Tisk 250 ('N. z. o standardizaci', podán 2. 7. 2026) je ale veden přímo jako 'Ryba D., Barták J.' — zde je Ryba spolu s Jiřím Bartákem skutečným spolupředkladatelem, ne jen spolupodepsaným; návrh je od 3. 7. 2026 u vlády k vyjádření (lhůta do 2. 8. 2026).",
+        "effort_public_role": "Ryba je generálporučík ve výslužbě (vojenská hodnost je součástí jeho titulatury na psp.cz). Je členem Výboru pro bezpečnost (od 11. 11. 2025) a od 28. 1. 2026 Rozpočtového výboru — do 28. 1. 2026 byl místo toho ve Výboru pro evropské záležitosti, jde tedy o přechod mezi výbory ve stejný den jako u Kolka. Dále je členem Stálé komise pro kontrolu Generální inspekce bezpečnostních sborů a Stálé komise pro kontrolu Národního bezpečnostního úřadu (obě od 14. 11. 2025) a od 22. 1. 2026 předsedá Podvýboru pro policii, hasičský záchranný sbor, obecní policii a soukromé bezpečnostní služby — tematicky přímo navazuje na jeho vojenskou kariéru.",
+        "effort_notes": "committee_count=5 souhlasí s počtem položek v poli committees (5, včetně jedné ukončené role — VEZ do 28. 1. 2026, nahrazené Rozpočtovým výborem) — žádná nesrovnalost. Srovnání s PSP9 (contributionPsp9) je u Ryby k dispozici a ukazuje spíš stabilitu než propad: skóre 71,0 v PSP10 oproti 69,8 v PSP9. Počet sponzorovaných tisků nicméně klesl z 15 (PSP9, billsAuthored) na 3 ve vzorku PSP10 a interpelace ze 4 na 0 — protože celkové skóre přesto drží úroveň, jde patrně o posun těžiště jeho práce směrem k výborové/komisní činnosti a bezpečnostnímu podvýboru, ne o celkový propad aktivity; nelze ale vyloučit ani neúplně zachycená raná PSP10 data (obdobná opatrnost jako u Wenzla v batch 005). linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.4,
+      "headline": "Ryba, generálporučík ve výslužbě, předsedá podvýboru pro policii a hasiče a dozoruje bezpečnostní služby i NBÚ — jako jediný ve skupině je u jednoho tisku (o standardizaci) skutečným spolupředkladatelem, ne jen spolupodepsaným; jeho skóre drží úroveň PSP9 (71,0 vs. 69,8), i když počet sponzorovaných tisků a interpelací ve vzorku klesl k nule.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6782&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=187",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=250"
+      ]
+    }
+  ],
+  "crossCuttingLeads": [
+    "Kolek (VSR→VEZ) a Ryba (VEZ→RV) mají oba přesný přechod mezi výbory ve stejný den, 28. 1. 2026 — vypadá to jako koordinovaná reorganizace výborového zastoupení klubu ANO2011 k tomuto datu; stojí za ověření napříč celým batchem, jestli se stejné datum objevuje i u dalších ANO MPs.",
+    "ARES VR REST endpoint (https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/<ICO>) se ukázal spolehlivě čitelný přes WebFetch (vrací plný historický seznam statutárních orgánů), zatímco UI stránka (https://ares.gov.cz/ekonomicke-subjekty-vr/<ICO>) je prázdná JS shell bez obsahu — doporučuji tento REST endpoint zdokumentovat jako standardní postup pro budoucí money-verification stage místo UI URL.",
+    "Externí institucionální dozorové role (Trojan: VZP a SZIF; podobně Wenzl ve VZP v batch 005) nejsou nikde zachyceny v poli committees ani props — jde o legitimní mezeru v datovém modelu, ne chybu, ale vzhledem k veřejné relevanci (zejména VZP) by stálo za zvážení tyto role v dossieru samostatně sledovat."
+  ]
+}

@@ -1,0 +1,1241 @@
+{
+  "generatedAt": "2026-07-25T10:09:41.496Z",
+  "boundary": "PROPOSAL ONLY — not applied to any .pglite. Requires kg-verdict.ts enum additions (notice kind, cites/concerns rels) before the orchestrator can apply this. See handoff.md for the exact enum text.",
+  "nodeCount": 20,
+  "edgeCount": 116,
+  "edgesWithExistingTarget": 36,
+  "edgesWithMissingTarget": 75,
+  "edgesFlaggedNaturalPersonIco": 5,
+  "nodes": [
+    {
+      "id": "notice:kiosek:201000:70_Cm_1999_2026-3",
+      "kind": "notice",
+      "label": "Usnesení o naříz. likvidace a jmen. likvidátora",
+      "props": {
+        "agenda": [
+          "Obchodní"
+        ],
+        "institutionCode": "201000",
+        "institutionIco": "00215660",
+        "spisovaZnacka": "70 Cm 1999/2026-3",
+        "postingId": "https://infodeska.gov.cz/eudpub/uredni-deska/organizace/201000/vyveseni/9420213"
+      },
+      "rationale": "kiosek batch-006: 5 statute citation(s), 7 IČO mention(s) extracted from the attached PDF"
+    },
+    {
+      "id": "notice:kiosek:201000:39_A_16_2026-23",
+      "kind": "notice",
+      "label": "C- rozsudek",
+      "props": {
+        "agenda": [
+          "Správní soudnictví"
+        ],
+        "institutionCode": "201000",
+        "institutionIco": "00215660",
+        "spisovaZnacka": "39 A 16/2026-23",
+        "postingId": "https://infodeska.gov.cz/eudpub/uredni-deska/organizace/201000/vyveseni/9432174"
+      },
+      "rationale": "kiosek batch-006: 4 statute citation(s), 0 IČO mention(s) extracted from the attached PDF"
+    },
+    {
+      "id": "notice:kiosek:201000:87_Cm_1823_2026-2",
+      "kind": "notice",
+      "label": "Usnesení o ustanovení advokáta opatrovníkem",
+      "props": {
+        "agenda": [
+          "Obchodní"
+        ],
+        "institutionCode": "201000",
+        "institutionIco": "00215660",
+        "spisovaZnacka": "87 Cm 1823/2026-2",
+        "postingId": "https://infodeska.gov.cz/eudpub/uredni-deska/organizace/201000/vyveseni/9423867"
+      },
+      "rationale": "kiosek batch-006: 4 statute citation(s), 7 IČO mention(s) extracted from the attached PDF"
+    },
+    {
+      "id": "notice:kiosek:201000:87_Cm_1929_2026-2",
+      "kind": "notice",
+      "label": "Usnesení o ustanovení advokáta opatrovníkem",
+      "props": {
+        "agenda": [
+          "Obchodní"
+        ],
+        "institutionCode": "201000",
+        "institutionIco": "00215660",
+        "spisovaZnacka": "87 Cm 1929/2026-2",
+        "postingId": "https://infodeska.gov.cz/eudpub/uredni-deska/organizace/201000/vyveseni/9423868"
+      },
+      "rationale": "kiosek batch-006: 4 statute citation(s), 7 IČO mention(s) extracted from the attached PDF"
+    },
+    {
+      "id": "notice:kiosek:201000:87_Cm_1782_2026-2",
+      "kind": "notice",
+      "label": "Usnesení o ustanovení advokáta opatrovníkem",
+      "props": {
+        "agenda": [
+          "Obchodní"
+        ],
+        "institutionCode": "201000",
+        "institutionIco": "00215660",
+        "spisovaZnacka": "87 Cm 1782/2026-2",
+        "postingId": "https://infodeska.gov.cz/eudpub/uredni-deska/organizace/201000/vyveseni/9423869"
+      },
+      "rationale": "kiosek batch-006: 4 statute citation(s), 7 IČO mention(s) extracted from the attached PDF"
+    },
+    {
+      "id": "notice:kiosek:201000:87_Cm_1754_2026-2",
+      "kind": "notice",
+      "label": "Usnesení o ustanovení advokáta opatrovníkem",
+      "props": {
+        "agenda": [
+          "Obchodní"
+        ],
+        "institutionCode": "201000",
+        "institutionIco": "00215660",
+        "spisovaZnacka": "87 Cm 1754/2026-2",
+        "postingId": "https://infodeska.gov.cz/eudpub/uredni-deska/organizace/201000/vyveseni/9424029"
+      },
+      "rationale": "kiosek batch-006: 4 statute citation(s), 7 IČO mention(s) extracted from the attached PDF"
+    },
+    {
+      "id": "notice:kiosek:201000:87_Cm_1939_2026-2",
+      "kind": "notice",
+      "label": "Usnesení o ustanovení advokáta opatrovníkem",
+      "props": {
+        "agenda": [
+          "Obchodní"
+        ],
+        "institutionCode": "201000",
+        "institutionIco": "00215660",
+        "spisovaZnacka": "87 Cm 1939/2026-2",
+        "postingId": "https://infodeska.gov.cz/eudpub/uredni-deska/organizace/201000/vyveseni/9424030"
+      },
+      "rationale": "kiosek batch-006: 4 statute citation(s), 7 IČO mention(s) extracted from the attached PDF"
+    },
+    {
+      "id": "notice:kiosek:201000:70_Cm_2091_2026-3",
+      "kind": "notice",
+      "label": "Usnesení o naříz. likvidace a jmen. likvidátora",
+      "props": {
+        "agenda": [
+          "Obchodní"
+        ],
+        "institutionCode": "201000",
+        "institutionIco": "00215660",
+        "spisovaZnacka": "70 Cm 2091/2026-3",
+        "postingId": "https://infodeska.gov.cz/eudpub/uredni-deska/organizace/201000/vyveseni/9426714"
+      },
+      "rationale": "kiosek batch-006: 5 statute citation(s), 7 IČO mention(s) extracted from the attached PDF"
+    },
+    {
+      "id": "notice:kiosek:201000:70_Cm_2088_2026-3",
+      "kind": "notice",
+      "label": "Usnesení o naříz. likvidace a jmen. likvidátora",
+      "props": {
+        "agenda": [
+          "Obchodní"
+        ],
+        "institutionCode": "201000",
+        "institutionIco": "00215660",
+        "spisovaZnacka": "70 Cm 2088/2026-3",
+        "postingId": "https://infodeska.gov.cz/eudpub/uredni-deska/organizace/201000/vyveseni/9426716"
+      },
+      "rationale": "kiosek batch-006: 5 statute citation(s), 6 IČO mention(s) extracted from the attached PDF"
+    },
+    {
+      "id": "notice:kiosek:201000:70_Cm_2090_2026-3",
+      "kind": "notice",
+      "label": "Usnesení o naříz. likvidace a jmen. likvidátora",
+      "props": {
+        "agenda": [
+          "Obchodní"
+        ],
+        "institutionCode": "201000",
+        "institutionIco": "00215660",
+        "spisovaZnacka": "70 Cm 2090/2026-3",
+        "postingId": "https://infodeska.gov.cz/eudpub/uredni-deska/organizace/201000/vyveseni/9426801"
+      },
+      "rationale": "kiosek batch-006: 5 statute citation(s), 7 IČO mention(s) extracted from the attached PDF"
+    },
+    {
+      "id": "notice:kiosek:201000:87_Cm_2070_2026-4",
+      "kind": "notice",
+      "label": "Usnesení o ustanovení advokáta opatrovníkem",
+      "props": {
+        "agenda": [
+          "Obchodní"
+        ],
+        "institutionCode": "201000",
+        "institutionIco": "00215660",
+        "spisovaZnacka": "87 Cm 2070/2026-4",
+        "postingId": "https://infodeska.gov.cz/eudpub/uredni-deska/organizace/201000/vyveseni/9427936"
+      },
+      "rationale": "kiosek batch-006: 1 statute citation(s), 5 IČO mention(s) extracted from the attached PDF"
+    },
+    {
+      "id": "notice:kiosek:201000:70_Cm_1937_2026-5",
+      "kind": "notice",
+      "label": "Usnesení o naříz. likvidace a jmen. likvidátora",
+      "props": {
+        "agenda": [
+          "Obchodní"
+        ],
+        "institutionCode": "201000",
+        "institutionIco": "00215660",
+        "spisovaZnacka": "70 Cm 1937/2026-5",
+        "postingId": "https://infodeska.gov.cz/eudpub/uredni-deska/organizace/201000/vyveseni/9429518"
+      },
+      "rationale": "kiosek batch-006: 5 statute citation(s), 8 IČO mention(s) extracted from the attached PDF"
+    },
+    {
+      "id": "notice:kiosek:201000:70_Cm_2159_2026-3",
+      "kind": "notice",
+      "label": "Usnesení o naříz. likvidace a jmen. likvidátora",
+      "props": {
+        "agenda": [
+          "Obchodní"
+        ],
+        "institutionCode": "201000",
+        "institutionIco": "00215660",
+        "spisovaZnacka": "70 Cm 2159/2026-3",
+        "postingId": "https://infodeska.gov.cz/eudpub/uredni-deska/organizace/201000/vyveseni/9432920"
+      },
+      "rationale": "kiosek batch-006: 5 statute citation(s), 7 IČO mention(s) extracted from the attached PDF"
+    },
+    {
+      "id": "notice:kiosek:201000:85_Cm_2084_2026-8",
+      "kind": "notice",
+      "label": "Usnesení - výzva, aby se účastník vyjádřil k návrhu",
+      "props": {
+        "agenda": [
+          "Obchodní"
+        ],
+        "institutionCode": "201000",
+        "institutionIco": "00215660",
+        "spisovaZnacka": "85 Cm 2084/2026-8",
+        "postingId": "https://infodeska.gov.cz/eudpub/uredni-deska/organizace/201000/vyveseni/9435993"
+      },
+      "rationale": "kiosek batch-006: 4 statute citation(s), 5 IČO mention(s) extracted from the attached PDF"
+    },
+    {
+      "id": "notice:kiosek:201000:70_Cm_1440_2026-5",
+      "kind": "notice",
+      "label": "Usnesení o naříz. likvidace a jmen. likvidátora",
+      "props": {
+        "agenda": [
+          "Obchodní"
+        ],
+        "institutionCode": "201000",
+        "institutionIco": "00215660",
+        "spisovaZnacka": "70 Cm 1440/2026-5",
+        "postingId": "https://infodeska.gov.cz/eudpub/uredni-deska/organizace/201000/vyveseni/9436556"
+      },
+      "rationale": "kiosek batch-006: 5 statute citation(s), 7 IČO mention(s) extracted from the attached PDF"
+    },
+    {
+      "id": "notice:kiosek:201000:80_Cm_71_2026-3",
+      "kind": "notice",
+      "label": "Usnesení o jmenování likvidátora",
+      "props": {
+        "agenda": [
+          "Obchodní"
+        ],
+        "institutionCode": "201000",
+        "institutionIco": "00215660",
+        "spisovaZnacka": "80 Cm 71/2026-3",
+        "postingId": "https://infodeska.gov.cz/eudpub/uredni-deska/organizace/201000/vyveseni/9442186"
+      },
+      "rationale": "kiosek batch-006: 2 statute citation(s), 0 IČO mention(s) extracted from the attached PDF"
+    },
+    {
+      "id": "notice:kiosek:201000:87_Cm_1636_2026-2",
+      "kind": "notice",
+      "label": "Usnesení o ustanovení advokáta opatrovníkem",
+      "props": {
+        "agenda": [
+          "Obchodní"
+        ],
+        "institutionCode": "201000",
+        "institutionIco": "00215660",
+        "spisovaZnacka": "87 Cm 1636/2026-2",
+        "postingId": "https://infodeska.gov.cz/eudpub/uredni-deska/organizace/201000/vyveseni/9406572"
+      },
+      "rationale": "kiosek batch-006: 6 statute citation(s), 0 IČO mention(s) extracted from the attached PDF"
+    },
+    {
+      "id": "notice:kiosek:201000:70_Cm_2009_2026-3",
+      "kind": "notice",
+      "label": "Usnesení o naříz. likvidace a jmen. likvidátora",
+      "props": {
+        "agenda": [
+          "Obchodní"
+        ],
+        "institutionCode": "201000",
+        "institutionIco": "00215660",
+        "spisovaZnacka": "70 Cm 2009/2026-3",
+        "postingId": "https://infodeska.gov.cz/eudpub/uredni-deska/organizace/201000/vyveseni/9420117"
+      },
+      "rationale": "kiosek batch-006: 5 statute citation(s), 7 IČO mention(s) extracted from the attached PDF"
+    },
+    {
+      "id": "notice:kiosek:201000:70_Cm_2010_2026-5",
+      "kind": "notice",
+      "label": "Usnesení o naříz. likvidace a jmen. likvidátora",
+      "props": {
+        "agenda": [
+          "Obchodní"
+        ],
+        "institutionCode": "201000",
+        "institutionIco": "00215660",
+        "spisovaZnacka": "70 Cm 2010/2026-5",
+        "postingId": "https://infodeska.gov.cz/eudpub/uredni-deska/organizace/201000/vyveseni/9420118"
+      },
+      "rationale": "kiosek batch-006: 5 statute citation(s), 7 IČO mention(s) extracted from the attached PDF"
+    },
+    {
+      "id": "notice:kiosek:201000:70_Cm_2000_2026-3",
+      "kind": "notice",
+      "label": "Usnesení o naříz. likvidace a jmen. likvidátora",
+      "props": {
+        "agenda": [
+          "Obchodní"
+        ],
+        "institutionCode": "201000",
+        "institutionIco": "00215660",
+        "spisovaZnacka": "70 Cm 2000/2026-3",
+        "postingId": "https://infodeska.gov.cz/eudpub/uredni-deska/organizace/201000/vyveseni/9420377"
+      },
+      "rationale": "kiosek batch-006: 5 statute citation(s), 7 IČO mention(s) extracted from the attached PDF"
+    }
+  ],
+  "edges": [
+    {
+      "src": "notice:kiosek:201000:70_Cm_1999_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 1999/2026-3 cites \"304/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1999_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:89-2012",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 70 Cm 1999/2026-3 cites \"89/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1999_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:90-2012",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 1999/2026-3 cites \"90/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1999_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 1999/2026-3 cites \"292/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1999_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:549-1991",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 70 Cm 1999/2026-3 cites \"549/1991 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1999_2026-3",
+      "rel": "concerns",
+      "dst": "company:ico:07043694",
+      "targetExists": false,
+      "wouldNeed": "money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 1999/2026-3 names IČO 07043694 near \"korporace: New Era Corporation s.r.o.,\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1999_2026-3",
+      "rel": "concerns",
+      "dst": "company:ico:03007740",
+      "targetExists": false,
+      "wouldNeed": "money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 1999/2026-3 names IČO 03007740 near \"VPI CZ, v.o.s.,\""
+    },
+    {
+      "src": "notice:kiosek:201000:39_A_16_2026-23",
+      "rel": "cites",
+      "dst": "law:sb:65-2022",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 39 A 16/2026-23 cites \"65/2022 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:39_A_16_2026-23",
+      "rel": "cites",
+      "dst": "law:sb:150-2002",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 39 A 16/2026-23 cites \"150/2002 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:39_A_16_2026-23",
+      "rel": "cites",
+      "dst": "law:sb:221-2003",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 39 A 16/2026-23 cites \"221/2003 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:39_A_16_2026-23",
+      "rel": "cites",
+      "dst": "law:sb:177-1996",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 39 A 16/2026-23 cites \"177/1996 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1823_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 87 Cm 1823/2026-2 cites \"304/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1823_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:99-1963",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 87 Cm 1823/2026-2 cites \"99/1963 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1823_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:89-2012",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 87 Cm 1823/2026-2 cites \"89/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1823_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 87 Cm 1823/2026-2 cites \"292/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1823_2026-2",
+      "rel": "concerns",
+      "dst": "company:ico:27027775",
+      "targetExists": false,
+      "wouldNeed": "money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)",
+      "rationale": "PDF text of 87 Cm 1823/2026-2 names IČO 27027775 near \"právnické osoby: Krusta.CZ,\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1929_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 87 Cm 1929/2026-2 cites \"304/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1929_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:99-1963",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 87 Cm 1929/2026-2 cites \"99/1963 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1929_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:89-2012",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 87 Cm 1929/2026-2 cites \"89/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1929_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 87 Cm 1929/2026-2 cites \"292/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1929_2026-2",
+      "rel": "concerns",
+      "dst": "company:ico:02484692",
+      "targetExists": false,
+      "wouldNeed": "money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)",
+      "rationale": "PDF text of 87 Cm 1929/2026-2 names IČO 02484692 near \"právnické osoby: Jsem tvůj nový kamarád z.s.,\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1782_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 87 Cm 1782/2026-2 cites \"304/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1782_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:99-1963",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 87 Cm 1782/2026-2 cites \"99/1963 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1782_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:89-2012",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 87 Cm 1782/2026-2 cites \"89/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1782_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 87 Cm 1782/2026-2 cites \"292/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1782_2026-2",
+      "rel": "concerns",
+      "dst": "company:ico:02506556",
+      "targetExists": false,
+      "wouldNeed": "money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)",
+      "rationale": "PDF text of 87 Cm 1782/2026-2 names IČO 02506556 near \"s.,\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1754_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 87 Cm 1754/2026-2 cites \"304/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1754_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:99-1963",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 87 Cm 1754/2026-2 cites \"99/1963 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1754_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:89-2012",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 87 Cm 1754/2026-2 cites \"89/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1754_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 87 Cm 1754/2026-2 cites \"292/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1754_2026-2",
+      "rel": "concerns",
+      "dst": "company:ico:01593455",
+      "targetExists": false,
+      "wouldNeed": "money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)",
+      "rationale": "PDF text of 87 Cm 1754/2026-2 names IČO 01593455 near \"právnické osoby: ″MY, SPOLEČNĚ″,\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1939_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 87 Cm 1939/2026-2 cites \"304/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1939_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:99-1963",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 87 Cm 1939/2026-2 cites \"99/1963 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1939_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:89-2012",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 87 Cm 1939/2026-2 cites \"89/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1939_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 87 Cm 1939/2026-2 cites \"292/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1939_2026-2",
+      "rel": "concerns",
+      "dst": "company:ico:22883851",
+      "targetExists": false,
+      "wouldNeed": "money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)",
+      "rationale": "PDF text of 87 Cm 1939/2026-2 names IČO 22883851 near \"právnické osoby: ProDivadlo, z.s.,\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2091_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2091/2026-3 cites \"304/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2091_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:89-2012",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 70 Cm 2091/2026-3 cites \"89/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2091_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:90-2012",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2091/2026-3 cites \"90/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2091_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2091/2026-3 cites \"292/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2091_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:549-1991",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 70 Cm 2091/2026-3 cites \"549/1991 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2091_2026-3",
+      "rel": "concerns",
+      "dst": "company:ico:07949588",
+      "targetExists": false,
+      "wouldNeed": "money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2091/2026-3 names IČO 07949588 near \"korporace: ElvidaCZ, s.r.o.,\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2091_2026-3",
+      "rel": "concerns_person_ico",
+      "dst": "person:ico:72015594",
+      "targetExists": false,
+      "wouldNeed": "NOT a company edge — personLikely=true (birth-date clause / person-title prefix detected); would need a person:ico:* node kind, out of this batch's scope. Excluded from the company/money edge set on purpose.",
+      "rationale": "PDF text of 70 Cm 2091/2026-3 names IČO 72015594 (natural person) near \"Graňák,\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2088_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2088/2026-3 cites \"304/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2088_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:89-2012",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 70 Cm 2088/2026-3 cites \"89/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2088_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:90-2012",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2088/2026-3 cites \"90/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2088_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2088/2026-3 cites \"292/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2088_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:549-1991",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 70 Cm 2088/2026-3 cites \"549/1991 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2088_2026-3",
+      "rel": "concerns",
+      "dst": "company:ico:03299759",
+      "targetExists": false,
+      "wouldNeed": "money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2088/2026-3 names IČO 03299759 near \"korporace: Cool Call s.r.o.,\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2090_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2090/2026-3 cites \"304/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2090_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:89-2012",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 70 Cm 2090/2026-3 cites \"89/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2090_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:90-2012",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2090/2026-3 cites \"90/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2090_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2090/2026-3 cites \"292/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2090_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:549-1991",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 70 Cm 2090/2026-3 cites \"549/1991 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2090_2026-3",
+      "rel": "concerns",
+      "dst": "company:ico:24821055",
+      "targetExists": false,
+      "wouldNeed": "money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2090/2026-3 names IČO 24821055 near \"korporace: VONET Real, s.r.o.,\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2090_2026-3",
+      "rel": "concerns",
+      "dst": "company:ico:03007740",
+      "targetExists": false,
+      "wouldNeed": "money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2090/2026-3 names IČO 03007740 near \"v.o.s.,\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_2070_2026-4",
+      "rel": "cites",
+      "dst": "law:sb:99-1963",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 87 Cm 2070/2026-4 cites \"99/1963 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_2070_2026-4",
+      "rel": "concerns",
+      "dst": "company:ico:06216609",
+      "targetExists": false,
+      "wouldNeed": "money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)",
+      "rationale": "PDF text of 87 Cm 2070/2026-4 names IČO 06216609 near \"navrhovatel: Finanční úřad pro hlavní město Prahu,\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_2070_2026-4",
+      "rel": "concerns",
+      "dst": "company:ico:24291773",
+      "targetExists": false,
+      "wouldNeed": "money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)",
+      "rationale": "PDF text of 87 Cm 2070/2026-4 names IČO 24291773 near \"za účasti: DANOLI, a.s.,\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1937_2026-5",
+      "rel": "cites",
+      "dst": "law:sb:89-2012",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 70 Cm 1937/2026-5 cites \"89/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1937_2026-5",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 1937/2026-5 cites \"304/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1937_2026-5",
+      "rel": "cites",
+      "dst": "law:sb:90-2012",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 1937/2026-5 cites \"90/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1937_2026-5",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 1937/2026-5 cites \"292/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1937_2026-5",
+      "rel": "cites",
+      "dst": "law:sb:549-1991",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 70 Cm 1937/2026-5 cites \"549/1991 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1937_2026-5",
+      "rel": "concerns",
+      "dst": "company:ico:72080043",
+      "targetExists": false,
+      "wouldNeed": "money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 1937/2026-5 names IČO 72080043 near \"navrhovatele: Finanční úřad pro hlavní město Praha,\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1937_2026-5",
+      "rel": "concerns",
+      "dst": "company:ico:26778548",
+      "targetExists": false,
+      "wouldNeed": "money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 1937/2026-5 names IČO 26778548 near \"za účasti: WOLLEN CZ a.s.,\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1937_2026-5",
+      "rel": "concerns",
+      "dst": "company:ico:03007740",
+      "targetExists": false,
+      "wouldNeed": "money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 1937/2026-5 names IČO 03007740 near \"VPI CZ, v.o.s.,\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2159_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2159/2026-3 cites \"304/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2159_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:89-2012",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 70 Cm 2159/2026-3 cites \"89/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2159_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:90-2012",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2159/2026-3 cites \"90/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2159_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2159/2026-3 cites \"292/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2159_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:549-1991",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 70 Cm 2159/2026-3 cites \"549/1991 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2159_2026-3",
+      "rel": "concerns",
+      "dst": "company:ico:24687774",
+      "targetExists": false,
+      "wouldNeed": "money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2159/2026-3 names IČO 24687774 near \"korporace: SVP Invest s.r.o.,\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2159_2026-3",
+      "rel": "concerns_person_ico",
+      "dst": "person:ico:72015594",
+      "targetExists": false,
+      "wouldNeed": "NOT a company edge — personLikely=true (birth-date clause / person-title prefix detected); would need a person:ico:* node kind, out of this batch's scope. Excluded from the company/money edge set on purpose.",
+      "rationale": "PDF text of 70 Cm 2159/2026-3 names IČO 72015594 (natural person) near \"Patrik Graňák,\""
+    },
+    {
+      "src": "notice:kiosek:201000:85_Cm_2084_2026-8",
+      "rel": "cites",
+      "dst": "law:sb:90-2012",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 85 Cm 2084/2026-8 cites \"90/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:85_Cm_2084_2026-8",
+      "rel": "cites",
+      "dst": "law:sb:89-2012",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 85 Cm 2084/2026-8 cites \"89/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:85_Cm_2084_2026-8",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 85 Cm 2084/2026-8 cites \"292/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:85_Cm_2084_2026-8",
+      "rel": "cites",
+      "dst": "law:sb:121-2008",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 85 Cm 2084/2026-8 cites \"121/2008 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:85_Cm_2084_2026-8",
+      "rel": "concerns",
+      "dst": "company:ico:72080043",
+      "targetExists": false,
+      "wouldNeed": "money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)",
+      "rationale": "PDF text of 85 Cm 2084/2026-8 names IČO 72080043 near \"navrhovatele: Finanční úřad pro Středočeský kraj,\""
+    },
+    {
+      "src": "notice:kiosek:201000:85_Cm_2084_2026-8",
+      "rel": "concerns",
+      "dst": "company:ico:10786449",
+      "targetExists": false,
+      "wouldNeed": "money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)",
+      "rationale": "PDF text of 85 Cm 2084/2026-8 names IČO 10786449 near \"za účasti: PIKAPIKA cultural media, s.r.o.,\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1440_2026-5",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 1440/2026-5 cites \"304/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1440_2026-5",
+      "rel": "cites",
+      "dst": "law:sb:89-2012",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 70 Cm 1440/2026-5 cites \"89/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1440_2026-5",
+      "rel": "cites",
+      "dst": "law:sb:90-2012",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 1440/2026-5 cites \"90/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1440_2026-5",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 1440/2026-5 cites \"292/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1440_2026-5",
+      "rel": "cites",
+      "dst": "law:sb:549-1991",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 70 Cm 1440/2026-5 cites \"549/1991 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1440_2026-5",
+      "rel": "concerns",
+      "dst": "company:ico:05543592",
+      "targetExists": false,
+      "wouldNeed": "money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 1440/2026-5 names IČO 05543592 near \"korporace: Česká realitní i obchodní společnost a.s.,\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_1440_2026-5",
+      "rel": "concerns_person_ico",
+      "dst": "person:ico:03536106",
+      "targetExists": false,
+      "wouldNeed": "NOT a company edge — personLikely=true (birth-date clause / person-title prefix detected); would need a person:ico:* node kind, out of this batch's scope. Excluded from the company/money edge set on purpose.",
+      "rationale": "PDF text of 70 Cm 1440/2026-5 names IČO 03536106 (natural person) near \"Markéta Čermáková,\""
+    },
+    {
+      "src": "notice:kiosek:201000:80_Cm_71_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 80 Cm 71/2026-3 cites \"292/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:80_Cm_71_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:99-1963",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 80 Cm 71/2026-3 cites \"99/1963 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1636_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:90-2012",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 87 Cm 1636/2026-2 cites \"90/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1636_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:89-2012",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 87 Cm 1636/2026-2 cites \"89/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1636_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 87 Cm 1636/2026-2 cites \"304/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1636_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:99-1963",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 87 Cm 1636/2026-2 cites \"99/1963 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1636_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 87 Cm 1636/2026-2 cites \"292/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:87_Cm_1636_2026-2",
+      "rel": "cites",
+      "dst": "law:sb:121-2008",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 87 Cm 1636/2026-2 cites \"121/2008 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2009_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2009/2026-3 cites \"304/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2009_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:89-2012",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 70 Cm 2009/2026-3 cites \"89/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2009_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:90-2012",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2009/2026-3 cites \"90/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2009_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2009/2026-3 cites \"292/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2009_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:549-1991",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 70 Cm 2009/2026-3 cites \"549/1991 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2009_2026-3",
+      "rel": "concerns",
+      "dst": "company:ico:02547627",
+      "targetExists": false,
+      "wouldNeed": "money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2009/2026-3 names IČO 02547627 near \"korporace: TROCANO Consulting s.r.o.,\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2009_2026-3",
+      "rel": "concerns_person_ico",
+      "dst": "person:ico:69908664",
+      "targetExists": false,
+      "wouldNeed": "NOT a company edge — personLikely=true (birth-date clause / person-title prefix detected); would need a person:ico:* node kind, out of this batch's scope. Excluded from the company/money edge set on purpose.",
+      "rationale": "PDF text of 70 Cm 2009/2026-3 names IČO 69908664 (natural person) near \"David Vandrovec,\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2010_2026-5",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2010/2026-5 cites \"304/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2010_2026-5",
+      "rel": "cites",
+      "dst": "law:sb:89-2012",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 70 Cm 2010/2026-5 cites \"89/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2010_2026-5",
+      "rel": "cites",
+      "dst": "law:sb:90-2012",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2010/2026-5 cites \"90/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2010_2026-5",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2010/2026-5 cites \"292/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2010_2026-5",
+      "rel": "cites",
+      "dst": "law:sb:549-1991",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 70 Cm 2010/2026-5 cites \"549/1991 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2010_2026-5",
+      "rel": "concerns",
+      "dst": "company:ico:17473900",
+      "targetExists": false,
+      "wouldNeed": "money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2010/2026-5 names IČO 17473900 near \"korporace: micratingued s.r.o.,\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2010_2026-5",
+      "rel": "concerns",
+      "dst": "company:ico:03007740",
+      "targetExists": false,
+      "wouldNeed": "money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2010/2026-5 names IČO 03007740 near \"VPI CZ, v.o.s.,\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2000_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:304-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2000/2026-3 cites \"304/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2000_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:89-2012",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 70 Cm 2000/2026-3 cites \"89/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2000_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:90-2012",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2000/2026-3 cites \"90/2012 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2000_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:292-2013",
+      "targetExists": false,
+      "wouldNeed": "law case to mint this law:sb:* node (batch-006 kiosek found it cited but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2000/2026-3 cites \"292/2013 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2000_2026-3",
+      "rel": "cites",
+      "dst": "law:sb:549-1991",
+      "targetExists": true,
+      "wouldNeed": null,
+      "rationale": "PDF text of 70 Cm 2000/2026-3 cites \"549/1991 Sb.\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2000_2026-3",
+      "rel": "concerns",
+      "dst": "company:ico:27242501",
+      "targetExists": false,
+      "wouldNeed": "money case to mint this company:ico:* node (batch-006 kiosek found a real, unanonymized IČO but the graph has no node for it yet)",
+      "rationale": "PDF text of 70 Cm 2000/2026-3 names IČO 27242501 near \"korporace: TRIBALD GROUP a.s.,\""
+    },
+    {
+      "src": "notice:kiosek:201000:70_Cm_2000_2026-3",
+      "rel": "concerns_person_ico",
+      "dst": "person:ico:72015594",
+      "targetExists": false,
+      "wouldNeed": "NOT a company edge — personLikely=true (birth-date clause / person-title prefix detected); would need a person:ico:* node kind, out of this batch's scope. Excluded from the company/money edge set on purpose.",
+      "rationale": "PDF text of 70 Cm 2000/2026-3 names IČO 72015594 (natural person) near \"Patrik Graňák,\""
+    }
+  ]
+}

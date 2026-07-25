@@ -153,3 +153,16 @@ and the graph-metrics block in [[coverage-ledger]] for progress.
 | S6 | `msp.gov.cz` justice statistics | **WATCH** — context-grade aggregates, nothing entity- or statute-linked | — | none |
 
 > Incidental find worth keeping: **`code.gov.cz` is a live public government GitLab** (MSP has a public group, 8 repos). A source-discovery surface for future civic-data work. The DWH's own source is contractually pushed to an unnamed "GitLab Objednatele" — no public URL confirmed.
+
+### Batch-006 closures + batch-007 seeds
+| id | target | status |
+|---|---|---|
+| Q-effort-13 | volby.cz employment-COI signal | ✅ built; honest partial-null (self-referential occupations); do NOT ship as a badge yet |
+| Q-effort-COVERAGE | population | ✅ **CLOSED 207/207** — first case complete; loop → staleness/lead-driven |
+| Q-effort-15 (new) | **rewrite the 136 leaking dossiers** so the withheld prose ships (the guard hides, it does not fix) | open — the effort case's main remaining work |
+| Q-money-7 | PRaK re-point | ✅ analytically CLOSED (both Bendl AND Brabec); payload awaits the insert path |
+| Q-money-14 (new) | apply the 3 held payloads: PRaK re-point, 55 `owns_stake` + 19 nodes, kiosek notices | open — needs the INSERT-capable writer + `owns_stake`/`notice`/`cites`/`concerns` enum additions |
+| Q-money-15 (new) | re-run batch-002's negatives against the LIVE ARES VR endpoint (C17) | open |
+| Q-money-16 (new) | finish the 5 corroborations blocked on one very large dataor file | open |
+| Q-law-13 (new) | **fix the `ČÁST`/`§` article splitter** (N1) — the regen is incomplete, not just imprecise; then re-measure and re-audit | open — law's P1 |
+| S3-money | kiosek IČOs vs tied companies | recalibrated: disjoint populations → a WATCH channel, not immediate enrichment |

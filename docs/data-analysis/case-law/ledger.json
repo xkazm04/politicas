@@ -64,6 +64,27 @@
    "verdict": "NOT READY TO APPLY at first pass; targeted remediation applied same-batch (Sb. m. s. regex exclusion, footnote-citation extraction fix, act-type edge gate, deletion-diff, provenance/pass fields, stale self-description text) — re-audit recommended before live apply, full precision measurement across all 567 edges still outstanding",
    "defectsFound": 11,
    "defectsRemediatedThisBatch": 6
+  },
+  "batch006IndependentAudit": {
+   "verdict": "NOT READY TO APPLY for the edge regen (batch-005-amends-regen.json); READY WITH CAVEATS for the node payload alone (batch-005-missing-law-nodes.json)",
+   "d1to11Recheck": "D2/D5/D10 confirmed fixed; D8 fixed for this run (fail-open design flagged, no live impact); D11 confirmed correct; D3/D6/D9 confirmed still open (D6 scope wider than reported — also affects amends edge props, not just law node props; D9 worse than reported — 37 not 28 truncated titles); D1/D4/D7 partially fixed with residual gaps",
+   "newDefects": {
+    "N1_high": "census extractor's Čl.-only article splitter is blind to ČÁST/Změna-heading and §-organized bills — ~29 true amending targets missing across 7 high-value omnibus bills (tisk 250/69/10/54/113/189/228), contradicting the payload's 'citation universe closed' claim",
+    "N2_high": "6 confirmed false edges (not the 2 the driver's own P1b review found): tisk 63->21/1992, 69->381/1991, 6->424/1991, 55->194/2017, 76->234/2014, 144->326/1999 (last 3 are repeal clauses misread as amendments)",
+    "N3_medium": "provenance shape incomplete — edges missing computedAt, nodes missing pass; validator never checks provenance shape",
+    "N4_medium": "isFootnoteLine is single-line, confirmed under-skip on multi-line footnote blocks (tisk 69)",
+    "N5_low": "3 more stale-prose artifacts beyond D7 (node count typo, 2 collision payloads' stale '574 edges' method string)",
+    "N6_low": "D8 act-type gate is a fail-open blacklist; no live impact on this batch's 100%-Zákon-prefixed data"
+   },
+   "recommendation": "do not apply the edge regen this batch; node payload alone is sound but not applied without its edges (no immediate value split from the regen); minimum-to-ready path is a ČÁST/Změna-heading splitter extension + footnote-block generalization + repeal-vs-amend modeling decision + provenance completeness + a THIRD independent audit before any live apply",
+   "batch006PrecisionMeasurement": {
+    "method": "amending-verb-context proxy (±2500 chars), full 567-edge population, not spot-check",
+    "highConfidence": 561,
+    "lowConfidence": 6,
+    "unresolvableByProxy": 0,
+    "manualReadOfLowConfidence": "4 proxy false-negatives (real edges) + 2 genuine false (later the audit overturned 1 of the 4 to also-false, landing on the same 6 as N2)"
+   },
+   "applyScriptBuilt": "scripts/case-loops/law/apply-amends-regen.ts — insert-capable, provenance-preserving merge on pre-existing edge keys, deletion safety gate, dry-run default with --confirm-live guard; verified end-to-end on an isolated copy (dry-run + commit test); not recommended for a live edge-regen commit yet per the audit verdict above"
   }
  },
  "rows": [

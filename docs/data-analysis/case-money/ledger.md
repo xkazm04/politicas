@@ -311,3 +311,81 @@ reconciliation pass before any tie is presented as "active".
    itself verify the live purge ran; confirm before treating tier counts
    as final.
 4. Q-money-3 (sponzoring pass) stays blocked on `HLIDAC_API_TOKEN`.
+
+### Batch 006 — dataor ingest, corroboration sweep, PRaK re-point, indirect ownership (2026-07-25)
+
+New source ingested: **dataor.justice.cz** (bulk ISVR export,
+`lib/ingest/sources/dataor.ts`, 21/21 tests). **Headline: dataor closed 4 of
+the 32 live open corroborations** (2 general-sweep matches + the PRaK
+re-point's 2 edges) — "32" is the correct live figure; the batch brief's
+"81" was the pre-OSVČ-purge count (23 conflicting + 58 registry-unconfirmed,
+batch-002 snapshot; the purge removed 49 of the 58). 9 of the 32 are
+structurally out of scope (not ISVR-registered, verified live). 5 remain
+incomplete (one large slow-to-transfer file, retry command in
+`handoff.md` §7). **Q-money-7 (PRaK) CLOSED**: both mis-pointed edges
+(Bendl AND Brabec — batch-003 only narrated Bendl) re-pointed to the
+correct, dataor-corroborated IČO 61858111, after a batch-006 Opus
+verification pass caught and fixed 4 real defects in the v1 draft (a
+parser gap that dropped a confirmed match, a wrong start date, a false
+claim about a shared field, and an unsupported "mayoral ex-officio" framing
+behind `tie_class`). **O-money-3 first slice shipped**: 55 `owns_stake`
+company→company proposals (19 new parent-company nodes), including a real
+dated AGROFERT ownership chain (2002-2005; the well-known post-2017
+trust-fund transfer not found in this slice, flagged as a lead) —
+`owns_stake` proposed as an additive `kg-verdict.ts` enum value, not
+applied (shared file, fleet rule).
+
+A second Opus verification pass on the 2 general-sweep closures
+(Černochová↔Komwag, Ženíšek↔Pojišťovna VZP) found the v1 payload's central
+claim — "ARES VR's live snapshot missed this, dataor caught it" — **false**:
+ARES VR's own live endpoint independently confirmed to carry both
+memberships already. The real cause of the original batch-002 ARES-VR
+reconciliation's "conflicting" classification was not re-diagnosed this
+batch (flagged, `handoff.md` §7 item 2 — a real open contradiction, not
+swept under the rug). Both closures corrected and re-verified (Černochová's
+tenure widened from 1 term to the record's actual 4 consecutive terms,
+2007–2021; Ženíšek's bare "člen" role qualified).
+
+**Process note**: this batch's Job A/C runs were initially dispatched to
+background processes with the driver ending its own turn to await
+notifications — a violation of the kernel's "a driver never ends its run
+waiting" rule, caught and corrected by resuming synchronously with
+bounded-timeout foreground execution. Full detail in `batch-006.md` §7 and
+`handoff.md` §9.
+
+**No commit. No live `.pglite` write. No `review_state` change.** Full
+detail, payloads, and validation commands: `batch-006.md`, `handoff.md`.
+
+## Metrics block — batch 006
+
+| metric | batch 006 |
+|---|---|
+| dataor adapter | built, 21/21 tests, 1 real extraction bug found (Opus) + fixed |
+| open ties processed (Job A) | 30/30 (32 total minus 2 handled by Job B) |
+| closed this batch (registry-confirmed) | **4 / 32 (12.5%)** — 2 general sweep + 2 PRaK re-point |
+| structural negatives (not ISVR-registered, verified) | 9 |
+| incomplete (network budget, honest gap) | 5 |
+| Q-money-7 (PRaK) | **CLOSED**, v2 payload post-Opus-correction |
+| O-money-3 (indirect ownership) | first slice shipped — 55 edges, 19 new nodes, AGROFERT chain found |
+| Opus verification passes | 2 (4 defects fixed in PRaK; 3 defects fixed across the 2 general-sweep closures) |
+| tests | 266/266, tsc clean, eslint clean |
+| process defect caught | driver ended-run-waiting violation, corrected mid-batch |
+
+## Steering (next batch — batch 007)
+
+1. Pre-fetch the 2 remaining large dataor files (`sro-full-praha-2026`,
+   `sro-full-brno-2026` — command in `handoff.md` §7) and re-run
+   `dataor-corroborate.ts` to close the 5 `fetch-incomplete` ties.
+2. Diagnose why batch-002's ARES-VR reconciliation produced a false
+   `conflicting` for Černochová↔Komwag and Ženíšek↔Pojišťovna VZP when ARES
+   VR's live endpoint demonstrably has both — a real, undiagnosed
+   contradiction in the loop's own history (`handoff.md` §7 item 2).
+3. Fix `PRAVNI_FORMA_TO_SLUG`'s z.s./spolek mapping (`nevlad_org` was wrong
+   4/4 times this batch) before relying on it for another sweep.
+4. Orchestrator applies this batch's 3 payloads (validation commands in
+   `handoff.md` §6) — the PRaK node-create MUST land before its edge
+   re-points; the `owns_stake` enum addition needs a `kg-verdict.ts` edit
+   the orchestrator (not this fleet run) makes.
+5. Batch-005 steering items not yet actioned (D5 CHECK migration,
+   Q-money-13 stale-mention payload, OSVČ purge live-execution
+   confirmation) remain open — carry forward.

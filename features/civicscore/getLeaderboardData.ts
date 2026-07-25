@@ -26,6 +26,7 @@
 
 import { getStore } from "@/lib/db/store";
 import { CONTRIBUTION_WEIGHTS } from "@/lib/analysis/contribution";
+import { isPublicSafe, publicCopyOrNull } from "@/lib/analysis/public-copy";
 import { PARTIES } from "@/lib/civic/data";
 import { OCHRE, STEEL } from "@/features/landing/palette";
 import { computeTrend, type ContributionTrend } from "@/lib/analysis/contribution-trend";
@@ -81,8 +82,11 @@ function clubMeta(abbrev: string | null | undefined): { name: string; color: str
 function hasDossierProps(props: Record<string, unknown>): boolean {
   const themes = props.effort_work_themes;
   if (Array.isArray(themes) && themes.length > 0) return true;
+  // Only prose that would actually RENDER counts as "has a dossier" — a string
+  // withheld by the public-copy guard must not light up the dossier affordance
+  // and send a reader to a profile that shows nothing.
   for (const key of ["effort_bill_focus", "effort_notes", "effort_public_role"]) {
-    if (typeof props[key] === "string" && (props[key] as string).length > 0) return true;
+    if (isPublicSafe(props[key] as string | undefined)) return true;
   }
   return false;
 }
@@ -251,7 +255,8 @@ export async function buildLeaderboard(): Promise<{ data: LeaderboardData; direc
           p.props.contribution_psp9,
         ),
         effortLowScoreReason: typeof p.props.effort_low_score_reason === "string" ? p.props.effort_low_score_reason : null,
-        effortPublicRole: typeof p.props.effort_public_role === "string" ? p.props.effort_public_role : null,
+        // Renders verbatim in the badge → public-copy guard (see public-copy.ts).
+        effortPublicRole: publicCopyOrNull(p.props.effort_public_role as string | undefined),
         effortWorkhorse: p.props.effort_workhorse === true,
         effortWorkhorseFlavour: typeof p.props.effort_workhorse_flavour === "string" ? p.props.effort_workhorse_flavour : null,
         effortHasDossier: hasDossierProps(p.props),

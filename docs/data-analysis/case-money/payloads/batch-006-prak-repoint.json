@@ -1,0 +1,103 @@
+{
+  "batch": 6,
+  "track": "money",
+  "kind": "prak-repoint",
+  "generatedAt": "2026-07-25",
+  "version": 2,
+  "note": "Q-money-7 CLOSED — batch-003's PRaK candidate (IČO 61858111) is now corroborated via dataor's bulk ISVR export (ARES REST 404s on this dissolved-2012 entity, the batch-003/004 dead end). This v2 payload incorporates a batch-006 Opus verification pass's corrections (a parser gap that silently dropped a birth-date-confirmed dozorčí-rada seat, a wrong role_valid_from, a false claim about vymazDatum's meaning, and an unsupported 'mayoral ex-officio public appointment' narrative behind tie_class:steward — tie_class now comes from the SAME deterministic classifier the rest of the graph uses, no narrative claim attached). Proposals TO BE APPLIED TOGETHER: the node create + every edge re-point (with its own tie_class, computed per-edge from the representative role actually found).",
+  "nodeCreateProposal": {
+    "id": "company:ico:61858111",
+    "kind": "company",
+    "label": "PRaK, a.s. v likvidaci",
+    "props": {
+      "ico": "61858111",
+      "legalForm": "a.s.",
+      "status": "zaniklá (v likvidaci, vymazána 2012-12-13)",
+      "spisovaZnacka": "B 2674/MSPH",
+      "source": "dataor.justice.cz bulk ISVR export (as-full-praha-2012)",
+      "sourceUrl": "https://dataor.justice.cz/api/file/as-full-praha-2012.csv.gz"
+    },
+    "provenance": {
+      "track": "money",
+      "pass": null,
+      "method": "verdict",
+      "ref": "case-money/batch-006 · dataor PRaK re-point (Q-money-7)",
+      "computedAt": "2026-07-25"
+    }
+  },
+  "edgeRepointProposals": [
+    {
+      "oldEdge": {
+        "src": "psp:person:346",
+        "rel": "linked_to",
+        "dst": "company:ico:49683144"
+      },
+      "newEdge": {
+        "src": "psp:person:346",
+        "rel": "linked_to",
+        "dst": "company:ico:61858111",
+        "propsMerge": {
+          "role": "člen představenstva",
+          "corroboration": "registry-confirmed",
+          "corroboration_source": "https://dataor.justice.cz/api/file/as-full-praha-2012.csv.gz",
+          "role_valid_from": "1994-08-16",
+          "role_valid_to": "1999-07-28",
+          "tie_class": "manager",
+          "role_history": "člen představenstva 1996-01-15→1999-07-28 [datum narození potvrzeno]; člen dozorčí rady 1994-08-16→1995-04-21; člen dozorčí rady 1995-04-21→1996-01-15",
+          "reviewer_note": "Q-money-7 (batch 006): vazba přepojena z chybného IČO 49683144 (\"PRAK spol. s r.o.\", stále aktivní s.r.o., strukturálně neslučitelné se zaniklou a.s. vazbou) na IČO 61858111 (\"PRaK, a.s. v likvidaci\", zaniklá 2012-12-13). Petr Bendl — historie funkcí v záznamu: člen představenstva 1996-01-15→1999-07-28 [datum narození potvrzeno]; člen dozorčí rady 1994-08-16→1995-04-21; člen dozorčí rady 1995-04-21→1996-01-15. datum narození (1966-01-24) potvrzeno proti dataor.justice.cz záznamu (entrie: člen představenstva, 1996-01-15→1999-07-28). tie_class=\"manager\" je výstup stejného deterministického klasifikátoru jako zbytek grafu (representativní role=\"člen představenstva\", firma nemá znak veřejného subjektu) — NEJDE o tvrzení o veřejném/starostenském mandátu (tato hypotéza z v1 návrhu batch 006 byla po ověření Opus modelem zamítnuta jako nepodložená primárním záznamem — viz batch-006.md).",
+          "flags": [
+            "dataor-closed",
+            "prak-repoint-batch006"
+          ],
+          "dataor_check": {
+            "checked": true,
+            "result": "match",
+            "datasetId": "as-full-praha-2012",
+            "entriesFound": 3,
+            "confirmedEntries": 1,
+            "checkedAt": "2026-07-25"
+          }
+        }
+      }
+    },
+    {
+      "oldEdge": {
+        "src": "psp:person:6184",
+        "rel": "linked_to",
+        "dst": "company:ico:49683144"
+      },
+      "newEdge": {
+        "src": "psp:person:6184",
+        "rel": "linked_to",
+        "dst": "company:ico:61858111",
+        "propsMerge": {
+          "role": "člen dozorčí rady",
+          "corroboration": "registry-confirmed",
+          "corroboration_source": "https://dataor.justice.cz/api/file/as-full-praha-2012.csv.gz",
+          "role_valid_from": "1994-08-16",
+          "role_valid_to": "2006-05-29",
+          "tie_class": "steward",
+          "role_history": "člen představenstva 1994-08-16→1996-01-15; člen dozorčí rady 2004-03-04→2006-05-29 [datum narození potvrzeno]",
+          "reviewer_note": "Q-money-7 (batch 006): vazba přepojena z chybného IČO 49683144 (\"PRAK spol. s r.o.\", stále aktivní s.r.o., strukturálně neslučitelné se zaniklou a.s. vazbou) na IČO 61858111 (\"PRaK, a.s. v likvidaci\", zaniklá 2012-12-13). Richard Brabec — historie funkcí v záznamu: člen představenstva 1994-08-16→1996-01-15; člen dozorčí rady 2004-03-04→2006-05-29 [datum narození potvrzeno]. datum narození (1966-07-05) potvrzeno proti dataor.justice.cz záznamu (entrie: člen dozorčí rady, 2004-03-04→2006-05-29). tie_class=\"steward\" je výstup stejného deterministického klasifikátoru jako zbytek grafu (representativní role=\"člen dozorčí rady\", firma nemá znak veřejného subjektu) — NEJDE o tvrzení o veřejném/starostenském mandátu (tato hypotéza z v1 návrhu batch 006 byla po ověření Opus modelem zamítnuta jako nepodložená primárním záznamem — viz batch-006.md).",
+          "flags": [
+            "dataor-closed",
+            "prak-repoint-batch006"
+          ],
+          "dataor_check": {
+            "checked": true,
+            "result": "match",
+            "datasetId": "as-full-praha-2012",
+            "entriesFound": 2,
+            "confirmedEntries": 1,
+            "checkedAt": "2026-07-25"
+          }
+        }
+      }
+    }
+  ],
+  "openItems": [
+    "Bendl's role_valid_from is 1994-08-16 (dozorčí rada start), not his 1996-01-15 představenstvo start — he held a continuous seat across a role change, and the tie's true start predates the board-seat entry alone.",
+    "vymazDatum=2002-12-31 on Bendl's představenstvo entry is a bulk administrative register strike shared by SIX officer entries in this record (Opus-verified by direct count against the primary record) — it is NOT a distinct person's re-filing. clenstviDo=1999-07-28 remains Bendl's own, individuating mandate-end date.",
+    "Brabec's re-point is registry-confirmed via a DIFFERENT entry than the one v1 of this payload checked: a dozorčí rada seat 2004-03-04→2006-05-29 (narozDatum=1966-07-05, exact roster match) that the v1 extractor missed due to a parser gap (now fixed in lib/ingest/sources/dataor.ts). His earlier 1994-1996 představenstvo seat remains unconfirmed by birth date and is recorded only in role_history, not used for the edge's own corroboration/dates."
+  ]
+}

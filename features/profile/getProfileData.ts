@@ -14,12 +14,15 @@
 // node (see getLeaderboardData). No fabricated delta/trend/headline.
 
 import { getStore } from "@/lib/db/store";
+import { publicCopyOrNull } from "@/lib/analysis/public-copy";
 import {
   buildLeaderboard,
   CLUB_FALLBACK_COLOR,
   type LeaderboardData,
   type LeaderboardEntry,
 } from "@/features/civicscore/getLeaderboardData";
+import { isCommitteeSeat, type CommitteeSeat as ContributionCommitteeSeat } from "@/lib/analysis/contribution";
+import { classifyRole, ROLE_WEIGHT } from "@/lib/analysis/kg";
 
 const num = (x: unknown): number => (typeof x === "number" && Number.isFinite(x) ? x : 0);
 
@@ -44,6 +47,15 @@ export interface CommitteeSeat {
   organType: string | null;
   role: string; // "member" | "předseda" | …
   weight: number; // role rank
+  // batch-006 (Case ② effort loop): current/past window, so a seat vacated on taking a
+  // ministerial post doesn't render as an active committee membership. This profile section
+  // had the same defect as the effort army's extract-dossiers.ts, since it also read
+  // influential_in edges — which are built only over organs that are DIRECT CHILDREN of the
+  // chamber AND typed /v[ýy]bor|komis/i (so "Delegace" seats vanish), and which carry no
+  // fromAt/toAt at all.
+  current: boolean;
+  fromAt: string | null;
+  toAt: string | null;
 }
 
 /** A bill this MP sponsors, resolved to its psp.cz historie.sqw link.
@@ -148,23 +160,62 @@ export async function getProfileData(pspId: number): Promise<ProfileData | null>
       })
       .sort((a, b) => b.rate - a.rate);
 
-    // influential_in — dst is a committee/commission organ node.
-    const organNodes = await store.listKgNodes({ kind: "organ", limit: 200 });
-    const organById = new Map(organNodes.map((o) => [o.id, o]));
-    const inflEdges = await store.listKgEdges({ rel: "influential_in", limit: 100_000 });
-    const committees: CommitteeSeat[] = inflEdges
-      .filter((e) => e.src === selfId)
-      .map((e) => {
-        const o = organById.get(e.dst);
-        const props = e.props as { role?: string };
-        return {
-          abbrev: o?.label ?? e.dst,
-          organType: (o?.props as { organ_type?: string } | undefined)?.organ_type ?? null,
-          role: props.role ?? "member",
-          weight: num(e.weight),
-        };
+    // committees — rebuilt from raw membership rows (NOT influential_in edges), the same
+    // basis kg-contribution-ingest.ts feeds computeContribution for committee_count (see
+    // extract-dossiers.ts's batch-006 note for the measured root cause). influential_in
+    // undercounted here because kg-compute builds it only over organs that are DIRECT
+    // CHILDREN of the chamber and typed /v[ýy]bor|komis/i — which excludes "Delegace"
+    // (39/207 MPs affected) — and because those edges carry no fromAt/toAt at all, so a
+    // seat vacated for a ministerial post rendered as an active committee membership.
+    const term = "PSP10";
+    const memberships = await store.listMemberships({ termCode: term });
+    const rawOrgans = await store.listOrgans({ limit: 3000 });
+    const organTypeByPsp = new Map(rawOrgans.map((o) => [o.pspId, o.organTypeCz]));
+    const organLabelByPsp = new Map(rawOrgans.map((o) => [o.pspId, o.abbrev ?? o.nameCz ?? String(o.pspId)]));
+    // DEDUPE BY ORGAN (batch-006): psp.cz stores a leadership seat as TWO membership rows
+    // — one `kind:"member"` and one `kind:"function"` on the SAME organ (251 of 1062 PSP10
+    // person-organ pairs). committee_count counts ROWS, so it double-counts those bodies;
+    // that overcount is a defect in the deterministic index itself, which case gate (a)
+    // forbids this loop from "fixing" — it is escalated in the batch-006 handoff instead.
+    // What we MUST not do is render one committee twice to a reader, so the profile shows
+    // each body ONCE at its highest role. (The effort-loop's dossier extractor deliberately
+    // does NOT dedupe: there it must mirror committee_count exactly so an analyst comparing
+    // the two never sees a phantom mismatch.)
+    // Selection rule, deliberately NOT "max role, OR-ed current" — that would build a
+    // chimera out of two different rows (a role from an ENDED row married to `current`
+    // from a still-open one) and could render "chair · current" for a chairmanship that
+    // has ended. Real case in this term: an MP whose committee chairmanship ended while
+    // his plain membership continued — the honest render is "member · current", not
+    // "chair · current" and not a dropped chair row.
+    // So: prefer the highest role among rows that are STILL OPEN; only if the MP holds no
+    // open row on that organ do we fall back to the highest role among ended rows, and
+    // then the seat is marked past. Every field of the result comes from ONE row.
+    const rowsByOrgan = new Map<number, CommitteeSeat[]>();
+    for (const m of memberships) {
+      if (m.personPspId !== pspId || m.organPspId == null) continue;
+      const organType = organTypeByPsp.get(m.organPspId) ?? null;
+      const seat: ContributionCommitteeSeat = { organType, functionType: m.functionTypeCz };
+      if (!isCommitteeSeat(seat)) continue;
+      const role = classifyRole(m.functionTypeCz);
+      const row: CommitteeSeat = {
+        abbrev: organLabelByPsp.get(m.organPspId) ?? String(m.organPspId),
+        organType,
+        role,
+        weight: ROLE_WEIGHT[role],
+        current: !m.toAt || Date.parse(m.toAt) > Date.now(),
+        fromAt: m.fromAt,
+        toAt: m.toAt,
+      };
+      const arr = rowsByOrgan.get(m.organPspId) ?? [];
+      arr.push(row);
+      rowsByOrgan.set(m.organPspId, arr);
+    }
+    const committees: CommitteeSeat[] = [...rowsByOrgan.values()]
+      .map((rows) => {
+        const pool = rows.some((r) => r.current) ? rows.filter((r) => r.current) : rows;
+        return pool.reduce((best, r) => (r.weight > best.weight ? r : best));
       })
-      .sort((a, b) => b.weight - a.weight);
+      .sort((a, b) => (a.current === b.current ? b.weight - a.weight : a.current ? -1 : 1));
 
     // Honest extra signals pulled from the person node props (may be absent).
     const personNode = (await store.listKgNodes({ kind: "person", limit: 1000 })).find((p) => p.id === selfId);
@@ -184,11 +235,17 @@ export async function getProfileData(pspId: number): Promise<ProfileData | null>
     const effortWorkThemes = Array.isArray(effortWorkThemesRaw)
       ? effortWorkThemesRaw.filter((x): x is string => typeof x === "string")
       : null;
-    const effortBillFocus = personNode && typeof personNode.props.effort_bill_focus === "string"
-      ? personNode.props.effort_bill_focus
+    // Analyst prose renders VERBATIM here, so it passes the public-copy guard
+    // first: 136/207 live nodes still carry pipeline jargon from batches 001–005
+    // ("v batch 001 spolupodepisoval…", "bills_authored=2 … sponsoredBills"),
+    // written before the persist-time gate existed. A violating string is
+    // withheld whole (never partially scrubbed) until the rewrite pass lands —
+    // the text stays in the graph, it just does not ship. See lib/analysis/public-copy.ts.
+    const effortBillFocus = personNode
+      ? publicCopyOrNull(personNode.props.effort_bill_focus as string | undefined)
       : null;
-    const effortNotes = personNode && typeof personNode.props.effort_notes === "string"
-      ? personNode.props.effort_notes
+    const effortNotes = personNode
+      ? publicCopyOrNull(personNode.props.effort_notes as string | undefined)
       : null;
     const effortDataFlag = personNode && typeof personNode.props.effort_data_flag === "string"
       ? personNode.props.effort_data_flag

@@ -129,6 +129,46 @@ function proseVsPropsWarnings(prop: { id: string; name: string; props: Record<st
   return warnings;
 }
 
+// ── Q-effort-14 (batch 006): PUBLIC-COPY check on verbatim-rendered fields ───
+// batch 005's reflection wrote the lesson "public-render fields need a 'would I
+// show this to a voter' check, SEPARATE from factual-accuracy checks" after
+// finding 4 leaking profiles. Batch 006 found the same class in 99 field
+// instances across 42/42 dossiers — i.e. the prose lesson did not survive
+// contact with a new army. So it becomes CODE here.
+//
+// effort_notes / effort_public_role / effort_bill_focus render VERBATIM to end
+// users on /poslanec (DossierSection "Poznámky k datům" / "Veřejná role" /
+// "Legislativní stopa", and effort_public_role also via LowScoreReasonBadge).
+// A raw pipeline identifier or an internal process reference in those strings is
+// never legitimate reader copy, regardless of whether the statement is TRUE —
+// which is exactly why an accuracy-only gate passed all 99.
+//
+// Hard DROP (never valid public copy): raw prop/field identifiers, internal case
+// names, gate-rule citations, batch/sample self-references, API mechanics.
+const PUBLIC_RENDER_FIELDS = ["effort_notes", "effort_public_role", "effort_bill_focus"] as const;
+const PIPELINE_JARGON: { re: RegExp; what: string }[] = [
+  { re: /\b(committee_count|leadership_count|bills_authored|speech_turns|absence_rate|participation_rate|contribution_score|interpellations_count)\b/i, what: "raw prop identifier" },
+  { re: /\b(sponsoredBills|linkedCompanies|contributionPsp9|quietWorkhorseIndex|componentDivergence|tenureClass|zVsClub|triageScore|effort_[a-z_]+)\b/, what: "raw pipeline field name" },
+  { re: /Case\s*[①②③]|case-(money|effort|law)\b/i, what: "internal case reference" },
+  { re: /\bgate\s*\(?[a-e]\)?(?![a-z])/i, what: "internal gate-rule citation" },
+  { re: /\b(batch|dávka)\s*\d|v tomto vzorku|ve vzorku (pěti|čtyř|tří)|tomto vzorku/i, what: "batch/sample self-reference" },
+  { re: /\b(endpoint|REST API|\/ekonomicke-subjekty|<ICO>|JSON|pipeline|dossier|dosier)\b/i, what: "API/pipeline mechanics" },
+];
+
+/** DROP reasons for pipeline jargon in verbatim-rendered public copy. */
+function publicCopyViolations(prop: { id: string; name: string; props: Record<string, unknown> }): string[] {
+  const out: string[] = [];
+  for (const field of PUBLIC_RENDER_FIELDS) {
+    const text = prop.props[field];
+    if (typeof text !== "string") continue;
+    for (const { re, what } of PIPELINE_JARGON) {
+      const m = re.exec(text);
+      if (m) out.push(`${field} contains ${what} ${JSON.stringify(m[0])} — this string renders verbatim on /poslanec`);
+    }
+  }
+  return out;
+}
+
 async function main() {
   const store = await getStore();
   if (!store) throw new Error("no store");
@@ -161,6 +201,12 @@ async function main() {
     const reason = prop.props.effort_low_score_reason as string | undefined;
     if (reason !== undefined && !LOW_SCORE_REASONS.has(reason)) {
       drops.push(`${prop.id} (${prop.name}) — effort_low_score_reason "${reason}" not in the closed vocabulary`);
+      continue;
+    }
+    // Q-effort-14: public-copy check on verbatim-rendered fields (batch 006).
+    const copyViolations = publicCopyViolations(prop);
+    if (copyViolations.length) {
+      drops.push(`${prop.id} (${prop.name}) — public-copy violation(s): ${copyViolations.join(" · ")}`);
       continue;
     }
     ok++;

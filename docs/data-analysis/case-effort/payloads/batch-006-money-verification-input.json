@@ -1,0 +1,375 @@
+{
+  "generatedAt": "2026-07-25T10:08:27.208Z",
+  "note": "Money-touching proposals from batch-006 army + their linkedCompanies graph context, for the required second independent (Opus) verification layer per P51/C13.",
+  "items": [
+    {
+      "proposal": {
+        "id": "psp:person:6240",
+        "name": "Karel Tureček",
+        "club": "ANO2011",
+        "lens": [
+          "bottom",
+          "divergence",
+          "high-triage"
+        ],
+        "props": {
+          "effort_work_themes": [
+            "zemědělství",
+            "vodní hospodářství",
+            "evropské záležitosti"
+          ],
+          "effort_bill_focus": "V poskytnutém vzorku nemá Tureček žádný sponzorovaný tisk (sponsoredBills je prázdné pole, bills_authored=0) — v tomto období tedy nevedl ani nespolupodepsal žádnou legislativní iniciativu.",
+          "effort_public_role": "Tureček je místopředsedou Zemědělského výboru (od 13. 11. 2025) a řadovým členem téhož výboru (od 11. 11. 2025) i Výboru pro evropské záležitosti (od 14. 11. 2025); dle psp.cz od 20. 1. 2026 navíc předsedá podvýboru pro vodní hospodářství a je členem podvýboru pro lesní hospodářství — vodohospodářská a zemědělská agenda tak tvoří jasnou linii jeho výborové práce.",
+          "effort_notes": "Tureček je peněžně sledovaná MP se dvěma nahlášenými firemními vazbami (obě ve stavu pending_review): Rybářství Třeboň a.s. (IČO 60826851, smluvní hodnota cca 4,37 mil. Kč) a Povodí Ohře, státní podnik (IČO 70889988, smluvní hodnota cca 67 mil. Kč). Ověřeno přes ARES VR REST endpoint (ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/<ICO>), nikoli přes zjednodušený /ekonomicke-subjekty/ endpoint, který úředníky/statutáry vůbec neuvádí. U Rybářství Třeboň a.s. byl prověřen kompletní historický seznam statutárních orgánů (představenstvo, dozorčí rada, prokura) od roku 1994 do současnosti — jméno Karel Tureček se v žádné roli nevyskytuje. U Povodí Ohře, státní podnik, záznam ukazuje, že Ing. Karel Tureček (nar. 1. 2. 1971, shoda data narození s poslancem) byl zakladatelem jmenovaným členem dozorčí rady od 1. 2. 2001 do 8. 7. 2003, s formálním výmazem 14. 4. 2004 — tedy více než 20 let před jeho nástupem do Sněmovny (4. 10. 2025) a bez jakékoli aktuální funkce v podniku dnes. Vzhledem k tomu, že dnes předsedá podvýboru pro vodní hospodářství a je místopředsedou Zemědělského výboru, jde o tematicky blízký, ale časově dávno uzavřený vztah — stojí za sledování při budoucích smlouvách s podnikem, ne za obvinění na základě dnešních dat. Datová poznámka: participation_rate a absence_rate mají shodně hodnotu 0,7, což může být metodická náhoda dvou nezávislých metrik nebo skutečně vysoká absence — nejvyšší ve vzorku pěti MPs — stojí za ověření v Case ①.",
+          "effort_low_score_reason": "genuine_absentee"
+        },
+        "signal": 0.52,
+        "headline": "Tureček, místopředseda Zemědělského výboru a předseda podvýboru pro vodní hospodářství, má nejnižší kontribuční skóre v tomto vzorku (52,1) a nejvyšší absenci (0,7); ARES VR potvrzuje, že jeho členství v dozorčí radě Povodí Ohře skončilo už v roce 2003 — dávno před dnešním mandátem — a u druhé nahlášené firmy, Rybářství Třeboň, žádnou vazbu nenašla.",
+        "citations": [
+          "https://www.psp.cz/sqw/detail.sqw?id=6240&o=10",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/60826851",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/70889988"
+        ]
+      },
+      "graphLinkedCompanies": [
+        {
+          "company": "Rybářství Třeboň a.s.",
+          "ico": "60826851",
+          "reviewState": "pending_review",
+          "contractCzk": 4370579.8100000005
+        },
+        {
+          "company": "Povodí Ohře, státní podnik",
+          "ico": "70889988",
+          "reviewState": "pending_review",
+          "contractCzk": 66995646.349999994
+        }
+      ]
+    },
+    {
+      "proposal": {
+        "id": "psp:person:6527",
+        "name": "David Pražák",
+        "club": "ANO2011",
+        "lens": [
+          "high-triage"
+        ],
+        "props": {
+          "effort_work_themes": [
+            "zemědělství a potravinářství",
+            "myslivost, rybářství a lesní hospodářství",
+            "střet zájmů (spolupředkladatel novely)"
+          ],
+          "effort_bill_focus": "Jediný tisk ve vzorku (43343/cislo 221) je novela zákona o střetu zájmů (159/2006), spolupodepsaná se čtyřmi dalšími poslanci (Vondráček R. a další — on je hlavním předkladatelem, Pražák spolupodepsal, gate (e): 'spolupodepsal', ne 'předložil'). Ověřený stav k 25. 7. 2026: vláda zaujala neutrální stanovisko (30. 6. 2026), Ústavně-právní výbor byl určen garančním výborem, tisk zatím neprošel žádným čtením — projednávání teprve možné od 10. 7. 2026.",
+          "effort_public_role": "Pražák je místopředsedou Zemědělského výboru (od 13. 11. 2025, člen od 11. 11. 2025) a členem Výboru pro životní prostředí (od 11. 11. 2025); dle psp.cz předsedá Podvýboru pro produkci potravin, veterinární činnost a živočišnou výrobu a je členem podvýborů pro myslivost/rybářství/včelařství/zahrádkářství, rozvoj venkova, dopravu, lesní hospodářství a ochranu zvířat. Od 25. 3. 2026 je navíc zvoleným členem Dozorčí rady Státního zemědělského intervenčního fondu (SZIF) — instituce, která spravuje zemědělské dotace a intervence.",
+          "effort_notes": "MONEY-TOUCHING OVĚŘENÍ (ARES VR endpoint, ne plochý /ekonomicke-subjekty/ endpoint — dle doktríny): (1) KORID LK, spol. s r.o. (IČO 27267351, dopravní organizátor Libereckého kraje s veřejnou zakázkou 60 118 595,61 Kč dle dossieru) — Pražák (nar. 13. 9. 1979, adresa Kozákovská 593, Podmoklice, Semily — shoduje se s jeho volebním regionem Liberecký a sídlem regionální kanceláře v Semilech) byl členem dozorčí rady od 7. 12. 2016 do 1. 12. 2020, záznam ukončen 29. 6. 2021 — role je HISTORICKÁ, ne aktivní, skončila roky před současným mandátem (od 10/2025). (2) AGROCENTRUM JIZERAN a.s. (IČO 60914351, zakázka 2 840 827,13 Kč dle dossieru) — Pražák je AKTIVNÍ místopředseda představenstva od 29. 6. 2023 (poslední potvrzený záznam 23. 10. 2023, žádný záznam o ukončení), s nepřetržitou historií v představenstvu od roku 2007 (2007–2011 člen/místopředseda, 2011–2015, 2015–2019, 2023–dosud). Toto je BĚŽÍCÍ, NEUKONČENÁ vazba souběžná s jeho poslaneckým mandátem i s místopředsednictvím Zemědělského výboru a členstvím v dozorčí radě SZIF — tři souběžné agrární role (poslanecká, korporátní, institucionální) v jedné osobě. reviewState u obou firem je stále 'pending_review' v dossieru; toto ověření VR záznamy potvrzuje, ale finální posouzení tie_class (owner-operator/manager/steward) náleží Case ① money loopu."
+        },
+        "signal": 0.72,
+        "headline": "Pražák, místopředseda Zemědělského výboru a od března 2026 také člen dozorčí rady SZIF, je zároveň aktivně sloužícím místopředsedou představenstva zemědělské firmy AGROCENTRUM JIZERAN a.s. (od 2023, nepřerušená vazba od 2007) s veřejnou zakázkou 2,84 mil. Kč — ARES VR potvrzuje běžící, neukončenou funkci souběžnou s jeho výborovou i institucionální rolí v zemědělství; dřívější dozorčí post v dopravním podniku KORID LK (60 mil. Kč zakázka) skončil už v roce 2020, mimo současný mandát.",
+        "citations": [
+          "https://www.psp.cz/sqw/detail.sqw?id=6527&o=10",
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=221",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27267351",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/60914351"
+        ]
+      },
+      "graphLinkedCompanies": [
+        {
+          "company": "KORID LK, spol. s r.o.",
+          "ico": "27267351",
+          "reviewState": "pending_review",
+          "contractCzk": 60118595.612600006
+        },
+        {
+          "company": "AGROCENTRUM JIZERAN a.s.",
+          "ico": "60914351",
+          "reviewState": "pending_review",
+          "contractCzk": 2840827.13
+        }
+      ]
+    },
+    {
+      "proposal": {
+        "id": "psp:person:6687",
+        "name": "Jan Jakob",
+        "club": "TOP09",
+        "lens": [
+          "divergence",
+          "high-triage"
+        ],
+        "props": {
+          "effort_work_themes": [
+            "mediální politika",
+            "veřejné rozpočty",
+            "komunální samospráva a decentralizace"
+          ],
+          "effort_bill_focus": "Jediný tisk ve vzorku (43302, sněmovní tisk 181, novela zákona č. 491/2001 o volbách do zastupitelstev obcí) předložila skupina poslanců s M. O. Havlem jako prvním předkladatelem ('Havel M. O. a další'); Jakob je jedním z osmi spolupodepsaných, nikoli předkladatelem — odpovídá gate (e), jde o 'spolupodepsal', ne 'předložil'. Tisk byl 6. 5. 2026 rozeslán poslancům, vláda k němu 3. 6. 2026 zaujala nesouhlasné stanovisko a organizační výbor doporučil pokračovat v projednávání; garančním výborem je ústavně-právní výbor. K 25. 7. 2026 nebyl ještě projednán v plénu.",
+          "effort_public_role": "Jakob je od 12. 10. 2021 (a nadále i po volbách 2025) předsedou poslaneckého klubu TOP 09 — jde o klubové vedení, které se neprojevuje v komitétovém leadership_count (ten zůstává 0, protože nejde o vedení výboru). V minulosti byl v letech 2010–2022 dvanáct let starostou Roztok u Prahy. Nyní je členem Organizačního výboru, Výboru pro mediální záležitosti a Rozpočtového výboru a dále pěti podvýborů/komisí (kulturní podvýbor — od března 2026 i ověřovatel, podvýbor pro svobodu slova, podvýbor pro obecní financování a evropské fondy, podvýbor pro kontrolu veřejného sektoru, komise pro státní vyznamenání, komise pro centrální evidenci účtů).",
+          "effort_notes": "Peněžní ověření provedeno přes ARES VR (plný historický výpis, ne zjednodušený endpoint): u Operátor ICT, a.s. (IČO 02795281, potvrzená shoda IČO i názvu) tvoří představenstvo Luboš Kratochvíl (předseda), Petr Suška, Iva Seigertschmidová, Jan Ladin, Roman Hrobský a Marek Vodenka, dozorčí radu vede Tomáš Zmuda se sedmi členy a jediným akcionářem je hlavní město Praha. Jan Jakob se v žádné roli — statutární orgán, dozorčí rada ani akcionář — v tomto záznamu nevyskytuje. Vysoká hodnota uvedené zakázky (884,86 mil. Kč) tedy zjevně odpovídá zakázce v řádu velkoměstského rozpočtu, nikoli osobní vazbě poslance na firmu; jako bývalý starosta sousedních Roztok mohl mít institucionální styk s pražským dopravně-technologickým operátorem, ale žádnou funkci ve firmě jsme nenašli. Druhý odkaz (Základní organizace Českého zahrádkářského svazu Roztoky Třebízského, IČO 72046422, contractCzk=0) leží přímo v jeho bývalém starostenském městě — jde pravděpodobně o místní spolkovou vazbu z doby jeho starostování, nikoli o obchodní vztah, a nulová hodnota zakázky navíc znamená, že u tohoto záznamu není evidován žádný peněžní tok."
+        },
+        "signal": 0.5,
+        "headline": "Jakob, dlouholetý předseda poslaneckého klubu TOP 09 a bývalý starosta Roztok, má ve vzorku jednu velkou (885 mil. Kč) peněžní vazbu — po plném ARES VR ověření ale bez jakékoli osobní role ve firmě Operátor ICT.",
+        "citations": [
+          "https://www.psp.cz/sqw/detail.sqw?id=6687&o=10",
+          "https://ares.gov.cz/ekonomicke-subjekty-vr/02795281",
+          "https://cs.wikipedia.org/wiki/Jan_Jakob",
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=181"
+        ]
+      },
+      "graphLinkedCompanies": [
+        {
+          "company": "Operátor ICT, a.s.",
+          "ico": "02795281",
+          "reviewState": "pending_review",
+          "contractCzk": 884856389
+        },
+        {
+          "company": "Zákládní organizace Českého zahrádkářského svazu Roztoky Třebízského",
+          "ico": "72046422",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        }
+      ]
+    },
+    {
+      "proposal": {
+        "id": "psp:person:6216",
+        "name": "Michal Kučera",
+        "club": "TOP09",
+        "lens": [
+          "high-triage"
+        ],
+        "props": {
+          "effort_work_themes": [
+            "hospodářská politika",
+            "zemědělství a vodní hospodářství",
+            "energetika a doprava"
+          ],
+          "effort_bill_focus": "Jediný tisk ve vzorku (43302, sněmovní tisk 181, novela zákona č. 491/2001 o volbách do zastupitelstev obcí) je totožný s tiskem u Jana Jakoba — předkladatelem je skupina vedená M. O. Havlem, Kučera je jedním ze spolupodepsaných (gate e: 'spolupodepsal', ne 'předložil'). Stav k 25. 7. 2026: rozeslán 6. 5. 2026, vláda zaujala nesouhlasné stanovisko 3. 6. 2026, garančním výborem je ústavně-právní výbor, dosud neprojednáno v plénu.",
+          "effort_public_role": "Od 19. 3. 2026 místopředseda Hospodářského výboru (členem od 11. 11. 2025), dále člen Zemědělského výboru a od 28. 1. 2026 místopředseda podvýboru pro vodní hospodářství. Zasedá i ve Stálé komisi pro kontrolu použití odposlechu a sledování osob a věcí a ve Stálé komisi pro práci Kanceláře Poslanecké sněmovny.",
+          "effort_notes": "Peněžní ověření provedeno přes ARES VR plný historický výpis pro obě firmy. Sirius Praha s.r.o. (IČO 19840659): jediným jednatelem je od 19. 10. 2023 Larysa Vlasenko, dříve (do 25. 4. 2025) i Iryna Hladka-Sachdeva, obě ukrajinské občanky s 50% podílem; Michal Kučera se v celé dostupné historii této firmy nevyskytuje v žádné roli — žádná vazba nenalezena, navíc contractCzk=0. LIHT s.r.o. (IČO 26123550): plný historický výpis skutečně dokládá, že Michal Kučera (narozen 4. 10. 1968, shoda s datem narození tohoto poslance) byl jednatelem této společnosti od 28. 11. 2003 do 2. 7. 2005 — jde o reálnou, doloženou historickou korporátní vazbu, ale ukončenou více než 20 let před nástupem mandátu (2025) a bez jakéhokoli aktuálního postavení; contractCzk=0 znamená, že k této firmě není evidován žádný peněžní tok z veřejných zakázek."
+        },
+        "signal": 0.42,
+        "headline": "Kučera, místopředseda Hospodářského výboru, měl přes 20 let před svým mandátem doloženou roli jednatele (2003–2005) ve firmě LIHT s.r.o. — dávno ukončenou a bez vazby na veřejné peníze; druhá firma (Sirius Praha) s ním po ARES VR ověření nesouvisí vůbec.",
+        "citations": [
+          "https://www.psp.cz/sqw/detail.sqw?id=6216&o=10",
+          "https://ares.gov.cz/ekonomicke-subjekty-vr/19840659",
+          "https://ares.gov.cz/ekonomicke-subjekty-vr/26123550",
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=181"
+        ]
+      },
+      "graphLinkedCompanies": [
+        {
+          "company": "Sirius Praha s.r.o.",
+          "ico": "19840659",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        },
+        {
+          "company": "LIHT s.r.o.",
+          "ico": "26123550",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        }
+      ]
+    },
+    {
+      "proposal": {
+        "id": "psp:person:6803",
+        "name": "Jiří Horák",
+        "club": "KDU-ČSL",
+        "lens": [
+          "top",
+          "high-triage"
+        ],
+        "props": {
+          "effort_work_themes": [
+            "obrana a bezpečnost",
+            "zemědělství a rozpočtové určení daní",
+            "bydlení a výstavba"
+          ],
+          "effort_bill_focus": "Horák nemá ve vzorku žádný tisk jako první podpisatel (bills_authored=4 jsou čtyři spolupodepsané tisky). Ověřeno u tisku 28 — novela zákona o rozpočtovém určení daní (243/2000 Sb.), kde je prvním podpisatelem Marek Výborný a Horák jeden ze čtyř spolupodpisatelů (spolupodepsal); k 25. 7. 2026 v projednávání, vláda 12. 12. 2025 zaujala neutrální stanovisko, garančním výborem RV. Dále tisk 104 — novela školského zákona (561/2004 Sb.), prvním podpisatelem Václav Pláteník, vláda 10. 3. 2026 nesouhlasila, garančním výborem VVVMS, dosud v projednávání. Tisky 106 a 107 (oba amended_laws 159/1999 Sb., prvním podpisatelem Eliška Olšáková) nebyly individuálně dohledány — nápadné je, že jde o dva samostatné tisky se stejným prvním podpisatelem a stejným amended_laws v témže dossieru, což může být buď dvě odlišné novely téhož zákona, nebo datový duplikát; doporučuji ověřit v Case ①.",
+          "effort_public_role": "Horák je od listopadu 2025 místopředsedou Výboru pro obranu (i řadovým členem) a byl do 16. 1. 2026 členem Zemědělského výboru — datum konce role se přesně shoduje s obdobím, kdy mu podle poskytnutých dat skončilo členství (committees.toAt=2026-01-16), potvrzeno i na psp.cz. Od 19. 2. 2026 je navíc členem podvýboru pro bytovou politiku a výstavbu (mimo poskytnutá data). Je také místopředsedou poslaneckého klubu KDU-ČSL od 7. 10. 2025 — vedoucí role nad rámec výborové struktury, kterou dossier props (leadership_count=1) nezachycuje, protože ta počítá jen výborová vedení.",
+          "effort_notes": "Datová shoda: committee_count=3 odpovídá třem položkám ve vstupním poli committees (VO vice, VO member, ZEV member s korektním toAt) — žádná anomálie, na rozdíl od systematického vzorce '+1' hlášeného v předchozí dávce. Srovnání s PSP9: skóre kleslo z 70,6 na 80,4 v PSP10, tedy skutečně vzrostlo (ne pokleslo) navzdory kratší tenuře v tomto vzorku — komponenty (committee 20→ still needs recompute, legislative 20 both terms) naznačují srovnatelnou legislativní aktivitu mezi obdobími. MONEY-TOUCHING OVĚŘENO PŘES ARES VR/or.justice.cz: Horák (nar. 24. 7. 1984, adresa Ždánská 557, Bučovice) byl členem představenstva Vodovody a kanalizace Vyškov, a.s. (IČO 49454587) od 30. 5. 2019 do 21. 12. 2021 (výmaz zapsán 17. 1. 2022) — datum narození v obchodním rejstříku se přesně shoduje s jeho poslaneckým profilem, jde tedy nepochybně o stejnou osobu. Jde o ukončenou minulou funkci, ne o současný vztah — Horák NENÍ v současném (2023) zápisu představenstva ani dozorčí rady, které bylo 30. 5. 2023 kompletně obměněno. Dossier eviduje smlouvu v hodnotě 1 296 198,50 Kč se stavem 'pending_review' u této společnosti — vzhledem k tomu, že jeho členství v představenstvu skončilo v prosinci 2021, tedy téměř 4 roky před nástupem do sněmovního mandátu (říjen 2025), nejde o souběžný konflikt zájmů poslance a člena statutárního orgánu dodavatelské firmy, ale o dřívější personální vazbu na regionální vodárenskou společnost v jeho volebním kraji (Jihomoravský), kterou lze veřejně kontextualizovat. Nelze bez dalšího ověřit, zda smlouva časově spadá do období jeho členství v představenstvu — to by vyžadovalo srovnání data smlouvy, které dossier neuvádí.",
+          "effort_low_score_reason": "unknown"
+        },
+        "signal": 0.62,
+        "headline": "Horák, místopředseda klubu KDU-ČSL a místopředseda Výboru pro obranu, byl v letech 2019–2021 členem představenstva vodárenské firmy Vodovody a kanalizace Vyškov (IČO 49454587) ve svém volebním kraji — ověřeno přes obchodní rejstřík; funkce skončila skoro čtyři roky před jeho nástupem do Sněmovny, takže nejde o aktivní konflikt zájmů, ale je to relevantní veřejný kontext k jeho evidované 1,3milionové zakázce u firmy.",
+        "citations": [
+          "https://www.psp.cz/sqw/detail.sqw?id=6803&o=10",
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=28",
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=104",
+          "https://or.justice.cz/ias/ui/rejstrik-firma.vysledky?subjektId=62856&typ=UPLNY"
+        ]
+      },
+      "graphLinkedCompanies": [
+        {
+          "company": "Vodovody a kanalizace Vyškov,a.s.",
+          "ico": "49454587",
+          "reviewState": "pending_review",
+          "contractCzk": 1296198.5
+        }
+      ]
+    },
+    {
+      "proposal": {
+        "id": "psp:person:6409",
+        "name": "František Petrtýl",
+        "club": "ANO2011",
+        "lens": [
+          "high-triage"
+        ],
+        "props": {
+          "effort_work_themes": [
+            "mandátové a imunitní záležitosti",
+            "petice",
+            "evropské záležitosti",
+            "podnikání ve stavebnictví a strojírenství (soukromá vazba)"
+          ],
+          "effort_bill_focus": "Jediný sponzorovaný tisk ve vzorku je 87 (návrh zákona o zemských znacích a vlajkách), s R. Vondráčkem jako prvním podepsaným (submitter='Vondráček R.') — Petrtýl jej tedy spolupodepsal, nikoli předložil (gate e). Tisk je k 25. 7. 2026 v projednávání ve výborech, vláda vydala souhlasné stanovisko. Neprošel ani nebyl zamítnut.",
+          "effort_public_role": "Petrtýl je členem Mandátového a imunitního výboru (od 5. 11. 2025), Petičního výboru (od 11. 11. 2025), Výboru pro evropské záležitosti (od 16. 1. 2026) a Volební komise (od 29. 10. 2025) — 4 role odpovídají 4 doloženým položkám v committees. Dle psp.cz je dále od 11. 2. 2026 členem Podvýboru pro migrační a azylovou politiku a od 17. 3. 2026 členem Podvýboru pro lidská práva a národnostní menšiny, žádná z těchto podvýborových rolí není v poskytnutém poli committees zachycena.",
+          "effort_notes": "PENĚŽNÍ OVĚŘENÍ (VR ARES, ne plain endpoint): Ověřeno u všech 4 firem z linkedCompanies přes veřejný rejstřík (přes zrcadlo dat or.justice.cz), s výslovným ohledem na historickou i aktuální oficiální/vlastnickou roli. (1) SPARING MB s.r.o. (IČO 25713817): Petrtýl je AKTUÁLNÍM jednatelem (společné jednání s Josefem Dufkem) a 50% společníkem (vklad 50 000 Kč) od založení firmy 26. 11. 1998, beze změny dle posledního zápisu 15. 11. 2022 — aktivní vazba trvá. (2) F.M.S. Consulting s.r.o. (IČO 29054117): Petrtýl NENÍ jednatelem (tím je Ing. Stanislav Ševčík od 2010), ale je AKTUÁLNÍM 33% společníkem (vklad 66 000 Kč) od zápisu 28. 5. 2014 — čistě vlastnická, nikoli statutární vazba, ale stále aktivní. (3) COMBIN BOHEMIA spol. s r.o. (IČO 49825950): Petrtýl je AKTUÁLNÍM samostatně jednajícím jednatelem; 100% vlastníkem firmy je slovenská mateřská COMBIN BÁNSKÁ ŠTIAVNICA s.r.o., Petrtýl zde tedy nemá osobní vlastnický podíl, jen statutární roli. (4) GEMA MB s.r.o. (IČO 61681679): Petrtýl je AKTUÁLNÍM jednatelem (společně s Josefem Dufkem) i 50% společníkem (vklad 2 500 000 Kč); zápis z 25. 10. 2021 ukazuje technický výmaz a téhož dne opětovný zápis se změněným podílem — jde o formální úpravu záznamu, ne o skutečný odchod a návrat. Ve všech 4 případech tedy jde o AKTUÁLNÍ (nikoli jen historické) statutární a/nebo vlastnické vazby souběžně s výkonem poslaneckého mandátu. K uvedené smluvní částce 16 575 162 Kč u GEMA MB (dossier pole contractCzk) jsem se v tomto sezení nedostal k samotnému záznamu ve smlouvy.gov.cz (vyhledávací rozhraní je čistě JS-řízené a nevrátilo výsledky přes fetch) — figuru tedy nemohu nezávisle dohledat, jen potvrzuji, že vlastnická/statutární vazba na GEMA MB je reálná a aktuální; doporučuji dohledat protistranu a účel smlouvy zvlášť. Datově committee_count=4 odpovídá 4 doloženým položkám committees.",
+          "effort_low_score_reason": "unknown"
+        },
+        "signal": 0.72,
+        "headline": "Petrtýl (ANO) je souběžně s poslaneckým mandátem AKTUÁLNÍM jednatelem a/nebo společníkem ve všech 4 dosud sledovaných firmách (SPARING MB, F.M.S. Consulting, COMBIN BOHEMIA, GEMA MB) — ověřeno přes veřejný rejstřík, žádná z vazeb není jen historická; u GEMA MB navíc figuruje smluvní částka 16,6 mil. Kč, jejíž protistranu se v tomto sezení nepodařilo dohledat.",
+        "citations": [
+          "https://www.psp.cz/sqw/detail.sqw?id=6409&o=10",
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
+          "https://rejstrik-firem.kurzy.cz/25713817/sparing-mb-sro/",
+          "https://rejstrik-firem.kurzy.cz/29054117/fms-consulting-sro/",
+          "https://rejstrik-firem.kurzy.cz/49825950/combin-bohemia-spol-s-r-o/",
+          "https://rejstrik-firem.kurzy.cz/61681679/gema-mb-sro/"
+        ]
+      },
+      "graphLinkedCompanies": [
+        {
+          "company": "SPARING MB s.r.o.",
+          "ico": "25713817",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        },
+        {
+          "company": "F.M.S. Consulting s.r.o.",
+          "ico": "29054117",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        },
+        {
+          "company": "COMBIN BOHEMIA spol. s r.o.",
+          "ico": "49825950",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        },
+        {
+          "company": "GEMA MB s.r.o.",
+          "ico": "61681679",
+          "reviewState": "pending_review",
+          "contractCzk": 16575162.540000003
+        }
+      ]
+    },
+    {
+      "proposal": {
+        "id": "psp:person:6524",
+        "name": "Vít Rakušan",
+        "club": "STAN",
+        "lens": [
+          "high-triage"
+        ],
+        "props": {
+          "effort_work_themes": [
+            "veřejná správa a samospráva",
+            "veřejné zakázky",
+            "ústavní právo",
+            "zahraniční politika a migrace"
+          ],
+          "effort_bill_focus": "Rakušan je dle pole submitter skutečným předkladatelem tří tisků: č. 24 (novela zákona o obcích, podán 12. 11. 2025, garančním výborem je Výbor pro veřejnou správu a regionální rozvoj, vláda zaujala neutrální stanovisko), č. 206 (novela zákona o zadávání veřejných zakázek, podán 27. 5. 2026 spolu s K. Dvořákem a L. Vlčkem, vláda podala nesouhlasné stanovisko) a č. 214 (novela Ústavy ČR, podán 4. 6. 2026 s dalšími čtyřmi poslanci STAN, vláda rovněž nesouhlasí, k 25. 7. 2026 v projednávání ve Ústavně-právním výboru). U zbylých čtyř tisků ve vzorku (č. 120 – novela zákona o daních z příjmů, předkladatelka L. Sedmihradská; č. 146 – novela zákonů o obcích/krajích/hl. m. Praze, předkladatelka V. Kovářová; a další dva) je pouze spolupodepsaným, ne předkladatelem. Jako dosluhující ministr vnitra navíc prosadil vládní novelu zákona o Sbírce zákonů a mezinárodních smluv (tisk č. 25, podán 13. 11. 2025 jeho ministerstvem), která byla ve zrychleném režimu schválena Sněmovnou 26. 11. 2025, Senátem 17. 12. 2025 a vyhlášena jako zákon č. 583/2025 Sb. dva dny před koncem jeho ministerského mandátu.",
+          "effort_public_role": "Rakušan byl ministrem vnitra a zároveň místopředsedou vlády od 17. 12. 2021 do 15. 12. 2025 (vláda P. Fialy) — tuto funkci vykonával souběžně s poslaneckým mandátem od 4. 10. 2025 až do jmenování nové vlády. Po odchodu z vlády je nyní řadovým poslancem STAN, členem Zahraničního výboru (od 24. 6. 2026), náhradníkem ve Stálé delegaci Parlamentu do Parlamentního shromáždění Rady Evropy (od 24. 6. 2026) a dle psp.cz i členem Podvýboru pro migrační a azylovou politiku (od 11. 2. 2026) — poslední jmenovaná role tematicky navazuje na jeho ministerskou minulost. Od 26. 6. 2026 je také místopředsedou poslaneckého klubu STAN.",
+          "effort_notes": "Datová anomálie: vstupní pole committees obsahuje položku 'Stálá delegace Parlamentu do Parlamentního shromáždění Rady Evropy' DVAKRÁT se zcela identickými daty (stejné fromAt, stejná role) — výsledný součet (3) tak numericky souhlasí s committee_count=3, ale jde o duplicitní záznam, ne o tři odlišné role; skutečný počet odlišných výborových vazeb je 2 (Zahraniční výbor + delegace), plus podvýbor pro migraci, který v datech chybí úplně. Toto je nový typ anomálie (duplicita, ne offset o jednotku) a doporučuji prioritně ověřit v Case ①. Peněžní ověření (ARES VR, kontrolováno pro všechny 4 subjekty z linkedCompanies): (1) Vodní cesty na Labi, o.p.s. (IČO 02312701) — Rakušan byl předsedou dozorčí rady od 12. 11. 2013 do 28. 2. 2017, role SKONČILA před 9 lety, dnes bez vazby; (2) Změna pro Kolín z.s. (IČO 22874381) — AKTIVNÍ současný člen statutárního orgánu (výboru) od 31. 12. 2021 (s předchozím obdobím 2017–2021), vedle předsedy M. Kašpara; jde o kolínský občanský spolek, tedy neziskovou/občanskou vazbu, ne komerční; (3) SVJ domu v Kolíně (IČO 26745615) — byl místopředsedou výboru 2006–2011, záznam vymazán 2013, tedy 13 let neaktivní a jde navíc o SVJ vlastního bydliště, ne o firmu; (4) Nadační fond Gymnázia Kutná Hora (IČO 68404999) — byl členem správní rady 2010–2013, dnes bez vazby; contractCzk=200000 u tohoto záznamu se týká nějakého toku prostředků do nadačního fondu, nikoli plateb Rakušanovi osobně, a časově nespadá do období jeho členství ve správní radě. Závěr: ze čtyř 'linkedCompanies' je aktivní jediná vazba (Změna pro Kolín z.s.) a ta je občansko-spolková, ne komerční ani finanční — u žádného ze čtyř subjektů VR nenašla důkaz o obchodním/vlastnickém propojení nebo o odměně plynoucí k Rakušanovi v současnosti."
+        },
+        "signal": 0.5,
+        "headline": "Rakušan, bývalý ministr vnitra a místopředseda vlády (2021–2025), dnes řadový poslanec a místopředseda klubu STAN v zahraničně-migrační agendě — ARES VR ověření vyvrací komerční konflikt zájmů u všech čtyř 'linkedCompanies' (tři vazby dávno skončily, jediná aktivní je vedení místního občanského spolku), ale objevuje novou datovou anomálii (duplicitní výborový záznam).",
+        "citations": [
+          "https://www.psp.cz/sqw/detail.sqw?id=6524&o=10",
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=24",
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=25",
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=206",
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=214",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/02312701",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/22874381",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26745615",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/68404999"
+        ]
+      },
+      "graphLinkedCompanies": [
+        {
+          "company": "Vodní cesty na Labi, o.p.s.",
+          "ico": "02312701",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        },
+        {
+          "company": "Změna pro Kolín z.s.",
+          "ico": "22874381",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        },
+        {
+          "company": "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
+          "ico": "26745615",
+          "reviewState": "pending_review",
+          "contractCzk": 0
+        },
+        {
+          "company": "Nadační fond Gymnázia Kutná Hora",
+          "ico": "68404999",
+          "reviewState": "pending_review",
+          "contractCzk": 200000
+        }
+      ]
+    },
+    {
+      "proposal": {
+        "id": "psp:person:6185",
+        "name": "Milan Brázdil",
+        "club": "ANO2011",
+        "lens": [
+          "high-triage"
+        ],
+        "props": {
+          "effort_work_themes": [
+            "zdravotnictví",
+            "rozpočet",
+            "urgentní medicína a krizová připravenost"
+          ],
+          "effort_bill_focus": "Jediný tisk ve vzorku (č. 87 — návrh zákona o zemských znacích a vlajkách, podán 22. 1. 2026) předložil R. Vondráček; Brázdil je jedním z cca 40 spolupodepsaných, ne předkladatelem — bills_authored=1 je tedy spolupodpis, ne vlastní iniciativa. Tisk je k 25. 7. 2026 v projednávání (garančním výborem Výbor pro vědu, vzdělávání, mládež a sport, zpravodajem J. Vojáček), vláda k němu 25. 2. 2026 vydala souhlasné stanovisko.",
+          "effort_public_role": "MUDr. Brázdil je lékař; je členem Výboru pro zdravotnictví (od 11. 11. 2025) a Rozpočtového výboru (od 16. 1. 2026), dle psp.cz navíc od 21. 1. 2026 předsedá Podvýboru pro urgentní medicínu a medicínu katastrof a je členem dalších čtyř tematických zdravotnických podvýborů — tato podvýborová agenda odpovídá jeho odbornosti. Je také členem Správní rady Všeobecné zdravotní pojišťovny (VZP), s mandátem od února 2022 a navazujícím obdobím od 28. 1. 2026 — institucionální dozorová role nad veřejnou zdravotní pojišťovnou z titulu poslaneckého/odborného postavení, ne obchodní vazba.",
+          "effort_notes": "Numerika committee_count souhlasí (4 = 4 doložené položky: VZ, RV, dvě stálé komise), ale leadership_count=0 nezachycuje jeho předsednictví Podvýboru pro urgentní medicínu od 21. 1. 2026. Peněžní ověření (ARES VR, kontrolováno pro oba subjekty z linkedCompanies): (1) Národní Centrum Tkání a Buněk a.s. (IČO 28338766, akciová společnost) — Brázdil byl členem dozorčí rady, role SKONČILA 8. 12. 2016 (výmaz zapsán 10. 4. 2017), tedy téměř 10 let před tímto mandátem; aktuální dozorčí rada a představenstvo jsou zcela jiné osoby (P. Koška, M. Kurfürst, M. Zahradníček, E. Šťastná, J. Michálek) bez vazby na Brázdila. contractCzk=14 062 219 Kč u tohoto záznamu je tedy třeba číst jako samostatné zjištění o toku veřejných prostředků k firmě (pravděpodobně související s tkáňovou/buněčnou bankou při jeho domovské nemocnici), NE jako platbu plynoucí k Brázdilovi osobně — v současnosti u něj VR nenašla žádnou oficiální roli. (2) Vojenská nemocnice Olomouc (IČO 60800691) — v obchodním/veřejném rejstříku VR NENÍ vedena vůbec, protože jde o státní příspěvkovou organizaci (zřízenou 1994, zdravotnická péče, patrně vojenská nemocnice v jeho domovském regionu) bez statutárních orgánů zapisovaných do VR jako u obchodních společností; u příspěvkové organizace tohoto typu jde svou povahou o profesní/zaměstnaneckou vazbu lékaře k nemocnici, ne o vlastnický nebo obchodní vztah — VR ověření zde nelze provést stejným způsobem jako u a.s./o.p.s., je proto třeba explicitně uvést, že tento typ subjektu je mimo dosah VR endpointu, ne že byl 'vyčištěn'. Celkově: u obou linkedCompanies není doložena žádná AKTUÁLNÍ oficiální funkce Brázdila; u NCTB šlo o dozorčí roli skončivší 2016, u vojenské nemocnice jde o typ organizace, kde VR ověření strukturálně neexistuje."
+        },
+        "signal": 0.42,
+        "headline": "Brázdil, lékař a poslanec ANO ve zdravotnických výborech s předsednictvím podvýboru pro urgentní medicínu, má u obou 'linkedCompanies' po ARES VR ověření pouze historickou (NCTB, skončila 2016) nebo strukturálně neověřitelnou (státní vojenská nemocnice) vazbu — žádná aktuální oficiální funkce nebyla nalezena, ale u vojenské nemocnice VR ověření nelze provést a nelze tedy tvrdit úplné vyčištění.",
+        "citations": [
+          "https://www.psp.cz/sqw/detail.sqw?id=6185&o=10",
+          "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/28338766",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/60800691"
+        ]
+      },
+      "graphLinkedCompanies": [
+        {
+          "company": "Národní Centrum Tkání a Buněk a.s.",
+          "ico": "28338766",
+          "reviewState": "pending_review",
+          "contractCzk": 14062219.430000002
+        },
+        {
+          "company": "Vojenská nemocnice Olomouc",
+          "ico": "60800691",
+          "reviewState": "pending_review",
+          "contractCzk": 940280
+        }
+      ]
+    }
+  ]
+}

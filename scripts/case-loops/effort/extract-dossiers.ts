@@ -9,6 +9,8 @@
  */
 import { readFileSync, writeFileSync } from "node:fs";
 import { getStore } from "@/lib/db/store";
+import { isCommitteeSeat, isLeadership, type CommitteeSeat } from "@/lib/analysis/contribution";
+import { classifyRole, ROLE_WEIGHT } from "@/lib/analysis/kg";
 
 const TERM = "PSP10";
 const OUT = "docs/data-analysis/case-effort";
@@ -44,6 +46,22 @@ async function main() {
   const mandates = await store.listMandates({ termCode: TERM });
   const clubByMandate = await store.clubByMandate(TERM);
   const rawOrgans = await store.listOrgans({ limit: 3000 });
+  // raw membership rows — the SAME basis kg-contribution-ingest.ts feeds computeContribution
+  // (committee_count). The old basis here was influential_in edges (kg-compute.ts), which
+  // diverge from committee_count for two MEASURED reasons (batch 006; batch 005's "excludes
+  // Podvýbor + ověřovatel" diagnosis was checked and disproved — 0 PSP10 memberships
+  // reference any of the 430 Podvýbor organs, so neither side ever counted them):
+  //   · kg-compute filters organ types by /v[ýy]bor|komis/i, which does NOT match
+  //     "Delegace" — 39/207 MPs undercounted;
+  //   · committee_count counts membership ROWS and psp.cz writes a leadership seat as two
+  //     rows on one organ (member + function, 251/1062 pairs), while influential_in dedupes
+  //     to one edge per (person, organ) — 121/207 MPs, the dominant cause.
+  // Fix: derive committees[] from memberships here, filtered with the exact isCommitteeSeat
+  // predicate contribution.ts uses, so committees[] and committee_count agree by
+  // construction (verified 0/42 mismatches this batch, 0/207 in the probe). Note this
+  // deliberately REPRODUCES committee_count's leadership double-count so an analyst never
+  // sees a phantom mismatch; the profile page dedupes for render instead.
+  const memberships = await store.listMemberships({ termCode: TERM });
 
   const personById = new Map(persons.map((p) => [p.id, p]));
   const billById = new Map(bills.map((b) => [b.id, b]));
@@ -52,6 +70,13 @@ async function main() {
   const partyLabelById = new Map(parties.map((p) => [p.id, p.label]));
   const nameByPsp = new Map(persons.map((p) => [Number(p.id.split(":").pop()), p.label]));
   const rawOrganByPsp = new Map(rawOrgans.map((o) => [o.pspId, o]));
+  const organTypeByPsp = new Map(rawOrgans.map((o) => [o.pspId, o.organTypeCz]));
+  const membershipsByPerson = new Map<number, typeof memberships>();
+  for (const m of memberships) {
+    const arr = membershipsByPerson.get(m.personPspId) ?? [];
+    arr.push(m);
+    membershipsByPerson.set(m.personPspId, arr);
+  }
 
   const clubByPerson = new Map<number, string>();
   const regionByPerson = new Map<number, string | null>();
@@ -96,17 +121,34 @@ async function main() {
       };
     });
 
-    // committees (influential_in)
-    const committees = edges
-      .filter((e) => e.rel === "influential_in" && e.src === selfId)
-      .map((e) => {
-        const o = organById.get(e.dst);
+    // committees — rebuilt from raw membership rows (NOT influential_in edges; see the
+    // batch-005/batch-006 note above main() for why). Uses the exact isCommitteeSeat filter
+    // computeContribution applies, so committees.length always equals props.committee_count
+    // for the pspId's raw membership rows (contribution.ts has no fromAt/toAt window itself —
+    // see the case-006 vault note if committee_count and this array ever diverge again, that
+    // would mean contribution.ts's own basis changed, not this extractor).
+    const personMemberships = membershipsByPerson.get(pspId) ?? [];
+    const committees = personMemberships
+      .map((m) => {
+        const organType = m.organPspId != null ? organTypeByPsp.get(m.organPspId) ?? null : null;
+        const seat: CommitteeSeat = { organType, functionType: m.functionTypeCz };
+        return { m, organType, seat };
+      })
+      .filter((x) => isCommitteeSeat(x.seat))
+      .map(({ m, organType, seat }) => {
+        const o = m.organPspId != null ? rawOrganByPsp.get(m.organPspId) : undefined;
+        const role = classifyRole(m.functionTypeCz);
+        const isCurrent = !m.toAt || Date.parse(m.toAt) > Date.now();
         return {
-          abbrev: o?.label ?? e.dst,
-          organType: (o?.props as { organ_type?: string } | undefined)?.organ_type ?? null,
-          nameCz: rawOrganByPsp.get(Number(e.dst.split(":").pop()))?.nameCz ?? null,
-          role: (e.props as { role?: string }).role ?? "member",
-          weight: num(e.weight),
+          abbrev: o?.abbrev ?? o?.nameCz ?? String(m.organPspId ?? "?"),
+          organType,
+          nameCz: o?.nameCz ?? null,
+          role,
+          weight: ROLE_WEIGHT[role],
+          leadership: isLeadership(seat),
+          fromAt: m.fromAt,
+          toAt: m.toAt,
+          current: isCurrent,
         };
       })
       .sort((a, b) => b.weight - a.weight);
@@ -183,9 +225,13 @@ async function main() {
 
   writeFileSync(`${OUT}/dossier-inputs.json`, JSON.stringify({ generatedAt: new Date().toISOString(), term: TERM, dossiers }, null, 2));
   console.log(`Wrote ${dossiers.length} dossier inputs.`);
+  let mismatches = 0;
   for (const d of dossiers) {
-    console.log(`  ${d.name.padEnd(24)} ${d.club.padEnd(8)} score ${d.props.contribution_score} · ${d.sponsoredBills.length} bills · ${d.committees.length} cmte · ${d.linkedCompanies.length} co · [${d.lens.join(",")}]`);
+    const mismatch = d.committees.length !== d.props.committee_count;
+    if (mismatch) mismatches++;
+    console.log(`  ${d.name.padEnd(24)} ${d.club.padEnd(8)} score ${d.props.contribution_score} · ${d.sponsoredBills.length} bills · ${d.committees.length} cmte${mismatch ? ` (!= committee_count=${d.props.committee_count})` : ""} · ${d.linkedCompanies.length} co · [${d.lens.join(",")}]`);
   }
+  console.log(`committees[]/committee_count check: ${mismatches}/${dossiers.length} mismatches (batch-005/006: extractor rebuilt against the same membership-row basis as computeContribution — expect 0).`);
   await store.close();
 }
 main().then(() => process.exit(0)).catch((e) => { console.error(e); process.exit(1); });

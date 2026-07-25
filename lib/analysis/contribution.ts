@@ -19,7 +19,7 @@
 /** Organ taxonomy (organTypeCz) that counts as substantive committee/commission work. */
 export const COMMITTEE_ORGAN_TYPES = ["Výbor", "Komise", "Delegace", "Vyšetřovací komise", "Podvýbor"] as const;
 /** Function titles that denote a leadership role in a body. */
-const LEADERSHIP_FUNCTIONS = ["předseda", "místopředseda", "ověřovatel"];
+export const LEADERSHIP_FUNCTIONS = ["předseda", "místopředseda", "ověřovatel"];
 
 /** Point weights (sum to 100) and the saturation points for the count-based terms. */
 export const CONTRIBUTION_WEIGHTS = {
@@ -70,9 +70,24 @@ export interface ContributionProfile {
   components: { committee: number; leadership: number; participation: number; attendance: number; legislative: number; speech: number };
 }
 
-const isCommitteeSeat = (s: CommitteeSeat): boolean =>
+// Exported so downstream extractors (e.g. scripts/case-loops/effort/extract-dossiers.ts) can
+// build a committees[] list against the EXACT SAME definition of "committee membership" that
+// committeeCount uses below. Batch 006 (Case ② effort loop) measured the divergence between
+// this file's raw-membership-row basis and kg-compute.ts's influential_in edges:
+//   · "Delegace" is in COMMITTEE_ORGAN_TYPES here but is NOT matched by kg-compute's
+//     /v[ýy]bor|komis/i organ-type filter → 39/207 MPs undercounted there;
+//   · psp.cz stores a leadership seat as TWO membership rows on one organ (a `member` row
+//     plus a `function` row — 251/1062 PSP10 pairs), so committeeCount below counts that
+//     body TWICE while influential_in dedupes to one edge → 121/207 MPs. This is the
+//     dominant cause, and it means committeeCount over-counts leadership bodies (escalated
+//     as a defect in batch 006's handoff — NOT silently fixed here, see case gate (a)).
+// NB batch 005 attributed the mismatch to excluded Podvýbor seats; batch 006 disproved that
+// (0 PSP10 memberships reference any of the 430 Podvýbor organs, so neither side counts them,
+// and /v[ýy]bor|komis/i does in fact match the string "Podvýbor" anyway).
+// Do not fork this logic again — import isCommitteeSeat/isLeadership instead.
+export const isCommitteeSeat = (s: CommitteeSeat): boolean =>
   !!s.organType && (COMMITTEE_ORGAN_TYPES as readonly string[]).includes(s.organType);
-const isLeadership = (s: CommitteeSeat): boolean =>
+export const isLeadership = (s: CommitteeSeat): boolean =>
   !!s.functionType && LEADERSHIP_FUNCTIONS.some((f) => s.functionType!.toLowerCase().includes(f));
 
 /**

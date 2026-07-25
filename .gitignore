@@ -54,3 +54,5 @@ app-cost.json
 /.db-bench
 /benchmark-data
 .justice-samples/
+.kiosek-cache/
+.dataor-cache/

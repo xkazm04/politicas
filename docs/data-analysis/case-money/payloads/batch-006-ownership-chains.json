@@ -1,0 +1,2279 @@
+{
+  "batch": 6,
+  "track": "money",
+  "kind": "indirect-ownership-slice",
+  "generatedAt": "2026-07-25",
+  "note": "O-money-3 first slice — company→company shareholder chains extracted from dataor's AngazmaPravnicke records, for companies already tied to an MP in the money graph. PROPOSED SCHEMA (additive, kg-verdict.ts enum, NOT edited by this fleet run — orchestrator adds): rel='owns_stake', company->company, props={role, from, to, share, source}. Every edge dated + sourced. No MP-exposure inference drawn — that stays a narrative lead for the product layer, per doctrine.",
+  "scope": "195 tied companies considered; 12 new dataset fetch(es) used (bound: 12, priority = tie_class owner-operator/manager + AGROFERT family); 153 not attempted (logged with reason, not silently dropped); 15 resolved+fetched with zero AngazmaPravnicke entries (honest negative — company has no corporate shareholders on record, e.g. natural-person-owned).",
+  "nodeCreateProposals": [
+    {
+      "id": "company:ico:6947",
+      "kind": "company",
+      "label": "Ministerstvo financí",
+      "props": {
+        "ico": "6947",
+        "source": "dataor.justice.cz bulk ISVR export (AngazmaPravnicke shareholder record)",
+        "sourceUrl": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "id": "company:ico:26040166",
+      "kind": "company",
+      "label": "Léčebné centrum sv. Markéty,a.s.",
+      "props": {
+        "ico": "26040166",
+        "source": "dataor.justice.cz bulk ISVR export (AngazmaPravnicke shareholder record)",
+        "sourceUrl": "https://dataor.justice.cz/api/file/as-full-ceske_budejovice-2026.csv.gz"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "id": "company:ico:2867681",
+      "kind": "company",
+      "label": "IF Holding a.s.",
+      "props": {
+        "ico": "2867681",
+        "source": "dataor.justice.cz bulk ISVR export (AngazmaPravnicke shareholder record)",
+        "sourceUrl": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "id": "company:ico:64581",
+      "kind": "company",
+      "label": "HLAVNÍ MĚSTO PRAHA",
+      "props": {
+        "ico": "64581",
+        "source": "dataor.justice.cz bulk ISVR export (AngazmaPravnicke shareholder record)",
+        "sourceUrl": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "id": "company:ico:25997556",
+      "kind": "company",
+      "label": "Zdravotnický holding Královéhradeckého kraje a.s.",
+      "props": {
+        "ico": "25997556",
+        "source": "dataor.justice.cz bulk ISVR export (AngazmaPravnicke shareholder record)",
+        "sourceUrl": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "id": "company:ico:70889546",
+      "kind": "company",
+      "label": "Královéhradecký kraj",
+      "props": {
+        "ico": "70889546",
+        "source": "dataor.justice.cz bulk ISVR export (AngazmaPravnicke shareholder record)",
+        "sourceUrl": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "id": "company:ico:70891168",
+      "kind": "company",
+      "label": "Karlovarský kraj",
+      "props": {
+        "ico": "70891168",
+        "source": "dataor.justice.cz bulk ISVR export (AngazmaPravnicke shareholder record)",
+        "sourceUrl": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "id": "company:ico:46347828",
+      "kind": "company",
+      "label": "Lázně Luhačovice, a.s.",
+      "props": {
+        "ico": "46347828",
+        "source": "dataor.justice.cz bulk ISVR export (AngazmaPravnicke shareholder record)",
+        "sourceUrl": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "id": "company:ico:254843",
+      "kind": "company",
+      "label": "Město Ostrov",
+      "props": {
+        "ico": "254843",
+        "source": "dataor.justice.cz bulk ISVR export (AngazmaPravnicke shareholder record)",
+        "sourceUrl": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "id": "company:ico:25130072",
+      "kind": "company",
+      "label": "AGROFERT HOLDING, a.s.",
+      "props": {
+        "ico": "25130072",
+        "source": "dataor.justice.cz bulk ISVR export (AngazmaPravnicke shareholder record)",
+        "sourceUrl": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "id": "company:ico:60197773",
+      "kind": "company",
+      "label": "AGROFERT a.s.",
+      "props": {
+        "ico": "60197773",
+        "source": "dataor.justice.cz bulk ISVR export (AngazmaPravnicke shareholder record)",
+        "sourceUrl": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "id": "company:ico:11835",
+      "kind": "company",
+      "label": "DEZA, a.s.",
+      "props": {
+        "ico": "11835",
+        "source": "dataor.justice.cz bulk ISVR export (AngazmaPravnicke shareholder record)",
+        "sourceUrl": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "id": "company:ico:75370",
+      "kind": "company",
+      "label": "Město Plzeň",
+      "props": {
+        "ico": "75370",
+        "source": "dataor.justice.cz bulk ISVR export (AngazmaPravnicke shareholder record)",
+        "sourceUrl": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "id": "company:ico:60913819",
+      "kind": "company",
+      "label": "UNICO Pardubice a.s.",
+      "props": {
+        "ico": "60913819",
+        "source": "dataor.justice.cz bulk ISVR export (AngazmaPravnicke shareholder record)",
+        "sourceUrl": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "id": "company:ico:274046",
+      "kind": "company",
+      "label": "Statutární město Pardubice",
+      "props": {
+        "ico": "274046",
+        "source": "dataor.justice.cz bulk ISVR export (AngazmaPravnicke shareholder record)",
+        "sourceUrl": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "id": "company:ico:46678191",
+      "kind": "company",
+      "label": "Rybářství Třeboň Hld. a.s.",
+      "props": {
+        "ico": "46678191",
+        "source": "dataor.justice.cz bulk ISVR export (AngazmaPravnicke shareholder record)",
+        "sourceUrl": "https://dataor.justice.cz/api/file/as-full-ceske_budejovice-2026.csv.gz"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "id": "company:ico:70891095",
+      "kind": "company",
+      "label": "Středočeský kraj",
+      "props": {
+        "ico": "70891095",
+        "source": "dataor.justice.cz bulk ISVR export (AngazmaPravnicke shareholder record)",
+        "sourceUrl": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "id": "company:ico:1350",
+      "kind": "company",
+      "label": "Československá obchodní banka, a.s.",
+      "props": {
+        "ico": "1350",
+        "source": "dataor.justice.cz bulk ISVR export (AngazmaPravnicke shareholder record)",
+        "sourceUrl": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "id": "company:ico:70994226",
+      "kind": "company",
+      "label": "České dráhy, a.s.",
+      "props": {
+        "ico": "70994226",
+        "source": "dataor.justice.cz bulk ISVR export (AngazmaPravnicke shareholder record)",
+        "sourceUrl": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    }
+  ],
+  "ownsStakeEdgeProposals": [
+    {
+      "src": "company:ico:6947",
+      "rel": "owns_stake",
+      "dst": "company:ico:60193468",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2015-05-23",
+        "to": "2019-03-08",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "note": "Ministerstvo financí → MERO ČR, a.s.: jediný akcionář 2015-05-23→2019-03-08 (dataor as-full-praha-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:6947",
+      "rel": "owns_stake",
+      "dst": "company:ico:60193468",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2006-02-23",
+        "to": "2015-05-23",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "note": "Česká republika - Ministerstvo financí → MERO ČR, a.s.: jediný akcionář 2006-02-23→2015-05-23 (dataor as-full-praha-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:6947",
+      "rel": "owns_stake",
+      "dst": "company:ico:60193468",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2019-03-08",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "note": "Ministerstvo financí → MERO ČR, a.s.: jediný akcionář 2019-03-08→trvá (dataor as-full-praha-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:26040166",
+      "rel": "owns_stake",
+      "dst": "company:ico:28094573",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2009-01-24",
+        "to": "2015-07-11",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-ceske_budejovice-2026.csv.gz",
+        "note": "Léčebné centrum sv. Markéty,a.s. → Wellness sv. Markéta a.s.: jediný akcionář 2009-01-24→2015-07-11 (dataor as-full-ceske_budejovice-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:26040166",
+      "rel": "owns_stake",
+      "dst": "company:ico:28094573",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2016-01-03",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-ceske_budejovice-2026.csv.gz",
+        "note": "Resort sv. Markéty Prachatice, a.s. v likvidaci → Wellness sv. Markéta a.s.: jediný akcionář 2016-01-03→trvá (dataor as-full-ceske_budejovice-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:26040166",
+      "rel": "owns_stake",
+      "dst": "company:ico:28094573",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2015-07-11",
+        "to": "2016-01-03",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-ceske_budejovice-2026.csv.gz",
+        "note": "Resort sv. Markéty Prachatice, a.s. → Wellness sv. Markéta a.s.: jediný akcionář 2015-07-11→2016-01-03 (dataor as-full-ceske_budejovice-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:25332589",
+      "rel": "owns_stake",
+      "dst": "company:ico:02867681",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2014-10-06",
+        "to": "2015-08-06",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "note": "B.S. - KINGS s.r.o. → IF Holding a.s.: jediný akcionář 2014-10-06→2015-08-06 (dataor as-full-praha-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:25332589",
+      "rel": "owns_stake",
+      "dst": "company:ico:02867681",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2015-08-06",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "note": "B.S. - KINGS s.r.o. → IF Holding a.s.: jediný akcionář 2015-08-06→trvá (dataor as-full-praha-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:2867681",
+      "rel": "owns_stake",
+      "dst": "company:ico:27720152",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2014-06-17",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "note": "IF Holding a.s. → IF FACILITY a.s.: jediný akcionář 2014-06-17→trvá (dataor as-full-praha-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:64581",
+      "rel": "owns_stake",
+      "dst": "company:ico:60194120",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2018-12-20",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "note": "HLAVNÍ MĚSTO PRAHA → Pražské služby, a.s.: jediný akcionář 2018-12-20→trvá (dataor as-full-praha-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:25997556",
+      "rel": "owns_stake",
+      "dst": "company:ico:26000237",
+      "props": {
+        "role": "člen představenstva",
+        "from": "2014-12-06",
+        "to": "2018-04-05",
+        "share": null,
+        "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz",
+        "note": "Zdravotnický holding Královéhradeckého kraje a.s. → Oblastní nemocnice Trutnov a.s.: člen představenstva 2014-12-06→2018-04-05 (dataor as-full-hradec_kralove-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:25997556",
+      "rel": "owns_stake",
+      "dst": "company:ico:26000237",
+      "props": {
+        "role": "Člen představenstva",
+        "from": "2018-04-05",
+        "to": "2018-12-31",
+        "share": null,
+        "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz",
+        "note": "Zdravotnický holding Královéhradeckého kraje a.s. → Oblastní nemocnice Trutnov a.s.: Člen představenstva 2018-04-05→2018-12-31 (dataor as-full-hradec_kralove-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:25997556",
+      "rel": "owns_stake",
+      "dst": "company:ico:26000237",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2018-04-05",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz",
+        "note": "Zdravotnický holding Královéhradeckého kraje a.s. → Oblastní nemocnice Trutnov a.s.: jediný akcionář 2018-04-05→trvá (dataor as-full-hradec_kralove-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:70889546",
+      "rel": "owns_stake",
+      "dst": "company:ico:26000237",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2003-11-12",
+        "to": "2006-09-15",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz",
+        "note": "Královéhradecký kraj → Oblastní nemocnice Trutnov a.s.: jediný akcionář 2003-11-12→2006-09-15 (dataor as-full-hradec_kralove-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:25997556",
+      "rel": "owns_stake",
+      "dst": "company:ico:26000237",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2006-09-15",
+        "to": "2009-04-17",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz",
+        "note": "Zdravotnický holding Královéhradeckého kraje a.s. → Oblastní nemocnice Trutnov a.s.: jediný akcionář 2006-09-15→2009-04-17 (dataor as-full-hradec_kralove-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:25997556",
+      "rel": "owns_stake",
+      "dst": "company:ico:26000237",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2009-04-17",
+        "to": "2018-04-05",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz",
+        "note": "Zdravotnický holding Královéhradeckého kraje a.s. → Oblastní nemocnice Trutnov a.s.: jediný akcionář 2009-04-17→2018-04-05 (dataor as-full-hradec_kralove-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:25997556",
+      "rel": "owns_stake",
+      "dst": "company:ico:26000237",
+      "props": {
+        "role": "Člen správní rady",
+        "from": "2021-01-01",
+        "to": null,
+        "share": null,
+        "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz",
+        "note": "Zdravotnický holding Královéhradeckého kraje a.s. → Oblastní nemocnice Trutnov a.s.: Člen správní rady 2021-01-01→trvá (dataor as-full-hradec_kralove-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:70891168",
+      "rel": "owns_stake",
+      "dst": "company:ico:26402068",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2006-01-01",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz",
+        "note": "Karlovarský kraj → Údržba silnic Karlovarského kraje, a.s.: jediný akcionář 2006-01-01→trvá (dataor as-full-plzen-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:46347828",
+      "rel": "owns_stake",
+      "dst": "company:ico:29211808",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2010-04-06",
+        "to": "2021-08-26",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz",
+        "note": "Lázně Luhačovice, a.s. → Léčebné lázně Jáchymov a. s.: jediný akcionář 2010-04-06→2021-08-26 (dataor as-full-plzen-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:254843",
+      "rel": "owns_stake",
+      "dst": "company:ico:49790498",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2009-04-29",
+        "to": "2014-08-23",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz",
+        "note": "Město Ostrov → Ostrovská teplárenská, a.s.: jediný akcionář 2009-04-29→2014-08-23 (dataor as-full-plzen-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:254843",
+      "rel": "owns_stake",
+      "dst": "company:ico:49790498",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2014-08-23",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz",
+        "note": "Město Ostrov → Ostrovská teplárenská, a.s.: jediný akcionář 2014-08-23→trvá (dataor as-full-plzen-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:64581",
+      "rel": "owns_stake",
+      "dst": "company:ico:27251918",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2005-06-03",
+        "to": "2013-10-23",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "note": "Hlavní město Praha → Obecní dům, a.s.: jediný akcionář 2005-06-03→2013-10-23 (dataor as-full-praha-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:64581",
+      "rel": "owns_stake",
+      "dst": "company:ico:27251918",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2013-10-23",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "note": "HLAVNÍ MĚSTO PRAHA → Obecní dům, a.s.: jediný akcionář 2013-10-23→trvá (dataor as-full-praha-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:60108916",
+      "rel": "owns_stake",
+      "dst": "company:ico:26014343",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2004-07-30",
+        "to": "2006-04-20",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "note": "ALIACHEM a.s. → SynBiol, a.s.: jediný akcionář 2004-07-30→2006-04-20 (dataor as-full-praha-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:60108916",
+      "rel": "owns_stake",
+      "dst": "company:ico:26014343",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2006-04-20",
+        "to": "2008-08-08",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "note": "Synthesia, a.s. → SynBiol, a.s.: jediný akcionář 2006-04-20→2008-08-08 (dataor as-full-praha-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:25130072",
+      "rel": "owns_stake",
+      "dst": "company:ico:26124459",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "1999-10-27",
+        "to": "2000-03-20",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "note": "AGROFERT HOLDING, a.s. → IMOBA, a.s.: jediný akcionář 1999-10-27→2000-03-20 (dataor as-full-praha-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:26185610",
+      "rel": "owns_stake",
+      "dst": "company:ico:26124459",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2008-08-14",
+        "to": "2014-01-30",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "note": "AGROFERT HOLDING, a.s. → IMOBA, a.s.: jediný akcionář 2008-08-14→2014-01-30 (dataor as-full-praha-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:26014343",
+      "rel": "owns_stake",
+      "dst": "company:ico:26124459",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2014-01-30",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "note": "SynBiol, a.s. → IMOBA, a.s.: jediný akcionář 2014-01-30→trvá (dataor as-full-praha-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:25130072",
+      "rel": "owns_stake",
+      "dst": "company:ico:26185610",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2002-06-20",
+        "to": "2004-08-31",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "note": "AGROFERT HOLDING,a.s. → AGROFERT, a.s.: jediný akcionář 2002-06-20→2004-08-31 (dataor as-full-praha-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:60197773",
+      "rel": "owns_stake",
+      "dst": "company:ico:26185610",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2004-08-31",
+        "to": "2005-06-30",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "note": "AGROFERT a.s. → AGROFERT, a.s.: jediný akcionář 2004-08-31→2005-06-30 (dataor as-full-praha-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:26185610",
+      "rel": "owns_stake",
+      "dst": "company:ico:60108916",
+      "props": {
+        "role": "člen představenstva",
+        "from": "2019-05-02",
+        "to": "2023-10-26",
+        "share": null,
+        "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz",
+        "note": "AGROFERT, a.s. → Synthesia, a.s.: člen představenstva 2019-05-02→2023-10-26 (dataor as-full-hradec_kralove-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:26185610",
+      "rel": "owns_stake",
+      "dst": "company:ico:60108916",
+      "props": {
+        "role": "člen představenstva",
+        "from": "2014-05-01",
+        "to": "2019-05-01",
+        "share": null,
+        "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz",
+        "note": "AGROFERT, a.s. → Synthesia, a.s.: člen představenstva 2014-05-01→2019-05-01 (dataor as-full-hradec_kralove-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:26185610",
+      "rel": "owns_stake",
+      "dst": "company:ico:60108916",
+      "props": {
+        "role": "člen představenstva",
+        "from": "2019-05-02",
+        "to": "2024-02-01",
+        "share": null,
+        "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz",
+        "note": "AGROFERT, a.s. → Synthesia, a.s.: člen představenstva 2019-05-02→2024-02-01 (dataor as-full-hradec_kralove-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:11835",
+      "rel": "owns_stake",
+      "dst": "company:ico:60108916",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2009-03-27",
+        "to": "2009-10-26",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz",
+        "note": "DEZA, a.s. → Synthesia, a.s.: jediný akcionář 2009-03-27→2009-10-26 (dataor as-full-hradec_kralove-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:26185610",
+      "rel": "owns_stake",
+      "dst": "company:ico:60108916",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2009-10-26",
+        "to": "2013-10-17",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz",
+        "note": "AGROFERT HOLDING, a.s. → Synthesia, a.s.: jediný akcionář 2009-10-26→2013-10-17 (dataor as-full-hradec_kralove-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:26185610",
+      "rel": "owns_stake",
+      "dst": "company:ico:60108916",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2013-10-17",
+        "to": "2024-02-01",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz",
+        "note": "AGROFERT, a.s. → Synthesia, a.s.: jediný akcionář 2013-10-17→2024-02-01 (dataor as-full-hradec_kralove-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:75370",
+      "rel": "owns_stake",
+      "dst": "company:ico:25220683",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "1999-05-21",
+        "to": "2013-09-04",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz",
+        "note": "Město Plzeň → Plzeňské městské dopravní podniky, a.s.: jediný akcionář 1999-05-21→2013-09-04 (dataor as-full-plzen-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:75370",
+      "rel": "owns_stake",
+      "dst": "company:ico:25220683",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2013-09-04",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz",
+        "note": "Statutární město Plzeň → Plzeňské městské dopravní podniky, a.s.: jediný akcionář 2013-09-04→trvá (dataor as-full-plzen-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:41197518",
+      "rel": "owns_stake",
+      "dst": "company:ico:27116913",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2004-01-16",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "note": "Všeobecná zdravotní pojišťovna České republiky → Pojišťovna VZP, a.s.: jediný akcionář 2004-01-16→trvá (dataor as-full-praha-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:75370",
+      "rel": "owns_stake",
+      "dst": "company:ico:49790480",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2008-05-20",
+        "to": "2018-10-31",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz",
+        "note": "Statutární město Plzeň → Plzeňská teplárenská, a.s.: jediný akcionář 2008-05-20→2018-10-31 (dataor as-full-plzen-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:64581",
+      "rel": "owns_stake",
+      "dst": "company:ico:63080249",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2006-05-05",
+        "to": "2013-10-23",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "note": "Hlavní město Praha → Kongresové centrum Praha, a.s.: jediný akcionář 2006-05-05→2013-10-23 (dataor as-full-praha-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:64581",
+      "rel": "owns_stake",
+      "dst": "company:ico:63080249",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2013-10-23",
+        "to": "2014-01-06",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "note": "HLAVNÍ MĚSTO PRAHA → Kongresové centrum Praha, a.s.: jediný akcionář 2013-10-23→2014-01-06 (dataor as-full-praha-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:60913819",
+      "rel": "owns_stake",
+      "dst": "company:ico:48154938",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2000-03-02",
+        "to": "2000-11-29",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz",
+        "note": "UNICO Pardubice a.s. → EAST BOHEMIAN AIRPORT a.s.: jediný akcionář 2000-03-02→2000-11-29 (dataor as-full-hradec_kralove-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:274046",
+      "rel": "owns_stake",
+      "dst": "company:ico:48154938",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2002-09-07",
+        "to": "2007-07-03",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz",
+        "note": "Statutární město Pardubice → EAST BOHEMIAN AIRPORT a.s.: jediný akcionář 2002-09-07→2007-07-03 (dataor as-full-hradec_kralove-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:274046",
+      "rel": "owns_stake",
+      "dst": "company:ico:63217066",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2010-10-19",
+        "to": "2014-01-15",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz",
+        "note": "Statutární Město Pardubice → Dopravní podnik města Pardubic a.s.: jediný akcionář 2010-10-19→2014-01-15 (dataor as-full-hradec_kralove-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:274046",
+      "rel": "owns_stake",
+      "dst": "company:ico:63217066",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2014-01-15",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz",
+        "note": "Statutární město Pardubice → Dopravní podnik města Pardubic a.s.: jediný akcionář 2014-01-15→trvá (dataor as-full-hradec_kralove-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:46678191",
+      "rel": "owns_stake",
+      "dst": "company:ico:60826851",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2010-04-15",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-ceske_budejovice-2026.csv.gz",
+        "note": "Rybářství Třeboň Hld. a.s. → Rybářství Třeboň a.s.: jediný akcionář 2010-04-15→trvá (dataor as-full-ceske_budejovice-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:64581",
+      "rel": "owns_stake",
+      "dst": "company:ico:02795281",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2014-03-19",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "note": "HLAVNÍ MĚSTO PRAHA → Operátor ICT, a.s.: jediný akcionář 2014-03-19→trvá (dataor as-full-praha-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:70891095",
+      "rel": "owns_stake",
+      "dst": "company:ico:27256537",
+      "props": {
+        "role": "člen představenstva",
+        "from": "2018-07-10",
+        "to": "2018-09-03",
+        "share": null,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "note": "Středočeský kraj → Oblastní nemocnice Kladno, a.s., nemocnice Středočeského kraje: člen představenstva 2018-07-10→2018-09-03 (dataor as-full-praha-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:70891095",
+      "rel": "owns_stake",
+      "dst": "company:ico:27256537",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2005-06-21",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "note": "Středočeský kraj → Oblastní nemocnice Kladno, a.s., nemocnice Středočeského kraje: jediný akcionář 2005-06-21→trvá (dataor as-full-praha-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:75370",
+      "rel": "owns_stake",
+      "dst": "company:ico:25205625",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2016-03-02",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz",
+        "note": "Statutární město Plzeň → VODÁRNA PLZEŇ a.s.: jediný akcionář 2016-03-02→trvá (dataor as-full-plzen-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:1350",
+      "rel": "owns_stake",
+      "dst": "company:ico:45534306",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2002-08-12",
+        "to": "2003-07-11",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz",
+        "note": "Československá obchodní banka, a.s. → ČSOB Pojišťovna, a. s., člen holdingu ČSOB: jediný akcionář 2002-08-12→2003-07-11 (dataor as-full-hradec_kralove-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:70891095",
+      "rel": "owns_stake",
+      "dst": "company:ico:27256456",
+      "props": {
+        "role": "člen představenstva",
+        "from": "2018-07-10",
+        "to": "2018-09-03",
+        "share": null,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "note": "Středočeský kraj → Oblastní nemocnice Mladá Boleslav, a.s., nemocnice Středočeského kraje: člen představenstva 2018-07-10→2018-09-03 (dataor as-full-praha-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:70891095",
+      "rel": "owns_stake",
+      "dst": "company:ico:27256456",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2005-06-21",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "note": "Středočeský kraj → Oblastní nemocnice Mladá Boleslav, a.s., nemocnice Středočeského kraje: jediný akcionář 2005-06-21→trvá (dataor as-full-praha-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    },
+    {
+      "src": "company:ico:70994226",
+      "rel": "owns_stake",
+      "dst": "company:ico:27257258",
+      "props": {
+        "role": "jediný akcionář",
+        "from": "2005-07-01",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "note": "České dráhy, a.s. → Výzkumný Ústav Železniční, a.s.: jediný akcionář 2005-07-01→trvá (dataor as-full-praha-2026)"
+      },
+      "provenance": {
+        "track": "money",
+        "pass": null,
+        "method": "verdict",
+        "ref": "case-money/batch-006 · dataor indirect-ownership slice (O-money-3)",
+        "computedAt": "2026-07-25"
+      }
+    }
+  ],
+  "notAttempted": [
+    {
+      "ico": "26187639",
+      "company": "Vzdělávací centrum pro veřejnou správu ČR, o.p.s.",
+      "reason": "dataset ops-full-praha-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "49683144",
+      "company": "PRAK spol. s r.o.",
+      "reason": "fetch failed: batch network-budget exceeded (25s, uncached large file)"
+    },
+    {
+      "ico": "63113074",
+      "company": "Svaz měst a obcí České republiky",
+      "reason": "court/legalForm unresolved (source=spisova-znacka)"
+    },
+    {
+      "ico": "70889953",
+      "company": "Povodí Vltavy, státní podnik",
+      "reason": "IČO not present in zvlastni_org-full-praha-2026"
+    },
+    {
+      "ico": "24227901",
+      "company": "Společenství vlastníků Vlastislavova 605/20, Praha 4",
+      "reason": "court/legalForm unresolved (source=spisova-znacka)"
+    },
+    {
+      "ico": "75112779",
+      "company": "Ústav pro studium totalitních režimů",
+      "reason": "not ISVR-registered (no VR sub-record) — dataor cannot help"
+    },
+    {
+      "ico": "00417904",
+      "company": "Nadace Charty 77",
+      "reason": "dataset sro-full-praha-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "08694508",
+      "company": "Muzeum paměti XX. století, z.ú.",
+      "reason": "court/legalForm unresolved (source=spisova-znacka)"
+    },
+    {
+      "ico": "25245091",
+      "company": "Regionální rozvojová agentura Plzeňského kraje, obecně prospěšná společnost",
+      "reason": "dataset ops-full-plzen-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "27149994",
+      "company": "Nadace Věry a Vladimíra Janouškových",
+      "reason": "dataset sro-full-praha-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "49370499",
+      "company": "Museum Kampa - Nadace Jana a Medy Mládkových",
+      "reason": "dataset sro-full-praha-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "61065480",
+      "company": "TAMPA s.r.o.",
+      "reason": "dataset sro-full-praha-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "25321692",
+      "company": "Lesy města Prostějova, s.r.o.",
+      "reason": "dataset sro-full-brno-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "25332589",
+      "company": "B.S. - KINGS s.r.o.",
+      "reason": "fetch failed: batch network-budget exceeded (25s, uncached large file)"
+    },
+    {
+      "ico": "28323297",
+      "company": "Studio PN Prostějov s.r.o.",
+      "reason": "fetch failed: batch network-budget exceeded (25s, uncached large file)"
+    },
+    {
+      "ico": "26141761",
+      "company": "GEKO SPORT s.r.o.",
+      "reason": "fetch failed: batch network-budget exceeded (25s, uncached large file)"
+    },
+    {
+      "ico": "27082857",
+      "company": "Nadační fond manželů Livie a Václava Klausových",
+      "reason": "IČO not present in nevlad_org-full-praha-2026"
+    },
+    {
+      "ico": "41197518",
+      "company": "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+      "reason": "not ISVR-registered (no VR sub-record) — dataor cannot help"
+    },
+    {
+      "ico": "70885117",
+      "company": "Česká lékařská komora - o.s., z.s.",
+      "reason": "IČO not present in nevlad_org-full-praha-2026"
+    },
+    {
+      "ico": "25968084",
+      "company": "Technické služby Trutnov s.r.o.",
+      "reason": "dataset sro-full-hradec_kralove-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "25968700",
+      "company": "Lesy a parky Trutnov s.r.o.",
+      "reason": "dataset sro-full-hradec_kralove-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "62063588",
+      "company": "TRANSPORT Trutnov s.r.o.",
+      "reason": "dataset sro-full-hradec_kralove-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "01686682",
+      "company": "ZPS holding s.r.o.",
+      "reason": "fetch failed: batch network-budget exceeded (25s, uncached large file)"
+    },
+    {
+      "ico": "02504421",
+      "company": "Česká asociace věřitelů, z.s.",
+      "reason": "IČO not present in nevlad_org-full-praha-2026"
+    },
+    {
+      "ico": "29156271",
+      "company": "Chráněná dílna Ostrov, s.r.o.",
+      "reason": "dataset sro-full-plzen-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "70889988",
+      "company": "Povodí Ohře, státní podnik",
+      "reason": "dataset zvlastni_org-full-usti_nad_labem-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "26419050",
+      "company": "Společenství vlastníků jednotek v domě čp. 2122, Na Folimance 13, Praha 2 - Vinohrady",
+      "reason": "court/legalForm unresolved (source=spisova-znacka)"
+    },
+    {
+      "ico": "26419068",
+      "company": "Nadační fond Českého rozhlasu",
+      "reason": "IČO not present in nevlad_org-full-praha-2026"
+    },
+    {
+      "ico": "25488627",
+      "company": "Krajská zdravotní, a.s.",
+      "reason": "dataset as-full-usti_nad_labem-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "62240935",
+      "company": "Dopravní podnik města Děčína, a.s.",
+      "reason": "dataset as-full-usti_nad_labem-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "02086778",
+      "company": "Fórum Karla Schwarzenberga, o.p.s.",
+      "reason": "dataset ops-full-praha-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "26254590",
+      "company": "STUDIO ARX s.r.o.",
+      "reason": "fetch failed: Cannot create a string longer than 0x1fffffe8 characters"
+    },
+    {
+      "ico": "70282960",
+      "company": "Evropský informační projekt, z. ú.",
+      "reason": "court/legalForm unresolved (source=spisova-znacka)"
+    },
+    {
+      "ico": "25124188",
+      "company": "MIKI TRAVEL PRAGUE, spol. s r.o.",
+      "reason": "fetch failed: batch network-budget exceeded (25s, uncached large file)"
+    },
+    {
+      "ico": "25643461",
+      "company": "MEBIUS s.r.o.",
+      "reason": "fetch failed: batch network-budget exceeded (25s, uncached large file)"
+    },
+    {
+      "ico": "27145433",
+      "company": "U Machtů s.r.o.",
+      "reason": "fetch failed: batch network-budget exceeded (25s, uncached large file)"
+    },
+    {
+      "ico": "28406354",
+      "company": "Japa Foods s.r.o.",
+      "reason": "fetch failed: batch network-budget exceeded (25s, uncached large file)"
+    },
+    {
+      "ico": "01801261",
+      "company": "Hartenberg Holding, s.r.o.",
+      "reason": "fetch failed: batch network-budget exceeded (25s, uncached large file)"
+    },
+    {
+      "ico": "14612411",
+      "company": "CS CABOT, spol. s r.o.",
+      "reason": "fetch failed: Cannot create a string longer than 0x1fffffe8 characters"
+    },
+    {
+      "ico": "24188581",
+      "company": "Nadace AGROFERT",
+      "reason": "dataset sro-full-praha-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "26872307",
+      "company": "PRECHEZA a.s.",
+      "reason": "dataset as-full-ostrava-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "27465021",
+      "company": "Fatra, a.s.",
+      "reason": "dataset as-full-brno-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "27771245",
+      "company": "PROFROST a.s.",
+      "reason": "dataset as-full-brno-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "46900411",
+      "company": "Kostelecké uzeniny a.s.",
+      "reason": "dataset as-full-brno-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "49100262",
+      "company": "Lovochemie, a.s.",
+      "reason": "dataset as-full-usti_nad_labem-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "64258998",
+      "company": "AGRONOVA CS s.r.o.",
+      "reason": "dataset sro-full-hradec_kralove-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "22745696",
+      "company": "TOPAZ, z.s.",
+      "reason": "IČO not present in nevlad_org-full-praha-2026"
+    },
+    {
+      "ico": "28338766",
+      "company": "Národní Centrum Tkání a Buněk a.s.",
+      "reason": "dataset as-full-ostrava-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "26232987",
+      "company": "NEXNET, a.s.",
+      "reason": "dataset as-full-brno-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "29186315",
+      "company": "MAE invest a.s.",
+      "reason": "dataset as-full-brno-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "49451871",
+      "company": "Vodovody a kanalizace Kroměříž, a.s.",
+      "reason": "dataset as-full-brno-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "61463647",
+      "company": "Družstvo Nárožní dům Plavecká 12",
+      "reason": "dataset sro-full-praha-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "27693058",
+      "company": "Prostějov venkov o.p.s.",
+      "reason": "dataset ops-full-brno-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "70890013",
+      "company": "Povodí Moravy, s.p.",
+      "reason": "court/legalForm unresolved (source=spisova-znacka)"
+    },
+    {
+      "ico": "26025027",
+      "company": "Nadační fond Nemocnice Dačice",
+      "reason": "dataset nevlad_org-full-ceske_budejovice-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "45147787",
+      "company": "SPOLANA s.r.o.",
+      "reason": "dataset sro-full-praha-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "60800691",
+      "company": "Vojenská nemocnice Olomouc",
+      "reason": "not ISVR-registered (no VR sub-record) — dataor cannot help"
+    },
+    {
+      "ico": "46978593",
+      "company": "Poliklinika Břeclav, s. r. o.",
+      "reason": "dataset sro-full-brno-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "49437674",
+      "company": "POLIKLINIKA - servis s.r.o.",
+      "reason": "dataset sro-full-brno-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "63488329",
+      "company": "Nemocnice Valtice s.r.o.",
+      "reason": "dataset sro-full-brno-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "25586521",
+      "company": "AGRO 2000 s.r.o.",
+      "reason": "dataset sro-full-brno-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "27485013",
+      "company": "Sportovní areály města Chrudim, s.r.o.",
+      "reason": "dataset sro-full-hradec_kralove-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "22827668",
+      "company": "Hi-Tech inovační klastr z. s.    (anglická verze: Hi-Tech innovation cluster)",
+      "reason": "court/legalForm unresolved (source=spisova-znacka)"
+    },
+    {
+      "ico": "25918206",
+      "company": "Smetanova Litomyšl, o.p.s.",
+      "reason": "dataset ops-full-hradec_kralove-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "27534804",
+      "company": "SKP-CENTRUM, o.p.s.",
+      "reason": "dataset ops-full-hradec_kralove-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "45245053",
+      "company": "ČESKÝ ROZHLAS",
+      "reason": "not ISVR-registered (no VR sub-record) — dataor cannot help"
+    },
+    {
+      "ico": "19840659",
+      "company": "Sirius Praha s.r.o.",
+      "reason": "dataset sro-full-praha-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "26123550",
+      "company": "LIHT s.r.o.",
+      "reason": "dataset sro-full-praha-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "00829838",
+      "company": "Nemocnice Jablonec nad Nisou, p.o.",
+      "reason": "court/legalForm unresolved (source=spisova-znacka)"
+    },
+    {
+      "ico": "27467759",
+      "company": "Horská služba ČR, o.p.s.",
+      "reason": "dataset ops-full-hradec_kralove-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "46744991",
+      "company": "Zdravotnická záchranná služba Libereckého kraje, příspěvková organizace",
+      "reason": "dataset po_zzz-full-usti_nad_labem-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "25713817",
+      "company": "SPARING MB s.r.o.",
+      "reason": "dataset sro-full-praha-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "29054117",
+      "company": "F.M.S. Consulting s.r.o.",
+      "reason": "dataset sro-full-praha-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "49825950",
+      "company": "COMBIN BOHEMIA spol. s r.o.",
+      "reason": "dataset sro-full-praha-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "61681679",
+      "company": "GEMA MB s.r.o.",
+      "reason": "dataset sro-full-praha-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "06919511",
+      "company": "SUTNAR - NADACE RADOSLAVA A ELAINE SUTNAROVÝCH",
+      "reason": "dataset sro-full-plzen-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "25224662",
+      "company": "Plzeňská filharmonie, obecně prospěšná společnost",
+      "reason": "dataset ops-full-plzen-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "25234994",
+      "company": "Galerie města Plzně, o.p.s.",
+      "reason": "dataset ops-full-plzen-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "26396645",
+      "company": "Techmania Science Center o.p.s.",
+      "reason": "dataset ops-full-plzen-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "45332657",
+      "company": "Nadace 700 let města Plzně",
+      "reason": "dataset sro-full-plzen-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "69972061",
+      "company": "Sdružení měst a obcí Plzeňského kraje",
+      "reason": "court/legalForm unresolved (source=spisova-znacka)"
+    },
+    {
+      "ico": "27720004",
+      "company": "Česká informatika s.r.o.",
+      "reason": "dataset sro-full-brno-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "00027383",
+      "company": "ČESKÁ TELEVIZE",
+      "reason": "not ISVR-registered (no VR sub-record) — dataor cannot help"
+    },
+    {
+      "ico": "02751232",
+      "company": "YOU STORY UP! s.r.o.",
+      "reason": "dataset sro-full-ostrava-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "27840531",
+      "company": "OCCAM PR s.r.o.",
+      "reason": "dataset sro-full-ostrava-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "47122099",
+      "company": "Pražská vysoká škola psychosociálních studií, s.r.o.",
+      "reason": "dataset sro-full-praha-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "27341313",
+      "company": "CHOMUTOVSKÁ BYTOVÁ a.s.",
+      "reason": "dataset as-full-usti_nad_labem-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "47795808",
+      "company": "Sportovní klub policie Kadaň, z.s.",
+      "reason": "dataset nevlad_org-full-usti_nad_labem-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "64053466",
+      "company": "Dopravní podnik měst Chomutova a Jirkova a.s.",
+      "reason": "dataset as-full-usti_nad_labem-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "48161063",
+      "company": "Gymnázium, Pardubice, Mozartova 449",
+      "reason": "court/legalForm unresolved (source=spisova-znacka)"
+    },
+    {
+      "ico": "02312701",
+      "company": "Vodní cesty na Labi, o.p.s.",
+      "reason": "dataset ops-full-praha-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "22874381",
+      "company": "Změna pro Kolín z.s.",
+      "reason": "IČO not present in nevlad_org-full-praha-2026"
+    },
+    {
+      "ico": "26745615",
+      "company": "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
+      "reason": "court/legalForm unresolved (source=spisova-znacka)"
+    },
+    {
+      "ico": "68404999",
+      "company": "Nadační fond Gymnázia Kutná Hora",
+      "reason": "IČO not present in nevlad_org-full-praha-2026"
+    },
+    {
+      "ico": "27267351",
+      "company": "KORID LK, spol. s r.o.",
+      "reason": "dataset sro-full-usti_nad_labem-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "01398717",
+      "company": "MAS Nad Prahou o.p.s.",
+      "reason": "dataset ops-full-praha-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "04934482",
+      "company": "Truhlářství Za farou s.r.o.",
+      "reason": "dataset sro-full-plzen-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "06646042",
+      "company": "Akademie individuálních sportů Plzeňského kraje, z. s.",
+      "reason": "court/legalForm unresolved (source=spisova-znacka)"
+    },
+    {
+      "ico": "07739044",
+      "company": "Krajská hospodářská komora v Plzeňském kraji",
+      "reason": "court/legalForm unresolved (source=spisova-znacka)"
+    },
+    {
+      "ico": "08160902",
+      "company": "Centrum lidských zdrojů Plzeňského kraje, z.ú.",
+      "reason": "court/legalForm unresolved (source=spisova-znacka)"
+    },
+    {
+      "ico": "14704234",
+      "company": "Tenisový klub Vodní stavby Plzeň, z.s.",
+      "reason": "IČO not present in nevlad_org-full-plzen-2026"
+    },
+    {
+      "ico": "26350416",
+      "company": "STYLE PD, s.r.o.",
+      "reason": "dataset sro-full-plzen-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "26997355",
+      "company": "Baculus, o.p.s.",
+      "reason": "dataset ops-full-plzen-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "29118336",
+      "company": "Chronos Vejprnice o.p.s.",
+      "reason": "dataset ops-full-plzen-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "29123348",
+      "company": "Akademie HK PK, o.p.s.",
+      "reason": "dataset ops-full-plzen-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "72046422",
+      "company": "Zákládní organizace Českého zahrádkářského svazu Roztoky Třebízského",
+      "reason": "court/legalForm unresolved (source=spisova-znacka)"
+    },
+    {
+      "ico": "47781131",
+      "company": "SKLÁDKA VRBIČKA s.r.o.",
+      "reason": "dataset sro-full-usti_nad_labem-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "03265889",
+      "company": "ELEMENTA Agency s.r.o.",
+      "reason": "dataset sro-full-praha-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "03709698",
+      "company": "Delices de papa s.r.o.",
+      "reason": "dataset sro-full-brno-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "29123747",
+      "company": "DOMOVINKA - sociální služby, o.p.s.",
+      "reason": "dataset ops-full-plzen-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "26822105",
+      "company": "Nemocnice AGEL Valašské Meziříčí a.s.",
+      "reason": "dataset as-full-ostrava-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "47674652",
+      "company": "Vodovody a kanalizace Vsetín, a.s.",
+      "reason": "dataset as-full-ostrava-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "47997826",
+      "company": "Tenisový klub DEZA Valašské Meziříčí, z.s.",
+      "reason": "dataset nevlad_org-full-ostrava-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "26871068",
+      "company": "Vsetínská nemocnice a.s.",
+      "reason": "dataset as-full-ostrava-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "27660532",
+      "company": "Kroměřížská nemocnice a.s.",
+      "reason": "dataset as-full-brno-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "27660915",
+      "company": "Uherskohradišťská nemocnice a.s.",
+      "reason": "dataset as-full-brno-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "27661989",
+      "company": "Krajská nemocnice T. Bati, a. s.",
+      "reason": "dataset as-full-brno-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "28593987",
+      "company": "Vsetínská sportovní, s.r.o.",
+      "reason": "dataset sro-full-ostrava-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "29442044",
+      "company": "Teleky Medicus s.r.o.",
+      "reason": "dataset sro-full-ostrava-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "26039907",
+      "company": "PEVAK Pelhřimov, družstvo",
+      "reason": "IČO not present in sro-full-ceske_budejovice-2026"
+    },
+    {
+      "ico": "26982170",
+      "company": "Via rustica z.s.",
+      "reason": "dataset nevlad_org-full-ceske_budejovice-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "27043843",
+      "company": "PRO VYSOČINU, občanské sdružení",
+      "reason": "IČO not present in nevlad_org-full-brno-2026"
+    },
+    {
+      "ico": "28095405",
+      "company": "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov",
+      "reason": "court/legalForm unresolved (source=spisova-znacka)"
+    },
+    {
+      "ico": "49454587",
+      "company": "Vodovody a kanalizace Vyškov,a.s.",
+      "reason": "dataset as-full-brno-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "09133267",
+      "company": "ARENA BRNO, a.s.",
+      "reason": "dataset as-full-brno-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "25508881",
+      "company": "Dopravní podnik města Brna, a.s.",
+      "reason": "dataset as-full-brno-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "46347534",
+      "company": "Teplárny Brno, a.s.",
+      "reason": "dataset as-full-brno-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "60713470",
+      "company": "SAKO Brno, a.s.",
+      "reason": "dataset as-full-brno-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "61989592",
+      "company": "Univerzita Palackého v Olomouci",
+      "reason": "not ISVR-registered (no VR sub-record) — dataor cannot help"
+    },
+    {
+      "ico": "09925856",
+      "company": "Nadační fond - NOVÉ LÉČEBNÉ POSTUPY CHIRURGIE RUKY",
+      "reason": "IČO not present in nevlad_org-full-praha-2026"
+    },
+    {
+      "ico": "15045838",
+      "company": "Sdružení Český ráj, z.s.",
+      "reason": "dataset nevlad_org-full-hradec_kralove-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "28168151",
+      "company": "Městská společnost sportovní a rekreační areály, s.r.o.",
+      "reason": "dataset sro-full-praha-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "24766216",
+      "company": "MATURUS, o.p.s.",
+      "reason": "dataset ops-full-praha-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "08599254",
+      "company": "CEVYKO a.s.",
+      "reason": "dataset as-full-ostrava-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "06386237",
+      "company": "RAPAJA s.r.o.",
+      "reason": "dataset sro-full-brno-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "09187944",
+      "company": "RMPJ s.r.o.",
+      "reason": "dataset sro-full-brno-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "00084018",
+      "company": "Hvězdárna a planetárium v Hradci Králové",
+      "reason": "court/legalForm unresolved (source=spisova-znacka)"
+    },
+    {
+      "ico": "25513290",
+      "company": "Prádelna a čistírna Jihlava, s.r.o.",
+      "reason": "dataset sro-full-brno-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "26637863",
+      "company": "AlternativaPro, z.s.",
+      "reason": "IČO not present in nevlad_org-full-brno-2026"
+    },
+    {
+      "ico": "28274466",
+      "company": "DS Stříbrné Terasy o.p.s.",
+      "reason": "dataset ops-full-brno-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "70100969",
+      "company": "Charita Česká republika",
+      "reason": "not ISVR-registered (no VR sub-record) — dataor cannot help"
+    },
+    {
+      "ico": "71184465",
+      "company": "Domov pro seniory Velké Meziříčí, příspěvková organizace",
+      "reason": "dataset po_zzz-full-brno-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "18251129",
+      "company": "TAZATA, spol. s r.o.",
+      "reason": "dataset sro-full-plzen-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "26318903",
+      "company": "Správa majetku města Stříbra, s.r.o.",
+      "reason": "dataset sro-full-plzen-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "26387816",
+      "company": "JISE stavby s.r.o.",
+      "reason": "dataset sro-full-plzen-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "03849988",
+      "company": "Nadační fond regionální fotbalové Akademie Plzeňského kraje",
+      "reason": "IČO not present in nevlad_org-full-plzen-2026"
+    },
+    {
+      "ico": "17047234",
+      "company": "RAILREKLAM, spol. s r.o.",
+      "reason": "dataset sro-full-praha-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "26602351",
+      "company": "HC Plzeň z.s.",
+      "reason": "IČO not present in nevlad_org-full-plzen-2026"
+    },
+    {
+      "ico": "28046153",
+      "company": "Čistá Plzeň, s.r.o.",
+      "reason": "dataset sro-full-plzen-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    },
+    {
+      "ico": "25848526",
+      "company": "Výstaviště Flora Olomouc, a.s.",
+      "reason": "dataset as-full-ostrava-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "27068897",
+      "company": "TAXONIA CZ, s.r.o.",
+      "reason": "dataset sro-full-ostrava-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "28633032",
+      "company": "Lesy města Olomouce, a.s.",
+      "reason": "dataset as-full-ostrava-2026 not cached — batch's 12-new-fetch bound already spent"
+    },
+    {
+      "ico": "47654465",
+      "company": "Obecně prospěšná společnost pro památkovou ochranu Hradiska u Olomouce a za další rozvoj kulturního, uměleckého a duchovního života a humanitní zdravotní péče na něm.",
+      "reason": "dataset ops-full-ostrava-2026 not cached and company is not tie_class owner-operator/manager — scope-bounded, not fetched this batch"
+    }
+  ],
+  "noChainFound": [
+    {
+      "ico": "45146802",
+      "company": "Energie - stavební a báňská a.s.",
+      "datasetId": "as-full-praha-2026"
+    },
+    {
+      "ico": "25187937",
+      "company": "RERA a.s.",
+      "datasetId": "as-full-ceske_budejovice-2026"
+    },
+    {
+      "ico": "46678735",
+      "company": "Robert Bosch, spol. s r.o.",
+      "datasetId": "sro-full-ceske_budejovice-2026"
+    },
+    {
+      "ico": "60196459",
+      "company": "ASPEN SPORT a.s.",
+      "datasetId": "as-full-praha-2026"
+    },
+    {
+      "ico": "46506306",
+      "company": "Společnost Horní Labe a.s.",
+      "datasetId": "as-full-hradec_kralove-2026"
+    },
+    {
+      "ico": "49789228",
+      "company": "Vodárny a kanalizace Karlovy Vary, a.s.",
+      "datasetId": "as-full-plzen-2026"
+    },
+    {
+      "ico": "61057606",
+      "company": "Komwag, podnik čistoty a údržby města, a.s.",
+      "datasetId": "as-full-praha-2026"
+    },
+    {
+      "ico": "48207918",
+      "company": "AGROPROFIT, spol. s r.o.",
+      "datasetId": "sro-full-ceske_budejovice-2026"
+    },
+    {
+      "ico": "60193913",
+      "company": "Pražská energetika, a.s.",
+      "datasetId": "as-full-praha-2026"
+    },
+    {
+      "ico": "60193531",
+      "company": "ČEPRO, a.s.",
+      "datasetId": "as-full-praha-2026"
+    },
+    {
+      "ico": "60914351",
+      "company": "AGROCENTRUM JIZERAN a.s.",
+      "datasetId": "as-full-hradec_kralove-2026"
+    },
+    {
+      "ico": "49786709",
+      "company": "Vodárenská a kanalizační a.s.",
+      "datasetId": "as-full-plzen-2026"
+    },
+    {
+      "ico": "03921727",
+      "company": "Park Volmanec s.r.o.",
+      "datasetId": "sro-full-ceske_budejovice-2026"
+    },
+    {
+      "ico": "25172263",
+      "company": "SOMPO, a.s.",
+      "datasetId": "as-full-ceske_budejovice-2026"
+    },
+    {
+      "ico": "26109859",
+      "company": "W.H.V. Projekt spol. s r.o.",
+      "datasetId": "sro-full-ceske_budejovice-2026"
+    }
+  ]
+}

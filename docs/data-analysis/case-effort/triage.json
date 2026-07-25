@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-07-24T22:07:44.864Z",
-  "batch": 5,
+  "generatedAt": "2026-07-25T09:57:53.304Z",
+  "batch": 6,
   "clubStats": {
     "ODS": {
       "mean": 65.3,
@@ -2221,9 +2221,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.533,
       "triageScore": 5.641,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 7067,
@@ -2310,10 +2308,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.686,
       "triageScore": 5.399,
-      "lens": [
-        "bottom",
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 7027,
@@ -2342,9 +2337,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.824,
       "triageScore": 5.396,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 7066,
@@ -2373,9 +2366,7 @@
       "tenureDays": 262,
       "componentDivergence": 0.717,
       "triageScore": 5.395,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 6730,
@@ -2404,9 +2395,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.727,
       "triageScore": 5.362,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 7043,
@@ -2435,9 +2424,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.696,
       "triageScore": 5.354,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 7038,
@@ -2466,9 +2453,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.408,
       "triageScore": 5.304,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 7000,
@@ -2497,9 +2482,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.476,
       "triageScore": 5.23,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 7047,
@@ -2644,9 +2627,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.498,
       "triageScore": 4.908,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 6750,
@@ -2849,9 +2830,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.825,
       "triageScore": 4.722,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 7031,
@@ -2967,10 +2946,7 @@
       "tenureDays": 293,
       "componentDivergence": 1.115,
       "triageScore": 4.681,
-      "lens": [
-        "divergence",
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 7022,
@@ -3057,10 +3033,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.31,
       "triageScore": 4.561,
-      "lens": [
-        "top",
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 6150,
@@ -3118,9 +3091,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.938,
       "triageScore": 4.492,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 6770,
@@ -3149,9 +3120,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.366,
       "triageScore": 4.437,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 6190,
@@ -3238,9 +3207,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.631,
       "triageScore": 4.357,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 5943,
@@ -3269,10 +3236,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.718,
       "triageScore": 4.333,
-      "lens": [
-        "top",
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 6491,
@@ -3301,9 +3265,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.957,
       "triageScore": 4.33,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 7017,
@@ -3332,9 +3294,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.34,
       "triageScore": 4.321,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 6787,
@@ -3421,9 +3381,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.864,
       "triageScore": 4.295,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 6468,
@@ -3481,9 +3439,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.911,
       "triageScore": 4.261,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 7008,
@@ -3512,9 +3468,7 @@
       "tenureDays": 293,
       "componentDivergence": 1.039,
       "triageScore": 4.242,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 6482,
@@ -3543,9 +3497,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.527,
       "triageScore": 4.215,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 6946,
@@ -3574,9 +3526,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.516,
       "triageScore": 4.158,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 7032,
@@ -3605,9 +3555,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.473,
       "triageScore": 4.155,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 6475,
@@ -3636,9 +3584,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.726,
       "triageScore": 4.137,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 7002,
@@ -3667,10 +3613,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.585,
       "triageScore": 4.119,
-      "lens": [
-        "top",
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 7004,
@@ -3844,9 +3787,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.713,
       "triageScore": 3.961,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 6743,
@@ -3875,9 +3816,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.641,
       "triageScore": 3.952,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 7056,
@@ -3906,10 +3845,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.398,
       "triageScore": 3.907,
-      "lens": [
-        "bottom",
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 6995,
@@ -3967,9 +3903,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.582,
       "triageScore": 3.848,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 6201,
@@ -3998,9 +3932,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.743,
       "triageScore": 3.846,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 7065,
@@ -4029,9 +3961,7 @@
       "tenureDays": 260,
       "componentDivergence": 1.372,
       "triageScore": 3.77,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 6990,
@@ -4118,9 +4048,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.849,
       "triageScore": 3.753,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 6996,
@@ -4149,9 +4077,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.732,
       "triageScore": 3.727,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 5273,
@@ -4180,9 +4106,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.605,
       "triageScore": 3.672,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 6549,
@@ -4240,9 +4164,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.995,
       "triageScore": 3.581,
-      "lens": [
-        "high-triage"
-      ]
+      "lens": []
     },
     {
       "pspId": 7068,
@@ -4300,7 +4222,11 @@
       "tenureDays": 293,
       "componentDivergence": 0.992,
       "triageScore": 3.481,
-      "lens": []
+      "lens": [
+        "bottom",
+        "divergence",
+        "high-triage"
+      ]
     },
     {
       "pspId": 7062,
@@ -4358,9 +4284,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.913,
       "triageScore": 3.339,
-      "lens": [
-        "bottom"
-      ]
+      "lens": []
     },
     {
       "pspId": 7035,
@@ -4389,7 +4313,9 @@
       "tenureDays": 293,
       "componentDivergence": 1.143,
       "triageScore": 3.309,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 6992,
@@ -4418,9 +4344,7 @@
       "tenureDays": 293,
       "componentDivergence": 1.082,
       "triageScore": 3.248,
-      "lens": [
-        "divergence"
-      ]
+      "lens": []
     },
     {
       "pspId": 6905,
@@ -4449,10 +4373,7 @@
       "tenureDays": 293,
       "componentDivergence": 1.277,
       "triageScore": 3.247,
-      "lens": [
-        "bottom",
-        "divergence"
-      ]
+      "lens": []
     },
     {
       "pspId": 7046,
@@ -4510,9 +4431,7 @@
       "tenureDays": 293,
       "componentDivergence": 1.115,
       "triageScore": 3.184,
-      "lens": [
-        "divergence"
-      ]
+      "lens": []
     },
     {
       "pspId": 7053,
@@ -4541,7 +4460,10 @@
       "tenureDays": 293,
       "componentDivergence": 0.946,
       "triageScore": 3.18,
-      "lens": []
+      "lens": [
+        "divergence",
+        "high-triage"
+      ]
     },
     {
       "pspId": 7012,
@@ -4570,7 +4492,9 @@
       "tenureDays": 293,
       "componentDivergence": 0.696,
       "triageScore": 3.179,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 6782,
@@ -4599,7 +4523,9 @@
       "tenureDays": 293,
       "componentDivergence": 0.804,
       "triageScore": 3.159,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 6789,
@@ -4657,7 +4583,9 @@
       "tenureDays": 293,
       "componentDivergence": 0.777,
       "triageScore": 3.104,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 5459,
@@ -4715,7 +4643,10 @@
       "tenureDays": 293,
       "componentDivergence": 0.998,
       "triageScore": 3.011,
-      "lens": []
+      "lens": [
+        "divergence",
+        "high-triage"
+      ]
     },
     {
       "pspId": 7033,
@@ -4773,7 +4704,9 @@
       "tenureDays": 293,
       "componentDivergence": 1.546,
       "triageScore": 2.966,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 6527,
@@ -4802,7 +4735,9 @@
       "tenureDays": 293,
       "componentDivergence": 0.631,
       "triageScore": 2.945,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 6723,
@@ -4831,7 +4766,10 @@
       "tenureDays": 293,
       "componentDivergence": 0.81,
       "triageScore": 2.928,
-      "lens": []
+      "lens": [
+        "bottom",
+        "high-triage"
+      ]
     },
     {
       "pspId": 6687,
@@ -4860,7 +4798,10 @@
       "tenureDays": 293,
       "componentDivergence": 0.987,
       "triageScore": 2.884,
-      "lens": []
+      "lens": [
+        "divergence",
+        "high-triage"
+      ]
     },
     {
       "pspId": 6989,
@@ -4889,7 +4830,9 @@
       "tenureDays": 293,
       "componentDivergence": 0.641,
       "triageScore": 2.882,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 6216,
@@ -4918,7 +4861,9 @@
       "tenureDays": 293,
       "componentDivergence": 0.576,
       "triageScore": 2.84,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 6788,
@@ -4976,7 +4921,10 @@
       "tenureDays": 293,
       "componentDivergence": 0.581,
       "triageScore": 2.681,
-      "lens": []
+      "lens": [
+        "top",
+        "high-triage"
+      ]
     },
     {
       "pspId": 6544,
@@ -5034,7 +4982,9 @@
       "tenureDays": 293,
       "componentDivergence": 0.644,
       "triageScore": 2.603,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 7108,
@@ -5092,7 +5042,10 @@
       "tenureDays": 293,
       "componentDivergence": 0.478,
       "triageScore": 2.541,
-      "lens": []
+      "lens": [
+        "top",
+        "high-triage"
+      ]
     },
     {
       "pspId": 7051,
@@ -5121,7 +5074,9 @@
       "tenureDays": 293,
       "componentDivergence": 0.639,
       "triageScore": 2.52,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 6803,
@@ -5150,7 +5105,10 @@
       "tenureDays": 293,
       "componentDivergence": 0.597,
       "triageScore": 2.513,
-      "lens": []
+      "lens": [
+        "top",
+        "high-triage"
+      ]
     },
     {
       "pspId": 7030,
@@ -5179,7 +5137,10 @@
       "tenureDays": 293,
       "componentDivergence": 1.169,
       "triageScore": 2.452,
-      "lens": []
+      "lens": [
+        "top",
+        "high-triage"
+      ]
     },
     {
       "pspId": 7024,
@@ -5208,7 +5169,9 @@
       "tenureDays": 293,
       "componentDivergence": 0.664,
       "triageScore": 2.428,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 7015,
@@ -5324,9 +5287,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.547,
       "triageScore": 2.316,
-      "lens": [
-        "top"
-      ]
+      "lens": []
     },
     {
       "pspId": 6986,
@@ -5355,9 +5316,7 @@
       "tenureDays": 293,
       "componentDivergence": 1.112,
       "triageScore": 2.256,
-      "lens": [
-        "top"
-      ]
+      "lens": []
     },
     {
       "pspId": 6447,
@@ -5386,7 +5345,9 @@
       "tenureDays": 293,
       "componentDivergence": 0.806,
       "triageScore": 2.256,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 7007,
@@ -5415,7 +5376,9 @@
       "tenureDays": 293,
       "componentDivergence": 0.556,
       "triageScore": 2.253,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 6409,
@@ -5444,7 +5407,9 @@
       "tenureDays": 293,
       "componentDivergence": 0.824,
       "triageScore": 2.163,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 6209,
@@ -5502,7 +5467,9 @@
       "tenureDays": 293,
       "componentDivergence": 0.521,
       "triageScore": 1.979,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 7023,
@@ -5531,9 +5498,7 @@
       "tenureDays": 293,
       "componentDivergence": 1.215,
       "triageScore": 1.861,
-      "lens": [
-        "divergence"
-      ]
+      "lens": []
     },
     {
       "pspId": 6463,
@@ -5562,9 +5527,7 @@
       "tenureDays": 293,
       "componentDivergence": 1.249,
       "triageScore": 1.839,
-      "lens": [
-        "divergence"
-      ]
+      "lens": []
     },
     {
       "pspId": 7037,
@@ -5593,7 +5556,9 @@
       "tenureDays": 293,
       "componentDivergence": 0.83,
       "triageScore": 1.835,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 6254,
@@ -5622,7 +5587,10 @@
       "tenureDays": 293,
       "componentDivergence": 0.59,
       "triageScore": 1.717,
-      "lens": []
+      "lens": [
+        "bottom",
+        "high-triage"
+      ]
     },
     {
       "pspId": 6473,
@@ -5651,9 +5619,7 @@
       "tenureDays": 293,
       "componentDivergence": 0.652,
       "triageScore": 1.632,
-      "lens": [
-        "top"
-      ]
+      "lens": []
     },
     {
       "pspId": 7005,
@@ -5682,7 +5648,9 @@
       "tenureDays": 293,
       "componentDivergence": 0.671,
       "triageScore": 1.597,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 6515,
@@ -5711,7 +5679,9 @@
       "tenureDays": 293,
       "componentDivergence": 0.761,
       "triageScore": 1.585,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 6172,
@@ -5769,7 +5739,10 @@
       "tenureDays": 293,
       "componentDivergence": 0.994,
       "triageScore": 1.526,
-      "lens": []
+      "lens": [
+        "divergence",
+        "high-triage"
+      ]
     },
     {
       "pspId": 7003,
@@ -5798,7 +5771,9 @@
       "tenureDays": 293,
       "componentDivergence": 0.779,
       "triageScore": 1.516,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 7001,
@@ -5827,7 +5802,9 @@
       "tenureDays": 293,
       "componentDivergence": 0.854,
       "triageScore": 1.44,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 7061,
@@ -5856,7 +5833,9 @@
       "tenureDays": 293,
       "componentDivergence": 1.09,
       "triageScore": 1.368,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 6997,
@@ -5885,7 +5864,9 @@
       "tenureDays": 293,
       "componentDivergence": 0.813,
       "triageScore": 1.346,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 6754,
@@ -5914,7 +5895,10 @@
       "tenureDays": 293,
       "componentDivergence": 1.038,
       "triageScore": 1.346,
-      "lens": []
+      "lens": [
+        "divergence",
+        "high-triage"
+      ]
     },
     {
       "pspId": 7048,
@@ -5943,7 +5927,10 @@
       "tenureDays": 293,
       "componentDivergence": 0.466,
       "triageScore": 1.332,
-      "lens": []
+      "lens": [
+        "top",
+        "high-triage"
+      ]
     },
     {
       "pspId": 7044,
@@ -5972,7 +5959,9 @@
       "tenureDays": 293,
       "componentDivergence": 0.964,
       "triageScore": 1.237,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 7057,
@@ -6001,7 +5990,10 @@
       "tenureDays": 293,
       "componentDivergence": 0.488,
       "triageScore": 1.217,
-      "lens": []
+      "lens": [
+        "top",
+        "high-triage"
+      ]
     },
     {
       "pspId": 6552,
@@ -6030,7 +6022,9 @@
       "tenureDays": 293,
       "componentDivergence": 0.691,
       "triageScore": 1.189,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 6524,
@@ -6059,7 +6053,9 @@
       "tenureDays": 293,
       "componentDivergence": 0.879,
       "triageScore": 1.165,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 6999,
@@ -6088,7 +6084,9 @@
       "tenureDays": 293,
       "componentDivergence": 0.633,
       "triageScore": 1.104,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     },
     {
       "pspId": 6451,
@@ -6117,7 +6115,10 @@
       "tenureDays": 293,
       "componentDivergence": 0.477,
       "triageScore": 1.072,
-      "lens": []
+      "lens": [
+        "bottom",
+        "high-triage"
+      ]
     },
     {
       "pspId": 6185,
@@ -6146,599 +6147,571 @@
       "tenureDays": 293,
       "componentDivergence": 0.56,
       "triageScore": 0.732,
-      "lens": []
+      "lens": [
+        "high-triage"
+      ]
     }
   ],
   "army": [
     {
-      "pspId": 6537,
-      "name": "Jan Lipavský",
-      "club": "ODS",
-      "score": 74.7,
-      "lens": [
-        "high-triage"
-      ],
-      "triageScore": 5.641,
-      "z": 0.51,
-      "neverCastBallot": false,
-      "hasPsp9": false
-    },
-    {
-      "pspId": 7010,
-      "name": "Oto Klempíř",
-      "club": "MS",
-      "score": 51,
+      "pspId": 6240,
+      "name": "Karel Tureček",
+      "club": "ANO2011",
+      "score": 52.1,
       "lens": [
         "bottom",
+        "divergence",
         "high-triage"
       ],
-      "triageScore": 5.399,
-      "z": -0.98,
+      "triageScore": 3.481,
+      "z": -0.54,
+      "neverCastBallot": false,
+      "hasPsp9": true
+    },
+    {
+      "pspId": 7035,
+      "name": "Barbora Pipášová",
+      "club": "Piráti",
+      "score": 78.6,
+      "lens": [
+        "high-triage"
+      ],
+      "triageScore": 3.309,
+      "z": 0.53,
       "neverCastBallot": false,
       "hasPsp9": false
     },
     {
-      "pspId": 7027,
-      "name": "Irena Němcová",
-      "club": "SPD",
-      "score": 61.2,
+      "pspId": 7053,
+      "name": "Václav Trojan",
+      "club": "ANO2011",
+      "score": 63.7,
+      "lens": [
+        "divergence",
+        "high-triage"
+      ],
+      "triageScore": 3.18,
+      "z": 0.12,
+      "neverCastBallot": false,
+      "hasPsp9": false
+    },
+    {
+      "pspId": 7012,
+      "name": "Vladimír Kolek",
+      "club": "ANO2011",
+      "score": 56.7,
       "lens": [
         "high-triage"
       ],
-      "triageScore": 5.396,
+      "triageScore": 3.179,
+      "z": -0.28,
+      "neverCastBallot": false,
+      "hasPsp9": false
+    },
+    {
+      "pspId": 6782,
+      "name": "Drahoslav Ryba",
+      "club": "ANO2011",
+      "score": 71,
+      "lens": [
+        "high-triage"
+      ],
+      "triageScore": 3.159,
+      "z": 0.54,
+      "neverCastBallot": false,
+      "hasPsp9": true
+    },
+    {
+      "pspId": 6758,
+      "name": "Igor Hendrych",
+      "club": "ANO2011",
+      "score": 79.9,
+      "lens": [
+        "high-triage"
+      ],
+      "triageScore": 3.104,
+      "z": 1.05,
+      "neverCastBallot": false,
+      "hasPsp9": true
+    },
+    {
+      "pspId": 7040,
+      "name": "Zuzana Mrázová",
+      "club": "ANO2011",
+      "score": 55.8,
+      "lens": [
+        "divergence",
+        "high-triage"
+      ],
+      "triageScore": 3.011,
       "z": -0.33,
       "neverCastBallot": false,
       "hasPsp9": false
     },
     {
-      "pspId": 7066,
-      "name": "Vlastimil Hebr",
-      "club": "ANO2011",
-      "score": 69.7,
-      "lens": [
-        "high-triage"
-      ],
-      "triageScore": 5.395,
-      "z": 0.47,
-      "neverCastBallot": false,
-      "hasPsp9": false
-    },
-    {
-      "pspId": 6730,
-      "name": "Lubomír Wenzl",
-      "club": "ANO2011",
-      "score": 68.4,
-      "lens": [
-        "high-triage"
-      ],
-      "triageScore": 5.362,
-      "z": 0.39,
-      "neverCastBallot": false,
-      "hasPsp9": true
-    },
-    {
-      "pspId": 7043,
-      "name": "Štěpán Slovák",
-      "club": "ODS",
-      "score": 82.1,
-      "lens": [
-        "high-triage"
-      ],
-      "triageScore": 5.354,
-      "z": 0.92,
-      "neverCastBallot": false,
-      "hasPsp9": false
-    },
-    {
-      "pspId": 7038,
-      "name": "Barbora Rázga",
-      "club": "ANO2011",
-      "score": 78,
-      "lens": [
-        "high-triage"
-      ],
-      "triageScore": 5.304,
-      "z": 0.94,
-      "neverCastBallot": false,
-      "hasPsp9": false
-    },
-    {
-      "pspId": 7000,
-      "name": "Denis Doksanský",
-      "club": "ANO2011",
-      "score": 72.6,
-      "lens": [
-        "high-triage"
-      ],
-      "triageScore": 5.23,
-      "z": 0.63,
-      "neverCastBallot": false,
-      "hasPsp9": false
-    },
-    {
-      "pspId": 5903,
-      "name": "Jana Černochová",
-      "club": "ODS",
-      "score": 70.9,
-      "lens": [
-        "high-triage"
-      ],
-      "triageScore": 4.908,
-      "z": 0.31,
-      "neverCastBallot": false,
-      "hasPsp9": true
-    },
-    {
-      "pspId": 6780,
-      "name": "Berenika Peštová",
-      "club": "ANO2011",
+      "pspId": 6766,
+      "name": "Eliška Olšáková",
+      "club": "STAN",
       "score": 75.2,
       "lens": [
         "high-triage"
       ],
-      "triageScore": 4.722,
-      "z": 0.78,
+      "triageScore": 2.966,
+      "z": -0.13,
       "neverCastBallot": false,
       "hasPsp9": true
     },
     {
-      "pspId": 6509,
-      "name": "Robert Králíček",
+      "pspId": 6527,
+      "name": "David Pražák",
       "club": "ANO2011",
-      "score": 65.4,
+      "score": 71.3,
+      "lens": [
+        "high-triage"
+      ],
+      "triageScore": 2.945,
+      "z": 0.56,
+      "neverCastBallot": false,
+      "hasPsp9": true
+    },
+    {
+      "pspId": 6723,
+      "name": "Jana Berkovcová",
+      "club": "ANO2011",
+      "score": 55.6,
+      "lens": [
+        "bottom",
+        "high-triage"
+      ],
+      "triageScore": 2.928,
+      "z": -0.34,
+      "neverCastBallot": false,
+      "hasPsp9": true
+    },
+    {
+      "pspId": 6687,
+      "name": "Jan Jakob",
+      "club": "TOP09",
+      "score": 68.1,
       "lens": [
         "divergence",
         "high-triage"
       ],
-      "triageScore": 4.681,
+      "triageScore": 2.884,
+      "z": -0.47,
+      "neverCastBallot": false,
+      "hasPsp9": true
+    },
+    {
+      "pspId": 6989,
+      "name": "Lucie Bartošová",
+      "club": "ODS",
+      "score": 65.7,
+      "lens": [
+        "high-triage"
+      ],
+      "triageScore": 2.882,
+      "z": 0.02,
+      "neverCastBallot": false,
+      "hasPsp9": false
+    },
+    {
+      "pspId": 6216,
+      "name": "Michal Kučera",
+      "club": "TOP09",
+      "score": 74.5,
+      "lens": [
+        "high-triage"
+      ],
+      "triageScore": 2.84,
       "z": 0.22,
       "neverCastBallot": false,
       "hasPsp9": true
     },
     {
-      "pspId": 7058,
-      "name": "Libor Vondráček",
-      "club": "SPD",
-      "score": 85,
+      "pspId": 6763,
+      "name": "Michaela Šebelová",
+      "club": "STAN",
+      "score": 81.1,
       "lens": [
         "top",
         "high-triage"
       ],
-      "triageScore": 4.561,
-      "z": 1.01,
+      "triageScore": 2.681,
+      "z": 0.38,
+      "neverCastBallot": false,
+      "hasPsp9": true
+    },
+    {
+      "pspId": 6064,
+      "name": "Miroslav Ševčík",
+      "club": "SPD",
+      "score": 76,
+      "lens": [
+        "high-triage"
+      ],
+      "triageScore": 2.603,
+      "z": 0.51,
       "neverCastBallot": false,
       "hasPsp9": false
     },
     {
-      "pspId": 6987,
-      "name": "Jiří Barták",
-      "club": "MS",
+      "pspId": 7049,
+      "name": "Gabriela Svárovská",
+      "club": "Piráti",
+      "score": 80.6,
+      "lens": [
+        "top",
+        "high-triage"
+      ],
+      "triageScore": 2.541,
+      "z": 0.64,
+      "neverCastBallot": false,
+      "hasPsp9": false
+    },
+    {
+      "pspId": 7051,
+      "name": "Vendula Svobodová",
+      "club": "Piráti",
+      "score": 69.3,
+      "lens": [
+        "high-triage"
+      ],
+      "triageScore": 2.52,
+      "z": 0.01,
+      "neverCastBallot": false,
+      "hasPsp9": false
+    },
+    {
+      "pspId": 6803,
+      "name": "Jiří Horák",
+      "club": "KDU-ČSL",
+      "score": 80.4,
+      "lens": [
+        "top",
+        "high-triage"
+      ],
+      "triageScore": 2.513,
+      "z": 0.16,
+      "neverCastBallot": false,
+      "hasPsp9": true
+    },
+    {
+      "pspId": 7030,
+      "name": "Jan Papajanovský",
+      "club": "STAN",
+      "score": 82.9,
+      "lens": [
+        "top",
+        "high-triage"
+      ],
+      "triageScore": 2.452,
+      "z": 0.53,
+      "neverCastBallot": false,
+      "hasPsp9": false
+    },
+    {
+      "pspId": 7024,
+      "name": "Michaela Moricová",
+      "club": "Piráti",
+      "score": 57.5,
+      "lens": [
+        "high-triage"
+      ],
+      "triageScore": 2.428,
+      "z": -0.65,
+      "neverCastBallot": false,
+      "hasPsp9": false
+    },
+    {
+      "pspId": 6447,
+      "name": "Kamal Farhan",
+      "club": "ANO2011",
+      "score": 62.6,
+      "lens": [
+        "high-triage"
+      ],
+      "triageScore": 2.256,
+      "z": 0.06,
+      "neverCastBallot": false,
+      "hasPsp9": true
+    },
+    {
+      "pspId": 7007,
+      "name": "Monika Hubíková",
+      "club": "ANO2011",
+      "score": 56.8,
+      "lens": [
+        "high-triage"
+      ],
+      "triageScore": 2.253,
+      "z": -0.27,
+      "neverCastBallot": false,
+      "hasPsp9": false
+    },
+    {
+      "pspId": 6409,
+      "name": "František Petrtýl",
+      "club": "ANO2011",
       "score": 60,
       "lens": [
         "high-triage"
       ],
-      "triageScore": 4.492,
-      "z": -0.33,
-      "neverCastBallot": false,
-      "hasPsp9": false
-    },
-    {
-      "pspId": 6770,
-      "name": "Renata Oulehlová",
-      "club": "ANO2011",
-      "score": 77.9,
-      "lens": [
-        "high-triage"
-      ],
-      "triageScore": 4.437,
-      "z": 0.93,
+      "triageScore": 2.163,
+      "z": -0.09,
       "neverCastBallot": false,
       "hasPsp9": true
     },
     {
-      "pspId": 7011,
-      "name": "Matěj Hlavatý",
-      "club": "STAN",
-      "score": 81.2,
+      "pspId": 6745,
+      "name": "Marie Pošarová",
+      "club": "SPD",
+      "score": 77.3,
       "lens": [
         "high-triage"
       ],
-      "triageScore": 4.357,
-      "z": 0.39,
-      "neverCastBallot": false,
-      "hasPsp9": false
-    },
-    {
-      "pspId": 5943,
-      "name": "Helena Langšádlová",
-      "club": "TOP09",
-      "score": 85.3,
-      "lens": [
-        "top",
-        "high-triage"
-      ],
-      "triageScore": 4.333,
-      "z": 1.37,
+      "triageScore": 1.979,
+      "z": 0.58,
       "neverCastBallot": false,
       "hasPsp9": true
     },
     {
-      "pspId": 6491,
-      "name": "Adam Vojtěch",
+      "pspId": 7037,
+      "name": "Jindřich Rajchl",
+      "club": "SPD",
+      "score": 72.7,
+      "lens": [
+        "high-triage"
+      ],
+      "triageScore": 1.835,
+      "z": 0.32,
+      "neverCastBallot": false,
+      "hasPsp9": false
+    },
+    {
+      "pspId": 6254,
+      "name": "Věra Adámková",
       "club": "ANO2011",
-      "score": 52.5,
+      "score": 52.4,
       "lens": [
+        "bottom",
         "high-triage"
       ],
-      "triageScore": 4.33,
-      "z": -0.51,
-      "neverCastBallot": false,
-      "hasPsp9": false
-    },
-    {
-      "pspId": 7017,
-      "name": "Vojtěch Krňanský",
-      "club": "MS",
-      "score": 65.7,
-      "lens": [
-        "high-triage"
-      ],
-      "triageScore": 4.321,
-      "z": 0.08,
-      "neverCastBallot": false,
-      "hasPsp9": false
-    },
-    {
-      "pspId": 7050,
-      "name": "Jan Sviták",
-      "club": "STAN",
-      "score": 61.9,
-      "lens": [
-        "high-triage"
-      ],
-      "triageScore": 4.295,
-      "z": -1.26,
-      "neverCastBallot": false,
-      "hasPsp9": false
-    },
-    {
-      "pspId": 7029,
-      "name": "Pavel Outrata",
-      "club": "ANO2011",
-      "score": 69.4,
-      "lens": [
-        "high-triage"
-      ],
-      "triageScore": 4.261,
-      "z": 0.45,
-      "neverCastBallot": false,
-      "hasPsp9": false
-    },
-    {
-      "pspId": 7008,
-      "name": "Zdena Kašparová",
-      "club": "STAN",
-      "score": 54.8,
-      "lens": [
-        "high-triage"
-      ],
-      "triageScore": 4.242,
-      "z": -1.87,
-      "neverCastBallot": false,
-      "hasPsp9": false
-    },
-    {
-      "pspId": 6482,
-      "name": "Vlastimil Válek",
-      "club": "TOP09",
-      "score": 70,
-      "lens": [
-        "high-triage"
-      ],
-      "triageScore": 4.215,
-      "z": -0.26,
+      "triageScore": 1.717,
+      "z": -0.52,
       "neverCastBallot": false,
       "hasPsp9": true
     },
     {
-      "pspId": 6946,
-      "name": "Josef Váňa",
+      "pspId": 7005,
+      "name": "Karin Gajdová",
       "club": "ANO2011",
-      "score": 51.5,
+      "score": 57.4,
       "lens": [
         "high-triage"
       ],
-      "triageScore": 4.158,
-      "z": -0.57,
-      "neverCastBallot": false,
-      "hasPsp9": true
-    },
-    {
-      "pspId": 7032,
-      "name": "Jana Patková",
-      "club": "Piráti",
-      "score": 57.1,
-      "lens": [
-        "high-triage"
-      ],
-      "triageScore": 4.155,
-      "z": -0.67,
+      "triageScore": 1.597,
+      "z": -0.24,
       "neverCastBallot": false,
       "hasPsp9": false
     },
     {
-      "pspId": 6475,
-      "name": "Monika Oborná",
-      "club": "ANO2011",
-      "score": 61.8,
-      "lens": [
-        "high-triage"
-      ],
-      "triageScore": 4.137,
-      "z": 0.02,
-      "neverCastBallot": false,
-      "hasPsp9": true
-    },
-    {
-      "pspId": 7002,
-      "name": "Karel Dvořák",
-      "club": "STAN",
-      "score": 85.1,
-      "lens": [
-        "top",
-        "high-triage"
-      ],
-      "triageScore": 4.119,
-      "z": 0.72,
-      "neverCastBallot": false,
-      "hasPsp9": false
-    },
-    {
-      "pspId": 6732,
-      "name": "Ivana Mádlová",
+      "pspId": 6515,
+      "name": "Jiří Strýček",
       "club": "ANO2011",
       "score": 63.7,
       "lens": [
         "high-triage"
       ],
-      "triageScore": 3.961,
+      "triageScore": 1.585,
       "z": 0.12,
       "neverCastBallot": false,
       "hasPsp9": true
     },
     {
-      "pspId": 6743,
-      "name": "Robert Stržínek",
-      "club": "ANO2011",
-      "score": 75.8,
+      "pspId": 7013,
+      "name": "Veronika Kovářová",
+      "club": "Piráti",
+      "score": 66,
       "lens": [
+        "divergence",
         "high-triage"
       ],
-      "triageScore": 3.952,
-      "z": 0.81,
-      "neverCastBallot": false,
-      "hasPsp9": true
-    },
-    {
-      "pspId": 7056,
-      "name": "Jitka Volfová",
-      "club": "ANO2011",
-      "score": 50.5,
-      "lens": [
-        "bottom",
-        "high-triage"
-      ],
-      "triageScore": 3.907,
-      "z": -0.63,
+      "triageScore": 1.526,
+      "z": -0.17,
       "neverCastBallot": false,
       "hasPsp9": false
     },
     {
-      "pspId": 6508,
-      "name": "Radek Koten",
+      "pspId": 7003,
+      "name": "Irena Ferčíková Konečná",
+      "club": "Piráti",
+      "score": 77.8,
+      "lens": [
+        "high-triage"
+      ],
+      "triageScore": 1.516,
+      "z": 0.49,
+      "neverCastBallot": false,
+      "hasPsp9": false
+    },
+    {
+      "pspId": 7001,
+      "name": "Tomáš Doležal",
       "club": "SPD",
-      "score": 60.9,
+      "score": 68.2,
       "lens": [
         "high-triage"
       ],
-      "triageScore": 3.848,
-      "z": -0.34,
-      "neverCastBallot": false,
-      "hasPsp9": true
-    },
-    {
-      "pspId": 6201,
-      "name": "Miloslav Janulík",
-      "club": "ANO2011",
-      "score": 65.9,
-      "lens": [
-        "high-triage"
-      ],
-      "triageScore": 3.846,
-      "z": 0.25,
-      "neverCastBallot": false,
-      "hasPsp9": true
-    },
-    {
-      "pspId": 7065,
-      "name": "Martin Šmída",
-      "club": "Piráti",
-      "score": 81.1,
-      "lens": [
-        "high-triage"
-      ],
-      "triageScore": 3.77,
-      "z": 0.67,
+      "triageScore": 1.44,
+      "z": 0.07,
       "neverCastBallot": false,
       "hasPsp9": false
     },
     {
-      "pspId": 6433,
-      "name": "Ivan Bartoš",
-      "club": "Piráti",
-      "score": 77.7,
+      "pspId": 7061,
+      "name": "Ester Weimerová",
+      "club": "STAN",
+      "score": 76,
       "lens": [
         "high-triage"
       ],
-      "triageScore": 3.753,
-      "z": 0.48,
-      "neverCastBallot": false,
-      "hasPsp9": true
-    },
-    {
-      "pspId": 6996,
-      "name": "Igor Červený",
-      "club": "MS",
-      "score": 66.6,
-      "lens": [
-        "high-triage"
-      ],
-      "triageScore": 3.727,
-      "z": 0.15,
+      "triageScore": 1.368,
+      "z": -0.06,
       "neverCastBallot": false,
       "hasPsp9": false
     },
     {
-      "pspId": 5273,
-      "name": "Jiří Pospíšil",
+      "pspId": 6754,
+      "name": "Matěj Ondřej Havel",
       "club": "TOP09",
-      "score": 58.9,
+      "score": 71.5,
       "lens": [
+        "divergence",
         "high-triage"
       ],
-      "triageScore": 3.672,
-      "z": -1.44,
-      "neverCastBallot": false,
-      "hasPsp9": false
-    },
-    {
-      "pspId": 6769,
-      "name": "Hayato Okamura",
-      "club": "KDU-ČSL",
-      "score": 70.4,
-      "lens": [
-        "high-triage"
-      ],
-      "triageScore": 3.581,
-      "z": -0.68,
+      "triageScore": 1.346,
+      "z": -0.1,
       "neverCastBallot": false,
       "hasPsp9": true
     },
     {
-      "pspId": 6490,
-      "name": "Petr Vrána",
-      "club": "ANO2011",
-      "score": 48.2,
+      "pspId": 6997,
+      "name": "Adriana Chochelová",
+      "club": "STAN",
+      "score": 72.3,
       "lens": [
-        "bottom"
+        "high-triage"
       ],
-      "triageScore": 3.339,
-      "z": -0.76,
-      "neverCastBallot": false,
-      "hasPsp9": true
-    },
-    {
-      "pspId": 6992,
-      "name": "Zdeňka Blišťanová",
-      "club": "TOP09",
-      "score": 73.3,
-      "lens": [
-        "divergence"
-      ],
-      "triageScore": 3.248,
-      "z": 0.09,
+      "triageScore": 1.346,
+      "z": -0.37,
       "neverCastBallot": false,
       "hasPsp9": false
     },
     {
-      "pspId": 6905,
-      "name": "Andrea Hoffmannová",
+      "pspId": 7048,
+      "name": "Kateřina Stojanová",
       "club": "Piráti",
-      "score": 47.2,
+      "score": 80.1,
+      "lens": [
+        "top",
+        "high-triage"
+      ],
+      "triageScore": 1.332,
+      "z": 0.62,
+      "neverCastBallot": false,
+      "hasPsp9": false
+    },
+    {
+      "pspId": 7044,
+      "name": "Julie Smejkalová",
+      "club": "STAN",
+      "score": 75.7,
+      "lens": [
+        "high-triage"
+      ],
+      "triageScore": 1.237,
+      "z": -0.08,
+      "neverCastBallot": false,
+      "hasPsp9": false
+    },
+    {
+      "pspId": 7057,
+      "name": "Samuel Volpe",
+      "club": "Piráti",
+      "score": 80,
+      "lens": [
+        "top",
+        "high-triage"
+      ],
+      "triageScore": 1.217,
+      "z": 0.61,
+      "neverCastBallot": false,
+      "hasPsp9": false
+    },
+    {
+      "pspId": 6552,
+      "name": "Zdeněk Hřib",
+      "club": "Piráti",
+      "score": 62.7,
+      "lens": [
+        "high-triage"
+      ],
+      "triageScore": 1.189,
+      "z": -0.36,
+      "neverCastBallot": false,
+      "hasPsp9": false
+    },
+    {
+      "pspId": 6524,
+      "name": "Vít Rakušan",
+      "club": "STAN",
+      "score": 75.4,
+      "lens": [
+        "high-triage"
+      ],
+      "triageScore": 1.165,
+      "z": -0.11,
+      "neverCastBallot": false,
+      "hasPsp9": true
+    },
+    {
+      "pspId": 6999,
+      "name": "Katerina Demetrashvili",
+      "club": "Piráti",
+      "score": 65.5,
+      "lens": [
+        "high-triage"
+      ],
+      "triageScore": 1.104,
+      "z": -0.2,
+      "neverCastBallot": false,
+      "hasPsp9": false
+    },
+    {
+      "pspId": 6451,
+      "name": "Stanislav Fridrich",
+      "club": "ANO2011",
+      "score": 52.7,
       "lens": [
         "bottom",
-        "divergence"
+        "high-triage"
       ],
-      "triageScore": 3.247,
-      "z": -1.22,
-      "neverCastBallot": false,
-      "hasPsp9": false
-    },
-    {
-      "pspId": 6431,
-      "name": "Lenka Dražilová",
-      "club": "ANO2011",
-      "score": 67,
-      "lens": [
-        "divergence"
-      ],
-      "triageScore": 3.184,
-      "z": 0.31,
+      "triageScore": 1.072,
+      "z": -0.5,
       "neverCastBallot": false,
       "hasPsp9": true
     },
     {
-      "pspId": 7052,
-      "name": "František Talíř",
-      "club": "KDU-ČSL",
-      "score": 85.2,
-      "lens": [
-        "top"
-      ],
-      "triageScore": 2.316,
-      "z": 0.56,
-      "neverCastBallot": false,
-      "hasPsp9": false
-    },
-    {
-      "pspId": 6986,
-      "name": "Hana Ančincová",
-      "club": "Piráti",
-      "score": 83.9,
-      "lens": [
-        "top"
-      ],
-      "triageScore": 2.256,
-      "z": 0.83,
-      "neverCastBallot": false,
-      "hasPsp9": false
-    },
-    {
-      "pspId": 7023,
-      "name": "Lenka Martínková Španihelová",
-      "club": "Piráti",
-      "score": 63,
-      "lens": [
-        "divergence"
-      ],
-      "triageScore": 1.861,
-      "z": -0.34,
-      "neverCastBallot": false,
-      "hasPsp9": false
-    },
-    {
-      "pspId": 6463,
-      "name": "Aleš Juchelka",
+      "pspId": 6185,
+      "name": "Milan Brázdil",
       "club": "ANO2011",
-      "score": 55.5,
+      "score": 60.5,
       "lens": [
-        "divergence"
+        "high-triage"
       ],
-      "triageScore": 1.839,
-      "z": -0.34,
-      "neverCastBallot": false,
-      "hasPsp9": true
-    },
-    {
-      "pspId": 6473,
-      "name": "Olga Richterová",
-      "club": "Piráti",
-      "score": 84.2,
-      "lens": [
-        "top"
-      ],
-      "triageScore": 1.632,
-      "z": 0.85,
+      "triageScore": 0.732,
+      "z": -0.06,
       "neverCastBallot": false,
       "hasPsp9": true
     }

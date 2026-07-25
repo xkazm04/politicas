@@ -1,0 +1,600 @@
+{
+  "batch": 6,
+  "track": "money",
+  "kind": "linked_to-dataor-corroboration-annotation",
+  "generatedAt": "2026-07-25",
+  "note": "PROPOSALS ONLY — props-merge onto EXISTING linked_to edges. dataor.justice.cz bulk-ISVR corroboration sweep over the current open population (32 ties: 23 conflicting + 9 registry-unconfirmed; PRaK excluded, handled by the separate Job B re-point payload). Deterministic (no LLM), exact-birthdate matching only, same discipline as reconcile-ares-vr.ts. Never creates a person↔company edge, never touches review_state.",
+  "scopeCorrection": "Batch-006 brief cited '81 open corroborations' (pre-OSVČ-purge count, ledger.json batch2: 23 conflicting + 58 registry-unconfirmed). Batch 004's purge removed 49 of the 58 (false ico:04627695 edges) — the live open population today is 32, not 81. This payload covers all 32 minus PRaK (Job B).",
+  "provenanceStamp": {
+    "track": "money",
+    "pass": null,
+    "method": "verdict",
+    "ref": "case-money/batch-006 · dataor bulk-ISVR corroboration sweep (deterministic)",
+    "computedAt": "2026-07-25"
+  },
+  "edges": [
+    {
+      "src": "psp:person:346",
+      "rel": "linked_to",
+      "dst": "company:ico:63113074",
+      "mp": "Petr Bendl",
+      "company": "Svaz měst a obcí České republiky",
+      "propsMerge": {
+        "flags": [
+          "dataor-court-form-unresolved"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "court-form-unresolved",
+          "resolverSource": "spisova-znacka",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:346",
+      "rel": "linked_to",
+      "dst": "company:ico:70889953",
+      "mp": "Petr Bendl",
+      "company": "Povodí Vltavy, státní podnik",
+      "propsMerge": {
+        "flags": [
+          "dataor-ico-not-in-dataset"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "ico-not-in-dataset",
+          "datasetId": "zvlastni_org-full-praha-2026",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:5226",
+      "rel": "linked_to",
+      "dst": "company:ico:75112779",
+      "mp": "Pavel Žáček",
+      "company": "Ústav pro studium totalitních režimů",
+      "propsMerge": {
+        "flags": [
+          "dataor-checked-not-isvr-registered"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "not-isvr-registered",
+          "pravniForma": "325",
+          "note": "ARES subjekt nemá zdroj 'vr' (veřejný rejstřík) — subjekt zvláštního zákona (např. veřejná instituce), NENÍ v ISVR (Informační systém veřejných rejstříků), stejný zdroj jako ARES VR i dataor.justice.cz bulk export. dataor tedy nemůže tuto vazbu ověřit ani vyvrátit — jde o strukturální mez, ne o chybějící data.",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:5379",
+      "rel": "linked_to",
+      "dst": "company:ico:46678735",
+      "mp": "Jan Bauer",
+      "company": "Robert Bosch, spol. s r.o.",
+      "propsMerge": {
+        "flags": [
+          "dataor-no-match-some-officers-birthdate-null"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "no-match",
+          "datasetId": "sro-full-ceske_budejovice-2026",
+          "officersRead": 26,
+          "officersWithoutBirthdate": 6,
+          "note": "Žádný záznam v dataor (sro-full-ceske_budejovice-2026) nemá shodné datum narození (1969-04-27) — vazba tvrzená grafem NENÍ potvrzena ani po kontrole úplné historie funkcí z bulk ISVR exportu. Pozn.: 6 záznam(ů) v tomto souboru nemá datum narození vyplněné (typicky pre-2000 zápisy) — u těch nelze shodu ani vyloučit.",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:5379",
+      "rel": "linked_to",
+      "dst": "company:ico:61065480",
+      "mp": "Jan Bauer",
+      "company": "TAMPA s.r.o.",
+      "propsMerge": {
+        "flags": [
+          "dataor-fetch-incomplete"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "fetch-incomplete",
+          "datasetId": "sro-full-praha-2026",
+          "error": "batch network-budget exceeded (25s, uncached large file)",
+          "note": "Nedokončeno v rámci síťového rozpočtu této dávky — soubor je velký (desítky až stovky MB) a spojení bylo v této dávce pomalé. Nejde o strukturální zápor, jen o nedokončenou kontrolu.",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:5512",
+      "rel": "linked_to",
+      "dst": "company:ico:41197518",
+      "mp": "Boris Šťastný",
+      "company": "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+      "propsMerge": {
+        "flags": [
+          "dataor-checked-not-isvr-registered"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "not-isvr-registered",
+          "pravniForma": "391",
+          "note": "ARES subjekt nemá zdroj 'vr' (veřejný rejstřík) — subjekt zvláštního zákona (např. veřejná instituce), NENÍ v ISVR (Informační systém veřejných rejstříků), stejný zdroj jako ARES VR i dataor.justice.cz bulk export. dataor tedy nemůže tuto vazbu ověřit ani vyvrátit — jde o strukturální mez, ne o chybějící data.",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:5512",
+      "rel": "linked_to",
+      "dst": "company:ico:70885117",
+      "mp": "Boris Šťastný",
+      "company": "Česká lékařská komora - o.s., z.s.",
+      "propsMerge": {
+        "flags": [
+          "dataor-ico-not-in-dataset"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "ico-not-in-dataset",
+          "datasetId": "nevlad_org-full-praha-2026",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:5700",
+      "rel": "linked_to",
+      "dst": "company:ico:41197518",
+      "mp": "Ivan Adamec",
+      "company": "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+      "propsMerge": {
+        "flags": [
+          "dataor-checked-not-isvr-registered"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "not-isvr-registered",
+          "pravniForma": "391",
+          "note": "ARES subjekt nemá zdroj 'vr' (veřejný rejstřík) — subjekt zvláštního zákona (např. veřejná instituce), NENÍ v ISVR (Informační systém veřejných rejstříků), stejný zdroj jako ARES VR i dataor.justice.cz bulk export. dataor tedy nemůže tuto vazbu ověřit ani vyvrátit — jde o strukturální mez, ne o chybějící data.",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:5899",
+      "rel": "linked_to",
+      "dst": "company:ico:29211808",
+      "mp": "Jan Bureš",
+      "company": "Léčebné lázně Jáchymov a. s.",
+      "propsMerge": {
+        "flags": [
+          "dataor-no-match"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "no-match",
+          "datasetId": "as-full-plzen-2026",
+          "officersRead": 36,
+          "officersWithoutBirthdate": 0,
+          "note": "Žádný záznam v dataor (as-full-plzen-2026) nemá shodné datum narození (1974-03-31) — vazba tvrzená grafem NENÍ potvrzena ani po kontrole úplné historie funkcí z bulk ISVR exportu.",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:5903",
+      "rel": "linked_to",
+      "dst": "company:ico:26419068",
+      "mp": "Jana Černochová",
+      "company": "Nadační fond Českého rozhlasu",
+      "propsMerge": {
+        "flags": [
+          "dataor-ico-not-in-dataset"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "ico-not-in-dataset",
+          "datasetId": "nevlad_org-full-praha-2026",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:5903",
+      "rel": "linked_to",
+      "dst": "company:ico:61057606",
+      "mp": "Jana Černochová",
+      "company": "Komwag, podnik čistoty a údržby města, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "role_valid_from": "2007-03-12",
+        "role_valid_to": "2021-12-20",
+        "reviewer_note": "dataor.justice.cz (bulk ISVR export, as-full-praha-2026): člen představenstva (člen statutárního orgánu) 2007-03-12→2021-12-20 — datum narození poslance (1973-10-26) potvrzeno proti záznamu úředníka v B 3826/MSPH. Historie funkcí v záznamu (4 období): člen představenstva 2007-03-12→2011-02-21; člen představenstva 2012-05-25→2015-06-29; člen představenstva 2015-06-29→2019-06-13; člen představenstva 2019-06-14→2021-12-20. (Pozn.: příčina, proč tuto shodu nezachytila dřívější ARES-VR rekonciliace, nebyla v této dávce zjištěna — ARES VR live endpoint tuto shodu při zpětné kontrole obsahuje.)",
+        "flags": [
+          "dataor-closed"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "match",
+          "datasetId": "as-full-praha-2026",
+          "matchingTerms": 4,
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:6105",
+      "rel": "linked_to",
+      "dst": "company:ico:25124188",
+      "mp": "Tomio Okamura",
+      "company": "MIKI TRAVEL PRAGUE, spol. s r.o.",
+      "propsMerge": {
+        "flags": [
+          "dataor-fetch-incomplete"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "fetch-incomplete",
+          "datasetId": "sro-full-praha-2026",
+          "error": "batch network-budget exceeded (25s, uncached large file)",
+          "note": "Nedokončeno v rámci síťového rozpočtu této dávky — soubor je velký (desítky až stovky MB) a spojení bylo v této dávce pomalé. Nejde o strukturální zápor, jen o nedokončenou kontrolu.",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:6150",
+      "rel": "linked_to",
+      "dst": "company:ico:48207918",
+      "mp": "Andrej Babiš",
+      "company": "AGROPROFIT, spol. s r.o.",
+      "propsMerge": {
+        "flags": [
+          "dataor-no-match-some-officers-birthdate-null"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "no-match",
+          "datasetId": "sro-full-ceske_budejovice-2026",
+          "officersRead": 12,
+          "officersWithoutBirthdate": 4,
+          "note": "Žádný záznam v dataor (sro-full-ceske_budejovice-2026) nemá shodné datum narození (1954-09-02) — vazba tvrzená grafem NENÍ potvrzena ani po kontrole úplné historie funkcí z bulk ISVR exportu. Pozn.: 4 záznam(ů) v tomto souboru nemá datum narození vyplněné (typicky pre-2000 zápisy) — u těch nelze shodu ani vyloučit.",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:6154",
+      "rel": "linked_to",
+      "dst": "company:ico:27116913",
+      "mp": "Marek Ženíšek",
+      "company": "Pojišťovna VZP, a.s.",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz",
+        "role_valid_from": "2013-07-17",
+        "role_valid_to": "2013-10-26",
+        "reviewer_note": "dataor.justice.cz (bulk ISVR export, as-full-praha-2026): člen (člen statutárního orgánu) 2013-07-17→2013-10-26 — datum narození poslance (1978-11-26) potvrzeno proti záznamu úředníka v B 9100/MSPH. (Pozn.: příčina, proč tuto shodu nezachytila dřívější ARES-VR rekonciliace, nebyla v této dávce zjištěna — ARES VR live endpoint tuto shodu při zpětné kontrole obsahuje.)",
+        "flags": [
+          "dataor-closed"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "match",
+          "datasetId": "as-full-praha-2026",
+          "matchingTerms": 1,
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:6185",
+      "rel": "linked_to",
+      "dst": "company:ico:60800691",
+      "mp": "Milan Brázdil",
+      "company": "Vojenská nemocnice Olomouc",
+      "propsMerge": {
+        "flags": [
+          "dataor-checked-not-isvr-registered"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "not-isvr-registered",
+          "pravniForma": "332",
+          "note": "ARES subjekt nemá zdroj 'vr' (veřejný rejstřík) — subjekt zvláštního zákona (např. veřejná instituce), NENÍ v ISVR (Informační systém veřejných rejstříků), stejný zdroj jako ARES VR i dataor.justice.cz bulk export. dataor tedy nemůže tuto vazbu ověřit ani vyvrátit — jde o strukturální mez, ne o chybějící data.",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:6205",
+      "rel": "linked_to",
+      "dst": "company:ico:25586521",
+      "mp": "Marian Jurečka",
+      "company": "AGRO 2000 s.r.o.",
+      "propsMerge": {
+        "flags": [
+          "dataor-fetch-incomplete"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "fetch-incomplete",
+          "datasetId": "sro-full-brno-2026",
+          "error": "batch network-budget exceeded (25s, uncached large file)",
+          "note": "Nedokončeno v rámci síťového rozpočtu této dávky — soubor je velký (desítky až stovky MB) a spojení bylo v této dávce pomalé. Nejde o strukturální zápor, jen o nedokončenou kontrolu.",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:6211",
+      "rel": "linked_to",
+      "dst": "company:ico:45245053",
+      "mp": "Martin Kolovratník",
+      "company": "ČESKÝ ROZHLAS",
+      "propsMerge": {
+        "flags": [
+          "dataor-checked-not-isvr-registered"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "not-isvr-registered",
+          "pravniForma": "361",
+          "note": "ARES subjekt nemá zdroj 'vr' (veřejný rejstřík) — subjekt zvláštního zákona (např. veřejná instituce), NENÍ v ISVR (Informační systém veřejných rejstříků), stejný zdroj jako ARES VR i dataor.justice.cz bulk export. dataor tedy nemůže tuto vazbu ověřit ani vyvrátit — jde o strukturální mez, ne o chybějící data.",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:6216",
+      "rel": "linked_to",
+      "dst": "company:ico:19840659",
+      "mp": "Michal Kučera",
+      "company": "Sirius Praha s.r.o.",
+      "propsMerge": {
+        "flags": [
+          "dataor-fetch-incomplete"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "fetch-incomplete",
+          "datasetId": "sro-full-praha-2026",
+          "error": "batch network-budget exceeded (25s, uncached large file)",
+          "note": "Nedokončeno v rámci síťového rozpočtu této dávky — soubor je velký (desítky až stovky MB) a spojení bylo v této dávce pomalé. Nejde o strukturální zápor, jen o nedokončenou kontrolu.",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:6225",
+      "rel": "linked_to",
+      "dst": "company:ico:00829838",
+      "mp": "Jana Pastuchová",
+      "company": "Nemocnice Jablonec nad Nisou, p.o.",
+      "propsMerge": {
+        "flags": [
+          "dataor-court-form-unresolved"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "court-form-unresolved",
+          "resolverSource": "spisova-znacka",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:6225",
+      "rel": "linked_to",
+      "dst": "company:ico:46744991",
+      "mp": "Jana Pastuchová",
+      "company": "Zdravotnická záchranná služba Libereckého kraje, příspěvková organizace",
+      "propsMerge": {
+        "flags": [
+          "dataor-dataset-not-found"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "dataset-not-found",
+          "datasetId": "po_zzz-full-usti_nad_labem-2026",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:6240",
+      "rel": "linked_to",
+      "dst": "company:ico:60826851",
+      "mp": "Karel Tureček",
+      "company": "Rybářství Třeboň a.s.",
+      "propsMerge": {
+        "flags": [
+          "dataor-no-match-some-officers-birthdate-null"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "no-match",
+          "datasetId": "as-full-ceske_budejovice-2026",
+          "officersRead": 62,
+          "officersWithoutBirthdate": 10,
+          "note": "Žádný záznam v dataor (as-full-ceske_budejovice-2026) nemá shodné datum narození (1971-02-01) — vazba tvrzená grafem NENÍ potvrzena ani po kontrole úplné historie funkcí z bulk ISVR exportu. Pozn.: 10 záznam(ů) v tomto souboru nemá datum narození vyplněné (typicky pre-2000 zápisy) — u těch nelze shodu ani vyloučit.",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:6463",
+      "rel": "linked_to",
+      "dst": "company:ico:00027383",
+      "mp": "Aleš Juchelka",
+      "company": "ČESKÁ TELEVIZE",
+      "propsMerge": {
+        "flags": [
+          "dataor-checked-not-isvr-registered"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "not-isvr-registered",
+          "pravniForma": "361",
+          "note": "ARES subjekt nemá zdroj 'vr' (veřejný rejstřík) — subjekt zvláštního zákona (např. veřejná instituce), NENÍ v ISVR (Informační systém veřejných rejstříků), stejný zdroj jako ARES VR i dataor.justice.cz bulk export. dataor tedy nemůže tuto vazbu ověřit ani vyvrátit — jde o strukturální mez, ne o chybějící data.",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:6463",
+      "rel": "linked_to",
+      "dst": "company:ico:45245053",
+      "mp": "Aleš Juchelka",
+      "company": "ČESKÝ ROZHLAS",
+      "propsMerge": {
+        "flags": [
+          "dataor-checked-not-isvr-registered"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "not-isvr-registered",
+          "pravniForma": "361",
+          "note": "ARES subjekt nemá zdroj 'vr' (veřejný rejstřík) — subjekt zvláštního zákona (např. veřejná instituce), NENÍ v ISVR (Informační systém veřejných rejstříků), stejný zdroj jako ARES VR i dataor.justice.cz bulk export. dataor tedy nemůže tuto vazbu ověřit ani vyvrátit — jde o strukturální mez, ne o chybějící data.",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:6479",
+      "rel": "linked_to",
+      "dst": "company:ico:47122099",
+      "mp": "Lucie Šafránková",
+      "company": "Pražská vysoká škola psychosociálních studií, s.r.o.",
+      "propsMerge": {
+        "flags": [
+          "dataor-fetch-incomplete"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "fetch-incomplete",
+          "datasetId": "sro-full-praha-2026",
+          "error": "batch network-budget exceeded (25s, uncached large file)",
+          "note": "Nedokončeno v rámci síťového rozpočtu této dávky — soubor je velký (desítky až stovky MB) a spojení bylo v této dávce pomalé. Nejde o strukturální zápor, jen o nedokončenou kontrolu.",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:6789",
+      "rel": "linked_to",
+      "dst": "company:ico:27043843",
+      "mp": "Lukáš Vlček",
+      "company": "PRO VYSOČINU, občanské sdružení",
+      "propsMerge": {
+        "flags": [
+          "dataor-ico-not-in-dataset"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "ico-not-in-dataset",
+          "datasetId": "nevlad_org-full-brno-2026",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:6905",
+      "rel": "linked_to",
+      "dst": "company:ico:61989592",
+      "mp": "Andrea Hoffmannová",
+      "company": "Univerzita Palackého v Olomouci",
+      "propsMerge": {
+        "flags": [
+          "dataor-checked-not-isvr-registered"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "not-isvr-registered",
+          "pravniForma": "601",
+          "note": "ARES subjekt nemá zdroj 'vr' (veřejný rejstřík) — subjekt zvláštního zákona (např. veřejná instituce), NENÍ v ISVR (Informační systém veřejných rejstříků), stejný zdroj jako ARES VR i dataor.justice.cz bulk export. dataor tedy nemůže tuto vazbu ověřit ani vyvrátit — jde o strukturální mez, ne o chybějící data.",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:7032",
+      "rel": "linked_to",
+      "dst": "company:ico:00084018",
+      "mp": "Jana Patková",
+      "company": "Hvězdárna a planetárium v Hradci Králové",
+      "propsMerge": {
+        "flags": [
+          "dataor-court-form-unresolved"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "court-form-unresolved",
+          "resolverSource": "spisova-znacka",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:7039",
+      "rel": "linked_to",
+      "dst": "company:ico:26637863",
+      "mp": "Vítězslav Schrek",
+      "company": "AlternativaPro, z.s.",
+      "propsMerge": {
+        "flags": [
+          "dataor-ico-not-in-dataset"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "ico-not-in-dataset",
+          "datasetId": "nevlad_org-full-brno-2026",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:7039",
+      "rel": "linked_to",
+      "dst": "company:ico:70100969",
+      "mp": "Vítězslav Schrek",
+      "company": "Charita Česká republika",
+      "propsMerge": {
+        "flags": [
+          "dataor-checked-not-isvr-registered"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "not-isvr-registered",
+          "pravniForma": "722",
+          "note": "ARES subjekt nemá zdroj 'vr' (veřejný rejstřík) — subjekt zvláštního zákona (např. veřejná instituce), NENÍ v ISVR (Informační systém veřejných rejstříků), stejný zdroj jako ARES VR i dataor.justice.cz bulk export. dataor tedy nemůže tuto vazbu ověřit ani vyvrátit — jde o strukturální mez, ne o chybějící data.",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    },
+    {
+      "src": "psp:person:7063",
+      "rel": "linked_to",
+      "dst": "company:ico:26602351",
+      "mp": "Roman Zarzycký",
+      "company": "HC Plzeň z.s.",
+      "propsMerge": {
+        "flags": [
+          "dataor-ico-not-in-dataset"
+        ],
+        "dataor_check": {
+          "checked": true,
+          "result": "ico-not-in-dataset",
+          "datasetId": "nevlad_org-full-plzen-2026",
+          "checkedAt": "2026-07-25"
+        }
+      }
+    }
+  ]
+}

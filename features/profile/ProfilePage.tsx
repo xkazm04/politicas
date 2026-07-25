@@ -261,8 +261,14 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
             </div>
           ) : (
             <div className="mt-8 flex flex-wrap gap-3">
-              {committees.map((cm) => (
-                <div key={cm.abbrev} className="border-2 border-hairline px-4 py-3">
+              {committees.map((cm, i) => (
+                // batch-006: past seats (toAt in the past — e.g. vacated on taking a
+                // ministerial post) render de-emphasized rather than indistinguishable
+                // from a current seat; getProfileData sorts current seats first.
+                <div
+                  key={`${cm.abbrev}-${i}`}
+                  className={`border-2 border-hairline px-4 py-3 ${cm.current ? "" : "opacity-50"}`}
+                >
                   <p className="text-lg font-black uppercase tracking-tight">{cm.abbrev}</p>
                   <p className="mt-0.5 font-mono text-[11px] uppercase tracking-wider text-steel">
                     {cm.organType ?? "—"} · {cm.role}

@@ -1,0 +1,92 @@
+{
+  "generatedAt": "2026-07-25T00:00:00.000Z",
+  "proposals": [
+    {
+      "id": "psp:person:6524",
+      "name": "Vít Rakušan",
+      "club": "STAN",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["veřejná správa a samospráva", "veřejné zakázky", "ústavní právo", "zahraniční politika a migrace"],
+        "effort_bill_focus": "Rakušan je dle pole submitter skutečným předkladatelem tří tisků: č. 24 (novela zákona o obcích, podán 12. 11. 2025, garančním výborem je Výbor pro veřejnou správu a regionální rozvoj, vláda zaujala neutrální stanovisko), č. 206 (novela zákona o zadávání veřejných zakázek, podán 27. 5. 2026 spolu s K. Dvořákem a L. Vlčkem, vláda podala nesouhlasné stanovisko) a č. 214 (novela Ústavy ČR, podán 4. 6. 2026 s dalšími čtyřmi poslanci STAN, vláda rovněž nesouhlasí, k 25. 7. 2026 v projednávání ve Ústavně-právním výboru). U zbylých čtyř tisků ve vzorku (č. 120 – novela zákona o daních z příjmů, předkladatelka L. Sedmihradská; č. 146 – novela zákonů o obcích/krajích/hl. m. Praze, předkladatelka V. Kovářová; a další dva) je pouze spolupodepsaným, ne předkladatelem. Jako dosluhující ministr vnitra navíc prosadil vládní novelu zákona o Sbírce zákonů a mezinárodních smluv (tisk č. 25, podán 13. 11. 2025 jeho ministerstvem), která byla ve zrychleném režimu schválena Sněmovnou 26. 11. 2025, Senátem 17. 12. 2025 a vyhlášena jako zákon č. 583/2025 Sb. dva dny před koncem jeho ministerského mandátu.",
+        "effort_public_role": "Rakušan byl ministrem vnitra a zároveň místopředsedou vlády od 17. 12. 2021 do 15. 12. 2025 (vláda P. Fialy) — tuto funkci vykonával souběžně s poslaneckým mandátem od 4. 10. 2025 až do jmenování nové vlády. Po odchodu z vlády je nyní řadovým poslancem STAN, členem Zahraničního výboru (od 24. 6. 2026), náhradníkem ve Stálé delegaci Parlamentu do Parlamentního shromáždění Rady Evropy (od 24. 6. 2026) a dle psp.cz i členem Podvýboru pro migrační a azylovou politiku (od 11. 2. 2026) — poslední jmenovaná role tematicky navazuje na jeho ministerskou minulost. Od 26. 6. 2026 je také místopředsedou poslaneckého klubu STAN.",
+        "effort_notes": "Datová anomálie: vstupní pole committees obsahuje položku 'Stálá delegace Parlamentu do Parlamentního shromáždění Rady Evropy' DVAKRÁT se zcela identickými daty (stejné fromAt, stejná role) — výsledný součet (3) tak numericky souhlasí s committee_count=3, ale jde o duplicitní záznam, ne o tři odlišné role; skutečný počet odlišných výborových vazeb je 2 (Zahraniční výbor + delegace), plus podvýbor pro migraci, který v datech chybí úplně. Toto je nový typ anomálie (duplicita, ne offset o jednotku) a doporučuji prioritně ověřit v Case ①. Peněžní ověření (ARES VR, kontrolováno pro všechny 4 subjekty z linkedCompanies): (1) Vodní cesty na Labi, o.p.s. (IČO 02312701) — Rakušan byl předsedou dozorčí rady od 12. 11. 2013 do 28. 2. 2017, role SKONČILA před 9 lety, dnes bez vazby; (2) Změna pro Kolín z.s. (IČO 22874381) — AKTIVNÍ současný člen statutárního orgánu (výboru) od 31. 12. 2021 (s předchozím obdobím 2017–2021), vedle předsedy M. Kašpara; jde o kolínský občanský spolek, tedy neziskovou/občanskou vazbu, ne komerční; (3) SVJ domu v Kolíně (IČO 26745615) — byl místopředsedou výboru 2006–2011, záznam vymazán 2013, tedy 13 let neaktivní a jde navíc o SVJ vlastního bydliště, ne o firmu; (4) Nadační fond Gymnázia Kutná Hora (IČO 68404999) — byl členem správní rady 2010–2013, dnes bez vazby; contractCzk=200000 u tohoto záznamu se týká nějakého toku prostředků do nadačního fondu, nikoli plateb Rakušanovi osobně, a časově nespadá do období jeho členství ve správní radě. Závěr: ze čtyř 'linkedCompanies' je aktivní jediná vazba (Změna pro Kolín z.s.) a ta je občansko-spolková, ne komerční ani finanční — u žádného ze čtyř subjektů VR nenašla důkaz o obchodním/vlastnickém propojení nebo o odměně plynoucí k Rakušanovi v současnosti."
+      },
+      "signal": 0.5,
+      "headline": "Rakušan, bývalý ministr vnitra a místopředseda vlády (2021–2025), dnes řadový poslanec a místopředseda klubu STAN v zahraničně-migrační agendě — ARES VR ověření vyvrací komerční konflikt zájmů u všech čtyř 'linkedCompanies' (tři vazby dávno skončily, jediná aktivní je vedení místního občanského spolku), ale objevuje novou datovou anomálii (duplicitní výborový záznam).",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6524&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=24",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=25",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=206",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=214",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/02312701",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/22874381",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26745615",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/68404999"
+      ]
+    },
+    {
+      "id": "psp:person:6999",
+      "name": "Katerina Demetrashvili",
+      "club": "Piráti",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["ústavní právo", "zahraniční politika", "duševní zdraví a lidská práva"],
+        "effort_bill_focus": "Ve všech třech tiscích ve vzorku je Demetrashvili pouze spolupodepsanou, ne předkladatelkou (submitter je vždy jiné jméno — Z. Hřib u tisku č. 49, O. Richterová u tisku č. 168, K. Stojanová u tisku č. 215), což odpovídá props bills_authored=3 chápanému jako spolupodpisy, nikoli vlastní iniciativy.",
+        "effort_public_role": "Demetrashvili, nejmladší poslankyně ve vzorku (narozena 2003), je členkou Ústavně-právního výboru a Zahraničního výboru (obě role od 11. 11. 2025), Stálé komise pro kontrolu činnosti Úřadu pro zahraniční styky a informace (od 14. 11. 2025) a dle psp.cz i tří tematických podvýborů/komisí (pro duševní zdraví, pro rozvojovou spolupráci a lidská práva v zahraničí, pro svobodu slova) — tyto podvýborové role nejsou ve vstupních datech zachyceny, což odpovídá stejnému, již dříve zdokumentovanému vzorci vylučování podvýborů z committee_count, ne nové anomálii.",
+        "effort_notes": "Numerika souhlasí (committee_count=3 = 3 doložené položky). contributionPsp9=null je očekávané a správné — jde o nově zvolenou poslankyni bez předchozího mandátu v PSP9, žádné mezitermínové srovnání tedy nelze a ani nebylo vytvořeno. Profil je čistý a nekonfliktní: linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření, rebellion_rate téměř nulová (0,001) v souladu s disciplinovaným hlasováním klubu Piráti."
+      },
+      "signal": 0.22,
+      "headline": "Demetrashvili, nejmladší poslankyně ve vzorku (Piráti), má klidný a čistý profil bez vlastní legislativní iniciativy a bez peněžních zjištění — spolupodepisuje tisky předložené zkušenějšími kolegy z klubu a sedí ve třech výborech plus několika tematických podvýborech.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6999&o=10"
+      ]
+    },
+    {
+      "id": "psp:person:6451",
+      "name": "Stanislav Fridrich",
+      "club": "ANO2011",
+      "lens": ["bottom", "high-triage"],
+      "props": {
+        "effort_work_themes": ["věda, vzdělávání a vysoké školství", "zahraniční politika", "zemědělství"],
+        "effort_bill_focus": "Jediný tisk ve vzorku (č. 72 — rozsáhlá novela jednacího řádu Poslanecké sněmovny, zákon 90/1995) je předložen skupinou poslanců vedenou R. Vondráčkem ('Vondráček R. a další'); Fridrich je jedním z cca 29 spolupodepsaných, ne předkladatelem (submitter je Vondráček, ne Fridrich) — bills_authored=1 v props je tedy nutné číst jako spolupodpis, ne vlastní iniciativu. Tisk sám je významný institucionální počin (úprava pravidel jednání Sněmovny, mj. interpelací a poměrného zastoupení) a k 25. 7. 2026 už prošel 3. čtením (1.–3. 7. 2026) a byl 21. 7. 2026 postoupen Senátu jako tisk č. 268 s lhůtou k projednání do 20. 8. 2026 — vláda k němu 23. 12. 2025 vydala souhlasné stanovisko.",
+        "effort_public_role": "Fridrich je členem Výboru pro vědu, vzdělávání, mládež a sport (od 11. 11. 2025), byl členem Zahraničního výboru od 11. 11. 2025 do 6. 3. 2026, kdy přešel do Zemědělského výboru (od 6. 3. 2026) — tato rotace odpovídá přesně datům přechodu mezi oběma výbory ve vstupních datech. Dle psp.cz od 18. 2. 2026 navíc předsedá Podvýboru pro vědu a vysoké školství — tato podvýborová předsednická role není ve vstupních datech (leadership_count=0, committees neobsahuje podvýbor) zachycena.",
+        "effort_notes": "Numerika committee_count souhlasí (3 = 3 doložené položky), ale leadership_count=0 nezachycuje jeho předsednictví Podvýboru pro vědu a vysoké školství od 18. 2. 2026 — stejný typ mezery (podvýborová leadership role vynechaná z leadership_count) jako v předchozích dávkách. Mezitermínové srovnání ukazuje pokles: PSP9 skóre 63,5 (billsAuthored=6, speechTurns=51, interpellations=3) vs. PSP10 vzorek 52,7 (bills_authored=1 jako pouhý spolupodpis, speech_turns=2, interpellations=0) — extrémně nízký počet řečnických vstupů (2) je hlavním tahounem nízkého skóre a odpovídá lens='bottom'. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření.",
+        "effort_low_score_reason": "low_legislative_output"
+      },
+      "signal": 0.32,
+      "headline": "Fridrich (ANO2011) má ve vzorku jen 2 řečnické vstupy a jediný spolupodepsaný (ne vlastní) tisk, oproti znatelně aktivnějšímu PSP9 mandátu (51 vstupů, 6 tisků) — od února 2026 ale předsedá podvýboru pro vědu a vysoké školství, což data o leadership nezachycují.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6451&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72"
+      ]
+    },
+    {
+      "id": "psp:person:6185",
+      "name": "Milan Brázdil",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["zdravotnictví", "rozpočet", "urgentní medicína a krizová připravenost"],
+        "effort_bill_focus": "Jediný tisk ve vzorku (č. 87 — návrh zákona o zemských znacích a vlajkách, podán 22. 1. 2026) předložil R. Vondráček; Brázdil je jedním z cca 40 spolupodepsaných, ne předkladatelem — bills_authored=1 je tedy spolupodpis, ne vlastní iniciativa. Tisk je k 25. 7. 2026 v projednávání (garančním výborem Výbor pro vědu, vzdělávání, mládež a sport, zpravodajem J. Vojáček), vláda k němu 25. 2. 2026 vydala souhlasné stanovisko.",
+        "effort_public_role": "MUDr. Brázdil je lékař; je členem Výboru pro zdravotnictví (od 11. 11. 2025) a Rozpočtového výboru (od 16. 1. 2026), dle psp.cz navíc od 21. 1. 2026 předsedá Podvýboru pro urgentní medicínu a medicínu katastrof a je členem dalších čtyř tematických zdravotnických podvýborů — tato podvýborová agenda odpovídá jeho odbornosti. Je také členem Správní rady Všeobecné zdravotní pojišťovny (VZP), s mandátem od února 2022 a navazujícím obdobím od 28. 1. 2026 — institucionální dozorová role nad veřejnou zdravotní pojišťovnou z titulu poslaneckého/odborného postavení, ne obchodní vazba.",
+        "effort_notes": "Numerika committee_count souhlasí (4 = 4 doložené položky: VZ, RV, dvě stálé komise), ale leadership_count=0 nezachycuje jeho předsednictví Podvýboru pro urgentní medicínu od 21. 1. 2026. Peněžní ověření (ARES VR, kontrolováno pro oba subjekty z linkedCompanies): (1) Národní Centrum Tkání a Buněk a.s. (IČO 28338766, akciová společnost) — Brázdil byl členem dozorčí rady, role SKONČILA 8. 12. 2016 (výmaz zapsán 10. 4. 2017), tedy téměř 10 let před tímto mandátem; aktuální dozorčí rada a představenstvo jsou zcela jiné osoby (P. Koška, M. Kurfürst, M. Zahradníček, E. Šťastná, J. Michálek) bez vazby na Brázdila. contractCzk=14 062 219 Kč u tohoto záznamu je tedy třeba číst jako samostatné zjištění o toku veřejných prostředků k firmě (pravděpodobně související s tkáňovou/buněčnou bankou při jeho domovské nemocnici), NE jako platbu plynoucí k Brázdilovi osobně — v současnosti u něj VR nenašla žádnou oficiální roli. (2) Vojenská nemocnice Olomouc (IČO 60800691) — v obchodním/veřejném rejstříku VR NENÍ vedena vůbec, protože jde o státní příspěvkovou organizaci (zřízenou 1994, zdravotnická péče, patrně vojenská nemocnice v jeho domovském regionu) bez statutárních orgánů zapisovaných do VR jako u obchodních společností; u příspěvkové organizace tohoto typu jde svou povahou o profesní/zaměstnaneckou vazbu lékaře k nemocnici, ne o vlastnický nebo obchodní vztah — VR ověření zde nelze provést stejným způsobem jako u a.s./o.p.s., je proto třeba explicitně uvést, že tento typ subjektu je mimo dosah VR endpointu, ne že byl 'vyčištěn'. Celkově: u obou linkedCompanies není doložena žádná AKTUÁLNÍ oficiální funkce Brázdila; u NCTB šlo o dozorčí roli skončivší 2016, u vojenské nemocnice jde o typ organizace, kde VR ověření strukturálně neexistuje."
+      },
+      "signal": 0.42,
+      "headline": "Brázdil, lékař a poslanec ANO ve zdravotnických výborech s předsednictvím podvýboru pro urgentní medicínu, má u obou 'linkedCompanies' po ARES VR ověření pouze historickou (NCTB, skončila 2016) nebo strukturálně neověřitelnou (státní vojenská nemocnice) vazbu — žádná aktuální oficiální funkce nebyla nalezena, ale u vojenské nemocnice VR ověření nelze provést a nelze tedy tvrdit úplné vyčištění.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6185&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/28338766",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/60800691"
+      ]
+    }
+  ],
+  "crossCuttingLeads": [
+    "Podvýborová/komisní předsednictví (leadership_count=0 navzdory prokázanému předsednictví u Fridricha i Brázdila) systematicky chybí z leadership_count napříč skupinami — stejný vzor zaznamenaný v předchozích dávkách, doporučuji sloučit do jednoho ticketu pro Case ① namísto opakovaného hlášení MP po MP.",
+    "U Rakušana byl nalezen nový typ datové anomálie — DUPLICITNÍ položka v committees[] (stejný organ, stejná data dvakrát) místo dříve zdokumentovaného 'offset o jednotku'; numericky vychází committee_count správně, ale skutečná skladba výborů je jiná (chybí aktivní podvýbor pro migraci, duplicitní delegace). Stojí za prověření, zda jde o ojedinělý případ nebo o širší třídu chyb v extrakci vícenásobných funkcí ve stejném orgánu.",
+    "ARES VR endpoint nefunguje pro státní příspěvkové organizace (Vojenská nemocnice Olomouc vrátila 404) — pro tento typ subjektu je potřeba jiný ověřovací postup (např. jen základní ekonomicke-subjekty endpoint bez VR), jinak hrozí, že se '404 = žádná vazba' chybně interpretuje jako 'vyčištěno', když ve skutečnosti jde jen o mimo-VR typ subjektu.",
+    "U dvou ze čtyř money-touching MP v této skupině (Rakušan, Brázdil) skončila veškerá formální vazba k příslušným firmám/spolkům 7–13 let před tímto mandátem, s jedinou výjimkou aktivního občanského spolku (Rakušanova Změna pro Kolín z.s.) — vzorec podporuje doktrínu skupiny, že národně známé osobnosti často mají staré, dávno ukončené civilní/spolkové vazby, které by bez VR ověření mohly být mylně interpretovány jako aktuální komerční konflikt zájmů."
+  ]
+}

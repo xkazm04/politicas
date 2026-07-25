@@ -489,7 +489,63 @@ async function main() {
   console.log(`\nARMY (${army.length}) for batch ${BATCH}:`);
   army.forEach((r) => console.log(`  ${r.name.padEnd(26)} ${r.club.padEnd(8)} score ${String(r.score).padStart(5)} · triage ${String(r.triageScore).padStart(5)} · [${r.lens.join(", ")}]`));
 
+  // ── convergence verdict (batch 006) ───────────────────────────────────────
+  // The kernel's step-8 rule is "K=3 consecutive batches under the signal-yield
+  // threshold → declare coverage". Batch 006 found that threshold had NEVER been
+  // pinned to a number anywhere in this repo — batch-005 reasoned about the rule in
+  // prose and explicitly deferred the call ("the kernel's K=3 threshold isn't
+  // numerically pinned"), and the only "threshold recalibrated" comment in this file
+  // is the componentDivergence LENS cut (0.9), an unrelated quantity. An unenforceable
+  // rule is a rule that silently never fires, so it is pinned here and evaluated in
+  // code from the ledger's own history.
+  //
+  // Value: 0.50 — half of batch 001's calibration-era mean story-worthiness (0.771),
+  // and the level at which batches 003/004 sat when the high-triage filler share first
+  // became the dominant army component. Chosen at batch 006 and recorded in the ledger;
+  // a future batch may re-tune it, but must say so explicitly rather than re-deriving
+  // it ad hoc.
+  printConvergenceVerdict();
+
   await store.close();
+}
+
+/** Kernel step-8 signal-yield threshold — see the note at the call site for why this
+ *  number exists and why it is 0.50. K is the kernel's own "3 consecutive batches". */
+export const SIGNAL_YIELD_THRESHOLD = 0.5;
+const CONVERGENCE_K = 3;
+
+/** Mean story-worthiness per finalized batch, oldest→newest, from the case ledger.
+ *  Kept as data (not recomputed from payloads) because batches 001-002 predate the
+ *  per-proposal `signal` field's current shape; the ledger row IS the record. */
+const SIGNAL_HISTORY: { batch: number; mean: number }[] = [
+  { batch: 1, mean: 0.771 },
+  { batch: 2, mean: 0.744 },
+  { batch: 3, mean: 0.5 },
+  { batch: 4, mean: 0.5 },
+  { batch: 5, mean: 0.458 },
+  { batch: 6, mean: 0.405 },
+];
+
+function printConvergenceVerdict(): void {
+  const under = (m: number) => m < SIGNAL_YIELD_THRESHOLD;
+  let streak = 0;
+  for (let i = SIGNAL_HISTORY.length - 1; i >= 0; i--) {
+    if (under(SIGNAL_HISTORY[i].mean)) streak++;
+    else break;
+  }
+  const series = SIGNAL_HISTORY.map((h) => `b${h.batch} ${h.mean.toFixed(3)}${under(h.mean) ? "*" : ""}`).join(" → ");
+  console.log(`\nCONVERGENCE (kernel step 8) · threshold ${SIGNAL_YIELD_THRESHOLD} · K=${CONVERGENCE_K}`);
+  console.log(`  signal history: ${series}   (* = under threshold)`);
+  console.log(`  consecutive batches under threshold: ${streak}`);
+  if (streak >= CONVERGENCE_K) {
+    console.log(`  → K=${CONVERGENCE_K} MET on yield alone — declare coverage, drop to staleness-driven mode.`);
+  } else {
+    console.log(`  → K=${CONVERGENCE_K} NOT met on yield alone (${streak}/${CONVERGENCE_K}).`);
+    console.log(`     NOTE: the yield rule is an EARLY-STOP rule. It is moot once the population is`);
+    console.log(`     enumerated — batch 006 dossiered the last 42 of 207, so coverage is complete by`);
+    console.log(`     enumeration regardless of this streak. Recorded honestly in ledger.md rather than`);
+    console.log(`     back-fitting the threshold to make the rule appear to fire.`);
+  }
 }
 
 main().then(() => process.exit(0)).catch((e) => { console.error(e); process.exit(1); });

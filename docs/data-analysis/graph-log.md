@@ -538,3 +538,66 @@ full precision measurement before any live apply** — a self-fixed payload does
 fixer's word. Post-regen collision pre-check (on the copy): 583 raw → 186 partitioned pairs, 15
 close-read (5 confirmed / 7 risk / 3 incidental); the P52 replacement ranking honestly reported as
 NOT statistically validated (Fisher p=1.00). /zakony/kolize batch-5 preview shipped (labeled pending).
+
+## Pass 26 (track: effort) — Case ② batch-006: POPULATION CLOSED 207/207 (2026-07-25)
+
+**42 person nodes props-merged** — the final wave. **Coverage 207/207: the effort case is the first
+to close its population.** Declared on ENUMERATION, honestly, not on the kernel's K=3 yield rule:
+the driver found that threshold had never been pinned to a number anywhere, pinned it at 0.50, and
+the real sequence (0.771→0.744→0.500→0.500→0.458→0.405) gives K=2 of 3 — so the rule does not fire
+and was not back-fitted to pretend otherwise. Corroborated by 64% pure filler and zero hits on the
+sharpest lenses. The loop now drops to staleness- + lead-driven mode. Also: `volby.cz` ingest
+(205/207 MPs joined, 33 sector↔committee occupation hits, 3 with Control Committee) with an honest
+NULL on the namesake Kott case — his declared occupation is self-referential ("poslanec PSP ČR") —
+and a recommendation against shipping it as a badge until a non-self-referential source exists.
+The 5-batch committee_count mismatch was **re-root-caused** (batch-005's Podvýbor diagnosis was
+itself wrong: zero PSP10 memberships reference a Podvýbor) to Delegace filtering + duplicate
+member/function rows; fixed against one shared predicate in extractor AND render (0/42 mismatches).
+
+## Pass 27 (track: money) — Case ① batch-006: dataor sweep (2026-07-25)
+
+**30 `linked_to` edges props-merged** from the new dataor bulk-ISVR adapter (`lib/ingest/sources/
+dataor.ts`, 21 tests; a 321MB file OOM'd the first reader — fixed with index-based scanning; an
+Opus pass caught missing officer-type codes `DOZORCI_RADA_CLEN`/`KONTROLNI_KOMISE_CLEN`/
+`SPRAVNI_RADA_CLEN`). **Scope correction the driver made to the orchestrator's own brief:** the
+"81 open corroborations" was stale — the OSVČ purge (pass 22) had already removed 49 of the 58
+unconfirmed, so the real open population was **32**. dataor closed **4** (2 general sweep + 2 via
+PRaK); 9 verified structurally out of scope (not ISVR-registered at all); 5 pending one very large
+slow file. Corroboration now: **181 registry-confirmed / 21 conflicting / 9 unconfirmed** of 211.
+
+## Held (batch 006) — three payloads need an INSERT-capable path
+
+`persist-batch.ts` is props-merge-only by design (it refuses to insert — the fabrication guard).
+These three grow the graph and are therefore deferred to a dedicated apply pass, NOT rushed:
+- **PRaK re-point** (Q-money-7, CLOSED analytically): both mis-pointed edges — Bendl **and Brabec**,
+  a duplicate batch-003 only half-documented — re-point to IČO 61858111 + one new company node. An
+  Opus pass retracted an unsupported "mayoral ex-officio rail-SPV" narrative behind the steward
+  class in favour of the deterministic classifier the rest of the graph uses.
+- **Indirect ownership** (O-money-3): 55 `owns_stake` proposals + 19 parent-company nodes, incl. a
+  real DATED AGROFERT chain (2002–2005; the 2017 trust transfer is not visible in this slice and is
+  flagged as a lead, not claimed). Needs an `owns_stake` enum addition (shared `kg-verdict.ts`).
+- **kiosek notices**: proposed `notice` node kind + `cites`/`concerns` edges (see below).
+
+## Batch 006 — kiosek first slice (no graph write; adapter + measured yield)
+
+2,302 postings across 5 institutions (286 boilerplate / 306 substantive / 1,485 administrative);
+23 PDF-extracted → 87 statute mentions (11 distinct laws, 4 already graph nodes) and 115 IČO
+mentions (23 distinct). **Honest recalibration of the source assessment: 0 of those IČOs match our
+196 tied companies** — court-notice litigants are a DISJOINT population from MP-tied firms, so
+kiosek's money value is a *monitoring channel* (watch for a tied IČO appearing), not the immediate
+linkage the assessment implied. Opus verification caught a statute-regex false-positive class
+(court case-law citations `Sb. NSS` parsed as statutes) and an IČO-checksum edge case.
+
+## Held again (batch 006) — law's amends regeneration, THIRD refusal
+
+An INDEPENDENT fresh audit (different agent than the one that self-fixed it) returned **NOT READY**:
+**N1 (new, recall)** — the census extractor splits on `Čl.` only and is blind to `ČÁST`/`§`-organised
+bills, undercounting **~29 true amending edges across 7 omnibus bills**, so batch-005's "citation
+universe closed" claim is false and the payload is INCOMPLETE, not merely imprecise; **N2** — 6
+confirmed false edges (not the 2 the driver's own review found; the audit overturned one of its
+"real edge" calls). Precision finally measured properly across all 567 (561 high / 6 low / 0
+unresolvable). And the vindication of the hold policy: the batch's reflection **caught a bug in the
+driver's own apply script** — 3 of 6 exclusion entries carried wrong bill-node ids and silently
+no-op'd, so a live `--commit` would have written three audit-confirmed-FALSE edges. Fixed, with a
+startup assertion that refuses to run on any non-matching exclusion. Rework target is now concrete
+(the `ČÁST`/`§` splitter), not another audit round.

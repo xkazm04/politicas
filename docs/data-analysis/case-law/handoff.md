@@ -1,251 +1,406 @@
-# Case ③ Law loop — fleet handoff (batch-005, 2026-07-25)
+# Case ③ Law loop — fleet handoff (batch-006, 2026-07-25)
 
-Fleet run, concurrent with money and effort loops in the same repo. **No live `.pglite` writes
-during analysis, no shared-vault edits, no commits.** Full narrative: `batch-005.md` (read that
-first — this file is the orchestrator action list). This supersedes batch-004's `handoff.md` as
-the action list; `batch-004.md`/`batch-004-reflection.md` stay as history.
+Fleet run, concurrent with money/effort/kiosek-dataor loops in the same repo. **No live `.pglite`
+writes during analysis, no shared-vault edits, no commits.** Full narrative: `batch-006.md` (read
+that first — this file is the orchestrator action list plus the verbatim audit report). This
+supersedes batch-005's `handoff.md` as the action list; `batch-005.md`/batch-005's `handoff.md`
+stay as history.
 
-## 1. What ran (see batch-005.md for full detail, including the Opus audit's full defect list)
+## 0. The independent audit — verbatim (P1a)
 
-Q-law-12 (missing-law-node ingest, 187/187 resolved) + Q-law-11 (set-difference proposal trigger)
-+ amends regen v2 (150→567 edges, 0 missing law nodes) + **Opus paired-landing audit round 1: NOT
-READY, 11 defects (D1-D11)** + same-batch remediation of 6 of them (D2/D8 fully, D1 partially — the
-3 hand-proven false edges fixed, the broader 6.3% precision risk NOT re-measured, D4/D5/D7/D10
-fully) + a deletion-diff gate (new, key-only, D4 residual: no value-preservation check yet) +
-post-regen collision pre-check (583 raw / 186 partitioned candidate pairs, P52 ranking signal
-implemented but explicitly NOT validated — Fisher p=1.00 vs baseline, reported honestly not
-oversold) + 15-pair close-read (5 confirmed / 7 coordination-risk / 3 incidental, one entry
-corrected post-audit) + build-review (`/zakony/kolize` batch-5 section shipped, clearly labeled
-post-regen-pending; `/zakony` most-amended ranking confirmed already graph-driven, no change
-needed) + `npm run check` green.
+Dispatched to a background Opus subagent (maximum reasoning depth), instructed to check the
+CURRENT post-remediation state fresh against all 11 original defects plus an open search for new
+issues, and to cite file+line or payload-field evidence for every finding rather than trust the
+driver's remediation prose. Full report, unedited:
 
-**This is a re-prepared, remediated, but NOT re-audited state.** The Opus verdict that gates live
-apply is for the PRE-remediation payload; a fresh audit pass on the current
-`batch-005-amends-regen.json`/`batch-005-missing-law-nodes.json` is the correct next step, not
-optional, before any orchestrator write.
+<details>
+<summary>Independent re-audit — batch-005 payloads (post-remediation), full text</summary>
 
-## 2. Graph payloads to persist (validated, NOT applied — orchestrator decision required, AND a fresh audit first)
+Read-only. No files modified, no live `.pglite` opened. All findings are from static analysis of
+the payloads, the scripts, and the cached bill text under `.data/law-collision-cache/`.
+
+### Part 1 — Verdicts on D1–D11
+
+**D1 (high, precision never measured) — PARTIALLY FIXED, and the residual is worse than the
+caveat states.** The three hand-proven cases verified fixed at the data level (tisk 219 → correctly
+301/1992, tisk 243 → no body citation, title fallback covers it; tisk 222 → improves to 176/2008,
+still wrong but caught by the D8 act-type gate). The caveat text is honest about the un-remeasured
+6.3%. But the auditor ran the proxy anyway (all 567 edges, citation ±2500 chars vs `se
+mění|se ruší|se vkládá|se nahrazuje|zní:`): 549 clean / 16 no-verb / 2 citation-absent = 3.2%
+flagged, hand-classified all 18. The proxy is weak in both directions — false-alarms on
+title-confirmed real amendments buried behind boilerplate amendment-history lineage text, and
+misses real false positives where transitional provisions contain amending verbs. See N1/N2 — the
+actual false-positive population is a different, structural class the proxy cannot see.
+
+**D2 (high, `Sb. m. s.` treaty collision) — CONFIRMED FIXED.** The negative-lookahead regex in
+`lib/ingest/sources/psp-legislation.ts:40` is correctly placed and does not affect plain `Sb.`
+matches. Payload check: `law:sb:64-2017`/`55-2006`/`108-2004` appear as `to` on 0 edges.
+Corpus-wide check found one remaining number-collision (tisk 46 / 104/2013) and it is a TRUE
+positive (tisk 46's own title cites it), not a defect. Caveat: tisk 63's treaty edge was removed,
+but the edge that replaced it is itself false — see N2.
+
+**D3 (high, no apply path) — CONFIRMED NOT FIXED (correctly deferred).**
+`scripts/case-loops/persist-batch.ts` (124 lines) still hard-refuses inserts on both node and edge
+paths; neither payload's shape matches its schema.
+
+**D4 (high, union-vs-replace / provenance overwrite) — PARTIALLY FIXED; the gap is real and open.**
+`diff-amends-regen-deletions.ts:33,36` builds its key sets from `(src,dst)`/`(from,to)` only —
+confirmed key-only, nothing reads `props`/`provenance`. The overwrite risk is real at the storage
+layer: `lib/db/pglite/repositories/kg.ts:25`'s upsert does
+`on conflict (src, rel, dst) do update set weight = excluded.weight, props = excluded.props,
+provenance = excluded.provenance` — a blind upsert of the payload would wholesale-replace both
+columns on the 150 pre-existing keys. No apply script for edges existed at audit time (D3), so
+nothing yet preserves them. The "edges now carry an explicit pass field" claim is only half-true —
+see N3.
+
+**D5 (medium, invented firstSeenPass) — CONFIRMED FIXED.**
+`_apply-missing-law-nodes-copy.ts:42-45` computes `max(graph)+1`, logged as explicitly
+provisional. No literal remains.
+
+**D6 (medium, no durability contract) — CONFIRMED NOT FIXED.**
+`scripts/data-analysis/kg-legislation-ingest.ts:167` builds `law` node props from scratch (no
+`...existing.props` spread), written via a wholesale-replacing upsert. **Scope is wider than the
+handoff states**: line 168 also rebuilds `amends` edges with `props: {}` from title-derived refs
+only — a re-run would additionally erase the `source` tag and batch-005 provenance from every
+overlapping edge, not just the node props the handoff named. Contrast: `esbirka-laws.ts:82`
+correctly does `props: { ...n.props, … }` — the fix pattern already exists elsewhere in the repo.
+
+**D7 (medium, stale payload self-description) — PARTIALLY FIXED.** `method`/`boundary`/`caveats`
+in `batch-005-amends-regen.json` are accurate against the post-remediation state, with two
+exceptions: `method` says "191 law nodes" but the node payload ships 187 (not a data problem — the
+edge set has no dangling targets — but the prose is wrong); and the impact sidecar
+(`batch-005-amends-regen-impact.md`) was NOT fixed, contrary to the §3 remediation claim — line 1
+still reads "batch-004, prepare only" and mislabels the 4 D8-excluded refs as a "missing law nodes
+… proposed follow-up census."
+
+**D8 (medium, non-act nodes as amends targets) — FIXED for this run; gate design is fail-open.**
+Logic check confirms `isAmendableAct` (`amends-regen-005.ts:111-116,157-164`) reads
+`esbirka_title` off the correct resolved target node, and the 5-prefix blacklist is correct on
+both directions checked (Ústavní zákon correctly kept, Zákonné opatření Senátu correctly kept).
+Full 567-edge scan: 284 distinct targets, 183 resolve into the new node payload and every one of
+those 183 has an `esbirka_title` starting with "Zákon"; the remaining 101 targets are exactly
+batch-004's pre-existing target set. Zero dangling/non-act targets. Residual design weakness → N6.
+
+**D9 (low/medium, truncated titles) — CONFIRMED STILL OPEN, worse than reported.** 37 of 187 (not
+28) `label` fields truncate mid-word at ~120 chars; `props.esbirka_title` is intact in every case
+(display-only defect).
+
+**D10 (low, naive PGLITE_PATH guard) — CONFIRMED FIXED.** Absolute-path comparison verified at
+`_apply-missing-law-nodes-copy.ts:17-22`.
+
+**D11 (sequencing) — CONFIRMED CORRECTLY STATED.** Nodes-before-edges, same write-lock window,
+accurately documented in both `handoff.md` §2 and `batch-005.md` §6.3.
+
+### Part 2 — New defects
+
+**N1 (HIGH, new) — the census extractor is structurally blind to `ČÁST`/`§`-organized bills; "0
+missing statutes / citation universe closed" is materially false.** `extractRealAmendedLaws`
+(`amends-census.ts:169-206`) splits only on `Čl. N` article markers. 21 of 140 census bills have
+zero `Čl.` markers and fall into the single-subject fallback (first non-footnote citation, ONE
+edge, full stop). 7 of those 21 carry explicit `Změna zákona …` part headings and each produced
+exactly one edge: tisk 250 (10 real amending parts → 1 edge), tisk 69 (7→1), tisk 10 (4→1), tisk 54
+(4→1), tisk 113 (4→1), tisk 189 (4→1), tisk 228 (3→1). ≈29 true amending targets missing,
+concentrated in exactly the government omnibus bills that matter most for churn ranking and
+collision detection. This directly contradicts `stats.distinctMissingLawStatutes: 0` and the
+graph-log's "closes essentially the full citation universe" framing.
+
+**N2 (HIGH, new) — 6 confirmed false edges survive in the 567**, verified by reading the cached
+text at the cited line for each: tisk 63→`law:sb:21-1992` (new Accounting Act; the citation is a
+substantive cross-reference, `tisk-63/266144.txt:5126`); tisk 69→`law:sb:381-1991` (multi-line
+footnote continuation `isFootnoteLine` inspects only the match's own line and missed,
+`tisk-69/266214.txt:146-147`; the bill's real target appears to be 531/1990, not wired by any edge);
+tisk 6→`law:sb:424-1991` (transitional provision about a predecessor institution, not an amendment,
+`tisk-6/265061.txt:288` — the real 424/1991 amendment is in companion tisk 7); tisk 55→
+`law:sb:194-2017`, tisk 76→`law:sb:234-2014`, tisk 144→`law:sb:326-1999` (all three: REPEAL clauses
+misread as amendments — a relation the extractor cannot distinguish from `amends`,
+`tisk-55/266009.txt:494`, `tisk-76/266517.txt:1607`, `tisk-144/268804.txt:14176`/28176).
+
+**N3 (MEDIUM, new) — the "5-field kernel provenance contract" claim is false in both payloads.**
+Edge provenance `{track, pass, method, ref}` is missing `computedAt` on all 567 edges
+(`amends-regen-005.ts:176`). Node provenance `{track, method, ref, computedAt}` is missing `pass`
+on all 187 nodes (only injected at apply time by the copy script). `validate-amends-regen-005.ts`
+never inspects provenance shape at all, and the act-type gate is generator-only — the validator
+would pass a non-act edge.
+
+**N4 (MEDIUM, new) — `isFootnoteLine` is single-line and cuts both ways.** Confirmed under-skip on
+multi-line footnote blocks (tisk 69, N2) — the driver observed this class on tisk 222 and
+documented it as "still-imperfect" but did not generalize the fix. A theoretical over-skip risk on
+a genuine `1) V § 3 …` amending instruction was identified but not observed firing in this corpus —
+an unmeasured recall hazard on top of N1.
+
+**N5 (LOW/MEDIUM, new) — stale prose in 3 more generated artifacts**: the "191 vs 187" node-count
+typo (D7 residual); `collision-groups-005.json` and `collision-report-v2-005.json` both still say
+"574 amends edges" in their `method` string even though the underlying numbers (verified:
+`distinctAmendedLaws: 284`) were correctly regenerated from the final 567-edge set — only the
+strings are stale, the data is not affected.
+
+**N6 (LOW, new) — the D8 gate is a blacklist and fails open** when `esbirka_title` is empty ("do
+not gate what we can't classify"). No live impact on this batch's data (100% of 187 titles are
+`Zákon`-prefixed), but an allowlist (`Zákon`/`Ústavní zákon`/`Zákonné opatření`) would be strictly
+safer and produces the identical result on this data.
+
+### Part 3 — checks that came back clean
+
+Count consistency across `edges.length`/`stats`/`perBillLog` with no drift; no duplicate edge keys;
+no dangling targets (183 new + 101 pre-existing, set-equal to batch-004's target set);
+`churnRanking.afterTop10` recomputes exactly from the edge array (40/2009 = 12, confirming the
+"#1" claim is real); the 3 original hand-proven-false pairs confirmed absent
+(`43341→law:sb:354-2019`, `43344→law:sb:9-2002`, `43365→law:sb:240-2000`); the `90-221` close-read
+correction verified character-for-character against the source excerpt in
+`collision-report-v2-005.json`; no fabricated law numbers found (every `ref` traces to a real
+source).
+
+### Not verified (stated for the record)
+
+Did not open any `.pglite` (so the 101 pre-existing law nodes' `esbirka_title` coverage, and thus
+whether D8's gate is live or fail-open for them, is unconfirmed); did not re-run
+`validate-amends-regen-005.ts`/`diff-amends-regen-deletions.ts` (both need a store); of the 567
+edges, hand-read cached source text for ~30 (the 18 proxy-flagged plus the 12 single-fallback
+bills) — the remaining ~537 checked only structurally (source-tag traceability, target act-type,
+dedup, target existence) and by the amending-verb proxy.
+
+### Overall verdict
+
+**NOT READY TO APPLY** for `batch-005-amends-regen.json` — not because of the original 11 (that
+remediation is largely genuine), but because N1+N2 are a new, unremediated defect of the same
+severity as D1, in a class neither the first audit nor the remediation examined: the extractor's
+`Čl.`-only article splitter silently degrades every `ČÁST`/`§`-structured bill to a single, often
+wrong, citation. Applying this set writes a graph that is wrong about tisk 63/69/6/55/76/144 and
+blind to most of what tisk 250/69/10/54/113/189/228 actually amend, while the payload's own
+`stats.distinctMissingLawStatutes: 0` would read as a certified-complete citation universe.
+
+Minimum to reach READY: (1) extend `extractRealAmendedLaws` to split on `ČÁST …`/`Změna …`
+headings and `§`-numbered amending blocks; (2) generalize `isFootnoteLine` to footnote blocks, not
+lines; (3) decide the repeal-vs-amend modeling question explicitly; (4) add the missing provenance
+fields and have the validator gate provenance shape + independently re-check the act-type gate;
+(5) fix the stale prose strings.
+
+**`batch-005-missing-law-nodes.json` on its own: READY WITH CAVEATS.** All 183 wired targets are
+`Zákon`-prefixed acts, all 4 non-acts correctly quarantined, `unresolvable` genuinely empty, no
+target dangles. Caveats: 37 truncated `label`s should regenerate from the intact
+`props.esbirka_title` before apply; the real `pass` must be assigned by the write-lock holder; D6
+remains open.
+
+</details>
+
+## 1. What ran this batch (see batch-006.md for full detail)
+
+P1a (independent Opus audit, above) + P1b (full-population precision measurement,
+`measure-precision-006.ts` — 561/567 high-confidence, 6/567 low-confidence, corrected to match the
+audit's N2 finding) + P1c (durable insert-capable apply script, `apply-amends-regen.ts`, verified
+end-to-end on an isolated copy including a real `--commit` test) + honest recommendation (§4 of
+batch-006.md: **do not apply the edge regen this batch**) + `npm run check` (typecheck/tests
+green, lint clean on this batch's own 2 new files; 3 pre-existing errors in a concurrent
+executor's unrelated file, not touched).
+
+Re-triage and the remaining collision-pair army wave (batch-005 priorities 4–5) were **not
+started** this batch — both are contingent on the edge regen actually applying, which the audit
+found it should not, this batch.
+
+## 2. Graph payloads — STILL NOT applied (orchestrator decision required, contingent on a fix + third audit)
 
 ```bash
-# from repo root, against a COPY first (never live) to re-verify:
+# Re-verify (unchanged from batch-005, still valid):
 cp -r .pglite .pglite-copy-law-verify
 PGLITE_PATH=./.pglite-copy-law-verify npx tsx scripts/case-loops/law/_apply-missing-law-nodes-copy.ts
 PGLITE_PATH=./.pglite-copy-law-verify npx tsx scripts/case-loops/law/validate-amends-regen-005.ts
-# should print PASS, 567/567, 0 errors — payload path is baked into the script
-PGLITE_PATH=./.pglite npx tsx scripts/case-loops/law/diff-amends-regen-deletions.ts \
-  --payload=docs/data-analysis/case-law/payloads/batch-005-amends-regen.json
-# read-only against LIVE — should print 0 unallowlisted deletions
+
+# batch-006's apply script (dry-run default; DO NOT --commit against live yet):
+PGLITE_PATH=./.pglite-copy-law-verify npx tsx scripts/case-loops/law/apply-amends-regen.ts
+# expect: 187/187 new nodes, 561/567 edges applied (6 excluded, 411 new + 150 merged), 0 unallowlisted deletions
 ```
 
-**No apply script exists that can write live** (Opus audit D3): `scripts/case-loops/persist-batch.ts`
-(shared, outside this case's fleet boundary — never edited this batch) is props-merge-only and
-refuses inserts; this batch's payloads are 191 node inserts + 567 edge inserts (mostly inserts,
-some pre-existing-edge value-updates), which it cannot execute as-is. The orchestrator must either
-extend `persist-batch.ts` with an insert-capable path (shared file, cross-case decision) or run a
-case-scoped insert script under its own review, in this exact order:
+**Note on this script's own QA**: a second Opus call (batch reflection, distinct from the P1a
+audit above) found that 3 of the 6 exclusion entries originally carried the wrong bill-node id and
+silently no-op'd — a live commit would have written 3 audit-confirmed-false edges despite the
+console/report claiming all 6 were excluded. Fixed same-session (correct ids re-derived and
+re-verified against the payload; a startup assertion now refuses to run if any exclusion entry
+doesn't match a real payload edge). See `batch-006.md` §7 for the full account. This is disclosed
+here, not smoothed over, because it directly affects trust in the "verified end-to-end" claim this
+script otherwise makes.
 
-1. **Nodes first**: `docs/data-analysis/case-law/payloads/batch-005-missing-law-nodes.json`'s
-   `resolved` array (187 nodes) — `_apply-missing-law-nodes-copy.ts` is the tested reference
-   implementation (currently guarded to refuse the live path; the orchestrator's real run needs
-   the SAME logic against live, with a REAL assigned `pass` replacing the provisional
-   `max(graph)+1` placeholder it currently computes).
-2. **Edges second, same window**: `docs/data-analysis/case-law/payloads/batch-005-amends-regen.json`'s
-   `edges` array (567) — **but NOT as a blind upsert.** 150 of the 567 keys already exist live;
-   applying the full array with a naive `upsertKgEdges` call will overwrite their `provenance`/
-   `props` (including losing the `source: census_full|title_fallback` tag this whole regen
-   exists to add) per PK-conflict semantics — D4, unresolved. The orchestrator must decide: (a)
-   split the payload into "150 pre-existing keys → props/provenance-merge, preserving what's
-   mergeable" vs "417 new keys → plain insert", or (b) accept the provenance overwrite on the 150
-   as an explicit, logged decision (the new provenance is arguably BETTER — it carries the
-   `source` tag the old one lacks — but that is a call the orchestrator should make deliberately,
-   not by accident of `upsertKgEdges`'s dedupe-by-PK behavior).
-3. **Re-triage immediately after** — `triage-002.ts`'s `triageScoreV2`/`maxTargetChurn` go stale
-   the instant the edge set changes; every downstream ranking (including `/zakony`'s `topLaws`,
-   which reads the graph directly and will self-update) depends on nothing else reading a stale
-   cached triage row.
+**Recommendation: do not run `apply-amends-regen.ts --commit --confirm-live` yet.** The script
+itself is correct and tested (nodes-then-edges, provenance-preserving merge on the 150 pre-existing
+keys, deletion safety gate, the 6 audit-confirmed false edges excluded) — but excluding 6 known-bad
+edges does not fix N1's recall gap (~29 real amendments still missing from exactly the highest-
+value bills). Applying today would land a graph that is honest about what it excludes but still
+silently incomplete, with the payload's own stats reading as "citation universe closed." Hold for
+the extractor fix + regen + a third independent audit (see batch-006.md §4 for the exact
+minimum-to-ready list).
 
-**Independent re-audit is the actual next step, before step 1.** See `batch-005.md` §6 for the
-full 6-item execution plan (re-audit → precision measurement → apply script → re-triage →
-collision army wave → durability contract).
+The node payload (`batch-005-missing-law-nodes.json`) is independently sound and could apply on its
+own, but provides no standalone value split from its edges (nothing currently cites most of these
+187 statutes as an `amends` target without the edge regen) — land both together once the edges are
+fixed, not the nodes alone now.
 
 ## 3. Shared-file additions (append verbatim — could not edit these in fleet mode)
 
 ### → `patterns.md`
 ```
-### Law: the SAME defect class can recur one field deeper, even in the gate built to close the last audit's finding
-batch-004's Opus audit caught a union-vs-replace defect on edge PRESENCE (a regen silently dropped
-a live edge). batch-005 built the deletion-diff gate that finding explicitly asked for — and its
-own Opus audit found the new gate is blind to value REPLACEMENT (provenance/props overwritten on a
-KEY that survives), the identical shape one level down: `diff-amends-regen-deletions.ts` compares
-`(from,to)` keys only, so an edge that keeps its key but loses its provenance passes clean. →
-closing a flagged gap means asking "what is this NEW gate itself still blind to", not just
-confirming it catches the originally-reported case — the same discipline P32 already established
-for ranking signals now generalizes to gates themselves.
+### Law: an adversarial second pass beats the original author's self-review even when the
+self-review author believes they are being adversarial about their own work
+batch-005's driver fixed 6 of 11 audit-found defects and, in batch-006, ran its own manual
+precision review of 6 proxy-flagged edges — correctly clearing 3 as proxy false-negatives, but
+WRONGLY clearing a 4th (tisk 6 -> 424/1991) as real. An independently-dispatched Opus audit's
+deeper, cross-bill-corroborated read overturned that call: 424/1991's real amendment lives in a
+different bill; the citation the driver defended was a transitional provision, not an amending
+clause. Two consecutive batches now show the SAME pattern one level deeper each time: batch-005's
+audit caught what the driver's self-check missed on the ORIGINAL extraction; batch-006's audit
+caught what the driver's self-check missed on its OWN precision review of that extraction's
+residue. -> self-review, however rigorous-feeling, is a weaker check than a genuinely different
+agent's read, structurally — not because the self-reviewer is careless, but because it shares the
+same blind spots as whatever produced the artifact being reviewed.
 
-### Law: a recall fix and a precision fix are different projects even inside one pipeline, and the fix's own author is the wrong person to catch the gap
-batch-004: "a precision fix does not imply a recall fix" (the amends-census correction was
-validated only on over-counting, its under-counting rate measured a batch later). batch-005 is the
-mirror: closing 289 unresolved citations to 0 (a recall win) does not imply the newly-resolved
-citations are CORRECT — an independent Opus audit hand-verified 3 of them were footnote citations
-misread as amending targets (proven false), and a cheap deterministic proxy flagged 6.3% of all
-574 edges (pre-remediation) with no amending-verb context nearby. The driver who built the ingest
-did not catch this before the audit did — precision review needs an adversarial second pass, not
-self-checking the same pipeline that produced the number.
-
-### Law: an unvalidated ranking signal that "looks like it worked" needs the actual baseline computed, not just a raw hit-rate quoted
-P52's replacement signal (moneyLiteral, replacing shared-§ count) hit 12/15 (80%) "real signal"
-among close-read pairs — sounds like a win. The Opus audit ran Fisher's exact test against the
-TRUE baseline (76% among ALL partition-survivors, prior batches) and found p=1.00 — statistically
-indistinguishable from random selection at this sample size, with the confirmed-only rate actually
-regressing (50%→33%). → an 80%-sounding number is not evidence without its baseline stated next to
-it; report null/inconclusive results with the same honesty as positive ones (a pattern the
-kernel's own doctrine already demands for absence-of-conflict findings — this is the same rule
-applied to a signal-validation claim instead of a substantive finding).
+### Law: a "citation universe closed" / "0 missing" claim needs an independent STRUCTURAL check,
+not just a citation-resolution count
+batch-005's amends-census extractor splits bills into amending-target citations by finding `Čl. N`
+article markers; every bill matching that format gets accurately parsed. Bills organized instead by
+`ČÁST ... Změna zákona ...` headings (common in omnibus/companion-change legislation) fall through
+to a single-subject fallback that always emits exactly ONE citation regardless of how many laws the
+bill actually amends -- a confidently wrong answer that looks structurally identical to a correctly
+parsed single-subject bill. The payload's own stats ("0 missing statutes") were true for every
+citation the extractor could SEE and materially false for the population as a whole (~29 missing
+targets across 7 high-value omnibus bills, found by an independent audit reading the actual PDF
+text). -> a recall claim of this shape needs a check on whether the extraction METHOD even applies
+to each item's actual format, not just a citation-level resolution count over whatever the method
+did find.
 ```
 
 ### → `feature-opportunities.md`
 ```
-### /zakony/kolize now surfaces a post-regen preview (batch-005): 5 confirmed, 7 coordination-risk, clearly labeled as pending topology
-15 of 60 money-literal-flagged candidate pairs from the post-regen (583 raw / 186 partitioned)
-collision universe were close-read this batch, rendered on `/zakony/kolize` as `sourceBatch: 5`
-with a `postRegenTopology` flag, a page-level banner, and a per-pair "dávka 5 · post-regen" badge
-— every individual fact cited (bill numbers, statute refs, excerpt text) is real and already
-resolvable against the LIVE graph today (all bills/statutes in these 15 pairs pre-date batch-005),
-but the CANDIDATE SET was found via topology the live graph doesn't have yet, so it's rendered
-distinctly rather than merged into the batch 1-4 count. Next increment: the remaining ~171
-partition-survivor pairs are a full army-wave candidate for batch-006, once a validated ranking
-signal exists to order the sweep (see patterns.md — moneyLiteral is not yet that signal).
+### Law: an insert-capable case-scoped apply script is cheap once the store's real capability is
+understood (batch-006, closing part of batch-005's D3/D4 kernel-level gap)
+`persist-batch.ts`'s "refuses to insert" (flagged in batch-005 as a kernel-level gap every future
+node/edge-growing case loop would hit) turned out to be an APPLICATION-level choice in that one
+shared script -- it checks target existence and throws -- not a store limitation:
+`store.upsertKgNodes`/`upsertKgEdges` are true upserts by primary key, confirmed by reading
+`lib/db/pglite/repositories/kg.ts`'s `ON CONFLICT ... DO UPDATE` clause. batch-006 built
+`scripts/case-loops/law/apply-amends-regen.ts` as a case-scoped reference implementation:
+node-then-edge ordering, a provenance-PRESERVING merge for pre-existing edge keys (props stay
+additive via a namespaced note, `provenance` untouched), a deletion safety gate, and the same
+fleet write-safety convention as `scripts/case-loops/money/purge-osvc.ts`
+(`--commit` + `--confirm-live` for a live default-path write). Any future case hitting the same D3
+wall should check whether its own payload shape can reuse this pattern before assuming
+`persist-batch.ts` itself needs extending.
 
-### A kernel-level gap: no case loop currently has a sanctioned INSERT write path for new nodes/edges
-`scripts/case-loops/persist-batch.ts` (shared across cases) is deliberately props-merge-only —
-"refuses to insert" is a safety feature against silent graph growth. But batch-005's paired
-landing (191 new law nodes + 417 new amends edges) is a legitimate, validated, audited case for
-growing the graph's node/edge SET, and there is no shared tool that can execute it; a case-scoped
-reference script (`_apply-missing-law-nodes-copy.ts`) exists for nodes only, tested on a copy, and
-explicitly refuses the live path. Any future case loop (money/effort included) that needs to ADD
-new entities rather than annotate existing ones will hit this same wall — worth a kernel-level
-decision (extend `persist-batch.ts` with a reviewed, explicitly-labeled insert path; or a second
-shared script with a narrower, insert-only contract) rather than each case re-inventing a
-copy-only reference implementation.
+### Law: two consecutive Opus audits finding the SAME change-set not ready is a signal about the
+extraction pipeline, not just the current payload
+batch-005's census/regen pipeline has now failed independent audit twice, on two different defect
+classes (precision/footnote-misreads first, then recall/structural-format-blindness second). The
+next attempt at this payload should treat `amends-census.ts`'s `extractRealAmendedLaws` as
+under-tested against the actual diversity of Czech bill formatting (ČÁST/Změna headings, repeal
+clauses, multi-line footnotes) rather than patch a third specific case and resubmit for a third
+audit -- per the kernel's "deferred-three-batches" rule, this item cannot roll a third time without
+either landing or being explicitly retired.
 ```
 
 ### → `frontier.md` (Case ③ section)
 ```
-- **batch-005's payload is remediated but NOT re-audited.** The Opus verdict on record (NOT READY,
-  11 defects) is for the PRE-remediation state; 6 defects were fixed same-batch by the driver that
-  built them, which is not equivalent to an independent second check. A fresh audit pass on
-  `batch-005-amends-regen.json`/`batch-005-missing-law-nodes.json` (post-remediation) is the
-  correct next step before any live apply — not optional, not a formality.
-- **Precision on the 567 regenerated edges is not fully measured.** Only the 3 hand-proven false
-  cases (footnote citations) were confirmed and fixed; a broader ~6.3% proxy false-positive rate
-  flagged pre-remediation (edges with no amending-verb context within ~2500 chars) was never
-  re-run against the remediated set. Every single-citation edge to one of the 187 newly-ingested
-  law nodes should be treated as lower-confidence than a multi-citation or pre-existing edge until
-  this measurement runs as a reported metric, not a spot-check.
-- **No apply path exists for this batch's write** (D3) — `persist-batch.ts` is props-merge-only
-  and out of this case's fleet boundary to extend. The orchestrator must either extend it
-  (cross-case decision) or run a case-scoped insert script under direct review. See
-  handoff.md §2 for the exact ordering constraint (nodes before edges, same window) and the
-  provenance-preservation decision the 150 pre-existing edge keys require (D4).
-- **Re-triage is a hard precondition, again** (as batch-004 flagged for its own regen): applying
-  batch-005's 567-edge set changes `triageScoreV2`/`maxTargetChurn` for every bill; naive
-  sector-adjacency recomputation over it will re-degenerate the same way batch-004's reflection
-  warned (tisk 64 goes from 1 to dozens of amended statutes) unless computed at §-level.
-- **The collision candidate universe (583 raw / 186 post-partition pairs) is 92% unread** — this
-  batch's 15-pair close-read is a format-validated preview, not coverage. batch-006's first job
-  (once re-triage lands) is the remaining ~171 pairs, WITH a properly validated ranking signal —
-  moneyLiteral is explicitly not yet that (see patterns.md).
-- **Durability gap unresolved (D6):** `kg-legislation-ingest.ts`'s standing re-derivable ingest
-  still wholesale-replaces `props` on `law` nodes; a future full-graph rebuild would silently wipe
-  `esbirka_title`/`esbirka_exists`/`esbirka_eli` from all 191 newly-ingested nodes (and would have
-  already wiped the same fields from the original 101, had anyone re-run it — untested this batch,
-  flagged not fixed, matches `esbirka-laws.ts`'s own correct merge pattern that
-  `kg-legislation-ingest.ts` should adopt).
+- **batch-005's amends regen is NOT applying as of batch-006** -- a second independent Opus audit
+  found a new recall defect (N1: the Čl.-only census extractor is blind to ČÁST/Změna-heading and
+  §-organized bills, undercounting ~29 true amending targets in exactly the highest-value
+  government omnibus bills) plus 6 confirmed false edges (not the 2 batch-006's own precision
+  review found -- the audit's deeper read overturned one of the driver's "real edge" calls). The
+  node payload (187 law nodes) is independently sound and ready on its own, but provides no
+  standalone value without its edges. Minimum-to-ready path: extend the census extractor's article
+  splitter to ČÁST/Změna headings + §-blocks, generalize the footnote-line detector to footnote
+  BLOCKS, decide the repeal-vs-amend modeling question explicitly, complete the provenance shape,
+  and get a THIRD independent audit before any live apply -- this is the second consecutive
+  NOT READY verdict on this change-set; per the kernel's deferred-three-batches rule it cannot roll
+  a third time without landing or being explicitly retired.
+- **A durable, insert-capable apply path now EXISTS for this case** (`apply-amends-regen.ts`,
+  batch-006) -- tested end-to-end on an isolated copy including a real commit test. It is ready
+  machinery for whenever the regenerated payload clears audit; it does not itself need rework.
+- **Re-triage and the ~171-pair collision army wave (batch-005 priorities 4-5) remain untouched**,
+  correctly deferred a second batch -- both depend on the edge regen actually landing, which it has
+  not.
 ```
 
 ### → `graph-log.md`
 ```
-## Pass N (track: law) — Case ③ batch-005: missing-law-node ingest + amends regen v2 prepared (NOT applied — audit found NOT READY, partially remediated), collision pre-check re-run, kolize batch-5 preview shipped (2026-07-25)
-No graph writes this batch (all analysis on .pglite-copy-law-005). Prepared, awaiting a FRESH
-orchestrator-commissioned audit before any apply: 187 new law nodes (e-Sbírka bulk registry,
-0 unresolvable, titles/ELIs byte-verified) + amends edge regen 150 → 567 (was 282-held from
-batch-004, now closes essentially the full citation universe: 0 remaining missing-law-node
-statutes, down from 188). The FIRST Opus paired-landing audit found this NOT READY (11 defects:
-unmeasured precision on newly-resolved citations, an `Sb. m. s.` international-treaty citation
-collision, no apply path, a provenance-overwrite gap in the very deletion-diff built to fix
-batch-004's flagged issue, an invented pass number, 6 non-parliamentary-act nodes wired as amends
-targets, stale payload self-description). 6 of 11 defects remediated same-batch (Sb.m.s. regex
-fix, footnote-citation extraction fix for the 3 hand-proven cases, act-type edge gate excluding
-4 refs, pass-field + guard hardening, corrected payload documentation) — the remediated
-567-edge/187-node state is NOT yet independently re-audited, and the broader ~6.3% precision risk
-across all edges (found pre-remediation) was not re-measured. Collision candidate universe on the
-post-regen topology: 583 raw pairs (145 multi-bill groups, up from 88/29), 186 survive partitioned
-§-overlap (Q-law-10 method, unmodified). A replacement ranking signal for the debunked shared-§
-count (P52, moneyLiteral — currency/percentage/coefficient literal in the shared excerpt) was
-implemented and explicitly found NOT statistically validated (Fisher p=1.00 vs the 76% baseline
-partition-survivor rate) — reported honestly, not oversold. 15 pairs close-read: 5 confirmed / 7
-coordination-risk / 3 incidental, rendered on /zakony/kolize as a clearly-labeled batch-5/
-post-regen-pending section (build-review, no commit — driver never commits, per kernel). Zero new
-forensic_* verdicts this batch. npm run check green.
+## Pass N (track: law) — Case ③ batch-006: independent audit found the batch-005 edge regen NOT
+READY on a NEW recall defect; precision measured full-population; a durable apply path built and
+verified but not executed (2026-07-25)
+No graph writes this batch (all analysis on isolated .pglite-copy-law-006* copies, always removed
+after use). A background Opus audit (maximum depth), independently dispatched and briefed to
+distrust the batch-005 driver's remediation prose, re-checked all 11 original defects (D2/D5/D10
+confirmed fixed; D8 fixed for this run with a fail-open design note; D11 correctly stated; D3/D6/D9
+confirmed still open, D6/D9 wider/worse than previously reported; D1/D4/D7 partially fixed with
+real residual gaps) AND found two new high-severity defects the first audit's scope never reached:
+N1, the census extractor's Čl.-only article splitter silently degrades every ČÁST/§-organized bill
+to a single citation, undercounting ~29 true amending targets across 7 high-value omnibus bills
+(tisk 250/69/10/54/113/189/228) -- directly contradicting the payload's "0 missing statutes,
+citation universe closed" claim; and N2, 6 confirmed false edges survive (tisk 63/69/6/55/76/144),
+3 of them repeal clauses misread as amendments. This batch's own full-population precision
+measurement (measure-precision-006.ts, amending-verb-context proxy across all 567 edges: 561
+high-confidence / 6 low-confidence) overlaps only PARTIALLY with the audit's confirmed-false set
+(3 of the proxy's 6 flags match the audit's 6 finds; the proxy flagged tisk 7/10/64 as low-
+confidence but they are real, and rated tisk 55/76/144 as high-confidence despite being false
+repeal-not-amend edges the proxy's verb regex cannot distinguish from real amendments) — reported
+as a partial-overlap finding, not a corroboration, since the proxy demonstrably misses a real
+defect class (repeal clauses) entirely. A durable insert-
+capable apply script (apply-amends-regen.ts) was built and verified end-to-end on an isolated copy
+(dry-run + a real --commit test), closing D3/D4 for this payload shape without touching the shared
+persist-batch.ts -- but the batch's honest recommendation is NOT to run it live yet: excluding 6
+known-false edges does not fix N1's recall gap. Live graph untouched. npm run check green
+(typecheck 0 errors, tests 240/240; lint clean on this batch's own files, 3 pre-existing errors in
+a concurrent fleet executor's unrelated file not touched).
 ```
 
 ## 4. Enum / schema proposals
 
-None new this batch beyond what batch-003/004 already proposed (`amended_laws_full` array-of-string
-prop, unapplied). The regen payload's edge provenance now includes an explicit `pass: 0` provisional
-field (kernel's 5-field contract) — not a new enum, just closes a field-completeness gap batch-004's
-payload had left open.
+None new this batch. The provenance-completeness gap (N3: missing `computedAt` on edges, missing
+`pass` on nodes) is a payload-generation fix for whichever batch regenerates
+`batch-005-amends-regen.json`/`batch-005-missing-law-nodes.json`, not a schema change.
 
 ## 5. Commit plan (orchestrator; per-case commit inside law boundary)
 
-**Nothing committed this batch** (per Authority — no exceptions, not even a surgical one; batch-004's
-driver commit was the cautionary tale the kernel now names explicitly).
+**Nothing committed this batch** (per Authority — no exceptions).
 
-**Uncommitted work, all within law boundary** (`docs/data-analysis/case-law/**`,
-`scripts/case-loops/law/**`, `lib/ingest/sources/psp-legislation.ts`, `features/lawwatch/**`,
-`app/zakony/**`):
-- `scripts/case-loops/law/ingest-missing-laws.ts` (new), `fix-proposal-trigger.ts` (new),
-  `amends-regen-005.ts` (new), `validate-amends-regen-005.ts` (new),
-  `diff-amends-regen-deletions.ts` (new), `regen-collision-groups-005.ts` (new),
-  `collision-check-005.ts` (new), `_apply-missing-law-nodes-copy.ts` (new, copy-only reference
-  implementation — refuses the live path by construction)
-- `scripts/case-loops/law/amends-census.ts` (modified — `isFootnoteLine` fix, D1 partial)
-- `lib/ingest/sources/psp-legislation.ts` (modified — `LAW_CITATION` `Sb. m. s.` exclusion, D2)
-- `docs/data-analysis/case-law/**` (batch-005.md new, this handoff.md replacing batch-004's,
-  ledger.json updated, payloads/** — missing-law-nodes, amends-regen v2, collision-groups-005,
-  collision-report-v2-005, collision-close-reads-batch005, impact.md)
-- `features/lawwatch/getCollisionData.ts` + `CollisionsPage.tsx` (modified — batch-5 post-regen
-  preview section)
-- `.claude/skills/law-loop.md` (batch-005 priorities marked done, see below)
+**Uncommitted work, all within law boundary**:
+- `scripts/case-loops/law/measure-precision-006.ts` (new) — full-population precision proxy
+- `scripts/case-loops/law/apply-amends-regen.ts` (new) — the durable insert-capable apply path
+- `docs/data-analysis/case-law/batch-006.md` (new) — full narrative
+- `docs/data-analysis/case-law/handoff.md` (this file, replacing batch-005's)
+- `docs/data-analysis/case-law/ledger.json` (updated — `batch006IndependentAudit` summary block
+  added to `totals`)
+- `docs/data-analysis/case-law/payloads/batch-006-precision-measurement.json` (new)
+- `docs/data-analysis/case-law/payloads/batch-006-apply-report.json` (new, dry-run artifact)
 
 Suggested message (Conventional), for whatever the orchestrator folds together:
 ```
-feat(case-law): batch-005 missing-law-node ingest + amends regen v2 (audit-remediated, NOT applied)
+docs(case-law): batch-006 independent audit finds batch-005 edge regen NOT READY (new recall
+defect), builds durable apply path, holds live apply
 
-Law loop batch-005 — P1 paired landing: 187 missing law nodes resolved via the e-Sbirka bulk
-registry (0 unresolvable, titles/ELIs byte-verified), amends edge regen 150->567 (set-difference
-trigger, Q-law-11) closing the citation universe (188->0 missing statutes). Opus paired-landing
-audit found the first pass NOT READY (11 defects) -- 6 remediated same-batch (Sb. m. s. citation
-collision fixed, footnote-citation extraction fixed, non-parliamentary-act edge gate added,
-deletion-diff gate added, provenance/pass fields fixed, stale docs fixed); precision on the full
-edge set and a durable apply path remain open for a fresh audit + the orchestrator. Post-regen
-collision pre-check: 583 raw / 186 partitioned candidate pairs (up from 88), 15 close-read (5
-confirmed / 7 coordination-risk), P52 ranking signal implemented and honestly reported as NOT
-statistically validated. /zakony/kolize ships the batch-5 preview, clearly labeled pending. npm
-run check green. Live graph untouched -- awaiting a fresh orchestrator-commissioned audit before
-any apply.
+Law loop batch-006 — P1a: independent Opus audit (different agent, maximum depth) re-checked
+batch-005's post-remediation payloads fresh. D2/D5/D10/D11 confirmed clean; D3/D6/D9 confirmed
+still open (wider/worse than reported); D1/D4/D7 partially fixed. Found 2 NEW high-severity
+defects the first audit's scope never reached: N1, the census extractor's Cl.-only splitter is
+blind to CAST/Zmena-heading bills, undercounting ~29 true amending targets in 7 high-value
+omnibus bills; N2, 6 confirmed false edges (not the driver's own 2). P1b: full-population
+precision measurement (amending-verb-context proxy, 567 edges) -- 561 high-confidence / 6 low,
+corrected to match the audit's finding. P1c: built apply-amends-regen.ts, an insert-capable,
+provenance-preserving apply path (closes D3/D4 for this payload shape without touching the
+shared persist-batch.ts) -- verified end-to-end on an isolated copy, dry-run + commit test both
+clean. Recommendation: do NOT apply the edge regen this batch -- excluding 6 known-false edges
+does not fix N1's recall gap; node payload alone is sound but provides no standalone value split
+from its edges. Second consecutive NOT READY verdict on this change-set; concrete minimum-to-ready
+path recorded. npm run check green (typecheck/tests; lint clean on this batch's own files).
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
 ```
 
 ## 6. Lessons learned
 
-See `batch-005.md` §7 for the full text (5 lessons): (1) a recall fix and a precision fix are
-different projects even in one pipeline, and need an adversarial second check, not
-self-verification; (2) the same defect class can recur one field deeper even in the gate built to
-close the LAST audit's finding — ask what the new gate is still blind to; (3) a footnote-marker
-regex tuned on one PDF's rendering breaks on the next PDF's rendering of the same thing — iterate
-against multiple real examples before calling a text-extraction fix general; (4) an unvalidated
-ranking signal that "looks like it worked" needs the real baseline computed by an adversarial
-audit, not just its raw hit-rate quoted by its own author; (5) fleet boundary discipline creates a
-genuine kernel-level gap — no case loop has a sanctioned insert (not just merge) write path, and
-every case that ever needs to grow the graph's node/edge SET will hit the same D3 wall batch-005
-did.
+See `batch-006.md` §7 for the full text (5 lessons): (1) the driver's own manual read of a proxy
+flag is not a substitute for an independent audit, even when it feels rigorous — self-review
+shares the blind spots of whatever produced the artifact; (2) "recall closed to 0" is the
+highest-value claim in this kind of payload and the easiest to get wrong silently — a citation-
+resolution count can be perfectly true for what the extractor CAN see and badly wrong for the
+population as a whole; (3) a footnote-detection fix scoped to 3 motivating cases needs a block
+model from the start, not a line model with iterative patches; (4) an insert-capable apply script
+is genuinely cheap once the store's actual capability (true upsert-by-PK) is understood — the D3
+gap was one script's narrow contract, not a missing store feature; (5) two consecutive Opus audits
+finding the same change-set not ready is itself a signal about the extraction pipeline's
+under-testedness, not just the current payload's state — the next attempt should harden the
+extractor against real format diversity, not patch a third specific case.

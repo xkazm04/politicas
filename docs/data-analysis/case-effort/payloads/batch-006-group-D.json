@@ -1,0 +1,90 @@
+{
+  "generatedAt": "2026-07-25T00:00:00.000Z",
+  "proposals": [
+    {
+      "id": "psp:person:7049",
+      "name": "Gabriela Svárovská",
+      "club": "Piráti",
+      "lens": ["top", "high-triage"],
+      "props": {
+        "effort_work_themes": ["životní prostředí a odpady", "zahraniční a bezpečnostní politika", "kontrola NBÚ"],
+        "effort_bill_focus": "Svárovská nemá ve vzorku žádný tisk, kde by figurovala jako první podpisatelka (bills_authored=5 odpovídá pěti spolupodepsaným tiskům, ne pěti vlastním iniciativám) — první podpisatel je ve všech případech Petr Hladík nebo Olga Richterová. Ověřeno u tisku 73 (novela zákona o obalech 477/2001 Sb.; k 25. 7. 2026 v projednávání, vláda 20. 1. 2026 zaujala nesouhlasné stanovisko, garančním výborem VŽP) a tisku 168 (novela zákona o DPH 235/2004 Sb.; podán 15. 4. 2026, vláda 12. 5. 2026 vyjádřila nesouhlas, garančním výborem RV, dosud neprojednáno). Zbylé tři tisky (74/167-2008, 75/254-2001, 161/541-2020) nebyly individuálně dohledány, ale dle dossieru jde o stejný vzorec — skupinové piráto-koaliční environmentální/rozpočtové novely s Hladíkem nebo Richterovou jako první podpisatel.",
+        "effort_public_role": "Svárovská je od listopadu 2025 členkou Výboru pro životní prostředí a Zahraničního výboru, od ledna 2026 náhradnicí ve Stálé delegaci do Parlamentního shromáždění NATO a od dubna 2026 předsedkyní podvýboru pro rozvojovou spolupráci a lidská práva — nejvyšší vedoucí role v jejím profilu. Je také členkou Stálé komise pro kontrolu činnosti NBÚ a od ledna 2026 podvýboru pro energetiku a od února 2026 podvýboru pro evropské fondy a zelenou tranzici.",
+        "effort_notes": "Datová shoda: props uvádí committee_count=5, což odpovídá pěti položkám ve vstupním poli committees (jedna je technicky duplicitní záznam delegace SDNATO, ale početně souhlasí) — žádná anomálie k hlášení oproti dřívějším dávkám. psp.cz eviduje navíc pozice, které nejsou v poskytnutém committees poli (podvýbory pro energetiku, evropské fondy, rozvojovou spolupráci a předsednictví posledně jmenovaného) — vstupní pole tedy zachycuje jen výbory/komise/delegace, ne podvýbory, což je patrně záměrný rozsah extrakce, ne chyba. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření.",
+        "effort_low_score_reason": "unknown"
+      },
+      "signal": 0.3,
+      "headline": "Svárovská, poslankyně Pirátů pro Prahu, vede podvýbor pro rozvojovou spolupráci a lidská práva a spolupodepisuje environmentální a rozpočtové novely vedené Hladíkem či Richterovou — aktivní, nekonfliktní profil bez vlastních prvopodpisů a bez peněžních zjištění.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7049&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=73",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168"
+      ]
+    },
+    {
+      "id": "psp:person:7051",
+      "name": "Vendula Svobodová",
+      "club": "Piráti",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["rozpočet a veřejné finance", "petice a kontrola ochrany osobních údajů", "sociální začleňování a vězeňství"],
+        "effort_bill_focus": "Jediný sponzorovaný tisk ve vzorku (bills_authored=1) je tisk 168 — novela zákona o DPH (235/2004 Sb.), kde je prvním podpisatelem Olga Richterová a Svobodová jedna ze 17 spolupodpisatelů (spolupodepsala, nepředložila). K 25. 7. 2026 je tisk v projednávání: podán 15. 4. 2026, vláda 12. 5. 2026 zaujala nesouhlasné stanovisko, garančním výborem je Rozpočtový výbor (jehož je Svobodová sama členkou), dosud neprojednán.",
+        "effort_public_role": "Svobodová je od listopadu 2025 členkou Petičního výboru a Rozpočtového výboru a od listopadu 2025 také Stálé komise pro kontrolu použití odposlechu a záznamu telekomunikačního provozu. Je navíc ověřovatelkou Sněmovny od listopadu 2025. Dle psp.cz je dále členkou pěti podvýborů mimo poskytnutá data (sociální vyloučení a resocializace po výkonu trestu, financování územní samosprávy a evropské fondy, náhradní péče, vězeňství, lidská práva a národnostní menšiny od ledna–března 2026) — široký, ale zatím bez vedoucí role.",
+        "effort_notes": "Datová shoda: props uvádí committee_count=3, což odpovídá třem položkám ve vstupním poli committees — žádná anomálie. Poskytnuté committees pole nezachycuje pět podvýborů uvedených na psp.cz ani funkci ověřovatelky Sněmovny, patrně stejné omezení rozsahu extrakce jako u ostatních MPs v této dávce (jen výbory/komise/delegace, ne podvýbory ani sněmovní funkce). linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření.",
+        "effort_low_score_reason": "unknown"
+      },
+      "signal": 0.22,
+      "headline": "Svobodová, poslankyně Pirátů za Jihomoravský kraj a ověřovatelka Sněmovny, sedí v Rozpočtovém výboru i pěti dalších podvýborech a spolupodepsala jednu novelu DPH — tichý, širokospektrý profil bez vlastní legislativní iniciativy a bez peněžních zjištění.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7051&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168"
+      ]
+    },
+    {
+      "id": "psp:person:6803",
+      "name": "Jiří Horák",
+      "club": "KDU-ČSL",
+      "lens": ["top", "high-triage"],
+      "props": {
+        "effort_work_themes": ["obrana a bezpečnost", "zemědělství a rozpočtové určení daní", "bydlení a výstavba"],
+        "effort_bill_focus": "Horák nemá ve vzorku žádný tisk jako první podpisatel (bills_authored=4 jsou čtyři spolupodepsané tisky). Ověřeno u tisku 28 — novela zákona o rozpočtovém určení daní (243/2000 Sb.), kde je prvním podpisatelem Marek Výborný a Horák jeden ze čtyř spolupodpisatelů (spolupodepsal); k 25. 7. 2026 v projednávání, vláda 12. 12. 2025 zaujala neutrální stanovisko, garančním výborem RV. Dále tisk 104 — novela školského zákona (561/2004 Sb.), prvním podpisatelem Václav Pláteník, vláda 10. 3. 2026 nesouhlasila, garančním výborem VVVMS, dosud v projednávání. Tisky 106 a 107 (oba amended_laws 159/1999 Sb., prvním podpisatelem Eliška Olšáková) nebyly individuálně dohledány — nápadné je, že jde o dva samostatné tisky se stejným prvním podpisatelem a stejným amended_laws v témže dossieru, což může být buď dvě odlišné novely téhož zákona, nebo datový duplikát; doporučuji ověřit v Case ①.",
+        "effort_public_role": "Horák je od listopadu 2025 místopředsedou Výboru pro obranu (i řadovým členem) a byl do 16. 1. 2026 členem Zemědělského výboru — datum konce role se přesně shoduje s obdobím, kdy mu podle poskytnutých dat skončilo členství (committees.toAt=2026-01-16), potvrzeno i na psp.cz. Od 19. 2. 2026 je navíc členem podvýboru pro bytovou politiku a výstavbu (mimo poskytnutá data). Je také místopředsedou poslaneckého klubu KDU-ČSL od 7. 10. 2025 — vedoucí role nad rámec výborové struktury, kterou dossier props (leadership_count=1) nezachycuje, protože ta počítá jen výborová vedení.",
+        "effort_notes": "Datová shoda: committee_count=3 odpovídá třem položkám ve vstupním poli committees (VO vice, VO member, ZEV member s korektním toAt) — žádná anomálie, na rozdíl od systematického vzorce '+1' hlášeného v předchozí dávce. Srovnání s PSP9: skóre kleslo z 70,6 na 80,4 v PSP10, tedy skutečně vzrostlo (ne pokleslo) navzdory kratší tenuře v tomto vzorku — komponenty (committee 20→ still needs recompute, legislative 20 both terms) naznačují srovnatelnou legislativní aktivitu mezi obdobími. MONEY-TOUCHING OVĚŘENO PŘES ARES VR/or.justice.cz: Horák (nar. 24. 7. 1984, adresa Ždánská 557, Bučovice) byl členem představenstva Vodovody a kanalizace Vyškov, a.s. (IČO 49454587) od 30. 5. 2019 do 21. 12. 2021 (výmaz zapsán 17. 1. 2022) — datum narození v obchodním rejstříku se přesně shoduje s jeho poslaneckým profilem, jde tedy nepochybně o stejnou osobu. Jde o ukončenou minulou funkci, ne o současný vztah — Horák NENÍ v současném (2023) zápisu představenstva ani dozorčí rady, které bylo 30. 5. 2023 kompletně obměněno. Dossier eviduje smlouvu v hodnotě 1 296 198,50 Kč se stavem 'pending_review' u této společnosti — vzhledem k tomu, že jeho členství v představenstvu skončilo v prosinci 2021, tedy téměř 4 roky před nástupem do sněmovního mandátu (říjen 2025), nejde o souběžný konflikt zájmů poslance a člena statutárního orgánu dodavatelské firmy, ale o dřívější personální vazbu na regionální vodárenskou společnost v jeho volebním kraji (Jihomoravský), kterou lze veřejně kontextualizovat. Nelze bez dalšího ověřit, zda smlouva časově spadá do období jeho členství v představenstvu — to by vyžadovalo srovnání data smlouvy, které dossier neuvádí.",
+        "effort_low_score_reason": "unknown"
+      },
+      "signal": 0.62,
+      "headline": "Horák, místopředseda klubu KDU-ČSL a místopředseda Výboru pro obranu, byl v letech 2019–2021 členem představenstva vodárenské firmy Vodovody a kanalizace Vyškov (IČO 49454587) ve svém volebním kraji — ověřeno přes obchodní rejstřík; funkce skončila skoro čtyři roky před jeho nástupem do Sněmovny, takže nejde o aktivní konflikt zájmů, ale je to relevantní veřejný kontext k jeho evidované 1,3milionové zakázce u firmy.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6803&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=28",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=104",
+        "https://or.justice.cz/ias/ui/rejstrik-firma.vysledky?subjektId=62856&typ=UPLNY"
+      ]
+    },
+    {
+      "id": "psp:person:7030",
+      "name": "Jan Papajanovský",
+      "club": "STAN",
+      "lens": ["top", "high-triage"],
+      "props": {
+        "effort_work_themes": ["veřejná správa a regionální rozvoj", "veřejné finance a daně", "kontrola BIS a vyšetřování korupce (Dozimetr)"],
+        "effort_bill_focus": "Papajanovský nemá ve vzorku žádný tisk jako první podpisatel (bills_authored=4 jsou čtyři spolupodepsané tisky). Ověřeno u tisku 24 — novela zákona o obcích (128/2000 Sb.), prvním podpisatelem Vít Rakušan, deset spolupodpisatelů; k 25. 7. 2026 v projednávání, garančním výborem VSR (jehož byl Papajanovský předsedou). Dále tisk 146 — novela zákona o obcích, prvním podpisatelem Věra Kovářová, podán 25. 3. 2026, vláda 21. 4. 2026 nesouhlasila, garančním výborem opět VSR, dosud neprojednáno. Tisk 120 (586/1992 Sb., zákon o daních z příjmů, první podpisatel Lucie Sedmihradská) a tisk 244 (rovněž 586/1992 Sb., první podpisatel Pavla Pivoňka Vaňková) nebyly individuálně dohledány.",
+        "effort_public_role": "Papajanovský byl od 14. 11. 2025 do 6. 3. 2026 předsedou Výboru pro veřejnou správu a regionální rozvoj a od 2. 4. 2026 je místopředsedou téhož výboru — z předsedy na místopředsedu, tedy formální snížení postavení v tomtéž výboru (dossier committees pole to přesně zachycuje včetně dat). Je také členem Rozpočtového výboru, Stálé komise pro kontrolu činnosti BIS a od 27. 5. 2026 členem Vyšetřovací komise k prošetření kauzy 'Dozimetr' (korupční kauza kolem Dopravního podniku hl. m. Prahy, KSÚS Středočeského kraje a VZP) — významná dozorová role nad vysoce sledovanou korupční kauzou.",
+        "effort_notes": "Datová shoda: committee_count=6 odpovídá šesti položkám ve vstupním poli committees (včetně přechodu předseda→místopředseda VSR zachyceného jako dva samostatné záznamy s korektními daty) — žádná anomálie. Nejvyšší componentDivergence v profilu skupiny (1,169) koresponduje s nesourodým obrazem: vysoký contribution_score (82,9) a dvě vedoucí role, ale zároveň nejvyšší absence_rate ve skupině (0,8) a jen 60% účast — mix intenzivní institucionální angažovanosti (výbory, vyšetřovací komise) s nižší přítomností na hlasováních, nikoli rozpor v datech. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření.",
+        "effort_low_score_reason": "unknown"
+      },
+      "signal": 0.4,
+      "headline": "Papajanovský, bývalý předseda a nyní místopředseda Výboru pro veřejnou správu, od května 2026 dozoruje vyšetřovací komisi ke kauze Dozimetr — vysoké institucionální zapojení (nejvyšší divergence komponent ve skupině) kombinované s nejnižší docházkou (60 %) v tomto vzorku, bez vlastní legislativní iniciativy a bez peněžních zjištění.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7030&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=24",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=146"
+      ]
+    }
+  ],
+  "crossCuttingLeads": [
+    "Vstupní pole `committees` v dossier-inputs.json u této dávky konzistentně vynechává podvýbory (podvýbory) a sněmovní funkce (ověřovatel) u všech čtyř MPs — zachycuje jen výbory/komise/delegace. Číselná shoda s committee_count je proto správná (na rozdíl od 'staré' +1 anomálie z minulé dávky), ale profil čtenáři na psp.cz působí bohatší, než co dossier ukazuje. Nejde o chybu k opravě v Case ①, spíš o vědomé omezení rozsahu extrakce, které stojí za zmínku v dokumentaci pipeline.",
+    "Horák (money-touching MP) ověřen přes or.justice.cz úplný výpis (subjektId 62856) namísto přímo přes ares.gov.cz VR endpoint — přímé dotazy na ares.gov.cz/ekonomicke-subjekty-v-r/... vracely jen prázdnou SPA shell bez dat (JS-rendered stránka, WebFetch nedokáže vykonat klientský JS). or.justice.cz Úplný výpis je ekvivalentní primární zdroj (obchodní rejstřík, ze kterého ARES VR čerpá) a obsahuje kompletní historii představenstva/dozorčí rady včetně vymazaných členů, takže gate požadavek na plnou historickou evidenci (ne jen aktuální stav) byl splněn. Pro budoucí dávky s money-touching MPs doporučuji rovnou zkusit or.justice.cz úplný výpis, pokud přímý ARES VR dotaz vrátí prázdný obsah.",
+    "V této skupině jsou 3 ze 4 MPs (Svárovská, Svobodová, Horák) na tiscích, kde je prvním podpisatelem stejná malá skupina lidí v jejich klubu (Hladík/Richterová u Pirátů, Výborný/Pláteník u KDU-ČSL) — žádný z nich sám nikdy nefiguruje jako první podpisatel žádného tisku ve vzorku. To je konzistentní se strukturou koaličních klubů, kde legislativní iniciativu nesou určení 'kmenoví' předkladatelé, ale stojí za zmínku jako opakující se vzorec napříč dávkami."
+  ]
+}

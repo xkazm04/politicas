@@ -1,0 +1,91 @@
+{
+  "generatedAt": "2026-07-25T00:00:00.000Z",
+  "proposals": [
+    {
+      "id": "psp:person:7037",
+      "name": "Jindřich Rajchl",
+      "club": "SPD",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["obrana a bezpečnost", "zahraniční politika a NATO", "kontrola tajných služeb", "vyšetřování kauzy Dozimetr"],
+        "effort_bill_focus": "Rajchl je jedním z cca 40 spolupodepsaných poslanců (nikoli předkladatelem) tisku 87 — návrhu zákona o zemských znacích a vlajkách, který podal Radek Vondráček 22. 1. 2026 (odpovídá props bills_authored=1, ale jde o spolupodpis, ne autorství). Vláda k němu 25. 2. 2026 vydala souhlasné stanovisko, organizační výbor 4. 3. 2026 doporučil projednání (usnesení 37) s garančním Výborem pro vědu, vzdělávání, mládež a sport a zpravodajem Jiřím Vojáčkem; tisk byl také přikázán Ústavně-právnímu výboru. K 25. 7. 2026 ještě neproběhlo žádné čtení ani hlasování.",
+        "effort_public_role": "Rajchl je místopředsedou Výboru pro obranu (od 12. 11. 2025) a členem Zahraničního výboru, Stálé komise pro kontrolu použití odposlechu a Stálé komise pro kontrolu Vojenského zpravodajství — tedy sedí ve všech třech hlavních dohledových tělesech nad bezpečnostními složkami. Od 27. 5. 2026 je členem a od 5. 6. 2026 předsedou vyšetřovací komise k tzv. kauze Dozimetr (podezření z korupce u Dopravního podniku hl. m. Prahy, Krajské správy a údržby silnic Středočeského kraje a VZP) — nejvýraznější institucionální role v tomto vzorku. Před vstupem do Sněmovny byl advokátem, výkonným ředitelem fotbalového klubu FK Chmel Blšany a místopředsedou FAČR; v roce 2022 založil a od té doby vede stranu PRO (Právo Respekt Odbornost), s níž kandidoval na koalici se SPD. Média a komentátoři opakovaně popisují PRO jako stranu s 'prokremelskou orientací' a Rajchla samotného spojují se šířením dezinformací během covidové éry — jde o veřejně diskutovanou, ne soukromou charakteristiku relevantní k posouzení jeho role v čele protikorupční vyšetřovací komise.",
+        "effort_notes": "Dvě datové nesrovnalosti k prověření: (1) položka SDNATO (Stálá delegace do Parlamentního shromáždění NATO) je ve vstupním seznamu committees uvedena dvakrát se shodnou rolí 'member' a shodným datem 14. 11. 2025 — vypadá to na duplicitní záznam, ne na dvě různé role; psp.cz navíc uvádí jeho roli v této delegaci jako 'náhradník', ne řádný člen, což se s dossier daty vůbec neshoduje. (2) psp.cz eviduje u Rajchla tři podvýbory (akvizice MO od 4. 2. 2026, lidská práva a národnostní menšiny od 17. 3. 2026, svoboda projevu od 29. 4. 2026) a meziparlamentní skupinu ČR–Čína (od 23. 4. 2026), které ve vstupním poli committees chybí úplně — committee_count=9 tedy nereflektuje jeho aktuální plné zařazení, jen hlavní výbory/komise. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření.",
+        "effort_low_score_reason": "unknown"
+      },
+      "signal": 0.6,
+      "headline": "Rajchl, zakladatel kontroverzní strany PRO a bývalý fotbalový funkcionář, dnes místopředseda obranného výboru a od června 2026 předseda vyšetřovací komise ke kauze Dozimetr — vysoce viditelná role v čele protikorupčního vyšetřování u poslance, kterého komentátoři sami spojují se šířením dezinformací.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7037&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
+        "https://cs.wikipedia.org/wiki/Jind%C5%99ich_Rajchl"
+      ]
+    },
+    {
+      "id": "psp:person:6254",
+      "name": "Věra Adámková",
+      "club": "ANO2011",
+      "lens": ["bottom", "high-triage"],
+      "props": {
+        "effort_work_themes": ["zdravotnictví", "veřejné zdraví, prevence a epidemiologie", "sociální politika"],
+        "effort_bill_focus": "Adámková je jednou z cca 29 spolupodepsaných poslanců (nikoli předkladatelkou) tisku 72 — novely zákona o jednacím řádu Poslanecké sněmovny (mění zákon 90/1995 Sb.), kterou podala skupina poslanců vedená Radkem Vondráčkem 18. 12. 2025 (odpovídá props bills_authored=1, jde ale o spolupodpis). Tisk prošel všemi třemi čteními (3. čtení a schválení 1.–3. 7. 2026, hlasování č. 242, usnesení 243) a byl 21. 7. 2026 postoupen Senátu jako tisk 268/0 — je to tedy reálně přijatá, nikoli jen navržená legislativa.",
+        "effort_public_role": "Adámková je členkou Výboru pro zdravotnictví (od 11. 11. 2025) a Výboru pro sociální politiku (od 16. 1. 2026) a od 21. 1. 2026 předsedkyní podvýboru pro veřejné zdraví, prevenci, epidemiologii, vědu a výzkum — tato předsednická role není ve vstupním poli committees vůbec zachycena (viz effort_notes). Je kardioložka a internistka, od roku 1982 působí v IKEM, kde vedla oddělení preventivní kardiologie, a od roku 2018 předsedá správní radě Všeobecné zdravotní pojišťovny. V začátku pandemie covid-19 vedla tým připravující studii proveditelnosti české vakcíny, což epidemiologové kritizovali jako mimo její kardiologickou odbornost; v roce 2019 obdržela satirickou cenu Bludný balvan za výrok o homeopatii v kontextu léčiv. Tyto veřejně známé epizody jsou relevantní k posouzení její odbornosti coby členky zdravotního výboru, který legislativu v této oblasti posuzuje.",
+        "effort_notes": "Výrazná datová mezera: props uvádí leadership_count=0 a committee_count=2 (odpovídá 2 položkám ve vstupním poli committees), ale psp.cz eviduje navíc šest podvýborů, z toho jeden s předsednickou rolí od 21. 1. 2026 — vstupní data tedy podhodnocují jak její výborové zařazení, tak zejména její vedoucí roli, kterou committee_count/leadership_count vůbec nezachycují. Kontribuční skóre 52,4 (participation_rate=0,9, ale speech_turns=5, bills_authored=1 jen jako spolupodpis) tak může být zavádějící směrem dolů, protože nepočítá s její podvýborovou funkcí. contributionPsp9=null, žádné srovnání s PSP9 k dispozici. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření.",
+        "effort_low_score_reason": "low_legislative_output"
+      },
+      "signal": 0.48,
+      "headline": "Adámková, kardioložka a bývalá předsedkyně týmu pro českou covid vakcínu (kritizovaná epidemiology za odbornou nekompetenci) a nositelka satirické ceny Bludný balvan za výrok o homeopatii, dnes předsedá zdravotnickému podvýboru pro veřejné zdraví a prevenci — roli, kterou vstupní data vůbec nezachycují a která staví její nízké kontribuční skóre (52,4) do jiného světla.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6254&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
+        "https://cs.wikipedia.org/wiki/V%C4%9Bra_Ad%C3%A1mkov%C3%A1"
+      ]
+    },
+    {
+      "id": "psp:person:7005",
+      "name": "Karin Gajdová",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["sociální politika a sociální vyloučení", "věda a vzdělávání", "rodinná politika a rovné příležitosti"],
+        "effort_bill_focus": "Gajdová je jednou z cca 40 spolupodepsaných poslanců (nikoli předkladatelkou) tisku 87 — návrhu zákona o zemských znacích a vlajkách, který podal Radek Vondráček 22. 1. 2026 (odpovídá props bills_authored=1, jde ale o spolupodpis). Stav tisku k 25. 7. 2026: čeká na projednání, garanční výbor Pro vědu, vzdělávání, mládež a sport, přikázán i Ústavně-právnímu výboru, žádné čtení ani hlasování zatím neproběhlo (viz shodný záznam u Rajchla, s nímž tisk spolupodepsala).",
+        "effort_public_role": "Gajdová je členkou Výboru pro sociální politiku a Výboru pro vědu, vzdělávání, mládež a sport (oba od 11. 11. 2025) a Stálé komise pro rodinu a rovné příležitosti (od 14. 11. 2025). psp.cz navíc eviduje pět podvýborů (sociální vyloučení, sociální služby a zdravotní postižení — zde jako místopředsedkyně, duševní zdraví, věda a vysoké školy, regionální školství), z nichž vedoucí roli ve vstupních datech vůbec nenajdeme (viz effort_notes). Před vstupem do politiky pracovala jako projektová koordinátorka a od roku 2014 přednáší na Slezské univerzitě v Opavě; od roku 2022 je zastupitelkou obce Ludgeřovice. V roce 2025 se stala předsedkyní správní rady Letiště Leoše Janáčka Ostrava (veřejná instituce v majetku Moravskoslezského kraje) — institucionální role nad rámec mandátu, kterou dossier nezachycuje.",
+        "effort_notes": "Datová mezera stejného typu jako u Adámkové a Strýčka: props leadership_count=0, ale psp.cz uvádí Gajdovou jako místopředsedkyni podvýboru pro sociální služby a zdravotní postižení od 28. 1. 2026 — vedoucí podvýborová role tedy do committee_count/leadership_count nepropadá vůbec, systematicky napříč skupinou (viz crossCuttingLeads). contributionPsp9=null (žádné PSP9 srovnání — nová poslankyně tohoto volebního období). Skóre 57,4 při participation_rate=1,0 a nízkém speech_turns=2 odpovídá tichému, ale plně docházejícímu profilu. linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření; předsednictví správní rady letiště je veřejná/krajská funkce, ne soukromá obchodní vazba, takže ARES VR kontrola zde není relevantní.",
+        "effort_low_score_reason": "new_mp"
+      },
+      "signal": 0.3,
+      "headline": "Gajdová, nová poslankyně ANO se stoprocentní účastí na hlasováních a v roce 2025 čerstvě předsedkyně správní rady Letiště Leoše Janáčka Ostrava, je ve vstupních datech vedena bez jakékoli vedoucí role — přitom podle psp.cz od ledna 2026 místopředsedá sociálnímu podvýboru pro zdravotní postižení.",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7005&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
+        "https://cs.wikipedia.org/wiki/Karin_Gajdov%C3%A1"
+      ]
+    },
+    {
+      "id": "psp:person:6515",
+      "name": "Jiří Strýček",
+      "club": "ANO2011",
+      "lens": ["high-triage"],
+      "props": {
+        "effort_work_themes": ["hospodářská politika a zahraniční ekonomické vztahy", "energetika", "inovace a startupy"],
+        "effort_bill_focus": "Strýček spolupodepsal (nikoli předložil, odpovídá bills_authored=3 jako součet spolupodpisů) tři tisky: (1) tisk 11 — novela zákona o pojistném na sociální zabezpečení (mění 589/1992 Sb.), předložila skupina vedená Alenou Schillerovou 6. 11. 2025; prošla všemi čteními (3. čtení a schválení 25. 3. 2026, hlasování č. 80), Senát ji 6. 5. 2026 zamítl, ale Sněmovna 26. 5. 2026 setrvala na původním znění (hlasování č. 56) a zákon byl podepsán prezidentem 5. 6. 2026 a vyhlášen jako zákon č. 90/2026 Sb. — reálně přijatá legislativa přes senátní veto. (2) tisk 72 — novela jednacího řádu Sněmovny (mění 90/1995 Sb.), viz záznam u Adámkové — schválena 3. čtením 1.–3. 7. 2026, postoupena Senátu 21. 7. 2026. (3) tisk 87 — návrh zákona o zemských znacích a vlajkách, viz záznamy u Rajchla a Gajdové — zatím bez čtení, čeká na projednání.",
+        "effort_public_role": "Strýček je členem Mandátového a imunitního výboru (od 5. 11. 2025), Zahraničního výboru a Hospodářského výboru (oba od 11. 11. 2025) a náhradníkem Stálé delegace do Parlamentního shromáždění Rady Evropy. psp.cz navíc eviduje čtyři podvýbory (startupy/inovace, energetika, styky s krajany a zahraniční ekonomické vztahy — zde jako předseda od 18. 2. 2026), přičemž předsednická role v žádném vstupním poli není zachycena. Před vstupem do celostátní politiky byl 1994–2002 zastupitelem a místostarostou Nového Jičína za ODS, k níž patřil do roku 2013, poté přešel k ANO (nestraník 2014, člen od 2017); od roku 2014 je opět zastupitelem Nového Jičína a poslancem od roku 2017 (zvolen potřetí v roce 2025).",
+        "effort_notes": "Stejná systematická mezera jako u Adámkové a Gajdové: props leadership_count=0, ale psp.cz uvádí Strýčka jako předsedu podvýboru pro zahraniční ekonomické vztahy od 18. 2. 2026 — committee_count=5 odpovídá vstupnímu seznamu committees (5 položek), ale ani tento seznam, ani leadership_count nezachycují podvýborové předsednictví. Skóre kleslo z PSP9 (71,7 — přitom s leadershipCount=0 i tehdy) na PSP10 (63,7); srovnání je částečně věrohodné, protože leadership složka byla nulová v obou obdobích, takže pokles není artefaktem chybějící podvýborové role, ale spíš nižšího speech_turns (101→2) a absence_rate (0,4→0,5) — může jít o reálný posun k tiššímu profilu, nebo o neúplný záznam raného PSP10 období (tenureDays=293). linkedCompanies je prázdné pole, žádné peněžní zjištění k ověření."
+      },
+      "signal": 0.4,
+      "headline": "Strýček, dlouholetý komunální politik (ODS 1994–2013, pak ANO) a od února 2026 předseda hospodářského podvýboru pro zahraniční ekonomické vztahy — role opět chybějící ve vstupních datech — spolupodepsal tři tisky včetně zákona přijatého navzdory senátnímu vetu, ale jeho skóre oproti PSP9 kleslo (71,7 → 63,7).",
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6515&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
+        "https://cs.wikipedia.org/wiki/Ji%C5%99%C3%AD_Str%C3%BD%C4%8Dek"
+      ]
+    }
+  ],
+  "crossCuttingLeads": [
+    "Systematic gap across all 4 group-F MPs: the committees[] extraction / committee_count / leadership_count pipeline only captures hlavní výbory, komise, and delegace — it does not capture podvýbory (subcommittees) at all, including subcommittee CHAIR/VICE-CHAIR roles. Concretely: Adámková chairs a health subcommittee (from 21.1.2026), Gajdová vice-chairs a social-services subcommittee (from 28.1.2026), and Strýček chairs an economic subcommittee (from 18.2.2026) — none of these leadership roles are reflected in leadership_count=0 for any of the three. This means leadership_count is systematically undercounted for any MP whose only leadership role is at subcommittee level, not just for this group — worth checking across the full army sample.",
+    "Rajchl's committees[] entry for SDNATO (NATO delegation) appears twice with identical role/date, which looks like a duplicate-row artifact rather than two distinct role changes; separately, psp.cz describes his NATO delegation role as 'náhradník' (alternate), not 'member' as recorded twice in the dossier — worth checking the delegation role-mapping in the extraction.",
+    "Three of the four MPs in this group (Rajchl, Gajdová, Strýček) co-signed the same bill (tisk 87, cislo 87 — territorial emblems/flags law), and two (Adámková, Strýček) co-signed the same jednací-řád amendment (tisk 72). This is expected given ANO/SPD club-wide mass-cosponsorship patterns already documented in prior batches, not a new finding, but confirms the pattern holds in this sample too."
+  ]
+}
