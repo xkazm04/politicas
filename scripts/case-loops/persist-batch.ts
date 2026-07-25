@@ -20,12 +20,37 @@ import { getStore } from "../../lib/db/store";
 const arg = (k: string) => process.argv.find((a) => a.startsWith(`--${k}=`))?.split("=").slice(1).join("=");
 const flag = (k: string) => process.argv.includes(`--${k}`);
 
+/**
+ * Thread an army's per-claim `citations` into the graph as `<ns>_citations`.
+ *
+ * Batches 001–005 collected citations on every dossier and this writer silently
+ * dropped them (it merged `props` only), so the surfaces could source a dossier
+ * at field level but never link the individual claim to the page it came from —
+ * a real gap for a platform whose brand rule is "every rendered number cites its
+ * source" (found in the 2026-07-25 manifestation pass). Accepts the two shapes
+ * payloads actually use: an array of strings/objects, or `{claim, url, accessedAt}`
+ * records. Absent/empty ⇒ nothing written, so re-persisting an old payload is a
+ * no-op rather than a spurious empty field.
+ */
+function citationsProp(ns: string, p: { citations?: unknown }): Record<string, unknown> {
+  const c = p.citations;
+  if (!Array.isArray(c) || c.length === 0) return {};
+  return { [`${ns}_citations`]: c };
+}
+
 interface EdgePayload {
   provenanceStamp?: { track?: string; method?: string; ref?: string; computedAt?: string };
-  edges?: { src: string; rel: string; dst: string; propsMerge: Record<string, unknown> }[];
+  edges?: {
+    src: string;
+    rel: string;
+    dst: string;
+    propsMerge: Record<string, unknown>;
+    /** Per-claim sources the army collected; threaded in as `<ns>_citations`. */
+    citations?: unknown[];
+  }[];
 }
 interface NodePayload {
-  proposals?: { id: string; props: Record<string, unknown> }[];
+  proposals?: { id: string; props: Record<string, unknown>; citations?: unknown[] }[];
 }
 
 async function main() {
@@ -57,7 +82,15 @@ async function main() {
     const merged = raw.edges.map((p) => {
       const e = byKey.get(`${p.src} ${p.rel} ${p.dst}`);
       if (!e) throw new Error(`payload edge not in graph (refusing to insert): ${p.src} ${p.rel} ${p.dst}`);
-      return { ...e, props: { ...e.props, ...p.propsMerge, [`${ns}_provenance`]: provenance } };
+      return {
+        ...e,
+        props: {
+          ...e.props,
+          ...p.propsMerge,
+          ...citationsProp(ns, p),
+          [`${ns}_provenance`]: provenance,
+        },
+      };
     });
     if (flag("commit")) written += await store.upsertKgEdges(merged);
     console.log(`${flag("commit") ? "COMMITTED" : "DRY-RUN"}: ${merged.length} ${raw.edges[0].rel} edges props-merged (ns=${ns}, track=${provenance.track}, pass ${pass})`);
@@ -71,7 +104,10 @@ async function main() {
     const merged = raw.proposals.map((p) => {
       const n = byId.get(p.id);
       if (!n) throw new Error(`payload node not in graph (refusing to insert): ${p.id}`);
-      return { ...n, props: { ...n.props, ...p.props, [`${ns}_provenance`]: provenance } };
+      return {
+        ...n,
+        props: { ...n.props, ...p.props, ...citationsProp(ns, p), [`${ns}_provenance`]: provenance },
+      };
     });
     if (flag("commit")) written += await store.upsertKgNodes(merged);
     console.log(`${flag("commit") ? "COMMITTED" : "DRY-RUN"}: ${merged.length} nodes props-merged (ns=${ns}, track=${provenance.track}, pass ${pass})`);
