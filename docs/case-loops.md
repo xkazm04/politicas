@@ -1,10 +1,15 @@
 # Case loops — the shared kernel for the golden-trio analyst-builder loops
 
-> **STATUS 2026-07-25: BATCHES PAUSED — manifestation phase.** Five batches (25
-> passes) outran the UI: the graph holds far more than the surfaces render, and
-> the accreted per-batch UI increments don't scale to the real data volumes. A
-> dedicated frontend-executor pass is wiring the full data layer into scalable
-> surfaces + an `/admin` loop-progress/review hub. Batch 006 resumes after.
+> **STATUS 2026-07-25: RUNNING — batch 006.** The manifestation pause is CLOSED.
+> Four frontend executors landed list→detail routes at real volumes across all
+> three cases plus the `/admin` progress/review hub — and the pause's decisive
+> find was that **PGlite never opened inside the Next runtime**: every surface
+> had been silently serving mock data while the loops looked perfectly healthy
+> (fixed with `serverExternalPackages`; verified by a build resolving 207 real
+> MP profiles). That is why cycle step 6 now exists. Batch 006 adds two external
+> sources cleared during the pause: **dataor** (bulk OR export — operator
+> accepted the non-commercial + GDPR-controller conditions) and **kiosek**
+> (úřední desky — unanonymized IČOs + statute citations; feeds BOTH cases).
 
 The third generation of the loop family, and the design doc the three case skills
 (`.claude/skills/{money-loop,effort-loop,law-loop}.md`) extend. Read this before
