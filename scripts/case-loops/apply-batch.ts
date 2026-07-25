@@ -315,21 +315,25 @@ export function adaptKiosek(payload: {
  * deletion), not destructive, until a human/orchestrator makes the deletion
  * decision explicit by adding an entry here with a one-line justification,
  * reviewed BEFORE a live commit. */
-export const DELETION_ALLOWLIST: ProposedDeletion[] = [
-  // ORCHESTRATOR DECISION 2026-07-25, batch 007, after the prak-repoint insert.
-  // These two edges point Bendl (346) and Brabec (6184) at IČO 49683144 "PRAK
-  // spol. s r.o." — an s.r.o. since 1993, which structurally CANNOT have had the
-  // představenstvo seat the tie claims (batch-002 C7). The correct entity, IČO
-  // 61858111 "PRaK, a.s. v likvidaci", is dataor-corroborated with both members'
-  // dated board records (batch 006, Q-money-7), and its edges are now live.
-  // Leaving these would make the graph assert BOTH — a false tie about two named
-  // MPs rendering on /penize. Retired for the same reason and by the same
-  // evidence standard as the 49 OSVČ false edges in pass 22. The full record
-  // (old ids, evidence chain, reasoning) survives in the payload, the vault and
-  // git history; only the false assertion goes.
-  { src: "psp:person:346", rel: "linked_to", dst: "company:ico:49683144", reason: "superseded by the dataor-corroborated PRaK re-point (Q-money-7); wrong-entity tie, batch-002 C7" },
-  { src: "psp:person:6184", rel: "linked_to", dst: "company:ico:49683144", reason: "superseded by the dataor-corroborated PRaK re-point (Q-money-7); wrong-entity tie, batch-002 C7" },
-];
+/**
+ * Empty by design, and it returns to empty after every use: this is a ONE-SHOT
+ * arming mechanism — arm, fire, disarm.
+ *
+ * The startup assertion refuses the whole run when an entry matches no live row.
+ * That is exactly right while arming (it catches the batch-006 bug where 3 of 6
+ * exclusion entries silently no-op'd) and exactly wrong once the deletion has
+ * executed: the rows are gone, so a stale entry would refuse every FUTURE run of
+ * that payload. The executed deletion's record therefore lives in the graph-log,
+ * the payload and git history — never as residue here.
+ *
+ * Fired once so far: batch 007 / pass 28 retired the two `linked_to` edges from
+ * Bendl (346) and Brabec (6184) to IČO 49683144 ("PRAK spol. s r.o." — an s.r.o.
+ * since 1993, structurally incapable of the představenstvo seat those ties
+ * claimed, batch-002 C7), superseded by the dataor-corroborated re-point to IČO
+ * 61858111. Leaving them would have made the graph assert both — a false tie
+ * about two named MPs.
+ */
+export const DELETION_ALLOWLIST: ProposedDeletion[] = [];
 
 /* ── the shared, generalized apply core ────────────────────────────────────── */
 
