@@ -61,7 +61,14 @@ import { getStore } from "@/lib/db/store";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
 
 const NODE_PAYLOAD = "docs/data-analysis/case-law/payloads/batch-005-missing-law-nodes.json";
-const EDGE_PAYLOAD = "docs/data-analysis/case-law/payloads/batch-005-amends-regen.json";
+// Repointed by the orchestrator at batch-007's payload (581 edges) after the
+// round-2 delta audit returned APPLY — batch-005's 567-edge payload was never
+// applied (held three times) and is superseded. The node payload is unchanged:
+// batch-005's 187 missing-law nodes were audited READY WITH CAVEATS and the
+// batch-007 rework did not touch them. Payload shape is identical, which is why
+// this is a repoint rather than a rewrite; the script's own logic was audited in
+// batch 006 and hardened by that batch's reflection.
+const EDGE_PAYLOAD = "docs/data-analysis/case-law/payloads/batch-007-amends-regen.json";
 const REPORT_OUT = "docs/data-analysis/case-law/payloads/batch-006-apply-report.json";
 
 const arg = (name: string): string | undefined => {
@@ -73,6 +80,15 @@ const flag = (name: string) => process.argv.includes(`--${name}`);
 // Deletion allowlist (P44/D1, same convention as diff-amends-regen-deletions.ts) — EMPTY by
 // design, batch-005/006 found 0 genuine deletions. Any future regen with a real deletion must
 // add an entry here with a one-line justification, reviewed BEFORE committing.
+// DISARMED after the batch-007 apply (arm, fire, disarm — same lesson as
+// apply-batch.ts). NOTE what this gate does and does NOT do: it REFUSES to
+// commit when a live edge is absent from the payload and unallowlisted; it does
+// NOT delete anything (`deleteKgEdges` is never called here). "[allowlisted]" in
+// its output means "permitted to be missing", not "removed" — it misled the
+// orchestrator once. The batch-007 run allowlisted 4 repeal-target edges (tisky
+// 116/129/231/64 — bills that REPEAL those laws, asserted as `amends` by the old
+// title-regex era; evidence in handoff.md §A1–A3) and they were retired in a
+// separate, explicitly verified deletion step afterwards.
 const DELETION_ALLOWLIST: string[] = [];
 
 // Exclusion list, merged from TWO independent checks: the batch-006 driver's own P1b manual
@@ -88,61 +104,15 @@ const DELETION_ALLOWLIST: string[] = [];
 // whenever that regenerated payload lands — they do not by themselves clear the audit's NOT
 // READY verdict for the edge set. See batch-006.md §5 for the full recommendation.
 const EXCLUDED_LOW_CONFIDENCE_EDGES: { from: string; to: string; ref: string; reason: string }[] = [
-  {
-    from: "bill:tisk:43170",
-    to: "law:sb:21-1992",
-    ref: "21/1992",
-    reason:
-      "tisk 63 ('o účetnictví', a new standalone accounting act) cites 21/1992 (banking law) only as a substantive cross-reference (\"...pokud... zveřejňuje údaje podle § 11c zákona č. 21/1992 Sb., o bankách...\", tisk-63/266144.txt:5126) — no amending-clause context. Confirmed independently by both the driver's manual read and the Opus audit (N2).",
-  },
-  {
-    from: "bill:tisk:43176",
-    to: "law:sb:381-1991",
-    ref: "381/1991",
-    reason:
-      "tisk 69's only occurrence of 381/1991 is inside a MULTI-LINE footnote (tisk-69/266214.txt:146-147: \"3) Například zákon č. 220/1991 Sb., / ve znění pozdějších předpisů, zákon č. 381/1991 Sb., ...\") — isFootnoteLine inspects only the line containing the match, so the footnote's continuation line was not caught (audit N4). 381/1991 is not among tisk 69's 7 real Změna targets (audit N1/N2). The bill's real amending targets include 531/1990 per a 'kterým se mění zákon č. 531/1990 Sb.' string in the same text — NOT wired by any edge in this payload (N1 recall gap).",
-  },
-  {
-    from: "bill:tisk:43113",
-    to: "law:sb:424-1991",
-    ref: "424/1991",
-    reason:
-      "Opus audit N2: tisk 6 is a new Anti-Corruption Office Act with no amending part; the 424/1991 citation (tisk-6/265061.txt:288) is a transitional provision about the predecessor institution, not an amendment. The driver's own P1b manual read had classified this as a real edge (proxy false-negative) — the audit's deeper line-level read overturns that; deferring to the audit as the authoritative independent check.",
-  },
-  {
-    // batch-006 REFLECTION FIX: this entry originally carried the wrong `from` id
-    // (bill:tisk:43159, which does not exist as tisk 55's node) and silently no-op'd — the
-    // independent reflection pass (a second Opus call, distinct from the P1a audit) caught it by
-    // cross-checking the exclusion list against the actual payload keys, not just the prose. The
-    // correct id was re-derived from `batch-005-amends-regen.json`'s `perBillLog` (cislo 55 ->
-    // bill:tisk:43162) and the edge (bill:tisk:43162, law:sb:194-2017) was confirmed present in
-    // the payload before fixing.
-    from: "bill:tisk:43162",
-    to: "law:sb:194-2017",
-    ref: "194/2017",
-    reason:
-      "Opus audit N2: tisk 55's citation of 194/2017 (tisk-55/266009.txt:494) is a REPEAL clause (\"Zrušovací ustanovení / Zrušují se: 1. Část první zákona č. 194/2017 Sb.\"), not an amendment — a different relation the amends-census extractor cannot distinguish from an amending citation.",
-  },
-  {
-    // batch-006 REFLECTION FIX: same class of bug as the 55 entry above — wrong `from` id
-    // (bill:tisk:43177) corrected to the real one (cislo 76 -> bill:tisk:43183), re-verified
-    // present in the payload before fixing.
-    from: "bill:tisk:43183",
-    to: "law:sb:234-2014",
-    ref: "234/2014",
-    reason:
-      "Opus audit N2: tisk 76's citation of 234/2014 (tisk-76/266517.txt:1607: \"Zrušují se: 1. Zákon č. 234/2014 Sb., o státní službě.\") is a repeal, not an amendment.",
-  },
-  {
-    // batch-006 REFLECTION FIX: same class of bug — wrong `from` id (bill:tisk:43225, which is
-    // actually a DIFFERENT bill, tisk 115) corrected to the real one (cislo 144 ->
-    // bill:tisk:43264), re-verified present in the payload before fixing.
-    from: "bill:tisk:43264",
-    to: "law:sb:326-1999",
-    ref: "326/1999",
-    reason:
-      "Opus audit N2: tisk 144's citation of 326/1999 (tisk-144/268804.txt:14176, memo at 28176: \"navrhuje se zrušit současný zákon č. 326/1999 Sb.\") is a repeal, not an amendment.",
-  },
+  // EMPTIED by the orchestrator when this script was repointed at batch-007's
+  // payload — arm, fire, disarm (same lesson as apply-batch.ts's deletion
+  // allowlist). These 6 entries patched confirmed-false edges OUT of batch-005's
+  // 567-edge payload. Batch 007's ČÁST/§ splitter + structural repeal/transitional
+  // exclusion make all six IMPOSSIBLE TO GENERATE rather than merely excluded, and
+  // each was verified absent from the new payload before this list was emptied.
+  // Leaving them would have permanently refused every run: the startup assertion
+  // demands every entry match a payload edge — and it did exactly that, catching
+  // this repoint. The entries' evidence survives in git history and batch-006.md.
 ];
 
 interface NodePayload {
@@ -296,7 +266,7 @@ async function main() {
   const dropped = [...liveEdgeByKey.keys()].filter((k) => !regenKeys.has(k));
   const unallowlisted = dropped.filter((k) => !DELETION_ALLOWLIST.includes(k));
   console.log(`\nDeletion check: ${liveEdges.length} live amends edges, ${dropped.length} not present in the applied set, ${unallowlisted.length} unallowlisted.`);
-  if (dropped.length) for (const k of dropped) console.log(`  DROP: ${k}${DELETION_ALLOWLIST.includes(k) ? " [allowlisted]" : " [NOT ALLOWLISTED]"}`);
+  if (dropped.length) for (const k of dropped) console.log(`  MISSING FROM PAYLOAD: ${k}${DELETION_ALLOWLIST.includes(k) ? " [allowlisted — permitted to be absent; this script does NOT delete it]" : " [NOT ALLOWLISTED]"}`);
   const deletionGateOk = unallowlisted.length === 0;
 
   const report = {

@@ -638,3 +638,35 @@ in `kg-verdict.ts`: node `notice`; rels `owns_stake`, `cites`, `concerns`.
 The `concerns` (notice → company) rel is registered but unused — kiosek's
 IČOs remain a disjoint population from our tied companies (batch-006 finding),
 so the money side stays a WATCH channel rather than an enrichment.
+
+## Pass 30 (track: law) — batch 007: the amends universe APPLIED, on the fourth attempt
+
+The regeneration held three times finally cleared, and only after an audit chain that kept
+finding real defects at every level: batch-005 self-fixed (held) → batch-006 independent audit
+found the N1 recall defect (held) → batch-007 fixed it structurally, its OWN reflection found 4
+more (fixed), and the driver then **refused to bless its own round-2 work** → a narrow
+orchestrator-commissioned audit of just that delta returned **APPLY**, having measured it: running
+the extractor with the gates on and off across all 140 bills **removes 7 citations and adds 0**.
+
+**Applied: +187 `law` nodes (101 → 288) and the `amends` edge set 150 → 581** (435 new inserts +
+146 provenance-preserving merges; 3 tagged `low_confidence_proxy`, never silently promoted). The
+citation universe is explicitly NOT claimed closed — 5 statutes remain missing and are reported.
+
+**Then retired, as a separate deliberate act: 4 repeal-target edges** (tisky 116/129/231/64) which
+asserted "bill AMENDS law" for bills that REPEAL it — artefacts of the pre-batch-007 title-regex
+era, each evidenced from cached bill text. Verified exactly 4 deleted, 581 remaining.
+
+Two orchestrator-level lessons, both from being misled by my own tooling:
+- `apply-amends-regen.ts`'s deletion gate is a **refusal check, not an executor** — it never calls
+  `deleteKgEdges`, and its "[allowlisted]" output means *permitted to be absent*, not *removed*.
+  Wording corrected in place.
+- Both arming lists (this script's exclusions, `apply-batch.ts`'s deletion allowlist) are
+  **one-shot: arm, fire, disarm.** A stale entry doesn't rot quietly — the startup assertion is
+  designed to refuse the whole run, and it did exactly that twice today, catching both the repoint
+  and the post-deletion residue. That assertion is the most valuable line of code in the pipeline.
+
+**Graph now: 3 215 nodes / 25 350 edges.** Outstanding for batch 008 (audit-disclosed, not
+discovered later): F1 — tisk 215 loses one TRUE edge to 280/2009 via a ČÁST heading-window bleed
+(incidence exactly 1, one-expression fix verified to touch only that bill); F2 — 5 pre-existing
+FALSE title-derived edges (tisky 153, 88, 124, 36, 42), preserved rather than introduced by this
+apply, including the one the union design's own justification comment cites as its founding example.

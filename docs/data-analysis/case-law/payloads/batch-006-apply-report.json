@@ -1,56 +1,24 @@
 {
-  "generatedAt": "2026-07-25T10:17:03.399Z",
-  "mode": "dry-run",
-  "pass": null,
+  "generatedAt": "2026-07-25T13:00:44.194Z",
+  "mode": "commit",
+  "pass": 30,
   "nodePayloadTotal": 187,
   "nodesNew": 187,
   "nodesAlreadyLive": 0,
-  "edgePayloadTotal": 567,
-  "edgesExcludedPrecision": [
-    {
-      "from": "bill:tisk:43170",
-      "to": "law:sb:21-1992",
-      "ref": "21/1992",
-      "reason": "tisk 63 ('o účetnictví', a new standalone accounting act) cites 21/1992 (banking law) only as a substantive cross-reference (\"...pokud... zveřejňuje údaje podle § 11c zákona č. 21/1992 Sb., o bankách...\", tisk-63/266144.txt:5126) — no amending-clause context. Confirmed independently by both the driver's manual read and the Opus audit (N2)."
-    },
-    {
-      "from": "bill:tisk:43176",
-      "to": "law:sb:381-1991",
-      "ref": "381/1991",
-      "reason": "tisk 69's only occurrence of 381/1991 is inside a MULTI-LINE footnote (tisk-69/266214.txt:146-147: \"3) Například zákon č. 220/1991 Sb., / ve znění pozdějších předpisů, zákon č. 381/1991 Sb., ...\") — isFootnoteLine inspects only the line containing the match, so the footnote's continuation line was not caught (audit N4). 381/1991 is not among tisk 69's 7 real Změna targets (audit N1/N2). The bill's real amending targets include 531/1990 per a 'kterým se mění zákon č. 531/1990 Sb.' string in the same text — NOT wired by any edge in this payload (N1 recall gap)."
-    },
-    {
-      "from": "bill:tisk:43113",
-      "to": "law:sb:424-1991",
-      "ref": "424/1991",
-      "reason": "Opus audit N2: tisk 6 is a new Anti-Corruption Office Act with no amending part; the 424/1991 citation (tisk-6/265061.txt:288) is a transitional provision about the predecessor institution, not an amendment. The driver's own P1b manual read had classified this as a real edge (proxy false-negative) — the audit's deeper line-level read overturns that; deferring to the audit as the authoritative independent check."
-    },
-    {
-      "from": "bill:tisk:43162",
-      "to": "law:sb:194-2017",
-      "ref": "194/2017",
-      "reason": "Opus audit N2: tisk 55's citation of 194/2017 (tisk-55/266009.txt:494) is a REPEAL clause (\"Zrušovací ustanovení / Zrušují se: 1. Část první zákona č. 194/2017 Sb.\"), not an amendment — a different relation the amends-census extractor cannot distinguish from an amending citation."
-    },
-    {
-      "from": "bill:tisk:43183",
-      "to": "law:sb:234-2014",
-      "ref": "234/2014",
-      "reason": "Opus audit N2: tisk 76's citation of 234/2014 (tisk-76/266517.txt:1607: \"Zrušují se: 1. Zákon č. 234/2014 Sb., o státní službě.\") is a repeal, not an amendment."
-    },
-    {
-      "from": "bill:tisk:43264",
-      "to": "law:sb:326-1999",
-      "ref": "326/1999",
-      "reason": "Opus audit N2: tisk 144's citation of 326/1999 (tisk-144/268804.txt:14176, memo at 28176: \"navrhuje se zrušit současný zákon č. 326/1999 Sb.\") is a repeal, not an amendment."
-    }
-  ],
-  "edgesApplied": 561,
-  "edgesNewInsert": 411,
-  "edgesMergedPreexisting": 150,
+  "edgePayloadTotal": 581,
+  "edgesExcludedPrecision": [],
+  "edgesApplied": 581,
+  "edgesNewInsert": 435,
+  "edgesMergedPreexisting": 146,
   "edgesLowConfidenceApplied": 3,
   "deletionCheck": {
     "liveAmendsEdges": 150,
-    "droppedKeys": [],
+    "droppedKeys": [
+      "bill:tisk:43171|law:sb:25-2017",
+      "bill:tisk:43226|law:sb:353-2019",
+      "bill:tisk:43250|law:sb:223-2016",
+      "bill:tisk:43353|law:sb:348-2005"
+    ],
     "unallowlistedCount": 0,
     "gateOk": true
   }
