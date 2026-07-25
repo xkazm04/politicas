@@ -53,3 +53,4 @@ app-cost.json
 /scripts/**/node_modules/
 /.db-bench
 /benchmark-data
+.justice-samples/
