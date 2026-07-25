@@ -1,5 +1,11 @@
 # Case loops — the shared kernel for the golden-trio analyst-builder loops
 
+> **STATUS 2026-07-25: BATCHES PAUSED — manifestation phase.** Five batches (25
+> passes) outran the UI: the graph holds far more than the surfaces render, and
+> the accreted per-batch UI increments don't scale to the real data volumes. A
+> dedicated frontend-executor pass is wiring the full data layer into scalable
+> surfaces + an `/admin` loop-progress/review hub. Batch 006 resumes after.
+
 The third generation of the loop family, and the design doc the three case skills
 (`.claude/skills/{money-loop,effort-loop,law-loop}.md`) extend. Read this before
 running any of them.
@@ -94,7 +100,18 @@ resume → triage → dispatch army → gate + persist → reflect → build-rev
    finding, not a failure** — 0 conflicts in a top-flagged head, a clean-hands
    population, a quiet workhorse are the non-partisan-symmetry outputs that
    make the accusatory ones credible; record them with equal weight.
-6. **Build-review (adaptive cadence).** Review interval R in batches: **start
+6. **Manifestation check (new, from the pause retro): data that doesn't render
+   doesn't exist.** Every batch's reflection must answer: *does what this batch
+   persisted actually RENDER, and does the surface scale to the data volume it
+   now carries?* A batch that grows the graph without growing its surface incurs
+   manifestation debt — track it in the ledger like any other debt. The fleet
+   includes a **Frontend executor** role for exactly this: an agent whose whole
+   batch is wiring persisted data into product surfaces (information
+   architecture, list→detail routes, filters/search/pagination at real volumes,
+   Konstrukt discipline) rather than producing new analysis. Dispatch one
+   whenever manifestation debt spans more than one surface; the `/admin` hub
+   tracks per-case progress and the review pipeline.
+7. **Build-review (adaptive cadence).** Review interval R in batches: **start
    R=1**; when a review ships nothing, R doubles; when something ships, R
    resets to 1. A build phase = implement the top build-ready opportunity end
    to end: server-loader pattern (`app/<route>/page.tsx` awaits a server-only
@@ -102,7 +119,7 @@ resume → triage → dispatch army → gate + persist → reflect → build-rev
    component), `SourceNote` on every number, `npm run check` green, docs
    synced, one atomic Conventional commit. **This is how the analyst becomes
    the app builder.**
-7. **Converge.** K=3 consecutive batches under the signal-yield threshold →
+8. **Converge.** K=3 consecutive batches under the signal-yield threshold →
    declare coverage in the ledger; the loop drops to staleness-driven mode
    (re-ingest / Pumper watch events re-open it).
 
