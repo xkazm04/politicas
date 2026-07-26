@@ -434,9 +434,16 @@ export default function GraphStage({
     schedule();
   }, [size, world.width, world.height, schedule]);
 
+  // Explicitly re-fit on fullscreen toggle: entering/exiting fullscreen changes
+  // the canvas's backing-store dimensions dramatically (via the ResizeObserver
+  // above), but the pan/zoom offset in viewRef was computed for the OLD
+  // viewport size and nothing re-anchored it to the new one — the graph
+  // appeared shifted into a corner (entering) or zoomed/cropped oddly
+  // (exiting) until the user manually hit Fit. `isFull` is listed alongside
+  // `fitKey` so both triggers share one effect.
   useEffect(() => {
     fitView();
-  }, [fitKey, fitView]);
+  }, [fitKey, isFull, fitView]);
 
   // Najetí na obdélník světa (výřez trasy) — s rezervou na plovoucí panely.
   useEffect(() => {
