@@ -27,18 +27,16 @@
 import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
-import { CONTRIBUTION_WEIGHTS } from "@/lib/analysis/contribution";
+import {
+  COMMITTEE_SATURATION,
+  CONTRIBUTION_WEIGHTS,
+  LEGISLATIVE_SATURATION,
+  SPEECH_SATURATION,
+} from "@/lib/analysis/contribution";
 import { isPublicSafe, publicCopyOrNull } from "@/lib/analysis/public-copy";
 import { PARTIES } from "@/lib/civic/data";
 import { OCHRE, STEEL } from "@/features/landing/palette";
 import { computeTrend, type ContributionTrend } from "@/lib/analysis/contribution-trend";
-
-// Saturation caps MIRROR the (module-private) constants in
-// lib/analysis/contribution.ts — kept in sync there. Count-based components
-// saturate at these caps, exactly as the scorer that authored the stored score.
-const COMMITTEE_SATURATION = 3;
-const LEGISLATIVE_SATURATION = 4;
-const SPEECH_SATURATION = 40;
 
 const clamp01 = (x: number) => Math.max(0, Math.min(1, x));
 const round1 = (x: number) => Math.round(x * 10) / 10;

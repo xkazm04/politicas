@@ -30,9 +30,11 @@ export const CONTRIBUTION_WEIGHTS = {
   legislative: 20, // bills authored + interpellations
   speech: 15, // stenographic speaking turns
 } as const;
-const COMMITTEE_SATURATION = 3; // 3+ committees saturates the breadth term
-const LEGISLATIVE_SATURATION = 4; // bills + interpellations that saturates output
-const SPEECH_SATURATION = 40; // speaking turns that saturates floor presence
+// Exported so read-side surfaces (features/civicscore/getLeaderboardData.ts)
+// decompose stored scores with the SAME caps the scorer used — never mirror these.
+export const COMMITTEE_SATURATION = 3; // 3+ committees saturates the breadth term
+export const LEGISLATIVE_SATURATION = 4; // bills + interpellations that saturates output
+export const SPEECH_SATURATION = 40; // speaking turns that saturates floor presence
 
 const clamp01 = (x: number) => Math.max(0, Math.min(1, x));
 const round1 = (x: number) => Math.round(x * 10) / 10;
