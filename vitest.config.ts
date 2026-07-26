@@ -17,5 +17,8 @@ export default defineConfig({
   },
   test: {
     include: ["lib/**/*.test.ts", "scripts/**/*.test.ts"],
+    // Five test files boot a real PGlite (WASM Postgres) in parallel workers;
+    // the boots contend and any first-in-file test can blow the 5s default.
+    testTimeout: 30_000,
   },
 });
