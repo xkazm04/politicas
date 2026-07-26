@@ -20,6 +20,18 @@ export default function MobileNav({ pathname, sections, activeSection, activeEnt
   const labels = useNavLabels();
   const [open, setOpen] = useState(false);
 
+  // `open` was only ever set to false from an in-panel <Link onClick> or the
+  // toggle button — any navigation that doesn't go through those handlers
+  // (browser/OS back-forward, a link followed from elsewhere, a programmatic
+  // router.push) left the panel visibly open over the new page. Collapse on
+  // any pathname change using React's "adjust state during render" pattern
+  // (not a setState-in-effect) regardless of how navigation happened.
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
+    setOpen(false);
+  }
+
   return (
     <div className="border-b-4 border-ink bg-paper lg:hidden">
       <div className="flex items-center justify-between gap-3 px-4 py-3">
