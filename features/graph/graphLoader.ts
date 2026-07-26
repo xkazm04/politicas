@@ -115,7 +115,15 @@ async function buildIndex(): Promise<GraphIndex | null> {
       totalNodes: entries.length,
       totalEdges: edges.length,
     };
-  } catch {
+  } catch (err) {
+    // A transient hiccup (PGlite still initializing on cold start, a
+    // one-off store error) must not get memoized identically to a
+    // genuinely absent dataset — indexPromise ??= would otherwise pin this
+    // null result for the process lifetime, permanently disabling the
+    // whole Graph Playground until a restart even though the very next
+    // call would have succeeded. Clear the memo so the next call retries.
+    console.error("[graphLoader] buildIndex failed — will retry on next call", err);
+    indexPromise = null;
     return null;
   }
 }
@@ -253,7 +261,10 @@ export async function getMapData(): Promise<MapData | null> {
       });
 
       return { nodes, edges: evidence.map(toEdge), world: MAP_WORLD };
-    } catch {
+    } catch (err) {
+      // See buildIndex's catch above — don't memoize a transient failure.
+      console.error("[graphLoader] getMapData failed — will retry on next call", err);
+      mapPromise = null;
       return null;
     }
   })();
@@ -484,7 +495,10 @@ export async function getTrails(): Promise<Trail[] | null> {
       }
 
       return trails;
-    } catch {
+    } catch (err) {
+      // See buildIndex's catch above — don't memoize a transient failure.
+      console.error("[graphLoader] getTrails failed — will retry on next call", err);
+      trailsPromise = null;
       return null;
     }
   })();
