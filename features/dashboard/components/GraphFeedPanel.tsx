@@ -63,19 +63,30 @@ export default function GraphFeedPanel({
       )}
 
       <div className="min-h-0 flex-1 overflow-y-auto">
-        {matches.length === 0 && (
+        {/* Only the genuinely-no-data case (no pin, no events at all) gets the
+            standalone empty message — "fading, never disappearing" means a
+            pinned node with zero matching events still renders the full
+            dimmed list below, never both the "no matches" banner AND every
+            row at once (a real, reachable case: some graph nodes, like a vote
+            with no backing feed event, have no matches by design). */}
+        {!pinned && matches.length === 0 && (
           <p className="px-4 py-8 text-center font-mono text-xs uppercase tracking-widest text-steel">
             {tf("empty")}
           </p>
         )}
         {events.map((e) => {
           const nodeIds = nodesByEvent.get(e.id) ?? [];
+          // Global rows (no node refs at all — aggregate events like a
+          // quarterly recompute) are tagged "always relevant" via
+          // showGlobalMark and must never be dimmed identically to a
+          // genuinely filtered-out row; nodeIds.length > 0 carves them out.
+          const dim = pinned !== null && nodeIds.length > 0 && !nodeIds.includes(pinned);
           return (
             <FeedRow
               key={e.id}
               event={e}
               nodeIds={nodeIds}
-              dim={pinned !== null && !nodeIds.includes(pinned)}
+              dim={dim}
               showGlobalMark={pinned !== null}
               onPick={onPick}
             />
