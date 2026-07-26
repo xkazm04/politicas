@@ -49,6 +49,19 @@ module.exports = {
           context.report({ node, messageId: "serverImportInClient", data: { source } });
         }
       },
+      // `import("./getGoalData")` is a dynamic import — a completely different
+      // AST node (ImportExpression, not ImportDeclaration) that the static-import
+      // visitor above never sees. There is no type-only concept for a dynamic
+      // import (it always pulls a real module at runtime), so no importKind check
+      // applies here — every dynamic import of a server module is a real breach.
+      ImportExpression(node) {
+        if (!isClientModule) return;
+        if (node.source.type !== "Literal" || typeof node.source.value !== "string") return;
+        const source = node.source.value;
+        if (SERVER_SOURCE.test(source)) {
+          context.report({ node, messageId: "serverImportInClient", data: { source } });
+        }
+      },
     };
   },
 };
