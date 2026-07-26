@@ -30,6 +30,21 @@ export function useActiveSection(ids: string[]): SectionSpy {
   // musí viset na obsahu, ne na referenci.
   const key = ids.join("|");
 
+  // Reset synchronously DURING RENDER (React's documented pattern for
+  // "adjusting state when a prop changes", not a setState-in-effect) the
+  // instant `key` changes — before the effect below even gets to run. AppShell
+  // treats present===null as "show everything declared", the correct fallback
+  // while remeasuring; without this a STALE `present` Set from the previous
+  // page's ids survives into this render, and since old/new ids almost never
+  // overlap (ids are page-specific) the "on this page" nav block visibly
+  // flashes empty for a frame on every navigation between modules.
+  const [prevKey, setPrevKey] = useState(key);
+  if (key !== prevKey) {
+    setPrevKey(key);
+    setActive(null);
+    setPresent(null);
+  }
+
   useEffect(() => {
     let observer: IntersectionObserver | null = null;
 
