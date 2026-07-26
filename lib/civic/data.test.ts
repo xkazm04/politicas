@@ -82,6 +82,71 @@ describe("data dashboardu — referenční integrita", () => {
   });
 });
 
+describe("odkazy událostí (FeedEvent.refs) a dárcovské vazby (MoneyTie)", () => {
+  const mpIds = new Set(MPS.map((m) => m.id));
+  const rcIds = new Set(ROLL_CALLS.map((r) => r.id));
+  const lawChangeIds = new Set(LAW_CHANGES.map((lc) => lc.id));
+  const partyCodes = new Set(PARTIES.map((p) => p.code));
+
+  it("refs.mps odkazuje jen na známé poslance", () => {
+    for (const e of EVENTS) {
+      for (const id of e.refs?.mps ?? []) {
+        expect(mpIds.has(id), `${e.id}: ${id}`).toBe(true);
+      }
+    }
+  });
+
+  it("refs.ties je platný index do MONEY_TIES", () => {
+    for (const e of EVENTS) {
+      for (const i of e.refs?.ties ?? []) {
+        expect(i, `${e.id}: ties[${i}]`).toBeGreaterThanOrEqual(0);
+        expect(i, `${e.id}: ties[${i}]`).toBeLessThan(MONEY_TIES.length);
+      }
+    }
+  });
+
+  it("refs.rollCalls odkazuje jen na známá hlasování", () => {
+    for (const e of EVENTS) {
+      for (const id of e.refs?.rollCalls ?? []) {
+        expect(rcIds.has(id), `${e.id}: ${id}`).toBe(true);
+      }
+    }
+  });
+
+  it("refs.lawChanges odkazuje jen na známé změny zákonů", () => {
+    for (const e of EVENTS) {
+      for (const id of e.refs?.lawChanges ?? []) {
+        expect(lawChangeIds.has(id), `${e.id}: ${id}`).toBe(true);
+      }
+    }
+  });
+
+  it("refs.parties odkazuje jen na známé strany", () => {
+    for (const e of EVENTS) {
+      for (const code of e.refs?.parties ?? []) {
+        expect(partyCodes.has(code), `${e.id}: ${code}`).toBe(true);
+      }
+    }
+  });
+
+  it("mpId a refs.mps se neliší — jinak by zvýraznění grafu a odkaz na profil mířily na jiné osoby", () => {
+    for (const e of EVENTS) {
+      if (e.mpId && e.refs?.mps) {
+        expect(e.refs.mps, e.id).toContain(e.mpId);
+      }
+    }
+  });
+
+  it("donorParty odkazuje na známou stranu a taková vazba nese i vykázanou částku daru", () => {
+    for (const t of MONEY_TIES) {
+      if (t.donorParty) {
+        expect(partyCodes.has(t.donorParty), t.company).toBe(true);
+        expect(t.donationAmount?.length ?? 0, t.company).toBeGreaterThan(0);
+      }
+    }
+  });
+});
+
 describe("hlasování po stranách (VoteTrack)", () => {
   it("mandáty stran dávají dohromady 200", () => {
     expect(PARTIES.reduce((s, p) => s + p.seats, 0)).toBe(200);

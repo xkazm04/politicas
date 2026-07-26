@@ -14,7 +14,6 @@ import type { BillDossier } from "./getLawData";
 import BillDetail from "./components/BillDetail";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function BillDossierPage({ dossier }: { dossier: BillDossier }) {
   const { bill, prevCislo, nextCislo } = dossier;
@@ -24,24 +23,7 @@ export default function BillDossierPage({ dossier }: { dossier: BillDossier }) {
       <header className="border-b-4 border-ink">
         <div className="mx-auto flex max-w-4xl items-center justify-between gap-4 px-6 py-4">
           <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-3 transition-colors hover:text-signal">
-              <svg viewBox="0 0 32 32" className="h-8 w-8" aria-hidden>
-                <rect width="32" height="32" className="fill-signal" />
-                <circle cx="16" cy="16" r="9" className="fill-paper" />
-                <rect x="14.5" y="4" width="3" height="24" className="fill-ink" />
-              </svg>
-              <span className="text-xl font-black uppercase tracking-tight">Politicas</span>
-            </Link>
             <span className="font-mono text-xs uppercase tracking-widest text-steel">/ zákony / tisk</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <Link
-              href="/zakony"
-              className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
-            >
-              <ArrowLeft className="h-3.5 w-3.5" /> zpět na tisky
-            </Link>
-            <LanguageSwitcher />
           </div>
         </div>
       </header>

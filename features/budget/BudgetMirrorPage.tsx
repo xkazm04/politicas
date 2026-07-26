@@ -10,13 +10,10 @@
 
 import { useMemo, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Line, LineChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { BUDGET_YEARS, TOWNS, type Town } from "@/lib/civic/data";
 import { useFormat } from "@/lib/i18n/useFormat";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
@@ -119,24 +116,7 @@ export default function BudgetMirrorPage() {
       <header className="border-b-4 border-ink">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
           <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-3 transition-colors hover:text-signal">
-              <svg viewBox="0 0 32 32" className="h-8 w-8" aria-hidden>
-                <rect width="32" height="32" className="fill-signal" />
-                <circle cx="16" cy="16" r="9" className="fill-paper" />
-                <rect x="14.5" y="4" width="3" height="24" className="fill-ink" />
-              </svg>
-              <span className="text-xl font-black uppercase tracking-tight">Politicas</span>
-            </Link>
             <span className="font-mono text-xs uppercase tracking-widest text-steel">/ budgetmirror</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <Link
-              href="/dashboard"
-              className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
-            >
-              <ArrowLeft className="h-3.5 w-3.5" /> {t("backToDashboard")}
-            </Link>
-            <LanguageSwitcher />
           </div>
         </div>
       </header>
@@ -160,7 +140,7 @@ export default function BudgetMirrorPage() {
         </div>
 
         {/* ── 01 Město vs. vrstevníci ───────────────────────── */}
-        <section>
+        <section id="zrcadlo">
           <SectionHeading
             index={1}
             title={t("section1Title")}
@@ -226,7 +206,7 @@ export default function BudgetMirrorPage() {
         </section>
 
         {/* ── 02 Vývoj dluhu ────────────────────────────────── */}
-        <section className="mt-14 border-t-4 border-ink pt-10">
+        <section id="dluh" className="mt-14 border-t-4 border-ink pt-10">
           <SectionHeading
             index={2}
             title={t("section2Title")}
@@ -276,7 +256,7 @@ export default function BudgetMirrorPage() {
         </section>
 
         {/* ── 03 Vrstevnická skupina ────────────────────────── */}
-        <section className="mt-14 border-t-4 border-ink pt-10 pb-20">
+        <section id="skupina" className="mt-14 border-t-4 border-ink pt-10 pb-20">
           <SectionHeading
             index={3}
             title={t("section3Title")}

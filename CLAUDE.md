@@ -22,9 +22,14 @@ noindex). Future surface exploration uses the `prototype` skill.
 
 Route map (politicas.md roadmap execution, sample data):
 - `/` — landing (features/landing)
-- `/dashboard` — **Velín** (features/dashboard): chamber overview, leaderboard
-  → profiles, graph-event feed, module tiles. Winner of the dashboard
-  prototype round, polished to the landing bar.
+- `/dashboard` — **Velín** (features/dashboard): rebuilt 2026-07-26 as an
+  instrument panel. Chamber stat strip → **the state graph** (`lib/civic/
+  stateGraph.ts`: person ⋈ party ⋈ firm ⋈ money ⋈ vote ⋈ law derived from the
+  existing sample, shape encodes entity kind, dashed = awaiting human review)
+  beside the **graph-traffic feed**, the two bound to one dataset (pin a node →
+  the feed filters; crosshair a row → the node pins, via `FeedEvent.refs`) →
+  leaderboard ledger with pillar bars. The five module tiles moved into the
+  layout rail.
 - `/poslanec/[id]` — **Spis** (features/profile): the Person profile —
   politicas.md §3's "real product". Fused from the losing dashboard variant:
   poster header + score/trend, pillars, roll-call votes (rebel markers),
@@ -61,6 +66,18 @@ Route map (politicas.md roadmap execution, sample data):
   (the `č. N/RRRR Sb.` title citation is the only structured bill→law link
   psp.cz publishes); fabricating them would violate the brand rule. Mock kept as
   fallback.
+- `/graf` — **Graph playground** (features/graph): the full knowledge graph on
+  a full-viewport `<canvas>`; the page opts out of the app shell
+  (`isBareRoute`) to own the whole window width — chrome floats over the
+  stage, breadcrumb links back. **Round 4 in progress — two variants:**
+  A · Mapa × Trasy (the whole-graph landscape with trails as LENSES: pick a
+  computed trail and the map dims to context, lights the trail's nodes/edges,
+  flies to its extent and shows amounts — `StageLens` + `fitBounds` in
+  GraphStage) vs C · Trasy (the same four computed answers as standalone
+  ledger-column typesetting). Ohnisko rejected in round 3. All text goes
+  through GraphStage's single label engine. Node click opens provenance and
+  registry deep-links from stable ids (`lib/kg/sourceLinks.ts`). Sizing
+  ground truth: `docs/data-analysis/graph-explorer-scale.md`.
 - `/rentgen` — archived art direction.
 
 All five politicas.md modules now have surfaces. **Update 2026-07-24 — four
@@ -84,6 +101,10 @@ features/landing/       the landing feature: LandingPage.tsx (orchestrator:
                         state + layout) + components/ + palette.ts (chart hex
                         mirror of tokens)
 features/labs/          archived art directions — fixed hexes allowed
+features/shell/         app chrome mounted in app/layout.tsx: left nav rail +
+                        mobile nav. navModel.ts declares the modules and each
+                        page's section anchors; isBareRoute() opts out landing,
+                        /admin and /rentgen. Pages must NOT draw their own logo.
 features/shared/components/  domain-agnostic primitive catalog (@catalog tags);
                         lint-enforced boundary: NO imports from features/* or
                         lib/civic — pass data via props

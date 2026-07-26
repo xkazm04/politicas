@@ -18,7 +18,9 @@
     "profileDescription": "Kompozitní skóre {score}/100 ({party}, {region}): pilíře, jmenovitá hlasování a doložené peněžní vazby. Každé číslo cituje svůj otevřený zdroj.",
     "profileNotFound": "Politicas — spis nenalezen",
     "rentgenTitle": "Politicas/rentgen — investigativní důkazní terminál",
-    "rentgenDescription": "Archivní výtvarný směr Politicas: rentgen státu — graf peněžní stopy, auditní log a registr zdrojů."
+    "rentgenDescription": "Archivní výtvarný směr Politicas: rentgen státu — graf peněžní stopy, auditní log a registr zdrojů.",
+    "graphTitle": "Graf státu — Politicas",
+    "graphDescription": "Prohledávatelný znalostní graf české politiky: osoby, firmy, veřejné peníze, hlasování a zákony v jedné síti, každý uzel s odkazem do registru."
   },
   "common": {
     "languageSwitch": "Přepnout jazyk",
@@ -39,6 +41,28 @@
     "voteResult": {
       "accepted": "přijato",
       "rejected": "zamítnuto"
+    },
+    "ingestion": "ingesce: denně (psp, smlouvy) · čtvrtletně (dotace, rozpočty)"
+  },
+  "nav": {
+    "sidebarLabel": "Hlavní navigace",
+    "modules": "moduly",
+    "overview": "velín",
+    "overviewHint": "graf · provoz · žebříček",
+    "onThisPage": "na této stránce",
+    "insideModule": "uvnitř modulu",
+    "openMenu": "otevřít navigaci",
+    "closeMenu": "zavřít navigaci",
+    "sections": {
+      "graf": "graf státu",
+      "provoz": "provoz grafu",
+      "zebricek": "žebříček"
+    },
+    "children": {
+      "kauzy": "kauzy",
+      "kontrola": "kontrola vazeb",
+      "kolize": "kolize zákonů",
+      "graf": "plátno grafu"
     }
   },
   "content": {
@@ -448,9 +472,51 @@
     "pillarAvgTooltip": "průměr vzorku",
     "pillarAvgSource": "psp.cz · hlídač státu — hodnoty pilířů 0–100",
     "feedSectionTitle": "Co se změnilo v grafu",
-    "feedIngestionNote": "ingesce: denně (psp, smlouvy) · čtvrtletně (dotace, rozpočty)",
     "toolsSectionTitle": "Pět nástrojů",
-    "toolsJoinKeyNote": "osoba ⋈ strana ⋈ firma ⋈ peníze ⋈ hlasování ⋈ zákon — klíč: IČO"
+    "toolsJoinKeyNote": "osoba ⋈ strana ⋈ firma ⋈ peníze ⋈ hlasování ⋈ zákon — klíč: IČO",
+    "graph": {
+      "title": "Graf státu",
+      "openPlayground": "otevřít plátno",
+      "caption": "osoba ⋈ strana ⋈ firma ⋈ veřejné peníze ⋈ hlasování ⋈ zákon",
+      "badge": "výřez znalostního grafu",
+      "hint": "najeďte na uzel — rozsvítí se jeho hrany a provoz se profiltruje",
+      "ariaLabel": "Graf entit: poslanci, firmy, veřejné peníze, hlasování a zákony",
+      "source": "zdroj: psp.cz · registr smluv ⋈ ares v3 · registr dotací · e-sbírka",
+      "legendTitle": "legenda",
+      "sliceNote": "výřez ukázkového vzorku — plný graf otevírá modul Peníze",
+      "countLabel": "{nodes} uzlů · {edges} hran",
+      "edgesInRecord": "{count} hran v záznamu",
+      "noEdges": "bez nalezené vazby v tomto výřezu",
+      "pendingEdge": "čárkovaně = hrana čeká na lidskou kontrolu, do skóre nejde",
+      "clearSelection": "zrušit výběr",
+      "bandMoney": "peníze",
+      "bandLaw": "legislativa",
+      "kinds": {
+        "person": "poslanec",
+        "company": "firma",
+        "money": "veřejné peníze",
+        "party": "strana",
+        "vote": "hlasování",
+        "law": "zákon"
+      },
+      "rel": {
+        "tie": "vazba",
+        "contract": "veřejné peníze",
+        "donor": "dárce",
+        "rebel": "vybočil z linie",
+        "against": "hlasoval proti",
+        "amends": "novelizuje"
+      }
+    },
+    "feed": {
+      "title": "Provoz grafu",
+      "filteredTo": "filtr: {label}",
+      "showAll": "vše",
+      "globalRow": "agregátní přepočet — bez uzlu",
+      "empty": "k tomuto uzlu v tomto okně nic nepřiteklo",
+      "matchCount": "{count} z {total} záznamů",
+      "showInGraph": "ukázat v grafu"
+    }
   },
   "profile": {
     "breadcrumb": "spis",
@@ -709,6 +775,7 @@
     "title": "Hlídač paragrafů",
     "intro": "Co se v zákonech skutečně změnilo — rozdíly po paragrafech propojené zpět na hlasování, které je odhlasovalo. Váš poslanec hlasoval pro novelu, která změnila § — tady je obojí vedle sebe.",
     "section1Title": "Změny paragrafů",
+    "realSection1Title": "Tisky → zákony",
     "section1Aside": "e-sbírka — konsolidovaná znění · diff = před / po účinnosti",
     "effectiveFrom": "účinnost {date}",
     "sampleNote": "vzorek 3 z 312 novelizovaných zákonů · e-sbírka sparql — průběžně",
@@ -717,9 +784,138 @@
     "passedBy": "odhlasováno — {tisk}",
     "openInChamber": "otevřít v sále →",
     "section2Title": "Legislativní potrubí",
+    "realSection2Title": "Nejnovelizovanější zákony",
     "section2Aside": "psp.cz tisky — denní ingesce · plný bod = dosažená fáze",
     "rejectedAtStage": "zamítnuto ve {stage}",
     "voteLink": "hlasování {pro}:{proti} →",
     "pipelineFootnote": "Potrubí čte sněmovní tisky denně; diff paragrafů vzniká z konsolidovaných znění e-Sbírky, jakmile novela vyjde. Zamítnuté tisky v potrubí končí — i to je dopad, který stojí za zaznamenání."
+  },
+  "graph": {
+    "page": {
+      "headerTag": "plátno grafu",
+      "title": "Graf státu",
+      "lead": "Celý znalostní graf k prohledání a proklikání — osoby, strany, výbory, firmy, smlouvy, tisky a zákony v jedné síti. Každý uzel nese svou provenienci a odkaz do registru, kde se dá ověřit.",
+      "unavailable": "Graf není v tomhle běhu dostupný — čeká na připojený datový sklad. Ostatní plochy zatím jedou na vzorku."
+    },
+    "counts": "{nodes} uzlů · {edges} hran",
+    "working": "pracuji",
+    "canvasAria": "Interaktivní plátno grafu. Uzly se vybírají také vyhledáváním vedle plátna.",
+    "kinds": {
+      "person": "poslanec",
+      "party": "strana",
+      "organ": "orgán",
+      "bloc": "blok",
+      "theme": "téma",
+      "company": "firma",
+      "contract": "smlouva",
+      "bill": "tisk",
+      "law": "zákon",
+      "notice": "vývěska"
+    },
+    "rels": {
+      "co_votes_with": "společné hlasování",
+      "supplies": "dodává",
+      "influential_in": "působí v",
+      "amends": "novelizuje",
+      "sponsors": "předkládá",
+      "linked_to": "vazba na firmu",
+      "rebels_against": "odchylky od klubu",
+      "about": "o tématu",
+      "assigned_to": "přikázáno výboru",
+      "cites": "cituje",
+      "owns_stake": "podíl ve firmě",
+      "owns": "gesce tématu",
+      "belongs_to": "patří do bloku"
+    },
+    "search": {
+      "placeholder": "hledat v grafu…",
+      "label": "Hledat uzel grafu",
+      "clear": "vymazat hledání",
+      "searching": "hledám…",
+      "noHits": "nic nenalezeno",
+      "degree": "{n} hran",
+      "alreadyOnBoard": "už na plátně"
+    },
+    "inspector": {
+      "loading": "načítám detail…",
+      "empty": "Vyberte uzel — otevře se jeho záznam se zdroji.",
+      "close": "zavřít detail",
+      "degree": "hran",
+      "identifier": "identifikátor",
+      "registries": "ověřit v registru",
+      "provenance": "záznam v grafu",
+      "method": "metoda",
+      "methodValue": {
+        "deterministic": "spočítáno kódem",
+        "verdict": "návrh modelu přes bránu"
+      },
+      "noProvenance": "provenience není v záznamu",
+      "expand": "přidat okolí",
+      "remove": "odebrat z plátna",
+      "footnote": "provenience = záznam našeho výpočtu · registr = ověření u zdroje",
+      "tier": {
+        "detail": "detail",
+        "search": "dotaz"
+      },
+      "noSource": {
+        "person": "Kanonická stránka poslance na psp.cz je uvedená výše; jiný registr k této osobě nevedeme.",
+        "party": "psp.cz vede jen rozcestník orgánů, ne stránku jednoho klubu — odkaz by sliboval víc, než umí. Zůstává psp id.",
+        "organ": "psp.cz vede jen rozcestník výborů a komisí, ne stránku jednoho orgánu. Zůstává psp id.",
+        "bloc": "Blok je odvozený uzel — vznikl výpočtem nad maticí společného hlasování. Žádný registr ho nevede; jeho zdrojem je provenience níže.",
+        "theme": "Téma je odvozený uzel — vznikl klasifikací hlasování. Žádný registr ho nevede; jeho zdrojem je provenience níže.",
+        "company": "IČO u tohoto uzlu chybí, takže odkaz do ARES ani do rejstříku sestavit nejde.",
+        "contract": "K této smlouvě nemáme uložené IČO dodavatele, přes které se do Registru smluv dotazujeme.",
+        "bill": "U tohoto tisku chybí číslo, kterým se na psp.cz odkazuje.",
+        "law": "Citace zákona v záznamu nemá rozpoznatelné číslo a ročník, takže odkaz do e-Sbírky sestavit nejde.",
+        "notice": "Zdrojová data vývěsky URL nesou, ale náš ingest ji na uzel zatím nepřenáší. Rekonstruovat ji by znamenalo hádat — zůstává spisová značka."
+      }
+    },
+    "stage": {
+      "zoomIn": "přiblížit",
+      "zoomOut": "oddálit",
+      "fit": "srovnat do plochy",
+      "fullscreen": "na celou obrazovku",
+      "exitFullscreen": "opustit celou obrazovku",
+      "legend": "legenda"
+    },
+    "mapa": {
+      "canvasLabel": "mapa masy",
+      "building": "sestavuji mapu grafu…",
+      "stat": "{nodes} uzlů · {edges} hran důkazní vrstvy",
+      "zoomHint": "kolečko přibližuje — jména se vynořují podle důležitosti a místa",
+      "unavailable": "mapu se nepodařilo sestavit — datový sklad není dostupný",
+      "footnote": "celý graf najednou: důkazní vrstva jako síť, smlouvy jako tečky kolem dodavatelů · společné hlasování se nekreslí (96 % hustoty párů — viz metodika)",
+      "lensLabel": "trasy na mapě",
+      "lensOff": "celá mapa — bez trasy"
+    },
+    "trasy": {
+      "canvasLabel": "trasy",
+      "listLabel": "vybrané trasy",
+      "pick": "vyberte trasu — plátno ukáže její výřez grafu",
+      "empty": "trasu se nepodařilo spočítat z dostupných dat",
+      "footnote": "trasy jsou spočítané ze skutečných hran grafu, nic není ilustrace · částky = smlouvy a dotace dosažitelné přes IČO",
+      "trails": {
+        "penize-poslancu": {
+          "title": "Peníze kolem poslanců",
+          "lead": "Poslanci s největším objemem veřejných peněz dosažitelným přes firmy, ke kterým mají doloženou vazbu.",
+          "source": "registr smluv ⋈ ares · hlídač státu · vazby čekají na lidskou kontrolu"
+        },
+        "nejnovelizovanejsi": {
+          "title": "Nejpřepisovanější zákony",
+          "lead": "Zákony, do kterých sněmovna zasahuje nejčastěji — tisky, které je mění, a poslanci, kteří je předkládají.",
+          "source": "psp.cz tisky · e-sbírka"
+        },
+        "darci-stran": {
+          "title": "Dárci politických stran",
+          "lead": "Firmy, které darovaly stranám, a poslanci s doloženou vazbou na tyto firmy.",
+          "source": "hlídač státu /sponzoring · ares v3"
+        },
+        "vybory-a-penize": {
+          "title": "Výbory a peníze",
+          "lead": "Výbory, jejichž členové mají doloženou vazbu na firmy s veřejnými penězi — kde se potkává gesce s byznysem.",
+          "source": "psp.cz orgány ⋈ registr smluv"
+        }
+      }
+    }
   }
 }

@@ -9,8 +9,7 @@
  * automaticky nepotvrzuje vazbu ani nesytí skóre.
  */
 
-import Link from "next/link";
-import { ArrowLeft, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { useLocale } from "next-intl";
 import SourceNote from "@/features/shared/components/SourceNote";
 import type { LeadDossier } from "./moneyTypes";
@@ -24,17 +23,8 @@ export default function KauzyPage({ dossiers }: { dossiers: LeadDossier[] }) {
       <header className="border-b-4 border-ink">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-4">
           <div className="flex items-center gap-3">
-            <Link href="/penize" className="flex items-center gap-3 transition-colors hover:text-signal">
-              <span className="text-xl font-black uppercase tracking-tight">Politicas</span>
-            </Link>
             <span className="font-mono text-xs uppercase tracking-widest text-steel">/ penize / kauzy</span>
           </div>
-          <Link
-            href="/penize"
-            className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" /> {en ? "money network" : "síť peněz"}
-          </Link>
         </div>
       </header>
 

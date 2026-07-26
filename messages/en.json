@@ -18,7 +18,9 @@
     "profileDescription": "Composite score {score}/100 ({party}, {region}): pillars, roll-call votes and evidenced money ties. Every number cites its open source.",
     "profileNotFound": "Politicas — file not found",
     "rentgenTitle": "Politicas/rentgen — investigative evidence terminal",
-    "rentgenDescription": "Archived art direction of Politicas: an X-ray of the state — the money-trail graph, an audit log and a source register."
+    "rentgenDescription": "Archived art direction of Politicas: an X-ray of the state — the money-trail graph, an audit log and a source register.",
+    "graphTitle": "Graph of the state — Politicas",
+    "graphDescription": "A searchable knowledge graph of Czech politics: people, companies, public money, votes and laws in one network, every node linked to its register."
   },
   "common": {
     "languageSwitch": "Switch language",
@@ -39,6 +41,28 @@
     "voteResult": {
       "accepted": "passed",
       "rejected": "rejected"
+    },
+    "ingestion": "ingestion: daily (psp, contracts) · quarterly (subsidies, budgets)"
+  },
+  "nav": {
+    "sidebarLabel": "Main navigation",
+    "modules": "modules",
+    "overview": "control room",
+    "overviewHint": "graph · traffic · ranking",
+    "onThisPage": "on this page",
+    "insideModule": "inside module",
+    "openMenu": "open navigation",
+    "closeMenu": "close navigation",
+    "sections": {
+      "graf": "graph of the state",
+      "provoz": "graph traffic",
+      "zebricek": "ranking"
+    },
+    "children": {
+      "kauzy": "cases",
+      "kontrola": "tie verification",
+      "kolize": "law collisions",
+      "graf": "graph canvas"
     }
   },
   "content": {
@@ -448,9 +472,51 @@
     "pillarAvgTooltip": "sample average",
     "pillarAvgSource": "psp.cz · Hlídač státu — pillar values 0–100",
     "feedSectionTitle": "What changed in the graph",
-    "feedIngestionNote": "ingestion: daily (psp, contracts) · quarterly (subsidies, budgets)",
     "toolsSectionTitle": "Five tools",
-    "toolsJoinKeyNote": "person ⋈ party ⋈ firm ⋈ money ⋈ vote ⋈ law — key: company ID (IČO)"
+    "toolsJoinKeyNote": "person ⋈ party ⋈ firm ⋈ money ⋈ vote ⋈ law — key: company ID (IČO)",
+    "graph": {
+      "title": "Graph of the state",
+      "openPlayground": "open the canvas",
+      "caption": "person ⋈ party ⋈ firm ⋈ public money ⋈ vote ⋈ law",
+      "badge": "knowledge-graph slice",
+      "hint": "hover a node — its edges light up and the traffic feed filters to match",
+      "ariaLabel": "Entity graph: MPs, companies, public money, votes and laws",
+      "source": "source: psp.cz · Contract Register ⋈ ARES v3 · Subsidy Register · e-Sbírka",
+      "legendTitle": "legend",
+      "sliceNote": "a slice of the sample data — the full graph opens in the Money module",
+      "countLabel": "{nodes} nodes · {edges} edges",
+      "edgesInRecord": "{count} edges in the record",
+      "noEdges": "no ties found in this slice",
+      "pendingEdge": "dashed = edge awaiting human review, excluded from the score",
+      "clearSelection": "clear selection",
+      "bandMoney": "money",
+      "bandLaw": "legislation",
+      "kinds": {
+        "person": "MP",
+        "company": "company",
+        "money": "public money",
+        "party": "party",
+        "vote": "vote",
+        "law": "law"
+      },
+      "rel": {
+        "tie": "tie",
+        "contract": "public money",
+        "donor": "donor",
+        "rebel": "broke from the line",
+        "against": "voted against",
+        "amends": "amends"
+      }
+    },
+    "feed": {
+      "title": "Graph traffic",
+      "filteredTo": "filter: {label}",
+      "showAll": "all",
+      "globalRow": "aggregate recompute — no node",
+      "empty": "nothing flowed to this node in this window",
+      "matchCount": "{count} of {total} records",
+      "showInGraph": "show in graph"
+    }
   },
   "profile": {
     "breadcrumb": "file",
@@ -709,6 +775,7 @@
     "title": "Section Watch",
     "intro": "What actually changed in the law — section-by-section diffs linked back to the roll-call vote that passed them. Your MP voted for the amendment that changed a section — here both sit side by side.",
     "section1Title": "Section changes",
+    "realSection1Title": "Bills → laws",
     "section1Aside": "e-Sbírka — consolidated wording · diff = before / after taking effect",
     "effectiveFrom": "in force {date}",
     "sampleNote": "sample of 3 of 312 amended laws · e-Sbírka SPARQL — ongoing",
@@ -717,9 +784,138 @@
     "passedBy": "passed by — {tisk}",
     "openInChamber": "open in the chamber →",
     "section2Title": "Legislative pipeline",
+    "realSection2Title": "Most-amended laws",
     "section2Aside": "psp.cz House prints — ingested daily · filled dot = stage reached",
     "rejectedAtStage": "rejected at {stage}",
     "voteLink": "vote {pro}:{proti} →",
     "pipelineFootnote": "The pipeline reads House prints daily; section diffs are built from e-Sbírka's consolidated wording as soon as an amendment is published. Rejected prints drop out of the pipeline — that, too, is an impact worth recording."
+  },
+  "graph": {
+    "page": {
+      "headerTag": "graph canvas",
+      "title": "Graph of the state",
+      "lead": "The whole knowledge graph, searchable and clickable — people, parties, committees, companies, contracts, bills and laws in one network. Every node carries its provenance and a link to the register where it can be verified.",
+      "unavailable": "The graph isn't available in this run — it's waiting on a connected data warehouse. The other surfaces still run on sample data."
+    },
+    "counts": "{nodes} nodes · {edges} edges",
+    "working": "working",
+    "canvasAria": "Interactive graph canvas. Nodes can also be selected via the search box beside the canvas.",
+    "kinds": {
+      "person": "MP",
+      "party": "party",
+      "organ": "body",
+      "bloc": "bloc",
+      "theme": "theme",
+      "company": "company",
+      "contract": "contract",
+      "bill": "bill",
+      "law": "law",
+      "notice": "notice"
+    },
+    "rels": {
+      "co_votes_with": "co-voting",
+      "supplies": "supplies",
+      "influential_in": "sits on",
+      "amends": "amends",
+      "sponsors": "sponsors",
+      "linked_to": "tie to company",
+      "rebels_against": "deviations from club line",
+      "about": "on theme",
+      "assigned_to": "assigned to committee",
+      "cites": "cites",
+      "owns_stake": "stake in company",
+      "owns": "theme remit",
+      "belongs_to": "belongs to bloc"
+    },
+    "search": {
+      "placeholder": "search the graph…",
+      "label": "Search a graph node",
+      "clear": "clear search",
+      "searching": "searching…",
+      "noHits": "nothing found",
+      "degree": "{n} edges",
+      "alreadyOnBoard": "already on the canvas"
+    },
+    "inspector": {
+      "loading": "loading detail…",
+      "empty": "Pick a node — its record opens with sources.",
+      "close": "close detail",
+      "degree": "edges",
+      "identifier": "identifier",
+      "registries": "verify in the register",
+      "provenance": "record in the graph",
+      "method": "method",
+      "methodValue": {
+        "deterministic": "computed by code",
+        "verdict": "model proposal via the gate"
+      },
+      "noProvenance": "no provenance in the record",
+      "expand": "expand neighborhood",
+      "remove": "remove from canvas",
+      "footnote": "provenance = a record of our computation · register = verification at the source",
+      "tier": {
+        "detail": "detail",
+        "search": "query"
+      },
+      "noSource": {
+        "person": "The MP's canonical page on psp.cz is listed above; we don't maintain any other register for this person.",
+        "party": "psp.cz only maintains a directory of bodies, not a page for a single parliamentary group — a link would promise more than it can deliver. It stays at the psp id.",
+        "organ": "psp.cz only maintains a directory of committees and commissions, not a page for a single body. It stays at the psp id.",
+        "bloc": "A bloc is a derived node — it comes from a computation over the co-voting matrix. No register maintains it; its source is the provenance below.",
+        "theme": "A theme is a derived node — it comes from classifying votes. No register maintains it; its source is the provenance below.",
+        "company": "This node is missing an IČO, so a link into ARES or the company register can't be built.",
+        "contract": "We don't have the supplier's IČO stored for this contract, which is what we use to query the Contract Register.",
+        "bill": "This bill is missing the number psp.cz uses to reference it.",
+        "law": "The law citation in the record has no recognizable number and year, so a link into e-Sbírka can't be built.",
+        "notice": "The source data for the notice does carry a URL, but our ingest doesn't carry it through to the node yet. Reconstructing it would mean guessing — it stays at the case number."
+      }
+    },
+    "stage": {
+      "zoomIn": "zoom in",
+      "zoomOut": "zoom out",
+      "fit": "fit to view",
+      "fullscreen": "fullscreen",
+      "exitFullscreen": "exit fullscreen",
+      "legend": "legend"
+    },
+    "mapa": {
+      "canvasLabel": "map of the mass",
+      "building": "building the graph map…",
+      "stat": "{nodes} nodes · {edges} edges of the evidence layer",
+      "zoomHint": "scroll to zoom — names surface by importance and place",
+      "unavailable": "the map couldn't be built — the data warehouse isn't available",
+      "footnote": "the whole graph at once: the evidence layer as a network, contracts as dots around suppliers · co-voting isn't drawn (96% pair density — see methodology)",
+      "lensLabel": "trails on the map",
+      "lensOff": "whole map — no trail"
+    },
+    "trasy": {
+      "canvasLabel": "trails",
+      "listLabel": "selected trails",
+      "pick": "pick a trail — the canvas shows its graph cutout",
+      "empty": "the trail couldn't be computed from the available data",
+      "footnote": "trails are computed from real graph edges, nothing is illustration · amounts = contracts and grants reachable via IČO",
+      "trails": {
+        "penize-poslancu": {
+          "title": "Money around MPs",
+          "lead": "MPs with the largest volume of public money reachable through companies to which they have a documented tie.",
+          "source": "Contract Register ⋈ ares · hlídač státu · ties await human review"
+        },
+        "nejnovelizovanejsi": {
+          "title": "Most-amended laws",
+          "lead": "The laws the Chamber amends most often — the bills that change them, and the MPs who sponsor them.",
+          "source": "psp.cz bills · e-sbírka"
+        },
+        "darci-stran": {
+          "title": "Party donors",
+          "lead": "Companies that donated to parties, and MPs with a documented tie to those companies.",
+          "source": "hlídač státu /sponzoring · ares v3"
+        },
+        "vybory-a-penize": {
+          "title": "Committees and money",
+          "lead": "Committees whose members have a documented tie to companies with public money — where remit meets business.",
+          "source": "psp.cz bodies ⋈ Contract Register"
+        }
+      }
+    }
   }
 }

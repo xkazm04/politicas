@@ -69,11 +69,37 @@ accusations.
 
 ## 5. App-content patterns (established by Velín + Spis, 2026-07-22)
 
-- **Page anatomy:** brand bar (`border-b-4`, logo + `/ sekce` mono breadcrumb)
-  → poster title band (h1 + `SectionRule` + one intro line) → numbered
-  sections split by `border-t-4 border-ink pt-10`, each anchored by
+- **App chrome lives in the layout** (2026-07-26). `features/shell/AppShell` is
+  mounted in `app/layout.tsx` and draws the left rail: the brand mark, the six
+  module rows, and — nested under the row you are on — that page's section
+  anchors and sub-routes, scroll-spied. Consequences for every wrapped page:
+  **do not draw a logo, a language switcher, or a back-to-dashboard link** —
+  the rail owns all three. Declare your sections in
+  `features/shell/navModel.ts` and put the matching `id` on the `<section>`;
+  the rail drops anchors whose element is absent, so a section gated on real
+  data degrades on its own. Opt out via `isBareRoute()` (landing, `/admin`,
+  `/rentgen`, and `/graf` — the graph canvas owns the full viewport width and
+  composes its own floating bars; its breadcrumb links back to the app).
+- **Page anatomy:** header bar (`border-b-4`, `/ sekce` mono breadcrumb +
+  dataset meta) → poster title band (h1 + `SectionRule` + one intro line) →
+  numbered sections split by `border-t-4 border-ink pt-10`, each anchored by
   `SectionHeading` (mono `/01` index + uppercase title + red period, aside
   meta right).
+- **Entity graphs:** shape carries the entity kind (circle person, square firm,
+  diamond money, triangle vote, pentagon law — `features/dashboard/components/
+  GraphGlyph` for SVG, `features/graph/kindStyle.ts` for canvas; the two speak
+  the same vocabulary). Colour only reinforces the shape, so the graph survives
+  greyscale. Unverified edges are dashed and say so in the legend. Layout
+  coordinates come from a pure module (`lib/kg/layout.ts`) and are rounded to
+  2 decimals (§4 float drift).
+- **SVG or canvas:** SVG up to ~100 nodes (hoverable, inspectable, styled by
+  tokens); `<canvas>` beyond that — the `/graf` playground draws ~3 200 nodes,
+  which SVG cannot hold. Canvas rules: batch one path per (shape, colour) bucket
+  and one path for all bulk edges; keep pan/zoom and hover in refs so pointer
+  movement never re-renders React; resolve `--font-plex` via `getComputedStyle`
+  because `ctx.font` does not understand CSS variables. Canvas is not keyboard
+  operable — always pair it with a search/list that can reach every node, and do
+  not put `tabIndex` on the canvas to fake it.
 - **Tile grids:** `grid gap-px border border-ink bg-ink` with `bg-paper p-5/6`
   cells (stats, pillars, module tiles, prev/next nav) — the house way to
   show a set of numbers.

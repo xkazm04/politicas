@@ -118,10 +118,25 @@ export interface KnowledgeGraphRepository {
   upsertKgEdges(rows: KgEdgeRow[]): Promise<number>;
   listKgNodes(opts?: { kind?: string; limit?: number }): Promise<KgNodeRow[]>;
   listKgEdges(opts?: { rel?: string; limit?: number }): Promise<KgEdgeRow[]>;
+  /** Batch fetch by id, e.g. to re-hydrate a `kgNeighbours()` edge set. Order is not significant. */
+  getKgNodes(ids: string[]): Promise<KgNodeRow[]>;
+  /**
+   * One node's incident edges (both directions) plus the distinct nodes at the
+   * far end of those edges — the primitive a graph explorer expands a node with.
+   */
+  kgNeighbours(opts: {
+    id: string;
+    /** Omit = all relations. */
+    rels?: string[];
+    /** Cap on returned EDGES (default 500). */
+    limit?: number;
+  }): Promise<{ edges: KgEdgeRow[]; nodes: KgNodeRow[] }>;
   countKgNodes(): Promise<number>;
   countKgEdges(): Promise<number>;
   /** rel → edge count, for the ledger's graph-metrics block. */
   countKgEdgesByRel(): Promise<Record<string, number>>;
+  /** kind → node count, node census (highest-count kind first). */
+  kgKindCounts(): Promise<Array<{ kind: string; count: number }>>;
   clearKg(): Promise<void>;
   /**
    * Delete specific edges by their composite key. Narrow, targeted counterpart

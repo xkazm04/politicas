@@ -18,7 +18,6 @@ import { useFormat } from "@/lib/i18n/useFormat";
 import AnimatedScore from "@/features/shared/components/AnimatedScore";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { COMPONENT_FILL } from "@/features/civicscore/components/LeaderboardTable";
 import LowScoreReasonBadge from "@/features/profile/components/LowScoreReasonBadge";
 import TenureNote from "@/features/profile/components/TenureNote";
@@ -48,24 +47,7 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
       <header className="border-b-4 border-ink">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
           <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-3 transition-colors hover:text-signal">
-              <svg viewBox="0 0 32 32" className="h-8 w-8" aria-hidden>
-                <rect width="32" height="32" className="fill-signal" />
-                <circle cx="16" cy="16" r="9" className="fill-paper" />
-                <rect x="14.5" y="4" width="3" height="24" className="fill-ink" />
-              </svg>
-              <span className="text-xl font-black uppercase tracking-tight">Politicas</span>
-            </Link>
             <span className="font-mono text-xs uppercase tracking-widest text-steel">/ {t("breadcrumb")}</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <Link
-              href="/zebricek"
-              className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
-            >
-              <ArrowLeft className="h-3.5 w-3.5" /> {t("backToDashboard")}
-            </Link>
-            <LanguageSwitcher />
           </div>
         </div>
       </header>
@@ -133,7 +115,7 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
         </motion.div>
 
         {/* ── 01 Složky přispění ────────────────────────────── */}
-        <section className="pt-12">
+        <section id="slozky" className="pt-12">
           <SectionHeading
             index={1}
             title={t("componentsHeading")}
@@ -183,7 +165,7 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
         />
 
         {/* ── 03 Nejbližší spojenci ─────────────────────────── */}
-        <section className="mt-16 border-t-4 border-ink pt-10">
+        <section id="spojenci" className="mt-16 border-t-4 border-ink pt-10">
           <SectionHeading
             index={3}
             title={t("alliesHeading")}
@@ -218,7 +200,7 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
         </section>
 
         {/* ── 04 Rebelie proti klubu ────────────────────────── */}
-        <section className="mt-16 border-t-4 border-ink pt-10">
+        <section id="rebelie" className="mt-16 border-t-4 border-ink pt-10">
           <SectionHeading
             index={4}
             title={t("rebellionsHeading")}
@@ -249,7 +231,7 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
         </section>
 
         {/* ── 05 Výbory a komise ────────────────────────────── */}
-        <section className="mt-16 border-t-4 border-ink pt-10 pb-8">
+        <section id="vybory" className="mt-16 border-t-4 border-ink pt-10 pb-8">
           <SectionHeading
             index={5}
             title={t("committeesHeading")}

@@ -15,14 +15,13 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { BILL_STAGES, BILLS, LAW_CHANGES, MPS, ROLL_CALLS } from "@/lib/civic/data";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
 import type { BillOrigin, LawData } from "./getLawData";
 import { ORIGIN_CZ } from "./lawwatchLabels";
 import BillBrowser from "./components/BillBrowser";
@@ -51,24 +50,7 @@ export default function LawWatchPage({ lawData }: { lawData: LawData | null }) {
       <header className="border-b-4 border-ink">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
           <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-3 transition-colors hover:text-signal">
-              <svg viewBox="0 0 32 32" className="h-8 w-8" aria-hidden>
-                <rect width="32" height="32" className="fill-signal" />
-                <circle cx="16" cy="16" r="9" className="fill-paper" />
-                <rect x="14.5" y="4" width="3" height="24" className="fill-ink" />
-              </svg>
-              <span className="text-xl font-black uppercase tracking-tight">Politicas</span>
-            </Link>
             <span className="font-mono text-xs uppercase tracking-widest text-steel">/ lawwatch</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <Link
-              href="/dashboard"
-              className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
-            >
-              <ArrowLeft className="h-3.5 w-3.5" /> {t("back")}
-            </Link>
-            <LanguageSwitcher />
           </div>
         </div>
       </header>
@@ -105,6 +87,7 @@ export default function LawWatchPage({ lawData }: { lawData: LawData | null }) {
  * ════════════════════════════════════════════════════════════════════════ */
 
 function RealLawWatch({ data }: { data: LawData }) {
+  const t = useTranslations("lawwatch");
   const f = useFormat();
 
   const originOrder: BillOrigin[] = ["government", "mp_group", "mp", "senate", "other"];
@@ -155,10 +138,10 @@ function RealLawWatch({ data }: { data: LawData }) {
       </div>
 
       {/* ── 01 Bill browser: filtr + hledání + detailní dosje na /zakony/[cislo] ── */}
-      <section className="mt-12 pb-4">
+      <section id="tisky" className="mt-12 pb-4">
         <SectionHeading
           index={1}
-          title="Tisky → zákony"
+          title={t("realSection1Title")}
           aside={<SourceNote>{data.totalBills} tisků · {data.totalAmends} novelizačních vazeb · psp.cz</SourceNote>}
         />
         <div className="mt-8">
@@ -167,10 +150,10 @@ function RealLawWatch({ data }: { data: LawData }) {
       </section>
 
       {/* ── 02 Nejčastěji novelizované zákony ─────────────── */}
-      <section className="mt-14 border-t-4 border-ink pt-10 pb-20">
+      <section id="zakony" className="mt-14 border-t-4 border-ink pt-10 pb-20">
         <SectionHeading
           index={2}
-          title="Nejnovelizovanější zákony"
+          title={t("realSection2Title")}
           aside={<SourceNote>psp.cz tisky · počet tisků na zákon</SourceNote>}
         />
         <div className="mt-8 border-t-2 border-ink">
@@ -240,7 +223,7 @@ function MockLawWatch() {
       </div>
 
       {/* ── 01 Změny paragrafů ────────────────────────────── */}
-      <section className="mt-8">
+      <section id="tisky" className="mt-8">
         <SectionHeading
           index={1}
           title={t("section1Title")}
@@ -357,7 +340,7 @@ function MockLawWatch() {
       </section>
 
       {/* ── 02 Legislativní potrubí ───────────────────────── */}
-      <section className="mt-14 border-t-4 border-ink pt-10 pb-20">
+      <section id="zakony" className="mt-14 border-t-4 border-ink pt-10 pb-20">
         <SectionHeading
           index={2}
           title={t("section2Title")}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Archivo, Fraunces, IBM_Plex_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
+import AppShell from "@/features/shell/AppShell";
 import "./globals.css";
 
 // Three voices, one platform:
@@ -47,7 +48,9 @@ export default async function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
+          {/* Levá lišta je součástí layoutu — vyjmuté plochy si AppShell
+              rozhodne sám podle route (landing, admin, archiv Rentgen). */}
+          <AppShell>{children}</AppShell>
         </NextIntlClientProvider>
       </body>
     </html>

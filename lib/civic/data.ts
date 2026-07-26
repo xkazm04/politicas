@@ -629,6 +629,10 @@ export interface MoneyTie {
   source: string;
   /** false = čeká na lidskou kontrolu; do skóre se nepropisuje. */
   verified: boolean;
+  /** PartyMeta.code — firma je zároveň doloženým dárcem této strany. */
+  donorParty?: string;
+  /** Dar straně, jak ho vykazuje hlídač /sponzoring (formátovaný řetězec). */
+  donationAmount?: string;
 }
 
 export const MONEY_TIES: MoneyTie[] = [
@@ -653,6 +657,8 @@ export const MONEY_TIES: MoneyTie[] = [
     year: "2024",
     source: "registr dotací · hlídač státu",
     verified: true,
+    donorParty: "ano",
+    donationAmount: "350 tis. Kč",
   },
   {
     mpId: "dvorak-m",
@@ -678,6 +684,25 @@ export const MONEY_TIES: MoneyTie[] = [
   },
 ];
 
+/**
+ * Na které entity událost ukazuje. Feed a přehledový graf kreslí TYTÝŽ entity —
+ * bez explicitních odkazů by je musela párovat heuristika nad textem (křehké a
+ * nepřeložitelné). Odkazy drží obě plochy v synchronizaci: kliknutí na řádek
+ * rozsvítí uzly, kliknutí na uzel profiltruje řádky.
+ */
+export interface FeedRefs {
+  /** MP.id */
+  mps?: string[];
+  /** Index do MONEY_TIES. */
+  ties?: number[];
+  /** RollCall.id */
+  rollCalls?: string[];
+  /** LawChange.id */
+  lawChanges?: string[];
+  /** PartyMeta.code */
+  parties?: string[];
+}
+
 /** Událost pro živý přehled — co se v grafu změnilo. */
 export interface FeedEvent {
   id: string;
@@ -688,6 +713,8 @@ export interface FeedEvent {
   /** signal = zaslouží pozornost, cobalt = neutrální změna, ink = rutina. */
   tone: "signal" | "cobalt" | "ink";
   mpId?: string;
+  /** Entity, kterých se událost dotkla — prázdné u čistě agregátních přepočtů. */
+  refs?: FeedRefs;
 }
 
 export const EVENTS: FeedEvent[] = [
@@ -699,6 +726,7 @@ export const EVENTS: FeedEvent[] = [
     source: "registr smluv",
     tone: "signal",
     mpId: "hruska-k",
+    refs: { mps: ["hruska-k"], ties: [0] },
   },
   {
     id: "e2",
@@ -708,6 +736,7 @@ export const EVENTS: FeedEvent[] = [
     source: "civicscore v1.4",
     tone: "cobalt",
     mpId: "hruska-k",
+    refs: { mps: ["hruska-k"], ties: [0, 1] },
   },
   {
     id: "e3",
@@ -716,6 +745,7 @@ export const EVENTS: FeedEvent[] = [
     text: "Hlasování č. 412: novela zákona o zadávání veřejných zakázek přijata 108:62",
     source: "psp.cz",
     tone: "ink",
+    refs: { rollCalls: ["h-412"] },
   },
   {
     id: "e4",
@@ -725,6 +755,7 @@ export const EVENTS: FeedEvent[] = [
     source: "psp.cz — odchylky od linie",
     tone: "cobalt",
     mpId: "novakova-p",
+    refs: { mps: ["novakova-p"], rollCalls: ["h-391"] },
   },
   {
     id: "e5",
@@ -733,6 +764,7 @@ export const EVENTS: FeedEvent[] = [
     text: "Novela mění § 16 zákona o střetu zájmů — účinnost od 1. 1. 2027; diff připraven",
     source: "e-sbírka",
     tone: "ink",
+    refs: { lawChanges: ["lc1"], rollCalls: ["h-412"] },
   },
   {
     id: "e6",
@@ -741,6 +773,7 @@ export const EVENTS: FeedEvent[] = [
     text: "Dar 350 tis. Kč pro ANO 2011 od Agrofond s.r.o. — překryv vlastníků 38 %",
     source: "hlídač státu /sponzoring",
     tone: "signal",
+    refs: { ties: [1], parties: ["ano"] },
   },
   {
     id: "e7",
