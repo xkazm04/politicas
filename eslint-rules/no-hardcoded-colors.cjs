@@ -13,6 +13,32 @@
 
 const COLOR_RE = /#(?:[0-9a-fA-F]{3,4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})\b|\brgba?\(|\bhsla?\(/;
 
+// JSX attributes whose value is never a CSS color even when it happens to be
+// hex-shaped — a URL fragment identifier (href="#deadbeef"), a DOM id, a
+// short git SHA used as a label (id="a3f5c9"). Flagging these produced a
+// false positive with a misleading "colors originate in globals.css tokens"
+// fix suggestion that actively doesn't apply.
+const NON_COLOR_ATTRS = new Set([
+  "href", "id", "to", "rel", "name", "key", "htmlFor", "target", "alt", "title",
+  "placeholder", "download", "src", "action", "method", "role", "tabIndex",
+  "type", "form", "for",
+]);
+
+/** True when `node` (a Literal or TemplateElement) is the value of a JSX
+ * attribute whose name is known to never carry a CSS color. */
+function isNonColorAttrValue(node) {
+  let cur = node.parent;
+  // Unwrap `attr={"literal"}` / `` attr={`template ${x}`} `` — a TemplateElement's
+  // direct parent is its TemplateLiteral, and a JSXExpressionContainer sits
+  // between the attribute and either wrapper for any non-bare-string JSX value.
+  if (cur && cur.type === "TemplateLiteral") cur = cur.parent;
+  if (cur && cur.type === "JSXExpressionContainer") cur = cur.parent;
+  if (!cur || cur.type !== "JSXAttribute") return false;
+  const attrName = cur.name && (cur.name.name || (cur.name.namespace && cur.name.namespace.name));
+  if (typeof attrName !== "string") return false;
+  return NON_COLOR_ATTRS.has(attrName) || attrName.startsWith("aria-") || attrName === "data-testid";
+}
+
 /** @type {import('eslint').Rule.RuleModule} */
 module.exports = {
   meta: {
@@ -40,10 +66,10 @@ module.exports = {
     }
     return {
       Literal(node) {
-        if (typeof node.value === "string") check(node, node.value);
+        if (typeof node.value === "string" && !isNonColorAttrValue(node)) check(node, node.value);
       },
       TemplateElement(node) {
-        check(node, node.value.raw);
+        if (!isNonColorAttrValue(node)) check(node, node.value.raw);
       },
     };
   },
