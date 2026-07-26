@@ -56,3 +56,6 @@ app-cost.json
 .justice-samples/
 .kiosek-cache/
 .dataor-cache/
+
+# Claude Code session logs (per-run, large, not project content)
+.claude/logs/
