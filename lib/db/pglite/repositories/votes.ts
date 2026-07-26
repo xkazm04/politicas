@@ -68,6 +68,17 @@ export function makeVoteRepo(pg: Pglite): VoteRepository {
         `select * from absence ${where} order by id limit ${limitOf(opts)}`,
         opts?.termCode ? [opts.termCode] : [],
       );
+      // An unknown/misspelled termCode and a real term with genuinely zero
+      // absences both produce an empty result — the subquery's zero-row match
+      // evaluates to SQL NULL, and `term_psp_id = NULL` is never true, so a
+      // typo'd term code silently looks identical to "clean record" rather
+      // than "broken query". One cheap existence check only on the empty path.
+      if (rows.length === 0 && opts?.termCode) {
+        const { rows: organRows } = await pg.query(`select 1 from organ where abbrev = $1`, [opts.termCode]);
+        if (organRows.length === 0) {
+          console.warn(`[listAbsences] termCode "${opts.termCode}" does not resolve to any organ — returning empty`);
+        }
+      }
       return rows.map(mapAbsence);
     },
     async countVoteBallots(termCode) {

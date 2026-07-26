@@ -75,6 +75,15 @@ export function makeGraphRepo(pg: Pglite): GraphRepository {
         `select m.* from membership m ${where} order by m.id limit ${limitOf(opts)}`,
         opts?.termCode ? [opts.termCode] : [],
       );
+      // Same "unknown term vs. genuinely empty term" ambiguity as
+      // votes.ts's listAbsences — one cheap existence check only on the
+      // empty-result path.
+      if (rows.length === 0 && opts?.termCode) {
+        const { rows: organRows } = await pg.query(`select 1 from organ where abbrev = $1`, [opts.termCode]);
+        if (organRows.length === 0) {
+          console.warn(`[listMemberships] termCode "${opts.termCode}" does not resolve to any organ — returning empty`);
+        }
+      }
       return rows.map(mapMembership);
     },
 
