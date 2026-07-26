@@ -101,6 +101,20 @@ export function resolveHref(href: string | null, pageUrl: string): string | null
   }
 }
 
+/** True when `url`'s actual HOST is `host` (or a subdomain of it) — NOT a
+ * substring match. `url.includes("psp.cz")` would also match
+ * "https://example.com/redirect?to=psp.cz" or "https://not-psp.cz.evil.example/",
+ * exactly the provenance-poisoning this filter exists to prevent. An
+ * unparseable url is treated as a rejection, not a silent pass-through. */
+function isOnHost(url: string, host: string): boolean {
+  try {
+    const hostname = new URL(url).hostname;
+    return hostname === host || hostname.endsWith(`.${host}`);
+  } catch {
+    return false;
+  }
+}
+
 /**
  * Turn mirrored Pumper records into `source_release` rows. Only records whose
  * key/url is on the psp.cz host are taken — Pumper's datasets are shared with
@@ -117,7 +131,7 @@ export function normalizePumperReleases(
       const key = rec.key ?? "";
       const data = rec.data ?? {};
       const url = asString(data.url) ?? asString(data._url) ?? key;
-      if (!url.includes(hostFilter)) continue;
+      if (!isOnHost(url, hostFilter)) continue;
       const observedAt = rec.updated_at ?? rec.last_seen ?? null;
 
       if (app === "extractor") {
