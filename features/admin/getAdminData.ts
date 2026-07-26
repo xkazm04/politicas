@@ -420,7 +420,12 @@ async function loadReviewHub(): Promise<ReviewHubData> {
         });
       }
       if (items.length > 0) {
-        items.sort((a, b) => (b.severity === "high" ? 1 : 0) - (a.severity === "high" ? 1 : 0));
+        // A binary high/non-high partition only guaranteed "high" floats up —
+        // "medium" and "low" kept their original iteration order relative to
+        // each other, so a medium-severity item could sit behind several lows
+        // in the capped 8-item preview an operator actually sees.
+        const SEVERITY_RANK: Record<string, number> = { high: 0, medium: 1, low: 2 };
+        items.sort((a, b) => (SEVERITY_RANK[a.severity] ?? 3) - (SEVERITY_RANK[b.severity] ?? 3));
         forensic = { total: items.length, bySeverity, items, zakonyHref: "/zakony" };
       }
     } catch {
