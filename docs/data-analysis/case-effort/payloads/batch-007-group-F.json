@@ -1,0 +1,296 @@
+{
+  "proposals": [
+    {
+      "id": "psp:person:7034",
+      "name": "Vladimír Pikora",
+      "props": {
+        "effort_notes": "Firemní vazby nejsou v datech žádné, bez peněžního zjištění k ověření. Podíl hlasů proti vlastnímu klubu (89 rebelských hlasů z 1086, tedy 8,2 %) je v datech nejvyšší z celé této sedmičky, což při vedení rozpočtového výboru vlastního klubu stojí za sledování v případném dalším kole, ale samo o sobě nejde o datovou nesrovnalost.",
+        "effort_bill_focus": "Pikora nemá v evidenci žádný sponzorovaný tisk a na psp.cz profilu skutečně nefiguruje jako (spolu)předkladatel žádného sněmovního tisku v tomto období. Jeho příspěvek je tedy výhradně výborová práce v čele rozpočtové agendy, nikoli legislativní iniciativa."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7034"
+      ]
+    },
+    {
+      "id": "psp:person:7036",
+      "name": "Václav Pláteník",
+      "props": {
+        "effort_notes": "Devět tisků, u kterých je uveden jako signatář, jde primárně o spolupodpisy — jen 1 z 9 nese jeho jméno jako prvního předkladatele. Počet výborových rolí (5) odpovídá seznamu uvedených funkcí. Firemní vazby v datech nejsou žádné, bez peněžního zjištění k ověření."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=104",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=73",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=74",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=50",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=75",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=89",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=109",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=110",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=121"
+      ]
+    },
+    {
+      "id": "psp:person:7038",
+      "name": "Barbora Rázga",
+      "props": {
+        "effort_notes": "Rázga má v evidenci dva tisky, u žádného není první předkladatelkou — jde o spolupodpis, nikoli o vlastní předložení. Uvedený počet šesti výborových/komisních rolí oproti pěti doloženým položkám (místopředsednictví SKNÚKIB, VMZ, VSR, SKKPO, vyšetřovací komise Dozimetr) vykazuje rozdíl jedné nedoložené vazby; firemní vazby nejsou v datech žádné, bez peněžního zjištění k ověření.",
+        "effort_analyst_note": "Rozdíl v počtu výborů (6 vs. 5 doložených) není chyba vstupních dat o poslancích — jde o mezeru v extraktoru, který pole committees staví jen z přímých dětí sněmovny (extract-dossiers.ts/kg-compute.ts), zatímco výpočet committee_count zahrnuje i podvýbory a leadership_count i roli ověřovatel. Číselný ukazatel je typicky správný, seznam committees neúplný o podvýbory/ověřovatele; oprava patří do extraktoru dossierů, ne do ingestu."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=201",
+        "https://www.ceskenoviny.cz/zpravy/kauzu-dozimetr-budou-proverovat-mj-masek-valkova-rajchl-vesecka-a-zacek/2803054",
+        "https://www.psp.cz/sqw/detail.sqw?id=7038"
+      ]
+    },
+    {
+      "id": "psp:person:7039",
+      "name": "Vítězslav Schrek",
+      "props": {
+        "effort_notes": "Šest položek v datech o firemních vazbách zahrnuje sociální/regionální organizace z Vysočiny (Domov pro seniory Velké Meziříčí, DS Stříbrné Terasy, Charita ČR, AlternativaPro) i soukromou Prádelnu a čistírnu Jihlava — profil odpovídající bývalému hejtmanovi a manažerovi v sociálních službách, ale nejde o potvrzenou osobní vazbu: veřejný rejstřík (ARES) vrátil jen prázdnou schránku a obchodní rejstřík i jeho zrcadlo na rejstrik.penize.cz selhaly (403 / bez dat o statutárních orgánech) — ověření se tedy nezdařilo, nejde o potvrzeně čistý nález. Jedna dříve prověřovaná položka, generické IČO 04627695 vedené jako „OSVČ\" s nulovou hodnotou kontraktů, byla po prošetření vyloučena jako nesouvisející se Schrekem — jde o samostatnou firmu, jejíž chybné spárování s tímto i dalšími poslanci bylo potvrzeno a odstraněno.",
+        "effort_bill_focus": "V evidenci nemá žádný sponzorovaný tisk; psp.cz profil nepotvrzuje žádné (spolu)předkladatelství v tomto období — odpovídá vstupním datům.",
+        "effort_analyst_note": "IČO 04627695 se stejnou hodnotou (a nulovým kontraktem) se objevilo i u Válkové a Foldyny v jiné dávce zpracování — třetí nezávislý výskyt vedl k podezření na nedořešený datový placeholder. Následné prošetření to vyvrátilo: jde o skutečnou firmu (Agrární demokratická strana, registrovaná mikro-strana), jejíž pole ARES obchodniJmeno obsahuje doslovný řetězec „OSVČ\" — chyba přesného name-matchingu (pickExactIco v lib/analysis/money-feed.ts) ji chybně spárovala se 49 poslanci, jejichž povolání bylo v datech Hlídače popsáno volně jako „OSVČ\". Všech 49 nulových hran linked_to → company:ico:04627695 bylo následně smazáno jako potvrzené false_edge_suspected a uzel company:ico:04627695 byl rovněž odstraněn, protože na něj nic jiného needkazovalo. Původní úsudek u tohoto záznamu (nejde o ověřenou vazbu) byl správný už předtím; toto je jen formální potvrzení."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7039",
+        "https://vysocina.rozhlas.cz/vysocina-ma-po-12-letech-noveho-hejtmana-stal-se-jim-vitezslav-schrek-z-ods-8364287",
+        "https://cs.wikipedia.org/wiki/V%C3%ADt%C4%9Bzslav_Schrek",
+        "https://ares.gov.cz/ekonomicke-subjekty-vr/25513290",
+        "https://or.justice.cz/ias/ui/rejstrik-$firma?ico=25513290",
+        "https://rejstrik.penize.cz/25513290-pradelna-a-cistirna-jihlava-s-r-o"
+      ]
+    },
+    {
+      "id": "psp:person:7042",
+      "name": "Lucie Sedmihradská",
+      "props": {
+        "effort_notes": "Z pěti tisků, u kterých je Sedmihradská vedena jako signatářka, je jeden (tisk 120) skutečně autorský — je u něj první jmenovanou předkladatelkou, zbylé čtyři jsou spolupředkladatelství. Tato distinkce stojí za zaznamenání jako výjimka z obvyklého vzorce, kde většina poslanců má výhradně spolupředkladatelství. Firemní vazby v datech nejsou žádné. Jde o nováčku bez porovnání s minulým volebním obdobím, mandát trvá celé sledované období (293 dní)."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7042",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=106",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=107",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=120",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=146",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=244"
+      ]
+    },
+    {
+      "id": "psp:person:7043",
+      "name": "Štěpán Slovák",
+      "props": {
+        "effort_notes": "Ze čtyř tisků, u kterých je Slovák veden jako signatář, je prvním předkladatelem jen u tisku 208 — u zbylých tří (72, 103, 129) jde o spolupodpis. Výrazná nesrovnalost: uváděný počet deseti výborových/komisních rolí odpovídá jen šesti doloženým položkám (VK, SKÚPP, MIV, VEZ, VZ, SKNÚKIB) — rozdíl čtyř nedoložených vazeb je nejvyšší z celé skupiny. Firemní vazby v datech nejsou žádné, bez peněžního zjištění k ověření.",
+        "effort_analyst_note": "Rozdíl mezi uváděným počtem výborů (10) a šesti doloženými položkami NENÍ chyba ingestu — je to limit extraktoru: pole committees se staví jen z přímých dětí sněmovny (extract-dossiers.ts/kg-compute.ts), zatímco výpočet committee_count zahrnuje i podvýbory a leadership_count i roli ověřovatel. Číselný ukazatel je typicky správný, vstupní seznam committees neúplný o podvýbory/ověřovatele; oprava patří do extract-dossiers.ts, ne do ingestu dat o poslancích."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=103",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=129",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=208",
+        "https://www.psp.cz/cgi-bin/win/sqw/detail.sqw?id=7043&s=1&o=10",
+        "https://zlinsky.denik.cz/z-regionu/novy-predseda-ods-zlinsky-kraj-poslanec-stepan-slovak-kupka-blaha-ivan-gomolova.html"
+      ]
+    },
+    {
+      "id": "psp:person:7045",
+      "name": "Petr Sokol",
+      "props": {
+        "effort_notes": "Nejvíce vedoucích výborových postů z trojice (1 předseda + 2 místopředsedové) a nejvyšší počet výborových/komisních rolí (9) z trojice; přesto registrován jako rebel u těsných hlasování proti vlastnímu klubu, jehož je místopředsedou — vnitřní napětí, uvedeno věcně bez motivu."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7045",
+        "https://olomoucky.denik.cz/zpravy_region/ods-olomoucky-kraj-lidr-petr-sokol-martin-major-2025.html"
+      ]
+    },
+    {
+      "id": "psp:person:7046",
+      "name": "Eva Šrámková",
+      "props": {
+        "effort_notes": "Vysoké skóre příspěvku (90,6) při jediném sponzorovaném tisku ukazuje, že její příspěvek je tažen komisní/interpelační prací a řečnickými vystoupeními (48), ne autorstvím zákonů — bez jednostranného profilu, tento jediný tisk odpovídá jejímu jedinému záznamu v evidenci sponzorovaných tisků. Mandát trvá celé sledované období (293 dní) bez anomálie. Firemní vazby v datech nejsou žádné."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7046",
+        "https://www.pirati.cz/jak-pirati-pracuji/poslankyne-piratu-sramkova-interpeluje-ministra-zdravotnictvi-ve-veci-toxinu-v-kojenecke-vyzive-cesko-spi-zatimco-francie-jedna/",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168"
+      ]
+    },
+    {
+      "id": "psp:person:7050",
+      "name": "Jan Sviták",
+      "props": {
+        "effort_notes": "Ze dvou tisků, u kterých je veden jako signatář, není u žádného prvním předkladatelem. Deset řečnických vystoupení je nejnižší počet v porovnávané skupině kromě Outraty (0) — konzistentní obraz nízkoprofilového, ale ne nulového působení. Firemní vazby v datech nejsou žádné, bez peněžního zjištění k ověření."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=24",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=120",
+        "https://www.psp.cz/sqw/snem.sqw?l=cz&id=1761"
+      ]
+    },
+    {
+      "id": "psp:person:7052",
+      "name": "František Talíř",
+      "props": {
+        "effort_notes": "Ze šesti tisků, u kterých je veden jako signatář, není u žádného prvním předkladatelem (jde výhradně o spolupodpisy). Nesrovnalost v datech: uváděný počet tří výborových rolí odpovídá jen dvěma doloženým položkám (předsednictví VMZ, členství ve VŽP) — chybí buď třetí vazba, nebo je počítadlo nadhodnocené, stejný vzorec jako u dalších poslanců v jiné dávce zpracování. Zajímavý rys: na skutečně kontestovaných hlasováních se od klubu odklání citelně častěji (u přibližně 73 % těsných hlasování) než v běžném provozu (celkově jen 0,3 % hlasů), i když jde stále o extrémně nízké absolutní číslo (4 vzbouřenecké hlasy z 1414). Firemní vazby v datech nejsou žádné, bez peněžního zjištění k ověření.",
+        "effort_public_role": "Předsedá Výboru pro mediální záležitosti (VMZ) — stálý sněmovní výbor, který mimo jiné volí členy Rady České televize a Rady Českého rozhlasu, tedy reálná dozorová pravomoc nad veřejnoprávními médii; dále je řadovým členem Výboru pro životní prostředí.",
+        "effort_analyst_note": "Rozdíl mezi uváděným počtem výborů (3) a dvěma doloženými položkami NENÍ chyba ingestu — je to limit extraktoru: pole committees se staví jen z přímých dětí sněmovny (extract-dossiers.ts/kg-compute.ts), zatímco výpočet committee_count zahrnuje i podvýbory a leadership_count i roli ověřovatel. Číselný ukazatel je typicky správný, vstupní seznam committees neúplný o podvýbory/ověřovatele; oprava patří do extract-dossiers.ts, ne do ingestu. Stejný vzorec nesrovnalosti se objevil i u Řehkové a Langa v jiné dávce zpracování."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=50",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=89",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=109",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=110",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=121",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=243",
+        "https://www.psp.cz/sqw/hp.sqw?k=4100"
+      ]
+    },
+    {
+      "id": "psp:person:7055",
+      "name": "Jiří Vojáček",
+      "props": {
+        "effort_notes": "Šest tisků, u kterých je uváděn jako signatář, odpovídá šesti nalezeným spolupodpisům; žádný z nich ale Vojáček sám nepředložil jako první signatář, jde o řadové spolupodepisování klubového bloku KDU-ČSL/SPOLU. Firemní vazby v datech nejsou žádné — bez peněžního zjištění k ověření.",
+        "effort_public_role": "Člen Kontrolního výboru, Výboru pro vědu, vzdělávání, mládež a sport a Stálé komise pro kontrolu činnosti NÚKIB — tři výborové role. Nad rámec toho od 18. 2. 2026 předsedá Podvýboru pro heraldiku a vexilologii (podvýborové vedení, které se do počtu vedoucích funkcí formálně nezapočítává).",
+        "effort_analyst_note": "U všech šesti tisků je v datech nastaven příznak flagged_conflict: true — jde o preexistující příznak z ingestu, který se nepodařilo nezávisle interpretovat (může jít o obecný marker pro skupinové podání, ne o konkrétní zjištění o Vojáčkovi)."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7055",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=50",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=89",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=104",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=109",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=110",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=121"
+      ]
+    },
+    {
+      "id": "psp:person:7056",
+      "name": "Jitka Volfová",
+      "props": {
+        "effort_notes": "Uváděný počet dvou výborů odpovídá přesně dvěma uvedeným výborům — na rozdíl od několika dalších poslanců v porovnávané skupině zde není datová nesrovnalost, stojí za zaznamenání jako čistý případ. Jediný tisk, u kterého je vedena jako signatářka, je spolupodpis, ne vlastní iniciativa. Firemní vazby v datech nejsou žádné, bez peněžního zjištění k ověření.",
+        "effort_analyst_note": "Shoda počtu výborů zde neznamená, že je extraktor obecně spolehlivý — tato poslankyně prostě nesedí v žádném podvýboru ani nemá roli ověřovatel, takže se známý limit extraktoru (viz stejný problém u dalších poslanců v této dávce) na jejím profilu neprojevil, ne že by neexistoval."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11"
+      ]
+    },
+    {
+      "id": "psp:person:7058",
+      "name": "Libor Vondráček",
+      "props": {
+        "effort_notes": "Tři tisky, u kterých je veden jako signatář, odpovídají uváděnému počtu, ale u žádného není Vondráček prvním předkladatelem — jde o tři spolupodpisy. Údaj o předkladateli u všech tří zní 'Vondráček R. a další', což se na první pohled mohlo jevit jako jeho vlastní iniciativa, ale přímé ověření na psp.cz potvrdilo, že jde o Radka Vondráčka (jiného poslance), nikoli o Libora Vondráčka — jména se shodují jen příjmením, iniciála 'R.' neodpovídá jeho křestnímu jménu. Datová nesrovnalost: uváděný počet šesti výborů odpovídá jen třem doloženým položkám. Firemní vazby v datech nejsou žádné, bez peněžního zjištění k ověření.",
+        "effort_analyst_note": "Rozdíl mezi uváděným počtem výborů (6) a třemi doloženými položkami NENÍ chyba ingestu — je to limit extraktoru: pole committees se staví jen z přímých dětí sněmovny (extract-dossiers.ts/kg-compute.ts), zatímco výpočet committee_count zahrnuje i podvýbory a leadership_count i roli ověřovatel. Číselný ukazatel je typicky správný, vstupní seznam committees neúplný o podvýbory/ověřovatele; oprava patří do extract-dossiers.ts, ne do ingestu."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=76",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=77",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87"
+      ]
+    },
+    {
+      "id": "psp:person:7059",
+      "name": "Filip Turek",
+      "props": {
+        "effort_notes": "Analýza ho řadí jako tichého, ale legislativně nosného poslance – nízká řečnická viditelnost (8 vystoupení) kontrastuje se dvěma konkrétními, věcně nosnými legislativními iniciativami a dvěma místopředsednickými posty. Srovnání s minulým volebním obdobím zde není k dispozici, protože Turek byl do 10/2025 europoslancem, ne poslancem Sněmovny – chybějící údaj je tedy očekávaný, nikoli chyba dat. Mediálně je spojen s kontroverzemi (nacistická symbolika na přilbě, sporné závodní úspěchy, nákup bytu za 18 mil. Kč) – ty se ale netýkají jeho legislativní práce popsané zde a nejsou zde uváděny jako fakt, jen jako kontext důvěryhodnosti."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7059",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=201",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=221",
+        "https://www.irozhlas.cz/zpravy-domov/dva-mesice-sporu-o-turka-velky-prehled-vyroku-kdo-se-za-nej-stavi-a-kdo-uz-ho-z_2512080620_jgr"
+      ]
+    },
+    {
+      "id": "psp:person:7062",
+      "name": "Martin Záhoř",
+      "props": {
+        "effort_notes": "Údaje souhlasí: stoprocentní účast na hlasováních a žádný vlastní legislativní návrh odpovídají nálezu čisté výborové docházky bez legislativní iniciativy. Peněžní zjištění (nejvýraznější v této skupině): (1) TAZATA, spol. s r.o. (IČO 18251129, Stříbro), kontrakty za 18 480 662,07 Kč — stavební firma v jeho vlastním městě. Zdroje se ROZCHÁZEJÍ v otázce jeho role: jeden agregovaný zdroj jej uvádí jako jednatele, ale aktuálnější přehled jednatelů (Zdeněk Takáč, Petr Takáč, Martin Pitra, Ing. Václav Štědrý, všichni od 9. 11. 2017) jej neobsahuje — nelze tedy s jistotou potvrdit ani vyvrátit současnou osobní statutární roli, doporučujeme ověřit přímo přes obchodní rejstřík. (2) Správa majetku města Stříbra, s.r.o. (IČO 26318903), kontrakty za 14 232 605,16 Kč — potvrzeno jako stoprocentně vlastněná městem Stříbro (jediný společník: Město Stříbro, IČO 00260177), jednatelem je Blahoslav Kupec, ne Záhoř osobně — ale jako starosta má nad touto městskou firmou přímou zřizovatelskou/dozorovou pravomoc, což je institucionální, nikoli osobní konflikt zájmů. (3) JISE stavby s.r.o. (IČO 26387816, Tlučná), nulová hodnota kontraktů — žádnou osobní ani institucionální vazbu na Záhoře se nepodařilo dohledat přes žádný zdroj. U všech tří selhal přímý přístup k veřejnému rejstříku ARES, použity byly sekundární zdroje s výše popsanými omezeními — žádné tvrzení o (ne)existenci osobní vazby proto nepovažujeme za definitivně potvrzené a doporučujeme přímé ověření přes obchodní rejstřík.",
+        "effort_public_role": "Členem Hospodářského výboru a Rozpočtového výboru v Poslanecké sněmovně. Zároveň je od 2019 starostou Stříbra a od 2024 náměstkem hejtmana Plzeňského kraje — tedy trojí mandát (obec + kraj + Sněmovna) souběžně.",
+        "effort_bill_focus": "V evidenci nemá žádný vlastní ani spolupodepsaný tisk; jde tedy výhradně o výborovou práci, ne legislativní iniciativu.",
+        "effort_analyst_note": "Stejné generické IČO označené jako „OSVČ\" s nulovou hodnotou kontraktů, které se u jiných poslanců objevilo jako podezřelý datový placeholder, se u Záhoře nevyskytuje."
+      },
+      "citations": [
+        "https://cs.wikipedia.org/wiki/Martin_Z%C3%A1ho%C5%99",
+        "https://rejstrik.penize.cz/18251129-tazata-spol-s-r-o",
+        "https://ares.gov.cz/ekonomicke-subjekty-vr/18251129",
+        "https://ares.gov.cz/ekonomicke-subjekty-vr/26318903",
+        "https://www.mustribro.cz/urad-2/povinne-informace/subjekt-sprava-majetku-mesta-stribra-sro-32.html",
+        "https://ares.gov.cz/ekonomicke-subjekty-vr/26387816",
+        "https://www.finmag.cz/obchodni-rejstrik/26387816-jise-stavby-s-r-o"
+      ]
+    },
+    {
+      "id": "psp:person:7063",
+      "name": "Roman Zarzycký",
+      "props": {
+        "effort_notes": "Zvolen na rekordních 12 103 preferenčních hlasů, pak se mandátu vzdal při 1. schůzi; nikdy nehlasoval. Nulová členská účast ve výborech potvrzena na psp.cz. Přibližně 311 mil. Kč propojených kontraktů se váže k plzeňským městským firmám (Čistá Plzeň 284 mil., PMDP 4,1 mil.) přes primátorský úřad — jde o zjištění čekající na ověření, ne o poznatek z jeho parlamentní činnosti. Dřívější podezření, že by šlo o vedoucí postavu absentérů, se nepotvrdilo."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7063",
+        "https://www.echo24.cz/a/HhDMq/zpravy-domaci-zarzycky-se-vzdava-postu-poslance-zustane-primatorem-plzne",
+        "https://cs.wikipedia.org/wiki/Roman_Zarzyck%C3%BD"
+      ]
+    },
+    {
+      "id": "psp:person:7065",
+      "name": "Martin Šmída",
+      "props": {
+        "effort_notes": "Čtyři tisky, u kterých je veden jako signatář, odpovídají uváděnému počtu, ale u žádného není první předkladatel — jde čistě o spolupodpisy. Jako náhradník má přesto nejvyšší skóre příspěvku (81,1) z porovnávané skupiny — případný statistický handicap kratšího mandátu se zde neprojevuje negativně, naopak ukazuje silný výkon i přes kratší mandát. Firemní vazby v datech nejsou žádné, bez peněžního zjištění k ověření.",
+        "effort_public_role": "Náhradník, nastoupil v průběhu volebního období (mandát trvá 260 dní) — je členem Výboru pro životní prostředí (VŽP), Zemědělského výboru (ZEV) a Stálé komise pro kontrolu činnosti GIBS (SKGIBS); jeho environmentálně-zemědělské výborové zařazení se kryje s tématy jeho jediných spolupodepsaných tisků (odpady)."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=71",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=86",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=161",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168"
+      ]
+    },
+    {
+      "id": "psp:person:7066",
+      "name": "Vlastimil Hebr",
+      "props": {
+        "effort_notes": "Údaje souhlasí (tři výborové role odpovídají třem doloženým položkám). Pro náhradníka je profil nadprůměrně aktivní, ne oslabený kratší tenurou: stoprocentní účast, nulová absence, 91 řečnických vystoupení (druhý nejvyšší počet v porovnávané skupině) a skóre příspěvku 69,7 — případný statistický handicap kratší tenury u náhradníků (nízké skóre kvůli kratšímu mandátu, ne kvůli neaktivitě) se zde tedy neuplatňuje, protože skóre je nadprůměrné navzdory kratšímu mandátu (262 dní). Firemní vazby v datech nejsou žádné, bez peněžního zjištění k ověření.",
+        "effort_public_role": "Náhradník, nastoupil 3. 11. 2025, ne 4. 10. 2025 jako řádně zvolení kolegové — členem Rozpočtového výboru (od 11. 11. 2025), Výboru pro evropské záležitosti (od 14. 11. 2025) a Stálé komise pro kontrolu poskytnutí údajů z centrální evidence účtů (od 14. 11. 2025) — tři role. Dle psp.cz od 11. 2. 2026 navíc předsedá Podvýboru pro evropské fondy, přeshraniční spolupráci a zelenou tranzici — nezanedbatelná podvýborová odpovědnost pro poslance nastoupivšího teprve v listopadu.",
+        "effort_bill_focus": "Žádný sponzorovaný tisk v evidenci — výhradně výborová a hlasovací práce."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7066&o=10"
+      ]
+    },
+    {
+      "id": "psp:person:7067",
+      "name": "Jiří Penc",
+      "props": {
+        "effort_public_role": "Ortoped/lékař; zastupitel a radní města Karlovy Vary (od 2018/2022); krajský zastupitel Karlovarského kraje (od 2024); poslancem od 3.11.2025 jako náhradník za Petra Kubise, který koncem října 2025 odmítl složit slib, aby zůstal starostou Sokolova (od 8.12.2025 hejtman Karlovarského kraje) — druhá strana případu, kdy se nově zvolený poslanec mandátu vzdal ještě před složením slibu."
+      },
+      "citations": [
+        "https://cs.wikipedia.org/wiki/Ji%C5%99%C3%AD_Penc",
+        "https://vary.rozhlas.cz/petr-kubis-se-ve-snemovne-vzdal-poslaneckeho-mandatu-nahradi-ho-lekar-jiri-penc-9573581",
+        "https://www.psp.cz/sqw/detail.sqw?id=7067"
+      ]
+    },
+    {
+      "id": "psp:person:7106",
+      "name": "Libor Forman",
+      "props": {
+        "effort_notes": "Údaje do sebe zapadají — krátký, pětapadesátidenní mandát náhradníka s jediným vystoupením a bez jediné legislativní iniciativy vysvětluje nízké skóre příspěvku i výraznou nevyváženost mezi jednotlivými ukazateli aktivity. Nulová absence při účasti jen na části hlasování je na první pohled protichůdné, ale je konzistentní s krátkým obdobím ve funkci, kdy stihl být přítomen na málu hlasování, ale při všech přítomných hlasoval. Firemní vazby v datech nejsou žádné — bez peněžní vazby k ověření, ačkoliv veřejné zdroje uvádějí jeho podnikání s čerpacími stanicemi (nebylo možné ověřit konkrétní IČO ani vazbu ve veřejném rejstříku).",
+        "effort_bill_focus": "V evidenci nemá žádný sponzorovaný tisk — Forman za svůj krátký mandát nepředložil ani nespolupodepsal žádný sněmovní tisk."
+      },
+      "citations": [
+        "https://cnn.iprima.cz/motoristy-opousti-poslanec-diplomata-berana-by-mel-nahradit-majitel-cerpacich-stanic-forman-513403",
+        "https://ekonomickydenik.cz/poslanec-motoristu-beran-konci-snemovna/"
+      ]
+    },
+    {
+      "id": "psp:person:7108",
+      "name": "Jiří Kotlík",
+      "props": {
+        "effort_notes": "Podíl účasti na hlasováních (30 %) je počítán zjevně vůči celému volebnímu období, ne vůči jeho cca pětitýdenní účasti — naproti tomu nulová absence (žádná zaznamenaná absence od nástupu) ukazuje plnou docházku od složení slibu. Stejný strukturální jev je vidět i u dalších náhradních poslanců (Šmída, Penc, Hebr); skóre zůstává nedotčeno, poznámka slouží jen k interpretaci nízkého čísla."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=7108",
+        "https://www.psp.cz/zprava/22492",
+        "https://www.obcasnik.eu/poslanec-kott-ano-odchazi-na-nku-nahradi-ho-jihlavsti-politici-faltus-a-kotlik/"
+      ]
+    }
+  ]
+}

@@ -1,88 +1,73 @@
-# Case ② Effort — Batch 006 handoff (fleet)
+# Case ② Effort — Batch 007 handoff (fleet, Q-effort-15)
 
-For the orchestrator holding the single-writer resources (live `.pglite`, shared vault, git). Everything
-below is validated on `.pglite-copy-effort` (disposable — recreate + re-verify with the commands in §1).
-This handoff REPLACES batch-005's.
+For the orchestrator holding the single-writer resources (live `.pglite`, shared vault, git).
+Everything below is validated on `.pglite-copy-effort` (disposable, recreated 3× during this batch,
+deleted at the end — recreate + re-verify with the commands in §1). **This handoff REPLACES
+batch-006's.** Full narrative in `batch-007.md`.
 
-**Batch 006 closes the population: 207/207 MPs dossiered.** The loop drops to staleness-driven mode.
-
-> ## ⛔ READ FIRST — a blocker that applies to PRIOR batches, not just this one
->
-> Batch 006 shipped **Q-effort-14**, a hard-DROP gate check for pipeline jargon in the three dossier
-> fields that render **verbatim** to voters on `/poslanec`. Running those same rules over the already-
-> handed-off payloads of batches 001–005 gives:
->
-> | batch | dossiers leaking | field-instances |
-> |---|---|---|
-> | 001 | 5/20 | 5 |
-> | 002 | 15/30 | 18 |
-> | 003 | 33/35 | 84 |
-> | 004 | 35/35 | 140 |
-> | 005 | 45/45 | 199 |
-> | **total** | **133/165** | **446** |
->
-> Note the monotone growth — the defect compounded as dossier prose got richer, which is why it was
-> invisible per-batch. It is latent ONLY because no batch has been persisted to the live graph yet.
-> **Batch-005's handoff §1a said `batch-005-props.json — SAFE TO PERSIST`; that is now superseded.**
->
-> **Do not persist ANY effort payload — including batch 005's — until its prose passes
-> `gate.ts`.** Batch 006's payload passes. Batches 001–005 do not. Re-gating them is a mechanical
-> rewrite pass (batch 006 did all 42 of its own in one wave); it is the first item in §7.
+**Batch 007 pays off the dossier public-copy debt Q-effort-15 asked for.** Population coverage is
+unchanged (still 207/207 dossiered, closed since batch 006) — this batch is a **prose-quality fix**
+on the 136 pre-006 dossiers that were dossiered before the public-copy gate existed.
 
 ---
 
-## 1. Graph payloads (validated; re-verify commands included)
+## 1. Graph payload (validated; re-verify commands included)
 
 ```
-cp -r .pglite .pglite-copy-effort
-PGLITE_PATH=./.pglite-copy-effort npx tsx scripts/case-loops/effort/gate.ts batch-006-props.json
-# expect: 42 proposals · 42 PASS · 0 DROP · 14 Q-effort-11 warnings
+rm -rf .pglite-copy-effort && cp -r .pglite .pglite-copy-effort
+PGLITE_PATH=./.pglite-copy-effort npx tsx scripts/case-loops/effort/gate.ts batch-007-props.json
+# expect: 136 proposals · 136 PASS · 0 DROP · 29 Q-effort-11 warnings (soft-fail, pre-existing)
 ```
 
-### 1a. Army dossiers — 42 MPs (`payloads/batch-006-props.json`) — SAFE TO PERSIST
-Merged from 9 group payloads (A–I), gated **42/42 PASS** after four driver fix passes:
-1. Removed `effort_low_score_reason: "unknown"` from **10** proposals — it renders a public badge
-   ("Neobjasněno — nízké skóre bylo prověřeno…") and was applied to MPs with no low score at all,
-   including the batch's **highest** scorer (Papajanovský, 82.9), plus 80.6 / 80.4 / 77.3.
-2. **Q-effort-14 public-copy rewrite** — all 42 dropped on the new check; all rewritten as reader copy,
-   with removed internals preserved verbatim in the new non-rendered `effort_analyst_note` (39/42).
-3. **Opus money corrections** (§1b) applied **in place** and independently audited: **8/8 verified**.
-4. Post-reflection fixes: 2 group-scoped superlatives that were false at batch scale (Demetrashvili
-   "youngest" — Smejkalová is younger; Havel "only MP comparable across both terms" — contradicted by
-   8 dossiers in this same batch), and an explicit "unconfirmed sourced lead" hedge added to Petrtýl's
-   donation findings so it matches the hedge already on Pražák's.
+### 1a. Retroactive public-copy rewrite — 136 MPs (`payloads/batch-007-props.json`) — SAFE TO PERSIST
+Rewrites ONLY `effort_notes` / `effort_public_role` / `effort_bill_focus` / `effort_analyst_note` for
+the 136 person nodes that were leaking pipeline jargon in the live graph (measured, not assumed: 136
+of 207, all traceable to batches 1–5, cross-checked against `ledger.json`). **Props-merge only** —
+every other prop on these 136 nodes (`effort_work_themes`, `effort_low_score_reason`,
+`effort_tenure_*`, all `contribution_*`, etc.) is untouched.
 
-146 citations. 14 Q-effort-11 warnings remain, all inspected: legitimate subset-of-subset framings
-under case gate (e) ("three of four bills…"), plus two that claim MORE than the prop and were checked
-individually — Fridrich's is PSP9-scoped history, Mrázová's are government bills she sponsors as
-minister. Soft-fail by design; reviewer's call.
+Pipeline: 6 parallel Sonnet subagents rewrote their assigned ~23-node slice each (mechanical: strip
+jargon per the exact rules in `lib/analysis/public-copy.ts`, preserve every fact/date/IČO/amount/
+hedge, relocate removed pipeline-internal residue verbatim into `effort_analyst_note`, leave clean
+fields untouched, carry citations forward) → merged → gated 136/136 clean on first pass → a
+dedicated Opus money-fidelity pass caught 11 of the 44 money-touching entries where the rewrite had
+silently turned a hedged/unproven company tie into a flat uncited assertion → all 11 corrected in
+place → re-gated 136/136 clean → an Opus reflection pass caught two smaller process gaps (headline
+dropped from the payload, `effort_analyst_note` unprotected as a future render risk) → both addressed
+→ final re-gate 136/136 clean. Full account in `batch-007.md`.
 
-### 1b. Money-crossover verification — P51/C13 two-layer gate
-`payloads/batch-006-money-verification-input.json` (input) → `payloads/batch-006-opus-verification.json`
-(verdicts: **2 BLOCKING / 5 NEEDS_CORRECTION / 1 CONFIRMED**, 20 entities re-verified from raw ARES VR
-history, 4 disagreements). All corrections already folded into `batch-006-props.json` — nothing further
-to apply. Narrative in `batch-006.md` §4.
+**Verified render end-to-end on the copy (not assumed from the gate result)**: after persisting this
+payload, 0/207 person nodes leak jargon (down from 136/207), 0 field-instances withheld by the real
+`publicCopyOrNull()` render guard (down from 205), and **207/207 person nodes now render at least one
+dossier field** (up from 71/207) — 180/207 render all three (the remaining 27 legitimately lack
+content in one field, not a defect).
 
-**Highest-severity catches**: *Jakob* — army asserted "no role" at Operátor ICT (884.86M CZK); he was on
-its supervisory board 2018–2020 (the C11 false-clearance class, second batch running). *Horák* — VR dates
-were correct but compared against the wrong mandate start, hiding a ~2.5-month overlap between a supplier
-board seat and his mandate. **Systemic root cause**: the army assumed every mandate began 4.10.2025, but
-6 of these 8 MPs served earlier terms — one assumption produced both BLOCKINGs and most corrections.
+### 1b. Money-fidelity verification — `payloads/batch-007-money-fidelity-input.json` (44 entries) →
+`payloads/batch-007-money-fidelity-verdict.json` (34 CONFIRMED / 3 NEEDS_CORRECTION / 7 BLOCKING, all
+10 flagged entries' corrections applied in place) **plus one more the reflection caught** (Fiala,
+rated CONFIRMED by the money pass but carrying the identical defect class — patched separately, see
+`batch-007.md` §5). **11 of 44 money-touching dossiers needed correction, not 10.**
 
-### 1c. Reflection — `payloads/batch-006-reflection.json`
-Opus, max depth. Verdict: **ACCEPT WITH REQUIRED FOLLOW-UPS**. It independently re-derived the committees
-fix (0/42, corroborated), confirmed the gate regexes have no false positives against Czech traps, verified
-the money corrections landed in place, and judged the convergence call honest and not back-fitted. It also
-found 11 driver defects — the four fixable ones were fixed before this handoff (see §1a.4 and §3); the rest
-are escalations below.
+This is a **rewrite-fidelity** check (did jargon-stripping distort what the dossier asserts), not a
+fresh ARES/psp.cz re-verification of the 44 underlying facts — those were established (and per prior
+batches' own P51 gates, verified) by the batches that originally wrote them. Where the fidelity check
+surfaced a genuinely newer, uncited finding (a later verification pass's registry lookup that never
+made it into the public field with a citation), that finding is now parked in `effort_analyst_note`
+behind an explicit "add the citation before this renders as fact" precondition — not asserted
+publicly, not discarded.
 
-### 1d. `ledger.json` / `triage.json`
-`triage.json` = `triage.ts --army=42` output. `ledger.json` advanced by
-`npx tsx scripts/case-loops/effort/finalize-ledger.ts 6`:
-- **coverage (dossiered, `stage != "pending"`): 207/207 — population complete**
-- of which at stage `signal`: **127/207**. The 80-unit gap is batches 004/005, gated and handed off but
-  never persisted — **outstanding orchestrator persist debt, not missing analysis.** Both numbers are
-  printed by the script so neither can be quietly overstated.
+### 1c. Reflection — Opus, max depth (2nd and last Opus call this batch, within the ≤2 budget).
+Verdict: **ACCEPT WITH REQUIRED FOLLOW-UPS**. Independently verified the `gate.ts`/`public-copy.ts`
+import wiring is real and regex-semantics-preserving (not just claimed), independently re-checked 4
+CONFIRMED money verdicts and all 10 corrections' byte-exactness, confirmed `effort_analyst_note`
+renders nowhere in the current codebase. Found 3 defects (D1/D2/D3 in `batch-007.md` §5) — all three
+addressed in this handoff before persist, not deferred.
+
+### 1d. Ledger / coverage
+**No change to ledger.json's coverage numbers** — this batch does not dossier any new MP and does not
+change any unit's `stage` or `batch`. 207/207 dossiered stands from batch 006; this batch is purely a
+quality fix on the public-facing text of 136 already-dossiered units. `finalize-ledger.ts` was not run
+(nothing for it to advance).
 
 ---
 
@@ -90,280 +75,209 @@ are escalations below.
 
 ### → `frontier.md` (Case ② section)
 ```
-- [effort] CORRECTION to the batch-005 frontier entry on extract-dossiers.ts: batch 005 root-caused the
-  recurring committee_count/committees[] mismatch to "excludes Podvýbor + ověřovatel roles". Batch 006
-  verified this before building on it and it is FALSE. 430 Podvýbor organs exist but ZERO PSP10
-  memberships reference any of them, so committee_count never counted them either; and the stated
-  mechanism was wrong twice over (/v[ýy]bor|komis/i DOES match "Podvýbor" — subcommittees are excluded
-  from influential_in by the direct-child-of-chamber filter, all 430 hanging off 125 parent committees).
-  The MEASURED causes are: (a) "Delegace" is in COMMITTEE_ORGAN_TYPES but is not matched by kg-compute's
-  /v[ýy]bor|komis/i organ-type filter — 39/207 MPs; (b) psp.cz stores a leadership seat as TWO membership
-  rows on one organ (member + function, 251/1062 pairs), so committee_count counts the body twice while
-  influential_in dedupes — 121/207 MPs, the dominant cause. Fixed in extract-dossiers.ts (0/42 mismatches,
-  0/207 in probe) and in the /poslanec render. Lesson: a root-cause trace needs the same verification bar
-  as any other claim — batch 005's was confident, specific, wrong, and three vault files cited it.
-  (closed 2026-07-25, batch 006)
-- [effort] INGEST-SCOPE GAP (Case ① / ingest, NOT effort-owned): subcommittee (Podvýbor) memberships are
-  absent from the PSP10 data entirely — 430 Podvýbor organs are ingested but 0 memberships reference them.
-  Independently reported by 5 of 9 batch-006 army groups, several of whom documented MPs CHAIRING
-  subcommittees per psp.cz (e.g. Fridrich, Brázdil, Hubíková) with leadership_count = 0. Related:
-  leadership_count is also blind to poslanecký-klub leadership (předseda/místopředseda klubu) and to
-  external institutional oversight seats (VZP, SZIF dozorčí rady). Effect: the contribution index
-  systematically under-credits exactly the MPs doing subcommittee and club organisational work.
-  (opened 2026-07-25, batch 006)
-- [effort] DEFECT IN THE DETERMINISTIC INDEX (escalated, deliberately NOT fixed under case gate (a)):
-  committee_count double-counts every body where an MP holds a function, because it counts membership
-  ROWS and psp.cz writes a leadership seat as two rows. Because COMMITTEE_SATURATION = 3 the inflation
-  only bites below saturation, but there it is exact: the batch-006 reflection measured 7 of 42 MPs (17 %)
-  carrying a contribution_score inflated by exactly +6.67/100 (Tureček 52.1→45.4, Pipášová 78.6→71.9,
-  Pražák 71.3→64.6, Berkovcová 55.6→48.9, Horák 80.4→73.7, Farhan 62.6→55.9, Rakušan 75.4→68.7);
-  ~35/207 extrapolated. It is REGRESSIVE — it inflates precisely the MPs already receiving the flat +10
-  leadership component. Correction to the framing: the fix site is arguably kg-contribution-ingest.ts's
-  seat assembly rather than computeContribution itself, so gate (a) may not actually bar it — it is
-  blocked by CONSEQUENCE (a full score regeneration invalidates every published number and every
-  cross-batch comparison), not by rule. Needs a deliberate, announced regeneration, not a quiet patch.
-  (opened 2026-07-25, batch 006)
-- [effort] kg-compute.ts still keeps its OWN forked copy of the committee-type test (its local
-  COMMITTEE_TYPE regex), so the Delegace divergence remains live in the graph builder even though the
-  effort extractor and the /poslanec render now both import the single shared predicate from
-  contribution.ts. Out of this case's boundary. Unifying it would close the divergence at source.
-  (opened 2026-07-25, batch 006)
-- [effort] Two sourced but UNCONFIRMED money leads from batch 006, for Case ① to gate before any surface
-  renders them as fact: (1) GEMA MB s.r.o. — the company František Petrtýl half-owns and directs —
-  is recorded by Hlídač státu as donating to ANO 2011 in every year 2016–2025, ~946 500 CZK total, while
-  its dominant public counterparty is the city of Mladá Boleslav; the 16 575 162,54 CZK figure in our
-  graph is an AGGREGATE of 180 contracts, not one untraceable payment. (2) AGROCENTRUM JIZERAN a.s. —
-  where David Pražák has been vice-chair of the board continuously since 2007 — holds 153 subsidy records
-  worth ~154M CZK from MZe and SZIF, and Pražák joined SZIF's supervisory board on 25. 3. 2026; the
-  SUBSIDY CHANNEL, not the 2.84M CZK contract, is the actual mechanism of that conflict.
-  (opened 2026-07-25, batch 006)
+- [effort] Q-effort-15 CLOSED: the 436-field-instance / 136-node public-copy debt batch 006 measured
+  and left open ("retroactive public-copy rewrite of batches 001–005... precondition for persisting
+  ANY prior effort payload") is paid off. Re-measured at persist time (not carried forward from
+  batch 006's number, which predates a code fix made this batch — see below): 136/207 leaking, 205
+  field-instances, exactly batches 1–5 (batch 006's own 42 confirmed still clean). All 136 rewritten,
+  gated 136/136 clean, verified end-to-end against the real render guard: 0/207 leaking, 207/207 now
+  render at least one dossier field (up from 71/207). See `batch-007.md` for the full account.
+  (closed 2026-07-26, batch 007)
+- [effort] `gate.ts`'s Q-effort-14 public-copy check was a SILENT FORK of `lib/analysis/public-copy.ts`
+  despite that module's own docstring claiming a single shared definition — gate.ts carried an extra
+  "API/pipeline mechanics" rule (endpoint/REST API/JSON/pipeline/dossier) the render-time guard never
+  had, so a string with that jargon class could be DROPPED at persist time but NOT withheld at render
+  time for anything already in the graph. Unified: the rule list (+ a new `jargonViolationDetails()`
+  export) now lives only in public-copy.ts; gate.ts imports it. Regex semantics confirmed unchanged
+  (byte-identical migration) by the batch-007 reflection. (closed 2026-07-26, batch 007)
+- [effort] NEW FAILURE CLASS FOUND: a mechanical "strip jargon, preserve facts" rewrite pass can still
+  silently corrupt a money-touching claim by MERGING IN a later verification pass's findings without
+  its hedge — 11 of 44 money-touching dossiers in this batch's rewrite turned an explicitly-unproven
+  or "pending_review" company tie into a flat, uncited assertion of a current board seat or ownership
+  stake (worst: a sitting minister's supervisory-board seat asserted as covering a 5.39bn CZK contract
+  award period, sourced from nothing). None of these were introduced by malice or carelessness about
+  facts — the rewrite agents were told to preserve every fact, and technically did: the newer finding
+  WAS a fact recorded somewhere in the input text, just one that had never been promoted to the public
+  field with its own citation. Escalating as a pattern for any future case-loop prose-rewrite pass:
+  "preserve every fact" is not sufficient instruction when a dossier's text mixes an original
+  (possibly hedged) claim with a later correction/addendum — the rewrite must be told explicitly not
+  to promote an addendum's claim strength into the primary sentence without also promoting its
+  citation. (opened 2026-07-26, batch 007)
+- [effort] `effort_analyst_note` (introduced batch 006 as a deliberately non-rendered channel) is now
+  carrying pipeline jargon BY DESIGN on 38/136 of this batch's records (56 jargon hits) — correct per
+  its purpose, but it has zero code enforcement against ever being wired into a render path; only a
+  new source-grep test (`lib/analysis/public-copy.test.ts`) stands between it and a future silent
+  regression. Flagging for any future loop that adds a similar "internal channel" prop: pair it with
+  a test on day one, not after a reflection catches the gap. (opened 2026-07-26, batch 007)
 ```
 
 ### → `patterns.md`
 ```
-- [effort, 2026-07-25, batch 006] A PROSE LESSON IN THE VAULT DOES NOT SURVIVE CONTACT WITH A NEW ARMY —
-  ONLY CODE DOES. Batch 005 found 4 dossiers leaking pipeline narration into publicly-rendered fields and
-  wrote a well-formed patterns.md entry about it ("would I show this to a voter"). Batch 006's army, which
-  had that entry available, reproduced the defect in 99 field-instances across 42/42 dossiers — 25x the
-  scale. Every leaked statement was TRUE, which is exactly why an accuracy-only gate passed all 99. The
-  fix that worked was converting the lesson into a deterministic hard-DROP check (Q-effort-14 in gate.ts),
-  after which the same army's output was clean in one rewrite pass. Generalisation: when a batch writes a
-  lesson about a class of defect that a deterministic check COULD catch, writing the check is the deliverable
-  and the prose is only the explanation. Measured corollary: the leak had been growing monotonically across
-  batches (5 → 18 → 84 → 140 → 199 field-instances for b1→b5) and no per-batch review had noticed, because
-  each batch only ever looked at itself.
-- [effort, 2026-07-25, batch 006] A ROOT-CAUSE TRACE NEEDS THE SAME VERIFICATION BAR AS THE CLAIM IT
-  REPLACES. Batch 005's own lesson was "trace a recurring anomaly at its 2nd occurrence rather than
-  re-flagging it". It did trace it — and produced a confident, specific, WRONG mechanism ("excludes
-  Podvýbor + ověřovatel") that was then cited in ledger.md, handoff.md, patterns.md and frontier.md, and
-  used to rewrite 21 dossiers' escalation text. Batch 006 disproved it in one probe (0 PSP10 podvýbor
-  memberships exist; the quoted regex actually matches "Podvýbor"). A root cause is a claim, and an
-  unverified root cause is more dangerous than an open anomaly, because it closes the question and
-  propagates into the vault as settled fact.
-- [effort, 2026-07-25, batch 006] DEDUPLICATION THAT MIXES FIELDS FROM DIFFERENT SOURCE ROWS BUILDS A
-  CHIMERA. The driver's first /poslanec committee dedupe took "max role" from one membership row and OR-ed
-  `current` across all rows for that organ — producing, for a real named MP (Papajanovský), a rendered
-  "chair · current" for a chairmanship that had ENDED on 2026-03-06 while a separate membership row stayed
-  open. Caught by the reflection, fixed so every field of the rendered seat comes from ONE row (prefer the
-  highest role among still-open rows; fall back to ended rows only if none is open, and mark it past).
-  The general rule: when collapsing N rows to 1, pick a row — never assemble a record field-by-field
-  across rows, because the result describes nobody.
-- [effort, 2026-07-25, batch 006] A CLOSED VOCABULARY NEEDS A PRECONDITION, NOT JUST A MEMBERSHIP CHECK.
-  effort_low_score_reason passed the gate's vocabulary test 10 times this batch with the legal value
-  "unknown" — on MPs including the batch's HIGHEST scorer (82.9). The value was in the vocabulary; the
-  FIELD was categorically inapplicable, because it is a low-score corrective and these MPs have no low
-  score. Batch 005 removed 9 fields for the same class (free text / literal "null"). A vocabulary gate
-  answers "is this a legal value"; it cannot answer "does this field apply to this unit at all".
+- [effort, 2026-07-26, batch 007] A JARGON-STRIPPING REWRITE CAN STRENGTHEN A CLAIM WHILE ONLY
+  TRYING TO CLEAN ITS PHRASING. Told to "preserve every fact, don't strengthen or weaken any hedge,"
+  6 parallel rewrite agents nonetheless did exactly that on 11/44 money-touching dossiers — not by
+  inventing anything, but by merging a hedged original claim with an unhedged later-pass addendum that
+  happened to sit in the same source text. The instruction "preserve every fact" was satisfied at the
+  sentence level and violated at the claim-strength level. Generalisation: any rewrite pass over prose
+  that may contain layered original+correction text needs an EXPLICIT rule — never let a claim's
+  asserted strength exceed its OWN citation's strength, regardless of what else in the paragraph is
+  cited — not just "keep the facts."
+- [effort, 2026-07-26, batch 007] A MODULE'S DOCSTRING CAN CLAIM AN INVARIANT THAT THE CODE DOES NOT
+  ENFORCE. `public-copy.ts` said outright "this module is the one definition both [gate.ts and the
+  render loaders] import" while `gate.ts` had silently forked it with an extra rule the render guard
+  never had. The claim was checked by nobody until this batch needed to trust it to compute a render
+  projection. Lesson, same shape as batch 006's committee-count lesson: a comment asserting a shared
+  source of truth is itself a claim, and needs the same verification bar as any other claim before a
+  later batch builds on it.
+- [effort, 2026-07-26, batch 007] TWO OPUS PASSES ON THE SAME BATCH CAN STILL MISS DIFFERENT THINGS —
+  RUN THE SECOND ONE AGAINST THE FIRST ONE'S OUTPUT, NOT JUST AGAINST THE ORIGINAL. The dedicated
+  money-fidelity pass rated `psp:person:5459` (Fiala) CONFIRMED; the separate reflection pass, given
+  the corrected payload and told to be skeptical rather than to restate, found the identical defect
+  class the money pass exists to catch, missed on the one entry where the flat/hedged inconsistency
+  was BETWEEN TWO FIELDS (effort_notes flat, effort_public_role hedged) rather than between original
+  and rewritten text of the SAME field. A single-field diff check has a blind spot a cross-field
+  consistency check does not.
 ```
 
 ### → `contradictions.md`
 ```
-- [effort, 2026-07-25, batch 006] Batch 006 CONTRADICTS batch 005's recorded root cause of the
-  committee_count/committees[] mismatch. Batch 005 (ledger.md, handoff.md §3, patterns.md, frontier.md):
-  "excludes Podvýbor + ověřovatel roles ... two files, two definitions of committee membership". Batch 006,
-  measured on the copy: 0 of 1334 PSP10 memberships reference any of the 430 Podvýbor organs, so neither
-  definition ever counted subcommittees; the real causes are Delegace organ-type filtering (39/207) and
-  duplicate member+function rows on one organ (121/207). Resolution: batch 006's account supersedes; the
-  frontier correction text is in §2 above. No dossier text depends on the difference, but 21 batch-005
-  dossiers had their escalation wording rewritten on the strength of the wrong mechanism — that rewrite
-  remains CORRECT in its conclusion (it is effort-owned, not a Case ① ingest defect), only its stated
-  reason was wrong.
-- [effort, 2026-07-25, batch 006] Batch 006 SUPERSEDES batch-005 handoff §1a's "batch-005-props.json —
-  SAFE TO PERSIST". Under Q-effort-14, 45/45 batch-005 dossiers carry pipeline jargon in verbatim-rendered
-  public fields (199 field-instances). The payload remains factually gated and analytically sound; it is
-  its PUBLIC COPY that is not shippable. See the blocker at the top of this handoff.
+(none — batch 007 does not contradict any prior batch's finding; it corrects batches 1–5's PUBLIC
+COPY without touching their analytical conclusions, consistent with batch 006's own precedent of
+this exact operation on its own 42.)
 ```
 
 ### → `graph-log.md`
 ```
-- pass <assigned> (effort track, batch 006): effort_* enrichment props on the final 42 MPs, closing the
-  population at 207/207 dossiered. NEW PROP: `effort_analyst_note` (string, 39/42) — a deliberately
-  NON-RENDERED analyst/reviewer channel introduced so pipeline-internal observations could be removed
-  from the three publicly-rendered dossier fields without discarding them (kernel no-silent-truncation).
-  No node kinds, no edge rels, no vocabulary values added. effort_low_score_reason set for 6 MPs
-  (genuine_absentee, institutional_promotion, low_legislative_output ×3, new_mp), all pre-existing values;
-  10 further "unknown" assignments were REMOVED as categorically inapplicable. No contribution_* number
-  touched anywhere in this batch.
+- pass 7 (effort track, batch 007): props-merge on 136 pre-existing person nodes (batches 1–5),
+  touching ONLY effort_notes / effort_public_role / effort_bill_focus / effort_analyst_note — no new
+  node, no new prop name, no contribution_* number touched, no node kind or edge rel added. Purpose:
+  retroactive public-copy rewrite (Q-effort-15), closing the debt batch 006's Q-effort-14 gate
+  measured but could not itself pay off (it only guards future writes). ns=effort, track=effort.
 ```
 
 ### → `feature-opportunities.md`
 ```
-- [effort · batch 006] SHIPPED: Q-effort-14 public-copy gate (`publicCopyViolations` in
-  scripts/case-loops/effort/gate.ts) — a hard-DROP deterministic check that pipeline jargon never reaches
-  the three dossier fields rendered verbatim on /poslanec. Caught 99 field-instances across 42/42 dossiers
-  on first run; 446 more across batches 001–005 (see the blocker at the top of the handoff).
-- [effort · batch 006] SHIPPED: committees[] rebuilt from raw membership rows against the single shared
-  isCommitteeSeat predicate, in BOTH the effort extractor and the /poslanec profile render (which had the
-  identical defect) — closes a 5-batch-old recurring false anomaly, adds fromAt/toAt/current so a seat
-  vacated for a ministerial post no longer renders as active, and de-emphasizes past seats.
-- [effort · batch 006] SHIPPED: the kernel's K=3 convergence rule made EXECUTABLE — SIGNAL_YIELD_THRESHOLD
-  pinned at 0.50 in triage.ts and evaluated against ledger history on every run, printing the verdict.
-  Before this the threshold existed in no file, so the rule could never fire and "not yet applicable" was
-  unfalsifiable rather than false.
-- [effort · batch 006] SHIPPED (parallel fleet-safe agent, same batch): `lib/ingest/sources/volby.ts` +
-  `volby.test.ts` (19 tests) — the volby.cz/ČSÚ PS2025 candidate-registry ingest (Q-effort-13), confirmed
-  at `https://volby.gov.cz/opendata/ps2025/PS2025reg20251005_csv.zip`, a quote-aware CSV parser (the file
-  is semicolon-delimited CSV with embedded `;` inside `POVOLANI` text, NOT the psp.cz UNL format
-  batch-005 assumed — a naive split silently corrupts rows; proven on a real row, Zdeněk Hřib's own
-  occupation text). Join: 205/207 MPs matched (99.0%), 0 ambiguous, 2 named-not-silently-dropped
-  unmatched (Mrázová, Řehková — likely a post-candidacy surname change). Deterministic
-  `classifyEmploymentCoi` found 33 sector↔committee occupation hits across 32/205 joined MPs (15.6%), 3
-  combined with Control Committee membership (Pospíšil, Svoboda, Penc) — the strongest Kott-class
-  pattern found. **Honest null on the namesake case**: Kott's own PS2025 `POVOLANI` is literally "poslanec
-  PSP ČR" (self-referential — 52.7% of joined MPs share this blind spot, since incumbents mostly list
-  their own current office), so the classifier scores him zero despite his ZEV+KV combination matching
-  the class exactly — not manufactured, reported as found. Full writeup, caveats, and a recommendation
-  AGAINST shipping this as a standalone COI badge without a second corroborating source (spinning off
-  Q-effort-14... — renumber against this batch's OTHER Q-effort-14, the public-copy gate, before either
-  lands in the skill file) in `docs/data-analysis/case-effort/batch-006-volby-signal.md`. `npm run check`
-  scoped to the two new files: typecheck/lint clean, 259/259 tests pass repo-wide at measurement time.
-  Build-backlog item now CLOSED as built; the open follow-on is a second, non-self-referential
-  occupation/employer source before any product surface renders this signal.
-- [effort · batch 006, open] Retroactive public-copy rewrite of batches 001–005 (133 dossiers) — the
-  precondition for persisting ANY prior effort payload.
+- [effort · batch 007] SHIPPED: unified `lib/analysis/public-copy.ts` / `scripts/case-loops/effort/
+  gate.ts` jargon-rule definition (gate.ts previously forked it, missing one rule the render guard
+  never had) — persist-time DROP and render-time withhold can no longer diverge. New
+  `jargonViolationDetails()` export + test coverage.
+- [effort · batch 007] SHIPPED: retroactive public-copy rewrite of all 136 pre-006 leaking dossiers
+  (batches 1–5). 207/207 person nodes now render at least one dossier field on `/poslanec`, up from
+  71/207. The Q-effort-15 debt batch 006 opened is closed.
+- [effort · batch 007] SHIPPED: a source-grep test guarding `effort_analyst_note` (the batch-006
+  non-rendered analyst channel, now carrying jargon by design on 38/136 records) against ever being
+  wired into `getProfileData.ts` / `ProfilePage.tsx` / `getLeaderboardData.ts`.
+- [effort · batch 007, escalated not fixed] The "hedged-original + unhedged-addendum merges into a
+  flat claim under a rewrite pass" failure class (11/44 money dossiers this batch) is a generic risk
+  for ANY future case-loop prose-rewrite, not effort-specific — worth a shared authoring guideline
+  ("promote a claim only as strongly as its own citation") rather than a per-case fix.
 ```
 
 ---
 
 ## 3. Proposed enum / schema changes
 
-**One new prop, no enum changes**: `effort_analyst_note` (string, optional) — an analyst/reviewer channel
-that is deliberately rendered NOWHERE. It exists so the Q-effort-14 rewrite could strip pipeline-internal
-observations from publicly-rendered fields without discarding them. It is `effort_*`-namespaced (passes the
-gate's namespace rule) and exempt from the public-copy check by design. `getProfileData.ts` does not read
-it; nothing renders it. If the orchestrator prefers this live outside the node props, say so and batch 007
-will move it — but it must not become a fourth rendered field.
-
-No `effort_low_score_reason` vocabulary change. Recommended for a future batch: give that field a
-**score precondition in code** (see §2 patterns) rather than only a membership check.
+None. No new prop name, no enum value, no node kind, no edge rel. `effort_analyst_note` (introduced
+batch 006) is the only prop touched that isn't one of the three original public-render fields, and it
+already existed — this batch only writes more of them (now present on the majority of records where
+jargon-stripping left non-redundant residue).
 
 ## 4. Build file list (all inside boundary, all working-tree, none committed)
 
-- `scripts/case-loops/effort/gate.ts` (edited — **Q-effort-14** `publicCopyViolations`, hard DROP)
-- `scripts/case-loops/effort/extract-dossiers.ts` (edited — committees[] rebuilt from membership rows;
-  prints a committees[]/committee_count mismatch count each run)
-- `scripts/case-loops/effort/triage.ts` (edited — `SIGNAL_YIELD_THRESHOLD` + `printConvergenceVerdict`)
-- `scripts/case-loops/effort/finalize-ledger.ts` (**new** — advances ledger.json, reports dossiered vs
-  signal coverage separately)
-- `lib/analysis/contribution.ts` (edited — **exports only** (`isCommitteeSeat`, `isLeadership`,
-  `LEADERSHIP_FUNCTIONS`) + the measured root-cause comment. **No scoring logic touched**, case gate (a) held)
-- `features/profile/getProfileData.ts` (edited — committees rebuilt from memberships, deduped by organ
-  picking ONE row, `current`/`fromAt`/`toAt` added to `CommitteeSeat`)
-- `features/profile/ProfilePage.tsx` (edited — past committee seats rendered de-emphasized)
-- `docs/data-analysis/case-effort/` — batch-006.md, ledger.md, ledger.json, triage.json,
-  dossier-inputs.json, handoff.md (this file), batch-006-volby-signal.md (parallel fleet agent),
-  payloads/batch-006-{props,group-A..I,money-verification-input,opus-verification,reflection}.json
-- `lib/ingest/sources/volby.ts` (new, parallel fleet agent) + `lib/ingest/sources/volby.test.ts` (new)
+- `lib/analysis/public-copy.ts` (edited — canonical `PIPELINE_JARGON` gains the "API/pipeline
+  mechanics" rule migrated from gate.ts's fork; new `jargonViolationDetails()` export)
+- `lib/analysis/public-copy.test.ts` (edited — 2 new tests for the unified rule +
+  `jargonViolationDetails`; new `describe` block source-grep-guarding `effort_analyst_note`)
+- `scripts/case-loops/effort/gate.ts` (edited — `publicCopyViolations` now imports the shared rule
+  list instead of duplicating it)
+- `scripts/case-loops/effort/measure-baseline.ts` (**new** — measures live-graph jargon-leak baseline
+  against the real `jargonViolations()` import; dumps full detail to
+  `payloads/batch-007-baseline-leaking.json` for a rewrite army to consume)
+- `docs/data-analysis/case-effort/` — batch-007.md, handoff.md (this file),
+  `payloads/batch-007-{baseline-leaking,group-A..F,group-A..F-input,props,money-touching-ids,
+  money-fidelity-input,money-fidelity-verdict}.json`
 
 ## 5. Commit plan (per-case; suggested)
 
 **Suggested message:**
 ```
-feat(effort): batch 006 — population closed 207/207, public copy becomes a gate, committee bug re-root-caused
+feat(effort): batch 007 — retroactive public-copy rewrite closes the 136-dossier jargon debt (Q-effort-15)
 
-Closes the Case ② population: the last 42 MPs dossiered, 207/207. Coverage is declared on ENUMERATION,
-not on the kernel's K=3 yield rule — which batch 006 found had never been pinned to a number anywhere in
-the repo, and which does NOT fire (0.771→0.744→0.500→0.500→0.458→0.405 puts only b5/b6 strictly under the
-now-pinned 0.50 threshold, K=2 of 3). The threshold is pinned and evaluated in code rather than
-back-fitted to make the rule appear to trigger.
+Batch 006 shipped a hard-DROP public-copy gate for the three dossier fields that render verbatim to
+voters, and measured 136/207 live person nodes (all in batches 1-5) already leaking pipeline jargon —
+invisible only because a render-time guard withholds violating strings rather than shipping them
+broken. This batch pays that debt off.
 
-Re-root-causes the 5-batch-old committee_count/committees[] mismatch and DISPROVES batch 005's
-diagnosis: Podvýbor was never the cause (0 PSP10 memberships reference any of the 430 podvýbor organs).
-The measured causes are Delegace organ-type filtering (39/207) and duplicate member+function membership
-rows on one organ (121/207, dominant). committees[] is rebuilt from raw membership rows against the
-single shared isCommitteeSeat predicate in both the extractor and the /poslanec render (which had the
-identical bug) — 0/42 mismatches, plus fromAt/toAt so a vacated seat no longer renders as active.
+Found and fixed a real divergence first: gate.ts carried its own duplicated copy of the jargon-rule
+array, missing one rule ("API/pipeline mechanics") the render-time guard in public-copy.ts never had —
+so a string with that jargon class could be dropped at persist time but not withheld at render time.
+Unified into one definition both now import; regex semantics confirmed byte-identical by reflection.
 
-Ships Q-effort-14: a hard-DROP gate check for pipeline jargon in the three dossier fields that render
-verbatim to voters. Batch 005 found this class on 4 profiles and wrote a prose lesson; batch 006's army
-reproduced it in 99 field-instances across 42/42 dossiers, so the lesson became code. All 42 rewritten as
-reader copy with internals preserved in a new non-rendered effort_analyst_note prop. Also removed 10
-effort_low_score_reason="unknown" badges applied to MPs with no low score, including the batch's highest
-scorer (82.9).
+136 dossiers rewritten by 6 parallel Sonnet groups (mechanical: strip jargon, preserve every fact/
+date/IČO/amount/hedge, relocate removed pipeline-internal residue into the non-rendered
+effort_analyst_note, carry citations forward). Gated 136/136 clean on first pass.
 
-P51/C13 two-layer money gate on 8 dossiers: 2 BLOCKING false clearances reversed (Jakob — actually on
-Operátor ICT's supervisory board 2018-2020; Horák — a supplier board seat overlapping his mandate by
-~2.5 months), 1 CONFIRMED (Petrtýl, four active concurrent ties). Systemic root cause found: the army
-assumed every mandate began 4.10.2025 though 6 of 8 served earlier terms. Corrections applied in place
-and independently audited 8/8. Opus reflection caught 11 driver defects; the four fixable ones (chimeric
-committee dedupe, refuted root cause surviving in code comments, two false batch-scale superlatives, an
-unhedged money lead) are fixed here, the rest escalated.
+A dedicated Opus money-fidelity pass then caught the real defect of this batch: on 11 of 44
+money-touching dossiers, the "preserve every fact" rewrite had silently merged a later verification
+pass's uncited findings into the primary sentence, turning hedged/unproven company ties into flat
+assertions — worst case, a sitting minister's supervisory board seat asserted as covering a 5.39bn CZK
+contract award period, sourced from nothing. All 11 corrected in place (10 from the dedicated pass, 1
+more caught by the separate reflection pass, which the money pass itself had rated CONFIRMED).
 
-npm run check green repo-wide (typecheck, lint, 266 tests).
+Verified render end-to-end against the real publicCopyOrNull() guard on a disposable copy: 0/207
+leaking (down from 136/207), 207/207 person nodes now render at least one dossier field (up from
+71/207).
+
+npm run check green repo-wide (typecheck, lint, 352 tests — 5 new, guarding effort_analyst_note
+against ever being wired into a render path).
 
 Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
 ```
 
-**Do NOT commit** `.pglite-copy-effort` (delete at batch end). The working tree also carries concurrent
-money/law/kiosek loop changes (`lib/ingest/sources/dataor.ts`, `crates/`, `clients/`, `features/money/*`,
-`docs/data-analysis/case-{money,law}/*`) — live fleet concurrency, do not fold into this commit.
+**Do NOT commit** `.pglite-copy-effort` — already deleted. The working tree also carries concurrent
+money/law loop changes — live fleet concurrency, do not fold into this commit.
 
-**`npm run check` status — checked BOTH ways, per batch-005's lesson that "green" claims were only true
-for effort-owned paths:** effort-owned paths green, **and repo-wide green** (typecheck ✅ · lint ✅ ·
-266 tests ✅). Mid-batch, repo-wide lint was failing on `lib/ingest/sources/dataor.ts` (unused var +
-silent catch) — a sibling loop's file, outside this boundary; it was fixed by that sibling during this
-batch. Batch-005's two blocking law-loop scratch files are gone. Nothing outstanding.
+**Note on mid-batch orchestrator activity**: commit `9abfde1` ("unify the public-copy jargon rules")
+landed mid-batch (17:21, before the money-fidelity pass or reflection ran) and already carries
+`gate.ts`, `public-copy.ts`, `measure-baseline.ts`, and the 6 `batch-007-group-*-input.json` files —
+apparently swept up by the orchestrator alongside unrelated batch-008 law/money artifacts. Harmless
+(re-verified `npm run check` green and the gate re-run clean after it landed), but **`batch-007-props.json`
+and the two post-commit fixes (Fiala's restored hedge, the restored `headline` field) are still
+untracked** — they were made after that commit and need their own commit/persist step. Re-run §1's
+gate command before persisting to confirm nothing drifted between now and persist time.
 
-## 6. Lessons learned (tiering + process)
+**`npm run check` status**: effort-owned paths green; **repo-wide green** — typecheck ✅, lint ✅
+(clean by the final check; was mid-batch failing on a concurrent sibling loop's file, fixed by that
+loop during this same fleet window, not by this batch), **352/352 tests ✅** (5 new).
 
-- **Convert a lesson into a check, or watch it recur at 25x.** The single highest-leverage act of this
-  batch was turning batch-005's prose lesson into `publicCopyViolations`. The measured growth curve
-  (5 → 18 → 84 → 140 → 199 leaked field-instances across b1→b5, invisible because each batch reviewed only
-  itself) is the strongest argument yet that this loop's QA must accumulate in code, not in the vault.
-- **The reflection's value remains concentrated on DRIVER work — now for the third batch running.** Of
-  11 defects it found, the most serious were all mine: a chimeric dedupe that would have rendered a false
-  "chair · current" for a named MP, a refuted root cause left standing in four code comments, and a
-  handoff that did not yet exist. The army's raw analysis was again the strongest part of the batch.
-- **A verified negative is worth as much as a positive, and needs saying out loud.** The reflection noted
-  a real METHOD asymmetry: the Hlídač-státu donation/subsidy sweep ran on exactly two dossiers, both
-  ANO2011. It was almost certainly evidence-driven (only those two MPs have active commercial entities) —
-  but the batch never STATED its trigger, so it cannot demonstrate that depth followed evidence rather
-  than target. Recommendation, mirroring the ARES-negatives doctrine: when a deeper research pass is run
-  on a subset, record what triggered it, so selective depth is auditable.
-- **Two notions of "done" must both be printed.** Reporting only stage-`signal` would have understated
-  coverage as 127/207; reporting only "dossiered" would have hidden 80 units of orchestrator persist debt.
-  `finalize-ledger.ts` now prints both, and the ledger volunteers the gap.
-- **Czech morphology defeats naive string audits — use stems.** The driver's own fix-application audit
-  produced a false failure because it matched `příspěvková organizace` while the text said
-  `příspěvkovou organizaci`. Batch 005 hit the same trap in the gate ("ani jednoho"). Any audit or gate
-  regex over Czech prose should match stems, not inflected full forms.
+## 6. Lessons learned
 
-## 7. What comes next (the population is closed — staleness-driven mode)
+- **A gate passing 100% on first try is not proof the rewrite is safe — check what the gate doesn't
+  check.** 136/136 PASS on the jargon dimension the gate enforces; 11/44 money dossiers were still
+  silently wrong on a dimension (claim-strength-vs-citation) no automated check covers. The dedicated
+  Opus fidelity pass, not the deterministic gate, is what caught it — and even that pass missed one
+  (Fiala) that only a second, skeptical reflection pass caught by cross-checking fields against each
+  other rather than diffing one field against its own prior version.
+- **"Preserve every fact" is an incomplete instruction for prose containing an original claim plus a
+  later correction/addendum in the same paragraph** — a rewrite agent satisfies it exactly while still
+  promoting the addendum's claim strength into the primary sentence. The fix for a future batch is a
+  more specific rule ("never assert more than the nearest citation supports"), not more emphasis on
+  the same rule.
+- **Restore every input field to the output, even ones you don't think matter.** Dropping `headline`
+  from the rewrite payload (it seemed like display-only metadata, and indeed is never persisted)
+  silently disabled part of the gate's own Q-effort-11 numeric-mismatch scan for this batch — a scan
+  added in batch 004 specifically because a real defect lived in exactly that field.
 
-1. **Retroactive public-copy rewrite of batches 001–005** (133 dossiers, 446 field-instances). This is the
-   precondition for persisting any prior effort payload. Mechanical; one wave of grouped agents, gated by
-   `gate.ts`.
-2. **Escalate the three ingest-scope gaps to Case ① / ingest** (§2 frontier): subcommittee memberships
-   absent entirely, `leadership_count` blind to club + subcommittee leadership, `committee_count`
-   double-counting leadership bodies (with the measured +6.67/100 inflation on ~17 % of MPs, and the note
-   that it is blocked by consequence rather than by gate (a)).
-3. **Unify `kg-compute.ts`'s forked committee-type test** with `contribution.ts`'s shared predicate, so the
-   Delegace divergence is closed at source rather than worked around in two consumers.
-4. ~~volby.cz POVOLANI ingest~~ — SHIPPED this batch by a parallel fleet agent (§2 above). Next step is
-   a second, non-self-referential occupation/employer source before the Kott-class signal is strong
-   enough to render (Kott's own case scores zero under this source alone — see §2).
-5. **Confirm the two money leads through Case ①'s gate** (GEMA MB → ANO 2011 donations; AGROCENTRUM →
-   SZIF subsidy channel) before any surface renders them as fact.
-6. **Re-open per-MP work only on staleness triggers** (re-ingest, Pumper watch events). A seventh full
-   sweep would be composition, not signal: this batch's sharp lenses (absentee, quiet-workhorse both
-   flavours, contested) produced ZERO, and 64 % of the army was pure high-triage filler.
+## 7. What comes next
+
+1. **Escalate the "hedged-original + unhedged-addendum merges under rewrite" failure class** (§2
+   frontier) as a general authoring guideline for any future case-loop prose-rewrite pass, not just
+   effort's.
+2. Everything else from batch 006's §7 that this batch did not touch remains open: the three
+   ingest-scope gaps (subcommittee memberships, leadership_count blind spots, committee_count
+   double-counting) escalated to Case ①; unifying `kg-compute.ts`'s forked committee-type test with
+   `contribution.ts`'s shared predicate; confirming the two batch-006 money LEADs (GEMA MB, AGROCENTRUM)
+   through Case ①'s gate; re-opening per-MP work only on staleness triggers, not a new full sweep.
+
+**Handoff path (last line, per driver instructions):**
+`C:/Users/mkdol/dolla/politicas/docs/data-analysis/case-effort/handoff.md`

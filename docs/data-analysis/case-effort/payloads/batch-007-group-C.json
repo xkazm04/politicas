@@ -1,0 +1,324 @@
+{
+  "proposals": [
+    {
+      "id": "psp:person:6513",
+      "name": "Marek Výborný",
+      "props": {
+        "effort_public_role": "Poslanec od 4.10.2025 za Pardubický kraj (SPOLU/KDU-ČSL), místopředseda Výboru pro vědu, vzdělávání, mládež a sport (od 21.1.2026), člen zemědělského výboru a ověřovatel Stálé komise pro Ústavu ČR a parlamentní procedury. Patří k nejvýkonnějším poslancům v tomto přehledu — kombinace vedení výboru, vysoké účasti (0,9) a tří doložených tisků (2 jako hlavní předkladatel, 1 jako spolupředkladatel).",
+        "effort_bill_focus": "Výborný je hlavním předkladatelem dvou tisků — tisku 28 (rozpočtové určení daní, s Filipovičovou aj.) a tisku 243 (v datasetu 43365, s Hladíkem a Talířem) — a spolupředkladatelem (jedním z řady spolupodpisů, hlavní předkladatel M. Jurečka) tisku 121, daňově-sociálního balíku (novela zákona o daních z příjmů), který k 24. 7. 2026 čeká na projednání po zamítavém vládním stanovisku z 31. 3. 2026. Tisk 28 má od prosince 2025 doporučení organizačního výboru, ale k datu přístupu ještě neprošel plénem — jde tedy spíše o rozpracovanou agendu než o dokončený výsledek.",
+        "effort_analyst_note": "Dřívější verze textu (v effort_public_role i effort_bill_focus) chybně uváděla, že má šest autorsky vedených tisků. Skutečný doložený podíl je 2 tisky jako hlavní předkladatel + 1 tisk jako spolupředkladatel (celkem 3), ne 6; číslo 6 se nedokládá zdrojovými daty a nemá se dále používat — opraveno v batch-004."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6513",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=28",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=121",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=74"
+      ]
+    },
+    {
+      "id": "psp:person:6518",
+      "name": "Petr Sadovský",
+      "props": {
+        "effort_notes": "Nízké skóre je v souladu s nulovou legislativní stopou a jen čtyřmi řečnickými vystoupeními — nejnižší legislativní/řečnická aktivita ve skupině, ale vysoká docházka a formální disciplína. Profil odpovídá typu 'dohledový specialista' (bezpečnostní komise) spíš než zákonodárce. Firma ACT CZ (IT prodej/servis, součástí i sázkové kanceláře dle dobových zdrojů) nemá v datech evidovanou žádnou veřejnou zakázku — nebylo možné ji ověřit, doporučuje se prověřit v navazujícím kole.",
+        "effort_bill_focus": "Nemá žádný sponzorovaný tisk — jeho příspěvek je čistě výborová a kontrolní práce, nikoli autorská legislativa."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6518",
+        "https://cs.wikipedia.org/wiki/Petr_Sadovsk%C3%BD",
+        "https://www.hlidacstatu.cz/Osoba/Funkce/petr-sadovsky-4"
+      ]
+    },
+    {
+      "id": "psp:person:6520",
+      "name": "Pavel Růžička",
+      "props": {
+        "effort_notes": "Data ukazují stoprocentní docházku, nulovou absenci a zapojení do sedmi výborů/komisí — extrémně vysoká docházka a široké výborové zapojení bez jediného vlastního tisku je konzistentní obraz \"tichého\" dozorového pracovníka v obranné/bezpečnostní agendě, nikoli legislativního iniciátora. Žádná firemní vazba nebyla v datech nalezena k ověření.",
+        "effort_bill_focus": "Vstupní data neuvádějí žádný sponzorovaný tisk — to potvrzuje i psp.cz profil, kde Růžička nefiguruje jako (spolu)předkladatel žádného sněmovního tisku v tomto období. Jeho příspěvek je tedy výhradně výborová/dozorová práce, ne legislativní iniciativa."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6520",
+        "https://cs.wikipedia.org/wiki/Pavel_R%C5%AF%C5%BEi%C4%8Dka_(politik)"
+      ]
+    },
+    {
+      "id": "psp:person:6533",
+      "name": "Marek Novák",
+      "props": {
+        "effort_notes": "Nejvyšší skóre v této skupině i nejvyšší legislativní výkon v předchozím volebním období (20 bodů, 23 návrhů, 246 řečnických vystoupení, 38 interpelací) — silný 'workhorse' profil bez vedoucí funkce v aktuálním období. Žádné propojené firmy nebyly v datech nalezeny.",
+        "effort_public_role": "Poslanec za ANO ve Zlínském kraji, v aktuálním období je členem Hospodářského výboru, Výboru pro sociální politiku a Stálé komise pro hybridní hrozby, bez vedoucí funkce. V předchozím období vedl podvýbor pro ICT/AI/digitální ekonomiku — v aktuálním volebním období tuto pozici podle dostupných zdrojů nezastává. Mimo politiku je činný ve výkonném výboru amatérského fotbalového klubu SK Zlín 1931."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6533",
+        "https://cs.wikipedia.org/wiki/Marek_Nov%C3%A1k",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&T=11",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&T=72"
+      ]
+    },
+    {
+      "id": "psp:person:6537",
+      "name": "Jan Lipavský",
+      "props": {
+        "effort_notes": "Datová nesrovnalost: interní přehled uvádí zapojení do 4 výborů/komisí, ale psp.cz uvádí 5 samostatných funkčních vazeb (člen VEZ, ověřovatel VEZ, člen ZAV, člen podvýboru pro krajany, člen SKBIS) — data tedy přesně neodpovídají oficiálnímu profilu. Žádná firemní vazba nebyla v datech nalezena k ověření.",
+        "effort_bill_focus": "Lipavský nemá v tomto období žádný sponzorovaný tisk — nevedl ani nespolupodepsal žádnou legislativní iniciativu.",
+        "effort_analyst_note": "Datová nesrovnalost NENÍ ingest vada Case ① — je to extraktor uvnitř Case ②: extract-dossiers.ts staví pole committees pouze z přímých dětí sněmovny (kg-compute.ts), zatímco computeContribution (contribution.ts) počítá committee_count včetně podvýborů a leadership_count včetně role ověřovatel. Oprava patří do extract-dossiers.ts, ne do Case ① ingestu."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6537&o=10"
+      ]
+    },
+    {
+      "id": "psp:person:6538",
+      "name": "Martin Kupka",
+      "props": {
+        "effort_notes": "Dvě firemní vazby byly prověřovány: MAS Nad Prahou o.p.s. (IČO 01398717, 3 968 570 Kč) a generický záznam vedený jako OSVČ (IČO 04627695, 0 Kč). Ověření přes veřejný rejstřík se u obou nepodařilo načíst (technická chyba při načítání) — ověření z požadovaného zdroje selhalo. Sekundární zdroj (Hlídač státu / MMR) uvádí jako statutární zástupkyni MAS Nad Prahou o.p.s. Ing. Ivu Cucovou — žádná shoda se jménem Martina Kupky, jde ale o nepotvrzený negativ ze slabšího zdroje. Záznam pod IČO 04627695 byl následně vyhodnocen jako chybné párování dat: jde o zcela jinou, s tímto poslancem nesouvisející firmu (registrovaná mikro-strana), jejíž název v obchodním rejstříku obsahuje doslovný text „OSVČ\" — to vedlo k chybnému spárování se řadou poslanců, jejichž povolání bylo v datech popsáno volně jako „OSVČ\". Tato vazba tedy není reálná a s Kupkou nesouvisí.",
+        "effort_public_role": "Podle psp.cz profilu i vstupních dat je členem pouze Hospodářského výboru, bez vedoucí funkce — žádnou vedoucí pozici ve výboru nezastává.",
+        "effort_analyst_note": "IČO 04627695 s nulovou hodnotou kontraktu se v datech opakovaně objevilo jako generický OSVČ záznam u více poslanců (Válková, Foldyna, Kupka, Kasal) — čtyři nezávislé záznamy se stejným IČO a nulovou částkou. Money-loop (batch 004) tuto otázku formálně uzavřel: IČO 04627695 NENÍ neresolvovaný datový placeholder, ale skutečná, s těmito poslanci nesouvisející firma (Agrární demokratická strana, registrovaná mikro-strana), jejíž pole ARES obchodniJmeno obsahuje doslovný textový řetězec „OSVČ\" — chyba přesného name-matchingu (pickExactIco v lib/analysis/money-feed.ts) tuto firmu chybně spárovala se 49 poslanci, jejichž povolání bylo v datech Hlídače popsáno volně jako „OSVČ\". Všech 49 nulových hran linked_to → company:ico:04627695 bylo v batch 004 smazáno jako potvrzené false_edge_suspected; uzel company:ico:04627695 byl rovněž smazán, protože na něj nic jiného neodkazovalo."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6538",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=133",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=208",
+        "https://ares.gov.cz/ekonomicke-subjekty-vr/01398717",
+        "https://ares.gov.cz/ekonomicke-subjekty-vr/04627695",
+        "https://mmr.gov.cz/cs/ministerstvo/regionalni-rozvoj/informace,-aktuality,-seminare,-pracovni-skupiny/psur/vyzva-c-2/mas/mas-nad-prahou-o-p-s"
+      ]
+    },
+    {
+      "id": "psp:person:6544",
+      "name": "Lubomír Metnar",
+      "props": {
+        "effort_notes": "Nízké skóre je logické: data zachycují jen část volebního období před nástupem do funkce ministra (15. 12. 2025), zatímco vládní agenda běží mimo poslanecké skóre. Doporučujeme přehodnotit s aktualizovanými daty po půl roce ve funkci — současný obraz 'tichého' poslance je zavádějící vzhledem k jeho exekutivní roli.",
+        "effort_bill_focus": "Jako ministr vnitra je předkladatelem/garantem vládních novel projednávaných jeho vlastním výborem: tisk 144 (zákon o vstupu a pobytu cizinců — EU, 2. čtení 24. 6. 2026), tisk 172 (novela zákona o cestovních dokladech — EU, 6 pozměňovacích návrhů) a tisk 213 (novela zákona k ozbrojenému konfliktu na Ukrajině — EU, výbor doporučil schválit 2. 7. 2026). Nulový počet vlastních poslaneckých návrhů odpovídá tomu, že jde formálně o vládní předlohy, ne poslanecké návrhy."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6544",
+        "https://www.irozhlas.cz/zpravy-domov/policista-severomoravske-kriminalky-ci-bezpecnostni-manazer-metnar-usedne-do_2512141324_ntu",
+        "https://en.wikipedia.org/wiki/Lubom%C3%ADr_Metnar",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=144",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=213"
+      ]
+    },
+    {
+      "id": "psp:person:6545",
+      "name": "Alena Schillerová",
+      "props": {
+        "effort_notes": "Pokles skóre (z 86,3 v předchozím období na 58,9 v aktuálním) je vysvětlitelný přechodem do vlády v prosinci 2025: interpelace klesly ze 72 na 0, řečnická vystoupení z 1253 na 152, absence vzrostla z 0,2 na 0,7 — to je očekávaný vzorec pro ministryni, ne datová chyba. Evidováno je 4 vlastních tisků, ale v datasetu figuruje u 12 položek — rozdíl je pravděpodobně dán tím, že řada položek jsou vládní tisky, kde je uvedena jako formální předkladatelka za resort, ne jako 'autorka' v poslaneckém smyslu. Žádné propojené firmy v datech.",
+        "effort_analyst_note": "Doporučujeme ověřit definici bills_authored vůči vládním předlohám u členů kabinetu — rozdíl mezi 4 (bills_authored) a 12 (sponsoredBills) může být systematický u ministrů."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6545",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=119",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11"
+      ]
+    },
+    {
+      "id": "psp:person:6549",
+      "name": "Robert Plaga",
+      "props": {
+        "effort_notes": "Vysoká evidovaná absence a nízká účast jsou strukturální artefakt ministerského postu (od 15.12.2025 nezasedá jako řadový poslanec) — 16 vystoupení a spoluautorství dvou tisků ukazují aktivitu v roli exekutivy, ne skutečnou pasivitu. Tisk 232 byl v datech označen k prověření kvůli neobvyklé kombinaci předkladatelů (ministr a premiér jako spolupředkladatelé poslaneckého tisku); z veřejných zdrojů se konkrétní důvod nepodařilo ověřit — jde o podnět k prověření, ne tvrzení o konfliktu zájmu."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6549",
+        "https://vlada.gov.cz/cz/media-centrum/aktualne/premier-andrej-babis-uvedl-do-funkci-ministry-a-ministryne-nove-vlady-224215/",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=228",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=232"
+      ]
+    },
+    {
+      "id": "psp:person:6555",
+      "name": "Tom Philipp",
+      "props": {
+        "effort_notes": "Evidovaných 6 tisků odpovídá 6 položkám ve vstupních datech, všechny jako spolupředkladatelství. Žádná firemní vazba nebyla v datech nalezena k ověření. Zajímavé zjištění nad rámec vstupních dat: členství ve správní radě VZP je institucionální dohledová role svěřená Sněmovnou, ne soukromá firemní vazba, ale tematicky se přímo kryje s jeho výborovou agendou zdravotnictví.",
+        "effort_bill_focus": "Philipp je spolupředkladatelem u všech 6 svých tisků (nikdy prvním jmenovaným, vždy skupina kolem M. Jurečky, B. Činčily nebo P. Hladíka). K 24. 7. 2026 je všech 6 stále ve výborech a žádný nebyl přijat, ke všem vláda vyjádřila nesouhlas: tisk 50 (důchodové pojištění), tisk 89 (rozpočtová pravidla), tisk 109 (nemocenské pojištění), tisk 110 (pojistné na sociální zabezpečení), tisk 121 (daně z příjmů) a tisk 161 (odpady). Šest z šesti tisků má tedy zatím nulovou úspěšnost navzdory jeho vysokému celkovému skóre přínosu.",
+        "effort_analyst_note": "Doporučeno doplnit do budoucí revize dat: členství ve správní radě VZP by mělo být klasifikováno jako 'public_role', ne jako 'linkedCompany'."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6555",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=50",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=89",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=109",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=110",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=121",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=161"
+      ]
+    },
+    {
+      "id": "psp:person:6621",
+      "name": "Karel Havlíček",
+      "props": {
+        "effort_notes": "Skóre z minulého volebního období (77,7 bodu, 13 zákonů, 6 interpelací) je z doby, kdy nebyl ministrem – přímé srovnání se současným obdobím (nulové výborové zapojení, nižší skóre) je tedy zavádějící bez kontextu exekutivní role; nízké aktuální skóre by mělo být čteno jako 'poslanec přešel do vlády', ne jako pokles pracovní morálky.",
+        "effort_bill_focus": "Nulové výborové zapojení a nízké skóre v aktuálním období nejsou náhodné – Havlíček je od 15. 12. 2025 ministrem průmyslu a obchodu a 1. místopředsedou vlády, což standardně znamená rezignaci na výborovou práci ve prospěch exekutivy. I tak je uveden jako spolupředkladatel/spolupodpisatel šesti tisků, z nichž nejméně dva mají hmatatelný osud: tisk 43118 (č. 11, novela zákona o pojistném na sociální zabezpečení, s A. Schillerovou) byl schválen, Senátem vrácen, Sněmovnou přehlasován a vyhlášen jako zákon č. 90/2026 Sb. (platnost od 10. 6. 2026); tisk 43174 (č. 67, rozsáhlá novela stavebního zákona, s A. Babišem a T. Okamurou) prošel 3. čtením 10. 7. 2026 a byl 23. 7. 2026 postoupen Senátu. Zbylé tisky (43223/113 – ekodesign výrobků, vládní; 43274/153 – novela zákona o regulaci reklamy, vládní, zaseklá u výboru pro zdravotnictví; 43341/219 a 43344/222, oba vládní, u Hospodářského výboru) jsou vládní předlohy, kde figuruje jako předkladatel z titulu ministerstva, ne jako řadový poslanec-iniciátor."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6621",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=67",
+        "https://vlada.gov.cz/cz/vlada/clenove-vlady/karel-havlicek-223969/",
+        "https://mpo.gov.cz/cz/rozcestnik/pro-media/tiskove-zpravy/ministrem-prumyslu-a-obchodu-se-stal-karel-havlicek---290911/"
+      ]
+    },
+    {
+      "id": "psp:person:6664",
+      "name": "Josef Nerušil",
+      "props": {
+        "effort_notes": "Šichtařová rezignovala 11.–12.3.2026 poté, co ji předseda SPD Okamura i místopředseda ANO Vondráček veřejně vyzvali k větší aktivitě (opustila dva výbory a nepůsobila v žádném); její rezignační dopis musel být opraven kvůli formální vadě. Nerušilovo skóre 30 a z-skóre -2,08 vůči klubu SPD odráží ~4 měsíce reálného mandátu (od 24.3.2026) oproti ~9,5 měsíce u poslanců od začátku období — do jediného výboru (Výbor pro evropské záležitosti) nastoupil až 27.5.2026, dva měsíce po slibu. Nejde o srovnatelné funkční období s ostatními poslanci s nízkým skóre v tomto přehledu (ti byli buď fakticky nepřítomní od počátku, nebo se mandátu vzdali); Nerušil je jediný ze skupiny, kdo mandát reálně vykonává, jen krátce."
+      },
+      "citations": [
+        "https://www.psp.cz/zprava/21942",
+        "https://www.psp.cz/sqw/detail.sqw?id=6664",
+        "https://www.irozhlas.cz/zpravy-domov/napodruhe-spravne-sichtarova-svou-rezignaci-na-post-ve-snemovne-opatrila_2603112118_elev"
+      ]
+    },
+    {
+      "id": "psp:person:6693",
+      "name": "Libor Hoppe",
+      "props": {
+        "effort_notes": "Vstupní data (dva tisky, žádné interpelace, šest řečnických vystoupení) odpovídají nálezu — dva spolupředkladatelství, nízká řečnická aktivita. Datová mezera: v datech není evidována žádná firemní vazba, ačkoliv veřejné zdroje ukazují jeho vlastní podnikatelské podíly (SamRek CZ, OP Security, HOPPE F Group) — nešlo je ověřit přes veřejný rejstřík, protože v datech nejsou uvedena žádná IČO k prověření.",
+        "effort_analyst_note": "Doporučeno doplnit firmy SamRek CZ, OP Security a HOPPE F Group do dalšího průchodu dat a ověřit, zda mají veřejné zakázky."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6693",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=103",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=129",
+        "https://www.hlidacstatu.cz/osoba/Funkce/libor-hoppe"
+      ]
+    },
+    {
+      "id": "psp:person:6719",
+      "name": "Jana Bačíková",
+      "props": {
+        "effort_notes": "Vstupní data odpovídají zjištěnému stavu — jediný sponzorovaný tisk je čerstvý a bez dopadu na skóre legislativní aktivity zatím nemůže být. Žádné propojené firmy nebyly v datech nalezeny; jde o poslankyni od začátku volebního období (zvolena podzim 2025), bez náhradnického scénáře."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6719",
+        "https://www.ods.cz/profil/3701-jana-bacikova",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&T=261",
+        "https://cs.wikipedia.org/wiki/Jana_Ba%C4%8D%C3%ADkov%C3%A1"
+      ]
+    },
+    {
+      "id": "psp:person:6727",
+      "name": "Eva Decroix",
+      "props": {
+        "effort_notes": "Nízká účast a vysoká absence odpovídají přechodu z exekutivní funkce (ministryně) do opoziční lavice v polovině/na konci roku 2025 — přechod na plný poslanecký mandát proběhl teprve v lednu 2026 (první výborové členství 16. 1. 2026), takže velká část z dosavadních 293 dní mandátu předchází reálné parlamentní aktivitě. Vlastním ověřením přes obchodní rejstřík byly potvrzeny a rozšířeny nálezy o všech třech firmách: (1) Delices de papa s.r.o. (IČO 03709698, evidovaná částka 594 Kč) — Eva Decroix (ne jen manžel) byla osobně jednatelkou 13. 1. 2015 – 31. 5. 2021 a společnicí; manžel Rémi Decroix byl souběžně/následně také jednatelem a je jím opět od června 2021 dodnes. Jde tedy o skutečně sdílený rodinný gastro-podnik (bistro v Horní Dubenkách), ne jen o vazbu manžela. (2) ELEMENTA Agency s.r.o. (IČO 03265889, evidovaná částka 0 Kč) — Eva Decroix byla jednatelkou a 100% společnicí 5. 8. 2014 – 27. 1. 2017 (ve dvou navazujících zápisech), firmu později (2016/2017) převzala Lucie Horáčková a poté Dejan Hrnjica a Eliška Běťáková; vazba je tedy reálná, ale ukončená přes 8 let před jejím ministerským působením (2025) a s nulovou evidovanou veřejnou zakázkou. (3) Park Volmanec s.r.o. (IČO 03921727, evidovaná částka 0 Kč) — Decroix byla jednatelkou 24. 3. 2015 – 20. 10. 2015 a fakticky vlastnila celou společnost přes dva samostatné 50% podíly (2× vklad 2 500 Kč, oba zapsané 24. 3. 2015), tedy velmi krátká, půlroční role. Shrnutí: u všech tří firem je osobní (nikoli jen manželská) statutární vazba doložena z primárního zdroje, ale u dvou z nich (ELEMENTA, Park Volmanec) šlo o krátké, dávno ukončené role bez veřejného financování — namístě je uvést je jako historické, ne jako aktuální riziko. Generický záznam evidovaný jako OSVČ pod IČO 04627695 (Všeruby, Plzeň-sever) je chybným párováním dat nesouvisejícím s touto poslankyní — jde o zcela jinou firmu (registrovaná mikro-strana), jejíž název v obchodním rejstříku obsahuje doslovný text „OSVČ\", což vedlo k chybnému spárování s řadou poslanců popsaných v datech Hlídače volně jako „OSVČ\". Tato vazba tedy není reálná.",
+        "effort_bill_focus": "Oba evidované tisky (tisk 46/2025 – novela zákona o mezinárodní justiční spolupráci ve věcech trestních, mění zákon 104/2013 Sb.; tisk 61/2025 – novela zákona o soudnictví ve věcech mládeže, mění zákon 218/2003 Sb.) jsou vládní předlohy podané Ministerstvem spravedlnosti, kde Decroix figuruje pouze jako členka garančního Ústavně-právního výboru, nikoli jako navrhovatelka. Tisk 46 prošel 1. čtením (24. 3. 2026) a ÚPV jej doporučil ke schválení (30. 4. 2026); tisk 61 čeká na projednání ve výboru od prosince 2025. Reálný autorský přínos je tedy nulový — v datech nemá evidován žádný vlastní tisk.",
+        "effort_analyst_note": "IČO 04627695 zůstávalo pravděpodobnou chybou párování dat sdílenou s dalšími poslanci v tomto vzorku (needs review) — batch 004 tuto otázku formálně uzavřel: IČO 04627695 NENÍ neresolvovaný datový placeholder, ale skutečná, s touto poslankyní nesouvisející firma (Agrární demokratická strana, registrovaná mikro-strana), jejíž pole ARES obchodniJmeno obsahuje doslovný textový řetězec „OSVČ\" — chyba přesného name-matchingu (pickExactIco v lib/analysis/money-feed.ts) tuto firmu chybně spárovala se 49 poslanci, jejichž povolání bylo v datech Hlídače popsáno volně jako „OSVČ\". Všech 49 nulových hran linked_to → company:ico:04627695 bylo v batch 004 smazáno jako potvrzené false_edge_suspected; uzel company:ico:04627695 byl rovněž smazán, protože na něj nic jiného neodkazovalo. Úsudek tohoto záznamu (nejde o ověřenou vazbu) byl správný už předtím — tato poznámka jen formálně potvrzuje uzávěr."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6727",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=46",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=61",
+        "https://zpravy.aktualne.cz/eva-decroix-ministryne-spravedlnosti-ods-mistopredsedkyne-po/r~13dcefaa79b911f0b689ac1f6b220ee8/r~f235b56aae8511f0b2180cc47ab5f122/?lp=1",
+        "https://zena-in.cz/clanek/kousek-francie-na-vysocine-bistrot-de-papa",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/03709698"
+      ]
+    },
+    {
+      "id": "psp:person:6730",
+      "name": "Lubomír Wenzl",
+      "props": {
+        "effort_notes": "Datová nesrovnalost: interní přehled uvádí zapojení do 5 výborů/komisí, ale ve vstupním seznamu je doloženo jen 4 — podobný vzorec (počítadlo o 1 vyšší) se objevil i u dalších poslanců v tomto přehledu, což naznačuje systematickou, ne náhodnou chybu. Trendové pozorování: skóre kleslo z 78 v předchozím období na 68,4 v aktuálním, ale zatímco v předchozím období měl 15 vlastních zákonů a 89 interpelací, aktuální data uvádějí nulu u obou metrik — může jít o reálný pokles aktivity, nebo o neúplně zachycená data tak brzy v mandátu (293 dní). Doporučujeme ověřit úplnost aktuálních dat o tiscích a interpelacích, než se pokles interpretuje jako skutečný trend. Žádná firemní vazba nebyla v datech nalezena k ověření.",
+        "effort_public_role": "Místopředsedou Stálé komise pro kontrolu činnosti Vojenského zpravodajství, členem Výboru pro obranu, Rozpočtového výboru a Stálé komise pro kontrolu činnosti ÚZSI (viz poznámka o drobné nesrovnalosti v počtu evidovaných výborů). Dle psp.cz navíc předsedá Podvýboru pro válečné veterány a je zvoleným členem dozorčí rady Všeobecné zdravotní pojišťovny (VZP) — druhá role je institucionální dozor nad veřejnou zdravotní pojišťovnou z titulu poslaneckého mandátu, nikoli obchodní vazba.",
+        "effort_bill_focus": "Žádný sponzorovaný tisk v aktuálním období, na rozdíl od jeho 15 zákonů v předchozím volebním období — viz poznámka o možném neúplném záznamu raného období.",
+        "effort_analyst_note": "Datová nesrovnalost v počtu výborů NENÍ ingest vada Case ① — je to extraktor uvnitř Case ②: extract-dossiers.ts staví pole committees pouze z přímých dětí sněmovny (kg-compute.ts), zatímco computeContribution (contribution.ts) počítá committee_count včetně podvýborů a leadership_count včetně role ověřovatel. Oprava patří do extract-dossiers.ts, ne do Case ① ingestu."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6730&o=10"
+      ]
+    },
+    {
+      "id": "psp:person:6732",
+      "name": "Ivana Mádlová",
+      "props": {
+        "effort_notes": "Obě dohledané firemní vazby jsou historické, skončily roky před začátkem jejího aktuálního mandátu (od cca října 2025): (1) VODÁRNA PLZEŇ a.s. (IČO 25205625, evidovaná částka 915 796 079,85 Kč — zdaleka nejvyšší v tomto přehledu) — funkce místopředsedkyně dozorčí rady 8. 2. 2016 – 31. 12. 2018, výmaz z obchodního rejstříku 23. 2. 2019, tedy cca 7 let před nástupem do Sněmovny; nezávisle potvrzeno druhým zdrojem (výroční zpráva 2017, Hlídač státu). Vodárna Plzeň je klíčová regionální veřejná infrastrukturní firma (vodohospodářství pro město Plzeň) — tematicky souvisí s jejím výborem pro veřejnou správu a regionální rozvoj, ale jde o dozorčí roli skončenou dávno před mandátem, ne o současné angažmá. (2) DOMOVINKA - sociální služby, o.p.s. (IČO 29123747, evidovaná částka 20 168 230 Kč) — byla členkou správní rady 16. 1. 2012 – 22. 9. 2014 (příp. do 30. 6. 2014), tedy více než 11 let před mandátem; sociální služby tematicky souvisí s jejím výborem pro zdravotnictví, ale opět jde o dávno ukončenou roli. Obě vazby jsou dvakrát nezávisle ověřené, žádná není aktuální osobní finanční angažovanost — jde o historické institucionální role, ne o současný konflikt zájmů. Datová nesrovnalost: v přehledu je uvedeno zapojení do 6 výborů/komisí, ale doloženy jsou jen 3 položky (stejný vzorec jako u dalších poslanců v tomto přehledu). Trendová poznámka (opatrně, mladý mandát): skóre z předchozího období (83,8; 16 tisků, 33 interpelací) je vyšší než dosavadní aktuální skóre (63,7; 2 tisky, 0 interpelací), ale vzhledem ke krátké délce dosavadního mandátu jde o částečné srovnání, ne o potvrzený pokles.",
+        "effort_analyst_note": "Údaje o obou firemních vazbách byly znovu ověřeny dedikovaným verifikačním průchodem (přímý dotaz na plný záznam členů orgánů, batch 005)."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=70",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25205625",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/29123747",
+        "https://www.vodarna.cz/data/folders/vodarnaplzen_vz2017-f48.pdf",
+        "https://www.hlidacstatu.cz/osoba/Funkce/ivana-madlova"
+      ]
+    },
+    {
+      "id": "psp:person:6738",
+      "name": "Hubert Lang",
+      "props": {
+        "effort_notes": "Jediný evidovaný tisk (187) odpovídá tomu, že u něj figuruje jako první předkladatel — jde skutečně o jeho vlastní iniciativu, ne spolupodpis. Datová nesrovnalost: v přehledu je uvedeno zapojení do 8 výborů/komisí, ale doložen je jen seznam 7 položek (VB, VVVMS, SKGIBS, SKBIS, SKNBÚ, SKFAÚ, VKDOZIMETR) — chybí jedna vazba oproti počítadlu, doporučujeme ověřit v dalším kole zpracování dat. Žádná firemní vazba nebyla v datech nalezena k ověření."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=187"
+      ]
+    },
+    {
+      "id": "psp:person:6743",
+      "name": "Robert Stržínek",
+      "props": {
+        "effort_notes": "Vodovody a kanalizace Vsetín: Stržínek předsedal představenstvu 2015–2023 a je místopředsedou představenstva od 8. 6. 2023 bez výmazu — jde tedy o aktivní, souběžnou vazbu s jeho poslaneckým mandátem, nikoli historickou. Tenisový klub DEZA je rovněž stále aktivní (znovuzvolen 28. 1. 2021, nikoli vymazán). U AGEL Nemocnice Valašské Meziříčí šlo pouze o dozorčí radu, nikdy ne o představenstvo.",
+        "effort_analyst_note": "Předchozí verze textu chybně řadila vazbu na Vodovody a kanalizace Vsetín mezi nevyřešené kvůli neúplnému prvnímu načtení dat z rejstříku (chyběl blok statutárních orgánů); po opravě ověřeno jako aktivní souběžná vazba. Rovněž opraveno přecenění role u AGEL Nemocnice Valašské Meziříčí (jen dozorčí rada, ne představenstvo). Údaje znovu ověřeny dedikovaným verifikačním průchodem (batch 005)."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=217",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26822105",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/47674652",
+        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/47997826",
+        "https://valassky.denik.cz/zpravy_region/robert-strzinek-valasske-mezirici-poslanec-starosta-anketa-2025.html",
+        "https://valassky.denik.cz/zpravy_region/valasske-mezirici-nemocnice-agel-provozovatel-smlouva-prodlouzeni.html",
+        "https://cs.wikipedia.org/wiki/Robert_Str%C5%BE%C3%ADnek",
+        "https://www.strzinek.cz/"
+      ]
+    },
+    {
+      "id": "psp:person:6750",
+      "name": "Josef Flek",
+      "props": {
+        "effort_notes": "Jde o poslance od začátku volebního období (293 dní), bez náhradnického scénáře. Profil odpovídá tichému, ale legislativně zaměřenému pracovníkovi: nízký počet vlastních řečnických vystoupení (8 v aktuálním období, byť z předchozího volebního období je u srovnatelné pozice uváděno 112 — jde ale o jiné období/osobu a nelze to brát jako přímou kontrolu konzistence aktuálních dat), ale předsednictví klíčového výboru a šest výborových/komisních členství. Žádná firemní vazba nebyla v datech nalezena k ověření."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6750",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=120",
+        "https://cs.wikipedia.org/wiki/Josef_Flek"
+      ]
+    },
+    {
+      "id": "psp:person:6753",
+      "name": "Jana Hanzlíková",
+      "props": {
+        "effort_notes": "0 interpelací a jen 8 vystoupení za ~9 měsíců, ale 5 spolupodepsaných tisků včetně dvou už vyhlášených zákonů a jednoho v Senátu. Dvě aktuálně aktivní vedoucí pozice odpovídají aktivním podvýborovým postům — dřívější místopředsednický post v komisi pro rodinu skončil 21.1.2026, proto se už do aktuálního počtu nepočítá."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6753&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=70",
+        "https://pardubice.rozhlas.cz/roky-v-opozici-nebyly-vesele-spoustu-veci-upravime-rika-poslankyne-ano-9582981"
+      ]
+    },
+    {
+      "id": "psp:person:6755",
+      "name": "Jiří Havránek",
+      "props": {
+        "effort_notes": "Vstupní data odpovídají nalezenému stavu — jeden sponzorovaný tisk a pět výborových/komisních rolí včetně jednoho předsednictví. Žádné propojení na firmy nebylo v datech nalezeno k ověření. Jde o poslance od začátku volebního období, není tedy potřeba dohledávat nástupnictví."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6755",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=133"
+      ]
+    },
+    {
+      "id": "psp:person:6756",
+      "name": "Tomáš Helebrant",
+      "props": {
+        "effort_notes": "Evidovaných 8 funkcí zahrnuje i dva čestné posty (předseda skupin přátelství ČR–Vietnam a ČR–Austrálie/N. Zéland) vedle 6 věcných orgánů — jde tedy částečně o formální, nikoli věcné zapojení."
+      },
+      "citations": [
+        "https://www.psp.cz/sqw/detail.sqw?id=6756&o=10",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
+        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87"
+      ]
+    }
+  ]
+}

@@ -716,3 +716,31 @@ a converged loop should produce once the easy signal is gone.
   were never persisted (0 live vs `cites`' 36; they were all in the 80 excluded rows of the
   orchestrator's pass-29 apply), so the watch currently has nothing to match against. An
   orchestrator gap, disclosed by the loop rather than by me.
+
+## Pass 32 (track: effort) — Q-effort-15: the public-copy debt paid off (2026-07-26)
+
+**136 dossiers rewritten** (6 parallel Sonnet agents; strip jargon, preserve every fact/date/IČO/
+amount/hedge, relocate removed internals into the NON-rendered `effort_analyst_note`). Gate
+136/136 PASS, 0 DROP. Result measured on the live graph: **0/207 leaking**, **207/207 now render at
+least one dossier field** (from 71/207), 180/207 render all three, 206 carry citations.
+
+**The batch's most important catch — a cleanup pass that made prose LESS true.** The Opus
+money-fidelity layer found **10 rewrites that silently converted hedged, unproven company ties into
+flat uncited assertions** — the worst asserting a sitting minister's board seat against a 5.39bn CZK
+contract. The reflection caught an 11th (Fiala) via a cross-field inconsistency the fidelity pass
+missed. All corrected before persist. This is the sharpest evidence yet for P51's two independent
+layers: readability work is exactly where hedges die, and a gate that only checks *jargon* would
+have passed all 11.
+
+**Also fixed a real enforcement gap:** `gate.ts` had silently FORKED `lib/analysis/public-copy.ts`'s
+rule set with an extra rule the render-time guard lacked — so prose could be dropped at persist
+time yet render at read time with its withheld status computed from a weaker rule set. The
+orchestrator's own docstring had claimed "one rule set imported by BOTH ends"; that was false in
+code until now. Unified, with test coverage — plus a source-grep test asserting
+`effort_analyst_note` (which deliberately still holds jargon) is never wired into a render path,
+a premise that previously had no enforcement at all.
+
+**Gate reviewer note:** 29 soft prose-vs-props warnings were inspected at integration; the three
+sharpest (Murová "dva měsíce", Outrata "tři ze čtyř", Sedmihradská "jeden z pěti") are all gate
+FALSE POSITIVES — legitimate subset/period framings — which is the reviewer judgment the soft-fail
+design intends rather than a blocking failure.

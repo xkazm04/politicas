@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-26T15:14:07.014Z",
+  "generatedAt": "2026-07-26T16:06:04.986Z",
   "leakingNodes": 136,
   "fieldInstances": 205,
   "ruleHits": 465,
@@ -25,15 +25,7 @@
         "effort_bill_focus": [
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 2,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=346",
-        "https://vlada.gov.cz/cz/clenove-vlady/ing--petr-bendl--88037/",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=103",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=261"
-      ],
-      "headline": "Bývalý ministr zemědělství a hejtman v šestém mandátu: skóre meziobdobně stouplo z 85 na 93, ale u žádného ze čtyř tisků není první podpis."
+      }
     },
     {
       "id": "psp:person:4",
@@ -61,15 +53,7 @@
         "effort_bill_focus": [
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=261",
-        "https://ares.gov.cz/ekonomicke-subjekty-vr/24227901",
-        "https://www.hlidacstatu.cz/osoba/marek-benda"
-      ],
-      "headline": "Benda, předseda klubu ODS, sedí v obou komisích pro dozor nad tajnými službami (NBÚ, ÚZSI); jeho jediná firemní položka mimo generický placeholder je zjevně SVJ vlastního domu za 3 134 Kč, ne obchodní vazba."
+      }
     },
     {
       "id": "psp:person:5226",
@@ -88,14 +72,7 @@
           "raw prop identifier",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 2,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=5226",
-        "https://www.ods.cz/profil/pavel-zacek",
-        "https://www.irozhlas.cz/zpravy-domov/pavel-zacek-ustav-pro-studium-totalitnich-rezimu-poslanec_2205030010_cen"
-      ],
-      "headline": "Zakladatel ÚSTR dnes hlídá tajné služby zevnitř: pět z osmi orgánů je bezpečnostní dohled, skóre kleslo z 84 na 45 navzdory nedávnému místopředsednictví klubu ODS."
+      }
     },
     {
       "id": "psp:person:5273",
@@ -117,19 +94,7 @@
         "effort_public_role": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=181",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/00417904",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/08694508",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25245091",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27149994",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49370499",
-        "https://www.top09.cz/kdo-jsme/judr-jiri-pospisil-15862.html",
-        "https://www.museumkampa.cz/foundation/"
-      ],
-      "headline": "Pospíšilova zažitá nálepka 'předseda Museum Kampa' je od května 2023 zastaralá; z pěti spojených neziskovek mu ARES VR potvrzuje jedinou AKTUÁLNÍ vazbu (dozorčí rada Muzea paměti XX. století), zbylé čtyři jsou uzavřené kapitoly z let 2003–2023."
+      }
     },
     {
       "id": "psp:person:5379",
@@ -151,19 +116,7 @@
         "effort_public_role": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=5379",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=261",
-        "https://ares.gov.cz/ekonomicke-subjekty-vr/25187937",
-        "https://ares.gov.cz/ekonomicke-subjekty-vr/28094573",
-        "https://ares.gov.cz/ekonomicke-subjekty-vr/46678735",
-        "https://ares.gov.cz/ekonomicke-subjekty-vr/61065480",
-        "https://fakturujzdarma.cz/firma/46678735-robert-bosch-spol-s-r-o",
-        "https://rejstrik-firem.kurzy.cz/25187937/rera-as/"
-      ],
-      "headline": "Bauerův jediný sněmovní tisk je čerstvě podaný skupinový návrh teprve u vlády k vyjádření; jeho 128,8mil. Kč vazba na Robert Bosch zůstává neověřená kvůli nedostupnému ARES VR."
+      }
     },
     {
       "id": "psp:person:5459",
@@ -185,27 +138,7 @@
           "batch/sample self-reference",
           "API/pipeline mechanics"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=5459",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=67",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=115",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=173",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=174",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=201",
-        "https://zpravy.aktualne.cz/domaci/radim-fiala-z-spd-nadale-spoluvlastni-firmu-ktera-dostava-st/r~5294edeea4e111f0b553ac1f6b220ee8/?lp=1",
-        "https://www.irozhlas.cz/zpravy-domov/fiala-spd-stale-spoluvlastni-holding-ktery-ziskava-statni-zakazky-firmy-jsem_2510091647_elev",
-        "https://www.seznamzpravy.cz/clanek/domaci-kauzy-mozne-poruseni-zakona-holding-radima-fialy-z-spd-inkasuje-miliony-za-uklid-293143?noredirect=1",
-        "https://hanacka.drbna.cz/zpravy/37907-urady-proveri-zakazku-na-uklid-mestskych-budov-v-prostejove-firma-souvisi-s-radimem-fialou-z-spd.html",
-        "https://www.irozhlas.cz/volby/v-cele-hospodarskeho-vyboru-snemovny-bude-radim-fiala-z-spd-vyzyvatel-hrib-z_2511121441_jva",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/02867681",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27720152"
-      ],
-      "headline": "Fiala předsedá Hospodářskému výboru i dozorčí radě ČEZ; investigativní zpravodajství (Aktuálně.cz, iROZHLAS, Seznam Zprávy) tvrdí skryté pokračující vlastnictví IF Holding/IF Kings Security (Prostějov) přes tvrzený prodej 2018, ale přímé ověření ARES VR (driver, REST API) ukazuje jeho FORMÁLNÍ role u obou firem skončily už 2014 — mediální tvrzení o skutečném vlastnictví (ESM registr) zůstává NEOVĚŘENÉ z primárního zdroje."
+      }
     },
     {
       "id": "psp:person:5700",
@@ -228,17 +161,7 @@
         "effort_bill_focus": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=5700",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=261",
-        "https://krkonossky.denik.cz/zpravy_region/ivan-adamec-skoncil-jako-starosta-trutnova-povede-hospodarsky-vybor-snemovny-202.html",
-        "https://ares.gov.cz/ekonomicke-subjekty-vr/25968084",
-        "https://or.justice.cz/ias/ui/rejstrik-$firma?ico=25968084",
-        "https://rejstrik.penize.cz/25968084-technicke-sluzby-trutnov-s-r-o"
-      ],
-      "headline": "Adamec, 23letý starosta Trutnova, má jediný sponzorovaný zákon teprve na startu procesu; šest firemních vazeb jsou trutnovské městské podniky z jeho starostenské éry, ale ARES VR ověření osobní vazby se opět nezdařilo."
+      }
     },
     {
       "id": "psp:person:5903",
@@ -256,19 +179,7 @@
         "effort_notes": [
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=103",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=129",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26419050",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26419068",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27251918",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/61057606",
-        "https://www.hlidacstatu.cz/Osoba/Funkce/jana-cernochova",
-        "https://janacernochova.cz/o-mne/"
-      ],
-      "headline": "Černochová byla dlouholetou (ne současnou) členkou vedení čtyř pražských komunálních institucí — Komwag, Obecní dům, Nadační fond ČRo, SVJ — vše svázáno s jejími komunálními funkcemi v Praze 2, poslední role skončila přesně dnem konce jejího komunálního mandátu."
+      }
     },
     {
       "id": "psp:person:5911",
@@ -287,16 +198,7 @@
           "raw prop identifier",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=5911",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=116",
-        "https://rejstrik.penize.cz/25488627-krajska-zdravotni-a-s",
-        "https://rejstrik.penize.cz/62240935-dopravni-podnik-mesta-decina-a-s"
-      ],
-      "headline": "Foldynovy dva návrhy zákonů čekají na dokončení projednání; nápadněji vyčnívá nevysvětlená 81,7mil. Kč vazba na krajskou nemocnici v jeho vlastním kraji, kterou je třeba dořešit přes Registr smluv."
+      }
     },
     {
       "id": "psp:person:5943",
@@ -318,17 +220,7 @@
           "batch/sample self-reference",
           "API/pipeline mechanics"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=74",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=75",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=161",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=181",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/02086778",
-        "https://www.hlidacstatu.cz/osoba/Funkce/helena-langsadlova"
-      ],
-      "headline": "Langšádlová spolupodepsala všechny čtyři tisky svého vzorku (žádný vlastní), sedí ve správní radě Schwarzenbergovy o.p.s. bez finanční hodnoty, a vstupní počet výborů (7) neodpovídá čtyřem reálně uvedeným."
+      }
     },
     {
       "id": "psp:person:6105",
@@ -350,26 +242,7 @@
           "batch/sample self-reference",
           "API/pipeline mechanics"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6105",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=35",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=67",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=119",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=173",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=174",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=201",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=216",
-        "https://hlidacipes.org/tomio-okamura-uz-neni-restaurater-prodej-podilu-prazske-restauraci-vsak-majetkovem-priznani-neuvedl/",
-        "https://web.kurzy.cz/wiki/w/index.php?title=Tomio_Okamura&oldid=19772613",
-        "https://ares.gov.cz/ekonomicke-subjekty-vr/25124188",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25124188"
-      ],
-      "headline": "Předseda Sněmovny Okamura má nejvyšší státní funkci a zároveň reálnou, primárním zdrojem (ARES VR) potvrzenou vazbu na cestovní kancelář Miki Travel s veřejnou zakázkou za 6,05 mil. Kč, kde je nepřetržitě jednatelem od 2021 (vlastníkem není — 100% drží britská GROUP MIKI HOLDINGS LIMITED)."
+      }
     },
     {
       "id": "psp:person:6150",
@@ -389,16 +262,7 @@
           "raw pipeline field name",
           "internal case reference"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6150",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=232",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=35",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11",
-        "https://forbes.cz/babis-vlozil-agrofert-do-sverenskeho-fondu-stret-zajmu-povazuje-za-vyreseny/"
-      ],
-      "headline": "Babiš jako premiér skoro nehlasuje a nepřednáší interpelace, ale u zákazu mobilů ve školách a zákona o pojistném zůstává formálně spolupředkladatelem — svěřenský fond s Agrofertem řeší už měsíce Brusel i Transparency International."
+      }
     },
     {
       "id": "psp:person:6154",
@@ -418,16 +282,7 @@
           "raw pipeline field name",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6154",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=181",
-        "https://www.hlidacstatu.cz/Osoba/Vazby/marek-zenisek",
-        "https://rejstrik.penize.cz/02086778-forum-karla-schwarzenberga-o-p-s",
-        "https://ares.gov.cz/ekonomicke-subjekty-vr/02086778"
-      ],
-      "headline": "Ženíšek má dvě aktuální neziskové řídicí role (TOPAZ, Fórum Karla Schwarzenberga) a dvě zaniklé, ale reálné vazby na krajské podniky PRE a PMDP z předchozích let — u zbylých pěti firem se vazbu nepodařilo ani potvrdit, ani vyloučit."
+      }
     },
     {
       "id": "psp:person:6168",
@@ -447,15 +302,7 @@
           "batch/sample self-reference",
           "API/pipeline mechanics"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6168",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=115",
-        "https://www.finmag.cz/obchodni-rejstrik/61463647-druzstvo-narozni-dum-plavecka-12"
-      ],
-      "headline": "Bývalá ministryně spravedlnosti Válková vede vyšetřovací komisi ke kauze Dozimetr; její dvě firemní vazby v datech jsou pravděpodobně nedořešený placeholder, ne reálné propojení."
+      }
     },
     {
       "id": "psp:person:6172",
@@ -475,16 +322,7 @@
           "batch/sample self-reference",
           "API/pipeline mechanics"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6172",
-        "https://cs.wikipedia.org/wiki/Ladislav_Okle%C5%A1t%C4%9Bk",
-        "https://www.ceskenoviny.cz/zpravy/2585102",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
-        "https://www.finmag.cz/obchodni-rejstrik/ares/04627695-agrarni-demokraticka-strana"
-      ],
-      "headline": "Okleštěk souběžně řídí Olomoucký kraj jako hejtman i sedí ve Sněmovně — jeho pražská legislativní stopa je proto téměř nulová, což je vysvětlitelné, ne podezřelé."
+      }
     },
     {
       "id": "psp:person:6178",
@@ -507,14 +345,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6178",
-        "https://www.janbartosek.cz/",
-        "https://www.hlidacstatu.cz/osoba/jan-bartosek"
-      ],
-      "headline": "Bartošek kontroluje BIS, vojenskou rozvědku i finanční zpravodajku najednou, ale v novém volebním období zatím nemá vlastní zákon."
+      }
     },
     {
       "id": "psp:person:6190",
@@ -532,14 +363,7 @@
         "effort_notes": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 1,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6190",
-        "https://www.podnikatel.cz/rejstrik/agrofert-a-s-26185610/",
-        "https://cs.wikipedia.org/wiki/Jaroslav_Falt%C3%BDnek"
-      ],
-      "headline": "Přítomný a loajální, ale bez vlastní legislativní stopy: dílenský manažer klubu ANO, ne skutečný absentér — a 6,3 mil. Kč patří Agrofertu ve svěřenském fondu, ne jemu."
+      }
     },
     {
       "id": "psp:person:6201",
@@ -560,18 +384,7 @@
         "effort_bill_focus": [
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/46978593",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49437674",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/63488329",
-        "https://cs.wikipedia.org/wiki/Miloslav_Janul%C3%ADk",
-        "https://www.janulik.cz/doktor/"
-      ],
-      "headline": "Janulíkovy firemní vazby (zdravotnictví i vydavatelství) jsou z let 1992–2002, 23–33 let před jeho mandátem PSP10 — první návrh mylně popsal jeden ze subjektů jako zdravotnické zařízení, ač šlo po celou dobu jeho role o noviny."
+      }
     },
     {
       "id": "psp:person:6205",
@@ -599,21 +412,7 @@
         "effort_bill_focus": [
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=50",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=109",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=110",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=121",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=89",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=104",
-        "https://mpsv.gov.cz/ministr",
-        "https://www.ceskenoviny.cz/zpravy/marian-jurecka-se-stal-predsedou-poslaneckeho-klubu-kdu-csl/2821490",
-        "https://ares.gov.cz/ekonomicke-subjekty-vr/25586521",
-        "https://www.podnikatel.cz/rejstrik/agro-2000-s-r-o-25586521/"
-      ],
-      "headline": "Jurečka, bývalý ministr a dnes předseda opoziční KDU-ČSL, má čtyři vlastní sociální tisky odmítnuté vládou; dvě 'vládní' položky v jeho datech patří pravděpodobně současnému ministrovi, ne jemu, a jeho firemní vazba na AGRO 2000 je desetiletí stará předpolitická kapitola, ne současné angažmá."
+      }
     },
     {
       "id": "psp:person:6209",
@@ -640,15 +439,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6209",
-        "https://ares.gov.cz/ekonomicke-subjekty-vr/04627695",
-        "https://ares.gov.cz/ekonomicke-subjekty-vr/27485013",
-        "https://rejstrik-firem.kurzy.cz/27485013/sportovni-arealy-mesta-chrudim-sro/"
-      ],
-      "headline": "Kasal nepodal žádný zákon a jeho jediná konkrétní firemní vazba je 943tis. Kč kontrakt s městským sportovním provozovatelem v jeho vlastním kraji — bez osobní statutární shody, ale neověřená kvůli nedostupnému ARES VR."
+      }
     },
     {
       "id": "psp:person:6211",
@@ -668,16 +459,7 @@
           "raw pipeline field name",
           "internal case reference"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6211",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=201",
-        "https://cs.wikipedia.org/wiki/Martin_Kolovratn%C3%ADk",
-        "https://www.hlidacstatu.cz/osoba/martin-kolovratnik",
-        "https://ares.gov.cz/ekonomicke-subjekty-vr/48154938"
-      ],
-      "headline": "Kolovratník byl v letech 2015–2017 v dozorčí radě East Bohemian Airport, které od té doby s veřejnou správou uzavřelo desítky milionů korun smluv — přímé ARES ověření selhalo, ale nezávislé zdroje vazbu potvrzují."
+      }
     },
     {
       "id": "psp:person:6214",
@@ -699,17 +481,7 @@
           "batch/sample self-reference",
           "API/pipeline mechanics"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=146",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=24",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=120",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=244",
-        "https://ares.gov.cz/ekonomicke-subjekty-vr/60193531",
-        "https://www.ceproas.cz/o-nas/vedeni-firmy"
-      ],
-      "headline": "Kovářová, místopředsedkyně Rozpočtového výboru s nejvyšším contribution_score v tomto vzorku, má u svých dat 235,5mil. Kč vazbu na státní ČEPRO bez potvrzené osobní role a čtyřnásobně poddoložený počet výborů."
+      }
     },
     {
       "id": "psp:person:6215",
@@ -729,15 +501,7 @@
           "batch/sample self-reference",
           "API/pipeline mechanics"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6215",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
-        "https://cs.wikipedia.org/wiki/Roman_Kub%C3%AD%C4%8Dek",
-        "https://ceskobudejovicky.denik.cz/z_regionu/krajske-volby-ano-politika-roman-kubicek-ceske-budejovice.html"
-      ],
-      "headline": "Kubíček z bývalého stíhacího pilota a téměř-hejtmana Jihočeského kraje řídí ve sněmovně energetický podvýbor, ale se skromnou legislativní stopou."
+      }
     },
     {
       "id": "psp:person:6225",
@@ -756,16 +520,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6225&o=8",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=124",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=125",
-        "https://cs.wikipedia.org/wiki/Jana_Pastuchov%C3%A1",
-        "https://www.mestojablonec.cz/cs/mesto/jablonecky-mesicnik/rocnik-2021/04-2021/jana-pastuchova-snazim-se-byt-vnimava.html"
-      ],
-      "headline": "Pastuchová jako bývalá zdravotní sestra a stálá záchranářka legislativně i finančně kryje přesně ty zdravotnické instituce, ve kterých sama pracovala — čistý profesní vztah, ne skrytá vazba."
+      }
     },
     {
       "id": "psp:person:6246",
@@ -788,15 +543,7 @@
         "effort_public_role": [
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://cs.wikipedia.org/wiki/Josef_Kott_(politik)",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=116",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87"
-      ],
-      "headline": "Kott, zaměstnanec agrofertí firmy ZZN Pelhřimov a místopředseda Kontrolního výboru, v červnu 2026 přešel rovnou do Rady Nejvyššího kontrolního úřadu."
+      }
     },
     {
       "id": "psp:person:6418",
@@ -814,14 +561,7 @@
         "effort_notes": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 2,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6418",
-        "https://cnn.iprima.cz/on-line-skopecek-se-stal-mistopredsedou-snemovny-richterova-opet-neuspela-491671",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=103"
-      ],
-      "headline": "Místopředseda Sněmovny podruhé v řadě — stejná funkce jako v minulém období, vyšší skóre táhne lepší docházka, ne nová legislativa."
+      }
     },
     {
       "id": "psp:person:6431",
@@ -842,15 +582,7 @@
           "internal case reference",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=70",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
-        "https://cs.wikipedia.org/wiki/Lenka_Dra%C5%BEilov%C3%A1"
-      ],
-      "headline": "Dražilová nikdy nebyla první předkladatelkou, ale dva ze tří tisků, které spolupodepsala, se skutečně staly zákonem (č. 90/2026 a č. 71/2026 Sb.) — vzácný pozitivní nález v tomto vzorku, vedle souběžné funkce místostarostky Blanska."
+      }
     },
     {
       "id": "psp:person:6433",
@@ -869,21 +601,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=4",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=5",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=6",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=7",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=15",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=71",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=86",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168",
-        "https://vlada.gov.cz/cz/clenove-vlady/ivan-bartos-191704/",
-        "https://www.pirati.cz/lide/ivan-bartos-poslanec/"
-      ],
-      "headline": "Bartoš, dnes řadový poslanec (dřívější titul místopředsedy vlády je od října 2024 neplatný), je skutečným prvním předkladatelem tří ze svých osmi tisků — méně 'jen spolupodpisů', než by se dalo čekat — a jeho agenda se přesunula k dozoru nad zpravodajskými službami."
+      }
     },
     {
       "id": "psp:person:6435",
@@ -907,19 +625,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6435",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=10",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=129",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=208",
-        "https://www.irozhlas.cz/zpravy-domov/vizitky-ministr-kultury-martin-baxa-ods-primator-plzne-poslanec_2111301255_vtk",
-        "https://ares.gov.cz/ekonomicke-subjekty-vr/06919511",
-        "https://ares.gov.cz/ekonomicke-subjekty-vr/26396645",
-        "https://or.justice.cz/ias/ui/rejstrik-$firma?ico=06919511"
-      ],
-      "headline": "Baxa má na kontě jen dva mp-skupinové návrhy, oba zatím zaseknuté ve výborech (jeden s nesouhlasem vlády); devět firemních vazeb kopíruje jeho bývalou plzeňskou kulturní agendu, ale ARES VR ověření osobní vazby se nepodařilo provést."
+      }
     },
     {
       "id": "psp:person:6455",
@@ -937,16 +643,7 @@
         "effort_notes": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6455",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&T=87",
-        "https://www.hlidacstatu.cz/osoba/vazby/jan-hrncir",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/27720004",
-        "https://rejstrik-firem.kurzy.cz/27720004/ceska-informatika-s-r-o/"
-      ],
-      "headline": "Předseda Petičního výboru s minimální legislativní stopou (jeden spolupodepsaný tisk), jehož bývalá IT firma bez veřejných zakázek zůstává v datech jako 'pending_review' historická vazba, nikoli aktivní konflikt zájmu."
+      }
     },
     {
       "id": "psp:person:6457",
@@ -973,12 +670,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6457"
-      ],
-      "headline": "Fialová má stoprocentní docházku a vede místopředsednictví enviro výboru i dozorčí radu státního investičního fondu, ale za období nepodala jediný vlastní zákon — čisté ruce, žádná firemní vazba v datech."
+      }
     },
     {
       "id": "psp:person:6459",
@@ -996,15 +688,7 @@
         "effort_notes": [
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 2,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6459&o=10",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=103",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=129",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=261"
-      ],
-      "headline": "Nový předseda Kontrolního výboru — ale žádný ze tří spolupodepsaných tisků ODS zatím neprošel a jeho vlastní absence u hlasování mezitím vzrostla."
+      }
     },
     {
       "id": "psp:person:6463",
@@ -1032,21 +716,7 @@
         "effort_bill_focus": [
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=125",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=198",
-        "https://mpsv.gov.cz/novym-ministrem-prace-a-socialnich-veci-se-stal-ales-juchelka",
-        "https://www.irozhlas.cz/zpravy-domov/juchelka-nastoupi-jako-ministr-prace-a-socialnich-veci-pred-politikou-pusobil_2512141617_ntu",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27840531",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/02751232",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/00027383",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/45245053",
-        "https://www.hlidacstatu.cz/osoba/ales-juchelka"
-      ],
-      "headline": "Ministr práce Juchelka vlastnil svou PR firmu OCCAM PR se dvěma státními zakázkami prakticky po celý mandát a teprve v lednu 2026 ji převedl na Ing. Terezu Juchelkovou; jeho jediný vlastní tisk (125, sociální služby) se naopak stal zákonem, zatímco údaj o 6,27 mil. Kč u firmy YOU STORY UP! neodpovídá žádné smlouvě z období jeho angažmá, které skončilo už v roce 2016."
+      }
     },
     {
       "id": "psp:person:6466",
@@ -1064,17 +734,7 @@
         "effort_notes": [
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6466",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=74",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=75",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=120",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=161",
-        "https://cs.wikipedia.org/wiki/Jana_Krut%C3%A1kov%C3%A1"
-      ],
-      "headline": "Krutáková mluví na plénu nejméně ze skupiny, ale řídí hned dvě komise a tlačí čtyři konkrétní zákony o odpadech, vodě a venkově navazující na její kariéru v odpadovém hospodářství."
+      }
     },
     {
       "id": "psp:person:6467",
@@ -1099,12 +759,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6467"
-      ],
-      "headline": "Majerová vede delegaci do Meziparlamentní unie s 90% absencí a nulovou legislativní produkcí navzdory vedoucí roli — vysoká absence bez zjevného institucionálního vysvětlení."
+      }
     },
     {
       "id": "psp:person:6473",
@@ -1127,18 +782,7 @@
         "effort_public_role": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=4",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=15",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=71",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=86",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168",
-        "https://www.pirati.cz/lide/olga-richterova/",
-        "https://www.psp.cz/sqw/detail.sqw?id=6473"
-      ],
-      "headline": "Richterová vede pirátský poslanecký klub (nikoli celou stranu, tu vede Zdeněk Hřib) a je vlastní předkladatelkou u 5 z 9 tisků; její kontribuční skóre zůstává mezi PSP9 a PSP10 prakticky beze změny (85,4 → 84,2), bez jediné datové nesrovnalosti v tomto vzorku."
+      }
     },
     {
       "id": "psp:person:6475",
@@ -1167,14 +811,7 @@
           "raw pipeline field name",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.ceskenoviny.cz/zpravy/v-cele-zemedelskeho-vyboru-snemovny-bude-monika-oborna-ano/2746966",
-        "https://www.psp.cz/sqw/detail.sqw?id=6475",
-        "https://ekonomickydenik.cz/zemedelsky-vybor-povede-oborna-chce-ceske-potraviny-a-ferove-dotace/"
-      ],
-      "headline": "Oborná od listopadu 2025 vede Zemědělský výbor a má nejvyšší docházku ve vzorku (0,9), ale její kontribuční skóre kleslo oproti PSP9 — profil se přesunul od tisků a interpelací k výkonné výborové práci, a vstupní počet výborů (5) opět neodpovídá třem doloženým."
+      }
     },
     {
       "id": "psp:person:6482",
@@ -1199,15 +836,7 @@
         "effort_bill_focus": [
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=57",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=181",
-        "https://vlada.gov.cz/cz/clenove-vlady/vlastimil-valek-191700/",
-        "https://www.zdravezpravy.cz/2026/06/05/exministr-valek-se-na-paty-pokus-volby-dostal-do-rady-vzp-cr/"
-      ],
-      "headline": "Válek už není ministrem zdravotnictví, ale dozorovým místopředsedou výboru — jediný přijatý zákon z jeho vzorku byl vládní návrh podaný týden před nástupem nové vlády, jehož osobní autorství nelze s jistotou potvrdit, a vstupní počet výborů (5) je poddoložen o dva."
+      }
     },
     {
       "id": "psp:person:6484",
@@ -1226,15 +855,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6484",
-        "https://cs.wikipedia.org/wiki/David_%C5%A0tolpa",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&T=11",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&T=72"
-      ],
-      "headline": "Znojemský podnikatel v cestovním ruchu dotáhl spoluautorskou novelu zákona o pojistném na sociální zabezpečení až do Sbírky zákonů jako zákon č. 90/2026 Sb."
+      }
     },
     {
       "id": "psp:person:6486",
@@ -1253,13 +874,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6486",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=133"
-      ],
-      "headline": "Munzar vede rozpočtový dozor jako místopředseda výboru, ale jeho jediný vlastní návrh (spotřební daně) narazil na nesouhlas vlády a zatím neprošel."
+      }
     },
     {
       "id": "psp:person:6490",
@@ -1284,14 +899,7 @@
           "raw pipeline field name",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://prerovsky.denik.cz/ostatni_region/petr-vrana-se-stal-namestkem-olomouckeho-hejtmana-20181218.html",
-        "https://www.anobudelip.cz/cs/olomoucky-kraj/kandidati/petr-vrana-28903.shtml",
-        "https://cs.wikipedia.org/wiki/Petr_Vr%C3%A1na_(politik)"
-      ],
-      "headline": "Vránovo nejnižší skóre ve vzorku (nulová řeč, nulová legislativa) při stoprocentní účasti je vysvětlitelné strukturálně — od října 2022 je souběžně primátorem Přerova, ne projevem nezájmu o poslaneckou práci."
+      }
     },
     {
       "id": "psp:person:6491",
@@ -1319,15 +927,7 @@
         "effort_bill_focus": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=235",
-        "https://vlada.gov.cz/cz/media-centrum/aktualne/premier-babis-uvedl-do-funkce-noveho-ministra-zdravotnictvi-184578/",
-        "https://www.irozhlas.cz/zpravy-domov/adam-vojtech-se-vraci-do-vlady-staronovy-ministr-zdravotnictvi-ma-za-cil_2512131600_jar",
-        "https://www.psp.cz/sqw/detail.sqw?id=6491"
-      ],
-      "headline": "Vojtěch je od prosince 2025 znovu ministrem zdravotnictví ve vládě Babiše, ale jeho effort profil to nikde nezachycuje a řadí jej jako běžného poslance s nulovou legislativní iniciativou — datová mezera s reálným dopadem na interpretaci skóre."
+      }
     },
     {
       "id": "psp:person:6500",
@@ -1345,14 +945,7 @@
         "effort_notes": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 1,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6500",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=217"
-      ],
-      "headline": "Tichý pracant kontroly: 5 tisků včetně novely jednacího řádu už v Senátu, ani jedno vystoupení v sále."
+      }
     },
     {
       "id": "psp:person:6506",
@@ -1371,13 +964,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6506",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87"
-      ],
-      "headline": "Kohoutek je typický řadový výborový pracovník ANO — jediný sdílený návrh zákona zatím uvízl ve výborech, žádné firemní vazby k prověření."
+      }
     },
     {
       "id": "psp:person:6508",
@@ -1400,10 +987,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 5,
-      "citations": [],
-      "headline": "Koten sedí ve čtyřech bezpečnostně-dozorových rolích včetně vyšetřovací komise Dozimetr, ale v PSP10 má zatím nulovou legislativní i interpelační stopu a nejvyšší absenci ve vzorku — ostrý kontrast k jeho 199 interpelacím a 26 tiskům z PSP9."
+      }
     },
     {
       "id": "psp:person:6509",
@@ -1429,14 +1013,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6509",
-        "https://www.hlidacstatu.cz/osoba/Funkce/robert-kralicek",
-        "https://www.czdefence.cz/clanek/robert-kralicek-kyberbezpecnost-musi-byt-jednim-z-piliru-obrany-naseho-statu"
-      ],
-      "headline": "Králíček, místopředseda ANO a od listopadu 2025 šéf dozorové komise nad BIS, má v tomto vzorku nulovou legislativní stopu i zvýšenou absenci — a jeho vstupní počet deseti výborových vazeb neodpovídá šesti reálně uvedeným."
+      }
     },
     {
       "id": "psp:person:6513",
@@ -1459,15 +1036,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6513",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=28",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=121",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=74"
-      ],
-      "headline": "Výborný vede daňový i školský návrh KDU-ČSL a řídí sněmovní výbor pro vědu a vzdělávání, ale klíčové tisky k 24.7.2026 ještě čekají na hlasování v plénu."
+      }
     },
     {
       "id": "psp:person:6518",
@@ -1490,14 +1059,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6518",
-        "https://cs.wikipedia.org/wiki/Petr_Sadovsk%C3%BD",
-        "https://www.hlidacstatu.cz/Osoba/Funkce/petr-sadovsky-4"
-      ],
-      "headline": "Bezpečnostní 'watchdog' bez jediného vlastního zákona — plná členská karta ve zpravodajských kontrolních komisích, nulová autorská legislativní stopa."
+      }
     },
     {
       "id": "psp:person:6520",
@@ -1521,13 +1083,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6520",
-        "https://cs.wikipedia.org/wiki/Pavel_R%C5%AF%C5%BEi%C4%8Dka_(politik)"
-      ],
-      "headline": "Růžička, bývalý voják, má stoprocentní docházku a předsedá dozoru nad vojenským zpravodajstvím, ale za celé období nepodal jediný vlastní zákon."
+      }
     },
     {
       "id": "psp:person:6533",
@@ -1549,15 +1105,7 @@
         "effort_public_role": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6533",
-        "https://cs.wikipedia.org/wiki/Marek_Nov%C3%A1k",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&T=11",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&T=72"
-      ],
-      "headline": "Nejvýkonnější poslanec skupiny B podle skóre je i bez jediné vedoucí funkce spoluautorem zákona č. 90/2026 Sb."
+      }
     },
     {
       "id": "psp:person:6537",
@@ -1582,12 +1130,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6537&o=10"
-      ],
-      "headline": "Lipavský, bývalý ministr zahraničí (2021–2025), je dnes řadový poslanec ODS v zahraničně-bezpečnostních výborech — bez vlastní legislativní iniciativy ve vzorku a s neúplně zachyceným výborovým zařazením v datech."
+      }
     },
     {
       "id": "psp:person:6538",
@@ -1611,17 +1154,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6538",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=133",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=208",
-        "https://ares.gov.cz/ekonomicke-subjekty-vr/01398717",
-        "https://ares.gov.cz/ekonomicke-subjekty-vr/04627695",
-        "https://mmr.gov.cz/cs/ministerstvo/regionalni-rozvoj/informace,-aktuality,-seminare,-pracovni-skupiny/psur/vyzva-c-2/mas/mas-nad-prahou-o-p-s"
-      ],
-      "headline": "Kupkův vlastní návrh na snížení spotřebních daní čeká na vládu i přes její nesouhlas; jeho 3,97mil. Kč vazba na místní akční skupinu MAS Nad Prahou zůstala neověřená kvůli nedostupnému ARES VR."
+      }
     },
     {
       "id": "psp:person:6544",
@@ -1643,16 +1176,7 @@
         "effort_bill_focus": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6544",
-        "https://www.irozhlas.cz/zpravy-domov/policista-severomoravske-kriminalky-ci-bezpecnostni-manazer-metnar-usedne-do_2512141324_ntu",
-        "https://en.wikipedia.org/wiki/Lubom%C3%ADr_Metnar",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=144",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=213"
-      ],
-      "headline": "Metnar řídí vnitro potřetí v kariéře; nízké poslanecké skóre je artefakt dat, ne skutečné neaktivity — vládní agendu vede jako ministr, ne jako řadový poslanec."
+      }
     },
     {
       "id": "psp:person:6545",
@@ -1671,14 +1195,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6545",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=119",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11"
-      ],
-      "headline": "Schillerová jako ministryně financí skoro přestala interpelovat a mluvit na plénu, ale její vlastní novela penzijního spoření už je zákonem 128/2026 Sb."
+      }
     },
     {
       "id": "psp:person:6549",
@@ -1696,15 +1213,7 @@
         "effort_notes": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 2,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6549",
-        "https://vlada.gov.cz/cz/media-centrum/aktualne/premier-andrej-babis-uvedl-do-funkci-ministry-a-ministryne-nove-vlady-224215/",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=228",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=232"
-      ],
-      "headline": "Nízké skóre je artefakt: ministr školství podruhé v kariéře, aktivní na vládních tiscích, ne na lavicích Sněmovny."
+      }
     },
     {
       "id": "psp:person:6555",
@@ -1727,18 +1236,7 @@
         "effort_bill_focus": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6555",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=50",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=89",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=109",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=110",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=121",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=161"
-      ],
-      "headline": "Philipp má nejvyšší contribution_score ve vzorku, ale všech jeho 6 spoluautorských návrhů zákonů narazilo na nesouhlas vlády a žádný zatím neprošel."
+      }
     },
     {
       "id": "psp:person:6621",
@@ -1761,16 +1259,7 @@
         "effort_bill_focus": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6621",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=67",
-        "https://vlada.gov.cz/cz/vlada/clenove-vlady/karel-havlicek-223969/",
-        "https://mpo.gov.cz/cz/rozcestnik/pro-media/tiskove-zpravy/ministrem-prumyslu-a-obchodu-se-stal-karel-havlicek---290911/"
-      ],
-      "headline": "Havlíčkovo nízké skóre 'bottom/divergence' je artefakt vládní funkce – od prosince 2025 je 1. místopředsedou vlády a ministrem průmyslu, ne řadovým poslancem bez výborů."
+      }
     },
     {
       "id": "psp:person:6664",
@@ -1788,14 +1277,7 @@
         "effort_notes": [
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 2,
-      "citations": [
-        "https://www.psp.cz/zprava/21942",
-        "https://www.psp.cz/sqw/detail.sqw?id=6664",
-        "https://www.irozhlas.cz/zpravy-domov/napodruhe-spravne-sichtarova-svou-rezignaci-na-post-ve-snemovne-opatrila_2603112118_elev"
-      ],
-      "headline": "Nulová aktivita po většinu období není lenost: do Sněmovny nastoupil až v březnu 2026 za rezignovavší Šichtařovou, do jediného výboru až v květnu."
+      }
     },
     {
       "id": "psp:person:6693",
@@ -1816,15 +1298,7 @@
           "internal case reference",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6693",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=103",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=129",
-        "https://www.hlidacstatu.cz/osoba/Funkce/libor-hoppe"
-      ],
-      "headline": "Hoppe má dva pending návrhy zákonů se skupinou Jana Bureše; datová mezera je nápadnější než cokoliv v samotné agendě — jeho známé podnikatelské podíly (SamRek CZ, OP Security, HOPPE F Group) v datech Case ① chybí úplně."
+      }
     },
     {
       "id": "psp:person:6719",
@@ -1843,15 +1317,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6719",
-        "https://www.ods.cz/profil/3701-jana-bacikova",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&T=261",
-        "https://cs.wikipedia.org/wiki/Jana_Ba%C4%8D%C3%ADkov%C3%A1"
-      ],
-      "headline": "Starostka Vacenovic z Jihomoravska podala svůj první poslanecký návrh zákona (ochrana přírody) až 14. července 2026 — zatím je bez výsledku."
+      }
     },
     {
       "id": "psp:person:6727",
@@ -1875,17 +1341,7 @@
           "raw pipeline field name",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6727",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=46",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=61",
-        "https://zpravy.aktualne.cz/eva-decroix-ministryne-spravedlnosti-ods-mistopredsedkyne-po/r~13dcefaa79b911f0b689ac1f6b220ee8/r~f235b56aae8511f0b2180cc47ab5f122/?lp=1",
-        "https://zena-in.cz/clanek/kousek-francie-na-vysocine-bistrot-de-papa",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/03709698"
-      ],
-      "headline": "Bývalá ministryně spravedlnosti Eva Decroix skončila v opozici bez jediného vlastního zákona a s nejasně proúčtovanou firemní vazbou v datech."
+      }
     },
     {
       "id": "psp:person:6730",
@@ -1913,12 +1369,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6730&o=10"
-      ],
-      "headline": "Wenzl dozoruje vojenské zpravodajství i ÚZSI a sedí v dozorčí radě VZP, ale jeho PSP10 skóre (68.4) je oproti PSP9 (78) nižší s nulovou legislativní a interpelační aktivitou zatím zachycenou v datech — nejasné, zda jde o skutečný pokles, nebo o neúplný zápis raného období."
+      }
     },
     {
       "id": "psp:person:6732",
@@ -1937,17 +1388,7 @@
           "raw prop identifier",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=70",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25205625",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/29123747",
-        "https://www.vodarna.cz/data/folders/vodarnaplzen_vz2017-f48.pdf",
-        "https://www.hlidacstatu.cz/osoba/Funkce/ivana-madlova"
-      ],
-      "headline": "Mádlová má obě spolupodepsané tisky s reálným úspěchem (jeden už zákonem), ale i dvě dvakrát ověřené — a historické, roky před mandátem skončené — dozorčí role ve firmách v hodnotě přes 935 mil. Kč smluv, tematicky blízké jejím dnešním výborům."
+      }
     },
     {
       "id": "psp:person:6738",
@@ -1968,12 +1409,7 @@
           "internal case reference",
           "API/pipeline mechanics"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=187"
-      ],
-      "headline": "Lang souběžně dozoruje GIBS, BIS, NBÚ i finanční analytiku a jeho jediný vlastní tisk je těsně před dokončením — ale vstupní počet výborů (8) opět neodpovídá sedmi reálně uvedeným."
+      }
     },
     {
       "id": "psp:person:6743",
@@ -1991,20 +1427,7 @@
         "effort_notes": [
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=217",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26822105",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/47674652",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/47997826",
-        "https://valassky.denik.cz/zpravy_region/robert-strzinek-valasske-mezirici-poslanec-starosta-anketa-2025.html",
-        "https://valassky.denik.cz/zpravy_region/valasske-mezirici-nemocnice-agel-provozovatel-smlouva-prodlouzeni.html",
-        "https://cs.wikipedia.org/wiki/Robert_Str%C5%BE%C3%ADnek",
-        "https://www.strzinek.cz/"
-      ],
-      "headline": "Stržínek souběžně s poslaneckým mandátem zastává funkci místopředsedy představenstva Vodovody a kanalizace Vsetín (od 2023, aktivní) — nejde o uzavřenou historickou vazbu, jak uvedl první návrh."
+      }
     },
     {
       "id": "psp:person:6750",
@@ -2022,14 +1445,7 @@
         "effort_notes": [
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6750",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=120",
-        "https://cs.wikipedia.org/wiki/Josef_Flek"
-      ],
-      "headline": "Josef Flek řídí sněmovní Výbor pro obranu, ale legislativně se v datech objevuje jen jako jeden z osmnácti spolupodpisů cizího návrhu."
+      }
     },
     {
       "id": "psp:person:6753",
@@ -2047,15 +1463,7 @@
         "effort_notes": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 2,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6753&o=10",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=70",
-        "https://pardubice.rozhlas.cz/roky-v-opozici-nebyly-vesele-spoustu-veci-upravime-rika-poslankyne-ano-9582981"
-      ],
-      "headline": "Bývalá náměstkyně dvou ministerstev jako tichá pracovnice sociální politiky: pět spolupodepsaných tisků včetně dvou už platných zákonů, skóre oproti minulému období vzrostlo."
+      }
     },
     {
       "id": "psp:person:6755",
@@ -2075,13 +1483,7 @@
           "raw pipeline field name",
           "internal case reference"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6755",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=133"
-      ],
-      "headline": "Havránek vede bezpečnostní dozorovou komisi GIBS, jeho jediný vlastní návrh (spotřební daně) narazil na nesouhlas vlády a zatím nebyl přijat."
+      }
     },
     {
       "id": "psp:person:6756",
@@ -2099,15 +1501,7 @@
         "effort_notes": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 2,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6756&o=10",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87"
-      ],
-      "headline": "Šéfuje dohledu nad odposlechy a spoluvede vyšetřování Dozimetru — skóre vzrostlo z 67 na 85,4, ale hnací silou je výborové vedení, ne vlastní legislativa."
+      }
     },
     {
       "id": "psp:person:6762",
@@ -2126,14 +1520,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6762",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=59",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=244"
-      ],
-      "headline": "Pavla Pivoňka Vaňková je jedinou z pětice, kde vysoké skóre odpovídá reálnému autorství vlastních zákonů, ne jen spolupodpisům."
+      }
     },
     {
       "id": "psp:person:6767",
@@ -2154,14 +1541,7 @@
           "internal case reference",
           "API/pipeline mechanics"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=24",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=120",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=146"
-      ],
-      "headline": "Řehková spolupodepsala tři tisky (obce, daně) v dozorové bezpečnostní roli, ale u žádného nebyla první předkladatelkou — a vstupní počet výborů (3) neodpovídá dvěma reálně uvedeným."
+      }
     },
     {
       "id": "psp:person:6769",
@@ -2184,18 +1564,7 @@
         "effort_public_role": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=50",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=89",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=109",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=110",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=121",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=161",
-        "https://en.wikipedia.org/wiki/Hayato_Okamura"
-      ],
-      "headline": "Okamura drží stabilní tříčlenné výborové zázemí soustředěné na zahraniční a bezpečnostní agendu (vč. hybridních hrozeb), ale u žádného ze šesti spolupodepsaných tisků nebyl vlastním předkladatelem."
+      }
     },
     {
       "id": "psp:person:6770",
@@ -2216,13 +1585,7 @@
           "internal case reference",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87"
-      ],
-      "headline": "Oulehlová zvýšila skóre přínosu mezi PSP9 a PSP10 (72,9→77,9) a jeden z jejích dvou spolupodepsaných tisků (jednací řád PS) už prošel Sněmovnou — byť u žádného nebyla první předkladatelkou."
+      }
     },
     {
       "id": "psp:person:6780",
@@ -2246,14 +1609,7 @@
         "effort_bill_focus": [
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=116",
-        "https://ekolist.cz/cz/zpravodajstvi/zpravy/snemovni-vybor-pro-zivotni-prostredi-povede-berenika-pestova-ano",
-        "https://www.psp.cz/sqw/detail.sqw?id=6780"
-      ],
-      "headline": "Peštová má na první pohled stabilní kontribuční skóre mezi PSP9 a PSP10 (76→75), ale pod povrchem interpelace spadly z 31 na 0 a spoluautorství tisků z 8 na 1 — odraz přechodu z aktivní řadové poslankyně na předsedkyni Výboru pro životní prostředí."
+      }
     },
     {
       "id": "psp:person:6786",
@@ -2273,17 +1629,7 @@
           "raw pipeline field name",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6786",
-        "https://cs.wikipedia.org/wiki/R%C3%B3bert_Teleky",
-        "https://www.telekymedicus.cz/",
-        "https://www.kdu.cz/o-nas/nasi-lide/poslanci/teleky",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&T=50",
-        "https://www.finmag.cz/obchodni-rejstrik/ares/04627695-osvc"
-      ],
-      "headline": "Vsetínský chirurg z KDU-ČSL má reálné vazby na regionální nemocnice přes dozorčí radu, ale v datech ho spojuje s Petrem Hladíkem i jedno stejné, nejspíš špatně přiřazené IČO."
+      }
     },
     {
       "id": "psp:person:6787",
@@ -2308,14 +1654,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6787",
-        "https://www.hlidacstatu.cz/Osoba/Funkce/libor-turek",
-        "https://ustecky.denik.cz/zpravy_region/rozhovor-poslanec-libor-turek-20211012.html"
-      ],
-      "headline": "Turek nemá jediný vlastní zákon a jeho zaměstnavatel — Dopravní podnik Ústí nad Labem, který jako výkonný ředitel řídí — v datech Case ① chybí jako linkedCompany, ačkoliv jde o přesně ten typ vazby, který se jinde ve vzorku sleduje."
+      }
     },
     {
       "id": "psp:person:6788",
@@ -2334,16 +1673,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6788",
-        "https://www.psp.cz/zprava/22390",
-        "https://www.denik.cz/z_domova/poslanci-zvolili-nominantku-stan-urbanovou-mistopredsedkyni-snemovny.html",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=36",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=205"
-      ],
-      "headline": "Z řadové poslankyně STAN se v červnu 2026 stala místopředsedkyní Sněmovny — reálný kariérní postup, ne jen papírová aktivita."
+      }
     },
     {
       "id": "psp:person:6789",
@@ -2363,19 +1693,7 @@
           "batch/sample self-reference",
           "API/pipeline mechanics"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6789",
-        "https://cs.wikipedia.org/wiki/Luk%C3%A1%C5%A1_Vl%C4%8Dek_(politik)",
-        "https://mpo.gov.cz/en/guidepost/ministry/minister/profile-of-the-minister-of-industry-and-trade-of-czech-republic--ing--lukas-vlcek--283477/",
-        "https://www.hlidacstatu.cz/osoba/lukas-vlcek",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=52",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=24",
-        "https://www.viarustica.cz/",
-        "https://www.finmag.cz/obchodni-rejstrik/ares/04627695-agrarni-demokraticka-strana"
-      ],
-      "headline": "Bývalý ministr průmyslu dál dotahuje zákony svého resortu a k tomu spravuje síť lokálních firem a spolků na Pelhřimovsku."
+      }
     },
     {
       "id": "psp:person:6793",
@@ -2394,16 +1712,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6793",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&T=103",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&T=129",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&T=208",
-        "https://cs.wikipedia.org/wiki/Ren%C3%A1ta_Zaj%C3%AD%C4%8Dkov%C3%A1"
-      ],
-      "headline": "Bývalá starostka Prahy 5 se v Sněmovně soustředí na skupinové novely v oblasti dat, obchodu a drog — žádný z jejích tří tisků letos zatím neprošel a vláda dvěma z nich vyslovila nesouhlas."
+      }
     },
     {
       "id": "psp:person:6796",
@@ -2426,15 +1735,7 @@
         "effort_public_role": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6796",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=106",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=107",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=181"
-      ],
-      "headline": "Zuna nese nejtěžší dozorové portfolio ve vzorku — místopředsednictví tří dozorových orgánů plus vyšetřovací komise k Dozimetru — bez vlastního zákona a bez firemní vazby v datech."
+      }
     },
     {
       "id": "psp:person:6804",
@@ -2452,14 +1753,7 @@
         "effort_notes": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6804",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&T=208",
-        "https://www.parlamentnilisty.cz/politika/politici-volicum/Nemeckova-Crkvenjas-ODS-VZP-pojistila-90-procent-uprchliku-788061"
-      ],
-      "headline": "Lékařka a členka správní rady VZP s nízkým legislativním výstupem v Sněmovně, ale reálným vlivem na politiku veřejného zdravotního pojištění mimo parlament."
+      }
     },
     {
       "id": "psp:person:6881",
@@ -2477,18 +1771,7 @@
         "effort_notes": [
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6881",
-        "https://vlada.gov.cz/cz/clenove-vlady/petr-hladik-203664/",
-        "https://www.irozhlas.cz/zpravy-domov/s-motoristy-na-zivotnim-prostredi-hrozi-lobbisticke-vazby-uhli-a-vekslacke_2511201100_jgr",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&T=73",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&T=14",
-        "https://arenabrno.cz/ridici-vybor",
-        "https://www.finmag.cz/obchodni-rejstrik/ares/04627695-osvc"
-      ],
-      "headline": "Bývalý ministr životního prostředí se po pádu do opozice vrátil k vlastní odpadové agendě, ale jeho datová vazba na 5,3miliardovou zakázku brněnské arény se nepodařilo doložit jako osobní — spíš jde o dlouholetou roli městského zastupitele."
+      }
     },
     {
       "id": "psp:person:6905",
@@ -2513,17 +1796,7 @@
         "effort_public_role": [
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/61989592",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/61989592",
-        "https://www.hlidacstatu.cz/Osoba/Funkce/andrea-hoffmannova-3",
-        "https://cs.wikipedia.org/wiki/Andrea_Hoffmannov%C3%A1",
-        "https://moravskoslezsky.pirati.cz/lide/mgr-andrea-hoffmannova-phd/"
-      ],
-      "headline": "Hoffmannové nízké skóre kryje z velké části souběh s náročnou funkcí náměstkyně primátora Ostravy do ledna 2026; peněžní vazba na Univerzitu Palackého se po dvou nezávislých ověřeních ukazuje jako stará doktorandská vazba, ne aktuální obchodní angažmá."
+      }
     },
     {
       "id": "psp:person:6946",
@@ -2551,14 +1824,7 @@
           "raw pipeline field name",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
-        "https://www.hlidacstatu.cz/Osoba/Funkce/josef-vana-25",
-        "https://zpravy.aktualne.cz/domaci/poslancem-se-stal-i-zokej-vana-ktery-za-rok-rekl-117-slov-ud/r~e0ecd5aca45011f0b689ac1f6b220ee8/"
-      ],
-      "headline": "Váňa, bývalý žokej s veřejně proslulou téměř nulovou řečnickou aktivitou, je zapsán jako spolupodepsaný u jediného (a jediného přijatého) tisku vzorku — ale jeho jméno v poskytnutém seznamu skutečných spolupodepsaných chybí, což je třeba ověřit."
+      }
     },
     {
       "id": "psp:person:6986",
@@ -2579,14 +1845,7 @@
           "internal case reference",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=71",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=86",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168"
-      ],
-      "headline": "Ančincová je místopředsedkyní vyšetřovací komise ke kauze Dozimetr a spolupodepsala tři sociální/penzijní tisky bez vlastního prvenství; vstupní počet výborů (3) opět neodpovídá dvěma reálně uvedeným."
+      }
     },
     {
       "id": "psp:person:6987",
@@ -2607,12 +1866,7 @@
           "internal case reference",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=250"
-      ],
-      "headline": "Barták má v tomto vzorku nejtenčí legislativní i řečnickou stopu — jediný spolupodepsaný tisk čerstvě čeká na vládní stanovisko a jeho jediná uvedená výborová role (místopředseda ORGV) neodpovídá vstupnímu počtu dvou vazeb."
+      }
     },
     {
       "id": "psp:person:6988",
@@ -2635,12 +1889,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6988"
-      ],
-      "headline": "Bartoň je typický tichý, nekonfliktní člen dvou výborů -- vysoká docházka, nulové vystoupení v plénu, žádný vlastní zákon, žádná firemní vazba k prošetření."
+      }
     },
     {
       "id": "psp:person:6992",
@@ -2659,17 +1908,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=59",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=106",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=107",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=181",
-        "https://olomoucky.denik.cz/zpravy_region/zdenka-blistanova-jesenik-olomoucky-kraj-psp-cr-ales-jakubec.html",
-        "https://cs.wikipedia.org/wiki/Zde%C5%88ka_Bli%C5%A1%C5%A5anov%C3%A1"
-      ],
-      "headline": "Blišťanová spojuje tříčlenné výborové portfolio (sociální politika, veřejná správa, regiony v transformaci) s dlouholetou funkcí starostky Jeseníku, ale žádný ze čtyř spolupodepsaných tisků dosud neprošel."
+      }
     },
     {
       "id": "psp:person:6994",
@@ -2687,14 +1926,7 @@
         "effort_notes": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 1,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6994",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=50",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=74"
-      ],
-      "headline": "Předsedkyně sociálního výboru s devíti tisky — vládou napadenou důchodovou novelu vede přes vlastní výbor, v sále jen osmkrát."
+      }
     },
     {
       "id": "psp:person:6995",
@@ -2712,14 +1944,7 @@
         "effort_notes": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 2,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6995&o=10",
-        "https://kladensky.denik.cz/zpravy_region/kladno-poslanec-frantisek-bures.html",
-        "https://cs.wikipedia.org/wiki/Franti%C5%A1ek_Bure%C5%A1_(politik)"
-      ],
-      "headline": "Nejmladší poslanec skupiny, náměstek primátora Kladna: stoprocentní účast, nula tisků — a dva čerstvé podvýborové vedoucí posty, které skóre nezachytilo."
+      }
     },
     {
       "id": "psp:person:6996",
@@ -2744,16 +1969,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=199",
-        "https://vlada.gov.cz/cz/vlada/clenove-vlady/igor-cerveny-225455/",
-        "https://mzp.gov.cz/cz/ministerstvo/ministr",
-        "https://ct24.ceskatelevize.cz/clanek/domaci/novym-kandidatem-na-ministra-zivotniho-prostredi-je-poslanec-cerveny-370384",
-        "https://cs.wikipedia.org/wiki/Igor_%C4%8Cerven%C3%BD"
-      ],
-      "headline": "Červený je od února 2026 souběžně poslancem I ministrem životního prostředí — což vysvětluje jediný (vládní) tisk v jeho datech, ale i datovou nesrovnalost ve výborovém vedení (4 vs. 3 role) a garanční výbor, jehož není členem."
+      }
     },
     {
       "id": "psp:person:6998",
@@ -2771,14 +1987,7 @@
         "effort_bill_focus": [
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 2,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=6998",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=50",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=89"
-      ],
-      "headline": "Místopředseda rozpočtového výboru a klubu KDU-ČSL v 29 letech — u pěti ze šesti tisků je ale jen spolupodepsaný."
+      }
     },
     {
       "id": "psp:person:7000",
@@ -2802,14 +2011,7 @@
         "effort_bill_focus": [
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
-        "https://www.psp.cz/sqw/detail.sqw?id=7000",
-        "https://hradecky.denik.cz/zpravy_region/poslanec-doksansky-konci-komise-vzdelavani-hradec-20260130.html"
-      ],
-      "headline": "Doksanský má v tomto vzorku jediný, pouze spolupodepsaný tisk a vede zahraniční delegaci ČR–USA, zatímco v komunální politice v Hradci Králové čelí sporu kolem vlastní školy a rezignoval na post ve školské komisi."
+      }
     },
     {
       "id": "psp:person:7002",
@@ -2830,18 +2032,7 @@
           "internal case reference",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=100",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=106",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=107",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=120",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=205",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=206",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=214"
-      ],
-      "headline": "Dvořák, místopředseda ústavně-právního výboru, spolupodepsal sedm tisků (kompetenční zákon, Ústava, zakázky) — žádný zatím neprošel a vláda k většině zaujala nesouhlas — a vstupní počet výborů (6) opět neodpovídá třem reálně uvedeným."
+      }
     },
     {
       "id": "psp:person:7004",
@@ -2859,14 +2050,7 @@
         "effort_notes": [
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=7004",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=28",
-        "https://cs.wikipedia.org/wiki/Jana_Filipovi%C4%8Dov%C3%A1"
-      ],
-      "headline": "Filipovičová nikdy nevede návrh sama, ale podepisuje se pod klíčové daňové a sociální novely KDU-ČSL — typický profil tiché legislativní pracovnice bez mediální stopy."
+      }
     },
     {
       "id": "psp:person:7008",
@@ -2889,13 +2073,7 @@
         "effort_public_role": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=146",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=161"
-      ],
-      "headline": "Kašparová spolupodepsala dvě novely (obce, odpady), obě zatím odmítnuté vládou a uvízlé ve výboru — u žádné nebyla ona sama vedoucí předkladatelkou."
+      }
     },
     {
       "id": "psp:person:7009",
@@ -2913,14 +2091,7 @@
         "effort_notes": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 2,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=7009&o=10",
-        "https://pardubicky.denik.cz/zpravy_region/poslankyne-i-namestkyne-primatora-najednou-klcova-to-chce-zkusit-20251020.html",
-        "https://cs.wikipedia.org/wiki/Ji%C5%99ina_Kl%C4%8Dov%C3%A1"
-      ],
-      "headline": "Náměstkyně primátora Pardubic se stoprocentní účastí, ale nulovou legislativní stopou — souběh mandátů, ne nezájem."
+      }
     },
     {
       "id": "psp:person:7010",
@@ -2945,15 +2116,7 @@
           "raw prop identifier",
           "internal gate-rule citation"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=7010&o=10",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=192",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=231",
-        "https://mk.gov.cz/novinky-a-media-cs-4/6509cs-ministr-kultury-oto-klempir-se-ujal-uradu"
-      ],
-      "headline": "Klempíř, bývalý místopředseda mediálního výboru, je od prosince 2025 ministrem kultury a v této roli zaštiťuje dva sněmovní tisky (novela knihovního zákona a novela zákona o ČT a ČRo) posuzované výborem, v němž sám dříve seděl — data jej ale stále vedou jako řadového výborového člena."
+      }
     },
     {
       "id": "psp:person:7011",
@@ -2974,14 +2137,7 @@
           "internal case reference",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=24",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=120",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=146"
-      ],
-      "headline": "Hlavatý spolupodepsal tři tisky vedené kolegy z klubu STAN (obce, daně), dva z nich už dostaly nesouhlas vlády a žádný dosud neprošel — sám nebyl u žádného prvním předkladatelem."
+      }
     },
     {
       "id": "psp:person:7014",
@@ -3008,12 +2164,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=7014"
-      ],
-      "headline": "Kowanda sedí ve třech výborech/komisích, ale za období téměř nemluvil (2 vystoupení) a nepodal žádný zákon — nenápadný, bez firemních vazeb v datech."
+      }
     },
     {
       "id": "psp:person:7015",
@@ -3031,14 +2182,7 @@
         "effort_notes": [
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=7015",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=120",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=146"
-      ],
-      "headline": "Krainerova stopa je tenká — dva spolupodpisy bez vlastního autorství a chybějící historická data k porovnání, žádný skandál ani výrazný výkon."
+      }
     },
     {
       "id": "psp:person:7016",
@@ -3057,14 +2201,7 @@
           "raw prop identifier",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 2,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=7016",
-        "https://www.psp.cz/zprava/21429",
-        "https://motoristesobe.cz/profil-miroslav-krejci"
-      ],
-      "headline": "Bývalý šéf CERMATu vede obě klíčové bezpečnostní komise Sněmovny — hybridní hrozby i dohled nad NÚKIB — a nemá jediný vlastní tisk."
+      }
     },
     {
       "id": "psp:person:7017",
@@ -3084,14 +2221,7 @@
           "raw pipeline field name",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=67",
-        "https://motoristesobe.cz/vojtech-krnansky",
-        "https://www.psp.cz/sqw/hp.sqw?k=8301"
-      ],
-      "headline": "Krňanský předsedá Stálé komisi pro hybridní hrozby a jeho jediný spolupodepsaný tisk — novela stavebního zákona — je z celého vzorku dávky D nejblíže dokončení, už u Senátu."
+      }
     },
     {
       "id": "psp:person:7018",
@@ -3110,22 +2240,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=7018",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=28",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=74",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=50",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=75",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=89",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=104",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=109",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=110",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=121",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=161"
-      ],
-      "headline": "Kršková patří k top-lens nováčkům s deseti spoluautorskými návrhy, ale žádný z nich zatím neprošel — vládní nesouhlas provází devět z deseti, šest sdílí s klubovým kolegou Philippem."
+      }
     },
     {
       "id": "psp:person:7021",
@@ -3143,13 +2258,7 @@
         "effort_notes": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 2,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=7021",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87"
-      ],
-      "headline": "Místopředseda ústavní komise a letecko-kosmického podvýboru po pěti měsících v mandátu — jediný tisk je spolupodpis symbolického zákona o zemských znacích, ne vlastní autorství."
+      }
     },
     {
       "id": "psp:person:7022",
@@ -3168,15 +2277,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=7022",
-        "https://vlada.gov.cz/cz/vlada/clenove-vlady/petr-macinka-223973/",
-        "https://zpravy.kurzy.cz/843207-petr-macinka-motoriste-vicepremier-ministr-zahranicnich-veci-predseda-strany-7-1-2026/",
-        "https://cs.wikipedia.org/wiki/Motorist%C3%A9_sob%C4%9B"
-      ],
-      "headline": "Petr Macinka je od prosince 2025 místopředsedou vlády a ministrem zahraničí — jeho nízká poslanecká aktivita v datech je logickým důsledkem souběhu funkcí, ne pasivity."
+      }
     },
     {
       "id": "psp:person:7023",
@@ -3198,18 +2299,7 @@
           "raw prop identifier",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=71",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=86",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/24766216",
-        "https://cs.wikipedia.org/wiki/Lenka_Mart%C3%ADnkov%C3%A1_%C5%A0panihelov%C3%A1",
-        "https://ceske-socialni-podnikani.cz/adresar-socialnich-podniku/maturus-o-p-s/",
-        "https://www.hlidacstatu.cz/subjekt/24766216"
-      ],
-      "headline": "Martínková Španihelová byla v letech 2011–2014 statutární zástupkyní sociálního podniku MATURUS, o.p.s., který získával veřejné (MPSV) financování — historická, nyní ověřená vazba."
+      }
     },
     {
       "id": "psp:person:7025",
@@ -3228,18 +2318,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=7025",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&T=11",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&T=70",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&T=72",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&T=87",
-        "https://cs.wikipedia.org/wiki/Jana_Murov%C3%A1",
-        "https://www.forum24.cz/neznama-poslankyne-murova-z-ano-ktera-urazila-piraty-je-sberatelkou-funkci-zvlada-politicky-hattrick"
-      ],
-      "headline": "Starostka, krajská radní a poslankyně v jedné osobě má za sebou dva už platné zákony, ale i kritiku za souběh tří politických funkcí a kontroverzní výrok na adresu Pirátů."
+      }
     },
     {
       "id": "psp:person:7026",
@@ -3263,12 +2342,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=7026"
-      ],
-      "headline": "Nedomová je nejvíc podprůměrná v kontribučním skóre vůči vlastnímu klubu STAN v celém vzorku -- žádný zákon, jen 8 vystoupení, ale nezvykle rozsáhlá síť deseti meziparlamentních skupin, kterou skóre nezachycuje."
+      }
     },
     {
       "id": "psp:person:7027",
@@ -3296,12 +2370,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=7027&o=10"
-      ],
-      "headline": "Němcová, místopředsedkyně Výboru pro životní prostředí za SPD, má při vysoké docházce (90 %) jen 3 řečnické vstupy a žádný tisk — tichý, nekonfliktní profil bez peněžních zjištění, který triage systém přesto neoznačil jako quiet workhorse."
+      }
     },
     {
       "id": "psp:person:7028",
@@ -3320,17 +2389,7 @@
           "raw prop identifier",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 2,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=7028",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=74",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=50",
-        "https://www.firemniprofil.cz/firma/72160340/cevyko-a-s",
-        "https://polar.cz/zpravy/karvinsko/havirov/11000050076/projekt-cevyko-v-havirove-ziskal-stavebni-povoleni-mesto-chysta-infrastrukturu",
-        "https://karvinsky.denik.cz/zpravy_region/konference-lidovc-kdu-csl-tesin-clenove-podporili-brzeskova-niemiec-grolich-2026.html"
-      ],
-      "headline": "Náměstek primátora Havířova s nejvyšším skóre skupiny: sedm spolupodepsaných tisků napříč životním prostředím a sociální politikou, plus vazba na 279milionový odpadový projekt vlastního města."
+      }
     },
     {
       "id": "psp:person:7029",
@@ -3350,16 +2409,7 @@
           "raw pipeline field name",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=70",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
-        "https://cs.wikipedia.org/wiki/Pavel_Outrata"
-      ],
-      "headline": "Outrata nepředložil sám žádný tisk, ale tři ze čtyř spolupodepsaných návrhů už jsou zákonem nebo těsně před ním — nejvyšší úspěšnost spolupodpisů v dávce D, i přes nulovou řečnickou viditelnost."
+      }
     },
     {
       "id": "psp:person:7031",
@@ -3377,16 +2427,7 @@
         "effort_notes": [
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=7031",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/06386237",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/09187944",
-        "https://www.hlidacstatu.cz/osoba/patrik-paril",
-        "https://www.pohorelice.cz/mesto/povinne-informace/osoba-mgr-patrik-paril-2.html"
-      ],
-      "headline": "Patrik Pařil má dvě firmy na adrese svého vlastního starostenského úřadu v Pohořelicích, ale kdo je skutečně vlastní, veřejné zdroje nepotvrzují."
+      }
     },
     {
       "id": "psp:person:7032",
@@ -3410,14 +2451,7 @@
         "effort_public_role": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168",
-        "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/00084018",
-        "https://www.khk.cz/oblasti/kultura-pamatkova-pece/oddeleni-kultury-pamatkove-pece-0/organizace-v-kulture-knihovny/hvezdarna-planetarium-v-hradci-kralove"
-      ],
-      "headline": "Patková spolupodepsala jedinou (vládou odmítnutou) novelu DPH; její jediná peněžní vazba — krajská hvězdárna v jejím regionu — je po ověření přes ARES VR institucionální, ne osobní: ředitelem je od 2014 M. Krejčí, ne ona."
+      }
     },
     {
       "id": "psp:person:7033",
@@ -3441,12 +2475,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=7033"
-      ],
-      "headline": "Svoboda je druhý 'tichý' poslanec v tomto vzorku s téměř identickým behaviorálním otiskem jako Bartoň -- vysoká docházka, nulová řečnická a legislativní aktivita, žádná firemní vazba."
+      }
     },
     {
       "id": "psp:person:7034",
@@ -3469,12 +2498,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=7034"
-      ],
-      "headline": "Pikora vede Rozpočtový výbor, ale za sledované období nepodal jediný vlastní zákon a nemá žádnou firemní vazbu v datech."
+      }
     },
     {
       "id": "psp:person:7036",
@@ -3493,20 +2517,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=104",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=73",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=74",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=50",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=75",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=89",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=109",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=110",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=121"
-      ],
-      "headline": "Pláteník je aktivním spolupodpisujícím napříč devíti tisky (jen jeden vlastní) a sedí ve vyšetřovací komisi ke kauze Dozimetr, ale žádný z jeho tisků dosud neprošel."
+      }
     },
     {
       "id": "psp:person:7038",
@@ -3527,15 +2538,7 @@
           "internal case reference",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=201",
-        "https://www.ceskenoviny.cz/zpravy/kauzu-dozimetr-budou-proverovat-mj-masek-valkova-rajchl-vesecka-a-zacek/2803054",
-        "https://www.psp.cz/sqw/detail.sqw?id=7038"
-      ],
-      "headline": "Rázga sedí ve vyšetřovací komisi ke kauze Dozimetr a dozoruje NÚKIB, ale legislativně je zatím jen spolupodepsanou u dvou cizích tisků a vstupní počet výborů (6) o jednu vazbu převyšuje reálně doložené."
+      }
     },
     {
       "id": "psp:person:7039",
@@ -3560,17 +2563,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=7039",
-        "https://vysocina.rozhlas.cz/vysocina-ma-po-12-letech-noveho-hejtmana-stal-se-jim-vitezslav-schrek-z-ods-8364287",
-        "https://cs.wikipedia.org/wiki/V%C3%ADt%C4%9Bzslav_Schrek",
-        "https://ares.gov.cz/ekonomicke-subjekty-vr/25513290",
-        "https://or.justice.cz/ias/ui/rejstrik-$firma?ico=25513290",
-        "https://rejstrik.penize.cz/25513290-pradelna-a-cistirna-jihlava-s-r-o"
-      ],
-      "headline": "Bývalý hejtman Vysočiny Schrek nepodal žádný vlastní zákon; jeho šest firemních vazeb kopíruje sociální/regionální agendu z jeho dřívějšího úřadu, ale ARES VR ověření selhalo a jedna položka je potřetí se opakující datový placeholder."
+      }
     },
     {
       "id": "psp:person:7042",
@@ -3589,17 +2582,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=7042",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=106",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=107",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=120",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=146",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=244"
-      ],
-      "headline": "Sedmihradská kombinuje čistě kontrolně-rozpočtový výborový profil s jediným vlastním autorským návrhem zákona (daně z příjmů), který zatím čelí nesouhlasu vlády."
+      }
     },
     {
       "id": "psp:person:7043",
@@ -3620,17 +2603,7 @@
           "internal case reference",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=72",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=103",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=129",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=208",
-        "https://www.psp.cz/cgi-bin/win/sqw/detail.sqw?id=7043&s=1&o=10",
-        "https://zlinsky.denik.cz/z-regionu/novy-predseda-ods-zlinsky-kraj-poslanec-stepan-slovak-kupka-blaha-ivan-gomolova.html"
-      ],
-      "headline": "Slovák je jediný ze svého tisku (208, ochrana zdraví před návykovými látkami) skutečným prvním předkladatelem, u tří dalších je jen spolupodepsaný — a vstupní počet výborů (10) neodpovídá šesti reálně uvedeným."
+      }
     },
     {
       "id": "psp:person:7045",
@@ -3648,13 +2621,7 @@
         "effort_notes": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 1,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=7045",
-        "https://olomoucky.denik.cz/zpravy_region/ods-olomoucky-kraj-lidr-petr-sokol-martin-major-2025.html"
-      ],
-      "headline": "Místopředseda vlastního klubu, který se přesto neváhá postavit proti: šéfuje evropskému výboru, ale u těsných hlasování láme linii ODS."
+      }
     },
     {
       "id": "psp:person:7046",
@@ -3673,14 +2640,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=7046",
-        "https://www.pirati.cz/jak-pirati-pracuji/poslankyne-piratu-sramkova-interpeluje-ministra-zdravotnictvi-ve-veci-toxinu-v-kojenecke-vyzive-cesko-spi-zatimco-francie-jedna/",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168"
-      ],
-      "headline": "Šrámková legislativně skoro nic nepředkládá, ale jako ověřovatelka zdravotního výboru prosadila usnesení k toxinu v kojenecké výživě, které zavazuje ministerstvo k rychlejšímu varování rodičů."
+      }
     },
     {
       "id": "psp:person:7050",
@@ -3700,14 +2660,7 @@
           "raw pipeline field name",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=24",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=120",
-        "https://www.psp.cz/sqw/snem.sqw?l=cz&id=1761"
-      ],
-      "headline": "Sviták je místopředsedou Hospodářského výboru a sedí v mandátovém výboru, ale jeho dva spolupodepsané tisky (obce, daně) zatím neprošly a jeho viditelnost (10 řečnických vystoupení) je v tomto vzorku nejnižší po Outratovi."
+      }
     },
     {
       "id": "psp:person:7052",
@@ -3732,18 +2685,7 @@
         "effort_public_role": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=50",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=89",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=109",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=110",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=121",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=243",
-        "https://www.psp.cz/sqw/hp.sqw?k=4100"
-      ],
-      "headline": "Talíř předsedá Výboru pro mediální záležitosti (volí radu ČT i ČRo) a u žádného ze šesti tisků nebyl prvním předkladatelem — pět z nich uvízlo po nesouhlasu vlády; vstupní počet výborů (3) opět neodpovídá dvěma reálně uvedeným."
+      }
     },
     {
       "id": "psp:person:7055",
@@ -3766,18 +2708,7 @@
         "effort_public_role": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=7055",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=50",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=89",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=104",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=109",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=110",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=121"
-      ],
-      "headline": "Vojáček spolupodepsal šest sociálně-fiskálních novel klubu KDU-ČSL/SPOLU, u žádné nebyl prvním předkladatelem a všech šest čeká na dokončení projednání navzdory nesouhlasu vlády."
+      }
     },
     {
       "id": "psp:person:7056",
@@ -3797,12 +2728,7 @@
           "raw pipeline field name",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=11"
-      ],
-      "headline": "Volfová má nejnižší skóre příspěvku ve vzorku a jediný spolupodepsaný tisk — ten se ale skutečně stal zákonem navzdory nesouhlasu vlády, a její výborová data jsou jako jediná v této skupině bez zjištěné nesrovnalosti."
+      }
     },
     {
       "id": "psp:person:7058",
@@ -3823,14 +2749,7 @@
           "internal case reference",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=76",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=77",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=87"
-      ],
-      "headline": "Vondráček (SPD) spolupodepsal tři tisky vedené Radkem Vondráčkem — jiným poslancem stejného příjmení — dva už prošly Sněmovnou a míří do Senátu, ale sám nebyl u žádného prvním předkladatelem."
+      }
     },
     {
       "id": "psp:person:7059",
@@ -3848,15 +2767,7 @@
         "effort_notes": [
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 3,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=7059",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=201",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=221",
-        "https://www.irozhlas.cz/zpravy-domov/dva-mesice-sporu-o-turka-velky-prehled-vyroku-kdo-se-za-nej-stavi-a-kdo-uz-ho-z_2512080620_jgr"
-      ],
-      "headline": "Turek téměř nemluví na plénu, ale spoluautorsky tlačí novelu zákona o střetu zájmů a rozhlasových poplatcích – a mezitím řídí vládní klimatickou agendu."
+      }
     },
     {
       "id": "psp:person:7062",
@@ -3884,18 +2795,7 @@
           "raw pipeline field name",
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://cs.wikipedia.org/wiki/Martin_Z%C3%A1ho%C5%99",
-        "https://rejstrik.penize.cz/18251129-tazata-spol-s-r-o",
-        "https://ares.gov.cz/ekonomicke-subjekty-vr/18251129",
-        "https://ares.gov.cz/ekonomicke-subjekty-vr/26318903",
-        "https://www.mustribro.cz/urad-2/povinne-informace/subjekt-sprava-majetku-mesta-stribra-sro-32.html",
-        "https://ares.gov.cz/ekonomicke-subjekty-vr/26387816",
-        "https://www.finmag.cz/obchodni-rejstrik/26387816-jise-stavby-s-r-o"
-      ],
-      "headline": "Záhoř má nejnižší contribution_score ve vzorku (nulová legislativní iniciativa), ale zároveň je současně starostou Stříbra, náměstkem hejtmana Plzeňského kraje i poslancem a jeho datová stopa zahrnuje stavební firmu s nejasnou statutární rolí a městem stoprocentně vlastněnou firmu, kterou z pozice starosty dozoruje."
+      }
     },
     {
       "id": "psp:person:7063",
@@ -3913,14 +2813,7 @@
         "effort_notes": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 1,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=7063",
-        "https://www.echo24.cz/a/HhDMq/zpravy-domaci-zarzycky-se-vzdava-postu-poslance-zustane-primatorem-plzne",
-        "https://cs.wikipedia.org/wiki/Roman_Zarzyck%C3%BD"
-      ],
-      "headline": "Rekordní preferenční hlasy, pak se mandátu vzdal — zůstal primátorem Plzně; nulová účast není absence, ale odchod ze Sněmovny."
+      }
     },
     {
       "id": "psp:person:7065",
@@ -3942,15 +2835,7 @@
         "effort_public_role": [
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=71",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=86",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=161",
-        "https://www.psp.cz/sqw/historie.sqw?o=10&t=168"
-      ],
-      "headline": "Šmída, náhradník s nejvyšším skóre v tomto vzorku, spolupodepsal čtyři nepřijaté tisky v tématech přesně odpovídajících jeho výborům (životní prostředí, zemědělství) a nemá žádnou firemní vazbu k prověření."
+      }
     },
     {
       "id": "psp:person:7066",
@@ -3978,12 +2863,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 5,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=7066&o=10"
-      ],
-      "headline": "Hebr, náhradník ANO nastoupivší až v listopadu 2025, už předsedá podvýboru pro evropské fondy a patří k nejaktivnějším řečníkům vzorku (91 vstupů) při stoprocentní účasti — nadprůměrný start bez vlastní legislativní iniciativy a bez peněžních zjištění."
+      }
     },
     {
       "id": "psp:person:7067",
@@ -4001,14 +2881,7 @@
         "effort_public_role": [
           "batch/sample self-reference"
         ]
-      },
-      "origBatch": 2,
-      "citations": [
-        "https://cs.wikipedia.org/wiki/Ji%C5%99%C3%AD_Penc",
-        "https://vary.rozhlas.cz/petr-kubis-se-ve-snemovne-vzdal-poslaneckeho-mandatu-nahradi-ho-lekar-jiri-penc-9573581",
-        "https://www.psp.cz/sqw/detail.sqw?id=7067"
-      ],
-      "headline": "Lékař, který nastoupil místo starosty odmítnuvšího mandát: stoprocentní docházka, ale jediné vystoupení a žádný vlastní tisk za osm měsíců."
+      }
     },
     {
       "id": "psp:person:7106",
@@ -4031,13 +2904,7 @@
           "raw prop identifier",
           "raw pipeline field name"
         ]
-      },
-      "origBatch": 4,
-      "citations": [
-        "https://cnn.iprima.cz/motoristy-opousti-poslanec-diplomata-berana-by-mel-nahradit-majitel-cerpacich-stanic-forman-513403",
-        "https://ekonomickydenik.cz/poslanec-motoristu-beran-konci-snemovna/"
-      ],
-      "headline": "Forman nastoupil jako náhradník za diplomaticky odcházejícího Berana a za 55 dní ve Sněmovně nestihl jediný vlastní návrh zákona ani prakticky žádné vystoupení."
+      }
     },
     {
       "id": "psp:person:7108",
@@ -4055,14 +2922,7 @@
         "effort_notes": [
           "raw prop identifier"
         ]
-      },
-      "origBatch": 2,
-      "citations": [
-        "https://www.psp.cz/sqw/detail.sqw?id=7108",
-        "https://www.psp.cz/zprava/22492",
-        "https://www.obcasnik.eu/poslanec-kott-ano-odchazi-na-nku-nahradi-ho-jihlavsti-politici-faltus-a-kotlik/"
-      ],
-      "headline": "Nejnovější poslanec Sněmovny: nastoupil teprve před pěti týdny za Kotta, který odešel k NKÚ."
+      }
     }
   ]
 }
