@@ -44,8 +44,24 @@ export async function getMoneyData(): Promise<MoneyData | null> {
     for (const e of linked) {
       const comp = companyById.get(e.dst);
       if (!comp) continue; // unresolved company → drop, never guess
+
+      // The person side used to be checked only later, in the per-MP grouping
+      // loop below — so an edge whose person failed to resolve there (stale
+      // edge, term-boundary mismatch, a person filtered out of the "person"
+      // listing) still landed in these stats but was silently absent from
+      // `mps`/the visible ledger, making the aggregate tiles permanently
+      // unreconcilable with the rows a user can actually see. Resolve both
+      // sides up front so an edge either contributes to nothing or to
+      // everything it's counted in.
+      const pnode = personById.get(e.src);
+      const pspId = pspIdFromNodeId(e.src);
+      if (!pnode || pspId == null) {
+        console.warn(`[getMoneyData] dropping linked_to edge — person unresolved: ${e.src} -> ${e.dst}`);
+        continue;
+      }
+
       const contracts = contractsByCompany.get(comp.id) ?? { count: 0, czk: 0, amounts: [], lines: [] };
-      const tie = mapLinkedToTie({ edge: e, company: comp, contracts, person: personById.get(e.src) });
+      const tie = mapLinkedToTie({ edge: e, company: comp, contracts, person: pnode });
       if (tie.reviewState === "verified") verifiedTies += 1;
       else if (tie.reviewState === "pending_review") pendingTies += 1;
       const contractCzk = tie.contractCzk;
