@@ -144,6 +144,11 @@ export async function getProfileData(pspId: number): Promise<ProfileData | null>
           shared: num((e.props as { shared?: unknown }).shared),
         };
       })
+      // A co_votes_with edge pointing at a malformed/non-person node id (a
+      // data-quality slip in the knowledge-graph ingest) makes otherPspId NaN
+      // — rendered as a dead /poslanec/NaN link presented as a legitimate ally
+      // with no visual indication anything is wrong. Drop rather than guess.
+      .filter((cv) => Number.isFinite(cv.pspId))
       .sort((a, b) => b.agreement - a.agreement)
       .slice(0, 8);
 
