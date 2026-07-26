@@ -26,6 +26,12 @@ export default function SiteHeader() {
           <span className="text-xl font-black uppercase tracking-tight">Politicas</span>
         </div>
         <div className="flex items-center gap-4">
+          {/* Section-anchor tabs only make sense once the poster layout is wide
+              enough to show them as a horizontal strip — hidden below lg. The
+              "enter dashboard" CTA is the primary conversion path, though, so
+              it stays outside this hidden block and visible at every
+              breakpoint instead of disappearing along with the anchor nav on
+              mobile/tablet, where it was previously unreachable from the header. */}
           <nav className="hidden items-stretch text-xs font-bold uppercase tracking-widest lg:flex">
             {NAV.map(([key, anchor], i) => (
               <a
@@ -37,10 +43,10 @@ export default function SiteHeader() {
                 {t(`nav.${key}`)}
               </a>
             ))}
-            <Link href="/dashboard" className="flex items-center bg-signal px-5 font-bold text-paper">
-              {t("enter")}
-            </Link>
           </nav>
+          <Link href="/dashboard" className="flex items-center bg-signal px-4 py-2 text-xs font-bold uppercase tracking-widest text-paper lg:px-5 lg:py-0">
+            {t("enter")}
+          </Link>
           <LanguageSwitcher className="my-auto" />
         </div>
       </div>
