@@ -31,14 +31,18 @@ export default function ScoreBreakdown({
     [tc],
   );
 
-  // Vážené příspěvky se nemění s výběrem, jen zvýraznění.
+  // Vážené příspěvky se nemění s výběrem, jen zvýraznění. Klíčováno stabilním
+  // p.key (enum), NE lokalizovaným labelem — dva pilíře se stejným přeloženým
+  // textem by jinak přes Object.fromEntries tiše přepsaly jeden druhým a jeden
+  // pilíř by z grafu beze stopy zmizel. Label se předává jen jako `name` na
+  // <Bar> níže, čistě pro zobrazení v tooltipu.
   const stackedData = useMemo(
     () =>
       MPS.map((m) => ({
         id: m.id,
         name: m.name.split(" ").at(-1) ?? m.name,
         ...(Object.fromEntries(
-          pillarLabels.map((p) => [p.label, Math.round(m.pillars[p.key] * p.weight * 10) / 10]),
+          pillarLabels.map((p) => [p.key, Math.round(m.pillars[p.key] * p.weight * 10) / 10]),
         ) as Record<string, number>),
       })),
     [pillarLabels],
@@ -75,7 +79,8 @@ export default function ScoreBreakdown({
             {pillarLabels.map((p) => (
               <Bar
                 key={p.key}
-                dataKey={p.label}
+                dataKey={p.key}
+                name={p.label}
                 stackId="kompozit"
                 fill={PILLAR_FILL[p.key]}
                 onClick={(entry) => {
