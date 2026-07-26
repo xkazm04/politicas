@@ -34,11 +34,13 @@ export default function TenureTrendGate({
   if (!trend) return null;
 
   if (isTrendTooEarly(tenureDays)) {
+    const unknown = typeof tenureDays !== "number" || !Number.isFinite(tenureDays);
     return (
       <div className="mt-10 border-2 border-dashed border-hairline p-6">
         <p className="text-sm leading-relaxed text-steel">
-          Na srovnání s obdobím {trend.priorTerm} je zatím brzy — mandát trvá teprve krátce a sazby
-          (účast, docházka) by byly zavádějící na tak malém počtu hlasování.
+          {unknown
+            ? `Délku mandátu se nepodařilo určit, takže srovnání s obdobím ${trend.priorTerm} zatím neukazujeme — sazby (účast, docházka) by mohly být zavádějící bez jistoty, na kolika hlasováních jsou postavené.`
+            : `Na srovnání s obdobím ${trend.priorTerm} je zatím brzy — mandát trvá teprve krátce a sazby (účast, docházka) by byly zavádějící na tak malém počtu hlasování.`}
         </p>
         <SourceNote className="mt-2 !text-[10px]">
           zdroj: effort_tenure_days · práh {TREND_MIN_TENURE_DAYS} dní

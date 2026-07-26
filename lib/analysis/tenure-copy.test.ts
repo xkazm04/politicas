@@ -43,10 +43,13 @@ describe("isTrendTooEarly", () => {
     expect(isTrendTooEarly(400)).toBe(false);
   });
 
-  it("degrades to false (do not suppress) for missing/malformed tenure", () => {
-    expect(isTrendTooEarly(null)).toBe(false);
-    expect(isTrendTooEarly(undefined)).toBe(false);
-    expect(isTrendTooEarly("90")).toBe(false);
+  it("fails closed (suppresses the comparison) for missing/malformed tenure", () => {
+    // An unknown tenure length must never be read as "long enough" — that
+    // would show the exact noisy rate comparison this gate exists to prevent
+    // for the population whose tenure genuinely can't be measured.
+    expect(isTrendTooEarly(null)).toBe(true);
+    expect(isTrendTooEarly(undefined)).toBe(true);
+    expect(isTrendTooEarly("90")).toBe(true);
   });
 });
 

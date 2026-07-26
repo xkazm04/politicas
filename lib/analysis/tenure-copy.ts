@@ -35,9 +35,13 @@ export function isTenureClass(x: unknown): x is TenureClass {
 /** Below this many tenure days, term-over-term rate comparisons are too noisy to show. */
 export const TREND_MIN_TENURE_DAYS = 90;
 
-/** True when the TrendPanel's rate/delta comparison should be suppressed for a short tenure. */
+/** True when the TrendPanel's rate/delta comparison should be suppressed for a short
+ * (or unknown) tenure. Fails CLOSED: an absent/non-numeric tenureDays (e.g. an MP
+ * missing a chamber-membership row for tenure purposes) is treated as "too early
+ * to trust the comparison," matching this codebase's graceful-null-first
+ * discipline everywhere else — "we don't know" must never be read as "long enough." */
 export function isTrendTooEarly(tenureDays: unknown): boolean {
-  return typeof tenureDays === "number" && Number.isFinite(tenureDays) && tenureDays < TREND_MIN_TENURE_DAYS;
+  return typeof tenureDays !== "number" || !Number.isFinite(tenureDays) || tenureDays < TREND_MIN_TENURE_DAYS;
 }
 
 /** "2025-11-12" → "12. 11. 2025" (cs-CZ day-first, no leading zeros — matches spoken Czech dates). */
