@@ -28,8 +28,17 @@ import {
 
 const TERM = "PSP10";
 
+/** Same fix as moneyLoader.ts's num() — a jsonb amount prop with no schema
+ * guarantee can land as a numeric string; treating every non-number as zero
+ * silently undercounts reachable money instead of surfacing a parse problem. */
 function num(v: unknown): number {
-  return typeof v === "number" && Number.isFinite(v) ? v : 0;
+  if (typeof v === "number" && Number.isFinite(v)) return v;
+  if (typeof v === "string" && v.trim() !== "") {
+    const parsed = Number(v);
+    if (Number.isFinite(parsed)) return parsed;
+    console.warn(`[getVerificationData] num() could not parse numeric string: ${JSON.stringify(v)}`);
+  }
+  return 0;
 }
 function pspIdFromNodeId(id: string): number | null {
   const tail = id.split(":").pop();

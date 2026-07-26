@@ -20,8 +20,19 @@ import { classifyTie, isDeMinimis, nearThresholdCount, reviewRank, reviewSignal,
 const TERM = "PSP10";
 const CONTRACT_LINES_PER_COMPANY = 400; // generous cap; UI slices its own top-N
 
+/** `props` is a jsonb blob (see lib/db/types.ts) with no schema guarantee an
+ * amount landed as a JS number rather than a numeric string. Treating every
+ * non-number as "worth zero" conflates that common serialization shape with a
+ * genuinely absent value, silently undercounting reachable money. Attempt a
+ * real parse first; only a truly absent/unparseable value defaults to 0. */
 export function num(v: unknown): number {
-  return typeof v === "number" && Number.isFinite(v) ? v : 0;
+  if (typeof v === "number" && Number.isFinite(v)) return v;
+  if (typeof v === "string" && v.trim() !== "") {
+    const parsed = Number(v);
+    if (Number.isFinite(parsed)) return parsed;
+    console.warn(`[moneyLoader] num() could not parse numeric string: ${JSON.stringify(v)}`);
+  }
+  return 0;
 }
 
 export function pspIdFromNodeId(id: string): number | null {
