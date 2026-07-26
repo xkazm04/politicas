@@ -11,7 +11,7 @@
  * návrh, a přitom to neposílá dotaz na každý znak.
  */
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Search, X } from "lucide-react";
 import { useFormat } from "@/lib/i18n/useFormat";
@@ -61,6 +61,19 @@ export default function NodeSearch({
     if (timerRef.current) clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => run(value), DEBOUNCE_MS);
   };
+
+  // A pending debounce timer (or an in-flight request it kicked off) survives
+  // unmount otherwise — switching variants or navigating away within the
+  // 140ms window still fires the timer, which calls setHits/setActive/setBusy
+  // on a component that no longer exists. reqRef guards against out-of-order
+  // RESPONSES racing each other, but does nothing to stop the timer/request
+  // from firing at all after unmount.
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+      reqRef.current++;
+    };
+  }, []);
 
   const pick = (hit: SearchHit) => {
     onPick(hit);
