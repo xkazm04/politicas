@@ -122,11 +122,24 @@ export function mapMandate(r: Record<string, unknown>): MandateRow {
     raw: json(r.raw),
   };
 }
+/** `membership.kind` has no DB-level check constraint — any unexpected value
+ * (a schema drift in the source feed, a typo in an ingest script, a future
+ * third kind) silently narrows to "member", the majority bucket, with no
+ * signal that a value was actually dropped rather than genuinely being
+ * "member". Warn once per distinct unrecognized value so drift surfaces in
+ * ingest run logs instead of being absorbed. */
+const warnedUnknownMembershipKinds = new Set<string>();
+
 export function mapMembership(r: Record<string, unknown>): MembershipRow {
+  const rawKind = str(r.kind);
+  if (rawKind !== "function" && rawKind !== "member" && !warnedUnknownMembershipKinds.has(rawKind)) {
+    warnedUnknownMembershipKinds.add(rawKind);
+    console.warn(`[mapMembership] unrecognized membership.kind "${rawKind}" — coercing to "member"`);
+  }
   return {
     id: str(r.id),
     personPspId: num(r.person_psp_id),
-    kind: str(r.kind) === "function" ? "function" : "member",
+    kind: rawKind === "function" ? "function" : "member",
     targetPspId: num(r.target_psp_id),
     organPspId: numOrNull(r.organ_psp_id),
     functionNameCz: strOrNull(r.function_name_cz),
