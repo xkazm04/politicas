@@ -7,6 +7,7 @@ const require = createRequire(import.meta.url);
 // Custom rules ported/adapted from the personas repo — see docs/DESIGN.md §Lint.
 const noSilentCatch = require("./eslint-rules/no-silent-catch.cjs");
 const noSilentNullCatch = require("./eslint-rules/no-silent-null-catch.cjs");
+const noServerImportInClient = require("./eslint-rules/no-server-import-in-client.cjs");
 const roleButtonRequiresKeydown = require("./eslint-rules/role-button-requires-keydown.cjs");
 const enforceReducedMotionFallback = require("./eslint-rules/enforce-reduced-motion-fallback.cjs");
 const noHardcodedColors = require("./eslint-rules/no-hardcoded-colors.cjs");
@@ -25,6 +26,7 @@ const eslintConfig = defineConfig([
         rules: {
           "no-silent-catch": noSilentCatch,
           "no-silent-null-catch": noSilentNullCatch,
+          "no-server-import-in-client": noServerImportInClient,
           "role-button-requires-keydown": roleButtonRequiresKeydown,
           "enforce-reduced-motion-fallback": enforceReducedMotionFallback,
           "no-hardcoded-colors": noHardcodedColors,
@@ -33,6 +35,7 @@ const eslintConfig = defineConfig([
     },
     rules: {
       "custom/no-silent-catch": "error",
+      "custom/no-server-import-in-client": "error",
       "custom/role-button-requires-keydown": "error",
       "custom/enforce-reduced-motion-fallback": "error",
       "custom/no-hardcoded-colors": "error",
