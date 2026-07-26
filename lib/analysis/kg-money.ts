@@ -276,6 +276,10 @@ export function moneyTrails(g: MoneyGraph, links: readonly PersonCompanyLink[]):
   }
   const byPerson = new Map<number, { companies: Set<string>; verified: boolean }>();
   for (const l of links) {
+    // A human-rejected link is not "not yet verified" — it is explicitly refuted and
+    // must never contribute a company/contract total to the trail at all. Only
+    // "pending_review" legitimately falls through to the fullyVerified=false case below.
+    if (l.state === "rejected") continue;
     const urn = companyUrn(l.ico);
     if (!g.nodes.some((n) => n.id === urn)) continue;
     const cur = byPerson.get(l.personPspId) ?? { companies: new Set<string>(), verified: true };
