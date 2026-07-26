@@ -105,7 +105,7 @@ export default function VerificationConsole({
     [data, filter],
   );
 
-  const handleDecide = useCallback(async (tie: ReviewTie, decision: ReviewDecision) => {
+  const handleDecide = useCallback(async (tie: ReviewTie, decision: ReviewDecision, note: string | null) => {
     if (!writeConfigured) {
       // No write path configured server-side — keep the old local-scratch behavior
       // (toggle a decision on/off) so the console stays USABLE for prep work
@@ -131,7 +131,7 @@ export default function VerificationConsole({
     setDecisions((prev) => ({ ...prev, [tie.id]: decision }));
     setWriteStatus((prev) => ({ ...prev, [tie.id]: { phase: "pending" } }));
 
-    const result = await submitReviewDecision({ src: tie.src, dst: tie.dst, decision, note: null, token });
+    const result = await submitReviewDecision({ src: tie.src, dst: tie.dst, decision, note, token });
 
     if (result.status === "ok") {
       setWriteStatus((prev) => ({ ...prev, [tie.id]: { phase: "done", message: result.reviewState } }));
@@ -168,7 +168,7 @@ export default function VerificationConsole({
         document.getElementById(`tie-${prev.id}`)?.scrollIntoView({ block: "center", behavior: "smooth" });
       } else if (idx >= 0 && DECISION_KEYS[e.key]) {
         e.preventDefault();
-        void handleDecide(shown[idx], DECISION_KEYS[e.key]);
+        void handleDecide(shown[idx], DECISION_KEYS[e.key], null);
       }
     }
     window.addEventListener("keydown", onKeyDown);
@@ -328,7 +328,7 @@ export default function VerificationConsole({
                   writeStatus={writeStatus[tie.id] ?? { phase: "idle" }}
                   focused={focusedId === tie.id}
                   onFocus={() => setFocusedId(tie.id)}
-                  onDecide={(d) => handleDecide(tie, d)}
+                  onDecide={(d, note) => handleDecide(tie, d, note)}
                 />
               </div>
             );
@@ -393,7 +393,7 @@ function ReviewCard({
   writeStatus: WriteStatus;
   focused: boolean;
   onFocus: () => void;
-  onDecide: (d: ReviewDecision) => void;
+  onDecide: (d: ReviewDecision, note: string | null) => void;
 }) {
   const reach = tie.contractCzk + tie.subsidiesCzk;
   const period = `${tie.periodFrom ?? "?"} – ${tie.periodTo ?? "„trvá“"}`;
@@ -405,6 +405,12 @@ function ReviewCard({
     { label: "Hlídač firma", href: tie.links.hlidacSubjekt },
     ...(tie.links.hlidacPerson ? [{ label: "Hlídač osoba", href: tie.links.hlidacPerson }] : []),
   ];
+  // "Doplnit" (needs-more) exists specifically to record what additional
+  // evidence is needed — without a note it persists no information beyond the
+  // bare decision, making the whole workflow functionally a no-op beyond
+  // "not yet decided". Held locally per-card; sent through onDecide instead of
+  // the previously hardcoded `note: null`.
+  const [noteDraft, setNoteDraft] = useState("");
 
   return (
     <article
@@ -506,21 +512,31 @@ function ReviewCard({
       </div>
 
       {/* actions */}
-      <div className="flex flex-wrap items-center gap-2 border-t-2 border-hairline px-5 py-3">
-        {DECISIONS.map((d) => (
-          <button
-            key={d.key}
-            type="button"
-            disabled={writeStatus.phase === "pending" || writeStatus.phase === "done"}
-            onClick={() => onDecide(d.key)}
-            className={`border-2 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
-              decision === d.key ? "bg-ink text-paper border-ink" : d.cls
-            }`}
-          >
-            {d.label}
-          </button>
-        ))}
-        {decision && <WriteStatusNote decision={decision} writeConfigured={writeConfigured} status={writeStatus} />}
+      <div className="flex flex-col gap-2 border-t-2 border-hairline px-5 py-3">
+        <textarea
+          value={noteDraft}
+          onChange={(e) => setNoteDraft(e.target.value)}
+          disabled={writeStatus.phase === "pending" || writeStatus.phase === "done"}
+          placeholder="poznámka k rozhodnutí (co je třeba doplnit, na co si dát pozor…) — nepovinné"
+          rows={2}
+          className="w-full resize-y border-2 border-hairline bg-paper px-2 py-1.5 font-mono text-xs text-ink outline-none placeholder:text-steel focus:border-cobalt disabled:opacity-50"
+        />
+        <div className="flex flex-wrap items-center gap-2">
+          {DECISIONS.map((d) => (
+            <button
+              key={d.key}
+              type="button"
+              disabled={writeStatus.phase === "pending" || writeStatus.phase === "done"}
+              onClick={() => onDecide(d.key, noteDraft.trim() || null)}
+              className={`border-2 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
+                decision === d.key ? "bg-ink text-paper border-ink" : d.cls
+              }`}
+            >
+              {d.label}
+            </button>
+          ))}
+          {decision && <WriteStatusNote decision={decision} writeConfigured={writeConfigured} status={writeStatus} />}
+        </div>
       </div>
     </article>
   );
