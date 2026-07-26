@@ -37,12 +37,18 @@ export default function FeedRow({
 }) {
   const tc = useTranslations("content");
   const tf = useTranslations("dashboard.feed");
+  // A row with no mpId link and no crosshair (an aggregate event like a
+  // quarterly recompute) does nothing on click — the hover highlight must not
+  // claim otherwise, per this file's own "no action hidden under a full-row
+  // click" doctrine, which cuts both ways: no false "this is clickable" signal
+  // on rows that aren't.
+  const isInteractive = Boolean(event.mpId) || (Boolean(onPick) && nodeIds.length > 0);
 
   return (
     <div
-      className={`grid grid-cols-[auto_1fr_auto] items-baseline gap-x-3 gap-y-1 border-b border-hairline px-3 py-3.5 transition-opacity hover:bg-paper-strong sm:grid-cols-[5.5rem_auto_1fr_auto] ${
-        dim ? "opacity-40" : ""
-      }`}
+      className={`grid grid-cols-[auto_1fr_auto] items-baseline gap-x-3 gap-y-1 border-b border-hairline px-3 py-3.5 transition-opacity sm:grid-cols-[5.5rem_auto_1fr_auto] ${
+        isInteractive ? "hover:bg-paper-strong" : ""
+      } ${dim ? "opacity-40" : ""}`}
     >
       <span className="col-span-3 font-mono text-[11px] uppercase tracking-wider text-steel sm:col-span-1">
         {tc(`events.${event.id}.ts`)}
