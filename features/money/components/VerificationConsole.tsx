@@ -119,6 +119,14 @@ export default function VerificationConsole({
       return;
     }
 
+    // Real invariant, not just a UI decoration: a write already in flight or already
+    // landed for this tie must never be raced or silently overwritten by a second
+    // decision. The mouse buttons additionally disable via JSX during "pending", but
+    // the keyboard shortcut path (1/2/3) calls handleDecide directly with no such
+    // check — this guard is the one place both paths actually enforce it.
+    const currentPhase = writeStatus[tie.id]?.phase;
+    if (currentPhase === "pending" || currentPhase === "done") return;
+
     // optimistic: show the decision immediately, reconcile with the real result after.
     setDecisions((prev) => ({ ...prev, [tie.id]: decision }));
     setWriteStatus((prev) => ({ ...prev, [tie.id]: { phase: "pending" } }));
@@ -136,7 +144,7 @@ export default function VerificationConsole({
     } else {
       setWriteStatus((prev) => ({ ...prev, [tie.id]: { phase: "error", message: result.message } }));
     }
-  }, [writeConfigured, token]);
+  }, [writeConfigured, token, writeStatus]);
 
   // Keyboard flow for a humane 211-tie review session: ↓/↑ (or j/k) move the focused
   // card, 1/2/3 apply confirm/doplnit/zamítnout to the focused card. Disabled while
@@ -503,7 +511,7 @@ function ReviewCard({
           <button
             key={d.key}
             type="button"
-            disabled={writeStatus.phase === "pending"}
+            disabled={writeStatus.phase === "pending" || writeStatus.phase === "done"}
             onClick={() => onDecide(d.key)}
             className={`border-2 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
               decision === d.key ? "bg-ink text-paper border-ink" : d.cls
