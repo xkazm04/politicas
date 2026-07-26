@@ -208,7 +208,22 @@ export async function getStore(): Promise<Store | null> {
   if (cached !== undefined) return cached;
   cached = (async (): Promise<Store | null> => {
     if (dbDriver() === "pglite") {
-      return await (await import("./pglite-store")).getPgliteStore();
+      const store = await (await import("./pglite-store")).getPgliteStore();
+      // The bootstrap layer (pglite/internals.ts) has its own connection memo,
+      // reset when `store.close()` runs — but that never touched THIS cache.
+      // Without clearing `cached` here too, a caller that does
+      // getStore() -> close() -> getStore() in one process got back the same
+      // already-resolved Store object whose methods close over a `pg` handle
+      // that had just been closed, failing every call with no clue why.
+      // Wrapping close() to clear `cached` first keeps both caches in lockstep.
+      const realClose = store.close.bind(store);
+      return {
+        ...store,
+        async close() {
+          cached = undefined;
+          await realClose();
+        },
+      };
     }
     return null;
   })();
