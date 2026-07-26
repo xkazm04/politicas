@@ -6,6 +6,7 @@ import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
 // Custom rules ported/adapted from the personas repo — see docs/DESIGN.md §Lint.
 const noSilentCatch = require("./eslint-rules/no-silent-catch.cjs");
+const noSilentNullCatch = require("./eslint-rules/no-silent-null-catch.cjs");
 const roleButtonRequiresKeydown = require("./eslint-rules/role-button-requires-keydown.cjs");
 const enforceReducedMotionFallback = require("./eslint-rules/enforce-reduced-motion-fallback.cjs");
 const noHardcodedColors = require("./eslint-rules/no-hardcoded-colors.cjs");
@@ -23,6 +24,7 @@ const eslintConfig = defineConfig([
       custom: {
         rules: {
           "no-silent-catch": noSilentCatch,
+          "no-silent-null-catch": noSilentNullCatch,
           "role-button-requires-keydown": roleButtonRequiresKeydown,
           "enforce-reduced-motion-fallback": enforceReducedMotionFallback,
           "no-hardcoded-colors": noHardcodedColors,
@@ -46,6 +48,18 @@ const eslintConfig = defineConfig([
     files: ["features/landing/palette.ts", "features/labs/**/*.{ts,tsx}", "lib/civic/data.ts"],
     rules: {
       "custom/no-hardcoded-colors": "off",
+    },
+  },
+  // Loader-boundary observability (/architect 2026-07-26): a loader's
+  // `catch { return null }` silently degrades the surface to mock — require
+  // reportLoaderFailure() so every degradation leaves a trace. Scoped to the
+  // loader files; features/graph is excluded until its in-flight round-4
+  // rework lands (its 4 sites are queued in the ADR).
+  {
+    files: ["features/**/get*.ts", "features/**/*Loader.ts"],
+    ignores: ["features/graph/**"],
+    rules: {
+      "custom/no-silent-null-catch": "error",
     },
   },
   // Catalog boundary (personas pattern): features/shared/components is the
