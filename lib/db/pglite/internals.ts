@@ -9,10 +9,18 @@ import { CORE_DDL } from "./ddl";
 export interface PgResult<T> {
   rows: T[];
 }
+/** A transaction handle: same query shape as `Pglite`, scoped to one begin/commit. */
+export interface PgTransaction {
+  query<T = Record<string, unknown>>(sql: string, params?: unknown[]): Promise<PgResult<T>>;
+}
 export interface Pglite {
   waitReady: Promise<void>;
   exec(sql: string): Promise<unknown>;
   query<T = Record<string, unknown>>(sql: string, params?: unknown[]): Promise<PgResult<T>>;
+  /** Runs `callback` inside a single transaction; PGlite serializes this against every
+   * other query/transaction on the one shared connection, so two concurrent callers
+   * can never interleave their reads/writes within the callback's read-modify-write. */
+  transaction<T>(callback: (tx: PgTransaction) => Promise<T>): Promise<T>;
   close(): Promise<void>;
 }
 

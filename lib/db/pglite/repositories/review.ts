@@ -6,7 +6,7 @@
 import { randomUUID } from "node:crypto";
 import type { ReviewRepository } from "../../store";
 import type { ReviewAuditRow } from "../../types";
-import { isoTs, json, str, strOrNull, type Pglite } from "../internals";
+import { isoTs, json, str, strOrNull, type Pglite, type PgTransaction } from "../internals";
 
 const LINKED_TO = "linked_to";
 
@@ -27,46 +27,54 @@ function mapAuditRow(r: Record<string, unknown>): ReviewAuditRow {
 export function makeReviewRepo(pg: Pglite): ReviewRepository {
   return {
     async setTieReviewState(src, dst, decision, reviewer, note) {
-      const { rows } = await pg.query<Record<string, unknown>>(
-        `select props from kg_edge where src = $1 and rel = $2 and dst = $3`,
-        [src, LINKED_TO, dst],
-      );
-      const edgeRow = rows[0];
-      if (!edgeRow) return { ok: false, error: "tie not found" };
+      // The whole read → audit-insert → update sequence runs inside one transaction.
+      // PGlite serializes transactions against every other query on the single shared
+      // connection, so two concurrent decisions on the same tie can no longer both read
+      // the same `props` before either writes — the second call's transaction only
+      // starts once the first has fully committed, closing the lost-update race where
+      // whichever `update` landed last used to silently discard the other decision.
+      return pg.transaction(async (tx: PgTransaction) => {
+        const { rows } = await tx.query<Record<string, unknown>>(
+          `select props from kg_edge where src = $1 and rel = $2 and dst = $3`,
+          [src, LINKED_TO, dst],
+        );
+        const edgeRow = rows[0];
+        if (!edgeRow) return { ok: false, error: "tie not found" };
 
-      const props = json(edgeRow.props);
-      const priorState = strOrNull((props.review_state ?? props.state) as unknown);
+        const props = json(edgeRow.props);
+        const priorState = strOrNull((props.review_state ?? props.state) as unknown);
 
-      // 1) audit row FIRST — the record of the decision must predate the state flip.
-      const id = randomUUID();
-      await pg.query(
-        `insert into review_audit (id, src, rel, dst, decision, reviewer, note, decided_at, prior_state)
-         values ($1,$2,$3,$4,$5,$6,$7, now(), $8)`,
-        [id, src, LINKED_TO, dst, decision, reviewer, note, priorState],
-      );
+        // 1) audit row FIRST — the record of the decision must predate the state flip.
+        const id = randomUUID();
+        await tx.query(
+          `insert into review_audit (id, src, rel, dst, decision, reviewer, note, decided_at, prior_state)
+           values ($1,$2,$3,$4,$5,$6,$7, now(), $8)`,
+          [id, src, LINKED_TO, dst, decision, reviewer, note, priorState],
+        );
 
-      // 2) only THEN update the edge. confirm → verified; reject → rejected (D7, batch
-      // 004: a terminal state so a rejected tie is not re-served in the pending queue
-      // forever); needs-more legitimately stays pending_review ("come back to this").
-      // Neither reject nor needs-more may ever flip review_state to verified.
-      const nextReviewState = decision === "confirm" ? "verified" : decision === "reject" ? "rejected" : "pending_review";
-      const nextProps: Record<string, unknown> = {
-        ...props,
-        review_state: nextReviewState,
-        last_decision: decision,
-        last_reviewer: reviewer,
-        last_reviewed_at: new Date().toISOString(),
-      };
-      if (note != null) nextProps.review_note = note;
+        // 2) only THEN update the edge. confirm → verified; reject → rejected (D7, batch
+        // 004: a terminal state so a rejected tie is not re-served in the pending queue
+        // forever); needs-more legitimately stays pending_review ("come back to this").
+        // Neither reject nor needs-more may ever flip review_state to verified.
+        const nextReviewState = decision === "confirm" ? "verified" : decision === "reject" ? "rejected" : "pending_review";
+        const nextProps: Record<string, unknown> = {
+          ...props,
+          review_state: nextReviewState,
+          last_decision: decision,
+          last_reviewer: reviewer,
+          last_reviewed_at: new Date().toISOString(),
+        };
+        if (note != null) nextProps.review_note = note;
 
-      await pg.query(`update kg_edge set props = $4 where src = $1 and rel = $2 and dst = $3`, [
-        src,
-        LINKED_TO,
-        dst,
-        JSON.stringify(nextProps),
-      ]);
+        await tx.query(`update kg_edge set props = $4 where src = $1 and rel = $2 and dst = $3`, [
+          src,
+          LINKED_TO,
+          dst,
+          JSON.stringify(nextProps),
+        ]);
 
-      return { ok: true, reviewState: nextReviewState };
+        return { ok: true, reviewState: nextReviewState };
+      });
     },
 
     async listReviewAudit(opts) {
