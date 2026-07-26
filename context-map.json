@@ -1,1161 +1,580 @@
 {
-  "contexts": [
-    {
-      "api_surface": "",
-      "business_feature": "Build Configuration",
-      "category": "config",
-      "cross_refs": [
-        "observability",
-        "lint-rules"
-      ],
-      "db_tables": [],
-      "description": "Build and project configuration: Next.js config with Sentry wrapper and Turbopack root, TypeScript strict mode with bundler module resolution and @/* path alias, PostCSS for Tailwind v4, flat ESLint config composing next + 4 custom rules, lefthook git-hook automation, and environment variable template.",
-      "entry_points": [
-        "next.config.ts",
-        "tsconfig.json"
-      ],
-      "file_paths": [
-        "next.config.ts",
-        "tsconfig.json",
-        "postcss.config.mjs",
-        "eslint.config.mjs",
-        "lefthook.yml",
-        ".env.example",
-        ".github/workflows/ci.yml"
-      ],
-      "group": "Infrastructure & Observability",
-      "group_id": "b4a48761-1201-423c-92e4-0a0a116ddafc",
-      "id": "2bce79e5-82e8-43af-b538-83a06821680f",
-      "keywords": [
-        "config",
-        "next",
-        "tsconfig",
-        "postcss",
-        "eslint",
-        "lefthook",
-        "CI",
-        "turbopack",
-        "env",
-        "build"
-      ],
-      "last_written_at": "2026-07-23T11:49:37.756264600+00:00",
-      "name": "app-config",
-      "pinned": false,
-      "tech_stack": [
-        "Next.js",
-        "TypeScript",
-        "Tailwind v4",
-        "ESLint",
-        "GitHub Actions"
-      ]
-    },
-    {
-      "api_surface": "",
-      "business_feature": "App Shell",
-      "category": "ui",
-      "cross_refs": [
-        "design-system"
-      ],
-      "db_tables": [],
-      "description": "Root Next.js App Router shell that applies global typography, CSS design tokens, and HTML lang attribute for Czech locale. Defines the three font families (Archivo, IBM Plex Mono, Fraunces) and all CSS custom property tokens (ink, paper, signal, cobalt, ochre, steel, hairline) consumed site-wide.",
-      "entry_points": [
-        "app/layout.tsx"
-      ],
-      "file_paths": [
-        "app/layout.tsx",
-        "app/globals.css"
-      ],
-      "group": "Landing & Navigation",
-      "group_id": "d86d84b2-f464-4d81-b681-f53493f2cea4",
-      "id": "e3fd490d-5999-44ae-a44a-5e536df87f0d",
-      "keywords": [
-        "layout",
-        "fonts",
-        "tokens",
-        "tailwind",
-        "css",
-        "czech",
-        "lang",
-        "global",
-        "theme"
-      ],
-      "last_written_at": "2026-07-23T11:49:37.749555500+00:00",
-      "name": "app-shell",
-      "pinned": false,
-      "tech_stack": [
-        "Next.js",
-        "Tailwind v4",
-        "TypeScript"
-      ]
-    },
-    {
-      "api_surface": "GET /rozpocty",
-      "business_feature": "Budget Mirror",
-      "category": "ui",
-      "cross_refs": [
-        "civic-mock-data",
-        "primitive-components",
-        "czech-formatting"
-      ],
-      "db_tables": [],
-      "description": "BudgetMirror module ('Rozpocty') comparing a municipality's budget metrics against computed peer-group medians: metric duos with deviation, debt-per-capita trend lines (town vs median), and a sortable peer comparison table. Stewardship feeds only executive roles, stated explicitly on the page.",
-      "entry_points": [
-        "features/budget/BudgetMirrorPage.tsx"
-      ],
-      "file_paths": [
-        "features/budget/BudgetMirrorPage.tsx",
-        "app/rozpocty/page.tsx"
-      ],
-      "group": "Financial Transparency",
-      "group_id": "d381ea7c-5c48-44a2-8ef4-1e33f879ee7a",
-      "id": "804e7306-cc34-4264-8b6f-c9ffb1ae7cf0",
-      "keywords": [
-        "rozpocty",
-        "budget",
-        "municipality",
-        "peer",
-        "median",
-        "debt",
-        "stewardship",
-        "town",
-        "mirror",
-        "trend"
-      ],
-      "last_written_at": "2026-07-23T11:49:37.753481200+00:00",
-      "name": "budget-mirror",
-      "pinned": false,
-      "tech_stack": [
-        "React",
-        "TypeScript",
-        "Recharts",
-        "Tailwind v4"
-      ]
-    },
-    {
-      "api_surface": "",
-      "business_feature": "Civic Mock Data",
-      "category": "data",
-      "cross_refs": [
-        "store-interface",
-        "vote-tracking",
-        "civic-score-leaderboard",
-        "mp-profile"
-      ],
-      "db_tables": [],
-      "description": "Current sample data layer powering all five feature modules: master mock constants (MPS, PARTIES, ROLL_CALLS, MONEY_TIES, TOWNS, LAW_CHANGES, EVENTS, MODULES, GRAPH_NODES/EDGES plus composite()), a deterministic seeded leaderboard generator for 200 MPs, and pure vote-logic functions (partyLine, partyDiscipline, chamberSplit). Includes colocated Vitest invariant tests.",
-      "entry_points": [
-        "lib/civic/data.ts",
-        "lib/civic/votes.ts"
-      ],
-      "file_paths": [
-        "lib/civic/data.ts",
-        "lib/civic/leaderboard.ts",
-        "lib/civic/votes.ts",
-        "lib/civic/data.test.ts"
-      ],
-      "group": "Data Layer",
-      "group_id": "7b0cbb74-205c-4b33-b45e-14c5a75403fa",
-      "id": "914c4a6d-4056-4e83-8189-4a1caf0d52cf",
-      "keywords": [
-        "mock",
-        "sample",
-        "pillars",
-        "composite",
-        "leaderboard",
-        "seeded",
-        "LCG",
-        "party-line",
-        "discipline",
-        "CHAMBER_SUMMARY"
-      ],
-      "last_written_at": "2026-07-23T11:49:37.755229100+00:00",
-      "name": "civic-mock-data",
-      "pinned": false,
-      "tech_stack": [
-        "TypeScript",
-        "Vitest"
-      ]
-    },
-    {
-      "api_surface": "GET /zebricek",
-      "business_feature": "CivicScore Leaderboard",
-      "category": "ui",
-      "cross_refs": [
-        "civic-mock-data",
-        "primitive-components"
-      ],
-      "db_tables": [],
-      "description": "Full 200-MP CivicScore leaderboard ('Zebricek') with score histogram, party filter, name search, weighted pillar mini-bars per row, and a 'Souboj' head-to-head MP comparison. The 195 non-sample MPs come from lib/civic/leaderboard.ts's deterministic seeded generator; aggregates are test-pinned to CHAMBER_SUMMARY.",
-      "entry_points": [
-        "features/civicscore/CivicScorePage.tsx"
-      ],
-      "file_paths": [
-        "features/civicscore/CivicScorePage.tsx",
-        "features/civicscore/components/HeadToHead.tsx",
-        "features/civicscore/components/LeaderboardTable.tsx",
-        "features/civicscore/components/ScoreHistogram.tsx",
-        "app/zebricek/page.tsx"
-      ],
-      "group": "MP Profiles & Rankings",
-      "group_id": "2f699b9d-517e-49fe-a42a-44f86470911a",
-      "id": "2a3b79df-3593-4cb9-b1b9-171dc667f88f",
-      "keywords": [
-        "leaderboard",
-        "civicscore",
-        "zebricek",
-        "histogram",
-        "souboj",
-        "pillars",
-        "party-filter",
-        "ranking",
-        "comparison",
-        "score"
-      ],
-      "last_written_at": "2026-07-23T11:49:37.751106800+00:00",
-      "name": "civic-score-leaderboard",
-      "pinned": false,
-      "tech_stack": [
-        "React",
-        "TypeScript",
-        "Recharts",
-        "Tailwind v4"
-      ]
-    },
-    {
-      "api_surface": "",
-      "business_feature": "Czech Formatting",
-      "category": "lib",
-      "cross_refs": [],
-      "db_tables": [],
-      "description": "Single-file Czech number and date formatting library implementing ČSN 01 6910 conventions: decimal commas, thousands-separator spaces, and deterministic ISO→Czech date conversion without Intl. The only permitted .toFixed call site in the codebase — all display numbers must route through here.",
-      "entry_points": [
-        "lib/format.ts"
-      ],
-      "file_paths": [
-        "lib/format.ts"
-      ],
-      "group": "Shared UI Primitives",
-      "group_id": "8044cd53-651f-4a5e-972e-a42023976cfa",
-      "id": "1e73b9cb-f83e-424e-9a3e-a6cb3b16360a",
-      "keywords": [
-        "czech",
-        "format",
-        "decimal-comma",
-        "ČSN",
-        "date",
-        "czechInt",
-        "czechDate",
-        "locale",
-        "number",
-        "display"
-      ],
-      "last_written_at": "2026-07-23T11:49:37.756035100+00:00",
-      "name": "czech-formatting",
-      "pinned": false,
-      "tech_stack": [
-        "TypeScript"
-      ]
-    },
-    {
-      "api_surface": "GET /dashboard",
-      "business_feature": "Dashboard Overview",
-      "category": "ui",
-      "cross_refs": [
-        "civic-mock-data",
-        "civic-score-leaderboard",
-        "primitive-components"
-      ],
-      "db_tables": [],
-      "description": "Velín dashboard giving a bird's-eye chamber overview: chamber aggregates, MP leaderboard snippet, graph-event feed, and module tiles linking to the five feature areas. Serves as the main logged-in landing experience and is the winning design from the dashboard prototype round.",
-      "entry_points": [
-        "features/dashboard/DashboardPage.tsx"
-      ],
-      "file_paths": [
-        "features/dashboard/DashboardPage.tsx",
-        "app/dashboard/page.tsx"
-      ],
-      "group": "MP Profiles & Rankings",
-      "group_id": "2f699b9d-517e-49fe-a42a-44f86470911a",
-      "id": "23bec9fb-cbeb-4d17-a830-10fdac4dbe87",
-      "keywords": [
-        "dashboard",
-        "velín",
-        "chamber",
-        "overview",
-        "leaderboard",
-        "events",
-        "modules",
-        "tiles",
-        "feed"
-      ],
-      "last_written_at": "2026-07-23T11:49:37.751299600+00:00",
-      "name": "dashboard-overview",
-      "pinned": false,
-      "tech_stack": [
-        "React",
-        "TypeScript",
-        "Tailwind v4"
-      ]
-    },
-    {
-      "api_surface": "",
-      "business_feature": "Data Quality Scoring",
-      "category": "lib",
-      "cross_refs": [
-        "db-schema-types",
-        "ingest-scripts"
-      ],
-      "db_tables": [
-        "slice_quality"
-      ],
-      "description": "Deterministic 6-criterion quality scorer that evaluates data completeness and correctness for each entity slice (person, organ, mandate, membership, vote events, ballots, absences). Defines the AnalysisVerdict JSON Schema contract, validation helpers, and scoring context builder used by the slice-stats CLI script.",
-      "entry_points": [
-        "lib/analysis/quality.ts"
-      ],
-      "file_paths": [
-        "lib/analysis/quality.ts",
-        "lib/analysis/verdict.ts"
-      ],
-      "group": "Data Layer",
-      "group_id": "7b0cbb74-205c-4b33-b45e-14c5a75403fa",
-      "id": "deb478c8-96bc-4c44-82a0-2f141fd0d994",
-      "keywords": [
-        "quality",
-        "score",
-        "verdict",
-        "criteria",
-        "completeness",
-        "analysis",
-        "JSON-Schema",
-        "validate",
-        "slice",
-        "context"
-      ],
-      "last_written_at": "2026-07-23T11:49:37.755513800+00:00",
-      "name": "data-quality-scoring",
-      "pinned": false,
-      "tech_stack": [
-        "TypeScript"
-      ]
-    },
-    {
-      "api_surface": "",
-      "business_feature": "DB Schema Types",
-      "category": "data",
-      "cross_refs": [
-        "store-interface",
-        "pglite-driver"
-      ],
-      "db_tables": [
-        "person",
-        "organ",
-        "mandate",
-        "membership",
-        "vote_event",
-        "vote_ballot",
-        "absence",
-        "source_release",
-        "ingest_run",
-        "slice_quality"
-      ],
-      "description": "Typed row interfaces for every entity in the parliamentary data model (Person, Organ, Mandate, Membership, VoteEvent, VoteBallot, Absence, SourceRelease, IngestRun, SliceQuality) plus driver configuration logic that reads DB_DRIVER and PGLITE_PATH from the environment.",
-      "entry_points": [
-        "lib/db/types.ts"
-      ],
-      "file_paths": [
-        "lib/db/types.ts",
-        "lib/db/config.ts"
-      ],
-      "group": "Data Layer",
-      "group_id": "7b0cbb74-205c-4b33-b45e-14c5a75403fa",
-      "id": "7996048b-7810-4029-8828-c760bb381346",
-      "keywords": [
-        "types",
-        "schema",
-        "row",
-        "person",
-        "mandate",
-        "ballot",
-        "absence",
-        "driver",
-        "config",
-        "provenance"
-      ],
-      "last_written_at": "2026-07-23T11:49:37.754493300+00:00",
-      "name": "db-schema-types",
-      "pinned": false,
-      "tech_stack": [
-        "TypeScript"
-      ]
-    },
-    {
-      "api_surface": "",
-      "business_feature": "Design System Docs",
-      "category": "config",
-      "cross_refs": [
-        "app-shell",
-        "lint-rules"
-      ],
-      "db_tables": [],
-      "description": "Design-system source of truth and project documentation: DESIGN.md defines the Konstrukt/Sutnar aesthetic, all CSS token usage rules, typography scale, motion policy, Recharts gotchas (ResponsiveContainer grid fix), and SSR/CSR float rounding requirements. ROADMAP.md tracks milestone progress; vercel.md covers deployment.",
-      "entry_points": [
-        "docs/DESIGN.md"
-      ],
-      "file_paths": [
-        "docs/DESIGN.md",
-        "docs/ROADMAP.md",
-        "docs/deploy/vercel.md"
-      ],
-      "group": "Infrastructure & Observability",
-      "group_id": "b4a48761-1201-423c-92e4-0a0a116ddafc",
-      "id": "3641f522-061e-4fe1-830c-6545e2c5271d",
-      "keywords": [
-        "design",
-        "tokens",
-        "typography",
-        "Konstrukt",
-        "Sutnar",
-        "motion",
-        "WCAG",
-        "recharts",
-        "SSR",
-        "roadmap"
-      ],
-      "last_written_at": "2026-07-23T11:49:37.756824200+00:00",
-      "name": "design-system",
-      "pinned": false,
-      "tech_stack": [
-        "Markdown"
-      ]
-    },
-    {
-      "api_surface": "GET /penize",
-      "business_feature": "Follow the Money",
-      "category": "ui",
-      "cross_refs": [
-        "civic-mock-data",
-        "primitive-components"
-      ],
-      "db_tables": [],
-      "description": "FollowTheMoney module ('Penize') exposing the entity-trail money graph (hover-lit SVG node/edge canvas), a Kniha vazeb MP→company ties ledger grouped by MP with verified/pending-review states, and a Trail methodology explainer (IČO join + human gate). Feeds the Integrita CivicScore pillar.",
-      "entry_points": [
-        "features/money/FollowTheMoneyPage.tsx",
-        "features/money/MoneyGraph.tsx"
-      ],
-      "file_paths": [
-        "features/money/FollowTheMoneyPage.tsx",
-        "features/money/MoneyGraph.tsx",
-        "features/money/components/TiesLedger.tsx",
-        "features/money/components/TrailMethod.tsx",
-        "app/penize/page.tsx"
-      ],
-      "group": "Financial Transparency",
-      "group_id": "d381ea7c-5c48-44a2-8ef4-1e33f879ee7a",
-      "id": "ca66c405-e9b7-4ec7-903b-f8cc42fa241a",
-      "keywords": [
-        "penize",
-        "money",
-        "graph",
-        "ties",
-        "IČO",
-        "company",
-        "integrity",
-        "trail",
-        "verified",
-        "entity"
-      ],
-      "last_written_at": "2026-07-23T11:49:37.753346300+00:00",
-      "name": "follow-the-money",
-      "pinned": false,
-      "tech_stack": [
-        "React",
-        "TypeScript",
-        "SVG",
-        "Tailwind v4"
-      ]
-    },
-    {
-      "api_surface": "",
-      "business_feature": "Ingest CLI Scripts",
-      "category": "lib",
-      "cross_refs": [
-        "psp-adapters",
-        "store-interface",
-        "data-quality-scoring"
-      ],
-      "db_tables": [
-        "person",
-        "organ",
-        "mandate",
-        "membership",
-        "vote_event",
-        "vote_ballot",
-        "absence",
-        "source_release",
-        "ingest_run",
-        "slice_quality"
-      ],
-      "description": "CLI entry points run via tsx for the data-analysis pipeline: the full ingest script orchestrates ZIP downloads from psp.cz + Pumper mirroring and writes to PGlite (supports --term, --no-pumper, --refetch flags), while slice-stats runs the deterministic quality scorer over the live store and prints results.",
-      "entry_points": [
-        "scripts/data-analysis/ingest.ts"
-      ],
-      "file_paths": [
-        "scripts/data-analysis/ingest.ts",
-        "scripts/data-analysis/slice-stats.ts"
-      ],
-      "group": "Data Ingestion",
-      "group_id": "05c61709-d20f-496b-97d9-b8eae772c20d",
-      "id": "a36c1e8f-9a2b-4cae-88be-f9053943d87c",
-      "keywords": [
-        "ingest",
-        "CLI",
-        "tsx",
-        "psp.cz",
-        "term",
-        "da:ingest",
-        "da:slice-stats",
-        "pipeline",
-        "download",
-        "quality"
-      ],
-      "last_written_at": "2026-07-23T11:49:37.754222800+00:00",
-      "name": "ingest-scripts",
-      "pinned": false,
-      "tech_stack": [
-        "TypeScript",
-        "tsx",
-        "Node.js"
-      ]
-    },
-    {
-      "api_surface": "",
-      "business_feature": "Ingest Utilities",
-      "category": "lib",
-      "cross_refs": [
-        "psp-adapters"
-      ],
-      "db_tables": [],
-      "description": "Low-level parsing utilities shared across all ingest adapters: UNL format decoder with windows-1250→UTF-8 conversion, ZIP archive reader returning a filename map, and normalizers for ASCII folding, full names, term codes, vote choices, outcomes, and Czech date parsing.",
-      "entry_points": [
-        "lib/ingest/normalize.ts"
-      ],
-      "file_paths": [
-        "lib/ingest/normalize.ts",
-        "lib/ingest/unl.ts",
-        "lib/ingest/zip.ts"
-      ],
-      "group": "Data Ingestion",
-      "group_id": "05c61709-d20f-496b-97d9-b8eae772c20d",
-      "id": "b82f21a9-550d-427f-88e5-cc5b73a6b734",
-      "keywords": [
-        "normalize",
-        "UNL",
-        "windows-1250",
-        "UTF-8",
-        "ZIP",
-        "decode",
-        "parse",
-        "asciiFold",
-        "termCode",
-        "voteChoice"
-      ],
-      "last_written_at": "2026-07-23T11:49:37.754061600+00:00",
-      "name": "ingest-utilities",
-      "pinned": false,
-      "tech_stack": [
-        "TypeScript",
-        "Node.js"
-      ]
-    },
-    {
-      "api_surface": "",
-      "business_feature": "Landing Page",
-      "category": "ui",
-      "cross_refs": [
-        "civic-mock-data",
-        "primitive-components",
-        "czech-formatting"
-      ],
-      "db_tables": [],
-      "description": "Public entry point for the Politicas platform, presenting the five-module system overview, a live MP specimen card, score breakdown, and methodology section to first-time visitors. Assembles 12 sub-components around recharts TrendChart and an SVG Hemicycle seating chart. Consumes lib/civic mock data and the shared SourceNote primitive.",
-      "entry_points": [
-        "features/landing/LandingPage.tsx"
-      ],
-      "file_paths": [
-        "features/landing/LandingPage.tsx",
-        "features/landing/palette.ts",
-        "features/landing/components/DataSources.tsx",
-        "features/landing/components/Hemicycle.tsx",
-        "features/landing/components/HeroStory.tsx",
-        "features/landing/components/LiveSpecimen.tsx",
-        "features/landing/components/Methodology.tsx",
-        "features/landing/components/ScoreBreakdown.tsx",
-        "features/landing/components/SiteFooter.tsx",
-        "features/landing/components/SiteHeader.tsx",
-        "features/landing/components/Standings.tsx",
-        "features/landing/components/SystemModules.tsx",
-        "features/landing/components/TrendChart.tsx",
-        "app/page.tsx"
-      ],
-      "group": "Landing & Navigation",
-      "group_id": "d86d84b2-f464-4d81-b681-f53493f2cea4",
-      "id": "17d67f69-1c78-4da9-95a2-ae211837791a",
-      "keywords": [
-        "landing",
-        "hemicycle",
-        "methodology",
-        "hero",
-        "specimen",
-        "modules",
-        "footer",
-        "header",
-        "standings",
-        "recharts"
-      ],
-      "last_written_at": "2026-07-23T11:49:37.740719700+00:00",
-      "name": "landing-page",
-      "pinned": false,
-      "tech_stack": [
-        "React",
-        "TypeScript",
-        "Recharts",
-        "Framer Motion",
-        "Tailwind v4"
-      ]
-    },
-    {
-      "api_surface": "GET /zakony",
-      "business_feature": "LawWatch",
-      "category": "ui",
-      "cross_refs": [
-        "civic-mock-data",
-        "vote-tracking",
-        "primitive-components"
-      ],
-      "db_tables": [],
-      "description": "LawWatch module ('Zakony') displaying paragraph-level diffs (before/after) linked back to the roll-call vote that passed them, plus a legislative pipeline stepper showing bill stages including the rejected state. Closes the vote→impact loop by connecting /hlasovani vote outcomes to concrete legislative text changes.",
-      "entry_points": [
-        "features/lawwatch/LawWatchPage.tsx"
-      ],
-      "file_paths": [
-        "features/lawwatch/LawWatchPage.tsx",
-        "app/zakony/page.tsx"
-      ],
-      "group": "Voting & Legislation",
-      "group_id": "ef74e660-f57f-4958-bc4d-63585466b65b",
-      "id": "e3c9582a-da16-4c0a-81d9-5e814d9fa017",
-      "keywords": [
-        "zakony",
-        "law",
-        "legislation",
-        "diff",
-        "pipeline",
-        "bill",
-        "stage",
-        "roll-call",
-        "impact",
-        "paragraph"
-      ],
-      "last_written_at": "2026-07-23T11:49:37.753115800+00:00",
-      "name": "law-watch",
-      "pinned": false,
-      "tech_stack": [
-        "React",
-        "TypeScript",
-        "Tailwind v4"
-      ]
-    },
-    {
-      "api_surface": "",
-      "business_feature": "Custom Lint Rules",
-      "category": "config",
-      "cross_refs": [
-        "app-config"
-      ],
-      "db_tables": [],
-      "description": "Four custom CJS ESLint rules enforcing Politicas-specific code discipline: token-only colors (no hardcoded hex/rgb outside three whitelisted zones), no empty catch blocks, accessible role=button keyboard handlers, and WCAG 2.3.3 prefers-reduced-motion fallbacks for looping animations.",
-      "entry_points": [
-        "eslint-rules/no-hardcoded-colors.cjs"
-      ],
-      "file_paths": [
-        "eslint-rules/no-hardcoded-colors.cjs",
-        "eslint-rules/no-silent-catch.cjs",
-        "eslint-rules/role-button-requires-keydown.cjs",
-        "eslint-rules/enforce-reduced-motion-fallback.cjs"
-      ],
-      "group": "Infrastructure & Observability",
-      "group_id": "b4a48761-1201-423c-92e4-0a0a116ddafc",
-      "id": "cc08cc2c-74f2-444a-accc-da5ab6a00ce2",
-      "keywords": [
-        "eslint",
-        "lint",
-        "colors",
-        "a11y",
-        "reduced-motion",
-        "catch",
-        "keyboard",
-        "WCAG",
-        "token",
-        "custom-rule"
-      ],
-      "last_written_at": "2026-07-23T11:49:37.756645800+00:00",
-      "name": "lint-rules",
-      "pinned": false,
-      "tech_stack": [
-        "ESLint",
-        "CJS",
-        "Node.js"
-      ]
-    },
-    {
-      "api_surface": "GET /poslanec/[id]",
-      "business_feature": "MP Profile",
-      "category": "ui",
-      "cross_refs": [
-        "civic-mock-data",
-        "primitive-components",
-        "civic-score-leaderboard"
-      ],
-      "db_tables": [],
-      "description": "Individual MP (poslanec) profile page — the 'Spis' design — showing a poster header, composite CivicScore with trend, five pillar breakdowns, roll-call vote history with rebel markers, and dated money ties with sourced facts. Accessed via the dynamic /poslanec/[id] route; reads mock person data from lib/civic.",
-      "entry_points": [
-        "features/profile/ProfilePage.tsx"
-      ],
-      "file_paths": [
-        "features/profile/ProfilePage.tsx",
-        "app/poslanec/[id]/page.tsx"
-      ],
-      "group": "MP Profiles & Rankings",
-      "group_id": "2f699b9d-517e-49fe-a42a-44f86470911a",
-      "id": "abaea549-5f38-476e-960d-9ea34cde8b05",
-      "keywords": [
-        "poslanec",
-        "profile",
-        "spis",
-        "pillars",
-        "score",
-        "rebel",
-        "money-ties",
-        "roll-call",
-        "mp",
-        "mandate"
-      ],
-      "last_written_at": "2026-07-23T11:49:37.750126+00:00",
-      "name": "mp-profile",
-      "pinned": false,
-      "tech_stack": [
-        "React",
-        "TypeScript",
-        "Tailwind v4"
-      ]
-    },
-    {
-      "api_surface": "",
-      "business_feature": "Error Observability",
-      "category": "config",
-      "cross_refs": [
-        "app-config"
-      ],
-      "db_tables": [],
-      "description": "Sentry error tracking wired into all three Next.js runtimes (Node.js server, edge, and client). The Next.js instrumentation hooks register Sentry on server startup; env-gated so it is a no-op without a DSN, matching the Vercel deployment model described in docs/deploy/vercel.md.",
-      "entry_points": [
-        "instrumentation.ts"
-      ],
-      "file_paths": [
-        "instrumentation.ts",
-        "instrumentation-client.ts",
-        "sentry.server.config.ts",
-        "sentry.edge.config.ts"
-      ],
-      "group": "Infrastructure & Observability",
-      "group_id": "b4a48761-1201-423c-92e4-0a0a116ddafc",
-      "id": "38071a00-ac14-4540-abc8-ba05f33cb4f5",
-      "keywords": [
-        "sentry",
-        "observability",
-        "error-tracking",
-        "instrumentation",
-        "DSN",
-        "server",
-        "edge",
-        "client",
-        "monitoring",
-        "runtime"
-      ],
-      "last_written_at": "2026-07-23T11:49:37.756402800+00:00",
-      "name": "observability",
-      "pinned": false,
-      "tech_stack": [
-        "Sentry 10",
-        "Next.js",
-        "TypeScript"
-      ]
-    },
-    {
-      "api_surface": "",
-      "business_feature": "PGlite Database Driver",
-      "category": "data",
-      "cross_refs": [
-        "store-interface",
-        "db-schema-types"
-      ],
-      "db_tables": [
-        "person",
-        "organ",
-        "mandate",
-        "membership",
-        "vote_event",
-        "vote_ballot",
-        "absence",
-        "source_release",
-        "ingest_run",
-        "slice_quality"
-      ],
-      "description": "Concrete PGlite (embedded Postgres) implementation of the Store interface, enabling serverless-compatible local persistence without a running database process. Manages schema creation and all CRUD operations for the four repository interfaces against an on-disk PGlite data directory.",
-      "entry_points": [
-        "lib/db/pglite-store.ts"
-      ],
-      "file_paths": [
-        "lib/db/pglite-store.ts"
-      ],
-      "group": "Data Layer",
-      "group_id": "7b0cbb74-205c-4b33-b45e-14c5a75403fa",
-      "id": "02c7c49d-73f8-4735-af2f-6e245900a639",
-      "keywords": [
-        "pglite",
-        "postgres",
-        "embedded",
-        "driver",
-        "store",
-        "serverless",
-        "schema",
-        "CRUD",
-        "persistence",
-        "local"
-      ],
-      "last_written_at": "2026-07-23T11:49:37.755016400+00:00",
-      "name": "pglite-driver",
-      "pinned": false,
-      "tech_stack": [
-        "TypeScript",
-        "PGlite 0.4"
-      ]
-    },
-    {
-      "api_surface": "",
-      "business_feature": "Shared Primitives",
-      "category": "ui",
-      "cross_refs": [],
-      "db_tables": [],
-      "description": "Domain-agnostic primitive catalog (@catalog tagged) used across all feature modules. Enforced by lint to have no imports from features/* or lib/civic — data must flow in via props only. Covers animated score display, rank-change indicators, section headings, decorative rules, and the mandatory SourceNote citation chip.",
-      "entry_points": [
-        "features/shared/components/SourceNote.tsx"
-      ],
-      "file_paths": [
-        "features/shared/components/AnimatedScore.tsx",
-        "features/shared/components/RankDelta.tsx",
-        "features/shared/components/SectionHeading.tsx",
-        "features/shared/components/SectionRule.tsx",
-        "features/shared/components/SourceNote.tsx"
-      ],
-      "group": "Shared UI Primitives",
-      "group_id": "8044cd53-651f-4a5e-972e-a42023976cfa",
-      "id": "0e45920e-1285-4cc4-8154-4ec51e9d1d22",
-      "keywords": [
-        "primitive",
-        "catalog",
-        "animated",
-        "score",
-        "rank",
-        "section",
-        "source-note",
-        "citation",
-        "shared",
-        "a11y"
-      ],
-      "last_written_at": "2026-07-23T11:49:37.755870400+00:00",
-      "name": "primitive-components",
-      "pinned": false,
-      "tech_stack": [
-        "React",
-        "TypeScript",
-        "Framer Motion",
-        "Tailwind v4"
-      ]
-    },
-    {
-      "api_surface": "https://www.psp.cz/eknih/cdrom/opendata/ (external)",
-      "business_feature": "PSP Data Adapters",
-      "category": "lib",
-      "cross_refs": [
-        "ingest-utilities",
-        "store-interface",
-        "ingest-scripts"
-      ],
-      "db_tables": [
-        "person",
-        "organ",
-        "mandate",
-        "membership",
-        "vote_event",
-        "vote_ballot",
-        "absence",
-        "source_release"
-      ],
-      "description": "Source adapters for the two external data streams: psp.cz open data (persons, organs, mandates, memberships, vote events, ballots, absences via bulk ZIP downloads) and Pumper release mirroring. Each adapter normalizes raw Czech parliamentary records into typed row interfaces before writing to the store.",
-      "entry_points": [
-        "lib/ingest/sources/psp.ts"
-      ],
-      "file_paths": [
-        "lib/ingest/sources/psp.ts",
-        "lib/ingest/sources/pumper.ts"
-      ],
-      "group": "Data Ingestion",
-      "group_id": "05c61709-d20f-496b-97d9-b8eae772c20d",
-      "id": "7112472e-fa27-403e-9afd-34501407f1a3",
-      "keywords": [
-        "psp.cz",
-        "opendata",
-        "poslanci",
-        "hlasovani",
-        "pumper",
-        "adapter",
-        "ZIP",
-        "parliament",
-        "download",
-        "mirror"
-      ],
-      "last_written_at": "2026-07-23T11:49:37.753916900+00:00",
-      "name": "psp-adapters",
-      "pinned": false,
-      "tech_stack": [
-        "TypeScript",
-        "Node.js",
-        "fetch"
-      ]
-    },
-    {
-      "api_surface": "GET /rentgen",
-      "business_feature": "Rentgen Lab",
-      "category": "ui",
-      "cross_refs": [
-        "civic-mock-data"
-      ],
-      "db_tables": [],
-      "description": "Archived Rentgen art direction preserved as a living lab reference at /rentgen (noindex). A prototype-era money-graph variant demonstrating the runner-up design direction; hardcoded hex colors are explicitly permitted in this zone per lint config.",
-      "entry_points": [
-        "features/labs/rentgen/VariantRentgen.tsx"
-      ],
-      "file_paths": [
-        "features/labs/rentgen/VariantRentgen.tsx",
-        "app/rentgen/page.tsx"
-      ],
-      "group": "Financial Transparency",
-      "group_id": "d381ea7c-5c48-44a2-8ef4-1e33f879ee7a",
-      "id": "ae8875de-0ddf-4429-8004-3f45c9589012",
-      "keywords": [
-        "rentgen",
-        "lab",
-        "prototype",
-        "archived",
-        "art-direction",
-        "money-graph",
-        "noindex",
-        "variant"
-      ],
-      "last_written_at": "2026-07-23T11:49:37.753692100+00:00",
-      "name": "rentgen-lab",
-      "pinned": false,
-      "tech_stack": [
-        "React",
-        "TypeScript",
-        "SVG",
-        "Tailwind v4"
-      ]
-    },
-    {
-      "api_surface": "",
-      "business_feature": "Store Interface",
-      "category": "data",
-      "cross_refs": [
-        "db-schema-types",
-        "pglite-driver"
-      ],
-      "db_tables": [],
-      "description": "Abstract Store interface and four sub-repository contracts (GraphRepository, VoteRepository, ProvenanceRepository, AnalysisRepository) plus the lazy singleton getStore() that dynamically imports the configured driver. Decouples all application code from the concrete storage backend.",
-      "entry_points": [
-        "lib/db/store.ts"
-      ],
-      "file_paths": [
-        "lib/db/store.ts"
-      ],
-      "group": "Data Layer",
-      "group_id": "7b0cbb74-205c-4b33-b45e-14c5a75403fa",
-      "id": "60ea2e83-5897-4c66-a64b-a25e8fa8e63b",
-      "keywords": [
-        "store",
-        "repository",
-        "graph",
-        "vote",
-        "provenance",
-        "analysis",
-        "singleton",
-        "interface",
-        "driver",
-        "abstraction"
-      ],
-      "last_written_at": "2026-07-23T11:49:37.754782400+00:00",
-      "name": "store-interface",
-      "pinned": false,
-      "tech_stack": [
-        "TypeScript"
-      ]
-    },
-    {
-      "api_surface": "GET /hlasovani",
-      "business_feature": "Vote Tracking",
-      "category": "ui",
-      "cross_refs": [
-        "civic-mock-data",
-        "vote-logic",
-        "primitive-components"
-      ],
-      "db_tables": [
-        "vote_event",
-        "vote_ballot",
-        "absence"
-      ],
-      "description": "VoteTrack module ('Hlasovani') fusing three design variants: Deník chronological ledger, Sál sticky chamber detail with animated hemicycle + party breakdown, and Linie club discipline board with line matrix and rebellion chronicle. Feeds the Aktivita, Docházka, and Nezávislost CivicScore pillars via pure vote logic in lib/civic/votes.ts.",
-      "entry_points": [
-        "features/votetrack/VoteTrackPage.tsx"
-      ],
-      "file_paths": [
-        "features/votetrack/VoteTrackPage.tsx",
-        "features/votetrack/VoteHemicycle.tsx",
-        "features/votetrack/components/ChamberDetail.tsx",
-        "features/votetrack/components/DisciplineBoard.tsx",
-        "features/votetrack/components/Rebellions.tsx",
-        "features/votetrack/components/VoteLedger.tsx",
-        "app/hlasovani/page.tsx"
-      ],
-      "group": "Voting & Legislation",
-      "group_id": "ef74e660-f57f-4958-bc4d-63585466b65b",
-      "id": "61847ad3-c46f-41e4-903b-a43b4539bfde",
-      "keywords": [
-        "hlasovani",
-        "vote",
-        "hemicycle",
-        "rebellion",
-        "discipline",
-        "ledger",
-        "roll-call",
-        "chamber",
-        "party-line",
-        "absence"
-      ],
-      "last_written_at": "2026-07-23T11:49:37.752909400+00:00",
-      "name": "vote-tracking",
-      "pinned": false,
-      "tech_stack": [
-        "React",
-        "TypeScript",
-        "Framer Motion",
-        "Tailwind v4"
-      ]
-    }
-  ],
-  "generated_at": "2026-07-23T11:49:38.740077100+00:00",
-  "generator": "personas-context-scan",
+  "$schema": "https://vibeman.dev/schemas/context-map.json",
+  "projectId": "politicas",
+  "projectName": "politicas",
+  "projectPath": "C:/Users/mkdol/dolla/politicas",
+  "version": "2.0.0",
   "groups": [
     {
-      "color": "amber",
-      "context_count": 2,
+      "name": "Landing & Navigation",
       "domain": "feature",
-      "id": "d86d84b2-f464-4d81-b681-f53493f2cea4",
-      "name": "Landing & Navigation"
+      "type": null,
+      "color": "#3B82F6",
+      "icon": null,
+      "contexts": [
+        {
+          "name": "App Shell & Navigation",
+          "description": "The persistent app chrome: left nav rail, mobile nav, and the module/section registry that lets users move between CivicScore, VoteTrack, FollowTheMoney, BudgetMirror and LawWatch.",
+          "businessFeature": "App Shell & Navigation",
+          "category": "ui",
+          "filePaths": [
+            "features/shell/AppShell.tsx",
+            "features/shell/MobileNav.tsx",
+            "features/shell/navModel.ts",
+            "features/shell/Sidebar.tsx",
+            "features/shell/sidebarParts.tsx",
+            "features/shell/useActiveSection.ts",
+            "app/layout.tsx"
+          ],
+          "target": null,
+          "apiRoutes": []
+        },
+        {
+          "name": "Landing Page",
+          "description": "The public marketing/landing surface: hero story, methodology explainer, live specimen preview, standings teaser, and system module overview that introduce visitors to the five modules.",
+          "businessFeature": "Landing Page",
+          "category": "ui",
+          "filePaths": [
+            "features/landing/LandingPage.tsx",
+            "features/landing/palette.ts",
+            "features/landing/components/HeroStory.tsx",
+            "features/landing/components/DataSources.tsx",
+            "features/landing/components/Hemicycle.tsx",
+            "features/landing/components/LiveSpecimen.tsx",
+            "features/landing/components/Methodology.tsx",
+            "features/landing/components/ScoreBreakdown.tsx",
+            "features/landing/components/SiteFooter.tsx",
+            "features/landing/components/SiteHeader.tsx",
+            "features/landing/components/Standings.tsx",
+            "features/landing/components/SystemModules.tsx",
+            "features/landing/components/TrendChart.tsx",
+            "app/page.tsx"
+          ],
+          "target": null,
+          "apiRoutes": []
+        }
+      ]
     },
     {
-      "color": "blue",
-      "context_count": 3,
+      "name": "MP Profiles & Rankings",
       "domain": "feature",
-      "id": "2f699b9d-517e-49fe-a42a-44f86470911a",
-      "name": "MP Profiles & Rankings"
+      "type": null,
+      "color": "#8B5CF6",
+      "icon": null,
+      "contexts": [
+        {
+          "name": "Velin Dashboard",
+          "description": "The instrument-panel overview: chamber stat strip, the state graph (person/party/firm/money/vote/law nodes) paired with a graph-traffic feed bound to the same dataset, and a leaderboard ledger with pillar bars.",
+          "businessFeature": "Velin Dashboard",
+          "category": "ui",
+          "filePaths": [
+            "features/dashboard/DashboardPage.tsx",
+            "features/dashboard/graphText.ts",
+            "features/dashboard/components/FeedRow.tsx",
+            "features/dashboard/components/GraphFeedPanel.tsx",
+            "features/dashboard/components/GraphGlyph.tsx",
+            "features/dashboard/components/GraphLegend.tsx",
+            "features/dashboard/components/StateGraphCanvas.tsx",
+            "app/dashboard/page.tsx"
+          ],
+          "target": null,
+          "apiRoutes": []
+        },
+        {
+          "name": "MP Profile Dossier",
+          "description": "The single-MP file (Spis): poster header with score/trend, pillar bars, roll-call vote history with rebel markers, money ties as sourced facts, and prev/next navigation between MPs.",
+          "businessFeature": "MP Profile Dossier",
+          "category": "ui",
+          "filePaths": [
+            "features/profile/ProfilePage.tsx",
+            "features/profile/getProfileData.ts",
+            "features/profile/components/DossierSection.tsx",
+            "features/profile/components/ExpandableText.tsx",
+            "features/profile/components/LowScoreReasonBadge.tsx",
+            "features/profile/components/TenureNote.tsx",
+            "features/profile/components/TenureTrendGate.tsx",
+            "app/poslanec/[id]/page.tsx"
+          ],
+          "target": null,
+          "apiRoutes": []
+        },
+        {
+          "name": "CivicScore Leaderboard",
+          "description": "Ranks all 207 MPs by contribution score with a histogram, party filter, name search, per-row weighted breakdown bars, and a head-to-head comparison (Souboj) between two picked MPs.",
+          "businessFeature": "CivicScore Leaderboard",
+          "category": "ui",
+          "filePaths": [
+            "features/civicscore/CivicScorePage.tsx",
+            "features/civicscore/getLeaderboardData.ts",
+            "features/civicscore/components/HeadToHead.tsx",
+            "features/civicscore/components/LeaderboardTable.tsx",
+            "features/civicscore/components/ScoreHistogram.tsx",
+            "features/civicscore/components/TrendPanel.tsx",
+            "features/civicscore/components/WorkhorseBadge.tsx",
+            "app/zebricek/page.tsx"
+          ],
+          "target": null,
+          "apiRoutes": []
+        }
+      ]
     },
     {
-      "color": "violet",
-      "context_count": 2,
+      "name": "Voting & Legislation",
       "domain": "feature",
-      "id": "ef74e660-f57f-4958-bc4d-63585466b65b",
-      "name": "Voting & Legislation"
+      "type": null,
+      "color": "#06B6D4",
+      "icon": null,
+      "contexts": [
+        {
+          "name": "LawWatch",
+          "description": "Bill-to-law tracking over the 141 bills -> 101 laws amends graph: statute grouping, sponsor links, Case-1 conflict flags, the gated forensic posudek, and a standalone collisions view.",
+          "businessFeature": "LawWatch",
+          "category": "ui",
+          "filePaths": [
+            "features/lawwatch/LawWatchPage.tsx",
+            "features/lawwatch/BillDossierPage.tsx",
+            "features/lawwatch/CollisionsPage.tsx",
+            "features/lawwatch/getLawData.ts",
+            "features/lawwatch/getCollisionData.ts",
+            "features/lawwatch/lawwatchLabels.ts",
+            "features/lawwatch/components/BillBrowser.tsx",
+            "features/lawwatch/components/BillDetail.tsx",
+            "app/zakony/page.tsx",
+            "app/zakony/kolize/page.tsx",
+            "app/zakony/[cislo]/page.tsx"
+          ],
+          "target": null,
+          "apiRoutes": []
+        },
+        {
+          "name": "VoteTrack",
+          "description": "Roll-call vote tracking: chronological ledger, sticky chamber detail with hemicycle + party breakdown, club discipline board with line matrix, and the rebellion chronicle.",
+          "businessFeature": "VoteTrack",
+          "category": "ui",
+          "filePaths": [
+            "features/votetrack/VoteTrackPage.tsx",
+            "features/votetrack/VoteHemicycle.tsx",
+            "features/votetrack/getVoteThemes.ts",
+            "features/votetrack/themeLabels.ts",
+            "features/votetrack/themeTypes.ts",
+            "features/votetrack/components/ChamberDetail.tsx",
+            "features/votetrack/components/DisciplineBoard.tsx",
+            "features/votetrack/components/Rebellions.tsx",
+            "features/votetrack/components/VoteLedger.tsx",
+            "features/votetrack/components/VoteThemeFilter.tsx",
+            "app/hlasovani/page.tsx"
+          ],
+          "target": null,
+          "apiRoutes": []
+        }
+      ]
     },
     {
-      "color": "emerald",
-      "context_count": 3,
+      "name": "Financial Transparency",
       "domain": "feature",
-      "id": "d381ea7c-5c48-44a2-8ef4-1e33f879ee7a",
-      "name": "Financial Transparency"
+      "type": null,
+      "color": "#F59E0B",
+      "icon": null,
+      "contexts": [
+        {
+          "name": "BudgetMirror",
+          "description": "Town-vs-peer-group budget mirror: metric duos against the computed peer median, debt-per-capita trend lines, and a sortable peer table; stewardship feeds only executive roles.",
+          "businessFeature": "BudgetMirror",
+          "category": "ui",
+          "filePaths": [
+            "features/budget/BudgetMirrorPage.tsx",
+            "app/rozpocty/page.tsx"
+          ],
+          "target": null,
+          "apiRoutes": []
+        },
+        {
+          "name": "Money Case Files & Human Review",
+          "description": "Per-MP money case files (kauzy) and the verification console where a human reviewer gates pending money ties as verified/rejected before they surface as sourced facts.",
+          "businessFeature": "Money Case Files & Human Review",
+          "category": "ui",
+          "filePaths": [
+            "features/money/KauzyPage.tsx",
+            "features/money/MpCaseFilePage.tsx",
+            "features/money/getLeadDossiers.ts",
+            "features/money/getMpDetail.ts",
+            "features/money/getVerificationData.ts",
+            "features/money/reviewActions.ts",
+            "features/money/reviewTypes.ts",
+            "features/money/components/VerificationConsole.tsx",
+            "features/money/components/TieClassExplainer.tsx",
+            "app/penize/kauzy/page.tsx",
+            "app/penize/kontrola/page.tsx",
+            "app/penize/[pspId]/page.tsx"
+          ],
+          "target": null,
+          "apiRoutes": []
+        },
+        {
+          "name": "FollowTheMoney Graph",
+          "description": "The entity-trail money graph: hover-lit edges between MPs, companies and contracts, plus kniha vazeb grouped by MP and the IC0-join/human-gate trail methodology explainer.",
+          "businessFeature": "FollowTheMoney Graph",
+          "category": "ui",
+          "filePaths": [
+            "features/money/FollowTheMoneyPage.tsx",
+            "features/money/MoneyGraph.tsx",
+            "features/money/moneyLoader.ts",
+            "features/money/moneyTypes.ts",
+            "features/money/getMoneyData.ts",
+            "features/money/components/TiesLedger.tsx",
+            "features/money/components/TrailMethod.tsx",
+            "app/penize/page.tsx"
+          ],
+          "target": null,
+          "apiRoutes": []
+        }
+      ]
     },
     {
-      "color": "orange",
-      "context_count": 3,
+      "name": "Knowledge Graph Explorer",
+      "domain": "feature",
+      "type": null,
+      "color": "#EC4899",
+      "icon": null,
+      "contexts": [
+        {
+          "name": "Graph Playground",
+          "description": "The full knowledge graph rendered full-viewport on canvas, with two lens variants (Mapa x Trasy whole-graph landscape, Trasy standalone ledger columns), node search, and provenance/registry deep-links on node click.",
+          "businessFeature": "Graph Playground",
+          "category": "ui",
+          "filePaths": [
+            "features/graph/GraphPage.tsx",
+            "features/graph/graphActions.ts",
+            "features/graph/graphLoader.ts",
+            "features/graph/graphTypes.ts",
+            "features/graph/kindStyle.ts",
+            "features/graph/useNodeSelection.ts",
+            "features/graph/VariantMapa.tsx",
+            "features/graph/VariantTrasy.tsx",
+            "features/graph/components/GraphStage.tsx",
+            "features/graph/components/NodeInspector.tsx",
+            "features/graph/components/NodeSearch.tsx",
+            "features/graph/components/StageOverlays.tsx",
+            "app/graf/page.tsx"
+          ],
+          "target": null,
+          "apiRoutes": []
+        }
+      ]
+    },
+    {
+      "name": "Data Ingestion",
       "domain": "integration",
-      "id": "05c61709-d20f-496b-97d9-b8eae772c20d",
-      "name": "Data Ingestion"
+      "type": null,
+      "color": "#7C3AED",
+      "icon": null,
+      "contexts": [
+        {
+          "name": "Admin Console",
+          "description": "The internal admin surface for watching ingestion/review state: loop progress grid, review hub, system state strip and vault-heads panel.",
+          "businessFeature": "Admin Console",
+          "category": "ui",
+          "filePaths": [
+            "features/admin/AdminPage.tsx",
+            "features/admin/adminTypes.ts",
+            "features/admin/getAdminData.ts",
+            "features/admin/components/LoopProgressGrid.tsx",
+            "features/admin/components/ReviewHubSection.tsx",
+            "features/admin/components/SystemStateStrip.tsx",
+            "features/admin/components/VaultHeadsPanel.tsx",
+            "app/admin/page.tsx"
+          ],
+          "target": null,
+          "apiRoutes": []
+        },
+        {
+          "name": "Ingestion Normalization",
+          "description": "Shared normalization, UNL parsing and zip-extraction helpers that every source adapter relies on to turn raw feeds into consistent records before they reach the graph.",
+          "businessFeature": "Ingestion Normalization",
+          "category": "lib",
+          "filePaths": [
+            "lib/ingest/normalize.ts",
+            "lib/ingest/unl.ts",
+            "lib/ingest/zip.ts"
+          ],
+          "target": null,
+          "apiRoutes": []
+        },
+        {
+          "name": "Source Adapters",
+          "description": "Per-source ingestion adapters that pull and shape raw data from PSP, Kiosek, Dataor, Volby and Pumper into the graph's intermediate representation.",
+          "businessFeature": "Source Adapters",
+          "category": "lib",
+          "filePaths": [
+            "lib/ingest/sources/dataor.ts",
+            "lib/ingest/sources/kiosek-pdf.ts",
+            "lib/ingest/sources/kiosek.ts",
+            "lib/ingest/sources/psp-activity.ts",
+            "lib/ingest/sources/psp-legislation.ts",
+            "lib/ingest/sources/psp.ts",
+            "lib/ingest/sources/pumper.ts",
+            "lib/ingest/sources/volby.ts"
+          ],
+          "target": null,
+          "apiRoutes": []
+        }
+      ]
     },
     {
-      "color": "indigo",
-      "context_count": 5,
+      "name": "Data Layer",
       "domain": "data",
-      "id": "7b0cbb74-205c-4b33-b45e-14c5a75403fa",
-      "name": "Data Layer"
+      "type": null,
+      "color": "#F97316",
+      "icon": null,
+      "contexts": [
+        {
+          "name": "Sample Data Fallback",
+          "description": "The deterministic mock/sample dataset (lib/civic) used as a graceful fallback whenever a real-graph loader returns null, plus the vote-scoring logic and state-graph derivation that still feed the dashboard.",
+          "businessFeature": "Sample Data Fallback",
+          "category": "data",
+          "filePaths": [
+            "lib/civic/data.ts",
+            "lib/civic/leaderboard.ts",
+            "lib/civic/stateGraph.ts",
+            "lib/civic/votes.ts"
+          ],
+          "target": null,
+          "apiRoutes": []
+        },
+        {
+          "name": "Scoring & Verdict Copy",
+          "description": "Derives the contribution index and its trend, low-score reasons, workhorse flavour text, tenure/public-facing copy, and money-feed/verdict narration shown across CivicScore, LawWatch and profiles.",
+          "businessFeature": "Scoring & Verdict Copy",
+          "category": "lib",
+          "filePaths": [
+            "lib/analysis/contribution.ts",
+            "lib/analysis/contribution-trend.ts",
+            "lib/analysis/law-verdict.ts",
+            "lib/analysis/low-score-reason.ts",
+            "lib/analysis/quality.ts",
+            "lib/analysis/verdict.ts",
+            "lib/analysis/workhorse-flavour.ts",
+            "lib/analysis/tenure-copy.ts",
+            "lib/analysis/public-copy.ts",
+            "lib/analysis/money-feed.ts"
+          ],
+          "target": null,
+          "apiRoutes": []
+        },
+        {
+          "name": "Knowledge Graph Domain Model",
+          "description": "Domain-level reads over the knowledge graph: node/edge context assembly, money-tie and law-verdict derivation, and the glyph/layout/source-link helpers that turn kg rows into renderable graph geometry.",
+          "businessFeature": "Knowledge Graph Domain Model",
+          "category": "lib",
+          "filePaths": [
+            "lib/analysis/kg.ts",
+            "lib/analysis/kg-money.ts",
+            "lib/analysis/kg-verdict.ts",
+            "lib/analysis/context-model.ts",
+            "lib/analysis/context-provider.ts",
+            "lib/kg/glyph.ts",
+            "lib/kg/layout.ts",
+            "lib/kg/sourceLinks.ts"
+          ],
+          "target": null,
+          "apiRoutes": []
+        },
+        {
+          "name": "PGlite Repositories",
+          "description": "Repository layer over the embedded Postgres schema: DDL, row mappers and internals, plus per-domain repositories for the knowledge graph, votes, vote tags, provenance, review state and analysis outputs.",
+          "businessFeature": "PGlite Repositories",
+          "category": "data",
+          "filePaths": [
+            "lib/db/pglite/ddl.ts",
+            "lib/db/pglite/internals.ts",
+            "lib/db/pglite/mappers.ts",
+            "lib/db/pglite/repositories/analysis.ts",
+            "lib/db/pglite/repositories/graph.ts",
+            "lib/db/pglite/repositories/kg.ts",
+            "lib/db/pglite/repositories/provenance.ts",
+            "lib/db/pglite/repositories/review.ts",
+            "lib/db/pglite/repositories/votes.ts",
+            "lib/db/pglite/repositories/voteTags.ts"
+          ],
+          "target": null,
+          "apiRoutes": []
+        },
+        {
+          "name": "PGlite Store & Runtime",
+          "description": "The embedded-Postgres store bootstrap: connection config, the store facade, loader-guard/readiness checks that prevent a failed first open from poisoning the process, and prop-narrowing helpers.",
+          "businessFeature": "PGlite Store & Runtime",
+          "category": "data",
+          "filePaths": [
+            "lib/db/config.ts",
+            "lib/db/pglite-store.ts",
+            "lib/db/store.ts",
+            "lib/db/types.ts",
+            "lib/db/loaderGuard.ts",
+            "lib/db/narrow.ts",
+            "lib/db/readiness.ts",
+            "lib/db/readiness.test.ts"
+          ],
+          "target": null,
+          "apiRoutes": []
+        }
+      ]
     },
     {
-      "color": "pink",
-      "context_count": 2,
+      "name": "Shared UI Primitives",
       "domain": "shared",
-      "id": "8044cd53-651f-4a5e-972e-a42023976cfa",
-      "name": "Shared UI Primitives"
+      "type": null,
+      "color": "#10B981",
+      "icon": null,
+      "contexts": [
+        {
+          "name": "Archived Art Direction (Rentgen)",
+          "description": "The Rentgen runner-up visual direction kept as a living reference at the noindexed /rentgen route, exploring an alternate money-graph treatment.",
+          "businessFeature": "Archived Art Direction",
+          "category": "ui",
+          "filePaths": [
+            "features/labs/rentgen/VariantRentgen.tsx",
+            "app/rentgen/page.tsx"
+          ],
+          "target": null,
+          "apiRoutes": []
+        },
+        {
+          "name": "Shared Display Primitives",
+          "description": "Domain-agnostic UI building blocks used across every feature: animated score readouts, rank-delta badges, source-citation notes, section headings/rules and the empty-data placeholder.",
+          "businessFeature": "Shared Display Primitives",
+          "category": "ui",
+          "filePaths": [
+            "features/shared/components/AnimatedScore.tsx",
+            "features/shared/components/DataUnavailable.tsx",
+            "features/shared/components/RankDelta.tsx",
+            "features/shared/components/SectionHeading.tsx",
+            "features/shared/components/SectionRule.tsx",
+            "features/shared/components/SourceNote.tsx"
+          ],
+          "target": null,
+          "apiRoutes": []
+        }
+      ]
     },
     {
-      "color": "red",
-      "context_count": 4,
+      "name": "Infrastructure & Observability",
       "domain": "infrastructure",
-      "id": "b4a48761-1201-423c-92e4-0a0a116ddafc",
-      "name": "Infrastructure & Observability"
+      "type": null,
+      "color": "#6366F1",
+      "icon": null,
+      "contexts": [
+        {
+          "name": "Custom ESLint Rules",
+          "description": "Project-specific lint rules enforcing token discipline, no-silent-catch, a11y keydown handling on role-button elements, reduced-motion fallbacks, and the server-only import boundary.",
+          "businessFeature": "Custom ESLint Rules",
+          "category": "config",
+          "filePaths": [
+            "eslint-rules/no-hardcoded-colors.cjs",
+            "eslint-rules/no-silent-catch.cjs",
+            "eslint-rules/no-silent-null-catch.cjs",
+            "eslint-rules/role-button-requires-keydown.cjs",
+            "eslint-rules/enforce-reduced-motion-fallback.cjs",
+            "eslint-rules/no-server-import-in-client.cjs"
+          ],
+          "target": null,
+          "apiRoutes": []
+        },
+        {
+          "name": "Test Utilities & Loader Coverage",
+          "description": "Server-only import stubs for the vitest environment and the colocated loader test that pins the leaderboard loader against a seeded PGlite instance.",
+          "businessFeature": "Test Utilities & Loader Coverage",
+          "category": "test",
+          "filePaths": [
+            "lib/testing/server-only-stub.ts",
+            "lib/testing/leaderboard-loader.test.ts"
+          ],
+          "target": null,
+          "apiRoutes": []
+        },
+        {
+          "name": "App Bootstrap & Global Styles",
+          "description": "The root layout, fonts and global stylesheet/design tokens that every route inherits.",
+          "businessFeature": "App Bootstrap & Global Styles",
+          "category": "config",
+          "filePaths": [
+            "app/layout.tsx",
+            "app/globals.css"
+          ],
+          "target": null,
+          "apiRoutes": []
+        },
+        {
+          "name": "i18n & Number Formatting",
+          "description": "Czech-first locale configuration and the number/decimal-comma formatting helpers that every rendered figure in the app routes through.",
+          "businessFeature": "i18n & Number Formatting",
+          "category": "lib",
+          "filePaths": [
+            "lib/i18n/config.ts",
+            "lib/i18n/locale.ts",
+            "lib/i18n/request.ts",
+            "lib/i18n/useFormat.ts",
+            "lib/format.ts"
+          ],
+          "target": null,
+          "apiRoutes": []
+        }
+      ]
     }
   ],
-  "project": {
-    "id": "674f1dd5-a05f-4e2e-a5bf-4cefca8f926e",
-    "name": "politicas",
-    "root": "C:\\Users\\mkdol\\dolla\\politicas"
+  "ungrouped": [],
+  "relationships": [],
+  "index": [
+    "Landing & Navigation › App Shell & Navigation [ui] — 7 files",
+    "Landing & Navigation › Landing Page [ui] — 14 files",
+    "MP Profiles & Rankings › Velin Dashboard [ui] — 8 files",
+    "MP Profiles & Rankings › MP Profile Dossier [ui] — 8 files",
+    "MP Profiles & Rankings › CivicScore Leaderboard [ui] — 8 files",
+    "Voting & Legislation › LawWatch [ui] — 11 files",
+    "Voting & Legislation › VoteTrack [ui] — 11 files",
+    "Financial Transparency › BudgetMirror [ui] — 2 files",
+    "Financial Transparency › Money Case Files & Human Review [ui] — 12 files",
+    "Financial Transparency › FollowTheMoney Graph [ui] — 8 files",
+    "Knowledge Graph Explorer › Graph Playground [ui] — 13 files",
+    "Data Ingestion › Admin Console [ui] — 8 files",
+    "Data Ingestion › Ingestion Normalization [lib] — 3 files",
+    "Data Ingestion › Source Adapters [lib] — 8 files",
+    "Data Layer › Sample Data Fallback [data] — 4 files",
+    "Data Layer › Scoring & Verdict Copy [lib] — 10 files",
+    "Data Layer › Knowledge Graph Domain Model [lib] — 8 files",
+    "Data Layer › PGlite Repositories [data] — 10 files",
+    "Data Layer › PGlite Store & Runtime [data] — 8 files",
+    "Shared UI Primitives › Archived Art Direction (Rentgen) [ui] — 2 files",
+    "Shared UI Primitives › Shared Display Primitives [ui] — 6 files",
+    "Infrastructure & Observability › Custom ESLint Rules [config] — 6 files",
+    "Infrastructure & Observability › Test Utilities & Loader Coverage [test] — 2 files",
+    "Infrastructure & Observability › App Bootstrap & Global Styles [config] — 2 files",
+    "Infrastructure & Observability › i18n & Number Formatting [lib] — 5 files"
+  ],
+  "summary": {
+    "totalGroups": 9,
+    "totalContexts": 25,
+    "totalFiles": 184,
+    "categories": {
+      "ui": 14,
+      "lib": 5,
+      "data": 3,
+      "config": 2,
+      "test": 1
+    },
+    "domains": {
+      "feature": 5,
+      "integration": 1,
+      "data": 1,
+      "shared": 1,
+      "infrastructure": 1
+    }
   },
-  "provenance": {
-    "git_commit": "510f80617dc9be5c32c23d4c3fe25f7fe584aa16",
-    "git_commit_count": 2
+  "audit": {
+    "ok": false,
+    "tier": "medium",
+    "warnings": 1
   },
-  "stats": {
-    "contexts": 24,
-    "files": 84,
-    "groups": 8,
-    "use_cases": 0
-  },
-  "taxonomy": {
-    "context_categories": [
-      "ui",
-      "api",
-      "lib",
-      "data",
-      "test",
-      "config"
-    ],
-    "group_domains": [
-      "feature",
-      "infrastructure",
-      "shared",
-      "integration",
-      "data"
-    ]
-  },
-  "use_cases": [],
-  "version": 2
+  "instructions": "Context map for politicas. Each group is a business domain (domain field); each context is a feature with its files (filePaths) + a technical category. Read this to learn which files belong to which feature BEFORE editing. When you change a context's files, update them here (or run Vibeman's refresh) to keep this fresh.",
+  "generatedAt": "2026-07-26T15:06:47.769Z",
+  "revision": "820cebf0e10e"
 }
