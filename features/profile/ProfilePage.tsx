@@ -36,10 +36,17 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
   const lastName = rest.join(" ");
 
   // Čestný „headline" z reálných props: vlajka nepřítomného manažera, jinak
-  // nejsilnější složka. Nikdy vymyšlené číslo.
-  const topComponent = [...components].sort(
-    (x, y) => person.components[y.key] / y.weight - person.components[x.key] / x.weight,
-  )[0];
+  // nejsilnější složka. Nikdy vymyšlené číslo. Every other data gap on this
+  // page degrades gracefully by design — guard this one the same way instead
+  // of assuming `components` is always non-empty (partial ingest, a future
+  // LeaderboardData refactor), which would otherwise crash the whole page on
+  // `topComponent.label` below.
+  const topComponent =
+    components.length > 0
+      ? [...components].sort(
+          (x, y) => person.components[y.key] / y.weight - person.components[x.key] / x.weight,
+        )[0]
+      : null;
 
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
@@ -88,7 +95,7 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
             </div>
           </div>
           <p className="mt-6 max-w-2xl border-l-4 border-signal pl-4 text-base italic leading-relaxed text-steel">
-            {person.absenteeManagerLead ? t("absenteeFlag") : topComponent.label}
+            {person.absenteeManagerLead ? t("absenteeFlag") : (topComponent?.label ?? "")}
           </p>
 
           {/* Poctivý korektiv nízkého skóre — vykreslí se jen když enrichment
