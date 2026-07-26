@@ -1,0 +1,784 @@
+{
+  "batch": 8,
+  "track": "money",
+  "kind": "indirect-ownership-exposure-analysis",
+  "generatedAt": "2026-07-26",
+  "note": "READ-ONLY analytical pass, no graph writes. Every entry is a LEAD (cited by owns_stake/supplies edge provenance already in the graph), never an assertion about a person's conduct.",
+  "ownsStakeEdgeCount": 33,
+  "chainsExamined": [
+    {
+      "tiedCompany": "MERO ČR, a.s.",
+      "parent": "Ministerstvo financí",
+      "siblingCount": 0
+    },
+    {
+      "tiedCompany": "Wellness sv. Markéta a.s.",
+      "parent": "Léčebné centrum sv. Markéty,a.s.",
+      "siblingCount": 0
+    },
+    {
+      "tiedCompany": "IF Holding a.s.",
+      "parent": "B.S. - KINGS s.r.o.",
+      "siblingCount": 0
+    },
+    {
+      "tiedCompany": "IF FACILITY a.s.",
+      "parent": "IF Holding a.s.",
+      "siblingCount": 0
+    },
+    {
+      "tiedCompany": "Pražské služby, a.s.",
+      "parent": "HLAVNÍ MĚSTO PRAHA",
+      "siblingCount": 3
+    },
+    {
+      "tiedCompany": "Oblastní nemocnice Trutnov a.s.",
+      "parent": "Zdravotnický holding Královéhradeckého kraje a.s.",
+      "siblingCount": 0
+    },
+    {
+      "tiedCompany": "Oblastní nemocnice Trutnov a.s.",
+      "parent": "Královéhradecký kraj",
+      "siblingCount": 0
+    },
+    {
+      "tiedCompany": "Údržba silnic Karlovarského kraje, a.s.",
+      "parent": "Karlovarský kraj",
+      "siblingCount": 0
+    },
+    {
+      "tiedCompany": "Léčebné lázně Jáchymov a. s.",
+      "parent": "Lázně Luhačovice, a.s.",
+      "siblingCount": 0
+    },
+    {
+      "tiedCompany": "Ostrovská teplárenská, a.s.",
+      "parent": "Město Ostrov",
+      "siblingCount": 0
+    },
+    {
+      "tiedCompany": "Obecní dům, a.s.",
+      "parent": "HLAVNÍ MĚSTO PRAHA",
+      "siblingCount": 3
+    },
+    {
+      "tiedCompany": "SynBiol, a.s.",
+      "parent": "Synthesia, a.s.",
+      "siblingCount": 0
+    },
+    {
+      "tiedCompany": "IMOBA, a.s.",
+      "parent": "AGROFERT HOLDING, a.s.",
+      "siblingCount": 1
+    },
+    {
+      "tiedCompany": "IMOBA, a.s.",
+      "parent": "SynBiol, a.s.",
+      "siblingCount": 0
+    },
+    {
+      "tiedCompany": "IMOBA, a.s.",
+      "parent": "AGROFERT, a.s.",
+      "siblingCount": 1
+    },
+    {
+      "tiedCompany": "AGROFERT, a.s.",
+      "parent": "AGROFERT HOLDING, a.s.",
+      "siblingCount": 1
+    },
+    {
+      "tiedCompany": "AGROFERT, a.s.",
+      "parent": "AGROFERT a.s.",
+      "siblingCount": 0
+    },
+    {
+      "tiedCompany": "Synthesia, a.s.",
+      "parent": "DEZA, a.s.",
+      "siblingCount": 0
+    },
+    {
+      "tiedCompany": "Synthesia, a.s.",
+      "parent": "AGROFERT, a.s.",
+      "siblingCount": 1
+    },
+    {
+      "tiedCompany": "Plzeňské městské dopravní podniky, a.s.",
+      "parent": "Město Plzeň",
+      "siblingCount": 2
+    },
+    {
+      "tiedCompany": "Pojišťovna VZP, a.s.",
+      "parent": "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+      "siblingCount": 0
+    },
+    {
+      "tiedCompany": "Plzeňská teplárenská, a.s.",
+      "parent": "Město Plzeň",
+      "siblingCount": 2
+    },
+    {
+      "tiedCompany": "Kongresové centrum Praha, a.s.",
+      "parent": "HLAVNÍ MĚSTO PRAHA",
+      "siblingCount": 3
+    },
+    {
+      "tiedCompany": "AGROFERT, a.s.",
+      "parent": "AGROFERT HOLDING, a.s.",
+      "siblingCount": 1
+    },
+    {
+      "tiedCompany": "AGROFERT, a.s.",
+      "parent": "AGROFERT a.s.",
+      "siblingCount": 0
+    },
+    {
+      "tiedCompany": "EAST BOHEMIAN AIRPORT a.s.",
+      "parent": "Statutární město Pardubice",
+      "siblingCount": 1
+    },
+    {
+      "tiedCompany": "EAST BOHEMIAN AIRPORT a.s.",
+      "parent": "UNICO Pardubice a.s.",
+      "siblingCount": 0
+    },
+    {
+      "tiedCompany": "Dopravní podnik města Pardubic a.s.",
+      "parent": "Statutární město Pardubice",
+      "siblingCount": 1
+    },
+    {
+      "tiedCompany": "Rybářství Třeboň a.s.",
+      "parent": "Rybářství Třeboň Hld. a.s.",
+      "siblingCount": 0
+    },
+    {
+      "tiedCompany": "Plzeňské městské dopravní podniky, a.s.",
+      "parent": "Město Plzeň",
+      "siblingCount": 2
+    },
+    {
+      "tiedCompany": "Operátor ICT, a.s.",
+      "parent": "HLAVNÍ MĚSTO PRAHA",
+      "siblingCount": 3
+    },
+    {
+      "tiedCompany": "Operátor ICT, a.s.",
+      "parent": "HLAVNÍ MĚSTO PRAHA",
+      "siblingCount": 3
+    },
+    {
+      "tiedCompany": "Oblastní nemocnice Kladno, a.s., nemocnice Středočeského kraje",
+      "parent": "Středočeský kraj",
+      "siblingCount": 1
+    },
+    {
+      "tiedCompany": "VODÁRNA PLZEŇ a.s.",
+      "parent": "Město Plzeň",
+      "siblingCount": 2
+    },
+    {
+      "tiedCompany": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "parent": "Československá obchodní banka, a.s.",
+      "siblingCount": 0
+    },
+    {
+      "tiedCompany": "MERO ČR, a.s.",
+      "parent": "Ministerstvo financí",
+      "siblingCount": 0
+    },
+    {
+      "tiedCompany": "Oblastní nemocnice Mladá Boleslav, a.s., nemocnice Středočeského kraje",
+      "parent": "Středočeský kraj",
+      "siblingCount": 1
+    },
+    {
+      "tiedCompany": "Plzeňské městské dopravní podniky, a.s.",
+      "parent": "Město Plzeň",
+      "siblingCount": 2
+    },
+    {
+      "tiedCompany": "Výzkumný Ústav Železniční, a.s.",
+      "parent": "České dráhy, a.s.",
+      "siblingCount": 0
+    }
+  ],
+  "leads": [
+    {
+      "mp": "Boris Šťastný",
+      "mpId": "psp:person:5512",
+      "tiedCompany": "Pražské služby, a.s.",
+      "tiedCompanyId": "company:ico:60194120",
+      "tieRole": "místopředseda dozorčí rady",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "HLAVNÍ MĚSTO PRAHA",
+      "parentId": "company:ico:64581",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "2018-12-20",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+      },
+      "siblingCompany": "Operátor ICT, a.s.",
+      "siblingCompanyId": "company:ico:02795281",
+      "siblingContracts": 24,
+      "siblingContractsCzk": 884856389,
+      "siblingIsAlsoDirectlyTied": true
+    },
+    {
+      "mp": "Jana Černochová",
+      "mpId": "psp:person:5903",
+      "tiedCompany": "Obecní dům, a.s.",
+      "tiedCompanyId": "company:ico:27251918",
+      "tieRole": "předseda dozorčí rady",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "HLAVNÍ MĚSTO PRAHA",
+      "parentId": "company:ico:64581",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "2013-10-23",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+      },
+      "siblingCompany": "Operátor ICT, a.s.",
+      "siblingCompanyId": "company:ico:02795281",
+      "siblingContracts": 24,
+      "siblingContractsCzk": 884856389,
+      "siblingIsAlsoDirectlyTied": true
+    },
+    {
+      "mp": "Jana Černochová",
+      "mpId": "psp:person:5903",
+      "tiedCompany": "Obecní dům, a.s.",
+      "tiedCompanyId": "company:ico:27251918",
+      "tieRole": "předseda dozorčí rady",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "HLAVNÍ MĚSTO PRAHA",
+      "parentId": "company:ico:64581",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "2013-10-23",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+      },
+      "siblingCompany": "Pražské služby, a.s.",
+      "siblingCompanyId": "company:ico:60194120",
+      "siblingContracts": 24,
+      "siblingContractsCzk": 1470325335.8600001,
+      "siblingIsAlsoDirectlyTied": true
+    },
+    {
+      "mp": "Andrej Babiš",
+      "mpId": "psp:person:6150",
+      "tiedCompany": "IMOBA, a.s.",
+      "tiedCompanyId": "company:ico:26124459",
+      "tieRole": "předseda představenstva",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "AGROFERT HOLDING, a.s.",
+      "parentId": "company:ico:25130072",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "1999-10-27",
+        "to": "2000-03-20",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+      },
+      "siblingCompany": "AGROFERT, a.s.",
+      "siblingCompanyId": "company:ico:26185610",
+      "siblingContracts": 24,
+      "siblingContractsCzk": 6274453.5,
+      "siblingIsAlsoDirectlyTied": true
+    },
+    {
+      "mp": "Andrej Babiš",
+      "mpId": "psp:person:6150",
+      "tiedCompany": "IMOBA, a.s.",
+      "tiedCompanyId": "company:ico:26124459",
+      "tieRole": "předseda představenstva",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "AGROFERT, a.s.",
+      "parentId": "company:ico:26185610",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "2008-08-14",
+        "to": "2014-01-30",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+      },
+      "siblingCompany": "Synthesia, a.s.",
+      "siblingCompanyId": "company:ico:60108916",
+      "siblingContracts": 25,
+      "siblingContractsCzk": 796873826.0600002,
+      "siblingIsAlsoDirectlyTied": true
+    },
+    {
+      "mp": "Andrej Babiš",
+      "mpId": "psp:person:6150",
+      "tiedCompany": "AGROFERT, a.s.",
+      "tiedCompanyId": "company:ico:26185610",
+      "tieRole": "předseda představenstva",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "AGROFERT HOLDING, a.s.",
+      "parentId": "company:ico:25130072",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "2002-06-20",
+        "to": "2004-08-31",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+      },
+      "siblingCompany": "IMOBA, a.s.",
+      "siblingCompanyId": "company:ico:26124459",
+      "siblingContracts": 12,
+      "siblingContractsCzk": 1823880,
+      "siblingIsAlsoDirectlyTied": true
+    },
+    {
+      "mp": "Andrej Babiš",
+      "mpId": "psp:person:6150",
+      "tiedCompany": "Synthesia, a.s.",
+      "tiedCompanyId": "company:ico:60108916",
+      "tieRole": "člen dozorčí rady",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "AGROFERT, a.s.",
+      "parentId": "company:ico:26185610",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "2013-10-17",
+        "to": "2024-02-01",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz"
+      },
+      "siblingCompany": "IMOBA, a.s.",
+      "siblingCompanyId": "company:ico:26124459",
+      "siblingContracts": 12,
+      "siblingContractsCzk": 1823880,
+      "siblingIsAlsoDirectlyTied": true
+    },
+    {
+      "mp": "Marek Ženíšek",
+      "mpId": "psp:person:6154",
+      "tiedCompany": "Plzeňské městské dopravní podniky, a.s.",
+      "tiedCompanyId": "company:ico:25220683",
+      "tieRole": "člen dozorčí rady",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "Město Plzeň",
+      "parentId": "company:ico:75370",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "2013-09-04",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+      },
+      "siblingCompany": "VODÁRNA PLZEŇ a.s.",
+      "siblingCompanyId": "company:ico:25205625",
+      "siblingContracts": 22,
+      "siblingContractsCzk": 915796079.85,
+      "siblingIsAlsoDirectlyTied": true
+    },
+    {
+      "mp": "Marek Ženíšek",
+      "mpId": "psp:person:6154",
+      "tiedCompany": "Plzeňské městské dopravní podniky, a.s.",
+      "tiedCompanyId": "company:ico:25220683",
+      "tieRole": "člen dozorčí rady",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "Město Plzeň",
+      "parentId": "company:ico:75370",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "2013-09-04",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+      },
+      "siblingCompany": "Plzeňská teplárenská, a.s.",
+      "siblingCompanyId": "company:ico:49790480",
+      "siblingContracts": 17,
+      "siblingContractsCzk": 2039997.3,
+      "siblingIsAlsoDirectlyTied": true
+    },
+    {
+      "mp": "Marek Ženíšek",
+      "mpId": "psp:person:6154",
+      "tiedCompany": "Plzeňská teplárenská, a.s.",
+      "tiedCompanyId": "company:ico:49790480",
+      "tieRole": "člen představenstva",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "Město Plzeň",
+      "parentId": "company:ico:75370",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "2008-05-20",
+        "to": "2018-10-31",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+      },
+      "siblingCompany": "VODÁRNA PLZEŇ a.s.",
+      "siblingCompanyId": "company:ico:25205625",
+      "siblingContracts": 22,
+      "siblingContractsCzk": 915796079.85,
+      "siblingIsAlsoDirectlyTied": true
+    },
+    {
+      "mp": "Marek Ženíšek",
+      "mpId": "psp:person:6154",
+      "tiedCompany": "Plzeňská teplárenská, a.s.",
+      "tiedCompanyId": "company:ico:49790480",
+      "tieRole": "člen představenstva",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "Město Plzeň",
+      "parentId": "company:ico:75370",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "2008-05-20",
+        "to": "2018-10-31",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+      },
+      "siblingCompany": "Plzeňské městské dopravní podniky, a.s.",
+      "siblingCompanyId": "company:ico:25220683",
+      "siblingContracts": 11,
+      "siblingContractsCzk": 4132961.91,
+      "siblingIsAlsoDirectlyTied": true
+    },
+    {
+      "mp": "Marek Ženíšek",
+      "mpId": "psp:person:6154",
+      "tiedCompany": "Kongresové centrum Praha, a.s.",
+      "tiedCompanyId": "company:ico:63080249",
+      "tieRole": "člen představenstva",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "HLAVNÍ MĚSTO PRAHA",
+      "parentId": "company:ico:64581",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "2013-10-23",
+        "to": "2014-01-06",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+      },
+      "siblingCompany": "Operátor ICT, a.s.",
+      "siblingCompanyId": "company:ico:02795281",
+      "siblingContracts": 24,
+      "siblingContractsCzk": 884856389,
+      "siblingIsAlsoDirectlyTied": true
+    },
+    {
+      "mp": "Marek Ženíšek",
+      "mpId": "psp:person:6154",
+      "tiedCompany": "Kongresové centrum Praha, a.s.",
+      "tiedCompanyId": "company:ico:63080249",
+      "tieRole": "člen představenstva",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "HLAVNÍ MĚSTO PRAHA",
+      "parentId": "company:ico:64581",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "2013-10-23",
+        "to": "2014-01-06",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+      },
+      "siblingCompany": "Pražské služby, a.s.",
+      "siblingCompanyId": "company:ico:60194120",
+      "siblingContracts": 24,
+      "siblingContractsCzk": 1470325335.8600001,
+      "siblingIsAlsoDirectlyTied": true
+    },
+    {
+      "mp": "Jaroslav Faltýnek",
+      "mpId": "psp:person:6190",
+      "tiedCompany": "AGROFERT, a.s.",
+      "tiedCompanyId": "company:ico:26185610",
+      "tieRole": "zaměstnanec",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "AGROFERT HOLDING, a.s.",
+      "parentId": "company:ico:25130072",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "2002-06-20",
+        "to": "2004-08-31",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+      },
+      "siblingCompany": "IMOBA, a.s.",
+      "siblingCompanyId": "company:ico:26124459",
+      "siblingContracts": 12,
+      "siblingContractsCzk": 1823880,
+      "siblingIsAlsoDirectlyTied": true
+    },
+    {
+      "mp": "Martin Kolovratník",
+      "mpId": "psp:person:6211",
+      "tiedCompany": "EAST BOHEMIAN AIRPORT a.s.",
+      "tiedCompanyId": "company:ico:48154938",
+      "tieRole": "člen dozorčí rady",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "Statutární město Pardubice",
+      "parentId": "company:ico:274046",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "2002-09-07",
+        "to": "2007-07-03",
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz"
+      },
+      "siblingCompany": "Dopravní podnik města Pardubic a.s.",
+      "siblingCompanyId": "company:ico:63217066",
+      "siblingContracts": 1,
+      "siblingContractsCzk": 38400,
+      "siblingIsAlsoDirectlyTied": true
+    },
+    {
+      "mp": "Martin Kolovratník",
+      "mpId": "psp:person:6211",
+      "tiedCompany": "Dopravní podnik města Pardubic a.s.",
+      "tiedCompanyId": "company:ico:63217066",
+      "tieRole": "člen dozorčí rady",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "Statutární město Pardubice",
+      "parentId": "company:ico:274046",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "2014-01-15",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz"
+      },
+      "siblingCompany": "EAST BOHEMIAN AIRPORT a.s.",
+      "siblingCompanyId": "company:ico:48154938",
+      "siblingContracts": 20,
+      "siblingContractsCzk": 310233450.6,
+      "siblingIsAlsoDirectlyTied": true
+    },
+    {
+      "mp": "Martin Baxa",
+      "mpId": "psp:person:6435",
+      "tiedCompany": "Plzeňské městské dopravní podniky, a.s.",
+      "tiedCompanyId": "company:ico:25220683",
+      "tieRole": "člen dozorčí rady",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "Město Plzeň",
+      "parentId": "company:ico:75370",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "2013-09-04",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+      },
+      "siblingCompany": "VODÁRNA PLZEŇ a.s.",
+      "siblingCompanyId": "company:ico:25205625",
+      "siblingContracts": 22,
+      "siblingContractsCzk": 915796079.85,
+      "siblingIsAlsoDirectlyTied": true
+    },
+    {
+      "mp": "Martin Baxa",
+      "mpId": "psp:person:6435",
+      "tiedCompany": "Plzeňské městské dopravní podniky, a.s.",
+      "tiedCompanyId": "company:ico:25220683",
+      "tieRole": "člen dozorčí rady",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "Město Plzeň",
+      "parentId": "company:ico:75370",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "2013-09-04",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+      },
+      "siblingCompany": "Plzeňská teplárenská, a.s.",
+      "siblingCompanyId": "company:ico:49790480",
+      "siblingContracts": 17,
+      "siblingContractsCzk": 2039997.3,
+      "siblingIsAlsoDirectlyTied": true
+    },
+    {
+      "mp": "Patrik Nacher",
+      "mpId": "psp:person:6487",
+      "tiedCompany": "Operátor ICT, a.s.",
+      "tiedCompanyId": "company:ico:02795281",
+      "tieRole": "člen dozorčí rady",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "HLAVNÍ MĚSTO PRAHA",
+      "parentId": "company:ico:64581",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "2014-03-19",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+      },
+      "siblingCompany": "Pražské služby, a.s.",
+      "siblingCompanyId": "company:ico:60194120",
+      "siblingContracts": 24,
+      "siblingContractsCzk": 1470325335.8600001,
+      "siblingIsAlsoDirectlyTied": true
+    },
+    {
+      "mp": "Jan Jakob",
+      "mpId": "psp:person:6687",
+      "tiedCompany": "Operátor ICT, a.s.",
+      "tiedCompanyId": "company:ico:02795281",
+      "tieRole": "člen dozorčí rady",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "HLAVNÍ MĚSTO PRAHA",
+      "parentId": "company:ico:64581",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "2014-03-19",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+      },
+      "siblingCompany": "Pražské služby, a.s.",
+      "siblingCompanyId": "company:ico:60194120",
+      "siblingContracts": 24,
+      "siblingContractsCzk": 1470325335.8600001,
+      "siblingIsAlsoDirectlyTied": true
+    },
+    {
+      "mp": "Miroslav Samaš",
+      "mpId": "psp:person:6688",
+      "tiedCompany": "Oblastní nemocnice Kladno, a.s., nemocnice Středočeského kraje",
+      "tiedCompanyId": "company:ico:27256537",
+      "tieRole": "člen dozorčí rady, člen představenstva",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "Středočeský kraj",
+      "parentId": "company:ico:70891095",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "2005-06-21",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+      },
+      "siblingCompany": "Oblastní nemocnice Mladá Boleslav, a.s., nemocnice Středočeského kraje",
+      "siblingCompanyId": "company:ico:27256456",
+      "siblingContracts": 25,
+      "siblingContractsCzk": 3502176904.6,
+      "siblingIsAlsoDirectlyTied": true
+    },
+    {
+      "mp": "Ivana Mádlová",
+      "mpId": "psp:person:6732",
+      "tiedCompany": "VODÁRNA PLZEŇ a.s.",
+      "tiedCompanyId": "company:ico:25205625",
+      "tieRole": "člen dozorčí rady",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "Město Plzeň",
+      "parentId": "company:ico:75370",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "2016-03-02",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+      },
+      "siblingCompany": "Plzeňské městské dopravní podniky, a.s.",
+      "siblingCompanyId": "company:ico:25220683",
+      "siblingContracts": 11,
+      "siblingContractsCzk": 4132961.91,
+      "siblingIsAlsoDirectlyTied": true
+    },
+    {
+      "mp": "Ivana Mádlová",
+      "mpId": "psp:person:6732",
+      "tiedCompany": "VODÁRNA PLZEŇ a.s.",
+      "tiedCompanyId": "company:ico:25205625",
+      "tieRole": "člen dozorčí rady",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "Město Plzeň",
+      "parentId": "company:ico:75370",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "2016-03-02",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+      },
+      "siblingCompany": "Plzeňská teplárenská, a.s.",
+      "siblingCompanyId": "company:ico:49790480",
+      "siblingContracts": 17,
+      "siblingContractsCzk": 2039997.3,
+      "siblingIsAlsoDirectlyTied": true
+    },
+    {
+      "mp": "Jiří Bouška",
+      "mpId": "psp:person:6993",
+      "tiedCompany": "Oblastní nemocnice Mladá Boleslav, a.s., nemocnice Středočeského kraje",
+      "tiedCompanyId": "company:ico:27256456",
+      "tieRole": "člen představenstva, mástopředseda představenstva, člen dozorčí rady",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "Středočeský kraj",
+      "parentId": "company:ico:70891095",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "2005-06-21",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+      },
+      "siblingCompany": "Oblastní nemocnice Kladno, a.s., nemocnice Středočeského kraje",
+      "siblingCompanyId": "company:ico:27256537",
+      "siblingContracts": 10,
+      "siblingContractsCzk": 1380908149,
+      "siblingIsAlsoDirectlyTied": true
+    },
+    {
+      "mp": "Roman Zarzycký",
+      "mpId": "psp:person:7063",
+      "tiedCompany": "Plzeňské městské dopravní podniky, a.s.",
+      "tiedCompanyId": "company:ico:25220683",
+      "tieRole": "předseda představenstva",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "Město Plzeň",
+      "parentId": "company:ico:75370",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "2013-09-04",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+      },
+      "siblingCompany": "VODÁRNA PLZEŇ a.s.",
+      "siblingCompanyId": "company:ico:25205625",
+      "siblingContracts": 22,
+      "siblingContractsCzk": 915796079.85,
+      "siblingIsAlsoDirectlyTied": true
+    },
+    {
+      "mp": "Roman Zarzycký",
+      "mpId": "psp:person:7063",
+      "tiedCompany": "Plzeňské městské dopravní podniky, a.s.",
+      "tiedCompanyId": "company:ico:25220683",
+      "tieRole": "předseda představenstva",
+      "tieCorroboration": "registry-confirmed",
+      "parent": "Město Plzeň",
+      "parentId": "company:ico:75370",
+      "ownsStakeEdge": {
+        "role": "jediný akcionář",
+        "from": "2013-09-04",
+        "to": null,
+        "share": 100,
+        "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+      },
+      "siblingCompany": "Plzeňská teplárenská, a.s.",
+      "siblingCompanyId": "company:ico:49790480",
+      "siblingContracts": 17,
+      "siblingContractsCzk": 2039997.3,
+      "siblingIsAlsoDirectlyTied": true
+    }
+  ],
+  "opusVerdict": {
+    "verdict": "PARTIAL / under-derived — the arithmetic (26 raw leads, 0 with siblingIsAlsoDirectlyTied:false) is correct, but the driver framing (0 genuinely new indirect exposure) overclaims. Corrected framing: 0 SIBLING-LEVEL leads, and that result is near-tautological by construction (the company universe checked is built FROM linked_to ties, so almost any sibling found will already be tied). Two dimensions were never examined: (1) PARENT-level exposure — of 24 distinct parents, several are PRIVATE and NOT MP-tied (B.S.-KINGS s.r.o., UNICO Pardubice a.s., Rybarstvi Trebon Hld. a.s., Lecebne centrum sv. Markety a.s., Lazne Luhacovice a.s., DEZA a.s., CSOB, Ceske drahy) — contracts flowing to those parents themselves are exposure this pass did not check (the public-body parents — Praha, Plzen, kraje — are correctly out of scope, they are the contracting authority, not MP money). (2) descendant/multi-hop exposure was available in the data (B.S.-KINGS -> IF Holding -> IF FACILITY; AGROFERT HOLDING -> AGROFERT -> Synthesia -> SynBiol -> IMOBA) and unused.",
+    "dataIntegrityFlag": "39 chainsExamined rows vs 33 declared owns_stake edges — duplicate child<-parent rows (MERO CR x2, AGROFERT<-AGROFERT HOLDING x2, Operator ICT x2, Plzenske MDP<-Mesto Plzen x3). Reconcile the owns_stake payload before quoting \"33\" as a clean edge count.",
+    "correctedConclusion": "Sibling-level exposure: 0 new leads, by construction. Parent-level and descendant-level exposure: NOT YET EXAMINED — queue for next batch. What breadth would change it: widen the fetch to the 8 identified private non-MP-tied parents' own contract exposure, and extend one hop further (grandparent/grandchild) on the already-cached AGROFERT and B.S.-KINGS chains."
+  }
+}

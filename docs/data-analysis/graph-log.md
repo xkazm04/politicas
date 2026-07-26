@@ -693,3 +693,26 @@ disclosed rather than smoothed.
 (**40/2009 now #1**, displacing 586/1992); the full per-bill `triageScoreV2` recompute was
 explicitly DEFERRED and said so rather than silently skipped. Collision universe re-run on the
 regenerated topology: **629 raw → 176 partitioned pairs**, 12 close-read.
+
+## Batch 008 (track: money) — three honest negatives, no graph write (2026-07-26)
+
+The batch produced almost entirely NEGATIVE results, verified rather than assumed — which is what
+a converged loop should produce once the easy signal is gone.
+
+- **Q-money-15 closes C17**: all 28 still-open ties (19 conflicting + 9 unconfirmed) re-fetched from
+  the LIVE ARES VR endpoint, no cache. **1 flip** (Okamura ↔ MIKI TRAVEL PRAGUE, IČO 25124188,
+  jednatel since 1997), 16 genuine confirmed negatives, 9 structural 404s (public bodies outside
+  the commercial register). Verdict recorded honestly: *C17's caution was locally right but did not
+  generalize.* The Opus sweep of the "confirmed negatives" still caught 2 real mislabelings (a P36
+  regression and a C11 no-officer-section case) — corrected before any payload.
+- **Q-money-16 UNRESOLVED**: the dataor praha/brno bulk files stall reproducibly at ~65–71 MB of
+  ~225 MB. Two retries, same signature. Reported as unfinished; 4 of 5 blocked ties stay open.
+- **Indirect ownership — 0 genuinely new leads.** 26 sibling-level candidates, every one already
+  independently MP-tied. The Opus pass identified WHY: the query is near-tautological by
+  construction, so its null is uninformative rather than reassuring. Rescoped honestly —
+  parent-level (8 named private untied parents) and multi-hop descendants were never examined.
+- **kiosek watch built** (`scripts/case-loops/money/kiosek-watch.ts`, repeatable): **0 hits, and
+  flagged as a ZERO-POWER baseline rather than a finding** — the `concerns` (notice→company) edges
+  were never persisted (0 live vs `cites`' 36; they were all in the 80 excluded rows of the
+  orchestrator's pass-29 apply), so the watch currently has nothing to match against. An
+  orchestrator gap, disclosed by the loop rather than by me.

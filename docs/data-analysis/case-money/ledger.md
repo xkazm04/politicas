@@ -389,3 +389,91 @@ detail, payloads, and validation commands: `batch-006.md`, `handoff.md`.
 5. Batch-005 steering items not yet actioned (D5 CHECK migration,
    Q-money-13 stale-mention payload, OSVČ purge live-execution
    confirmation) remain open — carry forward.
+
+*(No batch-007.md/handoff.md was written by a money driver — the orchestrator
+applied batch-006's payloads directly, reflected in the live-state numbers
+batch 008 verified at its start: 211 ties, 183 registry-confirmed / 19
+conflicting / 9 registry-unconfirmed; 33 `owns_stake` edges; 20 `notice`
+nodes; 36 `cites` edges; 0 `concerns` edges. `owns_stake`/`cites`/`concerns`
+are live `KG_EDGE_RELS` members as of this point.)*
+
+### Batch 008 — live ARES-VR re-verification (C17), dataor retry, indirect-ownership reality check, kiosek watch (2026-07-26)
+
+- **Q-money-15 (closes C17):** re-fetched ARES VR LIVE (no cache) for all 28
+  currently-open ties (19 conflicting + 9 registry-unconfirmed). **1 flip**
+  (Tomio Okamura ↔ MIKI TRAVEL PRAGUE, `conflicting` → `registry-confirmed`,
+  jednatel since 1997-04-25). 16 genuine confirmed negatives, 9 structural
+  404s (both Opus-reverified). **2 negative-label defects caught by Opus**
+  (Černochová/Nadační fond and Vlček/PRO VYSOČINU mislabeled "confirmed" —
+  one a P36 regression, one a C11 case) and corrected in the analysis
+  artifact; no graph harm. C17 CLOSED — the population mostly holds, C17's
+  caution was locally right (2 real mislabels existed) but did not
+  generalize.
+- **Q-money-16: not resolved.** Two retry attempts (18 min total) on the 2
+  large dataor files (`sro-full-praha-2026`, `sro-full-brno-2026`)
+  reproduced batch-006's exact stall — both truncated (`gzip -t` fails),
+  ~71MB/~65MB of an expected ~225MB. 4 of the original 5 blocked ties remain
+  open via dataor (Okamura↔MIKI TRAVEL closed via Q-money-15 instead).
+  Structural network-budget limit, not a one-off — flagged for a different
+  approach next batch (longer budget or finer dataor split).
+- **Indirect-ownership first real question:** computed sibling-level
+  exposure from the 33 `owns_stake` edges — 26 raw leads, **0 with a
+  sibling NOT already independently MP-tied**. Opus corrected the framing
+  from "0 genuinely new exposure" (overclaim) to "0 SIBLING-level exposure,
+  by construction — parent-level (8 named private non-tied parents) and
+  descendant/multi-hop exposure (2 named already-cached chains) never
+  examined." Also caught a data-integrity flag: 39 `chainsExamined` rows for
+  33 declared edges (duplicates to reconcile).
+- **kiosek money-watch channel built:** `scripts/case-loops/money/kiosek-watch.ts`,
+  repeatable, checks both the live graph and case-sources' un-applied
+  `concerns` proposal file. **0 hits — Opus verdict: zero-power baseline, not
+  a finding** (0 `concerns` edges live at all, despite being a `KG_EDGE_RELS`
+  member since batch 007; the proposal-file check's 0 was arithmetically
+  guaranteed since none of its 20 IČOs is even a graphed company). Real gap
+  flagged: kiosek's `concerns` edges were never persisted, unlike `cites`
+  (36 live) — not this case's boundary to fix, flagged for the orchestrator/
+  case-sources driver.
+- **Opus verification (1 pass, max depth):** Q-money-15 flip HOLDS
+  (independently re-derived birth date, ambiguity-checked, dates verified);
+  ownership-exposure conclusion PARTIAL (corrected as above); kiosek watch
+  PARTIAL (labeled zero-power baseline). Full verdict in `handoff.md` §
+  and `batch-008.md` §5.
+- **No commit. No live `.pglite` write. No `review_state` change.**
+  `.pglite-copy-money-b8` left in place (not deleted) for orchestrator
+  re-verification. Full detail: `batch-008.md`, `handoff.md`.
+
+## Metrics block — batch 008
+
+| metric | batch 008 |
+|---|---|
+| open ties re-verified vs LIVE ARES VR (Q-money-15) | 28 / 28 (100% of the live-open population) |
+| flips (negative → registry-confirmed) | **1** (Okamura ↔ MIKI TRAVEL PRAGUE) |
+| confirmed genuine negatives | 16 |
+| structural 404s (re-verified) | 9 |
+| negative-label defects found + corrected (Opus) | 2 (P36 regression, C11 case) |
+| C17 (batch-006 contradiction) | **CLOSED** |
+| Q-money-16 (dataor large-file retry) | **NOT resolved** — 2/2 retry attempts stalled, reproduces batch-006 |
+| indirect-ownership sibling-level leads | 26 raw, **0 genuinely new** (by construction — Opus-corrected framing) |
+| indirect-ownership breadth not yet examined | 8 named private parents, 2 named multi-hop chains |
+| kiosek watch hits | 0 (zero-power baseline, Opus verdict) |
+| kiosek `concerns` edges live | **0** (real gap flagged, not money's boundary) |
+| Opus verification passes | 1 (3 tasks: flip verification, ownership sanity check, general QA) |
+| tsc | clean |
+| tests | unchanged (no test-touching code this batch) |
+
+## Steering (next batch — batch 009)
+
+1. **Q-money-16**: widen the dataor network budget past ~550s/attempt, or
+   find a finer-grained split for the Praha/Brno court×form files
+   specifically (both are outliers by size in the catalog).
+2. **Indirect-ownership breadth-2**: check the 8 named private non-MP-tied
+   parents' own contract exposure + extend the AGROFERT and B.S.-KINGS
+   chains one hop further (data already cached).
+3. **`owns_stake` duplicate rows**: reconcile batch-006's payload (39
+   examined vs 33 declared edges).
+4. **kiosek `concerns` edges**: orchestrator/case-sources driver applies
+   `docs/data-analysis/case-sources/kiosek-payload.json`'s 24 `concerns`
+   proposals so the money watch gains real power.
+5. Batch-005/006 steering items not yet actioned (D5 CHECK migration,
+   Q-money-13, OSVČ purge live-execution confirmation) — status not
+   re-verified this batch, carry forward if still open.

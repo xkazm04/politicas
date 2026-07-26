@@ -1,6 +1,33 @@
 {
   "processed": 28,
   "flips": 1,
+  "opusVerdict": {
+    "task1_okamura_flip": "HOLDS — independently re-derived from psp.cz open data (birth date 04.07.1972, no collision with Hayato Okamura), all four matching VR entries confirmed jednatel not owner (tie_class stays manager, not owner-operator), validity dates confirmed correct via a contiguous 4-entry chain (1997-04-25 is a registry-entry date, not a proven vznikFunkce start — noted for wording), zero ambiguity (4 distinct birth dates total, all 1972-07-04 hits are Tomio Okamura). Genuinely independent of batch-006's stalled dataor channel for the same tie.",
+    "task2_confirmedNegatives_defects": "Opus swept all 18 (not just the requested spot-check) and found 2 mislabeled: see 'unverifiedNotConfirmed' below. The other 16 are genuine (exact-date miss AND zero surname hits across the full officer/shareholder tree).",
+    "task3_stillUnresolvable_404s": "HOLD — Opus independently re-fetched all 9 IČOs, all return NENALEZENO live. Structural (special-law/church/public bodies outside the commercial register), not a bug."
+  },
+  "unverifiedNotConfirmed": [
+    {
+      "mp": "Jana Černochová",
+      "company": "Nadační fond Českého rozhlasu",
+      "ico": "26419068",
+      "reason": "The VR record has two Jana Černochová entries (statutory organ, 2008-05-28→2010-06-22) with NULL birth date — the exact-birth-date matcher structurally cannot see them. Per P36 (name-similarity fallback gated to null-birthdate entries), this is an unverified negative, not a confirmed one. No graph harm occurred (the tie stayed 'conflicting'), but it should not be counted among the 18 genuine negatives. Needs a human/name-similarity check, not an auto-close."
+    },
+    {
+      "mp": "Lukáš Vlček",
+      "company": "PRO VYSOČINU, občanské sdružení",
+      "ico": "27043843",
+      "reason": "The VR record is a spolkový-rejstřík entry with NO officer section at all (statutarniOrgany absent). Per C11 (absence from a record with no officers is unverified, not confirmed), this belongs with the 404 class, not the checked-negative class."
+    }
+  ],
+  "borderlineNotedByOpus": [
+    {
+      "mp": "Boris Šťastný",
+      "company": "Česká lékařská komora - o.s., z.s.",
+      "ico": "70885117",
+      "reason": "SR (spolkový rejstřík) record with only 1 officer entry — thin evidence base for a negative; flagged borderline, not reclassified."
+    }
+  ],
   "confirmedNegatives": [
     {
       "src": "psp:person:346",

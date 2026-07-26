@@ -1,0 +1,21 @@
+{
+  "batch": 8,
+  "track": "money",
+  "kind": "kiosek-money-watch-check",
+  "generatedAt": "2026-07-26",
+  "note": "Repeatable check (re-run every batch or on new kiosek slices). Read-only, no graph writes. Flags when a court-notice IČO matches ANY MP-tied company IČO. A hit is a LEAD requiring the same corroboration discipline as any other money claim — never auto-surfaced as an accusation.",
+  "companiesTotal": 215,
+  "noticesTotal": 20,
+  "tiedCompaniesTotal": 195,
+  "tiedIcosDistinct": 195,
+  "citesEdges": 36,
+  "concernsEdges": 0,
+  "noticesWithResolvableIco": 0,
+  "hits": [],
+  "unappliedConcernsProposalHits": [],
+  "opusVerdict": {
+    "verdict": "PARTIAL — the live-graph half (concernsEdges:0, noticesWithResolvableIco:0) is vacuous: 0-vs-195 is not a test, it is an unpopulated join (concerns edges were never persisted despite being in KG_EDGE_RELS). The proposal-file half (24 concerns proposals / 20 distinct ICOs from kiosek-payload.json) IS a real check, but 0 was arithmetically guaranteed before it ran, because every one of those 24 proposals already carries targetExists:false — none of the 20 ICOs is even a graphed company node, let alone a tied one. Also: 20 court notices against 195 tied companies is a low-power sample; expected hit count is near zero even if the underlying mechanism (a tied company later showing up in a court notice) is real and active.",
+    "correctedFraming": "Keep this as a repeatable watch (re-run every batch / on every new kiosek slice) but label current output a ZERO-POWER BASELINE, not a finding of absence. proposalIcosCompared: 20 (recorded below for reproducibility). The real prerequisite for this watch to have any power is landing the concerns edges live (see the GAP note already in this file) and growing kiosek volume past the first 20-notice slice.",
+    "proposalIcosCompared": 20
+  }
+}
