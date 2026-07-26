@@ -39,6 +39,30 @@ module.exports = {
           context.report({ node: node.body, messageId: "emptyCatch" });
         }
       },
+      // `promise.catch(() => {})` is the promise-chain equivalent of an empty
+      // try/catch — a CallExpression, not a CatchClause, so the visitor above
+      // never sees it even though it's arguably the more common
+      // error-swallowing idiom in a .then()/.catch() codebase.
+      CallExpression(node) {
+        const callee = node.callee;
+        if (
+          callee.type !== "MemberExpression" ||
+          callee.computed ||
+          callee.property.type !== "Identifier" ||
+          callee.property.name !== "catch"
+        ) {
+          return;
+        }
+        const handler = node.arguments[0];
+        if (
+          handler &&
+          (handler.type === "ArrowFunctionExpression" || handler.type === "FunctionExpression") &&
+          handler.body.type === "BlockStatement" &&
+          handler.body.body.length === 0
+        ) {
+          context.report({ node: handler.body, messageId: "emptyCatch" });
+        }
+      },
     };
   },
 };
