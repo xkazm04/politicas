@@ -81,7 +81,24 @@ function targetScore(rank: number): number {
       return s0 + ((rank - r0) / (r1 - r0)) * (s1 - s0);
     }
   }
-  throw new Error(`rank ${rank} není ve výplňovém pásmu`);
+  // Rank falls outside every band — the boundaries are a hand-maintained
+  // second encoding of the anchor positions in MPS, so an anchor edited
+  // without updating them in lockstep would otherwise throw here at MODULE
+  // IMPORT TIME, crashing every page that uses this "never break the page"
+  // fallback exactly when the real data path is already unavailable. Degrade
+  // to the nearest band's edge value instead.
+  let nearest = bands[0];
+  let nearestDist = Infinity;
+  for (const band of bands) {
+    const [r0, r1] = band;
+    const dist = rank < r0 ? r0 - rank : rank > r1 ? rank - r1 : 0;
+    if (dist < nearestDist) {
+      nearestDist = dist;
+      nearest = band;
+    }
+  }
+  const [nr0, , ns0, ns1] = nearest;
+  return rank <= nr0 ? ns0 : ns1;
 }
 
 // Vzory odchylek pilířů [dAktivita, dDocházka, dNezávislost]; čtvrtá se
@@ -215,7 +232,12 @@ export const CHAMBER_SUMMARY = (() => {
   const scores = LEADERBOARD.map((r) => r.score);
   const avg = scores.reduce((s, v) => s + v, 0) / scores.length;
   const sorted = [...scores].sort((a, b) => a - b);
-  const median = (sorted[99] + sorted[100]) / 2;
+  // Generic midpoint, not a hardcoded 200-row assumption — matches the same
+  // formula already used correctly for the real-data path in
+  // getLeaderboardData.ts, so a future change to LEADERBOARD's length can't
+  // silently compute the wrong median via two magic array indices.
+  const mid = Math.floor(sorted.length / 2);
+  const median = sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
   const sigma = Math.sqrt(scores.reduce((s, v) => s + (v - avg) ** 2, 0) / scores.length);
   return {
     avg: Math.round(avg * 10) / 10,
