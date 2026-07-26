@@ -9,18 +9,38 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import type { RollCall } from "@/lib/civic/data";
+import { PARTIES, type RollCall } from "@/lib/civic/data";
 
 const ROWS = [26, 30, 34, 38, 34, 38];
 
-/** Pořadí klínů zleva doprava — stabilní politické usazení vzorku. */
+/** Pořadí klínů zleva doprava — stabilní politické usazení vzorku. Hand-maintained
+ * SEATING order (visual, independent of PARTIES's declaration order in
+ * lib/civic/data.ts) — but the two code SETS must always match exactly, or
+ * votes.push below silently drops/misaligns every seat after the gap with no
+ * error. Asserted against PARTIES at module load (see below) rather than
+ * derived from it, so the intentional left-to-right political arrangement is
+ * preserved while drift still fails loudly. */
 const WEDGE_ORDER = ["pir", "stan", "kdu", "top", "ods", "ano", "spd"];
+
+if (process.env.NODE_ENV !== "production") {
+  const wedgeSet = new Set(WEDGE_ORDER);
+  const partyCodes = new Set(PARTIES.map((p) => p.code));
+  const missingFromWedge = PARTIES.map((p) => p.code).filter((c) => !wedgeSet.has(c));
+  const extraInWedge = WEDGE_ORDER.filter((c) => !partyCodes.has(c));
+  if (missingFromWedge.length > 0 || extraInWedge.length > 0) {
+    throw new Error(
+      `VoteHemicycle: WEDGE_ORDER has drifted from PARTIES — missing from WEDGE_ORDER: [${missingFromWedge.join(", ")}], not in PARTIES: [${extraInWedge.join(", ")}]`,
+    );
+  }
+}
 
 const VOTE_FILL: Record<string, string> = {
   pro: "fill-cobalt",
   proti: "fill-signal",
   zdrzel: "fill-ochre",
-  omluven: "fill-hairline",
+  // steel, not hairline — hairline is the low-contrast structural grid color;
+  // against bg-paper an "omluven" seat rendered in it is nearly invisible.
+  omluven: "fill-steel",
 };
 
 interface Seat {
@@ -64,6 +84,9 @@ export default function VoteHemicycle({ rc }: { rc: RollCall }) {
       ...Array<string>(pv.omluven).fill("omluven"),
       ...Array<string>(pv.proti).fill("proti"),
     );
+  }
+  if (process.env.NODE_ENV !== "production" && votes.length !== SEATS.length) {
+    throw new Error(`VoteHemicycle: votes.length (${votes.length}) !== SEATS.length (${SEATS.length}) for ${rc.id}`);
   }
 
   return (
