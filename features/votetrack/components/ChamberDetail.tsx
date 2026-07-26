@@ -21,7 +21,10 @@ const SPLIT_META = [
   { key: "pro", voteChoiceKey: "for", cls: "bg-cobalt" },
   { key: "proti", voteChoiceKey: "against", cls: "bg-signal" },
   { key: "zdrzel", voteChoiceKey: "abstained", cls: "bg-ochre" },
-  { key: "omluven", voteChoiceKey: "excused", cls: "bg-hairline" },
+  // steel, not hairline — the track container below is itself bg-hairline,
+  // so an "omluven" segment styled the same as its own background paints at
+  // 0% effective contrast and is silently unrenderable.
+  { key: "omluven", voteChoiceKey: "excused", cls: "bg-steel" },
 ] as const;
 
 const VOTE_TEXT: Record<string, string> = {
@@ -105,7 +108,7 @@ export default function ChamberDetail({ rc }: { rc: RollCall }) {
                 <div className="flex h-4 w-full overflow-hidden bg-hairline">
                   {pv.pro > 0 && <span className="h-full bg-cobalt" style={{ width: `${(pv.pro / p.seats) * 100}%` }} />}
                   {pv.zdrzel > 0 && <span className="h-full bg-ochre" style={{ width: `${(pv.zdrzel / p.seats) * 100}%` }} />}
-                  {pv.omluven > 0 && <span className="h-full bg-hairline" style={{ width: `${(pv.omluven / p.seats) * 100}%` }} />}
+                  {pv.omluven > 0 && <span className="h-full bg-steel" style={{ width: `${(pv.omluven / p.seats) * 100}%` }} />}
                   {pv.proti > 0 && <span className="h-full bg-signal" style={{ width: `${(pv.proti / p.seats) * 100}%` }} />}
                 </div>
                 <span className="text-right font-mono text-[11px] font-bold uppercase tabular-nums">
