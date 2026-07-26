@@ -359,20 +359,34 @@ async function loadReviewHub(): Promise<ReviewHubData> {
         let pending = 0;
         let rejected = 0;
         const tiers: [number, number, number, number] = [0, 0, 0, 0];
+        let unresolvedTotal = 0;
         for (const e of linked) {
+          // Mirror the real review console's contract (getVerificationData.ts):
+          // an unresolved company is dropped, never guessed at. This dashboard
+          // exists to mirror /penize/kontrola's queue — fabricating a "steward"
+          // classification for an edge the console itself would drop let this
+          // page's totals silently diverge from the queue it's meant to monitor.
+          const comp = companyById.get(e.dst);
+          if (!comp) {
+            unresolvedTotal++;
+            continue;
+          }
+
           const rawState = (e.props?.review_state ?? e.props?.state) as string | undefined;
           if (rawState === "verified") verified++;
           else if (rawState === "rejected") rejected++;
           else pending++;
 
-          const comp = companyById.get(e.dst);
           const role = String(e.props?.role ?? "");
-          const tieClass = comp ? classifyTie(role, comp.label) : "steward";
+          const tieClass = classifyTie(role, comp.label);
           const corroboration = (e.props?.corroboration as "registry-confirmed" | "registry-unconfirmed" | "conflicting" | null | undefined) ?? null;
           tiers[reviewTier({ tieClass, corroboration })]++;
         }
+        if (unresolvedTotal > 0) {
+          console.warn(`[getAdminData] dropped ${unresolvedTotal} linked_to edge(s) with unresolved company from tie totals`);
+        }
         ties = {
-          total: linked.length,
+          total: linked.length - unresolvedTotal,
           verified,
           pending,
           rejected,
