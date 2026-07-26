@@ -14,6 +14,9 @@ import { afterAll, describe, expect, it } from "vitest";
 // process.env.PGLITE_PATH lazily but open() memoises on globalThis.
 const dataDir = mkdtempSync(join(tmpdir(), "politicas-leaderboard-"));
 process.env.PGLITE_PATH = dataDir;
+// This test seeds 3 persons on purpose — bypass the cardinality-floor gate
+// (lib/db/readiness.ts), which is exercised by its own test.
+process.env.KG_READINESS_OFF = "1";
 
 const { open } = await import("../db/pglite/internals");
 const { getLeaderboardData, buildLeaderboard } = await import("../../features/civicscore/getLeaderboardData");
@@ -35,7 +38,9 @@ function personProps(score: number) {
 }
 
 describe("getLeaderboardData against a seeded store", () => {
-  it("returns null while the graph holds no persons (empty ≠ crash)", async () => {
+  // 30s: the first test in the file pays the PGlite WASM boot, which contends
+  // when several PGlite test files run in parallel workers.
+  it("returns null while the graph holds no persons (empty ≠ crash)", { timeout: 30_000 }, async () => {
     // Runs BEFORE the seed below — PGlite creates an empty schema on open.
     expect(await getLeaderboardData()).toBeNull();
   });

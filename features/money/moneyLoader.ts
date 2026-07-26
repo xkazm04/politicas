@@ -10,6 +10,7 @@
 
 import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
+import { storeReady } from "@/lib/db/readiness";
 import { getStore } from "@/lib/db/store";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
 import type { ContractLine } from "./moneyTypes";
@@ -51,6 +52,7 @@ export async function loadMoneyLayer(): Promise<MoneyLayer | null> {
   try {
     const store = await getStore();
     if (!store) return null;
+    if (!(await storeReady(store, ["person", "company", "contract"]))) return null;
 
     const companies = await store.listKgNodes({ kind: "company", limit: 100_000 });
     const persons = await store.listKgNodes({ kind: "person", limit: 100_000 });

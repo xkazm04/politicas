@@ -19,6 +19,7 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
+import { storeReady } from "@/lib/db/readiness";
 import { getStore } from "@/lib/db/store";
 
 /** A real §-level fragment change between two ENACTED e-Sbírka versions of a statute.
@@ -209,6 +210,7 @@ export async function getLawData(): Promise<LawData | null> {
   try {
     const store = await getStore();
     if (!store) return null;
+    if (!(await storeReady(store, ["bill", "law"]))) return null;
 
     const billNodes = await store.listKgNodes({ kind: "bill", limit: 100_000 });
     if (billNodes.length === 0) return null;

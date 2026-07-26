@@ -15,6 +15,7 @@
 
 import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
+import { storeReady } from "@/lib/db/readiness";
 import { getStore } from "@/lib/db/store";
 import { publicCopyOrNull } from "@/lib/analysis/public-copy";
 import {
@@ -122,6 +123,7 @@ export async function getProfileData(pspId: number): Promise<ProfileData | null>
 
     const store = await getStore();
     if (!store) return null;
+    if (!(await storeReady(store, ["person"]))) return null;
 
     const selfId = `psp:person:${pspId}`;
 

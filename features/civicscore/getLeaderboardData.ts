@@ -26,6 +26,7 @@
 
 import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
+import { storeReady } from "@/lib/db/readiness";
 import { getStore } from "@/lib/db/store";
 import {
   COMMITTEE_SATURATION,
@@ -193,6 +194,7 @@ export async function buildLeaderboard(): Promise<{ data: LeaderboardData; direc
   try {
     const store = await getStore();
     if (!store) return null;
+    if (!(await storeReady(store, ["person"]))) return null;
 
     const persons = await store.listKgNodes({ kind: "person", limit: 1000 });
     if (persons.length === 0) return null;
