@@ -278,7 +278,16 @@ describe("subsidies (dotace)", () => {
     expect(subs.map((s) => s.recipientIco)).toEqual(["26185610", "26185610"]);
     expect(subs.map((s) => s.amount)).toEqual([9600, 50000]);
     const agg = subsidiesByCompany(subs);
-    expect(agg.get("26185610")).toEqual({ total: 59600, count: 2 });
+    expect(agg.get("26185610")).toEqual({ total: 59600, count: 2, undisclosedCount: 0 });
+  });
+
+  it("tracks undisclosed amounts separately instead of folding them into the total as 0", () => {
+    const subs = [
+      { id: "a", recipientIco: "26185610", amount: 9600, year: 2020, provider: null },
+      { id: "b", recipientIco: "26185610", amount: null, year: 2021, provider: null },
+    ];
+    const agg = subsidiesByCompany(subs);
+    expect(agg.get("26185610")).toEqual({ total: 9600, count: 2, undisclosedCount: 1 });
   });
 });
 

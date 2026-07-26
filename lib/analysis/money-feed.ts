@@ -347,12 +347,21 @@ export function parseSubsidies(raw: unknown, opts: { recipientIco?: string } = {
   }
   return out;
 }
-export function subsidiesByCompany(subs: readonly Subsidy[]): Map<string, { total: number; count: number }> {
-  const m = new Map<string, { total: number; count: number }>();
+export function subsidiesByCompany(
+  subs: readonly Subsidy[],
+): Map<string, { total: number; count: number; undisclosedCount: number }> {
+  const m = new Map<string, { total: number; count: number; undisclosedCount: number }>();
   for (const s of subs) {
-    const cur = m.get(s.recipientIco) ?? { total: 0, count: 0 };
+    const cur = m.get(s.recipientIco) ?? { total: 0, count: 0, undisclosedCount: 0 };
     cur.count++;
-    cur.total += s.amount ?? 0;
+    // `?? 0` used to fold a genuinely undisclosed amount (real in CEDR data —
+    // amount not yet settled) into the total as if it were 0 CZK, silently
+    // presenting a partial sum as a complete one. This module's own docstring
+    // says amounts are "surfaced, never zero-faked" for contracts — carry the
+    // same discipline here: track how many subsidies had no disclosed amount
+    // instead of quietly counting them as worth nothing.
+    if (s.amount == null) cur.undisclosedCount++;
+    else cur.total += s.amount;
     m.set(s.recipientIco, cur);
   }
   return m;
@@ -411,7 +420,7 @@ export function companyDonationsToParty(
 export function enrichMoneyCompanies(
   g: MoneyGraph,
   opts: {
-    subsidies?: ReadonlyMap<string, { total: number; count: number }>;
+    subsidies?: ReadonlyMap<string, { total: number; count: number; undisclosedCount?: number }>;
     donations?: ReadonlyMap<string, { total: number; count: number }>;
     donationPartyLabel?: string;
   },
@@ -426,7 +435,16 @@ export function enrichMoneyCompanies(
       ...n,
       props: {
         ...n.props,
-        ...(sub ? { subsidies_total_czk: sub.total, subsidies_count: sub.count } : {}),
+        ...(sub
+          ? {
+              subsidies_total_czk: sub.total,
+              subsidies_count: sub.count,
+              // Present only when non-zero so existing/older company nodes
+              // without this prop aren't misread as "0 undisclosed, verified" —
+              // absence means "not computed", 0 means "computed and none".
+              ...(sub.undisclosedCount ? { subsidies_undisclosed_count: sub.undisclosedCount } : {}),
+            }
+          : {}),
         ...(don
           ? {
               donated_to_party_czk: don.total,
