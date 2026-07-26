@@ -31,6 +31,19 @@ const PEER_MEDIAN = {
   saldo: median(TOWNS.map((t) => t.saldoPerCapita)),
 };
 
+/** Bar-width ceilings derived from the live TOWNS data (+10% headroom) rather
+ * than hand-picked magic numbers — a hardcoded max silently saturates every
+ * bar at 100% once a town's real figure grows past it, making two towns with
+ * wildly different debt burdens render an identical full-width bar with no
+ * visual cue anything is capped. Shared by both MetricDuo (Section 01) and
+ * the peer-group table's debt bar (Section 03) so there's one ceiling, not
+ * two independently-maintained literals. */
+const METRIC_MAX = {
+  debt: Math.max(...TOWNS.map((t) => t.debtPerCapita)) * 1.1,
+  capex: Math.max(...TOWNS.map((t) => t.capexRatio)) * 1.1,
+  saldo: Math.max(...TOWNS.map((t) => Math.abs(t.saldoPerCapita))) * 1.1,
+};
+
 /** Medián trendu dluhu vrstevníků po letech — srovnávací čára grafu. */
 const PEER_TREND = BUDGET_YEARS.map((_, i) => median(TOWNS.map((t) => t.debtTrend[i])));
 
@@ -100,14 +113,20 @@ export default function BudgetMirrorPage() {
   const townSeriesLabel = t("townLabel");
   const peerSeriesLabel = t("peerMedianLabel");
 
+  // Keyed by stable, non-translated identifiers — NOT the translated labels
+  // above. Using translated copy as the object/dataKey identity means a
+  // future locale (or a copy edit) that makes the two labels equal would
+  // silently collapse both series into one property, dropping a line from
+  // the chart with no error. Labels are passed to <Line name> purely for
+  // display (legend/tooltip), decoupled from data-shape identity.
   const trendData = useMemo(
     () =>
       BUDGET_YEARS.map((y, i) => ({
         year: y,
-        [townSeriesLabel]: town.debtTrend[i],
-        [peerSeriesLabel]: PEER_TREND[i],
+        town: town.debtTrend[i],
+        peer: PEER_TREND[i],
       })),
-    [town, townSeriesLabel, peerSeriesLabel],
+    [town],
   );
 
   return (
@@ -182,7 +201,7 @@ export default function BudgetMirrorPage() {
                 kind="czk"
                 town={town.debtPerCapita}
                 peer={PEER_MEDIAN.debt}
-                max={14000}
+                max={METRIC_MAX.debt}
                 lowerIsBetter
               />
               <MetricDuo
@@ -190,7 +209,7 @@ export default function BudgetMirrorPage() {
                 kind="pct"
                 town={town.capexRatio}
                 peer={PEER_MEDIAN.capex}
-                max={30}
+                max={METRIC_MAX.capex}
                 lowerIsBetter={false}
               />
               <MetricDuo
@@ -198,7 +217,7 @@ export default function BudgetMirrorPage() {
                 kind="czk"
                 town={town.saldoPerCapita}
                 peer={PEER_MEDIAN.saldo}
-                max={3000}
+                max={METRIC_MAX.saldo}
                 lowerIsBetter={false}
               />
             </div>
@@ -231,7 +250,8 @@ export default function BudgetMirrorPage() {
                 />
                 <Line
                   type="linear"
-                  dataKey={townSeriesLabel}
+                  dataKey="town"
+                  name={townSeriesLabel}
                   stroke={SIGNAL}
                   strokeWidth={3}
                   dot={{ r: 3.5, fill: SIGNAL, strokeWidth: 0 }}
@@ -240,7 +260,8 @@ export default function BudgetMirrorPage() {
                 />
                 <Line
                   type="linear"
-                  dataKey={peerSeriesLabel}
+                  dataKey="peer"
+                  name={peerSeriesLabel}
                   stroke={STEEL}
                   strokeWidth={2}
                   strokeDasharray="6 4"
@@ -298,7 +319,7 @@ export default function BudgetMirrorPage() {
                           <span className="h-3 w-40 bg-hairline">
                             <span
                               className={`block h-full ${tw.debtPerCapita > PEER_MEDIAN.debt ? "bg-signal" : "bg-ink"}`}
-                              style={{ width: `${(tw.debtPerCapita / 14000) * 100}%` }}
+                              style={{ width: `${Math.min(100, (tw.debtPerCapita / METRIC_MAX.debt) * 100)}%` }}
                             />
                           </span>
                           <span className="font-mono text-sm font-bold tabular-nums">{f.czk(tw.debtPerCapita)}</span>
