@@ -21,6 +21,15 @@ export const CARDINALITY_FLOORS = {
 
 export type FloorKind = keyof typeof CARDINALITY_FLOORS;
 
+// The failure path below is loud (reportLoaderFailure logs + fires Sentry) —
+// but the bypass that suppresses this whole gate had no equivalent trace,
+// making the one state that should be MOST observable (a safety net
+// deliberately disabled) the only one that left none. Logged once per
+// process so a leaked env var (copy-pasted .env, a CI variable bleeding into
+// a preview/prod deploy) is at least visible in logs, even though the check
+// itself still honors the flag.
+let loggedReadinessBypass = false;
+
 /**
  * True when every requested kind meets its floor. Failures are reported (once
  * per call) through the loader-failure channel so the degradation is traceable.
@@ -31,7 +40,13 @@ export async function storeReady(
   store: Pick<Store, "listKgNodes">,
   kinds: readonly FloorKind[],
 ): Promise<boolean> {
-  if (process.env.KG_READINESS_OFF === "1") return true;
+  if (process.env.KG_READINESS_OFF === "1") {
+    if (!loggedReadinessBypass) {
+      loggedReadinessBypass = true;
+      console.warn("[readiness] KG_READINESS_OFF=1 — cardinality gate bypassed for this process");
+    }
+    return true;
+  }
   const failures: string[] = [];
   for (const kind of kinds) {
     const floor = CARDINALITY_FLOORS[kind];
