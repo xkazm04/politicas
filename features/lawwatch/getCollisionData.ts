@@ -183,7 +183,11 @@ const PRIOR_PAIRS: RawPair[] = [
  * a lawRef — never to invent a classification or discard genuine per-pair detail (each
  * pair keeps its own full `sharedParagraph` string in the rendered card). */
 function primaryParagraph(sharedParagraph: string): string {
-  const m = /^(\d+[a-z]?)/.exec(sharedParagraph.trim());
+  // `[a-z]?` allowed only ONE trailing letter, so a genuine multi-letter
+  // paragraph suffix (e.g. "35ba") truncated to "35b" — silently merging what
+  // should be a distinct paragraph into whatever cluster "35b" already
+  // belongs to, in the app's most trust-sensitive forensic feature.
+  const m = /^(\d+[a-z]*)/.exec(sharedParagraph.trim());
   return m ? m[1] : sharedParagraph.trim();
 }
 
