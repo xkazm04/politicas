@@ -21,9 +21,15 @@ export default function AnimatedScore({
   className?: string;
   format?: (n: number) => string;
 }) {
-  const [display, setDisplay] = useState(value);
-  const prev = useRef(value);
+  const [display, setDisplay] = useState(Number.isFinite(value) ? value : 0);
+  const prev = useRef(Number.isFinite(value) ? value : 0);
   useEffect(() => {
+    // A NaN/Infinity from upstream (a ratio divided by zero, an average over an
+    // empty array) must never reach the animation or the formatter — animating
+    // toward a non-finite target keeps `display` at whatever it last was and
+    // then hands the formatter garbage. Hold the last good value instead of
+    // silently rendering "NaN" in place of a civic score.
+    if (!Number.isFinite(value)) return;
     const controls = animate(prev.current, value, {
       duration: 0.5,
       ease: "easeOut",
