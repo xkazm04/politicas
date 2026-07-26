@@ -17,9 +17,10 @@
 // near-threshold, de-minimis) — reused verbatim from reviewTypes.ts's pure
 // helpers so the ledger and the console never disagree on what a tie "is".
 //
-// Called only from the /penize server component; getStore() carries its own
-// client guard, so this must never be imported into a client component.
+// Called only from the /penize server component; the `server-only` import
+// makes any client-component import a build-time error.
 
+import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { loadMoneyLayer, num, pspIdFromNodeId } from "./moneyLoader";
 import type { MoneyData, MoneyGraphData, MoneyMp, MoneyMpStub, MoneyTie, ReviewState } from "./moneyTypes";

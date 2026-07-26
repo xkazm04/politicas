@@ -3,9 +3,9 @@
 // scoped to a single person, with each tie's reachable contracts expanded into
 // line items (top-N shown, remainder counted, never dropped silently).
 //
-// getStore() carries its own client guard (via moneyLoader), so this must never be
-// imported into a client component.
+// The `server-only` import makes any client-component import a build-time error.
 
+import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { loadMoneyLayer, num, pspIdFromNodeId } from "./moneyLoader";
 import type { MoneyMpDetail, MoneyTieDetail, ReviewState } from "./moneyTypes";

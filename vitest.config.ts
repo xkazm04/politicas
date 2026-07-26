@@ -9,6 +9,9 @@ import { defineConfig } from "vitest/config";
 export default defineConfig({
   resolve: {
     alias: {
+      // `server-only` throws outside a React Server environment; tests that
+      // import feature loaders get an empty stub instead.
+      "server-only": fileURLToPath(new URL("./lib/testing/server-only-stub.ts", import.meta.url)),
       "@": fileURLToPath(new URL(".", import.meta.url)),
     },
   },

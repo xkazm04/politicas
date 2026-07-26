@@ -25,6 +25,7 @@
 // Degrades to null if no store is configured or neither payload file is readable — the
 // route then hides the real section rather than fabricating anything.
 
+import "server-only";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 

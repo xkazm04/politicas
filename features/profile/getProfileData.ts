@@ -1,6 +1,6 @@
 // Server-only loader for /poslanec/<pspId> (MP profile) — reads ONE real person
-// from the knowledge graph plus its edges. Must NEVER be imported into a client
-// component (getStore() client guard + PGlite WASM). Degrades to null on any
+// from the knowledge graph plus its edges. The `server-only` import makes any
+// client-component import a build-time error (PGlite WASM). Degrades to null on any
 // failure so the page can fall back gracefully.
 //
 // URL convention (shared across all cases): the route param is the plain integer
@@ -13,6 +13,7 @@
 // The six contribution components + authoritative score come from the person
 // node (see getLeaderboardData). No fabricated delta/trend/headline.
 
+import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import { publicCopyOrNull } from "@/lib/analysis/public-copy";

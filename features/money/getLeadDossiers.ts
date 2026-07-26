@@ -9,6 +9,7 @@
 // payload's own `proposedAnnotation` — never presented as confirmed facts. Missing
 // or unparsable files degrade to an empty list, never a thrown error into the page.
 
+import "server-only";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import type { LeadDossier } from "./moneyTypes";

@@ -6,9 +6,10 @@
 // deep-links a reviewer needs. Read-only; it NEVER writes review_state — the write path
 // is a fleet-mode handoff item.
 //
-// getStore() carries its own client guard, so this must never be imported into a client
-// component. Called only from the /penize/kontrola server component.
+// Called only from the /penize/kontrola server component; the `server-only`
+// import makes any client-component import a build-time error.
 
+import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import {

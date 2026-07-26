@@ -6,9 +6,9 @@
 // other). Degrades to null exactly like the loaders that use it: no store, no
 // materialized money layer, or a fetch error → null, never a partial/guessed shape.
 //
-// getStore() carries its own client guard; this must never be imported into a client
-// component.
+// The `server-only` import makes any client-component import a build-time error.
 
+import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";

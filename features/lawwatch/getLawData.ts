@@ -10,9 +10,10 @@
 //
 // Degrades to null (→ the real sections are hidden, the page still renders) if no
 // store is configured, no bill nodes have been materialized, or PGlite is
-// unavailable. getStore() carries its own client guard, so this module must NEVER
-// be imported into a client component (only `import type` is safe there).
+// unavailable. The `server-only` import makes any client-component import a
+// build-time error (only `import type` is safe there).
 
+import "server-only";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 

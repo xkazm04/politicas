@@ -1,7 +1,7 @@
 // Server-only loader for /zebricek (CivicScore leaderboard) — reads the REAL
-// materialized knowledge graph instead of the lib/civic mock. Must NEVER be
-// imported into a client component: getStore() carries a client guard and the
-// PGlite WASM must not enter the browser bundle. Degrades to null on any
+// materialized knowledge graph instead of the lib/civic mock. The `server-only`
+// import makes any client-component import a build-time error — the PGlite
+// WASM must not enter the browser bundle. Degrades to null on any
 // failure (no store, empty graph, PGlite unavailable) so the page never breaks.
 //
 // ── mock → real mapping (documented per task) ─────────────────────────────
@@ -24,6 +24,7 @@
 // delta / trend (quarter-over-quarter) has NO real backing — single term, no
 // time series — so it is OMITTED, never fabricated.
 
+import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import { CONTRIBUTION_WEIGHTS } from "@/lib/analysis/contribution";

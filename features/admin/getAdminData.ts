@@ -19,6 +19,7 @@
 // for that slice only — the rest of the page still renders. Never imported
 // into a client component (only `import type` is safe there).
 
+import "server-only";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 

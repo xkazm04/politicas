@@ -5,9 +5,11 @@
 // configured, no tags have been materialized yet, or PGlite is unavailable at
 // request time — so introducing the store read can never break the page.
 //
-// Called only from the /hlasovani server component; getStore() carries its own
-// client guard, so this must never be imported into a client component.
+// Called only from the /hlasovani server component; the `server-only` import
+// makes any client-component import a build-time error. (The runtime client
+// guard lives in lib/db/pglite-store.ts, not getStore() itself.)
 
+import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import type { VoteThemeData } from "./themeTypes";
