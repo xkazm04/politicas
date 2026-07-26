@@ -335,10 +335,21 @@ export function parsePostings(raw: unknown, institutionCode: string, prov: Prov)
       url: d.url ?? "",
       nazev: d["název"]?.cs ?? null,
     }));
+    // Dedup key doctrine: prefer the posting's own url (stable, poll-forward
+    // key per the spec doc); fall back to a composite key only if url is
+    // missing (not observed in the cached corpus — logged, not hidden). The
+    // "logged" half of that doctrine was previously asserted in a comment
+    // with no actual console.warn/telemetry call anywhere — if two distinct
+    // postings ever legitimately share spisovaZnacka+postedAt (or both are
+    // null, colliding on "code:?:?"), the poll-forward harvester would
+    // silently drop the second as a duplicate with zero operational
+    // visibility that it happened.
+    if (url == null) {
+      console.warn(
+        `[kiosek] posting has no url — falling back to composite dedup key (institution ${institutionCode}, spisovaZnacka ${spisovaZnacka ?? "?"}, postedAt ${postedAt ?? "?"})`,
+      );
+    }
     out.push({
-      // Dedup key doctrine: prefer the posting's own url (stable, poll-forward
-      // key per the spec doc); fall back to a composite key only if url is
-      // missing (not observed in the cached corpus — logged, not hidden).
       id: url ?? `${institutionCode}:${spisovaZnacka ?? "?"}:${postedAt ?? "?"}`,
       institutionCode,
       spisovaZnacka,
