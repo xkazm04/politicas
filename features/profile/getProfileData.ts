@@ -13,6 +13,7 @@
 // The six contribution components + authoritative score come from the person
 // node (see getLeaderboardData). No fabricated delta/trend/headline.
 
+import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import { publicCopyOrNull } from "@/lib/analysis/public-copy";
 import {
@@ -295,7 +296,8 @@ export async function getProfileData(pspId: number): Promise<ProfileData | null>
       effortDataFlag,
       sponsoredBills,
     };
-  } catch {
+  } catch (err) {
+    reportLoaderFailure("getProfileData", err);
     return null;
   }
 }

@@ -9,6 +9,7 @@
 // getStore() carries its own client guard; this must never be imported into a client
 // component.
 
+import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
 import type { ContractLine } from "./moneyTypes";
@@ -100,7 +101,8 @@ export async function loadMoneyLayer(): Promise<MoneyLayer | null> {
     const pass = num((linked[0]?.provenance as Record<string, unknown> | undefined)?.pass) || 0;
 
     return { companies, persons, linked, companyById, personById, clubByPerson, contractsByCompany, pass };
-  } catch {
+  } catch (err) {
+    reportLoaderFailure("moneyLoader.loadMoneyLayer", err);
     return null;
   }
 }

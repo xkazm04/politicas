@@ -9,6 +9,7 @@
 // getStore() carries its own client guard, so this must never be imported into a client
 // component. Called only from the /penize/kontrola server component.
 
+import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import {
   buildRegistryLinks,
@@ -174,7 +175,8 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
 
     const pass = num((linked[0]?.provenance as Record<string, unknown> | undefined)?.pass) || 0;
     return { ties, stats, source: "registr smluv ⋈ ares ⋈ hlídač státu", pass };
-  } catch {
+  } catch (err) {
+    reportLoaderFailure("getVerificationQueue", err);
     return null;
   }
 }

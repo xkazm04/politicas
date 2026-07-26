@@ -22,6 +22,7 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
+import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import { classifyTie, reviewTier } from "@/features/money/reviewTypes";
 import type {
@@ -55,7 +56,8 @@ function readTextSafe(relPath: string): string | null {
     const p = join(ROOT, relPath);
     if (!existsSync(p)) return null;
     return readFileSync(p, "utf8");
-  } catch {
+  } catch (err) {
+    reportLoaderFailure(`getAdminData.readTextSafe:${relPath}`, err);
     return null;
   }
 }
@@ -65,7 +67,8 @@ function readJsonSafe<T>(relPath: string): T | null {
   if (raw == null) return null;
   try {
     return JSON.parse(raw) as T;
-  } catch {
+  } catch (err) {
+    reportLoaderFailure(`getAdminData.readJsonSafe:${relPath}`, err);
     return null;
   }
 }
@@ -323,7 +326,8 @@ function loadMoneyLeads(): MoneyLeadSummary[] {
       });
     }
     return leads.sort((a, b) => a.leadId.localeCompare(b.leadId));
-  } catch {
+  } catch (err) {
+    reportLoaderFailure("getAdminData.loadMoneyLeads", err);
     return [];
   }
 }

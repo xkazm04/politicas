@@ -6,6 +6,7 @@
 // getStore() carries its own client guard (via moneyLoader), so this must never be
 // imported into a client component.
 
+import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { loadMoneyLayer, num, pspIdFromNodeId } from "./moneyLoader";
 import type { MoneyMpDetail, MoneyTieDetail, ReviewState } from "./moneyTypes";
 import {
@@ -112,7 +113,8 @@ export async function getMoneyMpDetail(pspId: number): Promise<MoneyMpDetail | n
       source: "registr smluv ⋈ ares ⋈ hlídač státu",
       pass,
     };
-  } catch {
+  } catch (err) {
+    reportLoaderFailure("getMoneyMpDetail", err);
     return null;
   }
 }

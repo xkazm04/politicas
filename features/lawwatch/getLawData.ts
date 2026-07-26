@@ -16,6 +16,7 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
+import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 
 /** A real §-level fragment change between two ENACTED e-Sbírka versions of a statute.
@@ -63,11 +64,13 @@ function loadParagraphDiffs(): ParagraphDiff[] {
           if (!raw.law || !Array.isArray(raw.hunks) || raw.hunks.length === 0) return [];
           const hunks = raw.hunks.map((h) => ({ ...h, before: stripHtml(h.before ?? null), after: stripHtml(h.after ?? null) }));
           return [{ ...raw, hunks } as ParagraphDiff];
-        } catch {
+        } catch (err) {
+          reportLoaderFailure("getLawData.paragraphDiffs", err);
           return []; // a malformed artifact file must not break the page — skip, don't fabricate
         }
       });
-  } catch {
+  } catch (err) {
+    reportLoaderFailure("getLawData.diffArtifacts", err);
     return [];
   }
 }
@@ -346,7 +349,8 @@ export async function getLawData(): Promise<LawData | null> {
       censusUndercountTotal: bills.reduce((sum, b) => sum + b.amendsUndercount, 0),
       pass,
     };
-  } catch {
+  } catch (err) {
+    reportLoaderFailure("getLawData", err);
     return null;
   }
 }

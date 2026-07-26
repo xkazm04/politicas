@@ -24,6 +24,7 @@
 // delta / trend (quarter-over-quarter) has NO real backing — single term, no
 // time series — so it is OMITTED, never fabricated.
 
+import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import { CONTRIBUTION_WEIGHTS } from "@/lib/analysis/contribution";
 import { isPublicSafe, publicCopyOrNull } from "@/lib/analysis/public-copy";
@@ -309,7 +310,8 @@ export async function buildLeaderboard(): Promise<{ data: LeaderboardData; direc
         dossierCoverage: { withDossier: entries.filter((e) => e.effortHasDossier).length, total: entries.length },
       },
     };
-  } catch {
+  } catch (err) {
+    reportLoaderFailure("buildLeaderboard", err);
     return null;
   }
 }

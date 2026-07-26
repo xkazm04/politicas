@@ -28,6 +28,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
+import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 
 export type CollisionClassification = "confirmed-collision" | "coordination-risk";
@@ -127,7 +128,8 @@ function loadRawPairs(file: string): RawPair[] {
         reasoning: typeof o.reasoning === "string" ? o.reasoning : undefined,
       }];
     });
-  } catch {
+  } catch (err) {
+    reportLoaderFailure("getCollisionData.payload", err);
     return []; // a malformed payload file must not break the page — skip, don't fabricate
   }
 }
@@ -312,7 +314,8 @@ export async function getCollisionData(): Promise<CollisionData | null> {
       batchesRun: 5,
       postRegenPendingCount,
     };
-  } catch {
+  } catch (err) {
+    reportLoaderFailure("getCollisionData", err);
     return null;
   }
 }

@@ -8,6 +8,7 @@
 // Called only from the /hlasovani server component; getStore() carries its own
 // client guard, so this must never be imported into a client component.
 
+import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import type { VoteThemeData } from "./themeTypes";
 
@@ -42,7 +43,8 @@ export async function getVoteThemes(): Promise<VoteThemeData | null> {
       .sort((a, b) => b.count - a.count);
 
     return { themes, votes, total: votes.length, model: tags[0]?.model ?? null };
-  } catch {
+  } catch (err) {
+    reportLoaderFailure("getVoteThemes", err);
     return null;
   }
 }
