@@ -670,3 +670,26 @@ discovered later): F1 — tisk 215 loses one TRUE edge to 280/2009 via a ČÁST 
 (incidence exactly 1, one-expression fix verified to touch only that bill); F2 — 5 pre-existing
 FALSE title-derived edges (tisky 153, 88, 124, 36, 42), preserved rather than introduced by this
 apply, including the one the union design's own justification comment cites as its founding example.
+
+## Pass 31 (track: law) — batch 008: the two disclosed items closed (2026-07-26)
+
+The batch-007 round-2 audit **disclosed** F1 and F2 rather than leaving them to be found later;
+batch 008 closed both, and two Opus audits (a reflection + an adversarial re-derivation from
+source) cleared the work while still finding real defects — a misclassified collision pair, a
+stale caveat string, and a latent NFC-normalization gap in the core extractor — all fixed and
+disclosed rather than smoothed.
+
+- **F1 (recall)**: the `Čl.` block's forward heading-window now clips at an intervening `ČÁST`
+  boundary. Blast radius re-verified independently: **exactly 1 bill changes** — tisk 215 recovers
+  its real amendment to 280/2009, the edge the ÚČINNOST-heading bleed had swallowed.
+- **F2 (precision)**: the **5 false title-derived edges are RETIRED** (tisky 153, 88, 124, 36, 42)
+  — each re-verified per-edge from cached bill text this session rather than inherited from the
+  audit (the driver's first guess at bill-node ids was wrong and it caught that before finalizing).
+  In every case the ref appears only inside a nested law NAME or an amendment-lineage citation,
+  never as an amend target. A corpus-validated title-role gate stops them regenerating.
+  Pointedly, one of the five (88→360/2025) was the union design's own founding justification example.
+
+**`amends` 581 → 577** (+1 F1, −5 F2). Re-triage recomputed the churn ranking on the new topology
+(**40/2009 now #1**, displacing 586/1992); the full per-bill `triageScoreV2` recompute was
+explicitly DEFERRED and said so rather than silently skipped. Collision universe re-run on the
+regenerated topology: **629 raw → 176 partitioned pairs**, 12 close-read.

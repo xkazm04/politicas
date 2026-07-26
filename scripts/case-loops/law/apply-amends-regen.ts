@@ -68,7 +68,7 @@ const NODE_PAYLOAD = "docs/data-analysis/case-law/payloads/batch-005-missing-law
 // batch-007 rework did not touch them. Payload shape is identical, which is why
 // this is a repoint rather than a rewrite; the script's own logic was audited in
 // batch 006 and hardened by that batch's reflection.
-const EDGE_PAYLOAD = "docs/data-analysis/case-law/payloads/batch-007-amends-regen.json";
+const EDGE_PAYLOAD = "docs/data-analysis/case-law/payloads/batch-008-amends-regen.json";
 const REPORT_OUT = "docs/data-analysis/case-law/payloads/batch-006-apply-report.json";
 
 const arg = (name: string): string | undefined => {
@@ -89,7 +89,20 @@ const flag = (name: string) => process.argv.includes(`--${name}`);
 // 116/129/231/64 — bills that REPEAL those laws, asserted as `amends` by the old
 // title-regex era; evidence in handoff.md §A1–A3) and they were retired in a
 // separate, explicitly verified deletion step afterwards.
-const DELETION_ALLOWLIST: string[] = [];
+const DELETION_ALLOWLIST: string[] = [
+  // ARMED for the batch-008 apply (disarm after — arm, fire, disarm). These are
+  // the 5 F2 false edges the batch-007 round-2 audit disclosed and the batch-008
+  // driver re-verified per-edge from cached bill text
+  // (payloads/batch-008-f2-deletion-payload.json): in each, the ref appears only
+  // inside a nested law NAME or an amendment-lineage citation, never as an amend
+  // target. This list only permits them to be ABSENT from the payload — the
+  // actual retirement is a separate, explicitly verified deletion step.
+  // DISARMED after the batch-008 apply (pass 31). The 5 F2 edges listed here were
+  // retired in a separate verified step: tisk 153→468/1991, 88→360/2025,
+  // 124→300/2025, 36→89/2012, 42→416/2009. Their per-edge evidence lives in
+  // payloads/batch-008-f2-deletion-payload.json and git history; a stale entry
+  // here would refuse every future run (the assertion's whole purpose).
+];
 
 // Exclusion list, merged from TWO independent checks: the batch-006 driver's own P1b manual
 // review (2 edges) AND the independently-dispatched Opus audit's N2 finding (which found the

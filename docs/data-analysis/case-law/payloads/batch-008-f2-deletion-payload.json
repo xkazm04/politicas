@@ -1,0 +1,94 @@
+{
+ "generatedAt": "2026-07-26T00:00:00.000Z",
+ "case": "law",
+ "note": "batch-008 F2 — 5 false `amends` edges the batch-007-round2-audit.md's F2 finding named, each independently RE-VERIFIED from the cached bill text in this batch (not inherited from the audit's reading, per the batch-008 brief's explicit instruction that a deletion is the most irreversible act in this pipeline). All 5 are LIVE in the graph today (confirmed: PGLITE_PATH=./.pglite read-only lookup, all 5 edges present) and reached the graph via psp-legislation.ts's title-derived `amended_laws` extraction, which has no verb-semantics or nesting gate. This is a PREPARE-only payload — the orchestrator executes the deletion via a KG edge-remove path; no live write happened while preparing this file.",
+ "howToApply": "Remove exactly these 5 (from,to) `amends` edges from the live graph. Each is also encoded in scripts/case-loops/law/diff-amends-regen-deletions.ts's DELETION_ALLOWLIST so that if/when batch-008-amends-regen.json is applied via a regen-aware path, the deletion-safety gate does not refuse them as unallowlisted drops. If the orchestrator instead executes a standalone deletion (not via the regen apply path), remove the edges directly by the keys below.",
+ "deletions": [
+  {
+   "billCislo": 153,
+   "billNodeId": "bill:tisk:43274",
+   "lawRef": "468/1991",
+   "lawNodeId": "law:sb:468-1991",
+   "edgeKey": "bill:tisk:43274|law:sb:468-1991",
+   "liveConfirmed": true,
+   "falseEdgeClass": "nested-name — the ref names the amended law's own official multi-part name, not a second amend target",
+   "evidence": {
+    "source": ".data/law-collision-cache/tisk-153/*.txt (cached PSP bill PDF text, verbatim, NFC-normalized)",
+    "titlePreambleExcerpt": "kterým se mění zákon č. 40/1995 Sb., o regulaci reklamy a o změně a doplnění zákona č. 468/1991 Sb., o provozování rozhlasového a televizního vysílání, ve znění pozdějších předpisů, ve znění pozdějších předpisů, a zákon č. 375/2022 Sb., o zdravotnických prostředcích a diagnostických zdravotnických prostředcích in vitro, ve znění pozdějších předpisů",
+    "operativeTextExcerpt": "1. V názvu zákona se slova „a o změně a doplnění zákona č. 468/1991 Sb., o provozování rozhlasového a televizního vysílání, ve znění pozdějších předpisů“ zrušují.",
+    "reasoning": "468/1991 appears exactly once in the title, embedded inside the official name of the bill's REAL target (40/1995 — \"zákon č. 40/1995 Sb., o regulaci reklamy a o změně a doplnění zákona č. 468/1991 Sb.\" IS 40/1995's full legal name, not a claim that this bill also amends 468/1991). The bill's own Čl. I, item 1, then DELETES that exact name phrase from 40/1995's title. The bill amends 40/1995 (already a genuine edge, unaffected) and never touches 468/1991 itself.",
+    "realTargetsOfThisBillUnaffected": ["40/1995", "375/2022"]
+   }
+  },
+  {
+   "billCislo": 88,
+   "billNodeId": "bill:tisk:43198",
+   "lawRef": "360/2025",
+   "lawNodeId": "law:sb:360-2025",
+   "edgeKey": "bill:tisk:43198|law:sb:360-2025",
+   "liveConfirmed": true,
+   "falseEdgeClass": "lineage — \"ve znění zákona č. X\" dates the real target, X is not itself amended",
+   "evidence": {
+    "source": ".data/law-collision-cache/tisk-88/*.txt",
+    "titlePreambleExcerpt": "kterým se mění zákon č. 151/2025 Sb., o dávce státní sociální pomoci, ve znění zákona č. 360/2025 Sb., zákon č. 110/2006 Sb., o životním a existenčním minimu, ve znění pozdějších předpisů, a další související zákony",
+    "operativeTextExcerpt": "Čl. I\nZákon č. 151/2025 Sb., o dávce státní sociální pomoci, ve znění zákona č. 360/2025 Sb., se mění takto:\n1. V § 91 odst. 1 se slovo „dubna“ nahrazuje slovem „července“. ...",
+    "reasoning": "The bill's real Čl. I target is 151/2025 (already a genuine edge). \"ve znění zákona č. 360/2025 Sb.\" is the standard Czech drafting formula citing the CURRENT amended-through version of 151/2025 — it identifies WHICH version of 151/2025 is being changed, it does not itself become a change target. Notable: this is amends-regen-007.ts's OWN documented worked example for why the title-union exists (\"the body extraction can miss a statute the title records, e.g. tisk 88/360/2025\") — the example itself cites a false edge; batch-008's fix keeps the general union rationale (it is still needed for genuine rescues like tisk 107, 243) but this specific case is now correctly excluded.",
+    "realTargetsOfThisBillUnaffected": ["151/2025", "110/2006"]
+   }
+  },
+  {
+   "billCislo": 124,
+   "billNodeId": "bill:tisk:43239",
+   "lawRef": "300/2025",
+   "lawNodeId": "law:sb:300-2025",
+   "edgeKey": "bill:tisk:43239|law:sb:300-2025",
+   "liveConfirmed": true,
+   "falseEdgeClass": "lineage — same pattern as tisk 88",
+   "evidence": {
+    "source": ".data/law-collision-cache/tisk-124/*.txt",
+    "titlePreambleExcerpt": "kterým se mění zákon č. 117/1995 Sb., o státní sociální podpoře, ve znění pozdějších předpisů, a zákon č. 152/2025 Sb., kterým se mění některé zákony v souvislosti s přijetím zákona o dávce státní sociální pomoci, ve znění zákona č. 300/2025 Sb.",
+    "operativeTextExcerpt": "Čl. I\nZákon č. 117/1995 Sb., o státní sociální podpoře, ve znění zákona č. 137/1996 Sb., zákona č. 132/1997 Sb., ... [long amendment-history lineage] ...",
+    "reasoning": "This bill has TWO real targets, both confirmed by the census body extraction: 117/1995 and 152/2025 (genuine edges, unaffected). \"ve znění zákona č. 300/2025 Sb.\" dates the second target (152/2025) to its current version — it is the lineage citation, not an independent third target.",
+    "realTargetsOfThisBillUnaffected": ["117/1995", "152/2025"]
+   }
+  },
+  {
+   "billCislo": 36,
+   "billNodeId": "bill:tisk:43143",
+   "lawRef": "89/2012",
+   "lawNodeId": "law:sb:89-2012",
+   "edgeKey": "bill:tisk:43143|law:sb:89-2012",
+   "liveConfirmed": true,
+   "falseEdgeClass": "nested-amend — the ref is part of describing what the real target IS (an amending act named after what it amends), not a second target",
+   "evidence": {
+    "source": ".data/law-collision-cache/tisk-36/*.txt",
+    "titlePreambleExcerpt": "Poslanecký návrh zákona, kterým se mění zákon č. 268/2025 Sb., kterým se mění zákon č. 89/2012 Sb., občanský zákoník, ve znění pozdějších předpisů, a další související zákony",
+    "operativeTextExcerpt": "Čl. I\nV části čtrnácté zákona č. 268/2025 Sb., kterým se mění zákon č. 89/2012 Sb., občanský zákoník, ve znění pozdějších předpisů, a další související zákony, se slova „1. ledna 2026“ nahrazují slovy „1. ledna 2027, ...",
+    "reasoning": "This bill's ONLY real target is 268/2025 (genuine edge, unaffected — census correctly extracts 268/2025 alone). 268/2025 is itself an earlier amending act of the civil code (89/2012, občanský zákoník); its full legal name is \"zákon č. 268/2025 Sb., kterým se mění zákon č. 89/2012 Sb.\" — citing that full name to identify 268/2025 does not make 89/2012 a target of THIS bill (which only edits a date inside 268/2025's own transitional provisions, never touches 89/2012's text).",
+    "realTargetsOfThisBillUnaffected": ["268/2025"]
+   }
+  },
+  {
+   "billCislo": 42,
+   "billNodeId": "bill:tisk:43149",
+   "lawRef": "416/2009",
+   "lawNodeId": "law:sb:416-2009",
+   "edgeKey": "bill:tisk:43149|law:sb:416-2009",
+   "liveConfirmed": true,
+   "falseEdgeClass": "nested-amend — same shape as tisk 36",
+   "evidence": {
+    "source": ".data/law-collision-cache/tisk-42/*.txt",
+    "titlePreambleExcerpt": "kterým se mění zákon č. 465/2023 Sb., kterým se mění zákon č. 416/2009 Sb., o urychlení výstavby dopravní, vodní a energetické infrastruktury a infrastruktury elektronických komunikací (liniový zákon), ve znění pozdějších předpisů, a další související zákony",
+    "operativeTextExcerpt": "Čl. I\nV čl. VIII bodě 1 zákona č. 465/2023 Sb., kterým se mění zákon č. 416/2009 Sb., o urychlení výstavby dopravní, vodní a energetické infrastruktury a infrastruktury elektronických komunikací (liniový zákon), ve znění pozdějších předpisů, a další související zákony, se za slovo „třídy,“ vkládají slova „místní komunikace I. třídy,“.",
+    "reasoning": "This bill's only real target is 465/2023 (genuine edge, unaffected — census correctly extracts 465/2023 alone). 465/2023 is itself an earlier amending act of the 'liniový zákon' (416/2009); citing its full name to identify 465/2023 does not make 416/2009 a target of THIS bill, which only inserts words into article VIII, point 1 of 465/2023 itself.",
+    "realTargetsOfThisBillUnaffected": ["465/2023"]
+   }
+  }
+ ],
+ "verificationRunDoneThisBatch": [
+  "Direct read of .data/law-collision-cache/tisk-{153,88,124,36,42}/*.txt via NFC-normalized text — every excerpt above is copied from that read, not inherited from batch-007-round2-audit.md's prose.",
+  "PGLITE_PATH=./.pglite read-only lookup confirming all 5 edge keys are present in the live graph today (liveConfirmed: true on all 5).",
+  "scripts/case-loops/law/f2-title-gate-test.ts run against ALL 141 bills' title preambles (not just these 5): the syntactic-role gate (lineage / nested-amend / nested-name) fires on exactly these 5 refs and no others, and does NOT fire on the 2 genuine title-only census rescues (tisk 107->159/1999, tisk 243->223/2016).",
+  "scripts/case-loops/law/amends-regen-008.ts (F1+F2 fixes wired in) regenerates the full edge set WITHOUT these 5 and WITH tisk 215->280/2009 (F1): 577 edges, validate-amends-regen-008.ts PASS 5/5, measure-precision-008.ts 573/577 high_confidence (4 low-confidence, same as batch-007's hand-verified-real 4), diff-amends-regen-deletions.ts PASS 0 unallowlisted deletions against the live 581-edge graph (1 added = F1, 5 dropped = F2, all allowlisted)."
+ ]
+}

@@ -1,23 +1,24 @@
 {
-  "generatedAt": "2026-07-25T13:00:44.194Z",
+  "generatedAt": "2026-07-26T16:01:15.163Z",
   "mode": "commit",
-  "pass": 30,
+  "pass": 31,
   "nodePayloadTotal": 187,
-  "nodesNew": 187,
-  "nodesAlreadyLive": 0,
-  "edgePayloadTotal": 581,
+  "nodesNew": 0,
+  "nodesAlreadyLive": 187,
+  "edgePayloadTotal": 577,
   "edgesExcludedPrecision": [],
-  "edgesApplied": 581,
-  "edgesNewInsert": 435,
-  "edgesMergedPreexisting": 146,
+  "edgesApplied": 577,
+  "edgesNewInsert": 1,
+  "edgesMergedPreexisting": 576,
   "edgesLowConfidenceApplied": 3,
   "deletionCheck": {
-    "liveAmendsEdges": 150,
+    "liveAmendsEdges": 581,
     "droppedKeys": [
-      "bill:tisk:43171|law:sb:25-2017",
-      "bill:tisk:43226|law:sb:353-2019",
-      "bill:tisk:43250|law:sb:223-2016",
-      "bill:tisk:43353|law:sb:348-2005"
+      "bill:tisk:43143|law:sb:89-2012",
+      "bill:tisk:43149|law:sb:416-2009",
+      "bill:tisk:43198|law:sb:360-2025",
+      "bill:tisk:43239|law:sb:300-2025",
+      "bill:tisk:43274|law:sb:468-1991"
     ],
     "unallowlistedCount": 0,
     "gateOk": true

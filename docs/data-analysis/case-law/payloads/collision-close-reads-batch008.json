@@ -1,0 +1,129 @@
+{
+ "generatedAt": "2026-07-26T00:00:00.000Z",
+ "method": "batch-008: 12 pairs close-read directly by the driver (not a subagent army — effort-budget decision, disclosed) from the partitioned-§-overlap excerpts in collision-report-v2-008.json (the F1/F2-fixed 577-edge topology, 176 partitioned survivor pairs vs batch-005's 186 on the pre-regen topology). NOT ranked by moneyLiteral (P52 remains unvalidated — see ranking-signal note below); selected as a topic-diverse sample of pairs NEVER close-read in any prior batch (129/176 unread total; 12/129 read this batch, 117 remain — logged, not silently dropped, per kernel no-silent-truncation).",
+ "rankingSignalNote": "P52's moneyLiteral candidate (introduced batch-005) was found NOT statistically distinguishable from the partition-survivor baseline at n=15 (Opus audit: Fisher p=1.00). This batch did NOT accumulate a larger validated sample before close-reading (would require matching pair identity across 3 different topology versions — batch-004/005/008 — a nontrivial re-derivation not attempted this batch, given effort budget; flagged as an open item, not silently skipped) — per the kernel's P52 doctrine ('validate discriminative power before spending model time'), this batch explicitly did NOT rank or select its close-read sample by moneyLiteral, using topic-diverse unread-pair selection instead.",
+ "classificationCounts": { "confirmed": 3, "coordination_risk": 5, "incidental": 4 },
+ "correctionNote": "batch-008-reflection.md (independent Opus reflection) caught pair 90-221 misclassified as 'confirmed' on a self-comparison bug (both excerpts quoted were from bill 221, not 90 vs 221) -- reclassified to 'incidental' same session, before this batch was reported ready. See that pair's 'reasoning' field for the full correction and the reflection report for the independent catch.",
+ "pairs": [
+  {
+   "pairId": "7-207",
+   "lawRef": "40/2009",
+   "billA": 7,
+   "billB": 207,
+   "sharedParagraph": "88 (odst. 2 písm. c)",
+   "classification": "coordination_risk",
+   "reasoning": "Both bills edit § 88 odst. 2 písm. c) of the criminal code's confiscation-predicate-offense list — tisk 7 inserts new offense references after an existing citation string; tisk 207 replaces a different substring (poison/mercury classification) within the SAME literal. Different substrings, so not a direct textual contradiction, but both instructions target the identical enumeration inside the same písm., which is exactly the class this cluster's other pairs (111-207, 207-213) also hit — see the N-way note below."
+  },
+  {
+   "pairId": "25-187",
+   "lawRef": "222/2016",
+   "billA": 25,
+   "billB": 187,
+   "sharedParagraph": "26",
+   "classification": "incidental",
+   "reasoning": "tisk 25 edits § 26 odst. 1 písm. a) (budget-law deadline definition); tisk 187 edits § 26 odst. 2 and odst. 3 písm. h) (a 2027->2029 date bump). Different odstavce, no textual or sequencing dependency visible."
+  },
+  {
+   "pairId": "73-161",
+   "lawRef": "541/2020",
+   "billA": 73,
+   "billB": 161,
+   "sharedParagraph": "59 (odst. 3)",
+   "classification": "coordination_risk",
+   "reasoning": "Both bills edit § 59 odst. 3 of the waste-act — tisk 73 replaces numeric percentage/coefficient values within it; tisk 161 appends a new sentence at the end of the same odstavec. Non-contradictory individually but order-dependent (whichever applies second must target the post-edit text), the same drafting-coordination risk class as prior batches' confirmed pairs."
+  },
+  {
+   "pairId": "102-111",
+   "lawRef": "40/2009",
+   "billA": 102,
+   "billB": 111,
+   "sharedParagraph": "102a, 192",
+   "classification": "confirmed",
+   "reasoning": "§ 102a odst. 1: tisk 102 REWRITES the whole odstavec (\"V § 102a odstavec 1 zní:\"); tisk 111 INSERTS words into odst. 1 assuming the OLD text (\"za slovo „pornografií“ vkládají slova“). If tisk 102 applies first, tisk 111's insertion instruction targets text that no longer exists in that form -- a genuine drafting collision, the same class confirmed in prior batches (tisk 120/244 §35ba). § 192: tisk 102's occurrence is a bare cross-reference inside an unrelated enumeration (not an edit to §192 itself); tisk 111 genuinely amends §192 -- this half is incidental, not counted toward the confirmed verdict, but does not change the pair's overall classification (one genuine confirmed conflict is enough)."
+  },
+  {
+   "pairId": "111-207",
+   "lawRef": "40/2009",
+   "billA": 111,
+   "billB": 207,
+   "sharedParagraph": "33, 88",
+   "classification": "coordination_risk",
+   "reasoning": "§ 33: different locations within the paragraph (úvodní ustanovení words vs. an insertion after a different citation) -- incidental on its own. § 88 odst. 2 písm. c): same enumeration-list class as 7-207 above -- part of the same emergent N-way cluster (see note)."
+  },
+  {
+   "pairId": "207-213",
+   "lawRef": "40/2009",
+   "billA": 207,
+   "billB": 213,
+   "sharedParagraph": "367, 88",
+   "classification": "coordination_risk",
+   "reasoning": "§ 367 odst. 1: tisk 207 replaces substantive wording (radioactive-material possession terms); tisk 213 replaces a cross-reference number pair within the SAME odstavec -- different substrings, sequencing risk only. § 88: same N-way cluster as above."
+  },
+  {
+   "pairId": "77-206",
+   "lawRef": "273/1996",
+   "billA": 77,
+   "billB": 206,
+   "sharedParagraph": "1, 1a",
+   "classification": "incidental",
+   "reasoning": "§ 1: tisk 77 deletes/renumbers odst. 12-13; tisk 206 edits odst. 6-7 (hearing-procedure text) -- different subsections. § 1a: tisk 77 deletes odst. 8 (renumbers); tisk 206 adds a sentence to odst. 1 -- different subsections. No overlap."
+  },
+  {
+   "pairId": "7-221",
+   "lawRef": "134/2016",
+   "billA": 7,
+   "billB": 221,
+   "sharedParagraph": "4, 48, 67",
+   "classification": "confirmed",
+   "reasoning": "§ 4: BOTH bills insert a NEW odstavec numbered \"8\" into § 4 with DIFFERENT content (a numbering collision on insertion -- the clearest confirmed-collision shape). § 48: both insert new paragraphs referencing back to § 4 odst. 1 písm. a) with near-identical procurement-exclusion wording, suggesting the two bills are drafting over the same public-procurement package. § 67 odst. 3: DIRECT numeric contradiction -- tisk 7 replaces \"9\" with \"10\", tisk 221 replaces the SAME \"9\" with \"11\", in the same úvodní ustanovení/písm. a) -- both cannot be correct simultaneously."
+  },
+  {
+   "pairId": "90-221",
+   "lawRef": "218/2000",
+   "billA": 90,
+   "billB": 221,
+   "sharedParagraph": "12, 14, 44a",
+   "classification": "incidental",
+   "reasoning": "CORRECTED after an independent reflection pass caught a driver misreading (batch-008-reflection.md): the original 'VERBATIM IDENTICAL duplicate insertion' claim compared bill 221's own excerpt against ITSELF, not against bill 90 -- excerptFor() returned the same nearby text (bill 221's § 14 odst. 1 insertion) for both the § 12 and § 14 partition-overlap hits because §12 and §14 sit close together in 221's own operative text, and the driver misread two same-bill excerpts as if they were opposing sides of the pair. NFC-normalized grep of tisk 90's own cached text (.data/law-collision-cache/tisk-90/) confirms ZERO occurrences of the '221' phrases ('za slovo „předpis“', 'V § 14 odst. 1', 'Za § 14q', '14r') -- tisk 90 never touches that location at all. Reading tisk 90's actual excerpts (§12 odst.4 documentation content, §14 odst.4 definitions, §44a odst.3) against tisk 221's (§14 odst.1 insertion, §44a odst.11) shows different subsections throughout -- no real overlap. Reclassified incidental; classificationCounts corrected 4/5/3 -> 3/5/4."
+  },
+  {
+   "pairId": "65-154",
+   "lawRef": "297/2016",
+   "billA": 65,
+   "billB": 154,
+   "sharedParagraph": "5, 13, 14",
+   "classification": "coordination_risk",
+   "reasoning": "§ 14 odst. 4: both bills edit the SAME \"věta první\" (first sentence) of odst. 4 -- tisk 65 inserts a new sentence immediately after it, tisk 154 appends words to its end. Order-dependent but not directly contradictory. § 5 and § 13 hits are on different odstavce/písmena in each bill (incidental on their own)."
+  },
+  {
+   "pairId": "64-143",
+   "lawRef": "87/1995",
+   "billA": 64,
+   "billB": 143,
+   "sharedParagraph": "27b, 27c, 27e, 28",
+   "classification": "incidental",
+   "reasoning": "Both bills transpose the SAME EU banking-capital directives (CELEX 32024L1619, 32019L0878) into the credit-union act, in the same legislative session -- but every one of the four shared §s shows each bill editing a DIFFERENT odstavec/písmeno (27b: odst.1 písm.c vs odst.5 písm.d/e; 27c: odst.1 písm.f vs odst.5 písm.e; 27e: odst.2 vs odst.3; 28: odst.2/5 vs a bare citation). A clean parallel-transposition case with zero real overlap -- the non-partisan-symmetry 'quiet workhorse' finding the kernel weights equally with confirmed conflicts."
+  },
+  {
+   "pairId": "56-234",
+   "lawRef": "200/1994",
+   "billA": 56,
+   "billB": 234,
+   "sharedParagraph": "17a, 17b, 17c, 17d",
+   "classification": "confirmed",
+   "reasoning": "§ 17a: tisk 56 INSERTS a new odst. 3 after the existing odst. 2 (a network-operator/EU-regulation offense); tisk 234 separately edits an ALREADY-EXISTING odst. 3 (about a different subject, geodetic-authority terminology) -- if tisk 56's insertion applies without a compensating renumber, tisk 234's target subsection reference becomes ambiguous/wrong -- a genuine collision. § 17c/§17d: BOTH bills insert a new § 17d after § 17c, with near-identical wording (both begin \"Přestupky podle tohoto zákona projednává inspektorát, s výjimkou přestupků a) podle § 17a odst. 1 písm. b)\") -- the same duplicate-insertion class as tisk 90/221's § 14, here compounded with the § 17a numbering collision -- CONFIRMED."
+  }
+ ],
+ "emergentFinding": {
+  "title": "N-way cluster on 40/2009 (criminal code) § 88 odst. 2 písm. c) — bills 7, 111, 207, 213",
+  "detail": "Four separate criminal-code amendment bills (tisk 7, 111, 207, 213) each independently edit the SAME enumeration list inside § 88 odst. 2 písm. c) (predicate-offense cross-references for asset confiscation) in this legislative session, star-topology centered on tisk 207 (the largest omnibus of the four). Each pairwise diff touches a different literal substring, so no single pair is a direct textual contradiction, but four separate bills competing to append/replace items in the SAME enumeration is the exact drafting-coordination-risk shape prior batches flagged individually — worth carrying forward as a named cluster for whichever bill reaches the floor last to reconcile against the others' final text.",
+  "affectedPairs": ["7-207", "111-207", "207-213"]
+ },
+ "coverage": {
+  "totalPartitionedPairsBatch008": 176,
+  "previouslyReadAcrossAllBatches": 51,
+  "closeReadThisBatch": 12,
+  "remainingUnread": 117,
+  "note": "Logged honestly per kernel no-silent-truncation: 117/176 partitioned survivor pairs on the new topology remain unread. Deferred, not dropped — a natural batch-009 army task once the F1/F2 fixes and this batch's own audit land."
+ }
+}

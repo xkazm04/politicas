@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-26T15:21:03.078Z",
+ "generatedAt": "2026-07-26T15:56:34.203Z",
  "method": "batch-008 re-run of batch-005 Q-law-11's set-difference trigger (recordedLaws set != realLaws set, either direction) against the batch-008 census (amends-census.ts post-N1/N2 fix: ČÁST/bare-§ splitter, footnote-block detection, repeal/non-amending-title exclusion). No new fetch.",
  "sourceCensus": "docs/data-analysis/case-law/payloads/batch-008-amends-census.json",
  "stats": {

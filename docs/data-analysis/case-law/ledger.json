@@ -102,6 +102,43 @@
    "verdict": "NOT ready as reported (at the point it ran) — found the driver's own N-A fix was incomplete: a title-level repeal-title regex missed tisk 129 (verb text past the graph's 200-char label truncation) and wrongly would have blanked tisk 231's real amendments in an earlier attempt; found a genuinely NEW false-edge class (transitional-provision companion articles, tisk 64) neither the driver nor the first audit had named; found the boundary/caveats prose asserted apply-amends-regen.ts was 're-pointed' when it was not (self-serving framing, corrected).",
    "driverResponse": "moved the repeal/transitional exclusion from a title-level regex to a structural per-block check in amends-census.ts (REPEAL_MARKER catches 'Zrušovací ustanovení'/'Zrušují se:' within 400 chars of a citation; NON_AMEND_ART_HEADING_RE catches 'Přechodné/Závěrečná ustanovení'/'Účinnost' block headings, including a lookback before a Čl. marker for bills that wrap Čl. articles in an outer ČÁST) — this closed all 4 named false edges plus a broad corpus sweep found no further leaks of the same shape. One self-caught bug during this fix: an initial version of the per-block exclusion unconditionally suppressed a title-derived ref present in ANY repeal/transitional block for that bill, even when the SAME ref was ALSO a genuine real target elsewhere (a normal drafting pattern — a transitional article routinely re-cites the very law being amended) — caught by re-running the pipeline and seeing the edge count and no_data-bill count both spike abnormally; fixed by excluding a ref from suppression when it is also present in the bill's own realLaws.",
    "notReReAudited": "this final round of fixes has NOT been independently re-audited by a fresh agent — the driver's own extensive verification (12+ regression bills, a full 140-bill corpus re-run, the validator's 5 checks, the precision measurement, the deletion-safety diff, a corpus-wide repeal-heading sweep) all pass, but per the kernel's audit doctrine this is disclosed as a known gap, not smoothed over as equivalent to a genuinely separate check"
+  },
+  "batch008F1Fix": {
+   "status": "FIXED, corpus-verified single-bill blast radius",
+   "fix": "amends-census.ts: a Čl. block forward heading-window scan is now clipped at an intervening ČÁST boundary (castBoundaryRe), not just the next Čl. marker",
+   "finding": "batch-007-round2-audit.md F1 — tisk 215 Čl. XI (deletes §124a of 280/2009) was gated out by the NEXT ČÁST part (OSMÁ / ÚČINNOST) heading bleeding into its 320-char forward window",
+   "verified": "diffed batch-007-amends-census.json vs batch-008-amends-census.json across all 140 rows: exactly 1 row changed (tisk 215, realLaws +280/2009, repealedRefs -280/2009), 0 other bills affected",
+   "independentlyReVerified": "read raw .data/law-collision-cache/tisk-215/*.txt directly before applying the fix, matching the audit's disclosed excerpt verbatim",
+   "baselineCaveat": "the amends-regen-008.ts payload's own stats.currentAmendsEdgeCount (150) reflects .pglite-copy-law-008's baseline (a copy of .pglite-copy-law-005, which predates batch-007's live apply) -- NOT the live graph, which already carries batch-007's 581-edge set (applied 2026-07-25, commit 257e723, pass 30, BEFORE this batch started). The payload's internal 150->577/+427 arithmetic is correct FOR THAT COPY but is not the real-world delta; the actual live delta is +1 (F1) / -5 (F2) = net -4 edges (581->577), independently confirmed via a read-only diff against the LIVE ./.pglite in §3 below. Caught by the batch-008 reflection audit -- flagged here so a reader of the raw payload JSON isn't misled by the 150-baseline figures."
+  },
+  "batch008F2Deletion": {
+   "status": "DELETION PAYLOAD PREPARED, orchestrator to execute (5 edges, all confirmed live)",
+   "payload": "docs/data-analysis/case-law/payloads/batch-008-f2-deletion-payload.json",
+   "finding": "batch-007-round2-audit.md F2 — 5 title_fallback amends edges are false public claims: tisk 153->468/1991 (nested official-law-name), tisk 88->360/2025 and 124->300/2025 (lineage, 've znění zákona č.'), tisk 36->89/2012 and 42->416/2009 (nested amending-act name)",
+   "reVerification": "each edge independently re-read from cached PDF text this batch (not inherited from the audit's prose) — evidence excerpts + reasoning per edge in the deletion payload",
+   "codeFix": "amends-regen-008.ts wires a corpus-validated per-citation title-role gate (lineage / nested-amend / nested-name, NFC-normalized) that removes exactly these 5 refs and neither of the 2 genuine title-only census rescues (tisk 107->159/1999, 243->223/2016) across all 141 bills — verified via f2-title-gate-test.ts",
+   "deletionAllowlistUpdated": "scripts/case-loops/law/diff-amends-regen-deletions.ts DELETION_ALLOWLIST now carries all 5 keys, each with its own evidence comment"
+  },
+  "batch008ReTriage": {
+   "status": "PARTIAL, precisely scoped — ONLY the aggregate top-10 churn RANKING was recomputed (from batch-008-amends-regen.json's churnRanking field). The per-bill `rows` array below (triageScoreV2, maxTargetChurn, sectorAdjacency, batch/stage) is UNCHANGED from before this batch — none of the 141 rows was re-derived against the 577-edge topology. Corrected this session after the batch-008 reflection audit found the original 'churn re-ranking DONE' wording could read as implying more than this narrow aggregate recompute.",
+   "churnAfterTop10": "law:sb:40-2009 (40/2009) takes #1 with 12 edges, matching batch-007's own predicted re-ranking; 586/1992 drops to #2 (9)",
+   "note": "A full per-bill triageScoreV2/maxTargetChurn/sectorAdjacency recompute against the 577-edge topology was NOT attempted this batch. triageScoreV2 additionally needs sector-adjacency re-derived per amended SECTION, not per whole-bill amended-law set (the standing batch-004 warning) -- left as an open item for whichever batch runs triage-002.ts (or its successor) against a materialized copy of this topology, rather than shipping either a stale or an invalidated naive re-run."
+  },
+  "batch008CollisionRecheck": {
+   "status": "partitioned pre-check re-run on the 577-edge topology; ranking-signal (P52) still unvalidated, not used to select this batch's close-read sample; 12/176 pairs close-read directly by the driver",
+   "rawCandidatePairs": 629,
+   "postPartitionCandidatePairs": 176,
+   "closeReadThisBatch": 12,
+   "closeReadClassification": {
+    "confirmed": 3,
+    "coordination_risk": 5,
+    "incidental": 4
+   },
+   "closeReadCorrectionNote": "originally reported 4/5/3 -- pair 90-221 was misclassified 'confirmed' on a self-comparison bug (both quoted excerpts were bill 221's own text, not 90 vs 221; caught and corrected same session by the batch-008 reflection audit, re-verified independently via a direct grep of tisk 90's cached text). Corrected to 3/5/4 before this batch was reported ready.",
+   "remainingUnread": 117,
+   "moneyLiteralNote": "P52 moneyLiteral signal remains NOT statistically validated (batch-005 Opus audit: Fisher p=1.00 at n=15); this batch did not re-derive a larger cross-topology validated sample (pair identity does not survive topology changes cleanly) — close-read sample this batch was topic-diverse UNREAD pairs, not moneyLiteral-ranked, per P52 doctrine (validate before spending model time)",
+   "emergentFinding": "N-way cluster: 4 separate bills (7, 111, 207, 213) each independently edit 40/2009 §88 odst.2 písm.c) (criminal-code confiscation predicate-offense enumeration) — star topology centered on tisk 207",
+   "payload": "docs/data-analysis/case-law/payloads/collision-close-reads-batch008.json"
   }
  },
  "rows": [

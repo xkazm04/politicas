@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-26T15:11:59.367Z",
+ "generatedAt": "2026-07-26T15:56:32.911Z",
  "method": "body-text LAW_CITATION extraction (word-boundary-safe, shared regex from psp-legislation.ts) vs recorded `amends` graph edges",
  "totals": {
   "billsInGraph": 141,
