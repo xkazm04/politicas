@@ -15,6 +15,12 @@ import { inflateRawSync } from "node:zlib";
 
 const EOCD_SIGNATURE = 0x06054b50;
 const CENTRAL_SIGNATURE = 0x02014b50;
+// Hard ceiling on a single inflated member. A crafted or corrupted archive can
+// declare a small compressedSize whose deflate stream expands to gigabytes
+// (a classic zip bomb); this module is shared by every source adapter, so an
+// unbounded inflate here is a resource-exhaustion risk for the whole ingest
+// path, not just one feed. psp.cz's real UNL members are low tens of MB.
+const MAX_INFLATED_BYTES = 512 * 1024 * 1024;
 
 export interface ZipEntry {
   name: string;
@@ -60,11 +66,18 @@ export function readZip(data: Uint8Array): ZipEntry[] {
     const localNameLen = buf.readUInt16LE(localHeaderOffset + 26);
     const localExtraLen = buf.readUInt16LE(localHeaderOffset + 28);
     const dataStart = localHeaderOffset + 30 + localNameLen + localExtraLen;
+    // A truncated/tampered archive can declare a compressedSize or offset that
+    // points past the buffer end — subarray silently clamps instead of
+    // throwing, which would otherwise hand a shorter-than-declared slice to
+    // the caller as if it were a complete, successfully-read member.
+    if (dataStart < 0 || dataStart + compressedSize > buf.length) {
+      throw new Error(`corrupt ZIP: entry ${name} data extends past end of archive`);
+    }
     const raw = buf.subarray(dataStart, dataStart + compressedSize);
 
     let bytes: Uint8Array;
     if (method === 0) bytes = new Uint8Array(raw);
-    else if (method === 8) bytes = new Uint8Array(inflateRawSync(raw));
+    else if (method === 8) bytes = new Uint8Array(inflateRawSync(raw, { maxOutputLength: MAX_INFLATED_BYTES }));
     else throw new Error(`unsupported ZIP compression method ${method} for entry ${name}`);
 
     entries.push({ name, bytes });
