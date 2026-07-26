@@ -109,12 +109,18 @@ export function componentPoints(props: Record<string, unknown>): Record<Componen
   const bills = num(props.bills_authored);
   const interp = num(props.interpellations);
   const speech = num(props.speech_turns);
+  // participation/attendance are stored rates that SHOULD already be in [0,1],
+  // but unlike the other four components they were never run through clamp01 —
+  // a single out-of-range rate (a future unit mismatch, a bad ingest value)
+  // would otherwise produce a component point value exceeding its own weight,
+  // silently breaking the "points ≤ weight" invariant every bar visualization
+  // (leaderboard breakdown bars, head-to-head mirrored bars) depends on.
   return {
-    participation: round1(participationRate * CONTRIBUTION_WEIGHTS.participation),
+    participation: round1(clamp01(participationRate) * CONTRIBUTION_WEIGHTS.participation),
     committee: round1(clamp01(committeeCount / COMMITTEE_SATURATION) * CONTRIBUTION_WEIGHTS.committee),
     legislative: round1(clamp01((bills + interp) / LEGISLATIVE_SATURATION) * CONTRIBUTION_WEIGHTS.legislative),
     speech: round1(clamp01(speech / SPEECH_SATURATION) * CONTRIBUTION_WEIGHTS.speech),
-    attendance: round1((1 - absenceRate) * CONTRIBUTION_WEIGHTS.attendance),
+    attendance: round1(clamp01(1 - absenceRate) * CONTRIBUTION_WEIGHTS.attendance),
     leadership: leadershipCount > 0 ? CONTRIBUTION_WEIGHTS.leadership : 0,
   };
 }
