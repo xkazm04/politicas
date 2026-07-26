@@ -51,26 +51,31 @@ export function makeKgRepo(pg: Pglite): KnowledgeGraphRepository {
       const deduped = [...byKey.values()];
       const chunkSize = Math.max(1, Math.min(500, Math.floor(30000 / KG_EDGE_COLS.length)));
       const updates = ["weight", "props", "provenance"].map((c) => `${c} = excluded.${c}`).join(", ");
-      let written = 0;
-      for (let i = 0; i < deduped.length; i += chunkSize) {
-        const chunk = deduped.slice(i, i + chunkSize);
-        const params: unknown[] = [];
-        const tuples = chunk.map((r) => {
-          const vals = [r.src, r.rel, r.dst, r.weight, JSON.stringify(r.props), JSON.stringify(r.provenance)];
-          const placeholders = vals.map((v) => {
-            params.push(v);
-            return `$${params.length}`;
+      // Same fix as upsertMany in internals.ts: run the whole chunk loop as one
+      // transaction so a mid-loop failure can't leave earlier chunks committed
+      // and later ones missing with no rollback.
+      return pg.transaction(async (tx) => {
+        let written = 0;
+        for (let i = 0; i < deduped.length; i += chunkSize) {
+          const chunk = deduped.slice(i, i + chunkSize);
+          const params: unknown[] = [];
+          const tuples = chunk.map((r) => {
+            const vals = [r.src, r.rel, r.dst, r.weight, JSON.stringify(r.props), JSON.stringify(r.provenance)];
+            const placeholders = vals.map((v) => {
+              params.push(v);
+              return `$${params.length}`;
+            });
+            return `(${placeholders.join(",")})`;
           });
-          return `(${placeholders.join(",")})`;
-        });
-        await pg.query(
-          `insert into kg_edge (${KG_EDGE_COLS.join(",")}) values ${tuples.join(",")}
-           on conflict (src, rel, dst) do update set ${updates}`,
-          params,
-        );
-        written += chunk.length;
-      }
-      return written;
+          await tx.query(
+            `insert into kg_edge (${KG_EDGE_COLS.join(",")}) values ${tuples.join(",")}
+             on conflict (src, rel, dst) do update set ${updates}`,
+            params,
+          );
+          written += chunk.length;
+        }
+        return written;
+      });
     },
 
     async listKgNodes(opts) {

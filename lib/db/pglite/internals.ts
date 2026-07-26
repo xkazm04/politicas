@@ -124,26 +124,34 @@ export async function upsertMany<T extends { id: string }>(
     .filter((c) => c !== "id")
     .map((c) => `${c} = excluded.${c}`)
     .join(", ");
-  let written = 0;
-  for (let i = 0; i < deduped.length; i += chunkSize) {
-    const chunk = deduped.slice(i, i + chunkSize);
-    const params: unknown[] = [];
-    const tuples = chunk.map((row) => {
-      const vals = toValues(row);
-      const placeholders = vals.map((v) => {
-        params.push(v);
-        return `$${params.length}`;
+  // The whole multi-chunk upsert runs as ONE transaction. PGlite auto-commits
+  // each statement outside an explicit transaction, so "one upsertMany call"
+  // was actually N independent auto-committed statements — a mid-loop failure
+  // (a transient WASM error, a malformed row hitting a constraint) left earlier
+  // chunks committed and later ones missing, with no rollback and no way for
+  // the caller to know which rows actually landed.
+  return pg.transaction(async (tx) => {
+    let written = 0;
+    for (let i = 0; i < deduped.length; i += chunkSize) {
+      const chunk = deduped.slice(i, i + chunkSize);
+      const params: unknown[] = [];
+      const tuples = chunk.map((row) => {
+        const vals = toValues(row);
+        const placeholders = vals.map((v) => {
+          params.push(v);
+          return `$${params.length}`;
+        });
+        return `(${placeholders.join(",")})`;
       });
-      return `(${placeholders.join(",")})`;
-    });
-    await pg.query(
-      `insert into ${table} (${columns.join(",")}) values ${tuples.join(",")}
-       on conflict (id) do update set ${updates}`,
-      params,
-    );
-    written += chunk.length;
-  }
-  return written;
+      await tx.query(
+        `insert into ${table} (${columns.join(",")}) values ${tuples.join(",")}
+         on conflict (id) do update set ${updates}`,
+        params,
+      );
+      written += chunk.length;
+    }
+    return written;
+  });
 }
 
 export const limitOf = (opts?: ListOptions) => Math.max(1, Math.min(2_000_000, opts?.limit ?? 1_000_000));
