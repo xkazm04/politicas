@@ -12,6 +12,7 @@ from `docs/`.
 - [Evidence-citation doctrine](memory/evidence-citation-doctrine.md) — every number cites its source; non-partisanship is enforced in the data model (unverified ties never feed the score). The brand rule.
 
 ## Project state
+- [Architect graph deferrals](memory/architect-graph-deferrals.md) — /architect (2026-07-26) executed 5/8 loader-boundary findings but deferred 4 follow-ups on features/graph (in-flight round 4); the eslint `features/graph/**` exclusion hides violations until they're applied.
 - [Graph bench: no graph DB (case #4)](memory/graph-bench-kuzu-x64-ready.md) — ran `graph.ts` on x64; Kuzu lost every workload to recursive-CTE/DuckDB on the dense co-voting graph. Verdict recorded (R12–R15); don't re-propose Kuzu until a millions-edge sparse graph exists.
 - [/poslanec takes a pspId](memory/profile-route-takes-pspid.md) — the profile route resolves real psp.cz ids, so links built from mock MP slugs (dashboard leaderboard, graph nodes) 404.
 - [The KG stores no source URLs](memory/kg-has-no-source-urls.md) — provenance ≠ citation; official links are rebuilt from stable ids, and which registry patterns actually resolve is recorded there.
