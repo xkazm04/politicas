@@ -16,7 +16,8 @@ export type ReviewState = "verified" | "pending_review" | "rejected";
 
 /** ARES-VR corroboration verdict (case-money batch 002, Q-money-1 population
  *  reconciliation) — annotates the tie, never auto-verifies it. */
-export type Corroboration = "registry-confirmed" | "registry-unconfirmed" | "conflicting";
+export const CORROBORATIONS = ["registry-confirmed", "registry-unconfirmed", "conflicting"] as const;
+export type Corroboration = (typeof CORROBORATIONS)[number];
 
 // Re-exported from reviewTypes.ts (the /penize/kontrola console's pure classifier) so
 // the main ledger and per-MP case file can render the SAME tie-class taxonomy without

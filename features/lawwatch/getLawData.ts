@@ -14,6 +14,7 @@
 // build-time error (only `import type` is safe there).
 
 import "server-only";
+import { asUnion } from "@/lib/db/narrow";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
@@ -76,7 +77,8 @@ function loadParagraphDiffs(): ParagraphDiff[] {
   }
 }
 
-export type BillOrigin = "government" | "mp" | "mp_group" | "senate" | "other";
+export const BILL_ORIGINS = ["government", "mp", "mp_group", "senate", "other"] as const;
+export type BillOrigin = (typeof BILL_ORIGINS)[number];
 
 /** A gated law-forensics verdict (method:"verdict", written pending_review). Rendered as DERIVED, never as raw fact. */
 export interface LawForensicView {
@@ -269,7 +271,7 @@ export async function getLawData(): Promise<LawData | null> {
 
     const bills: LawBillView[] = billNodes.map((n) => {
       const p = (n.props ?? {}) as Record<string, unknown>;
-      const origin = (asStr(p.origin) ?? "other") as BillOrigin;
+      const origin = asUnion(p.origin, BILL_ORIGINS, "other");
       originCounts[origin] = (originCounts[origin] ?? 0) + 1;
       const flagged = p.flagged_conflict === true;
       if (flagged) flaggedCount++;

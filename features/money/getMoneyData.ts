@@ -22,7 +22,9 @@
 
 import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
+import { asUnion } from "@/lib/db/narrow";
 import { loadMoneyLayer, num, pspIdFromNodeId } from "./moneyLoader";
+import { CORROBORATIONS } from "./moneyTypes";
 import type { MoneyData, MoneyGraphData, MoneyMp, MoneyMpStub, MoneyTie, ReviewState } from "./moneyTypes";
 import {
   classifyTie,
@@ -69,7 +71,7 @@ export async function getMoneyData(): Promise<MoneyData | null> {
       const triangle = contractCzk > 0 && subsidiesCzk > 0 && (donatedToPartyCzk ?? 0) > 0;
       const near = nearThresholdCount(contracts.amounts);
       const absenteeManagerLead = Boolean(person?.props?.absentee_manager_lead);
-      const corroboration = (e.props?.corroboration as MoneyTie["corroboration"]) ?? null;
+      const corroboration = asUnion(e.props?.corroboration, CORROBORATIONS, null);
 
       const tie: MoneyTie = {
         companyId: comp.id,

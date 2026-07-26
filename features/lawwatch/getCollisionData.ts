@@ -26,13 +26,15 @@
 // route then hides the real section rather than fabricating anything.
 
 import "server-only";
+import { asUnion } from "@/lib/db/narrow";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 
-export type CollisionClassification = "confirmed-collision" | "coordination-risk";
+export const COLLISION_CLASSIFICATIONS = ["confirmed-collision", "coordination-risk"] as const;
+export type CollisionClassification = (typeof COLLISION_CLASSIFICATIONS)[number];
 
 export interface CollisionEvidence {
   billAExcerpt: string | null;
@@ -275,7 +277,9 @@ export async function getCollisionData(): Promise<CollisionData | null> {
             pairId: p.pairId,
             billA: p.billA,
             billB: p.billB,
-            classification: p.classification as CollisionClassification,
+            // out-of-vocab values degrade to the weaker claim, mirroring the
+            // cluster-level rule above (only exact "confirmed-collision" escalates)
+            classification: asUnion(p.classification, COLLISION_CLASSIFICATIONS, "coordination-risk"),
             sharedParagraph: p.sharedParagraph,
             evidence: {
               billAExcerpt: asStr(p.evidence?.billAExcerpt),
