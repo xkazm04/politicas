@@ -134,12 +134,22 @@ KRAJ_CODE_TO_COURT_SLUG[41] = "plzen"; // Karlovarský → Krajský soud v Plzni
  *  observed among Case ① money's open ties + the catalog's own published slug list
  *  (assessment §"Naming") — NOT a claimed-complete codelist. An unmapped code returns
  *  null and the caller must fall back to name-suffix heuristics or skip with a flag. */
+// Known ARES pravniForma codes with NO verified dataor slug of their own — "111"
+// (veřejná obchodní společnost), "117" (komanditní společnost) and "205" (družstvo)
+// were previously defaulted to "sro" here, but that is a confident WRONG answer,
+// not an honest unresolved one: dataor's own {form}-{variant}-{court}-{year}
+// naming convention implies these three distinct legal forms have their own
+// slugs, and querying the s.r.o. dataset for them can only ever return "not
+// found" — indistinguishable from a legitimately-absent record. Deliberately
+// left OUT of PRAVNI_FORMA_TO_SLUG below so resolveCourtAndForm falls through to
+// the name-heuristic path (or an honest "unresolved" outcome) instead of a wrong
+// dataset guess, until the real dataor slugs are verified against the live
+// catalog (packageList()/packageShow()).
+const KNOWN_BUT_UNVERIFIED_FORM_CODES = new Set(["111", "117", "205"]);
+
 export const PRAVNI_FORMA_TO_SLUG: Record<string, string> = {
   "112": "sro", // společnost s ručením omezeným
   "121": "as", // akciová společnost
-  "111": "sro", // veřejná obchodní společnost — no dedicated slug observed; best-effort
-  "117": "sro", // komanditní společnost — same caveat
-  "205": "sro", // družstvo — same caveat, not independently verified this session
   "421": "nevlad_org", // spolek
   "422": "z_pobocny_spolek", // pobočný spolek
   "451": "nevlad_org", // nadace
@@ -194,6 +204,12 @@ export function resolveCourtAndForm(subject: AresSubjectForCourtForm): CourtForm
   const formFromCodelist = formCode ? (PRAVNI_FORMA_TO_SLUG[formCode] ?? null) : null;
   const formFromName = subject.obchodniJmeno ? legalFormSlugFromName(subject.obchodniJmeno) : null;
   const legalFormSlug = formFromCodelist ?? formFromName;
+
+  if (formCode && KNOWN_BUT_UNVERIFIED_FORM_CODES.has(formCode) && !formFromName) {
+    console.warn(
+      `[dataor] pravniForma "${formCode}" has no verified dataor slug — falling through without a codelist guess (subject: ${subject.obchodniJmeno ?? "?"})`,
+    );
+  }
 
   if (courtCode && COURT_CODE_TO_SLUG[courtCode]) {
     return { courtSlug: COURT_CODE_TO_SLUG[courtCode], legalFormSlug, source: "spisova-znacka" };
