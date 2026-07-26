@@ -12,7 +12,10 @@
 //   • company node props: {ico, subsidies_count, subsidies_total_czk,
 //     donated_to_party_czk?, donation_count?, donation_recipient_party?}
 
-export type ReviewState = "verified" | "pending_review" | "rejected";
+// Declared once in reviewTypes.ts (D7: "rejected" is terminal, distinct from
+// "pending_review") and re-exported here — same rule as TieClass below.
+export type { ReviewState } from "./reviewTypes";
+import type { ReviewState } from "./reviewTypes";
 
 /** ARES-VR corroboration verdict (case-money batch 002, Q-money-1 population
  *  reconciliation) — annotates the tie, never auto-verifies it. */

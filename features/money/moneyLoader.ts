@@ -13,7 +13,9 @@ import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { storeReady } from "@/lib/db/readiness";
 import { getStore } from "@/lib/db/store";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
-import type { ContractLine } from "./moneyTypes";
+import { asUnion } from "@/lib/db/narrow";
+import { CORROBORATIONS, type ContractLine, type MoneyTie, type ReviewState } from "./moneyTypes";
+import { classifyTie, isDeMinimis, nearThresholdCount, reviewRank, reviewSignal, reviewTier } from "./reviewTypes";
 
 const TERM = "PSP10";
 const CONTRACT_LINES_PER_COMPANY = 400; // generous cap; UI slices its own top-N
@@ -33,6 +35,83 @@ export interface CompanyContracts {
   czk: number;
   amounts: number[]; // for near-threshold detection
   lines: ContractLine[]; // sorted by amount desc, capped at CONTRACT_LINES_PER_COMPANY
+}
+
+/**
+ * The ONE place a `linked_to` edge becomes a MoneyTie. Both /penize (ledger) and
+ * /penize/[pspId] (case file) rendered the identical 25-field projection from
+ * hand-copied blocks; a new tie prop had to be added twice and silently diverged
+ * otherwise. `MoneyTieDetail` is this plus its contract lines — the caller
+ * spreads and extends, it does not re-map.
+ * See docs/architect/decisions/2026-07-26-money-tie-mapper-dedup.md.
+ */
+export function mapLinkedToTie(args: {
+  edge: KgEdgeRow;
+  company: KgNodeRow;
+  contracts: CompanyContracts;
+  /** the tied person node — only `absentee_manager_lead` is read (signal input). */
+  person: KgNodeRow | undefined;
+}): MoneyTie {
+  const { edge: e, company: comp, contracts, person } = args;
+  const cp = comp.props ?? {};
+  const rawState = (e.props?.review_state ?? e.props?.state) as string | undefined;
+  const reviewState: ReviewState =
+    rawState === "verified" ? "verified" : rawState === "rejected" ? "rejected" : "pending_review";
+
+  const role = String(e.props?.role ?? "");
+  const contractCzk = contracts.czk;
+  const subsidiesCzk = num(cp.subsidies_total_czk);
+  const donatedToPartyCzk = cp.donated_to_party_czk != null ? num(cp.donated_to_party_czk) : null;
+  const tieClass = classifyTie(role, comp.label);
+  const triangle = contractCzk > 0 && subsidiesCzk > 0 && (donatedToPartyCzk ?? 0) > 0;
+  const near = nearThresholdCount(contracts.amounts);
+  const absenteeManagerLead = Boolean(person?.props?.absentee_manager_lead);
+  const corroboration = asUnion(e.props?.corroboration, CORROBORATIONS, null);
+
+  return {
+    companyId: comp.id,
+    ico: String(cp.ico ?? comp.id.split(":").pop() ?? ""),
+    company: comp.label,
+    role,
+    reviewState,
+    source: String(e.props?.source ?? ""),
+    contractCount: contracts.count,
+    contractCzk,
+    subsidiesCount: num(cp.subsidies_count),
+    subsidiesCzk,
+    donatedToPartyCzk,
+    donationRecipientParty: cp.donation_recipient_party != null ? String(cp.donation_recipient_party) : null,
+    // ARES-VR reconciliation (case-money batch 001/002) — absent on ties not yet
+    // reconciled; the component renders that as "not checked", never as active.
+    corroboration,
+    roleValidFrom: (e.props?.role_valid_from as string | null | undefined) ?? null,
+    roleValidTo: (e.props?.role_valid_to as string | null | undefined) ?? null,
+    temporalStatus: (e.props?.temporal_status as string | null | undefined) ?? null,
+    tieClass,
+    triangle,
+    nearThresholdCount: near,
+    deMinimis: isDeMinimis(contractCzk, subsidiesCzk),
+    signalScore: reviewSignal({
+      contractCzk,
+      subsidiesCzk,
+      tieClass,
+      triangle,
+      nearThresholdCount: near,
+      donatedToPartyCzk,
+      absenteeManagerLead,
+    }),
+    reviewTier: reviewTier({ tieClass, corroboration }),
+    reviewRank: reviewRank({ tieClass, corroboration, contractCzk, subsidiesCzk }),
+    reviewNote: (e.props?.review_note as string | null | undefined) ?? null,
+    reviewerNote: (e.props?.reviewer_note as string | null | undefined) ?? null,
+    lastDecision: (e.props?.last_decision as string | null | undefined) ?? null,
+    lastReviewer: (e.props?.last_reviewer as string | null | undefined) ?? null,
+    lastReviewedAt: (e.props?.last_reviewed_at as string | null | undefined) ?? null,
+    ownerStakePct: e.props?.owner_stake_pct != null ? num(e.props.owner_stake_pct) : null,
+    priorTerm: (e.props?.prior_term as string | null | undefined) ?? null,
+    falseEdgeSuspected: Boolean(e.props?.false_edge_suspected),
+    flags: Array.isArray(e.props?.flags) ? (e.props.flags as string[]) : [],
+  };
 }
 
 export interface MoneyLayer {
