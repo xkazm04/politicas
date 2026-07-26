@@ -23,17 +23,27 @@ export type GlobalWithPglite = typeof globalThis & { [PGLITE_KEY]?: Promise<Pgli
  * SINGLE CONNECTION per data dir — the instance is memoised on globalThis and the
  * promise is assigned before any await, so two concurrent openers cannot race.
  * Analysis scripts read a COPY of the directory.
+ *
+ * A REJECTED promise must not stay memoised: getStore() clears its own cache on
+ * failure and retries, but that retry re-enters open() — without the reset below
+ * it would receive the same cached rejection forever, degrading the whole
+ * process to the mock fallback until restart on one transient cold-start
+ * failure (locked data dir, WASM load error).
  */
 export async function open(): Promise<Pglite> {
   const g = globalThis as GlobalWithPglite;
   if (!g[PGLITE_KEY]) {
-    g[PGLITE_KEY] = (async () => {
+    const opening = (async () => {
       const { PGlite } = await import("@electric-sql/pglite");
       const pg = new PGlite(pglitePath()) as unknown as Pglite;
       await pg.waitReady;
       await pg.exec(CORE_DDL);
       return pg;
     })();
+    g[PGLITE_KEY] = opening;
+    opening.catch(() => {
+      if (g[PGLITE_KEY] === opening) delete g[PGLITE_KEY];
+    });
   }
   return g[PGLITE_KEY]!;
 }
