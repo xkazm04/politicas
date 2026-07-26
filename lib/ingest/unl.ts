@@ -68,9 +68,13 @@ export function parseUnl(body: string): UnlRow[] {
   return rows;
 }
 
-/** Decode a windows-1250 UNL payload. Node's built-in ICU covers cp1250. */
+/** Decode a windows-1250 UNL payload. Node's built-in ICU covers cp1250.
+ * `fatal: true` makes an unmappable byte (corrupted download, wrong source
+ * encoding, an off-by-one in zip extraction) throw instead of silently
+ * substituting U+FFFD — this module's whole discipline is "missing beats
+ * wrong," and a silently mangled name/title is exactly the "wrong" case. */
 export function decodeUnl(bytes: Uint8Array): string {
-  return new TextDecoder("windows-1250").decode(bytes);
+  return new TextDecoder("windows-1250", { fatal: true }).decode(bytes);
 }
 
 /** Column accessor that returns `null` for a missing column (short rows happen). */
@@ -79,11 +83,16 @@ export function col(row: UnlRow, i: number): string | null {
   return v === undefined ? null : v;
 }
 
-/** Column as an integer, `null` when empty or unparseable. */
+/** Column as an integer, `null` when empty or unparseable. Requires the FULL
+ * trimmed value to be digits — Number.parseInt's prefix-parse would otherwise
+ * silently accept "123abc" or a mis-escaped "45|" as 123/45, coercing a
+ * malformed field into a plausible-looking but wrong id. */
 export function colInt(row: UnlRow, i: number): number | null {
   const v = col(row, i);
   if (v === null) return null;
-  const n = Number.parseInt(v.trim(), 10);
+  const trimmed = v.trim();
+  if (!/^-?\d+$/.test(trimmed)) return null;
+  const n = Number.parseInt(trimmed, 10);
   return Number.isFinite(n) ? n : null;
 }
 
@@ -113,7 +122,14 @@ export function czDateHourToIso(v: string | null): string | null {
   const m = /^(\d{4})-(\d{2})-(\d{2})(?:\s+(\d{1,2}))?/.exec(v.trim());
   if (!m) return null;
   const [, y, mo, d, h] = m;
-  return `${y}-${mo}-${d}T${String(Number(h ?? 0)).padStart(2, "0")}:00:00.000Z`;
+  const month = Number(mo);
+  const day = Number(d);
+  const hour = Number(h ?? 0);
+  // Same range validation czDateToIso already enforces for DD.MM.YYYY — a
+  // regex-shaped but semantically invalid value (month 13, hour 27) must not
+  // be emitted as a syntactically-ISO but meaningless timestamp.
+  if (month < 1 || month > 12 || day < 1 || day > 31 || hour < 0 || hour > 23) return null;
+  return `${y}-${mo}-${d}T${String(hour).padStart(2, "0")}:00:00.000Z`;
 }
 
 /** Combine `datum` (DD.MM.YYYY) + `čas` (HH:MM) into an ISO instant (UTC). */
@@ -121,7 +137,10 @@ export function czDateTimeToIso(date: string | null, time: string | null): strin
   const iso = czDateToIso(date);
   if (!iso) return null;
   const m = time ? /^(\d{1,2}):(\d{2})/.exec(time.trim()) : null;
-  const hh = m ? String(Number(m[1])).padStart(2, "0") : "00";
-  const mm = m ? m[2] : "00";
-  return `${iso}T${hh}:${mm}:00.000Z`;
+  if (!m) return `${iso}T00:00:00.000Z`;
+  const hour = Number(m[1]);
+  const minute = Number(m[2]);
+  if (hour < 0 || hour > 23 || minute < 0 || minute > 59) return null;
+  const hh = String(hour).padStart(2, "0");
+  return `${iso}T${hh}:${m[2]}:00.000Z`;
 }
