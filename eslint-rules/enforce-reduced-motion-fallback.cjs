@@ -55,6 +55,30 @@ function attrObject(attr) {
   return null;
 }
 
+/** The OUTERMOST function/component ancestor of `node` (not the innermost) —
+ * groups a motion element nested inside a closure (a .map callback, a useEffect
+ * body) under the SAME scope key as the top-level component function that
+ * contains it, so a useReducedMotion() call at the top of the component still
+ * counts as gating everything inside it. Two separate top-level components in
+ * the same file get distinct keys, so one component's fallback no longer
+ * exempts every other component's looping animation in the same file. `null`
+ * means module scope (no enclosing function at all). */
+function outermostFunctionAncestor(node) {
+  let cur = node.parent;
+  let found = null;
+  while (cur) {
+    if (
+      cur.type === "FunctionDeclaration" ||
+      cur.type === "FunctionExpression" ||
+      cur.type === "ArrowFunctionExpression"
+    ) {
+      found = cur;
+    }
+    cur = cur.parent;
+  }
+  return found;
+}
+
 /** @type {import('eslint').Rule.RuleModule} */
 module.exports = {
   meta: {
@@ -71,8 +95,6 @@ module.exports = {
   },
   create(context) {
     const sourceCode = context.sourceCode || context.getSourceCode();
-    const fileText = sourceCode.getText();
-    if (FALLBACK_TOKENS.some((tok) => fileText.includes(tok))) return {};
 
     function hasInlineOptOut(node) {
       const comments = sourceCode.getAllComments();
@@ -85,7 +107,23 @@ module.exports = {
       );
     }
 
+    // Real identifier references to a fallback token, keyed by their enclosing
+    // component — NOT a raw file-wide substring match. A substring check
+    // (fileText.includes("useReducedMotion")) matched inside an unrelated
+    // identifier like `useReducedMotionValue` (a different framer API) or a
+    // stray comment, exempting the whole file with no lint signal that
+    // coverage was lost. Buffered during the walk and resolved once at
+    // Program:exit since a fallback reference can appear anywhere in the
+    // component relative to the motion element it gates.
+    const fallbackScopes = new Set();
+    const candidates = [];
+
     return {
+      Identifier(node) {
+        if (FALLBACK_TOKENS.includes(node.name)) {
+          fallbackScopes.add(outermostFunctionAncestor(node));
+        }
+      },
       JSXOpeningElement(node) {
         if (!isMotionElement(node)) return;
 
@@ -110,7 +148,13 @@ module.exports = {
         if (!repeats) return;
         if (hasInlineOptOut(node)) return;
 
-        context.report({ node: animateAttr, messageId: "missingFallback" });
+        candidates.push({ animateAttr, scope: outermostFunctionAncestor(node) });
+      },
+      "Program:exit"() {
+        for (const { animateAttr, scope } of candidates) {
+          if (fallbackScopes.has(scope)) continue;
+          context.report({ node: animateAttr, messageId: "missingFallback" });
+        }
       },
     };
   },
