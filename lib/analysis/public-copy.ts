@@ -39,11 +39,31 @@ export const PIPELINE_JARGON: { re: RegExp; what: string }[] = [
     re: /\b(batch|dávka)\s*\d|v tomto vzorku|ve vzorku (pěti|čtyř|tří)|tomto vzorku/i,
     what: "batch/sample self-reference",
   },
+  // Q-effort-15 (batch 007): added here because gate.ts carried this rule as a LOCAL
+  // fork (never imported from this module, despite the docstring above claiming a
+  // single shared definition) — so live prose containing "endpoint"/"REST API"/
+  // "JSON"/"pipeline"/"dossier" was DROPPED at persist time by the gate but NOT
+  // withheld at render time by publicCopyOrNull(), an enforcement gap. Unified here;
+  // gate.ts now imports this array instead of duplicating it.
+  {
+    re: /\b(endpoint|REST API|\/ekonomicke-subjekty|<ICO>|JSON|pipeline|dossier|dosier)\b/i,
+    what: "API/pipeline mechanics",
+  },
 ];
+
+/** Which jargon rules a string trips, with the exact matched substring (empty ⇒ safe to render). */
+export function jargonViolationDetails(text: string): { what: string; match: string }[] {
+  const out: { what: string; match: string }[] = [];
+  for (const { re, what } of PIPELINE_JARGON) {
+    const m = re.exec(text);
+    if (m) out.push({ what, match: m[0] });
+  }
+  return out;
+}
 
 /** Which jargon rules a string trips (empty ⇒ safe to render). */
 export function jargonViolations(text: string): string[] {
-  return PIPELINE_JARGON.filter(({ re }) => re.test(text)).map(({ what }) => what);
+  return jargonViolationDetails(text).map(({ what }) => what);
 }
 
 /** True when the string carries no pipeline jargon and may render to a reader. */

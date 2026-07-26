@@ -1,0 +1,251 @@
+{
+  "processed": 28,
+  "flips": 1,
+  "confirmedNegatives": [
+    {
+      "src": "psp:person:346",
+      "dst": "company:ico:63113074",
+      "mp": "Petr Bendl",
+      "company": "Svaz měst a obcí České republiky",
+      "ico": "63113074",
+      "priorCorr": "conflicting",
+      "checkedAt": "2026-07-26"
+    },
+    {
+      "src": "psp:person:346",
+      "dst": "company:ico:70889953",
+      "mp": "Petr Bendl",
+      "company": "Povodí Vltavy, státní podnik",
+      "ico": "70889953",
+      "priorCorr": "conflicting",
+      "checkedAt": "2026-07-26"
+    },
+    {
+      "src": "psp:person:5379",
+      "dst": "company:ico:46678735",
+      "mp": "Jan Bauer",
+      "company": "Robert Bosch, spol. s r.o.",
+      "ico": "46678735",
+      "priorCorr": "conflicting",
+      "checkedAt": "2026-07-26"
+    },
+    {
+      "src": "psp:person:5379",
+      "dst": "company:ico:61065480",
+      "mp": "Jan Bauer",
+      "company": "TAMPA s.r.o.",
+      "ico": "61065480",
+      "priorCorr": "conflicting",
+      "checkedAt": "2026-07-26"
+    },
+    {
+      "src": "psp:person:5512",
+      "dst": "company:ico:70885117",
+      "mp": "Boris Šťastný",
+      "company": "Česká lékařská komora - o.s., z.s.",
+      "ico": "70885117",
+      "priorCorr": "conflicting",
+      "checkedAt": "2026-07-26"
+    },
+    {
+      "src": "psp:person:5899",
+      "dst": "company:ico:29211808",
+      "mp": "Jan Bureš",
+      "company": "Léčebné lázně Jáchymov a. s.",
+      "ico": "29211808",
+      "priorCorr": "conflicting",
+      "checkedAt": "2026-07-26"
+    },
+    {
+      "src": "psp:person:5903",
+      "dst": "company:ico:26419068",
+      "mp": "Jana Černochová",
+      "company": "Nadační fond Českého rozhlasu",
+      "ico": "26419068",
+      "priorCorr": "conflicting",
+      "checkedAt": "2026-07-26"
+    },
+    {
+      "src": "psp:person:6150",
+      "dst": "company:ico:48207918",
+      "mp": "Andrej Babiš",
+      "company": "AGROPROFIT, spol. s r.o.",
+      "ico": "48207918",
+      "priorCorr": "conflicting",
+      "checkedAt": "2026-07-26"
+    },
+    {
+      "src": "psp:person:6205",
+      "dst": "company:ico:25586521",
+      "mp": "Marian Jurečka",
+      "company": "AGRO 2000 s.r.o.",
+      "ico": "25586521",
+      "priorCorr": "conflicting",
+      "checkedAt": "2026-07-26"
+    },
+    {
+      "src": "psp:person:6216",
+      "dst": "company:ico:19840659",
+      "mp": "Michal Kučera",
+      "company": "Sirius Praha s.r.o.",
+      "ico": "19840659",
+      "priorCorr": "conflicting",
+      "checkedAt": "2026-07-26"
+    },
+    {
+      "src": "psp:person:6225",
+      "dst": "company:ico:00829838",
+      "mp": "Jana Pastuchová",
+      "company": "Nemocnice Jablonec nad Nisou, p.o.",
+      "ico": "00829838",
+      "priorCorr": "conflicting",
+      "checkedAt": "2026-07-26"
+    },
+    {
+      "src": "psp:person:6225",
+      "dst": "company:ico:46744991",
+      "mp": "Jana Pastuchová",
+      "company": "Zdravotnická záchranná služba Libereckého kraje, příspěvková organizace",
+      "ico": "46744991",
+      "priorCorr": "conflicting",
+      "checkedAt": "2026-07-26"
+    },
+    {
+      "src": "psp:person:6240",
+      "dst": "company:ico:60826851",
+      "mp": "Karel Tureček",
+      "company": "Rybářství Třeboň a.s.",
+      "ico": "60826851",
+      "priorCorr": "conflicting",
+      "checkedAt": "2026-07-26"
+    },
+    {
+      "src": "psp:person:6479",
+      "dst": "company:ico:47122099",
+      "mp": "Lucie Šafránková",
+      "company": "Pražská vysoká škola psychosociálních studií, s.r.o.",
+      "ico": "47122099",
+      "priorCorr": "conflicting",
+      "checkedAt": "2026-07-26"
+    },
+    {
+      "src": "psp:person:6789",
+      "dst": "company:ico:27043843",
+      "mp": "Lukáš Vlček",
+      "company": "PRO VYSOČINU, občanské sdružení",
+      "ico": "27043843",
+      "priorCorr": "conflicting",
+      "checkedAt": "2026-07-26"
+    },
+    {
+      "src": "psp:person:7032",
+      "dst": "company:ico:00084018",
+      "mp": "Jana Patková",
+      "company": "Hvězdárna a planetárium v Hradci Králové",
+      "ico": "00084018",
+      "priorCorr": "conflicting",
+      "checkedAt": "2026-07-26"
+    },
+    {
+      "src": "psp:person:7039",
+      "dst": "company:ico:26637863",
+      "mp": "Vítězslav Schrek",
+      "company": "AlternativaPro, z.s.",
+      "ico": "26637863",
+      "priorCorr": "conflicting",
+      "checkedAt": "2026-07-26"
+    },
+    {
+      "src": "psp:person:7063",
+      "dst": "company:ico:26602351",
+      "mp": "Roman Zarzycký",
+      "company": "HC Plzeň z.s.",
+      "ico": "26602351",
+      "priorCorr": "conflicting",
+      "checkedAt": "2026-07-26"
+    }
+  ],
+  "stillUnresolvable": [
+    {
+      "src": "psp:person:5226",
+      "dst": "company:ico:75112779",
+      "mp": "Pavel Žáček",
+      "company": "Ústav pro studium totalitních režimů",
+      "ico": "75112779",
+      "priorCorr": "registry-unconfirmed",
+      "reason": "vr-ico-not-found-live"
+    },
+    {
+      "src": "psp:person:5512",
+      "dst": "company:ico:41197518",
+      "mp": "Boris Šťastný",
+      "company": "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+      "ico": "41197518",
+      "priorCorr": "registry-unconfirmed",
+      "reason": "vr-ico-not-found-live"
+    },
+    {
+      "src": "psp:person:5700",
+      "dst": "company:ico:41197518",
+      "mp": "Ivan Adamec",
+      "company": "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+      "ico": "41197518",
+      "priorCorr": "registry-unconfirmed",
+      "reason": "vr-ico-not-found-live"
+    },
+    {
+      "src": "psp:person:6185",
+      "dst": "company:ico:60800691",
+      "mp": "Milan Brázdil",
+      "company": "Vojenská nemocnice Olomouc",
+      "ico": "60800691",
+      "priorCorr": "registry-unconfirmed",
+      "reason": "vr-ico-not-found-live"
+    },
+    {
+      "src": "psp:person:6211",
+      "dst": "company:ico:45245053",
+      "mp": "Martin Kolovratník",
+      "company": "ČESKÝ ROZHLAS",
+      "ico": "45245053",
+      "priorCorr": "registry-unconfirmed",
+      "reason": "vr-ico-not-found-live"
+    },
+    {
+      "src": "psp:person:6463",
+      "dst": "company:ico:00027383",
+      "mp": "Aleš Juchelka",
+      "company": "ČESKÁ TELEVIZE",
+      "ico": "00027383",
+      "priorCorr": "registry-unconfirmed",
+      "reason": "vr-ico-not-found-live"
+    },
+    {
+      "src": "psp:person:6463",
+      "dst": "company:ico:45245053",
+      "mp": "Aleš Juchelka",
+      "company": "ČESKÝ ROZHLAS",
+      "ico": "45245053",
+      "priorCorr": "registry-unconfirmed",
+      "reason": "vr-ico-not-found-live"
+    },
+    {
+      "src": "psp:person:6905",
+      "dst": "company:ico:61989592",
+      "mp": "Andrea Hoffmannová",
+      "company": "Univerzita Palackého v Olomouci",
+      "ico": "61989592",
+      "priorCorr": "registry-unconfirmed",
+      "reason": "vr-ico-not-found-live"
+    },
+    {
+      "src": "psp:person:7039",
+      "dst": "company:ico:70100969",
+      "mp": "Vítězslav Schrek",
+      "company": "Charita Česká republika",
+      "ico": "70100969",
+      "priorCorr": "registry-unconfirmed",
+      "reason": "vr-ico-not-found-live"
+    }
+  ]
+}

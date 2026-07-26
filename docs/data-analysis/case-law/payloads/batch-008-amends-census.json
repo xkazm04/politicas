@@ -1,0 +1,3715 @@
+{
+ "generatedAt": "2026-07-26T15:11:59.367Z",
+ "method": "body-text LAW_CITATION extraction (word-boundary-safe, shared regex from psp-legislation.ts) vs recorded `amends` graph edges",
+ "totals": {
+  "billsInGraph": 141,
+  "billsChecked": 140,
+  "billsSkipped": 1,
+  "billsWithAnyUndercount": 46,
+  "totalUndercountSum": 439
+ },
+ "originCorrelation": {
+  "government": {
+   "n": 55,
+   "mean": 5.0181818181818185
+  },
+  "mp_or_mp_group": {
+   "n": 71,
+   "mean": 2.140845070422535
+  },
+  "senate": {
+   "n": 9,
+   "mean": 0.3333333333333333
+  },
+  "other": {
+   "n": 5,
+   "mean": -0.2
+  },
+  "note": "mean = mean(realCount - recordedCount) per bill in that origin bucket; positive = undercount"
+ },
+ "skips": [
+  {
+   "cislo": 87,
+   "stage": "no-pdf",
+   "reason": "no \"Návrh zákona\" or \"Platné znění\" PDF found (headers: Důvodová zpráva | Stručný popis návrhu | Informativní přehled veřejnoprávních povinností)"
+  }
+ ],
+ "rows": [
+  {
+   "tiskId": "bill:tisk:43171",
+   "cislo": 64,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se v souvislosti s přijetím zákona o účetnictví mění některé zákony a zrušuje zákon č. 25/2017 Sb., o sběru vybraných údajů pro účely monitorování a řízení veřejných financ",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "25/2017"
+   ],
+   "realLaws": [
+    "104/2000",
+    "111/1994",
+    "111/1998",
+    "111/2006",
+    "114/1995",
+    "115/2001",
+    "12/2002",
+    "120/2001",
+    "121/2000",
+    "125/2008",
+    "127/2005",
+    "128/2000",
+    "129/2000",
+    "13/1997",
+    "131/2000",
+    "134/2016",
+    "139/2002",
+    "143/2001",
+    "146/2002",
+    "147/2002",
+    "15/1998",
+    "151/1997",
+    "151/2010",
+    "153/1994",
+    "166/1993",
+    "166/1999",
+    "168/2025",
+    "17/2012",
+    "181/2007",
+    "182/2006",
+    "184/2006",
+    "186/2016",
+    "187/2006",
+    "187/2016",
+    "190/2004",
+    "198/2002",
+    "20/1993",
+    "201/2002",
+    "21/1992",
+    "211/2000",
+    "218/2000",
+    "219/2000",
+    "222/1999",
+    "229/1992",
+    "229/2002",
+    "23/2017",
+    "234/2025",
+    "235/2004",
+    "239/1992",
+    "240/2013",
+    "243/2000",
+    "243/2022",
+    "248/2000",
+    "250/2000",
+    "251/2005",
+    "253/2008",
+    "256/2000",
+    "256/2004",
+    "257/2000",
+    "257/2016",
+    "258/2000",
+    "263/2024",
+    "266/1994",
+    "273/2008",
+    "277/2009",
+    "279/2003",
+    "280/1992",
+    "280/2009",
+    "282/1991",
+    "283/1993",
+    "283/2021",
+    "284/2023",
+    "29/2000",
+    "3/2002",
+    "30/2024",
+    "301/1992",
+    "304/2013",
+    "306/1999",
+    "307/2006",
+    "31/2025",
+    "312/2006",
+    "317/2025",
+    "321/2004",
+    "326/1999",
+    "328/2025",
+    "335/2020",
+    "338/1992",
+    "341/2005",
+    "341/2011",
+    "359/1992",
+    "360/2004",
+    "365/2000",
+    "37/2021",
+    "370/2017",
+    "372/2011",
+    "374/2015",
+    "377/2005",
+    "378/2005",
+    "388/1991",
+    "395/2009",
+    "40/2009",
+    "406/2000",
+    "412/2005",
+    "416/2009",
+    "417/2004",
+    "42/1992",
+    "420/2004",
+    "424/1991",
+    "427/2011",
+    "435/2004",
+    "44/1988",
+    "449/2001",
+    "455/1991",
+    "456/2011",
+    "458/2000",
+    "468/2024",
+    "477/2001",
+    "483/1991",
+    "484/1991",
+    "49/1997",
+    "496/2012",
+    "503/2012",
+    "526/1990",
+    "542/2020",
+    "551/1991",
+    "555/1992",
+    "561/2004",
+    "58/1995",
+    "582/1991",
+    "586/1992",
+    "593/1992",
+    "6/1993",
+    "6/2002",
+    "627/2004",
+    "634/1992",
+    "64/1986",
+    "69/2006",
+    "72/2000",
+    "73/2011",
+    "77/1997",
+    "77/2002",
+    "87/1995",
+    "89/2012",
+    "90/2012",
+    "92/1991",
+    "93/2009",
+    "99/1963"
+   ],
+   "realCount": 147,
+   "undercount": 146,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266153",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "586/1992",
+    "593/1992",
+    "218/2000",
+    "250/2000",
+    "3/2002",
+    "235/2004",
+    "561/2004",
+    "93/2009",
+    "280/2009",
+    "25/2017"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43174",
+   "cislo": 67,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "283/2021"
+   ],
+   "realLaws": [
+    "100/2001",
+    "114/1992",
+    "114/1995",
+    "13/1997",
+    "133/1985",
+    "134/2016",
+    "139/2002",
+    "148/2023",
+    "150/2002",
+    "166/1999",
+    "184/2006",
+    "197/2022",
+    "2/1969",
+    "20/1987",
+    "201/2012",
+    "219/2000",
+    "224/2015",
+    "234/2014",
+    "235/2004",
+    "239/2000",
+    "249/2025",
+    "254/2001",
+    "256/2001",
+    "258/2000",
+    "263/2016",
+    "266/1994",
+    "283/2021",
+    "289/1995",
+    "309/2006",
+    "334/1992",
+    "338/1992",
+    "360/1992",
+    "40/2009",
+    "416/2009",
+    "44/1988",
+    "449/2001",
+    "458/2000",
+    "49/1997",
+    "503/2012",
+    "541/2020",
+    "61/1988",
+    "62/1988"
+   ],
+   "realCount": 42,
+   "undercount": 41,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266188",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "20/1987",
+    "114/1992"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43184",
+   "cislo": 77,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o právních poměrech státních zaměstnan",
+   "recordedAmends": 0,
+   "recordedLaws": [],
+   "realLaws": [
+    "104/2000",
+    "110/2019",
+    "115/2001",
+    "12/2020",
+    "127/2005",
+    "150/2002",
+    "150/2017",
+    "181/2007",
+    "187/2006",
+    "2/1969",
+    "231/2001",
+    "248/2000",
+    "256/2000",
+    "258/2000",
+    "273/1996",
+    "328/2025",
+    "365/2000",
+    "388/1991",
+    "424/1991",
+    "458/2000",
+    "49/1997",
+    "582/1991",
+    "6/2002",
+    "89/1995"
+   ],
+   "realCount": 24,
+   "undercount": 24,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266520",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "424/1991",
+    "6/2002"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43114",
+   "cislo": 7,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Ivana Bartoše a Olgy Richterové na vydání zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o Úřadu pro prevenci korupce a střetu zájmů",
+   "recordedAmends": 0,
+   "recordedLaws": [],
+   "realLaws": [
+    "134/2016",
+    "141/1961",
+    "159/2006",
+    "166/1993",
+    "168/2025",
+    "171/2023",
+    "2/1969",
+    "21/1992",
+    "222/2016",
+    "231/2001",
+    "234/2014",
+    "234/2025",
+    "256/2000",
+    "280/2009",
+    "300/2013",
+    "37/2021",
+    "372/2011",
+    "40/2009",
+    "424/1991",
+    "563/1991",
+    "87/1995",
+    "88/2024"
+   ],
+   "realCount": 22,
+   "undercount": 22,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265064",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43212",
+   "cislo": 102,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o odčerpání majetku nevysvětleného původu",
+   "recordedAmends": 0,
+   "recordedLaws": [],
+   "realLaws": [
+    "104/2013",
+    "141/1961",
+    "182/2006",
+    "219/2000",
+    "279/2003",
+    "283/1993",
+    "284/2023",
+    "312/2006",
+    "40/2009",
+    "56/2001",
+    "90/2024",
+    "91/2024"
+   ],
+   "realCount": 12,
+   "undercount": 12,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267472",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43123",
+   "cislo": 16,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti se smlouvami o finančních službách uzavíranými na dálku",
+   "recordedAmends": 0,
+   "recordedLaws": [],
+   "realLaws": [
+    "170/2018",
+    "240/2013",
+    "256/2004",
+    "257/2016",
+    "31/2025",
+    "340/2006",
+    "370/2017",
+    "6/1993",
+    "634/1992",
+    "89/2012",
+    "91/2022"
+   ],
+   "realCount": 11,
+   "undercount": 11,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265180",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43172",
+   "cislo": 65,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti s úpravou vybraných agend v působnosti Digitální a informační agentury",
+   "recordedAmends": 0,
+   "recordedLaws": [],
+   "realLaws": [
+    "106/1999",
+    "12/2020",
+    "2/1969",
+    "21/1992",
+    "250/2017",
+    "277/2009",
+    "29/2000",
+    "297/2016",
+    "300/2008",
+    "365/2000",
+    "427/2011"
+   ],
+   "realCount": 11,
+   "undercount": 11,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266164",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43372",
+   "cislo": 250,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Drahoslava Ryby a Jiřího Bartáka na vydání zákona o standardizaci a o změně některých zákonů (zákon o standardizaci)",
+   "recordedAmends": 0,
+   "recordedLaws": [],
+   "realLaws": [
+    "2/1969",
+    "20/1993",
+    "22/1997",
+    "330/2025",
+    "387/2024",
+    "505/1990",
+    "539/1992",
+    "634/2004",
+    "64/1986",
+    "87/2023"
+   ],
+   "realCount": 10,
+   "undercount": 10,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=277952",
+   "structure": "cast",
+   "skippedParts": [
+    {
+     "label": "PRVN",
+     "headingPreview": "ČÁST PRVNÍ STANDARDIZACE Hlava I Úvodní ustanovení §1"
+    },
+    {
+     "label": "DVANÁCT",
+     "headingPreview": "ČÁST DVANÁCTÁ ZRUŠOVACÍ USTANOVENÍ § 60 Zrušují se: 1. Zákon č. 19/1993 Sb., orgánech státní správy České republiky v oblasti puncovnictví a"
+    },
+    {
+     "label": "TŘINÁCT",
+     "headingPreview": "ČÁST TŘINÁCTÁ ÚČINNOST § 61 Tento zákon nabývá účinnosti dnem 1. ledna 2027, s výjimkou části čtvrté, která nabývá účinnosti dnem 1. ledna 2"
+    }
+   ],
+   "repealedRefs": [
+    "19/1993"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43200",
+   "cislo": 90,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění některé zákony v oblasti veřejných rozpočtů",
+   "recordedAmends": 0,
+   "recordedLaws": [],
+   "realLaws": [
+    "159/2006",
+    "166/1993",
+    "177/2023",
+    "218/2000",
+    "222/2016",
+    "23/2017",
+    "243/2000",
+    "250/2000",
+    "262/2006"
+   ],
+   "realCount": 9,
+   "undercount": 9,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267105",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "218/2000",
+    "23/2017",
+    "159/2006",
+    "262/2006",
+    "76/2005"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43131",
+   "cislo": 24,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Víta Rakušana, Lukáše Vlčka, Věry Kovářové, Michaely Šebelové, Pavly Pivoňka Vaňkové, Jana Berkiho, Michaely Opltové, Barbory Urbanové, Jana Papajanovského, Matěje Hlavatého a Jana Svit",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "128/2000"
+   ],
+   "realLaws": [
+    "12/2020",
+    "128/2000",
+    "194/2010",
+    "262/2006",
+    "35/2021",
+    "365/2000",
+    "500/2004",
+    "553/1991",
+    "82/1998"
+   ],
+   "realCount": 9,
+   "undercount": 8,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265302",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "553/2020"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43308",
+   "cislo": 187,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Huberta Langa, Igora Hendrycha, Jiřího Maška a Drahoslava Ryby na vydání zákona, kterým se mění některé zákony na úseku vnitřní správy",
+   "recordedAmends": 0,
+   "recordedLaws": [],
+   "realLaws": [
+    "123/2024",
+    "197/2024",
+    "222/2016",
+    "261/2021",
+    "29/2000",
+    "332/2025",
+    "414/2023",
+    "499/2004"
+   ],
+   "realCount": 8,
+   "undercount": 8,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270041",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "29/2000"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43175",
+   "cislo": 68,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 23/2017 Sb., o pravidlech rozpočtové odpovědnosti, ve znění pozdějších předpisů, a další související zákony",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "23/2017"
+   ],
+   "realLaws": [
+    "159/2006",
+    "177/2023",
+    "218/2000",
+    "222/2016",
+    "23/2017",
+    "243/2000",
+    "250/2000",
+    "262/2006"
+   ],
+   "realCount": 8,
+   "undercount": 7,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266205",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "23/2017",
+    "159/2006",
+    "262/2006"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43176",
+   "cislo": 69,
+   "origin": "government",
+   "title": "Vládní návrh zákona o digitální ekonomice a o změně některých souvisejících zákonů",
+   "recordedAmends": 0,
+   "recordedLaws": [],
+   "realLaws": [
+    "121/2000",
+    "132/2010",
+    "141/1961",
+    "292/2013",
+    "634/1992",
+    "634/2004",
+    "89/2012"
+   ],
+   "realCount": 7,
+   "undercount": 7,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266214",
+   "structure": "cast",
+   "skippedParts": [
+    {
+     "label": "PRVN",
+     "headingPreview": "ČÁST PRVNÍ DIGITÁLNÍ EKONOMIKA Hlava I Úvodní ustanovení"
+    },
+    {
+     "label": "DEVÁT",
+     "headingPreview": "ČÁST DEVÁTÁ ÚČINNOST § 75 Tento zákon nabývá účinnosti patnáctým dnem po jeho vyhlášení, s výjimkou ustanovení a) § 18 odst. 3, které nabývá"
+    }
+   ],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43329",
+   "cislo": 207,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 40/2009 Sb., trestní zákoník, ve znění pozdějších předpisů, a další související zákony",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "40/2009"
+   ],
+   "realLaws": [
+    "141/1961",
+    "17/2012",
+    "273/2008",
+    "300/2013",
+    "341/2011",
+    "359/1999",
+    "40/2009",
+    "59/2017"
+   ],
+   "realCount": 8,
+   "undercount": 7,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271152",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43335",
+   "cislo": 213,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se s cílem dále posílit bezpečnost České republiky mění zákony upravující opatření přijatá v souvislosti s ozbrojeným konfliktem na území Ukrajiny vyvolaným invazí vojsk Ru",
+   "recordedAmends": 0,
+   "recordedLaws": [],
+   "realLaws": [
+    "150/2002",
+    "325/1999",
+    "326/1999",
+    "40/2009",
+    "65/2022",
+    "66/2022",
+    "67/2022"
+   ],
+   "realCount": 7,
+   "undercount": 7,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271314",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "65/2022",
+    "67/2022",
+    "325/1999",
+    "326/1999"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43221",
+   "cislo": 111,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 40/2009 Sb., trestní zákoník, ve znění pozdějších předpisů, a další související zákony",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "40/2009"
+   ],
+   "realLaws": [
+    "141/1961",
+    "218/2003",
+    "269/1994",
+    "359/1999",
+    "40/2009",
+    "45/2013",
+    "82/1998"
+   ],
+   "realCount": 7,
+   "undercount": 6,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267623",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "218/2003"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43337",
+   "cislo": 215,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Kateřiny Stojanové, Samuela Volpeho, Kateriny Demetrashvili a Veroniky Kovářové na vydání zákona, kterým se mění zákon č. 150/2002 Sb., soudní řád správní, ve znění pozdějších předpisů,",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "150/2002"
+   ],
+   "realLaws": [
+    "111/1998",
+    "121/2008",
+    "150/2002",
+    "280/2009",
+    "412/2005",
+    "500/2004",
+    "99/1963"
+   ],
+   "realCount": 7,
+   "undercount": 6,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271409",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "150/2002",
+    "99/1963",
+    "412/2005",
+    "121/2008"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43163",
+   "cislo": 56,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o opatřeních ke snížení nákladů na zavádění sítí elektronických komunikací s velmi vysokou kapacitou",
+   "recordedAmends": 0,
+   "recordedLaws": [],
+   "realLaws": [
+    "127/2005",
+    "200/1994",
+    "283/2021",
+    "416/2009",
+    "634/2004"
+   ],
+   "realCount": 5,
+   "undercount": 5,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266014",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43193",
+   "cislo": 83,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 361/2000 Sb., o provozu na pozemních komunikacích a o změnách některých zákonů (zákon o silničním provozu), ve znění pozdějších předpisů, a další souvisejí",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "361/2000"
+   ],
+   "realLaws": [
+    "111/1994",
+    "114/1995",
+    "13/1997",
+    "266/1994",
+    "361/2000",
+    "49/1997"
+   ],
+   "realCount": 6,
+   "undercount": 5,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266860",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43213",
+   "cislo": 103,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Jana Bureše, Karla Haase, Renáty Zajíčkové, Štěpána Slováka, Petra Sokola, Jany Černochové, Libora Hoppe, Jakuba Jandy, Petra Bendla a Jana Skopečka na vydání zákona, kterým se mění zák",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "300/2008"
+   ],
+   "realLaws": [
+    "111/2006",
+    "117/1995",
+    "155/1995",
+    "187/2006",
+    "300/2008",
+    "329/2011"
+   ],
+   "realCount": 6,
+   "undercount": 5,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267494",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43263",
+   "cislo": 143,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 256/2004 Sb., o podnikání na kapitálovém trhu, ve znění pozdějších předpisů, a další související zákony",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "256/2004"
+   ],
+   "realLaws": [
+    "15/1998",
+    "190/2004",
+    "21/1992",
+    "256/2004",
+    "87/1995",
+    "90/2012"
+   ],
+   "realCount": 6,
+   "undercount": 5,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268781",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "256/2004",
+    "190/2004"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43266",
+   "cislo": 145,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 257/2016 Sb., o spotřebitelském úvěru, ve znění pozdějších předpisů, a další související zákony",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "257/2016"
+   ],
+   "realLaws": [
+    "111/1998",
+    "170/2018",
+    "257/2016",
+    "277/2009",
+    "424/2023",
+    "84/2024"
+   ],
+   "realCount": 6,
+   "undercount": 5,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268811",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "257/2016",
+    "277/2009"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43343",
+   "cislo": 221,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Radka Vondráčka, Davida Pražáka, Marie Pošarové a Filipa Turka na vydání zákona, kterým se mění zákon č. 159/2006 Sb., o střetu zájmů, ve znění pozdějších předpisů, a další související ",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "159/2006"
+   ],
+   "realLaws": [
+    "134/2016",
+    "159/2006",
+    "218/2000",
+    "252/1997",
+    "256/2000",
+    "72/2000"
+   ],
+   "realCount": 6,
+   "undercount": 5,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271529",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "159/2006",
+    "252/1997",
+    "256/2000",
+    "218/2000",
+    "134/2016"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43117",
+   "cislo": 10,
+   "origin": "government",
+   "title": "Vládní návrh zákona o některých podmínkách poskytování mediálních služeb a o změně některých souvisejících zákonů",
+   "recordedAmends": 0,
+   "recordedLaws": [],
+   "realLaws": [
+    "104/2013",
+    "141/1961",
+    "231/2001",
+    "46/2000"
+   ],
+   "realCount": 4,
+   "undercount": 4,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265040",
+   "structure": "cast",
+   "skippedParts": [
+    {
+     "label": "PRVN",
+     "headingPreview": "ČÁST PRVNÍ MEDIÁLNÍ SLUŽBY §1 Předmět úpravy Tento zákon upravuje v návaznosti na přímo použitelný předpis Evrops"
+    },
+    {
+     "label": "ŠEST",
+     "headingPreview": "ČÁST ŠESTÁ ÚČINNOST § 16 Tento zákon nabývá účinnosti prvním dnem kalendářního měsíce následujícího po dni jeho vyhlášení."
+    }
+   ],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43120",
+   "cislo": 13,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 240/2013 Sb., o investičních společnostech a investičních fondech, ve znění pozdějších předpisů, a další související zákony",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "240/2013"
+   ],
+   "realLaws": [
+    "15/1998",
+    "240/2013",
+    "256/2004",
+    "634/2004",
+    "84/2024"
+   ],
+   "realCount": 5,
+   "undercount": 4,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265099",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "240/2013",
+    "634/2004"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43161",
+   "cislo": 54,
+   "origin": "government",
+   "title": "Vládní návrh zákona o správě dat, o řízeném přístupu k datům a o změně některých souvisejících zákonů (zákon o správě dat a o řízeném přístupu k datům)",
+   "recordedAmends": 0,
+   "recordedLaws": [],
+   "realLaws": [
+    "269/1994",
+    "372/2011",
+    "634/2004",
+    "89/1995"
+   ],
+   "realCount": 4,
+   "undercount": 4,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265991",
+   "structure": "cast",
+   "skippedParts": [
+    {
+     "label": "PRVN",
+     "headingPreview": "ČÁST PRVNÍ SPRÁVA DAT A ŘÍZENÝ PŘÍSTUP K DATŮM Hlava I Obecná ustanovení §1"
+    },
+    {
+     "label": "ŠEST",
+     "headingPreview": "ČÁST ŠESTÁ ÚČINNOST § 41 Tento zákon nabývá účinnosti patnáctým dnem po jeho vyhlášení, s výjimkou ustanovení a) § 9 odst. 1 písm. c), § 11 "
+    }
+   ],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43210",
+   "cislo": 100,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Elišky Olšákové a Karla Dvořáka na vydání zákona, kterým se mění zákon č. 128/2000 Sb., o obcích (obecní zřízení), ve znění pozdějších předpisů, a další zákony v souvislosti se změnami ",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "128/2000"
+   ],
+   "realLaws": [
+    "128/2000",
+    "131/2000",
+    "2/1969",
+    "292/2013",
+    "89/2012"
+   ],
+   "realCount": 5,
+   "undercount": 4,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267373",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43216",
+   "cislo": 106,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Elišky Olšákové, Karla Dvořáka, Lucie Sedmihradské, Julie Smejkalové, Michala Zuny, Jiřího Horáka a Zdeňky Blišťanové na vydání zákona, kterým se mění zákon č. 159/1999 Sb., o některých",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "159/1999"
+   ],
+   "realLaws": [
+    "159/1999",
+    "326/1999",
+    "455/1991",
+    "565/1990",
+    "89/1995"
+   ],
+   "realCount": 5,
+   "undercount": 4,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267576",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "159/1999"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43223",
+   "cislo": 113,
+   "origin": "government",
+   "title": "Vládní návrh zákona o ekodesignu výrobků a o výkonu státní správy v oblasti ekodesignu výrobků a o změně souvisejících zákonů (zákon o ekodesignu výrobků)",
+   "recordedAmends": 0,
+   "recordedLaws": [],
+   "realLaws": [
+    "147/2002",
+    "406/2000",
+    "61/1988",
+    "87/2023"
+   ],
+   "realCount": 4,
+   "undercount": 4,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267651",
+   "structure": "cast",
+   "skippedParts": [
+    {
+     "label": "PRVN",
+     "headingPreview": "ČÁST PRVNÍ EKODESIGN VÝROBKŮ A VÝKON STÁTNÍ SPRÁVY V OBLASTI EKODESIGNU VÝROBKŮ §1"
+    },
+    {
+     "label": "ŠEST",
+     "headingPreview": "ČÁST ŠESTÁ ÚČINNOST § 24 Tento zákon nabývá účinnosti dnem následujícím po dni jeho vyhlášení."
+    }
+   ],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43293",
+   "cislo": 172,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 329/1999 Sb., o cestovních dokladech, ve znění pozdějších předpisů, zákon č. 269/2021 Sb., o občanských průkazech, ve znění pozdějších předpisů, a další so",
+   "recordedAmends": 2,
+   "recordedLaws": [
+    "269/2021",
+    "329/1999"
+   ],
+   "realLaws": [
+    "111/2009",
+    "12/2020",
+    "251/2016",
+    "269/2021",
+    "329/1999",
+    "634/2004"
+   ],
+   "realCount": 6,
+   "undercount": 4,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269548",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "634/2004",
+    "111/2009"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43310",
+   "cislo": 189,
+   "origin": "government",
+   "title": "Vládní návrh zákona o evidenci tržeb a o změně některých dalších zákonů",
+   "recordedAmends": 0,
+   "recordedLaws": [],
+   "realLaws": [
+    "17/2012",
+    "235/2004",
+    "456/2011",
+    "586/1992"
+   ],
+   "realCount": 4,
+   "undercount": 4,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270143",
+   "structure": "cast",
+   "skippedParts": [
+    {
+     "label": "PRVN",
+     "headingPreview": "ČÁST PRVNÍ EVIDENCE TRŽEB Hlava I Úvodní ustanovení §1"
+    },
+    {
+     "label": "ŠEST",
+     "headingPreview": "ČÁST ŠESTÁ ÚČINNOST § 35 Tento zákon nabývá účinnosti dnem 1. ledna 2027, s výjimkou ustanovení § 14, 15, 18, 21, 23, 25 a 26, která nabývaj"
+    }
+   ],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43328",
+   "cislo": 206,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Víta Rakušana, Karla Dvořáka a Lukáše Vlčka na vydání zákona, kterým se mění zákon č. 134/2016 Sb., o zadávání veřejných zakázek, ve znění pozdějších předpisů, a některé další zákony v ",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "134/2016"
+   ],
+   "realLaws": [
+    "134/2016",
+    "166/1993",
+    "194/2010",
+    "273/1996",
+    "549/1991"
+   ],
+   "realCount": 5,
+   "undercount": 4,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271159",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "134/2016",
+    "194/2010"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43111",
+   "cislo": 4,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Olgy Richterové a Ivana Bartoše na vydání zákona, kterým se mění zákon č. 586/1992 Sb., o daních z příjmů, ve znění pozdějších předpisů, a další související zákony",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "586/1992"
+   ],
+   "realLaws": [
+    "117/1995",
+    "151/2025",
+    "353/2003",
+    "586/1992"
+   ],
+   "realCount": 4,
+   "undercount": 3,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265051",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43190",
+   "cislo": 74,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Petra Hladíka, Bohuslava Niemiece, Václava Pláteníka, Moniky Brzeskové, Jany Filipovičové, Marie Krškové, Jany Krutákové, Gabriely Svárovské a Heleny Langšádlové na vydání zákona, který",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "167/2008"
+   ],
+   "realLaws": [
+    "167/2008",
+    "254/2001",
+    "282/1991",
+    "541/2020"
+   ],
+   "realCount": 4,
+   "undercount": 3,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266759",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "167/2008"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43240",
+   "cislo": 125,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Aleše Juchelky a Jany Pastuchové na vydání zákona, kterým se mění zákon č. 108/2006 Sb., o sociálních službách, ve znění pozdějších předpisů, zákon č. 329/2011 Sb., o poskytování dávek ",
+   "recordedAmends": 2,
+   "recordedLaws": [
+    "108/2006",
+    "329/2011"
+   ],
+   "realLaws": [
+    "108/2006",
+    "300/2025",
+    "329/2011",
+    "358/2022",
+    "582/1991"
+   ],
+   "realCount": 5,
+   "undercount": 3,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268378",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43311",
+   "cislo": 190,
+   "origin": "senate",
+   "title": "Senátní návrh zákona, kterým se mění zákon č. 88/2024 Sb., o správě voleb, ve znění pozdějších předpisů, a některé další volební zákony",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "88/2024"
+   ],
+   "realLaws": [
+    "247/1995",
+    "275/2012",
+    "88/2024",
+    "89/2024"
+   ],
+   "realCount": 4,
+   "undercount": 3,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270179",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43350",
+   "cislo": 228,
+   "origin": "government",
+   "title": "Vládní návrh zákona o registrech ve vzdělávání a o změně některých souvisejících zákonů",
+   "recordedAmends": 0,
+   "recordedLaws": [],
+   "realLaws": [
+    "111/1998",
+    "273/2008",
+    "561/2004"
+   ],
+   "realCount": 3,
+   "undercount": 3,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=277290",
+   "structure": "cast",
+   "skippedParts": [
+    {
+     "label": "PRVN",
+     "headingPreview": "ČÁST PRVNÍ REGISTRY VE VZDĚLÁVÁNÍ Hlava I Obecná ustanovení §1"
+    },
+    {
+     "label": "PÁT",
+     "headingPreview": "ČÁST PÁTÁ ZRUŠOVACÍ USTANOVENÍ § 17 Vyhláška č. 276/2016 Sb., o předávání údajů do registru docentů, profesorů a mimořádných profesorů vysok"
+    },
+    {
+     "label": "ŠEST",
+     "headingPreview": "ČÁST ŠESTÁ ÚČINNOST § 18 Tento zákon nabývá účinnosti dnem 1. září 2028, s výjimkou ustanovení a) § 13 a 17, která nabývají účinnosti dnem 1"
+    }
+   ],
+   "repealedRefs": [
+    "276/2016"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43121",
+   "cislo": 14,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 73/2012 Sb., o látkách, které poškozují ozonovou vrstvu, a o fluorovaných skleníkových plynech, ve znění pozdějších předpisů, a další související předpisy",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "73/2012"
+   ],
+   "realLaws": [
+    "372/2011",
+    "40/2009",
+    "73/2012"
+   ],
+   "realCount": 3,
+   "undercount": 2,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265109",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "73/2012"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43165",
+   "cislo": 58,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 542/2020 Sb., o výrobcích s ukončenou životností, ve znění pozdějších předpisů, a další související zákony",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "542/2020"
+   ],
+   "realLaws": [
+    "542/2020",
+    "87/2023",
+    "90/2016"
+   ],
+   "realCount": 3,
+   "undercount": 2,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266045",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "542/2020"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43180",
+   "cislo": 73,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Petra Hladíka, Václava Pláteníka a Gabriely Svárovské na vydání zákona, kterým se mění zákon č. 477/2001 Sb., o obalech a o změně některých zákonů (zákon o obalech), ve znění pozdějších",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "477/2001"
+   ],
+   "realLaws": [
+    "477/2001",
+    "541/2020",
+    "634/1992"
+   ],
+   "realCount": 3,
+   "undercount": 2,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266491",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "477/2001"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43195",
+   "cislo": 85,
+   "origin": "mp",
+   "title": "Návrh poslance Aleše Juchelky na vydání zákona, kterým se mění zákon č. 110/2006 Sb., o životním a existenčním minimu, ve znění pozdějších předpisů, a další související zákony",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "110/2006"
+   ],
+   "realLaws": [
+    "108/2006",
+    "110/2006",
+    "152/2025"
+   ],
+   "realCount": 3,
+   "undercount": 2,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266984",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43295",
+   "cislo": 174,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Lucie Šafránkové, Andreje Babiše, Tomia Okamury, Petra Macinky, Borise Šťastného, Taťány Malé, Radima Fialy, Renaty Vesecké a Jany Hanzlíkové na vydání zákona, kterým se mění zákon č. 2",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "246/1992"
+   ],
+   "realLaws": [
+    "246/1992",
+    "273/2008",
+    "89/2012"
+   ],
+   "realCount": 3,
+   "undercount": 2,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269592",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "246/1992"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43332",
+   "cislo": 210,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 256/2004 Sb., o podnikání na kapitálovém trhu, ve znění pozdějších předpisů, a další související zákony v souvislosti s podporou vyváženého zastoupení žen ",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "256/2004"
+   ],
+   "realLaws": [
+    "198/2009",
+    "256/2004",
+    "99/1963"
+   ],
+   "realCount": 3,
+   "undercount": 2,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271236",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "256/2004"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43356",
+   "cislo": 234,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 360/1992 Sb., o výkonu povolání autorizovaných architektů a o výkonu povolání autorizovaných inženýrů a techniků činných ve výstavbě (autorizační zákon), v",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "360/1992"
+   ],
+   "realLaws": [
+    "200/1994",
+    "283/2021",
+    "360/1992"
+   ],
+   "realCount": 3,
+   "undercount": 2,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=277503",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "360/1992",
+    "200/1994"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43135",
+   "cislo": 28,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Marka Výborného, Marie Krškové, Jiřího Horáka, Petra Hladíka a Jany Filipovičové na vydání zákona, kterým se mění zákon č. 243/2000 Sb., o rozpočtovém určení výnosů některých daní územn",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "243/2000"
+   ],
+   "realLaws": [
+    "243/2000",
+    "349/2023"
+   ],
+   "realCount": 2,
+   "undercount": 1,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265349",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "243/2000"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43198",
+   "cislo": 88,
+   "origin": "mp",
+   "title": "Návrh poslance Aleše Juchelky na vydání zákona, kterým se mění zákon č. 151/2025 Sb., o dávce státní sociální pomoci, ve znění zákona č. 360/2025 Sb., zákon č. 110/2006 Sb., o životním a existenčním m",
+   "recordedAmends": 3,
+   "recordedLaws": [
+    "110/2006",
+    "151/2025",
+    "360/2025"
+   ],
+   "realLaws": [
+    "108/2006",
+    "110/2006",
+    "151/2025",
+    "152/2025"
+   ],
+   "realCount": 4,
+   "undercount": 1,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267095",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "151/2025"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43112",
+   "cislo": 5,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Ivana Bartoše a Olgy Richterové na vydání zákona, kterým se mění zákon č. 143/2001 Sb., o ochraně hospodářské soutěže a o změně některých zákonů (zákon o ochraně hospodářské soutěže), v",
+   "recordedAmends": 2,
+   "recordedLaws": [
+    "143/2001",
+    "374/2015"
+   ],
+   "realLaws": [
+    "143/2001",
+    "374/2015"
+   ],
+   "realCount": 2,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265055",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "143/2001"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43113",
+   "cislo": 6,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Ivana Bartoše a Olgy Richterové na vydání zákona o Úřadu pro prevenci korupce a střetu zájmů",
+   "recordedAmends": 0,
+   "recordedLaws": [],
+   "realLaws": [],
+   "realCount": 0,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265061",
+   "structure": "single-subject-non-amending",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43118",
+   "cislo": 11,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Aleny Schillerové, Andreje Babiše, Tomia Okamury, Petra Macinky, Aleše Juchelky, Karla Havlíčka, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 5",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "589/1992"
+   ],
+   "realLaws": [
+    "589/1992"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265076",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "589/1992"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43119",
+   "cislo": 12,
+   "origin": "senate",
+   "title": "Senátní návrh zákona, kterým se mění zákon č. 491/2001 Sb., o volbách do zastupitelstev obcí a o změně některých zákonů, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "491/2001"
+   ],
+   "realLaws": [
+    "491/2001"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265094",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "491/2001"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43122",
+   "cislo": 15,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Olgy Richterové, Ivana Bartoše a Kateřiny Stojanové na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "90/1995"
+   ],
+   "realLaws": [
+    "90/1995"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265165",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43132",
+   "cislo": 25,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 222/2016 Sb., o Sbírce zákonů a mezinárodních smluv a o tvorbě právních předpisů vyhlašovaných ve Sbírce zákonů a mezinárodních smluv (zákon o Sbírce zákon",
+   "recordedAmends": 2,
+   "recordedLaws": [
+    "222/2016",
+    "277/2019"
+   ],
+   "realLaws": [
+    "222/2016",
+    "277/2019"
+   ],
+   "realCount": 2,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265305",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43142",
+   "cislo": 35,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Andreje Babiše, Tomia Okamury a Petra Macinky na vydání zákona, kterým se mění zákon č. 236/1995 Sb., o platu a dalších náležitostech spojených s výkonem funkce představitelů státní moc",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "236/1995"
+   ],
+   "realLaws": [
+    "236/1995"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265475",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43147",
+   "cislo": 40,
+   "origin": "other",
+   "title": "Návrh Zastupitelstva Jihomoravského kraje na vydání zákona, kterým se mění zákon č. 586/1992 Sb., o dani z příjmů, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "586/1992"
+   ],
+   "realLaws": [
+    "586/1992"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265587",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43153",
+   "cislo": 46,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 104/2013 Sb., o mezinárodní justiční spolupráci ve věcech trestních, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "104/2013"
+   ],
+   "realLaws": [
+    "104/2013"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265675",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43154",
+   "cislo": 47,
+   "origin": "senate",
+   "title": "Senátní návrh ústavního zákona, kterým se mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "1/1993"
+   ],
+   "realLaws": [
+    "1/1993"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265737",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43155",
+   "cislo": 48,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 326/2004 Sb., o rostlinolékařské péči a o změně některých souvisejících zákonů, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "326/2004"
+   ],
+   "realLaws": [
+    "326/2004"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265728",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43156",
+   "cislo": 49,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Zdeňka Hřiba, Olgy Richterové a Kateriny Demetrashvili na vydání zákona, kterým se mění zákon č. 100/2001 Sb., o posuzování vlivů na životní prostředí a o změně některých souvisejících ",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "100/2001"
+   ],
+   "realLaws": [
+    "100/2001"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265762",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43159",
+   "cislo": 52,
+   "origin": "government",
+   "title": "Vládní návrh zákona o určování provozoven a jmenování zástupců některých poskytovatelů služeb za účelem shromažďování elektronických důkazů v trestním řízení",
+   "recordedAmends": 0,
+   "recordedLaws": [],
+   "realLaws": [],
+   "realCount": 0,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265978",
+   "structure": "single-subject-non-amending",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43160",
+   "cislo": 53,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 634/1992 Sb., o ochraně spotřebitele, ve znění pozdějších předpisů, a zákon č. 89/2012 Sb., občanský zákoník, ve znění pozdějších předpisů",
+   "recordedAmends": 2,
+   "recordedLaws": [
+    "634/1992",
+    "89/2012"
+   ],
+   "realLaws": [
+    "634/1992",
+    "89/2012"
+   ],
+   "realCount": 2,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265983",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "89/2012"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43162",
+   "cislo": 55,
+   "origin": "government",
+   "title": "Vládní návrh zákona o opatřeních ke snížení nákladů na zavádění sítí elektronických komunikací s velmi vysokou kapacitou",
+   "recordedAmends": 0,
+   "recordedLaws": [],
+   "realLaws": [],
+   "realCount": 0,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266009",
+   "structure": "single-subject-non-amending",
+   "skippedParts": [],
+   "repealedRefs": [
+    "194/2017"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43164",
+   "cislo": 57,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 375/2022 Sb., o zdravotnických prostředcích a diagnostických zdravotnických prostředcích in vitro, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "375/2022"
+   ],
+   "realLaws": [
+    "375/2022"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266021",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43166",
+   "cislo": 59,
+   "origin": "mp_group",
+   "title": "Návrh poslankyň Pavly Pivoňky Vaňkové a Zdeňky Blišťanové na vydání zákona, kterým se mění zákon č. 468/2024 Sb., o integračním sociálním podniku",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "468/2024"
+   ],
+   "realLaws": [
+    "468/2024"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266065",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "468/2024"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43168",
+   "cislo": 61,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 218/2003 Sb., o odpovědnosti mládeže za protiprávní činy a o soudnictví ve věcech mládeže a o změně některých zákonů (zákon o soudnictví ve věcech mládeže)",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "218/2003"
+   ],
+   "realLaws": [
+    "218/2003"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266115",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43169",
+   "cislo": 62,
+   "origin": "government",
+   "title": "Vládní návrh zákona o některých povinnostech souvisejících s opravou výrobku a o změně zákona č. 634/1992 Sb., o ochraně spotřebitele, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "634/1992"
+   ],
+   "realLaws": [
+    "634/1992"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266120",
+   "structure": "cast",
+   "skippedParts": [
+    {
+     "label": "PRVN",
+     "headingPreview": "ČÁST PRVNÍ NĚKTERÉ POVINNOSTI SOUVISEJÍCÍ S OPRAVOU VÝROBKU §1 Předmět úpravy (1) Tento zákon zapracovává příslušné předpisy Evropské u"
+    },
+    {
+     "label": "TŘET",
+     "headingPreview": "ČÁST TŘETÍ ÚČINNOST § 17 Tento zákon nabývá účinnosti dnem 31. července 2026. CELEX: 32024L1799 7"
+    }
+   ],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43170",
+   "cislo": 63,
+   "origin": "government",
+   "title": "Vládní návrh zákona o účetnictví",
+   "recordedAmends": 0,
+   "recordedLaws": [],
+   "realLaws": [],
+   "realCount": 0,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266144",
+   "structure": "cast",
+   "skippedParts": [
+    {
+     "label": "PRVN",
+     "headingPreview": "ČÁST PRVNÍ ÚVODNÍ USTANOVENÍ Hlava I Předmět úpravy §1"
+    },
+    {
+     "label": "DRUH",
+     "headingPreview": "ČÁST DRUHÁ KONCEPČNÍ RÁMEC ÚČETNÍHO VÝKAZNICTVÍ Hlava I Cíl účetního výkaznictví a požadavky na kvalitu účetních informací"
+    },
+    {
+     "label": "TŘET",
+     "headingPreview": "ČÁST TŘETÍ ÚČETNÍ ZÁVĚRKA Hlava I Zásady pro sestavení účetní závěrky Díl 1"
+    },
+    {
+     "label": "ČTVRT",
+     "headingPreview": "ČÁST ČTVRTÁ ÚČETNÍ OBDOBÍ Hlava I Individuální účetní období § 114"
+    },
+    {
+     "label": "PÁT",
+     "headingPreview": "ČÁST PÁTÁ MĚNA ÚČETNICTVÍ A MĚNA VYKAZOVÁNÍ Hlava I Vymezení měny účetnictví a měny vykazování § 123"
+    },
+    {
+     "label": "ŠEST",
+     "headingPreview": "ČÁST ŠESTÁ OCEŇOVÁNÍ Hlava I Okamžik a způsoby ocenění § 133"
+    },
+    {
+     "label": "SEDM",
+     "headingPreview": "ČÁST SEDMÁ POUŽITÍ MEZINÁRODNÍCH ÚČETNÍCH STANDARDŮ Hlava I Použití mezinárodních účetních standardů při účetním výkaznictví"
+    },
+    {
+     "label": "OSM",
+     "headingPreview": "ČÁST OSMÁ VEDENÍ ÚČETNICTVÍ Hlava I Obecná ustanovení o vedení účetnictví § 173"
+    },
+    {
+     "label": "DEVÁT",
+     "headingPreview": "ČÁST DEVÁTÁ PENĚŽNÍ ÚČETNICTVÍ § 198 Základní ustanovení o peněžním účetnictví V případě peněžního účetnictví se použijí ustanovení ji"
+    },
+    {
+     "label": "DESÁT",
+     "headingPreview": "ČÁST DESÁTÁ VYKAZOVÁNÍ INFORMACÍ MIMO ÚČETNÍ ZÁVĚRKU Hlava I Zpráva vedení Díl 1"
+    },
+    {
+     "label": "JEDENÁCT",
+     "headingPreview": "ČÁST JEDENÁCTÁ OVĚŘOVÁNÍ AUDITOREM § 238 Povinnost auditu účetní závěrky Povinnost auditu řádné účetní závěrky a mezitímní účetní"
+    },
+    {
+     "label": "DVANÁCT",
+     "headingPreview": "ČÁST DVANÁCTÁ ZVEŘEJŇOVÁNÍ A UVEŘEJŇOVÁNÍ Hlava I Zveřejňování § 242"
+    },
+    {
+     "label": "TŘINÁCT",
+     "headingPreview": "ČÁST TŘINÁCTÁ PŘESTUPKY Hlava I Přestupky v oblasti účetnictví § 255"
+    },
+    {
+     "label": "ČTRNÁCT",
+     "headingPreview": "ČÁST ČTRNÁCTÁ VÝKON STÁTNÍ SPRÁVY NA ÚSEKU ÚČETNICTVÍ § 269 Působnost finančního úřadu (1) Plnění povinnosti podle účetních předpisů prověřu"
+    },
+    {
+     "label": "PATNÁCT",
+     "headingPreview": "ČÁST PATNÁCTÁ SPOLEČNÁ USTANOVENÍ § 272 Společné ustanovení o posuzování podmínek Podmínky pro sestavení účetní závěrky, vyhotovení zprávy"
+    },
+    {
+     "label": "ŠESTNÁCT",
+     "headingPreview": "ČÁST ŠESTNÁCTÁ PŘECHODNÁ A ZÁVĚREČNÁ USTANOVENÍ § 278 Obecné přechodné ustanovení Pro účetní období započatá přede dnem nabytí účinnosti toh"
+    },
+    {
+     "label": "SEDMNÁCT",
+     "headingPreview": "ČÁST SEDMNÁCTÁ ÚČINNOST § 286 Účinnost zákona Tento zákon nabývá účinnosti dnem 1. ledna 2028, s výjimkou a) u"
+    }
+   ],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43177",
+   "cislo": 70,
+   "origin": "mp",
+   "title": "Návrh poslance Adama Vojtěcha na vydání zákona, kterým se mění zákon č. 592/1992 Sb., o pojistném na veřejné zdravotní pojištění, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "592/1992"
+   ],
+   "realLaws": [
+    "592/1992"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266238",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43178",
+   "cislo": 71,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Olgy Richterové, Ivana Bartoše, Hany Ančincové, Barbory Pipášové, Lenky Martínkové Španihelové, Martina Šmídy a Samuela Volpeho na vydání zákona, kterým se mění zákon č. 427/2011 Sb., o",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "427/2011"
+   ],
+   "realLaws": [
+    "427/2011"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266283",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43179",
+   "cislo": 72,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Radka Vondráčka, Andreje Babiše, Tomia Okamury, Petra Macinky, Marka Bendy, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednací",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "90/1995"
+   ],
+   "realLaws": [
+    "90/1995"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266355",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43183",
+   "cislo": 76,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státníc",
+   "recordedAmends": 0,
+   "recordedLaws": [],
+   "realLaws": [],
+   "realCount": 0,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266517",
+   "structure": "cast",
+   "skippedParts": [
+    {
+     "label": "PRVN",
+     "headingPreview": "ČÁST PRVNÍ STÁTNÍ ZAMĚSTNANCI Hlava I Úvodní ustanovení §1"
+    },
+    {
+     "label": "DRUH",
+     "headingPreview": "ČÁST DRUHÁ NĚKTERÉ ORGANIZAČNÍ VĚCI MINISTERSTEV A ÚŘADU VLÁDY § 72 Kabinet Kabinetem je organizační útvar v ministerstvu nebo v Úřadu vlády"
+    },
+    {
+     "label": "TŘET",
+     "headingPreview": "ČÁST TŘETÍ INFORMAČNÍ SYSTÉM O PRÁVNÍCH POMĚRECH VE SPRÁVNÍCH ÚŘADECH § 77 Informační systém a jeho součásti (1) Informační systém o právníc"
+    },
+    {
+     "label": "ČTVRT",
+     "headingPreview": "ČÁST ČTVRTÁ SPOLEČNÁ, PŘECHODNÁ A ZÁVĚREČNÁ USTANOVENÍ Hlava I Společná ustanovení Díl 1"
+    }
+   ],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43185",
+   "cislo": 78,
+   "origin": "mp",
+   "title": "Návrh poslance Andreje Babiše na vydání zákona, kterým se mění zákon č. 245/2000 Sb., o státních svátcích, o ostatních svátcích, o významných dnech a o dnech pracovního klidu, ve znění pozdějších před",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "245/2000"
+   ],
+   "realLaws": [
+    "245/2000"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266724",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43189",
+   "cislo": 82,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 175/2025 Sb., o poskytování některých opatření v podpoře bydlení (zákon o podpoře bydlení)",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "175/2025"
+   ],
+   "realLaws": [
+    "175/2025"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266752",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43191",
+   "cislo": 50,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Mariana Jurečky, Moniky Brzeskové, Toma Philippa, Marka Výborného a dalších na vydání zákona, kterým se mění zákon č. 155/1995 Sb., o důchodovém pojištění, ve znění pozdějších předpisů,",
+   "recordedAmends": 2,
+   "recordedLaws": [
+    "155/1995",
+    "417/2024"
+   ],
+   "realLaws": [
+    "155/1995",
+    "417/2024"
+   ],
+   "realCount": 2,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266804",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "155/1995"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43192",
+   "cislo": 75,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Petra Hladíka, Bohuslava Niemiece, Václava Pláteníka, Moniky Brzeskové, Jany Filipovičové, Marie Krškové, Jany Krutákové, Gabriely Svárovské a Heleny Langšádlové na vydání zákona, který",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "254/2001"
+   ],
+   "realLaws": [
+    "254/2001"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266819",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43196",
+   "cislo": 86,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Olgy Richterové, Ivana Bartoše, Hany Ančincové, Barbory Pipášové, Lenky Martínkové Španihelové, Martina Šmídy a Samuela Volpeho na vydání zákona, kterým se mění zákon č. 427/2011 Sb., o",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "427/2011"
+   ],
+   "realLaws": [
+    "427/2011"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266990",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43199",
+   "cislo": 89,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Benjamina Činčily, Mariana Jurečky, Toma Philippa, Marka Výborného a dalších na vydání zákona, kterým se mění zákon č. 218/2000 Sb., o rozpočtových pravidlech, ve znění pozdějších předp",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "218/2000"
+   ],
+   "realLaws": [
+    "218/2000"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267100",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43208",
+   "cislo": 98,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 164/2013 Sb., o mezinárodní spolupráci při správě daní a o změně dalších souvisejících zákonů, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "164/2013"
+   ],
+   "realLaws": [
+    "164/2013"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267359",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "164/2013"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43209",
+   "cislo": 99,
+   "origin": "mp",
+   "title": "Návrh poslance Karla Dvořáka na vydání zákona, kterým se mění zákon č. 340/2015 Sb., o zvláštních podmínkách účinnosti některých smluv, uveřejňování těchto smluv a o registru smluv (zákon o registru s",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "340/2015"
+   ],
+   "realLaws": [
+    "340/2015"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267378",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "340/2015"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43211",
+   "cislo": 101,
+   "origin": "government",
+   "title": "Vládní návrh zákona o odčerpání majetku nevysvětleného původu",
+   "recordedAmends": 0,
+   "recordedLaws": [],
+   "realLaws": [],
+   "realCount": 0,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267467",
+   "structure": "cast",
+   "skippedParts": [
+    {
+     "label": "PRVN",
+     "headingPreview": "ČÁST PRVNÍ OBECNÁ USTANOVENÍ §1 Předmět úpravy Tento zákon zapracovává příslušné předpisy Evropské unie1) a upravuj"
+    },
+    {
+     "label": "DRUH",
+     "headingPreview": "ČÁST DRUHÁ ODČERPÁVACÍ OPATŘENÍ §4 (1) Soud uloží odčerpávací opatření vůči majetku nevysvětleného původu, pokud jeho zákonný původ nebyl vě"
+    },
+    {
+     "label": "TŘET",
+     "headingPreview": "ČÁST TŘETÍ ZVLÁŠTNÍ USTANOVENÍ O ŘÍZENÍ O ULOŽENÍ ODČERPÁVACÍHO OPATŘENÍ Hlava I Společná ustanovení §6"
+    },
+    {
+     "label": "ČTVRT",
+     "headingPreview": "ČÁST ČTVRTÁ PŘECHODNÉ USTANOVENÍ § 26 Podle tohoto zákona se nepostupuje, pokud bylo původní trestní řízení pravomocně skončeno přede dnem n"
+    },
+    {
+     "label": "PÁT",
+     "headingPreview": "ČÁST PÁTÁ ÚČINNOST § 27 Tento zákon nabývá účinnosti dnem 1. července 2026. 15"
+    }
+   ],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43214",
+   "cislo": 104,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Václava Pláteníka, Jiřího Vojáčka, Mariana Jurečky, Benjamina Činčily, Marie Krškové, Jiřího Horáka a Moniky Brzeskové na vydání zákona, kterým se mění zákon č. 561/2004 Sb., o předškol",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "561/2004"
+   ],
+   "realLaws": [
+    "561/2004"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267510",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43219",
+   "cislo": 109,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Mariana Jurečky, Moniky Brzeskové, Toma Philippa, Benjamina Činčily a dalších na vydání zákona, kterým se mění zákon č. 187/2006 Sb., o nemocenském pojištění, ve znění pozdějších předpi",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "187/2006"
+   ],
+   "realLaws": [
+    "187/2006"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267612",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "187/2006"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43220",
+   "cislo": 110,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Mariana Jurečky, Moniky Brzeskové, Toma Philippa, Marka Výborného a dalších na vydání zákona, kterým se mění zákon č. 589/1992 Sb., o pojistném na sociální zabezpečení a příspěvku na st",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "589/1992"
+   ],
+   "realLaws": [
+    "589/1992"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267617",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "589/1992"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43222",
+   "cislo": 112,
+   "origin": "mp",
+   "title": "Návrh poslankyně Pavly Pivoňka Vaňkové na vydání zákona, kterým se mění zákon č. 117/1995 Sb., o státní sociální podpoře, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "117/1995"
+   ],
+   "realLaws": [
+    "117/1995"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267665",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "117/1995"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43224",
+   "cislo": 114,
+   "origin": "government",
+   "title": "Vládní návrh zákona o některých pravidlech pro mechanismus uhlíkového vyrovnání na hranicích",
+   "recordedAmends": 0,
+   "recordedLaws": [],
+   "realLaws": [],
+   "realCount": 0,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267658",
+   "structure": "single-subject-non-amending",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43225",
+   "cislo": 115,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Andreje Babiše, Taťány Malé, Radka Vondráčka, Heleny Válkové, Borise Šťastného a Radima Fialy na vydání zákona, kterým se mění zákon č. 40/2009 Sb., trestní zákoník, ve znění pozdějších",
+   "recordedAmends": 2,
+   "recordedLaws": [
+    "40/2009",
+    "45/2013"
+   ],
+   "realLaws": [
+    "40/2009",
+    "45/2013"
+   ],
+   "realCount": 2,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267684",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43230",
+   "cislo": 119,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Aleny Schillerové, Patrika Nachera, Borise Šťastného, Tomia Okamury a Taťány Malé na vydání zákona, kterým se mění zákon č. 427/2011 Sb., o doplňkovém penzijním spoření, ve znění pozděj",
+   "recordedAmends": 2,
+   "recordedLaws": [
+    "427/2011",
+    "586/1992"
+   ],
+   "realLaws": [
+    "427/2011",
+    "586/1992"
+   ],
+   "realCount": 2,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267928",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "427/2011"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43233",
+   "cislo": 121,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Mariana Jurečky, Moniky Brzeskové, Toma Philippa, Marka Výborného a dalších na vydání zákona, kterým se mění zákon č. 586/1992 Sb., o daních z příjmů, ve znění pozdějších předpisů, záko",
+   "recordedAmends": 3,
+   "recordedLaws": [
+    "117/1995",
+    "187/2006",
+    "586/1992"
+   ],
+   "realLaws": [
+    "117/1995",
+    "187/2006",
+    "586/1992"
+   ],
+   "realCount": 3,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268020",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "586/1992",
+    "117/1995",
+    "187/2006"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43237",
+   "cislo": 120,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Lucie Sedmihradské, Jana Papajanovského, Věry Kovářové, Matěje Hlavatého, Jakuba Krainera, Pavly Pivoňky Vaňkové, Víta Rakušana, Julie Smejkalové, Lukáše Vlčka, Jana Berkiho, Elišky Olš",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "586/1992"
+   ],
+   "realLaws": [
+    "586/1992"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268221",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43246",
+   "cislo": 130,
+   "origin": "senate",
+   "title": "Senátní návrh zákona, kterým se mění zákon č. 95/2004 Sb., o podmínkách získávání a uznávání odborné způsobilosti a specializované způsobilosti k výkonu zdravotnického povolání lékaře, zubního lékaře ",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "95/2004"
+   ],
+   "realLaws": [
+    "95/2004"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268455",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "95/2004"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43247",
+   "cislo": 131,
+   "origin": "senate",
+   "title": "Senátní návrh zákona, kterým se mění zákon č. 491/2001 Sb., o volbách do zastupitelstev obcí a o změně některých zákonů, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "491/2001"
+   ],
+   "realLaws": [
+    "491/2001"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268460",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "491/2001"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43248",
+   "cislo": 132,
+   "origin": "senate",
+   "title": "Senátní návrh zákona, kterým se mění zákon č. 256/2004 Sb., o podnikání na kapitálovém trhu, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "256/2004"
+   ],
+   "realLaws": [
+    "256/2004"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268465",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43253",
+   "cislo": 135,
+   "origin": "mp",
+   "title": "Návrh poslance Matěje Ondřeje Havla na vydání ústavního zákona, kterým se mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "1/1993"
+   ],
+   "realLaws": [
+    "1/1993"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268510",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43256",
+   "cislo": 133,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Martina Kupky, Jana Skopečka, Jiřího Havránka a Vojtěcha Munzara na vydání zákona, kterým se mění zákon č. 353/2003 Sb., o spotřebních daních, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "353/2003"
+   ],
+   "realLaws": [
+    "353/2003"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268573",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "353/2003"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43259",
+   "cislo": 138,
+   "origin": "mp",
+   "title": "Návrh poslance Víta Rakušana na vydání zákona, kterým se mění zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou účastí státu (nominační zákon), ve znění",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "353/2019"
+   ],
+   "realLaws": [
+    "353/2019"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268605",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43260",
+   "cislo": 140,
+   "origin": "other",
+   "title": "Návrh Zastupitelstva Pardubického kraje na vydání zákona, kterým se mění zákon č. 243/2000 Sb., o rozpočtovém určení výnosů některých daní územním samosprávným celkům a některým státním fondům (zákon ",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "243/2000"
+   ],
+   "realLaws": [
+    "243/2000"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268733",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "243/2000"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43261",
+   "cislo": 141,
+   "origin": "other",
+   "title": "Návrh Zastupitelstva Pardubického kraje na vydání zákona, kterým se mění zákon č. 243/2000 Sb., o rozpočtovém určení výnosů některých daní územním samosprávným celkům a některým státním fondům (zákon ",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "243/2000"
+   ],
+   "realLaws": [
+    "243/2000"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268738",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "243/2000"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43264",
+   "cislo": 144,
+   "origin": "government",
+   "title": "Vládní návrh zákona o vstupu a pobytu cizinců (cizinecký zákon)",
+   "recordedAmends": 0,
+   "recordedLaws": [],
+   "realLaws": [],
+   "realCount": 0,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268804",
+   "structure": "cast",
+   "skippedParts": [
+    {
+     "label": "PRVN",
+     "headingPreview": "ČÁST PRVNÍ ÚVODNÍ USTANOVENÍ Hlava I Předmět úpravy a osobní působnost §1 Předmět úpravy Tento zákon zapracovává pří"
+    },
+    {
+     "label": "DRUH",
+     "headingPreview": "ČÁST DRUHÁ VSTUP A VYCESTOVÁNÍ Hlava I Vstup"
+    },
+    {
+     "label": "TŘET",
+     "headingPreview": "ČÁST TŘETÍ KRÁTKODOBÉ VÍZUM Hlava I Obecná ustanovení"
+    },
+    {
+     "label": "ČTVRT",
+     "headingPreview": "ČÁST ČTVRTÁ POBYT OBČANA TŘETÍ ZEMĚ Hlava I Garant"
+    },
+    {
+     "label": "PÁT",
+     "headingPreview": "ČÁST PÁTÁ POBYT OBČANA EVROPSKÉ UNIE A RODINNÉHO PŘÍSLUŠNÍKA OBČANA EVROPSKÉ UNIE Hlava I Občan Evrop"
+    },
+    {
+     "label": "ŠEST",
+     "headingPreview": "ČÁST ŠESTÁ POBYT UDĚLOVANÝ RODINNÉMU PŘÍSLUŠNÍKU OBČANA ČESKÉ REPUBLIKY Hlava I Pobyt rodinného příslušníka občana České republiky"
+    },
+    {
+     "label": "SEDM",
+     "headingPreview": "ČÁST SEDMÁ POBYT UDĚLOVANÝ MINISTERSTVEM ZAHRANIČNÍCH VĚCÍ Dlouhodobé vízum za účelem podání žádosti o pobyt udělovaný Ministerstvem zahrani"
+    },
+    {
+     "label": "OSM",
+     "headingPreview": "ČÁST OSMÁ DÍTĚ NAROZENÉ NA ÚZEMÍ § 318 Dítě zákonného zástupce s krátkodobým vízem Dítě narozené na území matce, která v den j"
+    },
+    {
+     "label": "DEVÁT",
+     "headingPreview": "ČÁST DEVÁTÁ STRPĚNÍ NA ÚZEMÍ § 326 Žádost o vydání osvědčení o strpění (1) Ministerstvo na žádost občana třetí zem"
+    },
+    {
+     "label": "DESÁT",
+     "headingPreview": "ČÁST DESÁTÁ ZVLÁŠTNÍ POSTAVENÍ OBČANA TŘETÍ ZEMĚ § 333 Oprávnění občana třetí země svěřeného do péče (1) Občan třetí země mladší 18 let svěř"
+    },
+    {
+     "label": "JEDENÁCT",
+     "headingPreview": "ČÁST JEDENÁCTÁ PROKAZOVÁNÍ SKUTEČNOSTÍ, PRŮKAZY A CESTOVNÍ DOKLADY Hlava I Prokazování skutečností a vydávané průkazy"
+    },
+    {
+     "label": "DVANÁCT",
+     "headingPreview": "ČÁST DVANÁCTÁ INTEGRACE CIZINCŮ Hlava I Český jazyk"
+    },
+    {
+     "label": "TŘINÁCT",
+     "headingPreview": "ČÁST TŘINÁCTÁ NÁVRAT Hlava I Rozhodnutí o návratu"
+    },
+    {
+     "label": "ČTRNÁCT",
+     "headingPreview": "ČÁST ČTRNÁCTÁ ZVLÁŠTNÍ PRAVIDLA PRO ŘÍZENÍ Hlava I Společná pravidla"
+    },
+    {
+     "label": "PATNÁCT",
+     "headingPreview": "ČÁST PATNÁCTÁ SOUDNÍ PŘEZKUM § 610 Vyloučení soudního přezkumu (1) Z přezkoumání soudem jsou vyloučena ro"
+    },
+    {
+     "label": "ŠESTNÁCT",
+     "headingPreview": "ČÁST ŠESTNÁCTÁ POVINNOSTI A PŘESTUPKY Hlava I Hlášení místa pobytu na území"
+    },
+    {
+     "label": "SEDMNÁCT",
+     "headingPreview": "ČÁST SEDMNÁCTÁ INFORMAČNÍ SYSTÉMY A ZPRACOVÁNÍ ÚDAJŮ Hlava I Informační systémy Integrovaný cizinecký"
+    },
+    {
+     "label": "OSMNÁCT",
+     "headingPreview": "ČÁST OSMNÁCTÁ PŮSOBNOST § 670 Státní správa vykonávaná policií a místní příslušnost (1) Působnost správních orgánů podle to"
+    },
+    {
+     "label": "DEVATENÁCT",
+     "headingPreview": "ČÁST DEVATENÁCTÁ USTANOVENÍ PŘECHODNÁ A ZÁVĚREČNÁ Hlava I Přechodná ustanovení"
+    }
+   ],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43267",
+   "cislo": 146,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Věry Kovářové, Matěje Hlavatého, Zdeny Kašparové, Jakuba Krainera, Elišky Olšákové, Michaely Opltové, Jana Papajanovského, Víta Rakušana, Lucie Sedmihradské, Julie Smejkalové, Michaely ",
+   "recordedAmends": 3,
+   "recordedLaws": [
+    "128/2000",
+    "129/2000",
+    "131/2000"
+   ],
+   "realLaws": [
+    "128/2000",
+    "129/2000",
+    "131/2000"
+   ],
+   "realCount": 3,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268822",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43275",
+   "cislo": 154,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 297/2016 Sb., o službách vytvářejících důvěru pro elektronické transakce, ve znění pozdějších předpisů, zákon č. 250/2017 Sb., o elektronické identifikaci,",
+   "recordedAmends": 3,
+   "recordedLaws": [
+    "250/2017",
+    "297/2016",
+    "634/2004"
+   ],
+   "realLaws": [
+    "250/2017",
+    "297/2016",
+    "634/2004"
+   ],
+   "realCount": 3,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268961",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "297/2016",
+    "250/2017"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43282",
+   "cislo": 161,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Petra Hladíka, Moniky Brzeskové, Jany Filipovičové, Zdeny Kašparové, Marie Krškové, Jany Krutákové, Heleny Langšádlové, Bohuslava Niemiece, Hayata Okamury, Toma Philippa, Gabriely Sváro",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "541/2020"
+   ],
+   "realLaws": [
+    "541/2020"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269099",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43283",
+   "cislo": 162,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 99/1963 Sb., občanský soudní řád, ve znění pozdějších předpisů, zákon č. 549/1991 Sb., o soudních poplatcích, ve znění pozdějších předpisů, a zákon č. 82/1",
+   "recordedAmends": 3,
+   "recordedLaws": [
+    "549/1991",
+    "82/1998",
+    "99/1963"
+   ],
+   "realLaws": [
+    "549/1991",
+    "82/1998",
+    "99/1963"
+   ],
+   "realCount": 3,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269165",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "99/1963",
+    "549/1991"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43284",
+   "cislo": 163,
+   "origin": "government",
+   "title": "Vládní návrh zákona o regulaci cen pohonných hmot vládou a o změně zákona č. 526/1990 Sb., o cenách, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "526/1990"
+   ],
+   "realLaws": [
+    "526/1990"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269172",
+   "structure": "cast",
+   "skippedParts": [
+    {
+     "label": "PRVN",
+     "headingPreview": "ČÁST PRVNÍ REGULACE CEN POHONNÝCH HMOT VLÁDOU §1 Předmět úpravy (1) Tento zákon upravuje působnost vlády jako cenového orgánu pro reg"
+    },
+    {
+     "label": "TŘET",
+     "headingPreview": "ČÁST TŘETÍ ÚČINNOST §4 Tento zákon nabývá účinnosti jeho vyhlášením. –3–"
+    }
+   ],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43288",
+   "cislo": 167,
+   "origin": "mp",
+   "title": "Návrh poslankyně Zuzany Mrázové na vydání zákona, kterým se mění zákon č. 283/2021 Sb., stavební zákon, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "283/2021"
+   ],
+   "realLaws": [
+    "283/2021"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269349",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43289",
+   "cislo": 168,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Olgy Richterové, Ivana Bartoše, Zdeňka Hřiba, Gabriely Svárovské, Venduly Svobodové, Ireny Ferčíkové Konečné, Lenky Martínkové Španihelové, Kateřiny Stojanové, Hany Ančincové, Barbory P",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "235/2004"
+   ],
+   "realLaws": [
+    "235/2004"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269433",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43292",
+   "cislo": 171,
+   "origin": "senate",
+   "title": "Senátní návrh zákona, kterým se mění zákon č. 13/1997 Sb., o pozemních komunikacích, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "13/1997"
+   ],
+   "realLaws": [
+    "13/1997"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269514",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43294",
+   "cislo": 173,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Andreje Babiše, Tomia Okamury, Lucie Šafránkové, Petra Macinky, Borise Šťastného, Taťány Malé, Radima Fialy, Renaty Vesecké a Jany Hanzlíkové na vydání zákona, kterým se mění zákon č. 4",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "40/2009"
+   ],
+   "realLaws": [
+    "40/2009"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269587",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43302",
+   "cislo": 181,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Matěje Ondřeje Havla, Zdeňky Blišťanové, Jana Jakoba,  Michala Kučery, Heleny Langšádlové, Jiřího Pospíšila, Vlastimila Válka, Michala Zuny a Marka Ženíška na vydání zákona, kterým se m",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "491/2001"
+   ],
+   "realLaws": [
+    "491/2001"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269996",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43307",
+   "cislo": 186,
+   "origin": "other",
+   "title": "Návrh Zastupitelstva hlavního města Prahy na vydání zákona, kterým se mění zákon č. 458/2000 Sb., o podmínkách podnikání a o výkonu státní správy v energetických odvětvích a o změně některých zákonů (",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "458/2000"
+   ],
+   "realLaws": [
+    "458/2000"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270036",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43313",
+   "cislo": 192,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 257/2001 Sb., o knihovnách a podmínkách provozování veřejných knihovnických a informačních služeb (knihovní zákon), ve znění pozdějších předpisů, zákon č. ",
+   "recordedAmends": 3,
+   "recordedLaws": [
+    "257/2001",
+    "37/1995",
+    "46/2000"
+   ],
+   "realLaws": [
+    "257/2001",
+    "37/1995",
+    "46/2000"
+   ],
+   "realCount": 3,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270237",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43314",
+   "cislo": 193,
+   "origin": "mp",
+   "title": "Návrh poslankyně Bereniky Peštové na vydání zákona, kterým se mění zákon č. 477/2001 Sb., o obalech a o změně některých zákonů (zákon o obalech), ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "477/2001"
+   ],
+   "realLaws": [
+    "477/2001"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270285",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "477/2001"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43317",
+   "cislo": 196,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 104/2013 Sb., o mezinárodní justiční spolupráci ve věcech trestních, ve znění pozdějších předpisů, zákon č. 141/1961 Sb., o trestním řízení soudním (trestn",
+   "recordedAmends": 3,
+   "recordedLaws": [
+    "104/2013",
+    "141/1961",
+    "40/2009"
+   ],
+   "realLaws": [
+    "104/2013",
+    "141/1961",
+    "40/2009"
+   ],
+   "realCount": 3,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270351",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43319",
+   "cislo": 198,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 117/1995 Sb., o státní sociální podpoře, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "117/1995"
+   ],
+   "realLaws": [
+    "117/1995"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270530",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "117/1995"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43320",
+   "cislo": 199,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 350/2011 Sb., o chemických látkách a chemických směsích a o změně některých zákonů (chemický zákon), ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "350/2011"
+   ],
+   "realLaws": [
+    "350/2011"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270535",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "350/2011"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43323",
+   "cislo": 201,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Patrika Nachera, Tomia Okamury, Taťány Malé, Radima Fialy, Filipa Turka, Barbory Rázgy a Martina Kolovratníka na vydání zákona, kterým se mění zákon č. 348/2005 Sb., o rozhlasových a te",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "348/2005"
+   ],
+   "realLaws": [
+    "348/2005"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270579",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "348/2005"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43327",
+   "cislo": 205,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Barbory Urbanové, Víta Rakušana, Karla Dvořáka, Lukáše Vlčka a Adriany Chochelové na vydání zákona, kterým se mění zákon č. 2/1969 Sb., zákon České národní rady o zřízení ministerstev a",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "2/1969"
+   ],
+   "realLaws": [
+    "2/1969"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270703",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43330",
+   "cislo": 208,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Štěpána Slováka, Martina Kupky, Karla Haase, Renáty Zajíčkové, Zdenky Němečkové Crkvenjaš, Petra Sokola, Lucie Bartošové, Martina Baxy a Petra Bendla na vydání zákona, kterým se mění zá",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "65/2017"
+   ],
+   "realLaws": [
+    "65/2017"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271173",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43336",
+   "cislo": 214,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Víta Rakušana, Karla Dvořáka, Pavly Pivoňka Vaňkové, Lukáše Vlčka a Ester Weimerové na vydání ústavního zákona, kterým se mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve zn",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "1/1993"
+   ],
+   "realLaws": [
+    "1/1993"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271359",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43338",
+   "cislo": 216,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Taťány Malé, Andreje Babiše, Borise Šťastného a Tomia Okamury na vydání zákona, kterým se mění zákon č. 40/2009 Sb., trestní zákoník, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "40/2009"
+   ],
+   "realLaws": [
+    "40/2009"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271414",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43339",
+   "cislo": 217,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Ondřeje Babky, Jana Richtera, Gabriely Sedláčkové a Patrika Nachera na vydání zákona, kterým se mění zákon č. 166/1993 Sb., o Nejvyšším kontrolním úřadu, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "166/1993"
+   ],
+   "realLaws": [
+    "166/1993"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271419",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "166/1993"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43340",
+   "cislo": 218,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 235/2004 Sb., o dani z přidané hodnoty, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "235/2004"
+   ],
+   "realLaws": [
+    "235/2004"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271424",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "235/2004"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43341",
+   "cislo": 219,
+   "origin": "government",
+   "title": "Vládní návrh zákona o mistrovské kvalifikaci a mistrovské zkoušce a o změně zákona č. 301/1992 Sb., o Hospodářské komoře České republiky a Agrární komoře České republiky, ve znění pozdějších předpisů ",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "301/1992"
+   ],
+   "realLaws": [
+    "301/1992"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271431",
+   "structure": "cast",
+   "skippedParts": [
+    {
+     "label": "PRVN",
+     "headingPreview": "ČÁST PRVNÍ MISTROVSKÁ KVALIFIKACE A MISTROVSKÁ ZKOUŠKA §1 Předmět úpravy Tento zákon upravuje způsob a podmínky ověřování mi"
+    },
+    {
+     "label": "TŘET",
+     "headingPreview": "ČÁST TŘETÍ ÚČINNOST § 20 Tento zákon nabývá účinnosti dnem 1. ledna 2027. 10"
+    }
+   ],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43344",
+   "cislo": 222,
+   "origin": "government",
+   "title": "Vládní návrh zákona o působnosti orgánů státu při řešení mimořádných situací na vnitřním trhu a o změně zákona č. 134/2016 Sb., o zadávání veřejných zakázek, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "134/2016"
+   ],
+   "realLaws": [
+    "134/2016"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271596",
+   "structure": "cast",
+   "skippedParts": [
+    {
+     "label": "PRVN",
+     "headingPreview": "ČÁST PRVNÍ PŮSOBNOST ORGÁNŮ STÁTU PŘI ŘEŠENÍ MIMOŘÁDNÝCH SITUACÍ NA VNITŘNÍM TRHU §1 Předmět úpravy (1) Tento zákon upravuje v návaznosti na"
+    },
+    {
+     "label": "TŘET",
+     "headingPreview": "ČÁST TŘETÍ ÚČINNOST § 17 Tento zákon nabývá účinnosti patnáctým dnem po jeho vyhlášení. CELEX 32024R2747 CELEX 32024R274"
+    }
+   ],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43354",
+   "cislo": 232,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Andreje Babiše a Roberta Plagy na vydání zákona, kterým se mění zákon č. 561/2004 Sb., o předškolním, základním, středním, vyšším odborném a jiném vzdělávání (školský zákon), ve znění p",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "561/2004"
+   ],
+   "realLaws": [
+    "561/2004"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=277445",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43357",
+   "cislo": 235,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 592/1992 Sb., o pojistném na veřejné zdravotní pojištění, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "592/1992"
+   ],
+   "realLaws": [
+    "592/1992"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=277513",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "592/1992",
+    "357/2025"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43360",
+   "cislo": 238,
+   "origin": "senate",
+   "title": "Senátní návrh zákona, kterým se mění zákon č. 245/2000 Sb., o státních svátcích, o ostatních svátcích, o významných dnech a o dnech pracovního klidu, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "245/2000"
+   ],
+   "realLaws": [
+    "245/2000"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=277551",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43366",
+   "cislo": 244,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Pavly Pivoňka Vaňkové, Věry Kovářové, Jana Papajanovského a Lucie Sedmihradské na vydání zákona, kterým se mění zákon č. 586/1992 Sb., o daních z příjmů, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "586/1992"
+   ],
+   "realLaws": [
+    "586/1992"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=277769",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "586/1992"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43368",
+   "cislo": 246,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 13/1997 Sb., o pozemních komunikacích, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "13/1997"
+   ],
+   "realLaws": [
+    "13/1997"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=277815",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "13/1997"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43370",
+   "cislo": 248,
+   "origin": "mp",
+   "title": "Návrh poslankyně Pavly Pivoňka Vaňkové na vydání zákona, kterým se mění zákon č. 586/1992 Sb., o daních z příjmů, ve znění pozdějších předpisů, zákon č. 427/2011 Sb., o doplňkovém penzijním spoření, v",
+   "recordedAmends": 5,
+   "recordedLaws": [
+    "256/2004",
+    "262/2006",
+    "324/2025",
+    "427/2011",
+    "586/1992"
+   ],
+   "realLaws": [
+    "256/2004",
+    "262/2006",
+    "324/2025",
+    "427/2011",
+    "586/1992"
+   ],
+   "realCount": 5,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=277937",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "256/2004"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43379",
+   "cislo": 257,
+   "origin": "senate",
+   "title": "Senátní návrh zákona, kterým se mění zákon č. 187/2006 Sb., o nemocenském pojištění, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "187/2006"
+   ],
+   "realLaws": [
+    "187/2006"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=278362",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43382",
+   "cislo": 260,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 37/2021 Sb., o evidenci skutečných majitelů, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "37/2021"
+   ],
+   "realLaws": [
+    "37/2021"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=278413",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "37/2021"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43383",
+   "cislo": 261,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Jana Bureše, Petra Bendla, Karla Haase, Marka Bendy, Ivana Adamce, Jakuba Jandy, Jana Bauera a Jany Bačíkové na vydání zákona, kterým se mění zákon č. 114/1992 Sb., o ochraně přírody a ",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "114/1992"
+   ],
+   "realLaws": [
+    "114/1992"
+   ],
+   "realCount": 1,
+   "undercount": 0,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=278420",
+   "structure": "cast",
+   "skippedParts": [
+    {
+     "label": "DRUH",
+     "headingPreview": "ČÁST DRUHÁ Účinnost Čl. III Tento zákon nabývá účinnosti dnem 1. ledna 2027. DOKUMENTY SOUVISEJÍCÍ S NÁVRHEM ZÁKONA Stručný popis obsahu náv"
+    }
+   ],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43143",
+   "cislo": 36,
+   "origin": "mp_group",
+   "title": "Návrh poslankyň Barbory Urbanové a Adriany Chochelové na vydání zákona, kterým se mění zákon č. 268/2025 Sb., kterým se mění zákon č. 89/2012 Sb., občanský zákoník, ve znění pozdějších předpisů, a dal",
+   "recordedAmends": 2,
+   "recordedLaws": [
+    "268/2025",
+    "89/2012"
+   ],
+   "realLaws": [
+    "268/2025"
+   ],
+   "realCount": 1,
+   "undercount": -1,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265520",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43149",
+   "cislo": 42,
+   "origin": "other",
+   "title": "Návrh Zastupitelstva hlavního města Prahy na vydání zákona, kterým se mění zákon č. 465/2023 Sb., kterým se mění zákon č. 416/2009 Sb., o urychlení výstavby dopravní, vodní a energetické infrastruktur",
+   "recordedAmends": 2,
+   "recordedLaws": [
+    "416/2009",
+    "465/2023"
+   ],
+   "realLaws": [
+    "465/2023"
+   ],
+   "realCount": 1,
+   "undercount": -1,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265622",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43226",
+   "cislo": 116,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Zuzany Ožanové, Patrika Pařila a Renaty Vesecké na vydání zákona, kterým se zrušuje zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou úča",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "353/2019"
+   ],
+   "realLaws": [],
+   "realCount": 0,
+   "undercount": -1,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267813",
+   "structure": "single-subject-non-amending",
+   "skippedParts": [],
+   "repealedRefs": [
+    "353/2019"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43236",
+   "cislo": 107,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Elišky Olšákové, Karla Dvořáka, Lucie Sedmihradské, Julie Smejkalové, Michala Zuny, Jiřího Horáka a Zdeňky Blišťanové na vydání zákona, kterým se mění zákon č. 159/1999 Sb., o některých",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "159/1999"
+   ],
+   "realLaws": [],
+   "realCount": 0,
+   "undercount": -1,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268015",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43239",
+   "cislo": 124,
+   "origin": "mp",
+   "title": "Návrh poslance Aleše Juchelky na vydání zákona, kterým se mění zákon č. 117/1995 Sb., o státní sociální podpoře, ve znění pozdějších předpisů, a zákon č. 152/2025 Sb., kterým se mění některé zákony v ",
+   "recordedAmends": 3,
+   "recordedLaws": [
+    "117/1995",
+    "152/2025",
+    "300/2025"
+   ],
+   "realLaws": [
+    "117/1995",
+    "152/2025"
+   ],
+   "realCount": 2,
+   "undercount": -1,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268364",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  },
+  {
+   "tiskId": "bill:tisk:43250",
+   "cislo": 129,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Jana Bureše, Martina Baxy, Karla Haase, Renáty Zajíčkové, Štěpána Slováka, Petra Sokola, Jany Černochové, Libora Hoppe, Jakuba Jandy, Petra Bendla a Jana Skopečka na vydání zákona, kter",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "223/2016"
+   ],
+   "realLaws": [],
+   "realCount": 0,
+   "undercount": -1,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268487",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "223/2016"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43274",
+   "cislo": 153,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 40/1995 Sb., o regulaci reklamy a o změně a doplnění zákona č. 468/1991 Sb., o provozování rozhlasového a televizního vysílání, ve znění pozdějších předpis",
+   "recordedAmends": 3,
+   "recordedLaws": [
+    "375/2022",
+    "40/1995",
+    "468/1991"
+   ],
+   "realLaws": [
+    "375/2022",
+    "40/1995"
+   ],
+   "realCount": 2,
+   "undercount": -1,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268952",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "40/1995"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43353",
+   "cislo": 231,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 483/1991 Sb., o České televizi, ve znění pozdějších předpisů, a zákon č. 484/1991 Sb., o Českém rozhlasu, ve znění pozdějších předpisů, a kterým se zrušuje",
+   "recordedAmends": 3,
+   "recordedLaws": [
+    "348/2005",
+    "483/1991",
+    "484/1991"
+   ],
+   "realLaws": [
+    "483/1991",
+    "484/1991"
+   ],
+   "realCount": 2,
+   "undercount": -1,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=277415",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": [
+    "348/2005"
+   ]
+  },
+  {
+   "tiskId": "bill:tisk:43365",
+   "cislo": 243,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Marka Výborného, Petra Hladíka a Františka Talíře na vydání zákona, kterým se mění zákon č. 223/2016 Sb., o prodejní době v maloobchodě, ve znění pozdějších předpisů",
+   "recordedAmends": 1,
+   "recordedLaws": [
+    "223/2016"
+   ],
+   "realLaws": [],
+   "realCount": 0,
+   "undercount": -1,
+   "docType": "navrh-zakona",
+   "sourceUrl": "https://www.psp.cz/sqw/text/orig2.sqw?idd=277784",
+   "structure": "cl",
+   "skippedParts": [],
+   "repealedRefs": []
+  }
+ ]
+}

@@ -26,11 +26,11 @@ const PDFTOTEXT_BIN = existsSync("/clangarm64/bin/pdftotext") ? "/clangarm64/bin
 const BASE = "https://www.psp.cz/sqw/text/";
 const CONCURRENCY = 4;
 
-// batch-007: re-run after the ČÁST/bare-§ splitter fix (N1). Written to NEW filenames — the
-// batch-004/005/006 census/proposal files stay untouched as history (amends-regen-005.ts and its
-// siblings still read the old ones; batch-007's own regen script points at these new outputs).
-const CENSUS_OUT = "docs/data-analysis/case-law/payloads/batch-007-amends-census.json";
-const PROPOSAL_OUT = "docs/data-analysis/case-law/payloads/batch-007-amended-laws-full-proposal.json";
+// batch-008: re-run after the F1 fix (round-2 audit — clip the Čl. block's forward heading
+// window at an intervening ČÁST boundary, tisk 215). Written to NEW filenames — the batch-007
+// census/proposal files stay untouched as history.
+const CENSUS_OUT = "docs/data-analysis/case-law/payloads/batch-008-amends-census.json";
+const PROPOSAL_OUT = "docs/data-analysis/case-law/payloads/batch-008-amended-laws-full-proposal.json";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -323,7 +323,19 @@ function extractRealAmendedLaws(operative: string): ExtractResult {
       // wrapper around Čl. articles (tisk 231: "ČÁST ČTVRTÁ ZRUŠOVACÍ USTANOVENÍ" / "Čl. IV" /
       // "Zrušují se: …") puts the repeal/non-amend heading word on the ČÁST line ABOVE the Čl.
       // marker, outside a heading window that only looks forward from the marker itself.
-      const headingArea = operative.slice(Math.max(0, start - 150), start) + slice.slice(0, HEADING_WINDOW);
+      // batch-008 fix (F1, batch-007-round2-audit.md): the forward heading window must not cross
+      // an intervening ČÁST boundary — a Čl. block's `end` is the next Čl. MARKER, which can sit
+      // far past the next ČÁST's own heading (tisk 215: Čl. XI's real body is ~95 chars, but the
+      // next Čl. marker is Čl. XII, two ČÁST headings later — "ČÁST OSMÁ / ÚČINNOST" — so the old
+      // unclipped 320-char forward window swallowed the NEXT part's ÚČINNOST heading and gated out
+      // Čl. XI's own real amendment, a §124a-of-280/2009 repeal that IS an amendment of 280/2009).
+      // Clip the forward scan at the nearest following ČÁST line (if any) inside [start, end).
+      const castBoundaryRe = /\n\s*ČÁST\s+[A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]/g;
+      castBoundaryRe.lastIndex = start + 1;
+      const castMatch = castBoundaryRe.exec(operative);
+      const nextCastIdx = castMatch && castMatch.index < end ? castMatch.index : Infinity;
+      const fwdEnd = Math.min(start + HEADING_WINDOW, end, nextCastIdx);
+      const headingArea = operative.slice(Math.max(0, start - 150), start) + operative.slice(start, fwdEnd);
       if (NON_AMEND_ART_HEADING_RE.test(headingArea) || REPEAL_MARKER.test(headingArea)) {
         // capture the ref for reporting/union-suppression regardless of whether the repeal
         // marker itself sat in the lookback (ČÁST line) or inside the block's own slice.

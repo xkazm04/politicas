@@ -1,0 +1,28 @@
+{
+  "batch": 8,
+  "track": "money",
+  "kind": "linked_to-corroboration-annotation",
+  "generatedAt": "2026-07-26",
+  "note": "PROPOSALS ONLY — props-merge onto EXISTING linked_to edges. Q-money-15: live-endpoint re-verification of the open (conflicting + registry-unconfirmed) population against ARES VR fetched fresh (no cache). Never creates a person↔company edge, never touches review_state.",
+  "edges": [
+    {
+      "src": "psp:person:6105",
+      "rel": "linked_to",
+      "dst": "company:ico:25124188",
+      "mp": "Tomio Okamura",
+      "company": "MIKI TRAVEL PRAGUE, spol. s r.o.",
+      "ico": "25124188",
+      "priorCorr": "conflicting",
+      "propsMerge": {
+        "corroboration": "registry-confirmed",
+        "corroboration_source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25124188",
+        "role_valid_from": "1997-04-25",
+        "role_valid_to": null,
+        "reviewer_note": "Q-money-15 (batch 008): live ARES VR re-check flipped conflicting → registry-confirmed. Role(s): Jednatel.",
+        "flags": [
+          "q-money-15-live-flip"
+        ]
+      }
+    }
+  ]
+}

@@ -10,6 +10,7 @@
  */
 import { readFileSync } from "node:fs";
 import { getStore } from "@/lib/db/store";
+import { jargonViolationDetails } from "@/lib/analysis/public-copy";
 
 const FORBIDDEN_PROP = /^(contribution_score|participation_rate|committee_count|leadership_count|absence_rate|bills_authored|interpellations|speech_turns|contribution_provenance)$/;
 const LOW_SCORE_REASONS = new Set(["minister", "deputy_pm", "prime_minister", "opposition_leader", "replacement", "new_mp", "dual_mandate", "genuine_absentee", "low_legislative_output", "declined_mandate", "institutional_promotion", "unknown"]);
@@ -145,15 +146,12 @@ function proseVsPropsWarnings(prop: { id: string; name: string; props: Record<st
 //
 // Hard DROP (never valid public copy): raw prop/field identifiers, internal case
 // names, gate-rule citations, batch/sample self-references, API mechanics.
+// Rules live in lib/analysis/public-copy.ts — the SAME module getProfileData.ts and
+// getLeaderboardData.ts import for render-time withholding, so persist-time DROP and
+// render-time withhold can never diverge again (batch 006 introduced this module with
+// that intent but gate.ts kept a local fork missing the "API/pipeline mechanics" rule
+// until Q-effort-15 (batch 007) unified them).
 const PUBLIC_RENDER_FIELDS = ["effort_notes", "effort_public_role", "effort_bill_focus"] as const;
-const PIPELINE_JARGON: { re: RegExp; what: string }[] = [
-  { re: /\b(committee_count|leadership_count|bills_authored|speech_turns|absence_rate|participation_rate|contribution_score|interpellations_count)\b/i, what: "raw prop identifier" },
-  { re: /\b(sponsoredBills|linkedCompanies|contributionPsp9|quietWorkhorseIndex|componentDivergence|tenureClass|zVsClub|triageScore|effort_[a-z_]+)\b/, what: "raw pipeline field name" },
-  { re: /Case\s*[①②③]|case-(money|effort|law)\b/i, what: "internal case reference" },
-  { re: /\bgate\s*\(?[a-e]\)?(?![a-z])/i, what: "internal gate-rule citation" },
-  { re: /\b(batch|dávka)\s*\d|v tomto vzorku|ve vzorku (pěti|čtyř|tří)|tomto vzorku/i, what: "batch/sample self-reference" },
-  { re: /\b(endpoint|REST API|\/ekonomicke-subjekty|<ICO>|JSON|pipeline|dossier|dosier)\b/i, what: "API/pipeline mechanics" },
-];
 
 /** DROP reasons for pipeline jargon in verbatim-rendered public copy. */
 function publicCopyViolations(prop: { id: string; name: string; props: Record<string, unknown> }): string[] {
@@ -161,9 +159,8 @@ function publicCopyViolations(prop: { id: string; name: string; props: Record<st
   for (const field of PUBLIC_RENDER_FIELDS) {
     const text = prop.props[field];
     if (typeof text !== "string") continue;
-    for (const { re, what } of PIPELINE_JARGON) {
-      const m = re.exec(text);
-      if (m) out.push(`${field} contains ${what} ${JSON.stringify(m[0])} — this string renders verbatim on /poslanec`);
+    for (const { what, match } of jargonViolationDetails(text)) {
+      out.push(`${field} contains ${what} ${JSON.stringify(match)} — this string renders verbatim on /poslanec`);
     }
   }
   return out;
