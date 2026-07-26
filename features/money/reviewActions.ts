@@ -17,10 +17,22 @@
 // lib/i18n/locale.ts.
 
 import { revalidatePath } from "next/cache";
+import { createHash, timingSafeEqual } from "node:crypto";
 import { getStore } from "@/lib/db/store";
 import type { ReviewDecision } from "./reviewTypes";
 
 const VALID_DECISIONS: readonly ReviewDecision[] = ["confirm", "reject", "needs-more"];
+
+/** Constant-time token comparison. Plain `!==` on secrets is not constant-time —
+ * V8 short-circuits at the first mismatched character, letting a caller who can
+ * repeat the request measure response latency to recover REVIEWER_TOKEN one
+ * character at a time. Hash both sides to a fixed length first so even the
+ * length of the raw input never leaks through timing either. */
+function tokensMatch(submitted: string, expected: string): boolean {
+  const a = createHash("sha256").update(submitted).digest();
+  const b = createHash("sha256").update(expected).digest();
+  return timingSafeEqual(a, b);
+}
 
 export interface SubmitReviewInput {
   src: string; // kg_edge.src, "psp:person:<pspId>"
@@ -46,7 +58,7 @@ export async function submitReviewDecision(input: SubmitReviewInput): Promise<Su
   if (!reviewerToken) {
     return { status: "not-configured" };
   }
-  if (!input.token || input.token !== reviewerToken) {
+  if (!input.token || !tokensMatch(input.token, reviewerToken)) {
     return { status: "unauthorized" };
   }
   // D5 (batch 004): TS types erase at the server-action boundary, so a malformed
