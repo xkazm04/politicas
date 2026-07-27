@@ -98,7 +98,8 @@ export default function ChamberDetail({ rc }: { rc: RollCall }) {
           {PARTIES.map((p) => {
             const pv = rc.byParty[p.code];
             const line = partyLine(pv);
-            const disc = Math.round(partyDiscipline(pv) * 100);
+            const discRaw = partyDiscipline(pv);
+            const disc = discRaw === null ? null : Math.round(discRaw * 100);
             return (
               <div key={p.code} className="grid grid-cols-[6.5rem_1fr_6.5rem] items-center gap-3">
                 <span className="flex items-center gap-1.5 font-mono text-[11px] font-bold uppercase tracking-wider">
@@ -112,10 +113,18 @@ export default function ChamberDetail({ rc }: { rc: RollCall }) {
                   {pv.proti > 0 && <span className="h-full bg-signal" style={{ width: `${(pv.proti / p.seats) * 100}%` }} />}
                 </div>
                 <span className="text-right font-mono text-[11px] font-bold uppercase tabular-nums">
-                  <span className={line === "pro" ? "text-cobalt" : "text-signal"}>
-                    {line === "pro" ? "▲" : "▼"}
-                  </span>{" "}
-                  <span className="text-steel">{f.int(disc)} %</span>
+                  {line === null || disc === null ? (
+                    // No party member was present for this vote — a distinct
+                    // "no data" state, never a fabricated 100%-loyal arrow.
+                    <span className="text-steel">—</span>
+                  ) : (
+                    <>
+                      <span className={line === "pro" ? "text-cobalt" : "text-signal"}>
+                        {line === "pro" ? "▲" : "▼"}
+                      </span>{" "}
+                      <span className="text-steel">{f.int(disc)} %</span>
+                    </>
+                  )}
                 </span>
               </div>
             );

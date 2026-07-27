@@ -16,7 +16,7 @@ import {
   TOWNS,
   TREND_QUARTERS,
 } from "./data";
-import { chamberSplit, disciplineByParty, partyLine } from "./votes";
+import { chamberSplit, disciplineByParty, partyDiscipline, partyLine } from "./votes";
 import { CHAMBER_SUMMARY, LEADERBOARD } from "./leaderboard";
 import { czech, czechInt } from "../format";
 
@@ -183,7 +183,16 @@ describe("hlasování po stranách (VoteTrack)", () => {
       expect(r.avg).toBeGreaterThanOrEqual(0);
       expect(r.avg).toBeLessThanOrEqual(100);
     }
-    expect([...rows].sort((a, b) => b.avg - a.avg).map((r) => r.code)).toEqual(rows.map((r) => r.code));
+    expect([...rows].sort((a, b) => (b.avg ?? -1) - (a.avg ?? -1)).map((r) => r.code)).toEqual(rows.map((r) => r.code));
+  });
+
+  it("partyLine/partyDiscipline report null (not a fabricated 100% unanimous 'pro') when no one voted", () => {
+    const noOneVoted = { pro: 0, proti: 0, zdrzel: 0, omluven: 40 };
+    expect(partyLine(noOneVoted)).toBeNull();
+    expect(partyDiscipline(noOneVoted)).toBeNull();
+    // Sanity: a real present vote still resolves normally.
+    expect(partyLine({ pro: 3, proti: 1, zdrzel: 0, omluven: 0 })).toBe("pro");
+    expect(partyDiscipline({ pro: 3, proti: 1, zdrzel: 0, omluven: 0 })).toBeCloseTo(0.75);
   });
 });
 

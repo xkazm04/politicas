@@ -44,12 +44,14 @@ export default function DisciplineBoard() {
                 <motion.span
                   className="block h-full bg-cobalt"
                   initial={{ width: 0 }}
-                  whileInView={{ width: `${d.avg}%` }}
+                  whileInView={{ width: `${d.avg ?? 0}%` }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.04 }}
                 />
               </span>
-              <span className="text-right text-lg font-black tabular-nums">{f.dec(d.avg)} %</span>
+              <span className="text-right text-lg font-black tabular-nums">
+                {d.avg === null ? <span className="text-steel">—</span> : `${f.dec(d.avg)} %`}
+              </span>
             </motion.div>
           ))}
         </div>
@@ -86,6 +88,19 @@ export default function DisciplineBoard() {
                   {ROLL_CALLS.map((rc, rcIdx) => {
                     const line = partyLine(rc.byParty[d.code]);
                     const disc = d.perRc[rcIdx];
+                    if (line === null || disc === null) {
+                      // No party member was present for this vote — a
+                      // distinct "no data" cell, never a fabricated
+                      // unanimous-"pro" arrow (the old present===0 -> 1
+                      // sentinel used to render exactly that).
+                      return (
+                        <td key={rc.id} className="px-1.5 py-2.5">
+                          <span className="inline-flex min-w-[3.75rem] items-center justify-center border-2 border-dashed border-hairline px-1.5 py-1 font-mono text-xs text-steel">
+                            —
+                          </span>
+                        </td>
+                      );
+                    }
                     const strong = disc >= 90;
                     return (
                       <td key={rc.id} className="px-1.5 py-2.5">
