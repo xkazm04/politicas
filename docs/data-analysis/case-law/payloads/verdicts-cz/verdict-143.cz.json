@@ -1,0 +1,70 @@
+{
+  "billTisk": 143,
+  "statedReasoning": "Souborný vládní návrh (předkladatel: Ministerstvo financí / místopředsedkyně vlády a ministryně financí Alena Schillerová) novelizující zákon č. 256/2004 Sb., o podnikání na kapitálovém trhu, a související zákony a provádějící unijní pravidla pro finanční trh. Po přečtení skutečného textu návrhu (čl. I) je zřejmé, že novela ve svých aktualizovaných poznámkách pod čarou přímo cituje CELEX 32024L2810 (směrnice (EU) 2024/2810 o strukturách akcií s vícenásobnými hlasy u společností usilujících o přijetí k obchodování v mnohostranném obchodním systému), CELEX 32024L2811 (vlastní unijní směrnice „Listing Act\") a CELEX 32024L2994 (novelizující pravidla ke koncentračnímu riziku u ústředních protistran v návaznosti na EMIR) — jde tedy o hlavní vnitrostátní prováděcí předpis k unijnímu balíčku Listing Act plus o aktualizaci řízení rizik navazující na EMIR. Potvrzené konkrétní změny zahrnují: vypuštění podmínky „plné svéprávnosti\" ve více ustanoveních upravujících, kdo může zastávat řídicí a kontrolní funkce u obchodníka s cennými papíry (§ 6, § 28a, § 30, § 38); nové § 6 odst. 1 písm. m) s výjimkou umožňující investiční firmě jinou (neinvestiční) podnikatelskou činnost, pokud nepředstavuje podstatnou hrozbu pro její finanční stabilitu ani pro účinný dohled; nové povinnosti plánovat koncentrační riziko u ústředních protistran (§ 12ab, § 12ad) navázané na nařízení (EU) 648/2012 (EMIR); a novou definici „investičního výzkumu\" (§ 15ca) zpřesňující pravidla plateb za oddělený výzkum. To odpovídá nezávislé tiskové zprávě Ministerstva financí a potvrzuje ji; zpráva navíc popisuje zjednodušená pravidla prospektu, uvolnění omezení investičního výzkumu, odstranění českého „gold-platingu\" nad rámec unijního minima (včetně zrušení povinné registrace u ČNB pro některé doplňkové činnosti obchodníků) a nové varovné formulace pro investory do dluhopisů. Deklarovaným cílem ministerstva je zvýšit atraktivitu českého kapitálového trhu pro malé a střední podniky a zároveň posílit ochranu investorů do dluhopisů.",
+  "researchedContext": "Jde o nejjasnější zjištění ke kvalitě dat v této dávce: extrakce z názvu zaznamenala v grafu jako novelizovaný pouze zákon č. 256/2004 Sb., avšak census (podhodnocení = 5) ukazuje, že návrh ve skutečnosti novelizuje ŠEST reálných předpisů: 256/2004 (kapitálový trh), 15/1998 (dohled v oblasti kapitálového trhu), 190/2004 (dluhopisy), 21/1992 (banky), 87/1995 (spořitelní a úvěrní družstva) a 90/2012 (obchodní korporace). To se nezávisle shoduje: text extrahovaný z PDF uvádí novelizace zákona o bankách, zákona o spořitelních a úvěrních družstvech, zákona o dohledu v oblasti kapitálového trhu, zákona o dluhopisech a zákona o obchodních korporacích jako články III až IX — seznam skutečných zákonů z censu a členění návrhu na články se tedy shodují, což je silné potvrzení, že jde o skutečné podhodnocení u souborného návrhu, nikoli o artefakt censu. Průběh projednávání nezávisle potvrzuje: podání a rozeslání Sněmovně 25. března 2026 (evidováno v eKLEP), doporučení organizačního výboru pokračovat 2. dubna 2026 (zpravodaj Ing. Libor Turek, Ph.D., garančním výborem rozpočtový výbor), prvé čtení 14. července 2026 (24./27. schůze, usnesení č. 260 o přikázání výborům) a ke 24. červenci 2026 rozpočtový výbor návrh dosud neprojednal; nevyřízeno je šest pozměňovacích návrhů.",
+  "unstatedEffects": [
+    {
+      "effect": "Odstranění českého „gold-platingu\" nad rámec unijního minima, včetně zrušení povinné registrace u České národní banky pro některé doplňkové činnosti obchodníků, je deregulačním krokem pro investiční zprostředkovatele a obchodníky jako skupinu",
+      "whoBenefits": "Investiční zprostředkovatelé a obchodníci podléhající dosavadnímu přísnějšímu, čistě českému požadavku registrace (jde o obecný dopad na tržní odvětví, nikoli o dopad vázaný na jmenovaného předkladatele či firmu v tomto podkladu)",
+      "evidence": "https://mf.gov.cz/cs/ministerstvo/media/tiskove-zpravy/2026/zjednoduseni-pravidel-kapitaloveho-trhu-i-vyssi-oc-64472"
+    }
+  ],
+  "conflictAssessment": "Zadání uvádí u tohoto návrhu právě jednoho předkladatele, Alenu Schillerovou (psp:person:6545), a to v její roli ministryně financí předkládající návrh za vládu — bez jakýchkoli evidovaných vázaných firem (tiedCompanies: [], flaggedConflict: false, sponsorContractCzk: 0). Není tedy k dispozici žádná peněžní vazba z grafu, kterou by šlo posoudit, a nevyplynul ani nezávislý důkaz o osobním finančním zájmu ministryně na zprostředkovatelích na kapitálovém trhu či na emitentech dluhopisů. Jde o standardní vládní souborný návrh transponující unijní právo a deregulující; poctivým zjištěním je absence signálu střetu, v souladu s předchozími dávkami.",
+  "citations": [
+    {
+      "claim": "Název návrhu, číslo tisku 143/0 a seznam dokumentů včetně závěrečné zprávy z hodnocení dopadů regulace (RIA) a posouzení slučitelnosti s právem EU",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=143&ct1=0"
+    },
+    {
+      "claim": "Průběh projednávání: podání a rozeslání 25. března 2026, organizační výbor 2. dubna 2026, prvé čtení 14. července 2026 s přikázáním výborům (usnesení č. 260), projednání v rozpočtovém výboru ke 24. červenci 2026 dosud neproběhlo",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=143&snzeni=0"
+    },
+    {
+      "claim": "Úplný text návrhu (čl. I): přímo cituje CELEX 32024L2810, 32024L2811 (unijní Listing Act) a 32024L2994; vypouští podmínku „plné svéprávnosti\" v § 6, § 28a, § 30 a § 38; doplňuje výjimku pro doplňkovou činnost v § 6 odst. 1 písm. m); doplňuje povinnosti ke koncentračnímu riziku navázané na EMIR v § 12ab a § 12ad s odkazem na nařízení (EU) 648/2012; nově definuje „investiční výzkum\" v § 15ca",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268781"
+    },
+    {
+      "claim": "Tisková zpráva Ministerstva financí: návrh provádí unijní balíček „Listing Act\", zjednodušuje pravidla prospektu, uvolňuje omezení investičního výzkumu, odstraňuje gold-plating včetně registrace obchodníků u ČNB a doplňuje varovné formulace pro investory do dluhopisů; předkládá ministryně Alena Schillerová",
+      "kind": "web",
+      "source": "https://mf.gov.cz/cs/ministerstvo/media/tiskove-zpravy/2026/zjednoduseni-pravidel-kapitaloveho-trhu-i-vyssi-oc-64472"
+    },
+    {
+      "claim": "Alena Schillerová (psp:person:6545) je jediným předkladatelem evidovaným u tohoto návrhu v grafu, bez jakýchkoli vázaných firem",
+      "kind": "graph_fact",
+      "source": "psp:person:6545"
+    },
+    {
+      "claim": "Zákon č. 256/2004 Sb. je skutečný platný český předpis (zákon o podnikání na kapitálovém trhu)",
+      "kind": "law",
+      "source": "256/2004"
+    },
+    {
+      "claim": "Zákon č. 15/1998 Sb. je skutečný platný český předpis (zákon o dohledu v oblasti kapitálového trhu), podle censu novelizovaný",
+      "kind": "law",
+      "source": "15/1998"
+    },
+    {
+      "claim": "Zákon č. 190/2004 Sb. je skutečný platný český předpis (zákon o dluhopisech), podle censu novelizovaný",
+      "kind": "law",
+      "source": "190/2004"
+    },
+    {
+      "claim": "Zákon č. 21/1992 Sb. je skutečný platný český předpis (zákon o bankách), podle censu novelizovaný",
+      "kind": "law",
+      "source": "21/1992"
+    },
+    {
+      "claim": "Zákon č. 87/1995 Sb. je skutečný platný český předpis (zákon o spořitelních a úvěrních družstvech), podle censu novelizovaný",
+      "kind": "law",
+      "source": "87/1995"
+    },
+    {
+      "claim": "Zákon č. 90/2012 Sb. je skutečný platný český předpis (zákon o obchodních korporacích), podle censu novelizovaný",
+      "kind": "law",
+      "source": "90/2012"
+    }
+  ]
+}

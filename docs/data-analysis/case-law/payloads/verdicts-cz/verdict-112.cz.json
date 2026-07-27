@@ -1,0 +1,29 @@
+{
+  "billTisk": 112,
+  "statedReasoning": "Jde o návrh jediné poslankyně, Pavly Pivoňky Vaňkové (STAN), který novelizuje zákon č. 117/1995 Sb., o státní sociální podpoře, konkrétně pravidla rodičovského příspěvku v § 30 a § 31. Po přečtení úplného textu návrhu s důvodovou zprávou jsou věcnými změnami: (1) § 31 — ruší limit 120 hodin měsíčně pro docházku do předškolního zařízení, který dosud rodinu vyřazoval z podmínky „osobní celodenní péče\" pro nárok na příspěvek, a jako nadbytečný vypouští i navazující text o sledování docházky podle věku; (2) § 30 — jednorázové zvýšení celkové výše rodičovského příspěvku z 350 000 Kč na 370 000 Kč s účinností od 1. ledna 2027, odrážející kumulovanou inflaci od posledního zvýšení (1. ledna 2024); (3) nový § 31a — zavádí automatický roční valorizační mechanismus: vláda může příspěvek zvýšit nařízením vlády (nikoli dalším zákonem) vždy k 1. lednu, jakmile kumulovaný růst spotřebitelských cen za sledované období dosáhne alespoň 5 %, se zaokrouhlením nahoru na celé tisíce Kč. Deklarovaným odůvodněním (části 1–3 důvodové zprávy) je zabránit znehodnocování příspěvku inflací a vyhnout se skokovým zvýšením, u nichž studie IDEA/CERGE-EI z roku 2022 zjistila, že narušují předvídatelnost pro rodiny a prodlužují čerpání příspěvku, zejména u vysokoškolsky vzdělaných žen. Důvodová zpráva uvádí odhadovaný rozpočtový dopad ~375–440 mil. Kč v prvním roce, ~750–880 mil. Kč ve druhém a ~1–1,1 mld. Kč ročně při plném náběhu ve třetím roce, žádný dopad na ostatní veřejné rozpočty, žádné zjištěné korupční riziko a žádnou lobbistickou aktivitu. Navrhovaná účinnost: 1. ledna 2027.",
+  "researchedContext": "Novelizovaný zákon evidovaný v grafu (117/1995 Sb.) přesně odpovídá čerstvému censu provedenému nad textem návrhu — skutečné zákony [117/1995], evidované zákony [117/1995], podhodnocení 0. Jde o jednopředmětový poslanecký návrh, nikoli o souborný, takže podhodnocení se ani neočekává a žádné nalezeno nebylo; jde o konzistenci, nikoli o zjištění ke kvalitě dat. Průběh projednávání nezávisle potvrzuje, že vláda vrátila 18. března 2026 formální nesouhlasné stanovisko (tisk 112/1), návrh přesto postoupil 2. dubna 2026 do výboru (garanční výbor pro sociální politiku) — obsah tohoto nesouhlasného stanoviska nebyl dostupný a není zde nijak charakterizován. Webová rešerše samostatně nalezla nesouvisející, medializovanější vládní návrh (tisk 198, zvýšení rodičovského příspěvku), k němuž táž poslankyně v červenci 2026 veřejně vystoupila — jde o odlišný tisk a jeho obsah se zde s tiskem 112 nesměšuje.",
+  "unstatedEffects": [],
+  "conflictAssessment": "Zadání u tohoto tisku neuvádí žádného předkladatele s daty o peněžních vazbách (sponsors: [], flaggedConflict: false, sponsorContractCzk: 0). Není tedy k dispozici žádný signál střetu pocházející z grafu, který by šlo posoudit, a ani nezávisle jsem nenašel důkaz o finanční vazbě jediné předkladatelky. Vlastní hodnocení korupčních rizik v návrhu (část 10 důvodové zprávy) uvádí, že návrh nemá korupční dopad a že nebyla zjištěna žádná lobbistická aktivita. Poctivé zjištění: žádný indikátor střetu není přítomen.",
+  "citations": [
+    {
+      "claim": "Název návrhu, číslo tisku 112/0 a seznam dokumentů (t011200.pdf s důvodovou zprávou, znění s vyznačením změn)",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=112&ct1=0"
+    },
+    {
+      "claim": "Průběh projednávání: podání 17. února 2026, rozeslání 18. února 2026, nesouhlasné stanovisko vlády 18. března 2026 (tisk 112/1), doporučení organizačního výboru pokračovat v projednávání 2. dubna 2026, garančním výborem výbor pro sociální politiku",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=112&snzeni=0"
+    },
+    {
+      "claim": "Úplný text návrhu a důvodová zpráva: ruší limit 120 hodin docházky do předškolního zařízení (§ 31), zvyšuje rodičovský příspěvek z 350 000 Kč na 370 000 Kč (§ 30), zavádí automatickou roční valorizaci navázanou na spotřebitelské ceny nařízením vlády po dosažení 5% kumulované inflace (nový § 31a), s účinností od 1. ledna 2027, s uváděným rozpočtovým dopadem ~375–440 mil. Kč (1. rok) rostoucím na ~1–1,1 mld. Kč ročně (3. rok), bez zjištěného korupčního rizika či lobbingu, s odkazem na studii IDEA/CERGE-EI z roku 2022 o účincích valorizace rodičovského příspěvku",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267665"
+    },
+    {
+      "claim": "Zákon č. 117/1995 Sb., o státní sociální podpoře, je skutečný platný český předpis a podle censu správně evidovaný novelizovaný zákon",
+      "kind": "law",
+      "source": "117/1995"
+    }
+  ]
+}

@@ -71,7 +71,7 @@ export default function LawWatchPage({ lawData }: { lawData: LawData | null }) {
           </div>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">
             {lawData
-              ? "Které sněmovní tisky mění které zákony — spojnice návrh → novelizovaný zákon přímo z grafu, s předkladateli, jejich peněžními vazbami a forenzním posudkem tam, kde existuje. Data z psp.cz, ne z modelu."
+              ? "Které sněmovní tisky mění které zákony — u každého tisku jedna věta „co to mění“ odvozená z jeho vlastního textu, dále spojnice návrh → novelizovaný zákon, předkladatelé, jejich peněžní vazby a forenzní posudek tam, kde existuje. Data z psp.cz, ne z modelu."
               : t("intro")}
           </p>
         </div>
@@ -110,7 +110,7 @@ function RealLawWatch({ data }: { data: LawData }) {
       </div>
       <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
         <SourceNote>
-          psp.cz tisky · graf pass {data.pass ?? "?"} · hrany amends + assigned_to · {f.int(data.committeeRoutedBills)} tisků přikázáno výborům
+          psp.cz tisky · průchod grafu {data.pass ?? "?"} · vazby tisk → zákon a přikázání výborům · {f.int(data.committeeRoutedBills)} tisků přikázáno výborům
         </SourceNote>
         <span className="flex flex-wrap gap-x-3 font-mono text-[11px] uppercase tracking-wider text-steel">
           {originOrder
@@ -127,7 +127,7 @@ function RealLawWatch({ data }: { data: LawData }) {
         <p className="text-[13px] leading-snug">
           <span className="font-black uppercase tracking-wide text-signal">Kolize tisků</span> — souběžně
           projednávané tisky, které novelizují stejný § téhož zákona neslučitelným nebo na pořadí citlivým
-          způsobem. Case ③, 4 dávky close-readu.
+          způsobem. Vychází ze čtyř dávek ručního porovnání textů obou tisků.
         </p>
         <Link
           href="/zakony/kolize"
@@ -142,7 +142,12 @@ function RealLawWatch({ data }: { data: LawData }) {
         <SectionHeading
           index={1}
           title={t("realSection1Title")}
-          aside={<SourceNote>{data.totalBills} tisků · {data.totalAmends} novelizačních vazeb · psp.cz</SourceNote>}
+          aside={
+            <SourceNote>
+              {f.int(data.totalBills)} tisků · {f.int(data.summaryCount)} se shrnutím · {f.int(data.totalAmends)}{" "}
+              novelizačních vazeb · psp.cz
+            </SourceNote>
+          }
         />
         <div className="mt-8">
           <BillBrowser data={data} />
@@ -178,9 +183,9 @@ function RealLawWatch({ data }: { data: LawData }) {
         <p className="mt-4 max-w-3xl text-sm italic leading-relaxed text-steel">
           Vazba tisk → zákon je vyčtena z názvu tisku (citace „č. N/RRRR Sb.“), jediného strukturovaného
           odkazu, který psp.cz o novelizovaném zákoně nese. Formální přikázání výborům (garanční / další, stav
-          a datum) se vykresluje z reálných dat psp.cz (hist_vybory). Úplné znění paragrafů drží e-Sbírka
+          a datum) se vykresluje z reálných dat psp.cz. Úplné znění paragrafů drží e-Sbírka
           zvlášť — {data.paragraphDiffCount > 0 ? (
-            <>u {f.int(data.paragraphDiffCount)} tisku{data.paragraphDiffCount === 1 ? "" : "ů"} u nejčastěji novelizovaného zákona nese skutečný §-diff mezi dvěma platnými zněními, dopočítaný přímo z veřejného SPARQL rozhraní e-Sbírky (žádný hromadný výpis, žádná smyšlená data); u ostatních tisků se diff zatím nevykresluje.</>
+            <>u {f.int(data.paragraphDiffCount)} {data.paragraphDiffCount === 1 ? "tisku" : "tisků"} u nejčastěji novelizovaného zákona nese skutečný §-diff mezi dvěma platnými zněními, dopočítaný přímo z veřejného SPARQL rozhraní e-Sbírky (žádný hromadný výpis, žádná smyšlená data); u ostatních tisků se diff zatím nevykresluje.</>
           ) : (
             <>diff „před/po“ na úrovni § se zatím nevykresluje — Politicas nezobrazuje smyšlená data.</>
           )}
@@ -189,10 +194,10 @@ function RealLawWatch({ data }: { data: LawData }) {
           <p className="mt-3 max-w-3xl border-l-4 border-ochre bg-ochre/5 p-4 text-sm leading-relaxed">
             <span className="font-black uppercase tracking-wide text-ochre">Poctivost čísel: </span>
             vazba tisk → zákon výše je z citace v NÁZVU tisku — pro velké novely a doprovodné zákony to
-            systematicky podhodnocuje, kolik zákonů tisk skutečně mění. Nezávislý census plného textu (pass 20)
+            systematicky podhodnocuje, kolik zákonů tisk skutečně mění. Nezávislý census plného textu (průchod grafu 20)
             na {f.int(data.censusBillCount)} tiscích doplnil dohromady{" "}
             <span className="font-black">{f.int(data.censusUndercountTotal)}</span> dalších novelizovaných
-            zákonů, které vazba z názvu minula. Otevřete konkrétní tisk pro jeho vlastní census, je-li k dispozici.
+            zákonů, které vazba z názvu minula. Vlastní census má každý tisk ve svém detailu, pokud pro něj existuje.
           </p>
         )}
       </section>

@@ -1,0 +1,60 @@
+{
+  "billTisk": 28,
+  "statedReasoning": "Tisk 28/0, který vede Marek Výborný, novelizuje zákon č. 243/2000 Sb., o rozpočtovém určení daní (RUD). Podle úplného textu a důvodové zprávy (čteno přímo z primárního textu v cache) zavádí návrh NOVÝ MODEL KRAJSKÉHO RUD. Nahrazuje dosavadní pevný krajský podíl na sdílených daních ve výši 9,76 % / 9,45 % (DPH, daň z příjmů právnických a fyzických osob) podílem 10,26 % a samostatným novým přímým podílem Prahy ve výši 0,1 % (nový § 3a), čímž rozděluje jednorázové navýšení o +11,2 mld. Kč ročně (z toho 4 mld. Kč nahrazují zrušenou dotaci SFDI na silnice II. a III. třídy). Podstatné je, že důvodová zpráva uvádí, že nejde o původní návrh: „Navrhovaná úprava vychází z vládního návrhu zákona, který schválila vláda dne 7. května 2024 svým usnesením č. 291/2024, avšak již nebyl dokončen legislativní proces\" — jde tedy o oživení vládou schváleného návrhu z roku 2024, který dřívější legislativní proces nedokončil a který nyní znovu předkládají poslanci. Vzorec krajského rozdělení přechází ze staré pevné procentní podoby na osm vážených, každoročně aktualizovaných objektivních kritérií (počet obyvatel 40 %, kilometry silnic 20 %, rozloha 13 %, hustota obcí 8 %, vyrovnávací koeficient 7 %, základny zdravotnické záchranné služby 6 %, počet žáků 4 %, příjmy na urgentní příjem 2 %), o nichž zpráva výslovně uvádí, že vycházejí z podnětů Asociace krajů ČR (AKČR) a mají podporu většiny krajů. Část druhá (čl. III) samostatně ruší jedno dosud neúčinné ustanovení (čl. XLIII bod 3, část 25) zákona č. 349/2023 Sb., které by jinak od 1. ledna 2025 snížilo krajský podíl na 9,45 % — což přímo potvrzuje zjištění censu, že se tento tisk textově dotýká i zákona 349/2023, nejen zákona 243/2000.",
+  "researchedContext": "Průběh projednávání potvrzuje: podáno 13. listopadu 2025, rozesláno 18. listopadu 2025 jako tisk 28/0, vládě odesláno 19. listopadu 2025, vláda vrátila 12. prosince 2025 NEUTRÁLNÍ stanovisko, organizační výbor přikázal jako garanční rozpočtový výbor se zpravodajem Ing. Vojtěchem Krásanským; další projednávání je možné od 22. prosince 2025. Zjištění censu o podhodnocení výčtu o 1 předpis (243/2000 + 349/2023 oproti pouhému 243/2000 evidovanému v grafu) je nyní POTVRZENO přímo z části druhé / čl. III samotného návrhu, který zákon č. 349/2023 Sb. výslovně novelizuje tím, že ruší jeho dosud neúčinné ustanovení o 9,45% podílu — jde o čistý, textově ověřený případ vzorce podhodnoceného výčtu u souborných novel, který tato dávka sleduje. Vlastní hodnocení korupčních rizik v důvodové zprávě (§ 9) uvádí, že návrh nevytváří žádný nový prostor pro správní uvážení, jen rozšiřuje na kraje již existující mechanismus každoročně aktualizovaného nařízení (používaný už u obecního RUD), a tvrdí, že „z výše uvedených důvodů proto návrhem nevznikají žádná korupční rizika\" — jde o sebehodnocení, nikoli o nezávislé zjištění, je však v souladu s tím, že vzorec stojí na objektivních kritériích, nikoli na uvážení.",
+  "unstatedEffects": [
+    {
+      "effect": "Dva z pěti předkladatelů (Petr Hladík, v době podání náměstek primátorky města Brna, a Jiří Horák) drží funkce v představenstvech či dozorčích radách právě těch státních a městských podniků, které patří jejich domovským městům nebo kraji (Brno: ARENA BRNO a.s., Dopravní podnik města Brna a.s., Teplárny Brno a.s., SAKO Brno a.s.; dále MERO ČR a.s., celostátní státní podnik provozující ropovody; Vyškov: Vodovody a kanalizace Vyškov, a.s.). Návrh přerozděluje pouze KRAJSKÉ (kraje a Praha) daňové podíly, a to podle objektivních kritérií opřených o obyvatelstvo a infrastrukturu — obecního RUD (§ 4) se vůbec nedotýká a žádná z uvedených firem není krajem. Institucionální zájem, pokud vůbec nějaký, vede přes obecné finance Jihomoravského kraje a vyškovského okresu, nikoli přes jmenované firmy a nikoli přes vlastní městské funkce předkladatelů (Brno je statutární město, nikoli jeden ze 13 krajů a Prahy, mezi něž vzorec návrhu přerozděluje).",
+      "whoBenefits": "Kraje obecně, a konkrétně ty, které si podle nového váženého vzorce (kritéria počtu obyvatel, kilometrů silnic, rozlohy, základen ZZS, počtu žáků a příjmů na urgentní příjem) polepší — jde o institucionální, kritérii řízené přerozdělení mezi všemi 14 krajskými jednotkami, nikoli o prospěch dohledatelný ke konkrétnímu předkladateli nebo k jeho jmenovaným firmám.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265349"
+    }
+  ],
+  "conflictAssessment": "Souhrnná hodnota vazeb předkladatelů (~5,4 mld. Kč) je dána především velkými funkcemi v orgánech státních a městských podniků (MERO ČR a.s. — celostátní provozovatel ropovodů; Teplárny Brno, Dopravní podnik města Brna, SAKO Brno, ARENA BRNO — všechny ve vlastnictví města Brna; Vodovody a kanalizace Vyškov — městská vodárenská společnost). Nyní, když je mechanika návrhu potvrzena, je závěr o absenci střetu ještě silnější než po prvním hodnocení: jde o reformu KRAJSKÝCH (kraje a Praha) daňových podílů podle objektivních vzorcových kritérií převzatých z vládního návrhu z roku 2024 s uváděnou podporou napříč kraji (AKČR) — konkrétním obcím, statutárním městům ani jmenovaným státním a městským podnikům prostředky nepřerozděluje vůbec. Žádná z firem vázaných na Hladíka či Horáka není krajem ani nedostává prostředky z RUD přímo. To odpovídá vzorci označenému v předchozích dávkách: hrubé součty zakázek či obratu se sytí funkcemi v orgánech státních a městských podniků, které místní politici zastávají z titulu své funkce, aniž by k předmětu tohoto konkrétního návrhu — krajskému vzorci — vedl jakýkoli kanál. Střet nebyl zjištěn.",
+  "citations": [
+    {
+      "claim": "Název tisku 28/0, sada dokumentů a datum rozeslání (18. listopadu 2025)",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=28&ct1=0"
+    },
+    {
+      "claim": "Průběh projednávání: data podání a rozeslání, NEUTRÁLNÍ stanovisko vlády (12. prosince 2025), přikázání garančnímu rozpočtovému výboru",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=28&snzeni=0"
+    },
+    {
+      "claim": "Úplný text návrhu a důvodová zpráva: zvyšuje krajský podíl RUD z 9,76 % / 9,45 % na 10,26 % a přidává nový přímý podíl Prahy 0,1 %, oživuje vládou schválený návrh z roku 2024 (usnesení vlády č. 291/2024), který legislativní proces nedokončil, nahrazuje pevné procentní rozdělení mezi kraje osmi váženými objektivními kritérii a (část druhá, čl. III) ruší dosud neúčinné ustanovení o 9,45% podílu v zákoně č. 349/2023 Sb. — čímž potvrzuje podhodnocený výčet z censu",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265349"
+    },
+    {
+      "claim": "Novelizovaný zákon: zákon č. 243/2000 Sb., o rozpočtovém určení daní",
+      "kind": "law",
+      "source": "243/2000"
+    },
+    {
+      "claim": "Novelizovaný zákon (označen censem, nyní potvrzen v textu): zákon č. 349/2023 Sb.",
+      "kind": "law",
+      "source": "349/2023"
+    },
+    {
+      "claim": "Petr Hladík — vazba předkladatele podle uzlu osoby v grafu",
+      "kind": "graph_fact",
+      "source": "psp:person:6881"
+    },
+    {
+      "claim": "Petr Hladík drží funkce v představenstvech či dozorčích radách společností ARENA BRNO, a.s., Dopravní podnik města Brna, a.s., Teplárny Brno, a.s., MERO ČR, a.s. a SAKO Brno, a.s.",
+      "kind": "graph_fact",
+      "source": "company:ico:09133267"
+    },
+    {
+      "claim": "Jiří Horák — vazba předkladatele podle uzlu osoby v grafu",
+      "kind": "graph_fact",
+      "source": "psp:person:6803"
+    },
+    {
+      "claim": "Jiří Horák drží funkci v orgánu společnosti Vodovody a kanalizace Vyškov, a.s.",
+      "kind": "graph_fact",
+      "source": "company:ico:49454587"
+    }
+  ]
+}

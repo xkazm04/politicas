@@ -1,0 +1,29 @@
+{
+  "billTisk": 132,
+  "statedReasoning": "Jde o senátní návrh (předložený předsedou Senátu Milošem Vystrčilem jménem Senátu, předkladatel je v zadání uveden jako „Aschenbrenner L. a další\"), který novelizuje § 32 zákona č. 256/2004 Sb., o podnikání na kapitálovém trhu (ZPKT). Po přečtení úplného textu návrhu a důvodové zprávy jde věcně o úzkou technickou úpravu zužující rozsah povinností investičních zprostředkovatelů (IZ) — kategorie drobných zprostředkovatelů blízkých samostatným agentům, kteří jsou výslovně vyňati z působnosti směrnice 2014/65/EU (MiFID II). Návrh v celém § 32 nahrazuje slovo „obdobně\" slovem „přiměřeně\" a doplňuje nový § 32 odst. 7, podle něhož se nařízení Komise v přenesené pravomoci (EU) 2017/565 (prováděcí akt MiFID II k organizačním a provozním požadavkům) použije na investiční zprostředkovatele jen „přiměřeně\", a to na základě tohoto výslovného zákonného odkazu — nikoli automaticky, jak je Česká národní banka (ČNB) dosud uplatňovala prostřednictvím toho, co důvodová zpráva označuje za nepodložený „abstraktní prováděcí vztah\". Deklarovaným účelem (části 1–3 důvodové zprávy) je napravit údajně příliš širokou výkladovou praxi ČNB, která na drobné investiční zprostředkovatele, jež jsou z působnosti MiFID II ze zákona vyňati, přenášela regulatorní zátěž na úrovni MiFID II navrženou pro velké investiční firmy (obchodníky s cennými papíry, OCP) — tedy o deregulační nápravu, která povinnosti investičních zprostředkovatelů vrací zpět na skutečné minimum požadované článkem 3 MiFID II. Vlastní část návrhu o korupčních rizicích uvádí, že bylo provedeno formální hodnocení korupčních rizik (CIA) a že změna nezakládá žádné nové korupční riziko. Navrhovaná účinnost: 1. ledna 2027. Podepsáno předsedou Senátu Milošem Vystrčilem 6. března 2026.",
+  "researchedContext": "Census potvrzuje, že novelizovaný zákon evidovaný v grafu (256/2004 Sb.) se přesně shoduje se skutečně novelizovaným zákonem — skutečné zákony [256/2004], evidované zákony [256/2004], podhodnocení 0, což odpovídá tomu, že jde o jednopředmětový návrh dotýkající se jediného paragrafu (§ 32), nikoli o souborný předpis. Průběh projednávání nezávisle potvrzuje: podání Senátem 9. března 2026, rozeslání Sněmovně jako tisk 132/0 dne 11. března 2026, nesouhlasné stanovisko vlády vrácené 1. dubna 2026 (tisk 132/1) a doporučení organizačního výboru pokračovat v projednávání ze dne 2. dubna 2026 se zpravodajem Ing. Liborem Turkem, Ph.D., a garančním rozpočtovým výborem. Věcný účinek návrhu — zúžení toho, jak ČNB uplatňuje unijní nařízení v přenesené pravomoci na konkrétní drobnou skupinu zprostředkovatelů na trhu — je pro tuto skupinu deregulační, jde však o VÝSLOVNĚ DEKLAROVANÝ účel návrhu (nikoli o skrytý či nedeklarovaný dopad), a uvádí se proto zde v deklarovaném odůvodnění, nikoli mezi nedeklarovanými dopady.",
+  "unstatedEffects": [],
+  "conflictAssessment": "Zadání u tohoto tisku neuvádí žádného předkladatele s daty o peněžních vazbách (sponsors: [], flaggedConflict: false, sponsorContractCzk: 0). Není tedy k dispozici žádný signál střetu pocházející z grafu, který by šlo posoudit, a u uvedeného předkladatele nebyl nalezen ani nezávislý důkaz o finanční vazbě na odvětví kapitálového trhu (samotný text návrhu ukazuje, že jej formálně předložil předseda Senátu Miloš Vystrčil jménem Senátu, což odpovídá návrhu podanému komorou, nikoli osobní iniciativě jednotlivého senátora). Poctivé zjištění: žádný indikátor střetu není přítomen.",
+  "citations": [
+    {
+      "claim": "Název návrhu (senátní návrh), číslo tisku 132/0, předkladatel Aschenbrenner L. a další a seznam dokumentů (t013200.pdf s důvodovou zprávou, znění s vyznačením změn)",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=132&ct1=0"
+    },
+    {
+      "claim": "Průběh projednávání: podání Senátem 9. března 2026, rozeslání Sněmovně 11. března 2026, nesouhlasné stanovisko vlády (tisk 132/1) vydáno 1. dubna 2026, doporučení organizačního výboru pokračovat 2. dubna 2026, zpravodaj Libor Turek, garančním výborem rozpočtový výbor",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=132&snzeni=0"
+    },
+    {
+      "claim": "Úplný text návrhu a důvodová zpráva: novelizuje § 32 ZPKT tak, že nahrazuje „obdobně\" slovem „přiměřeně\" a doplňuje nový § 32 odst. 7, který výslovně vymezuje přiměřené použití nařízení (EU) 2017/565 na investiční zprostředkovatele a napravuje širší výkladovou praxi ČNB; uvádí se jako deregulace v souladu s MiFID II bez zjištěného korupčního rizika (provedeno formální hodnocení korupčních rizik), s účinností od 1. ledna 2027, podepsáno předsedou Senátu Milošem Vystrčilem 6. března 2026",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268465"
+    },
+    {
+      "claim": "Zákon č. 256/2004 Sb., o podnikání na kapitálovém trhu, je skutečný platný český předpis a podle censu správně evidovaný novelizovaný zákon",
+      "kind": "law",
+      "source": "256/2004"
+    }
+  ]
+}

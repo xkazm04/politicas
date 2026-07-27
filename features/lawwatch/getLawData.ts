@@ -19,6 +19,7 @@ import { asUnion } from "@/lib/db/narrow";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
+import { czechCopyOrNull } from "@/lib/analysis/language-gate";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { storeReady } from "@/lib/db/readiness";
 import { getStore } from "@/lib/db/store";
@@ -79,20 +80,52 @@ function loadParagraphDiffs(): ParagraphDiff[] {
   }
 }
 
+/** The deterministic "co to mění" one-liner derived from the print's own cached text.
+ * Produced by `scripts/case-loops/law/build-bill-summaries.ts` — never written by a model,
+ * never inferred: a print whose cached text yields no ČÁST captions, no „kterým se mění …"
+ * preamble, no repeal clause and no new-act head simply has NO summary and says so. */
+const SUMMARIES_FILE = "docs/data-analysis/case-law/payloads/bill-summaries-cz.json";
+interface BillSummaryArtifact {
+  rows?: { cislo: number; summary: string | null; source: string | null; method: string | null }[];
+}
+function loadBillSummaries(): Map<number, { summary: string; source: string | null }> {
+  const out = new Map<number, { summary: string; source: string | null }>();
+  try {
+    if (!existsSync(SUMMARIES_FILE)) return out;
+    const raw = JSON.parse(readFileSync(SUMMARIES_FILE, "utf8")) as BillSummaryArtifact;
+    for (const r of raw.rows ?? []) {
+      // The same Czech gate the verdicts run — a derived summary is reader-facing copy too.
+      const safe = czechCopyOrNull(r.summary);
+      if (typeof r.cislo === "number" && safe) out.set(r.cislo, { summary: safe, source: r.source });
+    }
+  } catch (err) {
+    reportLoaderFailure("getLawData.billSummaries", err);
+  }
+  return out;
+}
+
 export const BILL_ORIGINS = ["government", "mp", "mp_group", "senate", "other"] as const;
 export type BillOrigin = (typeof BILL_ORIGINS)[number];
 
-/** A gated law-forensics verdict (method:"verdict", written pending_review). Rendered as DERIVED, never as raw fact. */
+/** A gated law-forensics verdict (method:"verdict", written pending_review). Rendered as DERIVED, never as raw fact.
+ *
+ * Every prose field is `string | null`: null means the graph's text did not pass the
+ * Czech-language gate (`lib/analysis/language-gate.ts`) and is WITHHELD rather than shown
+ * to a Czech reader in English. Withholding is non-destructive — the text stays in the
+ * graph for the rewrite pass, it simply does not ship. `withheldFields` counts them so the
+ * surface can say so honestly instead of silently rendering a shorter block. */
 export interface LawForensicView {
   severity: "low" | "medium" | "high" | string;
   confidence: number | null;
   reviewState: string; // "pending_review"
-  statedReasoning: string;
-  researchedContext: string;
-  conflictAssessment: string;
-  unstatedEffects: { effect: string; whoBenefits: string; evidence: string }[];
-  citations: { claim: string; kind: string; source: string }[];
+  statedReasoning: string | null;
+  researchedContext: string | null;
+  conflictAssessment: string | null;
+  unstatedEffects: { effect: string | null; whoBenefits: string | null; evidence: string }[];
+  citations: { claim: string | null; kind: string; source: string }[];
   pass: number | null;
+  /** How many reader-facing strings this verdict had withheld for not being Czech. */
+  withheldFields: number;
 }
 
 export interface AmendedLawRef {
@@ -115,6 +148,11 @@ export interface LawBillView {
   tiskId: number;
   cislo: number | null; // public print number → psp.cz URL
   title: string; // official návrh title (node label)
+  /** One plain Czech line: what this print actually changes. null ⇒ „shrnutí zatím není" —
+   * the print's own text yielded no honest structure to derive one from, and nothing is invented. */
+  summary: string | null;
+  /** The cached artifact the summary was derived from, for the SourceNote. */
+  summarySource: string | null;
   origin: BillOrigin;
   submitter: string | null; // ministry / MP names free text
   sponsors: { pspId: number; name: string }[]; // resolved MP sponsors (/poslanec/<pspId>)
@@ -153,6 +191,10 @@ export interface LawData {
   totalAmends: number;
   flaggedCount: number;
   forensicCount: number;
+  /** Bills carrying a derived "co to mění" summary (the rest honestly say „shrnutí zatím není"). */
+  summaryCount: number;
+  /** Verdicts with ≥1 reader-facing string withheld by the Czech-language gate. */
+  forensicWithheldCount: number;
   paragraphDiffCount: number; // bills carrying ≥1 real e-Sbírka §-diff artifact
   committeeRoutedBills: number; // bills carrying ≥1 formal committee assignment (F15)
   censusBillCount: number; // bills carrying a pass-20 census record (amended_laws_full)
@@ -172,13 +214,25 @@ function readForensic(p: Record<string, unknown>): LawForensicView | null {
   const severity = asStr(p.forensic_severity);
   if (!state && !severity) return null;
   const prov = (p.forensic_provenance ?? {}) as Record<string, unknown>;
+
+  // Every reader-facing string passes the Czech gate before it can ship. `cz()` counts the
+  // withholds so the block can disclose them instead of quietly shrinking.
+  let withheldFields = 0;
+  const cz = (v: unknown): string | null => {
+    const s = asStr(v);
+    if (s === null) return null;
+    const safe = czechCopyOrNull(s);
+    if (safe === null) withheldFields++;
+    return safe;
+  };
+
   const effects = Array.isArray(p.forensic_unstated_effects)
     ? (p.forensic_unstated_effects as unknown[]).flatMap((u) => {
         if (typeof u !== "object" || u === null) return [];
         const o = u as Record<string, unknown>;
         return [{
-          effect: asStr(o.effect) ?? "",
-          whoBenefits: asStr(o.whoBenefits) ?? "",
+          effect: cz(o.effect),
+          whoBenefits: cz(o.whoBenefits),
           evidence: asStr(o.evidence) ?? "",
         }];
       })
@@ -188,7 +242,7 @@ function readForensic(p: Record<string, unknown>): LawForensicView | null {
         if (typeof c !== "object" || c === null) return [];
         const o = c as Record<string, unknown>;
         return [{
-          claim: asStr(o.claim) ?? "",
+          claim: cz(o.claim),
           kind: asStr(o.kind) ?? "",
           source: asStr(o.source) ?? "",
         }];
@@ -198,12 +252,13 @@ function readForensic(p: Record<string, unknown>): LawForensicView | null {
     severity: severity ?? "low",
     confidence: typeof p.forensic_confidence === "number" ? p.forensic_confidence : null,
     reviewState: state ?? "pending_review",
-    statedReasoning: asStr(p.forensic_stated_reasoning) ?? "",
-    researchedContext: asStr(p.forensic_researched_context) ?? "",
-    conflictAssessment: asStr(p.forensic_conflict_assessment) ?? "",
+    statedReasoning: cz(p.forensic_stated_reasoning),
+    researchedContext: cz(p.forensic_researched_context),
+    conflictAssessment: cz(p.forensic_conflict_assessment),
     unstatedEffects: effects,
     citations,
     pass: typeof prov.pass === "number" ? prov.pass : null,
+    withheldFields,
   };
 }
 
@@ -228,6 +283,7 @@ async function loadLawData(): Promise<LawData | null> {
     const nameById = new Map(persons.map((p) => [p.pspId, p.nameFull]));
 
     const paragraphDiffs = loadParagraphDiffs();
+    const summaries = loadBillSummaries();
     const diffsByLawRef = new Map<string, ParagraphDiff[]>();
     for (const d of paragraphDiffs) diffsByLawRef.set(d.law, [...(diffsByLawRef.get(d.law) ?? []), d]);
 
@@ -301,10 +357,15 @@ async function loadLawData(): Promise<LawData | null> {
         : [];
       const amendsUndercount = typeof p.amends_undercount === "number" ? p.amends_undercount : 0;
 
+      const cislo = typeof p.cislo === "number" ? p.cislo : null;
+      const summaryRow = cislo != null ? summaries.get(cislo) : undefined;
+
       return {
         tiskId: Number(n.id.replace(/^bill:tisk:/, "")) || 0,
-        cislo: typeof p.cislo === "number" ? p.cislo : null,
+        cislo,
         title: n.label,
+        summary: summaryRow?.summary ?? null,
+        summarySource: summaryRow?.source ?? null,
         origin,
         submitter: asStr(p.submitter),
         sponsors,
@@ -354,6 +415,8 @@ async function loadLawData(): Promise<LawData | null> {
       totalAmends: amends.length,
       flaggedCount,
       forensicCount,
+      summaryCount: bills.filter((b) => b.summary !== null).length,
+      forensicWithheldCount: bills.filter((b) => (b.forensic?.withheldFields ?? 0) > 0).length,
       paragraphDiffCount: bills.filter((b) => b.paragraphDiffs.length > 0).length,
       committeeRoutedBills: new Set(assignedTo.map((e) => e.src)).size,
       censusBillCount: bills.filter((b) => b.amendedLawsFull.length > 0).length,

@@ -55,6 +55,28 @@ const DELETION_ALLOWLIST: string[] = [
   // here one level deeper, inside an otherwise-real Čl.-organised bill). The live edge
   // (bill:tisk:43171 -> law:sb:25-2017) predates this batch and is false.
   "bill:tisk:43171|law:sb:25-2017",
+  // batch-008 F2 (5 edges, docs/data-analysis/case-law/batch-007-round2-audit.md's F2 finding,
+  // re-verified per-edge from cached text — see docs/data-analysis/case-law/payloads/
+  // batch-008-f2-deletion-payload.json for the full evidence excerpts). All 5 are false public
+  // claims already live in the 150-edge graph, reached via the title-derived `amended_laws` prop
+  // with no verb-semantics/nesting gate:
+  // tisk 153 -> 468/1991: the ref names 468/1991 only inside 40/1995's OWN official law name
+  // ("zákon č. 40/1995 Sb., o regulaci reklamy a o změně a doplnění zákona č. 468/1991 Sb.") — the
+  // bill's operative text then DELETES that very name phrase, never amends 468/1991 itself.
+  "bill:tisk:43274|law:sb:468-1991",
+  // tisk 88 -> 360/2025: "ve znění zákona č. 360/2025 Sb." — a lineage citation dating the bill's
+  // real target (151/2025, kept); 360/2025 is not itself amended by this bill.
+  "bill:tisk:43198|law:sb:360-2025",
+  // tisk 124 -> 300/2025: "ve znění zákona č. 300/2025 Sb." — same lineage pattern, dating the
+  // bill's second real target (152/2025, kept).
+  "bill:tisk:43239|law:sb:300-2025",
+  // tisk 36 -> 89/2012: nested inside the bill's real target's OWN name — "zákon č. 268/2025 Sb.,
+  // kterým se mění zákon č. 89/2012 Sb." — 268/2025 (kept) is the amended act; 89/2012 describes
+  // what 268/2025 itself is, not a second bill target.
+  "bill:tisk:43143|law:sb:89-2012",
+  // tisk 42 -> 416/2009: same nested-name shape — "zákon č. 465/2023 Sb., kterým se mění zákon č.
+  // 416/2009 Sb." (465/2023 kept as the real target).
+  "bill:tisk:43149|law:sb:416-2009",
 ];
 
 async function main() {

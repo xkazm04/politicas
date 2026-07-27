@@ -1,0 +1,40 @@
+{
+  "billTisk": 71,
+  "statedReasoning": "Podle úplného staženého textu návrhu a důvodové zprávy (podán 8. prosince 2025 poslanci Richterovou, Bartošem, Ančincovou, Pipášovou, Martínkovou Španihelovou, Šmídou a Volpem) je deklarovaným cílem „snížení nákladovosti systému doplňkového penzijního spoření\", a to třemi úzkými číselnými změnami zákona č. 427/2011 Sb.: (1) § 60 odst. 3 — ruší rozlišený strop úplaty za obhospodařování tak, aby VŠECHNY účastnické fondy, nejen povinný konzervativní fond, měly strop na úrovni sazby konzervativního fondu; ve spojení s (2) deklarovaným záměrem důvodové zprávy tím účinný strop pro běžné účastnické fondy klesá z až 1 % ročně na 0,4 % ročně; (3) § 60 odst. 4 obdobně sjednocuje strop výkonnostní odměny a snižuje strop u běžných fondů z až 15 % na 10 % z kladného zhodnocení; (4) § 192 odst. 3 písm. a) — snižuje koeficient úplaty za obhospodařování u transformovaných fondů (starší produkt z doby před rokem 2013) z 0,8 na 0,4, což odpovídá připomínce MPSV požadující symetrii poplatků napříč všemi typy fondů. Důvodová zpráva argumentuje, že poplatky českých penzijních fondů jsou v mezinárodním srovnání vysoké (uvádí Revolut ~0,12 % ročně, švédské veřejné konzervativní fondy 0,08–0,22 %) a že některé fondy si účtují zákonné maximum i při záporném zhodnocení. Uváděný účinek: vyšší čistý výnos pro spořící, silnější motivace spoléhat na výnos, nikoli jen na státní příspěvek, a konkurenční tlak na penzijní společnosti. Výslovně se uvádí, že návrh nemá ŽÁDNÝ rozpočtový dopad na státní rozpočet ani na ostatní veřejné rozpočty — jde o čistou regulaci poplatků na soukromém trhu. Navrhovaná účinnost: 1. července 2026.",
+  "researchedContext": "Průběh projednávání (psp.cz) potvrzuje, že návrh byl rozeslán jako tisk 71/0 dne 16. prosince 2025, vládě k vyjádření odeslán 18. prosince 2025 a vláda k němu zaujala NEUTRÁLNÍ stanovisko (nikoli nesouhlas), rozeslané jako tisk 71/1 dne 13. ledna 2026. Organizační výbor doporučil 14. ledna 2026 pokračovat v projednávání a přikázal jako garanční rozpočtový výbor se zpravodajem Ing. Liborem Turkem, Ph.D. Ke dni 24. července 2026 — po více než půl roce — zůstává návrh ve stejné fázi před prvým čtením; k žádnému čtení nedošlo navzdory neutrálnímu stanovisku vlády a nulovým rozpočtovým nákladům, což by jinak bývalo cestou s malým odporem. Jde o pozorování k legislativnímu procesu (zastavení navzdory neutrálnímu signálu vlády), nikoli samo o sobě o důkaz jakéhokoli střetu. Věcně: zákon č. 427/2011 Sb. upravuje doplňkové penzijní spoření (produkt třetího pilíře po roce 2013); novelizovaná ustanovení (§ 60, § 192) upravují stropy úplat, které penzijní společnosti účtují spořícím — návrh tedy míří PROTI příjmům odvětví z poplatků a VE PROSPĚCH spotřebitelů, tedy opačným směrem, než by u předkladatelů s vazbou na penzijní odvětví předpokládala hypotéza o vlastním prospěchu.",
+  "unstatedEffects": [
+    {
+      "effect": "Snížení poplatků (úplata za obhospodařování z 1 % na 0,4 % u běžných účastnických fondů, výkonnostní odměna z 15 % na 10 %, koeficient u transformovaných fondů z 0,8 na 0,4) přímo snižuje příjmy regulovaného odvětví správy penzijních fondů (penzijních společností) jako celku, přestože důvodová zpráva opatření popisuje výhradně z pohledu prospěchu spořících; žádná penzijní společnost ani správce aktiv není jmenován a zpráva neuvádí ani konzultaci s odvětvím, ani odhad dopadu na marže penzijních společností.",
+      "whoBenefits": "Spořící ve třetím pilíři získávají vyšší čistý výnos; penzijní společnosti jako odvětví přicházejí o příjmy z poplatků — jde o dopad na celé odvětví, nikoli na konkrétní firmu, bez jmenovaného vítěze či poraženého.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266283"
+    }
+  ],
+  "conflictAssessment": "Hodnověrný kanál vlastního prospěchu není a věcný směr návrhu (snížení poplatků, které penzijní společnosti smějí účtovat) míří opačně, než by předpovídala hypotéza „předkladatel prospívá odvětví, k němuž má vazbu\". Žádný ze sedmi předkladatelů nemá evidovanou peněžní vazbu na penzijní společnost, správce aktiv ani poskytovatele produktu třetího pilíře: Ivan Bartoš a Hana Ančincová nesou pouze obecný nulový záznam „OSVČ\" (company:ico:04627695), který se v této dávce i v dávce 001 opakuje shodně u řady předkladatelů s plochou hodnotou 0 Kč a bez jakéhokoli rozlišujícího detailu — jde o artefakt kvality dat, nikoli o věcnou vazbu. Vazba Lenky Martínkové Španihelové na MATURUS, o.p.s. (1 197 779 Kč) je podle nezávislého ověření vazbou na grafické sociální podnikání zaměstnávající osoby se zdravotním postižením, založené nadací Jedličkova ústavu, které vedla před vstupem do Sněmovny — jde o neziskovou organizaci (právní forma o.p.s., která podle zákona 427/2011 nemůže být „penzijní společností, a.s.\"), zcela nesouvisející se strukturou poplatků penzijních fondů. Olga Richterová, Barbora Pipášová, Martin Šmída a Samuel Volpe nemají evidovanou žádnou peněžní vazbu. Symetricky se zjištěním dávky 001: jde o plošnou spotřebitelskou regulaci bez kanálu k jakémukoli subjektu vázanému na předkladatele, a zde navíc směr úpravy (snížení poplatků) působí proti zájmu odvětví, což absenci střetu dále potvrzuje.",
+  "citations": [
+    {
+      "claim": "Tisk 71 novelizuje § 60 odst. 3 a 4 zákona 427/2011 (sjednocuje a snižuje strop úplaty za obhospodařování z až 1 % na 0,4 % ročně a strop výkonnostní odměny z až 15 % na 10 % u běžných účastnických fondů, aby odpovídaly sazbě povinného konzervativního fondu) a § 192 odst. 3 písm. a) (snižuje koeficient úplaty u transformovaných fondů z 0,8 na 0,4), odkazuje na mezinárodní srovnání poplatků (Revolut ~0,12 %, švédské veřejné konzervativní fondy 0,08–0,22 %) a uvádí nulový rozpočtový dopad na veřejné rozpočty. Účinnost od 1. července 2026. Podepsáno Richterovou, Bartošem, Ančincovou, Pipášovou, Martínkovou Španihelovou, Šmídou a Volpem, Praha 9. prosince 2025.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266283"
+    },
+    {
+      "claim": "Průběh projednávání: rozesláno jako tisk 71/0 dne 16. prosince 2025, vláda zaujala NEUTRÁLNÍ stanovisko (tisk 71/1, 13. ledna 2026), organizační výbor doporučil 14. ledna 2026 pokračovat se zpravodajem Liborem Turkem a garančním rozpočtovým výborem; ke 24. červenci 2026 není zaznamenáno prvé čtení.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=71"
+    },
+    {
+      "claim": "Novelizovaným předpisem o doplňkovém penzijním spoření je zákon č. 427/2011 Sb., o doplňkovém penzijním spoření — skutečný, platný český zákon.",
+      "kind": "law",
+      "source": "427/2011"
+    },
+    {
+      "claim": "Evidovaná peněžní vazba předkladatelky Lenky Martínkové Španihelové, MATURUS, o.p.s. (~1,2 mil. Kč), je nezisková organizace provozující grafické sociální podnikání zaměstnávající osoby se zdravotním postižením (nadace Jedličkova ústavu), nikoli penzijní společnost ani poskytovatel finančních produktů.",
+      "kind": "graph_fact",
+      "source": "company:ico:24766216"
+    },
+    {
+      "claim": "Předkladatelé Ivan Bartoš a Hana Ančincová nesou pouze obecný nulový záznam „OSVČ\" evidovaný v grafu s hodnotou 0 Kč a bez jakéhokoli detailu ke konkrétní firmě.",
+      "kind": "graph_fact",
+      "source": "company:ico:04627695"
+    }
+  ]
+}

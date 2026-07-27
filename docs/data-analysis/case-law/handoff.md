@@ -1,276 +1,285 @@
-# Case ③ Law loop — fleet handoff (batch-008, 2026-07-26)
+# Case ③ Law loop — handoff, batch 009 (presentation gate / quality remediation)
 
-Fleet run, concurrent with money/effort drivers (stayed strictly inside the law boundary: `docs/data-analysis/case-law/`, `scripts/case-loops/law/`, `lib/ingest/sources/psp-legislation*`+`esbirka*`, `features/lawwatch/`, `app/zakony/`). **No live `.pglite` writes during analysis** (all work on `.pglite-copy-law-008`, a fresh `cp -r` from `.pglite-copy-law-005`), **no shared-vault edits**, **no commits run by this driver**. This supersedes batch-007's `handoff.md` as the action list; prior batch files stay as history.
+> Batch 008's handoff was **not overwritten** — it is preserved verbatim as
+> `docs/data-analysis/case-law/handoff-batch-008.md`. Its action list (the F2 deletion payload, the
+> re-triage debt) is still open and is not superseded by this run, which touched no graph topology.
 
-## 0. IMPORTANT — a fleet-hygiene anomaly observed this session (not caused by this driver)
+**Run type:** quality remediation only. No new analysis, no new data, no new features. Scope was the
+worst content-quality defect on `/zakony`: the forensic verdicts and bill dossiers were unreadable to
+the Czech reader they are built for.
 
-While working, this driver found that `scripts/case-loops/law/amends-census.ts` (containing this batch's own F1 fix, byte-for-byte identical to what this driver wrote) and a since-deleted throwaway test script (`f2-title-gate-test.ts`) were **already present in git history**, committed under `9abfde1 feat(case-effort): unify the public-copy jargon rules — close the persist/render gap` — an unrelated-sounding commit message for a DIFFERENT case. `git diff HEAD -- scripts/case-loops/law/amends-census.ts` is empty, confirming the committed content matches this driver's working-tree edits exactly. This driver never ran `git commit` at any point. This strongly suggests an automated/external process is sweeping the whole working tree (including in-progress, unreviewed case-loop work) into commits under mismatched messages — a violation of the kernel's fleet-mode "do not commit" rule for case drivers, though not one this driver caused. **Flagging for the orchestrator/user**: history now contains this batch's F1 fix under a confusing, unrelated commit message, and the mechanism doing this is worth identifying before it happens again (it could just as easily sweep up unreviewed, ungated work from another case mid-edit). The reflection audit dispatched this batch (§5 of its brief) was asked to investigate this further — see its report, `docs/data-analysis/case-law/batch-008-reflection.md`, for what it found.
+**Boundary honoured:** `features/lawwatch/`, `app/zakony/` (read only — no change was needed),
+`lib/analysis/law-verdict*`, NEW `lib/analysis/language-gate*`, `scripts/case-loops/law/`,
+`docs/data-analysis/case-law/`. **No commits run. No live `.pglite` write.** The bill index was read
+once from the existing copy `.pglite-copy-law-005` and cached to `payloads/bill-index.json`, so no
+later step needed a database at all.
 
-Only `docs/data-analysis/case-law/ledger.json`, `scripts/case-loops/law/diff-amends-regen-deletions.ts`, and the newly-created batch-008 files (see §5) remain as this driver's own uncommitted tree changes; everything else this driver touched (`amends-census.ts`) has already landed in history via the anomalous commit above.
+---
 
-## 1. F1 — recall fix, corpus-verified single-bill blast radius
+## 1. Czech forensic verdicts — 27 of 27 rewritten
 
-**Finding** (`batch-007-round2-audit.md`): a `Čl.`-organised bill's forward heading-window scan was not clipped at an intervening `ČÁST` boundary — tisk 215's `Čl. XI` (deletes §124a of law 280/2009, a real amendment) was gated out because the scan's 320-char forward window reached past its own block into the NEXT `ČÁST`'s "ÚČINNOST" heading.
+All 27 gated verdicts (`forensic_stated_reasoning`, `forensic_researched_context`,
+`forensic_conflict_assessment`, plus every `unstatedEffects` entry and every `citations[].claim` —
+**437 reader-facing strings**) were rewritten from English into Czech legal register.
 
-**Fix**: `scripts/case-loops/law/amends-census.ts`, inside `extractRealAmendedLaws`'s `Čl.`-block branch — the forward heading-window end is now `Math.min(start + HEADING_WINDOW, end, nextCastIdx)`, where `nextCastIdx` is the nearest following `ČÁST` line (if any) inside the block. Independently re-verified against the raw cached text (`.data/law-collision-cache/tisk-215/*.txt`) BEFORE writing the fix — not inherited from the audit's excerpt.
-
-**Blast radius, verified**: diffed `batch-007-amends-census.json` against the newly-generated `batch-008-amends-census.json` across all 140 rows — **exactly 1 row changed** (tisk 215: `realLaws` gains `280/2009`, `repealedRefs` loses it), 0 other bills' `realLaws`/`repealedRefs`/`structure` moved.
-
-## 2. F2 — deletion payload prepared (orchestrator executes), evidence re-verified per edge
-
-**Finding** (`batch-007-round2-audit.md`): 5 `title_fallback` `amends` edges are false public claims, already LIVE in the graph (confirmed by read-only query against `./.pglite`): tisk 153→468/1991 (nested inside the target law's own official name), tisk 88→360/2025 and tisk 124→300/2025 (lineage — "ve znění zákona č. X"), tisk 36→89/2012 and tisk 42→416/2009 (nested inside an amending law's own name).
-
-**Deliverable**: `docs/data-analysis/case-law/payloads/batch-008-f2-deletion-payload.json` — each of the 5 edges carries: the live bill/law node IDs (independently looked up, not assumed from tisk numbers — the first pass at this guessed wrong bill IDs from a numeric pattern and was corrected against the live graph before finalizing), the exact edge key, a verbatim title-preamble AND operative-text excerpt pulled directly from `.data/law-collision-cache/` this session (not inherited from the audit's prose), and the real target(s) of that bill left unaffected. **PREPARE only — no live write performed.**
-
-**Code fix** (so the regenerated payload doesn't reproduce these 5): `scripts/case-loops/law/amends-regen-008.ts` adds a per-citation **title-role gate** (`titleRoleGateDrops`) with three patterns — LINEAGE (`ve znění zákona č.`), NESTED-AMEND (`zákon č. Y, kterým se mění zákon č. X` where X is not the bill's own first-cited target), NESTED-NAME (`o změně a doplnění zákona č.`). Corpus-verified (all 141 bills' title preambles, standalone test harness run before wiring into the pipeline) to remove **exactly these 5 refs and nothing else** — the 2 genuine title-only census rescues (tisk 107→159/1999, tisk 243→223/2016) are untouched. Required an NFC-normalization fix along the way: `pdftotext` inconsistently emits "č" as a decomposed base-c + combining caron within the SAME document (found live on tisk 36's first "č." token), which silently broke a regex-literal "č" match before normalization was added.
-
-`scripts/case-loops/law/diff-amends-regen-deletions.ts`'s `DELETION_ALLOWLIST` now carries all 5 keys (in addition to batch-007's 4), each with its own evidence comment, so the deletion-safety gate does not refuse them as unallowlisted drops.
-
-## 3. Full regen pipeline — 577 edges, all checks green
+**Payload for the orchestrator to apply (this is the file you want):**
 
 ```
-cp -r .pglite-copy-law-005 .pglite-copy-law-008
-PGLITE_PATH=./.pglite-copy-law-008 npx tsx scripts/case-loops/law/amends-census.ts
-PGLITE_PATH=./.pglite-copy-law-008 npx tsx scripts/case-loops/law/fix-proposal-trigger-008.ts
-PGLITE_PATH=./.pglite-copy-law-008 npx tsx scripts/case-loops/law/amends-regen-008.ts
-PGLITE_PATH=./.pglite-copy-law-008 npx tsx scripts/case-loops/law/validate-amends-regen-008.ts
-npx tsx scripts/case-loops/law/measure-precision-008.ts
-PGLITE_PATH=./.pglite npx tsx scripts/case-loops/law/diff-amends-regen-deletions.ts \
-  --payload=docs/data-analysis/case-law/payloads/batch-008-amends-regen.json
-# expect: 577 edges (581 live + 1 F1 add − 5 F2 drops), validator 5/5 PASS,
-# precision 573/577 high_confidence (4 low, same hand-verified-real 4 as batch-007),
-# diff-deletions: 1 added / 5 dropped (all allowlisted), 0 unallowlisted
+docs/data-analysis/case-law/payloads/batch-009-cz-verdict-patch.json
 ```
 
-All ran clean this session: **577 edges**, validator **PASS 0 errors 0 warnings**, precision **573 high / 4 low / 0 unresolvable** (0.69% low-confidence rate — matches batch-007's 4 hand-verified-real low-confidence edges exactly, no new ones introduced), deletion-diff **PASS, 0 unallowlisted** (confirms live graph today = batch-007's 581-edge set exactly — 1 add is F1, 5 drops are F2, all allowlisted).
+27 rows keyed by `billUrn` (`bill:tisk:43111` … resolved against the graph's own bill nodes), each
+carrying:
 
-`apply-amends-regen.ts` remains **NOT re-pointed** at this or any batch-007/008 payload (same boundary call as batch-007 — a concurrent sibling agent owns generalizing that script; its `NODE_PAYLOAD`/`EDGE_PAYLOAD`/`EXCLUDED_LOW_CONFIDENCE_EDGES` constants still name batch-005's files and its own startup assertion safely refuses to run unmodified).
+| prop | content |
+|---|---|
+| `forensic_stated_reasoning` / `_researched_context` / `_conflict_assessment` | Czech rewrite |
+| `forensic_unstated_effects`, `forensic_citations` | Czech rewrite (`evidence`, `kind`, `source` byte-identical to the English) |
+| `forensic_stated_reasoning_en`, `_researched_context_en`, `_conflict_assessment_en`, `forensic_unstated_effects_en`, `forensic_citations_en` | **English original, verbatim** |
+| `forensic_lang: "cs"`, `forensic_lang_rewrite` | provenance |
 
-## 4. Re-triage — churn re-ranking done; full triageScoreV2 deferred (disclosed, not silent)
+`severity`, `confidence` and `review_state` are **not in the patch at all** — they cannot drift.
+The `*_en` props are never read by `features/lawwatch/getLawData.ts`, so the English ground truth
+survives for the human reviewer and for any future audit, and never renders.
 
-Churn ranking (from `batch-008-amends-regen.json`'s `churnRanking.afterTop10`): **40/2009 takes #1 with 12 edges**, exactly as batch-007 predicted; 586/1992 drops to #2 (9).
+Per-print Czech sources: `docs/data-analysis/case-law/payloads/verdicts-cz/verdict-<cislo>.cz.json`
+(27 files). Regenerate the patch with:
 
-**Not done this batch, and disclosed why**: a full `triageScoreV2`/sector-adjacency recompute (`scripts/case-loops/law/triage-002.ts`) against the new 577-edge topology. The batch-004 reflection explicitly warned sector-adjacency needs **§-level** recomputation, not a naive re-run over the new edge set (a bill's sector-adjacency conflict should be scoped to which SECTION it amends, not its whole amended-law set) — that rework was not attempted this batch (effort-budget call) rather than shipped as an invalidated naive re-run. Logged in `ledger.json`'s `totals.batch008ReTriage` as an open item for whichever batch does it.
-
-## 5. Collision universe reopened — partitioned pre-check re-run, ranking signal still unvalidated, 12 pairs close-read
-
-- New collision-candidate groups from the 577-edge topology: `scripts/case-loops/law/collision-groups-008.ts` → **150 groups, 629 raw candidate pairs** (up from batch-005's 583 pre-regen).
-- §-level partition check (all cached `.data/law-collision-cache/` text, 0 new network fetches — all 117 relevant bills already cached): `scripts/case-loops/law/collision-check-008.ts --v2` → **176 partitioned survivor pairs** (down slightly from batch-005's 186, consistent with F1/F2's net −4 edges and a different grouping).
-- **P52 ranking-signal validation, before spending model time (per the kernel's explicit P52 doctrine)**: the `moneyLiteral` candidate signal (introduced batch-005) was already found NOT statistically distinguishable from the partition-survivor baseline (Opus audit: Fisher p=1.00 at n=15). This batch did **not** attempt to re-derive a larger validated sample (pair identity does not survive a topology change cleanly across batch-004/005/008's three different edge sets — flagged as real, non-trivial work, not attempted this batch) — so this batch's close-read sample was explicitly **topic-diverse UNREAD pairs**, never ranked by the unvalidated signal.
-- **Close-read**: 12 of 176 pairs, done directly by the driver (not a subagent army — an effort-budget call, disclosed) — `docs/data-analysis/case-law/payloads/collision-close-reads-batch008.json`. **3 confirmed / 5 coordination-risk / 4 incidental** (originally reported 4/5/3 — pair 90/221 was corrected from confirmed to incidental after an independent Opus reflection pass caught a same-bill excerpt-comparison error; see §6a). Two notable finds: (a) an emergent N-way cluster — 4 separate bills (tisk 7, 111, 207, 213) each independently edit 40/2009 §88 odst.2 písm.c) (criminal-code confiscation predicate-offense enumeration), star-topology centered on tisk 207; (b) tisk 56/234 §17c/§17d, where the shared-§ excerpts are **near-verbatim identical text** proposed as NEW insertions by two different bills — a genuine duplicate-insertion collision shape not previously seen in this case's history.
-- **117/176 pairs remain unread** — logged honestly in the close-read payload's `coverage` block (no silent truncation), a natural batch-009 army task.
-
-## 6. Opus audits (dispatched this batch, per the brief's "Opus ≤2 at max depth: one audit, one reflection")
-
-Two independent Opus agents were dispatched in parallel, maximum reasoning depth, no shared context with each other or with this driver's own narrative:
-1. **Adversarial audit** of the F1 fix and F2 deletion evidence (re-derive everything from cached source text independently, hunt for a 6th false edge or a false positive in the deletion set, re-verify the full pipeline against a fresh copy). Report: `docs/data-analysis/case-law/batch-008-audit.md`.
-2. **Reflection** on this batch's own deliverables (internal consistency, self-serving framing, manifestation debt, the fleet-hygiene commit anomaly in §0, spot-checking 3+ of the 12 collision close-read classifications). Report: `docs/data-analysis/case-law/batch-008-reflection.md`.
-
-### 6a. Reflection verdict — RETURNED, real findings, corrected same session
-
-**VERDICT: NOT ready as reported** (engineering sound; the *reporting* had 3 real defects, all fixed in this handoff before being called ready):
-
-1. **A false `confirmed` collision, now fixed.** Pair 90-221's "VERBATIM IDENTICAL duplicate insertion" claim compared bill 221's own excerpt against ITSELF (a same-bill excerpt-reuse artifact: §12 and §14 sit close together in 221's own text, so `excerptFor()` returned bill 221's own §14 text for both the §12 AND §14 partition hits, and the driver misread the two same-bill quotes as opposing sides of the pair). The reflection agent's NFC-normalized grep of tisk 90's own cached text found ZERO occurrences of the quoted phrases. **Independently re-confirmed by this driver** (same grep, same result) and **corrected**: `collision-close-reads-batch008.json`'s pair 90-221 reclassified `confirmed` → `incidental`, `classificationCounts` corrected 4/5/3 → **3/5/4**, `ledger.json`'s `batch008CollisionRecheck` updated to match, both with a `correctionNote` disclosing the fix rather than silently editing it. (56-234's §17c/§17d duplicate-insertion finding was independently verified by the reflection as real — that one stands.)
-2. **Baseline-framing confusion, now caveated.** `batch-008-amends-regen.json`'s own `stats.currentAmendsEdgeCount: 150` reflects `.pglite-copy-law-008`'s baseline (a copy of `.pglite-copy-law-005`, which predates batch-007's live apply on 2026-07-25) — NOT the live graph, which already carried 581 edges (batch-007 applied, commit 257e723, pass 30) BEFORE this batch started. This driver's own §3 diff against the LIVE graph already reported the correct real-world delta (+1 F1 / −5 F2, 581→577) — the raw payload JSON's internal 150-baseline arithmetic is correct FOR THAT COPY but is misleading read in isolation. Added `ledger.json`'s `batch008F1Fix.baselineCaveat` to disclose this explicitly for anyone reading the raw payload.
-3. **"Re-triage DONE" overclaim, now precisely scoped.** Only the AGGREGATE top-10 churn ranking was recomputed; zero of the 141 per-bill `ledger.json` rows (`triageScoreV2`, `maxTargetChurn`, `sectorAdjacency`) were updated. `ledger.json`'s `batch008ReTriage.status` corrected to say this explicitly rather than "churn re-ranking DONE and verified" (technically true but readable as more complete than it is).
-4. **Manifestation debt: unanswered, confirmed as a real gap.** Nothing from this batch renders anywhere yet; `/zakony/kolize`'s loader is (per the reflection) "one filename away" from picking up the new collision data — flagged as manifestation debt for a build-review batch, not fixed here (this was an analysis batch, not a build phase).
-5. **Fleet-hygiene commit anomaly (§0): confirmed real, assessed LOW severity, root cause found.** The reflection traced commit `9abfde1` to a **concurrent architect-scan session** (Claude Fable 5) that swept the whole working tree ~19 seconds after this batch's F1/F2 payload was written — not an auto-commit hook, not this driver, and not malicious; a `git add -A`-style commit from an unrelated session while this batch's window was open. Harm assessed as: a partial, self-contradicting snapshot landed in history under a mismatched message, and a scratch file (`f2-title-gate-test.ts`) that `ledger.json` had cited as this batch's F2 verification got swept along too before this driver deleted it locally. **Recommendation carried to the orchestrator**: no session should run `git add -A`/commit-everything while another case's fleet window is open — a kernel amendment candidate, not just a one-off note.
-6. No third Opus trigger fired — the reflection independently confirms all confirmed/coordination-risk collision pairs are drafting-collision risk with zero sponsor-money adjacency, correctly below the genuine top-signal bar.
-
-Full report: `docs/data-analysis/case-law/batch-008-reflection.md`.
-
-### 6b. Adversarial audit — RETURNED, VERDICT: READY WITH CAVEATS (apply the change-set; the caveats were about *reporting*, fixed same session)
-
-Independently re-implemented `extractRealAmendedLaws` and `titleRoleGateDrops` from source, reproduced both census artifacts 140/140, and re-ran the whole pipeline on a fresh copy: **577 edges, validator PASS 5/5, live diff = 1 added / 5 dropped / 0 unallowlisted** (matches this driver's own numbers exactly). Full report: `docs/data-analysis/case-law/batch-008-audit.md`.
-
-**F1 and F2 are clean — the audit could not break either.** The ČÁST-boundary clip changes exactly 1 bill (tisk 215) out of 47 candidate blocks and can only ever un-gate (never introduce a false positive). The title-role gate drops exactly the 5 named refs and correctly keeps tisk 107/243 — the audit independently verified all 5 as genuinely false from cached text, verified the live node IDs, built a full taxonomy of every title-citation context in the corpus, and ran a widened-lineage counterfactual: **no 6th false edge exists**. Two things worth carrying forward: the `isFirst`-citation guard in the title-role gate is far MORE load-bearing than its own comment suggests (disabling it would produce 109 drops instead of 5 — it is currently correct 116/116 times on this corpus, but its failure mode is only contained by the deletion-diff gate downstream, not by anything upstream); and NFC normalization is genuinely load-bearing (without it, the F2 gate drops only 4 of the 5, missing tisk 36).
-
-**3 reporting defects found, all fixed in this same session** (2 were already caught by the parallel reflection pass and fixed before this audit's report landed; timing meant the audit's own read of the files happened before those fixes, so its report shows the pre-fix state — cross-referenced and confirmed resolved here):
-1. The `ledger.json`/`collision-close-reads-batch008.json` contradiction (retracted `confirmed: 4` vs corrected `confirmed: 3`) — **already fixed** in §6a above before this audit's report arrived; independently re-confirmed by the audit's own grep of tisk 90 finding zero matches, same conclusion as the reflection.
-2. The 150-edge-baseline stats confusion (`edgeCountDelta: 427` reads as if 427 edges are missing from the live graph, when the real live-relative change is 6 edges) — **fixed this session** (after this audit report landed) with a new prominent `LIVE_GRAPH_CAVEAT_READ_THIS_BEFORE_APPLYING` top-level field in `amends-regen-008.ts`'s output (see §3), re-generated and re-verified (577 edges, validator PASS, deletion-diff PASS — unchanged) before being called final.
-3. `measure-precision-008.ts`/`batch-008-precision-measurement.json` attributed a caveat to "batch-008 independent-audit finding (N-D)" that had not happened yet when the file was generated (stale text carried over verbatim from the batch-007 script during the `sed` copy) — **fixed this session**: reworded to correctly attribute it as carried forward from batch-007's own N-D finding, re-generated (573/577 high_confidence, unchanged — text-only fix).
-
-**Latent, not blocking, fixed anyway**: `amends-census.ts`'s `extractText` never NFC-normalized (the same decomposed-vs-precomposed-diacritic risk class as the F2 gate needed fixing) — 3 cached documents demonstrably under-match some regex without it, though the audit confirmed **0 realised effect on this corpus's 140 census rows**. Fixed this session at the single point every downstream extractor reads cached text through (`extractText`, both the cache-hit and cache-miss paths); re-ran the full pipeline afterward and confirmed byte-for-byte identical output except the `generatedAt` timestamp (diffed against the git-committed pre-fix version) — then re-ran `fix-proposal-trigger-008` → `amends-regen-008` → `validate-amends-regen-008` → `measure-precision-008` → `diff-amends-regen-deletions` end to end once more: still 577 edges, still all green, still exactly the same 1-add/5-drop live diff.
-
-**Overall: both Opus passes converge on the same verdict** — the F1/F2 engineering is sound and independently reproducible from source by two agents with no shared context; every reporting defect either agent found has been fixed, disclosed, and re-verified in this same session, not smoothed over. This batch is ready to hand to the orchestrator.
-
-## 7. Graph payloads — NOT applied (orchestrator decision required)
-
-Same posture as every prior batch: **PREPARE only**. Nothing in this batch wrote to `./.pglite`. The orchestrator's live-apply path is:
-1. Apply the F2 deletion payload (§2) — 5 edges, or fold into a full regen apply.
-2. Re-point `apply-amends-regen.ts` at `batch-008-amends-regen.json` (still not done, same boundary call as batch-007) and apply the full 577-edge regenerated set (which already excludes the 5 F2 edges and includes the 1 F1 recovery) — this subsumes the standalone F2 deletion if done as one topology swap instead of two steps.
-3. Read both Opus reports (§6) before either.
-
-## 8. Shared-file additions (append verbatim — could not edit these in fleet mode)
-
-### → `patterns.md`
 ```
-### Law: pdftotext can emit the SAME diacritic letter in two different Unicode normalization
-forms within ONE document, silently breaking a regex literal
-batch-008's F2 title-role gate needed to detect a citation's second-vs-first occurrence order in
-a bill's title preamble; the very first "č." token in tisk 36's preamble was pdftotext-extracted
-as a DECOMPOSED "c" + U+030C combining caron rather than the precomposed U+010D "č", while later
-"č." tokens in the SAME document were precomposed — a regex literal "č" only matches the
-precomposed form, so ordering/counting logic built on it silently mis-ordered citations with no
-error, no warning, just a wrong answer that looked plausible. Fixed by NFC-normalizing
-(`.normalize("NFC")`) the cached text once at load time before any regex touches it. -> any new
-text-processing code against `.data/law-collision-cache/`'s pdftotext output should normalize to
-NFC at the point of reading the file, not assume the source is internally consistent even within
-one document — this is a genuinely different bug class from both P42 (substring-collision from
-`.includes()`) and the batch-007 `\w`-is-ASCII-only bug (a compiled-regex construction issue,
-not a source-encoding issue).
-
-### Law: a per-citation syntactic-role gate over a bill's title preamble needs a
-"which occurrence in citation ORDER" guard, not just an immediate-preceding-context regex
-batch-008's F2 fix rejects a title-derived ref when it's a lineage citation or nested inside
-another law's own name — but the SAME "kterým se mění zákon č. X" phrase that correctly names a
-bill's real FIRST target also appears, verbatim, describing what an EARLIER-cited law itself is
-(the nested-name case). A context-only regex (does the phrase immediately before this citation
-match a nesting pattern) over-fired on every bill's own genuine primary target, because the
-bill's real target is ALSO introduced by "kterým se mění zákon č." -- the discriminator that
-actually works is ORDER: only a SECOND-OR-LATER occurrence of that phrase in the preamble is
-nested; the first is always the bill's own real target (the fixed Czech drafting formula "ZÁKON
-ze dne ..., kterým se mění zákon č. X ..." always leads with the real target). -> any future
-syntactic-role gate over Czech legal-text citations should check citation ORDER within the
-document, not just the locally-preceding text, when the same surface phrase is legitimately used
-both for the real target and for describing a target's own history.
+npx tsx scripts/case-loops/law/build-cz-verdict-patch.ts   # PREPARE only, never writes a DB
 ```
 
-### → `feature-opportunities.md`
-```
-### Law: a genuine duplicate-insertion collision (tisk 56/234 §17c/§17d) is a distinct shape
-from a conflicting-edit collision — worth its own /zakony/kolize UI treatment
-batch-008's collision close-read (docs/data-analysis/case-law/payloads/collision-close-reads-
-batch008.json) confirmed one pair (tisk 56 and tisk 234) where BOTH bills propose to insert a new
-§ 17d beginning with near-identical text ("Přestupky podle tohoto zákona projednává inspektorát,
-s výjimkou přestupků a) podle § 17a odst. 1 písm. b)") -- a genuinely different collision shape
-from the usual "two bills edit the same odstavec with different instructions" pattern: here two
-bills are independently drafting the SAME new provision. (A second candidate, tisk 90/221 §14,
-was INITIALLY misread as the same shape by the driver -- both quoted excerpts turned out to be
-bill 221's own text reused across two different §-match rows, not a real cross-bill match; caught
-by an independent Opus reflection pass and corrected same session, see handoff.md §6a. Only the
-56/234 pair is a confirmed instance of this shape.) Worth a distinct /zakony/kolize UI treatment
-("duplicate insertion" vs "conflicting edit") if more genuine instances turn up in the 117
-still-unread partitioned pairs -- it likely indicates shared drafting lineage (same sponsor
-office/template) rather than independent legislative intent, itself a citable finding for a
-feature that surfaces WHO drafts together.
-```
+### Fidelity verification — the P51 lesson, run as code AND by hand
 
-### → `frontier.md` (Case ③ section)
-```
-- **batch-008 fixed both disclosed defects from the round-2 audit (F1 recall gap, F2 five false
-  edges) and prepared a deletion payload for the false edges** -- F1 (tisk 215's real amendment
-  to 280/2009, lost to a heading-window clip bug) is fixed and corpus-verified to a single-bill
-  blast radius; F2 (5 live false title-derived edges) has a re-verified-from-cached-text deletion
-  payload ready for the orchestrator plus a corpus-validated code fix (a per-citation title-role
-  gate) so the regenerated set doesn't reproduce them. Full regen: 577 edges, validator/precision/
-  deletion-diff all clean. Re-triage's churn ranking is done (40/2009 takes #1); the
-  triageScoreV2/sector-adjacency full recompute remains explicitly deferred pending §-level rework
-  (a real, disclosed gap, not a silent skip). The collision universe reopened as predicted (629 raw
-  / 176 partitioned pairs, up from 583/186) -- 12 close-read (3 confirmed / 5 coordination-risk /
-  4 incidental), 117 remain, a natural batch-009 army task. P52's moneyLiteral ranking signal is
-  STILL unvalidated (carried forward unchanged from batch-005) -- do not use it to rank a sweep
-  without a fresh, larger validation.
-- **A fleet-hygiene anomaly was observed this batch, not caused by the law driver**: this batch's
-  own F1 fix (and a since-deleted test script) were found ALREADY committed in git history under
-  an unrelated commit message for a different case ("feat(case-effort): unify the public-copy
-  jargon rules"), with the law driver never having run `git commit`. This suggests an automated
-  process is sweeping uncommitted working-tree changes into commits under mismatched messages --
-  worth the orchestrator/user investigating before it sweeps up unreviewed work from another case
-  mid-edit. See handoff.md §0 and batch-008-reflection.md for what the reflection audit found.
-```
+The builder refuses to emit the payload unless every one of these passes:
 
-### → `graph-log.md`
-```
-## Pass N (track: law) — Case ③ batch-008: F1 recall fix (tisk 215 recovered) + F2 five-false-edge
-deletion payload prepared + code fix, re-triage churn ranking recomputed, collision universe
-re-run on the reopened 577-edge topology (2026-07-26)
-No graph writes this batch (all analysis on .pglite-copy-law-008, a fresh copy, removed after
-use; the live 581-edge graph was only READ, via diff-amends-regen-deletions.ts, to confirm the F2
-edges are live and to confirm the F1/F2-fixed regen's add/drop set matches exactly). F1: amends-
-census.ts's Čl.-block forward heading-window scan now clips at an intervening ČÁST boundary,
-recovering tisk 215's real amendment to 280/2009 (a §124a repeal, previously gated out by the
-NEXT part's ÚČINNOST heading bleeding into the window) -- verified to change exactly 1 of 140
-census rows. F2: amends-regen-008.ts adds a per-citation title-role gate (lineage / nested-amend /
-nested-name, NFC-normalization-dependent) removing exactly the 5 false title_fallback edges the
-round-2 audit named (tisk 153/88/124/36/42) and neither of the 2 genuine title-only rescues (tisk
-107/243) -- corpus-verified across all 141 bills. A standalone deletion payload
-(batch-008-f2-deletion-payload.json) re-verifies each of the 5 false edges from cached text
-independently (not inherited from the audit) with live bill/law node IDs looked up directly
-(a first guess at the IDs from a numeric pattern was wrong and caught before finalizing). Full
-regen: 577 edges (581 live + 1 F1 add - 5 F2 drops), validator PASS 5/5, precision 573/577
-high_confidence (4 low, unchanged from batch-007's hand-verified-real 4), deletion-diff PASS 0
-unallowlisted. Re-triage: churn re-ranking done (40/2009 #1, 12 edges); full triageScoreV2/
-sector-adjacency recompute explicitly deferred (needs §-level rework per a standing batch-004
-warning) rather than shipped as an invalidated naive re-run. Collision universe: 629 raw / 176
-partitioned candidate pairs (up from 583/186 pre-regen, as predicted); 12 close-read (3 confirmed
-/ 5 coordination-risk / 4 incidental -- corrected from an initial 4/5/3 same session after an
-independent Opus reflection pass caught a same-bill excerpt-comparison error in one pair, see
-handoff.md §6a), including an emergent 4-bill N-way cluster on 40/2009 §88 and one genuine
-near-verbatim duplicate-insertion pair (tisk 56/234). 117 remain, logged not dropped. Two
-independent Opus agents dispatched (adversarial audit of F1/F2 + a reflection pass, both
-returned, both converging on READY / NOT-ready-as-FIRST-reported-but-corrected-same-session) --
-see handoff.md §6 for their reports and the corrections made in response. npm run check: this
-batch's own files (scripts/case-loops/law/*, docs/data-analysis/case-law/*) typecheck- and
-lint-clean, 347/347 tests pass; the repo-wide `npm run check` is blocked by pre-existing lint
-errors in scripts/case-loops/money/*.ts (a concurrent case's files, outside this batch's
-boundary, not introduced this batch).
-```
+- **structure** — `billTisk`, `unstatedEffects` count, `citations` count;
+- **citations** — every `kind` and every `source` byte-identical EN ⇄ CZ;
+- **statutes** — every `č. N/RRRR Sb.` cited anywhere in English prose still cited in Czech, and none
+  added;
+- **URLs** — every `evidence` and every web/`bill_text` source preserved, none added, none dropped;
+- **language** — every Czech string passes the gate, and the English original is re-scored as a
+  control (it must still be caught).
 
-## 9. Enum / schema proposals
+Final run: **27/27 rewrites, 0 fidelity findings, 0 Czech gate failures, 436 English fields flagged by
+the control.**
 
-None new this batch.
+**Numeral drift (12 lines across 8 prints) is reported as advisory and was read side-by-side by
+hand.** All 12 are Czech spelling conventions, not lost facts: `tisk 488 of the 9th electoral term` →
+„devátého volebního období"; `~8 consequential fixes` → „zhruba osm"; `16-17 year-olds` →
+„šestnácti- a sedmnáctiletých"; `10-day cap` → „desetidenní strop"; `Part 4) … Part 8)` →
+„část čtvrtá … osmá"; `3x the subsistence minimum` → „trojnásobku životního minima"; `6-page PDF` →
+„šestistránkové PDF"; `08.12.2025` → „8. prosince 2025". The full list is in the payload's
+`numeralReview` block.
 
-## 10. Commit plan (orchestrator; per-case commit inside law boundary)
+**Hedge audit — the failure mode this pass exists to prevent.** Hedge-marker density was counted per
+print in both languages. Czech ≥ English on all 27 (lowest ratio 0.94 on tisk 124 — parity; median
+2.4). The EN→CZ length ratio is 0.97–1.09 everywhere, so nothing was compressed away. A separate scan
+for *hardened* phrasing (`prokázal`, `dopustil se`, `porušil`, `je střet zájmů`, `obohatil`, …)
+returned **0 hits** — no hedge was silently turned into an assertion anywhere.
 
-**Nothing committed by this driver this batch** (per Authority — no exceptions; see §0 for the anomaly where some of this work already appears in history via an external process).
+### Near-misses caught and fixed
 
-**Uncommitted work in the tree at handoff time, all within law boundary**:
-- `docs/data-analysis/case-law/ledger.json` (modified — `batch008F1Fix`/`batch008F2Deletion`/`batch008ReTriage`/`batch008CollisionRecheck` blocks added to `totals`)
-- `scripts/case-loops/law/diff-amends-regen-deletions.ts` (modified — 5 new `DELETION_ALLOWLIST` entries, F2)
-- `docs/data-analysis/case-law/handoff.md` (this file, replacing batch-007's)
-- `docs/data-analysis/case-law/payloads/batch-008-f2-deletion-payload.json` (new)
-- `docs/data-analysis/case-law/payloads/batch-008-precision-measurement.json` (new)
-- `docs/data-analysis/case-law/payloads/collision-close-reads-batch008.json` (new)
-- `docs/data-analysis/case-law/payloads/collision-groups-008.json` (new)
-- `docs/data-analysis/case-law/payloads/collision-report-v2-008.json` (new)
-- `docs/data-analysis/case-law/batch-008-audit.md` (new, Opus adversarial audit)
-- `docs/data-analysis/case-law/batch-008-reflection.md` (new, Opus reflection)
-- `scripts/case-loops/law/collision-check-008.ts` (new)
-- `scripts/case-loops/law/collision-groups-008.ts` (new)
-- `scripts/case-loops/law/fix-proposal-trigger-008.ts` (new)
-- `scripts/case-loops/law/measure-precision-008.ts` (new)
-- `scripts/case-loops/law/validate-amends-regen-008.ts` (new)
+1. **A real hedge near-miss, in my own draft, tisk 11.** The English says the sponsors
+   *"requested (and per the history, achieved) first-reading passage under §90 odst. 2"*. My first
+   Czech draft read „…i dosáhli **podání**", which quietly changed *what* was achieved. Fixed to
+   „…i dosáhli", preserving the English claim exactly.
+   **Flagged for the human reviewer, NOT silently resolved:** that English sentence contradicts the
+   verdict's own `researchedContext`, which says the first reading *rejected* the expedited request.
+   The contradiction is in the source verdict, and a translation is the wrong place to fix it.
+2. **Two false alarms in the checker itself, fixed before trusting it.** (a) The numeral normaliser
+   treated `", "` as a thousands separator, so `282, 16` glued into `28216` and the checker invented
+   mismatches that were in neither text (surfaced on tisk 115 and tisk 24). (b) The statute check
+   scanned prose only, so a `kind:"law"` citation whose `source` is a bare `141/1961` looked "added"
+   when the Czech claim spelled it out formally as „zákon č. 141/1961 Sb.". Both fixed; without the
+   fixes the run reported 46 findings, 43 of them phantom — a checker trusted unverified would have
+   sent me editing correct translations.
 
-**Already present in git history via the §0 anomaly, but SINCE FURTHER MODIFIED after both audits landed** (not this driver's commit — the pre-audit content matched what's in history at the time of the §0 sweep; both files were edited again afterward in response to the adversarial audit's findings #2/#3 and are now AHEAD of what git history holds — re-diff before assuming history is current): `scripts/case-loops/law/amends-census.ts` (F1 fix, PLUS the NFC-normalization latent-risk fix added after the audit), `scripts/case-loops/law/amends-regen-008.ts` (F2 fix, PLUS the new `LIVE_GRAPH_CAVEAT_READ_THIS_BEFORE_APPLYING` field and a stale `.pglite-copy-law-007` path-string fix in `boundary`), `docs/data-analysis/case-law/payloads/batch-008-amends-census.json` (re-generated after the NFC fix — content identical except `generatedAt`, independently diff-verified), `batch-008-amended-laws-full-proposal.json`, `batch-008-amended-laws-full-proposal-v2.json`, `batch-008-amends-regen.json` (re-generated — now carries the live-graph caveat), `batch-008-amends-regen-impact.md`.
+---
 
-Suggested message (Conventional), for whatever the orchestrator folds together:
-```
-fix(case-law): batch-008 closes both round-2-audit disclosures — tisk 215's lost amendment (F1)
-and 5 false title-derived edges (F2), re-triages churn, reopens the collision universe
+## 2. The language gate — `lib/analysis/language-gate.ts` (new module, not an extension)
 
-Law loop batch-008 — F1: amends-census.ts's Čl.-block forward heading-window scan now clips at
-an intervening ČÁST boundary, recovering tisk 215's real amendment to 280/2009 (verified to
-change exactly 1 of 140 bills). F2: a corpus-validated per-citation title-role gate
-(amends-regen-008.ts) removes the 5 false title-derived edges the round-2 audit named
-(153/88/124/36/42) without touching the 2 genuine title-only rescues (107/243); a standalone
-deletion payload re-verifies each false edge from cached text independently, ready for live
-apply. Full regen: 577 edges, validator/precision/deletion-diff all clean. Re-triage: churn
-re-ranking done (40/2009 #1); full triageScoreV2/sector-adjacency recompute explicitly deferred
-(needs §-level rework, disclosed not silent). Collision universe reopened as predicted (629 raw
-/ 176 partitioned pairs); 12 close-read (3 confirmed / 5 coordination-risk / 4 incidental, corrected from an initial 4/5/3
-after an independent Opus reflection caught a misclassified pair — see handoff §6a), including an
-emergent N-way cluster and one genuine near-verbatim duplicate-insertion pair. 117 remain.
-Two independent Opus passes (adversarial audit + reflection) — see handoff.md §6.
+**Choice: a sibling module, not an extension of `public-copy.ts`.** Two reasons. (a) Different
+concern, different remedy: `public-copy.ts` catches *pipeline jargon inside true sentences*; this
+catches *the wrong language*. (b) `public-copy.ts` is shared code owned by the effort case
+(`scripts/case-loops/effort/gate.ts` imports it) — under the fleet rule it is not this driver's to
+edit. `public-copy.ts` is **untouched**. The two compose cleanly at any call site.
 
-Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
-```
+**Design.** A deterministic stopword-frequency classifier over two closed word lists, plus an English
+morphology test (`-tion`, `-ing`, `-ed`, `-ly`, `-ness`, `-ship`, with a 5-character floor and a
+diacritics veto; `-ment`/`-ance`/`-ence` are deliberately excluded because Czech has *dokument*,
+*argument*, *reference*). Ambiguous tokens shared by both languages (`a`, `to`, `on`, `by`, `do`,
+`i`, `no`, `so`) score for **neither** side. That matters here: the English originals are dense with
+`č. 586/1992 Sb.`, `Kč` and `důvodová zpráva`, so a diacritics test or a naive bag-of-words calls them
+Czech. No model call, no network, no state — the same input always scores the same.
 
-## 11. Lessons learned
+- **Persist time — FAILS.** `validateLawVerdict()` now takes `requireCzech` (**default true**) and
+  pushes one error per English reader-facing field, so the law-verdict contract rejects an English
+  verdict outright; `scripts/case-loops/law/gate-verdicts.ts` runs that same contract before the
+  orchestrator writes anything live. `assertCzech()` is the throwing form for write paths. Archived
+  pre-rewrite verdicts can still be re-validated with `requireCzech: false`.
+- **Render time — WITHHOLDS.** `features/lawwatch/getLawData.ts` runs `czechCopyOrNull()` over every
+  forensic string and every derived summary. A failing string becomes `null` and simply does not ship;
+  `LawForensicView.withheldFields` counts them and the UI discloses the count. Withholding is
+  non-destructive — the text stays in the graph for the rewrite pass. Loader failures route through
+  `reportLoaderFailure()` (`custom/no-silent-null-catch` respected).
 
-1. **A regex construction bug and a source-encoding bug can look identical from the outside but need different fixes.** batch-007 found `\w` is ASCII-only even with `/u`; batch-008 found a DIFFERENT failure mode — the same source text can carry the SAME letter in two different Unicode normalization forms within one document. Both silently produce a "looks-compiled-correctly, matches-nothing-or-wrong-thing" regex. NFC-normalize at the file-read boundary, always, for this corpus.
-2. **A per-citation syntactic-role gate needs document-order awareness, not just local context** — the same Czech legislative phrase legitimately introduces a bill's REAL target (first occurrence) and describes an EARLIER-cited law's own name (later occurrence); a context-only regex cannot tell these apart without also checking citation order.
-3. **Verify IDs against the live system before writing them into a deletion payload** — this batch's first pass at the F2 deletion payload guessed bill node IDs from a numeric pattern (tisk cislo → `bill:tisk:432XX`) and got all 5 wrong; caught by an explicit live-graph lookup before finalizing. A deletion payload's evidence is only as trustworthy as its weakest unverified assumption, and node-ID pattern-guessing is exactly the kind of thing that looks obviously right until checked.
-4. **An unexplained already-committed file is worth investigating immediately, not shrugging off** — finding this driver's own uncommitted work already in git history (§0) was surprising enough to warrant its own audit item rather than being noted and left; a fleet environment where commits happen outside any case driver's control needs that surfaced, not absorbed silently.
+**Result on the real 27** (`lib/analysis/language-gate.test.ts`, 12 tests, run against the actual
+payload files, not fixtures):
 
-`docs/data-analysis/case-law/handoff.md`
+| | reader-facing fields | flagged as English |
+|---|---|---|
+| BEFORE (English originals) | 437 | **436 (99.8 %)** |
+| AFTER (Czech rewrites) | 437 | **0** |
+
+The single English survivor is documented, not hidden: tisk 173's citation *"Sněmovní tisk 173/0
+index page listing documents (Návrh zákona včetně důvodové zprávy, Platné znění s vyznačením změn,
+…)"* — a bilingual label whose Czech document titles genuinely outnumber its English frame (4 EN
+markers vs 8 CS in 24 tokens). It was rewritten to Czech anyway, so it never reaches a reader; it is
+recorded here as the gate's known limit on mixed-language strings.
+
+---
+
+## 3. Bill summaries — 140 of 141 („co to mění")
+
+Builder: `scripts/case-loops/law/build-bill-summaries.ts` → `payloads/bill-summaries-cz.json`.
+**Deterministic, derived from the print's own cached text** (`.data/law-collision-cache/tisk-<cislo>/*.txt`,
+the `pdftotext` render of the PDF on psp.cz). No model, no inference from the graph's derived fields.
+Four real structures in that text carry "what changes":
+
+| method | prints | example |
+|---|---|---|
+| `title_preamble` — the „kterým se mění …" clause | 65 | tisk 11 → „Mění zákon č. 589/1992 Sb., o pojistném na sociální zabezpečení a příspěvku na státní politiku zaměstnanosti." |
+| `cast_captions` — the drafter's own `Změna …` heading per ČÁST | 60 | tisk 24 → „Mění 9 předpisů — změna obecního zřízení, zákona o obecní policii, zákona o odpovědnosti za škodu způsobenou při výkonu veřejné moci … a 6 dalších předpisů." |
+| `new_act` — the `ZÁKON ze dne …, o <subject>` head | 13 | tisk 6 → „Nový zákon o Úřadu pro prevenci korupce a střetu zájmů." |
+| `repeal` — the „kterým se zrušuje …" clause | 2 | tisk 116 → „Ruší zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou účastí státu (nominační zákon)." |
+
+**Coverage: 140/141. The one gap is tisk 87**, whose cache directory holds only `index.html` — the
+print's PDF was never fetched, so there is no text to derive from. It renders the honest placeholder
+(„Shrnutí zatím není — text tohoto tisku nemáme v archivu ve strojově čitelné podobě…"), never a
+guess. Fetching tisk 87's PDF into the cache would close it; that is an ingest task, not a
+presentation one, and is left for the orchestrator.
+
+Three parser defects were found and fixed while building this, each verified against raw text:
+
+- **the annex trap** — a print caches two texts, and the „Platné znění … s vyznačením navrhovaných
+  změn" annex is usually the *larger* one but carries no preamble and no ČÁST structure. Picking by
+  size silently lost 12 prints (tisk 40, 120 and 10 others). The body is now selected by the enacting
+  formula „Parlament se usnesl na tomto zákoně".
+- **wrapped captions** — a ČÁST caption often has a *blank line inside it* in the pdftotext render
+  (measured on tisk 28's ČÁST DRUHÁ), which truncated captions mid-phrase.
+- **`ÚČINNOST` counted as a change** — only `Změna …` captions are kept now; listing „účinnost" among
+  the things a bill changes would have been a false statement.
+
+Every derived summary passes the Czech language gate before it is written (the builder throws
+otherwise), and again at render time.
+
+---
+
+## 4. The forensic block, restructured (`features/lawwatch/components/BillDetail.tsx`)
+
+Reading order is now the order a reader actually thinks in:
+
+1. **Status strip, full width, solid cobalt, first thing in the block:** „odvozený návrh · čeká na
+   revizi člověkem · **není to verdikt o pochybení**". Unmissable by construction — a filled bar, not
+   a footnote.
+2. **Compact header:** závažnost · jistota N/5 · stav `pending_review` · „kontrola proti fabrikaci ·
+   průchod grafu N".
+3. **„co to mění"** — the derived one-liner, or the honest placeholder.
+4. **„co analýza zjistila"** — deklarovaný důvod, posouzení střetu zájmů, and (behind one disclosure
+   toggle) nezávislý kontext + nedeklarované dopady, each with its linked source.
+5. **„co analýza NETVRDÍ"** — a real, data-driven list, not boilerplate: that no wrongdoing is
+   asserted and the finding is stored as `pending_review`; that severity and confidence are the
+   analysis's own rating, not a court's or a regulator's; that a sponsor money tie is an indicium, not
+   proof; **when there are no unstated effects, that the absence is itself the finding**; and **when
+   the language gate withheld N strings, that the block is therefore incomplete** (with N declined
+   correctly: 1 „část textu" / 2–4 „části textu" / 5+ „částí textu").
+6. **References** — a numbered `<ol>`: `[1] claim · kind · registry · label ↗`. Every citation now
+   resolves through `citationRef()` in `lawwatchLabels.ts`: psp.cz links keep the print number
+   („psp.cz · sněmovní tisk 58"), `kind:"law"` links to **e-Sbírka**
+   (`e-sbirka.gov.cz/sb/RRRR/N`, the same URL shape `lib/kg/sourceLinks.ts` uses), and a `graph_fact`
+   urn renders as a readable identifier („firma IČO 26185610") with **no link**, because no public
+   page exists for it and guessing one would be worse than silence. **No raw serialized object
+   anywhere.**
+
+Also on the dossier: the „co to mění" line is now the lead, directly under the print number and above
+the 200-character legal title; in the list (`BillBrowser`) the summary is the bold first line, the
+official title drops to secondary, and free-text search now matches summaries too — which is what
+makes 141 rows navigable.
+
+Konstrukt discipline: tokens only (`signal`/`cobalt`/`ochre`/`steel`/`hairline`), mono meta at 11 px
+bold, `border-t` / `border-l-4` section rules, `SourceNote` on every derived claim, body copy ≥ 13 px.
+
+---
+
+## 5. Proofread pass over `/zakony`
+
+| where | was | now |
+|---|---|---|
+| `LawWatchPage` | „hrany amends + assigned_to" | „vazby tisk → zákon a přikázání výborům" |
+| `LawWatchPage` | „Case ③, 4 dávky close-readu." | „Vychází ze čtyř dávek ručního porovnání textů obou tisků." |
+| `LawWatchPage` | **„u 2 tiskuů"** (declension bug — `"tisku" + "ů"`) | „u 1 tisku" / „u 2 tisků" |
+| `LawWatchPage` | „Otevřete konkrétní tisk pro jeho vlastní census" (calque) | „Vlastní census má každý tisk ve svém detailu, pokud pro něj existuje." |
+| `LawWatchPage` | raw counts in the section aside | `f.int()` (Czech thousands separators, DESIGN §2) |
+| `LawWatchPage` | „(pass 20)", „(hist_vybory)" | „(průchod grafu 20)", dataset name dropped |
+| `BillDetail` | „(Case ①)", „psp.cz hist_vybory ⋈ hist (F15)" | plain Czech |
+| `BillDetail` | „N zákonů" for every N | 1 „zákon" / 2–4 „zákony" / 5+ „zákonů" |
+| `BillDetail` | „gate „law-verdict" · pass N" | „kontrola proti fabrikaci · průchod grafu N" |
+| `BillBrowser` | „graf pass N" | „průchod grafu N" |
+| `CollisionsPage` | „close-read", „partitioned pre-check (v2) + LLM close-read", „ověřeny grepem", „post-regen", a raw repo path shown to readers | Czech equivalents; the repo path removed |
+
+---
+
+## 6. `npm run check`
+
+**PASS.** typecheck clean · lint 0 errors (1 pre-existing `react-hooks/exhaustive-deps` **warning** in
+`features/graph/components/NodeSearch.tsx`, outside this boundary and untouched) · **421 tests in 40
+files, all passing**.
+
+One lint error was introduced and fixed during the run (`prefer-const` in the summary builder).
+`lib/analysis/law-verdict.test.ts` needed its fixture rewritten to Czech — the contract now rejects
+English by default, which is the point; three new tests cover it (English rejected; English inside an
+effect or a citation claim rejected; `requireCzech: false` escape hatch).
+
+---
+
+## 7. Files added / changed
+
+**Added**
+- `lib/analysis/language-gate.ts`, `lib/analysis/language-gate.test.ts`
+- `scripts/case-loops/law/build-bill-summaries.ts`
+- `scripts/case-loops/law/build-cz-verdict-patch.ts`
+- `docs/data-analysis/case-law/payloads/verdicts-cz/verdict-<cislo>.cz.json` × 27
+- `docs/data-analysis/case-law/payloads/batch-009-cz-verdict-patch.json` ← **apply this**
+- `docs/data-analysis/case-law/payloads/bill-summaries-cz.json`
+- `docs/data-analysis/case-law/payloads/bill-index.json` (cislo → bill urn, so no later step opens the DB)
+- `docs/data-analysis/case-law/handoff-batch-008.md` (batch 008's handoff, preserved)
+
+**Changed**
+- `lib/analysis/law-verdict.ts` (+`requireCzech`, default true), `lib/analysis/law-verdict.test.ts`
+- `features/lawwatch/getLawData.ts` (render-time withholding, `summary`/`summarySource`,
+  `summaryCount`, `forensicWithheldCount`)
+- `features/lawwatch/lawwatchLabels.ts` (`esbirkaUrl`, `CITATION_KIND_CZ`, `citationRef`)
+- `features/lawwatch/components/BillDetail.tsx` (summary lead, restructured block, `CitationList`)
+- `features/lawwatch/components/BillBrowser.tsx` (summary-first rows, search over summaries)
+- `features/lawwatch/LawWatchPage.tsx`, `features/lawwatch/CollisionsPage.tsx` (proofread)
+
+**Deliberately untouched:** `lib/analysis/public-copy.ts`, `lib/analysis/kg-verdict.ts`,
+`messages/*.json`, `app/zakony/**`, every other case.
+
+---
+
+## 8. For the orchestrator
+
+1. Apply `payloads/batch-009-cz-verdict-patch.json` with the props-merge writer. Re-verify first with
+   `npx tsx scripts/case-loops/law/build-cz-verdict-patch.ts` — it refuses to emit on any finding.
+2. **Human-review item, not a translation bug:** tisk 11's English `statedReasoning` says the sponsors
+   *achieved* first-reading passage while its own `researchedContext` says the first reading
+   *rejected* that request. The Czech preserves the English exactly. Somebody should decide which is
+   right before this verdict is ever promoted past `pending_review`.
+3. Ingest gap: tisk 87 has no cached PDF text, so it is the only print without a „co to mění" line.
+4. Shared-vault addition this driver did **not** make (fleet rule) — proposed text for
+   `docs/case-loops.md` §6, presentation gate: *„Czech is enforced deterministically at both ends —
+   `lib/analysis/language-gate.ts`, rejected by `validateLawVerdict` at persist time and withheld by
+   `getLawData` at render time. A bill's one-line summary is derived from its own cached text, never
+   written by a model; a print with no cached text says «shrnutí zatím není» and shows nothing."*

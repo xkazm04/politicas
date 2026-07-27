@@ -1,0 +1,75 @@
+{
+  "billTisk": 40,
+  "statedReasoning": "Důvodová zpráva uvádí, že až do roku 2023 bylo možné darovat tiché víno jako daňově uznatelný reklamní či propagační předmět podle § 25 odst. 1 písm. t) zákona č. 586/1992 Sb. (zákon o daních z příjmů), pokud jeho pořizovací cena nepřesáhla 500 Kč bez DPH — výjimku zavedl Parlament v roce 2005, aby postavil víno na roveň ostatním propagačním předmětům, protože víno je podle práva EU formálně komoditou podléhající spotřební dani, přestože jeho česká sazba činí 0 Kč/hl. Zpráva argumentuje, že tato částka nebyla nikdy upravena o inflaci (500 Kč v roce 2005 mělo podstatně vyšší reálnou hodnotu než v roce 2025) a — což je závažnější — že fiskální „konsolidační balíček\" z roku 2023 výjimku pro víno s účinností od 1. ledna 2024 zcela zrušil, zatímco všechny ostatní kategorie propagačních darů do 500 Kč (včetně zahraničních výrobků, například golfových míčků) zůstávají plně daňově uznatelné. Důvodová zpráva to označuje za diskriminační a ekonomicky škodlivé zejména pro moravská a česká vinařství, z nichž některá prodala 40 % a více produkce právě k tomuto propagačnímu využití, přičemž šlo především o dražší přívlastková vína určená pro gastronomii, která se stále vzpamatovávala z pandemie covidu-19. Návrh (čl. I) vínu daňovou uznatelnost vrací a nad rámec stavu před rokem 2023 nově zahrnuje jako uznatelný propagační dar i pivo (zejména speciály z malých pivovarů), čímž sjednocuje úpravu daně z příjmů s obdobným ustanovením už obsaženým v zákoně o DPH (§ 13 odst. 7 písm. c) zákona č. 235/2004 Sb.). Důvodová zpráva výslovně uvádí, že návrh nemá žádný dopad na státní rozpočet ani na rozpočty krajů a obcí, nezakládá novou veřejnou podporu, nemá genderový, sociální, environmentální, bezpečnostní ani soukromí se dotýkající rozměr a nenese korupční rizika, a navrhuje účinnost od 1. ledna 2027 tak, aby odpovídala počátku zdaňovacího období s ohledem na očekávanou délku legislativního procesu.",
+  "researchedContext": "Primární zdroj: úplný text návrhu i důvodová zpráva byly staženy a přečteny přímo (psp.cz orig2.sqw?idd=265587, šestistránkové PDF, elektronicky podepsané Mgr. Janem Grolichem, hejtmanem Jihomoravského kraje, 20. listopadu 2025). Potvrzuje se tím, že rozsah jednoho zákona zaznamenaný v grafu (586/1992) je správný a úplný — návrh novelizuje pouze § 25 odst. 1 písm. t) zákona o daních z příjmů a nepřidává žádné přílepkové články. Ústřední skutkové východisko důvodové zprávy bylo nezávisle ověřeno (nikoli přijato jen na slovo kraje): několik českých daňově poradenských a mediálních zdrojů (Deník.cz, e15.cz, danebeznervu.cz, podnikatel.cz) potvrzuje, že konsolidační balíček z roku 2023 s účinností od 1. ledna 2024 skutečně zrušil výjimku pro tiché víno z pravidla o daňově neuznatelných nákladech na reprezentaci, což přesně odpovídá popisu ve zprávě. Samostatně a věcně významné: článek serveru podnikatel.cz z 17. července 2026 — týden před touto rešerší — uvádí, že poslanecký klub SPD prosazoval totožnou úpravu daňové uznatelnosti vína pozměňovacím návrhem k nesouvisejícímu zákonu o evidenci tržeb a že tato úprava vína údajně již uspěla, zatímco souběžný pokus SPD rozšířit stejnou uznatelnost i na pivo a lihoviny (s odůvodněním, že pivo je součástí české národní identity) neprošel. Pokud je toto zpravodajství přesné, znamená to, že hlavního politického cíle tisku 40 (návratu daňové uznatelnosti vína) už mohlo být věcně dosaženo rychlejší, nesouvisející celostátní cestou, zatímco pivní ustanovení tisku 40 — které cestou SPD jednou už neuspělo — zůstává jedinou částí dosud nezajištěnou jinde. Procesně podle stránky průběhu projednávání na psp.cz: návrh podalo Zastupitelstvo Jihomoravského kraje 24. listopadu 2025 (procesně zastoupené hejtmanem Janem Grolichem a J. Zámečníkem), rozeslán byl jako tisk 40/0 dne 25. listopadu 2025, vládě k vyjádření předán 28. listopadu 2025; vláda vrátila 23. prosince 2025 neutrální stanovisko („bez stanoviska / neutrální\", tisk 40/1, vedeno v eKLEP pod OVA 1067/25); předsedkyně Sněmovny doporučila 5. ledna 2026 pokračovat v projednávání a přikázala jako garanční rozpočtový výbor se zpravodajkou Ing. Jitkou Volfovou. Ke dni rešerše (24. července 2026) zůstává návrh v této výborové fázi bez prvého čtení — což odpovídá poznatku, že návrhy z krajské iniciativy (cesta podle čl. 41 Ústavy) postupují zpravidla pomalu a jen zřídka se dostanou k hlasování v plénu.",
+  "unstatedEffects": [
+    {
+      "effect": "Ačkoli je návrh procesně rámován jako technická „náprava diskriminace\" mezi zbožím, věcně funguje jako úzký, oborově zaměřený daňový výdaj ve prospěch jihomoravského vinařství (důvodová zpráva uvádí, že některá vinařství prodala 40 % a více produkce právě k tomuto propagačnímu využití) a — pokud pivní ustanovení obstojí — také ve prospěch tuzemských řemeslných pivovarů, tedy odvětví soustředěných v hospodářské základně předkládajícího kraje nebo s ní spojených.",
+      "whoBenefits": "Moravští a čeští producenti vína a druhotně malé a řemeslné pivovary v celé zemi.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265587"
+    },
+    {
+      "effect": "Tvrzení důvodové zprávy o nulovém dopadu na státní, krajské i obecní rozpočty (§ 8 obecné části) je uvedeno bez jakéhokoli modelu či vyčíslení. Rozšíření okruhu zboží, které se kvalifikuje jako daňově uznatelný marketingový výdaj, mechanicky zužuje základ daně u zapojených podnikatelů; zpráva se nepokouší výsledný dopad na příjmy, byť sebemenší, odhadnout, než jej prohlásí za nulový.",
+      "whoBenefits": "Podnikatelé, kteří darují víno či pivo jako propagační předmět, a nepřímo producenti vína a piva díky vyšší poptávce po zboží způsobilém k darování; státní rozpočet nese nevyčíslený okrajový výpadek příjmů, který se zpráva nepokouší vyčíslit.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265587"
+    },
+    {
+      "effect": "Podle soudobého zpravodajství bylo věcného cíle, o který tento návrh usiluje — daňové uznatelnosti vína — týden před touto rešerší údajně již dosaženo samostatnou a rychleji postupující legislativní cestou (pozměňovacím návrhem SPD k nesouvisejícímu zákonu o evidenci tržeb), zatímco pokus téže cesty přidat pivo neuspěl. Pokud toto zpravodajství obstojí, funguje další postup tisku 40 pomalejší cestou krajské iniciativy nyní hlavně jako přeživší cesta pro pivní výjimku, zatímco jeho vinnému ustanovení hrozí, že bude bezpředmětné či duplicitní, místo aby šlo o návrh, který úpravu skutečně přinese.",
+      "whoBenefits": "Konkrétně producenti piva a řemeslné pivovarnictví, kteří jsou při dosažení stejného daňového režimu jako víno nyní odkázáni na tisk 40, nikoli na již vyčerpanou cestu SPD.",
+      "evidence": "https://www.podnikatel.cz/clanky/tiche-vino-do-500-kc-bude-opet-jako-dar-danove-uznatelne/"
+    }
+  ],
+  "conflictAssessment": "Rámec osobního střetu zájmů se zde neuplatní. Předkladatelem je Zastupitelstvo Jihomoravského kraje, které využívá své zákonodárné iniciativy podle čl. 41 Ústavy jako samosprávný kraj a je procesně zastoupeno hejtmanem Janem Grolichem a J. Zámečníkem — nikoli jednotlivý poslanec jednající z osobního finančního zájmu. Záznam grafu k tomuto tisku z dávky 001 neuvádí žádného poslaneckého předkladatele ani žádnou evidovanou peněžní vazbu (sponsorContractCzk: 0, sponsors: []), takže v tomto zadání není k dispozici žádné urn typu company:ico: ani psp:person:, vůči kterému by šlo osobní obohacení testovat, a žádné by se vyrábět nemělo. Nejbližší obdobou „střetu\" je zde zájem institucionální, nikoli osobní: krajská samospráva využívá své celostátní zákonodárné iniciativy ve prospěch hospodářského odvětví (vinařství) geograficky soustředěného na jejím vlastním území. Tento zájem je přiznán přímo v návrhu (důvodová zpráva Moravu a víno jmenuje jako zamýšleného adresáta prospěchu), nikoli skrýván, a nevede k žádnému zjistitelnému osobnímu finančnímu prospěchu kteréhokoli funkcionáře. V souladu s doktrínou nestranné symetrie této dávky je poctivým zjištěním absence střetu; označit tento případ za skandál by znamenalo vyrobit jej tam, kde záznam ukazuje transparentní, strukturální motiv regionální hospodářské politiky.",
+  "citations": [
+    {
+      "claim": "Čl. I návrhu novelizuje § 25 odst. 1 písm. t) zákona č. 586/1992 Sb. tak, aby darování tichého vína a nově i piva jako reklamního či propagačního předmětu v hodnotě do 500 Kč bez DPH (nebo bezplatných obchodních vzorků) nebylo nadále považováno za daňově neuznatelný náklad na reprezentaci.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265587"
+    },
+    {
+      "claim": "Čl. II návrhu stanoví navrhovanou účinnost k 1. lednu 2027, zvolenou tak, aby odpovídala počátku zdaňovacího období s ohledem na očekávanou délku legislativního procesu.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265587"
+    },
+    {
+      "claim": "Důvodová zpráva uvádí, že některá moravská vinařství prodala 40 % a více produkce k propagačním darům, přičemž šlo především o dražší přívlastková vína dodávaná do gastronomie stále zasažené postcovidovými podmínkami, a že příznivý dopad návrhu míří na producenty znovu způsobilého zboží (vína a — přes malé pivovary — piva).",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265587"
+    },
+    {
+      "claim": "Důvodová zpráva (§ 8) uvádí, že návrh nemá dopad na státní rozpočet ani na rozpočty krajů a obcí a nezakládá novou veřejnou podporu ani novou kategorii daňově uznatelných nákladů, pouze odstraňuje z existující kategorie výjimku označenou za diskriminační.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265587"
+    },
+    {
+      "claim": "Návrh je výslovně formulován podle obdobné úpravy propagačních darů už obsažené v § 13 odst. 7 písm. c) zákona č. 235/2004 Sb. (zákon o DPH), kterou důvodová zpráva uvádí jako důvod, proč by se daňový režim téhož zboží u daně z příjmů a u DPH neměl rozcházet.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265587"
+    },
+    {
+      "claim": "Zákon č. 586/1992 Sb. je skutečný český zákon o daních z příjmů a jediný předpis, který tento návrh novelizuje.",
+      "kind": "law",
+      "source": "586/1992"
+    },
+    {
+      "claim": "Zákon č. 235/2004 Sb. je skutečný český zákon o dani z přidané hodnoty, uváděný důvodovou zprávou jako vzorové ustanovení pro jednotný daňový režim propagačních darů.",
+      "kind": "law",
+      "source": "235/2004"
+    },
+    {
+      "claim": "Tisk 40 (10. volební období) podalo Zastupitelstvo Jihomoravského kraje 24. listopadu 2025, rozeslán byl jako tisk 40/0 dne 25. listopadu 2025, vládě předán 28. listopadu 2025; vláda vydala 23. prosince 2025 neutrální stanovisko (tisk 40/1, eKLEP OVA 1067/25); předsedkyně Sněmovny doporučila 5. ledna 2026 pokračovat a přikázala jako garanční rozpočtový výbor se zpravodajkou Ing. Jitkou Volfovou; ke 24. červenci 2026 zůstává návrh ve výborové fázi bez prvého čtení.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=40"
+    },
+    {
+      "claim": "Nezávislé daňově poradenské a mediální zpravodajství (Deník.cz, e15.cz, danebeznervu.cz) potvrzuje, že konsolidační balíček z roku 2023 zrušil s účinností od 1. ledna 2024 výjimku pro tiché víno z pravidla o daňově neuznatelných nákladech na reprezentaci, čímž potvrzuje historický popis v důvodové zprávě.",
+      "kind": "web",
+      "source": "https://www.denik.cz/podnikani/danova-vyjimka-na-ticha-vina-konci-20231116.html"
+    },
+    {
+      "claim": "Článek serveru podnikatel.cz ze 17. července 2026 uvádí, že SPD prosazovala totožnou úpravu daňové uznatelnosti vína pozměňovacím návrhem k nesouvisejícímu zákonu o evidenci tržeb; ustanovení o vínu tam údajně prošlo, zatímco pokus SPD zahrnout za stejných podmínek i pivo a lihoviny neuspěl.",
+      "kind": "web",
+      "source": "https://www.podnikatel.cz/clanky/tiche-vino-do-500-kc-bude-opet-jako-dar-danove-uznatelne/"
+    }
+  ]
+}

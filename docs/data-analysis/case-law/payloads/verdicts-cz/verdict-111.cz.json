@@ -1,0 +1,75 @@
+{
+  "billTisk": 111,
+  "statedReasoning": "Vládní návrh (Ministerstvo spravedlnosti, podepsán ministrem spravedlnosti JUDr. Jeronýmem Tejcem), který novelizuje trestní zákoník (40/2009 Sb.) za účelem transpozice směrnice EU 2024/1712 (novelizující protiobchodnickou směrnici 2011/36/EU z roku 2011) a promítnutí doporučení GRETA (Rada Evropy). Přepisuje § 168 obchodování s lidmi tak, aby zahrnul nové formy vykořisťování (zneužití náhradního mateřství, nucená adopce, nucený sňatek či partnerství, nucená trestná činnost), zavádí novou skutkovou podstatu § 168a (vědomé využití služby poskytnuté obětí obchodování s lidmi) s úzkou výjimkou účinné lítosti v § 168b, rozšiřuje skutkovou podstatu týkající se intimních záznamů (§ 191a / § 192, nově zavedenou zákonem č. 270/2025) i na materiál „intimní\" (nejen pornografický) a na materiál vytěžující oběť obchodování s lidmi, doplňuje důvod beztrestnosti pro oběti obchodování donucené k trestné činnosti (nový § 172 odst. 3 trestního řádu) a přejmenovává § 169 (ze „svěření dítěte do moci jiného\" na „svěření dítěte do péče jiného a jeho přijetí za odměnu\"), čímž kriminalizuje i platící přijímající stranu, nejen toho, kdo dítě předává. Samostatná, nesouvisející část B napravuje mezeru v pojištění a BOZP u obecně prospěšných prací: pravidla odpovědnosti za pracovní úraz, povinné pojištění poskytovatelů s úhradou od státu prostřednictvím Probační a mediační služby, s odstupňovanou účinností od 1. července 2026 do 1. ledna 2028.",
+  "researchedContext": "Byl stažen a přečten úplný text návrhu i důvodová zpráva (56 stran, https://www.psp.cz/sqw/text/orig2.sqw?idd=267623) a stránka průběhu projednávání. Návrh byl rozeslán Sněmovně 16. února 2026 jako tisk 111/0, organizační výbor doporučil 19. února 2026 pokračovat v projednávání (usnesení č. 31), zpravodajem je Mgr. Václav Pláteník, garančním výborem ústavně-právní výbor (ÚPV). Ke 24. červenci 2026 zůstává v rané výborové fázi (1 písemné vystoupení, 7 podaných pozměňovacích návrhů), bez hlasování v plénu. Uváděný právní základ důvodové zprávy (lhůta pro provedení směrnice 2024/1712 do 15. července 2026) i její obsah obstojí jako soudržné a vnitřně konzistentní; každé číslo zákona a každý odkaz CELEX v textu návrhu odpovídá skutečnému, dohledatelnému unijnímu předpisu. Pole novelizovaných zákonů v grafu eviduje pouze 40/2009, avšak samotný text návrhu (nadpisy částí) novelizuje SEDM předpisů: 40/2009 (trestní zákoník), 141/1961 (trestní řád), 269/1994 (rejstřík trestů a evidence přestupků), 82/1998 (odpovědnost za škodu při výkonu veřejné moci), 359/1999 (sociálně-právní ochrana dětí), 218/2003 (soudnictví ve věcech mládeže) a 45/2013 (oběti trestných činů) — a už jeho vlastní název zní „kterým se mění zákon č. 40/2009 Sb. … a další související zákony\", což extrakce podle názvu zjevně nerozvine. Jde o tentýž způsob podhodnocení, jaký dávka 001 zjistila u tisku 4 (1 evidovaný oproti 4 skutečným), nyní ve větším rozsahu (1 oproti 7).",
+  "unstatedEffects": [
+    {
+      "effect": "Hrana z tisku 111 do zákonů v grafu eviduje jediný novelizovaný předpis (40/2009), zatímco text návrhu novelizuje sedm (40/2009, 141/1961, 269/1994, 82/1998, 359/1999, 218/2003, 45/2013). Jakákoli navazující analýza opřená o pole novelizovaných zákonů v grafu (například přiřazování věcné příslušnosti výborů nebo hledání kolizí mezi příbuznými tisky) tiše mine šest ze sedmi skutečně dotčených předpisů.",
+      "whoBenefits": "Nikomu to neprospívá; jde o mezeru v úplnosti dat v extrakční části zpracování, kterou stojí za to opravit (podhodnocení při extrakci z názvu — tatáž třída chyby, jaká byla označena v dávce 001).",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267623"
+    },
+    {
+      "effect": "Tisk 111 a příbuzný tisk 207 (oba vládní návrhy téhož Ministerstva spravedlnosti, oba novelizující 40/2009) nezávisle na sobě mění v témže volebním období totožné ustanovení § 88 odst. 2 písm. c) trestního zákoníku: tisk 111 přečíslovává vnitřní odkazy vyplývající z přestavby § 168 („4, 5\" → „5, 6\"), tisk 207 přečíslovává jiný vnořený odkaz vyplývající z přestavby § 283 („podle § 283 odst. 4\" → „podle § 283 odst. 5\", a zároveň vkládá text o rtuti). Obě úpravy míří ze vzájemně nesouvisejících důvodů na tutéž větu zákona v témže období — jde o konkrétní bod, kde je třeba koordinace legislativní techniky (tatáž třída jevu jako kolize tisků 120 a 244 v § 35ba z dávky 001), zde jsou však obě úpravy ukotveny k odlišným částem textu, nejde tedy o jistou chybu, nýbrž o riziko nekoordinovanosti.",
+      "whoBenefits": "Nikomu; jde o položku ke sledování v kvalitě legislativního procesu a legislativní techniky pro legislativce, nikoli o střet zájmů.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271152"
+    }
+  ],
+  "conflictAssessment": "Jediným předkladatelem uvedeným v grafu je pspId 5513 Jeroným Tejc bez jakýchkoli evidovaných peněžních vazeb. Text návrhu sám potvrzuje, že jde o úřadujícího ministra spravedlnosti, jehož elektronický podpis uzavírá důvodovou zprávu („Ministr spravedlnosti: JUDr. Jeroným Tejc\") — přiřazení předkladatele v grafu tedy správně odráží jeho roli člena vlády, který návrh předložil, nikoli roli nezávislého poslance se soukromým finančním zájmem; nejde zde o vadu dat, jen o provenienci vládního návrhu, která shodou okolností vede přes jedinou jmenovanou osobu. U tohoto tisku nebyly označeny žádné oborově blízké firmy a nejsou k dispozici žádné peněžní vazby předkladatele, které by bylo možné vážit. Podstata návrhu (rozšíření skutkových podstat obchodování s lidmi, pojištění u obecně prospěšných prací) nemá hodnověrný kanál k jakémukoli zájmu na veřejné zakázce nebo v soukromé firmě viditelnému v tomto podkladu. Poctivé zjištění: nízká závažnost.",
+  "citations": [
+    {
+      "claim": "Tisk 111 je vládní návrh novelizující trestní zákoník (40/2009 Sb.) za účelem transpozice směrnice EU 2024/1712 o potírání obchodování s lidmi a doplnění pravidel pojištění a BOZP u obecně prospěšných prací; důvodová zpráva podepsána ministrem spravedlnosti JUDr. Jeronýmem Tejcem, datována 9. února 2026.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267623"
+    },
+    {
+      "claim": "Návrh byl rozeslán Poslanecké sněmovně 16. února 2026 jako tisk 111/0; doporučení organizačního výboru 19. února 2026 (usnesení č. 31); garančním výborem je ÚPV; ke 24. červenci 2026 zůstává v rané výborové fázi bez hlasování v plénu.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=111"
+    },
+    {
+      "claim": "Přehled dokumentů tisku 111 uvádí text návrhu s důvodovou zprávou, znění s vyznačením změn a posouzení slučitelnosti s právem EU, vše rozesláno 16. února 2026.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=111&ct1=0"
+    },
+    {
+      "claim": "Zákon č. 40/2009 Sb. (trestní zákoník) je předpis, který návrh novelizuje především.",
+      "kind": "law",
+      "source": "40/2009"
+    },
+    {
+      "claim": "Část druhá návrhu (čl. II) novelizuje zákon č. 141/1961 Sb., trestní řád — v seznamu novelizovaných zákonů v grafu u tohoto tisku neevidováno.",
+      "kind": "law",
+      "source": "141/1961"
+    },
+    {
+      "claim": "Část třetí návrhu (čl. III) novelizuje zákon č. 269/1994 Sb., o Rejstříku trestů a evidenci přestupků — v grafu neevidováno.",
+      "kind": "law",
+      "source": "269/1994"
+    },
+    {
+      "claim": "Část čtvrtá návrhu (čl. IV) novelizuje zákon č. 82/1998 Sb., o odpovědnosti za škodu způsobenou při výkonu veřejné moci — v grafu neevidováno.",
+      "kind": "law",
+      "source": "82/1998"
+    },
+    {
+      "claim": "Část pátá návrhu (čl. V) novelizuje zákon č. 359/1999 Sb., o sociálně-právní ochraně dětí — v grafu neevidováno.",
+      "kind": "law",
+      "source": "359/1999"
+    },
+    {
+      "claim": "Část šestá návrhu (čl. VI) novelizuje zákon č. 218/2003 Sb., o soudnictví ve věcech mládeže — v grafu neevidováno.",
+      "kind": "law",
+      "source": "218/2003"
+    },
+    {
+      "claim": "Část sedmá návrhu (čl. VII) novelizuje zákon č. 45/2013 Sb., o obětech trestných činů — v grafu neevidováno.",
+      "kind": "law",
+      "source": "45/2013"
+    },
+    {
+      "claim": "Tisk 207, předložený týmž ministerstvem, nezávisle mění totožné ustanovení § 88 odst. 2 písm. c) trestního zákoníku, a to z nesouvisejícího důvodu (přečíslování v souvislosti s § 283 a úprava o rtuti) v témže volebním období.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271152"
+    }
+  ]
+}

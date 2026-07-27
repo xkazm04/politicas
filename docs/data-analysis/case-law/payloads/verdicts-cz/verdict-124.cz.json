@@ -1,0 +1,65 @@
+{
+  "billTisk": 124,
+  "statedReasoning": "Poslanecký návrh (Aleš Juchelka, k němuž se později připojili spolupředkladatelé Jana Pastuchová a Igor Hendrych) novelizující zákon č. 117/1995 Sb. (o státní sociální podpoře) a zákon č. 152/2025 Sb. Důvodová zpráva jej podává jako čistě administrativní úpravu termínů: zákon č. 152/2025 Sb. už uzákonil celoplošnou „digitalizaci\" agendy rodičovského příspěvku (elektronické podání přes portál Jenda, plně digitální spisy, nová pravidla doručování a lhůt) s hromadnou účinností k 1. červenci 2026, jenže kapacita informačních systémů potřebná k jejímu vybudování je zcela vytížena zaváděním zcela nové „superdávky\" (dávky státní sociální pomoci, v provozu od 1. října 2025). Návrh rozkládá náběh digitalizace do odstupňovaných termínů podle jednotlivých dávek od 1. července 2026 do 1. září 2027, trvale vyjímá z digitalizace málo objemné jednorázové dávky (porodné, pohřebné), odstraňuje mezeru v zápočtu mezi novým „rodičovským příspěvkem před porodem\" (novou paušální dávkou 15 000 Kč měsíčně před porodem od 1. ledna 2027) a stávajícím rodičovským příspěvkem v případě předčasného porodu a rozšiřuje stávající pravidlo objektivní odpovědnosti za vrácení přeplatku i na novou dávku „podpora studujícího rodiče\".",
+  "researchedContext": "Byl stažen a přečten úplný text návrhu i důvodová zpráva (https://www.psp.cz/sqw/text/orig2.sqw?idd=268364) a stránka průběhu projednávání. Návrh podal Ing. Aleš Juchelka 6. února 2026 (spolupředkladatelé Pastuchová a Hendrych se připojili později); prvé čtení 22. dubna 2026 (zrychlené projednání zamítnuto, přikázáno výboru na 10 dnů); kladné doporučení výboru pro sociální politiku 29. dubna 2026; druhé čtení 6. května 2026; třetí čtení schváleno 15. května 2026; postoupeno Senátu jako senátní tisk 238; senátní výbor pro sociální politiku a ústavně-právní výbor schválily 20. a 26. května 2026; plénum Senátu schválilo 27. května 2026; prezident podepsal 5. června 2026; vyhlášeno ve Sbírce zákonů jako zákon č. 93/2026 Sb. dne 10. června 2026. Tento návrh tedy JIŽ prošel celým legislativním procesem, což odpovídá vzorci z dávky 001 (tisk 119), že volební období je směsí již přijatých i dosud projednávaných tisků. Pole novelizovaných zákonů v grafu uvádí tři předpisy — 117/1995, 152/2025 a 300/2025 — avšak přijatý text má pouze DVĚ věcné části: část první novelizuje zákon č. 117/1995 Sb., část druhá zákon č. 152/2025 Sb. Předpis 300/2025 se nikde neobjevuje jako předmět novelizace; vyskytuje se pouze uvnitř citační formulace samotného návrhu, která určuje, které znění zákona 152/2025 se novelizuje („zákon č. 152/2025 Sb., kterým se mění některé zákony … ve znění zákona č. 300/2025 Sb.\") — 300/2025 je tedy zákonem, který zákon 152/2025 novelizoval DŘÍVE, v nesouvisejícím předchozím předpise, nikoli předpisem, jehož se tento návrh sám dotýká.",
+  "unstatedEffects": [
+    {
+      "effect": "Pole novelizovaných zákonů v grafu u tisku 124 uvádí 300/2025 jako zákon, který tento návrh novelizuje, avšak operativní text návrhu má jen dvě části (117/1995 a 152/2025); 300/2025 se vyskytuje výhradně uvnitř upřesnění „ve znění zákona č. 300/2025 Sb.\" popisujícího aktuální podobu JINÉHO novelizovaného předpisu (152/2025), nikoli jako samostatný předmět novelizace. Jde o falešně pozitivní nadhodnocení — opačný způsob selhání než podhodnocení u tisku 4 z dávky 001 (a než podhodnocení u tisků 111 a 207 v této dávce), což naznačuje, že extrakce někdy nabírá zákony jmenované jen uvnitř vnořených citačních řetězců „ve znění\", jako by byly novelizovány přímo.",
+      "whoBenefits": "Nikomu; jde o odlišný způsob selhání v kvalitě dat, který stojí za označení vedle vzorce podhodnocení, protože míří opačným směrem (nadbytečná hrana navíc, nikoli chybějící).",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268364"
+    },
+    {
+      "effect": "Skutečným praktickým účinkem návrhu je ponechat papírové, osobní a nedigitální kanály jako výchozí způsob žádosti o rodičovský příspěvek a podporu studujícího rodiče až o rok déle, než původně stanovil zákon č. 152/2025 Sb. (posun plné digitalizace z 1. července 2026 u některých ustanovení až na 1. září 2027). Důvodová zpráva to rámuje výhradně jako problém kapacity informačních systémů ministerstva a Úřadu práce; nezabývá se důsledkem pro samotné žadatele, totiž že rodiče bez spolehlivého připojení k internetu, bez datové schránky nebo bez digitálních dovedností si mimoděk ponechají nedigitální možnosti podání o rok déle, než by jim dala úprava založená na digitálním výchozím režimu.",
+      "whoBenefits": "Žadatelé s nízkou digitální dostupností a gramotností z odkladu mimoděk těží; Úřad práce a MPSV získávají delší prostor pro zavedení informačních systémů.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268364"
+    },
+    {
+      "effect": "Tento návrh prošel celým legislativním procesem (Sněmovna, Senát, podpis prezidenta, vyhlášení jako zákon č. 93/2026 Sb.) do čtyř měsíců od předložení — nápadně rychlé a nekonfliktní přijetí u návrhu, který sama důvodová zpráva označuje za málo sporný technický předpis o harmonogramu informačních systémů; odpovídá to zjištění z dávky 001, že některé tisky tohoto volebního období jsou už platným zákonem, zatímco většina je stále ve výborech. Konzumenti grafu by neměli předpokládat, že označení „tisk\" znamená dosud neschválenou předlohu.",
+      "whoBenefits": "Neuplatní se — jde o skutečnost k legislativnímu procesu a pokrytí grafu, nikoli o signál jednání ve vlastní prospěch.",
+      "evidence": "https://www.psp.cz/sqw/historie.sqw?o=10&t=124"
+    }
+  ],
+  "conflictAssessment": "Hlavní předkladatel Aleš Juchelka a spolupředkladatel Igor Hendrych nemají v tomto podkladu evidovány žádné peněžní vazby. Spolupředkladatelka Jana Pastuchová má vazby s hodnotou zakázek u tří subjektů — Nemocnice Jablonec nad Nisou (35 484 660 Kč), Horská služba ČR (1 641 845 Kč) a Zdravotnická záchranná služba Libereckého kraje (2 974 191 Kč) — jde vesměs o městské a krajské veřejné zdravotnické a záchranné organizace (v tomto podkladu už označené jako městské vyloučené firmy, v souladu se zjištěním dávky 001, že funkce v orgánech a zakázky veřejně vlastněných institucí sytí signál peněžních vazeb předkladatelů, aniž by ukazovaly na jednání ve vlastní prospěch). Ani jeden z těchto tří subjektů nemá hodnověrný kanál k předmětu tohoto návrhu (harmonogram digitalizace dávkové agendy, zápočtová úprava paušální dávky před porodem a formulace odpovědnosti za přeplatky) — jde o nemocnice a záchranné služby, nikoli o dodavatele informačních systémů, organizace žadatelů o dávky či dodavatele v sociální oblasti. Poctivé zjištění: nízká závažnost, střet nezjištěn.",
+  "citations": [
+    {
+      "claim": "Tisk 124 je poslanecký návrh (Aleš Juchelka; spolupředkladatelé Jana Pastuchová a Igor Hendrych) novelizující zákon č. 117/1995 Sb. (o státní sociální podpoře) a zákon č. 152/2025 Sb. tak, aby odložil a rozložil digitalizaci agendy rodičovského příspěvku původně stanovenou k 1. červenci 2026, a aby napravil zápočet u rodičovského příspěvku před porodem.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268364"
+    },
+    {
+      "claim": "Návrh podán 6. února 2026; prvé čtení 22. dubna 2026; třetí čtení schváleno 15. května 2026; Senát schválil 27. května 2026; prezident podepsal 5. června 2026; vyhlášeno jako zákon č. 93/2026 Sb. dne 10. června 2026 — návrh prošel celým legislativním procesem.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=124"
+    },
+    {
+      "claim": "Operativní text návrhu má jen dvě věcné části, novelizující zákony 117/1995 Sb. a 152/2025 Sb.; zákon č. 300/2025 Sb. je zmíněn pouze jako upřesnění „ve znění\" u aktuální podoby zákona 152/2025, nikoli jako předmět novelizace.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268364"
+    },
+    {
+      "claim": "Zákon č. 117/1995 Sb., o státní sociální podpoře, je hlavním předpisem, který tento návrh novelizuje.",
+      "kind": "law",
+      "source": "117/1995"
+    },
+    {
+      "claim": "Zákon č. 152/2025 Sb., kterým se mění některé zákony v souvislosti s přijetím zákona o dávce státní sociální pomoci, je druhým předpisem, který tento návrh novelizuje.",
+      "kind": "law",
+      "source": "152/2025"
+    },
+    {
+      "claim": "Předkladatelka Jana Pastuchová má vazbu s hodnotou zakázek na Nemocnici Jablonec nad Nisou, p.o. (35 484 660 Kč) — jde o městskou a krajskou veřejnou nemocnici bez souvislosti s předmětem návrhu.",
+      "kind": "graph_fact",
+      "source": "company:ico:00829838"
+    },
+    {
+      "claim": "Předkladatelka Jana Pastuchová má vazbu s hodnotou zakázek na Horskou službu ČR, o.p.s. (1 641 845 Kč) — jde o horskou záchrannou službu bez souvislosti s předmětem návrhu.",
+      "kind": "graph_fact",
+      "source": "company:ico:27467759"
+    },
+    {
+      "claim": "Předkladatelka Jana Pastuchová má vazbu s hodnotou zakázek na Zdravotnickou záchrannou službu Libereckého kraje, p.o. (2 974 191 Kč) — jde o krajskou zdravotnickou záchrannou službu bez souvislosti s předmětem návrhu.",
+      "kind": "graph_fact",
+      "source": "company:ico:46744991"
+    }
+  ]
+}

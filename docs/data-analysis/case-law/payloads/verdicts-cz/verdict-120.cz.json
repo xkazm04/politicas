@@ -1,0 +1,65 @@
+{
+  "billTisk": 120,
+  "statedReasoning": "Důvodová zpráva (části A–D) uvádí, že účelem návrhu je odstranit regresivní vadu základní slevy na poplatníka (§ 35ba odst. 1 písm. a) zákona o daních z příjmů, 30 840 Kč ročně): protože sleva není vratná, zaměstnanci s nízkými příjmy, jejichž daňová povinnost je nižší než 30 840 Kč, nemohou celou částku využít, a část slevy jim tak „propadá\". Návrh tuto položku slevy ruší a touž nominální částku znovu zavádí jako nové daňové zvýhodnění podle § 35c odst. 1 písm. a), tedy prostřednictvím institutu, který se už používá u daňového bonusu na dítě, avšak s limitem: jako vratný bonus ji lze uplatnit jen do výše sociálního a zdravotního pojistného, které poplatník (a zaměstnavatel) na jeho příjem podle § 6 (ze závislé činnosti) skutečně odvedli — tento limit je výslovně nastaven tak, aby nevznikla plně negativní daň z příjmů ani aby se sleva neproměnila v čistý peněžní transfer. Vratnou podobu základní slevy získají pouze poplatníci s příjmy podle § 6 (ze závislé činnosti); poplatníci s příjmy podle § 7 (samostatná činnost) nikoli. Souběžně se stávající daňový bonus na dítě (§ 35c odst. 4) zpřísňuje týmž limitem odvedeného pojistného, zůstává však dostupný poplatníkům s příjmy podle § 6 i § 7. Účinnost: 1. ledna 2027. Uváděný rozpočtový dopad: −0,5 mld. Kč ročně celkem (−0,6 mld. z nižších záloh u hlavního zaměstnání, +0,1 mld. získaných zpět od podlimitních dohodářů a OSVČ), rozdělený podle standardních podílů rozpočtového určení daní (kraje −50 mil., obce −125 mil., stát −325 mil.), namodelováno v Euromodu nad daty EU-SILC. Uváděný účinek: snižuje průměrnou daňovou sazbu nejnižšího příjmového kvintilu zaměstnanců na plný úvazek z 33,6 % na 32,3 %. Část K důvodové zprávy uvádí nulové korupční riziko. Část M (povinné uvedení lobbistické stopy podle zákona č. 168/2025 Sb.) jmenuje PAQ Research, z.ú. (prostřednictvím Petra Vilíma) jako lobbistu konzultovaného konkrétně k modelování rozpočtového dopadu a průměrných daňových sazeb v části E. Předkladatelé požádali o zrychlené schválení v prvém čtení podle § 90 odst. 2 jednacího řádu a označili návrh za úzkou, široce sdílenou technickou úpravu.",
+  "researchedContext": "Zákon č. 586/1992 Sb. je český zákon o daních z příjmů; § 35ba je základní (nevratná) sleva na poplatníka, § 35c je mechanismus daňového zvýhodnění a bonusu na dítě (již vratný). Text návrhu (čl. I, body 1–11) popis v důvodové zprávě přesně potvrzuje: ruší § 35ba odst. 1 písm. a), přečíslovává zbývající písmena, vkládá nové § 35c odst. 1 písm. a) s touž částkou 30 840 Kč ročně, přepisuje § 35c odst. 4 tak, aby jak nový bonus ze základní slevy, tak stávající bonus na dítě omezil odvedeným sociálním a zdravotním pojistným, a promítá zhruba osm navazujících změn odkazů do § 35d, § 38g, § 38gb, § 38h, § 38k a § 38l. Jde o strukturální a mechanickou reformu způsobu, jakým se jedna existující sleva poskytuje (vratná oproti nevratné), nikoli o novou daňovou úlevu, nové osvobození ani o změnu dotýkající se daně z příjmů právnických osob, konkrétních odvětví či konkrétních firem. Průběh projednávání (psp.cz historie.sqw) ukazuje: podáno 3. března 2026 skupinou 27 poslanců vedenou Sedmihradskou; rozesláno 4. března 2026 jako tisk 120/0; téhož dne postoupeno vládě; vláda vrátila nesouhlasné stanovisko 31. března 2026 (tisk 120/1) — konkrétní důvody nesouhlasu nebyly na stránce průběhu viditelné a nebyly nezávisle dohledány; 2. dubna 2026 přikázáno rozpočtovému výboru jako garančnímu, zpravodajkou Ing. Jana Filipovičová; ke 24. červenci 2026 návrh stále čeká, s jedním evidovaným pozměňovacím návrhem, který zde nebyl posuzován. K tisku 120 se rešerší nepodařilo najít žádné nezávislé mediální pokrytí; téma se objevuje spíše v obecném zpravodajství o daních v roce 2026, nikoli k tomuto tisku jmenovitě.",
+  "unstatedEffects": [
+    {
+      "effect": "Vratná podoba základní slevy je dostupná jen poplatníkům s příjmy podle § 6 (závislá činnost), nikoli poplatníkům s příjmy podle § 7 (samostatná činnost, OSVČ) — OSVČ zůstává stará nevratná základní sleva a vratnost získávají pouze u bonusu na dítě. Důvodová zpráva to podává jednotně jako úpravu pro „poplatníky se závislou činností\", aniž by rozdílný dopad podle kategorie poplatníka uvedla.",
+      "whoBenefits": "Nejvíce získávají běžní zaměstnanci s podprůměrným příjmem (plnější využití slevy); osoby samostatně výdělečně činné se srovnatelně nízkým základem daně tuto vratnost u základní slevy nezískají.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268221"
+    },
+    {
+      "effect": "Limit odvedeného pojistného vytváří drobný kompenzační příjem (+0,1 mld. Kč ročně podle části E důvodové zprávy) vybíraný právě od podlimitních dohodářů a OSVČ, takže úzká skupina pracujících se slabší vazbou na trh práce fakticky hradí část nákladů hlavního přínosu, který míří k nízkopříjmovým zaměstnancům na plný úvazek.",
+      "whoBenefits": "Státní rozpočet získává zpět zhruba 100 mil. Kč ročně od podlimitních dohodářů a osob s vedlejším příjmem, čímž se částečně vyrovnává náklad zhruba 600 mil. Kč ročně u hlavního opatření mířícího na nízkopříjmové zaměstnance na plný úvazek.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268221"
+    }
+  ],
+  "conflictAssessment": "Evidované peněžní vazby předkladatelů: Věra Kovářová → ČEPRO, a.s. (company:ico:60193531, státní společnost pro logistiku pohonných hmot, 235 543 222 Kč); Vít Rakušan → Nadační fond Gymnázia Kutná Hora (company:ico:68404999, školský nadační fond, 200 000 Kč); Lukáš Vlček → SOMPO (company:ico:25172263), PEVAK (company:ico:26039907), Via rustica (company:ico:26982170) — drobné společnosti typu městských technických služeb. Žádný z těchto subjektů není poplatníkem daně z příjmů fyzických osob, správcem daňových slev, zpracovatelem mezd ani jinak provozně dotčen změnou mechanismu, jímž se jedna sleva na dani z příjmů fyzických osob (§ 35ba / § 35c) poskytuje zaměstnancům. ČEPRO je velkoobchodní distributor pohonných hmot bez hodnověrné vazby na vratnost slevy na dani z příjmů fyzických osob; nadační fond kutnohorského gymnázia i drobné městské firmy vázané na Vlčka rovněž s předmětem návrhu nesouvisejí. Vazba Kovářové na ČEPRO (včetně případné funkce v orgánu) se podle zadání uvádí pouze jako kontext — s návrhem, který přestavuje způsob, jakým jednotliví zaměstnanci uplatňují paušální slevu na dani, se neprotíná. Jde o poctivé zjištění nízké závažnosti a nestranné povahy, jaké tento případ vyžaduje: předkladatelé nesou přiznané peněžní vazby, žádná z nich však nenabízí kanál vlastního prospěchu do předmětu právě tohoto návrhu. Jediný přiznaný vztah, který stojí za uvedení kvůli úplnosti, není peněžní vazbou předkladatele, nýbrž lobbistickou stopou uvedenou v samotném návrhu: PAQ Research (prostřednictvím Petra Vilíma) byla konzultována k číslům o rozpočtovém dopadu a daňových sazbách — PAQ Research je nestranná nezávislá nezisková socioekonomická výzkumná organizace a její role je transparentně uvedena podle zákona o transparentnosti lobbingu z roku 2025, nejde tedy o důkaz zatajování.",
+  "citations": [
+    {
+      "claim": "Úplný text návrhu a důvodová zpráva k tisku 120: převádí základní slevu podle § 35ba odst. 1 písm. a) na nové vratné daňové zvýhodnění podle § 35c odst. 1 písm. a) omezené výší odvedeného pojistného, týmž způsobem zpřísňuje i bonus na dítě podle § 35c odst. 4, s účinností od 1. 1. 2027; rozpočtový dopad −0,5 mld. Kč ročně (−0,6 mld. u hlavního zaměstnání, +0,1 mld. od dohodářů a OSVČ), průměrná daňová sazba nejnižšího kvintilu klesá z 33,6 % na 32,3 %; lobbistická stopa uvádí PAQ Research (Petr Vilím) jako konzultovanou k částem o rozpočtovém dopadu a daňových sazbách; nulové korupční riziko (část K); požádáno o souhlas už v prvém čtení podle § 90 odst. 2.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268221"
+    },
+    {
+      "claim": "Přehled tisku 120/0: novela zákona č. 586/1992 Sb., rozeslána 4. března 2026.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=120&ct1=0"
+    },
+    {
+      "claim": "Průběh projednávání: podáno 3. března 2026 skupinou poslanců vedenou Sedmihradskou; nesouhlasné stanovisko vlády vráceno 31. března 2026; 2. dubna 2026 přikázáno rozpočtovému výboru jako garančnímu (zpravodajka Jana Filipovičová); ke 24. červenci 2026 stále nevyřízeno, s jedním evidovaným pozměňovacím návrhem.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=120"
+    },
+    {
+      "claim": "Návrh novelizuje zákon č. 586/1992 Sb., o daních z příjmů.",
+      "kind": "law",
+      "source": "586/1992"
+    },
+    {
+      "claim": "Předkladatelka Věra Kovářová má přiznanou peněžní vazbu na ČEPRO, a.s.",
+      "kind": "graph_fact",
+      "source": "company:ico:60193531"
+    },
+    {
+      "claim": "Předkladatel Vít Rakušan má přiznanou peněžní vazbu na Nadační fond Gymnázia Kutná Hora.",
+      "kind": "graph_fact",
+      "source": "company:ico:68404999"
+    },
+    {
+      "claim": "Předkladatel Lukáš Vlček má přiznanou peněžní vazbu na SOMPO.",
+      "kind": "graph_fact",
+      "source": "company:ico:25172263"
+    },
+    {
+      "claim": "Předkladatel Lukáš Vlček má přiznanou peněžní vazbu na PEVAK.",
+      "kind": "graph_fact",
+      "source": "company:ico:26039907"
+    },
+    {
+      "claim": "Předkladatel Lukáš Vlček má přiznanou peněžní vazbu na Via rustica.",
+      "kind": "graph_fact",
+      "source": "company:ico:26982170"
+    }
+  ]
+}

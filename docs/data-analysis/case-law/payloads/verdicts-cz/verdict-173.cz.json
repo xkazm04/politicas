@@ -1,0 +1,85 @@
+{
+  "billTisk": 173,
+  "statedReasoning": "Podle staženého textu návrhu a důvodové zprávy (PDF, idd=269587) předkladatelé (Babiš, Okamura, Šafránková, Macinka, Šťastný, Malá, Fiala, Vesecká, Hanzlíková) navrhují osm změn trestního zákoníku (40/2009), všechny omezené do dvou okruhů. Okruh 1 — trestání týrání: zvyšuje dolní hranici trestu za týrání osoby žijící ve společném obydlí (§ 199 odst. 1) z šesti měsíců na jeden rok a stejně tak dolní hranici u základní skutkové podstaty týrání zvířat (§ 302 odst. 1) z šesti měsíců na jeden rok; u kvalifikované skutkové podstaty zanedbání péče o zvíře (§ 303 odst. 2) se horní hranice zvyšuje ze dvou na tři roky. Důvodová zpráva argumentuje, že současná dolní hranice šesti měsíců podceňuje společenskou škodlivost obou činů, a odkazuje na srovnávací trestní sazby (Chorvatsko, Portugalsko a Švédsko u § 199; Polsko, Německo, Francie a Slovensko u § 302). Okruh 2 — nová skutková podstata: vkládá § 302 odst. 2, který kriminalizuje usmrcení psa nebo kočky ze „zavrženíhodné pohnutky\" bez zákonného důvodu podle zákona č. 246/1992 Sb. (na ochranu zvířat proti týrání) — zaplňuje tak mezeru, kdy usmrcení nikoli týravým způsobem spadá dnes jen do přestupkového práva. Odstavce 3 a 4 § 302 se odpovídajícím způsobem přečíslovávají a upravují se v nich odkazy. Důvodová zpráva oba okruhy výslovně váže na dva samostatné závazky z programového prohlášení vlády: zpřísnění postihu týrání zvířat a zpřísnění postihu násilí na zranitelných skupinách (senioři, ženy, děti). Zpráva uvádí, že návrh nemá dopad na státní rozpočet nad rámec jednorázových nákladů na statistiku a výkaznictví, nemá dopad na podnikatelské prostředí, nezakládá veřejnou podporu a nenese korupční riziko nad rámec toho, které již plyne z platné úpravy. Předkladatelé požádali o schválení podle § 90 odst. 2 už v prvém čtení s odkazem na potřebu včasné ochrany; účinnost je navržena k 1. lednu 2027.",
+  "researchedContext": "Bylo staženo a přečteno úplné PDF „Návrh zákona včetně důvodové zprávy\" (idd=269587, 9 stran včetně obecné i zvláštní části) prostřednictvím přehledu tisku na psp.cz (odkaz na důvodovou zprávu) — jde o skutečný text návrhu a jeho vlastní odůvodnění, nikoli o druhotné shrnutí. Byla stažena i přehledová stránka tisku (seznam dokumentů, datum rozeslání 22. dubna 2026) a potvrzeno, že pole novelizovaných zákonů v grafu (pouze 40/2009) přesně odpovídá textu návrhu — žádné podhodnocení, na rozdíl od zjištění u tisku 4 v dávce 001. Předmětem je týrání osoby žijící ve společném obydlí a týrání či usmrcení zvířete — spojení přímo dohledatelné ke dvěma odlišným bodům téhož programového prohlášení vlády, nikoli skrytý přílepek pod zavádějícím názvem (název tisku je obecná novela „trestního zákoníku\", nic se tedy nezakrývá). Napříč tisky: tento návrh je jedním ze šesti v nejvytíženějším shluku kolem zákona 40/2009 v této dávce (churn 6: tisky 111, 115, 173, 196, 207, 216). Vůči již gatovanému tisku 115 z dávky 001 (Babišem vedená rekriminalizace neplacení výživného v § 196 a § 55 odst. 2, verdict-115.json) je překryv ustanovení nulový — tisk 115 se dotýká § 196 a § 55 odst. 2, tisk 173 se dotýká § 199, § 302 a § 303. Vůči vlastní skupině příbuzných tisků (216: nový § 175a, § 283 / 283a / 286a; 196: pouze § 9) tisk 173 opět nesdílí žádný dotčený paragraf — mezi tisky 173, 216 a 196 tedy k žádné kolizi legislativní techniky nedochází. Tisky 111 a 207 (přidělené paralelně pracujícímu agentovi) jsem vůči týmž paragrafům ověřit nemohl a označuji to jako otevřenou křížovou kontrolu pro koordinátora dávky.",
+  "unstatedEffects": [
+    {
+      "effect": "Návrh slučuje do jediného tisku dvě politicky odlišné trestněprávní reformy — zvýšení dolních hranic trestu za týrání osoby žijící ve společném obydlí (§ 199) a věcně rozšířený režim ochrany zvířat (nová skutková podstata usmrcení v § 302 odst. 2 spolu se zvýšenými sazbami v § 302 a § 303) — a předkladatelé u něj požádali o zrychlené schválení už v prvém čtení podle § 90 odst. 2. Tím se rozprava v plénu i prostor pro pozměňovací návrhy ke dvěma samostatně významným společenským otázkám stlačují do jediného hlasování pro či proti.",
+      "whoBenefits": "Blok předkladatelů si zajišťuje zrychlené a nerozdělené přijetí obou částí; naopak poslanec, který podporuje jeden okruh, ale chtěl by druhý pozměnit či odmítnout, tuto možnost ztrácí, aniž by zasáhl celý tisk.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269587"
+    },
+    {
+      "effect": "Nová skutková podstata § 302 odst. 2 kriminalizuje usmrcení psa nebo kočky ze „zavrženíhodné pohnutky\", přičemž zvláštní část důvodové zprávy k témuž návrhu (k bodu 3) uvádí, že už samotná ztráta zájmu o chov zvířete — bez využití dostupné legitimní alternativy, jako je darování nebo umístění do útulku — „zpravidla\" znak zavrženíhodné pohnutky sama naplní. Tím se nastavuje poměrně nízká a subjektivně posuzovaná hranice toho, co se stává trestným činem s hrozbou odnětí svobody.",
+      "whoBenefits": "Zvířata v zájmovém chovu získávají podstatně širší ochrannou síť; chovatelé čelí nově trestní odpovědnosti za okruh jednání (neformální rozhodnutí o zbavení se zvířete), který dosud zakládal nanejvýš odpovědnost přestupkovou.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269587"
+    }
+  ],
+  "conflictAssessment": "Žádný střet zájmů nespojuje doložené peněžní vazby předkladatelů s předmětem tohoto návrhu (týrání osoby žijící ve společném obydlí a týrání či usmrcení zvířete). Hlavní předkladatel Andrej Babiš nese velkou expozici vůči veřejným zakázkám prostřednictvím AGROFERT a.s. (company:ico:26185610, 6 274 454 Kč) a Synthesia a.s. (company:ico:60108916, 796 873 826 Kč) — agrochemické a průmyslové holdingy bez vazby na domácí násilí či na ochranu zvířat. Spolupředkladatel Boris Šťastný je vázán na Pražské služby a.s. (company:ico:60194120, 1 470 325 336 Kč, pražské městské služby a svoz odpadu) a na další městské či sportovní subjekty, z nichž se žádný nedotýká veterinární oblasti, ochrany zvířat ani služeb v oblasti domácího násilí. Spolupředkladatel Radim Fiala je vázán na IF FACILITY a.s. (company:ico:27720152, 11 253 147 Kč, facility management) — opět bez souvislosti. Spolupředkladatelka Lucie Šafránková je vázána na Pražskou vysokou školu psychosociálních studií, s.r.o. (company:ico:47122099, 12 885 858 Kč, soukromá vysoká škola) — škola psychosociálních studií by v principu mohla být tematicky blízká výzkumu domácího násilí či službám pro oběti, návrh však neobsahuje žádné ustanovení o financování, akreditaci ani o institucích, které by jakýkoli prospěch směrovalo ke vzdělávacímu či psychosociálnímu poskytovateli; jde čistě o novelu trestních sazeb a skutkových podstat. Toto je poctivé zjištění nízké závažnosti: napříč blokem předkladatelů existují podstatné peněžní vazby, žádná se však neprotíná s konkrétním předmětem tohoto tisku, a směr změny míří k větší, nikoli menší trestní odpovědnosti a k větší ochraně zranitelných osob a zvířat.",
+  "citations": [
+    {
+      "claim": "Zvyšuje dolní hranici trestu odnětí svobody za týrání osoby žijící ve společném obydlí (§ 199 odst. 1) a za základní skutkovou podstatu týrání zvířat (§ 302 odst. 1) z šesti měsíců na jeden rok.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269587"
+    },
+    {
+      "claim": "Vkládá nový § 302 odst. 2, který kriminalizuje usmrcení psa nebo kočky ze zavrženíhodné pohnutky bez zákonného důvodu podle zákona na ochranu zvířat; dosavadní odstavce 2 a 3 přečíslovává na 3 a 4 a upravuje v nich odkazy.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269587"
+    },
+    {
+      "claim": "Zvyšuje trest u kvalifikované skutkové podstaty zanedbání péče o zvíře způsobující újmu více zvířatům (§ 303 odst. 2) ze dvou na tři roky.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269587"
+    },
+    {
+      "claim": "Účinnost k 1. lednu 2027; předkladatelé požádali o zrychlené schválení v prvém čtení podle § 90 odst. 2; důvodová zpráva uvádí, že návrh nemá dopad na státní rozpočet nad rámec jednorázových nákladů na výkaznictví, nemá dopad na podnikatelské prostředí, nezakládá veřejnou podporu a nenese korupční riziko nad rámec stávajícího stavu; tisk nebyl předmětem lobbingu podle zákona č. 168/2025 Sb.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269587"
+    },
+    {
+      "claim": "Důvodová zpráva váže okruh týrání osoby žijící ve společném obydlí i okruh týrání zvířat na dva odlišné závazky z programového prohlášení vlády (ochrana před týráním zvířat a ochrana zranitelných skupin před násilím).",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269587"
+    },
+    {
+      "claim": "Přehledová stránka sněmovního tisku 173/0 se seznamem dokumentů (Návrh zákona včetně důvodové zprávy, Platné znění s vyznačením změn, Celý sněmovní tisk) a datem rozeslání 22. dubna 2026 v 10:15.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=173&ct1=0"
+    },
+    {
+      "claim": "Stránka průběhu projednávání tisku 173, garančním výborem ÚPV, přikázáno 30. června 2026.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=173"
+    },
+    {
+      "claim": "Novelizovaný předpis: zákon č. 40/2009 Sb., trestní zákoník — § 199, § 302, § 303.",
+      "kind": "law",
+      "source": "40/2009"
+    },
+    {
+      "claim": "Předkladatel Andrej Babiš má peněžní vazby na veřejné zakázky prostřednictvím AGROFERT a.s. (6 274 454 Kč) — bez souvislosti s předmětem návrhu, tedy s týráním osob a zvířat.",
+      "kind": "graph_fact",
+      "source": "company:ico:26185610"
+    },
+    {
+      "claim": "Předkladatel Andrej Babiš má peněžní vazby na veřejné zakázky prostřednictvím Synthesia a.s. (796 873 826 Kč) — bez souvislosti s předmětem návrhu.",
+      "kind": "graph_fact",
+      "source": "company:ico:60108916"
+    },
+    {
+      "claim": "Předkladatel Boris Šťastný má peněžní vazby na veřejné zakázky prostřednictvím Pražské služby a.s. (1 470 325 336 Kč, městské služby a svoz odpadu) — bez souvislosti s předmětem návrhu.",
+      "kind": "graph_fact",
+      "source": "company:ico:60194120"
+    },
+    {
+      "claim": "Předkladatel Radim Fiala má peněžní vazby na veřejné zakázky prostřednictvím IF FACILITY a.s. (11 253 147 Kč, facility management) — bez souvislosti s předmětem návrhu.",
+      "kind": "graph_fact",
+      "source": "company:ico:27720152"
+    },
+    {
+      "claim": "Předkladatelka Lucie Šafránková má peněžní vazby prostřednictvím Pražské vysoké školy psychosociálních studií, s.r.o. (12 885 858 Kč, soukromá vysoká škola) — návrh neobsahuje žádné ustanovení o financování ani o institucích, které by se dotýkalo vzdělávacích či psychosociálních poskytovatelů.",
+      "kind": "graph_fact",
+      "source": "company:ico:47122099"
+    }
+  ]
+}

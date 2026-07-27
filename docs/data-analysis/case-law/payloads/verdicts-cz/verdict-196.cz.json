@@ -1,0 +1,70 @@
+{
+  "billTisk": 196,
+  "statedReasoning": "Podle staženého úplného tisku (PDF, idd=270351, 30 stran včetně obecné i zvláštní části důvodové zprávy) předloženého vládou (předseda vlády Andrej Babiš, ministr spravedlnosti Jeroným Tejc, 11. května 2026) jde o technický adaptační návrh k unijnímu právu, který přizpůsobuje české právo nařízení Evropského parlamentu a Rady (EU) 2024/3011 o předávání trestního řízení mezi členskými státy EU (použitelnému od 1. února 2027, závaznému pro všechny členské státy s výjimkou Dánska; Irsko se přihlásilo). Část první novelizuje zákon č. 104/2013 Sb. (ZMJS, o mezinárodní justiční spolupráci ve věcech trestních): vkládá novou hlavu XIII (§ 395n–§ 395r) upravující předání a převzetí řízení podle unijního nařízení; přesouvá několik procesních pravomocí ze „soudu\" a „senátu\" na „předsedu senátu\" (samosoudní rozhodování) v návaznosti na dřívější reformu omezující účast přísedících (zák. 319/2024); doplňuje § 193a provádějící čl. 20 odst. 2 rámcového rozhodnutí o evropském zatýkacím rozkazu (žádosti o zbavení imunity) a nový § 203 odst. 8 / § 205a o výslechu svědka prostřednictvím videokonference, obojí zaplňuje mezery vytčené v řízení Komise o nesplnění povinnosti č. 2020/2312 vedeném proti České republice; ruší dosavadní zákonný desetidenní strop délky „dočasného předání\" podle § 211 a ponechává délku na dvoustranné dohodě podle rámcového rozhodnutí. Část druhá provádí jednu navazující změnu § 122 odst. 1 trestního řádu (141/1961) k obsahu rozsudku v případě, kdy pravomoc plyne výhradně z unijního nařízení. Část třetí novelizuje § 9 trestního zákoníku (40/2009) tak, že jako samostatný základ pravomoci českých soudů doplňuje vedle stávajícího základu v mezinárodní smlouvě i „přímo použitelný předpis Evropské unie\" — což českým soudům umožní projednat věci, které jim byly podle nařízení předány, i tam, kde by se jinak neuplatnil žádný z tradičních územních či personálních základů pravomoci (§ 4–§ 8). Důvodová zpráva uvádí, že korupční riziko není zvýšeno nad stávající úroveň, že návrh nemá dopad na podnikatelské prostředí ani nezakládá veřejnou podporu, a finanční dopad vyčísluje zhruba na 1 172 000 Kč ročně (náklady na překlady a vyrozumívání obětí a obviněných), pokrytý v rámci stávající rozpočtové kapitoly Ministerstva spravedlnosti 336 bez navýšení; formální hodnocení dopadů regulace (RIA) nebylo podle plánu legislativních prací vlády na rok 2026 zpracováno. Účinnost k 1. únoru 2027 odpovídá nabytí použitelnosti unijního nařízení.",
+  "researchedContext": "Bylo staženo a přečteno celé třicetistránkové PDF návrhu (idd=270351) prostřednictvím přehledu tisku na psp.cz — obecná část (včetně úplného statistického základu odhadu nákladů: zhruba 350 odchozích a 320 příchozích řízení ročně, tabulky nápadu za období 2016–2024), zvláštní část (odůvodnění po jednotlivých ustanoveních) i podpisová doložka potvrzující předložení vládou. Byla stažena i přehledová stránka tisku (datum podání 15. května 2026, dokumenty včetně samostatného posouzení souladu s právem EU, které nebylo staženo zvlášť). Pole novelizovaných zákonů v grafu u tohoto tisku — 104/2013, 141/1961, 40/2009 — přesně odpovídá třídílné struktuře návrhu (část první / 104/2013, část druhá / 141/1961, část třetí / 40/2009); žádné podhodnocení kvality dat nebylo zjištěno. Ze tří přidělených tisků je tento podklad nejčistší: jediný předkladatel (Jeroným Tejc, ministr spravedlnosti) bez jakýchkoli evidovaných peněžních vazeb a obsah, který je povinnou adaptací na unijní nařízení s pevným termínem, nikoli politikou z vlastního uvážení. Napříč tisky: v nejvytíženějším shluku kolem zákona 40/2009 v této dávce (churn 6: tisky 111, 115, 173, 196, 207, 216) se tisk 196 dotýká pouze § 9 tr. zák. — ustanovení o základu pravomoci, jehož se nedotýká ani tisk 173 (§ 199 / § 302 / § 303), ani tisk 216 (§ 175a / § 283 / § 283a / § 286a), ani tisk 115 z dávky 001 (§ 196 / § 55 odst. 2). Mezi tisky k zákonu 40/2009, do nichž mám vhled, nebyla nalezena žádná kolize legislativní techniky. Samostatně: tisk 196 je zároveň ve skupině možných kolizí k zákonu 104/2013 s tiskem 46, který mi nebyl přidělen a který jsem nemohl stáhnout ani porovnat — označuji to jako otevřenou křížovou kontrolu pro koordinátora dávky, protože oba tisky novelizují v témže volebním období tentýž zákon o justiční spolupráci.",
+  "unstatedEffects": [
+    {
+      "effect": "Několik ustanovení přesouvá rozhodování ve věcech přeshraničního předávání řízení z celého soudu či senátu na samostatně rozhodujícího předsedu senátu (například § 106 odst. 1 ZMJS, nový § 205a o rozhodování o výslechu svědka). Důvodová zpráva to rámuje výhradně jako pokračování omezení účasti přísedících z roku 2024 a jako důsledek toho, že jde o procesní rozhodnutí, která nejsou meritorní — praktickým účinkem je však mírné omezení kolegiálního dohledu nad rozhodnutími právě v kontextu mezinárodního předávání trestního řízení, tedy v oblasti, kterou táž zpráva jinde popisuje jako vyžadující úvahu o vhodnosti místa řízení (například poměřování, kde je „lépe zajištěna náprava pachatele\").",
+      "whoBenefits": "Justiční správa získává procesní efektivitu a rychlejší vyřizování očekávaných zhruba 350–670 žádostí o předání ročně; obvinění a oběti v řízeních o předání ztrácejí (už tak omezenou) další kontrolu, kterou by v těchto konkrétních procesních uzlech poskytoval vícečlenný senát.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270351"
+    },
+    {
+      "effect": "Nový základ pravomoci v § 9 trestního zákoníku umožňuje českým soudům uplatnit trestní pravomoc nad jednáním, které nemá k České republice žádnou tradiční územní ani personální vazbu, kdykoli je řízení českým orgánům předáno podle unijního nařízení — jde o skutečné, byť unijním právem uložené, rozšíření okolností, za nichž mohou české soudy soudit jednání cizinců spáchané v cizině. Důvodová zpráva to přímo přiznává a rámuje jako důsledek unijního práva a jako užší než dosavadní základ podle Evropské úmluvy z roku 1972, který zčásti nahrazuje, takže jde o skutečnost přiznanou, nikoli zamlčenou; praktický dosah pravomoci je nicméně nový.",
+      "whoBenefits": "Celkově koordinace přeshraničního vymáhání práva v EU; konkrétně členské státy, které chtějí řízení z důvodu hospodárnosti přenést na Českou republiku (například proto, že zde obviněný bydlí), získávají příslušné fórum i bez tradiční české vazby na posuzované jednání.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270351"
+    }
+  ],
+  "conflictAssessment": "Na základě dostupných skutečností není střet zájmů možný: jediným jmenovaným předkladatelem v tomto podkladu je Jeroným Tejc (ministr spravedlnosti), který nemá v grafu evidovanou žádnou peněžní vazbu, a jde o vládní návrh, který předseda vlády spolupodepisuje jako běžnou ústavní náležitost u všech vládních návrhů, nikoli z osobního finančního zájmu. Podstata návrhu — postup při přeshraničním předávání trestního řízení v EU, odstranění mezer vytčených v řízení o nesplnění povinnosti u evropského zatýkacího rozkazu a ustanovení o základu trestní pravomoci — nemá kanál k žádnému soukromému obchodnímu zájmu; upravuje justiční správu mezi státy, nikoli regulované odvětví, zadávání zakázek či licenční režim. Vlastní hodnocení korupčních rizik v důvodové zprávě (bez zvýšení nad stávající úroveň) i hodnocení dopadu na podnikatelské prostředí (žádný) odpovídají skutečně administrativní povaze návrhu a vyčíslený náklad zhruba 1,17 mil. Kč ročně je transparentně odvozen z devítileté statistiky nápadu věcí, nikoli tvrzen bez podkladu. Jde o poctivé a jednoznačné zjištění nízké závažnosti: žádný signál peněžních vazeb předkladatele zde vůbec není k posouzení a obsahem je unijním právem uložená technická transpozice s pevným vnějším termínem (1. února 2027).",
+  "citations": [
+    {
+      "claim": "Vkládá do zákona č. 104/2013 Sb. novou hlavu XIII (§ 395n–§ 395r) provádějící nařízení (EU) 2024/3011 o předávání trestního řízení mezi členskými státy EU.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270351"
+    },
+    {
+      "claim": "Přesouvá několik procesních rozhodnutí v ZMJS (například § 106 odst. 1, nový § 205a) z celého senátu na samostatně rozhodujícího předsedu senátu, v návaznosti na omezení účasti přísedících z roku 2024 (zák. 319/2024).",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270351"
+    },
+    {
+      "claim": "Doplňuje do ZMJS § 193a (žádosti o zbavení imunity) a nový § 203 odst. 8 (výslech prostřednictvím videokonference) a zaplňuje tím mezery v provedení čl. 18 a čl. 20 odst. 2 rámcového rozhodnutí o evropském zatýkacím rozkazu vytčené v řízení o nesplnění povinnosti č. 2020/2312; ruší dosavadní zákonný desetidenní strop délky dočasného předání podle § 211.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270351"
+    },
+    {
+      "claim": "Novelizuje § 122 odst. 1 trestního řádu (141/1961) k obsahu rozsudku v případě, kdy pravomoc plyne výhradně z unijního nařízení, a § 9 trestního zákoníku (40/2009) tak, že jako samostatný základ české trestní pravomoci doplňuje přímo použitelný předpis Evropské unie.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270351"
+    },
+    {
+      "claim": "Důvodová zpráva vyčísluje finanční dopad zhruba na 1 172 000 Kč ročně (náklady na překlady a vyrozumívání) pokrytých v rozpočtové kapitole Ministerstva spravedlnosti 336 bez navýšení; uvádí, že návrh nemá dopad na podnikatelské prostředí, nezakládá veřejnou podporu a nezvyšuje korupční riziko; formální RIA nebyla podle plánu legislativních prací vlády na rok 2026 zpracována; účinnost k 1. únoru 2027 odpovídá unijnímu nařízení.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270351"
+    },
+    {
+      "claim": "Přehledová stránka sněmovního tisku 196/0 se seznamem dokumentů (návrh s důvodovou zprávou, platné znění s vyznačením změn, posouzení souladu s právem EU, další materiály) a datem podání 15. května 2026 ve 13:07.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=196&ct1=0"
+    },
+    {
+      "claim": "Stránka průběhu projednávání tisku 196, garančním výborem ÚPV, navržené přikázání 27. května 2026.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=196"
+    },
+    {
+      "claim": "Novelizovaný předpis: zákon č. 104/2013 Sb., o mezinárodní justiční spolupráci ve věcech trestních.",
+      "kind": "law",
+      "source": "104/2013"
+    },
+    {
+      "claim": "Novelizovaný předpis: zákon č. 141/1961 Sb., o trestním řízení soudním (trestní řád) — § 122 odst. 1.",
+      "kind": "law",
+      "source": "141/1961"
+    },
+    {
+      "claim": "Novelizovaný předpis: zákon č. 40/2009 Sb., trestní zákoník — § 9.",
+      "kind": "law",
+      "source": "40/2009"
+    }
+  ]
+}

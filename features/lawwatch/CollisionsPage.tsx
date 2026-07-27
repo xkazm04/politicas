@@ -68,7 +68,7 @@ export default function CollisionsPage({ data }: { data: CollisionData | null })
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">
             {data
               ? "Dva nebo více souběžně projednávaných tisků někdy nezávisle novelizují stejný § téhož zákona neslučitelným nebo na pořadí citlivým způsobem. To je běžné riziko souběžně psaných zákonů, ne důkaz pochybení — jde o nález legislativního procesu, ne o etický nález."
-              : "Data pro tuto sekci zatím nejsou k dispozici — buď graf, nebo výstupy close-readu case ③ nejsou dostupné."}
+              : "Data pro tuto sekci zatím nejsou k dispozici — buď graf, nebo výstupy ručního porovnání textů nejsou dostupné."}
           </p>
         </div>
 
@@ -82,7 +82,7 @@ function EmptyState() {
   return (
     <div className="mb-20 border-2 border-dashed border-hairline bg-paper-strong px-6 py-10 text-center">
       <p className="text-sm text-steel">
-        Graf nebo výstupy close-readu (docs/data-analysis/case-law/payloads/collision-close-reads*.json)
+        Graf nebo výstupy ručního porovnání textů (uložené v archivu analýzy)
         nejsou dostupné. Politicas nezobrazuje smyšlená data.
       </p>
     </div>
@@ -108,19 +108,18 @@ function RealCollisions({ data }: { data: CollisionData }) {
       </div>
       <div className="mt-2">
         <SourceNote>
-          {data.batchesRun} dávky close-readu · deterministická § — partitioned pre-check (v2) + LLM close-read,
-          potvrzené dvojice ověřeny grepem v cached textu z psp.cz (P49) · „nahodilé&rdquo; dvojice (stejné číslo §,
+          {data.batchesRun} dávky ručního porovnání textů · nejprve deterministická předfiltrace shodných paragrafů, teprve pak čtení obou textů,
+          potvrzené dvojice ověřeny vyhledáním v archivovaném textu z psp.cz · „nahodilé&rdquo; dvojice (stejné číslo §,
           jiný zákon) vyřazeny — nejsou zde zobrazeny
         </SourceNote>
       </div>
       {data.postRegenPendingCount > 0 && (
         <div className="mt-2 border-2 border-dashed border-ochre bg-ochre/5 px-4 py-3">
           <p className="font-mono text-[11px] uppercase tracking-wider text-ochre">
-            {data.postRegenPendingCount}× nález z dávky 5 pochází z přeregenerované topologie (150 → 567 hran „amends&rdquo;), kterou
-            orchestrátor zatím neschválil pro živý graf — viz{" "}
-            <span className="font-bold">docs/data-analysis/case-law/handoff.md</span>. Označeno „dávka 5&rdquo; u
-            každé takové dvojice níže; nic zde citované není smyšlené, jde jen o to, ŽE byla dvojice nalezena přes
-            kandidátní univerzum, které live graf ještě nemá.
+            {data.postRegenPendingCount}× nález z dávky 5 pochází z přepočítané sítě vazeb tisk → zákon (150 → 567
+            vazeb), kterou zatím nikdo neschválil pro živý graf. Označeno „dávka 5&rdquo; u každé takové dvojice
+            níže; nic zde citované není smyšlené — jde jen o to, ŽE byla dvojice nalezena v širším okruhu
+            kandidátů, který živý graf ještě nemá.
           </p>
         </div>
       )}
@@ -142,8 +141,8 @@ function RealCollisions({ data }: { data: CollisionData }) {
         </div>
         <p className="mt-10 max-w-3xl border-t-2 border-ink pt-4 text-sm italic leading-relaxed text-steel">
           Shluk = jeden § jednoho zákona, ne dvojice tisků — několik nálezů je skutečně vícecestných (např. §35c
-          zákona 586/1992 nyní spojuje 4 tisky). Klasifikace je odvozený nález (gate „law-verdict&rdquo;, metoda:
-          deterministická partitioned předfiltrace + LLM close-read s grep ověřením), nikdy prokázané pochybení —
+          zákona 586/1992 nyní spojuje 4 tisky). Klasifikace je odvozený nález (kontrola proti fabrikaci, metoda:
+          deterministická předfiltrace shodných paragrafů a následné čtení obou textů s ověřením výskytu v textu), nikdy prokázané pochybení —
           jde o riziko legislativní koordinace mezi souběžně podanými návrhy, ne o etický nález.
         </p>
       </section>

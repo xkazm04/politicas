@@ -1,0 +1,97 @@
+{
+  "billTisk": 4,
+  "summary": "Zvyšuje slevu na poplatníka i slevu na první dítě, zvedá rodičovský příspěvek na 420 000 Kč a zároveň zavádí novou spotřební daň z tichého vína 2 340 Kč/hl.",
+  "summarySource": "text tisku 4/0 a důvodová zpráva (psp.cz orig2.sqw?idd=265051)",
+  "statedReasoning": "Důvodová zpráva argumentuje, že základní sleva na poplatníka (§ 35ba odst. 1 písm. a) zákona č. 586/1992 Sb.) je od roku 2022 zmrazena na 30 840 Kč, zatímco kumulovaná inflace za období 2022–2024 dosáhla 29,25 % (ČSÚ) až 32 % (Eurostat HICP), takže její reálná hodnota klesá; návrh ji pro rok 2026 zvyšuje na 34 624 Kč a nadále ji navazuje na 75 % průměrné hrubé měsíční mzdy dva roky zpětně. Dále uvádí, že sleva na první dítě (§ 35c odst. 1) je od roku 2018 zmrazena na 15 204 Kč (od té doby 47 % kumulované inflace), zatímco sleva na druhé dítě už činí 22 320 Kč, a proto slevu na první dítě na tuto úroveň srovnává s odůvodněním spravedlnosti („náklady na první dítě nejsou nižší než na druhé\"). Uvádí, že rodičovský příspěvek (zákon č. 117/1995 Sb.) je od roku 2020 zmrazen na 350 000 Kč, a navrhuje jeho zvýšení na 420 000 Kč spolu s novým automatickým valorizačním vzorcem (nový § 31a: index spotřebitelských cen plus jedna třetina růstu reálných mezd) s účinností od 1. ledna 2027, aby se předešlo dalším ad hoc zákonným zásahům. Dále uvádí, že nově přijatá dávka státní sociální pomoci (zákon č. 151/2025 Sb.) obsahuje „paradox\", kdy domácnosti v nejnižším příjmovém pásmu dostávají nižší složku na dítě (500 Kč) než pásmo mírně vyšší (1 000 Kč), a navrhuje tato pásma sloučit. Odděleně — a bez propojení s daňovým rámcem v názvu tisku — důvodová zpráva uvádí, že české tiché víno je zdaněno sazbou 0 Kč/hl, zatímco lihoviny a šumivé víno nesou nezanedbatelné sazby spotřební daně, a navrhuje novou spotřební daň z tichého vína ve výši 2 340 Kč/hl (zákon č. 353/2003 Sb.) s cílem odstranit tuto „asymetrii\" a získat zhruba +4 mld. Kč ročně, které částečně kompenzují náklady daňových úlev. Důvodová zpráva žádá o schválení ve zrychleném režimu už v prvém čtení (§ 90 odst. 2 jednacího řádu PS) s odůvodněním, že jde o změny „čistě parametrické\". Celkový uváděný dopad na veřejné rozpočty: přibližně −22,839 až −23,431 mld. Kč ročně (stát: −16,1 až −16,7 mld., kraje: −1,85 mld., obce: −4,9 mld.).",
+  "researchedContext": "Primární zdroje byly staženy přímo: úplný text návrhu s důvodovou zprávou (psp.cz orig2.sqw?idd=265051), stránka tisku (tiskt.sqw) i stránka průběhu projednávání (historie.sqw). Potvrzují, že dosavadní záznam v grafu je co do rozsahu tisku podstatně neúplný: graf eviduje jediný novelizovaný zákon (586/1992, o daních z příjmů), zatímco skutečný text návrhu novelizuje v čl. I–IV čtyři zákony — 586/1992 (slevy na dani z příjmů), 117/1995 (rodičovský příspěvek a nový valorizační mechanismus), 353/2003 (zcela nová spotřební daň z tichého vína) a 151/2025 (pásma dávky státní sociální pomoci) — z nichž žádný se neprojeví, pokud se čte jen název tisku nebo pole novelizovaných zákonů v grafu. Procesně: tisk podali 15. října 2025 poslanci Richterová a Bartoš, rozeslán byl jako tisk 4/0 dne 6. listopadu 2025, vládě k vyjádření odeslán 10. listopadu 2025; vláda vrátila 4. prosince 2025 nesouhlasné stanovisko (tisk 4/1); organizační výbor přikázal 17. prosince 2025 jako garanční rozpočtový výbor se zpravodajem Patrikem Pažilem. K 24. červenci 2026 (dnešní datum) tisk stále stojí ve fázi přikázání výboru a nedostal se do prvého čtení, přestože jeho vlastní čl. V stanoví účinnost k 1. lednu 2026 — termín, který již marně uplynul. To odpovídá nesouhlasnému stanovisku vlády i tomu, že návrh vyžaduje podstatnou další legislativní práci (jím samotným požadované zrychlené projednání v jediném čtení neproběhlo).",
+  "unstatedEffects": [
+    {
+      "effect": "Zcela nová spotřební daň z tichého vína ve výši 2 340 Kč/hl je vložena čl. III do nesouvisejícího zákona (č. 353/2003 Sb., o spotřebních daních) — rozpočtový přílepek na tisku, jehož název, zařazení v grafu i celý dosavadní záznam se točí výhradně kolem úlev na dani z příjmů (zákon 586/1992). Kdo si tisk prohlédne jen podle názvu nebo podle jediného zákona zapsaného v grafu, přehlédne, že zavádí i novou spotřebitelskou daň bez textové vazby na daňové úlevy.",
+      "whoBenefits": "Státní rozpočet získává odhadem +4 mld. Kč ročně na nové spotřební dani (důvodová zpráva § 4.4); producenti a prodejci tichého vína, dosud zdaňovaného sazbou 0 Kč/hl, nesou nový náklad — důvodová zpráva sama připouští, že prostor pro „budoucí jemnější nastavení\" pro malé producenty zůstává otevřen, tedy že v textu návrhu žádná taková výjimka zatím není.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265051"
+    },
+    {
+      "effect": "Návrh žádá o schválení už v prvém čtení podle § 90 odst. 2 jednacího řádu Sněmovny, a to u balíčku s uváděným souhrnným ročním dopadem na veřejné rozpočty zhruba −22,8 až −23,4 mld. Kč, rozloženým nerovnoměrně mezi rozpočet státu, krajů a obcí podle zákona o rozpočtovém určení daní — tyto územní rozpočty tak nesou výpadek příjmů, o kterém rozhodli výlučně celostátní zákonodárci.",
+      "whoBenefits": "Nízko- a středněpříjmoví poplatníci a rodiče prvního dítěte získávají rozšířenou daňovou úlevu, při zrychleném projednání případně rychle; rozpočty krajů (−1,85 mld. Kč) a obcí (−4,9 mld. Kč) nesou ztrátu, na jejímž nastavení se nepodílely.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265051"
+    }
+  ],
+  "conflictAssessment": "Kontrola nestranné symetrie u obou předkladatelů. Olga Richterová (psp:person:6473) nemá v grafu evidovanou žádnou peněžní vazbu. Ivan Bartoš (psp:person:6433) má evidovanou přesně jednu vazbu — na subjekt OSVČ, company:ico:04627695 — jehož evidovaná hodnota zakázek je však 0 Kč, tedy neprotekly žádné veřejné peníze, a subjekt nemá věcnou souvislost s předmětem tohoto tisku (slevy na dani z příjmů fyzických osob, rodičovský příspěvek ani nová daň z vína). To odpovídá předpokladu zadání: poctivým zjištěním je zde absence střetu, nikoli jeho přítomnost. Ani jeden z předkladatelů z žádného ustanovení tohoto návrhu finančně netěží, včetně vinařského přílepku (ani jeden nemá evidovanou vazbu na producenty či dovozce vína). Při stejném měřítku, jaké se v této dávce uplatnilo u tisků označených peněžním příznakem, nulový a věcně nesouvisející záznam v grafu střet nezakládá a uvádí se zde kvůli transparentnosti, nikoli jako obvinění.",
+  "citations": [
+    {
+      "claim": "Návrh zvyšuje základní slevu na poplatníka v § 35ba odst. 1 písm. a) zákona č. 586/1992 Sb. z pevných 30 840 Kč ročně na navázaný vzorec (75 % průměrné hrubé měsíční mzdy dva roky zpětně), tedy 34 624 Kč pro rok 2026, s automatickou roční valorizací do budoucna.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265051"
+    },
+    {
+      "claim": "Návrh zvyšuje slevu na první vyživované dítě v § 35c odst. 1 zákona č. 586/1992 Sb. z 15 204 Kč na 22 320 Kč ročně, srovnává ji se stávající slevou na druhé dítě a samostatnou částku pro druhé dítě z tohoto ustanovení vypouští.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265051"
+    },
+    {
+      "claim": "Návrh zvyšuje rodičovský příspěvek podle § 30 odst. 1 zákona č. 117/1995 Sb. z 350 000 Kč na 420 000 Kč a vkládá nový § 31a zavádějící roční valorizaci podle indexu spotřebitelských cen plus jedné třetiny růstu reálných mezd od 1. ledna 2027.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265051"
+    },
+    {
+      "claim": "Čl. III návrhu vkládá do § 96 zákona č. 353/2003 Sb., o spotřebních daních, novou spotřební daň z tichého vína ve výši 2 340 Kč/hl namísto dosavadní sazby 0 Kč/hl — změnu bez textové souvislosti s názvem tisku o úlevách na dani z příjmů.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265051"
+    },
+    {
+      "claim": "Čl. IV novelizuje §§ 38–39 zákona č. 151/2025 Sb., o dávce státní sociální pomoci, a slučuje dvě příjmová pásma složky na dítě do jednoho pásma s jednotnou částkou 1 000 Kč na dítě pro domácnosti do trojnásobku životního minima.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265051"
+    },
+    {
+      "claim": "Důvodová zpráva uvádí souhrnný dopad na veřejné rozpočty přibližně −22,839 až −23,431 mld. Kč ročně (stát: −16,1 až −16,7 mld., kraje: −1,85 mld., obce: −4,9 mld.), částečně kompenzovaný odhadovaným výnosem +4 mld. Kč ročně z nové daně z vína.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265051"
+    },
+    {
+      "claim": "Důvodová zpráva uvádí jako odůvodnění zvýšení zmrazené základní slevy na poplatníka kumulovanou inflaci 29,25 % (ČSÚ) až 32 % (Eurostat HICP) za období 2022–2024 a jako odůvodnění zvýšení zmrazené slevy na první dítě kumulovanou inflaci 47 % za období 2018–2024.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=265051"
+    },
+    {
+      "claim": "Tisk 4 (10. volební období) podali 15. října 2025 poslanci Olga Richterová a Ivan Bartoš, rozeslán byl jako tisk 4/0 dne 6. listopadu 2025, vládě k vyjádření odeslán 10. listopadu 2025; vláda vrátila 4. prosince 2025 nesouhlasné stanovisko (tisk 4/1); organizační výbor přikázal 17. prosince 2025 jako garanční rozpočtový výbor (zpravodaj Patrik Pažil) a k 24. červenci 2026 tisk v této fázi stále stojí bez prvého čtení.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=4"
+    },
+    {
+      "claim": "Přehled tisku na psp.cz uvádí tisk 4 jako „Novela z. o daních z příjmů – RJ\", rozeslaný 6. listopadu 2025 (12:33), s připojenými dokumenty návrhu a důvodové zprávy ve formátu PDF/DOCX.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=4&ct1=0"
+    },
+    {
+      "claim": "Zákon č. 586/1992 Sb. je skutečný český zákon o daních z příjmů, tedy zákon, který název tisku i graf evidují jako novelizovaný.",
+      "kind": "law",
+      "source": "586/1992"
+    },
+    {
+      "claim": "Zákon č. 117/1995 Sb., o státní sociální podpoře, je skutečný předpis upravující rodičovský příspěvek; novelizuje jej čl. II tohoto návrhu, ačkoli u tohoto tisku není mezi novelizovanými zákony v grafu evidován.",
+      "kind": "law",
+      "source": "117/1995"
+    },
+    {
+      "claim": "Zákon č. 353/2003 Sb., o spotřebních daních, je skutečný předpis, do něhož čl. III tohoto návrhu vkládá novou daň z tichého vína.",
+      "kind": "law",
+      "source": "353/2003"
+    },
+    {
+      "claim": "Zákon č. 151/2025 Sb., o dávce státní sociální pomoci, je skutečný, nově přijatý předpis z roku 2025, který novelizuje čl. IV tohoto návrhu.",
+      "kind": "law",
+      "source": "151/2025"
+    },
+    {
+      "claim": "Graf eviduje spolupředkladatelku Olgu Richterovou (pspId 6473) bez jakékoli peněžní vazby.",
+      "kind": "graph_fact",
+      "source": "psp:person:6473"
+    },
+    {
+      "claim": "Graf eviduje u spolupředkladatele Ivana Bartoše (pspId 6433) jedinou peněžní vazbu — subjekt OSVČ (IČO 04627695) s hodnotou zakázek 0 Kč, tedy bez skutečného toku veřejných peněz a bez souvislosti s předmětem tohoto tisku.",
+      "kind": "graph_fact",
+      "source": "company:ico:04627695"
+    }
+  ]
+}

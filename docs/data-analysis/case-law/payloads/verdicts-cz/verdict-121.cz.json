@@ -1,0 +1,95 @@
+{
+  "billTisk": 121,
+  "statedReasoning": "Důvodová zpráva podává tisk 121 jako prorodinný balíček vedený KDU-ČSL se třemi částmi. (1) Daň z příjmů (586/1992, § 35c): roční daňové zvýhodnění na vyživované dítě se zvyšuje — na první dítě o 7 176 Kč (z 15 204 na 22 380), na druhé o 7 488 Kč (z 22 320 na 29 808), na třetí a další o 9 336 Kč (z 27 840 na 37 176) — protože částky nebyly od roku 2021 valorizovány, zatímco náklady domácností rostly, čímž se znehodnocuje reálná hodnota tohoto nástroje i jeho funkce kompenzovat rodiny a motivovat k legálnímu pracovnímu příjmu; použije se už za zdaňovací období 2026 prostřednictvím přiznání podávaného v roce 2027. (2) Státní sociální podpora (117/1995): celková výše rodičovského příspěvku (§ 30 odst. 1) se zvyšuje z 350 000 na 400 000 Kč (dvojnásobek u vícerčat) pro nejmladší dítě narozené či převzaté do péče od 1. července 2026; strop 70 % pro měsíční výši čerpání (§ 30 odst. 3) se zvedá na 100 % třicetinásobku denního vyměřovacího základu, aby rodiče s vyšší předchozí mzdou mohli pevnou celkovou částku vyčerpat rychleji a dříve se vrátit do práce (měsíční strop 15 000 Kč pro ty, kdo dostatečný základ nemají, zůstává beze změny); a ruší se limit 120 hodin měsíčně pro docházku dětí do dvou let do školky (§ 31 odst. 3) jako nadbytečný zásah do rodičovské autonomie. (3) Nemocenské pojištění (187/2006): okno pro čerpání otcovské se prodlužuje ze 6 týdnů na 12 měsíců po narození kvůli větší pružnosti (dosud ji využila méně než polovina oprávněných otců) a podpůrčí doba ošetřovného (§ 40) se sjednocuje na 16 kalendářních dnů pro všechny pojištěné, čímž se odstraňuje současná nerovnost, kdy pečující, kteří nejsou samoživiteli, mají jen 9 dnů oproti 16 dnům u samoživitelů. Důvodová zpráva uvádí, že balíček je v souladu s ústavním pořádkem (čl. 32 Listiny) i s unijními a mezinárodními závazky. Rozpočtové odhady ve zprávě: daňové zvýhodnění na dítě +16 mld. Kč ročně (na základu 42 mld.), rodičovský příspěvek +~4 mld. Kč ročně, ošetřovné +310–370 mil. Kč ročně, otcovská +20–40 mil. Kč ročně.",
+  "researchedContext": "Úplný text návrhu i důvodová zpráva byly staženy z primárního PDF tisku na psp.cz a průběh projednávání potvrzuje, že tisk podala 2. března 2026 skupina 14 poslanců (Jurečka a další), byl přikázán výboru pro sociální politiku jako garančnímu se zpravodajkou K. Gajdovou a organizační výbor jej propustil dál 2. dubna 2026 (usnesení č. 46). Pozoruhodné je, že vláda vydala formální nesouhlasné stanovisko, rozeslané jako tisk 121/1 dne 31. března 2026, což odpovídá souhrnnému nákladu zhruba 20 mld. Kč ročně, který důvodová zpráva sama připouští. Věcně jde o plošnou rodinnou politiku: každé ustanovení míří k širokým zákonným skupinám — všem poplatníkům s vyživovanými dětmi, všem rodičům čerpajícím rodičovský příspěvek, všem pojištěným otcům a pečujícím — nikoli k jakémukoli jmenovanému subjektu, smlouvě či odvětví. Daňové zvýhodnění na dítě je zčásti vratné jako daňový bonus, takže prospívá i pracujícím rodinám s nižšími příjmy, ačkoli čistě slevová část pomůže jen těm s dostatečnou daňovou povinností; největší absolutní přírůstek na dítě (9 336 Kč) připadá na třetí a další dítě, což zvýhodňuje početnější rodiny. Zvednutí sedmdesátiprocentního stropu čerpání je podle vlastního přiznání důvodové zprávy nejužitečnější rodičům s vyšší předchozí mzdou.",
+  "unstatedEffects": [
+    {
+      "effect": "Zrušení sedmdesátiprocentního stropu měsíční výše čerpání rodičovského příspěvku zvýhodňuje právě rodiče s vyššími příjmy: pevných 400 000 Kč mohou vyčerpat rychleji a dříve se vrátit do práce jen ti s vysokým denním vyměřovacím základem, zatímco rodiče odkázaní na nezměněný měsíční strop 15 000 Kč žádnou změnu tempa čerpání nezaznamenají — zisk pružnosti je tak soustředěn u horní části rozdělení výdělků, přestože celkový nárok je pro všechny stejný.",
+      "whoBenefits": "Rodiče s vyššími příjmy a vysokým denním vyměřovacím základem",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268020"
+    },
+    {
+      "effect": "Zvýšení daňového zvýhodnění na dítě je odstupňované tak, že v absolutních číslech nejvíce získává třetí a další dítě (+9 336 Kč oproti +7 176 Kč u prvního dítěte), takže hodnota balíčku na dítě roste s velikostí rodiny a mírně zvýhodňuje početnější rodiny oproti domácnostem s jedním dítětem.",
+      "whoBenefits": "Rodiny se třemi a více dětmi",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268020"
+    },
+    {
+      "effect": "Zrušení limitu 120 hodin měsíčně pro institucionální péči u dětí do dvou let umožňuje rodičům kombinovat celodenní jesle či školku s nezkráceným rodičovským příspěvkem — rozšíření nároku, jehož dodatečný rozpočtový náklad není v důvodové zprávě samostatně vyčíslen; formální nesouhlas vlády signalizuje spor o rozpočtový dopad u souhrnu zhruba 20 mld. Kč ročně.",
+      "whoBenefits": "Rodiče využívající celodenní institucionální péči při souběžném čerpání příspěvku; sporné vůči státnímu rozpočtu",
+      "evidence": "https://www.psp.cz/sqw/historie.sqw?o=10&t=121"
+    }
+  ],
+  "conflictAssessment": "Žádný hodnověrný kanál vlastního prospěchu nespojuje evidované peněžní vazby kteréhokoli předkladatele s předmětem tohoto návrhu. Jde o plošné parametry daně z příjmů a sociálních dávek vyplácené zákonným skupinám fyzických osob (poplatníkům s dětmi, rodičům, pojištěným otcům a pečujícím) prostřednictvím finanční správy a ČSSZ — nikoli o veřejné zakázky, dotace či platby směrované do jakékoli firmy. Vazba Mariana Jurečky na AGRO 2000 s.r.o. (company:ico:25586521, 10 864 255 Kč) je zemědělsko-podnikatelskou vazbou bez souvislosti s daňovým zvýhodněním na dítě či rodinnými dávkami. Vazba Marka Výborného na Gymnázium Pardubice (company:ico:48161063, 9 253 983 Kč) je vazbou na střední školu, nikoli na příjemce novelizovaných dávek. Zdravotnické vazby Róberta Telekyho — nemocnice ve Vsetíně, Kroměříži a Uherském Hradišti (company:ico:26871068, company:ico:27660532, company:ico:27660915, ~33 mil. Kč) a Teleky Medicus (company:ico:29442044, ~11 mil. Kč) — jsou tématem nejbližší, protože část třetí se dotýká nemocenského pojištění, ošetřovné i otcovská jsou však peněžité dávky vyplácené pojištěným osobám, nikoli poskytovatelům zdravotních služeb; nemocnice nejsou podle těchto ustanovení příjemci, kanál tedy neexistuje. Vazba Petra Hladíka na ARENA BRNO (company:ico:09133267, 5 390 760 300 Kč) je městský stadion, u nějž již předchozí posudek k tisku 58 shledal, že nejde o kanál vlastního prospěchu, a s rodinnou politikou nesouvisí. Vazba Bohuslava Niemiece na CEVYKO a.s. (company:ico:08599254, 278 778 307 Kč) s předmětem návrhu nesouvisí. Poctivým zjištěním je ABSENCE střetu: jde o širokou, obecně použitelnou rodinnou politiku, z níž by předkladatelé měli prospěch jen jako běžní rodiče a poplatníci, stejně jako každá jiná oprávněná domácnost.",
+  "citations": [
+    {
+      "claim": "Část první zvyšuje roční daňové zvýhodnění na dítě v § 35c odst. 1 zákona o daních z příjmů: první dítě z 15 204 na 22 380 Kč, druhé z 22 320 na 29 808 Kč, třetí a další z 27 840 na 37 176 Kč, použitelné za zdaňovací období 2026.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268020"
+    },
+    {
+      "claim": "Část druhá zvyšuje celkovou výši rodičovského příspěvku (§ 30 odst. 1) z 350 000 na 400 000 Kč (dvojnásobek u vícerčat) pro nejmladší dítě od 1. července 2026, zvedá strop měsíčního čerpání ze 70 % na 100 % třicetinásobku denního vyměřovacího základu (strop 15 000 Kč zůstává beze změny) a ruší limit 120 hodin měsíčně pro docházku dětí do dvou let do školky (§ 31 odst. 3).",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268020"
+    },
+    {
+      "claim": "Část třetí prodlužuje okno pro čerpání otcovské ze 6 týdnů na 12 měsíců po narození (§ 38a/§ 38b) a sjednocuje podpůrčí dobu ošetřovného na 16 kalendářních dnů pro všechny pojištěné namísto dosavadních 9 dnů u pečujících, kteří nejsou samoživiteli (§ 40), s účinností od 1. ledna 2027.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268020"
+    },
+    {
+      "claim": "Důvodová zpráva odhaduje rozpočtový dopad na +16 mld. Kč ročně u daňového zvýhodnění na dítě (na základu 42 mld.), +~4 mld. Kč ročně u rodičovského příspěvku, +310–370 mil. Kč ročně u ošetřovného a +20–40 mil. Kč ročně u otcovské.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268020"
+    },
+    {
+      "claim": "Tisk podala 2. března 2026 skupina poslanců (Jurečka a další), byl přikázán výboru pro sociální politiku jako garančnímu a vláda vydala nesouhlasné stanovisko rozeslané jako tisk 121/1 dne 31. března 2026.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=121"
+    },
+    {
+      "claim": "Přehledová stránka tisku uvádí návrh a dokumenty důvodové zprávy k tisku 121/0.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=121&ct1=0"
+    },
+    {
+      "claim": "Návrh novelizuje zákon o daních z příjmů.",
+      "kind": "law",
+      "source": "586/1992"
+    },
+    {
+      "claim": "Návrh novelizuje zákon o státní sociální podpoře.",
+      "kind": "law",
+      "source": "117/1995"
+    },
+    {
+      "claim": "Návrh novelizuje zákon o nemocenském pojištění.",
+      "kind": "law",
+      "source": "187/2006"
+    },
+    {
+      "claim": "Předkladatel Marian Jurečka má evidovanou peněžní vazbu na AGRO 2000 s.r.o. ve výši 10 864 255 Kč; s předmětem návrhu, tedy s daní z příjmů a rodinnými dávkami, nesouvisí.",
+      "kind": "graph_fact",
+      "source": "company:ico:25586521"
+    },
+    {
+      "claim": "Předkladatel Marek Výborný má evidovanou peněžní vazbu na Gymnázium Pardubice ve výši 9 253 983 Kč; jde o střední školu, nikoli o příjemce novelizovaných ustanovení.",
+      "kind": "graph_fact",
+      "source": "company:ico:48161063"
+    },
+    {
+      "claim": "Předkladatel Róbert Teleky má evidované vazby na nemocnici v Uherském Hradišti (součást zhruba 33 mil. Kč ve třech krajských nemocnicích); ošetřovné a otcovská jsou peněžité dávky pojištěným osobám, nikoli platby nemocnicím, kanál tedy neexistuje.",
+      "kind": "graph_fact",
+      "source": "company:ico:27660915"
+    },
+    {
+      "claim": "Předkladatel Petr Hladík má evidovanou vazbu na ARENA BRNO ve výši 5 390 760 300 Kč; jde o městský stadion, u nějž předchozí posudek k tisku 58 shledal, že nejde o kanál vlastního prospěchu, a s rodinnou politikou nesouvisí.",
+      "kind": "graph_fact",
+      "source": "company:ico:09133267"
+    },
+    {
+      "claim": "Předkladatel Bohuslav Niemiec má evidovanou vazbu na CEVYKO a.s. ve výši 278 778 307 Kč; s předmětem návrhu nesouvisí.",
+      "kind": "graph_fact",
+      "source": "company:ico:08599254"
+    }
+  ]
+}

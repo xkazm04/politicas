@@ -1,0 +1,45 @@
+{
+  "billTisk": 86,
+  "statedReasoning": "Podle úplného staženého textu návrhu a důvodové zprávy (podán 16. ledna 2026 toutéž sedmičlennou skupinou poslanců jako tisk 71 — Richterová, Bartoš, Ančincová, Pipášová, Martínková Španihelová, Šmída, Volpe) novelizuje tento návrh zákon č. 427/2011 Sb. JINÝM, s tiskem 71 se nepřekrývajícím souborem ustanovení: do § 3 vkládá nové definice „fondu soukromého kapitálu\" (private equity) a „fondu rizikového kapitálu\" (venture capital) (nová písm. w) a x)); přidává nové § 98 odst. 1 písm. g), které povinnému konzervativnímu fondu umožňuje držet akcie či srovnatelné cenné papíry obchodované na regulovaném trhu v EU nebo v členském státě OECD (dosud to bylo vyloučeno — investiční vesmír konzervativního fondu byl téměř výhradně dluhopisový); provádí navazující změnu v § 98 odst. 3; a přidává nové § 100 odst. 2 písm. k) a nový § 100 odst. 8, které běžným účastnickým fondům umožňují investovat do cenných papírů vydaných fondy soukromého a rizikového kapitálu až do pevného limitu 10 % majetku fondu. Deklarované odůvodnění: české úspory třetího pilíře (658,8 mld. Kč podle ČNB, 3. čtvrtletí 2025) jsou investovány neobvykle konzervativně ve srovnání se zeměmi OECD; reforma má zlepšit dlouhodobý výnos očištěný o riziko s ohledem na demografický tlak (rostoucí podíl důchodců, s odkazem na populační projekce ČSÚ a Zprávu EU o stárnutí z roku 2024), a přitom zachovat obezřetnostní pojistky (požadavek kotace na regulovaném trhu u akcií v konzervativním fondu; pevný desetiprocentní strop pro private equity a venture capital u účastnických fondů; nezměněný dohled ČNB). Uváděný rozpočtový dopad: ŽÁDNÝ na státní rozpočet — důvodová zpráva to rámuje jako změnu obezřetnostních investičních limitů na soukromém trhu s pouze nepřímými a nevyčíslenými dlouhodobými dopady na výnosy spořících a případně na český kapitálový trh (s odkazem na data Invest Europe, podle nichž penzijní fondy dodávají zhruba 19 % evropského fundraisingu private equity). Navrhovaná účinnost: 1. ledna 2027.",
+  "researchedContext": "Průběh projednávání potvrzuje, že návrh byl rozeslán jako tisk 86/0 dne 22. ledna 2026 a — na rozdíl od NEUTRÁLNÍHO stanoviska vlády u příbuzného tisku 71 — obdržel nesouhlasné stanovisko vlády, rozeslané jako tisk 86/1 dne 25. února 2026; tento rozdíl lze hodnověrně spojit s tím, že jde o závažnější obezřetnostní změnu (otevření povinného konzervativního fondu — výchozího, nejopatrnějšího produktu v systému — akciové expozici a expozici blízké private equity a venture capital) oproti čistému snížení stropů poplatků v tisku 71. Organizační výbor doporučil 4. března 2026 pokračovat v projednávání (zpravodaj Ing. Benjamin Činčila, garanční rozpočtový výbor); ke 24. červenci 2026 zůstává návrh v této fázi před prvým čtením s jedním nevyřízeným pozměňovacím návrhem. KONTROLA KOLIZE PŘÍBUZNÝCH TISKŮ (tisk 71 ↔ tisk 86, oba novelizují 427/2011, podle zadání této dávky): po úplném přečtení obou textů NEEXISTUJE textový ani ustanoveními vymezený překryv. Tisk 71 se dotýká § 60 odst. 3, § 60 odst. 4 a § 192 odst. 3 písm. a) (stropy poplatků). Tisk 86 se dotýká § 3 (nové definice), § 98 odst. 1 a 3 (investiční vesmír konzervativního fondu) a § 100 odst. 2 a nového odst. 8 (povolení private equity a venture capital u účastnických fondů). Nula sdílených ustanovení, nula konfliktů v přečíslování, nula protichůdných pokynů — na rozdíl od skutečné kolize tisků 120 a 244 v § 35ba z dávky 001 jde o čistý případ, kdy tatáž skupina předkladatelů rozdělila jednu širší reformu třetího pilíře do dvou samostatně postupujících, nekolidujících návrhů (reforma poplatků oproti reformě investičních limitů), nikoli o nekoordinovanou duplicitu či chybu v legislativní technice.",
+  "unstatedEffects": [
+    {
+      "effect": "Umožnit účastnickým fondům držet až 10 % majetku v cenných papírech fondů private equity a venture capital a povinnému konzervativnímu fondu vůbec poprvé držet kotované akcie vytváří pro správce fondů soukromého a rizikového kapitálu obecně nový institucionální distribuční kanál do penzijních úspor třetího pilíře — tedy pro třídu finančních zprostředkovatelů, která dosud k tomuto státem podporovanému objemu úspor neměla zákonný přístup. Důvodová zpráva to podává jako přínos pro výnosy spořících, ale nejmenuje ani nevyčísluje, kteří správci private equity či venture capital by z toho mohli mít prospěch, a nevěnuje se ani přidanému riziku nelikvidity, zpožděného oceňování a vrstvení poplatků (efekt J-křivky), které sama připouští, u spořících zařazených standardně do „konzervativního\" fondu, kteří si akciovou expozici nezvolili.",
+      "whoBenefits": "Správci fondů private equity a venture capital získávají nový kanál přístupu k institucionálnímu kapitálu; spořící (včetně opatrných spořících automaticky zařazených do povinného konzervativního fondu) nesou novou akciovou a likviditní expozici, kterou si nemuseli zvolit.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266990"
+    }
+  ],
+  "conflictAssessment": "Hodnověrný kanál vlastního prospěchu není. Stejně jako u příbuzného tisku 71 nemá žádný ze sedmi předkladatelů evidovanou peněžní vazbu na penzijní společnost, správce aktiv ani správce fondu private equity či venture capital. Vazba Lenky Martínkové Španihelové na MATURUS, o.p.s. je vazbou na neziskovou organizaci zaměstnávající osoby se zdravotním postižením (právní forma o.p.s., která podle českého práva strukturálně nemůže být „penzijní společností, a.s.\" ani investičním fondem), nesouvisející s předmětem tohoto návrhu. Ivan Bartoš a Hana Ančincová nesou pouze obecný nulový záznam „OSVČ\" v grafu, běžný u řady předkladatelů v této i předchozí dávce, bez jakékoli rozlišující finanční podstaty. Richterová, Pipášová, Šmída a Volpe nemají evidovanou žádnou peněžní vazbu. Tento návrh na rozdíl od dotačního nebo zakázkového opatření nesměruje peníze k žádnému jmenovanému subjektu — jde o změnu obezřetnostních investičních limitů, jejíž okruh beneficientů (správci private equity a venture capital obecně, penzijní spořitelé obecně) je rozptýlený a bez vazby na finanční zájmy předkladatelů evidované v grafu. Symetrické zjištění o absenci střetu, v souladu s doktrínou dávky 001.",
+  "citations": [
+    {
+      "claim": "Tisk 86 novelizuje § 3 zákona 427/2011 (nové definice „fondu soukromého kapitálu\" a „fondu rizikového kapitálu\"), § 98 odst. 1 písm. g) a odst. 3 (poprvé umožňuje povinnému konzervativnímu fondu držet akcie z regulovaných trhů EU/OECD) a § 100 odst. 2 písm. k) a nový odst. 8 (umožňuje účastnickým fondům držet cenné papíry fondů private equity a venture capital až do 10 % majetku). Uvádí nulový rozpočtový dopad na veřejné rozpočty. Účinnost od 1. ledna 2027. Podepsáno Richterovou, Bartošem, Ančincovou, Pipášovou, Martínkovou Španihelovou, Šmídou a Volpem, Praha 16. ledna 2026.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266990"
+    },
+    {
+      "claim": "Průběh projednávání: rozesláno jako tisk 86/0 dne 22. ledna 2026; vláda zaujala nesouhlasné stanovisko (tisk 86/1, 25. února 2026); organizační výbor doporučil 4. března 2026 pokračovat se zpravodajem Benjaminem Činčilou a garančním rozpočtovým výborem; jeden nevyřízený pozměňovací návrh, ke 24. červenci 2026 bez prvého čtení.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=86"
+    },
+    {
+      "claim": "Příbuzný tisk 71 (tatáž skupina předkladatelů, tentýž novelizovaný zákon) se dotýká pouze § 60 odst. 3 a 4 a § 192 odst. 3 písm. a) zákona 427/2011 — přímým čtením potvrzeno, že s ustanoveními § 3, § 98 a § 100 tisku 86 nesdílí ani jedno, takže mezi oběma návrhy navzdory společnému příznaku skupiny kolizí žádná kolize neexistuje.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266283"
+    },
+    {
+      "claim": "Novelizovaným předpisem o doplňkovém penzijním spoření je zákon č. 427/2011 Sb., o doplňkovém penzijním spoření — skutečný, platný český zákon.",
+      "kind": "law",
+      "source": "427/2011"
+    },
+    {
+      "claim": "Evidovaná peněžní vazba předkladatelky Lenky Martínkové Španihelové, MATURUS, o.p.s. (~1,2 mil. Kč), je nezisková organizace provozující grafické sociální podnikání zaměstnávající osoby se zdravotním postižením, nikoli penzijní společnost, správce aktiv ani investiční fond.",
+      "kind": "graph_fact",
+      "source": "company:ico:24766216"
+    },
+    {
+      "claim": "Předkladatelé Ivan Bartoš a Hana Ančincová nesou pouze obecný nulový záznam „OSVČ\" evidovaný v grafu s hodnotou 0 Kč a bez jakéhokoli detailu ke konkrétní firmě.",
+      "kind": "graph_fact",
+      "source": "company:ico:04627695"
+    }
+  ]
+}

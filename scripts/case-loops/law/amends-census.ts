@@ -108,11 +108,20 @@ async function fetchPdf(cislo: number, idd: string): Promise<string> {
 
 function extractText(pdfPath: string): string {
   const txtPath = pdfPath.replace(/\.pdf$/, ".txt");
-  if (existsSync(txtPath)) return readFileSync(txtPath, "utf8");
+  // batch-008 latent-risk fix (adversarial audit, batch-008-audit.md): pdftotext can emit the
+  // SAME diacritic letter in two different Unicode normalization forms within ONE document (a
+  // decomposed base-letter + combining mark instead of the precomposed form — found live on tisk
+  // 36's title, see amends-regen-008.ts's titleRoleGateDrops comment for the concrete example).
+  // Every regex literal in this file that matches a diacritic character only matches the
+  // precomposed form, so an un-normalized read can silently under-match. NFC-normalize once here,
+  // at the single point every downstream extractor reads cached text through — the audit found 0
+  // realised effect on this corpus's 140 rows (re-verified below), but it is the correct fix at
+  // the source rather than requiring every caller to remember to normalize itself.
+  if (existsSync(txtPath)) return readFileSync(txtPath, "utf8").normalize("NFC");
   const out = execFileSync(PDFTOTEXT_BIN, ["-layout", "-enc", "UTF-8", pdfPath, "-"], {
     encoding: "utf8",
     maxBuffer: 50_000_000,
-  });
+  }).normalize("NFC");
   writeFileSync(txtPath, out, "utf8");
   return out;
 }

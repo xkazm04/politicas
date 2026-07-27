@@ -1,0 +1,70 @@
+{
+  "billTisk": 181,
+  "statedReasoning": "Tisk 181/0, který vede Matěj Ondřej Havel spolu s osmi spolupředkladateli včetně Jiřího Pospíšila, Heleny Langšádlové, Marka Ženíška, Michala Kučery a Jana Jakoba, novelizuje zákon č. 491/2001 Sb., o volbách do zastupitelstev obcí. Podle úplného textu a důvodové zprávy (čteno přímo z primárního textu v cache) jde o JEDINOU ÚZKOU změnu: snižuje hranici AKTIVNÍHO volebního práva ve volbách do obecních zastupitelstev z 18 na 16 let (§ 4 a § 5), zatímco PASIVNÍ volební právo (možnost kandidovat) zůstává na 18 letech a všechny ostatní podmínky voliče (trvalý pobyt v obci a další) se nemění. Odůvodnění v důvodové zprávě je zcela postaveno na teorii občanské participace mládeže: utváření volebních návyků v raném věku, srovnávací příklady (rakouské plné volební právo od 16 let, praxe německých spolkových zemí v komunálních a zemských volbách, Malta), rakouské studie volební účasti a informovanosti u šestnácti- a sedmnáctiletých a argument „žádné zdanění bez zastoupení\", protože šestnáctiletí se už ekonomicky podílejí. Návrh ve vlastním hodnocení dopadů výslovně uvádí (§ 9 korupční rizika, § 12 územní dopady, § 2 soulad s právem EU), že nemá žádnou institucionální, finanční, územní ani digitálně-správní složku: „Navrhovaná právní úprava nemá územní dopady… Nedochází ke změně postavení obcí ani k zásahu do jejich pravomocí\" a nedotýká se vůbec SPRÁVY voleb, informačních systémů ani mechanismů kandidátních listin či elektronického hlasování — mění pouze pravidlo věkové způsobilosti.",
+  "researchedContext": "Průběh projednávání potvrzuje: podáno 4. května 2026, rozesláno 6. května 2026 jako tisk 181/0; vláda předložila 3. června 2026 NESOUHLASNÉ stanovisko (tisk 181/1, prostřednictvím eKLEP) — sama důvodová zpráva důvod nesouhlasu neuvádí, protože předchází odpovědi vlády, takže tato konkrétní námitka zůstává z primárního textu neověřena; organizační výbor téhož dne doporučil pokračovat v projednávání, jako garanční určil ústavně-právní výbor a zpravodajkou Kateřinu Demetrashvili; ke 24. červenci 2026 bez hlasování. Kontrola censem: nulové podhodnocení — jediná evidovaná hrana novelizace (491/2001) přesně odpovídá skutečnému rozsahu podle úplného textu, potvrzeno přímo (čl. I návrhu obsahuje pouze dvě krátké změny § 4 a § 5 tohoto jediného zákona).",
+  "unstatedEffects": [
+    {
+      "effect": "OTEVŘENÁ OTÁZKA NYNÍ UZAVŘENA: předkladatel Jan Jakob zasedá v dozorčí radě Operátor ICT, a.s. (pražský městský podnik pro IT a digitální služby). Po přečtení úplného textu návrhu je zřejmé, že návrh NEOBSAHUJE nikde nic o digitalizaci voleb, o informačních systémech ani o digitálním registru voličů — tvoří jej pouze dvouřádková změna věkové hranice. Operátor ICT, a.s. nemá k předmětu tohoto konkrétního návrhu hodnověrný kanál; toto označení se stahuje jako nezjištění.",
+      "whoBenefits": "Neuplatní se — staženo; žádný kanál nebyl potvrzen.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269996"
+    }
+  ],
+  "conflictAssessment": "Firmy vázané na devět předkladatelů jsou v drtivé většině kulturní a občanské nadace a funkce v orgánech městských a státních podniků bez vztahu ke správě voleb: Pospíšil zasedá ve více neziskových kulturních a regionálně-rozvojových subjektech (Nadace Charty 77, Museum Kampa, Muzeum paměti XX. století, Regionální rozvojová agentura Plzeňského kraje, Nadace Věry a Vladimíra Janouškových); Langšádlová zasedá ve Fóru Karla Schwarzenberga, o.p.s.; Ženíšek drží funkce v Pojišťovně VZP, a.s. (zdravotní pojišťovna navázaná na stát), Pražské energetice, a.s. (energetická firma s většinovým podílem Prahy), Plzeňských městských dopravních podnicích, a.s. (městská doprava v Plzni), Plzeňské teplárenské, a.s. (městské teplárenství v Plzni), Národním Centru Tkání a Buněk a.s. a v Kongresovém centru Praha, a.s. (pražská městská budova); Kučera je jednatelem dvou malých soukromých firem (Sirius Praha s.r.o., LIHT s.r.o.); Jakob zasedá v Operátor ICT, a.s. (pražský městský IT podnik). Po přečtení skutečného textu návrhu — čisté změny věkové hranice (18 → 16 pouze u aktivního volebního práva) s výslovným vlastním hodnocením, že nemá územní, institucionální, finanční ani digitálně-správní dopady — nemá ŽÁDNÁ z těchto vazeb hodnověrný kanál k předmětu návrhu, včetně Jakobovy funkce v městském IT podniku, která byla jedinou otevřenou otázkou označenou v prvním průchodu a je nyní uzavřena. Střet nebyl zjištěn; vzhledem k tomu, jak úzký je skutečný obsah návrhu, jde o jeden z nejčistších případů poctivé absence v této dávce.",
+  "citations": [
+    {
+      "claim": "Název tisku 181/0, sada dokumentů a datum rozeslání (6. května 2026)",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=181&ct1=0"
+    },
+    {
+      "claim": "Průběh projednávání: podání 4. května 2026, NESOUHLASNÉ stanovisko vlády 3. června 2026 (tisk 181/1), přikázání ústavně-právnímu výboru jako garančnímu, ke 24. červenci 2026 bez hlasování",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=181&snzeni=0"
+    },
+    {
+      "claim": "Úplný text návrhu a důvodová zpráva: snižuje aktivní volební věk v obecních volbách z 18 na 16 let, pasivní volební právo zůstává na 18 letech, žádná další změna; odůvodnění vychází z teorie participace mládeže se srovnáním s Rakouskem, Německem a Maltou; vlastní hodnocení dopadů v návrhu uvádí, že nemá územní, institucionální, finanční ani digitálně-správní účinky",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269996"
+    },
+    {
+      "claim": "Novelizovaný zákon: zákon č. 491/2001 Sb., o volbách do zastupitelstev obcí",
+      "kind": "law",
+      "source": "491/2001"
+    },
+    {
+      "claim": "Jiří Pospíšil — vazba předkladatele podle uzlu osoby v grafu",
+      "kind": "graph_fact",
+      "source": "psp:person:5273"
+    },
+    {
+      "claim": "Helena Langšádlová — vazba předkladatelky podle uzlu osoby v grafu",
+      "kind": "graph_fact",
+      "source": "psp:person:5943"
+    },
+    {
+      "claim": "Marek Ženíšek — vazba předkladatele podle uzlu osoby v grafu",
+      "kind": "graph_fact",
+      "source": "psp:person:6154"
+    },
+    {
+      "claim": "Marek Ženíšek drží funkce v orgánech společností Pražská energetika, a.s. a Kongresové centrum Praha, a.s.",
+      "kind": "graph_fact",
+      "source": "company:ico:60193913"
+    },
+    {
+      "claim": "Michal Kučera — vazba předkladatele podle uzlu osoby v grafu",
+      "kind": "graph_fact",
+      "source": "psp:person:6216"
+    },
+    {
+      "claim": "Jan Jakob — vazba předkladatele podle uzlu osoby v grafu",
+      "kind": "graph_fact",
+      "source": "psp:person:6687"
+    },
+    {
+      "claim": "Jan Jakob zasedá v dozorčí radě Operátor ICT, a.s.",
+      "kind": "graph_fact",
+      "source": "company:ico:02795281"
+    }
+  ]
+}

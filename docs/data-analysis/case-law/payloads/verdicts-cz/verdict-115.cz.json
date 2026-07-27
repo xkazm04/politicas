@@ -1,0 +1,90 @@
+{
+  "billTisk": 115,
+  "statedReasoning": "Podle důvodové zprávy (stažené PDF, idd=267684): předchozí trestněprávní novela, zákon č. 270/2025 Sb. účinný od 1. ledna 2026, dekriminalizovala neplacení soudem stanoveného výživného tak, že neplnění bylo trestné jen tehdy, vystavilo-li oprávněnou osobu „nebezpečí nouze\". Důvodová zpráva uvádí, že to k 1. lednu 2026 vedlo k propuštění 302 vězňů (282 podle § 196 odst. 1, 16 podle § 196 odst. 2, 4 v souběhu) a k úpravě trestů u dalších stovek osob. Předkladatelé považují toto zmírnění za nevhodné, protože poškozuje nezletilé děti, a s odkazem na programové prohlášení vlády navrhují znovu kriminalizovat ÚMYSLNÉ neplnění vyživovací povinnosti trvající déle než čtyři měsíce, a to i tehdy, není-li oprávněná osoba vystavena nebezpečí nouze, přičemž záměrně NEobnovují trestní odpovědnost za pouhé nedbalostní neplacení (ultima ratio). Návrh: (1) přepisuje § 196 trestního zákoníku — nový § 196 odst. 1 trestá úmyslné neplacení delší než 4 měsíce odnětím svobody až na 1 rok, § 196 odst. 2 (nastane-li nebezpečí nouze) až na 2 roky; (2) mění § 55 odst. 2 tak, aby soudy ukládaly nepodmíněný trest odnětí svobody podle § 196 odst. 1 jen tam, kde to vyžaduje účinná ochrana společnosti nebo kde je náprava jiným trestem beznadějná, aby se nezničila výdělečná schopnost pachatele potřebná k tomu, aby výživné skutečně platil; (3) provádí navazující změnu § 5 odst. 1 zákona č. 45/2013 Sb. (o obětech trestných činů) pro oběti trestného činu podle § 196 odst. 1. Uváděná účinnost 1. července 2026, se žádostí o schválení v prvém čtení podle § 90 odst. 2. Důvodová zpráva výslovně uvádí, že opatření nemá dopad na podnikatelské prostředí („není spojena s dopady na podnikatelské prostředí\"), nezakládá veřejnou podporu a nenese zvýšené korupční riziko.",
+  "researchedContext": "Nezávislá média potvrzují primární důvodovou zprávu: iROZHLAS a Aktuálně.cz uvedly, že zákon č. 270/2025 Sb. (účinný od 1. ledna 2026) omezil trestný čin zanedbání povinné výživy na případy nebezpečí nouze a vedl k předčasnému propuštění více než 500 odsouzených. Tisk 115 je obratem zpět: skupina předkladatelů vedená ANO v novém volebním období PSP10 (podáno 18. února 2026, prvé čtení 21. dubna 2026, přikázáno ústavně-právnímu výboru jako garančnímu, ÚPV doporučil schválení 30. dubna 2026, zařazeno na 27. schůzi od 10. července 2026) obnovuje trestnost úmyslného neplacení. Předmětem je trestní vymáhání v rodinném právu (výživné na dítě) — NEdotýká se hospodářské a majetkové trestné činnosti, dotačního podvodu (§ 212 tr. zák.), hranic výše škody, promlčení ani žádného ustanovení dopadajícího na expozici vůči dotacím EU či na trestní odpovědnost firem. Oba věcně příslušní předkladatelé jsou pro tuto materii přiléhaví: Helena Válková (kriminoložka a profesorka práva) a Taťána Malá (bývalá ministryně spravedlnosti); důvodová zpráva uvádí, že výše sankcí navazuje na dřívější pozměňovací návrh Válkové, Malé a Ožanové k tisku 861 předchozího volebního období. Jedno strukturální pozorování: otevření trestního zákoníku vytváří procesní nosič, k němuž lze ve výborové fázi a ve čteních připojit věcně související novely trestního práva (včetně ustanovení o hospodářské trestné činnosti) — stránka průběhu projednávání ukazuje, že k 27. schůzi byly podány písemné pozměňovací návrhy — avšak návrh V PODOBĚ, V JAKÉ BYL PODÁN, je úzce omezen na § 196, § 55 odst. 2 a § 5 odst. 1 zákona 45/2013 a neobsahuje nic z oblasti hospodářské trestné činnosti.",
+  "unstatedEffects": [
+    {
+      "effect": "Otevření trestního zákoníku (40/2009) kvůli úzké úpravě výživného zároveň vytváří legislativní nosič, k němuž lze ve výborové fázi či ve druhém čtení připojit věcně související novely v oblasti hospodářské trestné činnosti; stránka průběhu projednávání zaznamenává, že k 27. schůzi byly podány písemné pozměňovací návrhy. Jde výhradně o strukturální položku ke sledování — návrh v podané podobě neobsahuje žádnou změnu v oblasti hospodářské trestné činnosti, dotačního podvodu, hranic škody ani promlčení a žádný důkaz o takovém připojeném pozměňovacím návrhu nebyl nalezen.",
+      "whoBenefits": "Potenciálně kterýkoli poslanec (včetně předkladatelů), který by chtěl pod hlavičkou tohoto tisku měnit trestní právo; v podaném znění jsou beneficienty osoby oprávněné z výživného (převážně nezletilé děti), a to obnovenou trestní odstrašující funkcí.",
+      "evidence": "https://www.psp.cz/sqw/historie.sqw?o=10&t=115"
+    }
+  ],
+  "conflictAssessment": "Žádný střet zájmů nespojuje doložené peněžní vazby předkladatelů s předmětem tohoto návrhu. Hlavní předkladatel Andrej Babiš nese velmi rozsáhlou expozici vůči veřejným zakázkám prostřednictvím impéria AGROFERT — AGROFERT a.s. (company:ico:26185610, 6 274 454 Kč), Synthesia a.s. (company:ico:60108916, 796 873 826 Kč), Kostelecké uzeniny a.s. (company:ico:46900411, 201 742 491 Kč), PRECHEZA a.s. (company:ico:26872307, 106 593 110 Kč), Fatra a.s. (company:ico:27465021, 107 928 168 Kč) — a spolupředkladatel Boris Šťastný je vázán na Pražské služby a.s. (company:ico:60194120, 1 470 325 336 Kč), Radim Fiala na IF FACILITY a.s. (company:ico:27720152, 11 253 147 Kč). Vzhledem k dobře zdokumentované expozici Andreje Babiše v otázce dotačního podvodu z prostředků EU (kauza „Čapí hnízdo\") si novela trestního zákoníku, u níž je uveden jako předkladatel, zaslouží kontrolu, zda nezmírňuje ustanovení o hospodářské trestné činnosti, dotačním podvodu, hranicích výše škody nebo promlčení, z nichž by mohl mít prospěch on nebo AGROFERT. Návrh sám NIC z toho neobsahuje: znovu kriminalizuje úmyslné neplacení výživného a provádí navazující změnu v právech obětí. Dotčený trestný čin (§ 196, zanedbání povinné výživy) nemá souvislost s podvodem ani s dotační či majetkovou trestnou činností a důvodová zpráva sama uvádí, že opatření nemá dopad na podnikatelské prostředí. Poctivým zjištěním je proto nízká závažnost — podstatné peněžní vazby předkladatelů existují, žádná se však s předmětem návrhu neprotíná — a směr změny míří k VĚTŠÍ, nikoli menší trestní odpovědnosti. Poznámka k symetrii: zvrácení dekriminalizace provedené předchozí vládou je soudržný politický a věcný krok v souladu s deklarovaným vládním programem, nikoli krok ve vlastní prospěch.",
+  "citations": [
+    {
+      "claim": "Návrh přepisuje § 196 trestního zákoníku tak, aby znovu kriminalizoval úmyslné neplnění či vyhýbání se vyživovací povinnosti trvající déle než čtyři měsíce i bez nebezpečí nouze (§ 196 odst. 1, až 1 rok; § 196 odst. 2 při nebezpečí nouze, až 2 roky), a nedbalostní formu vylučuje.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267684"
+    },
+    {
+      "claim": "Návrh mění § 55 odst. 2 trestního zákoníku tak, aby nepodmíněný trest odnětí svobody podle § 196 odst. 1 bylo možné uložit jen tam, kde to vyžaduje účinná ochrana společnosti nebo kde je náprava jiným trestem beznadějná, a to kvůli zachování výdělečné schopnosti pachatele.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267684"
+    },
+    {
+      "claim": "Část druhá novelizuje § 5 odst. 1 zákona o obětech trestných činů (45/2013) jako navazující změnu vázanou na trestný čin podle § 196 odst. 1; uváděná účinnost 1. července 2026 se žádostí o zrychlené projednání podle § 90 odst. 2.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267684"
+    },
+    {
+      "claim": "Důvodová zpráva uvádí, že opatření nemá dopad na podnikatelské prostředí, nezakládá veřejnou podporu a nenese zvýšené korupční riziko; jeho odůvodněním je ochrana nezletilých dětí poškozených neplacením, v souladu s programovým prohlášením vlády.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267684"
+    },
+    {
+      "claim": "Zákon č. 270/2025 Sb., účinný od 1. ledna 2026, dekriminalizoval běžné i úmyslně vyhýbavé neplacení výživného, omezil trestný čin na případy nebezpečí nouze a vedl k předčasnému propuštění více než 500 odsouzených.",
+      "kind": "web",
+      "source": "https://www.irozhlas.cz/zpravy-domov/zanedbavani-vyzivneho-uz-nebude-trestne-na-svobodu-se-dostane-vice-nez-500_2508191200_akp"
+    },
+    {
+      "claim": "Média potvrzují, že zákon 270/2025 vedl k propuštění stovek odsouzených za zanedbání výživného, protože tento čin přestal být bez nebezpečí nouze trestný.",
+      "kind": "web",
+      "source": "https://zpravy.aktualne.cz/domaci/z-vezeni-se-dostanou-stovky-neplaticu-zanedbani-alimentu-pre/r~285eb1427cd511f0bb77ac1f6b220ee8/"
+    },
+    {
+      "claim": "Průběh projednávání: podáno 18. února 2026; prvé čtení 21. dubna 2026 (zrychlené projednání zamítnuto); přikázáno ústavně-právnímu výboru (ÚPV) jako garančnímu, který 30. dubna 2026 doporučil schválení; zařazeno na 27. schůzi; podány písemné pozměňovací návrhy.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=115"
+    },
+    {
+      "claim": "Přehledová stránka sněmovního tisku 115/0 se seznamem dokumentů a novelizovaných zákonů (40/2009 trestní zákoník, 45/2013 o obětech trestných činů).",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=115&ct1=0"
+    },
+    {
+      "claim": "Novelizovaný předpis: zákon č. 40/2009 Sb., trestní zákoník — § 196 a § 55 odst. 2.",
+      "kind": "law",
+      "source": "40/2009"
+    },
+    {
+      "claim": "Novelizovaný předpis: zákon č. 45/2013 Sb., o obětech trestných činů — § 5 odst. 1.",
+      "kind": "law",
+      "source": "45/2013"
+    },
+    {
+      "claim": "Zvracená předchozí novela: zákon č. 270/2025 Sb., který od 1. ledna 2026 dekriminalizoval zanedbání povinné výživy.",
+      "kind": "law",
+      "source": "270/2025"
+    },
+    {
+      "claim": "Předkladatel Andrej Babiš má peněžní vazby na veřejné zakázky prostřednictvím AGROFERT a.s. (6 274 454 Kč) — žádná z nich nesouvisí s předmětem tohoto návrhu, tedy s výživným na dítě.",
+      "kind": "graph_fact",
+      "source": "company:ico:26185610"
+    },
+    {
+      "claim": "Předkladatel Andrej Babiš má peněžní vazby na veřejné zakázky prostřednictvím Synthesia a.s. (796 873 826 Kč) — bez souvislosti s předmětem návrhu.",
+      "kind": "graph_fact",
+      "source": "company:ico:60108916"
+    },
+    {
+      "claim": "Předkladatel Boris Šťastný má peněžní vazby na veřejné zakázky prostřednictvím Pražské služby a.s. (1 470 325 336 Kč) — bez souvislosti s předmětem návrhu.",
+      "kind": "graph_fact",
+      "source": "company:ico:60194120"
+    },
+    {
+      "claim": "Předkladatel Radim Fiala má peněžní vazby na veřejné zakázky prostřednictvím IF FACILITY a.s. (11 253 147 Kč) — bez souvislosti s předmětem návrhu.",
+      "kind": "graph_fact",
+      "source": "company:ico:27720152"
+    }
+  ]
+}

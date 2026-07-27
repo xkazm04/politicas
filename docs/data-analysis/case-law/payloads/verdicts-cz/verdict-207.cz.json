@@ -1,0 +1,85 @@
+{
+  "billTisk": 207,
+  "statedReasoning": "Vládní návrh (Ministerstvo spravedlnosti, podepsán ministrem spravedlnosti JUDr. Jeronýmem Tejcem) novelizující trestní zákoník (40/2009 Sb.) za účelem transpozice směrnice EU 2024/1203 o trestněprávní ochraně životního prostředí, která nahrazuje a rozšiřuje směrnice 2008/99/ES a 2009/123/ES. Zavádí novou úroveň „závažného poškození životního prostředí\" (§ 292a a jeho nedbalostní obdoba § 292b) s horní hranicí trestu 8 až 10 let u katastrofických případů znečištění, doplňuje skutkovou podstatu týkající se rtuti (nový § 283 odst. 2, nový § 283b pro nedbalost) pokrývající použití a nakládání se rtutí, které dosud postihováno nebylo, doplňuje nový § 119b, podle něhož se nepřihlíží k povolením získaným podvodem, korupcí nebo zjevně nezákonně, a vytváří skupinu zcela nových skutkových podstat, které dosud neexistovaly: § 297a (nedovolená recyklace lodí), § 298b / § 298c (nedovolené nakládání s látkami poškozujícími ozonovou vrstvu, s fluorovanými plyny, s omezenými chemickými látkami, pesticidy, biocidy a s použitím rtuti), § 298d / § 298e (nedovolené uvádění na trh výrobků a komodit spojených s odlesňováním, provádějící unijní nařízení EUDR), § 298f (nepovolené záměry podléhající posouzení vlivů na životní prostředí), § 298g / § 298h (nepovolený provoz zařízení s nebezpečnými látkami), § 298i / § 298j (nepovolená pobřežní zařízení pro těžbu ropy a plynu), a dále přepsané § 299, § 300 a § 301 (chráněné druhy, invazní druhy, poškození chráněných území) a věcně vyšší tresty napříč celou touto oblastí.",
+  "researchedContext": "Byl stažen a přečten úplný text návrhu i důvodová zpráva (56 stran, https://www.psp.cz/sqw/text/orig2.sqw?idd=271152) a stránka průběhu projednávání. Návrh byl rozeslán Sněmovně 28. května 2026 jako tisk 207/0 (eKLEP č. 1101/25), doporučení organizačního výboru 3. června 2026 (usnesení č. 70), zpravodajkou je JUDr. Jana Demjanovská, garančním výborem ÚPV; ke 24. červenci 2026 zůstává v předběžném projednávání s 8 podanými pozměňovacími návrhy a bez hlasování v plénu. Pozoruhodné je, že vlastní důvodová zpráva návrhu připouští, že Česká republika nestihne unijní transpoziční lhůtu: čl. 28 odst. 1 směrnice 2024/1203 vyžaduje účinnost vnitrostátních opatření do 21. května 2026 a zpráva bez obalu uvádí „Jelikož se nepodaří přijmout návrh zákona v tomto termínu, je zapotřebí dosáhnout slučitelnosti vnitrostátních právních předpisů s požadavky plynoucími z implementované směrnice co nejdříve po uplynutí implementační lhůty\" — samotný návrh byl Parlamentu předložen až týden PO uplynutí této lhůty (28. května 2026 oproti 21. květnu 2026). Pole novelizovaných zákonů v grafu eviduje pouze 40/2009, avšak nadpisy částí samotného návrhu novelizují OSM předpisů: 40/2009 (trestní zákoník), 141/1961 (trestní řád), 359/1999 (sociálně-právní ochrana dětí), 273/2008 (Policie ČR), 341/2011 (Generální inspekce bezpečnostních sborů), 17/2012 (Celní správa ČR), 300/2013 (Vojenská policie) a 59/2017 (použití peněžních prostředků z majetkových trestních sankcí) — u všech jde jen o drobné terminologické úpravy vkládající „rtuť a sloučeniny rtuti\" do stávajících odkazů na „jedy\", přesto však o skutečné textové novelizace.",
+  "unstatedEffects": [
+    {
+      "effect": "Graf u tisku 207 eviduje jediný novelizovaný předpis (40/2009), zatímco text návrhu novelizuje osm (40/2009, 141/1961, 359/1999, 273/2008, 341/2011, 17/2012, 300/2013, 59/2017). Jde o totéž podhodnocení při extrakci z názvu, jaké dávka 001 označila u tisku 4 (1 oproti 4 skutečným), nyní v ještě větším rozsahu (1 oproti 8), a ve spojení s totožným selháním u tisku 111 (1 oproti 7) to ukazuje, že podhodnocení je u souborných vládních návrhů typu „a další související zákony\" systematické, nikoli ojedinělé.",
+      "whoBenefits": "Nikomu; jde o mezeru v úplnosti dat při extrakci vazby mezi tiskem a zákony.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271152"
+    },
+    {
+      "effect": "Vláda předložila tento návrh transponující unijní směrnici Parlamentu 28. května 2026 — týden poté, co už uplynula vlastní transpoziční lhůta směrnice ke 21. květnu 2026 — a důvodová zpráva návrhu výslovně připouští, že lhůta bude zmeškána. Ke 24. červenci 2026 je návrh stále v předběžném výborovém projednávání bez naplánovaného hlasování v plénu, což znamená, že české trestní právo v oblasti životního prostředí zůstane na neurčito po zmeškaném termínu v rozporu s unijním minimem.",
+      "whoBenefits": "Žádná jmenovaná strana; jde o skutečnost k plnění závazků státu a k legislativnímu procesu, kterou stojí za to sledovat (možná expozice vůči řízení o nesplnění povinnosti), nikoli o signál jednání ve vlastní prospěch.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271152"
+    },
+    {
+      "effect": "Tisk 207 a příbuzný tisk 111 (oba vládní návrhy téhož Ministerstva spravedlnosti, oba novelizující 40/2009 v témže volebním období) nezávisle na sobě mění z nesouvisejících důvodů totožné ustanovení § 88 odst. 2 písm. c) trestního zákoníku: tisk 207 přečíslovává odkaz na § 283 (jedy a rtuť), tisk 111 přečíslovává odkaz na § 168 (obchodování s lidmi). Obě úpravy míří v témže období na tutéž větu zákona — konkrétní bod, kde je třeba koordinace legislativní techniky, téže třídy, jaká byla označena v dávce 001 (tisky 120 a 244 u § 35ba), zde jsou však ukotveny k odlišným částem textu, nikoli k doslovnému překryvu.",
+      "whoBenefits": "Nikomu; jde o položku ke sledování v koordinaci legislativní techniky.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267623"
+    }
+  ],
+  "conflictAssessment": "Jediným předkladatelem uvedeným v grafu je pspId 5513 Jeroným Tejc bez jakýchkoli evidovaných peněžních vazeb. Stejně jako u tisku 111 text návrhu potvrzuje, že jde o úřadujícího ministra spravedlnosti, jehož podpis uzavírá důvodovou zprávu („Ministr spravedlnosti: JUDr. Jeroným Tejc, podepsáno elektronicky\") — přiřazení předkladatele v grafu tedy správně odráží provenienci vládního návrhu, nikoli soukromý zájem poslance. Nebyly označeny žádné oborově blízké firmy a nejsou k dispozici žádné peněžní vazby předkladatele, které by bylo možné poměřovat s předmětem návrhu (trestání trestných činů proti životnímu prostředí, regulace rtuti, chemických látek a odpadů, skutkové podstaty k pobřežním zařízením a ke komoditám spojeným s odlesňováním), který v tomto podkladu tak jako tak nemá kanál k soukromému majetku žádné jmenované osoby. Poctivé zjištění: nízká závažnost.",
+  "citations": [
+    {
+      "claim": "Tisk 207 je vládní návrh novelizující trestní zákoník (40/2009 Sb.) za účelem transpozice směrnice EU 2024/1203 o trestněprávní ochraně životního prostředí; důvodová zpráva podepsána ministrem spravedlnosti JUDr. Jeronýmem Tejcem, datována 18. května 2026.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271152"
+    },
+    {
+      "claim": "Návrh byl rozeslán Poslanecké sněmovně 28. května 2026 jako tisk 207/0, evidován v eKLEP pod č. 1101/25; doporučení organizačního výboru 3. června 2026 (usnesení č. 70), zpravodajka JUDr. Jana Demjanovská, garančním výborem ÚPV; ke 24. červenci 2026 v předběžném projednávání, bez hlasování v plénu.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=207"
+    },
+    {
+      "claim": "Vlastní důvodová zpráva návrhu uvádí, že vláda nestihne transpoziční lhůtu 21. května 2026 stanovenou čl. 28 odst. 1 směrnice 2024/1203.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271152"
+    },
+    {
+      "claim": "Zákon č. 40/2009 Sb. (trestní zákoník) je předpis, který návrh novelizuje především.",
+      "kind": "law",
+      "source": "40/2009"
+    },
+    {
+      "claim": "Část druhá návrhu (čl. II) novelizuje zákon č. 141/1961 Sb., trestní řád — v seznamu novelizovaných zákonů v grafu u tohoto tisku neevidováno.",
+      "kind": "law",
+      "source": "141/1961"
+    },
+    {
+      "claim": "Část třetí návrhu (čl. III) novelizuje zákon č. 359/1999 Sb., o sociálně-právní ochraně dětí — v grafu neevidováno.",
+      "kind": "law",
+      "source": "359/1999"
+    },
+    {
+      "claim": "Část čtvrtá návrhu (čl. IV) novelizuje zákon č. 273/2008 Sb., o Policii České republiky — v grafu neevidováno.",
+      "kind": "law",
+      "source": "273/2008"
+    },
+    {
+      "claim": "Část pátá návrhu (čl. V) novelizuje zákon č. 341/2011 Sb., o Generální inspekci bezpečnostních sborů — v grafu neevidováno.",
+      "kind": "law",
+      "source": "341/2011"
+    },
+    {
+      "claim": "Část šestá návrhu (čl. VI) novelizuje zákon č. 17/2012 Sb., o Celní správě České republiky — v grafu neevidováno.",
+      "kind": "law",
+      "source": "17/2012"
+    },
+    {
+      "claim": "Část sedmá návrhu (čl. VII) novelizuje zákon č. 300/2013 Sb., o Vojenské policii — v grafu neevidováno.",
+      "kind": "law",
+      "source": "300/2013"
+    },
+    {
+      "claim": "Část osmá návrhu (čl. VIII) novelizuje zákon č. 59/2017 Sb., o použití peněžních prostředků z majetkových trestních sankcí uložených v trestním řízení — v grafu neevidováno.",
+      "kind": "law",
+      "source": "59/2017"
+    },
+    {
+      "claim": "Tisk 111, předložený týmž ministerstvem, nezávisle mění totožné ustanovení § 88 odst. 2 písm. c) trestního zákoníku, a to z nesouvisejícího důvodu (přečíslování v souvislosti s § 168 o obchodování s lidmi) v témže volebním období.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267623"
+    }
+  ]
+}

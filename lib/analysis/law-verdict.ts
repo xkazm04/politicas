@@ -12,6 +12,7 @@
 // A verdict that fails the gate is discarded/re-run, never persisted. Findings that pass
 // are written pending_review — a lead for a human, never a published verdict.
 
+import { czechGateErrors } from "@/lib/analysis/language-gate";
 import { LAW_CITATION } from "@/lib/ingest/sources/psp-legislation";
 
 export const LAW_FINDING_SEVERITY = ["low", "medium", "high"] as const;
@@ -97,6 +98,12 @@ export interface ValidateLawVerdictOptions {
   knownLawRefs?: Iterable<string>;
   /** Real graph ids a graph_fact citation may reference (company/person/law urns). */
   knownIds?: Iterable<string>;
+  /**
+   * Reject a verdict whose reader-facing prose is English (default TRUE — Politicas is
+   * Czech-first, and batch 009 measured 27/27 gated verdicts rendering English to Czech
+   * readers). Set false only to re-validate an archived pre-rewrite verdict.
+   */
+  requireCzech?: boolean;
 }
 
 function isObj(v: unknown): v is Record<string, unknown> {
@@ -157,6 +164,29 @@ export function validateLawVerdict(input: unknown, opts: ValidateLawVerdictOptio
         if (!knownLaws.has(norm)) e.push(`citations[${i}].source: law ${JSON.stringify(c.source)} is not a real statute in scope`);
       }
     });
+
+  // CZECH-FIRST: every string this verdict renders to a reader must be Czech. An English
+  // artifact on a reader-facing field is a defect, not a style preference — the same rule
+  // `features/lawwatch/getLawData.ts` enforces at render time (lib/analysis/language-gate.ts).
+  if (opts.requireCzech !== false) {
+    const fields: { label: string; text: string | null | undefined }[] = [
+      { label: "statedReasoning", text: typeof input.statedReasoning === "string" ? input.statedReasoning : null },
+      { label: "researchedContext", text: typeof input.researchedContext === "string" ? input.researchedContext : null },
+      { label: "conflictAssessment", text: typeof input.conflictAssessment === "string" ? input.conflictAssessment : null },
+    ];
+    if (Array.isArray(input.unstatedEffects))
+      input.unstatedEffects.forEach((u, i) => {
+        if (!isObj(u)) return;
+        fields.push({ label: `unstatedEffects[${i}].effect`, text: typeof u.effect === "string" ? u.effect : null });
+        fields.push({ label: `unstatedEffects[${i}].whoBenefits`, text: typeof u.whoBenefits === "string" ? u.whoBenefits : null });
+      });
+    if (Array.isArray(input.citations))
+      input.citations.forEach((c, i) => {
+        if (!isObj(c)) return;
+        fields.push({ label: `citations[${i}].claim`, text: typeof c.claim === "string" ? c.claim : null });
+      });
+    e.push(...czechGateErrors(fields));
+  }
 
   // ANTI-FABRICATION: every law number cited ANYWHERE in prose must be real.
   if (knownLaws) {

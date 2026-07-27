@@ -1,0 +1,55 @@
+{
+  "billTisk": 198,
+  "statedReasoning": "Vládní návrh (podepsaný předsedou vlády Babišem a ministrem práce a sociálních věcí Alešem Juchelkou, 18.–21. května 2026). Podle staženého úplného textu a důvodové zprávy spočívá CELÁ věcná změna v jediné větě: čl. I nahrazuje v § 30 odst. 1 zákona č. 117/1995 Sb. (o státní sociální podpoře) částku „350 000 Kč\" částkou „400 000 Kč\" — jde o celkovou výši rodičovského příspěvku vypláceného rodiči pečujícímu o nejmladší dítě v rodině, s nezměněným mechanismem zdvojnásobení na 800 000 Kč u vícerčat. Čl. II (přechodné ustanovení) omezuje vyšší částku na děti narozené nebo převzaté do trvalé náhradní péče od 1. ledna 2027; dětem narozeným před tímto datem zůstává trvale dosavadních 350 000 Kč. Čl. III stanoví účinnost k 1. lednu 2027. Důvodová zpráva uvádí, že návrh navazuje na programové prohlášení vlády, které zvýšení rodičovského příspěvku mezi svými prorodinnými opatřeními výslovně jmenuje. Uváděný rozpočtový dopad (u zvoleného rozsahu „jen nově narozené děti\"): zhruba 0,23 mld. Kč v roce 2027, rostoucí na zhruba 3,57 mld. Kč ročně do roku 2030; zpráva zároveň jako doplňující informaci uvádí, že uplatnění téhož navýšení o 50 000 Kč na VŠECHNY současné i budoucí příjemce (nejen na děti narozené po roce 2027) by stálo zhruba 7,29 mld. Kč už v roce 2027 — širší variantu vláda nezvolila s odkazem na rozpočtová omezení. Žádné nové povinnosti, žádná změna právní konstrukce dávky, okruhu oprávněných osob ani správního postupu. Část 9 (hodnocení korupčních rizik) uvádí, že opatření nevytváří prostor pro korupční jednání; část 13 uvádí, že předkladatel u tohoto návrhu neidentifikoval žádnou lobbistickou aktivitu podle zákona o regulaci lobbingu.",
+  "researchedContext": "Průběh projednávání (psp.cz historie.sqw) potvrzuje u parametrické dávkové novely neobvykle rychlý postup: vláda podala 22. května 2026, výbor pro sociální politiku (VSP) určen garančním 27. května 2026, prvé čtení 2. června 2026 (21. schůze), VSP doporučil schválení 10. června 2026, druhé čtení 30. června 2026, TŘETÍ ČTENÍ SCHVÁLENO 8. července 2026 (hlasování č. 285, usnesení č. 249), postoupeno Senátu jako senátní tisk 262 dne 9. července 2026 a senátní ústavně-právní výbor doporučil schválení již 22. července 2026 — zařazeno na 28. schůzi Senátu od 29. července 2026, tedy s možností konečného přijetí zhruba do deseti týdnů od předložení. Srovnání napříč tisky (skupina možných kolizí uvádí další návrhy novelizující 117/1995: 112, 121, 124): tisk 121 — pro tento posudek nezávisle znovu stažený a přečtený v úplnosti (idd=268020) — je prorodinný balíček ke třem zákonům vedený KDU-ČSL (Jurečka a další), podaný 2. března 2026, který TAKÉ mění § 30 odst. 1 zákona 117/1995 z „350 000 Kč\" na „400 000 Kč\" doslova (čl. III bod 1), a to s DŘÍVĚJŠÍ účinností (1. července 2026 podle jeho čl. IV), plus dvě další změny, které tisk 198 NEobsahuje: zrušení sedmdesátiprocentního stropu měsíčního čerpání (§ 30 odst. 3) a uvolnění podmínky docházky do předškolního zařízení (§ 31 odst. 3). Vláda se k tisku 121 formálně postavila nesouhlasně (stanovisko rozesláno jako tisk 121/1 dne 31. března 2026) a podle jeho vlastní stránky průběhu na psp.cz tisk 121 ke 24. červenci 2026 NEpostoupil dál než k přikázání výboru (uvedeno pouze „další projednávání možné od 10. dubna 2026\" se třemi nevyřízenými pozměňovacími návrhy — prvé čtení není zaznamenáno). Sedm týdnů po odmítnutí tisku 121 předložila táž vláda tisk 198, který z odmítnutého balíčku nese jediné, nejlevnější a volebně nejvýraznější číslo (titulkové zvýšení z 350 na 400 tisíc), a dovedla jej během deseti týdnů k hlasování v plénu Senátu, zatímco širší opoziční balíček, který takto rozehrává, zůstává před prvým čtením. Jde o zjištění k legislativnímu procesu, nikoli o střet zájmů ve vlastní prospěch: vládnoucí strana si vlastním nosičem přivlastnila populární parametrický prvek soupeřova návrhu, proti němuž se formálně vymezila, a nákladnější doprovodná ustanovení odmítla.",
+  "unstatedEffects": [
+    {
+      "effect": "Přechodné ustanovení (čl. II) váže vyšší částku 400 000 Kč striktně na datum narození či osvojení dítěte (1. ledna 2027 a později), nikoli na dobu, kdy rodina dávku skutečně čerpá. Rodina, jejíž nejmladší dítě se narodilo například v prosinci 2026, vyčerpá v následujících zhruba třech letech nejvýše 350 000 Kč, přestože se časově překrývá s rodinami dětí narozených o pár dní později, které za srovnatelnou dobu péče čerpají 400 000 Kč — nerovnost na ostré hranici podle data narození, kterou důvodová zpráva podává čistě jako rozpočtové vymezení rozsahu, aniž by nespravedlnost mezi souběžně čerpajícími skupinami připustila.",
+      "whoBenefits": "Rodiče dětí narozených 1. ledna 2027 a později, oproti rodičům dětí narozených krátce před tímto datem, kteří za srovnatelnou dobu péče dostanou nižší celkovou dávku.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270530"
+    },
+    {
+      "effect": "Vláda převzala totožné titulkové parametrické číslo (350 000 → 400 000 Kč), proti němuž se o sedm týdnů dříve formálně vymezila v širším opozičním balíčku (tisk 121), a vynechala z něj spornější a nákladnější doprovodná ustanovení (uvolnění měsíčního čerpání ze 70 % na 100 % a uvolnění hodinového limitu docházky podle § 31); svou užší verzi pak dovedla k hlasování v Senátu zhruba za deset týdnů, zatímco soupeřův návrh k témuž datu stále stál před prvým čtením.",
+      "whoBenefits": "Předkládající vláda a Ministerstvo práce a sociálních věcí, které si vlastním nosičem připisují politický kredit za populární částku namísto opozičního návrhu, jenž ji navrhl dříve; běžné rodiny pobírající dávku dostanou tutéž částku bez ohledu na to, který návrh ji přinese.",
+      "evidence": "https://www.psp.cz/sqw/historie.sqw?o=10&t=121"
+    }
+  ],
+  "conflictAssessment": "Hodnověrný kanál vlastního prospěchu není. Jde o plošnou parametrickou změnu dávky státní sociální podpory vyplácené Úřadem práce ČR přímo jednotlivým rodičům podle zákonných podmínek (péče o nejmladší dítě do 3 let, u dětí narozených před rokem 2024 do 4 let) — nikoli o zakázku, dotaci či smluvní mechanismus, jímž by mohla být placena jakákoli jmenovaná firma. Evidované peněžní vazby předkladatele a spolupodepisujícího ministra Aleše Juchelky (ČESKÁ TELEVIZE a ČESKÝ ROZHLAS — obě v této dávce správně označené mezi vyloučenými veřejnými subjekty jako veřejnoprávní vysílatelé, nikoli soukromí příjemci; YOU STORY UP! s.r.o. a OCCAM PR s.r.o., obě PR a komunikační agentury; a obecný nulový záznam „OSVČ\") nemají žádnou souvislost se správou rodinných sociálních dávek, s jejich výplatou ani s předmětem zákona o státní sociální podpoře. Poctivým zjištěním, v souladu s kalibrací dávky 001, je absence střetu — hodnota tohoto posudku spočívá v signálu k legislativnímu procesu napříč tisky (vládní návrh rozehrávající a předbíhající soupeřův balíček, proti němuž se vláda vymezila), nikoli v příběhu o peněžních vazbách.",
+  "citations": [
+    {
+      "claim": "Tisk 198 (vládní návrh) novelizuje pouze § 30 odst. 1 zákona č. 117/1995 Sb. a nahrazuje „350 000 Kč\" částkou „400 000 Kč\" jako celkovou výší rodičovského příspěvku na nejmladší dítě (dvojnásobek 800 000 Kč u vícerčat), s účinností od 1. ledna 2027 a s omezením podle čl. II na děti narozené či převzaté do péče od tohoto data; uváděný rozpočtový dopad zhruba 0,23 mld. Kč (2027) rostoucí na zhruba 3,57 mld. Kč ročně (2030) v tomto rozsahu, oproti uvedené, avšak nezvolené variantě zhruba 7,29 mld. Kč (2027) při uplatnění na všechny stávající příjemce. Žádný lobbing nebyl identifikován, vlastní hodnocení předkladatele nezjistilo korupční riziko.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=270530"
+    },
+    {
+      "claim": "Průběh projednávání: podání vládou 22. května 2026, VSP garančním výborem 27. května, prvé čtení 2. června, doporučení VSP ke schválení 10. června, druhé čtení 30. června, třetí čtení schváleno 8. července 2026 (hlasování č. 285, usnesení č. 249), postoupeno Senátu jako tisk 262 dne 9. července, senátní ÚPV schválil 22. července, zařazeno na 28. schůzi Senátu od 29. července 2026.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=198"
+    },
+    {
+      "claim": "U tisku 121 (skupina Jurečka / KDU-ČSL, podán 2. března 2026) bylo nezávisle potvrzeno, že novelizuje tentýž § 30 odst. 1 zákona 117/1995 z „350 000 Kč\" na „400 000 Kč\" (čl. III bod 1) s účinností od 1. července 2026 podle čl. IV, a to spolu se zrušením stropu čerpání v § 30 odst. 3 a přepisem podmínky docházky v § 31 odst. 3, které tisk 198 neobsahuje.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268020"
+    },
+    {
+      "claim": "Průběh projednávání tisku 121: vláda vydala 31. března 2026 formální nesouhlasné stanovisko (tisk 121/1); ke 24. červenci 2026 zůstává návrh ve fázi přikázání výboru před prvým čtením (tři nevyřízené pozměňovací návrhy, od přikázání organizačním výborem 2. dubna 2026 není zaznamenáno žádné čtení).",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=121"
+    },
+    {
+      "claim": "Novelizovaným předpisem je zákon č. 117/1995 Sb., o státní sociální podpoře — skutečný, platný český zákon.",
+      "kind": "law",
+      "source": "117/1995"
+    },
+    {
+      "claim": "Evidované peněžní vazby předkladatele a spolupodepisujícího ministra Aleše Juchelky — ČESKÁ TELEVIZE a ČESKÝ ROZHLAS (veřejnoprávní vysílatelé), YOU STORY UP! s.r.o. a OCCAM PR s.r.o. (PR a komunikační agentury) — nemají souvislost se správou státní sociální podpory ani s mechanismem rodičovského příspěvku.",
+      "kind": "graph_fact",
+      "source": "company:ico:02751232"
+    },
+    {
+      "claim": "Vazba předkladatele Aleše Juchelky na OCCAM PR s.r.o. je vazbou na agenturu pro vztahy s veřejností, bez souvislosti s výplatou rodinných dávek.",
+      "kind": "graph_fact",
+      "source": "company:ico:27840531"
+    }
+  ]
+}

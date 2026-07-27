@@ -1,0 +1,75 @@
+{
+  "billTisk": 216,
+  "statedReasoning": "Podle staženého textu návrhu a důvodové zprávy (PDF, idd=271414) navrhují předkladatelé Malá, Babiš, Šťastný a Okamura vložit do trestního zákoníku nový § 175a „Omezování svobody rozhodování\", který výslovně kriminalizuje takzvaný spiking — podání návykové látky jiné osobě proti její zjistitelné vůli, bez jejího vědomí nebo s využitím její bezbrannosti, čímž se ovlivní její psychika, sebeovládání, rozpoznávací schopnost nebo společenské chování. Základní trest: odnětí svobody až na jeden rok; až tři roky, je-li čin spáchán s cílem usnadnit jiný trestný čin nebo s jinou osobou; dva až osm let, způsobí-li těžkou újmu na zdraví; tři až deset let, způsobí-li smrt. Důvodová zpráva vysvětluje, že platné právo na spiking dosahuje jen nepřímo — buď je-li prostředkem k jinému trestnému činu (přes výklad lsti jako násilí), nebo je-li podaná látka shodou okolností látkou omáměnou podle § 283, § 283a či § 286a (podle rozsudku Nejvyššího soudu sp. zn. 8 Tdo 1415/2013). Návrh dále mění § 283 odst. 1, § 283a odst. 1 a § 286a odst. 1 tak, že do výčtu zakázaných jednání výslovně doplňuje „podá\", a přímo tak do textu zákona kodifikuje uvedený soudní výklad z roku 2014 z důvodu právní jistoty. Nová skutková podstata je zařazena mezi trestné činy proti svobodě (nikoli proti zdraví), což odráží, že chráněným zájmem je autonomie rozhodování, nikoli tělesná integrita jako taková; jednočinný souběh se sexuálními a majetkovými trestnými činy (znásilnění § 185, sexuální útok § 185a, loupež § 173, omezování osobní svobody § 171) je výslovně vyloučen (tyto zvláštní skutkové podstaty jej pohlcují), zatímco jednočinný souběh s drogovými trestnými činy podle § 283, § 283a a § 286a je vzhledem k jejich odlišnému chráněnému zájmu výslovně zachován. Důvodová zpráva uvádí, že návrh nemá dopad na státní rozpočet nad rámec jednorázových nákladů na statistiku, nemá dopad na podnikatelské prostředí, nezakládá veřejnou podporu a nenese zvýšené korupční riziko. Účinnost k 1. červenci 2027.",
+  "researchedContext": "Bylo staženo a přečteno úplné PDF „Návrh zákona včetně důvodové zprávy\" (idd=271414, 10 stran včetně obecné i zvláštní části) prostřednictvím přehledu tisku na psp.cz — jde o skutečný text návrhu a jeho vlastní odůvodnění. Byla stažena i přehledová stránka tisku (seznam dokumentů, datum podání 5. června 2026). Pole novelizovaných zákonů v grafu u tohoto tisku (pouze 40/2009) přesně odpovídá textu návrhu — návrh se dotýká jen § 175a (nový), § 283, § 283a a § 286a trestního zákoníku, žádného jiného předpisu; žádné podhodnocení kvality dat nebylo zjištěno. Jde o návrh z oblasti veřejné bezpečnosti a osobní autonomie (hovorově zákon proti „dolévání do skleničky\") bez vazby na deklarované podnikatelské zájmy kteréhokoli předkladatele. Napříč tisky: tento tisk je jedním ze šesti v nejvytíženějším shluku kolem zákona 40/2009 v této dávce (churn 6: tisky 111, 115, 173, 196, 207, 216). Vůči tisku 115 z dávky 001 (Babišem vedená rekriminalizace neplacení výživného v § 196 a § 55 odst. 2) i vůči tiskům z této dávky 173 (§ 199 / § 302 / § 303) a 196 (pouze § 9, ustanovení o pravomoci v nesouvisející části tisku) se tisk 216 dotýká zcela nepřekrývající se množiny ustanovení (nové vložení § 175a, doplnění formulací v § 283 / § 283a / § 286a) — s žádným příbuzným tiskem, do nějž mám vhled, tedy nekoliduje. Tisky 111 a 207 (přidělené v této dávce paralelně pracujícímu agentovi) jsem vůči týmž ustanovením ověřit nemohl a označuji to jako otevřenou křížovou kontrolu, zejména proto, že § 175a je zcela nové číslo paragrafu — pokud by jiný tisk k zákonu 40/2009 v této dávce rovněž navrhoval vložit ustanovení na místo § 175a nebo v jeho blízkosti, stala by se možnou kolize v přečíslování (vzorec tisků 120 a 244 z dávky 001), a ta by z tohoto podkladu sama o sobě viditelná nebyla.",
+  "unstatedEffects": [
+    {
+      "effect": "§ 175a odst. 1 v navrženém znění kriminalizuje podání JAKÉKOLI „návykové látky\" (§ 130 tr. zák. ji definuje tak, že zahrnuje i běžný alkohol, nejen omamné látky používané k útokům) proti zjistitelné vůli osoby nebo bez jejího vědomí, pokud to „skutečně\" ovlivní alespoň jedno z hledisek — psychiku, sebeovládání, rozpoznávací schopnost nebo společenské chování — což je práh věcného ovlivnění, nikoli práh závažnosti. Při doslovném čtení tak lze pod trestný čin s hrozbou až jednoho roku odnětí svobody zahrnout i málo škodlivé společenské jednání (například tajné posílení nápoje kamarádovi jako žert); důvodová zpráva se touto dolní hranicí ani tím, jak se u ní má v praxi uplatnit zásada subsidiarity trestní represe, nezabývá.",
+      "whoBenefits": "Potenciální oběti skutečně škodlivého spikingu získávají samostatnou a snáze prokazatelnou skutkovou podstatu; naopak osobám jednajícím poměrně bagatelně a nikoli predátorsky ve vztahu k alkoholu či jiným legálním látkám vzniká nová trestní expozice, kterou hodnocení dopadů v důvodové zprávě jako riziko neuvádí.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271414"
+    },
+    {
+      "effect": "Stejně jako tisk 115 z dávky 001 a tisk 173 z této dávky otevírá i tento tisk hlavu trestního zákoníku o trestných činech proti svobodě, a vytváří tak další legislativní nosič, k němuž by v principu bylo možné ve výborové fázi či ve druhém čtení připojit věcně související pozměňovací návrhy (i k nesouvisejícím tématům). Ve stažených materiálech nebyl nalezen žádný důkaz o takovém připojeném pozměňovacím návrhu; jde výhradně o strukturální položku ke sledování, shodně s poznámkou už učiněnou u tisku 115.",
+      "whoBenefits": "Hypoteticky kterýkoli poslanec, který by chtěl pod hlavičkou tohoto tisku měnit trestní právo; v podaném znění jsou přímými beneficienty potenciální oběti spikingu díky nové samostatné skutkové podstatě.",
+      "evidence": "https://www.psp.cz/sqw/historie.sqw?o=10&t=216"
+    }
+  ],
+  "conflictAssessment": "Žádný střet zájmů nespojuje doložené peněžní vazby předkladatelů s předmětem tohoto návrhu (nedovolené podání psychoaktivní látky, takzvaný spiking). Spolupředkladatelka Taťána Malá nemá evidovanou žádnou peněžní vazbu. Andrej Babiš je vázán na průmyslové a agropotravinářské impérium AGROFERT — AGROFERT a.s. (company:ico:26185610, 6 274 454 Kč), Synthesia a.s. (company:ico:60108916, 796 873 826 Kč, výrobce průmyslových chemikálií) — což by v abstraktní rovině mohlo vyvolat otázku oborové blízkosti k chemickému a látkovému odvětví, Synthesia však vyrábí průmyslové chemikálie (prekurzory výbušnin, agrochemikálie), nikoli farmaceutické, alkoholické či rekreační produkty, na které definice „návykové látky\" v tomto návrhu prakticky míří; kanál od ustanovení tohoto návrhu o trestní odpovědnosti k obchodní činnosti AGROFERTu nalezen nebyl. Boris Šťastný je vázán na Pražské služby a.s. (company:ico:60194120, 1 470 325 336 Kč, pražské městské služby) a na pohostinské a sportovní subjekty (GEKO SPORT, ASPEN SPORT) — bez souvislosti. Tomio Okamura je vázán na MIKI TRAVEL PRAGUE, spol. s r.o. (company:ico:25124188, 6 050 000 Kč, cestovní kancelář) a na U Machtů s.r.o. (company:ico:27145433, restaurační podnikání bez evidované hodnoty zakázek) — oborová blízkost k pohostinství a cestovnímu ruchu existuje v nejvolnějším smyslu (podniky, kde bývají případy spikingu hlášeny), návrh však samotným podnikům ani provozovatelům neukládá žádnou novou povinnost, licenční zátěž ani odpovědnost; kriminalizuje výhradně jednání jednotlivého pachatele. Toto je poctivé zjištění nízké závažnosti: žádná peněžní vazba předkladatele se neprotíná se skutečným právním mechanismem tohoto návrhu a směr změny míří k větší, nikoli menší ochraně potenciálních obětí.",
+  "citations": [
+    {
+      "claim": "Vkládá nový § 175a trestního zákoníku („Omezování svobody rozhodování\"), který kriminalizuje nedovolené podání psychoaktivní látky proti zjistitelné vůli osoby, bez jejího vědomí nebo s využitím její bezbrannosti, s odstupňovanými sazbami od jednoho roku (základní) až po deset let (způsobení smrti).",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271414"
+    },
+    {
+      "claim": "Mění § 283 odst. 1, § 283a odst. 1 a § 286a odst. 1 tr. zák. tak, že do výčtu zakázaných jednání doplňuje „podá\", a kodifikuje tím do textu zákona rozsudek Nejvyššího soudu sp. zn. 8 Tdo 1415/2013-176.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271414"
+    },
+    {
+      "claim": "Jednočinný souběh s § 185, § 185a, § 173, § 171 a § 170 je výslovně vyloučen (tyto trestné činy § 175a pohlcují); jednočinný souběh s § 283, § 283a a § 286a je vzhledem k odlišnému chráněnému zájmu výslovně zachován.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271414"
+    },
+    {
+      "claim": "Důvodová zpráva uvádí, že návrh nemá dopad na státní rozpočet nad rámec jednorázových nákladů na statistiku a výkaznictví, nemá dopad na podnikatelské prostředí, nezakládá veřejnou podporu a nenese zvýšené korupční riziko; účinnost k 1. červenci 2027.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271414"
+    },
+    {
+      "claim": "Přehledová stránka sněmovního tisku 216/0 se seznamem dokumentů a datem podání 5. června 2026 ve 12:00.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=216&ct1=0"
+    },
+    {
+      "claim": "Stránka průběhu projednávání tisku 216, garančním výborem ÚPV, navržené přikázání 24. června 2026.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=216"
+    },
+    {
+      "claim": "Novelizovaný předpis: zákon č. 40/2009 Sb., trestní zákoník — nový § 175a, § 283, § 283a, § 286a.",
+      "kind": "law",
+      "source": "40/2009"
+    },
+    {
+      "claim": "Předkladatel Andrej Babiš má peněžní vazby na veřejné zakázky prostřednictvím AGROFERT a.s. (6 274 454 Kč) a Synthesia a.s. (796 873 826 Kč, průmyslové chemikálie) — ani jedna nesouvisí s farmaceutickou, alkoholovou či rekreační látkovou oblastí, na kterou skutková podstata tohoto návrhu míří.",
+      "kind": "graph_fact",
+      "source": "company:ico:26185610"
+    },
+    {
+      "claim": "Předkladatel Andrej Babiš má peněžní vazby na veřejné zakázky prostřednictvím Synthesia a.s. (796 873 826 Kč) — jde o výrobce průmyslových chemikálií bez souvislosti s předmětem návrhu.",
+      "kind": "graph_fact",
+      "source": "company:ico:60108916"
+    },
+    {
+      "claim": "Předkladatel Boris Šťastný má peněžní vazby na veřejné zakázky prostřednictvím Pražské služby a.s. (1 470 325 336 Kč, městské služby) — bez souvislosti s předmětem návrhu.",
+      "kind": "graph_fact",
+      "source": "company:ico:60194120"
+    },
+    {
+      "claim": "Předkladatel Tomio Okamura má peněžní vazby prostřednictvím MIKI TRAVEL PRAGUE, spol. s r.o. (6 050 000 Kč, cestovní kancelář) — jde o oborovou blízkost k pohostinství a cestovnímu ruchu, návrh však neukládá podnikům ani provozovatelům žádnou povinnost či odpovědnost, kriminalizuje výhradně jednání pachatele.",
+      "kind": "graph_fact",
+      "source": "company:ico:25124188"
+    }
+  ]
+}

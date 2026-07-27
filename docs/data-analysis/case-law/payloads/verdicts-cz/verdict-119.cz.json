@@ -1,0 +1,55 @@
+{
+  "billTisk": 119,
+  "statedReasoning": "Podle úplné stažené důvodové zprávy (obecné i zvláštní části) návrh napravuje situaci takzvaných „uzamčených účastníků\" třetího důchodového pilíře. Zákon č. 462/2023 Sb. (o rozvoji finančního trhu a podpoře zajištění na stáří, vyhlášen 29. prosince 2023, pro tento účel účinný od 1. července 2024) zrušil státní příspěvek účastníkům doplňkového penzijního spoření (427/2011) a staršího penzijního připojištění (42/1994), kterým byl přiznán starobní důchod. Dopadl i na již existující smlouvy, ale těmto účastníkům nedal žádnou bezsankční cestu ven: kdo nesplňoval podmínky pro jednorázové vyrovnání, mohl odejít jen odbytným (a přijít o již připsané státní příspěvky), v krajních případech i o vlastní prostředky. Ústavní soud (nález Pl. ÚS 18/24 ze dne 29. ledna 2025) shledal samotné zrušení ústavně konformním, poznamenal však, že zákonodárce může nápravu přesto zavést. Tento návrh ji zavádí dvěma opatřeními: (1) nový § 28a zákona 427/2011 přiznává zhruba 150 000 dosud zapojeným uzamčeným účastníkům (těm, kdo smlouvu uzavřeli před 29. prosincem 2023 a později kvůli přiznání starobního důchodu přišli o státní příspěvek) právo na jednorázové vyrovnání — plný bezsankční odchod — přestože nesplňují obecné podmínky § 24 odst. 1 písm. a); a (2) přechodná ustanovení (čl. II), podle nichž Ministerstvo financí na písemnou žádost podanou v šestiměsíční prekluzivní lhůtě vrátí státní příspěvek, o který přišlo zhruba 16 000 účastníků, kteří již odešli s finančními následky, a penzijní společnost vrátí vlastní prostředky zhruba 100 účastníkům, kteří přišli i o ně. Zákon o daních z příjmů 586/1992 se novelizuje (§ 15b odst. 1 písm. a) bod 1 doplňuje podmínku věku 60 let; § 15b odst. 4 písm. a) doplňuje novou výjimku z dodanění) tak, aby využití této nové cesty ven nepřipravilo produkt o daňově zvýhodněný režim, a přechodná ustanovení čl. IV osvobozují vrácené vlastní prostředky od daně z příjmů fyzických osob a brání zdanění příspěvků zaměstnavatele u těchto jednorázových výplat. Uváděný rozpočtový dopad: zhruba 60 mil. Kč ze státního rozpočtu (důvodová zpráva výslovně poznamenává, že si o vrácení nepožádají úplně všichni oprávnění), žádný dopad na ostatní veřejné rozpočty. Předkladatelé požádali (neúspěšně) o zrychlené projednání v jediném čtení a o nestandardní účinnost (prvním dnem měsíce následujícího po vyhlášení), aby náprava dorazila k účastníkům rychle. Předkladatelé neuvedli žádné lobbisty podle zákona o regulaci lobbingu.",
+  "researchedContext": "Průběh projednávání na psp.cz potvrzuje, že tisk byl podán 27. února 2026, obdržel souhlasné stanovisko vlády (10. března 2026), byl přikázán rozpočtovému výboru jako garančnímu se zpravodajem Vladimírem Pikorou, prošel prvým čtením 24. března 2026 (Sněmovna zamítla návrh předkladatelů na zrychlené projednání v jediném čtení), rozpočtový výbor jej doporučil (7. dubna 2026), prošel třetím čtením 27. května 2026, byl schválen Senátem (8. července 2026), podepsán prezidentem (16. července 2026) a podle stránky průběhu na psp.cz byl v červenci 2026 vyhlášen ve Sbírce zákonů. Oba novelizované předpisy jsou skutečné a správně určené: zákon č. 427/2011 Sb. upravuje doplňkové penzijní spoření (produkt třetího pilíře po roce 2013) a zákon č. 586/1992 Sb. je zákon o daních z příjmů; důvodová zpráva oba zasazuje do dobrovolného, individuálně smluvního třetího důchodového pilíře (zahrnujícího též penzijní připojištění podle 42/1994, penzijní pojištění, životní pojištění a dlouhodobý investiční produkt DIP). Opatření je cílenou nápravou ve prospěch spotřebitele, která odstraňuje nezamýšlenou tvrdost balíčku k finančnímu trhu z roku 2023; jde o vnitrostátní působnost bez harmonizace s právem EU. Nic v prozkoumaném materiálu nenaznačuje skrytého beneficienta z odvětví — přímými příjemci je rozptýlená skupina zhruba 166 000 běžných penzijních spořitelů a penzijní společnosti vystupují pouze jako správci vracející prostředky, které držely nebo dlužily.",
+  "unstatedEffects": [
+    {
+      "effect": "Odškodnění zhruba 16 000 již odešlých účastníků je podmíněno vlastní žádostí a ohraničeno šestiměsíční prekluzivní lhůtou (čl. II bod 2): oprávnění bývalí spořitelé, kteří se o zákonu nedozvědí nebo lhůtu propásnou, o vrácený státní příspěvek trvale přijdou. Důvodová zpráva sama počítá s neúplným využitím („je pravděpodobné, že žádost o vrácení státního příspěvku nepodají úplně všichni\"), takže odhad zhruba 60 mil. Kč předpokládá, že části oprávněných vyplaceno nebude; neuplatněné částky zůstanou státu. Tento distribuční důsledek — náprava podmíněná tím, že nejméně informovaní zareagují nejrychleji — je ve zprávě podán pouze jako administrativní nutnost, nikoli jako předvídatelné nedoplacení.",
+      "whoBenefits": "Státní rozpočet (ponechá si neuplatněné odškodnění); znevýhodněni jsou nejméně informovaní bývalí účastníci, kteří šestiměsíční lhůtu pro podání žádosti propásnou.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267928"
+    }
+  ],
+  "conflictAssessment": "Zanedbatelný; poctivým zjištěním je absence střetu, nikoli skandál. Jde o nápravný návrh ve prospěch spořitelů, který vrací peníze rozptýlené skupině zhruba 166 000 běžných účastníků třetího pilíře znevýhodněných dřívějším zákonem, při mírném nákladu zhruba 60 mil. Kč pro stát a bez zjistitelného soukromého beneficienta z odvětví. Peněžní vazby předkladatelů evidované v grafu nesouvisejí s předmětem návrhu (doplňkové penzijní spoření a jeho daňový režim): největší vazba Patrika Nachera, Operátor ICT, a.s. (~884,9 mil. Kč), je pražská městská firma pro IT a eGovernment; největší vazba Borise Šťastného, Pražské služby a.s. (~1,47 mld. Kč), je pražský městský provozovatel svozu odpadu (jeho další vazby GEKO SPORT a VZP jsou sportovní subjekt a veřejná zdravotní pojišťovna — ani jedna není penzijní společností); vazba Tomia Okamury na MIKI TRAVEL PRAGUE (~6,05 mil. Kč) je cestovní kancelář. Ani jeden z těchto subjektů není penzijní společností, správcem aktiv ani poskytovatelem daňově zvýhodněného spořicího produktu na stáří, takže z tohoto návrhu nevede k příjmům žádného subjektu vázaného na předkladatele hodnověrný kanál. Hlavní předkladatelka Alena Schillerová je bývalou ministryní financí; její autorství nápravy balíčku k finančnímu trhu z roku 2023 je politický a věcný fakt, nikoli finanční střet ve vlastní prospěch. Symetricky u všech pěti předkladatelů (ANO, SPD, nezařazení): peněžní vazby existují, ale žádná se nedotýká regulovaného odvětví — platný závěr o nízké závažnosti.",
+  "citations": [
+    {
+      "claim": "Tisk 119 novelizuje zákon 427/2011 (nový § 28a přiznávající uzamčeným účastníkům bezsankční jednorázové vyrovnání, dále § 191a a přechodná ustanovení čl. II vracející ztracené státní příspěvky zhruba 16 000 odešlým účastníkům a vlastní prostředky zhruba 100 z nich) a zákon 586/1992 (§ 15b odst. 1 písm. a) bod 1 s podmínkou věku 60 let, § 15b odst. 4 písm. a) s novou výjimkou z dodanění, daňová osvobození v čl. IV); úplná důvodová zpráva uvádí počty ~150 000 dosud zapojených a ~16 000 odešlých, rozpočtový odhad ~60 mil. Kč s připuštěným neúplným využitím, nález Pl. ÚS 18/24 a šestiměsíční prekluzivní lhůtu pro podání žádosti. Podepsáno Schillerovou, Nacherem, Šťastným, Okamurou a Malou, Praha 26. února 2026.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=267928"
+    },
+    {
+      "claim": "Novelizovaným předpisem o doplňkovém penzijním spoření je zákon č. 427/2011 Sb., o doplňkovém penzijním spoření — skutečný, platný český zákon.",
+      "kind": "law",
+      "source": "427/2011"
+    },
+    {
+      "claim": "Novelizovaným daňovým předpisem je zákon č. 586/1992 Sb., o daních z příjmů — skutečný, platný český zákon.",
+      "kind": "law",
+      "source": "586/1992"
+    },
+    {
+      "claim": "Zákonem, který zrušil státní příspěvek účastníkům třetího pilíře s přiznaným starobním důchodem (újma, kterou tento návrh napravuje), je zákon č. 462/2023 Sb.; je uveden mezi novelizujícími předpisy zákona 427/2011 přímo v textu návrhu a jde o skutečný český zákon.",
+      "kind": "law",
+      "source": "462/2023"
+    },
+    {
+      "claim": "Průběh projednávání: tisk podán 27. února 2026, souhlasné stanovisko vlády, garančním výborem rozpočtový výbor se zpravodajem Vladimírem Pikorou, prvé čtení 24. března 2026 (zrychlené projednání v jediném čtení zamítnuto), třetí čtení schváleno 27. května 2026, souhlas Senátu 8. července 2026, podpis prezidenta 16. července 2026, vyhlášeno ve Sbírce zákonů v červenci 2026.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=119"
+    },
+    {
+      "claim": "Největší peněžní vazba předkladatele Patrika Nachera evidovaná v grafu, Operátor ICT, a.s. (~884,9 mil. Kč), je pražská městská firma pro IT a eGovernment — nikoli penzijní společnost či poskytovatel finančních produktů, a s doplňkovým penzijním spořením nesouvisí.",
+      "kind": "graph_fact",
+      "source": "company:ico:02795281"
+    },
+    {
+      "claim": "Největší peněžní vazba předkladatele Borise Šťastného evidovaná v grafu, Pražské služby a.s. (~1,47 mld. Kč), je pražský městský provozovatel svozu odpadu — s doplňkovým penzijním spořením nesouvisí.",
+      "kind": "graph_fact",
+      "source": "company:ico:60194120"
+    },
+    {
+      "claim": "Peněžní vazba předkladatele Tomia Okamury evidovaná v grafu, MIKI TRAVEL PRAGUE (~6,05 mil. Kč), je cestovní kancelář — s doplňkovým penzijním spořením nesouvisí.",
+      "kind": "graph_fact",
+      "source": "company:ico:25124188"
+    }
+  ]
+}

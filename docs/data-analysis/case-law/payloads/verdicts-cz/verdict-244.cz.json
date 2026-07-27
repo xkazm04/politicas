@@ -1,0 +1,60 @@
+{
+  "billTisk": 244,
+  "statedReasoning": "Předkladatelé uvádějí, že návrh modernizuje daňovou podporu rodin s malými dětmi tím, že ji přesouvá z podpory vázané na manželský stav na podporu vázanou na dítě. Stávající sleva na manžela nebo manželku (nevratná sleva 24 840 Kč ročně, dvojnásobek u manžela či manželky s průkazem ZTP/P) je dostupná pouze manželským a registrovaným párům, u nichž vlastní příjem nevydělávajícího partnera zůstane pod 68 000 Kč ročně — což je podle důvodové zprávy tvrdá příjmová hranice odrazující druhé vydělávající osoby (zpravidla matky malých dětí) od návratu do práce a zcela vylučující nesezdané spolužijící rodiče i samoživitele. Návrh tuto slevu ruší (§ 35ba odst. 1 písm. b), § 35bb) a místo ní zvyšuje daňové zvýhodnění na dítě do 3 let o 1 000 Kč měsíčně (12 000 Kč ročně), respektive o 4 000 Kč měsíčně (48 000 Kč ročně), má-li alespoň jeden ve společné domácnosti žijící rodič či pečující osoba průkaz ZTP/P — jde přitom o zvýhodnění, které je na rozdíl od slevy na manžela vratné formou bonusu i domácnostem s nízkou daní a je neutrální vůči manželskému stavu. Důvodová zpráva se opírá o dvě studie IDEA/CERGE-EI k trhu práce a o reformní návrh „Chytřejší daně\" z roku 2025 (PAQ Research, IDEA a Centrum veřejných financí). Odhaduje čistý výpadek příjmů veřejných rozpočtů zhruba 0,3 až 1,2 mld. Kč ročně (hrubý náklad na zvýšení zvýhodnění na dítě ~2,7 až 3,0 mld. Kč, kompenzovaný úsporou ~2,1 až 2,5 mld. Kč ze zrušení slevy na manžela), prohlašuje, že se na přípravě nepodílel žádný lobbista, a stanoví účinnost k 1. lednu 2027 s přechodným ustanovením zachovávajícím dosavadní pravidla pro zdaňovací období započatá dříve.",
+  "researchedContext": "Ověřeno z primárních zdrojů psp.cz: tisk 244 podali 26. června 2026 pouze 4 z týchž poslanců (Pivoňka Vaňková, Kovářová, Papajanovský, Sedmihradská), kteří vedou tisk 120 s 21 podpisy, podaný o čtyři měsíce dříve (3. března 2026) a rovněž novelizující zákon 586/1992. Oba tisky NEJSOU duplicitní ani dvojicí návrhu a jeho opakovaného podání — novelizují různá ustanovení téhož zákona. Tisk 120 převádí základní slevu na poplatníka (§ 35ba odst. 1 písm. a), 30 840 Kč ročně) na vratný bonus navázaný na odvedené pojistné a dostupný jen zaměstnancům s příjmy podle § 6 a samostatně omezuje stávající bonus na dítě výší odvedeného sociálního a zdravotního pojistného; vláda k němu 31. března 2026 zaujala formální nesouhlas a od přikázání rozpočtovému výboru jako garančnímu (2. dubna 2026) tam ke 24. červenci 2026 leží bez dalšího projednání v plénu. Tisk 244 je užší a novější: byl teprve postoupen vládě k zaujetí stanoviska (lhůta do 30. července 2026) a dosud nemá přikázaný výbor. Oba nesou totožné datum účinnosti 1. ledna 2027, což naznačuje, že jde o dvě souběžné části jedné širší přestavby slev na dani z příjmů fyzických osob a rodinné daňové podpory prosazované týmž jádrem poslanců, nikoli o to, že by jeden nahrazoval druhý. Ze společného čtení obou textů plyne konkrétní legislativně-technické riziko: novelizační ustanovení tisku 120 ruší § 35ba odst. 1 písm. a) a přeznačuje písmena b) až e) na a) až d); novelizační ustanovení tisku 244 ruší písm. b) a přeznačuje písmena c) až e) na b) až d) — což zamýšlený výsledek (zrušení slevy na manžela) přinese jen tehdy, budou-li písmena § 35ba v okamžiku nabytí účinnosti tisku 244 stále v dnešní podobě a) až e). Protože tisk 120 je procesně napřed (po prvém čtení, ve výboru), zatímco tisk 244 dosud neobdržel ani stanovisko vlády, platí: bude-li 120 přijat dříve, zrušilo by ustanovení tisku 244 v doslovném znění to písmeno, které bude tehdy označeno jako b) — podle uspořádání po přijetí tisku 120 jde o slevu původně označenou jako c), nikoli o slevu na manžela — ledaže by legislativní odbor Sněmovny obě znění před konečným schválením sladil.",
+  "unstatedEffects": [
+    {
+      "effect": "Bude-li tisk 120 (reforma slevy na poplatníka, nyní v rozpočtovém výboru) přijat dříve než tisk 244, přestane novelizační pokyn tisku 244 k § 35ba odst. 1 — „písmeno b) se zrušuje … dosavadní písmena c) až e) se označují jako b) až d)\" — mířit na slevu na manžela, kterou má zrušit, protože tisk 120 už písm. a) ruší a každé následující písmeno posouvá o jedno níže. Tisk 244 ve stávajícím znění mlčky předpokládá, že označení písmen v § 35ba zůstává v podobě před tiskem 120.",
+      "whoBenefits": "Z tohoto stavu netěží žádný předkladatel ani strana; jde o mezeru v koordinaci mezi dvěma souvisejícími návrhy překrývající se skupiny předkladatelů, které postupují Parlamentem v odlišném čase. Řešením je legislativně-technické sladění před konečným schválením, záměrné seřazení či zpětvzetí jednoho z tisků, případně to, že jeden z návrhů prostě neprojde.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=277769"
+    },
+    {
+      "effect": "Zrušení slevy na manžela při současném zvýšení pouze zvýhodnění na dítě do 3 let zhoršuje postavení jednopříjmových manželských domácností s dětmi staršími 3 let (nebo bez dětí), kterým se žádná náhradní sleva nenabízí.",
+      "whoBenefits": "Prospívá samoživitelům, nesezdaným spolužijícím rodičům a nízkopříjmovým pracujícím domácnostem s dětmi do 3 let (kteří mohou nové zvýhodnění čerpat jako vratný bonus, na rozdíl od dosavadní nevratné slevy na manžela); znevýhodňuje jednopříjmové manželské páry se staršími dětmi nebo bez malých dětí, které dnes slevu na manžela uplatňují v plné výši. Vlastní důvodová zpráva návrhu toto přerozdělení připouští jako záměrný důsledek přesměrování podpory z manželského stavu na dítě.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=277769"
+    }
+  ],
+  "conflictAssessment": "Ze 4 předkladatelů nese označenou peněžní vazbu v grafu pouze Věra Kovářová: ČEPRO, a.s. (company:ico:60193531), státní společnost distribuující pohonné hmoty, s 235 543 222 Kč ve veřejných zakázkách — jde o tutéž vazbu, která byla už označena u tisku 120, kde je Kovářová rovněž předkladatelkou. Podnikání ČEPRA (skladování pohonných hmot a logistika potrubní distribuce) nemá věcnou souvislost se slevami na dani z příjmů fyzických osob na děti, manžele či zdravotní postižení; nic v tomto návrhu se nedotýká spotřebních daní z paliv, daně z příjmů právnických osob ani zadávání veřejných zakázek. Druhá uvedená vazba Kovářové (OSVČ, company:ico:04627695, 0 Kč) je nulová registrace samostatné výdělečné činnosti a je nevýznamná. Pivoňka Vaňková, Papajanovský a Sedmihradská nemají v grafu označené žádné firemní vazby. Jde o případ, kde je poctivým zjištěním absence střetu: u jedné předkladatelky existuje skutečná a nemalá peněžní vazba na dodavatele státu, leží však zcela mimo předmět tohoto návrhu — jde o rodinnou a dětskou daňovou politiku, nikoli o nákup pohonných hmot.",
+  "citations": [
+    {
+      "claim": "Novelizuje zákon č. 586/1992 Sb., o daních z příjmů",
+      "kind": "law",
+      "source": "586/1992"
+    },
+    {
+      "claim": "Tisk 244 ruší slevu na manžela nebo manželku (§ 35ba odst. 1 písm. b), § 35bb) a zvyšuje daňové zvýhodnění na dítě do 3 let o 1 000 Kč měsíčně (4 000 Kč měsíčně, má-li ve společné domácnosti žijící rodič či pečující osoba průkaz ZTP/P), s účinností od 1. ledna 2027 a s přechodným ustanovením pro dřívější zdaňovací období",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=277769"
+    },
+    {
+      "claim": "Odhadovaný čistý dopad na veřejné rozpočty: výpadek příjmů zhruba 0,3 až 1,2 mld. Kč ročně (hrubý náklad zvýšení zvýhodnění na dítě ~2,7 až 3,0 mld. Kč ročně, kompenzovaný úsporou ~2,1 až 2,5 mld. Kč ročně ze zrušení slevy na manžela); podle uvedení lobbistické stopy se na přípravě návrhu nepodílel žádný lobbista",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=277769"
+    },
+    {
+      "claim": "Tisk 244 podali 26. června 2026 čtyři poslanci (Pivoňka Vaňková, Kovářová, Papajanovský, Sedmihradská), rozeslán byl 29. června 2026 a 30. června 2026 postoupen vládě k zaujetí stanoviska se lhůtou do 30. července 2026; žádný výbor dosud nebyl přikázán",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=244"
+    },
+    {
+      "claim": "Tisk 120 (týchž 21 podepsaných včetně těchže 4 klíčových předkladatelů) novelizuje tentýž zákon 586/1992, avšak jiné ustanovení: převádí základní slevu na poplatníka (§ 35ba odst. 1 písm. a), 30 840 Kč ročně) na vratné daňové zvýhodnění omezené výší odvedeného sociálního a zdravotního pojistného a dostupné jen zaměstnancům s příjmy podle § 6, a týmž pojistným omezuje i stávající bonus na dítě",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268221"
+    },
+    {
+      "claim": "Tisk 120 byl podán 3. března 2026; vláda zaujala 31. března 2026 formální nesouhlas; organizační výbor přikázal 2. dubna 2026 jako garanční rozpočtový výbor a ke 24. červenci 2026 tam zůstává v projednávání",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=120"
+    },
+    {
+      "claim": "Novelizační pokyn tisku 120 ruší § 35ba odst. 1 písm. a) a přeznačuje písmena b) až e) na a) až d); novelizační pokyn tisku 244 ruší § 35ba odst. 1 písm. b) a přeznačuje písmena c) až e) na b) až d) za předpokladu, že platí dosavadní pětipísmenné označení a) až e) — bude-li tisk 120 přijat dříve, zrušil by pokyn tisku 244 v doslovném znění jiné ustanovení, než zamýšlí",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=268221"
+    },
+    {
+      "claim": "Předkladatelka Věra Kovářová má peněžní vazbu na ČEPRO, a.s. (státní společnost distribuující pohonné hmoty) v hodnotě 235 543 222 Kč ve veřejných zakázkách",
+      "kind": "graph_fact",
+      "source": "company:ico:60193531"
+    }
+  ]
+}

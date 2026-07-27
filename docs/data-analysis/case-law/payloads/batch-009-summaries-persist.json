@@ -1,0 +1,1128 @@
+{
+ "case": "law",
+ "batch": 9,
+ "note": "Orchestrator adaptation of bill-summaries-cz.json: text-derived Czech \"co to meni\" one-liners; bills without parseable body text are absent rather than fabricated.",
+ "generatedAt": "2026-07-27T09:21:12.026Z",
+ "proposals": [
+  {
+   "id": "bill:tisk:43111",
+   "props": {
+    "summary_cz": "Mění 4 předpisy — změna zákona o daních z příjmů, zákona o státní sociální podpoře, zákona o spotřebních daních a další předpis.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-4\\265051.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43112",
+   "props": {
+    "summary_cz": "Mění 2 předpisy — změna zákona o ochraně hospodářské soutěže, zákona o ozdravných postupech a řešení krize na finančním trhu.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-5\\265055.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43113",
+   "props": {
+    "summary_cz": "Nový zákon o Úřadu pro prevenci korupce a střetu zájmů.",
+    "summary_method": "new_act",
+    "summary_source": ".data\\law-collision-cache\\tisk-6\\265061.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43114",
+   "props": {
+    "summary_cz": "Mění 20 předpisů — změna trestního řádu, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o sdružování v politických stranách a v politických hnutích a 17 dalších předpisů.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-7\\265064.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43117",
+   "props": {
+    "summary_cz": "Mění 4 předpisy — změna trestního řádu, tiskového zákona, zákona o provozování rozhlasového a televizního vysílání a další předpis.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-10\\265040.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43118",
+   "props": {
+    "summary_cz": "Mění zákon č. 589/1992 Sb., o pojistném na sociální zabezpečení a příspěvku na státní politiku zaměstnanosti.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-11\\265076.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43119",
+   "props": {
+    "summary_cz": "Mění zákon č. 491/2001 Sb., o volbách do zastupitelstev obcí a o změně některých zákonů.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-12\\265094.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43120",
+   "props": {
+    "summary_cz": "Mění 5 předpisů — změna zákona o investičních společnostech a investičních fondech, zákona o dohledu v oblasti kapitálového trhu, zákona o podnikání na kapitálovém trhu a 2 další předpisy.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-13\\265099.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43121",
+   "props": {
+    "summary_cz": "Mění 3 předpisy — změna zákona o látkách, které poškozují ozonovou vrstvu, a o fluorovaných skleníkových plynech, trestního zákoníku, zákona o zdravotních službách.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-14\\265109.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43122",
+   "props": {
+    "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-15\\265165.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43123",
+   "props": {
+    "summary_cz": "Mění 11 předpisů — změna zákona o ochraně spotřebitele, zákona o České národní bance, zákona o podnikání na kapitálovém trhu a 8 dalších předpisů.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-16\\265180.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43131",
+   "props": {
+    "summary_cz": "Mění 9 předpisů — změna obecního zřízení, zákona o obecní policii, zákona o odpovědnosti za škodu způsobenou při výkonu veřejné moci rozhodnutím nebo nesprávným úředním postupem a 6 dalších předpisů.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-24\\265302.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43132",
+   "props": {
+    "summary_cz": "Mění 2 předpisy — změna zákona o Sbírce zákonů a mezinárodních smluv, zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o Sbírce zákonů a mezinárodních smluv.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-25\\265305.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43135",
+   "props": {
+    "summary_cz": "Mění 2 předpisy — změna zákona o rozpočtovém určení daní, zákona č. 349/2023 Sb., kterým se mění některé zákony v souvislosti s konsolidací veřejných rozpočtů.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-28\\265349.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43142",
+   "props": {
+    "summary_cz": "Mění zákon č. 236/1995 Sb., o platu a dalších náležitostech spojených s výkonem funkce představitelů státní moci a některých státních orgánů a soudců a poslanců Evropského parlamentu.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-35\\265475.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43143",
+   "props": {
+    "summary_cz": "Mění zákon č. 268/2025 Sb., kterým se mění zákon č. 89/2012 Sb., občanský zákoník, a další související zákony.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-36\\265520.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43147",
+   "props": {
+    "summary_cz": "Mění zákon č. 586/1992 Sb., o dani z příjmů.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-40\\265587.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43149",
+   "props": {
+    "summary_cz": "Mění zákon č. 465/2023 Sb., kterým se mění zákon č. 416/2009 Sb., o urychlení výstavby dopravní, vodní a energetické infrastruktury a infrastruktury elektronických komunikací (liniový zákon), a další související zákony.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-42\\265622.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43153",
+   "props": {
+    "summary_cz": "Mění zákon č. 104/2013 Sb., o mezinárodní justiční spolupráci ve věcech trestních.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-46\\265675.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43154",
+   "props": {
+    "summary_cz": "Mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-47\\265737.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43155",
+   "props": {
+    "summary_cz": "Mění zákon č. 326/2004 Sb., o rostlinolékařské péči a o změně některých souvisejících zákonů.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-48\\265728.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43156",
+   "props": {
+    "summary_cz": "Mění zákon č. 100/2001 Sb., o posuzování vlivů na životní prostředí a o změně některých souvisejících zákonů (zákon o posuzování vlivů na životní prostředí).",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-49\\265762.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43159",
+   "props": {
+    "summary_cz": "Nový zákon o určování provozoven a jmenování zástupců některých poskytovatelů služeb za účelem shromažďování elektronických důkazů v trestním řízení.",
+    "summary_method": "new_act",
+    "summary_source": ".data\\law-collision-cache\\tisk-52\\265978.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43160",
+   "props": {
+    "summary_cz": "Mění 2 předpisy — změna zákona o ochraně spotřebitele, občanského zákoníku.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-53\\265983.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43161",
+   "props": {
+    "summary_cz": "Mění 4 předpisy — změna zákona o rejstříku trestů a evidenci přestupků, zákona o státní statistické službě, zákona o správních poplatcích a další předpis.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-54\\265991.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43162",
+   "props": {
+    "summary_cz": "Nový zákon o opatřeních ke snížení nákladů na zavádění sítí elektronických komunikací s velmi vysokou kapacitou.",
+    "summary_method": "new_act",
+    "summary_source": ".data\\law-collision-cache\\tisk-55\\266009.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43163",
+   "props": {
+    "summary_cz": "Mění 5 předpisů — změna zákona o zeměměřictví, zákona o správních poplatcích, zákona o elektronických komunikacích a 2 další předpisy.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-56\\266014.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43164",
+   "props": {
+    "summary_cz": "Mění zákon č. 375/2022 Sb., o zdravotnických prostředcích a diagnostických zdravotnických prostředcích in vitro.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-57\\266021.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43165",
+   "props": {
+    "summary_cz": "Mění 3 předpisy — změna zákona o výrobcích s ukončenou životností, zákona o posuzování shody stanovených výrobků při jejich dodávání na trh, zákona o dozoru nad trhem s výrobky.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-58\\266045.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43166",
+   "props": {
+    "summary_cz": "Mění zákon č. 468/2024 Sb., o integračním sociálním podniku.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-59\\266065.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43168",
+   "props": {
+    "summary_cz": "Mění zákon č. 218/2003 Sb., o odpovědnosti mládeže za protiprávní činy a o soudnictví ve věcech mládeže a o změně některých zákonů (zákon o soudnictví ve věcech mládeže).",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-61\\266115.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43169",
+   "props": {
+    "summary_cz": "Nový zákon o některých povinnostech souvisejících s opravou výrobku a o změně zákona č. 634/1992 Sb., o ochraně spotřebitele, ve znění pozdějších předpisů.",
+    "summary_method": "new_act",
+    "summary_source": ".data\\law-collision-cache\\tisk-62\\266120.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43170",
+   "props": {
+    "summary_cz": "Nový zákon o účetnictví.",
+    "summary_method": "new_act",
+    "summary_source": ".data\\law-collision-cache\\tisk-63\\266144.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43171",
+   "props": {
+    "summary_cz": "Mění 28 předpisů — změna občanského soudního řádu, zákona o České obchodní inspekci, horního zákona a 25 dalších předpisů.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43172",
+   "props": {
+    "summary_cz": "Mění 11 předpisů — změna zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o bankách, zákona o svobodném přístupu k informacím a 8 dalších předpisů.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-65\\266164.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43174",
+   "props": {
+    "summary_cz": "Mění 22 předpisů — změna stavebního zákona, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o požární ochraně a 19 dalších předpisů.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-67\\266188.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43175",
+   "props": {
+    "summary_cz": "Mění 7 předpisů — změna zákona o pravidlech rozpočtové odpovědnosti, zákona o rozpočtových pravidlech, zákona o rozpočtovém určení daní a 4 další předpisy.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-68\\266205.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43176",
+   "props": {
+    "summary_cz": "Nový zákon o digitální ekonomice a o změně některých souvisejících zákonů.",
+    "summary_method": "new_act",
+    "summary_source": ".data\\law-collision-cache\\tisk-69\\266214.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43177",
+   "props": {
+    "summary_cz": "Mění zákon č. 592/1992 Sb., o pojistném na veřejné zdravotní pojištění.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-70\\266238.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43178",
+   "props": {
+    "summary_cz": "Mění zákon č. 427/2011 Sb., o doplňkovém penzijním spoření.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-71\\266283.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43179",
+   "props": {
+    "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-72\\266355.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43180",
+   "props": {
+    "summary_cz": "Mění 3 předpisy — změna zákona o obalech, zákona o ochraně spotřebitele, zákona o odpadech.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-73\\266491.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43183",
+   "props": {
+    "summary_cz": "Nový zákon o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státních zaměstnancích).",
+    "summary_method": "new_act",
+    "summary_source": ".data\\law-collision-cache\\tisk-76\\266517.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43184",
+   "props": {
+    "summary_cz": "Mění 20 předpisů — změna zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o Státním fondu životního prostředí České republiky, zákona o sdružování v politických stranách a v politických…",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-77\\266520.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43185",
+   "props": {
+    "summary_cz": "Mění zákon č. 245/2000 Sb., o státních svátcích, o ostatních svátcích, o významných dnech a o dnech pracovního klidu.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-78\\266724.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43189",
+   "props": {
+    "summary_cz": "Mění zákon č. 175/2025 Sb., o poskytování některých opatření v podpoře bydlení (zákon o podpoře bydlení).",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-82\\266752.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43190",
+   "props": {
+    "summary_cz": "Mění 4 předpisy — změna zákona o předcházení ekologické újmě a o její nápravě, zákona o České inspekci životního prostředí a její působnosti v ochraně lesa, vodního zákona a další předpis.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-74\\266759.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43191",
+   "props": {
+    "summary_cz": "Mění 2 předpisy — změna zákona o důchodovém pojištění, zákona č. 417/2024 Sb., kterým se mění zákon č. 155/1995 Sb., o důchodovém pojištění, ve znění pozdějších předpisů, a další související zákony.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-50\\266804.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43192",
+   "props": {
+    "summary_cz": "Mění zákon č. 254/2001 Sb., o vodách a o změně některých zákonů (vodní zákon).",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-75\\266819.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43193",
+   "props": {
+    "summary_cz": "Mění 6 předpisů — změna zákona o silničním provozu, zákona o silniční dopravě, zákona o dráhách a 3 další předpisy.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-83\\266860.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43195",
+   "props": {
+    "summary_cz": "Mění 3 předpisy — změna zákona o životním a existenčním minimu, zákona o sociálních službách, zákona č. 152/2025 Sb..",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-85\\266984.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43196",
+   "props": {
+    "summary_cz": "Mění zákon č. 427/2011 Sb., o doplňkovém penzijním spoření.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-86\\266990.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43198",
+   "props": {
+    "summary_cz": "Mění 4 předpisy — změna zákona o dávce státní sociální pomoci, zákona o životním a existenčním minimu, zákona o sociálních službách a další předpis.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-88\\267095.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43199",
+   "props": {
+    "summary_cz": "Mění zákon č. č. 218/2000 Sb., o rozpočtových pravidlech.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-89\\267100.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43200",
+   "props": {
+    "summary_cz": "Mění 9 předpisů — změna zákona o Nejvyšším kontrolním úřadu, rozpočtových pravidel, zákona o rozpočtovém určení daní a 6 dalších předpisů.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-90\\267105.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43208",
+   "props": {
+    "summary_cz": "Mění zákon č. 164/2013 Sb., o mezinárodní spolupráci při správě daní a o změně dalších souvisejících zákonů.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-98\\267359.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43209",
+   "props": {
+    "summary_cz": "Mění zákon č. 340/2015 Sb., o zvláštních podmínkách účinnosti některých smluv, uveřejňování těchto smluv a o registru smluv (zákon o registru smluv).",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-99\\267378.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43210",
+   "props": {
+    "summary_cz": "Mění zákon č. 128/2000 Sb., o obcích (obecní zřízení), a další zákony v souvislosti se změnami veřejného opatrovnictví.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-100\\267373.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43211",
+   "props": {
+    "summary_cz": "Nový zákon o odčerpání majetku nevysvětleného původu.",
+    "summary_method": "new_act",
+    "summary_source": ".data\\law-collision-cache\\tisk-101\\267467.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43212",
+   "props": {
+    "summary_cz": "Mění 12 předpisů — změna trestního řádu, zákona o státním zastupitelství, zákona o majetku České republiky a jejím vystupování v právních vztazích a 9 dalších předpisů.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-102\\267472.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43213",
+   "props": {
+    "summary_cz": "Mění 6 předpisů — změna zákona o elektronických úkonech a autorizované konverzi dokumentů, zákona o státní sociální podpoře, zákona o důchodovém pojištění a 3 další předpisy.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-103\\267494.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43214",
+   "props": {
+    "summary_cz": "Mění zákon č. 561/2004 Sb., o předškolním, základním, středním, vyšším odborném a jiném vzdělávání (školský zákon).",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-104\\267510.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43216",
+   "props": {
+    "summary_cz": "Mění 5 předpisů — změna zákona o některých podmínkách podnikání a o výkonu některých činností v oblasti cestovního ruchu, zákona o místních poplatcích, živnostenského zákona a 2 další předpisy.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-106\\267576.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43219",
+   "props": {
+    "summary_cz": "Mění zákon č. 187/2006 Sb., o nemocenském pojištění.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-109\\267612.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43220",
+   "props": {
+    "summary_cz": "Mění zákon č. 589/1992 Sb., o pojistném na sociální zabezpečení a příspěvku na státní politiku zaměstnanosti.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-110\\267617.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43221",
+   "props": {
+    "summary_cz": "Mění 7 předpisů — změna trestního zákoníku, trestního řádu, zákona o rejstříku trestů a evidenci přestupků a 4 další předpisy.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-111\\267623.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43222",
+   "props": {
+    "summary_cz": "Mění zákon č. 117/1995 Sb., o státní sociální podpoře.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-112\\267665.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43223",
+   "props": {
+    "summary_cz": "Mění 4 předpisy — změna zákona o hornické činnosti, zákona o hospodaření energií, zákona o Ústředním kontrolním a zkušebním ústavu zemědělském a další předpis.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-113\\267651.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43224",
+   "props": {
+    "summary_cz": "Nový zákon o některých pravidlech pro mechanismus uhlíkového vyrovnání na hranicích.",
+    "summary_method": "new_act",
+    "summary_source": ".data\\law-collision-cache\\tisk-114\\267658.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43225",
+   "props": {
+    "summary_cz": "Mění 2 předpisy — změna trestního zákoníku, zákon o obětech trestných činů.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-115\\267684.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43226",
+   "props": {
+    "summary_cz": "Ruší zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou účastí státu (nominační zákon).",
+    "summary_method": "repeal",
+    "summary_source": ".data\\law-collision-cache\\tisk-116\\267813.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43230",
+   "props": {
+    "summary_cz": "Mění 2 předpisy — změna zákona o doplňkovém penzijním spoření, zákona o daních z příjmů.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-119\\267928.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43233",
+   "props": {
+    "summary_cz": "Mění 3 předpisy — změna zákona o daních z příjmů, zákona o státní sociální podpoře, zákona o nemocenském pojištění.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-121\\268020.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43236",
+   "props": {
+    "summary_cz": "Mění zákon č. 159/1999 Sb., o některých podmínkách podnikání a o výkonu některých činností v oblasti cestovního ruchu, a další související zákony.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-107\\268015.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43237",
+   "props": {
+    "summary_cz": "Mění zákon č. 586/1992 Sb., o daních z příjmu.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-120\\268221.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43239",
+   "props": {
+    "summary_cz": "Mění 2 předpisy — změna zákona o státní sociální podpoře, zákona č. 152/2025 Sb..",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-124\\268364.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43240",
+   "props": {
+    "summary_cz": "Mění 3 předpisy — změna zákona o sociálních službách, zákona o poskytování dávek osobám se zdravotním postižením, zákona o organizaci a provádění sociálního zabezpečení.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-125\\268378.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43246",
+   "props": {
+    "summary_cz": "Mění zákon č. 95/2004 Sb., o podmínkách získávání a uznávání odborné způsobilosti a specializované způsobilosti k výkonu zdravotnického povolání lékaře, zubního lékaře a farmaceuta.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-130\\268455.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43247",
+   "props": {
+    "summary_cz": "Mění zákon č. 491/2001 Sb., o volbách do zastupitelstev obcí a o změně některých zákonů.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-131\\268460.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43248",
+   "props": {
+    "summary_cz": "Mění zákon č. 256/2004 Sb., o podnikání na kapitálovém trhu.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-132\\268465.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43250",
+   "props": {
+    "summary_cz": "Ruší zákon č. 223/2016 Sb., o prodejní době v maloobchodě, a další související právní předpisy.",
+    "summary_method": "repeal",
+    "summary_source": ".data\\law-collision-cache\\tisk-129\\268487.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43253",
+   "props": {
+    "summary_cz": "Mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-135\\268510.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43256",
+   "props": {
+    "summary_cz": "Mění zákon č. 353/2003 Sb., o spotřebních daních.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-133\\268573.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43259",
+   "props": {
+    "summary_cz": "Mění zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou účastí státu (nominační zákon).",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-138\\268605.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43260",
+   "props": {
+    "summary_cz": "Mění zákon č. 243/2000 Sb., o rozpočtovém určení výnosů některých daní územním samosprávným celkům a některým státním fondům (zákon o rozpočtovém určení daní).",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-140\\268733.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43261",
+   "props": {
+    "summary_cz": "Mění zákon č. 243/2000 Sb., o rozpočtovém určení výnosů některých daní územním samosprávným celkům a některým státním fondům (zákon o rozpočtovém určení daní).",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-141\\268738.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43263",
+   "props": {
+    "summary_cz": "Mění 6 předpisů — změna zákona o podnikání na kapitálovém trhu, zákona o bankách, zákona o spořitelních a úvěrních družstvech a 3 další předpisy.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-143\\268781.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43264",
+   "props": {
+    "summary_cz": "Nový zákon o vstupu a pobytu cizinců (cizinecký zákon).",
+    "summary_method": "new_act",
+    "summary_source": ".data\\law-collision-cache\\tisk-144\\268804.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43266",
+   "props": {
+    "summary_cz": "Mění 6 předpisů — změna zákona o spotřebitelském úvěru, zákona o vysokých školách, zákona o pojišťovnictví a 3 další předpisy.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-145\\268811.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43267",
+   "props": {
+    "summary_cz": "Mění 3 předpisy — změna obecního zřízení, krajského zřízení, zákona o hlavním městě Praze.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-146\\268822.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43274",
+   "props": {
+    "summary_cz": "Mění 2 předpisy — změna zákona o regulaci reklamy, zákona o zdravotnických prostředcích a diagnostických zdravotnických prostředcích in vitro.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-153\\268952.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43275",
+   "props": {
+    "summary_cz": "Mění 3 předpisy — změna zákona o službách vytvářejících důvěru pro elektronické transakce, zákona o elektronické identifikaci, zákona o správních poplatcích.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-154\\268961.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43282",
+   "props": {
+    "summary_cz": "Mění zákon č. 541/2020 Sb., o odpadech.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-161\\269099.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43283",
+   "props": {
+    "summary_cz": "Mění 3 předpisy — změna občanského soudního řádu, zákona o soudních poplatcích, zákona o odpovědnosti za škodu způsobenou při výkonu veřejné moci rozhodnutím nebo nesprávným úředním postupem.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-162\\269165.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43284",
+   "props": {
+    "summary_cz": "Nový zákon o regulaci cen pohonných hmot vládou a o změně zákona č. 526/1990 Sb., o cenách, ve znění pozdějších předpisů.",
+    "summary_method": "new_act",
+    "summary_source": ".data\\law-collision-cache\\tisk-163\\269172.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43288",
+   "props": {
+    "summary_cz": "Mění zákon č. 283/2021 Sb., stavební zákon.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-167\\269349.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43289",
+   "props": {
+    "summary_cz": "Mění zákon č. 235/2004 Sb., o dani z přidané hodnoty.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-168\\269433.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43292",
+   "props": {
+    "summary_cz": "Mění zákon č. 13/1997 Sb., o pozemních komunikacích.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-171\\269514.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43293",
+   "props": {
+    "summary_cz": "Mění 6 předpisů — změna zákona o cestovních dokladech, zákona o občanských průkazech, zákona o správních poplatcích a 3 další předpisy.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-172\\269548.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43294",
+   "props": {
+    "summary_cz": "Mění zákon č. 40/2009 Sb., trestní zákoník.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-173\\269587.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43295",
+   "props": {
+    "summary_cz": "Mění 3 předpisy — změna zákona na ochranu zvířat proti týrání, zákona o Policii České republiky, občanského zákoníku.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-174\\269592.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43302",
+   "props": {
+    "summary_cz": "Mění zákon č. 491/2001 Sb., o volbách do zastupitelstev obcí a o změně některých zákonů.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-181\\269996.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43307",
+   "props": {
+    "summary_cz": "Mění zákon č. 458/2000 Sb., o podmínkách podnikání a o výkonu státní správy v energetických odvětvích a o změně některých zákonů (energetický zákon).",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-186\\270036.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43308",
+   "props": {
+    "summary_cz": "Mění 6 předpisů — změna zákona o poštovních službách, zákona o archivnictví a spisové službě, zákona o Sbírce zákonů a mezinárodních smluv a 3 další předpisy.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-187\\270041.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43310",
+   "props": {
+    "summary_cz": "Mění 4 předpisy — změna zákona o daních z příjmů, zákona o dani z přidané hodnoty, zákona o Finanční správě České republiky a další předpis.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-189\\270143.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43311",
+   "props": {
+    "summary_cz": "Mění 4 předpisy — změna zákona o správě voleb, zákona o volbách do Parlamentu České republiky, zákona o volbě prezidenta republiky a další předpis.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-190\\270179.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43313",
+   "props": {
+    "summary_cz": "Mění 3 předpisy — změna knihovního zákona, zákona o neperiodických publikacích, tiskového zákona.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-192\\270237.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43314",
+   "props": {
+    "summary_cz": "Mění zákon č. 477/2001 Sb., o obalech a o změně některých zákonů (zákon o obalech).",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-193\\270285.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43317",
+   "props": {
+    "summary_cz": "Mění 3 předpisy — změna zákona o mezinárodní justiční spolupráci ve věcech trestních, trestního řádu, trestního zákoníku.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-196\\270351.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43319",
+   "props": {
+    "summary_cz": "Mění zákon č. 117/1995 Sb., o státní sociální podpoře.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-198\\270530.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43320",
+   "props": {
+    "summary_cz": "Mění zákon č. 350/2011 Sb., o chemických látkách a chemických směsích a o změně některých zákonů (chemický zákon).",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-199\\270535.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43323",
+   "props": {
+    "summary_cz": "Mění zákon č. 348/2005 Sb., o rozhlasových a televizních poplatcích a o změně některých zákonů.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-201\\270579.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43327",
+   "props": {
+    "summary_cz": "Mění zákon č. 2/1969 Sb., zákon České národní rady o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-205\\270703.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43328",
+   "props": {
+    "summary_cz": "Mění 8 předpisů — změna zákona o zadávání veřejných zakázek, zákona o soudních poplatcích, zákona o Nejvyšším kontrolním úřadu a 5 dalších předpisů.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-206\\271159.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43329",
+   "props": {
+    "summary_cz": "Mění 8 předpisů — změna trestního zákoníku, trestního řádu, zákona o sociálně-právní ochraně dětí a 5 dalších předpisů.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-207\\271152.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43330",
+   "props": {
+    "summary_cz": "Mění zákon č. 65/2017 Sb., zákon o ochraně zdraví před škodlivými účinky návykových látek.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-208\\271173.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43332",
+   "props": {
+    "summary_cz": "Mění 2 předpisy — změna zákona o podnikání na kapitálovém trhu, občanského soudního řádu.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-210\\271236.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43335",
+   "props": {
+    "summary_cz": "Mění 7 předpisů — změna zákona o některých opatřeních v souvislosti s ozbrojeným konfliktem na území Ukrajiny vyvolaným invazí vojsk Ruské federace, zákona o opatřeních v oblasti zaměstnanosti a oblasti sociálního zabezpečení v…",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-213\\271314.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43336",
+   "props": {
+    "summary_cz": "Mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-214\\271359.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43337",
+   "props": {
+    "summary_cz": "Mění 7 předpisů — změna soudního řádu správního, občanského soudního řádu, zákona o vysokých školách a 4 další předpisy.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-215\\271409.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43338",
+   "props": {
+    "summary_cz": "Mění zákon č. 40/2009 Sb., trestní zákoník.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-216\\271414.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43339",
+   "props": {
+    "summary_cz": "Mění zákon č. 166/1993 Sb., o Nejvyšším kontrolním úřadu, ve znění pozdějších zákonů.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-217\\271419.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43340",
+   "props": {
+    "summary_cz": "Mění zákon č. 235/2004 Sb., o dani z přidané hodnoty.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-218\\271424.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43341",
+   "props": {
+    "summary_cz": "Nový zákon o mistrovské kvalifikaci a mistrovské zkoušce a o změně zákona č. 301/1992 Sb., o Hospodářské komoře České republiky a Agrární komoře České republiky, ve znění pozdějších předpisů (zákon o mistrovské zkoušce).",
+    "summary_method": "new_act",
+    "summary_source": ".data\\law-collision-cache\\tisk-219\\271431.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43343",
+   "props": {
+    "summary_cz": "Mění 6 předpisů — změna zákona o střetu zájmů, zákona o zemědělství, zákona o Státním zemědělském intervenčním fondu a 3 další předpisy.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-221\\271529.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43344",
+   "props": {
+    "summary_cz": "Nový zákon o působnosti orgánů státu při řešení mimořádných situací na vnitřním trhu a o změně zákona č. 134/2016 Sb., o zadávání veřejných zakázek, ve znění pozdějších předpisů.",
+    "summary_method": "new_act",
+    "summary_source": ".data\\law-collision-cache\\tisk-222\\271596.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43350",
+   "props": {
+    "summary_cz": "Mění 2 předpisy — změna zákona o vysokých školách, školského zákona.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-228\\277290.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43353",
+   "props": {
+    "summary_cz": "Mění 2 předpisy — změna zákona o České televizi, zákona o Českém rozhlasu.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-231\\277415.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43354",
+   "props": {
+    "summary_cz": "Mění zákon č. 561/2004 Sb., o předškolním, základním, středním, vyšším odborném a jiném vzdělávání (školský zákon).",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-232\\277445.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43356",
+   "props": {
+    "summary_cz": "Mění 3 předpisy — změna autorizačního zákona, zákona o zeměměřictví, stavebního zákona.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-234\\277503.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43357",
+   "props": {
+    "summary_cz": "Mění zákon č. 592/1992 Sb., o pojistném na veřejné zdravotní pojištění.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-235\\277513.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43360",
+   "props": {
+    "summary_cz": "Mění zákon č. 245/2000 Sb., o státních svátcích, o ostatních svátcích, o významných dnech a o dnech pracovního klidu.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-238\\277551.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43365",
+   "props": {
+    "summary_cz": "Mění zákon č. 223/2016 Sb., o prodejní době v maloobchodě.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-243\\277784.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43366",
+   "props": {
+    "summary_cz": "Mění zákon č. 586/1992 Sb., o daních z příjmů.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-244\\277769.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43368",
+   "props": {
+    "summary_cz": "Mění zákon č. 13/1997 Sb., o pozemních komunikacích.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-246\\277815.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43370",
+   "props": {
+    "summary_cz": "Mění 5 předpisů — změna zákona o daních z příjmů, zákona o doplňkovém penzijním spoření, zákona o podnikání na kapitálovém trhu a 2 další předpisy.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-248\\277937.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43372",
+   "props": {
+    "summary_cz": "Mění 10 předpisů — změna zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o České obchodní inspekci, zákona o metrologii a 7 dalších předpisů.",
+    "summary_method": "cast_captions",
+    "summary_source": ".data\\law-collision-cache\\tisk-250\\277952.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43379",
+   "props": {
+    "summary_cz": "Mění zákon č. 187/2006 Sb., o nemocenském pojištění.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-257\\278362.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43382",
+   "props": {
+    "summary_cz": "Mění zákon č. 37/2021 Sb., o evidenci skutečných majitelů.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-260\\278413.txt"
+   }
+  },
+  {
+   "id": "bill:tisk:43383",
+   "props": {
+    "summary_cz": "Mění zákon č. 114/1992 Sb., o ochraně přírody a krajiny Zákon ze dne ... 2026, kterým se mění zákon č. 114/1992 Sb., o ochraně přírody a krajiny.",
+    "summary_method": "title_preamble",
+    "summary_source": ".data\\law-collision-cache\\tisk-261\\278420.txt"
+   }
+  }
+ ]
+}

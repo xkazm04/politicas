@@ -1,0 +1,55 @@
+{
+  "billTisk": 210,
+  "statedReasoning": "Vládní návrh (předkladatel: ministr spravedlnosti — Ministerstvo spravedlnosti) novelizující zákon č. 256/2004 Sb., o podnikání na kapitálovém trhu, a související zákony „v souvislosti s podporou vyváženého zastoupení žen a mužů ve vedoucích orgánech některých emitentů\". Po přečtení skutečného textu návrhu (čl. I) je zřejmé, že jde o přímou a přesnou transpozici směrnice Evropského parlamentu a Rady (EU) 2022/2381 ze dne 23. listopadu 2022 o vyváženém zastoupení žen a mužů mezi členy orgánů kotovaných společností (přímo citovanou pod CELEX 32022L2381 v novelizované poznámce pod čarou samotného návrhu). Návrh vkládá do zákona 256/2004 Sb. novou část třináctou (nové § 134l–§ 134o a další): § 134m vymezuje povinnost na emitenty s průměrným počtem alespoň 250 zaměstnanců v posledním ukončeném účetním období A ZÁROVEŇ s ročním čistým obratem přesahujícím 50 000 000 EUR nebo s aktivy přesahujícími 43 000 000 EUR (doslova odpovídá prahům samotné směrnice); § 134n vyžaduje, aby si každý dotčený emitent zvolil buď (a) alespoň 40 % míst nevýkonných členů orgánu obsazených méně zastoupeným pohlavím, nebo (b) alespoň 33 % všech míst v orgánech (výkonných i nevýkonných dohromady) obsazených méně zastoupeným pohlavím — rovněž doslova podle směrnice; sledováním a vymáháním je pověřena ČNB. Jde o přesnou, věrnou transpozici bez gold-platingu, nikoli o vlastní vynález — potvrzeno přímým čtením primárního textu, nikoli jen z druhotného popisu. Unijní transpoziční lhůta byla 28. prosince 2024 a lhůta pro faktické dosažení cílů je 30. června 2026 — tento český prováděcí návrh, ke 24. červenci 2026 stále ve výboru, je tedy pozadu za oběma daty. České zpravodajství (Echo24, e15.cz) nezávisle potvrzuje tytéž hodnoty 40 % a 33 % a popisuje návrh jako „minimalistické\" provedení unijního požadavku.",
+  "researchedContext": "Census ukazuje podhodnocení o 2: graf evidoval jako novelizovaný pouze zákon č. 256/2004 Sb., avšak skutečný výčet novelizovaných zákonů je [198/2009, 256/2004, 99/1963]. Pro skutečný předmět tohoto návrhu jde o soudržnou a hodnověrnou sestavu: zákon č. 198/2009 Sb. je antidiskriminační zákon, přirozeně doprovázející novelu u předpisu o vyváženém zastoupení v orgánech, protože pravděpodobně sjednocuje vymáhání a definice se stávajícími nástroji antidiskriminačního práva; zákon č. 99/1963 Sb. je občanský soudní řád, hodnověrně novelizovaný proto, aby doplnil či přizpůsobil soudní cestu vymáhání vůči orgánům, které povinnost nesplní. Oba jsou skutečné, dobře známé české předpisy a jejich kombinace je věcně konzistentní s prováděním unijní směrnice o zastoupení v orgánech, která po členských státech vyžaduje účinné mechanismy vymáhání — čte se to jako skutečné podhodnocení při extrakci z názvu, nikoli jako šum, a stojí za označení jako zjištění ke kvalitě dat. Průběh projednávání nezávisle potvrzuje: podání Ministerstvem spravedlnosti 1. června 2026, doporučení organizačního výboru pokračovat 3. června 2026 (zpravodajka Bc. Hana Anžincová), obecná rozprava v prvém čtení 2. července 2026 (24. schůze), kde Sněmovna hlasovala PROTI schválení už v prvém čtení a návrh místo toho přikázala výborům, přičemž projednání v ústavně-právním výboru ke 24. červenci 2026 dosud neproběhlo.",
+  "unstatedEffects": [
+    {
+      "effect": "I při rychlém schválení činí stav návrhu ve výborové fázi ke 24. červenci 2026 pravděpodobným, že česká transpozice nebude dokončena do unijní lhůty pro dosažení cílů 30. června 2026 podle směrnice (EU) 2022/2381, a to poté, co už byla zmeškána transpoziční lhůta 28. prosince 2024",
+      "whoBenefits": "Neprospívá to žádné jednotlivé straně; jde o riziko v načasování plnění závazků pro Českou republiku (možná expozice vůči řízení o nesplnění povinnosti), nikoli o dopad vázaný na předkladatele",
+      "evidence": "https://eur-lex.europa.eu/EN/legal-content/summary/gender-balance-among-non-executive-directors-of-companies-listed-on-stock-exchanges.html"
+    }
+  ],
+  "conflictAssessment": "Zadání u tohoto tisku neuvádí žádného předkladatele s daty o peněžních vazbách (sponsors: [], flaggedConflict: false, sponsorContractCzk: 0). Jde o vládní návrh předložený Ministerstvem spravedlnosti, nikoli o návrh jednotlivého poslance s osobním finančním zájmem, a není zde žádný signál střetu pocházející z grafu, který by šlo posoudit. Nebyl nalezen ani nezávislý důkaz o osobní finanční vazbě. Poctivé zjištění: žádný indikátor střetu není přítomen — v souladu s nestranným zjištěním předchozích dávek, že u většiny návrhů žádný skutečný střet není.",
+  "citations": [
+    {
+      "claim": "Název návrhu, číslo tisku 210/0 a vládní původ z Ministerstva spravedlnosti",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=210&ct1=0"
+    },
+    {
+      "claim": "Průběh projednávání: podání Ministerstvem spravedlnosti 1. června 2026, organizační výbor 3. června 2026 (zpravodajka Hana Anžincová), prvé čtení 2. července 2026 — Sněmovna hlasovala proti schválení v prvém čtení a návrh přikázala výborům, projednání v ústavně-právním výboru ke 24. červenci 2026 dosud neproběhlo",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=210&snzeni=0"
+    },
+    {
+      "claim": "Úplný text návrhu: přímo cituje CELEX 32022L2381, vkládá do zákona 256/2004 Sb. nové § 134l–§ 134o; § 134m vymezuje povinnost na emitenty s alespoň 250 zaměstnanci a s ročním obratem nad 50 mil. EUR nebo aktivy nad 43 mil. EUR; § 134n vyžaduje buď 40 % míst nevýkonných členů orgánu, nebo 33 % všech míst v orgánech obsazených méně zastoupeným pohlavím; sledováním a vymáháním je pověřena ČNB",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=271236"
+    },
+    {
+      "claim": "Směrnice (EU) 2022/2381 vyžaduje, aby kotované společnosti (nad 250 zaměstnanců, obrat nad 50 mil. EUR nebo bilanční suma nad 43 mil. EUR) dosáhly 40 % zastoupení méně zastoupeného pohlaví mezi nevýkonnými členy orgánů nebo 33 % mezi všemi členy orgánů; transpoziční lhůta 28. prosince 2024, lhůta pro dosažení cílů 30. června 2026",
+      "kind": "web",
+      "source": "https://eur-lex.europa.eu/EN/legal-content/summary/gender-balance-among-non-executive-directors-of-companies-listed-on-stock-exchanges.html"
+    },
+    {
+      "claim": "Vládní návrh vyžaduje po velkých firmách a firmách na kapitálovém trhu dosáhnout alespoň 40 % žen v dozorčích a správních orgánech, nebo 33 % v celkovém vedení, a je popisován jako minimalistické provedení unijního požadavku",
+      "kind": "web",
+      "source": "https://www.echo24.cz/a/HPbeA/zpravy-domov-ministerstvo-pozaduje-tretina-zen-ve-vedeni-firem-dalsi-rana-kapitalovy-trh"
+    },
+    {
+      "claim": "Zákon č. 256/2004 Sb. je skutečný platný český předpis (zákon o podnikání na kapitálovém trhu)",
+      "kind": "law",
+      "source": "256/2004"
+    },
+    {
+      "claim": "Zákon č. 198/2009 Sb. je skutečný platný český předpis (antidiskriminační zákon), podle censu novelizovaný",
+      "kind": "law",
+      "source": "198/2009"
+    },
+    {
+      "claim": "Zákon č. 99/1963 Sb. je skutečný platný český předpis (občanský soudní řád), podle censu novelizovaný",
+      "kind": "law",
+      "source": "99/1963"
+    }
+  ]
+}

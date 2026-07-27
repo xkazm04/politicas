@@ -16,9 +16,25 @@ import { useState } from "react";
 import Link from "next/link";
 import { ExternalLink, ArrowUpRight } from "lucide-react";
 import type { LawBillView } from "../getLawData";
-import { ORIGIN_CZ, ROLE_CZ, STATUS_CZ, SEVERITY_CZ, DIFF_OP_CZ, pspBillUrl, czkCompact } from "../lawwatchLabels";
+import {
+  ORIGIN_CZ,
+  ROLE_CZ,
+  STATUS_CZ,
+  SEVERITY_CZ,
+  DIFF_OP_CZ,
+  CITATION_KIND_CZ,
+  pspBillUrl,
+  czkCompact,
+  citationRef,
+} from "../lawwatchLabels";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
+
+/** České skloňování po číslovce: 1 zákon / 2–4 zákony / 5+ zákonů. */
+function zakonPlural(n: number): string {
+  if (n === 1) return "zákon";
+  return n >= 2 && n <= 4 ? "zákony" : "zákonů";
+}
 
 export default function BillDetail({ bill }: { bill: LawBillView }) {
   const f = useFormat();
@@ -50,6 +66,27 @@ export default function BillDetail({ bill }: { bill: LawBillView }) {
         )}
       </div>
 
+      {/* „CO TO MĚNÍ" — jedna čitelná věta dřív než cokoli jiného. Odvozeno deterministicky
+          z textu tisku (nadpisy ČÁSTí / návětí / zrušovací klauzule), nikdy vymyšleno. */}
+      <div className="mt-5 border-l-4 border-signal bg-paper-strong px-4 py-3">
+        <SourceNote tone="signal" className="!text-[11px]">
+          co to mění
+        </SourceNote>
+        {bill.summary ? (
+          <>
+            <p className="mt-1.5 text-lg font-bold leading-snug">{bill.summary}</p>
+            <p className="mt-2 font-mono text-[11px] uppercase tracking-wider text-steel">
+              odvozeno z textu tisku{bill.summarySource ? ` · ${bill.summarySource}` : ""}
+            </p>
+          </>
+        ) : (
+          <p className="mt-1.5 text-[15px] italic leading-relaxed text-steel">
+            Shrnutí zatím není — text tohoto tisku nemáme v archivu ve strojově čitelné podobě, ze které by
+            šlo shrnutí poctivě odvodit. Raději nic než domyšlená věta.
+          </p>
+        )}
+      </div>
+
       <p className="mt-4 text-[15px] font-bold leading-snug">{bill.title}</p>
       <div className="mt-2 flex flex-wrap items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-steel">
         <span className="border border-hairline px-2 py-0.5">{ORIGIN_CZ[bill.origin]}</span>
@@ -58,7 +95,7 @@ export default function BillDetail({ bill }: { bill: LawBillView }) {
 
       {/* novelizované zákony — title-derived edges */}
       <div className="mt-6">
-        <SourceNote>novelizuje — {bill.amendedLaws.length} {bill.amendedLaws.length === 1 ? "zákon" : "zákonů"} (dle citace v názvu)</SourceNote>
+        <SourceNote>novelizuje — {bill.amendedLaws.length} {zakonPlural(bill.amendedLaws.length)} (dle citace v názvu)</SourceNote>
         {bill.amendedLaws.length > 0 ? (
           <ul className="mt-2 divide-y divide-hairline border-t border-hairline">
             {bill.amendedLaws.map((l) => (
@@ -79,14 +116,14 @@ export default function BillDetail({ bill }: { bill: LawBillView }) {
       {hasCensus && (
         <div className="mt-4 border-l-4 border-ochre bg-ochre/5 p-4">
           <SourceNote tone="steel" className="!text-ochre">
-            census pass 20 · plný výčet z textu tisku, ne z názvu
+            census textu tisku (průchod grafu 20) · plný výčet z textu, ne z názvu
           </SourceNote>
           <p className="mt-2 text-[13px] leading-relaxed">
             Tento tisk ve skutečnosti novelizuje <span className="font-black">{f.int(bill.amendedLawsFull.length)}</span>{" "}
-            {bill.amendedLawsFull.length === 1 ? "zákon" : "zákonů"} — o{" "}
+            {zakonPlural(bill.amendedLawsFull.length)} — o{" "}
             <span className="font-black text-signal">{f.int(bill.amendsUndercount)}</span> více, než kolik zachytí
             vazba odvozená jen z citace v názvu tisku (obvyklé u obřích novel / doprovodných zákonů). Toto je
-            systematický, ne ojedinělý jev — viz poznámku u „Nejnovelizovanějších zákonů“.
+            systematický, ne ojedinělý jev — viz poznámku u nejčastěji novelizovaných zákonů.
           </p>
           {missedRefs.length > 0 && (
             <ul className="mt-3 flex flex-wrap gap-1.5">
@@ -103,7 +140,7 @@ export default function BillDetail({ bill }: { bill: LawBillView }) {
       {/* formální přikázání výborům (F15) */}
       {bill.committees.length > 0 && (
         <div className="mt-6 border-t-2 border-ink pt-4">
-          <SourceNote>projednávají výbory — psp.cz hist_vybory ⋈ hist (F15)</SourceNote>
+          <SourceNote>projednávají výbory — přikázání podle psp.cz</SourceNote>
           <ul className="mt-3 space-y-2">
             {bill.committees.map((c) => (
               <li
@@ -155,7 +192,7 @@ export default function BillDetail({ bill }: { bill: LawBillView }) {
       {bill.flaggedConflict && (
         <div className="mt-6 border-l-4 border-signal bg-paper-strong p-4">
           <SourceNote tone="signal" className="!text-[10px]">
-            možný střet zájmů · odvozeno z peněžních vazeb předkladatele (Case ①)
+            možný střet zájmů · odvozeno z peněžních vazeb předkladatele
           </SourceNote>
           <p className="mt-2 text-[15px] font-medium leading-relaxed">
             Předkladatel má vazby na {f.int(bill.sponsorMoneyCompanies)}{" "}
@@ -170,99 +207,232 @@ export default function BillDetail({ bill }: { bill: LawBillView }) {
       {bill.paragraphDiffs.length > 0 && <ParagraphDiffBlock diffs={bill.paragraphDiffs} />}
 
       {/* gatovaný forenzní posudek */}
-      {bill.forensic && <ForensicBlock forensic={bill.forensic} />}
+      {bill.forensic && <ForensicBlock forensic={bill.forensic} summary={bill.summary} />}
     </div>
   );
 }
 
-/** Gatovaný forenzní posudek — vždy jako ODVOZENÝ návrh k revizi, ne jako fakt. */
-function ForensicBlock({ forensic }: { forensic: NonNullable<LawBillView["forensic"]> }) {
+/**
+ * Gatovaný forenzní posudek — vždy jako ODVOZENÝ NÁVRH ČEKAJÍCÍ NA REVIZI, nikdy jako fakt
+ * a nikdy jako verdikt o pochybení.
+ *
+ * Struktura (přestavba, dávka 009 — prezentační brána): nejdřív nepřehlédnutelný stav, pak
+ * kompaktní hlavička se závažností a jistotou, pak tři panely v pořadí, v jakém čtenář
+ * uvažuje — „co to mění“ (odvozeno z textu tisku) / „co analýza zjistila“ / „co analýza
+ * NETVRDÍ“ — a na konci reference jako formátované odkazy, nikdy jako serializovaný objekt.
+ *
+ * Texty, které neprošly českou jazykovou branou (lib/analysis/language-gate.ts), se
+ * NEZOBRAZUJÍ. Jejich počet se čtenáři přiznává, aby zkrácený blok nevypadal jako úplný.
+ */
+function ForensicBlock({
+  forensic,
+  summary,
+}: {
+  forensic: NonNullable<LawBillView["forensic"]>;
+  summary: string | null;
+}) {
   const [open, setOpen] = useState(false);
+  const effects = forensic.unstatedEffects.filter((u) => u.effect);
+  const hasFindings =
+    Boolean(forensic.statedReasoning || forensic.researchedContext || forensic.conflictAssessment) || effects.length > 0;
+
   return (
     <div className="mt-8 border-2 border-cobalt">
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b-2 border-cobalt bg-cobalt/5 px-4 py-3">
+      {/* stav — nepřehlédnutelný, plná plocha */}
+      <div className="border-b-2 border-cobalt bg-cobalt px-4 py-2.5">
+        <p className="font-mono text-[11px] font-black uppercase tracking-widest text-paper">
+          odvozený návrh · čeká na revizi člověkem · není to verdikt o pochybení
+        </p>
+      </div>
+
+      {/* kompaktní hlavička: závažnost + jistota + stav */}
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-hairline bg-cobalt/5 px-4 py-3">
         <SourceNote tone="steel" className="!text-cobalt">
-          forenzní posudek · odvozeno (gate „law-verdict“) · {forensic.reviewState}
+          forenzní posudek · kontrola proti fabrikaci{forensic.pass != null ? ` · průchod grafu ${forensic.pass}` : ""}
         </SourceNote>
-        <span className="font-mono text-[11px] uppercase tracking-wider text-steel">
-          závažnost <span className="font-black text-ink">{SEVERITY_CZ[forensic.severity] ?? forensic.severity}</span>
-          {forensic.confidence != null && <> · jistota {forensic.confidence}/5</>}
+        <span className="flex flex-wrap items-baseline gap-x-4 gap-y-1 font-mono text-[11px] uppercase tracking-wider text-steel">
+          <span>
+            závažnost{" "}
+            <span className="text-sm font-black text-ink">{SEVERITY_CZ[forensic.severity] ?? forensic.severity}</span>
+          </span>
+          {forensic.confidence != null && (
+            <span>
+              jistota <span className="text-sm font-black text-ink">{forensic.confidence}/5</span>
+            </span>
+          )}
+          <span>
+            stav <span className="font-black text-ink">{forensic.reviewState}</span>
+          </span>
         </span>
       </div>
-      <div className="space-y-4 px-4 py-4">
-        <div>
-          <SourceNote className="!text-[10px]">deklarovaný důvod (důvodová zpráva)</SourceNote>
-          <p className="mt-1.5 text-sm leading-relaxed text-steel">{forensic.statedReasoning}</p>
-        </div>
-        {forensic.conflictAssessment && (
-          <div>
-            <SourceNote className="!text-[10px]">posouzení střetu</SourceNote>
-            <p className="mt-1.5 text-sm leading-relaxed">{forensic.conflictAssessment}</p>
-          </div>
-        )}
 
-        {open && (
-          <>
-            {forensic.researchedContext && (
-              <div>
-                <SourceNote className="!text-[10px]">nezávislý kontext (rešerše)</SourceNote>
-                <p className="mt-1.5 text-sm leading-relaxed text-steel">{forensic.researchedContext}</p>
-              </div>
-            )}
-            {forensic.unstatedEffects.length > 0 && (
-              <div>
-                <SourceNote className="!text-[10px]">nedeklarované dopady · každý s citací</SourceNote>
-                <ul className="mt-2 space-y-3">
-                  {forensic.unstatedEffects.map((u, i) => (
-                    <li key={i} className="border-l-4 border-signal pl-3">
-                      <p className="text-sm font-medium leading-snug">{u.effect}</p>
-                      <p className="mt-1 text-[13px] leading-snug text-steel">
-                        <span className="font-bold uppercase tracking-wide">komu prospívá:</span> {u.whoBenefits}
-                      </p>
-                      {/^https?:\/\//.test(u.evidence) && (
-                        <a href={u.evidence} target="_blank" rel="noreferrer" className="mt-0.5 inline-flex items-center gap-1 font-mono text-[11px] text-cobalt hover:text-signal">
-                          zdroj <ExternalLink className="h-3 w-3" />
-                        </a>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            {forensic.citations.length > 0 && (
-              <div>
-                <SourceNote className="!text-[10px]">citace ({forensic.citations.length})</SourceNote>
-                <ul className="mt-2 space-y-1.5">
-                  {forensic.citations.map((c, i) => (
-                    <li key={i} className="text-[13px] leading-snug text-steel">
-                      <span className="font-mono text-[10px] uppercase tracking-wider text-signal">[{c.kind}]</span>{" "}
-                      {c.claim}{" "}
-                      {/^https?:\/\//.test(c.source) ? (
-                        <a href={c.source} target="_blank" rel="noreferrer" className="text-cobalt hover:text-signal">↗</a>
-                      ) : (
-                        <span className="font-mono text-[11px] text-steel">({c.source})</span>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </>
-        )}
+      <div className="space-y-6 px-4 py-5">
+        {/* 1 — co to mění */}
+        <section>
+          <h4 className="font-mono text-[11px] font-black uppercase tracking-widest text-signal">co to mění</h4>
+          <p className="mt-1.5 text-[15px] font-medium leading-relaxed">
+            {summary ?? "Shrnutí zatím není — text tisku nemáme ve strojově čitelné podobě."}
+          </p>
+        </section>
 
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          className="font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
-        >
-          {open ? "méně —" : "rešerše, nedeklarované dopady a citace +"}
-        </button>
+        {/* 2 — co analýza zjistila */}
+        <section className="border-t border-hairline pt-4">
+          <h4 className="font-mono text-[11px] font-black uppercase tracking-widest text-cobalt">
+            co analýza zjistila
+          </h4>
+          {!hasFindings && (
+            <p className="mt-1.5 text-sm italic leading-relaxed text-steel">
+              Česká verze tohoto posudku se připravuje — do té doby jeho text nezobrazujeme.
+            </p>
+          )}
+          {forensic.statedReasoning && (
+            <div className="mt-3">
+              <SourceNote className="!text-[11px]">deklarovaný důvod (důvodová zpráva)</SourceNote>
+              <p className="mt-1.5 text-sm leading-relaxed text-steel">{forensic.statedReasoning}</p>
+            </div>
+          )}
+          {forensic.conflictAssessment && (
+            <div className="mt-4">
+              <SourceNote className="!text-[11px]">posouzení střetu zájmů</SourceNote>
+              <p className="mt-1.5 text-sm leading-relaxed">{forensic.conflictAssessment}</p>
+            </div>
+          )}
+
+          {open && (
+            <>
+              {forensic.researchedContext && (
+                <div className="mt-4">
+                  <SourceNote className="!text-[11px]">nezávislý kontext (rešerše)</SourceNote>
+                  <p className="mt-1.5 text-sm leading-relaxed text-steel">{forensic.researchedContext}</p>
+                </div>
+              )}
+              {effects.length > 0 && (
+                <div className="mt-4">
+                  <SourceNote className="!text-[11px]">nedeklarované dopady · každý s citací</SourceNote>
+                  <ul className="mt-2 space-y-3">
+                    {effects.map((u, i) => (
+                      <li key={i} className="border-l-4 border-signal pl-3">
+                        <p className="text-sm font-medium leading-snug">{u.effect}</p>
+                        {u.whoBenefits && (
+                          <p className="mt-1 text-[13px] leading-snug text-steel">
+                            <span className="font-bold uppercase tracking-wide">komu prospívá:</span> {u.whoBenefits}
+                          </p>
+                        )}
+                        {/^https?:\/\//.test(u.evidence) && (
+                          <a
+                            href={u.evidence}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="mt-1 inline-flex items-center gap-1 font-mono text-[11px] uppercase tracking-wider text-cobalt hover:text-signal"
+                          >
+                            {citationRef("web", u.evidence).registry} <ExternalLink className="h-3 w-3" />
+                          </a>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </>
+          )}
+
+          {(forensic.researchedContext || effects.length > 0) && (
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              className="mt-4 font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+            >
+              {open ? "méně —" : "rešerše a nedeklarované dopady +"}
+            </button>
+          )}
+        </section>
+
+        {/* 3 — co analýza NETVRDÍ */}
+        <section className="border-t border-hairline pt-4">
+          <h4 className="font-mono text-[11px] font-black uppercase tracking-widest text-ochre">
+            co analýza NETVRDÍ
+          </h4>
+          <ul className="mt-2 space-y-1.5 text-[13px] leading-relaxed text-steel">
+            <li className="border-l-2 border-ochre pl-3">
+              Netvrdí, že se kdokoli dopustil protiprávního jednání. Jde o odvozený podnět k prověření, uložený
+              jako <span className="font-bold text-ink">{forensic.reviewState}</span>, nikoli o publikovaný závěr.
+            </li>
+            <li className="border-l-2 border-ochre pl-3">
+              Uvedená závažnost „{SEVERITY_CZ[forensic.severity] ?? forensic.severity}“
+              {forensic.confidence != null && <> a jistota {forensic.confidence}/5</>} jsou hodnocením analýzy, ne
+              zjištěním úřadu ani soudu.
+            </li>
+            <li className="border-l-2 border-ochre pl-3">
+              Peněžní vazba předkladatele je indicie, ne důkaz. Blízkost oboru sama o sobě střet zájmů
+              neprokazuje.
+            </li>
+            {effects.length === 0 && (
+              <li className="border-l-2 border-ochre pl-3">
+                U tohoto tisku analýza neuvádí žádný nedeklarovaný dopad — absence nálezu je také nález.
+              </li>
+            )}
+            {forensic.withheldFields > 0 && (
+              <li className="border-l-2 border-ochre pl-3">
+                {forensic.withheldFields}{" "}
+                {forensic.withheldFields === 1
+                  ? "část textu"
+                  : forensic.withheldFields < 5
+                    ? "části textu"
+                    : "částí textu"}{" "}
+                tohoto posudku zatím není v češtině, a proto se nezobrazuje. Blok je tím neúplný.
+              </li>
+            )}
+          </ul>
+        </section>
+
+        {forensic.citations.length > 0 && <CitationList citations={forensic.citations} />}
+
         <p className="border-t border-hairline pt-3 text-[13px] italic leading-relaxed text-steel">
-          Odvozený nález gatovaný proti fabrikaci (každá citovaná č. N/RRRR Sb. musí být reálný zákon).
-          Uložen jako <span className="font-bold not-italic">pending_review</span> — podnět pro člověka, ne publikovaný verdikt.
+          Odvozený nález gatovaný proti fabrikaci: každá citovaná č. N/RRRR Sb. musí být reálný zákon. Uložen jako{" "}
+          <span className="font-bold not-italic">pending_review</span> — podnět pro člověka, ne publikovaný verdikt.
         </p>
       </div>
     </div>
+  );
+}
+
+/** Reference jako formátované odkazy — psp.cz podle čísla tisku, e-Sbírka podle „č. N/RRRR Sb.“,
+ * uzly grafu jako čitelný identifikátor bez odkazu (veřejná stránka pro ně neexistuje). */
+function CitationList({ citations }: { citations: NonNullable<LawBillView["forensic"]>["citations"] }) {
+  return (
+    <section className="border-t border-hairline pt-4">
+      <SourceNote className="!text-[11px]">reference ({citations.length})</SourceNote>
+      <ol className="mt-2 space-y-2.5">
+        {citations.map((c, i) => {
+          const ref = citationRef(c.kind, c.source);
+          return (
+            <li key={i} className="grid grid-cols-[2rem_1fr] gap-2">
+              <span className="pt-0.5 font-mono text-[11px] font-bold tabular-nums text-steel">[{i + 1}]</span>
+              <span>
+                {c.claim && <span className="block text-[13px] leading-snug">{c.claim}</span>}
+                <span className="mt-0.5 flex flex-wrap items-baseline gap-x-2 font-mono text-[11px] uppercase tracking-wider">
+                  <span className="text-steel">{CITATION_KIND_CZ[c.kind] ?? c.kind}</span>
+                  {ref.url ? (
+                    <a
+                      href={ref.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 font-bold text-cobalt transition-colors hover:text-signal"
+                    >
+                      {ref.registry} · {ref.label} <ExternalLink className="h-3 w-3" />
+                    </a>
+                  ) : (
+                    <span className="text-steel">
+                      {ref.registry} · {ref.label}
+                    </span>
+                  )}
+                </span>
+              </span>
+            </li>
+          );
+        })}
+      </ol>
+    </section>
   );
 }
 

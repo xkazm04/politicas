@@ -58,6 +58,7 @@ export default function BillBrowser({ data }: { data: LawData }) {
         (!activeFacet || activeFacet.test(b)) &&
         (!q ||
           b.title.toLowerCase().includes(q) ||
+          (b.summary?.toLowerCase().includes(q) ?? false) ||
           String(b.cislo ?? "").includes(q) ||
           b.amendedLaws.some((l) => l.ref.includes(q))),
     );
@@ -97,8 +98,8 @@ export default function BillBrowser({ data }: { data: LawData }) {
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="hledat tisk, zákon č. …"
-          aria-label="Hledat tisk podle názvu, čísla nebo novelizovaného zákona"
+          placeholder="hledat tisk, shrnutí, zákon č. …"
+          aria-label="Hledat tisk podle shrnutí, názvu, čísla nebo novelizovaného zákona"
           className="ml-auto border-2 border-hairline bg-paper px-3 py-1.5 font-mono text-xs uppercase tracking-wider text-ink placeholder:text-steel focus:border-ink focus:outline-none"
         />
       </div>
@@ -145,7 +146,11 @@ export default function BillBrowser({ data }: { data: LawData }) {
                   <span>{b.amendedLaws.length}× zákon</span>
                 </span>
               </span>
-              <span className="mt-1 block text-[15px] font-bold leading-snug">{b.title}</span>
+              {/* „co to mění" je to první, co čtenář uvidí — oficiální název tisku je až pod ním. */}
+              <span className="mt-1 block text-[15px] font-bold leading-snug">
+                {b.summary ?? "Shrnutí zatím není"}
+              </span>
+              <span className="mt-0.5 block text-[13px] leading-snug text-steel">{b.title}</span>
               <span className="mt-0.5 block font-mono text-[11px] uppercase tracking-wider text-steel">
                 {ORIGIN_CZ[b.origin]}
               </span>
@@ -176,9 +181,9 @@ export default function BillBrowser({ data }: { data: LawData }) {
       </div>
       <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
         <SourceNote>
-          zobrazeno {f.int(rows.length)} z {f.int(data.totalBills)} tisků
+          zobrazeno {f.int(rows.length)} z {f.int(data.totalBills)} tisků · {f.int(data.summaryCount)} se shrnutím
         </SourceNote>
-        <SourceNote className="!text-[10px]">psp.cz tisky · graf pass {data.pass ?? "?"}</SourceNote>
+        <SourceNote className="!text-[10px]">psp.cz tisky · průchod grafu {data.pass ?? "?"}</SourceNote>
       </div>
     </div>
   );

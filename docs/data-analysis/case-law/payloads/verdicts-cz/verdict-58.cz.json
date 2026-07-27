@@ -1,0 +1,65 @@
+{
+  "billTisk": 58,
+  "statedReasoning": "Podle důvodové zprávy (obecné části) vládního návrhu podepsaného ministrem životního prostředí Petrem Hladíkem (elektronický podpis 8. prosince 2025, Ministerstvo životního prostředí) je hlavním a výslovně uvedeným účelem novely ADAPTACE českého zákona č. 542/2020 Sb. (o výrobcích s ukončenou životností) na přímo použitelné nařízení Evropského parlamentu a Rady (EU) 2023/1542 o bateriích a odpadních bateriích, které zrušilo směrnici 2006/66/ES a nabylo použitelnosti 18. srpna 2025. Protože se úprava baterií přesunula ze směrnice do přímo použitelného nařízení, ta ustanovení zákona 542/2020, jejichž obsah nyní plyne přímo z nařízení, se vypouštějí a doplňují se ustanovení o vymahatelnosti a použitelnosti. Nad rámec povinné adaptace uvádí návrh tři vedlejší cíle: (1) potírání takzvaného free-ridingu napříč všemi výrobky v režimu rozšířené odpovědnosti výrobce (EPR) prostřednictvím vyšší kauce pro výrobce plnící povinnosti samostatně a povinného kolektivního plnění u některých výrobků; (2) vyřešení historické zátěže průmyslových baterií (zhruba 211 000 solárních instalací, přibližně 2 GWh / 20 000 t ke konci roku 2024, náklady na zpětný odběr zhruba 1,4 mld. Kč, přičemž řadu výrobců už nelze dohledat) prostřednictvím schématu financování v rámci kolektivního plnění; a (3) provedení návrhů z Ekoauditu a odstranění legislativně-technických vad, přičemž jde o první rozsáhlou novelu od nabytí účinnosti zákona 1. ledna 2021. Novelizuje rovněž zákon č. 90/2016 Sb. o posuzování shody (nový § 27h s požadavkem na český jazyk) a zákon č. 87/2023 Sb. o dozoru nad trhem. Uváděné hodnocení dopadů regulace tvrdí rozpočtově neutrální účinek, jen mírně zvýšenou administrativní zátěž a příznivé dopady na životní prostředí a zaměstnanost.",
+  "researchedContext": "Nezávislá rešerše potvrzuje, že jde o věrné a do značné míry nediskreční provedení a adaptaci. Nařízení (EU) 2023/1542 vstoupilo v platnost 17. srpna 2023 a plně použitelným se stalo 18. srpna 2025, kdy nahradilo směrnici 2006/66/ES a začalo přímo zavazovat výrobce, dovozce, distributory i zpracovatele odstupňovanými povinnostmi: ambicióznějšími cíli sběru, přísnějšími mírami účinnosti recyklace a výtěžnosti materiálů, povinným minimálním podílem recyklovaného obsahu, prohlášeními o uhlíkové stopě, digitálním pasem baterie a náležitou péčí v dodavatelském řetězci, to vše podpořeno vysokými pokutami. Nejzávažnější praktický dopad, na který upozorňují nezávislí komentátoři, se týká ekonomiky rozšířené odpovědnosti výrobce: nařízení přesouvá plnou finanční odpovědnost za sběr, zpracování a recyklaci baterií na výrobce a omezuje smluvní přenášení nákladů; cenotvorbu pokrývající náklady je přitom „obtížné uplatnit na cenově citlivém trhu\". Český návrh na to vrství vnitrostátní mechanismy (vyšší kauce, povinné kolektivní plnění, financování historické zátěže), které jdou mírně nad rámec holé transpozice. Podle záznamu Poslanecké sněmovny podala návrh vláda 10. prosince 2025, prvé čtení proběhlo 1. července 2026 a návrh je projednáván ve výboru pro životní prostředí.",
+  "unstatedEffects": [
+    {
+      "effect": "Náklady na plnění povinností v režimu rozšířené odpovědnosti výrobce se v praxi promítnou do marží výrobců nebo do cen výrobků; protože povinnost bezplatného zpětného odběru podle nařízení omezuje možnost přenést náklady odděleně na zákazníka a protože takovou cenotvorbu je „obtížné uplatnit na cenově citlivém trhu\", dopadne zátěž nejtvrději na menší dovozce a výrobce a může mírně zvýšit ceny — účinek, který důvodová zpráva bagatelizuje jako „zanedbatelný\".",
+      "whoBenefits": "Velcí výrobci plnící povinnosti a zavedení zpracovatelé i kolektivní systémy, kteří dokážou fixní náklady na plnění povinností a výkaznictví absorbovat; znevýhodněni jsou malí dovozci a okrajově i koncoví spotřebitelé.",
+      "evidence": "https://www.energy-storage.news/new-eu-end-of-life-battery-regulations-create-legal-and-commercial-complexities-for-suppliers/"
+    },
+    {
+      "effect": "Vyšší kauce pro výrobce plnící povinnosti samostatně, povinné kolektivní plnění u některých výrobků a využití kolektivních systémů k financování nedohledatelné historické zátěže solárních úložišť ve výši zhruba 1,4 mld. Kč upevňují postavení zavedených provozovatelů kolektivních systémů a zvyšují bariéry vstupu — distribuční a soutěžní nevýhoda, kterou důvodová zpráva rámuje jen kladně jako „narovnání podmínek na trhu\".",
+      "whoBenefits": "Zavedené kolektivní systémy a jejich stávající velcí členové z řad výrobců, kteří získávají rozsah a menší únik způsobený free-ridingem, zatímco noví a malí účastníci čelí vyšším kaucím a vynucenému členství v kolektivním plnění.",
+      "evidence": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266045"
+    }
+  ],
+  "conflictAssessment": "Slabý až zanedbatelný; nejlépe jej lze popsat jako strukturální otázku správy věcí veřejných, nikoli jako skutečný střet ve vlastní prospěch. Návrh je povinnou adaptací na přímo použitelné unijní nařízení (2023/1542) zařazenou do plánu legislativních prací vlády na rok 2024, kterou Hladík podepisuje z titulu funkce ministra životního prostředí — jeho prostor rozhodovat o tom, zda a v hrubých rysech jak transponovat, je minimální. Z firem, které jsou s ním v grafu spojeny, je tomuto zákonu oborově blízké pouze SAKO Brno (brněnská městská společnost pro nakládání s odpady), avšak (a) vykazuje 0 Kč označeného toku veřejných zakázek a (b) mechanismus zákona reguluje prostřednictvím rozšířené odpovědnosti výrobce soukromé výrobce a kolektivní systémy, nikoli městské provozovatele na navazujícím konci odpadového řetězce prostřednictvím zakázek — od tohoto návrhu tedy k příjmům SAKO nevede hodnověrný kanál. Nejvýraznější peněžní údaj v jeho profilu (~5,39 mld. Kč) připadá celý na projekt ARENA BRNO, který s odpady nesouvisí. Zbývající vazby jsou nulové nebo zanedbatelné a bez souvislosti. Všechny vazby jsou funkcemi v orgánech veřejně vlastněných městských společností. Souhrnně: žádný důkaz o osobním nebo obecním obohacení zosnovaném tímto návrhem; poctivým zjištěním je absence střetu, nikoli skandál.",
+  "citations": [
+    {
+      "claim": "Tisk 58 je vládní návrh novelizující zákon č. 542/2020 Sb. za účelem adaptace českého práva na nařízení (EU) 2023/1542 o bateriích; novelizuje rovněž zákon 90/2016 Sb. (§ 27h) a zákon 87/2023 Sb.; podepsán ministrem Petrem Hladíkem 8. prosince 2025; opatření proti free-ridingu, vyšší kauce, povinné kolektivní plnění a historická zátěž solárních úložišť ve výši zhruba 1,4 mld. Kč jsou uvedeny v důvodové zprávě.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=266045"
+    },
+    {
+      "claim": "Novelizovaným předpisem je zákon č. 542/2020 Sb., o výrobcích s ukončenou životností (skutečný, platný český zákon).",
+      "kind": "law",
+      "source": "542/2020"
+    },
+    {
+      "claim": "Návrh novelizuje i zákon o posuzování shody (doplňuje § 27h o bateriích s požadavkem na český jazyk).",
+      "kind": "law",
+      "source": "90/2016"
+    },
+    {
+      "claim": "Návrh novelizuje i zákon o dozoru nad trhem a nahrazuje v něm odkaz na směrnici 2006/66/ES odkazem na nařízení (EU) 2023/1542.",
+      "kind": "law",
+      "source": "87/2023"
+    },
+    {
+      "claim": "Přehled dokumentů tisku (tisk 58/0): „Návrh zákona včetně důvodové zprávy\" a související PDF, rozesláno 10. prosince 2025.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=58&ct1=0"
+    },
+    {
+      "claim": "Předkladatelem je vláda (zastoupená Ministerstvem životního prostředí); podáno 10. prosince 2025; prvé čtení 1. července 2026; garančním výborem výbor pro životní prostředí.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=58"
+    },
+    {
+      "claim": "Nařízení (EU) 2023/1542 přesouvá plnou finanční odpovědnost za sběr, zpracování a recyklaci baterií na výrobce a omezuje přenášení nákladů na koncové uživatele v rámci povinnosti bezplatného zpětného odběru — cenotvorbu pokrývající náklady je „obtížné uplatnit na cenově citlivém trhu\".",
+      "kind": "web",
+      "source": "https://www.energy-storage.news/new-eu-end-of-life-battery-regulations-create-legal-and-commercial-complexities-for-suppliers/"
+    },
+    {
+      "claim": "SAKO Brno, a.s. je brněnská městská společnost pro nakládání s odpady (oborově blízká tomuto zákonu), vykazuje však 0 Kč označeného toku veřejných zakázek a není podle tohoto návrhu regulovaným subjektem v režimu rozšířené odpovědnosti výrobce.",
+      "kind": "graph_fact",
+      "source": "company:ico:60713470"
+    },
+    {
+      "claim": "Převažující peněžní údaj mezi firmami spojenými s Hladíkem (~5,39 mld. Kč) připadá na projekt ARENA BRNO, který s odpady a s výrobky s ukončenou životností nesouvisí.",
+      "kind": "graph_fact",
+      "source": "company:ico:09133267"
+    }
+  ]
+}
