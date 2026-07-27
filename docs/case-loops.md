@@ -105,8 +105,28 @@ resume → triage → dispatch army → gate + persist → reflect → build-rev
    finding, not a failure** — 0 conflicts in a top-flagged head, a clean-hands
    population, a quiet workhorse are the non-partisan-symmetry outputs that
    make the accusatory ones credible; record them with equal weight.
-6. **Manifestation check (new, from the pause retro): data that doesn't render
-   doesn't exist.** Every batch's reflection must answer: *does what this batch
+6. **Manifestation check — and RENDERING IS NOT READING.** The batch-006 pause
+   fixed *whether* data reaches the screen. It did not fix whether a Czech
+   reader can USE it, and eight batches shipped without anyone asking. Measured
+   2026-07-27, after the loops declared success: **27/27 forensic verdicts were
+   in ENGLISH**, **0/141 bills carried a summary**, and reference blocks rendered
+   as raw objects. The product's whole premise — *take a mess of open data and
+   return structured insight* — was inverted: we produced a second mess with
+   better provenance. So every batch now clears a **presentation gate** on
+   anything a reader sees, with the same code-first discipline that fixed the
+   jargon leak (prose lessons do not survive contact with the next army):
+   - **Czech, always.** Analyst prose, verdicts, labels, summaries. An
+     English-language artifact on a reader-facing field is a DEFECT, not a
+     stylistic preference — gate it deterministically, like `public-copy.ts`.
+   - **A unit has a one-line human summary** before it has anything else. A
+     bill with 12 forensic fields and no "what this changes" line is unreadable
+     no matter how well provenanced.
+   - **References render as references** — a formatted citation with a working
+     link, never a serialized object or a bare id.
+   - **Volume must be shaped, not dumped.** Each surface states how it scales
+     (filter/search/rank/paginate) at the volume the batch just created.
+   The kernel's older rule stands beneath this one: data that doesn't render
+   doesn't exist. Every batch's reflection must answer: *does what this batch
    persisted actually RENDER, and does the surface scale to the data volume it
    now carries?* A batch that grows the graph without growing its surface incurs
    manifestation debt — track it in the ledger like any other debt. The fleet
@@ -115,7 +135,13 @@ resume → triage → dispatch army → gate + persist → reflect → build-rev
    architecture, list→detail routes, filters/search/pagination at real volumes,
    Konstrukt discipline) rather than producing new analysis. Dispatch one
    whenever manifestation debt spans more than one surface; the `/admin` hub
-   tracks per-case progress and the review pipeline.
+   tracks per-case progress and the review pipeline. **`/admin` is gated**
+   (2026-07-26): it renders only against a configured `ADMIN_TOKEN` submitted
+   once into an httpOnly, `/admin`-scoped session cookie and verified in
+   constant time (`lib/security/token.ts`, the gate the `/penize/kontrola`
+   write path uses). Unset token → the console is closed and says so, and
+   `getAdminData()` is never called. Set `ADMIN_TOKEN` in `.env.local` before
+   running the hub locally.
 7. **Build-review (adaptive cadence).** Review interval R in batches: **start
    R=1**; when a review ships nothing, R doubles; when something ships, R
    resets to 1. A build phase = implement the top build-ready opportunity end
