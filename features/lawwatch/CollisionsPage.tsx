@@ -24,6 +24,7 @@ import { ExternalLink } from "lucide-react";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
+import { CZECH_WITHHELD_CZ } from "@/lib/analysis/language-gate";
 import type { CollisionClassification, CollisionClusterView, CollisionData, CollisionPairView } from "./getCollisionData";
 
 const CLASS_CZ: Record<CollisionClassification, string> = {
@@ -113,13 +114,11 @@ function RealCollisions({ data }: { data: CollisionData }) {
           jiný zákon) vyřazeny — nejsou zde zobrazeny
         </SourceNote>
       </div>
-      {data.postRegenPendingCount > 0 && (
+      {data.czechPendingCount > 0 && (
         <div className="mt-2 border-2 border-dashed border-ochre bg-ochre/5 px-4 py-3">
           <p className="font-mono text-[11px] uppercase tracking-wider text-ochre">
-            {data.postRegenPendingCount}× nález z dávky 5 pochází z přepočítané sítě vazeb tisk → zákon (150 → 567
-            vazeb), kterou zatím nikdo neschválil pro živý graf. Označeno „dávka 5&rdquo; u každé takové dvojice
-            níže; nic zde citované není smyšlené — jde jen o to, ŽE byla dvojice nalezena v širším okruhu
-            kandidátů, který živý graf ještě nemá.
+            U {data.czechPendingCount}× dvojice zatím nezobrazujeme rozbor — existuje jen v angličtině a české znění
+            se připravuje. Zjištění samotné (které tisky, který §, jak je vyhodnocen) tím dotčeno není.
           </p>
         </div>
       )}
@@ -236,23 +235,23 @@ function PairCard({ pair }: { pair: CollisionPairView }) {
           </span>
         </span>
         <span className="flex items-center gap-2">
-          {pair.postRegenTopology && (
-            <span
-              className="border border-ochre px-1 py-0.5 font-mono text-[9px] font-black uppercase tracking-wider text-ochre"
-              title="Nalezeno přes přeregenerovanou topologii, ještě neschválenou orchestrátorem pro živý graf"
-            >
-              dávka 5 · post-regen
-            </span>
-          )}
+          <span
+            className="border border-hairline px-1 py-0.5 font-mono text-[9px] font-black uppercase tracking-wider text-steel"
+            title="Ze které dávky ručního porovnání textů toto zjištění pochází"
+          >
+            dávka {pair.sourceBatch}
+          </span>
           <span className={`font-mono text-[10px] font-black uppercase tracking-wider ${tone.text}`}>
             {CLASS_CZ[pair.classification]}
           </span>
         </span>
       </div>
 
-      {pair.reasoning && (
+      {pair.reasoning ? (
         <p className={`pb-2 text-[13px] leading-relaxed text-steel ${open ? "" : "line-clamp-2"}`}>{pair.reasoning}</p>
-      )}
+      ) : pair.reasoningWithheld ? (
+        <p className="pb-2 text-[13px] italic leading-relaxed text-steel/70">{CZECH_WITHHELD_CZ}</p>
+      ) : null}
 
       {open && hasEvidence && (
         <div className="mb-3 grid gap-2 sm:grid-cols-2">

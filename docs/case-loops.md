@@ -125,6 +125,24 @@ resume → triage → dispatch army → gate + persist → reflect → build-rev
      link, never a serialized object or a bare id.
    - **Volume must be shaped, not dumped.** Each surface states how it scales
      (filter/search/rank/paginate) at the volume the batch just created.
+   - **The gate is CODE at the loader, not a rule in this file.** Batch 009 found
+     the jargon/English leak had simply moved one surface over: every one of the
+     **44 close-read analyses rendered on `/zakony/kolize` was English**, written
+     after the pass-33 verdict rewrite and after this very section was added.
+     Prose does not survive the next army — the fix is to import
+     `lib/analysis/language-gate.ts` in the loader so an English string is
+     WITHHELD (with an honest placeholder) rather than shipped, plus a test that
+     fails on the next one. Every reader-facing loader in the repo needs that
+     import; treat a loader without it as an unguarded surface.
+   - **"The data just needs wiring in" is a claim to verify, not a task estimate.**
+     Batch 008's reflection recorded that `/zakony/kolize` was "one filename away"
+     from rendering the new findings. It was not: that payload spelled its
+     classifications in a different vocabulary (`confirmed` vs
+     `confirmed-collision`), so adding the filename alone would have dropped all
+     12 pairs at a downstream filter — and a dropped-at-filter failure is
+     indistinguishable from "that batch found nothing". Before declaring
+     manifestation debt cheap, check that the payload's VOCABULARY and required
+     FIELDS match what the loader consumes, not just that a file exists.
    The kernel's older rule stands beneath this one: data that doesn't render
    doesn't exist. Every batch's reflection must answer: *does what this batch
    persisted actually RENDER, and does the surface scale to the data volume it
@@ -186,7 +204,7 @@ single-writer and are handed off to the orchestrator instead:
 |---|---|
 | live `./.pglite` | NEVER write. Analyze on a case-suffixed copy (`cp -r .pglite .pglite-copy-<case>`; `PGLITE_PATH=`). Emit materialization payloads + scripts; the orchestrator serializes live writes via `scripts/case-loops/persist-batch.ts` (props-merge writer: nested annotation provenance, refuses to insert missing targets). |
 | shared vault files (`frontier`, `feature-opportunities`, `graph-log`, `patterns`, `contradictions`) + shared code (`lib/analysis/kg-verdict.ts` enums, `package.json`, `messages/*.json`) | do not edit; put proposed additions in the case handoff. |
-| git | do not commit — **no exceptions, not even a boundary-clean commit of your own build** (a law driver did exactly that in batch 004; the commit was kept because it happened to be surgical, but the rule exists so the orchestrator can review BEFORE history is written, and staging races with siblings are only safe when one process touches the index). Leave changes in the tree; the orchestrator reviews and commits per case. |
+| git | **no process stages the whole tree while a fleet window is open.** Orchestrator and housekeeping commits stage explicit paths, never `-A`/`.`/`-u` — a batch-008 investigation traced an unrelated concurrent session sweeping that batch's in-progress, unreviewed payloads into a commit whose subject line named a different case, 19 seconds after they were written. Case drivers additionally do not commit — **no exceptions, not even a boundary-clean commit of your own build** (a law driver did exactly that in batch 004; the commit was kept because it happened to be surgical, but the rule exists so the orchestrator can review BEFORE history is written, and staging races with siblings are only safe when one process touches the index). Leave changes in the tree; the orchestrator reviews and commits per case. |
 
 **A driver never ends its run waiting.** If a sub-agent is still working, the
 driver stays alive until the result lands and the handoff is WRITTEN — ending a
@@ -241,6 +259,17 @@ analytical-loop vs investigative-track numbering ambiguity documented in
   "does text X appear in document Y", deterministic search of the fetched
   text is cheaper and stronger (P49). Corollary: a prose-vs-props numeric
   cross-check belongs in the gate, in code (Q-effort-11).
+- **P49 applies to the ANALYST's own prose, not just to researched claims.**
+  Batch 008 published a `confirmed` collision asserting two bills carried
+  "VERBATIM IDENTICAL" text that occurs in only one of them — it had compared one
+  bill's excerpt against itself. Two independent Opus agents ran that batch and
+  neither was scoped to catch it. The durable fix is a script
+  (`scripts/case-loops/law/verify-close-reads.ts`): any claim that two documents
+  share text must name the text, and the text must be found in both. **A guard
+  built this way needs its own fire rate validated exactly like a triage signal** —
+  that one's first draft failed 106 of 102 checks, and each successive rule was
+  written only after hand-reading the survivors of the previous one (~100% → 87%
+  → 8% → 2% → 0%). A guard whose failures nobody has read is not evidence.
 - **Public-role facts only.** The platform holds public officials accountable
   for public roles; private life is out of scope, always.
 - **Non-partisan symmetry.** Positive findings get equal surface: the quiet

@@ -8,13 +8,25 @@
 // direct grep of the cited instruction strings against the cached psp.cz novelization
 // text (P49: grep verifies presence, never a second model read).
 //
-// 38 pairs were close-read across 4 batches: 17 confirmed-collision, 9 coordination-risk,
-// 12 incidental (noise — same §-number, different statute, or a citation-only artifact).
-// This loader surfaces the 26 non-incidental pairs, GROUPED BY (statute, §) rather than
-// by bill-pair — batch-003's handoff recorded the lesson that several are genuine N-way
-// clusters (the §35ba/§35c 586/1992 complex now spans 4 bills; two new 3-way clusters
-// landed in batch-004: 117/1995 §30(1) across tisky 112/121/198, 243/2000 §3 across
-// 28/140/141).
+// 63 pairs have been close-read across batches 001–008; this loader surfaces the 44
+// non-incidental ones, GROUPED BY (statute, §) rather than by bill-pair — batch-003's handoff
+// recorded the lesson that several are genuine N-way clusters (the §35ba/§35c 586/1992 complex
+// spans 4 bills; batch-004 added 117/1995 §30(1) across tisky 112/121/198 and 243/2000 §3
+// across 28/140/141; batch-008 added a 4-bill cluster on 40/2009 §88 odst. 2 písm. c) across
+// tisky 7/111/207/213).
+//
+// Batch-009 wired batch-008's 12 pairs, which had been sitting unrendered. That was NOT the
+// "one filename away" job the batch-008 reflection assumed: batch-008's payload writes its
+// classifications in a DIFFERENT vocabulary (`confirmed` / `coordination_risk`) than the four
+// earlier payloads (`confirmed-collision` / `coordination-risk`), so adding the filename alone
+// would have silently dropped all 12 pairs at the filter below — a failure that looks exactly
+// like "no new findings" and reports nothing. `normalizeClassification` now maps both spellings.
+//
+// Czech-first (kernel step 6, the presentation gate): every `reasoning` string in every payload
+// was written in English by the analyst army and rendered verbatim to Czech readers — measured
+// 44/44 by lib/analysis/language-gate.ts. `collision-reasoning-cz.json` carries the Czech
+// rewrite keyed by `<file>::<pairId>`; the gate withholds anything still English rather than
+// shipping it, exactly as getLawData.ts does for the forensic verdicts (pass 33).
 //
 // These are FORENSIC LEADS, never verdicts: two bills independently proposing
 // incompatible or order-sensitive edits to the same statutory provision is a
@@ -30,6 +42,7 @@ import { asUnion } from "@/lib/db/narrow";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
+import { czechCopyOrNull } from "@/lib/analysis/language-gate";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 
@@ -48,9 +61,13 @@ export interface CollisionPairView {
   classification: CollisionClassification;
   sharedParagraph: string;
   evidence: CollisionEvidence;
+  /** Czech analyst prose, or null when only an English original exists and the language gate
+   * withheld it. Never a machine translation, never a partial. */
   reasoning: string | null;
-  sourceBatch: number; // 1–5, which batch produced this close-read
-  postRegenTopology: boolean; // true for batch-005 pairs found via the regenerated (not-yet-live) amends topology
+  /** True when a reasoning exists but was withheld for not being Czech — lets the surface say
+   * so honestly instead of rendering a blank card. */
+  reasoningWithheld: boolean;
+  sourceBatch: number; // 1–5 or 8, which batch produced this close-read
   sourceMethod: string; // one-line method note for the SourceNote
 }
 
@@ -79,15 +96,10 @@ export interface CollisionData {
   coordinationRiskPairCount: number;
   clusterCount: number;
   nWayClusterCount: number; // clusters spanning ≥3 bills
-  batchesRun: number; // 5
-  /** batch-005 close-reads were surfaced from the REGENERATED amends topology (574→567 edges,
-   * corrected post-Opus-audit) — candidate discovery itself depended on edges/law-nodes that are
-   * NOT yet applied to the live graph (see docs/data-analysis/case-law/handoff.md). Every
-   * individual pair rendered here still only cites bills/statutes that already exist live (the
-   * pairs happen to all involve pre-existing law nodes), so nothing here is fabricated — but the
-   * SET of candidates that got read was found using topology the live graph doesn't have yet.
-   * Rendered as a clearly separate, labeled group; never merged silently into the batch 1-4 count. */
-  postRegenPendingCount: number;
+  batchesRun: number; // distinct close-read batches represented here
+  /** How many rendered pairs still have no Czech analyst prose, so the surface can disclose the
+   * gap instead of quietly showing fewer words. */
+  czechPendingCount: number;
 }
 
 const PAYLOADS_DIR = "docs/data-analysis/case-law/payloads";
@@ -99,10 +111,50 @@ interface RawPair {
   billA: number;
   billB: number;
   lawRef: string;
-  classification: string; // "confirmed-collision" | "coordination-risk" | "incidental" | "incidental-overlap"
+  classification: string; // normalized to "confirmed-collision" | "coordination-risk" | "incidental"
   sharedParagraph: string;
   evidence?: { billAExcerpt?: string; billBExcerpt?: string };
   reasoning?: string;
+  /** Which payload this pair came from — the Czech-rewrite key is `<sourceFile>::<pairId>`,
+   * and pairIds are NOT unique across payloads (4-121 exists in both batch-004 and batch-005
+   * on different statutes), so the file must be part of the key. */
+  sourceFile?: string;
+}
+
+/** Payloads disagree on how they spell a classification. batch-008 writes `confirmed` and
+ * `coordination_risk`; batches 001–005 write `confirmed-collision` and `coordination-risk`.
+ * Both mean the same thing, and an unmapped spelling is silently filtered out downstream —
+ * so the mapping lives here, once, at the single point every payload is read through. */
+function normalizeClassification(raw: string): string {
+  switch (raw) {
+    case "confirmed":
+      return "confirmed-collision";
+    case "coordination_risk":
+      return "coordination-risk";
+    case "incidental-overlap":
+      return "incidental";
+    default:
+      return raw;
+  }
+}
+
+/** Czech rewrites of the analyst prose, keyed `<payload file>::<pairId>`.
+ * See docs/data-analysis/case-law/payloads/collision-reasoning-cz.json. */
+function loadCzechReasoning(): Map<string, string> {
+  try {
+    const p = join(PAYLOADS_DIR, "collision-reasoning-cz.json");
+    if (!existsSync(p)) return new Map();
+    const raw = JSON.parse(readFileSync(p, "utf8")) as { reasoningCz?: unknown };
+    if (typeof raw.reasoningCz !== "object" || raw.reasoningCz === null) return new Map();
+    return new Map(
+      Object.entries(raw.reasoningCz as Record<string, unknown>).filter(
+        (e): e is [string, string] => typeof e[1] === "string" && e[1].length > 0,
+      ),
+    );
+  } catch (err) {
+    reportLoaderFailure("getCollisionData.czechReasoning", err);
+    return new Map(); // the gate below then withholds — degrade to silence, never to English
+  }
 }
 
 function loadRawPairs(file: string): RawPair[] {
@@ -122,7 +174,8 @@ function loadRawPairs(file: string): RawPair[] {
         billA: o.billA,
         billB: o.billB,
         lawRef: o.lawRef,
-        classification: o.classification,
+        classification: normalizeClassification(o.classification),
+        sourceFile: file,
         sharedParagraph: o.sharedParagraph,
         evidence: {
           billAExcerpt: typeof evidence.billAExcerpt === "string" ? evidence.billAExcerpt : undefined,
@@ -198,11 +251,13 @@ function asStr(v: unknown): string | null {
 export async function getCollisionData(): Promise<CollisionData | null> {
   try {
     const batch5Pairs = loadRawPairs("collision-close-reads-batch005.json");
+    const batch8Pairs = loadRawPairs("collision-close-reads-batch008.json");
     const rawAll = [
       ...PRIOR_PAIRS,
       ...loadRawPairs("collision-close-reads.json"),
       ...loadRawPairs("collision-close-reads-batch004.json"),
       ...batch5Pairs,
+      ...batch8Pairs,
     ].filter((p) => p.classification === "confirmed-collision" || p.classification === "coordination-risk");
 
     if (rawAll.length === 0) return null;
@@ -213,12 +268,15 @@ export async function getCollisionData(): Promise<CollisionData | null> {
     const batch3Pairs = loadRawPairs("collision-close-reads.json");
     const batch3Ids = new Set(batch3Pairs.map((p) => p.pairId));
     const batch5Ids = new Set(batch5Pairs.map((p) => p.pairId));
+    const batch8Ids = new Set(batch8Pairs.map((p) => p.pairId));
     const sourceBatchOf = (pairId: string): number => {
       if (priorIds.has(pairId)) return pairId === "120-244" ? 1 : 2;
       if (batch3Ids.has(pairId)) return 3;
+      if (batch8Ids.has(pairId)) return 8;
       if (batch5Ids.has(pairId)) return 5;
       return 4;
     };
+    const czechReasoning = loadCzechReasoning();
 
     // Union-find over (lawRef, primaryParagraph) — pairs sharing a statute+§ merge into
     // one cluster (the N-way case the kernel's patterns note requires).
@@ -277,7 +335,14 @@ export async function getCollisionData(): Promise<CollisionData | null> {
         classification,
         bills: billIds.map(billRef),
         pairs: pairs
-          .map((p) => ({
+          .map((p) => {
+            // Czech rewrite first, then the gate on whatever we ended up with. An English
+            // original is withheld, never machine-translated and never shown — the same
+            // non-destructive discipline getLawData.ts applies to the forensic verdicts.
+            const cz = p.sourceFile ? czechReasoning.get(`${p.sourceFile}::${p.pairId}`) : undefined;
+            const reasoning = czechCopyOrNull(cz ?? p.reasoning ?? null);
+            const hadReasoning = typeof (cz ?? p.reasoning) === "string" && (cz ?? p.reasoning)!.length > 0;
+            return {
             pairId: p.pairId,
             billA: p.billA,
             billB: p.billB,
@@ -289,16 +354,19 @@ export async function getCollisionData(): Promise<CollisionData | null> {
               billAExcerpt: asStr(p.evidence?.billAExcerpt),
               billBExcerpt: asStr(p.evidence?.billBExcerpt),
             },
-            reasoning: asStr(p.reasoning ?? null),
+            reasoning,
+            reasoningWithheld: hadReasoning && reasoning === null,
             sourceBatch: sourceBatchOf(p.pairId),
-            postRegenTopology: sourceBatchOf(p.pairId) === 5,
             sourceMethod:
               sourceBatchOf(p.pairId) <= 2
-                ? "deterministic §-overlap pre-check + LLM close-read (narrated, batch-001/002)"
-                : sourceBatchOf(p.pairId) === 5
-                  ? "deterministic partitioned pre-check on the REGENERATED (not-yet-live) amends topology, ranked by a money/coefficient-literal signal (P52), LLM close-read"
-                  : "deterministic partitioned pre-check (--v2) + LLM close-read, grep-verified",
-          }))
+                ? "deterministický §-překryv + ruční porovnání textů (dávka 001/002)"
+                : sourceBatchOf(p.pairId) === 8
+                  ? "deterministický dělený §-překryv nad živou topologií 577 hran amends, ruční porovnání textů, ověřeno grepem"
+                  : sourceBatchOf(p.pairId) === 5
+                    ? "deterministický dělený §-překryv nad přegenerovanou topologií amends (od té doby nasazenou), ruční porovnání textů"
+                    : "deterministický dělený §-překryv (--v2) + ruční porovnání textů, ověřeno grepem",
+            };
+          })
           .sort((a, b) => (a.classification === b.classification ? 0 : a.classification === "confirmed-collision" ? -1 : 1)),
       };
     });
@@ -312,7 +380,7 @@ export async function getCollisionData(): Promise<CollisionData | null> {
 
     const confirmedPairCount = rawAll.filter((p) => p.classification === "confirmed-collision").length;
     const coordinationRiskPairCount = rawAll.filter((p) => p.classification === "coordination-risk").length;
-    const postRegenPendingCount = rawAll.filter((p) => batch5Ids.has(p.pairId)).length;
+    const allPairs = clusters.flatMap((c) => c.pairs);
 
     return {
       clusters,
@@ -320,8 +388,10 @@ export async function getCollisionData(): Promise<CollisionData | null> {
       coordinationRiskPairCount,
       clusterCount: clusters.length,
       nWayClusterCount: clusters.filter((c) => c.bills.length >= 3).length,
-      batchesRun: 5,
-      postRegenPendingCount,
+      // batches 001, 002, 003, 004, 005, 008 — derived, so it cannot fall behind the payloads
+      // the way the hardcoded `5` did once batch-008's file was added.
+      batchesRun: new Set(allPairs.map((p) => p.sourceBatch)).size,
+      czechPendingCount: allPairs.filter((p) => p.reasoningWithheld).length,
     };
   } catch (err) {
     reportLoaderFailure("getCollisionData", err);

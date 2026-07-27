@@ -1,0 +1,61 @@
+{
+ "generatedAt": "2026-07-27T09:51:59.409Z",
+ "method": "P49 deterministic presence guard (batch-009). E-CHECK: every evidence excerpt must occur in its OWN bill's cached .data/law-collision-cache text. R-CHECK: when reasoning asserts sameness (identical/verbatim/duplicate/totožné/shodné/stejné…), every quoted span in it must occur in BOTH bills' text. NFC-normalized, whitespace-collapsed, typographic quotes/dashes folded; ellipsis-split fragments verified independently; quotes under 25 chars ignored as terms of art rather than presence claims.",
+ "filesChecked": [
+  "collision-close-reads-batch004.json",
+  "collision-close-reads-batch005.json",
+  "collision-close-reads-batch008.json",
+  "collision-close-reads-group1.json",
+  "collision-close-reads-group2.json",
+  "collision-close-reads-group3.json",
+  "collision-close-reads.json"
+ ],
+ "pairsChecked": 63,
+ "eChecks": 99,
+ "rChecks": 3,
+ "pairsWithNoEvidence": 12,
+ "failCount": 0,
+ "unverifiableCount": 4,
+ "findings": [
+  {
+   "file": "collision-close-reads-batch004.json",
+   "pairId": "15-72",
+   "billA": 15,
+   "billB": 72,
+   "classification": "confirmed-collision",
+   "check": "R-CHECK",
+   "status": "UNVERIFIABLE",
+   "detail": "sameness claim quotes a passage found in NEITHER bill — an analyst-schematized/merged quote, not a verbatim source claim. Quote: \"V § 67 se dosavadní text označuje jako odstavec 1 a doplňuje(í) se odstavec(ce) 2 (až 4)…\""
+  },
+  {
+   "file": "collision-close-reads.json",
+   "pairId": "120-248",
+   "billA": 120,
+   "billB": 248,
+   "classification": "incidental-overlap",
+   "check": "E-CHECK",
+   "status": "UNVERIFIABLE",
+   "detail": "billAExcerpt: no quoted verbatim span — the field is all provenance/interpretation, so it asserts nothing checkable about tisk 120's text"
+  },
+  {
+   "file": "collision-close-reads.json",
+   "pairId": "120-248",
+   "billA": 120,
+   "billB": 248,
+   "classification": "incidental-overlap",
+   "check": "E-CHECK",
+   "status": "UNVERIFIABLE",
+   "detail": "billBExcerpt: no quoted verbatim span — the field is all provenance/interpretation, so it asserts nothing checkable about tisk 248's text"
+  },
+  {
+   "file": "collision-close-reads.json",
+   "pairId": "40-248",
+   "billA": 40,
+   "billB": 248,
+   "classification": "incidental-overlap",
+   "check": "E-CHECK",
+   "status": "UNVERIFIABLE",
+   "detail": "billBExcerpt: no quoted verbatim span — the field is all provenance/interpretation, so it asserts nothing checkable about tisk 248's text"
+  }
+ ]
+}

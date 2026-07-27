@@ -1,21 +1,32 @@
 {
  "case": "law",
- "generatedAt": "2026-07-24T18:31:09.703Z",
- "source": "PGLITE_PATH copy (read-only)",
+ "generatedAt": "2026-07-27T09:42:00.741Z",
+ "source": "PGLITE_PATH copy of the LIVE graph (read-only) — batch-009 re-triage",
  "batch002TriagePolicy": "churn PRIMARY, sector-adjacency SECONDARY (company-sectors.ts heuristic, excludes municipal/SOE), money log-scaled TERTIARY, amends quaternary",
  "totals": {
   "bills": 141,
-  "laws": 101,
-  "amends": 150,
+  "laws": 288,
+  "amends": 577,
   "assignedTo": 150,
-  "sectorAdjacencyHits": 5,
+  "sectorAdjacencyHits": 12,
   "municipalSoeExcludedBills": 60,
-  "existingForensic": 19,
-  "collisionCandidateGroups": 29,
-  "collisionCandidateBills": 71,
+  "existingForensic": 27,
+  "collisionCandidateGroups": 150,
+  "collisionCandidateBills": 117,
   "batch003NewVerdicts": 8,
   "gatePassRate": "26/26",
-  "collisionPairsCloseRead": 38,
+  "collisionPairsCloseRead": {
+   "total": 65,
+   "batch009Correction": "This key was the scalar 38 — batch-004's figure, never incremented for batch-005's +15 or batch-008's +12. Restated as a per-batch breakdown so it cannot silently fall behind again.",
+   "byBatch": {
+    "001_002": 2,
+    "003": 12,
+    "004": 24,
+    "005": 15,
+    "008": 12
+   },
+   "note": "65 close-reads over 63 distinct pairs (two pairs were re-read on a later topology). Not all remain live candidates: pair identity does not survive a topology change cleanly, so the batch-008 partitioned universe counts its own coverage separately — see batch008CollisionRecheck."
+  },
   "paragraphDiffCount": 15,
   "batch004NewVerdicts": 0,
   "collisionBacklog72Pairs": {
@@ -23,17 +34,21 @@
    "confirmed": 17,
    "coordinationRisk": 9,
    "incidental": 12,
-   "diedInPartition": 38
+   "diedInPartition": 38,
+   "batch009Correction": "The predicted reopening HAPPENED: the regen is applied (see amendsRegenPrepared) and the candidate universe went 29 → 150 groups. These 38-pair counts describe the retired 150-edge topology and are kept only as history — the live backlog is batch008CollisionRecheck's 176 partitioned pairs."
   },
   "amendsRegenPrepared": {
-   "status": "batch-005: RE-prepared (v2, post Opus-audit remediation) — still NOT applied to live graph, awaiting orchestrator + a fresh audit pass on the remediated payload",
+   "status": "APPLIED to the live graph. batch-005 prepared 567 edges; batch-007 applied 581 (commit 257e723, pass 30, 2026-07-25); batch-008's F1 (+1) and F2 (−5) landed on top. Live today: 577 amends edges / 288 law nodes, verified by direct read this batch.",
    "edgesBefore": 150,
    "edgesAfter": 567,
    "missingLawNodeStatutes": 0,
    "missingLawNodeCitations": 0,
    "excludedNonActRefs": 4,
    "validatorResult": "PASS 567/567, 0 errors; deletion-diff PASS, 0 unallowlisted drops",
-   "priorBatch004State": "prepared 282 edges / 188 missing law nodes — superseded this batch, see batch-005.md"
+   "priorBatch004State": "prepared 282 edges / 188 missing law nodes — superseded this batch, see batch-005.md",
+   "edgesLiveNow": 577,
+   "lawNodesLiveNow": 288,
+   "batch009Correction": "This block read 'still NOT applied to live graph' through batches 006–008 while the regeneration had in fact been applied on 2026-07-25. The batch-008 reflection (§B) flagged it as the most operationally misleading stale field in the case — an orchestrator reading it alongside edgeCountDelta:427 would reasonably have re-applied 577 edges wholesale onto an already-regenerated graph. Corrected batch-009 against a live read."
   },
   "kolizeTiskuShipped": {
    "commit": "a44fe5f",
@@ -122,7 +137,10 @@
   "batch008ReTriage": {
    "status": "PARTIAL, precisely scoped — ONLY the aggregate top-10 churn RANKING was recomputed (from batch-008-amends-regen.json's churnRanking field). The per-bill `rows` array below (triageScoreV2, maxTargetChurn, sectorAdjacency, batch/stage) is UNCHANGED from before this batch — none of the 141 rows was re-derived against the 577-edge topology. Corrected this session after the batch-008 reflection audit found the original 'churn re-ranking DONE' wording could read as implying more than this narrow aggregate recompute.",
    "churnAfterTop10": "law:sb:40-2009 (40/2009) takes #1 with 12 edges, matching batch-007's own predicted re-ranking; 586/1992 drops to #2 (9)",
-   "note": "A full per-bill triageScoreV2/maxTargetChurn/sectorAdjacency recompute against the 577-edge topology was NOT attempted this batch. triageScoreV2 additionally needs sector-adjacency re-derived per amended SECTION, not per whole-bill amended-law set (the standing batch-004 warning) -- left as an open item for whichever batch runs triage-002.ts (or its successor) against a materialized copy of this topology, rather than shipping either a stale or an invalidated naive re-run."
+   "note": "A full per-bill triageScoreV2/maxTargetChurn/sectorAdjacency recompute against the 577-edge topology was NOT attempted this batch. triageScoreV2 additionally needs sector-adjacency re-derived per amended SECTION, not per whole-bill amended-law set (the standing batch-004 warning) -- left as an open item for whichever batch runs triage-002.ts (or its successor) against a materialized copy of this topology, rather than shipping either a stale or an invalidated naive re-run.",
+   "closedByBatch009": "DONE. scripts/case-loops/law/retriage-009.ts recomputed all 141 rows against the live 577-edge topology: 110 rows moved, 14 bills left the amendsCount=0 state (25 → 11), sectorAdjacencyHits 5 → 12, collisionCandidateGroups 29 → 150. The scoring was EXTRACTED to triage-core.ts rather than copied, so triage-002.ts and retriage-009.ts cannot drift; the write is merge-preserving (all 19 hand-written totals blocks kept byte-identical), because triage-002.ts's own writer replaces ledger.json wholesale and would have erased them (P44/D1).",
+   "remainingStaleBand": "sectorAdjBand ONLY (50 000 of a top score of 1 273 500 — under 4%). Sector-adjacency is still computed against a bill's WHOLE amended-law set rather than per amended SECTION, per the standing batch-004 warning. That §-level rework is the one genuinely deferred piece; every other band (severity, churn, money, amends) is now live-accurate.",
+   "deferralHistory": "Carried batch-006 P4 → 007 → 008. The kernel's deferred-three-batches rule forbade a fourth roll; batch-009 landed it."
   },
   "batch008CollisionRecheck": {
    "status": "partitioned pre-check re-run on the 577-edge topology; ranking-signal (P52) still unvalidated, not used to select this batch's close-read sample; 12/176 pairs close-read directly by the driver",
@@ -139,9 +157,257 @@
    "moneyLiteralNote": "P52 moneyLiteral signal remains NOT statistically validated (batch-005 Opus audit: Fisher p=1.00 at n=15); this batch did not re-derive a larger cross-topology validated sample (pair identity does not survive topology changes cleanly) — close-read sample this batch was topic-diverse UNREAD pairs, not moneyLiteral-ranked, per P52 doctrine (validate before spending model time)",
    "emergentFinding": "N-way cluster: 4 separate bills (7, 111, 207, 213) each independently edit 40/2009 §88 odst.2 písm.c) (criminal-code confiscation predicate-offense enumeration) — star topology centered on tisk 207",
    "payload": "docs/data-analysis/case-law/payloads/collision-close-reads-batch008.json"
+  },
+  "batch009ReTriage": {
+   "status": "DONE — all 141 rows recomputed against the live applied topology",
+   "method": "scripts/case-loops/law/retriage-009.ts over a read-only copy (.pglite-copy-law-009) of the live store, using the scoring extracted to triage-core.ts (shared with triage-002.ts — extracted, not copied, so the two cannot drift)",
+   "rowsMoved": 110,
+   "billsLeavingZeroAmends": "25 → 11",
+   "derivedTotalsRefreshed": [
+    "laws 101→288",
+    "amends 150→577",
+    "sectorAdjacencyHits 5→12",
+    "existingForensic 19→27",
+    "collisionCandidateGroups 29→150",
+    "collisionCandidateBills 71→117"
+   ],
+   "preservedBlocks": 19,
+   "churnTop": "40/2009 at churn 12 now heads the ranking; the top-10 pending head is tisk 64, 67, 7, 102, 213, 14, 189, 77, 69, 56"
+  },
+  "batch009CloseReadGuard": {
+   "status": "BUILT and run retroactively over the whole published corpus — 0 defects found",
+   "script": "scripts/case-loops/law/verify-close-reads.ts",
+   "motivation": "batch-008 published pair 90-221 as a confirmed collision on a VERBATIM IDENTICAL claim whose text occurs in only one of the two bills (it had compared tisk 221 against itself). Caught only because an Opus reflection happened to re-read the excerpts; neither dispatched agent was scoped for it. P49 had been applied to that batch deletion payload but never to its close-reads.",
+   "checks": "E-CHECK (each evidence excerpt leading verbatim span must occur in its OWN bill cached text) + R-CHECK (within a sentence asserting sameness and not marking a contrast, a quoted span must be shared by >=2 of the documents that sentence ranges over)",
+   "result": {
+    "pairs": 63,
+    "eChecks": 99,
+    "rChecks": 3,
+    "fail": 0,
+    "unverifiable": 4
+   },
+   "negativeResult": "No published close-read misattributes text to a bill. Recorded with the same weight as a positive finding would be, per the kernel non-partisan-symmetry rule.",
+   "fireRateValidation": "~100% -> 87% -> 8% -> 2% -> 0% across five rule revisions; every survivor of every stage hand-verified against cached text before the rule clearing it was written. The first draft failed 106 of 102 checks — degenerate by the kernel own triage rule.",
+   "knownLimit": "12 of 63 pairs (all batch-008) carry NO evidence excerpt and 3 more quote nothing — unverifiable BY CONSTRUCTION. Requiring a verbatim span on every new close-read is what closes this."
+  },
+  "batch009PresentationGate": {
+   "status": "SHIPPED — /zakony/kolize",
+   "finding": "44 of 44 close-read analyses rendered on /zakony/kolize were English analyst prose on a lang=cs public-accountability surface — the identical defect class pass 33 fixed for the 27 forensic verdicts, one surface over, and shipped AFTER the kernel presentation gate was written.",
+   "fix": "collision-reasoning-cz.json (44 Czech rewrites, keyed <file>::<pairId>) + czechCopyOrNull withholding in getCollisionData.ts + CZECH_WITHHELD_CZ placeholder in CollisionsPage.tsx + a regression test that fails on the next English string.",
+   "batch008Wired": "batch-008 12 pairs now render (8 non-incidental). The batch-008 reflection called this one filename away; it was not — batch-008 payload spells classifications confirmed/coordination_risk vs the earlier confirmed-collision/coordination-risk, so the filename alone would have dropped all 12 at the filter. normalizeClassification now maps both.",
+   "falseCaveatsRemoved": [
+    "the loader told users the regen topology was NOT yet applied to the live graph (applied since pass 30, live is 577 edges)",
+    "the 574->567 edge figure",
+    "batchesRun hardcoded 5 (now derived, correctly 6)",
+    "the 38-pairs-across-4-batches header (now 63 across 001-008)"
+   ],
+   "correction": "The Czech rewrite of pair 56-234 drops its English original cross-reference to tisk 90/221 § 14 as a precedent instance of the duplicate-insertion class — that finding was RETRACTED within batch-008 itself."
   }
  },
  "rows": [
+  {
+   "tiskId": 43329,
+   "billNodeId": "bill:tisk:43329",
+   "cislo": 207,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 40/2009 Sb., trestní zákoník, ve znění pozdějších předpisů, a další související zákony",
+   "amendedLaws": [
+    "141/1961",
+    "17/2012",
+    "273/2008",
+    "300/2013",
+    "341/2011",
+    "359/1999",
+    "40/2009",
+    "59/2017"
+   ],
+   "amendsCount": 8,
+   "maxTargetChurn": 12,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 2,
+   "signal": 3,
+   "verdictFile": "payloads/verdicts/verdict-207.json",
+   "forensicConfidence": 5,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 6204000
+  },
+  {
+   "tiskId": 43221,
+   "billNodeId": "bill:tisk:43221",
+   "cislo": 111,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 40/2009 Sb., trestní zákoník, ve znění pozdějších předpisů, a další související zákony",
+   "amendedLaws": [
+    "141/1961",
+    "218/2003",
+    "269/1994",
+    "359/1999",
+    "40/2009",
+    "45/2013",
+    "82/1998"
+   ],
+   "amendsCount": 7,
+   "maxTargetChurn": 12,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 2,
+   "signal": 3,
+   "verdictFile": "payloads/verdicts/verdict-111.json",
+   "forensicConfidence": 5,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 6203500
+  },
+  {
+   "tiskId": 43225,
+   "billNodeId": "bill:tisk:43225",
+   "cislo": 115,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Andreje Babiše, Taťány Malé, Radka Vondráčka, Heleny Válkové, Borise Šťastného a Radima Fialy na vydání zákona, kterým se mění zákon č. 40/2009 Sb., trestní zákoník, ve znění pozdějších",
+   "amendedLaws": [
+    "40/2009",
+    "45/2013"
+   ],
+   "amendsCount": 2,
+   "maxTargetChurn": 12,
+   "sponsorContractCzk": 1473240095.16,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 1,
+   "signal": 2,
+   "verdictFile": "payloads/verdicts/verdict-115.json",
+   "forensicConfidence": 5,
+   "flags": [
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Nadace AGROFERT",
+    "Vodovody a kanalizace Kroměříž, a.s.",
+    "Nadační fond manželů Livie a Václava Klausových",
+    "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+    "Česká lékařská komora - o.s., z.s.",
+    "Lesy města Prostějova, s.r.o."
+   ],
+   "triageScoreV2": 6202834
+  },
+  {
+   "tiskId": 43294,
+   "billNodeId": "bill:tisk:43294",
+   "cislo": 173,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Andreje Babiše, Tomia Okamury, Lucie Šafránkové, Petra Macinky, Borise Šťastného, Taťány Malé, Radima Fialy, Renaty Vesecké a Jany Hanzlíkové na vydání zákona, kterým se mění zákon č. 4",
+   "amendedLaws": [
+    "40/2009"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 12,
+   "sponsorContractCzk": 1473240095.16,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 2,
+   "signal": 2,
+   "verdictFile": "payloads/verdicts/verdict-173.json",
+   "forensicConfidence": 4,
+   "flags": [
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Nadace AGROFERT",
+    "Pražská vysoká škola psychosociálních studií, s.r.o.",
+    "Nadační fond manželů Livie a Václava Klausových",
+    "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+    "Česká lékařská komora - o.s., z.s.",
+    "Lesy města Prostějova, s.r.o."
+   ],
+   "triageScoreV2": 6202334
+  },
+  {
+   "tiskId": 43338,
+   "billNodeId": "bill:tisk:43338",
+   "cislo": 216,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Taťány Malé, Andreje Babiše, Borise Šťastného a Tomia Okamury na vydání zákona, kterým se mění zákon č. 40/2009 Sb., trestní zákoník, ve znění pozdějších předpisů",
+   "amendedLaws": [
+    "40/2009"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 12,
+   "sponsorContractCzk": 1473240095.16,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 2,
+   "signal": 2,
+   "verdictFile": "payloads/verdicts/verdict-216.json",
+   "forensicConfidence": 4,
+   "flags": [
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Nadační fond manželů Livie a Václava Klausových",
+    "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+    "Česká lékařská komora - o.s., z.s.",
+    "Nadace AGROFERT"
+   ],
+   "triageScoreV2": 6202334
+  },
+  {
+   "tiskId": 43317,
+   "billNodeId": "bill:tisk:43317",
+   "cislo": 196,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 104/2013 Sb., o mezinárodní justiční spolupráci ve věcech trestních, ve znění pozdějších předpisů, zákon č. 141/1961 Sb., o trestním řízení soudním (trestn",
+   "amendedLaws": [
+    "104/2013",
+    "141/1961",
+    "40/2009"
+   ],
+   "amendsCount": 3,
+   "maxTargetChurn": 12,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 2,
+   "signal": 2,
+   "verdictFile": "payloads/verdicts/verdict-196.json",
+   "forensicConfidence": 4,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 6201500
+  },
   {
    "tiskId": 43233,
    "billNodeId": "bill:tisk:43233",
@@ -154,7 +420,7 @@
     "586/1992"
    ],
    "amendsCount": 3,
-   "maxTargetChurn": 7,
+   "maxTargetChurn": 9,
    "sponsorContractCzk": 5397460397.25,
    "forensicSeverity": "low",
    "forensicState": "pending_review",
@@ -187,7 +453,7 @@
     "Teplárny Brno, a.s.",
     "MERO ČR, a.s."
    ],
-   "triageScoreV2": 5753446
+   "triageScoreV2": 5953446
   },
   {
    "tiskId": 43237,
@@ -199,7 +465,7 @@
     "586/1992"
    ],
    "amendsCount": 1,
-   "maxTargetChurn": 7,
+   "maxTargetChurn": 9,
    "sponsorContractCzk": 235543222.2,
    "forensicSeverity": "low",
    "forensicState": "pending_review",
@@ -229,7 +495,7 @@
     "PRO VYSOČINU, občanské sdružení",
     "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
    ],
-   "triageScoreV2": 5752174
+   "triageScoreV2": 5952174
   },
   {
    "tiskId": 43230,
@@ -242,7 +508,7 @@
     "586/1992"
    ],
    "amendsCount": 2,
-   "maxTargetChurn": 7,
+   "maxTargetChurn": 9,
    "sponsorContractCzk": 1473240095.16,
    "forensicSeverity": "low",
    "forensicState": "pending_review",
@@ -263,7 +529,7 @@
     "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
     "Česká lékařská komora - o.s., z.s."
    ],
-   "triageScoreV2": 5702834
+   "triageScoreV2": 5902834
   },
   {
    "tiskId": 43370,
@@ -279,7 +545,7 @@
     "586/1992"
    ],
    "amendsCount": 5,
-   "maxTargetChurn": 7,
+   "maxTargetChurn": 9,
    "sponsorContractCzk": 0,
    "forensicSeverity": "low",
    "forensicState": "pending_review",
@@ -294,7 +560,7 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 5702500
+   "triageScoreV2": 5902500
   },
   {
    "tiskId": 43366,
@@ -306,7 +572,7 @@
     "586/1992"
    ],
    "amendsCount": 1,
-   "maxTargetChurn": 7,
+   "maxTargetChurn": 9,
    "sponsorContractCzk": 235543222.2,
    "forensicSeverity": "low",
    "forensicState": "pending_review",
@@ -325,7 +591,7 @@
    "municipalExcludedCompanies": [
     "ČEPRO, a.s."
    ],
-   "triageScoreV2": 5702174
+   "triageScoreV2": 5902174
   },
   {
    "tiskId": 43111,
@@ -334,10 +600,13 @@
    "origin": "mp_group",
    "title": "Návrh poslanců Olgy Richterové a Ivana Bartoše na vydání zákona, kterým se mění zákon č. 586/1992 Sb., o daních z příjmů, ve znění pozdějších předpisů, a další související zákony",
    "amendedLaws": [
+    "117/1995",
+    "151/2025",
+    "353/2003",
     "586/1992"
    ],
-   "amendsCount": 1,
-   "maxTargetChurn": 7,
+   "amendsCount": 4,
+   "maxTargetChurn": 9,
    "sponsorContractCzk": 0,
    "forensicSeverity": "low",
    "forensicState": "pending_review",
@@ -353,7 +622,7 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 5700500
+   "triageScoreV2": 5902000
   },
   {
    "tiskId": 43147,
@@ -365,7 +634,7 @@
     "586/1992"
    ],
    "amendsCount": 1,
-   "maxTargetChurn": 7,
+   "maxTargetChurn": 9,
    "sponsorContractCzk": 0,
    "forensicSeverity": "low",
    "forensicState": "pending_review",
@@ -380,375 +649,68 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 5700500
+   "triageScoreV2": 5900500
   },
   {
-   "tiskId": 43225,
-   "billNodeId": "bill:tisk:43225",
-   "cislo": 115,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Andreje Babiše, Taťány Malé, Radka Vondráčka, Heleny Válkové, Borise Šťastného a Radima Fialy na vydání zákona, kterým se mění zákon č. 40/2009 Sb., trestní zákoník, ve znění pozdějších",
+   "tiskId": 43263,
+   "billNodeId": "bill:tisk:43263",
+   "cislo": 143,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 256/2004 Sb., o podnikání na kapitálovém trhu, ve znění pozdějších předpisů, a další související zákony",
    "amendedLaws": [
-    "40/2009",
-    "45/2013"
+    "15/1998",
+    "190/2004",
+    "21/1992",
+    "256/2004",
+    "87/1995",
+    "90/2012"
    ],
-   "amendsCount": 2,
-   "maxTargetChurn": 6,
-   "sponsorContractCzk": 1473240095.16,
+   "amendsCount": 6,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 0,
    "forensicSeverity": "low",
    "forensicState": "pending_review",
    "stage": "verdict",
-   "batch": 1,
-   "signal": 2,
-   "verdictFile": "payloads/verdicts/verdict-115.json",
-   "forensicConfidence": 5,
-   "flags": [
-    "high_churn_target",
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "Nadace AGROFERT",
-    "Vodovody a kanalizace Kroměříž, a.s.",
-    "Nadační fond manželů Livie a Václava Klausových",
-    "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
-    "Česká lékařská komora - o.s., z.s.",
-    "Lesy města Prostějova, s.r.o."
-   ],
-   "triageScoreV2": 5602834
-  },
-  {
-   "tiskId": 43165,
-   "billNodeId": "bill:tisk:43165",
-   "cislo": 58,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 542/2020 Sb., o výrobcích s ukončenou životností, ve znění pozdějších předpisů, a další související zákony",
-   "amendedLaws": [
-    "542/2020"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 5397460397.25,
-   "forensicSeverity": "low",
-   "forensicState": "pending_review",
-   "stage": "verdict",
-   "batch": 0,
-   "signal": null,
-   "flags": [
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "Dopravní podnik města Brna, a.s.",
-    "Teplárny Brno, a.s.",
-    "MERO ČR, a.s."
-   ],
-   "triageScoreV2": 5102446
-  },
-  {
-   "tiskId": 43294,
-   "billNodeId": "bill:tisk:43294",
-   "cislo": 173,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Andreje Babiše, Tomia Okamury, Lucie Šafránkové, Petra Macinky, Borise Šťastného, Taťány Malé, Radima Fialy, Renaty Vesecké a Jany Hanzlíkové na vydání zákona, kterým se mění zákon č. 4",
-   "amendedLaws": [
-    "40/2009"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 6,
-   "sponsorContractCzk": 1473240095.16,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "verdict_pending_persist",
-   "batch": 2,
-   "signal": 2,
-   "flags": [
-    "high_churn_target",
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "Nadace AGROFERT",
-    "Pražská vysoká škola psychosociálních studií, s.r.o.",
-    "Nadační fond manželů Livie a Václava Klausových",
-    "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
-    "Česká lékařská komora - o.s., z.s.",
-    "Lesy města Prostějova, s.r.o."
-   ],
-   "triageScoreV2": 602334,
-   "verdictFile": "payloads/verdicts/verdict-173.json",
-   "forensicConfidence": 4
-  },
-  {
-   "tiskId": 43338,
-   "billNodeId": "bill:tisk:43338",
-   "cislo": 216,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Taťány Malé, Andreje Babiše, Borise Šťastného a Tomia Okamury na vydání zákona, kterým se mění zákon č. 40/2009 Sb., trestní zákoník, ve znění pozdějších předpisů",
-   "amendedLaws": [
-    "40/2009"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 6,
-   "sponsorContractCzk": 1473240095.16,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "verdict_pending_persist",
-   "batch": 2,
-   "signal": 2,
-   "flags": [
-    "high_churn_target",
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "Nadační fond manželů Livie a Václava Klausových",
-    "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
-    "Česká lékařská komora - o.s., z.s.",
-    "Nadace AGROFERT"
-   ],
-   "triageScoreV2": 602334,
-   "verdictFile": "payloads/verdicts/verdict-216.json",
-   "forensicConfidence": 4
-  },
-  {
-   "tiskId": 43317,
-   "billNodeId": "bill:tisk:43317",
-   "cislo": 196,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 104/2013 Sb., o mezinárodní justiční spolupráci ve věcech trestních, ve znění pozdějších předpisů, zákon č. 141/1961 Sb., o trestním řízení soudním (trestn",
-   "amendedLaws": [
-    "104/2013",
-    "141/1961",
-    "40/2009"
-   ],
-   "amendsCount": 3,
-   "maxTargetChurn": 6,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "verdict_pending_persist",
-   "batch": 2,
-   "signal": 2,
-   "flags": [
-    "high_churn_target"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 601500,
-   "verdictFile": "payloads/verdicts/verdict-196.json",
-   "forensicConfidence": 4
-  },
-  {
-   "tiskId": 43221,
-   "billNodeId": "bill:tisk:43221",
-   "cislo": 111,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 40/2009 Sb., trestní zákoník, ve znění pozdějších předpisů, a další související zákony",
-   "amendedLaws": [
-    "40/2009"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 6,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "verdict_pending_persist",
-   "batch": 2,
-   "signal": 3,
-   "flags": [
-    "high_churn_target"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 600500,
-   "verdictFile": "payloads/verdicts/verdict-111.json",
-   "forensicConfidence": 5
-  },
-  {
-   "tiskId": 43329,
-   "billNodeId": "bill:tisk:43329",
-   "cislo": 207,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 40/2009 Sb., trestní zákoník, ve znění pozdějších předpisů, a další související zákony",
-   "amendedLaws": [
-    "40/2009"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 6,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "verdict_pending_persist",
-   "batch": 2,
-   "signal": 3,
-   "flags": [
-    "high_churn_target"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 600500,
-   "verdictFile": "payloads/verdicts/verdict-207.json",
-   "forensicConfidence": 5
-  },
-  {
-   "tiskId": 43239,
-   "billNodeId": "bill:tisk:43239",
-   "cislo": 124,
-   "origin": "mp",
-   "title": "Návrh poslance Aleše Juchelky na vydání zákona, kterým se mění zákon č. 117/1995 Sb., o státní sociální podpoře, ve znění pozdějších předpisů, a zákon č. 152/2025 Sb., kterým se mění některé zákony v ",
-   "amendedLaws": [
-    "117/1995",
-    "152/2025",
-    "300/2025"
-   ],
-   "amendsCount": 3,
-   "maxTargetChurn": 4,
-   "sponsorContractCzk": 40100696.57,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "verdict_pending_persist",
-   "batch": 2,
-   "signal": 2,
-   "flags": [
-    "high_churn_target",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "Nemocnice Jablonec nad Nisou, p.o.",
-    "Zdravotnická záchranná služba Libereckého kraje, příspěvková organizace"
-   ],
-   "triageScoreV2": 403021,
-   "verdictFile": "payloads/verdicts/verdict-124.json",
-   "forensicConfidence": 5
-  },
-  {
-   "tiskId": 43319,
-   "billNodeId": "bill:tisk:43319",
-   "cislo": 198,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 117/1995 Sb., o státní sociální podpoře, ve znění pozdějších předpisů",
-   "amendedLaws": [
-    "117/1995"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 4,
-   "sponsorContractCzk": 7656486.475,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "verdict_pending_persist",
-   "batch": 2,
-   "signal": 2,
-   "flags": [
-    "high_churn_target",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "ČESKÁ TELEVIZE",
-    "ČESKÝ ROZHLAS"
-   ],
-   "triageScoreV2": 401877,
-   "verdictFile": "payloads/verdicts/verdict-198.json",
-   "forensicConfidence": 5
-  },
-  {
-   "tiskId": 43178,
-   "billNodeId": "bill:tisk:43178",
-   "cislo": 71,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Olgy Richterové, Ivana Bartoše, Hany Ančincové, Barbory Pipášové, Lenky Martínkové Španihelové, Martina Šmídy a Samuela Volpeho na vydání zákona, kterým se mění zákon č. 427/2011 Sb., o",
-   "amendedLaws": [
-    "427/2011"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 4,
-   "sponsorContractCzk": 1197779,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "verdict_pending_persist",
-   "batch": 2,
-   "signal": 2,
-   "flags": [
-    "high_churn_target",
-    "mp_group"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 401716,
-   "verdictFile": "payloads/verdicts/verdict-71.json",
-   "forensicConfidence": 5
-  },
-  {
-   "tiskId": 43196,
-   "billNodeId": "bill:tisk:43196",
-   "cislo": 86,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Olgy Richterové, Ivana Bartoše, Hany Ančincové, Barbory Pipášové, Lenky Martínkové Španihelové, Martina Šmídy a Samuela Volpeho na vydání zákona, kterým se mění zákon č. 427/2011 Sb., o",
-   "amendedLaws": [
-    "427/2011"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 4,
-   "sponsorContractCzk": 1197779,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "verdict_pending_persist",
-   "batch": 2,
-   "signal": 2,
-   "flags": [
-    "high_churn_target",
-    "mp_group"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 401716,
-   "verdictFile": "payloads/verdicts/verdict-86.json",
-   "forensicConfidence": 5
-  },
-  {
-   "tiskId": 43222,
-   "billNodeId": "bill:tisk:43222",
-   "cislo": 112,
-   "origin": "mp",
-   "title": "Návrh poslankyně Pavly Pivoňka Vaňkové na vydání zákona, kterým se mění zákon č. 117/1995 Sb., o státní sociální podpoře, ve znění pozdějších předpisů",
-   "amendedLaws": [
-    "117/1995"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 4,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": "low",
-   "forensicState": "pending_review",
-   "stage": "verdict_pending_persist",
    "batch": 3,
    "signal": 2,
+   "verdictFile": "payloads/verdicts/verdict-143.json",
+   "forensicConfidence": 4,
    "flags": [
     "high_churn_target"
    ],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 400500,
+   "triageScoreV2": 5703000
+  },
+  {
+   "tiskId": 43332,
+   "billNodeId": "bill:tisk:43332",
+   "cislo": 210,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 256/2004 Sb., o podnikání na kapitálovém trhu, ve znění pozdějších předpisů, a další související zákony v souvislosti s podporou vyváženého zastoupení žen ",
+   "amendedLaws": [
+    "198/2009",
+    "256/2004",
+    "99/1963"
+   ],
+   "amendsCount": 3,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 3,
+   "signal": 2,
+   "verdictFile": "payloads/verdicts/verdict-210.json",
    "forensicConfidence": 4,
-   "verdictFile": "payloads/verdicts/verdict-112.json",
-   "amendsRealCount": 1,
-   "amendsUndercount": 0
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 5701500
   },
   {
    "tiskId": 43248,
@@ -760,119 +722,22 @@
     "256/2004"
    ],
    "amendsCount": 1,
-   "maxTargetChurn": 4,
+   "maxTargetChurn": 7,
    "sponsorContractCzk": 0,
    "forensicSeverity": "low",
    "forensicState": "pending_review",
-   "stage": "verdict_pending_persist",
+   "stage": "verdict",
    "batch": 3,
    "signal": 2,
-   "flags": [
-    "high_churn_target"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 400500,
-   "forensicConfidence": 4,
    "verdictFile": "payloads/verdicts/verdict-132.json",
-   "amendsRealCount": 1,
-   "amendsUndercount": 0
-  },
-  {
-   "tiskId": 43263,
-   "billNodeId": "bill:tisk:43263",
-   "cislo": 143,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 256/2004 Sb., o podnikání na kapitálovém trhu, ve znění pozdějších předpisů, a další související zákony",
-   "amendedLaws": [
-    "256/2004"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 4,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": "low",
-   "forensicState": "pending_review",
-   "stage": "verdict_pending_persist",
-   "batch": 3,
-   "signal": 2,
+   "forensicConfidence": 4,
    "flags": [
     "high_churn_target"
    ],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 400500,
-   "forensicConfidence": 4,
-   "verdictFile": "payloads/verdicts/verdict-143.json",
-   "amendsRealCount": 6,
-   "amendsUndercount": 5
-  },
-  {
-   "tiskId": 43332,
-   "billNodeId": "bill:tisk:43332",
-   "cislo": 210,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 256/2004 Sb., o podnikání na kapitálovém trhu, ve znění pozdějších předpisů, a další související zákony v souvislosti s podporou vyváženého zastoupení žen ",
-   "amendedLaws": [
-    "256/2004"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 4,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": "low",
-   "forensicState": "pending_review",
-   "stage": "verdict_pending_persist",
-   "batch": 3,
-   "signal": 2,
-   "flags": [
-    "high_churn_target"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 400500,
-   "forensicConfidence": 4,
-   "verdictFile": "payloads/verdicts/verdict-210.json",
-   "amendsRealCount": 3,
-   "amendsUndercount": 2
-  },
-  {
-   "tiskId": 43267,
-   "billNodeId": "bill:tisk:43267",
-   "cislo": 146,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Věry Kovářové, Matěje Hlavatého, Zdeny Kašparové, Jakuba Krainera, Elišky Olšákové, Michaely Opltové, Jana Papajanovského, Víta Rakušana, Lucie Sedmihradské, Julie Smejkalové, Michaely ",
-   "amendedLaws": [
-    "128/2000",
-    "129/2000",
-    "131/2000"
-   ],
-   "amendsCount": 3,
-   "maxTargetChurn": 3,
-   "sponsorContractCzk": 235543222.2,
-   "forensicSeverity": "low",
-   "forensicState": "pending_review",
-   "stage": "verdict_pending_persist",
-   "batch": 3,
-   "signal": 2,
-   "flags": [
-    "high_churn_target",
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "ČEPRO, a.s.",
-    "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
-    "Nadační fond Gymnázia Kutná Hora"
-   ],
-   "triageScoreV2": 303174,
-   "forensicConfidence": 4,
-   "verdictFile": "payloads/verdicts/verdict-146.json",
-   "amendsRealCount": 3,
-   "amendsUndercount": 0
+   "triageScoreV2": 5700500
   },
   {
    "tiskId": 43135,
@@ -881,16 +746,19 @@
    "origin": "mp_group",
    "title": "Návrh poslanců Marka Výborného, Marie Krškové, Jiřího Horáka, Petra Hladíka a Jany Filipovičové na vydání zákona, kterým se mění zákon č. 243/2000 Sb., o rozpočtovém určení výnosů některých daní územn",
    "amendedLaws": [
-    "243/2000"
+    "243/2000",
+    "349/2023"
    ],
-   "amendsCount": 1,
-   "maxTargetChurn": 3,
+   "amendsCount": 2,
+   "maxTargetChurn": 6,
    "sponsorContractCzk": 5397460397.25,
    "forensicSeverity": "low",
    "forensicState": "pending_review",
-   "stage": "verdict_pending_persist",
+   "stage": "verdict",
    "batch": 3,
    "signal": 2,
+   "verdictFile": "payloads/verdicts/verdict-28.json",
+   "forensicConfidence": 4,
    "flags": [
     "high_churn_target",
     "mp_group",
@@ -905,11 +773,263 @@
     "Teplárny Brno, a.s.",
     "MERO ČR, a.s."
    ],
-   "triageScoreV2": 302446,
+   "triageScoreV2": 5602946
+  },
+  {
+   "tiskId": 43239,
+   "billNodeId": "bill:tisk:43239",
+   "cislo": 124,
+   "origin": "mp",
+   "title": "Návrh poslance Aleše Juchelky na vydání zákona, kterým se mění zákon č. 117/1995 Sb., o státní sociální podpoře, ve znění pozdějších předpisů, a zákon č. 152/2025 Sb., kterým se mění některé zákony v ",
+   "amendedLaws": [
+    "117/1995",
+    "152/2025"
+   ],
+   "amendsCount": 2,
+   "maxTargetChurn": 6,
+   "sponsorContractCzk": 40100696.57,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 2,
+   "signal": 2,
+   "verdictFile": "payloads/verdicts/verdict-124.json",
+   "forensicConfidence": 5,
+   "flags": [
+    "high_churn_target",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Nemocnice Jablonec nad Nisou, p.o.",
+    "Zdravotnická záchranná služba Libereckého kraje, příspěvková organizace"
+   ],
+   "triageScoreV2": 5602521
+  },
+  {
+   "tiskId": 43319,
+   "billNodeId": "bill:tisk:43319",
+   "cislo": 198,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 117/1995 Sb., o státní sociální podpoře, ve znění pozdějších předpisů",
+   "amendedLaws": [
+    "117/1995"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 6,
+   "sponsorContractCzk": 7656486.475,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 2,
+   "signal": 2,
+   "verdictFile": "payloads/verdicts/verdict-198.json",
+   "forensicConfidence": 5,
+   "flags": [
+    "high_churn_target",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "ČESKÁ TELEVIZE",
+    "ČESKÝ ROZHLAS"
+   ],
+   "triageScoreV2": 5601877
+  },
+  {
+   "tiskId": 43178,
+   "billNodeId": "bill:tisk:43178",
+   "cislo": 71,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Olgy Richterové, Ivana Bartoše, Hany Ančincové, Barbory Pipášové, Lenky Martínkové Španihelové, Martina Šmídy a Samuela Volpeho na vydání zákona, kterým se mění zákon č. 427/2011 Sb., o",
+   "amendedLaws": [
+    "427/2011"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 6,
+   "sponsorContractCzk": 1197779,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 2,
+   "signal": 2,
+   "verdictFile": "payloads/verdicts/verdict-71.json",
+   "forensicConfidence": 5,
+   "flags": [
+    "high_churn_target",
+    "mp_group"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 5601716
+  },
+  {
+   "tiskId": 43196,
+   "billNodeId": "bill:tisk:43196",
+   "cislo": 86,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Olgy Richterové, Ivana Bartoše, Hany Ančincové, Barbory Pipášové, Lenky Martínkové Španihelové, Martina Šmídy a Samuela Volpeho na vydání zákona, kterým se mění zákon č. 427/2011 Sb., o",
+   "amendedLaws": [
+    "427/2011"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 6,
+   "sponsorContractCzk": 1197779,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 2,
+   "signal": 2,
+   "verdictFile": "payloads/verdicts/verdict-86.json",
+   "forensicConfidence": 5,
+   "flags": [
+    "high_churn_target",
+    "mp_group"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 5601716
+  },
+  {
+   "tiskId": 43222,
+   "billNodeId": "bill:tisk:43222",
+   "cislo": 112,
+   "origin": "mp",
+   "title": "Návrh poslankyně Pavly Pivoňka Vaňkové na vydání zákona, kterým se mění zákon č. 117/1995 Sb., o státní sociální podpoře, ve znění pozdějších předpisů",
+   "amendedLaws": [
+    "117/1995"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 6,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 3,
+   "signal": 2,
+   "verdictFile": "payloads/verdicts/verdict-112.json",
    "forensicConfidence": 4,
-   "verdictFile": "payloads/verdicts/verdict-28.json",
-   "amendsRealCount": 2,
-   "amendsUndercount": 1
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 5600500
+  },
+  {
+   "tiskId": 43131,
+   "billNodeId": "bill:tisk:43131",
+   "cislo": 24,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Víta Rakušana, Lukáše Vlčka, Věry Kovářové, Michaely Šebelové, Pavly Pivoňka Vaňkové, Jana Berkiho, Michaely Opltové, Barbory Urbanové, Jana Papajanovského, Matěje Hlavatého a Jana Svit",
+   "amendedLaws": [
+    "12/2020",
+    "128/2000",
+    "194/2010",
+    "262/2006",
+    "35/2021",
+    "365/2000",
+    "500/2004",
+    "553/1991",
+    "82/1998"
+   ],
+   "amendsCount": 9,
+   "maxTargetChurn": 4,
+   "sponsorContractCzk": 235543222.2,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 3,
+   "signal": 2,
+   "verdictFile": "payloads/verdicts/verdict-24.json",
+   "forensicConfidence": 4,
+   "flags": [
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
+    "Nadační fond Gymnázia Kutná Hora",
+    "PRO VYSOČINU, občanské sdružení",
+    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov",
+    "ČEPRO, a.s."
+   ],
+   "triageScoreV2": 5406174
+  },
+  {
+   "tiskId": 43267,
+   "billNodeId": "bill:tisk:43267",
+   "cislo": 146,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Věry Kovářové, Matěje Hlavatého, Zdeny Kašparové, Jakuba Krainera, Elišky Olšákové, Michaely Opltové, Jana Papajanovského, Víta Rakušana, Lucie Sedmihradské, Julie Smejkalové, Michaely ",
+   "amendedLaws": [
+    "128/2000",
+    "129/2000",
+    "131/2000"
+   ],
+   "amendsCount": 3,
+   "maxTargetChurn": 4,
+   "sponsorContractCzk": 235543222.2,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 3,
+   "signal": 2,
+   "verdictFile": "payloads/verdicts/verdict-146.json",
+   "forensicConfidence": 4,
+   "flags": [
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "ČEPRO, a.s.",
+    "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
+    "Nadační fond Gymnázia Kutná Hora"
+   ],
+   "triageScoreV2": 5403174
+  },
+  {
+   "tiskId": 43165,
+   "billNodeId": "bill:tisk:43165",
+   "cislo": 58,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 542/2020 Sb., o výrobcích s ukončenou životností, ve znění pozdějších předpisů, a další související zákony",
+   "amendedLaws": [
+    "542/2020",
+    "87/2023",
+    "90/2016"
+   ],
+   "amendsCount": 3,
+   "maxTargetChurn": 3,
+   "sponsorContractCzk": 5397460397.25,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 0,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Dopravní podnik města Brna, a.s.",
+    "Teplárny Brno, a.s.",
+    "MERO ČR, a.s."
+   ],
+   "triageScoreV2": 5303446
   },
   {
    "tiskId": 43302,
@@ -925,9 +1045,11 @@
    "sponsorContractCzk": 884856389,
    "forensicSeverity": "low",
    "forensicState": "pending_review",
-   "stage": "verdict_pending_persist",
+   "stage": "verdict",
    "batch": 3,
    "signal": 2,
+   "verdictFile": "payloads/verdicts/verdict-181.json",
+   "forensicConfidence": 4,
    "flags": [
     "high_churn_target",
     "mp_group",
@@ -945,29 +1067,1019 @@
     "Pražská energetika, a.s.",
     "Kongresové centrum Praha, a.s."
    ],
-   "triageScoreV2": 302289,
-   "forensicConfidence": 4,
-   "verdictFile": "payloads/verdicts/verdict-181.json",
-   "amendsRealCount": 1,
-   "amendsUndercount": 0
+   "triageScoreV2": 5302289
   },
   {
-   "tiskId": 43131,
-   "billNodeId": "bill:tisk:43131",
-   "cislo": 24,
+   "tiskId": 43118,
+   "billNodeId": "bill:tisk:43118",
+   "cislo": 11,
    "origin": "mp_group",
-   "title": "Návrh poslanců Víta Rakušana, Lukáše Vlčka, Věry Kovářové, Michaely Šebelové, Pavly Pivoňka Vaňkové, Jana Berkiho, Michaely Opltové, Barbory Urbanové, Jana Papajanovského, Matěje Hlavatého a Jana Svit",
+   "title": "Návrh poslanců Aleny Schillerové, Andreje Babiše, Tomia Okamury, Petra Macinky, Aleše Juchelky, Karla Havlíčka, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 5",
    "amendedLaws": [
-    "128/2000"
+    "589/1992"
    ],
    "amendsCount": 1,
-   "maxTargetChurn": 3,
-   "sponsorContractCzk": 235543222.2,
+   "maxTargetChurn": 2,
+   "sponsorContractCzk": 1473240095.16,
    "forensicSeverity": "low",
    "forensicState": "pending_review",
-   "stage": "verdict_pending_persist",
-   "batch": 3,
-   "signal": 2,
+   "stage": "verdict",
+   "batch": 2,
+   "signal": 3,
+   "verdictFile": "payloads/verdicts/verdict-11.json",
+   "forensicConfidence": 5,
+   "flags": [
+    "sector_adjacent_conflict",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": true,
+   "sectorAdjacentCompanies": [
+    {
+     "company": "IF Holding a.s.",
+     "sector": "economy",
+     "sponsor": "Radim Fiala"
+    },
+    {
+     "company": "IF FACILITY a.s.",
+     "sector": "economy",
+     "sponsor": "Radim Fiala"
+    },
+    {
+     "company": "Hartenberg Holding, s.r.o.",
+     "sector": "economy",
+     "sponsor": "Andrej Babiš"
+    },
+    {
+     "company": "IMOBA, a.s.",
+     "sector": "economy",
+     "sponsor": "Andrej Babiš"
+    }
+   ],
+   "municipalExcludedCompanies": [
+    "CHOMUTOVSKÁ BYTOVÁ a.s.",
+    "Dopravní podnik měst Chomutova a Jirkova a.s.",
+    "ČESKÁ TELEVIZE",
+    "ČESKÝ ROZHLAS",
+    "Nadační fond manželů Livie a Václava Klausových",
+    "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+    "Česká lékařská komora - o.s., z.s.",
+    "Lesy města Prostějova, s.r.o.",
+    "Nadace AGROFERT"
+   ],
+   "triageScoreV2": 5252334
+  },
+  {
+   "tiskId": 43171,
+   "billNodeId": "bill:tisk:43171",
+   "cislo": 64,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se v souvislosti s přijetím zákona o účetnictví mění některé zákony a zrušuje zákon č. 25/2017 Sb., o sběru vybraných údajů pro účely monitorování a řízení veřejných financ",
+   "amendedLaws": [
+    "104/2000",
+    "111/1994",
+    "111/1998",
+    "111/2006",
+    "114/1995",
+    "115/2001",
+    "12/2002",
+    "120/2001",
+    "121/2000",
+    "125/2008",
+    "127/2005",
+    "128/2000",
+    "129/2000",
+    "13/1997",
+    "131/2000",
+    "134/2016",
+    "139/2002",
+    "143/2001",
+    "146/2002",
+    "147/2002",
+    "15/1998",
+    "151/1997",
+    "151/2010",
+    "153/1994",
+    "166/1993",
+    "166/1999",
+    "168/2025",
+    "17/2012",
+    "181/2007",
+    "182/2006",
+    "184/2006",
+    "186/2016",
+    "187/2006",
+    "187/2016",
+    "190/2004",
+    "198/2002",
+    "20/1993",
+    "201/2002",
+    "21/1992",
+    "211/2000",
+    "218/2000",
+    "219/2000",
+    "222/1999",
+    "229/1992",
+    "229/2002",
+    "23/2017",
+    "234/2025",
+    "235/2004",
+    "239/1992",
+    "240/2013",
+    "243/2000",
+    "243/2022",
+    "248/2000",
+    "250/2000",
+    "251/2005",
+    "253/2008",
+    "256/2000",
+    "256/2004",
+    "257/2000",
+    "257/2016",
+    "258/2000",
+    "263/2024",
+    "266/1994",
+    "273/2008",
+    "277/2009",
+    "279/2003",
+    "280/1992",
+    "280/2009",
+    "282/1991",
+    "283/1993",
+    "283/2021",
+    "284/2023",
+    "29/2000",
+    "3/2002",
+    "30/2024",
+    "301/1992",
+    "304/2013",
+    "306/1999",
+    "307/2006",
+    "31/2025",
+    "312/2006",
+    "317/2025",
+    "321/2004",
+    "326/1999",
+    "328/2025",
+    "335/2020",
+    "338/1992",
+    "341/2005",
+    "341/2011",
+    "359/1992",
+    "360/2004",
+    "365/2000",
+    "37/2021",
+    "370/2017",
+    "372/2011",
+    "374/2015",
+    "377/2005",
+    "378/2005",
+    "388/1991",
+    "395/2009",
+    "40/2009",
+    "406/2000",
+    "412/2005",
+    "416/2009",
+    "417/2004",
+    "42/1992",
+    "420/2004",
+    "424/1991",
+    "427/2011",
+    "435/2004",
+    "44/1988",
+    "449/2001",
+    "455/1991",
+    "456/2011",
+    "458/2000",
+    "468/2024",
+    "477/2001",
+    "483/1991",
+    "484/1991",
+    "49/1997",
+    "496/2012",
+    "503/2012",
+    "526/1990",
+    "542/2020",
+    "551/1991",
+    "555/1992",
+    "561/2004",
+    "58/1995",
+    "582/1991",
+    "586/1992",
+    "593/1992",
+    "6/1993",
+    "6/2002",
+    "627/2004",
+    "634/1992",
+    "64/1986",
+    "69/2006",
+    "72/2000",
+    "73/2011",
+    "77/1997",
+    "77/2002",
+    "87/1995",
+    "89/2012",
+    "90/2012",
+    "92/1991",
+    "93/2009",
+    "99/1963"
+   ],
+   "amendsCount": 147,
+   "maxTargetChurn": 12,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 1273500
+  },
+  {
+   "tiskId": 43174,
+   "billNodeId": "bill:tisk:43174",
+   "cislo": 67,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+   "amendedLaws": [
+    "100/2001",
+    "114/1992",
+    "114/1995",
+    "13/1997",
+    "133/1985",
+    "134/2016",
+    "139/2002",
+    "148/2023",
+    "150/2002",
+    "166/1999",
+    "184/2006",
+    "197/2022",
+    "2/1969",
+    "20/1987",
+    "201/2012",
+    "219/2000",
+    "224/2015",
+    "234/2014",
+    "235/2004",
+    "239/2000",
+    "249/2025",
+    "254/2001",
+    "256/2001",
+    "258/2000",
+    "263/2016",
+    "266/1994",
+    "283/2021",
+    "289/1995",
+    "309/2006",
+    "334/1992",
+    "338/1992",
+    "360/1992",
+    "40/2009",
+    "416/2009",
+    "44/1988",
+    "449/2001",
+    "458/2000",
+    "49/1997",
+    "503/2012",
+    "541/2020",
+    "61/1988",
+    "62/1988"
+   ],
+   "amendsCount": 42,
+   "maxTargetChurn": 12,
+   "sponsorContractCzk": 1473240095.16,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "sector_adjacent_conflict",
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": true,
+   "sectorAdjacentCompanies": [
+    {
+     "company": "Hartenberg Holding, s.r.o.",
+     "sector": "economy",
+     "sponsor": "Andrej Babiš"
+    },
+    {
+     "company": "CS CABOT, spol. s r.o.",
+     "sector": "environment",
+     "sponsor": "Andrej Babiš"
+    },
+    {
+     "company": "SynBiol, a.s.",
+     "sector": "health",
+     "sponsor": "Andrej Babiš"
+    },
+    {
+     "company": "IMOBA, a.s.",
+     "sector": "economy",
+     "sponsor": "Andrej Babiš"
+    },
+    {
+     "company": "AGROFERT, a.s.",
+     "sector": "agriculture",
+     "sponsor": "Andrej Babiš"
+    },
+    {
+     "company": "PRECHEZA a.s.",
+     "sector": "environment",
+     "sponsor": "Andrej Babiš"
+    },
+    {
+     "company": "Fatra, a.s.",
+     "sector": "environment",
+     "sponsor": "Andrej Babiš"
+    },
+    {
+     "company": "Kostelecké uzeniny a.s.",
+     "sector": "agriculture",
+     "sponsor": "Andrej Babiš"
+    },
+    {
+     "company": "AGROPROFIT, spol. s r.o.",
+     "sector": "agriculture",
+     "sponsor": "Andrej Babiš"
+    },
+    {
+     "company": "Lovochemie, a.s.",
+     "sector": "agriculture",
+     "sponsor": "Andrej Babiš"
+    },
+    {
+     "company": "Synthesia, a.s.",
+     "sector": "environment",
+     "sponsor": "Andrej Babiš"
+    },
+    {
+     "company": "AGRONOVA CS s.r.o.",
+     "sector": "agriculture",
+     "sponsor": "Andrej Babiš"
+    },
+    {
+     "company": "IF Holding a.s.",
+     "sector": "economy",
+     "sponsor": "Radim Fiala"
+    },
+    {
+     "company": "IF FACILITY a.s.",
+     "sector": "economy",
+     "sponsor": "Radim Fiala"
+    }
+   ],
+   "municipalExcludedCompanies": [
+    "Nadace AGROFERT",
+    "Lesy města Prostějova, s.r.o.",
+    "Nadační fond manželů Livie a Václava Klausových",
+    "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+    "Česká lékařská komora - o.s., z.s."
+   ],
+   "triageScoreV2": 1272834
+  },
+  {
+   "tiskId": 43114,
+   "billNodeId": "bill:tisk:43114",
+   "cislo": 7,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Ivana Bartoše a Olgy Richterové na vydání zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o Úřadu pro prevenci korupce a střetu zájmů",
+   "amendedLaws": [
+    "134/2016",
+    "141/1961",
+    "159/2006",
+    "166/1993",
+    "168/2025",
+    "171/2023",
+    "2/1969",
+    "21/1992",
+    "222/2016",
+    "231/2001",
+    "234/2014",
+    "234/2025",
+    "256/2000",
+    "280/2009",
+    "300/2013",
+    "37/2021",
+    "372/2011",
+    "40/2009",
+    "424/1991",
+    "563/1991",
+    "87/1995",
+    "88/2024"
+   ],
+   "amendsCount": 22,
+   "maxTargetChurn": 12,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "mp_group"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 1211000
+  },
+  {
+   "tiskId": 43212,
+   "billNodeId": "bill:tisk:43212",
+   "cislo": 102,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o odčerpání majetku nevysvětleného původu",
+   "amendedLaws": [
+    "104/2013",
+    "141/1961",
+    "182/2006",
+    "219/2000",
+    "279/2003",
+    "283/1993",
+    "284/2023",
+    "312/2006",
+    "40/2009",
+    "56/2001",
+    "90/2024",
+    "91/2024"
+   ],
+   "amendsCount": 12,
+   "maxTargetChurn": 12,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 1206000
+  },
+  {
+   "tiskId": 43335,
+   "billNodeId": "bill:tisk:43335",
+   "cislo": 213,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se s cílem dále posílit bezpečnost České republiky mění zákony upravující opatření přijatá v souvislosti s ozbrojeným konfliktem na území Ukrajiny vyvolaným invazí vojsk Ru",
+   "amendedLaws": [
+    "150/2002",
+    "325/1999",
+    "326/1999",
+    "40/2009",
+    "65/2022",
+    "66/2022",
+    "67/2022"
+   ],
+   "amendsCount": 7,
+   "maxTargetChurn": 12,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 1203500
+  },
+  {
+   "tiskId": 43121,
+   "billNodeId": "bill:tisk:43121",
+   "cislo": 14,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 73/2012 Sb., o látkách, které poškozují ozonovou vrstvu, a o fluorovaných skleníkových plynech, ve znění pozdějších předpisů, a další související předpisy",
+   "amendedLaws": [
+    "372/2011",
+    "40/2009",
+    "73/2012"
+   ],
+   "amendsCount": 3,
+   "maxTargetChurn": 12,
+   "sponsorContractCzk": 5397460397.25,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Dopravní podnik města Brna, a.s.",
+    "Teplárny Brno, a.s.",
+    "MERO ČR, a.s."
+   ],
+   "triageScoreV2": 1203446
+  },
+  {
+   "tiskId": 43310,
+   "billNodeId": "bill:tisk:43310",
+   "cislo": 189,
+   "origin": "government",
+   "title": "Vládní návrh zákona o evidenci tržeb a o změně některých dalších zákonů",
+   "amendedLaws": [
+    "17/2012",
+    "235/2004",
+    "456/2011",
+    "586/1992"
+   ],
+   "amendsCount": 4,
+   "maxTargetChurn": 9,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 902000
+  },
+  {
+   "tiskId": 43184,
+   "billNodeId": "bill:tisk:43184",
+   "cislo": 77,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o právních poměrech státních zaměstnan",
+   "amendedLaws": [
+    "104/2000",
+    "110/2019",
+    "115/2001",
+    "12/2020",
+    "127/2005",
+    "150/2002",
+    "150/2017",
+    "181/2007",
+    "187/2006",
+    "2/1969",
+    "231/2001",
+    "248/2000",
+    "256/2000",
+    "258/2000",
+    "273/1996",
+    "328/2025",
+    "365/2000",
+    "388/1991",
+    "424/1991",
+    "458/2000",
+    "49/1997",
+    "582/1991",
+    "6/2002",
+    "89/1995"
+   ],
+   "amendsCount": 24,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 4432684.16,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "sector_adjacent_conflict",
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": true,
+   "sectorAdjacentCompanies": [
+    {
+     "company": "NEXNET, a.s.",
+     "sector": "digital",
+     "sponsor": "Radek Vondráček"
+    },
+    {
+     "company": "MAE invest a.s.",
+     "sector": "economy",
+     "sponsor": "Radek Vondráček"
+    }
+   ],
+   "municipalExcludedCompanies": [
+    "Vodovody a kanalizace Kroměříž, a.s."
+   ],
+   "triageScoreV2": 763329
+  },
+  {
+   "tiskId": 43176,
+   "billNodeId": "bill:tisk:43176",
+   "cislo": 69,
+   "origin": "government",
+   "title": "Vládní návrh zákona o digitální ekonomice a o změně některých souvisejících zákonů",
+   "amendedLaws": [
+    "121/2000",
+    "141/1961",
+    "292/2013",
+    "634/1992",
+    "634/2004",
+    "89/2012"
+   ],
+   "amendsCount": 6,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 3728628.859,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "sector_adjacent_conflict",
+    "high_churn_target",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": true,
+   "sectorAdjacentCompanies": [
+    {
+     "company": "SOMPO, a.s.",
+     "sector": "economy",
+     "sponsor": "Lukáš Vlček"
+    }
+   ],
+   "municipalExcludedCompanies": [
+    "PRO VYSOČINU, občanské sdružení",
+    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
+   ],
+   "triageScoreV2": 754314
+  },
+  {
+   "tiskId": 43163,
+   "billNodeId": "bill:tisk:43163",
+   "cislo": 56,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o opatřeních ke snížení nákladů na zavádění sítí elektronických komunikací s velmi vysokou kapacitou",
+   "amendedLaws": [
+    "127/2005",
+    "200/1994",
+    "283/2021",
+    "416/2009",
+    "634/2004"
+   ],
+   "amendsCount": 5,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 3728628.859,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "sector_adjacent_conflict",
+    "high_churn_target",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": true,
+   "sectorAdjacentCompanies": [
+    {
+     "company": "SOMPO, a.s.",
+     "sector": "economy",
+     "sponsor": "Lukáš Vlček"
+    }
+   ],
+   "municipalExcludedCompanies": [
+    "PRO VYSOČINU, občanské sdružení",
+    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
+   ],
+   "triageScoreV2": 753814
+  },
+  {
+   "tiskId": 43275,
+   "billNodeId": "bill:tisk:43275",
+   "cislo": 154,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 297/2016 Sb., o službách vytvářejících důvěru pro elektronické transakce, ve znění pozdějších předpisů, zákon č. 250/2017 Sb., o elektronické identifikaci,",
+   "amendedLaws": [
+    "250/2017",
+    "297/2016",
+    "634/2004"
+   ],
+   "amendsCount": 3,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 1238034699.1190002,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "sector_adjacent_conflict",
+    "high_churn_target",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": true,
+   "sectorAdjacentCompanies": [
+    {
+     "company": "Hartenberg Holding, s.r.o.",
+     "sector": "economy",
+     "sponsor": "Andrej Babiš"
+    },
+    {
+     "company": "IMOBA, a.s.",
+     "sector": "economy",
+     "sponsor": "Andrej Babiš"
+    }
+   ],
+   "municipalExcludedCompanies": [
+    "Nadace AGROFERT"
+   ],
+   "triageScoreV2": 753319
+  },
+  {
+   "tiskId": 43172,
+   "billNodeId": "bill:tisk:43172",
+   "cislo": 65,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti s úpravou vybraných agend v působnosti Digitální a informační agentury",
+   "amendedLaws": [
+    "106/1999",
+    "12/2020",
+    "2/1969",
+    "21/1992",
+    "250/2017",
+    "277/2009",
+    "29/2000",
+    "297/2016",
+    "300/2008",
+    "365/2000",
+    "427/2011"
+   ],
+   "amendsCount": 11,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 10864254.9,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 706907
+  },
+  {
+   "tiskId": 43123,
+   "billNodeId": "bill:tisk:43123",
+   "cislo": 16,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti se smlouvami o finančních službách uzavíranými na dálku",
+   "amendedLaws": [
+    "170/2018",
+    "240/2013",
+    "256/2004",
+    "257/2016",
+    "31/2025",
+    "340/2006",
+    "370/2017",
+    "6/1993",
+    "634/1992",
+    "89/2012",
+    "91/2022"
+   ],
+   "amendsCount": 11,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 705500
+  },
+  {
+   "tiskId": 43117,
+   "billNodeId": "bill:tisk:43117",
+   "cislo": 10,
+   "origin": "government",
+   "title": "Vládní návrh zákona o některých podmínkách poskytování mediálních služeb a o změně některých souvisejících zákonů",
+   "amendedLaws": [
+    "104/2013",
+    "141/1961",
+    "231/2001",
+    "46/2000"
+   ],
+   "amendsCount": 4,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 174822781.92,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Plzeňské městské dopravní podniky, a.s.",
+    "Plzeňská filharmonie, obecně prospěšná společnost",
+    "Galerie města Plzně, o.p.s.",
+    "Regionální rozvojová agentura Plzeňského kraje, obecně prospěšná společnost",
+    "Techmania Science Center o.p.s.",
+    "Nadace Věry a Vladimíra Janouškových",
+    "Nadace 700 let města Plzně",
+    "Sdružení měst a obcí Plzeňského kraje"
+   ],
+   "triageScoreV2": 703649
+  },
+  {
+   "tiskId": 43161,
+   "billNodeId": "bill:tisk:43161",
+   "cislo": 54,
+   "origin": "government",
+   "title": "Vládní návrh zákona o správě dat, o řízeném přístupu k datům a o změně některých souvisejících zákonů (zákon o správě dat a o řízeném přístupu k datům)",
+   "amendedLaws": [
+    "269/1994",
+    "372/2011",
+    "634/2004",
+    "89/1995"
+   ],
+   "amendsCount": 4,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 10864254.9,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 703407
+  },
+  {
+   "tiskId": 43293,
+   "billNodeId": "bill:tisk:43293",
+   "cislo": 172,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 329/1999 Sb., o cestovních dokladech, ve znění pozdějších předpisů, zákon č. 269/2021 Sb., o občanských průkazech, ve znění pozdějších předpisů, a další so",
+   "amendedLaws": [
+    "111/2009",
+    "12/2020",
+    "251/2016",
+    "269/2021",
+    "329/1999",
+    "634/2004"
+   ],
+   "amendsCount": 6,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 703000
+  },
+  {
+   "tiskId": 43372,
+   "billNodeId": "bill:tisk:43372",
+   "cislo": 250,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Drahoslava Ryby a Jiřího Bartáka na vydání zákona o standardizaci a o změně některých zákonů (zákon o standardizaci)",
+   "amendedLaws": [
+    "2/1969",
+    "20/1993",
+    "22/1997",
+    "634/2004",
+    "64/1986",
+    "87/2023"
+   ],
+   "amendsCount": 6,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "mp_group"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 703000
+  },
+  {
+   "tiskId": 43120,
+   "billNodeId": "bill:tisk:43120",
+   "cislo": 13,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 240/2013 Sb., o investičních společnostech a investičních fondech, ve znění pozdějších předpisů, a další související zákony",
+   "amendedLaws": [
+    "15/1998",
+    "240/2013",
+    "256/2004",
+    "634/2004",
+    "84/2024"
+   ],
+   "amendsCount": 5,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 702500
+  },
+  {
+   "tiskId": 43210,
+   "billNodeId": "bill:tisk:43210",
+   "cislo": 100,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Elišky Olšákové a Karla Dvořáka na vydání zákona, kterým se mění zákon č. 128/2000 Sb., o obcích (obecní zřízení), ve znění pozdějších předpisů, a další zákony v souvislosti se změnami ",
+   "amendedLaws": [
+    "128/2000",
+    "131/2000",
+    "2/1969",
+    "292/2013",
+    "89/2012"
+   ],
+   "amendsCount": 5,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "mp_group"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 702500
+  },
+  {
+   "tiskId": 43327,
+   "billNodeId": "bill:tisk:43327",
+   "cislo": 205,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Barbory Urbanové, Víta Rakušana, Karla Dvořáka, Lukáše Vlčka a Adriany Chochelové na vydání zákona, kterým se mění zákon č. 2/1969 Sb., zákon České národní rady o zřízení ministerstev a",
+   "amendedLaws": [
+    "2/1969"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 3728628.859,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
    "flags": [
     "high_churn_target",
     "mp_group",
@@ -979,14 +2091,320 @@
     "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
     "Nadační fond Gymnázia Kutná Hora",
     "PRO VYSOČINU, občanské sdružení",
-    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov",
-    "ČEPRO, a.s."
+    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
    ],
-   "triageScoreV2": 302174,
-   "forensicConfidence": 4,
-   "verdictFile": "payloads/verdicts/verdict-24.json",
-   "amendsRealCount": 10,
-   "amendsUndercount": 9
+   "triageScoreV2": 701814
+  },
+  {
+   "tiskId": 43213,
+   "billNodeId": "bill:tisk:43213",
+   "cislo": 103,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Jana Bureše, Karla Haase, Renáty Zajíčkové, Štěpána Slováka, Petra Sokola, Jany Černochové, Libora Hoppe, Jakuba Jandy, Petra Bendla a Jana Skopečka na vydání zákona, kterým se mění zák",
+   "amendedLaws": [
+    "111/2006",
+    "117/1995",
+    "155/1995",
+    "187/2006",
+    "300/2008",
+    "329/2011"
+   ],
+   "amendsCount": 6,
+   "maxTargetChurn": 6,
+   "sponsorContractCzk": 551584148.19,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "sector_adjacent_conflict",
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": true,
+   "sectorAdjacentCompanies": [
+    {
+     "company": "ZPS holding s.r.o.",
+     "sector": "economy",
+     "sponsor": "Jan Bureš"
+    },
+    {
+     "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+     "sector": "economy",
+     "sponsor": "Karel Haas"
+    }
+   ],
+   "municipalExcludedCompanies": [
+    "Česká asociace věřitelů, z.s.",
+    "Údržba silnic Karlovarského kraje, a.s.",
+    "Chráněná dílna Ostrov, s.r.o.",
+    "Léčebné lázně Jáchymov a. s.",
+    "Vodárny a kanalizace Karlovy Vary, a.s.",
+    "Povodí Ohře, státní podnik",
+    "Společenství vlastníků jednotek v domě čp. 2122, Na Folimance 13, Praha 2 - Vinohrady",
+    "Nadační fond Českého rozhlasu",
+    "Komwag, podnik čistoty a údržby města, a.s.",
+    "Vzdělávací centrum pro veřejnou správu ČR, o.p.s.",
+    "MERO ČR, a.s.",
+    "Svaz měst a obcí České republiky",
+    "Povodí Vltavy, státní podnik"
+   ],
+   "triageScoreV2": 654748
+  },
+  {
+   "tiskId": 43343,
+   "billNodeId": "bill:tisk:43343",
+   "cislo": 221,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Radka Vondráčka, Davida Pražáka, Marie Pošarové a Filipa Turka na vydání zákona, kterým se mění zákon č. 159/2006 Sb., o střetu zájmů, ve znění pozdějších předpisů, a další související ",
+   "amendedLaws": [
+    "134/2016",
+    "159/2006",
+    "218/2000",
+    "252/1997",
+    "256/2000",
+    "72/2000"
+   ],
+   "amendsCount": 6,
+   "maxTargetChurn": 6,
+   "sponsorContractCzk": 62959422.74260001,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "sector_adjacent_conflict",
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": true,
+   "sectorAdjacentCompanies": [
+    {
+     "company": "MAE invest a.s.",
+     "sector": "economy",
+     "sponsor": "Radek Vondráček"
+    },
+    {
+     "company": "AGROCENTRUM JIZERAN a.s.",
+     "sector": "agriculture",
+     "sponsor": "David Pražák"
+    }
+   ],
+   "municipalExcludedCompanies": [
+    "Vodovody a kanalizace Kroměříž, a.s."
+   ],
+   "triageScoreV2": 654560
+  },
+  {
+   "tiskId": 43328,
+   "billNodeId": "bill:tisk:43328",
+   "cislo": 206,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Víta Rakušana, Karla Dvořáka a Lukáše Vlčka na vydání zákona, kterým se mění zákon č. 134/2016 Sb., o zadávání veřejných zakázek, ve znění pozdějších předpisů, a některé další zákony v ",
+   "amendedLaws": [
+    "134/2016",
+    "166/1993",
+    "194/2010",
+    "273/1996",
+    "549/1991"
+   ],
+   "amendsCount": 5,
+   "maxTargetChurn": 6,
+   "sponsorContractCzk": 3728628.859,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "sector_adjacent_conflict",
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": true,
+   "sectorAdjacentCompanies": [
+    {
+     "company": "SOMPO, a.s.",
+     "sector": "economy",
+     "sponsor": "Lukáš Vlček"
+    }
+   ],
+   "municipalExcludedCompanies": [
+    "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
+    "Nadační fond Gymnázia Kutná Hora",
+    "PRO VYSOČINU, občanské sdružení",
+    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
+   ],
+   "triageScoreV2": 653814
+  },
+  {
+   "tiskId": 43200,
+   "billNodeId": "bill:tisk:43200",
+   "cislo": 90,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění některé zákony v oblasti veřejných rozpočtů",
+   "amendedLaws": [
+    "159/2006",
+    "166/1993",
+    "177/2023",
+    "218/2000",
+    "222/2016",
+    "23/2017",
+    "243/2000",
+    "250/2000",
+    "262/2006"
+   ],
+   "amendsCount": 9,
+   "maxTargetChurn": 6,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 604500
+  },
+  {
+   "tiskId": 43175,
+   "billNodeId": "bill:tisk:43175",
+   "cislo": 68,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 23/2017 Sb., o pravidlech rozpočtové odpovědnosti, ve znění pozdějších předpisů, a další související zákony",
+   "amendedLaws": [
+    "159/2006",
+    "177/2023",
+    "218/2000",
+    "222/2016",
+    "23/2017",
+    "243/2000",
+    "250/2000",
+    "262/2006"
+   ],
+   "amendsCount": 8,
+   "maxTargetChurn": 6,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 604000
+  },
+  {
+   "tiskId": 43180,
+   "billNodeId": "bill:tisk:43180",
+   "cislo": 73,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Petra Hladíka, Václava Pláteníka a Gabriely Svárovské na vydání zákona, kterým se mění zákon č. 477/2001 Sb., o obalech a o změně některých zákonů (zákon o obalech), ve znění pozdějších",
+   "amendedLaws": [
+    "477/2001",
+    "541/2020",
+    "634/1992"
+   ],
+   "amendsCount": 3,
+   "maxTargetChurn": 6,
+   "sponsorContractCzk": 5397460397.25,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Dopravní podnik města Brna, a.s.",
+    "Teplárny Brno, a.s.",
+    "MERO ČR, a.s."
+   ],
+   "triageScoreV2": 603446
+  },
+  {
+   "tiskId": 43295,
+   "billNodeId": "bill:tisk:43295",
+   "cislo": 174,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Lucie Šafránkové, Andreje Babiše, Tomia Okamury, Petra Macinky, Borise Šťastného, Taťány Malé, Radima Fialy, Renaty Vesecké a Jany Hanzlíkové na vydání zákona, kterým se mění zákon č. 2",
+   "amendedLaws": [
+    "246/1992",
+    "273/2008",
+    "89/2012"
+   ],
+   "amendsCount": 3,
+   "maxTargetChurn": 6,
+   "sponsorContractCzk": 1473240095.16,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Pražská vysoká škola psychosociálních studií, s.r.o.",
+    "Nadace AGROFERT",
+    "Nadační fond manželů Livie a Václava Klausových",
+    "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+    "Česká lékařská komora - o.s., z.s.",
+    "Lesy města Prostějova, s.r.o."
+   ],
+   "triageScoreV2": 603334
+  },
+  {
+   "tiskId": 43160,
+   "billNodeId": "bill:tisk:43160",
+   "cislo": 53,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 634/1992 Sb., o ochraně spotřebitele, ve znění pozdějších předpisů, a zákon č. 89/2012 Sb., občanský zákoník, ve znění pozdějších předpisů",
+   "amendedLaws": [
+    "634/1992",
+    "89/2012"
+   ],
+   "amendsCount": 2,
+   "maxTargetChurn": 6,
+   "sponsorContractCzk": 3728628.859,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "PRO VYSOČINU, občanské sdružení",
+    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
+   ],
+   "triageScoreV2": 602314
   },
   {
    "tiskId": 43219,
@@ -998,7 +2416,7 @@
     "187/2006"
    ],
    "amendsCount": 1,
-   "maxTargetChurn": 3,
+   "maxTargetChurn": 6,
    "sponsorContractCzk": 10864254.9,
    "forensicSeverity": null,
    "forensicState": null,
@@ -1012,7 +2430,892 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 301907
+   "triageScoreV2": 601907
+  },
+  {
+   "tiskId": 43169,
+   "billNodeId": "bill:tisk:43169",
+   "cislo": 62,
+   "origin": "government",
+   "title": "Vládní návrh zákona o některých povinnostech souvisejících s opravou výrobku a o změně zákona č. 634/1992 Sb., o ochraně spotřebitele, ve znění pozdějších předpisů",
+   "amendedLaws": [
+    "634/1992"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 6,
+   "sponsorContractCzk": 3728628.859,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "PRO VYSOČINU, občanské sdružení",
+    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
+   ],
+   "triageScoreV2": 601814
+  },
+  {
+   "tiskId": 43260,
+   "billNodeId": "bill:tisk:43260",
+   "cislo": 140,
+   "origin": "other",
+   "title": "Návrh Zastupitelstva Pardubického kraje na vydání zákona, kterým se mění zákon č. 243/2000 Sb., o rozpočtovém určení výnosů některých daní územním samosprávným celkům a některým státním fondům (zákon ",
+   "amendedLaws": [
+    "243/2000"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 6,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 600500
+  },
+  {
+   "tiskId": 43261,
+   "billNodeId": "bill:tisk:43261",
+   "cislo": 141,
+   "origin": "other",
+   "title": "Návrh Zastupitelstva Pardubického kraje na vydání zákona, kterým se mění zákon č. 243/2000 Sb., o rozpočtovém určení výnosů některých daní územním samosprávným celkům a některým státním fondům (zákon ",
+   "amendedLaws": [
+    "243/2000"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 6,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 600500
+  },
+  {
+   "tiskId": 43344,
+   "billNodeId": "bill:tisk:43344",
+   "cislo": 222,
+   "origin": "government",
+   "title": "Vládní návrh zákona o působnosti orgánů státu při řešení mimořádných situací na vnitřním trhu a o změně zákona č. 134/2016 Sb., o zadávání veřejných zakázek, ve znění pozdějších předpisů",
+   "amendedLaws": [
+    "134/2016"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 6,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 600500
+  },
+  {
+   "tiskId": 43379,
+   "billNodeId": "bill:tisk:43379",
+   "cislo": 257,
+   "origin": "senate",
+   "title": "Senátní návrh zákona, kterým se mění zákon č. 187/2006 Sb., o nemocenském pojištění, ve znění pozdějších předpisů",
+   "amendedLaws": [
+    "187/2006"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 6,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 600500
+  },
+  {
+   "tiskId": 43308,
+   "billNodeId": "bill:tisk:43308",
+   "cislo": 187,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Huberta Langa, Igora Hendrycha, Jiřího Maška a Drahoslava Ryby na vydání zákona, kterým se mění některé zákony na úseku vnitřní správy",
+   "amendedLaws": [
+    "123/2024",
+    "197/2024",
+    "222/2016",
+    "261/2021",
+    "29/2000",
+    "332/2025",
+    "414/2023",
+    "499/2004"
+   ],
+   "amendsCount": 8,
+   "maxTargetChurn": 5,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "mp_group"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 504000
+  },
+  {
+   "tiskId": 43193,
+   "billNodeId": "bill:tisk:43193",
+   "cislo": 83,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 361/2000 Sb., o provozu na pozemních komunikacích a o změnách některých zákonů (zákon o silničním provozu), ve znění pozdějších předpisů, a další souvisejí",
+   "amendedLaws": [
+    "111/1994",
+    "114/1995",
+    "13/1997",
+    "266/1994",
+    "361/2000",
+    "49/1997"
+   ],
+   "amendsCount": 6,
+   "maxTargetChurn": 5,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 503000
+  },
+  {
+   "tiskId": 43339,
+   "billNodeId": "bill:tisk:43339",
+   "cislo": 217,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Ondřeje Babky, Jana Richtera, Gabriely Sedláčkové a Patrika Nachera na vydání zákona, kterým se mění zákon č. 166/1993 Sb., o Nejvyšším kontrolním úřadu, ve znění pozdějších předpisů",
+   "amendedLaws": [
+    "166/1993"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 5,
+   "sponsorContractCzk": 884856389,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "CHOMUTOVSKÁ BYTOVÁ a.s.",
+    "Dopravní podnik měst Chomutova a Jirkova a.s.",
+    "Nemocnice AGEL Valašské Meziříčí a.s.",
+    "Vodovody a kanalizace Vsetín, a.s."
+   ],
+   "triageScoreV2": 502289
+  },
+  {
+   "tiskId": 43199,
+   "billNodeId": "bill:tisk:43199",
+   "cislo": 89,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Benjamina Činčily, Mariana Jurečky, Toma Philippa, Marka Výborného a dalších na vydání zákona, kterým se mění zákon č. 218/2000 Sb., o rozpočtových pravidlech, ve znění pozdějších předp",
+   "amendedLaws": [
+    "218/2000"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 5,
+   "sponsorContractCzk": 278778307,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Gymnázium, Pardubice, Mozartova 449"
+   ],
+   "triageScoreV2": 502189
+  },
+  {
+   "tiskId": 43289,
+   "billNodeId": "bill:tisk:43289",
+   "cislo": 168,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Olgy Richterové, Ivana Bartoše, Zdeňka Hřiba, Gabriely Svárovské, Venduly Svobodové, Ireny Ferčíkové Konečné, Lenky Martínkové Španihelové, Kateřiny Stojanové, Hany Ančincové, Barbory P",
+   "amendedLaws": [
+    "235/2004"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 5,
+   "sponsorContractCzk": 224319743.1,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Hvězdárna a planetárium v Hradci Králové",
+    "Univerzita Palackého v Olomouci"
+   ],
+   "triageScoreV2": 502170
+  },
+  {
+   "tiskId": 43132,
+   "billNodeId": "bill:tisk:43132",
+   "cislo": 25,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 222/2016 Sb., o Sbírce zákonů a mezinárodních smluv a o tvorbě právních předpisů vyhlašovaných ve Sbírce zákonů a mezinárodních smluv (zákon o Sbírce zákon",
+   "amendedLaws": [
+    "222/2016",
+    "277/2019"
+   ],
+   "amendsCount": 2,
+   "maxTargetChurn": 5,
+   "sponsorContractCzk": 200000,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
+    "Nadační fond Gymnázia Kutná Hora"
+   ],
+   "triageScoreV2": 502060
+  },
+  {
+   "tiskId": 43356,
+   "billNodeId": "bill:tisk:43356",
+   "cislo": 234,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 360/1992 Sb., o výkonu povolání autorizovaných architektů a o výkonu povolání autorizovaných inženýrů a techniků činných ve výstavbě (autorizační zákon), v",
+   "amendedLaws": [
+    "200/1994",
+    "283/2021",
+    "360/1992"
+   ],
+   "amendsCount": 3,
+   "maxTargetChurn": 5,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 501500
+  },
+  {
+   "tiskId": 43288,
+   "billNodeId": "bill:tisk:43288",
+   "cislo": 167,
+   "origin": "mp",
+   "title": "Návrh poslankyně Zuzany Mrázové na vydání zákona, kterým se mění zákon č. 283/2021 Sb., stavební zákon, ve znění pozdějších předpisů",
+   "amendedLaws": [
+    "283/2021"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 5,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 500500
+  },
+  {
+   "tiskId": 43292,
+   "billNodeId": "bill:tisk:43292",
+   "cislo": 171,
+   "origin": "senate",
+   "title": "Senátní návrh zákona, kterým se mění zákon č. 13/1997 Sb., o pozemních komunikacích, ve znění pozdějších předpisů",
+   "amendedLaws": [
+    "13/1997"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 5,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 500500
+  },
+  {
+   "tiskId": 43340,
+   "billNodeId": "bill:tisk:43340",
+   "cislo": 218,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 235/2004 Sb., o dani z přidané hodnoty, ve znění pozdějších předpisů",
+   "amendedLaws": [
+    "235/2004"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 5,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 500500
+  },
+  {
+   "tiskId": 43368,
+   "billNodeId": "bill:tisk:43368",
+   "cislo": 246,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 13/1997 Sb., o pozemních komunikacích, ve znění pozdějších předpisů",
+   "amendedLaws": [
+    "13/1997"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 5,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 500500
+  },
+  {
+   "tiskId": 43190,
+   "billNodeId": "bill:tisk:43190",
+   "cislo": 74,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Petra Hladíka, Bohuslava Niemiece, Václava Pláteníka, Moniky Brzeskové, Jany Filipovičové, Marie Krškové, Jany Krutákové, Gabriely Svárovské a Heleny Langšádlové na vydání zákona, který",
+   "amendedLaws": [
+    "167/2008",
+    "254/2001",
+    "282/1991",
+    "541/2020"
+   ],
+   "amendsCount": 4,
+   "maxTargetChurn": 4,
+   "sponsorContractCzk": 5397460397.25,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Dopravní podnik města Brna, a.s.",
+    "Teplárny Brno, a.s.",
+    "MERO ČR, a.s."
+   ],
+   "triageScoreV2": 403946
+  },
+  {
+   "tiskId": 43337,
+   "billNodeId": "bill:tisk:43337",
+   "cislo": 215,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Kateřiny Stojanové, Samuela Volpeho, Kateriny Demetrashvili a Veroniky Kovářové na vydání zákona, kterým se mění zákon č. 150/2002 Sb., soudní řád správní, ve znění pozdějších předpisů,",
+   "amendedLaws": [
+    "111/1998",
+    "121/2008",
+    "150/2002",
+    "280/2009",
+    "412/2005",
+    "500/2004",
+    "99/1963"
+   ],
+   "amendsCount": 7,
+   "maxTargetChurn": 4,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "mp_group"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 403500
+  },
+  {
+   "tiskId": 43266,
+   "billNodeId": "bill:tisk:43266",
+   "cislo": 145,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 257/2016 Sb., o spotřebitelském úvěru, ve znění pozdějších předpisů, a další související zákony",
+   "amendedLaws": [
+    "111/1998",
+    "170/2018",
+    "257/2016",
+    "277/2009",
+    "424/2023",
+    "84/2024"
+   ],
+   "amendsCount": 6,
+   "maxTargetChurn": 4,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 403000
+  },
+  {
+   "tiskId": 43282,
+   "billNodeId": "bill:tisk:43282",
+   "cislo": 161,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Petra Hladíka, Moniky Brzeskové, Jany Filipovičové, Zdeny Kašparové, Marie Krškové, Jany Krutákové, Heleny Langšádlové, Bohuslava Niemiece, Hayata Okamury, Toma Philippa, Gabriely Sváro",
+   "amendedLaws": [
+    "541/2020"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 4,
+   "sponsorContractCzk": 5397460397.25,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Dopravní podnik města Brna, a.s.",
+    "Teplárny Brno, a.s.",
+    "MERO ČR, a.s."
+   ],
+   "triageScoreV2": 402446
+  },
+  {
+   "tiskId": 43354,
+   "billNodeId": "bill:tisk:43354",
+   "cislo": 232,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Andreje Babiše a Roberta Plagy na vydání zákona, kterým se mění zákon č. 561/2004 Sb., o předškolním, základním, středním, vyšším odborném a jiném vzdělávání (školský zákon), ve znění p",
+   "amendedLaws": [
+    "561/2004"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 4,
+   "sponsorContractCzk": 1238034699.1190002,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Nadace AGROFERT"
+   ],
+   "triageScoreV2": 402319
+  },
+  {
+   "tiskId": 43214,
+   "billNodeId": "bill:tisk:43214",
+   "cislo": 104,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Václava Pláteníka, Jiřího Vojáčka, Mariana Jurečky, Benjamina Činčily, Marie Krškové, Jiřího Horáka a Moniky Brzeskové na vydání zákona, kterým se mění zákon č. 561/2004 Sb., o předškol",
+   "amendedLaws": [
+    "561/2004"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 4,
+   "sponsorContractCzk": 10864254.9,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Vodovody a kanalizace Vyškov,a.s."
+   ],
+   "triageScoreV2": 401907
+  },
+  {
+   "tiskId": 43283,
+   "billNodeId": "bill:tisk:43283",
+   "cislo": 162,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 99/1963 Sb., občanský soudní řád, ve znění pozdějších předpisů, zákon č. 549/1991 Sb., o soudních poplatcích, ve znění pozdějších předpisů, a zákon č. 82/1",
+   "amendedLaws": [
+    "549/1991",
+    "82/1998",
+    "99/1963"
+   ],
+   "amendsCount": 3,
+   "maxTargetChurn": 4,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 401500
+  },
+  {
+   "tiskId": 43350,
+   "billNodeId": "bill:tisk:43350",
+   "cislo": 228,
+   "origin": "government",
+   "title": "Vládní návrh zákona o registrech ve vzdělávání a o změně některých souvisejících zákonů",
+   "amendedLaws": [
+    "111/1998",
+    "273/2008",
+    "561/2004"
+   ],
+   "amendsCount": 3,
+   "maxTargetChurn": 4,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 401500
+  },
+  {
+   "tiskId": 43153,
+   "billNodeId": "bill:tisk:43153",
+   "cislo": 46,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 104/2013 Sb., o mezinárodní justiční spolupráci ve věcech trestních, ve znění pozdějších předpisů",
+   "amendedLaws": [
+    "104/2013"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 4,
+   "sponsorContractCzk": 594,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 401055
+  },
+  {
+   "tiskId": 43307,
+   "billNodeId": "bill:tisk:43307",
+   "cislo": 186,
+   "origin": "other",
+   "title": "Návrh Zastupitelstva hlavního města Prahy na vydání zákona, kterým se mění zákon č. 458/2000 Sb., o podmínkách podnikání a o výkonu státní správy v energetických odvětvích a o změně některých zákonů (",
+   "amendedLaws": [
+    "458/2000"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 4,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 400500
+  },
+  {
+   "tiskId": 43240,
+   "billNodeId": "bill:tisk:43240",
+   "cislo": 125,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Aleše Juchelky a Jany Pastuchové na vydání zákona, kterým se mění zákon č. 108/2006 Sb., o sociálních službách, ve znění pozdějších předpisů, zákon č. 329/2011 Sb., o poskytování dávek ",
+   "amendedLaws": [
+    "108/2006",
+    "300/2025",
+    "329/2011",
+    "358/2022",
+    "582/1991"
+   ],
+   "amendsCount": 5,
+   "maxTargetChurn": 3,
+   "sponsorContractCzk": 40100696.57,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "ČESKÁ TELEVIZE",
+    "ČESKÝ ROZHLAS",
+    "Nemocnice Jablonec nad Nisou, p.o.",
+    "Zdravotnická záchranná služba Libereckého kraje, příspěvková organizace"
+   ],
+   "triageScoreV2": 304021
+  },
+  {
+   "tiskId": 43216,
+   "billNodeId": "bill:tisk:43216",
+   "cislo": 106,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Elišky Olšákové, Karla Dvořáka, Lucie Sedmihradské, Julie Smejkalové, Michala Zuny, Jiřího Horáka a Zdeňky Blišťanové na vydání zákona, kterým se mění zákon č. 159/1999 Sb., o některých",
+   "amendedLaws": [
+    "159/1999",
+    "326/1999",
+    "455/1991",
+    "565/1990",
+    "89/1995"
+   ],
+   "amendsCount": 5,
+   "maxTargetChurn": 3,
+   "sponsorContractCzk": 1296198.5,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Vodovody a kanalizace Vyškov,a.s."
+   ],
+   "triageScoreV2": 303723
+  },
+  {
+   "tiskId": 43192,
+   "billNodeId": "bill:tisk:43192",
+   "cislo": 75,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Petra Hladíka, Bohuslava Niemiece, Václava Pláteníka, Moniky Brzeskové, Jany Filipovičové, Marie Krškové, Jany Krutákové, Gabriely Svárovské a Heleny Langšádlové na vydání zákona, který",
+   "amendedLaws": [
+    "254/2001"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 3,
+   "sponsorContractCzk": 5397460397.25,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Dopravní podnik města Brna, a.s.",
+    "Teplárny Brno, a.s.",
+    "MERO ČR, a.s."
+   ],
+   "triageScoreV2": 302446
+  },
+  {
+   "tiskId": 43198,
+   "billNodeId": "bill:tisk:43198",
+   "cislo": 88,
+   "origin": "mp",
+   "title": "Návrh poslance Aleše Juchelky na vydání zákona, kterým se mění zákon č. 151/2025 Sb., o dávce státní sociální pomoci, ve znění zákona č. 360/2025 Sb., zákon č. 110/2006 Sb., o životním a existenčním m",
+   "amendedLaws": [
+    "108/2006",
+    "110/2006",
+    "151/2025",
+    "152/2025"
+   ],
+   "amendsCount": 4,
+   "maxTargetChurn": 3,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 302000
+  },
+  {
+   "tiskId": 43223,
+   "billNodeId": "bill:tisk:43223",
+   "cislo": 113,
+   "origin": "government",
+   "title": "Vládní návrh zákona o ekodesignu výrobků a o výkonu státní správy v oblasti ekodesignu výrobků a o změně souvisejících zákonů (zákon o ekodesignu výrobků)",
+   "amendedLaws": [
+    "147/2002",
+    "406/2000",
+    "61/1988",
+    "87/2023"
+   ],
+   "amendsCount": 4,
+   "maxTargetChurn": 3,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 302000
   },
   {
    "tiskId": 43336,
@@ -1045,6 +3348,33 @@
     "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
    ],
    "triageScoreV2": 301814
+  },
+  {
+   "tiskId": 43195,
+   "billNodeId": "bill:tisk:43195",
+   "cislo": 85,
+   "origin": "mp",
+   "title": "Návrh poslance Aleše Juchelky na vydání zákona, kterým se mění zákon č. 110/2006 Sb., o životním a existenčním minimu, ve znění pozdějších předpisů, a další související zákony",
+   "amendedLaws": [
+    "108/2006",
+    "110/2006",
+    "152/2025"
+   ],
+   "amendsCount": 3,
+   "maxTargetChurn": 3,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 301500
   },
   {
    "tiskId": 43119,
@@ -1090,32 +3420,6 @@
    "signal": null,
    "flags": [
     "high_churn_target"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 300500
-  },
-  {
-   "tiskId": 43210,
-   "billNodeId": "bill:tisk:43210",
-   "cislo": 100,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Elišky Olšákové a Karla Dvořáka na vydání zákona, kterým se mění zákon č. 128/2000 Sb., o obcích (obecní zřízení), ve znění pozdějších předpisů, a další zákony v souvislosti se změnami ",
-   "amendedLaws": [
-    "128/2000"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 3,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "high_churn_target",
-    "mp_group"
    ],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
@@ -1173,193 +3477,66 @@
    "triageScoreV2": 300500
   },
   {
-   "tiskId": 43260,
-   "billNodeId": "bill:tisk:43260",
-   "cislo": 140,
-   "origin": "other",
-   "title": "Návrh Zastupitelstva Pardubického kraje na vydání zákona, kterým se mění zákon č. 243/2000 Sb., o rozpočtovém určení výnosů některých daní územním samosprávným celkům a některým státním fondům (zákon ",
-   "amendedLaws": [
-    "243/2000"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 3,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "high_churn_target"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 300500
-  },
-  {
-   "tiskId": 43261,
-   "billNodeId": "bill:tisk:43261",
-   "cislo": 141,
-   "origin": "other",
-   "title": "Návrh Zastupitelstva Pardubického kraje na vydání zákona, kterým se mění zákon č. 243/2000 Sb., o rozpočtovém určení výnosů některých daní územním samosprávným celkům a některým státním fondům (zákon ",
-   "amendedLaws": [
-    "243/2000"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 3,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "high_churn_target"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 300500
-  },
-  {
-   "tiskId": 43379,
-   "billNodeId": "bill:tisk:43379",
-   "cislo": 257,
-   "origin": "senate",
-   "title": "Senátní návrh zákona, kterým se mění zákon č. 187/2006 Sb., o nemocenském pojištění, ve znění pozdějších předpisů",
-   "amendedLaws": [
-    "187/2006"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 3,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "high_churn_target"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 300500
-  },
-  {
-   "tiskId": 43118,
-   "billNodeId": "bill:tisk:43118",
-   "cislo": 11,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Aleny Schillerové, Andreje Babiše, Tomia Okamury, Petra Macinky, Aleše Juchelky, Karla Havlíčka, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 5",
-   "amendedLaws": [
-    "589/1992"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "sponsorContractCzk": 1473240095.16,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "verdict_pending_persist",
-   "batch": 2,
-   "signal": 3,
-   "flags": [
-    "sector_adjacent_conflict",
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": true,
-   "sectorAdjacentCompanies": [
-    {
-     "company": "IF Holding a.s.",
-     "sector": "economy",
-     "sponsor": "Radim Fiala"
-    },
-    {
-     "company": "IF FACILITY a.s.",
-     "sector": "economy",
-     "sponsor": "Radim Fiala"
-    },
-    {
-     "company": "Hartenberg Holding, s.r.o.",
-     "sector": "economy",
-     "sponsor": "Andrej Babiš"
-    },
-    {
-     "company": "IMOBA, a.s.",
-     "sector": "economy",
-     "sponsor": "Andrej Babiš"
-    }
-   ],
-   "municipalExcludedCompanies": [
-    "CHOMUTOVSKÁ BYTOVÁ a.s.",
-    "Dopravní podnik měst Chomutova a Jirkova a.s.",
-    "ČESKÁ TELEVIZE",
-    "ČESKÝ ROZHLAS",
-    "Nadační fond manželů Livie a Václava Klausových",
-    "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
-    "Česká lékařská komora - o.s., z.s.",
-    "Lesy města Prostějova, s.r.o.",
-    "Nadace AGROFERT"
-   ],
-   "triageScoreV2": 252334,
-   "verdictFile": "payloads/verdicts/verdict-11.json",
-   "forensicConfidence": 5
-  },
-  {
-   "tiskId": 43323,
-   "billNodeId": "bill:tisk:43323",
-   "cislo": 201,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Patrika Nachera, Tomia Okamury, Taťány Malé, Radima Fialy, Filipa Turka, Barbory Rázgy a Martina Kolovratníka na vydání zákona, kterým se mění zákon č. 348/2005 Sb., o rozhlasových a te",
-   "amendedLaws": [
-    "348/2005"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "sponsorContractCzk": 884856389,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "sector_adjacent_conflict",
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": true,
-   "sectorAdjacentCompanies": [
-    {
-     "company": "IF Holding a.s.",
-     "sector": "economy",
-     "sponsor": "Radim Fiala"
-    },
-    {
-     "company": "IF FACILITY a.s.",
-     "sector": "economy",
-     "sponsor": "Radim Fiala"
-    }
-   ],
-   "municipalExcludedCompanies": [
-    "Lesy města Prostějova, s.r.o.",
-    "SKP-CENTRUM, o.p.s.",
-    "ČESKÝ ROZHLAS",
-    "Dopravní podnik města Pardubic a.s."
-   ],
-   "triageScoreV2": 252289
-  },
-  {
-   "tiskId": 43180,
-   "billNodeId": "bill:tisk:43180",
-   "cislo": 73,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Petra Hladíka, Václava Pláteníka a Gabriely Svárovské na vydání zákona, kterým se mění zákon č. 477/2001 Sb., o obalech a o změně některých zákonů (zákon o obalech), ve znění pozdějších",
+   "tiskId": 43314,
+   "billNodeId": "bill:tisk:43314",
+   "cislo": 193,
+   "origin": "mp",
+   "title": "Návrh poslankyně Bereniky Peštové na vydání zákona, kterým se mění zákon č. 477/2001 Sb., o obalech a o změně některých zákonů (zákon o obalech), ve znění pozdějších předpisů",
    "amendedLaws": [
     "477/2001"
    ],
    "amendsCount": 1,
+   "maxTargetChurn": 3,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 300500
+  },
+  {
+   "tiskId": 43382,
+   "billNodeId": "bill:tisk:43382",
+   "cislo": 260,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 37/2021 Sb., o evidenci skutečných majitelů, ve znění pozdějších předpisů",
+   "amendedLaws": [
+    "37/2021"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 3,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 300500
+  },
+  {
+   "tiskId": 43191,
+   "billNodeId": "bill:tisk:43191",
+   "cislo": 50,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Mariana Jurečky, Moniky Brzeskové, Toma Philippa, Marka Výborného a dalších na vydání zákona, kterým se mění zákon č. 155/1995 Sb., o důchodovém pojištění, ve znění pozdějších předpisů,",
+   "amendedLaws": [
+    "155/1995",
+    "417/2024"
+   ],
+   "amendsCount": 2,
    "maxTargetChurn": 2,
    "sponsorContractCzk": 5397460397.25,
    "forensicSeverity": null,
@@ -1374,11 +3551,16 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [
+    "Gymnázium, Pardubice, Mozartova 449",
+    "Vsetínská nemocnice a.s.",
+    "Kroměřížská nemocnice a.s.",
+    "Uherskohradišťská nemocnice a.s.",
+    "Krajská nemocnice T. Bati, a. s.",
     "Dopravní podnik města Brna, a.s.",
     "Teplárny Brno, a.s.",
     "MERO ČR, a.s."
    ],
-   "triageScoreV2": 202446
+   "triageScoreV2": 202946
   },
   {
    "tiskId": 43220,
@@ -1414,69 +3596,6 @@
     "MERO ČR, a.s."
    ],
    "triageScoreV2": 202446
-  },
-  {
-   "tiskId": 43365,
-   "billNodeId": "bill:tisk:43365",
-   "cislo": 243,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Marka Výborného, Petra Hladíka a Františka Talíře na vydání zákona, kterým se mění zákon č. 223/2016 Sb., o prodejní době v maloobchodě, ve znění pozdějších předpisů",
-   "amendedLaws": [
-    "223/2016"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "sponsorContractCzk": 5397460397.25,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "Gymnázium, Pardubice, Mozartova 449",
-    "Dopravní podnik města Brna, a.s.",
-    "Teplárny Brno, a.s.",
-    "MERO ČR, a.s."
-   ],
-   "triageScoreV2": 202446
-  },
-  {
-   "tiskId": 43174,
-   "billNodeId": "bill:tisk:43174",
-   "cislo": 67,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
-   "amendedLaws": [
-    "283/2021"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "sponsorContractCzk": 1473240095.16,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "Nadace AGROFERT",
-    "Lesy města Prostějova, s.r.o.",
-    "Nadační fond manželů Livie a Václava Klausových",
-    "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
-    "Česká lékařská komora - o.s., z.s."
-   ],
-   "triageScoreV2": 202334
   },
   {
    "tiskId": 43179,
@@ -1522,63 +3641,6 @@
    "triageScoreV2": 202334
   },
   {
-   "tiskId": 43354,
-   "billNodeId": "bill:tisk:43354",
-   "cislo": 232,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Andreje Babiše a Roberta Plagy na vydání zákona, kterým se mění zákon č. 561/2004 Sb., o předškolním, základním, středním, vyšším odborném a jiném vzdělávání (školský zákon), ve znění p",
-   "amendedLaws": [
-    "561/2004"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "sponsorContractCzk": 1238034699.1190002,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "Nadace AGROFERT"
-   ],
-   "triageScoreV2": 202319
-  },
-  {
-   "tiskId": 43160,
-   "billNodeId": "bill:tisk:43160",
-   "cislo": 53,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 634/1992 Sb., o ochraně spotřebitele, ve znění pozdějších předpisů, a zákon č. 89/2012 Sb., občanský zákoník, ve znění pozdějších předpisů",
-   "amendedLaws": [
-    "634/1992",
-    "89/2012"
-   ],
-   "amendsCount": 2,
-   "maxTargetChurn": 2,
-   "sponsorContractCzk": 3728628.859,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "PRO VYSOČINU, občanské sdružení",
-    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
-   ],
-   "triageScoreV2": 202314
-  },
-  {
    "tiskId": 43177,
    "billNodeId": "bill:tisk:43177",
    "cislo": 70,
@@ -1609,13 +3671,13 @@
    "triageScoreV2": 202294
   },
   {
-   "tiskId": 43250,
-   "billNodeId": "bill:tisk:43250",
-   "cislo": 129,
+   "tiskId": 43383,
+   "billNodeId": "bill:tisk:43383",
+   "cislo": 261,
    "origin": "mp_group",
-   "title": "Návrh poslanců Jana Bureše, Martina Baxy, Karla Haase, Renáty Zajíčkové, Štěpána Slováka, Petra Sokola, Jany Černochové, Libora Hoppe, Jakuba Jandy, Petra Bendla a Jana Skopečka na vydání zákona, kter",
+   "title": "Návrh poslanců Jana Bureše, Petra Bendla, Karla Haase, Marka Bendy, Ivana Adamce, Jakuba Jandy, Jana Bauera a Jany Bačíkové na vydání zákona, kterým se mění zákon č. 114/1992 Sb., o ochraně přírody a ",
    "amendedLaws": [
-    "223/2016"
+    "114/1992"
    ],
    "amendsCount": 1,
    "maxTargetChurn": 2,
@@ -1638,109 +3700,44 @@
     "Léčebné lázně Jáchymov a. s.",
     "Vodárny a kanalizace Karlovy Vary, a.s.",
     "Povodí Ohře, státní podnik",
-    "Plzeňské městské dopravní podniky, a.s.",
-    "Plzeňská filharmonie, obecně prospěšná společnost",
-    "Galerie města Plzně, o.p.s.",
-    "Regionální rozvojová agentura Plzeňského kraje, obecně prospěšná společnost",
-    "Techmania Science Center o.p.s.",
-    "Nadace Věry a Vladimíra Janouškových",
-    "Nadace 700 let města Plzně",
-    "Sdružení měst a obcí Plzeňského kraje",
-    "Společenství vlastníků jednotek v domě čp. 2122, Na Folimance 13, Praha 2 - Vinohrady",
-    "Nadační fond Českého rozhlasu",
-    "Komwag, podnik čistoty a údržby města, a.s.",
     "Vzdělávací centrum pro veřejnou správu ČR, o.p.s.",
     "MERO ČR, a.s.",
     "Svaz měst a obcí České republiky",
-    "Povodí Vltavy, státní podnik"
+    "Povodí Vltavy, státní podnik",
+    "Společenství vlastníků Vlastislavova 605/20, Praha 4",
+    "RERA a.s.",
+    "Technické služby Trutnov s.r.o.",
+    "Lesy a parky Trutnov s.r.o.",
+    "Oblastní nemocnice Trutnov a.s.",
+    "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY"
    ],
    "triageScoreV2": 202248
   },
   {
-   "tiskId": 43289,
-   "billNodeId": "bill:tisk:43289",
-   "cislo": 168,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Olgy Richterové, Ivana Bartoše, Zdeňka Hřiba, Gabriely Svárovské, Venduly Svobodové, Ireny Ferčíkové Konečné, Lenky Martínkové Španihelové, Kateřiny Stojanové, Hany Ančincové, Barbory P",
+   "tiskId": 43311,
+   "billNodeId": "bill:tisk:43311",
+   "cislo": 190,
+   "origin": "senate",
+   "title": "Senátní návrh zákona, kterým se mění zákon č. 88/2024 Sb., o správě voleb, ve znění pozdějších předpisů, a některé další volební zákony",
    "amendedLaws": [
-    "235/2004"
+    "247/1995",
+    "275/2012",
+    "88/2024",
+    "89/2024"
    ],
-   "amendsCount": 1,
+   "amendsCount": 4,
    "maxTargetChurn": 2,
-   "sponsorContractCzk": 224319743.1,
+   "sponsorContractCzk": 0,
    "forensicSeverity": null,
    "forensicState": null,
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
+   "flags": [],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "Hvězdárna a planetárium v Hradci Králové",
-    "Univerzita Palackého v Olomouci"
-   ],
-   "triageScoreV2": 202170
-  },
-  {
-   "tiskId": 43226,
-   "billNodeId": "bill:tisk:43226",
-   "cislo": 116,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Zuzany Ožanové, Patrika Pařila a Renaty Vesecké na vydání zákona, kterým se zrušuje zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou úča",
-   "amendedLaws": [
-    "353/2019"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "sponsorContractCzk": 82683361.6,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "Krajská zdravotní, a.s.",
-    "Dopravní podnik města Děčína, a.s."
-   ],
-   "triageScoreV2": 202083
-  },
-  {
-   "tiskId": 43214,
-   "billNodeId": "bill:tisk:43214",
-   "cislo": 104,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Václava Pláteníka, Jiřího Vojáčka, Mariana Jurečky, Benjamina Činčily, Marie Krškové, Jiřího Horáka a Moniky Brzeskové na vydání zákona, kterým se mění zákon č. 561/2004 Sb., o předškol",
-   "amendedLaws": [
-    "561/2004"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "sponsorContractCzk": 10864254.9,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "Vodovody a kanalizace Vyškov,a.s."
-   ],
-   "triageScoreV2": 201907
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 202000
   },
   {
    "tiskId": 43185,
@@ -1770,91 +3767,29 @@
    "triageScoreV2": 201829
   },
   {
-   "tiskId": 43169,
-   "billNodeId": "bill:tisk:43169",
-   "cislo": 62,
-   "origin": "government",
-   "title": "Vládní návrh zákona o některých povinnostech souvisejících s opravou výrobku a o změně zákona č. 634/1992 Sb., o ochraně spotřebitele, ve znění pozdějších předpisů",
-   "amendedLaws": [
-    "634/1992"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "sponsorContractCzk": 3728628.859,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "PRO VYSOČINU, občanské sdružení",
-    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
-   ],
-   "triageScoreV2": 201814
-  },
-  {
-   "tiskId": 43328,
-   "billNodeId": "bill:tisk:43328",
-   "cislo": 206,
+   "tiskId": 43256,
+   "billNodeId": "bill:tisk:43256",
+   "cislo": 133,
    "origin": "mp_group",
-   "title": "Návrh poslanců Víta Rakušana, Karla Dvořáka a Lukáše Vlčka na vydání zákona, kterým se mění zákon č. 134/2016 Sb., o zadávání veřejných zakázek, ve znění pozdějších předpisů, a některé další zákony v ",
+   "title": "Návrh poslanců Martina Kupky, Jana Skopečka, Jiřího Havránka a Vojtěcha Munzara na vydání zákona, kterým se mění zákon č. 353/2003 Sb., o spotřebních daních, ve znění pozdějších předpisů",
    "amendedLaws": [
-    "134/2016"
+    "353/2003"
    ],
    "amendsCount": 1,
    "maxTargetChurn": 2,
-   "sponsorContractCzk": 3728628.859,
+   "sponsorContractCzk": 3968570,
    "forensicSeverity": null,
    "forensicState": null,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
-    "mp_group",
-    "municipal_soe_excluded"
+    "mp_group"
    ],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
-    "Nadační fond Gymnázia Kutná Hora",
-    "PRO VYSOČINU, občanské sdružení",
-    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
-   ],
-   "triageScoreV2": 201814
-  },
-  {
-   "tiskId": 43216,
-   "billNodeId": "bill:tisk:43216",
-   "cislo": 106,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Elišky Olšákové, Karla Dvořáka, Lucie Sedmihradské, Julie Smejkalové, Michala Zuny, Jiřího Horáka a Zdeňky Blišťanové na vydání zákona, kterým se mění zákon č. 159/1999 Sb., o některých",
-   "amendedLaws": [
-    "159/1999"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "sponsorContractCzk": 1296198.5,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "Vodovody a kanalizace Vyškov,a.s."
-   ],
-   "triageScoreV2": 201723
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 201820
   },
   {
    "tiskId": 43236,
@@ -1885,15 +3820,15 @@
    "triageScoreV2": 201723
   },
   {
-   "tiskId": 43198,
-   "billNodeId": "bill:tisk:43198",
-   "cislo": 88,
-   "origin": "mp",
-   "title": "Návrh poslance Aleše Juchelky na vydání zákona, kterým se mění zákon č. 151/2025 Sb., o dávce státní sociální pomoci, ve znění zákona č. 360/2025 Sb., zákon č. 110/2006 Sb., o životním a existenčním m",
+   "tiskId": 43313,
+   "billNodeId": "bill:tisk:43313",
+   "cislo": 192,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 257/2001 Sb., o knihovnách a podmínkách provozování veřejných knihovnických a informačních služeb (knihovní zákon), ve znění pozdějších předpisů, zákon č. ",
    "amendedLaws": [
-    "110/2006",
-    "151/2025",
-    "360/2025"
+    "257/2001",
+    "37/1995",
+    "46/2000"
    ],
    "amendsCount": 3,
    "maxTargetChurn": 2,
@@ -1910,63 +3845,13 @@
    "triageScoreV2": 201500
   },
   {
-   "tiskId": 43274,
-   "billNodeId": "bill:tisk:43274",
-   "cislo": 153,
+   "tiskId": 43168,
+   "billNodeId": "bill:tisk:43168",
+   "cislo": 61,
    "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 40/1995 Sb., o regulaci reklamy a o změně a doplnění zákona č. 468/1991 Sb., o provozování rozhlasového a televizního vysílání, ve znění pozdějších předpis",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 218/2003 Sb., o odpovědnosti mládeže za protiprávní činy a o soudnictví ve věcech mládeže a o změně některých zákonů (zákon o soudnictví ve věcech mládeže)",
    "amendedLaws": [
-    "375/2022",
-    "40/1995",
-    "468/1991"
-   ],
-   "amendsCount": 3,
-   "maxTargetChurn": 2,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 201500
-  },
-  {
-   "tiskId": 43353,
-   "billNodeId": "bill:tisk:43353",
-   "cislo": 231,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 483/1991 Sb., o České televizi, ve znění pozdějších předpisů, a zákon č. 484/1991 Sb., o Českém rozhlasu, ve znění pozdějších předpisů, a kterým se zrušuje",
-   "amendedLaws": [
-    "348/2005",
-    "483/1991",
-    "484/1991"
-   ],
-   "amendsCount": 3,
-   "maxTargetChurn": 2,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 201500
-  },
-  {
-   "tiskId": 43153,
-   "billNodeId": "bill:tisk:43153",
-   "cislo": 46,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 104/2013 Sb., o mezinárodní justiční spolupráci ve věcech trestních, ve znění pozdějších předpisů",
-   "amendedLaws": [
-    "104/2013"
+    "218/2003"
    ],
    "amendsCount": 1,
    "maxTargetChurn": 2,
@@ -1983,14 +3868,14 @@
    "triageScoreV2": 201055
   },
   {
-   "tiskId": 43143,
-   "billNodeId": "bill:tisk:43143",
-   "cislo": 36,
+   "tiskId": 43112,
+   "billNodeId": "bill:tisk:43112",
+   "cislo": 5,
    "origin": "mp_group",
-   "title": "Návrh poslankyň Barbory Urbanové a Adriany Chochelové na vydání zákona, kterým se mění zákon č. 268/2025 Sb., kterým se mění zákon č. 89/2012 Sb., občanský zákoník, ve znění pozdějších předpisů, a dal",
+   "title": "Návrh poslanců Ivana Bartoše a Olgy Richterové na vydání zákona, kterým se mění zákon č. 143/2001 Sb., o ochraně hospodářské soutěže a o změně některých zákonů (zákon o ochraně hospodářské soutěže), v",
    "amendedLaws": [
-    "268/2025",
-    "89/2012"
+    "143/2001",
+    "374/2015"
    ],
    "amendsCount": 2,
    "maxTargetChurn": 2,
@@ -2009,6 +3894,54 @@
    "triageScoreV2": 201000
   },
   {
+   "tiskId": 43274,
+   "billNodeId": "bill:tisk:43274",
+   "cislo": 153,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 40/1995 Sb., o regulaci reklamy a o změně a doplnění zákona č. 468/1991 Sb., o provozování rozhlasového a televizního vysílání, ve znění pozdějších předpis",
+   "amendedLaws": [
+    "375/2022",
+    "40/1995"
+   ],
+   "amendsCount": 2,
+   "maxTargetChurn": 2,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 201000
+  },
+  {
+   "tiskId": 43353,
+   "billNodeId": "bill:tisk:43353",
+   "cislo": 231,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 483/1991 Sb., o České televizi, ve znění pozdějších předpisů, a zákon č. 484/1991 Sb., o Českém rozhlasu, ve znění pozdějších předpisů, a kterým se zrušuje",
+   "amendedLaws": [
+    "483/1991",
+    "484/1991"
+   ],
+   "amendsCount": 2,
+   "maxTargetChurn": 2,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 201000
+  },
+  {
    "tiskId": 43122,
    "billNodeId": "bill:tisk:43122",
    "cislo": 15,
@@ -2016,6 +3949,31 @@
    "title": "Návrh poslanců Olgy Richterové, Ivana Bartoše a Kateřiny Stojanové na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny, ve znění pozdějších předpisů",
    "amendedLaws": [
     "90/1995"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 2,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "mp_group"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 200500
+  },
+  {
+   "tiskId": 43156,
+   "billNodeId": "bill:tisk:43156",
+   "cislo": 49,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Zdeňka Hřiba, Olgy Richterové a Kateriny Demetrashvili na vydání zákona, kterým se mění zákon č. 100/2001 Sb., o posuzování vlivů na životní prostředí a o změně některých souvisejících ",
+   "amendedLaws": [
+    "100/2001"
    ],
    "amendsCount": 1,
    "maxTargetChurn": 2,
@@ -2057,13 +4015,13 @@
    "triageScoreV2": 200500
   },
   {
-   "tiskId": 43195,
-   "billNodeId": "bill:tisk:43195",
-   "cislo": 85,
-   "origin": "mp",
-   "title": "Návrh poslance Aleše Juchelky na vydání zákona, kterým se mění zákon č. 110/2006 Sb., o životním a existenčním minimu, ve znění pozdějších předpisů, a další související zákony",
+   "tiskId": 43166,
+   "billNodeId": "bill:tisk:43166",
+   "cislo": 59,
+   "origin": "mp_group",
+   "title": "Návrh poslankyň Pavly Pivoňky Vaňkové a Zdeňky Blišťanové na vydání zákona, kterým se mění zákon č. 468/2024 Sb., o integračním sociálním podniku",
    "amendedLaws": [
-    "110/2006"
+    "468/2024"
    ],
    "amendsCount": 1,
    "maxTargetChurn": 2,
@@ -2073,112 +4031,22 @@
    "stage": "pending",
    "batch": null,
    "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 200500
-  },
-  {
-   "tiskId": 43259,
-   "billNodeId": "bill:tisk:43259",
-   "cislo": 138,
-   "origin": "mp",
-   "title": "Návrh poslance Víta Rakušana na vydání zákona, kterým se mění zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou účastí státu (nominační zákon), ve znění",
-   "amendedLaws": [
-    "353/2019"
+   "flags": [
+    "mp_group"
    ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
    "triageScoreV2": 200500
   },
   {
-   "tiskId": 43288,
-   "billNodeId": "bill:tisk:43288",
-   "cislo": 167,
-   "origin": "mp",
-   "title": "Návrh poslankyně Zuzany Mrázové na vydání zákona, kterým se mění zákon č. 283/2021 Sb., stavební zákon, ve znění pozdějších předpisů",
-   "amendedLaws": [
-    "283/2021"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 200500
-  },
-  {
-   "tiskId": 43292,
-   "billNodeId": "bill:tisk:43292",
-   "cislo": 171,
-   "origin": "senate",
-   "title": "Senátní návrh zákona, kterým se mění zákon č. 13/1997 Sb., o pozemních komunikacích, ve znění pozdějších předpisů",
-   "amendedLaws": [
-    "13/1997"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 200500
-  },
-  {
-   "tiskId": 43314,
-   "billNodeId": "bill:tisk:43314",
-   "cislo": 193,
-   "origin": "mp",
-   "title": "Návrh poslankyně Bereniky Peštové na vydání zákona, kterým se mění zákon č. 477/2001 Sb., o obalech a o změně některých zákonů (zákon o obalech), ve znění pozdějších předpisů",
-   "amendedLaws": [
-    "477/2001"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 200500
-  },
-  {
-   "tiskId": 43340,
-   "billNodeId": "bill:tisk:43340",
-   "cislo": 218,
+   "tiskId": 43284,
+   "billNodeId": "bill:tisk:43284",
+   "cislo": 163,
    "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 235/2004 Sb., o dani z přidané hodnoty, ve znění pozdějších předpisů",
+   "title": "Vládní návrh zákona o regulaci cen pohonných hmot vládou a o změně zákona č. 526/1990 Sb., o cenách, ve znění pozdějších předpisů",
    "amendedLaws": [
-    "235/2004"
+    "526/1990"
    ],
    "amendsCount": 1,
    "maxTargetChurn": 2,
@@ -2195,13 +4063,13 @@
    "triageScoreV2": 200500
   },
   {
-   "tiskId": 43344,
-   "billNodeId": "bill:tisk:43344",
-   "cislo": 222,
+   "tiskId": 43341,
+   "billNodeId": "bill:tisk:43341",
+   "cislo": 219,
    "origin": "government",
-   "title": "Vládní návrh zákona o působnosti orgánů státu při řešení mimořádných situací na vnitřním trhu a o změně zákona č. 134/2016 Sb., o zadávání veřejných zakázek, ve znění pozdějších předpisů",
+   "title": "Vládní návrh zákona o mistrovské kvalifikaci a mistrovské zkoušce a o změně zákona č. 301/1992 Sb., o Hospodářské komoře České republiky a Agrární komoře České republiky, ve znění pozdějších předpisů ",
    "amendedLaws": [
-    "134/2016"
+    "301/1992"
    ],
    "amendsCount": 1,
    "maxTargetChurn": 2,
@@ -2264,42 +4132,17 @@
    "triageScoreV2": 200500
   },
   {
-   "tiskId": 43368,
-   "billNodeId": "bill:tisk:43368",
-   "cislo": 246,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 13/1997 Sb., o pozemních komunikacích, ve znění pozdějších předpisů",
+   "tiskId": 43323,
+   "billNodeId": "bill:tisk:43323",
+   "cislo": 201,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Patrika Nachera, Tomia Okamury, Taťány Malé, Radima Fialy, Filipa Turka, Barbory Rázgy a Martina Kolovratníka na vydání zákona, kterým se mění zákon č. 348/2005 Sb., o rozhlasových a te",
    "amendedLaws": [
-    "13/1997"
+    "348/2005"
    ],
    "amendsCount": 1,
-   "maxTargetChurn": 2,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 200500
-  },
-  {
-   "tiskId": 43275,
-   "billNodeId": "bill:tisk:43275",
-   "cislo": 154,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 297/2016 Sb., o službách vytvářejících důvěru pro elektronické transakce, ve znění pozdějších předpisů, zákon č. 250/2017 Sb., o elektronické identifikaci,",
-   "amendedLaws": [
-    "250/2017",
-    "297/2016",
-    "634/2004"
-   ],
-   "amendsCount": 3,
    "maxTargetChurn": 1,
-   "sponsorContractCzk": 1238034699.1190002,
+   "sponsorContractCzk": 884856389,
    "forensicSeverity": null,
    "forensicState": null,
    "stage": "pending",
@@ -2307,37 +4150,40 @@
    "signal": null,
    "flags": [
     "sector_adjacent_conflict",
+    "mp_group",
     "municipal_soe_excluded"
    ],
    "sectorAdjacency": true,
    "sectorAdjacentCompanies": [
     {
-     "company": "Hartenberg Holding, s.r.o.",
+     "company": "IF Holding a.s.",
      "sector": "economy",
-     "sponsor": "Andrej Babiš"
+     "sponsor": "Radim Fiala"
     },
     {
-     "company": "IMOBA, a.s.",
+     "company": "IF FACILITY a.s.",
      "sector": "economy",
-     "sponsor": "Andrej Babiš"
+     "sponsor": "Radim Fiala"
     }
    ],
    "municipalExcludedCompanies": [
-    "Nadace AGROFERT"
+    "Lesy města Prostějova, s.r.o.",
+    "SKP-CENTRUM, o.p.s.",
+    "ČESKÝ ROZHLAS",
+    "Dopravní podnik města Pardubic a.s."
    ],
-   "triageScoreV2": 153319
+   "triageScoreV2": 152289
   },
   {
-   "tiskId": 43191,
-   "billNodeId": "bill:tisk:43191",
-   "cislo": 50,
+   "tiskId": 43365,
+   "billNodeId": "bill:tisk:43365",
+   "cislo": 243,
    "origin": "mp_group",
-   "title": "Návrh poslanců Mariana Jurečky, Moniky Brzeskové, Toma Philippa, Marka Výborného a dalších na vydání zákona, kterým se mění zákon č. 155/1995 Sb., o důchodovém pojištění, ve znění pozdějších předpisů,",
+   "title": "Návrh poslanců Marka Výborného, Petra Hladíka a Františka Talíře na vydání zákona, kterým se mění zákon č. 223/2016 Sb., o prodejní době v maloobchodě, ve znění pozdějších předpisů",
    "amendedLaws": [
-    "155/1995",
-    "417/2024"
+    "223/2016"
    ],
-   "amendsCount": 2,
+   "amendsCount": 1,
    "maxTargetChurn": 1,
    "sponsorContractCzk": 5397460397.25,
    "forensicSeverity": null,
@@ -2353,199 +4199,11 @@
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [
     "Gymnázium, Pardubice, Mozartova 449",
-    "Vsetínská nemocnice a.s.",
-    "Kroměřížská nemocnice a.s.",
-    "Uherskohradišťská nemocnice a.s.",
-    "Krajská nemocnice T. Bati, a. s.",
-    "Dopravní podnik města Brna, a.s.",
-    "Teplárny Brno, a.s.",
-    "MERO ČR, a.s."
-   ],
-   "triageScoreV2": 102946
-  },
-  {
-   "tiskId": 43240,
-   "billNodeId": "bill:tisk:43240",
-   "cislo": 125,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Aleše Juchelky a Jany Pastuchové na vydání zákona, kterým se mění zákon č. 108/2006 Sb., o sociálních službách, ve znění pozdějších předpisů, zákon č. 329/2011 Sb., o poskytování dávek ",
-   "amendedLaws": [
-    "108/2006",
-    "329/2011"
-   ],
-   "amendsCount": 2,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 40100696.57,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "ČESKÁ TELEVIZE",
-    "ČESKÝ ROZHLAS",
-    "Nemocnice Jablonec nad Nisou, p.o.",
-    "Zdravotnická záchranná služba Libereckého kraje, příspěvková organizace"
-   ],
-   "triageScoreV2": 102521
-  },
-  {
-   "tiskId": 43121,
-   "billNodeId": "bill:tisk:43121",
-   "cislo": 14,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 73/2012 Sb., o látkách, které poškozují ozonovou vrstvu, a o fluorovaných skleníkových plynech, ve znění pozdějších předpisů, a další související předpisy",
-   "amendedLaws": [
-    "73/2012"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 5397460397.25,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
     "Dopravní podnik města Brna, a.s.",
     "Teplárny Brno, a.s.",
     "MERO ČR, a.s."
    ],
    "triageScoreV2": 102446
-  },
-  {
-   "tiskId": 43190,
-   "billNodeId": "bill:tisk:43190",
-   "cislo": 74,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Petra Hladíka, Bohuslava Niemiece, Václava Pláteníka, Moniky Brzeskové, Jany Filipovičové, Marie Krškové, Jany Krutákové, Gabriely Svárovské a Heleny Langšádlové na vydání zákona, který",
-   "amendedLaws": [
-    "167/2008"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 5397460397.25,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "Dopravní podnik města Brna, a.s.",
-    "Teplárny Brno, a.s.",
-    "MERO ČR, a.s."
-   ],
-   "triageScoreV2": 102446
-  },
-  {
-   "tiskId": 43192,
-   "billNodeId": "bill:tisk:43192",
-   "cislo": 75,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Petra Hladíka, Bohuslava Niemiece, Václava Pláteníka, Moniky Brzeskové, Jany Filipovičové, Marie Krškové, Jany Krutákové, Gabriely Svárovské a Heleny Langšádlové na vydání zákona, který",
-   "amendedLaws": [
-    "254/2001"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 5397460397.25,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "Dopravní podnik města Brna, a.s.",
-    "Teplárny Brno, a.s.",
-    "MERO ČR, a.s."
-   ],
-   "triageScoreV2": 102446
-  },
-  {
-   "tiskId": 43282,
-   "billNodeId": "bill:tisk:43282",
-   "cislo": 161,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Petra Hladíka, Moniky Brzeskové, Jany Filipovičové, Zdeny Kašparové, Marie Krškové, Jany Krutákové, Heleny Langšádlové, Bohuslava Niemiece, Hayata Okamury, Toma Philippa, Gabriely Sváro",
-   "amendedLaws": [
-    "541/2020"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 5397460397.25,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "Dopravní podnik města Brna, a.s.",
-    "Teplárny Brno, a.s.",
-    "MERO ČR, a.s."
-   ],
-   "triageScoreV2": 102446
-  },
-  {
-   "tiskId": 43295,
-   "billNodeId": "bill:tisk:43295",
-   "cislo": 174,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Lucie Šafránkové, Andreje Babiše, Tomia Okamury, Petra Macinky, Borise Šťastného, Taťány Malé, Radima Fialy, Renaty Vesecké a Jany Hanzlíkové na vydání zákona, kterým se mění zákon č. 2",
-   "amendedLaws": [
-    "246/1992"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 1473240095.16,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "Pražská vysoká škola psychosociálních studií, s.r.o.",
-    "Nadace AGROFERT",
-    "Nadační fond manželů Livie a Václava Klausových",
-    "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
-    "Česká lékařská komora - o.s., z.s.",
-    "Lesy města Prostějova, s.r.o."
-   ],
-   "triageScoreV2": 102334
   },
   {
    "tiskId": 43142,
@@ -2574,77 +4232,6 @@
     "Nadace AGROFERT"
    ],
    "triageScoreV2": 102319
-  },
-  {
-   "tiskId": 43339,
-   "billNodeId": "bill:tisk:43339",
-   "cislo": 217,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Ondřeje Babky, Jana Richtera, Gabriely Sedláčkové a Patrika Nachera na vydání zákona, kterým se mění zákon č. 166/1993 Sb., o Nejvyšším kontrolním úřadu, ve znění pozdějších předpisů",
-   "amendedLaws": [
-    "166/1993"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 884856389,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "CHOMUTOVSKÁ BYTOVÁ a.s.",
-    "Dopravní podnik měst Chomutova a Jirkova a.s.",
-    "Nemocnice AGEL Valašské Meziříčí a.s.",
-    "Vodovody a kanalizace Vsetín, a.s."
-   ],
-   "triageScoreV2": 102289
-  },
-  {
-   "tiskId": 43213,
-   "billNodeId": "bill:tisk:43213",
-   "cislo": 103,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Jana Bureše, Karla Haase, Renáty Zajíčkové, Štěpána Slováka, Petra Sokola, Jany Černochové, Libora Hoppe, Jakuba Jandy, Petra Bendla a Jana Skopečka na vydání zákona, kterým se mění zák",
-   "amendedLaws": [
-    "300/2008"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 551584148.19,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "Česká asociace věřitelů, z.s.",
-    "Údržba silnic Karlovarského kraje, a.s.",
-    "Chráněná dílna Ostrov, s.r.o.",
-    "Léčebné lázně Jáchymov a. s.",
-    "Vodárny a kanalizace Karlovy Vary, a.s.",
-    "Povodí Ohře, státní podnik",
-    "Společenství vlastníků jednotek v domě čp. 2122, Na Folimance 13, Praha 2 - Vinohrady",
-    "Nadační fond Českého rozhlasu",
-    "Komwag, podnik čistoty a údržby města, a.s.",
-    "Vzdělávací centrum pro veřejnou správu ČR, o.p.s.",
-    "MERO ČR, a.s.",
-    "Svaz měst a obcí České republiky",
-    "Povodí Vltavy, státní podnik"
-   ],
-   "triageScoreV2": 102248
   },
   {
    "tiskId": 43330,
@@ -2686,134 +4273,6 @@
    "triageScoreV2": 102248
   },
   {
-   "tiskId": 43383,
-   "billNodeId": "bill:tisk:43383",
-   "cislo": 261,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Jana Bureše, Petra Bendla, Karla Haase, Marka Bendy, Ivana Adamce, Jakuba Jandy, Jana Bauera a Jany Bačíkové na vydání zákona, kterým se mění zákon č. 114/1992 Sb., o ochraně přírody a ",
-   "amendedLaws": [
-    "114/1992"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 551584148.19,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "Česká asociace věřitelů, z.s.",
-    "Údržba silnic Karlovarského kraje, a.s.",
-    "Chráněná dílna Ostrov, s.r.o.",
-    "Léčebné lázně Jáchymov a. s.",
-    "Vodárny a kanalizace Karlovy Vary, a.s.",
-    "Povodí Ohře, státní podnik",
-    "Vzdělávací centrum pro veřejnou správu ČR, o.p.s.",
-    "MERO ČR, a.s.",
-    "Svaz měst a obcí České republiky",
-    "Povodí Vltavy, státní podnik",
-    "Společenství vlastníků Vlastislavova 605/20, Praha 4",
-    "RERA a.s.",
-    "Technické služby Trutnov s.r.o.",
-    "Lesy a parky Trutnov s.r.o.",
-    "Oblastní nemocnice Trutnov a.s.",
-    "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY"
-   ],
-   "triageScoreV2": 102248
-  },
-  {
-   "tiskId": 43199,
-   "billNodeId": "bill:tisk:43199",
-   "cislo": 89,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Benjamina Činčily, Mariana Jurečky, Toma Philippa, Marka Výborného a dalších na vydání zákona, kterým se mění zákon č. 218/2000 Sb., o rozpočtových pravidlech, ve znění pozdějších předp",
-   "amendedLaws": [
-    "218/2000"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 278778307,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "Gymnázium, Pardubice, Mozartova 449"
-   ],
-   "triageScoreV2": 102189
-  },
-  {
-   "tiskId": 43132,
-   "billNodeId": "bill:tisk:43132",
-   "cislo": 25,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 222/2016 Sb., o Sbírce zákonů a mezinárodních smluv a o tvorbě právních předpisů vyhlašovaných ve Sbírce zákonů a mezinárodních smluv (zákon o Sbírce zákon",
-   "amendedLaws": [
-    "222/2016",
-    "277/2019"
-   ],
-   "amendsCount": 2,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 200000,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
-    "Nadační fond Gymnázia Kutná Hora"
-   ],
-   "triageScoreV2": 102060
-  },
-  {
-   "tiskId": 43343,
-   "billNodeId": "bill:tisk:43343",
-   "cislo": 221,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Radka Vondráčka, Davida Pražáka, Marie Pošarové a Filipa Turka na vydání zákona, kterým se mění zákon č. 159/2006 Sb., o střetu zájmů, ve znění pozdějších předpisů, a další související ",
-   "amendedLaws": [
-    "159/2006"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 62959422.74260001,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "Vodovody a kanalizace Kroměříž, a.s."
-   ],
-   "triageScoreV2": 102060
-  },
-  {
    "tiskId": 43155,
    "billNodeId": "bill:tisk:43155",
    "cislo": 48,
@@ -2841,145 +4300,15 @@
    "triageScoreV2": 101893
   },
   {
-   "tiskId": 43256,
-   "billNodeId": "bill:tisk:43256",
-   "cislo": 133,
+   "tiskId": 43143,
+   "billNodeId": "bill:tisk:43143",
+   "cislo": 36,
    "origin": "mp_group",
-   "title": "Návrh poslanců Martina Kupky, Jana Skopečka, Jiřího Havránka a Vojtěcha Munzara na vydání zákona, kterým se mění zákon č. 353/2003 Sb., o spotřebních daních, ve znění pozdějších předpisů",
+   "title": "Návrh poslankyň Barbory Urbanové a Adriany Chochelové na vydání zákona, kterým se mění zákon č. 268/2025 Sb., kterým se mění zákon č. 89/2012 Sb., občanský zákoník, ve znění pozdějších předpisů, a dal",
    "amendedLaws": [
-    "353/2003"
+    "268/2025"
    ],
    "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 3968570,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "mp_group"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 101820
-  },
-  {
-   "tiskId": 43327,
-   "billNodeId": "bill:tisk:43327",
-   "cislo": 205,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Barbory Urbanové, Víta Rakušana, Karla Dvořáka, Lukáše Vlčka a Adriany Chochelové na vydání zákona, kterým se mění zákon č. 2/1969 Sb., zákon České národní rady o zřízení ministerstev a",
-   "amendedLaws": [
-    "2/1969"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 3728628.859,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
-    "Nadační fond Gymnázia Kutná Hora",
-    "PRO VYSOČINU, občanské sdružení",
-    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
-   ],
-   "triageScoreV2": 101814
-  },
-  {
-   "tiskId": 43283,
-   "billNodeId": "bill:tisk:43283",
-   "cislo": 162,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 99/1963 Sb., občanský soudní řád, ve znění pozdějších předpisů, zákon č. 549/1991 Sb., o soudních poplatcích, ve znění pozdějších předpisů, a zákon č. 82/1",
-   "amendedLaws": [
-    "549/1991",
-    "82/1998",
-    "99/1963"
-   ],
-   "amendsCount": 3,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 101500
-  },
-  {
-   "tiskId": 43313,
-   "billNodeId": "bill:tisk:43313",
-   "cislo": 192,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 257/2001 Sb., o knihovnách a podmínkách provozování veřejných knihovnických a informačních služeb (knihovní zákon), ve znění pozdějších předpisů, zákon č. ",
-   "amendedLaws": [
-    "257/2001",
-    "37/1995",
-    "46/2000"
-   ],
-   "amendsCount": 3,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 101500
-  },
-  {
-   "tiskId": 43168,
-   "billNodeId": "bill:tisk:43168",
-   "cislo": 61,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 218/2003 Sb., o odpovědnosti mládeže za protiprávní činy a o soudnictví ve věcech mládeže a o změně některých zákonů (zákon o soudnictví ve věcech mládeže)",
-   "amendedLaws": [
-    "218/2003"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 594,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 101055
-  },
-  {
-   "tiskId": 43112,
-   "billNodeId": "bill:tisk:43112",
-   "cislo": 5,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Ivana Bartoše a Olgy Richterové na vydání zákona, kterým se mění zákon č. 143/2001 Sb., o ochraně hospodářské soutěže a o změně některých zákonů (zákon o ochraně hospodářské soutěže), v",
-   "amendedLaws": [
-    "143/2001",
-    "374/2015"
-   ],
-   "amendsCount": 2,
    "maxTargetChurn": 1,
    "sponsorContractCzk": 0,
    "forensicSeverity": null,
@@ -2993,7 +4322,7 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 101000
+   "triageScoreV2": 100500
   },
   {
    "tiskId": 43149,
@@ -3002,151 +4331,7 @@
    "origin": "other",
    "title": "Návrh Zastupitelstva hlavního města Prahy na vydání zákona, kterým se mění zákon č. 465/2023 Sb., kterým se mění zákon č. 416/2009 Sb., o urychlení výstavby dopravní, vodní a energetické infrastruktur",
    "amendedLaws": [
-    "416/2009",
     "465/2023"
-   ],
-   "amendsCount": 2,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 101000
-  },
-  {
-   "tiskId": 43293,
-   "billNodeId": "bill:tisk:43293",
-   "cislo": 172,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 329/1999 Sb., o cestovních dokladech, ve znění pozdějších předpisů, zákon č. 269/2021 Sb., o občanských průkazech, ve znění pozdějších předpisů, a další so",
-   "amendedLaws": [
-    "269/2021",
-    "329/1999"
-   ],
-   "amendsCount": 2,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 101000
-  },
-  {
-   "tiskId": 43120,
-   "billNodeId": "bill:tisk:43120",
-   "cislo": 13,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 240/2013 Sb., o investičních společnostech a investičních fondech, ve znění pozdějších předpisů, a další související zákony",
-   "amendedLaws": [
-    "240/2013"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 100500
-  },
-  {
-   "tiskId": 43156,
-   "billNodeId": "bill:tisk:43156",
-   "cislo": 49,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Zdeňka Hřiba, Olgy Richterové a Kateriny Demetrashvili na vydání zákona, kterým se mění zákon č. 100/2001 Sb., o posuzování vlivů na životní prostředí a o změně některých souvisejících ",
-   "amendedLaws": [
-    "100/2001"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "mp_group"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 100500
-  },
-  {
-   "tiskId": 43166,
-   "billNodeId": "bill:tisk:43166",
-   "cislo": 59,
-   "origin": "mp_group",
-   "title": "Návrh poslankyň Pavly Pivoňky Vaňkové a Zdeňky Blišťanové na vydání zákona, kterým se mění zákon č. 468/2024 Sb., o integračním sociálním podniku",
-   "amendedLaws": [
-    "468/2024"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "mp_group"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 100500
-  },
-  {
-   "tiskId": 43171,
-   "billNodeId": "bill:tisk:43171",
-   "cislo": 64,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se v souvislosti s přijetím zákona o účetnictví mění některé zákony a zrušuje zákon č. 25/2017 Sb., o sběru vybraných údajů pro účely monitorování a řízení veřejných financ",
-   "amendedLaws": [
-    "25/2017"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 100500
-  },
-  {
-   "tiskId": 43175,
-   "billNodeId": "bill:tisk:43175",
-   "cislo": 68,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 23/2017 Sb., o pravidlech rozpočtové odpovědnosti, ve znění pozdějších předpisů, a další související zákony",
-   "amendedLaws": [
-    "23/2017"
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
@@ -3170,29 +4355,6 @@
    "title": "Vládní návrh zákona, kterým se mění zákon č. 175/2025 Sb., o poskytování některých opatření v podpoře bydlení (zákon o podpoře bydlení)",
    "amendedLaws": [
     "175/2025"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 100500
-  },
-  {
-   "tiskId": 43193,
-   "billNodeId": "bill:tisk:43193",
-   "cislo": 83,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 361/2000 Sb., o provozu na pozemních komunikacích a o změnách některých zákonů (zákon o silničním provozu), ve znění pozdějších předpisů, a další souvisejí",
-   "amendedLaws": [
-    "361/2000"
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
@@ -3278,82 +4440,13 @@
    "triageScoreV2": 100500
   },
   {
-   "tiskId": 43266,
-   "billNodeId": "bill:tisk:43266",
-   "cislo": 145,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 257/2016 Sb., o spotřebitelském úvěru, ve znění pozdějších předpisů, a další související zákony",
+   "tiskId": 43259,
+   "billNodeId": "bill:tisk:43259",
+   "cislo": 138,
+   "origin": "mp",
+   "title": "Návrh poslance Víta Rakušana na vydání zákona, kterým se mění zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou účastí státu (nominační zákon), ve znění",
    "amendedLaws": [
-    "257/2016"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 100500
-  },
-  {
-   "tiskId": 43284,
-   "billNodeId": "bill:tisk:43284",
-   "cislo": 163,
-   "origin": "government",
-   "title": "Vládní návrh zákona o regulaci cen pohonných hmot vládou a o změně zákona č. 526/1990 Sb., o cenách, ve znění pozdějších předpisů",
-   "amendedLaws": [
-    "526/1990"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 100500
-  },
-  {
-   "tiskId": 43307,
-   "billNodeId": "bill:tisk:43307",
-   "cislo": 186,
-   "origin": "other",
-   "title": "Návrh Zastupitelstva hlavního města Prahy na vydání zákona, kterým se mění zákon č. 458/2000 Sb., o podmínkách podnikání a o výkonu státní správy v energetických odvětvích a o změně některých zákonů (",
-   "amendedLaws": [
-    "458/2000"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 100500
-  },
-  {
-   "tiskId": 43311,
-   "billNodeId": "bill:tisk:43311",
-   "cislo": 190,
-   "origin": "senate",
-   "title": "Senátní návrh zákona, kterým se mění zákon č. 88/2024 Sb., o správě voleb, ve znění pozdějších předpisů, a některé další volební zákony",
-   "amendedLaws": [
-    "88/2024"
+    "353/2019"
    ],
    "amendsCount": 1,
    "maxTargetChurn": 1,
@@ -3393,120 +4486,33 @@
    "triageScoreV2": 100500
   },
   {
-   "tiskId": 43337,
-   "billNodeId": "bill:tisk:43337",
-   "cislo": 215,
+   "tiskId": 43250,
+   "billNodeId": "bill:tisk:43250",
+   "cislo": 129,
    "origin": "mp_group",
-   "title": "Návrh poslanců Kateřiny Stojanové, Samuela Volpeho, Kateriny Demetrashvili a Veroniky Kovářové na vydání zákona, kterým se mění zákon č. 150/2002 Sb., soudní řád správní, ve znění pozdějších předpisů,",
-   "amendedLaws": [
-    "150/2002"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "mp_group"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 100500
-  },
-  {
-   "tiskId": 43341,
-   "billNodeId": "bill:tisk:43341",
-   "cislo": 219,
-   "origin": "government",
-   "title": "Vládní návrh zákona o mistrovské kvalifikaci a mistrovské zkoušce a o změně zákona č. 301/1992 Sb., o Hospodářské komoře České republiky a Agrární komoře České republiky, ve znění pozdějších předpisů ",
-   "amendedLaws": [
-    "301/1992"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 100500
-  },
-  {
-   "tiskId": 43356,
-   "billNodeId": "bill:tisk:43356",
-   "cislo": 234,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 360/1992 Sb., o výkonu povolání autorizovaných architektů a o výkonu povolání autorizovaných inženýrů a techniků činných ve výstavbě (autorizační zákon), v",
-   "amendedLaws": [
-    "360/1992"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 100500
-  },
-  {
-   "tiskId": 43382,
-   "billNodeId": "bill:tisk:43382",
-   "cislo": 260,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 37/2021 Sb., o evidenci skutečných majitelů, ve znění pozdějších předpisů",
-   "amendedLaws": [
-    "37/2021"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 1,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 100500
-  },
-  {
-   "tiskId": 43117,
-   "billNodeId": "bill:tisk:43117",
-   "cislo": 10,
-   "origin": "government",
-   "title": "Vládní návrh zákona o některých podmínkách poskytování mediálních služeb a o změně některých souvisejících zákonů",
+   "title": "Návrh poslanců Jana Bureše, Martina Baxy, Karla Haase, Renáty Zajíčkové, Štěpána Slováka, Petra Sokola, Jany Černochové, Libora Hoppe, Jakuba Jandy, Petra Bendla a Jana Skopečka na vydání zákona, kter",
    "amendedLaws": [],
    "amendsCount": 0,
    "maxTargetChurn": 0,
-   "sponsorContractCzk": 174822781.92,
+   "sponsorContractCzk": 551584148.19,
    "forensicSeverity": null,
    "forensicState": null,
    "stage": "pending",
    "batch": null,
    "signal": null,
    "flags": [
+    "mp_group",
     "municipal_soe_excluded"
    ],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [
+    "Česká asociace věřitelů, z.s.",
+    "Údržba silnic Karlovarského kraje, a.s.",
+    "Chráněná dílna Ostrov, s.r.o.",
+    "Léčebné lázně Jáchymov a. s.",
+    "Vodárny a kanalizace Karlovy Vary, a.s.",
+    "Povodí Ohře, státní podnik",
     "Plzeňské městské dopravní podniky, a.s.",
     "Plzeňská filharmonie, obecně prospěšná společnost",
     "Galerie města Plzně, o.p.s.",
@@ -3514,9 +4520,16 @@
     "Techmania Science Center o.p.s.",
     "Nadace Věry a Vladimíra Janouškových",
     "Nadace 700 let města Plzně",
-    "Sdružení měst a obcí Plzeňského kraje"
+    "Sdružení měst a obcí Plzeňského kraje",
+    "Společenství vlastníků jednotek v domě čp. 2122, Na Folimance 13, Praha 2 - Vinohrady",
+    "Nadační fond Českého rozhlasu",
+    "Komwag, podnik čistoty a údržby města, a.s.",
+    "Vzdělávací centrum pro veřejnou správu ČR, o.p.s.",
+    "MERO ČR, a.s.",
+    "Svaz měst a obcí České republiky",
+    "Povodí Vltavy, státní podnik"
    ],
-   "triageScoreV2": 1649
+   "triageScoreV2": 1748
   },
   {
    "tiskId": 43197,
@@ -3558,57 +4571,15 @@
    "triageScoreV2": 1613
   },
   {
-   "tiskId": 43161,
-   "billNodeId": "bill:tisk:43161",
-   "cislo": 54,
-   "origin": "government",
-   "title": "Vládní návrh zákona o správě dat, o řízeném přístupu k datům a o změně některých souvisejících zákonů (zákon o správě dat a o řízeném přístupu k datům)",
-   "amendedLaws": [],
-   "amendsCount": 0,
-   "maxTargetChurn": 0,
-   "sponsorContractCzk": 10864254.9,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 1407
-  },
-  {
-   "tiskId": 43172,
-   "billNodeId": "bill:tisk:43172",
-   "cislo": 65,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti s úpravou vybraných agend v působnosti Digitální a informační agentury",
-   "amendedLaws": [],
-   "amendsCount": 0,
-   "maxTargetChurn": 0,
-   "sponsorContractCzk": 10864254.9,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 1407
-  },
-  {
-   "tiskId": 43183,
-   "billNodeId": "bill:tisk:43183",
-   "cislo": 76,
+   "tiskId": 43226,
+   "billNodeId": "bill:tisk:43226",
+   "cislo": 116,
    "origin": "mp_group",
-   "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státníc",
+   "title": "Návrh poslanců Zuzany Ožanové, Patrika Pařila a Renaty Vesecké na vydání zákona, kterým se zrušuje zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou úča",
    "amendedLaws": [],
    "amendsCount": 0,
    "maxTargetChurn": 0,
-   "sponsorContractCzk": 4432684.16,
+   "sponsorContractCzk": 82683361.6,
    "forensicSeverity": null,
    "forensicState": null,
    "stage": "pending",
@@ -3621,16 +4592,17 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [
-    "Vodovody a kanalizace Kroměříž, a.s."
+    "Krajská zdravotní, a.s.",
+    "Dopravní podnik města Děčína, a.s."
    ],
-   "triageScoreV2": 1329
+   "triageScoreV2": 1583
   },
   {
-   "tiskId": 43184,
-   "billNodeId": "bill:tisk:43184",
-   "cislo": 77,
+   "tiskId": 43183,
+   "billNodeId": "bill:tisk:43183",
+   "cislo": 76,
    "origin": "mp_group",
-   "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o právních poměrech státních zaměstnan",
+   "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státníc",
    "amendedLaws": [],
    "amendsCount": 0,
    "maxTargetChurn": 0,
@@ -3704,58 +4676,6 @@
    "triageScoreV2": 1314
   },
   {
-   "tiskId": 43163,
-   "billNodeId": "bill:tisk:43163",
-   "cislo": 56,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o opatřeních ke snížení nákladů na zavádění sítí elektronických komunikací s velmi vysokou kapacitou",
-   "amendedLaws": [],
-   "amendsCount": 0,
-   "maxTargetChurn": 0,
-   "sponsorContractCzk": 3728628.859,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "PRO VYSOČINU, občanské sdružení",
-    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
-   ],
-   "triageScoreV2": 1314
-  },
-  {
-   "tiskId": 43176,
-   "billNodeId": "bill:tisk:43176",
-   "cislo": 69,
-   "origin": "government",
-   "title": "Vládní návrh zákona o digitální ekonomice a o změně některých souvisejících zákonů",
-   "amendedLaws": [],
-   "amendsCount": 0,
-   "maxTargetChurn": 0,
-   "sponsorContractCzk": 3728628.859,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "PRO VYSOČINU, občanské sdružení",
-    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
-   ],
-   "triageScoreV2": 1314
-  },
-  {
    "tiskId": 43113,
    "billNodeId": "bill:tisk:43113",
    "cislo": 6,
@@ -3773,50 +4693,6 @@
    "flags": [
     "mp_group"
    ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 0
-  },
-  {
-   "tiskId": 43114,
-   "billNodeId": "bill:tisk:43114",
-   "cislo": 7,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Ivana Bartoše a Olgy Richterové na vydání zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o Úřadu pro prevenci korupce a střetu zájmů",
-   "amendedLaws": [],
-   "amendsCount": 0,
-   "maxTargetChurn": 0,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "mp_group"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 0
-  },
-  {
-   "tiskId": 43123,
-   "billNodeId": "bill:tisk:43123",
-   "cislo": 16,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti se smlouvami o finančních službách uzavíranými na dálku",
-   "amendedLaws": [],
-   "amendsCount": 0,
-   "maxTargetChurn": 0,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
@@ -3844,74 +4720,11 @@
    "triageScoreV2": 0
   },
   {
-   "tiskId": 43200,
-   "billNodeId": "bill:tisk:43200",
-   "cislo": 90,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění některé zákony v oblasti veřejných rozpočtů",
-   "amendedLaws": [],
-   "amendsCount": 0,
-   "maxTargetChurn": 0,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 0
-  },
-  {
    "tiskId": 43211,
    "billNodeId": "bill:tisk:43211",
    "cislo": 101,
    "origin": "government",
    "title": "Vládní návrh zákona o odčerpání majetku nevysvětleného původu",
-   "amendedLaws": [],
-   "amendsCount": 0,
-   "maxTargetChurn": 0,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 0
-  },
-  {
-   "tiskId": 43212,
-   "billNodeId": "bill:tisk:43212",
-   "cislo": 102,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o odčerpání majetku nevysvětleného původu",
-   "amendedLaws": [],
-   "amendsCount": 0,
-   "maxTargetChurn": 0,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 0
-  },
-  {
-   "tiskId": 43223,
-   "billNodeId": "bill:tisk:43223",
-   "cislo": 113,
-   "origin": "government",
-   "title": "Vládní návrh zákona o ekodesignu výrobků a o výkonu státní správy v oblasti ekodesignu výrobků a o změně souvisejících zákonů (zákon o ekodesignu výrobků)",
    "amendedLaws": [],
    "amendsCount": 0,
    "maxTargetChurn": 0,
@@ -3964,115 +4777,6 @@
    "batch": null,
    "signal": null,
    "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 0
-  },
-  {
-   "tiskId": 43308,
-   "billNodeId": "bill:tisk:43308",
-   "cislo": 187,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Huberta Langa, Igora Hendrycha, Jiřího Maška a Drahoslava Ryby na vydání zákona, kterým se mění některé zákony na úseku vnitřní správy",
-   "amendedLaws": [],
-   "amendsCount": 0,
-   "maxTargetChurn": 0,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "mp_group"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 0
-  },
-  {
-   "tiskId": 43310,
-   "billNodeId": "bill:tisk:43310",
-   "cislo": 189,
-   "origin": "government",
-   "title": "Vládní návrh zákona o evidenci tržeb a o změně některých dalších zákonů",
-   "amendedLaws": [],
-   "amendsCount": 0,
-   "maxTargetChurn": 0,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 0
-  },
-  {
-   "tiskId": 43335,
-   "billNodeId": "bill:tisk:43335",
-   "cislo": 213,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se s cílem dále posílit bezpečnost České republiky mění zákony upravující opatření přijatá v souvislosti s ozbrojeným konfliktem na území Ukrajiny vyvolaným invazí vojsk Ru",
-   "amendedLaws": [],
-   "amendsCount": 0,
-   "maxTargetChurn": 0,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 0
-  },
-  {
-   "tiskId": 43350,
-   "billNodeId": "bill:tisk:43350",
-   "cislo": 228,
-   "origin": "government",
-   "title": "Vládní návrh zákona o registrech ve vzdělávání a o změně některých souvisejících zákonů",
-   "amendedLaws": [],
-   "amendsCount": 0,
-   "maxTargetChurn": 0,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 0
-  },
-  {
-   "tiskId": 43372,
-   "billNodeId": "bill:tisk:43372",
-   "cislo": 250,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Drahoslava Ryby a Jiřího Bartáka na vydání zákona o standardizaci a o změně některých zákonů (zákon o standardizaci)",
-   "amendedLaws": [],
-   "amendsCount": 0,
-   "maxTargetChurn": 0,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "mp_group"
-   ],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
