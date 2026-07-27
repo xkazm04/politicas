@@ -18,6 +18,7 @@ from `docs/`.
 - [The KG stores no source URLs](memory/kg-has-no-source-urls.md) — provenance ≠ citation; official links are rebuilt from stable ids, and which registry patterns actually resolve is recorded there.
 - [Company node ids are 8-digit zero-padded IČOs](memory/ico-node-id-canonical-form.md) — an unpadded id silently duplicates a node and makes every IČO join a false negative; it already severed one ownership chain.
 - [Registr smluv needs no token](memory/registr-smluv-token-free-access.md) — per-IČO contract search is open; no structured export, Nette session pagination, aggressive 429s.
+- [OR shareholder entries mean *sole* shareholder](memory/or-shareholder-entry-semantics.md) — an a.s. shareholder is registered only when there's one; and those dates are registration, never acquisition, dates.
 
 ## Conventions & traps
 - [Token + catalog discipline](memory/token-and-catalog-discipline.md) — colors only in `globals.css` tokens (3 declared exceptions); shared catalog is a lint-enforced import boundary. Know these before fighting lint.
