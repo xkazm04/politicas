@@ -76,6 +76,23 @@ const MUNICIPAL_SOE_EXPLICIT = new Set([
   // substring (it's derived from the city name Chomutov, not the word "město"). A real gap:
   // city-name-derived adjectives aren't catchable by a generic keyword net; explicit-list only.
   "CHOMUTOVSKÁ BYTOVÁ a.s.",
+  // batch-010: the same city-name-derived-acronym gap as CHOMUTOVSKÁ, and a worse one, because
+  // this entry was ALSO mis-sectored. SOMPO, a.s. (IČO 25172263) sat in SECTOR_OVERRIDES as
+  // "economy" with the comment "insurance/finance" — it is neither. ARES gives NACE 38 and 38210
+  // (waste collection and treatment), and the company was FOUNDED IN 1997 BY 117 MEMBER
+  // MUNICIPALITIES as its shareholders, as successor to the municipal association for waste
+  // management; a "dobrovolný svazek obcí Sompo" exists to represent those 117 municipal
+  // shareholders. The ARES VR record additionally shows Město Pacov acquiring shares in the
+  // 2005–2006 capital increases, and MP Lukáš Vlček as chairman of the board since 2024-12-03.
+  //   ARES:     https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25172263
+  //   company:  https://www.sompo.cz/sompo/zakladni-informace/  (accessed 2026-07-27)
+  // So the MP's tie is a BOARD SEAT IN A MUNICIPALLY-OWNED COMPANY — exactly the class batch-001
+  // proved degenerate and this case's skill instructs excluding. Before this fix it drove 4 of
+  // the 12 sector-adjacency conflict flags (tisky 56, 69, 120, 206), all on one MP. It had not
+  // reached a public surface (sectorAdjacency lives in the ledger, not in a loader), but it was
+  // ordering the work queue via triageScoreV2 and would have become a false public conflict
+  // claim the moment anyone rendered it.
+  "SOMPO, a.s.",
 ]);
 
 export function isMunicipalOrSoe(label: string): boolean {
@@ -97,7 +114,10 @@ const SECTOR_OVERRIDES: Record<string, Sector> = {
   "ZPS holding s.r.o.": "economy", // machine-tool manufacturing
   "NEXNET, a.s.": "digital", // telecom/fibre infrastructure
   "IMOBA, a.s.": "economy", // real estate
-  "SOMPO, a.s.": "economy", // insurance/finance
+  // SOMPO, a.s. is NOT in this map any more — it is municipally owned and now sits in
+  // MUNICIPAL_SOE_EXPLICIT above, where isMunicipalOrSoe() short-circuits before sectorOf() is
+  // reached. Recorded here because the entry that was here read `"economy", // insurance/finance`
+  // and was simply wrong on the facts (ARES: NACE 38/38210, waste collection and treatment).
   "ČSOB Pojišťovna, a. s., člen holdingu ČSOB": "economy", // private insurer (name contains "pojišťovna" but NOT the public VZP one)
   "COMBIN BOHEMIA spol. s r.o.": "economy", // construction
   "Energie - stavební a báňská a.s.": "environment", // construction/mining/energy

@@ -28,6 +28,10 @@ import { computeTriage, type PriorRow, type TriageRow } from "./triage-core";
 
 const LEDGER = "docs/data-analysis/case-law/ledger.json";
 const WRITE = process.argv.includes("--write");
+/** Which batch is re-running this, for the ledger's `source` provenance line. The script itself
+ * is batch-agnostic — it is the merge-preserving re-triage, reused by every later batch rather
+ * than copied into a new `*-NNN.ts` (the copy-drift class batch-008 named). */
+const BATCH = (process.argv.find((a) => a.startsWith("--batch=")) ?? "--batch=009").slice(8);
 
 interface Ledger {
   totals: Record<string, unknown>;
@@ -107,7 +111,7 @@ async function main() {
   const next: Ledger = {
     ...prior,
     generatedAt: new Date().toISOString(),
-    source: "PGLITE_PATH copy of the LIVE graph (read-only) — batch-009 re-triage",
+    source: `PGLITE_PATH copy of the LIVE graph (read-only) — batch-${BATCH} re-triage`,
     totals: { ...prior.totals, ...counts },
     rows,
   };

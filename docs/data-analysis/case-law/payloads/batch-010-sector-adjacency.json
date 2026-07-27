@@ -1,0 +1,404 @@
+{
+ "generatedAt": "2026-07-27T11:26:00.061Z",
+ "finding": "The union-based sector-adjacency test is degenerate on high-amends bills. Mean domains matched rises 0.73 → 8.25 (of 10) from the 0-amends bucket to the 16+ bucket, while a title-only measure stays flat at ~0.6–0.75 across every bucket — so the growth is the union's breadth, not the bills' subject matter. tisk 77 matches 9 of 10 sectors and tisk 67 matches 8; at that width any sponsor company matches. The whole 5 → 12 rise the batch-009 re-triage reported is this artifact, not new conflict.",
+ "fix": "Attribution: a sponsor company's sector must be carried by a NAMED amended law's own label (or by the bill's own title), not merely appear somewhere in the union. Every surviving flag can state which law puts the sponsor in the bill's path.",
+ "scope": "This is the law-level increment of the §-level rework deferred since batch-004. It does not reach individual §s — that still needs an amended-§ census — but it removes the inflation and makes each flag checkable.",
+ "counts": {
+  "unionFlagged": 8,
+  "attributedFlagged": 8,
+  "survived": 8,
+  "dropped": 0,
+  "gained": 0
+ },
+ "inflationByAmendsBucket": [
+  {
+   "bucket": "3-5",
+   "bills": 29,
+   "meanUnionDomains": 1.66,
+   "meanTitleDomains": 0.62
+  },
+  {
+   "bucket": "1-2",
+   "bills": 78,
+   "meanUnionDomains": 0.76,
+   "meanTitleDomains": 0.56
+  },
+  {
+   "bucket": "0",
+   "bills": 11,
+   "meanUnionDomains": 0.73,
+   "meanTitleDomains": 0.73
+  },
+  {
+   "bucket": "16+",
+   "bills": 4,
+   "meanUnionDomains": 8.25,
+   "meanTitleDomains": 0.75
+  },
+  {
+   "bucket": "6-15",
+   "bills": 19,
+   "meanUnionDomains": 3.05,
+   "meanTitleDomains": 0.68
+  }
+ ],
+ "bills": [
+  {
+   "cislo": 11,
+   "title": "Návrh poslanců Aleny Schillerové, Andreje Babiše, Tomia Okamury, Petra Macinky, Aleše Juchelky, Karla Havlíčka, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 5",
+   "amendsCount": 1,
+   "unionDomainCount": 2,
+   "titleDomainCount": 0,
+   "oldAdjacency": true,
+   "newAdjacency": true,
+   "attributed": [
+    {
+     "company": "IF Holding a.s.",
+     "sector": "economy",
+     "sponsor": "Radim Fiala",
+     "viaLaw": {
+      "ref": "589/1992",
+      "title": "zákon č. 589/1992 Sb. — Zákon České národní rady o pojistném na sociální zabezpečení a příspěvku na státní politiku zaměstnanosti"
+     }
+    },
+    {
+     "company": "IF FACILITY a.s.",
+     "sector": "economy",
+     "sponsor": "Radim Fiala",
+     "viaLaw": {
+      "ref": "589/1992",
+      "title": "zákon č. 589/1992 Sb. — Zákon České národní rady o pojistném na sociální zabezpečení a příspěvku na státní politiku zaměstnanosti"
+     }
+    },
+    {
+     "company": "Hartenberg Holding, s.r.o.",
+     "sector": "economy",
+     "sponsor": "Andrej Babiš",
+     "viaLaw": {
+      "ref": "589/1992",
+      "title": "zákon č. 589/1992 Sb. — Zákon České národní rady o pojistném na sociální zabezpečení a příspěvku na státní politiku zaměstnanosti"
+     }
+    },
+    {
+     "company": "IMOBA, a.s.",
+     "sector": "economy",
+     "sponsor": "Andrej Babiš",
+     "viaLaw": {
+      "ref": "589/1992",
+      "title": "zákon č. 589/1992 Sb. — Zákon České národní rady o pojistném na sociální zabezpečení a příspěvku na státní politiku zaměstnanosti"
+     }
+    }
+   ],
+   "droppedTies": []
+  },
+  {
+   "cislo": 67,
+   "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+   "amendsCount": 42,
+   "unionDomainCount": 8,
+   "titleDomainCount": 0,
+   "oldAdjacency": true,
+   "newAdjacency": true,
+   "attributed": [
+    {
+     "company": "Hartenberg Holding, s.r.o.",
+     "sector": "economy",
+     "sponsor": "Andrej Babiš",
+     "viaLaw": {
+      "ref": "235/2004",
+      "title": "zákon č. 235/2004 Sb. — Zákon o dani z přidané hodnoty"
+     }
+    },
+    {
+     "company": "CS CABOT, spol. s r.o.",
+     "sector": "environment",
+     "sponsor": "Andrej Babiš",
+     "viaLaw": {
+      "ref": "100/2001",
+      "title": "zákon č. 100/2001 Sb. — Zákon o posuzování vlivů na životní prostředí a o změně některých souvisejících zákonů (zákon o posuzování vlivů na živo"
+     }
+    },
+    {
+     "company": "SynBiol, a.s.",
+     "sector": "health",
+     "sponsor": "Andrej Babiš",
+     "viaLaw": {
+      "ref": "258/2000",
+      "title": "zákon č. 258/2000 Sb. — Zákon o ochraně veřejného zdraví a o změně některých souvisejících zákonů"
+     }
+    },
+    {
+     "company": "IMOBA, a.s.",
+     "sector": "economy",
+     "sponsor": "Andrej Babiš",
+     "viaLaw": {
+      "ref": "235/2004",
+      "title": "zákon č. 235/2004 Sb. — Zákon o dani z přidané hodnoty"
+     }
+    },
+    {
+     "company": "AGROFERT, a.s.",
+     "sector": "agriculture",
+     "sponsor": "Andrej Babiš",
+     "viaLaw": {
+      "ref": "139/2002",
+      "title": "zákon č. 139/2002 Sb. — Zákon o pozemkových úpravách a pozemkových úřadech a o změně zákona č. 229/1991 Sb., o úpravě vlastnických vztahů k půdě"
+     }
+    },
+    {
+     "company": "PRECHEZA a.s.",
+     "sector": "environment",
+     "sponsor": "Andrej Babiš",
+     "viaLaw": {
+      "ref": "100/2001",
+      "title": "zákon č. 100/2001 Sb. — Zákon o posuzování vlivů na životní prostředí a o změně některých souvisejících zákonů (zákon o posuzování vlivů na živo"
+     }
+    },
+    {
+     "company": "Fatra, a.s.",
+     "sector": "environment",
+     "sponsor": "Andrej Babiš",
+     "viaLaw": {
+      "ref": "100/2001",
+      "title": "zákon č. 100/2001 Sb. — Zákon o posuzování vlivů na životní prostředí a o změně některých souvisejících zákonů (zákon o posuzování vlivů na živo"
+     }
+    },
+    {
+     "company": "Kostelecké uzeniny a.s.",
+     "sector": "agriculture",
+     "sponsor": "Andrej Babiš",
+     "viaLaw": {
+      "ref": "139/2002",
+      "title": "zákon č. 139/2002 Sb. — Zákon o pozemkových úpravách a pozemkových úřadech a o změně zákona č. 229/1991 Sb., o úpravě vlastnických vztahů k půdě"
+     }
+    },
+    {
+     "company": "AGROPROFIT, spol. s r.o.",
+     "sector": "agriculture",
+     "sponsor": "Andrej Babiš",
+     "viaLaw": {
+      "ref": "139/2002",
+      "title": "zákon č. 139/2002 Sb. — Zákon o pozemkových úpravách a pozemkových úřadech a o změně zákona č. 229/1991 Sb., o úpravě vlastnických vztahů k půdě"
+     }
+    },
+    {
+     "company": "Lovochemie, a.s.",
+     "sector": "agriculture",
+     "sponsor": "Andrej Babiš",
+     "viaLaw": {
+      "ref": "139/2002",
+      "title": "zákon č. 139/2002 Sb. — Zákon o pozemkových úpravách a pozemkových úřadech a o změně zákona č. 229/1991 Sb., o úpravě vlastnických vztahů k půdě"
+     }
+    },
+    {
+     "company": "Synthesia, a.s.",
+     "sector": "environment",
+     "sponsor": "Andrej Babiš",
+     "viaLaw": {
+      "ref": "100/2001",
+      "title": "zákon č. 100/2001 Sb. — Zákon o posuzování vlivů na životní prostředí a o změně některých souvisejících zákonů (zákon o posuzování vlivů na živo"
+     }
+    },
+    {
+     "company": "AGRONOVA CS s.r.o.",
+     "sector": "agriculture",
+     "sponsor": "Andrej Babiš",
+     "viaLaw": {
+      "ref": "139/2002",
+      "title": "zákon č. 139/2002 Sb. — Zákon o pozemkových úpravách a pozemkových úřadech a o změně zákona č. 229/1991 Sb., o úpravě vlastnických vztahů k půdě"
+     }
+    },
+    {
+     "company": "IF Holding a.s.",
+     "sector": "economy",
+     "sponsor": "Radim Fiala",
+     "viaLaw": {
+      "ref": "235/2004",
+      "title": "zákon č. 235/2004 Sb. — Zákon o dani z přidané hodnoty"
+     }
+    },
+    {
+     "company": "IF FACILITY a.s.",
+     "sector": "economy",
+     "sponsor": "Radim Fiala",
+     "viaLaw": {
+      "ref": "235/2004",
+      "title": "zákon č. 235/2004 Sb. — Zákon o dani z přidané hodnoty"
+     }
+    }
+   ],
+   "droppedTies": []
+  },
+  {
+   "cislo": 77,
+   "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o právních poměrech státních zaměstnan",
+   "amendsCount": 24,
+   "unionDomainCount": 9,
+   "titleDomainCount": 2,
+   "oldAdjacency": true,
+   "newAdjacency": true,
+   "attributed": [
+    {
+     "company": "NEXNET, a.s.",
+     "sector": "digital",
+     "sponsor": "Radek Vondráček",
+     "viaLaw": {
+      "ref": "12/2020",
+      "title": "zákon č. 12/2020 Sb. — Zákon o právu na digitální služby a o změně některých zákonů"
+     }
+    },
+    {
+     "company": "MAE invest a.s.",
+     "sector": "economy",
+     "sponsor": "Radek Vondráček",
+     "viaLaw": {
+      "ref": "187/2006",
+      "title": "zákon č. 187/2006 Sb. — Zákon o nemocenském pojištění"
+     }
+    }
+   ],
+   "droppedTies": []
+  },
+  {
+   "cislo": 103,
+   "title": "Návrh poslanců Jana Bureše, Karla Haase, Renáty Zajíčkové, Štěpána Slováka, Petra Sokola, Jany Černochové, Libora Hoppe, Jakuba Jandy, Petra Bendla a Jana Skopečka na vydání zákona, kterým se mění zák",
+   "amendsCount": 6,
+   "unionDomainCount": 4,
+   "titleDomainCount": 0,
+   "oldAdjacency": true,
+   "newAdjacency": true,
+   "attributed": [
+    {
+     "company": "ZPS holding s.r.o.",
+     "sector": "economy",
+     "sponsor": "Jan Bureš",
+     "viaLaw": {
+      "ref": "155/1995",
+      "title": "zákon č. 155/1995 Sb. — Zákon o důchodovém pojištění"
+     }
+    },
+    {
+     "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+     "sector": "economy",
+     "sponsor": "Karel Haas",
+     "viaLaw": {
+      "ref": "155/1995",
+      "title": "zákon č. 155/1995 Sb. — Zákon o důchodovém pojištění"
+     }
+    }
+   ],
+   "droppedTies": []
+  },
+  {
+   "cislo": 121,
+   "title": "Návrh poslanců Mariana Jurečky, Moniky Brzeskové, Toma Philippa, Marka Výborného a dalších na vydání zákona, kterým se mění zákon č. 586/1992 Sb., o daních z příjmů, ve znění pozdějších předpisů, záko",
+   "amendsCount": 3,
+   "unionDomainCount": 3,
+   "titleDomainCount": 1,
+   "oldAdjacency": true,
+   "newAdjacency": true,
+   "attributed": [
+    {
+     "company": "Teleky Medicus s.r.o.",
+     "sector": "health",
+     "sponsor": "Róbert Teleky",
+     "viaLaw": {
+      "ref": "187/2006",
+      "title": "zákon č. 187/2006 Sb. — Zákon o nemocenském pojištění"
+     }
+    }
+   ],
+   "droppedTies": []
+  },
+  {
+   "cislo": 154,
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 297/2016 Sb., o službách vytvářejících důvěru pro elektronické transakce, ve znění pozdějších předpisů, zákon č. 250/2017 Sb., o elektronické identifikaci,",
+   "amendsCount": 3,
+   "unionDomainCount": 2,
+   "titleDomainCount": 1,
+   "oldAdjacency": true,
+   "newAdjacency": true,
+   "attributed": [
+    {
+     "company": "Hartenberg Holding, s.r.o.",
+     "sector": "economy",
+     "sponsor": "Andrej Babiš",
+     "viaLaw": {
+      "ref": "634/2004",
+      "title": "zákon č. 634/2004 Sb. — Zákon o správních poplatcích"
+     }
+    },
+    {
+     "company": "IMOBA, a.s.",
+     "sector": "economy",
+     "sponsor": "Andrej Babiš",
+     "viaLaw": {
+      "ref": "634/2004",
+      "title": "zákon č. 634/2004 Sb. — Zákon o správních poplatcích"
+     }
+    }
+   ],
+   "droppedTies": []
+  },
+  {
+   "cislo": 201,
+   "title": "Návrh poslanců Patrika Nachera, Tomia Okamury, Taťány Malé, Radima Fialy, Filipa Turka, Barbory Rázgy a Martina Kolovratníka na vydání zákona, kterým se mění zákon č. 348/2005 Sb., o rozhlasových a te",
+   "amendsCount": 1,
+   "unionDomainCount": 1,
+   "titleDomainCount": 0,
+   "oldAdjacency": true,
+   "newAdjacency": true,
+   "attributed": [
+    {
+     "company": "IF Holding a.s.",
+     "sector": "economy",
+     "sponsor": "Radim Fiala",
+     "viaLaw": {
+      "ref": "348/2005",
+      "title": "zákon č. 348/2005 Sb. — Zákon o rozhlasových a televizních poplatcích a o změně některých zákonů"
+     }
+    },
+    {
+     "company": "IF FACILITY a.s.",
+     "sector": "economy",
+     "sponsor": "Radim Fiala",
+     "viaLaw": {
+      "ref": "348/2005",
+      "title": "zákon č. 348/2005 Sb. — Zákon o rozhlasových a televizních poplatcích a o změně některých zákonů"
+     }
+    }
+   ],
+   "droppedTies": []
+  },
+  {
+   "cislo": 221,
+   "title": "Návrh poslanců Radka Vondráčka, Davida Pražáka, Marie Pošarové a Filipa Turka na vydání zákona, kterým se mění zákon č. 159/2006 Sb., o střetu zájmů, ve znění pozdějších předpisů, a další související ",
+   "amendsCount": 6,
+   "unionDomainCount": 2,
+   "titleDomainCount": 0,
+   "oldAdjacency": true,
+   "newAdjacency": true,
+   "attributed": [
+    {
+     "company": "MAE invest a.s.",
+     "sector": "economy",
+     "sponsor": "Radek Vondráček",
+     "viaLaw": {
+      "ref": "218/2000",
+      "title": "zákon č. 218/2000 Sb. — Zákon o rozpočtových pravidlech a o změně některých souvisejících zákonů (rozpočtová pravidla)"
+     }
+    },
+    {
+     "company": "AGROCENTRUM JIZERAN a.s.",
+     "sector": "agriculture",
+     "sponsor": "David Pražák",
+     "viaLaw": {
+      "ref": "252/1997",
+      "title": "zákon č. 252/1997 Sb. — Zákon o zemědělství"
+     }
+    }
+   ],
+   "droppedTies": []
+  }
+ ]
+}

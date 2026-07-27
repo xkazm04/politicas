@@ -1,14 +1,14 @@
 {
  "case": "law",
- "generatedAt": "2026-07-27T09:42:00.741Z",
- "source": "PGLITE_PATH copy of the LIVE graph (read-only) — batch-009 re-triage",
+ "generatedAt": "2026-07-27T11:26:16.722Z",
+ "source": "PGLITE_PATH copy of the LIVE graph (read-only) — batch-010 re-triage",
  "batch002TriagePolicy": "churn PRIMARY, sector-adjacency SECONDARY (company-sectors.ts heuristic, excludes municipal/SOE), money log-scaled TERTIARY, amends quaternary",
  "totals": {
   "bills": 141,
   "laws": 288,
   "amends": 577,
   "assignedTo": 150,
-  "sectorAdjacencyHits": 12,
+  "sectorAdjacencyHits": 8,
   "municipalSoeExcludedBills": 60,
   "existingForensic": 27,
   "collisionCandidateGroups": 150,
@@ -259,6 +259,19 @@
     "prioritisation": "batch-009-collision-sweep.json carries per-pair genuineParagraphs and an odstavecOverlap flag (64 of 83 escalated pairs) so the next read starts with same-odstavec candidates rather than an unordered list.",
     "note": "Disclosed, not dropped. The escalated set is genuine co-touch by deterministic evidence; it needs reading, not filtering."
    }
+  },
+  "batch010SectorAdjacency": {
+   "status": "AUDITED — the signal survives, but one company in it was wrong and drove a third of the flags",
+   "trigger": "The batch-009 re-triage reported sectorAdjacencyHits 5 -> 12. That doubling came with the amends topology growing, which is mechanically suspicious, so it was tested before any verdict was written on it.",
+   "hypothesisTested": "That the union domain hay (bill title + EVERY amended law ref and label) inflates with amends count and fires on anything.",
+   "inflationConfirmed": "Real as a phenomenon: mean domains matched rises 0.73 -> 8.25 of 10 from the 0-amends bucket to the 16+ bucket, while a title-only measure stays flat at ~0.6-0.75. tisk 77 matches 9 of 10 sectors, tisk 67 matches 8.",
+   "hypothesisFalsified": "But it does NOT drive the flags. Re-scoring with ATTRIBUTION (the sponsor company sector must be carried by a NAMED amended law own label, not merely appear in the union) dropped 0 of 12 — every flag had an attributable law. The sector buckets are also not degenerate: economy matches 15% of the 288 law nodes, every other bucket 1-11%, and 47% of laws match none. Recorded as a null for the hypothesis.",
+   "realDefectFound": "SOMPO, a.s. (ICO 25172263) was classified economy with the comment insurance/finance. ARES gives NACE 38 and 38210 - waste collection and treatment - and the company was founded in 1997 by 117 MEMBER MUNICIPALITIES as shareholders. MP Lukas Vlcek chairs its board (ARES VR, since 2024-12-03). It is a municipal/SOE board role, the class batch-001 proved degenerate and this skill instructs excluding.",
+   "impact": "Moved to MUNICIPAL_SOE_EXPLICIT. sectorAdjacencyHits 12 -> 8; four false conflict flags removed (tisky 56, 69, 120, 206), all four on the SAME MP.",
+   "exposure": "NOT public. sectorAdjacency lives in the ledger, not in any loader, so no false conflict claim reached a reader. It was ordering the work queue via triageScoreV2 and would have become a public claim the moment anyone rendered it.",
+   "inversionWorthRecording": "tisk 120 published forensic verdict ALREADY described SOMPO correctly as \"drobne spolecnosti typu mestskych/komunalnich\". The analyst prose was right and the deterministic classifier was wrong - the opposite of this case usual failure direction, where code is right and prose overclaims.",
+   "attributionKept": "The attributed computation ships anyway (sector-adjacency-010.ts): each surviving flag can now name WHICH amended law puts the sponsor in the bill path, which makes the claim checkable instead of unfalsifiable. This is the law-level increment of the section-level rework deferred since batch-004; it does not reach individual sections.",
+   "remainingSurvivors": 8
   }
  },
  "rows": [
@@ -513,48 +526,6 @@
    "triageScoreV2": 5953446
   },
   {
-   "tiskId": 43237,
-   "billNodeId": "bill:tisk:43237",
-   "cislo": 120,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Lucie Sedmihradské, Jana Papajanovského, Věry Kovářové, Matěje Hlavatého, Jakuba Krainera, Pavly Pivoňky Vaňkové, Víta Rakušana, Julie Smejkalové, Lukáše Vlčka, Jana Berkiho, Elišky Olš",
-   "amendedLaws": [
-    "586/1992"
-   ],
-   "amendsCount": 1,
-   "maxTargetChurn": 9,
-   "sponsorContractCzk": 235543222.2,
-   "forensicSeverity": "low",
-   "forensicState": "pending_review",
-   "stage": "verdict",
-   "batch": 1,
-   "signal": 2,
-   "verdictFile": "payloads/verdicts/verdict-120.json",
-   "forensicConfidence": 4,
-   "flags": [
-    "sector_adjacent_conflict",
-    "high_churn_target",
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": true,
-   "sectorAdjacentCompanies": [
-    {
-     "company": "SOMPO, a.s.",
-     "sector": "economy",
-     "sponsor": "Lukáš Vlček"
-    }
-   ],
-   "municipalExcludedCompanies": [
-    "ČEPRO, a.s.",
-    "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
-    "Nadační fond Gymnázia Kutná Hora",
-    "PRO VYSOČINU, občanské sdružení",
-    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
-   ],
-   "triageScoreV2": 5952174
-  },
-  {
    "tiskId": 43230,
    "billNodeId": "bill:tisk:43230",
    "cislo": 119,
@@ -618,6 +589,42 @@
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
    "triageScoreV2": 5902500
+  },
+  {
+   "tiskId": 43237,
+   "billNodeId": "bill:tisk:43237",
+   "cislo": 120,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Lucie Sedmihradské, Jana Papajanovského, Věry Kovářové, Matěje Hlavatého, Jakuba Krainera, Pavly Pivoňky Vaňkové, Víta Rakušana, Julie Smejkalové, Lukáše Vlčka, Jana Berkiho, Elišky Olš",
+   "amendedLaws": [
+    "586/1992"
+   ],
+   "amendsCount": 1,
+   "maxTargetChurn": 9,
+   "sponsorContractCzk": 235543222.2,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 1,
+   "signal": 2,
+   "verdictFile": "payloads/verdicts/verdict-120.json",
+   "forensicConfidence": 4,
+   "flags": [
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "ČEPRO, a.s.",
+    "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
+    "Nadační fond Gymnázia Kutná Hora",
+    "SOMPO, a.s.",
+    "PRO VYSOČINU, občanské sdružení",
+    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
+   ],
+   "triageScoreV2": 5902174
   },
   {
    "tiskId": 43366,
@@ -1015,6 +1022,7 @@
    "municipalExcludedCompanies": [
     "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
     "Nadační fond Gymnázia Kutná Hora",
+    "SOMPO, a.s.",
     "PRO VYSOČINU, občanské sdružení",
     "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov",
     "ČEPRO, a.s."
@@ -1742,87 +1750,6 @@
    "triageScoreV2": 763329
   },
   {
-   "tiskId": 43176,
-   "billNodeId": "bill:tisk:43176",
-   "cislo": 69,
-   "origin": "government",
-   "title": "Vládní návrh zákona o digitální ekonomice a o změně některých souvisejících zákonů",
-   "amendedLaws": [
-    "121/2000",
-    "141/1961",
-    "292/2013",
-    "634/1992",
-    "634/2004",
-    "89/2012"
-   ],
-   "amendsCount": 6,
-   "maxTargetChurn": 7,
-   "sponsorContractCzk": 3728628.859,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "sector_adjacent_conflict",
-    "high_churn_target",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": true,
-   "sectorAdjacentCompanies": [
-    {
-     "company": "SOMPO, a.s.",
-     "sector": "economy",
-     "sponsor": "Lukáš Vlček"
-    }
-   ],
-   "municipalExcludedCompanies": [
-    "PRO VYSOČINU, občanské sdružení",
-    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
-   ],
-   "triageScoreV2": 754314
-  },
-  {
-   "tiskId": 43163,
-   "billNodeId": "bill:tisk:43163",
-   "cislo": 56,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o opatřeních ke snížení nákladů na zavádění sítí elektronických komunikací s velmi vysokou kapacitou",
-   "amendedLaws": [
-    "127/2005",
-    "200/1994",
-    "283/2021",
-    "416/2009",
-    "634/2004"
-   ],
-   "amendsCount": 5,
-   "maxTargetChurn": 7,
-   "sponsorContractCzk": 3728628.859,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "sector_adjacent_conflict",
-    "high_churn_target",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": true,
-   "sectorAdjacentCompanies": [
-    {
-     "company": "SOMPO, a.s.",
-     "sector": "economy",
-     "sponsor": "Lukáš Vlček"
-    }
-   ],
-   "municipalExcludedCompanies": [
-    "PRO VYSOČINU, občanské sdružení",
-    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
-   ],
-   "triageScoreV2": 753814
-  },
-  {
    "tiskId": 43275,
    "billNodeId": "bill:tisk:43275",
    "cislo": 154,
@@ -1933,6 +1860,75 @@
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
    "triageScoreV2": 705500
+  },
+  {
+   "tiskId": 43176,
+   "billNodeId": "bill:tisk:43176",
+   "cislo": 69,
+   "origin": "government",
+   "title": "Vládní návrh zákona o digitální ekonomice a o změně některých souvisejících zákonů",
+   "amendedLaws": [
+    "121/2000",
+    "141/1961",
+    "292/2013",
+    "634/1992",
+    "634/2004",
+    "89/2012"
+   ],
+   "amendsCount": 6,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 3728628.859,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "SOMPO, a.s.",
+    "PRO VYSOČINU, občanské sdružení",
+    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
+   ],
+   "triageScoreV2": 704314
+  },
+  {
+   "tiskId": 43163,
+   "billNodeId": "bill:tisk:43163",
+   "cislo": 56,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o opatřeních ke snížení nákladů na zavádění sítí elektronických komunikací s velmi vysokou kapacitou",
+   "amendedLaws": [
+    "127/2005",
+    "200/1994",
+    "283/2021",
+    "416/2009",
+    "634/2004"
+   ],
+   "amendsCount": 5,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 3728628.859,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "SOMPO, a.s.",
+    "PRO VYSOČINU, občanské sdružení",
+    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
+   ],
+   "triageScoreV2": 703814
   },
   {
    "tiskId": 43117,
@@ -2147,6 +2143,7 @@
    "municipalExcludedCompanies": [
     "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
     "Nadační fond Gymnázia Kutná Hora",
+    "SOMPO, a.s.",
     "PRO VYSOČINU, občanské sdružení",
     "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
    ],
@@ -2257,49 +2254,6 @@
    "triageScoreV2": 654560
   },
   {
-   "tiskId": 43328,
-   "billNodeId": "bill:tisk:43328",
-   "cislo": 206,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Víta Rakušana, Karla Dvořáka a Lukáše Vlčka na vydání zákona, kterým se mění zákon č. 134/2016 Sb., o zadávání veřejných zakázek, ve znění pozdějších předpisů, a některé další zákony v ",
-   "amendedLaws": [
-    "134/2016",
-    "166/1993",
-    "194/2010",
-    "273/1996",
-    "549/1991"
-   ],
-   "amendsCount": 5,
-   "maxTargetChurn": 6,
-   "sponsorContractCzk": 3728628.859,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
-   "signal": null,
-   "flags": [
-    "sector_adjacent_conflict",
-    "high_churn_target",
-    "mp_group",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": true,
-   "sectorAdjacentCompanies": [
-    {
-     "company": "SOMPO, a.s.",
-     "sector": "economy",
-     "sponsor": "Lukáš Vlček"
-    }
-   ],
-   "municipalExcludedCompanies": [
-    "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
-    "Nadační fond Gymnázia Kutná Hora",
-    "PRO VYSOČINU, občanské sdružení",
-    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
-   ],
-   "triageScoreV2": 653814
-  },
-  {
    "tiskId": 43200,
    "billNodeId": "bill:tisk:43200",
    "cislo": 90,
@@ -2363,6 +2317,43 @@
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
    "triageScoreV2": 604000
+  },
+  {
+   "tiskId": 43328,
+   "billNodeId": "bill:tisk:43328",
+   "cislo": 206,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Víta Rakušana, Karla Dvořáka a Lukáše Vlčka na vydání zákona, kterým se mění zákon č. 134/2016 Sb., o zadávání veřejných zakázek, ve znění pozdějších předpisů, a některé další zákony v ",
+   "amendedLaws": [
+    "134/2016",
+    "166/1993",
+    "194/2010",
+    "273/1996",
+    "549/1991"
+   ],
+   "amendsCount": 5,
+   "maxTargetChurn": 6,
+   "sponsorContractCzk": 3728628.859,
+   "forensicSeverity": null,
+   "forensicState": null,
+   "stage": "pending",
+   "batch": null,
+   "signal": null,
+   "flags": [
+    "high_churn_target",
+    "mp_group",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
+    "Nadační fond Gymnázia Kutná Hora",
+    "SOMPO, a.s.",
+    "PRO VYSOČINU, občanské sdružení",
+    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
+   ],
+   "triageScoreV2": 603814
   },
   {
    "tiskId": 43180,
@@ -2458,6 +2449,7 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [
+    "SOMPO, a.s.",
     "PRO VYSOČINU, občanské sdružení",
     "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
    ],
@@ -2513,6 +2505,7 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [
+    "SOMPO, a.s.",
     "PRO VYSOČINU, občanské sdružení",
     "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
    ],
@@ -3401,6 +3394,7 @@
    "municipalExcludedCompanies": [
     "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
     "Nadační fond Gymnázia Kutná Hora",
+    "SOMPO, a.s.",
     "PRO VYSOČINU, občanské sdružení",
     "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
    ],
@@ -4701,6 +4695,7 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [
+    "SOMPO, a.s.",
     "PRO VYSOČINU, občanské sdružení",
     "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
    ],
@@ -4727,6 +4722,7 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [
+    "SOMPO, a.s.",
     "PRO VYSOČINU, občanské sdružení",
     "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
    ],
