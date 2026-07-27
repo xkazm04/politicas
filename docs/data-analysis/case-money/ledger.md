@@ -606,3 +606,89 @@ Registr smluv client build).
 7. **Manifestation debt, standing**: the `owns_stake` layer (33 edges, 24
    parents) has **no surface at all**. Worth building only after item 1 gives it
    something a reader would care about.
+
+### Batch 010 — the clean-hands class, and the registration the graph missed (2026-07-27)
+
+Sibling law/effort sessions concurrent. Driver Opus; **the conditional
+top-signal Opus verification trigger — armed since batch 002 — fired for the
+first time.**
+
+- **Steering item 1 done: the un-queried population was enumerated and swept.**
+  `supplies` covered only the 149 companies the money feed happened to query.
+  Of the 63 never-queried queryable companies, **46 are MP-tied**, split
+  owner-operator 18 · manager 5 · steward 23. **All 18 owner-operator companies
+  — the entire class where money could actually reach an MP — hold ZERO
+  published public contracts** (18/18 answered). The manager class: 4/5 answered,
+  also zero; Teplárny Brno UNMEASURED (429), never recorded as zero. This is the
+  strongest non-partisan result the case has produced, and it only became
+  sayable once someone asked. Bound by: Registr smluv starts in 2016, and
+  `party_idnum` matches either party.
+- **Steering item 2 done: `lib/analysis/public-body.ts` (15 tests) replaces the
+  name-based public-body test with an ownership-based one** — own `pravniForma`,
+  then CURRENT shareholders from ARES VR (`akcionari` AND `spolecnici`, P35).
+  **An unrecognised legal-form code returns `unknown`, never `private`**; the
+  tables are explicit allowlists with each public code verified against a named
+  subject, because ARES's own číselník endpoint serves only a 16-item fragment.
+  Run over the batch-009 leads it reproduces the manual judgement: Zdravotnický
+  holding KHK is **publicly-owned** (akcionář Královéhradecký kraj), so its
+  1 088 489 502 CZK is removed from attribution; the other three are private
+  leads.
+- **Q-money-20 (NEW, high signal): the graph's Babiš↔AGROFERT record was a
+  decade stale.** It held only *předseda představenstva 2000-07-01 → 2014-01-22*
+  and missed a **`jediný akcionář` registration inside the current parliamentary
+  term — 2025-10-15 to 2026-02-20**. The Opus pass (ARES VR + or.justice.cz
+  úplný výpis + two notarial deeds from the sbírka listin) returned **PARTIAL**
+  and corrected four material defects: registry dates are **not** legal-effect
+  dates so the acquisition date is NOT established; the field is *Jediný
+  akcionář* per § 48(1)(k) zák. 304/2013 Sb., making the true claim **stronger**
+  than the driver's; Wilfried Reinhard Elbs (registered since 2026-02-20) is a
+  **svěřenský správce of RSVP TRUST, not an owner**; and "sitting MP" was the
+  legally weaker frame — psp.cz records **předseda vlády od 2025-12-09**, and
+  §§ 4b/4c zák. 159/2006 Sb. attach to a member of government. Persisted as a
+  props-merge with `tie_class_review_needed` — a sole-shareholder period would
+  reclassify the tie `owner-operator`, and that decision belongs to the human
+  reviewer. Explicitly NOT claimed: the unexplained 2024-12-02 → 2025-10-15 gap,
+  and RSVP TRUST's founder/beneficiaries (esf.justice.cz 404).
+- **Q-money-19 corrected**: the two unresolvable AGROFERT IČOs are **not an
+  anomaly** — both merged into 26185610 (25130072 on 2004-08-31; 60197773 with
+  AGROPROFIT on 2005-06-30). A reading trap was recorded: the successor entity
+  itself bore the name "AGROFERT HOLDING, a.s." 2004-08-31 → 2013-10-01.
+- **No `review_state` touched — 211 ties remain `pending_review`.** Live writes
+  at **pass 39** (37/38 were taken by siblings mid-batch; the pass number was
+  checked immediately before stamping — batch 009's lesson held).
+
+## Metrics block — batch 010
+
+| metric | batch 010 |
+|---|---|
+| un-queried companies enumerated | 63 queryable (46 MP-tied) of 214 |
+| owner-operator companies swept | **18 / 18 answered · 0 with public contracts** |
+| manager companies swept | 4 / 5 answered · 0 with contracts · 1 UNMEASURED |
+| new shared module | `lib/analysis/public-body.ts` — ownership-based attribution test, 15 tests |
+| CZK removed from attribution by the new classifier | **1 088 489 502** (Zdravotnický holding KHK — publicly owned) |
+| Opus top-signal trigger | **fired (first time since armed in batch 002)** |
+| defects the Opus pass corrected | **4**, each of which would have shipped a wrong public claim about a named person |
+| live writes | 2 payloads (1 edge props-merge, 3 node props-merges), pass 39 |
+| `review_state` changes | **0** — 211 ties remain `pending_review` |
+| sweep durability | results persisted per company + `--resume`; survived a 500 and a 429 wall with no lost answers |
+| gate | `npm run check` green |
+
+## Steering (next batch — batch 011)
+
+1. **Finish the sweep**: steward class (23) + remaining ownership parents +
+   Teplárny Brno via `--resume`. Steward results are CONTEXT, not attribution,
+   and must be labelled so on arrival.
+2. **Sweep AGROFERT (26185610) itself** — an MP-tied company that, on the
+   register, was under the sole ownership of a sitting Prime Minister for part of
+   the current term. It has never been contract-queried. Frame it on §§ 4b/4c
+   zák. 159/2006 Sb. (member of government), never on the MP status.
+3. **Read direction on the batch-009 parent leads** (Lázně Luhačovice,
+   Rybářství Třeboň Hld., DEZA) — the batch-009 script recorded no publishers;
+   re-query the 4 with the batch-010 script, which does.
+4. **ČSOB, České dráhy, Teplárny Brno are UNMEASURED, not zero** — carry them as
+   such until re-queried.
+5. **Build-ready increment, first in several batches**: render
+   `shareholder_record` in the `/penize/kontrola` verification console. It is the
+   reviewer's evidence dossier, and the tie it hangs on is now the most
+   consequential record the case holds.
+6. Q-money-13's 21 residue items remain with law (14) and effort (7).

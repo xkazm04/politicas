@@ -1,0 +1,1123 @@
+{
+  "batch": 10,
+  "track": "money",
+  "kind": "unqueried-company-population",
+  "generatedAt": "2026-07-27",
+  "note": "The companies the money feed never asked Registr smluv about. Ranked by tie_class because that is the case's attribution rule: money reaching an `owner-operator` company can plausibly reach the MP, while a `steward` tie is a public-body board seat whose money is the body's own activity and is NEVER attributed to the MP. Companies whose IČO does not resolve in ARES are EXCLUDED (they cannot be queried), not counted as zero.",
+  "counts": {
+    "companies": 214,
+    "everQueried": 149,
+    "unqueriedQueryable": 63,
+    "unqueriedMpTied": 46,
+    "byTieClass": {
+      "owner-operator": 18,
+      "manager": 5,
+      "steward": 23
+    },
+    "skippedUnresolvableIco": 2,
+    "skippedNoIco": 0
+  },
+  "sweepOrder": [
+    {
+      "id": "company:ico:64258998",
+      "label": "AGRONOVA CS s.r.o.",
+      "ico": "64258998",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "owner-operator",
+      "classRank": 0,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Andrej Babiš"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:49825950",
+      "label": "COMBIN BOHEMIA spol. s r.o.",
+      "ico": "49825950",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "owner-operator",
+      "classRank": 0,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "František Petrtýl"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:27720004",
+      "label": "Česká informatika s.r.o.",
+      "ico": "27720004",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "owner-operator",
+      "classRank": 0,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Jan Hrnčíř"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:29054117",
+      "label": "F.M.S. Consulting s.r.o.",
+      "ico": "29054117",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "owner-operator",
+      "classRank": 0,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "František Petrtýl"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:01801261",
+      "label": "Hartenberg Holding, s.r.o.",
+      "ico": "01801261",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "owner-operator",
+      "classRank": 0,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Andrej Babiš"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:28406354",
+      "label": "Japa Foods s.r.o.",
+      "ico": "28406354",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "owner-operator",
+      "classRank": 0,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Tomio Okamura"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:26387816",
+      "label": "JISE stavby s.r.o.",
+      "ico": "26387816",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "owner-operator",
+      "classRank": 0,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Martin Záhoř"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:26123550",
+      "label": "LIHT s.r.o.",
+      "ico": "26123550",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "owner-operator",
+      "classRank": 0,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Michal Kučera"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:25643461",
+      "label": "MEBIUS s.r.o.",
+      "ico": "25643461",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "owner-operator",
+      "classRank": 0,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Tomio Okamura"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:03921727",
+      "label": "Park Volmanec s.r.o.",
+      "ico": "03921727",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "owner-operator",
+      "classRank": 0,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Eva Decroix"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:49437674",
+      "label": "POLIKLINIKA - servis s.r.o.",
+      "ico": "49437674",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "owner-operator",
+      "classRank": 0,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Miloslav Janulík"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:06386237",
+      "label": "RAPAJA s.r.o.",
+      "ico": "06386237",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "owner-operator",
+      "classRank": 0,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Patrik Pařil"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:09187944",
+      "label": "RMPJ s.r.o.",
+      "ico": "09187944",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "owner-operator",
+      "classRank": 0,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Patrik Pařil"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:19840659",
+      "label": "Sirius Praha s.r.o.",
+      "ico": "19840659",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "owner-operator",
+      "classRank": 0,
+      "corroborations": [
+        "conflicting"
+      ],
+      "mps": [
+        "Michal Kučera"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:26254590",
+      "label": "STUDIO ARX s.r.o.",
+      "ico": "26254590",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "owner-operator",
+      "classRank": 0,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Petr Fiala"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:28323297",
+      "label": "Studio PN Prostějov s.r.o.",
+      "ico": "28323297",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "owner-operator",
+      "classRank": 0,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Radim Fiala"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:26109859",
+      "label": "W.H.V. Projekt spol. s r.o.",
+      "ico": "26109859",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "owner-operator",
+      "classRank": 0,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Lukáš Vlček"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:01686682",
+      "label": "ZPS holding s.r.o.",
+      "ico": "01686682",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "owner-operator",
+      "classRank": 0,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Jan Bureš"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:61858111",
+      "label": "PRaK, a.s. v likvidaci",
+      "ico": "61858111",
+      "everQueried": false,
+      "tieCount": 2,
+      "bestTieClass": "manager",
+      "classRank": 1,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Petr Bendl",
+        "Richard Brabec"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:61463647",
+      "label": "Družstvo Nárožní dům Plavecká 12",
+      "ico": "61463647",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "manager",
+      "classRank": 1,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Helena Válková"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:02867681",
+      "label": "IF Holding a.s.",
+      "ico": "02867681",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "manager",
+      "classRank": 1,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Radim Fiala"
+      ],
+      "isOwnershipParent": true,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:26014343",
+      "label": "SynBiol, a.s.",
+      "ico": "26014343",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "manager",
+      "classRank": 1,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Andrej Babiš"
+      ],
+      "isOwnershipParent": true,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:46347534",
+      "label": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "manager",
+      "classRank": 1,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Petr Hladík"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:02086778",
+      "label": "Fórum Karla Schwarzenberga, o.p.s.",
+      "ico": "02086778",
+      "everQueried": false,
+      "tieCount": 2,
+      "bestTieClass": "steward",
+      "classRank": 2,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Helena Langšádlová",
+        "Marek Ženíšek"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:60196459",
+      "label": "ASPEN SPORT a.s.",
+      "ico": "60196459",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "steward",
+      "classRank": 2,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Boris Šťastný"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:02504421",
+      "label": "Česká asociace věřitelů, z.s.",
+      "ico": "02504421",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "steward",
+      "classRank": 2,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Jan Bureš"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:70885117",
+      "label": "Česká lékařská komora - o.s., z.s.",
+      "ico": "70885117",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "steward",
+      "classRank": 2,
+      "corroborations": [
+        "conflicting"
+      ],
+      "mps": [
+        "Boris Šťastný"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:00027383",
+      "label": "ČESKÁ TELEVIZE",
+      "ico": "00027383",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "steward",
+      "classRank": 2,
+      "corroborations": [
+        "registry-unconfirmed"
+      ],
+      "mps": [
+        "Aleš Juchelka"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:29156271",
+      "label": "Chráněná dílna Ostrov, s.r.o.",
+      "ico": "29156271",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "steward",
+      "classRank": 2,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Jan Bureš"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:29118336",
+      "label": "Chronos Vejprnice o.p.s.",
+      "ico": "29118336",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "steward",
+      "classRank": 2,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Pavel Karpíšek"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:63080249",
+      "label": "Kongresové centrum Praha, a.s.",
+      "ico": "63080249",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "steward",
+      "classRank": 2,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Marek Ženíšek"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:27661989",
+      "label": "Krajská nemocnice T. Bati, a. s.",
+      "ico": "27661989",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "steward",
+      "classRank": 2,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Róbert Teleky"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:09925856",
+      "label": "Nadační fond - NOVÉ LÉČEBNÉ POSTUPY CHIRURGIE RUKY",
+      "ico": "09925856",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "steward",
+      "classRank": 2,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Jiří Bouška"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:27251918",
+      "label": "Obecní dům, a.s.",
+      "ico": "27251918",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "steward",
+      "classRank": 2,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Jana Černochová"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:27043843",
+      "label": "PRO VYSOČINU, občanské sdružení",
+      "ico": "27043843",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "steward",
+      "classRank": 2,
+      "corroborations": [
+        "conflicting"
+      ],
+      "mps": [
+        "Lukáš Vlček"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:60713470",
+      "label": "SAKO Brno, a.s.",
+      "ico": "60713470",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "steward",
+      "classRank": 2,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Petr Hladík"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:26745615",
+      "label": "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
+      "ico": "26745615",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "steward",
+      "classRank": 2,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Vít Rakušan"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:26419050",
+      "label": "Společenství vlastníků jednotek v domě čp. 2122, Na Folimance 13, Praha 2 - Vinohrady",
+      "ico": "26419050",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "steward",
+      "classRank": 2,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Jana Černochová"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:28095405",
+      "label": "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov",
+      "ico": "28095405",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "steward",
+      "classRank": 2,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Lukáš Vlček"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:61065480",
+      "label": "TAMPA s.r.o.",
+      "ico": "61065480",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "steward",
+      "classRank": 2,
+      "corroborations": [
+        "conflicting"
+      ],
+      "mps": [
+        "Jan Bauer"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:22745696",
+      "label": "TOPAZ, z.s.",
+      "ico": "22745696",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "steward",
+      "classRank": 2,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Marek Ženíšek"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:75112779",
+      "label": "Ústav pro studium totalitních režimů",
+      "ico": "75112779",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "steward",
+      "classRank": 2,
+      "corroborations": [
+        "registry-unconfirmed"
+      ],
+      "mps": [
+        "Pavel Žáček"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:02312701",
+      "label": "Vodní cesty na Labi, o.p.s.",
+      "ico": "02312701",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "steward",
+      "classRank": 2,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Vít Rakušan"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:28094573",
+      "label": "Wellness sv. Markéta a.s.",
+      "ico": "28094573",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "steward",
+      "classRank": 2,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Jan Bauer"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:72046422",
+      "label": "Zákládní organizace Českého zahrádkářského svazu Roztoky Třebízského",
+      "ico": "72046422",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "steward",
+      "classRank": 2,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Jan Jakob"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:22874381",
+      "label": "Změna pro Kolín z.s.",
+      "ico": "22874381",
+      "everQueried": false,
+      "tieCount": 1,
+      "bestTieClass": "steward",
+      "classRank": 2,
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "mps": [
+        "Vít Rakušan"
+      ],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "MP-tied"
+    },
+    {
+      "id": "company:ico:70994226",
+      "label": "České dráhy, a.s.",
+      "ico": "70994226",
+      "everQueried": false,
+      "tieCount": 0,
+      "bestTieClass": null,
+      "classRank": 9,
+      "corroborations": [],
+      "mps": [],
+      "isOwnershipParent": true,
+      "icoUnresolvable": false,
+      "reason": "ownership parent"
+    },
+    {
+      "id": "company:ico:00001350",
+      "label": "Československá obchodní banka, a.s.",
+      "ico": "00001350",
+      "everQueried": false,
+      "tieCount": 0,
+      "bestTieClass": null,
+      "classRank": 9,
+      "corroborations": [],
+      "mps": [],
+      "isOwnershipParent": true,
+      "icoUnresolvable": false,
+      "reason": "ownership parent"
+    },
+    {
+      "id": "company:ico:00011835",
+      "label": "DEZA, a.s.",
+      "ico": "00011835",
+      "everQueried": false,
+      "tieCount": 0,
+      "bestTieClass": null,
+      "classRank": 9,
+      "corroborations": [],
+      "mps": [],
+      "isOwnershipParent": true,
+      "icoUnresolvable": false,
+      "reason": "ownership parent"
+    },
+    {
+      "id": "company:ico:00064581",
+      "label": "HLAVNÍ MĚSTO PRAHA",
+      "ico": "00064581",
+      "everQueried": false,
+      "tieCount": 0,
+      "bestTieClass": null,
+      "classRank": 9,
+      "corroborations": [],
+      "mps": [],
+      "isOwnershipParent": true,
+      "icoUnresolvable": false,
+      "reason": "ownership parent"
+    },
+    {
+      "id": "company:ico:70891168",
+      "label": "Karlovarský kraj",
+      "ico": "70891168",
+      "everQueried": false,
+      "tieCount": 0,
+      "bestTieClass": null,
+      "classRank": 9,
+      "corroborations": [],
+      "mps": [],
+      "isOwnershipParent": true,
+      "icoUnresolvable": false,
+      "reason": "ownership parent"
+    },
+    {
+      "id": "company:ico:70889546",
+      "label": "Královéhradecký kraj",
+      "ico": "70889546",
+      "everQueried": false,
+      "tieCount": 0,
+      "bestTieClass": null,
+      "classRank": 9,
+      "corroborations": [],
+      "mps": [],
+      "isOwnershipParent": true,
+      "icoUnresolvable": false,
+      "reason": "ownership parent"
+    },
+    {
+      "id": "company:ico:46347828",
+      "label": "Lázně Luhačovice, a.s.",
+      "ico": "46347828",
+      "everQueried": false,
+      "tieCount": 0,
+      "bestTieClass": null,
+      "classRank": 9,
+      "corroborations": [],
+      "mps": [],
+      "isOwnershipParent": true,
+      "icoUnresolvable": false,
+      "reason": "ownership parent"
+    },
+    {
+      "id": "company:ico:26040166",
+      "label": "Léčebné centrum sv. Markéty,a.s.",
+      "ico": "26040166",
+      "everQueried": false,
+      "tieCount": 0,
+      "bestTieClass": null,
+      "classRank": 9,
+      "corroborations": [],
+      "mps": [],
+      "isOwnershipParent": true,
+      "icoUnresolvable": false,
+      "reason": "ownership parent"
+    },
+    {
+      "id": "company:ico:00254843",
+      "label": "Město Ostrov",
+      "ico": "00254843",
+      "everQueried": false,
+      "tieCount": 0,
+      "bestTieClass": null,
+      "classRank": 9,
+      "corroborations": [],
+      "mps": [],
+      "isOwnershipParent": true,
+      "icoUnresolvable": false,
+      "reason": "ownership parent"
+    },
+    {
+      "id": "company:ico:00075370",
+      "label": "Město Plzeň",
+      "ico": "00075370",
+      "everQueried": false,
+      "tieCount": 0,
+      "bestTieClass": null,
+      "classRank": 9,
+      "corroborations": [],
+      "mps": [],
+      "isOwnershipParent": true,
+      "icoUnresolvable": false,
+      "reason": "ownership parent"
+    },
+    {
+      "id": "company:ico:00006947",
+      "label": "Ministerstvo financí",
+      "ico": "00006947",
+      "everQueried": false,
+      "tieCount": 0,
+      "bestTieClass": null,
+      "classRank": 9,
+      "corroborations": [],
+      "mps": [],
+      "isOwnershipParent": true,
+      "icoUnresolvable": false,
+      "reason": "ownership parent"
+    },
+    {
+      "id": "company:ico:49683144",
+      "label": "PRAK spol. s r.o.",
+      "ico": "49683144",
+      "everQueried": false,
+      "tieCount": 0,
+      "bestTieClass": null,
+      "classRank": 9,
+      "corroborations": [],
+      "mps": [],
+      "isOwnershipParent": false,
+      "icoUnresolvable": false,
+      "reason": "other"
+    },
+    {
+      "id": "company:ico:46678191",
+      "label": "Rybářství Třeboň Hld. a.s.",
+      "ico": "46678191",
+      "everQueried": false,
+      "tieCount": 0,
+      "bestTieClass": null,
+      "classRank": 9,
+      "corroborations": [],
+      "mps": [],
+      "isOwnershipParent": true,
+      "icoUnresolvable": false,
+      "reason": "ownership parent"
+    },
+    {
+      "id": "company:ico:00274046",
+      "label": "Statutární město Pardubice",
+      "ico": "00274046",
+      "everQueried": false,
+      "tieCount": 0,
+      "bestTieClass": null,
+      "classRank": 9,
+      "corroborations": [],
+      "mps": [],
+      "isOwnershipParent": true,
+      "icoUnresolvable": false,
+      "reason": "ownership parent"
+    },
+    {
+      "id": "company:ico:70891095",
+      "label": "Středočeský kraj",
+      "ico": "70891095",
+      "everQueried": false,
+      "tieCount": 0,
+      "bestTieClass": null,
+      "classRank": 9,
+      "corroborations": [],
+      "mps": [],
+      "isOwnershipParent": true,
+      "icoUnresolvable": false,
+      "reason": "ownership parent"
+    },
+    {
+      "id": "company:ico:60913819",
+      "label": "UNICO Pardubice a.s.",
+      "ico": "60913819",
+      "everQueried": false,
+      "tieCount": 0,
+      "bestTieClass": null,
+      "classRank": 9,
+      "corroborations": [],
+      "mps": [],
+      "isOwnershipParent": true,
+      "icoUnresolvable": false,
+      "reason": "ownership parent"
+    },
+    {
+      "id": "company:ico:25997556",
+      "label": "Zdravotnický holding Královéhradeckého kraje a.s.",
+      "ico": "25997556",
+      "everQueried": false,
+      "tieCount": 0,
+      "bestTieClass": null,
+      "classRank": 9,
+      "corroborations": [],
+      "mps": [],
+      "isOwnershipParent": true,
+      "icoUnresolvable": false,
+      "reason": "ownership parent"
+    }
+  ],
+  "skipped": {
+    "unresolvableIco": [
+      {
+        "id": "company:ico:25130072",
+        "label": "AGROFERT HOLDING, a.s.",
+        "ico": "25130072",
+        "everQueried": false,
+        "tieCount": 0,
+        "bestTieClass": null,
+        "classRank": 9,
+        "corroborations": [],
+        "mps": [],
+        "isOwnershipParent": true,
+        "icoUnresolvable": true,
+        "reason": "ownership parent"
+      },
+      {
+        "id": "company:ico:60197773",
+        "label": "AGROFERT a.s.",
+        "ico": "60197773",
+        "everQueried": false,
+        "tieCount": 0,
+        "bestTieClass": null,
+        "classRank": 9,
+        "corroborations": [],
+        "mps": [],
+        "isOwnershipParent": true,
+        "icoUnresolvable": true,
+        "reason": "ownership parent"
+      }
+    ],
+    "noIco": []
+  }
+}

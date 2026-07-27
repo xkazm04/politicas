@@ -1,0 +1,39 @@
+{
+  "batch": 10,
+  "track": "money",
+  "item": "Q-money-19 (correction)",
+  "kind": "unresolvable-ico-explanation",
+  "generatedAt": "2026-07-27",
+  "note": "Corrects batch-009's annotation on the two ownership-parent IČOs that resolve in neither ARES endpoint. Batch 009 recorded them as 'likely historical entity' — directionally right but vague, and it flagged them as a data-integrity concern. The Opus verification pass established the precise, sourced reason: BOTH merged into AGROFERT, a.s. (IČO 26185610), whose `ostatniSkutecnosti` records the mergers. They are therefore NOT anomalous and not a defect in the dataor slice — the ids are simply extinct. Props-merge only; touches no edge and no review_state.",
+  "proposals": [
+    {
+      "id": "company:ico:25130072",
+      "props": {
+        "ico_check_result": "NENALEZENO on both ARES endpoints (2026-07-27) — reproduced independently",
+        "extinction_reason": "fúze",
+        "merged_into": "company:ico:26185610 (AGROFERT, a.s.)",
+        "merged_on": "2004-08-31",
+        "analyst_note_cs": "IČO 25130072 (AGROFERT HOLDING, a.s.) zaniklo fúzí do společnosti AGROFERT, a.s. (IČO 26185610) k 31. 8. 2004; zánik je doložen v části ostatniSkutecnosti nástupnické společnosti. Uzel proto nelze dohledat v ARES — nejde o chybu dat ani o smyšlený subjekt. POZOR na záměnu: tatáž nástupnická společnost 26185610 SE SAMA jmenovala „AGROFERT HOLDING, a.s.“ v období 31. 8. 2004 – 1. 10. 2013, jde tedy o dva různé subjekty se stejným názvem v různých obdobích.",
+        "not_an_anomaly": true
+      }
+    },
+    {
+      "id": "company:ico:60197773",
+      "props": {
+        "ico_check_result": "NENALEZENO on both ARES endpoints (2026-07-27) — reproduced independently",
+        "extinction_reason": "fúze",
+        "merged_into": "company:ico:26185610 (AGROFERT, a.s.)",
+        "merged_on": "2005-06-30",
+        "analyst_note_cs": "IČO 60197773 (vedeno jako „AGROFERT a.s.“) zaniklo fúzí do společnosti AGROFERT, a.s. (IČO 26185610) k 30. 6. 2005, spolu se společností AGROPROFIT. Uzel proto nelze dohledat v ARES — nejde o chybu dat ani o smyšlený subjekt.",
+        "not_an_anomaly": true
+      }
+    },
+    {
+      "id": "company:ico:26185610",
+      "props": {
+        "name_history_cs": "Tatáž právnická osoba (IČO 26185610) nesla postupně názvy: AGFTRADING, a.s. (1. 7. 2000 – 31. 8. 2004), AGROFERT HOLDING, a.s. (31. 8. 2004 – 1. 10. 2013) a AGROFERT, a.s. (od 1. 10. 2013). Při čtení historických zápisů je nutné odlišit tuto společnost od zaniklých subjektů IČO 25130072 a 60197773, které se rovněž jmenovaly AGROFERT HOLDING, a.s. resp. AGROFERT a.s.",
+        "absorbed_entities": ["company:ico:25130072 (2004-08-31)", "company:ico:60197773 (2005-06-30)"]
+      }
+    }
+  ]
+}

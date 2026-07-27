@@ -852,3 +852,39 @@ restated absolutely. Minimal-diff proven at merge (non-offending sentences byte-
 deterministic substitute for a money re-verification); 1 stale count (Výborný) corrected from
 pass-34 graph data. Re-measured post-persist: 0/207 withheld field-instances — the dossier corpus
 renders fully clean. ns=effort, track=effort.
+
+## Pass 39 (track: money) — batch 010: sole-shareholder record + extinct-IČO explanation (2026-07-27)
+
+Money case-loop batch 010. Two props-merge payloads, no edge created, no
+`review_state` touched.
+
+- **1 `linked_to` props-merge** — `psp:person:6150` (Andrej Babiš) →
+  `company:ico:26185610` (AGROFERT, a.s.). The graph held only a board role
+  ending 2014-01-22; the obchodní rejstřík also records a **`jediný akcionář`**
+  registration **2025-10-15 → 2026-02-20**, inside the current term. Merged in
+  as `shareholder_record` with the legal basis (§ 48 odst. 1 písm. k) zák.
+  č. 304/2013 Sb. — a shareholder is entered for an a.s. only where there is a
+  single one), the self-declaration in notářský zápis NZ 1292/2025, the office
+  held in the window (**předseda vlády od 2025-12-09**, the status §§ 4b/4c zák.
+  č. 159/2006 Sb. attach to), the successor (Wilfried Reinhard Elbs **as
+  svěřenský správce of RSVP TRUST, not as owner**), and two explicit open
+  questions (registry dates are NOT acquisition dates; the trust's founder and
+  beneficiaries are unverified). `tie_class_review_needed: true` — a
+  sole-shareholder period would reclassify the tie `owner-operator`, which is a
+  human-review decision, not an automated one.
+  Verified by an independent Opus pass at maximum depth against three primary
+  sources (ARES VR REST, or.justice.cz úplný výpis, sbírka listin deeds
+  NZ 1292/2025 and NZ 176/2026), which returned PARTIAL and corrected four
+  defects in the driver's reading. No media used.
+- **3 company node props-merges** — corrects pass 36's "likely historical
+  entity" annotation on the two unresolvable IČOs with the precise, sourced
+  reason: `25130072` merged into `26185610` on **2004-08-31**, `60197773` (with
+  AGROPROFIT) on **2005-06-30**. They are extinct, not erroneous — the dataor
+  slice was accurate. A name-collision trap is recorded on the successor: entity
+  `26185610` itself bore the name "AGROFERT HOLDING, a.s." between 2004-08-31
+  and 2013-10-01 (and "AGFTRADING, a.s." before that).
+
+Pass numbers 37 and 38 were taken by concurrent effort/law sessions during this
+batch; 39 was claimed by re-checking the log immediately before writing.
+
+Detail: `docs/data-analysis/case-money/batch-010.md`.

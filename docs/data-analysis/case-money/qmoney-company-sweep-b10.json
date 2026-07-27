@@ -1,0 +1,581 @@
+{
+  "batch": 10,
+  "track": "money",
+  "kind": "company-contract-sweep",
+  "generatedAt": "2026-07-27",
+  "source": "https://smlouvy.gov.cz/vyhledavani?party_idnum=<ico>&all_versions=0 (Registr smluv / ISRS, token-free)",
+  "note": "LEADS ONLY — no graph write. `party_idnum` matches EITHER contracting party, so a row means 'this company appears in a published public contract', not 'this company was paid public money'; the `publishers` breakdown is what direction must be read from. Registr smluv carries contracts published from 2016 only, so a 0 for an entity dissolved or dormant before then is structural, not a finding. An `error` row is an UNMEASURED company, never a zero.",
+  "counts": {
+    "attempted": 23,
+    "answered": 22,
+    "failed": 1,
+    "withContracts": 0,
+    "byTieClass": {
+      "owner-operator": {
+        "n": 18,
+        "withContracts": 0,
+        "czk": 0
+      },
+      "manager": {
+        "n": 4,
+        "withContracts": 0,
+        "czk": 0
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "company:ico:64258998",
+      "label": "AGRONOVA CS s.r.o.",
+      "ico": "64258998",
+      "tieClass": "owner-operator",
+      "mps": [
+        "Andrej Babiš"
+      ],
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "reason": "MP-tied",
+      "checkedAt": "2026-07-27",
+      "contracts": 0,
+      "valuedContracts": 0,
+      "unvaluedContracts": 0,
+      "totalCzk": 0,
+      "earliest": null,
+      "latest": null,
+      "truncated": false,
+      "publishers": [],
+      "topRows": [],
+      "error": null
+    },
+    {
+      "id": "company:ico:49825950",
+      "label": "COMBIN BOHEMIA spol. s r.o.",
+      "ico": "49825950",
+      "tieClass": "owner-operator",
+      "mps": [
+        "František Petrtýl"
+      ],
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "reason": "MP-tied",
+      "checkedAt": "2026-07-27",
+      "contracts": 0,
+      "valuedContracts": 0,
+      "unvaluedContracts": 0,
+      "totalCzk": 0,
+      "earliest": null,
+      "latest": null,
+      "truncated": false,
+      "publishers": [],
+      "topRows": [],
+      "error": null
+    },
+    {
+      "id": "company:ico:27720004",
+      "label": "Česká informatika s.r.o.",
+      "ico": "27720004",
+      "tieClass": "owner-operator",
+      "mps": [
+        "Jan Hrnčíř"
+      ],
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "reason": "MP-tied",
+      "checkedAt": "2026-07-27",
+      "contracts": 0,
+      "valuedContracts": 0,
+      "unvaluedContracts": 0,
+      "totalCzk": 0,
+      "earliest": null,
+      "latest": null,
+      "truncated": false,
+      "publishers": [],
+      "topRows": [],
+      "error": null
+    },
+    {
+      "id": "company:ico:29054117",
+      "label": "F.M.S. Consulting s.r.o.",
+      "ico": "29054117",
+      "tieClass": "owner-operator",
+      "mps": [
+        "František Petrtýl"
+      ],
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "reason": "MP-tied",
+      "checkedAt": "2026-07-27",
+      "contracts": 0,
+      "valuedContracts": 0,
+      "unvaluedContracts": 0,
+      "totalCzk": 0,
+      "earliest": null,
+      "latest": null,
+      "truncated": false,
+      "publishers": [],
+      "topRows": [],
+      "error": null
+    },
+    {
+      "id": "company:ico:28406354",
+      "label": "Japa Foods s.r.o.",
+      "ico": "28406354",
+      "tieClass": "owner-operator",
+      "mps": [
+        "Tomio Okamura"
+      ],
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "reason": "MP-tied",
+      "checkedAt": "2026-07-27",
+      "contracts": 0,
+      "valuedContracts": 0,
+      "unvaluedContracts": 0,
+      "totalCzk": 0,
+      "earliest": null,
+      "latest": null,
+      "truncated": false,
+      "publishers": [],
+      "topRows": [],
+      "error": null
+    },
+    {
+      "id": "company:ico:26387816",
+      "label": "JISE stavby s.r.o.",
+      "ico": "26387816",
+      "tieClass": "owner-operator",
+      "mps": [
+        "Martin Záhoř"
+      ],
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "reason": "MP-tied",
+      "checkedAt": "2026-07-27",
+      "contracts": 0,
+      "valuedContracts": 0,
+      "unvaluedContracts": 0,
+      "totalCzk": 0,
+      "earliest": null,
+      "latest": null,
+      "truncated": false,
+      "publishers": [],
+      "topRows": [],
+      "error": null
+    },
+    {
+      "id": "company:ico:26123550",
+      "label": "LIHT s.r.o.",
+      "ico": "26123550",
+      "tieClass": "owner-operator",
+      "mps": [
+        "Michal Kučera"
+      ],
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "reason": "MP-tied",
+      "checkedAt": "2026-07-27",
+      "contracts": 0,
+      "valuedContracts": 0,
+      "unvaluedContracts": 0,
+      "totalCzk": 0,
+      "earliest": null,
+      "latest": null,
+      "truncated": false,
+      "publishers": [],
+      "topRows": [],
+      "error": null
+    },
+    {
+      "id": "company:ico:25643461",
+      "label": "MEBIUS s.r.o.",
+      "ico": "25643461",
+      "tieClass": "owner-operator",
+      "mps": [
+        "Tomio Okamura"
+      ],
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "reason": "MP-tied",
+      "checkedAt": "2026-07-27",
+      "contracts": 0,
+      "valuedContracts": 0,
+      "unvaluedContracts": 0,
+      "totalCzk": 0,
+      "earliest": null,
+      "latest": null,
+      "truncated": false,
+      "publishers": [],
+      "topRows": [],
+      "error": null
+    },
+    {
+      "id": "company:ico:03921727",
+      "label": "Park Volmanec s.r.o.",
+      "ico": "03921727",
+      "tieClass": "owner-operator",
+      "mps": [
+        "Eva Decroix"
+      ],
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "reason": "MP-tied",
+      "checkedAt": "2026-07-27",
+      "contracts": 0,
+      "valuedContracts": 0,
+      "unvaluedContracts": 0,
+      "totalCzk": 0,
+      "earliest": null,
+      "latest": null,
+      "truncated": false,
+      "publishers": [],
+      "topRows": [],
+      "error": null
+    },
+    {
+      "id": "company:ico:49437674",
+      "label": "POLIKLINIKA - servis s.r.o.",
+      "ico": "49437674",
+      "tieClass": "owner-operator",
+      "mps": [
+        "Miloslav Janulík"
+      ],
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "reason": "MP-tied",
+      "checkedAt": "2026-07-27",
+      "contracts": 0,
+      "valuedContracts": 0,
+      "unvaluedContracts": 0,
+      "totalCzk": 0,
+      "earliest": null,
+      "latest": null,
+      "truncated": false,
+      "publishers": [],
+      "topRows": [],
+      "error": null
+    },
+    {
+      "id": "company:ico:06386237",
+      "label": "RAPAJA s.r.o.",
+      "ico": "06386237",
+      "tieClass": "owner-operator",
+      "mps": [
+        "Patrik Pařil"
+      ],
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "reason": "MP-tied",
+      "checkedAt": "2026-07-27",
+      "contracts": 0,
+      "valuedContracts": 0,
+      "unvaluedContracts": 0,
+      "totalCzk": 0,
+      "earliest": null,
+      "latest": null,
+      "truncated": false,
+      "publishers": [],
+      "topRows": [],
+      "error": null
+    },
+    {
+      "id": "company:ico:09187944",
+      "label": "RMPJ s.r.o.",
+      "ico": "09187944",
+      "tieClass": "owner-operator",
+      "mps": [
+        "Patrik Pařil"
+      ],
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "reason": "MP-tied",
+      "checkedAt": "2026-07-27",
+      "contracts": 0,
+      "valuedContracts": 0,
+      "unvaluedContracts": 0,
+      "totalCzk": 0,
+      "earliest": null,
+      "latest": null,
+      "truncated": false,
+      "publishers": [],
+      "topRows": [],
+      "error": null
+    },
+    {
+      "id": "company:ico:19840659",
+      "label": "Sirius Praha s.r.o.",
+      "ico": "19840659",
+      "tieClass": "owner-operator",
+      "mps": [
+        "Michal Kučera"
+      ],
+      "corroborations": [
+        "conflicting"
+      ],
+      "reason": "MP-tied",
+      "checkedAt": "2026-07-27",
+      "contracts": 0,
+      "valuedContracts": 0,
+      "unvaluedContracts": 0,
+      "totalCzk": 0,
+      "earliest": null,
+      "latest": null,
+      "truncated": false,
+      "publishers": [],
+      "topRows": [],
+      "error": null
+    },
+    {
+      "id": "company:ico:26254590",
+      "label": "STUDIO ARX s.r.o.",
+      "ico": "26254590",
+      "tieClass": "owner-operator",
+      "mps": [
+        "Petr Fiala"
+      ],
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "reason": "MP-tied",
+      "checkedAt": "2026-07-27",
+      "contracts": 0,
+      "valuedContracts": 0,
+      "unvaluedContracts": 0,
+      "totalCzk": 0,
+      "earliest": null,
+      "latest": null,
+      "truncated": false,
+      "publishers": [],
+      "topRows": [],
+      "error": null
+    },
+    {
+      "id": "company:ico:28323297",
+      "label": "Studio PN Prostějov s.r.o.",
+      "ico": "28323297",
+      "tieClass": "owner-operator",
+      "mps": [
+        "Radim Fiala"
+      ],
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "reason": "MP-tied",
+      "checkedAt": "2026-07-27",
+      "contracts": 0,
+      "valuedContracts": 0,
+      "unvaluedContracts": 0,
+      "totalCzk": 0,
+      "earliest": null,
+      "latest": null,
+      "truncated": false,
+      "publishers": [],
+      "topRows": [],
+      "error": null
+    },
+    {
+      "id": "company:ico:26109859",
+      "label": "W.H.V. Projekt spol. s r.o.",
+      "ico": "26109859",
+      "tieClass": "owner-operator",
+      "mps": [
+        "Lukáš Vlček"
+      ],
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "reason": "MP-tied",
+      "checkedAt": "2026-07-27",
+      "contracts": 0,
+      "valuedContracts": 0,
+      "unvaluedContracts": 0,
+      "totalCzk": 0,
+      "earliest": null,
+      "latest": null,
+      "truncated": false,
+      "publishers": [],
+      "topRows": [],
+      "error": null
+    },
+    {
+      "id": "company:ico:01686682",
+      "label": "ZPS holding s.r.o.",
+      "ico": "01686682",
+      "tieClass": "owner-operator",
+      "mps": [
+        "Jan Bureš"
+      ],
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "reason": "MP-tied",
+      "checkedAt": "2026-07-27",
+      "contracts": 0,
+      "valuedContracts": 0,
+      "unvaluedContracts": 0,
+      "totalCzk": 0,
+      "earliest": null,
+      "latest": null,
+      "truncated": false,
+      "publishers": [],
+      "topRows": [],
+      "error": null
+    },
+    {
+      "id": "company:ico:01801261",
+      "label": "Hartenberg Holding, s.r.o.",
+      "ico": "01801261",
+      "tieClass": "owner-operator",
+      "mps": [
+        "Andrej Babiš"
+      ],
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "reason": "MP-tied",
+      "checkedAt": "2026-07-27",
+      "contracts": 0,
+      "valuedContracts": 0,
+      "unvaluedContracts": 0,
+      "totalCzk": 0,
+      "earliest": null,
+      "latest": null,
+      "truncated": false,
+      "publishers": [],
+      "topRows": [],
+      "error": null
+    },
+    {
+      "id": "company:ico:61858111",
+      "label": "PRaK, a.s. v likvidaci",
+      "ico": "61858111",
+      "tieClass": "manager",
+      "mps": [
+        "Petr Bendl",
+        "Richard Brabec"
+      ],
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "reason": "MP-tied",
+      "checkedAt": "2026-07-27",
+      "contracts": 0,
+      "valuedContracts": 0,
+      "unvaluedContracts": 0,
+      "totalCzk": 0,
+      "earliest": null,
+      "latest": null,
+      "truncated": false,
+      "publishers": [],
+      "topRows": [],
+      "error": null
+    },
+    {
+      "id": "company:ico:61463647",
+      "label": "Družstvo Nárožní dům Plavecká 12",
+      "ico": "61463647",
+      "tieClass": "manager",
+      "mps": [
+        "Helena Válková"
+      ],
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "reason": "MP-tied",
+      "checkedAt": "2026-07-27",
+      "contracts": 0,
+      "valuedContracts": 0,
+      "unvaluedContracts": 0,
+      "totalCzk": 0,
+      "earliest": null,
+      "latest": null,
+      "truncated": false,
+      "publishers": [],
+      "topRows": [],
+      "error": null
+    },
+    {
+      "id": "company:ico:02867681",
+      "label": "IF Holding a.s.",
+      "ico": "02867681",
+      "tieClass": "manager",
+      "mps": [
+        "Radim Fiala"
+      ],
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "reason": "MP-tied",
+      "checkedAt": "2026-07-27",
+      "contracts": 0,
+      "valuedContracts": 0,
+      "unvaluedContracts": 0,
+      "totalCzk": 0,
+      "earliest": null,
+      "latest": null,
+      "truncated": false,
+      "publishers": [],
+      "topRows": [],
+      "error": null
+    },
+    {
+      "id": "company:ico:26014343",
+      "label": "SynBiol, a.s.",
+      "ico": "26014343",
+      "tieClass": "manager",
+      "mps": [
+        "Andrej Babiš"
+      ],
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "reason": "MP-tied",
+      "checkedAt": "2026-07-27",
+      "contracts": 0,
+      "valuedContracts": 0,
+      "unvaluedContracts": 0,
+      "totalCzk": 0,
+      "earliest": null,
+      "latest": null,
+      "truncated": false,
+      "publishers": [],
+      "topRows": [],
+      "error": null
+    },
+    {
+      "id": "company:ico:46347534",
+      "label": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "tieClass": "manager",
+      "mps": [
+        "Petr Hladík"
+      ],
+      "corroborations": [
+        "registry-confirmed"
+      ],
+      "reason": "MP-tied",
+      "checkedAt": "2026-07-27",
+      "contracts": null,
+      "valuedContracts": 0,
+      "unvaluedContracts": 0,
+      "totalCzk": 0,
+      "earliest": null,
+      "latest": null,
+      "truncated": false,
+      "publishers": [],
+      "topRows": [],
+      "error": "smlouvy.gov.cz search → 429 (https://smlouvy.gov.cz/vyhledavani?party_idnum=46347534&all_versions=0)"
+    }
+  ]
+}

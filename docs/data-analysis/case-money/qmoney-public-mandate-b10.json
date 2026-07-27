@@ -1,0 +1,113 @@
+{
+  "batch": 10,
+  "track": "money",
+  "kind": "public-mandate-classification",
+  "generatedAt": "2026-07-27",
+  "note": "Applies lib/analysis/public-body.ts (ownership-based) to every company the batch-009 and batch-010 sweeps found holding public contracts. `attributable: false` means the money is the public body's own activity and must NEVER be attributed to a politician — the case's steward rule, which batch-009's name-based test got wrong. `unknown` is never coerced to `private`.",
+  "counts": {
+    "classified": 4,
+    "notAttributable": 1,
+    "potentiallyAttributable": 3,
+    "noVerdict": 0,
+    "unknownLegalFormCodes": [],
+    "czkNotAttributable": 1088489502,
+    "czkPotentiallyAttributable": 225192954
+  },
+  "rows": [
+    {
+      "ico": "00011835",
+      "name": "DEZA, a.s.",
+      "origin": "ownership parent",
+      "contracts": 91,
+      "totalCzk": 13526307,
+      "tieClass": null,
+      "mps": [],
+      "ownsMpTied": [
+        "Synthesia, a.s."
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "private",
+        "reason": "Soukromoprávní subjekt (právní forma 121) bez veřejného vlastníka mezi současnými společníky/akcionáři.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "topPublishers": []
+    },
+    {
+      "ico": "25997556",
+      "name": "Zdravotnický holding Královéhradeckého kraje a.s.",
+      "origin": "ownership parent",
+      "contracts": 222,
+      "totalCzk": 1088489502,
+      "tieClass": null,
+      "mps": [],
+      "ownsMpTied": [
+        "Oblastní nemocnice Trutnov a.s."
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "publicly-owned",
+        "reason": "Ve veřejném vlastnictví — společníkem/akcionářem je Královéhradecký kraj. Přestože právní forma (121) je soukromoprávní, prostředky jsou činností veřejného vlastníka; nelze je přičítat politikovi bez dalšího ověření.",
+        "publicOwners": [
+          {
+            "ico": "70889546",
+            "name": "Královéhradecký kraj",
+            "legalForm": "804",
+            "current": true
+          }
+        ],
+        "unknownCodes": [],
+        "attributable": false
+      },
+      "aresError": null,
+      "topPublishers": []
+    },
+    {
+      "ico": "46347828",
+      "name": "Lázně Luhačovice, a.s.",
+      "origin": "ownership parent",
+      "contracts": 214,
+      "totalCzk": 173511488,
+      "tieClass": null,
+      "mps": [],
+      "ownsMpTied": [
+        "Léčebné lázně Jáchymov a. s."
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "private",
+        "reason": "Soukromoprávní subjekt (právní forma 121) bez veřejného vlastníka mezi současnými společníky/akcionáři.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "topPublishers": []
+    },
+    {
+      "ico": "46678191",
+      "name": "Rybářství Třeboň Hld. a.s.",
+      "origin": "ownership parent",
+      "contracts": 56,
+      "totalCzk": 38155159,
+      "tieClass": null,
+      "mps": [],
+      "ownsMpTied": [
+        "Rybářství Třeboň a.s."
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "private",
+        "reason": "Soukromoprávní subjekt (právní forma 121) bez veřejného vlastníka mezi současnými společníky/akcionáři.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "topPublishers": []
+    }
+  ]
+}

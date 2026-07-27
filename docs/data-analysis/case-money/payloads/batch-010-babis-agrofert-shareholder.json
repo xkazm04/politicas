@@ -1,0 +1,76 @@
+{
+  "batch": 10,
+  "track": "money",
+  "item": "Q-money-20",
+  "kind": "linked_to-shareholder-record-annotation",
+  "generatedAt": "2026-07-27",
+  "note": "Props-merge onto ONE EXISTING linked_to edge (psp:person:6150 Andrej Babiš → company:ico:26185610 AGROFERT, a.s.). Creates no edge and does NOT touch review_state — the tie stays pending_review. The graph's only Babiš↔AGROFERT record was a board role that ended in 2014; the obchodní rejstřík also carries a JEDINÝ AKCIONÁŘ (sole-shareholder) registration inside the CURRENT parliamentary term, which the graph did not hold. Verified by an independent Opus pass at maximum depth against three primary sources (ARES VR REST, or.justice.cz úplný výpis, and two notarial deeds from the sbírka listin); that pass corrected four defects in the driver's first reading, all reflected below.",
+  "verification": {
+    "verdict": "PARTIAL — core fact HOLDS and is stronger than first stated; four framing defects corrected",
+    "confidence": "high on the registry facts; medium on the window's start; low/unverified on the trust's founder and beneficiaries",
+    "independentSources": [
+      "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26185610",
+      "https://or.justice.cz/ias/ui/rejstrik-firma.vysledky?subjektId=525681 (úplný výpis; field label is literally 'Jediný akcionář:')",
+      "sbírka listin: notářský zápis NZ 1292/2025 ze dne 2025-10-15 (Mgr. Martin Diviš)",
+      "sbírka listin: notářský zápis NZ 176/2026 ze dne 2026-02-20"
+    ]
+  },
+  "edges": [
+    {
+      "src": "psp:person:6150",
+      "rel": "linked_to",
+      "dst": "company:ico:26185610",
+      "mp": "Andrej Babiš",
+      "company": "AGROFERT, a.s.",
+      "ico": "26185610",
+      "propsMerge": {
+        "shareholder_record": {
+          "role_cs": "jediný akcionář",
+          "registered_from": "2025-10-15",
+          "registered_to": "2026-02-20",
+          "dates_are": "registry entry/deletion dates (datumZapisu/datumVymazu) — NOT legal-effect dates. The akcionář entries carry an EMPTY `clenstvi` object, so the register records no vznik/zánik of the shareholding. The date of ACQUISITION is not established by the register and must never be stated as 2025-10-15.",
+          "legal_basis": "§ 48 odst. 1 písm. k) zák. č. 304/2013 Sb. — a shareholder is entered in the register for an a.s. ONLY where the company has a single shareholder. The entry therefore means SOLE shareholder (628 of 628 shares), not merely 'a shareholder'.",
+          "self_declaration": "V notářském zápisu NZ 1292/2025 ze dne 15. 10. 2025 Ing. Andrej Babiš osobně čestně prohlásil, že je jediným akcionářem společnosti AGROFERT, a.s.",
+          "office_held_in_window": "poslanec od 2025-10-04; předseda vlády od 2025-12-09 (psp.cz/detail.sqw?id=6150) — the member-of-government status, not the MP status, is the one §§ 4b/4c zák. č. 159/2006 Sb. attach to",
+          "successor": "Od 2026-02-20 je zapsaným jediným akcionářem Wilfried Reinhard Elbs, a to JAKO SVĚŘENSKÝ SPRÁVCE svěřenského fondu RSVP TRUST (IČO 24099333, SF 4262, Městský soud v Praze) — nikoli jako vlastník; podle § 1448 odst. 3 obč. zák. není majetek ve fondu vlastnictvím správce.",
+          "open_questions": [
+            "Nabytí akcií: rejstřík nedokládá, kdy k nabytí došlo — poznámka o svěřenských fondech z roku 2017 byla vymazána už 2024-12-02, mezera 2024-12-02 → 2025-10-15 není rejstříkem vysvětlena.",
+            "Zakladatel a obmyšlení fondu RSVP TRUST nejsou doloženi — evidence svěřenských fondů (esf.justice.cz) vracela 404. NEPŘEDPOKLÁDAT, že zakladatelem je Babiš."
+          ],
+          "statement_cs": "Obchodní rejstřík vede Ing. Andreje Babiše (nar. 2. 9. 1954) jako zapsaného jediného akcionáře společnosti AGROFERT, a.s., IČO 26185610, od 15. října 2025 do 20. února 2026; v notářském zápisu NZ 1292/2025 ze dne 15. října 2025 sám čestně prohlásil, že jediným akcionářem je. Od 9. prosince 2025 byl současně předsedou vlády. Zapsané datum není datem nabytí akcií."
+        },
+        "existing_role_date_caveat": "Uložená role „předseda představenstva 2000-07-01 → 2014-01-22“ míchá rejstříkové a právní datum. Rejstřík: funkce předsedy představenstva, zanikFunkce 2014-01-22, výmaz ze zápisu 2014-02-07.",
+        "tie_class_review_needed": true,
+        "tie_class_review_note": "Uložená tie_class je `manager` (podle role v představenstvu). Zapsané období jediného akcionáře by odpovídalo třídě `owner-operator`, což mění pravidla přičitatelnosti. Změnu NEPROVÁDÍME automaticky — patří lidskému posouzení ve verifikační konzoli.",
+        "flags": ["q-money-20-sole-shareholder-in-term", "opus-verified"]
+      },
+      "citations": [
+        {
+          "claim": "Ing. Andrej Babiš (nar. 1954-09-02) je v obchodním rejstříku veden jako jediný akcionář AGROFERT, a.s. (IČO 26185610) se zápisem 15. 10. 2025 a výmazem 20. 2. 2026.",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26185610",
+          "accessedAt": "2026-07-27"
+        },
+        {
+          "claim": "Úplný výpis z obchodního rejstříku uvádí u tohoto zápisu doslovné označení pole „Jediný akcionář“.",
+          "url": "https://or.justice.cz/ias/ui/rejstrik-firma.vysledky?subjektId=525681",
+          "accessedAt": "2026-07-27"
+        },
+        {
+          "claim": "V notářském zápisu NZ 1292/2025 ze dne 15. 10. 2025 akcionář čestně prohlásil, že je jediným akcionářem společnosti AGROFERT, a.s.",
+          "url": "https://or.justice.cz/ias/ui/vypis-sl-firma?subjektId=525681",
+          "accessedAt": "2026-07-27"
+        },
+        {
+          "claim": "Od 20. 2. 2026 je zapsaným jediným akcionářem Wilfried Reinhard Elbs jednající jako svěřenský správce svěřenského fondu RSVP TRUST, IČO 24099333.",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26185610",
+          "accessedAt": "2026-07-27"
+        },
+        {
+          "claim": "Andrej Babiš je poslancem od 4. 10. 2025 a předsedou vlády od 9. 12. 2025.",
+          "url": "https://www.psp.cz/sqw/detail.sqw?id=6150",
+          "accessedAt": "2026-07-27"
+        }
+      ]
+    }
+  ]
+}
