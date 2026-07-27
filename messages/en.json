@@ -70,22 +70,22 @@
       "activity": {
         "label": "Activity",
         "question": "How much legislative work does the MP actually do?",
-        "source": "psp.cz — bills, interpellations, floor speeches"
+        "source": "illustrative sample — methodology, not live data"
       },
       "attendance": {
         "label": "Attendance",
         "question": "Is the MP present when the Chamber votes?",
-        "source": "psp.cz — voting attendance, 9th term"
+        "source": "illustrative sample — methodology, not live data"
       },
       "independence": {
         "label": "Independence",
         "question": "Do they vote their conscience, or the party line?",
-        "source": "psp.cz — deviations from the party line"
+        "source": "illustrative sample — methodology, not live data"
       },
       "integrity": {
         "label": "Integrity",
         "question": "Does public money flow to firms tied to the MP?",
-        "source": "Hlídač /osoby · Contract Register · MONITOR"
+        "source": "illustrative sample — methodology, not live data"
       }
     },
     "modules": {
@@ -100,28 +100,28 @@
         "tag": "Vote analysis",
         "description": "Every roll-call vote in the Chamber and the Senate — attendance, deviations from the party line, rebellions, and who tabled what.",
         "metricValue": "5,214",
-        "metricLabel": "roll-call votes, 9th term",
+        "metricLabel": "roll-call votes, 9th term — illustrative sample",
         "feeds": "Pillars Activity + Attendance"
       },
       "follow-the-money": {
         "tag": "Money network",
         "description": "Public contracts and subsidies traced through companies to the politicians tied to them — joined on the eight-digit company ID (IČO).",
         "metricValue": "CZK 2.1B",
-        "metricLabel": "traced to connected firms",
+        "metricLabel": "traced to connected firms — illustrative sample",
         "feeds": "Pillar Integrity"
       },
       "budget-mirror": {
         "tag": "Budget comparison",
         "description": "Municipal finances compared with peer towns — debt per capita, capital-spending share, stewardship over time.",
         "metricValue": "6,254",
-        "metricLabel": "municipalities compared",
+        "metricLabel": "municipalities compared — illustrative sample",
         "feeds": "Stewardship, for executive roles"
       },
       "law-watch": {
         "tag": "Legislation monitor",
         "description": "What actually changed in the law — section-by-section diffs linked back to the vote and the MPs who passed it.",
         "metricValue": "312",
-        "metricLabel": "laws amended this term",
+        "metricLabel": "laws amended this term — illustrative sample",
         "feeds": "Links votes → impact"
       }
     },
@@ -197,62 +197,62 @@
         "label": "average composite",
         "value": "56.8",
         "sub": "median 55.4 · σ 11.6",
-        "source": "civicscore v1.4"
+        "source": "illustrative sample — not real data"
       },
       "attendance": {
         "label": "average attendance",
         "value": "78.3%",
         "sub": "−1.2 pp vs Q1/25",
-        "source": "psp.cz — roll-call votes"
+        "source": "illustrative sample — not real data"
       },
       "money": {
         "label": "money to connected firms",
         "value": "CZK 2.1B",
         "sub": "+CZK 180M this quarter",
-        "source": "Contract Register ⋈ ARES"
+        "source": "illustrative sample — not real data"
       },
       "laws": {
         "label": "laws amended",
         "value": "312",
         "sub": "38 change sections that affect citizens",
-        "source": "e-Sbírka · psp.cz prints"
+        "source": "illustrative sample — not real data"
       }
     },
     "events": {
       "e1": {
         "ts": "today 09:14",
         "text": "New contract CZK 4.2M — Silnice MSK a.s. (tie: K. Hruška, board member)",
-        "source": "Contract Register"
+        "source": "illustrative sample — not real data"
       },
       "e2": {
         "ts": "today 08:02",
         "text": "K. Hruška's integrity pillar recomputed 68 → 61; awaiting human review before publication",
-        "source": "civicscore v1.4"
+        "source": "illustrative sample — not real data"
       },
       "e3": {
         "ts": "Tue Jul 14",
         "text": "Vote no. 412: amendment to the Public Procurement Act passed 108:62",
-        "source": "psp.cz"
+        "source": "illustrative sample — not real data"
       },
       "e4": {
         "ts": "Tue Jul 14",
         "text": "P. Nováková broke from the Pirates' line on the household energy price cap (4th rebellion this term)",
-        "source": "psp.cz — line deviations"
+        "source": "illustrative sample — not real data"
       },
       "e5": {
         "ts": "Mon Jul 13",
         "text": "Amendment changes Section 16 of the Conflict of Interest Act — in force 1 Jan 2027; diff ready",
-        "source": "e-Sbírka"
+        "source": "illustrative sample — not real data"
       },
       "e6": {
         "ts": "Fri Jul 10",
         "text": "CZK 350K donation to ANO 2011 from Agrofond s.r.o. — 38% owner overlap",
-        "source": "Hlídač státu /sponsorship"
+        "source": "illustrative sample — not real data"
       },
       "e7": {
         "ts": "Thu Jul 9",
         "text": "Quarterly ranking recompute: 200 MPs, 14 changes in the top twenty",
-        "source": "civicscore v1.4"
+        "source": "illustrative sample — not real data"
       }
     },
     "rollCalls": {
@@ -348,28 +348,28 @@
         "kind": "board member (since 03/2019)",
         "amount": "CZK 4.2M",
         "note": "public contract — road maintenance, Moravia-Silesia Region",
-        "source": "Contract Register · ARES v3"
+        "source": "illustrative sample — not real data"
       },
       "1": {
         "company": "Agrofond s.r.o.",
         "kind": "38% owner",
         "amount": "CZK 11.8M",
         "note": "SZIF subsidy; the firm is also an ANO 2011 donor (CZK 350K)",
-        "source": "Subsidy Register · Hlídač státu"
+        "source": "illustrative sample — not real data"
       },
       "2": {
         "company": "DK Stav s.r.o.",
         "kind": "declared firm (50% partner)",
         "amount": "—",
         "note": "no public contracts; under entity-resolution review",
-        "source": "ARES v3 · Declarations Register"
+        "source": "illustrative sample — not real data"
       },
       "3": {
         "company": "3 companies",
         "kind": "undeclared board roles",
         "amount": "—",
         "note": "discrepancy between ARES and the Declarations Register; awaiting human review",
-        "source": "ARES v3 ⋈ Declarations Register"
+        "source": "illustrative sample — not real data"
       }
     },
     "graphNodes": {
@@ -379,11 +379,11 @@
       },
       "co1": {
         "label": "Silnice MSK a.s.",
-        "sub": "IČO 258 41 991"
+        "sub": "company ID — invented, illustrative"
       },
       "co2": {
         "label": "Agrofond s.r.o.",
-        "sub": "IČO 470 12 336"
+        "sub": "company ID — invented, illustrative"
       },
       "party": {
         "label": "ANO 2011",
@@ -427,22 +427,22 @@
     "ctaRanking": "Ranking",
     "ctaMethod": "Methodology",
     "hemicycleCaption": "fig. 2 — 200 Chamber seats by score band",
-    "hemicycleSource": "psp.cz · Hlídač státu",
+    "hemicycleSource": "illustrative diagram — illustrative sample — not real data",
     "hemicycleAria": "Hemicycle of 200 seats by score band",
     "rankingTitle": "Ranking",
-    "rankingSource": "fig. 3 — composite = Σ pillar × weight · recomputed every quarter",
+    "rankingSource": "fig. 3 — ILLUSTRATIVE SAMPLE · composite = Σ pillar × weight, recomputed every quarter; see /zebricek for the real ranking",
     "rankingIntro": "Ranked by composite score; the full ranking covers all 200 MPs. Pick a row — the breakdown, the trend and the live specimen above all switch to the selected MP.",
     "specimenLabel": "live specimen — {name}, {party}",
     "publishedWeights": "published weights",
     "scoreDefault": "computed with the published v1.4 weights",
     "scoreCustom": "computed with YOUR weights — same evidence",
     "pillarWeightAria": "Weight of the {pillar} pillar",
-    "specimenNote": "Pillar values are cited facts — {attendance}% attendance is psp.cz, contract ties are the Contract Register. Only the weighting is an opinion — and it is printed on the page.",
+    "specimenNote": "ILLUSTRATIVE SAMPLE — pillar values are invented, not real facts. The real ranking is at /zebricek.",
     "breakdownSource": "score breakdown — how many points each pillar contributed",
     "breakdownTooltipUnit": "{value} pts",
     "trendSource": "composite trend — {name} · {count} quarters",
     "trendTooltip": "composite",
-    "trendFootnote": "source: psp.cz · Hlídač státu · Contract Register — recomputed with methodology v1.4",
+    "trendFootnote": "source: illustrative sample — not real data",
     "systemTitlePart1": "One graph",
     "systemTitlePart2": "Five tools",
     "systemIntro": "Politician ↔ party ↔ firm ↔ contract ↔ vote ↔ budget ↔ law, joined through one universal eight-digit company ID (IČO). Every tool reads the same graph.",
@@ -455,7 +455,8 @@
     "methodCtaFind": "Find your MP",
     "methodCtaApi": "API for newsrooms",
     "footerLeft": "Politicas — the empirical record of the republic",
-    "footerRight": "open data · cc by · methodology v1.4"
+    "footerRight": "open data · cc by · methodology v1.4",
+    "mockBadge": "ILLUSTRATIVE SAMPLE — not real data"
   },
   "dashboard": {
     "headerTag": "control room",
@@ -463,11 +464,11 @@
     "title": "The republic's control room",
     "lead": "What changed in the state while you weren't looking — Chamber aggregates, ranking moves, and new edges in the public-money graph. Every number cites its source.",
     "rankingSectionTitle": "Ranking",
-    "allMpsLink": "all 200 MPs",
-    "rankingFootnote": "composite = Σ pillar × weight · civicscore v1.4 · row opens the MP's file",
+    "allMpsLink": "all {count} MPs",
+    "rankingFootnote": "ILLUSTRATIVE SAMPLE — composite = Σ pillar × weight over 5 invented MPs, row does not open a real profile",
     "chamberTrendLabel": "Chamber average trend",
     "chamberTrendTooltip": "average composite",
-    "chamberTrendSource": "source: psp.cz · Contract Register — methodology v1.4",
+    "chamberTrendSource": "source: illustrative sample — not real data",
     "pillarAvgLabel": "pillar averages — sample of {n} MPs",
     "pillarAvgTooltip": "sample average",
     "pillarAvgSource": "psp.cz · Hlídač státu — pillar values 0–100",
@@ -481,9 +482,9 @@
       "badge": "knowledge-graph slice",
       "hint": "hover a node — its edges light up and the traffic feed filters to match",
       "ariaLabel": "Entity graph: MPs, companies, public money, votes and laws",
-      "source": "source: psp.cz · Contract Register ⋈ ARES v3 · Subsidy Register · e-Sbírka",
+      "source": "source: illustrative sample — names, company IDs and amounts are invented, not real data",
       "legendTitle": "legend",
-      "sliceNote": "a slice of the sample data — the full graph opens in the Money module",
+      "sliceNote": "illustrative diagram — invented people and firms, not real ties; real ties live in the Money module",
       "countLabel": "{nodes} nodes · {edges} edges",
       "edgesInRecord": "{count} edges in the record",
       "noEdges": "no ties found in this slice",
@@ -515,8 +516,28 @@
       "globalRow": "aggregate recompute — no node",
       "empty": "nothing flowed to this node in this window",
       "matchCount": "{count} of {total} records",
-      "showInGraph": "show in graph"
-    }
+      "showInGraph": "show in graph",
+      "mockSource": "ILLUSTRATIVE SAMPLE — not a real ingestion feed or real events"
+    },
+    "allMpsLinkFallback": "full ranking",
+    "realRanking": {
+      "title": "Ranking — real data",
+      "footnote": "contribution index · {count} real MPs · row opens the MP's file"
+    },
+    "realStats": {
+      "avgLabel": "average contribution index",
+      "avgSub": "median {median} · σ {sigma} · {count} MPs",
+      "avgSource": "contribution index — real graph",
+      "attendanceLabel": "average attendance",
+      "attendanceSub": "averaged over the real sample of 207 MPs",
+      "attendanceSource": "psp.cz — real roll-call votes, 9th term"
+    },
+    "histogram": {
+      "label": "score distribution — {count} real MPs",
+      "tooltip": "MPs in band",
+      "source": "contribution index — real score distribution, not a trend over time"
+    },
+    "mockBadge": "ILLUSTRATIVE SAMPLE — not real data"
   },
   "profile": {
     "breadcrumb": "file",
@@ -560,35 +581,35 @@
   },
   "votetrack": {
     "backToDashboard": "control room",
-    "heroSourceNote": "votetrack · roll-call vote analysis · feeds the activity + attendance + independence pillars",
+    "heroSourceNote": "votetrack · sections 1–3 below: ILLUSTRATIVE SAMPLE over 5 invented votes — not real data. Section 4 (themes) reads the real graph.",
     "title": "Chamber of Deputies roll-call votes",
     "lead": "A ledger of roll-call votes, a view onto the chamber floor, and party-line analysis — three perspectives on the same data. Pick an entry in the ledger; the chamber floor redraws.",
     "section1Title": "Ledger and chamber floor",
-    "section1Note": "bar = chamber floor: cobalt for · gray abstained/excused · signal red against",
+    "section1Note": "ILLUSTRATIVE SAMPLE · bar = chamber floor: cobalt for · gray abstained/excused · signal red against",
     "section2Title": "Party lines",
-    "section2Note": "psp.cz — deviations from the party line · computed from the vote breakdowns",
+    "section2Note": "ILLUSTRATIVE SAMPLE — breakdowns and deviations are invented, not real votes",
     "section3Title": "Rebellions and independence",
-    "section3Note": "feeds the independence pillar × 0.25 · methodology v1.4",
+    "section3Note": "ILLUSTRATIVE SAMPLE — would feed the independence pillar, but over invented votes",
     "section4Title": "Vote themes",
     "section4Note": "title classification — sem_classify (haiku) · silver layer",
     "themeAll": "All",
     "section4SourceNote": "themes assigned by {model} over {n} votes · psp.cz",
     "hemicycleAria": "Hemicycle for the vote: {title}",
-    "splitNote": "breakdown by party — share of the group's votes · arrow = party line · number = discipline",
-    "sampleNote": "votes of the tracked sample — the tag opens the file",
+    "splitNote": "ILLUSTRATIVE SAMPLE · breakdown by party — share of the group's votes · arrow = party line · number = discipline",
+    "sampleNote": "ILLUSTRATIVE SAMPLE · votes of the tracked sample — invented MPs, tags do not open a real profile",
     "rebelTag": "rebel",
-    "disciplineNote": "party discipline — averaged across {count} votes",
+    "disciplineNote": "ILLUSTRATIVE SAMPLE — party discipline, computed over {count} invented votes",
     "partyHeader": "party",
-    "matrixNote": "party-line matrix — ▲ for · ▼ against · solid color = discipline ≥ 90%",
+    "matrixNote": "ILLUSTRATIVE SAMPLE — party-line matrix over invented votes",
     "matrixFootnote": "An outline instead of solid color means the group split — that's exactly where the Independence pillar begins.",
     "rebellionChronicleNote": "chronicle of rebellions in the tracked sample",
     "votedVerb": "voted",
     "againstPartyLine": "against the party line —",
     "noRebellions": "No rebellions in the tracked sample during this period.",
     "independencePillarNote": "independence pillar — tracked sample (0–100)",
-    "independenceFootnote": "Independence is neither a virtue nor a vice — it's a measured deviation from the party line. Interpretation is up to the reader; the numbers carry the citations.",
+    "independenceFootnote": "Independence is neither a virtue nor a vice — it's a measured deviation from the party line. This is an illustrative sample over invented votes, not a real computation.",
     "rebelsCount": "{n}× against the line",
-    "sampleFootnote": "sample of {sample} out of {total} votes, 9th term · psp.cz — daily ingestion"
+    "sampleFootnote": "ILLUSTRATIVE SAMPLE — {sample} invented votes, not a daily ingestion feed or a slice of the real 9th term"
   },
   "civicscore": {
     "backToControl": "control room",
@@ -632,8 +653,11 @@
       "eyebrow": "live knowledge-graph data · pass {pass}",
       "allPendingBanner": "Every person ↔ company tie is awaiting human review — we publish them as a dated trail, not as fact. None feeds the Integrity pillar.",
       "stats": {
+        "ownerLabel": "MPs with an owner-class firm",
+        "ownerSub": "owner/operator of a firm that supplies the state — the real tie",
+        "ownerSource": "ares v3 — commercial register roles",
         "reachableLabel": "public money in reach",
-        "reachableSub": "contracts traced through tied companies",
+        "reachableSub": "contracts traced through tied companies — for stewards this is the institution's own money, not the MP's",
         "reachableSource": "contracts register · Σ contract values",
         "mpsLabel": "MPs with a tie",
         "mpsSub": "of 207 mandates this term",
@@ -746,11 +770,11 @@
   },
   "budget": {
     "backToDashboard": "control room",
-    "eyebrow": "budgetmirror · budget comparison · stewardship for executive roles",
+    "eyebrow": "budgetmirror · SAMPLE DATA, SOURCE NOT WIRED YET",
     "title": "The budget mirror",
-    "intro": "A town's finances don't mean much read alone — the mirror sets them beside peers of similar size. Sample group: towns of 20,000–40,000 residents (out of 6,254 municipalities in MONITOR).",
+    "intro": "Sample data, source not wired yet. This screen previews how a town-budget comparison would look — real figures would need to be pulled from MONITOR (the State Treasury), which is not yet connected to the app.",
     "section1Title": "Town vs. peers",
-    "section1Aside": "flagged value = worse than the group median · MONITOR, quarterly",
+    "section1Aside": "ILLUSTRATIVE SAMPLE — invented figures, MONITOR not yet wired",
     "residents": "{count} residents",
     "metricDebtLabel": "debt per capita",
     "metricCapexLabel": "capital-spending share of expenditure",
@@ -760,14 +784,14 @@
     "peerMedianLabel": "peer median",
     "section2Title": "Debt over time",
     "section2Aside": "CZK per capita · solid line = {town} · dashed = peer median",
-    "section2Source": "source: MONITOR / State Treasury — quarterly ingestion, consolidated by year",
+    "section2Source": "source: illustrative sample — not real data — the real source would be MONITOR / State Treasury",
     "section3Title": "Peer group",
-    "section3Aside": "sorted by debt per capita · click a row to switch the mirror",
+    "section3Aside": "ILLUSTRATIVE SAMPLE — sorted by invented debt per capita",
     "colPopulation": "residents",
     "colDebt": "debt / capita",
     "colCapex": "capex %",
     "colSaldo": "balance / capita",
-    "stewardshipNote": "Stewardship only feeds into CivicScore for politicians in executive roles (mayors, regional governors) — an MP doesn't lose points for another town's poor budget. Town data is an illustrative mock built on MONITOR's shape."
+    "stewardshipNote": "Stewardship only feeds into CivicScore for politicians in executive roles (mayors, regional governors) — an MP doesn't lose points for another town's poor budget. Town data on this page is an ILLUSTRATIVE SAMPLE modeled on MONITOR's shape; no real figure is wired in yet."
   },
   "lawwatch": {
     "back": "control room",

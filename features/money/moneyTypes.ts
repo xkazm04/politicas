@@ -186,6 +186,11 @@ export interface MoneyStats {
   totalTies: number;
   verifiedTies: number;
   pendingTies: number;
+  /** MPs with at least one owner-operator tie (owns/runs a firm that supplies
+   *  the state) — the actual FollowTheMoney finding, as opposed to
+   *  `contractCzkReachable`, which is dominated by stewards' own institutions
+   *  and must never be read as personal enrichment (see `tieClassInfo`). */
+  ownerOperatorMps: number;
 }
 
 export interface MoneyData {

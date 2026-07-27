@@ -14,7 +14,24 @@
 
 import { useState } from "react";
 
-const COLLAPSE_AT = 240;
+// Raised from 240 (UX audit 2026-07-27, #9): at 240 the cut consistently fell
+// inside the setup sentence, before any dossier reached its payoff clause —
+// verified against the two worst offenders in the corpus (Fiala's ČEZ-chair
+// finding, the Teleky family-firm note), both of which land past 320.
+const COLLAPSE_AT = 360;
+
+/** Cuts at the sentence boundary (". ", "! ", "? ") nearest to but not before
+ *  COLLAPSE_AT, so collapsed prose always ends on a complete thought instead
+ *  of mid-word. Falls back to the nearest word boundary if no sentence ends
+ *  within a reasonable stretch after the threshold (e.g. one very long
+ *  run-on sentence) — never a hard character slice. */
+function collapseBoundary(text: string, at: number): number {
+  const tail = text.slice(at, at + 200);
+  const sentenceEnd = tail.search(/[.!?]\s/);
+  if (sentenceEnd !== -1) return at + sentenceEnd + 1;
+  const wordEnd = text.slice(0, at).lastIndexOf(" ");
+  return wordEnd > 0 ? wordEnd : at;
+}
 
 export default function ExpandableText({
   text,
@@ -25,7 +42,7 @@ export default function ExpandableText({
 }) {
   const [expanded, setExpanded] = useState(false);
   const isLong = text.length > COLLAPSE_AT;
-  const shown = !isLong || expanded ? text : `${text.slice(0, COLLAPSE_AT).trimEnd()}…`;
+  const shown = !isLong || expanded ? text : `${text.slice(0, collapseBoundary(text, COLLAPSE_AT)).trimEnd()}…`;
 
   return (
     <p className={className}>

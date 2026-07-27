@@ -1,22 +1,30 @@
 "use client";
 
 /**
- * Plný žebříček 207 poslanců (REÁLNÁ DATA) — filtr po klubech, hledání, mini
- * rozklad indexu přispění v každém řádku (šířka segmentu = složka × váha, celek
- * ≈ skóre) a výběr dvou poslanců do souboje. Každý řádek odkazuje na spis
- * /poslanec/<pspId>. Žádná dogenerovaná jména — všech 207 je skutečných.
+ * Plný žebříček 207 poslanců (REÁLNÁ DATA) — filtr po klubech, hledání a výběr
+ * dvou poslanců do souboje. Každý řádek odkazuje na spis /poslanec/<pspId>.
+ * Žádná dogenerovaná jména — všech 207 je skutečných.
  *
  * Manifestation pass (2026-07-25): řádek nese ikonu dosieru
  * (effortHasDossier), přibyl souhrnný filtr "jen s dosierem" a kompaktní/
- * rozšířený přepínač řádků — 207 řádků s mini rozkladem + odznaky se blíží
- * nepřehlednosti, kompaktní režim nechá jen jméno/klub/skóre.
+ * rozšířený přepínač řádků.
+ *
+ * UX audit (2026-07-27, #8) removed the per-row six-segment MiniBreakdown: at
+ * 207 rows it rendered ~1 533 SVG paths and the segments were too close in
+ * width to tell apart (the top ~50 MPs share near-identical Práce/Legislativa/
+ * Sál bars; rank actually hinged on a 1-point Docházka difference invisible at
+ * that scale). Replaced with one text stat — the single component where this
+ * MP deviates furthest from the chamber median — which states the thing that
+ * actually explains the row instead of drawing six bars a reader can't
+ * compare. The full six-segment breakdown stays on the profile page, which
+ * has room for it (DESIGN.md §5).
  */
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { ArrowUpRight, FileText, Gavel, Rows3, ShieldCheck, Swords } from "lucide-react";
-import type { ClubFacet, LeaderboardData, LeaderboardEntry } from "../getLeaderboardData";
+import type { ClubFacet, LeaderboardData, LeaderboardListEntry } from "../getLeaderboardData";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { COBALT, INK, OCHRE, SIGNAL, STEEL } from "@/features/landing/palette";
@@ -34,27 +42,49 @@ export const COMPONENT_FILL: Record<string, { color: string; opacity?: number }>
   leadership: { color: COBALT, opacity: 0.5 },
 };
 
-/** Mini rozklad: šířka segmentu = body složky (celek ≈ skóre /100). */
-function MiniBreakdown({
+/** Per-component median across the whole chamber (207 MPs) — the baseline a
+ *  single row's standout stat is measured against. Pure function of the full
+ *  entries list; cheap enough to recompute on every render (207 × 6 numbers). */
+function componentMedians(
+  entries: LeaderboardListEntry[],
+  components: LeaderboardData["components"],
+): Record<string, number> {
+  const out: Record<string, number> = {};
+  for (const c of components) {
+    const vals = entries.map((e) => e.components[c.key]).sort((a, b) => a - b);
+    const n = vals.length;
+    out[c.key] = n === 0 ? 0 : n % 2 ? vals[(n - 1) / 2] : (vals[n / 2 - 1] + vals[n / 2]) / 2;
+  }
+  return out;
+}
+
+/** The one component where this MP deviates furthest from the chamber
+ *  median, as signed text ("+9 účast", "−2 docházka") — what actually
+ *  explains the row, instead of six bars too similar to compare. */
+function StandoutStat({
   entry,
   components,
+  medians,
 }: {
-  entry: LeaderboardEntry;
+  entry: LeaderboardListEntry;
   components: LeaderboardData["components"];
+  medians: Record<string, number>;
 }) {
+  let best: { label: string; delta: number } | null = null;
+  for (const c of components) {
+    const delta = Math.round(entry.components[c.key] - (medians[c.key] ?? 0));
+    if (!best || Math.abs(delta) > Math.abs(best.delta)) best = { label: c.label.split(" ")[0], delta };
+  }
+  if (!best || best.delta === 0) return <span className="font-mono text-[10px] uppercase tracking-wider text-steel">≈ medián</span>;
+  const up = best.delta > 0;
   return (
-    <div className="flex h-3 w-36 bg-hairline" aria-hidden>
-      {components.map((c) => {
-        const fill = COMPONENT_FILL[c.key] ?? { color: STEEL };
-        return (
-          <span
-            key={c.key}
-            className="h-full"
-            style={{ width: `${entry.components[c.key]}%`, background: fill.color, opacity: fill.opacity }}
-          />
-        );
-      })}
-    </div>
+    <span
+      className={`font-mono text-[10px] font-bold uppercase tracking-wider ${up ? "text-cobalt" : "text-signal"}`}
+      title={`${best.label}: ${up ? "+" : ""}${best.delta} b. proti mediánu`}
+    >
+      {up ? "+" : "−"}
+      {Math.abs(best.delta)} {best.label}
+    </span>
   );
 }
 
@@ -65,7 +95,7 @@ export default function LeaderboardTable({
   duel,
   onToggleDuel,
 }: {
-  entries: LeaderboardEntry[];
+  entries: LeaderboardListEntry[];
   clubs: ClubFacet[];
   components: LeaderboardData["components"];
   duel: number[];
@@ -97,11 +127,13 @@ export default function LeaderboardTable({
   const [dossierOnly, setDossierOnly] = useState(false);
   const dossierCount = useMemo(() => entries.filter((e) => e.effortHasDossier).length, [entries]);
 
-  // Kompaktní/rozšířený přepínač řádků (manifestation pass 2026-07-25) — 207
-  // řádků s mini rozkladem + odznaky se blíží nepřehlednosti; kompaktní režim
-  // skryje mini rozklad a klubovou/regionální meta řádku, nechá jen jméno,
-  // klub tečkou a skóre — čtenář může projít celý žebříček rychleji.
+  // Kompaktní/rozšířený přepínač řádků (manifestation pass 2026-07-25) —
+  // kompaktní režim skryje standout statistiku a klubovou/regionální meta
+  // řádku, nechá jen jméno, klub tečkou a skóre — čtenář může projít celý
+  // žebříček rychleji.
   const [compact, setCompact] = useState(false);
+
+  const medians = useMemo(() => componentMedians(entries, components), [entries, components]);
 
   const rows = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -212,24 +244,6 @@ export default function LeaderboardTable({
         </button>
       </div>
 
-      {/* legenda mini rozkladu */}
-      {!compact && (
-        <div className="mt-4 flex flex-wrap items-center gap-3">
-          {components.map((c) => {
-            const fill = COMPONENT_FILL[c.key] ?? { color: STEEL };
-            return (
-              <span key={c.key} className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-steel">
-                <span className="inline-block h-2.5 w-2.5" style={{ background: fill.color, opacity: fill.opacity }} />
-                {c.label} × {c.weight}
-              </span>
-            );
-          })}
-          <span className="font-mono text-[10px] uppercase tracking-wider text-steel">
-            {t("componentLegendNote")}
-          </span>
-        </div>
-      )}
-
       {/* řádky */}
       <div className="mt-4 border-t-2 border-ink">
         {rows.map((r) => {
@@ -268,7 +282,7 @@ export default function LeaderboardTable({
               </span>
               {!compact && (
                 <span className="max-sm:hidden">
-                  <MiniBreakdown entry={r} components={components} />
+                  <StandoutStat entry={r} components={components} medians={medians} />
                 </span>
               )}
               <span className="w-12 text-right text-lg font-black tabular-nums">{f.dec(r.score)}</span>

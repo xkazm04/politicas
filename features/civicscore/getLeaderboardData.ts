@@ -175,14 +175,63 @@ export interface ClubFacet {
   seats: number;
 }
 
+/** What /zebricek actually renders per row (list + duel) — a fraction of
+ *  LeaderboardEntry. The full entry also carries `trend`, `effortPublicRole`
+ *  prose, `effortLowScoreReason`, and seven raw per-MP counters: real fields,
+ *  but ones the leaderboard list and the head-to-head duel never read (both
+ *  render only identity, score, and the six component points). Serializing
+ *  the full shape for all 207 rows cost ~5 KB/MP of dead weight — measured at
+ *  1 045 363 bytes for a page that displays none of it (UX audit 2026-07-27,
+ *  #8). `getProfileData.ts` still calls `buildLeaderboard()` directly and
+ *  gets the FULL `LeaderboardEntry` for the one MP a profile page needs —
+ *  only this list-facing wrapper trims. */
+export type LeaderboardListEntry = Pick<
+  LeaderboardEntry,
+  | "pspId"
+  | "rank"
+  | "name"
+  | "clubAbbrev"
+  | "clubName"
+  | "clubColor"
+  | "region"
+  | "score"
+  | "components"
+  | "effortWorkhorse"
+  | "effortWorkhorseFlavour"
+  | "effortHasDossier"
+>;
+
+function toListEntry(e: LeaderboardEntry): LeaderboardListEntry {
+  return {
+    pspId: e.pspId,
+    rank: e.rank,
+    name: e.name,
+    clubAbbrev: e.clubAbbrev,
+    clubName: e.clubName,
+    clubColor: e.clubColor,
+    region: e.region,
+    score: e.score,
+    components: e.components,
+    effortWorkhorse: e.effortWorkhorse,
+    effortWorkhorseFlavour: e.effortWorkhorseFlavour,
+    effortHasDossier: e.effortHasDossier,
+  };
+}
+
 export interface LeaderboardData {
-  entries: LeaderboardEntry[]; // all 207, ranked desc by score
+  entries: LeaderboardEntry[]; // all 207, ranked desc by score — FULL shape (getLeaderboardData, dashboard)
   clubs: ClubFacet[];
   summary: { avg: number; median: number; sigma: number; count: number };
   histogram: { from: number; label: string; count: number }[];
   components: { key: ComponentKey; weight: number; label: string; source: string }[];
   provenancePass: number | null; // contribution-index pass that authored the scores
   dossierCoverage: { withDossier: number; total: number }; // effort-loop enrichment reach
+}
+
+/** Same shape as `LeaderboardData` but with the trimmed `LeaderboardListEntry`
+ *  — what `getLeaderboardListData()` (the /zebricek-only entry point) returns. */
+export interface LeaderboardListData extends Omit<LeaderboardData, "entries"> {
+  entries: LeaderboardListEntry[];
 }
 
 /**
@@ -323,7 +372,19 @@ export async function buildLeaderboard(): Promise<{ data: LeaderboardData; direc
   }
 }
 
+/** Full-detail loader — `/dashboard` (top-5 widget, needs `absenceRate` etc.)
+ *  and anything else needing the whole `LeaderboardEntry` per MP. */
 export async function getLeaderboardData(): Promise<LeaderboardData | null> {
   const built = await buildLeaderboard();
   return built?.data ?? null;
+}
+
+/** /zebricek-only loader — trims every entry to `LeaderboardListEntry` before
+ *  it reaches the client component tree (see the type's doc comment). Do NOT
+ *  use this for a surface that needs `trend`, dossier prose, or raw counters —
+ *  use `getLeaderboardData()` for those. */
+export async function getLeaderboardListData(): Promise<LeaderboardListData | null> {
+  const built = await buildLeaderboard();
+  if (!built) return null;
+  return { ...built.data, entries: built.data.entries.map(toListEntry) };
 }

@@ -11,12 +11,12 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { ArrowUpRight } from "lucide-react";
-import type { LeaderboardData, LeaderboardEntry } from "../getLeaderboardData";
+import type { LeaderboardData, LeaderboardListEntry } from "../getLeaderboardData";
 import { useFormat } from "@/lib/i18n/useFormat";
 import AnimatedScore from "@/features/shared/components/AnimatedScore";
 import SourceNote from "@/features/shared/components/SourceNote";
 
-function Fighter({ row, align }: { row: LeaderboardEntry; align: "left" | "right" }) {
+function Fighter({ row, align }: { row: LeaderboardListEntry; align: "left" | "right" }) {
   const t = useTranslations("civicscore");
   const f = useFormat();
   const right = align === "right";
@@ -48,7 +48,7 @@ export default function HeadToHead({
   pair,
   components,
 }: {
-  pair: [LeaderboardEntry, LeaderboardEntry] | null;
+  pair: [LeaderboardListEntry, LeaderboardListEntry] | null;
   components: LeaderboardData["components"];
 }) {
   const reduceMotion = useReducedMotion();

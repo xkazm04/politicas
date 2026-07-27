@@ -37,7 +37,13 @@ export async function getMoneyMpDetail(pspId: number): Promise<MoneyMpDetail | n
     }
     if (ties.length === 0) return null;
 
-    ties.sort((a, b) => b.contractCzk + b.subsidiesCzk - (a.contractCzk + a.subsidiesCzk));
+    // Strongest evidence first: the batch-005 review order (reviewRank —
+    // registry-confirmed owner-operator, then manager, then steward, then
+    // unconfirmed/conflicting; reachable CZK only breaks ties within a tier).
+    // A case file sorted by raw money buries an active, registry-confirmed
+    // owner-operator tie under ended steward seats worth 40x more but worth
+    // nothing as evidence (UX audit 2026-07-27, #4).
+    ties.sort((a, b) => a.reviewRank - b.reviewRank);
 
     return {
       pspId,

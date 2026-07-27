@@ -33,13 +33,19 @@ export default function FollowTheMoneyPage({ data }: { data?: MoneyData | null }
   const locale = useLocale();
 
   // Real store data (kg money layer) when present; otherwise the labelled mock.
+  // Headline tile is the number that IS a finding — how many MPs own/run a firm
+  // that supplies the state (owner-operator = the real FollowTheMoney tie).
+  // `contractCzkReachable` is demoted to an ordinary column: it is dominated by
+  // stewards' own institutions (hospitals, waterworks) and the page's own
+  // TieClassExplainer says that money must never be read as MP enrichment —
+  // it must not be the number a reader sees first (UX audit 2026-07-27, #3).
   const STATS = data
     ? [
         {
-          label: t("real.stats.reachableLabel"),
-          value: compactCzk(data.stats.contractCzkReachable, locale),
-          sub: t("real.stats.reachableSub"),
-          source: t("real.stats.reachableSource"),
+          label: t("real.stats.ownerLabel"),
+          value: f.int(data.stats.ownerOperatorMps),
+          sub: t("real.stats.ownerSub"),
+          source: t("real.stats.ownerSource"),
         },
         {
           label: t("real.stats.mpsLabel"),
@@ -54,10 +60,10 @@ export default function FollowTheMoneyPage({ data }: { data?: MoneyData | null }
           source: t("real.stats.companiesSource"),
         },
         {
-          label: t("real.stats.pendingLabel"),
-          value: f.int(data.stats.pendingTies),
-          sub: t("real.stats.pendingSub"),
-          source: t("real.stats.pendingSource"),
+          label: t("real.stats.reachableLabel"),
+          value: compactCzk(data.stats.contractCzkReachable, locale),
+          sub: t("real.stats.reachableSub"),
+          source: t("real.stats.reachableSource"),
         },
       ]
     : [

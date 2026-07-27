@@ -81,8 +81,10 @@ export async function getMoneyData(): Promise<MoneyData | null> {
       const pnode = personById.get(personId);
       const pspId = pspIdFromNodeId(personId);
       if (!pnode || pspId == null) continue;
-      // strongest evidence first within a case file
-      ties.sort((a, b) => b.contractCzk + b.subsidiesCzk - (a.contractCzk + a.subsidiesCzk));
+      // Strongest evidence first within a case file (reviewRank — tier
+      // ascending, reachable CZK descending only within a tier). Was sorted
+      // by raw money, contradicting this very comment (UX audit 2026-07-27, #4).
+      ties.sort((a, b) => a.reviewRank - b.reviewRank);
       const totalContractCzk = ties.reduce((s, t) => s + t.contractCzk, 0);
       const totalSubsidiesCzk = ties.reduce((s, t) => s + t.subsidiesCzk, 0);
       mps.push({
@@ -131,6 +133,8 @@ export async function getMoneyData(): Promise<MoneyData | null> {
       };
     }
 
+    const ownerOperatorMps = mps.filter((mp) => mp.ties.some((t) => t.tieClass === "owner-operator")).length;
+
     return {
       mps,
       mpsWithoutTies,
@@ -142,6 +146,7 @@ export async function getMoneyData(): Promise<MoneyData | null> {
         totalTies: linked.length,
         verifiedTies,
         pendingTies,
+        ownerOperatorMps,
       },
       source: "registr smluv ⋈ ares ⋈ hlídač státu",
       pass,

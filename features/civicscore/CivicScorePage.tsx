@@ -15,7 +15,7 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import type { LeaderboardData, LeaderboardEntry } from "./getLeaderboardData";
+import type { LeaderboardListData, LeaderboardListEntry } from "./getLeaderboardData";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
@@ -23,7 +23,7 @@ import ScoreHistogram from "./components/ScoreHistogram";
 import HeadToHead from "./components/HeadToHead";
 import LeaderboardTable from "./components/LeaderboardTable";
 
-export default function CivicScorePage({ data }: { data: LeaderboardData | null }) {
+export default function CivicScorePage({ data }: { data: LeaderboardListData | null }) {
   const t = useTranslations("civicscore");
   // Souboj: max dva vybraní (klíč = pspId); třetí výběr vyřadí staršího.
   const initial = data?.entries.slice(0, 2).map((e) => e.pspId) ?? [];
@@ -37,7 +37,7 @@ export default function CivicScorePage({ data }: { data: LeaderboardData | null 
   );
   const pair =
     duel.length === 2 && byId.has(duel[0]) && byId.has(duel[1])
-      ? ([byId.get(duel[0])!, byId.get(duel[1])!] as [LeaderboardEntry, LeaderboardEntry])
+      ? ([byId.get(duel[0])!, byId.get(duel[1])!] as [LeaderboardListEntry, LeaderboardListEntry])
       : null;
 
   return (

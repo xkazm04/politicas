@@ -53,7 +53,12 @@ export default function TiesLedger({ data }: { data: MoneyData | null }) {
 // ── Real: filterable/sortable/paginated ledger over the knowledge-graph money layer ──
 
 type FlatRow = { mp: MoneyMp; tie: MoneyTie };
-type SortKey = "reach" | "mp" | "company";
+// "evidence" = the batch-005 review order (reviewRank: registry-confirmed
+// owner-operator first, then manager, then steward, unconfirmed/conflicting
+// last; reachable CZK only breaks ties within the same tier). Default sort —
+// a reader should meet the strongest-evidence tie first, not the biggest
+// number (UX audit 2026-07-27, #3).
+type SortKey = "evidence" | "reach" | "mp" | "company";
 type CorroborationFilter = "all" | "confirmed" | "unconfirmed" | "conflicting" | "unchecked";
 type TemporalFilter = "all" | "current" | "ended" | "warn" | "unknown";
 
@@ -77,8 +82,8 @@ function RealLedger({ data }: { data: MoneyData }) {
   const [corrFilter, setCorrFilter] = useState<CorroborationFilter>("all");
   const [temporalFilter, setTemporalFilter] = useState<TemporalFilter>("all");
   const [clubFilter, setClubFilter] = useState<string>("all");
-  const [sortKey, setSortKey] = useState<SortKey>("reach");
-  const [sortDir, setSortDir] = useState<1 | -1>(-1);
+  const [sortKey, setSortKey] = useState<SortKey>("evidence");
+  const [sortDir, setSortDir] = useState<1 | -1>(1);
   const [page, setPage] = useState(0);
 
   const filtered = useMemo(() => {
@@ -105,6 +110,7 @@ function RealLedger({ data }: { data: MoneyData }) {
     copy.sort((a, b) => {
       if (sortKey === "mp") return sortDir * a.mp.name.localeCompare(b.mp.name, "cs");
       if (sortKey === "company") return sortDir * a.tie.company.localeCompare(b.tie.company, "cs");
+      if (sortKey === "evidence") return sortDir * (a.tie.reviewRank - b.tie.reviewRank);
       const reachA = a.tie.contractCzk + a.tie.subsidiesCzk;
       const reachB = b.tie.contractCzk + b.tie.subsidiesCzk;
       return sortDir * (reachA - reachB);
@@ -121,7 +127,7 @@ function RealLedger({ data }: { data: MoneyData }) {
     if (sortKey === key) setSortDir((d) => (d === 1 ? -1 : 1) as 1 | -1);
     else {
       setSortKey(key);
-      setSortDir(key === "mp" || key === "company" ? 1 : -1);
+      setSortDir(key === "mp" || key === "company" || key === "evidence" ? 1 : -1);
     }
   };
 
@@ -234,7 +240,9 @@ function RealLedger({ data }: { data: MoneyData }) {
               <Th onClick={() => toggleSort("company")} active={sortKey === "company"} dir={sortDir}>
                 {en ? "company" : "firma"}
               </Th>
-              <th className="px-3 py-2">{en ? "class" : "třída"}</th>
+              <Th onClick={() => toggleSort("evidence")} active={sortKey === "evidence"} dir={sortDir}>
+                {en ? "class" : "třída"}
+              </Th>
               <th className="px-3 py-2">{en ? "status" : "stav"}</th>
               <Th onClick={() => toggleSort("reach")} active={sortKey === "reach"} dir={sortDir} align="right">
                 {en ? "reach" : "dosah"}

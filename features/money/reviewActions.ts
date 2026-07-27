@@ -9,30 +9,21 @@
 // Auth model (single-operator console, simplest correct choice for this
 // batch): the server reads REVIEWER_NAME + REVIEWER_TOKEN from env. The client
 // submits a token value (entered once in the console, see VerificationConsole)
-// which must match REVIEWER_TOKEN exactly. If REVIEWER_TOKEN is not configured
-// at all, the action returns a DISTINCT "not-configured" result so the console
-// can render an honest still-read-only state instead of pretending to write.
+// which must match REVIEWER_TOKEN — compared in constant time by the shared
+// gate in lib/security/token.ts, the same one /admin uses. If REVIEWER_TOKEN is
+// not configured at all, the action returns a DISTINCT "not-configured" result
+// so the console can render an honest still-read-only state instead of
+// pretending to write.
 //
 // Follows the shape/simplicity of the repo's one existing server action,
 // lib/i18n/locale.ts.
 
 import { revalidatePath } from "next/cache";
-import { createHash, timingSafeEqual } from "node:crypto";
 import { getStore } from "@/lib/db/store";
+import { checkSharedToken } from "@/lib/security/token";
 import type { ReviewDecision } from "./reviewTypes";
 
 const VALID_DECISIONS: readonly ReviewDecision[] = ["confirm", "reject", "needs-more"];
-
-/** Constant-time token comparison. Plain `!==` on secrets is not constant-time —
- * V8 short-circuits at the first mismatched character, letting a caller who can
- * repeat the request measure response latency to recover REVIEWER_TOKEN one
- * character at a time. Hash both sides to a fixed length first so even the
- * length of the raw input never leaks through timing either. */
-function tokensMatch(submitted: string, expected: string): boolean {
-  const a = createHash("sha256").update(submitted).digest();
-  const b = createHash("sha256").update(expected).digest();
-  return timingSafeEqual(a, b);
-}
 
 export interface SubmitReviewInput {
   src: string; // kg_edge.src, "psp:person:<pspId>"
@@ -52,15 +43,13 @@ export type SubmitReviewResult =
 
 export async function submitReviewDecision(input: SubmitReviewInput): Promise<SubmitReviewResult> {
   const reviewerName = process.env.REVIEWER_NAME?.trim();
-  const reviewerToken = process.env.REVIEWER_TOKEN?.trim();
 
-  // Write path not configured at all — honest distinct state, never a generic error.
-  if (!reviewerToken) {
-    return { status: "not-configured" };
-  }
-  if (!input.token || !tokensMatch(input.token, reviewerToken)) {
-    return { status: "unauthorized" };
-  }
+  // Shared gate with /admin (lib/security/token.ts) — one constant-time
+  // comparison, one fail-closed rule, so the two guarded surfaces cannot drift.
+  // "not-configured" stays an honest DISTINCT state, never a generic error.
+  const gate = checkSharedToken(input.token, process.env.REVIEWER_TOKEN);
+  if (gate === "not-configured") return { status: "not-configured" };
+  if (gate !== "ok") return { status: "unauthorized" };
   // D5 (batch 004): TS types erase at the server-action boundary, so a malformed
   // client payload could otherwise reach the store and pollute review_audit.decision
   // with an arbitrary string. Runtime whitelist, checked BEFORE any store call.
