@@ -1,0 +1,38 @@
+{
+  "batch": 9,
+  "track": "money",
+  "item": "Q-money-19",
+  "kind": "unresolvable-ico-annotation",
+  "generatedAt": "2026-07-27",
+  "note": "Props-merge onto two EXISTING company nodes whose IČOs return NENALEZENO from BOTH the ARES basic and -vr endpoints (the doctrine's required pair before asserting an absence). These are NOT fabricated: the owning `owns_stake` edges come from dataor/justice.cz's ISVR export, a primary registry, and carry dated 1999–2005 sole-shareholder records — consistent with dissolved predecessor entities that ARES's current register no longer retains. The annotation records that the id cannot serve as a registry key (no corroboration, no contract query, no working deep link resolves it) so no surface can ever present these nodes as registry-checkable. Never touches review_state; creates no edge.",
+  "proposals": [
+    {
+      "id": "company:ico:25130072",
+      "props": {
+        "ico_unresolvable_in_ares": true,
+        "ico_checked_endpoints": [
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/25130072",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25130072"
+        ],
+        "ico_check_result": "NENALEZENO on both endpoints (2026-07-27)",
+        "likely_historical_entity": true,
+        "analyst_note_cs": "IČO 25130072 (AGROFERT HOLDING, a.s.) není dohledatelné v ARES ani v obchodním rejstříku přes VR endpoint. Vazby na tento uzel pocházejí z historického výpisu ISVR (dataor.justice.cz) a týkají se let 1999–2005; jde patrně o zaniklý předchůdnický subjekt, který současný registr již nevede. Uzel proto nelze ověřit v registru ani použít pro dotaz do Registru smluv — nesmí být prezentován jako registrem doložený subjekt.",
+        "successor_candidate": "company:ico:26185610 (AGROFERT, a.s. — existuje, ověřeno v ARES 2026-07-27)"
+      }
+    },
+    {
+      "id": "company:ico:60197773",
+      "props": {
+        "ico_unresolvable_in_ares": true,
+        "ico_checked_endpoints": [
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/60197773",
+          "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/60197773"
+        ],
+        "ico_check_result": "NENALEZENO on both endpoints (2026-07-27)",
+        "likely_historical_entity": true,
+        "analyst_note_cs": "IČO 60197773 (uvedeno jako „AGROFERT a.s.“) není dohledatelné v ARES ani přes VR endpoint. Hrana pochází z historického výpisu ISVR (dataor.justice.cz) a týká se období 2004-08-31→2005-06-30; jde patrně o zaniklý subjekt. Skutečný AGROFERT, a.s. má IČO 26185610 a v grafu existuje samostatně. Uzel nelze ověřit v registru — nesmí být prezentován jako registrem doložený subjekt.",
+        "successor_candidate": "company:ico:26185610 (AGROFERT, a.s. — existuje, ověřeno v ARES 2026-07-27)"
+      }
+    }
+  ]
+}

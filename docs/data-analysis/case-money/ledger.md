@@ -477,3 +477,132 @@ are live `KG_EDGE_RELS` members as of this point.)*
 5. Batch-005/006 steering items not yet actioned (D5 CHECK migration,
    Q-money-13, OSVČ purge live-execution confirmation) — status not
    re-verified this batch, carry forward if still open.
+
+### Batch 009 — the indirect layer was never asked; IČO identity drift; Registr smluv unlocked (2026-07-27)
+
+**Solo mode** (no sibling driver running) — this batch wrote live and committed,
+per the kernel's Authority section. Driver Opus; one Sonnet subagent (the
+Registr smluv client build).
+
+- **Headline: two batches of "0 indirect exposure" were arithmetic, not
+  evidence.** Batch 009 first generalized batch-008's sibling-only test to the
+  FULL `owns_stake` closure in both directions (ancestor / descendant /
+  collateral, depth ≤2) — still 0 genuinely-new. Then it power-checked that
+  null: **`supplies` covers exactly the 149 MP-tied companies the money feed
+  ever contract-queried, and 0 of the 19 ownership parents were among them.**
+  The question had never been put to the contract registry at all. This is the
+  same failure shape batch 008 caught one layer down — and it survived that
+  batch's Opus correction because the correction fixed the *framing* of the
+  null without asking whether the NEXT test had any power either.
+- **Q-money-18 (new, applied live): IČO id-convention drift.** Company identity
+  is `company:ico:<8-digit zero-padded IČO>` (207/215 nodes, 100% of contract
+  `supplierIco`). Batch-006's ownership slice wrote 8 unpadded nodes — one,
+  `company:ico:2867681` (IF Holding a.s.), **duplicated the canonical
+  `company:ico:02867681` and severed a real ownership chain**, so every
+  multi-hop traversal stopped there. Canonicalized (8 nodes, 14 edge re-points,
+  IF Holding merged into the canonical survivor); the reconnected chain
+  B.S.-KINGS → IF Holding → IF FACILITY now traverses, with Radim Fiala's gated
+  tie preserved untouched. Re-running breadth-2 after the merge reached 3 more
+  companies and extended descendant depth 1→2.
+- **Q-money-19 (new, applied live): 2 ownership-layer IČOs do not resolve in
+  the registry.** An ARES existence check over all 47 ownership-layer nodes
+  (basic AND `-vr`, the doctrine's required pair) found 45 exist and **2 do
+  not**: `25130072` "AGROFERT HOLDING, a.s." and `60197773` "AGROFERT a.s." —
+  precisely the nodes batch 006 headlined as "a real dated AGROFERT ownership
+  chain". They are **not fabrications**: the edges come from dataor/justice.cz's
+  ISVR export (a primary registry) with dated 1999–2005 sole-shareholder
+  records, i.e. dissolved predecessor entities the current register no longer
+  retains. Annotated as unresolvable + likely-historical, with the real
+  AGROFERT, a.s. (`26185610`, verified present) named as successor candidate,
+  so no surface can present them as registry-checkable.
+- **The unlock: `lib/ingest/sources/smlouvy.ts` (36/36 tests) — Registr smluv,
+  token-free.** `HLIDAC_API_TOKEN` has blocked contract-side work for batches;
+  it need not. Per-IČO party search needs no token. No structured export exists
+  (`&export=1|xml|csv` all return HTML); pagination is a **Nette session
+  signal**, not a query param; `Neuvedeno` parses to `null`, never 0.
+  **Defect caught in review:** the client's fail-loud header check required a
+  literal `"Detail"` label that exists only in the subagent's own fixture — it
+  rejected all 18 live pages on the first sweep. Fixed + regression-tested. A
+  guard calibrated against a self-authored fixture is the fixture agreeing with
+  itself, not a verification.
+- **Carry-forwards verified rather than carried.** Three items had rolled for
+  3–4 batches marked "status not re-verified": D5's `review_audit` CHECK is
+  **already live** (migration is a NOOP — CLOSED); the OSVČ purge **did** land
+  (211 ties); batch-008's Q-money-15 flip payload had **not** been applied —
+  applied this batch (pass 36, Okamura ↔ MIKI TRAVEL `conflicting →
+  registry-confirmed`).
+- **Two steering items corrected on evidence.** *Q-money-16 (dataor large
+  files) RETIRED*: four attempts across batches 006/008 reproduced the same
+  stall, and the 4 ties it was meant to close were all independently
+  re-verified against live ARES VR in batch 008 as confirmed negatives — the
+  bulk path buys nothing. *Batch-008 steering item 4 (apply the kiosek
+  `concerns` payload so the money watch gains power) was WRONG AS STATED*:
+  0 of its 20 targets is a company node in the live graph and 0 is MP-tied, so
+  the watch would still report 0 by construction. It would have cost a future
+  batch.
+- **Q-money-13 measured, not assumed**: a full string-leaf walk (recursing into
+  nested citation objects the batch-005 scanner never saw) finds 60 mentions of
+  the purged IČO — **39 carry closure wording, 21 do not** (law owns 14, effort
+  owns 7). Recorded and itemized rather than half-edited: money does not
+  rewrite a sibling case's verdict text.
+- **`owns_stake` "39 vs 33" was not a defect** — the graph has 0 duplicate
+  `src|dst` pairs; the batch-008 artifact counted *(tie × parent)* pairs, not
+  edges. Closed, no action.
+- **No `review_state` was touched. 211 ties remain `pending_review`.**
+  Full detail: `batch-009.md`.
+- **First indirect-exposure evidence in the case's history.** 10 private-by-name
+  ownership parents queried via the new client; 8 answered, 2 rate-limited out.
+  Four hold published public contracts: **Zdravotnický holding KHK** 222 /
+  1 088 489 502 CZK, **Lázně Luhačovice** 214 / 173 511 488 CZK, **Rybářství
+  Třeboň Hld.** 56 / 38 155 159 CZK, **DEZA** 91 / 13 526 307 CZK (reproduced
+  identically across two runs). All LEADS, four caveats attached — direction not
+  yet read per row; the largest (ZH KHK) is **kraj-owned**, so under the
+  tie-class steward rule it is not attributable to any MP and the name-based
+  public-body classifier needs an ownership-based test before the next sweep;
+  the four zeros are mostly structural (Registr smluv starts in 2016, the two
+  AGROFERT parents are pre-2016 dissolved entities, one target is in
+  liquidation); 2 parents are unmeasured, not zero.
+
+## Metrics block — batch 009
+
+| metric | batch 009 |
+|---|---|
+| carry-forward items verified against live state | 3 / 3 (1 already closed, 1 landed, 1 unapplied → applied) |
+| live writes | 3 (1 corroboration flip · 8-node IČO canonicalization · 2-node unresolvable-IČO annotation), pass 36 |
+| `review_state` changes | **0** — 211 ties remain `pending_review` |
+| ownership-layer nodes ARES-checked (basic + VR) | 47 / 47 |
+| unresolvable IČOs found | **2** (both AGROFERT parents — the nodes batch 006 headlined) |
+| malformed company ids fixed | 8 (1 a duplicate that had severed a real ownership chain) |
+| breadth-2 closure walk | 39 lead rows, 0 genuinely new — **verdict: ZERO-POWER**, 0/19 parents ever contract-queried |
+| new ingest adapter | `lib/ingest/sources/smlouvy.ts`, token-free, 36/36 tests |
+| adapter defects caught in review | 1 (fail-loud header check calibrated against its own fixture — rejected all 18 live pages) |
+| parents contract-queried (first time ever) | 10 in scope · 8 answered · 2 rate-limited |
+| private parents holding public contracts | **4 / 8 answered** |
+| steering items corrected/retired on evidence | 2 (Q-money-16 retired; batch-008 item 4 shown false) |
+| Q-money-13 residue measured | 60 mentions · 39 closed · **21 open** (law 14, effort 7) |
+| gate | `npm run check` green — typecheck + lint + **465 tests** |
+
+## Steering (next batch — batch 010)
+
+1. **Extend the Registr smluv sweep past the ownership parents.** `supplies`
+   covers 149/215 company nodes — only the ones the old money feed queried. The
+   client is token-free and the remaining ~66 companies are cheap. This is the
+   highest-value ingest step available and it unblocks every "is there money
+   here" question the case has been unable to ask.
+2. **Fix the public-body classifier before the next sweep** — it keys on the
+   entity NAME, so a kraj-owned holding under a private legal form
+   (Zdravotnický holding KHK, the largest number this batch found) reads as
+   private. It needs an ownership-based test; until it has one, no sweep result
+   may be attributed to an MP without a manual publicness check.
+3. **Read direction on the 4 lead sets** (publisher column per row) and apply
+   tie-class + role-date overlap before any of it is treated as exposure.
+4. **Re-query ČSOB and České dráhy** with a much longer pacing — both exhausted
+   the 429 backoff; they are unmeasured, not zero.
+5. **Q-money-19 follow-up**: re-derive the AGROFERT chain against the surviving
+   entity (`26185610`) so the ownership record does not rest solely on two ids
+   that no registry can resolve.
+6. Hand `qmoney-stale-mentions-open-b9.json` to the law (14) and effort (7)
+   drivers — money will not rewrite a sibling case's verdict text.
+7. **Manifestation debt, standing**: the `owns_stake` layer (33 edges, 24
+   parents) has **no surface at all**. Worth building only after item 1 gives it
+   something a reader would care about.

@@ -1,0 +1,1555 @@
+{
+  "batch": 9,
+  "track": "money",
+  "kind": "indirect-ownership-breadth2",
+  "generatedAt": "2026-07-27",
+  "note": "READ-ONLY analytical pass, no graph writes. Generalizes batch-008's sibling-only check to the FULL owns_stake closure in both directions (ancestor / descendant / collateral) from every MP-tied company. Every entry is a LEAD cited by existing graph provenance, never an assertion about a person's conduct. `alreadyTied` is the construction-bias flag batch-008's null result hinged on: a lead is only genuinely new exposure when it is false.",
+  "counts": {
+    "ownsStakeEdges": 33,
+    "tiedCompaniesInOwnershipLayer": 35,
+    "chainRows": 35,
+    "leadRows": 39,
+    "genuinelyNew": 0,
+    "byDirection": {
+      "ancestor": 8,
+      "descendant": 9,
+      "collateral": 22
+    }
+  },
+  "chainsExamined": [
+    {
+      "mpId": "psp:person:346",
+      "tiedCompanyId": "company:ico:60193468",
+      "tiedCompany": "MERO ČR, a.s.",
+      "reached": 1,
+      "withContracts": 0
+    },
+    {
+      "mpId": "psp:person:5379",
+      "tiedCompanyId": "company:ico:28094573",
+      "tiedCompany": "Wellness sv. Markéta a.s.",
+      "reached": 1,
+      "withContracts": 0
+    },
+    {
+      "mpId": "psp:person:5459",
+      "tiedCompanyId": "company:ico:02867681",
+      "tiedCompany": "IF Holding a.s.",
+      "reached": 2,
+      "withContracts": 2
+    },
+    {
+      "mpId": "psp:person:5459",
+      "tiedCompanyId": "company:ico:25332589",
+      "tiedCompany": "B.S. - KINGS s.r.o.",
+      "reached": 2,
+      "withContracts": 1
+    },
+    {
+      "mpId": "psp:person:5459",
+      "tiedCompanyId": "company:ico:27720152",
+      "tiedCompany": "IF FACILITY a.s.",
+      "reached": 2,
+      "withContracts": 1
+    },
+    {
+      "mpId": "psp:person:5512",
+      "tiedCompanyId": "company:ico:41197518",
+      "tiedCompany": "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+      "reached": 1,
+      "withContracts": 1
+    },
+    {
+      "mpId": "psp:person:5512",
+      "tiedCompanyId": "company:ico:60194120",
+      "tiedCompany": "Pražské služby, a.s.",
+      "reached": 4,
+      "withContracts": 1
+    },
+    {
+      "mpId": "psp:person:5700",
+      "tiedCompanyId": "company:ico:26000237",
+      "tiedCompany": "Oblastní nemocnice Trutnov a.s.",
+      "reached": 2,
+      "withContracts": 0
+    },
+    {
+      "mpId": "psp:person:5700",
+      "tiedCompanyId": "company:ico:41197518",
+      "tiedCompany": "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+      "reached": 1,
+      "withContracts": 1
+    },
+    {
+      "mpId": "psp:person:5899",
+      "tiedCompanyId": "company:ico:26402068",
+      "tiedCompany": "Údržba silnic Karlovarského kraje, a.s.",
+      "reached": 1,
+      "withContracts": 0
+    },
+    {
+      "mpId": "psp:person:5899",
+      "tiedCompanyId": "company:ico:29211808",
+      "tiedCompany": "Léčebné lázně Jáchymov a. s.",
+      "reached": 1,
+      "withContracts": 0
+    },
+    {
+      "mpId": "psp:person:5899",
+      "tiedCompanyId": "company:ico:49790498",
+      "tiedCompany": "Ostrovská teplárenská, a.s.",
+      "reached": 1,
+      "withContracts": 0
+    },
+    {
+      "mpId": "psp:person:5903",
+      "tiedCompanyId": "company:ico:27251918",
+      "tiedCompany": "Obecní dům, a.s.",
+      "reached": 4,
+      "withContracts": 2
+    },
+    {
+      "mpId": "psp:person:6150",
+      "tiedCompanyId": "company:ico:26014343",
+      "tiedCompany": "SynBiol, a.s.",
+      "reached": 6,
+      "withContracts": 3
+    },
+    {
+      "mpId": "psp:person:6150",
+      "tiedCompanyId": "company:ico:26124459",
+      "tiedCompany": "IMOBA, a.s.",
+      "reached": 6,
+      "withContracts": 2
+    },
+    {
+      "mpId": "psp:person:6150",
+      "tiedCompanyId": "company:ico:26185610",
+      "tiedCompany": "AGROFERT, a.s.",
+      "reached": 6,
+      "withContracts": 2
+    },
+    {
+      "mpId": "psp:person:6150",
+      "tiedCompanyId": "company:ico:60108916",
+      "tiedCompany": "Synthesia, a.s.",
+      "reached": 6,
+      "withContracts": 2
+    },
+    {
+      "mpId": "psp:person:6154",
+      "tiedCompanyId": "company:ico:25220683",
+      "tiedCompany": "Plzeňské městské dopravní podniky, a.s.",
+      "reached": 3,
+      "withContracts": 2
+    },
+    {
+      "mpId": "psp:person:6154",
+      "tiedCompanyId": "company:ico:27116913",
+      "tiedCompany": "Pojišťovna VZP, a.s.",
+      "reached": 1,
+      "withContracts": 1
+    },
+    {
+      "mpId": "psp:person:6154",
+      "tiedCompanyId": "company:ico:49790480",
+      "tiedCompany": "Plzeňská teplárenská, a.s.",
+      "reached": 3,
+      "withContracts": 2
+    },
+    {
+      "mpId": "psp:person:6154",
+      "tiedCompanyId": "company:ico:63080249",
+      "tiedCompany": "Kongresové centrum Praha, a.s.",
+      "reached": 4,
+      "withContracts": 2
+    },
+    {
+      "mpId": "psp:person:6190",
+      "tiedCompanyId": "company:ico:26185610",
+      "tiedCompany": "AGROFERT, a.s.",
+      "reached": 6,
+      "withContracts": 2
+    },
+    {
+      "mpId": "psp:person:6211",
+      "tiedCompanyId": "company:ico:48154938",
+      "tiedCompany": "EAST BOHEMIAN AIRPORT a.s.",
+      "reached": 3,
+      "withContracts": 1
+    },
+    {
+      "mpId": "psp:person:6211",
+      "tiedCompanyId": "company:ico:63217066",
+      "tiedCompany": "Dopravní podnik města Pardubic a.s.",
+      "reached": 3,
+      "withContracts": 1
+    },
+    {
+      "mpId": "psp:person:6240",
+      "tiedCompanyId": "company:ico:60826851",
+      "tiedCompany": "Rybářství Třeboň a.s.",
+      "reached": 1,
+      "withContracts": 0
+    },
+    {
+      "mpId": "psp:person:6435",
+      "tiedCompanyId": "company:ico:25220683",
+      "tiedCompany": "Plzeňské městské dopravní podniky, a.s.",
+      "reached": 3,
+      "withContracts": 2
+    },
+    {
+      "mpId": "psp:person:6487",
+      "tiedCompanyId": "company:ico:02795281",
+      "tiedCompany": "Operátor ICT, a.s.",
+      "reached": 4,
+      "withContracts": 1
+    },
+    {
+      "mpId": "psp:person:6687",
+      "tiedCompanyId": "company:ico:02795281",
+      "tiedCompany": "Operátor ICT, a.s.",
+      "reached": 4,
+      "withContracts": 1
+    },
+    {
+      "mpId": "psp:person:6688",
+      "tiedCompanyId": "company:ico:27256537",
+      "tiedCompany": "Oblastní nemocnice Kladno, a.s., nemocnice Středočeského kraje",
+      "reached": 2,
+      "withContracts": 1
+    },
+    {
+      "mpId": "psp:person:6732",
+      "tiedCompanyId": "company:ico:25205625",
+      "tiedCompany": "VODÁRNA PLZEŇ a.s.",
+      "reached": 3,
+      "withContracts": 2
+    },
+    {
+      "mpId": "psp:person:6751",
+      "tiedCompanyId": "company:ico:45534306",
+      "tiedCompany": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "reached": 1,
+      "withContracts": 0
+    },
+    {
+      "mpId": "psp:person:6881",
+      "tiedCompanyId": "company:ico:60193468",
+      "tiedCompany": "MERO ČR, a.s.",
+      "reached": 1,
+      "withContracts": 0
+    },
+    {
+      "mpId": "psp:person:6993",
+      "tiedCompanyId": "company:ico:27256456",
+      "tiedCompany": "Oblastní nemocnice Mladá Boleslav, a.s., nemocnice Středočeského kraje",
+      "reached": 2,
+      "withContracts": 1
+    },
+    {
+      "mpId": "psp:person:7063",
+      "tiedCompanyId": "company:ico:25220683",
+      "tiedCompany": "Plzeňské městské dopravní podniky, a.s.",
+      "reached": 3,
+      "withContracts": 2
+    },
+    {
+      "mpId": "psp:person:7063",
+      "tiedCompanyId": "company:ico:27257258",
+      "tiedCompany": "Výzkumný Ústav Železniční, a.s.",
+      "reached": 1,
+      "withContracts": 0
+    }
+  ],
+  "leads": [
+    {
+      "companyId": "company:ico:25332589",
+      "company": "B.S. - KINGS s.r.o.",
+      "direction": "ancestor",
+      "depth": 1,
+      "path": [
+        {
+          "from": "company:ico:25332589",
+          "to": "company:ico:02867681",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2015-08-06",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        }
+      ],
+      "contracts": 3,
+      "contractsCzk": 116160,
+      "alreadyTied": true,
+      "mp": "Radim Fiala",
+      "mpId": "psp:person:5459",
+      "tiedCompany": "IF Holding a.s.",
+      "tiedCompanyId": "company:ico:02867681",
+      "tieRole": "předseda představenstva",
+      "tieClass": "manager",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:27720152",
+      "company": "IF FACILITY a.s.",
+      "direction": "descendant",
+      "depth": 1,
+      "path": [
+        {
+          "from": "company:ico:02867681",
+          "to": "company:ico:27720152",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2014-06-17",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        }
+      ],
+      "contracts": 25,
+      "contractsCzk": 11253146.98,
+      "alreadyTied": true,
+      "mp": "Radim Fiala",
+      "mpId": "psp:person:5459",
+      "tiedCompany": "IF Holding a.s.",
+      "tiedCompanyId": "company:ico:02867681",
+      "tieRole": "předseda představenstva",
+      "tieClass": "manager",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:27720152",
+      "company": "IF FACILITY a.s.",
+      "direction": "descendant",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:25332589",
+          "to": "company:ico:02867681",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2015-08-06",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:02867681",
+          "to": "company:ico:27720152",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2014-06-17",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        }
+      ],
+      "contracts": 25,
+      "contractsCzk": 11253146.98,
+      "alreadyTied": true,
+      "mp": "Radim Fiala",
+      "mpId": "psp:person:5459",
+      "tiedCompany": "B.S. - KINGS s.r.o.",
+      "tiedCompanyId": "company:ico:25332589",
+      "tieRole": "společník",
+      "tieClass": "owner-operator",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:25332589",
+      "company": "B.S. - KINGS s.r.o.",
+      "direction": "ancestor",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:02867681",
+          "to": "company:ico:27720152",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2014-06-17",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:25332589",
+          "to": "company:ico:02867681",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2015-08-06",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        }
+      ],
+      "contracts": 3,
+      "contractsCzk": 116160,
+      "alreadyTied": true,
+      "mp": "Radim Fiala",
+      "mpId": "psp:person:5459",
+      "tiedCompany": "IF FACILITY a.s.",
+      "tiedCompanyId": "company:ico:27720152",
+      "tieRole": "společník",
+      "tieClass": "owner-operator",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:27116913",
+      "company": "Pojišťovna VZP, a.s.",
+      "direction": "descendant",
+      "depth": 1,
+      "path": [
+        {
+          "from": "company:ico:41197518",
+          "to": "company:ico:27116913",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2004-01-16",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        }
+      ],
+      "contracts": 23,
+      "contractsCzk": 65574261.580000006,
+      "alreadyTied": true,
+      "mp": "Boris Šťastný",
+      "mpId": "psp:person:5512",
+      "tiedCompany": "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+      "tiedCompanyId": "company:ico:41197518",
+      "tieRole": "člen správní rady",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-unconfirmed"
+    },
+    {
+      "companyId": "company:ico:02795281",
+      "company": "Operátor ICT, a.s.",
+      "direction": "collateral",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:00064581",
+          "to": "company:ico:60194120",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2018-12-20",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:00064581",
+          "to": "company:ico:02795281",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2014-03-19",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        }
+      ],
+      "contracts": 24,
+      "contractsCzk": 884856389,
+      "alreadyTied": true,
+      "mp": "Boris Šťastný",
+      "mpId": "psp:person:5512",
+      "tiedCompany": "Pražské služby, a.s.",
+      "tiedCompanyId": "company:ico:60194120",
+      "tieRole": "místopředseda dozorčí rady",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:27116913",
+      "company": "Pojišťovna VZP, a.s.",
+      "direction": "descendant",
+      "depth": 1,
+      "path": [
+        {
+          "from": "company:ico:41197518",
+          "to": "company:ico:27116913",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2004-01-16",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        }
+      ],
+      "contracts": 23,
+      "contractsCzk": 65574261.580000006,
+      "alreadyTied": true,
+      "mp": "Ivan Adamec",
+      "mpId": "psp:person:5700",
+      "tiedCompany": "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+      "tiedCompanyId": "company:ico:41197518",
+      "tieRole": "člen dozorčí rady",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-unconfirmed"
+    },
+    {
+      "companyId": "company:ico:02795281",
+      "company": "Operátor ICT, a.s.",
+      "direction": "collateral",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:00064581",
+          "to": "company:ico:27251918",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2013-10-23",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:00064581",
+          "to": "company:ico:02795281",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2014-03-19",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        }
+      ],
+      "contracts": 24,
+      "contractsCzk": 884856389,
+      "alreadyTied": true,
+      "mp": "Jana Černochová",
+      "mpId": "psp:person:5903",
+      "tiedCompany": "Obecní dům, a.s.",
+      "tiedCompanyId": "company:ico:27251918",
+      "tieRole": "předseda dozorčí rady",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:60194120",
+      "company": "Pražské služby, a.s.",
+      "direction": "collateral",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:00064581",
+          "to": "company:ico:27251918",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2013-10-23",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:00064581",
+          "to": "company:ico:60194120",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2018-12-20",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        }
+      ],
+      "contracts": 24,
+      "contractsCzk": 1470325335.8600001,
+      "alreadyTied": true,
+      "mp": "Jana Černochová",
+      "mpId": "psp:person:5903",
+      "tiedCompany": "Obecní dům, a.s.",
+      "tiedCompanyId": "company:ico:27251918",
+      "tieRole": "předseda dozorčí rady",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:60108916",
+      "company": "Synthesia, a.s.",
+      "direction": "ancestor",
+      "depth": 1,
+      "path": [
+        {
+          "from": "company:ico:60108916",
+          "to": "company:ico:26014343",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2006-04-20",
+          "validTo": "2008-08-08",
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        }
+      ],
+      "contracts": 25,
+      "contractsCzk": 796873826.0600002,
+      "alreadyTied": true,
+      "mp": "Andrej Babiš",
+      "mpId": "psp:person:6150",
+      "tiedCompany": "SynBiol, a.s.",
+      "tiedCompanyId": "company:ico:26014343",
+      "tieRole": "člen představenstva",
+      "tieClass": "manager",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:26124459",
+      "company": "IMOBA, a.s.",
+      "direction": "descendant",
+      "depth": 1,
+      "path": [
+        {
+          "from": "company:ico:26014343",
+          "to": "company:ico:26124459",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2014-01-30",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        }
+      ],
+      "contracts": 12,
+      "contractsCzk": 1823880,
+      "alreadyTied": true,
+      "mp": "Andrej Babiš",
+      "mpId": "psp:person:6150",
+      "tiedCompany": "SynBiol, a.s.",
+      "tiedCompanyId": "company:ico:26014343",
+      "tieRole": "člen představenstva",
+      "tieClass": "manager",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:26185610",
+      "company": "AGROFERT, a.s.",
+      "direction": "ancestor",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:60108916",
+          "to": "company:ico:26014343",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2006-04-20",
+          "validTo": "2008-08-08",
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:26185610",
+          "to": "company:ico:60108916",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2013-10-17",
+          "validTo": "2024-02-01",
+          "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz"
+        }
+      ],
+      "contracts": 24,
+      "contractsCzk": 6274453.5,
+      "alreadyTied": true,
+      "mp": "Andrej Babiš",
+      "mpId": "psp:person:6150",
+      "tiedCompany": "SynBiol, a.s.",
+      "tiedCompanyId": "company:ico:26014343",
+      "tieRole": "člen představenstva",
+      "tieClass": "manager",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:26185610",
+      "company": "AGROFERT, a.s.",
+      "direction": "ancestor",
+      "depth": 1,
+      "path": [
+        {
+          "from": "company:ico:26185610",
+          "to": "company:ico:26124459",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2008-08-14",
+          "validTo": "2014-01-30",
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        }
+      ],
+      "contracts": 24,
+      "contractsCzk": 6274453.5,
+      "alreadyTied": true,
+      "mp": "Andrej Babiš",
+      "mpId": "psp:person:6150",
+      "tiedCompany": "IMOBA, a.s.",
+      "tiedCompanyId": "company:ico:26124459",
+      "tieRole": "předseda představenstva",
+      "tieClass": "manager",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:60108916",
+      "company": "Synthesia, a.s.",
+      "direction": "ancestor",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:26014343",
+          "to": "company:ico:26124459",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2014-01-30",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:60108916",
+          "to": "company:ico:26014343",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2006-04-20",
+          "validTo": "2008-08-08",
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        }
+      ],
+      "contracts": 25,
+      "contractsCzk": 796873826.0600002,
+      "alreadyTied": true,
+      "mp": "Andrej Babiš",
+      "mpId": "psp:person:6150",
+      "tiedCompany": "IMOBA, a.s.",
+      "tiedCompanyId": "company:ico:26124459",
+      "tieRole": "předseda představenstva",
+      "tieClass": "manager",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:26124459",
+      "company": "IMOBA, a.s.",
+      "direction": "descendant",
+      "depth": 1,
+      "path": [
+        {
+          "from": "company:ico:26185610",
+          "to": "company:ico:26124459",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2008-08-14",
+          "validTo": "2014-01-30",
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        }
+      ],
+      "contracts": 12,
+      "contractsCzk": 1823880,
+      "alreadyTied": true,
+      "mp": "Andrej Babiš",
+      "mpId": "psp:person:6150",
+      "tiedCompany": "AGROFERT, a.s.",
+      "tiedCompanyId": "company:ico:26185610",
+      "tieRole": "předseda představenstva",
+      "tieClass": "manager",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:60108916",
+      "company": "Synthesia, a.s.",
+      "direction": "descendant",
+      "depth": 1,
+      "path": [
+        {
+          "from": "company:ico:26185610",
+          "to": "company:ico:60108916",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2013-10-17",
+          "validTo": "2024-02-01",
+          "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz"
+        }
+      ],
+      "contracts": 25,
+      "contractsCzk": 796873826.0600002,
+      "alreadyTied": true,
+      "mp": "Andrej Babiš",
+      "mpId": "psp:person:6150",
+      "tiedCompany": "AGROFERT, a.s.",
+      "tiedCompanyId": "company:ico:26185610",
+      "tieRole": "předseda představenstva",
+      "tieClass": "manager",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:26185610",
+      "company": "AGROFERT, a.s.",
+      "direction": "ancestor",
+      "depth": 1,
+      "path": [
+        {
+          "from": "company:ico:26185610",
+          "to": "company:ico:60108916",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2013-10-17",
+          "validTo": "2024-02-01",
+          "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz"
+        }
+      ],
+      "contracts": 24,
+      "contractsCzk": 6274453.5,
+      "alreadyTied": true,
+      "mp": "Andrej Babiš",
+      "mpId": "psp:person:6150",
+      "tiedCompany": "Synthesia, a.s.",
+      "tiedCompanyId": "company:ico:60108916",
+      "tieRole": "člen dozorčí rady",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:26124459",
+      "company": "IMOBA, a.s.",
+      "direction": "collateral",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:26185610",
+          "to": "company:ico:60108916",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2013-10-17",
+          "validTo": "2024-02-01",
+          "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:26185610",
+          "to": "company:ico:26124459",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2008-08-14",
+          "validTo": "2014-01-30",
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        }
+      ],
+      "contracts": 12,
+      "contractsCzk": 1823880,
+      "alreadyTied": true,
+      "mp": "Andrej Babiš",
+      "mpId": "psp:person:6150",
+      "tiedCompany": "Synthesia, a.s.",
+      "tiedCompanyId": "company:ico:60108916",
+      "tieRole": "člen dozorčí rady",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:25205625",
+      "company": "VODÁRNA PLZEŇ a.s.",
+      "direction": "collateral",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:00075370",
+          "to": "company:ico:25220683",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2013-09-04",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:00075370",
+          "to": "company:ico:25205625",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2016-03-02",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+        }
+      ],
+      "contracts": 22,
+      "contractsCzk": 915796079.85,
+      "alreadyTied": true,
+      "mp": "Marek Ženíšek",
+      "mpId": "psp:person:6154",
+      "tiedCompany": "Plzeňské městské dopravní podniky, a.s.",
+      "tiedCompanyId": "company:ico:25220683",
+      "tieRole": "člen dozorčí rady",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:49790480",
+      "company": "Plzeňská teplárenská, a.s.",
+      "direction": "collateral",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:00075370",
+          "to": "company:ico:25220683",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2013-09-04",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:00075370",
+          "to": "company:ico:49790480",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2008-05-20",
+          "validTo": "2018-10-31",
+          "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+        }
+      ],
+      "contracts": 17,
+      "contractsCzk": 2039997.3,
+      "alreadyTied": true,
+      "mp": "Marek Ženíšek",
+      "mpId": "psp:person:6154",
+      "tiedCompany": "Plzeňské městské dopravní podniky, a.s.",
+      "tiedCompanyId": "company:ico:25220683",
+      "tieRole": "člen dozorčí rady",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:41197518",
+      "company": "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+      "direction": "ancestor",
+      "depth": 1,
+      "path": [
+        {
+          "from": "company:ico:41197518",
+          "to": "company:ico:27116913",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2004-01-16",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        }
+      ],
+      "contracts": 1,
+      "contractsCzk": 383197.3,
+      "alreadyTied": true,
+      "mp": "Marek Ženíšek",
+      "mpId": "psp:person:6154",
+      "tiedCompany": "Pojišťovna VZP, a.s.",
+      "tiedCompanyId": "company:ico:27116913",
+      "tieRole": "člen představenstva",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:25205625",
+      "company": "VODÁRNA PLZEŇ a.s.",
+      "direction": "collateral",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:00075370",
+          "to": "company:ico:49790480",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2008-05-20",
+          "validTo": "2018-10-31",
+          "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:00075370",
+          "to": "company:ico:25205625",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2016-03-02",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+        }
+      ],
+      "contracts": 22,
+      "contractsCzk": 915796079.85,
+      "alreadyTied": true,
+      "mp": "Marek Ženíšek",
+      "mpId": "psp:person:6154",
+      "tiedCompany": "Plzeňská teplárenská, a.s.",
+      "tiedCompanyId": "company:ico:49790480",
+      "tieRole": "člen představenstva",
+      "tieClass": "manager",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:25220683",
+      "company": "Plzeňské městské dopravní podniky, a.s.",
+      "direction": "collateral",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:00075370",
+          "to": "company:ico:49790480",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2008-05-20",
+          "validTo": "2018-10-31",
+          "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:00075370",
+          "to": "company:ico:25220683",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2013-09-04",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+        }
+      ],
+      "contracts": 11,
+      "contractsCzk": 4132961.91,
+      "alreadyTied": true,
+      "mp": "Marek Ženíšek",
+      "mpId": "psp:person:6154",
+      "tiedCompany": "Plzeňská teplárenská, a.s.",
+      "tiedCompanyId": "company:ico:49790480",
+      "tieRole": "člen představenstva",
+      "tieClass": "manager",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:02795281",
+      "company": "Operátor ICT, a.s.",
+      "direction": "collateral",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:00064581",
+          "to": "company:ico:63080249",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2013-10-23",
+          "validTo": "2014-01-06",
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:00064581",
+          "to": "company:ico:02795281",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2014-03-19",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        }
+      ],
+      "contracts": 24,
+      "contractsCzk": 884856389,
+      "alreadyTied": true,
+      "mp": "Marek Ženíšek",
+      "mpId": "psp:person:6154",
+      "tiedCompany": "Kongresové centrum Praha, a.s.",
+      "tiedCompanyId": "company:ico:63080249",
+      "tieRole": "člen představenstva",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:60194120",
+      "company": "Pražské služby, a.s.",
+      "direction": "collateral",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:00064581",
+          "to": "company:ico:63080249",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2013-10-23",
+          "validTo": "2014-01-06",
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:00064581",
+          "to": "company:ico:60194120",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2018-12-20",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        }
+      ],
+      "contracts": 24,
+      "contractsCzk": 1470325335.8600001,
+      "alreadyTied": true,
+      "mp": "Marek Ženíšek",
+      "mpId": "psp:person:6154",
+      "tiedCompany": "Kongresové centrum Praha, a.s.",
+      "tiedCompanyId": "company:ico:63080249",
+      "tieRole": "člen představenstva",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:26124459",
+      "company": "IMOBA, a.s.",
+      "direction": "descendant",
+      "depth": 1,
+      "path": [
+        {
+          "from": "company:ico:26185610",
+          "to": "company:ico:26124459",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2008-08-14",
+          "validTo": "2014-01-30",
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        }
+      ],
+      "contracts": 12,
+      "contractsCzk": 1823880,
+      "alreadyTied": true,
+      "mp": "Jaroslav Faltýnek",
+      "mpId": "psp:person:6190",
+      "tiedCompany": "AGROFERT, a.s.",
+      "tiedCompanyId": "company:ico:26185610",
+      "tieRole": "zaměstnanec",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:60108916",
+      "company": "Synthesia, a.s.",
+      "direction": "descendant",
+      "depth": 1,
+      "path": [
+        {
+          "from": "company:ico:26185610",
+          "to": "company:ico:60108916",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2013-10-17",
+          "validTo": "2024-02-01",
+          "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz"
+        }
+      ],
+      "contracts": 25,
+      "contractsCzk": 796873826.0600002,
+      "alreadyTied": true,
+      "mp": "Jaroslav Faltýnek",
+      "mpId": "psp:person:6190",
+      "tiedCompany": "AGROFERT, a.s.",
+      "tiedCompanyId": "company:ico:26185610",
+      "tieRole": "zaměstnanec",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:63217066",
+      "company": "Dopravní podnik města Pardubic a.s.",
+      "direction": "collateral",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:00274046",
+          "to": "company:ico:48154938",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2002-09-07",
+          "validTo": "2007-07-03",
+          "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:00274046",
+          "to": "company:ico:63217066",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2014-01-15",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz"
+        }
+      ],
+      "contracts": 1,
+      "contractsCzk": 38400,
+      "alreadyTied": true,
+      "mp": "Martin Kolovratník",
+      "mpId": "psp:person:6211",
+      "tiedCompany": "EAST BOHEMIAN AIRPORT a.s.",
+      "tiedCompanyId": "company:ico:48154938",
+      "tieRole": "člen dozorčí rady",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:48154938",
+      "company": "EAST BOHEMIAN AIRPORT a.s.",
+      "direction": "collateral",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:00274046",
+          "to": "company:ico:63217066",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2014-01-15",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:00274046",
+          "to": "company:ico:48154938",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2002-09-07",
+          "validTo": "2007-07-03",
+          "source": "https://dataor.justice.cz/api/file/as-full-hradec_kralove-2026.csv.gz"
+        }
+      ],
+      "contracts": 20,
+      "contractsCzk": 310233450.6,
+      "alreadyTied": true,
+      "mp": "Martin Kolovratník",
+      "mpId": "psp:person:6211",
+      "tiedCompany": "Dopravní podnik města Pardubic a.s.",
+      "tiedCompanyId": "company:ico:63217066",
+      "tieRole": "člen dozorčí rady",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:25205625",
+      "company": "VODÁRNA PLZEŇ a.s.",
+      "direction": "collateral",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:00075370",
+          "to": "company:ico:25220683",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2013-09-04",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:00075370",
+          "to": "company:ico:25205625",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2016-03-02",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+        }
+      ],
+      "contracts": 22,
+      "contractsCzk": 915796079.85,
+      "alreadyTied": true,
+      "mp": "Martin Baxa",
+      "mpId": "psp:person:6435",
+      "tiedCompany": "Plzeňské městské dopravní podniky, a.s.",
+      "tiedCompanyId": "company:ico:25220683",
+      "tieRole": "člen dozorčí rady",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:49790480",
+      "company": "Plzeňská teplárenská, a.s.",
+      "direction": "collateral",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:00075370",
+          "to": "company:ico:25220683",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2013-09-04",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:00075370",
+          "to": "company:ico:49790480",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2008-05-20",
+          "validTo": "2018-10-31",
+          "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+        }
+      ],
+      "contracts": 17,
+      "contractsCzk": 2039997.3,
+      "alreadyTied": true,
+      "mp": "Martin Baxa",
+      "mpId": "psp:person:6435",
+      "tiedCompany": "Plzeňské městské dopravní podniky, a.s.",
+      "tiedCompanyId": "company:ico:25220683",
+      "tieRole": "člen dozorčí rady",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:60194120",
+      "company": "Pražské služby, a.s.",
+      "direction": "collateral",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:00064581",
+          "to": "company:ico:02795281",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2014-03-19",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:00064581",
+          "to": "company:ico:60194120",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2018-12-20",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        }
+      ],
+      "contracts": 24,
+      "contractsCzk": 1470325335.8600001,
+      "alreadyTied": true,
+      "mp": "Patrik Nacher",
+      "mpId": "psp:person:6487",
+      "tiedCompany": "Operátor ICT, a.s.",
+      "tiedCompanyId": "company:ico:02795281",
+      "tieRole": "člen dozorčí rady",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:60194120",
+      "company": "Pražské služby, a.s.",
+      "direction": "collateral",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:00064581",
+          "to": "company:ico:02795281",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2014-03-19",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:00064581",
+          "to": "company:ico:60194120",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2018-12-20",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        }
+      ],
+      "contracts": 24,
+      "contractsCzk": 1470325335.8600001,
+      "alreadyTied": true,
+      "mp": "Jan Jakob",
+      "mpId": "psp:person:6687",
+      "tiedCompany": "Operátor ICT, a.s.",
+      "tiedCompanyId": "company:ico:02795281",
+      "tieRole": "člen dozorčí rady",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:27256456",
+      "company": "Oblastní nemocnice Mladá Boleslav, a.s., nemocnice Středočeského kraje",
+      "direction": "collateral",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:70891095",
+          "to": "company:ico:27256537",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2005-06-21",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:70891095",
+          "to": "company:ico:27256456",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2005-06-21",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        }
+      ],
+      "contracts": 25,
+      "contractsCzk": 3502176904.6,
+      "alreadyTied": true,
+      "mp": "Miroslav Samaš",
+      "mpId": "psp:person:6688",
+      "tiedCompany": "Oblastní nemocnice Kladno, a.s., nemocnice Středočeského kraje",
+      "tiedCompanyId": "company:ico:27256537",
+      "tieRole": "člen dozorčí rady, člen představenstva",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:25220683",
+      "company": "Plzeňské městské dopravní podniky, a.s.",
+      "direction": "collateral",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:00075370",
+          "to": "company:ico:25205625",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2016-03-02",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:00075370",
+          "to": "company:ico:25220683",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2013-09-04",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+        }
+      ],
+      "contracts": 11,
+      "contractsCzk": 4132961.91,
+      "alreadyTied": true,
+      "mp": "Ivana Mádlová",
+      "mpId": "psp:person:6732",
+      "tiedCompany": "VODÁRNA PLZEŇ a.s.",
+      "tiedCompanyId": "company:ico:25205625",
+      "tieRole": "člen dozorčí rady",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:49790480",
+      "company": "Plzeňská teplárenská, a.s.",
+      "direction": "collateral",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:00075370",
+          "to": "company:ico:25205625",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2016-03-02",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:00075370",
+          "to": "company:ico:49790480",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2008-05-20",
+          "validTo": "2018-10-31",
+          "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+        }
+      ],
+      "contracts": 17,
+      "contractsCzk": 2039997.3,
+      "alreadyTied": true,
+      "mp": "Ivana Mádlová",
+      "mpId": "psp:person:6732",
+      "tiedCompany": "VODÁRNA PLZEŇ a.s.",
+      "tiedCompanyId": "company:ico:25205625",
+      "tieRole": "člen dozorčí rady",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:27256537",
+      "company": "Oblastní nemocnice Kladno, a.s., nemocnice Středočeského kraje",
+      "direction": "collateral",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:70891095",
+          "to": "company:ico:27256456",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2005-06-21",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:70891095",
+          "to": "company:ico:27256537",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2005-06-21",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-praha-2026.csv.gz"
+        }
+      ],
+      "contracts": 10,
+      "contractsCzk": 1380908149,
+      "alreadyTied": true,
+      "mp": "Jiří Bouška",
+      "mpId": "psp:person:6993",
+      "tiedCompany": "Oblastní nemocnice Mladá Boleslav, a.s., nemocnice Středočeského kraje",
+      "tiedCompanyId": "company:ico:27256456",
+      "tieRole": "člen představenstva, mástopředseda představenstva, člen dozorčí rady",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:25205625",
+      "company": "VODÁRNA PLZEŇ a.s.",
+      "direction": "collateral",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:00075370",
+          "to": "company:ico:25220683",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2013-09-04",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:00075370",
+          "to": "company:ico:25205625",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2016-03-02",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+        }
+      ],
+      "contracts": 22,
+      "contractsCzk": 915796079.85,
+      "alreadyTied": true,
+      "mp": "Roman Zarzycký",
+      "mpId": "psp:person:7063",
+      "tiedCompany": "Plzeňské městské dopravní podniky, a.s.",
+      "tiedCompanyId": "company:ico:25220683",
+      "tieRole": "předseda představenstva",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-confirmed"
+    },
+    {
+      "companyId": "company:ico:49790480",
+      "company": "Plzeňská teplárenská, a.s.",
+      "direction": "collateral",
+      "depth": 2,
+      "path": [
+        {
+          "from": "company:ico:00075370",
+          "to": "company:ico:25220683",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2013-09-04",
+          "validTo": null,
+          "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+        },
+        {
+          "from": "company:ico:00075370",
+          "to": "company:ico:49790480",
+          "role": "jediný akcionář",
+          "share": 100,
+          "validFrom": "2008-05-20",
+          "validTo": "2018-10-31",
+          "source": "https://dataor.justice.cz/api/file/as-full-plzen-2026.csv.gz"
+        }
+      ],
+      "contracts": 17,
+      "contractsCzk": 2039997.3,
+      "alreadyTied": true,
+      "mp": "Roman Zarzycký",
+      "mpId": "psp:person:7063",
+      "tiedCompany": "Plzeňské městské dopravní podniky, a.s.",
+      "tiedCompanyId": "company:ico:25220683",
+      "tieRole": "předseda představenstva",
+      "tieClass": "steward",
+      "tieCorroboration": "registry-confirmed"
+    }
+  ]
+}

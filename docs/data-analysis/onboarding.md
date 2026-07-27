@@ -28,6 +28,36 @@ Direct bulk download from **Poslanecká sněmovna** open data
 (`source`, `source_url`, `fetched_at`, `ingest_run_id`) + a verbatim `raw` JSONB
 travel on every entity row; ids are natural keys `psp:<table>:<id>`.
 
+### Registr smluv (ISRS) — `lib/ingest/sources/smlouvy.ts`
+
+Added money batch 009 (2026-07-27). Per-IČO contract search against
+**smlouvy.gov.cz**, **no API token required** — which matters because
+`HLIDAC_API_TOKEN` has been absent from `.env` for the whole project and had been
+treated as the only contract-side path.
+
+`GET /vyhledavani?party_idnum=<8-digit IČO>&all_versions=0`. Three properties of
+this source shape the adapter and are easy to get wrong:
+
+- **`party_idnum` matches EITHER contracting party.** A hit means "appears in a
+  published public contract", never "was paid public money" — direction must be
+  read off the `Publikující smluvní strana` (contracting authority) column.
+- **There is no structured export.** `&export=1|xml|csv` all return the same
+  HTML. It is scraping or nothing, so the parser fails loud on header drift
+  rather than mis-reading a shifted column into a contract value.
+- **Pagination is a Nette session signal, not a query parameter.** A
+  `do=searchResultList-setLimit` request only takes effect as a *second* request
+  carrying the first response's cookie; a bare limit param is silently ignored.
+
+`Neuvedeno` (value not stated) parses to `null`, never `0`. The site rate-limits
+(429) an unthrottled sweep within a handful of requests, so callers must pace
+themselves — see `scripts/case-loops/money/parent-contract-sweep.ts`, which
+records a 429 as an explicit query failure and never as "no contracts".
+
+**Coverage note this adapter exists to fix:** the graph's `supplies` edges cover
+only the 149 companies the original money feed queried (all of them MP-tied), out
+of 215 company nodes — so most of the company population has never been asked
+about contracts at all.
+
 ## Database — pglite (embedded Postgres)
 
 `@electric-sql/pglite` behind a typed `Store` interface (repository pattern),

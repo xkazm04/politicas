@@ -1,0 +1,155 @@
+{
+  "batch": 9,
+  "track": "money",
+  "kind": "parent-exposure-power-check",
+  "generatedAt": "2026-07-27",
+  "verdict": "ZERO-POWER: no non-MP-tied parent was ever contract-queried, so a parent-level null was arithmetically guaranteed.",
+  "counts": {
+    "parents": 24,
+    "untiedParents": 19,
+    "untiedParentsWithIco": 19,
+    "untiedParentsContractQueried": 0,
+    "missingSuppliesEdgeCandidates": 0,
+    "companiesWithSupplies": 149,
+    "companyNodes": 215,
+    "tiedCompaniesWithSupplies": 149,
+    "tiedCompanies": 195,
+    "distinctSupplierIcos": 149
+  },
+  "untiedParents": [
+    {
+      "id": "company:ico:11835",
+      "label": "DEZA, a.s.",
+      "ico": "11835",
+      "hasSuppliesEdge": false,
+      "inGraph": true
+    },
+    {
+      "id": "company:ico:1350",
+      "label": "Československá obchodní banka, a.s.",
+      "ico": "1350",
+      "hasSuppliesEdge": false,
+      "inGraph": true
+    },
+    {
+      "id": "company:ico:25130072",
+      "label": "AGROFERT HOLDING, a.s.",
+      "ico": "25130072",
+      "hasSuppliesEdge": false,
+      "inGraph": true
+    },
+    {
+      "id": "company:ico:254843",
+      "label": "Město Ostrov",
+      "ico": "254843",
+      "hasSuppliesEdge": false,
+      "inGraph": true
+    },
+    {
+      "id": "company:ico:25997556",
+      "label": "Zdravotnický holding Královéhradeckého kraje a.s.",
+      "ico": "25997556",
+      "hasSuppliesEdge": false,
+      "inGraph": true
+    },
+    {
+      "id": "company:ico:26040166",
+      "label": "Léčebné centrum sv. Markéty,a.s.",
+      "ico": "26040166",
+      "hasSuppliesEdge": false,
+      "inGraph": true
+    },
+    {
+      "id": "company:ico:274046",
+      "label": "Statutární město Pardubice",
+      "ico": "274046",
+      "hasSuppliesEdge": false,
+      "inGraph": true
+    },
+    {
+      "id": "company:ico:2867681",
+      "label": "IF Holding a.s.",
+      "ico": "2867681",
+      "hasSuppliesEdge": false,
+      "inGraph": true
+    },
+    {
+      "id": "company:ico:46347828",
+      "label": "Lázně Luhačovice, a.s.",
+      "ico": "46347828",
+      "hasSuppliesEdge": false,
+      "inGraph": true
+    },
+    {
+      "id": "company:ico:46678191",
+      "label": "Rybářství Třeboň Hld. a.s.",
+      "ico": "46678191",
+      "hasSuppliesEdge": false,
+      "inGraph": true
+    },
+    {
+      "id": "company:ico:60197773",
+      "label": "AGROFERT a.s.",
+      "ico": "60197773",
+      "hasSuppliesEdge": false,
+      "inGraph": true
+    },
+    {
+      "id": "company:ico:60913819",
+      "label": "UNICO Pardubice a.s.",
+      "ico": "60913819",
+      "hasSuppliesEdge": false,
+      "inGraph": true
+    },
+    {
+      "id": "company:ico:64581",
+      "label": "HLAVNÍ MĚSTO PRAHA",
+      "ico": "64581",
+      "hasSuppliesEdge": false,
+      "inGraph": true
+    },
+    {
+      "id": "company:ico:6947",
+      "label": "Ministerstvo financí",
+      "ico": "6947",
+      "hasSuppliesEdge": false,
+      "inGraph": true
+    },
+    {
+      "id": "company:ico:70889546",
+      "label": "Královéhradecký kraj",
+      "ico": "70889546",
+      "hasSuppliesEdge": false,
+      "inGraph": true
+    },
+    {
+      "id": "company:ico:70891095",
+      "label": "Středočeský kraj",
+      "ico": "70891095",
+      "hasSuppliesEdge": false,
+      "inGraph": true
+    },
+    {
+      "id": "company:ico:70891168",
+      "label": "Karlovarský kraj",
+      "ico": "70891168",
+      "hasSuppliesEdge": false,
+      "inGraph": true
+    },
+    {
+      "id": "company:ico:70994226",
+      "label": "České dráhy, a.s.",
+      "ico": "70994226",
+      "hasSuppliesEdge": false,
+      "inGraph": true
+    },
+    {
+      "id": "company:ico:75370",
+      "label": "Město Plzeň",
+      "ico": "75370",
+      "hasSuppliesEdge": false,
+      "inGraph": true
+    }
+  ],
+  "missingSuppliesEdgeCandidates": []
+}

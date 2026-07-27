@@ -1,0 +1,470 @@
+{
+  "batch": 9,
+  "track": "money",
+  "kind": "parent-contract-sweep",
+  "generatedAt": "2026-07-27",
+  "source": "https://smlouvy.gov.cz/vyhledavani?party_idnum=<ico>&all_versions=0 (Registr smluv / ISRS, token-free)",
+  "note": "LEADS ONLY — no graph write. `party_idnum` matches EITHER contracting party, so a row means 'this company appears in a published public contract', not 'this company was paid public money'; each row keeps its publisher (the contracting authority) so direction can be read. Public-body parents are reported separately and are NEVER attributable to an MP (the tie_class steward rule).",
+  "counts": {
+    "parentsInScope": 10,
+    "queried": 8,
+    "failed": 2,
+    "privateParents": 8,
+    "privateParentsWithContracts": 4,
+    "publicBodyParents": 0
+  },
+  "results": [
+    {
+      "parentId": "company:ico:00001350",
+      "parent": "Československá obchodní banka, a.s.",
+      "ico": "00001350",
+      "isPublicBody": false,
+      "children": [
+        "ČSOB Pojišťovna, a. s., člen holdingu ČSOB"
+      ],
+      "contracts": 0,
+      "truncated": false,
+      "valuedContracts": 0,
+      "totalCzk": 0,
+      "unvaluedContracts": 0,
+      "earliest": null,
+      "latest": null,
+      "topRows": [],
+      "error": "smlouvy.gov.cz setLimit → 429 (https://smlouvy.gov.cz/vyhledavani?searchResultList-limit=100&do=searchResultList-setLimit&party_idnum=00001350&all_versions=0)"
+    },
+    {
+      "parentId": "company:ico:00011835",
+      "parent": "DEZA, a.s.",
+      "ico": "00011835",
+      "isPublicBody": false,
+      "children": [
+        "Synthesia, a.s."
+      ],
+      "contracts": 91,
+      "truncated": false,
+      "valuedContracts": 80,
+      "totalCzk": 13526307,
+      "unvaluedContracts": 11,
+      "earliest": "2017-02-02",
+      "latest": "2026-07-13",
+      "topRows": [
+        {
+          "contractId": "26316963",
+          "detailUrl": "/smlouva/26316963?backlink=g4uxn",
+          "publisher": "Město Valašské Meziříčí",
+          "subject": "Kupní smlouva (výkup) - p.č. 1709/2, 1709/3, 1710, 1716,1721/6, vše k.ú. Pozděchov - DEZA, a. s.",
+          "publishedOn": "2023-11-01",
+          "valueCzk": 3200000,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "DEZA",
+            "a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "16365815",
+          "detailUrl": "/smlouva/16365815?backlink=g4uxn",
+          "publisher": "VYSOKÉ UČENÍ TECHNICKÉ V BRNĚ",
+          "subject": "znalecký posudek",
+          "publishedOn": "2021-04-23",
+          "valueCzk": 970000,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "DEZA",
+            "a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "11303192",
+          "detailUrl": "/smlouva/11303192?backlink=g4uxn",
+          "publisher": "Zdravotní ústav se sídlem v Ostravě",
+          "subject": "Objednávka - vyšwtření CAPL",
+          "publishedOn": "2020-01-08",
+          "valueCzk": 440000,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "DEZA",
+            "a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "24945247",
+          "detailUrl": "/smlouva/24945247?backlink=g4uxn",
+          "publisher": "Česká pošta, s.p.",
+          "subject": "Dohoda o ukončení_Valašské Meziříčí 5_DEZA, a.s._Smlouva o nájmu NP + D č. 1",
+          "publishedOn": "2023-06-27",
+          "valueCzk": 403320,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "DEZA a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "24944039",
+          "detailUrl": "/smlouva/24944039?backlink=g4uxn",
+          "publisher": "Česká pošta, s.p.",
+          "subject": "Valašské Meziříčí 5_DEZA, a.s._Smlouva o nájmu NP + D č. 1",
+          "publishedOn": "2023-06-27",
+          "valueCzk": 403320,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "DEZA a.s."
+          ],
+          "latestVersion": true
+        }
+      ],
+      "error": null
+    },
+    {
+      "parentId": "company:ico:25130072",
+      "parent": "AGROFERT HOLDING, a.s.",
+      "ico": "25130072",
+      "isPublicBody": false,
+      "children": [
+        "IMOBA, a.s.",
+        "AGROFERT, a.s."
+      ],
+      "contracts": 0,
+      "truncated": false,
+      "valuedContracts": 0,
+      "totalCzk": 0,
+      "unvaluedContracts": 0,
+      "earliest": null,
+      "latest": null,
+      "topRows": [],
+      "error": null
+    },
+    {
+      "parentId": "company:ico:25997556",
+      "parent": "Zdravotnický holding Královéhradeckého kraje a.s.",
+      "ico": "25997556",
+      "isPublicBody": false,
+      "children": [
+        "Oblastní nemocnice Trutnov a.s."
+      ],
+      "contracts": 222,
+      "truncated": false,
+      "valuedContracts": 121,
+      "totalCzk": 1088489502,
+      "unvaluedContracts": 101,
+      "earliest": "2016-09-23",
+      "latest": "2026-07-14",
+      "topRows": [
+        {
+          "contractId": "18844287",
+          "detailUrl": "/smlouva/18844287?backlink=jnso0",
+          "publisher": "Královéhradecký kraj",
+          "subject": "ON Náchod - nepeněžitý příplatek",
+          "publishedOn": "2021-12-22",
+          "valueCzk": 201860014,
+          "valueNote": "s DPH",
+          "counterparties": [
+            "Zdravotnický holding Královéhradeckého kraje a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "6269175",
+          "detailUrl": "/smlouva/6269175?backlink=2h9ko",
+          "publisher": "Královéhradecký kraj",
+          "subject": "Nájemní smlouva na pronájem krajských nemocnic se Zdravotnickým holdigem Královéhradeckého krajem a.s.",
+          "publishedOn": "2018-07-27",
+          "valueCzk": 79896300,
+          "valueNote": "s DPH",
+          "counterparties": [
+            "Zdravotnický holding Královéhradeckého kraje a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "7914523",
+          "detailUrl": "/smlouva/7914523?backlink=2h9ko",
+          "publisher": "Královéhradecký kraj",
+          "subject": "Dodatek č. 1 k Nájemní smlouvě na pronájem krajských nemocnic se Zdravotnickým holdigem Královéhradeckého krajem a.s.",
+          "publishedOn": "2019-01-16",
+          "valueCzk": 66297000,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "Zdravotnický holding Královéhradeckého kraje a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "6296255",
+          "detailUrl": "/smlouva/6296255?backlink=2h9ko",
+          "publisher": "Královéhradecký kraj",
+          "subject": "Nájemní smlouva na pronájem krajských nemocnic se Zdravotnickým holdingem Královéhradeckého kraje a. s.",
+          "publishedOn": "2018-07-31",
+          "valueCzk": 66030000,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "Zdravotnický holding Královéhradeckého kraje a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "8956183",
+          "detailUrl": "/smlouva/8956183?backlink=2h9ko",
+          "publisher": "Královéhradecký kraj",
+          "subject": "Dodatek č.2 k Nájemní smlouvě na pronájem krajských nemocnic se Zdravotnickým holdigem Královéhradeckého kraje a.s.",
+          "publishedOn": "2019-05-06",
+          "valueCzk": 65249100,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "Zdravotnický holding Královéhradeckého kraje a.s."
+          ],
+          "latestVersion": true
+        }
+      ],
+      "error": null
+    },
+    {
+      "parentId": "company:ico:26040166",
+      "parent": "Léčebné centrum sv. Markéty,a.s.",
+      "ico": "26040166",
+      "isPublicBody": false,
+      "children": [
+        "Wellness sv. Markéta a.s."
+      ],
+      "contracts": 0,
+      "truncated": false,
+      "valuedContracts": 0,
+      "totalCzk": 0,
+      "unvaluedContracts": 0,
+      "earliest": null,
+      "latest": null,
+      "topRows": [],
+      "error": null
+    },
+    {
+      "parentId": "company:ico:46347828",
+      "parent": "Lázně Luhačovice, a.s.",
+      "ico": "46347828",
+      "isPublicBody": false,
+      "children": [
+        "Léčebné lázně Jáchymov a. s."
+      ],
+      "contracts": 214,
+      "truncated": false,
+      "valuedContracts": 171,
+      "totalCzk": 173511488,
+      "unvaluedContracts": 43,
+      "earliest": "2016-07-27",
+      "latest": "2026-07-27",
+      "topRows": [
+        {
+          "contractId": "4808900",
+          "detailUrl": "/smlouva/4808900?backlink=hl24l",
+          "publisher": "Česká průmyslová zdravotní pojišťovna",
+          "subject": "Smlouva na realizaci rehabilitačně rekodičních aktivit 2018-2021 v rámci zdravotnických preventivních programů 2 část I. veřejné zakázky",
+          "publishedOn": "2018-02-27",
+          "valueCzk": 40528480,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "Lázně Luhačovice",
+            "a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "27038671",
+          "detailUrl": "/smlouva/27038671?backlink=au91i",
+          "publisher": "Česká průmyslová zdravotní pojišťovna",
+          "subject": "Pobytové rekondiční aktivity 2024-2025",
+          "publishedOn": "2023-12-21",
+          "valueCzk": 11400000,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "Lázně Luhačovice",
+            "a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "36352525",
+          "detailUrl": "/smlouva/36352525?backlink=au91i",
+          "publisher": "Česká průmyslová zdravotní pojišťovna",
+          "subject": "Smlouva na realizaci rehabilitačně rekondičních aktivit 2026-2027 - část IV. veřejné zakázky",
+          "publishedOn": "2026-01-12",
+          "valueCzk": 10938000,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "Lázně Luhačovice",
+            "a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "1483470",
+          "detailUrl": "/smlouva/1483470?backlink=50b6p",
+          "publisher": "Česká průmyslová zdravotní pojišťovna",
+          "subject": "Smlouva na realizaci rehabilitačně rekondičních aktivit část 1. předmětu",
+          "publishedOn": "2017-03-16",
+          "valueCzk": 8721510,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "Lázně Luhačovice",
+            "a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "11824616",
+          "detailUrl": "/smlouva/11824616?backlink=hl24l",
+          "publisher": "Česká průmyslová zdravotní pojišťovna",
+          "subject": "Trojstranná dohoda o poskytnutí finančního příspěvku - pobytová",
+          "publishedOn": "2020-02-28",
+          "valueCzk": 8372000,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "Více smluvních stran"
+          ],
+          "latestVersion": true
+        }
+      ],
+      "error": null
+    },
+    {
+      "parentId": "company:ico:46678191",
+      "parent": "Rybářství Třeboň Hld. a.s.",
+      "ico": "46678191",
+      "isPublicBody": false,
+      "children": [
+        "Rybářství Třeboň a.s."
+      ],
+      "contracts": 56,
+      "truncated": false,
+      "valuedContracts": 50,
+      "totalCzk": 38155159,
+      "unvaluedContracts": 6,
+      "earliest": "2016-07-19",
+      "latest": "2026-06-11",
+      "topRows": [
+        {
+          "contractId": "11946048",
+          "detailUrl": "/smlouva/11946048?backlink=ywlrs",
+          "publisher": "Město Třeboň",
+          "subject": "Dodatek č. 4 k Pachtovní smlouvě ze dne 30.11.2015",
+          "publishedOn": "2020-03-12",
+          "valueCzk": 7469722,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "Rybářství Třeboň Hld. a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "4873172",
+          "detailUrl": "/smlouva/4873172?backlink=ywlrs",
+          "publisher": "Město Třeboň",
+          "subject": "Dodatek č. 3 k pachtovní smlouvě ze dne 30.11.2015 - úprava předmětu pachtu a stanovení pachtovného na r. 2018",
+          "publishedOn": "2018-03-06",
+          "valueCzk": 7138582,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "Rybářství Třeboň Hld. a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "2696258",
+          "detailUrl": "/smlouva/2696258?backlink=ywlrs",
+          "publisher": "Město Třeboň",
+          "subject": "Dodatek č. 2 k pacht. smlouvě - aktualizace předmětu pachtu po KPÚ Třeboň",
+          "publishedOn": "2017-07-27",
+          "valueCzk": 6983905,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "Rybářství Třeboň Hld. a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "8859627",
+          "detailUrl": "/smlouva/8859627?backlink=ywlrs",
+          "publisher": "Hlavní město Praha",
+          "subject": "kupní smlouva - nemovitá věc: úplatné nabytí pozemků parc. č. 691/36, 693/16, 703/12, 704/9, 705/1, 706/1, 707/1, 707/2, 726/4, 726/5 a 845/4 v k. ú. Zličín do vlastnictví hl. m. Prahy",
+          "publishedOn": "2019-04-25",
+          "valueCzk": 6011000,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "Rybářství Třeboň Hld. a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "33385400",
+          "detailUrl": "/smlouva/33385400?backlink=ywlrs",
+          "publisher": "Územní pracoviště České Budějovice (Úřad pro zastupování státu ve věcech majetkových)",
+          "subject": "Kupní smlouva - prodej pozemku p.č. st. 138 se stavbou v k.ú. Dolní Lhota u Stráže nad Nežárkou",
+          "publishedOn": "2025-05-23",
+          "valueCzk": 2497000,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "Rybářství Třeboň Hld. a.s."
+          ],
+          "latestVersion": true
+        }
+      ],
+      "error": null
+    },
+    {
+      "parentId": "company:ico:60197773",
+      "parent": "AGROFERT a.s.",
+      "ico": "60197773",
+      "isPublicBody": false,
+      "children": [
+        "AGROFERT, a.s."
+      ],
+      "contracts": 0,
+      "truncated": false,
+      "valuedContracts": 0,
+      "totalCzk": 0,
+      "unvaluedContracts": 0,
+      "earliest": null,
+      "latest": null,
+      "topRows": [],
+      "error": null
+    },
+    {
+      "parentId": "company:ico:60913819",
+      "parent": "UNICO Pardubice a.s.",
+      "ico": "60913819",
+      "isPublicBody": false,
+      "children": [
+        "EAST BOHEMIAN AIRPORT a.s."
+      ],
+      "contracts": 0,
+      "truncated": false,
+      "valuedContracts": 0,
+      "totalCzk": 0,
+      "unvaluedContracts": 0,
+      "earliest": null,
+      "latest": null,
+      "topRows": [],
+      "error": null
+    },
+    {
+      "parentId": "company:ico:70994226",
+      "parent": "České dráhy, a.s.",
+      "ico": "70994226",
+      "isPublicBody": false,
+      "children": [
+        "Výzkumný Ústav Železniční, a.s."
+      ],
+      "contracts": 0,
+      "truncated": false,
+      "valuedContracts": 0,
+      "totalCzk": 0,
+      "unvaluedContracts": 0,
+      "earliest": null,
+      "latest": null,
+      "topRows": [],
+      "error": "smlouvy.gov.cz setLimit → 429 (https://smlouvy.gov.cz/vyhledavani?searchResultList-limit=100&do=searchResultList-setLimit&party_idnum=70994226&all_versions=0)"
+    }
+  ]
+}

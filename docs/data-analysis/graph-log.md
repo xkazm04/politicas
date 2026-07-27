@@ -795,3 +795,35 @@ Surfaces: /zakony bill detail gains a „rozprava" block (top speakers with turn
 honest count-not-quality framing) and a „písemné pozměňovací návrhy" block (authors with
 counts); /poslanec's authorship split line gains the amendment count. Top speaker measured
 live: Ožanová 126 turns (tisk 72, loterie). ns=effort×law, track=build (operator-directed).
+
+## Pass 36 (track: money) — batch 009: IČO identity repair + registry-existence annotation (2026-07-27)
+
+Money case-loop batch 009, solo mode. Three live writes, no `review_state` touched.
+
+- **1 `linked_to` props-merge** — applies batch-008's Q-money-15 payload: Tomio
+  Okamura ↔ MIKI TRAVEL PRAGUE (`company:ico:25124188`), `corroboration`
+  `conflicting → registry-confirmed` (jednatel since 1997-04-25, live ARES VR).
+- **8 company nodes canonicalized** — company identity is
+  `company:ico:<8-digit zero-padded IČO>`; batch-006's ownership slice wrote 8
+  unpadded ids. 8 node upserts + 14 `owns_stake` re-points + 14 old-edge deletes
+  + 8 malformed-node deletes. `company:ico:2867681` (IF Holding a.s.) was a
+  **duplicate** of the canonical `company:ico:02867681` and had severed a real
+  ownership chain; merged into the canonical survivor, which reconnects
+  B.S.-KINGS → IF Holding → IF FACILITY. Node count 215 → 214.
+- **2 company nodes annotated `ico_unresolvable_in_ares`** — `25130072`
+  (AGROFERT HOLDING, a.s.) and `60197773` (AGROFERT a.s.) return NENALEZENO from
+  BOTH the ARES basic and `-vr` endpoints. Not fabrications: their `owns_stake`
+  edges come from dataor/justice.cz's ISVR export with dated 1999–2005
+  sole-shareholder records — dissolved predecessor entities the current register
+  no longer retains. Annotated (Czech analyst note, checked endpoints,
+  `likely_historical_entity`, successor candidate `26185610` AGROFERT, a.s.)
+  so no surface can present them as registry-checkable. 45/47 ownership-layer
+  nodes verified to exist.
+
+**Pass-number note:** these writes were first stamped pass 34 and re-stamped to
+36 when a concurrent effort×law session was found to have taken 34 and 35. The
+kernel assigns pass numbers at finalize time in write order; in a solo run that
+assumption breaks if another session is writing at the same time — check the log
+immediately before stamping, not at batch start.
+
+Detail: `docs/data-analysis/case-money/batch-009.md`.

@@ -1,0 +1,167 @@
+{
+  "batch": 9,
+  "track": "money",
+  "item": "Q-money-13",
+  "kind": "purged-ico-mention-residue",
+  "generatedAt": "2026-07-27",
+  "purgedIco": "04627695",
+  "note": "Mentions of the purged OSVČ IČO that still carry NO closure wording. Recorded, not edited: these props are sibling-owned analyst prose and citation arrays (effort/law), and money does not rewrite another case's verdict text. Bare citation URLs are the largest class — a source link left attached to a retracted claim.",
+  "counts": {
+    "totalMentions": 60,
+    "withClosure": 39,
+    "open": 21,
+    "byOwner": {
+      "law": 14,
+      "effort": 7
+    }
+  },
+  "open": [
+    {
+      "nodeId": "bill:tisk:43111",
+      "kind": "bill",
+      "propKey": "forensic_citations[14].claim",
+      "owner": "law",
+      "value": "Graf eviduje u spolupředkladatele Ivana Bartoše (pspId 6433) jedinou peněžní vazbu — subjekt OSVČ (IČO 04627695) s hodnotou zakázek 0 Kč, tedy bez skutečného toku veřejných peněz a bez souvislosti s předmětem tohoto tisku."
+    },
+    {
+      "nodeId": "bill:tisk:43111",
+      "kind": "bill",
+      "propKey": "forensic_citations[14].source",
+      "owner": "law",
+      "value": "company:ico:04627695"
+    },
+    {
+      "nodeId": "bill:tisk:43111",
+      "kind": "bill",
+      "propKey": "forensic_citations_en[14].claim",
+      "owner": "law",
+      "value": "Graph records co-sponsor Ivan Bartoš (pspId 6433) with one recorded money tie, an OSVČ entity (ičo 04627695), carrying a contract value of 0 Kč — no actual public money flow and no connection to this bill's subject matter."
+    },
+    {
+      "nodeId": "bill:tisk:43111",
+      "kind": "bill",
+      "propKey": "forensic_citations_en[14].source",
+      "owner": "law",
+      "value": "company:ico:04627695"
+    },
+    {
+      "nodeId": "bill:tisk:43111",
+      "kind": "bill",
+      "propKey": "forensic_conflict_assessment_en",
+      "owner": "law",
+      "value": "Non-partisan symmetry check on both co-sponsors. Olga Richterová (psp:person:6473) carries no recorded money ties in the graph at all. Ivan Bartoš (psp:person:6433) has exactly one recorded tie — to an OSVČ (self-employed) entity, company:ico:04627695 — but its recorded contract value is 0 Kč, meaning no actual public money changed hands, and the entity has no plausible connection to this bill's s"
+    },
+    {
+      "nodeId": "bill:tisk:43118",
+      "kind": "bill",
+      "propKey": "forensic_conflict_assessment",
+      "owner": "law",
+      "value": "ZJIŠTĚNÍ K OBOROVÉ BLÍZKOSTI (testovaný případ této dávky): shoda v oboru „ekonomika\" je NÁHODNÁ, nejde o skutečný kanál — stejný vzorec, jaký dávka 001 zjistila u hrubého peněžního signálu, se nyní opakuje i u signálu založeného na shodě oboru. Jediné ustanovení návrhu upravuje vlastní minimální vyměřovací základ pojistného na důchodové pojištění u jednotlivé OSVČ; nemá žádnou mechanickou souvisl"
+    },
+    {
+      "nodeId": "bill:tisk:43118",
+      "kind": "bill",
+      "propKey": "forensic_conflict_assessment_en",
+      "owner": "law",
+      "value": "SECTOR-ADJACENCY FINDING (this batch's test case): the 'economy'-sector match is COINCIDENTAL, not a real channel — the same pattern batch-001 found for the raw money signal now recurs for the sector-matched signal. The bill's sole provision regulates an individual OSVČ's own minimum pension-insurance assessment base; it has zero mechanical connection to any company's employer-side social-insuranc"
+    },
+    {
+      "nodeId": "bill:tisk:43178",
+      "kind": "bill",
+      "propKey": "forensic_citations[4].source",
+      "owner": "law",
+      "value": "company:ico:04627695"
+    },
+    {
+      "nodeId": "bill:tisk:43178",
+      "kind": "bill",
+      "propKey": "forensic_citations_en[4].source",
+      "owner": "law",
+      "value": "company:ico:04627695"
+    },
+    {
+      "nodeId": "bill:tisk:43178",
+      "kind": "bill",
+      "propKey": "forensic_conflict_assessment_en",
+      "owner": "law",
+      "value": "No plausible self-dealing channel, and the bill's substantive direction (cutting fees pension companies may charge) runs opposite to what a sponsor-benefits-an-industry-tie hypothesis would predict. None of the seven sponsors holds a recorded money tie to a pension company, asset manager, or third-pillar product provider: Ivan Bartoš and Hana Ančincová carry only the graph's generic zero-value 'OS"
+    },
+    {
+      "nodeId": "bill:tisk:43196",
+      "kind": "bill",
+      "propKey": "forensic_citations[5].source",
+      "owner": "law",
+      "value": "company:ico:04627695"
+    },
+    {
+      "nodeId": "bill:tisk:43196",
+      "kind": "bill",
+      "propKey": "forensic_citations_en[5].source",
+      "owner": "law",
+      "value": "company:ico:04627695"
+    },
+    {
+      "nodeId": "bill:tisk:43366",
+      "kind": "bill",
+      "propKey": "forensic_conflict_assessment",
+      "owner": "law",
+      "value": "Ze 4 předkladatelů nese označenou peněžní vazbu v grafu pouze Věra Kovářová: ČEPRO, a.s. (company:ico:60193531), státní společnost distribuující pohonné hmoty, s 235 543 222 Kč ve veřejných zakázkách — jde o tutéž vazbu, která byla už označena u tisku 120, kde je Kovářová rovněž předkladatelkou. Podnikání ČEPRA (skladování pohonných hmot a logistika potrubní distribuce) nemá věcnou souvislost se s"
+    },
+    {
+      "nodeId": "bill:tisk:43366",
+      "kind": "bill",
+      "propKey": "forensic_conflict_assessment_en",
+      "owner": "law",
+      "value": "Of the 4 sponsors, only Věra Kovářová carries a flagged money tie in the graph: ČEPRO, a.s. (company:ico:60193531), a state-owned fuel-distribution company, with 235,543,222 CZK in state contracts -- the same tie already flagged on tisk 120, where Kovářová is also a sponsor. ČEPRO's business (fuel storage and pipeline distribution logistics) has no substantive connection to personal income-tax cre"
+    },
+    {
+      "nodeId": "psp:person:6154",
+      "kind": "person",
+      "propKey": "effort_notes",
+      "owner": "effort",
+      "value": "Jediný sponzorovaný tisk odpovídá vstupním datům. Peněžní vazby (celkem 9 firemních položek) — přímý dotaz do veřejného rejstříku se pro žádné z 9 IČO nepodařilo načíst, takže vycházíme z agregace Hlídače státu (sekce Vazby), která ze stejného rejstříku čerpá: TOPAZ, z.s. (IČO 22745696, 0 Kč) — Ženíšek je členem statutárního orgánu od 27. 12. 2016, trvá dosud. Fórum Karla Schwarzenberga, o.p.s. (I"
+    },
+    {
+      "nodeId": "psp:person:6172",
+      "kind": "person",
+      "propKey": "effort_citations[4]",
+      "owner": "effort",
+      "value": "https://www.finmag.cz/obchodni-rejstrik/ares/04627695-agrarni-demokraticka-strana"
+    },
+    {
+      "nodeId": "psp:person:6209",
+      "kind": "person",
+      "propKey": "effort_citations[1]",
+      "owner": "effort",
+      "value": "https://ares.gov.cz/ekonomicke-subjekty-vr/04627695"
+    },
+    {
+      "nodeId": "psp:person:6538",
+      "kind": "person",
+      "propKey": "effort_citations[4]",
+      "owner": "effort",
+      "value": "https://ares.gov.cz/ekonomicke-subjekty-vr/04627695"
+    },
+    {
+      "nodeId": "psp:person:6786",
+      "kind": "person",
+      "propKey": "effort_citations[5]",
+      "owner": "effort",
+      "value": "https://www.finmag.cz/obchodni-rejstrik/ares/04627695-osvc"
+    },
+    {
+      "nodeId": "psp:person:6789",
+      "kind": "person",
+      "propKey": "effort_citations[7]",
+      "owner": "effort",
+      "value": "https://www.finmag.cz/obchodni-rejstrik/ares/04627695-agrarni-demokraticka-strana"
+    },
+    {
+      "nodeId": "psp:person:6881",
+      "kind": "person",
+      "propKey": "effort_citations[6]",
+      "owner": "effort",
+      "value": "https://www.finmag.cz/obchodni-rejstrik/ares/04627695-osvc"
+    }
+  ]
+}

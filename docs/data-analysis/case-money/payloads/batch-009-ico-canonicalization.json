@@ -1,0 +1,169 @@
+{
+  "batch": 9,
+  "track": "money",
+  "item": "Q-money-18",
+  "kind": "ico-id-canonicalization",
+  "generatedAt": "2026-07-27T10:03:41.761Z",
+  "dryRun": false,
+  "applied": true,
+  "note": "Company identity is `company:ico:<8-digit zero-padded IČO>`. Batch-006's ownership slice wrote 8 unpadded nodes, one of which (IF Holding a.s.) duplicated an existing canonical node and severed its ownership chain. Touches only company nodes and non-gated edges; refuses to move any `linked_to` tie.",
+  "moves": [
+    {
+      "from": "company:ico:11835",
+      "to": "company:ico:00011835",
+      "label": "DEZA, a.s.",
+      "ico": "11835",
+      "paddedIco": "00011835",
+      "canonicalExisted": false,
+      "edges": [
+        {
+          "src": "company:ico:11835",
+          "rel": "owns_stake",
+          "dst": "company:ico:60108916"
+        }
+      ]
+    },
+    {
+      "from": "company:ico:1350",
+      "to": "company:ico:00001350",
+      "label": "Československá obchodní banka, a.s.",
+      "ico": "1350",
+      "paddedIco": "00001350",
+      "canonicalExisted": false,
+      "edges": [
+        {
+          "src": "company:ico:1350",
+          "rel": "owns_stake",
+          "dst": "company:ico:45534306"
+        }
+      ]
+    },
+    {
+      "from": "company:ico:254843",
+      "to": "company:ico:00254843",
+      "label": "Město Ostrov",
+      "ico": "254843",
+      "paddedIco": "00254843",
+      "canonicalExisted": false,
+      "edges": [
+        {
+          "src": "company:ico:254843",
+          "rel": "owns_stake",
+          "dst": "company:ico:49790498"
+        }
+      ]
+    },
+    {
+      "from": "company:ico:274046",
+      "to": "company:ico:00274046",
+      "label": "Statutární město Pardubice",
+      "ico": "274046",
+      "paddedIco": "00274046",
+      "canonicalExisted": false,
+      "edges": [
+        {
+          "src": "company:ico:274046",
+          "rel": "owns_stake",
+          "dst": "company:ico:48154938"
+        },
+        {
+          "src": "company:ico:274046",
+          "rel": "owns_stake",
+          "dst": "company:ico:63217066"
+        }
+      ]
+    },
+    {
+      "from": "company:ico:2867681",
+      "to": "company:ico:02867681",
+      "label": "IF Holding a.s.",
+      "ico": "2867681",
+      "paddedIco": "02867681",
+      "canonicalExisted": true,
+      "edges": [
+        {
+          "src": "company:ico:2867681",
+          "rel": "owns_stake",
+          "dst": "company:ico:27720152"
+        }
+      ]
+    },
+    {
+      "from": "company:ico:64581",
+      "to": "company:ico:00064581",
+      "label": "HLAVNÍ MĚSTO PRAHA",
+      "ico": "64581",
+      "paddedIco": "00064581",
+      "canonicalExisted": false,
+      "edges": [
+        {
+          "src": "company:ico:64581",
+          "rel": "owns_stake",
+          "dst": "company:ico:02795281"
+        },
+        {
+          "src": "company:ico:64581",
+          "rel": "owns_stake",
+          "dst": "company:ico:27251918"
+        },
+        {
+          "src": "company:ico:64581",
+          "rel": "owns_stake",
+          "dst": "company:ico:60194120"
+        },
+        {
+          "src": "company:ico:64581",
+          "rel": "owns_stake",
+          "dst": "company:ico:63080249"
+        }
+      ]
+    },
+    {
+      "from": "company:ico:6947",
+      "to": "company:ico:00006947",
+      "label": "Ministerstvo financí",
+      "ico": "6947",
+      "paddedIco": "00006947",
+      "canonicalExisted": false,
+      "edges": [
+        {
+          "src": "company:ico:6947",
+          "rel": "owns_stake",
+          "dst": "company:ico:60193468"
+        }
+      ]
+    },
+    {
+      "from": "company:ico:75370",
+      "to": "company:ico:00075370",
+      "label": "Město Plzeň",
+      "ico": "75370",
+      "paddedIco": "00075370",
+      "canonicalExisted": false,
+      "edges": [
+        {
+          "src": "company:ico:75370",
+          "rel": "owns_stake",
+          "dst": "company:ico:25205625"
+        },
+        {
+          "src": "company:ico:75370",
+          "rel": "owns_stake",
+          "dst": "company:ico:25220683"
+        },
+        {
+          "src": "company:ico:75370",
+          "rel": "owns_stake",
+          "dst": "company:ico:49790480"
+        }
+      ]
+    }
+  ],
+  "refusals": [],
+  "counts": {
+    "malformedFound": 8,
+    "moved": 8,
+    "edgeRepoints": 14,
+    "nodeDeletes": 8
+  }
+}
