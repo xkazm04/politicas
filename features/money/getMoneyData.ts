@@ -135,6 +135,25 @@ export async function getMoneyData(): Promise<MoneyData | null> {
 
     const ownerOperatorMps = mps.filter((mp) => mp.ties.some((t) => t.tieClass === "owner-operator")).length;
 
+    // Is the contract corpus a census or a capped per-company sample? The original
+    // money feed pulled a bounded page of contracts per company, so a run of companies
+    // sitting at exactly the same maximum is the cap's signature, not a coincidence
+    // (money batch 011: 35 companies at exactly 25). When it is capped, every CZK
+    // figure below is a FLOOR and the surface must say so — rendering a truncated sum
+    // as a total is precisely what the brand rule forbids. Computed from the data
+    // rather than hardcoded, so a future uncapped re-ingest silently turns this off.
+    const perCompanyCounts = [...reachableSeen].map((id) => contractsByCompany.get(id)?.count ?? 0);
+    const observedMax = perCompanyCounts.length ? Math.max(...perCompanyCounts) : 0;
+    const companiesAtCap = perCompanyCounts.filter((n) => n === observedMax).length;
+    // A real ceiling is low AND shared by several companies; one big supplier that
+    // happens to top the list is not a cap.
+    const isFloor = observedMax > 0 && observedMax <= 100 && companiesAtCap >= 3;
+    const contractCoverage = {
+      perCompanyCap: isFloor ? observedMax : null,
+      companiesAtCap: isFloor ? companiesAtCap : 0,
+      isFloor,
+    };
+
     return {
       mps,
       mpsWithoutTies,
@@ -147,6 +166,7 @@ export async function getMoneyData(): Promise<MoneyData | null> {
         verifiedTies,
         pendingTies,
         ownerOperatorMps,
+        contractCoverage,
       },
       source: "registr smluv ⋈ ares ⋈ hlídač státu",
       pass,

@@ -667,7 +667,10 @@
         "companiesSource": "ares v3 — spojovací klíč IČO",
         "pendingLabel": "čeká na lidskou kontrolu",
         "pendingSub": "0 ověřených · do skóre se nepropisují",
-        "pendingSource": "metodika v1.4 — práh spolehlivosti"
+        "pendingSource": "metodika v1.4 — práh spolehlivosti",
+        "reachableAtLeast": "nejméně {value}",
+        "reachableSubCapped": "dolní odhad — původní sběr stáhl u každé firmy nejvýše {cap} smluv ({companies} firem na tomto stropu), skutečná částka je vyšší · u stewardů jde o peníze instituce, ne poslance",
+        "reachableSourceCapped": "registr smluv · Σ dohledaných smluv (vzorek se stropem {cap}/firma)"
       },
       "graph": {
         "badge": "graf entit · nejsilnější spis",

@@ -6,7 +6,7 @@
 // themselves contract-queried — so the layer is provably zero-power: it can name an
 // owner but not show the owner touching public money. Registr smluv is the fix: every
 // contract a public authority signs above the publication threshold is here, keyed by
-// IČO on either party.
+// the counterparty's IČO.
 //
 // TOKEN-FREE, BUT NOT STATELESS (verified live 2026-07-27, do not re-derive): the
 // public search at `/vyhledavani?party_idnum=<ICO>&all_versions=0` needs no API key,
@@ -28,8 +28,17 @@
 //      → re-renders the SAME search at page size N (up to 500). A further
 //        `searchResultList-offset=<off>&do=searchResultList-setOffset` signal
 //        (same cookie) advances to the next window without resetting the limit.
-// `party_idnum` matches the ICO on EITHER contracting party (not just the publishing
-// authority — `subject_idnum` is that, and is NOT what this client uses).
+// `party_idnum` = "IČO smluvní strany" and matches ONLY THE NON-PUBLISHING party;
+// `subject_idnum` = "IČO publikujícího subjektu" is the publisher side, and is NOT what
+// this client uses. Established by decisive test (money batch 011, verification pass):
+// `party_idnum=70856508` (SFDI) for 2025-12-03 returns ZERO rows, while
+// `subject_idnum=70856508` for the same day returns the contract SFDI published.
+// CONSEQUENCE FOR CALLERS: a sweep on `party_idnum` alone MISSES every contract the
+// swept company published itself. For a private supplier that is almost nothing (they
+// rarely publish), but for any company that is itself a publishing authority it is a
+// real gap — sweep `subject_idnum` too before calling such a result complete.
+// An earlier revision of this file claimed `party_idnum` matched EITHER party. It does
+// not; the claim was never tested until batch 011.
 //
 // FRAGILITY: this is HTML scraping of a public-sector Nette app, not a stable API.
 // The header-row column labels are checked on every fetch (checkHeaderRow) — a
@@ -368,7 +377,8 @@ export class SmlouvyClient {
     this.baseUrl = (opts.baseUrl ?? DEFAULT_BASE_URL).replace(/\/+$/, "");
   }
 
-  /** One page of results for one IČO (matches EITHER contracting party). Internally
+  /** One page of results for one IČO (matches the NON-PUBLISHING party only — see the
+   *  header note; `subject_idnum` is the publisher side). Internally
    *  performs the two-request session handshake described in the module doc — the
    *  caller never sees the intermediate request. */
   async fetchPage(icoRaw: string, opts: SmlouvyFetchOptions = {}): Promise<SmlouvyPage> {

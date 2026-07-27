@@ -1,0 +1,62 @@
+{
+  "batch": 11,
+  "track": "money",
+  "item": "Q-money-21",
+  "kind": "linked_to-window-corroboration",
+  "generatedAt": "2026-07-27",
+  "note": "Props-merge onto the SAME existing linked_to edge as batch 010 (psp:person:6150 → company:ico:26185610). Adds an independent, non-registry corroboration of the ownership window and the contract-register findings for the AGROFERT group. Creates no edge; does NOT touch review_state. Verified by an Opus pass at maximum depth which returned PARTIAL on the driver's first analysis and corrected five framing defects, all reflected here.",
+  "edges": [
+    {
+      "src": "psp:person:6150",
+      "rel": "linked_to",
+      "dst": "company:ico:26185610",
+      "mp": "Andrej Babiš",
+      "company": "AGROFERT, a.s.",
+      "ico": "26185610",
+      "propsMerge": {
+        "window_corroboration": {
+          "source_kind": "state paying agency's own published legal analysis (not media, not registry)",
+          "finding_cs": "Státní zemědělský intervenční fond zveřejnil posudek (PORTOS, 27. 2. 2026), který uvádí, že dne 20. února 2026 Ing. Andrej Babiš vložil akcie AGROFERT, a.s. do svěřenského fondu RSVP TRUST, a že „nejméně v období od 9. prosince 2025 do 20. února 2026“ byly u společností koncernu naplněny podmínky ustanovení § 4c zákona č. 159/2006 Sb.",
+          "strengthens": "Uzavření okna: 20. 2. 2026 není jen datem výmazu z rejstříku, ale datem skutečného vložení akcií do svěřenského fondu. Otevření okna (15. 10. 2025) zůstává pouze datem zápisu — datum nabytí akcií rejstřík nedokládá.",
+          "url": "https://szif.gov.cz/cs/analyzy-stretu-zajmu",
+          "accessedAt": "2026-07-27"
+        },
+        "contract_register_findings": {
+          "scope_cs": "Sondáž registru smluv pro 9 grafem vedených společností koncernu (AGROFERT, IMOBA, SynBiol, PRECHEZA, Fatra, Lovochemie, Synthesia, Kostelecké uzeniny, DEZA): 624 záznamů celkem, z toho 23 zveřejněných v okně 15. 10. 2025 – 20. 2. 2026.",
+          "dominant_item_cs": "92 % uvedené hodnoty tvoří jediná položka: rámcová smlouva o financování projektu „Modernizace zabezpečovacího zařízení vlečky Lovochemie, a.s.“ (SFDI × Lovochemie, uzavřena 1. 12. 2025, zveřejněna 3. 12. 2025). Jde o MAXIMÁLNÍ příspěvek Unie z Fondu soudržnosti 181 454 606,76 Kč, tj. 49 % způsobilých výdajů 370 315 524 Kč, přiznaný v kolové výzvě č. 35 Programu Doprava 2021–2027 (příjem žádostí skončil 30. 6. 2025), s ex-post platbami do konce způsobilosti výdajů 31. 12. 2028. Není to diskreční přidělení ani vyplacená částka.",
+          "direction_cs": "Směr plnění NENÍ v řádku registru obsažen. Z 16 záznamů zveřejněných od 9. 12. 2025 není žádný doložen jako veřejné prostředky poskytnuté koncernu; u jediné položky, u níž byl směr ověřen z listiny (dodatek č. 3 ke smlouvě o zaměstnávání odsouzených, 3 622 500 Kč), plyne úhrada naopak OD Kosteleckých uzenin Vězeňské službě ČR, a mění pouze hodinovou sazbu odvozenou od 50 % minimální mzdy.",
+          "blind_spot_cs": "Registr smluv nezachycuje dotace poskytované rozhodnutím (zejména zemědělské dotace SZIF, které se nesjednávají smlouvou), smlouvy do 50 000 Kč bez DPH ani další zákonné výjimky, a nesahá před 1. 7. 2016. Uvedený přehled proto NEVYPOVÍDÁ o celkové expozici koncernu vůči veřejným prostředkům — jde o dolní mez jednoho dílčího kanálu u 9 z mnoha set společností koncernu.",
+          "legal_status_cs": "§ 4b se týká zadávacích řízení, nikoli plnění již uzavřených smluv, a na financování z SFDI nedopadá. Zda financování z SFDI spolufinancované z Fondu soudržnosti je „dotace“ podle § 4c, je sporné a judikatura na tento případ chybí; sporný je i okamžik rozhodný pro posouzení (uzavření vs. průběh čerpání). Tento nález nezakládá zjištění protiprávnosti ani jeho vyloučení."
+        },
+        "flags": ["q-money-21-contract-window", "opus-verified"]
+      },
+      "citations": [
+        {
+          "claim": "SZIF zveřejnil posudek uvádějící, že nejméně od 9. 12. 2025 do 20. 2. 2026 byly u společností koncernu AGROFERT naplněny podmínky § 4c zák. č. 159/2006 Sb., a že 20. 2. 2026 byly akcie vloženy do svěřenského fondu RSVP TRUST.",
+          "url": "https://szif.gov.cz/cs/analyzy-stretu-zajmu",
+          "accessedAt": "2026-07-27"
+        },
+        {
+          "claim": "Rámcová smlouva o financování projektu „Modernizace zabezpečovacího zařízení vlečky Lovochemie, a.s.“, SFDI jako poskytovatel a Lovochemie, a.s. jako příjemce; uzavřena 1. 12. 2025, zveřejněna 3. 12. 2025, maximální příspěvek Unie 181 454 606,76 Kč.",
+          "url": "https://smlouvy.gov.cz/smlouva/35876177",
+          "accessedAt": "2026-07-27"
+        },
+        {
+          "claim": "Výzva č. 35 Programu Doprava 2021–2027 (rozvoj železničních vleček) byla kolová, příjem žádostí 13. 1. 2025 – 30. 6. 2025, alokace 594 300 000 Kč z Fondu soudržnosti, míra podpory EU max 49 %, ex-post platby.",
+          "url": "https://www.opd.cz/UploadFiles/vyzva_35_vlecky_2024_12_19.pdf",
+          "accessedAt": "2026-07-27"
+        },
+        {
+          "claim": "Dodatek č. 3 ke smlouvě o poskytování služeb (zaměstnávání odsouzených) mezi Kosteleckými uzeninami a Vězeňskou službou ČR navyšuje hodinovou sazbu hrazenou objednatelem; Kostelecké uzeniny jsou objednatelem a plátcem.",
+          "url": "https://smlouvy.gov.cz/smlouva/36331253",
+          "accessedAt": "2026-07-27"
+        },
+        {
+          "claim": "§ 4b zák. č. 159/2006 Sb. se vztahuje na účast v zadávacích řízeních; § 4c zakazuje poskytnutí dotace podle předpisu upravujícího rozpočtová pravidla. Oba se vážou na člena vlády podle § 2 odst. 1 písm. c), nikoli na poslance.",
+          "url": "https://www.zakonyprolidi.cz/cs/2006-159",
+          "accessedAt": "2026-07-27"
+        }
+      ]
+    }
+  ]
+}

@@ -60,10 +60,23 @@ export default function FollowTheMoneyPage({ data }: { data?: MoneyData | null }
           source: t("real.stats.companiesSource"),
         },
         {
+          // The contract corpus is a CAPPED per-company sample (see
+          // `stats.contractCoverage`), so this sum is a lower bound. Rendering it
+          // bare, sourced to "Σ hodnot smluv", would present a floor as a total —
+          // the brand rule's central prohibition. Prefix and footnote say so.
           label: t("real.stats.reachableLabel"),
-          value: compactCzk(data.stats.contractCzkReachable, locale),
-          sub: t("real.stats.reachableSub"),
-          source: t("real.stats.reachableSource"),
+          value: data.stats.contractCoverage.isFloor
+            ? t("real.stats.reachableAtLeast", { value: compactCzk(data.stats.contractCzkReachable, locale) })
+            : compactCzk(data.stats.contractCzkReachable, locale),
+          sub: data.stats.contractCoverage.isFloor
+            ? t("real.stats.reachableSubCapped", {
+                cap: data.stats.contractCoverage.perCompanyCap ?? 0,
+                companies: data.stats.contractCoverage.companiesAtCap,
+              })
+            : t("real.stats.reachableSub"),
+          source: data.stats.contractCoverage.isFloor
+            ? t("real.stats.reachableSourceCapped")
+            : t("real.stats.reachableSource"),
         },
       ]
     : [

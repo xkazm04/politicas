@@ -888,3 +888,42 @@ Pass numbers 37 and 38 were taken by concurrent effort/law sessions during this
 batch; 39 was claimed by re-checking the log immediately before writing.
 
 Detail: `docs/data-analysis/case-money/batch-010.md`.
+
+## Pass 40 (track: money) — batch 011: AGROFERT contract window + SZIF corroboration (2026-07-27)
+
+One `linked_to` props-merge onto the same edge pass 39 annotated
+(`psp:person:6150` → `company:ico:26185610`). No edge created, no `review_state`
+touched.
+
+- **`window_corroboration`** — the state paying agency's own published legal
+  analysis (SZIF / PORTOS, 2026-02-27) states that on 2026-02-20 the AGROFERT
+  shares were placed into svěřenský fond RSVP TRUST, and that "nejméně v období
+  od 9. prosince 2025 do 20. února 2026" the § 4c conditions were met for the
+  group's companies. This is an INDEPENDENT, non-registry, non-media source that
+  **strengthens the closing date** from "registry výmaz" to "actual transfer".
+  The opening date (2025-10-15) remains registration-only — the register does
+  not establish when the shares were acquired.
+- **`contract_register_findings`** — Registr smluv sweep of the 9 graphed group
+  companies: 624 records, 23 published inside the window. **92 % of the stated
+  value is a single item**: the SFDI × Lovochemie framework financing contract
+  for modernizing Lovochemie's own rail siding (concluded 2025-12-01, published
+  2025-12-03) — a **maximum EU ceiling** of 181 454 606,76 Kč (49 % of eligible
+  costs), awarded through the closed competitive call č. 35 of Programu Doprava
+  2021–2027 (applications closed 2025-06-30), paid **ex post** through 2028. Not
+  a discretionary award and not a paid-out sum.
+- **Direction is recorded as NOT established.** Of the 16 records published from
+  2025-12-09, none is evidenced as public money awarded to the group; the only
+  one whose direction was verified from the underlying document runs the other
+  way — Kostelecké uzeniny **pays** the Vězeňská služba under a prison-labour
+  contract, on a rate derived from 50 % of the minimum wage.
+- **Blind spot recorded**: Registr smluv carries no subsidy granted by decision
+  (notably SZIF agricultural subsidies), nothing below 50 000 Kč, and nothing
+  before 2016-07-01. The 624 records are a lower bound on one partial channel
+  across 9 of the group's many companies.
+
+Verified by an Opus pass at maximum depth that returned PARTIAL and corrected
+five framing defects, including a wrong premise about `party_idnum` (it matches
+only the NON-publishing party) which has been fixed in
+`lib/ingest/sources/smlouvy.ts` and the docs it propagated to.
+
+Detail: `docs/data-analysis/case-money/batch-011.md`.

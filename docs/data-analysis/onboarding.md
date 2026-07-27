@@ -38,9 +38,18 @@ treated as the only contract-side path.
 `GET /vyhledavani?party_idnum=<8-digit IČO>&all_versions=0`. Three properties of
 this source shape the adapter and are easy to get wrong:
 
-- **`party_idnum` matches EITHER contracting party.** A hit means "appears in a
-  published public contract", never "was paid public money" — direction must be
-  read off the `Publikující smluvní strana` (contracting authority) column.
+- **`party_idnum` matches only the NON-PUBLISHING party** ("IČO smluvní strany");
+  `subject_idnum` is the publisher side. A sweep on `party_idnum` alone therefore
+  misses every contract the swept company published itself — negligible for a
+  private supplier, a real gap for any company that is itself a publishing
+  authority. (An earlier note here claimed it matched either party; that was
+  never tested until money batch 011 disproved it.)
+- **Direction of money is NOT in the search row.** Only a minority of contracts
+  carry an explicit `Plátce / příjemce` label, and it lives on the detail page.
+  A hit means "was a counterparty to a published contract", never "was paid
+  public money" — batch 011 found rows running the other way (a prison-labour
+  amendment where the company pays the state). Read direction per contract from
+  the underlying document before describing any row as public money received.
 - **There is no structured export.** `&export=1|xml|csv` all return the same
   HTML. It is scraping or nothing, so the parser fails loud on header drift
   rather than mis-reading a shifted column into a contract value.

@@ -17,7 +17,7 @@
  *  2. **A 429 read as an answer.** Failures are recorded as explicit `error` rows and are
  *     never counted as "no contracts" — and `--resume` retries exactly those.
  *
- * Every result is a LEAD. `party_idnum` matches EITHER contracting party, so a hit means
+ * Every result is a LEAD. `party_idnum` matches the NON-PUBLISHING party (corrected batch 011), so a hit means
  * "appears in a published public contract", never "was paid public money"; each row keeps
  * its publisher so direction can be read. Nothing here is written to the graph.
  *
@@ -113,7 +113,7 @@ async function main() {
           generatedAt: new Date().toISOString().slice(0, 10),
           source: "https://smlouvy.gov.cz/vyhledavani?party_idnum=<ico>&all_versions=0 (Registr smluv / ISRS, token-free)",
           note:
-            "LEADS ONLY — no graph write. `party_idnum` matches EITHER contracting party, so a row means 'this " +
+            "LEADS ONLY — no graph write. `party_idnum` matches the NON-PUBLISHING party, so a row means 'this " +
             "company appears in a published public contract', not 'this company was paid public money'; the " +
             "`publishers` breakdown is what direction must be read from. Registr smluv carries contracts published " +
             "from 2016 only, so a 0 for an entity dissolved or dormant before then is structural, not a finding. " +

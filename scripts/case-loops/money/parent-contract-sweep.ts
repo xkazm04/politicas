@@ -10,7 +10,7 @@
  * (`lib/ingest/sources/smlouvy.ts`, batch 009) — one query per parent IČO.
  *
  * WHAT IT DOES NOT DO. It writes nothing to the graph. Registr smluv's `party_idnum`
- * matches EITHER contracting party, so a hit says "this company appears in a published
+ * matches the NON-PUBLISHING party (corrected batch 011), so a hit says "this company appears in a published
  * public contract", NOT "this company was paid public money" — the direction has to be
  * read off each row (publisher = the contracting authority). Rows are therefore emitted
  * as LEADS with their publisher intact, for a later gated pass.
@@ -195,7 +195,7 @@ async function main() {
         generatedAt: new Date().toISOString().slice(0, 10),
         source: "https://smlouvy.gov.cz/vyhledavani?party_idnum=<ico>&all_versions=0 (Registr smluv / ISRS, token-free)",
         note:
-          "LEADS ONLY — no graph write. `party_idnum` matches EITHER contracting party, so a row means 'this company " +
+          "LEADS ONLY — no graph write. `party_idnum` matches the NON-PUBLISHING party, so a row means 'this company " +
           "appears in a published public contract', not 'this company was paid public money'; each row keeps its " +
           "publisher (the contracting authority) so direction can be read. Public-body parents are reported " +
           "separately and are NEVER attributable to an MP (the tie_class steward rule).",

@@ -10,9 +10,16 @@ blocked contract-side work for several money batches. It need not: Registr
 smluv (ISRS) answers per-IČO queries token-free.
 
 - `GET https://smlouvy.gov.cz/vyhledavani?party_idnum=<8-digit IČO>&all_versions=0`
-- `party_idnum` matches **either** contracting party — a hit means "appears in a
-  published public contract", never "was paid public money". Read direction off
-  the `Publikující smluvní strana` (contracting authority) column.
+- `party_idnum` ("IČO smluvní strany") matches **only the NON-publishing party**;
+  `subject_idnum` is the publisher side. Sweeping `party_idnum` alone misses
+  contracts the company published itself — irrelevant for a private supplier, a
+  real gap for a publishing authority. (Batch 009 asserted "either party"
+  untested; batch 011 disproved it with a decisive query.)
+- **Direction of money is NOT in the search row.** Only a minority of contracts
+  carry a `Plátce / příjemce` label, and only on the detail page. A hit means
+  "was a counterparty", never "was paid" — rows genuinely run both ways (batch
+  011: a prison-labour amendment where the company pays the state). Read the
+  document before calling any row public money received.
 - **No structured export.** `&export=1|xml|csv` all return the same HTML
   (verified 2026-07-27) — it is HTML scraping or nothing.
 - **Pagination is a Nette session signal**, not a stateless parameter: a

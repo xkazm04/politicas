@@ -1,0 +1,677 @@
+{
+  "batch": 11,
+  "track": "money",
+  "kind": "agrofert-contract-sweep",
+  "generatedAt": "2026-07-27",
+  "source": "https://smlouvy.gov.cz/vyhledavani?party_idnum=<ico>&all_versions=0 (Registr smluv / ISRS, token-free)",
+  "windows": {
+    "registeredSoleShareholder": {
+      "from": "2025-10-15",
+      "to": "2026-02-20"
+    },
+    "memberOfGovernmentFrom": "2025-12-09",
+    "caveat": "These are REGISTRATION dates from the obchodní rejstřík (datumZapisu/datumVymazu). The akcionář entries carry an empty `clenstvi`, so the register does not establish when the shares were acquired. A contract's `publishedOn` is a PUBLICATION date, not an award or signature date — the two can differ by months, and Registr smluv requires publication within 30 days of conclusion for most contracts."
+  },
+  "note": "LEADS ONLY — no graph write, no finding of illegality. `party_idnum` matches EITHER contracting party, so a row means AGROFERT appears in a published contract, not that it was awarded public money; read direction from the publisher. §§ 4b/4c zák. č. 159/2006 Sb. attach to a member of government whose company he controls at >=25%, and have their own definitions, exemptions and enforcement path which this loop does not adjudicate.",
+  "results": [
+    {
+      "ico": "26185610",
+      "label": "AGROFERT, a.s.",
+      "role": "the company under the registered sole shareholding",
+      "contracts": 49,
+      "truncated": false,
+      "error": null,
+      "earliest": "2016-11-21",
+      "latest": "2026-04-28",
+      "all": {
+        "contracts": 49,
+        "valued": 36,
+        "czk": 8065295
+      },
+      "inSoleShareholderWindow": {
+        "contracts": 3,
+        "valued": 2,
+        "czk": 251547
+      },
+      "inPmOverlap": {
+        "contracts": 1,
+        "valued": 1,
+        "czk": 58407
+      },
+      "windowRows": [
+        {
+          "contractId": "35768185",
+          "detailUrl": "/smlouva/35768185?backlink=pl3sh",
+          "publisher": "Hasičský záchranný sbor Jihomoravského kraje",
+          "subject": "Připojení EPS na PCO",
+          "publishedOn": "2025-11-26",
+          "valueCzk": 193140,
+          "valueNote": "s DPH",
+          "counterparties": [
+            "AGROFERT",
+            "a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "35985409",
+          "detailUrl": "/smlouva/35985409?backlink=pl3sh",
+          "publisher": "Ústav zemědělské ekonomiky a informací",
+          "subject": "Smlouva o recertifikaci",
+          "publishedOn": "2025-12-10",
+          "valueCzk": 58407,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "AGROFERT",
+            "a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "35921309",
+          "detailUrl": "/smlouva/35921309?backlink=pl3sh",
+          "publisher": "IKEM",
+          "subject": "Dodatek č. 7 ke smlouvě o provádění lékařských prohlídek zaměstnanců",
+          "publishedOn": "2025-12-05",
+          "valueCzk": null,
+          "valueNote": null,
+          "counterparties": [
+            "AGROFERT",
+            "a.s."
+          ],
+          "latestVersion": true
+        }
+      ],
+      "topPublishersInWindow": [
+        {
+          "name": "Hasičský záchranný sbor Jihomoravského kraje",
+          "contracts": 1,
+          "czk": 193140
+        },
+        {
+          "name": "Ústav zemědělské ekonomiky a informací",
+          "contracts": 1,
+          "czk": 58407
+        },
+        {
+          "name": "IKEM",
+          "contracts": 1,
+          "czk": 0
+        }
+      ],
+      "checkedAt": "2026-07-27"
+    },
+    {
+      "ico": "26124459",
+      "label": "IMOBA, a.s.",
+      "role": "graphed group company",
+      "contracts": 13,
+      "truncated": false,
+      "error": null,
+      "earliest": "2017-07-12",
+      "latest": "2025-12-15",
+      "all": {
+        "contracts": 13,
+        "valued": 10,
+        "czk": 1765810
+      },
+      "inSoleShareholderWindow": {
+        "contracts": 1,
+        "valued": 1,
+        "czk": 300000
+      },
+      "inPmOverlap": {
+        "contracts": 1,
+        "valued": 1,
+        "czk": 300000
+      },
+      "windowRows": [
+        {
+          "contractId": "36050085",
+          "detailUrl": "/smlouva/36050085?backlink=4zv93",
+          "publisher": "Zdravotní ústav se sídlem v Ústí nad Labem",
+          "subject": "Objednávka - Odběry a rozbory pitných, bazénových a odpadních vod na rok 2026",
+          "publishedOn": "2025-12-15",
+          "valueCzk": 300000,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "IMOBA",
+            "a.s."
+          ],
+          "latestVersion": true
+        }
+      ],
+      "topPublishersInWindow": [
+        {
+          "name": "Zdravotní ústav se sídlem v Ústí nad Labem",
+          "contracts": 1,
+          "czk": 300000
+        }
+      ],
+      "checkedAt": "2026-07-27"
+    },
+    {
+      "ico": "26014343",
+      "label": "SynBiol, a.s.",
+      "role": "graphed group company",
+      "contracts": 0,
+      "truncated": false,
+      "error": null,
+      "earliest": null,
+      "latest": null,
+      "all": {
+        "contracts": 0,
+        "valued": 0,
+        "czk": 0
+      },
+      "inSoleShareholderWindow": {
+        "contracts": 0,
+        "valued": 0,
+        "czk": 0
+      },
+      "inPmOverlap": {
+        "contracts": 0,
+        "valued": 0,
+        "czk": 0
+      },
+      "windowRows": [],
+      "topPublishersInWindow": [],
+      "checkedAt": "2026-07-27"
+    },
+    {
+      "ico": "26872307",
+      "label": "PRECHEZA a.s.",
+      "role": "graphed group company",
+      "contracts": 52,
+      "truncated": false,
+      "error": null,
+      "earliest": "2016-11-18",
+      "latest": "2026-07-22",
+      "all": {
+        "contracts": 52,
+        "valued": 40,
+        "czk": 130475166
+      },
+      "inSoleShareholderWindow": {
+        "contracts": 0,
+        "valued": 0,
+        "czk": 0
+      },
+      "inPmOverlap": {
+        "contracts": 0,
+        "valued": 0,
+        "czk": 0
+      },
+      "windowRows": [],
+      "topPublishersInWindow": [],
+      "checkedAt": "2026-07-27"
+    },
+    {
+      "ico": "27465021",
+      "label": "Fatra, a.s.",
+      "role": "graphed group company",
+      "contracts": 73,
+      "truncated": false,
+      "error": null,
+      "earliest": "2016-09-13",
+      "latest": "2026-07-20",
+      "all": {
+        "contracts": 73,
+        "valued": 55,
+        "czk": 103514893
+      },
+      "inSoleShareholderWindow": {
+        "contracts": 1,
+        "valued": 1,
+        "czk": 100000
+      },
+      "inPmOverlap": {
+        "contracts": 0,
+        "valued": 0,
+        "czk": 0
+      },
+      "windowRows": [
+        {
+          "contractId": "35910565",
+          "detailUrl": "/smlouva/35910565?backlink=5269b",
+          "publisher": "Knihovna města Olomouce, příspěvková organizace",
+          "subject": "KMOL - Fatra - objednávka obalovací folie",
+          "publishedOn": "2025-12-05",
+          "valueCzk": 100000,
+          "valueNote": "s DPH",
+          "counterparties": [
+            "Fatra",
+            "a.s."
+          ],
+          "latestVersion": true
+        }
+      ],
+      "topPublishersInWindow": [
+        {
+          "name": "Knihovna města Olomouce, příspěvková organizace",
+          "contracts": 1,
+          "czk": 100000
+        }
+      ],
+      "checkedAt": "2026-07-27"
+    },
+    {
+      "ico": "49100262",
+      "label": "Lovochemie, a.s.",
+      "role": "graphed group company",
+      "contracts": 110,
+      "truncated": false,
+      "error": null,
+      "earliest": "2016-12-15",
+      "latest": "2026-06-18",
+      "all": {
+        "contracts": 110,
+        "valued": 88,
+        "czk": 429416147
+      },
+      "inSoleShareholderWindow": {
+        "contracts": 2,
+        "valued": 2,
+        "czk": 185628726
+      },
+      "inPmOverlap": {
+        "contracts": 1,
+        "valued": 1,
+        "czk": 4174119
+      },
+      "windowRows": [
+        {
+          "contractId": "35876177",
+          "detailUrl": "/smlouva/35876177?backlink=f63ms",
+          "publisher": "Státní fond dopravní infrastruktury",
+          "subject": "Rámcová smlouva o financování projektu spolufinancovaného z fondů EU Modernizace zabezpečovacího zařízení vlečky Lovochemie, a.s.",
+          "publishedOn": "2025-12-03",
+          "valueCzk": 181454607,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "Lovochemie",
+            "a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "36106445",
+          "detailUrl": "/smlouva/36106445?backlink=f63ms",
+          "publisher": "Správa železnic, státní organizace",
+          "subject": "Smlouva o styku vzájemně zaústěných drah a provádění vybraných činností souvisejících s provozováním vlečky",
+          "publishedOn": "2025-12-17",
+          "valueCzk": 4174119,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "Lovochemie",
+            "a.s."
+          ],
+          "latestVersion": true
+        }
+      ],
+      "topPublishersInWindow": [
+        {
+          "name": "Státní fond dopravní infrastruktury",
+          "contracts": 1,
+          "czk": 181454607
+        },
+        {
+          "name": "Správa železnic, státní organizace",
+          "contracts": 1,
+          "czk": 4174119
+        }
+      ],
+      "checkedAt": "2026-07-27"
+    },
+    {
+      "ico": "60108916",
+      "label": "Synthesia, a.s.",
+      "role": "graphed group company",
+      "contracts": 165,
+      "truncated": false,
+      "error": null,
+      "earliest": "2016-11-21",
+      "latest": "2026-07-17",
+      "all": {
+        "contracts": 165,
+        "valued": 114,
+        "czk": 1012475290
+      },
+      "inSoleShareholderWindow": {
+        "contracts": 10,
+        "valued": 2,
+        "czk": 700000
+      },
+      "inPmOverlap": {
+        "contracts": 9,
+        "valued": 1,
+        "czk": 500000
+      },
+      "windowRows": [
+        {
+          "contractId": "36564977",
+          "detailUrl": "/smlouva/36564977?backlink=j4n5r",
+          "publisher": "Východočeské divadlo Pardubice",
+          "subject": "Smlouva o vzájemné spolupráci - reklama",
+          "publishedOn": "2026-01-28",
+          "valueCzk": 500000,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "Synthesia",
+            "a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "35450489",
+          "detailUrl": "/smlouva/35450489?backlink=j4n5r",
+          "publisher": "Univerzita Pardubice",
+          "subject": "Smlouva o spolupráci a propagaci",
+          "publishedOn": "2025-11-04",
+          "valueCzk": 200000,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "Synthesia",
+            "a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "36792821",
+          "detailUrl": "/smlouva/36792821?backlink=j4n5r",
+          "publisher": "Explosia a.s.",
+          "subject": "Poskytování služeb HBS, dispečerské služby",
+          "publishedOn": "2026-02-13",
+          "valueCzk": null,
+          "valueNote": null,
+          "counterparties": [
+            "Synthesia",
+            "a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "36349201",
+          "detailUrl": "/smlouva/36349201?backlink=j4n5r",
+          "publisher": "Explosia a.s.",
+          "subject": "Prodej technických plynů, nájem distribučních prostředků",
+          "publishedOn": "2026-01-12",
+          "valueCzk": null,
+          "valueNote": null,
+          "counterparties": [
+            "Synthesia",
+            "a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "36349197",
+          "detailUrl": "/smlouva/36349197?backlink=j4n5r",
+          "publisher": "Explosia a.s.",
+          "subject": "Prodej PHM",
+          "publishedOn": "2026-01-12",
+          "valueCzk": null,
+          "valueNote": null,
+          "counterparties": [
+            "Synthesia",
+            "a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "36349193",
+          "detailUrl": "/smlouva/36349193?backlink=j4n5r",
+          "publisher": "Explosia a.s.",
+          "subject": "Závoz a svoz poštovních zásilek",
+          "publishedOn": "2026-01-12",
+          "valueCzk": null,
+          "valueNote": null,
+          "counterparties": [
+            "Synthesia",
+            "a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "36349189",
+          "detailUrl": "/smlouva/36349189?backlink=j4n5r",
+          "publisher": "Explosia a.s.",
+          "subject": "Servisní služby",
+          "publishedOn": "2026-01-12",
+          "valueCzk": null,
+          "valueNote": null,
+          "counterparties": [
+            "Synthesia",
+            "a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "36355365",
+          "detailUrl": "/smlouva/36355365?backlink=j4n5r",
+          "publisher": "Explosia a.s.",
+          "subject": "Recepční služby",
+          "publishedOn": "2026-01-12",
+          "valueCzk": null,
+          "valueNote": null,
+          "counterparties": [
+            "Synthesia",
+            "a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "36355357",
+          "detailUrl": "/smlouva/36355357?backlink=j4n5r",
+          "publisher": "Explosia a.s.",
+          "subject": "Elektronická ochrana",
+          "publishedOn": "2026-01-12",
+          "valueCzk": null,
+          "valueNote": null,
+          "counterparties": [
+            "Synthesia",
+            "a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "36261873",
+          "detailUrl": "/smlouva/36261873?backlink=j4n5r",
+          "publisher": "Explosia a.s.",
+          "subject": "Zajištění výkonu strážní služby a fyzické ostrahy",
+          "publishedOn": "2026-01-05",
+          "valueCzk": null,
+          "valueNote": null,
+          "counterparties": [
+            "Synthesia",
+            "a.s."
+          ],
+          "latestVersion": true
+        }
+      ],
+      "topPublishersInWindow": [
+        {
+          "name": "Východočeské divadlo Pardubice",
+          "contracts": 1,
+          "czk": 500000
+        },
+        {
+          "name": "Univerzita Pardubice",
+          "contracts": 1,
+          "czk": 200000
+        },
+        {
+          "name": "Explosia a.s.",
+          "contracts": 8,
+          "czk": 0
+        }
+      ],
+      "checkedAt": "2026-07-27"
+    },
+    {
+      "ico": "46900411",
+      "label": "Kostelecké uzeniny a.s.",
+      "role": "graphed group company",
+      "contracts": 70,
+      "truncated": false,
+      "error": null,
+      "earliest": "2017-01-03",
+      "latest": "2026-03-11",
+      "all": {
+        "contracts": 70,
+        "valued": 56,
+        "czk": 251408425
+      },
+      "inSoleShareholderWindow": {
+        "contracts": 4,
+        "valued": 4,
+        "czk": 9803700
+      },
+      "inPmOverlap": {
+        "contracts": 3,
+        "valued": 3,
+        "czk": 3922500
+      },
+      "windowRows": [
+        {
+          "contractId": "35940685",
+          "detailUrl": "/smlouva/35940685?backlink=nzkbb",
+          "publisher": "Bělušice - věznice (Vězeňská služba České republiky)",
+          "subject": "Dodatek č.2 Smlouvy o poskytování služeb (navýšení hodinové mzdy)",
+          "publishedOn": "2025-12-08",
+          "valueCzk": 5881200,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "Kostelecké uzeniny a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "36331253",
+          "detailUrl": "/smlouva/36331253?backlink=nzkbb",
+          "publisher": "Světlá nad Sázavou - věznice (Vězeňská služba České republiky)",
+          "subject": "Dodatek č. 3, č.j.: VS-108693-8/ČJ-2023-802377",
+          "publishedOn": "2026-01-09",
+          "valueCzk": 3622500,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "Kostelecké uzeniny a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "36377989",
+          "detailUrl": "/smlouva/36377989?backlink=nzkbb",
+          "publisher": "Zdravotní ústav se sídlem v Ostravě",
+          "subject": "Objednávka - Měření vody teplé, pitné, technologické",
+          "publishedOn": "2026-01-14",
+          "valueCzk": 200000,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "Kostelecké uzeniny a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "36413989",
+          "detailUrl": "/smlouva/36413989?backlink=nzkbb",
+          "publisher": "Zdravotní ústav se sídlem v Ostravě",
+          "subject": "Objednávka - Analýzy odpadních vod",
+          "publishedOn": "2026-01-16",
+          "valueCzk": 100000,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "Kostelecké uzeniny a.s."
+          ],
+          "latestVersion": true
+        }
+      ],
+      "topPublishersInWindow": [
+        {
+          "name": "Bělušice - věznice (Vězeňská služba České republiky)",
+          "contracts": 1,
+          "czk": 5881200
+        },
+        {
+          "name": "Světlá nad Sázavou - věznice (Vězeňská služba České republiky)",
+          "contracts": 1,
+          "czk": 3622500
+        },
+        {
+          "name": "Zdravotní ústav se sídlem v Ostravě",
+          "contracts": 2,
+          "czk": 300000
+        }
+      ],
+      "checkedAt": "2026-07-27"
+    },
+    {
+      "ico": "00011835",
+      "label": "DEZA, a.s.",
+      "role": "graphed group company",
+      "contracts": 91,
+      "truncated": false,
+      "error": null,
+      "earliest": "2017-02-02",
+      "latest": "2026-07-13",
+      "all": {
+        "contracts": 91,
+        "valued": 80,
+        "czk": 13526307
+      },
+      "inSoleShareholderWindow": {
+        "contracts": 2,
+        "valued": 2,
+        "czk": 477562
+      },
+      "inPmOverlap": {
+        "contracts": 1,
+        "valued": 1,
+        "czk": 400000
+      },
+      "windowRows": [
+        {
+          "contractId": "36408581",
+          "detailUrl": "/smlouva/36408581?backlink=ksihl",
+          "publisher": "Zdravotní ústav se sídlem v Ostravě",
+          "subject": "Objednávka - Cytogenetická analýza periferních lymfocytů",
+          "publishedOn": "2026-01-15",
+          "valueCzk": 400000,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "DEZA",
+            "a.s."
+          ],
+          "latestVersion": true
+        },
+        {
+          "contractId": "35856641",
+          "detailUrl": "/smlouva/35856641?backlink=ksihl",
+          "publisher": "Povodí Moravy, s.p.",
+          "subject": "Nájemní smlouva - pronájem pozemků v k.ú, Krásno nad Bečvou",
+          "publishedOn": "2025-12-02",
+          "valueCzk": 77562,
+          "valueNote": "bez DPH",
+          "counterparties": [
+            "DEZA",
+            "a.s."
+          ],
+          "latestVersion": true
+        }
+      ],
+      "topPublishersInWindow": [
+        {
+          "name": "Zdravotní ústav se sídlem v Ostravě",
+          "contracts": 1,
+          "czk": 400000
+        },
+        {
+          "name": "Povodí Moravy, s.p.",
+          "contracts": 1,
+          "czk": 77562
+        }
+      ],
+      "checkedAt": "2026-07-27"
+    }
+  ]
+}

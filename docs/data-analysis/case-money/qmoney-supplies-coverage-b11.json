@@ -1,0 +1,1249 @@
+{
+  "batch": 11,
+  "track": "money",
+  "kind": "supplies-coverage-audit",
+  "generatedAt": "2026-07-27",
+  "note": "Tests whether the graph's `supplies` corpus is a census or a capped per-company sample, using the graph alone. If capped, every CZK total this case has quoted is a floor over a truncated sample — including the module's headline reachable-CZK figure — and must be labelled as such wherever it renders.",
+  "verdict": "CAPPED SAMPLE: 35 companies sit exactly at 25 contracts — a per-company pull limit, not a coincidence. Every per-company CZK total in this graph is a FLOOR.",
+  "counts": {
+    "companiesWithSupplies": 149,
+    "supplyEdges": 2290,
+    "maxContractsPerCompany": 25,
+    "companiesAtMax": 35,
+    "companiesWith20Plus": 70,
+    "globalLatestSignedOn": "2029-09-29",
+    "latestPerCompanyByYear": {
+      "2016": 29,
+      "2017": 40,
+      "2018": 8,
+      "2019": 13,
+      "2020": 12,
+      "2021": 6,
+      "2022": 6,
+      "2023": 5,
+      "2024": 1,
+      "2025": 11,
+      "2026": 17,
+      "2029": 1
+    }
+  },
+  "distribution": {
+    "1": 12,
+    "2": 6,
+    "3": 3,
+    "4": 3,
+    "5": 6,
+    "6": 2,
+    "7": 5,
+    "8": 6,
+    "10": 10,
+    "11": 7,
+    "12": 4,
+    "13": 3,
+    "14": 2,
+    "15": 3,
+    "17": 3,
+    "18": 3,
+    "19": 1,
+    "20": 5,
+    "21": 4,
+    "22": 9,
+    "23": 6,
+    "24": 11,
+    "25": 35
+  },
+  "perCompany": [
+    {
+      "id": "company:ico:03849988",
+      "label": "Nadační fond regionální fotbalové Akademie Plzeňského kraje",
+      "contracts": 25,
+      "czk": 18294560,
+      "earliest": "2016-09-26",
+      "latest": "2022-09-30"
+    },
+    {
+      "id": "company:ico:08599254",
+      "label": "CEVYKO a.s.",
+      "contracts": 25,
+      "czk": 278778304.30999994,
+      "earliest": "2020-02-13",
+      "latest": "2023-11-07"
+    },
+    {
+      "id": "company:ico:14704234",
+      "label": "Tenisový klub Vodní stavby Plzeň, z.s.",
+      "contracts": 25,
+      "czk": 5600171.220000001,
+      "earliest": "2016-08-22",
+      "latest": "2021-08-11"
+    },
+    {
+      "id": "company:ico:15045838",
+      "label": "Sdružení Český ráj, z.s.",
+      "contracts": 25,
+      "czk": 4040274.92,
+      "earliest": "2016-07-28",
+      "latest": "2019-03-01"
+    },
+    {
+      "id": "company:ico:25187937",
+      "label": "RERA a.s.",
+      "contracts": 25,
+      "czk": 11238882.020000001,
+      "earliest": "2016-07-01",
+      "latest": "2018-10-23"
+    },
+    {
+      "id": "company:ico:25245091",
+      "label": "Regionální rozvojová agentura Plzeňského kraje, obecně prospěšná společnost",
+      "contracts": 25,
+      "czk": 4248566,
+      "earliest": "2016-08-03",
+      "latest": "2017-05-18"
+    },
+    {
+      "id": "company:ico:25586521",
+      "label": "AGRO 2000 s.r.o.",
+      "contracts": 25,
+      "czk": 10864254.9,
+      "earliest": "2014-08-08",
+      "latest": "2017-02-02"
+    },
+    {
+      "id": "company:ico:26187639",
+      "label": "Vzdělávací centrum pro veřejnou správu ČR, o.p.s.",
+      "contracts": 25,
+      "czk": 5343349.8,
+      "earliest": "2017-01-16",
+      "latest": "2019-04-08"
+    },
+    {
+      "id": "company:ico:26396645",
+      "label": "Techmania Science Center o.p.s.",
+      "contracts": 25,
+      "czk": 79950290.39039999,
+      "earliest": "2016-09-22",
+      "latest": "2019-08-14"
+    },
+    {
+      "id": "company:ico:26419068",
+      "label": "Nadační fond Českého rozhlasu",
+      "contracts": 25,
+      "czk": 6034624.73,
+      "earliest": "2016-10-17",
+      "latest": "2020-02-21"
+    },
+    {
+      "id": "company:ico:26822105",
+      "label": "Nemocnice AGEL Valašské Meziříčí a.s.",
+      "contracts": 25,
+      "czk": 30122633.360000003,
+      "earliest": "2016-08-02",
+      "latest": "2020-08-07"
+    },
+    {
+      "id": "company:ico:26997355",
+      "label": "Baculus, o.p.s.",
+      "contracts": 25,
+      "czk": 34613841,
+      "earliest": "2010-01-28",
+      "latest": "2019-02-22"
+    },
+    {
+      "id": "company:ico:27256456",
+      "label": "Oblastní nemocnice Mladá Boleslav, a.s., nemocnice Středočeského kraje",
+      "contracts": 25,
+      "czk": 3502176904.5399995,
+      "earliest": "2011-05-10",
+      "latest": "2016-11-01"
+    },
+    {
+      "id": "company:ico:27534804",
+      "label": "SKP-CENTRUM, o.p.s.",
+      "contracts": 25,
+      "czk": 5579327.63,
+      "earliest": "2016-07-29",
+      "latest": "2017-03-08"
+    },
+    {
+      "id": "company:ico:27720152",
+      "label": "IF FACILITY a.s.",
+      "contracts": 25,
+      "czk": 11253147.2303,
+      "earliest": "2014-09-29",
+      "latest": "2017-07-03"
+    },
+    {
+      "id": "company:ico:28168151",
+      "label": "Městská společnost sportovní a rekreační areály, s.r.o.",
+      "contracts": 25,
+      "czk": 53437032.269999996,
+      "earliest": "2016-04-05",
+      "latest": "2017-09-05"
+    },
+    {
+      "id": "company:ico:28274466",
+      "label": "DS Stříbrné Terasy o.p.s.",
+      "contracts": 25,
+      "czk": 33656000,
+      "earliest": "2012-02-22",
+      "latest": "2018-12-20"
+    },
+    {
+      "id": "company:ico:29123747",
+      "label": "DOMOVINKA - sociální služby, o.p.s.",
+      "contracts": 25,
+      "czk": 20168230,
+      "earliest": "2013-12-31",
+      "latest": "2018-04-27"
+    },
+    {
+      "id": "company:ico:45146802",
+      "label": "Energie - stavební a báňská a.s.",
+      "contracts": 25,
+      "czk": 527650655.5962,
+      "earliest": "2015-08-25",
+      "latest": "2017-03-13"
+    },
+    {
+      "id": "company:ico:45332657",
+      "label": "Nadace 700 let města Plzně",
+      "contracts": 25,
+      "czk": 28798238.2724,
+      "earliest": "2017-03-22",
+      "latest": "2025-12-22"
+    },
+    {
+      "id": "company:ico:45534306",
+      "label": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "contracts": 25,
+      "czk": 3156026.12,
+      "earliest": "2011-12-30",
+      "latest": "2016-09-08"
+    },
+    {
+      "id": "company:ico:46678735",
+      "label": "Robert Bosch, spol. s r.o.",
+      "contracts": 25,
+      "czk": 128794120.9817,
+      "earliest": "2016-06-30",
+      "latest": "2019-01-14"
+    },
+    {
+      "id": "company:ico:46900411",
+      "label": "Kostelecké uzeniny a.s.",
+      "contracts": 25,
+      "czk": 201742487.5,
+      "earliest": "2016-08-10",
+      "latest": "2020-05-11"
+    },
+    {
+      "id": "company:ico:47122099",
+      "label": "Pražská vysoká škola psychosociálních studií, s.r.o.",
+      "contracts": 25,
+      "czk": 12885858.019999998,
+      "earliest": "2015-06-04",
+      "latest": "2022-02-24"
+    },
+    {
+      "id": "company:ico:47781131",
+      "label": "SKLÁDKA VRBIČKA s.r.o.",
+      "contracts": 25,
+      "czk": 77947673.2744,
+      "earliest": "2016-09-19",
+      "latest": "2023-11-17"
+    },
+    {
+      "id": "company:ico:49786709",
+      "label": "Vodárenská a kanalizační a.s.",
+      "contracts": 25,
+      "czk": 123099564.418,
+      "earliest": "1997-12-09",
+      "latest": "2020-01-31"
+    },
+    {
+      "id": "company:ico:60108916",
+      "label": "Synthesia, a.s.",
+      "contracts": 25,
+      "czk": 796873826.9080001,
+      "earliest": "1997-12-05",
+      "latest": "2018-02-06"
+    },
+    {
+      "id": "company:ico:60193913",
+      "label": "Pražská energetika, a.s.",
+      "contracts": 25,
+      "czk": 44038612.56999999,
+      "earliest": "2012-09-27",
+      "latest": "2016-12-22"
+    },
+    {
+      "id": "company:ico:60914351",
+      "label": "AGROCENTRUM JIZERAN a.s.",
+      "contracts": 25,
+      "czk": 2840827.13,
+      "earliest": "2014-06-12",
+      "latest": "2022-11-07"
+    },
+    {
+      "id": "company:ico:61057606",
+      "label": "Komwag, podnik čistoty a údržby města, a.s.",
+      "contracts": 25,
+      "czk": 7399794.675999999,
+      "earliest": "2016-03-05",
+      "latest": "2017-04-11"
+    },
+    {
+      "id": "company:ico:61681679",
+      "label": "GEMA MB s.r.o.",
+      "contracts": 25,
+      "czk": 16575162.439,
+      "earliest": "2016-10-20",
+      "latest": "2017-10-18"
+    },
+    {
+      "id": "company:ico:61989592",
+      "label": "Univerzita Palackého v Olomouci",
+      "contracts": 25,
+      "czk": 224319750.95,
+      "earliest": "2007-12-14",
+      "latest": "2016-09-22"
+    },
+    {
+      "id": "company:ico:62063588",
+      "label": "TRANSPORT Trutnov s.r.o.",
+      "contracts": 25,
+      "czk": 10683787.5941,
+      "earliest": "2009-01-01",
+      "latest": "2020-07-14"
+    },
+    {
+      "id": "company:ico:63488329",
+      "label": "Nemocnice Valtice s.r.o.",
+      "contracts": 25,
+      "czk": 18538621.42,
+      "earliest": "2016-04-11",
+      "latest": "2020-02-19"
+    },
+    {
+      "id": "company:ico:70889988",
+      "label": "Povodí Ohře, státní podnik",
+      "contracts": 25,
+      "czk": 66995646.81149999,
+      "earliest": "2015-06-01",
+      "latest": "2016-07-25"
+    },
+    {
+      "id": "company:ico:02795281",
+      "label": "Operátor ICT, a.s.",
+      "contracts": 24,
+      "czk": 884856389,
+      "earliest": "2015-03-26",
+      "latest": "2017-02-08"
+    },
+    {
+      "id": "company:ico:25848526",
+      "label": "Výstaviště Flora Olomouc, a.s.",
+      "contracts": 24,
+      "czk": 2686919.1706,
+      "earliest": "2016-06-01",
+      "latest": "2016-11-01"
+    },
+    {
+      "id": "company:ico:26185610",
+      "label": "AGROFERT, a.s.",
+      "contracts": 24,
+      "czk": 6274453.5,
+      "earliest": "2016-11-08",
+      "latest": "2019-02-05"
+    },
+    {
+      "id": "company:ico:27257258",
+      "label": "Výzkumný Ústav Železniční, a.s.",
+      "contracts": 24,
+      "czk": 25000,
+      "earliest": "2016-09-29",
+      "latest": "2017-04-12"
+    },
+    {
+      "id": "company:ico:29211808",
+      "label": "Léčebné lázně Jáchymov a. s.",
+      "contracts": 24,
+      "czk": 3069768.1383999996,
+      "earliest": "2017-01-30",
+      "latest": "2022-08-22"
+    },
+    {
+      "id": "company:ico:45147787",
+      "label": "SPOLANA s.r.o.",
+      "contracts": 24,
+      "czk": 22111737.581,
+      "earliest": "2016-12-14",
+      "latest": "2019-09-02"
+    },
+    {
+      "id": "company:ico:47997826",
+      "label": "Tenisový klub DEZA Valašské Meziříčí, z.s.",
+      "contracts": 24,
+      "czk": 6221902.09,
+      "earliest": "2017-03-01",
+      "latest": "2023-05-18"
+    },
+    {
+      "id": "company:ico:49370499",
+      "label": "Museum Kampa - Nadace Jana a Medy Mládkových",
+      "contracts": 24,
+      "czk": 88111300,
+      "earliest": "2016-07-01",
+      "latest": "2017-11-15"
+    },
+    {
+      "id": "company:ico:49454587",
+      "label": "Vodovody a kanalizace Vyškov,a.s.",
+      "contracts": 24,
+      "czk": 1296198.5,
+      "earliest": "2012-08-21",
+      "latest": "2017-09-06"
+    },
+    {
+      "id": "company:ico:60194120",
+      "label": "Pražské služby, a.s.",
+      "contracts": 24,
+      "czk": 1470325324.45,
+      "earliest": "1998-07-15",
+      "latest": "2016-11-30"
+    },
+    {
+      "id": "company:ico:70100969",
+      "label": "Charita Česká republika",
+      "contracts": 24,
+      "czk": 240771241.2,
+      "earliest": "2016-10-11",
+      "latest": "2019-07-01"
+    },
+    {
+      "id": "company:ico:00417904",
+      "label": "Nadace Charty 77",
+      "contracts": 23,
+      "czk": 8592827.14,
+      "earliest": "2016-07-01",
+      "latest": "2018-05-31"
+    },
+    {
+      "id": "company:ico:25968084",
+      "label": "Technické služby Trutnov s.r.o.",
+      "contracts": 23,
+      "czk": 15911402.049999999,
+      "earliest": "2016-07-17",
+      "latest": "2016-12-06"
+    },
+    {
+      "id": "company:ico:27116913",
+      "label": "Pojišťovna VZP, a.s.",
+      "contracts": 23,
+      "czk": 65574260.78000001,
+      "earliest": "2007-04-24",
+      "latest": "2017-09-08"
+    },
+    {
+      "id": "company:ico:27465021",
+      "label": "Fatra, a.s.",
+      "contracts": 23,
+      "czk": 107928171.86000001,
+      "earliest": "2014-03-11",
+      "latest": "2019-02-18"
+    },
+    {
+      "id": "company:ico:28338766",
+      "label": "Národní Centrum Tkání a Buněk a.s.",
+      "contracts": 23,
+      "czk": 14062219.279999996,
+      "earliest": "2011-10-31",
+      "latest": "2017-08-08"
+    },
+    {
+      "id": "company:ico:49100262",
+      "label": "Lovochemie, a.s.",
+      "contracts": 23,
+      "czk": 8498641.385,
+      "earliest": "2010-03-01",
+      "latest": "2017-10-01"
+    },
+    {
+      "id": "company:ico:04934482",
+      "label": "Truhlářství Za farou s.r.o.",
+      "contracts": 22,
+      "czk": 10185052.73,
+      "earliest": "2017-02-09",
+      "latest": "2026-01-16"
+    },
+    {
+      "id": "company:ico:08694508",
+      "label": "Muzeum paměti XX. století, z.ú.",
+      "contracts": 22,
+      "czk": 7760700.86,
+      "earliest": "2019-12-17",
+      "latest": "2029-09-29"
+    },
+    {
+      "id": "company:ico:24188581",
+      "label": "Nadace AGROFERT",
+      "contracts": 22,
+      "czk": 5672320,
+      "earliest": "2016-07-29",
+      "latest": "2017-10-02"
+    },
+    {
+      "id": "company:ico:25205625",
+      "label": "VODÁRNA PLZEŇ a.s.",
+      "contracts": 22,
+      "czk": 915796049.845,
+      "earliest": "2016-07-22",
+      "latest": "2017-01-24"
+    },
+    {
+      "id": "company:ico:25918206",
+      "label": "Smetanova Litomyšl, o.p.s.",
+      "contracts": 22,
+      "czk": 8250841,
+      "earliest": "2016-11-28",
+      "latest": "2017-06-26"
+    },
+    {
+      "id": "company:ico:26602351",
+      "label": "HC Plzeň z.s.",
+      "contracts": 22,
+      "czk": 2927100,
+      "earliest": "2016-08-23",
+      "latest": "2026-06-15"
+    },
+    {
+      "id": "company:ico:26872307",
+      "label": "PRECHEZA a.s.",
+      "contracts": 22,
+      "czk": 106593109.63509999,
+      "earliest": "2016-09-29",
+      "latest": "2020-11-03"
+    },
+    {
+      "id": "company:ico:49789228",
+      "label": "Vodárny a kanalizace Karlovy Vary, a.s.",
+      "contracts": 22,
+      "czk": 3244963.8600000003,
+      "earliest": "2016-07-01",
+      "latest": "2017-06-28"
+    },
+    {
+      "id": "company:ico:60826851",
+      "label": "Rybářství Třeboň a.s.",
+      "contracts": 22,
+      "czk": 4370579.79,
+      "earliest": "2016-09-27",
+      "latest": "2019-12-28"
+    },
+    {
+      "id": "company:ico:25234994",
+      "label": "Galerie města Plzně, o.p.s.",
+      "contracts": 21,
+      "czk": 28754076.88,
+      "earliest": "2016-07-18",
+      "latest": "2025-01-20"
+    },
+    {
+      "id": "company:ico:26232987",
+      "label": "NEXNET, a.s.",
+      "contracts": 21,
+      "czk": 3184304.1599999997,
+      "earliest": "2017-05-12",
+      "latest": "2026-02-20"
+    },
+    {
+      "id": "company:ico:27267351",
+      "label": "KORID LK, spol. s r.o.",
+      "contracts": 21,
+      "czk": 60118595.7737,
+      "earliest": "2015-11-04",
+      "latest": "2018-02-13"
+    },
+    {
+      "id": "company:ico:48207918",
+      "label": "AGROPROFIT, spol. s r.o.",
+      "contracts": 21,
+      "czk": 1268406.6,
+      "earliest": "2017-10-03",
+      "latest": "2026-05-21"
+    },
+    {
+      "id": "company:ico:14612411",
+      "label": "CS CABOT, spol. s r.o.",
+      "contracts": 20,
+      "czk": 1359402.3,
+      "earliest": "2016-07-07",
+      "latest": "2020-07-30"
+    },
+    {
+      "id": "company:ico:25224662",
+      "label": "Plzeňská filharmonie, obecně prospěšná společnost",
+      "contracts": 20,
+      "czk": 24515652.2,
+      "earliest": "2016-05-11",
+      "latest": "2017-06-23"
+    },
+    {
+      "id": "company:ico:46506306",
+      "label": "Společnost Horní Labe a.s.",
+      "contracts": 20,
+      "czk": 2572704,
+      "earliest": "2011-06-07",
+      "latest": "2026-04-15"
+    },
+    {
+      "id": "company:ico:47674652",
+      "label": "Vodovody a kanalizace Vsetín, a.s.",
+      "contracts": 20,
+      "czk": 745152.49,
+      "earliest": "2004-02-12",
+      "latest": "2017-05-30"
+    },
+    {
+      "id": "company:ico:48154938",
+      "label": "EAST BOHEMIAN AIRPORT a.s.",
+      "contracts": 20,
+      "czk": 310233450.6,
+      "earliest": "2013-10-07",
+      "latest": "2017-12-31"
+    },
+    {
+      "id": "company:ico:09133267",
+      "label": "ARENA BRNO, a.s.",
+      "contracts": 19,
+      "czk": 5390760377.7724,
+      "earliest": "2020-07-01",
+      "latest": "2023-03-01"
+    },
+    {
+      "id": "company:ico:25172263",
+      "label": "SOMPO, a.s.",
+      "contracts": 18,
+      "czk": 350213,
+      "earliest": "2006-03-24",
+      "latest": "2017-12-18"
+    },
+    {
+      "id": "company:ico:25488627",
+      "label": "Krajská zdravotní, a.s.",
+      "contracts": 18,
+      "czk": 81683361.6,
+      "earliest": "2015-08-01",
+      "latest": "2016-10-13"
+    },
+    {
+      "id": "company:ico:26318903",
+      "label": "Správa majetku města Stříbra, s.r.o.",
+      "contracts": 18,
+      "czk": 14232605.36,
+      "earliest": "2016-11-18",
+      "latest": "2021-02-24"
+    },
+    {
+      "id": "company:ico:07739044",
+      "label": "Krajská hospodářská komora v Plzeňském kraji",
+      "contracts": 17,
+      "czk": 15829163.67,
+      "earliest": "2019-06-03",
+      "latest": "2024-12-20"
+    },
+    {
+      "id": "company:ico:46978593",
+      "label": "Poliklinika Břeclav, s. r. o.",
+      "contracts": 17,
+      "czk": 183300,
+      "earliest": "2017-09-12",
+      "latest": "2026-03-09"
+    },
+    {
+      "id": "company:ico:49790480",
+      "label": "Plzeňská teplárenská, a.s.",
+      "contracts": 17,
+      "czk": 2039997.3,
+      "earliest": "2016-07-12",
+      "latest": "2017-05-24"
+    },
+    {
+      "id": "company:ico:25513290",
+      "label": "Prádelna a čistírna Jihlava, s.r.o.",
+      "contracts": 15,
+      "czk": 1722769,
+      "earliest": "2016-07-29",
+      "latest": "2016-10-27"
+    },
+    {
+      "id": "company:ico:26039907",
+      "label": "PEVAK Pelhřimov, družstvo",
+      "contracts": 15,
+      "czk": 1370156.859,
+      "earliest": "2018-10-08",
+      "latest": "2026-06-30"
+    },
+    {
+      "id": "company:ico:28593987",
+      "label": "Vsetínská sportovní, s.r.o.",
+      "contracts": 15,
+      "czk": 21220991.06,
+      "earliest": "2016-09-30",
+      "latest": "2017-10-02"
+    },
+    {
+      "id": "company:ico:02751232",
+      "label": "YOU STORY UP! s.r.o.",
+      "contracts": 14,
+      "czk": 6271561.8,
+      "earliest": "2017-04-20",
+      "latest": "2025-11-10"
+    },
+    {
+      "id": "company:ico:63113074",
+      "label": "Svaz měst a obcí České republiky",
+      "contracts": 14,
+      "czk": 18571870,
+      "earliest": "2016-04-13",
+      "latest": "2017-05-18"
+    },
+    {
+      "id": "company:ico:06646042",
+      "label": "Akademie individuálních sportů Plzeňského kraje, z. s.",
+      "contracts": 13,
+      "czk": 32899000,
+      "earliest": "2018-04-09",
+      "latest": "2026-03-11"
+    },
+    {
+      "id": "company:ico:18251129",
+      "label": "TAZATA, spol. s r.o.",
+      "contracts": 13,
+      "czk": 18480662.065799996,
+      "earliest": "2017-03-13",
+      "latest": "2025-01-06"
+    },
+    {
+      "id": "company:ico:71184465",
+      "label": "Domov pro seniory Velké Meziříčí, příspěvková organizace",
+      "contracts": 13,
+      "czk": 1132560,
+      "earliest": "2007-05-31",
+      "latest": "2017-10-10"
+    },
+    {
+      "id": "company:ico:22827668",
+      "label": "Hi-Tech inovační klastr z. s.    (anglická verze: Hi-Tech innovation cluster)",
+      "contracts": 12,
+      "czk": 6302722.470000001,
+      "earliest": "2017-07-26",
+      "latest": "2026-07-21"
+    },
+    {
+      "id": "company:ico:26124459",
+      "label": "IMOBA, a.s.",
+      "contracts": 12,
+      "czk": 1823880,
+      "earliest": "2017-07-11",
+      "latest": "2025-12-09"
+    },
+    {
+      "id": "company:ico:26402068",
+      "label": "Údržba silnic Karlovarského kraje, a.s.",
+      "contracts": 12,
+      "czk": 18622895.05,
+      "earliest": "2016-06-02",
+      "latest": "2016-09-02"
+    },
+    {
+      "id": "company:ico:26982170",
+      "label": "Via rustica z.s.",
+      "contracts": 12,
+      "czk": 2008259,
+      "earliest": "2016-11-29",
+      "latest": "2026-05-13"
+    },
+    {
+      "id": "company:ico:01398717",
+      "label": "MAS Nad Prahou o.p.s.",
+      "contracts": 11,
+      "czk": 3968570,
+      "earliest": "2017-11-08",
+      "latest": "2026-04-17"
+    },
+    {
+      "id": "company:ico:17047234",
+      "label": "RAILREKLAM, spol. s r.o.",
+      "contracts": 11,
+      "czk": 1421191.64,
+      "earliest": "2016-08-04",
+      "latest": "2017-05-18"
+    },
+    {
+      "id": "company:ico:25220683",
+      "label": "Plzeňské městské dopravní podniky, a.s.",
+      "contracts": 11,
+      "czk": 4132961.91,
+      "earliest": "2016-07-11",
+      "latest": "2016-07-22"
+    },
+    {
+      "id": "company:ico:27341313",
+      "label": "CHOMUTOVSKÁ BYTOVÁ a.s.",
+      "contracts": 11,
+      "czk": 104065986.6,
+      "earliest": "2008-12-22",
+      "latest": "2017-08-25"
+    },
+    {
+      "id": "company:ico:28046153",
+      "label": "Čistá Plzeň, s.r.o.",
+      "contracts": 11,
+      "czk": 284386338.71999985,
+      "earliest": "2016-02-25",
+      "latest": "2017-03-03"
+    },
+    {
+      "id": "company:ico:49451871",
+      "label": "Vodovody a kanalizace Kroměříž, a.s.",
+      "contracts": 11,
+      "czk": 336380,
+      "earliest": "2007-08-20",
+      "latest": "2017-01-25"
+    },
+    {
+      "id": "company:ico:60193531",
+      "label": "ČEPRO, a.s.",
+      "contracts": 11,
+      "czk": 235543222.2,
+      "earliest": "2013-11-27",
+      "latest": "2016-08-11"
+    },
+    {
+      "id": "company:ico:00829838",
+      "label": "Nemocnice Jablonec nad Nisou, p.o.",
+      "contracts": 10,
+      "czk": 35484660,
+      "earliest": "2016-06-29",
+      "latest": "2017-04-24"
+    },
+    {
+      "id": "company:ico:08160902",
+      "label": "Centrum lidských zdrojů Plzeňského kraje, z.ú.",
+      "contracts": 10,
+      "czk": 8459500,
+      "earliest": "2019-05-31",
+      "latest": "2021-07-13"
+    },
+    {
+      "id": "company:ico:25508881",
+      "label": "Dopravní podnik města Brna, a.s.",
+      "contracts": 10,
+      "czk": 6700097.24,
+      "earliest": "2016-07-13",
+      "latest": "2016-08-03"
+    },
+    {
+      "id": "company:ico:26637863",
+      "label": "AlternativaPro, z.s.",
+      "contracts": 10,
+      "czk": 960000,
+      "earliest": "2017-05-11",
+      "latest": "2026-05-26"
+    },
+    {
+      "id": "company:ico:27068897",
+      "label": "TAXONIA CZ, s.r.o.",
+      "contracts": 10,
+      "czk": 63144975.76,
+      "earliest": "2017-12-20",
+      "latest": "2022-09-07"
+    },
+    {
+      "id": "company:ico:27256537",
+      "label": "Oblastní nemocnice Kladno, a.s., nemocnice Středočeského kraje",
+      "contracts": 10,
+      "czk": 1380908149.5,
+      "earliest": "2011-05-10",
+      "latest": "2017-01-26"
+    },
+    {
+      "id": "company:ico:27660915",
+      "label": "Uherskohradišťská nemocnice a.s.",
+      "contracts": 10,
+      "czk": 12361743,
+      "earliest": "2016-03-22",
+      "latest": "2016-10-31"
+    },
+    {
+      "id": "company:ico:29442044",
+      "label": "Teleky Medicus s.r.o.",
+      "contracts": 10,
+      "czk": 11046697.464,
+      "earliest": "2018-09-18",
+      "latest": "2025-02-05"
+    },
+    {
+      "id": "company:ico:49790498",
+      "label": "Ostrovská teplárenská, a.s.",
+      "contracts": 10,
+      "czk": 211517.68,
+      "earliest": "2010-03-24",
+      "latest": "2017-01-30"
+    },
+    {
+      "id": "company:ico:69972061",
+      "label": "Sdružení měst a obcí Plzeňského kraje",
+      "contracts": 10,
+      "czk": 3362958,
+      "earliest": "2017-12-28",
+      "latest": "2025-12-12"
+    },
+    {
+      "id": "company:ico:24766216",
+      "label": "MATURUS, o.p.s.",
+      "contracts": 8,
+      "czk": 1197779,
+      "earliest": "2017-10-23",
+      "latest": "2026-07-02"
+    },
+    {
+      "id": "company:ico:25124188",
+      "label": "MIKI TRAVEL PRAGUE, spol. s r.o.",
+      "contracts": 8,
+      "czk": 6050000,
+      "earliest": "2017-06-01",
+      "latest": "2021-03-23"
+    },
+    {
+      "id": "company:ico:26025027",
+      "label": "Nadační fond Nemocnice Dačice",
+      "contracts": 8,
+      "czk": 433586,
+      "earliest": "2017-09-25",
+      "latest": "2026-06-04"
+    },
+    {
+      "id": "company:ico:26871068",
+      "label": "Vsetínská nemocnice a.s.",
+      "contracts": 8,
+      "czk": 9611678.4,
+      "earliest": "2016-07-11",
+      "latest": "2016-12-20"
+    },
+    {
+      "id": "company:ico:27467759",
+      "label": "Horská služba ČR, o.p.s.",
+      "contracts": 8,
+      "czk": 1641845.3699999999,
+      "earliest": "2016-11-09",
+      "latest": "2017-07-18"
+    },
+    {
+      "id": "company:ico:45245053",
+      "label": "ČESKÝ ROZHLAS",
+      "contracts": 8,
+      "czk": 1207054.6785,
+      "earliest": "2016-07-01",
+      "latest": "2016-07-28"
+    },
+    {
+      "id": "company:ico:06919511",
+      "label": "SUTNAR - NADACE RADOSLAVA A ELAINE SUTNAROVÝCH",
+      "contracts": 7,
+      "czk": 550040,
+      "earliest": "2019-04-24",
+      "latest": "2022-05-20"
+    },
+    {
+      "id": "company:ico:27660532",
+      "label": "Kroměřížská nemocnice a.s.",
+      "contracts": 7,
+      "czk": 11161200.7921,
+      "earliest": "2016-10-13",
+      "latest": "2016-11-30"
+    },
+    {
+      "id": "company:ico:28633032",
+      "label": "Lesy města Olomouce, a.s.",
+      "contracts": 7,
+      "czk": 30877050,
+      "earliest": "2015-12-30",
+      "latest": "2017-01-25"
+    },
+    {
+      "id": "company:ico:70282960",
+      "label": "Evropský informační projekt, z. ú.",
+      "contracts": 7,
+      "czk": 0,
+      "earliest": "2020-07-07",
+      "latest": "2026-06-10"
+    },
+    {
+      "id": "company:ico:70889953",
+      "label": "Povodí Vltavy, státní podnik",
+      "contracts": 7,
+      "czk": 18260,
+      "earliest": "2016-07-07",
+      "latest": "2016-07-28"
+    },
+    {
+      "id": "company:ico:27693058",
+      "label": "Prostějov venkov o.p.s.",
+      "contracts": 6,
+      "czk": 416770.6,
+      "earliest": "2016-10-03",
+      "latest": "2025-06-18"
+    },
+    {
+      "id": "company:ico:70890013",
+      "label": "Povodí Moravy, s.p.",
+      "contracts": 6,
+      "czk": 2138863.16,
+      "earliest": "2016-07-12",
+      "latest": "2016-07-28"
+    },
+    {
+      "id": "company:ico:00084018",
+      "label": "Hvězdárna a planetárium v Hradci Králové",
+      "contracts": 5,
+      "czk": 648907.98,
+      "earliest": "2016-11-28",
+      "latest": "2020-05-11"
+    },
+    {
+      "id": "company:ico:26000237",
+      "label": "Oblastní nemocnice Trutnov a.s.",
+      "contracts": 5,
+      "czk": 9848753,
+      "earliest": "2016-08-30",
+      "latest": "2016-10-31"
+    },
+    {
+      "id": "company:ico:27149994",
+      "label": "Nadace Věry a Vladimíra Janouškových",
+      "contracts": 5,
+      "czk": 510000,
+      "earliest": "2023-03-07",
+      "latest": "2026-04-22"
+    },
+    {
+      "id": "company:ico:47795808",
+      "label": "Sportovní klub policie Kadaň, z.s.",
+      "contracts": 5,
+      "czk": 480005,
+      "earliest": "2019-11-19",
+      "latest": "2026-04-07"
+    },
+    {
+      "id": "company:ico:48161063",
+      "label": "Gymnázium, Pardubice, Mozartova 449",
+      "contracts": 5,
+      "czk": 9253983.17,
+      "earliest": "2014-03-22",
+      "latest": "2018-03-13"
+    },
+    {
+      "id": "company:ico:60800691",
+      "label": "Vojenská nemocnice Olomouc",
+      "contracts": 5,
+      "czk": 940280,
+      "earliest": "2016-03-14",
+      "latest": "2016-08-15"
+    },
+    {
+      "id": "company:ico:25968700",
+      "label": "Lesy a parky Trutnov s.r.o.",
+      "contracts": 4,
+      "czk": 1891596.9,
+      "earliest": "2016-09-29",
+      "latest": "2017-01-04"
+    },
+    {
+      "id": "company:ico:27485013",
+      "label": "Sportovní areály města Chrudim, s.r.o.",
+      "contracts": 4,
+      "czk": 943000,
+      "earliest": "2017-01-02",
+      "latest": "2017-05-16"
+    },
+    {
+      "id": "company:ico:27771245",
+      "label": "PROFROST a.s.",
+      "contracts": 4,
+      "czk": 0,
+      "earliest": "2020-05-13",
+      "latest": "2025-11-21"
+    },
+    {
+      "id": "company:ico:03265889",
+      "label": "ELEMENTA Agency s.r.o.",
+      "contracts": 3,
+      "czk": 0,
+      "earliest": "2020-04-14",
+      "latest": "2021-03-05"
+    },
+    {
+      "id": "company:ico:03709698",
+      "label": "Delices de papa s.r.o.",
+      "contracts": 3,
+      "czk": 594,
+      "earliest": "2020-11-02",
+      "latest": "2025-01-15"
+    },
+    {
+      "id": "company:ico:25332589",
+      "label": "B.S. - KINGS s.r.o.",
+      "contracts": 3,
+      "czk": 116160,
+      "earliest": "2012-07-19",
+      "latest": "2020-06-15"
+    },
+    {
+      "id": "company:ico:26141761",
+      "label": "GEKO SPORT s.r.o.",
+      "contracts": 2,
+      "czk": 1851058,
+      "earliest": "2024-04-02",
+      "latest": "2025-08-19"
+    },
+    {
+      "id": "company:ico:27145433",
+      "label": "U Machtů s.r.o.",
+      "contracts": 2,
+      "czk": 0,
+      "earliest": "2020-11-18",
+      "latest": "2021-03-27"
+    },
+    {
+      "id": "company:ico:27840531",
+      "label": "OCCAM PR s.r.o.",
+      "contracts": 2,
+      "czk": 177870,
+      "earliest": "2016-11-01",
+      "latest": "2017-12-12"
+    },
+    {
+      "id": "company:ico:46744991",
+      "label": "Zdravotnická záchranná služba Libereckého kraje, příspěvková organizace",
+      "contracts": 2,
+      "czk": 2974191.24,
+      "earliest": "2016-07-18",
+      "latest": "2016-07-18"
+    },
+    {
+      "id": "company:ico:47654465",
+      "label": "Obecně prospěšná společnost pro památkovou ochranu Hradiska u Olomouce a za další rozvoj kulturního, uměleckého a duchovního života a humanitní zdravotní péče na něm.",
+      "contracts": 2,
+      "czk": 232925,
+      "earliest": "2016-09-15",
+      "latest": "2019-02-20"
+    },
+    {
+      "id": "company:ico:60193468",
+      "label": "MERO ČR, a.s.",
+      "contracts": 2,
+      "czk": 0,
+      "earliest": "2016-01-01",
+      "latest": "2016-12-05"
+    },
+    {
+      "id": "company:ico:24227901",
+      "label": "Společenství vlastníků Vlastislavova 605/20, Praha 4",
+      "contracts": 1,
+      "czk": 3133.9,
+      "earliest": "2023-03-09",
+      "latest": "2023-03-09"
+    },
+    {
+      "id": "company:ico:25321692",
+      "label": "Lesy města Prostějova, s.r.o.",
+      "contracts": 1,
+      "czk": 208346,
+      "earliest": "2016-11-02",
+      "latest": "2016-11-02"
+    },
+    {
+      "id": "company:ico:25713817",
+      "label": "SPARING MB s.r.o.",
+      "contracts": 1,
+      "czk": 0,
+      "earliest": "2020-11-09",
+      "latest": "2020-11-09"
+    },
+    {
+      "id": "company:ico:26350416",
+      "label": "STYLE PD, s.r.o.",
+      "contracts": 1,
+      "czk": 448668,
+      "earliest": "2020-09-14",
+      "latest": "2020-09-14"
+    },
+    {
+      "id": "company:ico:27082857",
+      "label": "Nadační fond manželů Livie a Václava Klausových",
+      "contracts": 1,
+      "czk": 680504,
+      "earliest": "2019-04-08",
+      "latest": "2019-04-08"
+    },
+    {
+      "id": "company:ico:29123348",
+      "label": "Akademie HK PK, o.p.s.",
+      "contracts": 1,
+      "czk": 25000,
+      "earliest": "2017-04-18",
+      "latest": "2017-04-18"
+    },
+    {
+      "id": "company:ico:29186315",
+      "label": "MAE invest a.s.",
+      "contracts": 1,
+      "czk": 912000,
+      "earliest": "2019-02-12",
+      "latest": "2019-02-12"
+    },
+    {
+      "id": "company:ico:41197518",
+      "label": "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+      "contracts": 1,
+      "czk": 383197.32,
+      "earliest": "2016-07-25",
+      "latest": "2016-07-25"
+    },
+    {
+      "id": "company:ico:62240935",
+      "label": "Dopravní podnik města Děčína, a.s.",
+      "contracts": 1,
+      "czk": 1000000,
+      "earliest": "2016-10-11",
+      "latest": "2016-10-11"
+    },
+    {
+      "id": "company:ico:63217066",
+      "label": "Dopravní podnik města Pardubic a.s.",
+      "contracts": 1,
+      "czk": 38400,
+      "earliest": "2016-09-21",
+      "latest": "2016-09-21"
+    },
+    {
+      "id": "company:ico:64053466",
+      "label": "Dopravní podnik měst Chomutova a Jirkova a.s.",
+      "contracts": 1,
+      "czk": 1000000,
+      "earliest": "2016-08-04",
+      "latest": "2016-08-04"
+    },
+    {
+      "id": "company:ico:68404999",
+      "label": "Nadační fond Gymnázia Kutná Hora",
+      "contracts": 1,
+      "czk": 200000,
+      "earliest": "2018-05-02",
+      "latest": "2018-05-02"
+    }
+  ]
+}

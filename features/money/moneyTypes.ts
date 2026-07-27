@@ -191,6 +191,22 @@ export interface MoneyStats {
    *  `contractCzkReachable`, which is dominated by stewards' own institutions
    *  and must never be read as personal enrichment (see `tieClassInfo`). */
   ownerOperatorMps: number;
+  /** Whether the underlying contract corpus is a capped per-company sample.
+   *  The original money feed pulled at most N contracts per company, so every
+   *  CZK figure derived from it is a FLOOR, not a total — detected in money
+   *  batch 011 (35 companies sitting at exactly 25 contracts is not chance).
+   *  Rendering a capped sum as "Σ hodnot smluv" would present a lower bound as
+   *  a total, which the brand rule forbids; the surface must say "nejméně". */
+  contractCoverage: ContractCoverage;
+}
+
+export interface ContractCoverage {
+  /** The per-company ceiling the ingest hit, or null when no ceiling is evident. */
+  perCompanyCap: number | null;
+  /** How many companies sit exactly at that ceiling (the cap's signature). */
+  companiesAtCap: number;
+  /** True when the CZK totals must be read and rendered as lower bounds. */
+  isFloor: boolean;
 }
 
 export interface MoneyData {

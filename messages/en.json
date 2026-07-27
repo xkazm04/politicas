@@ -667,7 +667,10 @@
         "companiesSource": "ares v3 — join key IČO",
         "pendingLabel": "awaiting human review",
         "pendingSub": "0 verified · excluded from any score",
-        "pendingSource": "methodology v1.4 — confidence threshold"
+        "pendingSource": "methodology v1.4 — confidence threshold",
+        "reachableAtLeast": "at least {value}",
+        "reachableSubCapped": "lower bound — the original pull fetched at most {cap} contracts per company ({companies} companies sit at that ceiling), so the real figure is higher · for stewards this is the institution's money, not the MP's",
+        "reachableSourceCapped": "registr smluv · Σ of contracts found (sample capped at {cap}/company)"
       },
       "graph": {
         "badge": "entity graph · strongest case file",

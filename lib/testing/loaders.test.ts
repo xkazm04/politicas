@@ -441,6 +441,26 @@ describe("getMoneyData (the /penize ledger)", () => {
     expect(data.source).toBe("registr smluv ⋈ ares ⋈ hlídač státu");
   });
 
+  it("does not claim a per-company cap when the fixture has no ceiling (a floor label must be earned)", async () => {
+    // The seed has only a handful of companies with differing contract counts, so no
+    // ceiling is detectable — and the surface must therefore NOT print "nejméně".
+    // The real corpus is capped (money batch 011: 35 companies at exactly 25 contracts),
+    // which is why the flag is computed from the data instead of hardcoded: an uncapped
+    // re-ingest has to be able to turn the caveat off by itself.
+    const data = (await withReadinessOff(getMoneyData))!;
+    const coverage = data.stats.contractCoverage;
+    expect(coverage).toBeDefined();
+    if (coverage.isFloor) {
+      // If a fixture ever does trip the heuristic, the reported cap must be real:
+      // at least 3 companies sitting on the same low ceiling.
+      expect(coverage.companiesAtCap).toBeGreaterThanOrEqual(3);
+      expect(coverage.perCompanyCap).toBeGreaterThan(0);
+    } else {
+      expect(coverage.perCompanyCap).toBeNull();
+      expect(coverage.companiesAtCap).toBe(0);
+    }
+  });
+
   it("counts reachable CZK once per company and drops edges with an unresolved company", async () => {
     const data = (await withReadinessOff(getMoneyData))!;
     expect(data.stats.companiesLinked).toBe(3); // the ghost company is not counted

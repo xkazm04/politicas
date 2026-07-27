@@ -692,3 +692,92 @@ first time.**
    reviewer's evidence dossier, and the tie it hangs on is now the most
    consequential record the case holds.
 6. Q-money-13's 21 residue items remain with law (14) and effort (7).
+
+### Batch 011 — the AGROFERT sweep, and the corpus turns out to be a sample (2026-07-27)
+
+Sibling law/effort sessions concurrent. Driver Opus; one Opus verification pass
+at maximum depth returned **PARTIAL** (five framing defects, one refuted premise).
+
+- **The coverage defect — the batch's most consequential finding.** Checking
+  AGROFERT's contracts exposed a shape: **35 companies sit at exactly 25
+  `supplies` edges**, 47% have ≥20, and AGROFERT's graphed contracts stop at
+  2019-02-05 while the live register shows 2026 rows. The original money feed
+  capped its per-company pull. **Every per-company and per-MP CZK total in this
+  graph is a floor** — including the module headline "~18.7 bn CZK reachable".
+  Graph vs live register: AGROFERT 24 vs 49; the 9-company group ~165 vs 624.
+  **It was rendering unlabelled** on `/penize` as "veřejné peníze v dosahu ·
+  Σ hodnot smluv". Fixed: `stats.contractCoverage` is computed FROM THE DATA
+  (low ceiling shared by ≥3 companies) so an uncapped re-ingest retires the
+  caveat by itself; the tile now reads **"nejméně X"** with the cap named; both
+  catalogs updated; a loader test pins that the caveat must be EARNED.
+- **AGROFERT sweep**: 624 records across 9 graphed group companies, **23
+  published inside the registered sole-shareholder window** (2025-10-15 →
+  2026-02-20), stated value 197 261 535 CZK, of which **92% is one item** — the
+  SFDI × Lovochemie framework financing of the company's own rail-siding
+  modernization. Read from the document: SFDI = poskytovatel, Lovochemie =
+  **příjemce**; the figure is a **maximum EU ceiling** (49% of 370 315 524 CZK
+  eligible), **concluded 2025-12-01 and published 2025-12-03 — both before the
+  2025-12-09 appointment**; awarded in a **kolová výzva whose applications closed
+  2025-06-30**, so not discretionary; paid **ex post** to 2028.
+- **Direction is NOT established for the rest.** Of the 16 records published from
+  2025-12-09, **none is evidenced as public money awarded to the group**, and the
+  only one whose direction was verified runs the OTHER WAY — Kostelecké uzeniny
+  **pays** the Vězeňská služba for prisoner labour at a rate derived from 50% of
+  the minimum wage. Reporting the 9 355 026 CZK without that would have implied
+  the opposite of the evidence.
+- **A premise was refuted and corrected everywhere**: `party_idnum` matches only
+  the **NON-publishing** party, not either party (decisive test: SFDI's own IČO
+  returns zero rows on `party_idnum`, the contract on `subject_idnum`). The
+  untested claim had propagated from batch 009 into the client, three scripts,
+  the onboarding doc and a memory entry — all fixed, with the test recorded.
+- **SZIF's own published analysis** (PORTOS, 2026-02-27) states the shares were
+  placed into RSVP TRUST on **2026-02-20** and that "nejméně v období od 9. 12.
+  2025 do 20. 2. 2026" the § 4c conditions were met for the group — an
+  independent, non-registry, non-media corroboration that strengthens the
+  closing date from "výmaz" to an actual transfer. Annotated (pass 40).
+- **Legal framing recorded as unsettled, deliberately**: § 4b concerns zadávací
+  řízení and does not reach the SFDI contract; whether SFDI/EU co-financing is a
+  "dotace" under § 4c is contested with no case law on point; and whether the
+  bar attaches at conclusion or throughout performance is disputed between
+  SZIF's own opinion and NSS 1 Afs 172/2024 / 10 Afs 157/2024. Nothing here
+  finds illegality, and nothing exonerates.
+- **The bounding blind spot**: SZIF *decides* subsidies, it does not contract, so
+  agricultural/CAP support never enters Registr smluv at all. With the ≤50k and
+  other statutory exemptions and the 2016 start, 624 records across 9 of the
+  group's many companies is a **lower bound on one partial channel**. Magnitude:
+  UNVERIFIED (SZIF beneficiary search and cedr.mfcr.cz both unreachable).
+- **No `review_state` touched — 211 ties remain `pending_review`.** Live write at
+  **pass 40**.
+
+## Metrics block — batch 011
+
+| metric | batch 011 |
+|---|---|
+| companies at exactly 25 `supplies` edges | **35** — the cap's signature |
+| CZK figures affected | **all of them** — every per-company/per-MP total is a floor |
+| brand-rule violation found rendering live | **1** (`/penize` reachable tile), fixed same batch |
+| AGROFERT group records: graph vs live | ~165 vs **624** |
+| records in the registered sole-shareholder window | **23** · 197 261 535 CZK stated |
+| share of that value in a single ceiling item | **92 %** |
+| records from 2025-12-09 evidenced as money TO the group | **0** |
+| direction verified from the underlying document | 1 of 23 — and it runs the other way |
+| Opus verification verdict | **PARTIAL** — 5 framing defects, 1 premise refuted |
+| untested premise corrected across the repo | `party_idnum` semantics (client + 3 scripts + onboarding + memory) |
+| live writes | 1 payload, pass 40 |
+| `review_state` changes | **0** |
+| gate | `npm run check` green |
+
+## Steering (next batch — batch 012)
+
+1. **Re-ingest contracts without the 25-cap** — now the highest-value work in the
+   case. It lifts every CZK figure from floor to actual and retires the `/penize`
+   caveat. Client and sweep pattern already exist; the cost is time, not access.
+2. **Read direction per contract** on the remaining 22 window rows and the
+   batch-009 parent leads. Direction cannot be inferred from a search row.
+3. **The subsidy channel is the real question for AGROFERT** and Registr smluv
+   structurally cannot answer it. Assess SZIF beneficiary lists / cedr.mfcr.cz
+   for ingestibility.
+4. **Sweep `subject_idnum` too** for any company that is itself a publishing
+   authority — `party_idnum`-only sweeps miss those by construction.
+5. Steward class (23), Teplárny Brno, ČSOB, České dráhy all remain **UNMEASURED**.
+6. Q-money-13's 21 residue items remain with law (14) and effort (7).
