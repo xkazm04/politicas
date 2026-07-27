@@ -310,3 +310,32 @@ claims about named people is not enough — structural rule, not a model-tier qu
 Batch-003 ordered collision close-reads by shared-§ count; measured against final
 classifications it does not discriminate. P32's rule applies one level down: any ordering
 used to spend model time is a triage signal and gets validated like one.
+
+## P53 [effort] A jargon-stripping rewrite can strengthen a claim while only trying to clean its phrasing (batch 007)
+
+Told to "preserve every fact, don't strengthen or weaken any hedge," 6 parallel rewrite agents
+nonetheless did exactly that on 11/44 money-touching dossiers — not by inventing anything, but by
+merging a hedged original claim with an unhedged later-pass addendum that happened to sit in the
+same source text. The instruction "preserve every fact" was satisfied at the sentence level and
+violated at the claim-strength level. Generalisation: any rewrite pass over prose that may contain
+layered original+correction text needs an EXPLICIT rule — never let a claim's asserted strength
+exceed its OWN citation's strength, regardless of what else in the paragraph is cited — not just
+"keep the facts."
+
+## P54 [effort] A module's docstring can claim an invariant the code does not enforce (batch 007)
+
+`public-copy.ts` said outright "this module is the one definition both [gate.ts and the render
+loaders] import" while `gate.ts` had silently forked it with an extra rule the render guard never
+had. The claim was checked by nobody until batch 007 needed to trust it to compute a render
+projection. Lesson, same shape as batch 006's committee-count lesson: a comment asserting a shared
+source of truth is itself a claim, and needs the same verification bar as any other claim before a
+later batch builds on it.
+
+## P55 [effort] Two Opus passes on the same batch can still miss different things — run the second against the first one's output (batch 007)
+
+The dedicated money-fidelity pass rated `psp:person:5459` (Fiala) CONFIRMED; the separate reflection
+pass, given the corrected payload and told to be skeptical rather than to restate, found the
+identical defect class the money pass exists to catch, missed on the one entry where the
+flat/hedged inconsistency was BETWEEN TWO FIELDS (effort_notes flat, effort_public_role hedged)
+rather than between original and rewritten text of the SAME field. A single-field diff check has a
+blind spot a cross-field consistency check does not.

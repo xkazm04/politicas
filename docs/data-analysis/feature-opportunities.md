@@ -173,3 +173,19 @@ a hallucinated MP. See [[frontier]] for the analyses that will fill this out and
 - **Console ENABLEMENT — READY**: D1 closed + purge executed. Operator action: set
   `REVIEWER_NAME` + `REVIEWER_TOKEN` (.env.example documents both) and the 211-tie review
   queue goes live with full audit trail. First real human review session can start.
+
+### Batch 007 — effort (2026-07-26)
+- **Unified public-copy rule definition — ✅ SHIPPED**: `lib/analysis/public-copy.ts` /
+  `scripts/case-loops/effort/gate.ts` jargon rules unified into one definition both import
+  (gate.ts previously forked it, missing one rule the render guard never had) — persist-time DROP
+  and render-time withhold can no longer diverge. New `jargonViolationDetails()` export + tests.
+- **Retroactive public-copy rewrite — ✅ SHIPPED**: all 136 pre-006 leaking dossiers (batches 1–5)
+  rewritten and persisted. 207/207 person nodes now render at least one dossier field on
+  `/poslanec`, up from 71/207. The Q-effort-15 debt batch 006 opened is closed.
+- **`effort_analyst_note` render guard — ✅ SHIPPED**: source-grep test guarding the batch-006
+  non-rendered analyst channel (now carrying jargon by design on 38/136 records) against ever
+  being wired into `getProfileData.ts` / `ProfilePage.tsx` / `getLeaderboardData.ts`.
+- **Escalated, not fixed**: the "hedged-original + unhedged-addendum merges into a flat claim under
+  a rewrite pass" failure class (11/44 money dossiers) is a generic risk for ANY future case-loop
+  prose-rewrite, not effort-specific — worth a shared authoring guideline ("promote a claim only as
+  strongly as its own citation") rather than a per-case fix.

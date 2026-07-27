@@ -159,10 +159,46 @@ and the graph-metrics block in [[coverage-ledger]] for progress.
 |---|---|---|
 | Q-effort-13 | volby.cz employment-COI signal | ✅ built; honest partial-null (self-referential occupations); do NOT ship as a badge yet |
 | Q-effort-COVERAGE | population | ✅ **CLOSED 207/207** — first case complete; loop → staleness/lead-driven |
-| Q-effort-15 (new) | **rewrite the 136 leaking dossiers** so the withheld prose ships (the guard hides, it does not fix) | open — the effort case's main remaining work |
+| Q-effort-15 (new) | **rewrite the 136 leaking dossiers** so the withheld prose ships (the guard hides, it does not fix) | ✅ **CLOSED batch 007** — 136/136 rewritten, 0/207 leaking, 207/207 render (see below) |
 | Q-money-7 | PRaK re-point | ✅ analytically CLOSED (both Bendl AND Brabec); payload awaits the insert path |
 | Q-money-14 (new) | apply the 3 held payloads: PRaK re-point, 55 `owns_stake` + 19 nodes, kiosek notices | open — needs the INSERT-capable writer + `owns_stake`/`notice`/`cites`/`concerns` enum additions |
 | Q-money-15 (new) | re-run batch-002's negatives against the LIVE ARES VR endpoint (C17) | open |
 | Q-money-16 (new) | finish the 5 corroborations blocked on one very large dataor file | open |
 | Q-law-13 (new) | **fix the `ČÁST`/`§` article splitter** (N1) — the regen is incomplete, not just imprecise; then re-measure and re-audit | open — law's P1 |
 | S3-money | kiosek IČOs vs tied companies | recalibrated: disjoint populations → a WATCH channel, not immediate enrichment |
+
+### Batch-007 (effort) closures + open flags (2026-07-26, finalized 2026-07-27)
+
+- [effort] Q-effort-15 CLOSED: the 436-field-instance / 136-node public-copy debt batch 006 measured
+  and left open ("retroactive public-copy rewrite of batches 001–005... precondition for persisting
+  ANY prior effort payload") is paid off. Re-measured at persist time (not carried forward from
+  batch 006's number, which predates a code fix made this batch): 136/207 leaking, 205
+  field-instances, exactly batches 1–5 (batch 006's own 42 confirmed still clean). All 136 rewritten,
+  gated 136/136 clean, verified end-to-end against the real render guard: 0/207 leaking, 207/207 now
+  render at least one dossier field (up from 71/207). See `case-effort/batch-007.md` for the full
+  account. (closed 2026-07-26, batch 007)
+- [effort] `gate.ts`'s Q-effort-14 public-copy check was a SILENT FORK of `lib/analysis/public-copy.ts`
+  despite that module's own docstring claiming a single shared definition — gate.ts carried an extra
+  "API/pipeline mechanics" rule (endpoint/REST API/JSON/pipeline/dossier) the render-time guard never
+  had, so a string with that jargon class could be DROPPED at persist time but NOT withheld at render
+  time for anything already in the graph. Unified: the rule list (+ a new `jargonViolationDetails()`
+  export) now lives only in public-copy.ts; gate.ts imports it. Regex semantics confirmed unchanged
+  (byte-identical migration) by the batch-007 reflection. (closed 2026-07-26, batch 007)
+- [effort] NEW FAILURE CLASS FOUND: a mechanical "strip jargon, preserve facts" rewrite pass can still
+  silently corrupt a money-touching claim by MERGING IN a later verification pass's findings without
+  its hedge — 11 of 44 money-touching dossiers in this batch's rewrite turned an explicitly-unproven
+  or "pending_review" company tie into a flat, uncited assertion of a current board seat or ownership
+  stake (worst: a sitting minister's supervisory-board seat asserted as covering a 5.39bn CZK contract
+  award period, sourced from nothing). The rewrite agents were told to preserve every fact, and
+  technically did: the newer finding WAS a fact recorded somewhere in the input text, just one that
+  had never been promoted to the public field with its own citation. Escalating as a pattern for any
+  future case-loop prose-rewrite pass: "preserve every fact" is not sufficient instruction when a
+  dossier's text mixes an original (possibly hedged) claim with a later correction/addendum — the
+  rewrite must be told explicitly not to promote an addendum's claim strength into the primary
+  sentence without also promoting its citation. (opened 2026-07-26, batch 007)
+- [effort] `effort_analyst_note` (introduced batch 006 as a deliberately non-rendered channel) is now
+  carrying pipeline jargon BY DESIGN on 38/136 of batch 007's records (56 jargon hits) — correct per
+  its purpose, but it has zero code enforcement against ever being wired into a render path; only a
+  source-grep test (`lib/analysis/public-copy.test.ts`) stands between it and a future silent
+  regression. Flagging for any future loop that adds a similar "internal channel" prop: pair it with
+  a test on day one, not after a reflection catches the gap. (opened 2026-07-26, batch 007)

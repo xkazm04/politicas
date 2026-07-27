@@ -18,6 +18,7 @@ population is feasible; triage decides depth, not whether.
 | 004 | 35 | 120/207 (58.0 %) | 0.500 | R=1 · role_window_mismatch badge (O-effort-4) | 35/35 + 8/8 rewrites + 6/6 backfill PASS | Sonnet army (5×7) + Opus money-verification + Opus reflection; 8 held-back money dossiers rewritten under VR doctrine; Q-effort-11 prose-vs-props gate shipped; Kott-signal (Q-effort-10) reopened, not closed |
 | 005 | 45 | 165/207 (79.7 %) | 0.458 | R=1 · tenure-aware profile copy (mandate note + TrendPanel suppression <90d) | 45/45 PASS (post-fix; 13 initial DROPs on `effort_low_score_reason` misuse, fixed) | Sonnet army (9×5) — 80% high-triage filler (36/45), lens exhaustion now dominant; CRO/volby.cz access probe: volby.cz POVOLANI worth building, cro.justice.cz NOT autonomously accessible (corrects batch-004 framing); P51/C13 two-layer money gate first full exercise — 4/10 BLOCKING catches (false-clearance reversal, truncated-fetch active tie missed, wrong entity+dates, ambiguity resolved); Opus reflection held batch back one fix pass — found `committee_count` mismatch (29/45 dossiers) is an EFFORT-OWNED extractor bug (not Case ① ingest), 3/7 driver-applied Opus fixes were not actually applied on first pass (re-fixed), public-render leakage on 4 low-score-reason profiles cleaned |
 | 006 | 42 | **207/207 (100 %) — POPULATION CLOSED** | 0.405 | R=1 · Q-effort-14 public-copy gate + committees rebuilt (extractor & profile render) + convergence rule made executable | 42/42 PASS (post-fix; all 42 initially DROPped by the NEW public-copy check) | population complete by ENUMERATION, not by the K=3 yield rule (which does not fire — see below). Batch-005's `committees[]` root cause found WRONG: Podvýbor was never the cause (0 PSP10 podvýbor memberships exist); real causes are Delegace organs (39 MPs) + duplicate member/function rows on one organ (121 MPs). 99 pipeline-jargon leaks in verbatim-rendered public fields across 42/42 dossiers → prose lesson converted to a hard-DROP gate check; internals preserved in new non-rendered `effort_analyst_note`. 10 `effort_low_score_reason:"unknown"` badges removed from MPs incl. the batch's TOP scorer. P51/C13: 2 BLOCKING false clearances reversed (Jakob, Horák), 1 CONFIRMED (Petrtýl, 4 active ties), systemic root cause = "mandate began 4.10.2025" assumption wrong for 6 of 8. Parallel: volby.cz Kott-signal ingest SHIPPED (205/207 joined, 33 sector↔committee hits/32 MPs, honest null on Kott's own self-referential POVOLANI) |
+| 007 | 0 new (136 rewritten) | 207/207 (unchanged) | — (prose-quality batch, no new dossiers) | R=1 · unified public-copy rule definition (gate.ts fork closed) + `effort_analyst_note` render-guard test | 136/136 PASS (post-fix; 11/44 money-touching rewrites corrected for silently-strengthened hedges) | Q-effort-15 CLOSED: retroactive public-copy rewrite of all 136 pre-006 leaking dossiers; verified live 0/207 leaking, 207/207 render ≥1 dossier field (from 71/207); NEW failure class — mechanical rewrite merged unhedged later-pass addenda into hedged claims on 11 money dossiers (P53), caught by the P51 two-layer gate + cross-field reflection (P55) |
 
 **Signal-yield** is the convergence measure (new signals ÷ units). Batch 001 is the
 baseline — every unit produced a citable dossier, so raw yield ≈ 1.0; the 0.771 above is
@@ -32,9 +33,11 @@ rule is an early-stop rule and is moot once the population is exhausted.
 
 **Coverage is counted two ways on purpose.** *Dossiered* = `stage != "pending"` (army + gate
 complete) — this is what "coverage" means and what triage's resume filter uses: **207/207**.
-*At stage `signal`* = additionally flipped by a live persist: **127/207**. The 80-unit gap is
-batches 004/005 awaiting the orchestrator's `persist-batch.ts` run — outstanding persist debt,
-not missing analysis. `finalize-ledger.ts` prints both so neither can be quietly overstated.
+*At stage `signal`* = additionally flipped by a live persist: **207/207 since batch-007
+finalization (2026-07-27)**. The 80-unit gap (batches 004/005) that stood here as persist debt
+was verified paid — all 80 units carry their `effort_notes` in the live graph (checked on a
+fresh copy at finalize time), so `finalize-ledger.ts 4` + `5` were run to advance the stages.
+`finalize-ledger.ts` prints both counts so neither can be quietly overstated.
 
 ## Batch log
 
@@ -292,3 +295,34 @@ not missing analysis. `finalize-ledger.ts` prints both so neither can be quietly
   subsidy channel) through Case ①'s own gate before any surface renders them;
   (4) re-open per-MP work only on staleness triggers (re-ingest, Pumper watch events), not on a new
   full sweep — the lenses are exhausted and a seventh grind would be composition, not signal.
+
+### Batch 007 — the public-copy debt paid off (2026-07-26; finalized 2026-07-27)
+- **Q-effort-15 CLOSED.** All 136 pre-006 dossiers leaking pipeline jargon (batches 1–5, re-measured
+  at persist time: 136/207 nodes, 205 field-instances) rewritten by 6 parallel Sonnet groups —
+  mechanical jargon-strip preserving every fact/date/IČO/amount/hedge, internals relocated into the
+  non-rendered `effort_analyst_note`. Gate 136/136 PASS. Full narrative in `batch-007.md`.
+- **The catch that matters (P53):** the Opus money-fidelity layer found **11 of 44** money-touching
+  rewrites had silently merged a later verification pass's uncited findings into the primary
+  sentence, turning hedged/unproven company ties into flat assertions (worst: a sitting minister's
+  supervisory-board seat asserted against a 5.39bn CZK contract award period). 10 caught by the
+  dedicated pass, 1 more (Fiala) by the cross-field reflection (P55). All corrected in place,
+  re-gated clean.
+- **Real enforcement gap closed (P54):** `gate.ts` had silently forked `public-copy.ts`'s jargon
+  rules (an extra "API/pipeline mechanics" rule the render guard never had) despite the module's
+  docstring claiming a single shared definition. Unified; regex migration confirmed byte-identical;
+  new `jargonViolationDetails()` export + source-grep test guarding `effort_analyst_note` against
+  ever entering a render path.
+- **Verified live end-to-end:** 0/207 leaking (from 136/207), 0 field-instances withheld by
+  `publicCopyOrNull()` (from 205), **207/207 person nodes render at least one dossier field** (from
+  71/207), 180/207 all three.
+- Committed as `9e4be77` (payload + persist, pass 32 in graph-log) + `9abfde1` (code unification).
+- **Finalization (2026-07-27, this session):** the handoff's outstanding orchestrator steps landed —
+  shared-vault appends (frontier Q-effort-15 closure, P53–P55, feature-opportunities), this ledger
+  entry, and the ledger.json stage advance for the batch-004/005 persist debt (verified against the
+  live graph before flipping: all 80 units' props present; 207/207 now at stage `signal`).
+- **Steering:** unchanged from batch 006 — the loop stays in staleness/lead-driven mode. Open
+  escalations: the three ingest-scope gaps to Case ① (subcommittee memberships, `leadership_count`
+  blind spots, `committee_count` double-counting), unifying `kg-compute.ts`'s forked committee-type
+  test with `contribution.ts`'s shared predicate, and confirming the two batch-006 money LEADs
+  (GEMA MB → ANO 2011 donations; AGROCENTRUM → SZIF) through Case ①'s gate before any surface
+  renders them. No new full sweep.
