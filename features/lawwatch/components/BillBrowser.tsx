@@ -36,6 +36,20 @@ export default function BillBrowser({ data }: { data: LawData }) {
 
   const activeFacet = FACETS.find((x) => x.key === facet) ?? null;
 
+  // Facet badges must count against the ORIGIN-filtered subset (and vice
+  // versa) — otherwise a badge shows "posudek · 12" computed over ALL bills
+  // while the origin filter is narrowed to a handful, so clicking it can
+  // legitimately yield zero rows even though the badge just promised 12. The
+  // two filters read each other's active selection, not the raw dataset.
+  const originFilteredBills = useMemo(
+    () => (origin ? data.bills.filter((b) => b.origin === origin) : data.bills),
+    [data.bills, origin],
+  );
+  const facetFilteredBills = useMemo(
+    () => (activeFacet ? data.bills.filter((b) => activeFacet.test(b)) : data.bills),
+    [data.bills, activeFacet],
+  );
+
   const rows = useMemo(() => {
     const q = query.trim().toLowerCase();
     return data.bills.filter(
@@ -63,19 +77,22 @@ export default function BillBrowser({ data }: { data: LawData }) {
         >
           vše
         </button>
-        {ORIGIN_ORDER.filter((o) => data.originCounts[o]).map((o) => (
-          <button
-            key={o}
-            type="button"
-            onClick={() => setOrigin(origin === o ? null : o)}
-            className={`border-2 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider transition-colors ${
-              origin === o ? "border-ink bg-ink text-paper" : "border-hairline text-steel hover:text-ink"
-            }`}
-            aria-pressed={origin === o}
-          >
-            {ORIGIN_CZ[o]} · {f.int(data.originCounts[o] ?? 0)}
-          </button>
-        ))}
+        {ORIGIN_ORDER.filter((o) => data.originCounts[o]).map((o) => {
+          const count = facetFilteredBills.filter((b) => b.origin === o).length;
+          return (
+            <button
+              key={o}
+              type="button"
+              onClick={() => setOrigin(origin === o ? null : o)}
+              className={`border-2 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider transition-colors ${
+                origin === o ? "border-ink bg-ink text-paper" : "border-hairline text-steel hover:text-ink"
+              }`}
+              aria-pressed={origin === o}
+            >
+              {ORIGIN_CZ[o]} · {f.int(count)}
+            </button>
+          );
+        })}
         <input
           type="search"
           value={query}
@@ -90,9 +107,12 @@ export default function BillBrowser({ data }: { data: LawData }) {
       <div className="mt-3 flex flex-wrap items-center gap-2">
         <span className="font-mono text-[10px] uppercase tracking-wider text-steel">Stav:</span>
         {FACETS.map((x) => {
-          const count = data.bills.filter(x.test).length;
-          if (count === 0) return null;
+          const count = originFilteredBills.filter(x.test).length;
           const active = facet === x.key;
+          // Hide a zero-count facet UNLESS it's the currently active one — an
+          // active facet whose count drops to 0 under a newly-combined origin
+          // filter must stay visible so the user has a way to clear it.
+          if (count === 0 && !active) return null;
           return (
             <button
               key={x.key}
