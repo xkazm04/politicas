@@ -656,9 +656,9 @@
         "ownerLabel": "poslanci s vlastní firmou u státu",
         "ownerSub": "vlastník/jednatel firmy, která dodává státu — skutečná vazba",
         "ownerSource": "ares v3 — role v obchodním rejstříku",
-        "reachableLabel": "veřejné peníze v dosahu",
+        "reachableLabel": "veřejné peníze u firem poslanců",
         "reachableSub": "smlouvy dohledané přes napojené firmy — u stewardů jde o peníze instituce, ne poslance",
-        "reachableSource": "registr smluv · Σ hodnot smluv",
+        "reachableSource": "registr smluv · Σ hodnot smluv (vlastnické a manažerské vazby)",
         "mpsLabel": "poslanci s vazbou",
         "mpsSub": "z 207 mandátů 9. období",
         "mpsSource": "ares v3 ⋈ hlídač státu",
@@ -670,7 +670,8 @@
         "pendingSource": "metodika v1.4 — práh spolehlivosti",
         "reachableAtLeast": "nejméně {value}",
         "reachableSubCapped": "dolní odhad — původní sběr stáhl u každé firmy nejvýše {cap} smluv ({companies} firem na tomto stropu), skutečná částka je vyšší · u stewardů jde o peníze instituce, ne poslance",
-        "reachableSourceCapped": "registr smluv · Σ dohledaných smluv (vzorek se stropem {cap}/firma)"
+        "reachableSourceCapped": "registr smluv · Σ dohledaných smluv (vzorek se stropem {cap}/firma)",
+        "reachableSubSplit": "smlouvy firem, které poslanci vlastní nebo řídí · dalších {steward} připadá na instituce, kde poslanec jen zasedá v orgánu — to nejsou jeho peníze"
       },
       "graph": {
         "badge": "graf entit · nejsilnější spis",

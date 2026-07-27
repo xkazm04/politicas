@@ -927,3 +927,38 @@ only the NON-publishing party) which has been fixed in
 `lib/ingest/sources/smlouvy.ts` and the docs it propagated to.
 
 Detail: `docs/data-analysis/case-money/batch-011.md`.
+
+## Pass 41 (track: money) — batch 012: contract corpus re-ingest from the bulk dumps (2026-07-27)
+
+The largest write the money case has made. Contract corpus lifted from a capped
+per-company sample to the actual Registr smluv record.
+
+- **152 702 contract nodes** (2 287 → 152 788 total) and **153 634 `supplies`
+  edges** (2 290 → 153 731), harvested from the monthly open-data dumps at
+  `data.smlouvy.gov.cz` (123/123 months, 2016-05 → 2026-07).
+- **Keyed on `idSmlouvy`, not the id in the web URL (`idVerze`).** These are
+  different sequences; keying on the URL id would have silently duplicated the
+  corpus. Confirmed by outcome: 2 201 of the 2 287 existing nodes matched.
+- **Props MERGED, never replaced** — `upsertKgNodes` replaces wholesale, so a
+  naive re-ingest would have erased every prior pass's annotations. The ingest's
+  own provenance is nested as `reingest_provenance`; identity provenance is
+  untouched.
+- **A `payer` contract never receives a `supplies` edge** (23 refused). Direction
+  comes from the dumps' `<platce>`/`<prijemce>` flags — stated in only ~18 % of
+  records, running 25 819 recipient to 23 payer among those — and is recorded on
+  every edge so consumers filter on what is known.
+- Values keep their basis (`amountBasis`: bezDph 82 918 · vcetneDph 36 580 ·
+  ciziMena 2 959 · none 30 245); 13 174 superseded versions dropped.
+- **86 legacy contract nodes are absent from the current dumps** — reported, not
+  deleted (the dataset's GDPR terms oblige a recipient to propagate withdrawals;
+  that is a human decision).
+
+**The surface changed in the same pass, deliberately.** The raw reachable total
+became 7.19 tn CZK, of which **99.4 % is not attributable** to any politician
+(steward institutions 462.8 bn; ownership parents with no tie at all 6.68 tn).
+`/penize` now renders `contractCzkAttributable` (42.89 bn — owner-operator and
+manager ties) and names the steward total separately, instead of one
+undifferentiated headline. Shipping the completed data without this would have
+made the tile say something false at nine times the volume.
+
+Detail: `docs/data-analysis/case-money/batch-012.md`.

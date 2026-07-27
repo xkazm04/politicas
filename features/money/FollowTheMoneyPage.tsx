@@ -60,22 +60,22 @@ export default function FollowTheMoneyPage({ data }: { data?: MoneyData | null }
           source: t("real.stats.companiesSource"),
         },
         {
-          // The contract corpus is a CAPPED per-company sample (see
-          // `stats.contractCoverage`), so this sum is a lower bound. Rendering it
-          // bare, sourced to "Σ hodnot smluv", would present a floor as a total —
-          // the brand rule's central prohibition. Prefix and footnote say so.
+          // The headline counts ONLY money the case's attribution rule permits reading as
+          // reaching the politician's own firms (owner-operator + manager ties). Steward
+          // money — contracts of public bodies where an MP holds a board seat — is the
+          // institution's own activity and is shown separately, never folded in. Before
+          // the batch-012 re-ingest the two were merged and the distinction was cosmetic;
+          // on the full corpus stewards are ~91 % of the raw total, so merging them would
+          // have made the tile say something false at nine times the volume.
           label: t("real.stats.reachableLabel"),
           value: data.stats.contractCoverage.isFloor
-            ? t("real.stats.reachableAtLeast", { value: compactCzk(data.stats.contractCzkReachable, locale) })
-            : compactCzk(data.stats.contractCzkReachable, locale),
-          sub: data.stats.contractCoverage.isFloor
-            ? t("real.stats.reachableSubCapped", {
-                cap: data.stats.contractCoverage.perCompanyCap ?? 0,
-                companies: data.stats.contractCoverage.companiesAtCap,
-              })
-            : t("real.stats.reachableSub"),
+            ? t("real.stats.reachableAtLeast", { value: compactCzk(data.stats.contractCzkAttributable, locale) })
+            : compactCzk(data.stats.contractCzkAttributable, locale),
+          sub: t("real.stats.reachableSubSplit", {
+            steward: compactCzk(data.stats.contractCzkSteward, locale),
+          }),
           source: data.stats.contractCoverage.isFloor
-            ? t("real.stats.reachableSourceCapped")
+            ? t("real.stats.reachableSourceCapped", { cap: data.stats.contractCoverage.perCompanyCap ?? 0 })
             : t("real.stats.reachableSource"),
         },
       ]

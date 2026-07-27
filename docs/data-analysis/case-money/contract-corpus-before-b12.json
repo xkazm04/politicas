@@ -1,0 +1,103 @@
+{
+  "takenAt": "2026-07-27T13:27:20.279Z",
+  "contractNodes": 2287,
+  "supplyEdges": 2290,
+  "companiesWithSupplies": 149,
+  "maxContractsPerCompany": 25,
+  "companiesAtMax": 35,
+  "totalCzk": 18743685265.082615,
+  "earliestSignedOn": "1997-12-05",
+  "latestSignedOn": "2029-09-29",
+  "topCompanies": [
+    {
+      "id": "company:ico:09133267",
+      "label": "ARENA BRNO, a.s.",
+      "contracts": 19,
+      "czk": 5390760377.7724
+    },
+    {
+      "id": "company:ico:27256456",
+      "label": "Oblastní nemocnice Mladá Boleslav, a.s., nemocnice Středočeského kraje",
+      "contracts": 25,
+      "czk": 3502176904.5399995
+    },
+    {
+      "id": "company:ico:60194120",
+      "label": "Pražské služby, a.s.",
+      "contracts": 24,
+      "czk": 1470325324.45
+    },
+    {
+      "id": "company:ico:27256537",
+      "label": "Oblastní nemocnice Kladno, a.s., nemocnice Středočeského kraje",
+      "contracts": 10,
+      "czk": 1380908149.5
+    },
+    {
+      "id": "company:ico:25205625",
+      "label": "VODÁRNA PLZEŇ a.s.",
+      "contracts": 22,
+      "czk": 915796049.845
+    },
+    {
+      "id": "company:ico:02795281",
+      "label": "Operátor ICT, a.s.",
+      "contracts": 24,
+      "czk": 884856389
+    },
+    {
+      "id": "company:ico:60108916",
+      "label": "Synthesia, a.s.",
+      "contracts": 25,
+      "czk": 796873826.9080001
+    },
+    {
+      "id": "company:ico:45146802",
+      "label": "Energie - stavební a báňská a.s.",
+      "contracts": 25,
+      "czk": 527650655.5962
+    },
+    {
+      "id": "company:ico:48154938",
+      "label": "EAST BOHEMIAN AIRPORT a.s.",
+      "contracts": 20,
+      "czk": 310233450.6
+    },
+    {
+      "id": "company:ico:28046153",
+      "label": "Čistá Plzeň, s.r.o.",
+      "contracts": 11,
+      "czk": 284386338.71999985
+    },
+    {
+      "id": "company:ico:08599254",
+      "label": "CEVYKO a.s.",
+      "contracts": 25,
+      "czk": 278778304.30999994
+    },
+    {
+      "id": "company:ico:70100969",
+      "label": "Charita Česká republika",
+      "contracts": 24,
+      "czk": 240771241.2
+    },
+    {
+      "id": "company:ico:60193531",
+      "label": "ČEPRO, a.s.",
+      "contracts": 11,
+      "czk": 235543222.2
+    },
+    {
+      "id": "company:ico:61989592",
+      "label": "Univerzita Palackého v Olomouci",
+      "contracts": 25,
+      "czk": 224319750.95
+    },
+    {
+      "id": "company:ico:46900411",
+      "label": "Kostelecké uzeniny a.s.",
+      "contracts": 25,
+      "czk": 201742487.5
+    }
+  ]
+}

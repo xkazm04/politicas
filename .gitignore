@@ -59,3 +59,6 @@ app-cost.json
 
 # Claude Code session logs (per-run, large, not project content)
 .claude/logs/
+
+.smlouvy-dump-cache/
+docs/data-analysis/case-money/contracts-harvest.jsonl

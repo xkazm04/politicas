@@ -40,6 +40,10 @@ export async function getMoneyData(): Promise<MoneyData | null> {
     let pendingTies = 0;
     let contractCzkReachable = 0;
     const reachableSeen = new Set<string>();
+    /** The same per-company de-dup, split by whether the money is attributable at all. */
+    let contractCzkAttributable = 0;
+    let contractCzkSteward = 0;
+    const reachableSplitSeen = new Set<string>();
 
     for (const e of linked) {
       const comp = companyById.get(e.dst);
@@ -65,6 +69,17 @@ export async function getMoneyData(): Promise<MoneyData | null> {
       if (tie.reviewState === "verified") verifiedTies += 1;
       else if (tie.reviewState === "pending_review") pendingTies += 1;
       const contractCzk = tie.contractCzk;
+      // Split the reachable total by whether the case's own attribution rule allows the
+      // money to be read as the POLITICIAN'S at all. A `steward` tie is a seat on a public
+      // body's board: the contracts are the institution's own activity. Before the batch-012
+      // re-ingest this distinction was cosmetic because the corpus was capped; afterwards
+      // stewards are ~91 % of the raw total, so a single undifferentiated number would say
+      // something false much more loudly than it used to.
+      if (!reachableSplitSeen.has(comp.id)) {
+        reachableSplitSeen.add(comp.id);
+        if (tie.tieClass === "steward") contractCzkSteward += contractCzk;
+        else contractCzkAttributable += contractCzk;
+      }
 
       const arr = tiesByPerson.get(e.src) ?? [];
       arr.push(tie);
@@ -162,6 +177,8 @@ export async function getMoneyData(): Promise<MoneyData | null> {
         mpsWithTies: mps.length,
         companiesLinked: distinctCompanies.size,
         contractCzkReachable,
+        contractCzkAttributable,
+        contractCzkSteward,
         totalTies: linked.length,
         verifiedTies,
         pendingTies,

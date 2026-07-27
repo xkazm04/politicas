@@ -183,6 +183,14 @@ export interface MoneyStats {
   mpsWithTies: number;
   companiesLinked: number; // distinct companies across all ties
   contractCzkReachable: number; // Σ contract CZK reachable through tied firms
+  /** The part of `contractCzkReachable` that the case's attribution rule permits reading
+   *  as money reaching the POLITICIAN's own firms — owner-operator and manager ties. */
+  contractCzkAttributable: number;
+  /** The rest: contracts of public bodies where an MP holds a board seat (`steward`).
+   *  This is the institution's own activity and must NEVER be read as enrichment. After
+   *  the batch-012 re-ingest it is ~91 % of the raw total, so it is surfaced separately
+   *  rather than folded into one headline. */
+  contractCzkSteward: number;
   totalTies: number;
   verifiedTies: number;
   pendingTies: number;

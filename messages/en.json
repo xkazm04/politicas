@@ -656,9 +656,9 @@
         "ownerLabel": "MPs with an owner-class firm",
         "ownerSub": "owner/operator of a firm that supplies the state — the real tie",
         "ownerSource": "ares v3 — commercial register roles",
-        "reachableLabel": "public money in reach",
+        "reachableLabel": "public money at MPs' own firms",
         "reachableSub": "contracts traced through tied companies — for stewards this is the institution's own money, not the MP's",
-        "reachableSource": "contracts register · Σ contract values",
+        "reachableSource": "registr smluv · Σ of contract values (owner and manager ties)",
         "mpsLabel": "MPs with a tie",
         "mpsSub": "of 207 mandates this term",
         "mpsSource": "ares v3 ⋈ Hlídač státu",
@@ -670,7 +670,8 @@
         "pendingSource": "methodology v1.4 — confidence threshold",
         "reachableAtLeast": "at least {value}",
         "reachableSubCapped": "lower bound — the original pull fetched at most {cap} contracts per company ({companies} companies sit at that ceiling), so the real figure is higher · for stewards this is the institution's money, not the MP's",
-        "reachableSourceCapped": "registr smluv · Σ of contracts found (sample capped at {cap}/company)"
+        "reachableSourceCapped": "registr smluv · Σ of contracts found (sample capped at {cap}/company)",
+        "reachableSubSplit": "contracts of firms MPs own or run · a further {steward} belongs to institutions where an MP merely sits on a board — that is not their money"
       },
       "graph": {
         "badge": "entity graph · strongest case file",

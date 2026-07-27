@@ -1,0 +1,72 @@
+{
+  "batch": 12,
+  "track": "money",
+  "kind": "reachable-metric-audit",
+  "generatedAt": "2026-07-27",
+  "note": "Measured after the contract re-ingest. The raw reachable total is dominated by public bodies and ownership parents whose contracting is their own activity — the case's tie_class rule already says steward money is never the politician's. Rendering the raw total behind 'veřejné peníze v dosahu' would be a larger error than the capped floor it replaces.",
+  "all": {
+    "companies": 170,
+    "contracts": 153731,
+    "czk": 7187156531293.69,
+    "czkPretty": "7 187 156 531 294"
+  },
+  "byTieClass": {
+    "owner-operator": {
+      "companies": 19,
+      "contracts": 846,
+      "czk": 588927701.53,
+      "czkPretty": "588 927 702"
+    },
+    "manager": {
+      "companies": 16,
+      "contracts": 8406,
+      "czk": 42304820228.87,
+      "czkPretty": "42 304 820 229"
+    },
+    "steward": {
+      "companies": 121,
+      "contracts": 88635,
+      "czk": 462776652527.2607,
+      "czkPretty": "462 776 652 527"
+    },
+    "untied": {
+      "companies": 14,
+      "contracts": 55844,
+      "czk": 6681486130835.803,
+      "czkPretty": "6 681 486 130 836"
+    }
+  },
+  "attributableCzk": 42893747930.4,
+  "notAttributableCzk": 7144262783363.29,
+  "byDirection": {
+    "recipient": {
+      "companies": 154,
+      "contracts": 25789,
+      "czk": 488295596205.47076,
+      "czkPretty": "488 295 596 205"
+    },
+    "unknown": {
+      "companies": 165,
+      "contracts": 127942,
+      "czk": 6698860935088.226,
+      "czkPretty": "6 698 860 935 088"
+    },
+    "payer": {
+      "companies": 0,
+      "contracts": 0,
+      "czk": 0,
+      "czkPretty": "0"
+    }
+  },
+  "dateSanity": {
+    "implausible": 24,
+    "missing": 0,
+    "plausibleOnly": {
+      "companies": 170,
+      "contracts": 153707,
+      "czk": 7187053750920.641,
+      "czkPretty": "7 187 053 750 921"
+    }
+  },
+  "topNonAttributable": []
+}

@@ -781,3 +781,74 @@ at maximum depth returned **PARTIAL** (five framing defects, one refuted premise
    authority — `party_idnum`-only sweeps miss those by construction.
 5. Steward class (23), Teplárny Brno, ČSOB, České dráhy all remain **UNMEASURED**.
 6. Q-money-13's 21 residue items remain with law (14) and effort (7).
+
+### Batch 012 — the re-ingest, and the metric it exposed (2026-07-27)
+
+- **Contract corpus re-ingested from the Registr smluv bulk open-data dumps**:
+  **2 287 → 152 788 contract nodes**, 2 290 → 153 731 `supplies` edges, 123/123
+  months (2016-05 → 2026-07, ~26 GB streamed, one file on disk at a time). The
+  25-per-company cap is gone and the batch-011 floor caveat **retired itself**,
+  because it was computed from the data rather than hardcoded.
+- **Two traps caught before writing.** (a) `idSmlouvy` ≠ `idVerze`: the graph
+  keys on `idSmlouvy`, the web URL uses `idVerze`, and keying on the URL id would
+  have **silently duplicated the whole corpus**. Confirmed by outcome — 2 201 of
+  2 287 existing nodes matched. (b) The bulk dumps beat the HTML search outright:
+  they carry `datumUzavreni`, direction flags, and `platnyZaznam` (13 174
+  superseded versions that would have over-stated the corpus ~8 %).
+- **THE FINDING: completing the data made the headline worse.** Raw reachable CZK
+  went 18.74 bn → **7.19 trillion (×383)**, topped by Ministerstvo financí
+  (4.84 tn), Praha and ČSOB. **99.4 % is not attributable** — 462.8 bn steward
+  institutions, 6.68 tn ownership parents with no `linked_to` tie at all. The cap
+  had been hiding an attribution error; removing it made the error 383× louder.
+- **Fixed in the same batch, deliberately.** `stats.contractCzkAttributable`
+  (42.89 bn — owner-operator + manager) is what `/penize` now renders, with the
+  steward total named separately ("*to nejsou jeho peníze*"). A test pins that
+  the two reconcile to the whole. Shipping the data without the metric fix would
+  have been a regression disguised as an improvement.
+- **Direction now exists in the graph**: stated in ~18 % of records, running
+  25 819 recipient to 23 payer. A `payer` contract is **never** given a `supplies`
+  edge (23 refused); every edge carries `direction`.
+- **GDPR enforced in code, not prose**: explicit IČO allow-list required (empty
+  refuses to run), `adresa`/`datovaSchranka`/`schvalil` dropped at parse time,
+  one dump on disk at a time. **86 legacy nodes absent from current dumps** are
+  reported for a human deletion decision, never auto-deleted.
+- **942 917 publisher-side matches excluded** (public bodies publishing their own
+  contracts) — counted per IČO, not silently dropped. 6 months failed on
+  transport and were recorded retry-able, never as zero; a resume completed all.
+- **No `review_state` touched — 211 ties remain `pending_review`.** Live write at
+  **pass 41**.
+
+## Metrics block — batch 012
+
+| metric | batch 012 |
+|---|---|
+| contract nodes | 2 287 → **152 788** (×67) |
+| supplies edges | 2 290 → **153 731** |
+| months harvested | **123 / 123** (6 retried after transport failures) |
+| raw reachable CZK | 18 743 685 265 → **7 187 156 531 294** (×383) |
+| of which NOT attributable | **99.4 %** (steward 462.8 bn + untied parents 6.68 tn) |
+| headline now rendered | **42 893 747 930 CZK** (owner-operator + manager) |
+| duplicate corpus averted | `idSmlouvy` vs `idVerze` — 2 201/2 287 existing nodes matched |
+| payer contracts refused a `supplies` edge | 23 |
+| publisher-side matches excluded (counted) | 942 917 |
+| superseded versions dropped | 13 174 |
+| data-quality flags recorded | 24 impossible dates · 30 245 valueless · 86 legacy nodes absent from dumps |
+| new adapter | `lib/ingest/sources/smlouvy-dump.ts`, 21 tests |
+| gate | `npm run check` green — **509 tests** |
+
+## Steering (next batch — batch 013)
+
+1. **The 14 untied ownership parents must not carry `supplies` edges into any
+   attribution query.** The `/penize` loader is safe today only because of how it
+   iterates `linked_to` — that is an accident, not a guarantee. Either drop them
+   from the allow-list or require a tie in every consumer.
+2. **Direction is `unknown` for 83 % of edges.** Detail pages carry
+   `Plátce/Příjemce` more often than the dumps flag it; a targeted pass on the
+   highest-value unknowns would convert the biggest figures from assumed to
+   established.
+3. **Decide a re-harvest cadence** — dumps are retroactively corrected, and
+   `--refresh=<month>` exists. Wire it to the Pumper watch.
+4. **The subsidy channel (SZIF) remains the largest blind spot** — it is not in
+   this corpus at all, because SZIF decides rather than contracts.
+5. Steward-class sweep, Teplárny Brno, ČSOB, České dráhy still UNMEASURED
+   (batch 010); Q-money-13's 21 residue items still with law (14) / effort (7).

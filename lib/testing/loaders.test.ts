@@ -461,6 +461,19 @@ describe("getMoneyData (the /penize ledger)", () => {
     }
   });
 
+  it("splits reachable CZK into attributable vs steward money", async () => {
+    // The seed has an owner-operator tie (6.9M) and a steward tie on a hospital. After the
+    // batch-012 re-ingest stewards are ~91% of the real corpus, so folding both into one
+    // headline would say something false at nine times the volume — the split is what the
+    // surface renders, and the two parts must still reconcile to the whole.
+    const data = (await withReadinessOff(getMoneyData))!;
+    const { contractCzkAttributable, contractCzkSteward, contractCzkReachable } = data.stats;
+    expect(contractCzkAttributable + contractCzkSteward).toBe(contractCzkReachable);
+    // The owner-operator firm's money is attributable; the hospital's is not.
+    expect(contractCzkAttributable).toBe(6_900_000);
+    expect(contractCzkSteward).toBe(contractCzkReachable - 6_900_000);
+  });
+
   it("counts reachable CZK once per company and drops edges with an unresolved company", async () => {
     const data = (await withReadinessOff(getMoneyData))!;
     expect(data.stats.companiesLinked).toBe(3); // the ghost company is not counted

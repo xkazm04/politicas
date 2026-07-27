@@ -1,0 +1,376 @@
+{
+  "batch": 12,
+  "track": "money",
+  "kind": "contract-corpus-reingest",
+  "generatedAt": "2026-07-27T15:37:27.174Z",
+  "pass": 41,
+  "applied": true,
+  "note": "Re-ingest of the contract corpus from the Registr smluv bulk open-data dumps, keyed on idSmlouvy (the graph's existing key — the web URL uses idVerze, a different sequence). Props are MERGED so earlier passes' annotations survive. A contract where our company is the PAYER never receives a `supplies` edge; direction is recorded on every edge because the register states it in only a minority of records.",
+  "stats": {
+    "newNodes": 150501,
+    "updatedNodes": 2201,
+    "newEdges": 151554,
+    "existingEdges": 2194,
+    "payerEdgesRefused": 23,
+    "directions": {
+      "recipient": 25819,
+      "payer": 23,
+      "unknown": 127929
+    },
+    "amountBasis": {
+      "vcetneDph": 36580,
+      "bezDph": 82918,
+      "ciziMena": 2959,
+      "none": 30245
+    }
+  },
+  "superseded": 13174,
+  "distinctContracts": 152702,
+  "legacyAbsentFromDumps": [
+    {
+      "id": "contract:1022505",
+      "label": "Dodatek k obnovené Dohodě o režimu předávání datových souborů pkB"
+    },
+    {
+      "id": "contract:1022533",
+      "label": "Obnovená Dohoda o režimu předávání datových souborů pkB"
+    },
+    {
+      "id": "contract:1029725",
+      "label": "Dodatek k obnovené Smlouvě o nadstandardním zpracování pkA"
+    },
+    {
+      "id": "contract:107309",
+      "label": "Likvidace směsného komunálního odpadu a objemného odpadu"
+    },
+    {
+      "id": "contract:1082101",
+      "label": "PS SIPO"
+    },
+    {
+      "id": "contract:109957",
+      "label": "Dodatek č. 1 ke smlouvě o poskytnutí dotace z Fondu ÚK - 15/SML3018"
+    },
+    {
+      "id": "contract:1120785",
+      "label": "Hnojiva pro lesní hospodářství - projekt VaV"
+    },
+    {
+      "id": "contract:11280744",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:1147401",
+      "label": "DAROVACÍ SMLOUVA\nč. 1/99/2017"
+    },
+    {
+      "id": "contract:1172457",
+      "label": "Smlouva o nájmu prostoru sloužícího k podnikání"
+    },
+    {
+      "id": "contract:1172549",
+      "label": "Smlouva o nájmu prostoru sloužícího k podnikání"
+    },
+    {
+      "id": "contract:1172613",
+      "label": "Smlouva o nájmu prostoru sloužícího k podnikání"
+    },
+    {
+      "id": "contract:1172657",
+      "label": "Smlouva o nájmu prostoru sloužícího k podnikání"
+    },
+    {
+      "id": "contract:1172685",
+      "label": "Smlouva o nájmu prostoru sloužícího k podnikání"
+    },
+    {
+      "id": "contract:1172713",
+      "label": "Smlouva o nájmu nemovitosti"
+    },
+    {
+      "id": "contract:1172793",
+      "label": "Smlouva o nájmu nemovitosti"
+    },
+    {
+      "id": "contract:11827256",
+      "label": "- Nájemní smlouva - nájemce-dlouhodobá - nájem nebytových prostor Hvězdárna"
+    },
+    {
+      "id": "contract:1361258",
+      "label": "Oprava vodovodů ve st.m. Dejvická"
+    },
+    {
+      "id": "contract:1364286",
+      "label": "nájem letního stadionu"
+    },
+    {
+      "id": "contract:1426974",
+      "label": "Smlouva č.ZC/0217002 o odvozu a odstranění komunálního odpadu a odpadu podobného komunálnímu odpadu"
+    },
+    {
+      "id": "contract:1427002",
+      "label": "Smlouva č. ZC/0317001 o dovozu a odstranění komunálního odpadu a odpadu podobného komunálnímu odpadu"
+    },
+    {
+      "id": "contract:14476023",
+      "label": "komunikace"
+    },
+    {
+      "id": "contract:1831438",
+      "label": "zpracování 2. etapy vyhledávací studie pro vedení pěších tras pro projekt „Zlatá stezka – síť turistických tras po Zelené střeše Evropy\""
+    },
+    {
+      "id": "contract:1840830",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:1841478",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:1841514",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:1842166",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:1899462",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:1900354",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:1900614",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:1901218",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:1901314",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:1948582",
+      "label": "Grant na projekt s číslem 2017-1-CZ01-KA103-034925 v rámci programu Erasmus+, KA1: Vzdělávací mobilita jednotlivců"
+    },
+    {
+      "id": "contract:195633",
+      "label": "Smlouva č. ZC/0816005 o odvozu a odstranění komunálního odpadu a odpadu podobného komunálnímu odpadu"
+    },
+    {
+      "id": "contract:2045310",
+      "label": "smlouva SG-Delegace dar SL2017"
+    },
+    {
+      "id": "contract:2045874",
+      "label": "Nájem nemovitosti"
+    },
+    {
+      "id": "contract:2067366",
+      "label": "užívání sportovního zařízení  a výuce školního plavání"
+    },
+    {
+      "id": "contract:2133018",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:2133310",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:2359654",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:2360198",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:252089",
+      "label": "Smlouva o odvozu a odstranění komunálního odpadu a odpadu podobného komunálnímu odpadu"
+    },
+    {
+      "id": "contract:252181",
+      "label": "Smlouva o dovozu a odstranění komunálního odpadu a odpadu podobného komunálnímu odpadu"
+    },
+    {
+      "id": "contract:2549310",
+      "label": "Bezpečnostně-zdravotní ořez 108 ks významných jedinců dubu letního na horní části vzdušní strany hrá"
+    },
+    {
+      "id": "contract:255933",
+      "label": "Pověrovací akt - KZ (lůžková péče jako ZVS)"
+    },
+    {
+      "id": "contract:2586526",
+      "label": "Nájemní smlouva na dobu neurčitou"
+    },
+    {
+      "id": "contract:2631870",
+      "label": "Dodatek č.1 k cestovnímu pojištění"
+    },
+    {
+      "id": "contract:2677526",
+      "label": "Dílo, Stavební práce"
+    },
+    {
+      "id": "contract:274317",
+      "label": "Ostrovská teplárenská, a.s. - Výměna střešní krytiny na objektu garáží"
+    },
+    {
+      "id": "contract:2766750",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:2964458",
+      "label": "Kupní smlouva na sójový šrot"
+    },
+    {
+      "id": "contract:3144142",
+      "label": "Smlouva o výpůjčce - díla na výstavu Muž s hořící hřívou! - Museum Kampa"
+    },
+    {
+      "id": "contract:3148362",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:3152906",
+      "label": "Dohoda o poskytnutí hmotné podpory pořízení dlouhodobého hmotného a nehmotného majetku v rámci investičních pobídek"
+    },
+    {
+      "id": "contract:32165",
+      "label": "Lodenice, smlouva o předání majetku státu č.j. UZSVM/SBE/1361/2016"
+    },
+    {
+      "id": "contract:3265622",
+      "label": "Tisk výročního nástěnného kalendáře JÚŠ pro rok 2018"
+    },
+    {
+      "id": "contract:34249",
+      "label": "Inominátní smlouva - Smlouva o spoluužívání vodního díla"
+    },
+    {
+      "id": "contract:355333",
+      "label": "smlouva o užívání sportovního zařízení a výuka školního plavání"
+    },
+    {
+      "id": "contract:4091720",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:412689",
+      "label": "Úklid a odvozu odpadu a dalších souvisejících služeb poskytovatelem na náplavkách v Praze 1, 2 a 5."
+    },
+    {
+      "id": "contract:4311024",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:4437304",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:4653724",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:4719304",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:484529",
+      "label": "na pronájem jedné místnosti v čp. 395 v k. ú. Mnichovo Hradiště"
+    },
+    {
+      "id": "contract:4880444",
+      "label": "Poskytnutí účelové dotace z rozpočtu Libereckého kraje na projekt Podpora rozvoje turistického regionu Český ráj 2018"
+    },
+    {
+      "id": "contract:509093",
+      "label": "Grantová smlouva: 2016-1-CZ01-KA103-023077-ERASMUS"
+    },
+    {
+      "id": "contract:535997",
+      "label": "Příprava, oponentura a aktualizace e-learningových lekcí pro děti a studenty"
+    },
+    {
+      "id": "contract:5395275",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:5605859",
+      "label": "Grant na projekt s číslem 2018-1-CZ01-KA103-046970"
+    },
+    {
+      "id": "contract:5649155",
+      "label": "Bezpečnostně-zdravotní ořez 197 ks významných jedinců dubu letního a lip srdčitých na návodní straně"
+    },
+    {
+      "id": "contract:5812331",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:5812751",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:6765791",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:679809",
+      "label": "Grantová smlouva: 2015-1-CZ01-KA103-012992-ERASMUS"
+    },
+    {
+      "id": "contract:72669",
+      "label": "poskytnutí účelové finanční dotace určené na projekt „Lektorské programy pro veřejnost“"
+    },
+    {
+      "id": "contract:7524299",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:7902267",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:8072575",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:8694119",
+      "label": "Doplnění oboustranné aleje listnatých  stromů podél komunikace hráze Opatovického rybníka, a to 22 k"
+    },
+    {
+      "id": "contract:8885195",
+      "label": "604/OŠK/19  Dohoda o vzájemné spolupráci na projektu"
+    },
+    {
+      "id": "contract:8886347",
+      "label": "Přístup do ČSN online pro více uživatelů na základ"
+    },
+    {
+      "id": "contract:96145",
+      "label": "Smlouva o zakoupení vstupenek na divadelní představení Mikve - STD 11.10.2016"
+    },
+    {
+      "id": "contract:975661",
+      "label": "PS SIPO"
+    },
+    {
+      "id": "contract:9758926",
+      "label": "Odstranění náletu dřevin na ostrůvcích na vybraných rybnících v CHKO Třeboňsko (Okřínek - p.č. 686 v"
+    },
+    {
+      "id": "contract:98101",
+      "label": "Rekonstrukce kanalizace, ul. Vysočanská (úsek Prosecká - Litoměřická), P9 - projektová dokumentace"
+    }
+  ],
+  "legacyAbsentCount": 86
+}

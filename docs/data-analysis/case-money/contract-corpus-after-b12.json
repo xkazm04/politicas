@@ -1,0 +1,103 @@
+{
+  "takenAt": "2026-07-27T15:33:52.805Z",
+  "contractNodes": 152788,
+  "supplyEdges": 153731,
+  "companiesWithSupplies": 170,
+  "maxContractsPerCompany": 19942,
+  "companiesAtMax": 1,
+  "totalCzk": 7187156531293.69,
+  "earliestSignedOn": "0002-02-25",
+  "latestSignedOn": "3062-07-16",
+  "topCompanies": [
+    {
+      "id": "company:ico:00006947",
+      "label": "Ministerstvo financí",
+      "contracts": 12846,
+      "czk": 4839845072903.316
+    },
+    {
+      "id": "company:ico:00064581",
+      "label": "HLAVNÍ MĚSTO PRAHA",
+      "contracts": 19942,
+      "czk": 734465018567.6887
+    },
+    {
+      "id": "company:ico:00001350",
+      "label": "Československá obchodní banka, a.s.",
+      "contracts": 9876,
+      "czk": 691516873670.4083
+    },
+    {
+      "id": "company:ico:70994226",
+      "label": "České dráhy, a.s.",
+      "contracts": 5323,
+      "czk": 240088051586.15988
+    },
+    {
+      "id": "company:ico:70891095",
+      "label": "Středočeský kraj",
+      "contracts": 1682,
+      "czk": 90813789105.23004
+    },
+    {
+      "id": "company:ico:25508881",
+      "label": "Dopravní podnik města Brna, a.s.",
+      "contracts": 1032,
+      "czk": 88987670585.64001
+    },
+    {
+      "id": "company:ico:60194120",
+      "label": "Pražské služby, a.s.",
+      "contracts": 4043,
+      "czk": 53271958478.60008
+    },
+    {
+      "id": "company:ico:00075370",
+      "label": "Město Plzeň",
+      "contracts": 1873,
+      "czk": 46510577536.909996
+    },
+    {
+      "id": "company:ico:60193531",
+      "label": "ČEPRO, a.s.",
+      "contracts": 7279,
+      "czk": 43646652223.99009
+    },
+    {
+      "id": "company:ico:61989592",
+      "label": "Univerzita Palackého v Olomouci",
+      "contracts": 2684,
+      "czk": 28353545647.57999
+    },
+    {
+      "id": "company:ico:60713470",
+      "label": "SAKO Brno, a.s.",
+      "contracts": 1038,
+      "czk": 24673935738.699997
+    },
+    {
+      "id": "company:ico:46347534",
+      "label": "Teplárny Brno, a.s.",
+      "contracts": 1906,
+      "czk": 23570593908.02999
+    },
+    {
+      "id": "company:ico:45146802",
+      "label": "Energie - stavební a báňská a.s.",
+      "contracts": 510,
+      "czk": 20790731009.190002
+    },
+    {
+      "id": "company:ico:00027383",
+      "label": "ČESKÁ TELEVIZE",
+      "contracts": 974,
+      "czk": 19557459047.670002
+    },
+    {
+      "id": "company:ico:09133267",
+      "label": "ARENA BRNO, a.s.",
+      "contracts": 86,
+      "czk": 19386451777.79
+    }
+  ]
+}

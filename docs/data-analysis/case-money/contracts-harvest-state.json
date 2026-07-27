@@ -1,0 +1,831 @@
+{
+  "months": {
+    "2026-07": {
+      "records": 1137,
+      "publisherOnlyDropped": 8456,
+      "bytes": 100407291,
+      "harvestedAt": "2026-07-27T12:54:46.929Z"
+    },
+    "2016-05": {
+      "records": 0,
+      "publisherOnlyDropped": 0,
+      "bytes": 223,
+      "harvestedAt": "2026-07-27T12:54:58.646Z"
+    },
+    "2016-06": {
+      "records": 0,
+      "publisherOnlyDropped": 0,
+      "bytes": 223,
+      "harvestedAt": "2026-07-27T12:54:58.695Z"
+    },
+    "2016-07": {
+      "records": 131,
+      "publisherOnlyDropped": 441,
+      "bytes": 12781704,
+      "harvestedAt": "2026-07-27T12:55:02.436Z"
+    },
+    "2016-08": {
+      "records": 345,
+      "publisherOnlyDropped": 2061,
+      "bytes": 37668870,
+      "harvestedAt": "2026-07-27T12:55:19.012Z"
+    },
+    "2016-09": {
+      "records": 380,
+      "publisherOnlyDropped": 2548,
+      "bytes": 47564258,
+      "harvestedAt": "2026-07-27T12:55:38.434Z"
+    },
+    "2016-10": {
+      "records": 372,
+      "publisherOnlyDropped": 3210,
+      "bytes": 54152590,
+      "harvestedAt": "2026-07-27T12:56:07.110Z"
+    },
+    "2016-11": {
+      "records": 526,
+      "publisherOnlyDropped": 3413,
+      "bytes": 77272349,
+      "harvestedAt": "2026-07-27T12:56:41.406Z"
+    },
+    "2016-12": {
+      "records": 428,
+      "publisherOnlyDropped": 4188,
+      "bytes": 69760267,
+      "harvestedAt": "2026-07-27T12:57:22.235Z"
+    },
+    "2017-01": {
+      "records": 587,
+      "publisherOnlyDropped": 4494,
+      "bytes": 72499846,
+      "harvestedAt": "2026-07-27T12:57:45.944Z"
+    },
+    "2017-02": {
+      "records": 551,
+      "publisherOnlyDropped": 4640,
+      "bytes": 64029062,
+      "harvestedAt": "2026-07-27T12:58:09.822Z"
+    },
+    "2017-03": {
+      "records": 588,
+      "publisherOnlyDropped": 4394,
+      "bytes": 84386821,
+      "harvestedAt": "2026-07-27T12:58:40.117Z"
+    },
+    "2017-04": {
+      "records": 509,
+      "publisherOnlyDropped": 6143,
+      "bytes": 69080628,
+      "harvestedAt": "2026-07-27T12:59:02.710Z"
+    },
+    "2017-05": {
+      "records": 584,
+      "publisherOnlyDropped": 4041,
+      "bytes": 89567483,
+      "harvestedAt": "2026-07-27T12:59:36.170Z"
+    },
+    "2017-06": {
+      "records": 848,
+      "publisherOnlyDropped": 5859,
+      "bytes": 124622030,
+      "harvestedAt": "2026-07-27T13:00:19.396Z"
+    },
+    "2017-07": {
+      "records": 1169,
+      "publisherOnlyDropped": 4698,
+      "bytes": 87109775,
+      "harvestedAt": "2026-07-27T13:00:49.725Z"
+    },
+    "2017-08": {
+      "records": 1785,
+      "publisherOnlyDropped": 4811,
+      "bytes": 91687374,
+      "harvestedAt": "2026-07-27T13:01:21.224Z"
+    },
+    "2017-10": {
+      "records": 1457,
+      "publisherOnlyDropped": 6834,
+      "bytes": 104527185,
+      "harvestedAt": "2026-07-27T13:02:23.736Z"
+    },
+    "2017-11": {
+      "records": 1515,
+      "publisherOnlyDropped": 6133,
+      "bytes": 105659045,
+      "harvestedAt": "2026-07-27T13:03:33.706Z"
+    },
+    "2017-12": {
+      "records": 1407,
+      "publisherOnlyDropped": 6170,
+      "bytes": 100980515,
+      "harvestedAt": "2026-07-27T13:04:43.454Z"
+    },
+    "2018-01": {
+      "records": 1266,
+      "publisherOnlyDropped": 6427,
+      "bytes": 109546261,
+      "harvestedAt": "2026-07-27T13:05:52.838Z"
+    },
+    "2018-02": {
+      "records": 1379,
+      "publisherOnlyDropped": 5145,
+      "bytes": 87922961,
+      "harvestedAt": "2026-07-27T13:06:40.098Z"
+    },
+    "2018-03": {
+      "records": 1414,
+      "publisherOnlyDropped": 5696,
+      "bytes": 95141130,
+      "harvestedAt": "2026-07-27T13:07:53.201Z"
+    },
+    "2018-05": {
+      "records": 1438,
+      "publisherOnlyDropped": 5570,
+      "bytes": 98412803,
+      "harvestedAt": "2026-07-27T13:09:27.039Z"
+    },
+    "2018-06": {
+      "records": 1391,
+      "publisherOnlyDropped": 9545,
+      "bytes": 105897524,
+      "harvestedAt": "2026-07-27T13:10:49.124Z"
+    },
+    "2018-07": {
+      "records": 1139,
+      "publisherOnlyDropped": 5290,
+      "bytes": 85595016,
+      "harvestedAt": "2026-07-27T13:11:20.862Z"
+    },
+    "2018-08": {
+      "records": 1164,
+      "publisherOnlyDropped": 5281,
+      "bytes": 87344726,
+      "harvestedAt": "2026-07-27T13:12:25.596Z"
+    },
+    "2018-09": {
+      "records": 1247,
+      "publisherOnlyDropped": 4963,
+      "bytes": 88402444,
+      "harvestedAt": "2026-07-27T13:13:30.635Z"
+    },
+    "2018-10": {
+      "records": 1668,
+      "publisherOnlyDropped": 6457,
+      "bytes": 124827387,
+      "harvestedAt": "2026-07-27T13:14:34.173Z"
+    },
+    "2018-11": {
+      "records": 1577,
+      "publisherOnlyDropped": 5854,
+      "bytes": 106439406,
+      "harvestedAt": "2026-07-27T13:15:59.002Z"
+    },
+    "2018-12": {
+      "records": 1342,
+      "publisherOnlyDropped": 5227,
+      "bytes": 88123437,
+      "harvestedAt": "2026-07-27T13:17:06.188Z"
+    },
+    "2019-01": {
+      "records": 1461,
+      "publisherOnlyDropped": 5859,
+      "bytes": 106095962,
+      "harvestedAt": "2026-07-27T13:18:31.053Z"
+    },
+    "2019-02": {
+      "records": 1288,
+      "publisherOnlyDropped": 9356,
+      "bytes": 85204684,
+      "harvestedAt": "2026-07-27T13:19:27.384Z"
+    },
+    "2019-03": {
+      "records": 1309,
+      "publisherOnlyDropped": 6425,
+      "bytes": 93528665,
+      "harvestedAt": "2026-07-27T13:20:28.048Z"
+    },
+    "2019-04": {
+      "records": 1412,
+      "publisherOnlyDropped": 6135,
+      "bytes": 99419821,
+      "harvestedAt": "2026-07-27T13:21:37.333Z"
+    },
+    "2019-05": {
+      "records": 1406,
+      "publisherOnlyDropped": 6059,
+      "bytes": 98512755,
+      "harvestedAt": "2026-07-27T13:22:43.172Z"
+    },
+    "2019-06": {
+      "records": 1416,
+      "publisherOnlyDropped": 5676,
+      "bytes": 90493045,
+      "harvestedAt": "2026-07-27T13:23:49.151Z"
+    },
+    "2019-07": {
+      "records": 1357,
+      "publisherOnlyDropped": 5744,
+      "bytes": 87674807,
+      "harvestedAt": "2026-07-27T13:25:11.226Z"
+    },
+    "2019-08": {
+      "records": 1268,
+      "publisherOnlyDropped": 4921,
+      "bytes": 82373635,
+      "harvestedAt": "2026-07-27T13:26:35.787Z"
+    },
+    "2019-09": {
+      "records": 1208,
+      "publisherOnlyDropped": 4874,
+      "bytes": 89923700,
+      "harvestedAt": "2026-07-27T13:27:42.626Z"
+    },
+    "2019-10": {
+      "records": 1290,
+      "publisherOnlyDropped": 5893,
+      "bytes": 103516891,
+      "harvestedAt": "2026-07-27T13:29:00.825Z"
+    },
+    "2019-11": {
+      "records": 1456,
+      "publisherOnlyDropped": 5589,
+      "bytes": 108223381,
+      "harvestedAt": "2026-07-27T13:30:17.123Z"
+    },
+    "2019-12": {
+      "records": 1568,
+      "publisherOnlyDropped": 5871,
+      "bytes": 111756974,
+      "harvestedAt": "2026-07-27T13:31:43.583Z"
+    },
+    "2020-01": {
+      "records": 1560,
+      "publisherOnlyDropped": 6179,
+      "bytes": 100824572,
+      "harvestedAt": "2026-07-27T13:33:16.740Z"
+    },
+    "2020-02": {
+      "records": 1284,
+      "publisherOnlyDropped": 6351,
+      "bytes": 89382057,
+      "harvestedAt": "2026-07-27T13:34:16.877Z"
+    },
+    "2020-03": {
+      "records": 1448,
+      "publisherOnlyDropped": 6493,
+      "bytes": 87987555,
+      "harvestedAt": "2026-07-27T13:35:25.266Z"
+    },
+    "2020-04": {
+      "records": 1231,
+      "publisherOnlyDropped": 4957,
+      "bytes": 123354959,
+      "harvestedAt": "2026-07-27T13:36:44.781Z"
+    },
+    "2020-05": {
+      "records": 1161,
+      "publisherOnlyDropped": 6654,
+      "bytes": 108375330,
+      "harvestedAt": "2026-07-27T13:38:30.756Z"
+    },
+    "2020-06": {
+      "records": 1210,
+      "publisherOnlyDropped": 6474,
+      "bytes": 103499590,
+      "harvestedAt": "2026-07-27T13:40:18.084Z"
+    },
+    "2020-07": {
+      "records": 1318,
+      "publisherOnlyDropped": 6362,
+      "bytes": 94931151,
+      "harvestedAt": "2026-07-27T13:41:59.777Z"
+    },
+    "2020-08": {
+      "records": 1180,
+      "publisherOnlyDropped": 5632,
+      "bytes": 79975665,
+      "harvestedAt": "2026-07-27T13:43:13.550Z"
+    },
+    "2020-09": {
+      "records": 1365,
+      "publisherOnlyDropped": 6665,
+      "bytes": 97524056,
+      "harvestedAt": "2026-07-27T13:44:18.608Z"
+    },
+    "2020-10": {
+      "records": 1498,
+      "publisherOnlyDropped": 17674,
+      "bytes": 117749490,
+      "harvestedAt": "2026-07-27T13:45:48.288Z"
+    },
+    "2020-11": {
+      "records": 1552,
+      "publisherOnlyDropped": 7680,
+      "bytes": 130241306,
+      "harvestedAt": "2026-07-27T13:47:44.610Z"
+    },
+    "2021-01": {
+      "records": 1290,
+      "publisherOnlyDropped": 6717,
+      "bytes": 95533526,
+      "harvestedAt": "2026-07-27T13:48:32.458Z"
+    },
+    "2021-02": {
+      "records": 1971,
+      "publisherOnlyDropped": 7063,
+      "bytes": 89955864,
+      "harvestedAt": "2026-07-27T13:49:46.626Z"
+    },
+    "2021-03": {
+      "records": 4226,
+      "publisherOnlyDropped": 8729,
+      "bytes": 150116751,
+      "harvestedAt": "2026-07-27T13:51:36.195Z"
+    },
+    "2021-04": {
+      "records": 1511,
+      "publisherOnlyDropped": 6782,
+      "bytes": 117081292,
+      "harvestedAt": "2026-07-27T13:53:03.924Z"
+    },
+    "2021-05": {
+      "records": 1303,
+      "publisherOnlyDropped": 7331,
+      "bytes": 104566159,
+      "harvestedAt": "2026-07-27T13:54:04.134Z"
+    },
+    "2021-06": {
+      "records": 1303,
+      "publisherOnlyDropped": 6953,
+      "bytes": 107047894,
+      "harvestedAt": "2026-07-27T13:55:17.708Z"
+    },
+    "2021-08": {
+      "records": 1145,
+      "publisherOnlyDropped": 5471,
+      "bytes": 94860076,
+      "harvestedAt": "2026-07-27T13:55:51.145Z"
+    },
+    "2021-09": {
+      "records": 1277,
+      "publisherOnlyDropped": 6302,
+      "bytes": 100042096,
+      "harvestedAt": "2026-07-27T13:56:39.199Z"
+    },
+    "2021-10": {
+      "records": 1287,
+      "publisherOnlyDropped": 6722,
+      "bytes": 97786904,
+      "harvestedAt": "2026-07-27T13:57:50.949Z"
+    },
+    "2021-11": {
+      "records": 1375,
+      "publisherOnlyDropped": 8538,
+      "bytes": 116664684,
+      "harvestedAt": "2026-07-27T13:58:32.069Z"
+    },
+    "2021-12": {
+      "records": 1703,
+      "publisherOnlyDropped": 7514,
+      "bytes": 117423612,
+      "harvestedAt": "2026-07-27T14:00:01.637Z"
+    },
+    "2022-01": {
+      "records": 1501,
+      "publisherOnlyDropped": 8743,
+      "bytes": 106110777,
+      "harvestedAt": "2026-07-27T14:01:29.419Z"
+    },
+    "2022-02": {
+      "records": 1348,
+      "publisherOnlyDropped": 8853,
+      "bytes": 92217538,
+      "harvestedAt": "2026-07-27T14:02:28.588Z"
+    },
+    "2022-03": {
+      "records": 1694,
+      "publisherOnlyDropped": 10401,
+      "bytes": 113144810,
+      "harvestedAt": "2026-07-27T14:03:42.858Z"
+    },
+    "2022-04": {
+      "records": 1591,
+      "publisherOnlyDropped": 9107,
+      "bytes": 100408505,
+      "harvestedAt": "2026-07-27T14:05:37.553Z"
+    },
+    "2022-05": {
+      "records": 1521,
+      "publisherOnlyDropped": 11175,
+      "bytes": 117539770,
+      "harvestedAt": "2026-07-27T14:07:40.577Z"
+    },
+    "2022-06": {
+      "records": 1556,
+      "publisherOnlyDropped": 8788,
+      "bytes": 142470245,
+      "harvestedAt": "2026-07-27T14:09:40.128Z"
+    },
+    "2022-07": {
+      "records": 1477,
+      "publisherOnlyDropped": 10202,
+      "bytes": 101505289,
+      "harvestedAt": "2026-07-27T14:11:09.349Z"
+    },
+    "2022-08": {
+      "records": 1434,
+      "publisherOnlyDropped": 8590,
+      "bytes": 102949606,
+      "harvestedAt": "2026-07-27T14:12:16.085Z"
+    },
+    "2022-09": {
+      "records": 1510,
+      "publisherOnlyDropped": 7394,
+      "bytes": 107890038,
+      "harvestedAt": "2026-07-27T14:14:12.146Z"
+    },
+    "2022-10": {
+      "records": 1441,
+      "publisherOnlyDropped": 8985,
+      "bytes": 107393105,
+      "harvestedAt": "2026-07-27T14:15:35.446Z"
+    },
+    "2022-11": {
+      "records": 1438,
+      "publisherOnlyDropped": 10900,
+      "bytes": 123127683,
+      "harvestedAt": "2026-07-27T14:17:23.235Z"
+    },
+    "2023-01": {
+      "records": 1575,
+      "publisherOnlyDropped": 9295,
+      "bytes": 116159358,
+      "harvestedAt": "2026-07-27T14:19:31.623Z"
+    },
+    "2023-03": {
+      "records": 1628,
+      "publisherOnlyDropped": 11386,
+      "bytes": 126746920,
+      "harvestedAt": "2026-07-27T14:21:29.067Z"
+    },
+    "2023-04": {
+      "records": 1461,
+      "publisherOnlyDropped": 9754,
+      "bytes": 109705202,
+      "harvestedAt": "2026-07-27T14:22:57.396Z"
+    },
+    "2023-05": {
+      "records": 1360,
+      "publisherOnlyDropped": 9243,
+      "bytes": 123410773,
+      "harvestedAt": "2026-07-27T14:24:13.841Z"
+    },
+    "2023-06": {
+      "records": 1590,
+      "publisherOnlyDropped": 13222,
+      "bytes": 135263871,
+      "harvestedAt": "2026-07-27T14:25:46.965Z"
+    },
+    "2023-07": {
+      "records": 1180,
+      "publisherOnlyDropped": 8953,
+      "bytes": 101313321,
+      "harvestedAt": "2026-07-27T14:26:55.502Z"
+    },
+    "2023-08": {
+      "records": 1374,
+      "publisherOnlyDropped": 8755,
+      "bytes": 110232772,
+      "harvestedAt": "2026-07-27T14:28:38.983Z"
+    },
+    "2023-09": {
+      "records": 1346,
+      "publisherOnlyDropped": 8288,
+      "bytes": 113303683,
+      "harvestedAt": "2026-07-27T14:30:29.637Z"
+    },
+    "2023-10": {
+      "records": 1501,
+      "publisherOnlyDropped": 9898,
+      "bytes": 134614469,
+      "harvestedAt": "2026-07-27T14:32:35.773Z"
+    },
+    "2023-11": {
+      "records": 1618,
+      "publisherOnlyDropped": 10704,
+      "bytes": 136642048,
+      "harvestedAt": "2026-07-27T14:34:15.885Z"
+    },
+    "2023-12": {
+      "records": 1898,
+      "publisherOnlyDropped": 9998,
+      "bytes": 167558490,
+      "harvestedAt": "2026-07-27T14:36:40.544Z"
+    },
+    "2024-01": {
+      "records": 1642,
+      "publisherOnlyDropped": 9994,
+      "bytes": 136042942,
+      "harvestedAt": "2026-07-27T14:38:10.572Z"
+    },
+    "2024-02": {
+      "records": 1506,
+      "publisherOnlyDropped": 10659,
+      "bytes": 121913885,
+      "harvestedAt": "2026-07-27T14:39:46.516Z"
+    },
+    "2024-03": {
+      "records": 1395,
+      "publisherOnlyDropped": 10194,
+      "bytes": 125945534,
+      "harvestedAt": "2026-07-27T14:41:47.552Z"
+    },
+    "2024-04": {
+      "records": 1628,
+      "publisherOnlyDropped": 10021,
+      "bytes": 133256426,
+      "harvestedAt": "2026-07-27T14:43:36.617Z"
+    },
+    "2024-05": {
+      "records": 1395,
+      "publisherOnlyDropped": 10796,
+      "bytes": 130206745,
+      "harvestedAt": "2026-07-27T14:44:54.978Z"
+    },
+    "2024-06": {
+      "records": 1579,
+      "publisherOnlyDropped": 10521,
+      "bytes": 139249628,
+      "harvestedAt": "2026-07-27T14:47:09.559Z"
+    },
+    "2024-07": {
+      "records": 1413,
+      "publisherOnlyDropped": 10157,
+      "bytes": 128704485,
+      "harvestedAt": "2026-07-27T14:48:51.733Z"
+    },
+    "2024-08": {
+      "records": 1268,
+      "publisherOnlyDropped": 8668,
+      "bytes": 115170370,
+      "harvestedAt": "2026-07-27T14:49:54.226Z"
+    },
+    "2024-09": {
+      "records": 1421,
+      "publisherOnlyDropped": 9316,
+      "bytes": 128170889,
+      "harvestedAt": "2026-07-27T14:50:57.531Z"
+    },
+    "2024-10": {
+      "records": 1677,
+      "publisherOnlyDropped": 11088,
+      "bytes": 184581018,
+      "harvestedAt": "2026-07-27T14:52:40.671Z"
+    },
+    "2024-11": {
+      "records": 1624,
+      "publisherOnlyDropped": 10165,
+      "bytes": 146971895,
+      "harvestedAt": "2026-07-27T14:53:33.364Z"
+    },
+    "2024-12": {
+      "records": 1559,
+      "publisherOnlyDropped": 9841,
+      "bytes": 137395104,
+      "harvestedAt": "2026-07-27T14:54:29.028Z"
+    },
+    "2025-01": {
+      "records": 1576,
+      "publisherOnlyDropped": 8476,
+      "bytes": 127788820,
+      "harvestedAt": "2026-07-27T14:55:16.732Z"
+    },
+    "2025-02": {
+      "records": 1572,
+      "publisherOnlyDropped": 11261,
+      "bytes": 119336885,
+      "harvestedAt": "2026-07-27T14:55:53.855Z"
+    },
+    "2025-03": {
+      "records": 1569,
+      "publisherOnlyDropped": 11250,
+      "bytes": 139471434,
+      "harvestedAt": "2026-07-27T14:56:42.610Z"
+    },
+    "2025-04": {
+      "records": 1449,
+      "publisherOnlyDropped": 10499,
+      "bytes": 128299601,
+      "harvestedAt": "2026-07-27T14:57:30.556Z"
+    },
+    "2025-05": {
+      "records": 1386,
+      "publisherOnlyDropped": 9944,
+      "bytes": 121454634,
+      "harvestedAt": "2026-07-27T14:59:48.943Z"
+    },
+    "2025-06": {
+      "records": 1473,
+      "publisherOnlyDropped": 10920,
+      "bytes": 135110508,
+      "harvestedAt": "2026-07-27T15:01:58.805Z"
+    },
+    "2025-07": {
+      "records": 1518,
+      "publisherOnlyDropped": 10093,
+      "bytes": 131355212,
+      "harvestedAt": "2026-07-27T15:02:58.404Z"
+    },
+    "2025-08": {
+      "records": 1267,
+      "publisherOnlyDropped": 9092,
+      "bytes": 109458445,
+      "harvestedAt": "2026-07-27T15:04:01.993Z"
+    },
+    "2025-09": {
+      "records": 1523,
+      "publisherOnlyDropped": 10921,
+      "bytes": 132373603,
+      "harvestedAt": "2026-07-27T15:06:18.707Z"
+    },
+    "2025-10": {
+      "records": 1608,
+      "publisherOnlyDropped": 10298,
+      "bytes": 136069841,
+      "harvestedAt": "2026-07-27T15:08:22.151Z"
+    },
+    "2025-11": {
+      "records": 1505,
+      "publisherOnlyDropped": 12892,
+      "bytes": 131082107,
+      "harvestedAt": "2026-07-27T15:10:04.435Z"
+    },
+    "2025-12": {
+      "records": 1799,
+      "publisherOnlyDropped": 9740,
+      "bytes": 142394548,
+      "harvestedAt": "2026-07-27T15:11:50.091Z"
+    },
+    "2026-01": {
+      "records": 1601,
+      "publisherOnlyDropped": 11183,
+      "bytes": 124217027,
+      "harvestedAt": "2026-07-27T15:13:35.543Z"
+    },
+    "2026-02": {
+      "records": 1324,
+      "publisherOnlyDropped": 12309,
+      "bytes": 118237886,
+      "harvestedAt": "2026-07-27T15:15:34.550Z"
+    },
+    "2026-03": {
+      "records": 1522,
+      "publisherOnlyDropped": 13635,
+      "bytes": 135083883,
+      "harvestedAt": "2026-07-27T15:17:29.483Z"
+    },
+    "2026-04": {
+      "records": 1459,
+      "publisherOnlyDropped": 11713,
+      "bytes": 132603967,
+      "harvestedAt": "2026-07-27T15:19:09.246Z"
+    },
+    "2026-05": {
+      "records": 1409,
+      "publisherOnlyDropped": 10224,
+      "bytes": 130760526,
+      "harvestedAt": "2026-07-27T15:20:43.226Z"
+    },
+    "2026-06": {
+      "records": 1633,
+      "publisherOnlyDropped": 12144,
+      "bytes": 146186217,
+      "harvestedAt": "2026-07-27T15:22:34.861Z"
+    },
+    "2017-09": {
+      "records": 1312,
+      "publisherOnlyDropped": 4808,
+      "bytes": 86296550,
+      "harvestedAt": "2026-07-27T15:24:08.684Z"
+    },
+    "2018-04": {
+      "records": 1309,
+      "publisherOnlyDropped": 5046,
+      "bytes": 92595174,
+      "harvestedAt": "2026-07-27T15:25:52.983Z"
+    },
+    "2020-12": {
+      "records": 1632,
+      "publisherOnlyDropped": 7139,
+      "bytes": 127389923,
+      "harvestedAt": "2026-07-27T15:27:59.475Z"
+    },
+    "2021-07": {
+      "records": 1214,
+      "publisherOnlyDropped": 5449,
+      "bytes": 84590049,
+      "harvestedAt": "2026-07-27T15:29:24.850Z"
+    },
+    "2022-12": {
+      "records": 1714,
+      "publisherOnlyDropped": 9918,
+      "bytes": 128564313,
+      "harvestedAt": "2026-07-27T15:31:22.582Z"
+    },
+    "2023-02": {
+      "records": 1372,
+      "publisherOnlyDropped": 8731,
+      "bytes": 98308617,
+      "harvestedAt": "2026-07-27T15:32:55.187Z"
+    }
+  },
+  "publisherOnlyByIco": {
+    "17047234": 28,
+    "24188581": 1,
+    "25172263": 453,
+    "25205625": 10711,
+    "25220683": 8135,
+    "25224662": 63,
+    "25234994": 16,
+    "25245091": 306,
+    "25321692": 314,
+    "25488627": 134719,
+    "25508881": 14273,
+    "25513290": 49,
+    "25848526": 1528,
+    "25918206": 502,
+    "25968084": 1090,
+    "25968700": 362,
+    "25997556": 374,
+    "26000237": 2724,
+    "26039907": 3,
+    "26318903": 8,
+    "26402068": 2359,
+    "26871068": 6714,
+    "27116913": 1,
+    "27251918": 2101,
+    "27256456": 18365,
+    "27256537": 15602,
+    "27257258": 103,
+    "27267351": 431,
+    "27341313": 296,
+    "27467759": 1857,
+    "27485013": 114,
+    "27660532": 5354,
+    "27660915": 13743,
+    "27661989": 157723,
+    "28046153": 1509,
+    "28168151": 152,
+    "28593987": 245,
+    "28633032": 865,
+    "41197518": 29725,
+    "45245053": 11723,
+    "45534306": 12,
+    "46347534": 7002,
+    "46744991": 1694,
+    "47674652": 135,
+    "48154938": 214,
+    "48161063": 186,
+    "49451871": 2682,
+    "49789228": 22,
+    "49790480": 1660,
+    "49790498": 81,
+    "60193468": 4364,
+    "60193531": 26048,
+    "60193913": 1,
+    "60194120": 7418,
+    "60713470": 7717,
+    "60800691": 3906,
+    "61989592": 29509,
+    "62240935": 1073,
+    "63080249": 1918,
+    "63113074": 75,
+    "63217066": 1622,
+    "64053466": 1437,
+    "70889546": 28300,
+    "70889953": 12004,
+    "70889988": 8761,
+    "70890013": 8740,
+    "70891095": 42742,
+    "70891168": 19931,
+    "70994226": 8134,
+    "71184465": 221,
+    "75112779": 526,
+    "00075370": 47070,
+    "00254843": 3885,
+    "00001350": 7517,
+    "00027383": 48404,
+    "00274046": 13138,
+    "00006947": 23189,
+    "00064581": 126996,
+    "00829838": 5184,
+    "09133267": 102,
+    "02795281": 3062,
+    "00084018": 22,
+    "08160902": 25,
+    "08694508": 3
+  },
+  "icoCount": 214,
+  "startedAt": "2026-07-27T12:53:39.417Z",
+  "updatedAt": "2026-07-27T15:32:55.187Z"
+}

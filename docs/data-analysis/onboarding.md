@@ -67,6 +67,39 @@ only the 149 companies the original money feed queried (all of them MP-tied), ou
 of 215 company nodes — so most of the company population has never been asked
 about contracts at all.
 
+### Registr smluv BULK dumps — `lib/ingest/sources/smlouvy-dump.ts`
+
+Added money batch 012. The per-IČO search above is rate-limited, carries no
+signature date and — decisively — **no direction of money**. The bulk export has
+all three. Index at `https://data.smlouvy.gov.cz/`, monthly
+`dump_<YYYY>_<MM>.xml`, 2016-05 → present, ~26 GB total (~7–185 MB per file).
+
+Four things measured once, recorded so nobody re-derives them:
+
+- **`idSmlouvy` is the graph's contract key, `idVerze` is the URL's.** They are
+  different sequences. `contract:1443766` = `idSmlouvy` 1443766 = "Mořidla"
+  (AGROFERT, 2017-03-08); `idVerze` 1443766 is an unrelated contract. **Keying a
+  re-ingest on the URL id silently duplicates the entire corpus.**
+- **Direction is in the data**: `<subjekt>` and each `<smluvniStrana>` may carry
+  `<platce>` / `<prijemce>`. Stated in only ~18 % of records; among those,
+  recipient:payer ≈ 95:5. Absence is `unknown`, never an assumed direction.
+- **Values are three incompatible shapes** — `hodnotaBezDph`,
+  `hodnotaVcetneDph`, or a `ciziMena` pair. Summing across them is wrong, so each
+  is stored separately alongside an `amountBasis`.
+- **`platnyZaznam=0` marks superseded versions** (~8 % of rows). Counting them
+  over-states the corpus.
+
+**GDPR is a condition of use, not a footnote.** The publisher states the dataset
+contains personal data and that the recipient becomes a data controller, with an
+obligation to delete records later made inaccessible. The adapter therefore
+requires an explicit IČO allow-list (no bulk corpus is retained), drops
+`adresa` / `datovaSchranka` / `schvalil` at parse time, and the harvester keeps
+exactly one dump on disk at a time. Re-harvesting is how withdrawals propagate.
+
+Harvest + persist: `scripts/case-loops/money/{harvest-contract-dumps,
+persist-contract-harvest}.ts` — resumable, and a contract where our company is
+the **payer** is never given a `supplies` edge.
+
 ## Database — pglite (embedded Postgres)
 
 `@electric-sql/pglite` behind a typed `Store` interface (repository pattern),
