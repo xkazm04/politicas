@@ -30,7 +30,6 @@ export default function GraphFeedPanel({
   onPick: (nodeId: string) => void;
   onClear: () => void;
 }) {
-  const tcom = useTranslations("common");
   const tf = useTranslations("dashboard.feed");
   const f = useFormat();
 
@@ -95,7 +94,7 @@ export default function GraphFeedPanel({
       </div>
 
       <div className="border-t-2 border-ink px-4 py-2.5">
-        <SourceNote>{tcom("ingestion")}</SourceNote>
+        <SourceNote>{tf("mockSource")}</SourceNote>
       </div>
     </div>
   );

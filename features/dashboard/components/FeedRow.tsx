@@ -10,7 +10,6 @@
  */
 
 import { useTranslations } from "next-intl";
-import Link from "next/link";
 import { Crosshair } from "lucide-react";
 import type { FeedEvent } from "@/lib/civic/data";
 
@@ -37,12 +36,13 @@ export default function FeedRow({
 }) {
   const tc = useTranslations("content");
   const tf = useTranslations("dashboard.feed");
-  // A row with no mpId link and no crosshair (an aggregate event like a
-  // quarterly recompute) does nothing on click — the hover highlight must not
-  // claim otherwise, per this file's own "no action hidden under a full-row
-  // click" doctrine, which cuts both ways: no false "this is clickable" signal
-  // on rows that aren't.
-  const isInteractive = Boolean(event.mpId) || (Boolean(onPick) && nodeIds.length > 0);
+  // event.mpId identifies an ILLUSTRATIVE (invented) MP, not a real
+  // /poslanec/<pspId> — this feed is a mock activity stream (see
+  // dashboard.mockBadge above the graph), so mpId is never rendered as a
+  // link; a link would 404, the exact "5 dead links" defect this file used
+  // to reproduce for the activity feed. Only the crosshair (jump to the mock
+  // graph node) is genuinely actionable.
+  const isInteractive = Boolean(onPick) && nodeIds.length > 0;
 
   return (
     <div
@@ -55,16 +55,7 @@ export default function FeedRow({
       </span>
       <span className={`mt-1.5 inline-block h-2.5 w-2.5 shrink-0 ${TONE_DOT[event.tone]}`} aria-hidden />
       <span className="min-w-0 text-[15px] leading-relaxed">
-        {event.mpId ? (
-          <Link
-            href={`/poslanec/${event.mpId}`}
-            className="font-medium underline-offset-2 hover:text-signal hover:underline"
-          >
-            {tc(`events.${event.id}.text`)}
-          </Link>
-        ) : (
-          tc(`events.${event.id}.text`)
-        )}
+        {tc(`events.${event.id}.text`)}
         <span className="ml-2 whitespace-nowrap font-mono text-[11px] uppercase tracking-wider text-steel">
           [{tc(`events.${event.id}.source`)}]
         </span>

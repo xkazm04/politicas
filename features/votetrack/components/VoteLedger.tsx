@@ -82,9 +82,7 @@ export default function VoteLedger({
         ))}
       </div>
       <div className="mt-3">
-        <SourceNote>
-          {t("sampleFootnote", { sample: ROLL_CALLS.length, total: f.int(5214) })}
-        </SourceNote>
+        <SourceNote>{t("sampleFootnote", { sample: ROLL_CALLS.length })}</SourceNote>
       </div>
     </div>
   );

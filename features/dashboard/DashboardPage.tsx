@@ -23,6 +23,8 @@ import Link from "next/link";
 import {
   Area,
   AreaChart,
+  Bar,
+  BarChart,
   CartesianGrid,
   ResponsiveContainer,
   Tooltip,
@@ -37,13 +39,14 @@ import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { HAIRLINE, INK, PILLAR_BG, SIGNAL, STEEL, TOOLTIP_STYLE } from "@/features/landing/palette";
+import type { DashboardData } from "./getDashboardData";
 import GraphFeedPanel from "./components/GraphFeedPanel";
 import StateGraphCanvas from "./components/StateGraphCanvas";
 import { useGraphText } from "./graphText";
 
 const CHART_TICK = { fill: STEEL, fontSize: 12, fontFamily: "var(--font-plex)" } as const;
 
-export default function DashboardPage() {
+export default function DashboardPage({ data }: { data: DashboardData | null }) {
   const t = useTranslations("dashboard");
   const tc = useTranslations("content");
   const tcom = useTranslations("common");
@@ -65,9 +68,17 @@ export default function DashboardPage() {
   const pinnedNode = pinned ? graph.nodes.find((n) => n.id === pinned) : undefined;
   const pinnedLabel = pinnedNode ? text.node(pinnedNode).label : null;
 
+  // Mock fallback trend — only rendered when the real store is unavailable.
   const chamberTrendData = useMemo(
     () => CHAMBER_TREND.map((v, i) => ({ q: TREND_QUARTERS[i], avg: v })),
     [],
+  );
+  // Real score-distribution histogram (207 real MPs) — replaces the fake
+  // quarter-over-quarter trend, which has no real analog (contribution_score
+  // is a single-term snapshot, not a time series).
+  const histogramData = useMemo(
+    () => (data ? data.histogram.map((h) => ({ band: h.label, count: h.count })) : []),
+    [data],
   );
 
   return (
@@ -99,22 +110,63 @@ export default function DashboardPage() {
           <p className="mt-3 max-w-3xl text-[15px] leading-relaxed text-steel">{t("lead")}</p>
         </div>
 
-        {/* Odečty sněmovny — pás nad přístrojem, ne samostatná sekce. */}
+        {/* Odečty sněmovny — pás nad přístrojem, ne samostatná sekce.
+            avg/attendance jsou reálné (kontribuční index, 207 poslanců), když
+            je graf dostupný; money/laws nemají v tomto rozsahu reálný zdroj
+            (moduly Peníze a LawWatch), takže zůstávají ilustrativní ukázkou —
+            obojí je to řečeno v citaci pod číslem, nikdy tiše. */}
         <div className="grid gap-px border border-ink bg-ink sm:grid-cols-2 xl:grid-cols-4">
-          {CHAMBER_STATS.map((s) => (
-            <div key={s.key} className="bg-paper px-5 py-4">
-              <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
-                {tc(`chamberStats.${s.key}.label`)}
-              </p>
-              <p className="mt-1.5 text-3xl font-black tabular-nums tracking-tight">
-                {tc(`chamberStats.${s.key}.value`)}
-              </p>
-              <p className="mt-1 text-sm text-steel">{tc(`chamberStats.${s.key}.sub`)}</p>
-              <SourceNote className="mt-2">
-                {tcom("sourcePrefix")} {tc(`chamberStats.${s.key}.source`)}
-              </SourceNote>
-            </div>
-          ))}
+          {data ? (
+            <>
+              <div className="bg-paper px-5 py-4">
+                <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
+                  {t("realStats.avgLabel")}
+                </p>
+                <p className="mt-1.5 text-3xl font-black tabular-nums tracking-tight">{f.dec(data.summary.avg)}</p>
+                <p className="mt-1 text-sm text-steel">
+                  {t("realStats.avgSub", { median: f.dec(data.summary.median), sigma: f.dec(data.summary.sigma), count: data.summary.count })}
+                </p>
+                <SourceNote className="mt-2">
+                  {tcom("sourcePrefix")} {t("realStats.avgSource")}
+                </SourceNote>
+              </div>
+              <div className="bg-paper px-5 py-4">
+                <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
+                  {t("realStats.attendanceLabel")}
+                </p>
+                <p className="mt-1.5 text-3xl font-black tabular-nums tracking-tight">{f.dec(data.attendanceAvgPct)} %</p>
+                <p className="mt-1 text-sm text-steel">{t("realStats.attendanceSub")}</p>
+                <SourceNote className="mt-2">
+                  {tcom("sourcePrefix")} {t("realStats.attendanceSource")}
+                </SourceNote>
+              </div>
+              {CHAMBER_STATS.filter((s) => s.key === "money" || s.key === "laws").map((s) => (
+                <div key={s.key} className="bg-paper px-5 py-4">
+                  <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
+                    {tc(`chamberStats.${s.key}.label`)}
+                  </p>
+                  <p className="mt-1.5 text-3xl font-black tabular-nums tracking-tight">
+                    {tc(`chamberStats.${s.key}.value`)}
+                  </p>
+                  <p className="mt-1 text-sm text-steel">{t("mockBadge")}</p>
+                  <SourceNote className="mt-2">{tc(`chamberStats.${s.key}.source`)}</SourceNote>
+                </div>
+              ))}
+            </>
+          ) : (
+            CHAMBER_STATS.map((s) => (
+              <div key={s.key} className="bg-paper px-5 py-4">
+                <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
+                  {tc(`chamberStats.${s.key}.label`)}
+                </p>
+                <p className="mt-1.5 text-3xl font-black tabular-nums tracking-tight">
+                  {tc(`chamberStats.${s.key}.value`)}
+                </p>
+                <p className="mt-1 text-sm text-steel">{t("mockBadge")}</p>
+                <SourceNote className="mt-2">{tc(`chamberStats.${s.key}.source`)}</SourceNote>
+              </div>
+            ))
+          )}
         </div>
 
         {/* ── /01 Graf + provoz ─────────────────────────────────── */}
@@ -135,6 +187,13 @@ export default function DashboardPage() {
               </div>
             }
           />
+          {/* Graf + provoz nemají v tomto rozsahu reálný protějšek (znamenalo
+              by to znovupostavit živý graf veřejných peněz — doména modulu
+              Peníze). Neskrýváme je, ale citace pod obrázkem to říká nahlas
+              místo aby jméno reálného registru předstíralo, že jde o data. */}
+          <SourceNote tone="signal" className="mt-3">
+            {t("mockBadge")}
+          </SourceNote>
           <div className="mt-6 grid items-stretch gap-6 xl:grid-cols-12">
             <div className="min-w-0 xl:col-span-7">
               <StateGraphCanvas
@@ -163,114 +222,164 @@ export default function DashboardPage() {
         <section id="zebricek" className="mt-14 border-t-4 border-ink pt-8">
           <SectionHeading
             index={2}
-            title={t("rankingSectionTitle")}
+            title={data ? t("realRanking.title") : t("rankingSectionTitle")}
             aside={
               <Link
                 href="/zebricek"
                 className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
               >
-                {t("allMpsLink")} <ArrowRight className="h-3.5 w-3.5" />
+                {data ? t("allMpsLink", { count: data.summary.count }) : t("allMpsLinkFallback")}{" "}
+                <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             }
           />
           <div className="mt-6 grid gap-10 lg:grid-cols-12">
             <div className="min-w-0 border-t-2 border-ink lg:col-span-8">
-              {MPS.map((m) => (
-                <Link
-                  key={m.id}
-                  href={`/poslanec/${m.id}`}
-                  className="group grid grid-cols-[2.5rem_1fr_auto_auto_auto] items-center gap-4 border-b border-hairline px-2 py-3.5 transition-colors hover:bg-paper-strong"
-                >
-                  <span className={`font-mono text-xl font-bold ${m.rank <= 3 ? "text-signal" : "text-steel"}`}>
-                    {m.rank}
-                  </span>
-                  <span className="min-w-0">
-                    <span className="block truncate text-base font-black uppercase tracking-tight">
-                      {m.name}
+              {data ? (
+                // Real top-5 by contribution_score, from the same materialized
+                // graph as /zebricek — real pspId links, no dead ends.
+                data.top.map((m) => (
+                  <Link
+                    key={m.pspId}
+                    href={`/poslanec/${m.pspId}`}
+                    className="group grid grid-cols-[2.5rem_1fr_auto] items-center gap-4 border-b border-hairline px-2 py-3.5 transition-colors hover:bg-paper-strong"
+                  >
+                    <span className={`font-mono text-xl font-bold ${m.rank <= 3 ? "text-signal" : "text-steel"}`}>
+                      {m.rank}
                     </span>
-                    <span className="mt-0.5 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-steel">
-                      <span
-                        className="inline-block h-2 w-2 rounded-full"
-                        style={{ background: m.partyColor }}
-                      />
-                      {m.party} · {tc(`regions.${m.region}`)}
+                    <span className="min-w-0">
+                      <span className="block truncate text-base font-black uppercase tracking-tight">
+                        {m.name}
+                      </span>
+                      <span className="mt-0.5 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-steel">
+                        <span className="inline-block h-2 w-2 rounded-full" style={{ background: m.clubColor }} />
+                        {m.clubName} {m.region ? `· ${m.region}` : ""}
+                      </span>
                     </span>
-                    {/* Rozpad kompozitu na pilíře — odečet, ne dekorace. */}
-                    <span className="mt-1.5 flex h-1.5 w-full max-w-56 gap-px" aria-hidden>
+                    <span className="flex items-center gap-2">
+                      <span className="text-xl font-black tabular-nums">{f.dec(m.score)}</span>
+                      <ArrowUpRight className="h-4 w-4 text-signal transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </span>
+                  </Link>
+                ))
+              ) : (
+                MPS.map((m) => (
+                  <Link
+                    key={m.id}
+                    href="/zebricek"
+                    className="group grid grid-cols-[2.5rem_1fr_auto_auto_auto] items-center gap-4 border-b border-hairline px-2 py-3.5 transition-colors hover:bg-paper-strong"
+                  >
+                    <span className={`font-mono text-xl font-bold ${m.rank <= 3 ? "text-signal" : "text-steel"}`}>
+                      {m.rank}
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block truncate text-base font-black uppercase tracking-tight">
+                        {m.name}
+                      </span>
+                      <span className="mt-0.5 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-steel">
+                        <span
+                          className="inline-block h-2 w-2 rounded-full"
+                          style={{ background: m.partyColor }}
+                        />
+                        {m.party} · {tc(`regions.${m.region}`)}
+                      </span>
+                      {/* Rozpad kompozitu na pilíře — odečet, ne dekorace. */}
+                      <span className="mt-1.5 flex h-1.5 w-full max-w-56 gap-px" aria-hidden>
+                        {PILLARS.map((p) => (
+                          <span
+                            key={p.key}
+                            className={`${PILLAR_BG[p.key]} block`}
+                            style={{ width: `${m.pillars[p.key] / 4}%`, minWidth: 2 }}
+                          />
+                        ))}
+                      </span>
+                    </span>
+                    <RankDelta delta={m.delta} />
+                    <span className="text-xl font-black tabular-nums">{f.dec(m.score)}</span>
+                    <ArrowUpRight className="h-4 w-4 text-signal transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </Link>
+                ))
+              )}
+              <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+                {data ? (
+                  <SourceNote>{t("realRanking.footnote", { count: data.summary.count })}</SourceNote>
+                ) : (
+                  <>
+                    <SourceNote>{t("rankingFootnote")}</SourceNote>
+                    <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
                       {PILLARS.map((p) => (
                         <span
                           key={p.key}
-                          className={`${PILLAR_BG[p.key]} block`}
-                          style={{ width: `${m.pillars[p.key] / 4}%`, minWidth: 2 }}
-                        />
+                          className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-widest text-steel"
+                        >
+                          <span className={`inline-block h-2 w-2 ${PILLAR_BG[p.key]}`} />
+                          {tc(`pillars.${p.key}.label`)}
+                        </span>
                       ))}
                     </span>
-                  </span>
-                  <RankDelta delta={m.delta} />
-                  <span className="text-xl font-black tabular-nums">{f.dec(m.score)}</span>
-                  <ArrowUpRight className="h-4 w-4 text-signal transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </Link>
-              ))}
-              <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
-                <SourceNote>{t("rankingFootnote")}</SourceNote>
-                <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                  {PILLARS.map((p) => (
-                    <span
-                      key={p.key}
-                      className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-widest text-steel"
-                    >
-                      <span className={`inline-block h-2 w-2 ${PILLAR_BG[p.key]}`} />
-                      {tc(`pillars.${p.key}.label`)}
-                    </span>
-                  ))}
-                </span>
+                  </>
+                )}
               </div>
             </div>
 
             <div className="min-w-0 lg:col-span-4">
               <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
-                {t("chamberTrendLabel")}
+                {data ? t("histogram.label", { count: data.summary.count }) : t("chamberTrendLabel")}
               </p>
               <div
                 className="mt-3 w-full overflow-hidden"
                 style={{ aspectRatio: "5 / 3", minHeight: 200 }}
               >
                 <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
-                  <AreaChart data={chamberTrendData} margin={{ top: 8, right: 8, left: -14, bottom: 0 }}>
-                    <CartesianGrid stroke={HAIRLINE} vertical={false} />
-                    <XAxis
-                      dataKey="q"
-                      tick={CHART_TICK}
-                      tickLine={false}
-                      axisLine={{ stroke: INK, strokeWidth: 2 }}
-                    />
-                    <YAxis
-                      domain={["dataMin - 2", "dataMax + 2"]}
-                      tick={CHART_TICK}
-                      tickFormatter={(v: number) => f.dec(v)}
-                      tickLine={false}
-                      axisLine={false}
-                    />
-                    <Tooltip
-                      cursor={{ stroke: INK, strokeDasharray: "4 4" }}
-                      contentStyle={TOOLTIP_STYLE}
-                      formatter={(value) => [f.dec(Number(value)), t("chamberTrendTooltip")]}
-                    />
-                    <Area
-                      type="linear"
-                      dataKey="avg"
-                      stroke={SIGNAL}
-                      strokeWidth={3}
-                      fill={SIGNAL}
-                      fillOpacity={0.12}
-                      dot={{ r: 3.5, fill: SIGNAL, strokeWidth: 0 }}
-                      activeDot={{ r: 5, fill: INK }}
-                      isAnimationActive={!reduceMotion}
-                    />
-                  </AreaChart>
+                  {data ? (
+                    <BarChart data={histogramData} margin={{ top: 8, right: 8, left: -14, bottom: 0 }}>
+                      <CartesianGrid stroke={HAIRLINE} vertical={false} />
+                      <XAxis dataKey="band" tick={CHART_TICK} tickLine={false} axisLine={{ stroke: INK, strokeWidth: 2 }} />
+                      <YAxis tick={CHART_TICK} tickFormatter={(v: number) => f.int(v)} tickLine={false} axisLine={false} />
+                      <Tooltip
+                        cursor={{ fill: HAIRLINE }}
+                        contentStyle={TOOLTIP_STYLE}
+                        formatter={(value) => [f.int(Number(value)), t("histogram.tooltip")]}
+                      />
+                      <Bar dataKey="count" fill={SIGNAL} isAnimationActive={!reduceMotion} />
+                    </BarChart>
+                  ) : (
+                    <AreaChart data={chamberTrendData} margin={{ top: 8, right: 8, left: -14, bottom: 0 }}>
+                      <CartesianGrid stroke={HAIRLINE} vertical={false} />
+                      <XAxis
+                        dataKey="q"
+                        tick={CHART_TICK}
+                        tickLine={false}
+                        axisLine={{ stroke: INK, strokeWidth: 2 }}
+                      />
+                      <YAxis
+                        domain={["dataMin - 2", "dataMax + 2"]}
+                        tick={CHART_TICK}
+                        tickFormatter={(v: number) => f.dec(v)}
+                        tickLine={false}
+                        axisLine={false}
+                      />
+                      <Tooltip
+                        cursor={{ stroke: INK, strokeDasharray: "4 4" }}
+                        contentStyle={TOOLTIP_STYLE}
+                        formatter={(value) => [f.dec(Number(value)), t("chamberTrendTooltip")]}
+                      />
+                      <Area
+                        type="linear"
+                        dataKey="avg"
+                        stroke={SIGNAL}
+                        strokeWidth={3}
+                        fill={SIGNAL}
+                        fillOpacity={0.12}
+                        dot={{ r: 3.5, fill: SIGNAL, strokeWidth: 0 }}
+                        activeDot={{ r: 5, fill: INK }}
+                        isAnimationActive={!reduceMotion}
+                      />
+                    </AreaChart>
+                  )}
                 </ResponsiveContainer>
               </div>
-              <SourceNote className="mt-2">{t("chamberTrendSource")}</SourceNote>
+              <SourceNote className="mt-2">{data ? t("histogram.source") : t("chamberTrendSource")}</SourceNote>
             </div>
           </div>
         </section>

@@ -7,9 +7,7 @@
  */
 
 import { motion, useReducedMotion } from "framer-motion";
-import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { ArrowUpRight } from "lucide-react";
 import type { RollCall } from "@/lib/civic/data";
 import { MPS, PARTIES } from "@/lib/civic/data";
 import { chamberSplit, partyDiscipline, partyLine } from "@/lib/civic/votes";
@@ -135,15 +133,16 @@ export default function ChamberDetail({ rc }: { rc: RollCall }) {
       {/* Vzorek */}
       <div className="mt-8 border-t-2 border-ink pt-4">
         <SourceNote>{t("sampleNote")}</SourceNote>
+        {/* Ilustrativní vzorek — smyšlení poslanci nemají reálný profil,
+              žeton proto NEODKAZUJE na /poslanec/[id] (byl by to mrtvý odkaz). */}
         <div className="mt-3 flex flex-wrap gap-2">
           {MPS.map((m) => {
             const vote = rc.perMP[m.id];
             const rebel = rc.rebels.includes(m.id);
             return (
-              <Link
+              <span
                 key={m.id}
-                href={`/poslanec/${m.id}`}
-                className="group inline-flex items-center gap-2 border-2 border-hairline px-3 py-2 transition-colors hover:border-ink hover:bg-paper-strong"
+                className="inline-flex items-center gap-2 border-2 border-hairline px-3 py-2"
               >
                 <span className="text-sm font-bold">{m.name.split(" ").at(-1)}</span>
                 <span className={`font-mono text-[11px] font-bold uppercase tracking-wider ${VOTE_TEXT[vote]}`}>
@@ -154,8 +153,7 @@ export default function ChamberDetail({ rc }: { rc: RollCall }) {
                     {t("rebelTag")}
                   </span>
                 )}
-                <ArrowUpRight className="h-3.5 w-3.5 text-signal opacity-0 transition-opacity group-hover:opacity-100" />
-              </Link>
+              </span>
             );
           })}
         </div>
