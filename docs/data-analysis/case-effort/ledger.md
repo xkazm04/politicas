@@ -20,6 +20,7 @@ population is feasible; triage decides depth, not whether.
 | 006 | 42 | **207/207 (100 %) — POPULATION CLOSED** | 0.405 | R=1 · Q-effort-14 public-copy gate + committees rebuilt (extractor & profile render) + convergence rule made executable | 42/42 PASS (post-fix; all 42 initially DROPped by the NEW public-copy check) | population complete by ENUMERATION, not by the K=3 yield rule (which does not fire — see below). Batch-005's `committees[]` root cause found WRONG: Podvýbor was never the cause (0 PSP10 podvýbor memberships exist); real causes are Delegace organs (39 MPs) + duplicate member/function rows on one organ (121 MPs). 99 pipeline-jargon leaks in verbatim-rendered public fields across 42/42 dossiers → prose lesson converted to a hard-DROP gate check; internals preserved in new non-rendered `effort_analyst_note`. 10 `effort_low_score_reason:"unknown"` badges removed from MPs incl. the batch's TOP scorer. P51/C13: 2 BLOCKING false clearances reversed (Jakob, Horák), 1 CONFIRMED (Petrtýl, 4 active ties), systemic root cause = "mandate began 4.10.2025" assumption wrong for 6 of 8. Parallel: volby.cz Kott-signal ingest SHIPPED (205/207 joined, 33 sector↔committee hits/32 MPs, honest null on Kott's own self-referential POVOLANI) |
 | 007 | 0 new (136 rewritten) | 207/207 (unchanged) | — (prose-quality batch, no new dossiers) | R=1 · unified public-copy rule definition (gate.ts fork closed) + `effort_analyst_note` render-guard test | 136/136 PASS (post-fix; 11/44 money-touching rewrites corrected for silently-strengthened hedges) | Q-effort-15 CLOSED: retroactive public-copy rewrite of all 136 pre-006 leaking dossiers; verified live 0/207 leaking, 207/207 render ≥1 dossier field (from 71/207); NEW failure class — mechanical rewrite merged unhedged later-pass addenda into hedged claims on 11 money dossiers (P53), caught by the P51 two-layer gate + cross-field reflection (P55) |
 | 008 | 16 (role-signal extensions) | 207/207 (unchanged) | 0.60 (new-lens composition) | R=1 · „Zpravodajský tahoun" badge on /zebricek (effort_rapporteur_load, pass 36) + sample-scoped-superlative jargon rule (Q-effort-16) | 16/16 PASS (post-fix; 1 BLOCKING neutrality + 2 wrong numerals + 2 wrong attributions caught by the Opus verification pass) | First staleness-triggered batch on the pass-34/35 role data (rank/rapporteur/spoke_on/amendments); append-only enforced in code (caught a quote-glyph non-verbatim copy); scope-translation inconsistency (zpravodaj_ov rendered two ways) fixed batch-wide; Richterová prior-text tisk 156→49 corrected via cross-unit evidence; NEW 29-instance sample-scoped-superlative debt measured and recorded |
+| 009 | 0 new (29 field-instances rewritten on 28 nodes) | 207/207 (unchanged) | — (prose-quality batch) | — (no build; rule shipped in 008) | 28/28 PASS (merge minimal-diff proof 28/28; 1 stale count corrected from graph data) | Q-effort-16 CLOSED: 27 de-scoped + 1 restated; money-safety proven deterministically (non-offending sentences byte-preserved); re-measured live: 0/207 withheld field-instances |
 
 **Signal-yield** is the convergence measure (new signals ÷ units). Batch 001 is the
 baseline — every unit produced a citable dossier, so raw yield ≈ 1.0; the 0.771 above is
@@ -356,3 +357,14 @@ fresh copy at finalize time), so `finalize-ledger.ts 4` + `5` were run to advanc
   (3) the 52-MP signature-split population is now a candidate lens for a symmetric surface
   („předkladatelé vs spolupodpisy" on /zebricek) — needs framing review first; (4) loop returns to
   staleness-driven mode.
+
+### Batch 009 — Q-effort-16 rewrite (2026-07-27)
+- The 29 sample-scoped self-references (28 nodes, batches 001–007 prose) withheld by batch-008's
+  new rule: rewritten by 2 Sonnet groups (27 de-scoped, 1 restated absolutely), merged under a
+  DETERMINISTIC minimal-diff proof — zero remaining violations, every non-offending sentence
+  byte-preserved (which substitutes for a fresh money re-verification: money text provably
+  unchanged), bounded growth. 28/28 through merge and gate.
+- One real gate find: Výborný's rewritten sentence carried a stale pre-pass-34 count (3 bills vs
+  the graph's 6 = 2 first + 4 co-signed) — driver-corrected from graph data.
+- Persisted pass 38; re-measured on a fresh copy: **0/207 withheld field-instances** — the dossier
+  corpus renders fully clean. Full detail in `batch-009.md`.

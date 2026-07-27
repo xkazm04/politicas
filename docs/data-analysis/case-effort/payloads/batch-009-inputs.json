@@ -1,0 +1,2144 @@
+{
+  "generatedAt": "2026-07-27T11:20:41.484Z",
+  "nodes": 28,
+  "instances": 29,
+  "units": [
+    {
+      "id": "psp:person:6150",
+      "name": "Andrej Babiš",
+      "leaking": {
+        "effort_notes": {
+          "text": "Datová nesrovnalost k prověření: zaznamenaná 100% míra absence spolu s 95 vystoupeními a 9 sponzorovanými tisky je vnitřně napjatá (nulová účast by typicky nekorelovala s aktivním předkládáním); pravděpodobné vysvětlení je přechod na roli premiéra v prosinci 2025, ale doporučujeme ověřit metodiku měření absence u členů vlády. Nejvyšší meziobdobní odchylka aktivity v této skupině odpovídá srovnání předchozího období (skóre 43,3, 44 interpelací, 499 řečnických vystoupení) se současným (skóre 44,7, 0 interpelací, 95 vystoupení) — napříč ukazateli jde o plošný pokles aktivity v plénu, konzistentní s vládní rolí, nikoli o anomálii k řešení. K firemním vazbám (Agrofert, Hartenberg, SynBiol atd.) doplňujeme už veřejně známý kontext: Babiš vložil podíl v Agrofertu do svěřenského fondu RSVP Trust (dokončeno 20. 2. 2026 po schválení regulátory tří zemí EU), střet zájmů podle něj vyřešen, Transparency International a Evropská komise (žádost o doplnění z 20. 5. 2026) to zpochybňují — jde o již medializovaný veřejný spor, ne o nový nález.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "v této skupině"
+            }
+          ]
+        }
+      },
+      "bills_authored": 9,
+      "bills_first_signed": 5,
+      "bills_co_signed": 4,
+      "amendments_authored": 1,
+      "speech_turns": 95,
+      "effort_rapporteur_load": 0,
+      "spoke_on_bills": [
+        {
+          "cislo": 78,
+          "weight": 2,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [],
+      "amendment_bills": [
+        {
+          "cislo": 48,
+          "weight": 1,
+          "props": {
+            "sd_cislos": [
+              1324
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6451",
+      "name": "Stanislav Fridrich",
+      "leaking": {
+        "effort_notes": {
+          "text": "Počet evidovaných výborových rolí odpovídá podkladovým datům, ale nezachycuje jeho předsednictví Podvýboru pro vědu a vysoké školství od 18. 2. 2026 — stejný typ mezery jako u dalších poslanců v tomto přehledu s podvýborovým vedením. Mezitermínové srovnání ukazuje výrazný pokles jeho celkového hodnocení oproti minulému volebnímu období, taženého zejména extrémně nízkým počtem řečnických vystoupení. Žádné firemní ani finanční vazby nebyly zjištěny.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "v tomto přehledu"
+            }
+          ]
+        }
+      },
+      "bills_authored": 1,
+      "bills_first_signed": 0,
+      "bills_co_signed": 1,
+      "amendments_authored": 0,
+      "speech_turns": 2,
+      "effort_rapporteur_load": 0,
+      "spoke_on_bills": [],
+      "rapporteur_bills": [],
+      "amendment_bills": []
+    },
+    {
+      "id": "psp:person:6463",
+      "name": "Aleš Juchelka",
+      "leaking": {
+        "effort_bill_focus": {
+          "text": "Juchelka je prvním předkladatelem (spolu s J. Pastuchovou) tisku 125 (novela zákona o sociálních službách, podán 6. 3. 2026), který úspěšně prošel celým procesem a byl publikován jako zákon č. 92/2026 Sb. (podpis prezidenta 5. 6. 2026) — jde o skutečnou vlastní legislativní iniciativu, navíc jedinou zákonem zakončenou v této skupině poslanců. Dále je spolupodepsaným (ne prvním předkladatelem) u tisku 11 (pojistné na sociální zabezpečení, vedla A. Schillerová), který rovněž prošel a byl publikován jako zákon č. 90/2026 Sb. Třetí položka, tisk 198 (novela zákona o státní sociální podpoře), je vládní návrh s předkladatelem 'min. práce a soc. věcí' — tedy ministerstvem, které Juchelka od 15. 12. 2025 sám řídí; ve Sněmovně byl schválen 8. 7. 2026 a nyní čeká na Senát (do 8. 8. 2026). Juchelka zde figuruje jen jako garanční výbor (VSP), ne jako osobní předkladatel — vládní tisk se mu proto nesmí připsat jako 'předložil'.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "v této skupině"
+            }
+          ]
+        }
+      },
+      "bills_authored": 2,
+      "bills_first_signed": 1,
+      "bills_co_signed": 1,
+      "amendments_authored": 8,
+      "speech_turns": 156,
+      "effort_rapporteur_load": 0,
+      "spoke_on_bills": [
+        {
+          "cislo": 11,
+          "weight": 14,
+          "props": {}
+        },
+        {
+          "cislo": 52,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 53,
+          "weight": 2,
+          "props": {}
+        },
+        {
+          "cislo": 54,
+          "weight": 2,
+          "props": {}
+        },
+        {
+          "cislo": 55,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 56,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 62,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 67,
+          "weight": 3,
+          "props": {}
+        },
+        {
+          "cislo": 76,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 77,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 82,
+          "weight": 11,
+          "props": {}
+        },
+        {
+          "cislo": 85,
+          "weight": 9,
+          "props": {}
+        },
+        {
+          "cislo": 88,
+          "weight": 5,
+          "props": {}
+        },
+        {
+          "cislo": 113,
+          "weight": 2,
+          "props": {}
+        },
+        {
+          "cislo": 116,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 124,
+          "weight": 8,
+          "props": {}
+        },
+        {
+          "cislo": 125,
+          "weight": 4,
+          "props": {}
+        },
+        {
+          "cislo": 198,
+          "weight": 20,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [],
+      "amendment_bills": [
+        {
+          "cislo": 76,
+          "weight": 2,
+          "props": {
+            "sd_cislos": [
+              759,
+              760
+            ]
+          }
+        },
+        {
+          "cislo": 77,
+          "weight": 1,
+          "props": {
+            "sd_cislos": [
+              761
+            ]
+          }
+        },
+        {
+          "cislo": 115,
+          "weight": 3,
+          "props": {
+            "sd_cislos": [
+              1417,
+              1418,
+              1422
+            ]
+          }
+        },
+        {
+          "cislo": 198,
+          "weight": 2,
+          "props": {
+            "sd_cislos": [
+              1487,
+              1507
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6473",
+      "name": "Olga Richterová",
+      "leaking": {
+        "effort_notes": {
+          "text": "Devět tisků odpovídá přesně evidenci, s korektním rozlišením 5 vlastních vs. 4 spolupodepsaných tisků podle údaje o předkladateli. Počet výborů souhlasí bezezbytku s doloženým seznamem — bez datové nesrovnalosti, na rozdíl od jiných poslanců v této skupině. Skóre přínosu je mezi obdobími prakticky stabilní (předchozí období: 85,4 → aktuální: 84,2, pokles jen 1,2 bodu) — jde o čistý, konzistentní výkon bez exekutivních nebo tenure artefaktů. Žádná firemní vazba v datech, žádné peněžní zjištění k ověření.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "v této skupině"
+            }
+          ]
+        }
+      },
+      "bills_authored": 9,
+      "bills_first_signed": 5,
+      "bills_co_signed": 4,
+      "amendments_authored": 19,
+      "speech_turns": 334,
+      "effort_rapporteur_load": 0,
+      "spoke_on_bills": [
+        {
+          "cislo": 16,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 47,
+          "weight": 4,
+          "props": {}
+        },
+        {
+          "cislo": 67,
+          "weight": 6,
+          "props": {}
+        },
+        {
+          "cislo": 69,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 72,
+          "weight": 10,
+          "props": {}
+        },
+        {
+          "cislo": 76,
+          "weight": 2,
+          "props": {}
+        },
+        {
+          "cislo": 77,
+          "weight": 9,
+          "props": {}
+        },
+        {
+          "cislo": 82,
+          "weight": 19,
+          "props": {}
+        },
+        {
+          "cislo": 85,
+          "weight": 6,
+          "props": {}
+        },
+        {
+          "cislo": 88,
+          "weight": 3,
+          "props": {}
+        },
+        {
+          "cislo": 115,
+          "weight": 2,
+          "props": {}
+        },
+        {
+          "cislo": 116,
+          "weight": 8,
+          "props": {}
+        },
+        {
+          "cislo": 119,
+          "weight": 3,
+          "props": {}
+        },
+        {
+          "cislo": 124,
+          "weight": 2,
+          "props": {}
+        },
+        {
+          "cislo": 125,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 145,
+          "weight": 2,
+          "props": {}
+        },
+        {
+          "cislo": 198,
+          "weight": 9,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [],
+      "amendment_bills": [
+        {
+          "cislo": 67,
+          "weight": 2,
+          "props": {
+            "sd_cislos": [
+              1211,
+              1212
+            ]
+          }
+        },
+        {
+          "cislo": 72,
+          "weight": 1,
+          "props": {
+            "sd_cislos": [
+              291
+            ]
+          }
+        },
+        {
+          "cislo": 82,
+          "weight": 7,
+          "props": {
+            "sd_cislos": [
+              767,
+              769,
+              770,
+              783,
+              784,
+              855,
+              858
+            ]
+          }
+        },
+        {
+          "cislo": 119,
+          "weight": 3,
+          "props": {
+            "sd_cislos": [
+              764,
+              765,
+              794
+            ]
+          }
+        },
+        {
+          "cislo": 124,
+          "weight": 2,
+          "props": {
+            "sd_cislos": [
+              1037,
+              1038
+            ]
+          }
+        },
+        {
+          "cislo": 198,
+          "weight": 4,
+          "props": {
+            "sd_cislos": [
+              1384,
+              1385,
+              1386,
+              1490
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6484",
+      "name": "David Štolpa",
+      "leaking": {
+        "effort_notes": {
+          "text": "Stoprocentní účast a nulová absence v datech odpovídají aktivnímu profilu; nulové interpelace v aktuálním období proti 14 v předchozím a výrazný rozdíl mezi ukazateli obou období (nejvyšší v této skupině vedle Teleky) je nejspíš dáno tím, že jde teprve o cca 9 měsíců nového mandátu — doporučujeme sledovat v dalších obdobích, ne brát jako anomálii. Žádné propojené firmy.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "v této skupině"
+            }
+          ]
+        }
+      },
+      "bills_authored": 4,
+      "bills_first_signed": 0,
+      "bills_co_signed": 4,
+      "amendments_authored": 0,
+      "speech_turns": 0,
+      "effort_rapporteur_load": 0,
+      "spoke_on_bills": [],
+      "rapporteur_bills": [],
+      "amendment_bills": []
+    },
+    {
+      "id": "psp:person:6513",
+      "name": "Marek Výborný",
+      "leaking": {
+        "effort_public_role": {
+          "text": "Poslanec od 4.10.2025 za Pardubický kraj (SPOLU/KDU-ČSL), místopředseda Výboru pro vědu, vzdělávání, mládež a sport (od 21.1.2026), člen zemědělského výboru a ověřovatel Stálé komise pro Ústavu ČR a parlamentní procedury. Patří k nejvýkonnějším poslancům v tomto přehledu — kombinace vedení výboru, vysoké účasti (0,9) a tří doložených tisků (2 jako hlavní předkladatel, 1 jako spolupředkladatel).",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "v tomto přehledu"
+            }
+          ]
+        }
+      },
+      "bills_authored": 6,
+      "bills_first_signed": 2,
+      "bills_co_signed": 4,
+      "amendments_authored": 5,
+      "speech_turns": 150,
+      "effort_rapporteur_load": 0,
+      "spoke_on_bills": [
+        {
+          "cislo": 11,
+          "weight": 6,
+          "props": {}
+        },
+        {
+          "cislo": 47,
+          "weight": 4,
+          "props": {}
+        },
+        {
+          "cislo": 48,
+          "weight": 7,
+          "props": {}
+        },
+        {
+          "cislo": 67,
+          "weight": 11,
+          "props": {}
+        },
+        {
+          "cislo": 72,
+          "weight": 4,
+          "props": {}
+        },
+        {
+          "cislo": 78,
+          "weight": 3,
+          "props": {}
+        },
+        {
+          "cislo": 90,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 116,
+          "weight": 2,
+          "props": {}
+        },
+        {
+          "cislo": 124,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 163,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 173,
+          "weight": 11,
+          "props": {}
+        },
+        {
+          "cislo": 174,
+          "weight": 2,
+          "props": {}
+        },
+        {
+          "cislo": 189,
+          "weight": 2,
+          "props": {}
+        },
+        {
+          "cislo": 198,
+          "weight": 1,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [],
+      "amendment_bills": [
+        {
+          "cislo": 48,
+          "weight": 3,
+          "props": {
+            "sd_cislos": [
+              870,
+              876,
+              877
+            ]
+          }
+        },
+        {
+          "cislo": 173,
+          "weight": 1,
+          "props": {
+            "sd_cislos": [
+              1542
+            ]
+          }
+        },
+        {
+          "cislo": 174,
+          "weight": 1,
+          "props": {
+            "sd_cislos": [
+              1541
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6533",
+      "name": "Marek Novák",
+      "leaking": {
+        "effort_notes": {
+          "text": "Nejvyšší skóre v této skupině i nejvyšší legislativní výkon v předchozím volebním období (20 bodů, 23 návrhů, 246 řečnických vystoupení, 38 interpelací) — silný 'workhorse' profil bez vedoucí funkce v aktuálním období. Žádné propojené firmy nebyly v datech nalezeny.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "v této skupině"
+            }
+          ]
+        }
+      },
+      "bills_authored": 3,
+      "bills_first_signed": 1,
+      "bills_co_signed": 2,
+      "amendments_authored": 13,
+      "speech_turns": 35,
+      "effort_rapporteur_load": 5,
+      "spoke_on_bills": [
+        {
+          "cislo": 55,
+          "weight": 4,
+          "props": {}
+        },
+        {
+          "cislo": 56,
+          "weight": 4,
+          "props": {}
+        },
+        {
+          "cislo": 62,
+          "weight": 4,
+          "props": {}
+        },
+        {
+          "cislo": 69,
+          "weight": 14,
+          "props": {}
+        },
+        {
+          "cislo": 90,
+          "weight": 2,
+          "props": {}
+        },
+        {
+          "cislo": 246,
+          "weight": 2,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [
+        {
+          "cislo": 55,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_dokumentu",
+              "zpravodaj_ov",
+              "zpravodaj_vyboru"
+            ],
+            "organ_ids": [
+              1761
+            ]
+          }
+        },
+        {
+          "cislo": 56,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_dokumentu",
+              "zpravodaj_ov",
+              "zpravodaj_vyboru"
+            ],
+            "organ_ids": [
+              1761
+            ]
+          }
+        },
+        {
+          "cislo": 62,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_dokumentu",
+              "zpravodaj_ov",
+              "zpravodaj_vyboru"
+            ],
+            "organ_ids": [
+              1761
+            ]
+          }
+        },
+        {
+          "cislo": 69,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_dokumentu",
+              "zpravodaj_ov",
+              "zpravodaj_vyboru"
+            ],
+            "organ_ids": [
+              1761
+            ]
+          }
+        },
+        {
+          "cislo": 246,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_ps"
+            ],
+            "organ_ids": []
+          }
+        }
+      ],
+      "amendment_bills": [
+        {
+          "cislo": 46,
+          "weight": 1,
+          "props": {
+            "sd_cislos": [
+              1491
+            ]
+          }
+        },
+        {
+          "cislo": 55,
+          "weight": 2,
+          "props": {
+            "sd_cislos": [
+              1411,
+              1412
+            ]
+          }
+        },
+        {
+          "cislo": 56,
+          "weight": 5,
+          "props": {
+            "sd_cislos": [
+              1122,
+              1136,
+              1288,
+              1295,
+              1413
+            ]
+          }
+        },
+        {
+          "cislo": 69,
+          "weight": 4,
+          "props": {
+            "sd_cislos": [
+              1488,
+              1522,
+              1524,
+              1525
+            ]
+          }
+        },
+        {
+          "cislo": 90,
+          "weight": 1,
+          "props": {
+            "sd_cislos": [
+              795
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6552",
+      "name": "Zdeněk Hřib",
+      "leaking": {
+        "effort_notes": {
+          "text": "Dvě evidované výborové role odpovídají jeho formálnímu zařazení. Nápadný rozpor v datech: má zdaleka nejvyšší řečnickou aktivitu ze sledovaných poslanců, zatímco jeho celkové hodnocení a docházka patří k nejnižším — vysoký řečnický objem tedy nekoreluje s celkovým hodnocením ani s docházkou; bez zaznamenaných interpelací a jen se dvěma tisky. Podvýborové místopředsednictví (Doprava, od 2. 4. 2026) je stejná mimo hlavní přehled stojící role jako u dalších poslanců v tomto přehledu. Žádné firemní ani finanční vazby nebyly zjištěny.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "v tomto přehledu"
+            }
+          ]
+        }
+      },
+      "bills_authored": 2,
+      "bills_first_signed": 1,
+      "bills_co_signed": 1,
+      "amendments_authored": 7,
+      "speech_turns": 308,
+      "effort_rapporteur_load": 0,
+      "spoke_on_bills": [
+        {
+          "cislo": 47,
+          "weight": 7,
+          "props": {}
+        },
+        {
+          "cislo": 67,
+          "weight": 15,
+          "props": {}
+        },
+        {
+          "cislo": 70,
+          "weight": 9,
+          "props": {}
+        },
+        {
+          "cislo": 72,
+          "weight": 6,
+          "props": {}
+        },
+        {
+          "cislo": 76,
+          "weight": 2,
+          "props": {}
+        },
+        {
+          "cislo": 77,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 78,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 82,
+          "weight": 27,
+          "props": {}
+        },
+        {
+          "cislo": 83,
+          "weight": 4,
+          "props": {}
+        },
+        {
+          "cislo": 116,
+          "weight": 12,
+          "props": {}
+        },
+        {
+          "cislo": 163,
+          "weight": 4,
+          "props": {}
+        },
+        {
+          "cislo": 189,
+          "weight": 2,
+          "props": {}
+        },
+        {
+          "cislo": 218,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 222,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 235,
+          "weight": 5,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [],
+      "amendment_bills": [
+        {
+          "cislo": 67,
+          "weight": 5,
+          "props": {
+            "sd_cislos": [
+              1198,
+              1213,
+              1257,
+              1258,
+              1356
+            ]
+          }
+        },
+        {
+          "cislo": 83,
+          "weight": 2,
+          "props": {
+            "sd_cislos": [
+              1040,
+              1437
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6664",
+      "name": "Josef Nerušil",
+      "leaking": {
+        "effort_notes": {
+          "text": "Šichtařová rezignovala 11.–12.3.2026 poté, co ji předseda SPD Okamura i místopředseda ANO Vondráček veřejně vyzvali k větší aktivitě (opustila dva výbory a nepůsobila v žádném); její rezignační dopis musel být opraven kvůli formální vadě. Nerušilovo skóre 30 a z-skóre -2,08 vůči klubu SPD odráží ~4 měsíce reálného mandátu (od 24.3.2026) oproti ~9,5 měsíce u poslanců od začátku období — do jediného výboru (Výbor pro evropské záležitosti) nastoupil až 27.5.2026, dva měsíce po slibu. Nejde o srovnatelné funkční období s ostatními poslanci s nízkým skóre v tomto přehledu (ti byli buď fakticky nepřítomní od počátku, nebo se mandátu vzdali); Nerušil je jediný ze skupiny, kdo mandát reálně vykonává, jen krátce.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "v tomto přehledu"
+            }
+          ]
+        }
+      },
+      "bills_authored": 0,
+      "bills_first_signed": 0,
+      "bills_co_signed": 0,
+      "amendments_authored": 0,
+      "speech_turns": 6,
+      "effort_rapporteur_load": 0,
+      "spoke_on_bills": [
+        {
+          "cislo": 11,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 47,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 119,
+          "weight": 2,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [],
+      "amendment_bills": []
+    },
+    {
+      "id": "psp:person:6730",
+      "name": "Lubomír Wenzl",
+      "leaking": {
+        "effort_notes": {
+          "text": "Datová nesrovnalost: interní přehled uvádí zapojení do 5 výborů/komisí, ale ve vstupním seznamu je doloženo jen 4 — podobný vzorec (počítadlo o 1 vyšší) se objevil i u dalších poslanců v tomto přehledu, což naznačuje systematickou, ne náhodnou chybu. Trendové pozorování: skóre kleslo z 78 v předchozím období na 68,4 v aktuálním, ale zatímco v předchozím období měl 15 vlastních zákonů a 89 interpelací, aktuální data uvádějí nulu u obou metrik — může jít o reálný pokles aktivity, nebo o neúplně zachycená data tak brzy v mandátu (293 dní). Doporučujeme ověřit úplnost aktuálních dat o tiscích a interpelacích, než se pokles interpretuje jako skutečný trend. Žádná firemní vazba nebyla v datech nalezena k ověření.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "v tomto přehledu"
+            }
+          ]
+        }
+      },
+      "bills_authored": 0,
+      "bills_first_signed": 0,
+      "bills_co_signed": 0,
+      "amendments_authored": 0,
+      "speech_turns": 12,
+      "effort_rapporteur_load": 0,
+      "spoke_on_bills": [
+        {
+          "cislo": 47,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 67,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 72,
+          "weight": 2,
+          "props": {}
+        },
+        {
+          "cislo": 82,
+          "weight": 1,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [],
+      "amendment_bills": []
+    },
+    {
+      "id": "psp:person:6732",
+      "name": "Ivana Mádlová",
+      "leaking": {
+        "effort_notes": {
+          "text": "Obě dohledané firemní vazby jsou historické, skončily roky před začátkem jejího aktuálního mandátu (od cca října 2025): (1) VODÁRNA PLZEŇ a.s. (IČO 25205625, evidovaná částka 915 796 079,85 Kč — zdaleka nejvyšší v tomto přehledu) — funkce místopředsedkyně dozorčí rady 8. 2. 2016 – 31. 12. 2018, výmaz z obchodního rejstříku 23. 2. 2019, tedy cca 7 let před nástupem do Sněmovny; nezávisle potvrzeno druhým zdrojem (výroční zpráva 2017, Hlídač státu). Vodárna Plzeň je klíčová regionální veřejná infrastrukturní firma (vodohospodářství pro město Plzeň) — tematicky souvisí s jejím výborem pro veřejnou správu a regionální rozvoj, ale jde o dozorčí roli skončenou dávno před mandátem, ne o současné angažmá. (2) DOMOVINKA - sociální služby, o.p.s. (IČO 29123747, evidovaná částka 20 168 230 Kč) — byla členkou správní rady 16. 1. 2012 – 22. 9. 2014 (příp. do 30. 6. 2014), tedy více než 11 let před mandátem; sociální služby tematicky souvisí s jejím výborem pro zdravotnictví, ale opět jde o dávno ukončenou roli. Obě vazby jsou dvakrát nezávisle ověřené, žádná není aktuální osobní finanční angažovanost — jde o historické institucionální role, ne o současný konflikt zájmů. Datová nesrovnalost: v přehledu je uvedeno zapojení do 6 výborů/komisí, ale doloženy jsou jen 3 položky (stejný vzorec jako u dalších poslanců v tomto přehledu). Trendová poznámka (opatrně, mladý mandát): skóre z předchozího období (83,8; 16 tisků, 33 interpelací) je vyšší než dosavadní aktuální skóre (63,7; 2 tisky, 0 interpelací), ale vzhledem ke krátké délce dosavadního mandátu jde o částečné srovnání, ne o potvrzený pokles.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "v tomto přehledu"
+            }
+          ]
+        },
+        "effort_bill_focus": {
+          "text": "Mádlová je spolupodepsanou (ne první předkladatelkou) u obou tisků ze svého vzorku, ale oba mají mnohem lepší osud než většina této skupiny: tisk 70 (novela zákona o pojistném na veřejné zdravotní pojištění, vedl A. Vojtěch, 12. 12. 2025) byl PŘIJAT a vyhlášen jako zákon č. 71/2026 Sb. (kladné stanovisko vlády, tři čtení, Senát, podpis prezidenta 19. 5. 2026); tisk 72 (novela jednacího řádu PS, vedl R. Vondráček, 18. 12. 2025, 28 spolupodepsaných) prošel 3. čtením (1.–3. 7. 2026) a je od 21. 7. 2026 v Senátu. Oba tisky jsou tedy věcně v souladu s jejím členstvím ve zdravotním výboru (VZ), resp. obecnou parlamentní agendou.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "ze svého vzorku"
+            }
+          ]
+        }
+      },
+      "bills_authored": 2,
+      "bills_first_signed": 0,
+      "bills_co_signed": 2,
+      "amendments_authored": 0,
+      "speech_turns": 2,
+      "effort_rapporteur_load": 1,
+      "spoke_on_bills": [
+        {
+          "cislo": 11,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 69,
+          "weight": 1,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [
+        {
+          "cislo": 100,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_ov"
+            ],
+            "organ_ids": []
+          }
+        }
+      ],
+      "amendment_bills": []
+    },
+    {
+      "id": "psp:person:6743",
+      "name": "Robert Stržínek",
+      "leaking": {
+        "effort_bill_focus": {
+          "text": "Stržínek je spolupodepsaným (ne první předkladatelem) u obou tisků ze svého vzorku: tisk 72 (novela jednacího řádu PS, vedl R. Vondráček, 18. 12. 2025, mezi 28 spolupodepsanými) prošel 3. čtením (1.–3. 7. 2026) a je od 21. 7. 2026 v Senátu; tisk 217 (novela zákona o Nejvyšším kontrolním úřadu, vedl O. Babka, podán 5. 6. 2026) — Stržínek se připojil jako spolupodepsaný dodatečně 9. 6. 2026 — má KLADNÉ stanovisko vlády (17. 6. 2026, souhlas) a Kontrolní výbor jako garanční, tedy nadějná trajektorie i když zatím nepřijat.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "ze svého vzorku"
+            }
+          ]
+        }
+      },
+      "bills_authored": 2,
+      "bills_first_signed": 1,
+      "bills_co_signed": 1,
+      "amendments_authored": 0,
+      "speech_turns": 3,
+      "effort_rapporteur_load": 1,
+      "spoke_on_bills": [
+        {
+          "cislo": 77,
+          "weight": 1,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [
+        {
+          "cislo": 154,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_ov"
+            ],
+            "organ_ids": []
+          }
+        }
+      ],
+      "amendment_bills": []
+    },
+    {
+      "id": "psp:person:6750",
+      "name": "Josef Flek",
+      "leaking": {
+        "effort_public_role": {
+          "text": "Předseda Výboru pro obranu (od 14. 11. 2025) a člen Stálé komise pro kontrolu činnosti Vojenského zpravodajství — nejvyšší formální odpovědnost v bezpečnostní/obranné agendě v této skupině pěti poslanců. Dále člen Výboru pro zdravotnictví a podvýborů pro letectví a astronautiku, ekonomiku zdravotnictví a urgentní medicínu.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "v této skupině"
+            }
+          ]
+        }
+      },
+      "bills_authored": 1,
+      "bills_first_signed": 0,
+      "bills_co_signed": 1,
+      "amendments_authored": 0,
+      "speech_turns": 8,
+      "effort_rapporteur_load": 0,
+      "spoke_on_bills": [
+        {
+          "cislo": 90,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 198,
+          "weight": 1,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [],
+      "amendment_bills": []
+    },
+    {
+      "id": "psp:person:6754",
+      "name": "Matěj Ondřej Havel",
+      "leaking": {
+        "effort_bill_focus": {
+          "text": "Havel je mezi těmito poslanci výjimkou — u svého jediného tisku je skutečným prvním předkladatelem, zápis uvádí 'Havel M. O. a další', zatímco ostatní poslanci v tomto přehledu jsou vždy jen spolupodepsaní. Tisk 181 (novela zákona o volbách do zastupitelstev obcí, 491/2001 Sb.) předložil s osmi dalšími poslanci TOP 09/SPOLU 4. 5. 2026; garančním je Ústavně-právní výbor, vláda 3. 6. 2026 vyjádřila nesouhlas, k 25. 7. 2026 stále v projednávání.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "v tomto přehledu"
+            }
+          ]
+        }
+      },
+      "bills_authored": 1,
+      "bills_first_signed": 1,
+      "bills_co_signed": 0,
+      "amendments_authored": 0,
+      "speech_turns": 44,
+      "effort_rapporteur_load": 2,
+      "spoke_on_bills": [
+        {
+          "cislo": 72,
+          "weight": 8,
+          "props": {}
+        },
+        {
+          "cislo": 78,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 90,
+          "weight": 1,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [
+        {
+          "cislo": 104,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_ov"
+            ],
+            "organ_ids": []
+          }
+        },
+        {
+          "cislo": 228,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_ov"
+            ],
+            "organ_ids": []
+          }
+        }
+      ],
+      "amendment_bills": []
+    },
+    {
+      "id": "psp:person:6769",
+      "name": "Hayato Okamura",
+      "leaking": {
+        "effort_bill_focus": {
+          "text": "Okamura je spolupodepsán (nikoli prvním předkladatelem) u všech 6 tisků ze svého vzorku, žádný k 25. 7. 2026 nebyl přijat: tisk 50 (důchodové pojištění, vedl M. Jurečka, čeká na projednání ve VSP), tisk 89 (rozpočtová pravidla, vedl B. Činčila, čeká na projednání v RV), tisk 109 (nemocenské pojištění, vedl M. Jurečka, čeká na VSP), tisk 110 (pojistné na sociální zabezpečení, vedl M. Jurečka, čeká na VSP), tisk 121 (daně z příjmů, vedl M. Jurečka, čeká na VSP) a tisk 161 (zákon o odpadech, vedl P. Hladík, čeká na VŽP se zamítavým stanoviskem vlády). Všech 6 je tedy spolupodpisů u klubových kolegů KDU-ČSL, žádná vlastní iniciativa (schema poznámka e).",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "ze svého vzorku"
+            }
+          ]
+        }
+      },
+      "bills_authored": 6,
+      "bills_first_signed": 0,
+      "bills_co_signed": 6,
+      "amendments_authored": 0,
+      "speech_turns": 17,
+      "effort_rapporteur_load": 0,
+      "spoke_on_bills": [
+        {
+          "cislo": 72,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 78,
+          "weight": 2,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [],
+      "amendment_bills": []
+    },
+    {
+      "id": "psp:person:6780",
+      "name": "Berenika Peštová",
+      "leaking": {
+        "effort_bill_focus": {
+          "text": "Peštová je spolupodepsanou (ne první předkladatelkou) u jediného tisku, který má na kontě: tisk 116 (zrušení nominačního zákona, vedla Z. Ožanová, 20. 2. 2026) — vládní souhlas 3. 3. 2026, prošel 1. čtením (21.–22. 4. 2026), Hospodářský výbor jej po přerušení (5. 5. 2026) doporučil ke schválení (15. 6. 2026) a byl zařazen na 27. schůzi od 10. 7. 2026 — nejblíže dokončení ze všech tisků sledovaných v tomto přehledu, byť dosud formálně neschválen.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "v tomto přehledu"
+            }
+          ]
+        }
+      },
+      "bills_authored": 1,
+      "bills_first_signed": 0,
+      "bills_co_signed": 1,
+      "amendments_authored": 1,
+      "speech_turns": 113,
+      "effort_rapporteur_load": 2,
+      "spoke_on_bills": [
+        {
+          "cislo": 47,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 53,
+          "weight": 4,
+          "props": {}
+        },
+        {
+          "cislo": 58,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 67,
+          "weight": 17,
+          "props": {}
+        },
+        {
+          "cislo": 72,
+          "weight": 12,
+          "props": {}
+        },
+        {
+          "cislo": 76,
+          "weight": 8,
+          "props": {}
+        },
+        {
+          "cislo": 77,
+          "weight": 3,
+          "props": {}
+        },
+        {
+          "cislo": 82,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 114,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 115,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 173,
+          "weight": 2,
+          "props": {}
+        },
+        {
+          "cislo": 174,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 192,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 193,
+          "weight": 8,
+          "props": {}
+        },
+        {
+          "cislo": 213,
+          "weight": 1,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [
+        {
+          "cislo": 53,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_dokumentu",
+              "zpravodaj_ov",
+              "zpravodaj_vyboru"
+            ],
+            "organ_ids": [
+              1761
+            ]
+          }
+        },
+        {
+          "cislo": 58,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_ov"
+            ],
+            "organ_ids": []
+          }
+        }
+      ],
+      "amendment_bills": [
+        {
+          "cislo": 67,
+          "weight": 1,
+          "props": {
+            "sd_cislos": [
+              1290
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6804",
+      "name": "Zdenka Němečková Crkvenjaš",
+      "leaking": {
+        "effort_notes": {
+          "text": "Skóre přínosu (59,3) je nejnižší v této skupině a odpovídá jedinému sponzorovanému tisku a jen 14 řečnickým vystoupením — nízký legislativní výstup je ale kompenzován funkcí ve výboru pro zdravotnictví a v dozorovém orgánu VZP, kde má reálný vliv na politiku zdravotního pojištění mimo sněmovní sál. Bez propojených firem. Jméno na psp.cz je uvedeno jako 'Zdenka Němčková Crkvenjašová' — jde o stejnou osobu (rozdíl je jen v diakritice/skloňování).",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "v této skupině"
+            }
+          ]
+        }
+      },
+      "bills_authored": 1,
+      "bills_first_signed": 0,
+      "bills_co_signed": 1,
+      "amendments_authored": 0,
+      "speech_turns": 14,
+      "effort_rapporteur_load": 1,
+      "spoke_on_bills": [
+        {
+          "cislo": 70,
+          "weight": 6,
+          "props": {}
+        },
+        {
+          "cislo": 145,
+          "weight": 2,
+          "props": {}
+        },
+        {
+          "cislo": 153,
+          "weight": 1,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [
+        {
+          "cislo": 153,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_ov"
+            ],
+            "organ_ids": []
+          }
+        }
+      ],
+      "amendment_bills": []
+    },
+    {
+      "id": "psp:person:6987",
+      "name": "Jiří Barták",
+      "leaking": {
+        "effort_notes": {
+          "text": "Jediný tisk, který má Barták na kontě, podepsal jako spolupodepsaný, ne jako předkladatel. Datová nesrovnalost: uvedený počet výborů (2) neodpovídá jediné reálně dohledané roli (místopředseda Organizačního výboru). Nejnižší počet řečnických vystoupení (10) a nejnižší skóre přínosu (60) v této skupině poslanců — jde o legitimní nízkoenergetický profil, ne o chybu dat. Žádné propojené firmy ani peněžní zjištění k ověření.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "v této skupině"
+            }
+          ]
+        }
+      },
+      "bills_authored": 1,
+      "bills_first_signed": 0,
+      "bills_co_signed": 1,
+      "amendments_authored": 0,
+      "speech_turns": 10,
+      "effort_rapporteur_load": 0,
+      "spoke_on_bills": [
+        {
+          "cislo": 76,
+          "weight": 3,
+          "props": {}
+        },
+        {
+          "cislo": 82,
+          "weight": 1,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [],
+      "amendment_bills": []
+    },
+    {
+      "id": "psp:person:6997",
+      "name": "Adriana Chochelová",
+      "leaking": {
+        "effort_notes": {
+          "text": "Deset evidovaných výborových, komisních a delegačních rolí odpovídá jejímu širokému agendovému zapojení (dvě z nich zachycují přechody mezi rolemi u téhož orgánu). Její podvýborová a meziparlamentní agenda (viz níže) ukazuje, že formální počet vedoucích funkcí ve skutečnosti podhodnocuje celkovou funkční zátěž, protože nezahrnuje předsednictví meziparlamentní skupiny. Účast na hlasováních i absence jsou u ní zároveň relativně vysoké, což je neobvyklá kombinace oproti ostatním poslancům v tomto přehledu — nejde o nic, co by bylo třeba opravovat, spíš o zajímavost k dalšímu ověření. Žádné firemní ani finanční vazby nebyly zjištěny.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "v tomto přehledu"
+            }
+          ]
+        }
+      },
+      "bills_authored": 3,
+      "bills_first_signed": 0,
+      "bills_co_signed": 3,
+      "amendments_authored": 3,
+      "speech_turns": 19,
+      "effort_rapporteur_load": 0,
+      "spoke_on_bills": [
+        {
+          "cislo": 67,
+          "weight": 2,
+          "props": {}
+        },
+        {
+          "cislo": 76,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 82,
+          "weight": 3,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [],
+      "amendment_bills": [
+        {
+          "cislo": 67,
+          "weight": 1,
+          "props": {
+            "sd_cislos": [
+              1154
+            ]
+          }
+        },
+        {
+          "cislo": 82,
+          "weight": 2,
+          "props": {
+            "sd_cislos": [
+              684,
+              685
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6999",
+      "name": "Katerina Demetrashvili",
+      "leaking": {
+        "effort_public_role": {
+          "text": "Demetrashvili, jedna z nejmladších poslankyň sněmovny (narozena 2003), je členkou Ústavně-právního výboru a Zahraničního výboru (obě role od 11. 11. 2025), Stálé komise pro kontrolu činnosti Úřadu pro zahraniční styky a informace (od 14. 11. 2025) a dle psp.cz i tří tematických podvýborů/komisí (pro duševní zdraví, pro rozvojovou spolupráci a lidská práva v zahraničí, pro svobodu slova) — tyto podvýborové role nejsou ve výše uvedeném přehledu zahrnuty, stejně jako u ostatních poslanců v tomto přehledu.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "v tomto přehledu"
+            }
+          ]
+        }
+      },
+      "bills_authored": 3,
+      "bills_first_signed": 0,
+      "bills_co_signed": 3,
+      "amendments_authored": 0,
+      "speech_turns": 19,
+      "effort_rapporteur_load": 4,
+      "spoke_on_bills": [
+        {
+          "cislo": 67,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 131,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 190,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 198,
+          "weight": 3,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [
+        {
+          "cislo": 12,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_ov"
+            ],
+            "organ_ids": []
+          }
+        },
+        {
+          "cislo": 131,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_ov"
+            ],
+            "organ_ids": []
+          }
+        },
+        {
+          "cislo": 181,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_ov"
+            ],
+            "organ_ids": []
+          }
+        },
+        {
+          "cislo": 190,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_ov"
+            ],
+            "organ_ids": []
+          }
+        }
+      ],
+      "amendment_bills": []
+    },
+    {
+      "id": "psp:person:7002",
+      "name": "Karel Dvořák",
+      "leaking": {
+        "effort_bill_focus": {
+          "text": "Dvořák je spolupodepsaným (nikoli prvním předkladatelem) u všech 7 tisků ze svého vzorku — v žádném podacím řetězci (submitter) není uveden jako první jméno, vždy je druhý nebo mezi 'a další'. Žádný z tisků k 25. 7. 2026 nebyl přijat: tisk 100 (novela zákona o obcích, vedla E. Olšáková, 5. 2. 2026) má nesouhlas vlády (3. 3. 2026) a je ve VSR; tisky 106 a 107 (oba novela zákona o podmínkách podnikání v cestovním ruchu 159/1999, vedla E. Olšáková, 10. 2. 2026) mají nesouhlasné, resp. neutrální vládní stanovisko; tisk 120 (daně z příjmů, vedla L. Sedmihradská, 3. 3. 2026) má nesouhlas vlády (31. 3. 2026); tisk 205 (kompetenční zákon, vedla B. Urbanová, 27. 5. 2026) má nesouhlas vlády (23. 6. 2026); tisky 206 (veřejné zakázky) a 214 (novela Ústavy ČR, oba vedl V. Rakušan, 27. 5. a 4. 6. 2026) mají oba nesouhlas vlády. Shrnutí: sedm aktivních spolupodpisů, nulová vlastní iniciativa, konzistentně negativní vládní stanoviska napříč celým vzorkem.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "ze svého vzorku"
+            }
+          ]
+        }
+      },
+      "bills_authored": 7,
+      "bills_first_signed": 0,
+      "bills_co_signed": 7,
+      "amendments_authored": 8,
+      "speech_turns": 32,
+      "effort_rapporteur_load": 3,
+      "spoke_on_bills": [
+        {
+          "cislo": 47,
+          "weight": 4,
+          "props": {}
+        },
+        {
+          "cislo": 76,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 77,
+          "weight": 2,
+          "props": {}
+        },
+        {
+          "cislo": 90,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 115,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 116,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 145,
+          "weight": 2,
+          "props": {}
+        },
+        {
+          "cislo": 222,
+          "weight": 2,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [
+        {
+          "cislo": 6,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_ov"
+            ],
+            "organ_ids": []
+          }
+        },
+        {
+          "cislo": 7,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_ov"
+            ],
+            "organ_ids": []
+          }
+        },
+        {
+          "cislo": 115,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_vyboru"
+            ],
+            "organ_ids": [
+              1762
+            ]
+          }
+        }
+      ],
+      "amendment_bills": [
+        {
+          "cislo": 47,
+          "weight": 1,
+          "props": {
+            "sd_cislos": [
+              1082
+            ]
+          }
+        },
+        {
+          "cislo": 76,
+          "weight": 6,
+          "props": {
+            "sd_cislos": [
+              828,
+              830,
+              832,
+              849,
+              880,
+              1129
+            ]
+          }
+        },
+        {
+          "cislo": 77,
+          "weight": 1,
+          "props": {
+            "sd_cislos": [
+              1130
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "psp:person:7003",
+      "name": "Irena Ferčíková Konečná",
+      "leaking": {
+        "effort_notes": {
+          "text": "Je členkou tří výborových a delegačních těles (VEZ, SKHH a Stálá delegace SDPSRE) — v podkladových datech figuruje jeden záznam dvakrát, po očištění jde o tři reálné orgány. Se čtyřmi interpelacemi má v této skupině poslanců nejvyšší počet, konkrétní témata interpelací se však nepodařilo nezávisle dohledat, a proto je zde neuvádíme, abychom je nedomýšleli. Žádné firemní ani finanční vazby nebyly zjištěny.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "v této skupině"
+            }
+          ]
+        }
+      },
+      "bills_authored": 1,
+      "bills_first_signed": 0,
+      "bills_co_signed": 1,
+      "amendments_authored": 0,
+      "speech_turns": 40,
+      "effort_rapporteur_load": 0,
+      "spoke_on_bills": [
+        {
+          "cislo": 69,
+          "weight": 14,
+          "props": {}
+        },
+        {
+          "cislo": 173,
+          "weight": 1,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [],
+      "amendment_bills": []
+    },
+    {
+      "id": "psp:person:7013",
+      "name": "Veronika Kovářová",
+      "leaking": {
+        "effort_notes": {
+          "text": "Zasedá ve dvou výborech, jak eviduje sněmovní databáze; jejích osm podvýborových členství (viz psp.cz) v tomto přehledu zahrnuto není — jde o obecné omezení metodiky, ne o chybu specifickou pro ni. Proti hlasování vlastního klubu se postavila jen ve 3 z 1 498 sledovaných hlasování, shoda s ostatními piráty je téměř stoprocentní. Žádné firemní ani finanční vazby nebyly zjištěny.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "v tomto přehledu"
+            }
+          ]
+        }
+      },
+      "bills_authored": 2,
+      "bills_first_signed": 0,
+      "bills_co_signed": 2,
+      "amendments_authored": 14,
+      "speech_turns": 40,
+      "effort_rapporteur_load": 3,
+      "spoke_on_bills": [
+        {
+          "cislo": 67,
+          "weight": 16,
+          "props": {}
+        },
+        {
+          "cislo": 82,
+          "weight": 6,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [
+        {
+          "cislo": 65,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_ov"
+            ],
+            "organ_ids": []
+          }
+        },
+        {
+          "cislo": 67,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_dokumentu",
+              "zpravodaj_vyboru"
+            ],
+            "organ_ids": [
+              1766
+            ]
+          }
+        },
+        {
+          "cislo": 234,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_ov"
+            ],
+            "organ_ids": []
+          }
+        }
+      ],
+      "amendment_bills": [
+        {
+          "cislo": 67,
+          "weight": 14,
+          "props": {
+            "sd_cislos": [
+              294,
+              1184,
+              1185,
+              1186,
+              1187,
+              1188,
+              1189,
+              1196,
+              1205,
+              1208,
+              1210,
+              1302,
+              1362,
+              1364
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "psp:person:7025",
+      "name": "Jana Murová",
+      "leaking": {
+        "effort_bill_focus": {
+          "text": "Spolupodepsala čtyři poslanecké tisky napříč ANO a SPD: tisk 11 (novela zákona o pojistném na sociální zabezpečení, sleva pro OSVČ a rodiče vracející se z rodičovské) — PŘIJAT jako zákon č. 90/2026 Sb. (podepsán prezidentem 5. 6. 2026, publikován 10. 6. 2026, po zamítnutí Senátem 6. 5. 2026 Sněmovna setrvala na svém stanovisku 26. 5. 2026); tisk 70 (novela zákona o veřejném zdravotním pojištění) — rovněž PŘIJAT jako zákon č. 71/2026 Sb. (schválen 25. 3. 2026, podepsán prezidentem 19. 5. 2026); tisk 72 (novela jednacího řádu Sněmovny, zákon č. 90/1995 Sb.) — schválen Sněmovnou 1.–3. 7. 2026, k 24. 7. 2026 postoupen Senátu; a tisk 87 (zákon o zemských znacích a vlajkách, sdílený spolupodpis s J. Hrnčířem) — dosud v projednávání. Ze čtyř tisků jsou tedy dva už platným zákonem a třetí těsně před dokončením — nejvyšší 'úspěšnost' spolupodpisů v této skupině.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "v této skupině"
+            }
+          ]
+        }
+      },
+      "bills_authored": 4,
+      "bills_first_signed": 1,
+      "bills_co_signed": 3,
+      "amendments_authored": 0,
+      "speech_turns": 54,
+      "effort_rapporteur_load": 3,
+      "spoke_on_bills": [
+        {
+          "cislo": 82,
+          "weight": 2,
+          "props": {}
+        },
+        {
+          "cislo": 90,
+          "weight": 47,
+          "props": {}
+        },
+        {
+          "cislo": 114,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 163,
+          "weight": 1,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [
+        {
+          "cislo": 68,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_ov"
+            ],
+            "organ_ids": []
+          }
+        },
+        {
+          "cislo": 90,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_dokumentu",
+              "zpravodaj_ov",
+              "zpravodaj_vyboru"
+            ],
+            "organ_ids": [
+              1772
+            ]
+          }
+        },
+        {
+          "cislo": 114,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_ov"
+            ],
+            "organ_ids": []
+          }
+        }
+      ],
+      "amendment_bills": []
+    },
+    {
+      "id": "psp:person:7026",
+      "name": "Anežka Nedomová",
+      "leaking": {
+        "effort_notes": {
+          "text": "Počet výborových/komisních rolí v datech (3) přesně odpovídá doloženým funkcím (Zahraniční výbor, Výbor pro evropské záležitosti, Stálá komise SKÚZSI). Nedomová je nejvíc podprůměrná vůči klubovému průměru STAN v této skupině — profil tomu odpovídá: nulová legislativní produkce, jen 8 vystoupení v plénu, ale velmi široké zahraničně-diplomatické zapojení, které kontribuční skóre nezachycuje. Žádná firemní vazba v datech nebyla nalezena.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "v této skupině"
+            }
+          ]
+        }
+      },
+      "bills_authored": 0,
+      "bills_first_signed": 0,
+      "bills_co_signed": 0,
+      "amendments_authored": 0,
+      "speech_turns": 8,
+      "effort_rapporteur_load": 0,
+      "spoke_on_bills": [
+        {
+          "cislo": 72,
+          "weight": 1,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [],
+      "amendment_bills": []
+    },
+    {
+      "id": "psp:person:7043",
+      "name": "Štěpán Slovák",
+      "leaking": {
+        "effort_notes": {
+          "text": "Ze čtyř tisků, u kterých je Slovák veden jako signatář, je prvním předkladatelem jen u tisku 208 — u zbylých tří (72, 103, 129) jde o spolupodpis. Výrazná nesrovnalost: uváděný počet deseti výborových/komisních rolí odpovídá jen šesti doloženým položkám (VK, SKÚPP, MIV, VEZ, VZ, SKNÚKIB) — rozdíl čtyř nedoložených vazeb je nejvyšší z celé skupiny. Firemní vazby v datech nejsou žádné, bez peněžního zjištění k ověření.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "nejvyšší z celé skupiny"
+            }
+          ]
+        }
+      },
+      "bills_authored": 4,
+      "bills_first_signed": 1,
+      "bills_co_signed": 3,
+      "amendments_authored": 2,
+      "speech_turns": 25,
+      "effort_rapporteur_load": 0,
+      "spoke_on_bills": [
+        {
+          "cislo": 70,
+          "weight": 5,
+          "props": {}
+        },
+        {
+          "cislo": 145,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 189,
+          "weight": 5,
+          "props": {}
+        },
+        {
+          "cislo": 235,
+          "weight": 2,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [],
+      "amendment_bills": [
+        {
+          "cislo": 145,
+          "weight": 1,
+          "props": {
+            "sd_cislos": [
+              1063
+            ]
+          }
+        },
+        {
+          "cislo": 189,
+          "weight": 1,
+          "props": {
+            "sd_cislos": [
+              1448
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "psp:person:7048",
+      "name": "Kateřina Stojanová",
+      "leaking": {
+        "effort_notes": {
+          "text": "Čtyři evidované výborové role odpovídají jejímu formálnímu zařazení. Klubové místopředsednictví (viz níže) stejně jako u dalších poslanců v tomto přehledu s podvýborovým či meziparlamentním vedením systematicky nespadá do počtu vedoucích funkcí zachycených zde. Ke dvěma evidovaným interpelacím se v dostupném materiálu nepodařilo dohledat konkrétní téma, proto ho neuvádíme. Žádné firemní ani finanční vazby nebyly zjištěny.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "v tomto přehledu"
+            }
+          ]
+        }
+      },
+      "bills_authored": 5,
+      "bills_first_signed": 3,
+      "bills_co_signed": 2,
+      "amendments_authored": 7,
+      "speech_turns": 39,
+      "effort_rapporteur_load": 1,
+      "spoke_on_bills": [
+        {
+          "cislo": 67,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 76,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 77,
+          "weight": 7,
+          "props": {}
+        },
+        {
+          "cislo": 187,
+          "weight": 3,
+          "props": {}
+        },
+        {
+          "cislo": 198,
+          "weight": 1,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [
+        {
+          "cislo": 162,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_ov"
+            ],
+            "organ_ids": []
+          }
+        }
+      ],
+      "amendment_bills": [
+        {
+          "cislo": 76,
+          "weight": 1,
+          "props": {
+            "sd_cislos": [
+              888
+            ]
+          }
+        },
+        {
+          "cislo": 77,
+          "weight": 2,
+          "props": {
+            "sd_cislos": [
+              763,
+              866
+            ]
+          }
+        },
+        {
+          "cislo": 115,
+          "weight": 2,
+          "props": {
+            "sd_cislos": [
+              1406,
+              1508
+            ]
+          }
+        },
+        {
+          "cislo": 116,
+          "weight": 1,
+          "props": {
+            "sd_cislos": [
+              1428
+            ]
+          }
+        },
+        {
+          "cislo": 187,
+          "weight": 1,
+          "props": {
+            "sd_cislos": [
+              1550
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "psp:person:7062",
+      "name": "Martin Záhoř",
+      "leaking": {
+        "effort_notes": {
+          "text": "Údaje souhlasí: stoprocentní účast na hlasováních a žádný vlastní legislativní návrh odpovídají nálezu čisté výborové docházky bez legislativní iniciativy. Peněžní zjištění (nejvýraznější v této skupině): (1) TAZATA, spol. s r.o. (IČO 18251129, Stříbro), kontrakty za 18 480 662,07 Kč — stavební firma v jeho vlastním městě. Zdroje se ROZCHÁZEJÍ v otázce jeho role: jeden agregovaný zdroj jej uvádí jako jednatele, ale aktuálnější přehled jednatelů (Zdeněk Takáč, Petr Takáč, Martin Pitra, Ing. Václav Štědrý, všichni od 9. 11. 2017) jej neobsahuje — nelze tedy s jistotou potvrdit ani vyvrátit současnou osobní statutární roli, doporučujeme ověřit přímo přes obchodní rejstřík. (2) Správa majetku města Stříbra, s.r.o. (IČO 26318903), kontrakty za 14 232 605,16 Kč — potvrzeno jako stoprocentně vlastněná městem Stříbro (jediný společník: Město Stříbro, IČO 00260177), jednatelem je Blahoslav Kupec, ne Záhoř osobně — ale jako starosta má nad touto městskou firmou přímou zřizovatelskou/dozorovou pravomoc, což je institucionální, nikoli osobní konflikt zájmů. (3) JISE stavby s.r.o. (IČO 26387816, Tlučná), nulová hodnota kontraktů — žádnou osobní ani institucionální vazbu na Záhoře se nepodařilo dohledat přes žádný zdroj. U všech tří selhal přímý přístup k veřejnému rejstříku ARES, použity byly sekundární zdroje s výše popsanými omezeními — žádné tvrzení o (ne)existenci osobní vazby proto nepovažujeme za definitivně potvrzené a doporučujeme přímé ověření přes obchodní rejstřík.",
+          "matches": [
+            {
+              "what": "sample-scoped self-reference",
+              "match": "v této skupině"
+            }
+          ]
+        }
+      },
+      "bills_authored": 0,
+      "bills_first_signed": 0,
+      "bills_co_signed": 0,
+      "amendments_authored": 0,
+      "speech_turns": 2,
+      "effort_rapporteur_load": 3,
+      "spoke_on_bills": [
+        {
+          "cislo": 116,
+          "weight": 1,
+          "props": {}
+        },
+        {
+          "cislo": 218,
+          "weight": 1,
+          "props": {}
+        }
+      ],
+      "rapporteur_bills": [
+        {
+          "cislo": 116,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_dokumentu",
+              "zpravodaj_ov",
+              "zpravodaj_vyboru"
+            ],
+            "organ_ids": [
+              1761
+            ]
+          }
+        },
+        {
+          "cislo": 138,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_ov"
+            ],
+            "organ_ids": []
+          }
+        },
+        {
+          "cislo": 218,
+          "weight": null,
+          "props": {
+            "scopes": [
+              "zpravodaj_ov"
+            ],
+            "organ_ids": []
+          }
+        }
+      ],
+      "amendment_bills": []
+    }
+  ]
+}

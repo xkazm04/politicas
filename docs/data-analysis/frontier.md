@@ -205,7 +205,7 @@ and the graph-metrics block in [[coverage-ledger]] for progress.
 
 ### Batch-008 (effort) — role-signal batch (2026-07-27)
 
-- [effort] Q-effort-16 (new): the `sample-scoped self-reference` public-copy rule (batch 008,
+- [effort] Q-effort-16 ✅ CLOSED (batch 009, 2026-07-27): all 29 withheld field-instances rewritten under a deterministic minimal-diff proof; 0/207 withheld re-measured live. Original entry: the `sample-scoped self-reference` public-copy rule (batch 008,
   verifier-earned: 8/16 proposals carried payload-scoped superlatives like „nejaktivnější řečník ze
   skupiny") withholds **29 pre-existing field-instances on 28 nodes** (batches 001–007 prose) at
   render until rewritten. Scoped mechanical rewrite pass — one small army group. (opened 2026-07-27)

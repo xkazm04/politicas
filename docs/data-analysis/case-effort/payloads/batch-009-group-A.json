@@ -1,0 +1,103 @@
+{
+  "proposals": [
+    {
+      "id": "psp:person:6150",
+      "name": "Andrej Babiš",
+      "props": {
+        "effort_notes": "Datová nesrovnalost k prověření: zaznamenaná 100% míra absence spolu s 95 vystoupeními a 9 sponzorovanými tisky je vnitřně napjatá (nulová účast by typicky nekorelovala s aktivním předkládáním); pravděpodobné vysvětlení je přechod na roli premiéra v prosinci 2025, ale doporučujeme ověřit metodiku měření absence u členů vlády. Meziobdobní odchylka aktivity odpovídá srovnání předchozího období (skóre 43,3, 44 interpelací, 499 řečnických vystoupení) se současným (skóre 44,7, 0 interpelací, 95 vystoupení) — napříč ukazateli jde o plošný pokles aktivity v plénu, konzistentní s vládní rolí, nikoli o anomálii k řešení. K firemním vazbám (Agrofert, Hartenberg, SynBiol atd.) doplňujeme už veřejně známý kontext: Babiš vložil podíl v Agrofertu do svěřenského fondu RSVP Trust (dokončeno 20. 2. 2026 po schválení regulátory tří zemí EU), střet zájmů podle něj vyřešen, Transparency International a Evropská komise (žádost o doplnění z 20. 5. 2026) to zpochybňují — jde o již medializovaný veřejný spor, ne o nový nález."
+      }
+    },
+    {
+      "id": "psp:person:6451",
+      "name": "Stanislav Fridrich",
+      "props": {
+        "effort_notes": "Počet evidovaných výborových rolí odpovídá podkladovým datům, ale nezachycuje jeho předsednictví Podvýboru pro vědu a vysoké školství od 18. 2. 2026 — stejný typ mezery jako u dalších poslanců s podvýborovým vedením. Mezitermínové srovnání ukazuje výrazný pokles jeho celkového hodnocení oproti minulému volebnímu období, taženého zejména extrémně nízkým počtem řečnických vystoupení. Žádné firemní ani finanční vazby nebyly zjištěny."
+      }
+    },
+    {
+      "id": "psp:person:6463",
+      "name": "Aleš Juchelka",
+      "props": {
+        "effort_bill_focus": "Juchelka je prvním předkladatelem (spolu s J. Pastuchovou) tisku 125 (novela zákona o sociálních službách, podán 6. 3. 2026), který úspěšně prošel celým procesem a byl publikován jako zákon č. 92/2026 Sb. (podpis prezidenta 5. 6. 2026) — jde o skutečnou vlastní legislativní iniciativu, dovedenou až do podoby zákona. Dále je spolupodepsaným (ne prvním předkladatelem) u tisku 11 (pojistné na sociální zabezpečení, vedla A. Schillerová), který rovněž prošel a byl publikován jako zákon č. 90/2026 Sb. Třetí položka, tisk 198 (novela zákona o státní sociální podpoře), je vládní návrh s předkladatelem 'min. práce a soc. věcí' — tedy ministerstvem, které Juchelka od 15. 12. 2025 sám řídí; ve Sněmovně byl schválen 8. 7. 2026 a nyní čeká na Senát (do 8. 8. 2026). Juchelka zde figuruje jen jako garanční výbor (VSP), ne jako osobní předkladatel — vládní tisk se mu proto nesmí připsat jako 'předložil'."
+      }
+    },
+    {
+      "id": "psp:person:6473",
+      "name": "Olga Richterová",
+      "props": {
+        "effort_notes": "Devět tisků odpovídá přesně evidenci, s korektním rozlišením 5 vlastních vs. 4 spolupodepsaných tisků podle údaje o předkladateli. Počet výborů souhlasí bezezbytku s doloženým seznamem — bez datové nesrovnalosti. Skóre přínosu je mezi obdobími prakticky stabilní (předchozí období: 85,4 → aktuální: 84,2, pokles jen 1,2 bodu) — jde o čistý, konzistentní výkon bez exekutivních nebo tenure artefaktů. Žádná firemní vazba v datech, žádné peněžní zjištění k ověření."
+      }
+    },
+    {
+      "id": "psp:person:6484",
+      "name": "David Štolpa",
+      "props": {
+        "effort_notes": "Stoprocentní účast a nulová absence v datech odpovídají aktivnímu profilu; nulové interpelace v aktuálním období proti 14 v předchozím a výrazný rozdíl mezi ukazateli obou období je nejspíš dáno tím, že jde teprve o cca 9 měsíců nového mandátu — doporučujeme sledovat v dalších obdobích, ne brát jako anomálii. Žádné propojené firmy."
+      }
+    },
+    {
+      "id": "psp:person:6513",
+      "name": "Marek Výborný",
+      "props": {
+        "effort_public_role": "Poslanec od 4.10.2025 za Pardubický kraj (SPOLU/KDU-ČSL), místopředseda Výboru pro vědu, vzdělávání, mládež a sport (od 21.1.2026), člen zemědělského výboru a ověřovatel Stálé komise pro Ústavu ČR a parlamentní procedury. Kombinuje vedení výboru, vysokou účast (0,9) a tři doložené tisky (2 jako hlavní předkladatel, 1 jako spolupředkladatel)."
+      }
+    },
+    {
+      "id": "psp:person:6533",
+      "name": "Marek Novák",
+      "props": {
+        "effort_notes": "Nejvyšší legislativní výkon v předchozím volebním období (20 bodů, 23 návrhů, 246 řečnických vystoupení, 38 interpelací) — silný 'workhorse' profil bez vedoucí funkce v aktuálním období. Žádné propojené firmy nebyly v datech nalezeny."
+      }
+    },
+    {
+      "id": "psp:person:6552",
+      "name": "Zdeněk Hřib",
+      "props": {
+        "effort_notes": "Dvě evidované výborové role odpovídají jeho formálnímu zařazení. Nápadný rozpor v datech: má zdaleka nejvyšší řečnickou aktivitu ze sledovaných poslanců, zatímco jeho celkové hodnocení a docházka patří k nejnižším — vysoký řečnický objem tedy nekoreluje s celkovým hodnocením ani s docházkou; bez zaznamenaných interpelací a jen se dvěma tisky. Podvýborové místopředsednictví (Doprava, od 2. 4. 2026) je stejná mimo hlavní přehled stojící role jako u dalších poslanců s podvýborovým vedením. Žádné firemní ani finanční vazby nebyly zjištěny."
+      }
+    },
+    {
+      "id": "psp:person:6664",
+      "name": "Josef Nerušil",
+      "props": {
+        "effort_notes": "Šichtařová rezignovala 11.–12.3.2026 poté, co ji předseda SPD Okamura i místopředseda ANO Vondráček veřejně vyzvali k větší aktivitě (opustila dva výbory a nepůsobila v žádném); její rezignační dopis musel být opraven kvůli formální vadě. Nerušilovo skóre 30 a z-skóre -2,08 vůči klubu SPD odráží ~4 měsíce reálného mandátu (od 24.3.2026) oproti ~9,5 měsíce u poslanců od začátku období — do jediného výboru (Výbor pro evropské záležitosti) nastoupil až 27.5.2026, dva měsíce po slibu. Nejde o srovnatelné funkční období s ostatními poslanci s nízkým skóre (ti byli buď fakticky nepřítomní od počátku, nebo se mandátu vzdali); Nerušil je jediný z nich, kdo mandát reálně vykonává, jen krátce."
+      }
+    },
+    {
+      "id": "psp:person:6730",
+      "name": "Lubomír Wenzl",
+      "props": {
+        "effort_notes": "Datová nesrovnalost: interní přehled uvádí zapojení do 5 výborů/komisí, ale ve vstupním seznamu je doloženo jen 4 — podobný vzorec (počítadlo o 1 vyšší) se objevil i u dalších poslanců, což naznačuje systematickou, ne náhodnou chybu. Trendové pozorování: skóre kleslo z 78 v předchozím období na 68,4 v aktuálním, ale zatímco v předchozím období měl 15 vlastních zákonů a 89 interpelací, aktuální data uvádějí nulu u obou metrik — může jít o reálný pokles aktivity, nebo o neúplně zachycená data tak brzy v mandátu (293 dní). Doporučujeme ověřit úplnost aktuálních dat o tiscích a interpelacích, než se pokles interpretuje jako skutečný trend. Žádná firemní vazba nebyla v datech nalezena k ověření."
+      }
+    },
+    {
+      "id": "psp:person:6732",
+      "name": "Ivana Mádlová",
+      "props": {
+        "effort_notes": "Obě dohledané firemní vazby jsou historické, skončily roky před začátkem jejího aktuálního mandátu (od cca října 2025): (1) VODÁRNA PLZEŇ a.s. (IČO 25205625, evidovaná částka 915 796 079,85 Kč) — funkce místopředsedkyně dozorčí rady 8. 2. 2016 – 31. 12. 2018, výmaz z obchodního rejstříku 23. 2. 2019, tedy cca 7 let před nástupem do Sněmovny; nezávisle potvrzeno druhým zdrojem (výroční zpráva 2017, Hlídač státu). Vodárna Plzeň je klíčová regionální veřejná infrastrukturní firma (vodohospodářství pro město Plzeň) — tematicky souvisí s jejím výborem pro veřejnou správu a regionální rozvoj, ale jde o dozorčí roli skončenou dávno před mandátem, ne o současné angažmá. (2) DOMOVINKA - sociální služby, o.p.s. (IČO 29123747, evidovaná částka 20 168 230 Kč) — byla členkou správní rady 16. 1. 2012 – 22. 9. 2014 (příp. do 30. 6. 2014), tedy více než 11 let před mandátem; sociální služby tematicky souvisí s jejím výborem pro zdravotnictví, ale opět jde o dávno ukončenou roli. Obě vazby jsou dvakrát nezávisle ověřené, žádná není aktuální osobní finanční angažovanost — jde o historické institucionální role, ne o současný konflikt zájmů. Datová nesrovnalost: v přehledu je uvedeno zapojení do 6 výborů/komisí, ale doloženy jsou jen 3 položky (stejný vzorec jako u dalších poslanců). Trendová poznámka (opatrně, mladý mandát): skóre z předchozího období (83,8; 16 tisků, 33 interpelací) je vyšší než dosavadní aktuální skóre (63,7; 2 tisky, 0 interpelací), ale vzhledem ke krátké délce dosavadního mandátu jde o částečné srovnání, ne o potvrzený pokles.",
+        "effort_bill_focus": "Mádlová je spolupodepsanou (ne první předkladatelkou) u obou tisků, ale oba mají mnohem lepší osud než většina této skupiny: tisk 70 (novela zákona o pojistném na veřejné zdravotní pojištění, vedl A. Vojtěch, 12. 12. 2025) byl PŘIJAT a vyhlášen jako zákon č. 71/2026 Sb. (kladné stanovisko vlády, tři čtení, Senát, podpis prezidenta 19. 5. 2026); tisk 72 (novela jednacího řádu PS, vedl R. Vondráček, 18. 12. 2025, 28 spolupodepsaných) prošel 3. čtením (1.–3. 7. 2026) a je od 21. 7. 2026 v Senátu. Oba tisky jsou tedy věcně v souladu s jejím členstvím ve zdravotním výboru (VZ), resp. obecnou parlamentní agendou."
+      }
+    },
+    {
+      "id": "psp:person:6743",
+      "name": "Robert Stržínek",
+      "props": {
+        "effort_bill_focus": "Stržínek je spolupodepsaným (ne první předkladatelem) u obou tisků: tisk 72 (novela jednacího řádu PS, vedl R. Vondráček, 18. 12. 2025, mezi 28 spolupodepsanými) prošel 3. čtením (1.–3. 7. 2026) a je od 21. 7. 2026 v Senátu; tisk 217 (novela zákona o Nejvyšším kontrolním úřadu, vedl O. Babka, podán 5. 6. 2026) — Stržínek se připojil jako spolupodepsaný dodatečně 9. 6. 2026 — má KLADNÉ stanovisko vlády (17. 6. 2026, souhlas) a Kontrolní výbor jako garanční, tedy nadějná trajektorie i když zatím nepřijat."
+      }
+    },
+    {
+      "id": "psp:person:6750",
+      "name": "Josef Flek",
+      "props": {
+        "effort_public_role": "Předseda Výboru pro obranu (od 14. 11. 2025) a člen Stálé komise pro kontrolu činnosti Vojenského zpravodajství — nejvyšší formální odpovědnost v bezpečnostní/obranné agendě ze všech jeho výborových funkcí. Dále člen Výboru pro zdravotnictví a podvýborů pro letectví a astronautiku, ekonomiku zdravotnictví a urgentní medicínu."
+      }
+    },
+    {
+      "id": "psp:person:6754",
+      "name": "Matěj Ondřej Havel",
+      "props": {
+        "effort_bill_focus": "Havel je mezi těmito poslanci výjimkou — u svého jediného tisku je skutečným prvním předkladatelem, zápis uvádí 'Havel M. O. a další', zatímco ostatní poslanci jsou vždy jen spolupodepsaní. Tisk 181 (novela zákona o volbách do zastupitelstev obcí, 491/2001 Sb.) předložil s osmi dalšími poslanci TOP 09/SPOLU 4. 5. 2026; garančním je Ústavně-právní výbor, vláda 3. 6. 2026 vyjádřila nesouhlas, k 25. 7. 2026 stále v projednávání."
+      }
+    }
+  ]
+}

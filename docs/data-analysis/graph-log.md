@@ -843,3 +843,12 @@ internals, `effort_citations` threaded. Gated 16/16; Opus verification caught 1 
 items pre-persist (see case-effort/batch-008.md §3). The strengthened public-copy rule
 (sample-scoped self-reference) ships in the same change and withholds 29 pre-existing
 field-instances until the Q-effort-16 rewrite. ns=effort, track=effort.
+
+## Pass 38 (track: effort) — batch 009: Q-effort-16 rewrite (2026-07-27)
+
+Props-merge on 28 person nodes: the 29 sample-scoped self-reference field-instances
+(effort_notes ×17, effort_bill_focus ×8, effort_public_role ×4, batches 001–007 prose) de-scoped or
+restated absolutely. Minimal-diff proven at merge (non-offending sentences byte-preserved — the
+deterministic substitute for a money re-verification); 1 stale count (Výborný) corrected from
+pass-34 graph data. Re-measured post-persist: 0/207 withheld field-instances — the dossier corpus
+renders fully clean. ns=effort, track=effort.
