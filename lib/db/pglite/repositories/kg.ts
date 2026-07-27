@@ -14,6 +14,26 @@ import { KG_EDGE_COLS, KG_NODE_COLS, mapKgEdge, mapKgNode } from "../mappers";
  * `id` on the "other end" no matter which side you read, so it must be dropped
  * rather than returned as a neighbour of itself.
  */
+/**
+ * A `limit` that exactly equals the row count is indistinguishable from a full read, and
+ * the truncation is SYSTEMATIC, not random: both listers order by id / (src,rel,dst), so
+ * whatever sorts last is simply absent. Money batch 012 grew `supplies` from 2 290 to
+ * 153 731 rows against callers that passed `limit: 100_000` — every company whose id
+ * sorted late silently lost all of its contracts, and nothing anywhere said so.
+ *
+ * The kernel's rule is that a dropped row is logged, never silent. This is that rule in
+ * the one place every caller passes through. It cannot distinguish "exactly at the limit"
+ * from "truncated", so it warns on both — the false positive is cheap, the miss is not.
+ */
+function warnIfTruncated(fn: string, got: number, limit: number, filter?: string): void {
+  if (got < limit) return;
+  console.warn(
+    `[kg] ${fn} returned exactly its limit (${limit}${filter ? `, filter=${filter}` : ""}) — ` +
+      `the result is probably TRUNCATED and, because the query is ordered, systematically so. ` +
+      `Raise the limit or page the read; do not trust aggregates computed from this.`,
+  );
+}
+
 export function neighbourIds(edges: KgEdgeRow[], id: string): string[] {
   const out = new Set<string>();
   for (const e of edges) {
@@ -85,6 +105,7 @@ export function makeKgRepo(pg: Pglite): KnowledgeGraphRepository {
         `select * from kg_node ${where} order by id limit ${lim}`,
         opts?.kind ? [opts.kind] : [],
       );
+      warnIfTruncated("listKgNodes", rows.length, lim, opts?.kind);
       return rows.map(mapKgNode);
     },
     async listKgEdges(opts) {
@@ -94,6 +115,7 @@ export function makeKgRepo(pg: Pglite): KnowledgeGraphRepository {
         `select * from kg_edge ${where} order by src, rel, dst limit ${lim}`,
         opts?.rel ? [opts.rel] : [],
       );
+      warnIfTruncated("listKgEdges", rows.length, lim, opts?.rel);
       return rows.map(mapKgEdge);
     },
     async getKgNodes(ids) {

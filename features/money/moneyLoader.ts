@@ -16,6 +16,7 @@ import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
 import { asUnion } from "@/lib/db/narrow";
 import { CORROBORATIONS, type ContractLine, type MoneyTie, type ReviewState } from "./moneyTypes";
 import { classifyTie, isDeMinimis, nearThresholdCount, reviewRank, reviewSignal, reviewTier } from "./reviewTypes";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 
 const TERM = "PSP10";
 const CONTRACT_LINES_PER_COMPANY = 400; // generous cap; UI slices its own top-N
@@ -132,8 +133,19 @@ export interface MoneyLayer {
   companyById: Map<string, KgNodeRow>;
   personById: Map<string, KgNodeRow>;
   clubByPerson: Map<number, string>;
-  /** company kg_node id → its supplies-reachable contracts, aggregated + line items. */
+  /** company kg_node id → its supplies-reachable contracts, aggregated + line items.
+   *
+   *  CONTAINS UNTIED COMPANIES. Since the batch-012 re-ingest the graph holds contracts
+   *  for companies that are in it only as ownership PARENTS (Ministerstvo financí, Praha,
+   *  ČSOB, České dráhy …) and have no `linked_to` tie to any MP at all — 6.68 tn CZK of
+   *  public-body activity that no politician may be associated with. Anything that
+   *  aggregates "money reachable through MPs" MUST intersect this with `tiedCompanyIds`
+   *  (or iterate `linked`), never sum it whole. */
   contractsByCompany: Map<string, CompanyContracts>;
+  /** Companies with at least one `linked_to` tie — the ONLY ones whose contracts may be
+   *  attributed to a politician. Derived here so no consumer has to re-derive it (and get
+   *  it wrong). */
+  tiedCompanyIds: Set<string>;
   /** the pass that materialized the money layer (self-awareness surface). */
   pass: number;
 }
@@ -146,9 +158,9 @@ export async function loadMoneyLayer(): Promise<MoneyLayer | null> {
 
     const companies = await store.listKgNodes({ kind: "company", limit: 100_000 });
     const persons = await store.listKgNodes({ kind: "person", limit: 100_000 });
-    const contracts = await store.listKgNodes({ kind: "contract", limit: 100_000 });
+    const contracts = await store.listKgNodes({ kind: "contract", limit: KG_READ_CAP });
     const linked = await store.listKgEdges({ rel: "linked_to", limit: 100_000 });
-    const supplies = await store.listKgEdges({ rel: "supplies", limit: 100_000 });
+    const supplies = await store.listKgEdges({ rel: "supplies", limit: KG_READ_CAP });
     if (linked.length === 0 || companies.length === 0) return null;
 
     const companyById = new Map(companies.map((c) => [c.id, c]));
@@ -192,7 +204,19 @@ export async function loadMoneyLayer(): Promise<MoneyLayer | null> {
 
     const pass = num((linked[0]?.provenance as Record<string, unknown> | undefined)?.pass) || 0;
 
-    return { companies, persons, linked, companyById, personById, clubByPerson, contractsByCompany, pass };
+    const tiedCompanyIds = new Set(linked.map((e) => e.dst));
+
+    return {
+      companies,
+      persons,
+      linked,
+      companyById,
+      personById,
+      clubByPerson,
+      contractsByCompany,
+      tiedCompanyIds,
+      pass,
+    };
   } catch (err) {
     reportLoaderFailure("moneyLoader.loadMoneyLayer", err);
     return null;

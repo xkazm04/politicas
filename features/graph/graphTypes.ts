@@ -74,6 +74,14 @@ export interface MapData {
   nodes: MapNodeDto[];
   edges: GraphEdge[];
   world: { width: number; height: number };
+  /** What the canvas is NOT showing, and why. The contract layer is bounded per supplier
+   *  (a landscape of 152 788 identical dots is not a landscape), so the payload states the
+   *  omission rather than letting the map imply it is the whole graph. */
+  omitted: {
+    contractsShown: number;
+    contractsTotal: number;
+    perSupplierCap: number;
+  };
 }
 
 /** Uzel trasy: sloupec sazby + peníze (formátuje klient podle locale). */

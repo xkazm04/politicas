@@ -33,6 +33,7 @@ import { isLocale, defaultLocale } from "@/lib/i18n/config";
 import { forceLayout, hashId } from "@/lib/kg/layout";
 import { citableId, sourceLinksFor, type KgNodeKind } from "@/lib/kg/sourceLinks";
 import { isKgNodeKind } from "./kindStyle";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 import type {
   GraphEdge,
   GraphNode,
@@ -80,13 +81,13 @@ async function buildIndex(): Promise<GraphIndex | null> {
     const store = await getStore();
     if (!store) return null;
 
-    const nodes = await store.listKgNodes({ limit: 200_000 });
+    const nodes = await store.listKgNodes({ limit: KG_READ_CAP });
     if (nodes.length === 0) return null;
 
     // Stupeň se počítá z hran jednou; jinak by ho každý našeptávač dopočítával
     // znovu a „kolik toho na uzlu visí" je přitom hlavní řadicí klíč.
     const degree = new Map<string, number>();
-    const edges = await store.listKgEdges({ limit: 200_000 });
+    const edges = await store.listKgEdges({ limit: KG_READ_CAP });
     for (const e of edges) {
       degree.set(e.src, (degree.get(e.src) ?? 0) + 1);
       degree.set(e.dst, (degree.get(e.dst) ?? 0) + 1);
@@ -190,6 +191,9 @@ const toEdge = (e: {
 // ── Mapa masy (rozvržení celého grafu spočítané na serveru) ─────────────────
 
 const MAP_WORLD = { width: 3200, height: 2100 };
+/** Kolik smluv nejvýše vykreslit kolem jednoho dodavatele (viz getMapData). */
+const MAP_CONTRACTS_PER_SUPPLIER = 12;
+
 let mapPromise: Promise<MapData | null> | null = null;
 
 const clampR2 = (v: number, min: number, max: number) =>
@@ -217,7 +221,7 @@ export async function getMapData(): Promise<MapData | null> {
       const idx = await graphIndex();
       if (!store || !idx) return null;
 
-      const allEdges = await store.listKgEdges({ limit: 200_000 });
+      const allEdges = await store.listKgEdges({ limit: KG_READ_CAP });
       const evidence = allEdges.filter((e) => e.rel !== "co_votes_with");
 
       const eDeg = new Map<string, number>();
@@ -238,7 +242,24 @@ export async function getMapData(): Promise<MapData | null> {
       const supplierOf = new Map<string, string>();
       for (const e of evidence) if (e.rel === "supplies") supplierOf.set(e.dst, e.src);
 
-      const nodes = idx.entries.map((entry) => {
+      // Batch-012 zvětšila korpus smluv z 2 287 na 152 788. Vykreslit je všechny znamená
+      // poslat do prohlížeče přes 150 tisíc uzlů — plátno tím ztratí smysl i výkon.
+      // Kolem každého dodavatele proto kreslíme jen omezený „prstenec" smluv; výběr je
+      // deterministický (podle id), aby byl mezi načteními stabilní, a payload nese
+      // počty, takže mapa nikdy netvrdí, že ukazuje celý graf.
+      const contractEntries = idx.entries.filter((e) => e.kind === "contract");
+      const perSupplier = new Map<string, number>();
+      const shownContracts = new Set<string>();
+      for (const entry of [...contractEntries].sort((a, b) => a.id.localeCompare(b.id))) {
+        const supplier = supplierOf.get(entry.id) ?? "(bez dodavatele)";
+        const n = perSupplier.get(supplier) ?? 0;
+        if (n >= MAP_CONTRACTS_PER_SUPPLIER) continue;
+        perSupplier.set(supplier, n + 1);
+        shownContracts.add(entry.id);
+      }
+
+      const visible = idx.entries.filter((e) => e.kind !== "contract" || shownContracts.has(e.id));
+      const nodes = visible.map((entry) => {
         const degree = eDeg.get(entry.id) ?? 0;
         if (entry.kind !== "contract") {
           const p = corePos.get(entry.id)!;
@@ -260,7 +281,20 @@ export async function getMapData(): Promise<MapData | null> {
         };
       });
 
-      return { nodes, edges: evidence.map(toEdge), world: MAP_WORLD };
+      // Hrany jen mezi vykreslenými uzly — jinak by plátno dostalo hranu do prázdna.
+      const visibleIds = new Set(visible.map((e) => e.id));
+      const visibleEdges = evidence.filter((e) => visibleIds.has(e.src) && visibleIds.has(e.dst));
+
+      return {
+        nodes,
+        edges: visibleEdges.map(toEdge),
+        world: MAP_WORLD,
+        omitted: {
+          contractsShown: shownContracts.size,
+          contractsTotal: contractEntries.length,
+          perSupplierCap: MAP_CONTRACTS_PER_SUPPLIER,
+        },
+      };
     } catch (err) {
       // See buildIndex's catch above — don't memoize a transient failure.
       console.error("[graphLoader] getMapData failed — will retry on next call", err);
@@ -290,7 +324,7 @@ export async function getTrails(): Promise<Trail[] | null> {
       const [companies, bills, allEdges] = await Promise.all([
         store.listKgNodes({ kind: "company", limit: 10_000 }),
         store.listKgNodes({ kind: "bill", limit: 10_000 }),
-        store.listKgEdges({ limit: 200_000 }),
+        store.listKgEdges({ limit: KG_READ_CAP }),
       ]);
 
       const byRel = (rel: string) => allEdges.filter((e) => e.rel === rel);

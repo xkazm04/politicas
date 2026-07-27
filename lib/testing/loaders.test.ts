@@ -67,6 +67,10 @@ const { getLeaderboardData, buildLeaderboard } = await import("../../features/ci
 const ALFA = "kg:company:ico:111"; // private supplier of the state → owner-operator tie
 const NEMOCNICE = "kg:company:ico:222"; // public body → steward tie
 const GAMA = "kg:company:ico:333";
+/** An ownership PARENT with public contracts and NO `linked_to` tie — the batch-012
+ *  shape (Ministerstvo financí, Praha, ČSOB …) that carried 6.68 tn CZK of public-body
+ *  activity into anything that summed `supplies` without checking for a tie. */
+const UNTIED_PARENT = "kg:company:ico:444";
 const GHOST = "kg:company:ico:999"; // referenced by an edge but has NO company node
 // The internal node-id suffix is deliberately UNRELATED to the public print number
 // (`props.cislo`) — no loader may conflate them. See CollisionBillRef's doc comment.
@@ -91,9 +95,11 @@ const BASE_COUNTERS = {
 
 /** Fixture census, kept beside the seed so map/census assertions stay maintainable. */
 const FIXTURE = {
-  knownKindNodes: 18, // 4 person + 3 company + 2 contract + 4 bill + 2 law + 2 organ + 1 party
+  // +1 company +1 contract vs pass-35: the batch-013 untied ownership parent and its
+  // own large contract, seeded to pin that untied money never reaches an attribution total.
+  knownKindNodes: 20, // 4 person + 4 company + 3 contract + 4 bill + 2 law + 2 organ + 1 party
   unknownKindNodes: 1, // a node kind the canvas must refuse to draw
-  edges: 23, // incl. the pass-34 rapporteur edge + pass-35 spoke_on/proposes_amendment
+  edges: 24, // incl. the pass-34 rapporteur edge + pass-35 spoke_on/proposes_amendment
   coVotesEdges: 3, // a 96%-dense matrix — must never reach the canvas payload
 } as const;
 
@@ -171,6 +177,8 @@ async function seedFixture(): Promise<void> {
       ($12, 'company', 'Alfa s.r.o.',            $4::jsonb, 30, '{}'::jsonb),
       ($13, 'company', 'Krajská nemocnice a.s.', $5::jsonb, 30, '{}'::jsonb),
       ($14, 'company', 'Gama s.r.o.',            $6::jsonb, 30, '{}'::jsonb),
+      ('kg:company:ico:444', 'company', 'Ministerstvo čehosi', '{"ico":"444"}'::jsonb, 30, '{}'::jsonb),
+      ('kg:contract:9', 'contract', 'Obří státní zakázka', '{"amount": 900000000, "signedOn": "2024-06-01"}'::jsonb, 30, '{}'::jsonb),
       ('kg:contract:1', 'contract', 'Dodávka IT', $7::jsonb, 30, '{}'::jsonb),
       ('kg:contract:2', 'contract', 'Úklid',      $8::jsonb, 30, '{}'::jsonb),
       ($15, 'bill', 'Novela zákona o daních z příjmů', $16::jsonb, 30, '{}'::jsonb),
@@ -263,6 +271,9 @@ async function seedFixture(): Promise<void> {
      values
       ($1, 'supplies', 'kg:contract:1', 5000000, '{}'::jsonb, '{}'::jsonb),
       ($1, 'supplies', 'kg:contract:2', 1900000, '{}'::jsonb, '{}'::jsonb),
+      -- an untied ownership parent's own contracting: reachable via supplies, but no MP
+      -- is tied to it, so it must never enter an attribution total.
+      ('kg:company:ico:444', 'supplies', 'kg:contract:9', 900000000, '{}'::jsonb, '{}'::jsonb),
       ('psp:person:100', 'linked_to', $1, null, $4::jsonb, $7::jsonb),
       ('psp:person:200', 'linked_to', $2, null, $5::jsonb, $7::jsonb),
       ('psp:person:200', 'linked_to', $3, null, $6::jsonb, $7::jsonb),
@@ -375,6 +386,29 @@ describe("loadMoneyLayer (the shared /penize read)", () => {
     expect(alfa.lines.map((l) => l.amountCzk)).toEqual([5_000_000, 1_900_000]);
     expect(alfa.lines[0].signedOn).toBe("2024-03-01");
     expect(layer.pass).toBe(42);
+  });
+
+  it("exposes tiedCompanyIds, and it EXCLUDES a contract-holding ownership parent", async () => {
+    const layer = (await withReadinessOff(loadMoneyLayer))!;
+    // The parent's contracts are reachable through `supplies` …
+    expect(layer.contractsByCompany.get(UNTIED_PARENT)?.czk).toBe(900_000_000);
+    // … but it has no tie, so it is not attributable to anyone.
+    expect(layer.tiedCompanyIds.has(UNTIED_PARENT)).toBe(false);
+    expect(layer.tiedCompanyIds.has(ALFA)).toBe(true);
+  });
+
+  it("REGRESSION (batch 013): an untied parent's money never reaches an attribution total", async () => {
+    // Batch 012's re-ingest gave ownership parents (Ministerstvo financí, Praha, ČSOB …)
+    // 55 844 contracts worth 6.68 tn CZK. They have no `linked_to` tie, so none of it may
+    // be associated with a politician. The fixture's parent holds 900M — an amount that
+    // dwarfs every tied company, so any total that accidentally includes it is unmissable.
+    const data = (await withReadinessOff(getMoneyData))!;
+    const untiedCzk = 900_000_000;
+    expect(data.stats.contractCzkReachable).toBeLessThan(untiedCzk);
+    expect(data.stats.contractCzkAttributable).toBeLessThan(untiedCzk);
+    expect(data.stats.contractCzkSteward).toBeLessThan(untiedCzk);
+    // And it must not appear as a company in the ledger at all.
+    expect(data.mps.flatMap((m) => m.ties).some((t) => t.companyId === UNTIED_PARENT)).toBe(false);
   });
 
   it("num() parses a numeric string instead of counting it as zero", () => {
@@ -941,7 +975,12 @@ describe("graphLoader over a seeded graph", () => {
     expect(map).not.toBeNull();
     expect(map.nodes).toHaveLength(FIXTURE.knownKindNodes);
     expect(map.edges.some((e) => e.rel === "co_votes_with")).toBe(false);
-    expect(map.edges).toHaveLength(FIXTURE.edges - FIXTURE.coVotesEdges);
+    // Batch 013: the canvas now emits edges only BETWEEN NODES IT DREW. That drops the
+    // fixture's deliberate ghost edge (a linked_to whose company node does not exist),
+    // which the map used to hand the renderer as a line into nowhere. co_votes_with (3)
+    // plus that ghost (1) are the two exclusions.
+    expect(map.edges).toHaveLength(FIXTURE.edges - FIXTURE.coVotesEdges - 1);
+    expect(map.edges.some((e) => e.dst === GHOST)).toBe(false);
     for (const n of map.nodes) {
       expect(Number.isFinite(n.x) && Number.isFinite(n.y)).toBe(true);
       expect(n.x).toBeGreaterThanOrEqual(0);
@@ -956,6 +995,12 @@ describe("graphLoader over a seeded graph", () => {
     // A machine claim awaiting human review draws dashed — the tie must stay labelled.
     expect(map.edges.find((e) => e.rel === "linked_to" && e.dst === ALFA)!.pending).toBe(true);
     expect(map.edges.find((e) => e.rel === "linked_to" && e.dst === NEMOCNICE)!.pending).toBe(false);
+    // The contract layer is BOUNDED per supplier and the payload says so, so the map can
+    // never imply it is showing the whole corpus (batch 012 grew it to 152 788 contracts;
+    // drawing them all would ship >150k nodes to the browser).
+    expect(map.omitted.perSupplierCap).toBeGreaterThan(0);
+    expect(map.omitted.contractsShown).toBeLessThanOrEqual(map.omitted.contractsTotal);
+    expect(map.nodes.filter((n) => n.kind === "contract")).toHaveLength(map.omitted.contractsShown);
     // Memoised for the process: the same object comes back.
     expect(await g.getMapData()).toBe(map);
   });

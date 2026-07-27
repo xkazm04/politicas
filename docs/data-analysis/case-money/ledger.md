@@ -852,3 +852,57 @@ at maximum depth returned **PARTIAL** (five framing defects, one refuted premise
    this corpus at all, because SZIF decides rather than contracts.
 5. Steward-class sweep, Teplárny Brno, ČSOB, České dráhy still UNMEASURED
    (batch 010); Q-money-13's 21 residue items still with law (14) / effort (7).
+
+### Batch 013 — the consumers the re-ingest broke (2026-07-27)
+
+A fix batch. **No graph writes, no pass number.** The task was batch-012 steering
+item 1 (untied ownership parents leaking into attribution queries); tracing every
+supplies consumer first found **two worse, silent defects the re-ingest had
+already caused**.
+
+- **Systematic silent truncation.** moneyLoader and getVerificationData read
+  supplies and contract nodes with limit 100 000 against the new 153 731 / 152 788
+  row corpus. Because both listers ORDER their reads, the loss was systematic:
+  every company whose id sorted late lost **all** its contracts, silently, on the
+  surface whose whole promise is that its numbers are real. Fixed three ways:
+  warnIfTruncated in the kg repository (a read whose result equals its limit now
+  says so loudly), one shared KG_READ_CAP (lib/db/readCap.ts) replacing ad-hoc
+  per-caller caps, and /graf's 200 000 edge cap — which had ~11 % headroom left
+  and would have broken silently on the next ingest — moved onto it.
+- **/graf would have shipped 153 715 nodes to the browser.** getMapData drew a
+  node per contract; at 2 287 that was a landscape, at 152 788 a ~20 MB payload of
+  identical dots. The contract layer is now bounded per supplier (12, chosen
+  deterministically so the picture is stable) and MapData.omitted carries
+  shown/total/cap, so the map states what it omits. A second defect fell out: the
+  canvas was emitting edges to nodes it never drew (a ghost linked_to); edges are
+  now restricted to drawn nodes, pinned by a test.
+- **The untied parents (the original ask).** moneyLoader now exposes
+  tiedCompanyIds, and contractsByCompany is documented as containing untied
+  companies and unusable whole. getMoneyData was already safe — but only by
+  accident of how it iterates, which is what the steering flagged. Now a fixture
+  seeds an untied parent holding **900 000 000 CZK** and a regression test asserts
+  it never enters contractCzkReachable / contractCzkAttributable /
+  contractCzkSteward or the ledger. graphLoader verified clean (its companyMoney
+  is only read through linked_to-derived companiesOf).
+- Gate: npm run check green (**511 tests**), npm run build succeeds.
+
+## Metrics block — batch 013
+
+| metric | batch 013 |
+|---|---|
+| silent-truncation defects found | **2** (money loaders at 100k; /graf 11 % from the same cliff) |
+| rows systematically dropped before the fix | ~53 700 supplies + ~52 800 contracts |
+| canvas payload before the fix | 153 715 nodes (~20 MB) -> bounded, with disclosure |
+| older defect found in passing | canvas drew edges to nodes it never drew |
+| new guards | warnIfTruncated · KG_READ_CAP · tiedCompanyIds + outsized-fixture regression test |
+| graph writes | **0** |
+| gate | 511 tests green · production build succeeds |
+
+## Steering (next batch — batch 014)
+
+1. Direction is unknown for 83 % of supplies edges — a targeted pass on the
+   highest-value unknowns converts the biggest figures from assumed to established.
+2. Decide a re-harvest cadence (--refresh=<month>) and wire it to the Pumper watch.
+3. The SZIF subsidy channel remains the largest blind spot — not in this corpus at all.
+4. Steward-class sweep, Teplárny Brno, ČSOB, České dráhy still UNMEASURED (batch 010);
+   Q-money-13's 21 residue items still with law (14) / effort (7).

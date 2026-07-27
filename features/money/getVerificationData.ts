@@ -12,6 +12,7 @@
 import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 import {
   buildRegistryLinks,
   classifyTie,
@@ -52,10 +53,10 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
     if (!store) return null;
 
     const companies = await store.listKgNodes({ kind: "company", limit: 100_000 });
-    const contracts = await store.listKgNodes({ kind: "contract", limit: 100_000 });
+    const contracts = await store.listKgNodes({ kind: "contract", limit: KG_READ_CAP });
     const persons = await store.listKgNodes({ kind: "person", limit: 100_000 });
     const linked = await store.listKgEdges({ rel: "linked_to", limit: 100_000 });
-    const supplies = await store.listKgEdges({ rel: "supplies", limit: 100_000 });
+    const supplies = await store.listKgEdges({ rel: "supplies", limit: KG_READ_CAP });
     if (linked.length === 0 || companies.length === 0) return null;
 
     const companyById = new Map(companies.map((c) => [c.id, c]));
