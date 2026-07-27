@@ -155,7 +155,20 @@ export interface LawBillView {
   summarySource: string | null;
   origin: BillOrigin;
   submitter: string | null; // ministry / MP names free text
-  sponsors: { pspId: number; name: string }[]; // resolved MP sponsors (/poslanec/<pspId>)
+  /** Resolved MP sponsors (/poslanec/<pspId>), ordered by signature rank (pass 34):
+   * rank 1 = předkladatel (the responsible first signatory), else spolupodepsal.
+   * role/rank are null for edges predating the roles backfill — rendered without a tag. */
+  sponsors: { pspId: number; name: string; role: "predkladatel" | "spolupodepsal" | null; rank: number | null; joinedLater: boolean }[];
+  /** Zpravodajové (rapporteur edges, pass 34) — the assigned analytical role on this
+   * print, from psp.cz hist (plenary) + hist_vybory/tisky_za (committee side). */
+  rapporteurs: { pspId: number; name: string; scopes: string[] }[];
+  /** Current procedural state (Czech typ_stavu name from psp.cz stavy/typ_stavu). */
+  stav: string | null;
+  /** "583/2025" + date when the print was published in the Sbírka (hist zaver step). */
+  fateSb: string | null;
+  fatePublishedOn: string | null;
+  /** Lowest contribution score among MP sponsors (Case ② index) — effort context. */
+  sponsorMinContribution: number | null;
   amendedLaws: AmendedLawRef[]; // statutes this print changes
   committees: CommitteeRoutingView[]; // formal committee routing (garanční first) — F15, may be empty
   flaggedConflict: boolean; // a sponsor has real money ties over the threshold
@@ -279,8 +292,22 @@ async function loadLawData(): Promise<LawData | null> {
     const organNodes = await store.listKgNodes({ kind: "organ", limit: 100_000 });
     const amends = await store.listKgEdges({ rel: "amends", limit: 100_000 });
     const assignedTo = await store.listKgEdges({ rel: "assigned_to", limit: 100_000 });
+    const rapporteurEdges = await store.listKgEdges({ rel: "rapporteur", limit: 100_000 });
     const persons = await store.listPersons();
     const nameById = new Map(persons.map((p) => [p.pspId, p.nameFull]));
+
+    // bill → zpravodajové (pass 34): person urn on the src side, scopes in props.
+    const rapporteursByBill = new Map<string, { pspId: number; name: string; scopes: string[] }[]>();
+    for (const e of rapporteurEdges) {
+      const pspId = Number(/^psp:person:(\d+)$/.exec(e.src)?.[1] ?? NaN);
+      if (!Number.isFinite(pspId)) continue;
+      const p = (e.props ?? {}) as Record<string, unknown>;
+      const scopes = Array.isArray(p.scopes) ? p.scopes.filter((s): s is string => typeof s === "string") : [];
+      const arr = rapporteursByBill.get(e.dst) ?? [];
+      arr.push({ pspId, name: nameById.get(pspId) ?? `#${pspId}`, scopes });
+      rapporteursByBill.set(e.dst, arr);
+    }
+    for (const arr of rapporteursByBill.values()) arr.sort((a, b) => a.name.localeCompare(b.name, "cs"));
 
     const paragraphDiffs = loadParagraphDiffs();
     const summaries = loadBillSummaries();
@@ -342,10 +369,30 @@ async function loadLawData(): Promise<LawData | null> {
       const forensic = readForensic(p);
       if (forensic) forensicCount++;
 
+      // sponsors_ranked (pass 34) carries the signature order; fall back to the
+      // plain unordered list (role null, no rank invented) where it is absent.
+      const ranked = Array.isArray(p.sponsors_ranked) ? (p.sponsors_ranked as unknown[]) : [];
+      const rankByOsoba = new Map<number, { rank: number; joinedLater: boolean }>();
+      for (const r of ranked) {
+        if (typeof r !== "object" || r === null) continue;
+        const o = r as Record<string, unknown>;
+        if (typeof o.osoba === "number" && typeof o.rank === "number") {
+          rankByOsoba.set(o.osoba, { rank: o.rank, joinedLater: o.joined_later === true });
+        }
+      }
       const sponsorIds = Array.isArray(p.sponsors) ? (p.sponsors as unknown[]) : [];
       const sponsors = sponsorIds
         .filter((id): id is number => typeof id === "number")
-        .map((pspId) => ({ pspId, name: nameById.get(pspId) ?? `#${pspId}` }));
+        .map((pspId) => {
+          const rk = rankByOsoba.get(pspId);
+          const role: "predkladatel" | "spolupodepsal" | null = rk
+            ? rk.rank === 1
+              ? "predkladatel"
+              : "spolupodepsal"
+            : null;
+          return { pspId, name: nameById.get(pspId) ?? `#${pspId}`, role, rank: rk?.rank ?? null, joinedLater: rk?.joinedLater ?? false };
+        })
+        .sort((a, b) => (a.rank ?? 1e9) - (b.rank ?? 1e9));
 
       const amendedUrns = lawsByBill.get(n.id) ?? [];
       const amendedLaws = amendedUrns.map(lawRefOf);
@@ -369,6 +416,14 @@ async function loadLawData(): Promise<LawData | null> {
         origin,
         submitter: asStr(p.submitter),
         sponsors,
+        rapporteurs: rapporteursByBill.get(n.id) ?? [],
+        stav: asStr(p.stav),
+        fateSb: asStr(p.fate_sb),
+        fatePublishedOn: asStr(p.fate_published_on),
+        sponsorMinContribution:
+          typeof p.sponsor_min_contribution === "number" && Number.isFinite(p.sponsor_min_contribution)
+            ? p.sponsor_min_contribution
+            : null,
         amendedLaws,
         committees,
         flaggedConflict: flagged,

@@ -43,6 +43,11 @@ export const KG_EDGE_RELS = [
   // kiosek handoff (docs/data-analysis/case-sources/handoff.md).
   "cites",
   "concerns",
+  // "rapporteur" (person -> bill, 2026-07-27): zpravodaj assignments from psp.cz
+  // tisky.zip (hist.orgv_id_posl/ps_id_posl + hist_vybory.id_posl + tisky_za.id_posl),
+  // props {scopes, organ_ids} — the "who did the analytical work" role that sponsors
+  // edges cannot carry. Writer: scripts/data-analysis/kg-bill-roles-ingest.ts.
+  "rapporteur",
 ] as const;
 export type KgEdgeRel = (typeof KG_EDGE_RELS)[number];
 

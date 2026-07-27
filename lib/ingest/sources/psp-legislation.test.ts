@@ -1,7 +1,14 @@
 import { describe, expect, it } from "vitest";
 
 import { parseUnl } from "../unl";
-import { extractAmendedLaws, parseCommitteeAssignments, parseLawBills } from "./psp-legislation";
+import {
+  extractAmendedLaws,
+  parseBillFates,
+  parseCommitteeAssignments,
+  parseLawBills,
+  parseRapporteurs,
+  parseSponsorRoles,
+} from "./psp-legislation";
 
 const PSP10 = 174;
 const rows = (s: string) => parseUnl(s);
@@ -100,5 +107,91 @@ describe("parseCommitteeAssignments (F15)", () => {
     // 43185: only a proposal so far — honestly recorded as navrženo
     expect(at(43185, 1765).status).toBe("navrzeno");
     expect(at(43185, 1765).assignedOn).toBe("2026-01-28");
+  });
+});
+
+describe("parseSponsorRoles (Q-effort-2)", () => {
+  // predkladatel.unl: id_tisk | id_osoba | poradi | typ
+  const roles = parseSponsorRoles(
+    rows(
+      [
+        "43111|6473|1|0|", // first signatory
+        "43111|6433|2|0|", // co-signer
+        "43111|6500|3|1|", // joined the list later
+        "43111|6433|5|0|", // duplicate row with a weaker rank — the lower rank wins
+        "43112|6473|2|0|", // same MP, different bill, NOT first there
+        "|x|1|0|", // garbage row ignored
+      ].join("\n"),
+    ),
+  );
+
+  it("orders the signature list by poradi and keeps the lowest rank on duplicates", () => {
+    const list = roles.get(43111)!;
+    expect(list.map((s) => s.idOsoba)).toEqual([6473, 6433, 6500]);
+    expect(list[0].rank).toBe(1);
+    expect(list.find((s) => s.idOsoba === 6433)!.rank).toBe(2);
+  });
+
+  it("flags later joiners and keeps first-signatory status per bill, not per person", () => {
+    expect(roles.get(43111)!.find((s) => s.idOsoba === 6500)!.joinedLater).toBe(true);
+    expect(roles.get(43112)![0].rank).toBe(2); // 6473 is a co-signer on 43112
+  });
+});
+
+describe("parseRapporteurs", () => {
+  // hist.unl (0-idx): 0 id_hist | 1 id_tisk | … | 8 orgv_id_posl | 9 ps_id_posl
+  const hist = rows(
+    [
+      "210001|43110|2026-01-10 00:00||||||null|2136||null|null|null|",
+      "210002|43110|2026-02-10 00:00|||||||2136||null|null|null|", // same (tisk, poslanec, scope) → deduped
+      "210003|43123|2026-01-11 00:00||||||1977|||null|null|null|", // orgv scope
+    ].join("\n"),
+  );
+  // hist_vybory.unl: 0 id_tisku | 1 id_organ | 2 typ | 3 id_hist | 4 id_posl | 5 poradi | 6 garancni
+  const histVybory = rows(["43110|1769|2|210001|2136|1|1||", "43110|1767|2|210001|2090|2|||"].join("\n"));
+  // tisky_za.unl: 0 id_tisk | … | 7 id_org | … | 9 id_posl
+  const tiskyZa = rows(["43110|14|210001|8|Usnesení|Usnesení výboru|2026-02-01 00:00|1769|14|2033|||||||"].join("\n"));
+
+  const raps = parseRapporteurs(hist, histVybory, tiskyZa);
+
+  it("collects all four scopes, mapping the literal 'null' to nothing", () => {
+    expect(raps).toEqual([
+      { tiskId: 43110, poslanecId: 2136, scope: "zpravodaj_ps", organId: null },
+      { tiskId: 43123, poslanecId: 1977, scope: "zpravodaj_ov", organId: null },
+      { tiskId: 43110, poslanecId: 2136, scope: "zpravodaj_vyboru", organId: 1769 },
+      { tiskId: 43110, poslanecId: 2090, scope: "zpravodaj_vyboru", organId: 1767 },
+      { tiskId: 43110, poslanecId: 2033, scope: "zpravodaj_dokumentu", organId: 1769 },
+    ]);
+  });
+});
+
+describe("parseBillFates", () => {
+  // tisky.unl: 0 id_tisk | 1 id_druh | 2 id_stav | …
+  const tisky = rows(["43132|1|110|583|||||||||||||", "43185|2|120|59|||||||||||||", "43200|2|130|7|||||||||||||"].join("\n"));
+  // stavy.unl: id_stav | id_typ_stavu ; typ_stavu.unl: id | name
+  const stavy = rows(["110|6|1||||", "120|11|1||||", "130|1|1||||"].join("\n"));
+  const typStavu = rows(["6|KONEC|", "11|Sbírka zákonů|", "1|1. čtení|"].join("\n"));
+  // hist.unl: 11 zaver_publik (DD.MM.YYYY or literal "null") | 12 castka | 13 cislo
+  const hist = rows(
+    [
+      "210417|43132|2025-12-23 00:00||57|||||||29.12.2025|583|583|",
+      "210500|43200|2026-04-15 00:00||2031|||||||null|null|7|", // NOT a publication (publik is "null")
+      "210600|43185|2026-05-06 00:00||151|||||||12.05.2026|59|59|",
+    ].join("\n"),
+  );
+
+  const fates = parseBillFates(tisky, stavy, typStavu, hist);
+
+  it("resolves the Czech state name per tisk", () => {
+    expect(fates.get(43132)!.stav).toBe("KONEC");
+    expect(fates.get(43185)!.stav).toBe("Sbírka zákonů");
+    expect(fates.get(43200)!.stav).toBe("1. čtení");
+  });
+
+  it("records a Sbírka publication only from a real zaver step", () => {
+    expect(fates.get(43132)!.sb).toBe("583/2025");
+    expect(fates.get(43132)!.publishedOn).toBe("2025-12-29");
+    expect(fates.get(43185)!.sb).toBe("59/2026");
+    expect(fates.get(43200)!.sb).toBeNull(); // the "null"-publik transition row is not a publication
   });
 });

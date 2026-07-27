@@ -23,11 +23,20 @@
  * nedosáhl.
  */
 
+import Link from "next/link";
 import { AlertTriangle, ArrowUpRight } from "lucide-react";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
 import ExpandableText from "./ExpandableText";
-import type { SponsoredBill } from "../getProfileData";
+import type { RapporteurBill, SponsoredBill } from "../getProfileData";
+
+/** Czech labels for the zpravodaj assignment scopes (pass 34, psp.cz tisky.zip). */
+const RAPPORTEUR_SCOPE_CZ: Record<string, string> = {
+  zpravodaj_ov: "zpravodaj pro 1. čtení",
+  zpravodaj_ps: "zpravodaj (určen předsedou PS)",
+  zpravodaj_vyboru: "zpravodaj výboru",
+  zpravodaj_dokumentu: "zpravodaj usnesení výboru",
+};
 
 export default function DossierSection({
   index,
@@ -37,6 +46,9 @@ export default function DossierSection({
   notes,
   dataFlag,
   sponsoredBills,
+  billsFirstSigned,
+  billsCoSigned,
+  rapporteurBills,
 }: {
   index: number;
   publicRole: string | null;
@@ -45,10 +57,14 @@ export default function DossierSection({
   notes: string | null;
   dataFlag: string | null;
   sponsoredBills: SponsoredBill[];
+  billsFirstSigned: number | null;
+  billsCoSigned: number | null;
+  rapporteurBills: RapporteurBill[];
 }) {
   const hasThemes = !!workThemes && workThemes.length > 0;
   const hasBillTrack = !!billFocus || sponsoredBills.length > 0;
-  const hasAny = !!publicRole || hasThemes || hasBillTrack || !!notes || !!dataFlag;
+  const hasSplit = billsFirstSigned != null && billsCoSigned != null && billsFirstSigned + billsCoSigned > 0;
+  const hasAny = !!publicRole || hasThemes || hasBillTrack || !!notes || !!dataFlag || rapporteurBills.length > 0;
   if (!hasAny) return null;
 
   return (
@@ -85,38 +101,112 @@ export default function DossierSection({
         {hasBillTrack && (
           <div>
             <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">Legislativní stopa</p>
+            {hasSplit && (
+              <p className="mt-2 text-[15px] leading-relaxed text-ink">
+                <span className="font-black">{billsFirstSigned}</span>{" "}
+                {billsFirstSigned === 1 ? "návrh předložil" : billsFirstSigned! >= 2 && billsFirstSigned! <= 4 ? "návrhy předložil" : "návrhů předložil"}{" "}
+                jako první podepsaný · <span className="font-black">{billsCoSigned}</span> spolupodepsal
+              </p>
+            )}
             {billFocus && (
               <ExpandableText className="mt-2 max-w-3xl text-[15px] leading-relaxed text-ink" text={billFocus} />
             )}
             {sponsoredBills.length > 0 && (
-              <div className="mt-3 flex flex-wrap gap-2">
-                {sponsoredBills.map((b) =>
-                  b.url ? (
-                    <a
-                      key={b.url}
-                      href={b.url}
-                      target="_blank"
-                      rel="noreferrer"
+              <ul className="mt-3 flex flex-col gap-1.5">
+                {sponsoredBills.map((b) => (
+                  <li key={b.cislo ?? b.title} className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
+                    {b.appUrl ? (
+                      <Link
+                        href={b.appUrl}
+                        className="group inline-flex items-center gap-1 border-2 border-hairline px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:border-cobalt"
+                        title={b.title}
+                      >
+                        sn. tisk {b.cislo}
+                        <ArrowUpRight className="h-3 w-3 shrink-0" aria-hidden />
+                      </Link>
+                    ) : (
+                      <span
+                        className="inline-flex items-center gap-1 border-2 border-hairline px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-steel"
+                        title={b.title}
+                      >
+                        {b.title}
+                      </span>
+                    )}
+                    {b.role && (
+                      <span
+                        className={`font-mono text-[10px] font-black uppercase tracking-wider ${
+                          b.role === "predkladatel" ? "text-signal" : "text-steel"
+                        }`}
+                      >
+                        {b.role === "predkladatel" ? "předložil" : "spolupodepsal"}
+                        {b.joinedLater && " (připojil se dodatečně)"}
+                      </span>
+                    )}
+                    {(b.fateSb || b.stav) && (
+                      <span className="font-mono text-[10px] uppercase tracking-wider text-steel">
+                        {b.fateSb ? (
+                          <>
+                            → vyhlášen jako <span className="font-black text-ink">č. {b.fateSb} Sb.</span>
+                          </>
+                        ) : (
+                          <>stav: {b.stav}</>
+                        )}
+                      </span>
+                    )}
+                    {b.url && (
+                      <a
+                        href={b.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="font-mono text-[10px] uppercase tracking-wider text-steel underline decoration-hairline transition-colors hover:text-cobalt"
+                      >
+                        psp.cz
+                      </a>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
+            <SourceNote className="mt-2.5 !text-[10px]">
+              zdroj: psp.cz — tisky (predkladatel: pořadí podpisu; hist: stav a vyhlášení) · effort_bill_focus
+            </SourceNote>
+          </div>
+        )}
+
+        {rapporteurBills.length > 0 && (
+          <div>
+            <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
+              Zpravodajství — analytická práce na tiscích
+            </p>
+            <p className="mt-1.5 max-w-3xl text-[13px] leading-relaxed text-steel">
+              Zpravodaj tisk pro sněmovnu či výbor odborně zpracovává — je to přidělená analytická práce nad
+              rámec podpisu pod návrhem.
+            </p>
+            <ul className="mt-3 flex flex-col gap-1.5">
+              {rapporteurBills.map((b) => (
+                <li key={b.cislo ?? b.title} className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
+                  {b.appUrl ? (
+                    <Link
+                      href={b.appUrl}
                       className="group inline-flex items-center gap-1 border-2 border-hairline px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:border-cobalt"
                       title={b.title}
                     >
                       sn. tisk {b.cislo}
                       <ArrowUpRight className="h-3 w-3 shrink-0" aria-hidden />
-                    </a>
+                    </Link>
                   ) : (
-                    <span
-                      key={b.title}
-                      className="inline-flex items-center gap-1 border-2 border-hairline px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-steel"
-                      title={b.title}
-                    >
+                    <span className="inline-flex items-center gap-1 border-2 border-hairline px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-steel">
                       {b.title}
                     </span>
-                  ),
-                )}
-              </div>
-            )}
+                  )}
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-steel">
+                    {b.scopes.map((s) => RAPPORTEUR_SCOPE_CZ[s] ?? s).join(" · ")}
+                  </span>
+                </li>
+              ))}
+            </ul>
             <SourceNote className="mt-2.5 !text-[10px]">
-              zdroj: psp.cz — tisky (sponsors, číslo tisku) · effort_bill_focus
+              zdroj: psp.cz — tisky (hist: zpravodaj pléna; hist_vybory, tisky_za: zpravodaj výboru)
             </SourceNote>
           </div>
         )}

@@ -40,6 +40,20 @@ export const STATUS_CZ: Record<string, string> = {
 
 export const DIFF_OP_CZ: Record<string, string> = { modified: "změněno", added: "přidáno", removed: "zrušeno" };
 
+/** Signature role on the predkladatel list (pass 34): rank 1 vs the rest. */
+export const SPONSOR_ROLE_CZ: Record<string, string> = {
+  predkladatel: "předložil",
+  spolupodepsal: "spolupodepsal",
+};
+
+/** Zpravodaj assignment scopes (pass 34, psp.cz tisky.zip hist/hist_vybory/tisky_za). */
+export const RAPPORTEUR_SCOPE_CZ: Record<string, string> = {
+  zpravodaj_ov: "zpravodaj pro 1. čtení",
+  zpravodaj_ps: "zpravodaj (určen předsedou PS)",
+  zpravodaj_vyboru: "zpravodaj výboru",
+  zpravodaj_dokumentu: "zpravodaj usnesení výboru",
+};
+
 /** psp.cz historie tisku (PSP10 = o=10) — jediný stabilní veřejný odkaz na tisk. */
 export const pspBillUrl = (cislo: number | null): string | null =>
   cislo != null ? `https://www.psp.cz/sqw/historie.sqw?o=10&t=${cislo}` : null;

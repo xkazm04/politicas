@@ -744,3 +744,29 @@ a premise that previously had no enforcement at all.
 sharpest (Murová "dva měsíce", Outrata "tři ze čtyř", Sedmihradská "jeden z pěti") are all gate
 FALSE POSITIVES — legitimate subset/period framings — which is the reviewer judgment the soft-fail
 design intends rather than a blocking failure.
+
+## Pass 34 (track: effort×law) — bill roles: signature rank, zpravodajové, fates (2026-07-27)
+
+The effort↔law join gets its missing role semantics, built OUTSIDE the loop at operator
+request (the loop runs its next batch on top). From psp.cz tisky.zip (column layout verified
+against the live dump + doc k=1303 — predkladatel.poradi/typ, hist cols 8/9 + zaver, hist_vybory
+col 4, tisky_za col 9; all `*_posl` ids mapped poslanec→osoba via the mandate table):
+
+- **528 `sponsors` edges** gain props `{rank, role: predkladatel|spolupodepsal, joined_later}` —
+  109 rank-1 (předkladatel). Closes the Q-effort-2 surface gap: profiles can finally say
+  „předložil" vs „spolupodepsal" from data, not analyst prose.
+- **NEW rel `rapporteur`: 148 person→bill edges** (scopes: zpravodaj_ov/ps/vyboru/dokumentu) —
+  the assigned analytical role the sponsors edges cannot carry; 0 unmapped ids.
+- **141 bill nodes** gain `sponsors_ranked`, `stav` (Czech typ_stavu name) and `fate_sb`/
+  `fate_published_on` (12 published in Sbírce, e.g. tisk→583/2025). MERGE-preserving write —
+  summary_cz/forensic_*/amends_* props verified intact (the P44 trap explicitly avoided; a full
+  kg-legislation-ingest re-run would have erased 140 summaries + 27 verdicts).
+- **207 person nodes** gain `bills_first_signed`/`bills_co_signed` (sums to bills_authored,
+  which is untouched — case gate (a) respected, `computeContribution` not touched).
+
+Writer: `scripts/data-analysis/kg-bill-roles-ingest.ts` (new, merge-preserving; dry-run default).
+Parsers + tests in `lib/ingest/sources/psp-legislation.ts` / `psp-activity.ts` (`parseSponsorRoles`,
+`parseRapporteurs`, `parseBillFates`, `splitBillAuthorship`). Surfaces: /zakony bill detail
+(role-tagged sponsors, zpravodajové block, fate line, sponsor-min-contribution effort context),
+/poslanec dossier (authorship split line, role+fate-annotated bill chips with internal /zakony
+links, new zpravodajství section). ns=effort×law, track=build (operator-directed).

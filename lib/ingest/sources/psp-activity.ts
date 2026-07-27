@@ -75,6 +75,37 @@ export function billsAndWrittenInterp(
   return { billsByPerson, writtenInterpByPerson, mpAuthoredBills: mpBillTiskIds.size };
 }
 
+/**
+ * Q-effort-2 — split the SAME authorship universe as `billsAndWrittenInterp` by
+ * predkladatel rank (`poradi`): rank 1 = first signatory (předložil), rank > 1 =
+ * co-signer (spolupodepsal). Row-for-row identical filtering, so per person
+ * firstSigned + coSigned always equals billsAuthored — the composite number the
+ * contribution index consumes stays untouched; this only adds provenance.
+ */
+export function splitBillAuthorship(
+  tisky: readonly UnlRow[],
+  predkladatel: readonly UnlRow[],
+  termPspId: number,
+): { firstByPerson: Map<number, number>; coByPerson: Map<number, number> } {
+  const mpBillTiskIds = new Set<number>();
+  for (const r of tisky) {
+    const idTisk = colInt(r, 0);
+    const idDruh = colInt(r, 1);
+    const idNavrh = colInt(r, 5);
+    if (idTisk == null || colInt(r, 7) !== termPspId || idDruh == null || idDruh === 0) continue;
+    if (idDruh !== DRUH_PISEMNA_INTERPELACE && idNavrh != null && MP_ORIGIN_NAVRH.has(idNavrh)) mpBillTiskIds.add(idTisk);
+  }
+  const firstByPerson = new Map<number, number>();
+  const coByPerson = new Map<number, number>();
+  for (const r of predkladatel) {
+    const idTisk = colInt(r, 0);
+    const idOsoba = colInt(r, 1);
+    if (idTisk == null || !mpBillTiskIds.has(idTisk)) continue;
+    bump(colInt(r, 2) === 1 ? firstByPerson : coByPerson, idOsoba);
+  }
+  return { firstByPerson, coByPerson };
+}
+
 /** Oral interpellations from interp.zip: poradi.id_poslanec (an id_osoba) per losování
  *  whose li.id_org matches the term. (PSP10 is 0 early in the term — correct, not a bug.) */
 export function oralInterp(li: readonly UnlRow[], poradi: readonly UnlRow[], termPspId: number): Map<number, number> {

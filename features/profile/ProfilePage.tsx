@@ -169,6 +169,9 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
           notes={data.effortNotes}
           dataFlag={data.effortDataFlag}
           sponsoredBills={data.sponsoredBills}
+          billsFirstSigned={data.billsFirstSigned}
+          billsCoSigned={data.billsCoSigned}
+          rapporteurBills={data.rapporteurBills}
         />
 
         {/* ── 03 Nejbližší spojenci ─────────────────────────── */}

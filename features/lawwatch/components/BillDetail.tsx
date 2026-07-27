@@ -23,6 +23,8 @@ import {
   SEVERITY_CZ,
   DIFF_OP_CZ,
   CITATION_KIND_CZ,
+  SPONSOR_ROLE_CZ,
+  RAPPORTEUR_SCOPE_CZ,
   pspBillUrl,
   czkCompact,
   citationRef,
@@ -92,6 +94,27 @@ export default function BillDetail({ bill }: { bill: LawBillView }) {
         <span className="border border-hairline px-2 py-0.5">{ORIGIN_CZ[bill.origin]}</span>
         {bill.submitter && <span>{bill.submitter}</span>}
       </div>
+
+      {/* osud tisku — stav projednávání dle psp.cz, vyhlášení ve Sbírce, když k němu došlo */}
+      {(bill.stav || bill.fateSb) && (
+        <div className="mt-3 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+          {bill.fateSb ? (
+            <span className="border-l-4 border-signal bg-paper-strong px-3 py-1.5 text-sm font-bold">
+              vyhlášen ve Sbírce jako <span className="text-signal">č. {bill.fateSb} Sb.</span>
+              {bill.fatePublishedOn && (
+                <span className="ml-2 font-mono text-[11px] font-normal uppercase tracking-wider text-steel">
+                  {f.date(bill.fatePublishedOn)}
+                </span>
+              )}
+            </span>
+          ) : (
+            <span className="font-mono text-[11px] uppercase tracking-wider text-steel">
+              stav projednávání: <span className="font-black text-ink">{bill.stav}</span>
+            </span>
+          )}
+          <SourceNote className="!text-[10px]">stav dle psp.cz — tisky (stavy/hist)</SourceNote>
+        </div>
+      )}
 
       {/* novelizované zákony — title-derived edges */}
       <div className="mt-6">
@@ -169,22 +192,66 @@ export default function BillDetail({ bill }: { bill: LawBillView }) {
         </div>
       )}
 
-      {/* předkladatelé */}
+      {/* předkladatelé — od průchodu 34 s pořadím podpisu: první podepsaný nese návrh,
+          ostatní ho spolupodepsali. Rozlišení, které dřív povrch neuměl (Q-effort-2). */}
       {bill.sponsors.length > 0 && (
         <div className="mt-6 border-t-2 border-ink pt-4">
-          <SourceNote>předkladatelé — psp.cz predkladatel</SourceNote>
+          <SourceNote>předkladatelé — psp.cz predkladatel (pořadí podpisu)</SourceNote>
           <div className="mt-3 flex flex-wrap gap-2">
             {bill.sponsors.map((s) => (
               <Link
                 key={s.pspId}
                 href={`/poslanec/${s.pspId}`}
-                className="group inline-flex items-center gap-2 border-2 border-hairline px-3 py-1.5 transition-colors hover:border-ink hover:bg-paper-strong"
+                className={`group inline-flex items-center gap-2 border-2 px-3 py-1.5 transition-colors hover:bg-paper-strong ${
+                  s.role === "predkladatel" ? "border-ink" : "border-hairline hover:border-ink"
+                }`}
               >
                 <span className="text-sm font-bold">{s.name}</span>
+                {s.role && (
+                  <span
+                    className={`font-mono text-[10px] font-black uppercase tracking-wider ${
+                      s.role === "predkladatel" ? "text-signal" : "text-steel"
+                    }`}
+                  >
+                    {SPONSOR_ROLE_CZ[s.role]}
+                    {s.joinedLater && " · dodatečně"}
+                  </span>
+                )}
                 <ArrowUpRight className="h-3.5 w-3.5 text-signal opacity-0 transition-opacity group-hover:opacity-100" />
               </Link>
             ))}
           </div>
+          {bill.sponsorMinContribution != null && (
+            <p className="mt-3 text-[13px] leading-relaxed text-steel">
+              Nejnižší index přínosu mezi předkladateli:{" "}
+              <span className="font-black text-ink">{f.int(Math.round(bill.sponsorMinContribution))}</span> ze 100
+              (CivicScore, průřez sněmovní práce poslance — účast, výbory, legislativa, vystoupení).
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* zpravodajové — přidělená analytická role: kdo tisk odborně zpracovává pro
+          plénum či výbor. Jiná práce než podpis pod návrhem. */}
+      {bill.rapporteurs.length > 0 && (
+        <div className="mt-6 border-t-2 border-ink pt-4">
+          <SourceNote>zpravodajové — psp.cz hist · hist_vybory · tisky_za</SourceNote>
+          <ul className="mt-3 space-y-2">
+            {bill.rapporteurs.map((r) => (
+              <li key={r.pspId} className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <Link
+                  href={`/poslanec/${r.pspId}`}
+                  className="group inline-flex items-center gap-1.5 text-sm font-bold transition-colors hover:text-signal"
+                >
+                  {r.name}
+                  <ArrowUpRight className="h-3.5 w-3.5 text-signal opacity-0 transition-opacity group-hover:opacity-100" />
+                </Link>
+                <span className="font-mono text-[10px] uppercase tracking-wider text-steel">
+                  {r.scopes.map((s) => RAPPORTEUR_SCOPE_CZ[s] ?? s).join(" · ")}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
 

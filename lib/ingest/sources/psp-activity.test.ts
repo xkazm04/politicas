@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { parseUnl } from "../unl";
-import { billsAndWrittenInterp, oralInterp, speechTurns } from "./psp-activity";
+import { billsAndWrittenInterp, oralInterp, speechTurns, splitBillAuthorship } from "./psp-activity";
 
 const PSP10 = 174;
 const rows = (s: string) => parseUnl(s);
@@ -67,5 +67,41 @@ describe("speechTurns", () => {
     const m = speechTurns(steno, rec, PSP10);
     expect(m.get(6473)).toBe(2);
     expect(m.get(100)).toBeUndefined(); // chair
+  });
+});
+
+describe("splitBillAuthorship (Q-effort-2)", () => {
+  // tisky.unl: 0 id_tisk | 1 id_druh | 5 id_navrh | 7 id_org_obd — same universe as billsAndWrittenInterp
+  const tisky = parseUnl(
+    [
+      "43111|2|x|100|x|3|x|174|||||||||", // MP-group bill in term
+      "43112|2|x|101|x|2|x|174|||||||||", // single-MP bill in term
+      "43113|1|x|102|x|1|x|174|||||||||", // government bill → not MP-authored
+      "43114|2|x|103|x|3|x|173|||||||||", // other term → excluded
+    ].join("\n"),
+  );
+  const predkladatel = parseUnl(
+    [
+      "43111|6473|1|0|", // first signatory
+      "43111|6433|2|0|", // co-signer
+      "43111|6500|3|1|",
+      "43112|6433|1|0|", // 6433 fronts their own bill here
+      "43113|9999|1|0|", // government bill row → excluded from the universe
+      "43114|6473|1|0|", // other term → excluded
+    ].join("\n"),
+  );
+
+  it("splits by poradi and the split sums to billsAuthored per person", () => {
+    const { firstByPerson, coByPerson } = splitBillAuthorship(tisky, predkladatel, 174);
+    expect(firstByPerson.get(6473)).toBe(1);
+    expect(coByPerson.get(6473)).toBeUndefined();
+    expect(firstByPerson.get(6433)).toBe(1);
+    expect(coByPerson.get(6433)).toBe(1);
+    expect(coByPerson.get(6500)).toBe(1);
+
+    const { billsByPerson } = billsAndWrittenInterp(tisky, predkladatel, 174);
+    for (const [id, total] of billsByPerson) {
+      expect((firstByPerson.get(id) ?? 0) + (coByPerson.get(id) ?? 0)).toBe(total);
+    }
   });
 });

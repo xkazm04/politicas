@@ -211,3 +211,156 @@ export function normalizeCommitteeRouting(tiskyZip: Uint8Array): CommitteeAssign
   const m = readZipMap(tiskyZip);
   return parseCommitteeAssignments(unlOf(m, "hist_vybory.unl"), unlOf(m, "hist.unl"));
 }
+
+/* ── Bill roles: sponsor rank, rapporteurs, bill fates (Q-effort-2 + zpravodaj) ── */
+//
+// predkladatel.unl carries the signature ORDER (`poradi` — 1 = the responsible first
+// signatory) and `typ` (0 = original proposer, 1 = joined the signature list later).
+// Rapporteur (zpravodaj) assignments live in three places, all keyed by
+// poslanec.id_poslanec (NOT id_osoba — the caller maps via the mandate table):
+//   hist.unl col 8  orgv_id_posl — zpravodaj pro 1. čtení (organizační výbor)
+//   hist.unl col 9  ps_id_posl   — zpravodaj určený předsedou PS
+//   hist_vybory.unl col 4 id_posl — the committee's own zpravodaj for the print
+//   tisky_za.unl col 9 id_posl   — zpravodaj on a follow-up document (usnesení výboru)
+// Bill fate: tisky.unl col 2 id_stav → stavy.unl (id_stav|id_typ_stavu|…) →
+// typ_stavu.unl (id_typ_stavu|name, e.g. "1. čtení", "Senát", "Sbírka zákonů"); the
+// Sbírka publication itself is on the hist step: col 11 zaver_publik (DD.MM.YYYY,
+// may be the literal string "null") + col 13 zaver_sb_cislo. Column layouts verified
+// against the live dump AND psp.cz open-data doc k=1303 (2026-07-27).
+
+/** One MP on a print's signature list, with the order that distinguishes the
+ * responsible first signatory (rank 1, "předkladatel") from co-signers. */
+export interface SponsorRole {
+  idOsoba: number;
+  rank: number; // predkladatel.poradi; falls back to list position when poradi is missing
+  joinedLater: boolean; // typ = 1 — signed on after submission
+}
+
+/** Signature lists per tisk, ordered by rank. Duplicate (tisk, osoba) rows keep the
+ * lowest rank (the strongest claim to authorship). */
+export function parseSponsorRoles(predkladatel: readonly UnlRow[]): Map<number, SponsorRole[]> {
+  const byTisk = new Map<number, Map<number, SponsorRole>>();
+  for (const r of predkladatel) {
+    const idTisk = colInt(r, 0);
+    const idOsoba = colInt(r, 1);
+    if (idTisk == null || idOsoba == null) continue;
+    const list = byTisk.get(idTisk) ?? new Map<number, SponsorRole>();
+    const rank = colInt(r, 2) ?? list.size + 1;
+    const joinedLater = colInt(r, 3) === 1;
+    const prev = list.get(idOsoba);
+    if (!prev || rank < prev.rank) list.set(idOsoba, { idOsoba, rank, joinedLater });
+    byTisk.set(idTisk, list);
+  }
+  const out = new Map<number, SponsorRole[]>();
+  for (const [tisk, list] of byTisk) out.set(tisk, [...list.values()].sort((a, b) => a.rank - b.rank));
+  return out;
+}
+
+/** Where a zpravodaj assignment comes from. `vybor` (committee-level) is the
+ * strongest "did the analytical work" signal; `ps`/`ov` are the plenary rapporteurs. */
+export type RapporteurScope = "zpravodaj_ov" | "zpravodaj_ps" | "zpravodaj_vyboru" | "zpravodaj_dokumentu";
+
+export interface RapporteurAssignment {
+  tiskId: number;
+  poslanecId: number; // poslanec.id_poslanec — map to id_osoba via the mandate table
+  scope: RapporteurScope;
+  organId: number | null; // the committee, for the two committee-side scopes
+}
+
+/** All zpravodaj assignments across the three source tables, deduped per
+ * (tisk, poslanec, scope, organ). */
+export function parseRapporteurs(
+  hist: readonly UnlRow[],
+  histVybory: readonly UnlRow[],
+  tiskyZa: readonly UnlRow[],
+): RapporteurAssignment[] {
+  const seen = new Set<string>();
+  const out: RapporteurAssignment[] = [];
+  const push = (tiskId: number | null, poslanecId: number | null, scope: RapporteurScope, organId: number | null) => {
+    if (tiskId == null || poslanecId == null) return;
+    const key = `${tiskId}:${poslanecId}:${scope}:${organId ?? ""}`;
+    if (seen.has(key)) return;
+    seen.add(key);
+    out.push({ tiskId, poslanecId, scope, organId });
+  };
+  for (const r of hist) {
+    push(colInt(r, 1), colInt(r, 8), "zpravodaj_ov", null);
+    push(colInt(r, 1), colInt(r, 9), "zpravodaj_ps", null);
+  }
+  for (const r of histVybory) push(colInt(r, 0), colInt(r, 4), "zpravodaj_vyboru", colInt(r, 1));
+  for (const r of tiskyZa) push(colInt(r, 0), colInt(r, 9), "zpravodaj_dokumentu", colInt(r, 7));
+  return out;
+}
+
+export interface BillFate {
+  stavId: number | null;
+  stav: string | null; // Czech state name from typ_stavu ("1. čtení", "Senát", "KONEC", …)
+  sb: string | null; // "583/2025" when the hist zaver step records a Sbírka publication
+  publishedOn: string | null; // YYYY-MM-DD from zaver_publik
+}
+
+const ZAVER_DATE = /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/;
+
+/** Current procedural state per tisk (every input row), plus the Sbírka publication
+ * where a hist step genuinely records one — rows whose zaver fields are empty or the
+ * literal "null" are NOT publications and are skipped (verified live: transition
+ * 2031/2047 rows carry cislo=7 with null publik and are something else entirely). */
+export function parseBillFates(
+  tisky: readonly UnlRow[],
+  stavy: readonly UnlRow[],
+  typStavu: readonly UnlRow[],
+  hist: readonly UnlRow[],
+): Map<number, BillFate> {
+  const typById = new Map<number, string>();
+  for (const r of typStavu) {
+    const id = colInt(r, 0);
+    const name = col(r, 1);
+    if (id != null && name) typById.set(id, name);
+  }
+  const typByStav = new Map<number, number>();
+  for (const r of stavy) {
+    const id = colInt(r, 0);
+    const typ = colInt(r, 1);
+    if (id != null && typ != null) typByStav.set(id, typ);
+  }
+
+  const out = new Map<number, BillFate>();
+  for (const r of tisky) {
+    const tiskId = colInt(r, 0);
+    if (tiskId == null) continue;
+    const stavId = colInt(r, 2);
+    const typ = stavId != null ? typByStav.get(stavId) : undefined;
+    out.set(tiskId, { stavId, stav: typ != null ? (typById.get(typ) ?? null) : null, sb: null, publishedOn: null });
+  }
+  for (const r of hist) {
+    const tiskId = colInt(r, 1);
+    const fate = tiskId != null ? out.get(tiskId) : undefined;
+    if (!fate) continue;
+    const cislo = colInt(r, 13);
+    const m = ZAVER_DATE.exec((col(r, 11) ?? "").trim());
+    if (cislo == null || !m) continue; // not a real publication row
+    const publishedOn = `${m[3]}-${m[2].padStart(2, "0")}-${m[1].padStart(2, "0")}`;
+    // keep the latest publication step if several exist
+    if (fate.publishedOn == null || publishedOn > fate.publishedOn) {
+      fate.sb = `${cislo}/${m[3]}`;
+      fate.publishedOn = publishedOn;
+    }
+  }
+  return out;
+}
+
+export interface BillRolesBundle {
+  sponsorRoles: Map<number, SponsorRole[]>;
+  rapporteurs: RapporteurAssignment[];
+  fates: Map<number, BillFate>;
+}
+
+/** IO wrapper: read tisky.zip once and produce all three role/fate structures. */
+export function normalizeBillRoles(tiskyZip: Uint8Array): BillRolesBundle {
+  const m = readZipMap(tiskyZip);
+  return {
+    sponsorRoles: parseSponsorRoles(unlOf(m, "predkladatel.unl")),
+    rapporteurs: parseRapporteurs(unlOf(m, "hist.unl"), unlOf(m, "hist_vybory.unl"), unlOf(m, "tisky_za.unl")),
+    fates: parseBillFates(unlOf(m, "tisky.unl"), unlOf(m, "stavy.unl"), unlOf(m, "typ_stavu.unl"), unlOf(m, "hist.unl")),
+  };
+}

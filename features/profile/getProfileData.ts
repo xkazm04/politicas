@@ -71,6 +71,26 @@ export interface SponsoredBill {
   cislo: number | null;
   title: string;
   url: string | null;
+  /** Internal dossier route (/zakony/<cislo>) — the app's own bill detail. */
+  appUrl: string | null;
+  /** Signature role from predkladatel.poradi (pass 34): rank 1 = předložil,
+   * else spolupodepsal; null when the edge predates the roles backfill. */
+  role: "predkladatel" | "spolupodepsal" | null;
+  joinedLater: boolean;
+  /** Current procedural state (Czech typ_stavu name) + Sbírka publication when
+   * the print became law — both from psp.cz tisky/hist (pass 34), never derived. */
+  stav: string | null;
+  fateSb: string | null;
+}
+
+/** A bill this MP is zpravodaj (rapporteur) for — the assigned analytical role,
+ * a stronger work signal than co-signature (psp.cz hist/hist_vybory/tisky_za). */
+export interface RapporteurBill {
+  cislo: number | null;
+  title: string;
+  appUrl: string | null;
+  url: string | null;
+  scopes: string[];
 }
 
 export interface ProfileData {
@@ -103,6 +123,11 @@ export interface ProfileData {
   effortNotes: string | null;
   effortDataFlag: string | null;
   sponsoredBills: SponsoredBill[];
+  /** Q-effort-2 split of bills_authored (pass 34): first-signatory vs co-signer
+   * counts over the same universe — sums to bills_authored, which stays untouched. */
+  billsFirstSigned: number | null;
+  billsCoSigned: number | null;
+  rapporteurBills: RapporteurBill[];
 }
 
 export async function getAllProfilePspIds(): Promise<number[]> {
@@ -262,25 +287,63 @@ export async function getProfileData(pspId: number): Promise<ProfileData | null>
 
     // sponsors — person → bill (kind "bill"), resolved to the psp.cz historie
     // link via `cislo` (the public print number). See SponsoredBill's doc
-    // comment for why `tiskId` must never be used for this URL.
+    // comment for why `tiskId` must never be used for this URL. Since pass 34
+    // the edge props carry the predkladatel rank (role) and the bill node its
+    // procedural fate (stav / fate_sb) — rendered as-is, never derived here.
     const sponsorEdges = await store.listKgEdges({ rel: "sponsors", limit: 100_000 });
-    const sponsoredBillIds = sponsorEdges.filter((e) => e.src === selfId).map((e) => e.dst);
+    const selfSponsorEdges = sponsorEdges.filter((e) => e.src === selfId);
+    const rapporteurEdges = (await store.listKgEdges({ rel: "rapporteur", limit: 100_000 })).filter(
+      (e) => e.src === selfId,
+    );
     let sponsoredBills: SponsoredBill[] = [];
-    if (sponsoredBillIds.length > 0) {
+    let rapporteurBills: RapporteurBill[] = [];
+    if (selfSponsorEdges.length > 0 || rapporteurEdges.length > 0) {
       const billNodes = await store.listKgNodes({ kind: "bill", limit: 2000 });
       const billById = new Map(billNodes.map((b) => [b.id, b]));
-      sponsoredBills = sponsoredBillIds
-        .map((bid) => {
-          const b = billById.get(bid);
-          const cislo = b && typeof b.props.cislo === "number" ? b.props.cislo : null;
+      const billBase = (bid: string) => {
+        const b = billById.get(bid);
+        const cislo = b && typeof b.props.cislo === "number" ? b.props.cislo : null;
+        return {
+          b,
+          cislo,
+          title: b?.label ?? bid,
+          url: cislo != null ? `https://www.psp.cz/sqw/historie.sqw?o=10&t=${cislo}` : null,
+          appUrl: cislo != null ? `/zakony/${cislo}` : null,
+        };
+      };
+      const ROLE_ORDER: Record<string, number> = { predkladatel: 0, spolupodepsal: 1 };
+      sponsoredBills = selfSponsorEdges
+        .map((e) => {
+          const { b, cislo, title, url, appUrl } = billBase(e.dst);
+          const p = (e.props ?? {}) as Record<string, unknown>;
+          const role: "predkladatel" | "spolupodepsal" | null =
+            p.role === "predkladatel" || p.role === "spolupodepsal" ? p.role : null;
           return {
             cislo,
-            title: b?.label ?? bid,
-            url: cislo != null ? `https://www.psp.cz/sqw/historie.sqw?o=10&t=${cislo}` : null,
+            title,
+            url,
+            appUrl,
+            role,
+            joinedLater: p.joined_later === true,
+            stav: b && typeof b.props.stav === "string" ? b.props.stav : null,
+            fateSb: b && typeof b.props.fate_sb === "string" ? b.props.fate_sb : null,
           };
+        })
+        .sort(
+          (a, b) =>
+            (ROLE_ORDER[a.role ?? ""] ?? 9) - (ROLE_ORDER[b.role ?? ""] ?? 9) || (a.cislo ?? 1e9) - (b.cislo ?? 1e9),
+        );
+      rapporteurBills = rapporteurEdges
+        .map((e) => {
+          const { cislo, title, url, appUrl } = billBase(e.dst);
+          const p = (e.props ?? {}) as Record<string, unknown>;
+          const scopes = Array.isArray(p.scopes) ? p.scopes.filter((s): s is string => typeof s === "string") : [];
+          return { cislo, title, url, appUrl, scopes };
         })
         .sort((a, b) => (a.cislo ?? 1e9) - (b.cislo ?? 1e9));
     }
+    const billsFirstSigned = personNode ? nullableNum(personNode.props.bills_first_signed) : null;
+    const billsCoSigned = personNode ? nullableNum(personNode.props.bills_co_signed) : null;
 
     return {
       person,
@@ -303,6 +366,9 @@ export async function getProfileData(pspId: number): Promise<ProfileData | null>
       effortNotes,
       effortDataFlag,
       sponsoredBills,
+      billsFirstSigned,
+      billsCoSigned,
+      rapporteurBills,
     };
   } catch (err) {
     reportLoaderFailure("getProfileData", err);
