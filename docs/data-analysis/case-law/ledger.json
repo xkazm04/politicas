@@ -16,7 +16,7 @@
   "batch003NewVerdicts": 8,
   "gatePassRate": "26/26",
   "collisionPairsCloseRead": {
-   "total": 81,
+   "total": 88,
    "batch009Correction": "This key was the scalar 38 — batch-004's figure, never incremented for batch-005's +15 or batch-008's +12. Restated as a per-batch breakdown so it cannot silently fall behind again.",
    "byBatch": {
     "001_002": 2,
@@ -24,7 +24,7 @@
     "004": 24,
     "005": 15,
     "008": 12,
-    "009": 16
+    "009": 23
    },
    "note": "65 close-reads over 63 distinct pairs (two pairs were re-read on a later topology). Not all remain live candidates: pair identity does not survive a topology change cleanly, so the batch-008 partitioned universe counts its own coverage separately — see batch008CollisionRecheck."
   },
@@ -231,6 +231,34 @@
    "noise": "0/8 flagged vs 3/8 unflagged were incidental — every artifact fell in the unflagged stratum. p = 0.200, suggestive but NOT significant at n=16.",
    "bugFoundMidBatch": "The first SUBSTITUTE_RE matched \"vkladá se\" and \"vkladaji\" but not \"vkladá slovo\", the commonest insertion form in the corpus — a silent under-flag that biases the very comparison the sample exists to make. Caught by noticing the flag disagreed with a hand read on pair 5x64. Same family as P42 and the batch-008 NFC bug: match the Czech stem, never the surrounding phrase.",
    "conclusion": "TWO candidate ranking signals have now been proposed and honestly failed (moneyLiteral batch-005, rewriteVsSubstitute batch-009). The case should stop deriving signals from instruction SHAPE and consider that confirmed collisions here may not be predictable from novelization text alone. P52 remains open, with one more negative result recorded against it."
+  },
+  "batch009CollisionSweep": {
+   "status": "SWEPT — 101 unread pairs reduced to 76 by validated deterministic methods; 25 closed",
+   "scripts": [
+    "scripts/case-loops/law/collision-core.ts (shared primitives, EXTRACTED from collision-check-008.ts rather than copied)",
+    "scripts/case-loops/law/collision-sweep-009.ts",
+    "scripts/case-loops/law/duplicate-bills-009.ts"
+   ],
+   "incidentalClassifier": {
+    "method": "Instruction-vs-citation discrimination over each bill cached operative text, partitioned per target statute. A pair is incidental when on EVERY shared § at least one bill merely references the § rather than issuing a novelization instruction against it. Czech novelization is a small closed grammar, so this is decidable in code rather than by model.",
+    "validation": "Scored against the 28 pairs from this same report already hand-classified (batches 008+009) BEFORE any output was written. Gate: any false drop blocks the write, because a discarded pair is never read again — a false drop is a silently lost public finding, a false escalation only costs reading time.",
+    "firstRun": "FAILED — 3 false drops. The clause anchor missed instructions that pdftotext renders on the SAME LINE as their Cl. article label (\"Cl. VI V § 8 odst. 2 zakona c. 166/1993 Sb.\"), so every single-article amendment read as citation-only. Fixed and re-validated before writing.",
+    "finalScore": "100% precision / 43% recall on the incidental class, 0 false drops",
+    "closed": 18
+   },
+   "duplicateBillFinding": {
+    "headline": "tisk 90 CONTAINS tisk 68 — 36 of tisk 68 42 numbered novelization instructions appear byte-identically in tisk 90, which has 69.",
+    "method": "Verbatim set comparison of numbered instructions from cached operative text. No fuzzy similarity, no model judgement. Control pairs (68x7, 64x68, 64x90) measure 0%.",
+    "spans": "8 statutes: 159/2006, 177/2023, 218/2000, 222/2016, 23/2017, 243/2000, 250/2000, 262/2006",
+    "significance": "The unit of analysis for these pairs is the BILL, not the pair. Read pair-by-pair this is 8 independent coordination findings; read at bill level it is ONE fact. The case has hit this shape three times without naming it (12x131 and 140x141 in batch-004, 68x90 on 159/2006 in batch-009) and each time wrote it up as statute-specific.",
+    "closed": 7,
+    "framing": "A drafting-process finding, never an ethics one — competing drafts, a re-filing, or one bill absorbing another are all normal legislative practice."
+   },
+   "remaining": {
+    "unread": 76,
+    "prioritisation": "batch-009-collision-sweep.json carries per-pair genuineParagraphs and an odstavecOverlap flag (64 of 83 escalated pairs) so the next read starts with same-odstavec candidates rather than an unordered list.",
+    "note": "Disclosed, not dropped. The escalated set is genuine co-touch by deterministic evidence; it needs reading, not filtering."
+   }
   }
  },
  "rows": [

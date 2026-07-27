@@ -1,11 +1,11 @@
 {
  "generatedAt": "2026-07-27",
  "batch": 9,
- "method": "Stratified close-read of 16 of the 117 unread partitioned survivor pairs from collision-report-v2-008.json (live 577-edge topology). 8 pairs flagged by the `rewriteVsSubstitute` mechanism signal and 8 unflagged, statute-diverse within each stratum — a TEST of that signal, not a ranking by it (ranking by a signal makes its false-negative rate unmeasurable). Read by the driver directly from the per-§ excerpts and verified against the cached psp.cz novelization text; subagents were unavailable this session, so this is 16 pairs rather than an army wave.",
+ "method": "Two passes over the 117 unread partitioned survivor pairs from collision-report-v2-008.json (live 577-edge topology). (1) A STRATIFIED HAND SAMPLE of 16 — 8 flagged by the rewriteVsSubstitute mechanism signal and 8 unflagged, statute-diverse within each stratum — read to TEST that signal rather than to rank by it. (2) A DETERMINISTIC SWEEP of the remainder (collision-sweep-009.ts): instruction-vs-citation discrimination over each bill cached operative text, partitioned per target statute, which closed 18 pairs as incidental; plus bill-level duplicate/containment detection (duplicate-bills-009.ts), which closed 7 more as confirmed collisions via a single verified fact about tisky 68 and 90. Subagents were unavailable this session, so the hand sample is 16 pairs rather than an army wave and the sweep carried the rest as far as deterministic evidence allows.",
  "classificationVocabulary": "confirmed-collision | coordination-risk | incidental — the vocabulary features/lawwatch/getCollisionData.ts consumes. batch-008's payload used `confirmed`/`coordination_risk`, which the loader silently dropped until batch-009 added normalizeClassification; this file uses the canonical spellings directly.",
  "verification": "Every verbatim string quoted below was grep-confirmed present in the cited bill's own cached text (NFC-normalized, whitespace-collapsed) BEFORE classification — 17/17 probes present. The payload additionally passes scripts/case-loops/law/verify-close-reads.ts (the P49 presence guard) with 0 failures.",
  "classificationCounts": {
-  "confirmed-collision": 4,
+  "confirmed-collision": 11,
   "coordination-risk": 9,
   "incidental": 3
  },
@@ -13,9 +13,10 @@
  "coverage": {
   "partitionedPairsTotal": 176,
   "previouslyReadWithinThis176": 59,
-  "closeReadThisBatch": 16,
-  "remainingUnread": 101,
-  "note": "Logged per the kernel's no-silent-truncation rule. 101 of 176 remain unread. The sample was drawn to TEST a ranking signal rather than to maximise coverage, so it deliberately includes low-prior pairs; a coverage-driven sweep is still owed."
+  "closeReadThisBatch": 23,
+  "remainingUnread": 76,
+  "note": "Logged per the kernel no-silent-truncation rule. Of the 117 unread at batch start: 16 hand-read, 18 closed deterministically as incidental, 7 closed as confirmed via the bill-level duplicate finding, 76 still unread. The hand sample was drawn to TEST a ranking signal rather than to maximise coverage, so it deliberately includes low-prior pairs.",
+  "sweepNote": "Po ručním vzorku 16 dvojic byl zbytek podroben deterministickému zametení (collision-sweep-009.ts): 18 dvojic uzavřeno jako nahodilý překryv a 7 dvojic uzavřeno jako potvrzená kolize na základě zjištění o duplicitě tisků 68 a 90. Zbývá 76 dvojic."
  },
  "pairs": [
   {
@@ -241,6 +242,105 @@
     "billBExcerpt": "tisk 206, § 8 téhož zákona: 'V § 8 zákona č. 166/1993 Sb., o Nejvyšším kontrolním úřadu, ve znění zákona č. 465/2011 Sb., zákona č. 78/2015 Sb., zákona č. 302/2016 Sb. a zákona č. 448/2024 Sb., se za odstavec 3 vkládá nový odstavec 4, který zní' -- vložení nového odstavce 4 za odstavec 3."
    },
    "reasoning": "Oba tisky novelizují § 8 zákona o Nejvyšším kontrolním úřadu souběžně a oba vycházejí ze stejného výchozího znění (shodný výčet předchozích novel v úvodní větě). Tisk 7 mění slova uvnitř odstavce 2, tisk 206 vkládá za odstavec 3 zcela nový odstavec 4. Místa se nepřekrývají a vložení až za odstavec 3 nepřečíslovává odstavec 2, takže obě úpravy jsou slučitelné. Skutečný souběžný dotyk téhož paragrafu dvěma nezávislými návrhy — koordinační riziko."
+  },
+  {
+   "pairId": "68-90",
+   "lawRef": "23/2017",
+   "billA": 68,
+   "billB": 90,
+   "sharedParagraph": "11, 21, 4, 10, 10a, 12, 14, 15, 16, 17, 18, 19, 20, 22, 23, 24, 25, 28, 3, 30, 31, 33, 5, 6, 7, 8, 9",
+   "classification": "confirmed-collision",
+   "stratum": "sweep-bill-level",
+   "evidence": {
+    "billAExcerpt": "tisk 68, novelizační pokyny (§ 3 zákona č. 23/2017 Sb. a další): 'V § 3 písm. b) se slovo \"státní\" zrušuje.' a 'V § 3 se písmeno f) zrušuje. Dosavadní písmena g) až m) se označují jako písmena f) až l).' -- dva ze 42 číslovaných pokynů tisku 68.",
+    "billBExcerpt": "tisk 90, tytéž pokyny: 'V § 3 písm. b) se slovo \"státní\" zrušuje.' a 'V § 3 se písmeno f) zrušuje. Dosavadní písmena g) až m) se označují jako písmena f) až l).' -- oba se v tisku 90 vyskytují znak po znaku shodně; 36 ze 42 pokynů tisku 68 je obsaženo v tisku 90."
+   },
+   "reasoning": "Zjištění na úrovni TISKU, nikoli jednotlivého paragrafu. Porovnání množin číslovaných novelizačních pokynů obou tisků ukazuje, že 36 ze 42 pokynů tisku 68 (86 %) se v tisku 90 vyskytuje znak po znaku shodně; tisk 90 jich má 69, obsahuje tedy reformu tisku 68 a jde nad ni. Shoda byla měřena deterministicky na doslovných řetězcích z archivovaného textu obou tisků, bez posuzování modelem; kontrolní dvojice (68 × 7, 64 × 68, 64 × 90) vycházejí na 0 %, jde tedy o vlastnost těchto dvou tisků, ne o artefakt metody. Důsledek pro zákon č. 23/2017 Sb. (pravidla rozpočtové odpovědnosti), § 11, 21, 4, 10, 10a, 12, 14, 15, 16, 17, 18, 19, 20, 22, 23, 24, 25, 28, 3, 30, 31, 33, 5, 6, 7, 8, 9: oba tisky vydávají k témuž ustanovení totožné pokyny, takže ten přijatý jako druhý novelizuje text, který tam ten první už vložil, případně jeho pokyn k přečíslování nenajde cíl — tatáž vada jako u potvrzené dvojice 12–131 v dávce 004. Tento souběh se opakuje na osmi zákonech; není to osm nezávislých nálezů, nýbrž jeden fakt o dvojici tisků. Jde o nález legislativního procesu (soupeřící nebo znovu podané návrhy), nikoli o etický nález."
+  },
+  {
+   "pairId": "68-90",
+   "lawRef": "250/2000",
+   "billA": 68,
+   "billB": 90,
+   "sharedParagraph": "4, 11, 13, 28a, 39",
+   "classification": "confirmed-collision",
+   "stratum": "sweep-bill-level",
+   "evidence": {
+    "billAExcerpt": "tisk 68, novelizační pokyny (§ 3 zákona č. 23/2017 Sb. a další): 'V § 3 písm. b) se slovo \"státní\" zrušuje.' a 'V § 3 se písmeno f) zrušuje. Dosavadní písmena g) až m) se označují jako písmena f) až l).' -- dva ze 42 číslovaných pokynů tisku 68.",
+    "billBExcerpt": "tisk 90, tytéž pokyny: 'V § 3 písm. b) se slovo \"státní\" zrušuje.' a 'V § 3 se písmeno f) zrušuje. Dosavadní písmena g) až m) se označují jako písmena f) až l).' -- oba se v tisku 90 vyskytují znak po znaku shodně; 36 ze 42 pokynů tisku 68 je obsaženo v tisku 90."
+   },
+   "reasoning": "Zjištění na úrovni TISKU, nikoli jednotlivého paragrafu. Porovnání množin číslovaných novelizačních pokynů obou tisků ukazuje, že 36 ze 42 pokynů tisku 68 (86 %) se v tisku 90 vyskytuje znak po znaku shodně; tisk 90 jich má 69, obsahuje tedy reformu tisku 68 a jde nad ni. Shoda byla měřena deterministicky na doslovných řetězcích z archivovaného textu obou tisků, bez posuzování modelem; kontrolní dvojice (68 × 7, 64 × 68, 64 × 90) vycházejí na 0 %, jde tedy o vlastnost těchto dvou tisků, ne o artefakt metody. Důsledek pro zákon č. 250/2000 Sb. (rozpočtová pravidla územních rozpočtů), § 4, 11, 13, 28a, 39: oba tisky vydávají k témuž ustanovení totožné pokyny, takže ten přijatý jako druhý novelizuje text, který tam ten první už vložil, případně jeho pokyn k přečíslování nenajde cíl — tatáž vada jako u potvrzené dvojice 12–131 v dávce 004. Tento souběh se opakuje na osmi zákonech; není to osm nezávislých nálezů, nýbrž jeden fakt o dvojici tisků. Jde o nález legislativního procesu (soupeřící nebo znovu podané návrhy), nikoli o etický nález."
+  },
+  {
+   "pairId": "68-90",
+   "lawRef": "243/2000",
+   "billA": 68,
+   "billB": 90,
+   "sharedParagraph": "6a, 6c",
+   "classification": "confirmed-collision",
+   "stratum": "sweep-bill-level",
+   "evidence": {
+    "billAExcerpt": "tisk 68, novelizační pokyny (§ 3 zákona č. 23/2017 Sb. a další): 'V § 3 písm. b) se slovo \"státní\" zrušuje.' a 'V § 3 se písmeno f) zrušuje. Dosavadní písmena g) až m) se označují jako písmena f) až l).' -- dva ze 42 číslovaných pokynů tisku 68.",
+    "billBExcerpt": "tisk 90, tytéž pokyny: 'V § 3 písm. b) se slovo \"státní\" zrušuje.' a 'V § 3 se písmeno f) zrušuje. Dosavadní písmena g) až m) se označují jako písmena f) až l).' -- oba se v tisku 90 vyskytují znak po znaku shodně; 36 ze 42 pokynů tisku 68 je obsaženo v tisku 90."
+   },
+   "reasoning": "Zjištění na úrovni TISKU, nikoli jednotlivého paragrafu. Porovnání množin číslovaných novelizačních pokynů obou tisků ukazuje, že 36 ze 42 pokynů tisku 68 (86 %) se v tisku 90 vyskytuje znak po znaku shodně; tisk 90 jich má 69, obsahuje tedy reformu tisku 68 a jde nad ni. Shoda byla měřena deterministicky na doslovných řetězcích z archivovaného textu obou tisků, bez posuzování modelem; kontrolní dvojice (68 × 7, 64 × 68, 64 × 90) vycházejí na 0 %, jde tedy o vlastnost těchto dvou tisků, ne o artefakt metody. Důsledek pro zákon č. 243/2000 Sb. (rozpočtové určení daní), § 6a, 6c: oba tisky vydávají k témuž ustanovení totožné pokyny, takže ten přijatý jako druhý novelizuje text, který tam ten první už vložil, případně jeho pokyn k přečíslování nenajde cíl — tatáž vada jako u potvrzené dvojice 12–131 v dávce 004. Tento souběh se opakuje na osmi zákonech; není to osm nezávislých nálezů, nýbrž jeden fakt o dvojici tisků. Jde o nález legislativního procesu (soupeřící nebo znovu podané návrhy), nikoli o etický nález."
+  },
+  {
+   "pairId": "68-90",
+   "lawRef": "218/2000",
+   "billA": 68,
+   "billB": 90,
+   "sharedParagraph": "8",
+   "classification": "confirmed-collision",
+   "stratum": "sweep-bill-level",
+   "evidence": {
+    "billAExcerpt": "tisk 68, novelizační pokyny (§ 3 zákona č. 23/2017 Sb. a další): 'V § 3 písm. b) se slovo \"státní\" zrušuje.' a 'V § 3 se písmeno f) zrušuje. Dosavadní písmena g) až m) se označují jako písmena f) až l).' -- dva ze 42 číslovaných pokynů tisku 68.",
+    "billBExcerpt": "tisk 90, tytéž pokyny: 'V § 3 písm. b) se slovo \"státní\" zrušuje.' a 'V § 3 se písmeno f) zrušuje. Dosavadní písmena g) až m) se označují jako písmena f) až l).' -- oba se v tisku 90 vyskytují znak po znaku shodně; 36 ze 42 pokynů tisku 68 je obsaženo v tisku 90."
+   },
+   "reasoning": "Zjištění na úrovni TISKU, nikoli jednotlivého paragrafu. Porovnání množin číslovaných novelizačních pokynů obou tisků ukazuje, že 36 ze 42 pokynů tisku 68 (86 %) se v tisku 90 vyskytuje znak po znaku shodně; tisk 90 jich má 69, obsahuje tedy reformu tisku 68 a jde nad ni. Shoda byla měřena deterministicky na doslovných řetězcích z archivovaného textu obou tisků, bez posuzování modelem; kontrolní dvojice (68 × 7, 64 × 68, 64 × 90) vycházejí na 0 %, jde tedy o vlastnost těchto dvou tisků, ne o artefakt metody. Důsledek pro zákon č. 218/2000 Sb. (rozpočtová pravidla), § 8: oba tisky vydávají k témuž ustanovení totožné pokyny, takže ten přijatý jako druhý novelizuje text, který tam ten první už vložil, případně jeho pokyn k přečíslování nenajde cíl — tatáž vada jako u potvrzené dvojice 12–131 v dávce 004. Tento souběh se opakuje na osmi zákonech; není to osm nezávislých nálezů, nýbrž jeden fakt o dvojici tisků. Jde o nález legislativního procesu (soupeřící nebo znovu podané návrhy), nikoli o etický nález."
+  },
+  {
+   "pairId": "68-90",
+   "lawRef": "222/2016",
+   "billA": 68,
+   "billB": 90,
+   "sharedParagraph": "20",
+   "classification": "confirmed-collision",
+   "stratum": "sweep-bill-level",
+   "evidence": {
+    "billAExcerpt": "tisk 68, novelizační pokyny (§ 3 zákona č. 23/2017 Sb. a další): 'V § 3 písm. b) se slovo \"státní\" zrušuje.' a 'V § 3 se písmeno f) zrušuje. Dosavadní písmena g) až m) se označují jako písmena f) až l).' -- dva ze 42 číslovaných pokynů tisku 68.",
+    "billBExcerpt": "tisk 90, tytéž pokyny: 'V § 3 písm. b) se slovo \"státní\" zrušuje.' a 'V § 3 se písmeno f) zrušuje. Dosavadní písmena g) až m) se označují jako písmena f) až l).' -- oba se v tisku 90 vyskytují znak po znaku shodně; 36 ze 42 pokynů tisku 68 je obsaženo v tisku 90."
+   },
+   "reasoning": "Zjištění na úrovni TISKU, nikoli jednotlivého paragrafu. Porovnání množin číslovaných novelizačních pokynů obou tisků ukazuje, že 36 ze 42 pokynů tisku 68 (86 %) se v tisku 90 vyskytuje znak po znaku shodně; tisk 90 jich má 69, obsahuje tedy reformu tisku 68 a jde nad ni. Shoda byla měřena deterministicky na doslovných řetězcích z archivovaného textu obou tisků, bez posuzování modelem; kontrolní dvojice (68 × 7, 64 × 68, 64 × 90) vycházejí na 0 %, jde tedy o vlastnost těchto dvou tisků, ne o artefakt metody. Důsledek pro zákon č. 222/2016 Sb. (Sbírka zákonů), § 20: oba tisky vydávají k témuž ustanovení totožné pokyny, takže ten přijatý jako druhý novelizuje text, který tam ten první už vložil, případně jeho pokyn k přečíslování nenajde cíl — tatáž vada jako u potvrzené dvojice 12–131 v dávce 004. Tento souběh se opakuje na osmi zákonech; není to osm nezávislých nálezů, nýbrž jeden fakt o dvojici tisků. Jde o nález legislativního procesu (soupeřící nebo znovu podané návrhy), nikoli o etický nález."
+  },
+  {
+   "pairId": "68-90",
+   "lawRef": "262/2006",
+   "billA": 68,
+   "billB": 90,
+   "sharedParagraph": "303",
+   "classification": "confirmed-collision",
+   "stratum": "sweep-bill-level",
+   "evidence": {
+    "billAExcerpt": "tisk 68, novelizační pokyny (§ 3 zákona č. 23/2017 Sb. a další): 'V § 3 písm. b) se slovo \"státní\" zrušuje.' a 'V § 3 se písmeno f) zrušuje. Dosavadní písmena g) až m) se označují jako písmena f) až l).' -- dva ze 42 číslovaných pokynů tisku 68.",
+    "billBExcerpt": "tisk 90, tytéž pokyny: 'V § 3 písm. b) se slovo \"státní\" zrušuje.' a 'V § 3 se písmeno f) zrušuje. Dosavadní písmena g) až m) se označují jako písmena f) až l).' -- oba se v tisku 90 vyskytují znak po znaku shodně; 36 ze 42 pokynů tisku 68 je obsaženo v tisku 90."
+   },
+   "reasoning": "Zjištění na úrovni TISKU, nikoli jednotlivého paragrafu. Porovnání množin číslovaných novelizačních pokynů obou tisků ukazuje, že 36 ze 42 pokynů tisku 68 (86 %) se v tisku 90 vyskytuje znak po znaku shodně; tisk 90 jich má 69, obsahuje tedy reformu tisku 68 a jde nad ni. Shoda byla měřena deterministicky na doslovných řetězcích z archivovaného textu obou tisků, bez posuzování modelem; kontrolní dvojice (68 × 7, 64 × 68, 64 × 90) vycházejí na 0 %, jde tedy o vlastnost těchto dvou tisků, ne o artefakt metody. Důsledek pro zákon č. 262/2006 Sb. (zákoník práce), § 303: oba tisky vydávají k témuž ustanovení totožné pokyny, takže ten přijatý jako druhý novelizuje text, který tam ten první už vložil, případně jeho pokyn k přečíslování nenajde cíl — tatáž vada jako u potvrzené dvojice 12–131 v dávce 004. Tento souběh se opakuje na osmi zákonech; není to osm nezávislých nálezů, nýbrž jeden fakt o dvojici tisků. Jde o nález legislativního procesu (soupeřící nebo znovu podané návrhy), nikoli o etický nález."
+  },
+  {
+   "pairId": "68-90",
+   "lawRef": "177/2023",
+   "billA": 68,
+   "billB": 90,
+   "sharedParagraph": "1",
+   "classification": "confirmed-collision",
+   "stratum": "sweep-bill-level",
+   "evidence": {
+    "billAExcerpt": "tisk 68, novelizační pokyny (§ 3 zákona č. 23/2017 Sb. a další): 'V § 3 písm. b) se slovo \"státní\" zrušuje.' a 'V § 3 se písmeno f) zrušuje. Dosavadní písmena g) až m) se označují jako písmena f) až l).' -- dva ze 42 číslovaných pokynů tisku 68.",
+    "billBExcerpt": "tisk 90, tytéž pokyny: 'V § 3 písm. b) se slovo \"státní\" zrušuje.' a 'V § 3 se písmeno f) zrušuje. Dosavadní písmena g) až m) se označují jako písmena f) až l).' -- oba se v tisku 90 vyskytují znak po znaku shodně; 36 ze 42 pokynů tisku 68 je obsaženo v tisku 90."
+   },
+   "reasoning": "Zjištění na úrovni TISKU, nikoli jednotlivého paragrafu. Porovnání množin číslovaných novelizačních pokynů obou tisků ukazuje, že 36 ze 42 pokynů tisku 68 (86 %) se v tisku 90 vyskytuje znak po znaku shodně; tisk 90 jich má 69, obsahuje tedy reformu tisku 68 a jde nad ni. Shoda byla měřena deterministicky na doslovných řetězcích z archivovaného textu obou tisků, bez posuzování modelem; kontrolní dvojice (68 × 7, 64 × 68, 64 × 90) vycházejí na 0 %, jde tedy o vlastnost těchto dvou tisků, ne o artefakt metody. Důsledek pro zákon č. 177/2023 Sb. (financování obrany), § 1: oba tisky vydávají k témuž ustanovení totožné pokyny, takže ten přijatý jako druhý novelizuje text, který tam ten první už vložil, případně jeho pokyn k přečíslování nenajde cíl — tatáž vada jako u potvrzené dvojice 12–131 v dávce 004. Tento souběh se opakuje na osmi zákonech; není to osm nezávislých nálezů, nýbrž jeden fakt o dvojici tisků. Jde o nález legislativního procesu (soupeřící nebo znovu podané návrhy), nikoli o etický nález."
   }
- ]
+ ],
+ "sweepResult": "collision-sweep-009.ts validated at 100% precision / 43% recall on the incidental class against the 28 pairs from this same report already hand-classified (batches 008+009), under a gate that ANY false drop blocks the write — a discarded pair is never read again, so a false drop is a silently lost public finding while a false escalation only costs reading time. Its first run FAILED that gate with 3 false drops (a clause anchor missed instructions rendered on the same line as their Cl. article label) and was fixed before any output was written. 83 pairs escalated as genuine co-touch; 7 of those are the 68x90 duplicates, leaving 76 for a future read, prioritised by the odstavecOverlap flag in batch-009-collision-sweep.json."
 }

@@ -1,0 +1,57 @@
+{
+ "generatedAt": "2026-07-27T11:12:39.568Z",
+ "method": "Verbatim set comparison of each bill's numbered novelization instructions ('N. V § …'), extracted from cached operative text, NFC-normalized and whitespace-collapsed. No fuzzy similarity and no model judgement — a shared instruction is a byte-identical normalized string. Only bills that co-occur in a candidate pair are compared.",
+ "measures": "Jaccard answers 'are these the same bill'; containment(A→B) = |A∩B|/|A| answers 'is A's whole reform carried inside B'. The second is the one that matters: a small targeted bill can be wholly absorbed by a larger one, which Jaccard hides behind the size difference.",
+ "thresholds": {
+  "minContainment": 0.25,
+  "minInstructions": 4
+ },
+ "interpretation": "A drafting-process finding, never an ethics one. Two prints carrying the same instructions are most plausibly competing drafts, a re-filing, or one bill absorbing another's text — all normal legislative practice. What it means for THIS case is methodological: the unit of analysis for these pairs is the BILL, not the pair, and reading them statute-by-statute multiplies one fact into many.",
+ "findings": [
+  {
+   "billA": 68,
+   "billB": 90,
+   "instructionsA": 42,
+   "instructionsB": 69,
+   "shared": 36,
+   "jaccard": 0.48,
+   "containmentAinB": 0.857,
+   "containmentBinA": 0.522,
+   "relation": "containment",
+   "statutesSharedInCandidates": [
+    "159/2006",
+    "177/2023",
+    "218/2000",
+    "222/2016",
+    "23/2017",
+    "243/2000",
+    "250/2000",
+    "262/2006"
+   ],
+   "sampleSharedInstructions": [
+    "V § 3 písm. b) se slovo \"státní\" zrušuje.",
+    "V § 3 se písmeno f) zrušuje. Dosavadní písmena g) až m) se označují jako písmena f) až l).",
+    "V § 3 se písmena i) až k) zrušují. Dosavadní písmeno l) se označuje jako písmeno i)."
+   ]
+  },
+  {
+   "billA": 28,
+   "billB": 141,
+   "instructionsA": 6,
+   "instructionsB": 4,
+   "shared": 2,
+   "jaccard": 0.25,
+   "containmentAinB": 0.333,
+   "containmentBinA": 0.5,
+   "relation": "partial-overlap",
+   "statutesSharedInCandidates": [
+    "243/2000"
+   ],
+   "sampleSharedInstructions": [
+    "V § 4 odst. 3 se text \"č. 2\" nahrazuje textem \"č. 1\".",
+    "V § 4 odst. 4 a 5 se text \"č. 3\" nahrazuje textem \"č. 2\"."
+   ]
+  }
+ ],
+ "pairsExplained": 9
+}

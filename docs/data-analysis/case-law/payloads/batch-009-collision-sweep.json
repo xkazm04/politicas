@@ -1,0 +1,2476 @@
+{
+ "generatedAt": "2026-07-27T11:11:19.331Z",
+ "method": "Deterministic instruction-vs-citation discrimination over each bill's cached operative text, partitioned per target statute (the batch-004 tisk-248 fix, shared via collision-core.ts). A pair is INCIDENTAL when, on every shared §, at least one bill merely references the § rather than issuing a novelization instruction against it. Czech novelization is a small closed grammar, so this is decidable in code rather than by model.",
+ "validation": {
+  "against": "the 28 pairs from this same report already hand-classified in batches 008 and 009",
+  "correctlyIncidental": 3,
+  "falseDrops": 0,
+  "wastefulEscalations": 4,
+  "correctlyEscalated": 21,
+  "precision": 1,
+  "recall": 0.429,
+  "gate": "ANY false drop blocks the write — a discarded pair is never read again, so a false drop is a silently lost public finding while a false escalation only costs reading time."
+ },
+ "counts": {
+  "unread": 101,
+  "incidental": 18,
+  "escalate": 83,
+  "undecidable": 0
+ },
+ "incidental": [
+  {
+   "lawRef": "40/2009",
+   "billA": 7,
+   "billB": 173,
+   "paragraphs": [
+    "199"
+   ],
+   "reason": "on every shared § (199) at least one bill only CITES the § rather than amending it",
+   "citationOnly": [
+    {
+     "paragraph": "199",
+     "citingBill": 7
+    }
+   ]
+  },
+  {
+   "lawRef": "40/2009",
+   "billA": 102,
+   "billB": 207,
+   "paragraphs": [
+    "283a"
+   ],
+   "reason": "on every shared § (283a) at least one bill only CITES the § rather than amending it",
+   "citationOnly": [
+    {
+     "paragraph": "283a",
+     "citingBill": 102
+    }
+   ]
+  },
+  {
+   "lawRef": "40/2009",
+   "billA": 102,
+   "billB": 216,
+   "paragraphs": [
+    "283a"
+   ],
+   "reason": "neither bill issues a novelization instruction against any shared § (283a) — the § numbers only appear as references",
+   "citationOnly": [
+    {
+     "paragraph": "283a",
+     "citingBill": 0
+    }
+   ]
+  },
+  {
+   "lawRef": "2/1969",
+   "billA": 77,
+   "billB": 205,
+   "paragraphs": [
+    "28"
+   ],
+   "reason": "on every shared § (28) at least one bill only CITES the § rather than amending it",
+   "citationOnly": [
+    {
+     "paragraph": "28",
+     "citingBill": 205
+    }
+   ]
+  },
+  {
+   "lawRef": "256/2004",
+   "billA": 13,
+   "billB": 64,
+   "paragraphs": [
+    "2a"
+   ],
+   "reason": "on every shared § (2a) at least one bill only CITES the § rather than amending it",
+   "citationOnly": [
+    {
+     "paragraph": "2a",
+     "citingBill": 13
+    }
+   ]
+  },
+  {
+   "lawRef": "256/2004",
+   "billA": 16,
+   "billB": 132,
+   "paragraphs": [
+    "15f"
+   ],
+   "reason": "neither bill issues a novelization instruction against any shared § (15f) — the § numbers only appear as references",
+   "citationOnly": [
+    {
+     "paragraph": "15f",
+     "citingBill": 0
+    }
+   ]
+  },
+  {
+   "lawRef": "117/1995",
+   "billA": 103,
+   "billB": 124,
+   "paragraphs": [
+    "59"
+   ],
+   "reason": "on every shared § (59) at least one bill only CITES the § rather than amending it",
+   "citationOnly": [
+    {
+     "paragraph": "59",
+     "citingBill": 124
+    }
+   ]
+  },
+  {
+   "lawRef": "634/1992",
+   "billA": 16,
+   "billB": 62,
+   "paragraphs": [
+    "1811"
+   ],
+   "reason": "neither bill issues a novelization instruction against any shared § (1811) — the § numbers only appear as references",
+   "citationOnly": [
+    {
+     "paragraph": "1811",
+     "citingBill": 0
+    }
+   ]
+  },
+  {
+   "lawRef": "283/2021",
+   "billA": 64,
+   "billB": 67,
+   "paragraphs": [
+    "29"
+   ],
+   "reason": "on every shared § (29) at least one bill only CITES the § rather than amending it",
+   "citationOnly": [
+    {
+     "paragraph": "29",
+     "citingBill": 67
+    }
+   ]
+  },
+  {
+   "lawRef": "283/2021",
+   "billA": 67,
+   "billB": 234,
+   "paragraphs": [
+    "285"
+   ],
+   "reason": "on every shared § (285) at least one bill only CITES the § rather than amending it",
+   "citationOnly": [
+    {
+     "paragraph": "285",
+     "citingBill": 67
+    }
+   ]
+  },
+  {
+   "lawRef": "218/2000",
+   "billA": 64,
+   "billB": 68,
+   "paragraphs": [
+    "8"
+   ],
+   "reason": "on every shared § (8) at least one bill only CITES the § rather than amending it",
+   "citationOnly": [
+    {
+     "paragraph": "8",
+     "citingBill": 64
+    }
+   ]
+  },
+  {
+   "lawRef": "257/2016",
+   "billA": 16,
+   "billB": 145,
+   "paragraphs": [
+    "94"
+   ],
+   "reason": "on every shared § (94) at least one bill only CITES the § rather than amending it",
+   "citationOnly": [
+    {
+     "paragraph": "94",
+     "citingBill": 145
+    }
+   ]
+  },
+  {
+   "lawRef": "29/2000",
+   "billA": 64,
+   "billB": 65,
+   "paragraphs": [
+    "33a"
+   ],
+   "reason": "on every shared § (33a) at least one bill only CITES the § rather than amending it",
+   "citationOnly": [
+    {
+     "paragraph": "33a",
+     "citingBill": 65
+    }
+   ]
+  },
+  {
+   "lawRef": "168/2025",
+   "billA": 7,
+   "billB": 64,
+   "paragraphs": [
+    "14"
+   ],
+   "reason": "on every shared § (14) at least one bill only CITES the § rather than amending it",
+   "citationOnly": [
+    {
+     "paragraph": "14",
+     "citingBill": 7
+    }
+   ]
+  },
+  {
+   "lawRef": "526/1990",
+   "billA": 64,
+   "billB": 163,
+   "paragraphs": [
+    "1"
+   ],
+   "reason": "on every shared § (1) at least one bill only CITES the § rather than amending it",
+   "citationOnly": [
+    {
+     "paragraph": "1",
+     "citingBill": 163
+    }
+   ]
+  },
+  {
+   "lawRef": "72/2000",
+   "billA": 64,
+   "billB": 221,
+   "paragraphs": [
+    "2"
+   ],
+   "reason": "on every shared § (2) at least one bill only CITES the § rather than amending it",
+   "citationOnly": [
+    {
+     "paragraph": "2",
+     "citingBill": 221
+    }
+   ]
+  },
+  {
+   "lawRef": "468/2024",
+   "billA": 59,
+   "billB": 64,
+   "paragraphs": [
+    "17",
+    "19",
+    "20"
+   ],
+   "reason": "on every shared § (17, 19, 20) at least one bill only CITES the § rather than amending it",
+   "citationOnly": [
+    {
+     "paragraph": "17",
+     "citingBill": 59
+    },
+    {
+     "paragraph": "19",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "20",
+     "citingBill": 59
+    }
+   ]
+  },
+  {
+   "lawRef": "40/2009",
+   "billA": 7,
+   "billB": 102,
+   "paragraphs": [
+    "257",
+    "258",
+    "332",
+    "333"
+   ],
+   "reason": "on every shared § (257, 258, 332, 333) at least one bill only CITES the § rather than amending it",
+   "citationOnly": [
+    {
+     "paragraph": "257",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "258",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "332",
+     "citingBill": 102
+    },
+    {
+     "paragraph": "333",
+     "citingBill": 0
+    }
+   ]
+  }
+ ],
+ "escalate": [
+  {
+   "lawRef": "250/2017",
+   "lawTitle": "",
+   "billA": 65,
+   "billB": 154,
+   "paragraphs": [
+    "16",
+    "19",
+    "24",
+    "25",
+    "5"
+   ],
+   "genuineParagraphs": [
+    "16",
+    "19",
+    "25",
+    "5"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "24",
+     "citingBill": 65
+    }
+   ],
+   "odstavecOverlap": [
+    "16",
+    "19",
+    "25",
+    "5"
+   ],
+   "reason": "4 § with a real instruction on both sides: 16, 19, 25, 5"
+  },
+  {
+   "lawRef": "586/1992",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 120,
+   "paragraphs": [
+    "2",
+    "35",
+    "35a",
+    "35c",
+    "35d",
+    "38gb",
+    "6",
+    "7"
+   ],
+   "genuineParagraphs": [
+    "35c",
+    "35d",
+    "38gb"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "2",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "35",
+     "citingBill": 120
+    },
+    {
+     "paragraph": "35a",
+     "citingBill": 120
+    },
+    {
+     "paragraph": "6",
+     "citingBill": 120
+    },
+    {
+     "paragraph": "7",
+     "citingBill": 120
+    }
+   ],
+   "odstavecOverlap": [
+    "35c",
+    "35d",
+    "38gb"
+   ],
+   "reason": "3 § with a real instruction on both sides: 35c, 35d, 38gb"
+  },
+  {
+   "lawRef": "586/1992",
+   "lawTitle": "",
+   "billA": 120,
+   "billB": 244,
+   "paragraphs": [
+    "35",
+    "35ba",
+    "35c",
+    "35d",
+    "38g",
+    "38h",
+    "38k",
+    "38l"
+   ],
+   "genuineParagraphs": [
+    "35ba",
+    "35c",
+    "35d",
+    "38g",
+    "38h",
+    "38k",
+    "38l"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "35",
+     "citingBill": 0
+    }
+   ],
+   "odstavecOverlap": [
+    "35ba",
+    "35c",
+    "35d",
+    "38g",
+    "38h",
+    "38k",
+    "38l"
+   ],
+   "reason": "7 § with a real instruction on both sides: 35ba, 35c, 35d, 38g, 38h, 38k, 38l"
+  },
+  {
+   "lawRef": "21/1992",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 143,
+   "paragraphs": [
+    "21",
+    "26",
+    "26ac",
+    "36c",
+    "36e",
+    "36h",
+    "36i",
+    "38d",
+    "38hc"
+   ],
+   "genuineParagraphs": [
+    "26",
+    "26ac",
+    "36c",
+    "36e",
+    "36h",
+    "36i",
+    "38hc"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "21",
+     "citingBill": 143
+    },
+    {
+     "paragraph": "38d",
+     "citingBill": 143
+    }
+   ],
+   "odstavecOverlap": [
+    "26",
+    "26ac",
+    "36e",
+    "36h",
+    "38hc"
+   ],
+   "reason": "7 § with a real instruction on both sides: 26, 26ac, 36c, 36e, 36h, 36i, 38hc"
+  },
+  {
+   "lawRef": "586/1992",
+   "lawTitle": "",
+   "billA": 189,
+   "billB": 244,
+   "paragraphs": [
+    "13",
+    "35",
+    "35ba",
+    "35bb",
+    "35c",
+    "35d",
+    "38g",
+    "38h",
+    "38k",
+    "38l"
+   ],
+   "genuineParagraphs": [
+    "35ba",
+    "35bb",
+    "35c",
+    "35d",
+    "38g",
+    "38h",
+    "38k",
+    "38l"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "13",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "35",
+     "citingBill": 0
+    }
+   ],
+   "odstavecOverlap": [
+    "35ba",
+    "35bb",
+    "35d",
+    "38g",
+    "38h",
+    "38k",
+    "38l"
+   ],
+   "reason": "8 § with a real instruction on both sides: 35ba, 35bb, 35c, 35d, 38g, 38h, 38k, 38l"
+  },
+  {
+   "lawRef": "256/2004",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 143,
+   "paragraphs": [
+    "121k",
+    "136",
+    "16",
+    "16b",
+    "172",
+    "177",
+    "181",
+    "183",
+    "184",
+    "50",
+    "73b"
+   ],
+   "genuineParagraphs": [
+    "121k",
+    "136",
+    "16",
+    "172",
+    "50",
+    "73b"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "16b",
+     "citingBill": 143
+    },
+    {
+     "paragraph": "177",
+     "citingBill": 64
+    },
+    {
+     "paragraph": "181",
+     "citingBill": 64
+    },
+    {
+     "paragraph": "183",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "184",
+     "citingBill": 64
+    }
+   ],
+   "odstavecOverlap": [
+    "136",
+    "172",
+    "50",
+    "73b"
+   ],
+   "reason": "6 § with a real instruction on both sides: 121k, 136, 16, 172, 50, 73b"
+  },
+  {
+   "lawRef": "586/1992",
+   "lawTitle": "",
+   "billA": 120,
+   "billB": 189,
+   "paragraphs": [
+    "16",
+    "2",
+    "35",
+    "35ba",
+    "35c",
+    "35d",
+    "38g",
+    "38h",
+    "38k",
+    "38l",
+    "6",
+    "7"
+   ],
+   "genuineParagraphs": [
+    "35ba",
+    "35c",
+    "35d",
+    "38g",
+    "38h",
+    "38k",
+    "38l"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "16",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "2",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "35",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "6",
+     "citingBill": 120
+    },
+    {
+     "paragraph": "7",
+     "citingBill": 0
+    }
+   ],
+   "odstavecOverlap": [
+    "35ba",
+    "35c",
+    "35d",
+    "38g",
+    "38h",
+    "38k",
+    "38l"
+   ],
+   "reason": "7 § with a real instruction on both sides: 35ba, 35c, 35d, 38g, 38h, 38k, 38l"
+  },
+  {
+   "lawRef": "240/2013",
+   "lawTitle": "",
+   "billA": 13,
+   "billB": 64,
+   "paragraphs": [
+    "190",
+    "21",
+    "234",
+    "238",
+    "29",
+    "316",
+    "38",
+    "461",
+    "47",
+    "475",
+    "539",
+    "599",
+    "601",
+    "603",
+    "603a",
+    "604",
+    "609",
+    "612",
+    "614",
+    "615",
+    "616"
+   ],
+   "genuineParagraphs": [
+    "190",
+    "238",
+    "29",
+    "316",
+    "38",
+    "539",
+    "599",
+    "604"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "21",
+     "citingBill": 64
+    },
+    {
+     "paragraph": "234",
+     "citingBill": 13
+    },
+    {
+     "paragraph": "461",
+     "citingBill": 13
+    },
+    {
+     "paragraph": "47",
+     "citingBill": 13
+    },
+    {
+     "paragraph": "475",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "601",
+     "citingBill": 64
+    },
+    {
+     "paragraph": "603",
+     "citingBill": 64
+    },
+    {
+     "paragraph": "603a",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "609",
+     "citingBill": 64
+    },
+    {
+     "paragraph": "612",
+     "citingBill": 64
+    },
+    {
+     "paragraph": "614",
+     "citingBill": 64
+    },
+    {
+     "paragraph": "615",
+     "citingBill": 64
+    },
+    {
+     "paragraph": "616",
+     "citingBill": 64
+    }
+   ],
+   "odstavecOverlap": [
+    "238",
+    "29",
+    "38",
+    "539",
+    "599",
+    "604"
+   ],
+   "reason": "8 § with a real instruction on both sides: 190, 238, 29, 316, 38, 539, 599, 604"
+  },
+  {
+   "lawRef": "23/2017",
+   "lawTitle": "",
+   "billA": 68,
+   "billB": 90,
+   "paragraphs": [
+    "11",
+    "13",
+    "21",
+    "28a",
+    "39",
+    "4",
+    "1",
+    "10",
+    "10a",
+    "12",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "20a",
+    "22",
+    "23",
+    "24",
+    "25",
+    "28",
+    "3",
+    "30",
+    "31",
+    "33",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "9a"
+   ],
+   "genuineParagraphs": [
+    "11",
+    "21",
+    "4",
+    "10",
+    "10a",
+    "12",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "22",
+    "23",
+    "24",
+    "25",
+    "28",
+    "3",
+    "30",
+    "31",
+    "33",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "13",
+     "citingBill": 90
+    },
+    {
+     "paragraph": "28a",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "39",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "1",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "20a",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "9a",
+     "citingBill": 0
+    }
+   ],
+   "odstavecOverlap": [
+    "11",
+    "21",
+    "4",
+    "10",
+    "10a",
+    "12",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "22",
+    "23",
+    "24",
+    "25",
+    "28",
+    "3",
+    "30",
+    "31",
+    "33",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9"
+   ],
+   "reason": "27 § with a real instruction on both sides: 11, 21, 4, 10, 10a, 12, 14, 15, 16, 17, 18, 19, 20, 22, 23, 24, 25, 28, 3, 30, 31, 33, 5, 6, 7, 8, 9"
+  },
+  {
+   "lawRef": "586/1992",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 189,
+   "paragraphs": [
+    "10",
+    "17",
+    "18",
+    "18a",
+    "19",
+    "2",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29",
+    "2a",
+    "3",
+    "30",
+    "31",
+    "32",
+    "33",
+    "34",
+    "35",
+    "35c",
+    "35d",
+    "38",
+    "4",
+    "5",
+    "6",
+    "7",
+    "7a",
+    "8",
+    "9"
+   ],
+   "genuineParagraphs": [
+    "18a",
+    "25",
+    "2a",
+    "35c",
+    "35d",
+    "38",
+    "6",
+    "7a"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "10",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "17",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "18",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "19",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "2",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "20",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "21",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "22",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "23",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "24",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "26",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "27",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "28",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "29",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "3",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "30",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "31",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "32",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "33",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "34",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "35",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "4",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "5",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "7",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "8",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "9",
+     "citingBill": 189
+    }
+   ],
+   "odstavecOverlap": [
+    "18a",
+    "25",
+    "2a",
+    "35d",
+    "6",
+    "7a"
+   ],
+   "reason": "8 § with a real instruction on both sides: 18a, 25, 2a, 35c, 35d, 38, 6, 7a"
+  },
+  {
+   "lawRef": "40/2009",
+   "lawTitle": "",
+   "billA": 7,
+   "billB": 111,
+   "paragraphs": [
+    "88"
+   ],
+   "genuineParagraphs": [
+    "88"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "88"
+   ],
+   "reason": "1 § with a real instruction on both sides: 88"
+  },
+  {
+   "lawRef": "40/2009",
+   "lawTitle": "",
+   "billA": 7,
+   "billB": 213,
+   "paragraphs": [
+    "88"
+   ],
+   "genuineParagraphs": [
+    "88"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "88"
+   ],
+   "reason": "1 § with a real instruction on both sides: 88"
+  },
+  {
+   "lawRef": "40/2009",
+   "lawTitle": "",
+   "billA": 14,
+   "billB": 207,
+   "paragraphs": [
+    "298a"
+   ],
+   "genuineParagraphs": [
+    "298a"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "298a"
+   ],
+   "reason": "1 § with a real instruction on both sides: 298a"
+  },
+  {
+   "lawRef": "40/2009",
+   "lawTitle": "",
+   "billA": 111,
+   "billB": 213,
+   "paragraphs": [
+    "88"
+   ],
+   "genuineParagraphs": [
+    "88"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "88"
+   ],
+   "reason": "1 § with a real instruction on both sides: 88"
+  },
+  {
+   "lawRef": "586/1992",
+   "lawTitle": "",
+   "billA": 40,
+   "billB": 64,
+   "paragraphs": [
+    "25"
+   ],
+   "genuineParagraphs": [
+    "25"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "25"
+   ],
+   "reason": "1 § with a real instruction on both sides: 25"
+  },
+  {
+   "lawRef": "586/1992",
+   "lawTitle": "",
+   "billA": 40,
+   "billB": 189,
+   "paragraphs": [
+    "25"
+   ],
+   "genuineParagraphs": [
+    "25"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "25"
+   ],
+   "reason": "1 § with a real instruction on both sides: 25"
+  },
+  {
+   "lawRef": "586/1992",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 121,
+   "paragraphs": [
+    "35c"
+   ],
+   "genuineParagraphs": [
+    "35c"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 35c"
+  },
+  {
+   "lawRef": "586/1992",
+   "lawTitle": "",
+   "billA": 121,
+   "billB": 189,
+   "paragraphs": [
+    "35c"
+   ],
+   "genuineParagraphs": [
+    "35c"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 35c"
+  },
+  {
+   "lawRef": "2/1969",
+   "lawTitle": "",
+   "billA": 7,
+   "billB": 67,
+   "paragraphs": [
+    "2"
+   ],
+   "genuineParagraphs": [
+    "2"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "2"
+   ],
+   "reason": "1 § with a real instruction on both sides: 2"
+  },
+  {
+   "lawRef": "187/2006",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 103,
+   "paragraphs": [
+    "84"
+   ],
+   "genuineParagraphs": [
+    "84"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "84"
+   ],
+   "reason": "1 § with a real instruction on both sides: 84"
+  },
+  {
+   "lawRef": "187/2006",
+   "lawTitle": "",
+   "billA": 77,
+   "billB": 109,
+   "paragraphs": [
+    "84b"
+   ],
+   "genuineParagraphs": [
+    "84b"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 84b"
+  },
+  {
+   "lawRef": "427/2011",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 86,
+   "paragraphs": [
+    "3"
+   ],
+   "genuineParagraphs": [
+    "3"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "3"
+   ],
+   "reason": "1 § with a real instruction on both sides: 3"
+  },
+  {
+   "lawRef": "222/2016",
+   "lawTitle": "",
+   "billA": 7,
+   "billB": 68,
+   "paragraphs": [
+    "20"
+   ],
+   "genuineParagraphs": [
+    "20"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 20"
+  },
+  {
+   "lawRef": "222/2016",
+   "lawTitle": "",
+   "billA": 7,
+   "billB": 90,
+   "paragraphs": [
+    "20"
+   ],
+   "genuineParagraphs": [
+    "20"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 20"
+  },
+  {
+   "lawRef": "222/2016",
+   "lawTitle": "",
+   "billA": 68,
+   "billB": 90,
+   "paragraphs": [
+    "20"
+   ],
+   "genuineParagraphs": [
+    "20"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "20"
+   ],
+   "reason": "1 § with a real instruction on both sides: 20"
+  },
+  {
+   "lawRef": "283/2021",
+   "lawTitle": "",
+   "billA": 56,
+   "billB": 67,
+   "paragraphs": [
+    "156"
+   ],
+   "genuineParagraphs": [
+    "156"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "156"
+   ],
+   "reason": "1 § with a real instruction on both sides: 156"
+  },
+  {
+   "lawRef": "218/2000",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 89,
+   "paragraphs": [
+    "3"
+   ],
+   "genuineParagraphs": [
+    "3"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "3"
+   ],
+   "reason": "1 § with a real instruction on both sides: 3"
+  },
+  {
+   "lawRef": "218/2000",
+   "lawTitle": "",
+   "billA": 68,
+   "billB": 90,
+   "paragraphs": [
+    "8"
+   ],
+   "genuineParagraphs": [
+    "8"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "8"
+   ],
+   "reason": "1 § with a real instruction on both sides: 8"
+  },
+  {
+   "lawRef": "235/2004",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 218,
+   "paragraphs": [
+    "21"
+   ],
+   "genuineParagraphs": [
+    "21"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "21"
+   ],
+   "reason": "1 § with a real instruction on both sides: 21"
+  },
+  {
+   "lawRef": "21/1992",
+   "lawTitle": "",
+   "billA": 7,
+   "billB": 65,
+   "paragraphs": [
+    "38"
+   ],
+   "genuineParagraphs": [
+    "38"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "38"
+   ],
+   "reason": "1 § with a real instruction on both sides: 38"
+  },
+  {
+   "lawRef": "262/2006",
+   "lawTitle": "",
+   "billA": 24,
+   "billB": 68,
+   "paragraphs": [
+    "303"
+   ],
+   "genuineParagraphs": [
+    "303"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "303"
+   ],
+   "reason": "1 § with a real instruction on both sides: 303"
+  },
+  {
+   "lawRef": "262/2006",
+   "lawTitle": "",
+   "billA": 24,
+   "billB": 90,
+   "paragraphs": [
+    "303"
+   ],
+   "genuineParagraphs": [
+    "303"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "303"
+   ],
+   "reason": "1 § with a real instruction on both sides: 303"
+  },
+  {
+   "lawRef": "262/2006",
+   "lawTitle": "",
+   "billA": 68,
+   "billB": 90,
+   "paragraphs": [
+    "303"
+   ],
+   "genuineParagraphs": [
+    "303"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "303"
+   ],
+   "reason": "1 § with a real instruction on both sides: 303"
+  },
+  {
+   "lawRef": "365/2000",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 65,
+   "paragraphs": [
+    "2"
+   ],
+   "genuineParagraphs": [
+    "2"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "2"
+   ],
+   "reason": "1 § with a real instruction on both sides: 2"
+  },
+  {
+   "lawRef": "561/2004",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 232,
+   "paragraphs": [
+    "136"
+   ],
+   "genuineParagraphs": [
+    "136"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 136"
+  },
+  {
+   "lawRef": "99/1963",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 162,
+   "paragraphs": [
+    "141"
+   ],
+   "genuineParagraphs": [
+    "141"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "141"
+   ],
+   "reason": "1 § with a real instruction on both sides: 141"
+  },
+  {
+   "lawRef": "37/2021",
+   "lawTitle": "",
+   "billA": 7,
+   "billB": 260,
+   "paragraphs": [
+    "16"
+   ],
+   "genuineParagraphs": [
+    "16"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "16"
+   ],
+   "reason": "1 § with a real instruction on both sides: 16"
+  },
+  {
+   "lawRef": "240/2013",
+   "lawTitle": "",
+   "billA": 16,
+   "billB": 64,
+   "paragraphs": [
+    "604"
+   ],
+   "genuineParagraphs": [
+    "604"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 604"
+  },
+  {
+   "lawRef": "82/1998",
+   "lawTitle": "",
+   "billA": 111,
+   "billB": 162,
+   "paragraphs": [
+    "12"
+   ],
+   "genuineParagraphs": [
+    "12"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 12"
+  },
+  {
+   "lawRef": "219/2000",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 67,
+   "paragraphs": [
+    "21b"
+   ],
+   "genuineParagraphs": [
+    "21b"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 21b"
+  },
+  {
+   "lawRef": "258/2000",
+   "lawTitle": "",
+   "billA": 67,
+   "billB": 77,
+   "paragraphs": [
+    "80"
+   ],
+   "genuineParagraphs": [
+    "80"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 80"
+  },
+  {
+   "lawRef": "266/1994",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 83,
+   "paragraphs": [
+    "51"
+   ],
+   "genuineParagraphs": [
+    "51"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 51"
+  },
+  {
+   "lawRef": "277/2009",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 145,
+   "paragraphs": [
+    "120"
+   ],
+   "genuineParagraphs": [
+    "120"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 120"
+  },
+  {
+   "lawRef": "582/1991",
+   "lawTitle": "",
+   "billA": 77,
+   "billB": 125,
+   "paragraphs": [
+    "8"
+   ],
+   "genuineParagraphs": [
+    "8"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "8"
+   ],
+   "reason": "1 § with a real instruction on both sides: 8"
+  },
+  {
+   "lawRef": "108/2006",
+   "lawTitle": "",
+   "billA": 85,
+   "billB": 125,
+   "paragraphs": [
+    "21"
+   ],
+   "genuineParagraphs": [
+    "21"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "21"
+   ],
+   "reason": "1 § with a real instruction on both sides: 21"
+  },
+  {
+   "lawRef": "108/2006",
+   "lawTitle": "",
+   "billA": 88,
+   "billB": 125,
+   "paragraphs": [
+    "21"
+   ],
+   "genuineParagraphs": [
+    "21"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "21"
+   ],
+   "reason": "1 § with a real instruction on both sides: 21"
+  },
+  {
+   "lawRef": "234/2014",
+   "lawTitle": "",
+   "billA": 7,
+   "billB": 67,
+   "paragraphs": [
+    "2"
+   ],
+   "genuineParagraphs": [
+    "2"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "2"
+   ],
+   "reason": "1 § with a real instruction on both sides: 2"
+  },
+  {
+   "lawRef": "84/2024",
+   "lawTitle": "",
+   "billA": 13,
+   "billB": 145,
+   "paragraphs": [
+    "11"
+   ],
+   "genuineParagraphs": [
+    "11"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "11"
+   ],
+   "reason": "1 § with a real instruction on both sides: 11"
+  },
+  {
+   "lawRef": "181/2007",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 77,
+   "paragraphs": [
+    "12"
+   ],
+   "genuineParagraphs": [
+    "12"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 12"
+  },
+  {
+   "lawRef": "184/2006",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 67,
+   "paragraphs": [
+    "28"
+   ],
+   "genuineParagraphs": [
+    "28"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "28"
+   ],
+   "reason": "1 § with a real instruction on both sides: 28"
+  },
+  {
+   "lawRef": "282/1991",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 74,
+   "paragraphs": [
+    "1"
+   ],
+   "genuineParagraphs": [
+    "1"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "1"
+   ],
+   "reason": "1 § with a real instruction on both sides: 1"
+  },
+  {
+   "lawRef": "388/1991",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 77,
+   "paragraphs": [
+    "1"
+   ],
+   "genuineParagraphs": [
+    "1"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 1"
+  },
+  {
+   "lawRef": "90/2012",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 143,
+   "paragraphs": [
+    "417"
+   ],
+   "genuineParagraphs": [
+    "417"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 417"
+  },
+  {
+   "lawRef": "300/2008",
+   "lawTitle": "",
+   "billA": 65,
+   "billB": 103,
+   "paragraphs": [
+    "3"
+   ],
+   "genuineParagraphs": [
+    "3"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "3"
+   ],
+   "reason": "1 § with a real instruction on both sides: 3"
+  },
+  {
+   "lawRef": "360/1992",
+   "lawTitle": "",
+   "billA": 67,
+   "billB": 234,
+   "paragraphs": [
+    "22"
+   ],
+   "genuineParagraphs": [
+    "22"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "22"
+   ],
+   "reason": "1 § with a real instruction on both sides: 22"
+  },
+  {
+   "lawRef": "177/2023",
+   "lawTitle": "",
+   "billA": 68,
+   "billB": 90,
+   "paragraphs": [
+    "1"
+   ],
+   "genuineParagraphs": [
+    "1"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "1"
+   ],
+   "reason": "1 § with a real instruction on both sides: 1"
+  },
+  {
+   "lawRef": "359/1999",
+   "lawTitle": "",
+   "billA": 111,
+   "billB": 207,
+   "paragraphs": [
+    "23e"
+   ],
+   "genuineParagraphs": [
+    "23e"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "23e"
+   ],
+   "reason": "1 § with a real instruction on both sides: 23e"
+  },
+  {
+   "lawRef": "586/1992",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 248,
+   "paragraphs": [
+    "24",
+    "6"
+   ],
+   "genuineParagraphs": [
+    "24",
+    "6"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "24"
+   ],
+   "reason": "2 § with a real instruction on both sides: 24, 6"
+  },
+  {
+   "lawRef": "586/1992",
+   "lawTitle": "",
+   "billA": 189,
+   "billB": 248,
+   "paragraphs": [
+    "24",
+    "6"
+   ],
+   "genuineParagraphs": [
+    "6"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "24",
+     "citingBill": 189
+    }
+   ],
+   "odstavecOverlap": [
+    "6"
+   ],
+   "reason": "1 § with a real instruction on both sides: 6"
+  },
+  {
+   "lawRef": "256/2004",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 210,
+   "paragraphs": [
+    "118",
+    "172"
+   ],
+   "genuineParagraphs": [
+    "118",
+    "172"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "118"
+   ],
+   "reason": "2 § with a real instruction on both sides: 118, 172"
+  },
+  {
+   "lawRef": "89/2012",
+   "lawTitle": "",
+   "billA": 16,
+   "billB": 53,
+   "paragraphs": [
+    "1820",
+    "1840"
+   ],
+   "genuineParagraphs": [
+    "1820",
+    "1840"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "1820",
+    "1840"
+   ],
+   "reason": "2 § with a real instruction on both sides: 1820, 1840"
+  },
+  {
+   "lawRef": "243/2000",
+   "lawTitle": "",
+   "billA": 68,
+   "billB": 90,
+   "paragraphs": [
+    "6a",
+    "6c"
+   ],
+   "genuineParagraphs": [
+    "6a",
+    "6c"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "6a",
+    "6c"
+   ],
+   "reason": "2 § with a real instruction on both sides: 6a, 6c"
+  },
+  {
+   "lawRef": "218/2000",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 221,
+   "paragraphs": [
+    "12",
+    "14"
+   ],
+   "genuineParagraphs": [
+    "14"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "12",
+     "citingBill": 221
+    }
+   ],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 14"
+  },
+  {
+   "lawRef": "218/2000",
+   "lawTitle": "",
+   "billA": 89,
+   "billB": 90,
+   "paragraphs": [
+    "3",
+    "36"
+   ],
+   "genuineParagraphs": [
+    "36"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "3",
+     "citingBill": 90
+    }
+   ],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 36"
+  },
+  {
+   "lawRef": "365/2000",
+   "lawTitle": "",
+   "billA": 24,
+   "billB": 65,
+   "paragraphs": [
+    "12",
+    "4"
+   ],
+   "genuineParagraphs": [
+    "12",
+    "4"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "12",
+    "4"
+   ],
+   "reason": "2 § with a real instruction on both sides: 12, 4"
+  },
+  {
+   "lawRef": "37/2021",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 260,
+   "paragraphs": [
+    "23",
+    "53"
+   ],
+   "genuineParagraphs": [
+    "53"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "23",
+     "citingBill": 64
+    }
+   ],
+   "odstavecOverlap": [
+    "53"
+   ],
+   "reason": "1 § with a real instruction on both sides: 53"
+  },
+  {
+   "lawRef": "240/2013",
+   "lawTitle": "",
+   "billA": 13,
+   "billB": 16,
+   "paragraphs": [
+    "49",
+    "604"
+   ],
+   "genuineParagraphs": [
+    "604"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "49",
+     "citingBill": 13
+    }
+   ],
+   "odstavecOverlap": [
+    "604"
+   ],
+   "reason": "1 § with a real instruction on both sides: 604"
+  },
+  {
+   "lawRef": "257/2016",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 145,
+   "paragraphs": [
+    "113",
+    "3"
+   ],
+   "genuineParagraphs": [
+    "113",
+    "3"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "3"
+   ],
+   "reason": "2 § with a real instruction on both sides: 113, 3"
+  },
+  {
+   "lawRef": "219/2000",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 102,
+   "paragraphs": [
+    "15",
+    "4"
+   ],
+   "genuineParagraphs": [
+    "15"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "4",
+     "citingBill": 102
+    }
+   ],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 15"
+  },
+  {
+   "lawRef": "254/2001",
+   "lawTitle": "",
+   "billA": 67,
+   "billB": 75,
+   "paragraphs": [
+    "125a",
+    "55c"
+   ],
+   "genuineParagraphs": [
+    "55c"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "125a",
+     "citingBill": 67
+    }
+   ],
+   "odstavecOverlap": [
+    "55c"
+   ],
+   "reason": "1 § with a real instruction on both sides: 55c"
+  },
+  {
+   "lawRef": "190/2004",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 143,
+   "paragraphs": [
+    "40b",
+    "9a"
+   ],
+   "genuineParagraphs": [
+    "40b",
+    "9a"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "40b"
+   ],
+   "reason": "2 § with a real instruction on both sides: 40b, 9a"
+  },
+  {
+   "lawRef": "503/2012",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 67,
+   "paragraphs": [
+    "3",
+    "8"
+   ],
+   "genuineParagraphs": [
+    "3",
+    "8"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "8"
+   ],
+   "reason": "2 § with a real instruction on both sides: 3, 8"
+  },
+  {
+   "lawRef": "250/2000",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 68,
+   "paragraphs": [
+    "13",
+    "28a",
+    "4"
+   ],
+   "genuineParagraphs": [
+    "13",
+    "28a",
+    "4"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "28a",
+    "4"
+   ],
+   "reason": "3 § with a real instruction on both sides: 13, 28a, 4"
+  },
+  {
+   "lawRef": "250/2000",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 90,
+   "paragraphs": [
+    "13",
+    "28a",
+    "4"
+   ],
+   "genuineParagraphs": [
+    "13",
+    "28a",
+    "4"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "28a",
+    "4"
+   ],
+   "reason": "3 § with a real instruction on both sides: 13, 28a, 4"
+  },
+  {
+   "lawRef": "634/1992",
+   "lawTitle": "",
+   "billA": 16,
+   "billB": 53,
+   "paragraphs": [
+    "23",
+    "23b",
+    "23d",
+    "24"
+   ],
+   "genuineParagraphs": [
+    "23",
+    "23b",
+    "24"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "23d",
+     "citingBill": 0
+    }
+   ],
+   "odstavecOverlap": [
+    "23",
+    "23b",
+    "24"
+   ],
+   "reason": "3 § with a real instruction on both sides: 23, 23b, 24"
+  },
+  {
+   "lawRef": "40/2009",
+   "lawTitle": "",
+   "billA": 67,
+   "billB": 207,
+   "paragraphs": [
+    "293",
+    "294",
+    "296",
+    "299",
+    "300"
+   ],
+   "genuineParagraphs": [
+    "296",
+    "299"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "293",
+     "citingBill": 67
+    },
+    {
+     "paragraph": "294",
+     "citingBill": 67
+    },
+    {
+     "paragraph": "300",
+     "citingBill": 207
+    }
+   ],
+   "odstavecOverlap": [
+    "296",
+    "299"
+   ],
+   "reason": "2 § with a real instruction on both sides: 296, 299"
+  },
+  {
+   "lawRef": "424/1991",
+   "lawTitle": "",
+   "billA": 7,
+   "billB": 64,
+   "paragraphs": [
+    "18",
+    "19",
+    "19h",
+    "19j",
+    "6"
+   ],
+   "genuineParagraphs": [
+    "18",
+    "19",
+    "19j",
+    "6"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "19h",
+     "citingBill": 7
+    }
+   ],
+   "odstavecOverlap": [
+    "18",
+    "19",
+    "19j",
+    "6"
+   ],
+   "reason": "4 § with a real instruction on both sides: 18, 19, 19j, 6"
+  },
+  {
+   "lawRef": "250/2000",
+   "lawTitle": "",
+   "billA": 68,
+   "billB": 90,
+   "paragraphs": [
+    "11",
+    "13",
+    "28a",
+    "39",
+    "4"
+   ],
+   "genuineParagraphs": [
+    "11",
+    "13",
+    "28a",
+    "39",
+    "4"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "11",
+    "13",
+    "28a",
+    "39",
+    "4"
+   ],
+   "reason": "5 § with a real instruction on both sides: 11, 13, 28a, 39, 4"
+  },
+  {
+   "lawRef": "477/2001",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 73,
+   "paragraphs": [
+    "17",
+    "20",
+    "21a",
+    "23a",
+    "44"
+   ],
+   "genuineParagraphs": [
+    "17",
+    "20",
+    "23a",
+    "44"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "21a",
+     "citingBill": 73
+    }
+   ],
+   "odstavecOverlap": [],
+   "reason": "4 § with a real instruction on both sides: 17, 20, 23a, 44"
+  },
+  {
+   "lawRef": "23/2017",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 68,
+   "paragraphs": [
+    "1",
+    "17",
+    "3",
+    "33",
+    "5",
+    "7"
+   ],
+   "genuineParagraphs": [
+    "17",
+    "33",
+    "5",
+    "7"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "1",
+     "citingBill": 68
+    },
+    {
+     "paragraph": "3",
+     "citingBill": 64
+    }
+   ],
+   "odstavecOverlap": [
+    "33",
+    "5",
+    "7"
+   ],
+   "reason": "4 § with a real instruction on both sides: 17, 33, 5, 7"
+  },
+  {
+   "lawRef": "23/2017",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 90,
+   "paragraphs": [
+    "1",
+    "17",
+    "3",
+    "33",
+    "5",
+    "7"
+   ],
+   "genuineParagraphs": [
+    "17",
+    "33",
+    "5",
+    "7"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "1",
+     "citingBill": 90
+    },
+    {
+     "paragraph": "3",
+     "citingBill": 64
+    }
+   ],
+   "odstavecOverlap": [
+    "33",
+    "5",
+    "7"
+   ],
+   "reason": "4 § with a real instruction on both sides: 17, 33, 5, 7"
+  },
+  {
+   "lawRef": "218/2000",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 90,
+   "paragraphs": [
+    "12",
+    "14",
+    "20",
+    "3",
+    "4",
+    "50",
+    "8"
+   ],
+   "genuineParagraphs": [
+    "12",
+    "20",
+    "50"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "14",
+     "citingBill": 90
+    },
+    {
+     "paragraph": "3",
+     "citingBill": 90
+    },
+    {
+     "paragraph": "4",
+     "citingBill": 64
+    },
+    {
+     "paragraph": "8",
+     "citingBill": 64
+    }
+   ],
+   "odstavecOverlap": [
+    "12",
+    "50"
+   ],
+   "reason": "3 § with a real instruction on both sides: 12, 20, 50"
+  },
+  {
+   "lawRef": "542/2020",
+   "lawTitle": "",
+   "billA": 58,
+   "billB": 64,
+   "paragraphs": [
+    "122",
+    "124",
+    "36",
+    "46",
+    "48",
+    "53",
+    "55",
+    "97"
+   ],
+   "genuineParagraphs": [
+    "122",
+    "124",
+    "36",
+    "46",
+    "48",
+    "53",
+    "55"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "97",
+     "citingBill": 58
+    }
+   ],
+   "odstavecOverlap": [
+    "122",
+    "124",
+    "36",
+    "48",
+    "53"
+   ],
+   "reason": "7 § with a real instruction on both sides: 122, 124, 36, 46, 48, 53, 55"
+  }
+ ],
+ "undecidable": []
+}

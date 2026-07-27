@@ -205,19 +205,78 @@ All 16 pass `verify-close-reads.ts` (32/32 E-CHECKs) and — unlike batch-008 �
 an evidence excerpt**, closing the unverifiable-by-construction gap §2 names. Written natively in
 Czech, so they need no entry in the rewrite patch. Now rendering: the surface carries 79 pairs.
 
-## 5. Not done this batch — disclosed, not silent
+## 5. The sweep — 101 unread reduced to 76, and a finding the pair-by-pair method could not see
 
-- **101 of the 176 partitioned pairs remain unread.** The sample was drawn to *test a signal*, so
-  it deliberately includes low-prior pairs; a coverage-driven sweep is still owed and should run
-  behind `verify-close-reads.ts` with a verbatim span required on every pair.
+Reading 101 pairs by hand was not available. So the backlog got the kernel's own ordering —
+*deterministic code before model time* — aimed at the class that dominates its waste.
+
+### 5a. Instruction-vs-citation: 18 pairs closed
+
+Every incidental pair in §4's hand sample had the same shape: a § number that merely *appears* in
+one bill while another genuinely amends it. Tisk 228's "§ 15" and "§ 18" are article numbers of its
+*own* new act; tisk 124 cites § 30 in a transitional clause while its real instructions target
+§ 33. Czech novelization is a small closed grammar, so *"does this bill instruct against § N or
+only point at it?"* is decidable in code (`collision-core.ts`).
+
+**Validation was the point, not a formality** — this case has now falsified two ranking signals, so
+the classifier was scored against the 28 pairs from this same report that already carry hand
+classifications, *before* any output was written, under a hard gate: **any false drop blocks the
+write.** The asymmetry is the reason — a discarded pair is never read again, so a false drop is a
+silently lost public finding, while a false escalation only costs reading time.
+
+**It failed its first run: 3 false drops.** The clause anchor missed instructions that `pdftotext`
+renders on the same line as their `Čl.` article label (`Čl. VI V § 8 odst. 2 zákona č. 166/1993
+Sb.`), so every single-article amendment read as citation-only. Fixed, re-validated to
+**100% precision / 43% recall, 0 false drops** — deliberately conservative — and only then allowed
+to write. **18 pairs closed** as artifacts; 83 escalated as genuine co-touch.
+
+### 5b. Tisk 90 contains tisk 68 — one fact standing in for eight findings
+
+The escalated list surfaced something the pair-by-pair unit of analysis structurally cannot see:
+tisky 68 and 90 appear together on **eight different statutes** (23/2017 with 27 shared §s,
+250/2000, 243/2000, 218/2000, 222/2016, 262/2006, 177/2023, 159/2006). Read as eight pairs that is
+eight coordination findings. Read at the bill level it is **one fact**.
+
+Measured deterministically — verbatim set comparison of numbered novelization instructions, no
+fuzzy similarity and no model judgement: **36 of tisk 68's 42 instructions appear byte-identically
+in tisk 90**, which has 69. Tisk 90 carries tisk 68's whole reform and goes beyond it. Control
+pairs (68×7, 64×68, 64×90) measure 0%, so this is a property of these two prints, not of the
+method.
+
+Jaccard alone would have hidden it (48%) behind the size difference; **containment** (86%) is the
+measure that answers "is A's whole reform inside B". That distinction is the transferable part.
+
+This case has hit this shape three times without naming it — 12↔131 and 140↔141 in batch-004,
+68↔90 on 159/2006 in §4 above — and wrote each up as statute-specific. **7 further pairs closed**
+as confirmed duplicate collisions on one verified fact. It is a drafting-process finding, never an
+ethics one: competing drafts, a re-filing, or one bill absorbing another are all normal practice.
+
+### 5c. Where the backlog stands
+
+| | |
+|---|---|
+| hand-read (§4) | 16 |
+| closed as incidental (5a) | 18 |
+| closed as confirmed duplicates (5b) | 7 |
+| **still unread** | **76** |
+
+The 76 are genuine co-touch by deterministic evidence — they need reading, not filtering.
+`batch-009-collision-sweep.json` carries per-pair `genuineParagraphs` and an `odstavecOverlap`
+flag (64 of the 83 escalated), so the next read starts with same-odstavec candidates rather than an
+unordered list. 86 pairs now pass the P49 guard with 0 failures.
+
+## 6. Not done this batch — disclosed, not silent
+
+- **76 partitioned pairs remain unread**, prioritised but not read. That is the honest remainder of
+  a sweep run without subagents.
 - **Sector-adjacency §-level rework** — still deferred, now scoped to a single 50 000-point band
   and disclosed as the only stale term rather than blocking the whole refresh.
 - **No new forensic verdicts.** The 27 stand.
 - **No graph writes.** Nothing this batch needed one; the re-triage reads.
 
-## 6. Files
+## 7. Files
 
-New: `scripts/case-loops/law/{triage-core,retriage-009,rebase-ledger-009,verify-close-reads,collision-signal-009,measure-signal-009}.ts`,
+New: `scripts/case-loops/law/{triage-core,retriage-009,rebase-ledger-009,verify-close-reads,collision-signal-009,measure-signal-009,collision-core,collision-sweep-009,duplicate-bills-009}.ts`,
 `docs/data-analysis/case-law/payloads/{collision-reasoning-cz,batch-009-close-read-verification,collision-close-reads-batch009,batch-009-collision-signal,batch-009-signal-measurement}.json`,
 this note.
 Modified: `docs/data-analysis/case-law/ledger.json` (141 rows + 2 new blocks + 4 corrections),
