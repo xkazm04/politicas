@@ -162,6 +162,12 @@ export interface LawBillView {
   /** Zpravodajové (rapporteur edges, pass 34) — the assigned analytical role on this
    * print, from psp.cz hist (plenary) + hist_vybory/tisky_za (committee side). */
   rapporteurs: { pspId: number; name: string; scopes: string[] }[];
+  /** Who actually spoke to this print on the floor (spoke_on edges, pass 35) —
+   * substantive turns only (chair excluded), desc by turn count. */
+  speakers: { pspId: number; name: string; turns: number }[];
+  /** Written-amendment authors (proposes_amendment edges, pass 35 — sd_dokument
+   * typ 13, attributed via id_x), desc by amendment count. */
+  amendmentAuthors: { pspId: number; name: string; count: number }[];
   /** Current procedural state (Czech typ_stavu name from psp.cz stavy/typ_stavu). */
   stav: string | null;
   /** "583/2025" + date when the print was published in the Sbírka (hist zaver step). */
@@ -293,6 +299,8 @@ async function loadLawData(): Promise<LawData | null> {
     const amends = await store.listKgEdges({ rel: "amends", limit: 100_000 });
     const assignedTo = await store.listKgEdges({ rel: "assigned_to", limit: 100_000 });
     const rapporteurEdges = await store.listKgEdges({ rel: "rapporteur", limit: 100_000 });
+    const spokeOnEdges = await store.listKgEdges({ rel: "spoke_on", limit: 100_000 });
+    const amendmentEdges = await store.listKgEdges({ rel: "proposes_amendment", limit: 100_000 });
     const persons = await store.listPersons();
     const nameById = new Map(persons.map((p) => [p.pspId, p.nameFull]));
 
@@ -308,6 +316,26 @@ async function loadLawData(): Promise<LawData | null> {
       rapporteursByBill.set(e.dst, arr);
     }
     for (const arr of rapporteursByBill.values()) arr.sort((a, b) => a.name.localeCompare(b.name, "cs"));
+
+    // bill → floor speakers (weight = substantive turns) and amendment authors (pass 35).
+    const speakersByBill = new Map<string, { pspId: number; name: string; turns: number }[]>();
+    for (const e of spokeOnEdges) {
+      const pspId = Number(/^psp:person:(\d+)$/.exec(e.src)?.[1] ?? NaN);
+      if (!Number.isFinite(pspId) || typeof e.weight !== "number") continue;
+      const arr = speakersByBill.get(e.dst) ?? [];
+      arr.push({ pspId, name: nameById.get(pspId) ?? `#${pspId}`, turns: e.weight });
+      speakersByBill.set(e.dst, arr);
+    }
+    for (const arr of speakersByBill.values()) arr.sort((a, b) => b.turns - a.turns || a.name.localeCompare(b.name, "cs"));
+    const amendmentAuthorsByBill = new Map<string, { pspId: number; name: string; count: number }[]>();
+    for (const e of amendmentEdges) {
+      const pspId = Number(/^psp:person:(\d+)$/.exec(e.src)?.[1] ?? NaN);
+      if (!Number.isFinite(pspId) || typeof e.weight !== "number") continue;
+      const arr = amendmentAuthorsByBill.get(e.dst) ?? [];
+      arr.push({ pspId, name: nameById.get(pspId) ?? `#${pspId}`, count: e.weight });
+      amendmentAuthorsByBill.set(e.dst, arr);
+    }
+    for (const arr of amendmentAuthorsByBill.values()) arr.sort((a, b) => b.count - a.count || a.name.localeCompare(b.name, "cs"));
 
     const paragraphDiffs = loadParagraphDiffs();
     const summaries = loadBillSummaries();
@@ -417,6 +445,8 @@ async function loadLawData(): Promise<LawData | null> {
         submitter: asStr(p.submitter),
         sponsors,
         rapporteurs: rapporteursByBill.get(n.id) ?? [],
+        speakers: speakersByBill.get(n.id) ?? [],
+        amendmentAuthors: amendmentAuthorsByBill.get(n.id) ?? [],
         stav: asStr(p.stav),
         fateSb: asStr(p.fate_sb),
         fatePublishedOn: asStr(p.fate_published_on),

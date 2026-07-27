@@ -255,6 +255,56 @@ export default function BillDetail({ bill }: { bill: LawBillView }) {
         </div>
       )}
 
+      {/* rozprava — kdo k tisku skutečně vystoupil na plénu (věcná vystoupení,
+          předsedající vyloučeni). Počet vystoupení ≠ kvalita, proto jen poctivý počet. */}
+      {bill.speakers.length > 0 && (
+        <div className="mt-6 border-t-2 border-ink pt-4">
+          <SourceNote>
+            rozprava — {f.int(bill.speakers.reduce((s, x) => s + x.turns, 0))} věcných vystoupení ·
+            stenozáznamy psp.cz
+          </SourceNote>
+          <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5">
+            {bill.speakers.slice(0, 12).map((s) => (
+              <Link
+                key={s.pspId}
+                href={`/poslanec/${s.pspId}`}
+                className="group inline-flex items-baseline gap-1.5 text-sm font-bold transition-colors hover:text-signal"
+              >
+                {s.name}
+                <span className="font-mono text-[11px] font-normal tabular-nums text-steel">{s.turns}×</span>
+              </Link>
+            ))}
+            {bill.speakers.length > 12 && (
+              <span className="font-mono text-[11px] uppercase tracking-wider text-steel">
+                + {f.int(bill.speakers.length - 12)} dalších
+              </span>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* písemné pozměňovací návrhy — autorství ze sněmovních dokumentů (typ 13) */}
+      {bill.amendmentAuthors.length > 0 && (
+        <div className="mt-6 border-t-2 border-ink pt-4">
+          <SourceNote>
+            písemné pozměňovací návrhy — {f.int(bill.amendmentAuthors.reduce((s, x) => s + x.count, 0))} ·
+            sněmovní dokumenty psp.cz
+          </SourceNote>
+          <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5">
+            {bill.amendmentAuthors.map((a) => (
+              <Link
+                key={a.pspId}
+                href={`/poslanec/${a.pspId}`}
+                className="group inline-flex items-baseline gap-1.5 text-sm font-bold transition-colors hover:text-signal"
+              >
+                {a.name}
+                <span className="font-mono text-[11px] font-normal tabular-nums text-steel">{a.count}×</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* příznak střetu (Case ①) */}
       {bill.flaggedConflict && (
         <div className="mt-6 border-l-4 border-signal bg-paper-strong p-4">

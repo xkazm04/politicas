@@ -49,6 +49,7 @@ export default function DossierSection({
   billsFirstSigned,
   billsCoSigned,
   rapporteurBills,
+  amendmentsAuthored,
 }: {
   index: number;
   publicRole: string | null;
@@ -60,6 +61,7 @@ export default function DossierSection({
   billsFirstSigned: number | null;
   billsCoSigned: number | null;
   rapporteurBills: RapporteurBill[];
+  amendmentsAuthored: number | null;
 }) {
   const hasThemes = !!workThemes && workThemes.length > 0;
   const hasBillTrack = !!billFocus || sponsoredBills.length > 0;
@@ -106,6 +108,16 @@ export default function DossierSection({
                 <span className="font-black">{billsFirstSigned}</span>{" "}
                 {billsFirstSigned === 1 ? "návrh předložil" : billsFirstSigned! >= 2 && billsFirstSigned! <= 4 ? "návrhy předložil" : "návrhů předložil"}{" "}
                 jako první podepsaný · <span className="font-black">{billsCoSigned}</span> spolupodepsal
+                {amendmentsAuthored != null && amendmentsAuthored > 0 && (
+                  <>
+                    {" "}· <span className="font-black">{amendmentsAuthored}</span>{" "}
+                    {amendmentsAuthored === 1
+                      ? "písemný pozměňovací návrh"
+                      : amendmentsAuthored >= 2 && amendmentsAuthored <= 4
+                        ? "písemné pozměňovací návrhy"
+                        : "písemných pozměňovacích návrhů"}
+                  </>
+                )}
               </p>
             )}
             {billFocus && (

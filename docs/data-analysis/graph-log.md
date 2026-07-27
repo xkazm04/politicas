@@ -770,3 +770,28 @@ Parsers + tests in `lib/ingest/sources/psp-legislation.ts` / `psp-activity.ts` (
 (role-tagged sponsors, zpravodajové block, fate line, sponsor-min-contribution effort context),
 /poslanec dossier (authorship split line, role+fate-annotated bill chips with internal /zakony
 links, new zpravodajství section). ns=effort×law, track=build (operator-directed).
+
+## Pass 35 (track: effort×law) — bill engagement: floor speeches + amendment authorship (2026-07-27)
+
+Completes the operator-directed role build (pass 34's sibling). Two joins the graph never had:
+
+- **NEW rel `spoke_on`: 891 person→bill edges, 3 048 substantive turns** — steno.zip `rec`
+  joined through `bod_schuze.id_tisk` (schuze.zip; internal tisk id, verified empirically),
+  chair turns excluded with the exact `speech_turns` filter. "Who actually defended the bill
+  on the floor" is now queryable per bill, not just a per-term turn count. 20 debated
+  non-law prints (budget, reports) honestly skipped as outside the 141-bill graph.
+- **NEW rel `proposes_amendment`: 172 person→bill pairs / 444 amendments** — sd.zip
+  `sd_dokument` typ 13. The k=1309 doc promises person attribution (`id_x`) only for typ 12;
+  measured on PSP10, ALL 571 typ-13 rows carry an `id_x` that resolves to a sitting MP —
+  deterministic authorship with no name-matching (the research plan's scrape fallback is
+  unnecessary). Join by PUBLIC print number `ct` → bill `props.cislo` (NOT the internal id).
+  127 amendments on non-graph prints skipped; 0 unknown authors.
+- **207 person nodes** gain `amendments_authored` (86 nonzero) — annotation only,
+  `computeContribution` untouched.
+
+Writer: `scripts/data-analysis/kg-bill-engagement-ingest.ts` (merge-preserving, dry-run
+default). Parsers + tests: `parseBillSpeeches`, `parseAmendments` (psp-activity.ts).
+Surfaces: /zakony bill detail gains a „rozprava" block (top speakers with turn counts,
+honest count-not-quality framing) and a „písemné pozměňovací návrhy" block (authors with
+counts); /poslanec's authorship split line gains the amendment count. Top speaker measured
+live: Ožanová 126 turns (tisk 72, loterie). ns=effort×law, track=build (operator-directed).

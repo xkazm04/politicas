@@ -142,9 +142,100 @@ export function speechTurns(steno: readonly UnlRow[], rec: readonly UnlRow[], te
   return byPerson;
 }
 
+/* ── Per-bill engagement: floor speeches + amendment authorship (pass 35) ────
+ *
+ * Column layouts verified against the live dumps (2026-07-27):
+ *   schuze.zip / schuze.unl     : 0 id_schuze | 1 id_org (term organ) | …
+ *   schuze.zip / bod_schuze.unl : 0 id_bod | 1 id_schuze | 2 id_tisk (INTERNAL
+ *     tisk id, same key as bill:tisk:<id>; empty for non-tisk items) | …
+ *   steno.zip / rec.unl         : 0 id_steno | 1 id_osoba | 2 aname | 3 id_bod | 4 druh
+ *   sd.zip / sd_dokument.unl    : 0 id_dokument | 1 id_obdobi (term organ) |
+ *     2 cislo | 3 typ (13 = písemný pozměňovací návrh) | 6 ct (PUBLIC tisk
+ *     number) | 7 id_x | 8 timestamp.
+ * The k=1309 doc only promises id_x = id_osoba for typ 12; measured on PSP10,
+ * typ-13 rows carry it too and ALL 571 resolve to sitting MPs — deterministic
+ * authorship, no name-matching needed. `ct` is the public print number (join
+ * via bill props.cislo, NOT the internal tisk id). */
+
+/** Substantive floor speeches per (internal tiskId, id_osoba): rec rows joined
+ * through their agenda item (rec.id_bod → bod_schuze → id_tisk), sittings
+ * scoped to the term, chair turns excluded — the same substantive filter as
+ * `speechTurns`, resolved per bill instead of per term. */
+export function parseBillSpeeches(
+  schuze: readonly UnlRow[],
+  bodSchuze: readonly UnlRow[],
+  rec: readonly UnlRow[],
+  termPspId: number,
+): Map<number, Map<number, number>> {
+  const termSchuze = new Set<number>();
+  for (const r of schuze) {
+    const id = colInt(r, 0);
+    if (id != null && colInt(r, 1) === termPspId) termSchuze.add(id);
+  }
+  const tiskByBod = new Map<number, number>();
+  for (const r of bodSchuze) {
+    const idBod = colInt(r, 0);
+    const idSchuze = colInt(r, 1);
+    const idTisk = colInt(r, 2);
+    if (idBod == null || idSchuze == null || idTisk == null || !termSchuze.has(idSchuze)) continue;
+    tiskByBod.set(idBod, idTisk);
+  }
+  const out = new Map<number, Map<number, number>>();
+  for (const r of rec) {
+    const idBod = colInt(r, 3);
+    const druh = colInt(r, 4);
+    const idOsoba = colInt(r, 1);
+    if (idBod == null || idOsoba == null || druh == null || !SUBSTANTIVE_SPEAKER.has(druh)) continue;
+    const tisk = tiskByBod.get(idBod);
+    if (tisk == null) continue;
+    const perPerson = out.get(tisk) ?? new Map<number, number>();
+    perPerson.set(idOsoba, (perPerson.get(idOsoba) ?? 0) + 1);
+    out.set(tisk, perPerson);
+  }
+  return out;
+}
+
+export interface AmendmentAuthorship {
+  tiskCislo: number; // PUBLIC print number (bill props.cislo)
+  idOsoba: number;
+  sdCislo: number | null; // sněmovní dokument number, for the psp.cz reference
+}
+
+/** Written amendments (sd_dokument typ 13) for the term, attributed via id_x. */
+export function parseAmendments(sdDokument: readonly UnlRow[], termPspId: number): AmendmentAuthorship[] {
+  const out: AmendmentAuthorship[] = [];
+  for (const r of sdDokument) {
+    if (colInt(r, 3) !== 13 || colInt(r, 1) !== termPspId) continue;
+    const tiskCislo = colInt(r, 6);
+    const idOsoba = colInt(r, 7);
+    if (tiskCislo == null || idOsoba == null) continue;
+    out.push({ tiskCislo, idOsoba, sdCislo: colInt(r, 2) });
+  }
+  return out;
+}
+
 function unlOf(members: Map<string, Uint8Array>, name: string): UnlRow[] {
   const bytes = members.get(name.toLowerCase());
   return bytes ? parseUnl(decodeUnl(bytes)) : [];
+}
+
+/** IO wrapper for the per-bill engagement layer (schuze.zip + steno.zip + sd.zip). */
+export function normalizeBillEngagement(
+  dumps: { schuzeZip: Uint8Array; stenoZip: Uint8Array; sdZip: Uint8Array },
+  termPspId: number,
+): { speeches: Map<number, Map<number, number>>; amendments: AmendmentAuthorship[] } {
+  const schuzeM = readZipMap(dumps.schuzeZip);
+  const stenoM = readZipMap(dumps.stenoZip);
+  const sdM = readZipMap(dumps.sdZip);
+  return {
+    speeches: parseBillSpeeches(
+      unlOf(schuzeM, "schuze.unl"),
+      unlOf(schuzeM, "bod_schuze.unl"),
+      unlOf(stenoM, "rec.unl"),
+      termPspId,
+    ),
+    amendments: parseAmendments(unlOf(sdM, "sd_dokument.unl"), termPspId),
+  };
 }
 
 export interface ActivityBundle {

@@ -128,6 +128,8 @@ export interface ProfileData {
   billsFirstSigned: number | null;
   billsCoSigned: number | null;
   rapporteurBills: RapporteurBill[];
+  /** Written amendments authored on the graph's law bills (pass 35, sd_dokument typ 13). */
+  amendmentsAuthored: number | null;
 }
 
 export async function getAllProfilePspIds(): Promise<number[]> {
@@ -344,6 +346,7 @@ export async function getProfileData(pspId: number): Promise<ProfileData | null>
     }
     const billsFirstSigned = personNode ? nullableNum(personNode.props.bills_first_signed) : null;
     const billsCoSigned = personNode ? nullableNum(personNode.props.bills_co_signed) : null;
+    const amendmentsAuthored = personNode ? nullableNum(personNode.props.amendments_authored) : null;
 
     return {
       person,
@@ -369,6 +372,7 @@ export async function getProfileData(pspId: number): Promise<ProfileData | null>
       billsFirstSigned,
       billsCoSigned,
       rapporteurBills,
+      amendmentsAuthored,
     };
   } catch (err) {
     reportLoaderFailure("getProfileData", err);

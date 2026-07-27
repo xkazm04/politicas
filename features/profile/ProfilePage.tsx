@@ -172,6 +172,7 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
           billsFirstSigned={data.billsFirstSigned}
           billsCoSigned={data.billsCoSigned}
           rapporteurBills={data.rapporteurBills}
+          amendmentsAuthored={data.amendmentsAuthored}
         />
 
         {/* ── 03 Nejbližší spojenci ─────────────────────────── */}

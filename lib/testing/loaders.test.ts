@@ -93,7 +93,7 @@ const BASE_COUNTERS = {
 const FIXTURE = {
   knownKindNodes: 18, // 4 person + 3 company + 2 contract + 4 bill + 2 law + 2 organ + 1 party
   unknownKindNodes: 1, // a node kind the canvas must refuse to draw
-  edges: 21, // incl. the pass-34 rapporteur edge
+  edges: 23, // incl. the pass-34 rapporteur edge + pass-35 spoke_on/proposes_amendment
   coVotesEdges: 3, // a 96%-dense matrix — must never reach the canvas payload
 } as const;
 
@@ -283,6 +283,9 @@ async function seedFixture(): Promise<void> {
       ('psp:person:100', 'sponsors', $18, null, '{}'::jsonb, '{}'::jsonb),
       -- pass-34 zpravodaj layer: the assigned analytical role, distinct from sponsorship
       ('psp:person:100', 'rapporteur', $11, null, '{"scopes": ["zpravodaj_vyboru"], "organ_ids": [2]}'::jsonb, '{}'::jsonb),
+      -- pass-35 engagement layer: substantive floor speeches + written-amendment authorship
+      ('psp:person:100', 'spoke_on', $10, 3, '{}'::jsonb, '{}'::jsonb),
+      ('psp:person:100', 'proposes_amendment', $10, 2, '{"sd_cislos": [3, 4]}'::jsonb, '{}'::jsonb),
       ('psp:person:100', 'influential_in', 'psp:organ:1', 1,   '{}'::jsonb, '{}'::jsonb),
       ('psp:person:200', 'influential_in', 'psp:organ:1', 0.3, '{}'::jsonb, '{}'::jsonb)`,
     [
@@ -619,6 +622,13 @@ describe("getLawData against a seeded legislation layer", () => {
     const forensicBill = data.bills.find((b) => b.cislo === 244)!;
     expect(forensicBill.rapporteurs).toEqual([{ pspId: 100, name: "Novák Petr", scopes: ["zpravodaj_vyboru"] }]);
     expect(bill.rapporteurs).toEqual([]);
+
+    // pass-35 engagement: floor speakers (weight = substantive turns) and
+    // written-amendment authors resolve on their bill; absent → empty, never invented.
+    expect(bill.speakers).toEqual([{ pspId: 100, name: "Novák Petr", turns: 3 }]);
+    expect(bill.amendmentAuthors).toEqual([{ pspId: 100, name: "Novák Petr", count: 2 }]);
+    expect(forensicBill.speakers).toEqual([]);
+    expect(forensicBill.amendmentAuthors).toEqual([]);
     expect(bill.committees.map((c) => [c.role, c.organLabel])).toEqual([
       ["garancni", "rozpočtový výbor"],
       ["dalsi", "ústavně právní výbor"],

@@ -48,6 +48,13 @@ export const KG_EDGE_RELS = [
   // props {scopes, organ_ids} — the "who did the analytical work" role that sponsors
   // edges cannot carry. Writer: scripts/data-analysis/kg-bill-roles-ingest.ts.
   "rapporteur",
+  // "spoke_on" (person -> bill, weight = substantive floor-speech count, 2026-07-27):
+  // rec ⋈ bod_schuze ⋈ tisk join over steno.zip + schuze.zip. "proposes_amendment"
+  // (person -> bill, weight = amendment count, props {sd_cislos}): sd_dokument typ 13,
+  // attributed via id_x (measured: resolves to a sitting MP on 571/571 PSP10 rows).
+  // Writer: scripts/data-analysis/kg-bill-engagement-ingest.ts.
+  "spoke_on",
+  "proposes_amendment",
 ] as const;
 export type KgEdgeRel = (typeof KG_EDGE_RELS)[number];
 
