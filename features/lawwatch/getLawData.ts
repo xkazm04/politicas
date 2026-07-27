@@ -14,6 +14,7 @@
 // build-time error (only `import type` is safe there).
 
 import "server-only";
+import { cache } from "react";
 import { asUnion } from "@/lib/db/narrow";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
@@ -206,7 +207,12 @@ function readForensic(p: Record<string, unknown>): LawForensicView | null {
   };
 }
 
-export async function getLawData(): Promise<LawData | null> {
+/** Wrapped in React's cache() below — generateMetadata and the page component
+ * both call getLawData() for the same request, and without deduping, PGlite's
+ * documented single-connection contention makes the SECOND call more likely
+ * to lose the race and return null, rendering "data unavailable" for a print
+ * that genuinely exists. cache() makes both call sites share one promise. */
+async function loadLawData(): Promise<LawData | null> {
   try {
     const store = await getStore();
     if (!store) return null;
@@ -359,6 +365,8 @@ export async function getLawData(): Promise<LawData | null> {
     return null;
   }
 }
+
+export const getLawData = cache(loadLawData);
 
 export interface BillDossier {
   bill: LawBillView;
