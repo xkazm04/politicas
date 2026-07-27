@@ -86,7 +86,12 @@ function MetricDuo({
       </p>
       <div className="mt-3 space-y-1.5">
         <div className="flex items-center gap-2">
-          <span className="h-3 bg-ink" style={{ width: width(town) }} />
+          {/* width() takes Math.abs(v) to stay generic across metrics, which
+              strips sign information the number above still conveys via its
+              own `better` color check — color the bar the same way so a
+              deficit (negative saldo) is never visually indistinguishable
+              from a surplus of similar magnitude. */}
+          <span className={`h-3 ${town < 0 ? "bg-signal" : "bg-ink"}`} style={{ width: width(town) }} />
           <span className="font-mono text-[10px] uppercase tracking-wider text-steel">{t("townLabel")}</span>
         </div>
         <div className="flex items-center gap-2">
