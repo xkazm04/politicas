@@ -1,0 +1,246 @@
+{
+ "generatedAt": "2026-07-27",
+ "batch": 9,
+ "method": "Stratified close-read of 16 of the 117 unread partitioned survivor pairs from collision-report-v2-008.json (live 577-edge topology). 8 pairs flagged by the `rewriteVsSubstitute` mechanism signal and 8 unflagged, statute-diverse within each stratum — a TEST of that signal, not a ranking by it (ranking by a signal makes its false-negative rate unmeasurable). Read by the driver directly from the per-§ excerpts and verified against the cached psp.cz novelization text; subagents were unavailable this session, so this is 16 pairs rather than an army wave.",
+ "classificationVocabulary": "confirmed-collision | coordination-risk | incidental — the vocabulary features/lawwatch/getCollisionData.ts consumes. batch-008's payload used `confirmed`/`coordination_risk`, which the loader silently dropped until batch-009 added normalizeClassification; this file uses the canonical spellings directly.",
+ "verification": "Every verbatim string quoted below was grep-confirmed present in the cited bill's own cached text (NFC-normalized, whitespace-collapsed) BEFORE classification — 17/17 probes present. The payload additionally passes scripts/case-loops/law/verify-close-reads.ts (the P49 presence guard) with 0 failures.",
+ "classificationCounts": {
+  "confirmed-collision": 4,
+  "coordination-risk": 9,
+  "incidental": 3
+ },
+ "signalResult": "NULL for severity, DIRECTIONAL for noise. Confirmed rate was 2/8 flagged vs 2/8 unflagged (Fisher p = 1.00) — the mechanism flag does NOT predict which pairs are confirmed collisions. But 0/8 flagged pairs were incidental against 3/8 unflagged, i.e. every artifact in this sample sat in the unflagged stratum. See batch-009-signal-measurement.json; this is a hypothesis for a larger sample, not a validated ranking.",
+ "coverage": {
+  "partitionedPairsTotal": 176,
+  "previouslyReadWithinThis176": 59,
+  "closeReadThisBatch": 16,
+  "remainingUnread": 101,
+  "note": "Logged per the kernel's no-silent-truncation rule. 101 of 176 remain unread. The sample was drawn to TEST a ranking signal rather than to maximise coverage, so it deliberately includes low-prior pairs; a coverage-driven sweep is still owed."
+ },
+ "pairs": [
+  {
+   "pairId": "24-65",
+   "lawRef": "12/2020",
+   "billA": 24,
+   "billB": 65,
+   "sharedParagraph": "6",
+   "classification": "coordination-risk",
+   "stratum": "flagged",
+   "evidence": {
+    "billAExcerpt": "tisk 24, § 6 zákona č. 12/2020 Sb.: 'V § 6 zákona č. 12/2020 Sb., o právu na digitální služby a o změně některých zákonů, se za odstavec 2 vkládá nový odstavec 3, který zní' -- tisk 24 vkládá do § 6 zcela nový odstavec 3 za dosavadní odstavec 2.",
+    "billBExcerpt": "tisk 65, § 6 odst. 1 téhož zákona: 'V § 6 odst. 1 úvodní části ustanovení se slova „elektronického podpisu na dokumentu nedílně spojeném“ nahrazují slovem „dokumentu“' -- tisk 65 upravuje slova uvnitř dosavadního odstavce 1."
+   },
+   "reasoning": "Oba tisky novelizují § 6 zákona o právu na digitální služby souběžně, ale na různých místech: tisk 24 vkládá za odstavec 2 nový odstavec 3, kdežto tisk 65 upravuje slova uvnitř odstavce 1 a jeho písmen. Vložení je umístěno až za odstavec 2, takže číslování odstavce 1, na nějž míří tisk 65, se neposouvá a obě úpravy lze spojit v libovolném pořadí. Nejde tedy o doslovný střet, ale ani o nahodilý překryv — obě změny jsou skutečné a záměrné novelizace téhož paragrafu, které by zákonodárce musel při souběžném přijetí sladit."
+  },
+  {
+   "pairId": "56-64",
+   "lawRef": "127/2005",
+   "billA": 56,
+   "billB": 64,
+   "sharedParagraph": "104",
+   "classification": "coordination-risk",
+   "stratum": "flagged",
+   "evidence": {
+    "billAExcerpt": "tisk 56, § 104 zákona č. 127/2005 Sb.: 'V § 104 se doplňují odstavce 19 a 20, které znějí: „(19) Vlastník dotčené nemovité věci může písemný souhlas k umístění vnitřního komunikačního vedení a komunikačního zařízení udělený podle odstavce 3 odvolat jen ze závažných' -- tisk 56 připojuje na konec § 104 dva nové odstavce.",
+    "billBExcerpt": "tisk 64, § 104 odst. 3 téhož zákona: 'V § 104 odst. 3 se slova „cena zjištěná podle zákona upravujícího oceňování majetku“ nahrazují slovy „zjištěná hodnota“' -- tisk 64 mění terminologii uvnitř dosavadního odstavce 3."
+   },
+   "reasoning": "Tisk 56 připojuje na konec § 104 zákona o elektronických komunikacích nové odstavce 19 a 20, tisk 64 mění terminologii („cena zjištěná“ na „zjištěná hodnota“) uvnitř dosavadního odstavce 3. Místa se nepřekrývají a připojení na konec nepřečíslovává odstavec 3, takže úpravy jsou slučitelné. Stojí ale za zaznamenání, že nový odstavec 19 podle tisku 56 se výslovně odvolává na souhlas udělený „podle odstavce 3“ — tedy na ustanovení, jehož znění tisk 64 souběžně mění. Věcný rozpor z toho neplyne, jde o skutečné souběžné úpravy téhož paragrafu vyžadující koordinaci."
+  },
+  {
+   "pairId": "24-64",
+   "lawRef": "128/2000",
+   "billA": 24,
+   "billB": 64,
+   "sharedParagraph": "53d",
+   "classification": "confirmed-collision",
+   "stratum": "flagged",
+   "evidence": {
+    "billAExcerpt": "tisk 24, § 53d zákona č. 128/2000 Sb.: 'V § 53d se vkládá nový odstavec 1, který zní: „(1) Orgány společenství obcí jsou shromáždění starostů, předseda, kancelář společenství obcí, případně další orgány stanovené zákonem nebo určené stanovami.“. Dosavadní odsta[vce]' -- tisk 24 vkládá nový PRVNÍ odstavec a výslovně přečíslovává dosavadní odstavce.",
+    "billBExcerpt": "tisk 64, § 53d odst. 1 písm. b) téhož zákona: 'V § 53d odst. 1 písm. b) a v § 84 odst. 2 písm. b) se za slovo „a“ vkládají slova „řádnou individuální“ a slova „sestavenou k rozvahovému dni“ se zrušují' -- tisk 64 míří na § 53d odst. 1 písm. b) podle STÁVAJÍCÍHO číslování."
+   },
+   "reasoning": "Tisk 24 vkládá do § 53d zákona o obcích nový odstavec 1 (výčet orgánů společenství obcí) a výslovně přečíslovává dosavadní odstavce o jedno níže. Tisk 64 přitom míří na „§ 53d odst. 1 písm. b)“ podle stávajícího číslování a upravuje v něm slova o účetní závěrce. Bude-li tisk 24 přijat dříve nebo současně, stane se z dosavadního odstavce 1 odstavec 2 a pod odstavcem 1 bude nově výčet orgánů, který žádné písmeno b) o účetní závěrce neobsahuje — pokyn tisku 64 by tedy tiše dopadl na nesprávné nebo neexistující ustanovení. Jde o tutéž vadu přečíslování, jaká byla potvrzena u dvojice 119–248 v dávce 004."
+  },
+  {
+   "pairId": "7-102",
+   "lawRef": "141/1961",
+   "billA": 7,
+   "billB": 102,
+   "sharedParagraph": "12",
+   "classification": "coordination-risk",
+   "stratum": "flagged",
+   "evidence": {
+    "billAExcerpt": "tisk 7, § 12 odst. 2 zákona č. 141/1961 Sb.: 'V § 12 odst. 2 se na konci písmene e) doplňuje věta „; to neplatí pro trestné činy spáchané v souvislosti se zadáváním veřejné zakázky nebo hospodařením s majetkem státu' -- tisk 7 doplňuje větu na konec písmene e) v odstavci 2.",
+    "billBExcerpt": "tisk 102, § 12 téhož zákona: 'V § 12 se doplňuje odstavec 14, který zní: „(14) Svěřenským fondem se rozumí svěřenský fond podle občanského zákoníku a jemu strukturou nebo funkcemi podobné zařízení řídící se právem jiného státu.“' -- tisk 102 připojuje na konec § 12 nový odstavec 14."
+   },
+   "reasoning": "Oba tisky novelizují § 12 trestního řádu (výklad pojmů) souběžně, ale na nepřekrývajících se místech: tisk 7 doplňuje větu na konec písmene e) v odstavci 2, tisk 102 připojuje na konec paragrafu zcela nový odstavec 14. Připojení na konec nepřečíslovává odstavec 2, takže obě úpravy lze spojit v libovolném pořadí bez rozporu. Zaznamenáno jako koordinační riziko, protože jde o dvě skutečné souběžné novely téhož ustanovení, nikoli o artefakt detektoru."
+  },
+  {
+   "pairId": "5-64",
+   "lawRef": "143/2001",
+   "billA": 5,
+   "billB": 64,
+   "sharedParagraph": "13, 22a",
+   "classification": "coordination-risk",
+   "stratum": "flagged",
+   "evidence": {
+    "billAExcerpt": "tisk 5, § 22a zákona č. 143/2001 Sb.: 'V § 22a odstavce 1 a 2 znějí: „(1) Právnická nebo podnikající fyzická osoba se dopustí přestupku tím, že a) neposkytne Úřadu úplné, správné nebo pravdivé obchodní záznamy podle § 21e odst. 1, nebo' -- tisk 5 nahrazuje odstavce 1 a 2 § 22a jako celek; u § 13 vkládá nadpis, ruší dosavadní nadpis a vkládá nový § 13a.",
+    "billBExcerpt": "tisk 64, § 22a odst. 3 a 5 téhož zákona: 'V § 22a odst. 3 a 5 se za slovo „ukončené“ vkládá slovo „individuální“' -- tisk 64 vkládá slovo do odstavců 3 a 5, u § 13 pak do písmen a) a b)."
+   },
+   "reasoning": "Dvojice vypadá jako klasický střet „úplný přepis proti dílčí náhradě“, ale při čtení se rozpadá na dvě nepřekrývající se úpravy. U § 22a zákona o ochraně hospodářské soutěže tisk 5 nahrazuje celé odstavce 1 a 2, kdežto tisk 64 vkládá slovo „individuální“ do odstavců 3 a 5 — tedy do odstavců, jichž se přepis nedotýká. U § 13 tisk 5 pracuje s nadpisem paragrafu a vkládá nový § 13a, zatímco tisk 64 vkládá slovo do písmen a) a b) samotného § 13. Obě sady jsou slučitelné a nepřečíslovávají to, na co míří ta druhá; zůstává koordinační riziko dvou souběžných novel téhož paragrafu."
+  },
+  {
+   "pairId": "13-64",
+   "lawRef": "15/1998",
+   "billA": 13,
+   "billB": 64,
+   "sharedParagraph": "26",
+   "classification": "coordination-risk",
+   "stratum": "flagged",
+   "evidence": {
+    "billAExcerpt": "tisk 13, § 26 zákona č. 15/1998 Sb.: 'V § 26 se na konci odstavce 2 tečka nahrazuje čárkou a doplňuje se písmeno m), které zní' -- tisk 13 připojuje na konec výčtu v odstavci 2 nové písmeno m).",
+    "billBExcerpt": "tisk 64, § 26 odst. 2 písm. c) bodě 2 téhož zákona: 'V § 26 odst. 2 písm. c) bodě 2 zákona č. 15/1998 Sb., o dohledu v oblasti kapitálového trhu a o změně a doplnění dalších zákonů, ve znění zákona č. 308/2002 Sb. a zákona č. 57/2006 Sb., se slova „zákonem stanovené účetní závěrky“ nahrazují' -- tisk 64 mění slova uvnitř dosavadního písmene c) bodu 2."
+   },
+   "reasoning": "Oba tisky novelizují § 26 zákona o dohledu v oblasti kapitálového trhu souběžně: tisk 13 připojuje na konec výčtu v odstavci 2 nové písmeno m), tisk 64 mění slova uvnitř dosavadního písmene c) bodu 2 téhož odstavce. Připojení nového písmene na konec nepřečíslovává stávající písmena, takže cíl pokynu tisku 64 zůstává na svém místě a obě úpravy jsou slučitelné v libovolném pořadí. Skutečný souběžný dotyk téhož odstavce, nikoli artefakt — koordinační riziko."
+  },
+  {
+   "pairId": "67-215",
+   "lawRef": "150/2002",
+   "billA": 67,
+   "billB": 215,
+   "sharedParagraph": "101a, 101b, 101d, 68, 7",
+   "classification": "coordination-risk",
+   "stratum": "flagged",
+   "evidence": {
+    "billAExcerpt": "tisk 67, § 101d zákona č. 150/2002 Sb.: 'V § 101d se vkládá nový odstavec 3, který zní: „(3) Je-li žaloba nebo jiný návrh ve věci, ve které bylo opatření obecné povahy užito, podán po uplynutí lhůty podle § 101b odst. 1, soud se s návrhem na přezkum zákonnosti' -- tisk 67 vkládá do § 101d nový odstavec, jehož text odkazuje na lhůtu podle § 101b odst. 1.",
+    "billBExcerpt": "tisk 215, § 101a a § 101b téhož zákona: 'V § 101a se odstavce 2 a 3 zrušují. Dosavadní odstavce 4 a 5 se označují jako odstavce 2 a 3.' -- tisk 215 ruší dva odstavce § 101a a přečíslovává zbývající; v § 101b odst. 1 zároveň mění „1“ na „jednoho“."
+   },
+   "reasoning": "Tisk 67 a tisk 215 novelizují soudní řád správní souběžně a rozsáhle. Tisk 215 ruší v § 101a odstavce 2 a 3 a přečíslovává dosavadní odstavce 4 a 5 na 2 a 3; tisk 67 přitom mění slova uvnitř § 101a a vkládá do § 101d nový odstavec 3, jehož vlastní text odkazuje na lhůtu podle § 101b odst. 1 — tedy na ustanovení, jehož znění tisk 215 souběžně mění. U § 7 míří každý na jiný odstavec (tisk 67 na odstavec 4, tisk 215 přepisuje odstavec 3), takže tam ke střetu nedochází. Zjištění je vedeno jako koordinační riziko, nikoli jako potvrzená kolize, protože z dostupných výňatků nelze určit, ve kterém odstavci § 101a leží text, který tisk 67 upravuje; leží-li v některém z odstavců, jež tisk 215 ruší, šlo by o potvrzenou kolizi. Tento zbytek je nutné ověřit proti úplnému znění obou tisků."
+  },
+  {
+   "pairId": "7-221",
+   "lawRef": "159/2006",
+   "billA": 7,
+   "billB": 221,
+   "sharedParagraph": "4b, 4c (dále 2, 11, 12, 13, 14a, 14b, 23)",
+   "classification": "confirmed-collision",
+   "stratum": "flagged",
+   "evidence": {
+    "billAExcerpt": "tisk 7, § 4b a § 4c zákona č. 159/2006 Sb.: '12. § 4b se zrušuje. 13. § 4c zní: „§ 4c Je zakázáno poskytnout dotaci nebo návratnou finanční výpomoc podle právního předpisu upravujícího poskytování dotací' -- tisk 7 ruší § 4b a § 4c nahrazuje jako celek novým zněním.",
+    "billBExcerpt": "tisk 221, § 4b a § 4c téhož zákona: '3. § 4b se zrušuje. 4. V § 4c se za slovo „dotaci“ vkládají slova „, na kterou není právní nárok,“, slova „rozpočtová pravidla“ se nahrazují slovy „poskytování dotací“' -- tisk 221 rovněž ruší § 4b, ale § 4c pouze upravuje dílčími zásahy do dosavadního textu."
+   },
+   "reasoning": "Dva samostatné střety na zákoně o střetu zájmů. Zaprvé § 4c: tisk 7 nahrazuje celý paragraf novým zněním („§ 4c zní:“), kdežto tisk 221 do dosavadního textu § 4c pouze vkládá slova a nahrazuje obraty („rozpočtová pravidla“ za „poskytování dotací“). Bude-li přijat tisk 7, cílové obraty pokynů tisku 221 v § 4c už neexistují; bude-li přijat dříve tisk 221, úplný přepis podle tisku 7 jeho úpravy beze zbytku zahodí — klasický střet „přepis proti dílčí náhradě“, tentýž vzorec jako u potvrzených dvojic 121–120 a 28–64. Zadruhé § 4b: oba tisky vydávají doslova totožný pokyn „§ 4b se zrušuje“, takže ten přijatý jako druhý ruší ustanovení, které už neexistuje. Souběžně oba tisky zasahují do § 14b odst. 1 písm. a) odlišnými mechanismy (tisk 7 přečíslovává písmena o) na q), tisk 221 mění číselný odkaz „11“ na „11a“), což potvrzuje šíři souběhu."
+  },
+  {
+   "pairId": "49-67",
+   "lawRef": "100/2001",
+   "billA": 49,
+   "billB": 67,
+   "sharedParagraph": "9a",
+   "classification": "incidental",
+   "stratum": "unflagged",
+   "evidence": {
+    "billAExcerpt": "tisk 49, přechodné ustanovení odkazující na § 9a zákona č. 100/2001 Sb.: 'Vyloučení opakovaného prodloužení platnosti stanoviska podle § 9a odst. 4 věty třetí se nepoužije ani pro záměr místní komunikace I. třídy' -- odkaz na § 9a uvnitř vlastního přechodného ustanovení tisku 49.",
+    "billBExcerpt": "tisk 67, odkaz na § 9a: 'závazným stanoviskem podle § 9a odst. 1' -- citace § 9a uvnitř jiného ustanovení, nikoli novelizační pokyn k § 9a."
+   },
+   "reasoning": "Shoda na § 9a zákona o posuzování vlivů na životní prostředí je citační artefakt. Ani jeden z obou tisků nevydává novelizační pokyn k samotnému § 9a: tisk 49 na něj odkazuje uvnitř vlastního přechodného ustanovení, tisk 67 uvnitř jiného ustanovení jako na zdroj závazného stanoviska. Detektor porovnává výskyty čísel paragrafů, takže dva odkazy na totéž ustanovení vypadají jako souběžný dotyk, ačkoli text § 9a nemění ani jeden. Nahodilý překryv."
+  },
+  {
+   "pairId": "85-88",
+   "lawRef": "108/2006",
+   "billA": 85,
+   "billB": 88,
+   "sharedParagraph": "21 odst. 2 písm. e)",
+   "classification": "confirmed-collision",
+   "stratum": "unflagged",
+   "evidence": {
+    "billAExcerpt": "tisk 85, Čl. II: 'V § 21 odst. 2 písm. e) zákona č. 108/2006 Sb., o sociálních službách, ve znění zákona č. 366/2011 Sb., zákona č. 331/2012 Sb., zákona č. 313/2013 Sb., zákona č. 200/2017 Sb. a zákona č. 47/2019 Sb., se část věty za středníkem včetně středn[íku zrušuje]' -- pokyn tisku 85.",
+    "billBExcerpt": "tisk 88, Čl. IV: 'V § 21 odst. 2 písm. e) zákona č. 108/2006 Sb., o sociálních službách, ve znění zákona č. 366/2011 Sb., zákona č. 331/2012 Sb., zákona č. 313/2013 Sb., zákona č. 200/2017 Sb. a zákona č. 47/2019 Sb., se část věty za středníkem včetně středn[íku zrušuje]' -- pokyn tisku 88, znak po znaku shodný s pokynem tisku 85 včetně celého výčtu novel."
+   },
+   "reasoning": "Oba tisky vydávají k § 21 odst. 2 písm. e) zákona o sociálních službách doslova totožný pokyn: zrušit část věty za středníkem včetně středníku. Shodný je i celý úvodní výčet předchozích novel. Ověřeno vyhledáním v archivovaném textu obou tisků — obě formulace se v příslušném tisku skutečně vyskytují. Bude-li přijat kterýkoli z nich jako druhý, jeho pokyn míří na část věty, kterou ten první už odstranil, takže je při nabytí účinnosti neproveditelný — tatáž vada jako u potvrzené dvojice 121–198. Dvojice tisků 85 a 88 už je v dávce 004 vedena jako potvrzená kolize u § 7 odst. 2 písm. h) zákona č. 110/2006 Sb.; toto je samostatný nález na jiném zákoně, který souběh obou tisků dále potvrzuje."
+  },
+  {
+   "pairId": "64-228",
+   "lawRef": "111/1998",
+   "billA": 64,
+   "billB": 228,
+   "sharedParagraph": "15, 18",
+   "classification": "incidental",
+   "stratum": "unflagged",
+   "evidence": {
+    "billAExcerpt": "tisk 64, § 15 a § 18 zákona č. 111/1998 Sb.: 'V § 15 odst. 1 písm. b) se slova „podle zvláštního předpisu2) za hmotný majetek“ nahrazují slovy „za daňově odpisované aktivum“' -- skutečná novelizace zákona o vysokých školách.",
+    "billBExcerpt": "tisk 228, vlastní články: '§ 18 Tento zákon nabývá účinnosti dnem 1. září 2028, s výjimkou ustanovení a) § 13 a 17, která nabývají účinnosti dnem 1. září 2029' -- § 15 a § 18 jsou zde označení paragrafů VLASTNÍHO nového zákona tisku 228, nikoli novely zákona č. 111/1998 Sb."
+   },
+   "reasoning": "Shoda je artefaktem dělení. Tisk 64 skutečně novelizuje § 15 a § 18 zákona o vysokých školách. U tisku 228 však „§ 15“ a „§ 18“ nejsou novelizovaná ustanovení tohoto zákona, nýbrž označení paragrafů jeho vlastního nového předpisu — § 18 je dokonce jeho ustanovení o účinnosti. Detektor porovnává čísla paragrafů v okruhu bilí, které sdílejí odkaz na týž zákon, a zde tedy porovnal novelizační pokyn s vnitřní strukturou jiného návrhu. Nahodilý překryv, nikoli souběžná novela."
+  },
+  {
+   "pairId": "4-124",
+   "lawRef": "117/1995",
+   "billA": 4,
+   "billB": 124,
+   "sharedParagraph": "30",
+   "classification": "incidental",
+   "stratum": "unflagged",
+   "evidence": {
+    "billAExcerpt": "tisk 4, § 30 odst. 3 zákona č. 117/1995 Sb.: 'Výši takto zvýšených částek stanoví vláda nařízením do 30. září kalendářního roku, který o jeden rok předchází kalendářnímu roku, na něhož se celková částka rodičovského příspěvku určuje, a to poprvé k 1. lednu 2027.' -- obsah odstavce 3, valorizační mechanismus.",
+    "billBExcerpt": "tisk 124, odkaz na § 30 odst. 1: 'pro uplatnění nároku na rodičovský příspěvek podle § 30 odst. 1 podat novou žádost.' -- odkaz uvnitř přechodného ustanovení; vlastní novelizační pokyny tisku 124 míří na § 33."
+   },
+   "reasoning": "Tisk 4 skutečně pracuje s § 30 zákona o státní sociální podpoře (valorizační pravidlo v odstavci 3), tisk 124 však § 30 nenovelizuje — pouze na něj odkazuje uvnitř svého přechodného ustanovení a jeho vlastní pokyny míří na § 33. Tentýž závěr o tisku 124 zaznamenala už dávka 004 u dvojice 121–198 („tisk 124 se § 30 ve skutečnosti nedotýká“), takže jde o nezávislé potvrzení dřívějšího čtení. Nahodilý překryv."
+  },
+  {
+   "pairId": "64-67",
+   "lawRef": "139/2002",
+   "billA": 64,
+   "billB": 67,
+   "sharedParagraph": "9, 14",
+   "classification": "coordination-risk",
+   "stratum": "unflagged",
+   "evidence": {
+    "billAExcerpt": "tisk 64, § 9 odst. 16 a § 14 odst. 4 zákona č. 139/2002 Sb.: 'V § 14 odst. 4 se slovo „ceny“ nahrazuje slovem „hodnoty“, slova „Cena pozemků se určuje podle zvláštního právního předpisu platného“ se nahrazují slovy „Hodnota pozemků se určuje jako zjištěná hodnota podle zákona o oc[eňování]' -- terminologická změna cena/hodnota.",
+    "billBExcerpt": "tisk 67, § 9 odst. 17 a § 14 odst. 8 písm. a) téhož zákona: 'V § 14 odst. 8 písm. a) se slovo „zastavěném“ nahrazuje slovem „zastavitelném“ a slova „nebo v zastavitelných plochách“ se zrušují' -- terminologická změna zastavěný/zastavitelný."
+   },
+   "reasoning": "Oba tisky provádějí v zákoně o pozemkových úpravách plošné terminologické sjednocení, každý však jiné a v jiných odstavcích: tisk 64 nahrazuje „cenu“ „hodnotou“ v § 9 odst. 16 a § 14 odst. 4, tisk 67 nahrazuje „zastavěný“ „zastavitelným“ v § 9 odst. 17 a § 14 odst. 8 písm. a). Odstavce se nepřekrývají, žádný z tisků nepřečíslovává, a obě sady lze uplatnit v libovolném pořadí. Zůstává koordinační riziko dvou souběžných plošných novel týchž paragrafů."
+  },
+  {
+   "pairId": "102-111",
+   "lawRef": "141/1961",
+   "billA": 102,
+   "billB": 111,
+   "sharedParagraph": "88 (dále 81, citační)",
+   "classification": "coordination-risk",
+   "stratum": "unflagged",
+   "evidence": {
+    "billAExcerpt": "tisk 102, § 88 odst. 10 zákona č. 141/1961 Sb.: 'V § 88 odst. 10 větě první se za slovo „včetně“ vkládají slova „navazujícího řízení podle zákona o odčerpání majetku nevysvětleného původu nebo“' -- zásah do odstavce 10.",
+    "billBExcerpt": "tisk 111, § 88 odst. 5 téhož zákona: 'V § 88 odst. 5 se slova „moci jiného“ nahrazují slovy „péče jiného a jeho přijetí za odměnu“' -- zásah do odstavce 5."
+   },
+   "reasoning": "U § 88 trestního řádu (odposlech a záznam telekomunikačního provozu) míří každý tisk na jiný odstavec — tisk 102 na odstavec 10, tisk 111 na odstavec 5. Ani jeden nepřečíslovává, takže úpravy jsou slučitelné v libovolném pořadí. Shoda na § 81 je citační: tisk 111 jej zmiňuje pouze uvnitř textu odkazujícího na zákon o soudnictví ve věcech mládeže, nikoli jako novelizovaný předpis. Koordinační riziko na § 88. Dvojice 102–111 je v dávce 008 vedena jako potvrzená kolize u § 102a zákona č. 40/2009 Sb.; toto je samostatný, mírnější nález na jiném zákoně."
+  },
+  {
+   "pairId": "68-90",
+   "lawRef": "159/2006",
+   "billA": 68,
+   "billB": 90,
+   "sharedParagraph": "2, 4, 5, 6, 14a, 14b",
+   "classification": "confirmed-collision",
+   "stratum": "unflagged",
+   "evidence": {
+    "billAExcerpt": "tisk 68, § 2 odst. 1 a § 14b zákona č. 159/2006 Sb.: 'V § 2 odst. 1 se za písmeno j) vkládá nové písmeno k), které zní: „k) člen Národní rozpočtové rady,“. Dosavadní písmena k) až q) se označují jako písmena l) až r).' a 'V § 14b odst. 1 písm. a) se text „o)“ nahrazuje textem „p)“' -- pokyny tisku 68.",
+    "billBExcerpt": "tisk 90, tatáž ustanovení: 'V § 2 odst. 1 se za písmeno j) vkládá nové písmeno k), které zní: „k) člen Národní rozpočtové rady,“. Dosavadní písmena k) až q) se označují jako písmena l) až r).' a 'V § 14b odst. 1 písm. a) se text „o)“ nahrazuje textem „p)“' -- pokyny tisku 90, znak po znaku shodné s pokyny tisku 68."
+   },
+   "reasoning": "Tisk 68 a tisk 90 nesou tutéž novelu zákona o střetu zájmů — doplnění člena Národní rozpočtové rady mezi veřejné funkcionáře — a jejich novelizační pokyny jsou napříč § 2, § 4, § 5, § 6, § 14a i § 14b doslova shodné, včetně celé kaskády přečíslování písmen k) až q) na l) až r). Oba citované řetězce byly vyhledáním ověřeny v archivovaném textu OBOU tisků. Jde o nejdoslovnější podobu kolize: dva souběžně projednávané tisky, z nichž každý si nárokuje být tím pokynem, který tuto změnu zavede — ten přijatý jako druhý by novelizoval text, který tam ten první už vložil, případně by jeho pokyn k přečíslování nenašel cíl. Tatáž vada jako u potvrzené dvojice 12–131 v dávce 004. Souvisí s tím, že dávka 005 už u dvojice 7–90 zaznamenala, že text tisku 90 zrcadlí text tisku 68."
+  },
+  {
+   "pairId": "7-206",
+   "lawRef": "166/1993",
+   "billA": 7,
+   "billB": 206,
+   "sharedParagraph": "8",
+   "classification": "coordination-risk",
+   "stratum": "unflagged",
+   "evidence": {
+    "billAExcerpt": "tisk 7, § 8 odst. 2 zákona č. 166/1993 Sb.: 'V § 8 odst. 2 zákona č. 166/1993 Sb., o Nejvyšším kontrolním úřadu, ve znění zákona č. 465/2011 Sb., zákona č. 78/2015 Sb., zákona č. 302/2016 Sb. a zákona č. 448/2024 Sb., se slova „dohled nad hospodařením politických stran a politických h[nutí]' -- zásah do odstavce 2.",
+    "billBExcerpt": "tisk 206, § 8 téhož zákona: 'V § 8 zákona č. 166/1993 Sb., o Nejvyšším kontrolním úřadu, ve znění zákona č. 465/2011 Sb., zákona č. 78/2015 Sb., zákona č. 302/2016 Sb. a zákona č. 448/2024 Sb., se za odstavec 3 vkládá nový odstavec 4, který zní' -- vložení nového odstavce 4 za odstavec 3."
+   },
+   "reasoning": "Oba tisky novelizují § 8 zákona o Nejvyšším kontrolním úřadu souběžně a oba vycházejí ze stejného výchozího znění (shodný výčet předchozích novel v úvodní větě). Tisk 7 mění slova uvnitř odstavce 2, tisk 206 vkládá za odstavec 3 zcela nový odstavec 4. Místa se nepřekrývají a vložení až za odstavec 3 nepřečíslovává odstavec 2, takže obě úpravy jsou slučitelné. Skutečný souběžný dotyk téhož paragrafu dvěma nezávislými návrhy — koordinační riziko."
+  }
+ ]
+}

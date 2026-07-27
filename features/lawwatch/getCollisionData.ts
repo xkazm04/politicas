@@ -252,12 +252,14 @@ export async function getCollisionData(): Promise<CollisionData | null> {
   try {
     const batch5Pairs = loadRawPairs("collision-close-reads-batch005.json");
     const batch8Pairs = loadRawPairs("collision-close-reads-batch008.json");
+    const batch9Pairs = loadRawPairs("collision-close-reads-batch009.json");
     const rawAll = [
       ...PRIOR_PAIRS,
       ...loadRawPairs("collision-close-reads.json"),
       ...loadRawPairs("collision-close-reads-batch004.json"),
       ...batch5Pairs,
       ...batch8Pairs,
+      ...batch9Pairs,
     ].filter((p) => p.classification === "confirmed-collision" || p.classification === "coordination-risk");
 
     if (rawAll.length === 0) return null;
@@ -269,9 +271,11 @@ export async function getCollisionData(): Promise<CollisionData | null> {
     const batch3Ids = new Set(batch3Pairs.map((p) => p.pairId));
     const batch5Ids = new Set(batch5Pairs.map((p) => p.pairId));
     const batch8Ids = new Set(batch8Pairs.map((p) => p.pairId));
+    const batch9Ids = new Set(batch9Pairs.map((p) => p.pairId));
     const sourceBatchOf = (pairId: string): number => {
       if (priorIds.has(pairId)) return pairId === "120-244" ? 1 : 2;
       if (batch3Ids.has(pairId)) return 3;
+      if (batch9Ids.has(pairId)) return 9;
       if (batch8Ids.has(pairId)) return 8;
       if (batch5Ids.has(pairId)) return 5;
       return 4;
@@ -360,11 +364,13 @@ export async function getCollisionData(): Promise<CollisionData | null> {
             sourceMethod:
               sourceBatchOf(p.pairId) <= 2
                 ? "deterministický §-překryv + ruční porovnání textů (dávka 001/002)"
-                : sourceBatchOf(p.pairId) === 8
-                  ? "deterministický dělený §-překryv nad živou topologií 577 hran amends, ruční porovnání textů, ověřeno grepem"
-                  : sourceBatchOf(p.pairId) === 5
-                    ? "deterministický dělený §-překryv nad přegenerovanou topologií amends (od té doby nasazenou), ruční porovnání textů"
-                    : "deterministický dělený §-překryv (--v2) + ruční porovnání textů, ověřeno grepem",
+                : sourceBatchOf(p.pairId) === 9
+                  ? "deterministický dělený §-překryv nad živou topologií, stratifikovaný vzorek testující signál „přepis proti dílčí náhradě“, ruční porovnání textů, každá citace ověřena vyhledáním v archivovaném textu"
+                  : sourceBatchOf(p.pairId) === 8
+                    ? "deterministický dělený §-překryv nad živou topologií 577 hran amends, ruční porovnání textů, ověřeno grepem"
+                    : sourceBatchOf(p.pairId) === 5
+                      ? "deterministický dělený §-překryv nad přegenerovanou topologií amends (od té doby nasazenou), ruční porovnání textů"
+                      : "deterministický dělený §-překryv (--v2) + ruční porovnání textů, ověřeno grepem",
             };
           })
           .sort((a, b) => (a.classification === b.classification ? 0 : a.classification === "confirmed-collision" ? -1 : 1)),

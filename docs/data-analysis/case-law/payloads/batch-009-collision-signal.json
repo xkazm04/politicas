@@ -1,0 +1,1153 @@
+{
+ "generatedAt": "2026-07-27T10:51:36.912Z",
+ "signal": "rewriteVsSubstitute",
+ "hypothesis": "One bill replaces a provision wholesale (`zní:` / `znějí:`) while the other issues a narrow substitution or insertion into the text that replacement destroys. This is the stated mechanism of six of this case's confirmed collisions across four statutes (121-120, 104-232, 28-64, 7-68, 7-90, 102-111), unlike moneyLiteral which is a property of the subject matter rather than of the collision.",
+ "method": "Computed from the per-§ excerpts already captured in collision-report-v2-008.json. Flag = on at least one shared §, one side's excerpt carries a rewrite marker and the other's carries a substitution marker while NOT itself carrying a rewrite marker (the asymmetry is the mechanism).",
+ "testDesign": "STRATIFIED, not signal-ranked. Comparable numbers of flagged and unflagged pairs are close-read so the false-negative rate is measurable; ranking the sweep by the signal would confound the test. Statute-diverse round-robin within each stratum so one heavily-amended statute cannot dominate. Verdict computed afterwards by measure-signal-009.ts (Fisher exact), against the same partition-survivor baseline batch-005 used for moneyLiteral.",
+ "counts": {
+  "partitionedPairs": 176,
+  "alreadyRead": 59,
+  "unread": 117,
+  "flagged": 47,
+  "unflagged": 70,
+  "flaggedRate": 0.4017
+ },
+ "sample": [
+  {
+   "lawRef": "12/2020",
+   "lawTitle": "",
+   "billA": 24,
+   "billB": 65,
+   "paragraphs": [
+    "6"
+   ],
+   "sharedCount": 1,
+   "rewriteVsSubstitute": true,
+   "mechanismParagraphs": [
+    "6"
+   ],
+   "moneyLiteral": false
+  },
+  {
+   "lawRef": "127/2005",
+   "lawTitle": "",
+   "billA": 56,
+   "billB": 64,
+   "paragraphs": [
+    "104"
+   ],
+   "sharedCount": 1,
+   "rewriteVsSubstitute": true,
+   "mechanismParagraphs": [
+    "104"
+   ],
+   "moneyLiteral": false
+  },
+  {
+   "lawRef": "128/2000",
+   "lawTitle": "",
+   "billA": 24,
+   "billB": 64,
+   "paragraphs": [
+    "53d"
+   ],
+   "sharedCount": 1,
+   "rewriteVsSubstitute": true,
+   "mechanismParagraphs": [
+    "53d"
+   ],
+   "moneyLiteral": false
+  },
+  {
+   "lawRef": "141/1961",
+   "lawTitle": "",
+   "billA": 7,
+   "billB": 102,
+   "paragraphs": [
+    "12"
+   ],
+   "sharedCount": 1,
+   "rewriteVsSubstitute": true,
+   "mechanismParagraphs": [
+    "12"
+   ],
+   "moneyLiteral": false
+  },
+  {
+   "lawRef": "143/2001",
+   "lawTitle": "",
+   "billA": 5,
+   "billB": 64,
+   "paragraphs": [
+    "13",
+    "22a"
+   ],
+   "sharedCount": 2,
+   "rewriteVsSubstitute": true,
+   "mechanismParagraphs": [
+    "13",
+    "22a"
+   ],
+   "moneyLiteral": false
+  },
+  {
+   "lawRef": "15/1998",
+   "lawTitle": "",
+   "billA": 13,
+   "billB": 64,
+   "paragraphs": [
+    "26"
+   ],
+   "sharedCount": 1,
+   "rewriteVsSubstitute": true,
+   "mechanismParagraphs": [
+    "26"
+   ],
+   "moneyLiteral": false
+  },
+  {
+   "lawRef": "150/2002",
+   "lawTitle": "",
+   "billA": 67,
+   "billB": 215,
+   "paragraphs": [
+    "101a",
+    "101b",
+    "101d",
+    "68",
+    "7"
+   ],
+   "sharedCount": 5,
+   "rewriteVsSubstitute": true,
+   "mechanismParagraphs": [
+    "101d",
+    "7"
+   ],
+   "moneyLiteral": true
+  },
+  {
+   "lawRef": "159/2006",
+   "lawTitle": "",
+   "billA": 7,
+   "billB": 221,
+   "paragraphs": [
+    "11",
+    "12",
+    "13",
+    "14a",
+    "14b",
+    "2",
+    "23",
+    "4a",
+    "4b",
+    "4c",
+    "9"
+   ],
+   "sharedCount": 11,
+   "rewriteVsSubstitute": true,
+   "mechanismParagraphs": [
+    "14b",
+    "2",
+    "23",
+    "4b",
+    "4c"
+   ],
+   "moneyLiteral": true
+  },
+  {
+   "lawRef": "100/2001",
+   "lawTitle": "",
+   "billA": 49,
+   "billB": 67,
+   "paragraphs": [
+    "9a"
+   ],
+   "sharedCount": 1,
+   "rewriteVsSubstitute": false,
+   "mechanismParagraphs": [],
+   "moneyLiteral": false
+  },
+  {
+   "lawRef": "108/2006",
+   "lawTitle": "",
+   "billA": 85,
+   "billB": 88,
+   "paragraphs": [
+    "21"
+   ],
+   "sharedCount": 1,
+   "rewriteVsSubstitute": false,
+   "mechanismParagraphs": [],
+   "moneyLiteral": false
+  },
+  {
+   "lawRef": "111/1998",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 228,
+   "paragraphs": [
+    "15",
+    "18"
+   ],
+   "sharedCount": 2,
+   "rewriteVsSubstitute": false,
+   "mechanismParagraphs": [],
+   "moneyLiteral": false
+  },
+  {
+   "lawRef": "117/1995",
+   "lawTitle": "",
+   "billA": 4,
+   "billB": 124,
+   "paragraphs": [
+    "30"
+   ],
+   "sharedCount": 1,
+   "rewriteVsSubstitute": false,
+   "mechanismParagraphs": [],
+   "moneyLiteral": false
+  },
+  {
+   "lawRef": "139/2002",
+   "lawTitle": "",
+   "billA": 64,
+   "billB": 67,
+   "paragraphs": [
+    "14",
+    "9"
+   ],
+   "sharedCount": 2,
+   "rewriteVsSubstitute": false,
+   "mechanismParagraphs": [],
+   "moneyLiteral": false
+  },
+  {
+   "lawRef": "141/1961",
+   "lawTitle": "",
+   "billA": 102,
+   "billB": 111,
+   "paragraphs": [
+    "81",
+    "88"
+   ],
+   "sharedCount": 2,
+   "rewriteVsSubstitute": false,
+   "mechanismParagraphs": [],
+   "moneyLiteral": false
+  },
+  {
+   "lawRef": "159/2006",
+   "lawTitle": "",
+   "billA": 68,
+   "billB": 90,
+   "paragraphs": [
+    "14a",
+    "14b",
+    "2",
+    "4",
+    "5",
+    "6",
+    "12"
+   ],
+   "sharedCount": 7,
+   "rewriteVsSubstitute": false,
+   "mechanismParagraphs": [],
+   "moneyLiteral": false
+  },
+  {
+   "lawRef": "166/1993",
+   "lawTitle": "",
+   "billA": 7,
+   "billB": 206,
+   "paragraphs": [
+    "8"
+   ],
+   "sharedCount": 1,
+   "rewriteVsSubstitute": false,
+   "mechanismParagraphs": [],
+   "moneyLiteral": false
+  }
+ ],
+ "allScored": [
+  {
+   "key": "40/2009|7-207",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "586/1992|4-64",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "586/1992|4-121",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "586/1992|120-121",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "586/1992|121-244",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "117/1995|4-198",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "117/1995|112-124",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "117/1995|112-198",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "117/1995|121-124",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "117/1995|121-198",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "117/1995|124-198",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "427/2011|64-71",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "427/2011|71-248",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "222/2016|25-187",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "283/2021|67-167",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "13/1997|171-246",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "541/2020|73-161",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "40/2009|102-111",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "40/2009|111-207",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "40/2009|207-213",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "586/1992|4-120",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "586/1992|4-189",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "586/1992|4-244",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "117/1995|4-121",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "117/1995|112-121",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "243/2000|28-64",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "243/2000|64-140",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "243/2000|64-141",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "477/2001|64-193",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "273/1996|77-206",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "586/1992|64-244",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "117/1995|4-112",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "134/2016|7-221",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "243/2000|28-140",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "243/2000|140-141",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "218/2000|90-221",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "297/2016|65-154",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "243/2000|28-141",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "159/2006|68-221",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "159/2006|90-221",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "87/1995|64-143",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "200/1994|56-234",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "150/2002|67-215",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "250/2017|65-154",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "159/2006|7-68",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "159/2006|7-90",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "477/2001|73-193",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "586/1992|64-120",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "586/1992|120-244",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "21/1992|64-143",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "491/2001|12-131",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "586/1992|189-244",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "256/2004|64-143",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "159/2006|7-221",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "586/1992|120-189",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "240/2013|13-64",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "23/2017|68-90",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "586/1992|64-189",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "40/2009|7-111",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "40/2009|7-173",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "40/2009|7-213",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "40/2009|14-207",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "40/2009|102-207",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "40/2009|102-216",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "40/2009|111-213",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "586/1992|40-64",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "586/1992|40-189",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "586/1992|64-121",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "586/1992|119-248",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "586/1992|120-248",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "586/1992|121-189",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "141/1961|7-102",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "2/1969|7-67",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "2/1969|77-205",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "256/2004|13-64",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "256/2004|16-132",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "256/2004|210-248",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "117/1995|4-124",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "117/1995|103-124",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "634/1992|16-62",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "187/2006|64-103",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "187/2006|77-109",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "427/2011|64-86",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "166/1993|7-206",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "222/2016|7-68",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "222/2016|7-90",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "222/2016|68-90",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "283/2021|56-67",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "283/2021|64-67",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "283/2021|67-234",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "218/2000|64-68",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "218/2000|64-89",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "218/2000|68-90",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "235/2004|64-218",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "21/1992|7-65",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "12/2020|24-65",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "128/2000|24-64",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "262/2006|24-68",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "262/2006|24-90",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "262/2006|68-90",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "365/2000|64-65",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "561/2004|64-232",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "561/2004|104-232",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "99/1963|64-162",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "37/2021|7-260",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "15/1998|13-64",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "240/2013|16-64",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "257/2016|16-145",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "82/1998|111-162",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "127/2005|56-64",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "219/2000|64-67",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "258/2000|67-77",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "266/1994|64-83",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "277/2009|64-145",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "29/2000|64-65",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "582/1991|77-125",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "108/2006|85-88",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "108/2006|85-125",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "108/2006|88-125",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "168/2025|7-64",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "234/2014|7-67",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "84/2024|13-145",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "100/2001|49-67",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "375/2022|57-153",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "181/2007|64-77",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "184/2006|64-67",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "282/1991|64-74",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "388/1991|64-77",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "526/1990|64-163",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "72/2000|64-221",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "90/2012|64-143",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "300/2008|65-103",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "360/1992|67-234",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "177/2023|68-90",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "245/2000|78-238",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "110/2006|85-88",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "359/1999|111-207",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "40/2009|207-216",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "586/1992|64-248",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "586/1992|189-248",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "141/1961|102-111",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "256/2004|64-210",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "256/2004|143-210",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "89/2012|16-53",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "243/2000|68-90",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "218/2000|64-221",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "218/2000|89-90",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "365/2000|24-65",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "111/1998|64-228",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "37/2021|64-260",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "240/2013|13-16",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "257/2016|64-145",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "219/2000|64-102",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "254/2001|67-75",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "143/2001|5-64",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "139/2002|64-67",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "190/2004|64-143",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "503/2012|64-67",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "104/2013|46-196",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "250/2000|64-68",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "250/2000|64-90",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "468/2024|59-64",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "40/2009|7-102",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "256/2004|132-143",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "634/1992|16-53",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "40/2009|67-207",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "634/1992|53-62",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": true
+  },
+  {
+   "key": "424/1991|7-64",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "250/2000|68-90",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "477/2001|64-73",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "23/2017|64-68",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "23/2017|64-90",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  },
+  {
+   "key": "90/1995|15-72",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": true
+  },
+  {
+   "key": "218/2000|64-90",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "159/2006|68-90",
+   "rewriteVsSubstitute": false,
+   "alreadyRead": false
+  },
+  {
+   "key": "542/2020|58-64",
+   "rewriteVsSubstitute": true,
+   "alreadyRead": false
+  }
+ ]
+}

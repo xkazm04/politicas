@@ -3,8 +3,9 @@
 Solo run (no orchestrator, no sibling case drivers active in this session). Analysis on
 `.pglite-copy-law-009`, a read-only copy of the live store; **no live `.pglite` writes**.
 Subagents were not dispatched — the operator instructions for this session forbid it — so the
-army work in §3 was done directly by the driver, at correspondingly reduced volume. That is a
-scope reduction, disclosed here rather than absorbed silently.
+army work in §4 was done directly by the driver, at correspondingly reduced volume (16 pairs
+close-read, not a wave over the backlog). That is a scope reduction, disclosed here rather than
+absorbed silently.
 
 **Live graph read at start:** 577 `amends` edges, 288 `law` nodes, 141 bills, 27 gated forensic
 verdicts (Czech since pass 33). Batch-008's F1/F2 payload **is applied** — the ledger claimed
@@ -142,22 +143,82 @@ per-pair source-batch chip.
 `npm run check`: **typecheck + lint clean, 456/456 tests pass** (up 2 — the presentation-gate lock
 and a derived-`batchesRun` assertion replacing a magic number).
 
-## 4. Not done this batch — disclosed, not silent
+## 4. Close-read wave — 16 pairs, and a ranking signal finally measured
 
-- **The 117 unread partitioned collision pairs.** Untouched. This was the batch's planned army
-  wave and it did not run, because subagent dispatch was unavailable this session and 117 pairs is
-  not driver-scale work. It remains the natural next army task, and it should now run **behind
-  `verify-close-reads.ts`**, with a verbatim span required on every pair — which would also close
-  the 12-pair unverifiable gap §2 names.
+Subagents were unavailable, so this is 16 pairs read by the driver, not an army wave. Given that
+budget, the sample was spent on the question that has been open longest rather than on raw
+coverage: **the backlog has had no validated ordering since batch-004**, and P52 has now rolled
+through four batches with batch-005's `moneyLiteral` explicitly unproven.
+
+**The hypothesis.** Read this case's own confirmed collisions and one mechanism dominates: one
+bill replaces a provision wholesale (`§ N zní:`) while the other issues a narrow substitution into
+the text that replacement destroys. That is the stated reasoning of 121-120, 104-232, 28-64, 7-68,
+7-90 and 102-111 — six confirmed pairs across four statutes. Unlike `moneyLiteral` (a property of
+the subject matter) it is a property of the **collision**, and it is computable from the excerpts
+the pre-check already captured. It fires on 40.2% of unread pairs — not degenerate.
+
+**The design.** Stratified, not ranked: 8 flagged + 8 unflagged, statute-diverse within each
+stratum, classifications written before the measurement ran. Ranking the sweep by the signal would
+have made its false-negative rate unmeasurable.
+
+**The result — null, again.**
+
+| | confirmed | not | |
+|---|---|---|---|
+| flagged (n=8) | 2 | 6 | 25% |
+| unflagged (n=8) | 2 | 6 | 25% |
+
+Fisher two-tailed **p = 1.000**. The signal does not predict severity — the identical null
+batch-005 reported for `moneyLiteral`. One directional hint: **all 3 incidental pairs fell in the
+unflagged stratum** (0/8 vs 3/8), so it may work as a noise filter rather than a ranking, but at
+n=16 that is p=0.20 and must not be treated as established. **Two candidate signals have now been
+proposed and honestly failed.** The case should stop deriving signals from instruction *shape* and
+consider that confirmed collisions here may simply not be predictable from novelization text alone.
+
+**A bug in my own signal, found mid-batch and worth recording.** The first `SUBSTITUTE_RE` matched
+`vkládá se` and `vkládají` but not `vkládá slovo` — the commonest insertion form in the corpus. It
+under-flagged silently, which on a signal being *measured* is worse than over-firing: it moves
+pairs into the control stratum and biases the very comparison the sample exists to make. Caught by
+noticing the flag disagreed with a hand read on pair 5×64. Same family as P42 and batch-008's NFC
+bug: in this corpus, match the Czech stem, never the surrounding phrase. The corrected signal
+happens to select the same 16 pairs, with two swapping strata.
+
+**Four new confirmed collisions**, all grep-verified before classification (17/17 probes present):
+
+- **128/2000 § 53d** (tisk 24 × 64) — tisk 24 inserts a new *first* odstavec and renumbers; tisk 64
+  addresses `§ 53d odst. 1 písm. b)` by its current number, which after that insertion is a
+  different provision with no such písmeno.
+- **159/2006 § 4c** (tisk 7 × 221) — full rewrite versus narrow substitution into the text it
+  replaces, *plus* both bills independently instructing the identical `§ 4b se zrušuje`.
+- **108/2006 § 21 odst. 2 písm. e)** (tisk 85 × 88) — byte-identical instruction in both bills,
+  down to the recital of prior amendments. This bill pair was already confirmed in batch-004 on a
+  *different* statute; this is an independent second finding.
+- **159/2006** (tisk 68 × 90) — the two bills carry the same Národní-rozpočtová-rada amendment with
+  character-identical instructions across six paragraphs, including the whole k)–q) → l)–r)
+  renumbering cascade. Same shape as the confirmed 12-131 pair.
+
+Plus 9 coordination-risk and **3 incidental** — the artifacts are a finding too: tisk 228's "§ 15"
+and "§ 18" are the article numbers of its *own* new act, not amendments to 111/1998, and two more
+pairs matched on citations rather than edits.
+
+All 16 pass `verify-close-reads.ts` (32/32 E-CHECKs) and — unlike batch-008 — **every pair carries
+an evidence excerpt**, closing the unverifiable-by-construction gap §2 names. Written natively in
+Czech, so they need no entry in the rewrite patch. Now rendering: the surface carries 79 pairs.
+
+## 5. Not done this batch — disclosed, not silent
+
+- **101 of the 176 partitioned pairs remain unread.** The sample was drawn to *test a signal*, so
+  it deliberately includes low-prior pairs; a coverage-driven sweep is still owed and should run
+  behind `verify-close-reads.ts` with a verbatim span required on every pair.
 - **Sector-adjacency §-level rework** — still deferred, now scoped to a single 50 000-point band
   and disclosed as the only stale term rather than blocking the whole refresh.
 - **No new forensic verdicts.** The 27 stand.
 - **No graph writes.** Nothing this batch needed one; the re-triage reads.
 
-## 5. Files
+## 6. Files
 
-New: `scripts/case-loops/law/{triage-core,retriage-009,rebase-ledger-009,verify-close-reads}.ts`,
-`docs/data-analysis/case-law/payloads/{collision-reasoning-cz,batch-009-close-read-verification}.json`,
+New: `scripts/case-loops/law/{triage-core,retriage-009,rebase-ledger-009,verify-close-reads,collision-signal-009,measure-signal-009}.ts`,
+`docs/data-analysis/case-law/payloads/{collision-reasoning-cz,batch-009-close-read-verification,collision-close-reads-batch009,batch-009-collision-signal,batch-009-signal-measurement}.json`,
 this note.
 Modified: `docs/data-analysis/case-law/ledger.json` (141 rows + 2 new blocks + 4 corrections),
 `features/lawwatch/{getCollisionData.ts,CollisionsPage.tsx}`,

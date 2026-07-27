@@ -16,14 +16,15 @@
   "batch003NewVerdicts": 8,
   "gatePassRate": "26/26",
   "collisionPairsCloseRead": {
-   "total": 65,
+   "total": 81,
    "batch009Correction": "This key was the scalar 38 — batch-004's figure, never incremented for batch-005's +15 or batch-008's +12. Restated as a per-batch breakdown so it cannot silently fall behind again.",
    "byBatch": {
     "001_002": 2,
     "003": 12,
     "004": 24,
     "005": 15,
-    "008": 12
+    "008": 12,
+    "009": 16
    },
    "note": "65 close-reads over 63 distinct pairs (two pairs were re-read on a later topology). Not all remain live candidates: pair identity does not survive a topology change cleanly, so the batch-008 partitioned universe counts its own coverage separately — see batch008CollisionRecheck."
   },
@@ -202,6 +203,34 @@
     "the 38-pairs-across-4-batches header (now 63 across 001-008)"
    ],
    "correction": "The Czech rewrite of pair 56-234 drops its English original cross-reference to tisk 90/221 § 14 as a precedent instance of the duplicate-insertion class — that finding was RETRACTED within batch-008 itself."
+  },
+  "batch009CloseReads": {
+   "status": "16 of the 117 unread partitioned pairs close-read, gated, and RENDERING on /zakony/kolize",
+   "payload": "docs/data-analysis/case-law/payloads/collision-close-reads-batch009.json",
+   "classification": {
+    "confirmedCollision": 4,
+    "coordinationRisk": 9,
+    "incidental": 3
+   },
+   "newConfirmed": [
+    "128/2000 §53d tisk 24x64 — insert-new-odst-1-and-renumber vs an edit addressed to odst.1 by its current number",
+    "159/2006 §4c tisk 7x221 — full rewrite vs narrow substitution, PLUS both bills independently instruct the identical \"§ 4b se zrušuje\"",
+    "108/2006 §21(2)(e) tisk 85x88 — byte-identical instruction in both bills",
+    "159/2006 tisk 68x90 — the two bills carry the SAME Narodni rozpoctova rada amendment with character-identical instructions across six paragraphs"
+   ],
+   "verification": "Every quoted string grep-confirmed in its own bill before classification (17/17 probes). Payload passes verify-close-reads.ts: 32/32 E-CHECKs, 0 failures, and — unlike batch-008 — 0 pairs without an evidence excerpt.",
+   "czech": "Written natively in Czech, so it needs no entry in collision-reasoning-cz.json.",
+   "scopeReduction": "16 pairs, not an army wave — subagent dispatch was unavailable this session. 101 of 176 partitioned pairs remain unread, logged not dropped."
+  },
+  "batch009SignalValidation": {
+   "status": "MEASURED — null for severity, directional for noise. Do NOT rank the sweep by it.",
+   "signal": "rewriteVsSubstitute — one bill replaces a provision wholesale (zni:/zneji:) while the other edits into the text that replacement destroys",
+   "rationale": "Proposed because it is the stated mechanism of six of this case own confirmed collisions across four statutes (121-120, 104-232, 28-64, 7-68, 7-90, 102-111) — a property of the COLLISION rather than of the subject matter, unlike batch-005 moneyLiteral.",
+   "design": "Stratified 8 flagged + 8 unflagged, statute-diverse, classifications produced before the measurement. Deliberately NOT ranked by the signal, which would make its false-negative rate unmeasurable.",
+   "severity": "2/8 flagged vs 2/8 confirmed — Fisher two-tailed p = 1.000. NOT distinguishable. The identical null batch-005 got for moneyLiteral.",
+   "noise": "0/8 flagged vs 3/8 unflagged were incidental — every artifact fell in the unflagged stratum. p = 0.200, suggestive but NOT significant at n=16.",
+   "bugFoundMidBatch": "The first SUBSTITUTE_RE matched \"vkladá se\" and \"vkladaji\" but not \"vkladá slovo\", the commonest insertion form in the corpus — a silent under-flag that biases the very comparison the sample exists to make. Caught by noticing the flag disagreed with a hand read on pair 5x64. Same family as P42 and the batch-008 NFC bug: match the Czech stem, never the surrounding phrase.",
+   "conclusion": "TWO candidate ranking signals have now been proposed and honestly failed (moneyLiteral batch-005, rewriteVsSubstitute batch-009). The case should stop deriving signals from instruction SHAPE and consider that confirmed collisions here may not be predictable from novelization text alone. P52 remains open, with one more negative result recorded against it."
   }
  },
  "rows": [

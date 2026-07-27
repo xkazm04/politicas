@@ -1,0 +1,37 @@
+{
+ "generatedAt": "2026-07-27T10:56:04.535Z",
+ "signal": "rewriteVsSubstitute",
+ "sampleSize": 16,
+ "design": "Stratified: 8 flagged + 8 unflagged, statute-diverse within stratum, drawn from the 117 unread partitioned survivors. Classifications produced by close-reading BEFORE the measurement was computed; the strata were fixed by the signal script, not chosen after seeing the verdicts.",
+ "populationBaseRate": {
+  "partitionedPairs": 176,
+  "alreadyRead": 59,
+  "unread": 117,
+  "flagged": 47,
+  "unflagged": 70,
+  "flaggedRate": 0.4017
+ },
+ "severity": {
+  "a": 2,
+  "b": 6,
+  "c": 2,
+  "d": 6,
+  "p": 1,
+  "question": "flag predicts confirmed-collision"
+ },
+ "noise": {
+  "a": 8,
+  "b": 0,
+  "c": 5,
+  "d": 3,
+  "p": 0.2000000000000012,
+  "question": "flag predicts a genuine co-touch (not incidental)"
+ },
+ "verdict": "NOT validated for either use at this sample size",
+ "interpretation": "The signal does NOT rank severity — 2/8 flagged and 2/8 unflagged pairs were confirmed collisions, Fisher p=1.00, the identical null batch-005 reported for moneyLiteral. It may act as a NOISE FILTER: all 3 incidental pairs in the sample were unflagged (0/8 flagged vs 3/8 unflagged), but at n=16 that is p=0.20 and must not be treated as established. Two candidate ranking signals have now been proposed and honestly failed; the case should stop proposing signals derived from instruction SHAPE and consider that confirmed collisions in this corpus may simply not be predictable from the novelization instruction text alone.",
+ "caveats": [
+  "The signal is computed over the pre-check's ±N-character excerpts, not full bill text, so an instruction verb sitting just outside an excerpt window is invisible to it. Pair 7×206 changed stratum for exactly this reason when the regex was corrected mid-batch.",
+  "A regex bug was found and fixed DURING this batch: the first SUBSTITUTE_RE matched `vkládá se` and `vkládají` but not `vkládá slovo`, the commonest insertion form in the corpus, silently under-flagging. It was caught by noticing the flag disagreed with a hand read on pair 5×64. The measurement above uses the corrected signal; the sample happened to contain the same 16 pairs before and after, with two swapping strata.",
+  "n=16 is small. A null at this size is evidence against a LARGE effect, not proof of no effect."
+ ]
+}
