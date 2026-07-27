@@ -1,0 +1,66 @@
+{
+  "proposals": [
+    {
+      "id": "psp:person:7042",
+      "name": "Lucie Sedmihradská",
+      "lens": [
+        "role-signals"
+      ],
+      "headline": "Sedmihradská podala 12 pozměňovacích návrhů a je zpravodajkou dvou návrhů zákona o rozpočtovém určení daní.",
+      "signal": 0.55,
+      "props": {
+        "effort_bill_focus": "Sedmihradská je u tisku 120 (novela zákona o daních z příjmů, 586/1992 Sb., podáno 3. 3. 2026) první jmenovanou předkladatelkou — jde tedy o její vlastní autorský návrh, nikoli spolupředkladatelství. Zbylé 4 tisky jsou spolupředkladatelství: tisk 106 a tisk 107 (oba novely zákona o podmínkách podnikání v oblasti cestovního ruchu, u tisku 106 je uvedena jako jedna z předkladatelů vedle E. Olšákové a K. Dvořáka), tisk 146 (novela zákona o obcích, skupina V. Kovářové) a tisk 244 (novela zákona o daních z příjmů, skupina P. Pivoňky Vaňkové). K 24. 7. 2026 je všech 5 tisků stále v projednávání: 106 a 120 mají nesouhlasné stanovisko vlády, 107 neutrální, 146 nesouhlasné, 244 čeká na stanovisko vlády (lhůta do 30. 7. 2026). Žádný z pěti zatím zákonem není. K projednávaným návrhům zákonů podala celkem 12 písemných pozměňovacích návrhů, rozložených do čtyř návrhů zákona (č. 72, 90, 189 a 221). U dvou návrhů zákona (č. 140 a 141, novela zákona o rozpočtovém určení daní) je zpravodajkou pro 1. čtení. V rozpravě vystoupila celkem 44krát, nejčastěji k návrhu zákona č. 90 (novela v oblasti veřejných rozpočtů) se sedmi vystoupeními.",
+        "effort_analyst_note": "b008: amendment/rapporteur/floor lead added on top of the already-covered first-signed-vs-co-signed split — 12 SD napříč 4 návrhy zákona (72×1, 90×4, 189×6, 221×1), 2× zpravodajka pro 1. čtení (140, 141 — stejný typ návrhu, rozdílné paragrafy), 44 vystoupení s vrcholem na návrhu zákona 90 (7). Všechny hodnoty ověřeny proti dodaným rolovým datům, žádné webové zjištění nebylo potřeba."
+      },
+      "citations": []
+    },
+    {
+      "id": "psp:person:6788",
+      "name": "Barbora Urbanová",
+      "lens": [
+        "role-signals"
+      ],
+      "headline": "Urbanová podala 11 pozměňovacích návrhů a u novely trestního zákoníku je zpravodajkou i pro 1. čtení.",
+      "signal": 0.55,
+      "props": {
+        "effort_bill_focus": "Spoluautorka skupinových návrhů STAN: tisk 24 (novela o obcích), tisk 36 (vlastní/spoluautorský návrh s A. Chochelovou — novela občanského zákoníku v oblasti rozvodů a výživného, vládní stanovisko k němu bylo dne 8. 12. 2025 vzato zpět), tisk 120, tisk 146 (novela o obcích, vládní stanovisko negativní) a tisk 205 (novela kompetenčního zákona jako první podepsaná/gestorka, vládní stanovisko negativní). K těmto tiskům dále podala 11 písemných pozměňovacích návrhů, rozložených do tří návrhů zákona (č. 67, 72 a 115). U návrhu zákona č. 115 (novela trestního zákoníku) je zpravodajkou pro 1. čtení i zpravodajkou usnesení výboru. V rozpravě vystoupila celkem 42krát, nejčastěji k návrhu zákona č. 72 (novela jednacího řádu Sněmovny) s osmi vystoupeními.",
+        "effort_analyst_note": "b008: amendment/rapporteur/floor lead added — 11 SD napříč 3 návrhy zákona (67×1, 72×5, 115×5), u 115 obě zpravodajské role (dokumentu i OV) souběžně, 42 vystoupení s vrcholem na návrhu zákona 72 (8). Všechny hodnoty ověřeny proti dodaným rolovým datům, žádné webové zjištění nebylo potřeba."
+      },
+      "citations": []
+    },
+    {
+      "id": "psp:person:6105",
+      "name": "Tomio Okamura",
+      "lens": [
+        "role-signals"
+      ],
+      "headline": "Okamura spolupodepsal všech deset svých návrhů zákonů; žádný nevede jako první podepsaný poslanec.",
+      "signal": 0.4,
+      "props": {
+        "effort_bill_focus": "Okamura je spolupředkladatelem (nikdy prvním jmenovaným předkladatelem) u všech 10 svých tisků. Ze 4 přijatých: tisk 11 (novela zákona o pojistném na sociální zabezpečení, 589/1992 Sb.) — schválen 25. 3. 2026, podepsán prezidentem, vyhlášen 10. 6. 2026; tisk 119 (novela zákona o doplňkovém penzijním spoření) — schválen 27. 5. 2026, Senátem 8. 7. 2026, vyhlášen jako zákon 128/2026 Sb. 23. 7. 2026; tisk 67 (novela stavebního zákona, 283/2021 Sb.) — schválen 3. čtením 10. 7. 2026, postoupen Senátu 23. 7. 2026, k 24. 7. 2026 čeká na senátní projednání; tisk 72 (novela jednacího řádu PS) — schválen 1.–3. 7. 2026, postoupen Senátu 21. 7. 2026. Zbylých 6 tisků je k 24. 7. 2026 stále ve výborech beze schválení: 35 (platy státních představitelů), 87 (zemské znaky a vlajky), 173 a 216 (novely trestního zákoníku), 174 (ochrana zvířat proti týrání), 201 (rozhlasové a televizní poplatky). Všech deset návrhů spolupodepsal, žádný nevede jako první podepsaný. Spolupodepisování je mezi členy poslaneckých klubů běžnou praxí; Okamura je předsedou poslaneckého klubu SPD, u něhož je role spolupodepisujícího na skupinových návrzích klubu strukturálně očekávaná. Vlastní pozměňovací aktivitu měl v tomto přehledu jedinou — jeden písemný pozměňovací návrh k návrhu zákona č. 47 (novela Ústavy ČR). V rozpravě vystoupil celkem 27krát.",
+        "effort_analyst_note": "Mechanismus mylného přiřazení IČO 04627695: pole ARES `obchodniJmeno` u nesouvisející mikro-strany (Agrární demokratická strana) obsahuje doslovný řetězec „OSVČ\", což při přesném name-matchingu (funkce pickExactIco, lib/analysis/money-feed.ts) chybně spárovalo firmu s 49 poslanci popsanými v datech Hlídače jako „OSVČ\"; všech 49 nulových hran bylo smazáno jako potvrzené false-positive a uzel firmy byl také odstraněn. | b008: signature-split stated neutrally per house rule (10/10 co-signed, 0 first-signed) — this fact was already implicit in the existing bill_focus text but is now stated in the required plain form. current_effort_public_role only names the Chamber Speaker role, not club leadership, so the club-chair claim was web-verified before use (psp.cz club roster page, id=1540, lists Okamura under 'Předseda' for klub SPD) rather than asserted from payload alone. Amendment activity minimal (1 SD, on bill 47), speech_turns=27 matches payload exactly."
+      },
+      "citations": [
+        {
+          "claim": "Tomio Okamura je předsedou poslaneckého klubu SPD (Svoboda a přímá demokracie).",
+          "url": "https://public.psp.cz/sqw/snem.sqw?l=cz&id=1540",
+          "accessedAt": "2026-07-27"
+        }
+      ]
+    },
+    {
+      "id": "psp:person:7018",
+      "name": "Marie Kršková",
+      "lens": [
+        "role-signals"
+      ],
+      "headline": "Kršková spolupodepsala všech deset svých návrhů zákonů; žádný nevede jako první podepsaná.",
+      "signal": 0.35,
+      "props": {
+        "effort_bill_focus": "Kršková je spolupředkladatelkou u všech 10 svých tisků (nikdy první jmenovaná; skupiny kolem M. Výborného, P. Hladíka, M. Jurečky nebo V. Plátěníka). K 24. 7. 2026 je všech 10 stále ve výborech, žádný nebyl přijat: tisk 28 (rozpočtové určení daní, neutrální stanovisko vlády), tisk 74 (náprava ekologické újmy, nesouhlas), tisk 50 (důchodové pojištění, nesouhlas — sdílený s T. Philippem), tisk 75 (vodní zákon, nesouhlas), tisk 89 (rozpočtová pravidla, nesouhlas — sdílený s Philippem), tisk 104 (školský zákon, nesouhlas), tisk 109 (nemocenské pojištění, nesouhlas — sdílený s Philippem), tisk 110 (pojistné na sociální zabezpečení, nesouhlas — sdílený s Philippem), tisk 121 (daně z příjmů, nesouhlas — sdílený s Philippem) a tisk 161 (odpady, nesouhlas — sdílený s Philippem). Šest z jejích deseti tisků sdílí se stranickým kolegou Philippem. Všech deset návrhů spolupodepsala, žádný nevede jako první podepsaná. K nim podala 5 písemných pozměňovacích návrhů, rozložených do dvou návrhů zákona (č. 48 a 67), a u jednoho návrhu zákona (č. 146, novela obecního a krajského zřízení) je zpravodajkou pro 1. čtení. V rozpravě vystoupila celkem 23krát, nejčastěji k návrhům zákona č. 67 a č. 76 se třemi vystoupeními u každého.",
+        "effort_analyst_note": "b008: signature-split stated neutrally per house rule (10/10 co-signed, 0 first-signed); no club-leadership context applies to Kršková, unlike Okamura, so none was added. Amendment/rapporteur/floor added: 5 SD (48×1, 67×4), zpravodajka pro 1. čtení jen u 146, 23 vystoupení s vrcholem 3 shodně na návrzích zákona 67 a 76. Všechny hodnoty ověřeny proti dodaným rolovým datům, žádné webové zjištění nebylo potřeba."
+      },
+      "citations": []
+    }
+  ]
+}

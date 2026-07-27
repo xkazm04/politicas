@@ -1,0 +1,423 @@
+{
+  "case": "effort",
+  "batch": 8,
+  "pass": "opus-verification",
+  "generatedAt": "2026-07-27",
+  "method": "Every numeral in effort_bill_focus + headline re-derived from batch-008-inputs.json by counting the arrays (rapporteur_bills, amendment_bills[].amendments, spoke_on_bills[].turns, first_signed_bills, co_signed_bills). Bill numbers in NEW text checked for membership in the MP's own arrays. Gate warning extraction re-implemented offline from scripts/case-loops/effort/gate.ts (extractNumericClaims + proseVsPropsWarnings) and run over effort_bill_focus + headline: 39 warning lines re-derived (the gate reported 35 — the delta is extractor/graph-props granularity, all 39 adjudicated below).",
+  "verdicts": [
+    {
+      "id": "psp:person:6474",
+      "name": "Zuzana Ožanová",
+      "verdict": "NEEDS_CORRECTION",
+      "findings": [
+        {
+          "class": "scope-leak (batch/sample self-reference)",
+          "field": "headline",
+          "detail": "\"nejaktivnější řečnice skupiny (183 vystoupení)\" — \"skupiny\" is the internal writing group of this batch, not a fact a reader can check. Same class PIPELINE_JARGON already blocks as \"batch/sample self-reference\" (lib/analysis/public-copy.ts), but the regex only covers \"v tomto vzorku\"/\"ve vzorku pěti|čtyř|tří\" and misses \"skupiny\"/\"přehledu\"/\"ze svého vzorku\". 183 itself is correct (speech_turns=183).",
+          "recommendedFix": "Zpravodajka u pěti tisků, autorka 21 pozměňovacích návrhů a 183 vystoupení v rozpravě."
+        },
+        {
+          "class": "citation-vs-data (low)",
+          "field": "citations[1]",
+          "detail": "Citation for t=83 asserts \"tisk je ve 2. čtení\"; the payload's own stav for tisk 83 is \"Garanční výbor\". No stage claim for 83 is rendered in effort_bill_focus, so nothing false ships — but the citation should not carry a stage the data contradicts.",
+          "recommendedFix": null
+        },
+        {
+          "class": "numerals-verified",
+          "field": "effort_bill_focus",
+          "detail": "All re-derived correct: rapporteur_bills=5 (5, 67, 83, 167, 171 — disjoint from her own 116/76/77, so \"pěti dalších\" holds); t67 scopes = dokumentu+ov+vyboru (all three ✓); t67 turns=126 (max ✓); t67 amendments=7 ✓; t83 all three scopes ✓; t167 scope ov ✓ and fate_sb=91/2026 ✓; amendments_authored=21 ✓; 76(8)+77(5)=13 ✓.",
+          "recommendedFix": null
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6533",
+      "name": "Marek Novák",
+      "verdict": "CONFIRMED",
+      "findings": [
+        {
+          "class": "numerals-verified",
+          "field": "effort_bill_focus + headline",
+          "detail": "rapporteur_bills=5 ✓; 55/56/62/69 all three scopes ✓; 246 scope=zpravodaj_ps → \"zpravodaj určený předsedou Sněmovny\" ✓; t69 amendments=4 ✓ and turns=14 (max of spoke_on_bills ✓); amendments_authored=13 ✓; t56=5 (max ✓). Bill descriptors match titles (t69 \"nový zákon o digitální ekonomice\" ✓, t56 elektronické komunikace ✓). No fabricated bill numbers.",
+          "recommendedFix": null
+        }
+      ]
+    },
+    {
+      "id": "psp:person:7031",
+      "name": "Patrik Pařil",
+      "verdict": "CONFIRMED",
+      "findings": [
+        {
+          "class": "numerals-verified",
+          "field": "effort_bill_focus + headline",
+          "detail": "rapporteur_bills=5 (4, 35, 63, 64, 163), disjoint from his 5 co-signed (11, 70, 72, 87, 116) — \"pěti dalších tisků\" correct and the 5-vs-5 collision is defused by \"dalších\" ✓; 63/64 all three scopes ✓; 4/35 scope ov ✓; 163 scopes = dokumentu+vyboru → \"zpravodaj výboru i dokumentu usnesení\" ✓; 163 fate_sb=63/2026 ✓; t145 amendments=4 of 7 total ✓. Titles match.",
+          "recommendedFix": null
+        },
+        {
+          "class": "forbidden-content (checked, clean)",
+          "field": "effort_bill_focus",
+          "detail": "The RAPAJA/RMPJ ownership material stays in the internal analyst note (pre-existing) and does not leak into the new public text.",
+          "recommendedFix": null
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6623",
+      "name": "Ondřej Babka",
+      "verdict": "CONFIRMED",
+      "findings": [
+        {
+          "class": "numerals-verified",
+          "field": "effort_bill_focus + headline",
+          "detail": "rapporteur_bills=4 ✓; t10 scope=zpravodaj_ps ✓; t201 scope=ov ✓; t47 and t72 scopes = dokumentu+vyboru → \"zpravodaj výboru a dokumentu usnesení výboru\" ✓; t47 turns=8 (max ✓) and stav=\"3. čtení\" ✓; amendments_authored=0 → \"Žádné pozměňovací návrhy … nepodal\" ✓. Descriptors match titles (t10 mediální služby, t201 rozhlasové a televizní poplatky, t47 senátní návrh ústavního zákona).",
+          "recommendedFix": null
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6999",
+      "name": "Katerina Demetrashvili",
+      "verdict": "NEEDS_CORRECTION",
+      "findings": [
+        {
+          "class": "claim-strength (over-generalisation)",
+          "field": "effort_bill_focus",
+          "detail": "\"K těmto tiskům se také ústně vyjádřila v rozpravě.\" — \"těmto tiskům\" refers to all four rapporteur bills (12, 131, 181, 190), but spoke_on_bills records turns only on 131 (1) and 190 (1). She never spoke on 12 or 181, and her most-spoken bill is 198 (3 turns), which is neither signed nor rapporteured by her. The sentence asserts floor engagement on two bills where the data shows none.",
+          "recommendedFix": "Ke dvěma z nich — tiskům 131 a 190 — také vystoupila v rozpravě, k oběma jednou."
+        },
+        {
+          "class": "claim-strength / off-lens uncited metric",
+          "field": "headline",
+          "detail": "\"s podílem prakticky nulových rebelií vůči vlastnímu klubu\" — the rebellion rate is not in this batch's inputs unit at all (it survives only inside the prior analyst note, 0,001). A role-signals headline should not carry a discipline metric that the batch's own ground truth does not contain, and no citation backs it.",
+          "recommendedFix": "Zpravodajka u čtyř tisků volební agendy, dva z nich už vyhlášeny jako zákon (70/2026 a 108/2026 Sb.)"
+        },
+        {
+          "class": "numerals-verified",
+          "field": "effort_bill_focus",
+          "detail": "rapporteur_bills=4, all scope zpravodaj_ov ✓; t131 fate_sb=70/2026 ✓; t190 fate_sb=108/2026 ✓; \"vesměs novely zákona o volbách do zastupitelstev obcí\" ✓ (12, 131, 181 all amend 491/2001; 190 amends 88/2024 o správě voleb, correctly named separately). Gender forms correct throughout.",
+          "recommendedFix": null
+        }
+      ]
+    },
+    {
+      "id": "psp:person:7058",
+      "name": "Libor Vondráček",
+      "verdict": "NEEDS_CORRECTION",
+      "findings": [
+        {
+          "class": "AMBIGUOUS numeral qualifier",
+          "field": "headline",
+          "detail": "\"Zpravodaj u čtyř ústavněprávních tisků\" — the count 4 is right (47, 72, 135, 214), but only three amend ústavní zákon č. 1/1993 Sb.; tisk 72 is the jednací řád (90/1995 Sb.). The proposal's own analyst note says \"tři ze čtyř\", so the headline overstates what the note itself concedes (P55 cross-field).",
+          "recommendedFix": "Zpravodaj u tří ústavních novel a novely jednacího řádu, autor tří písemných pozměňovacích návrhů, mimo tři spolupodpisy"
+        },
+        {
+          "class": "scope-leak (batch/sample self-reference)",
+          "field": "effort_bill_focus",
+          "detail": "\"nejvíce ze svého vzorku\" — a superlative scoped to the payload sample, unverifiable for a reader. Escapes the existing PIPELINE_JARGON regex, which only matches \"v tomto vzorku\"/\"ve vzorku pěti|čtyř|tří\".",
+          "recommendedFix": "V rozpravě k tisku 47 vystoupil osmkrát — nejvíce ze všech tisků, ke kterým se vyjádřil."
+        },
+        {
+          "class": "numerals-verified",
+          "field": "effort_bill_focus",
+          "detail": "rapporteur_bills=4 ✓; t47 scopes = dokumentu+ps+vyboru (text names two of three — understatement, not error); t72 scope=vyboru ✓; t67=2 and t189=1 amendments, total 3 = amendments_authored ✓; t47 turns=8 (max ✓); t189 = zákon o evidenci tržeb ✓.",
+          "recommendedFix": null
+        },
+        {
+          "class": "pre-existing jargon in prior text",
+          "field": "effort_bill_focus (prior)",
+          "detail": "\"(schema poznámka e)\" is an internal gate-rule citation rendered verbatim in public copy. Not introduced by b008, but it ships with this field and PIPELINE_JARGON's /gate\\s*\\(?[a-e]\\)?/ does not catch this wording.",
+          "recommendedFix": null
+        }
+      ]
+    },
+    {
+      "id": "psp:person:4",
+      "name": "Marek Benda",
+      "verdict": "NEEDS_CORRECTION",
+      "findings": [
+        {
+          "class": "WRONG numeral",
+          "field": "effort_bill_focus + headline",
+          "detail": "\"rozloženo napříč jedenácti různými tisky\" / headline \"51 vystoupeními napříč jedenácti tisky\" — spoke_on_bills has TWELVE entries (47, 72, 85, 90, 124, 125, 173, 210, 67, 131, 174, 187). Eleven matches nothing in the inputs. Compounding it, the 51 (speech_turns) is presented as the quantity distributed across those bills, but the per-bill turns sum to 25; the other 26 turns are not bill-attributed in the payload, so the distribution claim is unsupported at that magnitude.",
+          "recommendedFix": "V rozpravě vystoupil celkem 51krát; k jednotlivým tiskům je z toho evidováno 25 vystoupení u dvanácti různých tisků — nejčastěji k tisku 47 (5 vystoupení) a tisku 72 (4 vystoupení)."
+        },
+        {
+          "class": "cross-field contradiction (P55) + false self-verification",
+          "field": "effort_analyst_note vs effort_bill_focus",
+          "detail": "The note says \"s vystoupeními zaznamenanými u dvanácti tisků\" while the public text says eleven — the two fields of the same proposal disagree. The note then asserts \"kontrola součtu turns odpovídá 51\"; the actual sum of spoke_on_bills turns is 25. The note claims a verification it did not perform.",
+          "recommendedFix": "b008: 3 zpravodajské role (tisky 15, 101, 102), všechny scope zpravodaj_ov. amendment_bills: pouze tisk 47 s 2 návrhy (sd_cislos 1046, 1089), odpovídá amendments_authored=2. speech_turns=51; per-bill turns v spoke_on_bills dávají součet 25 u dvanácti tisků (47, 72, 85, 90, 124, 125, 173, 210, 67, 131, 174, 187) — zbylých 26 vystoupení není v payloadu přiřazeno k tisku."
+        },
+        {
+          "class": "scope-leak (batch/sample self-reference)",
+          "field": "effort_bill_focus + headline",
+          "detail": "\"nejvíce z celé skupiny\" / \"nejaktivnější řečník ze skupiny\" — superlative scoped to the internal batch group.",
+          "recommendedFix": "Zpravodaj u tří tisků, autor dvou pozměňovacích návrhů k novele Ústavy a 51 vystoupení v rozpravě"
+        },
+        {
+          "class": "numerals-verified",
+          "field": "effort_bill_focus",
+          "detail": "rapporteur_bills=3 (15, 101, 102), all scope ov ✓; descriptors match titles (15 = jednací řád 90/1995, 101/102 = odčerpání majetku nevysvětleného původu) ✓; t47 amendments=2 = amendments_authored ✓; t47 turns=5 and t72 turns=4 are the top two ✓.",
+          "recommendedFix": null
+        }
+      ]
+    },
+    {
+      "id": "psp:person:5273",
+      "name": "Jiří Pospíšil",
+      "verdict": "NEEDS_CORRECTION",
+      "findings": [
+        {
+          "class": "scope-leak (batch/sample self-reference)",
+          "field": "effort_bill_focus",
+          "detail": "\"nejvíce ze svého vzorku\" — payload-scoped superlative in public copy.",
+          "recommendedFix": "V rozpravě k tisku 52 vystoupil šestkrát — nejvíce ze všech tisků, ke kterým se vyjádřil — následováno čtyřmi vystoupeními k tisku 173."
+        },
+        {
+          "class": "numerals-verified",
+          "field": "effort_bill_focus + headline",
+          "detail": "rapporteur_bills=3 (52, 173, 216) ✓, all carry zpravodaj_ov, and 52 additionally dokumentu+vyboru exactly as written ✓; all three are criminal-law bills (52 = elektronické důkazy v trestním řízení, 173 + 216 = trestní zákoník) so \"tří trestněprávních tisků\" holds ✓; t52=1 + t48=2 = 3 = amendments_authored ✓; t48 = rostlinolékařská péče ✓; t52 turns=6, t173 turns=4 (top two ✓).",
+          "recommendedFix": null
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6205",
+      "name": "Marian Jurečka",
+      "verdict": "NEEDS_CORRECTION",
+      "findings": [
+        {
+          "class": "AMBIGUOUS superlative (unreported tie)",
+          "field": "effort_bill_focus + headline",
+          "detail": "\"s nejvyšší koncentrací u tisku 198 (6 návrhů) a tisku 125 (… 5 návrhů)\" — tisk 145 (spotřebitelský úvěr) also carries 5 amendments, tying 125. Naming 125 alone as the second focus makes the social-agenda framing look tighter than the data supports (145 is a consumer-credit bill, off that theme).",
+          "recommendedFix": "Jurečka podal 40 písemných pozměňovacích návrhů rozložených do deseti projednávaných tisků, s nejvyšší koncentrací u tisku 198 (novela zákona o státní sociální podpoře, 6 návrhů); po pěti návrzích podal k tisku 125 (novela zákona o sociálních službách a dávkách pro osoby se zdravotním postižením, vyhlášeného jako zákon č. 92/2026 Sb.) a k tisku 145 (novela zákona o spotřebitelském úvěru)."
+        },
+        {
+          "class": "pre-existing prior-text vs inputs mismatch",
+          "field": "effort_bill_focus (prior)",
+          "detail": "Prior text: \"prvním předkladatelem 4 tisků\" and \"spolupodepsán … u tisku 89\". The inputs place 89 in first_signed_bills (bills_first_signed=5, first_signed_bills lists 54, 65, 50, 89, 109, 110, 121). The b008 extension does not touch this, but the field now renders a signature-split that contradicts its own ground truth.",
+          "recommendedFix": null
+        },
+        {
+          "class": "numerals-verified",
+          "field": "effort_bill_focus + headline",
+          "detail": "amendment_bills = 10 entries summing to exactly 40 ✓; rapporteur_bills empty → \"Zpravodajskou roli u žádného tisku nezastává\" ✓; t11 turns=23 and t90 turns=16 (top two ✓); speech_turns=235 ✓; t125 fate_sb=92/2026 ✓; t11 fate_sb=90/2026 ✓; t90 = \"zákony v oblasti veřejných rozpočtů\" ✓.",
+          "recommendedFix": null
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6751",
+      "name": "Karel Haas",
+      "verdict": "NEEDS_CORRECTION",
+      "findings": [
+        {
+          "class": "scope-leak (batch/sample self-reference)",
+          "field": "effort_bill_focus",
+          "detail": "\"nejvyšší koncentrace pozměňovací aktivity v této skupině\" — \"v této skupině\" is the internal batch group; a reader cannot check it and it is not a property of the MP.",
+          "recommendedFix": "Haas podal 22 písemných pozměňovacích návrhů, z toho 17 samotných k tisku 67 (novela stavebního zákona a dalších 21 předpisů); zbylých 5 návrhů rozdělil mezi tisk 90 (2) a tisk 145 (3)."
+        },
+        {
+          "class": "scope-translation (adds a claim the data lacks)",
+          "field": "effort_bill_focus",
+          "detail": "scope zpravodaj_ov is rendered as \"zpravodaj pro 1. čtení\" for tisky 76 and 77 — both already in the Senate. zpravodaj_ov means the rapporteur designated by the Organizational Committee; asserting he acted as rapporteur in the first reading is an interpretation not carried by the scope. Cross-batch inconsistency (P55 across proposals): groups A/B render the same scope as \"zpravodaj určený organizačním výborem\" (Ožanová, Demetrashvili, Pařil, Benda), groups C/D render it \"pro 1. čtení\" (Haas, Kovářová, Sedmihradská, Urbanová, Kršková) — the same code becomes two different public claims inside one batch.",
+          "recommendedFix": "U dvou návrhů zákona je zpravodajem — tisk 76 a tisk 77, oba o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech — v obou případech současně jako zpravodaj určený organizačním výborem, zpravodaj výboru i zpravodaj usnesení výboru."
+        },
+        {
+          "class": "pre-existing prior-text vs inputs mismatch",
+          "field": "effort_bill_focus (prior)",
+          "detail": "Prior text opens \"5 spolupodepsaných tisků (72, 103, 129, 208, 261)\" but the inputs record tisk 72 as his FIRST-signed bill (bills_first_signed=1, first_signed_bills=[72]; co_signed = 103, 129, 208, 261). The rendered field therefore denies his only authorship.",
+          "recommendedFix": null
+        },
+        {
+          "class": "numerals-verified",
+          "field": "effort_bill_focus + headline",
+          "detail": "amendments 67×17 + 90×2 + 145×3 = 22 = amendments_authored ✓; t67 summary \"Mění 22 předpisů\" → \"stavebního zákona a dalších 21 předpisů\" ✓; rapporteur_bills=2 with all three scopes each ✓; t77 turns=20 (max) and speech_turns=114 ✓ — \"20 z celkových 114\" is a legitimate subset framing (per-bill turns sum to 57; the remainder is not bill-attributed).",
+          "recommendedFix": null
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6473",
+      "name": "Olga Richterová",
+      "verdict": "NEEDS_CORRECTION",
+      "findings": [
+        {
+          "class": "bill-number sanity (pre-existing, surfaced by cross-field check)",
+          "field": "effort_bill_focus (prior)",
+          "detail": "\"Zbylé 4 tisky (5, 6, 7, 156) vede jako druhá v pořadí za I. Bartošem nebo Z. Hříbem\" — tisk 156 appears nowhere in her inputs. Her co_signed_bills are 5, 6, 7 and 49, and tisk 49 is precisely the Hřib-led bill (confirmed by the Demetrashvili unit in this same batch: \"Z. Hřib u tisku č. 49\"). 156 matches nothing; the correct number is 49. Not introduced by b008, but it ships in this field.",
+          "recommendedFix": "Zbylé 4 tisky (5, 6, 7, 49) vede jako druhá v pořadí za I. Bartošem nebo Z. Hříbem — jde tedy o spolupodpisy."
+        },
+        {
+          "class": "scope-leak (batch/sample self-reference)",
+          "field": "effort_bill_focus",
+          "detail": "\"Zpravodajskou roli v tomto přehledu nezastává u žádného tisku\" — \"v tomto přehledu\" scopes the claim to the payload. rapporteur_bills is simply empty; say it plainly.",
+          "recommendedFix": "Zpravodajskou roli nezastává u žádného tisku."
+        },
+        {
+          "class": "numerals-verified",
+          "field": "effort_bill_focus + headline",
+          "detail": "amendments 67×2 + 72×1 + 82×7 + 119×3 + 124×2 + 198×4 = 19 ✓; 82 (7) and 198 (4) are the top two ✓; t119 amends 427/2011 doplňkové penzijní spoření, same statute as her own t71 and t86 ✓; t82 turns=19 (max) and speech_turns=334 ✓; first_signed=5 of 9, co_signed=4 ✓.",
+          "recommendedFix": null
+        },
+        {
+          "class": "pre-existing jargon in prior text",
+          "field": "effort_bill_focus (prior)",
+          "detail": "\"(schema poznámka e)\" — internal gate-rule citation rendered verbatim in public copy.",
+          "recommendedFix": null
+        }
+      ]
+    },
+    {
+      "id": "psp:person:7013",
+      "name": "Veronika Kovářová",
+      "verdict": "NEEDS_CORRECTION",
+      "findings": [
+        {
+          "class": "scope-leak (batch/sample self-reference)",
+          "field": "effort_bill_focus",
+          "detail": "\"nejvyšší tematická koncentrace pozměňovací aktivity v této skupině\" — internal batch group.",
+          "recommendedFix": "Kovářová podala všech svých 14 písemných pozměňovacích návrhů výhradně k jedinému tisku 67 (novela stavebního zákona a dalších 21 předpisů)."
+        },
+        {
+          "class": "scope-translation (adds a claim the data lacks)",
+          "field": "effort_bill_focus",
+          "detail": "\"zastává roli zpravodajky pro 1. čtení u tisku 65 … a tisku 234\" — both are scope zpravodaj_ov, and tisk 65 is already stav=KONEC, so a present-tense \"zpravodajka pro 1. čtení\" is doubly unsupported. Same batch-internal inconsistency as Haas.",
+          "recommendedFix": "dále je zpravodajkou určenou organizačním výborem u tisku 65 (novela agend Digitální a informační agentury) a tisku 234 (novela autorizačního zákona pro architekty a inženýry ve výstavbě)"
+        },
+        {
+          "class": "numerals-verified",
+          "field": "effort_bill_focus + headline",
+          "detail": "amendment_bills = single entry 67×14 = amendments_authored ✓; t67 scopes = dokumentu+vyboru → \"zpravodaj usnesení výboru a zpravodaj výboru\" ✓; t67 turns=16 and speech_turns=40 ✓; t234 = autorizační zákon (360/1992) for architects/engineers ✓. Gender forms correct.",
+          "recommendedFix": null
+        }
+      ]
+    },
+    {
+      "id": "psp:person:7042",
+      "name": "Lucie Sedmihradská",
+      "verdict": "NEEDS_CORRECTION",
+      "findings": [
+        {
+          "class": "AMBIGUOUS bill reference (collides with Sb. numbering)",
+          "field": "effort_bill_focus",
+          "detail": "The new text calls bills \"návrh zákona č. 72 / č. 90 / č. 189 / č. 221 / č. 140 / č. 141\". Everywhere else in this batch the same objects are \"tisk N\". \"Návrh zákona č. 90\" is directly confusable with zákon č. 90/2026 Sb. (which exists — tisk 11) and zákon č. 90/1995 Sb. (jednací řád, which tisk 72 amends). The house form is \"tisk N\".",
+          "recommendedFix": "K projednávaným návrhům zákonů podala celkem 12 písemných pozměňovacích návrhů, rozložených do čtyř tisků (72, 90, 189 a 221). U dvou tisků (140 a 141, oba novely zákona o rozpočtovém určení daní) je zpravodajkou určenou organizačním výborem. V rozpravě vystoupila celkem 44krát, nejčastěji k tisku 90 (novela v oblasti veřejných rozpočtů) se sedmi vystoupeními."
+        },
+        {
+          "class": "numerals-verified",
+          "field": "effort_bill_focus + headline",
+          "detail": "amendments 72×1 + 90×4 + 189×6 + 221×1 = 12 ✓; rapporteur_bills = 140, 141, both scope ov, both \"Návrh Zastupitelstva Pardubického kraje\" amending 243/2000 Sb. o rozpočtovém určení daní ✓; speech_turns=44 ✓ and t90 turns=7 (max ✓); first_signed=120, co_signed=4 ✓.",
+          "recommendedFix": null
+        },
+        {
+          "class": "language consistency (low)",
+          "field": "effort_analyst_note",
+          "detail": "The b008 note is written in English inside an otherwise Czech dossier (\"amendment/rapporteur/floor lead added on top of…\"), as are the Urbanová, Kršková and Okamura notes. Internal field, so not a public-copy violation — but inconsistent with the rest of the ledger.",
+          "recommendedFix": null
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6788",
+      "name": "Barbora Urbanová",
+      "verdict": "NEEDS_CORRECTION",
+      "findings": [
+        {
+          "class": "WRONG attribution (referent error)",
+          "field": "effort_bill_focus",
+          "detail": "\"K těmto tiskům dále podala 11 písemných pozměňovacích návrhů, rozložených do tří návrhů zákona (č. 67, 72 a 115)\" — \"k těmto tiskům\" points at the STAN bills just listed (24, 36, 120, 146, 205). Her amendments went to 67, 72 and 115, none of which is among them. The count 11 is right; the attribution is false.",
+          "recommendedFix": "Mimo vlastní a spolupodepsané tisky podala 11 písemných pozměňovacích návrhů k jiným projednávaným tiskům — 67 (1), 72 (5) a 115 (5)."
+        },
+        {
+          "class": "AMBIGUOUS bill reference (collides with Sb. numbering)",
+          "field": "effort_bill_focus",
+          "detail": "\"návrh zákona č. 115\" / \"č. 72\" instead of the house form \"tisk N\".",
+          "recommendedFix": "U tisku 115 (novela trestního zákoníku) je zpravodajkou určenou organizačním výborem i zpravodajkou usnesení výboru. V rozpravě vystoupila celkem 42krát, nejčastěji k tisku 72 (novela jednacího řádu Sněmovny) s osmi vystoupeními."
+        },
+        {
+          "class": "numerals-verified",
+          "field": "effort_bill_focus + headline",
+          "detail": "amendments 67×1 + 72×5 + 115×5 = 11 ✓; rapporteur_bills = 115 only, scopes dokumentu+ov ✓; t115 amends trestní zákoník 40/2009 ✓; speech_turns=42 ✓ and t72 turns=8 (max ✓).",
+          "recommendedFix": null
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6105",
+      "name": "Tomio Okamura",
+      "verdict": "BLOCKING",
+      "findings": [
+        {
+          "class": "NEUTRALITY violation (signature-split unit) + motive attribution",
+          "field": "effort_bill_focus",
+          "detail": "\"Spolupodepisování je mezi členy poslaneckých klubů běžnou praxí; Okamura je předsedou poslaneckého klubu SPD, u něhož je role spolupodepisujícího na skupinových návrzích klubu strukturálně očekávaná.\" The house rule for this unit is to state the 10/10 fact WITHOUT motive attribution or evaluative framing. \"běžnou praxí\" + \"strukturálně očekávaná\" is exculpatory framing supplied by the writer, not a fact from the inputs. It is also applied asymmetrically: Kršková, the other 10/10 unit, receives no such cushion — and her analyst note says so explicitly. The neutral first sentence alone satisfies the rule.",
+          "recommendedFix": "Všech deset návrhů spolupodepsal, žádný nevede jako první podepsaný."
+        },
+        {
+          "class": "unsupported role claim contradicting the unit's own data",
+          "field": "effort_bill_focus + citations[0]",
+          "detail": "\"Okamura je předsedou poslaneckého klubu SPD\" contradicts current_effort_public_role in this very payload, which names only \"Předseda Poslanecké sněmovny — z titulu této funkce z moci úřední předsedá Organizačnímu výboru\". Nothing in the inputs or elsewhere in the repo corroborates a club chairmanship, the two offices are not normally held together, and the single citation is a bare club-roster URL (snem.sqw?id=1540) whose content cannot be reconciled with the deterministic role field. A web-sourced role claim must not silently override the structured role data — this is the pattern that produced the batch-007 D1 defect.",
+          "recommendedFix": null
+        },
+        {
+          "class": "scope-leak (batch/sample self-reference)",
+          "field": "effort_bill_focus",
+          "detail": "\"Vlastní pozměňovací aktivitu měl v tomto přehledu jedinou\" — \"v tomto přehledu\" scopes the claim to the payload; amendments_authored=1 is simply the whole figure.",
+          "recommendedFix": "Vlastní pozměňovací aktivita je minimální — jeden písemný pozměňovací návrh, k tisku 47 (novela Ústavy ČR)."
+        },
+        {
+          "class": "pre-existing prior-text vs inputs mismatch",
+          "field": "effort_bill_focus (prior)",
+          "detail": "Prior text: \"tisk 119 … vyhlášen jako zákon 128/2026 Sb. 23. 7. 2026\". The inputs record tisk 119 as stav=KONEC with fate_sb=null — the Sb. number is not carried by the data. Uncited and unverifiable from this batch's ground truth.",
+          "recommendedFix": null
+        },
+        {
+          "class": "numerals-verified",
+          "field": "effort_bill_focus + headline",
+          "detail": "co_signed=10, first_signed=0 ✓ (headline states it neutrally ✓); amendment_bills = 47×1 = amendments_authored ✓; speech_turns=27 ✓; \"Zbylých 6 tisků\" = 10 − 4 ✓. No fabricated bill numbers.",
+          "recommendedFix": null
+        }
+      ]
+    },
+    {
+      "id": "psp:person:7018",
+      "name": "Marie Kršková",
+      "verdict": "NEEDS_CORRECTION",
+      "findings": [
+        {
+          "class": "WRONG attribution (referent error)",
+          "field": "effort_bill_focus",
+          "detail": "\"K nim podala 5 písemných pozměňovacích návrhů, rozložených do dvou návrhů zákona (č. 48 a 67)\" — \"k nim\" points at her ten co-signed bills (28, 74, 50, 75, 89, 104, 109, 110, 121, 161). Bills 48 and 67 are none of them. The count 5 (48×1, 67×4) is right; the attribution is false. Same defect class as Urbanová.",
+          "recommendedFix": "Mimo tuto desítku podala 5 písemných pozměňovacích návrhů ke dvěma jiným projednávaným tiskům — 48 (1) a 67 (4) — a u tisku 146 (novela obecního a krajského zřízení) je zpravodajkou určenou organizačním výborem."
+        },
+        {
+          "class": "AMBIGUOUS bill reference (collides with Sb. numbering)",
+          "field": "effort_bill_focus",
+          "detail": "\"návrhům zákona č. 67 a č. 76\" / \"návrhu zákona č. 146\" instead of \"tisk N\".",
+          "recommendedFix": "V rozpravě vystoupila celkem 23krát, nejčastěji k tiskům 67 a 76 se třemi vystoupeními u každého."
+        },
+        {
+          "class": "neutrality (checked, clean)",
+          "field": "effort_bill_focus",
+          "detail": "\"Všech deset návrhů spolupodepsala, žádný nevede jako první podepsaná.\" — states the 10/10 split with no motive attribution and no evaluative framing. Compliant; this is the form Okamura's unit should have kept to.",
+          "recommendedFix": null
+        },
+        {
+          "class": "numerals-verified",
+          "field": "effort_bill_focus + headline",
+          "detail": "co_signed=10, first_signed=0 ✓; amendments 48×1 + 67×4 = 5 ✓; rapporteur_bills = 146 only, scope ov, and 146 amends obecní zřízení + krajské zřízení + Praha ✓; speech_turns=23 ✓, 67×3 and 76×3 the joint maxima ✓; \"Šest z jejích deseti tisků sdílí … s Philippem\" = 6 marked entries ✓. Gender forms correct.",
+          "recommendedFix": null
+        }
+      ]
+    }
+  ],
+  "warningAdjudication": {
+    "validSubset": 35,
+    "ambiguous": 2,
+    "wrong": 2,
+    "totalAdjudicated": 39,
+    "note": "The gate's soft-warning extraction was re-implemented offline and run over effort_bill_focus + headline against the inputs' bills_authored / speech_turns; it yields 39 lines (the gate reported 35 — the delta is granularity in the graph-props lookup, not a class the gate missed). Every line was re-derived from the arrays. VALID_SUBSET = 35: the whole legitimate class the reviewer expected — rapporteur-bill counts (Ožanová 5, Novák 5, Pařil 5, Babka 4, Demetrashvili 4, L. Vondráček 4, Benda 3, Pospíšil 3, Haas 2) colliding with per-term bills_authored, per-bill amendment counts colliding with amendments_authored, and per-bill floor turns colliding with speech_turns. Seven of the 35 are pure extractor artifacts with no numeric claim at all (\"jednacího\"→1, \"jedenácti\"→1, \"Sedmihradská\" containing \"sedmi\", \"čtyřmi vystoupeními\" tagged as bills). AMBIGUOUS = 2: L. Vondráček's headline \"čtyř ústavněprávních tisků\" (count right, qualifier wrong for tisk 72) and Jurečka's prior \"prvním předkladatelem 4 tisků\" (inputs carry bills_first_signed=5 and place tisk 89 in first_signed_bills, which the same sentence calls co-signed). WRONG = 2: both Benda's \"jedenácti tisky\" (effort_bill_focus and headline) — spoke_on_bills has twelve entries and the 51-turn total is not the quantity distributed across them (per-bill turns sum to 25)."
+  },
+  "summary": "16 proposals adjudicated. 3 CONFIRMED (Novák, Pařil, Babka), 12 NEEDS_CORRECTION, 1 BLOCKING (Okamura). No fabricated bill numbers in any NEW text — every 'tisk N' resolves inside that MP's own arrays (rule 5 clean; the only two nonresolving numbers, 266/267, are legitimate Senate print numbers in prior text). No company/money/ownership content leaked into new public text. Czech and gender forms correct throughout the new public copy for all seven women. The BLOCKING case is Okamura: the batch's neutrality rule for the two 10/10 signature-split units was honoured for Kršková and broken for Okamura, whose new text supplies an exculpatory structural explanation ('běžnou praxí', 'strukturálně očekávaná') plus an SPD club-chair role claim that contradicts his own current_effort_public_role (Speaker of the Chamber) and rests on one bare roster URL. Three defect classes are systemic rather than per-MP and would not have surfaced from a single-field diff (P55): (1) referent errors — Urbanová and Kršková both attach their amendment counts to 'these bills' when the amendments went to entirely different bills; (2) scope-translation drift — zpravodaj_ov becomes 'zpravodaj určený organizačním výborem' in groups A/B but 'zpravodaj pro 1. čtení' in groups C/D, the same code shipping as two different public claims within one batch, including on bills already past first reading (Haas 76/77 in the Senate, Kovářová 65 at KONEC); (3) scope-leak superlatives — 'nejvíce ze svého vzorku' / 'z celé skupiny' / 'v této skupině' / 'v tomto přehledu' in eight proposals, the same class PIPELINE_JARGON already blocks as 'batch/sample self-reference' but whose regex only matches 'v tomto vzorku' and 've vzorku pěti|čtyř|tří' — widening it is the code fix this pass earns. Two live prior-text defects were surfaced by cross-referencing units: Richterová's 'tisk 156' matches nothing and should be 49 (confirmed via the Demetrashvili unit, which names Hřib as lead of tisk 49), and Haas's prior text lists tisk 72 among 'spolupodepsané' when the inputs record it as his only first-signed bill. Benda is the one hard numeral defect in new text: eleven bills claimed where the data has twelve, with the proposal's own analyst note both contradicting the public field and asserting a turn-sum check ('odpovídá 51') that the data refutes (25)."
+}

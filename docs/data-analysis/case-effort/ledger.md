@@ -19,6 +19,7 @@ population is feasible; triage decides depth, not whether.
 | 005 | 45 | 165/207 (79.7 %) | 0.458 | R=1 · tenure-aware profile copy (mandate note + TrendPanel suppression <90d) | 45/45 PASS (post-fix; 13 initial DROPs on `effort_low_score_reason` misuse, fixed) | Sonnet army (9×5) — 80% high-triage filler (36/45), lens exhaustion now dominant; CRO/volby.cz access probe: volby.cz POVOLANI worth building, cro.justice.cz NOT autonomously accessible (corrects batch-004 framing); P51/C13 two-layer money gate first full exercise — 4/10 BLOCKING catches (false-clearance reversal, truncated-fetch active tie missed, wrong entity+dates, ambiguity resolved); Opus reflection held batch back one fix pass — found `committee_count` mismatch (29/45 dossiers) is an EFFORT-OWNED extractor bug (not Case ① ingest), 3/7 driver-applied Opus fixes were not actually applied on first pass (re-fixed), public-render leakage on 4 low-score-reason profiles cleaned |
 | 006 | 42 | **207/207 (100 %) — POPULATION CLOSED** | 0.405 | R=1 · Q-effort-14 public-copy gate + committees rebuilt (extractor & profile render) + convergence rule made executable | 42/42 PASS (post-fix; all 42 initially DROPped by the NEW public-copy check) | population complete by ENUMERATION, not by the K=3 yield rule (which does not fire — see below). Batch-005's `committees[]` root cause found WRONG: Podvýbor was never the cause (0 PSP10 podvýbor memberships exist); real causes are Delegace organs (39 MPs) + duplicate member/function rows on one organ (121 MPs). 99 pipeline-jargon leaks in verbatim-rendered public fields across 42/42 dossiers → prose lesson converted to a hard-DROP gate check; internals preserved in new non-rendered `effort_analyst_note`. 10 `effort_low_score_reason:"unknown"` badges removed from MPs incl. the batch's TOP scorer. P51/C13: 2 BLOCKING false clearances reversed (Jakob, Horák), 1 CONFIRMED (Petrtýl, 4 active ties), systemic root cause = "mandate began 4.10.2025" assumption wrong for 6 of 8. Parallel: volby.cz Kott-signal ingest SHIPPED (205/207 joined, 33 sector↔committee hits/32 MPs, honest null on Kott's own self-referential POVOLANI) |
 | 007 | 0 new (136 rewritten) | 207/207 (unchanged) | — (prose-quality batch, no new dossiers) | R=1 · unified public-copy rule definition (gate.ts fork closed) + `effort_analyst_note` render-guard test | 136/136 PASS (post-fix; 11/44 money-touching rewrites corrected for silently-strengthened hedges) | Q-effort-15 CLOSED: retroactive public-copy rewrite of all 136 pre-006 leaking dossiers; verified live 0/207 leaking, 207/207 render ≥1 dossier field (from 71/207); NEW failure class — mechanical rewrite merged unhedged later-pass addenda into hedged claims on 11 money dossiers (P53), caught by the P51 two-layer gate + cross-field reflection (P55) |
+| 008 | 16 (role-signal extensions) | 207/207 (unchanged) | 0.60 (new-lens composition) | R=1 · „Zpravodajský tahoun" badge on /zebricek (effort_rapporteur_load, pass 36) + sample-scoped-superlative jargon rule (Q-effort-16) | 16/16 PASS (post-fix; 1 BLOCKING neutrality + 2 wrong numerals + 2 wrong attributions caught by the Opus verification pass) | First staleness-triggered batch on the pass-34/35 role data (rank/rapporteur/spoke_on/amendments); append-only enforced in code (caught a quote-glyph non-verbatim copy); scope-translation inconsistency (zpravodaj_ov rendered two ways) fixed batch-wide; Richterová prior-text tisk 156→49 corrected via cross-unit evidence; NEW 29-instance sample-scoped-superlative debt measured and recorded |
 
 **Signal-yield** is the convergence measure (new signals ÷ units). Batch 001 is the
 baseline — every unit produced a citable dossier, so raw yield ≈ 1.0; the 0.771 above is
@@ -326,3 +327,32 @@ fresh copy at finalize time), so `finalize-ledger.ts 4` + `5` were run to advanc
   test with `contribution.ts`'s shared predicate, and confirming the two batch-006 money LEADs
   (GEMA MB → ANO 2011 donations; AGROCENTRUM → SZIF) through Case ①'s gate before any surface
   renders them. No new full sweep.
+
+### Batch 008 — role signals: first staleness-triggered batch (2026-07-27)
+- **Trigger**: passes 34/35 (operator-directed build) added signature rank, `rapporteur`,
+  `spoke_on` and `proposes_amendment` to the graph — the re-ingest trigger batch-006 steering
+  reserved re-opening for. No new units; 16 role-signal dossier extensions. Full detail in
+  `batch-008.md`.
+- Triage (`roles-triage.ts`): all new lenses discriminative except `spoke_on_any` (80.7 %, context
+  only); signature-farming now systematic (52/207 authored-but-never-first); own-bill-not-defended
+  lens honestly NOT trusted (fires on bills that never reached debate).
+- Army 4×4 Sonnet; **append-only enforced in code** at merge (caught one non-verbatim copy —
+  quote-glyph normalization). Gate 16/16 PASS.
+- **Opus verification pass: 1 BLOCKING (Okamura — asymmetric exculpatory framing on the
+  signature-split unit + unsupported club-chair claim), 2 wrong numerals (Benda), 2 wrong
+  attributions (Urbanová, Kršková), scope-translation inconsistency batch-wide, 8/16 sample-scoped
+  superlatives, 1 pre-existing bill-number error (Richterová 156→49) proven via cross-unit
+  evidence.** All fixed via exact-match-asserted replacements; 2 sentence-surgery orphans caught by
+  residue scan. Warning adjudication: 35 valid-subset / 2 ambiguous / 2 wrong.
+- Persisted pass 37 (props-merge + citations, 16/16); manifestation-checked: 0 withheld, all render.
+- **Q-effort-16 opened**: new `sample-scoped self-reference` jargon rule (code + tests, narrow so
+  „návrh skupiny poslanců" never trips) withholds a measured **29 pre-existing field-instances on
+  28 nodes** until a scoped rewrite pass — same honest-degradation mechanism as Q-effort-15.
+- Build (R=1): `effort_rapporteur_load` on all 207 (pass 36) + „Zpravodajský tahoun" badge on
+  `/zebricek` (18 MPs ≥3; deliberately not a quiet-workhorse flavour — load says nothing about
+  floor visibility).
+- Steering: (1) pay the Q-effort-16 29-instance debt with one mechanical army group next batch;
+  (2) refine own-bill-not-defended (require others-debated-it) before it ranks anything;
+  (3) the 52-MP signature-split population is now a candidate lens for a symmetric surface
+  („předkladatelé vs spolupodpisy" on /zebricek) — needs framing review first; (4) loop returns to
+  staleness-driven mode.

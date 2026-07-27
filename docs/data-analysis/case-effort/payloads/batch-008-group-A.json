@@ -1,0 +1,96 @@
+{
+  "proposals": [
+    {
+      "id": "psp:person:6474",
+      "name": "Zuzana Ožanová",
+      "lens": ["role-signals"],
+      "headline": "Zpravodajka u pěti tisků, autorka 21 pozměňovacích návrhů a nejaktivnější řečnice skupiny (183 vystoupení).",
+      "signal": 0.9,
+      "props": {
+        "effort_bill_focus": "První předkladatelka tisku 116 (zrušení nominačního zákona 353/2019, ve výboru); spolupředkladatelka zákona o státních zaměstnancích 76/77 (schválen) Nad rámec vlastního předkládání působí jako zpravodajka u pěti dalších návrhů zákona — nejrozsáhleji u tisku 67 (rozsáhlá novela stavebního zákona a souvisejících předpisů), kde zastává všechny tři zpravodajské role (organizační výbor, výbor i dokument), zároveň k němu nejvíc vystupovala v rozpravě (126 vystoupení) a podala k němu sedm pozměňovacích návrhů; tisk k 27. 7. 2026 prošel třetím čtením a míří do Senátu. Zpravodajský podíl se všemi třemi rolemi má také u tisku 83 (novela zákona o silničním provozu) a jako zpravodajka organizačního výboru u tisku 167 (novela stavebního zákona), který už byl vyhlášen jako zákon č. 91/2026 Sb. Celkem podala 21 písemných pozměňovacích návrhů, nejvíce k vlastnímu zákonu o státních zaměstnancích (tisky 76 a 77, dohromady 13 návrhů).",
+        "effort_analyst_note": "b008: Zpravodajská evidence u pěti tisků pokrývá širokou škálu explicitních scopes (zpravodaj_ov/vyboru/dokumentu) — nejsilnější kombinace všech tří rolí je u tisků 67 a 83, což společně s 126 vystoupeními právě na tisku 67 potvrzuje profil analytické pracovní síly nad rámec vlastního předkládání. Zdroj: psp.cz historie.sqw t=67, t=83 (ověřeno 27. 7. 2026)."
+      },
+      "citations": [
+        {
+          "claim": "Zuzana Ožanová je zpravodajkou tisku 67 (novela stavebního zákona a souvisejících předpisů), tisk prošel 3. čtením 10. 7. 2026 a byl 23. 7. 2026 postoupen Senátu.",
+          "url": "https://www.psp.cz/sqw/historie.sqw?o=10&t=67",
+          "accessedAt": "2026-07-27"
+        },
+        {
+          "claim": "Zuzana Ožanová je zpravodajkou tisku 83 (novela zákona o silničním provozu), určena organizačním výborem 28. 1. 2026; tisk je ve 2. čtení.",
+          "url": "https://www.psp.cz/sqw/historie.sqw?o=10&t=83",
+          "accessedAt": "2026-07-27"
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6533",
+      "name": "Marek Novák",
+      "lens": ["role-signals"],
+      "headline": "Zpravodaj u pěti tisků, nejvíc nasazený u tisku o digitální ekonomice (14 vystoupení, čtyři pozměňovací návrhy).",
+      "signal": 0.8,
+      "props": {
+        "effort_bill_focus": "Spoluautor stejné trojice tisků jako David Štolpa: tisk 11 (novela zákona o pojistném na sociální zabezpečení), který byl vyhlášen jako zákon č. 90/2026 Sb.; tisk 72 (novela jednacího řádu Sněmovny), po 3. čtení nyní v Senátu; a tisk 87 bez uvedeného novelizovaného zákona. Zpravodajskou práci vykonává u pěti návrhů zákona — u tisků 55, 56, 62 a 69 se všemi třemi zpravodajskými rolemi (organizační výbor, výbor i dokument), u tisku 246 jako zpravodaj určený předsedou Sněmovny. Nejvíc se to projevilo u tisku 69 (nový zákon o digitální ekonomice), kde k němu patří i čtyři pozměňovací návrhy a 14 vystoupení v rozpravě — nejvyšší počet mezi tisky, u kterých vystupoval. Za období podal celkem 13 pozměňovacích návrhů, nejvíce (pět) k tisku 56 (novela zákonů souvisejících se sítěmi elektronických komunikací).",
+        "effort_analyst_note": "b008: Zpravodajský profil (pět tisků, čtyři z nich s plnou sadou scope) odpovídá jeho zařazení v Hospodářském výboru; kombinace zpravodajství s nejvyšším podílem vystoupení a pozměňovacích návrhů právě u tisku 69 ukazuje těžiště jeho práce v digitální/telekomunikační agendě. Zdroj: psp.cz historie.sqw t=55, t=69 (ověřeno 27. 7. 2026)."
+      },
+      "citations": [
+        {
+          "claim": "Marek Novák je zpravodajem tisku 55 (zákon o opatřeních ke snížení nákladů na zavádění vysokorychlostních sítí), garančním výborem je Hospodářský výbor, tisk je ve 2. čtení.",
+          "url": "https://www.psp.cz/sqw/historie.sqw?o=10&t=55",
+          "accessedAt": "2026-07-27"
+        },
+        {
+          "claim": "Marek Novák je zpravodajem tisku 69 (vládní návrh zákona o digitální ekonomice), tisk je ve 2. čtení po obecné i podrobné rozpravě (1. 7. 2026).",
+          "url": "https://www.psp.cz/sqw/historie.sqw?o=10&t=69",
+          "accessedAt": "2026-07-27"
+        }
+      ]
+    },
+    {
+      "id": "psp:person:7031",
+      "name": "Patrik Pařil",
+      "lens": ["role-signals"],
+      "headline": "Mimo spolupodpisy zpravodaj u pěti tisků, jeden z nich už zákonem (63/2026 Sb.).",
+      "signal": 0.8,
+      "props": {
+        "effort_bill_focus": "Ve všech pěti tiscích (43118, 43177, 43179, 43197, 43226) figuruje jako jeden z řady spolupodpisů (od 5 do 41 spolupředkladatelů), nikde jako hlavní navrhovatel — tisky vedou Alena Schillerová, Adam Vojtěch, Radek Vondráček a Zuzana Ožanová. Reálný osobní legislativní otisk je tedy převážně kolektivní. Nad rámec spolupodpisů má vlastní zpravodajskou stopu u pěti dalších tisků — u tisku 63 (nový zákon o účetnictví) a tisku 64 (související změnový zákon) jako zpravodaj se všemi třemi rolemi, u tisků 4 a 35 jako zpravodaj určený organizačním výborem a u tisku 163 jako zpravodaj výboru i dokumentu usnesení. Tisk 163 (regulace cen pohonných hmot) byl už vyhlášen jako zákon č. 63/2026 Sb. K tisku 145 (novela zákona o spotřebitelském úvěru) podal čtyři pozměňovací návrhy z celkových sedmi, které za období předložil.",
+        "effort_analyst_note": "Batch-003 draft uváděl, že se osobní roli jednatele/společníka nepodařilo potvrdit; batch-005 to na základě přímého ověření rejstříku opravil (RAPAJA: jednatel a 25% společník od 29. 8. 2017; RMPJ: jednatel od 25. 5. 2020; druhým společníkem je Radovan Pařil, 75 % resp. 100 %). PODMÍNKA ZVEŘEJNĚNÍ: doplnit do citations úplné výpisy pro IČO 06386237 a 09187944. Domněnku o příbuzenském vztahu k Radovanu Pařilovi („patrně otec/příbuzný\") ve veřejném textu neuvádět — rejstřík příbuzenský vztah neeviduje. | Otázka IČO 04627695 byla formálně uzavřena: jde o skutečnou, s tímto poslancem nesouvisející firmu (Agrární demokratická strana), jejíž pole ARES obchodniJmeno obsahuje doslovný řetězec „OSVČ\"; chyba přesného name-matchingu (pickExactIco, lib/analysis/money-feed.ts) ji spárovala se 49 poslanci, všech 49 nulových hran bylo v batch 004 smazáno jako false_edge_suspected a uzel odstraněn. | b008: Zpravodajská role u pěti tisků (63, 64, 4, 35, 163) je zcela oddělená od skupinových spolupodpisů uvedených v existující dossieru — jde o odbornou/procesní práci nad různými tisky, ne o autorství. Tisk 163 je jediný z jeho zpravodajských tisků, který za sledované období prošel až do zákona (63/2026 Sb.). Zdroj: psp.cz historie.sqw t=63, t=163 (ověřeno 27. 7. 2026)."
+      },
+      "citations": [
+        {
+          "claim": "Patrik Pařil je zpravodajem tisku 63 (vládní návrh zákona o účetnictví), garančním výborem je Rozpočtový výbor, tisk je ve výborové fázi po usnesení výboru z 30. 4. 2026.",
+          "url": "https://www.psp.cz/sqw/historie.sqw?o=10&t=63",
+          "accessedAt": "2026-07-27"
+        },
+        {
+          "claim": "Patrik Pařil je zpravodajem tisku 163 (regulace cen pohonných hmot vládou); zákon byl prezidentem podepsán 11. 5. 2026 a vyhlášen 13. 5. 2026 jako zákon č. 63/2026 Sb.",
+          "url": "https://www.psp.cz/sqw/historie.sqw?o=10&t=163",
+          "accessedAt": "2026-07-27"
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6623",
+      "name": "Ondřej Babka",
+      "lens": ["role-signals"],
+      "headline": "Zpravodaj u čtyř tisků včetně ústavní novely, i bez vlastního pozměňovacího návrhu.",
+      "signal": 0.65,
+      "props": {
+        "effort_bill_focus": "Mimo vlastní tisk 217 vykonává zpravodajskou funkci u čtyř dalších návrhů zákona: u tisku 10 (vládní návrh zákona o poskytování mediálních služeb) jako zpravodaj určený předsedou Sněmovny, u tisku 201 (novela zákona o rozhlasových a televizních poplatcích) jako zpravodaj organizačního výboru a u tisků 47 (senátní návrh ústavního zákona, kterým se mění Ústava ČR) a 72 (novela jednacího řádu Sněmovny) jako zpravodaj výboru a dokumentu usnesení výboru. Na plénu se nejvíc vyjadřoval právě k tisku 47 (osm vystoupení), který je aktuálně ve třetím čtení. Žádné pozměňovací návrhy v tomto období nepodal.",
+        "effort_analyst_note": "b008: Zpravodajská stopa (čtyři tisky) je jeho jediná legislativní aktivita mimo vlastní tisk 217 a nulu pozměňovacích návrhů — konzistentní s poznámkou v existujících datech, že se soustředí na výborovou/kontrolní práci. Nejvýraznější je u tisku 47 (ústavní novela), kde patří i mezi jeho nejčastější vystoupení v rozpravě. Zdroj: psp.cz historie.sqw t=10, t=47 (ověřeno 27. 7. 2026)."
+      },
+      "citations": [
+        {
+          "claim": "Ondřej Babka je zpravodajem tisku 10 (vládní návrh zákona o poskytování mediálních služeb) určeným předsedou Sněmovny; tisk projednává Výbor pro mediální záležitosti.",
+          "url": "https://www.psp.cz/sqw/historie.sqw?o=10&t=10",
+          "accessedAt": "2026-07-27"
+        },
+        {
+          "claim": "Tisk 47 (senátní návrh ústavního zákona, kterým se mění Ústava ČR) prošel obecnou i podrobnou rozpravou v květnu 2026 a garanční Ústavně-právní výbor vydal stanovisko 12. 6. 2026.",
+          "url": "https://www.psp.cz/sqw/historie.sqw?o=10&t=47",
+          "accessedAt": "2026-07-27"
+        }
+      ]
+    }
+  ]
+}

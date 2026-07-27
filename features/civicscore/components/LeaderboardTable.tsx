@@ -30,6 +30,7 @@ import SourceNote from "@/features/shared/components/SourceNote";
 import { COBALT, INK, OCHRE, SIGNAL, STEEL } from "@/features/landing/palette";
 import { workhorseFlavourCopy, type WorkhorseFlavour } from "@/lib/analysis/workhorse-flavour";
 import WorkhorseBadge from "./WorkhorseBadge";
+import RapporteurBadge from "./RapporteurBadge";
 
 // Barva složky — jen tokeny palety (custom/no-hardcoded-colors). Šest složek,
 // pět tokenů → leadership sdílí odstín s účastí, odlišen průhledností.
@@ -277,6 +278,7 @@ export default function LeaderboardTable({
                     <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: r.clubColor }} />
                     {r.clubName.split(" ")[0]}{r.region ? ` · ${r.region}` : ""}
                     {r.effortWorkhorse && <WorkhorseBadge flavour={r.effortWorkhorseFlavour} compact />}
+                    <RapporteurBadge load={r.effortRapporteurLoad} compact />
                   </span>
                 )}
               </span>

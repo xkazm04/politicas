@@ -1,0 +1,52 @@
+{
+  "proposals": [
+    {
+      "id": "psp:person:6205",
+      "name": "Marian Jurečka",
+      "lens": ["role-signals"],
+      "headline": "Jurečka podal 40 pozměňovacích návrhů rozložených do deseti tisků, s těžištěm v sociální agendě (tisk 198 a 125).",
+      "signal": 0.75,
+      "props": {
+        "effort_bill_focus": "Jurečka je prvním předkladatelem 4 tisků klubové skupiny v sociální agendě, všechny k 24. 7. 2026 nepřijaté a všechny narazily na nesouhlas vlády: tisk 50 (důchodové pojištění, 5. 12. 2025, nesouhlas 17. 2. 2026), tisk 109 (nemocenské pojištění, 13. 2. 2026, nesouhlas 18.–19. 3. 2026), tisk 110 (pojistné na sociální zabezpečení, 13. 2. 2026, nesouhlas 18.–19. 3. 2026) a tisk 121 (daně z příjmů, 2. 3. 2026, nesouhlas 31. 3. 2026). Dále je spolupodepsán (ne první předkladatel) u tisku 89 (rozpočtová pravidla) a tisku 104 (školský zákon). Dvě zbývající položky mezi jeho tisky (tisk 54 a tisk 65, oba 'vládní' s předkladatelem 'min. práce a soc. věcí') jsou problematické — viz výše. Jurečka podal 40 písemných pozměňovacích návrhů rozložených do deseti projednávaných tisků, s nejvyšší koncentrací u tisku 198 (novela zákona o státní sociální podpoře, 6 návrhů) a tisku 125 (novela zákona o sociálních službách a dávkách pro osoby se zdravotním postižením, vyhlášeného jako zákon č. 92/2026 Sb., 5 návrhů) — tedy v tématech blízkých jeho vlastní sociální agendě. Zpravodajskou roli u žádného tisku nezastává. Nejvíce se do rozpravy zapojil u tisku 11 (novela pojistného na sociální zabezpečení, zákon č. 90/2026 Sb., 23 vystoupení) a u tisku 90 (novela veřejných rozpočtů, 16 vystoupení), z celkových 235 vystoupení za sledované období.",
+        "effort_analyst_note": "Mechanismus mylného přiřazení IČO 04627695: pole ARES `obchodniJmeno` u nesouvisející mikro-strany (Agrární demokratická strana) obsahuje doslovný řetězec „OSVČ\", což při přesném name-matchingu (funkce pickExactIco, lib/analysis/money-feed.ts) chybně spárovalo firmu s 49 poslanci popsanými v datech Hlídače jako „OSVČ\"; všech 49 nulových hran bylo smazáno jako potvrzené false-positive a uzel firmy byl také odstraněn. | b008: Doplněna charakteristika pozměňovací aktivity (40 návrhů, sd_cislos doloženy v amendment_bills) a řečnické vytížení podle amendment_bills/spoke_on_bills; žádná zpravodajská role v datech (rapporteur_bills prázdné). Bez nových webových zjištění — čerpáno výhradně z dodaných strukturovaných dat pass 34/35."
+      },
+      "citations": []
+    },
+    {
+      "id": "psp:person:6751",
+      "name": "Karel Haas",
+      "lens": ["role-signals"],
+      "headline": "Haas soustředil pozměňovací aktivitu (22 návrhů) především do jediného tisku a u dvou návrhů zákona je zpravodajem.",
+      "signal": 0.85,
+      "props": {
+        "effort_bill_focus": "5 spolupodepsaných tisků (72, 103, 129, 208, 261); garanční role přes ÚPV u tisku 72 (schválen, v Senátu) Haas podal 22 písemných pozměňovacích návrhů, z toho 17 samotných k tisku 67 (novela stavebního zákona a dalších 21 předpisů) — nejvyšší koncentrace pozměňovací aktivity v této skupině; zbylých 5 návrhů rozdělil mezi tisk 90 (2) a tisk 145 (3). U dvou návrhů zákona je zpravodajem — tisk 76 a tisk 77, oba o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech — v obou případech současně jako zpravodaj pro 1. čtení, zpravodaj výboru i zpravodaj usnesení výboru. Nejvíce vystoupení směřoval právě k tisku 77 (20 z celkových 114 vystoupení).",
+        "effort_analyst_note": "b008: Doplněna charakteristika pozměňovací aktivity (22 návrhů, těžiště tisk 67 se 17 návrhy) a zpravodajské role (tisk 76, 77, obě ve všech třech dostupných rolích dle rapporteur_bills.scopes) z dodaných dat amendment_bills/rapporteur_bills/spoke_on_bills; bez nových webových zjištění."
+      },
+      "citations": []
+    },
+    {
+      "id": "psp:person:6473",
+      "name": "Olga Richterová",
+      "lens": ["role-signals"],
+      "headline": "Richterová podala 19 pozměňovacích návrhů s těžištěm u tisku o podpoře bydlení, kde vedla i nejvíce rozprav.",
+      "signal": 0.7,
+      "props": {
+        "effort_bill_focus": "Richterová je prvním předkladatelem 5 z 9 tisků svého vzorku: tisk 4 (daně z příjmů, s I. Bartošem, podán 15. 10. 2025, nesouhlas vlády 4. 12. 2025, čeká), tisk 15 (jednací řád PS, s Bartošem a K. Stojanovou, podán 10. 11. 2025, nesouhlas vlády 12. 12. 2025, čeká), tisk 71 (doplňkové penzijní spoření, neutrální stanovisko vlády, čeká), tisk 86 (další novela penzijního spoření, nesouhlas vlády, čeká) a tisk 168 (DPH, nesouhlas vlády, čeká) — u posledních tří je spolupodepsaná i Ančincová a Španihelová z tohoto vzorku. Zbylé 4 tisky (5, 6, 7, 156) vede jako druhá v pořadí za I. Bartošem nebo Z. Hříbem — jde tedy o spolupodpisy (schema poznámka e). Žádný z jejích 9 tisků k 25. 7. 2026 dosud neprošel. Richterová podala 19 písemných pozměňovacích návrhů, s nejvyšší koncentrací u tisku 82 (novela zákona o podpoře bydlení, 7 návrhů) a tisku 198 (novela zákona o státní sociální podpoře, 4 návrhy); u tisku 119, který mění stejný zákon o doplňkovém penzijním spoření jako oba její vlastní návrhy (tisk 71 a 86), podala 3 pozměňovací návrhy. Zpravodajskou roli v tomto přehledu nezastává u žádného tisku. Nejvíce se zapojila do rozpravy k tisku 82 (19 z celkových 334 vystoupení), více než k jakémukoli jinému tisku ve sledovaném období.",
+        "effort_analyst_note": "Shoda mezi uváděným počtem výborů a doloženým seznamem u tohoto poslance neznamená, že extraktor (extract-dossiers.ts) je obecně spolehlivý — tato poslankyně prostě nesedí v žádném podvýboru ani nemá roli ověřovatel, takže se známý limit extraktoru (viz jinde v této dávce) na jejím profilu neprojevil, ne že by neexistoval. | b008: Doplněna charakteristika pozměňovací aktivity (19 návrhů, těžiště tisk 82 a 198) a řečnické vytížení; rapporteur_bills je pro ni prázdné pole, žádná zpravodajská role nezaznamenána. Bez nových webových zjištění."
+      },
+      "citations": []
+    },
+    {
+      "id": "psp:person:7013",
+      "name": "Veronika Kovářová",
+      "lens": ["role-signals"],
+      "headline": "Kovářová soustředila všech 14 pozměňovacích návrhů do jediného tisku, u kterého je také zpravodajkou.",
+      "signal": 0.55,
+      "props": {
+        "effort_bill_focus": "Kovářová u obou sledovaných tisků spolupodepsala návrh, nepředložila ho sama — v obou případech figuruje jako zástupce navrhovatelů jiný poslanec. Tisk 168 (novela zákona o dani z přidané hodnoty, 235/2004 Sb.) předložila skupina poslanců za Piráty (zástupkyně O. Richterová) 15. 4. 2026; garančním výborem je Rozpočtový výbor (zpravodajka Ing. Jitka Volfová), vláda 12. 5. 2026 vyjádřila nesouhlas, k 25. 7. 2026 je tisk stále v projednávání. Tisk 215 (novela soudního řádu správního, 150/2002 Sb.) předložila skupina kolem K. Stojanové 4. 6. 2026; garančním je Ústavně-právní výbor (zpravodajka Eva Decroix), vláda 30. 6. 2026 rovněž vyjádřila nesouhlas, obsahuje 7 pozměňovacích návrhů a k 25. 7. 2026 dosud neprošel ani nebyl zamítnut. Kovářová podala všech svých 14 písemných pozměňovacích návrhů výhradně k jedinému tisku 67 (novela stavebního zákona a dalších 21 předpisů) — nejvyšší tematická koncentrace pozměňovací aktivity v této skupině. U tohoto tisku je zároveň zpravodajkou (zpravodaj usnesení výboru a zpravodaj výboru); dále zastává roli zpravodajky pro 1. čtení u tisku 65 (novela agend Digitální a informační agentury) a tisku 234 (novela autorizačního zákona pro architekty a inženýry ve výstavbě) — u posledně jmenovaného se její poslanecká agenda stýká s architektonickou profesí. Nejvíce vystoupení směřovala právě k tisku 67 (16 z celkových 40 vystoupení).",
+        "effort_analyst_note": "Numerika souhlasí: props uvádí committee_count=2 a poskytnutý seznam committees obsahuje přesně 2 položky (HV, VSR) — žádná nesrovnalost. Její osm podvýborových členství (viz psp.cz) není v poskytnutém poli committees zachyceno vůbec, což je ale konzistentní se stejným škálováním u ostatních čtyř MPs v této skupině (pipeline zjevně sleduje jen výbory/komise/delegace, ne podvýbory) — nejde tedy o anomálii specifickou pro ni. Rebelie proti klubu jsou zanedbatelné (3 hlasy z 1498, rate 0.002) a shoda s piráty jako Ančincová/Bartoš/Richterová je téměř 100 %. linkedCompanies je prázdné pole. | b008: Doplněna charakteristika pozměňovací aktivity — všech 14 návrhů směřuje k jedinému tisku 67, kde je zároveň zpravodajkou (dokumentu i výboru); další dvě zpravodajské role u tisku 65 a 234 (obě zpravodaj_ov). Bez nových webových zjištění."
+      },
+      "citations": []
+    }
+  ]
+}

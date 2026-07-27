@@ -1,0 +1,3282 @@
+{
+  "generatedAt": "2026-07-27T10:50:32.786Z",
+  "units": [
+    {
+      "id": "psp:person:6474",
+      "name": "Zuzana Ožanová",
+      "club": null,
+      "contribution_score": 94.6,
+      "bills_authored": 3,
+      "bills_first_signed": 1,
+      "bills_co_signed": 2,
+      "amendments_authored": 21,
+      "speech_turns": 183,
+      "effort_tenure_class": "full_term",
+      "current_effort_bill_focus": "První předkladatelka tisku 116 (zrušení nominačního zákona 353/2019, ve výboru); spolupředkladatelka zákona o státních zaměstnancích 76/77 (schválen)",
+      "current_effort_public_role": "Místopředsedkyně ÚPV; místopředsedkyně Stálé komise pro kontrolu NBÚ; členka Hospodářského výboru",
+      "current_effort_notes": "Jediná z pětice se 100% účastí a 0% absencí; 183 vystoupení (nejvíce z pětice) — skóre váženo k činnosti v sále nad objemem tisků (3).",
+      "current_effort_analyst_note": null,
+      "current_effort_work_themes": [
+        "ústavní právo",
+        "personální nominace do státních firem",
+        "státní služba"
+      ],
+      "first_signed_bills": [
+        {
+          "cislo": 116,
+          "title": "Návrh poslanců Zuzany Ožanové, Patrika Pařila a Renaty Vesecké na vydání zákona, kterým se zrušuje zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou úča",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Ruší zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou účastí státu (nominační zákon)."
+        }
+      ],
+      "co_signed_bills": [
+        {
+          "cislo": 76,
+          "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státníc",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státních zaměstnancích)."
+        },
+        {
+          "cislo": 77,
+          "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o právních poměrech státních zaměstnan",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 20 předpisů — změna zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o Státním fondu životního prostředí České republiky, zákona o sdružování v politických stranách a v politických…"
+        }
+      ],
+      "rapporteur_bills": [
+        {
+          "cislo": 5,
+          "title": "Návrh poslanců Ivana Bartoše a Olgy Richterové na vydání zákona, kterým se mění zákon č. 143/2001 Sb., o ochraně hospodářské soutěže a o změně některých zákonů (zákon o ochraně hospodářské soutěže), v",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 2 předpisy — změna zákona o ochraně hospodářské soutěže, zákona o ozdravných postupech a řešení krize na finančním trhu.",
+          "scopes": [
+            "zpravodaj_ov"
+          ]
+        },
+        {
+          "cislo": 67,
+          "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 22 předpisů — změna stavebního zákona, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o požární ochraně a 19 dalších předpisů.",
+          "scopes": [
+            "zpravodaj_dokumentu",
+            "zpravodaj_ov",
+            "zpravodaj_vyboru"
+          ]
+        },
+        {
+          "cislo": 83,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 361/2000 Sb., o provozu na pozemních komunikacích a o změnách některých zákonů (zákon o silničním provozu), ve znění pozdějších předpisů, a další souvisejí",
+          "stav": "Garanční výbor",
+          "fate_sb": null,
+          "summary_cz": "Mění 6 předpisů — změna zákona o silničním provozu, zákona o silniční dopravě, zákona o dráhách a 3 další předpisy.",
+          "scopes": [
+            "zpravodaj_dokumentu",
+            "zpravodaj_ov",
+            "zpravodaj_vyboru"
+          ]
+        },
+        {
+          "cislo": 167,
+          "title": "Návrh poslankyně Zuzany Mrázové na vydání zákona, kterým se mění zákon č. 283/2021 Sb., stavební zákon, ve znění pozdějších předpisů",
+          "stav": "KONEC",
+          "fate_sb": "91/2026",
+          "summary_cz": "Mění zákon č. 283/2021 Sb., stavební zákon.",
+          "scopes": [
+            "zpravodaj_ov"
+          ]
+        },
+        {
+          "cislo": 171,
+          "title": "Senátní návrh zákona, kterým se mění zákon č. 13/1997 Sb., o pozemních komunikacích, ve znění pozdějších předpisů",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 13/1997 Sb., o pozemních komunikacích.",
+          "scopes": [
+            "zpravodaj_ov"
+          ]
+        }
+      ],
+      "amendment_bills": [
+        {
+          "cislo": 67,
+          "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 22 předpisů — změna stavebního zákona, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o požární ochraně a 19 dalších předpisů.",
+          "amendments": 7,
+          "sd_cislos": [
+            1172,
+            1173,
+            1174,
+            1180,
+            1255,
+            1256,
+            1289
+          ]
+        },
+        {
+          "cislo": 76,
+          "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státníc",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státních zaměstnancích).",
+          "amendments": 8,
+          "sd_cislos": [
+            801,
+            802,
+            803,
+            804,
+            805,
+            806,
+            807,
+            808
+          ]
+        },
+        {
+          "cislo": 77,
+          "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o právních poměrech státních zaměstnan",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 20 předpisů — změna zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o Státním fondu životního prostředí České republiky, zákona o sdružování v politických stranách a v politických…",
+          "amendments": 5,
+          "sd_cislos": [
+            809,
+            810,
+            811,
+            812,
+            813
+          ]
+        },
+        {
+          "cislo": 83,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 361/2000 Sb., o provozu na pozemních komunikacích a o změnách některých zákonů (zákon o silničním provozu), ve znění pozdějších předpisů, a další souvisejí",
+          "stav": "Garanční výbor",
+          "fate_sb": null,
+          "summary_cz": "Mění 6 předpisů — změna zákona o silničním provozu, zákona o silniční dopravě, zákona o dráhách a 3 další předpisy.",
+          "amendments": 1,
+          "sd_cislos": [
+            1010
+          ]
+        }
+      ],
+      "spoke_on_bills": [
+        {
+          "cislo": 67,
+          "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 22 předpisů — změna stavebního zákona, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o požární ochraně a 19 dalších předpisů.",
+          "turns": 126
+        },
+        {
+          "cislo": 77,
+          "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o právních poměrech státních zaměstnan",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 20 předpisů — změna zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o Státním fondu životního prostředí České republiky, zákona o sdružování v politických stranách a v politických…",
+          "turns": 7
+        },
+        {
+          "cislo": 83,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 361/2000 Sb., o provozu na pozemních komunikacích a o změnách některých zákonů (zákon o silničním provozu), ve znění pozdějších předpisů, a další souvisejí",
+          "stav": "Garanční výbor",
+          "fate_sb": null,
+          "summary_cz": "Mění 6 předpisů — změna zákona o silničním provozu, zákona o silniční dopravě, zákona o dráhách a 3 další předpisy.",
+          "turns": 7
+        },
+        {
+          "cislo": 116,
+          "title": "Návrh poslanců Zuzany Ožanové, Patrika Pařila a Renaty Vesecké na vydání zákona, kterým se zrušuje zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou úča",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Ruší zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou účastí státu (nominační zákon).",
+          "turns": 6
+        },
+        {
+          "cislo": 76,
+          "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státníc",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státních zaměstnancích).",
+          "turns": 2
+        },
+        {
+          "cislo": 82,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 175/2025 Sb., o poskytování některých opatření v podpoře bydlení (zákon o podpoře bydlení)",
+          "stav": "KONEC",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 175/2025 Sb., o poskytování některých opatření v podpoře bydlení (zákon o podpoře bydlení).",
+          "turns": 2
+        },
+        {
+          "cislo": 69,
+          "title": "Vládní návrh zákona o digitální ekonomice a o změně některých souvisejících zákonů",
+          "stav": "Garanční výbor",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o digitální ekonomice a o změně některých souvisejících zákonů.",
+          "turns": 1
+        },
+        {
+          "cislo": 72,
+          "title": "Návrh poslanců Radka Vondráčka, Andreje Babiše, Tomia Okamury, Petra Macinky, Marka Bendy, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednací",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny.",
+          "turns": 1
+        },
+        {
+          "cislo": 167,
+          "title": "Návrh poslankyně Zuzany Mrázové na vydání zákona, kterým se mění zákon č. 283/2021 Sb., stavební zákon, ve znění pozdějších předpisů",
+          "stav": "KONEC",
+          "fate_sb": "91/2026",
+          "summary_cz": "Mění zákon č. 283/2021 Sb., stavební zákon.",
+          "turns": 1
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6533",
+      "name": "Marek Novák",
+      "club": null,
+      "contribution_score": 82.8,
+      "bills_authored": 3,
+      "bills_first_signed": 1,
+      "bills_co_signed": 2,
+      "amendments_authored": 13,
+      "speech_turns": 35,
+      "effort_tenure_class": "full_term",
+      "current_effort_bill_focus": "Spoluautor stejné trojice tisků jako David Štolpa: tisk 11 (novela zákona o pojistném na sociální zabezpečení), který byl vyhlášen jako zákon č. 90/2026 Sb.; tisk 72 (novela jednacího řádu Sněmovny), po 3. čtení nyní v Senátu; a tisk 87 bez uvedeného novelizovaného zákona.",
+      "current_effort_public_role": "Poslanec za ANO ve Zlínském kraji, v aktuálním období je členem Hospodářského výboru, Výboru pro sociální politiku a Stálé komise pro hybridní hrozby, bez vedoucí funkce. V předchozím období vedl podvýbor pro ICT/AI/digitální ekonomiku — v aktuálním volebním období tuto pozici podle dostupných zdrojů nezastává. Mimo politiku je činný ve výkonném výboru amatérského fotbalového klubu SK Zlín 1931.",
+      "current_effort_notes": "Nejvyšší skóre v této skupině i nejvyšší legislativní výkon v předchozím volebním období (20 bodů, 23 návrhů, 246 řečnických vystoupení, 38 interpelací) — silný 'workhorse' profil bez vedoucí funkce v aktuálním období. Žádné propojené firmy nebyly v datech nalezeny.",
+      "current_effort_analyst_note": null,
+      "current_effort_work_themes": [
+        "hospodářství",
+        "sociální politika",
+        "hybridní hrozby"
+      ],
+      "first_signed_bills": [
+        {
+          "cislo": 87,
+          "title": "Návrh poslance Radka Vondráčka na vydání zákona o zemských znacích a vlajkách",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": null
+        }
+      ],
+      "co_signed_bills": [
+        {
+          "cislo": 11,
+          "title": "Návrh poslanců Aleny Schillerové, Andreje Babiše, Tomia Okamury, Petra Macinky, Aleše Juchelky, Karla Havlíčka, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 5",
+          "stav": "KONEC",
+          "fate_sb": "90/2026",
+          "summary_cz": "Mění zákon č. 589/1992 Sb., o pojistném na sociální zabezpečení a příspěvku na státní politiku zaměstnanosti."
+        },
+        {
+          "cislo": 72,
+          "title": "Návrh poslanců Radka Vondráčka, Andreje Babiše, Tomia Okamury, Petra Macinky, Marka Bendy, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednací",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny."
+        }
+      ],
+      "rapporteur_bills": [
+        {
+          "cislo": 55,
+          "title": "Vládní návrh zákona o opatřeních ke snížení nákladů na zavádění sítí elektronických komunikací s velmi vysokou kapacitou",
+          "stav": "Garanční výbor",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o opatřeních ke snížení nákladů na zavádění sítí elektronických komunikací s velmi vysokou kapacitou.",
+          "scopes": [
+            "zpravodaj_dokumentu",
+            "zpravodaj_ov",
+            "zpravodaj_vyboru"
+          ]
+        },
+        {
+          "cislo": 56,
+          "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o opatřeních ke snížení nákladů na zavádění sítí elektronických komunikací s velmi vysokou kapacitou",
+          "stav": "Garanční výbor",
+          "fate_sb": null,
+          "summary_cz": "Mění 5 předpisů — změna zákona o zeměměřictví, zákona o správních poplatcích, zákona o elektronických komunikacích a 2 další předpisy.",
+          "scopes": [
+            "zpravodaj_dokumentu",
+            "zpravodaj_ov",
+            "zpravodaj_vyboru"
+          ]
+        },
+        {
+          "cislo": 62,
+          "title": "Vládní návrh zákona o některých povinnostech souvisejících s opravou výrobku a o změně zákona č. 634/1992 Sb., o ochraně spotřebitele, ve znění pozdějších předpisů",
+          "stav": "Garanční výbor",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o některých povinnostech souvisejících s opravou výrobku a o změně zákona č. 634/1992 Sb., o ochraně spotřebitele, ve znění pozdějších předpisů.",
+          "scopes": [
+            "zpravodaj_dokumentu",
+            "zpravodaj_ov",
+            "zpravodaj_vyboru"
+          ]
+        },
+        {
+          "cislo": 69,
+          "title": "Vládní návrh zákona o digitální ekonomice a o změně některých souvisejících zákonů",
+          "stav": "Garanční výbor",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o digitální ekonomice a o změně některých souvisejících zákonů.",
+          "scopes": [
+            "zpravodaj_dokumentu",
+            "zpravodaj_ov",
+            "zpravodaj_vyboru"
+          ]
+        },
+        {
+          "cislo": 246,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 13/1997 Sb., o pozemních komunikacích, ve znění pozdějších předpisů",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 13/1997 Sb., o pozemních komunikacích.",
+          "scopes": [
+            "zpravodaj_ps"
+          ]
+        }
+      ],
+      "amendment_bills": [
+        {
+          "cislo": 46,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 104/2013 Sb., o mezinárodní justiční spolupráci ve věcech trestních, ve znění pozdějších předpisů",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 104/2013 Sb., o mezinárodní justiční spolupráci ve věcech trestních.",
+          "amendments": 1,
+          "sd_cislos": [
+            1491
+          ]
+        },
+        {
+          "cislo": 55,
+          "title": "Vládní návrh zákona o opatřeních ke snížení nákladů na zavádění sítí elektronických komunikací s velmi vysokou kapacitou",
+          "stav": "Garanční výbor",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o opatřeních ke snížení nákladů na zavádění sítí elektronických komunikací s velmi vysokou kapacitou.",
+          "amendments": 2,
+          "sd_cislos": [
+            1411,
+            1412
+          ]
+        },
+        {
+          "cislo": 56,
+          "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o opatřeních ke snížení nákladů na zavádění sítí elektronických komunikací s velmi vysokou kapacitou",
+          "stav": "Garanční výbor",
+          "fate_sb": null,
+          "summary_cz": "Mění 5 předpisů — změna zákona o zeměměřictví, zákona o správních poplatcích, zákona o elektronických komunikacích a 2 další předpisy.",
+          "amendments": 5,
+          "sd_cislos": [
+            1122,
+            1136,
+            1288,
+            1295,
+            1413
+          ]
+        },
+        {
+          "cislo": 69,
+          "title": "Vládní návrh zákona o digitální ekonomice a o změně některých souvisejících zákonů",
+          "stav": "Garanční výbor",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o digitální ekonomice a o změně některých souvisejících zákonů.",
+          "amendments": 4,
+          "sd_cislos": [
+            1488,
+            1522,
+            1524,
+            1525
+          ]
+        },
+        {
+          "cislo": 90,
+          "title": "Vládní návrh zákona, kterým se mění některé zákony v oblasti veřejných rozpočtů",
+          "stav": "Sněmovna (Prezident)",
+          "fate_sb": null,
+          "summary_cz": "Mění 9 předpisů — změna zákona o Nejvyšším kontrolním úřadu, rozpočtových pravidel, zákona o rozpočtovém určení daní a 6 dalších předpisů.",
+          "amendments": 1,
+          "sd_cislos": [
+            795
+          ]
+        }
+      ],
+      "spoke_on_bills": [
+        {
+          "cislo": 69,
+          "title": "Vládní návrh zákona o digitální ekonomice a o změně některých souvisejících zákonů",
+          "stav": "Garanční výbor",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o digitální ekonomice a o změně některých souvisejících zákonů.",
+          "turns": 14
+        },
+        {
+          "cislo": 55,
+          "title": "Vládní návrh zákona o opatřeních ke snížení nákladů na zavádění sítí elektronických komunikací s velmi vysokou kapacitou",
+          "stav": "Garanční výbor",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o opatřeních ke snížení nákladů na zavádění sítí elektronických komunikací s velmi vysokou kapacitou.",
+          "turns": 4
+        },
+        {
+          "cislo": 56,
+          "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o opatřeních ke snížení nákladů na zavádění sítí elektronických komunikací s velmi vysokou kapacitou",
+          "stav": "Garanční výbor",
+          "fate_sb": null,
+          "summary_cz": "Mění 5 předpisů — změna zákona o zeměměřictví, zákona o správních poplatcích, zákona o elektronických komunikacích a 2 další předpisy.",
+          "turns": 4
+        },
+        {
+          "cislo": 62,
+          "title": "Vládní návrh zákona o některých povinnostech souvisejících s opravou výrobku a o změně zákona č. 634/1992 Sb., o ochraně spotřebitele, ve znění pozdějších předpisů",
+          "stav": "Garanční výbor",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o některých povinnostech souvisejících s opravou výrobku a o změně zákona č. 634/1992 Sb., o ochraně spotřebitele, ve znění pozdějších předpisů.",
+          "turns": 4
+        },
+        {
+          "cislo": 90,
+          "title": "Vládní návrh zákona, kterým se mění některé zákony v oblasti veřejných rozpočtů",
+          "stav": "Sněmovna (Prezident)",
+          "fate_sb": null,
+          "summary_cz": "Mění 9 předpisů — změna zákona o Nejvyšším kontrolním úřadu, rozpočtových pravidel, zákona o rozpočtovém určení daní a 6 dalších předpisů.",
+          "turns": 2
+        },
+        {
+          "cislo": 246,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 13/1997 Sb., o pozemních komunikacích, ve znění pozdějších předpisů",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 13/1997 Sb., o pozemních komunikacích.",
+          "turns": 2
+        }
+      ]
+    },
+    {
+      "id": "psp:person:7031",
+      "name": "Patrik Pařil",
+      "club": null,
+      "contribution_score": 90.2,
+      "bills_authored": 5,
+      "bills_first_signed": 0,
+      "bills_co_signed": 5,
+      "amendments_authored": 7,
+      "speech_turns": 28,
+      "effort_tenure_class": "full_term",
+      "current_effort_bill_focus": "Ve všech pěti tiscích (43118, 43177, 43179, 43197, 43226) figuruje jako jeden z řady spolupodpisů (od 5 do 41 spolupředkladatelů), nikde jako hlavní navrhovatel — tisky vedou Alena Schillerová, Adam Vojtěch, Radek Vondráček a Zuzana Ožanová. Reálný osobní legislativní otisk je tedy převážně kolektivní.",
+      "current_effort_public_role": "Místopředseda Rozpočtového výboru (od 12. 11. 2025) a auditor Hospodářského výboru (od 30. 4. 2026), člen Stálé komise pro kontrolu Finančního analytického úřadu a od 28. 1. 2026 člen dozorčí rady Státního fondu dopravní infrastruktury. Souběžně od 2018 první místostarosta města Pohořelice (Jihomoravský kraj) a krajský zastupitel — kombinuje komunální exekutivu s poslaneckým mandátem.",
+      "current_effort_notes": "Peněžní stopa: firmy RAPAJA s.r.o. (IČO 06386237, založena 2017) a RMPJ s.r.o. (IČO 09187944, vznikla 2020 odštěpením z DB OIL s.r.o.) sídlí obě na stejné adrese ve Znojemské ulici v Pohořelicích — v jeho domovském městě, kde působí jako místostarosta. Adresní shoda je reálná a ověřená; u obou firem není evidována žádná veřejná zakázka (0 Kč). Následné ověření ve veřejném rejstříku naznačuje, že Patrik Pařil je u RAPAJA s.r.o. jednatelem a společníkem s 25% podílem (vklad 50 000 Kč) od 29. 8. 2017 a u RMPJ s.r.o. jednatelem od 25. 5. 2020, v obou případech bez záznamu o zániku funkce (zápisy z 5. 5. 2021 jsou adresní přeregistrace); u RMPJ nebyl společnický podíl na jeho jméno doložen. Tato zjištění zatím nejsou podložena citovaným primárním zdrojem v tomto dossieru, uvádíme je proto jako nálezy k doložení, ne jako potvrzené vlastnictví. Dále evidovaná OSVČ (IČO 04627695, Všeruby, Plzeň-sever) je geograficky nesourodá a po prošetření se ukázala jako nesouvisející s tímto poslancem — nebrat jako reálnou vazbu.",
+      "current_effort_analyst_note": "Batch-003 draft uváděl, že se osobní roli jednatele/společníka nepodařilo potvrdit; batch-005 to na základě přímého ověření rejstříku opravil (RAPAJA: jednatel a 25% společník od 29. 8. 2017; RMPJ: jednatel od 25. 5. 2020; druhým společníkem je Radovan Pařil, 75 % resp. 100 %). PODMÍNKA ZVEŘEJNĚNÍ: doplnit do citations úplné výpisy pro IČO 06386237 a 09187944. Domněnku o příbuzenském vztahu k Radovanu Pařilovi („patrně otec/příbuzný\") ve veřejném textu neuvádět — rejstřík příbuzenský vztah neeviduje. | Otázka IČO 04627695 byla formálně uzavřena: jde o skutečnou, s tímto poslancem nesouvisející firmu (Agrární demokratická strana), jejíž pole ARES obchodniJmeno obsahuje doslovný řetězec „OSVČ\"; chyba přesného name-matchingu (pickExactIco, lib/analysis/money-feed.ts) ji spárovala se 49 poslanci, všech 49 nulových hran bylo v batch 004 smazáno jako false_edge_suspected a uzel odstraněn.",
+      "current_effort_work_themes": [
+        "rozpočet",
+        "hospodářská politika",
+        "doprava",
+        "startupy a inovace",
+        "finanční analytický dohled"
+      ],
+      "first_signed_bills": [],
+      "co_signed_bills": [
+        {
+          "cislo": 11,
+          "title": "Návrh poslanců Aleny Schillerové, Andreje Babiše, Tomia Okamury, Petra Macinky, Aleše Juchelky, Karla Havlíčka, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 5",
+          "stav": "KONEC",
+          "fate_sb": "90/2026",
+          "summary_cz": "Mění zákon č. 589/1992 Sb., o pojistném na sociální zabezpečení a příspěvku na státní politiku zaměstnanosti."
+        },
+        {
+          "cislo": 70,
+          "title": "Návrh poslance Adama Vojtěcha na vydání zákona, kterým se mění zákon č. 592/1992 Sb., o pojistném na veřejné zdravotní pojištění, ve znění pozdějších předpisů",
+          "stav": "KONEC",
+          "fate_sb": "71/2026",
+          "summary_cz": "Mění zákon č. 592/1992 Sb., o pojistném na veřejné zdravotní pojištění."
+        },
+        {
+          "cislo": 72,
+          "title": "Návrh poslanců Radka Vondráčka, Andreje Babiše, Tomia Okamury, Petra Macinky, Marka Bendy, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednací",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny."
+        },
+        {
+          "cislo": 87,
+          "title": "Návrh poslance Radka Vondráčka na vydání zákona o zemských znacích a vlajkách",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": null
+        },
+        {
+          "cislo": 116,
+          "title": "Návrh poslanců Zuzany Ožanové, Patrika Pařila a Renaty Vesecké na vydání zákona, kterým se zrušuje zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou úča",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Ruší zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou účastí státu (nominační zákon)."
+        }
+      ],
+      "rapporteur_bills": [
+        {
+          "cislo": 4,
+          "title": "Návrh poslanců Olgy Richterové a Ivana Bartoše na vydání zákona, kterým se mění zákon č. 586/1992 Sb., o daních z příjmů, ve znění pozdějších předpisů, a další související zákony",
+          "stav": "1. čtení (§ 90, odst. 2) - ob. rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění 4 předpisy — změna zákona o daních z příjmů, zákona o státní sociální podpoře, zákona o spotřebních daních a další předpis.",
+          "scopes": [
+            "zpravodaj_ov"
+          ]
+        },
+        {
+          "cislo": 35,
+          "title": "Návrh poslanců Andreje Babiše, Tomia Okamury a Petra Macinky na vydání zákona, kterým se mění zákon č. 236/1995 Sb., o platu a dalších náležitostech spojených s výkonem funkce představitelů státní moc",
+          "stav": "1. čtení (§ 90, odst. 2) - ob. rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 236/1995 Sb., o platu a dalších náležitostech spojených s výkonem funkce představitelů státní moci a některých státních orgánů a soudců a poslanců Evropského parlamentu.",
+          "scopes": [
+            "zpravodaj_ov"
+          ]
+        },
+        {
+          "cislo": 63,
+          "title": "Vládní návrh zákona o účetnictví",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o účetnictví.",
+          "scopes": [
+            "zpravodaj_dokumentu",
+            "zpravodaj_ov",
+            "zpravodaj_vyboru"
+          ]
+        },
+        {
+          "cislo": 64,
+          "title": "Vládní návrh zákona, kterým se v souvislosti s přijetím zákona o účetnictví mění některé zákony a zrušuje zákon č. 25/2017 Sb., o sběru vybraných údajů pro účely monitorování a řízení veřejných financ",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění 28 předpisů — změna občanského soudního řádu, zákona o České obchodní inspekci, horního zákona a 25 dalších předpisů.",
+          "scopes": [
+            "zpravodaj_dokumentu",
+            "zpravodaj_ov",
+            "zpravodaj_vyboru"
+          ]
+        },
+        {
+          "cislo": 163,
+          "title": "Vládní návrh zákona o regulaci cen pohonných hmot vládou a o změně zákona č. 526/1990 Sb., o cenách, ve znění pozdějších předpisů",
+          "stav": "KONEC",
+          "fate_sb": "63/2026",
+          "summary_cz": "Nový zákon o regulaci cen pohonných hmot vládou a o změně zákona č. 526/1990 Sb., o cenách, ve znění pozdějších předpisů.",
+          "scopes": [
+            "zpravodaj_dokumentu",
+            "zpravodaj_vyboru"
+          ]
+        }
+      ],
+      "amendment_bills": [
+        {
+          "cislo": 90,
+          "title": "Vládní návrh zákona, kterým se mění některé zákony v oblasti veřejných rozpočtů",
+          "stav": "Sněmovna (Prezident)",
+          "fate_sb": null,
+          "summary_cz": "Mění 9 předpisů — změna zákona o Nejvyšším kontrolním úřadu, rozpočtových pravidel, zákona o rozpočtovém určení daní a 6 dalších předpisů.",
+          "amendments": 1,
+          "sd_cislos": [
+            797
+          ]
+        },
+        {
+          "cislo": 145,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 257/2016 Sb., o spotřebitelském úvěru, ve znění pozdějších předpisů, a další související zákony",
+          "stav": "3. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 6 předpisů — změna zákona o spotřebitelském úvěru, zákona o vysokých školách, zákona o pojišťovnictví a 3 další předpisy.",
+          "amendments": 4,
+          "sd_cislos": [
+            1056,
+            1069,
+            1416,
+            1419
+          ]
+        },
+        {
+          "cislo": 189,
+          "title": "Vládní návrh zákona o evidenci tržeb a o změně některých dalších zákonů",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 4 předpisy — změna zákona o daních z příjmů, zákona o dani z přidané hodnoty, zákona o Finanční správě České republiky a další předpis.",
+          "amendments": 2,
+          "sd_cislos": [
+            1547,
+            1548
+          ]
+        }
+      ],
+      "spoke_on_bills": [
+        {
+          "cislo": 72,
+          "title": "Návrh poslanců Radka Vondráčka, Andreje Babiše, Tomia Okamury, Petra Macinky, Marka Bendy, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednací",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny.",
+          "turns": 3
+        },
+        {
+          "cislo": 163,
+          "title": "Vládní návrh zákona o regulaci cen pohonných hmot vládou a o změně zákona č. 526/1990 Sb., o cenách, ve znění pozdějších předpisů",
+          "stav": "KONEC",
+          "fate_sb": "63/2026",
+          "summary_cz": "Nový zákon o regulaci cen pohonných hmot vládou a o změně zákona č. 526/1990 Sb., o cenách, ve znění pozdějších předpisů.",
+          "turns": 3
+        },
+        {
+          "cislo": 90,
+          "title": "Vládní návrh zákona, kterým se mění některé zákony v oblasti veřejných rozpočtů",
+          "stav": "Sněmovna (Prezident)",
+          "fate_sb": null,
+          "summary_cz": "Mění 9 předpisů — změna zákona o Nejvyšším kontrolním úřadu, rozpočtových pravidel, zákona o rozpočtovém určení daní a 6 dalších předpisů.",
+          "turns": 2
+        },
+        {
+          "cislo": 145,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 257/2016 Sb., o spotřebitelském úvěru, ve znění pozdějších předpisů, a další související zákony",
+          "stav": "3. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 6 předpisů — změna zákona o spotřebitelském úvěru, zákona o vysokých školách, zákona o pojišťovnictví a 3 další předpisy.",
+          "turns": 2
+        },
+        {
+          "cislo": 189,
+          "title": "Vládní návrh zákona o evidenci tržeb a o změně některých dalších zákonů",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 4 předpisy — změna zákona o daních z příjmů, zákona o dani z přidané hodnoty, zákona o Finanční správě České republiky a další předpis.",
+          "turns": 2
+        },
+        {
+          "cislo": 63,
+          "title": "Vládní návrh zákona o účetnictví",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o účetnictví.",
+          "turns": 1
+        },
+        {
+          "cislo": 64,
+          "title": "Vládní návrh zákona, kterým se v souvislosti s přijetím zákona o účetnictví mění některé zákony a zrušuje zákon č. 25/2017 Sb., o sběru vybraných údajů pro účely monitorování a řízení veřejných financ",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění 28 předpisů — změna občanského soudního řádu, zákona o České obchodní inspekci, horního zákona a 25 dalších předpisů.",
+          "turns": 1
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6623",
+      "name": "Ondřej Babka",
+      "club": null,
+      "contribution_score": 76.9,
+      "bills_authored": 1,
+      "bills_first_signed": 1,
+      "bills_co_signed": 0,
+      "amendments_authored": 0,
+      "speech_turns": 25,
+      "effort_tenure_class": "full_term",
+      "current_effort_bill_focus": null,
+      "current_effort_public_role": "Místopředseda Výboru pro mediální záležitosti; člen Výboru pro životní prostředí, Volební komise, Stálé komise pro Kancelář; jediný tisk (217) novelizuje zákon o NKÚ",
+      "current_effort_notes": "Poslanec prvního období (od 4.10.2025); 100% účast spolu s nejvyšší rebelií u těsných hlasování; jen 1 tisk, aktivita soustředěná do výborové/kontrolní práce.",
+      "current_effort_analyst_note": null,
+      "current_effort_work_themes": [
+        "mediální záležitosti",
+        "životní prostředí",
+        "kontrola veřejných financí (NKÚ)"
+      ],
+      "first_signed_bills": [
+        {
+          "cislo": 217,
+          "title": "Návrh poslanců Ondřeje Babky, Jana Richtera, Gabriely Sedláčkové a Patrika Nachera na vydání zákona, kterým se mění zákon č. 166/1993 Sb., o Nejvyšším kontrolním úřadu, ve znění pozdějších předpisů",
+          "stav": "1. čtení (§ 90, odst. 2) - ob. rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 166/1993 Sb., o Nejvyšším kontrolním úřadu, ve znění pozdějších zákonů."
+        }
+      ],
+      "co_signed_bills": [],
+      "rapporteur_bills": [
+        {
+          "cislo": 10,
+          "title": "Vládní návrh zákona o některých podmínkách poskytování mediálních služeb a o změně některých souvisejících zákonů",
+          "stav": "1. čtení (§ 90, odst. 2) - ob. rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění 4 předpisy — změna trestního řádu, tiskového zákona, zákona o provozování rozhlasového a televizního vysílání a další předpis.",
+          "scopes": [
+            "zpravodaj_ps"
+          ]
+        },
+        {
+          "cislo": 47,
+          "title": "Senátní návrh ústavního zákona, kterým se mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů",
+          "stav": "3. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů.",
+          "scopes": [
+            "zpravodaj_dokumentu",
+            "zpravodaj_vyboru"
+          ]
+        },
+        {
+          "cislo": 72,
+          "title": "Návrh poslanců Radka Vondráčka, Andreje Babiše, Tomia Okamury, Petra Macinky, Marka Bendy, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednací",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny.",
+          "scopes": [
+            "zpravodaj_dokumentu",
+            "zpravodaj_vyboru"
+          ]
+        },
+        {
+          "cislo": 201,
+          "title": "Návrh poslanců Patrika Nachera, Tomia Okamury, Taťány Malé, Radima Fialy, Filipa Turka, Barbory Rázgy a Martina Kolovratníka na vydání zákona, kterým se mění zákon č. 348/2005 Sb., o rozhlasových a te",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 348/2005 Sb., o rozhlasových a televizních poplatcích a o změně některých zákonů.",
+          "scopes": [
+            "zpravodaj_ov"
+          ]
+        }
+      ],
+      "amendment_bills": [],
+      "spoke_on_bills": [
+        {
+          "cislo": 47,
+          "title": "Senátní návrh ústavního zákona, kterým se mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů",
+          "stav": "3. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů.",
+          "turns": 8
+        },
+        {
+          "cislo": 67,
+          "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 22 předpisů — změna stavebního zákona, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o požární ochraně a 19 dalších předpisů.",
+          "turns": 3
+        },
+        {
+          "cislo": 72,
+          "title": "Návrh poslanců Radka Vondráčka, Andreje Babiše, Tomia Okamury, Petra Macinky, Marka Bendy, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednací",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny.",
+          "turns": 2
+        },
+        {
+          "cislo": 16,
+          "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti se smlouvami o finančních službách uzavíranými na dálku",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 11 předpisů — změna zákona o ochraně spotřebitele, zákona o České národní bance, zákona o podnikání na kapitálovém trhu a 8 dalších předpisů.",
+          "turns": 1
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6999",
+      "name": "Katerina Demetrashvili",
+      "club": null,
+      "contribution_score": 65.5,
+      "bills_authored": 3,
+      "bills_first_signed": 0,
+      "bills_co_signed": 3,
+      "amendments_authored": 0,
+      "speech_turns": 19,
+      "effort_tenure_class": "full_term",
+      "current_effort_bill_focus": "Ve všech třech tiscích je Demetrashvili pouze spolupodepsanou, ne předkladatelkou — vedoucím signatářem je vždy jiné jméno: Z. Hřib u tisku č. 49, O. Richterová u tisku č. 168, K. Stojanová u tisku č. 215.",
+      "current_effort_public_role": "Demetrashvili, jedna z nejmladších poslankyň sněmovny (narozena 2003), je členkou Ústavně-právního výboru a Zahraničního výboru (obě role od 11. 11. 2025), Stálé komise pro kontrolu činnosti Úřadu pro zahraniční styky a informace (od 14. 11. 2025) a dle psp.cz i tří tematických podvýborů/komisí (pro duševní zdraví, pro rozvojovou spolupráci a lidská práva v zahraničí, pro svobodu slova) — tyto podvýborové role nejsou ve výše uvedeném přehledu zahrnuty, stejně jako u ostatních poslanců v tomto přehledu.",
+      "current_effort_notes": "Numerika souhlasí s podkladovými daty. Jako nově zvolená poslankyně bez předchozího mandátu v minulém volebním období nemá k dispozici mezitermínové srovnání. Profil je čistý a nekonfliktní: žádné firemní ani finanční vazby nebyly zjištěny, proti hlasování vlastního klubu se prakticky nikdy nepostavila, v souladu s disciplinovaným hlasováním klubu Piráti.",
+      "current_effort_analyst_note": "Numerika souhlasí (committee_count=3 = 3 doložené položky). contributionPsp9=null je očekávané a správné — jde o nově zvolenou poslankyni bez předchozího mandátu v PSP9. linkedCompanies je prázdné pole, rebellion_rate téměř nulová (0,001).",
+      "current_effort_work_themes": [
+        "ústavní právo",
+        "zahraniční politika",
+        "duševní zdraví a lidská práva"
+      ],
+      "first_signed_bills": [],
+      "co_signed_bills": [
+        {
+          "cislo": 49,
+          "title": "Návrh poslanců Zdeňka Hřiba, Olgy Richterové a Kateriny Demetrashvili na vydání zákona, kterým se mění zákon č. 100/2001 Sb., o posuzování vlivů na životní prostředí a o změně některých souvisejících ",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 100/2001 Sb., o posuzování vlivů na životní prostředí a o změně některých souvisejících zákonů (zákon o posuzování vlivů na životní prostředí)."
+        },
+        {
+          "cislo": 168,
+          "title": "Návrh poslanců Olgy Richterové, Ivana Bartoše, Zdeňka Hřiba, Gabriely Svárovské, Venduly Svobodové, Ireny Ferčíkové Konečné, Lenky Martínkové Španihelové, Kateřiny Stojanové, Hany Ančincové, Barbory P",
+          "stav": "1. čtení (§ 90, odst. 2) - ob. rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 235/2004 Sb., o dani z přidané hodnoty."
+        },
+        {
+          "cislo": 215,
+          "title": "Návrh poslanců Kateřiny Stojanové, Samuela Volpeho, Kateriny Demetrashvili a Veroniky Kovářové na vydání zákona, kterým se mění zákon č. 150/2002 Sb., soudní řád správní, ve znění pozdějších předpisů,",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 7 předpisů — změna soudního řádu správního, občanského soudního řádu, zákona o vysokých školách a 4 další předpisy."
+        }
+      ],
+      "rapporteur_bills": [
+        {
+          "cislo": 12,
+          "title": "Senátní návrh zákona, kterým se mění zákon č. 491/2001 Sb., o volbách do zastupitelstev obcí a o změně některých zákonů, ve znění pozdějších předpisů",
+          "stav": "1. čtení (§ 90, odst. 2) - ob. rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 491/2001 Sb., o volbách do zastupitelstev obcí a o změně některých zákonů.",
+          "scopes": [
+            "zpravodaj_ov"
+          ]
+        },
+        {
+          "cislo": 131,
+          "title": "Senátní návrh zákona, kterým se mění zákon č. 491/2001 Sb., o volbách do zastupitelstev obcí a o změně některých zákonů, ve znění pozdějších předpisů",
+          "stav": "KONEC",
+          "fate_sb": "70/2026",
+          "summary_cz": "Mění zákon č. 491/2001 Sb., o volbách do zastupitelstev obcí a o změně některých zákonů.",
+          "scopes": [
+            "zpravodaj_ov"
+          ]
+        },
+        {
+          "cislo": 181,
+          "title": "Návrh poslanců Matěje Ondřeje Havla, Zdeňky Blišťanové, Jana Jakoba,  Michala Kučery, Heleny Langšádlové, Jiřího Pospíšila, Vlastimila Válka, Michala Zuny a Marka Ženíška na vydání zákona, kterým se m",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 491/2001 Sb., o volbách do zastupitelstev obcí a o změně některých zákonů.",
+          "scopes": [
+            "zpravodaj_ov"
+          ]
+        },
+        {
+          "cislo": 190,
+          "title": "Senátní návrh zákona, kterým se mění zákon č. 88/2024 Sb., o správě voleb, ve znění pozdějších předpisů, a některé další volební zákony",
+          "stav": "KONEC",
+          "fate_sb": "108/2026",
+          "summary_cz": "Mění 4 předpisy — změna zákona o správě voleb, zákona o volbách do Parlamentu České republiky, zákona o volbě prezidenta republiky a další předpis.",
+          "scopes": [
+            "zpravodaj_ov"
+          ]
+        }
+      ],
+      "amendment_bills": [],
+      "spoke_on_bills": [
+        {
+          "cislo": 198,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 117/1995 Sb., o státní sociální podpoře, ve znění pozdějších předpisů",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 117/1995 Sb., o státní sociální podpoře.",
+          "turns": 3
+        },
+        {
+          "cislo": 67,
+          "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 22 předpisů — změna stavebního zákona, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o požární ochraně a 19 dalších předpisů.",
+          "turns": 1
+        },
+        {
+          "cislo": 131,
+          "title": "Senátní návrh zákona, kterým se mění zákon č. 491/2001 Sb., o volbách do zastupitelstev obcí a o změně některých zákonů, ve znění pozdějších předpisů",
+          "stav": "KONEC",
+          "fate_sb": "70/2026",
+          "summary_cz": "Mění zákon č. 491/2001 Sb., o volbách do zastupitelstev obcí a o změně některých zákonů.",
+          "turns": 1
+        },
+        {
+          "cislo": 190,
+          "title": "Senátní návrh zákona, kterým se mění zákon č. 88/2024 Sb., o správě voleb, ve znění pozdějších předpisů, a některé další volební zákony",
+          "stav": "KONEC",
+          "fate_sb": "108/2026",
+          "summary_cz": "Mění 4 předpisy — změna zákona o správě voleb, zákona o volbách do Parlamentu České republiky, zákona o volbě prezidenta republiky a další předpis.",
+          "turns": 1
+        }
+      ]
+    },
+    {
+      "id": "psp:person:7058",
+      "name": "Libor Vondráček",
+      "club": null,
+      "contribution_score": 85,
+      "bills_authored": 3,
+      "bills_first_signed": 0,
+      "bills_co_signed": 3,
+      "amendments_authored": 3,
+      "speech_turns": 27,
+      "effort_tenure_class": "full_term",
+      "current_effort_bill_focus": "Vondráček je spolupodepsaným (nikoli prvním předkladatelem) u všech tří tisků svého vzorku — první předkladatel je ve všech třech případech Radek Vondráček, odlišný poslanec téhož příjmení, ne Libor Vondráček (schema poznámka e). Tisk 76 (novela zákona o státních zaměstnancích) byl schválen ve 3. čtení 26. 6. 2026 a 21. 7. 2026 postoupen Senátu jako tisk 266/0. Tisk 77 (související novela) byl rovněž schválen (26. 6.–1. 7. 2026) a 21. 7. 2026 postoupen Senátu jako tisk 267/0. Tisk 87 (zákon o zemských znacích a vlajkách) je teprve na začátku cesty — organizační výbor doporučil postup 4. 3. 2026, garančním výborem je VVVMS.",
+      "current_effort_public_role": "Předsedou Stálé komise pro Ústavu ČR a parlamentní procedury; místopředsedou Výboru pro evropské záležitosti a Ústavně-právního výboru (3 role, odpovídá poskytnutému seznamu committees).",
+      "current_effort_notes": "Tři tisky, u kterých je veden jako signatář, odpovídají uváděnému počtu, ale u žádného není Vondráček prvním předkladatelem — jde o tři spolupodpisy. Údaj o předkladateli u všech tří zní 'Vondráček R. a další', což se na první pohled mohlo jevit jako jeho vlastní iniciativa, ale přímé ověření na psp.cz potvrdilo, že jde o Radka Vondráčka (jiného poslance), nikoli o Libora Vondráčka — jména se shodují jen příjmením, iniciála 'R.' neodpovídá jeho křestnímu jménu. Datová nesrovnalost: uváděný počet šesti výborů odpovídá jen třem doloženým položkám. Firemní vazby v datech nejsou žádné, bez peněžního zjištění k ověření.",
+      "current_effort_analyst_note": "Rozdíl mezi uváděným počtem výborů (6) a třemi doloženými položkami NENÍ chyba ingestu — je to limit extraktoru: pole committees se staví jen z přímých dětí sněmovny (extract-dossiers.ts/kg-compute.ts), zatímco výpočet committee_count zahrnuje i podvýbory a leadership_count i roli ověřovatel. Číselný ukazatel je typicky správný, vstupní seznam committees neúplný o podvýbory/ověřovatele; oprava patří do extract-dossiers.ts, ne do ingestu.",
+      "current_effort_work_themes": [
+        "ústavní právo a jednací řád Sněmovny",
+        "evropské záležitosti",
+        "státní zaměstnanci (služební zákon)"
+      ],
+      "first_signed_bills": [],
+      "co_signed_bills": [
+        {
+          "cislo": 76,
+          "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státníc",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státních zaměstnancích)."
+        },
+        {
+          "cislo": 77,
+          "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o právních poměrech státních zaměstnan",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 20 předpisů — změna zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o Státním fondu životního prostředí České republiky, zákona o sdružování v politických stranách a v politických…"
+        },
+        {
+          "cislo": 87,
+          "title": "Návrh poslance Radka Vondráčka na vydání zákona o zemských znacích a vlajkách",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": null
+        }
+      ],
+      "rapporteur_bills": [
+        {
+          "cislo": 47,
+          "title": "Senátní návrh ústavního zákona, kterým se mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů",
+          "stav": "3. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů.",
+          "scopes": [
+            "zpravodaj_dokumentu",
+            "zpravodaj_ps",
+            "zpravodaj_vyboru"
+          ]
+        },
+        {
+          "cislo": 72,
+          "title": "Návrh poslanců Radka Vondráčka, Andreje Babiše, Tomia Okamury, Petra Macinky, Marka Bendy, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednací",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny.",
+          "scopes": [
+            "zpravodaj_vyboru"
+          ]
+        },
+        {
+          "cislo": 135,
+          "title": "Návrh poslance Matěje Ondřeje Havla na vydání ústavního zákona, kterým se mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů.",
+          "scopes": [
+            "zpravodaj_ov"
+          ]
+        },
+        {
+          "cislo": 214,
+          "title": "Návrh poslanců Víta Rakušana, Karla Dvořáka, Pavly Pivoňka Vaňkové, Lukáše Vlčka a Ester Weimerové na vydání ústavního zákona, kterým se mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve zn",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů.",
+          "scopes": [
+            "zpravodaj_ov"
+          ]
+        }
+      ],
+      "amendment_bills": [
+        {
+          "cislo": 67,
+          "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 22 předpisů — změna stavebního zákona, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o požární ochraně a 19 dalších předpisů.",
+          "amendments": 2,
+          "sd_cislos": [
+            1264,
+            1359
+          ]
+        },
+        {
+          "cislo": 189,
+          "title": "Vládní návrh zákona o evidenci tržeb a o změně některých dalších zákonů",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 4 předpisy — změna zákona o daních z příjmů, zákona o dani z přidané hodnoty, zákona o Finanční správě České republiky a další předpis.",
+          "amendments": 1,
+          "sd_cislos": [
+            1569
+          ]
+        }
+      ],
+      "spoke_on_bills": [
+        {
+          "cislo": 47,
+          "title": "Senátní návrh ústavního zákona, kterým se mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů",
+          "stav": "3. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů.",
+          "turns": 8
+        },
+        {
+          "cislo": 72,
+          "title": "Návrh poslanců Radka Vondráčka, Andreje Babiše, Tomia Okamury, Petra Macinky, Marka Bendy, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednací",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny.",
+          "turns": 5
+        },
+        {
+          "cislo": 77,
+          "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o právních poměrech státních zaměstnan",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 20 předpisů — změna zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o Státním fondu životního prostředí České republiky, zákona o sdružování v politických stranách a v politických…",
+          "turns": 3
+        },
+        {
+          "cislo": 67,
+          "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 22 předpisů — změna stavebního zákona, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o požární ochraně a 19 dalších předpisů.",
+          "turns": 2
+        },
+        {
+          "cislo": 69,
+          "title": "Vládní návrh zákona o digitální ekonomice a o změně některých souvisejících zákonů",
+          "stav": "Garanční výbor",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o digitální ekonomice a o změně některých souvisejících zákonů.",
+          "turns": 2
+        },
+        {
+          "cislo": 82,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 175/2025 Sb., o poskytování některých opatření v podpoře bydlení (zákon o podpoře bydlení)",
+          "stav": "KONEC",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 175/2025 Sb., o poskytování některých opatření v podpoře bydlení (zákon o podpoře bydlení).",
+          "turns": 1
+        },
+        {
+          "cislo": 131,
+          "title": "Senátní návrh zákona, kterým se mění zákon č. 491/2001 Sb., o volbách do zastupitelstev obcí a o změně některých zákonů, ve znění pozdějších předpisů",
+          "stav": "KONEC",
+          "fate_sb": "70/2026",
+          "summary_cz": "Mění zákon č. 491/2001 Sb., o volbách do zastupitelstev obcí a o změně některých zákonů.",
+          "turns": 1
+        },
+        {
+          "cislo": 189,
+          "title": "Vládní návrh zákona o evidenci tržeb a o změně některých dalších zákonů",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 4 předpisy — změna zákona o daních z příjmů, zákona o dani z přidané hodnoty, zákona o Finanční správě České republiky a další předpis.",
+          "turns": 1
+        }
+      ]
+    },
+    {
+      "id": "psp:person:4",
+      "name": "Marek Benda",
+      "club": null,
+      "contribution_score": 71.1,
+      "bills_authored": 2,
+      "bills_first_signed": 0,
+      "bills_co_signed": 2,
+      "amendments_authored": 2,
+      "speech_turns": 51,
+      "effort_tenure_class": "full_term",
+      "current_effort_bill_focus": "Benda je spolupodepsaný (ne první předkladatel) u obou tisků: tisk 72 (novela jednacího řádu PS, vedl R. Vondráček, 18. 12. 2025) — jediný z obou přijatý tisk, schválen 1.–3. 7. 2026 a postoupen Senátu 21. 7. 2026; a tisk 261 (novela zákona o ochraně přírody a krajiny, vedl J. Bureš, 14. 7. 2026) — čerstvě podaný, čeká na vládní stanovisko do 16. 8. 2026.",
+      "current_effort_public_role": "Předsedou poslaneckého klubu ODS (od 8. 10. 2025); ve výborech je členem Organizačního výboru, Ústavně-právního výboru, Zahraničního výboru a obou stálých komisí pro kontrolu tajných služeb — NBÚ i ÚZSI (celkem 5 rolí).",
+      "current_effort_notes": "Zaznamenaná dvě spoluautorství odpovídají datům, ale u žádného není Benda první předkladatel. K jeho jménu jsou přiřazeny dva podnikatelské subjekty: (1) obecný záznam OSVČ (IČO 04627695) s nulovou smluvní částkou — po dalším ověření jde o firmu (mikro-stranu Agrární demokratická strana), která s Bendou nesouvisí; jde o potvrzeně mylné přiřazení, ne o skutečnou vazbu. (2) Společenství vlastníků jednotek Vlastislavova 605/20, Praha 4 (IČO 24227901, 3 133,9 Kč) — dle veřejných zdrojů jde pravděpodobně o SVJ domu, kde Benda bydlí, tedy jeho vlastní bytové společenství, ne obchodní vazba; přímé ověření ve veřejném rejstříku se nepodařilo dokončit, sekundární zdroje potvrzují jen typ subjektu (SVJ) a nulovou obchodní relevanci částky 3 134 Kč, ne jmenný seznam výboru — nelze tedy tvrdit nic nad rámec 'pravděpodobně vlastní bydliště'.",
+      "current_effort_analyst_note": "Mechanismus mylného přiřazení IČO 04627695: pole ARES `obchodniJmeno` u nesouvisející mikro-strany (Agrární demokratická strana) obsahuje doslovný řetězec „OSVČ\", což při přesném name-matchingu (funkce pickExactIco, lib/analysis/money-feed.ts) chybně spárovalo firmu s 49 poslanci popsanými v datech Hlídače jako „OSVČ\"; všech 49 nulových hran bylo smazáno jako potvrzené false-positive a uzel firmy byl také odstraněn.",
+      "current_effort_work_themes": [
+        "ústavní právo a jednací řád",
+        "zahraniční vztahy",
+        "kontrola tajných služeb (NBÚ, ÚZSI)",
+        "ochrana přírody"
+      ],
+      "first_signed_bills": [],
+      "co_signed_bills": [
+        {
+          "cislo": 72,
+          "title": "Návrh poslanců Radka Vondráčka, Andreje Babiše, Tomia Okamury, Petra Macinky, Marka Bendy, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednací",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny."
+        },
+        {
+          "cislo": 261,
+          "title": "Návrh poslanců Jana Bureše, Petra Bendla, Karla Haase, Marka Bendy, Ivana Adamce, Jakuba Jandy, Jana Bauera a Jany Bačíkové na vydání zákona, kterým se mění zákon č. 114/1992 Sb., o ochraně přírody a ",
+          "stav": "Vláda",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 114/1992 Sb., o ochraně přírody a krajiny Zákon ze dne ... 2026, kterým se mění zákon č. 114/1992 Sb., o ochraně přírody a krajiny."
+        }
+      ],
+      "rapporteur_bills": [
+        {
+          "cislo": 15,
+          "title": "Návrh poslanců Olgy Richterové, Ivana Bartoše a Kateřiny Stojanové na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny, ve znění pozdějších předpisů",
+          "stav": "1. čtení (§ 90, odst. 2) - ob. rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny.",
+          "scopes": [
+            "zpravodaj_ov"
+          ]
+        },
+        {
+          "cislo": 101,
+          "title": "Vládní návrh zákona o odčerpání majetku nevysvětleného původu",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o odčerpání majetku nevysvětleného původu.",
+          "scopes": [
+            "zpravodaj_ov"
+          ]
+        },
+        {
+          "cislo": 102,
+          "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o odčerpání majetku nevysvětleného původu",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 12 předpisů — změna trestního řádu, zákona o státním zastupitelství, zákona o majetku České republiky a jejím vystupování v právních vztazích a 9 dalších předpisů.",
+          "scopes": [
+            "zpravodaj_ov"
+          ]
+        }
+      ],
+      "amendment_bills": [
+        {
+          "cislo": 47,
+          "title": "Senátní návrh ústavního zákona, kterým se mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů",
+          "stav": "3. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů.",
+          "amendments": 2,
+          "sd_cislos": [
+            1046,
+            1089
+          ]
+        }
+      ],
+      "spoke_on_bills": [
+        {
+          "cislo": 47,
+          "title": "Senátní návrh ústavního zákona, kterým se mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů",
+          "stav": "3. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů.",
+          "turns": 5
+        },
+        {
+          "cislo": 72,
+          "title": "Návrh poslanců Radka Vondráčka, Andreje Babiše, Tomia Okamury, Petra Macinky, Marka Bendy, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednací",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny.",
+          "turns": 4
+        },
+        {
+          "cislo": 85,
+          "title": "Návrh poslance Aleše Juchelky na vydání zákona, kterým se mění zákon č. 110/2006 Sb., o životním a existenčním minimu, ve znění pozdějších předpisů, a další související zákony",
+          "stav": "KONEC",
+          "fate_sb": null,
+          "summary_cz": "Mění 3 předpisy — změna zákona o životním a existenčním minimu, zákona o sociálních službách, zákona č. 152/2025 Sb..",
+          "turns": 2
+        },
+        {
+          "cislo": 90,
+          "title": "Vládní návrh zákona, kterým se mění některé zákony v oblasti veřejných rozpočtů",
+          "stav": "Sněmovna (Prezident)",
+          "fate_sb": null,
+          "summary_cz": "Mění 9 předpisů — změna zákona o Nejvyšším kontrolním úřadu, rozpočtových pravidel, zákona o rozpočtovém určení daní a 6 dalších předpisů.",
+          "turns": 2
+        },
+        {
+          "cislo": 124,
+          "title": "Návrh poslance Aleše Juchelky na vydání zákona, kterým se mění zákon č. 117/1995 Sb., o státní sociální podpoře, ve znění pozdějších předpisů, a zákon č. 152/2025 Sb., kterým se mění některé zákony v ",
+          "stav": "KONEC",
+          "fate_sb": "93/2026",
+          "summary_cz": "Mění 2 předpisy — změna zákona o státní sociální podpoře, zákona č. 152/2025 Sb..",
+          "turns": 2
+        },
+        {
+          "cislo": 125,
+          "title": "Návrh poslanců Aleše Juchelky a Jany Pastuchové na vydání zákona, kterým se mění zákon č. 108/2006 Sb., o sociálních službách, ve znění pozdějších předpisů, zákon č. 329/2011 Sb., o poskytování dávek ",
+          "stav": "KONEC",
+          "fate_sb": "92/2026",
+          "summary_cz": "Mění 3 předpisy — změna zákona o sociálních službách, zákona o poskytování dávek osobám se zdravotním postižením, zákona o organizaci a provádění sociálního zabezpečení.",
+          "turns": 2
+        },
+        {
+          "cislo": 173,
+          "title": "Návrh poslanců Andreje Babiše, Tomia Okamury, Lucie Šafránkové, Petra Macinky, Borise Šťastného, Taťány Malé, Radima Fialy, Renaty Vesecké a Jany Hanzlíkové na vydání zákona, kterým se mění zákon č. 4",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 40/2009 Sb., trestní zákoník.",
+          "turns": 2
+        },
+        {
+          "cislo": 210,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 256/2004 Sb., o podnikání na kapitálovém trhu, ve znění pozdějších předpisů, a další související zákony v souvislosti s podporou vyváženého zastoupení žen ",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění 2 předpisy — změna zákona o podnikání na kapitálovém trhu, občanského soudního řádu.",
+          "turns": 2
+        },
+        {
+          "cislo": 67,
+          "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 22 předpisů — změna stavebního zákona, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o požární ochraně a 19 dalších předpisů.",
+          "turns": 1
+        },
+        {
+          "cislo": 131,
+          "title": "Senátní návrh zákona, kterým se mění zákon č. 491/2001 Sb., o volbách do zastupitelstev obcí a o změně některých zákonů, ve znění pozdějších předpisů",
+          "stav": "KONEC",
+          "fate_sb": "70/2026",
+          "summary_cz": "Mění zákon č. 491/2001 Sb., o volbách do zastupitelstev obcí a o změně některých zákonů.",
+          "turns": 1
+        },
+        {
+          "cislo": 174,
+          "title": "Návrh poslanců Lucie Šafránkové, Andreje Babiše, Tomia Okamury, Petra Macinky, Borise Šťastného, Taťány Malé, Radima Fialy, Renaty Vesecké a Jany Hanzlíkové na vydání zákona, kterým se mění zákon č. 2",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění 3 předpisy — změna zákona na ochranu zvířat proti týrání, zákona o Policii České republiky, občanského zákoníku.",
+          "turns": 1
+        },
+        {
+          "cislo": 187,
+          "title": "Návrh poslanců Huberta Langa, Igora Hendrycha, Jiřího Maška a Drahoslava Ryby na vydání zákona, kterým se mění některé zákony na úseku vnitřní správy",
+          "stav": "3. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 6 předpisů — změna zákona o poštovních službách, zákona o archivnictví a spisové službě, zákona o Sbírce zákonů a mezinárodních smluv a 3 další předpisy.",
+          "turns": 1
+        }
+      ]
+    },
+    {
+      "id": "psp:person:5273",
+      "name": "Jiří Pospíšil",
+      "club": null,
+      "contribution_score": 58.9,
+      "bills_authored": 1,
+      "bills_first_signed": 0,
+      "bills_co_signed": 1,
+      "amendments_authored": 3,
+      "speech_turns": 35,
+      "effort_tenure_class": "full_term",
+      "current_effort_bill_focus": "Pospíšil je spolupodepsaný — ne první předkladatel — u jediného tisku svého vzorku: tisk 181 (novela zákona o volbách do zastupitelstev obcí, vedl M. O. Havel a další, podán 4. 5. 2026) — vládní nesouhlas (3. 6. 2026), Organizační výbor doporučil postup týž den, k 25. 7. 2026 čeká na další projednávání (možné od 13. 6. 2026).",
+      "current_effort_public_role": "Pospíšil je členem Kontrolního výboru (KV), Ústavně-právního výboru (ÚPV) a Stálé komise pro Ústavu ČR a parlamentní procedury (SKÚPP) — celkem 3 role — dozorová a ústavně-právní agenda konzistentní s jeho dlouholetou kariérou bývalého ministra spravedlnosti.",
+      "current_effort_notes": "Pět firemních/institucionálních vazeb — ověřeno jak přímým dotazem do veřejného rejstříku, tak křížovou kontrolou s veřejnými mediálními zdroji. Výsledek: ze všech pěti vazeb je aktuální pouze jedna — Muzeum paměti XX. století, z.ú. (IČO 08694508), kde je Pospíšil znovu členem dozorčí rady od 9. 12. 2024. Zbylé čtyři jsou uzavřené kapitoly: Nadace Charty 77 (IČO 00417904) — člen statutárního orgánu 30. 10. 2015 – 15. 7. 2018 (jedno souvislé členství, třikrát přeregistrované, výmaz 22. 8. 2018), dnes mimo radu (aktuální předsedkyně Božena Jirků); Regionální rozvojová agentura Plzeňského kraje (IČO 25245091) — člen 2003–2009, uzavřeno přes 15 let; Nadace Věry a Vladimíra Janouškových (IČO 27149994) — předseda 2016–2017, člen v různých obdobích 2005–2021, poslední odvolání 6. 10. 2021; Museum Kampa - Nadace Jana a Medy Mládkových (IČO 49370499) — člen správní rady od 24. 11. 2011, předseda správní rady 3. 6. 2016 – 27. 5. 2023, kdy jej nahradil Filip Melzer. Důležité zjištění: dostupné mediální/stranické zdroje (TOP09.cz, X/@TOP09cz) stále prezentují Pospíšila jako 'dlouholetého předsedu' Museum Kampa v přítomném čase — to je zastaralé, veřejný rejstřík jasně dokládá konec funkce v květnu 2023. Smluvní částky u všech pěti položek (8,6M / 7,8M / 4,2M / 0,51M / 88,1M Kč) jsou veřejné smlouvy těchto neziskových institucí (nadace, muzeum, rozvojová agentura) — ne osobní příjem Pospíšila; jde o institucionální, ne osobní peněžní vazbu, a u čtyř z pěti navíc o vazbu historickou, nikoli současnou.",
+      "current_effort_analyst_note": null,
+      "current_effort_work_themes": [
+        "kontrola veřejné správy",
+        "ústavní právo a parlamentní procedura",
+        "kulturní a paměťové instituce (mimoparlamentní angažmá)"
+      ],
+      "first_signed_bills": [],
+      "co_signed_bills": [
+        {
+          "cislo": 181,
+          "title": "Návrh poslanců Matěje Ondřeje Havla, Zdeňky Blišťanové, Jana Jakoba,  Michala Kučery, Heleny Langšádlové, Jiřího Pospíšila, Vlastimila Válka, Michala Zuny a Marka Ženíška na vydání zákona, kterým se m",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 491/2001 Sb., o volbách do zastupitelstev obcí a o změně některých zákonů."
+        }
+      ],
+      "rapporteur_bills": [
+        {
+          "cislo": 52,
+          "title": "Vládní návrh zákona o určování provozoven a jmenování zástupců některých poskytovatelů služeb za účelem shromažďování elektronických důkazů v trestním řízení",
+          "stav": "Garanční výbor",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o určování provozoven a jmenování zástupců některých poskytovatelů služeb za účelem shromažďování elektronických důkazů v trestním řízení.",
+          "scopes": [
+            "zpravodaj_dokumentu",
+            "zpravodaj_ov",
+            "zpravodaj_vyboru"
+          ]
+        },
+        {
+          "cislo": 173,
+          "title": "Návrh poslanců Andreje Babiše, Tomia Okamury, Lucie Šafránkové, Petra Macinky, Borise Šťastného, Taťány Malé, Radima Fialy, Renaty Vesecké a Jany Hanzlíkové na vydání zákona, kterým se mění zákon č. 4",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 40/2009 Sb., trestní zákoník.",
+          "scopes": [
+            "zpravodaj_ov"
+          ]
+        },
+        {
+          "cislo": 216,
+          "title": "Návrh poslanců Taťány Malé, Andreje Babiše, Borise Šťastného a Tomia Okamury na vydání zákona, kterým se mění zákon č. 40/2009 Sb., trestní zákoník, ve znění pozdějších předpisů",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 40/2009 Sb., trestní zákoník.",
+          "scopes": [
+            "zpravodaj_ov"
+          ]
+        }
+      ],
+      "amendment_bills": [
+        {
+          "cislo": 48,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 326/2004 Sb., o rostlinolékařské péči a o změně některých souvisejících zákonů, ve znění pozdějších předpisů",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 326/2004 Sb., o rostlinolékařské péči a o změně některých souvisejících zákonů.",
+          "amendments": 2,
+          "sd_cislos": [
+            867,
+            1325
+          ]
+        },
+        {
+          "cislo": 52,
+          "title": "Vládní návrh zákona o určování provozoven a jmenování zástupců některých poskytovatelů služeb za účelem shromažďování elektronických důkazů v trestním řízení",
+          "stav": "Garanční výbor",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o určování provozoven a jmenování zástupců některých poskytovatelů služeb za účelem shromažďování elektronických důkazů v trestním řízení.",
+          "amendments": 1,
+          "sd_cislos": [
+            1273
+          ]
+        }
+      ],
+      "spoke_on_bills": [
+        {
+          "cislo": 52,
+          "title": "Vládní návrh zákona o určování provozoven a jmenování zástupců některých poskytovatelů služeb za účelem shromažďování elektronických důkazů v trestním řízení",
+          "stav": "Garanční výbor",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o určování provozoven a jmenování zástupců některých poskytovatelů služeb za účelem shromažďování elektronických důkazů v trestním řízení.",
+          "turns": 6
+        },
+        {
+          "cislo": 173,
+          "title": "Návrh poslanců Andreje Babiše, Tomia Okamury, Lucie Šafránkové, Petra Macinky, Borise Šťastného, Taťány Malé, Radima Fialy, Renaty Vesecké a Jany Hanzlíkové na vydání zákona, kterým se mění zákon č. 4",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 40/2009 Sb., trestní zákoník.",
+          "turns": 4
+        },
+        {
+          "cislo": 48,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 326/2004 Sb., o rostlinolékařské péči a o změně některých souvisejících zákonů, ve znění pozdějších předpisů",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 326/2004 Sb., o rostlinolékařské péči a o změně některých souvisejících zákonů.",
+          "turns": 3
+        },
+        {
+          "cislo": 46,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 104/2013 Sb., o mezinárodní justiční spolupráci ve věcech trestních, ve znění pozdějších předpisů",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 104/2013 Sb., o mezinárodní justiční spolupráci ve věcech trestních.",
+          "turns": 1
+        },
+        {
+          "cislo": 67,
+          "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 22 předpisů — změna stavebního zákona, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o požární ochraně a 19 dalších předpisů.",
+          "turns": 1
+        },
+        {
+          "cislo": 72,
+          "title": "Návrh poslanců Radka Vondráčka, Andreje Babiše, Tomia Okamury, Petra Macinky, Marka Bendy, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednací",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny.",
+          "turns": 1
+        },
+        {
+          "cislo": 76,
+          "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státníc",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státních zaměstnancích).",
+          "turns": 1
+        },
+        {
+          "cislo": 77,
+          "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o právních poměrech státních zaměstnan",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 20 předpisů — změna zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o Státním fondu životního prostředí České republiky, zákona o sdružování v politických stranách a v politických…",
+          "turns": 1
+        },
+        {
+          "cislo": 115,
+          "title": "Návrh poslanců Andreje Babiše, Taťány Malé, Radka Vondráčka, Heleny Válkové, Borise Šťastného a Radima Fialy na vydání zákona, kterým se mění zákon č. 40/2009 Sb., trestní zákoník, ve znění pozdějších",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění 2 předpisy — změna trestního zákoníku, zákon o obětech trestných činů.",
+          "turns": 1
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6205",
+      "name": "Marian Jurečka",
+      "club": null,
+      "contribution_score": 69,
+      "bills_authored": 6,
+      "bills_first_signed": 5,
+      "bills_co_signed": 1,
+      "amendments_authored": 40,
+      "speech_turns": 235,
+      "effort_tenure_class": "full_term",
+      "current_effort_bill_focus": "Jurečka je prvním předkladatelem 4 tisků klubové skupiny v sociální agendě, všechny k 24. 7. 2026 nepřijaté a všechny narazily na nesouhlas vlády: tisk 50 (důchodové pojištění, 5. 12. 2025, nesouhlas 17. 2. 2026), tisk 109 (nemocenské pojištění, 13. 2. 2026, nesouhlas 18.–19. 3. 2026), tisk 110 (pojistné na sociální zabezpečení, 13. 2. 2026, nesouhlas 18.–19. 3. 2026) a tisk 121 (daně z příjmů, 2. 3. 2026, nesouhlas 31. 3. 2026). Dále je spolupodepsán (ne první předkladatel) u tisku 89 (rozpočtová pravidla) a tisku 104 (školský zákon). Dvě zbývající položky mezi jeho tisky (tisk 54 a tisk 65, oba 'vládní' s předkladatelem 'min. práce a soc. věcí') jsou problematické — viz výše.",
+      "current_effort_public_role": "Bývalý ministr práce a sociálních věcí (do pádu vlády Fiala v souvislosti s volbami 2025); od 6. 5. 2026 je předsedou poslaneckého klubu KDU-ČSL v opozici. V aktuálním výborovém zařazení je členem Organizačního výboru a Výboru pro sociální politiku (celkem 2 role).",
+      "current_effort_notes": "Uváděných 6 sponzorovaných tisků odpovídá součtu 4 tisků klubové skupiny, kde je Jurečka uveden jako první předkladatel, plus 2 'vládní' tisky (54, 65) vedené 'min. práce a soc. věcí' — tyto dva ale pravděpodobně nejsou jeho vlastní: podle veřejných zdrojů je aktuálním ministrem práce a sociálních věcí Aleš Juchelka (vláda Babiš), zatímco Jurečka je od května 2026 předsedou opozičního klubu KDU-ČSL — jde tedy patrně o artefakt přiřazení podle garančního výboru, ne o skutečné autorství, a doporučujeme tuto dvojici položek přeřadit mimo 'autorské'. Peněžní vazba: (1) generický záznam OSVČ (IČO 04627695, 0 Kč) se dodatečně potvrdil jako firma nesouvisející s tímto poslancem — nejde o skutečnou vazbu; a (2) AGRO 2000 s.r.o. (IČO 25586521, Třebíč, 10 864 254,9 Kč) — Jurečka v této firmě v letech 2010–listopad 2013 pracoval jako vedoucí agrochemického úseku, tedy před nástupem do Sněmovny (2013); přímé ověření ve veřejném rejstříku se nepodařilo dokončit, použili jsme tedy sekundární zdroj (agregovaný výpis), podle kterého jsou aktuálními jednateli od 19. 11. 2024 Radek Kružík a Lubomír Krejčí — Jurečka mezi současnými statutárními orgány není. Nejde tedy o potvrzenou aktuální osobní vazbu, ale o historický zaměstnanecký vztah předcházející politické kariéře; kdo/co vygenerovalo 10,86 mil. Kč smluvní částku, se nepodařilo dohledat a doporučujeme ověřit přes Registr smluv.",
+      "current_effort_analyst_note": "Mechanismus mylného přiřazení IČO 04627695: pole ARES `obchodniJmeno` u nesouvisející mikro-strany (Agrární demokratická strana) obsahuje doslovný řetězec „OSVČ\", což při přesném name-matchingu (funkce pickExactIco, lib/analysis/money-feed.ts) chybně spárovalo firmu s 49 poslanci popsanými v datech Hlídače jako „OSVČ\"; všech 49 nulových hran bylo smazáno jako potvrzené false-positive a uzel firmy byl také odstraněn.",
+      "current_effort_work_themes": [
+        "sociální politika",
+        "důchody a pojistné",
+        "organizace Sněmovny"
+      ],
+      "first_signed_bills": [
+        {
+          "cislo": 54,
+          "title": "Vládní návrh zákona o správě dat, o řízeném přístupu k datům a o změně některých souvisejících zákonů (zákon o správě dat a o řízeném přístupu k datům)",
+          "stav": "KONEC",
+          "fate_sb": "60/2026",
+          "summary_cz": "Mění 4 předpisy — změna zákona o rejstříku trestů a evidenci přestupků, zákona o státní statistické službě, zákona o správních poplatcích a další předpis."
+        },
+        {
+          "cislo": 65,
+          "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti s úpravou vybraných agend v působnosti Digitální a informační agentury",
+          "stav": "KONEC",
+          "fate_sb": null,
+          "summary_cz": "Mění 11 předpisů — změna zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o bankách, zákona o svobodném přístupu k informacím a 8 dalších předpisů."
+        },
+        {
+          "cislo": 50,
+          "title": "Návrh poslanců Mariana Jurečky, Moniky Brzeskové, Toma Philippa, Marka Výborného a dalších na vydání zákona, kterým se mění zákon č. 155/1995 Sb., o důchodovém pojištění, ve znění pozdějších předpisů,",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 2 předpisy — změna zákona o důchodovém pojištění, zákona č. 417/2024 Sb., kterým se mění zákon č. 155/1995 Sb., o důchodovém pojištění, ve znění pozdějších předpisů, a další související zákony."
+        },
+        {
+          "cislo": 89,
+          "title": "Návrh poslanců Benjamina Činčily, Mariana Jurečky, Toma Philippa, Marka Výborného a dalších na vydání zákona, kterým se mění zákon č. 218/2000 Sb., o rozpočtových pravidlech, ve znění pozdějších předp",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. č. 218/2000 Sb., o rozpočtových pravidlech."
+        },
+        {
+          "cislo": 109,
+          "title": "Návrh poslanců Mariana Jurečky, Moniky Brzeskové, Toma Philippa, Benjamina Činčily a dalších na vydání zákona, kterým se mění zákon č. 187/2006 Sb., o nemocenském pojištění, ve znění pozdějších předpi",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 187/2006 Sb., o nemocenském pojištění."
+        },
+        {
+          "cislo": 110,
+          "title": "Návrh poslanců Mariana Jurečky, Moniky Brzeskové, Toma Philippa, Marka Výborného a dalších na vydání zákona, kterým se mění zákon č. 589/1992 Sb., o pojistném na sociální zabezpečení a příspěvku na st",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 589/1992 Sb., o pojistném na sociální zabezpečení a příspěvku na státní politiku zaměstnanosti."
+        },
+        {
+          "cislo": 121,
+          "title": "Návrh poslanců Mariana Jurečky, Moniky Brzeskové, Toma Philippa, Marka Výborného a dalších na vydání zákona, kterým se mění zákon č. 586/1992 Sb., o daních z příjmů, ve znění pozdějších předpisů, záko",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 3 předpisy — změna zákona o daních z příjmů, zákona o státní sociální podpoře, zákona o nemocenském pojištění."
+        }
+      ],
+      "co_signed_bills": [
+        {
+          "cislo": 104,
+          "title": "Návrh poslanců Václava Pláteníka, Jiřího Vojáčka, Mariana Jurečky, Benjamina Činčily, Marie Krškové, Jiřího Horáka a Moniky Brzeskové na vydání zákona, kterým se mění zákon č. 561/2004 Sb., o předškol",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 561/2004 Sb., o předškolním, základním, středním, vyšším odborném a jiném vzdělávání (školský zákon)."
+        }
+      ],
+      "rapporteur_bills": [],
+      "amendment_bills": [
+        {
+          "cislo": 67,
+          "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 22 předpisů — změna stavebního zákona, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o požární ochraně a 19 dalších předpisů.",
+          "amendments": 4,
+          "sd_cislos": [
+            1054,
+            1055,
+            1109,
+            1110
+          ]
+        },
+        {
+          "cislo": 72,
+          "title": "Návrh poslanců Radka Vondráčka, Andreje Babiše, Tomia Okamury, Petra Macinky, Marka Bendy, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednací",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny.",
+          "amendments": 3,
+          "sd_cislos": [
+            1157,
+            1158,
+            1159
+          ]
+        },
+        {
+          "cislo": 82,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 175/2025 Sb., o poskytování některých opatření v podpoře bydlení (zákon o podpoře bydlení)",
+          "stav": "KONEC",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 175/2025 Sb., o poskytování některých opatření v podpoře bydlení (zákon o podpoře bydlení).",
+          "amendments": 4,
+          "sd_cislos": [
+            861,
+            862,
+            863,
+            864
+          ]
+        },
+        {
+          "cislo": 90,
+          "title": "Vládní návrh zákona, kterým se mění některé zákony v oblasti veřejných rozpočtů",
+          "stav": "Sněmovna (Prezident)",
+          "fate_sb": null,
+          "summary_cz": "Mění 9 předpisů — změna zákona o Nejvyšším kontrolním úřadu, rozpočtových pravidel, zákona o rozpočtovém určení daní a 6 dalších předpisů.",
+          "amendments": 2,
+          "sd_cislos": [
+            857,
+            859
+          ]
+        },
+        {
+          "cislo": 116,
+          "title": "Návrh poslanců Zuzany Ožanové, Patrika Pařila a Renaty Vesecké na vydání zákona, kterým se zrušuje zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou úča",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Ruší zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou účastí státu (nominační zákon).",
+          "amendments": 3,
+          "sd_cislos": [
+            1445,
+            1446,
+            1447
+          ]
+        },
+        {
+          "cislo": 125,
+          "title": "Návrh poslanců Aleše Juchelky a Jany Pastuchové na vydání zákona, kterým se mění zákon č. 108/2006 Sb., o sociálních službách, ve znění pozdějších předpisů, zákon č. 329/2011 Sb., o poskytování dávek ",
+          "stav": "KONEC",
+          "fate_sb": "92/2026",
+          "summary_cz": "Mění 3 předpisy — změna zákona o sociálních službách, zákona o poskytování dávek osobám se zdravotním postižením, zákona o organizaci a provádění sociálního zabezpečení.",
+          "amendments": 5,
+          "sd_cislos": [
+            1033,
+            1034,
+            1035,
+            1036,
+            1039
+          ]
+        },
+        {
+          "cislo": 145,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 257/2016 Sb., o spotřebitelském úvěru, ve znění pozdějších předpisů, a další související zákony",
+          "stav": "3. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 6 předpisů — změna zákona o spotřebitelském úvěru, zákona o vysokých školách, zákona o pojišťovnictví a 3 další předpisy.",
+          "amendments": 5,
+          "sd_cislos": [
+            1452,
+            1453,
+            1454,
+            1455,
+            1456
+          ]
+        },
+        {
+          "cislo": 163,
+          "title": "Vládní návrh zákona o regulaci cen pohonných hmot vládou a o změně zákona č. 526/1990 Sb., o cenách, ve znění pozdějších předpisů",
+          "stav": "KONEC",
+          "fate_sb": "63/2026",
+          "summary_cz": "Nový zákon o regulaci cen pohonných hmot vládou a o změně zákona č. 526/1990 Sb., o cenách, ve znění pozdějších předpisů.",
+          "amendments": 4,
+          "sd_cislos": [
+            814,
+            815,
+            817,
+            818
+          ]
+        },
+        {
+          "cislo": 189,
+          "title": "Vládní návrh zákona o evidenci tržeb a o změně některých dalších zákonů",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 4 předpisy — změna zákona o daních z příjmů, zákona o dani z přidané hodnoty, zákona o Finanční správě České republiky a další předpis.",
+          "amendments": 4,
+          "sd_cislos": [
+            1531,
+            1533,
+            1564,
+            1565
+          ]
+        },
+        {
+          "cislo": 198,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 117/1995 Sb., o státní sociální podpoře, ve znění pozdějších předpisů",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 117/1995 Sb., o státní sociální podpoře.",
+          "amendments": 6,
+          "sd_cislos": [
+            1327,
+            1328,
+            1329,
+            1330,
+            1331,
+            1332
+          ]
+        }
+      ],
+      "spoke_on_bills": [
+        {
+          "cislo": 11,
+          "title": "Návrh poslanců Aleny Schillerové, Andreje Babiše, Tomia Okamury, Petra Macinky, Aleše Juchelky, Karla Havlíčka, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 5",
+          "stav": "KONEC",
+          "fate_sb": "90/2026",
+          "summary_cz": "Mění zákon č. 589/1992 Sb., o pojistném na sociální zabezpečení a příspěvku na státní politiku zaměstnanosti.",
+          "turns": 23
+        },
+        {
+          "cislo": 90,
+          "title": "Vládní návrh zákona, kterým se mění některé zákony v oblasti veřejných rozpočtů",
+          "stav": "Sněmovna (Prezident)",
+          "fate_sb": null,
+          "summary_cz": "Mění 9 předpisů — změna zákona o Nejvyšším kontrolním úřadu, rozpočtových pravidel, zákona o rozpočtovém určení daní a 6 dalších předpisů.",
+          "turns": 16
+        },
+        {
+          "cislo": 77,
+          "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o právních poměrech státních zaměstnan",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 20 předpisů — změna zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o Státním fondu životního prostředí České republiky, zákona o sdružování v politických stranách a v politických…",
+          "turns": 9
+        },
+        {
+          "cislo": 82,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 175/2025 Sb., o poskytování některých opatření v podpoře bydlení (zákon o podpoře bydlení)",
+          "stav": "KONEC",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 175/2025 Sb., o poskytování některých opatření v podpoře bydlení (zákon o podpoře bydlení).",
+          "turns": 9
+        },
+        {
+          "cislo": 72,
+          "title": "Návrh poslanců Radka Vondráčka, Andreje Babiše, Tomia Okamury, Petra Macinky, Marka Bendy, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednací",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny.",
+          "turns": 7
+        },
+        {
+          "cislo": 76,
+          "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státníc",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státních zaměstnancích).",
+          "turns": 7
+        },
+        {
+          "cislo": 125,
+          "title": "Návrh poslanců Aleše Juchelky a Jany Pastuchové na vydání zákona, kterým se mění zákon č. 108/2006 Sb., o sociálních službách, ve znění pozdějších předpisů, zákon č. 329/2011 Sb., o poskytování dávek ",
+          "stav": "KONEC",
+          "fate_sb": "92/2026",
+          "summary_cz": "Mění 3 předpisy — změna zákona o sociálních službách, zákona o poskytování dávek osobám se zdravotním postižením, zákona o organizaci a provádění sociálního zabezpečení.",
+          "turns": 6
+        },
+        {
+          "cislo": 198,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 117/1995 Sb., o státní sociální podpoře, ve znění pozdějších předpisů",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 117/1995 Sb., o státní sociální podpoře.",
+          "turns": 6
+        },
+        {
+          "cislo": 163,
+          "title": "Vládní návrh zákona o regulaci cen pohonných hmot vládou a o změně zákona č. 526/1990 Sb., o cenách, ve znění pozdějších předpisů",
+          "stav": "KONEC",
+          "fate_sb": "63/2026",
+          "summary_cz": "Nový zákon o regulaci cen pohonných hmot vládou a o změně zákona č. 526/1990 Sb., o cenách, ve znění pozdějších předpisů.",
+          "turns": 5
+        },
+        {
+          "cislo": 67,
+          "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 22 předpisů — změna stavebního zákona, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o požární ochraně a 19 dalších předpisů.",
+          "turns": 4
+        },
+        {
+          "cislo": 189,
+          "title": "Vládní návrh zákona o evidenci tržeb a o změně některých dalších zákonů",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 4 předpisy — změna zákona o daních z příjmů, zákona o dani z přidané hodnoty, zákona o Finanční správě České republiky a další předpis.",
+          "turns": 4
+        },
+        {
+          "cislo": 47,
+          "title": "Senátní návrh ústavního zákona, kterým se mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů",
+          "stav": "3. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů.",
+          "turns": 3
+        },
+        {
+          "cislo": 69,
+          "title": "Vládní návrh zákona o digitální ekonomice a o změně některých souvisejících zákonů",
+          "stav": "Garanční výbor",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o digitální ekonomice a o změně některých souvisejících zákonů.",
+          "turns": 3
+        },
+        {
+          "cislo": 124,
+          "title": "Návrh poslance Aleše Juchelky na vydání zákona, kterým se mění zákon č. 117/1995 Sb., o státní sociální podpoře, ve znění pozdějších předpisů, a zákon č. 152/2025 Sb., kterým se mění některé zákony v ",
+          "stav": "KONEC",
+          "fate_sb": "93/2026",
+          "summary_cz": "Mění 2 předpisy — změna zákona o státní sociální podpoře, zákona č. 152/2025 Sb..",
+          "turns": 3
+        },
+        {
+          "cislo": 48,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 326/2004 Sb., o rostlinolékařské péči a o změně některých souvisejících zákonů, ve znění pozdějších předpisů",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 326/2004 Sb., o rostlinolékařské péči a o změně některých souvisejících zákonů.",
+          "turns": 2
+        },
+        {
+          "cislo": 85,
+          "title": "Návrh poslance Aleše Juchelky na vydání zákona, kterým se mění zákon č. 110/2006 Sb., o životním a existenčním minimu, ve znění pozdějších předpisů, a další související zákony",
+          "stav": "KONEC",
+          "fate_sb": null,
+          "summary_cz": "Mění 3 předpisy — změna zákona o životním a existenčním minimu, zákona o sociálních službách, zákona č. 152/2025 Sb..",
+          "turns": 2
+        },
+        {
+          "cislo": 115,
+          "title": "Návrh poslanců Andreje Babiše, Taťány Malé, Radka Vondráčka, Heleny Válkové, Borise Šťastného a Radima Fialy na vydání zákona, kterým se mění zákon č. 40/2009 Sb., trestní zákoník, ve znění pozdějších",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění 2 předpisy — změna trestního zákoníku, zákon o obětech trestných činů.",
+          "turns": 2
+        },
+        {
+          "cislo": 145,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 257/2016 Sb., o spotřebitelském úvěru, ve znění pozdějších předpisů, a další související zákony",
+          "stav": "3. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 6 předpisů — změna zákona o spotřebitelském úvěru, zákona o vysokých školách, zákona o pojišťovnictví a 3 další předpisy.",
+          "turns": 2
+        },
+        {
+          "cislo": 187,
+          "title": "Návrh poslanců Huberta Langa, Igora Hendrycha, Jiřího Maška a Drahoslava Ryby na vydání zákona, kterým se mění některé zákony na úseku vnitřní správy",
+          "stav": "3. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 6 předpisů — změna zákona o poštovních službách, zákona o archivnictví a spisové službě, zákona o Sbírce zákonů a mezinárodních smluv a 3 další předpisy.",
+          "turns": 2
+        },
+        {
+          "cislo": 54,
+          "title": "Vládní návrh zákona o správě dat, o řízeném přístupu k datům a o změně některých souvisejících zákonů (zákon o správě dat a o řízeném přístupu k datům)",
+          "stav": "KONEC",
+          "fate_sb": "60/2026",
+          "summary_cz": "Mění 4 předpisy — změna zákona o rejstříku trestů a evidenci přestupků, zákona o státní statistické službě, zákona o správních poplatcích a další předpis.",
+          "turns": 1
+        },
+        {
+          "cislo": 88,
+          "title": "Návrh poslance Aleše Juchelky na vydání zákona, kterým se mění zákon č. 151/2025 Sb., o dávce státní sociální pomoci, ve znění zákona č. 360/2025 Sb., zákon č. 110/2006 Sb., o životním a existenčním m",
+          "stav": "KONEC",
+          "fate_sb": "35/2026",
+          "summary_cz": "Mění 4 předpisy — změna zákona o dávce státní sociální pomoci, zákona o životním a existenčním minimu, zákona o sociálních službách a další předpis.",
+          "turns": 1
+        },
+        {
+          "cislo": 116,
+          "title": "Návrh poslanců Zuzany Ožanové, Patrika Pařila a Renaty Vesecké na vydání zákona, kterým se zrušuje zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou úča",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Ruší zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou účastí státu (nominační zákon).",
+          "turns": 1
+        },
+        {
+          "cislo": 222,
+          "title": "Vládní návrh zákona o působnosti orgánů státu při řešení mimořádných situací na vnitřním trhu a o změně zákona č. 134/2016 Sb., o zadávání veřejných zakázek, ve znění pozdějších předpisů",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o působnosti orgánů státu při řešení mimořádných situací na vnitřním trhu a o změně zákona č. 134/2016 Sb., o zadávání veřejných zakázek, ve znění pozdějších předpisů.",
+          "turns": 1
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6751",
+      "name": "Karel Haas",
+      "club": null,
+      "contribution_score": 96.8,
+      "bills_authored": 5,
+      "bills_first_signed": 1,
+      "bills_co_signed": 4,
+      "amendments_authored": 22,
+      "speech_turns": 114,
+      "effort_tenure_class": "full_term",
+      "current_effort_bill_focus": "5 spolupodepsaných tisků (72, 103, 129, 208, 261); garanční role přes ÚPV u tisku 72 (schválen, v Senátu)",
+      "current_effort_public_role": "Místopředseda ústavně-právního výboru (ÚPV); člen MIV a dvou stálých komisí",
+      "current_effort_notes": "Nikdy první předkladatel u svých 5 tisků — skóre odráží šíři spolupodpisů skupinové legislativy ODS, ne osobní autorství.",
+      "current_effort_analyst_note": null,
+      "current_effort_work_themes": [
+        "ústavní a procesní právo",
+        "veřejná správa a e-government",
+        "ochrana přírody a krajiny",
+        "zdraví a návykové látky",
+        "obchod a podnikání"
+      ],
+      "first_signed_bills": [
+        {
+          "cislo": 72,
+          "title": "Návrh poslanců Radka Vondráčka, Andreje Babiše, Tomia Okamury, Petra Macinky, Marka Bendy, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednací",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny."
+        }
+      ],
+      "co_signed_bills": [
+        {
+          "cislo": 103,
+          "title": "Návrh poslanců Jana Bureše, Karla Haase, Renáty Zajíčkové, Štěpána Slováka, Petra Sokola, Jany Černochové, Libora Hoppe, Jakuba Jandy, Petra Bendla a Jana Skopečka na vydání zákona, kterým se mění zák",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 6 předpisů — změna zákona o elektronických úkonech a autorizované konverzi dokumentů, zákona o státní sociální podpoře, zákona o důchodovém pojištění a 3 další předpisy."
+        },
+        {
+          "cislo": 129,
+          "title": "Návrh poslanců Jana Bureše, Martina Baxy, Karla Haase, Renáty Zajíčkové, Štěpána Slováka, Petra Sokola, Jany Černochové, Libora Hoppe, Jakuba Jandy, Petra Bendla a Jana Skopečka na vydání zákona, kter",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Ruší zákon č. 223/2016 Sb., o prodejní době v maloobchodě, a další související právní předpisy."
+        },
+        {
+          "cislo": 208,
+          "title": "Návrh poslanců Štěpána Slováka, Martina Kupky, Karla Haase, Renáty Zajíčkové, Zdenky Němečkové Crkvenjaš, Petra Sokola, Lucie Bartošové, Martina Baxy a Petra Bendla na vydání zákona, kterým se mění zá",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 65/2017 Sb., zákon o ochraně zdraví před škodlivými účinky návykových látek."
+        },
+        {
+          "cislo": 261,
+          "title": "Návrh poslanců Jana Bureše, Petra Bendla, Karla Haase, Marka Bendy, Ivana Adamce, Jakuba Jandy, Jana Bauera a Jany Bačíkové na vydání zákona, kterým se mění zákon č. 114/1992 Sb., o ochraně přírody a ",
+          "stav": "Vláda",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 114/1992 Sb., o ochraně přírody a krajiny Zákon ze dne ... 2026, kterým se mění zákon č. 114/1992 Sb., o ochraně přírody a krajiny."
+        }
+      ],
+      "rapporteur_bills": [
+        {
+          "cislo": 76,
+          "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státníc",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státních zaměstnancích).",
+          "scopes": [
+            "zpravodaj_dokumentu",
+            "zpravodaj_ov",
+            "zpravodaj_vyboru"
+          ]
+        },
+        {
+          "cislo": 77,
+          "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o právních poměrech státních zaměstnan",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 20 předpisů — změna zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o Státním fondu životního prostředí České republiky, zákona o sdružování v politických stranách a v politických…",
+          "scopes": [
+            "zpravodaj_dokumentu",
+            "zpravodaj_ov",
+            "zpravodaj_vyboru"
+          ]
+        }
+      ],
+      "amendment_bills": [
+        {
+          "cislo": 67,
+          "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 22 předpisů — změna stavebního zákona, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o požární ochraně a 19 dalších předpisů.",
+          "amendments": 17,
+          "sd_cislos": [
+            1224,
+            1225,
+            1226,
+            1228,
+            1229,
+            1230,
+            1231,
+            1232,
+            1233,
+            1234,
+            1235,
+            1249,
+            1250,
+            1270,
+            1352,
+            1353,
+            1354
+          ]
+        },
+        {
+          "cislo": 90,
+          "title": "Vládní návrh zákona, kterým se mění některé zákony v oblasti veřejných rozpočtů",
+          "stav": "Sněmovna (Prezident)",
+          "fate_sb": null,
+          "summary_cz": "Mění 9 předpisů — změna zákona o Nejvyšším kontrolním úřadu, rozpočtových pravidel, zákona o rozpočtovém určení daní a 6 dalších předpisů.",
+          "amendments": 2,
+          "sd_cislos": [
+            836,
+            837
+          ]
+        },
+        {
+          "cislo": 145,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 257/2016 Sb., o spotřebitelském úvěru, ve znění pozdějších předpisů, a další související zákony",
+          "stav": "3. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 6 předpisů — změna zákona o spotřebitelském úvěru, zákona o vysokých školách, zákona o pojišťovnictví a 3 další předpisy.",
+          "amendments": 3,
+          "sd_cislos": [
+            1168,
+            1251,
+            1261
+          ]
+        }
+      ],
+      "spoke_on_bills": [
+        {
+          "cislo": 77,
+          "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o právních poměrech státních zaměstnan",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 20 předpisů — změna zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o Státním fondu životního prostředí České republiky, zákona o sdružování v politických stranách a v politických…",
+          "turns": 20
+        },
+        {
+          "cislo": 67,
+          "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 22 předpisů — změna stavebního zákona, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o požární ochraně a 19 dalších předpisů.",
+          "turns": 6
+        },
+        {
+          "cislo": 90,
+          "title": "Vládní návrh zákona, kterým se mění některé zákony v oblasti veřejných rozpočtů",
+          "stav": "Sněmovna (Prezident)",
+          "fate_sb": null,
+          "summary_cz": "Mění 9 předpisů — změna zákona o Nejvyšším kontrolním úřadu, rozpočtových pravidel, zákona o rozpočtovém určení daní a 6 dalších předpisů.",
+          "turns": 6
+        },
+        {
+          "cislo": 69,
+          "title": "Vládní návrh zákona o digitální ekonomice a o změně některých souvisejících zákonů",
+          "stav": "Garanční výbor",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o digitální ekonomice a o změně některých souvisejících zákonů.",
+          "turns": 5
+        },
+        {
+          "cislo": 76,
+          "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státníc",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státních zaměstnancích).",
+          "turns": 4
+        },
+        {
+          "cislo": 163,
+          "title": "Vládní návrh zákona o regulaci cen pohonných hmot vládou a o změně zákona č. 526/1990 Sb., o cenách, ve znění pozdějších předpisů",
+          "stav": "KONEC",
+          "fate_sb": "63/2026",
+          "summary_cz": "Nový zákon o regulaci cen pohonných hmot vládou a o změně zákona č. 526/1990 Sb., o cenách, ve znění pozdějších předpisů.",
+          "turns": 3
+        },
+        {
+          "cislo": 13,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 240/2013 Sb., o investičních společnostech a investičních fondech, ve znění pozdějších předpisů, a další související zákony",
+          "stav": "KONEC",
+          "fate_sb": null,
+          "summary_cz": "Mění 5 předpisů — změna zákona o investičních společnostech a investičních fondech, zákona o dohledu v oblasti kapitálového trhu, zákona o podnikání na kapitálovém trhu a 2 další předpisy.",
+          "turns": 2
+        },
+        {
+          "cislo": 72,
+          "title": "Návrh poslanců Radka Vondráčka, Andreje Babiše, Tomia Okamury, Petra Macinky, Marka Bendy, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednací",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny.",
+          "turns": 2
+        },
+        {
+          "cislo": 145,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 257/2016 Sb., o spotřebitelském úvěru, ve znění pozdějších předpisů, a další související zákony",
+          "stav": "3. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 6 předpisů — změna zákona o spotřebitelském úvěru, zákona o vysokých školách, zákona o pojišťovnictví a 3 další předpisy.",
+          "turns": 2
+        },
+        {
+          "cislo": 189,
+          "title": "Vládní návrh zákona o evidenci tržeb a o změně některých dalších zákonů",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 4 předpisy — změna zákona o daních z příjmů, zákona o dani z přidané hodnoty, zákona o Finanční správě České republiky a další předpis.",
+          "turns": 2
+        },
+        {
+          "cislo": 11,
+          "title": "Návrh poslanců Aleny Schillerové, Andreje Babiše, Tomia Okamury, Petra Macinky, Aleše Juchelky, Karla Havlíčka, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 5",
+          "stav": "KONEC",
+          "fate_sb": "90/2026",
+          "summary_cz": "Mění zákon č. 589/1992 Sb., o pojistném na sociální zabezpečení a příspěvku na státní politiku zaměstnanosti.",
+          "turns": 1
+        },
+        {
+          "cislo": 16,
+          "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti se smlouvami o finančních službách uzavíranými na dálku",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 11 předpisů — změna zákona o ochraně spotřebitele, zákona o České národní bance, zákona o podnikání na kapitálovém trhu a 8 dalších předpisů.",
+          "turns": 1
+        },
+        {
+          "cislo": 82,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 175/2025 Sb., o poskytování některých opatření v podpoře bydlení (zákon o podpoře bydlení)",
+          "stav": "KONEC",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 175/2025 Sb., o poskytování některých opatření v podpoře bydlení (zákon o podpoře bydlení).",
+          "turns": 1
+        },
+        {
+          "cislo": 83,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 361/2000 Sb., o provozu na pozemních komunikacích a o změnách některých zákonů (zákon o silničním provozu), ve znění pozdějších předpisů, a další souvisejí",
+          "stav": "Garanční výbor",
+          "fate_sb": null,
+          "summary_cz": "Mění 6 předpisů — změna zákona o silničním provozu, zákona o silniční dopravě, zákona o dráhách a 3 další předpisy.",
+          "turns": 1
+        },
+        {
+          "cislo": 173,
+          "title": "Návrh poslanců Andreje Babiše, Tomia Okamury, Lucie Šafránkové, Petra Macinky, Borise Šťastného, Taťány Malé, Radima Fialy, Renaty Vesecké a Jany Hanzlíkové na vydání zákona, kterým se mění zákon č. 4",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 40/2009 Sb., trestní zákoník.",
+          "turns": 1
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6473",
+      "name": "Olga Richterová",
+      "club": null,
+      "contribution_score": 84.2,
+      "bills_authored": 9,
+      "bills_first_signed": 5,
+      "bills_co_signed": 4,
+      "amendments_authored": 19,
+      "speech_turns": 334,
+      "effort_tenure_class": "full_term",
+      "current_effort_bill_focus": "Richterová je prvním předkladatelem 5 z 9 tisků svého vzorku: tisk 4 (daně z příjmů, s I. Bartošem, podán 15. 10. 2025, nesouhlas vlády 4. 12. 2025, čeká), tisk 15 (jednací řád PS, s Bartošem a K. Stojanovou, podán 10. 11. 2025, nesouhlas vlády 12. 12. 2025, čeká), tisk 71 (doplňkové penzijní spoření, neutrální stanovisko vlády, čeká), tisk 86 (další novela penzijního spoření, nesouhlas vlády, čeká) a tisk 168 (DPH, nesouhlas vlády, čeká) — u posledních tří je spolupodepsaná i Ančincová a Španihelová z tohoto vzorku. Zbylé 4 tisky (5, 6, 7, 156) vede jako druhá v pořadí za I. Bartošem nebo Z. Hříbem — jde tedy o spolupodpisy (schema poznámka e). Žádný z jejích 9 tisků k 25. 7. 2026 dosud neprošel.",
+      "current_effort_public_role": "Předsedkyní poslaneckého klubu Piráti od 5. 10. 2025 — nikoli předsedkyní celé strany (tou je od podzimu 2025 Zdeněk Hřib); je jednou z místopředsedkyň vedení strany. Ve Sněmovně je členkou Kontrolního výboru, Organizačního výboru a Výboru pro veřejnou správu a regionální rozvoj (tři role, přesně odpovídá doloženému seznamu).",
+      "current_effort_notes": "Devět tisků odpovídá přesně evidenci, s korektním rozlišením 5 vlastních vs. 4 spolupodepsaných tisků podle údaje o předkladateli. Počet výborů souhlasí bezezbytku s doloženým seznamem — bez datové nesrovnalosti, na rozdíl od jiných poslanců v této skupině. Skóre přínosu je mezi obdobími prakticky stabilní (předchozí období: 85,4 → aktuální: 84,2, pokles jen 1,2 bodu) — jde o čistý, konzistentní výkon bez exekutivních nebo tenure artefaktů. Žádná firemní vazba v datech, žádné peněžní zjištění k ověření.",
+      "current_effort_analyst_note": "Shoda mezi uváděným počtem výborů a doloženým seznamem u tohoto poslance neznamená, že extraktor (extract-dossiers.ts) je obecně spolehlivý — tato poslankyně prostě nesedí v žádném podvýboru ani nemá roli ověřovatel, takže se známý limit extraktoru (viz jinde v této dávce) na jejím profilu neprojevil, ne že by neexistoval.",
+      "current_effort_work_themes": [
+        "kontrola a veřejná správa",
+        "penzijní spoření a DPH",
+        "ústavní/procedurální agenda (jednací řád)"
+      ],
+      "first_signed_bills": [
+        {
+          "cislo": 4,
+          "title": "Návrh poslanců Olgy Richterové a Ivana Bartoše na vydání zákona, kterým se mění zákon č. 586/1992 Sb., o daních z příjmů, ve znění pozdějších předpisů, a další související zákony",
+          "stav": "1. čtení (§ 90, odst. 2) - ob. rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění 4 předpisy — změna zákona o daních z příjmů, zákona o státní sociální podpoře, zákona o spotřebních daních a další předpis."
+        },
+        {
+          "cislo": 15,
+          "title": "Návrh poslanců Olgy Richterové, Ivana Bartoše a Kateřiny Stojanové na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny, ve znění pozdějších předpisů",
+          "stav": "1. čtení (§ 90, odst. 2) - ob. rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny."
+        },
+        {
+          "cislo": 71,
+          "title": "Návrh poslanců Olgy Richterové, Ivana Bartoše, Hany Ančincové, Barbory Pipášové, Lenky Martínkové Španihelové, Martina Šmídy a Samuela Volpeho na vydání zákona, kterým se mění zákon č. 427/2011 Sb., o",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 427/2011 Sb., o doplňkovém penzijním spoření."
+        },
+        {
+          "cislo": 86,
+          "title": "Návrh poslanců Olgy Richterové, Ivana Bartoše, Hany Ančincové, Barbory Pipášové, Lenky Martínkové Španihelové, Martina Šmídy a Samuela Volpeho na vydání zákona, kterým se mění zákon č. 427/2011 Sb., o",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 427/2011 Sb., o doplňkovém penzijním spoření."
+        },
+        {
+          "cislo": 168,
+          "title": "Návrh poslanců Olgy Richterové, Ivana Bartoše, Zdeňka Hřiba, Gabriely Svárovské, Venduly Svobodové, Ireny Ferčíkové Konečné, Lenky Martínkové Španihelové, Kateřiny Stojanové, Hany Ančincové, Barbory P",
+          "stav": "1. čtení (§ 90, odst. 2) - ob. rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 235/2004 Sb., o dani z přidané hodnoty."
+        }
+      ],
+      "co_signed_bills": [
+        {
+          "cislo": 5,
+          "title": "Návrh poslanců Ivana Bartoše a Olgy Richterové na vydání zákona, kterým se mění zákon č. 143/2001 Sb., o ochraně hospodářské soutěže a o změně některých zákonů (zákon o ochraně hospodářské soutěže), v",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 2 předpisy — změna zákona o ochraně hospodářské soutěže, zákona o ozdravných postupech a řešení krize na finančním trhu."
+        },
+        {
+          "cislo": 6,
+          "title": "Návrh poslanců Ivana Bartoše a Olgy Richterové na vydání zákona o Úřadu pro prevenci korupce a střetu zájmů",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o Úřadu pro prevenci korupce a střetu zájmů."
+        },
+        {
+          "cislo": 7,
+          "title": "Návrh poslanců Ivana Bartoše a Olgy Richterové na vydání zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o Úřadu pro prevenci korupce a střetu zájmů",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 20 předpisů — změna trestního řádu, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o sdružování v politických stranách a v politických hnutích a 17 dalších předpisů."
+        },
+        {
+          "cislo": 49,
+          "title": "Návrh poslanců Zdeňka Hřiba, Olgy Richterové a Kateriny Demetrashvili na vydání zákona, kterým se mění zákon č. 100/2001 Sb., o posuzování vlivů na životní prostředí a o změně některých souvisejících ",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 100/2001 Sb., o posuzování vlivů na životní prostředí a o změně některých souvisejících zákonů (zákon o posuzování vlivů na životní prostředí)."
+        }
+      ],
+      "rapporteur_bills": [],
+      "amendment_bills": [
+        {
+          "cislo": 67,
+          "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 22 předpisů — změna stavebního zákona, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o požární ochraně a 19 dalších předpisů.",
+          "amendments": 2,
+          "sd_cislos": [
+            1211,
+            1212
+          ]
+        },
+        {
+          "cislo": 72,
+          "title": "Návrh poslanců Radka Vondráčka, Andreje Babiše, Tomia Okamury, Petra Macinky, Marka Bendy, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednací",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny.",
+          "amendments": 1,
+          "sd_cislos": [
+            291
+          ]
+        },
+        {
+          "cislo": 82,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 175/2025 Sb., o poskytování některých opatření v podpoře bydlení (zákon o podpoře bydlení)",
+          "stav": "KONEC",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 175/2025 Sb., o poskytování některých opatření v podpoře bydlení (zákon o podpoře bydlení).",
+          "amendments": 7,
+          "sd_cislos": [
+            767,
+            769,
+            770,
+            783,
+            784,
+            855,
+            858
+          ]
+        },
+        {
+          "cislo": 119,
+          "title": "Návrh poslanců Aleny Schillerové, Patrika Nachera, Borise Šťastného, Tomia Okamury a Taťány Malé na vydání zákona, kterým se mění zákon č. 427/2011 Sb., o doplňkovém penzijním spoření, ve znění pozděj",
+          "stav": "KONEC",
+          "fate_sb": null,
+          "summary_cz": "Mění 2 předpisy — změna zákona o doplňkovém penzijním spoření, zákona o daních z příjmů.",
+          "amendments": 3,
+          "sd_cislos": [
+            764,
+            765,
+            794
+          ]
+        },
+        {
+          "cislo": 124,
+          "title": "Návrh poslance Aleše Juchelky na vydání zákona, kterým se mění zákon č. 117/1995 Sb., o státní sociální podpoře, ve znění pozdějších předpisů, a zákon č. 152/2025 Sb., kterým se mění některé zákony v ",
+          "stav": "KONEC",
+          "fate_sb": "93/2026",
+          "summary_cz": "Mění 2 předpisy — změna zákona o státní sociální podpoře, zákona č. 152/2025 Sb..",
+          "amendments": 2,
+          "sd_cislos": [
+            1037,
+            1038
+          ]
+        },
+        {
+          "cislo": 198,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 117/1995 Sb., o státní sociální podpoře, ve znění pozdějších předpisů",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 117/1995 Sb., o státní sociální podpoře.",
+          "amendments": 4,
+          "sd_cislos": [
+            1384,
+            1385,
+            1386,
+            1490
+          ]
+        }
+      ],
+      "spoke_on_bills": [
+        {
+          "cislo": 82,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 175/2025 Sb., o poskytování některých opatření v podpoře bydlení (zákon o podpoře bydlení)",
+          "stav": "KONEC",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 175/2025 Sb., o poskytování některých opatření v podpoře bydlení (zákon o podpoře bydlení).",
+          "turns": 19
+        },
+        {
+          "cislo": 72,
+          "title": "Návrh poslanců Radka Vondráčka, Andreje Babiše, Tomia Okamury, Petra Macinky, Marka Bendy, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednací",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny.",
+          "turns": 10
+        },
+        {
+          "cislo": 77,
+          "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o právních poměrech státních zaměstnan",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 20 předpisů — změna zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o Státním fondu životního prostředí České republiky, zákona o sdružování v politických stranách a v politických…",
+          "turns": 9
+        },
+        {
+          "cislo": 198,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 117/1995 Sb., o státní sociální podpoře, ve znění pozdějších předpisů",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 117/1995 Sb., o státní sociální podpoře.",
+          "turns": 9
+        },
+        {
+          "cislo": 116,
+          "title": "Návrh poslanců Zuzany Ožanové, Patrika Pařila a Renaty Vesecké na vydání zákona, kterým se zrušuje zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou úča",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Ruší zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou účastí státu (nominační zákon).",
+          "turns": 8
+        },
+        {
+          "cislo": 67,
+          "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 22 předpisů — změna stavebního zákona, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o požární ochraně a 19 dalších předpisů.",
+          "turns": 6
+        },
+        {
+          "cislo": 85,
+          "title": "Návrh poslance Aleše Juchelky na vydání zákona, kterým se mění zákon č. 110/2006 Sb., o životním a existenčním minimu, ve znění pozdějších předpisů, a další související zákony",
+          "stav": "KONEC",
+          "fate_sb": null,
+          "summary_cz": "Mění 3 předpisy — změna zákona o životním a existenčním minimu, zákona o sociálních službách, zákona č. 152/2025 Sb..",
+          "turns": 6
+        },
+        {
+          "cislo": 47,
+          "title": "Senátní návrh ústavního zákona, kterým se mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů",
+          "stav": "3. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů.",
+          "turns": 4
+        },
+        {
+          "cislo": 88,
+          "title": "Návrh poslance Aleše Juchelky na vydání zákona, kterým se mění zákon č. 151/2025 Sb., o dávce státní sociální pomoci, ve znění zákona č. 360/2025 Sb., zákon č. 110/2006 Sb., o životním a existenčním m",
+          "stav": "KONEC",
+          "fate_sb": "35/2026",
+          "summary_cz": "Mění 4 předpisy — změna zákona o dávce státní sociální pomoci, zákona o životním a existenčním minimu, zákona o sociálních službách a další předpis.",
+          "turns": 3
+        },
+        {
+          "cislo": 119,
+          "title": "Návrh poslanců Aleny Schillerové, Patrika Nachera, Borise Šťastného, Tomia Okamury a Taťány Malé na vydání zákona, kterým se mění zákon č. 427/2011 Sb., o doplňkovém penzijním spoření, ve znění pozděj",
+          "stav": "KONEC",
+          "fate_sb": null,
+          "summary_cz": "Mění 2 předpisy — změna zákona o doplňkovém penzijním spoření, zákona o daních z příjmů.",
+          "turns": 3
+        },
+        {
+          "cislo": 76,
+          "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státníc",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státních zaměstnancích).",
+          "turns": 2
+        },
+        {
+          "cislo": 115,
+          "title": "Návrh poslanců Andreje Babiše, Taťány Malé, Radka Vondráčka, Heleny Válkové, Borise Šťastného a Radima Fialy na vydání zákona, kterým se mění zákon č. 40/2009 Sb., trestní zákoník, ve znění pozdějších",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění 2 předpisy — změna trestního zákoníku, zákon o obětech trestných činů.",
+          "turns": 2
+        },
+        {
+          "cislo": 124,
+          "title": "Návrh poslance Aleše Juchelky na vydání zákona, kterým se mění zákon č. 117/1995 Sb., o státní sociální podpoře, ve znění pozdějších předpisů, a zákon č. 152/2025 Sb., kterým se mění některé zákony v ",
+          "stav": "KONEC",
+          "fate_sb": "93/2026",
+          "summary_cz": "Mění 2 předpisy — změna zákona o státní sociální podpoře, zákona č. 152/2025 Sb..",
+          "turns": 2
+        },
+        {
+          "cislo": 145,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 257/2016 Sb., o spotřebitelském úvěru, ve znění pozdějších předpisů, a další související zákony",
+          "stav": "3. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 6 předpisů — změna zákona o spotřebitelském úvěru, zákona o vysokých školách, zákona o pojišťovnictví a 3 další předpisy.",
+          "turns": 2
+        },
+        {
+          "cislo": 16,
+          "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti se smlouvami o finančních službách uzavíranými na dálku",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 11 předpisů — změna zákona o ochraně spotřebitele, zákona o České národní bance, zákona o podnikání na kapitálovém trhu a 8 dalších předpisů.",
+          "turns": 1
+        },
+        {
+          "cislo": 69,
+          "title": "Vládní návrh zákona o digitální ekonomice a o změně některých souvisejících zákonů",
+          "stav": "Garanční výbor",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o digitální ekonomice a o změně některých souvisejících zákonů.",
+          "turns": 1
+        },
+        {
+          "cislo": 125,
+          "title": "Návrh poslanců Aleše Juchelky a Jany Pastuchové na vydání zákona, kterým se mění zákon č. 108/2006 Sb., o sociálních službách, ve znění pozdějších předpisů, zákon č. 329/2011 Sb., o poskytování dávek ",
+          "stav": "KONEC",
+          "fate_sb": "92/2026",
+          "summary_cz": "Mění 3 předpisy — změna zákona o sociálních službách, zákona o poskytování dávek osobám se zdravotním postižením, zákona o organizaci a provádění sociálního zabezpečení.",
+          "turns": 1
+        }
+      ]
+    },
+    {
+      "id": "psp:person:7013",
+      "name": "Veronika Kovářová",
+      "club": null,
+      "contribution_score": 66,
+      "bills_authored": 2,
+      "bills_first_signed": 0,
+      "bills_co_signed": 2,
+      "amendments_authored": 14,
+      "speech_turns": 40,
+      "effort_tenure_class": "full_term",
+      "current_effort_bill_focus": "Kovářová u obou sledovaných tisků spolupodepsala návrh, nepředložila ho sama — v obou případech figuruje jako zástupce navrhovatelů jiný poslanec. Tisk 168 (novela zákona o dani z přidané hodnoty, 235/2004 Sb.) předložila skupina poslanců za Piráty (zástupkyně O. Richterová) 15. 4. 2026; garančním výborem je Rozpočtový výbor (zpravodajka Ing. Jitka Volfová), vláda 12. 5. 2026 vyjádřila nesouhlas, k 25. 7. 2026 je tisk stále v projednávání. Tisk 215 (novela soudního řádu správního, 150/2002 Sb.) předložila skupina kolem K. Stojanové 4. 6. 2026; garančním je Ústavně-právní výbor (zpravodajka Eva Decroix), vláda 30. 6. 2026 rovněž vyjádřila nesouhlas, obsahuje 7 pozměňovacích návrhů a k 25. 7. 2026 dosud neprošel ani nebyl zamítnut.",
+      "current_effort_public_role": "Kovářová je architektka (Ing. arch.), v letech 2020–2024 byla zastupitelkou Jihočeského kraje (mandát v komunálních volbách 2024 neobhájila) a je 1. místopředsedkyní jihočeské krajské organizace Pirátů. Do Sněmovny se dostala v roce 2025 díky 2 787 preferenčním hlasům, které ji posunuly před lídra kandidátky. Nyní je členkou Hospodářského výboru (od 6. 3. 2026) a Výboru pro veřejnou správu a regionální rozvoj (od 11. 11. 2025) a dále sedí v osmi podvýborech (vodní hospodářství, lesní hospodářství, potravinářství/veterinářství a živočišná výroba, kultura — zde od 12. 3. 2026 i ověřovatelka, heraldika a vexilologie, cestovní ruch, bytová politika a výstavba, regiony v transformaci) — širokým portfoliem zahrnujícím územní rozvoj a bydlení, což odpovídá jejímu architektonickému profesnímu zázemí.",
+      "current_effort_notes": "Zasedá ve dvou výborech, jak eviduje sněmovní databáze; jejích osm podvýborových členství (viz psp.cz) v tomto přehledu zahrnuto není — jde o obecné omezení metodiky, ne o chybu specifickou pro ni. Proti hlasování vlastního klubu se postavila jen ve 3 z 1 498 sledovaných hlasování, shoda s ostatními piráty je téměř stoprocentní. Žádné firemní ani finanční vazby nebyly zjištěny.",
+      "current_effort_analyst_note": "Numerika souhlasí: props uvádí committee_count=2 a poskytnutý seznam committees obsahuje přesně 2 položky (HV, VSR) — žádná nesrovnalost. Její osm podvýborových členství (viz psp.cz) není v poskytnutém poli committees zachyceno vůbec, což je ale konzistentní se stejným škálováním u ostatních čtyř MPs v této skupině (pipeline zjevně sleduje jen výbory/komise/delegace, ne podvýbory) — nejde tedy o anomálii specifickou pro ni. Rebelie proti klubu jsou zanedbatelné (3 hlasy z 1498, rate 0.002) a shoda s piráty jako Ančincová/Bartoš/Richterová je téměř 100 %. linkedCompanies je prázdné pole.",
+      "current_effort_work_themes": [
+        "veřejná správa a regionální rozvoj",
+        "hospodářská politika",
+        "územní rozvoj a bydlení"
+      ],
+      "first_signed_bills": [],
+      "co_signed_bills": [
+        {
+          "cislo": 168,
+          "title": "Návrh poslanců Olgy Richterové, Ivana Bartoše, Zdeňka Hřiba, Gabriely Svárovské, Venduly Svobodové, Ireny Ferčíkové Konečné, Lenky Martínkové Španihelové, Kateřiny Stojanové, Hany Ančincové, Barbory P",
+          "stav": "1. čtení (§ 90, odst. 2) - ob. rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 235/2004 Sb., o dani z přidané hodnoty."
+        },
+        {
+          "cislo": 215,
+          "title": "Návrh poslanců Kateřiny Stojanové, Samuela Volpeho, Kateriny Demetrashvili a Veroniky Kovářové na vydání zákona, kterým se mění zákon č. 150/2002 Sb., soudní řád správní, ve znění pozdějších předpisů,",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 7 předpisů — změna soudního řádu správního, občanského soudního řádu, zákona o vysokých školách a 4 další předpisy."
+        }
+      ],
+      "rapporteur_bills": [
+        {
+          "cislo": 65,
+          "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti s úpravou vybraných agend v působnosti Digitální a informační agentury",
+          "stav": "KONEC",
+          "fate_sb": null,
+          "summary_cz": "Mění 11 předpisů — změna zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o bankách, zákona o svobodném přístupu k informacím a 8 dalších předpisů.",
+          "scopes": [
+            "zpravodaj_ov"
+          ]
+        },
+        {
+          "cislo": 67,
+          "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 22 předpisů — změna stavebního zákona, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o požární ochraně a 19 dalších předpisů.",
+          "scopes": [
+            "zpravodaj_dokumentu",
+            "zpravodaj_vyboru"
+          ]
+        },
+        {
+          "cislo": 234,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 360/1992 Sb., o výkonu povolání autorizovaných architektů a o výkonu povolání autorizovaných inženýrů a techniků činných ve výstavbě (autorizační zákon), v",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 3 předpisy — změna autorizačního zákona, zákona o zeměměřictví, stavebního zákona.",
+          "scopes": [
+            "zpravodaj_ov"
+          ]
+        }
+      ],
+      "amendment_bills": [
+        {
+          "cislo": 67,
+          "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 22 předpisů — změna stavebního zákona, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o požární ochraně a 19 dalších předpisů.",
+          "amendments": 14,
+          "sd_cislos": [
+            294,
+            1184,
+            1185,
+            1186,
+            1187,
+            1188,
+            1189,
+            1196,
+            1205,
+            1208,
+            1210,
+            1302,
+            1362,
+            1364
+          ]
+        }
+      ],
+      "spoke_on_bills": [
+        {
+          "cislo": 67,
+          "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 22 předpisů — změna stavebního zákona, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o požární ochraně a 19 dalších předpisů.",
+          "turns": 16
+        },
+        {
+          "cislo": 82,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 175/2025 Sb., o poskytování některých opatření v podpoře bydlení (zákon o podpoře bydlení)",
+          "stav": "KONEC",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 175/2025 Sb., o poskytování některých opatření v podpoře bydlení (zákon o podpoře bydlení).",
+          "turns": 6
+        }
+      ]
+    },
+    {
+      "id": "psp:person:7042",
+      "name": "Lucie Sedmihradská",
+      "club": null,
+      "contribution_score": 89.7,
+      "bills_authored": 5,
+      "bills_first_signed": 1,
+      "bills_co_signed": 4,
+      "amendments_authored": 12,
+      "speech_turns": 44,
+      "effort_tenure_class": "full_term",
+      "current_effort_bill_focus": "Sedmihradská je u tisku 120 (novela zákona o daních z příjmů, 586/1992 Sb., podáno 3. 3. 2026) první jmenovanou předkladatelkou — jde tedy o její vlastní autorský návrh, nikoli spolupředkladatelství. Zbylé 4 tisky jsou spolupředkladatelství: tisk 106 a tisk 107 (oba novely zákona o podmínkách podnikání v oblasti cestovního ruchu, u tisku 106 je uvedena jako jedna z předkladatelů vedle E. Olšákové a K. Dvořáka), tisk 146 (novela zákona o obcích, skupina V. Kovářové) a tisk 244 (novela zákona o daních z příjmů, skupina P. Pivoňky Vaňkové). K 24. 7. 2026 je všech 5 tisků stále v projednávání: 106 a 120 mají nesouhlasné stanovisko vlády, 107 neutrální, 146 nesouhlasné, 244 čeká na stanovisko vlády (lhůta do 30. 7. 2026). Žádný z pěti zatím zákonem není.",
+      "current_effort_public_role": "Místopředsedkyně Kontrolního výboru, řadová členka Rozpočtového výboru, členka Volební komise a Stálé komise pro kontrolu činnosti Finančního analytického úřadu (SKFAÚ) — souhrnně jasně fiskálně-kontrolní profil. Dále členka Podvýboru pro financování územní samosprávy a čerpání fondů EU a ověřovatelka Podvýboru pro kulturu. Předsedá delegaci Beneluxu.",
+      "current_effort_notes": "Z pěti tisků, u kterých je Sedmihradská vedena jako signatářka, je jeden (tisk 120) skutečně autorský — je u něj první jmenovanou předkladatelkou, zbylé čtyři jsou spolupředkladatelství. Tato distinkce stojí za zaznamenání jako výjimka z obvyklého vzorce, kde většina poslanců má výhradně spolupředkladatelství. Firemní vazby v datech nejsou žádné. Jde o nováčku bez porovnání s minulým volebním obdobím, mandát trvá celé sledované období (293 dní).",
+      "current_effort_analyst_note": null,
+      "current_effort_work_themes": [
+        "kontrola veřejných financí",
+        "rozpočet",
+        "cestovní ruch",
+        "daně"
+      ],
+      "first_signed_bills": [
+        {
+          "cislo": 120,
+          "title": "Návrh poslanců Lucie Sedmihradské, Jana Papajanovského, Věry Kovářové, Matěje Hlavatého, Jakuba Krainera, Pavly Pivoňky Vaňkové, Víta Rakušana, Julie Smejkalové, Lukáše Vlčka, Jana Berkiho, Elišky Olš",
+          "stav": "1. čtení (§ 90, odst. 2) - ob. rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 586/1992 Sb., o daních z příjmu."
+        }
+      ],
+      "co_signed_bills": [
+        {
+          "cislo": 106,
+          "title": "Návrh poslanců Elišky Olšákové, Karla Dvořáka, Lucie Sedmihradské, Julie Smejkalové, Michala Zuny, Jiřího Horáka a Zdeňky Blišťanové na vydání zákona, kterým se mění zákon č. 159/1999 Sb., o některých",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 5 předpisů — změna zákona o některých podmínkách podnikání a o výkonu některých činností v oblasti cestovního ruchu, zákona o místních poplatcích, živnostenského zákona a 2 další předpisy."
+        },
+        {
+          "cislo": 107,
+          "title": "Návrh poslanců Elišky Olšákové, Karla Dvořáka, Lucie Sedmihradské, Julie Smejkalové, Michala Zuny, Jiřího Horáka a Zdeňky Blišťanové na vydání zákona, kterým se mění zákon č. 159/1999 Sb., o některých",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 159/1999 Sb., o některých podmínkách podnikání a o výkonu některých činností v oblasti cestovního ruchu, a další související zákony."
+        },
+        {
+          "cislo": 146,
+          "title": "Návrh poslanců Věry Kovářové, Matěje Hlavatého, Zdeny Kašparové, Jakuba Krainera, Elišky Olšákové, Michaely Opltové, Jana Papajanovského, Víta Rakušana, Lucie Sedmihradské, Julie Smejkalové, Michaely ",
+          "stav": "1. čtení (§ 90, odst. 2) - ob. rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění 3 předpisy — změna obecního zřízení, krajského zřízení, zákona o hlavním městě Praze."
+        },
+        {
+          "cislo": 244,
+          "title": "Návrh poslanců Pavly Pivoňka Vaňkové, Věry Kovářové, Jana Papajanovského a Lucie Sedmihradské na vydání zákona, kterým se mění zákon č. 586/1992 Sb., o daních z příjmů, ve znění pozdějších předpisů",
+          "stav": "Vláda",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 586/1992 Sb., o daních z příjmů."
+        }
+      ],
+      "rapporteur_bills": [
+        {
+          "cislo": 140,
+          "title": "Návrh Zastupitelstva Pardubického kraje na vydání zákona, kterým se mění zákon č. 243/2000 Sb., o rozpočtovém určení výnosů některých daní územním samosprávným celkům a některým státním fondům (zákon ",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 243/2000 Sb., o rozpočtovém určení výnosů některých daní územním samosprávným celkům a některým státním fondům (zákon o rozpočtovém určení daní).",
+          "scopes": [
+            "zpravodaj_ov"
+          ]
+        },
+        {
+          "cislo": 141,
+          "title": "Návrh Zastupitelstva Pardubického kraje na vydání zákona, kterým se mění zákon č. 243/2000 Sb., o rozpočtovém určení výnosů některých daní územním samosprávným celkům a některým státním fondům (zákon ",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 243/2000 Sb., o rozpočtovém určení výnosů některých daní územním samosprávným celkům a některým státním fondům (zákon o rozpočtovém určení daní).",
+          "scopes": [
+            "zpravodaj_ov"
+          ]
+        }
+      ],
+      "amendment_bills": [
+        {
+          "cislo": 72,
+          "title": "Návrh poslanců Radka Vondráčka, Andreje Babiše, Tomia Okamury, Petra Macinky, Marka Bendy, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednací",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny.",
+          "amendments": 1,
+          "sd_cislos": [
+            789
+          ]
+        },
+        {
+          "cislo": 90,
+          "title": "Vládní návrh zákona, kterým se mění některé zákony v oblasti veřejných rozpočtů",
+          "stav": "Sněmovna (Prezident)",
+          "fate_sb": null,
+          "summary_cz": "Mění 9 předpisů — změna zákona o Nejvyšším kontrolním úřadu, rozpočtových pravidel, zákona o rozpočtovém určení daní a 6 dalších předpisů.",
+          "amendments": 4,
+          "sd_cislos": [
+            785,
+            786,
+            787,
+            788
+          ]
+        },
+        {
+          "cislo": 189,
+          "title": "Vládní návrh zákona o evidenci tržeb a o změně některých dalších zákonů",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 4 předpisy — změna zákona o daních z příjmů, zákona o dani z přidané hodnoty, zákona o Finanční správě České republiky a další předpis.",
+          "amendments": 6,
+          "sd_cislos": [
+            1473,
+            1474,
+            1475,
+            1476,
+            1477,
+            1478
+          ]
+        },
+        {
+          "cislo": 221,
+          "title": "Návrh poslanců Radka Vondráčka, Davida Pražáka, Marie Pošarové a Filipa Turka na vydání zákona, kterým se mění zákon č. 159/2006 Sb., o střetu zájmů, ve znění pozdějších předpisů, a další související ",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 6 předpisů — změna zákona o střetu zájmů, zákona o zemědělství, zákona o Státním zemědělském intervenčním fondu a 3 další předpisy.",
+          "amendments": 1,
+          "sd_cislos": [
+            1462
+          ]
+        }
+      ],
+      "spoke_on_bills": [
+        {
+          "cislo": 90,
+          "title": "Vládní návrh zákona, kterým se mění některé zákony v oblasti veřejných rozpočtů",
+          "stav": "Sněmovna (Prezident)",
+          "fate_sb": null,
+          "summary_cz": "Mění 9 předpisů — změna zákona o Nejvyšším kontrolním úřadu, rozpočtových pravidel, zákona o rozpočtovém určení daní a 6 dalších předpisů.",
+          "turns": 7
+        },
+        {
+          "cislo": 163,
+          "title": "Vládní návrh zákona o regulaci cen pohonných hmot vládou a o změně zákona č. 526/1990 Sb., o cenách, ve znění pozdějších předpisů",
+          "stav": "KONEC",
+          "fate_sb": "63/2026",
+          "summary_cz": "Nový zákon o regulaci cen pohonných hmot vládou a o změně zákona č. 526/1990 Sb., o cenách, ve znění pozdějších předpisů.",
+          "turns": 3
+        },
+        {
+          "cislo": 189,
+          "title": "Vládní návrh zákona o evidenci tržeb a o změně některých dalších zákonů",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 4 předpisy — změna zákona o daních z příjmů, zákona o dani z přidané hodnoty, zákona o Finanční správě České republiky a další předpis.",
+          "turns": 2
+        },
+        {
+          "cislo": 13,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 240/2013 Sb., o investičních společnostech a investičních fondech, ve znění pozdějších předpisů, a další související zákony",
+          "stav": "KONEC",
+          "fate_sb": null,
+          "summary_cz": "Mění 5 předpisů — změna zákona o investičních společnostech a investičních fondech, zákona o dohledu v oblasti kapitálového trhu, zákona o podnikání na kapitálovém trhu a 2 další předpisy.",
+          "turns": 1
+        },
+        {
+          "cislo": 16,
+          "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti se smlouvami o finančních službách uzavíranými na dálku",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 11 předpisů — změna zákona o ochraně spotřebitele, zákona o České národní bance, zákona o podnikání na kapitálovém trhu a 8 dalších předpisů.",
+          "turns": 1
+        },
+        {
+          "cislo": 63,
+          "title": "Vládní návrh zákona o účetnictví",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o účetnictví.",
+          "turns": 1
+        },
+        {
+          "cislo": 67,
+          "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 22 předpisů — změna stavebního zákona, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o požární ochraně a 19 dalších předpisů.",
+          "turns": 1
+        },
+        {
+          "cislo": 72,
+          "title": "Návrh poslanců Radka Vondráčka, Andreje Babiše, Tomia Okamury, Petra Macinky, Marka Bendy, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednací",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny.",
+          "turns": 1
+        },
+        {
+          "cislo": 76,
+          "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státníc",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státních zaměstnancích).",
+          "turns": 1
+        },
+        {
+          "cislo": 77,
+          "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o právních poměrech státních zaměstnan",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 20 předpisů — změna zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o Státním fondu životního prostředí České republiky, zákona o sdružování v politických stranách a v politických…",
+          "turns": 1
+        },
+        {
+          "cislo": 119,
+          "title": "Návrh poslanců Aleny Schillerové, Patrika Nachera, Borise Šťastného, Tomia Okamury a Taťány Malé na vydání zákona, kterým se mění zákon č. 427/2011 Sb., o doplňkovém penzijním spoření, ve znění pozděj",
+          "stav": "KONEC",
+          "fate_sb": null,
+          "summary_cz": "Mění 2 předpisy — změna zákona o doplňkovém penzijním spoření, zákona o daních z příjmů.",
+          "turns": 1
+        },
+        {
+          "cislo": 143,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 256/2004 Sb., o podnikání na kapitálovém trhu, ve znění pozdějších předpisů, a další související zákony",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění 6 předpisů — změna zákona o podnikání na kapitálovém trhu, zákona o bankách, zákona o spořitelních a úvěrních družstvech a 3 další předpisy.",
+          "turns": 1
+        },
+        {
+          "cislo": 218,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 235/2004 Sb., o dani z přidané hodnoty, ve znění pozdějších předpisů",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 235/2004 Sb., o dani z přidané hodnoty.",
+          "turns": 1
+        },
+        {
+          "cislo": 246,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 13/1997 Sb., o pozemních komunikacích, ve znění pozdějších předpisů",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 13/1997 Sb., o pozemních komunikacích.",
+          "turns": 1
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6788",
+      "name": "Barbora Urbanová",
+      "club": null,
+      "contribution_score": 90,
+      "bills_authored": 5,
+      "bills_first_signed": 2,
+      "bills_co_signed": 3,
+      "amendments_authored": 11,
+      "speech_turns": 42,
+      "effort_tenure_class": "full_term",
+      "current_effort_bill_focus": "Spoluautorka skupinových návrhů STAN: tisk 24 (novela o obcích), tisk 36 (vlastní/spoluautorský návrh s A. Chochelovou — novela občanského zákoníku v oblasti rozvodů a výživného, vládní stanovisko k němu bylo dne 8. 12. 2025 vzato zpět), tisk 120, tisk 146 (novela o obcích, vládní stanovisko negativní) a tisk 205 (novela kompetenčního zákona jako první podepsaná/gestorka, vládní stanovisko negativní).",
+      "current_effort_public_role": "Zvolena místopředsedkyní Poslanecké sněmovny 5. 6. 2026.",
+      "current_effort_notes": "Vysoká míra změny aktivity odpovídá kombinaci vysoké řečnické aktivity (42 vystoupení, oproti 112 v předchozím volebním období — jde o jinou škálu/období, ne o rozpor) a nižšího legislativního autorství; zvolení místopředsedkyní Sněmovny v červnu 2026 je reálný nárůst veřejné role oproti vstupním datům. Žádné propojené firmy v datech — bez peněžní stopy k prošetření.",
+      "current_effort_analyst_note": null,
+      "current_effort_work_themes": [
+        "ústavně-právní a rodinné právo",
+        "veřejná správa",
+        "zahraniční a lidskoprávní agenda"
+      ],
+      "first_signed_bills": [
+        {
+          "cislo": 36,
+          "title": "Návrh poslankyň Barbory Urbanové a Adriany Chochelové na vydání zákona, kterým se mění zákon č. 268/2025 Sb., kterým se mění zákon č. 89/2012 Sb., občanský zákoník, ve znění pozdějších předpisů, a dal",
+          "stav": "KONEC",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 268/2025 Sb., kterým se mění zákon č. 89/2012 Sb., občanský zákoník, a další související zákony."
+        },
+        {
+          "cislo": 205,
+          "title": "Návrh poslanců Barbory Urbanové, Víta Rakušana, Karla Dvořáka, Lukáše Vlčka a Adriany Chochelové na vydání zákona, kterým se mění zákon č. 2/1969 Sb., zákon České národní rady o zřízení ministerstev a",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 2/1969 Sb., zákon České národní rady o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky."
+        }
+      ],
+      "co_signed_bills": [
+        {
+          "cislo": 24,
+          "title": "Návrh poslanců Víta Rakušana, Lukáše Vlčka, Věry Kovářové, Michaely Šebelové, Pavly Pivoňka Vaňkové, Jana Berkiho, Michaely Opltové, Barbory Urbanové, Jana Papajanovského, Matěje Hlavatého a Jana Svit",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 9 předpisů — změna obecního zřízení, zákona o obecní policii, zákona o odpovědnosti za škodu způsobenou při výkonu veřejné moci rozhodnutím nebo nesprávným úředním postupem a 6 dalších předpisů."
+        },
+        {
+          "cislo": 120,
+          "title": "Návrh poslanců Lucie Sedmihradské, Jana Papajanovského, Věry Kovářové, Matěje Hlavatého, Jakuba Krainera, Pavly Pivoňky Vaňkové, Víta Rakušana, Julie Smejkalové, Lukáše Vlčka, Jana Berkiho, Elišky Olš",
+          "stav": "1. čtení (§ 90, odst. 2) - ob. rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 586/1992 Sb., o daních z příjmu."
+        },
+        {
+          "cislo": 146,
+          "title": "Návrh poslanců Věry Kovářové, Matěje Hlavatého, Zdeny Kašparové, Jakuba Krainera, Elišky Olšákové, Michaely Opltové, Jana Papajanovského, Víta Rakušana, Lucie Sedmihradské, Julie Smejkalové, Michaely ",
+          "stav": "1. čtení (§ 90, odst. 2) - ob. rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění 3 předpisy — změna obecního zřízení, krajského zřízení, zákona o hlavním městě Praze."
+        }
+      ],
+      "rapporteur_bills": [
+        {
+          "cislo": 115,
+          "title": "Návrh poslanců Andreje Babiše, Taťány Malé, Radka Vondráčka, Heleny Válkové, Borise Šťastného a Radima Fialy na vydání zákona, kterým se mění zákon č. 40/2009 Sb., trestní zákoník, ve znění pozdějších",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění 2 předpisy — změna trestního zákoníku, zákon o obětech trestných činů.",
+          "scopes": [
+            "zpravodaj_dokumentu",
+            "zpravodaj_ov"
+          ]
+        }
+      ],
+      "amendment_bills": [
+        {
+          "cislo": 67,
+          "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 22 předpisů — změna stavebního zákona, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o požární ochraně a 19 dalších předpisů.",
+          "amendments": 1,
+          "sd_cislos": [
+            1181
+          ]
+        },
+        {
+          "cislo": 72,
+          "title": "Návrh poslanců Radka Vondráčka, Andreje Babiše, Tomia Okamury, Petra Macinky, Marka Bendy, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednací",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny.",
+          "amendments": 5,
+          "sd_cislos": [
+            633,
+            779,
+            780,
+            781,
+            782
+          ]
+        },
+        {
+          "cislo": 115,
+          "title": "Návrh poslanců Andreje Babiše, Taťány Malé, Radka Vondráčka, Heleny Válkové, Borise Šťastného a Radima Fialy na vydání zákona, kterým se mění zákon č. 40/2009 Sb., trestní zákoník, ve znění pozdějších",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění 2 předpisy — změna trestního zákoníku, zákon o obětech trestných činů.",
+          "amendments": 5,
+          "sd_cislos": [
+            923,
+            924,
+            925,
+            926,
+            927
+          ]
+        }
+      ],
+      "spoke_on_bills": [
+        {
+          "cislo": 72,
+          "title": "Návrh poslanců Radka Vondráčka, Andreje Babiše, Tomia Okamury, Petra Macinky, Marka Bendy, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednací",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny.",
+          "turns": 8
+        },
+        {
+          "cislo": 47,
+          "title": "Senátní návrh ústavního zákona, kterým se mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů",
+          "stav": "3. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů.",
+          "turns": 4
+        },
+        {
+          "cislo": 82,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 175/2025 Sb., o poskytování některých opatření v podpoře bydlení (zákon o podpoře bydlení)",
+          "stav": "KONEC",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 175/2025 Sb., o poskytování některých opatření v podpoře bydlení (zákon o podpoře bydlení).",
+          "turns": 2
+        },
+        {
+          "cislo": 90,
+          "title": "Vládní návrh zákona, kterým se mění některé zákony v oblasti veřejných rozpočtů",
+          "stav": "Sněmovna (Prezident)",
+          "fate_sb": null,
+          "summary_cz": "Mění 9 předpisů — změna zákona o Nejvyšším kontrolním úřadu, rozpočtových pravidel, zákona o rozpočtovém určení daní a 6 dalších předpisů.",
+          "turns": 1
+        },
+        {
+          "cislo": 115,
+          "title": "Návrh poslanců Andreje Babiše, Taťány Malé, Radka Vondráčka, Heleny Válkové, Borise Šťastného a Radima Fialy na vydání zákona, kterým se mění zákon č. 40/2009 Sb., trestní zákoník, ve znění pozdějších",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění 2 předpisy — změna trestního zákoníku, zákon o obětech trestných činů.",
+          "turns": 1
+        }
+      ]
+    },
+    {
+      "id": "psp:person:6105",
+      "name": "Tomio Okamura",
+      "club": null,
+      "contribution_score": 83.4,
+      "bills_authored": 10,
+      "bills_first_signed": 0,
+      "bills_co_signed": 10,
+      "amendments_authored": 1,
+      "speech_turns": 27,
+      "effort_tenure_class": "full_term",
+      "current_effort_bill_focus": "Okamura je spolupředkladatelem (nikdy prvním jmenovaným předkladatelem) u všech 10 svých tisků. Ze 4 přijatých: tisk 11 (novela zákona o pojistném na sociální zabezpečení, 589/1992 Sb.) — schválen 25. 3. 2026, podepsán prezidentem, vyhlášen 10. 6. 2026; tisk 119 (novela zákona o doplňkovém penzijním spoření) — schválen 27. 5. 2026, Senátem 8. 7. 2026, vyhlášen jako zákon 128/2026 Sb. 23. 7. 2026; tisk 67 (novela stavebního zákona, 283/2021 Sb.) — schválen 3. čtením 10. 7. 2026, postoupen Senátu 23. 7. 2026, k 24. 7. 2026 čeká na senátní projednání; tisk 72 (novela jednacího řádu PS) — schválen 1.–3. 7. 2026, postoupen Senátu 21. 7. 2026. Zbylých 6 tisků je k 24. 7. 2026 stále ve výborech beze schválení: 35 (platy státních představitelů), 87 (zemské znaky a vlajky), 173 a 216 (novely trestního zákoníku), 174 (ochrana zvířat proti týrání), 201 (rozhlasové a televizní poplatky).",
+      "current_effort_public_role": "Předseda Poslanecké sněmovny — z titulu této funkce z moci úřední předsedá Organizačnímu výboru (jediný výbor uvedený ve vstupních datech, weight 1.0). Interpelace 0 je konzistentní s formálně nestranickou rolí předsedy Sněmovny při řízení jednání.",
+      "current_effort_notes": "Zaznamenaný počet deseti sponzorovaných tisků odpovídá vstupu, ale žádný z nich není autorský tisk — Okamura je vždy dále v pořadí spolupředkladatelů. Peněžní vazby: MIKI TRAVEL PRAGUE, spol. s r.o. (IČO 25124188, 6 050 000 Kč) — přímé ověření ve veřejném rejstříku potvrzuje, že Okamura je nepřetržitě jednatelem od 2. 6. 2021 (bez výmazu), 100% vlastníkem je GROUP MIKI HOLDINGS LIMITED (UK) od 19. 3. 2021 — Okamura sám společníkem není, přesně jak uvádí i nezávislé zdroje (HlídačPes, Aktuálně.cz, kurzy.cz). Jde o reálnou osobní vazbu k firmě, která má veřejnou zakázku v datech označenou k 6,05 mil. Kč, tedy relevantní konflikt zájmů k dořešení. MEBIUS s.r.o. (IČO 25643461, 0 Kč) — dle stejných zdrojů Okamura firmu vlastní (průvodcovské/překladatelské služby, bez tržeb v posledních letech). Japa Foods s.r.o. (IČO 28406354, 0 Kč) — Okamura je spoluvlastníkem a jednatelem (prodej japonských potravin). U Machtů s.r.o. (IČO 27145433, 0 Kč) — historicky spoluvlastnil restauraci Staré časy přes tuto firmu, ale dle HlídačPes svůj podíl na počátku roku prodal; přesné datum vůči aktuálnímu období (od 10/2025) se nepodařilo ověřit, takže vztah k současnému mandátu je nejistý. Generický záznam OSVČ (IČO 04627695, 0 Kč) se dodatečně potvrdil jako firma nesouvisející s tímto poslancem — nejde o skutečnou vazbu. Datová nesrovnalost: uváděný počet dvou výborů neodpovídá vstupním datům, kde je uveden jen jeden committee záznam (ORGV) — možná se počítá i samotná funkce předsedy Sněmovny jako druhý „orgán\", ale to není z dat jisté; doporučujeme ověřit.",
+      "current_effort_analyst_note": "Mechanismus mylného přiřazení IČO 04627695: pole ARES `obchodniJmeno` u nesouvisející mikro-strany (Agrární demokratická strana) obsahuje doslovný řetězec „OSVČ\", což při přesném name-matchingu (funkce pickExactIco, lib/analysis/money-feed.ts) chybně spárovalo firmu s 49 poslanci popsanými v datech Hlídače jako „OSVČ\"; všech 49 nulových hran bylo smazáno jako potvrzené false-positive a uzel firmy byl také odstraněn.",
+      "current_effort_work_themes": [
+        "parlamentní procedura",
+        "sociální a důchodové pojištění",
+        "stavební právo",
+        "trestní právo",
+        "média a poplatky"
+      ],
+      "first_signed_bills": [],
+      "co_signed_bills": [
+        {
+          "cislo": 11,
+          "title": "Návrh poslanců Aleny Schillerové, Andreje Babiše, Tomia Okamury, Petra Macinky, Aleše Juchelky, Karla Havlíčka, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 5",
+          "stav": "KONEC",
+          "fate_sb": "90/2026",
+          "summary_cz": "Mění zákon č. 589/1992 Sb., o pojistném na sociální zabezpečení a příspěvku na státní politiku zaměstnanosti."
+        },
+        {
+          "cislo": 35,
+          "title": "Návrh poslanců Andreje Babiše, Tomia Okamury a Petra Macinky na vydání zákona, kterým se mění zákon č. 236/1995 Sb., o platu a dalších náležitostech spojených s výkonem funkce představitelů státní moc",
+          "stav": "1. čtení (§ 90, odst. 2) - ob. rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 236/1995 Sb., o platu a dalších náležitostech spojených s výkonem funkce představitelů státní moci a některých státních orgánů a soudců a poslanců Evropského parlamentu."
+        },
+        {
+          "cislo": 67,
+          "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 22 předpisů — změna stavebního zákona, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o požární ochraně a 19 dalších předpisů."
+        },
+        {
+          "cislo": 72,
+          "title": "Návrh poslanců Radka Vondráčka, Andreje Babiše, Tomia Okamury, Petra Macinky, Marka Bendy, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 90/1995 Sb., o jednací",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny."
+        },
+        {
+          "cislo": 87,
+          "title": "Návrh poslance Radka Vondráčka na vydání zákona o zemských znacích a vlajkách",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": null
+        },
+        {
+          "cislo": 119,
+          "title": "Návrh poslanců Aleny Schillerové, Patrika Nachera, Borise Šťastného, Tomia Okamury a Taťány Malé na vydání zákona, kterým se mění zákon č. 427/2011 Sb., o doplňkovém penzijním spoření, ve znění pozděj",
+          "stav": "KONEC",
+          "fate_sb": null,
+          "summary_cz": "Mění 2 předpisy — změna zákona o doplňkovém penzijním spoření, zákona o daních z příjmů."
+        },
+        {
+          "cislo": 173,
+          "title": "Návrh poslanců Andreje Babiše, Tomia Okamury, Lucie Šafránkové, Petra Macinky, Borise Šťastného, Taťány Malé, Radima Fialy, Renaty Vesecké a Jany Hanzlíkové na vydání zákona, kterým se mění zákon č. 4",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 40/2009 Sb., trestní zákoník."
+        },
+        {
+          "cislo": 174,
+          "title": "Návrh poslanců Lucie Šafránkové, Andreje Babiše, Tomia Okamury, Petra Macinky, Borise Šťastného, Taťány Malé, Radima Fialy, Renaty Vesecké a Jany Hanzlíkové na vydání zákona, kterým se mění zákon č. 2",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění 3 předpisy — změna zákona na ochranu zvířat proti týrání, zákona o Policii České republiky, občanského zákoníku."
+        },
+        {
+          "cislo": 201,
+          "title": "Návrh poslanců Patrika Nachera, Tomia Okamury, Taťány Malé, Radima Fialy, Filipa Turka, Barbory Rázgy a Martina Kolovratníka na vydání zákona, kterým se mění zákon č. 348/2005 Sb., o rozhlasových a te",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 348/2005 Sb., o rozhlasových a televizních poplatcích a o změně některých zákonů."
+        },
+        {
+          "cislo": 216,
+          "title": "Návrh poslanců Taťány Malé, Andreje Babiše, Borise Šťastného a Tomia Okamury na vydání zákona, kterým se mění zákon č. 40/2009 Sb., trestní zákoník, ve znění pozdějších předpisů",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 40/2009 Sb., trestní zákoník."
+        }
+      ],
+      "rapporteur_bills": [],
+      "amendment_bills": [
+        {
+          "cislo": 47,
+          "title": "Senátní návrh ústavního zákona, kterým se mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů",
+          "stav": "3. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů.",
+          "amendments": 1,
+          "sd_cislos": [
+            627
+          ]
+        }
+      ],
+      "spoke_on_bills": [
+        {
+          "cislo": 11,
+          "title": "Návrh poslanců Aleny Schillerové, Andreje Babiše, Tomia Okamury, Petra Macinky, Aleše Juchelky, Karla Havlíčka, Taťány Malé, Radima Fialy a Borise Šťastného na vydání zákona, kterým se mění zákon č. 5",
+          "stav": "KONEC",
+          "fate_sb": "90/2026",
+          "summary_cz": "Mění zákon č. 589/1992 Sb., o pojistném na sociální zabezpečení a příspěvku na státní politiku zaměstnanosti.",
+          "turns": 3
+        },
+        {
+          "cislo": 198,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 117/1995 Sb., o státní sociální podpoře, ve znění pozdějších předpisů",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 117/1995 Sb., o státní sociální podpoře.",
+          "turns": 3
+        },
+        {
+          "cislo": 47,
+          "title": "Senátní návrh ústavního zákona, kterým se mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů",
+          "stav": "3. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění ústavní zákon č. 1/1993 Sb., Ústava České republiky, ve znění pozdějších ústavních zákonů.",
+          "turns": 2
+        },
+        {
+          "cislo": 78,
+          "title": "Návrh poslance Andreje Babiše na vydání zákona, kterým se mění zákon č. 245/2000 Sb., o státních svátcích, o ostatních svátcích, o významných dnech a o dnech pracovního klidu, ve znění pozdějších před",
+          "stav": "KONEC",
+          "fate_sb": "59/2026",
+          "summary_cz": "Mění zákon č. 245/2000 Sb., o státních svátcích, o ostatních svátcích, o významných dnech a o dnech pracovního klidu.",
+          "turns": 1
+        },
+        {
+          "cislo": 82,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 175/2025 Sb., o poskytování některých opatření v podpoře bydlení (zákon o podpoře bydlení)",
+          "stav": "KONEC",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 175/2025 Sb., o poskytování některých opatření v podpoře bydlení (zákon o podpoře bydlení).",
+          "turns": 1
+        },
+        {
+          "cislo": 173,
+          "title": "Návrh poslanců Andreje Babiše, Tomia Okamury, Lucie Šafránkové, Petra Macinky, Borise Šťastného, Taťány Malé, Radima Fialy, Renaty Vesecké a Jany Hanzlíkové na vydání zákona, kterým se mění zákon č. 4",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 40/2009 Sb., trestní zákoník.",
+          "turns": 1
+        }
+      ]
+    },
+    {
+      "id": "psp:person:7018",
+      "name": "Marie Kršková",
+      "club": null,
+      "contribution_score": 87.6,
+      "bills_authored": 10,
+      "bills_first_signed": 0,
+      "bills_co_signed": 10,
+      "amendments_authored": 5,
+      "speech_turns": 23,
+      "effort_tenure_class": "full_term",
+      "current_effort_bill_focus": "Kršková je spolupředkladatelkou u všech 10 svých tisků (nikdy první jmenovaná; skupiny kolem M. Výborného, P. Hladíka, M. Jurečky nebo V. Plátěníka). K 24. 7. 2026 je všech 10 stále ve výborech, žádný nebyl přijat: tisk 28 (rozpočtové určení daní, neutrální stanovisko vlády), tisk 74 (náprava ekologické újmy, nesouhlas), tisk 50 (důchodové pojištění, nesouhlas — sdílený s T. Philippem), tisk 75 (vodní zákon, nesouhlas), tisk 89 (rozpočtová pravidla, nesouhlas — sdílený s Philippem), tisk 104 (školský zákon, nesouhlas), tisk 109 (nemocenské pojištění, nesouhlas — sdílený s Philippem), tisk 110 (pojistné na sociální zabezpečení, nesouhlas — sdílený s Philippem), tisk 121 (daně z příjmů, nesouhlas — sdílený s Philippem) a tisk 161 (odpady, nesouhlas — sdílený s Philippem). Šest z jejích deseti tisků sdílí se stranickým kolegou Philippem.",
+      "current_effort_public_role": "Místopředsedkyně Výboru pro evropské záležitosti (a ověřovatelka výboru od 22. 1. 2026), řadová členka Výboru pro veřejnou správu a regionální rozvoj, členka Stálé komise pro kontrolu činnosti Úřadu pro zahraniční styky a informace (SKÚZSI). Dále členka čtyř podvýborů (venkov, migrace a azyl, evropské fondy a zelená transformace, modernizace veřejné správy).",
+      "current_effort_notes": "Deset tisků a jedna interpelace odpovídají vstupním datům; všech deset je spolupředkladatelství, žádné autorské. Žádná firemní vazba ani peněžní zjištění nebyly nalezeny. V předchozím volebním období nezasedala, jde tedy o nováčku bez období ke srovnání — konzistentní s celým aktuálním mandátem (293 dní).",
+      "current_effort_analyst_note": null,
+      "current_effort_work_themes": [
+        "veřejná správa a regionální rozvoj",
+        "sociální a důchodové pojištění",
+        "životní prostředí",
+        "školství",
+        "veřejné finance"
+      ],
+      "first_signed_bills": [],
+      "co_signed_bills": [
+        {
+          "cislo": 28,
+          "title": "Návrh poslanců Marka Výborného, Marie Krškové, Jiřího Horáka, Petra Hladíka a Jany Filipovičové na vydání zákona, kterým se mění zákon č. 243/2000 Sb., o rozpočtovém určení výnosů některých daní územn",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 2 předpisy — změna zákona o rozpočtovém určení daní, zákona č. 349/2023 Sb., kterým se mění některé zákony v souvislosti s konsolidací veřejných rozpočtů."
+        },
+        {
+          "cislo": 74,
+          "title": "Návrh poslanců Petra Hladíka, Bohuslava Niemiece, Václava Pláteníka, Moniky Brzeskové, Jany Filipovičové, Marie Krškové, Jany Krutákové, Gabriely Svárovské a Heleny Langšádlové na vydání zákona, který",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 4 předpisy — změna zákona o předcházení ekologické újmě a o její nápravě, zákona o České inspekci životního prostředí a její působnosti v ochraně lesa, vodního zákona a další předpis."
+        },
+        {
+          "cislo": 50,
+          "title": "Návrh poslanců Mariana Jurečky, Moniky Brzeskové, Toma Philippa, Marka Výborného a dalších na vydání zákona, kterým se mění zákon č. 155/1995 Sb., o důchodovém pojištění, ve znění pozdějších předpisů,",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 2 předpisy — změna zákona o důchodovém pojištění, zákona č. 417/2024 Sb., kterým se mění zákon č. 155/1995 Sb., o důchodovém pojištění, ve znění pozdějších předpisů, a další související zákony."
+        },
+        {
+          "cislo": 75,
+          "title": "Návrh poslanců Petra Hladíka, Bohuslava Niemiece, Václava Pláteníka, Moniky Brzeskové, Jany Filipovičové, Marie Krškové, Jany Krutákové, Gabriely Svárovské a Heleny Langšádlové na vydání zákona, který",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 254/2001 Sb., o vodách a o změně některých zákonů (vodní zákon)."
+        },
+        {
+          "cislo": 89,
+          "title": "Návrh poslanců Benjamina Činčily, Mariana Jurečky, Toma Philippa, Marka Výborného a dalších na vydání zákona, kterým se mění zákon č. 218/2000 Sb., o rozpočtových pravidlech, ve znění pozdějších předp",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. č. 218/2000 Sb., o rozpočtových pravidlech."
+        },
+        {
+          "cislo": 104,
+          "title": "Návrh poslanců Václava Pláteníka, Jiřího Vojáčka, Mariana Jurečky, Benjamina Činčily, Marie Krškové, Jiřího Horáka a Moniky Brzeskové na vydání zákona, kterým se mění zákon č. 561/2004 Sb., o předškol",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 561/2004 Sb., o předškolním, základním, středním, vyšším odborném a jiném vzdělávání (školský zákon)."
+        },
+        {
+          "cislo": 109,
+          "title": "Návrh poslanců Mariana Jurečky, Moniky Brzeskové, Toma Philippa, Benjamina Činčily a dalších na vydání zákona, kterým se mění zákon č. 187/2006 Sb., o nemocenském pojištění, ve znění pozdějších předpi",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 187/2006 Sb., o nemocenském pojištění."
+        },
+        {
+          "cislo": 110,
+          "title": "Návrh poslanců Mariana Jurečky, Moniky Brzeskové, Toma Philippa, Marka Výborného a dalších na vydání zákona, kterým se mění zákon č. 589/1992 Sb., o pojistném na sociální zabezpečení a příspěvku na st",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 589/1992 Sb., o pojistném na sociální zabezpečení a příspěvku na státní politiku zaměstnanosti."
+        },
+        {
+          "cislo": 121,
+          "title": "Návrh poslanců Mariana Jurečky, Moniky Brzeskové, Toma Philippa, Marka Výborného a dalších na vydání zákona, kterým se mění zákon č. 586/1992 Sb., o daních z příjmů, ve znění pozdějších předpisů, záko",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění 3 předpisy — změna zákona o daních z příjmů, zákona o státní sociální podpoře, zákona o nemocenském pojištění."
+        },
+        {
+          "cislo": 161,
+          "title": "Návrh poslanců Petra Hladíka, Moniky Brzeskové, Jany Filipovičové, Zdeny Kašparové, Marie Krškové, Jany Krutákové, Heleny Langšádlové, Bohuslava Niemiece, Hayata Okamury, Toma Philippa, Gabriely Sváro",
+          "stav": "1. čtení",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 541/2020 Sb., o odpadech."
+        }
+      ],
+      "rapporteur_bills": [
+        {
+          "cislo": 146,
+          "title": "Návrh poslanců Věry Kovářové, Matěje Hlavatého, Zdeny Kašparové, Jakuba Krainera, Elišky Olšákové, Michaely Opltové, Jana Papajanovského, Víta Rakušana, Lucie Sedmihradské, Julie Smejkalové, Michaely ",
+          "stav": "1. čtení (§ 90, odst. 2) - ob. rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění 3 předpisy — změna obecního zřízení, krajského zřízení, zákona o hlavním městě Praze.",
+          "scopes": [
+            "zpravodaj_ov"
+          ]
+        }
+      ],
+      "amendment_bills": [
+        {
+          "cislo": 48,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 326/2004 Sb., o rostlinolékařské péči a o změně některých souvisejících zákonů, ve znění pozdějších předpisů",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 326/2004 Sb., o rostlinolékařské péči a o změně některých souvisejících zákonů.",
+          "amendments": 1,
+          "sd_cislos": [
+            871
+          ]
+        },
+        {
+          "cislo": 67,
+          "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 22 předpisů — změna stavebního zákona, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o požární ochraně a 19 dalších předpisů.",
+          "amendments": 4,
+          "sd_cislos": [
+            1019,
+            1142,
+            1143,
+            1144
+          ]
+        }
+      ],
+      "spoke_on_bills": [
+        {
+          "cislo": 67,
+          "title": "Návrh poslanců Andreje Babiše, Karla Havlíčka, Tomia Okamury, Petra Macinky, Aleny Schillerové, Zuzany Schwarz Bařtipánové, Radima Fialy, Borise Šťastného, Vojtěcha Krňanského a Marie Pošarové na vydá",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění 22 předpisů — změna stavebního zákona, zákona o zřízení ministerstev a jiných ústředních orgánů státní správy České republiky, zákona o požární ochraně a 19 dalších předpisů.",
+          "turns": 3
+        },
+        {
+          "cislo": 76,
+          "title": "Návrh poslanců Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové na vydání zákona o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státníc",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Nový zákon o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech (zákon o státních zaměstnancích).",
+          "turns": 3
+        },
+        {
+          "cislo": 48,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 326/2004 Sb., o rostlinolékařské péči a o změně některých souvisejících zákonů, ve znění pozdějších předpisů",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 326/2004 Sb., o rostlinolékařské péči a o změně některých souvisejících zákonů.",
+          "turns": 2
+        },
+        {
+          "cislo": 198,
+          "title": "Vládní návrh zákona, kterým se mění zákon č. 117/1995 Sb., o státní sociální podpoře, ve znění pozdějších předpisů",
+          "stav": "Senát",
+          "fate_sb": null,
+          "summary_cz": "Mění zákon č. 117/1995 Sb., o státní sociální podpoře.",
+          "turns": 2
+        },
+        {
+          "cislo": 174,
+          "title": "Návrh poslanců Lucie Šafránkové, Andreje Babiše, Tomia Okamury, Petra Macinky, Borise Šťastného, Taťány Malé, Radima Fialy, Renaty Vesecké a Jany Hanzlíkové na vydání zákona, kterým se mění zákon č. 2",
+          "stav": "2. čtení - obecná rozprava",
+          "fate_sb": null,
+          "summary_cz": "Mění 3 předpisy — změna zákona na ochranu zvířat proti týrání, zákona o Policii České republiky, občanského zákoníku.",
+          "turns": 1
+        }
+      ]
+    }
+  ]
+}

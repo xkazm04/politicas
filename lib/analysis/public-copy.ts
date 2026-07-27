@@ -39,6 +39,19 @@ export const PIPELINE_JARGON: { re: RegExp; what: string }[] = [
     re: /\b(batch|dávka)\s*\d|v tomto vzorku|ve vzorku (pěti|čtyř|tří)|tomto vzorku/i,
     what: "batch/sample self-reference",
   },
+  // batch 008: the same self-reference class in superlative clothing — a claim
+  // scoped to the analyst's own working set ("nejvíce ze svého vzorku",
+  // "nejaktivnější řečník ze skupiny", "v této skupině", "v tomto přehledu")
+  // reads as a checkable fact but references an internal sample a reader can
+  // never see. Found in 8/16 batch-008 proposals; the older rule missed all of
+  // them. Genitive/locative variants covered.
+  // Kept narrow on purpose: "ze skupiny poslanců" is ordinary Czech (a bill by
+  // a group of MPs), so bare "ze skupiny" must NOT trip — only the superlative
+  // form ("nejvíce/nejaktivnější … ze skupiny") and the explicit sample words.
+  {
+    re: /ze svého vzorku|nej[\p{L}]+(?:\s[\p{L}]+){0,2}\sz(?:e)? (?:celé )?skupiny|v této skupině|v tomto přehledu|z tohoto přehledu/iu,
+    what: "sample-scoped self-reference",
+  },
   // Q-effort-15 (batch 007): added here because gate.ts carried this rule as a LOCAL
   // fork (never imported from this module, despite the docstring above claiming a
   // single shared definition) — so live prose containing "endpoint"/"REST API"/

@@ -160,6 +160,10 @@ export interface LeaderboardEntry {
   // ~191/207 MPs not (yet) flagged by the deterministic triage lens; never fabricated.
   effortWorkhorse: boolean;
   effortWorkhorseFlavour: string | null;
+  // Rapporteur load (batch 008): distinct bills the MP is zpravodaj for
+  // (pass-34 rapporteur edges, deterministic count). 0 for the 128/207 without
+  // an assignment; ≥3 earns the „Zpravodajský tahoun" badge (18/207 at pass 36).
+  effortRapporteurLoad: number;
   // Dossier coverage flag (Case ② effort-loop, batch 001–005): true when this
   // MP carries at least one of the rich narrative dossier props (work themes,
   // bill focus, notes, public role) — used to surface a "dossier available"
@@ -198,6 +202,7 @@ export type LeaderboardListEntry = Pick<
   | "components"
   | "effortWorkhorse"
   | "effortWorkhorseFlavour"
+  | "effortRapporteurLoad"
   | "effortHasDossier"
 >;
 
@@ -214,6 +219,7 @@ function toListEntry(e: LeaderboardEntry): LeaderboardListEntry {
     components: e.components,
     effortWorkhorse: e.effortWorkhorse,
     effortWorkhorseFlavour: e.effortWorkhorseFlavour,
+    effortRapporteurLoad: e.effortRapporteurLoad,
     effortHasDossier: e.effortHasDossier,
   };
 }
@@ -316,6 +322,10 @@ export async function buildLeaderboard(): Promise<{ data: LeaderboardData; direc
         effortPublicRole: publicCopyOrNull(p.props.effort_public_role as string | undefined),
         effortWorkhorse: p.props.effort_workhorse === true,
         effortWorkhorseFlavour: typeof p.props.effort_workhorse_flavour === "string" ? p.props.effort_workhorse_flavour : null,
+        effortRapporteurLoad:
+          typeof p.props.effort_rapporteur_load === "number" && Number.isFinite(p.props.effort_rapporteur_load)
+            ? p.props.effort_rapporteur_load
+            : 0,
         effortHasDossier: hasDossierProps(p.props),
       };
     });

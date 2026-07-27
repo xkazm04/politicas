@@ -202,3 +202,15 @@ and the graph-metrics block in [[coverage-ledger]] for progress.
   source-grep test (`lib/analysis/public-copy.test.ts`) stands between it and a future silent
   regression. Flagging for any future loop that adds a similar "internal channel" prop: pair it with
   a test on day one, not after a reflection catches the gap. (opened 2026-07-26, batch 007)
+
+### Batch-008 (effort) — role-signal batch (2026-07-27)
+
+- [effort] Q-effort-16 (new): the `sample-scoped self-reference` public-copy rule (batch 008,
+  verifier-earned: 8/16 proposals carried payload-scoped superlatives like „nejaktivnější řečník ze
+  skupiny") withholds **29 pre-existing field-instances on 28 nodes** (batches 001–007 prose) at
+  render until rewritten. Scoped mechanical rewrite pass — one small army group. (opened 2026-07-27)
+- [effort] Signature-split lens now systematic: 52/207 MPs have authored bills only as co-signers
+  (predkladatel rank, pass 34). Candidate symmetric surface on /zebricek — needs framing review
+  (co-signing is normal club practice; neutrality mandatory, see the batch-008 Okamura BLOCKING).
+- [effort] own_bill_not_defended lens NOT trusted as ranked signal — fires on bills that never
+  reached floor debate; refine to "others debated it, sponsor did not" before use.

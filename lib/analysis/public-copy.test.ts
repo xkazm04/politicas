@@ -81,3 +81,27 @@ describe("effort_analyst_note must never be wired into a render path", () => {
     expect(src).not.toMatch(/effort_analyst_note/);
   });
 });
+
+describe("sample-scoped self-reference rule (batch 008)", () => {
+  it("trips on payload-scoped superlatives and sample words", () => {
+    for (const bad of [
+      "V rozpravě vystoupil nejvíce ze svého vzorku.",
+      "Nejaktivnější řečník ze skupiny.",
+      "nejvyšší koncentrace pozměňovací aktivity v této skupině",
+      "Zpravodajskou roli v tomto přehledu nezastává.",
+      "nejvyšší z celé skupiny",
+    ]) {
+      expect(jargonViolations(bad), bad).not.toEqual([]);
+    }
+  });
+
+  it("does NOT trip on ordinary Czech 'skupina poslanců' phrasing", () => {
+    for (const ok of [
+      "Návrh skupiny poslanců, kterým se mění zákon č. 90/1995 Sb.",
+      "Tisk předložila skupina poslanců ze skupiny STAN a KDU-ČSL.",
+      "Je členem skupiny přátel Česko-Japonsko.",
+    ]) {
+      expect(jargonViolations(ok), ok).toEqual([]);
+    }
+  });
+});

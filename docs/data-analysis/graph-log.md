@@ -827,3 +827,19 @@ assumption breaks if another session is writing at the same time — check the l
 immediately before stamping, not at batch start.
 
 Detail: `docs/data-analysis/case-money/batch-009.md`.
+
+## Pass 36 (track: effort) — batch 008 build: effort_rapporteur_load (2026-07-27)
+
+Deterministic annotation on all 207 person nodes: `effort_rapporteur_load` = distinct bills the MP
+holds a `rapporteur` edge for (79 nonzero, 18 ≥ 3). Drives the „Zpravodajský tahoun" badge on
+/zebricek (`lib/analysis/rapporteur-load.ts`, `RapporteurBadge.tsx`). Writer:
+`scripts/case-loops/effort/rapporteur-load.ts` (merge-preserving). ns=effort, track=effort.
+
+## Pass 37 (track: effort) — batch 008: role-signal dossier extensions (2026-07-27)
+
+Props-merge on 16 person nodes: `effort_bill_focus` extended append-only with the pass-34/35 role
+story (zpravodajství, amendment activity, floor engagement, signature split), `effort_analyst_note`
+internals, `effort_citations` threaded. Gated 16/16; Opus verification caught 1 BLOCKING + 4 WRONG
+items pre-persist (see case-effort/batch-008.md §3). The strengthened public-copy rule
+(sample-scoped self-reference) ships in the same change and withholds 29 pre-existing
+field-instances until the Q-effort-16 rewrite. ns=effort, track=effort.

@@ -1,9 +1,9 @@
 {
   "case": "effort",
   "term": "PSP10",
-  "generatedAt": "2026-07-27T09:39:11.928Z",
+  "generatedAt": "2026-07-27T11:14:23.016Z",
   "population": 207,
-  "batch": 7,
+  "batch": 8,
   "units": [
     {
       "pspId": 6751,
@@ -12,7 +12,7 @@
       "rank": 1,
       "contribution_score": 96.8,
       "stage": "signal",
-      "batch": 1,
+      "batch": 8,
       "signal": 0.85,
       "flags": {
         "absentee_manager_lead": false,
@@ -75,8 +75,8 @@
       "rank": 4,
       "contribution_score": 94.6,
       "stage": "signal",
-      "batch": 1,
-      "signal": 0.8,
+      "batch": 8,
+      "signal": 0.9,
       "flags": {
         "absentee_manager_lead": false,
         "never_cast_ballot": false,
@@ -348,8 +348,8 @@
       "rank": 17,
       "contribution_score": 90.2,
       "stage": "signal",
-      "batch": 3,
-      "signal": 0.55,
+      "batch": 8,
+      "signal": 0.8,
       "flags": {
         "absentee_manager_lead": false,
         "never_cast_ballot": false,
@@ -369,7 +369,7 @@
       "rank": 18,
       "contribution_score": 90,
       "stage": "signal",
-      "batch": 3,
+      "batch": 8,
       "signal": 0.55,
       "flags": {
         "absentee_manager_lead": false,
@@ -411,8 +411,8 @@
       "rank": 20,
       "contribution_score": 89.7,
       "stage": "signal",
-      "batch": 4,
-      "signal": 0.4,
+      "batch": 8,
+      "signal": 0.55,
       "flags": {
         "absentee_manager_lead": false,
         "never_cast_ballot": false,
@@ -537,8 +537,8 @@
       "rank": 26,
       "contribution_score": 87.6,
       "stage": "signal",
-      "batch": 4,
-      "signal": 0.48,
+      "batch": 8,
+      "signal": 0.35,
       "flags": {
         "absentee_manager_lead": false,
         "never_cast_ballot": false,
@@ -684,8 +684,8 @@
       "rank": 33,
       "contribution_score": 85,
       "stage": "signal",
-      "batch": 5,
-      "signal": 0.5,
+      "batch": 8,
+      "signal": 0.55,
       "flags": {
         "absentee_manager_lead": false,
         "never_cast_ballot": false,
@@ -705,8 +705,8 @@
       "rank": 34,
       "contribution_score": 84.2,
       "stage": "signal",
-      "batch": 5,
-      "signal": 0.4,
+      "batch": 8,
+      "signal": 0.7,
       "flags": {
         "absentee_manager_lead": false,
         "never_cast_ballot": false,
@@ -747,8 +747,8 @@
       "rank": 36,
       "contribution_score": 83.4,
       "stage": "signal",
-      "batch": 4,
-      "signal": 0.78,
+      "batch": 8,
+      "signal": 0.4,
       "flags": {
         "absentee_manager_lead": false,
         "never_cast_ballot": false,
@@ -810,8 +810,8 @@
       "rank": 39,
       "contribution_score": 82.8,
       "stage": "signal",
-      "batch": 3,
-      "signal": 0.4,
+      "batch": 8,
+      "signal": 0.8,
       "flags": {
         "absentee_manager_lead": false,
         "never_cast_ballot": false,
@@ -1314,8 +1314,8 @@
       "rank": 63,
       "contribution_score": 76.9,
       "stage": "signal",
-      "batch": 1,
-      "signal": 0.78,
+      "batch": 8,
+      "signal": 0.65,
       "flags": {
         "absentee_manager_lead": false,
         "never_cast_ballot": false,
@@ -1776,8 +1776,8 @@
       "rank": 85,
       "contribution_score": 71.1,
       "stage": "signal",
-      "batch": 4,
-      "signal": 0.35,
+      "batch": 8,
+      "signal": 0.5,
       "flags": {
         "absentee_manager_lead": false,
         "never_cast_ballot": false,
@@ -2091,8 +2091,8 @@
       "rank": 100,
       "contribution_score": 69,
       "stage": "signal",
-      "batch": 4,
-      "signal": 0.62,
+      "batch": 8,
+      "signal": 0.75,
       "flags": {
         "absentee_manager_lead": false,
         "never_cast_ballot": false,
@@ -2406,8 +2406,8 @@
       "rank": 115,
       "contribution_score": 66,
       "stage": "signal",
-      "batch": 6,
-      "signal": 0.28,
+      "batch": 8,
+      "signal": 0.55,
       "flags": {
         "absentee_manager_lead": false,
         "never_cast_ballot": false,
@@ -2490,8 +2490,8 @@
       "rank": 119,
       "contribution_score": 65.5,
       "stage": "signal",
-      "batch": 6,
-      "signal": 0.22,
+      "batch": 8,
+      "signal": 0.45,
       "flags": {
         "absentee_manager_lead": false,
         "never_cast_ballot": false,
@@ -3057,8 +3057,8 @@
       "rank": 146,
       "contribution_score": 58.9,
       "stage": "signal",
-      "batch": 5,
-      "signal": 0.58,
+      "batch": 8,
+      "signal": 0.4,
       "flags": {
         "absentee_manager_lead": false,
         "never_cast_ballot": false,
