@@ -1,6 +1,7 @@
 // Server-only: the review queue for /penize/kontrola — the human-verification console
-// for the 260 pending MP↔company ties. Mirrors getMoneyData.ts's pattern (walk the
-// materialized money layer of the knowledge graph, degrade to null when no store), but
+// for the 211 pending MP↔company ties. Reads the SAME shared money layer as the ledger
+// (moneyLoader.ts::loadMoneyLayer — one `cache()`-wrapped read per request, and the same
+// cardinality-floor gate every other money surface has), but
 // shapes ONE ROW PER PENDING TIE, enriched with the deterministic triage signals
 // (tie class, triangle, near-threshold, parsed role period) and the primary-registry
 // deep-links a reviewer needs. Read-only; it NEVER writes review_state — the write path
@@ -11,8 +12,7 @@
 
 import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
-import { getStore } from "@/lib/db/store";
-import { KG_READ_CAP } from "@/lib/db/readCap";
+import { loadMoneyLayer, num, pspIdFromNodeId } from "./moneyLoader";
 import {
   buildRegistryLinks,
   isDeMinimis,
@@ -26,67 +26,15 @@ import {
   type ReviewTie,
 } from "./reviewTypes";
 
-const TERM = "PSP10";
-
-/** Same fix as moneyLoader.ts's num() — a jsonb amount prop with no schema
- * guarantee can land as a numeric string; treating every non-number as zero
- * silently undercounts reachable money instead of surfacing a parse problem. */
-function num(v: unknown): number {
-  if (typeof v === "number" && Number.isFinite(v)) return v;
-  if (typeof v === "string" && v.trim() !== "") {
-    const parsed = Number(v);
-    if (Number.isFinite(parsed)) return parsed;
-    console.warn(`[getVerificationData] num() could not parse numeric string: ${JSON.stringify(v)}`);
-  }
-  return 0;
-}
-function pspIdFromNodeId(id: string): number | null {
-  const tail = id.split(":").pop();
-  const n = tail ? Number(tail) : NaN;
-  return Number.isInteger(n) ? n : null;
-}
-
 export async function getVerificationQueue(): Promise<ReviewQueue | null> {
   try {
-    const store = await getStore();
-    if (!store) return null;
-
-    const companies = await store.listKgNodes({ kind: "company", limit: 100_000 });
-    const contracts = await store.listKgNodes({ kind: "contract", limit: KG_READ_CAP });
-    const persons = await store.listKgNodes({ kind: "person", limit: 100_000 });
-    const linked = await store.listKgEdges({ rel: "linked_to", limit: 100_000 });
-    const supplies = await store.listKgEdges({ rel: "supplies", limit: KG_READ_CAP });
-    if (linked.length === 0 || companies.length === 0) return null;
-
-    const companyById = new Map(companies.map((c) => [c.id, c]));
-    const personById = new Map(persons.map((p) => [p.id, p]));
-    const contractById = new Map(contracts.map((c) => [c.id, c]));
-
-    // company id → {count, czk, amounts[]} reachable via supplies
-    const agg = new Map<string, { count: number; czk: number; amounts: number[] }>();
-    for (const e of supplies) {
-      const cur = agg.get(e.src) ?? { count: 0, czk: 0, amounts: [] };
-      const ct = contractById.get(e.dst);
-      const amount = num(e.weight) || num(ct?.props?.amount);
-      cur.count += 1;
-      cur.czk += amount;
-      if (amount > 0) cur.amounts.push(amount);
-      agg.set(e.src, cur);
-    }
-
-    // personPspId → club (clubByMandate keys on the mandate psp id)
-    const clubByPerson = new Map<number, string>();
-    try {
-      const mandates = await store.listMandates({ termCode: TERM });
-      const clubByMandate = await store.clubByMandate(TERM);
-      for (const m of mandates) {
-        const club = clubByMandate.get(m.pspId);
-        if (club) clubByPerson.set(m.personPspId, club);
-      }
-    } catch (err) {
-      // clubs are decorative here — absence must not drop the review queue.
-      console.warn("[getVerificationQueue] club resolution failed; continuing without clubs", err);
-    }
+    // ONE shared read with the ledger (moneyLoader.ts), `cache()`-wrapped. This loader
+    // used to repeat all five of the ledger's whole-relation scans — the same ~307 000
+    // rows, materialized twice per request when both surfaces were touched, and two
+    // copies of the "what is a tie" mapping to keep in step by hand.
+    const layer = await loadMoneyLayer();
+    if (!layer) return null;
+    const { linked, companyById, personById, clubByPerson, contractsByCompany, pass } = layer;
 
     const ties: ReviewTie[] = [];
     for (const e of linked) {
@@ -104,7 +52,7 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
       if (!comp || pspId == null) continue; // unresolved endpoint → drop, never guess
 
       const cp = comp.props ?? {};
-      const a = agg.get(comp.id) ?? { count: 0, czk: 0, amounts: [] };
+      const a = contractsByCompany.get(comp.id) ?? { count: 0, czk: 0, amounts: [] };
       const role = String(e.props?.role ?? "");
       const source = String(e.props?.source ?? "");
       const ico = String(cp.ico ?? comp.id.split(":").pop() ?? "");
@@ -205,7 +153,6 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
       ).length,
     };
 
-    const pass = num((linked[0]?.provenance as Record<string, unknown> | undefined)?.pass) || 0;
     return { ties, stats, source: "registr smluv ⋈ ares ⋈ hlídač státu", pass };
   } catch (err) {
     reportLoaderFailure("getVerificationQueue", err);

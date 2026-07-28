@@ -165,6 +165,19 @@ Route map (politicas.md roadmap execution, sample data):
   `resolveReviewOrder()` keeps a stored key only while it still matches the tie
   and recomputes otherwise, reporting the count on the console rather than
   mixing two vintages of one sort key in one queue.
+  **Reads are indexed since 2026-07-29.** `loadMoneyLayer()` (ledger + console,
+  now the console's ONLY read — it no longer repeats the five scans) is
+  `react.cache()`-wrapped, uses `KG_READ_CAP` everywhere and no longer reads
+  `contract` NODES at all: of the 153 731 `supplies` edges the 33 628 without a
+  weight all point at a node with no `amount`, so the 152 788-row scan bought
+  nothing. `/penize/[pspId]` goes through `loadMpMoneySlice()` — `kgNeighbours`
+  for the MP's own `linked_to` edges, then per tied company for its `supplies`
+  with contract nodes attached — and must never scan a whole relation. Both
+  paths derive a contract's amount from `supplies.weight` ONLY, so the two
+  surfaces cannot report different money. Every `kgNeighbours` result is
+  re-sorted with `byListOrder` before it is read (`memory/kgneighbours-weight-
+  order-is-not-total.md`): the ordering is not total, and the CZK sum's
+  floating-point result depends on it.
 - `/zebricek` — **CivicScore** (features/civicscore): leaderboard — score
   histogram + chamber summary, party filter + name search, mini
   weighted-breakdown bars per row, and Souboj (pick two via "vs" → mirrored

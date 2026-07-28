@@ -19,6 +19,7 @@
 import "server-only";
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
+import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import type { LeadDossier } from "./moneyTypes";
 
 const PAYLOAD_DIR = path.join(process.cwd(), "docs", "data-analysis", "case-money", "payloads");
@@ -35,25 +36,45 @@ function isDossier(v: unknown): v is LeadDossier {
   );
 }
 
-export async function getLeadDossiers(): Promise<LeadDossier[]> {
-  const out: LeadDossier[] = [];
+/** What the surface needs to tell an empty corpus apart from a broken one. */
+export interface LeadDossiers {
+  dossiers: LeadDossier[];
+  /** The payload directory could not be listed at all — the surface is BLIND here, which
+   *  is not the same statement as "there are no kauzy". */
+  directoryUnreadable: boolean;
+  /** Files that exist but could not be read or parsed. A dossier lost to a stray comma
+   *  used to vanish with no log line and no visible difference from never existing. */
+  unreadableFiles: string[];
+}
+
+export async function getLeadDossiers(): Promise<LeadDossiers> {
+  const dossiers: LeadDossier[] = [];
+  const unreadableFiles: string[] = [];
   let files: string[];
   try {
     files = (await readdir(PAYLOAD_DIR)).filter((f) => f.endsWith(".json"));
-  } catch {
-    // no store/deploy has the payload dir at all → empty list, page still renders.
-    return out;
+  } catch (err) {
+    // No deploy has the payload dir at all → the page still renders, but it says it is
+    // blind rather than claiming the corpus is empty.
+    reportLoaderFailure("getLeadDossiers.readdir", err);
+    return { dossiers, directoryUnreadable: true, unreadableFiles };
   }
   for (const file of files) {
     try {
       const raw = await readFile(path.join(PAYLOAD_DIR, file), "utf-8");
       const parsed: unknown = JSON.parse(raw);
-      if (isDossier(parsed)) out.push(parsed);
-    } catch {
-      // one missing/malformed payload must not take down the surface or the others.
-      continue;
+      // A file that parses but is not a dossier is EXPECTED here: the directory holds
+      // review-rank tables and corroboration dumps too. Only a read/parse failure is a
+      // loss, and only that is reported.
+      if (isDossier(parsed)) dossiers.push(parsed);
+    } catch (err) {
+      // one malformed payload must not take down the surface or the others — but it
+      // must not disappear either.
+      reportLoaderFailure(`getLeadDossiers.parse:${file}`, err);
+      unreadableFiles.push(file);
     }
   }
   // signal-descending — the more story-worthy lead first, same axis the dossier itself reports.
-  return out.sort((a, b) => b.signalScore - a.signalScore);
+  dossiers.sort((a, b) => b.signalScore - a.signalScore);
+  return { dossiers, directoryUnreadable: false, unreadableFiles };
 }

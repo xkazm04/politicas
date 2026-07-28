@@ -53,7 +53,7 @@ const dataDir = mkdtempSync(join(tmpdir(), "politicas-loaders-"));
 process.env.PGLITE_PATH = dataDir;
 
 const { open } = await import("../db/pglite/internals");
-const { loadMoneyLayer, num, pspIdFromNodeId } = await import("../../features/money/moneyLoader");
+const { loadMoneyLayer, loadMpMoneySlice, num, pspIdFromNodeId } = await import("../../features/money/moneyLoader");
 const { getMoneyData } = await import("../../features/money/getMoneyData");
 const { getMoneyMpDetail } = await import("../../features/money/getMpDetail");
 const { getVerificationQueue } = await import("../../features/money/getVerificationData");
@@ -385,16 +385,38 @@ describe("graphLoader on a cold start over an empty graph", () => {
 describe("loadMoneyLayer (the shared /penize read)", () => {
   beforeAll(ensureSeeded);
 
-  it("aggregates supplies into per-company contract totals and line items", async () => {
+  it("aggregates supplies into per-company contract totals — and reads NO contract nodes", async () => {
     const layer = (await withReadinessOff(loadMoneyLayer))!;
     expect(layer).not.toBeNull();
     const alfa = layer.contractsByCompany.get(ALFA)!;
     expect(alfa.count).toBe(2);
     expect(alfa.czk).toBe(6_900_000);
-    // lines sorted amount desc — the UI slices its own top-N off the front.
-    expect(alfa.lines.map((l) => l.amountCzk)).toEqual([5_000_000, 1_900_000]);
-    expect(alfa.lines[0].signedOn).toBe("2024-03-01");
+    expect(alfa.amounts).toEqual([5_000_000, 1_900_000]);
+    // Line items (label + signature date) live on the contract NODE and are NOT part of
+    // this read: 152 788 of them cost 7.8 s to answer a question only /penize/[pspId]
+    // asks. They come from loadMpMoneySlice, which fetches them per company.
+    expect("lines" in alfa).toBe(false);
     expect(layer.pass).toBe(42);
+  });
+
+  it("loadMpMoneySlice reads ONE MP through the index and returns its line items", async () => {
+    const slice = (await withReadinessOff(() => loadMpMoneySlice(100)))!;
+    expect(slice).not.toBeNull();
+    expect(slice.person.label).toBe("Nováková Jana");
+    expect(slice.club).toBe("ODS");
+    expect(slice.ties.map((e) => e.dst)).toEqual([ALFA]);
+    const lines = slice.linesByCompany.get(ALFA)!;
+    // lines sorted amount desc — the UI slices its own top-N off the front.
+    expect(lines.map((l) => l.amountCzk)).toEqual([5_000_000, 1_900_000]);
+    expect(lines[0].signedOn).toBe("2024-03-01");
+    // …and the same aggregate the whole-corpus layer computes, from the same rule.
+    expect(slice.contractsByCompany.get(ALFA)).toEqual({ count: 2, czk: 6_900_000, amounts: [5_000_000, 1_900_000] });
+    expect(slice.pass).toBe(42);
+  });
+
+  it("loadMpMoneySlice is null for an MP with no ties and for an unknown node", async () => {
+    expect(await withReadinessOff(() => loadMpMoneySlice(250))).toBeNull();
+    expect(await withReadinessOff(() => loadMpMoneySlice(99999))).toBeNull();
   });
 
   it("exposes tiedCompanyIds, and it EXCLUDES a contract-holding ownership parent", async () => {
@@ -573,7 +595,7 @@ describe("getVerificationQueue (the /penize/kontrola review console)", () => {
   beforeAll(ensureSeeded);
 
   it("serves the PENDING queue only, ranked by reviewRank, with registry deep-links", async () => {
-    const queue = (await getVerificationQueue())!;
+    const queue = (await withReadinessOff(getVerificationQueue))!;
     expect(queue).not.toBeNull();
 
     // verified AND rejected are terminal (D7); the ghost-company edge is dropped.
@@ -606,13 +628,14 @@ describe("getVerificationQueue (the /penize/kontrola review console)", () => {
     expect(queue.pass).toBe(42);
   });
 
-  it("KNOWN GAP: has NO cardinality-floor gate, unlike every other money loader", async () => {
-    // Pinned deliberately (reported, not fixed). getVerificationData.ts never calls
-    // storeReady(), so the human-review console will happily serve a queue built from a
-    // half-ingested graph while /penize itself has already degraded to the mock. If the
-    // gate is added, flip this expectation to toBeNull().
+  it("GAP CLOSED: the console now degrades below the cardinality floor like every other money loader", async () => {
+    // Was pinned as a KNOWN GAP: getVerificationData.ts never called storeReady(), so the
+    // human-review console served a queue built from a half-ingested graph while /penize
+    // itself had already degraded to the mock. It now reads the SHARED money layer, which
+    // owns the gate, so the two surfaces can no longer disagree about whether the graph
+    // is publishable — and the degradation still leaves a trace.
     expect(process.env.KG_READINESS_OFF).toBeUndefined();
-    expect(await getVerificationQueue()).not.toBeNull();
+    await expectTracedDegradation("storeReady", getVerificationQueue);
   });
 });
 
@@ -1283,7 +1306,7 @@ describe("getAdminData", () => {
     expect(ties.kontrolaHref).toBe("/penize/kontrola");
 
     // Cross-loader consistency: the console's pending count is this dashboard's.
-    const queue = await getVerificationQueue();
+    const queue = await withReadinessOff(getVerificationQueue);
     expect(queue!.stats.pending).toBe(ties.pending);
   });
 

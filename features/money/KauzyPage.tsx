@@ -12,9 +12,11 @@
 import { ExternalLink } from "lucide-react";
 import { useLocale } from "next-intl";
 import SourceNote from "@/features/shared/components/SourceNote";
+import type { LeadDossiers } from "./getLeadDossiers";
 import type { LeadDossier } from "./moneyTypes";
 
-export default function KauzyPage({ dossiers }: { dossiers: LeadDossier[] }) {
+export default function KauzyPage({ data }: { data: LeadDossiers }) {
+  const { dossiers, directoryUnreadable, unreadableFiles } = data;
   const locale = useLocale();
   const en = locale === "en";
 
@@ -40,9 +42,33 @@ export default function KauzyPage({ dossiers }: { dossiers: LeadDossier[] }) {
             : "Každé tvrzení níž nese vlastní citaci. Nic z toho není potvrzené porušení zákona ani automatické skóre vazby — je to datovaná výzkumná stopa vytvořená člověkem, poctivě rozdělená na to, co zdroje skutečně dokládají, a co ne."}
         </p>
 
+        {/* Blind and empty are different statements — a payload directory we could not
+            read must never be published as "there are no kauzy". */}
+        {unreadableFiles.length > 0 && (
+          <div className="mt-8 border-l-4 border-ochre bg-ochre/10 px-4 py-3">
+            <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-ink">
+              {en ? "payloads that could not be read" : "spisy, které se nepodařilo přečíst"}
+            </p>
+            <p className="mt-1 text-sm leading-relaxed text-steel">
+              {en
+                ? `${unreadableFiles.length} file(s) in the payload directory failed to read or parse and are missing from the list below: `
+                : `${unreadableFiles.length} soubor(ů) v adresáři se nepodařilo přečíst nebo rozparsovat a v seznamu níž chybí: `}
+              <span className="font-mono text-xs">{unreadableFiles.join(", ")}</span>
+            </p>
+          </div>
+        )}
+
         {dossiers.length === 0 ? (
           <div className="mt-10 border-2 border-dashed border-hairline p-8">
-            <p className="text-lg">{en ? "No dossiers available in this environment." : "V tomto prostředí nejsou dostupné žádné spisy."}</p>
+            <p className="text-lg">
+              {directoryUnreadable
+                ? en
+                  ? "The payload directory could not be read in this environment — this page cannot say whether there are any cases."
+                  : "Adresář se spisy se v tomto prostředí nepodařilo přečíst — tahle stránka nemůže říct, jestli nějaké kauzy existují."
+                : en
+                  ? "No dossiers available in this environment."
+                  : "V tomto prostředí nejsou dostupné žádné spisy."}
+            </p>
           </div>
         ) : (
           <div className="mt-12 space-y-16">

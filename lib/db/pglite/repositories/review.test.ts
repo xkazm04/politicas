@@ -9,6 +9,11 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 // lazily but open() memoises its connection on globalThis for the process.
 const dataDir = mkdtempSync(join(tmpdir(), "politicas-review-repo-"));
 process.env.PGLITE_PATH = dataDir;
+// getVerificationQueue() reads the shared money layer, which enforces the cardinality
+// floors (207 persons / 196 companies / 2 287 contracts on the real graph). This file
+// seeds a handful of rows on purpose, so the gate is bypassed here exactly as
+// lib/testing/loaders.test.ts does; the floors themselves are tested there.
+process.env.KG_READINESS_OFF = "1";
 
 const { open } = await import("../internals");
 const { makeReviewRepo } = await import("./review");

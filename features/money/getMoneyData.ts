@@ -64,7 +64,7 @@ export async function getMoneyData(): Promise<MoneyData | null> {
         continue;
       }
 
-      const contracts = contractsByCompany.get(comp.id) ?? { count: 0, czk: 0, amounts: [], lines: [] };
+      const contracts = contractsByCompany.get(comp.id) ?? { count: 0, czk: 0, amounts: [] };
       const tie = mapLinkedToTie({ edge: e, company: comp, contracts, person: pnode });
       if (tie.reviewState === "verified") verifiedTies += 1;
       else if (tie.reviewState === "pending_review") pendingTies += 1;

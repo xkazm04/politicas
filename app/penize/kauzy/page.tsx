@@ -9,6 +9,6 @@ export const metadata: Metadata = {
 };
 
 export default async function KauzyRoute() {
-  const dossiers = await getLeadDossiers();
-  return <KauzyPage dossiers={dossiers} />;
+  const data = await getLeadDossiers();
+  return <KauzyPage data={data} />;
 }

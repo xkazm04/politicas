@@ -1,38 +1,36 @@
 // Server-only: full evidence chain for ONE MP — the /penize/[pspId] case-file
-// surface. Same materialized money layer as getMoneyData.ts (via moneyLoader.ts),
-// scoped to a single person, with each tie's reachable contracts expanded into
-// line items (top-N shown, remainder counted, never dropped silently).
+// surface. Reads the INDEXED per-MP slice (moneyLoader.ts::loadMpMoneySlice): the MP's
+// own `linked_to` edges and, per tied company, its `supplies` edges with the contract
+// nodes attached. It must NEVER scan a whole kg_edge/kg_node relation — opening one case
+// file used to materialize the entire money layer (~307 000 rows, ~10.7 s) to render the
+// two or three ties that belong to this person.
 //
 // The `server-only` import makes any client-component import a build-time error.
 
 import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
-import { loadMoneyLayer, mapLinkedToTie, pspIdFromNodeId } from "./moneyLoader";
+import { loadMpMoneySlice, mapLinkedToTie } from "./moneyLoader";
 import type { MoneyMpDetail, MoneyTieDetail } from "./moneyTypes";
 
 export const MP_CONTRACT_LINES_SHOWN = 8;
 
 export async function getMoneyMpDetail(pspId: number): Promise<MoneyMpDetail | null> {
   try {
-    const layer = await loadMoneyLayer();
-    if (!layer) return null;
-    const { persons, linked, companyById, personById, clubByPerson, contractsByCompany, pass } = layer;
-
-    const personId = `psp:person:${pspId}`;
-    const pnode = personById.get(personId) ?? persons.find((p) => pspIdFromNodeId(p.id) === pspId);
-    if (!pnode) return null;
+    const slice = await loadMpMoneySlice(pspId);
+    if (!slice) return null;
+    const { person, club, ties: tieEdges, companyById, contractsByCompany, linesByCompany, pass } = slice;
 
     const ties: MoneyTieDetail[] = [];
-    for (const e of linked) {
-      if (e.src !== pnode.id) continue;
+    for (const e of tieEdges) {
       const comp = companyById.get(e.dst);
       if (!comp) continue; // unresolved company → drop, never guess
-      const contracts = contractsByCompany.get(comp.id) ?? { count: 0, czk: 0, amounts: [], lines: [] };
+      const contracts = contractsByCompany.get(comp.id) ?? { count: 0, czk: 0, amounts: [] };
+      const lines = linesByCompany.get(comp.id) ?? [];
 
       ties.push({
-        ...mapLinkedToTie({ edge: e, company: comp, contracts, person: pnode }),
-        contracts: contracts.lines.slice(0, MP_CONTRACT_LINES_SHOWN),
-        contractsMoreCount: Math.max(0, contracts.lines.length - MP_CONTRACT_LINES_SHOWN),
+        ...mapLinkedToTie({ edge: e, company: comp, contracts, person }),
+        contracts: lines.slice(0, MP_CONTRACT_LINES_SHOWN),
+        contractsMoreCount: Math.max(0, lines.length - MP_CONTRACT_LINES_SHOWN),
       });
     }
     if (ties.length === 0) return null;
@@ -47,9 +45,9 @@ export async function getMoneyMpDetail(pspId: number): Promise<MoneyMpDetail | n
 
     return {
       pspId,
-      name: pnode.label,
-      club: clubByPerson.get(pspId) ?? null,
-      absenteeManagerLead: Boolean(pnode.props?.absentee_manager_lead),
+      name: person.label,
+      club,
+      absenteeManagerLead: Boolean(person.props?.absentee_manager_lead),
       ties,
       totalContractCzk: ties.reduce((s, t) => s + t.contractCzk, 0),
       totalSubsidiesCzk: ties.reduce((s, t) => s + t.subsidiesCzk, 0),
