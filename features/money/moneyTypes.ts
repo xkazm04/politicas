@@ -27,6 +27,7 @@ export type Corroboration = (typeof CORROBORATIONS)[number];
 // duplicating the definition. Plain module, no server imports — safe to share.
 export type { TieClass, TieClassOrigin } from "./reviewTypes";
 import type { TieClass, TieClassOrigin } from "./reviewTypes";
+import type { ReachableMoney } from "./reachableMoney";
 
 /** One MP↔company tie, enriched with the public money reachable through the firm. */
 export interface MoneyTie {
@@ -109,9 +110,12 @@ export interface MoneyMpDetail {
   club: string | null;
   absenteeManagerLead: boolean;
   ties: MoneyTieDetail[];
-  totalContractCzk: number;
-  totalSubsidiesCzk: number;
-  totalDonatedCzk: number;
+  /** THE shared definition (`reachableMoney.ts`), scoped to this MP. Replaces the three
+   *  class-MIXING totals this file used to carry (`totalContractCzk`,
+   *  `totalSubsidiesCzk`, `totalDonatedCzk`), which summed a hospital's own contracting
+   *  into the same headline as a firm the MP owns, above the fold, with no source note
+   *  and no cap caveat — on the surface most likely to be screenshotted. */
+  money: ReachableMoney;
   source: string;
   pass: number;
 }
@@ -189,14 +193,15 @@ export interface MoneyGraphData {
 export interface MoneyStats {
   mpsWithTies: number;
   companiesLinked: number; // distinct companies across all ties
-  contractCzkReachable: number; // Σ contract CZK reachable through tied firms
-  /** The part of `contractCzkReachable` that the case's attribution rule permits reading
-   *  as money reaching the POLITICIAN's own firms — owner-operator and manager ties. */
+  /** Reachable public money, from THE shared definition (`reachableMoney.ts`): one row
+   *  per company, split into what the attribution rule permits reading as the
+   *  politician's (owner-operator + manager) and what is a public body's own activity
+   *  (steward). There is no undifferentiated "reachable" total here on purpose — after
+   *  the batch-012 re-ingest stewards are ~91 % of it. */
+  money: ReachableMoney;
+  /** `money.attributable.contractCzk` — a named view, read by /dashboard's headline. */
   contractCzkAttributable: number;
-  /** The rest: contracts of public bodies where an MP holds a board seat (`steward`).
-   *  This is the institution's own activity and must NEVER be read as enrichment. After
-   *  the batch-012 re-ingest it is ~91 % of the raw total, so it is surfaced separately
-   *  rather than folded into one headline. */
+  /** `money.steward.contractCzk` — same. NEVER read as MP enrichment. */
   contractCzkSteward: number;
   totalTies: number;
   verifiedTies: number;
@@ -206,12 +211,7 @@ export interface MoneyStats {
    *  `contractCzkReachable`, which is dominated by stewards' own institutions
    *  and must never be read as personal enrichment (see `tieClassInfo`). */
   ownerOperatorMps: number;
-  /** Whether the underlying contract corpus is a capped per-company sample.
-   *  The original money feed pulled at most N contracts per company, so every
-   *  CZK figure derived from it is a FLOOR, not a total — detected in money
-   *  batch 011 (35 companies sitting at exactly 25 contracts is not chance).
-   *  Rendering a capped sum as "Σ hodnot smluv" would present a lower bound as
-   *  a total, which the brand rule forbids; the surface must say "nejméně". */
+  /** `money.coverage` — a named view, read by /dashboard. */
   contractCoverage: ContractCoverage;
 }
 

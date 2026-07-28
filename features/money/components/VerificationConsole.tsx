@@ -220,7 +220,15 @@ export default function VerificationConsole({
       src: `kg_edge props.tie_class ${int(data.stats.classOrigin.stored)}× · heuristika role × název ${int(data.stats.classOrigin.derived)}×`,
     },
     { label: "úplný trojúhelník", value: int(data.stats.triangles), sub: "zakázky + dotace + dar straně", src: "props firmy v kg_node" },
-    { label: "dosažitelné veřejné peníze", value: compactCzk(data.stats.totalReachableCzk, locale), sub: "napříč nepotvrzenými vazbami", src: "Σ supplies + subsidies_total_czk" },
+    {
+      // Split, never merged. This tile used to sum per TIE across every class, so the
+      // companies tied to more than one MP were counted twice and a hospital's own
+      // contracting sat in the same number as a firm an MP owns.
+      label: "peníze u firem poslanců",
+      value: compactCzk(data.stats.reachable.attributable.contractCzk, locale),
+      sub: `${int(data.stats.reachable.attributable.companies)} firem, které poslanci vlastní nebo řídí · dalších ${compactCzk(data.stats.reachable.steward.contractCzk, locale)} u ${int(data.stats.reachable.steward.companies)} institucí, kde poslanec jen zasedá v orgánu — to nejsou jeho peníze`,
+      src: "registr smluv · kg_edge supplies.weight, jedna firma jednou",
+    },
   ];
 
   return (
@@ -537,7 +545,23 @@ function ReviewCard({
         {/* registry deep-links + reachable total */}
         <div className="border-l-2 border-hairline pl-5">
           <p className="font-mono text-[10px] uppercase tracking-widest text-steel">dosažitelné veřejné peníze</p>
-          <p className="mt-1 text-2xl font-black tabular-nums text-signal">{reach > 0 ? compactCzk(reach, locale) : "—"}</p>
+          <p
+            className={`mt-1 text-2xl font-black tabular-nums ${tie.tieClass === "steward" ? "text-steel" : "text-signal"}`}
+          >
+            {reach > 0 ? compactCzk(reach, locale) : "—"}
+          </p>
+          {/* Pravidlo u čísla, ne o obrazovku níž: u dozorčí funkce je to peníze
+              instituce, ne poslance, a bez téhle věty se to čte úplně stejně. */}
+          <p className="mt-1 text-xs leading-relaxed text-steel">
+            {tie.tieClass === "steward"
+              ? "peníze té instituce, ne poslance — dozorčí/správní funkce ve veřejné nebo neziskové organizaci"
+              : tie.tieClass === "manager"
+                ? "firma, v jejímž statutárním orgánu poslanec sedí"
+                : "firma, kterou poslanec vlastní nebo řídí"}
+          </p>
+          <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-steel">
+            zdroj: registr smluv Σ supplies.weight + subsidies_total_czk
+          </p>
           <p className="mt-3 font-mono text-[10px] uppercase tracking-widest text-steel">ověřit v rejstříku</p>
           <div className="mt-2 flex flex-col gap-1.5">
             {links.map((l) => (

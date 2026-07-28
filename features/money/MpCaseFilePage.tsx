@@ -13,6 +13,8 @@ import { ExternalLink } from "lucide-react";
 import { useLocale } from "next-intl";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { buildRegistryLinks } from "./reviewTypes";
+import type { ContractCoverage } from "./moneyTypes";
+import type { MoneyBucket } from "./reachableMoney";
 import {
   compactCzk,
   temporalBadge,
@@ -78,13 +80,48 @@ export default function MpCaseFilePage({ data }: { data: MoneyMpDetail | null })
               {en ? "full MP profile" : "celý profil poslance"} →
             </Link>
 
-            {/* totals */}
-            <div className="mt-8 grid gap-px border border-ink bg-ink sm:grid-cols-3">
-              <Tile label={en ? "contracts" : "zakázky"} value={compactCzk(data.totalContractCzk, locale)} />
-              <Tile label={en ? "subsidies" : "dotace"} value={compactCzk(data.totalSubsidiesCzk, locale)} />
-              <Tile
-                label={en ? "party donations" : "dary straně"}
-                value={data.totalDonatedCzk > 0 ? compactCzk(data.totalDonatedCzk, locale) : "—"}
+            {/* Totals. SPLIT BY CLASS, never merged: a supervisory seat in a hospital and
+                a firm the MP owns are two different statements about the same person, and
+                the qualifying rule belongs AT the number — it used to live ~800 px below
+                it, under three uncited tiles that summed both together. */}
+            <div className="mt-8 grid gap-px border border-ink bg-ink sm:grid-cols-2">
+              <MoneyTile
+                tone="signal"
+                label={en ? "contracts of firms the MP owns or runs" : "zakázky firem, které poslanec vlastní nebo řídí"}
+                bucket={data.money.attributable}
+                coverage={data.money.coverage}
+                rule={
+                  en
+                    ? "The real FollowTheMoney tie: money the state paid to a company this MP owns or is a statutory officer of."
+                    : "Skutečná vazba FollowTheMoney: peníze, které stát zaplatil firmě, kterou poslanec vlastní nebo je jejím statutárem."
+                }
+                emptyNote={
+                  en
+                    ? "no company in the graph is owned or run by this MP"
+                    : "graf nevede žádnou firmu, kterou by poslanec vlastnil nebo řídil"
+                }
+                locale={locale}
+                en={en}
+              />
+              <MoneyTile
+                tone="steel"
+                label={
+                  en
+                    ? "contracts of bodies where the MP only holds a seat"
+                    : "zakázky institucí, kde poslanec jen zasedá v orgánu"
+                }
+                bucket={data.money.steward}
+                coverage={data.money.coverage}
+                rule={
+                  en
+                    ? "NOT the MP's money: a supervisory or board seat in a public or nonprofit body — a hospital, a waterworks, a state fund. The figure is that body's OWN public activity and must never be read like the one on the left."
+                    : "Nejsou to peníze poslance: dozorčí nebo správní funkce ve veřejné či neziskové instituci — nemocnice, vodárna, státní fond. Číslo je vlastní veřejnou činností té instituce a NIKDY se nesmí číst jako to vlevo."
+                }
+                emptyNote={
+                  en ? "no such seat in the graph" : "graf nevede žádnou takovou funkci"
+                }
+                locale={locale}
+                en={en}
               />
             </div>
 
@@ -114,11 +151,59 @@ export default function MpCaseFilePage({ data }: { data: MoneyMpDetail | null })
   );
 }
 
-function Tile({ label, value }: { label: string; value: string }) {
+/** One side of the steward/attributable split, with its own source line and — when the
+ *  contract corpus is a capped per-company sample — the "nejméně" treatment a lower bound
+ *  requires. A capped sum rendered as a total is exactly what the brand rule forbids. */
+function MoneyTile({
+  tone,
+  label,
+  bucket,
+  coverage,
+  rule,
+  emptyNote,
+  locale,
+  en,
+}: {
+  tone: "signal" | "steel";
+  label: string;
+  bucket: MoneyBucket;
+  coverage: ContractCoverage;
+  rule: string;
+  emptyNote: string;
+  locale: string;
+  en: boolean;
+}) {
+  const empty = bucket.companies === 0;
+  const amount = compactCzk(bucket.contractCzk, locale);
   return (
     <div className="bg-paper p-6">
       <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">{label}</p>
-      <p className="mt-2 text-3xl font-black tabular-nums tracking-tight">{value}</p>
+      <p className={`mt-2 text-3xl font-black tabular-nums tracking-tight ${tone === "signal" ? "text-signal" : "text-ink"}`}>
+        {empty ? "—" : coverage.isFloor ? `${en ? "at least " : "nejméně "}${amount}` : amount}
+      </p>
+      {empty ? (
+        <p className="mt-2 text-sm leading-relaxed text-steel">{emptyNote}</p>
+      ) : (
+        <>
+          <p className="mt-2 font-mono text-[11px] uppercase tracking-wider text-steel">
+            {bucket.companies} {en ? "companies" : "firem"} · {bucket.contractCount}{" "}
+            {en ? "contracts" : "smluv"}
+            {bucket.subsidiesCzk > 0 ? ` · ${en ? "subsidies" : "dotace"} ${compactCzk(bucket.subsidiesCzk, locale)}` : ""}
+            {bucket.donatedToPartyCzk > 0
+              ? ` · ${en ? "party donations" : "dary straně"} ${compactCzk(bucket.donatedToPartyCzk, locale)}`
+              : ""}
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-steel">{rule}</p>
+        </>
+      )}
+      <SourceNote className="mt-3 !text-[10px]">
+        {en ? "source" : "zdroj"}: registr smluv · kg_edge supplies.weight, {en ? "one row per company" : "jedna firma jednou"}
+        {coverage.isFloor
+          ? en
+            ? ` · lower bound: the ingest pulled at most ${coverage.perCompanyCap} contracts per company (${coverage.companiesAtCap} at that ceiling)`
+            : ` · dolní odhad: sběr stáhl u firmy nejvýše ${coverage.perCompanyCap} smluv (${coverage.companiesAtCap} firem na stropu)`
+          : ""}
+      </SourceNote>
     </div>
   );
 }
@@ -259,7 +344,19 @@ function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en:
           <p className="font-mono text-[10px] uppercase tracking-widest text-steel">
             {en ? "reachable public money" : "dosažitelné veřejné peníze"}
           </p>
-          <p className="mt-1 text-2xl font-black tabular-nums text-signal">{reach > 0 ? compactCzk(reach, locale) : "—"}</p>
+          <p
+            className={`mt-1 text-2xl font-black tabular-nums ${tie.tieClass === "steward" ? "text-steel" : "text-signal"}`}
+          >
+            {reach > 0 ? compactCzk(reach, locale) : "—"}
+          </p>
+          {/* The P29 rule AT the number. Without it a supervisory seat's billions read
+              exactly like a supplier an MP owns. */}
+          <p className="mt-1 text-xs leading-relaxed text-steel">
+            {en ? info.descEn : info.descCs}
+          </p>
+          <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-steel">
+            {en ? "source" : "zdroj"}: registr smluv Σ supplies.weight + subsidies_total_czk
+          </p>
           <p className="mt-3 font-mono text-[10px] uppercase tracking-widest text-steel">
             {en ? "verify in registry" : "ověřit v rejstříku"}
           </p>

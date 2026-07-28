@@ -435,7 +435,7 @@ describe("loadMoneyLayer (the shared /penize read)", () => {
     // dwarfs every tied company, so any total that accidentally includes it is unmissable.
     const data = (await withReadinessOff(getMoneyData))!;
     const untiedCzk = 900_000_000;
-    expect(data.stats.contractCzkReachable).toBeLessThan(untiedCzk);
+    expect(data.stats.money.totalCzk).toBeLessThan(untiedCzk);
     expect(data.stats.contractCzkAttributable).toBeLessThan(untiedCzk);
     expect(data.stats.contractCzkSteward).toBeLessThan(untiedCzk);
     // And it must not appear as a company in the ledger at all.
@@ -532,17 +532,22 @@ describe("getMoneyData (the /penize ledger)", () => {
     // headline would say something false at nine times the volume — the split is what the
     // surface renders, and the two parts must still reconcile to the whole.
     const data = (await withReadinessOff(getMoneyData))!;
-    const { contractCzkAttributable, contractCzkSteward, contractCzkReachable } = data.stats;
-    expect(contractCzkAttributable + contractCzkSteward).toBe(contractCzkReachable);
+    const { money, contractCzkAttributable, contractCzkSteward } = data.stats;
+    expect(money.attributable.contractCzk + money.steward.contractCzk).toBe(money.totalCzk);
     // The owner-operator firm's money is attributable; the hospital's is not.
-    expect(contractCzkAttributable).toBe(6_900_000);
-    expect(contractCzkSteward).toBe(contractCzkReachable - 6_900_000);
+    expect(money.attributable.contractCzk).toBe(6_900_000);
+    expect(money.steward.contractCzk).toBe(money.totalCzk - 6_900_000);
+    // The named views /dashboard reads must be exactly those, never a second computation.
+    expect(contractCzkAttributable).toBe(money.attributable.contractCzk);
+    expect(contractCzkSteward).toBe(money.steward.contractCzk);
+    expect(data.stats.contractCoverage).toBe(money.coverage);
   });
 
   it("counts reachable CZK once per company and drops edges with an unresolved company", async () => {
     const data = (await withReadinessOff(getMoneyData))!;
     expect(data.stats.companiesLinked).toBe(3); // the ghost company is not counted
-    expect(data.stats.contractCzkReachable).toBe(6_900_000);
+    expect(data.stats.money.totalCzk).toBe(6_900_000);
+    expect(data.stats.money.companies).toBe(3);
     expect(data.stats.verifiedTies).toBe(1);
     expect(data.stats.pendingTies).toBe(1); // the rejected tie counts as neither
 
@@ -573,9 +578,15 @@ describe("getMoneyMpDetail (the /penize/[pspId] case file)", () => {
     expect(detail.ties).toHaveLength(1);
     expect(detail.ties[0].contracts.map((c) => c.amountCzk)).toEqual([5_000_000, 1_900_000]);
     expect(detail.ties[0].contractsMoreCount).toBe(0);
-    expect(detail.totalContractCzk).toBe(6_900_000);
-    expect(detail.totalSubsidiesCzk).toBe(2_000_000);
-    expect(detail.totalDonatedCzk).toBe(500_000);
+    // THE shared definition, class-split — never one merged total (one-money-definition).
+    expect(detail.money.attributable.contractCzk).toBe(6_900_000);
+    expect(detail.money.attributable.subsidiesCzk).toBe(2_000_000);
+    expect(detail.money.attributable.donatedToPartyCzk).toBe(500_000);
+    expect(detail.money.attributable.companies).toBe(1);
+    expect(detail.money.steward.contractCzk).toBe(0);
+    expect(detail.money.steward.companies).toBe(0);
+    // The seed's ceiling is not shared by 3 companies, so no "nejméně" may be printed.
+    expect(detail.money.coverage.isFloor).toBe(false);
     // Same mapper as the ledger (mapLinkedToTie) — the two surfaces cannot drift.
     expect(detail.ties[0].reviewState).toBe("pending_review");
     expect(detail.ties[0].tieClass).toBe("owner-operator");

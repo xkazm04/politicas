@@ -29,6 +29,8 @@ export type TieClassOrigin = "stored" | "derived";
 
 export type ReviewDecision = "confirm" | "reject" | "needs-more";
 
+import type { ReachableMoney } from "./reachableMoney";
+
 export interface RegistryLinks {
   aresSubject: string; // ARES economic-subject (identity, legal form, active/dissolved)
   aresVr: string; // ARES public register (statutory bodies / owners) — the corroboration hinge
@@ -99,7 +101,12 @@ export interface ReviewStats {
   steward: number;
   triangles: number;
   nearThreshold: number;
-  totalReachableCzk: number;
+  /** Reachable public money across the PENDING queue, from the one shared definition
+   *  (`reachableMoney.ts`): one row per company, steward money split out. Replaces
+   *  `totalReachableCzk`, which summed per TIE across all classes — double-counting the
+   *  companies tied to more than one MP and merging a public body's own contracting into
+   *  the same figure as a firm an MP owns. */
+  reachable: ReachableMoney;
   /** Batch-005 review-order tiers (see `reviewTier`) — the population size a reviewer
    *  must clear in each pass: registry-confirmed owner-operator / manager / steward,
    *  then everything unconfirmed. Sums to `pending`. */

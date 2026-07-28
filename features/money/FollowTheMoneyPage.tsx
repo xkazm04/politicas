@@ -67,15 +67,17 @@ export default function FollowTheMoneyPage({ data }: { data?: MoneyData | null }
           // the batch-012 re-ingest the two were merged and the distinction was cosmetic;
           // on the full corpus stewards are ~91 % of the raw total, so merging them would
           // have made the tile say something false at nine times the volume.
+          // Reads THE shared definition directly (reachableMoney.ts) — the
+          // `contractCzk*` fields beside it are named views kept only for /dashboard.
           label: t("real.stats.reachableLabel"),
-          value: data.stats.contractCoverage.isFloor
-            ? t("real.stats.reachableAtLeast", { value: compactCzk(data.stats.contractCzkAttributable, locale) })
-            : compactCzk(data.stats.contractCzkAttributable, locale),
+          value: data.stats.money.coverage.isFloor
+            ? t("real.stats.reachableAtLeast", { value: compactCzk(data.stats.money.attributable.contractCzk, locale) })
+            : compactCzk(data.stats.money.attributable.contractCzk, locale),
           sub: t("real.stats.reachableSubSplit", {
-            steward: compactCzk(data.stats.contractCzkSteward, locale),
+            steward: compactCzk(data.stats.money.steward.contractCzk, locale),
           }),
-          source: data.stats.contractCoverage.isFloor
-            ? t("real.stats.reachableSourceCapped", { cap: data.stats.contractCoverage.perCompanyCap ?? 0 })
+          source: data.stats.money.coverage.isFloor
+            ? t("real.stats.reachableSourceCapped", { cap: data.stats.money.coverage.perCompanyCap ?? 0 })
             : t("real.stats.reachableSource"),
         },
       ]

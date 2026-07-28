@@ -13,6 +13,7 @@
 import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { loadMoneyLayer, num, pspIdFromNodeId } from "./moneyLoader";
+import { reachableMoney } from "./reachableMoney";
 import {
   buildRegistryLinks,
   isDeMinimis,
@@ -141,7 +142,20 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
       steward: ties.filter((t) => t.tieClass === "steward").length,
       triangles: ties.filter((t) => t.triangle).length,
       nearThreshold: ties.filter((t) => t.nearThresholdCount > 0).length,
-      totalReachableCzk: ties.reduce((s, t) => s + t.contractCzk + t.subsidiesCzk, 0),
+      // THE shared definition (reachableMoney.ts). This tile used to sum per TIE across
+      // every class, so the 14 companies tied to more than one MP were counted twice and
+      // a hospital's own contracting sat in the same figure as a firm an MP owns:
+      // 579 140 308 806 Kč claimed vs 526 385 963 683 Kč of distinct reachable money.
+      reachable: reachableMoney(
+        ties.map((t) => ({
+          companyId: t.dst,
+          tieClass: t.tieClass,
+          contractCount: t.contractCount,
+          contractCzk: t.contractCzk,
+          subsidiesCzk: t.subsidiesCzk,
+          donatedToPartyCzk: t.donatedToPartyCzk,
+        })),
+      ),
       tierCounts,
       classOrigin: {
         stored: ties.filter((t) => t.tieClassOrigin === "stored").length,

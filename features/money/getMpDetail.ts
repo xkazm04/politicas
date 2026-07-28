@@ -10,6 +10,7 @@
 import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { loadMpMoneySlice, mapLinkedToTie } from "./moneyLoader";
+import { reachableMoney } from "./reachableMoney";
 import type { MoneyMpDetail, MoneyTieDetail } from "./moneyTypes";
 
 export const MP_CONTRACT_LINES_SHOWN = 8;
@@ -49,9 +50,20 @@ export async function getMoneyMpDetail(pspId: number): Promise<MoneyMpDetail | n
       club,
       absenteeManagerLead: Boolean(person.props?.absentee_manager_lead),
       ties,
-      totalContractCzk: ties.reduce((s, t) => s + t.contractCzk, 0),
-      totalSubsidiesCzk: ties.reduce((s, t) => s + t.subsidiesCzk, 0),
-      totalDonatedCzk: ties.reduce((s, t) => s + (t.donatedToPartyCzk ?? 0), 0),
+      // THE shared definition, same one the ledger and the console use — per-company
+      // de-duplication and the steward/attributable split are not this surface's to opt
+      // out of. The three raw `ties.reduce(...)` totals that used to sit here summed a
+      // hospital's own contracting into the same headline number as a firm the MP owns.
+      money: reachableMoney(
+        ties.map((t) => ({
+          companyId: t.companyId,
+          tieClass: t.tieClass,
+          contractCount: t.contractCount,
+          contractCzk: t.contractCzk,
+          subsidiesCzk: t.subsidiesCzk,
+          donatedToPartyCzk: t.donatedToPartyCzk,
+        })),
+      ),
       source: "registr smluv ⋈ ares ⋈ hlídač státu",
       pass,
     };

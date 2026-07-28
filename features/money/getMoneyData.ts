@@ -23,6 +23,7 @@
 import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { loadMoneyLayer, mapLinkedToTie, pspIdFromNodeId } from "./moneyLoader";
+import { reachableMoney, type ReachableTie } from "./reachableMoney";
 import type { MoneyData, MoneyGraphData, MoneyMp, MoneyMpStub, MoneyTie } from "./moneyTypes";
 
 const GRAPH_COMPANY_CAP = 5; // companies rendered in the featured entity graph
@@ -38,12 +39,10 @@ export async function getMoneyData(): Promise<MoneyData | null> {
     const distinctCompanies = new Set<string>();
     let verifiedTies = 0;
     let pendingTies = 0;
-    let contractCzkReachable = 0;
-    const reachableSeen = new Set<string>();
-    /** The same per-company de-dup, split by whether the money is attributable at all. */
-    let contractCzkAttributable = 0;
-    let contractCzkSteward = 0;
-    const reachableSplitSeen = new Set<string>();
+    /** Every tie that survived resolution, handed to THE shared money definition
+     *  (reachableMoney.ts) — per-company de-duplication and the steward/attributable
+     *  split are not this surface's private choices. */
+    const reachable: ReachableTie[] = [];
 
     for (const e of linked) {
       const comp = companyById.get(e.dst);
@@ -68,28 +67,21 @@ export async function getMoneyData(): Promise<MoneyData | null> {
       const tie = mapLinkedToTie({ edge: e, company: comp, contracts, person: pnode });
       if (tie.reviewState === "verified") verifiedTies += 1;
       else if (tie.reviewState === "pending_review") pendingTies += 1;
-      const contractCzk = tie.contractCzk;
-      // Split the reachable total by whether the case's own attribution rule allows the
-      // money to be read as the POLITICIAN'S at all. A `steward` tie is a seat on a public
-      // body's board: the contracts are the institution's own activity. Before the batch-012
-      // re-ingest this distinction was cosmetic because the corpus was capped; afterwards
-      // stewards are ~91 % of the raw total, so a single undifferentiated number would say
-      // something false much more loudly than it used to.
-      if (!reachableSplitSeen.has(comp.id)) {
-        reachableSplitSeen.add(comp.id);
-        if (tie.tieClass === "steward") contractCzkSteward += contractCzk;
-        else contractCzkAttributable += contractCzk;
-      }
 
       const arr = tiesByPerson.get(e.src) ?? [];
       arr.push(tie);
       tiesByPerson.set(e.src, arr);
       distinctCompanies.add(comp.id);
-      if (!reachableSeen.has(comp.id)) {
-        reachableSeen.add(comp.id);
-        contractCzkReachable += contractCzk;
-      }
+      reachable.push({
+        companyId: comp.id,
+        tieClass: tie.tieClass,
+        contractCount: tie.contractCount,
+        contractCzk: tie.contractCzk,
+        subsidiesCzk: tie.subsidiesCzk,
+        donatedToPartyCzk: tie.donatedToPartyCzk,
+      });
     }
+    const money = reachableMoney(reachable);
 
     const mps: MoneyMp[] = [];
     for (const [personId, ties] of tiesByPerson) {
@@ -150,25 +142,6 @@ export async function getMoneyData(): Promise<MoneyData | null> {
 
     const ownerOperatorMps = mps.filter((mp) => mp.ties.some((t) => t.tieClass === "owner-operator")).length;
 
-    // Is the contract corpus a census or a capped per-company sample? The original
-    // money feed pulled a bounded page of contracts per company, so a run of companies
-    // sitting at exactly the same maximum is the cap's signature, not a coincidence
-    // (money batch 011: 35 companies at exactly 25). When it is capped, every CZK
-    // figure below is a FLOOR and the surface must say so — rendering a truncated sum
-    // as a total is precisely what the brand rule forbids. Computed from the data
-    // rather than hardcoded, so a future uncapped re-ingest silently turns this off.
-    const perCompanyCounts = [...reachableSeen].map((id) => contractsByCompany.get(id)?.count ?? 0);
-    const observedMax = perCompanyCounts.length ? Math.max(...perCompanyCounts) : 0;
-    const companiesAtCap = perCompanyCounts.filter((n) => n === observedMax).length;
-    // A real ceiling is low AND shared by several companies; one big supplier that
-    // happens to top the list is not a cap.
-    const isFloor = observedMax > 0 && observedMax <= 100 && companiesAtCap >= 3;
-    const contractCoverage = {
-      perCompanyCap: isFloor ? observedMax : null,
-      companiesAtCap: isFloor ? companiesAtCap : 0,
-      isFloor,
-    };
-
     return {
       mps,
       mpsWithoutTies,
@@ -176,14 +149,17 @@ export async function getMoneyData(): Promise<MoneyData | null> {
       stats: {
         mpsWithTies: mps.length,
         companiesLinked: distinctCompanies.size,
-        contractCzkReachable,
-        contractCzkAttributable,
-        contractCzkSteward,
+        money,
+        // Views onto `money`, kept because /dashboard's headline reads them by these
+        // names. Derived here in one expression so they cannot drift from the shared
+        // definition — never recompute either of them anywhere.
+        contractCzkAttributable: money.attributable.contractCzk,
+        contractCzkSteward: money.steward.contractCzk,
+        contractCoverage: money.coverage,
         totalTies: linked.length,
         verifiedTies,
         pendingTies,
         ownerOperatorMps,
-        contractCoverage,
       },
       source: "registr smluv ⋈ ares ⋈ hlídač státu",
       pass,

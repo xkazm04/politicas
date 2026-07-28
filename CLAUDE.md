@@ -178,6 +178,16 @@ Route map (politicas.md roadmap execution, sample data):
   re-sorted with `byListOrder` before it is read (`memory/kgneighbours-weight-
   order-is-not-total.md`): the ordering is not total, and the CZK sum's
   floating-point result depends on it.
+  **"Dosažitelné veřejné peníze" has ONE definition since 2026-07-29** —
+  `reachableMoney()` in `features/money/reachableMoney.ts`, used by the ledger,
+  the console and the case file alike. A COMPANY counts once (14 are tied to
+  more than one MP); the steward/attributable split is not a per-surface option
+  (steward money is ~91 % of the raw total and is the institution's, never the
+  MP's); a company whose ties disagree about the class counts as attributable if
+  any tie is owner-operator/manager (order-independent, unlike the rule it
+  replaced); a capped corpus yields a FLOOR rendered "nejméně". `MoneyStats`'s
+  `contractCzk*` / `contractCoverage` fields are named VIEWS onto it kept for
+  /dashboard — never recompute either anywhere.
 - `/zebricek` — **CivicScore** (features/civicscore): leaderboard — score
   histogram + chamber summary, party filter + name search, mini
   weighted-breakdown bars per row, and Souboj (pick two via "vs" → mirrored
