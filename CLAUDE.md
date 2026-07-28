@@ -35,6 +35,11 @@ Route map (politicas.md roadmap execution, sample data):
   poster header + contribution score/rank, the six weighted components, the
   work-profile dossier (effort-loop enrichment + sponsored/rapporteur bills),
   co-voting allies, club rebellions, committee seats, prev/next file nav.
+  Under the component tiles sits the **score-legibility panel** — per component
+  the MP's value in that component's own unit, the scorer's cap, the chamber
+  median and the rank the real ranked chamber gives at that cap (pure logic +
+  tests in `lib/analysis/score-legibility.ts`; all of it labelled *derived*, and
+  a missing input says so rather than rendering a zero).
   **Section numbers are derived from what renders** — the dossier is omitted for
   an MP carrying none, so nothing may hard-code an index. `getProfileData` is
   `react.cache()`-wrapped and reads per-MP edges through the INDEXED

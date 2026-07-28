@@ -27,6 +27,7 @@ import {
   type LeaderboardEntry,
 } from "@/features/civicscore/getLeaderboardData";
 import { isCommitteeSeat, type CommitteeSeat as ContributionCommitteeSeat } from "@/lib/analysis/contribution";
+import { computeScoreLegibility, type ScoreLegibility } from "@/lib/analysis/score-legibility";
 import { classifyRole, ROLE_WEIGHT } from "@/lib/analysis/kg";
 
 const num = (x: unknown): number => (typeof x === "number" && Number.isFinite(x) ? x : 0);
@@ -106,6 +107,14 @@ export interface ProfileData {
   prevPspId: number;
   nextPspId: number;
   components: LeaderboardData["components"];
+  /**
+   * Per-component legibility: this MP's value in the component's OWN unit, the
+   * scorer's cap, the chamber median, and the rank the real ranked chamber would
+   * put them at with that component saturated. All DERIVED (labelled as such
+   * on-page) and computed from the chamber pass the loader has already done —
+   * no second read. See lib/analysis/score-legibility.ts.
+   */
+  legibility: ScoreLegibility;
   coVoters: CoVoter[];
   rebellions: Rebellion[];
   committees: CommitteeSeat[];
@@ -404,6 +413,24 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
         })
         .sort((a, b) => (a.cislo ?? 1e9) - (b.cislo ?? 1e9) || a.title.localeCompare(b.title, "cs"));
     }
+    // Score legibility — derived entirely from rows already in memory: the ranked
+    // chamber `entries` (which this page computes and then throws away except for
+    // rank/prev/next) and the raw person props the same pass already read.
+    const legibility = computeScoreLegibility({
+      self: {
+        rank: person.rank,
+        score: person.score,
+        props: personNode?.props ?? {},
+        points: person.components,
+      },
+      chamber: entries.map((e) => ({
+        score: e.score,
+        props: directory.personPropsByPspId.get(e.pspId) ?? {},
+      })),
+      next: idx > 0 ? { name: entries[idx - 1].name, score: entries[idx - 1].score } : null,
+      keys: data.components.map((c) => c.key),
+    });
+
     const billsFirstSigned = personNode ? nullableNum(personNode.props.bills_first_signed) : null;
     const billsCoSigned = personNode ? nullableNum(personNode.props.bills_co_signed) : null;
     const amendmentsAuthored = personNode ? nullableNum(personNode.props.amendments_authored) : null;
@@ -414,6 +441,7 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
       prevPspId: entries[(idx - 1 + entries.length) % entries.length].pspId,
       nextPspId: entries[(idx + 1) % entries.length].pspId,
       components: data.components,
+      legibility,
       coVoters,
       rebellions,
       committees,

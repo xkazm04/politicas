@@ -28,6 +28,7 @@ import LowScoreReasonBadge from "@/features/profile/components/LowScoreReasonBad
 import TenureNote from "@/features/profile/components/TenureNote";
 import TenureTrendGate from "@/features/profile/components/TenureTrendGate";
 import DossierSection, { hasDossierContent, type DossierContent } from "@/features/profile/components/DossierSection";
+import ScoreLegibilityPanel from "@/features/profile/components/ScoreLegibilityPanel";
 import type { ComponentKey } from "@/lib/analysis/contribution-trend";
 import { MIN_SHARED_VOTES } from "@/lib/analysis/kg";
 
@@ -201,6 +202,14 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
               );
             })}
           </div>
+
+          {/* Čitelnost indexu: hodnota / strop / medián sněmovny po složkách a
+              pořadí při naplnění stropu — vše odvozené a takto označené, celé
+              z dat, která stránka už načetla. */}
+          <ScoreLegibilityPanel
+            legibility={data.legibility}
+            labels={Object.fromEntries(components.map((c) => [c.key, c.label]))}
+          />
         </section>
 
         {/* ── 02 Pracovní profil (dosier) ────────────────────── */}
