@@ -91,6 +91,9 @@ export const PAGE_SECTIONS: Record<string, NavSection[]> = {
   ],
   "/poslanec": [
     { id: "slozky", labelKey: "profile.componentsHeading" },
+    // Peněžní vazby se vykreslují VŽDY (i jako čestný prázdný stav), takže kotva
+    // nikdy nevede do prázdna — na rozdíl od podmíněného pracovního profilu.
+    { id: "penize", labelKey: "profile.moneyHeading" },
     { id: "spojenci", labelKey: "profile.alliesHeading" },
     { id: "rebelie", labelKey: "profile.rebellionsHeading" },
     { id: "vybory", labelKey: "profile.committeesHeading" },

@@ -76,6 +76,18 @@ Route map (politicas.md roadmap execution, sample data):
   median and the rank the real ranked chamber gives at that cap (pure logic +
   tests in `lib/analysis/score-legibility.ts`; all of it labelled *derived*, and
   a missing input says so rather than rendering a zero).
+  The **Peněžní vazby** section (2026-07-28) puts the evidence next to the
+  claim: the MP's `linked_to` ties, each rendered with its own `pending_review`
+  state (all 211 in the graph are), its verbatim provenance string, the ARES-VR
+  temporal badge and a deep link to `/penize/<pspId>`. Money obeys /penize's
+  **attribution rule and nothing else** — only owner-operator/manager firms are
+  read and summed; a `steward` seat's institutional contracts are never fetched,
+  never summed and the row says why. A contract whose `signedOn` could not have
+  happened (the corpus holds 0002 / 1970 / 2027 / 3062 — `lib/analysis/
+  plausible-date.ts`) keeps its row and its amount, loses its date, and the
+  count of such rows is disclosed; the date is never repaired. The
+  absentee-manager lead in the header now carries the `pending_review`
+  provenance of its money input instead of standing as a bare accusation.
   **Section numbers are derived from what renders** — the dossier is omitted for
   an MP carrying none, so nothing may hard-code an index. `getProfileData` is
   `react.cache()`-wrapped and reads per-MP edges through the INDEXED

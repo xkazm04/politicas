@@ -4,7 +4,8 @@
  * Spis poslance (/poslanec/<pspId>) — REÁLNÁ DATA ze znalostního grafu.
  * Hlavička se skóre indexu přispění a pořadím z 207, pak číslované oddíly:
  * Složky přispění (šest vážených složek) / Pracovní profil (dosier, jen když
- * poslanec nese obsah) / Nejbližší spojenci (co_votes_with) / Rebelie proti
+ * poslanec nese obsah) / Peněžní vazby (linked_to + supplies, vždy — i jako
+ * čestný prázdný stav) / Nejbližší spojenci (co_votes_with) / Rebelie proti
  * klubu (rebels_against) / Výbory a komise (membership × organ).
  *
  * Čísla oddílů se ODVOZUJÍ z toho, co se skutečně vykreslí (`order`/`no()`) —
@@ -28,6 +29,7 @@ import LowScoreReasonBadge from "@/features/profile/components/LowScoreReasonBad
 import TenureNote from "@/features/profile/components/TenureNote";
 import TenureTrendGate from "@/features/profile/components/TenureTrendGate";
 import DossierSection, { hasDossierContent, type DossierContent } from "@/features/profile/components/DossierSection";
+import MoneySection from "@/features/profile/components/MoneySection";
 import ScoreLegibilityPanel from "@/features/profile/components/ScoreLegibilityPanel";
 import type { ComponentKey } from "@/lib/analysis/contribution-trend";
 import { MIN_SHARED_VOTES } from "@/lib/analysis/kg";
@@ -66,7 +68,16 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
   // Section numbers are DERIVED from what actually renders. DossierSection is
   // omitted for an MP with no dossier content, and the fixed index={2} then left
   // the page reading 01 -> 03 -> 04 -> 05 for exactly those MPs.
-  const order = ["components", ...(hasDossierContent(dossier) ? ["dossier"] : []), "allies", "rebellions", "committees"];
+  // "money" is unconditional: an MP with no tie gets the honest empty state, because
+  // a silently omitted money section is indistinguishable from a hidden finding.
+  const order = [
+    "components",
+    ...(hasDossierContent(dossier) ? ["dossier"] : []),
+    "money",
+    "allies",
+    "rebellions",
+    "committees",
+  ];
   const no = (key: string) => order.indexOf(key) + 1;
 
   // The index counts membership ROWS (psp.cz files a leadership seat as two rows
@@ -141,6 +152,16 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
           <p className="mt-6 max-w-2xl border-l-4 border-signal pl-4 text-base italic leading-relaxed text-steel">
             {person.absenteeManagerLead ? t("absenteeFlag") : (topComponent?.label ?? "")}
           </p>
+          {/* Ta vlajka je odvozená z peněžních vazeb, které jsou VŠECHNY
+              pending_review. Bez téhle kvalifikace stála na spisu jako hotové
+              obvinění bez jediného důkazu vedle sebe — teď říká, na čem stojí,
+              a odkazuje na oddíl, kde ten důkaz je. */}
+          {person.absenteeManagerLead && (
+            <div className="mt-3 max-w-2xl border-l-4 border-ochre pl-4">
+              <p className="text-[14px] leading-relaxed text-ink">{t("absenteeFlagQualifier")}</p>
+              <SourceNote className="mt-1.5 !text-[10px]">{t("absenteeFlagSource")}</SourceNote>
+            </div>
+          )}
 
           {/* Poctivý korektiv nízkého skóre — vykreslí se jen když enrichment
               stage effort-loopu uložil effort_low_score_reason z uzavřeného
@@ -212,8 +233,11 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
           />
         </section>
 
-        {/* ── 02 Pracovní profil (dosier) ────────────────────── */}
+        {/* ── Pracovní profil (dosier) ───────────────────────── */}
         <DossierSection index={no("dossier")} {...dossier} />
+
+        {/* ── Peněžní vazby ──────────────────────────────────── */}
+        <MoneySection index={no("money")} money={data.money} pspId={person.pspId} />
 
         {/* ── 03 Nejbližší spojenci ─────────────────────────── */}
         <section id="spojenci" className="mt-16 border-t-4 border-ink pt-10">

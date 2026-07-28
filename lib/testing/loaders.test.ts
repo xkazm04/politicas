@@ -221,7 +221,11 @@ async function seedFixture(): Promise<void> {
       JSON.stringify({ ico: "333" }),
       JSON.stringify({ amount: 5_000_000, signedOn: "2024-03-01" }),
       // 1.9M sits inside the 10 % band below the 2M zadávací limit → nearThresholdCount 1.
-      JSON.stringify({ amount: 1_900_000, signedOn: "2024-05-01" }),
+      // The signature date is one the REAL corpus carries (19 of the 97 887 contracts
+      // reachable through `linked_to` are dated 0002, 1970, 2027, 3062 …). A date that
+      // could not have happened is not a date: the MP profile keeps the row and the
+      // amount and withholds the date — it never repairs it, and never drops the money.
+      JSON.stringify({ amount: 1_900_000, signedOn: "3062-07-16" }),
       JSON.stringify({ ref: "586/1992", esbirka_title: "Zákon o daních z příjmů" }),
       JSON.stringify({ ref: "40/2009" }), // no esbirka_title → title must stay null
       JSON.stringify({ pass: 30, method: "kg-compute", ref: "psp.cz", computedAt: "2026-07-24" }),
@@ -934,6 +938,65 @@ describe("getProfileData against a seeded graph", () => {
         scopes: ["zpravodaj_vyboru"],
       },
     ]);
+  });
+
+  it("renders money ties as pending_review facts and sums ONLY attributable money", async () => {
+    const p = (await withReadinessOff(() => getProfileData(100)))!;
+    expect(p.money.ties).toHaveLength(1); // the GHOST-company edge belongs to person 300
+    const tie = p.money.ties[0];
+    expect(tie.company).toBe("Alfa s.r.o.");
+    expect(tie.ico).toBe("111");
+    expect(tie.tieClass).toBe("owner-operator");
+    expect(tie.reviewState).toBe("pending_review"); // nothing here is a settled finding
+    expect(tie.source).toBe("hlidac:osoby/petr-novak · 2016-01-01–ongoing"); // cited verbatim
+    expect(tie.corroboration).toBe("registry-confirmed");
+    expect(tie.contractCount).toBe(2);
+    expect(tie.contractCzk).toBe(6_900_000);
+    expect(tie.contractsTruncated).toBe(false);
+    expect(p.money.attributableCzk).toBe(6_900_000);
+    expect(p.money.attributableContracts).toBe(2);
+    expect(p.money.pendingTies).toBe(1);
+    expect(p.money.verifiedTies).toBe(0);
+    expect(p.money.stewardTies).toBe(0);
+    expect(p.money.pass).toBe(42);
+  });
+
+  it("keeps a contract whose signature date could not have happened, WITHOUT the date", async () => {
+    const p = (await withReadinessOff(() => getProfileData(100)))!;
+    const lines = p.money.ties[0].topContracts;
+    expect(lines.map((l) => l.amountCzk)).toEqual([5_000_000, 1_900_000]); // biggest first
+    expect(lines[0].signedOn).toBe("2024-03-01");
+    expect(lines[0].dateUnusable).toBe(false);
+    // year 3062 — the row and its money survive, the date does not, and it is COUNTED
+    expect(lines[1].signedOn).toBeNull();
+    expect(lines[1].dateUnusable).toBe(true);
+    expect(lines[1].amountCzk).toBe(1_900_000);
+    expect(p.money.unusableDates).toBe(1);
+  });
+
+  it("never attributes a steward seat's institutional money to the MP", async () => {
+    // Person 200 sits on a regional hospital's supervisory board (steward) and is
+    // `jednatel` of Gama (owner-operator, tie rejected). The hospital's contracting is
+    // the hospital's — the loader does not even read it, and the profile sums nothing.
+    const p = (await withReadinessOff(() => getProfileData(200)))!;
+    const steward = p.money.ties.find((t) => t.company === "Krajská nemocnice a.s.")!;
+    expect(steward.tieClass).toBe("steward");
+    expect(steward.contractCzk).toBeNull();
+    expect(steward.contractCount).toBeNull();
+    expect(steward.topContracts).toEqual([]);
+    expect(p.money.stewardTies).toBe(1);
+    expect(p.money.attributableCzk).toBe(0); // Gama supplies nothing
+    // Review state is rendered as stored — "verified"/"rejected" are not flattened away.
+    expect(steward.reviewState).toBe("verified");
+    expect(p.money.ties.find((t) => t.company === "Gama s.r.o.")!.reviewState).toBe("rejected");
+    // Attributable classes sort ahead of stewards: the file's own claim comes first.
+    expect(p.money.ties.map((t) => t.tieClass)).toEqual(["owner-operator", "steward"]);
+  });
+
+  it("drops a money tie whose company node does not exist rather than guessing", async () => {
+    const p = (await withReadinessOff(() => getProfileData(300)))!;
+    expect(p.money.ties).toEqual([]);
+    expect(p.money.attributableCzk).toBe(0);
   });
 
   it("returns null for an MP absent from the ranking", async () => {
