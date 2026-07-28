@@ -18,7 +18,7 @@
 import { useMemo, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import {
   Area,
@@ -38,6 +38,9 @@ import RankDelta from "@/features/shared/components/RankDelta";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
+import LiveDataNotice from "@/features/shared/components/LiveDataNotice";
+import StatTile from "@/features/shared/components/StatTile";
+import { compactCzk } from "@/features/money/moneyTypes";
 import { HAIRLINE, INK, PILLAR_BG, SIGNAL, STEEL, TOOLTIP_STYLE } from "@/features/landing/palette";
 import type { DashboardData } from "./getDashboardData";
 import GraphFeedPanel from "./components/GraphFeedPanel";
@@ -46,11 +49,33 @@ import { useGraphText } from "./graphText";
 
 const CHART_TICK = { fill: STEEL, fontSize: 12, fontFamily: "var(--font-plex)" } as const;
 
+/**
+ * Dlaždice ze vzorku `lib/civic` — vykreslí se jen tehdy, když příslušná vrstva
+ * grafu není k dispozici. Nese ILUSTRATIVNÍ variantu, takže se od spočítaného
+ * čísla liší plochou a barvou číselníku, ne pouze textem pod ním.
+ */
+function MockStatTile({ statKey }: { statKey: string }) {
+  const t = useTranslations("dashboard");
+  const tc = useTranslations("content");
+  return (
+    <StatTile
+      variant="illustrative"
+      illustrativeTag={t("mockTag")}
+      label={tc(`chamberStats.${statKey}.label`)}
+      value={tc(`chamberStats.${statKey}.value`)}
+      // Bez `sub`: štítek nahoře a citace dole už to říkají dvakrát, potřetí
+      // by z upozornění byl šum.
+      source={tc(`chamberStats.${statKey}.source`)}
+    />
+  );
+}
+
 export default function DashboardPage({ data }: { data: DashboardData | null }) {
   const t = useTranslations("dashboard");
   const tc = useTranslations("content");
   const tcom = useTranslations("common");
   const f = useFormat();
+  const locale = useLocale();
   const reduceMotion = useReducedMotion();
   const text = useGraphText();
 
@@ -88,8 +113,18 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
           <span className="font-mono text-xs uppercase tracking-widest text-steel">
             politicas / {t("headerTag")}
           </span>
+          {/* Datum přepočtu je provenience z grafu (`contribution_provenance`),
+              ne literál v překladech. Když ho uzly nenesou, řekneme to —
+              vymyšlené datum je vymyšlené číslo. */}
           <SourceNote className="hidden sm:block">
-            {t("headerNote", { date: f.date("2026-07-14") })}
+            {!data
+              ? t("headerNoteUnavailable")
+              : data.provenance.computedAt
+                ? t("headerNoteReal", {
+                    date: f.date(data.provenance.computedAt),
+                    pass: data.provenance.pass ?? "—",
+                  })
+                : t("headerNoteNoDate")}
           </SourceNote>
         </div>
       </header>
@@ -110,62 +145,80 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
           <p className="mt-3 max-w-3xl text-[15px] leading-relaxed text-steel">{t("lead")}</p>
         </div>
 
+        {/* Když graf není k dispozici, plocha to řekne nahlas a jednou —
+            samotný štítek „ilustrativní ukázka" u dlaždice čte jako redakční
+            volba, ne jako výpadek databáze. */}
+        {!data && (
+          <div className="mb-6">
+            <LiveDataNotice
+              title={t("unavailable.title")}
+              body={t("unavailable.body")}
+              source={t("unavailable.source")}
+            />
+          </div>
+        )}
+
         {/* Odečty sněmovny — pás nad přístrojem, ne samostatná sekce.
-            avg/attendance jsou reálné (kontribuční index, 207 poslanců), když
-            je graf dostupný; money/laws nemají v tomto rozsahu reálný zdroj
-            (moduly Peníze a LawWatch), takže zůstávají ilustrativní ukázkou —
-            obojí je to řečeno v citaci pod číslem, nikdy tiše. */}
+            Všechna čtyři čísla mají reálný protějšek v grafu a berou se z
+            loaderu, který je vlastní (kontribuční index, /penize, /zakony) —
+            velín je nepočítá znovu, takže se s modulem nemůže rozejít. Vrstva,
+            která zrovna není k dispozici, spadne na ILUSTRATIVNÍ dlaždici a ta
+            je jiná už na první pohled (okrová hrana, jiná plocha, šedý číselník),
+            ne jenom textem pod číslem. */}
         <div className="grid gap-px border border-ink bg-ink sm:grid-cols-2 xl:grid-cols-4">
           {data ? (
             <>
-              <div className="bg-paper px-5 py-4">
-                <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
-                  {t("realStats.avgLabel")}
-                </p>
-                <p className="mt-1.5 text-3xl font-black tabular-nums tracking-tight">{f.dec(data.summary.avg)}</p>
-                <p className="mt-1 text-sm text-steel">
-                  {t("realStats.avgSub", { median: f.dec(data.summary.median), sigma: f.dec(data.summary.sigma), count: data.summary.count })}
-                </p>
-                <SourceNote className="mt-2">
-                  {tcom("sourcePrefix")} {t("realStats.avgSource")}
-                </SourceNote>
-              </div>
-              <div className="bg-paper px-5 py-4">
-                <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
-                  {t("realStats.attendanceLabel")}
-                </p>
-                <p className="mt-1.5 text-3xl font-black tabular-nums tracking-tight">{f.dec(data.attendanceAvgPct)} %</p>
-                <p className="mt-1 text-sm text-steel">{t("realStats.attendanceSub")}</p>
-                <SourceNote className="mt-2">
-                  {tcom("sourcePrefix")} {t("realStats.attendanceSource")}
-                </SourceNote>
-              </div>
-              {CHAMBER_STATS.filter((s) => s.key === "money" || s.key === "laws").map((s) => (
-                <div key={s.key} className="bg-paper px-5 py-4">
-                  <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
-                    {tc(`chamberStats.${s.key}.label`)}
-                  </p>
-                  <p className="mt-1.5 text-3xl font-black tabular-nums tracking-tight">
-                    {tc(`chamberStats.${s.key}.value`)}
-                  </p>
-                  <p className="mt-1 text-sm text-steel">{t("mockBadge")}</p>
-                  <SourceNote className="mt-2">{tc(`chamberStats.${s.key}.source`)}</SourceNote>
-                </div>
-              ))}
+              <StatTile
+                label={t("realStats.avgLabel")}
+                value={f.dec(data.summary.avg)}
+                sub={t("realStats.avgSub", {
+                  median: f.dec(data.summary.median),
+                  sigma: f.dec(data.summary.sigma),
+                  count: data.summary.count,
+                })}
+                source={`${tcom("sourcePrefix")} ${t("realStats.avgSource")}`}
+              />
+              <StatTile
+                label={t("realStats.attendanceLabel")}
+                value={`${f.dec(data.attendanceAvgPct)} %`}
+                sub={t("realStats.attendanceSub")}
+                source={`${tcom("sourcePrefix")} ${t("realStats.attendanceSource")}`}
+              />
+              {data.money ? (
+                <StatTile
+                  label={t("realStats.moneyLabel")}
+                  value={compactCzk(data.money.attributableCzk, locale)}
+                  sub={t("realStats.moneySub", {
+                    steward: compactCzk(data.money.stewardCzk, locale),
+                  })}
+                  source={`${tcom("sourcePrefix")} ${t("realStats.moneySource", {
+                    pass: data.money.pass,
+                    pending: f.int(data.money.pendingTies),
+                    total: f.int(data.money.totalTies),
+                  })}`}
+                />
+              ) : (
+                <MockStatTile statKey="money" />
+              )}
+              {data.laws ? (
+                <StatTile
+                  label={t("realStats.lawsLabel")}
+                  value={f.int(data.laws.amends)}
+                  sub={t("realStats.lawsSub", {
+                    bills: f.int(data.laws.bills),
+                    laws: f.int(data.laws.laws),
+                  })}
+                  source={`${tcom("sourcePrefix")} ${t("realStats.lawsSource", {
+                    pass: data.laws.pass ?? "—",
+                    undercount: f.int(data.laws.censusUndercount),
+                  })}`}
+                />
+              ) : (
+                <MockStatTile statKey="laws" />
+              )}
             </>
           ) : (
-            CHAMBER_STATS.map((s) => (
-              <div key={s.key} className="bg-paper px-5 py-4">
-                <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
-                  {tc(`chamberStats.${s.key}.label`)}
-                </p>
-                <p className="mt-1.5 text-3xl font-black tabular-nums tracking-tight">
-                  {tc(`chamberStats.${s.key}.value`)}
-                </p>
-                <p className="mt-1 text-sm text-steel">{t("mockBadge")}</p>
-                <SourceNote className="mt-2">{tc(`chamberStats.${s.key}.source`)}</SourceNote>
-              </div>
-            ))
+            CHAMBER_STATS.map((s) => <MockStatTile key={s.key} statKey={s.key} />)
           )}
         </div>
 

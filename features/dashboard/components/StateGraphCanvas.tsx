@@ -57,8 +57,13 @@ export default function StateGraphCanvas({
           <Crosshair className="h-3.5 w-3.5 text-signal" />
           {tg("badge")}
         </span>
-        <span className="hidden shrink-0 md:inline">
-          {tg("countLabel", { nodes: f.int(graph.nodes.length), edges: f.int(graph.edges.length) })}
+        {/* Počet uzlů a hran je taky číslo — a bez citace vypadal jako údaj
+            o znalostním grafu, přestože počítá jen to, co plátno kreslí. */}
+        <span className="hidden shrink-0 items-baseline gap-2 md:inline-flex">
+          <span>
+            {tg("countLabel", { nodes: f.int(graph.nodes.length), edges: f.int(graph.edges.length) })}
+          </span>
+          <SourceNote className="normal-case tracking-wider">{tg("countSource")}</SourceNote>
         </span>
       </div>
 

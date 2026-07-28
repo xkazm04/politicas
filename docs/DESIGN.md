@@ -53,6 +53,15 @@ that drops citations to look cleaner is off-brand by definition
 (opendata/docs/politicas.md §6). Ties render as dated, sourced facts — never
 accusations.
 
+**Real vs illustrative must be visible, not merely stated.** When a strip mixes
+computed figures with sample ones, the citation line is the first thing a
+skimming reader drops — so the difference also carries in the FORM: `StatTile`'s
+`variant="illustrative"` moves the tile to `paper-strong`, gives it an `ochre`
+edge and tag, and renders the numeral in `steel` rather than full `ink`. And
+when the whole store is unreachable, per-tile labels are not enough: say it once
+at the top of the page with `LiveDataNotice` — a page of demo figures must never
+read as an editorial choice when it is actually an outage.
+
 ## 4. Motion
 
 - Entry animations once (`whileInView` + `viewport={{ once: true }}`), short
@@ -113,7 +122,8 @@ accusations.
 
 ```
 features/shared/components/   domain-agnostic catalog (SourceNote, AnimatedScore,
-                              SectionRule, RankDelta, SectionHeading, …) —
+                              SectionRule, RankDelta, SectionHeading, StatTile,
+                              DataUnavailable, LiveDataNotice, …) —
                               @catalog JSDoc tag, NO imports from features/*
                               or lib/civic (lint-enforced)
 features/<feature>/           feature module: orchestrator + components/ + palette

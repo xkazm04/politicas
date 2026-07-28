@@ -460,7 +460,9 @@
   },
   "dashboard": {
     "headerTag": "velín",
-    "headerNote": "9. období · Q2/25 · přepočet {date}",
+    "headerNoteReal": "9. období · kontribuční index přepočten {date} · průchod {pass}",
+    "headerNoteNoDate": "9. období · datum přepočtu není v provenienci grafu",
+    "headerNoteUnavailable": "9. období · živá data nedostupná — níže je ilustrativní ukázka",
     "title": "Velín republiky",
     "lead": "Co se ve státě změnilo, když jste se nedívali — agregáty sněmovny, pohyby v žebříčku a nové hrany v grafu veřejných peněz. Každé číslo cituje svůj zdroj.",
     "rankingSectionTitle": "Žebříček",
@@ -486,6 +488,7 @@
       "legendTitle": "legenda",
       "sliceNote": "ilustrativní schéma — jde o smyšlené osoby a firmy, ne reálné vazby; skutečné vazby jsou v modulu Peníze",
       "countLabel": "{nodes} uzlů · {edges} hran",
+      "countSource": "zdroj: počet vykreslených uzlů a hran tohoto výřezu",
       "edgesInRecord": "{count} hran v záznamu",
       "noEdges": "bez nalezené vazby v tomto výřezu",
       "pendingEdge": "čárkovaně = hrana čeká na lidskou kontrolu, do skóre nejde",
@@ -530,14 +533,26 @@
       "avgSource": "kontribuční index — reálný graf",
       "attendanceLabel": "průměrná docházka",
       "attendanceSub": "průměr přes reálný vzorek 207 poslanců",
-      "attendanceSource": "psp.cz — reálná jmenovitá hlasování, 9. období"
+      "attendanceSource": "psp.cz — reálná jmenovitá hlasování, 9. období",
+      "moneyLabel": "veřejné peníze u firem poslanců",
+      "moneySub": "smlouvy firem, které poslanci vlastní nebo řídí · dalších {steward} připadá na instituce, kde poslanec jen zasedá v orgánu — to nejsou jeho peníze",
+      "moneySource": "registr smluv ⋈ ares ⋈ hlídač státu · průchod {pass} · všech {pending} z {total} vazeb čeká na lidskou kontrolu, do skóre se nepropisují",
+      "lawsLabel": "vazby tisk → zákon",
+      "lawsSub": "{bills} sněmovních tisků · {laws} zákonů v grafu",
+      "lawsSource": "psp.cz tisky ⋈ e-sbírka · průchod {pass} · dalších {undercount} novelizovaných zákonů hrany zatím nezachycují"
     },
     "histogram": {
       "label": "rozložení skóre — {count} reálných poslanců",
       "tooltip": "poslanců v pásmu",
       "source": "kontribuční index — reálné rozložení skóre, ne vývoj v čase"
     },
-    "mockBadge": "ILUSTRATIVNÍ UKÁZKA — nejde o reálná data"
+    "mockBadge": "ILUSTRATIVNÍ UKÁZKA — nejde o reálná data",
+    "mockTag": "ilustrativní ukázka",
+    "unavailable": {
+      "title": "živá data nedostupná",
+      "body": "Nepodařilo se otevřít databázi znalostního grafu, takže velín teď neukazuje reálná čísla. Všechny odečty, graf i provoz níže jsou ilustrativní ukázka — smyšlené osoby, firmy a částky. Zkuste to prosím za chvíli znovu.",
+      "source": "zdroj: vzorek lib/civic — ne reálný graf"
+    }
   },
   "profile": {
     "breadcrumb": "spis",

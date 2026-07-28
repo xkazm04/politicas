@@ -460,7 +460,9 @@
   },
   "dashboard": {
     "headerTag": "control room",
-    "headerNote": "9th term · Q2/25 · recalculated {date}",
+    "headerNoteReal": "9th term · contribution index recalculated {date} · pass {pass}",
+    "headerNoteNoDate": "9th term · the graph carries no recompute date",
+    "headerNoteUnavailable": "9th term · live data unavailable — everything below is an illustrative sample",
     "title": "The republic's control room",
     "lead": "What changed in the state while you weren't looking — Chamber aggregates, ranking moves, and new edges in the public-money graph. Every number cites its source.",
     "rankingSectionTitle": "Ranking",
@@ -486,6 +488,7 @@
       "legendTitle": "legend",
       "sliceNote": "illustrative diagram — invented people and firms, not real ties; real ties live in the Money module",
       "countLabel": "{nodes} nodes · {edges} edges",
+      "countSource": "source: count of nodes and edges drawn in this slice",
       "edgesInRecord": "{count} edges in the record",
       "noEdges": "no ties found in this slice",
       "pendingEdge": "dashed = edge awaiting human review, excluded from the score",
@@ -530,14 +533,26 @@
       "avgSource": "contribution index — real graph",
       "attendanceLabel": "average attendance",
       "attendanceSub": "averaged over the real sample of 207 MPs",
-      "attendanceSource": "psp.cz — real roll-call votes, 9th term"
+      "attendanceSource": "psp.cz — real roll-call votes, 9th term",
+      "moneyLabel": "public money at MPs’ firms",
+      "moneySub": "contracts of firms MPs own or run · a further {steward} belongs to institutions where an MP merely sits on a board — that is not their money",
+      "moneySource": "contracts register ⋈ ares ⋈ Hlídac státu · pass {pass} · all {pending} of {total} ties await human review and feed no score",
+      "lawsLabel": "print → law edges",
+      "lawsSub": "{bills} chamber prints · {laws} laws in the graph",
+      "lawsSource": "psp.cz prints ⋈ e-Sbírka · pass {pass} · a further {undercount} amended statutes the edges do not yet capture"
     },
     "histogram": {
       "label": "score distribution — {count} real MPs",
       "tooltip": "MPs in band",
       "source": "contribution index — real score distribution, not a trend over time"
     },
-    "mockBadge": "ILLUSTRATIVE SAMPLE — not real data"
+    "mockBadge": "ILLUSTRATIVE SAMPLE — not real data",
+    "mockTag": "illustrative sample",
+    "unavailable": {
+      "title": "live data unavailable",
+      "body": "The knowledge-graph database could not be opened, so the control room is not showing real figures. Every stat, the graph and the traffic feed below are an illustrative sample — invented people, firms and amounts. Please try again shortly.",
+      "source": "source: lib/civic sample — not the real graph"
+    }
   },
   "profile": {
     "breadcrumb": "file",

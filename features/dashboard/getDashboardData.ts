@@ -1,45 +1,202 @@
-// Server-only loader for /dashboard — reads the REAL contribution-index graph
-// (the same materialized store as /zebricek) instead of the lib/civic mock,
-// for the two dashboard sections that have a real analog: the ranking list
-// and the chamber-wide score summary. Reuses `getLeaderboardData()` (the
-// established civicscore loader) rather than re-querying the store, so there
-// is exactly one place that turns kg nodes into ranked entries.
+// Server-only loader for /dashboard — reads the REAL materialized knowledge
+// graph (the same store as /zebricek, /penize and /zakony) for every headline
+// figure the Velín stat strip renders.
 //
-// The graph canvas + activity feed have NO real analog in scope for this
-// task (they would require rebuilding a live public-money graph, which is
-// features/money territory) — those stay on the lib/civic mock, honestly
-// labelled at the component/copy layer, not here.
+// ── one aggregate, one owner ────────────────────────────────────────────────
+// This loader does NOT re-derive anything. Each figure comes from the loader
+// that already owns it, so the dashboard can never disagree with the module it
+// links to:
+//   ranking + chamber summary + attendance → getLeaderboardData()  (civicscore)
+//   public money reachable through MPs      → getMoneyData()       (money)
+//   bills → laws                            → getLawData()         (lawwatch)
+// The dashboard only picks the fields it shows and passes them through.
 //
-// Returns null on any failure (no store, empty graph, PGlite unavailable) —
-// `getLeaderboardData()` already reports its own loader failure and degrades
-// to null, so there is nothing to swallow here; the dashboard page falls
-// back to the mock ranking/stats when this returns null.
+// ── why the money read is memoized ──────────────────────────────────────────
+// getMoneyData() walks the whole money layer (~153 k contracts + ~154 k supplies
+// edges) and takes ~12 s cold. The graph is a BATCH artifact — it changes with
+// `npm run da:kg-compute`, never at request time — so the result is memoized for
+// the process lifetime, exactly like features/graph/graphLoader.ts does for the
+// map/trail layouts. A failed or empty read is never memoized (a transient
+// PGlite hiccup on cold start must not disable the tile until a restart).
+//
+// Returns null only when the contribution index itself is unavailable; the money
+// and law blocks degrade INDEPENDENTLY to null, and the page renders a labelled
+// illustrative tile in place of each one that is missing. Every null path calls
+// reportLoaderFailure() so a degradation leaves a trace.
 
 import "server-only";
+import { reportLoaderFailure } from "@/lib/db/loaderGuard";
+import { getStore } from "@/lib/db/store";
 import { getLeaderboardData, type LeaderboardEntry } from "@/features/civicscore/getLeaderboardData";
+import { getLawData } from "@/features/lawwatch/getLawData";
+import { getMoneyData } from "@/features/money/getMoneyData";
+
+/** Which kg pass authored the contribution index, and when it ran. */
+export interface DashboardProvenance {
+  pass: number | null;
+  /** `YYYY-MM-DD` of that pass's `computedAt`, or null when the node carries none. */
+  computedAt: string | null;
+}
+
+/** Money headline — the /penize attribution rule, not a dashboard-local one. */
+export interface DashboardMoney {
+  /** Σ contract CZK of firms MPs OWN or RUN — the only money attributable to a politician. */
+  attributableCzk: number;
+  /** Σ contract CZK of institutions where an MP merely sits on a board. Never folded in. */
+  stewardCzk: number;
+  mpsWithTies: number;
+  companiesLinked: number;
+  totalTies: number;
+  /** Ties still awaiting the human gate — the whole population today. */
+  pendingTies: number;
+  pass: number;
+}
+
+/** Legislation headline — bill → law edges actually recorded in the graph. */
+export interface DashboardLaws {
+  bills: number;
+  laws: number;
+  amends: number;
+  /** Body-amended statutes the title-citation `amends` edges are known to MISS. */
+  censusUndercount: number;
+  pass: number | null;
+}
 
 export interface DashboardData {
   /** Top-N real MPs by contribution_score, for the ranking section. */
   top: LeaderboardEntry[];
   summary: { avg: number; median: number; sigma: number; count: number };
   histogram: { from: number; label: string; count: number }[];
-  /** Average attendance across all 207 real MPs, as a 0–100 percentage. */
+  /** Average attendance across all real MPs, as a 0–100 percentage. */
   attendanceAvgPct: number;
+  provenance: DashboardProvenance;
+  /** null ⇒ money layer unavailable; the strip shows a labelled illustrative tile. */
+  money: DashboardMoney | null;
+  /** null ⇒ legislation layer unavailable; the strip shows a labelled illustrative tile. */
+  laws: DashboardLaws | null;
 }
 
 const TOP_N = 5;
 
+// ── memoized money headline (see header) ────────────────────────────────────
+
+let moneyPromise: Promise<DashboardMoney | null> | null = null;
+
+async function readMoneyHeadline(): Promise<DashboardMoney | null> {
+  const money = await getMoneyData();
+  if (!money) {
+    reportLoaderFailure(
+      "getDashboardData.money",
+      new Error("money layer unavailable — the money tile degrades to the labelled sample"),
+    );
+    return null;
+  }
+  const s = money.stats;
+  return {
+    attributableCzk: s.contractCzkAttributable,
+    stewardCzk: s.contractCzkSteward,
+    mpsWithTies: s.mpsWithTies,
+    companiesLinked: s.companiesLinked,
+    totalTies: s.totalTies,
+    pendingTies: s.pendingTies,
+    pass: money.pass,
+  };
+}
+
+function moneyHeadline(): Promise<DashboardMoney | null> {
+  moneyPromise ??= readMoneyHeadline()
+    .then((value) => {
+      if (value === null) moneyPromise = null; // don't memoize an absent layer
+      return value;
+    })
+    .catch((err) => {
+      moneyPromise = null; // don't memoize a transient failure
+      reportLoaderFailure("getDashboardData.money", err);
+      return null;
+    });
+  return moneyPromise;
+}
+
+// ── legislation headline ────────────────────────────────────────────────────
+
+async function lawHeadline(): Promise<DashboardLaws | null> {
+  try {
+    const law = await getLawData();
+    if (!law) {
+      reportLoaderFailure(
+        "getDashboardData.laws",
+        new Error("legislation layer unavailable — the laws tile degrades to the labelled sample"),
+      );
+      return null;
+    }
+    return {
+      bills: law.totalBills,
+      laws: law.totalLaws,
+      amends: law.totalAmends,
+      censusUndercount: law.censusUndercountTotal,
+      pass: law.pass,
+    };
+  } catch (err) {
+    reportLoaderFailure("getDashboardData.laws", err);
+    return null;
+  }
+}
+
+// ── provenance date ─────────────────────────────────────────────────────────
+
+/**
+ * The date the contribution index was last computed, read from the person nodes'
+ * own `contribution_provenance.computedAt`. The header used to print a hardcoded
+ * literal; a recompute date that is not the recompute date is a fabricated number
+ * like any other.
+ */
+async function contributionComputedAt(): Promise<string | null> {
+  try {
+    const store = await getStore();
+    if (!store) return null;
+    const persons = await store.listKgNodes({ kind: "person", limit: 1000 });
+    for (const p of persons) {
+      const prov = p.props?.contribution_provenance as { computedAt?: unknown } | undefined;
+      const at = prov?.computedAt;
+      // ISO timestamp → date only; lib/format's date formatters take `YYYY-MM-DD`.
+      if (typeof at === "string" && /^\d{4}-\d{2}-\d{2}/.test(at)) return at.slice(0, 10);
+    }
+    return null;
+  } catch (err) {
+    reportLoaderFailure("getDashboardData.provenance", err);
+    return null;
+  }
+}
+
 export async function getDashboardData(): Promise<DashboardData | null> {
   const lb = await getLeaderboardData();
-  if (!lb || lb.entries.length === 0) return null;
+  if (!lb || lb.entries.length === 0) {
+    // buildLeaderboard() reports its own exceptions, but a null store or an
+    // empty graph reaches here without a trace otherwise.
+    reportLoaderFailure(
+      "getDashboardData",
+      new Error("contribution index unavailable — /dashboard degrades to the labelled sample"),
+    );
+    return null;
+  }
   const attendanceAvgPct =
     Math.round(
       (lb.entries.reduce((s, e) => s + (1 - e.absenceRate), 0) / lb.entries.length) * 1000,
     ) / 10;
+
+  const [money, laws, computedAt] = await Promise.all([
+    moneyHeadline(),
+    lawHeadline(),
+    contributionComputedAt(),
+  ]);
+
   return {
     top: lb.entries.slice(0, TOP_N),
     summary: lb.summary,
     histogram: lb.histogram,
     attendanceAvgPct,
+    provenance: { pass: lb.provenancePass, computedAt },
+    money,
+    laws,
   };
 }

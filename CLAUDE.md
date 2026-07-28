@@ -23,13 +23,25 @@ noindex). Future surface exploration uses the `prototype` skill.
 Route map (politicas.md roadmap execution, sample data):
 - `/` — landing (features/landing)
 - `/dashboard` — **Velín** (features/dashboard): rebuilt 2026-07-26 as an
-  instrument panel. Chamber stat strip → **the state graph** (`lib/civic/
-  stateGraph.ts`: person ⋈ party ⋈ firm ⋈ money ⋈ vote ⋈ law derived from the
-  existing sample, shape encodes entity kind, dashed = awaiting human review)
-  beside the **graph-traffic feed**, the two bound to one dataset (pin a node →
-  the feed filters; crosshair a row → the node pins, via `FeedEvent.refs`) →
-  leaderboard ledger with pillar bars. The five module tiles moved into the
-  layout rail.
+  instrument panel. **PARTIALLY REAL** — `getDashboardData.ts` is a `server-only`
+  loader that re-uses the loaders which already own each figure rather than
+  re-deriving anything: `getLeaderboardData()` (contribution index → avg tile,
+  attendance tile, top-5 real pspIds, score histogram), `getMoneyData()` (money
+  tile = the /penize attribution rule: contracts of firms MPs own/run, steward
+  money shown separately, all ties `pending_review`), `getLawData()` (bill→law
+  `amends` edges + the known census undercount). The header's recompute date is
+  the graph's own `contribution_provenance.computedAt`, not a literal. The money
+  read is memoized for the process lifetime (~12 s cold over ~153 k contracts),
+  like `features/graph/graphLoader.ts`. **Still sample data:** the state graph
+  (`lib/civic/stateGraph.ts`: person ⋈ party ⋈ firm ⋈ money ⋈ vote ⋈ law derived
+  from the sample, shape encodes entity kind, dashed = awaiting human review)
+  and the **graph-traffic feed**, the two bound to one dataset (pin a node → the
+  feed filters; crosshair a row → the node pins, via `FeedEvent.refs`) — both
+  labelled illustrative. Below them the leaderboard ledger. A layer that fails
+  degrades on its own to an ILLUSTRATIVE `StatTile` (ochre edge, steel numeral —
+  distinguishable at a glance); a total store failure additionally renders
+  `LiveDataNotice` saying the live data is unavailable. The five module tiles
+  live in the layout rail.
 - `/poslanec/[id]` — **Spis** (features/profile): the Person profile —
   politicas.md §3's "real product". Wired to the real graph (no mock path):
   poster header + contribution score/rank, the six weighted components, the
@@ -102,8 +114,11 @@ page awaits a server-only loader (`getStore()`) and passes typed props to the
 as the template, and the per-feature `get*Data.ts` loaders. The `lib/civic` mock
 is **retained only as a graceful fallback** (loader returns `null` → mock). See
 `docs/data-analysis/{graph-schema,coverage-ledger,graph-log}.md` for the graph
-provenance. Still on sample data: `/dashboard`, `/rozpocty`, landing. Next:
-port those, or election-cycle hardening per §9 Phase 4.
+provenance. **`/dashboard`'s stat strip joined them 2026-07-28** — all four
+headline numbers are now computed from the graph through the loader that owns
+each one; what is still sample data there is the state graph and the traffic
+feed (both labelled), plus `/rozpocty` and landing. Next: port those, or
+election-cycle hardening per §9 Phase 4.
 
 ## Code structure (patterns adopted from the personas repo)
 
