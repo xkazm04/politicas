@@ -64,6 +64,16 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
     billsCoSigned: data.billsCoSigned,
     rapporteurBills: data.rapporteurBills,
     amendmentsAuthored: data.amendmentsAuthored,
+    // Pracovní záznam: co poslanec doopravdy odvedl, ne jen jaké má skóre.
+    floorSpeeches: data.floorSpeeches,
+    floorSpeechTurns: data.floorSpeechTurns,
+    amendmentBills: data.amendmentBills,
+    amendmentBillCount: data.amendmentBillCount,
+    speechTurnsTotal: data.speechTurnsTotal,
+    interpellations: data.interpellations,
+    absenceRate: data.absenceRate,
+    workhorseFlavour: person.effortWorkhorse ? person.effortWorkhorseFlavour : null,
+    rapporteurLoad: person.effortRapporteurLoad,
   };
   // Section numbers are DERIVED from what actually renders. DossierSection is
   // omitted for an MP with no dossier content, and the fixed index={2} then left

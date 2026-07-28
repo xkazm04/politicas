@@ -940,6 +940,50 @@ describe("getProfileData against a seeded graph", () => {
     ]);
   });
 
+  it("surfaces the work record per bill, not as a bare count", async () => {
+    const p = (await withReadinessOff(() => getProfileData(100)))!;
+    // spoke_on / proposes_amendment ride the SAME neighbour read as everything else,
+    // and both resolve to the print number — never the internal tiskId.
+    expect(p.floorSpeeches).toEqual([
+      {
+        cislo: 4,
+        title: "Novela zákona o daních z příjmů",
+        url: "https://www.psp.cz/sqw/historie.sqw?o=10&t=4",
+        appUrl: "/zakony/4",
+        count: 3,
+      },
+    ]);
+    expect(p.floorSpeechTurns).toBe(3);
+    expect(p.amendmentBills).toEqual([
+      {
+        cislo: 4,
+        title: "Novela zákona o daních z příjmů",
+        url: "https://www.psp.cz/sqw/historie.sqw?o=10&t=4",
+        appUrl: "/zakony/4",
+        count: 2,
+      },
+    ]);
+    expect(p.amendmentBillCount).toBe(2);
+  });
+
+  it("reads the three index counters off the node, so ABSENT never renders as zero", async () => {
+    const p = (await withReadinessOff(() => getProfileData(100)))!;
+    expect(p.speechTurnsTotal).toBe(10); // the whole floor record; spoke_on covers 3 of it
+    expect(p.interpellations).toBe(1);
+    expect(p.absenceRate).toBe(0.1);
+    // Person 300 carries the same counters; a node missing one must yield null, not 0 —
+    // pinned here on the field that is genuinely absent from BASE_COUNTERS.
+    expect(p.amendmentsAuthored).toBeNull();
+  });
+
+  it("returns an empty engagement record for an MP with no such edges", async () => {
+    const p = (await withReadinessOff(() => getProfileData(300)))!;
+    expect(p.floorSpeeches).toEqual([]);
+    expect(p.amendmentBills).toEqual([]);
+    expect(p.floorSpeechTurns).toBe(0);
+    expect(p.amendmentBillCount).toBe(0);
+  });
+
   it("renders money ties as pending_review facts and sums ONLY attributable money", async () => {
     const p = (await withReadinessOff(() => getProfileData(100)))!;
     expect(p.money.ties).toHaveLength(1); // the GHOST-company edge belongs to person 300

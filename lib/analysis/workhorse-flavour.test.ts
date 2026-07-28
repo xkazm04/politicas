@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { czechGateErrors } from "./language-gate";
 import { isWorkhorseFlavour, workhorseFlavourCopy, WORKHORSE_FLAVOURS } from "./workhorse-flavour";
 
 describe("isWorkhorseFlavour", () => {
@@ -36,5 +37,24 @@ describe("workhorseFlavourCopy", () => {
     const a = workhorseFlavourCopy("legislative")!;
     const b = workhorseFlavourCopy("oversight")!;
     expect(Object.keys(a).sort()).toEqual(Object.keys(b).sort());
+  });
+});
+
+/* The MP profile renders `detail` VERBATIM to a Czech reader (batch: spis —
+ * pracovní záznam), the same way /zebricek renders `badge`. Reader-facing prose
+ * on a Czech-first surface goes through the language gate — see
+ * memory/reader-facing-loaders-need-the-language-gate.md, where English analyst
+ * copy reached three surfaces before anyone noticed. */
+describe("workhorse copy is reader-facing Czech", () => {
+  it("passes the Czech language gate for every flavour", () => {
+    for (const f of WORKHORSE_FLAVOURS) {
+      const copy = workhorseFlavourCopy(f)!;
+      expect(
+        czechGateErrors([
+          { label: `${f}.badge`, text: copy.badge },
+          { label: `${f}.detail`, text: copy.detail },
+        ]),
+      ).toEqual([]);
+    }
   });
 });

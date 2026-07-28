@@ -71,6 +71,17 @@ Route map (politicas.md roadmap execution, sample data):
   poster header + contribution score/rank, the six weighted components, the
   work-profile dossier (effort-loop enrichment + sponsored/rapporteur bills),
   co-voting allies, club rebellions, committee seats, prev/next file nav.
+  The dossier also carries the **work record** (2026-07-28): floor speeches and
+  written amendments PER BILL (`spoke_on` / `proposes_amendment`, pass 35,
+  linked to `/zakony/<cislo>`), the interpellation count and the excused-absence
+  rate as standalone cited figures rather than invisible score inputs, and the
+  workhorse / rapporteur-load verdict copy reused verbatim from
+  `lib/analysis/{workhorse-flavour,rapporteur-load}.ts` (no second copy engine;
+  both are pinned to the Czech language gate by their own tests). `spoke_on`
+  covers only the bills the graph carries, so the section prints the whole floor
+  total AND states that the per-bill list is its evidenced subset. The three
+  counters are read straight off the person node so an ABSENT prop renders
+  "údaj v grafu chybí" instead of a fabricated zero.
   Under the component tiles sits the **score-legibility panel** — per component
   the MP's value in that component's own unit, the scorer's cap, the chamber
   median and the rank the real ranked chamber gives at that cap (pure logic +

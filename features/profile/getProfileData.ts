@@ -12,6 +12,8 @@
 //   influential_in  → committee/commission seats
 //   linked_to       → money ties (all pending_review; contracts attached only
 //                     where the attribution rule allows — see ProfileMoneyTie)
+//   spoke_on        → floor debates, per bill
+//   proposes_amendment → written amendments, per bill
 // The six contribution components + authoritative score come from the person
 // node (see getLeaderboardData). No fabricated delta/trend/headline.
 
@@ -180,6 +182,22 @@ export interface ProfileMoney {
   pass: number | null;
 }
 
+/**
+ * One bill this MP engaged with beyond signing it — a floor debate or a written
+ * amendment. Both come from the pass-35 engagement layer over psp.cz's own
+ * records (`spoke_on` from steno/rec, `proposes_amendment` from sd_dokument
+ * typ 13) and both are per-BILL, so the profile can print what the work was
+ * about instead of a bare total.
+ */
+export interface BillEngagement {
+  cislo: number | null;
+  title: string;
+  appUrl: string | null;
+  url: string | null;
+  /** speaking turns on this bill, or written amendments filed to it. */
+  count: number;
+}
+
 export interface ProfileData {
   person: LeaderboardEntry; // includes rank
   total: number; // 207
@@ -230,6 +248,26 @@ export interface ProfileData {
   rapporteurBills: RapporteurBill[];
   /** Written amendments authored on the graph's law bills (pass 35, sd_dokument typ 13). */
   amendmentsAuthored: number | null;
+  /** Floor debates, per bill (`spoke_on`). Covers ONLY bills the graph carries —
+   *  `person.speechTurns` is the MP's whole floor record, of which this is the part
+   *  that can be tied to a print. The section says so. */
+  floorSpeeches: BillEngagement[];
+  /** Σ `floorSpeeches[].count` — turns attributable to a bill in the graph. */
+  floorSpeechTurns: number;
+  /** Written amendments, per bill (`proposes_amendment`). */
+  amendmentBills: BillEngagement[];
+  /** Σ `amendmentBills[].count` — compared against `amendmentsAuthored` on-page, so
+   *  a breakdown that does not account for the whole total admits the gap. */
+  amendmentBillCount: number;
+  /**
+   * Three counters the index consumed but the profile never showed. Read straight
+   * off the person node (not off `LeaderboardEntry`, whose `num()` turns an ABSENT
+   * prop into 0) so a node without the prop can say "údaj v grafu chybí" instead of
+   * asserting that the MP never spoke, never interpellated, and was never absent.
+   */
+  speechTurnsTotal: number | null;
+  interpellations: number | null;
+  absenceRate: number | null;
   /** `linked_to` money ties (all `pending_review` at pass 41) + the contracts the
    *  attribution rule permits attaching to them. See `ProfileMoney`. */
   money: ProfileMoney;
@@ -288,7 +326,15 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
     // company-node read below any more.
     const { edges: incidentEdges, nodes: incidentNodes } = await store.kgNeighbours({
       id: selfId,
-      rels: ["co_votes_with", "rebels_against", "sponsors", "rapporteur", "linked_to"],
+      rels: [
+        "co_votes_with",
+        "rebels_against",
+        "sponsors",
+        "rapporteur",
+        "linked_to",
+        "spoke_on",
+        "proposes_amendment",
+      ],
       limit: KG_READ_CAP,
     });
     incidentEdges.sort(byListOrder);
@@ -446,23 +492,25 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
     // procedural fate (stav / fate_sb) — rendered as-is, never derived here.
     const selfSponsorEdges = edgesByRel("sponsors").filter((e) => e.src === selfId);
     const rapporteurEdges = edgesByRel("rapporteur").filter((e) => e.src === selfId);
+    // The bill nodes are the far end of the very edges just read — no separate
+    // `kind:"bill"` relation scan (which was capped at 2 000 against a growing corpus).
+    // Shared by all four bill relations: sponsors, rapporteur, spoke_on and
+    // proposes_amendment all point at the same 141 bill nodes.
+    const billById = new Map(incidentNodes.filter((n) => n.kind === "bill").map((b) => [b.id, b]));
+    const billBase = (bid: string) => {
+      const b = billById.get(bid);
+      const cislo = b && typeof b.props.cislo === "number" ? b.props.cislo : null;
+      return {
+        b,
+        cislo,
+        title: b?.label ?? bid,
+        url: cislo != null ? `https://www.psp.cz/sqw/historie.sqw?o=10&t=${cislo}` : null,
+        appUrl: cislo != null ? `/zakony/${cislo}` : null,
+      };
+    };
     let sponsoredBills: SponsoredBill[] = [];
     let rapporteurBills: RapporteurBill[] = [];
     if (selfSponsorEdges.length > 0 || rapporteurEdges.length > 0) {
-      // The bill nodes are the far end of the very edges just read — no separate
-      // `kind:"bill"` relation scan (which was capped at 2 000 against a growing corpus).
-      const billById = new Map(incidentNodes.filter((n) => n.kind === "bill").map((b) => [b.id, b]));
-      const billBase = (bid: string) => {
-        const b = billById.get(bid);
-        const cislo = b && typeof b.props.cislo === "number" ? b.props.cislo : null;
-        return {
-          b,
-          cislo,
-          title: b?.label ?? bid,
-          url: cislo != null ? `https://www.psp.cz/sqw/historie.sqw?o=10&t=${cislo}` : null,
-          appUrl: cislo != null ? `/zakony/${cislo}` : null,
-        };
-      };
       const ROLE_ORDER: Record<string, number> = { predkladatel: 0, spolupodepsal: 1 };
       sponsoredBills = selfSponsorEdges
         .map((e) => {
@@ -496,6 +544,28 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
         })
         .sort((a, b) => (a.cislo ?? 1e9) - (b.cislo ?? 1e9) || a.title.localeCompare(b.title, "cs"));
     }
+    // ── Pracovní záznam po tiscích ───────────────────────────────────────────
+    // The pass-35 engagement layer, which the profile carried only as a bare
+    // `amendments_authored` counter and did not carry at all for speeches. Both
+    // relations arrived in the SAME neighbour read as everything else — no extra
+    // store call. Edge weight is the count (turns / amendments); the amendment
+    // edge additionally lists the sněmovní-dokument numbers, whose length equals
+    // the weight, so the weight is the honest per-bill figure either way.
+    const engagement = (rel: string): BillEngagement[] =>
+      edgesByRel(rel)
+        .filter((e) => e.src === selfId)
+        .map((e) => {
+          const { cislo, title, url, appUrl } = billBase(e.dst);
+          return { cislo, title, url, appUrl, count: num(e.weight) };
+        })
+        // Heaviest engagement first, then by print number — a total order, so the
+        // list is identical build to build (`kgNeighbours` orders by weight alone).
+        .sort((a, b) => b.count - a.count || (a.cislo ?? 1e9) - (b.cislo ?? 1e9) || a.title.localeCompare(b.title, "cs"));
+    const floorSpeeches = engagement("spoke_on");
+    const amendmentBills = engagement("proposes_amendment");
+    const floorSpeechTurns = floorSpeeches.reduce((s, b) => s + b.count, 0);
+    const amendmentBillCount = amendmentBills.reduce((s, b) => s + b.count, 0);
+
     // ── Peníze ────────────────────────────────────────────────────────────────
     // The `linked_to` edges came back in the SAME neighbour read as everything
     // else above (one indexed query, not a scan of the 211-row relation), and the
@@ -656,6 +726,13 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
       billsCoSigned,
       rapporteurBills,
       amendmentsAuthored,
+      floorSpeeches,
+      floorSpeechTurns,
+      amendmentBills,
+      amendmentBillCount,
+      speechTurnsTotal: personNode ? nullableNum(personNode.props.speech_turns) : null,
+      interpellations: personNode ? nullableNum(personNode.props.interpellations) : null,
+      absenceRate: personNode ? nullableNum(personNode.props.absence_rate) : null,
       money,
     };
   } catch (err) {

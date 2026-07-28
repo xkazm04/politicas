@@ -37,7 +37,11 @@ import { useFormat } from "@/lib/i18n/useFormat";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
 import ExpandableText from "./ExpandableText";
-import type { RapporteurBill, SponsoredBill } from "../getProfileData";
+import WorkhorseBadge from "@/features/civicscore/components/WorkhorseBadge";
+import RapporteurBadge from "@/features/civicscore/components/RapporteurBadge";
+import { workhorseFlavourCopy } from "@/lib/analysis/workhorse-flavour";
+import { rapporteurLoadCopy } from "@/lib/analysis/rapporteur-load";
+import type { BillEngagement, RapporteurBill, SponsoredBill } from "../getProfileData";
 
 /** next-intl key per zpravodaj assignment scope (pass 34, psp.cz tisky.zip). */
 const RAPPORTEUR_SCOPE_KEY: Record<string, string> = {
@@ -58,6 +62,18 @@ export interface DossierContent {
   billsCoSigned: number | null;
   rapporteurBills: RapporteurBill[];
   amendmentsAuthored: number | null;
+  // ── pracovní záznam (pass 35 engagement + index counters) ─────────────────
+  floorSpeeches: BillEngagement[];
+  floorSpeechTurns: number;
+  amendmentBills: BillEngagement[];
+  amendmentBillCount: number;
+  speechTurnsTotal: number | null;
+  interpellations: number | null;
+  absenceRate: number | null;
+  /** `effort_workhorse_flavour` — closed vocabulary, copy from lib/analysis. */
+  workhorseFlavour: string | null;
+  /** `effort_rapporteur_load` — badge copy + threshold in lib/analysis. */
+  rapporteurLoad: number;
 }
 
 /** Does this MP carry anything this section would actually render? The section
@@ -71,7 +87,17 @@ export function hasDossierContent(d: DossierContent): boolean {
     d.sponsoredBills.length > 0 ||
     !!d.notes ||
     !!d.dataFlag ||
-    d.rapporteurBills.length > 0
+    d.rapporteurBills.length > 0 ||
+    // The work record: a node carrying any of these has something real to show,
+    // including a HONEST ZERO ("0 interpelací" is a fact the graph asserts). Only
+    // a node carrying none of them at all leaves the section unrendered.
+    d.floorSpeeches.length > 0 ||
+    d.amendmentBills.length > 0 ||
+    d.speechTurnsTotal != null ||
+    d.interpellations != null ||
+    d.absenceRate != null ||
+    !!workhorseFlavourCopy(d.workhorseFlavour) ||
+    !!rapporteurLoadCopy(d.rapporteurLoad)
   );
 }
 
@@ -94,11 +120,29 @@ export default function DossierSection({ index, ...d }: DossierContent & { index
     billsCoSigned,
     rapporteurBills,
     amendmentsAuthored,
+    floorSpeeches,
+    floorSpeechTurns,
+    amendmentBills,
+    amendmentBillCount,
+    speechTurnsTotal,
+    interpellations,
+    absenceRate,
+    workhorseFlavour,
+    rapporteurLoad,
   } = d;
 
   const hasThemes = !!workThemes && workThemes.length > 0;
   const hasBillTrack = !!billFocus || sponsoredBills.length > 0;
   const hasSplit = billsFirstSigned != null && billsCoSigned != null && billsFirstSigned + billsCoSigned > 0;
+  const hasAmendments = (amendmentsAuthored != null && amendmentsAuthored > 0) || amendmentBills.length > 0;
+  // The per-bill breakdown accounts for the whole stored total only when the two
+  // agree; where it does not, the section SAYS how much it could not place rather
+  // than presenting a partial list as the record.
+  const amendmentsUnplaced =
+    amendmentsAuthored != null ? Math.max(0, amendmentsAuthored - amendmentBillCount) : 0;
+  const hasSpeeches = speechTurnsTotal != null || floorSpeeches.length > 0;
+  const hasCounters = interpellations != null || absenceRate != null;
+  const verdicts = !!workhorseFlavourCopy(workhorseFlavour) || !!rapporteurLoadCopy(rapporteurLoad);
   if (!hasDossierContent(d)) return null;
 
   return (
@@ -111,6 +155,32 @@ export default function DossierSection({ index, ...d }: DossierContent & { index
               {t("dossierPublicRole")}
             </p>
             <p className="mt-2 max-w-3xl text-[15px] leading-relaxed text-ink">{publicRole}</p>
+          </div>
+        )}
+
+        {/* Verdiktní štítky (Case ② effort-loop) — TÁŽ copy, kterou vykresluje
+            žebříček, importovaná z lib/analysis (žádný druhý textový engine).
+            Souměrné zacházení: pozitivní nález má stejnou váhu jako konflikt. */}
+        {verdicts && (
+          <div>
+            <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
+              {t("dossierVerdicts")}
+            </p>
+            <div className="mt-2.5 flex flex-wrap gap-2">
+              <WorkhorseBadge flavour={workhorseFlavour} />
+              <RapporteurBadge load={rapporteurLoad} />
+            </div>
+            {workhorseFlavourCopy(workhorseFlavour) && (
+              <p className="mt-2.5 max-w-3xl text-[14px] leading-relaxed text-steel">
+                {workhorseFlavourCopy(workhorseFlavour)!.detail}
+              </p>
+            )}
+            {rapporteurLoadCopy(rapporteurLoad) && (
+              <p className="mt-1.5 max-w-3xl text-[14px] leading-relaxed text-steel">
+                {rapporteurLoadCopy(rapporteurLoad)!.detail}
+              </p>
+            )}
+            <SourceNote className="mt-2.5 !text-[10px]">{t("dossierVerdictsSource")}</SourceNote>
           </div>
         )}
 
@@ -214,12 +284,94 @@ export default function DossierSection({ index, ...d }: DossierContent & { index
             číslo vykreslovalo uvnitř věty o tiscích, pod SourceNote citující
             tisky/predkladatel + effort_bill_focus, tedy pod zdrojem, ze kterého
             NEPOCHÁZÍ (pass 35 je čte z sd_dokument typ 13). */}
-        {amendmentsAuthored != null && amendmentsAuthored > 0 && (
+        {hasAmendments && (
           <div>
-            <p className="text-[15px] leading-relaxed text-ink">
-              {t("dossierAmendments", { count: amendmentsAuthored, countFmt: f.int(amendmentsAuthored) })}
-            </p>
+            {amendmentsAuthored != null && amendmentsAuthored > 0 && (
+              <p className="text-[15px] leading-relaxed text-ink">
+                {t("dossierAmendments", { count: amendmentsAuthored, countFmt: f.int(amendmentsAuthored) })}
+              </p>
+            )}
+            {/* Per-bill breakdown — the count alone said an MP filed amendments but
+                never to WHAT; the edge carries the print, so the page shows it. */}
+            {amendmentBills.length > 0 && (
+              <ul className="mt-2.5 flex flex-col gap-1.5">
+                {amendmentBills.map((b) => (
+                  <EngagementRow key={b.cislo ?? b.title} bill={b} unitKey="dossierAmendmentUnit" />
+                ))}
+              </ul>
+            )}
+            {amendmentsUnplaced > 0 && (
+              <p className="mt-2 max-w-3xl text-[13px] leading-relaxed text-steel">
+                {t("dossierAmendmentsUnplaced", {
+                  count: amendmentsUnplaced,
+                  countFmt: f.int(amendmentsUnplaced),
+                })}
+              </p>
+            )}
             <SourceNote className="mt-2 !text-[10px]">{t("dossierAmendmentsSource")}</SourceNote>
+          </div>
+        )}
+
+        {/* Vystoupení v sále — index z nich počítá složku „Vystoupení", ale spis
+            dosud neukázal ani celkové číslo, natož k čemu poslanec mluvil. */}
+        {hasSpeeches && (
+          <div>
+            <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
+              {t("dossierSpeeches")}
+            </p>
+            <p className="mt-2 text-[15px] leading-relaxed text-ink">
+              {speechTurnsTotal == null ? (
+                <span className="font-mono text-[12px] font-bold uppercase tracking-wider text-ochre">
+                  {t("dossierCounterMissing")}
+                </span>
+              ) : (
+                t("dossierSpeechTotal", { count: speechTurnsTotal, countFmt: f.int(speechTurnsTotal) })
+              )}
+            </p>
+            {floorSpeeches.length > 0 && (
+              <>
+                <p className="mt-1.5 max-w-3xl text-[14px] leading-relaxed text-steel">
+                  {t("dossierSpeechOnBills", {
+                    turns: floorSpeechTurns,
+                    turnsFmt: f.int(floorSpeechTurns),
+                    bills: floorSpeeches.length,
+                    billsFmt: f.int(floorSpeeches.length),
+                  })}
+                </p>
+                <ul className="mt-2.5 flex flex-col gap-1.5">
+                  {floorSpeeches.map((b) => (
+                    <EngagementRow key={b.cislo ?? b.title} bill={b} unitKey="dossierSpeechUnit" />
+                  ))}
+                </ul>
+              </>
+            )}
+            {/* Coverage stated, never implied: spoke_on exists only for the bills the
+                graph carries, so the breakdown is a SUBSET of the floor record. */}
+            <p className="mt-2 max-w-3xl text-[13px] leading-relaxed text-steel">{t("dossierSpeechCoverage")}</p>
+            <SourceNote className="mt-2 !text-[10px]">{t("dossierSpeechSource")}</SourceNote>
+          </div>
+        )}
+
+        {/* Interpelace a docházka — dosud jen neviditelné vstupy do skóre. */}
+        {hasCounters && (
+          <div>
+            <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
+              {t("dossierCounters")}
+            </p>
+            <div className="mt-2.5 grid gap-px border border-ink bg-ink sm:grid-cols-2">
+              <Counter
+                label={t("dossierInterpellations")}
+                value={interpellations == null ? null : f.int(interpellations)}
+                source={t("dossierInterpellationsSource")}
+                missing={t("dossierCounterMissing")}
+              />
+              <Counter
+                label={t("dossierAbsence")}
+                value={absenceRate == null ? null : `${f.dec(absenceRate * 100)} %`}
+                source={t("dossierAbsenceSource")}
+                missing={t("dossierCounterMissing")}
+              />
+            </div>
           </div>
         )}
 
@@ -280,5 +432,66 @@ export default function DossierSection({ index, ...d }: DossierContent & { index
         )}
       </div>
     </section>
+  );
+}
+
+/** One bill the MP engaged with, with the count of that engagement. Same print
+ *  chip as the legislative track above — link built from `cislo`, never `tiskId`
+ *  (see SponsoredBill), and a bill with no `cislo` renders unlinked, not broken. */
+function EngagementRow({ bill, unitKey }: { bill: BillEngagement; unitKey: string }) {
+  const t = useTranslations("profile");
+  const f = useFormat();
+  return (
+    <li className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
+      {bill.appUrl ? (
+        <Link
+          href={bill.appUrl}
+          className="inline-flex items-center gap-1 border-2 border-hairline px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:border-cobalt"
+          title={bill.title}
+        >
+          {t("dossierPrint", { cislo: f.int(bill.cislo!) })}
+          <ArrowUpRight className="h-3 w-3 shrink-0" aria-hidden />
+        </Link>
+      ) : (
+        <span
+          className="inline-flex items-center gap-1 border-2 border-hairline px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-steel"
+          title={bill.title}
+        >
+          {bill.title}
+        </span>
+      )}
+      <span className="font-mono text-[10px] font-black uppercase tracking-wider text-ink">
+        {t(unitKey, { count: bill.count, countFmt: f.int(bill.count) })}
+      </span>
+      <span className="min-w-0 flex-1 truncate text-[13px] text-steel" title={bill.title}>
+        {bill.title}
+      </span>
+    </li>
+  );
+}
+
+/** A single work-record figure with its own citation — or an honest "the graph
+ *  does not carry this", because a missing prop rendered as 0 would be a claim. */
+function Counter({
+  label,
+  value,
+  source,
+  missing,
+}: {
+  label: string;
+  value: string | null;
+  source: string;
+  missing: string;
+}) {
+  return (
+    <div className="bg-paper p-5">
+      <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-steel">{label}</p>
+      <p className="mt-1.5 text-3xl font-black tabular-nums">
+        {value ?? (
+          <span className="font-mono text-[12px] font-bold uppercase tracking-wider text-ochre">{missing}</span>
+        )}
+      </p>
+      <SourceNote className="mt-2 !text-[10px]">{source}</SourceNote>
+    </div>
   );
 }

@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { czechGateErrors } from "./language-gate";
 
 import { RAPPORTEUR_WORKHORSE_MIN, rapporteurLoadCopy } from "./rapporteur-load";
 
@@ -18,5 +19,19 @@ describe("rapporteurLoadCopy", () => {
     expect(copy.detail).toContain("u 5 návrhů zákona");
     expect(copy.detail).toContain("ne kvalitu");
     expect(rapporteurLoadCopy(RAPPORTEUR_WORKHORSE_MIN)).not.toBeNull();
+  });
+});
+
+/* Rendered VERBATIM on the MP profile's work record, so the same Czech-first
+ * gate applies as to every other reader-facing analyst string. */
+describe("rapporteur copy is reader-facing Czech", () => {
+  it("passes the Czech language gate", () => {
+    const copy = rapporteurLoadCopy(RAPPORTEUR_WORKHORSE_MIN)!;
+    expect(
+      czechGateErrors([
+        { label: "badge", text: copy.badge },
+        { label: "detail", text: copy.detail },
+      ]),
+    ).toEqual([]);
   });
 });
