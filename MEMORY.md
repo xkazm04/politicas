@@ -21,6 +21,9 @@ from `docs/`.
 - [OR shareholder entries mean *sole* shareholder](memory/or-shareholder-entry-semantics.md) — an a.s. shareholder is registered only when there's one; and those dates are registration, never acquisition, dates.
 
 ## Conventions & traps
+- [kgNeighbours' weight order is not total](memory/kgneighbours-weight-order-is-not-total.md) — the indexed per-node read ties densely; a ranked top-N cut must re-sort via `byListOrder` or the page shuffles between builds (it reordered 202/207 MPs' ally lists, silently).
+- [`revalidate` is inert — every route is dynamic](memory/revalidate-is-inert-every-route-is-dynamic.md) — `cookies()` in the i18n request config opts the whole app out of static generation; what actually bounds staleness is loader memoization.
+- [An `infinity` timestamp collapses a whole surface](memory/infinity-timestamp-collapses-a-whole-surface.md) — a legal `timestamptz` threw in the mapper, and the loader convention turned one bad cell into an empty page.
 - [Token + catalog discipline](memory/token-and-catalog-discipline.md) — colors only in `globals.css` tokens (3 declared exceptions); shared catalog is a lint-enforced import boundary. Know these before fighting lint.
 - [Rendering gotchas](memory/rendering-gotchas.md) — recharts livelock, SVG float drift, Czech formatting via `lib/format.ts`, SSR==CSR determinism. Four hydration/layout landmines.
 - [React state patterns the linter demands](memory/react-state-lint-patterns.md) — `set-state-in-effect` is an error; use `useSyncExternalStore` for localStorage state and rAF/observer callbacks for DOM measurement.
