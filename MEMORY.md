@@ -31,4 +31,9 @@ from `docs/`.
 - [Prototype rejection ≠ concept rejection; one label engine](memory/prototype-rejection-and-labels.md) — ask which axis a rejected variant failed on before deleting; all canvas text shares one collision queue; verify by eyeballing screenshots at two viewports.
 - [Reader-facing loaders need the language gate](memory/reader-facing-loaders-need-the-language-gate.md) — analyst prose ships to Czech readers as English unless the loader imports `lib/analysis/language-gate.ts`; found on three surfaces across three passes. Also: a payload vocabulary mismatch drops every row silently.
 - [KG upsert replaces props](memory/kg-upsert-replaces-props.md) — upsertKgNodes/Edges wholesale-replace props; re-running an old ingest erases later passes (140 summaries + 27 verdicts at risk). Backfill merge-preservingly, verify on a copy.
+<<<<<<< C:/Users/mkdol/AppData/Local/Temp/o.md
 - [The recompute replay gate](memory/recompute-replay-gate.md) — a scorer correction must replay the OLD formula and abort unless it reproduces every stored value; otherwise "correction" is an unattributable rewrite. Never re-run a network-fed ingest to fix a formula.
+=======
+- [`kg_edge` review_tier/review_rank are a pass-24 cache, not an authority](memory/money-stored-review-rank-is-a-stale-cache.md) — `tie_class` is a judgement to honour; the two order keys are a stale snapshot of a pure function (153/208 ranks wrong after batch-012). Ask: did a PERSON decide it or a FUNCTION compute it?
+- [Run a server-only loader under tsx](memory/tsx-can-run-server-only-loaders.md) — `NODE_OPTIONS="--conditions=react-server" npx tsx` imports `features/**/get*Data.ts` directly; the cheap way to prove a read-path refactor changed nothing (byte-identity dumps).
+>>>>>>> C:/Users/mkdol/AppData/Local/Temp/t.md
