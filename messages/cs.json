@@ -531,7 +531,18 @@
       "empty": "k tomuto uzlu v tomto okně nic nepřiteklo",
       "matchCount": "{count} z {total} záznamů",
       "showInGraph": "ukázat v grafu",
-      "mockSource": "ILUSTRATIVNÍ UKÁZKA — nejde o reálnou ingesci ani reálné události"
+      "mockSource": "ILUSTRATIVNÍ UKÁZKA — nejde o reálnou ingesci ani reálné události",
+      "emptyReal": "o entitách tohoto výřezu nemá graf žádný datovaný fakt",
+      "factPending": "vazba, na které fakt stojí, čeká na lidskou kontrolu",
+      "realSource": "datovaná fakta ze znalostního grafu · řadí datum sestupně, při shodě identifikátor vzestupně · nabídnuto k zobrazení: {rows}",
+      "droppedImplausible": "vyřazeno pro nemožné datum: {count} — podpis v roce 0002 nebo 3062 není datum, ale vada dat; neopravujeme ho, jen ho do chronologie nepustíme",
+      "fact": {
+        "contract": "podepsána smlouva — {subject}: {detail}",
+        "roleStart": "{subject} zapsán do rejstříku — {detail}",
+        "roleEnd": "{subject} vymazán z rejstříku — {detail}",
+        "billAssigned": "{subject} přikázán výboru {detail}",
+        "billPublished": "{subject} vyhlášen ve Sbírce — {detail}"
+      }
     },
     "allMpsLinkFallback": "celý žebříček",
     "realRanking": {

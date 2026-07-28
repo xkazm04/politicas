@@ -266,6 +266,7 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
               <GraphFeedPanel
                 events={EVENTS}
                 nodesByEvent={nodesByEvent}
+                ledger={data?.feed ?? null}
                 pinned={pinned}
                 pinnedLabel={pinnedLabel}
                 onPick={(id) => setPinned(id)}

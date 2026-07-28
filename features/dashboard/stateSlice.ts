@@ -38,6 +38,7 @@
  */
 
 import { r2, spread, type StateEdge, type StateGraph, type StateNode } from "@/lib/civic/stateGraph";
+import type { FactBill, FactTie } from "./datedFacts";
 
 // ── Vstupní projekce (strukturální — MoneyData/LawData je splňují) ──────────
 
@@ -55,6 +56,9 @@ export interface SliceTie {
   contractCount: number;
   donatedToPartyCzk: number | null;
   donationRecipientParty: string | null;
+  /** Rejstříkem potvrzené trvání role — datovaná fakta pro knihu provozu. */
+  roleValidFrom?: string | null;
+  roleValidTo?: string | null;
 }
 
 export interface SliceMp {
@@ -68,6 +72,10 @@ export interface SliceBill {
   title: string;
   sponsors: { pspId: number; name: string }[];
   amendedLaws: { urn: string; ref: string; label: string; title: string | null }[];
+  /** Formální přikázání výborům — datovaná fakta pro knihu provozu. */
+  committees?: { organLabel: string; role: string; assignedOn: string | null }[];
+  fateSb?: string | null;
+  fatePublishedOn?: string | null;
 }
 
 export interface SliceInput {
@@ -96,9 +104,22 @@ export interface StateSliceRule {
   stewardOnlySeeds: number;
 }
 
+/**
+ * Entity, které výřez SKUTEČNĚ nakreslil, přeložené do vstupu knihy datovaných
+ * faktů. Vzniká tady, protože jen tenhle kód ví, co se do obrázku vešlo — a
+ * kniha nesmí obsahovat řádek, jehož zaměřovač míří na uzel mimo plátno.
+ */
+export interface SliceSources {
+  /** Firmy, jejichž smlouvy SMÍ být připsané poslanci (ne steward). */
+  contractCompanies: { kgId: string; company: string; refs: string[]; pending: boolean }[];
+  ties: FactTie[];
+  bills: FactBill[];
+}
+
 export interface StateSlice {
   graph: StateGraph;
   rule: StateSliceRule;
+  sources: SliceSources;
 }
 
 /**
@@ -326,8 +347,49 @@ export function buildStateSlice(input: SliceInput): StateSlice | null {
   const pendingTies = rows.filter((r) => r.tie.reviewState !== "verified").length;
   const stewardOnlySeeds = primary.filter((p) => !p.ties.some(isAttributable)).length;
 
+  // ── Podklad pro knihu datovaných faktů ────────────────────────────────────
+  // Bere se JEN z toho, co výřez opravdu nakreslil, takže žádný řádek knihy
+  // nemůže mít zaměřovač do prázdna. Smlouvy jen u přisouditelných vazeb —
+  // steward peníze nejsou peníze poslance ani v knize, nejen na obrázku.
+  const nodeIds = new Set(nodes.map((n) => n.id));
+  const drawn = (ids: string[]) => ids.filter((id) => nodeIds.has(id));
+  const mpNameByPspId = new Map(persons.map((p) => [p.pspId, p.name]));
+
+  const sources: SliceSources = {
+    contractCompanies: rows
+      .filter((r) => isAttributable(r.tie))
+      .map((r) => ({
+        kgId: r.tie.companyId,
+        company: r.tie.company,
+        refs: drawn([sliceCompanyId(r.tie.ico), sliceMoneyId(r.tie.ico)]),
+        pending: r.tie.reviewState !== "verified",
+      }))
+      .filter((c) => c.refs.length > 0),
+    ties: rows.map((r) => ({
+      company: r.tie.company,
+      mpName: mpNameByPspId.get(r.pspId) ?? String(r.pspId),
+      role: r.tie.role,
+      roleValidFrom: r.tie.roleValidFrom ?? null,
+      roleValidTo: r.tie.roleValidTo ?? null,
+      refs: drawn([slicePersonId(r.pspId), sliceCompanyId(r.tie.ico)]),
+      pending: r.tie.reviewState !== "verified",
+    })),
+    bills: billRows.map((r) => ({
+      cislo: r.cislo,
+      refs: drawn([sliceBillId(r.cislo)]),
+      committees: (r.bill.committees ?? []).map((c) => ({
+        organLabel: c.organLabel,
+        role: c.role,
+        assignedOn: c.assignedOn,
+      })),
+      fateSb: r.bill.fateSb ?? null,
+      fatePublishedOn: r.bill.fatePublishedOn ?? null,
+    })),
+  };
+
   return {
     graph: { nodes, edges },
+    sources,
     rule: {
       seeds: primary.length,
       dualBandTotal: dual.length,

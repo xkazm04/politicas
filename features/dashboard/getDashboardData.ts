@@ -32,6 +32,7 @@ import { getLawData, type LawData } from "@/features/lawwatch/getLawData";
 import { getMoneyData } from "@/features/money/getMoneyData";
 import type { MoneyData } from "@/features/money/moneyTypes";
 import { buildStateSlice, type StateSlice } from "./stateSlice";
+import { buildDatedFacts, type DatedFactLedger, type FactContract } from "./datedFacts";
 
 /** Which kg pass authored the contribution index, and when it ran. */
 export interface DashboardProvenance {
@@ -80,6 +81,9 @@ export interface DashboardData {
    *  the surface prints under it. null ⇒ the canvas falls back to the labelled
    *  `buildStateGraph()` sample. */
   slice: StateSlice | null;
+  /** Chronological ledger of REAL dated facts about the slice's entities.
+   *  null ⇒ no slice, so the panel keeps the labelled sample feed. */
+  feed: DatedFactLedger | null;
 }
 
 const TOP_N = 5;
@@ -156,6 +160,47 @@ function lawHeadline(law: LawData): DashboardLaws {
     censusUndercount: law.censusUndercountTotal,
     pass: law.pass,
   };
+}
+
+/**
+ * Contracts of the slice's attributable firms, read through the INDEXED
+ * neighbourhood primitive (`kgNeighbours`) — one point read per drawn company,
+ * never a scan of the 153 k-row `supplies` relation. Only companies the slice
+ * actually drew are asked for, so the ledger cannot contain a row whose
+ * crosshair points off-canvas.
+ */
+async function sliceContracts(
+  companies: { kgId: string; company: string; refs: string[]; pending: boolean }[],
+): Promise<FactContract[]> {
+  if (companies.length === 0) return [];
+  try {
+    const store = await getStore();
+    if (!store) return [];
+    const out: FactContract[] = [];
+    for (const c of companies) {
+      const { edges, nodes } = await store.kgNeighbours({ id: c.kgId, rels: ["supplies"], limit: 500 });
+      const byId = new Map(nodes.map((n) => [n.id, n]));
+      for (const e of edges) {
+        const node = byId.get(e.dst);
+        if (!node) continue;
+        const signedOn = node.props?.signedOn;
+        const amount = typeof e.weight === "number" ? e.weight : node.props?.amount;
+        out.push({
+          id: node.id,
+          title: node.label,
+          signedOn: typeof signedOn === "string" ? signedOn : null,
+          amountCzk: typeof amount === "number" && Number.isFinite(amount) ? amount : null,
+          company: c.company,
+          refs: c.refs,
+          pending: c.pending,
+        });
+      }
+    }
+    return out;
+  } catch (err) {
+    reportLoaderFailure("getDashboardData.sliceContracts", err);
+    return [];
+  }
 }
 
 /** Party abbrev → its kg node id, so the slice's party node carries a real id
@@ -241,6 +286,21 @@ export async function getDashboardData(): Promise<DashboardData | null> {
     }
   }
 
+  // The ledger is built from the slice's own entities, so it exists only when
+  // the slice does. `today` comes from the server ONCE and is passed into the
+  // pure builder — a fact dated in the future is a data defect, not news, and
+  // the builder must stay deterministic for its tests.
+  let feed: DatedFactLedger | null = null;
+  if (slice) {
+    const contracts = await sliceContracts(slice.sources.contractCompanies);
+    feed = buildDatedFacts({
+      contracts,
+      ties: slice.sources.ties,
+      bills: slice.sources.bills,
+      today: new Date().toISOString().slice(0, 10),
+    });
+  }
+
   return {
     top: lb.entries.slice(0, TOP_N),
     summary: lb.summary,
@@ -250,5 +310,6 @@ export async function getDashboardData(): Promise<DashboardData | null> {
     money: money ? moneyHeadline(money) : null,
     laws: law ? lawHeadline(law) : null,
     slice,
+    feed,
   };
 }

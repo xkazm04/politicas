@@ -64,7 +64,7 @@
       "contexts": [
         {
           "name": "Velin Dashboard",
-          "description": "The instrument-panel overview: a chamber stat strip computed from the real knowledge graph via getDashboardData.ts (which reuses the civicscore, money and lawwatch loaders rather than re-deriving), a REAL knowledge-graph slice (stateSlice.ts — seeds picked by ascending pspId, a deliberately non-evaluative key, with the rule printed on the page) paired with a graph-traffic feed still on labelled sample data, and a leaderboard ledger.",
+          "description": "The instrument-panel overview: a chamber stat strip computed from the real knowledge graph via getDashboardData.ts (which reuses the civicscore, money and lawwatch loaders rather than re-deriving), a REAL knowledge-graph slice (stateSlice.ts — seeds picked by ascending pspId, a deliberately non-evaluative key, with the rule printed on the page) paired with a chronological ledger of REAL dated facts about that slice (datedFacts.ts — contracts, committee routing, registry roles; impossible dates excluded and disclosed), and a leaderboard ledger.",
           "businessFeature": "Velin Dashboard",
           "category": "ui",
           "filePaths": [
@@ -72,7 +72,10 @@
             "features/dashboard/getDashboardData.ts",
             "features/dashboard/stateSlice.ts",
             "features/dashboard/stateSlice.test.ts",
+            "features/dashboard/datedFacts.ts",
+            "features/dashboard/datedFacts.test.ts",
             "features/dashboard/graphText.ts",
+            "features/dashboard/components/FactRow.tsx",
             "features/dashboard/components/FeedRow.tsx",
             "features/dashboard/components/GraphFeedPanel.tsx",
             "features/dashboard/components/GraphGlyph.tsx",

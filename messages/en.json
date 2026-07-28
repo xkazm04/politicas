@@ -531,7 +531,18 @@
       "empty": "nothing flowed to this node in this window",
       "matchCount": "{count} of {total} records",
       "showInGraph": "show in graph",
-      "mockSource": "ILLUSTRATIVE SAMPLE — not a real ingestion feed or real events"
+      "mockSource": "ILLUSTRATIVE SAMPLE — not a real ingestion feed or real events",
+      "emptyReal": "the graph holds no dated fact about this slice’s entities",
+      "factPending": "the tie this fact rests on awaits human review",
+      "realSource": "dated facts from the knowledge graph · ordered by date descending, ties broken by identifier ascending · offered for display: {rows}",
+      "droppedImplausible": "dropped for an impossible date: {count} — a signature in the year 0002 or 3062 is a data defect, not a date; we do not correct it, we simply keep it out of the chronology",
+      "fact": {
+        "contract": "contract signed — {subject}: {detail}",
+        "roleStart": "{subject} entered in the register — {detail}",
+        "roleEnd": "{subject} removed from the register — {detail}",
+        "billAssigned": "{subject} assigned to committee {detail}",
+        "billPublished": "{subject} published in the Sbírka — {detail}"
+      }
     },
     "allMpsLinkFallback": "full ranking",
     "realRanking": {

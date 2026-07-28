@@ -48,8 +48,20 @@ Route map (politicas.md roadmap execution, sample data):
   envelope. `buildStateGraph()` stays as the labelled fallback; both builders are
   held to the same invariants (`lib/civic/stateGraph.test.ts`,
   `features/dashboard/stateSlice.test.ts` — `features/**/*.test.ts` joined the
-  vitest suite for it). **Still sample data:** the **graph-traffic feed**. Below
-  them the leaderboard ledger. A layer that fails
+  vitest suite for it). Beside it the **graph-traffic feed is REAL too**:
+  `features/dashboard/datedFacts.ts` is a second pure builder that turns the
+  slice's own entities into a chronological ledger of DATED FACTS (contract
+  signatures with CZK, committee assignments, Sbírka publication, registry role
+  start/end). The graph stores no changelog, so no "what changed" is invented —
+  a row is a TYPED fact and i18n sets the sentence around it. Ordering is date
+  desc, ties broken by identifier asc, stated in the panel. A fact whose entities
+  the canvas does not draw is dropped (no dead crosshairs), a fact resting on a
+  `pending_review` tie says so on its own row, and **a fact with an impossible
+  date is not a dated fact** — the corpus holds signatures in the years 0002,
+  2027, 2029 and 3062; they are excluded, counted, and the count is disclosed,
+  never corrected. Contracts are read through the indexed `kgNeighbours()` per
+  drawn company, never a `supplies` scan. The mock `EVENTS` feed survives only as
+  the labelled fallback. Below them the leaderboard ledger. A layer that fails
   degrades on its own to an ILLUSTRATIVE `StatTile` (ochre edge, steel numeral —
   distinguishable at a glance); a total store failure additionally renders
   `LiveDataNotice` saying the live data is unavailable. The five module tiles
