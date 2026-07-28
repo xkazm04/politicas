@@ -25,6 +25,7 @@
 // time series — so it is OMITTED, never fabricated.
 
 import "server-only";
+import { cache } from "react";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { storeReady } from "@/lib/db/readiness";
 import { getStore } from "@/lib/db/store";
@@ -38,6 +39,7 @@ import { isPublicSafe, publicCopyOrNull } from "@/lib/analysis/public-copy";
 import { PARTIES } from "@/lib/civic/data";
 import { OCHRE, STEEL } from "@/features/landing/palette";
 import { computeTrend, type ContributionTrend } from "@/lib/analysis/contribution-trend";
+import type { OrganRow } from "@/lib/db/types";
 
 const clamp01 = (x: number) => Math.max(0, Math.min(1, x));
 const round1 = (x: number) => Math.round(x * 10) / 10;
@@ -249,9 +251,26 @@ export interface Directory {
   nameByPspId: Map<number, string>;
   clubByPersonPspId: Map<number, string>;
   regionByPersonPspId: Map<number, string | null>;
+  /**
+   * Raw person-node props keyed by pspId, and the organ rows, from the reads this
+   * function ALREADY performs. Exposed so a per-MP loader (getProfileData) never
+   * re-reads the `person` node relation or the `organ` table a second time inside
+   * the same request — it used to do both (person nodes read 3×, organs 2× with two
+   * different limits over the same 1 790 rows).
+   */
+  personPropsByPspId: Map<number, Record<string, unknown>>;
+  organByPspId: Map<number, OrganRow>;
 }
 
-export async function buildLeaderboard(): Promise<{ data: LeaderboardData; directory: Directory } | null> {
+/**
+ * The one chamber-wide read pass. `react.cache`-wrapped: a single request may hit
+ * it from `generateMetadata`, the page body and `generateStaticParams` — before
+ * this wrapper each of those ran the whole pipeline again (207 persons + mandates
+ * + clubs + organs + party nodes, every time).
+ */
+export const buildLeaderboard = cache(async function buildLeaderboard(): Promise<
+  { data: LeaderboardData; directory: Directory } | null
+> {
   try {
     const store = await getStore();
     if (!store) return null;
@@ -278,11 +297,13 @@ export async function buildLeaderboard(): Promise<{ data: LeaderboardData; direc
     }
 
     const nameByPspId = new Map<number, string>();
+    const personPropsByPspId = new Map<number, Record<string, unknown>>();
     let provenancePass: number | null = null;
 
     const rows = persons.map((p) => {
       const pspId = Number(p.id.split(":").pop());
       nameByPspId.set(pspId, p.label);
+      personPropsByPspId.set(pspId, p.props);
       const club = clubByPersonPspId.get(pspId) ?? null;
       const meta = clubMeta(club);
       if (provenancePass === null) {
@@ -365,7 +386,7 @@ export async function buildLeaderboard(): Promise<{ data: LeaderboardData; direc
     }
 
     return {
-      directory: { nameByPspId, clubByPersonPspId, regionByPersonPspId },
+      directory: { nameByPspId, clubByPersonPspId, regionByPersonPspId, personPropsByPspId, organByPspId: organByPsp },
       data: {
         entries,
         clubs,
@@ -380,7 +401,7 @@ export async function buildLeaderboard(): Promise<{ data: LeaderboardData; direc
     reportLoaderFailure("buildLeaderboard", err);
     return null;
   }
-}
+});
 
 /** Full-detail loader — `/dashboard` (top-5 widget, needs `absenceRate` etc.)
  *  and anything else needing the whole `LeaderboardEntry` per MP. */

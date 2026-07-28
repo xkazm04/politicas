@@ -14,8 +14,10 @@
 // node (see getLeaderboardData). No fabricated delta/trend/headline.
 
 import "server-only";
+import { cache } from "react";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
-import { storeReady } from "@/lib/db/readiness";
+import { byListOrder } from "@/lib/db/kgOrder";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 import { getStore } from "@/lib/db/store";
 import { publicCopyOrNull } from "@/lib/analysis/public-copy";
 import {
@@ -138,7 +140,30 @@ export async function getAllProfilePspIds(): Promise<number[]> {
   return built.data.entries.map((e) => e.pspId);
 }
 
-export async function getProfileData(pspId: number): Promise<ProfileData | null> {
+/**
+ * ONE MP, ONE PASS.
+ *
+ * `react.cache` wrapper: `generateMetadata` and the page body both call this for
+ * the same pspId in one request — unwrapped, that was two full pipelines per
+ * render and 414 of them for a 207-page static build.
+ *
+ * Edge reads go through `store.kgNeighbours()`, which hits the `kg_edge_src_idx` /
+ * `kg_edge_dst_idx` btrees for this ONE node id. The previous shape read four
+ * WHOLE relations (`co_votes_with` alone is 20 496 rows) and filtered each down
+ * to one person in JS. Person props and organ rows come from `buildLeaderboard()`'s
+ * `directory` — the chamber pass has already read both, so this loader re-reads
+ * neither (it used to read person nodes a third time and the organ table a second
+ * time, at a different limit).
+ *
+ * Ordering note: `kgNeighbours` orders by `weight desc`, and Postgres gives NO
+ * stable order for equal weights — co-voting agreement is stored rounded to 3 dp,
+ * so ties are dense — measured: leaving the tie-break to the database reordered
+ * the ally list of 202 of the 207 MPs. The edge set is re-sorted into `listKgEdges`'
+ * `(src, rel, dst)` order before anything downstream reads it, which (a) makes the
+ * render reproducible build-to-build and (b) keeps it byte-identical to the
+ * whole-relation-scan version this replaced.
+ */
+export const getProfileData = cache(async function getProfileData(pspId: number): Promise<ProfileData | null> {
   try {
     const built = await buildLeaderboard();
     if (!built) return null;
@@ -150,14 +175,25 @@ export async function getProfileData(pspId: number): Promise<ProfileData | null>
 
     const store = await getStore();
     if (!store) return null;
-    if (!(await storeReady(store, ["person"]))) return null;
+    // No storeReady() here: buildLeaderboard() returning non-null already proves
+    // the `person` slice is materialized — the second probe was a pure duplicate.
 
     const selfId = `psp:person:${pspId}`;
 
+    // ONE indexed read for every per-MP relation this page renders. `nodes` is the
+    // distinct far end of those edges: the ally persons, the club/party node behind
+    // rebels_against, and the bill nodes behind sponsors/rapporteur — which is why
+    // there is no separate party-node or bill-node read below any more.
+    const { edges: incidentEdges, nodes: incidentNodes } = await store.kgNeighbours({
+      id: selfId,
+      rels: ["co_votes_with", "rebels_against", "sponsors", "rapporteur"],
+      limit: KG_READ_CAP,
+    });
+    incidentEdges.sort(byListOrder);
+    const edgesByRel = (rel: string) => incidentEdges.filter((e) => e.rel === rel);
+
     // co_votes_with — undirected; take the top allies by agreement weight.
-    const coEdges = await store.listKgEdges({ rel: "co_votes_with", limit: 100_000 });
-    const coVoters: CoVoter[] = coEdges
-      .filter((e) => e.src === selfId || e.dst === selfId)
+    const coVoters: CoVoter[] = edgesByRel("co_votes_with")
       .map((e) => {
         const otherId = e.src === selfId ? e.dst : e.src;
         const otherPspId = Number(otherId.split(":").pop());
@@ -176,14 +212,14 @@ export async function getProfileData(pspId: number): Promise<ProfileData | null>
       // — rendered as a dead /poslanec/NaN link presented as a legitimate ally
       // with no visual indication anything is wrong. Drop rather than guess.
       .filter((cv) => Number.isFinite(cv.pspId))
+      // Stable sort over the (src, rel, dst)-ordered edge set — equal-agreement
+      // allies keep the node-id order the previous whole-relation read produced.
       .sort((a, b) => b.agreement - a.agreement)
       .slice(0, 8);
 
     // rebels_against — dst is the club/party node; its label is the club.
-    const partyNodes = await store.listKgNodes({ kind: "party", limit: 30 });
-    const partyLabelById = new Map(partyNodes.map((p) => [p.id, p.label]));
-    const rebEdges = await store.listKgEdges({ rel: "rebels_against", limit: 100_000 });
-    const rebellions: Rebellion[] = rebEdges
+    const partyLabelById = new Map(incidentNodes.filter((n) => n.kind === "party").map((p) => [p.id, p.label]));
+    const rebellions: Rebellion[] = edgesByRel("rebels_against")
       .filter((e) => e.src === selfId)
       .map((e) => {
         const props = e.props as { club?: string; rebelVotes?: unknown; eligibleVotes?: unknown };
@@ -194,7 +230,7 @@ export async function getProfileData(pspId: number): Promise<ProfileData | null>
           eligibleVotes: num(props.eligibleVotes),
         };
       })
-      .sort((a, b) => b.rate - a.rate);
+      .sort((a, b) => b.rate - a.rate || a.club.localeCompare(b.club, "cs"));
 
     // committees — rebuilt from raw membership rows (NOT influential_in edges), the same
     // basis kg-contribution-ingest.ts feeds computeContribution for committee_count (see
@@ -205,9 +241,10 @@ export async function getProfileData(pspId: number): Promise<ProfileData | null>
     // seat vacated for a ministerial post rendered as an active committee membership.
     const term = "PSP10";
     const memberships = await store.listMemberships({ termCode: term });
-    const rawOrgans = await store.listOrgans({ limit: 3000 });
-    const organTypeByPsp = new Map(rawOrgans.map((o) => [o.pspId, o.organTypeCz]));
-    const organLabelByPsp = new Map(rawOrgans.map((o) => [o.pspId, o.abbrev ?? o.nameCz ?? String(o.pspId)]));
+    // Organs come from the chamber pass's single read (directory.organByPspId) —
+    // this loader used to issue a SECOND full `organ` scan at limit 3000 against
+    // buildLeaderboard's 2000, over the same 1 790 rows.
+    const organByPsp = directory.organByPspId;
     // DEDUPE BY ORGAN (batch-006): psp.cz stores a leadership seat as TWO membership rows
     // — one `kind:"member"` and one `kind:"function"` on the SAME organ (251 of 1062 PSP10
     // person-organ pairs). committee_count counts ROWS, so it double-counts those bodies;
@@ -229,12 +266,12 @@ export async function getProfileData(pspId: number): Promise<ProfileData | null>
     const rowsByOrgan = new Map<number, CommitteeSeat[]>();
     for (const m of memberships) {
       if (m.personPspId !== pspId || m.organPspId == null) continue;
-      const organType = organTypeByPsp.get(m.organPspId) ?? null;
+      const organType = organByPsp.get(m.organPspId)?.organTypeCz ?? null;
       const seat: ContributionCommitteeSeat = { organType, functionType: m.functionTypeCz };
       if (!isCommitteeSeat(seat)) continue;
       const role = classifyRole(m.functionTypeCz);
       const row: CommitteeSeat = {
-        abbrev: organLabelByPsp.get(m.organPspId) ?? String(m.organPspId),
+        abbrev: organByPsp.get(m.organPspId)?.abbrev ?? organByPsp.get(m.organPspId)?.nameCz ?? String(m.organPspId),
         organType,
         role,
         weight: ROLE_WEIGHT[role],
@@ -254,7 +291,11 @@ export async function getProfileData(pspId: number): Promise<ProfileData | null>
       .sort((a, b) => (a.current === b.current ? b.weight - a.weight : a.current ? -1 : 1));
 
     // Honest extra signals pulled from the person node props (may be absent).
-    const personNode = (await store.listKgNodes({ kind: "person", limit: 1000 })).find((p) => p.id === selfId);
+    // The props come from the chamber pass, which already read every person node —
+    // this used to be a THIRD full `person`-kind scan filtered to one id.
+    const personNode = directory.personPropsByPspId.has(pspId)
+      ? { props: directory.personPropsByPspId.get(pspId)! }
+      : null;
     const contestedRebellion = personNode ? nullableNum(personNode.props.contested_vote_rebellion) : null;
     const rebellionRate = personNode ? nullableNum(personNode.props.rebellion_rate) : null;
     const effortTenureDays = personNode ? nullableNum(personNode.props.effort_tenure_days) : null;
@@ -292,16 +333,14 @@ export async function getProfileData(pspId: number): Promise<ProfileData | null>
     // comment for why `tiskId` must never be used for this URL. Since pass 34
     // the edge props carry the predkladatel rank (role) and the bill node its
     // procedural fate (stav / fate_sb) — rendered as-is, never derived here.
-    const sponsorEdges = await store.listKgEdges({ rel: "sponsors", limit: 100_000 });
-    const selfSponsorEdges = sponsorEdges.filter((e) => e.src === selfId);
-    const rapporteurEdges = (await store.listKgEdges({ rel: "rapporteur", limit: 100_000 })).filter(
-      (e) => e.src === selfId,
-    );
+    const selfSponsorEdges = edgesByRel("sponsors").filter((e) => e.src === selfId);
+    const rapporteurEdges = edgesByRel("rapporteur").filter((e) => e.src === selfId);
     let sponsoredBills: SponsoredBill[] = [];
     let rapporteurBills: RapporteurBill[] = [];
     if (selfSponsorEdges.length > 0 || rapporteurEdges.length > 0) {
-      const billNodes = await store.listKgNodes({ kind: "bill", limit: 2000 });
-      const billById = new Map(billNodes.map((b) => [b.id, b]));
+      // The bill nodes are the far end of the very edges just read — no separate
+      // `kind:"bill"` relation scan (which was capped at 2 000 against a growing corpus).
+      const billById = new Map(incidentNodes.filter((n) => n.kind === "bill").map((b) => [b.id, b]));
       const billBase = (bid: string) => {
         const b = billById.get(bid);
         const cislo = b && typeof b.props.cislo === "number" ? b.props.cislo : null;
@@ -333,7 +372,9 @@ export async function getProfileData(pspId: number): Promise<ProfileData | null>
         })
         .sort(
           (a, b) =>
-            (ROLE_ORDER[a.role ?? ""] ?? 9) - (ROLE_ORDER[b.role ?? ""] ?? 9) || (a.cislo ?? 1e9) - (b.cislo ?? 1e9),
+            (ROLE_ORDER[a.role ?? ""] ?? 9) - (ROLE_ORDER[b.role ?? ""] ?? 9) ||
+            (a.cislo ?? 1e9) - (b.cislo ?? 1e9) ||
+            a.title.localeCompare(b.title, "cs"),
         );
       rapporteurBills = rapporteurEdges
         .map((e) => {
@@ -342,7 +383,7 @@ export async function getProfileData(pspId: number): Promise<ProfileData | null>
           const scopes = Array.isArray(p.scopes) ? p.scopes.filter((s): s is string => typeof s === "string") : [];
           return { cislo, title, url, appUrl, scopes };
         })
-        .sort((a, b) => (a.cislo ?? 1e9) - (b.cislo ?? 1e9));
+        .sort((a, b) => (a.cislo ?? 1e9) - (b.cislo ?? 1e9) || a.title.localeCompare(b.title, "cs"));
     }
     const billsFirstSigned = personNode ? nullableNum(personNode.props.bills_first_signed) : null;
     const billsCoSigned = personNode ? nullableNum(personNode.props.bills_co_signed) : null;
@@ -378,7 +419,7 @@ export async function getProfileData(pspId: number): Promise<ProfileData | null>
     reportLoaderFailure("getProfileData", err);
     return null;
   }
-}
+});
 
 function nullableNum(x: unknown): number | null {
   return typeof x === "number" && Number.isFinite(x) ? x : null;
