@@ -11,13 +11,17 @@
 //   bills → laws                            → getLawData()         (lawwatch)
 // The dashboard only picks the fields it shows and passes them through.
 //
-// ── why the money read is memoized ──────────────────────────────────────────
+// ── why the money read is memoized, and why the memo EXPIRES ────────────────
 // getMoneyData() walks the whole money layer (~153 k contracts + ~154 k supplies
 // edges) and takes ~12 s cold. The graph is a BATCH artifact — it changes with
-// `npm run da:kg-compute`, never at request time — so the result is memoized for
-// the process lifetime, exactly like features/graph/graphLoader.ts does for the
-// map/trail layouts. A failed or empty read is never memoized (a transient
-// PGlite hiccup on cold start must not disable the tile until a restart).
+// `npm run da:kg-compute`, never at request time — so the result is memoized,
+// like features/graph/graphLoader.ts does for the map/trail layouts. A failed or
+// empty read is never memoized (a transient PGlite hiccup on cold start must not
+// disable the tile until a restart).
+// The memo is bounded by the page's own revalidation window (./freshness.ts):
+// a process-lifetime memo under a declared `revalidate` would regenerate the
+// page from the SAME remembered money and stamp it with a fresh build date —
+// a freshness claim the code does not honour.
 //
 // Returns null only when the contribution index itself is unavailable; the money
 // and law blocks degrade INDEPENDENTLY to null, and the page renders a labelled
@@ -28,6 +32,7 @@ import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import { getLeaderboardData, type LeaderboardEntry } from "@/features/civicscore/getLeaderboardData";
+import { MONEY_MEMO_TTL_MS } from "./freshness";
 import { getLawData, type LawData } from "@/features/lawwatch/getLawData";
 import { getMoneyData } from "@/features/money/getMoneyData";
 import type { MoneyData } from "@/features/money/moneyTypes";
@@ -65,9 +70,23 @@ export interface DashboardLaws {
   pass: number | null;
 }
 
+/**
+ * One ranked row as the velín's top-5 ledger ACTUALLY renders it: rank, name,
+ * club chip, region, score. The full `LeaderboardEntry` additionally carries the
+ * six component points, seven raw counters, the PSP9 trend and four effort-loop
+ * enrichment fields — real data, none of which this widget reads, and all of
+ * which would be serialized into the client payload for five rows. Same
+ * reasoning as `LeaderboardListEntry` (/zebricek); the dashboard needs a
+ * narrower cut still, because it renders neither components nor badges.
+ */
+export type DashboardTopEntry = Pick<
+  LeaderboardEntry,
+  "pspId" | "rank" | "name" | "clubName" | "clubColor" | "region" | "score"
+>;
+
 export interface DashboardData {
   /** Top-N real MPs by contribution_score, for the ranking section. */
-  top: LeaderboardEntry[];
+  top: DashboardTopEntry[];
   summary: { avg: number; median: number; sigma: number; count: number };
   histogram: { from: number; label: string; count: number }[];
   /** Average attendance across all real MPs, as a 0–100 percentage. */
@@ -84,13 +103,28 @@ export interface DashboardData {
   /** Chronological ledger of REAL dated facts about the slice's entities.
    *  null ⇒ no slice, so the panel keeps the labelled sample feed. */
   feed: DatedFactLedger | null;
+  /** `YYYY-MM-DD` on which THIS rendering was produced. The page is statically
+   *  generated and revalidated (see ./freshness.ts), so without it a reader
+   *  cannot tell whether what they are looking at is hours or months old. */
+  builtOn: string;
 }
 
 const TOP_N = 5;
 
+const toTopEntry = (e: LeaderboardEntry): DashboardTopEntry => ({
+  pspId: e.pspId,
+  rank: e.rank,
+  name: e.name,
+  clubName: e.clubName,
+  clubColor: e.clubColor,
+  region: e.region,
+  score: e.score,
+});
+
 // ── memoized money headline (see header) ────────────────────────────────────
 
 let moneyPromise: Promise<MoneyData | null> | null = null;
+let moneyMemoAt = 0;
 
 async function readMoneyLayer(): Promise<MoneyData | null> {
   const money = await getMoneyData();
@@ -107,16 +141,20 @@ async function readMoneyLayer(): Promise<MoneyData | null> {
 /** The whole /penize projection, memoized — the money tile AND the graph slice
  *  both read it, so it must be fetched exactly once per process. */
 function moneyLayer(): Promise<MoneyData | null> {
-  moneyPromise ??= readMoneyLayer()
-    .then((value) => {
-      if (value === null) moneyPromise = null; // don't memoize an absent layer
-      return value;
-    })
-    .catch((err) => {
-      moneyPromise = null; // don't memoize a transient failure
-      reportLoaderFailure("getDashboardData.money", err);
-      return null;
-    });
+  if (moneyPromise !== null && Date.now() - moneyMemoAt >= MONEY_MEMO_TTL_MS) moneyPromise = null;
+  if (moneyPromise === null) {
+    moneyMemoAt = Date.now();
+    moneyPromise = readMoneyLayer()
+      .then((value) => {
+        if (value === null) moneyPromise = null; // don't memoize an absent layer
+        return value;
+      })
+      .catch((err) => {
+        moneyPromise = null; // don't memoize a transient failure
+        reportLoaderFailure("getDashboardData.money", err);
+        return null;
+      });
+  }
   return moneyPromise;
 }
 
@@ -291,6 +329,7 @@ export async function getDashboardData(): Promise<DashboardData | null> {
   // the slice does. `today` comes from the server ONCE and is passed into the
   // pure builder — a fact dated in the future is a data defect, not news, and
   // the builder must stay deterministic for its tests.
+  const builtOn = new Date().toISOString().slice(0, 10);
   let feed: DatedFactLedger | null = null;
   if (slice) {
     const contracts = await sliceContracts(slice.sources.contractCompanies);
@@ -298,12 +337,13 @@ export async function getDashboardData(): Promise<DashboardData | null> {
       contracts,
       ties: slice.sources.ties,
       bills: slice.sources.bills,
-      today: new Date().toISOString().slice(0, 10),
+      today: builtOn,
     });
   }
 
   return {
-    top: lb.entries.slice(0, TOP_N),
+    // Trimmed to what the ledger renders — see DashboardTopEntry.
+    top: lb.entries.slice(0, TOP_N).map(toTopEntry),
     summary: lb.summary,
     histogram: lb.histogram,
     attendanceAvgPct,
@@ -312,5 +352,6 @@ export async function getDashboardData(): Promise<DashboardData | null> {
     laws: law ? lawHeadline(law) : null,
     slice,
     feed,
+    builtOn,
   };
 }

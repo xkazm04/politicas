@@ -87,6 +87,22 @@ Route map (politicas.md roadmap execution, sample data):
   dashed cobalt ring distinct from the selection ring, and both the canvas
   status bar and the feed's filter banner are `aria-live` regions; dimmed rows
   carry an `sr-only` sentence naming the filter they fall outside of.
+  **Hover is also free now** — measured with render counters over a CDP mouse
+  sweep across all 18 nodes (36 hover transitions): `DashboardPage` 36 → **0**,
+  `GraphFeedPanel` 36 → **0**, `FactRow` 432 → **0**, node-label computations
+  684 → **0**; only `StateGraphCanvas` still re-renders (36), which is the trail
+  it draws. Labels are cached per node in a `WeakMap` that lives in its own
+  `useMemo` keyed **only on locale** — inside the big memo it saved nothing,
+  because `useTranslations` returns a fresh function every render. recharts
+  moved into the memoized `components/ChamberChart.tsx` (0 renders across 6
+  selections), and the 38 static grid lines are a module constant.
+  **Freshness** (`features/dashboard/freshness.ts`): `revalidate = 86_400` on
+  the route, kept in step with the loader by `freshness.test.ts`. But note what
+  the build actually says — `lib/i18n/request.ts` reads the locale cookie in
+  `getRequestConfig`, so **every route in the app is `ƒ (Dynamic)`** and
+  `revalidate` is a declared ceiling, not today's behaviour. What really bounds
+  staleness is the money-layer memo, which was process-lifetime and now **expires
+  after the same window**; the page prints its build date and that bound.
 - `/poslanec/[id]` — **Spis** (features/profile): the Person profile —
   politicas.md §3's "real product". Wired to the real graph (no mock path):
   poster header + contribution score/rank, the six weighted components, the

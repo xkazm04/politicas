@@ -573,7 +573,8 @@
       "title": "live data unavailable",
       "body": "The knowledge-graph database could not be opened, so the control room is not showing real figures. Every stat, the graph and the traffic feed below are an illustrative sample — invented people, firms and amounts. Please try again shortly.",
       "source": "source: lib/civic sample — not the real graph"
-    }
+    },
+    "freshness": "page built {built} · the money layer is read at most once every {hours} h, which is how much older than that date a figure here can be — the graph is a batch artifact, it changes on recompute, not per request"
   },
   "profile": {
     "breadcrumb": "file",

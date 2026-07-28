@@ -22,17 +22,6 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
-import {
-  Area,
-  AreaChart,
-  Bar,
-  BarChart,
-  CartesianGrid,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
 import { CHAMBER_STATS, CHAMBER_TREND, EVENTS, MPS, PILLARS, TREND_QUARTERS } from "@/lib/civic/data";
 import { buildStateGraph, nodesForRefs } from "@/lib/civic/stateGraph";
 import { useFormat } from "@/lib/i18n/useFormat";
@@ -43,15 +32,15 @@ import SourceNote from "@/features/shared/components/SourceNote";
 import LiveDataNotice from "@/features/shared/components/LiveDataNotice";
 import StatTile from "@/features/shared/components/StatTile";
 import { compactCzk } from "@/features/money/moneyTypes";
-import { HAIRLINE, INK, PILLAR_BG, SIGNAL, STEEL, TOOLTIP_STYLE } from "@/features/landing/palette";
+import { PILLAR_BG } from "@/features/landing/palette";
 import type { DashboardData } from "./getDashboardData";
+import ChamberChart from "./components/ChamberChart";
 import GraphFeedPanel from "./components/GraphFeedPanel";
 import StateGraphCanvas from "./components/StateGraphCanvas";
 import { primaryNodeForEvent } from "./feedRelevance";
+import { DASHBOARD_REVALIDATE_HOURS } from "./freshness";
 import { useGraphText } from "./graphText";
 import { useGraphSelection } from "./useGraphSelection";
-
-const CHART_TICK = { fill: STEEL, fontSize: 12, fontFamily: "var(--font-plex)" } as const;
 
 /**
  * Dlaždice ze vzorku `lib/civic` — vykreslí se jen tehdy, když příslušná vrstva
@@ -117,8 +106,11 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
   // Real score-distribution histogram (207 real MPs) — replaces the fake
   // quarter-over-quarter trend, which has no real analog (contribution_score
   // is a single-term snapshot, not a time series).
+  // null (ne prázdné pole) = graf není k dispozici → ChamberChart sáhne po
+  // OZNAČENÉM vzorku. Prázdný histogram by se nakreslil jako „sněmovna bez
+  // skóre", což je tvrzení, a navíc nepravdivé.
   const histogramData = useMemo(
-    () => (data ? data.histogram.map((h) => ({ band: h.label, count: h.count })) : []),
+    () => (data ? data.histogram.map((h) => ({ band: h.label, count: h.count })) : null),
     [data],
   );
 
@@ -132,16 +124,29 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
           {/* Datum přepočtu je provenience z grafu (`contribution_provenance`),
               ne literál v překladech. Když ho uzly nenesou, řekneme to —
               vymyšlené datum je vymyšlené číslo. */}
-          <SourceNote className="hidden sm:block">
-            {!data
-              ? t("headerNoteUnavailable")
-              : data.provenance.computedAt
-                ? t("headerNoteReal", {
-                    date: f.date(data.provenance.computedAt),
-                    pass: data.provenance.pass ?? "—",
-                  })
-                : t("headerNoteNoDate")}
-          </SourceNote>
+          <div className="hidden sm:block sm:text-right">
+            <SourceNote>
+              {!data
+                ? t("headerNoteUnavailable")
+                : data.provenance.computedAt
+                  ? t("headerNoteReal", {
+                      date: f.date(data.provenance.computedAt),
+                      pass: data.provenance.pass ?? "—",
+                    })
+                  : t("headerNoteNoDate")}
+            </SourceNote>
+            {/* Kdy tenhle výtisk vznikl a jak zastaralý smí být. Bez toho je
+                staticky předgenerovaná stránka číslo bez data platnosti — a to
+                je stejný problém jako číslo bez citace. */}
+            {data && (
+              <SourceNote className="mt-0.5">
+                {t("freshness", {
+                  built: f.date(data.builtOn),
+                  hours: f.int(DASHBOARD_REVALIDATE_HOURS),
+                })}
+              </SourceNote>
+            )}
+          </div>
         </div>
       </header>
 
@@ -393,63 +398,13 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
             </div>
 
             <div className="min-w-0 lg:col-span-4">
-              <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
-                {data ? t("histogram.label", { count: data.summary.count }) : t("chamberTrendLabel")}
-              </p>
-              <div
-                className="mt-3 w-full overflow-hidden"
-                style={{ aspectRatio: "5 / 3", minHeight: 200 }}
-              >
-                <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
-                  {data ? (
-                    <BarChart data={histogramData} margin={{ top: 8, right: 8, left: -14, bottom: 0 }}>
-                      <CartesianGrid stroke={HAIRLINE} vertical={false} />
-                      <XAxis dataKey="band" tick={CHART_TICK} tickLine={false} axisLine={{ stroke: INK, strokeWidth: 2 }} />
-                      <YAxis tick={CHART_TICK} tickFormatter={(v: number) => f.int(v)} tickLine={false} axisLine={false} />
-                      <Tooltip
-                        cursor={{ fill: HAIRLINE }}
-                        contentStyle={TOOLTIP_STYLE}
-                        formatter={(value) => [f.int(Number(value)), t("histogram.tooltip")]}
-                      />
-                      <Bar dataKey="count" fill={SIGNAL} isAnimationActive={!reduceMotion} />
-                    </BarChart>
-                  ) : (
-                    <AreaChart data={chamberTrendData} margin={{ top: 8, right: 8, left: -14, bottom: 0 }}>
-                      <CartesianGrid stroke={HAIRLINE} vertical={false} />
-                      <XAxis
-                        dataKey="q"
-                        tick={CHART_TICK}
-                        tickLine={false}
-                        axisLine={{ stroke: INK, strokeWidth: 2 }}
-                      />
-                      <YAxis
-                        domain={["dataMin - 2", "dataMax + 2"]}
-                        tick={CHART_TICK}
-                        tickFormatter={(v: number) => f.dec(v)}
-                        tickLine={false}
-                        axisLine={false}
-                      />
-                      <Tooltip
-                        cursor={{ stroke: INK, strokeDasharray: "4 4" }}
-                        contentStyle={TOOLTIP_STYLE}
-                        formatter={(value) => [f.dec(Number(value)), t("chamberTrendTooltip")]}
-                      />
-                      <Area
-                        type="linear"
-                        dataKey="avg"
-                        stroke={SIGNAL}
-                        strokeWidth={3}
-                        fill={SIGNAL}
-                        fillOpacity={0.12}
-                        dot={{ r: 3.5, fill: SIGNAL, strokeWidth: 0 }}
-                        activeDot={{ r: 5, fill: INK }}
-                        isAnimationActive={!reduceMotion}
-                      />
-                    </AreaChart>
-                  )}
-                </ResponsiveContainer>
-              </div>
-              <SourceNote className="mt-2">{data ? t("histogram.source") : t("chamberTrendSource")}</SourceNote>
+              {/* Memoizovaný podstrom — viz components/ChamberChart.tsx. */}
+              <ChamberChart
+                histogram={histogramData}
+                mockTrend={chamberTrendData}
+                count={data?.summary.count ?? 0}
+                reduceMotion={Boolean(reduceMotion)}
+              />
             </div>
           </div>
         </section>

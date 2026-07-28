@@ -573,7 +573,8 @@
       "title": "živá data nedostupná",
       "body": "Nepodařilo se otevřít databázi znalostního grafu, takže velín teď neukazuje reálná čísla. Všechny odečty, graf i provoz níže jsou ilustrativní ukázka — smyšlené osoby, firmy a částky. Zkuste to prosím za chvíli znovu.",
       "source": "zdroj: vzorek lib/civic — ne reálný graf"
-    }
+    },
+    "freshness": "stránka sestavena {built} · peněžní vrstva se čte nejvýš jednou za {hours} h, o tolik může být na ploše nejstarší údaj starší — graf je dávkový artefakt, mění se přepočtem, ne za běhu"
   },
   "profile": {
     "breadcrumb": "spis",

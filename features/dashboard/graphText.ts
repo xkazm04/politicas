@@ -41,6 +41,29 @@ export function useGraphText() {
   const rawLocale = useLocale();
   const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
 
+  // ── Popisek se počítá JEDNOU za uzel a locale ──────────────────────────────
+  // Plátno se překresluje při každém pohybu myši nad grafem a text si pro každý
+  // uzel počítalo znovu: přejetí 18 uzlů stálo 684 průchodů (18 uzlů × 36
+  // překreslení), z nichž každý dělá `MPS.find` / `MONEY_TIES[…]` /
+  // `LAW_CHANGES.find` plus jedno až tři dotažení z i18n.
+  //
+  // Cache musí mít VLASTNÍ `useMemo` závislý JEN na locale. Uvnitř toho velkého
+  // níž by k ničemu nebyla: `useTranslations` vrací při každém renderu novou
+  // funkci, takže se tamní memo fakticky přepočítává pořád — změřeno, cache
+  // uvnitř něj neušetřila ani jeden průchod. Locale je naopak stabilní, a když
+  // se změní, cache padne s ním, takže na obrázku nezůstanou staré popisky.
+  // (Kdyby React memo zahodil sám, je to obyčejný cache miss, ne chyba.)
+  // WeakMap, ne Map: klíčem je samotný uzel a graf se mění celý najednou.
+  const cache = useMemo(
+    () => ({
+      /** Jazyk, ve kterém byly popisky uvnitř spočítané — cache je per locale. */
+      locale,
+      nodes: new WeakMap<StateNode, NodeText>(),
+      edges: new WeakMap<StateEdge, string>(),
+    }),
+    [locale],
+  );
+
   return useMemo(() => {
     const f = formattersFor(locale);
 
@@ -66,7 +89,7 @@ export function useGraphText() {
       };
     };
 
-    const node = (n: StateNode): NodeText => {
+    const compute = (n: StateNode): NodeText => {
       if (n.label !== undefined) return carried(n);
       switch (n.kind) {
         case "person": {
@@ -119,13 +142,29 @@ export function useGraphText() {
     // Reálná hrana nese roli z rejstříku doslova („člen správní rady"), vzorková
     // přeložený druh vazby; obojí je konkrétnější než obecný vztah, a ten je
     // poslední záchrana. Dar navíc ukáže částku — číslo formátujeme až tady.
-    const edge = (e: StateEdge) => {
+    const computeEdge = (e: StateEdge) => {
       const base = e.label ?? (e.tie !== undefined ? tc(`moneyTies.${e.tie}.kind`) : tg(`rel.${e.rel}`));
       return e.czk !== undefined ? `${base} ${compactCzk(e.czk, locale)}` : base;
     };
 
+    const node = (n: StateNode): NodeText => {
+      const hit = cache.nodes.get(n);
+      if (hit) return hit;
+      const value = compute(n);
+      cache.nodes.set(n, value);
+      return value;
+    };
+
+    const edge = (e: StateEdge): string => {
+      const hit = cache.edges.get(e);
+      if (hit !== undefined) return hit;
+      const value = computeEdge(e);
+      cache.edges.set(e, value);
+      return value;
+    };
+
     return { node, edge };
-  }, [tc, tg, locale]);
+  }, [tc, tg, locale, cache]);
 }
 
 /** Barva strany je datový údaj — malý čip u uzlu osoby, nikdy plocha. */
