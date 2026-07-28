@@ -18,7 +18,20 @@ const eslintConfig = defineConfig([
   // `.justice-samples/` holds raw downloaded source samples (gitignored) for the
   // open-data assessments in docs/data-analysis/justice-sources-*.md — vendored
   // third-party bytes, never our code, so they are not linted.
-  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts", ".justice-samples/**"]),
+  // `.claude/worktrees/**` holds live git worktrees (parallel agent sessions).
+  // They are full checkouts of this same repo, so linting them double-reports
+  // every file — and reports the DECLARED token exceptions (features/labs,
+  // features/landing/palette.ts, lib/civic/data.ts) as errors, because the
+  // path-scoped exemptions below no longer match under the nested prefix. The
+  // worktree's own `npm run lint` covers that code; from here it is noise.
+  globalIgnores([
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+    ".justice-samples/**",
+    ".claude/worktrees/**",
+  ]),
   {
     files: ["**/*.{ts,tsx}"],
     plugins: {
