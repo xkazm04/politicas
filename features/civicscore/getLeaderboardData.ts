@@ -18,8 +18,17 @@
 // is the leaderboard score and the ranking key; rank = descending over all 207
 // real persons. Component POINTS are re-derived from the published per-MP rates
 // using the same weights + saturation caps, purely for the breakdown UI — the
-// headline score always comes from the graph, never re-summed here (rounding of
-// the stored rates means the parts approximate, not redefine, the whole).
+// headline score always comes from the graph, never re-summed here. The parts
+// approximate the whole rather than redefining it: each part is rounded to a
+// tenth for display, so their visible sum can sit a tenth off the composite
+// (measured 2026-07-29 over the real store: 71/207 MPs, max |Δ| 0,1 — it was
+// 197/207 and 1,6 until pass 42 published the underlying rates at 3 decimals).
+// The footnote under the breakdown says this; it must not claim an identity the
+// rounding cannot keep.
+//
+// `committee_count` counts DISTINCT BODIES since the pass-42 correction
+// (2026-07-29) — psp.cz files a led body as two membership rows, and counting
+// rows let a filing convention move a rank. See lib/analysis/contribution.ts.
 //
 // delta / trend (quarter-over-quarter) has NO real backing — single term, no
 // time series — so it is OMITTED, never fabricated.

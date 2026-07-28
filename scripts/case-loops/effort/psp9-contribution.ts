@@ -97,7 +97,7 @@ async function main() {
   const seatsByPerson = new Map<number, CommitteeSeat[]>();
   for (const m of priorMemberships) {
     const arr = seatsByPerson.get(m.personPspId) ?? [];
-    arr.push({ organType: m.organPspId != null ? organTypeById.get(m.organPspId) ?? null : null, functionType: m.functionTypeCz });
+    arr.push({ organPspId: m.organPspId, organType: m.organPspId != null ? organTypeById.get(m.organPspId) ?? null : null, functionType: m.functionTypeCz });
     seatsByPerson.set(m.personPspId, arr);
   }
 

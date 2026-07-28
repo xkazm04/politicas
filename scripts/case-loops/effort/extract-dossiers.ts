@@ -123,18 +123,29 @@ async function main() {
 
     // committees — rebuilt from raw membership rows (NOT influential_in edges; see the
     // batch-005/batch-006 note above main() for why). Uses the exact isCommitteeSeat filter
-    // computeContribution applies, so committees.length always equals props.committee_count
-    // for the pspId's raw membership rows (contribution.ts has no fromAt/toAt window itself —
-    // see the case-006 vault note if committee_count and this array ever diverge again, that
-    // would mean contribution.ts's own basis changed, not this extractor).
+    // computeContribution applies AND, since the 2026-07-29 correction, its exact DEDUPE:
+    // one entry per distinct organ (psp.cz files a led body as a `member` row plus a
+    // `function` row), so committees.length still equals props.committee_count for the
+    // pspId's membership rows. If the two ever diverge again, that means contribution.ts's
+    // own basis changed, not this extractor.
     const personMemberships = membershipsByPerson.get(pspId) ?? [];
+    const seenOrgan = new Set<string>();
     const committees = personMemberships
       .map((m) => {
         const organType = m.organPspId != null ? organTypeByPsp.get(m.organPspId) ?? null : null;
-        const seat: CommitteeSeat = { organType, functionType: m.functionTypeCz };
+        const seat: CommitteeSeat = { organPspId: m.organPspId, organType, functionType: m.functionTypeCz };
         return { m, organType, seat };
       })
       .filter((x) => isCommitteeSeat(x.seat))
+      // Highest role first, then keep the first row per organ — the dossier shows a body
+      // once, in the top role the MP holds there (the same rule the profile page uses).
+      .sort((a, b) => ROLE_WEIGHT[classifyRole(b.m.functionTypeCz)] - ROLE_WEIGHT[classifyRole(a.m.functionTypeCz)])
+      .filter(({ m }) => {
+        const key = m.organPspId != null ? `organ:${m.organPspId}` : `row:${m.id}`;
+        if (seenOrgan.has(key)) return false;
+        seenOrgan.add(key);
+        return true;
+      })
       .map(({ m, organType, seat }) => {
         const o = m.organPspId != null ? rawOrganByPsp.get(m.organPspId) : undefined;
         const role = classifyRole(m.functionTypeCz);

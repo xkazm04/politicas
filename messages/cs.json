@@ -637,7 +637,7 @@
     "committeeRoleChair": "předseda",
     "committeeRoleVice": "místopředseda",
     "committeeRoleMember": "člen",
-    "committeeCountNote": "Index přispění počítá {indexCount} členství, tento seznam ukazuje {listCount} orgánů. Rozdíl není chyba jednoho z čísel: psp.cz vede vedoucí funkci jako DVA řádky členství u téhož orgánu (řádek „člen“ + řádek „funkce“), index počítá řádky, seznam ukazuje každý orgán jednou v jeho nejvyšší roli.",
+    "committeeCountNote": "Index přispění počítá {indexCount} orgánů, tento seznam ukazuje {listCount}. Od 29. 7. 2026 počítají obě čísla TÉŽ — každý orgán jednou (psp.cz vede vedoucí funkci jako dva řádky členství u téhož orgánu, dřív je index počítal oba). Rozdíl proto znamená jediné: u některého řádku členství psp.cz neuvádí orgán, index takový řádek počítá zvlášť a seznam ho nemá kam zařadit.",
     "dossierHeading": "Pracovní profil",
     "dossierAside": "effort-loop enrichment · psp.cz + veřejné registry",
     "dossierPublicRole": "Veřejná role",

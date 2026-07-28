@@ -637,7 +637,7 @@
     "committeeRoleChair": "chair",
     "committeeRoleVice": "vice-chair",
     "committeeRoleMember": "member",
-    "committeeCountNote": "The contribution index counts {indexCount} memberships; this list shows {listCount} bodies. The gap is not an error in either number: psp.cz stores a leadership seat as TWO membership rows on the same body (a “member” row plus a “function” row), the index counts rows, and the list shows each body once at its highest role.",
+    "committeeCountNote": "The contribution index counts {indexCount} bodies; this list shows {listCount}. Since 29 July 2026 both count the SAME thing — each body once (psp.cz files a leadership seat as two membership rows on one body, and the index used to count both). A difference therefore means one thing only: a membership row for which psp.cz names no body, which the index counts on its own and this list has nowhere to put.",
     "dossierHeading": "Work profile",
     "dossierAside": "effort-loop enrichment · psp.cz + public registries",
     "dossierPublicRole": "Public role",

@@ -962,3 +962,60 @@ undifferentiated headline. Shipping the completed data without this would have
 made the tile say something false at nine times the volume.
 
 Detail: `docs/data-analysis/case-money/batch-012.md`.
+
+## Pass 42 (track: effort) — the contribution index counts BODIES, not filing rows (2026-07-29)
+
+**A stated, dated correction to a published ranking.** `committee_count` counted
+psp.cz membership ROWS, and psp.cz files a body an MP LEADS as two rows (a
+`member` row plus a `function` row on the same organ). So an MP who chaired one
+committee could out-score an MP who sat on two — for a filing convention, not a
+fact about the chamber. Documented in `lib/analysis/contribution.ts` since batch
+006 and deliberately left unfixed there; on `/zebricek`, whose entire job is
+ranking, it silently moved ranks.
+
+`computeContribution` now counts DISTINCT BODIES (`CommitteeSeat.organPspId`),
+and `leadershipCount` likewise counts the distinct bodies an MP leads. Role
+weighting is untouched: the `leadership` component still pays its full 10 points
+for a chair, so a chair still outscores a plain member of the same body — it just
+no longer counts that body twice.
+
+Measured over the real store (207 PSP10 MPs, 1 334 membership rows → 855
+committee-type):
+- **121/207 MPs** held ≥1 body represented by more than one row (206 duplicate rows).
+- **33 MPs lose points**; **220,1 index points** removed from the composite
+  (220,5 measured on the committee component before per-MP rounding); largest
+  single drop **−6,7** (20 → 13,3 on the committee term).
+- Saturated population (`committee_count ≥ COMMITTEE_SATURATION = 3`): **158 → 131**.
+- **184/207 printed ranks move** under the ordering in place at the time.
+- Absentee-manager leads unchanged (4 → 4); no MP crossed the 40-point threshold.
+- Prior-term baselines: `contribution_psp9` on **109 nodes** was scored by the
+  same formula, so its committee fields were corrected too (16 baselines move).
+  Its legislative/speech numbers come from psp.cz dumps this pass never reads and
+  were carried through verbatim.
+
+Stored rates were also republished at **3 decimals** instead of 1. They are
+PUBLISHED INPUTS — `/zebricek` re-derives the participation and attendance
+component points from them — and a 1-decimal rate (0,9 for 938/1 000) made the
+published parts disagree with the published whole by up to 1,6 points for
+**197/207** MPs. After the correction: **71/207, max |Δ| 0,1**, which is the
+irreducible rounding of six one-decimal parts. The composite itself is unchanged
+by this.
+
+**Write mechanics** (`scripts/data-analysis/kg-contribution-recompute.ts`, new).
+Re-running `kg-contribution-ingest.ts` was rejected: it re-derives
+bills/interpellations/speeches from LIVE psp.cz dumps, which would fold whatever
+the chamber has done since pass 11 into a commit whose stated subject is a
+formula correction. The new pass instead
+- takes every non-committee input verbatim off the person node, or recomputes it
+  from the same store rows pass 11 read (2 014 roll calls over 63 sitting days);
+- **replays the OLD formula** over those inputs and refuses to write unless it
+  reproduces the stored score, committee/leadership counts and both rates for
+  EVERY MP — it reproduced 207/207, which is what makes this a correction rather
+  than an unattributable rewrite;
+- writes `{...liveNode.props, ...corrected}` over the node read in the same run
+  (memory/kg-upsert-replaces-props.md — `upsertKgNodes` REPLACES props).
+
+Verified on a throwaway copy of the 1,6 GB store before touching the live one: a
+full before/after props diff over all **153 646 nodes** showed **0 differences**
+outside the eight declared props (140 bill summaries, 195 effort dossiers and all
+207 rapporteur loads intact).

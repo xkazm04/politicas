@@ -161,6 +161,17 @@ Route map (politicas.md roadmap execution, sample data):
   delta/trend (single term). Fallback when the store is unavailable:
   `lib/civic/leaderboard.ts`, a deterministic test-pinned mock generator (still
   feeds `/dashboard` chamber aggregates).
+  **Ranking correction 2026-07-29 (graph pass 42)** — the index's committee term
+  counted psp.cz membership ROWS, and psp.cz files a body an MP LEADS as two
+  rows, so chairing one committee could outrank sitting on two. It now counts
+  DISTINCT BODIES (role weighting untouched — `leadership` still pays its full
+  10 points). 33 MPs lost points (220,1 index points; saturated set 158 → 131)
+  and 184/207 printed ranks moved. Stored rates were republished at 3 decimals
+  in the same pass, so the six displayed parts now sit within 0,1 of the
+  composite instead of 1,6. Recompute path:
+  `scripts/data-analysis/kg-contribution-recompute.ts` — merge-preserving, and
+  it refuses to write unless replaying the OLD formula reproduces every stored
+  value first. Details in `docs/data-analysis/graph-log.md` (pass 42).
 - `/rozpocty` — **BudgetMirror** (features/budget): town vs peer-group mirror —
   metric duos against the computed peer median, debt-per-capita trend lines
   (town vs median), sortable peer table. Stewardship feeds only executive

@@ -38,9 +38,20 @@ export const SPEECH_SATURATION = 40; // speaking turns that saturates floor pres
 
 const clamp01 = (x: number) => Math.max(0, Math.min(1, x));
 const round1 = (x: number) => Math.round(x * 10) / 10;
+// Stored rates are PUBLISHED inputs: the leaderboard re-derives the participation and
+// attendance component points from them, so a 1-decimal rate (0,9 for 938/1000) made the
+// published parts disagree with the published whole by up to 1,6 points. 3 decimals keeps
+// that derivation true to within 0,02 pt while staying a readable number.
+const round3 = (x: number) => Math.round(x * 1000) / 1000;
 
-/** One committee/commission membership held by the MP in the term. */
+/** One committee/commission membership ROW held by the MP in the term. */
 export interface CommitteeSeat {
+  /**
+   * psp.cz organ id of the body this row belongs to — the identity the scorer dedupes on
+   * (see `computeContribution`). `null`/absent ⇒ the row's body cannot be identified, and
+   * the row is then counted on its own rather than silently merged with another.
+   */
+  organPspId?: number | null;
   organType: string | null; // organTypeCz of the body
   functionType: string | null; // functionTypeCz, e.g. "Předseda", or null for plain membership
 }
@@ -60,7 +71,9 @@ export interface ContributionInputs {
 
 export interface ContributionProfile {
   personPspId: number;
+  /** DISTINCT committee/commission bodies, not membership rows — see `computeContribution`. */
   committeeCount: number;
+  /** DISTINCT bodies in which the MP holds a leadership function. */
   leadershipCount: number;
   participationRate: number; // 0–1
   absenceRate: number; // 0–1 (excusedDays / sessionDays)
@@ -75,14 +88,15 @@ export interface ContributionProfile {
 // Exported so downstream extractors (e.g. scripts/case-loops/effort/extract-dossiers.ts) can
 // build a committees[] list against the EXACT SAME definition of "committee membership" that
 // committeeCount uses below. Batch 006 (Case ② effort loop) measured the divergence between
-// this file's raw-membership-row basis and kg-compute.ts's influential_in edges:
+// this file's membership-row basis and kg-compute.ts's influential_in edges:
 //   · "Delegace" is in COMMITTEE_ORGAN_TYPES here but is NOT matched by kg-compute's
 //     /v[ýy]bor|komis/i organ-type filter → 39/207 MPs undercounted there;
 //   · psp.cz stores a leadership seat as TWO membership rows on one organ (a `member` row
-//     plus a `function` row — 251/1062 PSP10 pairs), so committeeCount below counts that
-//     body TWICE while influential_in dedupes to one edge → 121/207 MPs. This is the
-//     dominant cause, and it means committeeCount over-counts leadership bodies (escalated
-//     as a defect in batch 006's handoff — NOT silently fixed here, see case gate (a)).
+//     plus a `function` row — 251/1062 PSP10 pairs), so committeeCount USED TO count that
+//     body twice while influential_in dedupes to one edge → 121/207 MPs affected.
+//     **CORRECTED 2026-07-29** (see `computeContribution`): the count is now over DISTINCT
+//     organs, so a filing convention no longer moves a rank. The correction removed 220,5
+//     index points across 33 MPs and dropped the saturated population 158 → 131.
 // NB batch 005 attributed the mismatch to excluded Podvýbor seats; batch 006 disproved that
 // (0 PSP10 memberships reference any of the 430 Podvýbor organs, so neither side counts them,
 // and /v[ýy]bor|komis/i does in fact match the string "Podvýbor" anyway).
@@ -93,14 +107,35 @@ export const isLeadership = (s: CommitteeSeat): boolean =>
   !!s.functionType && LEADERSHIP_FUNCTIONS.some((f) => s.functionType!.toLowerCase().includes(f));
 
 /**
+ * The identity a committee row is counted under. psp.cz files one body an MP leads as TWO
+ * membership rows (a `member` row + a `function` row), so ROWS are a filing convention and
+ * BODIES are the fact. A row whose organ id is absent cannot be proven to be the same body
+ * as any other, so it keeps a per-row identity rather than being merged on a guess.
+ */
+const seatKey = (s: CommitteeSeat, index: number): string =>
+  typeof s.organPspId === "number" && Number.isFinite(s.organPspId) ? `organ:${s.organPspId}` : `row:${index}`;
+
+/**
  * Compute an MP's contribution profile — a transparent weighted sum (max 100) over the
  * six dimensions in CONTRIBUTION_WEIGHTS. Each term is normalized so the number means
  * the same across MPs; count-based terms saturate at the named caps.
+ *
+ * **Committee breadth counts DISTINCT BODIES, not membership rows** (corrected 2026-07-29).
+ * Role weighting is unchanged and lives where it always did: the separate `leadership`
+ * component, which likewise counts the distinct bodies the MP leads — so a chair still
+ * outscores a plain member, but chairing one committee can no longer outrank sitting on two.
  */
 export function computeContribution(input: ContributionInputs): ContributionProfile {
   const committeeSeats = input.seats.filter(isCommitteeSeat);
-  const committeeCount = committeeSeats.length;
-  const leadershipCount = committeeSeats.filter(isLeadership).length;
+  const bodies = new Set<string>();
+  const ledBodies = new Set<string>();
+  committeeSeats.forEach((s, i) => {
+    const key = seatKey(s, i);
+    bodies.add(key);
+    if (isLeadership(s)) ledBodies.add(key);
+  });
+  const committeeCount = bodies.size;
+  const leadershipCount = ledBodies.size;
 
   const participationRate = input.rollCallsHeld > 0 ? clamp01(input.ballotsWithPosition / input.rollCallsHeld) : 0;
   const absenceRate = input.sessionDays > 0 ? clamp01(input.excusedDays / input.sessionDays) : 0;
@@ -121,8 +156,8 @@ export function computeContribution(input: ContributionInputs): ContributionProf
     personPspId: input.personPspId,
     committeeCount,
     leadershipCount,
-    participationRate: round1(participationRate),
-    absenceRate: round1(absenceRate),
+    participationRate: round3(participationRate),
+    absenceRate: round3(absenceRate),
     billsAuthored,
     interpellations,
     speechTurns,
