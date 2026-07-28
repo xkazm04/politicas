@@ -13,7 +13,14 @@ import { ExternalLink } from "lucide-react";
 import { useLocale } from "next-intl";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { buildRegistryLinks } from "./reviewTypes";
-import { compactCzk, temporalBadge, tieClassInfo, type MoneyMpDetail, type MoneyTieDetail } from "./moneyTypes";
+import {
+  compactCzk,
+  temporalBadge,
+  tieClassInfo,
+  tieClassOriginInfo,
+  type MoneyMpDetail,
+  type MoneyTieDetail,
+} from "./moneyTypes";
 import TieClassExplainer from "./components/TieClassExplainer";
 
 const BADGE_TONE_CLS: Record<string, string> = {
@@ -120,6 +127,10 @@ function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en:
   const reach = tie.contractCzk + tie.subsidiesCzk;
   const temporal = temporalBadge(tie);
   const info = tieClassInfo(tie.tieClass);
+  const origin = tieClassOriginInfo(tie.tieClassOrigin);
+  // A stored class that contradicts the heuristic is the whole point of the precedence
+  // rule — say which value lost, rather than presenting one silently.
+  const overrides = tie.tieClassOrigin === "stored" && tie.tieClassHeuristic !== tie.tieClass;
   const links = buildRegistryLinks(tie.ico, tie.source);
 
   return (
@@ -133,10 +144,17 @@ function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en:
           </p>
         </div>
         <div className="flex flex-wrap items-center justify-end gap-1.5">
-          <span
-            className={`border-2 px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider ${CLASS_TONE_CLS[info.tone]}`}
-          >
-            {en ? info.labelEn : info.labelCs}
+          <span className="flex flex-col items-end gap-0.5">
+            <span
+              className={`border-2 px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider ${CLASS_TONE_CLS[info.tone]}`}
+            >
+              {en ? info.labelEn : info.labelCs}
+            </span>
+            <span
+              className={`font-mono text-[9px] uppercase tracking-widest ${tie.tieClassOrigin === "stored" ? "text-steel" : "text-ochre"}`}
+            >
+              {en ? origin.labelEn : origin.labelCs}
+            </span>
           </span>
           {tie.reviewState === "verified" ? (
             <span className="border-2 border-cobalt px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-cobalt">
@@ -171,6 +189,24 @@ function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en:
               sub={tie.donationRecipientParty ?? "—"}
             />
           </div>
+
+          {/* where the class came from — a guess and a recorded judgement must not read
+              the same, and a stored class that overrode the heuristic says so here. */}
+          <p
+            className={`mt-4 border-l-2 pl-3 text-sm leading-relaxed ${tie.tieClassOrigin === "stored" ? "border-hairline text-steel" : "border-ochre text-steel"}`}
+          >
+            <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-ink">
+              {en ? origin.labelEn : origin.labelCs}:{" "}
+            </span>
+            {en ? origin.noteEn : origin.noteCs}
+            {overrides ? (
+              <span className="mt-1 block">
+                {en
+                  ? `The heuristic alone would have said “${tieClassInfo(tie.tieClassHeuristic).labelEn}” — the recorded class wins.`
+                  : `Sama heuristika by uvedla „${tieClassInfo(tie.tieClassHeuristic).labelCs}“ — přednost má zapsaná třída.`}
+              </span>
+            ) : null}
+          </p>
 
           {/* flags */}
           <div className="mt-4 flex flex-wrap gap-2">

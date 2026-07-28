@@ -15,13 +15,12 @@ import { getStore } from "@/lib/db/store";
 import { KG_READ_CAP } from "@/lib/db/readCap";
 import {
   buildRegistryLinks,
-  classifyTie,
   isDeMinimis,
   nearThresholdCount,
   parsePeriod,
-  reviewRank,
+  resolveReviewOrder,
+  resolveTieClass,
   reviewSignal,
-  reviewTier,
   type ReviewQueue,
   type ReviewState,
   type ReviewTie,
@@ -110,7 +109,10 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
       const source = String(e.props?.source ?? "");
       const ico = String(cp.ico ?? comp.id.split(":").pop() ?? "");
       const { from, to } = parsePeriod(source);
-      const tieClass = classifyTie(role, comp.label);
+      // Stored class wins over the heuristic — the console must never re-derive over a
+      // correction a reviewer already made (see resolveTieClass).
+      const cls = resolveTieClass(e.props?.tie_class, role, comp.label);
+      const tieClass = cls.tieClass;
       const contractCzk = a.czk;
       const subsidiesCzk = num(cp.subsidies_total_czk);
       const donatedToPartyCzk = cp.donated_to_party_czk != null ? num(cp.donated_to_party_czk) : null;
@@ -118,6 +120,14 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
       const absenteeManagerLead = Boolean(person?.props?.absentee_manager_lead);
       const triangle = contractCzk > 0 && subsidiesCzk > 0 && (donatedToPartyCzk ?? 0) > 0;
       const corroboration = (e.props?.corroboration as ReviewTie["corroboration"]) ?? null;
+      const order = resolveReviewOrder({
+        storedTier: e.props?.review_tier,
+        storedRank: e.props?.review_rank,
+        tieClass,
+        corroboration,
+        contractCzk,
+        subsidiesCzk,
+      });
 
       ties.push({
         id: `tie:${pspId}:${ico}`,
@@ -133,6 +143,8 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
         source,
         reviewState,
         tieClass,
+        tieClassOrigin: cls.origin,
+        tieClassHeuristic: cls.heuristic,
         periodFrom: from,
         periodTo: to,
         contractCount: a.count,
@@ -158,8 +170,9 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
           donatedToPartyCzk,
           absenteeManagerLead,
         }),
-        reviewTier: reviewTier({ tieClass, corroboration }),
-        reviewRank: reviewRank({ tieClass, corroboration, contractCzk, subsidiesCzk }),
+        reviewTier: order.reviewTier,
+        reviewRank: order.reviewRank,
+        reviewOrderOrigin: order.origin,
         links: buildRegistryLinks(ico, source),
       });
     }
@@ -182,6 +195,14 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
       nearThreshold: ties.filter((t) => t.nearThresholdCount > 0).length,
       totalReachableCzk: ties.reduce((s, t) => s + t.contractCzk + t.subsidiesCzk, 0),
       tierCounts,
+      classOrigin: {
+        stored: ties.filter((t) => t.tieClassOrigin === "stored").length,
+        derived: ties.filter((t) => t.tieClassOrigin === "derived").length,
+      },
+      staleReviewOrder: ties.filter((t) => t.reviewOrderOrigin === "stale-recomputed").length,
+      classDisagreements: ties.filter(
+        (t) => t.tieClassOrigin === "stored" && t.tieClassHeuristic !== t.tieClass,
+      ).length,
     };
 
     const pass = num((linked[0]?.provenance as Record<string, unknown> | undefined)?.pass) || 0;

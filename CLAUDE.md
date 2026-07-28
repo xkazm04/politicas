@@ -151,6 +151,20 @@ Route map (politicas.md roadmap execution, sample data):
   production home, translated to Konstrukt — entity-trail graph (hover lights
   edges), kniha vazeb grouped by MP with verified/pending-review states, and
   the trail methodology (IČO join + human gate). Feeds pillar Integrita.
+  **Tie class has ONE resolver since 2026-07-29** — `resolveTieClass()` in
+  `features/money/reviewTypes.ts`. A class stored on the edge
+  (`kg_edge.props.tie_class`, 211/211 on the live graph) is what a reviewer or
+  an analysis batch recorded and it WINS; `classifyTie`'s substring guess is
+  only the fallback for an edge carrying none, and every surface says which of
+  the two it is rendering (`tieClassOriginInfo`). Five ties disagree and the
+  stored value is the investigated one — IČO 24227901 is the MP's own SVJ, and
+  the product used to caption it "vlastní nebo řídí soukromou firmu, která
+  dodává státu". Never call `classifyTie` to decide what renders.
+  `review_tier`/`review_rank` are a different thing — a pass-24 CACHE of a pure
+  function, stale on 153/208 ranks after the batch-012 contract re-ingest — so
+  `resolveReviewOrder()` keeps a stored key only while it still matches the tie
+  and recomputes otherwise, reporting the count on the console rather than
+  mixing two vintages of one sort key in one queue.
 - `/zebricek` — **CivicScore** (features/civicscore): leaderboard — score
   histogram + chamber summary, party filter + name search, mini
   weighted-breakdown bars per row, and Souboj (pick two via "vs" → mirrored

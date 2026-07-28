@@ -22,6 +22,7 @@ import {
   compactCzk,
   temporalBadge,
   tieClassInfo,
+  tieClassOriginInfo,
   type MoneyData,
   type MoneyMp,
   type MoneyTie,
@@ -278,6 +279,15 @@ function RealLedger({ data }: { data: MoneyData }) {
                       className={`inline-block border-2 px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider ${CLASS_TONE_CLS[info.tone]}`}
                     >
                       {en ? info.labelEn : info.labelCs}
+                    </span>
+                    {/* a guessed class must not read like a recorded one, even in a dense
+                        table — the explainer below the table carries the full rule. */}
+                    <span
+                      className={`mt-0.5 block font-mono text-[9px] uppercase tracking-widest ${tie.tieClassOrigin === "stored" ? "text-steel" : "text-ochre"}`}
+                    >
+                      {en
+                        ? tieClassOriginInfo(tie.tieClassOrigin).labelEn
+                        : tieClassOriginInfo(tie.tieClassOrigin).labelCs}
                     </span>
                   </td>
                   <td className="px-3 py-3">

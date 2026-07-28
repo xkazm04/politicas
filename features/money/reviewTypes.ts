@@ -18,7 +18,14 @@ export type ReviewState = "verified" | "pending_review" | "rejected";
 /** Owner-operator = MP controls/owns a private company that supplies the state (the real
  *  FollowTheMoney). Manager = board-of-directors seat. Steward = supervisory seat on a
  *  public/nonprofit body whose money is its OWN public activity, not MP enrichment. */
-export type TieClass = "owner-operator" | "manager" | "steward";
+export const TIE_CLASSES = ["owner-operator", "manager", "steward"] as const;
+export type TieClass = (typeof TIE_CLASSES)[number];
+
+/** WHERE the rendered tie class came from. The product may not present these two in the
+ *  same voice: `stored` is a value a human reviewer or an analysis batch WROTE onto the
+ *  `linked_to` edge (`kg_edge.props.tie_class`); `derived` is this module's `classifyTie`
+ *  guess from two free-text strings. */
+export type TieClassOrigin = "stored" | "derived";
 
 export type ReviewDecision = "confirm" | "reject" | "needs-more";
 
@@ -46,7 +53,12 @@ export interface ReviewTie {
   role: string;
   source: string; // verbatim provenance string (cited)
   reviewState: ReviewState;
+  /** Resolved by `resolveTieClass` — a stored class beats the heuristic. */
   tieClass: TieClass;
+  tieClassOrigin: TieClassOrigin;
+  /** What `classifyTie` would have said. Differs from `tieClass` only when a stored
+   *  class overrode it — the card shows the disagreement rather than hiding it. */
+  tieClassHeuristic: TieClass;
   periodFrom: string | null; // parsed from the source string
   periodTo: string | null; // null = source says "ongoing" (OFTEN STALE — reviewer must check ARES VR)
   contractCount: number;
@@ -67,6 +79,8 @@ export interface ReviewTie {
    *  subsidiesCzk) descending WITHIN the tier. Lower = reviewed first. Recomputable from
    *  the tie's own fields (no global sort needed) — see `reviewRank`. */
   reviewRank: number;
+  /** Where the tier/rank pair came from — see `resolveReviewOrder`. */
+  reviewOrderOrigin: ReviewOrderOrigin;
   links: RegistryLinks;
   /** ARES-VR reconciliation (case-money batch 001/002, Q-money-1) — absent when the
    *  tie hasn't been through the registry corroboration pass yet. `periodFrom/To` above
@@ -90,6 +104,15 @@ export interface ReviewStats {
    *  must clear in each pass: registry-confirmed owner-operator / manager / steward,
    *  then everything unconfirmed. Sums to `pending`. */
   tierCounts: [number, number, number, number];
+  /** How the pending queue's classes were arrived at — `stored` = written on the edge by
+   *  a reviewer/analysis batch, `derived` = `classifyTie`'s guess. The console cites this
+   *  instead of labelling every class "heuristika" (or, worse, none of them). */
+  classOrigin: { stored: number; derived: number };
+  /** Pending ties whose stored review_tier/review_rank no longer matched the tie and were
+   *  recomputed — see `resolveReviewOrder`. Disclosed, never silent. */
+  staleReviewOrder: number;
+  /** Pending ties with a stored class that contradicts the heuristic. */
+  classDisagreements: number;
 }
 
 export interface ReviewQueue {
@@ -120,6 +143,11 @@ export function foldKey(s: string): string {
   return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/\s+/g, " ").trim();
 }
 
+/** The HEURISTIC. A guess over two free-text strings (company name × role text) with no
+ *  registry fact behind it: `legalForm` exists on 1 of 214 company nodes, SVJ and družstvo
+ *  are absent from `PUBLIC_MARKERS`, and short markers (`kraj`, `fond`, `sprava`) collide
+ *  in both directions. NEVER call this directly to decide what a surface renders — call
+ *  `resolveTieClass`, which prefers a class a person actually recorded. */
 export function classifyTie(role: string, company: string): TieClass {
   const r = foldKey(role);
   const c = foldKey(company);
@@ -127,6 +155,41 @@ export function classifyTie(role: string, company: string): TieClass {
   if (!isPublic && OWNER_ROLES.some((k) => r.includes(k))) return "owner-operator";
   if (!isPublic && BOARD_MGMT_ROLES.some((k) => r.includes(k))) return "manager";
   return "steward";
+}
+
+export interface ResolvedTieClass {
+  /** What every surface must render. */
+  tieClass: TieClass;
+  origin: TieClassOrigin;
+  /** What `classifyTie` says — ALWAYS computed, so a disagreement stays visible instead
+   *  of being swallowed by whichever value won. */
+  heuristic: TieClass;
+  /** A class was stored AND it contradicts the heuristic. The surface says so; it does
+   *  not quietly pick a winner. */
+  disagrees: boolean;
+}
+
+/**
+ * THE PRECEDENCE RULE for a tie's class, and the only entry point a surface may use.
+ *
+ * **A stored class wins, always.** `kg_edge.props.tie_class` is a value a human reviewer
+ * or an analysis batch wrote after looking at the registry; `classifyTie` is a substring
+ * guess. When the two disagree the stored one is the one that was *investigated* — IČO
+ * 24227901 is the MP's own residential owners' association (SVJ), recorded as `steward`,
+ * which the heuristic reads as `owner-operator` and the product used to caption
+ * "poslanec vlastní nebo řídí soukromou firmu, která dodává státu". Recomputing at read
+ * time made every such correction dead data.
+ *
+ * The heuristic survives ONLY as the fallback for an edge that carries no stored class,
+ * and it is labelled derived wherever it is used (`tieClassOriginInfo` in moneyTypes.ts).
+ * An unrecognised stored value is treated as absent — the graph is not a type system.
+ */
+export function resolveTieClass(stored: unknown, role: string, company: string): ResolvedTieClass {
+  const heuristic = classifyTie(role, company);
+  const known = typeof stored === "string" && (TIE_CLASSES as readonly string[]).includes(stored);
+  if (!known) return { tieClass: heuristic, origin: "derived", heuristic, disagrees: false };
+  const tieClass = stored as TieClass;
+  return { tieClass, origin: "stored", heuristic, disagrees: tieClass !== heuristic };
 }
 
 /** "… · 2016-01-01–ongoing" / "… · 2003-01-01–2007-01-01" → {from,to}. */
@@ -236,4 +299,51 @@ export function reviewRank(t: {
   const tier = reviewTier(t);
   const money = Math.min(Math.max(t.contractCzk + t.subsidiesCzk, 0), REVIEW_RANK_MONEY_CAP - 1);
   return tier * REVIEW_RANK_MONEY_CAP + (REVIEW_RANK_MONEY_CAP - money);
+}
+
+/** `stored` — the graph's own value, still valid against the tie's current fields.
+ *  `stale-recomputed` — a stored value exists but its inputs moved under it, so the
+ *  current-vintage recomputation is used and the divergence is counted, never hidden.
+ *  `derived` — nothing stored; computed here. */
+export type ReviewOrderOrigin = "stored" | "stale-recomputed" | "derived";
+
+export interface ResolvedReviewOrder {
+  reviewTier: 0 | 1 | 2 | 3;
+  reviewRank: number;
+  origin: ReviewOrderOrigin;
+}
+
+/**
+ * Review ORDER (tier + rank), resolved against `kg_edge.props.review_tier` /
+ * `review_rank`.
+ *
+ * Unlike `tie_class` these two are NOT a judgement: this module defines them as pure
+ * functions of the tie's own current fields (class × corroboration × reachable CZK), and
+ * the stored copies are one snapshot of that function — written at pass 24, before the
+ * batch-006 dataor corroboration sweep (pass 27) and before the batch-012 contract
+ * re-ingest grew `supplies` from 2 290 to 153 731 rows. Measured on the live store:
+ * **153 of 208** stored ranks and **4 of 208** stored tiers no longer match the tie they
+ * are attached to, and **3 of 211** ties carry neither.
+ *
+ * `review_rank` is a SORT KEY whose magnitude encodes money. Ordering one queue by a
+ * mixture of pass-24 ranks and current-corpus ranks is not a valid order at all — the two
+ * vintages are not comparable — so the whole queue must use one vintage. This function
+ * therefore keeps the stored value when it still agrees with the tie in front of the
+ * reader, recomputes when it does not, and reports which happened so the staleness is a
+ * disclosed number rather than an assumption.
+ */
+export function resolveReviewOrder(t: {
+  storedTier: unknown;
+  storedRank: unknown;
+  tieClass: TieClass;
+  corroboration: ReviewTie["corroboration"];
+  contractCzk: number;
+  subsidiesCzk: number;
+}): ResolvedReviewOrder {
+  const tier = reviewTier(t);
+  const rank = reviewRank(t);
+  const hasStored = typeof t.storedTier === "number" && typeof t.storedRank === "number";
+  if (!hasStored) return { reviewTier: tier, reviewRank: rank, origin: "derived" };
+  const agrees = t.storedTier === tier && Math.abs((t.storedRank as number) - rank) < 0.5;
+  return { reviewTier: tier, reviewRank: rank, origin: agrees ? "stored" : "stale-recomputed" };
 }

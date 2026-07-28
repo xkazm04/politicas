@@ -25,8 +25,8 @@ export type Corroboration = (typeof CORROBORATIONS)[number];
 // Re-exported from reviewTypes.ts (the /penize/kontrola console's pure classifier) so
 // the main ledger and per-MP case file can render the SAME tie-class taxonomy without
 // duplicating the definition. Plain module, no server imports — safe to share.
-export type { TieClass } from "./reviewTypes";
-import type { TieClass } from "./reviewTypes";
+export type { TieClass, TieClassOrigin } from "./reviewTypes";
+import type { TieClass, TieClassOrigin } from "./reviewTypes";
 
 /** One MP↔company tie, enriched with the public money reachable through the firm. */
 export interface MoneyTie {
@@ -51,8 +51,15 @@ export interface MoneyTie {
   roleValidFrom?: string | null; // ISO date, ARES-VR confirmed
   roleValidTo?: string | null; // ISO date, ARES-VR confirmed; null = role has no recorded end
   temporalStatus?: string | null; // "current" | "historical" | "money-postdates-role" | "historical-no-money"
-  /** owner-operator / manager / steward — see `tieClassInfo` for the rendered P29 rule. */
+  /** owner-operator / manager / steward — see `tieClassInfo` for the rendered P29 rule.
+   *  Resolved by `resolveTieClass`: a class stored on the edge beats the heuristic. */
   tieClass: TieClass;
+  /** Whether `tieClass` was READ off the edge or GUESSED — the two may not be rendered
+   *  in the same voice (`tieClassOriginInfo`). */
+  tieClassOrigin: TieClassOrigin;
+  /** What the heuristic alone would have said; equal to `tieClass` unless a stored class
+   *  overrode it. */
+  tieClassHeuristic: TieClass;
   /** contracts + subsidies + party donation all present on the same firm. */
   triangle: boolean;
   /** contract amounts landing just under a 2M/6M CZK zadávací-limit threshold. */
@@ -320,6 +327,37 @@ export function tieClassInfo(cls: TieClass): {
         tone: "steel",
       };
   }
+}
+
+/** How a tie's class was arrived at, in the reader's own words. The P29 caption in
+ *  `tieClassInfo` is written as an established fact ("poslanec vlastní nebo řídí…") — it
+ *  may only be read that way when a person recorded the class. When `classifyTie` guessed
+ *  it from a company name and a role string, the surface says so at the badge. Single
+ *  source of truth for the copy, same rule as `tieClassInfo`: import, never re-word. */
+export function tieClassOriginInfo(origin: TieClassOrigin): {
+  labelCs: string;
+  labelEn: string;
+  noteCs: string;
+  noteEn: string;
+} {
+  if (origin === "stored") {
+    return {
+      labelCs: "zapsaná třída",
+      labelEn: "recorded class",
+      noteCs:
+        "třídu nese hrana v grafu (kg_edge.props.tie_class) — zapsal ji analytický průchod nebo lidská kontrola, není to automatický odhad.",
+      noteEn:
+        "the class is stored on the edge (kg_edge.props.tie_class) — written by an analysis pass or a human review, not guessed at read time.",
+    };
+  }
+  return {
+    labelCs: "odvozená třída",
+    labelEn: "derived class",
+    noteCs:
+      "třídu odhadl program z názvu firmy a textu role (classifyTie) — v grafu k ní není zapsaný žádný rejstříkový údaj. Berte ji jako vodítko, ne jako zjištěný fakt.",
+    noteEn:
+      "the class was guessed from the company name and the role text (classifyTie) — no registry fact backs it. Read it as a lead, not a finding.",
+  };
 }
 
 /** Compact CZK for dense tiles/graph labels: data-derived Czech (en fallback). */

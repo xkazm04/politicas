@@ -193,6 +193,90 @@ describe("D7 — reject sets a terminal rejected state", () => {
   });
 });
 
+// The gate's output must BE the next render's input. A class recorded on the edge is the
+// human/analyst judgement the product is built to publish; it has to survive the write
+// path's props merge AND win over `classifyTie` when the loader reads the tie back.
+describe("a stored tie_class survives the gate and wins at read time", () => {
+  const CLS_SRC = "psp:person:6793";
+  // "s.r.o." + role "jednatel" → classifyTie() says owner-operator. The stored class says
+  // steward (the real IČO-24227901 shape: an SVJ recorded as a steward, not a supplier).
+  const CLS_DST = "kg:company:ico:444";
+  const NOCLS_DST = "kg:company:ico:555"; // no stored class → the heuristic, labelled derived
+  let pg: Awaited<ReturnType<typeof open>>;
+
+  beforeAll(async () => {
+    pg = await open();
+    await pg.query(
+      `insert into kg_node (id, kind, label, props, first_seen_pass, provenance)
+       values
+        ($1, 'person', 'Čtvrtý Poslanec', '{}'::jsonb, 1, '{}'::jsonb),
+        ($2, 'company', 'Čtvrtá s.r.o.', $4::jsonb, 1, '{}'::jsonb),
+        ($3, 'company', 'Pátá s.r.o.',   $5::jsonb, 1, '{}'::jsonb)`,
+      [CLS_SRC, CLS_DST, NOCLS_DST, JSON.stringify({ ico: "444" }), JSON.stringify({ ico: "555" })],
+    );
+    await pg.query(
+      `insert into kg_edge (src, rel, dst, weight, props, provenance)
+       values ($1, 'linked_to', $2, null, $4::jsonb, $6::jsonb),
+              ($1, 'linked_to', $3, null, $5::jsonb, $6::jsonb)`,
+      [
+        CLS_SRC,
+        CLS_DST,
+        NOCLS_DST,
+        JSON.stringify({
+          role: "jednatel",
+          source: "test · 2020-01-01–ongoing",
+          review_state: "pending_review",
+          tie_class: "steward",
+        }),
+        JSON.stringify({ role: "jednatel", source: "test · 2020-01-01–ongoing", review_state: "pending_review" }),
+        JSON.stringify({ pass: 1 }),
+      ],
+    );
+  });
+
+  it("the loader renders the STORED class, and names both it and the guess it beat", async () => {
+    const queue = await getVerificationQueue();
+    const tie = queue!.ties.find((t) => t.src === CLS_SRC && t.dst === CLS_DST)!;
+    expect(tie).toBeDefined();
+    expect(tie.tieClass).toBe("steward"); // not "owner-operator"
+    expect(tie.tieClassOrigin).toBe("stored");
+    expect(tie.tieClassHeuristic).toBe("owner-operator");
+  });
+
+  it("an edge with no stored class falls back to the heuristic, labelled derived", async () => {
+    const queue = await getVerificationQueue();
+    const tie = queue!.ties.find((t) => t.src === CLS_SRC && t.dst === NOCLS_DST)!;
+    expect(tie.tieClass).toBe("owner-operator");
+    expect(tie.tieClassOrigin).toBe("derived");
+  });
+
+  it("the queue's stats count the two origins and the disagreement", async () => {
+    const queue = await getVerificationQueue();
+    const { classOrigin, classDisagreements, pending } = queue!.stats;
+    expect(classOrigin.stored + classOrigin.derived).toBe(pending);
+    expect(classOrigin.stored).toBeGreaterThanOrEqual(1);
+    expect(classDisagreements).toBeGreaterThanOrEqual(1);
+  });
+
+  it("END TO END: a decision through the gate leaves the stored class intact for the next render", async () => {
+    // "needs-more" keeps the tie in the pending queue, so the SAME loader call that a
+    // reviewer's next page load makes can be asserted against.
+    const result = await submitReviewDecision({
+      src: CLS_SRC,
+      dst: CLS_DST,
+      decision: "needs-more",
+      note: "ověřit v ARES VR",
+      token: "test-token",
+    });
+    expect(result).toMatchObject({ status: "ok", reviewState: "pending_review" });
+
+    const queue = await getVerificationQueue();
+    const tie = queue!.ties.find((t) => t.src === CLS_SRC && t.dst === CLS_DST)!;
+    expect(tie.tieClass).toBe("steward");
+    expect(tie.tieClassOrigin).toBe("stored");
+  });
+});
+
 // D5 (batch 004): submitReviewDecision must reject a malformed `decision` at the
 // runtime boundary, BEFORE it ever reaches the store — TS types erase at the server
 // action boundary, so a hand-crafted client payload could otherwise write an arbitrary

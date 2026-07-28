@@ -15,7 +15,7 @@ import { getStore } from "@/lib/db/store";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
 import { asUnion } from "@/lib/db/narrow";
 import { CORROBORATIONS, type ContractLine, type MoneyTie, type ReviewState } from "./moneyTypes";
-import { classifyTie, isDeMinimis, nearThresholdCount, reviewRank, reviewSignal, reviewTier } from "./reviewTypes";
+import { isDeMinimis, nearThresholdCount, resolveReviewOrder, resolveTieClass, reviewSignal } from "./reviewTypes";
 import { KG_READ_CAP } from "@/lib/db/readCap";
 
 const TERM = "PSP10";
@@ -74,11 +74,23 @@ export function mapLinkedToTie(args: {
   const contractCzk = contracts.czk;
   const subsidiesCzk = num(cp.subsidies_total_czk);
   const donatedToPartyCzk = cp.donated_to_party_czk != null ? num(cp.donated_to_party_czk) : null;
-  const tieClass = classifyTie(role, comp.label);
+  // Precedence, not recomputation: a class a reviewer or an analysis batch wrote onto the
+  // edge wins over `classifyTie`'s substring guess (see resolveTieClass). The heuristic
+  // travels along so the surface can show the disagreement instead of silently picking.
+  const cls = resolveTieClass(e.props?.tie_class, role, comp.label);
+  const tieClass = cls.tieClass;
   const triangle = contractCzk > 0 && subsidiesCzk > 0 && (donatedToPartyCzk ?? 0) > 0;
   const near = nearThresholdCount(contracts.amounts);
   const absenteeManagerLead = Boolean(person?.props?.absentee_manager_lead);
   const corroboration = asUnion(e.props?.corroboration, CORROBORATIONS, null);
+  const order = resolveReviewOrder({
+    storedTier: e.props?.review_tier,
+    storedRank: e.props?.review_rank,
+    tieClass,
+    corroboration,
+    contractCzk,
+    subsidiesCzk,
+  });
 
   return {
     companyId: comp.id,
@@ -100,6 +112,8 @@ export function mapLinkedToTie(args: {
     roleValidTo: (e.props?.role_valid_to as string | null | undefined) ?? null,
     temporalStatus: (e.props?.temporal_status as string | null | undefined) ?? null,
     tieClass,
+    tieClassOrigin: cls.origin,
+    tieClassHeuristic: cls.heuristic,
     triangle,
     nearThresholdCount: near,
     deMinimis: isDeMinimis(contractCzk, subsidiesCzk),
@@ -112,8 +126,8 @@ export function mapLinkedToTie(args: {
       donatedToPartyCzk,
       absenteeManagerLead,
     }),
-    reviewTier: reviewTier({ tieClass, corroboration }),
-    reviewRank: reviewRank({ tieClass, corroboration, contractCzk, subsidiesCzk }),
+    reviewTier: order.reviewTier,
+    reviewRank: order.reviewRank,
     reviewNote: (e.props?.review_note as string | null | undefined) ?? null,
     reviewerNote: (e.props?.reviewer_note as string | null | undefined) ?? null,
     lastDecision: (e.props?.last_decision as string | null | undefined) ?? null,

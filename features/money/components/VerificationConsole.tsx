@@ -30,7 +30,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { useLocale } from "next-intl";
-import { compactCzk, temporalBadge } from "../moneyTypes";
+import { compactCzk, temporalBadge, tieClassOriginInfo } from "../moneyTypes";
 import { submitReviewDecision } from "../reviewActions";
 
 const BADGE_TONE_CLS: Record<string, string> = {
@@ -211,7 +211,14 @@ export default function VerificationConsole({
 
   const TILES = [
     { label: "nepotvrzené vazby", value: int(data.stats.pending), sub: "čekají na lidskou kontrolu", src: "kg_edge linked_to · pending_review" },
-    { label: "vlastník / jednatel", value: int(data.stats.ownerOperator), sub: "soukromá firma dodávající státu", src: "role × právní forma (heuristika)" },
+    {
+      label: "vlastník / jednatel",
+      value: int(data.stats.ownerOperator),
+      sub: "soukromá firma dodávající státu",
+      // The class is no longer always a heuristic: it is read off the edge where a
+      // reviewer/analysis batch recorded one. Cite the real mix, not one of the two.
+      src: `kg_edge props.tie_class ${int(data.stats.classOrigin.stored)}× · heuristika role × název ${int(data.stats.classOrigin.derived)}×`,
+    },
     { label: "úplný trojúhelník", value: int(data.stats.triangles), sub: "zakázky + dotace + dar straně", src: "props firmy v kg_node" },
     { label: "dosažitelné veřejné peníze", value: compactCzk(data.stats.totalReachableCzk, locale), sub: "napříč nepotvrzenými vazbami", src: "Σ supplies + subsidies_total_czk" },
   ];
@@ -335,7 +342,34 @@ export default function VerificationConsole({
           })}
         </div>
 
-        <p className="mt-10 max-w-3xl text-sm italic leading-relaxed text-steel">
+        {/* Odkud se bere třída a odkud pořadí — obojí je zapsané v grafu a obojí se tady
+            čte, ne přepočítává. Kde přepočet nutný byl, říkáme kolikrát a proč. */}
+        <p className="mt-10 max-w-3xl text-sm leading-relaxed text-steel">
+          <span className="font-bold text-ink">Třída vazby:</span> u{" "}
+          <span className="font-bold text-ink">{int(data.stats.classOrigin.stored)}</span> z{" "}
+          {int(data.stats.pending)} nepotvrzených vazeb ji nese hrana v grafu
+          (<span className="font-mono">kg_edge.props.tie_class</span>) — zapsal ji analytický průchod
+          nebo lidská kontrola a má přednost. U {int(data.stats.classOrigin.derived)} zapsaná není a
+          program ji odhadl z názvu firmy a textu role; taková je na kartě označená jako{" "}
+          <span className="text-ochre">odvozená</span>.{" "}
+          {data.stats.classDisagreements > 0 ? (
+            <>
+              U <span className="font-bold text-ink">{int(data.stats.classDisagreements)}</span> vazeb
+              se zapsaná třída s odhadem rozchází — karta ukazuje obě.{" "}
+            </>
+          ) : null}
+          <span className="font-bold text-ink">Pořadí kontroly</span> (tier + rank) je v grafu také
+          zapsané, ale je to jen mezivýsledek funkce třída × korroborace × dosažitelné peníze. U{" "}
+          <span className="font-bold text-ink">{int(data.stats.staleReviewOrder)}</span> z{" "}
+          {int(data.stats.pending)} vazeb už zapsaná hodnota neodpovídá vazbě, kterou máte před sebou
+          (byla spočítaná před doplněním korroborace a před opětovným načtením smluv), a je proto
+          přepočítaná — jedna fronta nesmí míchat dvě vintage jednoho třídicího klíče.
+        </p>
+        <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-steel">
+          zdroj: kg_edge linked_to · props.tie_class / review_tier / review_rank vs. přepočet
+        </p>
+
+        <p className="mt-6 max-w-3xl text-sm italic leading-relaxed text-steel">
           Fronta je řazená podle pořadí kontroly (batch 005): nejdřív vazby s vlastníkem/jednatelem
           potvrzené v obchodním rejstříku, pak představenstvo, pak dozorčí funkce, nakonec nepotvrzené.
           V rámci každé skupiny podle dosažitelných veřejných peněz sestupně. Skóre signálu na kartě je
@@ -451,7 +485,17 @@ function ReviewCard({
           >
             {temporalBadge(tie).labelCs}
           </span>
-          <span className="font-mono text-[10px] uppercase tracking-widest text-steel">třída: {CLASS_LABEL[tie.tieClass]}</span>
+          <span className="font-mono text-[10px] uppercase tracking-widest text-steel">
+            třída: {CLASS_LABEL[tie.tieClass]}{" "}
+            <span className={tie.tieClassOrigin === "stored" ? "text-steel" : "text-ochre"}>
+              ({tieClassOriginInfo(tie.tieClassOrigin).labelCs})
+            </span>
+          </span>
+          {tie.tieClassOrigin === "stored" && tie.tieClassHeuristic !== tie.tieClass && (
+            <span className="max-w-[16rem] text-right font-mono text-[10px] leading-relaxed uppercase tracking-widest text-steel">
+              heuristika by uvedla: {CLASS_LABEL[tie.tieClassHeuristic]} — přednost má zapsaná třída
+            </span>
+          )}
           <span className="border border-hairline px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-steel">
             pořadí: {TIER_LABEL[tie.reviewTier]}
           </span>
