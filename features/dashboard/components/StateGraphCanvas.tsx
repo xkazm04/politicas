@@ -14,7 +14,8 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { ArrowUpRight, Crosshair } from "lucide-react";
-import { degreeOf, neighbourhood, type StateGraph } from "@/lib/civic/stateGraph";
+import { degreeOf, neighbourhood, type StateGraph, type StateNodeKind } from "@/lib/civic/stateGraph";
+import type { StateSliceRule } from "../stateSlice";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import GraphGlyph from "./GraphGlyph";
@@ -28,12 +29,16 @@ const py = (y: number) => y * 6.4;
 
 export default function StateGraphCanvas({
   graph,
+  rule,
   hover,
   pinned,
   onHover,
   onPin,
 }: {
   graph: StateGraph;
+  /** Pravidlo výběru reálného výřezu; null = kreslí se vzorkový graf. Tvar
+   *  `graph` se tím nemění — je to popiska obrázku, ne jiný renderer. */
+  rule?: StateSliceRule | null;
   hover: string | null;
   pinned: string | null;
   onHover: (id: string | null) => void;
@@ -49,6 +54,7 @@ export default function StateGraphCanvas({
   const activeNode = active ? byId.get(active) : undefined;
   const activeText = activeNode ? text.node(activeNode) : null;
   const activeDegree = active ? degreeOf(active, graph.edges) : 0;
+  const kinds = [...new Set(graph.nodes.map((n) => n.kind))] as StateNodeKind[];
 
   return (
     <div className="border-2 border-ink bg-paper">
@@ -144,7 +150,8 @@ export default function StateGraphCanvas({
           {graph.nodes.map((n) => {
             const on = lit === null || lit.has(n.id);
             const t = text.node(n);
-            const chip = n.kind === "person" ? partyChip(n.mpId) : undefined;
+            // Reálný uzel nese barvu klubu z dat; vzorkový si ji dohledá ve vzorku.
+            const chip = n.kind === "person" ? (n.partyColor ?? partyChip(n.mpId)) : undefined;
             return (
               <g
                 key={n.id}
@@ -185,7 +192,10 @@ export default function StateGraphCanvas({
                   fontFamily="var(--font-plex)"
                   className="fill-steel uppercase"
                 >
-                  {trunc(t.sub, 26)}
+                  {/* 34, ne 26: do podtitulu se u reálného výřezu vejde IČO
+                      A stav „čeká na kontrolu" — a ten se ořezat nesmí, jinak
+                      by neověřená vazba vypadala na obrázku jako fakt. */}
+                  {trunc(t.sub, 34)}
                 </text>
                 {chip && <rect x={-3} y={34} width={6} height={6} fill={chip} />}
               </g>
@@ -221,8 +231,32 @@ export default function StateGraphCanvas({
       </div>
 
       <div className="border-t border-hairline px-4 py-3">
-        <GraphLegend />
-        <SourceNote className="mt-2">{tg("source")}</SourceNote>
+        <GraphLegend kinds={kinds} />
+        {/* Pravidlo výběru se vypisuje POD obrázkem, ne v dokumentaci: výřez,
+            který neřekne, proč jsou v něm zrovna tihle lidé, je tvrzení. */}
+        {rule ? (
+          <>
+            <SourceNote className="mt-2">{tg("realSource")}</SourceNote>
+            <SourceNote className="mt-1">
+              {tg("realRule", {
+                seeds: f.int(rule.seeds),
+                dual: f.int(rule.dualBandTotal),
+                chamber: f.int(rule.chamberTotal),
+                donors: f.int(rule.donorCompanies),
+              })}
+            </SourceNote>
+            <SourceNote tone="signal" className="mt-1">
+              {tg("realGate", { pending: f.int(rule.pendingTies), ties: f.int(rule.tiesDrawn) })}
+            </SourceNote>
+            <SourceNote className="mt-1">
+              {rule.stewardOnlySeeds > 0
+                ? tg("realAttributionWithSteward", { count: f.int(rule.stewardOnlySeeds) })
+                : tg("realAttribution")}
+            </SourceNote>
+          </>
+        ) : (
+          <SourceNote className="mt-2">{tg("source")}</SourceNote>
+        )}
       </div>
     </div>
   );

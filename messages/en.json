@@ -489,6 +489,15 @@
       "sliceNote": "illustrative diagram — invented people and firms, not real ties; real ties live in the Money module",
       "countLabel": "{nodes} nodes · {edges} edges",
       "countSource": "source: count of nodes and edges drawn in this slice",
+      "realCaption": "person ⋈ party ⋈ firm ⋈ public money ⋈ chamber print ⋈ law",
+      "realSource": "source: the politicas knowledge graph — psp.cz ⋈ ares ⋈ contracts register ⋈ e-Sbírka; names, company IDs and amounts are real",
+      "realRule": "A SLICE, NOT A RANKING · ordered by MANDATE NUMBER ascending — not by money, not by node degree, not by contract recency · seeds: {seeds} · population: {dual} of {chamber} MPs who carry both a company tie and their own print amending a law; that intersection is what lets the slice span all six node kinds · donor firms, the only ones in the graph: {donors} · the whole graph is at /graf",
+      "realGate": "ties awaiting human review: {pending} of {ties} drawn — dashed, feeding no score, and not findings",
+      "realAttribution": "money is drawn only for firms an MP owns or runs; where an MP merely sits on a public body’s board the contracts are that institution’s activity, not the MP’s",
+      "realAttributionWithSteward": "money is drawn only for firms an MP owns or runs; where an MP merely sits on a public body’s board the contracts are that institution’s activity, not the MP’s · seeds with no attributable tie: {count}, which show nothing in the money band",
+      "contractCount": "contracts: {count}",
+      "donatedSub": "donated {czk}",
+      "pendingShort": "awaiting review",
       "edgesInRecord": "{count} edges in the record",
       "noEdges": "no ties found in this slice",
       "pendingEdge": "dashed = edge awaiting human review, excluded from the score",
@@ -501,6 +510,7 @@
         "money": "public money",
         "party": "party",
         "vote": "vote",
+        "bill": "chamber print",
         "law": "law"
       },
       "rel": {
@@ -509,6 +519,7 @@
         "donor": "donor",
         "rebel": "broke from the line",
         "against": "voted against",
+        "sponsors": "sponsors",
         "amends": "amends"
       }
     },

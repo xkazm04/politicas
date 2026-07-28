@@ -28,8 +28,10 @@ import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import { getLeaderboardData, type LeaderboardEntry } from "@/features/civicscore/getLeaderboardData";
-import { getLawData } from "@/features/lawwatch/getLawData";
+import { getLawData, type LawData } from "@/features/lawwatch/getLawData";
 import { getMoneyData } from "@/features/money/getMoneyData";
+import type { MoneyData } from "@/features/money/moneyTypes";
+import { buildStateSlice, type StateSlice } from "./stateSlice";
 
 /** Which kg pass authored the contribution index, and when it ran. */
 export interface DashboardProvenance {
@@ -74,15 +76,19 @@ export interface DashboardData {
   money: DashboardMoney | null;
   /** null ⇒ legislation layer unavailable; the strip shows a labelled illustrative tile. */
   laws: DashboardLaws | null;
+  /** The REAL knowledge-graph slice for the state graph, plus the selection rule
+   *  the surface prints under it. null ⇒ the canvas falls back to the labelled
+   *  `buildStateGraph()` sample. */
+  slice: StateSlice | null;
 }
 
 const TOP_N = 5;
 
 // ── memoized money headline (see header) ────────────────────────────────────
 
-let moneyPromise: Promise<DashboardMoney | null> | null = null;
+let moneyPromise: Promise<MoneyData | null> | null = null;
 
-async function readMoneyHeadline(): Promise<DashboardMoney | null> {
+async function readMoneyLayer(): Promise<MoneyData | null> {
   const money = await getMoneyData();
   if (!money) {
     reportLoaderFailure(
@@ -91,20 +97,13 @@ async function readMoneyHeadline(): Promise<DashboardMoney | null> {
     );
     return null;
   }
-  const s = money.stats;
-  return {
-    attributableCzk: s.contractCzkAttributable,
-    stewardCzk: s.contractCzkSteward,
-    mpsWithTies: s.mpsWithTies,
-    companiesLinked: s.companiesLinked,
-    totalTies: s.totalTies,
-    pendingTies: s.pendingTies,
-    pass: money.pass,
-  };
+  return money;
 }
 
-function moneyHeadline(): Promise<DashboardMoney | null> {
-  moneyPromise ??= readMoneyHeadline()
+/** The whole /penize projection, memoized — the money tile AND the graph slice
+ *  both read it, so it must be fetched exactly once per process. */
+function moneyLayer(): Promise<MoneyData | null> {
+  moneyPromise ??= readMoneyLayer()
     .then((value) => {
       if (value === null) moneyPromise = null; // don't memoize an absent layer
       return value;
@@ -117,9 +116,22 @@ function moneyHeadline(): Promise<DashboardMoney | null> {
   return moneyPromise;
 }
 
+function moneyHeadline(money: MoneyData): DashboardMoney {
+  const s = money.stats;
+  return {
+    attributableCzk: s.contractCzkAttributable,
+    stewardCzk: s.contractCzkSteward,
+    mpsWithTies: s.mpsWithTies,
+    companiesLinked: s.companiesLinked,
+    totalTies: s.totalTies,
+    pendingTies: s.pendingTies,
+    pass: money.pass,
+  };
+}
+
 // ── legislation headline ────────────────────────────────────────────────────
 
-async function lawHeadline(): Promise<DashboardLaws | null> {
+async function lawLayer(): Promise<LawData | null> {
   try {
     const law = await getLawData();
     if (!law) {
@@ -129,16 +141,34 @@ async function lawHeadline(): Promise<DashboardLaws | null> {
       );
       return null;
     }
-    return {
-      bills: law.totalBills,
-      laws: law.totalLaws,
-      amends: law.totalAmends,
-      censusUndercount: law.censusUndercountTotal,
-      pass: law.pass,
-    };
+    return law;
   } catch (err) {
     reportLoaderFailure("getDashboardData.laws", err);
     return null;
+  }
+}
+
+function lawHeadline(law: LawData): DashboardLaws {
+  return {
+    bills: law.totalBills,
+    laws: law.totalLaws,
+    amends: law.totalAmends,
+    censusUndercount: law.censusUndercountTotal,
+    pass: law.pass,
+  };
+}
+
+/** Party abbrev → its kg node id, so the slice's party node carries a real id
+ *  rather than a bare string. Cheap read (8 rows); absence is not fatal. */
+async function partyNodeIds(): Promise<Record<string, string>> {
+  try {
+    const store = await getStore();
+    if (!store) return {};
+    const parties = await store.listKgNodes({ kind: "party", limit: 50 });
+    return Object.fromEntries(parties.map((p) => [p.label, p.id]));
+  } catch (err) {
+    reportLoaderFailure("getDashboardData.parties", err);
+    return {};
   }
 }
 
@@ -184,11 +214,32 @@ export async function getDashboardData(): Promise<DashboardData | null> {
       (lb.entries.reduce((s, e) => s + (1 - e.absenceRate), 0) / lb.entries.length) * 1000,
     ) / 10;
 
-  const [money, laws, computedAt] = await Promise.all([
-    moneyHeadline(),
-    lawHeadline(),
+  const [money, law, computedAt, partyIds] = await Promise.all([
+    moneyLayer(),
+    lawLayer(),
     contributionComputedAt(),
+    partyNodeIds(),
   ]);
+
+  // The slice needs BOTH layers — a graph slice missing its money or its
+  // legislation band could not span the six node kinds it promises, so it is
+  // all-or-nothing and falls back to the labelled sample rather than half-drawn.
+  let slice: StateSlice | null = null;
+  if (money && law) {
+    slice = buildStateSlice({
+      mps: money.mps,
+      bills: law.bills,
+      chamberTotal: lb.summary.count,
+      clubColorByPspId: Object.fromEntries(lb.entries.map((e) => [e.pspId, e.clubColor])),
+      partyNodeIdByLabel: partyIds,
+    });
+    if (!slice) {
+      reportLoaderFailure(
+        "getDashboardData.slice",
+        new Error("no person carries both a company tie and an amending bill — slice degrades to the sample"),
+      );
+    }
+  }
 
   return {
     top: lb.entries.slice(0, TOP_N),
@@ -196,7 +247,8 @@ export async function getDashboardData(): Promise<DashboardData | null> {
     histogram: lb.histogram,
     attendanceAvgPct,
     provenance: { pass: lb.provenancePass, computedAt },
-    money,
-    laws,
+    money: money ? moneyHeadline(money) : null,
+    laws: law ? lawHeadline(law) : null,
+    slice,
   };
 }

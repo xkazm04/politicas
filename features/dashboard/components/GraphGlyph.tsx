@@ -45,7 +45,11 @@ export default function GraphGlyph({
         return <rect x={-8} y={-8} width={16} height={16} className={cls} />;
       case "money":
         return <rect x={-7.5} y={-7.5} width={15} height={15} transform="rotate(45)" className={cls} />;
+      // Hlasování i sněmovní tisk = trojúhelník: obojí je vstup legislativního
+      // pruhu, vzorek kreslí hlasování, reálný výřez tisk. Legenda pojmenuje ten,
+      // který je v grafu skutečně vykreslený, takže se tvar nedvojznačí.
       case "vote":
+      case "bill":
         return <polygon points={TRIANGLE} className={cls} />;
       case "law":
         return <polygon points={PENTAGON} className={cls} />;

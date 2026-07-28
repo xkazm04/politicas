@@ -12,7 +12,7 @@
 
 import { LAW_CHANGES, MONEY_TIES, MPS, PARTIES, ROLL_CALLS, type FeedRefs } from "./data";
 
-export type StateNodeKind = "person" | "company" | "money" | "party" | "vote" | "law";
+export type StateNodeKind = "person" | "company" | "money" | "party" | "vote" | "bill" | "law";
 
 /** Pruh plátna: peníze nahoře, legislativa dole, osoby na svislé ose vlevo. */
 export type StateBand = "spine" | "money" | "law";
@@ -24,18 +24,36 @@ interface NodeBase {
   band: StateBand;
   /** Kam uzel vede (spis poslance, plocha modulu). */
   href?: string;
+  // ── Text a čísla nesené uzlem (REÁLNÝ výřez) ─────────────────────────────
+  // Vzorkový graf drží jen topologii a popisky si komponenta dotahuje z i18n
+  // podle klíče entity. U reálných dat to nejde: jméno poslance ani název firmy
+  // není překlad, je to údaj. Uzel je proto smí nést sám — a `graphText` dá
+  // přednost nesenému textu před hledáním ve vzorku.
+  /** Jméno entity z dat. Chybí u vzorkového grafu (text jde z i18n). */
+  label?: string;
+  /** Druhý řádek pod uzlem (IČO, název tisku, název předpisu). */
+  sub?: string;
+  /** Částka v Kč. Jde ven jako ČÍSLO — formátuje ji klient podle locale. */
+  czk?: number;
+  /** Počet položek za částkou (smlouvy) — taky číslo, formátuje klient. */
+  count?: number;
+  /** Uzel stojí na vazbě, která čeká na lidskou kontrolu. Musí to být vidět na
+   *  uzlu samotném, ne až v citaci pod obrázkem. */
+  pending?: boolean;
 }
 
 export type StateNode =
-  | (NodeBase & { kind: "person"; mpId: string })
-  | (NodeBase & { kind: "company"; tie: number })
-  | (NodeBase & { kind: "money"; tie: number })
+  | (NodeBase & { kind: "person"; mpId: string; partyColor?: string })
+  | (NodeBase & { kind: "company"; tie?: number })
+  | (NodeBase & { kind: "money"; tie?: number })
   | (NodeBase & { kind: "party"; partyCode: string })
   | (NodeBase & { kind: "vote"; rollCallId: string })
+  /** Sněmovní tisk — reálný protějšek vzorkového `vote` v legislativním pruhu. */
+  | (NodeBase & { kind: "bill" })
   | (NodeBase & { kind: "law"; lawChangeId: string });
 
 /** Druh hrany — popisek se bere z `dashboard.graph.rel.<rel>`, u vazeb z dat. */
-export type EdgeRel = "tie" | "contract" | "donor" | "rebel" | "against" | "amends";
+export type EdgeRel = "tie" | "contract" | "donor" | "rebel" | "against" | "amends" | "sponsors";
 
 export interface StateEdge {
   from: string;
@@ -43,6 +61,10 @@ export interface StateEdge {
   rel: EdgeRel;
   /** Index do MONEY_TIES — pak popisek hrany = přeložený `kind` té vazby. */
   tie?: number;
+  /** Popisek hrany z dat (role ve firmě) — má přednost před obecným `rel`. */
+  label?: string;
+  /** Částka na hraně (dar straně) — číslo, formátuje klient. */
+  czk?: number;
   /** false = čeká na lidskou kontrolu → čárkovaně, do skóre se nepropisuje. */
   verified: boolean;
 }
@@ -61,10 +83,12 @@ export const partyId = (code: string) => `y:${code}`;
 export const voteId = (rollCallId: string) => `v:${rollCallId}`;
 export const lawId = (lawChangeId: string) => `l:${lawChangeId}`;
 
-const r2 = (n: number) => Math.round(n * 100) / 100;
+export const r2 = (n: number) => Math.round(n * 100) / 100;
 
-/** Rovnoměrné rozložení n uzlů na úsečce [from, to]; 1 uzel = doprostřed. */
-const spread = (i: number, n: number, from: number, to: number) =>
+/** Rovnoměrné rozložení n uzlů na úsečce [from, to]; 1 uzel = doprostřed.
+ *  Exportované, aby reálný výřez (features/dashboard/stateSlice.ts) sázel
+ *  sloupce TÝMŽ rozvržením — dvě kopie by se rozešly na první změně. */
+export const spread = (i: number, n: number, from: number, to: number) =>
   n <= 1 ? r2((from + to) / 2) : r2(from + (i * (to - from)) / (n - 1));
 
 /** Vazba nesoucí veřejné peníze — "—" znamená „firma bez zakázek". */

@@ -32,12 +32,24 @@ Route map (politicas.md roadmap execution, sample data):
   `amends` edges + the known census undercount). The header's recompute date is
   the graph's own `contribution_provenance.computedAt`, not a literal. The money
   read is memoized for the process lifetime (~12 s cold over ~153 k contracts),
-  like `features/graph/graphLoader.ts`. **Still sample data:** the state graph
-  (`lib/civic/stateGraph.ts`: person ⋈ party ⋈ firm ⋈ money ⋈ vote ⋈ law derived
-  from the sample, shape encodes entity kind, dashed = awaiting human review)
-  and the **graph-traffic feed**, the two bound to one dataset (pin a node → the
-  feed filters; crosshair a row → the node pins, via `FeedEvent.refs`) — both
-  labelled illustrative. Below them the leaderboard ledger. A layer that fails
+  like `features/graph/graphLoader.ts`. **The state graph is REAL too since
+  2026-07-28** — `features/dashboard/stateSlice.ts` is a PURE builder over the
+  same two projections (so the velín re-derives nothing), and its **seed rule is
+  neutral by construction and printed under the picture**: seeds are the first
+  N MPs by **ascending pspId** (a registry number makes no claim; any ordering by
+  a metric — money, degree, contract recency — would turn the front page into a
+  ranking or an accusation-by-adjacency) drawn from the population that carries
+  BOTH a `linked_to` tie and a sponsored bill amending a law, plus the graph's
+  only 2 party-donating firms so the party kind is representable. Money in the
+  slice obeys /penize's attribution rule (owner/manager ties only — steward money
+  is the institution's, never the MP's), every tie renders `čeká na kontrolu` on
+  the node itself, and node ids are real (pspId / 8-digit IČO) so every link
+  resolves. `SLICE_SEEDS = 3` targets ~17 nodes, the current renderer's cost
+  envelope. `buildStateGraph()` stays as the labelled fallback; both builders are
+  held to the same invariants (`lib/civic/stateGraph.test.ts`,
+  `features/dashboard/stateSlice.test.ts` — `features/**/*.test.ts` joined the
+  vitest suite for it). **Still sample data:** the **graph-traffic feed**. Below
+  them the leaderboard ledger. A layer that fails
   degrades on its own to an ILLUSTRATIVE `StatTile` (ochre edge, steel numeral —
   distinguishable at a glance); a total store failure additionally renders
   `LiveDataNotice` saying the live data is unavailable. The five module tiles

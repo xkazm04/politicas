@@ -64,12 +64,14 @@
       "contexts": [
         {
           "name": "Velin Dashboard",
-          "description": "The instrument-panel overview: a chamber stat strip computed from the real knowledge graph via getDashboardData.ts (which reuses the civicscore, money and lawwatch loaders rather than re-deriving), the state graph (person/party/firm/money/vote/law nodes) paired with a graph-traffic feed bound to the same dataset — both still labelled sample data — and a leaderboard ledger.",
+          "description": "The instrument-panel overview: a chamber stat strip computed from the real knowledge graph via getDashboardData.ts (which reuses the civicscore, money and lawwatch loaders rather than re-deriving), a REAL knowledge-graph slice (stateSlice.ts — seeds picked by ascending pspId, a deliberately non-evaluative key, with the rule printed on the page) paired with a graph-traffic feed still on labelled sample data, and a leaderboard ledger.",
           "businessFeature": "Velin Dashboard",
           "category": "ui",
           "filePaths": [
             "features/dashboard/DashboardPage.tsx",
             "features/dashboard/getDashboardData.ts",
+            "features/dashboard/stateSlice.ts",
+            "features/dashboard/stateSlice.test.ts",
             "features/dashboard/graphText.ts",
             "features/dashboard/components/FeedRow.tsx",
             "features/dashboard/components/GraphFeedPanel.tsx",

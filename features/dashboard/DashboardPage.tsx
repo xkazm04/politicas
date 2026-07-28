@@ -79,7 +79,10 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
   const reduceMotion = useReducedMotion();
   const text = useGraphText();
 
-  const graph = useMemo(() => buildStateGraph(), []);
+  // Reálný výřez z grafu, když je dostupný; jinak vzorek — tvar je týž, takže
+  // renderer o rozdílu neví a `rule` níž říká ploše, kterou popisku sázet.
+  const slice = data?.slice ?? null;
+  const graph = useMemo(() => slice?.graph ?? buildStateGraph(), [slice]);
   const [hover, setHover] = useState<string | null>(null);
   const [pinned, setPinned] = useState<string | null>(null);
 
@@ -229,7 +232,7 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
             title={t("graph.title")}
             aside={
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-                <SourceNote>{t("graph.caption")}</SourceNote>
+                <SourceNote>{slice ? t("graph.realCaption") : t("graph.caption")}</SourceNote>
                 {/* Velín ukazuje výřez; celý graf se prochází na vlastní ploše. */}
                 <Link
                   href="/graf"
@@ -240,23 +243,24 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
               </div>
             }
           />
-          {/* Graf + provoz nemají v tomto rozsahu reálný protějšek (znamenalo
-              by to znovupostavit živý graf veřejných peněz — doména modulu
-              Peníze). Neskrýváme je, ale citace pod obrázkem to říká nahlas
-              místo aby jméno reálného registru předstíralo, že jde o data. */}
-          <SourceNote tone="signal" className="mt-3">
-            {t("mockBadge")}
-          </SourceNote>
+          {/* Výřez je reálný, provoz zatím ne — a řekne se to zvlášť za každý
+              z nich, ne jednou za celou sekci. */}
+          {!slice && (
+            <SourceNote tone="signal" className="mt-3">
+              {t("mockBadge")}
+            </SourceNote>
+          )}
           <div className="mt-6 grid items-stretch gap-6 xl:grid-cols-12">
             <div className="min-w-0 xl:col-span-7">
               <StateGraphCanvas
                 graph={graph}
+                rule={slice?.rule ?? null}
                 hover={hover}
                 pinned={pinned}
                 onHover={setHover}
                 onPin={setPinned}
               />
-              <SourceNote className="mt-2">{t("graph.sliceNote")}</SourceNote>
+              {!slice && <SourceNote className="mt-2">{t("graph.sliceNote")}</SourceNote>}
             </div>
             <div id="provoz" className="min-w-0 xl:col-span-5">
               <GraphFeedPanel

@@ -489,6 +489,15 @@
       "sliceNote": "ilustrativní schéma — jde o smyšlené osoby a firmy, ne reálné vazby; skutečné vazby jsou v modulu Peníze",
       "countLabel": "{nodes} uzlů · {edges} hran",
       "countSource": "zdroj: počet vykreslených uzlů a hran tohoto výřezu",
+      "realCaption": "osoba ⋈ strana ⋈ firma ⋈ veřejné peníze ⋈ sněmovní tisk ⋈ zákon",
+      "realSource": "zdroj: znalostní graf politicas — psp.cz ⋈ ares ⋈ registr smluv ⋈ e-sbírka; jména, IČO i částky jsou reálné",
+      "realRule": "VÝŘEZ, NE ŽEBŘÍČEK · řadí ČÍSLO MANDÁTU vzestupně — ne peníze, ne stupeň uzlu, ne čerstvost smlouvy · semena: {seeds} · populace: {dual} z {chamber} poslanců, kteří mají v grafu zároveň firemní vazbu i vlastní tisk novelizující zákon; ten průnik je tam proto, aby výřez unesl všech šest druhů uzlů · dárcovské firmy, v grafu jediné: {donors} · celý graf je na /graf",
+      "realGate": "vazby čekající na lidskou kontrolu: {pending} z {ties} vykreslených — kreslí se čárkovaně, do skóre nejdou a nejsou to zjištění",
+      "realAttribution": "peníze se kreslí jen u firem, které poslanec vlastní nebo řídí; u institucí, kde jen zasedá v orgánu, jsou smlouvy aktivitou té instituce, ne poslance",
+      "realAttributionWithSteward": "peníze se kreslí jen u firem, které poslanec vlastní nebo řídí; u institucí, kde jen zasedá v orgánu, jsou smlouvy aktivitou té instituce, ne poslance · semena bez přisouditelné vazby: {count}, ta v peněžním pruhu nemají nic",
+      "contractCount": "smluv: {count}",
+      "donatedSub": "dar {czk}",
+      "pendingShort": "čeká na kontrolu",
       "edgesInRecord": "{count} hran v záznamu",
       "noEdges": "bez nalezené vazby v tomto výřezu",
       "pendingEdge": "čárkovaně = hrana čeká na lidskou kontrolu, do skóre nejde",
@@ -501,6 +510,7 @@
         "money": "veřejné peníze",
         "party": "strana",
         "vote": "hlasování",
+        "bill": "sněmovní tisk",
         "law": "zákon"
       },
       "rel": {
@@ -509,6 +519,7 @@
         "donor": "dárce",
         "rebel": "vybočil z linie",
         "against": "hlasoval proti",
+        "sponsors": "předkládá",
         "amends": "novelizuje"
       }
     },
