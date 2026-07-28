@@ -21,18 +21,25 @@ const TRIANGLE = "0,-10 9,6.5 -9,6.5";
 export default function GraphGlyph({
   kind,
   lit,
+  selected = false,
   focused = false,
   scale = 1,
 }: {
   kind: StateNodeKind;
   /** V rozsvícené stopě — jinak vlasově šedý. */
   lit: boolean;
-  /** Přímo vybraný uzel — o kousek větší, aby se v stopě našel. */
+  /** VYBRANÝ uzel (stav plochy, je v URL) — o kousek větší a se signálním
+   *  kroužkem, aby se v rozsvícené stopě našel. */
+  selected?: boolean;
+  /** Uzel, na kterém právě STOJÍ KLÁVESNICE. Vlastní, kobaltově čárkovaný
+   *  kroužek: indikátor fokusu musí ukazovat, kde je kurzor, ne co je vybráno —
+   *  do 2026-07-28 se kreslil podle výběru a plátno se z klávesnice ovládat
+   *  nedalo, protože nebylo vidět, kde uživatel je. */
   focused?: boolean;
   scale?: number;
 }) {
   const fill = lit ? NODE_FILL[kind] : "fill-hairline";
-  const s = scale * (focused ? 1.25 : 1);
+  const s = scale * (selected ? 1.25 : 1);
   const cls = `${fill} transition-[fill] duration-150`;
 
   const shape = () => {
@@ -58,7 +65,10 @@ export default function GraphGlyph({
 
   return (
     <g transform={s === 1 ? undefined : `scale(${s})`}>
-      {focused && <circle r={16} className="fill-none stroke-signal" strokeWidth={2} />}
+      {selected && <circle r={16} className="fill-none stroke-signal" strokeWidth={2} />}
+      {focused && (
+        <circle r={20} className="fill-none stroke-cobalt" strokeWidth={2.5} strokeDasharray="4 3" />
+      )}
       {shape()}
     </g>
   );

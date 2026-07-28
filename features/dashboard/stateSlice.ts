@@ -110,8 +110,9 @@ export interface StateSliceRule {
  * kniha nesmí obsahovat řádek, jehož zaměřovač míří na uzel mimo plátno.
  */
 export interface SliceSources {
-  /** Firmy, jejichž smlouvy SMÍ být připsané poslanci (ne steward). */
-  contractCompanies: { kgId: string; company: string; refs: string[]; pending: boolean }[];
+  /** Firmy, jejichž smlouvy SMÍ být připsané poslanci (ne steward).
+   *  `subjectRef` je uzel firmy — podmět věty o podepsané smlouvě. */
+  contractCompanies: { kgId: string; company: string; refs: string[]; subjectRef: string; pending: boolean }[];
   ties: FactTie[];
   bills: FactBill[];
 }
@@ -362,6 +363,9 @@ export function buildStateSlice(input: SliceInput): StateSlice | null {
         kgId: r.tie.companyId,
         company: r.tie.company,
         refs: drawn([sliceCompanyId(r.tie.ico), sliceMoneyId(r.tie.ico)]),
+        // Smlouva je fakt o FIRMĚ, ne o penězích ani o poslanci — zaměřovač
+        // proto míří na uzel firmy, ať je v `refs` na kterémkoli místě.
+        subjectRef: sliceCompanyId(r.tie.ico),
         pending: r.tie.reviewState !== "verified",
       }))
       .filter((c) => c.refs.length > 0),
@@ -372,11 +376,15 @@ export function buildStateSlice(input: SliceInput): StateSlice | null {
       roleValidFrom: r.tie.roleValidFrom ?? null,
       roleValidTo: r.tie.roleValidTo ?? null,
       refs: drawn([slicePersonId(r.pspId), sliceCompanyId(r.tie.ico)]),
+      // Zápis/výmaz role je fakt o POSLANCI („X zapsán do rejstříku").
+      subjectRef: slicePersonId(r.pspId),
       pending: r.tie.reviewState !== "verified",
     })),
     bills: billRows.map((r) => ({
       cislo: r.cislo,
       refs: drawn([sliceBillId(r.cislo)]),
+      // Přikázání výboru i vyhlášení ve Sbírce je fakt o TISKU.
+      subjectRef: sliceBillId(r.cislo),
       committees: (r.bill.committees ?? []).map((c) => ({
         organLabel: c.organLabel,
         role: c.role,

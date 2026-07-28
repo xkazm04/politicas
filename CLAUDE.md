@@ -66,6 +66,27 @@ Route map (politicas.md roadmap execution, sample data):
   distinguishable at a glance); a total store failure additionally renders
   `LiveDataNotice` saying the live data is unavailable. The five module tiles
   live in the layout rail.
+  **The panel is OPERABLE since 2026-07-28** — one stated selection semantics
+  (`features/dashboard/useGraphSelection.ts`): the **selection** is the shared
+  state (URL `?uzel=<node id>`, read by both canvas and feed), while **hover is
+  a preview local to `StateGraphCanvas`** that lights a trail and moves nothing
+  else. The URL is written with `history.replaceState` (selecting a node is not
+  navigation) and read only in a mount effect — the first render is `null` on
+  both sides, because `useSearchParams` would either force the page dynamic or
+  risk the hydration break this repo has already paid for; a `?uzel=` value the
+  slice does not draw is ignored AND scrubbed from the address. Clearing has
+  three routes: the `zrušit výběr` button, `Escape`, and a click on empty
+  canvas. The crosshair pins by an explicit **relevance rule**, never array
+  position: for real facts the sentence's SUBJECT (`DatedFact.subjectRef` —
+  contract→company, registry role→MP, committee/Sbírka step→bill), for the
+  sample feed the subject implied by the event kind
+  (`features/dashboard/feedRelevance.ts`); a subject the slice does not draw
+  yields no crosshair and the row says so, rather than pinning something the row
+  is not about. A11y: the `<svg>` is `role="group"` (not the leaf role `img`,
+  which hid its 18 node buttons from assistive tech), DOM focus draws its own
+  dashed cobalt ring distinct from the selection ring, and both the canvas
+  status bar and the feed's filter banner are `aria-live` regions; dimmed rows
+  carry an `sr-only` sentence naming the filter they fall outside of.
 - `/poslanec/[id]` — **Spis** (features/profile): the Person profile —
   politicas.md §3's "real product". Wired to the real graph (no mock path):
   poster header + contribution score/rank, the six weighted components, the

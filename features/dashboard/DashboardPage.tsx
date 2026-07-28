@@ -7,6 +7,8 @@
  * Mentální model: PŘÍSTROJOVÝ PANEL. Graf státu je hlavní přístroj a hned
  * vedle něj běží pás provozu jako jeho telemetrie z TÉHOŽ datasetu: uzel
  * v grafu profiltruje provoz, zaměřovač v provozu připne uzel v grafu.
+ * Ten výběr je JEDEN stav, drží ho URL (`?uzel=…`) a čte ho obojí — viz
+ * ./useGraphSelection.ts. Náhled myší si plátno drží samo a ven ho nepouští.
  * Žebříček je pod tím jako odečet — účetní kniha sněmovny; její řádky vedou
  * do spisů, velín je rozcestník, spis je produkt.
  *
@@ -15,7 +17,7 @@
  * (features/shell) — tahle plocha si vlastní chrome nedělá.
  */
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
@@ -45,7 +47,9 @@ import { HAIRLINE, INK, PILLAR_BG, SIGNAL, STEEL, TOOLTIP_STYLE } from "@/featur
 import type { DashboardData } from "./getDashboardData";
 import GraphFeedPanel from "./components/GraphFeedPanel";
 import StateGraphCanvas from "./components/StateGraphCanvas";
+import { primaryNodeForEvent } from "./feedRelevance";
 import { useGraphText } from "./graphText";
+import { useGraphSelection } from "./useGraphSelection";
 
 const CHART_TICK = { fill: STEEL, fontSize: 12, fontFamily: "var(--font-plex)" } as const;
 
@@ -83,8 +87,12 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
   // renderer o rozdílu neví a `rule` níž říká ploše, kterou popisku sázet.
   const slice = data?.slice ?? null;
   const graph = useMemo(() => slice?.graph ?? buildStateGraph(), [slice]);
-  const [hover, setHover] = useState<string | null>(null);
-  const [pinned, setPinned] = useState<string | null>(null);
+
+  // Výběr uzlu — jediný sdílený stav plochy, zrcadlený do URL. Ověřuje se proti
+  // tomu, co plátno kreslí, takže sdílený odkaz na uzel z jiného výřezu
+  // nevyrobí fantomový filtr.
+  const drawnIds = useMemo(() => new Set(graph.nodes.map((n) => n.id)), [graph]);
+  const { selected, select, clear } = useGraphSelection(drawnIds);
 
   // event.id → uzly, které řádek rozsvítí. Počítá se jednou; provoz i graf
   // pak čtou tutéž mapu, takže se filtr nemůže rozejít s obrázkem.
@@ -92,9 +100,14 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
     () => new Map(EVENTS.map((e) => [e.id, nodesForRefs(e.refs, graph)])),
     [graph],
   );
+  // event.id → uzel, o KTERÉM řádek je (pravidlo relevance, ne pořadí v poli).
+  const primaryByEvent = useMemo(
+    () => new Map(EVENTS.map((e) => [e.id, primaryNodeForEvent(e, graph)])),
+    [graph],
+  );
 
-  const pinnedNode = pinned ? graph.nodes.find((n) => n.id === pinned) : undefined;
-  const pinnedLabel = pinnedNode ? text.node(pinnedNode).label : null;
+  const selectedNode = selected ? graph.nodes.find((n) => n.id === selected) : undefined;
+  const selectedLabel = selectedNode ? text.node(selectedNode).label : null;
 
   // Mock fallback trend — only rendered when the real store is unavailable.
   const chamberTrendData = useMemo(
@@ -255,10 +268,8 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
               <StateGraphCanvas
                 graph={graph}
                 rule={slice?.rule ?? null}
-                hover={hover}
-                pinned={pinned}
-                onHover={setHover}
-                onPin={setPinned}
+                selected={selected}
+                onSelect={select}
               />
               {!slice && <SourceNote className="mt-2">{t("graph.sliceNote")}</SourceNote>}
             </div>
@@ -266,11 +277,12 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
               <GraphFeedPanel
                 events={EVENTS}
                 nodesByEvent={nodesByEvent}
+                primaryByEvent={primaryByEvent}
                 ledger={data?.feed ?? null}
-                pinned={pinned}
-                pinnedLabel={pinnedLabel}
-                onPick={(id) => setPinned(id)}
-                onClear={() => setPinned(null)}
+                selected={selected}
+                selectedLabel={selectedLabel}
+                onPick={select}
+                onClear={clear}
               />
             </div>
           </div>

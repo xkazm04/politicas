@@ -10,6 +10,11 @@
  *
  * Zaměřovač vpravo připne uzel v grafu; textová část nikam nevede, protože
  * cílem faktu je entita, kterou uživatel vybere v grafu — ne pátý různý odkaz.
+ *
+ * Který uzel to je, rozhoduje PRAVIDLO, ne pořadí v poli: připíná se PODMĚT
+ * věty (`fact.subjectRef`, viz ../datedFacts.ts). Když podmět v tomhle výřezu
+ * nakreslený není, řádek to řekne a zaměřovač nenabídne — dosazená náhrada by
+ * připnula entitu, o které řádek není.
  */
 
 import { useLocale, useTranslations } from "next-intl";
@@ -24,25 +29,34 @@ const TONE_DOT: Record<DatedFact["tone"], string> = {
   ink: "bg-steel",
 };
 
-export default function FactRow({
+function FactRow({
   fact,
   dim = false,
+  filterLabel,
   onPick,
 }: {
   fact: DatedFact;
   dim?: boolean;
+  /** Jméno aktivního filtru — do neviditelné poznámky u ztmavených řádků.
+   *  Ztmavení je čistě vizuální signál; bez téhle věty odečítačka obrazovky
+   *  o filtru vůbec neví a čte ztmavený řádek jako každý jiný. */
+  filterLabel?: string | null;
   onPick?: (nodeId: string) => void;
 }) {
   const tf = useTranslations("dashboard.feed");
   const f = useFormat();
   const locale = useLocale();
+  const pickable = onPick && fact.subjectRef !== null;
 
   return (
     <div
       className={`grid grid-cols-[auto_1fr_auto] items-baseline gap-x-3 gap-y-1 border-b border-hairline px-3 py-3.5 transition-opacity sm:grid-cols-[5.5rem_auto_1fr_auto] ${
-        onPick ? "hover:bg-paper-strong" : ""
+        pickable ? "hover:bg-paper-strong" : ""
       } ${dim ? "opacity-40" : ""}`}
     >
+      {dim && filterLabel && (
+        <span className="sr-only">{tf("dimmedRow", { label: filterLabel })}</span>
+      )}
       <span className="col-span-3 font-mono text-[11px] uppercase tracking-wider text-steel sm:col-span-1">
         {f.date(fact.date)}
       </span>
@@ -64,14 +78,23 @@ export default function FactRow({
             {tf("factPending")}
           </span>
         )}
+        {/* Podmět řádku výřez nekreslí — řekne se to místo toho, aby zaměřovač
+            mlčky připnul jinou entitu. */}
+        {onPick && fact.subjectRef === null && (
+          <span className="mt-1 block font-mono text-[11px] uppercase tracking-wider text-steel">
+            {tf("subjectOffSlice")}
+          </span>
+        )}
       </span>
-      {onPick && fact.refs.length > 0 && (
+      {pickable && (
         <button
           type="button"
-          onClick={() => onPick(fact.refs[0])}
+          onClick={() => onPick(fact.subjectRef!)}
           title={tf("showInGraph")}
-          aria-label={tf("showInGraph")}
-          className="shrink-0 self-center border border-hairline p-1 text-steel transition-colors hover:border-ink hover:text-signal"
+          // Pojmenovaný cíl, ne dvanáctkrát „ukázat v grafu": odečítačka jinak
+          // přečte dvanáct nerozlišitelných tlačítek.
+          aria-label={tf("showInGraphNamed", { subject: fact.subject })}
+          className="shrink-0 self-center border border-hairline p-1 text-steel transition-colors hover:border-ink hover:text-signal focus-visible:border-cobalt focus-visible:text-cobalt"
         >
           <Crosshair className="h-3.5 w-3.5" />
         </button>
@@ -79,3 +102,5 @@ export default function FactRow({
     </div>
   );
 }
+
+export default FactRow;

@@ -17,6 +17,10 @@
  *    vyhazuje se, počítá se a plocha ten počet přizná. Datum se NIKDY neopravuje.
  * 3. KAŽDÝ ŘÁDEK MUSÍ TREFIT UZEL VE VÝŘEZU. Fakt, jehož entity plátno
  *    nekreslí, by měl mrtvý zaměřovač — do knihy se nedostane.
+ * 3b. ZAMĚŘOVAČ PŘIPÍNÁ PODMĚT VĚTY, ne první prvek pole. Pravidlo je
+ *    explicitní (`subjectRef`, viz níž), protože pořadí v `refs` je detail
+ *    sestavení — kdyby o výběru rozhodovalo, stačilo by prohodit dva řádky ve
+ *    stateSlice.ts a zaměřovač by beze slova začal připínat něco jiného.
  * 4. CO STOJÍ NA NEOVĚŘENÉ VAZBĚ, JE OZNAČENO. Smlouva i role visí na
  *    `linked_to`, které čeká na lidskou kontrolu; řádek to říká.
  * 5. PENÍZE JEN TAM, KAM SE SMÍ PŘISOUDIT. Smlouvy institucí, kde poslanec jen
@@ -38,6 +42,13 @@ export interface DatedFact {
   kind: DatedFactKind;
   /** Id uzlů výřezu, které řádek rozsvítí. Nikdy prázdné. */
   refs: string[];
+  /**
+   * Uzel, který zaměřovač připne — PODMĚT věty toho faktu (firma u smlouvy,
+   * poslanec u rejstříkové role, tisk u legislativního kroku). `null` znamená,
+   * že podmět v tomhle výřezu nakreslený není; řádek to pak řekne a zaměřovač
+   * nenabídne, místo aby připnul jinou entitu, o které řádek není.
+   */
+  subjectRef: string | null;
   /** Hlavní entita věty (firma, poslanec, tisk). */
   subject: string;
   /** Druhá entita nebo název dokumentu — podle druhu faktu. */
@@ -77,6 +88,8 @@ export interface FactContract {
   company: string;
   /** Uzly výřezu, které tahle smlouva rozsvítí (firma, případně peníze). */
   refs: string[];
+  /** Uzel firmy — podmět věty „podepsána smlouva — <firma>: …". */
+  subjectRef: string;
   pending: boolean;
 }
 
@@ -87,12 +100,16 @@ export interface FactTie {
   roleValidFrom: string | null;
   roleValidTo: string | null;
   refs: string[];
+  /** Uzel poslance — podmět věty „<poslanec> zapsán do rejstříku — …". */
+  subjectRef: string;
   pending: boolean;
 }
 
 export interface FactBill {
   cislo: number;
   refs: string[];
+  /** Uzel tisku — podmět věty „sn. tisk N přikázán výboru …". */
+  subjectRef: string;
   committees: { organLabel: string; role: string; assignedOn: string | null }[];
   fateSb: string | null;
   fatePublishedOn: string | null;
@@ -111,6 +128,15 @@ const SOURCE_CONTRACT = "registr smluv — smlouvy.gov.cz";
 const SOURCE_REGISTRY = "ares — veřejný rejstřík";
 const SOURCE_PSP = "psp.cz — historie tisku";
 
+/**
+ * PRAVIDLO RELEVANCE ZAMĚŘOVAČE. Podmět se připne jen tehdy, když ho výřez
+ * skutečně kreslí — jinak `null` a řádek to přizná. Nikdy se nedosazuje náhrada
+ * z `refs`: fakt „podepsána smlouva — ABC s.r.o." není o poslanci, i když je
+ * poslanec v `refs` a firma ne.
+ */
+const subjectRefOf = (refs: string[], subjectRef: string): string | null =>
+  refs.includes(subjectRef) ? subjectRef : null;
+
 export function buildDatedFacts(input: DatedFactInput): DatedFactLedger {
   const { today } = input;
   const raw: (Omit<DatedFact, "date"> & { date: string | null })[] = [];
@@ -122,6 +148,7 @@ export function buildDatedFacts(input: DatedFactInput): DatedFactLedger {
       date: c.signedOn,
       kind: "contract",
       refs: c.refs,
+      subjectRef: subjectRefOf(c.refs, c.subjectRef),
       subject: c.company,
       detail: c.title,
       czk: c.amountCzk ?? undefined,
@@ -133,7 +160,15 @@ export function buildDatedFacts(input: DatedFactInput): DatedFactLedger {
 
   for (const t of input.ties) {
     if (t.refs.length === 0) continue;
-    const base = { refs: t.refs, subject: t.mpName, detail: `${t.role} — ${t.company}`, pending: t.pending, source: SOURCE_REGISTRY, tone: "cobalt" as const };
+    const base = {
+      refs: t.refs,
+      subjectRef: subjectRefOf(t.refs, t.subjectRef),
+      subject: t.mpName,
+      detail: `${t.role} — ${t.company}`,
+      pending: t.pending,
+      source: SOURCE_REGISTRY,
+      tone: "cobalt" as const,
+    };
     raw.push({ id: `role-from:${t.refs.join("|")}`, date: t.roleValidFrom, kind: "roleStart", ...base });
     raw.push({ id: `role-to:${t.refs.join("|")}`, date: t.roleValidTo, kind: "roleEnd", ...base });
   }
@@ -146,6 +181,7 @@ export function buildDatedFacts(input: DatedFactInput): DatedFactLedger {
         date: c.assignedOn,
         kind: "billAssigned",
         refs: b.refs,
+        subjectRef: subjectRefOf(b.refs, b.subjectRef),
         subject: `sn. tisk ${b.cislo}`,
         detail: c.organLabel,
         pending: false,
@@ -159,6 +195,7 @@ export function buildDatedFacts(input: DatedFactInput): DatedFactLedger {
         date: b.fatePublishedOn,
         kind: "billPublished",
         refs: b.refs,
+        subjectRef: subjectRefOf(b.refs, b.subjectRef),
         subject: `sn. tisk ${b.cislo}`,
         detail: b.fateSb,
         pending: false,

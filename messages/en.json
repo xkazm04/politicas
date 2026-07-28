@@ -471,18 +471,12 @@
     "chamberTrendLabel": "Chamber average trend",
     "chamberTrendTooltip": "average composite",
     "chamberTrendSource": "source: illustrative sample — not real data",
-    "pillarAvgLabel": "pillar averages — sample of {n} MPs",
-    "pillarAvgTooltip": "sample average",
-    "pillarAvgSource": "psp.cz · Hlídač státu — pillar values 0–100",
-    "feedSectionTitle": "What changed in the graph",
-    "toolsSectionTitle": "Five tools",
-    "toolsJoinKeyNote": "person ⋈ party ⋈ firm ⋈ money ⋈ vote ⋈ law — key: company ID (IČO)",
     "graph": {
       "title": "Graph of the state",
       "openPlayground": "open the canvas",
       "caption": "person ⋈ party ⋈ firm ⋈ public money ⋈ vote ⋈ law",
       "badge": "knowledge-graph slice",
-      "hint": "hover a node — its edges light up and the traffic feed filters to match",
+      "hint": "hover a node — its trail lights up; click it to select and filter the traffic feed (Escape clears)",
       "ariaLabel": "Entity graph: MPs, companies, public money, votes and laws",
       "source": "source: illustrative sample — names, company IDs and amounts are invented, not real data",
       "legendTitle": "legend",
@@ -521,7 +515,9 @@
         "against": "voted against",
         "sponsors": "sponsors",
         "amends": "amends"
-      }
+      },
+      "selectedLabel": "selected:",
+      "previewLabel": "preview:"
     },
     "feed": {
       "title": "Graph traffic",
@@ -542,7 +538,10 @@
         "roleEnd": "{subject} removed from the register — {detail}",
         "billAssigned": "{subject} assigned to committee {detail}",
         "billPublished": "{subject} published in the Sbírka — {detail}"
-      }
+      },
+      "dimmedRow": "outside the filter {label}",
+      "subjectOffSlice": "the entity this row is about is not in this slice — hence no crosshair",
+      "showInGraphNamed": "show in graph: {subject}"
     },
     "allMpsLinkFallback": "full ranking",
     "realRanking": {

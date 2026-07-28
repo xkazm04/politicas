@@ -3,17 +3,26 @@
 /*
  * Plátno přehledového grafu (varianta Konzole). Sloupcová sazba: osoby na
  * svislé ose vlevo, z nich vpravo nahoru peněžní pruh, vpravo dolů pruh
- * legislativy. Najetí rozsvítí bezprostřední okolí uzlu; kliknutí ho připne a
- * profiltruje vedlejší pás provozu — graf a provoz jsou dvě čtení jednoho
- * datasetu, ne dva widgety.
+ * legislativy.
+ *
+ * ── DVA STAVY, JEDNA SÉMANTIKA (viz ../useGraphSelection.ts) ────────────────
+ *   VÝBĚR přichází zvenčí (`selected`), je v URL a profiltruje pás provozu.
+ *     Drží ho signální kroužek u uzlu a stavový řádek ho pojmenuje.
+ *   NÁHLED (`hover`) je LOKÁLNÍ stav tohohle plátna. Rozsvítí stopu uzlu a nic
+ *     víc — nefiltruje, nepřepisuje výběr a stránka se o něm nedozví. Když
+ *     zároveň něco vybraného je, stavový řádek pojmenuje OBOJÍ a označí, co je
+ *     co, takže obrázek a seznam nikdy nepopisují jiný výběr mlčky.
+ * Tím, že náhled nevystoupí nad plátno, nepřekresluje najetí myší grafy ani
+ * řádky provozu (velin-hover-cost-freshness).
  *
  * Bez ambientní animace: přechody jsou gated hoverem, jedna vstupní prolnutí
  * dělá rodič. recharts se tu nepoužívá, takže neplatí past resize loopu.
  */
 
+import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { ArrowUpRight, Crosshair } from "lucide-react";
+import { ArrowUpRight, Crosshair, X } from "lucide-react";
 import { degreeOf, neighbourhood, type StateGraph, type StateNodeKind } from "@/lib/civic/stateGraph";
 import type { StateSliceRule } from "../stateSlice";
 import { useFormat } from "@/lib/i18n/useFormat";
@@ -30,31 +39,49 @@ const py = (y: number) => y * 6.4;
 export default function StateGraphCanvas({
   graph,
   rule,
-  hover,
-  pinned,
-  onHover,
-  onPin,
+  selected,
+  onSelect,
 }: {
   graph: StateGraph;
   /** Pravidlo výběru reálného výřezu; null = kreslí se vzorkový graf. Tvar
    *  `graph` se tím nemění — je to popiska obrázku, ne jiný renderer. */
   rule?: StateSliceRule | null;
-  hover: string | null;
-  pinned: string | null;
-  onHover: (id: string | null) => void;
-  onPin: (id: string | null) => void;
+  /** Vybraný uzel — jediný stav, který plátno sdílí se zbytkem plochy. */
+  selected: string | null;
+  /** Vybrat uzel (`null` = zrušit výběr). Týž uzel podruhé výběr zruší. */
+  onSelect: (id: string | null) => void;
 }) {
   const tg = useTranslations("dashboard.graph");
   const f = useFormat();
   const text = useGraphText();
 
-  const active = hover ?? pinned;
-  const lit = active ? neighbourhood(active, graph.edges) : null;
-  const byId = new Map(graph.nodes.map((n) => [n.id, n]));
-  const activeNode = active ? byId.get(active) : undefined;
-  const activeText = activeNode ? text.node(activeNode) : null;
-  const activeDegree = active ? degreeOf(active, graph.edges) : 0;
-  const kinds = [...new Set(graph.nodes.map((n) => n.kind))] as StateNodeKind[];
+  // Náhled a klávesový fokus — obojí lokální. Fokus se drží zvlášť od výběru,
+  // protože indikátor fokusu MUSÍ ukazovat, kde je klávesnice, ne co je vybráno.
+  const [hover, setHover] = useState<string | null>(null);
+  const [focusedId, setFocusedId] = useState<string | null>(null);
+
+  const byId = useMemo(() => new Map(graph.nodes.map((n) => [n.id, n])), [graph]);
+  const kinds = useMemo(
+    () => [...new Set(graph.nodes.map((n) => n.kind))] as StateNodeKind[],
+    [graph],
+  );
+
+  // Rozsvícená stopa: náhled má přednost před výběrem (prst je na obrázku),
+  // ale výběr si nechává svůj kroužek, takže se pod náhledem neztratí.
+  const traced = hover ?? selected;
+  const lit = useMemo(
+    () => (traced ? neighbourhood(traced, graph.edges) : null),
+    [traced, graph],
+  );
+
+  const selectedNode = selected ? byId.get(selected) : undefined;
+  const selectedText = selectedNode ? text.node(selectedNode) : null;
+  const selectedDegree = useMemo(
+    () => (selected ? degreeOf(selected, graph.edges) : 0),
+    [selected, graph],
+  );
+  const hoverNode = hover && hover !== selected ? byId.get(hover) : undefined;
+  const hoverText = hoverNode ? text.node(hoverNode) : null;
 
   return (
     <div className="border-2 border-ink bg-paper">
@@ -74,19 +101,32 @@ export default function StateGraphCanvas({
       </div>
 
       <div className="w-full overflow-hidden bg-paper" style={{ aspectRatio: `${VB_W} / ${VB_H}` }}>
+        {/* role="group", ne role="img": `img` je LISTOVÁ role — prvky uvnitř ní
+            asistivní technologie nezpřístupní, takže sedmnáct tlačítek v ní
+            fakticky neexistovalo. Escape ruší výběr z klávesnice. */}
         <svg
           viewBox={`0 0 ${VB_W} ${VB_H}`}
           className="h-full w-full"
-          role="img"
+          role="group"
           aria-label={tg("ariaLabel")}
-          onMouseLeave={() => onHover(null)}
+          onMouseLeave={() => setHover(null)}
+          onKeyDown={(ev) => {
+            if (ev.key === "Escape" && selected) onSelect(null);
+          }}
         >
-          {Array.from({ length: VB_W / 50 + 1 }, (_, i) => (
-            <line key={`v${i}`} x1={i * 50} y1={0} x2={i * 50} y2={VB_H} className="stroke-hairline" strokeWidth={0.5} />
-          ))}
-          {Array.from({ length: VB_H / 40 + 1 }, (_, i) => (
-            <line key={`h${i}`} x1={0} y1={i * 40} x2={VB_W} y2={i * 40} className="stroke-hairline" strokeWidth={0.5} />
-          ))}
+          {/* Prázdná plocha ruší výběr — dosud to uměl jen opakovaný klik na
+              týž uzel, což nikdo neuhodne. Klávesová cesta k témuž je Escape
+              výš a tlačítko „zrušit výběr" ve stavovém řádku níž, takže tenhle
+              obdélník není jediná cesta a nemusí být fokusovatelný. */}
+          <rect
+            x={0}
+            y={0}
+            width={VB_W}
+            height={VB_H}
+            className="fill-transparent"
+            onClick={() => onSelect(null)}
+          />
+          {GRID}
 
           {/* Pruhy plátna — kam se která polovina grafu dívá. */}
           <text
@@ -159,22 +199,37 @@ export default function StateGraphCanvas({
                 role="button"
                 tabIndex={0}
                 aria-label={`${t.kind}: ${t.label}`}
-                aria-pressed={pinned === n.id}
-                onMouseEnter={() => onHover(n.id)}
-                onFocus={() => onHover(n.id)}
-                onBlur={() => onHover(null)}
-                onClick={() => onPin(pinned === n.id ? null : n.id)}
+                aria-pressed={selected === n.id}
+                onMouseEnter={() => setHover(n.id)}
+                onFocus={() => {
+                  setFocusedId(n.id);
+                  setHover(n.id);
+                }}
+                onBlur={() => {
+                  setFocusedId(null);
+                  setHover(null);
+                }}
+                onClick={(ev) => {
+                  // Bez toho by klik na uzel probublal na podkladový obdélník
+                  // a výběr by se zrušil ve stejném okamžiku, kdy vznikl.
+                  ev.stopPropagation();
+                  onSelect(n.id);
+                }}
                 onKeyDown={(ev) => {
                   if (ev.key === "Enter" || ev.key === " ") {
                     ev.preventDefault();
-                    onPin(pinned === n.id ? null : n.id);
+                    onSelect(n.id);
                   }
                 }}
                 style={{ cursor: "pointer" }}
-                className="outline-none"
               >
                 <circle r={22} className="fill-transparent" />
-                <GraphGlyph kind={n.kind} lit={on} focused={pinned === n.id} />
+                <GraphGlyph
+                  kind={n.kind}
+                  lit={on}
+                  selected={selected === n.id}
+                  focused={focusedId === n.id}
+                />
                 <text
                   y={-20}
                   textAnchor="middle"
@@ -204,30 +259,53 @@ export default function StateGraphCanvas({
         </svg>
       </div>
 
-      {/* Stavový řádek — identita vybraného uzlu, jeho stupeň a cesta dovnitř. */}
+      {/* Stavový řádek — identita VYBRANÉHO uzlu, jeho stupeň a cesta dovnitř.
+          Náhled se přidává za něj a je označený jako náhled, aby se výběr a
+          „co je zrovna pod myší" nedaly splést. */}
       <div className="flex min-h-[3.25rem] flex-wrap items-center justify-between gap-x-4 gap-y-1 border-t-2 border-ink px-4 py-2.5 font-mono text-xs">
-        {activeNode && activeText ? (
-          <span className="min-w-0">
-            <span className="font-bold text-signal">▸ {activeText.label}</span>{" "}
-            <span className="text-steel">
-              — {activeText.kind}
-              {activeText.sub ? ` · ${trunc(activeText.sub, 44)}` : ""} ·{" "}
-              {activeDegree > 0
-                ? tg("edgesInRecord", { count: f.int(activeDegree) })
-                : tg("noEdges")}
+        {/* Živá oblast nese JEN výběr: náhled by při tažení myší po plátně
+            odčítačku zahltil. Proto je náhledová část aria-hidden. */}
+        <span className="min-w-0" role="status" aria-live="polite">
+          {selectedNode && selectedText ? (
+            <>
+              <span className="text-steel">{tg("selectedLabel")} </span>
+              <span className="font-bold text-signal">▸ {selectedText.label}</span>{" "}
+              <span className="text-steel">
+                — {selectedText.kind}
+                {selectedText.sub ? ` · ${trunc(selectedText.sub, 44)}` : ""} ·{" "}
+                {selectedDegree > 0
+                  ? tg("edgesInRecord", { count: f.int(selectedDegree) })
+                  : tg("noEdges")}
+              </span>
+            </>
+          ) : (
+            <span className="text-steel">{tg("hint")}</span>
+          )}
+        </span>
+        <span className="flex shrink-0 items-center gap-4">
+          {hoverText && (
+            <span className="hidden text-steel sm:inline" aria-hidden>
+              {tg("previewLabel")} {trunc(hoverText.label, 28)}
             </span>
-          </span>
-        ) : (
-          <span className="text-steel">{tg("hint")}</span>
-        )}
-        {activeNode?.href && (
-          <Link
-            href={activeNode.href}
-            className="inline-flex shrink-0 items-center gap-1 font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
-          >
-            {activeText?.kind} <ArrowUpRight className="h-3.5 w-3.5" />
-          </Link>
-        )}
+          )}
+          {selectedNode?.href && (
+            <Link
+              href={selectedNode.href}
+              className="inline-flex shrink-0 items-center gap-1 font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+            >
+              {selectedText?.kind} <ArrowUpRight className="h-3.5 w-3.5" />
+            </Link>
+          )}
+          {selected && (
+            <button
+              type="button"
+              onClick={() => onSelect(null)}
+              className="inline-flex shrink-0 items-center gap-1 font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+            >
+              <X className="h-3.5 w-3.5" /> {tg("clearSelection")}
+            </button>
+          )}
+        </span>
       </div>
 
       <div className="border-t border-hairline px-4 py-3">
@@ -261,3 +339,16 @@ export default function StateGraphCanvas({
     </div>
   );
 }
+
+/** Rastr je statický — vytvořit ho jednou v modulu stojí míň než 38 `<line>`
+ *  při každém překreslení plátna (velin-hover-cost-freshness). */
+const GRID = (
+  <g aria-hidden>
+    {Array.from({ length: VB_W / 50 + 1 }, (_, i) => (
+      <line key={`v${i}`} x1={i * 50} y1={0} x2={i * 50} y2={VB_H} className="stroke-hairline" strokeWidth={0.5} />
+    ))}
+    {Array.from({ length: VB_H / 40 + 1 }, (_, i) => (
+      <line key={`h${i}`} x1={0} y1={i * 40} x2={VB_W} y2={i * 40} className="stroke-hairline" strokeWidth={0.5} />
+    ))}
+  </g>
+);

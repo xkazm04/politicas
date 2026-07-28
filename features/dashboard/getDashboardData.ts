@@ -170,7 +170,7 @@ function lawHeadline(law: LawData): DashboardLaws {
  * crosshair points off-canvas.
  */
 async function sliceContracts(
-  companies: { kgId: string; company: string; refs: string[]; pending: boolean }[],
+  companies: { kgId: string; company: string; refs: string[]; subjectRef: string; pending: boolean }[],
 ): Promise<FactContract[]> {
   if (companies.length === 0) return [];
   try {
@@ -192,6 +192,7 @@ async function sliceContracts(
           amountCzk: typeof amount === "number" && Number.isFinite(amount) ? amount : null,
           company: c.company,
           refs: c.refs,
+          subjectRef: c.subjectRef,
           pending: c.pending,
         });
       }

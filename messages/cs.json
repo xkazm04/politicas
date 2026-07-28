@@ -471,18 +471,12 @@
     "chamberTrendLabel": "vývoj průměru sněmovny",
     "chamberTrendTooltip": "průměrný kompozit",
     "chamberTrendSource": "zdroj: ilustrativní ukázka — nejde o reálná data",
-    "pillarAvgLabel": "průměry pilířů — vzorek {n} poslanců",
-    "pillarAvgTooltip": "průměr vzorku",
-    "pillarAvgSource": "psp.cz · hlídač státu — hodnoty pilířů 0–100",
-    "feedSectionTitle": "Co se změnilo v grafu",
-    "toolsSectionTitle": "Pět nástrojů",
-    "toolsJoinKeyNote": "osoba ⋈ strana ⋈ firma ⋈ peníze ⋈ hlasování ⋈ zákon — klíč: IČO",
     "graph": {
       "title": "Graf státu",
       "openPlayground": "otevřít plátno",
       "caption": "osoba ⋈ strana ⋈ firma ⋈ veřejné peníze ⋈ hlasování ⋈ zákon",
       "badge": "výřez znalostního grafu",
-      "hint": "najeďte na uzel — rozsvítí se jeho hrany a provoz se profiltruje",
+      "hint": "najeďte na uzel — rozsvítí se jeho stopa; kliknutím ho vyberete a profiltrujete provoz (Escape výběr zruší)",
       "ariaLabel": "Graf entit: poslanci, firmy, veřejné peníze, hlasování a zákony",
       "source": "zdroj: ilustrativní ukázka — jména, IČO i částky jsou smyšlené, nejde o reálná data",
       "legendTitle": "legenda",
@@ -521,7 +515,9 @@
         "against": "hlasoval proti",
         "sponsors": "předkládá",
         "amends": "novelizuje"
-      }
+      },
+      "selectedLabel": "vybráno:",
+      "previewLabel": "náhled:"
     },
     "feed": {
       "title": "Provoz grafu",
@@ -542,7 +538,10 @@
         "roleEnd": "{subject} vymazán z rejstříku — {detail}",
         "billAssigned": "{subject} přikázán výboru {detail}",
         "billPublished": "{subject} vyhlášen ve Sbírce — {detail}"
-      }
+      },
+      "dimmedRow": "mimo filtr {label}",
+      "subjectOffSlice": "entita, o které řádek je, není v tomto výřezu — proto bez zaměřovače",
+      "showInGraphNamed": "ukázat v grafu: {subject}"
     },
     "allMpsLinkFallback": "celý žebříček",
     "realRanking": {

@@ -21,6 +21,7 @@ const contract = (id: string, signedOn: string | null, amountCzk: number | null 
   amountCzk,
   company: "Firma s.r.o.",
   refs: ["c:00000100"],
+  subjectRef: "c:00000100",
   pending: true,
 });
 
@@ -101,6 +102,7 @@ describe("buildDatedFacts — napojení na výřez a označení stavu", () => {
             roleValidFrom: "2012-04-26",
             roleValidTo: null,
             refs: ["p:100", "c:00000100"],
+            subjectRef: "p:100",
             pending: true,
           },
         ],
@@ -108,6 +110,7 @@ describe("buildDatedFacts — napojení na výřez a označení stavu", () => {
           {
             cislo: 72,
             refs: ["b:72"],
+            subjectRef: "b:72",
             committees: [{ organLabel: "ÚPV", role: "garancni", assignedOn: "2026-02-13" }],
             fateSb: null,
             fatePublishedOn: null,
@@ -121,6 +124,70 @@ describe("buildDatedFacts — napojení na výřez a označení stavu", () => {
     expect(facts.find((f) => f.kind === "billAssigned")?.pending).toBe(false);
     // Role bez data konce nevyrobí řádek „výmaz".
     expect(facts.some((f) => f.kind === "roleEnd")).toBe(false);
+  });
+});
+
+describe("buildDatedFacts — zaměřovač připíná PODMĚT, ne první prvek pole", () => {
+  const facts = buildDatedFacts(
+    input({
+      // U smlouvy je peněžní uzel v `refs` PRVNÍ; kdyby rozhodovalo pořadí,
+      // zaměřovač by připnul peníze místo firmy, o které věta je.
+      contracts: [{ ...contract("a", "2025-01-01"), refs: ["m:00000100", "c:00000100"] }],
+      ties: [
+        {
+          company: "Firma s.r.o.",
+          mpName: "Jan Novák",
+          role: "jednatel",
+          roleValidFrom: "2012-04-26",
+          roleValidTo: "2020-01-01",
+          // Firma první — podmět („Jan Novák zapsán…") je ale poslanec.
+          refs: ["c:00000100", "p:100"],
+          subjectRef: "p:100",
+          pending: true,
+        },
+      ],
+      bills: [
+        {
+          cislo: 72,
+          refs: ["b:72"],
+          subjectRef: "b:72",
+          committees: [{ organLabel: "ÚPV", role: "garancni", assignedOn: "2026-02-13" }],
+          fateSb: "č. 1/2026 Sb.",
+          fatePublishedOn: "2026-03-01",
+        },
+      ],
+    }),
+  ).facts;
+
+  const of = (kind: string) => facts.find((f) => f.kind === kind);
+
+  it("smlouva → uzel firmy", () => expect(of("contract")?.subjectRef).toBe("c:00000100"));
+  it("zápis role → uzel poslance", () => expect(of("roleStart")?.subjectRef).toBe("p:100"));
+  it("výmaz role → uzel poslance", () => expect(of("roleEnd")?.subjectRef).toBe("p:100"));
+  it("přikázání výboru → uzel tisku", () => expect(of("billAssigned")?.subjectRef).toBe("b:72"));
+  it("vyhlášení ve Sbírce → uzel tisku", () => expect(of("billPublished")?.subjectRef).toBe("b:72"));
+
+  it("podmět, který výřez nekreslí, se NENAHRAZUJE jinou entitou", () => {
+    const { facts: out } = buildDatedFacts(
+      input({
+        ties: [
+          {
+            company: "Firma s.r.o.",
+            mpName: "Jan Novák",
+            role: "jednatel",
+            roleValidFrom: "2012-04-26",
+            roleValidTo: null,
+            // Uzel poslance se do výřezu nevešel — v `refs` je jen firma.
+            refs: ["c:00000100"],
+            subjectRef: "p:100",
+            pending: true,
+          },
+        ],
+      }),
+    );
+    expect(out).toHaveLength(1);
+    expect(out[0].refs).toEqual(["c:00000100"]);
+    expect(out[0].subjectRef).toBeNull();
   });
 });
 
