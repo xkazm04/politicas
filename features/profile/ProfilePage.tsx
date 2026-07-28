@@ -129,7 +129,18 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
           className="border-b border-hairline py-12"
         >
           <SourceNote tone="signal">
-            {t("rankOf", { rank: f.int(person.rank), total: f.int(total) })} · {person.clubName}
+            {/* Pořadí je soutěžní (1, 2, 2, 4): shodná skóre sdílejí jedno místo, takže
+                „#2 z 207" u dvou poslanců není chyba — a spis to musí říct, jinak by
+                tvrdil výlučnost, kterou index nemá. */}
+            {person.tiedCount > 1
+              ? t("rankOfShared", {
+                  rank: f.int(person.rank),
+                  total: f.int(total),
+                  tied: person.tiedCount,
+                  tiedFmt: f.int(person.tiedCount),
+                })
+              : t("rankOf", { rank: f.int(person.rank), total: f.int(total) })}{" "}
+            · {person.clubName}
             {person.region ? ` · ${person.region}` : ""}
           </SourceNote>
           <div className="mt-4 flex flex-wrap items-end justify-between gap-8">

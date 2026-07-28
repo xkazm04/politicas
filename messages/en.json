@@ -626,6 +626,7 @@
     "committeesAside": "psp.cz — organ memberships (membership × organ)",
     "noCommittees": "No recorded committee or commission membership.",
     "rankOf": "#{rank} of {total}",
+    "rankOfShared": "#{rank} of {total} · shared rank — {tied, plural, one {{tiedFmt} MP has} other {{tiedFmt} MPs have}} the same score",
     "periodNote": "10th parliamentary term · single term, no quarterly series",
     "absenteeFlag": "possible “absentee manager” — low contribution + company ties (Case ①)",
     "agreementLabel": "agreement",

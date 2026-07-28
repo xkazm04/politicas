@@ -25,7 +25,7 @@ import { join } from "node:path";
 
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
-import { classifyTie, reviewTier } from "@/features/money/reviewTypes";
+import { resolveTieClass, reviewTier } from "@/features/money/reviewTypes";
 import type {
   AdminData,
   CaseId,
@@ -378,7 +378,10 @@ async function loadReviewHub(): Promise<ReviewHubData> {
           else pending++;
 
           const role = String(e.props?.role ?? "");
-          const tieClass = classifyTie(role, comp.label);
+          // Stored class wins over the heuristic, as on /penize (resolveTieClass) — an
+          // admin tier split computed from a guess would disagree with the console it
+          // is meant to describe.
+          const tieClass = resolveTieClass(e.props?.tie_class, role, comp.label).tieClass;
           const corroboration = (e.props?.corroboration as "registry-confirmed" | "registry-unconfirmed" | "conflicting" | null | undefined) ?? null;
           tiers[reviewTier({ tieClass, corroboration })]++;
         }

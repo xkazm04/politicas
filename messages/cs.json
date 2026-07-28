@@ -626,6 +626,7 @@
     "committeesAside": "psp.cz — členství v orgánech (membership × organ)",
     "noCommittees": "Bez zaznamenaného členství ve výborech či komisích.",
     "rankOf": "#{rank} z {total}",
+    "rankOfShared": "#{rank} z {total} · dělené pořadí — stejné skóre má {tied, plural, one {{tiedFmt} poslanec} few {{tiedFmt} poslanci} other {{tiedFmt} poslanců}}",
     "periodNote": "10. volební období · jedno období, bez čtvrtletní řady",
     "absenteeFlag": "možný „nepřítomný manažer“ — nízké přispění + firemní vazby (Case ①)",
     "agreementLabel": "shoda",

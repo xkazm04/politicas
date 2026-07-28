@@ -34,7 +34,7 @@ import { isCommitteeSeat, type CommitteeSeat as ContributionCommitteeSeat } from
 import { computeScoreLegibility, type ScoreLegibility } from "@/lib/analysis/score-legibility";
 import { classifyRole, ROLE_WEIGHT } from "@/lib/analysis/kg";
 import { plausibleIsoDateOrNull } from "@/lib/analysis/plausible-date";
-import { classifyTie } from "@/features/money/reviewTypes";
+import { resolveTieClass } from "@/features/money/reviewTypes";
 import { CORROBORATIONS } from "@/features/money/moneyTypes";
 import type { Corroboration, ReviewState, TieClass } from "@/features/money/moneyTypes";
 
@@ -591,7 +591,11 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
       if (!comp) continue; // unresolved company → drop, never guess
       const props = (e.props ?? {}) as Record<string, unknown>;
       const role = typeof props.role === "string" ? props.role : "";
-      const tieClass = classifyTie(role, comp.label);
+      // A class a PERSON recorded on the edge outranks the substring heuristic — the same
+      // precedence /penize applies (resolveTieClass). Reading it here is what keeps the
+      // profile from contradicting the money surfaces: 5 of 211 ties disagree, and for one
+      // of them the heuristic calls a homeowners' association an MP's firm.
+      const tieClass = resolveTieClass(props.tie_class, role, comp.label).tieClass;
       const rawState = props.review_state ?? props.state;
       const reviewState: ReviewState =
         rawState === "verified" ? "verified" : rawState === "rejected" ? "rejected" : "pending_review";
