@@ -2,8 +2,10 @@
 
 /**
  * Rozložení sněmovny — histogram indexu přispění po 5 bodech + počítaný souhrn.
- * Vše z reálného grafu (getLeaderboardData); pruhy pod mediánem sněmovny nesou
- * signální barvu. Žádné mock, žádná čtvrtletní řada.
+ * Vše z reálného grafu (getLeaderboardData). Pásmo je interval [od, od+5) a nese
+ * jeho skutečnou horní mez; barva má TŘI stavy — celé pásmo pod mediánem
+ * (signální), pásmo s mediánem (okrová), zbytek (kobaltová). Žádné mock, žádná
+ * čtvrtletní řada.
  */
 
 import { useMemo } from "react";
@@ -13,7 +15,7 @@ import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis
 import type { LeaderboardData } from "../getLeaderboardData";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
-import { COBALT, HAIRLINE, INK, PAPER_STRONG, SIGNAL, STEEL, TOOLTIP_STYLE } from "@/features/landing/palette";
+import { COBALT, HAIRLINE, INK, OCHRE, PAPER_STRONG, SIGNAL, STEEL, TOOLTIP_STYLE } from "@/features/landing/palette";
 
 const CHART_TICK = { fill: STEEL, fontSize: 12, fontFamily: "var(--font-plex)" } as const;
 
@@ -52,10 +54,21 @@ export default function ScoreHistogram({
                 contentStyle={TOOLTIP_STYLE}
                 formatter={(value) => [t("histogramCount", { value: Number(value) }), t("histogramBand")]}
               />
+              {/* Tři stavy, ne dva. Pásmo, V NĚMŽ medián leží, není „pod mediánem" —
+                  a přesně to se dřív dělo největšímu pásmu sněmovny (65–70 při
+                  mediánu 68,6 se barvilo signální „pod mediánem"). */}
               <Bar dataKey="count" isAnimationActive={!reduceMotion}>
-                {histogram.map((b) => (
-                  <Cell key={b.from} fill={b.from >= summary.median ? COBALT : SIGNAL} fillOpacity={b.from >= summary.median ? 1 : 0.85} />
-                ))}
+                {histogram.map((b) => {
+                  const holdsMedian = summary.median >= b.from && summary.median < b.from + 5;
+                  const below = b.from + 5 <= summary.median;
+                  return (
+                    <Cell
+                      key={b.from}
+                      fill={holdsMedian ? OCHRE : below ? SIGNAL : COBALT}
+                      fillOpacity={below ? 0.85 : 1}
+                    />
+                  );
+                })}
               </Bar>
             </BarChart>
           </ResponsiveContainer>

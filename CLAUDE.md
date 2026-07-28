@@ -172,6 +172,18 @@ Route map (politicas.md roadmap execution, sample data):
   `scripts/data-analysis/kg-contribution-recompute.ts` — merge-preserving, and
   it refuses to write unless replaying the OLD formula reproduces every stored
   value first. Details in `docs/data-analysis/graph-log.md` (pass 42).
+  **Ties are ties (2026-07-29)** — ranks are now COMPETITION ranks (1, 2, 2, 4):
+  a rank is one more than the number of MPs who score higher, so it is shared on
+  an identical score and the red top-3 can no longer be won by Czech name
+  collation (Vesecká and Malá, both 95,4, printed ranks 2 and 3). 55 of 207 MPs
+  share a rank across 25 groups; the display order inside a tie is still the
+  name collation and the page states that it means nothing. `LeaderboardEntry`
+  carries `tiedCount` so a surface can SAY a rank is shared without reordering
+  anything. The duel no longer crowns a winner on a zero difference or colours
+  one where both sides print the same number (`features/civicscore/duel.ts`,
+  pure + tested); histogram bands are labelled with the bound they actually run
+  to (`65–70`, half-open) and the band CONTAINING the median is coloured
+  separately from the bands below it; `σ` is named a standard deviation.
 - `/rozpocty` — **BudgetMirror** (features/budget): town vs peer-group mirror —
   metric duos against the computed peer median, debt-per-capita trend lines
   (town vs median), sortable peer table. Stewardship feeds only executive

@@ -12,6 +12,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { ArrowUpRight } from "lucide-react";
 import type { LeaderboardData, LeaderboardListEntry } from "../getLeaderboardData";
+import { componentWinner, duelOutcome } from "../duel";
 import { useFormat } from "@/lib/i18n/useFormat";
 import AnimatedScore from "@/features/shared/components/AnimatedScore";
 import SourceNote from "@/features/shared/components/SourceNote";
@@ -33,7 +34,8 @@ function Fighter({ row, align }: { row: LeaderboardListEntry; align: "left" | "r
       </div>
       <div className={`mt-0.5 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-steel ${right ? "justify-end" : ""}`}>
         <span className="inline-block h-2 w-2 rounded-full" style={{ background: row.clubColor }} />
-        {row.clubName.split(" ")[0]} · {t("rank", { rank: row.rank })}
+        {row.clubName.split(" ")[0]} ·{" "}
+        {row.tiedCount > 1 ? t("rankShared", { rank: f.int(row.rank) }) : t("rank", { rank: f.int(row.rank) })}
       </div>
       <AnimatedScore
         value={row.score}
@@ -68,9 +70,11 @@ export default function HeadToHead({
   }
 
   const [a, b] = pair;
-  const diff = Math.round((a.score - b.score) * 10) / 10;
-  const leader = diff >= 0 ? a : b;
-  const diffLabel = `${f.dec(Math.abs(diff))} ${tcom("pts")}`;
+  // Nula není náskok. Dřív `diff >= 0 ? a : b` vyhlásilo vítěze i při shodě a
+  // vypsalo „vede o 0,0 b" (36 z 21 321 dvojic má shodné skóre). Pravidlo je
+  // čistá funkce s testy — viz ../duel.ts.
+  const outcome = duelOutcome(a, b);
+  const diffLabel = `${f.dec(outcome.diff)} ${tcom("pts")}`;
 
   return (
     <AnimatePresence mode="wait">
@@ -86,25 +90,32 @@ export default function HeadToHead({
           <Fighter row={b} align="right" />
         </div>
         <p className="mt-3 border-y-2 border-ink py-2 text-center font-mono text-xs font-bold uppercase tracking-widest">
-          {t.rich("leadLine", {
-            name: leader.name.split(" ").at(-1) ?? leader.name,
-            diffLabel,
-            diff: (chunks) => <span className="text-signal">{chunks}</span>,
-          })}
+          {outcome.tied
+            ? t("tieLine")
+            : t.rich("leadLine", {
+                name: outcome.leader.name.split(" ").at(-1) ?? outcome.leader.name,
+                diffLabel,
+                diff: (chunks) => <span className="text-signal">{chunks}</span>,
+              })}
         </p>
 
         <div className="mt-6 space-y-4">
           {components.map((c) => {
             const pa = a.components[c.key];
             const pb = b.components[c.key];
-            const va = Math.round(pa);
-            const vb = Math.round(pb);
+            // Číslo se tiskne na stejné desetině, na jaké složku počítá index, a
+            // signální barvu dostane jen skutečně vyšší hodnota. Dřív se tisklo
+            // celé číslo (Math.round), ale barvilo se podle nezaokrouhlené — 672
+            // ze 127 926 buněk tak ukázalo dvě stejná čísla s jedním „vítězem".
+            const va = f.dec(pa);
+            const vb = f.dec(pb);
+            const winner = componentWinner(pa, pb);
             // Pruh = podíl získaných bodů na max. váze složky.
             const wa = (pa / c.weight) * 100;
             const wb = (pb / c.weight) * 100;
             return (
-              <div key={c.key} className="grid grid-cols-[3rem_1fr_auto_1fr_3rem] items-center gap-3">
-                <span className={`text-right text-lg font-black tabular-nums ${pa > pb ? "text-signal" : "text-ink"}`}>
+              <div key={c.key} className="grid grid-cols-[3.5rem_1fr_auto_1fr_3.5rem] items-center gap-3">
+                <span className={`text-right text-lg font-black tabular-nums ${winner === "a" ? "text-signal" : "text-ink"}`}>
                   {va}
                 </span>
                 <div className="flex justify-end bg-hairline">
@@ -126,7 +137,7 @@ export default function HeadToHead({
                     transition={reduceMotion ? { duration: 0 } : { duration: 0.4 }}
                   />
                 </div>
-                <span className={`text-lg font-black tabular-nums ${pb > pa ? "text-signal" : "text-ink"}`}>
+                <span className={`text-lg font-black tabular-nums ${winner === "b" ? "text-signal" : "text-ink"}`}>
                   {vb}
                 </span>
               </div>

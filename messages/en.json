@@ -703,7 +703,7 @@
     "legibilityDerived": "derived — recomputed from the published index formula (weights and caps, lib/analysis/contribution.ts); the “at the cap” rank is counted against the real scores of the real chamber, not estimated. It describes what the index measures, not what an MP should do.",
     "legibilitySource": "source: psp.cz — contribution index · MP nodes (kg_node.props)",
     "legibilityHeadroom": "+{units} · +{points} pts",
-    "legibilityTied": "Rank {rank} ({name}) holds the same index score — ties are ordered alphabetically."
+    "legibilityTied": "{name} holds the same index score — you share a rank, because identical scores share one place."
   },
   "votetrack": {
     "backToDashboard": "control room",
@@ -747,12 +747,12 @@
     "duelTitle": "Head-to-head",
     "duelSource": "pick a pair with the “vs” button in the ranking below — the head-to-head compares them component by component",
     "allTitle": "All 207",
-    "allSource": "composite = Σ component × weight · psp.cz contribution index",
+    "allSource": "composite = the six components × their weights, summed · psp.cz contribution index",
     "rank": "rank {rank}",
     "emptyTitle": "Pick two MPs",
     "emptyBody": "Use the “vs” button on a row in the ranking below to pick a pair — the head-to-head compares them component by component against the published weights.",
     "leadLine": "{name} leads by <diff>{diffLabel}</diff> of composite",
-    "footnote": "composite = Σ component × weight · signal value = higher · source: psp.cz contribution index",
+    "footnote": "composite = the six components × their weights, summed · each displayed component is rounded to a tenth, so their visible sum can sit a tenth off the composite · signal value = higher · source: psp.cz contribution index",
     "allParties": "all",
     "searchPlaceholder": "search by name…",
     "searchAriaLabel": "Search MPs by name",
@@ -765,14 +765,18 @@
     "mockNote": "generated names are illustrative — a mock shaped like psp.cz",
     "avgLabel": "average",
     "medianLabel": "median",
-    "sigmaLabel": "spread σ",
+    "sigmaLabel": "standard deviation σ",
     "histogramCount": "{value} MPs",
     "histogramBand": "in band",
-    "histogramSource": "contribution-index histogram in bands of 5 {pts} · signal = below the Chamber median · psp.cz",
+    "histogramSource": "contribution-index histogram in bands of 5 {pts} · the band “65–70” runs from 65 inclusive to 70 exclusive (a score of 70.0 belongs to the next band) · signal = band entirely below the Chamber median, ochre = the band the median falls in · psp.cz",
     "histogramFootnote": "computed from all 207 MPs",
     "realNote": "psp.cz contribution index · 207 MPs ranked descending",
     "noData": "Live graph data unavailable.",
-    "componentLegendNote": "· width = score, segments = component × weight"
+    "componentLegendNote": "· width = score, segments = component × weight",
+    "rankShared": "rank {rank} · shared",
+    "tieLine": "Identical composite score — the index does not separate these two MPs",
+    "tieRowTitle": "{count} MPs hold this score — they share one rank",
+    "tieNote": "An identical score means a SHARED rank (marked “=”). The index is published to one decimal place, so {shared} of {total} MPs share a score across {groups} groups. Within a shared rank we list names in Czech alphabetical order — that order means nothing."
   },
   "money": {
     "real": {

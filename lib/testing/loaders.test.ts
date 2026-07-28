@@ -1389,13 +1389,20 @@ describe("getLeaderboardData against a seeded store", () => {
     expect(built).not.toBeNull();
     const { data, directory } = built;
 
-    // The 80.0 tie breaks by Czech collation — Adamec before Beneš, never insertion order.
+    // Two MPs on 80.0 SHARE rank 1 — competition ranking (1, 2, 2, 4 in the general
+    // case), so no rank is decided by where a name falls in the alphabet. The
+    // ORDER within the tie is still Czech collation (Adamec before Beneš, never
+    // insertion order) because the output has to be deterministic; the page says
+    // that order means nothing. Nováková still holds the 3rd place she really
+    // occupies, so "rank N of 207" keeps its meaning.
     expect(data.entries.map((e) => [e.rank, e.name, e.score])).toEqual([
       [1, "Adamec Alois", 80],
-      [2, "Beneš Bohumil", 80],
+      [1, "Beneš Bohumil", 80],
       [3, "Nováková Jana", 70],
       [4, "Cimrman Jára", 60],
     ]);
+    // …and each entry can SAY whether its rank is shared, without reordering anything.
+    expect(data.entries.map((e) => e.tiedCount)).toEqual([2, 2, 1, 1]);
 
     // A club is claimed only where a mandate proves one; the rest keep an honest dash.
     expect(data.entries.filter((e) => e.clubAbbrev !== "—").map((e) => e.pspId)).toEqual([100]);
@@ -1409,8 +1416,21 @@ describe("getLeaderboardData against a seeded store", () => {
 
     // Histogram bands span the real score range in 5-pt steps: 60..80.
     expect(data.histogram[0].from).toBe(60);
-    expect(data.histogram.at(-1)!.from).toBe(75);
+    expect(data.histogram.at(-1)!.from).toBe(80); // the 80,0 maximum must land INSIDE a band
     expect(data.histogram.reduce((s, h) => s + h.count, 0)).toBe(4);
+    // A band is [from, from+5) and its LABEL says so: "60–65" holds 60,0 up to but
+    // not including 65,0. Labelling it "60–64" put scores above the printed ceiling
+    // (37 of 207 MPs on the real store).
+    expect(data.histogram.map((h) => h.label)).toEqual(["60–65", "65–70", "70–75", "75–80", "80–85"]);
+    for (const band of data.histogram) {
+      const inBand = data.entries.filter((e) => e.score >= band.from && e.score < band.from + 5);
+      expect(inBand.length, `band ${band.label}`).toBe(band.count);
+      const [from, to] = band.label.split("–").map(Number);
+      for (const e of inBand) {
+        expect(e.score, `${e.name} in ${band.label}`).toBeGreaterThanOrEqual(from);
+        expect(e.score, `${e.name} in ${band.label}`).toBeLessThan(to);
+      }
+    }
 
     // The six components decompose to finite points, each within its published weight —
     // the invariant every breakdown bar in the UI depends on.

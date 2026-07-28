@@ -64,12 +64,14 @@ describe("getLeaderboardData against a seeded store", () => {
     expect(built).not.toBeNull();
     const { data, directory } = built!;
 
-    // Rank: 72.3 ties break by Czech collation — Adamec before Beneš.
+    // Rank: the 72.3 tie is SHARED (competition ranking) — the alphabet decides the
+    // display order, never the rank. Cimrman keeps the 3rd place he really occupies.
     expect(data.entries.map((e) => [e.rank, e.name, e.score])).toEqual([
       [1, "Adamec Alois", 72.3],
-      [2, "Beneš Bohumil", 72.3],
+      [1, "Beneš Bohumil", 72.3],
       [3, "Cimrman Jára", 55.5],
     ]);
+    expect(data.entries.map((e) => e.tiedCount)).toEqual([2, 2, 1]);
 
     // No mandates seeded → no club can be claimed, never a fabricated one.
     expect(data.entries.every((e) => e.clubAbbrev === "—")).toBe(true);
@@ -80,9 +82,11 @@ describe("getLeaderboardData against a seeded store", () => {
     expect(data.summary.median).toBe(72.3);
     expect(data.provenancePass).toBe(30);
 
-    // Histogram bands span the real score range in 5-pt steps: 55..75.
+    // Histogram bands span the real score range in 5-pt steps: 55..75. A band is
+    // [from, from+5) and its label states the bound it actually runs to.
     expect(data.histogram[0].from).toBe(55);
     expect(data.histogram.at(-1)!.from).toBe(70);
+    expect(data.histogram.map((h) => h.label)).toEqual(["55–60", "60–65", "65–70", "70–75"]);
     expect(data.histogram.reduce((s, h) => s + h.count, 0)).toBe(3);
 
     // The six components decompose to finite points for every entry.

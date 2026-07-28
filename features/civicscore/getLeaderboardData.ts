@@ -146,6 +146,13 @@ export interface LeaderboardEntry {
   clubColor: string;
   region: string | null;
   score: number; // authoritative contribution_score (0–100)
+  /**
+   * How many MPs hold EXACTLY this score, this MP included (1 = unique). A 0–100 index
+   * published to one decimal over 207 MPs ties often — 25 groups, 55 MPs at the pass-42
+   * recompute — and `rank` is shared across each group, so a surface that prints a rank
+   * has to be able to say whether it is shared. Never used to reorder anything.
+   */
+  tiedCount: number;
   components: Record<ComponentKey, number>; // earned points, sum ≈ score
   absenteeManagerLead: boolean;
   // raw underlying stats (for profile cards / honest headline)
@@ -210,6 +217,7 @@ export type LeaderboardListEntry = Pick<
   | "clubColor"
   | "region"
   | "score"
+  | "tiedCount"
   | "components"
   | "effortWorkhorse"
   | "effortWorkhorseFlavour"
@@ -227,6 +235,7 @@ function toListEntry(e: LeaderboardEntry): LeaderboardListEntry {
     clubColor: e.clubColor,
     region: e.region,
     score: e.score,
+    tiedCount: e.tiedCount,
     components: e.components,
     effortWorkhorse: e.effortWorkhorse,
     effortWorkhorseFlavour: e.effortWorkhorseFlavour,
@@ -360,8 +369,30 @@ export const buildLeaderboard = cache(async function buildLeaderboard(): Promise
       };
     });
 
+    // Display order is score desc, then Czech collation of the name — deterministic, and
+    // it carries NO meaning inside a tie (the surface says so).
     rows.sort((a, b) => b.score - a.score || a.name.localeCompare(b.name, "cs"));
-    const entries: LeaderboardEntry[] = rows.map((r, i) => ({ ...r, rank: i + 1 }));
+
+    // COMPETITION RANKING (1, 2, 2, 4). A rank is one more than the number of MPs who
+    // actually score HIGHER, so tied MPs share it and nothing is decided by where a name
+    // falls in the alphabet — the leaderboard used to print ranks 2 and 3 for two MPs on
+    // an identical 95,4, one of them inside the red top-3 styling. The next distinct score
+    // resumes at the position it truly occupies, so "rank N of 207" stays readable.
+    // NB this is the same rule `lib/analysis/score-legibility.ts` already uses for
+    // `rankAtCap` (1 + how many real MPs score above the projection).
+    const tiedCountByScore = new Map<number, number>();
+    for (const r of rows) tiedCountByScore.set(r.score, (tiedCountByScore.get(r.score) ?? 0) + 1);
+    let rank = 0;
+    let placed = 0;
+    let prevScore = Number.NaN;
+    const entries: LeaderboardEntry[] = rows.map((r) => {
+      placed++;
+      if (r.score !== prevScore) {
+        rank = placed;
+        prevScore = r.score;
+      }
+      return { ...r, rank, tiedCount: tiedCountByScore.get(r.score) ?? 1 };
+    });
 
     // Club facets present in the chamber, ordered by seats desc.
     const clubSet = new Map<string, ClubFacet>();
@@ -384,11 +415,18 @@ export const buildLeaderboard = cache(async function buildLeaderboard(): Promise
     const median = n % 2 ? sorted[(n - 1) / 2] : (sorted[n / 2 - 1] + sorted[n / 2]) / 2;
     const sigma = Math.sqrt(scores.reduce((s, v) => s + (v - avg) ** 2, 0) / n);
 
-    // Histogram in 5-pt bands spanning the real range.
+    // Histogram in 5-pt bands spanning the real range. A band is the half-open interval
+    // [from, from+5), so it is LABELLED with the bound it actually runs to and the surface
+    // states that the upper bound belongs to the next band. Labelling [65,70) as "65–69"
+    // put 37 MPs above their own band's printed ceiling.
     const lo = Math.floor(Math.min(...scores) / 5) * 5;
-    const hi = Math.ceil(Math.max(...scores) / 5) * 5;
+    // Strictly ABOVE the maximum, so the top score falls inside a band whose printed
+    // bound is true of it. `Math.ceil` left a maximum that is itself a multiple of 5
+    // outside every band, and the `??` fallback below then filed it under a band it
+    // sits on the boundary of.
+    const hi = Math.floor(Math.max(...scores) / 5) * 5 + 5;
     const histogram: { from: number; label: string; count: number }[] = [];
-    for (let from = lo; from < hi; from += 5) histogram.push({ from, label: `${from}–${from + 4}`, count: 0 });
+    for (let from = lo; from < hi; from += 5) histogram.push({ from, label: `${from}–${from + 5}`, count: 0 });
     for (const s of scores) {
       const b = histogram.find((h) => s >= h.from && s < h.from + 5) ?? histogram[histogram.length - 1];
       if (b) b.count++;

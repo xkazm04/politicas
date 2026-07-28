@@ -703,7 +703,7 @@
     "legibilityDerived": "odvozeno — přepočteno podle zveřejněného vzorce indexu (váhy a stropy, lib/analysis/contribution.ts); pořadí „na stropu“ se počítá proti skutečným skóre skutečné sněmovny, není to odhad. Popisuje, co index měří, ne co by měl poslanec dělat.",
     "legibilitySource": "zdroj: psp.cz — index přispění · uzly poslanců (kg_node.props)",
     "legibilityHeadroom": "+{units} · +{points} b.",
-    "legibilityTied": "Na {rank}. místě je {name} se stejným skóre indexu — mezi shodnými skóre rozhoduje abecední pořadí."
+    "legibilityTied": "Stejné skóre indexu má {name} — o pořadí se s ním dělíte, protože shodná skóre sdílejí jedno místo."
   },
   "votetrack": {
     "backToDashboard": "velín",
@@ -747,12 +747,12 @@
     "duelTitle": "Souboj",
     "duelSource": "vyberte dvojici tlačítkem „vs“ v žebříčku níže — souboj porovná složku po složce",
     "allTitle": "Všech 207",
-    "allSource": "kompozit = Σ složka × váha · index přispění psp.cz",
+    "allSource": "kompozit = součet šesti složek × jejich váha · index přispění psp.cz",
     "rank": "pořadí {rank}",
     "emptyTitle": "Vyberte dva poslance",
     "emptyBody": "Tlačítkem „vs“ u řádku žebříčku níže vyberte dvojici — souboj je porovná složku po složce podle zveřejněných vah.",
     "leadLine": "{name} vede o <diff>{diffLabel}</diff> kompozitu",
-    "footnote": "kompozit = Σ složka × váha · signální hodnota = vyšší · zdroj: index přispění psp.cz",
+    "footnote": "kompozit = součet šesti složek × jejich váha · každá zobrazená složka je zaokrouhlená na desetinu, jejich viditelný součet se proto může o desetinu lišit od kompozitu · signální hodnota = vyšší · zdroj: index přispění psp.cz",
     "allParties": "vše",
     "searchPlaceholder": "hledat jméno…",
     "searchAriaLabel": "Hledat poslance podle jména",
@@ -765,14 +765,18 @@
     "mockNote": "dogenerovaná jména jsou ilustrativní — mock nad tvarem psp.cz",
     "avgLabel": "průměr",
     "medianLabel": "medián",
-    "sigmaLabel": "rozptyl σ",
+    "sigmaLabel": "směrodatná odchylka σ",
     "histogramCount": "{value} poslanců",
     "histogramBand": "v pásmu",
-    "histogramSource": "histogram indexu přispění po 5 {pts} · signální = pod mediánem sněmovny · psp.cz",
+    "histogramSource": "histogram indexu přispění po 5 {pts} · pásmo „65–70\" znamená od 65 včetně do 70 (skóre 70,0 už patří do dalšího pásma) · signální = celé pásmo pod mediánem sněmovny, okrové = pásmo, v němž medián leží · psp.cz",
     "histogramFootnote": "počítáno ze všech 207 poslanců",
     "realNote": "index přispění psp.cz · sestupné pořadí 207 poslanců",
     "noData": "Živá data z grafu nedostupná.",
-    "componentLegendNote": "· šířka = skóre, segmenty = složka × váha"
+    "componentLegendNote": "· šířka = skóre, segmenty = složka × váha",
+    "rankShared": "pořadí {rank} · sdílené",
+    "tieLine": "Shodné skóre kompozitu — mezi těmito dvěma poslanci index nerozlišuje",
+    "tieRowTitle": "Toto skóre má {count} poslanců — sdílejí stejné pořadí",
+    "tieNote": "Shodné skóre = sdílené pořadí (znak „=\"). Index je zveřejněný na jedno desetinné místo, a tak se o skóre dělí {shared} z {total} poslanců ve {groups} skupinách. Uvnitř sdíleného pořadí řadíme abecedně podle českého řazení — to pořadí nic neznamená."
   },
   "money": {
     "real": {

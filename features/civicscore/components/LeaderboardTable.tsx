@@ -136,6 +136,15 @@ export default function LeaderboardTable({
 
   const medians = useMemo(() => componentMedians(entries, components), [entries, components]);
 
+  // Kolik poslanců sdílí své pořadí, a v kolika skupinách — počítáno z celého
+  // žebříčku (ne z filtru), aby věta pod tabulkou popisovala index, ne výběr.
+  const tieStats = useMemo(() => {
+    const byScore = new Map<number, number>();
+    for (const e of entries) byScore.set(e.score, (byScore.get(e.score) ?? 0) + 1);
+    const groups = [...byScore.values()].filter((c) => c > 1);
+    return { shared: groups.reduce((a, b) => a + b, 0), groups: groups.length, total: entries.length };
+  }, [entries]);
+
   const rows = useMemo(() => {
     const q = query.trim().toLowerCase();
     return entries.filter(
@@ -256,8 +265,20 @@ export default function LeaderboardTable({
                 inDuel ? "bg-paper-strong" : ""
               }`}
             >
-              <span className={`font-mono text-lg font-bold ${r.rank <= 3 ? "text-signal" : "text-steel"}`}>
-                {r.rank}
+              {/* Pořadí je SDÍLENÉ při shodě skóre (getLeaderboardData: competition
+                  ranking). „=" před číslem říká, že o toto místo se dělí víc poslanců —
+                  dřív se o červené top-3 rozhodovalo abecedou. */}
+              <span
+                className={`font-mono text-lg font-bold ${r.rank <= 3 ? "text-signal" : "text-steel"}`}
+                title={r.tiedCount > 1 ? t("tieRowTitle", { count: f.int(r.tiedCount) }) : undefined}
+              >
+                {r.tiedCount > 1 && (
+                  <span aria-hidden className="mr-0.5 text-[0.8em]">
+                    =
+                  </span>
+                )}
+                {f.int(r.rank)}
+                {r.tiedCount > 1 && <span className="sr-only"> — {t("tieRowTitle", { count: f.int(r.tiedCount) })}</span>}
               </span>
               <span className="min-w-0">
                 <Link
@@ -313,6 +334,13 @@ export default function LeaderboardTable({
           {t("shownOf", { count: rows.length })}
         </SourceNote>
         <SourceNote className="!text-[10px]">{t("realNote")}</SourceNote>
+      </div>
+      {/* Co „=" znamená a co zbylý pořádek uvnitř shody NEznamená — bez toho by
+          abecední řazení vypadalo jako výsledek. */}
+      <div className="mt-2">
+        <SourceNote className="!text-[10px]">
+          {t("tieNote", { shared: f.int(tieStats.shared), total: f.int(tieStats.total), groups: f.int(tieStats.groups) })}
+        </SourceNote>
       </div>
     </div>
   );
