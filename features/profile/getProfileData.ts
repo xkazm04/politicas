@@ -61,6 +61,11 @@ export interface CommitteeSeat {
   current: boolean;
   fromAt: string | null;
   toAt: string | null;
+  /** `toAt` is present but not a parseable date. Such a seat used to fall into
+   * `Date.parse(...) > now === false` and render as an ENDED seat — an unreadable
+   * end date silently presented as a fact about the MP. It is now rendered as a
+   * seat whose end date could not be read, which is what the data actually says. */
+  toAtUnreadable: boolean;
 }
 
 /** A bill this MP sponsors, resolved to its psp.cz historie.sqw link.
@@ -104,9 +109,14 @@ export interface ProfileData {
   coVoters: CoVoter[];
   rebellions: Rebellion[];
   committees: CommitteeSeat[];
-  // honest extra signals (may be absent)
-  contestedRebellion: number | null;
-  rebellionRate: number | null;
+  /**
+   * The date the committee seats' current/past split was evaluated against.
+   * The page states it, because `/poslanec/<id>` is statically generated: without
+   * it the reader has no way to know how old "současné" is. Paired with the
+   * route's `revalidate`, which bounds how stale it can get.
+   */
+  seatsAsOf: string; // ISO yyyy-mm-dd
+  /** Contribution-index pass that authored this MP's score — cited on-page. */
   provenancePass: number | null;
   // Tenure annotation (batch 003, Q-effort-5) — deterministic, from
   // membership.fromAt/toAt on organ 174. May be absent for the ~0/207 MPs
@@ -263,6 +273,10 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
     // So: prefer the highest role among rows that are STILL OPEN; only if the MP holds no
     // open row on that organ do we fall back to the highest role among ended rows, and
     // then the seat is marked past. Every field of the result comes from ONE row.
+    // One evaluation instant for every seat on this page (and the one the page
+    // prints), rather than a fresh `Date.now()` per row.
+    const asOfMs = Date.now();
+    const seatsAsOf = new Date(asOfMs).toISOString().slice(0, 10);
     const rowsByOrgan = new Map<number, CommitteeSeat[]>();
     for (const m of memberships) {
       if (m.personPspId !== pspId || m.organPspId == null) continue;
@@ -270,14 +284,21 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
       const seat: ContributionCommitteeSeat = { organType, functionType: m.functionTypeCz };
       if (!isCommitteeSeat(seat)) continue;
       const role = classifyRole(m.functionTypeCz);
+      const toAtMs = m.toAt ? Date.parse(m.toAt) : null;
+      const toAtUnreadable = toAtMs !== null && !Number.isFinite(toAtMs);
       const row: CommitteeSeat = {
         abbrev: organByPsp.get(m.organPspId)?.abbrev ?? organByPsp.get(m.organPspId)?.nameCz ?? String(m.organPspId),
         organType,
         role,
         weight: ROLE_WEIGHT[role],
-        current: !m.toAt || Date.parse(m.toAt) > Date.now(),
+        // An unreadable end date proves nothing about the seat having ended, so it
+        // does NOT demote the seat to "past" — it is flagged instead (the psp.cz
+        // dumps carry at least one placeholder year-2925 membership date, see
+        // docs/hybrid-benchmark-plan.md).
+        current: !m.toAt || toAtUnreadable || (toAtMs as number) > asOfMs,
         fromAt: m.fromAt,
         toAt: m.toAt,
+        toAtUnreadable,
       };
       const arr = rowsByOrgan.get(m.organPspId) ?? [];
       arr.push(row);
@@ -296,8 +317,6 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
     const personNode = directory.personPropsByPspId.has(pspId)
       ? { props: directory.personPropsByPspId.get(pspId)! }
       : null;
-    const contestedRebellion = personNode ? nullableNum(personNode.props.contested_vote_rebellion) : null;
-    const rebellionRate = personNode ? nullableNum(personNode.props.rebellion_rate) : null;
     const effortTenureDays = personNode ? nullableNum(personNode.props.effort_tenure_days) : null;
     const effortTenureClass = personNode && typeof personNode.props.effort_tenure_class === "string"
       ? personNode.props.effort_tenure_class
@@ -398,8 +417,7 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
       coVoters,
       rebellions,
       committees,
-      contestedRebellion,
-      rebellionRate,
+      seatsAsOf,
       provenancePass: data.provenancePass,
       effortTenureDays,
       effortTenureClass,

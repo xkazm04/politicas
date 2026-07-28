@@ -13,6 +13,7 @@
  */
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 // Raised from 240 (UX audit 2026-07-27, #9): at 240 the cut consistently fell
 // inside the setup sentence, before any dossier reached its payoff clause —
@@ -40,6 +41,7 @@ export default function ExpandableText({
   text: string;
   className?: string;
 }) {
+  const t = useTranslations("profile");
   const [expanded, setExpanded] = useState(false);
   const isLong = text.length > COLLAPSE_AT;
   const shown = !isLong || expanded ? text : `${text.slice(0, collapseBoundary(text, COLLAPSE_AT)).trimEnd()}…`;
@@ -54,7 +56,7 @@ export default function ExpandableText({
           aria-expanded={expanded}
           className="ml-2 inline-block font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt hover:text-signal"
         >
-          {expanded ? "méně" : "více"}
+          {expanded ? t("expandLess") : t("expandMore")}
         </button>
       )}
     </p>

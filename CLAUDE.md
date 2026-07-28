@@ -31,9 +31,16 @@ Route map (politicas.md roadmap execution, sample data):
   leaderboard ledger with pillar bars. The five module tiles moved into the
   layout rail.
 - `/poslanec/[id]` — **Spis** (features/profile): the Person profile —
-  politicas.md §3's "real product". Fused from the losing dashboard variant:
-  poster header + score/trend, pillars, roll-call votes (rebel markers),
-  money ties as dated sourced facts (+ empty state), prev/next file nav.
+  politicas.md §3's "real product". Wired to the real graph (no mock path):
+  poster header + contribution score/rank, the six weighted components, the
+  work-profile dossier (effort-loop enrichment + sponsored/rapporteur bills),
+  co-voting allies, club rebellions, committee seats, prev/next file nav.
+  **Section numbers are derived from what renders** — the dossier is omitted for
+  an MP carrying none, so nothing may hard-code an index. `getProfileData` is
+  `react.cache()`-wrapped and reads per-MP edges through the INDEXED
+  `store.kgNeighbours()`; it must never scan a whole `kg_edge` relation (see
+  `lib/db/kgOrder.ts` for why the result is re-sorted). The route carries an
+  explicit `revalidate` because the page asserts a committee-seat as-of date.
 - `/hlasovani` — **VoteTrack** (features/votetrack): fusion of all three
   prototype variants — Deník (chronological ledger as master), Sál (sticky
   chamber detail: hemicycle + party breakdown it drives), Linie (club

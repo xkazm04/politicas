@@ -6,6 +6,15 @@ import DataUnavailable from "@/features/shared/components/DataUnavailable";
 import { getAllProfilePspIds, getProfileData } from "@/features/profile/getProfileData";
 import { formatDecimal } from "@/lib/format";
 
+/**
+ * The dossier states a date it is current AS OF (committee seats split into
+ * current/past against "today" — `ProfileData.seatsAsOf`). Statically generated
+ * with no revalidation, that date froze at build time and the page kept
+ * asserting it. One day bounds the drift, and the page prints the date it is
+ * asserting, so a stale seat is visible rather than silent.
+ */
+export const revalidate = 86_400;
+
 // URL convention (shared across cases): /poslanec/<pspId> where <pspId> is the
 // plain integer psp person id (from the node urn psp:person:<pspId>).
 export async function generateStaticParams() {

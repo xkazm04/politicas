@@ -148,6 +148,7 @@ async function seedFixture(): Promise<void> {
       ('o:174', 174, null, 'Parlament', 'PSP10', 'Poslanecká sněmovna', 'psp10', 'psp.cz', 'https://psp.cz', now()),
       ('o:800', 800, 174,  'Klub',      'ODS',   'Klub ODS',            'ods',   'psp.cz', 'https://psp.cz', now()),
       ('o:300', 300, 174,  'Výbor',     'VHZD',  'Hospodářský výbor',   'vhzd',  'psp.cz', 'https://psp.cz', now()),
+      ('o:301', 301, 174,  'Komise',    'KOM',   'Stálá komise',        'kom',   'psp.cz', 'https://psp.cz', now()),
       ('o:900', 900, null, 'Kraj',      null,    'Hlavní město Praha',  'praha', 'psp.cz', 'https://psp.cz', now())`,
   );
   await pg.query(
@@ -162,7 +163,11 @@ async function seedFixture(): Promise<void> {
       -- chairmanship ENDED while the plain membership continues: the honest render is
       -- "member · current" — never "chair · current", never a dropped row.
       ('ms:vyb1', 100, 'member',   300, 300, null,       '2025-11-01', null,         'psp.cz', 'https://psp.cz', now()),
-      ('ms:vyb2', 100, 'function', 300, 300, 'předseda', '2025-11-01', '2020-01-01', 'psp.cz', 'https://psp.cz', now())`,
+      ('ms:vyb2', 100, 'function', 300, 300, 'předseda', '2025-11-01', '2020-01-01', 'psp.cz', 'https://psp.cz', now()),
+      -- to_at = 'infinity' is a legal timestamptz psp.cz-shaped data can carry, and it
+      -- does NOT parse as a date. It used to make Date.parse(toAt) > now() false and so
+      -- rendered the seat as ENDED — an unreadable end date asserted as a fact.
+      ('ms:vyb3', 100, 'member',   301, 301, null,       '2025-11-01', 'infinity',   'psp.cz', 'https://psp.cz', now())`,
   );
 
   // ── knowledge graph nodes ────────────────────────────────────────────────
@@ -843,15 +848,34 @@ describe("getProfileData against a seeded graph", () => {
 
   it("shows each committee ONCE at its highest still-open role (no chimera rows)", async () => {
     const p = (await withReadinessOff(() => getProfileData(100)))!;
-    // Two membership rows on organ 300 (member, open + předseda, ended) → ONE seat.
-    expect(p.committees).toHaveLength(1);
-    const seat = p.committees[0];
-    expect(seat.abbrev).toBe("VHZD");
+    // Two membership rows on organ 300 (member, open + předseda, ended) → ONE seat,
+    // plus organ 301 (the unreadable-end-date seat asserted below).
+    expect(p.committees).toHaveLength(2);
+    const seat = p.committees.find((c) => c.abbrev === "VHZD")!;
     expect(seat.organType).toBe("Výbor");
     expect(seat.role).toBe("member"); // NOT "chair" — that row is closed
     expect(seat.current).toBe(true);
     expect(seat.toAt).toBeNull(); // every field of the seat comes from ONE row
+    expect(seat.toAtUnreadable).toBe(false);
     expect(p.committees.some((c) => c.abbrev === "ODS")).toBe(false); // a club is not a committee
+  });
+
+  it("an unreadable seat end-date is FLAGGED, never rendered as an ended seat", async () => {
+    // A legal `timestamptz` the app cannot parse ('infinity'). Two defects met here:
+    // the mapper used to throw RangeError on it and take the WHOLE dossier down to
+    // DataUnavailable, and — once that was fixed — Date.parse(toAt) > now() is false,
+    // so the seat would have rendered as PAST. Neither is what the data says.
+    const p = (await withReadinessOff(() => getProfileData(100)))!;
+    expect(p).not.toBeNull();
+    const seat = p.committees.find((c) => c.abbrev === "KOM")!;
+    expect(seat).toBeDefined();
+    expect(seat.toAtUnreadable).toBe(true);
+    expect(seat.current).toBe(true); // an unreadable date proves nothing about it having ended
+  });
+
+  it("states the date the current/past seat split was evaluated against", async () => {
+    const p = (await withReadinessOff(() => getProfileData(100)))!;
+    expect(p.seatsAsOf).toMatch(/^\d{4}-\d{2}-\d{2}$/);
   });
 
   it("drops co_votes_with edges with a malformed endpoint and ranks allies by agreement", async () => {
@@ -868,8 +892,10 @@ describe("getProfileData against a seeded graph", () => {
     expect(p.rebellions).toEqual([
       { club: "ODS", rate: expect.closeTo(0.12, 5), rebelVotes: 3, eligibleVotes: 25 },
     ]);
-    expect(p.rebellionRate).toBeCloseTo(0.12, 5);
-    expect(p.contestedRebellion).toBeCloseTo(0.3, 5);
+    // rebellion_rate / contested_vote_rebellion are NOT returned: they were shipped
+    // to the client for months and rendered nowhere.
+    expect(p).not.toHaveProperty("rebellionRate");
+    expect(p).not.toHaveProperty("contestedRebellion");
     expect(p.effortTenureDays).toBe(260);
     expect(p.effortTenureClass).toBe("full-term");
     expect(p.effortTenureEnd).toBeNull(); // absent prop → null, never a fabricated date

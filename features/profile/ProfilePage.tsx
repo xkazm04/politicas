@@ -2,11 +2,16 @@
 
 /*
  * Spis poslance (/poslanec/<pspId>) — REÁLNÁ DATA ze znalostního grafu.
- * Hlavička se skóre indexu přispění a pořadím z 207; číslované oddíly
- * 01 Složky přispění (šest vážených složek) / 02 Nejbližší spojenci (co-votes)
- * / 03 Rebelie proti klubu (rebels-against) / 04 Výbory a komise
- * (influential-in). Citace u každého čísla. Žádná čtvrtletní řada / delta / trend
- * (jedno období, bez reálného podloží) — místo nich čestné „jedno období".
+ * Hlavička se skóre indexu přispění a pořadím z 207, pak číslované oddíly:
+ * Složky přispění (šest vážených složek) / Pracovní profil (dosier, jen když
+ * poslanec nese obsah) / Nejbližší spojenci (co_votes_with) / Rebelie proti
+ * klubu (rebels_against) / Výbory a komise (membership × organ).
+ *
+ * Čísla oddílů se ODVOZUJÍ z toho, co se skutečně vykreslí (`order`/`no()`) —
+ * pevné indexy nechávaly u poslanců bez dosieru stránku číst 01 → 03 → 04 → 05.
+ *
+ * Citace u každého čísla. Žádná čtvrtletní řada / delta / trend (jedno období,
+ * bez reálného podloží) — místo nich čestné „jedno období".
  */
 
 import { motion, useReducedMotion } from "framer-motion";
@@ -22,8 +27,18 @@ import { COMPONENT_FILL } from "@/features/civicscore/components/LeaderboardTabl
 import LowScoreReasonBadge from "@/features/profile/components/LowScoreReasonBadge";
 import TenureNote from "@/features/profile/components/TenureNote";
 import TenureTrendGate from "@/features/profile/components/TenureTrendGate";
-import DossierSection from "@/features/profile/components/DossierSection";
+import DossierSection, { hasDossierContent, type DossierContent } from "@/features/profile/components/DossierSection";
 import type { ComponentKey } from "@/lib/analysis/contribution-trend";
+import { MIN_SHARED_VOTES } from "@/lib/analysis/kg";
+
+/** Internal committee-role enum -> the copy a reader sees. The enum
+ *  (`chair` | `vice` | `member`, lib/analysis/kg.ts) used to print raw on an
+ *  otherwise all-Czech page. */
+const ROLE_KEY: Record<string, string> = {
+  chair: "committeeRoleChair",
+  vice: "committeeRoleVice",
+  member: "committeeRoleMember",
+};
 
 export default function ProfilePage({ data }: { data: ProfileData }) {
   const reduceMotion = useReducedMotion();
@@ -34,6 +49,31 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
   const { person, total, components, coVoters, rebellions, committees } = data;
   const [first, ...rest] = person.name.split(" ");
   const lastName = rest.join(" ");
+
+  const dossier: DossierContent = {
+    publicRole: person.effortPublicRole,
+    workThemes: data.effortWorkThemes,
+    billFocus: data.effortBillFocus,
+    notes: data.effortNotes,
+    dataFlag: data.effortDataFlag,
+    sponsoredBills: data.sponsoredBills,
+    billsFirstSigned: data.billsFirstSigned,
+    billsCoSigned: data.billsCoSigned,
+    rapporteurBills: data.rapporteurBills,
+    amendmentsAuthored: data.amendmentsAuthored,
+  };
+  // Section numbers are DERIVED from what actually renders. DossierSection is
+  // omitted for an MP with no dossier content, and the fixed index={2} then left
+  // the page reading 01 -> 03 -> 04 -> 05 for exactly those MPs.
+  const order = ["components", ...(hasDossierContent(dossier) ? ["dossier"] : []), "allies", "rebellions", "committees"];
+  const no = (key: string) => order.indexOf(key) + 1;
+
+  // The index counts membership ROWS (psp.cz files a leadership seat as two rows
+  // on one body); the list below shows each body ONCE at its highest role. Where
+  // the two disagree the page SAYS so, rather than letting a reader find two
+  // contradicting counts on one screen with nothing to explain them. Deliberately
+  // not a silent reconciliation — the scoring formula is not this page's to change.
+  const committeeCountDiverges = committees.length !== person.committeeCount;
 
   // Čestný „headline" z reálných props: vlajka nepřítomného manažera, jinak
   // nejsilnější složka. Nikdy vymyšlené číslo. Every other data gap on this
@@ -67,7 +107,7 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
           className="border-b border-hairline py-12"
         >
           <SourceNote tone="signal">
-            {t("rankOf", { rank: person.rank, total })} · {person.clubName}
+            {t("rankOf", { rank: f.int(person.rank), total: f.int(total) })} · {person.clubName}
             {person.region ? ` · ${person.region}` : ""}
           </SourceNote>
           <div className="mt-4 flex flex-wrap items-end justify-between gap-8">
@@ -91,7 +131,10 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
                   {tcom("of100")}
                 </span>
               </div>
-              <SourceNote className="mt-1 !text-[10px]">{t("periodNote")}</SourceNote>
+              <SourceNote className="mt-1 !text-[10px]">
+                {t("periodNote")}
+                {data.provenancePass != null ? ` \u00b7 ${t("indexPass", { pass: f.int(data.provenancePass) })}` : ""}
+              </SourceNote>
             </div>
           </div>
           <p className="mt-6 max-w-2xl border-l-4 border-signal pl-4 text-base italic leading-relaxed text-steel">
@@ -124,7 +167,7 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
         {/* ── 01 Složky přispění ────────────────────────────── */}
         <section id="slozky" className="pt-12">
           <SectionHeading
-            index={1}
+            index={no("components")}
             title={t("componentsHeading")}
             aside={<SourceNote>{t("componentsAside")}</SourceNote>}
           />
@@ -161,59 +204,60 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
         </section>
 
         {/* ── 02 Pracovní profil (dosier) ────────────────────── */}
-        <DossierSection
-          index={2}
-          publicRole={person.effortPublicRole}
-          workThemes={data.effortWorkThemes}
-          billFocus={data.effortBillFocus}
-          notes={data.effortNotes}
-          dataFlag={data.effortDataFlag}
-          sponsoredBills={data.sponsoredBills}
-          billsFirstSigned={data.billsFirstSigned}
-          billsCoSigned={data.billsCoSigned}
-          rapporteurBills={data.rapporteurBills}
-          amendmentsAuthored={data.amendmentsAuthored}
-        />
+        <DossierSection index={no("dossier")} {...dossier} />
 
         {/* ── 03 Nejbližší spojenci ─────────────────────────── */}
         <section id="spojenci" className="mt-16 border-t-4 border-ink pt-10">
           <SectionHeading
-            index={3}
+            index={no("allies")}
             title={t("alliesHeading")}
             aside={<SourceNote>{t("alliesAside")}</SourceNote>}
           />
-          <div className="mt-8 border-t-2 border-ink">
-            {coVoters.map((cv) => (
-              <div
-                key={cv.pspId}
-                className="grid grid-cols-[1fr_auto_auto] items-center gap-3 border-b border-hairline px-2 py-3 transition-colors hover:bg-paper-strong"
-              >
-                <Link
-                  href={`/poslanec/${cv.pspId}`}
-                  className="group inline-flex min-w-0 items-center gap-1.5 text-[15px] font-black uppercase tracking-tight hover:text-signal"
-                >
-                  <span className="inline-block h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: cv.clubColor }} />
-                  <span className="truncate">{cv.name}</span>
-                  <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-steel">· {cv.clubAbbrev}</span>
-                </Link>
-                <span className="font-mono text-[11px] uppercase tracking-wider text-steel">
-                  {t("sharedBallots", { count: cv.shared })}
-                </span>
-                <span className="w-16 text-right text-lg font-black tabular-nums text-signal">
-                  {f.dec(cv.agreement * 100)}%
-                </span>
+          {/* Honest empty state, matching the rebellions/committees pattern. An MP
+              whose every pairing sits below the shared-ballot floor used to get a
+              bare heading followed by an orphan citation citing nothing. */}
+          {coVoters.length === 0 ? (
+            <div className="mt-8 border-2 border-dashed border-hairline p-8">
+              <p className="text-[15px] leading-relaxed text-steel">
+                {t("noAllies", { minShared: f.int(MIN_SHARED_VOTES) })}
+              </p>
+            </div>
+          ) : (
+            <>
+              <div className="mt-8 border-t-2 border-ink">
+                {coVoters.map((cv) => (
+                  <div
+                    key={cv.pspId}
+                    className="grid grid-cols-[1fr_auto_auto] items-center gap-3 border-b border-hairline px-2 py-3 transition-colors hover:bg-paper-strong"
+                  >
+                    <Link
+                      href={`/poslanec/${cv.pspId}`}
+                      className="group inline-flex min-w-0 items-center gap-1.5 text-[15px] font-black uppercase tracking-tight hover:text-signal"
+                    >
+                      <span className="inline-block h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: cv.clubColor }} />
+                      <span className="truncate">{cv.name}</span>
+                      <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-steel">· {cv.clubAbbrev}</span>
+                    </Link>
+                    <span className="font-mono text-[11px] uppercase tracking-wider text-steel">
+                      {t("sharedBallots", { count: f.int(cv.shared) })}
+                    </span>
+                    <span className="w-16 text-right text-lg font-black tabular-nums text-signal">
+                      {f.dec(cv.agreement * 100)}%
+                    </span>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          <SourceNote className="mt-3 !text-[10px]">
-            {t("agreementLabel")} · psp.cz · co_votes_with
-          </SourceNote>
+              <SourceNote className="mt-3 !text-[10px]">
+                {t("agreementLabel")} · psp.cz · co_votes_with
+              </SourceNote>
+            </>
+          )}
         </section>
 
         {/* ── 04 Rebelie proti klubu ────────────────────────── */}
         <section id="rebelie" className="mt-16 border-t-4 border-ink pt-10">
           <SectionHeading
-            index={4}
+            index={no("rebellions")}
             title={t("rebellionsHeading")}
             aside={<SourceNote>{t("rebellionsAside")}</SourceNote>}
           />
@@ -244,7 +288,7 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
         {/* ── 05 Výbory a komise ────────────────────────────── */}
         <section id="vybory" className="mt-16 border-t-4 border-ink pt-10 pb-8">
           <SectionHeading
-            index={5}
+            index={no("committees")}
             title={t("committeesHeading")}
             aside={<SourceNote>{t("committeesAside")}</SourceNote>}
           />
@@ -253,22 +297,42 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
               <p className="text-[15px] leading-relaxed text-steel">{t("noCommittees")}</p>
             </div>
           ) : (
-            <div className="mt-8 flex flex-wrap gap-3">
-              {committees.map((cm, i) => (
-                // batch-006: past seats (toAt in the past — e.g. vacated on taking a
-                // ministerial post) render de-emphasized rather than indistinguishable
-                // from a current seat; getProfileData sorts current seats first.
-                <div
-                  key={`${cm.abbrev}-${i}`}
-                  className={`border-2 border-hairline px-4 py-3 ${cm.current ? "" : "opacity-50"}`}
-                >
-                  <p className="text-lg font-black uppercase tracking-tight">{cm.abbrev}</p>
-                  <p className="mt-0.5 font-mono text-[11px] uppercase tracking-wider text-steel">
-                    {cm.organType ?? "—"} · {cm.role}
-                  </p>
-                </div>
-              ))}
-            </div>
+            <>
+              {committeeCountDiverges && (
+                <p className="mt-6 max-w-3xl border-l-4 border-hairline pl-4 text-[13px] leading-relaxed text-steel">
+                  {t("committeeCountNote", {
+                    indexCount: f.int(person.committeeCount),
+                    listCount: f.int(committees.length),
+                  })}
+                </p>
+              )}
+              <div className="mt-8 flex flex-wrap gap-3">
+                {/* batch-006: past seats (toAt in the past — e.g. vacated on taking a
+                    ministerial post) render de-emphasized rather than indistinguishable
+                    from a current seat; getProfileData sorts current seats first. */}
+                {committees.map((cm, i) => (
+                  <div
+                    key={`${cm.abbrev}-${i}`}
+                    className={`border-2 border-hairline px-4 py-3 ${cm.current ? "" : "opacity-50"}`}
+                  >
+                    <p className="text-lg font-black uppercase tracking-tight">{cm.abbrev}</p>
+                    <p className="mt-0.5 font-mono text-[11px] uppercase tracking-wider text-steel">
+                      {cm.organType ?? "—"} · {ROLE_KEY[cm.role] ? t(ROLE_KEY[cm.role]) : cm.role}
+                    </p>
+                    {cm.toAtUnreadable && (
+                      <p className="mt-0.5 font-mono text-[10px] uppercase tracking-wider text-ochre">
+                        {t("seatEndUnreadable")}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+              {/* The current/past split is evaluated against a date and this page is
+                  statically generated, so the page states the date it is asserting. */}
+              <SourceNote className="mt-3 !text-[10px]">
+                {t("seatsAsOf", { date: f.date(data.seatsAsOf) })}
+              </SourceNote>
+            </>
           )}
         </section>
 

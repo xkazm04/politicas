@@ -68,16 +68,28 @@ export const numOrNull = (v: unknown): number | null => {
 };
 export const num = (v: unknown): number => numOrNull(v) ?? 0;
 export const bool = (v: unknown): boolean => v === true || v === "t" || v === "true" || v === 1;
-/** Dates come back as JS Date (or string) — normalize to a bare ISO date/instant. */
+/**
+ * Dates come back as JS Date (or string) — normalize to a bare ISO date/instant.
+ *
+ * A Date whose time is not finite must NOT reach `toISOString()`: that throws
+ * `RangeError: Invalid time value`, and because every feature loader converts a
+ * throw into `null`, ONE such value takes down a whole surface. Postgres accepts
+ * `'infinity'`/`'-infinity'` for `timestamptz`, so this is reachable from real
+ * data, not a hypothetical — a single `membership.to_at = 'infinity'` blanked the
+ * entire MP dossier to `DataUnavailable` (found 2026-07-28). The honest result is
+ * the unrepresentable value handed on as a string the caller can detect and
+ * label, never an exception that erases 40 other real facts.
+ */
+const invalidDate = (d: Date) => !Number.isFinite(d.getTime());
 export const isoDate = (v: unknown): string | null => {
   if (v === null || v === undefined) return null;
-  if (v instanceof Date) return v.toISOString().slice(0, 10);
+  if (v instanceof Date) return invalidDate(v) ? String(v) : v.toISOString().slice(0, 10);
   const s = String(v);
   return s.length >= 10 ? s.slice(0, 10) : s;
 };
 export const isoTs = (v: unknown): string | null => {
   if (v === null || v === undefined) return null;
-  if (v instanceof Date) return v.toISOString();
+  if (v instanceof Date) return invalidDate(v) ? String(v) : v.toISOString();
   return String(v);
 };
 export const json = (v: unknown): Record<string, unknown> => {

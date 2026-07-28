@@ -18,6 +18,7 @@
  * datum. Viz lib/analysis/tenure-copy.ts pro čistou logiku.
  */
 
+import { useTranslations } from "next-intl";
 import { mandateNoteCopy } from "@/lib/analysis/tenure-copy";
 import SourceNote from "@/features/shared/components/SourceNote";
 
@@ -30,15 +31,14 @@ export default function TenureNote({
   tenureStart: string | null;
   tenureEnd?: string | null;
 }) {
+  const t = useTranslations("profile");
   const copy = mandateNoteCopy(tenureClass, tenureStart, tenureEnd);
   if (!copy) return null;
 
   return (
     <div className="mt-3">
       <p className="text-sm leading-relaxed text-steel">{copy.detail}</p>
-      <SourceNote className="mt-1 !text-[10px]">
-        zdroj: psp.cz · členství v organu 174 (PSP10) · effort_tenure_start/effort_tenure_end
-      </SourceNote>
+      <SourceNote className="mt-1 !text-[10px]">{t("tenureSource")}</SourceNote>
     </div>
   );
 }

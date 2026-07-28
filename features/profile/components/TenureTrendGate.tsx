@@ -17,6 +17,8 @@
  * nepřítomnosti panelu, ne jen o jeho vynechání.
  */
 
+import { useTranslations } from "next-intl";
+import { useFormat } from "@/lib/i18n/useFormat";
 import type { ComponentKey, ContributionTrend } from "@/lib/analysis/contribution-trend";
 import { isTrendTooEarly, TREND_MIN_TENURE_DAYS } from "@/lib/analysis/tenure-copy";
 import TrendPanel from "@/features/civicscore/components/TrendPanel";
@@ -31,6 +33,8 @@ export default function TenureTrendGate({
   componentLabels: Partial<Record<ComponentKey, string>>;
   tenureDays: number | null;
 }) {
+  const t = useTranslations("profile");
+  const f = useFormat();
   if (!trend) return null;
 
   if (isTrendTooEarly(tenureDays)) {
@@ -39,11 +43,11 @@ export default function TenureTrendGate({
       <div className="mt-10 border-2 border-dashed border-hairline p-6">
         <p className="text-sm leading-relaxed text-steel">
           {unknown
-            ? `Délku mandátu se nepodařilo určit, takže srovnání s obdobím ${trend.priorTerm} zatím neukazujeme — sazby (účast, docházka) by mohly být zavádějící bez jistoty, na kolika hlasováních jsou postavené.`
-            : `Na srovnání s obdobím ${trend.priorTerm} je zatím brzy — mandát trvá teprve krátce a sazby (účast, docházka) by byly zavádějící na tak malém počtu hlasování.`}
+            ? t("trendTenureUnknown", { term: trend.priorTerm })
+            : t("trendTooEarly", { term: trend.priorTerm })}
         </p>
         <SourceNote className="mt-2 !text-[10px]">
-          zdroj: effort_tenure_days · práh {TREND_MIN_TENURE_DAYS} dní
+          {t("trendGateSource", { days: f.int(TREND_MIN_TENURE_DAYS) })}
         </SourceNote>
       </div>
     );

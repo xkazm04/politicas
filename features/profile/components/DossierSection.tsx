@@ -1,10 +1,10 @@
 "use client";
 
 /*
- * Dosier poslance — manifestační průchod (2026-07-25): 165/207 poslanců nese
- * bohaté effort_* dosierové vlastnosti (tematické zaměření, legislativní
- * stopa, poznámky, veřejná role, datové výhrady) z effort-loopu (Case ②) —
- * dosud bez reálného povrchu. Tahle sekce je ten povrch.
+ * Dosier poslance — manifestační průchod (2026-07-25): poslanci nesou bohaté
+ * effort_* dosierové vlastnosti (tematické zaměření, legislativní stopa,
+ * poznámky, veřejná role, datové výhrady) z effort-loopu (Case ②).
+ * Tahle sekce je jejich povrch.
  *
  * REÁLNÁ DATA, žádné LLM ad hoc: effort_work_themes / effort_bill_focus /
  * effort_notes / effort_data_flag píše deterministicky gatovaný Sonnet/Opus
@@ -18,40 +18,36 @@
  * z `cislo` (veřejné číslo tisku), NIKDY z `tiskId` (interní graf-id,
  * historie.sqw ho nerozpozná — viz SponsoredBill v getProfileData.ts).
  *
+ * ZDROJE PO POLÍCH: počet písemných pozměňovacích návrhů (amendments_authored,
+ * pass 35) pochází ze sněmovních dokumentů (sd_dokument typ 13) — jiné datové
+ * sady než tisky/effort_bill_focus, pod jejichž citací se dřív vykresloval.
+ * Má proto vlastní řádek s vlastní citací.
+ *
  * Čestná degradace: bez JEDINÉHO dosierového pole se sekce nevykreslí vůbec
- * (žádná prázdná skořápka) — 42/207 poslanců effort-loop batch 001–005 ještě
- * nedosáhl.
+ * (žádná prázdná skořápka) — `hasDossierContent()` je ten samý predikát,
+ * exportovaný, aby ProfilePage uměla očíslovat oddíly podle toho, co se
+ * SKUTEČNĚ vykreslí (dřív dostávala pevné index={2} a stránka pak četla
+ * 01 → 03 → 04 → 05).
  */
 
 import Link from "next/link";
 import { AlertTriangle, ArrowUpRight } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useFormat } from "@/lib/i18n/useFormat";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
 import ExpandableText from "./ExpandableText";
 import type { RapporteurBill, SponsoredBill } from "../getProfileData";
 
-/** Czech labels for the zpravodaj assignment scopes (pass 34, psp.cz tisky.zip). */
-const RAPPORTEUR_SCOPE_CZ: Record<string, string> = {
-  zpravodaj_ov: "zpravodaj pro 1. čtení",
-  zpravodaj_ps: "zpravodaj (určen předsedou PS)",
-  zpravodaj_vyboru: "zpravodaj výboru",
-  zpravodaj_dokumentu: "zpravodaj usnesení výboru",
+/** next-intl key per zpravodaj assignment scope (pass 34, psp.cz tisky.zip). */
+const RAPPORTEUR_SCOPE_KEY: Record<string, string> = {
+  zpravodaj_ov: "dossierScopeOv",
+  zpravodaj_ps: "dossierScopePs",
+  zpravodaj_vyboru: "dossierScopeVybor",
+  zpravodaj_dokumentu: "dossierScopeDokument",
 };
 
-export default function DossierSection({
-  index,
-  publicRole,
-  workThemes,
-  billFocus,
-  notes,
-  dataFlag,
-  sponsoredBills,
-  billsFirstSigned,
-  billsCoSigned,
-  rapporteurBills,
-  amendmentsAuthored,
-}: {
-  index: number;
+export interface DossierContent {
   publicRole: string | null;
   workThemes: string[] | null;
   billFocus: string | null;
@@ -62,31 +58,67 @@ export default function DossierSection({
   billsCoSigned: number | null;
   rapporteurBills: RapporteurBill[];
   amendmentsAuthored: number | null;
-}) {
+}
+
+/** Does this MP carry anything this section would actually render? The section
+ *  renders iff this is true — and ProfilePage numbers its sections by it, so a
+ *  reader never sees a gap in the numbering where a section was skipped. */
+export function hasDossierContent(d: DossierContent): boolean {
+  return (
+    !!d.publicRole ||
+    (!!d.workThemes && d.workThemes.length > 0) ||
+    !!d.billFocus ||
+    d.sponsoredBills.length > 0 ||
+    !!d.notes ||
+    !!d.dataFlag ||
+    d.rapporteurBills.length > 0
+  );
+}
+
+export default function DossierSection({ index, ...d }: DossierContent & { index: number }) {
+  const t = useTranslations("profile");
+  // Numbers reach the ICU strings ALREADY formatted (lib/format.ts) and the raw
+  // count is passed only to select the plural category — next-intl would
+  // otherwise render them through `Intl.NumberFormat`, which is both outside the
+  // app's single formatting authority and an SSR/CSR hydration risk (server and
+  // client can carry different ICU data).
+  const f = useFormat();
+  const {
+    publicRole,
+    workThemes,
+    billFocus,
+    notes,
+    dataFlag,
+    sponsoredBills,
+    billsFirstSigned,
+    billsCoSigned,
+    rapporteurBills,
+    amendmentsAuthored,
+  } = d;
+
   const hasThemes = !!workThemes && workThemes.length > 0;
   const hasBillTrack = !!billFocus || sponsoredBills.length > 0;
   const hasSplit = billsFirstSigned != null && billsCoSigned != null && billsFirstSigned + billsCoSigned > 0;
-  const hasAny = !!publicRole || hasThemes || hasBillTrack || !!notes || !!dataFlag || rapporteurBills.length > 0;
-  if (!hasAny) return null;
+  if (!hasDossierContent(d)) return null;
 
   return (
     <section className="mt-16 border-t-4 border-ink pt-10">
-      <SectionHeading
-        index={index}
-        title="Pracovní profil"
-        aside={<SourceNote>effort-loop enrichment · psp.cz + veřejné registry</SourceNote>}
-      />
+      <SectionHeading index={index} title={t("dossierHeading")} aside={<SourceNote>{t("dossierAside")}</SourceNote>} />
       <div className="mt-8 flex flex-col gap-8">
         {publicRole && (
           <div>
-            <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">Veřejná role</p>
+            <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
+              {t("dossierPublicRole")}
+            </p>
             <p className="mt-2 max-w-3xl text-[15px] leading-relaxed text-ink">{publicRole}</p>
           </div>
         )}
 
         {hasThemes && (
           <div>
-            <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">Tematické zaměření</p>
+            <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
+              {t("dossierThemes")}
+            </p>
             <div className="mt-2.5 flex flex-wrap gap-2">
               {workThemes!.map((theme) => (
                 <span
@@ -102,22 +134,16 @@ export default function DossierSection({
 
         {hasBillTrack && (
           <div>
-            <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">Legislativní stopa</p>
+            <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
+              {t("dossierBillTrack")}
+            </p>
             {hasSplit && (
               <p className="mt-2 text-[15px] leading-relaxed text-ink">
-                <span className="font-black">{billsFirstSigned}</span>{" "}
-                {billsFirstSigned === 1 ? "návrh předložil" : billsFirstSigned! >= 2 && billsFirstSigned! <= 4 ? "návrhy předložil" : "návrhů předložil"}{" "}
-                jako první podepsaný · <span className="font-black">{billsCoSigned}</span> spolupodepsal
-                {amendmentsAuthored != null && amendmentsAuthored > 0 && (
-                  <>
-                    {" "}· <span className="font-black">{amendmentsAuthored}</span>{" "}
-                    {amendmentsAuthored === 1
-                      ? "písemný pozměňovací návrh"
-                      : amendmentsAuthored >= 2 && amendmentsAuthored <= 4
-                        ? "písemné pozměňovací návrhy"
-                        : "písemných pozměňovacích návrhů"}
-                  </>
-                )}
+                {t("dossierBillSplit", {
+                  first: billsFirstSigned!,
+                  firstFmt: f.int(billsFirstSigned!),
+                  coFmt: f.int(billsCoSigned!),
+                })}
               </p>
             )}
             {billFocus && (
@@ -133,7 +159,7 @@ export default function DossierSection({
                         className="group inline-flex items-center gap-1 border-2 border-hairline px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:border-cobalt"
                         title={b.title}
                       >
-                        sn. tisk {b.cislo}
+                        {t("dossierPrint", { cislo: f.int(b.cislo!) })}
                         <ArrowUpRight className="h-3 w-3 shrink-0" aria-hidden />
                       </Link>
                     ) : (
@@ -150,18 +176,19 @@ export default function DossierSection({
                           b.role === "predkladatel" ? "text-signal" : "text-steel"
                         }`}
                       >
-                        {b.role === "predkladatel" ? "předložil" : "spolupodepsal"}
-                        {b.joinedLater && " (připojil se dodatečně)"}
+                        {b.role === "predkladatel" ? t("dossierRoleSubmitted") : t("dossierRoleCoSigned")}
+                        {b.joinedLater && ` ${t("dossierJoinedLater")}`}
                       </span>
                     )}
                     {(b.fateSb || b.stav) && (
                       <span className="font-mono text-[10px] uppercase tracking-wider text-steel">
                         {b.fateSb ? (
                           <>
-                            → vyhlášen jako <span className="font-black text-ink">č. {b.fateSb} Sb.</span>
+                            {t("dossierEnactedAs")}{" "}
+                            <span className="font-black text-ink">{t("dossierSbNumber", { ref: b.fateSb })}</span>
                           </>
                         ) : (
-                          <>stav: {b.stav}</>
+                          t("dossierState", { stav: b.stav! })
                         )}
                       </span>
                     )}
@@ -179,21 +206,29 @@ export default function DossierSection({
                 ))}
               </ul>
             )}
-            <SourceNote className="mt-2.5 !text-[10px]">
-              zdroj: psp.cz — tisky (predkladatel: pořadí podpisu; hist: stav a vyhlášení) · effort_bill_focus
-            </SourceNote>
+            <SourceNote className="mt-2.5 !text-[10px]">{t("dossierBillTrackSource")}</SourceNote>
+          </div>
+        )}
+
+        {/* Písemné pozměňovací návrhy — VLASTNÍ blok s vlastní citací. Dřív se
+            číslo vykreslovalo uvnitř věty o tiscích, pod SourceNote citující
+            tisky/predkladatel + effort_bill_focus, tedy pod zdrojem, ze kterého
+            NEPOCHÁZÍ (pass 35 je čte z sd_dokument typ 13). */}
+        {amendmentsAuthored != null && amendmentsAuthored > 0 && (
+          <div>
+            <p className="text-[15px] leading-relaxed text-ink">
+              {t("dossierAmendments", { count: amendmentsAuthored, countFmt: f.int(amendmentsAuthored) })}
+            </p>
+            <SourceNote className="mt-2 !text-[10px]">{t("dossierAmendmentsSource")}</SourceNote>
           </div>
         )}
 
         {rapporteurBills.length > 0 && (
           <div>
             <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
-              Zpravodajství — analytická práce na tiscích
+              {t("dossierRapporteur")}
             </p>
-            <p className="mt-1.5 max-w-3xl text-[13px] leading-relaxed text-steel">
-              Zpravodaj tisk pro sněmovnu či výbor odborně zpracovává — je to přidělená analytická práce nad
-              rámec podpisu pod návrhem.
-            </p>
+            <p className="mt-1.5 max-w-3xl text-[13px] leading-relaxed text-steel">{t("dossierRapporteurBlurb")}</p>
             <ul className="mt-3 flex flex-col gap-1.5">
               {rapporteurBills.map((b) => (
                 <li key={b.cislo ?? b.title} className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
@@ -203,7 +238,7 @@ export default function DossierSection({
                       className="group inline-flex items-center gap-1 border-2 border-hairline px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:border-cobalt"
                       title={b.title}
                     >
-                      sn. tisk {b.cislo}
+                      {t("dossierPrint", { cislo: f.int(b.cislo!) })}
                       <ArrowUpRight className="h-3 w-3 shrink-0" aria-hidden />
                     </Link>
                   ) : (
@@ -212,22 +247,22 @@ export default function DossierSection({
                     </span>
                   )}
                   <span className="font-mono text-[10px] uppercase tracking-wider text-steel">
-                    {b.scopes.map((s) => RAPPORTEUR_SCOPE_CZ[s] ?? s).join(" · ")}
+                    {b.scopes
+                      .map((s) => (RAPPORTEUR_SCOPE_KEY[s] ? t(RAPPORTEUR_SCOPE_KEY[s]) : s))
+                      .join(" · ")}
                   </span>
                 </li>
               ))}
             </ul>
-            <SourceNote className="mt-2.5 !text-[10px]">
-              zdroj: psp.cz — tisky (hist: zpravodaj pléna; hist_vybory, tisky_za: zpravodaj výboru)
-            </SourceNote>
+            <SourceNote className="mt-2.5 !text-[10px]">{t("dossierRapporteurSource")}</SourceNote>
           </div>
         )}
 
         {notes && (
           <div>
-            <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">Poznámky k datům</p>
+            <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">{t("dossierNotes")}</p>
             <ExpandableText className="mt-2 max-w-3xl text-[15px] leading-relaxed text-steel" text={notes} />
-            <SourceNote className="mt-2.5 !text-[10px]">zdroj: effort-loop enrichment · effort_notes</SourceNote>
+            <SourceNote className="mt-2.5 !text-[10px]">{t("dossierNotesSource")}</SourceNote>
           </div>
         )}
 
@@ -235,9 +270,11 @@ export default function DossierSection({
           <div className="flex max-w-3xl items-start gap-3 border-2 border-ochre bg-ochre/5 p-4">
             <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-ochre" aria-hidden />
             <div className="min-w-0">
-              <p className="font-mono text-xs font-bold uppercase tracking-widest text-ochre">Datová výhrada</p>
+              <p className="font-mono text-xs font-bold uppercase tracking-widest text-ochre">
+                {t("dossierDataFlag")}
+              </p>
               <p className="mt-1.5 text-sm leading-relaxed text-ink">{dataFlag}</p>
-              <SourceNote className="mt-2 !text-[10px]">zdroj: effort-loop enrichment · effort_data_flag</SourceNote>
+              <SourceNote className="mt-2 !text-[10px]">{t("dossierDataFlagSource")}</SourceNote>
             </div>
           </div>
         )}

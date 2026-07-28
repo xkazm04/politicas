@@ -16,11 +16,13 @@
  * nevykresluje vůbec — žádný vymyšlený text. `genuine_absentee` je záměrně
  * NE-korektiv (viz copy) a dostává neutrální, ne pozitivní tón.
  *
- * Copy je český inline literál (fleet: messages/*.json je sdílený soubor a
- * needitujeme ho z hranice tohoto case — navržené i18n klíče jsou v handoffu,
- * stejně jako u TrendPanel).
+ * Citace jde přes next-intl (`profile.lowScoreSource`). Samotný text štítku
+ * (`badge`/`detail`) zůstává v `lib/analysis/low-score-reason.ts`: je to obsah
+ * uzavřeného analytického slovníku, ne UI copy — stejně jako dosierová próza
+ * z grafu se vykresluje verbatim a nepřekládá se.
  */
 
+import { useTranslations } from "next-intl";
 import { ShieldCheck, Info } from "lucide-react";
 import { lowScoreReasonCopy } from "@/lib/analysis/low-score-reason";
 import SourceNote from "@/features/shared/components/SourceNote";
@@ -32,6 +34,7 @@ export default function LowScoreReasonBadge({
   reason: string | null;
   publicRole?: string | null;
 }) {
+  const t = useTranslations("profile");
   const copy = lowScoreReasonCopy(reason);
   if (!copy) return null;
 
@@ -51,9 +54,7 @@ export default function LowScoreReasonBadge({
         </p>
         <p className="mt-1.5 text-sm leading-relaxed text-ink">{copy.detail}</p>
         {publicRole && <p className="mt-1.5 text-sm italic leading-relaxed text-steel">{publicRole}</p>}
-        <SourceNote className="mt-2 !text-[10px]">
-          zdroj: effort-loop enrichment (psp.cz + veřejné registry) · effort_low_score_reason
-        </SourceNote>
+        <SourceNote className="mt-2 !text-[10px]">{t("lowScoreSource")}</SourceNote>
       </div>
     </div>
   );
