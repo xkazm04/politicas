@@ -1,0 +1,14 @@
+{
+  "_comment": "Detector ignores are triage decisions from docs/design/impeccable-pass-01.md, not convenience silencing. Each has a recorded reason there. side-tab: border-l-4 is Konstrukt's Sutnar rule idiom at its declared 4px structural weight, not an AI tell - it was 38/38 of the unconfigured signal. hero-eyebrow-chip: the tracked-caps 'obr. N' caption is a load-bearing convention of the poster idiom, used on every figure in the product. em-dash-overuse: the em dash is standard Czech punctuation; the rule is calibrated for English prose. features/labs/**: archived art directions (Rentgen) where fixed hexes are deliberately allowed by docs/DESIGN.md. NOT ignored, deliberately: all-caps-body, which is rejected on display type but ACCEPTED on SourceNote - see the ledger.",
+  "detector": {
+    "ignoreRules": [
+      "side-tab",
+      "hero-eyebrow-chip",
+      "em-dash-overuse"
+    ],
+    "ignoreFiles": [
+      "features/labs/**"
+    ],
+    "ignoreValues": []
+  }
+}
