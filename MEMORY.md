@@ -10,6 +10,7 @@ from `docs/`.
 - [Konstrukt visual philosophy](memory/konstrukt-visual-philosophy.md) — Sutnar functionalist poster won the prototype round; Broadsheet fused, Rentgen archived. Don't re-propose a redesign.
 - [Sample-data-first strategy](memory/sample-data-first.md) — UI built against final data shapes over a deterministic, test-pinned mock (`lib/civic/`) before real ingestion; keep the shapes when ingestion lands.
 - [Evidence-citation doctrine](memory/evidence-citation-doctrine.md) — every number cites its source; non-partisanship is enforced in the data model (unverified ties never feed the score). The brand rule.
+- [Impeccable detector triage](memory/impeccable-detector-triage.md) — 38/38 false positives unconfigured (`border-l-4` IS the Sutnar idiom), dormant without a frontmatter DESIGN.md, and one rule can't tell `truncate` from a break. Four rejections are on record; don't re-litigate them.
 
 ## Project state
 - [Architect graph deferrals](memory/architect-graph-deferrals.md) — /architect (2026-07-26) executed 5/8 loader-boundary findings but deferred 4 follow-ups on features/graph (in-flight round 4); the eslint `features/graph/**` exclusion hides violations until they're applied.
@@ -33,4 +34,5 @@ from `docs/`.
 - [KG upsert replaces props](memory/kg-upsert-replaces-props.md) — upsertKgNodes/Edges wholesale-replace props; re-running an old ingest erases later passes (140 summaries + 27 verdicts at risk). Backfill merge-preservingly, verify on a copy.
 - [The recompute replay gate](memory/recompute-replay-gate.md) — a scorer correction must replay the OLD formula and abort unless it reproduces every stored value; otherwise "correction" is an unattributable rewrite. Never re-run a network-fed ingest to fix a formula.
 - [`kg_edge` review_tier/review_rank are a pass-24 cache, not an authority](memory/money-stored-review-rank-is-a-stale-cache.md) — `tie_class` is a judgement to honour; the two order keys are a stale snapshot of a pure function (153/208 ranks wrong after batch-012). Ask: did a PERSON decide it or a FUNCTION compute it?
+- [An isolated dev server needs a worktree](memory/isolated-dev-server-needs-a-worktree.md) — Next 16 locks per project DIR, not per port, and a `node_modules` junction breaks Turbopack; worktree + real `npm ci` + `PGLITE_PATH` at a copy. Also: a wedged PGlite store is rescued by copying, not repairing.
 - [Run a server-only loader under tsx](memory/tsx-can-run-server-only-loaders.md) — `NODE_OPTIONS="--conditions=react-server" npx tsx` imports `features/**/get*Data.ts` directly; the cheap way to prove a read-path refactor changed nothing (byte-identity dumps).
