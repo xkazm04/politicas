@@ -31,6 +31,15 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     ".justice-samples/**",
     ".claude/worktrees/**",
+    // `.claude/skills/**` and `.claude/agents/**` are vendored agent tooling —
+    // impeccable v4.0.3 ships ~90 `.mjs` files that are its code, not ours. They
+    // are the same case as `.justice-samples/**`: third-party bytes we do not
+    // author and cannot fix, and linting them buried this repo's own output
+    // under 144 warnings the moment they were installed. This exempts nobody's
+    // source code — no rule loses coverage of anything under `app/`,
+    // `features/`, `lib/` or `scripts/`.
+    ".claude/skills/**",
+    ".claude/agents/**",
   ]),
   {
     files: ["**/*.{ts,tsx}"],

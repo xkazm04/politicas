@@ -10,6 +10,8 @@ colors:
   ochre: "#dfa321"
   steel: "#77726a"
   hairline: "#d7d3c8"
+  steel-aa: "#6b665f"
+  signal-text: "#b82b21"
 typography:
   display:
     fontFamily: "Archivo, system-ui, sans-serif"
@@ -130,6 +132,8 @@ decorate.
 - **Paper Strong** (`#e9e6dc`): hover and selected-row tone, and the ground of an illustrative tile.
 - **Steel** (`#77726a`): secondary text, and the numeral colour of an illustrative figure.
 - **Hairline** (`#d7d3c8`): hairline rules, chart grids, table separators.
+- **Steel AA** (`#6b665f`): the AA-passing twin of Steel (4.90:1), for small secondary text.
+- **Signal Text** (`#b82b21`): the AA-passing twin of Signal (5.31:1), for red in small text.
 
 ### Named Rules
 **The Single Origin Rule.** Colors originate in `app/globals.css` and nowhere

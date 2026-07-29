@@ -20,6 +20,19 @@ landing prototype round on 2026-07-22 (runner-up Rentgen is archived at
 | `ochre` | `#dfa321` | pillar Integrita |
 | `steel` | `#77726a` | secondary text |
 | `hairline` | `#d7d3c8` | hairline rules, chart grids |
+| `steel-aa` | `#6b665f` | small secondary text — the AA-passing twin of `steel` |
+| `signal-text` | `#b82b21` | red in small text — the AA-passing twin of `signal` |
+
+**The two AA twins** (added 2026-07-29 by the `/impeccable` audit,
+`docs/design/impeccable-pass-01.md`). Recomputed by hand: `steel` on `paper` is
+**4,11:1** and `signal` on `paper` is **4,10:1** — both just under the WCAG AA
+floor of 4,5:1 for text below 18,66 px. That is a property of the palette, not a
+bug in any component, so the originals are **not** overwritten: `signal` passes
+the 3:1 large-text bar everywhere Konstrukt actually uses it big (the red period,
+poster numerals, `SectionRule`), and only small text needs the twin. Use
+`steel-aa` / `signal-text` for anything under 18,66 px; keep `steel` / `signal`
+for planes, rules and display. Whether the twins should simply *replace* the
+originals is an open decision — see §3.
 
 Consume as Tailwind classes (`bg-paper`, `text-ink`, `border-hairline`,
 `fill-signal`, …). **Never hardcode a color** — `custom/no-hardcoded-colors`
@@ -52,6 +65,21 @@ canonical primitive is `features/shared/components/SourceNote.tsx`. A surface
 that drops citations to look cleaner is off-brand by definition
 (opendata/docs/politicas.md §6). Ties render as dated, sourced facts — never
 accusations.
+
+**A citation that cannot be read has not been made.** The `/impeccable` audit
+(2026-07-29) found `SourceNote` set in `text-[11px] uppercase tracking-widest
+text-steel` — 4,11:1, sometimes 10 px, and letter-spaced verzálky on runs up to
+**115 characters**. §2 below permits tracked caps „only for meta" and a citation
+*is* meta, so it passed: the rule classifies by **role** and never by **length**,
+and a 115-character sentence in a label's clothes goes straight through it.
+
+So the rule now has a second half: **a citation is typeset by its length.** Short
+strings („obr. 4 — ověřené veřejné zdroje") stay tracked verzálky; anything
+sentence-shaped is set in sentence case at `text-xs` in `steel-aa`.
+`features/shared/components/Citation.tsx` closes this in code — it measures the
+children and picks the mode, so a caller cannot get it wrong by judgement.
+`SourceNote` is unchanged and still correct for true labels; migrating the long
+callers is open work, tracked in the audit ledger.
 
 **Real vs illustrative must be visible, not merely stated.** When a strip mixes
 computed figures with sample ones, the citation line is the first thing a

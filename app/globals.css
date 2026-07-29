@@ -22,6 +22,17 @@
   --color-ochre: #dfa321; /* okr — pilíř Integrita */
   --color-steel: #77726a; /* šedá — sekundární text */
   --color-hairline: #d7d3c8; /* vlasové linky, mřížky */
+
+  /* Kontrastně vyhovující dvojčata (audit /impeccable, 2026-07-29).
+   * `steel` sedí na `paper` na 4,11:1 a `signal` na 4,10:1 — obojí TĚSNĚ POD
+   * prahem WCAG AA 4,5:1 pro text pod 18,66 px. Nejsou to chyby komponent, je to
+   * vlastnost palety, takže se nepřepisují plošně: původní tokeny zůstávají
+   * beze změny (a `signal` prochází na 3:1 tam, kde ho Konstrukt používá velký —
+   * rudá tečka, plakátové číslice, linky) a tahle dvě jsou určená pro DROBNÝ
+   * text. Přepočteno ručně, ne převzato z nástroje.
+   * Viz docs/design/impeccable-pass-01.md a docs/DESIGN.md §1. */
+  --color-steel-aa: #6b665f; /* 4,90:1 na paper — drobný sekundární text */
+  --color-signal-text: #b82b21; /* 5,31:1 na paper — rudá v drobném textu */
 }
 
 @theme inline {
