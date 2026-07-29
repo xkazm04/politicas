@@ -61,7 +61,7 @@ export default function SystemModules() {
         <h2 className="text-4xl font-black uppercase tracking-tight sm:text-5xl">
           {t("systemTitlePart1")}<span className="text-signal">.</span> {t("systemTitlePart2")}<span className="text-signal">.</span>
         </h2>
-        <p className="mt-3 max-w-2xl text-steel">
+        <p className="mt-3 max-w-2xl text-steel-aa">
           {t("systemIntro")}
         </p>
         <div className="mt-10 border-t border-ink">
@@ -75,13 +75,13 @@ export default function SystemModules() {
               transition={{ delay: i * 0.05 }}
               className="group grid grid-cols-[3rem_3.5rem_1fr_auto] items-center gap-5 border-b border-hairline py-6 transition-colors hover:bg-paper-strong sm:grid-cols-[3.5rem_4rem_1.2fr_1fr_auto]"
             >
-              <span className={`font-mono text-2xl font-bold ${i === 0 ? "text-signal" : "text-steel"}`}>
+              <span className={`font-mono text-2xl font-bold ${i === 0 ? "text-signal" : "text-steel-aa"}`}>
                 0{i + 1}
               </span>
               <ModuleGlyph index={i} />
               <span>
                 <span className="block text-2xl font-black uppercase tracking-tight">{m.name}</span>
-                <span className="mt-1 block text-sm text-steel">{tc(`modules.${m.key}.description`)}</span>
+                <span className="mt-1 block text-sm text-steel-aa">{tc(`modules.${m.key}.description`)}</span>
               </span>
               <span className="hidden sm:block">
                 <span className="block text-3xl font-black tabular-nums text-cobalt">{tc(`modules.${m.key}.metricValue`)}</span>

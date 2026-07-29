@@ -101,7 +101,7 @@ export default function ScoreBreakdown({
         {pillarLabels.map((p) => (
           <span
             key={p.key}
-            className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-steel"
+            className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-steel-aa"
           >
             <span className="inline-block h-2.5 w-2.5" style={{ background: PILLAR_FILL[p.key] }} />
             {p.label} × {p.weight}

@@ -63,7 +63,7 @@ export default function RankRow({
             />
             <span className="truncate">{mp.clubAbbrev}</span>
             {mp.tiedCount > 1 && (
-              <span className="text-signal-text">{t("rankShared", { count: mp.tiedCount })}</span>
+              <span className="text-signal-deep">{t("rankShared", { count: mp.tiedCount })}</span>
             )}
           </span>
         </span>

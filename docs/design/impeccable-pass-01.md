@@ -113,7 +113,7 @@ it fails only where it is small.
 | Token | Now | Proposed | New ratio |
 |---|---|---|---|
 | `steel` | `#77726a` (4.11:1) | `#6b665f` | **4.90:1** |
-| new `signal-text` | — | `#b82b21` | **5.31:1** |
+| new `signal-deep` | — | `#b82b21` | **5.31:1** |
 
 A token change touches every surface, so **this is not applied here.** It is a
 `docs/DESIGN.md` decision. Variant D shows what it looks like.
@@ -277,7 +277,7 @@ silenced without one.
 | Finding | Severity | Demonstrated in |
 |---|---|---|
 | `SourceNote` legibility | P1 | Variant D (and adopted by A/B/C) |
-| `steel` / `signal-text` tokens | P1 | Variant D |
+| `steel` / `signal-deep` tokens | P1 | Variant D |
 | Standings 27px overflow | P1 | all variants |
 | 195 arbitrary type sizes | P2 | backlog — repo-wide, not a landing fix |
 | DataSources opacity contrast | P2 | Variant D |

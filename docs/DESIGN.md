@@ -21,7 +21,7 @@ landing prototype round on 2026-07-22 (runner-up Rentgen is archived at
 | `steel` | `#77726a` | secondary text |
 | `hairline` | `#d7d3c8` | hairline rules, chart grids |
 | `steel-aa` | `#6b665f` | small secondary text — the AA-passing twin of `steel` |
-| `signal-text` | `#b82b21` | red in small text — the AA-passing twin of `signal` |
+| `signal-deep` | `#b82b21` | red where 4,5:1 applies — small red text **and** button planes under paper text |
 
 **The two AA twins** (added 2026-07-29 by the `/impeccable` audit,
 `docs/design/impeccable-pass-01.md`). Recomputed by hand: `steel` on `paper` is
@@ -30,9 +30,18 @@ floor of 4,5:1 for text below 18,66 px. That is a property of the palette, not a
 bug in any component, so the originals are **not** overwritten: `signal` passes
 the 3:1 large-text bar everywhere Konstrukt actually uses it big (the red period,
 poster numerals, `SectionRule`), and only small text needs the twin. Use
-`steel-aa` / `signal-text` for anything under 18,66 px; keep `steel` / `signal`
-for planes, rules and display. Whether the twins should simply *replace* the
+`steel-aa` / `signal-deep` for anything under 18,66 px; keep `steel` / `signal`
+for rules and display. Whether the twins should simply *replace* the
 originals is an open decision — see §3.
+
+`signal-deep` is named `deep`, not `text`, because **it serves both directions
+and the requirement is identical**: red against `paper` needs 4,5:1 whether the
+red is the text or the plane beneath paper text. `bg-signal-deep` with
+`text-paper` is therefore correct and is the fix for buttons — a CTA at
+`text-sm font-black` (14 px) on `bg-signal` sits at 4,1:1, and WCAG's large-text
+exemption does not start until 18,66 px bold. **The landing is fully migrated**
+(2026-07-29); the same defect remains at 8 sites outside it, listed in
+`docs/design/impeccable-pass-02.md`.
 
 Consume as Tailwind classes (`bg-paper`, `text-ink`, `border-hairline`,
 `fill-signal`, …). **Never hardcode a color** — `custom/no-hardcoded-colors`
@@ -54,9 +63,17 @@ errors on it. Declared exceptions (scoped in `eslint.config.mjs`):
   editorial sub-surfaces if a module needs one).
 - Czech numerals: decimal comma via `czech()` / `czechInt()` from
   `lib/format.ts` — components never call `.toFixed()` for display.
-- Readable copy ≥ `text-sm`; uppercase tracked labels only for meta.
-  No pixel-valued arbitrary sizes (`text-[10px]`) in new shipped surfaces
-  (legacy `text-[11px]` meta is being consolidated into `SourceNote`).
+- Readable copy ≥ `text-sm`; uppercase tracked labels only for meta **and only
+  when short** (§3 — length, not role, decides).
+- **No pixel-valued arbitrary sizes.** The real extent of this debt was measured
+  on 2026-07-29, and the previous wording here was wrong: it called the debt
+  „legacy `text-[11px]`", when the actual count was **195 instances whose
+  dominant value is `text-[10px]` (143), with 6 at 9 px** — below the 11 px floor
+  §5 sets. `SourceNote` now uses `text-xs` (12 px) in both its modes, and the
+  landing's remaining `text-[10px]` (including two `!text-[10px]` overrides that
+  were defeating `SourceNote` from the call site) are gone. The rest of the
+  count is live debt; measure it with `npx impeccable detect features app`, do
+  not re-estimate it in prose.
 
 ## 3. Evidence-first (the brand rule)
 
@@ -74,12 +91,21 @@ text-steel` — 4,11:1, sometimes 10 px, and letter-spaced verzálky on runs up 
 and a 115-character sentence in a label's clothes goes straight through it.
 
 So the rule now has a second half: **a citation is typeset by its length.** Short
-strings („obr. 4 — ověřené veřejné zdroje") stay tracked verzálky; anything
-sentence-shaped is set in sentence case at `text-xs` in `steel-aa`.
-`features/shared/components/Citation.tsx` closes this in code — it measures the
-children and picks the mode, so a caller cannot get it wrong by judgement.
-`SourceNote` is unchanged and still correct for true labels; migrating the long
-callers is open work, tracked in the audit ledger.
+strings („obr. 4 — ověřené veřejné zdroje", ≤ 48 chars) stay tracked verzálky;
+anything sentence-shaped is set in sentence case. Both modes are `text-xs`
+(12 px) in `steel-aa`.
+
+**`SourceNote` itself enforces this** (merged 2026-07-29). It measures its own
+children and picks the mode, so a caller cannot get it wrong by judgement and
+no migration is needed — all 158 call sites were fixed by one change. There is
+deliberately **no second citation primitive**: an earlier draft added
+`Citation.tsx` alongside it, which would have left two names for one idea and
+guaranteed drift. Override with `as="label" | "sentence"` only when the
+measurement genuinely lies.
+
+One consequence to respect: `className="!text-[10px]"` on a `SourceNote` defeats
+the fix from the call site. Two such overrides existed on the landing and were
+removed. Do not add another.
 
 **Real vs illustrative must be visible, not merely stated.** When a strip mixes
 computed figures with sample ones, the citation line is the first thing a

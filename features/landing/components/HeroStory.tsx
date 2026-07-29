@@ -15,7 +15,7 @@ export default function HeroStory() {
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="font-mono text-xs uppercase tracking-[0.3em] text-signal"
+        className="font-mono text-xs uppercase tracking-[0.3em] text-signal-deep"
       >
         {t("eyebrow")}
       </motion.p>
@@ -23,7 +23,10 @@ export default function HeroStory() {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.06 }}
-        className="mt-6 text-6xl font-black uppercase leading-[0.95] tracking-tight sm:text-7xl"
+        // text-5xl na mobilu: „REPUBLIKA" je v Archivo Black při 60 px široká
+        // 372 px, ale k dispozici je 342 px (390 − 2×24), takže poslední písmeno
+        // ořízne `overflow-x-clip` na <main>. Nález /impeccable, pass 02.
+        className="mt-6 text-5xl font-black uppercase leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl"
       >
         {t("titleLine1")}
         <br />
@@ -33,7 +36,7 @@ export default function HeroStory() {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.16 }}
-        className="mt-6 max-w-md text-base leading-relaxed text-steel"
+        className="mt-6 max-w-md text-base leading-relaxed text-steel-aa"
       >
         {t("lead")}
       </motion.p>

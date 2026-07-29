@@ -17,7 +17,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useFormat } from "@/lib/i18n/useFormat";
-import Citation from "@/features/shared/components/Citation";
+import SourceNote from "@/features/shared/components/SourceNote";
 import SectionRule from "@/features/shared/components/SectionRule";
 import type { LandingData } from "../getLandingData";
 import VariantChrome from "./VariantChrome";
@@ -33,7 +33,7 @@ export default function VariantBolder({ data }: { data: LandingData }) {
       {/* ── Plakátová hlava: jedno číslo, které nese pozici ─────────── */}
       <section className="border-b-4 border-ink bg-ink text-paper">
         <div className="mx-auto max-w-6xl px-6 py-16 lg:py-24">
-          <Citation tone="paper">{t("eyebrowCoverage")}</Citation>
+          <SourceNote tone="paper">{t("eyebrowCoverage")}</SourceNote>
           <div className="mt-8 grid items-end gap-8 lg:grid-cols-[auto_1fr]">
             <div>
               <span className="block font-sans text-[9rem] font-black leading-[0.8] tracking-tight tabular-nums lg:text-[14rem]">
@@ -55,7 +55,7 @@ export default function VariantBolder({ data }: { data: LandingData }) {
           <div className="mt-12 flex flex-wrap gap-3">
             <Link
               href="/zebricek"
-              className="inline-flex items-center gap-2 bg-signal px-7 py-4 text-sm font-black uppercase tracking-wider text-paper transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 bg-signal-deep px-7 py-4 text-sm font-black uppercase tracking-wider text-paper transition-transform hover:-translate-y-0.5"
             >
               {t("ctaAll")} <ArrowRight className="h-4 w-4" />
             </Link>
@@ -68,7 +68,7 @@ export default function VariantBolder({ data }: { data: LandingData }) {
           </div>
 
           <div className="mt-10 border-t border-paper/30 pt-4">
-            <Citation tone="paper">{t("sourceIndex", { pass: data.provenancePass ?? "—" })}</Citation>
+            <SourceNote tone="paper">{t("sourceIndex", { pass: data.provenancePass ?? "—" })}</SourceNote>
           </div>
         </div>
       </section>
@@ -81,7 +81,7 @@ export default function VariantBolder({ data }: { data: LandingData }) {
               {t("spreadTitle")}
               <span className="text-signal">.</span>
             </h2>
-            <Citation>{t("sourceSpread")}</Citation>
+            <SourceNote>{t("sourceSpread")}</SourceNote>
           </div>
           <div className="mt-4">
             <SectionRule />
@@ -132,7 +132,7 @@ export default function VariantBolder({ data }: { data: LandingData }) {
               {tl("rankingTitle")}
               <span className="text-signal">.</span>
             </h2>
-            <Citation>{t("sourceRanking", { total: data.summary.count })}</Citation>
+            <SourceNote>{t("sourceRanking", { total: data.summary.count })}</SourceNote>
           </div>
           <ol className="mt-8 border-t-2 border-ink">
             {data.top.map((mp) => (

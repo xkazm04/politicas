@@ -29,12 +29,12 @@ export default function Standings({
           }`}
           aria-pressed={m.id === selected.id}
         >
-          <span className={`font-mono text-2xl font-bold ${m.rank <= 3 ? "text-signal" : "text-steel"}`}>
+          <span className={`font-mono text-2xl font-bold ${m.rank <= 3 ? "text-signal" : "text-steel-aa"}`}>
             {m.rank}
           </span>
           <span className="min-w-0">
             <span className="block truncate text-lg font-black uppercase tracking-tight">{m.name}</span>
-            <span className="mt-0.5 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-steel">
+            <span className="mt-0.5 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-steel-aa">
               {/* barva strany je datový údaj — jediné povolené inline barvy */}
               <span className="inline-block h-2 w-2 rounded-full" style={{ background: m.partyColor }} />
               {m.party} · {tc(`regions.${m.region}`)}
@@ -46,7 +46,7 @@ export default function Standings({
           </span>
         </button>
       ))}
-      <p className="mt-3 text-sm italic text-steel">{tc(`mpHeadlines.${selected.id}`)}</p>
+      <p className="mt-3 text-sm italic text-steel-aa">{tc(`mpHeadlines.${selected.id}`)}</p>
     </div>
   );
 }

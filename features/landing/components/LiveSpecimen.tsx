@@ -39,14 +39,14 @@ export default function LiveSpecimen({
   return (
     <div className="py-14 lg:pl-12">
       <div className="flex items-baseline justify-between gap-3">
-        <p className="font-mono text-xs uppercase tracking-[0.3em] text-steel">
+        <p className="font-mono text-xs uppercase tracking-[0.3em] text-steel-aa">
           {t("specimenLabel", { name: mp.name, party: mp.party })}
         </p>
         {!isDefault && (
           <button
             type="button"
             onClick={onReset}
-            className="inline-flex shrink-0 items-center gap-1 font-mono text-[11px] uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+            className="inline-flex shrink-0 items-center gap-1 font-mono text-[11px] uppercase tracking-wider text-cobalt transition-colors hover:text-signal-deep"
           >
             <RotateCcw className="h-3 w-3" /> {t("publishedWeights")}
           </button>
@@ -61,7 +61,7 @@ export default function LiveSpecimen({
             type="button"
             onClick={() => onSelect(m.id)}
             className={`border-2 px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider transition-colors ${
-              m.id === mp.id ? "border-ink bg-ink text-paper" : "border-hairline text-steel hover:text-ink"
+              m.id === mp.id ? "border-ink bg-ink text-paper" : "border-hairline text-steel-aa hover:text-ink"
             }`}
             aria-pressed={m.id === mp.id}
           >
@@ -80,10 +80,10 @@ export default function LiveSpecimen({
         />
         <div className="pb-4">
           <span className="block h-10 w-10 rounded-full bg-signal" />
-          <span className="mt-2 block font-mono text-[11px] uppercase tracking-widest text-steel">/100</span>
+          <span className="mt-2 block font-mono text-[11px] uppercase tracking-widest text-steel-aa">/100</span>
         </div>
       </div>
-      <p className={`mt-1 font-mono text-[11px] uppercase tracking-widest ${isDefault ? "text-steel" : "text-cobalt"}`}>
+      <p className={`mt-1 font-mono text-[11px] uppercase tracking-widest ${isDefault ? "text-steel-aa" : "text-cobalt"}`}>
         {isDefault ? t("scoreDefault") : t("scoreCustom")}
       </p>
 
@@ -105,14 +105,14 @@ export default function LiveSpecimen({
                 aria-label={t("pillarWeightAria", { pillar: label })}
                 className="k-range"
               />
-              <span className="text-right font-mono text-sm tabular-nums text-steel">
+              <span className="text-right font-mono text-sm tabular-nums text-steel-aa">
                 {Math.round(weights[p.key])}
               </span>
             </div>
           );
         })}
       </div>
-      <p className="mt-6 border-l-4 border-signal pl-4 text-sm italic leading-relaxed text-steel">
+      <p className="mt-6 border-l-4 border-signal pl-4 text-sm italic leading-relaxed text-steel-aa">
         {t("specimenNote", { attendance: f.int(mp.pillars.attendance) })}
       </p>
     </div>

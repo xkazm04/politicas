@@ -59,7 +59,7 @@ export default function TrendChart({ mp }: { mp: MP }) {
           </AreaChart>
         </ResponsiveContainer>
       </div>
-      <SourceNote className="mt-2 !text-[10px]">
+      <SourceNote className="mt-2">
         {t("trendFootnote")}
       </SourceNote>
     </div>

@@ -129,17 +129,71 @@ paints „REPUBLIKA" 372px wide into 342px of space and gets shaved by
 
 ---
 
+## MERGED — 2026-07-29
+
+Recommendations 1 and the CTA half of 2 are **done**. What shipped to the
+incumbent landing, and what it measured:
+
+| | before | after |
+|---|---|---|
+| **Total findings** (desktop+mobile) | **135** | **27** |
+| low-contrast | 74 | **0** |
+| undersized-ui-text | 8 | **0** |
+| tiny-text | 8 | **0** |
+| body-text-viewport-edge | 3 | **0** |
+| all-caps-body | 42 | 24 |
+| line-length / text-overflow | 3 | 3 |
+
+**The landing is contrast-clean.** Every remaining finding is either a rule
+rejected on record (`all-caps-body` on Konstrukt display type, `text-overflow`
+on a working `truncate`) or advisory (`line-length`).
+
+What was done, and one decision that changed:
+
+- **`SourceNote` itself now measures its children and sets by length.** The
+  separate `Citation.tsx` from pass 02 was **deleted**. Two catalog primitives
+  for one idea is exactly the drift `docs/DESIGN.md` §6 warns about, and folding
+  the logic into the canonical name fixed **all 158 call sites in one change**
+  with no migration. Two `!text-[10px]` overrides that were defeating it from
+  the call site were removed.
+- **`signal-text` was renamed `signal-deep`** — it turned out to serve both
+  directions (small red text, and button planes under paper text), and the
+  requirement is identical because both are "this red against `paper`".
+- **CTA planes moved to `bg-signal-deep`** on the landing's `Methodology`,
+  `SiteHeader` and variant A — the defect this pass found in A was also in the
+  production page, twice.
+- **`DataSources` lost `opacity-70/80`** (nominal 4.6:1, measured 3.2:1) and the
+  hero dropped to `text-5xl` at base, clearing the clipped „REPUBLIKA".
+- **`features/landing/**` moved wholesale to `steel-aa` / `signal-deep`.**
+
+### Not done — the same defect outside the landing
+
+`bg-signal` under small `text-paper` survives at 8 sites. Listed rather than
+swept, because none was visually verified in this pass:
+
+`features/admin/components/ReviewHubSection.tsx:10` ·
+`features/civicscore/components/LeaderboardTable.tsx:318` ·
+`features/graph/GraphPage.tsx:135` ·
+`features/money/components/VerificationConsole.tsx:65` ·
+`features/votetrack/components/DisciplineBoard.tsx:114` ·
+`app/admin/AdminGate.tsx:80` · `app/error.tsx:61` ·
+`app/global-error.tsx:63` (the last three on `hover:bg-signal`).
+
+Also still open repo-wide: the `text-[10px]` count outside the landing, and
+whether `steel-aa` / `signal-deep` should simply **replace** the originals.
+
+---
+
 ## Recommendation
 
-1. **Merge D's substance now** — `Citation`, the two AA tokens, and the
-   `text-5xl` hero at mobile. It is orthogonal to the landing question and it
-   closes the P1 from pass 01.
-2. **Take A as the landing direction**, after fixing its CTA contrast.
+1. ~~**Merge D's substance now**~~ — **done, see above.**
+2. **Take A as the landing direction.** Its CTA contrast is fixed; the
+   composition decision is still yours.
 3. **Keep C archived** as a reference world for an Operate/Read surface. Do not
    delete it — pass 01's own lesson is that a rejected direction is evidence.
 4. **Reuse B's discipline** on `/metodika`, not on `/`.
 
-Open, and deliberately not decided here: whether `steel-aa` and `signal-text`
+Open, and deliberately not decided here: whether `steel-aa` and `signal-deep`
 should simply **replace** `steel` and `signal` rather than sit beside them. That
 is a repo-wide token change and belongs to `docs/DESIGN.md`, not to a landing
 experiment.

@@ -11,7 +11,7 @@ colors:
   steel: "#77726a"
   hairline: "#d7d3c8"
   steel-aa: "#6b665f"
-  signal-text: "#b82b21"
+  signal-deep: "#b82b21"
 typography:
   display:
     fontFamily: "Archivo, system-ui, sans-serif"
@@ -36,7 +36,7 @@ typography:
   label:
     fontFamily: "IBM Plex Mono, ui-monospace, monospace"
     fontWeight: 700
-    fontSize: "0.6875rem"
+    fontSize: "0.75rem"
     letterSpacing: "0.3em"
 rounded:
   none: "0px"
@@ -133,7 +133,7 @@ decorate.
 - **Steel** (`#77726a`): secondary text, and the numeral colour of an illustrative figure.
 - **Hairline** (`#d7d3c8`): hairline rules, chart grids, table separators.
 - **Steel AA** (`#6b665f`): the AA-passing twin of Steel (4.90:1), for small secondary text.
-- **Signal Text** (`#b82b21`): the AA-passing twin of Signal (5.31:1), for red in small text.
+- **Signal Deep** (`#b82b21`): the AA-passing twin of Signal (5.31:1) — small red text AND button planes under paper text.
 
 ### Named Rules
 **The Single Origin Rule.** Colors originate in `app/globals.css` and nowhere
@@ -167,7 +167,7 @@ them *is* the hierarchy, which is why a third family would dilute rather than ad
 - **Headline** (900, `text-4xl`–`text-5xl`, `tracking-tight`, uppercase): section titles, closed by a `signal`-red period.
 - **Title** (700, `text-xl`): panel and card headings inside a section.
 - **Body** (400, `text-[15px]`+, `leading-relaxed`): reading copy. Never below `text-sm`.
-- **Label** (700 mono, 11px, `tracking-[0.3em]`, uppercase): eyebrows, „obr. N" captions, nav indexes, source citations, `tabular-nums` figures.
+- **Label** (700 mono, 12px, `tracking-[0.3em]`, uppercase): eyebrows, „obr. N" captions, nav indexes, `tabular-nums` figures — and source citations **only when short**. A citation over 48 characters is set in sentence case at the same size; `SourceNote` measures and decides.
 
 ### Named Rules
 **The Czech Numeral Rule.** Display numbers go through `czech()` / `czechInt()`

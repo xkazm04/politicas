@@ -6,24 +6,29 @@
  * Drží Konstrukt beze změny kompozice a mění jen to, co docs/design/
  * impeccable-pass-01.md označil za vadu:
  *
- *  1. citace se sází podle DÉLKY (Citation), ne podle role — dlouhá citace je
- *     věta ve větné sazbě, ne 115 znaků proložených verzálek v 10 px;
- *  2. drobný text jede na `steel-aa` (4,90:1) a `signal-text` (5,31:1) místo
+ *  1. citace se sází podle DÉLKY, ne podle role — dlouhá citace je věta ve
+ *     větné sazbě, ne 115 znaků proložených verzálek v 10 px;
+ *  2. drobný text jede na `steel-aa` (4,90:1) a `signal-deep` (5,31:1) místo
  *     `steel` (4,11:1) a `signal` (4,10:1);
- *  3. jméno poslance přestalo přetékat řádek o 27 px při 390 px (RankRow);
+ *  3. hlavní tlačítko stojí na `signal-deep`, protože papírový text na `signal`
+ *     má 4,1:1 a 14 px tučně se do výjimky pro velký text nevejde;
  *  4. meta text na kobaltu ztratil `opacity-70/80`, které ho při 11 px sráželo
  *     na 3,2:1 měřeného kontrastu — místo průhlednosti je plná barva.
  *
- * Aby bylo co porovnávat, sekce „než / po" ukazuje starou a novou sazbu citace
- * vedle sebe na TÉŽE větě. Je to jediná varianta, která je rovnou k sloučení:
- * nic nepřidává, jen opravuje.
+ * ── Stav po sloučení (2026-07-29) ────────────────────────────────────────
+ * Tyhle opravy UŽ JSOU v produkci: `SourceNote` sám sází podle délky a zděděná
+ * úvodní strana dostala tytéž tokeny. Varianta zůstává jako DOKLAD — sekce
+ * „než / po" ukazuje tutéž větu v obou sazbách, ale „než" už není komponenta:
+ * je to ZAMRZLÝ VZOREK původních tříd (`text-[11px] uppercase tracking-widest
+ * text-steel`), sázený ručně právě proto, aby ho oprava nepřepsala a zpráva
+ * nezmizela. Detektor ho hlásí jako low-contrast a má pravdu — přesně to je ta
+ * ukázka.
  */
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useFormat } from "@/lib/i18n/useFormat";
-import Citation from "@/features/shared/components/Citation";
 import SourceNote from "@/features/shared/components/SourceNote";
 import SectionRule from "@/features/shared/components/SectionRule";
 import type { LandingData } from "../getLandingData";
@@ -40,7 +45,7 @@ export default function VariantTypeset({ data }: { data: LandingData }) {
   return (
     <VariantChrome data={data}>
       <section className="mx-auto max-w-6xl px-6 py-16">
-        <Citation>{t("eyebrowCoverage")}</Citation>
+        <SourceNote>{t("eyebrowCoverage")}</SourceNote>
         {/* text-5xl na mobilu, ne text-6xl: „REPUBLIKA" je v Archivo Black při
             60 px široká 372 px, ale k dispozici je 342 px (390 − 2×24 px), takže
             se poslední písmeno o `overflow-x-clip` na <main> ořízne. Zděděná
@@ -53,7 +58,7 @@ export default function VariantTypeset({ data }: { data: LandingData }) {
         </h1>
         <p className="mt-6 max-w-xl text-base leading-relaxed">{t("boldLead")}</p>
         <div className="mt-6 max-w-xl">
-          <Citation>{longCitation}</Citation>
+          <SourceNote>{longCitation}</SourceNote>
         </div>
 
         <div className="mt-8 flex flex-wrap gap-3">
@@ -82,11 +87,16 @@ export default function VariantTypeset({ data }: { data: LandingData }) {
 
           <div className="mt-8 grid gap-px border border-ink bg-ink lg:grid-cols-2">
             <div className="bg-paper p-6">
-              <span className="font-mono text-xs uppercase tracking-widest text-signal-text">
+              <span className="font-mono text-xs uppercase tracking-widest text-signal-deep">
                 {t("beforeLabel")}
               </span>
-              <div className="mt-4">
-                <SourceNote>{longCitation}</SourceNote>
+              {/* ZAMRZLÝ VZOREK — původní třídy SourceNote před opravou, sázené
+                  ručně. Nesmí se z toho stát komponenta: kdyby to byl
+                  <SourceNote>, oprava by ho opravila a levá strana porovnání by
+                  se rovnala pravé. Jediné místo v repu, kde tahle sazba smí
+                  zůstat, a jediné, kde je low-contrast nález správně. */}
+              <div className="mt-4 font-mono text-[11px] uppercase tracking-widest text-steel">
+                {longCitation}
               </div>
               <ul className="mt-6 space-y-1 text-sm text-steel-aa">
                 <li>{t("beforeFact1")}</li>
@@ -95,11 +105,11 @@ export default function VariantTypeset({ data }: { data: LandingData }) {
               </ul>
             </div>
             <div className="bg-paper p-6">
-              <span className="font-mono text-xs uppercase tracking-widest text-signal-text">
+              <span className="font-mono text-xs uppercase tracking-widest text-signal-deep">
                 {t("afterLabel")}
               </span>
               <div className="mt-4">
-                <Citation>{longCitation}</Citation>
+                <SourceNote>{longCitation}</SourceNote>
               </div>
               <ul className="mt-6 space-y-1 text-sm text-steel-aa">
                 <li>{t("afterFact1")}</li>
@@ -116,7 +126,7 @@ export default function VariantTypeset({ data }: { data: LandingData }) {
         <div className="mx-auto max-w-6xl px-6 py-14">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <h2 className="text-4xl font-black uppercase tracking-tight">{tl("sourcesTitle")}</h2>
-            <Citation tone="paper">{t("sourcesOpacityNote")}</Citation>
+            <SourceNote tone="paper">{t("sourcesOpacityNote")}</SourceNote>
           </div>
           <div className="mt-8 grid gap-px bg-paper/40 sm:grid-cols-2 lg:grid-cols-4">
             {data.clubs.slice(0, 8).map((c) => (
@@ -130,7 +140,7 @@ export default function VariantTypeset({ data }: { data: LandingData }) {
             ))}
           </div>
           <div className="mt-4">
-            <Citation tone="paper">{t("sourceChamber")}</Citation>
+            <SourceNote tone="paper">{t("sourceChamber")}</SourceNote>
           </div>
         </div>
       </section>
@@ -147,7 +157,7 @@ export default function VariantTypeset({ data }: { data: LandingData }) {
             ))}
           </ol>
           <div className="mt-4">
-            <Citation>{t("sourceRanking", { total: data.summary.count })}</Citation>
+            <SourceNote>{t("sourceRanking", { total: data.summary.count })}</SourceNote>
           </div>
         </div>
       </section>

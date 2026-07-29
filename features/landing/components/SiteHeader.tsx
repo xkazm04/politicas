@@ -39,12 +39,13 @@ export default function SiteHeader() {
                 href={`#${anchor}`}
                 className="flex items-center border-l border-hairline px-5 transition-colors hover:text-signal"
               >
-                <span className="mr-2 font-mono text-steel">0{i + 1}</span>
+                <span className="mr-2 font-mono text-steel-aa">0{i + 1}</span>
                 {t(`nav.${key}`)}
               </a>
             ))}
           </nav>
-          <Link href="/dashboard" className="flex items-center bg-signal px-4 py-2 text-xs font-bold uppercase tracking-widest text-paper lg:px-5 lg:py-0">
+          {/* bg-signal-deep — 12px bold paper on `signal` je 4,1:1, viz Methodology. */}
+          <Link href="/dashboard" className="flex items-center bg-signal-deep px-4 py-2 text-xs font-bold uppercase tracking-widest text-paper lg:px-5 lg:py-0">
             {t("enter")}
           </Link>
           <LanguageSwitcher className="my-auto" />

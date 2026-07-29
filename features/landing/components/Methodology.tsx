@@ -15,13 +15,16 @@ export default function Methodology() {
         <h2 className="text-4xl font-black uppercase tracking-tight">
           {t("methodTitle")}<span className="text-signal">.</span>
         </h2>
-        <p className="mt-4 max-w-xl leading-relaxed text-steel">
+        <p className="mt-4 max-w-xl leading-relaxed text-steel-aa">
           {t("methodBody")}
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Link
             href="/dashboard"
-            className="inline-flex items-center gap-2 bg-signal px-6 py-3.5 text-sm font-black uppercase tracking-wider text-paper transition-transform hover:-translate-y-0.5"
+            // bg-signal-deep, ne bg-signal: papírový text na `signal` má 4,1:1 a
+            // `text-sm font-black` (14 px) se do výjimky pro velký text nevejde —
+            // ta začíná na 18,66 px tučně. Viz docs/design/impeccable-pass-02.md.
+            className="inline-flex items-center gap-2 bg-signal-deep px-6 py-3.5 text-sm font-black uppercase tracking-wider text-paper transition-transform hover:-translate-y-0.5"
           >
             {t("methodCtaFind")} <ArrowRight className="h-4 w-4" />
           </Link>
@@ -41,7 +44,7 @@ export default function Methodology() {
               <span className="text-lg">%</span>
             </p>
             <p className="mt-1 text-sm font-black uppercase tracking-wide">{tc(`pillars.${p.key}.label`)}</p>
-            <SourceNote className="mt-1 !text-[10px]">{tc(`pillars.${p.key}.source`)}</SourceNote>
+            <SourceNote>{tc(`pillars.${p.key}.source`)}</SourceNote>
           </div>
         ))}
       </div>

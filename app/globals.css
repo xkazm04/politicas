@@ -29,10 +29,16 @@
    * vlastnost palety, takže se nepřepisují plošně: původní tokeny zůstávají
    * beze změny (a `signal` prochází na 3:1 tam, kde ho Konstrukt používá velký —
    * rudá tečka, plakátové číslice, linky) a tahle dvě jsou určená pro DROBNÝ
-   * text. Přepočteno ručně, ne převzato z nástroje.
+   * text.
+   *
+   * `signal-deep` slouží OBĚMA směrům, protože je to táž podmínka: rudá vůči
+   * `paper` musí mít 4,5:1, ať už je rudá text na papíře, nebo plocha pod
+   * papírovým textem. Proto se jmenuje `deep`, ne `text` — `bg-signal-deep`
+   * s `text-paper` je legitimní a je to oprava tlačítek, která na `bg-signal`
+   * sedí na 4,1:1. Přepočteno ručně, ne převzato z nástroje.
    * Viz docs/design/impeccable-pass-01.md a docs/DESIGN.md §1. */
   --color-steel-aa: #6b665f; /* 4,90:1 na paper — drobný sekundární text */
-  --color-signal-text: #b82b21; /* 5,31:1 na paper — rudá v drobném textu */
+  --color-signal-deep: #b82b21; /* 5,31:1 vůči paper — rudá tam, kde platí 4,5:1 */
 }
 
 @theme inline {

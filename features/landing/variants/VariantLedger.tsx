@@ -20,7 +20,7 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useFormat } from "@/lib/i18n/useFormat";
-import Citation from "@/features/shared/components/Citation";
+import SourceNote from "@/features/shared/components/SourceNote";
 import type { LandingData } from "../getLandingData";
 import VariantChrome from "./VariantChrome";
 
@@ -80,7 +80,7 @@ export default function VariantLedger({ data }: { data: LandingData }) {
 
         <p className="mt-6 max-w-2xl font-mono text-sm leading-relaxed">{t("ledgerLead")}</p>
         <div className="mt-3">
-          <Citation>{t("sourceIndex", { pass: data.provenancePass ?? "—" })}</Citation>
+          <SourceNote>{t("sourceIndex", { pass: data.provenancePass ?? "—" })}</SourceNote>
         </div>
 
         {/* výpis pořadí */}
@@ -104,7 +104,7 @@ export default function VariantLedger({ data }: { data: LandingData }) {
           <div className="px-3 py-2">
             <Link
               href="/zebricek"
-              className="font-mono text-xs uppercase tracking-widest underline decoration-signal decoration-2 underline-offset-4 hover:text-signal-text"
+              className="font-mono text-xs uppercase tracking-widest underline decoration-signal decoration-2 underline-offset-4 hover:text-signal-deep"
             >
               {t("ctaRest", { rest: data.summary.count - data.top.length })}
             </Link>
@@ -134,7 +134,7 @@ export default function VariantLedger({ data }: { data: LandingData }) {
           ))}
         </div>
         <div className="mt-3">
-          <Citation>{t("sourceChamber")}</Citation>
+          <SourceNote>{t("sourceChamber")}</SourceNote>
         </div>
       </section>
     </VariantChrome>

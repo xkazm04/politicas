@@ -14,7 +14,7 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useFormat } from "@/lib/i18n/useFormat";
-import Citation from "@/features/shared/components/Citation";
+import SourceNote from "@/features/shared/components/SourceNote";
 import type { LandingData } from "../getLandingData";
 import VariantChrome from "./VariantChrome";
 import RankRow from "./RankRow";
@@ -31,7 +31,7 @@ export default function VariantDistill({ data }: { data: LandingData }) {
         </h1>
         <p className="mt-8 text-lg leading-relaxed">{t("distillLead")}</p>
         <div className="mt-8">
-          <Citation>{t("sourceIndex", { pass: data.provenancePass ?? "—" })}</Citation>
+          <SourceNote>{t("sourceIndex", { pass: data.provenancePass ?? "—" })}</SourceNote>
         </div>
 
         <ol className="mt-14 border-t-2 border-ink">
@@ -43,7 +43,7 @@ export default function VariantDistill({ data }: { data: LandingData }) {
         <div className="mt-6 flex flex-wrap items-baseline justify-between gap-4">
           <Link
             href="/zebricek"
-            className="font-mono text-xs uppercase tracking-widest underline decoration-signal decoration-2 underline-offset-4 hover:text-signal-text"
+            className="font-mono text-xs uppercase tracking-widest underline decoration-signal decoration-2 underline-offset-4 hover:text-signal-deep"
           >
             {t("ctaRest", { rest: data.summary.count - data.top.length })}
           </Link>
