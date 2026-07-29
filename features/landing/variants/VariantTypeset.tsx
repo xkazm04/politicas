@@ -41,7 +41,12 @@ export default function VariantTypeset({ data }: { data: LandingData }) {
     <VariantChrome data={data}>
       <section className="mx-auto max-w-6xl px-6 py-16">
         <Citation>{t("eyebrowCoverage")}</Citation>
-        <h1 className="mt-6 text-6xl font-black uppercase leading-[0.95] tracking-tight sm:text-7xl">
+        {/* text-5xl na mobilu, ne text-6xl: „REPUBLIKA" je v Archivo Black při
+            60 px široká 372 px, ale k dispozici je 342 px (390 − 2×24 px), takže
+            se poslední písmeno o `overflow-x-clip` na <main> ořízne. Zděděná
+            HeroStory má tutéž sazbu a týž ořez — nález, který audit minul,
+            protože jsem rodinu `text-overflow` odepsal jako planou. */}
+        <h1 className="mt-6 text-5xl font-black uppercase leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">
           {tl("titleLine1")}
           <br />
           <span className="text-signal">{tl("titleLine2")}</span>

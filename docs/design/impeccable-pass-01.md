@@ -38,10 +38,10 @@ they found things no amount of source reading does.
 |---|---|---|---|
 | 1 | Accessibility | **2**/4 | `steel`, the secondary-text token, is 4.11:1 on `paper` — below AA — and it is what `SourceNote` is set in |
 | 2 | Performance | **3**/4 | partial assessment; nothing measured regressed, entry motion is once-only and short |
-| 3 | Responsive | **2**/4 | an MP's name overflows its row by 27px at 390px; 3 paragraphs reach the viewport edge |
+| 3 | Responsive | ~~2~~ **3**/4 | the hero `h1` is clipped at 390px; the "27px overflow" was a false positive — see the corrected section |
 | 4 | Theming | **4**/4 | one off-token color in the whole tree, inside a declared exception zone |
 | 5 | Implementation integrity | **4**/4 | coherent, product-specific, and the detector's top slop rule is this system's own idiom |
-| **Total** | | **15/20** | Good — address accessibility and responsive |
+| **Total** | | ~~15~~ **16/20** | Good — accessibility is the one weak dimension |
 
 **Implementation integrity verdict: PASS.** The landing could not be swapped
 into another product. Konstrukt's vocabulary (poster numerals, mono index
@@ -120,18 +120,44 @@ A token change touches every surface, so **this is not applied here.** It is a
 
 ---
 
-## P1 · Mobile layout breaks at 390px
+## ~~P1~~ → P3 · Mobile — CORRECTED after verification
 
-- `features/landing/components/Standings.tsx:36` — `<span class="block truncate
-  text-lg font-black uppercase tracking-tight">` holding an MP's **name
-  overflows its box by 27px**. `min-w-0` is on the span but not on the flex
-  parent, so `truncate` never gets a bounded width to truncate against.
-- Three `<p>` elements reach the right viewport edge (`right -6px`).
+**This section originally reported a P1 bug that does not exist. Correcting it
+in place rather than quietly deleting it.**
 
-Measured caveat, in the tool's disfavour: `document.scrollWidth === innerWidth
-=== 390` at rest, so **there is no horizontal scrollbar.** The name is clipped
-and the paragraphs are crowded; the page does not break. Severity is real but
-lower than "overflow" sounds.
+What was claimed: `features/landing/components/Standings.tsx:36` — an MP's name
+"overflows its box by 27px" because `min-w-0` sits on the span but not on its
+flex parent.
+
+What is actually true, measured in the DOM at 390×844 on the incumbent *and* on
+all four variants:
+
+| Measurement | Value | Means |
+|---|---|---|
+| `scrollWidth − clientWidth` | +27px | content is wider than the box |
+| box right − **parent** right | **0px** | the box does not escape its container |
+| box right − **viewport** | **−139px** | the box is nowhere near the edge |
+| computed style | `overflow:hidden; text-overflow:ellipsis; white-space:nowrap` | it is a `truncate` |
+
+`scrollWidth > clientWidth` is the **definition** of a correctly truncating
+element. The rule fires on every ellipsised name in the product and cannot
+distinguish deliberate truncation from a layout break. The name renders as
+„RENATA VESE…" exactly as designed. **`text-overflow` joins the rejected list.**
+
+The lesson cuts the other way too. Dismissing the whole family hid a **real**
+defect the same rule found: at 390px the hero `h1` is set `text-6xl` (60px), and
+„REPUBLIKA" in Archivo Black is **372px wide against 342px of available width**
+(390 − 2×24 gutter). It is not truncated — it is painted past the container and
+shaved by `overflow-x-clip` on `<main>`. The last letter is visibly cut. This is
+in the **incumbent** hero and every variant that copied it; variant D fixes it by
+dropping to `text-5xl` at base. Verified by screenshot, not by rule.
+
+What else survives: three `<p>` elements reach the right viewport edge
+(`right −6px`) — crowding, not breakage. `document.scrollWidth === innerWidth
+=== 390` at rest, so there is **no horizontal scroll anywhere**.
+
+Net: the responsive dimension was scored too harshly on a false positive.
+**Revised 2 → 3**, and the total **15 → 16/20**.
 
 ---
 
@@ -207,6 +233,13 @@ The tracked-caps eyebrow above the h1 is `obr. 1 — hlavní zpráva · 9. voleb
 období`. In generic SaaS this is the "eyebrow chip" tell; here the numbered
 `obr. N` caption is a load-bearing convention of the poster idiom and appears
 on every figure in the product.
+
+### `text-overflow` — REJECTED (added after verification)
+
+Fires on `scrollWidth > clientWidth`, which is what a working `truncate` *is*.
+Verified against the DOM: the box never escapes its parent or the viewport. See
+the corrected mobile section above — and note that rejecting the family wholesale
+is what let a genuine hero-clipping defect hide inside it.
 
 ### `em-dash-overuse` × 28 — REJECTED (advisory)
 
