@@ -92,12 +92,18 @@ export default function LandingSwitcher({ data }: { data: LandingData | null }) 
     notify();
   }, []);
 
+  // Varianty čtou skutečný graf. Když loader vrátí null, NEMAJÍ co vykreslit a
+  // dřív se všechny tiše propadly na zděděnou stránku — takže přepínání
+  // nedělalo nic a uživatel neměl jak zjistit proč. Záložka teď řekne důvod
+  // a nejde stisknout; zděděná varianta zůstává dostupná, protože má vlastní
+  // OZNAČENOU ukázku a na grafu nestojí.
+  const unavailable = data ? undefined : t("noDataTabs");
   const tabs: VariantTab[] = [
     { id: INCUMBENT, label: t("tabIncumbent"), hint: t("hintIncumbent") },
-    { id: "a", label: t("tabA"), hint: t("hintA") },
-    { id: "b", label: t("tabB"), hint: t("hintB") },
-    { id: "c", label: t("tabC"), hint: t("hintC") },
-    { id: "d", label: t("tabD"), hint: t("hintD") },
+    { id: "a", label: t("tabA"), hint: t("hintA"), unavailableReason: unavailable },
+    { id: "b", label: t("tabB"), hint: t("hintB"), unavailableReason: unavailable },
+    { id: "c", label: t("tabC"), hint: t("hintC"), unavailableReason: unavailable },
+    { id: "d", label: t("tabD"), hint: t("hintD"), unavailableReason: unavailable },
   ];
 
   const liveVariant = variant !== INCUMBENT;

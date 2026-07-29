@@ -1130,6 +1130,7 @@
     "footerMethod": "the index computes {parts} components with published weights across all {count} MPs; pass no. {pass}, source psp.cz",
     "noDataTitle": "Live data unavailable",
     "noDataBody": "The variants read the real graph and have nothing to show without it, so they compute nothing. The incumbent landing page stays below; its figures are labelled as an illustrative sample.",
-    "noDataSource": "source: embedded PGlite — the store is unavailable or empty"
+    "noDataSource": "source: embedded PGlite — the store is unavailable or empty",
+    "noDataTabs": "The variants read the real graph and have nothing to show without it, so they cannot be selected right now. The incumbent landing below stands on its own labelled sample."
   }
 }

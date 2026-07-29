@@ -1130,6 +1130,7 @@
     "footerMethod": "index počítá {parts} složek se zveřejněnými váhami přes všech {count} poslanců; přepočet č. {pass}, zdroj psp.cz",
     "noDataTitle": "Živá data nejsou dostupná",
     "noDataBody": "Varianty čtou skutečný graf a bez něj nemají co ukázat, takže nic nedopočítávají. Níže zůstává zděděná úvodní strana, jejíž čísla jsou označená jako ilustrativní ukázka.",
-    "noDataSource": "zdroj: vestavěný PGlite — obchod je nedostupný nebo prázdný"
+    "noDataSource": "zdroj: vestavěný PGlite — obchod je nedostupný nebo prázdný",
+    "noDataTabs": "Varianty čtou skutečný graf a bez něj nemají co ukázat — přepnout na ně teď nejde. Zděděná úvodní strana níže stojí na vlastní označené ukázce."
   }
 }
