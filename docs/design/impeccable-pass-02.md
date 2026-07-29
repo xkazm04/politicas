@@ -184,11 +184,48 @@ whether `steel-aa` / `signal-deep` should simply **replace** the originals.
 
 ---
 
-## Recommendation
+## OUTCOME — all four variants rejected and deleted (2026-07-29)
 
-1. ~~**Merge D's substance now**~~ — **done, see above.**
-2. **Take A as the landing direction.** Its CTA contrast is fixed; the
-   composition decision is still yours.
+**The landing stays Konstrukt.** Variant C was adopted as the baseline and then
+reverted the same day, and A, B and D were deleted with it. `features/landing`
+is byte-identical to the state it reached after the accessibility merge; the
+switcher, `getLandingData.ts`, the four variants and `VariantTabs` are gone.
+
+Why this is recorded rather than quietly dropped, per the repo's own lesson that
+a rejected direction is evidence:
+
+- **C looked defensible on paper and was worse in the product.** It scored well
+  on the detector (6 actionable findings against the incumbent's 129) and it was
+  the only variant that proved a replacement world was buildable inside the same
+  tokens. Adopting it still lost: replacing a poster with a registry printout
+  removes the one thing a Persuade surface needs, and the sections that had to be
+  ported into it (five modules, sources, methodology) read as more rows in a
+  ledger rather than as an argument.
+- **A low finding count is not a quality score.** This pass already warned that
+  129 → 2 was partly a length effect. C is the sharper version of the same
+  caution: the variant with the fewest findings was the weakest page, because
+  the detector cannot see persuasion, and the incumbent's interactive weight
+  specimen — the single most convincing thing on the landing — has no ledger
+  equivalent and scores nothing either way.
+- **The generated variants were not good enough to develop further.** That is
+  the honest summary of the round, and it is the user's verdict, not the tool's.
+
+**What survived, and it is the whole value of the exercise:** the accessibility
+work. `SourceNote` sets a citation by measured length rather than role, the two
+AA tokens exist, the CTA planes are fixed, the hero no longer clips at 390px,
+and the landing went 135 → 27 detector findings with **zero contrast failures**.
+None of that required a new visual world, and none of it is being reverted.
+
+**Do not rebuild the variants.** If a future round revisits the landing, start
+from this file, not from a blank page.
+
+---
+
+## Recommendation (superseded — kept as the record of what was advised)
+
+1. ~~**Merge D's substance now**~~ — **done**, and retained.
+2. ~~**Take A as the landing direction**~~ — **not taken.** The landing stays
+   Konstrukt.
 3. **Keep C archived** as a reference world for an Operate/Read surface. Do not
    delete it — pass 01's own lesson is that a rejected direction is evidence.
 4. **Reuse B's discipline** on `/metodika`, not on `/`.
