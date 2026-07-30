@@ -23,6 +23,7 @@
  */
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { RotateCcw } from "lucide-react";
@@ -78,6 +79,13 @@ export default function CivicScorePage({ data }: { data: LeaderboardListData | n
           <div className="flex items-center gap-3">
             <span className="font-mono text-xs uppercase tracking-widest text-steel">/ civicscore</span>
           </div>
+          {/* Můj kraj (5E): kandidátka vlastního kraje; odkaz nese čtenářovu čočku. */}
+          <Link
+            href={custom && encodeWeights(lens.weights) ? `/kraj?vahy=${encodeWeights(lens.weights)}` : "/kraj"}
+            className="font-mono text-xs uppercase tracking-widest text-steel-aa transition-colors hover:text-ink"
+          >
+            můj kraj — volební karta →
+          </Link>
         </div>
       </header>
 

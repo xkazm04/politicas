@@ -21,10 +21,14 @@ export default function PosterToolbar({
   format,
   onFormatChange,
   onPrint,
+  printLabel = "Tisk / plakát",
 }: {
   format: PosterFormat;
   onFormatChange: (f: PosterFormat) => void;
   onPrint: () => void;
+  /** Popisek tiskového tlačítka — plocha ho může pojmenovat po svém artefaktu
+   *  („Tisk kandidátky"); výchozí zůstává obecný „Tisk / plakát". */
+  printLabel?: string;
 }) {
   return (
     <div className="flex flex-wrap items-center justify-between gap-4 border-b border-hairline pb-4">
@@ -60,7 +64,7 @@ export default function PosterToolbar({
           className="inline-flex items-center gap-2 bg-signal-deep px-4 py-2 font-mono text-xs font-bold uppercase tracking-widest text-paper transition-colors hover:bg-ink"
         >
           <Printer className="h-3.5 w-3.5" aria-hidden />
-          Tisk / plakát
+          {printLabel}
         </button>
       </div>
     </div>
