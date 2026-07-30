@@ -21,6 +21,30 @@ export const CARDINALITY_FLOORS = {
 
 export type FloorKind = keyof typeof CARDINALITY_FLOORS;
 
+/** One kind's cardinality verdict — the release-gate unit (batch-3 item 3D). */
+export interface FloorVerdict {
+  kind: FloorKind;
+  /** Actual node count of the kind (full count, not the floor-capped probe). */
+  count: number;
+  floor: number;
+  ok: boolean;
+}
+
+/**
+ * Pure release-gate derivation over full per-kind counts (e.g. from
+ * `Store.kgKindCounts()`): every floor kind gets a verdict, in the pinned
+ * `CARDINALITY_FLOORS` key order so downstream serializations are stable.
+ * A kind absent from `kindCounts` counts as 0 — an empty store fails loudly,
+ * exactly like `storeReady`. Additive: `storeReady` is untouched.
+ */
+export function floorVerdicts(kindCounts: Readonly<Record<string, number>>): FloorVerdict[] {
+  return (Object.keys(CARDINALITY_FLOORS) as FloorKind[]).map((kind) => {
+    const floor = CARDINALITY_FLOORS[kind];
+    const count = kindCounts[kind] ?? 0;
+    return { kind, count, floor, ok: count >= floor };
+  });
+}
+
 // The failure path below is loud (reportLoaderFailure logs + fires Sentry) —
 // but the bypass that suppresses this whole gate had no equivalent trace,
 // making the one state that should be MOST observable (a safety net
