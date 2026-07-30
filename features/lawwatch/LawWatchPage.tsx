@@ -24,6 +24,7 @@ import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
 import type { BillOrigin, LawData } from "./getLawData";
 import { ORIGIN_CZ } from "./lawwatchLabels";
+import { statuteSlug } from "./statuteRef";
 import BillBrowser from "./components/BillBrowser";
 
 const VOTE_TEXT: Record<string, string> = {
@@ -137,6 +138,21 @@ function RealLawWatch({ data }: { data: LawData }) {
         </Link>
       </div>
 
+      <div className="mt-3 flex flex-wrap items-center justify-between gap-3 border-2 border-cobalt bg-cobalt/5 px-4 py-3">
+        <p className="text-[13px] leading-snug">
+          <span className="font-black uppercase tracking-wide text-cobalt">Paměť zákona</span> — každý
+          novelizovaný předpis má kritické vydání: kronika tisků, které ho měnily, a doslovná §-stopa
+          „před / po“ z e-Sbírky s trvalými kotvami <span className="font-mono">#p-&lt;§&gt;</span> tam, kde
+          ji archiv reálně nese.
+        </p>
+        <Link
+          href="/zakony/predpis"
+          className="inline-flex shrink-0 items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+        >
+          otevřít rejstřík předpisů <ArrowUpRight className="h-3.5 w-3.5" />
+        </Link>
+      </div>
+
       {/* ── 01 Bill browser: filtr + hledání + detailní dosje na /zakony/[cislo] ── */}
       <section id="tisky" className="mt-12 pb-4">
         <SectionHeading
@@ -162,23 +178,44 @@ function RealLawWatch({ data }: { data: LawData }) {
           aside={<SourceNote>psp.cz tisky · počet tisků na zákon</SourceNote>}
         />
         <div className="mt-8 border-t-2 border-ink">
-          {data.topLaws.slice(0, 20).map((l) => (
-            <div
-              key={l.urn}
-              className="grid grid-cols-[1fr_auto] items-center gap-6 border-b border-hairline px-2 py-4 transition-colors hover:bg-paper-strong"
-            >
-              <span className="min-w-0">
-                <span className="block font-mono text-xs font-bold text-signal">č. {l.ref} Sb.</span>
-                {l.title && <span className="mt-0.5 block text-[15px] font-bold leading-snug">{l.title}</span>}
-              </span>
-              <span className="flex items-baseline gap-1.5 whitespace-nowrap">
-                <span className="text-2xl font-black tabular-nums">{f.int(l.billCount)}</span>
-                <span className="font-mono text-[11px] uppercase tracking-wider text-steel">
-                  {l.billCount === 1 ? "tisk" : l.billCount < 5 ? "tisky" : "tisků"}
+          {data.topLaws.slice(0, 20).map((l) => {
+            const slug = statuteSlug(l.ref);
+            const row = (
+              <>
+                <span className="min-w-0">
+                  <span className="block font-mono text-xs font-bold text-signal">č. {l.ref} Sb.</span>
+                  {l.title && <span className="mt-0.5 block text-[15px] font-bold leading-snug">{l.title}</span>}
                 </span>
-              </span>
-            </div>
-          ))}
+                <span className="flex items-center gap-3 whitespace-nowrap">
+                  <span className="flex items-baseline gap-1.5">
+                    <span className="text-2xl font-black tabular-nums">{f.int(l.billCount)}</span>
+                    <span className="font-mono text-[11px] uppercase tracking-wider text-steel">
+                      {l.billCount === 1 ? "tisk" : l.billCount < 5 ? "tisky" : "tisků"}
+                    </span>
+                  </span>
+                  {slug && (
+                    <ArrowUpRight className="h-4 w-4 text-signal opacity-0 transition-opacity group-hover:opacity-100" />
+                  )}
+                </span>
+              </>
+            );
+            return slug ? (
+              <Link
+                key={l.urn}
+                href={`/zakony/predpis/${slug}`}
+                className="group grid grid-cols-[1fr_auto] items-center gap-6 border-b border-hairline px-2 py-4 transition-colors hover:bg-paper-strong"
+              >
+                {row}
+              </Link>
+            ) : (
+              <div
+                key={l.urn}
+                className="grid grid-cols-[1fr_auto] items-center gap-6 border-b border-hairline px-2 py-4"
+              >
+                {row}
+              </div>
+            );
+          })}
         </div>
         <p className="mt-4 max-w-3xl text-sm italic leading-relaxed text-steel">
           Vazba tisk → zákon je vyčtena z názvu tisku (citace „č. N/RRRR Sb.“), jediného strukturovaného

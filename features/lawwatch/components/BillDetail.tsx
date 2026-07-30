@@ -29,6 +29,7 @@ import {
   czkCompact,
   citationRef,
 } from "../lawwatchLabels";
+import { statuteSlug } from "../statuteRef";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 
@@ -121,12 +122,27 @@ export default function BillDetail({ bill }: { bill: LawBillView }) {
         <SourceNote>novelizuje — {bill.amendedLaws.length} {zakonPlural(bill.amendedLaws.length)} (dle citace v názvu)</SourceNote>
         {bill.amendedLaws.length > 0 ? (
           <ul className="mt-2 divide-y divide-hairline border-t border-hairline">
-            {bill.amendedLaws.map((l) => (
-              <li key={l.urn} className="py-2.5">
-                <span className="block font-mono text-xs font-bold text-signal">č. {l.ref} Sb.</span>
-                {l.title && <span className="mt-0.5 block text-sm leading-snug text-steel">{l.title}</span>}
-              </li>
-            ))}
+            {bill.amendedLaws.map((l) => {
+              const slug = statuteSlug(l.ref);
+              return (
+                <li key={l.urn} className="py-2.5">
+                  {slug ? (
+                    <Link href={`/zakony/predpis/${slug}`} className="group block">
+                      <span className="inline-flex items-center gap-1 font-mono text-xs font-bold text-signal transition-colors group-hover:text-cobalt">
+                        č. {l.ref} Sb.
+                        <ArrowUpRight className="h-3 w-3 opacity-0 transition-opacity group-hover:opacity-100" />
+                      </span>
+                      {l.title && <span className="mt-0.5 block text-sm leading-snug text-steel">{l.title}</span>}
+                    </Link>
+                  ) : (
+                    <>
+                      <span className="block font-mono text-xs font-bold text-signal">č. {l.ref} Sb.</span>
+                      {l.title && <span className="mt-0.5 block text-sm leading-snug text-steel">{l.title}</span>}
+                    </>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         ) : (
           <p className="mt-2 text-sm italic leading-relaxed text-steel">
@@ -150,11 +166,25 @@ export default function BillDetail({ bill }: { bill: LawBillView }) {
           </p>
           {missedRefs.length > 0 && (
             <ul className="mt-3 flex flex-wrap gap-1.5">
-              {missedRefs.map((ref) => (
-                <li key={ref} className="border border-ochre/40 px-2 py-0.5 font-mono text-[11px] font-bold text-ink">
-                  č. {ref} Sb.
-                </li>
-              ))}
+              {missedRefs.map((ref) => {
+                const slug = statuteSlug(ref);
+                return (
+                  <li key={ref}>
+                    {slug ? (
+                      <Link
+                        href={`/zakony/predpis/${slug}`}
+                        className="block border border-ochre/40 px-2 py-0.5 font-mono text-[11px] font-bold text-ink transition-colors hover:border-ochre hover:bg-ochre/10"
+                      >
+                        č. {ref} Sb.
+                      </Link>
+                    ) : (
+                      <span className="block border border-ochre/40 px-2 py-0.5 font-mono text-[11px] font-bold text-ink">
+                        č. {ref} Sb.
+                      </span>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           )}
         </div>
