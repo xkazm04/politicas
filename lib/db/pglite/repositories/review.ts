@@ -93,12 +93,22 @@ export function makeReviewRepo(pg: Pglite): ReviewRepository {
         };
         if (note != null) nextProps.review_note = note;
 
-        await tx.query(`update kg_edge set props = $4 where src = $1 and rel = $2 and dst = $3`, [
-          src,
-          LINKED_TO,
-          dst,
-          JSON.stringify(nextProps),
-        ]);
+        // The flip SUPERSEDES the prior edge version rather than overwriting it
+        // (bitemporal write discipline — see repositories/kg.ts): archive the
+        // pre-flip version and stamp the new one, in ONE statement so the
+        // closed span and the new recorded_at are the same instant. This is
+        // what makes "this tie sat in pending_review for 4 months" a queryable
+        // fact (edge history joined with the audit chain), not a lost one.
+        // The hash-chain serialization above is untouched.
+        await tx.query(
+          `with archived as (
+             insert into kg_edge_history (src, rel, dst, weight, props, provenance, valid_from, valid_to, recorded_at, superseded_at)
+             select src, rel, dst, weight, props, provenance, valid_from, valid_to, recorded_at, now()
+             from kg_edge where src = $1 and rel = $2 and dst = $3
+           )
+           update kg_edge set props = $4, recorded_at = now() where src = $1 and rel = $2 and dst = $3`,
+          [src, LINKED_TO, dst, JSON.stringify(nextProps)],
+        );
 
         return { ok: true, reviewState: nextReviewState };
       });

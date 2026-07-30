@@ -283,6 +283,61 @@ alter table ingest_run add column if not exists merkle_root       text;
 alter table ingest_run add column if not exists merkle_leaf_count integer;
 alter table ingest_run add column if not exists merkle_sealed_at  timestamptz;
 
+-- ── bitemporal claims (ADDITIVE — see lib/db/pglite/repositories/kg.ts) ──────
+-- Every kg claim carries TWO timelines:
+--   • valid_from / valid_to  — WORLD time: when the claimed fact held in reality.
+--     Nullable; NULL = unknown/unbounded. Writers do not populate these yet
+--     (KgNodeRow/KgEdgeRow carry no world-time fields) — the columns exist so
+--     later batches can adopt them without another migration.
+--   • recorded_at / superseded_at — RECORD time: when the store learned the
+--     version / when a newer version replaced it. On the SERVING tables
+--     superseded_at is always NULL (a serving row IS the current version);
+--     superseded versions live in kg_node_history / kg_edge_history below.
+-- Backfill: \`add column … default now()\` fills pre-existing rows with the
+-- migration instant — the honest reading is "recorded since this migration".
+alter table kg_node add column if not exists valid_from    timestamptz;
+alter table kg_node add column if not exists valid_to      timestamptz;
+alter table kg_node add column if not exists recorded_at   timestamptz not null default now();
+alter table kg_node add column if not exists superseded_at timestamptz;
+alter table kg_edge add column if not exists valid_from    timestamptz;
+alter table kg_edge add column if not exists valid_to      timestamptz;
+alter table kg_edge add column if not exists recorded_at   timestamptz not null default now();
+alter table kg_edge add column if not exists superseded_at timestamptz;
+
+-- Superseded versions, append-only. A history row's record-time span is
+-- [recorded_at, superseded_at) — half-open, so at the exact supersede instant
+-- the NEW version is visible and the old one is not. No primary key: one claim
+-- key legitimately has many versions. The ONLY writers are the supersede paths
+-- in repositories/kg.ts and repositories/review.ts; nothing updates or deletes
+-- history rows.
+create table if not exists kg_node_history (
+  id               text not null,
+  kind             text not null,
+  label            text not null,
+  props            jsonb not null default '{}'::jsonb,
+  first_seen_pass  integer,
+  provenance       jsonb not null default '{}'::jsonb,
+  valid_from       timestamptz,
+  valid_to         timestamptz,
+  recorded_at      timestamptz not null,
+  superseded_at    timestamptz not null
+);
+create index if not exists kg_node_history_id_idx on kg_node_history(id, recorded_at desc);
+
+create table if not exists kg_edge_history (
+  src            text not null,
+  rel            text not null,
+  dst            text not null,
+  weight         real,
+  props          jsonb not null default '{}'::jsonb,
+  provenance     jsonb not null default '{}'::jsonb,
+  valid_from     timestamptz,
+  valid_to       timestamptz,
+  recorded_at    timestamptz not null,
+  superseded_at  timestamptz not null
+);
+create index if not exists kg_edge_history_key_idx on kg_edge_history(src, rel, dst, recorded_at desc);
+
 -- ── derived theme tags on roll calls (Silver-layer sem_classify enrichment) ──
 -- DERIVED metadata like slice_quality/kg_node: recomputable from vote titles,
 -- never source-of-truth. Stamped with model+method so a rendered tag cites how
