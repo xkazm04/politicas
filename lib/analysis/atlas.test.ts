@@ -213,12 +213,15 @@ describe("determinismus a tvar reportu", () => {
 
   it("zdroje řazeny vzestupně; sjednocení kontextů, řádků i běhů", () => {
     const inputs = fullInputs();
-    inputs.runStats.push({
-      source: "aaa-jen-z-behu",
-      okFinishedRuns: 1,
-      sealedRuns: 0,
-      lastOkFinishedAt: "2026-07-30T00:00:00.000Z",
-    });
+    inputs.runStats = [
+      ...inputs.runStats,
+      {
+        source: "aaa-jen-z-behu",
+        okFinishedRuns: 1,
+        sealedRuns: 0,
+        lastOkFinishedAt: "2026-07-30T00:00:00.000Z",
+      },
+    ];
     const report = deriveAtlas(inputs);
     const keys = report.sources.map((s) => s.source);
     expect(keys).toEqual([...keys].sort());
