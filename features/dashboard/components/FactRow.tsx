@@ -18,10 +18,12 @@
  */
 
 import { useLocale, useTranslations } from "next-intl";
-import { Crosshair } from "lucide-react";
+import { Crosshair, Stamp } from "lucide-react";
+import Link from "next/link";
 import { useFormat } from "@/lib/i18n/useFormat";
 import { compactCzk } from "@/features/money/moneyTypes";
 import type { DatedFact } from "../datedFacts";
+import { factExhibitId } from "../exhibit";
 
 const TONE_DOT: Record<DatedFact["tone"], string> = {
   signal: "bg-signal",
@@ -86,19 +88,33 @@ function FactRow({
           </span>
         )}
       </span>
-      {pickable && (
-        <button
-          type="button"
-          onClick={() => onPick(fact.subjectRef!)}
-          title={tf("showInGraph")}
-          // Pojmenovaný cíl, ne dvanáctkrát „ukázat v grafu": odečítačka jinak
-          // přečte dvanáct nerozlišitelných tlačítek.
-          aria-label={tf("showInGraphNamed", { subject: fact.subject })}
-          className="shrink-0 self-center border border-hairline p-1 text-steel transition-colors hover:border-ink hover:text-signal focus-visible:border-cobalt focus-visible:text-cobalt"
+      <span className="flex shrink-0 items-center gap-1.5 self-center">
+        {pickable && (
+          <button
+            type="button"
+            onClick={() => onPick(fact.subjectRef!)}
+            title={tf("showInGraph")}
+            // Pojmenovaný cíl, ne dvanáctkrát „ukázat v grafu": odečítačka jinak
+            // přečte dvanáct nerozlišitelných tlačítek.
+            aria-label={tf("showInGraphNamed", { subject: fact.subject })}
+            className="border border-hairline p-1 text-steel transition-colors hover:border-ink hover:text-signal focus-visible:border-cobalt focus-visible:text-cobalt"
+          >
+            <Crosshair className="h-3.5 w-3.5" />
+          </button>
+        )}
+        {/* Exponát: trvalá citovatelná adresa TOHOTO faktu (content-hash v URL,
+            deterministické znovuodvození — viz ../exhibit.ts). Copy je česky
+            přímo tady po vzoru DataUnavailable: messages/*.json je sdílený
+            soubor a tahle plocha do něj nezapisuje. */}
+        <Link
+          href={`/dashboard/exponat/${factExhibitId(fact)}`}
+          title="Exponát — citovatelný otisk tohoto faktu"
+          aria-label={`Exponát: ${fact.subject}`}
+          className="border border-hairline p-1 text-steel transition-colors hover:border-ink hover:text-signal focus-visible:border-cobalt focus-visible:text-cobalt"
         >
-          <Crosshair className="h-3.5 w-3.5" />
-        </button>
-      )}
+          <Stamp className="h-3.5 w-3.5" aria-hidden />
+        </Link>
+      </span>
     </div>
   );
 }

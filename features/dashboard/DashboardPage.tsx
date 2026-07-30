@@ -19,7 +19,7 @@
 
 import { useMemo } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Stamp } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { CHAMBER_STATS, CHAMBER_TREND, EVENTS, MPS, PILLARS, TREND_QUARTERS } from "@/lib/civic/data";
@@ -37,6 +37,7 @@ import type { DashboardData } from "./getDashboardData";
 import ChamberChart from "./components/ChamberChart";
 import GraphFeedPanel from "./components/GraphFeedPanel";
 import StateGraphCanvas from "./components/StateGraphCanvas";
+import { sliceExhibitId } from "./exhibit";
 import { primaryNodeForEvent } from "./feedRelevance";
 import { DASHBOARD_REVALIDATE_HOURS } from "./freshness";
 import { useGraphText } from "./graphText";
@@ -97,6 +98,13 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
 
   const selectedNode = selected ? graph.nodes.find((n) => n.id === selected) : undefined;
   const selectedLabel = selectedNode ? text.node(selectedNode).label : null;
+
+  // Adresa exponátu REÁLNÉHO výřezu (content-hash, viz ./exhibit.ts). Jen pro
+  // reálná data — vzorkový graf citovatelný být nesmí, byl by to podepsaný mock.
+  const exhibitHref = useMemo(
+    () => (slice ? `/dashboard/exponat/${sliceExhibitId(slice)}` : null),
+    [slice],
+  );
 
   // Mock fallback trend — only rendered when the real store is unavailable.
   const chamberTrendData = useMemo(
@@ -258,6 +266,18 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
                 >
                   {t("graph.openPlayground")} <ArrowUpRight className="h-3.5 w-3.5" />
                 </Link>
+                {/* Exponát jen pro reálný výřez — vzorek se citovat nesmí.
+                    Copy česky přímo tady (vzor DataUnavailable): messages/*.json
+                    je sdílený soubor a tahle plocha do něj nezapisuje. */}
+                {exhibitHref && (
+                  <Link
+                    href={exhibitHref}
+                    title="Exponát — citovatelný otisk tohoto výřezu"
+                    className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+                  >
+                    <Stamp className="h-3.5 w-3.5" aria-hidden /> Exponát
+                  </Link>
+                )}
               </div>
             }
           />
@@ -277,6 +297,15 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
                 onSelect={select}
               />
               {!slice && <SourceNote className="mt-2">{t("graph.sliceNote")}</SourceNote>}
+              {/* Jednořádkové vysvětlení afordance „Exponát" — nástroj, který
+                  nikdo nenajde, je nefunkční nástroj. */}
+              {slice && (
+                <SourceNote className="mt-2">
+                  exponát = trvalý citovatelný otisk tohoto výřezu — adresa nese content-hash,
+                  obsah se z registrů odvozuje znovu; otisk má i každý řádek provozu (razítko u
+                  řádku)
+                </SourceNote>
+              )}
             </div>
             <div id="provoz" className="min-w-0 xl:col-span-5">
               <GraphFeedPanel
