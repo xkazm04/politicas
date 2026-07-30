@@ -11,6 +11,9 @@ const noServerImportInClient = require("./eslint-rules/no-server-import-in-clien
 const roleButtonRequiresKeydown = require("./eslint-rules/role-button-requires-keydown.cjs");
 const enforceReducedMotionFallback = require("./eslint-rules/enforce-reduced-motion-fallback.cjs");
 const noHardcodedColors = require("./eslint-rules/no-hardcoded-colors.cjs");
+// Doctrine pack (moonshot batch-2, item 2D) — provenance as a build gate.
+const requireSourceCitation = require("./eslint-rules/require-source-citation.cjs");
+const noRawNumberDisplay = require("./eslint-rules/no-raw-number-display.cjs");
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -52,6 +55,8 @@ const eslintConfig = defineConfig([
           "role-button-requires-keydown": roleButtonRequiresKeydown,
           "enforce-reduced-motion-fallback": enforceReducedMotionFallback,
           "no-hardcoded-colors": noHardcodedColors,
+          "require-source-citation": requireSourceCitation,
+          "no-raw-number-display": noRawNumberDisplay,
         },
       },
     },
@@ -65,6 +70,35 @@ const eslintConfig = defineConfig([
         "error",
         { argsIgnorePattern: "^_", varsIgnorePattern: "^_", destructuredArrayIgnorePattern: "^_" },
       ],
+    },
+  },
+  // Doctrine pack scoping (batch-2, item 2D — see eslint-rules/README.md):
+  // provenance rules apply to reader-facing surfaces only; `lib/` is the
+  // formatting chokepoint and legitimately calls toFixed. Both ship at `warn`
+  // while the existing-violation inventory burns down; `app/**` measured clean
+  // for BOTH rules (2026-07-30 inventory: 29 warnings, all under features/**),
+  // so app routes are already at `error`.
+  {
+    files: ["features/**/*.{ts,tsx}", "app/**/*.{ts,tsx}"],
+    rules: {
+      "custom/require-source-citation": "warn",
+      "custom/no-raw-number-display": "warn",
+    },
+  },
+  {
+    files: ["app/**/*.{ts,tsx}"],
+    rules: {
+      "custom/require-source-citation": "error",
+      "custom/no-raw-number-display": "error",
+    },
+  },
+  // features/labs is the archived fixed-art-direction zone (same rationale as
+  // its no-hardcoded-colors exemption below) — not reader-facing product.
+  {
+    files: ["features/labs/**/*.{ts,tsx}"],
+    rules: {
+      "custom/require-source-citation": "off",
+      "custom/no-raw-number-display": "off",
     },
   },
   // Declared token-mirror + fixed-art-direction + data-color zones (see
