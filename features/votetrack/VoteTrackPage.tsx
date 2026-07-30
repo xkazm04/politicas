@@ -12,6 +12,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { ROLL_CALLS } from "@/lib/civic/data";
 import LiveDataNotice from "@/features/shared/components/LiveDataNotice";
 import SectionHeading from "@/features/shared/components/SectionHeading";
@@ -24,6 +26,7 @@ import Rebellions from "./components/Rebellions";
 import RealVoteTrack from "./components/RealVoteTrack";
 import VoteThemeFilter from "./components/VoteThemeFilter";
 import { COPY } from "./record/copy";
+import { KOMPAS_COPY } from "./kompas/copy";
 import type { VoteRecordData } from "./record/types";
 import type { VoteThemeData } from "./themeTypes";
 
@@ -68,6 +71,18 @@ export default function VoteTrackPage({
             <SectionRule />
           </div>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">{real ? COPY.lead : t("lead")}</p>
+
+          {/* Vstup do kompasu (moonshot 5B) — kobalt = váš pohled na záznam. */}
+          <Link
+            href="/kompas"
+            className="group mt-6 inline-flex max-w-2xl flex-wrap items-center gap-x-3 gap-y-1 border-2 border-cobalt px-4 py-3 transition-colors hover:bg-cobalt motion-reduce:transition-none"
+          >
+            <span className="font-mono text-xs font-bold uppercase tracking-widest text-cobalt group-hover:text-paper">
+              {KOMPAS_COPY.entryTitle}
+            </span>
+            <span className="text-sm text-steel-aa group-hover:text-paper">{KOMPAS_COPY.entryBody}</span>
+            <ArrowRight className="h-4 w-4 text-cobalt group-hover:text-paper" aria-hidden />
+          </Link>
         </div>
 
         {real ? (
