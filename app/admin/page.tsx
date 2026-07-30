@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import AdminPage from "@/features/admin/AdminPage";
 import { getAdminData } from "@/features/admin/getAdminData";
+import { getLoopsDoc } from "@/features/admin/loops/getLoopState";
 import AdminGate from "./AdminGate";
 import { readAdminGate } from "./accessGate";
 
@@ -19,6 +20,6 @@ export default async function Admin() {
   const gate = await readAdminGate();
   if (gate !== "ok") return <AdminGate status={gate} />;
 
-  const data = await getAdminData();
-  return <AdminPage data={data} />;
+  const [data, loops] = await Promise.all([getAdminData(), getLoopsDoc()]);
+  return <AdminPage data={data} loops={loops} />;
 }

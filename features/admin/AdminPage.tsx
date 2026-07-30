@@ -13,14 +13,16 @@
 import Link from "next/link";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
+import LoopMissionControl from "./components/LoopMissionControl";
 import LoopProgressGrid from "./components/LoopProgressGrid";
 import ReviewHubSection from "./components/ReviewHubSection";
 import SystemStateStrip from "./components/SystemStateStrip";
 import TripwireSection from "./components/TripwireSection";
 import VaultHeadsPanel from "./components/VaultHeadsPanel";
 import type { AdminData } from "./adminTypes";
+import type { LoopsDoc } from "./loops/loopsJson";
 
-export default function AdminPage({ data }: { data: AdminData }) {
+export default function AdminPage({ data, loops }: { data: AdminData; loops: LoopsDoc }) {
   const { loopProgress, vaultHeads, reviewHub, tripwires, systemState } = data;
 
   return (
@@ -61,21 +63,28 @@ export default function AdminPage({ data }: { data: AdminData }) {
         </section>
 
         <section className="mt-16 border-t-4 border-ink pt-10">
-          <SectionHeading index={2} title="Fronta revize" />
+          <SectionHeading index={2} title="Velín smyček" />
+          <div className="mt-6">
+            <LoopMissionControl doc={loops} />
+          </div>
+        </section>
+
+        <section className="mt-16 border-t-4 border-ink pt-10">
+          <SectionHeading index={3} title="Fronta revize" />
           <div className="mt-6">
             <ReviewHubSection data={reviewHub} />
           </div>
         </section>
 
         <section className="mt-16 border-t-4 border-ink pt-10">
-          <SectionHeading index={3} title="Hlídky grafu" />
+          <SectionHeading index={4} title="Hlídky grafu" />
           <div className="mt-6">
             <TripwireSection data={tripwires} />
           </div>
         </section>
 
         <section className="mt-16 border-t-4 border-ink pt-10 pb-16">
-          <SectionHeading index={4} title="Stav systému" />
+          <SectionHeading index={5} title="Stav systému" />
           <div className="mt-6 grid gap-6 lg:grid-cols-[2fr_1fr]">
             <SystemStateStrip state={systemState} />
             <VaultHeadsPanel heads={vaultHeads} />

@@ -27,6 +27,7 @@ import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import { resolveTieClass, reviewTier } from "@/features/money/reviewTypes";
 import { getTripwireData } from "./getTripwireData";
+import { parsePassLog } from "./loops/loopState";
 import type {
   AdminData,
   CaseId,
@@ -47,9 +48,10 @@ const ROOT = process.cwd();
 const VAULT = "docs/data-analysis";
 
 /** hardcode-and-flip: the loops are paused for the manifestation phase. Flip
- *  this (and the label) when a case loop resumes. */
-const LOOPS_PAUSED = true;
-const LOOPS_PAUSED_LABEL = "loopy pozastaveny — manifestační fáze";
+ *  this (and the label) when a case loop resumes. Exported for the loop
+ *  mission-control loader (loops/getLoopState.ts) — one flag, one truth. */
+export const LOOPS_PAUSED = true;
+export const LOOPS_PAUSED_LABEL = "loopy pozastaveny — manifestační fáze";
 
 // ── generic disk helpers ─────────────────────────────────────────────────
 
@@ -146,13 +148,9 @@ function loadFrontierOpenCounts(): Partial<Record<CaseId, number>> {
 // ── graph-log.md: shared pass sequence ─────────────────────────────────────
 
 function parseVaultHeads(text: string): VaultHeads {
-  const re = /^##\s+Pass\s+(\d+)\s*\(track:\s*([a-z]+)\)\s*[—-]\s*(.+?)\s*\((\d{4}-\d{2}-\d{2})\)\s*$/gm;
-  const entries: VaultPassEntry[] = [];
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(text))) {
-    entries.push({ pass: Number(m[1]), track: m[2], title: m[3], date: m[4] });
-  }
-  entries.sort((a, b) => a.pass - b.pass);
+  // Jeden parser pass hlaviček pro celou /admin plochu — velín smyček (6E)
+  // čte tytéž hlavičky přes parsePassLog, žádná druhá regex pravda.
+  const entries: VaultPassEntry[] = parsePassLog(text);
   const lastPass = entries.length ? entries[entries.length - 1].pass : null;
   return { lastPass, recentPasses: entries.slice(-3).reverse() };
 }
@@ -297,7 +295,9 @@ function loadLawProgress(): LoopCaseProgress {
   }
 }
 
-function loadLoopProgress(): LoopCaseProgress[] {
+/** Exported for the loop mission-control loader (loops/getLoopState.ts) — the
+ *  three bespoke ledger parsers stay the single source of case progress. */
+export function loadLoopProgress(): LoopCaseProgress[] {
   const openFrontier = loadFrontierOpenCounts();
   return [loadMoneyProgress(), loadEffortProgress(), loadLawProgress()].map((p) => ({
     ...p,
