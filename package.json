@@ -11,6 +11,8 @@
     "test": "vitest run",
     "check": "npm run typecheck && npm run lint && npm run test",
     "prepare": "lefthook install",
+    "sentinel": "tsx scripts/sentinel/run.ts",
+    "db:snapshot": "tsx scripts/gen-migration.ts",
     "da:ingest": "tsx scripts/data-analysis/ingest.ts",
     "da:slice-stats": "tsx scripts/data-analysis/slice-stats.ts",
     "da:datahub-sync": "tsx scripts/data-analysis/datahub-sync.ts",

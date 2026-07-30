@@ -1,0 +1,49 @@
+# Live-Graph Sentinel — nightly invariant audit of the real ingested store
+# (batch-7 item 7E). PROPOSAL: this file is new and touches no existing
+# workflow; adopt or drop at orchestrator review.
+#
+# HONEST LIMITATION: the live `.pglite` store is a local, gitignored 1.6 GB
+# data dir — it does not exist on a hosted GitHub runner. This workflow
+# therefore only earns its cron once the store is reachable from CI (a
+# self-hosted runner on the ingest machine, or a store artifact download step
+# added where marked). Until then the guard step makes the run a loud no-op
+# instead of a false green.
+name: sentinel
+
+on:
+  schedule:
+    # Nightly at 03:17 UTC (off the full hour to dodge cron herds).
+    - cron: "17 3 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  sentinel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # ADOPTION POINT: materialize the store here (self-hosted runner path,
+      # artifact download, object-storage sync…) so ./.pglite exists.
+      - name: Guard — store present?
+        id: guard
+        run: |
+          if [ -d ./.pglite ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::.pglite store not present on this runner — sentinel skipped (see workflow header)"
+          fi
+      - name: Run sentinel (read-only, exits non-zero on violation)
+        if: steps.guard.outputs.present == 'true'
+        run: SENTINEL_JSON=sentinel-report.json npm run sentinel
+      - name: Upload machine report
+        if: always() && steps.guard.outputs.present == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: sentinel-report
+          path: sentinel-report.json
