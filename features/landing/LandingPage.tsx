@@ -20,6 +20,7 @@ import LiveSpecimen, { type Weights } from "./components/LiveSpecimen";
 import Standings from "./components/Standings";
 import ScoreBreakdown from "./components/ScoreBreakdown";
 import TrendChart from "./components/TrendChart";
+import DenikTeaser from "./components/DenikTeaser";
 import SystemModules from "./components/SystemModules";
 import DataSources from "./components/DataSources";
 import Methodology from "./components/Methodology";
@@ -87,6 +88,9 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* ── Dnešní zápis — rubrika Deníku republiky (moonshot 3A) ── */}
+      <DenikTeaser />
 
       <SystemModules />
       <DataSources />
