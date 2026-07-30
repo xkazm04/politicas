@@ -264,6 +264,25 @@ create table if not exists review_audit (
 create index if not exists review_audit_edge_idx on review_audit(src, rel, dst);
 create index if not exists review_audit_decided_idx on review_audit(decided_at desc);
 
+-- ── tamper-evident ledger (ADDITIVE — see lib/db/pglite/ledger.ts) ───────────
+-- review_audit becomes a hash chain: every new row stores the previous row's
+-- hash and its own hash over the pinned canonical serialization. Rows written
+-- before the chain existed keep NULL hashes and sit outside the chain — the
+-- chain (and its verification) covers rows from its genesis forward. The
+-- ALTERs below upgrade pre-existing data dirs; \`create table if not exists\`
+-- alone would leave them without the columns.
+alter table review_audit add column if not exists chain_pos bigint;
+alter table review_audit add column if not exists prev_hash text;
+alter table review_audit add column if not exists row_hash  text;
+create unique index if not exists review_audit_chain_pos_uidx
+  on review_audit(chain_pos) where chain_pos is not null;
+
+-- ingest runs can be SEALED: a Merkle root over the canonical hashes of every
+-- row the run wrote (see LedgerRepository.sealIngestRun). NULL = not sealed.
+alter table ingest_run add column if not exists merkle_root       text;
+alter table ingest_run add column if not exists merkle_leaf_count integer;
+alter table ingest_run add column if not exists merkle_sealed_at  timestamptz;
+
 -- ── derived theme tags on roll calls (Silver-layer sem_classify enrichment) ──
 -- DERIVED metadata like slice_quality/kg_node: recomputable from vote titles,
 -- never source-of-truth. Stamped with model+method so a rendered tag cites how

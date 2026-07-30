@@ -6,7 +6,8 @@
 import { randomUUID } from "node:crypto";
 import type { ReviewRepository } from "../../store";
 import type { ReviewAuditRow } from "../../types";
-import { isoTs, json, str, strOrNull, type Pglite, type PgTransaction } from "../internals";
+import { isoTs, json, num, str, strOrNull, type Pglite, type PgTransaction } from "../internals";
+import { GENESIS_HASH, computeAuditRowHash } from "../ledger";
 
 const LINKED_TO = "linked_to";
 
@@ -45,11 +46,37 @@ export function makeReviewRepo(pg: Pglite): ReviewRepository {
         const priorState = strOrNull((props.review_state ?? props.state) as unknown);
 
         // 1) audit row FIRST — the record of the decision must predate the state flip.
+        // The row joins the tamper-evident hash chain (lib/db/pglite/ledger.ts): read
+        // the current head INSIDE this transaction (PGlite serializes transactions, so
+        // two decisions can never race for the same chain position), then store
+        // prev_hash + row_hash over the pinned canonical serialization. decided_at is
+        // generated HERE (not by now() in SQL) so the hashed instant and the stored
+        // instant are the same value by construction.
         const id = randomUUID();
+        const { rows: headRows } = await tx.query<Record<string, unknown>>(
+          `select chain_pos, row_hash from review_audit
+            where chain_pos is not null order by chain_pos desc limit 1`,
+        );
+        const head = headRows[0];
+        const chainPos = head ? num(head.chain_pos) + 1 : 1;
+        const prevHash = head ? str(head.row_hash) : GENESIS_HASH;
+        const decidedAt = new Date().toISOString();
+        const rowHash = computeAuditRowHash(prevHash, {
+          id,
+          src,
+          rel: LINKED_TO,
+          dst,
+          decision,
+          reviewer,
+          note,
+          decidedAt,
+          priorState,
+        });
         await tx.query(
-          `insert into review_audit (id, src, rel, dst, decision, reviewer, note, decided_at, prior_state)
-           values ($1,$2,$3,$4,$5,$6,$7, now(), $8)`,
-          [id, src, LINKED_TO, dst, decision, reviewer, note, priorState],
+          `insert into review_audit
+             (id, src, rel, dst, decision, reviewer, note, decided_at, prior_state, chain_pos, prev_hash, row_hash)
+           values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)`,
+          [id, src, LINKED_TO, dst, decision, reviewer, note, decidedAt, priorState, chainPos, prevHash, rowHash],
         );
 
         // 2) only THEN update the edge. confirm → verified; reject → rejected (D7, batch
