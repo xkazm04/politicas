@@ -11,7 +11,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import SourceNote from "@/features/shared/components/SourceNote";
-import { glyphPath, KIND_ORDER, KIND_STYLE } from "../kindStyle";
+import { glyphPath, KIND_FILL_CLASS, KIND_FILL_TOKEN, KIND_ORDER, KIND_STYLE } from "../kindStyle";
 import NodeInspector from "./NodeInspector";
 import type { NodeSelection } from "../useNodeSelection";
 
@@ -79,7 +79,9 @@ export function LegendOverlay({ footnote }: { footnote: string }) {
               return (
                 <span key={kind} className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-steel">
                   <svg viewBox="-12 -12 24 24" className="h-3 w-3 shrink-0" aria-hidden>
-                    <path d={glyphPath(style.shape, 9)} fill={style.fill} />
+                    {/* Barva přes slot tokenu (fill-*), aby legendu přebarvila
+                        i forenzní vrstva — hex z KIND_STYLE by na tmě lhal. */}
+                    <path d={glyphPath(style.shape, 9)} className={KIND_FILL_CLASS[KIND_FILL_TOKEN[kind]]} />
                   </svg>
                   {t(`kinds.${kind}`)}
                 </span>

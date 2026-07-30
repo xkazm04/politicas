@@ -23,10 +23,13 @@ import { Route } from "lucide-react";
 import { layeredLayout, type LayeredItem } from "@/lib/kg/layout";
 import { compactCzk } from "@/features/money/moneyTypes";
 import SourceNote from "@/features/shared/components/SourceNote";
+import { useForensicMode } from "@/features/shared/forensic/ForensicProvider";
 import { useFormat } from "@/lib/i18n/useFormat";
 import CiteView from "./components/CiteView";
+import { ForensicHoverCard } from "./components/ForensicOverlays";
 import GraphStage, { type StageCaption } from "./components/GraphStage";
 import { InspectorDrawer, LegendOverlay, StatChip } from "./components/StageOverlays";
+import { hoverCardModel } from "./forensicView";
 import { trailsAction } from "./graphActions";
 import { useNodeSelection } from "./useNodeSelection";
 import type { GraphViewState } from "./permalink";
@@ -41,6 +44,12 @@ export default function VariantTrasy({ seed }: { seed: GraphSeed | null }) {
   const [activeKey, setActiveKey] = useState<string | null>(null);
   const selection = useNodeSelection();
   void seed;
+
+  // Forenzní režim: trasa je VYŽÁDANÝ důkaz, takže se nefiltruje (vynechaný
+  // krok by byl lež) — režim tu přidává provenience na ploše a kartu najetí;
+  // čekající kroky zůstávají čárkované a štítek je přizná (batch 7D).
+  const forensic = useForensicMode();
+  const [hoverId, setHoverId] = useState<string | null>(null);
 
   useEffect(() => {
     void trailsAction().then((ts) => {
@@ -81,6 +90,12 @@ export default function VariantTrasy({ seed }: { seed: GraphSeed | null }) {
     return { nodes, positions, world, captions };
   }, [active, locale, t]);
 
+  const hoverModel = useMemo(() => {
+    if (!forensic || !hoverId || !scene || !active) return null;
+    const n = scene.nodes.find((x) => x.id === hoverId);
+    return n ? hoverCardModel(n, active.edges) : null;
+  }, [forensic, hoverId, scene, active]);
+
   return (
     <div className="absolute inset-0">
       {scene && active ? (
@@ -94,6 +109,8 @@ export default function VariantTrasy({ seed }: { seed: GraphSeed | null }) {
           fitKey={active.key}
           relLabel={(rel) => t(`rels.${rel}`)}
           ariaLabel={t("canvasAria")}
+          inlineProvenance={forensic}
+          onHover={forensic ? setHoverId : undefined}
         />
       ) : (
         <div className="absolute inset-0 flex items-center justify-center px-6 text-center">
@@ -164,6 +181,15 @@ export default function VariantTrasy({ seed }: { seed: GraphSeed | null }) {
       )}
       <LegendOverlay footnote={tt("footnote")} />
       <InspectorDrawer selection={selection} />
+
+      {/* Forenzní karta najetí — stavy kontroly bez klikání. */}
+      {hoverModel && (
+        <ForensicHoverCard
+          model={hoverModel}
+          relLabel={(rel) => t(`rels.${rel}`)}
+          kindLabel={t(`kinds.${hoverModel.kind}`)}
+        />
+      )}
     </div>
   );
 }

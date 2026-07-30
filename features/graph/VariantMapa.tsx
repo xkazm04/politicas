@@ -30,8 +30,11 @@ import { Route } from "lucide-react";
 import { compactCzk } from "@/features/money/moneyTypes";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
+import { useForensicMode } from "@/features/shared/forensic/ForensicProvider";
 import CiteView from "./components/CiteView";
+import { ForensicHoverCard, ForensicStrip } from "./components/ForensicOverlays";
 import GraphStage, { edgeKey, type StageLens } from "./components/GraphStage";
+import { forensicEdges, hoverCardModel } from "./forensicView";
 import NodeSearch from "./components/NodeSearch";
 import TrailFinder from "./components/TrailFinder";
 import { InspectorDrawer, LegendOverlay, StatChip, TopLeft } from "./components/StageOverlays";
@@ -71,6 +74,12 @@ export default function VariantMapa({ seed }: { seed: GraphSeed | null }) {
   const [focusId, setFocusId] = useState<string | null>(null);
   const selection = useNodeSelection();
   const prefersReducedMotion = usePrefersReducedMotion();
+
+  // ── Forenzní režim (?rezim=forenzni): výchozí pohled jen na ověřené hrany,
+  // provenience na ploše, stavy kontroly bez klikání (batch 7D). ──────────
+  const forensic = useForensicMode();
+  const [showPending, setShowPending] = useState(false);
+  const [hoverId, setHoverId] = useState<string | null>(null);
 
   // ── Spoj dva body — stav dotazu ─────────────────────────────────────────
   const [pathFrom, setPathFrom] = useState<SearchHit | null>(null);
@@ -193,6 +202,29 @@ export default function VariantMapa({ seed }: { seed: GraphSeed | null }) {
     return { nodes, edges, positions: new Map(data.nodes.map((n) => [n.id, { x: n.x, y: n.y }])) };
   }, [data, moneyById, locale, pathEnds]);
 
+  // Hrany vyžádané čočky se ve forenzním filtru drží vždy — vyžádaná
+  // odpověď s vynechanými kroky by byla lež (forensicView.ts).
+  const lensKeep = useMemo(() => {
+    const keep = new Set<string>();
+    if (activePath) for (const e of activePath.edges) keep.add(edgeKey(e));
+    if (activeTrail) for (const e of activeTrail.edges) keep.add(edgeKey(e));
+    return keep;
+  }, [activePath, activeTrail]);
+
+  const forensicFilter = useMemo(
+    () => (forensic ? forensicEdges(edges, lensKeep) : null),
+    [forensic, edges, lensKeep],
+  );
+  const stageEdges = forensicFilter && !showPending ? forensicFilter.edges : edges;
+
+  // Karta najetí čte NEfiltrovaný seznam — říká pravdu o stavu záznamu,
+  // ne o tom, co je zrovna vidět.
+  const hoverModel = useMemo(() => {
+    if (!forensic || !hoverId) return null;
+    const n = nodes.find((x) => x.id === hoverId);
+    return n ? hoverCardModel(n, edges) : null;
+  }, [forensic, hoverId, nodes, edges]);
+
   // Rám kamery: CELÁ cesta (ne jen rozsvícený úsek — kamera nesmí cukat),
   // jinak výřez kurátorské trasy.
   const frameIds = useMemo<ReadonlySet<string> | null>(() => {
@@ -236,7 +268,7 @@ export default function VariantMapa({ seed }: { seed: GraphSeed | null }) {
     <div className="absolute inset-0">
       <GraphStage
         nodes={nodes}
-        edges={edges}
+        edges={stageEdges}
         positions={positions}
         world={data.world}
         selectedId={selection.selectedId}
@@ -247,9 +279,19 @@ export default function VariantMapa({ seed }: { seed: GraphSeed | null }) {
         lens={lens}
         relLabel={(rel) => t(`rels.${rel}`)}
         ariaLabel={t("canvasAria")}
+        inlineProvenance={forensic}
+        onHover={forensic ? setHoverId : undefined}
       />
 
       <TopLeft>
+        {forensicFilter && (
+          <ForensicStrip
+            hiddenPending={forensicFilter.hiddenPending}
+            keptPending={forensicFilter.keptPending}
+            showPending={showPending}
+            onTogglePending={() => setShowPending((v) => !v)}
+          />
+        )}
         <NodeSearch
           placeholder={t("search.placeholder")}
           onPick={(hit) => {
@@ -356,6 +398,15 @@ export default function VariantMapa({ seed }: { seed: GraphSeed | null }) {
       </StatChip>
       <LegendOverlay footnote={activeTrail ? tt("footnote") : tm("footnote")} />
       <InspectorDrawer selection={selection} />
+
+      {/* Forenzní karta najetí — stavy kontroly bez klikání. */}
+      {hoverModel && (
+        <ForensicHoverCard
+          model={hoverModel}
+          relLabel={(rel) => t(`rels.${rel}`)}
+          kindLabel={t(`kinds.${hoverModel.kind}`)}
+        />
+      )}
     </div>
   );
 }

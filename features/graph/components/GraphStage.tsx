@@ -25,12 +25,14 @@
  * a seznamy vedle plátna. Proto tu není tabIndex, který by lhal.
  */
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Expand, Scan, Shrink, ZoomIn, ZoomOut } from "lucide-react";
-import { HAIRLINE, INK, PAPER, SIGNAL, STEEL } from "@/features/landing/palette";
+import { useForensicMode } from "@/features/shared/forensic/ForensicProvider";
 import type { Point } from "@/lib/kg/layout";
-import { KIND_STYLE, traceGlyph, type GlyphShape } from "../kindStyle";
+import { edgeKey } from "../forensicView";
+import { KIND_FILL_TOKEN, KIND_STYLE, traceGlyph, type GlyphShape } from "../kindStyle";
+import { readStagePalette } from "../stagePalette";
 import type { GraphEdge, GraphNode } from "../graphTypes";
 
 export interface StageCaption {
@@ -49,7 +51,9 @@ export interface StageLens {
   edges: ReadonlySet<string>;
 }
 
-export const edgeKey = (e: { src: string; rel: string; dst: string }) => `${e.src}|${e.rel}|${e.dst}`;
+// Kanonická definice žije v čistém modulu forensicView.ts (čočka i forenzní
+// filtr mluví týmž jazykem) — jeviště ji re-exportuje pro stávající volající.
+export { edgeKey };
 
 interface View {
   x: number;
@@ -79,6 +83,8 @@ export default function GraphStage({
   captions,
   relLabel,
   ariaLabel,
+  inlineProvenance = false,
+  onHover,
 }: {
   nodes: GraphNode[];
   edges: GraphEdge[];
@@ -99,6 +105,12 @@ export default function GraphStage({
   /** Překlad relace pro štítek hran vybraného uzlu; null = bez štítku. */
   relLabel?: (rel: string) => string | null;
   ariaLabel: string;
+  /** Forenzní chování: provenience přímo na ploše — štítky relací se sázejí
+   *  na VŠECHNY viditelné hrany (přes touž kolizní režii, co se nevejde,
+   *  se nekreslí), čekající hrany nesou přiznání „neověřeno". */
+  inlineProvenance?: boolean;
+  /** Hlásit změnu uzlu pod ukazatelem (karta najetí forenzního režimu). */
+  onHover?: (id: string | null) => void;
 }) {
   const t = useTranslations("graph.stage");
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -110,6 +122,13 @@ export default function GraphStage({
   const fontRef = useRef<string | null>(null);
   const [size, setSize] = useState({ w: 0, h: 0 });
   const [isFull, setIsFull] = useState(false);
+
+  // Paleta jeviště podle režimu — forenzní hodnoty se čtou sondou z tokenů
+  // (stagePalette.ts), takže plátno se přebarví spolu s CSS vrstvou. Čtení
+  // je synchronní a idempotentní (sonda se hned uklidí), proto smí běžet
+  // v useMemo; na serveru vrací Konstrukt.
+  const forensic = useForensicMode();
+  const pal = useMemo(() => readStagePalette(forensic), [forensic]);
 
   const radiusOf = useCallback((n: GraphNode) => n.size ?? KIND_STYLE[n.kind].radius, []);
 
@@ -125,7 +144,7 @@ export default function GraphStage({
     const hover = hoverRef.current;
 
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.fillStyle = PAPER;
+    ctx.fillStyle = pal.paper;
     ctx.fillRect(0, 0, size.w, size.h);
     ctx.translate(view.x, view.y);
     ctx.scale(k, k);
@@ -177,7 +196,7 @@ export default function GraphStage({
       }
       if (!drew) return;
       ctx.setLineDash(dashed ? [5, 5] : []);
-      ctx.strokeStyle = STEEL;
+      ctx.strokeStyle = pal.steel;
       ctx.globalAlpha = lens ? 0.1 : focus ? 0.22 : 0.6;
       ctx.lineWidth = 1.3 / k;
       ctx.stroke();
@@ -189,7 +208,7 @@ export default function GraphStage({
 
     // Hrany čočky — inkoustové, nad pozadím, pod ohniskem.
     if (lens) {
-      ctx.strokeStyle = INK;
+      ctx.strokeStyle = pal.ink;
       ctx.lineWidth = 1.9 / k;
       ctx.globalAlpha = 0.85;
       for (const e of edges) {
@@ -209,7 +228,7 @@ export default function GraphStage({
     }
 
     if (focus) {
-      ctx.strokeStyle = SIGNAL;
+      ctx.strokeStyle = pal.signal;
       ctx.lineWidth = 2 / k;
       for (const e of focusEdges) {
         const a = positions.get(e.src);
@@ -235,10 +254,12 @@ export default function GraphStage({
       const st = KIND_STYLE[n.kind];
       const dim = dimming && !bright(n.id);
       const r = radiusOf(n);
-      const key = `${st.shape}|${dim ? HAIRLINE : st.fill}|${r}`;
+      // Barva druhu jde přes slot tokenu — forenzní paleta přebarví i uzly.
+      const fill = dim ? pal.hairline : pal[KIND_FILL_TOKEN[n.kind]];
+      const key = `${st.shape}|${fill}|${r}`;
       const b = buckets.get(key);
       if (b) b.items.push(n);
-      else buckets.set(key, { shape: st.shape, fill: dim ? HAIRLINE : st.fill, r, items: [n] });
+      else buckets.set(key, { shape: st.shape, fill, r, items: [n] });
     }
     for (const b of buckets.values()) {
       ctx.beginPath();
@@ -260,7 +281,7 @@ export default function GraphStage({
     }
 
     // Označení „už rozkvetlé" (ohnisko) — tenký inkoustový kroužek.
-    ctx.strokeStyle = INK;
+    ctx.strokeStyle = pal.ink;
     ctx.lineWidth = 1.5 / k;
     for (const n of visible) {
       if (!n.mark) continue;
@@ -276,7 +297,7 @@ export default function GraphStage({
         const n = nodes.find((x) => x.id === selectedId);
         ctx.beginPath();
         ctx.arc(p.x, p.y, (n ? radiusOf(n) : 8) + 8 / k, 0, Math.PI * 2);
-        ctx.strokeStyle = SIGNAL;
+        ctx.strokeStyle = pal.signal;
         ctx.lineWidth = 2.2 / k;
         ctx.stroke();
       }
@@ -309,7 +330,7 @@ export default function GraphStage({
       placed.push(box);
       ctx.textAlign = "center";
       ctx.textBaseline = "bottom";
-      ctx.fillStyle = PAPER;
+      ctx.fillStyle = pal.paper;
       ctx.globalAlpha = 0.88;
       ctx.fillRect(box[0], box[1], box[2] - box[0], box[3] - box[1]);
       ctx.globalAlpha = 1;
@@ -317,7 +338,7 @@ export default function GraphStage({
       ctx.fillText(text, sx, y);
       if (sub) {
         ctx.font = font(10.5, 500);
-        ctx.fillStyle = STEEL;
+        ctx.fillStyle = pal.steel;
         ctx.fillText(sub, sx, y + 14);
       }
       return true;
@@ -327,7 +348,7 @@ export default function GraphStage({
     for (const c of captions ?? []) {
       const { sx, sy } = screen(c);
       if (sx < -100 || sx > size.w + 100) continue;
-      paintLabel(sx, sy, c.text.toUpperCase(), INK, 13, 800, true);
+      paintLabel(sx, sy, c.text.toUpperCase(), pal.ink, 13, 800, true);
     }
 
     // 2. Uzly podle priority; rozpočet roste s přiblížením.
@@ -346,7 +367,7 @@ export default function GraphStage({
         sx,
         sy - radiusOf(n) * k - 5,
         text,
-        p === 3 ? SIGNAL : INK,
+        p === 3 ? pal.signal : pal.ink,
         p === 3 ? 12.5 : 12,
         p >= 2 ? 700 : 600,
         p === 3,
@@ -369,7 +390,7 @@ export default function GraphStage({
       const box: Box = [mx - w / 2 - 3, my - 13, mx + w / 2 + 3, my + 3];
       if (collides(box, placed)) return;
       placed.push(box);
-      ctx.fillStyle = PAPER;
+      ctx.fillStyle = pal.paper;
       ctx.globalAlpha = 0.88;
       ctx.fillRect(box[0], box[1], box[2] - box[0], box[3] - box[1]);
       ctx.globalAlpha = 1;
@@ -377,15 +398,31 @@ export default function GraphStage({
       ctx.fillText(text, mx, my);
     };
     for (const e of edges) {
-      if (e.label && (e.minK === undefined || k >= e.minK)) edgeLabel(e, e.label, STEEL);
+      if (e.label && (e.minK === undefined || k >= e.minK)) edgeLabel(e, e.label, pal.steel);
     }
     if (focus && relLabel) {
       for (const e of focusEdges) {
         const text = relLabel(e.rel);
-        if (text) edgeLabel(e, text, SIGNAL);
+        if (text) edgeLabel(e, text, pal.signal);
       }
     }
-  }, [nodes, edges, positions, selectedId, size, captions, relLabel, radiusOf, lens]);
+
+    // 4. Forenzní režim: provenience přímo na ploše — štítek relace na každé
+    // viditelné hraně, přes touž kolizní režii (hustota se řídí sama; co se
+    // nevejde, se nekreslí). Čekající hrany nesou přiznání a jantar signálu.
+    if (inlineProvenance && relLabel) {
+      let attempts = 0;
+      for (const e of edges) {
+        if (attempts >= 400) break; // rozpočet — plátno není tabulka
+        if (e.minK !== undefined && k < e.minK) continue;
+        if (focus && (e.src === focus || e.dst === focus)) continue; // už mají štítek
+        const text = relLabel(e.rel);
+        if (!text) continue;
+        attempts++;
+        edgeLabel(e, e.pending ? `${text} · ${t("unverified")}` : text, e.pending ? pal.signal : pal.steel);
+      }
+    }
+  }, [nodes, edges, positions, selectedId, size, captions, relLabel, radiusOf, lens, pal, inlineProvenance, t]);
 
   const schedule = useCallback(() => {
     if (frameRef.current) return;
@@ -562,6 +599,7 @@ export default function GraphStage({
           if (hit !== hoverRef.current) {
             hoverRef.current = hit;
             if (canvasRef.current) canvasRef.current.style.cursor = hit ? "pointer" : "grab";
+            onHover?.(hit);
             schedule();
           }
         }}
@@ -576,6 +614,7 @@ export default function GraphStage({
           dragRef.current = null;
           if (hoverRef.current !== null) {
             hoverRef.current = null;
+            onHover?.(null);
             schedule();
           }
         }}

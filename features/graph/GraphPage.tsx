@@ -22,6 +22,8 @@
 import { useEffect, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import SourceNote from "@/features/shared/components/SourceNote";
+import ForensicProvider from "@/features/shared/forensic/ForensicProvider";
+import ForensicToggle from "@/features/shared/forensic/ForensicToggle";
 import { useFormat } from "@/lib/i18n/useFormat";
 import Link from "next/link";
 import VariantMapa from "./VariantMapa";
@@ -86,6 +88,9 @@ export default function GraphPage({ seed }: { seed: GraphSeed | null }) {
 
   return (
     // Stránka NESCROLLUJE — plátno je stránka. Hlavička je jeden tenký řádek.
+    // ForensicProvider: /graf je referenční integrace forenzního režimu
+    // (?rezim=forenzni) — viz features/shared/forensic/ForensicProvider.tsx.
+    <ForensicProvider>
     <main className="flex h-screen min-h-0 flex-col overflow-hidden bg-paper font-sans text-ink">
       <header className="flex shrink-0 items-center justify-between gap-4 border-b-4 border-ink px-4 py-2">
         <div className="flex min-w-0 items-baseline gap-3">
@@ -100,11 +105,14 @@ export default function GraphPage({ seed }: { seed: GraphSeed | null }) {
             <span className="text-signal">.</span>
           </h1>
         </div>
-        {seed && (
-          <SourceNote className="hidden shrink-0 sm:block">
-            {t("counts", { nodes: f.int(seed.totalNodes), edges: f.int(seed.totalEdges) })}
-          </SourceNote>
-        )}
+        <div className="flex shrink-0 items-center gap-3">
+          {seed && (
+            <SourceNote className="hidden shrink-0 sm:block">
+              {t("counts", { nodes: f.int(seed.totalNodes), edges: f.int(seed.totalEdges) })}
+            </SourceNote>
+          )}
+          <ForensicToggle />
+        </div>
       </header>
 
       <div className="relative min-h-0 flex-1">
@@ -145,5 +153,6 @@ export default function GraphPage({ seed }: { seed: GraphSeed | null }) {
         </div>
       </div>
     </main>
+    </ForensicProvider>
   );
 }

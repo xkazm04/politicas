@@ -36,6 +36,36 @@ export const KIND_STYLE: Record<KgNodeKind, KindStyle> = {
 };
 
 /**
+ * Barevný SLOT druhu — jméno tokenu místo hexu, aby plátno umělo číst
+ * paletu podle režimu (forenzní vrstva přemapovává tokeny, ne komponenty;
+ * viz features/graph/stagePalette.ts). Drž v sync s KIND_STYLE.fill.
+ */
+export type KindFillToken = "ink" | "steel" | "signal" | "cobalt" | "ochre";
+
+export const KIND_FILL_TOKEN: Record<KgNodeKind, KindFillToken> = {
+  person: "cobalt",
+  party: "steel",
+  organ: "steel",
+  bloc: "ink",
+  theme: "ochre",
+  company: "ink",
+  contract: "signal",
+  bill: "ink",
+  law: "ochre",
+  notice: "steel",
+};
+
+/** Tailwind fill-* třída slotu — pro SVG v DOMu (legenda), kde token
+ *  přepne forenzní vrstva sama. */
+export const KIND_FILL_CLASS: Record<KindFillToken, string> = {
+  ink: "fill-ink",
+  steel: "fill-steel",
+  signal: "fill-signal",
+  cobalt: "fill-cobalt",
+  ochre: "fill-ochre",
+};
+
+/**
  * Pořadí pruhů v mapě. Čte se shora dolů jako cesta veřejných peněz a moci:
  * lidé → jejich uskupení → firmy → smlouvy → legislativa.
  */

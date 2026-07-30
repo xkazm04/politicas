@@ -170,3 +170,44 @@ body {
   }
 }
 /* ═══ konec tiskové vrstvy — Režim plakátu ═════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * FORENZNÍ VRSTVA — druhý objektiv (batch 7D, features/shared/forensic/**)
+ *
+ * Rentgenová řeč archivovaného směru (features/labs/rentgen/VariantRentgen.tsx)
+ * jako zapnutelná čočka nad živými plochami: OBRÁCENÝ PAPÍR (grafitová tma
+ * místo galerijní bílé), jantar jako signál důkazní stopy. Vrstva NEPŘEPISUJE
+ * komponenty — přemapovává tokeny, takže bg-paper/text-ink/… čtou forenzní
+ * hodnoty samy. Jediný vstupní bod je <ForensicProvider>: po dobu platnosti
+ * `?rezim=forenzni` drží atribut `data-rezim` na <html> (vzor data-poster-mode).
+ *
+ * Selektor je záměrně [data-rezim="forenzni"] (kterýkoli prvek): plátna
+ * kreslená do <canvas> si hodnoty čtou sondou s vlastním atributem
+ * (features/graph/stagePalette.ts) — barvy tak vznikají POŘÁD jen tady.
+ *
+ * Kontrasty přepočítané ručně vůči forenznímu papíru #0b0e13 (stejná
+ * disciplína jako audit /impeccable): ink 13,4:1 · steel 5,3:1 ·
+ * steel-aa 6,2:1 · signal 10,7:1 · signal-deep 9,4:1 · cobalt 7,9:1 ·
+ * ochre 8,7:1 — hlídá je features/shared/forensic/forensicLayer.test.ts.
+ * Vrstva je čistě statická: žádná animace ani transition (reduced-motion
+ * se nemá co tlumit).
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+[data-rezim="forenzni"] {
+  --color-ink: #cfd8e3; /* text rentgenu — světlo na grafitu */
+  --color-paper: #0b0e13; /* obrácený papír — grafitová tma */
+  --color-paper-strong: #10151c; /* panel / hover řádku */
+  --color-signal: #ffb224; /* jantar — důkazní stopa místo rudé */
+  --color-signal-deep: #f0a71d; /* hlubší jantar — plochy pod textem */
+  --color-cobalt: #7fa3ff; /* projasněný kobalt na tmě */
+  --color-ochre: #dfa321; /* okr drží — na tmě kontrast má */
+  --color-steel: #77879a; /* sekundární text */
+  --color-steel-aa: #8494a6; /* drobný sekundární text */
+  --color-hairline: #1e2833; /* vlasové linky */
+  color-scheme: dark;
+}
+
+html[data-rezim="forenzni"] body {
+  background: var(--color-paper);
+}
+/* ═══ konec forenzní vrstvy ════════════════════════════════════════════════ */
