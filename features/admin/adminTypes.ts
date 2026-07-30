@@ -105,9 +105,14 @@ export interface SystemState {
   loopsPausedLabel: string;
 }
 
+import type { TripwireData } from "@/lib/analysis/tripwires";
+
 export interface AdminData {
   loopProgress: LoopCaseProgress[];
   vaultHeads: VaultHeads;
   reviewHub: ReviewHubData;
+  /** Hlídky grafu (lib/analysis/tripwires.ts) — odvozené při čtení, nic se
+   *  nezapisuje; null = peněžní vrstva grafu není k dispozici. */
+  tripwires: TripwireData | null;
   systemState: SystemState;
 }

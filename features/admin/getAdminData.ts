@@ -26,6 +26,7 @@ import { join } from "node:path";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import { resolveTieClass, reviewTier } from "@/features/money/reviewTypes";
+import { getTripwireData } from "./getTripwireData";
 import type {
   AdminData,
   CaseId,
@@ -501,6 +502,12 @@ async function loadSystemState(vaultHeads: VaultHeads): Promise<SystemState> {
 export async function getAdminData(): Promise<AdminData> {
   const loopProgress = loadLoopProgress();
   const vaultHeads = loadVaultHeads();
-  const [reviewHub, systemState] = await Promise.all([loadReviewHub(), loadSystemState(vaultHeads)]);
-  return { loopProgress, vaultHeads, reviewHub, systemState };
+  // Hlídky grafu sdílejí "degrade to partial, never crash": vlastní loader
+  // vrací null (a hlásí přes reportLoaderFailure), zbytek stránky žije dál.
+  const [reviewHub, systemState, tripwires] = await Promise.all([
+    loadReviewHub(),
+    loadSystemState(vaultHeads),
+    getTripwireData(),
+  ]);
+  return { loopProgress, vaultHeads, reviewHub, tripwires, systemState };
 }

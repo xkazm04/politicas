@@ -16,11 +16,12 @@ import SectionRule from "@/features/shared/components/SectionRule";
 import LoopProgressGrid from "./components/LoopProgressGrid";
 import ReviewHubSection from "./components/ReviewHubSection";
 import SystemStateStrip from "./components/SystemStateStrip";
+import TripwireSection from "./components/TripwireSection";
 import VaultHeadsPanel from "./components/VaultHeadsPanel";
 import type { AdminData } from "./adminTypes";
 
 export default function AdminPage({ data }: { data: AdminData }) {
-  const { loopProgress, vaultHeads, reviewHub, systemState } = data;
+  const { loopProgress, vaultHeads, reviewHub, tripwires, systemState } = data;
 
   return (
     <main className="min-h-screen bg-paper font-sans text-ink">
@@ -66,8 +67,15 @@ export default function AdminPage({ data }: { data: AdminData }) {
           </div>
         </section>
 
+        <section className="mt-16 border-t-4 border-ink pt-10">
+          <SectionHeading index={3} title="Hlídky grafu" />
+          <div className="mt-6">
+            <TripwireSection data={tripwires} />
+          </div>
+        </section>
+
         <section className="mt-16 border-t-4 border-ink pt-10 pb-16">
-          <SectionHeading index={3} title="Stav systému" />
+          <SectionHeading index={4} title="Stav systému" />
           <div className="mt-6 grid gap-6 lg:grid-cols-[2fr_1fr]">
             <SystemStateStrip state={systemState} />
             <VaultHeadsPanel heads={vaultHeads} />
