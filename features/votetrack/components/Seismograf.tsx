@@ -1,0 +1,181 @@
+"use client";
+
+/**
+ * Seismograf sněmovny — the hero instrument: one column per voting day over the
+ * FULL real ledger. Below the baseline, the needle deflects by how much the
+ * clubs split that day (1 − mean chamber cohesion); above it, red spikes count
+ * votes cast against a member's own club line. Keyboard: every day is a real
+ * <button> (aria-pressed); the detail panel narrates the selected day and can
+ * jump to the day's tightest vote in the ledger (or to psp.cz when it is
+ * outside the shipped window). Entry animation is one-shot and gated by
+ * useReducedMotion.
+ */
+
+import { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import { useFormat } from "@/lib/i18n/useFormat";
+import SourceNote from "@/features/shared/components/SourceNote";
+import { votePspUrl } from "../record/anchor";
+import { COPY } from "../record/copy";
+import type { SeismoDay, VoteRecordData } from "../record/types";
+
+/** Deviation display gain: mean Rice on real days sits ~0.75–1.0, so a raw
+ * (1 − cohesion) bar would be invisible. 0.5 deviation (cohesion 50 %) already
+ * fills the bottom half — disclosed by the axis caption. */
+const DEVIATION_FULL_SCALE = 0.5;
+/** Rebel spikes saturate at this many rebel ballots per day. */
+const REBELS_FULL_SCALE = 40;
+
+const pctDown = (d: SeismoDay): number =>
+  d.meanCohesion === null ? 0 : Math.min(1, (1 - d.meanCohesion) / DEVIATION_FULL_SCALE) * 100;
+const pctUp = (d: SeismoDay): number => Math.min(1, d.rebels / REBELS_FULL_SCALE) * 100;
+
+export default function Seismograf({
+  data,
+  onJumpToVote,
+}: {
+  data: VoteRecordData;
+  /** Select + scroll a ledger vote (only called with ids inside the window). */
+  onJumpToVote: (votePspId: number) => void;
+}) {
+  const f = useFormat();
+  const reduceMotion = useReducedMotion();
+  const days = data.seismogram;
+  const [selectedDate, setSelectedDate] = useState<string | null>(days.length ? days[days.length - 1].date : null);
+  const selected = days.find((d) => d.date === selectedDate) ?? null;
+
+  // First day of each month gets a tick label.
+  const monthTick = (i: number): string | null => {
+    const m = days[i].date.slice(0, 7);
+    if (i > 0 && days[i - 1].date.slice(0, 7) === m) return null;
+    return `${Number(m.slice(5, 7))}/${m.slice(2, 4)}`;
+  };
+
+  const cohesionPct = (v: number | null): string => (v === null ? "—" : `${f.int(Math.round(v * 100))} %`);
+
+  return (
+    <div className="min-w-0">
+      <p className="max-w-3xl text-[15px] leading-relaxed text-steel-aa">{COPY.seismoExplainer}</p>
+
+      {/* ── strip ─────────────────────────────────────────────── */}
+      <motion.div
+        initial={reduceMotion ? false : { opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="mt-6"
+        role="group"
+        aria-label={COPY.seismoAria}
+      >
+        <div className="relative flex h-36 items-stretch border-x-2 border-ink">
+          {/* baseline */}
+          <div aria-hidden className="pointer-events-none absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 bg-ink" />
+          {days.map((d) => {
+            const active = d.date === selectedDate;
+            return (
+              <button
+                key={d.date}
+                type="button"
+                onClick={() => setSelectedDate(d.date)}
+                aria-pressed={active}
+                aria-label={COPY.seismoDayAria(f.date(d.date), d.votes, cohesionPct(d.meanCohesion), d.rebels)}
+                className={`group relative min-w-0 flex-1 transition-colors motion-reduce:transition-none ${
+                  active ? "bg-paper-strong" : "hover:bg-paper-strong"
+                }`}
+              >
+                {/* rebel spike — above the baseline */}
+                {d.rebels > 0 && (
+                  <span
+                    aria-hidden
+                    className="absolute bottom-1/2 left-1/2 w-[2px] -translate-x-1/2 bg-signal"
+                    style={{ height: `${Math.max(4, pctUp(d) * 0.5)}%` }}
+                  />
+                )}
+                {/* cohesion deviation — below the baseline */}
+                <span
+                  aria-hidden
+                  className={`absolute left-1/2 top-1/2 w-[2px] -translate-x-1/2 ${active ? "bg-cobalt" : "bg-ink group-hover:bg-cobalt"}`}
+                  style={{ height: `${Math.max(2, pctDown(d) * 0.5)}%` }}
+                />
+                {/* active marker on the baseline */}
+                {active && (
+                  <span aria-hidden className="absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-signal" />
+                )}
+              </button>
+            );
+          })}
+        </div>
+        {/* month ticks */}
+        <div aria-hidden className="flex border-x-2 border-t border-ink">
+          {days.map((d, i) => {
+            const tick = monthTick(i);
+            return (
+              <span key={d.date} className="relative min-w-0 flex-1">
+                {tick && (
+                  <span className="absolute left-0 top-0 whitespace-nowrap pt-1 font-mono text-[11px] font-bold uppercase tracking-wider text-steel-aa">
+                    {tick}
+                  </span>
+                )}
+              </span>
+            );
+          })}
+          <span className="h-6" />
+        </div>
+      </motion.div>
+
+      {/* ── detail panel for the selected day ─────────────────── */}
+      {selected && (
+        <div className="mt-4 border-2 border-ink">
+          <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2 border-b border-hairline px-4 py-3">
+            <span className="font-mono text-sm font-black uppercase tracking-wider">{f.date(selected.date)}</span>
+            <span className="font-mono text-xs uppercase tracking-wider text-steel-aa">
+              {f.int(selected.votes)} {COPY.seismoVotes}
+            </span>
+            <span className="font-mono text-xs uppercase tracking-wider">
+              <span className="text-steel-aa">{COPY.seismoCohesion} </span>
+              <span className="font-bold tabular-nums text-cobalt">{cohesionPct(selected.meanCohesion)}</span>
+            </span>
+            <span className="font-mono text-xs uppercase tracking-wider">
+              <span className="text-steel-aa">{COPY.seismoRebels} </span>
+              <span className={`font-bold tabular-nums ${selected.rebels > 0 ? "text-signal-deep" : "text-steel-aa"}`}>
+                {f.int(selected.rebels)}
+              </span>
+            </span>
+          </div>
+          <div className="px-4 py-3">
+            {selected.worst ? (
+              <>
+                <SourceNote>
+                  {COPY.seismoWorst} {cohesionPct(selected.worst.cohesion)}
+                </SourceNote>
+                <p className="mt-1 text-[15px] font-bold leading-snug">{selected.worst.title}</p>
+                <div className="mt-2 flex flex-wrap gap-4">
+                  {selected.worst.inLedger && (
+                    <button
+                      type="button"
+                      onClick={() => onJumpToVote(selected.worst!.pspId)}
+                      className="inline-flex items-center gap-1 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal motion-reduce:transition-none"
+                    >
+                      {COPY.seismoJump} <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+                    </button>
+                  )}
+                  <a
+                    href={votePspUrl(selected.worst.pspId)}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1 font-mono text-xs font-bold uppercase tracking-wider text-steel-aa transition-colors hover:text-ink motion-reduce:transition-none"
+                  >
+                    {COPY.seismoPspLink} <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+                  </a>
+                </div>
+              </>
+            ) : (
+              <SourceNote>{COPY.seismoNoCohesion}</SourceNote>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

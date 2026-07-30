@@ -1,17 +1,19 @@
 "use client";
 
 /*
- * VoteTrack — modul analýzy hlasování (fúze všech tří prototypových variant,
- * kolo 2): Deník dodal chronologickou knihu jako výběr, Sál pohled do sálu
- * jako trvalý detail, který výběr řídí, a Linie analytiku disciplíny,
- * matici a rebelie jako navazující sekce. Sytí pilíře Aktivita, Docházka
- * a Nezávislost; každé číslo cituje psp.cz.
+ * VoteTrack — modul analýzy hlasování. Od 2026-07-30 (Seismograf, moonshot B1)
+ * jedou sekce 01–04 nad REÁLNÝM záznamem PSP10 (getVoteRecord: vote_event +
+ * vote_ballot + kluby, deterministická derivace v record/derive.ts) — mock
+ * ROLL_CALLS zůstává jen jako poctivě označený fallback při výpadku store
+ * (vzor LawWatch Real/Mock + LiveDataNotice). Sekce témat čte Silver vrstvu
+ * vote_tag jako dřív. Každé číslo cituje psp.cz.
  */
 
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { ROLL_CALLS } from "@/lib/civic/data";
+import LiveDataNotice from "@/features/shared/components/LiveDataNotice";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
@@ -19,13 +21,22 @@ import VoteLedger from "./components/VoteLedger";
 import ChamberDetail from "./components/ChamberDetail";
 import DisciplineBoard from "./components/DisciplineBoard";
 import Rebellions from "./components/Rebellions";
+import RealVoteTrack from "./components/RealVoteTrack";
 import VoteThemeFilter from "./components/VoteThemeFilter";
+import { COPY } from "./record/copy";
+import type { VoteRecordData } from "./record/types";
 import type { VoteThemeData } from "./themeTypes";
 
-export default function VoteTrackPage({ themeData }: { themeData: VoteThemeData | null }) {
+export default function VoteTrackPage({
+  record,
+  themeData,
+}: {
+  record: VoteRecordData | null;
+  themeData: VoteThemeData | null;
+}) {
   const t = useTranslations("votetrack");
-  const [selectedId, setSelectedId] = useState(ROLL_CALLS[0].id);
-  const rc = ROLL_CALLS.find((r) => r.id === selectedId) ?? ROLL_CALLS[0];
+  const real = record !== null && record.ledger.length > 0;
+  const themesIndex = real ? 5 : 4;
 
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
@@ -41,7 +52,11 @@ export default function VoteTrackPage({ themeData }: { themeData: VoteThemeData 
       <div className="mx-auto max-w-6xl px-6">
         {/* ── Titulní pás ───────────────────────────────────── */}
         <div className="py-10">
-          <SourceNote tone="signal">{t("heroSourceNote")}</SourceNote>
+          {real ? (
+            <SourceNote tone="signal">{COPY.heroNote}</SourceNote>
+          ) : (
+            <SourceNote tone="signal">{t("heroSourceNote")}</SourceNote>
+          )}
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -52,53 +67,27 @@ export default function VoteTrackPage({ themeData }: { themeData: VoteThemeData 
           <div className="mt-4 max-w-xl">
             <SectionRule />
           </div>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">{t("lead")}</p>
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">{real ? COPY.lead : t("lead")}</p>
         </div>
 
-        {/* ── 01 Deník + sál ────────────────────────────────── */}
-        <section id="denik">
-          <SectionHeading
-            index={1}
-            title={t("section1Title")}
-            aside={<SourceNote>{t("section1Note")}</SourceNote>}
-          />
-          <div className="mt-8 grid gap-10 pb-4 lg:grid-cols-[5fr_7fr]">
-            <VoteLedger selectedId={selectedId} onSelect={setSelectedId} />
-            <div className="lg:sticky lg:top-8 lg:self-start">
-              <ChamberDetail rc={rc} />
+        {real ? (
+          <RealVoteTrack record={record} />
+        ) : (
+          <>
+            {/* Store outage / not-yet-ingested: say it once, loudly, then the
+                labelled illustrative sample (never real-looking numbers). */}
+            <div className="mb-10">
+              <LiveDataNotice title={COPY.fallbackTitle} body={COPY.fallbackBody} source={COPY.fallbackSource} />
             </div>
-          </div>
-        </section>
+            <MockVoteTrack />
+          </>
+        )}
 
-        {/* ── 02 Linie klubů ────────────────────────────────── */}
-        <section id="linie" className="mt-14 border-t-4 border-ink pt-10">
-          <SectionHeading
-            index={2}
-            title={t("section2Title")}
-            aside={<SourceNote>{t("section2Note")}</SourceNote>}
-          />
-          <div className="mt-8">
-            <DisciplineBoard />
-          </div>
-        </section>
-
-        {/* ── 03 Rebelie a nezávislost ──────────────────────── */}
-        <section id="rebelie" className={`mt-14 border-t-4 border-ink pt-10 ${themeData?.votes.length ? "" : "pb-20"}`}>
-          <SectionHeading
-            index={3}
-            title={t("section3Title")}
-            aside={<SourceNote>{t("section3Note")}</SourceNote>}
-          />
-          <div className="mt-8">
-            <Rebellions />
-          </div>
-        </section>
-
-        {/* ── 04 Témata hlasování (reálná data ze store — Silver vrstva) ── */}
+        {/* ── Témata hlasování (reálná data ze store — Silver vrstva) ── */}
         {themeData && themeData.votes.length > 0 && (
           <section id="temata" className="mt-14 border-t-4 border-ink pt-10 pb-20">
             <SectionHeading
-              index={4}
+              index={themesIndex}
               title={t("section4Title")}
               aside={<SourceNote>{t("section4Note")}</SourceNote>}
             />
@@ -107,7 +96,59 @@ export default function VoteTrackPage({ themeData }: { themeData: VoteThemeData 
             </div>
           </section>
         )}
+        {!(themeData && themeData.votes.length > 0) && <div className="pb-20" />}
       </div>
     </main>
+  );
+}
+
+/** Původní ilustrativní ukázka (5 smyšlených hlasování) — beze změny, jen
+ * sbalená do fallback větve. */
+function MockVoteTrack() {
+  const t = useTranslations("votetrack");
+  const [selectedId, setSelectedId] = useState(ROLL_CALLS[0].id);
+  const rc = ROLL_CALLS.find((r) => r.id === selectedId) ?? ROLL_CALLS[0];
+
+  return (
+    <>
+      {/* ── 01 Deník + sál ────────────────────────────────── */}
+      <section id="denik">
+        <SectionHeading
+          index={1}
+          title={t("section1Title")}
+          aside={<SourceNote>{t("section1Note")}</SourceNote>}
+        />
+        <div className="mt-8 grid gap-10 pb-4 lg:grid-cols-[5fr_7fr]">
+          <VoteLedger selectedId={selectedId} onSelect={setSelectedId} />
+          <div className="lg:sticky lg:top-8 lg:self-start">
+            <ChamberDetail rc={rc} />
+          </div>
+        </div>
+      </section>
+
+      {/* ── 02 Linie klubů ────────────────────────────────── */}
+      <section id="linie" className="mt-14 border-t-4 border-ink pt-10">
+        <SectionHeading
+          index={2}
+          title={t("section2Title")}
+          aside={<SourceNote>{t("section2Note")}</SourceNote>}
+        />
+        <div className="mt-8">
+          <DisciplineBoard />
+        </div>
+      </section>
+
+      {/* ── 03 Rebelie a nezávislost ──────────────────────── */}
+      <section id="rebelie" className="mt-14 border-t-4 border-ink pt-10">
+        <SectionHeading
+          index={3}
+          title={t("section3Title")}
+          aside={<SourceNote>{t("section3Note")}</SourceNote>}
+        />
+        <div className="mt-8">
+          <Rebellions />
+        </div>
+      </section>
+    </>
   );
 }

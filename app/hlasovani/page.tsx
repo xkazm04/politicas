@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import VoteTrackPage from "@/features/votetrack/VoteTrackPage";
+import { getVoteRecord } from "@/features/votetrack/getVoteRecord";
 import { getVoteThemes } from "@/features/votetrack/getVoteThemes";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -12,8 +13,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HlasovaniPage() {
-  // First real-store read in a feature surface: the materialized vote_tag layer.
-  // Null when no store / no tags yet → the theme section is simply hidden.
+  // The REAL vote record (Seismograf): full PSP10 ledger derived server-side;
+  // null → the page falls back to the labelled mock + LiveDataNotice.
+  const record = await getVoteRecord();
+  // The materialized vote_tag Silver layer; null → the theme section hides.
   const themeData = await getVoteThemes();
-  return <VoteTrackPage themeData={themeData} />;
+  return <VoteTrackPage record={record} themeData={themeData} />;
 }
