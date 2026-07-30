@@ -7,6 +7,7 @@
 // CZK, formatted per locale.
 
 import type { Locale } from "./i18n/config";
+import { claimDataAttributes, type Claim } from "./claims/claim";
 
 /** Every numeric formatter below routes through this before touching the real
  * value — NaN/Infinity must never reach `toFixed`/digit-grouping, which would
@@ -117,12 +118,44 @@ export const formatDate = (iso: string, locale: Locale) =>
 export const formatCzk = (n: number, locale: Locale) =>
   locale === "en" ? `CZK ${enInt(n)}` : `${czechInt(n)} Kč`;
 
+// ── Citable formatting (batch 2E — additive, zero visual change) ─────────────
+// Same visible string as the plain formatters above, plus the machine-readable
+// claim payload from lib/claims. The claim shape and gate live in
+// lib/claims/claim.ts; this is only the join point with locale formatting.
+
+/** Which string formatter renders the visible number. */
+export type CitableKind = "dec" | "int" | "czk";
+
+export interface CitableText {
+  /** Visible string — byte-identical to the plain formatter of `kind`. */
+  text: string;
+  /** data-claim-* attributes; null when the value is not finite (a "—"
+   *  placeholder must never testify as a machine-readable figure). */
+  attrs: Record<string, string> | null;
+}
+
+/** Formats `n` exactly like the plain formatter of `kind`, and attaches the
+ *  claim's data-attributes. Pure strings — the element wrapper lives in
+ *  lib/claims/CitableNumber.tsx. */
+export const formatCitable = (
+  n: number,
+  claim: Claim,
+  locale: Locale,
+  kind: CitableKind = "dec",
+): CitableText => {
+  const text =
+    kind === "int" ? formatInt(n, locale) : kind === "czk" ? formatCzk(n, locale) : formatDecimal(n, locale);
+  return { text, attrs: Number.isFinite(n) ? claimDataAttributes(claim, n) : null };
+};
+
 /** Bundle of formatters bound to a locale — convenient in components. */
 export interface Formatters {
   dec: (n: number) => string;
   int: (n: number) => string;
   date: (iso: string) => string;
   czk: (n: number) => string;
+  /** Citable variant — same visible text as dec/int/czk, plus claim payload. */
+  cite: (n: number, claim: Claim, kind?: CitableKind) => CitableText;
 }
 
 export const formattersFor = (locale: Locale): Formatters => ({
@@ -130,4 +163,5 @@ export const formattersFor = (locale: Locale): Formatters => ({
   int: (n) => formatInt(n, locale),
   date: (iso) => formatDate(iso, locale),
   czk: (n) => formatCzk(n, locale),
+  cite: (n, claim, kind) => formatCitable(n, claim, locale, kind),
 });
