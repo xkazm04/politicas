@@ -21,6 +21,7 @@ import Standings from "./components/Standings";
 import ScoreBreakdown from "./components/ScoreBreakdown";
 import TrendChart from "./components/TrendChart";
 import DenikTeaser from "./components/DenikTeaser";
+import ReferendumTeaser from "./components/ReferendumTeaser";
 import SystemModules from "./components/SystemModules";
 import DataSources from "./components/DataSources";
 import Methodology from "./components/Methodology";
@@ -91,6 +92,9 @@ export default function LandingPage() {
 
       {/* ── Dnešní zápis — rubrika Deníku republiky (moonshot 3A) ── */}
       <DenikTeaser />
+
+      {/* ── Referendum o metodice — tři redakční čočky (moonshot 7B) ── */}
+      <ReferendumTeaser />
 
       <SystemModules />
       <DataSources />

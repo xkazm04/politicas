@@ -364,6 +364,21 @@ create index if not exists change_event_recorded_idx on change_event(recorded_at
 create index if not exists change_event_type_idx on change_event(event_type);
 create index if not exists change_event_entity_idx on change_event using gin(entity_keys);
 
+-- ── anonymous lens submissions (ADDITIVE — moonshot 7B referendum) ───────────
+-- One row per submitted reader weight-vector from /referendum. NO identity of
+-- any kind (no IP, no fingerprint, no cookie id) — the k-anonymity floor is
+-- enforced at read time (the median renders only when n ≥ 20, disclosed on the
+-- surface). \`vahy\` holds the canonical dash vector in LENS_COMPONENT_ORDER
+-- (features/civicscore/lens.ts is the ONLY codec; the repository validates
+-- every write through decodeWeights and never repairs an invalid vector).
+-- The ONLY writer is lib/db/pglite/repositories/weights.ts.
+create table if not exists lens_submission (
+  id           text primary key,
+  vahy         text not null,
+  submitted_at timestamptz not null default now()
+);
+create index if not exists lens_submission_at_idx on lens_submission(submitted_at desc);
+
 -- ── derived theme tags on roll calls (Silver-layer sem_classify enrichment) ──
 -- DERIVED metadata like slice_quality/kg_node: recomputable from vote titles,
 -- never source-of-truth. Stamped with model+method so a rendered tag cites how
