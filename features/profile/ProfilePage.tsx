@@ -28,6 +28,7 @@ import { COMPONENT_FILL } from "@/features/civicscore/components/LeaderboardTabl
 import LowScoreReasonBadge from "@/features/profile/components/LowScoreReasonBadge";
 import TenureNote from "@/features/profile/components/TenureNote";
 import TenureTrendGate from "@/features/profile/components/TenureTrendGate";
+import CareerSpineSection from "@/features/profile/components/CareerSpineSection";
 import DossierSection, { hasDossierContent, type DossierContent } from "@/features/profile/components/DossierSection";
 import MoneySection from "@/features/profile/components/MoneySection";
 import ScoreLegibilityPanel from "@/features/profile/components/ScoreLegibilityPanel";
@@ -205,6 +206,11 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
             componentLabels={Object.fromEntries(components.map((c) => [c.key, c.label])) as Partial<Record<ComponentKey, string>>}
             tenureDays={data.effortTenureDays}
           />
+
+          {/* Kariérní spis — služební záznam přes volební období (mandáty jsou
+              v registru pro všechna období; záznam aktivity jen pro běžící a
+              částečně PSP9 — stuha to přiznává po obdobích). */}
+          <CareerSpineSection career={data.career} asOf={data.seatsAsOf} />
         </motion.div>
 
         {/* ── 01 Složky přispění ────────────────────────────── */}

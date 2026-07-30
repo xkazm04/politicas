@@ -19,6 +19,7 @@
 
 import "server-only";
 import { cache } from "react";
+import type { MembershipRow } from "@/lib/db/types";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { byListOrder } from "@/lib/db/kgOrder";
 import { KG_READ_CAP } from "@/lib/db/readCap";
@@ -37,6 +38,13 @@ import { plausibleIsoDateOrNull } from "@/lib/analysis/plausible-date";
 import { resolveTieClass } from "@/features/money/reviewTypes";
 import { CORROBORATIONS } from "@/features/money/moneyTypes";
 import type { Corroboration, ReviewState, TieClass } from "@/features/money/moneyTypes";
+import {
+  deriveCareerSpine,
+  type CareerSpine,
+  type ChamberWindowInput,
+  type ServedTermInput,
+  type TermCoverage,
+} from "./careerSpine";
 
 const num = (x: unknown): number => (typeof x === "number" && Number.isFinite(x) ? x : 0);
 
@@ -271,6 +279,13 @@ export interface ProfileData {
   /** `linked_to` money ties (all `pending_review` at pass 41) + the contracts the
    *  attribution rule permits attaching to them. See `ProfileMoney`. */
   money: ProfileMoney;
+  /**
+   * Kariérní spis — the MP's service record across parliamentary terms
+   * (mandate rows are ingested for ALL terms PSP1–PSP10; activity data only
+   * for PSP10 + a partial PSP9 — the spine discloses coverage per term).
+   * See features/profile/careerSpine.ts for the derivation contract.
+   */
+  career: CareerSpine;
 }
 
 export async function getAllProfilePspIds(): Promise<number[]> {
@@ -484,6 +499,78 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
     const effortDataFlag = personNode && typeof personNode.props.effort_data_flag === "string"
       ? personNode.props.effort_data_flag
       : null;
+
+    // ── Kariérní spis ─────────────────────────────────────────────────────────
+    // The mandate registry is ingested in FULL across all terms (2 157 rows,
+    // PSP1–PSP10 — see docs/data-analysis/onboarding.md), so term PRESENCE is
+    // real data for every MP. Personal mandate windows come from the chamber
+    // organ's membership rows (the same rows the tenure props were computed
+    // from); prior-term windows need one term-scoped membership read per term
+    // actually served (median MP: 0–2 extra reads — 92/207 are first-termers).
+    // Activity beyond presence exists ONLY for PSP10 (+ a partial PSP9 via the
+    // `contribution_psp9` prop) — deriveCareerSpine discloses that per term.
+    const allMandates = await store.listMandates({ limit: 5_000 }); // 2 157 rows, all terms
+    const myMandates = allMandates.filter((m) => m.personPspId === pspId);
+    // Mirrors getLeaderboardData's private regionLabel() so the spine's per-term
+    // region reads identically to `person.region` (same organ rows, same copy).
+    const regionLabelOf = (nameCz: string | null): string | null => {
+      if (!nameCz) return null;
+      if (nameCz === "Hlavní město Praha") return "Praha";
+      if (nameCz === "Vysočina") return "Vysočina";
+      return `${nameCz} kraj`;
+    };
+    const organLabel = (id: number | null): string | null =>
+      id == null ? null : (organByPsp.get(id)?.nameCz ?? organByPsp.get(id)?.abbrev ?? null);
+    const served: ServedTermInput[] = myMandates.map((m) => ({
+      termCode: m.termCode,
+      region: m.regionPspId != null ? regionLabelOf(organByPsp.get(m.regionPspId)?.nameCz ?? null) : null,
+      partyList: organLabel(m.partyListPspId),
+    }));
+    // Chamber organs (abbrev PSP<n>) across all terms — already read once by
+    // buildLeaderboard's organ pass; no second organ scan.
+    const chamberOrgans = [...organByPsp.values()].filter((o) => /^PSP\d+$/i.test(o.abbrev ?? ""));
+    const chamberTermByPspId = new Map(chamberOrgans.map((o) => [o.pspId, (o.abbrev ?? "").toUpperCase()]));
+    const chamberByTermCode = new Map(chamberOrgans.map((o) => [(o.abbrev ?? "").toUpperCase(), o]));
+    const chamberWindowRows = (rows: MembershipRow[], onlyTerm: string): ChamberWindowInput[] =>
+      rows
+        .filter(
+          (m) =>
+            m.personPspId === pspId &&
+            m.kind === "member" &&
+            m.organPspId != null &&
+            chamberTermByPspId.get(m.organPspId) === onlyTerm,
+        )
+        .map((m) => ({ termCode: onlyTerm, fromAt: m.fromAt, toAt: m.toAt }));
+    // PSP10 windows come from the membership read this loader already did above.
+    const windows: ChamberWindowInput[] = chamberWindowRows(memberships, term);
+    const priorTermCodes = [...new Set(myMandates.map((m) => m.termCode.toUpperCase()))]
+      .filter((t) => t !== term && chamberByTermCode.has(t))
+      .sort();
+    for (const priorTerm of priorTermCodes) {
+      const priorMemberships = await store.listMemberships({ termCode: priorTerm });
+      windows.push(...chamberWindowRows(priorMemberships, priorTerm));
+    }
+    // PSP9 coverage: the effort loop's `contribution_psp9` prop (partial until
+    // the PSP9 roll-call ingest flips `complete` — see contribution-trend.ts).
+    const psp9Prop = personNode?.props.contribution_psp9;
+    const psp9Coverage: TermCoverage =
+      psp9Prop && typeof psp9Prop === "object"
+        ? (psp9Prop as Record<string, unknown>).complete === true
+          ? "full"
+          : "partial"
+        : "none";
+    const career = deriveCareerSpine({
+      served,
+      chambers: chamberOrgans.map((o) => ({
+        termCode: (o.abbrev ?? "").toUpperCase(),
+        validFrom: o.validFrom,
+        validTo: o.validTo,
+      })),
+      windows,
+      currentTermCode: term,
+      asOf: seatsAsOf,
+      psp9Coverage,
+    });
 
     // sponsors — person → bill (kind "bill"), resolved to the psp.cz historie
     // link via `cislo` (the public print number). See SponsoredBill's doc
@@ -738,6 +825,7 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
       interpellations: personNode ? nullableNum(personNode.props.interpellations) : null,
       absenceRate: personNode ? nullableNum(personNode.props.absence_rate) : null,
       money,
+      career,
     };
   } catch (err) {
     reportLoaderFailure("getProfileData", err);
