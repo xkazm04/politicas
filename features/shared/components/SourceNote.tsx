@@ -20,7 +20,19 @@
  * Sazba: `text-xs` (12 px) v obou režimech — nad prahem 11 px z §5 a bez
  * arbitrární hodnoty `text-[…]`. Barvy jsou AA: `steel-aa` (4,90:1) a
  * `signal-deep` (5,31:1) místo `steel` (4,11:1) a `signal` (4,10:1).
+ *
+ * ── Kapsle původu (batch 2A, aditivní) ───────────────────────────────────
+ * Volitelný prop `provenance` povyšuje citaci na doklad: text se vysází
+ * beze změny, ale stane se triggerem dialogu s účtenkou původu (záznam
+ * grafu, stav lidské brány, registry, trvalá adresa /zdroj/<ref>).
+ * Bez propu se nemění ani bajt výstupu — všech ~158 stávajících volajících
+ * sází přesně to co dřív. Účtenku odvozuje server
+ * (features/shared/provenance/receipt.ts), sem přichází hotová a
+ * serializovatelná.
  */
+
+import ProvenanceCapsule from "@/features/shared/provenance/ProvenanceCapsule";
+import type { ProvenanceReceipt } from "@/features/shared/provenance/receipt";
 
 /** Nad tímhle počtem znaků přestává být citace štítkem a stává se větou.
  *  48 drží „obr. 4 — ověřené veřejné zdroje" (31) štítkem a pouští
@@ -54,6 +66,7 @@ export default function SourceNote({
   dot = false,
   as,
   className = "",
+  provenance,
 }: {
   children: React.ReactNode;
   /** Barevný tón textu; `paper` pro tmavé/barevné plochy. */
@@ -63,6 +76,9 @@ export default function SourceNote({
   /** Vynutit režim, když měření lže (např. citace složená až za běhu). */
   as?: "label" | "sentence";
   className?: string;
+  /** Účtenka původu (batch 2A) — s ní se citace stane klikacím dokladem.
+   *  Bez ní se výstup nemění ani o bajt (aditivní opt-in). */
+  provenance?: ProvenanceReceipt;
 }) {
   const mode = as ?? (textLength(children) > LABEL_MAX_CHARS ? "sentence" : "label");
   const type =
@@ -75,7 +91,7 @@ export default function SourceNote({
   return (
     <div className={`${type} ${TONE[tone]} ${className}`}>
       {dot && <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-signal align-middle" aria-hidden />}
-      {children}
+      {provenance ? <ProvenanceCapsule receipt={provenance}>{children}</ProvenanceCapsule> : children}
     </div>
   );
 }
