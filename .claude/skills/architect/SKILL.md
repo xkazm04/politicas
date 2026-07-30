@@ -1,6 +1,7 @@
 ---
 name: architect
 description: Heavy-hitter structural scan of the politicas codebase — parallel-agent sweep over a theme or area, findings triaged into execute/queue/drop, with a durable in-repo backlog of ADRs under docs/architect/. Use for deliberate, high-effort sessions (a class of bugs eliminated, a convention promoted to lint-enforced rule), not for paper cuts.
+argument-hint: "[decision or topic]"
 ---
 
 # Architect (politicas)
