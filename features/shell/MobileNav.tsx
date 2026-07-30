@@ -12,6 +12,8 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import FollowCurrent from "@/features/schranka/FollowCurrent";
+import SchrankaBadge from "@/features/schranka/SchrankaBadge";
 import { NAV } from "./navModel";
 import { SectionLink, useNavLabels, type SidebarProps } from "./sidebarParts";
 
@@ -63,6 +65,8 @@ export default function MobileNav({ pathname, sections, activeSection, activeEnt
 
       {open && (
         <div className="border-t-2 border-ink">
+          {/* Parita s desktopem: sledovat entitu aktuální stránky (7A). */}
+          <FollowCurrent />
           {sections.length > 0 && (
             <div className="border-b-2 border-ink px-4 py-3">
               <p className="font-mono text-[11px] font-bold uppercase tracking-[0.25em] text-signal">
@@ -84,29 +88,53 @@ export default function MobileNav({ pathname, sections, activeSection, activeEnt
 
           <nav aria-label={t("sidebarLabel")}>
             {NAV.map((entry, i) => (
-              <Link
-                key={entry.key}
-                href={entry.href}
-                onClick={() => setOpen(false)}
-                aria-current={pathname === entry.href ? "page" : undefined}
-                className={`flex items-baseline justify-between gap-3 border-b border-hairline px-4 py-3 ${
-                  entry.key === activeEntry?.key ? "border-l-4 border-l-signal bg-paper-strong pl-3" : ""
-                }`}
-              >
-                <span className="min-w-0">
-                  <span className="font-mono text-[11px] uppercase tracking-widest text-steel">
-                    /{String(i).padStart(2, "0")} · {labels.tag(entry)}
+              <div key={entry.key}>
+                <Link
+                  href={entry.href}
+                  onClick={() => setOpen(false)}
+                  aria-current={pathname === entry.href ? "page" : undefined}
+                  className={`flex items-baseline justify-between gap-3 border-b border-hairline px-4 py-3 ${
+                    entry.key === activeEntry?.key ? "border-l-4 border-l-signal bg-paper-strong pl-3" : ""
+                  }`}
+                >
+                  <span className="min-w-0">
+                    <span className="font-mono text-[11px] uppercase tracking-widest text-steel">
+                      /{String(i).padStart(2, "0")} · {labels.tag(entry)}
+                    </span>
+                    <span className="block truncate text-base font-black uppercase tracking-tight">
+                      {labels.name(entry)}
+                    </span>
                   </span>
-                  <span className="block truncate text-base font-black uppercase tracking-tight">
-                    {labels.name(entry)}
-                  </span>
-                </span>
-                {labels.metric(entry) && (
-                  <span className="shrink-0 font-mono text-[11px] font-bold text-cobalt">
-                    {labels.metric(entry)}
-                  </span>
+                  {entry.key === "schranka" ? (
+                    <SchrankaBadge />
+                  ) : (
+                    labels.metric(entry) && (
+                      <span className="shrink-0 font-mono text-[11px] font-bold text-cobalt">
+                        {labels.metric(entry)}
+                      </span>
+                    )
+                  )}
+                </Link>
+                {/* Parita s desktopem (7A): podstránky modulu musí být dosažitelné
+                    i z telefonu — dřív mobil děti railu vůbec nenesl. */}
+                {entry.children.length > 0 && (
+                  <div className="border-b border-hairline py-1 pl-8 pr-4">
+                    {entry.children.map((c) => (
+                      <Link
+                        key={c.href}
+                        href={c.href}
+                        onClick={() => setOpen(false)}
+                        aria-current={pathname === c.href ? "page" : undefined}
+                        className={`block py-1.5 text-sm transition-colors ${
+                          pathname === c.href ? "font-bold text-signal" : "text-steel hover:text-signal"
+                        }`}
+                      >
+                        {labels.childLabel(c)}
+                      </Link>
+                    ))}
+                  </div>
                 )}
-              </Link>
+              </div>
             ))}
           </nav>
 

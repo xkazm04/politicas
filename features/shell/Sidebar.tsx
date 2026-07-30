@@ -18,6 +18,8 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import FollowCurrent from "@/features/schranka/FollowCurrent";
+import SchrankaBadge from "@/features/schranka/SchrankaBadge";
 import { NAV } from "./navModel";
 import { BrandBlock, SectionLink, SidebarFooter, useNavLabels, type SidebarProps } from "./sidebarParts";
 
@@ -61,10 +63,16 @@ export default function Sidebar({ pathname, sections, activeSection, activeEntry
                     {labels.tag(entry)}
                   </span>
                 </span>
-                {!open && labels.metric(entry) && (
-                  <span className="shrink-0 font-mono text-[11px] font-bold text-cobalt">
-                    {labels.metric(entry)}
-                  </span>
+                {/* Schránka nese místo metriky odznak novinek sledovaných entit. */}
+                {entry.key === "schranka" ? (
+                  <SchrankaBadge />
+                ) : (
+                  !open &&
+                  labels.metric(entry) && (
+                    <span className="shrink-0 font-mono text-[11px] font-bold text-cobalt">
+                      {labels.metric(entry)}
+                    </span>
+                  )
                 )}
               </Link>
 
@@ -105,7 +113,7 @@ export default function Sidebar({ pathname, sections, activeSection, activeEntry
                               pathname === c.href ? "font-bold text-signal" : "text-steel hover:text-signal"
                             }`}
                           >
-                            {labels.label(c.labelKey)}
+                            {labels.childLabel(c)}
                             <ArrowUpRight className="h-3.5 w-3.5 shrink-0" />
                           </Link>
                         ))}
@@ -119,6 +127,9 @@ export default function Sidebar({ pathname, sections, activeSection, activeEntry
         })}
       </nav>
 
+      {/* Afordance schránky: sledovat entitu aktuální stránky (moonshot 7A) —
+          kreslí se jen tam, kde adresa nese jednoznačný klíč entity. */}
+      <FollowCurrent />
       <SidebarFooter />
     </aside>
   );

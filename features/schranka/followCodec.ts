@@ -1,0 +1,165 @@
+/*
+ * Občanská schránka (moonshot 7A) — kodek lokálního seznamu sledovaných entit.
+ *
+ * Sledování je LOKÁLNÍ a bez účtu: celý stav žije v localStorage čtenáře
+ * (klíč SCHRANKA_STORAGE_KEY) a nikdy neopouští prohlížeč jinak než jako
+ * parametry dotazu na /schranka/novinky.json (seznam klíčů + datum poslední
+ * návštěvy — žádná identita, žádné cookies).
+ *
+ * Čistý modul bez importů z prohlížeče: parse/serialize se testují jako data.
+ * Kodek je záměrně TOLERANTNÍ na vstupu (rozbitý JSON, cizí tvary, neznámé
+ * klíče → zahodí se jen vadný kus, nikdy celý stav) a PŘÍSNÝ na výstupu
+ * (serializuje jen validní položky, deterministicky seřazené).
+ */
+
+/** Klíč localStorage. Verze je v klíči — změna tvaru = nový klíč, žádná migrace. */
+export const SCHRANKA_STORAGE_KEY = "politicas:schranka:v1";
+
+/** Strop sledovaných entit — pojistka proti nekonečnému růstu URL dotazu
+ *  na novinky (klíče se posílají jako query parametry). */
+export const MAX_FOLLOWS = 100;
+
+/** Jedna sledovaná entita. Klíč je týž veřejný klíč, kterým deník adresuje
+ *  filtr `?entita=` (features/denik/deriveDenik.ts) — adresa odběru = adresa
+ *  sledování. `label` je jen nápověda z okamžiku sledování; plocha schránky
+ *  dává přednost popisku odvozenému ze záznamů serveru. */
+export interface Follow {
+  key: string;
+  label: string;
+  /** ISO instant, kdy čtenář entitu začal sledovat. */
+  followedAt: string;
+}
+
+export interface SchrankaState {
+  follows: Follow[];
+  /** ISO instant poslední návštěvy /schranka; null = ještě nikdy. */
+  lastVisit: string | null;
+}
+
+export const EMPTY_SCHRANKA: SchrankaState = { follows: [], lastVisit: null };
+
+/**
+ * Validní veřejné klíče entit. Držené tvary:
+ *   poslanec:<pspId>  — spis /poslanec/<pspId>
+ *   firma:<ičo>       — firma nemá vlastní stránku; odběrem je filtr deníku
+ *   tisk:<číslo>      — sněmovní tisk /zakony/<číslo>
+ *   obec:<ičo>        — zrcadlo rozpočtu /rozpocty/<ičo> (deník obce zatím
+ *                       nenese — schránka to u obce přizná, nepředstírá)
+ */
+export function isEntityKey(v: unknown): v is string {
+  return (
+    typeof v === "string" &&
+    /^(poslanec:\d{1,7}|tisk:\d{1,7}|firma:\d{6,8}|obec:\d{6,8})$/.test(v)
+  );
+}
+
+/** Interní evidenční stránka klíče, je-li jaká (firma poctivě nemá). */
+export function entityHref(key: string): string | null {
+  const m = key.match(/^(poslanec|tisk|firma|obec):(.+)$/);
+  if (!m) return null;
+  switch (m[1]) {
+    case "poslanec":
+      return `/poslanec/${m[2]}`;
+    case "tisk":
+      return `/zakony/${m[2]}`;
+    case "obec":
+      return `/rozpocty/${m[2]}`;
+    default:
+      return null;
+  }
+}
+
+/** Deník entity — filtr je adresa (precedens /denik `?entita=`). */
+export function entityDenikHref(key: string): string {
+  return `/denik?entita=${encodeURIComponent(key)}`;
+}
+
+const isIsoInstant = (v: unknown): v is string =>
+  typeof v === "string" && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/.test(v) && Number.isFinite(Date.parse(v));
+
+function parseFollow(v: unknown): Follow | null {
+  if (typeof v !== "object" || v === null) return null;
+  const o = v as Record<string, unknown>;
+  if (!isEntityKey(o.key)) return null;
+  return {
+    key: o.key,
+    label: typeof o.label === "string" && o.label.length > 0 ? o.label.slice(0, 120) : o.key,
+    followedAt: isIsoInstant(o.followedAt) ? o.followedAt : "1970-01-01T00:00:00.000Z",
+  };
+}
+
+/**
+ * Tolerantní parse: cokoli nevalidního (rozbitý JSON, cizí tvar, vadná
+ * položka, duplicitní klíč) se ZAHODÍ, zbytek se zachová. Nikdy nevyhazuje —
+ * rozbitá schránka degraduje na prázdnou, ne na chybu plochy.
+ */
+export function parseSchrankaState(raw: string | null): SchrankaState {
+  if (raw === null || raw === "") return EMPTY_SCHRANKA;
+  let data: unknown;
+  try {
+    data = JSON.parse(raw);
+  } catch {
+    // Vadný JSON = vadný lokální stav, ne chyba systému: kodek je právě to
+    // místo, které smí rozbitý vstup potichu srovnat na prázdno (viz hlavička).
+    return EMPTY_SCHRANKA;
+  }
+  if (typeof data !== "object" || data === null) return EMPTY_SCHRANKA;
+  const o = data as Record<string, unknown>;
+
+  const follows: Follow[] = [];
+  const seen = new Set<string>();
+  if (Array.isArray(o.follows)) {
+    for (const item of o.follows) {
+      const f = parseFollow(item);
+      if (f === null || seen.has(f.key)) continue;
+      seen.add(f.key);
+      follows.push(f);
+      if (follows.length >= MAX_FOLLOWS) break;
+    }
+  }
+  return {
+    follows,
+    lastVisit: isIsoInstant(o.lastVisit) ? o.lastVisit : null,
+  };
+}
+
+/** Přísná serializace: jen validní položky, klíče vzestupně (deterministicky —
+ *  dvě serializace téhož stavu jsou byte-identické). */
+export function serializeSchrankaState(state: SchrankaState): string {
+  const follows = state.follows
+    .filter((f) => isEntityKey(f.key))
+    .slice(0, MAX_FOLLOWS)
+    .sort((a, b) => a.key.localeCompare(b.key));
+  return JSON.stringify({ follows, lastVisit: state.lastVisit });
+}
+
+/**
+ * Sledovatelná entita AKTUÁLNÍ stránky — z cesty (a filtru deníku) chrom
+ * odvodí, koho by tlačítko „sledovat" sledovalo. Čistá funkce kvůli testům;
+ * plochy, které tu nejsou, sledovatelné z chromu nejsou (záměr: afordance
+ * se zapíná tam, kde je klíč entity jednoznačný z adresy).
+ */
+export function followableFromRoute(pathname: string, entita: string | null): string | null {
+  if (entita !== null && isEntityKey(entita) && (pathname === "/denik" || pathname === "/schranka")) {
+    return entita;
+  }
+  let m = pathname.match(/^\/poslanec\/(\d{1,7})$/);
+  if (m) return `poslanec:${m[1]}`;
+  m = pathname.match(/^\/zakony\/(\d{1,7})$/);
+  if (m) return `tisk:${m[1]}`;
+  m = pathname.match(/^\/rozpocty\/(\d{6,8})$/);
+  if (m) return `obec:${m[1]}`;
+  return null;
+}
+
+/** Přidání/odebrání sledování — čisté operace nad stavem (UI je jen volá). */
+export function withFollow(state: SchrankaState, key: string, label: string, nowIso: string): SchrankaState {
+  if (!isEntityKey(key) || state.follows.some((f) => f.key === key)) return state;
+  if (state.follows.length >= MAX_FOLLOWS) return state;
+  return { ...state, follows: [...state.follows, { key, label: label || key, followedAt: nowIso }] };
+}
+
+export function withoutFollow(state: SchrankaState, key: string): SchrankaState {
+  if (!state.follows.some((f) => f.key === key)) return state;
+  return { ...state, follows: state.follows.filter((f) => f.key !== key) };
+}

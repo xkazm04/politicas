@@ -1,0 +1,135 @@
+import { describe, expect, it } from "vitest";
+import {
+  EMPTY_SCHRANKA,
+  entityDenikHref,
+  entityHref,
+  followableFromRoute,
+  isEntityKey,
+  MAX_FOLLOWS,
+  parseSchrankaState,
+  serializeSchrankaState,
+  withFollow,
+  withoutFollow,
+} from "./followCodec";
+
+const NOW = "2026-07-31T10:00:00.000Z";
+
+describe("isEntityKey", () => {
+  it("přijímá čtyři držené tvary klíče", () => {
+    expect(isEntityKey("poslanec:123")).toBe(true);
+    expect(isEntityKey("tisk:141")).toBe(true);
+    expect(isEntityKey("firma:04544152")).toBe(true);
+    expect(isEntityKey("obec:00241717")).toBe(true);
+  });
+
+  it("odmítá cizí a zkažené tvary", () => {
+    expect(isEntityKey("")).toBe(false);
+    expect(isEntityKey("poslanec:")).toBe(false);
+    expect(isEntityKey("poslanec:abc")).toBe(false);
+    expect(isEntityKey("firma:123")).toBe(false); // ičo má 6–8 číslic
+    expect(isEntityKey("zaznam:xyz")).toBe(false);
+    expect(isEntityKey(42)).toBe(false);
+    expect(isEntityKey(null)).toBe(false);
+  });
+});
+
+describe("entityHref", () => {
+  it("mapuje klíče na evidenční stránky; firma poctivě nemá", () => {
+    expect(entityHref("poslanec:123")).toBe("/poslanec/123");
+    expect(entityHref("tisk:141")).toBe("/zakony/141");
+    expect(entityHref("obec:00241717")).toBe("/rozpocty/00241717");
+    expect(entityHref("firma:04544152")).toBeNull();
+  });
+
+  it("deník entity je adresa filtru (URL je odběr)", () => {
+    expect(entityDenikHref("firma:04544152")).toBe("/denik?entita=firma%3A04544152");
+  });
+});
+
+describe("parseSchrankaState — tolerantní vstup", () => {
+  it("null / prázdno / rozbitý JSON → prázdná schránka, nikdy výjimka", () => {
+    expect(parseSchrankaState(null)).toEqual(EMPTY_SCHRANKA);
+    expect(parseSchrankaState("")).toEqual(EMPTY_SCHRANKA);
+    expect(parseSchrankaState("{nevalidní")).toEqual(EMPTY_SCHRANKA);
+    expect(parseSchrankaState("42")).toEqual(EMPTY_SCHRANKA);
+    expect(parseSchrankaState('"text"')).toEqual(EMPTY_SCHRANKA);
+  });
+
+  it("vadné položky zahodí, zdravé zachová; duplicitní klíč vyhraje první", () => {
+    const raw = JSON.stringify({
+      follows: [
+        { key: "poslanec:1", label: "A", followedAt: NOW },
+        { key: "nesmysl", label: "B", followedAt: NOW },
+        { key: "poslanec:1", label: "duplikát", followedAt: NOW },
+        { key: "tisk:141", label: "", followedAt: "kdysi" },
+        null,
+        "řetězec",
+      ],
+      lastVisit: NOW,
+      cizi: true,
+    });
+    const state = parseSchrankaState(raw);
+    expect(state.follows.map((f) => f.key)).toEqual(["poslanec:1", "tisk:141"]);
+    // Prázdný popisek degraduje na klíč, vadné razítko na epochu — nikdy vyhazov.
+    expect(state.follows[1].label).toBe("tisk:141");
+    expect(state.follows[1].followedAt).toBe("1970-01-01T00:00:00.000Z");
+    expect(state.lastVisit).toBe(NOW);
+  });
+
+  it("drží strop MAX_FOLLOWS", () => {
+    const raw = JSON.stringify({
+      follows: Array.from({ length: MAX_FOLLOWS + 20 }, (_, i) => ({
+        key: `poslanec:${i + 1}`,
+        label: `p${i}`,
+        followedAt: NOW,
+      })),
+      lastVisit: null,
+    });
+    expect(parseSchrankaState(raw).follows).toHaveLength(MAX_FOLLOWS);
+  });
+});
+
+describe("serialize/parse round-trip", () => {
+  it("stav přežije okruh beze změny (klíče deterministicky seřazené)", () => {
+    let state = EMPTY_SCHRANKA;
+    state = withFollow(state, "tisk:141", "sn. tisk 141", NOW);
+    state = withFollow(state, "poslanec:123", "Jan Novák", NOW);
+    state = { ...state, lastVisit: NOW };
+    const round = parseSchrankaState(serializeSchrankaState(state));
+    expect(round.follows.map((f) => f.key)).toEqual(["poslanec:123", "tisk:141"]);
+    expect(round.lastVisit).toBe(NOW);
+    // Serializace je deterministická — dvakrát totéž = byte-identické.
+    expect(serializeSchrankaState(round)).toBe(serializeSchrankaState(state));
+  });
+});
+
+describe("withFollow / withoutFollow", () => {
+  it("nepřidá nevalidní klíč ani duplikát; odebrání neexistujícího je no-op", () => {
+    const a = withFollow(EMPTY_SCHRANKA, "poslanec:1", "A", NOW);
+    expect(withFollow(a, "poslanec:1", "znovu", NOW)).toBe(a);
+    expect(withFollow(a, "nesmysl", "X", NOW)).toBe(a);
+    expect(withoutFollow(a, "tisk:9")).toBe(a);
+    expect(withoutFollow(a, "poslanec:1").follows).toHaveLength(0);
+  });
+});
+
+describe("followableFromRoute", () => {
+  it("odvodí klíč z evidenčních stránek", () => {
+    expect(followableFromRoute("/poslanec/123", null)).toBe("poslanec:123");
+    expect(followableFromRoute("/zakony/141", null)).toBe("tisk:141");
+    expect(followableFromRoute("/rozpocty/00241717", null)).toBe("obec:00241717");
+  });
+
+  it("filtrovaný deník sleduje filtrovanou entitu; jinde je filtr ignorován", () => {
+    expect(followableFromRoute("/denik", "firma:04544152")).toBe("firma:04544152");
+    expect(followableFromRoute("/zebricek", "firma:04544152")).toBeNull();
+    expect(followableFromRoute("/denik", "nesmysl")).toBeNull();
+  });
+
+  it("plochy bez jednoznačné entity sledovatelné nejsou", () => {
+    expect(followableFromRoute("/zakony", null)).toBeNull();
+    expect(followableFromRoute("/zakony/predpis", null)).toBeNull();
+    expect(followableFromRoute("/poslanec/123/cokoli", null)).toBeNull();
+    expect(followableFromRoute("/", null)).toBeNull();
+  });
+});

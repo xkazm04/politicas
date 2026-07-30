@@ -11,7 +11,7 @@ import Link from "next/link";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { MODULES } from "@/lib/civic/data";
 import SourceNote from "@/features/shared/components/SourceNote";
-import type { NavEntry, NavSection } from "./navModel";
+import type { NavChild, NavEntry, NavSection } from "./navModel";
 
 export interface SidebarProps {
   pathname: string;
@@ -21,21 +21,26 @@ export interface SidebarProps {
   activeEntry: NavEntry | undefined;
 }
 
-/** Jméno modulu je značka (data), doprovodné popisky jdou z katalogu. */
+/** Jméno modulu je značka (data), doprovodné popisky jdou z katalogu.
+ *  Řádky mimo katalog modulů (schranka, zaznam — moonshot 7A) nesou českou
+ *  literálu přímo v navModel (`labelCs`/`tagCs`): katalog messages/*.json je
+ *  sdílený soubor mimo plochu a tyhle plochy jsou Czech-first jednojazyčné. */
 export function useNavLabels() {
   const t = useTranslations();
   const tc = useTranslations("content");
 
   return {
     name: (entry: NavEntry) =>
-      entry.labelKey ? t(entry.labelKey) : (MODULES.find((m) => m.key === entry.key)?.name ?? entry.key),
+      entry.labelCs ??
+      (entry.labelKey ? t(entry.labelKey) : (MODULES.find((m) => m.key === entry.key)?.name ?? entry.key)),
     tag: (entry: NavEntry) =>
-      entry.key === "overview" ? t("nav.overviewHint") : tc(`modules.${entry.key}.tag`),
+      entry.tagCs ?? (entry.key === "overview" ? t("nav.overviewHint") : tc(`modules.${entry.key}.tag`)),
     metric: (entry: NavEntry) =>
-      entry.key === "overview" ? null : tc(`modules.${entry.key}.metricValue`),
+      entry.key === "overview" || entry.labelCs ? null : tc(`modules.${entry.key}.metricValue`),
     metricLabel: (entry: NavEntry) =>
-      entry.key === "overview" ? null : tc(`modules.${entry.key}.metricLabel`),
+      entry.key === "overview" || entry.labelCs ? null : tc(`modules.${entry.key}.metricLabel`),
     label: (key: string) => t(key),
+    childLabel: (c: NavChild) => c.labelCs ?? (c.labelKey ? t(c.labelKey) : c.href),
   };
 }
 
