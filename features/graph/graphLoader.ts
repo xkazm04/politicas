@@ -34,6 +34,14 @@ import { forceLayout, hashId } from "@/lib/kg/layout";
 import { citableId, sourceLinksFor, type KgNodeKind } from "@/lib/kg/sourceLinks";
 import { isKgNodeKind } from "./kindStyle";
 import { KG_READ_CAP } from "@/lib/db/readCap";
+import {
+  buildAdjacency,
+  findEvidencePaths,
+  HUB_DEGREE,
+  MAX_COST,
+  type Adjacency,
+  type PathEdge,
+} from "./trailPath";
 import type {
   GraphEdge,
   GraphNode,
@@ -41,6 +49,9 @@ import type {
   MapData,
   NodeDetail,
   NodeFact,
+  PathLedgerRow,
+  PathQueryResult,
+  PathTrailDto,
   SearchHit,
   Trail,
   TrailNode,
@@ -537,6 +548,117 @@ export async function getTrails(): Promise<Trail[] | null> {
     }
   })();
   return trailsPromise;
+}
+
+// ── Spoj dva body (důkazní cesty) ────────────────────────────────────────────
+
+let pathAdjPromise: Promise<Adjacency | null> | null = null;
+
+/**
+ * Sousedství pro hledání cest — jednou za život procesu, stejná doktrína jako
+ * index a mapa. Hrany se omezují na uzly známé indexu (neznámý druh se nekreslí
+ * ani nesmí být krokem cesty) a `pending` se čte z review_state, aby řazení
+ * „ověřené bije čekající" stálo na stejné pravdě jako čárkování na plátně.
+ */
+function pathAdjacency(): Promise<Adjacency | null> {
+  pathAdjPromise ??= (async () => {
+    try {
+      const store = await getStore();
+      const idx = await graphIndex();
+      if (!store || !idx) return null;
+      const all = await store.listKgEdges({ limit: KG_READ_CAP });
+      const evidence: PathEdge[] = [];
+      for (const e of all) {
+        if (!idx.byId.has(e.src) || !idx.byId.has(e.dst)) continue;
+        evidence.push({
+          src: e.src,
+          dst: e.dst,
+          rel: e.rel,
+          weight: e.weight,
+          pending: e.props?.review_state === "pending_review",
+        });
+      }
+      return buildAdjacency(evidence);
+    } catch (err) {
+      // See buildIndex's catch above — don't memoize a transient failure.
+      console.error("[graphLoader] pathAdjacency failed — will retry on next call", err);
+      pathAdjPromise = null;
+      return null;
+    }
+  })();
+  return pathAdjPromise;
+}
+
+/**
+ * Nejkratší doložené cesty mezi dvěma uzly. Pravidlo řazení žije v
+ * trailPath.ts a UI ho čtenáři tiskne; tady se čistý výsledek jen obléká do
+ * DTO: uzly dostanou štítky a druhy, hrany se vracejí v ULOŽENÉ orientaci,
+ * aby klíč src|rel|dst sedl na hrany mapy (čočka jeviště).
+ */
+export async function getPathBetween(srcId: string, dstId: string): Promise<PathQueryResult> {
+  const unavailable: PathQueryResult = {
+    status: "unavailable",
+    from: null,
+    to: null,
+    paths: [],
+    totalFound: 0,
+    capped: false,
+    maxCost: MAX_COST,
+    hubDegree: HUB_DEGREE,
+  };
+  const idx = await graphIndex();
+  const adj = await pathAdjacency();
+  if (!idx || !adj) return unavailable;
+
+  const fromE = idx.byId.get(srcId);
+  const toE = idx.byId.get(dstId);
+  const base: PathQueryResult = {
+    ...unavailable,
+    status: "ok",
+    from: fromE ? toNode(fromE) : null,
+    to: toE ? toNode(toE) : null,
+  };
+  if (!fromE || !toE) return base;
+
+  const found = findEvidencePaths(adj, srcId, dstId);
+  const paths: PathTrailDto[] = [];
+  for (const p of found.paths) {
+    // Krok s uzlem mimo index nastat nemůže (hrany se filtrovaly výše),
+    // ale kdyby datová dávka utekla, cesta se radši zahodí, než by lhala.
+    const rows: PathLedgerRow[] = [];
+    for (const [i, hop] of p.hops.entries()) {
+      const from = idx.byId.get(hop.from);
+      const to = idx.byId.get(hop.to);
+      if (!from || !to) break;
+      rows.push({
+        step: i + 1,
+        from: toNode(from),
+        to: toNode(to),
+        rel: hop.rel,
+        pending: hop.pending,
+        moneyCzk:
+          hop.rel === "supplies" && typeof hop.weight === "number" && Number.isFinite(hop.weight)
+            ? hop.weight
+            : null,
+      });
+    }
+    if (rows.length !== p.hops.length) continue;
+    paths.push({
+      nodeIds: p.nodeIds,
+      edges: p.hops.map((h) => ({
+        src: h.forward ? h.from : h.to,
+        dst: h.forward ? h.to : h.from,
+        rel: h.rel,
+        weight: h.weight,
+        pending: h.pending,
+      })),
+      ledger: rows,
+      pendingCount: p.pendingCount,
+      moneyCzk: p.moneyCzk,
+      hops: p.hops.length,
+    });
+  }
+  return { ...base, paths, totalFound: found.totalFound, capped: found.capped };
 }
 
 // ── Detail uzlu ──────────────────────────────────────────────────────────────

@@ -100,6 +100,45 @@ export interface Trail {
   edges: GraphEdge[];
 }
 
+/** Jeden krok důkazní cesty „Spoj dva body" — sazený řádek účetní knihy. */
+export interface PathLedgerRow {
+  /** Pořadí kroku od 1. */
+  step: number;
+  from: GraphNode;
+  to: GraphNode;
+  rel: string;
+  /** Hrana čeká na lidskou kontrolu (review_state). */
+  pending: boolean;
+  /** Částka na smluvní hraně (supplies), jinak null — formátuje klient. */
+  moneyCzk: number | null;
+}
+
+/** Jedna nalezená cesta: uzly pro čočku, hrany v uložené orientaci, kroky. */
+export interface PathTrailDto {
+  nodeIds: string[];
+  /** Hrany v ULOŽENÉ orientaci — klíč src|rel|dst sedne na hrany mapy. */
+  edges: GraphEdge[];
+  ledger: PathLedgerRow[];
+  pendingCount: number;
+  moneyCzk: number;
+  hops: number;
+}
+
+/** Odpověď „Spoj dva body". Prázdné `paths` při status=ok je taky odpověď:
+ *  spojení v našich datech doložené není. */
+export interface PathQueryResult {
+  status: "ok" | "unavailable";
+  from: GraphNode | null;
+  to: GraphNode | null;
+  /** Vítěz + stejně krátké alternativy, v otištěném pořadí. */
+  paths: PathTrailDto[];
+  totalFound: number;
+  capped: boolean;
+  /** Konstanty pravidla — UI je tiskne, ne hádá. */
+  maxCost: number;
+  hubDegree: number;
+}
+
 export interface GraphSeed {
   /** Sčítání uzlů podle druhu — podklad pro mapu i pro popis rozsahu. */
   census: Array<{ kind: KgNodeKind; count: number }>;

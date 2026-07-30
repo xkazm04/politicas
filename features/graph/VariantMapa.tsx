@@ -12,11 +12,19 @@
  * v krajině grafu trasa leží a co s ní sousedí. Vypnout čočku = zpátky
  * celá masa.
  *
+ * SPOJ DVA BODY (batch 1, 2026-07-30): kurátorské trasy přestaly být stropem.
+ * Čtenář vybere dva libovolné uzly a server spočítá nejkratší doložené cesty
+ * (features/graph/trailPath.ts — pravidlo řazení se tiskne na výsledku).
+ * Cesta se rozsvěcí krok za krokem toutéž čočkou, kterou používají trasy;
+ * prefers-reduced-motion dostane statické zvýraznění bez sekvence. Kroky
+ * jsou v panelu sázené jako účetní kniha a klik na řádek otevírá inspektor
+ * s provenience — generovaná odpověď je stejně dohledatelná jako kurátorská.
+ *
  * Co drží z měření (graph-explorer-scale.md): co_votes_with se nekreslí,
  * velikost uzlu = důkazní stupeň, spoje firma→smlouva až od přiblížení.
  */
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Route } from "lucide-react";
 import { compactCzk } from "@/features/money/moneyTypes";
@@ -24,10 +32,28 @@ import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import GraphStage, { edgeKey, type StageLens } from "./components/GraphStage";
 import NodeSearch from "./components/NodeSearch";
+import TrailFinder from "./components/TrailFinder";
 import { InspectorDrawer, LegendOverlay, StatChip, TopLeft } from "./components/StageOverlays";
-import { mapAction, trailsAction } from "./graphActions";
+import { mapAction, pathAction, trailsAction } from "./graphActions";
+import { HUB_DEGREE, MAX_COST } from "./trailPath";
 import { useNodeSelection } from "./useNodeSelection";
-import type { GraphEdge, GraphNode, GraphSeed, MapData, Trail } from "./graphTypes";
+import { usePrefersReducedMotion } from "./usePrefersReducedMotion";
+import type { GraphEdge, GraphNode, GraphSeed, MapData, PathQueryResult, SearchHit, Trail } from "./graphTypes";
+
+/** Odpověď pro případ, kdy akce spadne dřív, než loader stihne odpovědět. */
+const PATH_UNAVAILABLE: PathQueryResult = {
+  status: "unavailable",
+  from: null,
+  to: null,
+  paths: [],
+  totalFound: 0,
+  capped: false,
+  maxCost: MAX_COST,
+  hubDegree: HUB_DEGREE,
+};
+
+/** Interval rozsvěcení kroků cesty (bez reduced-motion). */
+const REVEAL_STEP_MS = 380;
 
 export default function VariantMapa({ seed }: { seed: GraphSeed | null }) {
   // Mapa nabízí vstup hledáním a trasami; nabídnuté uzly ze seedu nepotřebuje.
@@ -42,6 +68,14 @@ export default function VariantMapa({ seed }: { seed: GraphSeed | null }) {
   const [activeKey, setActiveKey] = useState<string | null>(null);
   const [focusId, setFocusId] = useState<string | null>(null);
   const selection = useNodeSelection();
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  // ── Spoj dva body — stav dotazu ─────────────────────────────────────────
+  const [pathFrom, setPathFrom] = useState<SearchHit | null>(null);
+  const [pathTo, setPathTo] = useState<SearchHit | null>(null);
+  const [pathResult, setPathResult] = useState<PathQueryResult | null | "loading">(null);
+  const [pathIdx, setPathIdx] = useState(0);
+  const pathReqRef = useRef(0);
 
   useEffect(() => {
     // setState až v async callbacích; dvojí StrictMode fetch odstíní serverová cache.
@@ -49,17 +83,72 @@ export default function VariantMapa({ seed }: { seed: GraphSeed | null }) {
     void trailsAction().then((ts) => setTrails(ts ?? []));
   }, []);
 
+  // Dotaz běží Z OBSLUHY UDÁLOSTI, ne z efektu (doktrína useNodeSelection);
+  // počítadlo hlídá závod odpovědí při rychlém přepínání koncových bodů.
+  const runPath = (from: SearchHit | null, to: SearchHit | null) => {
+    setPathFrom(from);
+    setPathTo(to);
+    setPathIdx(0);
+    const req = ++pathReqRef.current;
+    if (!from || !to) {
+      setPathResult(null);
+      return;
+    }
+    setActiveKey(null); // čočka patří cestě — kurátorská trasa zhasne
+    selection.clear();
+    setPathResult("loading");
+    void pathAction(from.id, to.id).then((r) => {
+      if (pathReqRef.current !== req) return;
+      setPathResult(r ?? PATH_UNAVAILABLE);
+    });
+  };
+
+  const pathMode = pathFrom !== null || pathTo !== null;
+  const activePath = useMemo(
+    () =>
+      pathResult !== null && pathResult !== "loading" && pathResult.status === "ok"
+        ? (pathResult.paths[pathIdx] ?? pathResult.paths[0] ?? null)
+        : null,
+    [pathResult, pathIdx],
+  );
+
+  // ── Rozsvěcení kroků: klíč cesty resetuje čítač, interval ho zvedá. ─────
+  const pathKey = activePath ? `${pathIdx}:${activePath.nodeIds.join(">")}` : "none";
+  const [reveal, setReveal] = useState({ key: "none", n: 0 });
+  if (reveal.key !== pathKey) {
+    // Reset odvozeného stavu při změně cesty — vzor „state adjustment during
+    // render", žádný setState v těle efektu.
+    setReveal({ key: pathKey, n: 0 });
+  }
+  useEffect(() => {
+    // reduced-motion: žádná sekvence — statické zvýraznění řeší revealedHops.
+    if (!activePath || prefersReducedMotion) return;
+    const total = activePath.hops;
+    const iv = setInterval(() => {
+      setReveal((r) => (r.key !== pathKey || r.n >= total ? r : { ...r, n: r.n + 1 }));
+    }, REVEAL_STEP_MS);
+    return () => clearInterval(iv);
+  }, [pathKey, activePath, prefersReducedMotion]);
+  const revealedHops = activePath ? (prefersReducedMotion ? activePath.hops : Math.min(reveal.n, activePath.hops)) : 0;
+
   const activeTrail = useMemo(() => trails.find((x) => x.key === activeKey) ?? null, [trails, activeKey]);
 
-  // Čočka: uzly + hrany trasy. Hrany trasy pocházejí ze stejného grafu jako
-  // hrany mapy, takže klíč src|rel|dst sedne 1:1.
+  // Čočka: rozsvícený úsek cesty (roste s revealedHops), jinak uzly + hrany
+  // kurátorské trasy. Hrany obou pocházejí ze stejného grafu jako hrany mapy,
+  // takže klíč src|rel|dst sedne 1:1.
   const lens = useMemo<StageLens | null>(() => {
+    if (activePath) {
+      return {
+        nodes: new Set(activePath.nodeIds.slice(0, revealedHops + 1)),
+        edges: new Set(activePath.edges.slice(0, revealedHops).map(edgeKey)),
+      };
+    }
     if (!activeTrail) return null;
     return {
       nodes: new Set(activeTrail.nodes.map((n) => n.id)),
       edges: new Set(activeTrail.edges.map(edgeKey)),
     };
-  }, [activeTrail]);
+  }, [activePath, revealedHops, activeTrail]);
 
   const moneyById = useMemo(() => {
     if (!activeTrail) return null;
@@ -67,6 +156,12 @@ export default function VariantMapa({ seed }: { seed: GraphSeed | null }) {
       activeTrail.nodes.filter((n) => n.moneyCzk !== undefined).map((n) => [n.id, n.moneyCzk as number]),
     );
   }, [activeTrail]);
+
+  // Koncové body cesty nesou trvalý kroužek — čtenář vidí, CO spojil.
+  const pathEnds = useMemo(() => {
+    if (!activePath || activePath.nodeIds.length === 0) return null;
+    return new Set([activePath.nodeIds[0], activePath.nodeIds[activePath.nodeIds.length - 1]]);
+  }, [activePath]);
 
   const { nodes, edges, positions } = useMemo(() => {
     if (data === "loading" || data === null)
@@ -78,27 +173,35 @@ export default function VariantMapa({ seed }: { seed: GraphSeed | null }) {
       size: n.kind === "contract" ? 2.6 : Math.min(24, 5 + Math.sqrt(n.degree) * 1.9),
       // Částky trasy jako druhý řádek popisku — jen pod aktivní čočkou.
       sub: moneyById?.has(n.id) ? compactCzk(moneyById.get(n.id)!, locale) : undefined,
+      mark: pathEnds?.has(n.id) || undefined,
     }));
     const edges = data.edges.map((e) => (e.rel === "supplies" ? { ...e, minK: 0.85 } : e));
     return { nodes, edges, positions: new Map(data.nodes.map((n) => [n.id, { x: n.x, y: n.y }])) };
-  }, [data, moneyById, locale]);
+  }, [data, moneyById, locale, pathEnds]);
 
-  // Výřez trasy: obdélník přes její uzly na mapě — jeviště na něj přiletí.
+  // Rám kamery: CELÁ cesta (ne jen rozsvícený úsek — kamera nesmí cukat),
+  // jinak výřez kurátorské trasy.
+  const frameIds = useMemo<ReadonlySet<string> | null>(() => {
+    if (activePath) return new Set(activePath.nodeIds);
+    if (activeTrail) return new Set(activeTrail.nodes.map((n) => n.id));
+    return null;
+  }, [activePath, activeTrail]);
+
   const fitBounds = useMemo(() => {
-    if (!lens || data === "loading" || data === null) return null;
+    if (!frameIds || data === "loading" || data === null) return null;
     let x0 = Infinity;
     let y0 = Infinity;
     let x1 = -Infinity;
     let y1 = -Infinity;
     for (const n of data.nodes) {
-      if (!lens.nodes.has(n.id)) continue;
+      if (!frameIds.has(n.id)) continue;
       if (n.x < x0) x0 = n.x;
       if (n.y < y0) y0 = n.y;
       if (n.x > x1) x1 = n.x;
       if (n.y > y1) y1 = n.y;
     }
     return Number.isFinite(x0) ? { x0, y0, x1, y1 } : null;
-  }, [lens, data]);
+  }, [frameIds, data]);
 
   if (data === "loading") {
     return (
@@ -124,7 +227,7 @@ export default function VariantMapa({ seed }: { seed: GraphSeed | null }) {
         world={data.world}
         selectedId={selection.selectedId}
         onSelect={selection.select}
-        fitKey={activeTrail ? `mapa:${activeTrail.key}` : "mapa"}
+        fitKey={activePath ? `mapa:path:${pathKey}` : activeTrail ? `mapa:${activeTrail.key}` : "mapa"}
         focusId={focusId}
         fitBounds={fitBounds}
         lens={lens}
@@ -141,8 +244,34 @@ export default function VariantMapa({ seed }: { seed: GraphSeed | null }) {
           }}
         />
 
-        {/* Trasy jako čočky nad mapou — jádro fúze A×C. */}
-        {trails.length > 0 && (
+        {/* Spoj dva body — libovolná dvojice uzlů, cesta jako čočka. */}
+        <TrailFinder
+          from={pathFrom}
+          to={pathTo}
+          result={pathResult}
+          activeIdx={pathIdx}
+          revealed={revealedHops}
+          onPickFrom={(hit) => {
+            if (hit.id === pathTo?.id) return; // stejný uzel dvakrát není otázka
+            runPath(hit, pathTo);
+          }}
+          onPickTo={(hit) => {
+            if (hit.id === pathFrom?.id) return;
+            runPath(pathFrom, hit);
+          }}
+          onClearFrom={() => runPath(null, pathTo)}
+          onClearTo={() => runPath(pathFrom, null)}
+          onReset={() => runPath(null, null)}
+          onPickPath={setPathIdx}
+          onHopFocus={(id) => {
+            selection.select(id);
+            setFocusId(id);
+          }}
+        />
+
+        {/* Trasy jako čočky nad mapou — jádro fúze A×C. Když čtenář spojuje
+            vlastní dva body, kurátorský rejstřík ustoupí panelu cesty. */}
+        {!pathMode && trails.length > 0 && (
           <div className="border-2 border-ink bg-paper">
             <div className="flex items-center gap-2 border-b-2 border-ink px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-widest">
               <Route className="h-3.5 w-3.5 text-signal" />
@@ -196,13 +325,17 @@ export default function VariantMapa({ seed }: { seed: GraphSeed | null }) {
             </div>
           </div>
         )}
-        <SourceNote className="border-2 border-ink bg-paper px-3 py-1.5">{tm("zoomHint")}</SourceNote>
+        {!pathMode && (
+          <SourceNote className="border-2 border-ink bg-paper px-3 py-1.5">{tm("zoomHint")}</SourceNote>
+        )}
       </TopLeft>
 
       <StatChip>
-        {activeTrail
-          ? t("counts", { nodes: f.int(activeTrail.nodes.length), edges: f.int(activeTrail.edges.length) })
-          : tm("stat", { nodes: f.int(nodes.length), edges: f.int(edges.length) })}
+        {activePath
+          ? t("counts", { nodes: f.int(activePath.nodeIds.length), edges: f.int(activePath.hops) })
+          : activeTrail
+            ? t("counts", { nodes: f.int(activeTrail.nodes.length), edges: f.int(activeTrail.edges.length) })
+            : tm("stat", { nodes: f.int(nodes.length), edges: f.int(edges.length) })}
       </StatChip>
       <LegendOverlay footnote={activeTrail ? tt("footnote") : tm("footnote")} />
       <InspectorDrawer selection={selection} />

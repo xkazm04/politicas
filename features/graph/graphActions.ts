@@ -13,8 +13,8 @@
 
 import { getLocale } from "next-intl/server";
 import { isKgNodeKind } from "./kindStyle";
-import { getMapData, getNodeDetail, getTrails, searchGraph } from "./graphLoader";
-import type { MapData, NodeDetail, SearchHit, Trail } from "./graphTypes";
+import { getMapData, getNodeDetail, getPathBetween, getTrails, searchGraph } from "./graphLoader";
+import type { MapData, NodeDetail, PathQueryResult, SearchHit, Trail } from "./graphTypes";
 
 export async function searchGraphAction(q: unknown, kinds: unknown): Promise<SearchHit[]> {
   if (typeof q !== "string") return [];
@@ -34,4 +34,13 @@ export async function mapAction(): Promise<MapData | null> {
 
 export async function trailsAction(): Promise<Trail[] | null> {
   return getTrails();
+}
+
+/** „Spoj dva body": nejkratší doložené cesty mezi dvěma uzly grafu. */
+export async function pathAction(src: unknown, dst: unknown): Promise<PathQueryResult | null> {
+  if (typeof src !== "string" || typeof dst !== "string") return null;
+  const a = src.slice(0, 200);
+  const b = dst.slice(0, 200);
+  if (!a || !b || a === b) return null;
+  return getPathBetween(a, b);
 }
