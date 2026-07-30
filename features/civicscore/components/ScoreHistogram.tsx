@@ -22,9 +22,14 @@ const CHART_TICK = { fill: STEEL, fontSize: 12, fontFamily: "var(--font-plex)" }
 export default function ScoreHistogram({
   summary,
   histogram,
+  custom = false,
 }: {
   summary: LeaderboardData["summary"];
   histogram: LeaderboardData["histogram"];
+  /** True = data jsou čtenářova čočka (otevřený index), ne zveřejněný index —
+   *  citace to musí říct. Česká kopie inline (messages/*.json je ve fleet
+   *  režimu mimo hranici — týž precedens jako LeaderboardTable). */
+  custom?: boolean;
 }) {
   const reduceMotion = useReducedMotion();
   const t = useTranslations("civicscore");
@@ -74,9 +79,16 @@ export default function ScoreHistogram({
           </ResponsiveContainer>
         </div>
         <div className="mt-2">
-          <SourceNote>
-            {t("histogramSource", { pts: tcom("pts") })}
-          </SourceNote>
+          {custom ? (
+            <SourceNote>
+              rozložení pod vaším indexem — přepočteno ze zveřejněných složek podle vašich vah
+              (pravidlo čočky viz /01); nejde o zveřejněnou metodiku
+            </SourceNote>
+          ) : (
+            <SourceNote>
+              {t("histogramSource", { pts: tcom("pts") })}
+            </SourceNote>
+          )}
         </div>
       </div>
       <div className="grid content-start gap-px self-start border border-ink bg-ink">

@@ -17,7 +17,7 @@ import { useFormat } from "@/lib/i18n/useFormat";
 import AnimatedScore from "@/features/shared/components/AnimatedScore";
 import SourceNote from "@/features/shared/components/SourceNote";
 
-function Fighter({ row, align }: { row: LeaderboardListEntry; align: "left" | "right" }) {
+function Fighter({ row, align, custom }: { row: LeaderboardListEntry; align: "left" | "right"; custom: boolean }) {
   const t = useTranslations("civicscore");
   const f = useFormat();
   const right = align === "right";
@@ -37,10 +37,11 @@ function Fighter({ row, align }: { row: LeaderboardListEntry; align: "left" | "r
         {row.clubName.split(" ")[0]} ·{" "}
         {row.tiedCount > 1 ? t("rankShared", { rank: f.int(row.rank) }) : t("rank", { rank: f.int(row.rank) })}
       </div>
+      {/* Kobaltová číslice = vaše číslo, ne zveřejněné (konvence z landing LiveSpecimen). */}
       <AnimatedScore
         value={row.score}
         format={f.dec}
-        className="mt-2 block text-6xl font-black leading-none tracking-tighter sm:text-7xl"
+        className={`mt-2 block text-6xl font-black leading-none tracking-tighter sm:text-7xl ${custom ? "text-cobalt" : ""}`}
       />
     </div>
   );
@@ -49,9 +50,15 @@ function Fighter({ row, align }: { row: LeaderboardListEntry; align: "left" | "r
 export default function HeadToHead({
   pair,
   components,
+  custom = false,
 }: {
   pair: [LeaderboardListEntry, LeaderboardListEntry] | null;
   components: LeaderboardData["components"];
+  /** True = položky i váhy jsou čtenářova čočka (otevřený index) — obě pravidla
+   *  z ../duel.ts jsou čisté funkce a běží nad libovolnými vahami beze změny;
+   *  jen citace musí říct, čí čísla to jsou. Česká kopie inline (messages/*.json
+   *  je ve fleet režimu mimo hranici — týž precedens jako LeaderboardTable). */
+  custom?: boolean;
 }) {
   const reduceMotion = useReducedMotion();
   const t = useTranslations("civicscore");
@@ -86,8 +93,8 @@ export default function HeadToHead({
         transition={{ duration: 0.25 }}
       >
         <div className="grid grid-cols-2 items-end gap-6">
-          <Fighter row={a} align="left" />
-          <Fighter row={b} align="right" />
+          <Fighter row={a} align="left" custom={custom} />
+          <Fighter row={b} align="right" custom={custom} />
         </div>
         <p className="mt-3 border-y-2 border-ink py-2 text-center font-mono text-xs font-bold uppercase tracking-widest">
           {outcome.tied
@@ -110,9 +117,12 @@ export default function HeadToHead({
             const va = f.dec(pa);
             const vb = f.dec(pb);
             const winner = componentWinner(pa, pb);
-            // Pruh = podíl získaných bodů na max. váze složky.
-            const wa = (pa / c.weight) * 100;
-            const wb = (pb / c.weight) * 100;
+            // Pruh = podíl získaných bodů na max. váze složky. Čtenářova čočka
+            // může složku vynulovat — váha 0 pak znamená prázdný pruh, ne NaN.
+            const wa = c.weight > 0 ? (pa / c.weight) * 100 : 0;
+            const wb = c.weight > 0 ? (pb / c.weight) * 100 : 0;
+            // Efektivní váhy čočky jsou na desetiny; zveřejněné jsou celé.
+            const weightLabel = Number.isInteger(c.weight) ? f.int(c.weight) : f.dec(c.weight);
             return (
               <div key={c.key} className="grid grid-cols-[3.5rem_1fr_auto_1fr_3.5rem] items-center gap-3">
                 <span className={`text-right text-lg font-black tabular-nums ${winner === "a" ? "text-signal" : "text-ink"}`}>
@@ -126,8 +136,8 @@ export default function HeadToHead({
                     transition={reduceMotion ? { duration: 0 } : { duration: 0.4 }}
                   />
                 </div>
-                <span className="min-w-[7.5rem] text-center font-mono text-[11px] font-bold uppercase tracking-wider text-steel">
-                  {c.label} × {c.weight}
+                <span className={`min-w-[7.5rem] text-center font-mono text-[11px] font-bold uppercase tracking-wider ${custom ? "text-cobalt" : "text-steel"}`}>
+                  {c.label} × {weightLabel}
                 </span>
                 <div className="flex justify-start bg-hairline">
                   <motion.span
@@ -145,9 +155,16 @@ export default function HeadToHead({
           })}
         </div>
         <div className="mt-4">
-          <SourceNote>
-            {t("footnote")}
-          </SourceNote>
+          {custom ? (
+            <SourceNote>
+              souboj pod vaším indexem — skóre i složky přepočteny podle vašich vah (pravidlo
+              čočky viz /01); nejde o zveřejněnou metodiku
+            </SourceNote>
+          ) : (
+            <SourceNote>
+              {t("footnote")}
+            </SourceNote>
+          )}
         </div>
       </motion.div>
     </AnimatePresence>

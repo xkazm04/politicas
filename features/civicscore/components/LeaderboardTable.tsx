@@ -22,6 +22,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { ArrowUpRight, FileText, Gavel, Rows3, ShieldCheck, Swords } from "lucide-react";
 import type { ClubFacet, LeaderboardData, LeaderboardListEntry } from "../getLeaderboardData";
@@ -95,15 +96,26 @@ export default function LeaderboardTable({
   components,
   duel,
   onToggleDuel,
+  custom = false,
 }: {
   entries: LeaderboardListEntry[];
   clubs: ClubFacet[];
   components: LeaderboardData["components"];
   duel: number[];
   onToggleDuel: (pspId: number) => void;
+  /** True = řádky jsou seřazené čtenářovou čočkou (otevřený index, sekce /01),
+   *  ne zveřejněným indexem: skóre a top-3 jdou do kobaltu (konvence „vaše
+   *  číslo") a patička to přizná. Přeřazení animuje framer `layout` — jen bez
+   *  prefers-reduced-motion. Česká kopie inline (messages/*.json je ve fleet
+   *  režimu mimo hranici — precedens viz workhorse-filtr níže). */
+  custom?: boolean;
 }) {
   const t = useTranslations("civicscore");
   const f = useFormat();
+  const reduceMotion = useReducedMotion();
+  // Živé přeřazení pod čočkou: layout animace jen v režimu čočky (oficiální
+  // pořadí se mění jen filtrem — tam řádky přibývají/mizí, nic neputuje).
+  const animateRank = custom && !reduceMotion;
   const [club, setClub] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   // Quiet-workhorse flavour filter (batch 003, O-effort-3) — P31's two
@@ -259,8 +271,10 @@ export default function LeaderboardTable({
         {rows.map((r) => {
           const inDuel = duel.includes(r.pspId);
           return (
-            <div
+            <motion.div
               key={r.pspId}
+              layout={animateRank ? "position" : false}
+              transition={{ duration: 0.35, ease: "easeOut" }}
               className={`grid grid-cols-[3.25rem_1fr_auto_auto_auto] items-center gap-3 border-b border-hairline px-2 py-2.5 transition-colors hover:bg-paper-strong max-sm:grid-cols-[2.5rem_1fr_auto_auto] ${
                 inDuel ? "bg-paper-strong" : ""
               }`}
@@ -269,7 +283,7 @@ export default function LeaderboardTable({
                   ranking). „=" před číslem říká, že o toto místo se dělí víc poslanců —
                   dřív se o červené top-3 rozhodovalo abecedou. */}
               <span
-                className={`font-mono text-lg font-bold ${r.rank <= 3 ? "text-signal" : "text-steel"}`}
+                className={`font-mono text-lg font-bold ${r.rank <= 3 ? (custom ? "text-cobalt" : "text-signal") : "text-steel"}`}
                 title={r.tiedCount > 1 ? t("tieRowTitle", { count: f.int(r.tiedCount) }) : undefined}
               >
                 {r.tiedCount > 1 && (
@@ -308,7 +322,8 @@ export default function LeaderboardTable({
                   <StandoutStat entry={r} components={components} medians={medians} />
                 </span>
               )}
-              <span className="w-12 text-right text-lg font-black tabular-nums">{f.dec(r.score)}</span>
+              {/* Kobaltové skóre = vaše číslo, ne zveřejněné (konvence z landing LiveSpecimen). */}
+              <span className={`w-12 text-right text-lg font-black tabular-nums ${custom ? "text-cobalt" : ""}`}>{f.dec(r.score)}</span>
               <button
                 type="button"
                 onClick={() => onToggleDuel(r.pspId)}
@@ -320,7 +335,7 @@ export default function LeaderboardTable({
               >
                 <Swords className="h-3 w-3" /> {t("vsButton")}
               </button>
-            </div>
+            </motion.div>
           );
         })}
         {rows.length === 0 && (
@@ -333,7 +348,14 @@ export default function LeaderboardTable({
         <SourceNote>
           {t("shownOf", { count: rows.length })}
         </SourceNote>
-        <SourceNote className="!text-[10px]">{t("realNote")}</SourceNote>
+        {custom ? (
+          <SourceNote>
+            seřazeno podle vašich vah (otevřený index, /01) — nejde o zveřejněný index; výchozí
+            metodiku vrátí tlačítko v horním pruhu
+          </SourceNote>
+        ) : (
+          <SourceNote className="!text-[10px]">{t("realNote")}</SourceNote>
+        )}
       </div>
       {/* Co „=" znamená a co zbylý pořádek uvnitř shody NEznamená — bez toho by
           abecední řazení vypadalo jako výsledek. */}
