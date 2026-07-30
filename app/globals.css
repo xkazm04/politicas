@@ -94,3 +94,79 @@ body {
   border: 3px solid var(--color-ink);
   cursor: pointer;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * TISKOVÁ VRSTVA — Režim plakátu (batch 1D, features/shared/poster/**)
+ *
+ * Konstrukt je doslova plakátová řeč — tahle vrstva ji pouští na papír.
+ * Jediný vstupní bod je <PosterFrame> (features/shared/poster/PosterFrame.tsx):
+ * vykreslí arch `.poster-sheet` a hook usePosterMode() po dobu zobrazení
+ * nastaví `data-poster-mode` na <html>. Všechna tisková pravidla jsou tím
+ * atributem PODMÍNĚNÁ — běžný tisk ostatních stránek se nemění (žádné
+ * globální `@page` přepsání; formáty jdou přes POJMENOVANÉ stránky).
+ *
+ * Geometrie: A4 (210×297) a A3 (297×420) mají týž poměr 1:√2, takže arch má
+ * jediný layout v metrice A4 a A3 je čistě `zoom: 1.4142` při tisku.
+ * Náhled na obrazovce používá stejné mm jednotky (210mm ≈ 794px při 96 dpi),
+ * takže náhled JE tiskový arch v měřítku 1:1.
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Pojmenované tiskové stránky — aktivují se `page:` vlastností archu,
+ * default @page ostatních ploch zůstává nedotčený. */
+@page plakat-a4 {
+  size: A4 portrait;
+  margin: 0;
+}
+@page plakat-a3 {
+  size: A3 portrait;
+  margin: 0;
+}
+
+/* Arch — náhled na obrazovce v reálné velikosti A4. */
+.poster-sheet {
+  width: min(100%, 210mm);
+  aspect-ratio: 210 / 297;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  /* plné plochy (ink/signal) musí přežít výchozí šetření tonerem */
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+.poster-sheet[data-poster-format="a4"] {
+  page: plakat-a4;
+}
+.poster-sheet[data-poster-format="a3"] {
+  page: plakat-a3;
+}
+
+@media print {
+  /* Tiskne se JEN arch: chrom aplikace (lišta, toolbar, vše ostatní) zmizí.
+   * Viditelnost místo display, aby arch nepřišel o layout svých předků. */
+  html[data-poster-mode] body {
+    background: var(--color-paper);
+  }
+  html[data-poster-mode] body * {
+    visibility: hidden;
+  }
+  html[data-poster-mode] .poster-sheet,
+  html[data-poster-mode] .poster-sheet * {
+    visibility: visible;
+  }
+  html[data-poster-mode] .poster-sheet {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 210mm;
+    height: 297mm;
+    margin: 0;
+    border: 0;
+  }
+  /* A3 = A4 × √2 v obou rozměrech → celý arch se jen přeškáluje. */
+  html[data-poster-mode] .poster-sheet[data-poster-format="a3"] {
+    zoom: 1.4142;
+  }
+}
+/* ═══ konec tiskové vrstvy — Režim plakátu ═════════════════════════════════ */
