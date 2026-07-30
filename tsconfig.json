@@ -19,7 +19,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "czech-civic-data": ["./packages/czech-civic-data/src/index.ts"],
+      "czech-civic-data/*": ["./packages/czech-civic-data/src/*"]
     }
   },
   "include": [

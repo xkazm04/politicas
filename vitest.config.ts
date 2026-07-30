@@ -20,7 +20,16 @@ export default defineConfig({
     // is a PURE builder that lives beside the feature that owns it (it consumes
     // the money/law projections, so lib/ is the wrong home) — and an invariant
     // test that never runs is not an invariant.
-    include: ["lib/**/*.test.ts", "features/**/*.test.ts", "scripts/**/*.test.ts"],
+    // `packages/*/src/**/*.test.ts` joined 2026-07-30 (moonshot 6A): the
+    // czech-civic-data extraction moved the UNL/cp1250/zip/fold suite into the
+    // package; including it here keeps `npm test` covering the whole repo (the
+    // package also runs standalone via its own vitest.config.ts).
+    include: [
+      "lib/**/*.test.ts",
+      "features/**/*.test.ts",
+      "scripts/**/*.test.ts",
+      "packages/*/src/**/*.test.ts",
+    ],
     // Five test files boot a real PGlite (WASM Postgres) in parallel workers;
     // the boots contend and any first-in-file test can blow the 5s default.
     testTimeout: 30_000,

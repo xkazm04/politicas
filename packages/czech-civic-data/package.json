@@ -1,0 +1,35 @@
+{
+  "name": "czech-civic-data",
+  "version": "0.1.0",
+  "private": true,
+  "description": "How to read Czech parliamentary and civic open data correctly: escape-aware UNL (Informix UNLOAD) parsing, fatal windows-1250 decoding, a dependency-free capped ZIP reader, Czech ASCII folding, and the documented psp.cz vote vocabularies.",
+  "keywords": [
+    "czech",
+    "civic-tech",
+    "psp.cz",
+    "unl",
+    "windows-1250",
+    "open-data",
+    "parliament"
+  ],
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./normalize": "./src/normalize.ts",
+    "./unl": "./src/unl.ts",
+    "./zip": "./src/zip.ts"
+  },
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "vitest run --config ./vitest.config.ts",
+    "typecheck": "tsc -p ./tsconfig.json"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
