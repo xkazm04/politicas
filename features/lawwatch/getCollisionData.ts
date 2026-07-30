@@ -69,6 +69,12 @@ export interface CollisionPairView {
   reasoningWithheld: boolean;
   sourceBatch: number; // 1–5 or 8, which batch produced this close-read
   sourceMethod: string; // one-line method note for the SourceNote
+  /** ISO timestamp the finding entered the archive — the source payload's own
+   * `generatedAt` (for batch-001/002 prior pairs: the deterministic pre-check
+   * report that first flagged them, collision-report.json). Null when the
+   * artifact carries no parseable date — never invented. Feeds the radar
+   * chronology (moonshot 4B). */
+  detectedAt: string | null;
 }
 
 export interface CollisionBillRef {
@@ -119,6 +125,14 @@ interface RawPair {
    * and pairIds are NOT unique across payloads (4-121 exists in both batch-004 and batch-005
    * on different statutes), so the file must be part of the key. */
   sourceFile?: string;
+  /** The payload file's own `generatedAt` — when this finding entered the archive. */
+  detectedAt?: string | null;
+}
+
+/** Payload `generatedAt` values are either full ISO timestamps or date-only
+ * ("2026-07-27"); both parse. Anything else → null, never a guessed date. */
+function asIsoDate(v: unknown): string | null {
+  return typeof v === "string" && Number.isFinite(Date.parse(v)) ? v : null;
 }
 
 /** Payloads disagree on how they spell a classification. batch-008 writes `confirmed` and
@@ -161,8 +175,9 @@ function loadRawPairs(file: string): RawPair[] {
   try {
     const p = join(PAYLOADS_DIR, file);
     if (!existsSync(p)) return [];
-    const raw = JSON.parse(readFileSync(p, "utf8")) as { pairs?: unknown };
+    const raw = JSON.parse(readFileSync(p, "utf8")) as { pairs?: unknown; generatedAt?: unknown };
     if (!Array.isArray(raw.pairs)) return [];
+    const detectedAt = asIsoDate(raw.generatedAt);
     return raw.pairs.flatMap((x) => {
       if (typeof x !== "object" || x === null) return [];
       const o = x as Record<string, unknown>;
@@ -176,6 +191,7 @@ function loadRawPairs(file: string): RawPair[] {
         lawRef: o.lawRef,
         classification: normalizeClassification(o.classification),
         sourceFile: file,
+        detectedAt,
         sharedParagraph: o.sharedParagraph,
         evidence: {
           billAExcerpt: typeof evidence.billAExcerpt === "string" ? evidence.billAExcerpt : undefined,
@@ -248,13 +264,29 @@ function asStr(v: unknown): string | null {
   return typeof v === "string" && v.length > 0 ? v : null;
 }
 
+/** Batch-001/002's prior pairs predate the dated pairs-array payloads; the artifact
+ * that first flagged both is the deterministic pre-check report, whose own
+ * `generatedAt` is the honest "entered the record" moment for them. */
+function loadPrecheckDate(): string | null {
+  try {
+    const p = join(PAYLOADS_DIR, "collision-report.json");
+    if (!existsSync(p)) return null;
+    const raw = JSON.parse(readFileSync(p, "utf8")) as { generatedAt?: unknown };
+    return asIsoDate(raw.generatedAt);
+  } catch (err) {
+    reportLoaderFailure("getCollisionData.precheckDate", err);
+    return null; // undated is honest; a guessed date would not be
+  }
+}
+
 export async function getCollisionData(): Promise<CollisionData | null> {
   try {
+    const precheckDate = loadPrecheckDate();
     const batch5Pairs = loadRawPairs("collision-close-reads-batch005.json");
     const batch8Pairs = loadRawPairs("collision-close-reads-batch008.json");
     const batch9Pairs = loadRawPairs("collision-close-reads-batch009.json");
     const rawAll = [
-      ...PRIOR_PAIRS,
+      ...PRIOR_PAIRS.map((p) => ({ ...p, detectedAt: precheckDate })),
       ...loadRawPairs("collision-close-reads.json"),
       ...loadRawPairs("collision-close-reads-batch004.json"),
       ...batch5Pairs,
@@ -360,6 +392,7 @@ export async function getCollisionData(): Promise<CollisionData | null> {
             },
             reasoning,
             reasoningWithheld: hadReasoning && reasoning === null,
+            detectedAt: p.detectedAt ?? null,
             sourceBatch: sourceBatchOf(p.pairId),
             sourceMethod:
               sourceBatchOf(p.pairId) <= 2

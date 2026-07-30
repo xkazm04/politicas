@@ -125,15 +125,15 @@ function RealLawWatch({ data }: { data: LawData }) {
 
       <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-2 border-signal bg-signal/5 px-4 py-3">
         <p className="text-[13px] leading-snug">
-          <span className="font-black uppercase tracking-wide text-signal">Kolize tisků</span> — souběžně
-          projednávané tisky, které novelizují stejný § téhož zákona neslučitelným nebo na pořadí citlivým
-          způsobem. Vychází ze čtyř dávek ručního porovnání textů obou tisků.
+          <span className="font-black uppercase tracking-wide text-signal">Kolizní radar</span> — chronologická
+          kniha nálezů legislativního procesu: souběžně projednávané tisky novelizující stejný § téhož zákona a
+          odvozené příznaky střetu, s trvalými kotvami, citačními bloky a RSS/JSON odběrem.
         </p>
         <Link
           href="/zakony/kolize"
           className="inline-flex shrink-0 items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-signal transition-colors hover:text-cobalt"
         >
-          otevřít kolize <ArrowUpRight className="h-3.5 w-3.5" />
+          otevřít radar <ArrowUpRight className="h-3.5 w-3.5" />
         </Link>
       </div>
 

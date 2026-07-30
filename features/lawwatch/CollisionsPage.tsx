@@ -25,7 +25,10 @@ import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { CZECH_WITHHELD_CZ } from "@/lib/analysis/language-gate";
+import RadarLedger from "./components/RadarLedger";
+import { clusterAnchorOf } from "./deriveRadar";
 import type { CollisionClassification, CollisionClusterView, CollisionData, CollisionPairView } from "./getCollisionData";
+import type { RadarData } from "./getRadarData";
 
 const CLASS_CZ: Record<CollisionClassification, string> = {
   "confirmed-collision": "potvrzená kolize textu",
@@ -42,13 +45,28 @@ const CLASS_TONE: Record<CollisionClassification, { border: string; bg: string; 
 /** psp.cz historie tisku (PSP10 = o=10) — jediný stabilní veřejný odkaz na tisk. */
 const pspBillUrl = (cislo: number) => `https://www.psp.cz/sqw/historie.sqw?o=10&t=${cislo}`;
 
-export default function CollisionsPage({ data }: { data: CollisionData | null }) {
+export default function CollisionsPage({ data, radar }: { data: CollisionData | null; radar: RadarData | null }) {
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
       <header className="border-b-4 border-ink">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
           <div className="flex items-center gap-3">
-            <span className="font-mono text-xs uppercase tracking-widest text-steel">/ kolize tisků</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-steel">/ kolizní radar</span>
+          </div>
+          {/* Strojově čitelné podoby knihy nálezů — veřejné API radaru. */}
+          <div className="flex items-center gap-4">
+            <a
+              href="/zakony/kolize/feed.xml"
+              className="font-mono text-xs font-bold uppercase tracking-widest text-signal-deep hover:underline"
+            >
+              RSS
+            </a>
+            <a
+              href="/zakony/kolize/feed.json"
+              className="font-mono text-xs font-bold uppercase tracking-widest text-signal-deep hover:underline"
+            >
+              JSON
+            </a>
           </div>
         </div>
       </header>
@@ -73,6 +91,8 @@ export default function CollisionsPage({ data }: { data: CollisionData | null })
           </p>
         </div>
 
+        {radar && radar.entries.length > 0 ? <RadarLedger radar={radar} /> : <RadarEmptyState />}
+
         {data ? <RealCollisions data={data} /> : <EmptyState />}
       </div>
     </main>
@@ -85,6 +105,19 @@ function EmptyState() {
       <p className="text-sm text-steel">
         Graf nebo výstupy ručního porovnání textů (uložené v archivu analýzy)
         nejsou dostupné. Politicas nezobrazuje smyšlená data.
+      </p>
+    </div>
+  );
+}
+
+/** Radar bez nálezů nebo bez dat — poctivé prázdno, žádná fabrikace. */
+function RadarEmptyState() {
+  return (
+    <div className="mt-12 border-2 border-dashed border-hairline bg-paper-strong px-6 py-8 text-center">
+      <p className="font-mono text-xs uppercase tracking-widest text-steel">kolizní radar</p>
+      <p className="mt-2 text-sm text-steel">
+        Radar zatím neeviduje žádné nálezy — buď nejsou dostupné výstupy porovnání textů a graf,
+        nebo záznam žádný nález neobsahuje. Politicas nezobrazuje smyšlená data.
       </p>
     </div>
   );
@@ -125,7 +158,7 @@ function RealCollisions({ data }: { data: CollisionData }) {
 
       <section className="mt-12 pb-20">
         <SectionHeading
-          index={1}
+          index={2}
           title="Shluky podle zákona a §"
           aside={
             <SourceNote>
@@ -160,7 +193,10 @@ function ClusterCard({ cluster }: { cluster: CollisionClusterView }) {
       whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.25 }}
-      className={`border-2 ${tone.border}`}
+      // Kotva shluku (`#k-<zákon>-<§>`) — cíl odkazu „detail shluku" z knihy
+      // nálezů radaru; stejná sanitizace jako v deriveRadar.clusterAnchorOf.
+      id={clusterAnchorOf(cluster.key)}
+      className={`scroll-mt-24 border-2 ${tone.border} target:bg-paper-strong`}
     >
       <div className={`flex flex-wrap items-center justify-between gap-3 border-b-2 ${tone.border} ${tone.bg} px-4 py-3`}>
         <div className="flex flex-wrap items-baseline gap-3">
