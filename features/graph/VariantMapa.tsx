@@ -30,6 +30,7 @@ import { Route } from "lucide-react";
 import { compactCzk } from "@/features/money/moneyTypes";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
+import CiteView from "./components/CiteView";
 import GraphStage, { edgeKey, type StageLens } from "./components/GraphStage";
 import NodeSearch from "./components/NodeSearch";
 import TrailFinder from "./components/TrailFinder";
@@ -38,6 +39,7 @@ import { mapAction, pathAction, trailsAction } from "./graphActions";
 import { HUB_DEGREE, MAX_COST } from "./trailPath";
 import { useNodeSelection } from "./useNodeSelection";
 import { usePrefersReducedMotion } from "./usePrefersReducedMotion";
+import type { GraphViewState } from "./permalink";
 import type { GraphEdge, GraphNode, GraphSeed, MapData, PathQueryResult, SearchHit, Trail } from "./graphTypes";
 
 /** Odpověď pro případ, kdy akce spadne dřív, než loader stihne odpovědět. */
@@ -132,6 +134,18 @@ export default function VariantMapa({ seed }: { seed: GraphSeed | null }) {
   const revealedHops = activePath ? (prefersReducedMotion ? activePath.hops : Math.min(reveal.n, activePath.hops)) : 0;
 
   const activeTrail = useMemo(() => trails.find((x) => x.key === activeKey) ?? null, [trails, activeKey]);
+
+  // Citovatelný stav pohledu — priorita kopíruje čočku: spočítaná cesta bije
+  // kurátorskou trasu, ta bije pouhý výběr uzlu. Nic citovatelného = žádná
+  // afordance (citace prázdného plátna není tvrzení).
+  const citeState = useMemo<GraphViewState | null>(() => {
+    if (activePath && pathFrom && pathTo) {
+      return { kind: "cesta", variant: "mapa", from: pathFrom.id, to: pathTo.id, path: pathIdx };
+    }
+    if (activeTrail) return { kind: "trasa", variant: "mapa", trail: activeTrail.key };
+    if (selection.selectedId) return { kind: "uzel", variant: "mapa", node: selection.selectedId };
+    return null;
+  }, [activePath, pathFrom, pathTo, pathIdx, activeTrail, selection.selectedId]);
 
   // Čočka: rozsvícený úsek cesty (roste s revealedHops), jinak uzly + hrany
   // kurátorské trasy. Hrany obou pocházejí ze stejného grafu jako hrany mapy,
@@ -268,6 +282,9 @@ export default function VariantMapa({ seed }: { seed: GraphSeed | null }) {
             setFocusId(id);
           }}
         />
+
+        {/* Trvalá citace pohledu — spočítaná cesta, trasa i uzel jsou citace. */}
+        {citeState && <CiteView state={citeState} />}
 
         {/* Trasy jako čočky nad mapou — jádro fúze A×C. Když čtenář spojuje
             vlastní dva body, kurátorský rejstřík ustoupí panelu cesty. */}

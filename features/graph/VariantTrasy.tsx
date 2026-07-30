@@ -24,10 +24,12 @@ import { layeredLayout, type LayeredItem } from "@/lib/kg/layout";
 import { compactCzk } from "@/features/money/moneyTypes";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { useFormat } from "@/lib/i18n/useFormat";
+import CiteView from "./components/CiteView";
 import GraphStage, { type StageCaption } from "./components/GraphStage";
 import { InspectorDrawer, LegendOverlay, StatChip } from "./components/StageOverlays";
 import { trailsAction } from "./graphActions";
 import { useNodeSelection } from "./useNodeSelection";
+import type { GraphViewState } from "./permalink";
 import type { GraphSeed, Trail } from "./graphTypes";
 
 export default function VariantTrasy({ seed }: { seed: GraphSeed | null }) {
@@ -51,6 +53,14 @@ export default function VariantTrasy({ seed }: { seed: GraphSeed | null }) {
     () => (trails !== "loading" && trails ? (trails.find((x) => x.key === activeKey) ?? null) : null),
     [trails, activeKey],
   );
+
+  // Citovatelný stav: vybraný uzel má přednost před trasou — čtenář ukazuje
+  // na konkrétní tvrzení, ne na celý výřez.
+  const citeState = useMemo<GraphViewState | null>(() => {
+    if (selection.selectedId) return { kind: "uzel", variant: "trasy", node: selection.selectedId };
+    if (active) return { kind: "trasa", variant: "trasy", trail: active.key };
+    return null;
+  }, [selection.selectedId, active]);
 
   const scene = useMemo(() => {
     if (!active) return null;
@@ -136,6 +146,12 @@ export default function VariantTrasy({ seed }: { seed: GraphSeed | null }) {
             <p className="px-3 py-4 font-mono text-[11px] uppercase tracking-widest text-steel">{tt("empty")}</p>
           )}
         </div>
+        {/* Trvalá citace — vybraný uzel bije trasu (čtenář ukazuje NA něj). */}
+        {citeState && (
+          <div className="border-t-2 border-ink">
+            <CiteView state={citeState} />
+          </div>
+        )}
         <div className="border-t border-hairline px-3 py-2">
           <SourceNote>{tt("footnote")}</SourceNote>
         </div>

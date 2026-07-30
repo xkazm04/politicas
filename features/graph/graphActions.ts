@@ -14,6 +14,8 @@
 import { getLocale } from "next-intl/server";
 import { isKgNodeKind } from "./kindStyle";
 import { getMapData, getNodeDetail, getPathBetween, getTrails, searchGraph } from "./graphLoader";
+import { issuePermalink } from "./getPermalinkData";
+import { encodeGraphRef, parseViewState, permalinkPath } from "./permalink";
 import type { MapData, NodeDetail, PathQueryResult, SearchHit, Trail } from "./graphTypes";
 
 export async function searchGraphAction(q: unknown, kinds: unknown): Promise<SearchHit[]> {
@@ -34,6 +36,21 @@ export async function mapAction(): Promise<MapData | null> {
 
 export async function trailsAction(): Promise<Trail[] | null> {
   return getTrails();
+}
+
+/**
+ * Vydání trvalé citace pohledu: stav se přísně validuje (veřejný endpoint),
+ * obsah se rozliší z týchž loaderů jako na /graf/p/[ref] a do adresy se
+ * otiskne jeho hash — citace tak od první vteřiny říká, CO přesně doložila.
+ * null = pohled teď doložit nejde (sklad neběží / obsah neexistuje).
+ */
+export async function citeViewAction(state: unknown): Promise<{ ref: string; path: string } | null> {
+  const parsed = parseViewState(state);
+  if (parsed === null) return null;
+  const hash = await issuePermalink(parsed);
+  if (hash === null) return null;
+  const ref = encodeGraphRef(parsed, hash);
+  return { ref, path: permalinkPath(ref) };
 }
 
 /** „Spoj dva body": nejkratší doložené cesty mezi dvěma uzly grafu. */
