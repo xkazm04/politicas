@@ -9,13 +9,23 @@
  * automaticky nepotvrzuje vazbu ani nesytí skóre.
  */
 
+import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { useLocale } from "next-intl";
 import SourceNote from "@/features/shared/components/SourceNote";
 import type { LeadDossiers } from "./getLeadDossiers";
+import type { PacketTarget } from "./getLeadPacketTargets";
 import type { LeadDossier } from "./moneyTypes";
 
-export default function KauzyPage({ data }: { data: LeadDossiers }) {
+export default function KauzyPage({
+  data,
+  packetTargets = {},
+}: {
+  data: LeadDossiers;
+  /** IČO kauzy → poslanci s doloženou linked_to vazbou (deterministický join
+   *  grafem, viz getLeadPacketTargets) — cíle tlačítka „sestavit důkazní paket". */
+  packetTargets?: Record<string, PacketTarget[]>;
+}) {
   const { dossiers, directoryUnreadable, unreadableFiles } = data;
   const locale = useLocale();
   const en = locale === "en";
@@ -73,7 +83,12 @@ export default function KauzyPage({ data }: { data: LeadDossiers }) {
         ) : (
           <div className="mt-12 space-y-16">
             {dossiers.map((d) => (
-              <DossierBlock key={d.leadId} d={d} en={en} />
+              <DossierBlock
+                key={d.leadId}
+                d={d}
+                en={en}
+                targets={d.company ? (packetTargets[d.company.ico] ?? []) : []}
+              />
             ))}
           </div>
         )}
@@ -82,7 +97,7 @@ export default function KauzyPage({ data }: { data: LeadDossiers }) {
   );
 }
 
-function DossierBlock({ d, en }: { d: LeadDossier; en: boolean }) {
+function DossierBlock({ d, en, targets }: { d: LeadDossier; en: boolean; targets: PacketTarget[] }) {
   return (
     <article className="border-t-4 border-ink pt-8">
       <div className="flex flex-wrap items-start justify-between gap-3">
@@ -95,6 +110,28 @@ function DossierBlock({ d, en }: { d: LeadDossier; en: boolean }) {
             <p className="mt-2 font-mono text-[11px] uppercase tracking-wider text-steel">
               {en ? "company" : "firma"}: {d.company.name} · IČO {d.company.ico}
             </p>
+          )}
+          {/* 4E: jedno kliknutí → důkazní paket. Odkaz existuje JEN když IČO
+              kauzy deterministicky joinuje na poslance s linked_to vazbou v
+              grafu (drop-don't-guess — nikdy fuzzy match podle jména). Paket
+              sám pak pustí dál jen lidsky ověřený materiál. */}
+          {targets.length > 0 && (
+            <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5">
+              {targets.map((t) => (
+                <Link
+                  key={t.pspId}
+                  href={`/penize/${t.pspId}/paket`}
+                  className="inline-flex items-center gap-1.5 border-2 border-ink px-2 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-ink transition-colors hover:border-signal hover:text-signal"
+                >
+                  {en ? "compile evidence packet" : "sestavit důkazní paket"} — {t.name} →
+                </Link>
+              ))}
+              <span className="font-mono text-[10px] uppercase tracking-widest text-steel">
+                {en
+                  ? "verified material only, exclusions stated"
+                  : "jen ověřený materiál, vyloučení přiznána"}
+              </span>
+            </div>
           )}
         </div>
         <div className="flex flex-col items-end gap-1.5">

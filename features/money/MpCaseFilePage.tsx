@@ -73,12 +73,26 @@ export default function MpCaseFilePage({ data }: { data: MoneyMpDetail | null })
               {en ? `${data.ties.length} evidenced ties` : `${data.ties.length} evidovaných vazeb`}
               {data.absenteeManagerLead ? ` · ${en ? "low chamber work (Case ②)" : "málo práce v sále (Case ②)"}` : ""}
             </p>
-            <Link
-              href={`/poslanec/${data.pspId}`}
-              className="mt-3 inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
-            >
-              {en ? "full MP profile" : "celý profil poslance"} →
-            </Link>
+            <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-2">
+              <Link
+                href={`/poslanec/${data.pspId}`}
+                className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+              >
+                {en ? "full MP profile" : "celý profil poslance"} →
+              </Link>
+              {/* 4E: jedno kliknutí → citovatelný paket. Kompiluje se z tohoto
+                  spisu, ale projde jen lidsky ověřený materiál — vyloučení
+                  paket přizná sám. */}
+              <Link
+                href={`/penize/${data.pspId}/paket`}
+                className="inline-flex items-center gap-1.5 border-2 border-ink px-2 py-1 font-mono text-xs font-bold uppercase tracking-wider text-ink transition-colors hover:border-signal hover:text-signal"
+              >
+                {en ? "compile evidence packet" : "sestavit důkazní paket"} →
+              </Link>
+              <span className="font-mono text-[10px] uppercase tracking-widest text-steel">
+                {en ? "verified material only, exclusions stated" : "jen ověřený materiál, vyloučení přiznána"}
+              </span>
+            </div>
 
             {/* Totals. SPLIT BY CLASS, never merged: a supervisory seat in a hospital and
                 a firm the MP owns are two different statements about the same person, and
