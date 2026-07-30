@@ -22,6 +22,7 @@ const entry = (over: Partial<DenikEntry> = {}): DenikEntry => ({
   titleCs: "podepsána smlouva — Alfa & Beta s.r.o.: Dodávka <IT>",
   czk: 1_200_000,
   pending: true,
+  timeBasis: "ucinne",
   source: "registr smluv — smlouvy.gov.cz",
   tone: "signal",
   entities: [{ key: "firma:00000100", label: "Alfa & Beta s.r.o.", href: null }],

@@ -47,6 +47,16 @@ function EntryRow({ e, followedKey }: { e: DenikEntry; followedKey: string | nul
         <span className="ml-2 whitespace-nowrap font-mono text-[11px] uppercase tracking-wider text-steel">
           [{e.source}]
         </span>
+        {/* Kterým časem je řádek datován — světový den události vs. den záznamu. */}
+        {e.timeBasis === "zaznamenano" ? (
+          <span className="ml-2 whitespace-nowrap border border-cobalt px-1 font-mono text-[10px] font-bold uppercase tracking-wider text-cobalt">
+            zaznamenáno
+          </span>
+        ) : (
+          <span className="ml-2 whitespace-nowrap font-mono text-[10px] uppercase tracking-wider text-steel-aa">
+            účinné
+          </span>
+        )}
         {e.pending && (
           <span className="mt-1 block font-mono text-[11px] uppercase tracking-wider text-ochre">
             stojí na vazbě čekající na lidskou kontrolu
@@ -109,6 +119,7 @@ const COVERAGE_NOTES: { key: keyof DenikCoverage; note: string }[] = [
   { key: "money", note: "peněžní vrstva je teď nečitelná — smlouvy a rejstříkové role v deníku chybí" },
   { key: "law", note: "legislativní vrstva je teď nečitelná — přikázání výborům a vyhlášení ve Sbírce chybí" },
   { key: "reviews", note: "lidská brána je teď nečitelná — rozhodnutí revizorů v deníku chybí" },
+  { key: "changes", note: "tabulka change_event je teď nečitelná — proud „zaznamenáno“ v deníku chybí" },
 ];
 
 export interface DenikPageProps {
@@ -169,13 +180,17 @@ export default function DenikPage({ ledger, coverage, auditRows, builtOn, entity
         <div className="mt-8 max-w-2xl border-l-4 border-ink bg-paper-strong px-4 py-3">
           <p className="font-mono text-[11px] font-bold uppercase tracking-widest">pravidlo deníku</p>
           <p className="mt-1 text-sm leading-relaxed text-steel-aa">
-            Znalostní graf drží jen současný stav — snímky předchozích průchodů ingestů neexistují,
-            takže „co se v grafu změnilo od včera&ldquo; se poctivě spočítat nedá. Den zápisu je proto den,
+            Deník vede dva proudy a každý řádek přiznává, kterým časem je datován. Řádky{" "}
+            <span className="font-mono text-[11px] uppercase tracking-wider">účinné</span> nesou den,
             kdy se událost <em>stala</em> podle svého registru (podpis smlouvy, zápis role, krok tisku)
-            — ne den, kdy ji ingest našel. Jedinou výjimkou jsou rozhodnutí lidské brány: review_audit
-            je append-only záznam a datum rozhodnutí je i datem zápisu. Smlouvy se uvádějí jen u firem
-            s vazbou typu vlastník/jednatel — smlouvy institucí, kde poslanec pouze zasedá v orgánu,
-            jsou penězi té instituce.
+            — ne den, kdy ji ingest našel. Řádky{" "}
+            <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt">zaznamenáno</span>{" "}
+            nesou den, kdy fakt <em>vstoupil do záznamu</em>: rozhodnutí lidské brány (review_audit je
+            append-only log) a od zavedení bitemporálního grafu i změny grafu samotného (change_event —
+            nová vazba, změna vazby, smlouva v grafu). Co graf zaznamenal před epochou bitemporální
+            migrace, proud „zaznamenáno&ldquo; poctivě nenese — zpětně se nic neorazítkovává. Smlouvy se
+            uvádějí jen u firem s vazbou typu vlastník/jednatel — smlouvy institucí, kde poslanec pouze
+            zasedá v orgánu, jsou penězi té instituce.
           </p>
         </div>
 
@@ -213,7 +228,7 @@ export default function DenikPage({ ledger, coverage, auditRows, builtOn, entity
             aside={
               ledger && (
                 <SourceNote>
-                  zdroj: registr smluv + ares + psp.cz + review_audit ({czechInt(auditRows)} řádků brány)
+                  zdroj: registr smluv + ares + psp.cz + review_audit ({czechInt(auditRows)} řádků brány) + change_event
                   {builtOn ? ` · sestaveno ${czechDate(builtOn)}` : ""}
                 </SourceNote>
               )

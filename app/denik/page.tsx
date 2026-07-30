@@ -39,7 +39,14 @@ export default async function DenikRoute({
   }
 
   const view = buildDenik(
-    { contracts: data.contracts, roles: data.roles, bills: data.bills, reviews: data.reviews, today: data.builtOn },
+    {
+      contracts: data.contracts,
+      roles: data.roles,
+      bills: data.bills,
+      reviews: data.reviews,
+      changes: data.changes,
+      today: data.builtOn,
+    },
     entityKey,
   );
 

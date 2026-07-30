@@ -5,6 +5,7 @@
 import { describe, expect, it } from "vitest";
 import {
   buildDenik,
+  type DenikChange,
   companyEntityKey,
   DAYS_SHOWN,
   dayAnchor,
@@ -204,6 +205,103 @@ describe("filtr entity — URL je odběr", () => {
     // Entita dostane SVÉ zapsané dny, i když jsou starší než dny celku.
     expect(view.ledger.days.map((d) => d.date)).toEqual(["2026-01-05"]);
     expect(view.entityLabelCs).toBe("Eva Malá");
+  });
+});
+
+describe("proud „zaznamenáno“ — change eventy v deníku (5C)", () => {
+  const change = (id: string, over: Partial<DenikChange> = {}): DenikChange => ({
+    id,
+    eventType: "tie-new",
+    recordedAt: "2026-07-22T08:00:00.000Z",
+    mpName: "Jan Novák",
+    pspId: 6543,
+    company: "Firma s.r.o.",
+    ico: "00000100",
+    contractLabel: null,
+    pending: true,
+    ...over,
+  });
+
+  it("řadí se do dne ZÁZNAMU, ve dni až za bránu, a nese timeBasis=zaznamenano", () => {
+    const { entries } = deriveDenikEntries(
+      input({
+        contracts: [contract("a", "2026-07-22")],
+        reviews: [review("r1", "2026-07-22T09:00:00.000Z")],
+        changes: [change("chev:tie-new:x|y")],
+      }),
+    );
+    expect(entries.map((e) => e.id)).toEqual(["contract:a", "review:r1", "change:chev:tie-new:x|y"]);
+    const ch = entries[2];
+    expect(ch.kind).toBe("change");
+    expect(ch.date).toBe("2026-07-22"); // den záznamu, ne účinnosti
+    expect(ch.timeBasis).toBe("zaznamenano");
+    expect(ch.source).toContain("change_event");
+  });
+
+  it("vizuální rozlišení: světové řádky jsou účinné, brána a change eventy zaznamenáno", () => {
+    const { entries } = deriveDenikEntries(
+      input({
+        contracts: [contract("a", "2026-07-20")],
+        roles: [role(6543, "00000100", "2026-07-20")],
+        reviews: [review("r1", "2026-07-21T09:00:00.000Z")],
+        changes: [change("c1", { recordedAt: "2026-07-21T10:00:00.000Z" })],
+      }),
+    );
+    const basis = new Map(entries.map((e) => [e.kind, e.timeBasis]));
+    expect(basis.get("contract")).toBe("ucinne");
+    expect(basis.get("roleStart")).toBe("ucinne");
+    expect(basis.get("review")).toBe("zaznamenano");
+    expect(basis.get("change")).toBe("zaznamenano");
+  });
+
+  it("brankované věty všech tří typů eventů; smlouva v grafu má tón signal", () => {
+    const { entries } = deriveDenikEntries(
+      input({
+        changes: [
+          change("c1", { eventType: "tie-new" }),
+          change("c2", { eventType: "tie-changed", pending: false }),
+          change("c3", { eventType: "contract-new", mpName: null, pspId: null, contractLabel: "Úklid budovy" }),
+        ],
+      }),
+    );
+    const byId = new Map(entries.map((e) => [e.id, e]));
+    expect(byId.get("change:c1")!.titleCs).toBe("zaznamenána nová vazba — Jan Novák ↔ Firma s.r.o.");
+    expect(byId.get("change:c1")!.pending).toBe(true);
+    expect(byId.get("change:c2")!.titleCs).toBe("zaznamenána změna vazby — Jan Novák ↔ Firma s.r.o.");
+    expect(byId.get("change:c3")!.titleCs).toBe("zaznamenána smlouva v grafu — Firma s.r.o.: Úklid budovy");
+    expect(byId.get("change:c3")!.tone).toBe("signal");
+    expect(byId.get("change:c1")!.tone).toBe("cobalt");
+  });
+
+  it("filtr `?entita=` pokrývá change eventy (poslanec i firma)", () => {
+    const { entries } = deriveDenikEntries(
+      input({
+        contracts: [contract("a", "2026-07-20")],
+        changes: [
+          change("c1"),
+          change("c2", { eventType: "contract-new", mpName: null, pspId: null, ico: "00000200", company: "Jiná a.s." }),
+        ],
+      }),
+    );
+    expect(filterDenikEntries(entries, mpEntityKey(6543)).map((e) => e.id)).toEqual([
+      "change:c1",
+      "contract:a",
+    ]);
+    expect(filterDenikEntries(entries, companyEntityKey("00000200")).map((e) => e.id)).toEqual(["change:c2"]);
+  });
+
+  it("idempotentní vstup: totéž odvození dvakrát → byte-identický deník; nemožné datum se vyhazuje", () => {
+    const build = () =>
+      deriveDenikEntries(
+        input({
+          changes: [change("c1"), change("c2", { recordedAt: "2027-05-01T00:00:00.000Z" })], // budoucnost
+        }),
+      );
+    const a = build();
+    const b = build();
+    expect(a).toEqual(b);
+    expect(a.entries.map((e) => e.id)).toEqual(["change:c1"]);
+    expect(a.droppedImplausible).toBe(1);
   });
 });
 

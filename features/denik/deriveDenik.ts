@@ -18,6 +18,16 @@
  *      v systému; u rozhodnutí revizora je datum záznamu totéž co datum
  *      události. Jen tahle skupina je skutečné „co vstoupilo do záznamu dnes".
  *
+ * ── PROUD „ZAZNAMENÁNO" (moonshot 5C, aditivní — pravidlo výš se NEMĚNÍ) ────
+ * Od zavedení bitemporálního grafu (3C) a tabulky change_event (5C) systém
+ * záznamový čas ZNÁ: každá verze vazby a každá nová smlouva v grafu nese
+ * recorded_at. Deník proto vedle světově datovaných řádků („účinné") nese
+ * i řádky datované dnem ZÁZNAMU („zaznamenáno") — typované change eventy
+ * (nová vazba, změna vazby, smlouva v grafu). Každý řádek přiznává, kterým
+ * časem je datován (`timeBasis`); rozhodnutí brány byla záznamovým časem vždy.
+ * Události před epochou bitemporální migrace poctivě neexistují — change_event
+ * je nenese (tichá nultá událost, žádná záplava zpětně orazítkovaných řádků).
+ *
  * ── PRAVIDLA (zděděná z knihy datovaných faktů, ../dashboard/datedFacts.ts) ──
  *   – Žádná vymyšlená věta, datum ani částka; co graf nenese, se nezobrazí.
  *   – Fakt bez možného data není datovaný fakt: mimo [PLAUSIBLE_FROM, dnes]
@@ -30,7 +40,7 @@
  *
  * ── DETERMINISMUS ───────────────────────────────────────────────────────────
  * Dny sestupně; uvnitř dne skupiny v pevném pořadí (smlouvy → legislativa →
- * rejstřík → brána) a uvnitř skupiny id vzestupně. Dvě sestavení téhož vstupu
+ * rejstřík → brána → záznam grafu) a uvnitř skupiny id vzestupně. Dvě sestavení téhož vstupu
  * v libovolném pořadí dají byte-identický deník — testy to přibíjejí.
  */
 
@@ -43,7 +53,12 @@ export type DenikKind =
   | "billPublished"
   | "roleStart"
   | "roleEnd"
-  | "review";
+  | "review"
+  | "change";
+
+/** Kterým časem je řádek datován: světovým dnem události („účinné"), nebo dnem,
+ *  kdy fakt vstoupil do záznamu („zaznamenáno"). Plocha to u řádku přizná. */
+export type DenikTimeBasis = "ucinne" | "zaznamenano";
 
 /** Entita, kterou lze v deníku „sledovat" — klíč je veřejná URL adresa filtru. */
 export interface DenikEntity {
@@ -66,6 +81,8 @@ export interface DenikEntry {
   czk?: number;
   /** Záznam stojí na vazbě, která čeká na lidskou kontrolu. */
   pending: boolean;
+  /** Den řádku je světovým dnem události, nebo dnem záznamu (viz hlavička). */
+  timeBasis: DenikTimeBasis;
   /** Doslovné jméno registru / záznamu, ze kterého fakt pochází. */
   source: string;
   tone: "signal" | "cobalt" | "ink" | "ochre";
@@ -125,6 +142,7 @@ const SOURCE_CONTRACT = "registr smluv — smlouvy.gov.cz";
 const SOURCE_REGISTRY = "ares — veřejný rejstřík";
 const SOURCE_PSP = "psp.cz — historie tisku";
 const SOURCE_GATE = "review_audit — lidská brána";
+const SOURCE_CHANGE = "change_event — záznam grafu";
 
 // ── Vstup (loader mapuje projekce getMoneyData/getLawData/listReviewAudit) ──
 
@@ -172,11 +190,34 @@ export interface DenikReview {
   ico: string | null;
 }
 
+/**
+ * Typovaný change event z tabulky change_event (5C) — proud „zaznamenáno".
+ * Loader NEPOSÍLÁ eventy typu review-decision: rozhodnutí brány už deník nese
+ * ze svého vlastního čtení review_audit a duplikát by lhal o počtu událostí.
+ */
+export interface DenikChange {
+  /** change_event.id — deterministický, vstupuje do id záznamu. */
+  id: string;
+  eventType: "tie-new" | "tie-changed" | "contract-new";
+  /** ISO instant záznamu — den řádku je dnem ZÁZNAMU, ne účinnosti. */
+  recordedAt: string;
+  mpName: string | null;
+  pspId: number | null;
+  company: string | null;
+  ico: string | null;
+  /** Popisek smlouvy (uzlu), jen u contract-new, je-li v grafu. */
+  contractLabel: string | null;
+  /** Vazba, na které event stojí, čeká na lidskou kontrolu. */
+  pending: boolean;
+}
+
 export interface DenikInput {
   contracts: DenikContract[];
   roles: DenikRole[];
   bills: DenikBill[];
   reviews: DenikReview[];
+  /** Proud „zaznamenáno" (5C). Volitelný: starší volající deník nemění. */
+  changes?: DenikChange[];
   /** Dnešek podle serveru — záznam s pozdějším datem je vada dat, ne novinka. */
   today: string;
 }
@@ -190,6 +231,7 @@ const KIND_ORDER: Record<DenikKind, number> = {
   roleStart: 3,
   roleEnd: 4,
   review: 5,
+  change: 6,
 };
 
 const mpEntity = (pspId: number, name: string): DenikEntity => ({
@@ -236,6 +278,7 @@ function collectRaw(input: DenikInput): RawEntry[] {
       titleCs: `podepsána smlouva — ${c.company}: ${c.title}`,
       czk: typeof c.amountCzk === "number" && Number.isFinite(c.amountCzk) ? c.amountCzk : undefined,
       pending: c.mps.some((m) => m.pending),
+      timeBasis: "ucinne",
       source: SOURCE_CONTRACT,
       tone: "signal",
       entities,
@@ -247,6 +290,7 @@ function collectRaw(input: DenikInput): RawEntry[] {
     const entities = [mpEntity(r.pspId, r.mpName), companyEntity(r.ico, r.company)];
     const base = {
       pending: r.pending,
+      timeBasis: "ucinne" as const,
       source: SOURCE_REGISTRY,
       tone: "cobalt" as const,
       entities,
@@ -272,6 +316,7 @@ function collectRaw(input: DenikInput): RawEntry[] {
     const entities = [billEntity(b.cislo), ...b.sponsors.map((s) => mpEntity(s.pspId, s.name))];
     const base = {
       pending: false,
+      timeBasis: "ucinne" as const,
       source: SOURCE_PSP,
       tone: "ink" as const,
       entities,
@@ -308,9 +353,39 @@ function collectRaw(input: DenikInput): RawEntry[] {
       titleCs: `${DECISION_CS[rv.decision]} — ${rv.mpName} ↔ ${rv.company}`,
       // Rozhodnutí brány JE rozhodnutí — nevisí na ničem nezkontrolovaném.
       pending: false,
+      // Datum rozhodnutí je datem zápisu — brána byla záznamovým časem vždy.
+      timeBasis: "zaznamenano",
       source: SOURCE_GATE,
       tone: "ochre",
       entities: entities.length > 0 ? entities : [{ key: `zaznam:${rv.id}`, label: `${rv.mpName} ↔ ${rv.company}`, href: null }],
+      internalHref: firstHref(entities),
+    });
+  }
+
+  // Proud „zaznamenáno" (5C): typované change eventy, datované dnem ZÁZNAMU.
+  for (const ch of input.changes ?? []) {
+    const entities: DenikEntity[] = [];
+    if (ch.pspId !== null) entities.push(mpEntity(ch.pspId, ch.mpName ?? `poslanec ${ch.pspId}`));
+    if (ch.ico !== null) entities.push(companyEntity(ch.ico, ch.company ?? `IČO ${ch.ico}`));
+    const companyCs = ch.company ?? (ch.ico ? `IČO ${ch.ico}` : "neurčená firma");
+    const mpCs = ch.mpName ?? (ch.pspId !== null ? `poslanec ${ch.pspId}` : "neurčená osoba");
+    const titleCs =
+      ch.eventType === "tie-new"
+        ? `zaznamenána nová vazba — ${mpCs} ↔ ${companyCs}`
+        : ch.eventType === "tie-changed"
+          ? `zaznamenána změna vazby — ${mpCs} ↔ ${companyCs}`
+          : `zaznamenána smlouva v grafu — ${companyCs}${ch.contractLabel ? `: ${ch.contractLabel}` : ""}`;
+    raw.push({
+      id: `change:${ch.id}`,
+      date: datePart(ch.recordedAt),
+      kind: "change",
+      titleCs,
+      pending: ch.pending,
+      timeBasis: "zaznamenano",
+      source: SOURCE_CHANGE,
+      tone: ch.eventType === "contract-new" ? "signal" : "cobalt",
+      entities:
+        entities.length > 0 ? entities : [{ key: `zaznam:${ch.id}`, label: titleCs, href: null }],
       internalHref: firstHref(entities),
     });
   }

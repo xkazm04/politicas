@@ -11,6 +11,10 @@
 //   3. Lidská brána (store.listReviewAudit + getKgNodes na labely) — jediný
 //      append-only log; čte se ČERSTVĚ za requestu (rozhodnutí revizora se
 //      nesmí opozdit o memo okno dávkových vrstev).
+//   4. Proud „zaznamenáno" (change_event, 5C) — typované change eventy grafu
+//      (nová vazba, změna vazby, smlouva v grafu), datované časem ZÁZNAMU.
+//      Idempotentní backfill běží nejvýš jednou za memo okno; čtení eventů za
+//      requestu. review-decision eventy se nepřebírají (viz readChanges).
 //
 // Dávkové vrstvy (1+2) jsou drahé (~12 s studený start peněz) a mění se jen
 // s `npm run da:kg-compute` — memoizují se s expirací MONEY_MEMO_TTL_MS,
@@ -22,11 +26,12 @@
 import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
+import { getChangesRepo } from "@/lib/db/pglite/repositories/changes";
 import { MONEY_MEMO_TTL_MS } from "@/features/dashboard/freshness";
 import { getMoneyData } from "@/features/money/getMoneyData";
 import { getLawData } from "@/features/lawwatch/getLawData";
 import { icoFromDst, pspIdFromSrc } from "@/features/dukazy/deriveFeed";
-import type { DenikBill, DenikContract, DenikReview, DenikRole } from "./deriveDenik";
+import type { DenikBill, DenikChange, DenikContract, DenikReview, DenikRole } from "./deriveDenik";
 
 export interface DenikCoverage {
   /** Peněžní vrstva čitelná → deník nese smlouvy a rejstříkové role. */
@@ -35,6 +40,8 @@ export interface DenikCoverage {
   law: boolean;
   /** Lidská brána čitelná → deník nese rozhodnutí revizorů. */
   reviews: boolean;
+  /** change_event čitelná → deník nese proud „zaznamenáno" (5C). */
+  changes: boolean;
 }
 
 export interface DenikSourceData {
@@ -42,6 +49,7 @@ export interface DenikSourceData {
   roles: DenikRole[];
   bills: DenikBill[];
   reviews: DenikReview[];
+  changes: DenikChange[];
   coverage: DenikCoverage;
   /** Kolik řádků review_audit branou prošlo — cituje se v hlavičce plochy. */
   auditRows: number;
@@ -247,13 +255,103 @@ async function readReviews(): Promise<{ reviews: DenikReview[]; ok: boolean; aud
   }
 }
 
+// ── proud „zaznamenáno": change_event (5C) ──────────────────────────────────
+//
+// Odvození (backfill) je idempotentní — deterministická id znamenají, že
+// opakovaný běh přepíše řádky na místě a nikdy nezdvojí proud. Běží nejvýš
+// jednou za MONEY_MEMO_TTL_MS (stejná politika jako dávkové vrstvy: korpus se
+// mění jen s ingestem/kg-compute); neúspěch se nememoizuje. Čtení eventů je
+// pak levné a běží za requestu.
+
+let changesBackfillPromise: Promise<void> | null = null;
+let changesBackfillAt = 0;
+
+function ensureChangesBackfilled(): Promise<void> {
+  if (changesBackfillPromise !== null && Date.now() - changesBackfillAt >= MONEY_MEMO_TTL_MS) {
+    changesBackfillPromise = null;
+  }
+  if (changesBackfillPromise === null) {
+    changesBackfillAt = Date.now();
+    changesBackfillPromise = (async () => {
+      const repo = await getChangesRepo();
+      if (!repo) return;
+      await repo.backfillChangeEvents();
+    })().catch((err) => {
+      changesBackfillPromise = null;
+      reportLoaderFailure("getDenikData.changesBackfill", err);
+    });
+  }
+  return changesBackfillPromise;
+}
+
+/** Strop čtených eventů — pojistka, ne stránkování; plocha řeže po dnech. */
+const MAX_CHANGE_EVENTS = 5_000;
+
+async function readChanges(): Promise<{ changes: DenikChange[]; ok: boolean }> {
+  try {
+    const repo = await getChangesRepo();
+    if (!repo) return { changes: [], ok: false };
+    await ensureChangesBackfilled();
+    const events = await repo.listChangeEvents({ limit: MAX_CHANGE_EVENTS });
+
+    // review-decision eventy deník NEPŘEBÍRÁ — rozhodnutí brány už nese ze
+    // svého čtení review_audit; duplikát by lhal o počtu událostí dne.
+    const relevant = events.filter(
+      (e): e is typeof e & { eventType: "tie-new" | "tie-changed" | "contract-new" } =>
+        e.eventType === "tie-new" || e.eventType === "tie-changed" || e.eventType === "contract-new",
+    );
+
+    // Labely endpointů (jméno poslance, firma, popisek smlouvy) — obohacení;
+    // bez nich deník degraduje na klíče, neumírá.
+    const ids = [...new Set(relevant.flatMap((e) => [e.src, e.dst].filter((v): v is string => v !== null)))];
+    const labels = new Map<string, string>();
+    if (ids.length > 0) {
+      try {
+        const store = await getStore();
+        if (store) for (const n of await store.getKgNodes(ids)) labels.set(n.id, n.label);
+      } catch (err) {
+        reportLoaderFailure("getDenikData.changeLabels", err);
+      }
+    }
+
+    const changes: DenikChange[] = relevant.map((e) => {
+      const pspId = e.src ? pspIdFromSrc(e.src) : null;
+      const icoKey = e.entityKeys.find((k) => k.startsWith("firma:"));
+      const ico = icoKey ? icoKey.slice("firma:".length) : null;
+      const isContract = e.eventType === "contract-new";
+      // U supplies hrany je firma na SRC uzlu a smlouva na DST uzlu.
+      const companyId = isContract ? e.src : e.dst;
+      return {
+        id: e.id,
+        eventType: e.eventType,
+        recordedAt: e.recordedAt,
+        mpName: pspId !== null && e.src ? (labels.get(e.src) ?? null) : null,
+        pspId,
+        company: companyId ? (labels.get(companyId) ?? null) : null,
+        ico,
+        contractLabel: isContract && e.dst ? (labels.get(e.dst) ?? null) : null,
+        pending: !isContract && e.payload.review_state !== "verified",
+      };
+    });
+    return { changes, ok: true };
+  } catch (err) {
+    reportLoaderFailure("getDenikData.changes", err);
+    return { changes: [], ok: false };
+  }
+}
+
 // ── vstupní bod ─────────────────────────────────────────────────────────────
 
 export async function getDenikData(): Promise<DenikSourceData | null> {
-  const [batch, gate] = await Promise.all([batchLayers(), readReviews()]);
-  const coverage: DenikCoverage = { money: batch.moneyOk, law: batch.lawOk, reviews: gate.ok };
+  const [batch, gate, changeStream] = await Promise.all([batchLayers(), readReviews(), readChanges()]);
+  const coverage: DenikCoverage = {
+    money: batch.moneyOk,
+    law: batch.lawOk,
+    reviews: gate.ok,
+    changes: changeStream.ok,
+  };
 
-  if (!coverage.money && !coverage.law && !coverage.reviews) {
+  if (!coverage.money && !coverage.law && !coverage.reviews && !coverage.changes) {
     reportLoaderFailure(
       "getDenikData",
       new Error("žádná vrstva není čitelná — /denik zobrazí čestný stav „nečitelné, ne prázdné“"),
@@ -266,6 +364,7 @@ export async function getDenikData(): Promise<DenikSourceData | null> {
     roles: batch.roles,
     bills: batch.bills,
     reviews: gate.reviews,
+    changes: changeStream.changes,
     coverage,
     auditRows: gate.auditRows,
     builtOn: new Date().toISOString().slice(0, 10),

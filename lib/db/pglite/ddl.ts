@@ -338,6 +338,32 @@ create table if not exists kg_edge_history (
 );
 create index if not exists kg_edge_history_key_idx on kg_edge_history(src, rel, dst, recorded_at desc);
 
+-- ── change events (ADDITIVE — moonshot 5C civic seismograph) ─────────────────
+-- Typed, dated, evidence-pointed change events derived from the record itself:
+-- the bitemporal kg history (tie/contract versions) + review_audit today, and
+-- adapter snapshot-diffs (lib/ingest/changeEvents.ts) from here on. DERIVED,
+-- recomputable, idempotent: \`id\` is a deterministic natural key
+-- (chev:<type>:<…>), so re-derivation upserts in place and never duplicates the
+-- stream. recorded_at is RECORD time — when the store learned the fact — never
+-- world time. entity_keys holds the public watch keys (poslanec:<pspId>,
+-- firma:<ico>, tisk:<n>) as a jsonb array; the GIN index backs the per-entity
+-- \`?entita=\` subscription filter. The ONLY writer is
+-- lib/db/pglite/repositories/changes.ts.
+create table if not exists change_event (
+  id           text primary key,
+  event_type   text not null,
+  recorded_at  timestamptz not null,
+  entity_keys  jsonb not null default '[]'::jsonb,
+  src          text,
+  dst          text,
+  evidence     jsonb not null default '{}'::jsonb,
+  source       text not null,
+  payload      jsonb not null default '{}'::jsonb
+);
+create index if not exists change_event_recorded_idx on change_event(recorded_at desc);
+create index if not exists change_event_type_idx on change_event(event_type);
+create index if not exists change_event_entity_idx on change_event using gin(entity_keys);
+
 -- ── derived theme tags on roll calls (Silver-layer sem_classify enrichment) ──
 -- DERIVED metadata like slice_quality/kg_node: recomputable from vote titles,
 -- never source-of-truth. Stamped with model+method so a rendered tag cites how

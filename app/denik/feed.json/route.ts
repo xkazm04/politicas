@@ -33,6 +33,7 @@ export async function GET(request: Request): Promise<Response> {
     roles: data.roles,
     bills: data.bills,
     reviews: data.reviews,
+    changes: data.changes,
     today: data.builtOn,
   });
   const scoped = entityKey ? filterDenikEntries(entries, entityKey) : entries;
