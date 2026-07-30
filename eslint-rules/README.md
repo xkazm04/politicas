@@ -1,52 +1,34 @@
-# eslint-rules — the politicas doctrine pack
+# eslint-rules — compatibility shims
 
-Custom flat-config rules registered in `eslint.config.mjs` under the `custom/` prefix.
-Each rule documents its own rationale and heuristics in its file header — that header is
-the rule's canonical doc. This README covers what is pack-wide: severity policy, escape
-hatches, and testing.
+The politicas doctrine pack moved into an in-repo package (moonshot batch-6,
+item 6B): **`packages/eslint-plugin-civic-transparency/`**. That package is now
+the canonical home of the rule implementations, their RuleTester suites, the
+per-rule docs (when-it-fires, escape hatches, why), and the adoption guide:
 
-## Rules
+- Plugin + presets: `packages/eslint-plugin-civic-transparency/index.cjs`
+  (`configs.recommended`, `configs.strict`)
+- Rule sources: `packages/eslint-plugin-civic-transparency/rules/*.cjs`
+- Per-rule docs: `packages/eslint-plugin-civic-transparency/docs/rules/*.md`
+- Adoption guide: `packages/eslint-plugin-civic-transparency/README.md`
 
-| Rule | Guards | Severity |
-| --- | --- | --- |
-| `no-silent-catch` | no swallowed errors | error |
-| `no-silent-null-catch` | loader degradations leave a trace | error (loader files) |
-| `no-server-import-in-client` | server/client boundary | error |
-| `role-button-requires-keydown` | keyboard operability | error |
-| `enforce-reduced-motion-fallback` | WCAG 2.3.3 looping motion | error |
-| `no-hardcoded-colors` | token discipline | error |
-| `require-source-citation` | **doctrine**: rendered figures carry provenance | warn in `features/**`, error in `app/**` |
-| `no-raw-number-display` | **doctrine**: formatting only via `lib/format.ts` | warn in `features/**`, error in `app/**` |
+Everything in this directory is a thin re-export shim kept so that historical
+paths keep working:
 
-## The doctrine rules (batch-2 item 2D)
+- `*.cjs` — `module.exports = require("../packages/eslint-plugin-civic-transparency/rules/<rule>.cjs")`
+- `__tests__/*.test.mjs` — forwarders importing the moved suites, so the
+  documented commands (`node eslint-rules/__tests__/<rule>.test.mjs`) still run.
 
-"Every rendered number carries its source" was a review convention; these two rules make
-it a build gate. Both were shipped **warn-first** against a measured inventory
-(2026-07-30: 29 warnings, 12 file×rule pairs, all under `features/**`; `app/**` was
-clean and is at `error`). Escalation path: burn down a module's warnings, then move that
-glob into the `error` block in `eslint.config.mjs`. Never flip a scope to `error` while
-it still warns — a red repo lint destroys trust in the whole pack.
+`eslint.config.mjs` consumes the package directly (registered under the
+historical `custom` prefix so rule IDs, severities, and scoping are unchanged).
+The severity policy, doctrine-rule burn-down workflow, and escape-hatch
+conventions previously documented here live on in the package README and the
+per-rule docs.
 
-Escape hatches (all leave a grep-able audit trail — a bare disable comment does not):
-
-- `// citation-ok: <reason>` — the citation genuinely exists but lives outside the file
-  (e.g. the parent component renders the `SourceNote` caption).
-- `data-undisclosed` JSX attribute — the figure knowingly ships without a source.
-  **Convention**: an element carrying `data-undisclosed` must render a visible
-  „bez zdroje" badge, so the disclosure reaches the reader, not just the linter.
-  (Not yet machine-enforced on old code.)
-- `// raw-format-ok: <reason>` — a deliberate raw `toFixed`/`toLocaleString*` call site
-  (e.g. admin-only, never server-rendered surfaces).
-
-## Testing
-
-Precedent established with the doctrine rules: RuleTester suites under `__tests__/`,
-plain `node`, no runner dependency:
+Run all suites:
 
 ```
-node eslint-rules/__tests__/require-source-citation.test.mjs
-node eslint-rules/__tests__/no-raw-number-display.test.mjs
+node packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs
 ```
 
-A failing case throws an AssertionError (non-zero exit); a clean run prints `PASS`.
-New rules should ship with positive, negative, and escape-hatch cases in this shape.
+The runner asserts shim equivalence (each file here re-exports the exact rule
+object the plugin ships), so a drifted shim fails the pack's own tests.

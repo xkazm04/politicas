@@ -4,16 +4,14 @@ import nextTs from "eslint-config-next/typescript";
 import { createRequire } from "node:module";
 
 const require = createRequire(import.meta.url);
-// Custom rules ported/adapted from the personas repo — see docs/DESIGN.md §Lint.
-const noSilentCatch = require("./eslint-rules/no-silent-catch.cjs");
-const noSilentNullCatch = require("./eslint-rules/no-silent-null-catch.cjs");
-const noServerImportInClient = require("./eslint-rules/no-server-import-in-client.cjs");
-const roleButtonRequiresKeydown = require("./eslint-rules/role-button-requires-keydown.cjs");
-const enforceReducedMotionFallback = require("./eslint-rules/enforce-reduced-motion-fallback.cjs");
-const noHardcodedColors = require("./eslint-rules/no-hardcoded-colors.cjs");
-// Doctrine pack (moonshot batch-2, item 2D) — provenance as a build gate.
-const requireSourceCitation = require("./eslint-rules/require-source-citation.cjs");
-const noRawNumberDisplay = require("./eslint-rules/no-raw-number-display.cjs");
+// The custom rule pack lives in the in-repo package (moonshot batch-6, 6B) —
+// see packages/eslint-plugin-civic-transparency/README.md for the adoption
+// guide and per-rule docs. `eslint-rules/*.cjs` remain as compat shims.
+// Registered here under the historical `custom` prefix (NOT via the package's
+// `configs.recommended`, which uses the canonical `civic-transparency` prefix)
+// so every rule ID, severity, and scope below stays byte-identical to the
+// pre-extraction config; the presets exist for external adopters.
+const civicTransparency = require("./packages/eslint-plugin-civic-transparency/index.cjs");
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -44,21 +42,20 @@ const eslintConfig = defineConfig([
     ".claude/skills/**",
     ".claude/agents/**",
   ]),
+  // The rule pack and its compat shims are CommonJS by contract (ESLint loads
+  // them via createRequire) — `require()` IS their module system, so the
+  // TS-style no-require-imports ban does not apply to them. Every other rule
+  // still covers these files.
+  {
+    files: ["eslint-rules/**/*.cjs", "packages/eslint-plugin-civic-transparency/**/*.cjs"],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off",
+    },
+  },
   {
     files: ["**/*.{ts,tsx}"],
     plugins: {
-      custom: {
-        rules: {
-          "no-silent-catch": noSilentCatch,
-          "no-silent-null-catch": noSilentNullCatch,
-          "no-server-import-in-client": noServerImportInClient,
-          "role-button-requires-keydown": roleButtonRequiresKeydown,
-          "enforce-reduced-motion-fallback": enforceReducedMotionFallback,
-          "no-hardcoded-colors": noHardcodedColors,
-          "require-source-citation": requireSourceCitation,
-          "no-raw-number-display": noRawNumberDisplay,
-        },
-      },
+      custom: civicTransparency,
     },
     rules: {
       "custom/no-silent-catch": "error",

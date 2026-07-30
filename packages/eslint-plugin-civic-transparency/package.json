@@ -1,0 +1,34 @@
+{
+  "name": "eslint-plugin-civic-transparency",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Civic-tech transparency doctrine as ESLint flat-config rules: no silent failures, server/client boundary, a11y + motion safety, design-token colors, and machine-enforced number provenance.",
+  "license": "MIT",
+  "type": "commonjs",
+  "main": "index.cjs",
+  "exports": {
+    ".": "./index.cjs",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.cjs",
+    "rules",
+    "docs",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node __tests__/run-all.mjs"
+  },
+  "keywords": [
+    "eslint",
+    "eslint-plugin",
+    "flat-config",
+    "civic-tech",
+    "transparency",
+    "provenance",
+    "accessibility"
+  ],
+  "peerDependencies": {
+    "eslint": ">=9"
+  }
+}
