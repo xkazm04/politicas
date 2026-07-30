@@ -1,0 +1,35 @@
+import { headers } from "next/headers";
+import { getDukazyData } from "@/features/dukazy/getDukazyData";
+import { evidenceFeedToJson } from "@/features/dukazy/feedCodecs";
+
+/*
+ * /dukazy/feed.json — JSON Feed 1.1 podoba Deníku důkazů (batch 2C). Stejná
+ * data, stejné guids jako RSS; parseEvidenceFeedJson ve feedCodecs.ts je
+ * veřejný validátor, kterým si odběratel může payload ověřit.
+ */
+
+export const dynamic = "force-dynamic";
+
+async function requestOrigin(): Promise<string> {
+  const h = await headers();
+  const host = h.get("host");
+  const proto = h.get("x-forwarded-proto") ?? "http";
+  return host ? `${proto}://${host}` : "";
+}
+
+export async function GET(): Promise<Response> {
+  const data = await getDukazyData();
+  if (!data) {
+    return new Response(JSON.stringify({ error: "store unavailable" }), {
+      status: 503,
+      headers: { "content-type": "application/json; charset=utf-8" },
+    });
+  }
+  const json = evidenceFeedToJson(data.entries, {
+    baseUrl: await requestOrigin(),
+    generatedAt: new Date().toISOString(),
+  });
+  return new Response(json, {
+    headers: { "content-type": "application/feed+json; charset=utf-8" },
+  });
+}

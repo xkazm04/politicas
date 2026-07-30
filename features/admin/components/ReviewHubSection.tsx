@@ -150,7 +150,16 @@ export default function ReviewHubSection({ data }: { data: ReviewHubData }) {
 
       {/* ── Review audit trail ─────────────────────────────────────── */}
       <div className="flex flex-col gap-4 bg-paper p-6">
-        <h3 className="text-lg font-black uppercase tracking-tight">Audit revizí</h3>
+        <div className="flex items-baseline justify-between gap-2">
+          <h3 className="text-lg font-black uppercase tracking-tight">Audit revizí</h3>
+          {/* Batch 2C: každé rozhodnutí zapsané sem je zároveň veřejný záznam. */}
+          <Link
+            href="/dukazy"
+            className="group flex items-center gap-1 font-mono text-[11px] uppercase tracking-widest text-signal hover:underline"
+          >
+            zveřejněno v Deníku důkazů <ArrowUpRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </Link>
+        </div>
         {audit ? (
           <>
             <p className="font-mono text-lg tabular-nums">{czechInt(audit.totalDecisions)} rozhodnutí</p>

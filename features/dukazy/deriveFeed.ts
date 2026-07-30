@@ -1,0 +1,179 @@
+// Deník důkazů — PURE derivation of the public evidence feed (batch-2 item 2C).
+//
+// Every decision that passes the human gate becomes a public, citable,
+// chronological entry: verified/rejected/needs-more tie decisions from
+// `review_audit` (the ONLY write path — features/money/reviewActions.ts →
+// ReviewRepository.setTieReviewState) and human-signed forensic verdicts on
+// bill nodes (forensic_review_state flipped off "pending_review").
+//
+// Plain module, no server imports: the server loader (getDukazyData.ts), the
+// feed route handlers AND the tests all run this same function over the same
+// shapes. Two disciplines are enforced HERE, not at the call sites:
+//
+//   1. Accusatory-claim discipline: the public entry renders GATED copy only.
+//      The reviewer's free-text `note` is accepted on the input (it is part of
+//      ReviewAuditRow) and deliberately NEVER copied to the output — raw
+//      reviewer notes are working material, not a publication.
+//   2. Feed stability: entry ids are the audit-row uuid (append-only, never
+//      renumbered) / the bill's tisk id; the page anchor is `z-<id>`; ordering
+//      is decidedAt DESC with the id as a deterministic tiebreak. Permalinks
+//      are a public API — nothing here may depend on array order of the input.
+
+import { buildRegistryLinks } from "@/features/money/reviewTypes";
+
+/** The slice of `ReviewAuditRow` (lib/db/types.ts) the feed needs. `note` is
+ *  present so the loader can pass rows through unchanged — see discipline #1. */
+export interface AuditRowLike {
+  id: string;
+  src: string;
+  dst: string;
+  decision: "confirm" | "reject" | "needs-more";
+  reviewer: string;
+  note: string | null;
+  decidedAt: string;
+  priorState: string | null;
+}
+
+/** A bill node whose forensic verdict a human signed off (state left
+ *  "pending_review"). Today the store holds zero of these — every verdict is
+ *  still pending — so this path is fixture-tested and renders honestly empty. */
+export interface ForensicSignoffLike {
+  tiskId: number;
+  cislo: number | null;
+  title: string;
+  severity: string;
+  /** kg_node bill props.forensic_review_state — only "verified" is published. */
+  reviewState: string;
+  /** Best available sign-off timestamp (props or provenance.computedAt). */
+  signedAt: string | null;
+}
+
+export interface EvidenceLink {
+  label: string;
+  href: string;
+}
+
+export type EvidenceDecision = "confirm" | "reject" | "needs-more" | "forensic-verified";
+
+export interface EvidenceEntry {
+  /** Stable public id: audit-row uuid, or `tisk-<tiskId>` for forensic. */
+  id: string;
+  /** In-page anchor (`#z-<id>` per the batch-1/2 anchor convention). */
+  anchor: string;
+  kind: "tie" | "forensic";
+  decision: EvidenceDecision;
+  /** Gated Czech decision copy — the only voice the public feed speaks in. */
+  decisionCs: string;
+  /** ISO timestamp of the human decision. */
+  decidedAt: string;
+  /** What was gated, in gated copy: "Jméno ↔ Firma" / bill title. */
+  subjectCs: string;
+  reviewer: string;
+  /** review_state the edge carried before the decision (null = unset / n/a). */
+  priorState: string | null;
+  /** Primary-registry deep links a reader can verify against (ties only). */
+  links: EvidenceLink[];
+  /** Internal evidence route (/poslanec/<id>, /zakony/<cislo>), if resolvable. */
+  internalHref: string | null;
+  /** Verbatim provenance line for the entry's SourceNote. */
+  sourceCs: string;
+}
+
+export const DECISION_CS: Record<EvidenceDecision, string> = {
+  confirm: "vazba ověřena",
+  reject: "vazba zamítnuta",
+  "needs-more": "vyžádáno doplnění podkladů",
+  "forensic-verified": "forenzní posudek potvrzen",
+};
+
+/** "psp:person:123" → 123; anything else → null. */
+export function pspIdFromSrc(src: string): number | null {
+  const m = src.match(/^psp:person:(\d+)$/);
+  return m ? Number(m[1]) : null;
+}
+
+/** Company node id → IČO (the trailing segment): "kg:company:04544152" → "04544152". */
+export function icoFromDst(dst: string): string | null {
+  const seg = dst.split(":").pop() ?? "";
+  return /^\d{6,8}$/.test(seg) ? seg : null;
+}
+
+export interface EvidenceFeedInput {
+  audit: readonly AuditRowLike[];
+  /** kg node id → label, for naming both tie endpoints in gated copy. */
+  nodeLabels: ReadonlyMap<string, string>;
+  /** `${src}→${dst}` → the linked_to edge's verbatim `props.source` string. */
+  tieSources: ReadonlyMap<string, string>;
+  forensic: readonly ForensicSignoffLike[];
+}
+
+function tieEntry(row: AuditRowLike, input: EvidenceFeedInput): EvidenceEntry {
+  const mp = input.nodeLabels.get(row.src) ?? row.src;
+  const company = input.nodeLabels.get(row.dst) ?? row.dst;
+  const ico = icoFromDst(row.dst);
+  const pspId = pspIdFromSrc(row.src);
+  const source = input.tieSources.get(`${row.src}→${row.dst}`) ?? "";
+
+  const links: EvidenceLink[] = [];
+  if (ico) {
+    const r = buildRegistryLinks(ico, source);
+    links.push(
+      { label: "ARES VR", href: r.aresVr },
+      { label: "Hlídač státu", href: r.hlidacSubjekt },
+      { label: "Registr smluv", href: r.registrSmluv },
+    );
+  }
+
+  return {
+    id: row.id,
+    anchor: `z-${row.id}`,
+    kind: "tie",
+    decision: row.decision,
+    decisionCs: DECISION_CS[row.decision],
+    decidedAt: row.decidedAt,
+    subjectCs: `${mp} ↔ ${company}`,
+    reviewer: row.reviewer,
+    priorState: row.priorState,
+    links,
+    internalHref: pspId != null ? `/poslanec/${pspId}` : null,
+    // Verbatim edge provenance when the edge still exists; the audit table is
+    // always cited — it IS the record being published.
+    sourceCs: source ? `zdroj: review_audit · kg_edge linked_to · ${source}` : "zdroj: review_audit · kg_edge linked_to",
+  };
+}
+
+function forensicEntry(f: ForensicSignoffLike): EvidenceEntry {
+  const id = `tisk-${f.tiskId}`;
+  return {
+    id,
+    anchor: `z-${id}`,
+    kind: "forensic",
+    decision: "forensic-verified",
+    decisionCs: DECISION_CS["forensic-verified"],
+    decidedAt: f.signedAt ?? "",
+    subjectCs: f.title,
+    reviewer: "posudek podepsán",
+    priorState: "pending_review",
+    links: [],
+    internalHref: f.cislo != null ? `/zakony/${f.cislo}` : null,
+    sourceCs: `zdroj: kg_node bill.forensic_* · závažnost ${f.severity}`,
+  };
+}
+
+/**
+ * The whole feed, newest first. Deterministic: same input rows in ANY order →
+ * byte-identical output (decidedAt DESC, id ASC tiebreak). Forensic verdicts
+ * are published only once a human flipped them to "verified" — a verdict that
+ * is still pending_review is working material, not a decision.
+ */
+export function deriveEvidenceFeed(input: EvidenceFeedInput): EvidenceEntry[] {
+  const entries: EvidenceEntry[] = [
+    ...input.audit.map((r) => tieEntry(r, input)),
+    ...input.forensic.filter((f) => f.reviewState === "verified").map(forensicEntry),
+  ];
+  entries.sort((a, b) => {
+    if (a.decidedAt !== b.decidedAt) return a.decidedAt < b.decidedAt ? 1 : -1;
+    return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+  });
+  return entries;
+}
