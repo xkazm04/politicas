@@ -34,6 +34,8 @@ import {
 import { peerGroupFor, peerMedians, MIN_PEERS } from "./peerGroups";
 import { SNAPSHOT_YEARS, SNAPSHOT_FLOOR_POPULATION } from "./data/budgetSnapshots.generated";
 import TownPicker from "./TownPicker";
+import MoneyTrailSection from "./MoneyTrailSection";
+import type { SupplierTiesResult } from "./getSupplierTies";
 
 /** Výchozí obec bez zvolené adresy: hlavní město — zrcadlo, které zná každý. */
 const DEFAULT_IC = "00064581";
@@ -113,7 +115,14 @@ function MetricDuo({
   );
 }
 
-export default function BudgetMirrorPage({ initialIco }: { initialIco?: string }) {
+export default function BudgetMirrorPage({
+  initialIco,
+  supplierTies = null,
+}: {
+  initialIco?: string;
+  /** Živá vrstva vazeb protistran na poslance (server ji předá; null = bez ní). */
+  supplierTies?: SupplierTiesResult | null;
+}) {
   const reduceMotion = useReducedMotion();
   const f = useFormat();
 
@@ -370,7 +379,7 @@ export default function BudgetMirrorPage({ initialIco }: { initialIco?: string }
         )}
 
         {/* ── 03 Vrstevnická skupina ────────────────────────── */}
-        <section id="skupina" className="mt-14 border-t-4 border-ink pt-10 pb-20">
+        <section id="skupina" className="mt-14 border-t-4 border-ink pt-10">
           <SectionHeading
             index={3}
             title="Vrstevnická skupina"
@@ -465,6 +474,11 @@ export default function BudgetMirrorPage({ initialIco }: { initialIco?: string }
             čísla nedostane, dokud nepřitečou ze zdroje.
           </p>
         </section>
+
+        {/* ── 04 Peněžní stopa obce (moonshot 4D) ───────────── */}
+        <div className="pb-20">
+          <MoneyTrailSection town={town} ties={supplierTies} />
+        </div>
       </div>
     </main>
   );

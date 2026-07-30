@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import BudgetMirrorPage from "@/features/budget/BudgetMirrorPage";
+import { getSupplierTies } from "@/features/budget/getSupplierTies";
 import { getBudgetSeries, getMunicipality } from "@/features/budget/mirrorData";
+import { getSupplierTable } from "@/features/budget/supplierTrail";
 
 /*
  * /rozpocty/[ico] — trvalá adresa zrcadla jedné obce (IČO = klíč MONITORu
@@ -11,9 +13,11 @@ import { getBudgetSeries, getMunicipality } from "@/features/budget/mirrorData";
  */
 
 export function generateStaticParams(): { ico: string }[] {
-  // Předgeneruj obce s napojenou rozpočtovou řadou (132 v této dávce);
-  // zbylý rejstřík se renderuje na vyžádání (dynamicParams default).
-  return [...getBudgetSeries().keys()].map((ico) => ({ ico }));
+  // Předgeneruj obce s napojenou rozpočtovou řadou (132 v této dávce) i obce
+  // se smlouvami v peněžním grafu (4D); zbytek rejstříku se renderuje na
+  // vyžádání (dynamicParams default).
+  const icos = new Set([...getBudgetSeries().keys(), ...getSupplierTable().keys()]);
+  return [...icos].map((ico) => ({ ico }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ ico: string }> }): Promise<Metadata> {
@@ -29,5 +33,6 @@ export async function generateMetadata({ params }: { params: Promise<{ ico: stri
 export default async function RozpoctyIcoPage({ params }: { params: Promise<{ ico: string }> }) {
   const { ico } = await params;
   if (!getMunicipality(ico)) notFound();
-  return <BudgetMirrorPage initialIco={ico} />;
+  const supplierTies = await getSupplierTies();
+  return <BudgetMirrorPage initialIco={ico} supplierTies={supplierTies} />;
 }
