@@ -60,6 +60,32 @@ function verdictFiles(): string[] {
 // rels correctly, through their own merge-preserving writers).
 export const CASE_OWNED_EDGE_RELS = new Set<string>(["linked_to", "supplies"]);
 
+// Sentinel finding 2026-07-31 (orphan-edges invariant): the membership gate's
+// known-id base deliberately includes raw entity urns (persons, organs, VOTE
+// EVENTS) so verdicts can *reference* real entities — but vote events exist only
+// in the relational `vote_event` table, never as kg nodes. An edge endpoint that
+// is merely "a known entity" can therefore dangle forever: 179
+// `psp:hlasovani:* -about-> theme:*` edges landed with a src no kg_node row will
+// ever back. Edge endpoints must be KG-RESIDENT — an existing kg_node id or a
+// node the gated verdict batch itself declares. Edges that fail this are dropped
+// and reported, never upserted (same posture as CASE_OWNED_EDGE_RELS).
+export function dropNonResidentEdges(
+  edges: KgEdgeRow[],
+  kgResident: ReadonlySet<string>,
+): { kept: KgEdgeRow[]; droppedEndpoints: string[] } {
+  const kept: KgEdgeRow[] = [];
+  const droppedEndpoints: string[] = [];
+  for (const e of edges) {
+    const bad = [e.src, e.dst].filter((id) => !kgResident.has(id));
+    if (bad.length > 0) {
+      droppedEndpoints.push(...bad);
+      continue;
+    }
+    kept.push(e);
+  }
+  return { kept, droppedEndpoints };
+}
+
 export function toRows(v: KgVerdict, pass: number, computedAt: string): { nodes: KgNodeRow[]; edges: KgEdgeRow[]; droppedRels: string[] } {
   const provenance = { pass, method: "verdict", ref: v.target, computedAt };
   const nodes: KgNodeRow[] = v.nodes.map((n) => ({
@@ -111,7 +137,15 @@ async function main() {
 
   // Known ids = existing kg_node ids + raw entity urns (the membership gate base).
   const known = new Set<string>();
-  for (const n of await store.listKgNodes()) known.add(n.id);
+  // KG-resident ids = ids an edge endpoint may use (existing kg nodes + nodes
+  // declared by gated verdicts in this batch). Raw urns (e.g. vote events) are
+  // "known" for reference purposes but are NOT valid edge endpoints — see
+  // dropNonResidentEdges above.
+  const kgResident = new Set<string>();
+  for (const n of await store.listKgNodes()) {
+    known.add(n.id);
+    kgResident.add(n.id);
+  }
   for (const p of await store.listPersons()) known.add(p.id);
   for (const o of await store.listOrgans()) known.add(o.id);
   for (const v of await store.listVoteEvents()) known.add(v.id);
@@ -130,14 +164,24 @@ async function main() {
     gated++;
     const { nodes, edges, droppedRels } = toRows(parsed.value, pass, computedAt);
     // A node this verdict declares becomes a valid endpoint for the NEXT file too.
-    for (const n of nodes) known.add(n.id);
+    for (const n of nodes) {
+      known.add(n.id);
+      kgResident.add(n.id);
+    }
+    const { kept, droppedEndpoints } = dropNonResidentEdges(edges, kgResident);
     allNodes.push(...nodes);
-    allEdges.push(...edges);
-    console.log(`  gated ${file}: +${nodes.length} nodes, +${edges.length} edges  (target: ${parsed.value.target})`);
+    allEdges.push(...kept);
+    console.log(`  gated ${file}: +${nodes.length} nodes, +${kept.length} edges  (target: ${parsed.value.target})`);
     if (droppedRels.length > 0) {
       console.log(
         `    REFUSED ${droppedRels.length} edge(s) with case-owned rel(s) ${JSON.stringify([...new Set(droppedRels)])} — ` +
           `linked_to/supplies belong to their own case loop's merge-preserving ingest, never this generic promote path.`,
+      );
+    }
+    if (droppedEndpoints.length > 0) {
+      console.log(
+        `    REFUSED ${droppedEndpoints.length} non-kg-resident endpoint(s) ${JSON.stringify([...new Set(droppedEndpoints)].slice(0, 5))} — ` +
+          `edge endpoints must be existing kg nodes or nodes this batch declares (sentinel orphan-edges invariant).`,
       );
     }
   }

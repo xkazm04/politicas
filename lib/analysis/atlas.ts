@@ -49,7 +49,14 @@ export const ZERO_CADENCE_MULTIPLIER = 3;
 export const SOURCE_CADENCE_DAYS: Readonly<Record<string, number>> = {
   "psp-poslanci": 7,
   "psp-hlasovani": 7,
-  "pumper-psp-opendata": 1,
+  // Sentinel finding 2026-07-31: the original 1-day expectation assumed Pumper
+  // runs as an always-on daemon. In reality Pumper (localhost:8088) is started
+  // alongside ingest sessions, and this source is mirrored on the same rhythm
+  // as the other psp snapshot pulls — so 1 day declared a promise nobody keeps
+  // and the freshness score measured an aspiration, not the operation. 7 days
+  // matches how the mirror is actually operated; cadences remain politicas'
+  // declared expectations, not publisher SLAs (see ATLAS_RULES.freshness).
+  "pumper-psp-opendata": 7,
 };
 
 /** Pravidlo každé dimenze — publikuje se VEDLE skóre, doslova. */

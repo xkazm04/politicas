@@ -171,10 +171,12 @@ describe("live-graph sentinel against fixture stores", () => {
 
   it("a run older than 2× its cadence fires the freshness invariant", async () => {
     const pg = await open();
-    // pumper-psp-opendata cadence is 1 day (atlas ground truth) — 5 days = zastaralé.
+    // pumper-psp-opendata cadence is 7 days (atlas ground truth; corrected from
+    // the aspirational 1 day after the 2026-07-31 sentinel finding) — 20 days
+    // > cadence × 2 = zastaralé.
     await pg.query(
       `update ingest_run set started_at = $1, finished_at = $1 where source = 'pumper-psp-opendata'`,
-      ["2026-07-26T12:00:00.000Z"],
+      ["2026-07-11T12:00:00.000Z"],
     );
     const report = await audit();
     const c = check(report, "freshness");
