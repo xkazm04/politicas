@@ -20,6 +20,9 @@ export interface NovinkyCoverage {
   changes: boolean;
   /** Deník důkazů (forenzní posudky) čitelný. */
   dukazy: boolean;
+  /** Graf tvrdí JEDEN přepočet indexu (`contribution_provenance`) — jinak se
+   *  řádek o přepočtu nehlásí vůbec (recomputeFact.ts). */
+  recompute: boolean;
 }
 
 export interface NovinkyResponse {
@@ -48,6 +51,7 @@ const KINDS = new Set([
   "review",
   "change",
   "forensic",
+  "recompute",
 ]);
 const DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -80,6 +84,20 @@ function parseDeltaEntry(v: unknown): DeltaEntry | null {
   };
 }
 
+/** Souhrn druhů: jen položky se známým druhem a celým nezáporným počtem. */
+function parseKinds(v: unknown): EntityDelta["kinds"] {
+  if (!Array.isArray(v)) return [];
+  const out: EntityDelta["kinds"] = [];
+  for (const raw of v) {
+    if (typeof raw !== "object" || raw === null) continue;
+    const o = raw as Record<string, unknown>;
+    if (!isStr(o.kind) || !KINDS.has(o.kind)) continue;
+    if (typeof o.count !== "number" || !Number.isInteger(o.count) || o.count <= 0) continue;
+    out.push({ kind: o.kind as DeltaEntry["kind"], count: o.count });
+  }
+  return out;
+}
+
 function parseEntityDelta(v: unknown): { delta: EntityDelta; dropped: number } | null {
   if (typeof v !== "object" || v === null) return null;
   const o = v as Record<string, unknown>;
@@ -102,6 +120,10 @@ function parseEntityDelta(v: unknown): { delta: EntityDelta; dropped: number } |
       label: o.label,
       href: o.href,
       denikHref: o.denikHref,
+      // Souhrn druhů se počítá na serveru PŘED seříznutím, takže z odpovědi
+      // nejde dopočítat — vadná položka se zahodí (souhrn pak druh
+      // nezmíní), ne dopočítá odhadem z `entries`.
+      kinds: parseKinds(o.kinds),
       // `total` je počet PŘED seříznutím na ploše serveru — zahozené řádky ho
       // nesnižují (počet zápisů entity zahozením řádku nezmizel).
       total: o.total,
@@ -147,6 +169,7 @@ export function parseNovinkyResponse(data: unknown): NovinkyResponse | null {
       reviews: coverage.reviews === true,
       changes: coverage.changes === true,
       dukazy: coverage.dukazy === true,
+      recompute: coverage.recompute === true,
     },
     deltas,
     droppedEntries,

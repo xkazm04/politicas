@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import type { DenikEntry } from "@/features/denik/deriveDenik";
 import type { EvidenceEntry } from "@/features/dukazy/deriveFeed";
+import { CONTRIBUTION_FORMULA_REF } from "@/lib/analysis/contribution";
+import { recomputeDelta, recomputeFactFromProps, type RecomputeFact } from "./recomputeFact";
 import {
   daysBefore,
   dayOf,
@@ -154,5 +156,134 @@ describe("deriveDeltas — determinismus a řazení", () => {
   it("duplicitní klíč se počítá jednou", () => {
     const deltas = deriveDeltas({ entries: ENTRIES, keys: ["poslanec:1", "poslanec:1"], since: "2026-01-01" });
     expect(deltas).toHaveLength(1);
+  });
+});
+
+// ── vlna 2: souhrn druhů + přepočet indexu ─────────────────────────────────
+
+describe("countKinds — souhrn druhů zápisu", () => {
+  it("počítá druhy PŘED seříznutím a řadí je pořadím KIND_ORDER", () => {
+    const d = deriveEntityDelta({ entries: ENTRIES, key: "poslanec:1", since: "2026-01-01", cap: 1 });
+    expect(d.entries).toHaveLength(1);
+    // cap = 1, ale souhrn mluví o obou řádcích delty.
+    expect(d.kinds).toEqual([
+      { kind: "contract", count: 1 },
+      { kind: "review", count: 1 },
+    ]);
+  });
+
+  it("entita beze změny nese prázdný souhrn (žádné nuly)", () => {
+    const d = deriveEntityDelta({ entries: ENTRIES, key: "tisk:141", since: "2026-07-26" });
+    expect(d.kinds).toEqual([]);
+  });
+});
+
+describe("přepočet indexu jako delta", () => {
+  const FACT: RecomputeFact = {
+    computedAt: "2026-07-29",
+    pass: 42,
+    ref: "contribution-committee-dedupe",
+    covered: 207,
+  };
+
+  it("řádek dostane jen POSLANEC, s číslem průchodu, refem a odkazem na metodiku", () => {
+    const d = deriveEntityDelta({
+      entries: ENTRIES,
+      recompute: FACT,
+      key: "poslanec:1",
+      since: "2026-07-28",
+    });
+    const row = d.entries.find((e) => e.kind === "recompute");
+    expect(row).toBeDefined();
+    expect(row!.id).toBe("recompute:42:poslanec:1");
+    expect(row!.date).toBe("2026-07-29");
+    expect(row!.internalHref).toBe("/metodika");
+    expect(row!.source).toBe("výpočet politicas — contribution-committee-dedupe");
+    expect(row!.titleCs).toContain("průchod 42");
+    expect(row!.timeBasis).toBe("zaznamenano");
+  });
+
+  it("NIKDY netvrdí velikost změny skóre — graf předchozí hodnoty nedrží", () => {
+    const row = recomputeDelta(FACT, "poslanec:1", "2026-01-01")!;
+    expect(row.titleCs).toMatch(/o kolik se skóre pohnulo, záznam neříká/);
+    // Žádné číslo kromě průchodu: v titulku nesmí být bodová změna.
+    expect(row.titleCs.match(/\d+/g)).toEqual(["42"]);
+  });
+
+  it("firma ani tisk řádek o přepočtu nedostanou", () => {
+    for (const key of ["firma:04544152", "tisk:141", "obec:00241717"]) {
+      expect(recomputeDelta(FACT, key, "2026-01-01")).toBeNull();
+    }
+  });
+
+  it("přepočet mimo okno čtenáře se nehlásí; přesně na prahu ano", () => {
+    expect(recomputeDelta(FACT, "poslanec:1", "2026-07-30")).toBeNull();
+    expect(recomputeDelta(FACT, "poslanec:1", "2026-07-29")).not.toBeNull();
+    expect(recomputeDelta(null, "poslanec:1", "2026-01-01")).toBeNull();
+  });
+
+  it("počítá se do total i do souhrnu druhů (odznak ho tedy vidí)", () => {
+    const deltas = deriveDeltas({
+      entries: ENTRIES,
+      recompute: FACT,
+      keys: ["poslanec:1"],
+      since: "2026-07-28",
+    });
+    expect(totalNews(deltas)).toBe(3); // contract + review + recompute
+    expect(deltas[0].kinds).toEqual([
+      { kind: "contract", count: 1 },
+      { kind: "review", count: 1 },
+      { kind: "recompute", count: 1 },
+    ]);
+  });
+
+  it("determinismus se přepočtem nemění", () => {
+    const a = deriveDeltas({ entries: ENTRIES, recompute: FACT, keys: ["poslanec:1", "tisk:141"], since: "2026-07-01" });
+    const b = deriveDeltas({
+      entries: [...ENTRIES].reverse(),
+      recompute: FACT,
+      keys: ["tisk:141", "poslanec:1"],
+      since: "2026-07-01",
+    });
+    expect(JSON.stringify(b)).toBe(JSON.stringify(a));
+  });
+});
+
+describe("recomputeFactFromProps — jednotnost, nebo nic", () => {
+  const props = (over: Record<string, unknown> = {}) => ({
+    contribution_provenance: {
+      pass: 42,
+      ref: CONTRIBUTION_FORMULA_REF,
+      computedAt: "2026-08-04T09:00:00.000Z",
+      ...over,
+    },
+  });
+
+  it("jednotná sněmovna → fakt s dnem, průchodem, refem a pokrytím", () => {
+    const fact = recomputeFactFromProps([props(), props(), props()]);
+    expect(fact).toEqual({
+      computedAt: "2026-08-04",
+      pass: 42,
+      ref: CONTRIBUTION_FORMULA_REF,
+      covered: 3,
+    });
+  });
+
+  it("půl sněmovny na jiném průchodu → null (nehlásí se nic)", () => {
+    expect(recomputeFactFromProps([props(), props({ pass: 11, ref: "contribution" })])).toBeNull();
+  });
+
+  it("dva různé dny jednoho průchodu → null", () => {
+    expect(
+      recomputeFactFromProps([props(), props({ computedAt: "2026-08-05T09:00:00.000Z" })]),
+    ).toBeNull();
+  });
+
+  it("uzel bez computedAt sráží pokrytí → null (datum by pro část sněmovny neplatilo)", () => {
+    expect(recomputeFactFromProps([props(), { contribution_provenance: { pass: 42, ref: CONTRIBUTION_FORMULA_REF } }])).toBeNull();
+  });
+
+  it("graf bez provenance → null", () => {
+    expect(recomputeFactFromProps([{}, {}])).toBeNull();
   });
 });

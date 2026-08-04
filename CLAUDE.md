@@ -634,6 +634,34 @@ Route map (politicas.md roadmap execution, sample data):
   the affordance was withdrawn rather than left promising a delivery nobody
   could make. Stored obec follows keep parsing and say exactly why nothing
   arrives.
+  **The digest names its kinds, and a recompute is a delta (2026-08-04).** Every
+  delta row has carried a `kind` since wave 1 and the page rendered an
+  undifferentiated list; `EntityDelta.kinds` now counts them **before the
+  `DELTA_ENTRIES_CAP` slice** (so the header summary — „3 smlouvy · 1 rozhodnutí
+  brány" — describes the whole delta, not what fitted), and
+  `features/schranka/kindVocabulary.ts` is the ONE Czech vocabulary (three forms
+  per kind for 1 · 2–4 · 5+, pinned to the language gate; an unmapped kind renders
+  VERBATIM and labelled, never hidden — the `tieFlags.ts` precedent). The wire
+  validates the summary rather than re-deriving it from the capped rows.
+  The new kind is **`recompute`**: person nodes carry
+  `contribution_provenance {pass, ref, computedAt}`, so „your MP's index was
+  recomputed" is a real dated fact the deník cannot see (it is keyed by contracts,
+  roles, bill steps and the gate). It is ONE row per followed `poslanec:`, dated
+  `computedAt`, citing pass + ref and linking `/metodika` — and it states in its own
+  sentence that **the size of the move is unknown**: `computedAt` is one shared
+  instant per pass and the graph keeps NO prior-value snapshots, so a per-MP
+  „skóre se pohnulo o X" would be a fabricated number. It is emitted only when the
+  chamber is UNIFORM on `{pass, ref, computedAt}` (`recomputeFactFromProps`, which
+  reuses `summarizeContributionProvenance` rather than growing a second aggregator
+  of one fact); a half-recomputed store reports `coverage.recompute: false` and the
+  page says so. The row counts into `total`, so the nav badge sees it and the seen
+  watermark clears it like any other entry.
+  Reads: `getRecomputeFact.ts` is a `react.cache()`-wrapped **single indexed
+  `listKgNodes({kind:"person"})` at `KG_READ_CAP`** — a strict subset of what
+  `getLeaderboardData()` already reads, chosen over it because building the
+  leaderboard costs 424–522 ms warm for three fields the badge asks for on every
+  page. All subscription addresses now build through ONE server module
+  (`getSchrankaDeltas.ts`), so a feed can never report different news than the page.
 - `/graf` — **Graph playground** (features/graph): the full knowledge graph on
   a full-viewport `<canvas>`; the page opts out of the app shell
   (`isBareRoute`) to own the whole window width — chrome floats over the

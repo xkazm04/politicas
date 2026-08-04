@@ -18,7 +18,7 @@ const response = (deltas: unknown[]) => ({
   v: 1,
   builtOn: "2026-08-04",
   since: "2026-08-01",
-  coverage: { money: true, law: true, reviews: true, changes: true, dukazy: true },
+  coverage: { money: true, law: true, reviews: true, changes: true, dukazy: true, recompute: true },
   deltas,
 });
 
@@ -99,6 +99,50 @@ describe("parseNovinkyResponse — vadné řádky se zahodí a POČÍTAJÍ", () 
       reviews: false,
       changes: false,
       dukazy: false,
+      recompute: false,
     });
+  });
+});
+
+describe("souhrn druhů na drátě", () => {
+  it("projde jen se známým druhem a celým kladným počtem", () => {
+    const parsed = parseNovinkyResponse(
+      response([
+        {
+          ...delta([entry()]),
+          kinds: [
+            { kind: "contract", count: 3 },
+            { kind: "vymysl", count: 1 },
+            { kind: "review", count: 0 },
+            { kind: "change", count: 1.5 },
+            "nesmysl",
+          ],
+        },
+      ]),
+    );
+    expect(parsed?.deltas[0].kinds).toEqual([{ kind: "contract", count: 3 }]);
+  });
+
+  it("chybějící souhrn = prázdný souhrn (nedopočítává se z řádků, ty jsou seříznuté)", () => {
+    const d = delta([entry()]) as Record<string, unknown>;
+    delete d.kinds;
+    expect(parseNovinkyResponse(response([d]))?.deltas[0].kinds).toEqual([]);
+  });
+
+  it("řádek o přepočtu indexu je platný druh a projde", () => {
+    const parsed = parseNovinkyResponse(
+      response([
+        delta([
+          entry({
+            id: "recompute:42:poslanec:1",
+            kind: "recompute",
+            tone: "cobalt",
+            timeBasis: "zaznamenano",
+            internalHref: "/metodika",
+          }),
+        ]),
+      ]),
+    );
+    expect(parsed?.deltas[0].entries[0].kind).toBe("recompute");
   });
 });

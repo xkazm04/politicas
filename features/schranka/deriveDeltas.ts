@@ -3,6 +3,9 @@
  * návštěvy" pro sledované entity.
  *
  * Zdroje jsou VÝHRADNĚ existující read-only vrstvy záznamu:
+ *   – přepočet indexu přispění (`contribution_provenance` na uzlech osob,
+ *     vlna 2) — jediný řádek na sledovaného poslance, BEZ velikosti změny
+ *     (graf předchozí hodnoty neuchovává; viz recomputeFact.ts),
  *   – záznamy Deníku republiky (features/denik/deriveDenik — smlouvy,
  *     rejstříkové role, kroky tisků, rozhodnutí lidské brány, proud
  *     „zaznamenáno" z change_event), které už nesou klíče entit i provenance,
@@ -32,6 +35,7 @@ import {
 } from "@/features/denik/deriveDenik";
 import type { EvidenceEntry } from "@/features/dukazy/deriveFeed";
 import { entityDenikHref, entityHref, isEntityKey } from "./followCodec";
+import { recomputeDelta, type RecomputeFact } from "./recomputeFact";
 
 /** Řádek delty — serializovatelná projekce záznamu deníku (viz hlavička:
  *  žádné nové věty; titulek, zdroj i příznaky jsou doslova záznam). */
@@ -39,7 +43,7 @@ export interface DeltaEntry {
   id: string;
   /** `YYYY-MM-DD` — den záznamu (viz pravidlo deníku o dvou proudech času). */
   date: string;
-  kind: DenikEntry["kind"] | "forensic";
+  kind: DenikEntry["kind"] | "forensic" | "recompute";
   titleCs: string;
   czk?: number;
   pending: boolean;
@@ -62,6 +66,13 @@ export interface EntityDelta {
   total: number;
   /** Nejčerstvější den záznamu delty; null = žádná novinka. */
   latestDate: string | null;
+  /**
+   * Počty podle DRUHU zápisu, spočítané PŘED seříznutím na `cap` (souhrn
+   * v hlavičce entity tedy mluví o celé deltě, ne o tom, co se vešlo).
+   * Pořadí je KIND_ORDER — totéž, v jakém pod hlavičkou stojí řádky; nulové
+   * druhy se nevydávají. Čtenářské názvy dává kindVocabulary.ts.
+   */
+  kinds: { kind: DeltaEntry["kind"]; count: number }[];
   entries: DeltaEntry[];
 }
 
@@ -141,7 +152,25 @@ const KIND_ORDER: Record<DeltaEntry["kind"], number> = {
   review: 5,
   change: 6,
   forensic: 7,
+  recompute: 8,
 };
+
+/** Druhy v pořadí KIND_ORDER — jediný zdroj pořadí souhrnu i řazení řádků. */
+const KINDS_IN_ORDER = (Object.keys(KIND_ORDER) as DeltaEntry["kind"][]).sort(
+  (a, b) => KIND_ORDER[a] - KIND_ORDER[b],
+);
+
+/** Počty podle druhu, v KIND_ORDER; nulové druhy se vynechávají. */
+export function countKinds(
+  entries: readonly DeltaEntry[],
+): { kind: DeltaEntry["kind"]; count: number }[] {
+  const counts = new Map<DeltaEntry["kind"], number>();
+  for (const e of entries) counts.set(e.kind, (counts.get(e.kind) ?? 0) + 1);
+  return KINDS_IN_ORDER.filter((k) => (counts.get(k) ?? 0) > 0).map((kind) => ({
+    kind,
+    count: counts.get(kind) ?? 0,
+  }));
+}
 
 const deltaCompare = (a: DeltaEntry, b: DeltaEntry): number => {
   if (a.date !== b.date) return a.date < b.date ? 1 : -1;
@@ -154,6 +183,12 @@ export interface DeltaInput {
   entries: readonly DenikEntry[];
   /** Podepsané forenzní posudky (deriveEvidenceFeed), smí být prázdné. */
   forensic?: readonly EvidenceEntry[];
+  /**
+   * Jednotný přepočet indexu přispění (contribution_provenance) — přidá řádek
+   * sledovaným POSLANCŮM, spadne-li den průchodu do okna. null = graf o sobě
+   * nic jednotného netvrdí (viz recomputeFact.ts).
+   */
+  recompute?: RecomputeFact | null;
   /** Sledované klíče; nevalidní se přeskočí (kodek je poslední stráž). */
   keys: readonly string[];
   /** `YYYY-MM-DD` — záznamy s dnem >= since jsou novinky (viz hlavička). */
@@ -173,6 +208,8 @@ export function deriveEntityDelta(input: Omit<DeltaInput, "keys"> & { key: strin
     const mapped = forensicToDelta(f);
     if (mapped && mapped.key === input.key && mapped.delta.date >= since) own.push(mapped.delta);
   }
+  const recompute = recomputeDelta(input.recompute ?? null, input.key, since);
+  if (recompute !== null) own.push(recompute);
   own.sort(deltaCompare);
 
   return {
@@ -182,6 +219,7 @@ export function deriveEntityDelta(input: Omit<DeltaInput, "keys"> & { key: strin
     denikHref: entityDenikHref(input.key),
     total: own.length,
     latestDate: own.length > 0 ? own[0].date : null,
+    kinds: countKinds(own),
     entries: own.slice(0, Math.max(0, cap)),
   };
 }

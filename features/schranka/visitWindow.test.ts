@@ -69,6 +69,7 @@ const delta = (key: string, dates: string[]): EntityDelta => ({
   denikHref: `/denik?entita=${key}`,
   total: dates.length,
   latestDate: dates[0] ?? null,
+  kinds: [{ kind: "contract", count: dates.length }],
   entries: dates.map((date, i) => ({
     id: `${key}-${i}`,
     date,

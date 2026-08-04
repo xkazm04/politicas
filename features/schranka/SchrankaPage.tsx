@@ -21,7 +21,14 @@ import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { czechDate, czechInt } from "@/lib/format";
 import { compactCzk } from "@/features/money/moneyTypes";
-import { FIRST_VISIT_DAYS, sinceDay, type DeltaEntry, type EntityDelta } from "./deriveDeltas";
+import {
+  DELTA_ENTRIES_CAP,
+  FIRST_VISIT_DAYS,
+  sinceDay,
+  type DeltaEntry,
+  type EntityDelta,
+} from "./deriveDeltas";
+import { kindTallies } from "./kindVocabulary";
 import type { NovinkyResponse } from "./novinky";
 import FollowButton from "./FollowButton";
 import { fetchNovinky } from "./useNews";
@@ -79,12 +86,32 @@ function DeltaRow({ e }: { e: DeltaEntry }) {
   );
 }
 
+/** Souhrn druhů zápisu pod jménem entity — „3 smlouvy · 1 rozhodnutí brány".
+ *  Počty jdou ze serveru a jsou spočítané PŘED seříznutím, takže mluví o celé
+ *  deltě; strojový token bez slovníku se vypíše doslova a označí. */
+function KindSummary({ kinds }: { kinds: EntityDelta["kinds"] }) {
+  const tallies = kindTallies(kinds);
+  if (tallies.length === 0) return null;
+  return (
+    <p className="mt-1 flex flex-wrap items-baseline gap-x-3 gap-y-1 font-mono text-[11px] uppercase tracking-wider text-steel-aa">
+      {tallies.map((t, i) => (
+        <span key={t.kind}>
+          {i > 0 && <span className="mr-3 text-hairline">·</span>}
+          <span className="font-bold tabular-nums text-ink">{czechInt(t.count)}</span> {t.nounCs}
+          {!t.translated && <span className="ml-1 text-ochre">(nepřeložený druh)</span>}
+        </span>
+      ))}
+    </p>
+  );
+}
+
 function EntityBlock({ delta, storedLabel }: { delta: EntityDelta; storedLabel: string | null }) {
   const label = delta.label !== delta.key ? delta.label : (storedLabel ?? delta.key);
   const isObec = delta.key.startsWith("obec:");
   return (
     <article className="border-2 border-ink">
-      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b-2 border-ink bg-paper-strong px-4 py-3">
+      <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2 border-b-2 border-ink bg-paper-strong px-4 py-3">
+        <span className="flex min-w-0 flex-col">
         <span className="flex min-w-0 items-baseline gap-3">
           {delta.href ? (
             <Link
@@ -97,6 +124,8 @@ function EntityBlock({ delta, storedLabel }: { delta: EntityDelta; storedLabel: 
             <span className="truncate text-lg font-black uppercase tracking-tight">{label}</span>
           )}
           <span className="font-mono text-[11px] uppercase tracking-wider text-steel-aa">{delta.key}</span>
+        </span>
+          <KindSummary kinds={delta.kinds} />
         </span>
         <span className="flex items-center gap-3">
           <Link
@@ -243,6 +272,21 @@ export default function SchrankaPage() {
             návštěvě zhasne, i když je den návštěvy nad prahem pořád celý. Odečítá se jen počet
             z téhož dne; jinak nic. Stránka zůstává shovívavá — pravidla jsou dvě záměrně.
           </p>
+          <p className="mt-2 text-sm leading-relaxed text-steel-aa">
+            Co schránka vidět NEUMÍ: u přepočtu indexu přispění hlásí jen to, ŽE proběhl —
+            graf drží jen aktuální hodnoty a žádné předchozí, takže o kolik se skóre pohnulo,
+            se z něj nedá zjistit a schránka to netvrdí. Řádek proto nese číslo průchodu, ref
+            vzorce a odkaz na{" "}
+            <Link
+              href="/metodika"
+              className="font-mono text-xs font-bold uppercase tracking-widest text-signal-deep hover:underline"
+            >
+              metodiku
+            </Link>
+            . Hlásí se jen tehdy, drží-li celá sněmovna jeden průchod; půl přepočtu není fakt.
+            Souhrn druhů v hlavičce entity počítá celou deltu, i když se pod ni vejde jen
+            prvních {czechInt(DELTA_ENTRIES_CAP)} řádků.
+          </p>
         </div>
 
         <section className="mt-14 border-t-4 border-ink pt-10">
@@ -300,7 +344,7 @@ export default function SchrankaPage() {
             </div>
           ) : (
             <>
-              {(!data.coverage.money || !data.coverage.law || !data.coverage.reviews || !data.coverage.changes || !data.coverage.dukazy) && (
+              {(!data.coverage.money || !data.coverage.law || !data.coverage.reviews || !data.coverage.changes || !data.coverage.dukazy || !data.coverage.recompute) && (
                 <div className="mt-6 max-w-2xl border-l-4 border-ochre bg-paper-strong px-4 py-3">
                   <p className="font-mono text-[11px] font-bold uppercase tracking-widest">neúplné pokrytí</p>
                   <p className="mt-1 text-sm leading-relaxed text-steel-aa">
@@ -309,7 +353,11 @@ export default function SchrankaPage() {
                     {!data.coverage.law ? " kroky tisků;" : ""}
                     {!data.coverage.reviews ? " rozhodnutí lidské brány;" : ""}
                     {!data.coverage.changes ? " proud „zaznamenáno“;" : ""}
-                    {!data.coverage.dukazy ? " forenzní posudky;" : ""} chybějící skupina se nedopisuje.
+                    {!data.coverage.dukazy ? " forenzní posudky;" : ""}
+                    {!data.coverage.recompute
+                      ? " přepočet indexu (graf o něm nedrží jeden jednotný údaj);"
+                      : ""}{" "}
+                    chybějící skupina se nedopisuje.
                   </p>
                 </div>
               )}

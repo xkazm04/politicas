@@ -216,6 +216,24 @@ export function followableFromRoute(pathname: string, entita: string | null): st
   return null;
 }
 
+/**
+ * Klíče z parametrů dotazu (novinky.json i feedy schránky) — jedna stráž pro
+ * všechny odběrové adresy: zahodí nevalidní tvary, sjednotí duplicity a
+ * seřízne na MAX_FOLLOWS. Pořadí VSTUPU se zachovává; server pak sám řadí
+ * delty (deriveDeltas), takže na pořadí URL nic nestojí.
+ */
+export function parseFollowKeys(values: readonly string[]): string[] {
+  const out: string[] = [];
+  const seen = new Set<string>();
+  for (const v of values) {
+    if (!isEntityKey(v) || seen.has(v)) continue;
+    seen.add(v);
+    out.push(v);
+    if (out.length >= MAX_FOLLOWS) break;
+  }
+  return out;
+}
+
 /** Přidání/odebrání sledování — čisté operace nad stavem (UI je jen volá). */
 export function withFollow(state: SchrankaState, key: string, label: string, nowIso: string): SchrankaState {
   if (!isEntityKey(key) || state.follows.some((f) => f.key === key)) return state;
