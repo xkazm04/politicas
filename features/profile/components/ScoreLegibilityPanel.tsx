@@ -24,6 +24,8 @@
  * „údaj v grafu chybí", protože „0 vystoupení" by bylo vymyšlené tvrzení.
  */
 
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
@@ -140,6 +142,19 @@ export default function ScoreLegibilityPanel({
       <div className="border-t border-hairline px-5 py-4">
         <SourceNote className="!text-[10px]">{t("legibilityDerived")}</SourceNote>
         <SourceNote className="mt-1.5 !text-[10px]">{t("legibilitySource")}</SourceNote>
+        {/* Panel převypráví vzorec v reálných jednotkách; /metodika ten vzorec
+            ukazuje celý (váhy, stropy, započítané orgány — vykreslené z
+            lib/analysis/contribution.ts). Ze všech míst na spisu ho potřebuje
+            právě tohle nejvíc, a jako jediné ho nemělo. */}
+        <p className="mt-2">
+          <Link
+            href="/metodika"
+            className="inline-flex items-center gap-1 font-mono text-[10px] font-bold uppercase tracking-wider text-cobalt hover:underline"
+          >
+            {t("legibilityMethodLink")}
+            <ArrowUpRight className="h-2.5 w-2.5 shrink-0" aria-hidden />
+          </Link>
+        </p>
       </div>
     </div>
   );

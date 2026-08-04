@@ -150,7 +150,10 @@ export default function DossierSection({ index, ...d }: DossierContent & { index
   if (!hasDossierContent(d)) return null;
 
   return (
-    <section className="mt-16 border-t-4 border-ink pt-10">
+    // `id` — oddíl je PODMÍNĚNÝ (poslanec bez obsahu dosieru ho nedostane), takže
+    // ho navModel mezi kotvami lišty záměrně neuvádí; adresa /poslanec/<id>#dosier
+    // ale musí existovat, aby na pracovní profil šlo odkázat zvenčí.
+    <section id="dosier" className="mt-16 border-t-4 border-ink pt-10">
       <SectionHeading index={index} title={t("dossierHeading")} aside={<SourceNote>{t("dossierAside")}</SourceNote>} />
       <div className="mt-8 flex flex-col gap-8">
         {publicRole && (

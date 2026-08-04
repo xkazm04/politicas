@@ -257,6 +257,23 @@ Route map (politicas.md roadmap execution, sample data):
   spis immediately. Neither an empty index nor a failure is memoized; a null
   renders „hlasovací záznam není dostupný", never an empty list, and an MP who
   never broke the line gets a stated empty record.
+  **The spis links the fabric it belongs to (2026-08-04).** It sat at the centre of
+  the graph and pointed almost nowhere: no `/denik?entita=poslanec:<pspId>` (the
+  dated stream about the same entity, keyed by `mpEntityKey` — imported, never
+  rebuilt), no way back to `/zebricek` although navModel's own note says „index
+  spisů JE žebříček", no `/metodika` from the score-legibility panel (the one
+  surface that most needs the formula), no human address for the minted score claim
+  (now `/overeni?ref=<ref>`, minted ONCE and shared by the machine attributes and
+  the link), and the region rendered as dead text while `/kraj/<slug>` exists
+  (`krajSlug` owns that address). `DossierSection` and `CareerSpineSection` also
+  carried no `id`; they now anchor `#dosier` / `#kariera`. Both stay OUT of
+  `PAGE_SECTIONS` on purpose — the dossier is conditional and the career spine sits
+  in the header, and the rail must not offer an anchor that sometimes leads nowhere.
+  `features/profile/messages.test.ts` now pins the catalog (cs/en key parity, ICU +
+  `t.rich` tag parity, no empty value, an empty AND an unavailable sentence for both
+  new states, and the Czech language gate over prose — ICU markup and citation keys
+  excluded, because `one/few/other` and `lib/analysis/contribution.ts` are English
+  by construction).
   **Section numbers are derived from what renders** — the dossier is omitted for
   an MP carrying none, so nothing may hard-code an index. `getProfileData` is
   `react.cache()`-wrapped and reads per-MP edges through the INDEXED

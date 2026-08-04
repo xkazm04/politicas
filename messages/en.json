@@ -615,6 +615,10 @@
   },
   "profile": {
     "breadcrumb": "file",
+    "denikLink": "this entity's ledger →",
+    "leaderboardLink": "back to the ranking →",
+    "verifyScore": "verify this figure →",
+    "legibilityMethodLink": "the full index methodology →",
     "moneyHeading": "Money ties",
     "moneyAside": "Contract Register ⋈ ARES ⋈ Hlídač — key: IČO",
     "moneyLink": "full money network →",

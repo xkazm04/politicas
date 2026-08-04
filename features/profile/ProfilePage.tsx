@@ -27,6 +27,8 @@ import SourceNote from "@/features/shared/components/SourceNote";
 import { COMPONENT_FILL } from "@/features/civicscore/components/LeaderboardTable";
 import { storedRefLabel } from "@/features/civicscore/provenance";
 import { contributionScoreClaim } from "@/features/civicscore/scoreClaim";
+import { krajSlug } from "@/features/civicscore/kraj";
+import { mpEntityKey } from "@/features/denik/deriveDenik";
 import LowScoreReasonBadge from "@/features/profile/components/LowScoreReasonBadge";
 import TenureNote from "@/features/profile/components/TenureNote";
 import TenureTrendGate from "@/features/profile/components/TenureTrendGate";
@@ -112,6 +114,15 @@ export default function ProfilePage({
   // not a silent reconciliation — the scoring formula is not this page's to change.
   const committeeCountDiverges = committees.length !== person.committeeCount;
 
+  // Vlajkové číslo se razí JEDNOU: týž claim jde do `AnimatedScore` (atributy pro
+  // stroje) i do odkazu „ověřit toto číslo" (adresa pro člověka). Dvě ražby téže
+  // figury by se mohly rozejít a čtenář by ověřoval jiné číslo, než čte.
+  const scoreClaim = contributionScoreClaim(person.pspId, person.score, data.provenance).claim;
+  // Kraj je v hlavičce od začátku, ale jako mrtvý text — přitom /kraj/<slug> je
+  // volební karta právě těch poslanců (slug počítá features/civicscore/kraj.ts,
+  // jediný vlastník tvaru té adresy).
+  const krajHref = person.region ? `/kraj/${krajSlug(person.region)}` : null;
+
   // Čestný „headline" z reálných props: vlajka nepřítomného manažera, jinak
   // nejsilnější složka. Nikdy vymyšlené číslo. Every other data gap on this
   // page degrades gracefully by design — guard this one the same way instead
@@ -156,7 +167,20 @@ export default function ProfilePage({
                 })
               : t("rankOf", { rank: f.int(person.rank), total: f.int(total) })}{" "}
             · {person.clubName}
-            {person.region ? ` · ${person.region}` : ""}
+            {person.region ? (
+              <>
+                {" · "}
+                {krajHref ? (
+                  <Link href={krajHref} className="underline-offset-2 hover:underline">
+                    {person.region}
+                  </Link>
+                ) : (
+                  person.region
+                )}
+              </>
+            ) : (
+              ""
+            )}
           </SourceNote>
           <div className="mt-4 flex flex-wrap items-end justify-between gap-8">
             <div>
@@ -183,6 +207,26 @@ export default function ProfilePage({
                   {tcom("followInbox")}
                   <ArrowUpRight className="h-3 w-3" aria-hidden />
                 </Link>
+                {/* Deník je proud DATOVANÝCH faktů o téhle entitě — klíč `?entita=`
+                    je týž, jakým se sleduje ve schránce (features/denik/deriveDenik.ts
+                    vlastní jeho tvar, spis si ho neskládá po svém). Spis říká, KDO to
+                    je; deník, co se s ním dělo. */}
+                <Link
+                  href={`/denik?entita=${encodeURIComponent(mpEntityKey(person.pspId))}`}
+                  className="inline-flex items-center gap-1 font-mono text-[11px] font-bold uppercase tracking-widest text-cobalt hover:underline"
+                >
+                  {t("denikLink")}
+                  <ArrowUpRight className="h-3 w-3" aria-hidden />
+                </Link>
+                {/* „Index spisů JE žebříček" (features/shell/navModel.ts) — a spis
+                    na něj dosud nevedl vůbec, jen skóre a pořadí z něj tiskl. */}
+                <Link
+                  href="/zebricek"
+                  className="inline-flex items-center gap-1 font-mono text-[11px] font-bold uppercase tracking-widest text-steel hover:text-ink hover:underline"
+                >
+                  {t("leaderboardLink")}
+                  <ArrowUpRight className="h-3 w-3" aria-hidden />
+                </Link>
               </div>
             </div>
             <div className="text-right">
@@ -192,7 +236,7 @@ export default function ProfilePage({
                   hodnota náhodou vyjde stejně. */}
               <AnimatedScore
                 value={person.score}
-                claim={contributionScoreClaim(person.pspId, person.score, data.provenance).claim}
+                claim={scoreClaim}
                 format={f.dec}
                 className="text-[7rem] font-black leading-[0.85] tracking-tighter sm:text-[8rem]"
               />
@@ -223,12 +267,21 @@ export default function ProfilePage({
               </SourceNote>
               {/* Pas skóre pojmenuje průchod; odkaz ukáže vzorec, který ten průchod
                   počítal (vykreslený z lib/analysis/contribution.ts, ne z dokumentu). */}
-              <p className="mt-1">
+              <p className="mt-1 flex flex-wrap justify-end gap-x-4 gap-y-1">
                 <Link
                   href="/metodika"
                   className="inline-flex items-center gap-1 font-mono text-[10px] font-bold uppercase tracking-wider text-signal hover:underline"
                 >
                   {tm("linkLabel")}
+                  <ArrowUpRight className="h-2.5 w-2.5" aria-hidden />
+                </Link>
+                {/* Claim už nese celou adresu; do teď ji uměl přečíst jen stroj
+                    z data-claim-* atributů. Tohle je táž adresa pro člověka. */}
+                <Link
+                  href={`/overeni?ref=${encodeURIComponent(scoreClaim.ref)}`}
+                  className="inline-flex items-center gap-1 font-mono text-[10px] font-bold uppercase tracking-wider text-cobalt hover:underline"
+                >
+                  {t("verifyScore")}
                   <ArrowUpRight className="h-2.5 w-2.5" aria-hidden />
                 </Link>
               </p>

@@ -615,6 +615,10 @@
   },
   "profile": {
     "breadcrumb": "spis",
+    "denikLink": "deník této entity →",
+    "leaderboardLink": "zpět do žebříčku →",
+    "verifyScore": "ověřit toto číslo →",
+    "legibilityMethodLink": "celá metodika indexu →",
     "moneyHeading": "Peněžní vazby",
     "moneyAside": "registr smluv ⋈ ares ⋈ hlídač — klíč: IČO",
     "moneyLink": "celá síť peněz →",

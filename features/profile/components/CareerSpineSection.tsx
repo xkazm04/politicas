@@ -112,7 +112,9 @@ export default function CareerSpineSection({ career, asOf }: { career: CareerSpi
   const breakAfter = new Map(career.breaks.map((b) => [b.afterTermCode, b]));
 
   return (
-    <section aria-label="Služební záznam" className="mt-10">
+    // Kariérní spis stojí v hlavičce, ne mezi číslovanými oddíly — kotvu má proto,
+    // aby na služební záznam vedla trvalá adresa, ne aby se objevil v liště.
+    <section id="kariera" aria-label="Služební záznam" className="mt-10">
       <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
         Služební záznam · {servedLabel(career.servedTermCount)}
       </p>
