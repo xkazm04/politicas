@@ -13,10 +13,17 @@
  * a tahle plocha do něj proto nezapisuje.
  */
 
-import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { czechDate } from "@/lib/format";
+import { caseFileLinkFor } from "./caseFileLink";
 import type { ReceiptEndpoint, ProvenanceReceipt, ReviewStatus } from "./receipt";
 import { formatWeightCs } from "./receipt";
+
+const CASE_FILE_LABEL_CS: Record<"poslanec" | "firma", string> = {
+  poslanec: "spis poslance",
+  firma: "spis firmy",
+};
 
 const GATE_BADGE: Record<ReviewStatus, { label: string; cls: string }> = {
   verified: { label: "ověřeno člověkem", cls: "border-cobalt text-cobalt" },
@@ -38,8 +45,10 @@ function MetaRow({ label, children }: { label: string; children: React.ReactNode
   );
 }
 
-/** Registry jednoho koncového bodu — jen uložené identifikátory, nic hádaného. */
+/** Registry jednoho koncového bodu — jen uložené identifikátory, nic hádaného.
+ *  Plus spis na NAŠÍ ploše, existuje-li pro tenhle tvar id (caseFileLink). */
 function EndpointSources({ endpoint }: { endpoint: ReceiptEndpoint }) {
+  const caseFile = caseFileLinkFor(endpoint);
   return (
     <div className="min-w-0">
       <p className="truncate font-mono text-[11px] font-bold uppercase tracking-widest text-ink">
@@ -48,6 +57,17 @@ function EndpointSources({ endpoint }: { endpoint: ReceiptEndpoint }) {
       <p className="mt-0.5 font-mono text-[11px] text-steel-aa">
         {endpoint.citable ?? "zdroj není v záznamu"}
       </p>
+      {caseFile && (
+        <p className="mt-1">
+          <Link
+            href={caseFile.href}
+            className="inline-flex items-center gap-1 font-mono text-xs text-cobalt underline decoration-hairline underline-offset-2 transition-colors hover:text-signal focus-visible:outline focus-visible:outline-2 focus-visible:outline-cobalt"
+          >
+            {CASE_FILE_LABEL_CS[caseFile.target]}
+            <ArrowRight className="h-3 w-3" aria-hidden />
+          </Link>
+        </p>
+      )}
       {endpoint.links.length > 0 && (
         <ul className="mt-1 space-y-0.5">
           {endpoint.links.map((l) => (
@@ -139,7 +159,7 @@ export default function ReceiptBody({ receipt }: { receipt: ProvenanceReceipt })
 
       {/* ── kde si to ověříte sami ────────────────────────────── */}
       <p className="mt-4 font-mono text-[11px] font-bold uppercase tracking-widest text-steel-aa">
-        veřejné registry
+        veřejné registry a naše spisy
       </p>
       <div className={`mt-2 grid gap-4 ${receipt.kind === "edge" ? "sm:grid-cols-2" : ""}`}>
         <EndpointSources endpoint={receipt.subject} />

@@ -13,15 +13,18 @@
 
 import Link from "next/link";
 import { ArrowRight, ScanLine, Stamp } from "lucide-react";
+import CopyLinkButton from "@/features/shared/components/CopyLinkButton";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
+import { caseFileLinkFor } from "@/features/shared/provenance/caseFileLink";
 import CitableNumber from "@/lib/claims/CitableNumber";
 import { claimStatus } from "@/lib/claims/claim";
 import { formattersFor } from "@/lib/format";
 import type { Locale } from "@/lib/i18n/config";
 import { formatWeightCs } from "@/features/shared/provenance/receipt";
 import type { GateData } from "./getVerdictData";
-import { GUIDE_EXAMPLES, GUIDE_STEPS } from "./guide";
+import { GUIDE_EXAMPLES, GUIDE_STEPS, type GuideExample } from "./guide";
+import VerdictFocus from "./VerdictFocus";
 import { gateHeadlineCs, gateStatusInfo, UNGATED_LABEL_CS } from "./gateVocabulary";
 import {
   verdictGate,
@@ -53,6 +56,10 @@ const VERDICT_TONE: Record<VerdictTone, { border: string; text: string }> = {
   unknown: { border: "border-steel-aa", text: "text-ink" },
 };
 
+/** Kotva odpovědi — formulář je čistý GET, takže odpověď přijde až s novou
+ *  stránkou; sem míří i programové zaostření (VerdictFocus). */
+const VERDICT_ID = "verdikt";
+
 // ── Dílčí sazba verdiktu ────────────────────────────────────────────────────
 
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
@@ -63,6 +70,18 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
       </span>
       <span className="min-w-0 break-all text-sm leading-relaxed text-ink">{children}</span>
     </div>
+  );
+}
+
+/** Koncový bod záznamu — odkaz na NÁŠ spis, existuje-li pro tvar id; jinak
+ *  jen štítek. Nikdy se nehádá (features/shared/provenance/caseFileLink.ts). */
+function EndpointLink({ label, id, kind }: { label: string; id: string; kind: string }) {
+  const link = caseFileLinkFor({ id, kind });
+  if (!link) return <>{label}</>;
+  return (
+    <Link href={link.href} className="text-cobalt underline decoration-hairline underline-offset-2 hover:text-signal">
+      {label}
+    </Link>
   );
 }
 
@@ -113,7 +132,9 @@ function VerdictBody({ verdict, locale }: { verdict: GateVerdict; locale: Locale
         {r.kind === "edge" ? (
           <>
             <Row label="záznam">
-              {r.subject.label} <span className="text-steel-aa">{r.relLabel}</span> {r.object.label}
+              <EndpointLink label={r.subject.label} id={r.subject.id} kind={r.subject.kind} />{" "}
+              <span className="text-steel-aa">{r.relLabel}</span>{" "}
+              <EndpointLink label={r.object.label} id={r.object.id} kind={r.object.kind} />
             </Row>
             {r.weight !== null && <Row label="váha záznamu">{formatWeightCs(r.weight)}</Row>}
             <Row label="stav lidské brány">
@@ -169,7 +190,13 @@ function VerdictPanel({ verdict, locale }: { verdict: GateVerdict; locale: Local
   const tone = VERDICT_TONE[verdictTone(verdict)];
   const gate = verdictGate(verdict);
   return (
-    <section aria-label="verdikt brány" className={`mt-8 border-2 border-ink border-l-8 ${tone.border} bg-paper p-5`}>
+    <section
+      id={VERDICT_ID}
+      tabIndex={-1}
+      aria-label="verdikt brány"
+      aria-live="polite"
+      className={`mt-8 border-2 border-ink border-l-8 ${tone.border} bg-paper p-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-cobalt`}
+    >
       <p className="font-mono text-xs font-bold uppercase tracking-[0.25em] text-steel-aa">
         rozpoznáno: {FAMILY_LABELS[verdict.family]}
       </p>
@@ -200,10 +227,13 @@ export default function OvereniPage({
   data,
   input,
   locale,
+  examples = GUIDE_EXAMPLES,
 }: {
   data: GateData;
   input: string;
   locale: Locale;
+  /** Sada příkladů návodu; výchozí je ilustrační fallback (guide.ts). */
+  examples?: readonly GuideExample[];
 }) {
   return (
     <main className="min-h-screen bg-paper font-sans text-ink">
@@ -273,8 +303,42 @@ export default function OvereniPage({
           </button>
         </form>
 
+        <VerdictFocus targetId={VERDICT_ID} token={input} />
+
+        {/* Prázdný stav NENÍ prázdno: plocha bez odpovědi říkala doslova nic,
+            takže po prvním načtení nebylo poznat, že formulář vůbec funguje. */}
+        {data.status === "empty" && (
+          <section
+            aria-label="zatím bez odpovědi"
+            className="mt-8 border-2 border-dashed border-hairline bg-paper p-5"
+          >
+            <p className="font-mono text-xs font-bold uppercase tracking-[0.25em] text-steel-aa">
+              zatím bez odpovědi
+            </p>
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink">
+              Vložte odkaz nebo zkopírovanou citaci do pole výše a brána odpoví jednou ze tří
+              odpovědí. Nevíte, kde adresu vzít? Každá peněžní vazba na{" "}
+              <Link href="/penize" className="text-cobalt underline-offset-2 hover:underline">
+                /penize
+              </Link>{" "}
+              nese odkaz <span className="font-mono">účtenka</span> (/zdroj/…) — a hotové příklady
+              i s tlačítkem kopírovat jsou{" "}
+              <a href="#priklady" className="text-cobalt underline-offset-2 hover:underline">
+                níže v návodu
+              </a>
+              .
+            </p>
+          </section>
+        )}
+
         {data.status === "unavailable" && (
-          <section aria-label="verdikt brány" className="mt-8 border-2 border-ink border-l-8 border-steel-aa bg-paper p-5">
+          <section
+            id={VERDICT_ID}
+            tabIndex={-1}
+            aria-label="verdikt brány"
+            aria-live="polite"
+            className="mt-8 border-2 border-ink border-l-8 border-steel-aa bg-paper p-5"
+          >
             <h2 className="text-2xl font-black uppercase tracking-tight text-steel-aa">
               Záznam je teď nedostupný.
             </h2>
@@ -306,11 +370,14 @@ export default function OvereniPage({
             ))}
           </ol>
 
-          <h3 className="mt-10 font-mono text-xs font-bold uppercase tracking-[0.25em] text-steel-aa">
+          <h3
+            id="priklady"
+            className="mt-10 scroll-mt-6 font-mono text-xs font-bold uppercase tracking-[0.25em] text-steel-aa"
+          >
             příklady odkazů, které brána přijímá
           </h3>
           <div className="mt-3 space-y-4">
-            {GUIDE_EXAMPLES.map((ex) => (
+            {examples.map((ex) => (
               <figure key={ex.label} className="border border-hairline">
                 <figcaption className="border-b border-hairline bg-paper-strong px-3 py-1.5 font-mono text-xs font-bold uppercase tracking-wider text-ink">
                   {ex.label}
@@ -318,6 +385,25 @@ export default function OvereniPage({
                 <pre className="overflow-x-auto px-3 py-2 font-mono text-xs leading-relaxed text-ink">
                   {ex.input}
                 </pre>
+                {/* Kopírovat + ověřit jen u příkladu, který brána DNES ověří —
+                    ilustrační tvar by pod tlačítkem skončil na „Neznámý odkaz.". */}
+                {ex.live && (
+                  <div className="flex flex-wrap items-center gap-3 border-t border-hairline px-3 py-2">
+                    <CopyLinkButton
+                      path={ex.input}
+                      label="kopírovat příklad"
+                      copiedLabel="příklad zkopírován"
+                      failedLabel="kopírování se nezdařilo — vyberte text výše ručně"
+                      errorContext="ověření citace: kopírování příkladu selhalo"
+                    />
+                    <Link
+                      href={`/overeni?ref=${encodeURIComponent(ex.input)}#${VERDICT_ID}`}
+                      className="inline-flex items-center gap-1 font-mono text-xs font-bold uppercase tracking-wider text-cobalt underline-offset-2 hover:underline"
+                    >
+                      ověřit tento příklad <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+                    </Link>
+                  </div>
+                )}
                 <p className="border-t border-hairline px-3 py-1.5 text-xs leading-relaxed text-steel-aa">
                   {ex.note}
                 </p>

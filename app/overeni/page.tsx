@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { getLocale } from "next-intl/server";
 import { defaultLocale, isLocale } from "@/lib/i18n/config";
 import { getVerdictData } from "@/features/overeni/getVerdictData";
+import { getGuideExample } from "@/features/overeni/getGuideExample";
+import { buildExamples } from "@/features/overeni/guide";
 import OvereniPage from "@/features/overeni/OvereniPage";
 
 /*
@@ -29,6 +31,13 @@ export default async function OvereniRoute({
   const rawLocale = await getLocale();
   const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
 
-  const data = await getVerdictData(input === "" ? null : input);
-  return <OvereniPage data={data} input={input} locale={locale} />;
+  const [data, live] = await Promise.all([
+    getVerdictData(input === "" ? null : input),
+    // Živá adresa pro příklad v návodu; null → guide.ts sází ilustrační tvar
+    // OZNAČENÝ jako ilustrační (nikdy nabídku ke zkopírování slepé adresy).
+    getGuideExample(),
+  ]);
+  return (
+    <OvereniPage data={data} input={input} locale={locale} examples={buildExamples(live)} />
+  );
 }

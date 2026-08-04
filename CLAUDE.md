@@ -679,6 +679,33 @@ Route map (politicas.md roadmap execution, sample data):
   and where that page issues one. The known-segment set is derived from
   `features/shell/navModel.ts` (NAV + children + `UNLISTED_ROUTES`), never
   retyped, and a foreign origin on the same path is still `nepodporovany`.
+  **The two halves of the product point at each other, since 2026-08-04.**
+  `/zdroj` never linked `/overeni` and `/overeni` named the receipt's endpoints
+  as plain text, though `subject.id` / `object.id` are the exact ids
+  `/poslanec/<pspId>` and `/penize/firma/<ico>` key on. The receipt footer now
+  carries „ověřit tuto citaci" (`/overeni?ref=…`, still a GET, so the answer is
+  a shareable address); `ReceiptBody` and the gate's own record row link both
+  endpoints into our case files through ONE pure resolver
+  (`features/shared/provenance/caseFileLink.ts`) that links only from the SHAPE
+  of the stored id and never guesses.
+  **The guide's example is a real edge.** `guide.ts` built the `/zdroj` example
+  from fabricated ids („osoba-priklad" / „firma-priklad"), so copy-pasting the
+  one address the page invites you to copy returned „Neznámý odkaz." — in a
+  `<pre>` that had no copy button while /zdroj shipped one. `getGuideExample.ts`
+  reads ONE real `linked_to` edge at request time (deterministic, neutral by
+  construction: first in graph order — src/rel/dst asc — with the rule printed
+  under the example; ~806 ms cold, `react.cache`d per request). Derived, not
+  pinned: an example hardcoded in source is a claim about the graph that
+  nothing holds, and this repo has no live-store test suite to catch it going
+  stale. Store unavailable → the illustrative shape, LABELLED illustrative.
+  Only an example the gate verifies today carries `live: true` and gets the
+  copy button + „ověřit tento příklad" — `CopyReceiptLink` moved out of
+  `ReceiptPage` to `features/shared/components/CopyLinkButton.tsx` (@catalog)
+  so there is one, not two.
+  Also: the empty state renders an affordance instead of nothing, the verdict
+  section is `id="verdikt"` + `tabIndex=-1` + `aria-live` and is focused after a
+  GET submit (`VerdictFocus`), and the unknown headline moved off `steel-aa` to
+  `ink` — it is the most common outcome, not a footnote.
 - `/rentgen` — archived art direction.
 
 All five politicas.md modules now have surfaces. **Update 2026-07-24 — four

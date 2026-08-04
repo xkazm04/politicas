@@ -6,6 +6,13 @@
  * provenance/claimRef, graph/permalink, dashboard/exhibit), takže návod
  * nemůže zastarat, aniž by spadl test: každý příklad musí detekce rozpoznat
  * jako svou rodinu a figury musí projít bránou jako „ověřeno".
+ *
+ * ŽIVÝ vs ILUSTRAČNÍ (2026-08-04): příklad /zdroj/… se staví z hrany, kterou
+ * plocha PRÁVĚ přečetla ze store (getGuideExample.ts) — dřív stál na
+ * vymyšlených id, takže zkopírovaný z návodu vracel „Neznámý odkaz.".
+ * Příklad, který brána dnes ověří, nese `live: true` a dostane na ploše
+ * tlačítko kopírovat + odkaz ověřit; ilustrační TVAR adresy (otisk 00000000)
+ * ho nedostane a poznámka to říká.
  */
 
 import { claimDataAttributes } from "@/lib/claims/claim";
@@ -56,6 +63,14 @@ export interface GuideExample {
   label: string;
   input: string;
   note: string;
+  /**
+   * true = tenhle vstup brána DNES opravdu ověří (figura z rejstříku, hrana
+   * přečtená právě teď ze store). Jen takový příklad dostane tlačítko
+   * „kopírovat" a odkaz „ověřit" — zvát ke zkopírování něčeho, co skončí na
+   * „Neznámý odkaz.", je slepý konec v návodu o ověřitelnosti.
+   * false = ilustrační TVAR adresy; poznámka to říká.
+   */
+  live: boolean;
 }
 
 const escapeAttr = (v: string): string =>
@@ -70,7 +85,16 @@ export function figurePayloadExample(fig: IssuedFigure): string {
   return `<data value="${fig.value}" ${attrText}>…</data>`;
 }
 
-function buildExamples(): GuideExample[] {
+/** Živá hrana z dnešního grafu, kterou návod nabídne jako příklad /zdroj/…
+ *  (features/overeni/getGuideExample.ts). null = store nedostupný → ilustrace. */
+export interface LiveEdgeExample {
+  ref: string;
+  src: string;
+  rel: string;
+  dst: string;
+}
+
+export function buildExamples(live: LiveEdgeExample | null): GuideExample[] {
   const examples: GuideExample[] = [];
   const first = ISSUED_FIGURES[0];
   if (first) {
@@ -79,33 +103,49 @@ function buildExamples(): GuideExample[] {
       label: "figura — zkopírovaný element s data-claim-*",
       input: figurePayloadExample(first),
       note: "Nese adresu i hodnotu — brána porovná citovanou hodnotu s dnešní.",
+      live: true,
     });
     examples.push({
       family: "figura",
       label: "figura — holý claim-ref",
       input: first.claim.ref,
       note: "Jen adresa figury: brána odpoví dnešním zněním tvrzení.",
+      live: true,
     });
   }
-  examples.push({
-    family: "zdroj",
-    label: "účtenka původu — hrana grafu",
-    input: claimRefPath(edgeClaimRef("osoba-priklad", "linked_to", "firma-priklad")),
-    note: "Ilustrační tvar adresy /zdroj/… — skutečnou vydává tlačítko účtenky u citace.",
-  });
+  examples.push(
+    live
+      ? {
+          family: "zdroj",
+          label: "účtenka původu — hrana grafu",
+          input: claimRefPath(live.ref),
+          note: `Skutečná adresa z dnešního grafu: ${live.src} — ${live.rel} → ${live.dst}. Vybraná neutrálně — první hrana ${live.rel} v pořadí grafu, žádná míra. Vložte ji sem a brána odpoví, co o ní dnes ví, včetně stavu lidské kontroly.`,
+          live: true,
+        }
+      : {
+          family: "zdroj",
+          label: "účtenka původu — hrana grafu (ilustrace)",
+          input: claimRefPath(edgeClaimRef("osoba-priklad", "linked_to", "firma-priklad")),
+          note: "Živý příklad se teď nedá načíst, tohle je jen TVAR adresy /zdroj/… — brána na něj odpoví „neznámý odkaz“. Skutečnou adresu vydává odkaz účtenka u každé vazby na /penize.",
+          live: false,
+        },
+  );
   examples.push({
     family: "graf",
-    label: "citace pohledu na graf",
+    label: "citace pohledu na graf (ilustrace)",
     input: `/graf/p/${encodeGraphRef({ kind: "trasa", variant: "mapa", trail: "penize-poslancu" }, "00000000")}`,
     note: "Ilustrační otisk 00000000 — skutečný vydává akce citovat na /graf.",
+    live: false,
   });
   examples.push({
     family: "exponat",
-    label: "exponát velína",
+    label: "exponát velína (ilustrace)",
     input: `/dashboard/exponat/${encodeExhibitId({ kind: "rez", hash: "00000000" })}`,
     note: "Ilustrační otisk 00000000 — skutečný vydává akce citovat ve velíně.",
+    live: false,
   });
   return examples;
 }
 
-export const GUIDE_EXAMPLES: readonly GuideExample[] = buildExamples();
+/** Ilustrační sada — fallback plochy, když se živá hrana nenačte. */
+export const GUIDE_EXAMPLES: readonly GuideExample[] = buildExamples(null);

@@ -12,72 +12,15 @@
  * messages/*.json je sdílený soubor napříč paralelně stavěnými plochami.
  */
 
-import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Check, Link2, Stamp } from "lucide-react";
+import { ScanLine, Stamp } from "lucide-react";
+import Link from "next/link";
+import CopyLinkButton from "@/features/shared/components/CopyLinkButton";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { claimRefPath } from "./claimRef";
 import type { ProvenanceReceipt } from "./receipt";
 import ReceiptBody from "./ReceiptBody";
-
-/** Kopírování trvalé adresy s potvrzením — adresa se skládá až při kliknutí
- *  z window.location.origin, takže SSR nikdy nesází neznámý origin. */
-function CopyReceiptLink({ path }: { path: string }) {
-  const [state, setState] = useState<"idle" | "copied" | "failed">("idle");
-  const reduceMotion = useReducedMotion();
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(
-    () => () => {
-      if (timer.current) clearTimeout(timer.current);
-    },
-    [],
-  );
-
-  const copy = async () => {
-    const url = new URL(path, window.location.origin).toString();
-    try {
-      await navigator.clipboard.writeText(url);
-      setState("copied");
-    } catch (err) {
-      // Clipboard API může být zakázané (permissions, http) — adresa je
-      // vypsaná hned vedle, takže selhání jen pojmenujeme a necháme ruční cestu.
-      console.error("účtenka: kopírování odkazu selhalo", err);
-      setState("failed");
-    }
-    if (timer.current) clearTimeout(timer.current);
-    timer.current = setTimeout(() => setState("idle"), 2600);
-  };
-
-  return (
-    <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-      <button
-        type="button"
-        onClick={copy}
-        className="inline-flex items-center gap-1.5 border border-ink px-3 py-1.5 font-mono text-xs font-bold uppercase tracking-wider text-ink transition-colors hover:bg-paper-strong hover:text-signal focus-visible:outline focus-visible:outline-2 focus-visible:outline-cobalt"
-      >
-        <Link2 className="h-3.5 w-3.5" aria-hidden /> kopírovat odkaz
-      </button>
-      <span role="status" aria-live="polite" className="min-h-[1rem]">
-        {state === "copied" && (
-          <motion.span
-            initial={reduceMotion ? false : { opacity: 0, y: 3 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-1 font-mono text-xs font-bold uppercase tracking-wider text-cobalt"
-          >
-            <Check className="h-3.5 w-3.5" aria-hidden /> odkaz zkopírován
-          </motion.span>
-        )}
-        {state === "failed" && (
-          <span className="font-mono text-xs uppercase tracking-wider text-signal-deep">
-            kopírování se nezdařilo — vyberte adresu níže ručně
-          </span>
-        )}
-      </span>
-    </div>
-  );
-}
 
 function PageFrame({ children }: { children: React.ReactNode }) {
   const reduceMotion = useReducedMotion();
@@ -153,9 +96,18 @@ export default function ReceiptPage({ receipt }: { receipt: ProvenanceReceipt })
           citace
         </p>
         <div className="mt-4">
-          <CopyReceiptLink path={path} />
+          <CopyLinkButton path={path} errorContext="účtenka: kopírování odkazu selhalo" />
           <p className="mt-2 break-all font-mono text-xs text-steel-aa">{path}</p>
         </div>
+        {/* Druhá polovina produktu: účtenka je doklad, brána je jeho přezkoušení.
+            Adresa jde do /overeni jako `?ref=` — GET, takže i tenhle výsledek je
+            sdílitelná adresa. */}
+        <Link
+          href={`/overeni?ref=${encodeURIComponent(path)}`}
+          className="mt-4 inline-flex items-center gap-1.5 border border-ink px-3 py-1.5 font-mono text-xs font-bold uppercase tracking-wider text-ink transition-colors hover:bg-paper-strong hover:text-signal focus-visible:outline focus-visible:outline-2 focus-visible:outline-cobalt"
+        >
+          <ScanLine className="h-3.5 w-3.5" aria-hidden /> ověřit tuto citaci
+        </Link>
         <SourceNote className="mt-4">
           znalostní graf politicas — psp.cz · ares · registr smluv; stav lidské brány podle
           auditované kontroly (review_audit)
