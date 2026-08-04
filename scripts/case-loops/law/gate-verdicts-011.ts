@@ -22,7 +22,10 @@ function main() {
   const targetCisla = new Set(t.targets.map((x) => x.billTisk));
 
   const only = process.argv.find((a) => a.startsWith("--file="))?.slice(7);
-  const files = existsSync(DIR) ? readdirSync(DIR).filter((f) => f.endsWith(".json") && (!only || f === only)).sort() : [];
+  // verdict-<cislo>.json ONLY — batch-012 P1 found the gate exiting 1 on the shipped payload
+  // because the persist step's combined-array artifact matched a bare .json glob. A gate that
+  // fails on its own payload teaches operators to ignore its exit code.
+  const files = existsSync(DIR) ? readdirSync(DIR).filter((f) => /^verdict-\d+\.json$/.test(f) && (!only || f === only)).sort() : [];
   if (files.length === 0) {
     console.log(`no verdicts in ${DIR}`);
     process.exit(1);

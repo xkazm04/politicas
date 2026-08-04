@@ -1,72 +1,77 @@
 {
-  "billTisk": 221,
-  "statedReasoning": "Důvodová zpráva uvádí, že platná úprava systémového střetu zájmů v § 4b a § 4c zákona č. 159/2006 Sb. (plošný zákaz účasti ve veřejných zakázkách a čerpání dotací pro společnosti, v nichž veřejný funkcionář nebo jím ovládaná osoba vlastní alespoň 25 % podíl) je ve srovnání s inspirační rakouskou úpravou nepřiměřeně široká, dopadá až na malé obce a jejich příspěvkové organizace a přesahuje standardní rámec pravidel přijatých členskými státy EU k prevenci střetu zájmů. Návrh proto zužuje osobní i věcný rozsah zákazů na případy, kdy je poskytovatelem dotace či zadavatelem přímo úřad, v jehož čele dotčený veřejný funkcionář stojí, nahrazuje kritérium ovládající osoby kritériem skutečného majitele s odkazem na evidenci skutečných majitelů kvůli výkladovým nejasnostem dosavadního pojmu ovládání, a zavádí nové kompenzační nástroje – oznamovací povinnost veřejného funkcionáře o smlouvách a dotacích jeho společností, povinnost poskytovatelů dotací a investičních pobídek předcházet střetu zájmů čestnými prohlášeními, zveřejňovat záměr poskytnutí dotace a vypořádat námitky dotčených osob.",
-  "researchedContext": "Ustanovení § 2 odst. 1 písm. c) zákona č. 159/2006 Sb., o střetu zájmů, na které se § 4b, § 4c a nový § 11a výslovně odvolávají, vymezuje kategorii dotčených veřejných funkcionářů jako člena vlády nebo vedoucího jiného ústředního správního úřadu, v jehož čele není člen vlády – tedy ministry a šéfy centrálních úřadů, nikoli řadové poslance Poslanecké sněmovny. Novela ovšem nedopadá jen na tuto kategorii: nový § 4c odst. 2 zákona o střetu zájmů (bod 5 čl. I) zavádí samostatný zákaz poskytnout nenárokovou dotaci obchodní společnosti, jejímž skutečným majitelem je člen zastupitelstva územního samosprávného celku, který je poskytovatelem dotace, a nový § 48 odst. 9 zákona č. 134/2016 Sb., o zadávání veřejných zakázek (vložený čl. X bodem 1), dává zadavateli obdobné fakultativní oprávnění vyloučit společnost člena zastupitelstva ÚSC z řízení, které tento ÚSC sám zadává. Podle důvodové zprávy jde o vědomé rozšíření dosavadního rámce (\"pro zachování symetrie a zajištění proporcionality zákazu poskytování dotací se navrhuje jeho rozšíření na obchodní společnosti, jejichž skutečným majitelem je člen zastupitelstva územního samosprávného celku\") – tato větev tedy okruh dotčených osob spíše RUŠÍ, protože dosud § 4b a § 4c na členy zastupitelstev ÚSC vůbec nemířily (jejich veřejný funkcionář byl vymezen výhradně kategorií podle písm. c)). Souběžně novela u kategorie ministrů a vedoucích ústředních úřadů nahrazuje dosavadní § 4b, tedy plošný a kogentní zákaz účasti ve veřejných zakázkách s povinností zadavatele takovou společnost vyloučit, fakultativním oprávněním zadavatele danou společnost vyloučit podle nového § 48 odst. 8 zákona o zadávání veřejných zakázek, a to jen tehdy, je-li zadavatelem přímo úřad vedený dotčeným funkcionářem. U ministrů jde tedy o přechod od kogentního, plošného zákazu k diskrečnímu oprávnění s výrazně užším rozsahem; u členů zastupitelstev ÚSC jde naopak o zavedení zcela nové, dosud neexistující povinnosti a fakultativního oprávnění k vyloučení. Text novely zákona o zemědělství (č. 252/1997 Sb.) a rozpočtových pravidel (č. 218/2000 Sb.) rozlišuje nárokové a nenárokové dotace a omezuje zákaz podle § 4c jen na dotace, na které není právní nárok, poskytované přímo úřadem nebo ÚSC, v jehož čele dotčený funkcionář stojí, respektive jehož je dotčená osoba členem zastupitelstva. Rešerše dále zjistila, že oba předkladatelé s peněžními vazbami jsou zároveň členy zastupitelstva ÚSC: Radek Vondráček je od roku 2024 zastupitelem Zlínského kraje a v letech 2014–2017 byl zastupitelem a místostarostou města Kroměříž; David Pražák je od roku 2024 zastupitelem Libereckého kraje a od roku 2015 zastupitelem (od 2022 místostarostou) města Semily.",
-  "unstatedEffects": [
-    {
-      "effect": "Zákon nahrazuje dosavadní kogentní a plošný zákaz účasti ve veřejných zakázkách podle § 4b zákona o střetu zájmů, s povinností zadavatele vyloučit dotčenou společnost, fakultativním oprávněním zadavatele vyloučit takovou společnost jen v úzkém okruhu případů, kdy je zadavatelem přímo úřad vedený dotčeným ministrem nebo vedoucím ústředního správního úřadu. Rozsah ochrany veřejných zakázek proti systémovému střetu zájmů se tak u této kategorie funkcionářů reálně zužuje z celostátní plošné úpravy, dopadající podle důvodové zprávy až na nejnižší úroveň včetně malých obcí, na úzkou a nevynutitelnou výjimku.",
-      "whoBenefits": "Obchodní společnosti, jejichž skutečným majitelem je člen vlády nebo vedoucí ústředního správního úřadu podle § 2 odst. 1 písm. c) zákona o střetu zájmů, mimo zakázky zadávané přímo jejich vlastním úřadem – nikoli přímo předkladatelé tohoto návrhu, kteří jako poslanci Poslanecké sněmovny do této kategorie veřejných funkcionářů nespadají.",
-      "evidence": "Bod 3 čl. I novely, kterým se § 4b ruší, a nový § 48 odst. 8 zákona č. 134/2016 Sb. vložený čl. X bodem 1 novely, ve spojení s vysvětlením v obecné části důvodové zprávy k bodu i."
-    },
-    {
-      "effect": "Souběžně s uvedeným zúžením pro ministry novela poprvé zavádí samostatný zákaz nenárokové dotace a fakultativní oprávnění k vyloučení z veřejné zakázky vůči společnostem, jejichž skutečným majitelem je člen zastupitelstva územního samosprávného celku, pokud je tento ÚSC sám poskytovatelem dotace nebo zadavatelem – dosud § 4b a § 4c na tuto skupinu vůbec nemířily. Oba předkladatelé s peněžními vazbami na tomto tisku (Radek Vondráček, David Pražák) jsou zároveň sami zastupiteli kraje (Vondráček Zlínského kraje od 2024, Pražák Libereckého kraje od 2024) a Pražák navíc zastupitelem/místostarostou města Semily, takže na jejich vlastní společnosti (MAE invest a.s., AGROCENTRUM JIZERAN a.s.) by se nové omezení vztahovalo, pokud by tyto společnosti žádaly o nenárokovou dotaci nebo se ucházely o zakázku právě u Zlínského kraje, Libereckého kraje nebo města Semily.",
-      "whoBenefits": "Nejde o zjevné zvýhodnění předkladatelů – jde o nově zavedené omezení dopadající mimo jiné na jejich vlastní společnosti ve vztahu k jejich vlastním zastupitelským mandátům; přesný dopad nelze bez údaje o konkrétních smluvních vztazích MAE invest a.s. a AGROCENTRUM JIZERAN a.s. se Zlínským krajem, Libereckým krajem a městem Semily ověřit.",
-      "evidence": "Bod 5 čl. I novely (nový § 4c odst. 2 zákona o střetu zájmů) a nový § 48 odst. 9 zákona č. 134/2016 Sb. vložený čl. X bodem 1 novely, ve spojení s odůvodněním rozšíření v obecné části důvodové zprávy."
-    }
-  ],
-  "conflictAssessment": "Batch-010 přiřadil k tomuto tisku dva vedoucí zájmové signály – MAE invest a.s. u Radka Vondráčka přes zákon č. 218/2000 Sb. a AGROCENTRUM JIZERAN a.s. u Davida Pražáka přes zákon č. 252/1997 Sb. – a oba se skutečně týkají novelizovaných ustanovení o střetu zájmů při poskytování dotací. Novelizovaná ustanovení § 4b a navazující § 11a nedopadají výhradně na ministry a vedoucí ústředních úřadů, jak by se mohlo zdát z prostého odkazu na § 2 odst. 1 písm. c) zákona o střetu zájmů: nový § 4c odst. 2 a nový § 48 odst. 9 zákona o zadávání veřejných zakázek rozšiřují obdobný režim i na členy zastupitelstev územních samosprávných celků. Ani Radek Vondráček, ani David Pražák nejsou podle dostupných údajů v grafu členy vlády, ale rešerše zjistila, že oba jsou aktuálně krajskými zastupiteli (Vondráček Zlínský kraj, Pražák Liberecký kraj) a Pražák navíc zastupitelem města Semily. Jejich společnosti MAE invest a.s. a AGROCENTRUM JIZERAN a.s. tak nově spadají do okruhu dotčeného § 4c odst. 2 a § 48 odst. 9, pokud by žádaly o nenárokovou dotaci nebo veřejnou zakázku právě u Zlínského kraje, Libereckého kraje nebo města Semily – jde ovšem o nově zaváděné OMEZENÍ pro tuto skupinu, nikoli o úlevu, takže z něj nelze vyvodit sebezvýhodnění předkladatelů; naopak jde o ustanovení, které by při doslovné aplikaci mohlo omezit přístup jejich vlastních společností k penězům jejich vlastních zastupitelských sborů. Bez údaje o tom, zda MAE invest a.s. nebo AGROCENTRUM JIZERAN a.s. v minulosti od Zlínského kraje, Libereckého kraje nebo města Semily dotaci či zakázku skutečně čerpaly, nelze určit, zda toto nové ustanovení má na ně v praxi vůbec dopad. Naproti tomu zúžení kogentního zákazu na diskreční oprávnění u kategorie ministrů (§ 4b, § 48 odst. 8) se ani Vondráčka, ani Pražáka netýká, protože ministry nejsou – zde závěr o absenci osobního konfliktu obstojí. Třetí peněžní vazba Davida Pražáka, společnost KORID LK, spol. s r.o. se smlouvami v hodnotě 405 232 883 Kč, není mezi přiřazenými sektorovými signály batch-010 – jde o společnost ve stoprocentním vlastnictví Libereckého kraje plnící roli krajského koordinátora veřejné dopravy, tedy o stewardskou, nikoli soukromou ekonomickou vazbu, a proto ji podle ustálené doktríny nelze posuzovat jako střet zájmů; je ovšem pozoruhodné, že Pražák je zároveň zastupitelem téhož Libereckého kraje, jenž KORID LK vlastní.",
-  "severity": "medium",
-  "confidence": 3,
-  "citations": [
-    {
-      "claim": "Bod 3 čl. I novely ruší § 4b zákona o střetu zájmů; ten je nahrazen fakultativním oprávněním zadavatele vyloučit účastníka podle nového § 48 odst. 8 a 9 zákona o zadávání veřejných zakázek, omezeným na případy, kdy je zadavatelem úřad vedený dotčeným funkcionářem.",
-      "kind": "bill_text",
-      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=221&ct1=0"
-    },
-    {
-      "claim": "Důvodová zpráva sama konstatuje, že dosavadní § 4b a § 4c zákona o střetu zájmů jsou plošné a dopadají až na nejnižší úroveň včetně malých obcí a jejich příspěvkových organizací, a že navrhované zúžení není v rozporu s unijní úpravou, protože tato ustanovení netranspoinovala unijní právo.",
-      "kind": "bill_text",
-      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=221&ct1=0"
-    },
-    {
-      "claim": "Kategorie veřejného funkcionáře podle § 2 odst. 1 písm. c) zákona č. 159/2006 Sb. zahrnuje člena vlády nebo vedoucího jiného ústředního správního úřadu, v jehož čele není člen vlády, nikoli poslance Poslanecké sněmovny.",
-      "kind": "web",
-      "source": "https://www.zakonyprolidi.cz/cs/2006-159"
-    },
-    {
-      "claim": "David Pražák má peněžní vazbu na KORID LK, spol. s r.o. ve výši 405 232 883 Kč.",
-      "kind": "graph_fact",
-      "source": "company:ico:27267351"
-    },
-    {
-      "claim": "David Pražák má peněžní vazbu na AGROCENTRUM JIZERAN a.s. ve výši 3 040 369 Kč; Radek Vondráček má peněžní vazbu na MAE invest a.s. ve výši 912 000 Kč.",
-      "kind": "graph_fact",
-      "source": "company:ico:60914351"
-    },
-    {
-      "claim": "KORID LK, spol. s r.o. je společnost založená a vlastněná Libereckým krajem jako krajský koordinátor integrované veřejné dopravy IDOL.",
-      "kind": "web",
-      "source": "https://www.korid.cz/stranky/23:korid-lk.html"
-    },
-    {
-      "claim": "Batch-010 přiřadil tomuto tisku sektorové vazby MAE invest a.s. přes zákon č. 218/2000 Sb. a AGROCENTRUM JIZERAN a.s. přes zákon č. 252/1997 Sb.",
-      "kind": "graph_fact",
-      "source": "company:ico:29186315"
-    },
-    {
-      "claim": "Nový § 4c odst. 2 zákona o střetu zájmů (bod 5 čl. I novely) zakazuje poskytnout nenárokovou dotaci obchodní společnosti, jejímž skutečným majitelem je člen zastupitelstva územního samosprávného celku, který je poskytovatelem dotace; nový § 48 odst. 9 zákona č. 134/2016 Sb. (čl. X bod 1 novely) dává obdobné fakultativní oprávnění zadavateli, jímž je územní samosprávný celek.",
-      "kind": "bill_text",
-      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=221&ct1=0"
-    },
-    {
-      "claim": "Radek Vondráček je od roku 2024 zastupitelem Zlínského kraje a v letech 2014–2017 byl zastupitelem a místostarostou města Kroměříž.",
-      "kind": "web",
-      "source": "https://www.hlidacstatu.cz/osoba/Funkce/radek-vondracek"
-    },
-    {
-      "claim": "David Pražák je od roku 2024 zastupitelem Libereckého kraje a od roku 2015 zastupitelem, od roku 2022 místostarostou města Semily.",
-      "kind": "web",
-      "source": "https://www.hlidacstatu.cz/osoba/Funkce/david-prazak-5"
-    }
-  ]
+ "billTisk": 221,
+ "statedReasoning": "Důvodová zpráva uvádí, že platná úprava systémového střetu zájmů v § 4b a § 4c zákona č. 159/2006 Sb. (plošný zákaz účasti ve veřejných zakázkách a čerpání dotací pro společnosti, v nichž veřejný funkcionář nebo jím ovládaná osoba vlastní alespoň 25 % podíl) je ve srovnání s inspirační rakouskou úpravou nepřiměřeně široká, dopadá až na malé obce a jejich příspěvkové organizace a přesahuje standardní rámec pravidel přijatých členskými státy EU k prevenci střetu zájmů. Návrh proto zužuje osobní i věcný rozsah zákazů na případy, kdy je poskytovatelem dotace či zadavatelem přímo úřad, v jehož čele dotčený veřejný funkcionář stojí, nahrazuje kritérium ovládající osoby kritériem skutečného majitele s odkazem na evidenci skutečných majitelů kvůli výkladovým nejasnostem dosavadního pojmu ovládání, a zavádí nové kompenzační nástroje – oznamovací povinnost veřejného funkcionáře o smlouvách a dotacích jeho společností, povinnost poskytovatelů dotací a investičních pobídek předcházet střetu zájmů čestnými prohlášeními, zveřejňovat záměr poskytnutí dotace a vypořádat námitky dotčených osob.",
+ "researchedContext": "Ustanovení § 2 odst. 1 písm. c) zákona č. 159/2006 Sb., o střetu zájmů, na které se § 4b, § 4c a nový § 11a výslovně odvolávají, vymezuje kategorii dotčených veřejných funkcionářů jako člena vlády nebo vedoucího jiného ústředního správního úřadu, v jehož čele není člen vlády – tedy ministry a šéfy centrálních úřadů, nikoli řadové poslance Poslanecké sněmovny. Novela ovšem nedopadá jen na tuto kategorii: nový § 4c odst. 2 zákona o střetu zájmů (bod 5 čl. I) zavádí samostatný zákaz poskytnout nenárokovou dotaci obchodní společnosti, jejímž skutečným majitelem je člen zastupitelstva územního samosprávného celku, který je poskytovatelem dotace, a nový § 48 odst. 9 zákona č. 134/2016 Sb., o zadávání veřejných zakázek (vložený čl. X bodem 1), dává zadavateli obdobné fakultativní oprávnění vyloučit společnost člena zastupitelstva ÚSC z řízení, které tento ÚSC sám zadává. Podle důvodové zprávy jde o vědomé rozšíření dosavadního rámce (\"pro zachování symetrie a zajištění proporcionality zákazu poskytování dotací se navrhuje jeho rozšíření na obchodní společnosti, jejichž skutečným majitelem je člen zastupitelstva územního samosprávného celku\") – tato větev tedy okruh dotčených osob spíše ROZŠIŘUJE, protože dosud § 4b a § 4c na členy zastupitelstev ÚSC vůbec nemířily (jejich veřejný funkcionář byl vymezen výhradně kategorií podle písm. c)). Souběžně novela u kategorie ministrů a vedoucích ústředních úřadů nahrazuje dosavadní § 4b, tedy plošný a kogentní zákaz účasti ve veřejných zakázkách s povinností zadavatele takovou společnost vyloučit, fakultativním oprávněním zadavatele danou společnost vyloučit podle nového § 48 odst. 8 zákona o zadávání veřejných zakázek, a to jen tehdy, je-li zadavatelem přímo úřad vedený dotčeným funkcionářem. U ministrů jde tedy o přechod od kogentního, plošného zákazu k diskrečnímu oprávnění s výrazně užším rozsahem; u členů zastupitelstev ÚSC jde naopak o zavedení zcela nové, dosud neexistující povinnosti a fakultativního oprávnění k vyloučení. Text novely zákona o zemědělství (č. 252/1997 Sb.) a rozpočtových pravidel (č. 218/2000 Sb.) rozlišuje nárokové a nenárokové dotace a omezuje zákaz podle § 4c jen na dotace, na které není právní nárok, poskytované přímo úřadem nebo ÚSC, v jehož čele dotčený funkcionář stojí, respektive jehož je dotčená osoba členem zastupitelstva. Rešerše dále zjistila, že oba předkladatelé s peněžními vazbami jsou zároveň členy zastupitelstva ÚSC: Radek Vondráček je od roku 2024 zastupitelem Zlínského kraje a v letech 2014–2017 byl zastupitelem a místostarostou města Kroměříž; David Pražák je od roku 2024 zastupitelem Libereckého kraje a od roku 2015 zastupitelem (od 2022 místostarostou) města Semily.",
+ "unstatedEffects": [
+  {
+   "effect": "Zákon nahrazuje dosavadní kogentní a plošný zákaz účasti ve veřejných zakázkách podle § 4b zákona o střetu zájmů, s povinností zadavatele vyloučit dotčenou společnost, fakultativním oprávněním zadavatele vyloučit takovou společnost jen v úzkém okruhu případů, kdy je zadavatelem přímo úřad vedený dotčeným ministrem nebo vedoucím ústředního správního úřadu. Rozsah ochrany veřejných zakázek proti systémovému střetu zájmů se tak u této kategorie funkcionářů reálně zužuje z celostátní plošné úpravy, dopadající podle důvodové zprávy až na nejnižší úroveň včetně malých obcí, na úzkou a nevynutitelnou výjimku.",
+   "whoBenefits": "Obchodní společnosti, jejichž skutečným majitelem je člen vlády nebo vedoucí ústředního správního úřadu podle § 2 odst. 1 písm. c) zákona o střetu zájmů, mimo zakázky zadávané přímo jejich vlastním úřadem – nikoli přímo předkladatelé tohoto návrhu, kteří jako poslanci Poslanecké sněmovny do této kategorie veřejných funkcionářů nespadají.",
+   "evidence": "Bod 3 čl. I novely, kterým se § 4b ruší, a nový § 48 odst. 8 zákona č. 134/2016 Sb. vložený čl. X bodem 1 novely, ve spojení s vysvětlením v obecné části důvodové zprávy k bodu i."
+  },
+  {
+   "effect": "Souběžně s uvedeným zúžením pro ministry novela poprvé zavádí samostatný zákaz nenárokové dotace a fakultativní oprávnění k vyloučení z veřejné zakázky vůči společnostem, jejichž skutečným majitelem je člen zastupitelstva územního samosprávného celku, pokud je tento ÚSC sám poskytovatelem dotace nebo zadavatelem – dosud § 4b a § 4c na tuto skupinu vůbec nemířily. Oba předkladatelé s peněžními vazbami na tomto tisku (Radek Vondráček, David Pražák) jsou zároveň sami zastupiteli kraje (Vondráček Zlínského kraje od 2024, Pražák Libereckého kraje od 2024) a Pražák navíc zastupitelem města Semily. Obě nová ustanovení ale dopadají jen na společnost, jejímž je zastupitel „skutečným majitelem“ ve smyslu evidence skutečných majitelů — případový soubor batche u těchto vazeb žádný údaj o skutečném majiteli nenese, členství ve statutárním či dozorčím orgánu skutečným majitelstvím není a tento verdikt status skutečného majitele neověřoval. Zda tedy MAE invest a.s. a AGROCENTRUM JIZERAN a.s. do nově zavedeného okruhu spadají, zůstává neověřeno; pokud ano, omezení by se na ně vztahovalo při žádosti o nenárokovou dotaci nebo účasti v zakázce právě u Zlínského kraje, Libereckého kraje nebo města Semily.",
+   "whoBenefits": "Nejde o zjevné zvýhodnění předkladatelů – jde o nově zavedené omezení potenciálně dopadající i na jejich vlastní společnosti (podmíněno neověřeným statusem skutečného majitele) ve vztahu k jejich vlastním zastupitelským mandátům; přesný dopad nelze bez údaje o konkrétních smluvních vztazích MAE invest a.s. a AGROCENTRUM JIZERAN a.s. se Zlínským krajem, Libereckým krajem a městem Semily ověřit.",
+   "evidence": "Bod 5 čl. I novely (nový § 4c odst. 2 zákona o střetu zájmů) a nový § 48 odst. 9 zákona č. 134/2016 Sb. vložený čl. X bodem 1 novely, ve spojení s odůvodněním rozšíření v obecné části důvodové zprávy."
+  }
+ ],
+ "conflictAssessment": "Batch-010 přiřadil k tomuto tisku dva vedoucí zájmové signály – MAE invest a.s. u Radka Vondráčka přes zákon č. 218/2000 Sb. a AGROCENTRUM JIZERAN a.s. u Davida Pražáka přes zákon č. 252/1997 Sb. – a oba se skutečně týkají novelizovaných ustanovení o střetu zájmů při poskytování dotací. Novelizovaný rámec nedopadá výhradně na ministry a vedoucí ústředních úřadů (na ně míří dosavadní § 4b a navazující § 11a přes § 2 odst. 1 písm. c) zákona o střetu zájmů): nový § 4c odst. 2 a nový § 48 odst. 9 zákona o zadávání veřejných zakázek rozšiřují obdobný režim i na členy zastupitelstev územních samosprávných celků. Ani Radek Vondráček, ani David Pražák nejsou podle dostupných údajů v grafu členy vlády, ale rešerše zjistila, že oba jsou aktuálně krajskými zastupiteli (Vondráček Zlínský kraj, Pražák Liberecký kraj) a Pražák navíc zastupitelem města Semily. Jejich společnosti MAE invest a.s. a AGROCENTRUM JIZERAN a.s. tak mohou nově spadat do okruhu dotčeného § 4c odst. 2 a § 48 odst. 9, pokud by žádaly o nenárokovou dotaci nebo veřejnou zakázku právě u Zlínského kraje, Libereckého kraje nebo města Semily (podmínkou je status „skutečného majitele“, který případový soubor nenese a tento verdikt jej neověřoval) – jde ovšem o nově zaváděné OMEZENÍ pro tuto skupinu, nikoli o úlevu, takže z něj nelze vyvodit sebezvýhodnění předkladatelů; naopak jde o ustanovení, které by při doslovné aplikaci mohlo omezit přístup jejich vlastních společností k penězům jejich vlastních zastupitelských sborů. Bez údaje o tom, zda MAE invest a.s. nebo AGROCENTRUM JIZERAN a.s. v minulosti od Zlínského kraje, Libereckého kraje nebo města Semily dotaci či zakázku skutečně čerpaly, nelze určit, zda toto nové ustanovení má na ně v praxi vůbec dopad. Naproti tomu zúžení kogentního zákazu na diskreční oprávnění u kategorie ministrů (§ 4b, § 48 odst. 8) se ani Vondráčka, ani Pražáka netýká, protože ministry nejsou – zde závěr o absenci osobního konfliktu obstojí. Třetí peněžní vazba Davida Pražáka, společnost KORID LK, spol. s r.o. se smlouvami v hodnotě 405 232 883 Kč, není mezi přiřazenými sektorovými signály batch-010 – jde o společnost ve stoprocentním vlastnictví Libereckého kraje plnící roli krajského koordinátora veřejné dopravy, tedy o stewardskou, nikoli soukromou ekonomickou vazbu, a proto ji podle ustálené doktríny nelze posuzovat jako střet zájmů; je ovšem pozoruhodné, že Pražák je zároveň zastupitelem téhož Libereckého kraje, jenž KORID LK vlastní.",
+ "severity": "medium",
+ "confidence": 3,
+ "citations": [
+  {
+   "claim": "Bod 3 čl. I novely ruší § 4b zákona o střetu zájmů; ten je nahrazen fakultativním oprávněním zadavatele vyloučit účastníka podle nového § 48 odst. 8 a 9 zákona o zadávání veřejných zakázek, omezeným na případy, kdy je zadavatelem úřad vedený dotčeným funkcionářem.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=221&ct1=0"
+  },
+  {
+   "claim": "Důvodová zpráva sama konstatuje, že dosavadní § 4b a § 4c zákona o střetu zájmů jsou plošné a dopadají až na nejnižší úroveň včetně malých obcí a jejich příspěvkových organizací, a že navrhované zúžení není v rozporu s unijní úpravou, protože tato ustanovení netransponovala unijní právo.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=221&ct1=0"
+  },
+  {
+   "claim": "Kategorie veřejného funkcionáře podle § 2 odst. 1 písm. c) zákona č. 159/2006 Sb. zahrnuje člena vlády nebo vedoucího jiného ústředního správního úřadu, v jehož čele není člen vlády, nikoli poslance Poslanecké sněmovny.",
+   "kind": "web",
+   "source": "https://www.zakonyprolidi.cz/cs/2006-159"
+  },
+  {
+   "claim": "David Pražák má peněžní vazbu na KORID LK, spol. s r.o. ve výši 405 232 883 Kč.",
+   "kind": "graph_fact",
+   "source": "company:ico:27267351"
+  },
+  {
+   "claim": "David Pražák má peněžní vazbu na AGROCENTRUM JIZERAN a.s. ve výši 3 040 369 Kč.",
+   "kind": "graph_fact",
+   "source": "company:ico:60914351"
+  },
+  {
+   "claim": "Radek Vondráček má peněžní vazbu na MAE invest a.s. ve výši 912 000 Kč.",
+   "kind": "graph_fact",
+   "source": "company:ico:29186315"
+  },
+  {
+   "claim": "KORID LK, spol. s r.o. je společnost založená a vlastněná Libereckým krajem jako krajský koordinátor integrované veřejné dopravy IDOL.",
+   "kind": "web",
+   "source": "https://www.korid.cz/stranky/23:korid-lk.html"
+  },
+  {
+   "claim": "Batch-010 přiřadil tomuto tisku sektorové vazby MAE invest a.s. přes zákon č. 218/2000 Sb. a AGROCENTRUM JIZERAN a.s. přes zákon č. 252/1997 Sb.",
+   "kind": "graph_fact",
+   "source": "company:ico:29186315"
+  },
+  {
+   "claim": "Nový § 4c odst. 2 zákona o střetu zájmů (bod 5 čl. I novely) zakazuje poskytnout nenárokovou dotaci obchodní společnosti, jejímž skutečným majitelem je člen zastupitelstva územního samosprávného celku, který je poskytovatelem dotace; nový § 48 odst. 9 zákona č. 134/2016 Sb. (čl. X bod 1 novely) dává obdobné fakultativní oprávnění zadavateli, jímž je územní samosprávný celek.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=221&ct1=0"
+  },
+  {
+   "claim": "Radek Vondráček je od roku 2024 zastupitelem Zlínského kraje a v letech 2014–2017 byl zastupitelem a místostarostou města Kroměříž.",
+   "kind": "web",
+   "source": "https://www.hlidacstatu.cz/osoba/Funkce/radek-vondracek"
+  },
+  {
+   "claim": "David Pražák je od roku 2024 zastupitelem Libereckého kraje a od roku 2015 zastupitelem města Semily.",
+   "kind": "web",
+   "source": "https://www.hlidacstatu.cz/osoba/Funkce/david-prazak-5"
+  }
+ ]
 }

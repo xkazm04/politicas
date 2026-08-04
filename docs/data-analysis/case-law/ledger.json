@@ -279,6 +279,12 @@
    "billsWithVerdictTotal": 39,
    "billsPendingTotal": 102,
    "note": "Batch-011 ran the audited triage head (top-9 pending by triageScoreV2 after the batch-010 sector-adjacency audit) plus the three attributed sector-adjacency survivors outside it. Verdict files live under payloads/verdicts-011/ (Czech-native, requireCzech gate)."
+  },
+  "batch012P1FreshAudit": {
+   "status": "DONE — CLOSED WITH NOTES (2026-08-04)",
+   "report": "batch-012-p1-audit.md",
+   "result": "9/9 batch-011 audit findings verified closed; the remediation itself carried 1 BLOCKING + 6 MAJOR unaudited defects (5 money-touching — present-tense assertion of registry roles that ended 2001/2012 was the blocking class). All fixed, closure-checked independently, six verdicts (64/67/103/189/213/221) re-persisted as pass 44. Gate hardened to /^verdict-\\d+\\.json$/.",
+   "note": "The three medium verdicts (67, 213, 221) now stand on twice-audited evidence, still pending_review — the human gate remains the only promotion path."
   }
  },
  "rows": [
@@ -1519,7 +1525,7 @@
     "Česká lékařská komora - o.s., z.s."
    ],
    "triageScoreV2": 1272834,
-   "forensicConfidence": 4,
+   "forensicConfidence": 3,
    "verdictFile": "payloads/verdicts-011/verdict-67.json"
   },
   {

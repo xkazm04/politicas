@@ -1,52 +1,52 @@
 {
-  "billTisk": 64,
-  "statedReasoning": "Vládní návrh Ministerstva financí (doprovodný zákon k novému zákonu o účetnictví) mění 147 zákonů podle topologie hran grafu a ruší zákon č. 25/2017 Sb., o sběru vybraných údajů pro účely monitorování a řízení veřejných financí. Obecná část důvodové zprávy sama návrh charakterizuje jako soubor novel připravených ve spolupráci s jednotlivými resorty, jehož účelem je (1) odstranit ve zvláštních zákonech ustanovení, která duplicitně upravují to, co nově komplexně řeší obecný zákon o účetnictví (postavení účetní jednotky, pojem účetní závěrky), a (2) sladit terminologii zvláštních zákonů s novým pojmoslovím (např. „vedení účetnictví“ nahrazováno „je účetní jednotkou“). Zpráva výslovně říká, že jde „z velké části“ o legislativně-technickou nápravu, nikoli o věcnou změnu, a že resorty samy rozhodly, které novely do tisku zahrnou – proto zůstávají některé návaznosti neřešeny a jsou ponechány gestorům k budoucí úpravě. Účinnost je navržena k 1. lednu 2028, s výjimkou dvou bodů účinných dnem vyhlášení a skupiny ustanovení (čl. XXIII a čl. LIX) účinných až od 1. ledna 2030.",
-  "researchedContext": "Vzhledem k rozsahu (147 novelizovaných zákonů, cca 39 000 řádků cache) byla analýza nutně stratifikovaná: nejprve strukturální přehled všech 150 částí podle nadpisů ČÁST (ČÁST PRVNÍ až ČÁST STO PADESÁTÁ, poslední z nich Účinnost; ČÁST STO ČTYŘICÁTÁ DEVÁTÁ = Zrušovací ustanovení), poté identifikace částí s největším rozsahem novelizačního textu (proxy pro věcnou závažnost) a jejich ověření proti obecné části důvodové zprávy. Zdaleka nejrozsáhlejší je ČÁST DVACÁTÁ TŘETÍ (změna zákona č. 586/1992 Sb., o daních z příjmů) o přesně 3 501 řádcích – 5,9krát více než druhá nejrozsáhlejší část (ČÁST STO DESÁTÁ, zákon o auditorech, 591 řádků) a 6,9krát více než třetí (ČÁST TŘICÁTÁ DEVÁTÁ, zákon o oceňování majetku, 504 řádků); až za nimi následují investiční společnosti a investiční fondy (č. 240/2013 Sb.), podnikání na kapitálovém trhu (č. 256/2004 Sb.), obchodní korporace (č. 90/2012 Sb.) a rozpočtová pravidla (č. 218/2000 Sb.) v řádu 380–420 řádků. Tato koncentrace potvrzuje vlastní tvrzení zprávy, že věcné (nikoli jen terminologické) dopady se soustřeďují do daňové a finanční oblasti, kde nové pojetí účetní závěrky (rozlišení řádné/mimořádné/mezitímní a individuální/konsolidované) přímo ovlivňuje výpočet základu daně a regulatorní výkaznictví; naproti tomu velká většina zbývajících částí (např. změny zákona o obcích, o krajích, o hlavním městě Praze, o Státním fondu kultury, o civilním letectví) odpovídá popisu prosté terminologické harmonizace. Cíleně nebyla čtena každá ze 147 novel jednotlivě – jde o stratifikovanou, nikoli vyčerpávající analýzu; toto omezení je zde výslovně přiznáno. Legislativní historie (fetched) potvrzuje vládní předložení 12. 12. 2025, první čtení 12. 3. 2026 a usnesení rozpočtového výboru ze 30. 4. 2026, které řízení „přerušuje“ – tisk tedy k srpnu 2026 dále čeká na projednání. Poznámka k datům tohoto batche, nikoli zjištění o samotném návrhu zákona: dřívější analytická vlna evidovala u tisku 64 v grafu jen jeden novelizovaný zákon namísto skutečných 147, které ukazuje aktuální topologie hran (dřívější zjištění C8, podhodnocený census); vstup tohoto batche již tuto hodnotu nese opravenou, a jde tedy pouze o kontext k přesnosti datového pipeline Politicas, nikoli o forenzní nález o tisku 64 samotném.",
-  "unstatedEffects": [
-    {
-      "effect": "Přestože obecná část důvodové zprávy charakterizuje návrh jako soubor „z velké části“ legislativně-technických (terminologických) úprav, jedna jediná z jeho 150 částí – ČÁST DVACÁTÁ TŘETÍ, měnící zákon o daních z příjmů – sama o sobě tvoří přibližně čtvrtinu celého normativního textu novely (3 501 z cca 12 750 řádků od ČÁST PRVNÍ po čl. CLX) a je 5,9krát rozsáhlejší než druhá nejobsáhlejší část. Tato nerovnoměrná koncentrace věcného obsahu do jediné části není v obecné části důvodové zprávy nikde kvantifikována ani zvlášť vysvětlena – návrh je v obecné rovině prezentován jednotným jazykem „legislativně-technické nápravy“ napříč všemi 150 částmi bez rozlišení váhy jednotlivých z nich.",
-      "whoBenefits": "Přehlednost pro Parlament a veřejnost je oslabena: čtenář posuzující návrh podle jeho vlastního rámování (převážně terminologická novela) nemá z obecné části žádný signál, že jedna část nese neúměrně větší podíl věcného obsahu než zbylých 149 dohromady v poměru k jejich individuální délce.",
-      "evidence": "Měřeno na cache tisk-64/266153.txt: ČÁST DVACÁTÁ TŘETÍ (řádky 915–4416) = 3 501 řádků novelizačního textu zákona č. 586/1992 Sb., oproti ČÁST STO DESÁTÁ (zákon o auditorech, 591 řádků) jako druhé nejrozsáhlejší části; obecná část durvodové zprávy (řádky 12777–12783) popisuje celý návrh souhrnně jako „jak legislativně-technický, tak věcný charakter“ bez rozlišení váhy jednotlivých částí."
-    }
-  ],
-  "conflictAssessment": "Vstupní data batche přiřazují k tisku 64 jediného sponzora, ministra financí Zbyňka Stanjuru, bez jediné peněžní vazby (moneyTies = []) a bez sektorového leadu (attributedSectorLeads = []). Jde o vládní návrh podaný jménem Ministerstva financí, nikoli o poslanecký návrh vázaný na soukromý ekonomický zájem konkrétního zákonodárce; v takovém uspořádání selhává samotný předpoklad pro Case-①-typ konfliktu (osobní peněžní vazba sponzora na dotčený sektor). Na základě dostupných dat proto nebyl identifikován konflikt zájmů u tohoto tisku.",
-  "severity": "low",
-  "confidence": 4,
-  "citations": [
-    {
-      "claim": "Návrh je souborem novel 147 zákonů připravovaným ve spolupráci Ministerstva financí s ostatními resorty jako doprovodný zákon k novému zákonu o účetnictví.",
-      "kind": "bill_text",
-      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=64&ct1=0"
-    },
-    {
-      "claim": "Účinnost zákona je stanovena na 1. ledna 2028, s výjimkou dvou bodů účinných dnem vyhlášení a skupiny ustanovení v čl. XXIII a čl. LIX účinných od 1. ledna 2030; zvláštní část důvodové zprávy k čl. CLX tento dvouletý odklad výslovně vysvětluje potřebou přípravy infrastruktury systému pro správu daně z příjmů v eurech.",
-      "kind": "bill_text",
-      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=64&ct1=0"
-    },
-    {
-      "claim": "ČÁST DVACÁTÁ TŘETÍ, měnící zákon č. 586/1992 Sb., o daních z příjmů, tvoří 3 501 řádků novelizačního textu, 5,9krát více než druhá nejrozsáhlejší část (zákon o auditorech, 591 řádků), zatímco obecná část durvodové zprávy popisuje celý návrh souhrnně jako „legislativně-technický i věcný“ bez rozlišení váhy jednotlivých částí.",
-      "kind": "bill_text",
-      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=64&ct1=0"
-    },
-    {
-      "claim": "Vládní návrh byl předložen 12. 12. 2025, prošel prvním čtením 12. 3. 2026 a rozpočtový výbor svým usnesením ze 30. 4. 2026 projednávání přerušil.",
-      "kind": "web",
-      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=64"
-    },
-    {
-      "claim": "Batch přiřazuje k tisku 64 jediného sponzora (Zbyněk Stanjura) bez peněžní vazby a bez sektorového leadu; topologie hran u tohoto tisku nese 147 novelizovaných zákonů, oproti dřívější analytické vlně, jejíž vstupní data evidovala jen jednu novelizovanou vazbu (datová poznámka, nikoli nález o návrhu).",
-      "kind": "graph_fact",
-      "source": "bill:tisk:43171"
-    },
-    {
-      "claim": "Zákon č. 586/1992 Sb., o daních z příjmů, je reálný předpis novelizovaný touto novelou.",
-      "kind": "law",
-      "source": "586/1992"
-    },
-    {
-      "claim": "Zákon č. 25/2017 Sb., o sběru vybraných údajů pro účely monitorování a řízení veřejných financí, je reálný předpis, který tento návrh ruší.",
-      "kind": "law",
-      "source": "25/2017"
-    }
-  ]
+ "billTisk": 64,
+ "statedReasoning": "Vládní návrh Ministerstva financí (doprovodný zákon k novému zákonu o účetnictví) mění 147 zákonů podle topologie hran grafu a ruší zákon č. 25/2017 Sb., o sběru vybraných údajů pro účely monitorování a řízení veřejných financí. Obecná část důvodové zprávy sama návrh charakterizuje jako soubor novel připravených ve spolupráci s jednotlivými resorty, jehož účelem je (1) odstranit ve zvláštních zákonech ustanovení, která duplicitně upravují to, co nově komplexně řeší obecný zákon o účetnictví (postavení účetní jednotky, pojem účetní závěrky), a (2) sladit terminologii zvláštních zákonů s novým pojmoslovím (např. „vedení účetnictví“ nahrazováno „je účetní jednotkou“). Zpráva výslovně říká, že jde „z velké části“ o legislativně-technickou nápravu, nikoli o věcnou změnu, a že resorty samy rozhodly, které novely do tisku zahrnou – proto zůstávají některé návaznosti neřešeny a jsou ponechány gestorům k budoucí úpravě. Účinnost je navržena k 1. lednu 2028, s výjimkou dvou bodů účinných dnem vyhlášení a skupiny ustanovení (čl. XXIII a čl. LIX) účinných až od 1. ledna 2030.",
+ "researchedContext": "Vzhledem k rozsahu (147 novelizovaných zákonů, cca 39 000 řádků cache) byla analýza nutně stratifikovaná: nejprve strukturální přehled všech 150 částí podle nadpisů ČÁST (ČÁST PRVNÍ až ČÁST STO PADESÁTÁ, poslední z nich Účinnost; ČÁST STO ČTYŘICÁTÁ DEVÁTÁ = Zrušovací ustanovení), poté identifikace částí s největším rozsahem novelizačního textu (proxy pro věcnou závažnost) a jejich ověření proti obecné části důvodové zprávy. Zdaleka nejrozsáhlejší je ČÁST DVACÁTÁ TŘETÍ (změna zákona č. 586/1992 Sb., o daních z příjmů) o přesně 3 501 řádcích – 5,9krát více než druhá nejrozsáhlejší část (ČÁST STO DESÁTÁ, zákon o auditorech, 591 řádků) a 6,9krát více než třetí (ČÁST TŘICÁTÁ DEVÁTÁ, zákon o oceňování majetku, 504 řádků); až za nimi následují investiční společnosti a investiční fondy (č. 240/2013 Sb.), podnikání na kapitálovém trhu (č. 256/2004 Sb.), obchodní korporace (č. 90/2012 Sb.) a rozpočtová pravidla (č. 218/2000 Sb.) v řádu 380–420 řádků. Tato koncentrace potvrzuje vlastní tvrzení zprávy, že věcné (nikoli jen terminologické) dopady se soustřeďují do daňové a finanční oblasti, kde nové pojetí účetní závěrky (rozlišení řádné/mimořádné/mezitímní a individuální/konsolidované) přímo ovlivňuje výpočet základu daně a regulatorní výkaznictví; naproti tomu velká většina zbývajících částí (např. změny zákona o obcích, o krajích, o hlavním městě Praze, o Státním fondu kultury, o civilním letectví) odpovídá popisu prosté terminologické harmonizace. Cíleně nebyla čtena každá ze 147 novel jednotlivě – jde o stratifikovanou, nikoli vyčerpávající analýzu; toto omezení je zde výslovně přiznáno. Legislativní historie (fetched) potvrzuje vládní předložení 12. 12. 2025, první čtení 12. 3. 2026 a usnesení rozpočtového výboru ze 30. 4. 2026, které řízení „přerušuje“ – tisk tedy k srpnu 2026 dále čeká na projednání. Poznámka k datům tohoto batche, nikoli zjištění o samotném návrhu zákona: dřívější analytická vlna evidovala u tisku 64 v grafu jen jeden novelizovaný zákon namísto skutečných 147, které ukazuje aktuální topologie hran (dřívější zjištění C8, podhodnocený census); vstup tohoto batche již tuto hodnotu nese opravenou, a jde tedy pouze o kontext k přesnosti datového pipeline Politicas, nikoli o forenzní nález o tisku 64 samotném.",
+ "unstatedEffects": [
+  {
+   "effect": "Přestože obecná část důvodové zprávy charakterizuje návrh jako soubor „z velké části“ legislativně-technických (terminologických) úprav, jedna jediná z jeho 150 částí – ČÁST DVACÁTÁ TŘETÍ, měnící zákon o daních z příjmů – sama o sobě tvoří přibližně čtvrtinu celého normativního textu novely (3 501 z cca 12 750 řádků od ČÁST PRVNÍ po čl. CLX) a je 5,9krát rozsáhlejší než druhá nejobsáhlejší část. Tato nerovnoměrná koncentrace věcného obsahu do jediné části není v obecné části důvodové zprávy nikde kvantifikována ani zvlášť vysvětlena – návrh je v obecné rovině prezentován jednotným jazykem „legislativně-technické nápravy“ napříč všemi 150 částmi bez rozlišení váhy jednotlivých z nich.",
+   "whoBenefits": "Konkrétní beneficient není určen; efekt jde k tíži přehlednosti pro Parlament a veřejnost — čtenář posuzující návrh podle jeho vlastního rámování (převážně terminologická novela) nemá z obecné části žádný signál, že jedna část nese neúměrně větší podíl věcného obsahu než zbylých 149 v poměru k jejich délce. Ve výhodě je předkladatel, jehož věcně nejtěžší změny takto procházejí pod souhrnným technickým rámováním.",
+   "evidence": "Měřeno na cache tisk-64/266153.txt: ČÁST DVACÁTÁ TŘETÍ (řádky 915–4416) = 3 501 řádků novelizačního textu zákona č. 586/1992 Sb., oproti ČÁST STO DESÁTÁ (zákon o auditorech, 591 řádků) jako druhé nejrozsáhlejší části; obecná část důvodové zprávy (řádky 12777–12783) popisuje celý návrh souhrnně jako „jak legislativně-technický, tak věcný charakter“ bez rozlišení váhy jednotlivých částí."
+  }
+ ],
+ "conflictAssessment": "Vstupní data batche přiřazují k tisku 64 jediného sponzora, ministra financí Zbyňka Stanjuru, bez jediné peněžní vazby (moneyTies = []) a bez sektorového leadu (attributedSectorLeads = []). Jde o vládní návrh podaný jménem Ministerstva financí, nikoli o poslanecký návrh vázaný na soukromý ekonomický zájem konkrétního zákonodárce; v takovém uspořádání selhává samotný předpoklad pro Case-①-typ konfliktu (osobní peněžní vazba sponzora na dotčený sektor). Na základě dostupných dat proto nebyl identifikován konflikt zájmů u tohoto tisku.",
+ "severity": "low",
+ "confidence": 4,
+ "citations": [
+  {
+   "claim": "Návrh je souborem novel 147 zákonů připravovaným ve spolupráci Ministerstva financí s ostatními resorty jako doprovodný zákon k novému zákonu o účetnictví.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=64&ct1=0"
+  },
+  {
+   "claim": "Účinnost zákona je stanovena na 1. ledna 2028, s výjimkou dvou bodů účinných dnem vyhlášení a skupiny ustanovení v čl. XXIII a čl. LIX účinných od 1. ledna 2030; zvláštní část důvodové zprávy k čl. CLX tento dvouletý odklad výslovně vysvětluje potřebou přípravy infrastruktury systému pro správu daně z příjmů v eurech.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=64&ct1=0"
+  },
+  {
+   "claim": "ČÁST DVACÁTÁ TŘETÍ, měnící zákon č. 586/1992 Sb., o daních z příjmů, tvoří 3 501 řádků novelizačního textu, 5,9krát více než druhá nejrozsáhlejší část (zákon o auditorech, 591 řádků), zatímco obecná část důvodové zprávy popisuje celý návrh souhrnně jako „legislativně-technický i věcný“ bez rozlišení váhy jednotlivých částí.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=64&ct1=0"
+  },
+  {
+   "claim": "Vládní návrh byl předložen 12. 12. 2025, prošel prvním čtením 12. 3. 2026 a rozpočtový výbor svým usnesením ze 30. 4. 2026 projednávání přerušil.",
+   "kind": "web",
+   "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=64"
+  },
+  {
+   "claim": "Batch přiřazuje k tisku 64 jediného sponzora (Zbyněk Stanjura) bez peněžní vazby a bez sektorového leadu; topologie hran u tohoto tisku nese 147 novelizovaných zákonů, oproti dřívější analytické vlně, jejíž vstupní data evidovala jen jednu novelizovanou vazbu (datová poznámka, nikoli nález o návrhu).",
+   "kind": "graph_fact",
+   "source": "bill:tisk:43171"
+  },
+  {
+   "claim": "Zákon č. 586/1992 Sb., o daních z příjmů, je reálný předpis novelizovaný touto novelou.",
+   "kind": "law",
+   "source": "586/1992"
+  },
+  {
+   "claim": "Zákon č. 25/2017 Sb., o sběru vybraných údajů pro účely monitorování a řízení veřejných financí, je reálný předpis, který tento návrh ruší.",
+   "kind": "law",
+   "source": "25/2017"
+  }
+ ]
 }

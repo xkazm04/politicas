@@ -1,57 +1,62 @@
 {
-  "billTisk": 103,
-  "statedReasoning": "Návrh skupiny deseti poslanců (Bureš a další) mění šest zákonů (č. 300/2008 Sb., č. 117/1995 Sb., č. 155/1995 Sb., č. 111/2006 Sb., č. 187/2006 Sb. a č. 329/2011 Sb.) tak, aby příslušný orgán, který cizinci přizná nárok na dávku státního sociálního systému (státní sociální podpora, důchodové pojištění, pomoc v hmotné nouzi, nemocenské pojištění, dávky pro osoby se zdravotním postižením), o tom bezodkladně informoval Digitální a informační agenturu, jež cizinci bezplatně a automaticky zřídí datovou schránku. Důvodová zpráva argumentuje efektivitou elektronické komunikace, rizikem ztráty poštovních zásilek, dodržováním úředních lhůt a bezpečností doručování; výslovně tvrdí, že jde o prostou informační povinnost bez zvýšených finančních, časových či personálních nákladů, bez dopadu na státní rozpočet, na podnikatelské prostředí i bez korupčních rizik. Připouští jen krátkodobý negativní dopad na cizince, kteří na výzvu doručenou do automaticky zřízené schránky nezareagují.",
-  "researchedContext": "Historie tisku na psp.cz (fetched) potvrzuje předložení návrhu dne 10. 2. 2026 desetičlennou skupinou poslanců a jeho přikázání Výboru pro veřejnou správu a regionální rozvoj; vláda k němu dne 10. 3. 2026 zaujala nesouhlasné stanovisko, což z povahy věci (návrh psaný předkladateli) není v samotné důvodové zprávě zmíněno. Text novely je úzce technický – v každém z šesti zákonů vkládá jedinou informační povinnost orgánu vůči Agentuře; nejde o změnu hmotněprávních podmínek nároku na žádnou z dávek. Novelizovaný § 57a zákona č. 155/1995 Sb. i obdobná ustanovení v ostatních pěti zákonech se týkají výhradně administrativního postupu doručování, nikoli výše dávek, sazeb pojistného nebo pojistných produktů.",
-  "unstatedEffects": [
-    {
-      "effect": "Důvodová zpráva tvrdí, že agenda dotčených orgánů (krajské pobočky Úřadu práce, orgány sociálního zabezpečení, územní správy sociálního zabezpečení) nebude „rozšířena nepřiměřeně“ a že náklady jsou zanedbatelné, aniž by uvedla odhad počtu ročně dotčených cizinců nebo kvantifikovala administrativní zátěž nové průběžné oznamovací povinnosti vůči Agentuře u každého jednotlivého případu přiznání dávky.",
-      "whoBenefits": "Stát/Agentura jako příjemce zjednodušeného doručování; nekvantifikovaná zátěž zůstává na straně úřadů práce a orgánů sociálního zabezpečení, které dopad nepředložily číselně.",
-      "evidence": "Bod F. Předpokládaný hospodářský a finanční dopad – „Agenda příslušných orgánů nebude rozšířena nepřiměřeně… jež s sebou nenese významnější zvýšené náklady finanční, časové ani personální“, bez uvedení odhadovaného počtu dotčených osob."
-    },
-    {
-      "effect": "Text sám připouští, že cizinec, kterému je automaticky zřízena datová schránka a který ji nekontroluje, může zmeškat výzvu k doložení podkladů, a v důsledku toho může dojít k zastavení nebo krácení dávky; tento dopad je v obecné části popsán jako vedlejší a není kvantifikován.",
-      "whoBenefits": "Stát – zpráva sama předjímá, že náhrada poštovního doručování datovou schránkou „může dojít ke snížení veřejných výdajů vynakládaných v souvislosti s kontaktováním“ dotčených cizinců.",
-      "evidence": "Bod F. Předpokládaný hospodářský a finanční dopad – „mohou mít sociální dopady… pouze na ty cizince… kteří nesplní potřebné povinnosti… k jejichž splnění byli marně vyzváni prostřednictvím datové schránky“, a dále „implementací navrhované úpravy může dojít ke snížení veřejných výdajů“."
-    }
-  ],
-  "conflictAssessment": "Vstupní data batche přiřazují k tisku 103 dva sektorové leady vázané na zákon č. 155/1995 Sb.: ZPS holding s.r.o. (Jan Bureš) a ČSOB Pojišťovna, a. s. (Karel Haas). Operativní obsah novely zákona č. 155/1995 Sb. v tomto návrhu je ale výhradně nový § 57a – informační povinnost orgánu sociálního zabezpečení vůči Digitální a informační agentuře při vzniku nároku cizince na výplatu důchodu. Nejde o změnu důchodových dávek, sazeb, investičních produktů ani pojistných podmínek, tedy o nic, co by se věcně dotýkalo podnikání strojírenské společnosti ZPS holding s.r.o. nebo pojišťovny ČSOB Pojišťovna, a. s. Mezi soukromým ekonomickým zájmem žádného z předkladatelů a operativním účinkem návrhu (technická notifikační povinnost při zřizování datové schránky) nebyla nalezena žádná věrohodná souvislost; přiřazené leady se jeví jako artefakt heuristiky „sdílený zákon = sektorový lead“ bez věcného opodstatnění. Peněžní vazby ostatních předkladatelů podle případového souboru: Jan Bureš dále drží vazby na Údržbu silnic Karlovarského kraje, a.s. (8 004 685 063 Kč), Léčebné lázně Jáchymov a. s. (11 986 287 Kč), Vodárny a kanalizace Karlovy Vary, a.s. (221 321 239 Kč), Ostrovskou teplárenskou, a.s. (182 963 808 Kč) a Povodí Ohře, státní podnik (7 458 380 247 Kč); Petr Bendl na Vzdělávací centrum pro veřejnou správu ČR, o.p.s. (17 180 776 Kč), Energie - stavební a báňská a.s. (20 790 731 132 Kč – jeho jednotlivě nejvyšší tíha), MERO ČR, a.s. (2 981 571 045 Kč), Svaz měst a obcí České republiky (57 751 425 Kč) a Povodí Vltavy, státní podnik (11 898 616 361 Kč); Jana Černochová na Nadační fond Českého rozhlasu (54 117 577 Kč), Obecní dům, a.s. (102 372 100 Kč) a Komwag, podnik čistoty a údržby města, a.s. (1 765 842 642 Kč). Mezi těmito vazbami jsou zjevné státní podniky (Povodí Ohře, Povodí Vltavy), ale minimálně jedna je zjevně soukromá akciová společnost bez veřejného vlastníka v základním výpisu z obchodního rejstříku – Energie - stavební a báňská a.s., IČO 45146802, sídlem Kladno, u Petra Bendla; nelze proto paušálně tvrdit, že žádná z vazeb předkladatelů není soukromým vlastnictvím. Případový soubor batche navíc u žádné z těchto vazeb nenese pole `tie_class`, takže jejich povahu (svěřenecká/institucionální vs. vlastnická/řídící) tento verdikt netvrdí a nechává neurčenou. Klíčové pro absenci konfliktu zde není tvrzení o povaze vlastnictví, ale věcný rozsah samotné novely: žádná z uvedených firem a podniků – včetně Energie - stavební a báňská a.s. jako stavební/báňské firmy – nepodniká v oblasti, kterou tento návrh upravuje (notifikace orgánu vůči Agentuře při vzniku nároku na dávku a zřizování datové schránky), takže operativní obsah novely se u žádné z těchto vazeb věcně neprojevuje bez ohledu na to, zda jde o soukromé, nebo státní vlastnictví.",
-  "severity": "low",
-  "confidence": 4,
-  "citations": [
-    {
-      "claim": "Návrh vkládá do zákona č. 155/1995 Sb. nový § 57a ukládající orgánu sociálního zabezpečení informovat Digitální a informační agenturu při vzniku nároku cizince na výplatu důchodu.",
-      "kind": "bill_text",
-      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=103&ct1=0"
-    },
-    {
-      "claim": "Důvodová zpráva tvrdí nulové dopady na státní rozpočet a zanedbatelné náklady bez číselného odhadu počtu dotčených osob a bez zjištěných korupčních rizik.",
-      "kind": "bill_text",
-      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=103&ct1=0"
-    },
-    {
-      "claim": "Návrh podala desetičlenná skupina poslanců dne 10. 2. 2026, byl přikázán Výboru pro veřejnou správu a regionální rozvoj a vláda k němu dne 10. 3. 2026 zaujala nesouhlasné stanovisko.",
-      "kind": "web",
-      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=103"
-    },
-    {
-      "claim": "Tisk 103 mění šest zákonů podle topologie hran grafu (amendsCount = 6) a jeho sponzorský okruh zahrnuje deset poslanců uvedených v případovém souboru, včetně jejich peněžních vazeb a částek.",
-      "kind": "graph_fact",
-      "source": "bill:tisk:43213"
-    },
-    {
-      "claim": "Energie - stavební a báňská a.s. (IČO 45146802, sídlem Kladno) je akciová společnost bez veřejného vlastníka uvedeného v základním výpisu z obchodního rejstříku, tedy soukromá obchodní společnost, nikoli státní či municipální podnik.",
-      "kind": "web",
-      "source": "https://or.justice.cz/ias/ui/rejstrik-$firma?nazev=Energie%20-%20stavebn%C3%AD%20a%20b%C3%A1%C5%88sk%C3%A1"
-    },
-    {
-      "claim": "Zákon č. 155/1995 Sb., o důchodovém pojištění, je reálný předpis dotčený touto novelou.",
-      "kind": "law",
-      "source": "155/1995"
-    },
-    {
-      "claim": "Zákon č. 300/2008 Sb., o elektronických úkonech a autorizované konverzi dokumentů, je reálný předpis, jehož § 3 tato novela mění.",
-      "kind": "law",
-      "source": "300/2008"
-    }
-  ]
+ "billTisk": 103,
+ "statedReasoning": "Návrh skupiny deseti poslanců (Bureš a další) mění šest zákonů (č. 300/2008 Sb., č. 117/1995 Sb., č. 155/1995 Sb., č. 111/2006 Sb., č. 187/2006 Sb. a č. 329/2011 Sb.) tak, aby příslušný orgán, který cizinci přizná nárok na dávku státního sociálního systému (státní sociální podpora, důchodové pojištění, pomoc v hmotné nouzi, nemocenské pojištění, dávky pro osoby se zdravotním postižením), o tom bezodkladně informoval Digitální a informační agenturu, jež cizinci bezplatně a automaticky zřídí datovou schránku. Důvodová zpráva argumentuje efektivitou elektronické komunikace, rizikem ztráty poštovních zásilek, dodržováním úředních lhůt a bezpečností doručování; výslovně tvrdí, že jde o prostou informační povinnost bez zvýšených finančních, časových či personálních nákladů, bez dopadu na státní rozpočet, na podnikatelské prostředí i bez korupčních rizik. Připouští jen krátkodobý negativní dopad na cizince, kteří na výzvu doručenou do automaticky zřízené schránky nezareagují.",
+ "researchedContext": "Historie tisku na psp.cz (fetched) potvrzuje předložení návrhu dne 10. 2. 2026 desetičlennou skupinou poslanců a jeho přikázání Výboru pro veřejnou správu a regionální rozvoj; vláda k němu dne 10. 3. 2026 zaujala nesouhlasné stanovisko, což z povahy věci (návrh psaný předkladateli) není v samotné důvodové zprávě zmíněno. Text novely je úzce technický – v každém z šesti zákonů vkládá jedinou informační povinnost orgánu vůči Agentuře; nejde o změnu hmotněprávních podmínek nároku na žádnou z dávek. Novelizovaný § 57a zákona č. 155/1995 Sb. i obdobná ustanovení v ostatních pěti zákonech se týkají výhradně administrativního postupu doručování, nikoli výše dávek, sazeb pojistného nebo pojistných produktů.",
+ "unstatedEffects": [
+  {
+   "effect": "Důvodová zpráva tvrdí, že agenda dotčených orgánů (krajské pobočky Úřadu práce, orgány sociálního zabezpečení, územní správy sociálního zabezpečení) nebude „rozšířena nepřiměřeně“ a že náklady jsou zanedbatelné, aniž by uvedla odhad počtu ročně dotčených cizinců nebo kvantifikovala administrativní zátěž nové průběžné oznamovací povinnosti vůči Agentuře u každého jednotlivého případu přiznání dávky.",
+   "whoBenefits": "Stát/Agentura jako příjemce zjednodušeného doručování; nekvantifikovaná zátěž zůstává na straně úřadů práce a orgánů sociálního zabezpečení, které dopad nepředložily číselně.",
+   "evidence": "Bod F. Předpokládaný hospodářský a finanční dopad – „Agenda příslušných orgánů nebude rozšířena nepřiměřeně… jež s sebou nenese významnější zvýšené náklady finanční, časové ani personální“, bez uvedení odhadovaného počtu dotčených osob."
+  },
+  {
+   "effect": "Text sám připouští, že cizinec, kterému je automaticky zřízena datová schránka a který ji nekontroluje, může zmeškat výzvu k doložení podkladů, a v důsledku toho může dojít k zastavení nebo krácení dávky; tento dopad je v obecné části popsán jako vedlejší a není kvantifikován.",
+   "whoBenefits": "Stát – zpráva sama předjímá, že náhrada poštovního doručování datovou schránkou „může dojít ke snížení veřejných výdajů vynakládaných v souvislosti s kontaktováním“ dotčených cizinců.",
+   "evidence": "Bod F. Předpokládaný hospodářský a finanční dopad – „mohou mít sociální dopady… pouze na ty cizince… kteří nesplní potřebné povinnosti… k jejichž splnění byli marně vyzváni prostřednictvím datové schránky“, a dále „implementací navrhované úpravy může dojít ke snížení veřejných výdajů“."
+  }
+ ],
+ "conflictAssessment": "Vstupní data batche přiřazují k tisku 103 dva sektorové leady vázané na zákon č. 155/1995 Sb.: ZPS holding s.r.o. (Jan Bureš) a ČSOB Pojišťovna, a. s. (Karel Haas). Operativní obsah novely zákona č. 155/1995 Sb. v tomto návrhu je ale výhradně nový § 57a – informační povinnost orgánu sociálního zabezpečení vůči Digitální a informační agentuře při vzniku nároku cizince na výplatu důchodu. Nejde o změnu důchodových dávek, sazeb, investičních produktů ani pojistných podmínek, tedy o nic, co by se věcně dotýkalo podnikání strojírenské společnosti ZPS holding s.r.o. nebo pojišťovny ČSOB Pojišťovna, a. s. Mezi soukromým ekonomickým zájmem žádného z předkladatelů a operativním účinkem návrhu (technická notifikační povinnost při zřizování datové schránky) nebyla nalezena žádná věrohodná souvislost; přiřazené leady se jeví jako artefakt heuristiky „sdílený zákon = sektorový lead“ bez věcného opodstatnění. Peněžní vazby ostatních předkladatelů podle případového souboru: Jan Bureš dále drží vazby na Údržbu silnic Karlovarského kraje, a.s. (8 004 685 063 Kč), Léčebné lázně Jáchymov a. s. (11 986 287 Kč), Vodárny a kanalizace Karlovy Vary, a.s. (221 321 239 Kč), Ostrovskou teplárenskou, a.s. (182 963 808 Kč) a Povodí Ohře, státní podnik (7 458 380 247 Kč); Petr Bendl na Vzdělávací centrum pro veřejnou správu ČR, o.p.s. (17 180 776 Kč), Energie - stavební a báňská a.s. (20 790 731 132 Kč – jeho jednotlivě nejvyšší peněžní vazba; částka je úhrn smluv firmy z registru smluv, nikoli údaj o aktuální držbě — podle obchodního rejstříku byl Bendl členem dozorčí rady pouze od 8. 11. 1996 do 23. 2. 2001 a žádný novější vztah rejstřík neeviduje; případový soubor u vazby časové období nenese), MERO ČR, a.s. (2 981 571 045 Kč), Svaz měst a obcí České republiky (57 751 425 Kč) a Povodí Vltavy, státní podnik (11 898 616 361 Kč); Jana Černochová na Nadační fond Českého rozhlasu (54 117 577 Kč), Obecní dům, a.s. (102 372 100 Kč) a Komwag, podnik čistoty a údržby města, a.s. (1 765 842 642 Kč). Mezi těmito vazbami jsou zjevné státní podniky (Povodí Ohře, Povodí Vltavy), ale minimálně jedna je zjevně soukromá akciová společnost bez veřejného vlastníka v základním výpisu z obchodního rejstříku – Energie - stavební a báňská a.s., IČO 45146802, sídlem Kladno, u Petra Bendla; nelze proto paušálně tvrdit, že žádná z vazeb předkladatelů není soukromým vlastnictvím. Případový soubor batche navíc u žádné z těchto vazeb nenese pole `tie_class`, takže jejich povahu (svěřenecká/institucionální vs. vlastnická/řídící) tento verdikt netvrdí a nechává neurčenou. Klíčové pro absenci konfliktu zde není tvrzení o povaze vlastnictví, ale věcný rozsah samotné novely: žádná z uvedených firem a podniků – včetně Energie - stavební a báňská a.s. jako stavební/báňské firmy – nepodniká v oblasti, kterou tento návrh upravuje (notifikace orgánu vůči Agentuře při vzniku nároku na dávku a zřizování datové schránky), takže operativní obsah novely se u žádné z těchto vazeb věcně neprojevuje bez ohledu na to, zda jde o soukromé, nebo státní vlastnictví.",
+ "severity": "low",
+ "confidence": 4,
+ "citations": [
+  {
+   "claim": "Návrh vkládá do zákona č. 155/1995 Sb. nový § 57a ukládající orgánu sociálního zabezpečení informovat Digitální a informační agenturu při vzniku nároku cizince na výplatu důchodu.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=103&ct1=0"
+  },
+  {
+   "claim": "Důvodová zpráva tvrdí nulové dopady na státní rozpočet a zanedbatelné náklady bez číselného odhadu počtu dotčených osob a bez zjištěných korupčních rizik.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=103&ct1=0"
+  },
+  {
+   "claim": "Návrh podala desetičlenná skupina poslanců dne 10. 2. 2026, byl přikázán Výboru pro veřejnou správu a regionální rozvoj a vláda k němu dne 10. 3. 2026 zaujala nesouhlasné stanovisko.",
+   "kind": "web",
+   "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=103"
+  },
+  {
+   "claim": "Tisk 103 mění šest zákonů podle topologie hran grafu (amendsCount = 6) a jeho sponzorský okruh zahrnuje deset poslanců uvedených v případovém souboru, včetně jejich peněžních vazeb a částek.",
+   "kind": "graph_fact",
+   "source": "bill:tisk:43213"
+  },
+  {
+   "claim": "Energie - stavební a báňská a.s. (IČO 45146802, sídlem Kladno) je akciová společnost bez veřejného vlastníka uvedeného v základním výpisu z obchodního rejstříku, tedy soukromá obchodní společnost, nikoli státní či municipální podnik.",
+   "kind": "web",
+   "source": "https://or.justice.cz/ias/ui/rejstrik-$firma?nazev=Energie%20-%20stavebn%C3%AD%20a%20b%C3%A1%C5%88sk%C3%A1"
+  },
+  {
+   "claim": "Zákon č. 155/1995 Sb., o důchodovém pojištění, je reálný předpis dotčený touto novelou.",
+   "kind": "law",
+   "source": "155/1995"
+  },
+  {
+   "claim": "Zákon č. 300/2008 Sb., o elektronických úkonech a autorizované konverzi dokumentů, je reálný předpis, jehož § 3 tato novela mění.",
+   "kind": "law",
+   "source": "300/2008"
+  },
+  {
+   "claim": "Petr Bendl byl podle obchodního rejstříku členem dozorčí rady Energie - stavební a báňská a.s. od 8. 11. 1996 do 23. 2. 2001 (historický vztah); žádný aktuální vztah rejstřík neeviduje.",
+   "kind": "web",
+   "source": "https://www.podnikatel.cz/rejstrik/energie-stavebni-a-banska-a-s-45146802/"
+  }
+ ]
 }

@@ -1,0 +1,369 @@
+[
+ {
+  "billTisk": 64,
+  "statedReasoning": "Vládní návrh Ministerstva financí (doprovodný zákon k novému zákonu o účetnictví) mění 147 zákonů podle topologie hran grafu a ruší zákon č. 25/2017 Sb., o sběru vybraných údajů pro účely monitorování a řízení veřejných financí. Obecná část důvodové zprávy sama návrh charakterizuje jako soubor novel připravených ve spolupráci s jednotlivými resorty, jehož účelem je (1) odstranit ve zvláštních zákonech ustanovení, která duplicitně upravují to, co nově komplexně řeší obecný zákon o účetnictví (postavení účetní jednotky, pojem účetní závěrky), a (2) sladit terminologii zvláštních zákonů s novým pojmoslovím (např. „vedení účetnictví“ nahrazováno „je účetní jednotkou“). Zpráva výslovně říká, že jde „z velké části“ o legislativně-technickou nápravu, nikoli o věcnou změnu, a že resorty samy rozhodly, které novely do tisku zahrnou – proto zůstávají některé návaznosti neřešeny a jsou ponechány gestorům k budoucí úpravě. Účinnost je navržena k 1. lednu 2028, s výjimkou dvou bodů účinných dnem vyhlášení a skupiny ustanovení (čl. XXIII a čl. LIX) účinných až od 1. ledna 2030.",
+  "researchedContext": "Vzhledem k rozsahu (147 novelizovaných zákonů, cca 39 000 řádků cache) byla analýza nutně stratifikovaná: nejprve strukturální přehled všech 150 částí podle nadpisů ČÁST (ČÁST PRVNÍ až ČÁST STO PADESÁTÁ, poslední z nich Účinnost; ČÁST STO ČTYŘICÁTÁ DEVÁTÁ = Zrušovací ustanovení), poté identifikace částí s největším rozsahem novelizačního textu (proxy pro věcnou závažnost) a jejich ověření proti obecné části důvodové zprávy. Zdaleka nejrozsáhlejší je ČÁST DVACÁTÁ TŘETÍ (změna zákona č. 586/1992 Sb., o daních z příjmů) o přesně 3 501 řádcích – 5,9krát více než druhá nejrozsáhlejší část (ČÁST STO DESÁTÁ, zákon o auditorech, 591 řádků) a 6,9krát více než třetí (ČÁST TŘICÁTÁ DEVÁTÁ, zákon o oceňování majetku, 504 řádků); až za nimi následují investiční společnosti a investiční fondy (č. 240/2013 Sb.), podnikání na kapitálovém trhu (č. 256/2004 Sb.), obchodní korporace (č. 90/2012 Sb.) a rozpočtová pravidla (č. 218/2000 Sb.) v řádu 380–420 řádků. Tato koncentrace potvrzuje vlastní tvrzení zprávy, že věcné (nikoli jen terminologické) dopady se soustřeďují do daňové a finanční oblasti, kde nové pojetí účetní závěrky (rozlišení řádné/mimořádné/mezitímní a individuální/konsolidované) přímo ovlivňuje výpočet základu daně a regulatorní výkaznictví; naproti tomu velká většina zbývajících částí (např. změny zákona o obcích, o krajích, o hlavním městě Praze, o Státním fondu kultury, o civilním letectví) odpovídá popisu prosté terminologické harmonizace. Cíleně nebyla čtena každá ze 147 novel jednotlivě – jde o stratifikovanou, nikoli vyčerpávající analýzu; toto omezení je zde výslovně přiznáno. Legislativní historie (fetched) potvrzuje vládní předložení 12. 12. 2025, první čtení 12. 3. 2026 a usnesení rozpočtového výboru ze 30. 4. 2026, které řízení „přerušuje“ – tisk tedy k srpnu 2026 dále čeká na projednání. Poznámka k datům tohoto batche, nikoli zjištění o samotném návrhu zákona: dřívější analytická vlna evidovala u tisku 64 v grafu jen jeden novelizovaný zákon namísto skutečných 147, které ukazuje aktuální topologie hran (dřívější zjištění C8, podhodnocený census); vstup tohoto batche již tuto hodnotu nese opravenou, a jde tedy pouze o kontext k přesnosti datového pipeline Politicas, nikoli o forenzní nález o tisku 64 samotném.",
+  "unstatedEffects": [
+   {
+    "effect": "Přestože obecná část důvodové zprávy charakterizuje návrh jako soubor „z velké části“ legislativně-technických (terminologických) úprav, jedna jediná z jeho 150 částí – ČÁST DVACÁTÁ TŘETÍ, měnící zákon o daních z příjmů – sama o sobě tvoří přibližně čtvrtinu celého normativního textu novely (3 501 z cca 12 750 řádků od ČÁST PRVNÍ po čl. CLX) a je 5,9krát rozsáhlejší než druhá nejobsáhlejší část. Tato nerovnoměrná koncentrace věcného obsahu do jediné části není v obecné části důvodové zprávy nikde kvantifikována ani zvlášť vysvětlena – návrh je v obecné rovině prezentován jednotným jazykem „legislativně-technické nápravy“ napříč všemi 150 částmi bez rozlišení váhy jednotlivých z nich.",
+    "whoBenefits": "Konkrétní beneficient není určen; efekt jde k tíži přehlednosti pro Parlament a veřejnost — čtenář posuzující návrh podle jeho vlastního rámování (převážně terminologická novela) nemá z obecné části žádný signál, že jedna část nese neúměrně větší podíl věcného obsahu než zbylých 149 v poměru k jejich délce. Ve výhodě je předkladatel, jehož věcně nejtěžší změny takto procházejí pod souhrnným technickým rámováním.",
+    "evidence": "Měřeno na cache tisk-64/266153.txt: ČÁST DVACÁTÁ TŘETÍ (řádky 915–4416) = 3 501 řádků novelizačního textu zákona č. 586/1992 Sb., oproti ČÁST STO DESÁTÁ (zákon o auditorech, 591 řádků) jako druhé nejrozsáhlejší části; obecná část důvodové zprávy (řádky 12777–12783) popisuje celý návrh souhrnně jako „jak legislativně-technický, tak věcný charakter“ bez rozlišení váhy jednotlivých částí."
+   }
+  ],
+  "conflictAssessment": "Vstupní data batche přiřazují k tisku 64 jediného sponzora, ministra financí Zbyňka Stanjuru, bez jediné peněžní vazby (moneyTies = []) a bez sektorového leadu (attributedSectorLeads = []). Jde o vládní návrh podaný jménem Ministerstva financí, nikoli o poslanecký návrh vázaný na soukromý ekonomický zájem konkrétního zákonodárce; v takovém uspořádání selhává samotný předpoklad pro Case-①-typ konfliktu (osobní peněžní vazba sponzora na dotčený sektor). Na základě dostupných dat proto nebyl identifikován konflikt zájmů u tohoto tisku.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+   {
+    "claim": "Návrh je souborem novel 147 zákonů připravovaným ve spolupráci Ministerstva financí s ostatními resorty jako doprovodný zákon k novému zákonu o účetnictví.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=64&ct1=0"
+   },
+   {
+    "claim": "Účinnost zákona je stanovena na 1. ledna 2028, s výjimkou dvou bodů účinných dnem vyhlášení a skupiny ustanovení v čl. XXIII a čl. LIX účinných od 1. ledna 2030; zvláštní část důvodové zprávy k čl. CLX tento dvouletý odklad výslovně vysvětluje potřebou přípravy infrastruktury systému pro správu daně z příjmů v eurech.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=64&ct1=0"
+   },
+   {
+    "claim": "ČÁST DVACÁTÁ TŘETÍ, měnící zákon č. 586/1992 Sb., o daních z příjmů, tvoří 3 501 řádků novelizačního textu, 5,9krát více než druhá nejrozsáhlejší část (zákon o auditorech, 591 řádků), zatímco obecná část důvodové zprávy popisuje celý návrh souhrnně jako „legislativně-technický i věcný“ bez rozlišení váhy jednotlivých částí.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=64&ct1=0"
+   },
+   {
+    "claim": "Vládní návrh byl předložen 12. 12. 2025, prošel prvním čtením 12. 3. 2026 a rozpočtový výbor svým usnesením ze 30. 4. 2026 projednávání přerušil.",
+    "kind": "web",
+    "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=64"
+   },
+   {
+    "claim": "Batch přiřazuje k tisku 64 jediného sponzora (Zbyněk Stanjura) bez peněžní vazby a bez sektorového leadu; topologie hran u tohoto tisku nese 147 novelizovaných zákonů, oproti dřívější analytické vlně, jejíž vstupní data evidovala jen jednu novelizovanou vazbu (datová poznámka, nikoli nález o návrhu).",
+    "kind": "graph_fact",
+    "source": "bill:tisk:43171"
+   },
+   {
+    "claim": "Zákon č. 586/1992 Sb., o daních z příjmů, je reálný předpis novelizovaný touto novelou.",
+    "kind": "law",
+    "source": "586/1992"
+   },
+   {
+    "claim": "Zákon č. 25/2017 Sb., o sběru vybraných údajů pro účely monitorování a řízení veřejných financí, je reálný předpis, který tento návrh ruší.",
+    "kind": "law",
+    "source": "25/2017"
+   }
+  ]
+ },
+ {
+  "billTisk": 67,
+  "statedReasoning": "Předkladatelé (Babiš a další) odůvodňují novelu stavebního zákona č. 283/2021 Sb. přetrvávající „krizí bydlení“ — vysokými cenami nemovitostí a nájmů plynoucími z pomalého a roztříštěného povolování staveb. Důvodová zpráva tvrdí, že velká novela č. 152/2023 Sb. vrátila stavební právo k předchozí, kritizované podobě (roztříštěná správa mezi cca 600 stavebních úřadů, slabá integrace dotčených orgánů, nefunkční digitalizace) a že cíle původního stavebního zákona z roku 2021 (princip „1 úřad – 1 řízení – 1 razítko“, integrace ochrany veřejných zájmů do jednoho řízení, apelační princip místo instančního „ping-pongu“) tak zůstaly nenaplněny. Novela proto navrhuje přesun kompetencí dotčených orgánů do jednotné státní stavební správy, zjednodušení a zrychlení územního plánování i povolovacích řízení a doplnění účelu zákona o „vytváření podmínek pro bydlení, práci a život lidí“. Zásah do stavebního práva si podle předkladatelů vyžádal také 41 dalších navazujících novel (EIA, ochrana přírody, ochrana zemědělského půdního fondu, vodní zákon, horní zákon, vyvlastnění, zákon o odpadech, DPH aj.), které mají odstranit duplicity a legislativně-technicky sladit terminologii.",
+  "researchedContext": "Z porovnání cachovaného textu novely (.data/law-collision-cache/tisk-67/266188.txt, 266190.txt) s obsahem jednotlivých částí plyne, že míra věcného zásahu do jednotlivých 42 novelizovaných předpisů je velmi nerovnoměrná. Zákon č. 139/2002 Sb., o pozemkových úpravách, je v důvodové zprávě (zvláštní část, k části dvacáté šesté) výslovně a přesně označen jako čistě „legislativně-technická“ změna — nahrazení pojmu „zastavěné území“ pojmem „zastavitelné území“ ve třech ustanoveních (§ 3 odst. 3, § 9 odst. 17, § 14 odst. 8), bez dopadu na věcná pravidla scelování zemědělské půdy. Zákon č. 235/2004 Sb., o dani z přidané hodnoty, dostává v důvodové zprávě (k části dvacáté osmé) stejnou nálepku, ale ověření operativního textu (Čl. XXV, .data/law-collision-cache/tisk-67/266188.txt, řádky 6829–6834) ukazuje, že jde o jedinou novelizovanou pasáž zákona — § 55a „Dodání pozemku“, tedy přímo definici „stavebního pozemku“ pro účely osvobození od DPH (.data/law-collision-cache/tisk-67/266190.txt, řádky 22315–22326: „Stavebním pozemkem se … rozumí pozemek, a) na kterém lze na základě územně plánovací dokumentace …, vymezení zastavěného/zastavitelného území … umístit stavbu…“). Slovo, které se mění, je tedy přímo hranicí mezi osvobozeným a zdanitelným dodáním pozemku, nikoli vedlejším pojmem — „zastavitelné území“ (plochy určené k budoucí zástavbě podle územně plánovací dokumentace) je z povahy věci širší množina než dosavadní „zastavěné území“ (již zastavěné plochy), takže okruh pozemků splňujících definici „stavebního pozemku“ se rozšiřuje. Směr a míru čistého fiskálního/transakčního dopadu (více pozemků zdanitelných vs. osvobozených, dopad na konkrétní realitní transakce) tento verdikt nemodeluje — jde o zjištění, že novela mění samotnou hranici osvobození, nikoli o kvantifikovaný závěr, že se jí nezmění nic. Naproti tomu novela zákona č. 100/2001 Sb. (EIA) je věcně jednoznačně významná: zavádí možnost, aby závazné stanovisko EIA na žádost oznamovatele záměru nahradilo další správní úkony podle předpisů o ochraně životního prostředí a veřejného zdraví (mj. novelizovaný § 77 zákona č. 258/2000 Sb. a nově přepsaný § 151 odst. 2 zákona č. 541/2020 Sb., o odpadech), čímž vzniká podle vlastní charakteristiky předkladatelů „one-stop-shop“ řešení pro investora. Celá novela je navíc koncipována jako plošné zrychlení a zjednodušení povolování staveb v celé České republice, což je ze své podstaty relevantní pro každého rezidenčního i komerčního developera i pro provozovatele zařízení pro nakládání s odpady.",
+  "unstatedEffects": [
+   {
+    "effect": "Plošné zrychlení a zjednodušení stavebního a územního řízení (princip jednoho řízení, omezení duplicitních závazných stanovisek, apelační princip) zvyšuje ekonomickou hodnotu developerských projektů tím, že snižuje časové a administrativní náklady na získání stavebního povolení — tedy prospívá zejména subjektům podnikajícím v rezidenčním a komerčním developmentu.",
+    "whoBenefits": "Developeři rezidenčních a komerčních nemovitostí obecně; v kontextu sponzorských vazeb i společnosti IMOBA, a.s. a Hartenberg Holding, s.r.o., které podle dostupných zdrojů patří do podnikatelské skupiny spojené se jménem Andreje Babiše a působí v realitním developmentu.",
+    "evidence": "Podle e15.cz vstoupil Hartenberg Holding, s.r.o. ze svěřenských fondů Andreje Babiše kapitálově do dvou rezidenčních developerských projektů v Praze (Císařská vinice, Rezidence Silurská); podle Forbes.cz je IMOBA, a.s. realitní, developerská a investiční společnost ve skupině SynBiol spojené s Andrejem Babišem, jejíž portfolio zahrnuje mimo jiné resort Čapí hnízdo a další nemovitostní projekty."
+   },
+   {
+    "effect": "Integrace EIA stanoviska do jediného „one-stop-shop“ úkonu, který může nahradit další povolení podle předpisů o ochraně životního prostředí, veřejného zdraví a nakládání s odpady, snižuje regulatorní nejistotu a administrativní zátěž pro provozovatele průmyslových a chemických provozů, jejichž záměry (rozšíření kapacit, nové provozy) běžně vyžadují posouzení vlivů na životní prostředí.",
+    "whoBenefits": "Provozovatelé průmyslových a chemických závodů podléhajících EIA obecně; v kontextu sponzorských vazeb i chemické společnosti CS CABOT, PRECHEZA, Fatra a Synthesia, u nichž byla v cíleném přiřazení batch-010 identifikována sektorová vazba na sponzora Andreje Babiše přes zákon č. 100/2001 Sb. (Lovochemie, AGROFERT, Kostelecké uzeniny, AGROPROFIT a AGRONOVA CS mají v batch-010 přiřazenu odlišnou vazbu, přes zákon č. 139/2002 Sb. — viz conflictAssessment).",
+    "evidence": "Důvodová zpráva k části dvacáté druhé (změna zákona č. 100/2001 Sb.) výslovně uvádí, že nová možnost nahrazení dalších správních úkonů závazným stanoviskem EIA přináší investorovi „one-stop-shop“ řešení, eliminuje riziko následného zamítnutí žádosti o povolení a zvyšuje právní jistotu investora v rané fázi projektu (.data/law-collision-cache/tisk-67/266188.txt, řádky 14481–14486)."
+   },
+   {
+    "effect": "Čl. XXV novely mění definici „stavebního pozemku“ v § 55a zákona č. 235/2004 Sb. (hranici osvobození dodání pozemku od DPH) tak, že ji váže na širší pojem „zastavitelné území“ místo dosavadního užšího „zastavěné území“ — rozšiřuje se tak okruh pozemků, které se pro účely DPH považují za stavební (zdanitelné), oproti pozemkům osvobozeným od daně.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou vlastníci a nabyvatelé pozemků, u nichž změna hranice osvobození mění režim DPH konkrétních transakcí; mezi sponzorskými vazbami do tohoto okruhu věcně spadají realitně činné IMOBA, a.s. a Hartenberg Holding, s.r.o., směr ani míru čistého dopadu však tento verdikt nemodeluje, a mechanismus proto vede jako druhý, nekvantifikovaný a znaménkem neurčený kanál vedle plošného zrychlení povolování staveb — nikoli jako zjištěné zvýhodnění.",
+    "evidence": "Čl. XXV, ČÁST DVACÁTÁ OSMÁ novely: „V § 55a zákona č. 235/2004 Sb. … se v odstavci 2 písmeno a) slovo „zastavěného“ nahrazuje slovem „zastavitelného“.“ (.data/law-collision-cache/tisk-67/266188.txt, řádky 6829–6834); platné znění potvrzuje, že jde o definici „stavebního pozemku“ v § 55a nadepsaném „Dodání pozemku“ (.data/law-collision-cache/tisk-67/266190.txt, řádky 22315–22326)."
+   }
+  ],
+  "conflictAssessment": "Cílený soubor batch-010 atribuuje k tomuto tisku 14 sektorových vazeb (nikoli 12), rozpadajících se podle novelizovaného zákona do čtyř skupin. (1) Zákon č. 139/2002 Sb. — 5 vazeb (AGROFERT, Kostelecké uzeniny, AGROPROFIT, Lovochemie, AGRONOVA CS, vše Andrej Babiš): podle vlastní zvláštní části důvodové zprávy je jediným obsahem novely legislativně-technická záměna „zastavěné“ za „zastavitelné“ ve třech konkrétních ustanoveních bez věcného dopadu na pozemkové úpravy — tuto skupinu proto uzavíráme jako nevěrohodný konflikt. (2) Zákon č. 100/2001 Sb. — 4 vazby (CS CABOT, PRECHEZA, Fatra, Synthesia, vše Andrej Babiš): novela zde zavádí věcně významný EIA „one-stop-shop“ mechanismus se skutečným ekonomickým dopadem na provozovatele podléhající EIA (viz unstatedEffects[1]) — vazbu hodnotíme jako věrohodný, byť plošný, kanál. (3) Zákon č. 235/2004 Sb. — 4 vazby (Hartenberg Holding, IMOBA, IF Holding, IF FACILITY). Ověřením operativního textu (§ 55a „Dodání pozemku“) se ukázalo, že jde o změnu samotné definice stavebního pozemku pro účely DPH, nikoli o bezobsažnou terminologickou úpravu — dřívější tvrzení tohoto verdiktu, že jde o změnu „bez věcného dopadu“, bylo nesprávné a je zde opraveno (viz unstatedEffects[2]). U Hartenberg Holding a IMOBA, doložených jako aktivní realitní developeři a investoři, jde o druhý, dosud nekvantifikovaný kanál vedle plošného zrychlení povolování staveb — vazbu proto neuzavíráme jako vyvrácenou, ale jako otevřenou s neurčeným směrem dopadu. U IF Holding a IF FACILITY (bezpečnostní, úklidové a facility služby, provoz škol a zdravotnických zařízení — viz Hlídač státu) nebyl nalezen žádný věrohodný ekonomický kanál k obchodování s pozemky ani k výstavbě jako předmětu podnikání; tuto dvojici vazeb uzavíráme jako nevěrohodnou. (4) Zákon č. 258/2000 Sb. — 1 vazba (SynBiol, a.s., Andrej Babiš, sektor „health“): novelizovaný § 77 zapojuje orgán ochrany veřejného zdraví do téhož EIA/stavebního „one-stop-shop“ mechanismu popsaného v unstatedEffects[1] — jde tedy o stejný kanál (integrace posuzování do jednoho řízení), nikoli o samostatný, oddělený mechanismus specifický pro zdravotnický sektor SynBiolu; podle dostupných zdrojů (Wikipedia, HN.cz) je SynBiol diverzifikovaná investiční skupina zahrnující mimo jiné zdravotnictví, léčiva a nemovitosti, takže expozice vůči plošnému zrychlení povolování (unstatedEffects[0]) i EIA/one-stop-shop mechanismu (unstatedEffects[1]) je u ní stejná jako u ostatních vazeb Andreje Babiše — samostatně tuto vazbu neuzavíráme jako nový, nekrytý nález. Mimo atribuci batch-010 nese největší jednotlivou peněžní vazbu ze všech sponzorů tohoto tisku Boris Šťastný — Pražské služby, a.s. (IČO 60194120), 53 271 958 488 Kč (částka je úhrn smluv firmy z registru smluv, nikoli údaj o aktuální roli; podle dobového zpravodajství Šťastný z dozorčí rady Pražských služeb odešel už v lednu 2012, přehled funkcí na hlidacstatu.cz vede vztah od roku 2010 bez uvedení konce a případový soubor u vazby žádné časové období nenese) — a novela materiálně přepisuje povolování zařízení pro nakládání s odpady (ČÁST TŘICÁTÁ DEVÁTÁ, zákon č. 541/2020 Sb.: kompetence se přesouvá na stavební úřad, § 149 se zrušuje, § 151 odst. 2 se přepisuje tak, aby odpadové podmínky mohlo nahradit i závazné stanovisko EIA). Podle dostupných zdrojů (iROZHLAS, Pražský deník) je však Pražské služby, a.s. od roku 2018 ve 100% vlastnictví hlavního města Prahy — jde tedy o municipální/obecní podnik, u něhož je vazba na Šťastného institucionální/svěřeneckou rolí (bez ohledu na její trvání), nikoli soukromým vlastnickým podílem; podle ustálené doktríny (municipální a obecní role nejsou konfliktem zájmů) tuto vazbu neklasifikujeme jako střet zájmů, byť ji na rozdíl od předchozí verze tohoto verdiktu výslovně vypořádáváme, místo abychom ji mlčky vynechali. Ostatní sponzoři (Zuzana Mrázová, Vojtěch Krňanský, Karel Havlíček, Marie Pošarová, Petr Macinka, Alena Schillerová) nemají v cíleném souboru zaznamenánu žádnou peněžní vazbu; peněžní vazby Tomia Okamury (cestovní ruch, gastronomie) leží mimo sektory dotčené touto novelou. Andrej Babiš je hlavním předkladatelem novely a je doloženou money-tie vazbou spojen s IMOBA, a.s. (kontrakt 1 791 100 Kč) i s dalšími společnostmi svých podnikatelských skupin AGROFERT a SynBiol. Šlo by o plošnou legislativní úpravu dopadající na celý stavební, developerský a chemicko-průmyslový trh v ČR, nikoli o adresné zvýhodnění jmenovaného subjektu — proto zjištění i po opravě hodnotíme jako středně závažné riziko systémového konfliktu zájmů (hlavní předkladatel je zároveň doloženým beneficientem několika odvětví, která novela zvýhodňuje), nikoli jako doklad konkrétního korupčního zvýhodnění jednotlivé transakce.",
+  "severity": "medium",
+  "confidence": 3,
+  "citations": [
+   {
+    "claim": "Novela stavebního zákona je odůvodněna přetrvávající krizí bydlení a nenaplněnými cíli reformy z roku 2021; navrhuje přesun kompetencí do jednotné státní stavební správy a plošné zrychlení povolování staveb.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=67&ct1=0"
+   },
+   {
+    "claim": "Změna zákona č. 139/2002 Sb., o pozemkových úpravách, je výslovně označena jako legislativně-technická záměna pojmu „zastavěné“ za „zastavitelné“ území ve třech konkrétních ustanoveních, bez věcného dopadu na pravidla scelování půdy.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=67&ct1=0"
+   },
+   {
+    "claim": "Čl. XXV novely mění § 55a zákona č. 235/2004 Sb. („Dodání pozemku“) tak, že definici stavebního pozemku pro účely DPH váže na „zastavitelné“ namísto dosavadního „zastavěné“ území — jde o změnu hranice osvobození od daně, nikoli o bezobsažnou terminologickou úpravu.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=67&ct1=0"
+   },
+   {
+    "claim": "Novela zákona č. 100/2001 Sb. zavádí možnost nahrazení dalších správních úkonů závazným stanoviskem EIA na žádost oznamovatele („one-stop-shop“ pro investora), což snižuje riziko následného zamítnutí povolení a zvyšuje právní jistotu investora.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=67&ct1=0"
+   },
+   {
+    "claim": "Novela zákona č. 541/2020 Sb., o odpadech (ČÁST TŘICÁTÁ DEVÁTÁ), přesouvá povolování a posuzování zařízení pro nakládání s odpady na stavební úřad, ruší § 149 a přepisuje § 151 odst. 2 tak, aby odpadové podmínky mohlo nahradit závazné stanovisko EIA.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=67&ct1=0"
+   },
+   {
+    "claim": "IMOBA, a.s. je realitní, developerská a investiční společnost ve skupině SynBiol spojené s Andrejem Babišem, s portfoliem zahrnujícím mimo jiné resort Čapí hnízdo, hotel a restauraci Paloma Průhonice a čerpací stanici u D1.",
+    "kind": "web",
+    "source": "https://forbes.cz/babisove-firme-imoba-klesly-trzby-loni-na-pet-set-devatenact-milionu-korun/"
+   },
+   {
+    "claim": "Hartenberg Holding, s.r.o. je investiční skupinou spravující majetek Andreje Babiše, která kapitálově vstoupila do dvou rezidenčních developerských projektů v Praze (Císařská vinice, Rezidence Silurská).",
+    "kind": "web",
+    "source": "https://www.e15.cz/byznys/reality-a-stavebnictvi/hartenberg-z-fondu-premiera-babise-investuje-do-rezidencnich-projektu-1372747"
+   },
+   {
+    "claim": "Holdingová skupina IF, kterou ovládá Radim Fiala a jejíž součástí jsou společnosti IF Holding a.s. a IF FACILITY a.s., se věnuje bezpečnostním a úklidovým službám, provozu soukromých škol a zdravotnických zařízení; obchodování s pozemky ani development nejsou mezi jejími uváděnými obory podnikání.",
+    "kind": "web",
+    "source": "https://www.hlidacstatu.cz/osoba/radim-fiala"
+   },
+   {
+    "claim": "SynBiol, a.s. je investiční a holdingová společnost, jejímž jediným akcionářem je Andrej Babiš; sdružuje přes 50 firem mimo jiné z oblasti zdravotnictví, léčiv a nemovitostí.",
+    "kind": "web",
+    "source": "https://cs.wikipedia.org/wiki/SynBiol"
+   },
+   {
+    "claim": "Pražské služby, a.s. (IČO 60194120) jsou od roku 2018 ve 100% vlastnictví hlavního města Prahy.",
+    "kind": "web",
+    "source": "https://www.irozhlas.cz/zpravy-domov/prazske-sluzby-odpad-uklid-hlavni-mesto-akcionari-akcie-popelari_1811061627_gol"
+   },
+   {
+    "claim": "Andrej Babiš je uveden jako sponzor návrhu s doloženou money-vazbou na společnost IMOBA, a.s. (IČO 26124459, kontrakt 1 791 100 Kč) a na společnosti skupin AGROFERT a SynBiol.",
+    "kind": "graph_fact",
+    "source": "company:ico:26124459"
+   },
+   {
+    "claim": "Bill tisk 67 prošel k datu výzkumu třetím čtením ve Sněmovně (schválen 10. 7. 2026) a je projednáván v Senátu.",
+    "kind": "web",
+    "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=67"
+   },
+   {
+    "claim": "Přehled veřejných funkcí na hlidacstatu.cz uvádí, že Boris Šťastný působil v Pražských službách, a.s. od roku 2010; konec tohoto vztahu ale stránka neuvádí, takže jej nelze potvrdit jako aktuální.",
+    "kind": "web",
+    "source": "https://www.hlidacstatu.cz/osoba/Funkce/boris-stastny"
+   },
+   {
+    "claim": "Boris Šťastný odešel z dozorčí rady Pražských služeb, a.s. v lednu 2012 (článek z 12. 1. 2012: z dozorčí rady odešel mj. bývalý předseda pražské ODS Boris Šťastný).",
+    "kind": "web",
+    "source": "https://zpravy.aktualne.cz/regiony/praha/zmeny-v-prazskych-sluzbach-dozorci-radu-opusti-stastny/"
+   }
+  ]
+ },
+ {
+  "billTisk": 103,
+  "statedReasoning": "Návrh skupiny deseti poslanců (Bureš a další) mění šest zákonů (č. 300/2008 Sb., č. 117/1995 Sb., č. 155/1995 Sb., č. 111/2006 Sb., č. 187/2006 Sb. a č. 329/2011 Sb.) tak, aby příslušný orgán, který cizinci přizná nárok na dávku státního sociálního systému (státní sociální podpora, důchodové pojištění, pomoc v hmotné nouzi, nemocenské pojištění, dávky pro osoby se zdravotním postižením), o tom bezodkladně informoval Digitální a informační agenturu, jež cizinci bezplatně a automaticky zřídí datovou schránku. Důvodová zpráva argumentuje efektivitou elektronické komunikace, rizikem ztráty poštovních zásilek, dodržováním úředních lhůt a bezpečností doručování; výslovně tvrdí, že jde o prostou informační povinnost bez zvýšených finančních, časových či personálních nákladů, bez dopadu na státní rozpočet, na podnikatelské prostředí i bez korupčních rizik. Připouští jen krátkodobý negativní dopad na cizince, kteří na výzvu doručenou do automaticky zřízené schránky nezareagují.",
+  "researchedContext": "Historie tisku na psp.cz (fetched) potvrzuje předložení návrhu dne 10. 2. 2026 desetičlennou skupinou poslanců a jeho přikázání Výboru pro veřejnou správu a regionální rozvoj; vláda k němu dne 10. 3. 2026 zaujala nesouhlasné stanovisko, což z povahy věci (návrh psaný předkladateli) není v samotné důvodové zprávě zmíněno. Text novely je úzce technický – v každém z šesti zákonů vkládá jedinou informační povinnost orgánu vůči Agentuře; nejde o změnu hmotněprávních podmínek nároku na žádnou z dávek. Novelizovaný § 57a zákona č. 155/1995 Sb. i obdobná ustanovení v ostatních pěti zákonech se týkají výhradně administrativního postupu doručování, nikoli výše dávek, sazeb pojistného nebo pojistných produktů.",
+  "unstatedEffects": [
+   {
+    "effect": "Důvodová zpráva tvrdí, že agenda dotčených orgánů (krajské pobočky Úřadu práce, orgány sociálního zabezpečení, územní správy sociálního zabezpečení) nebude „rozšířena nepřiměřeně“ a že náklady jsou zanedbatelné, aniž by uvedla odhad počtu ročně dotčených cizinců nebo kvantifikovala administrativní zátěž nové průběžné oznamovací povinnosti vůči Agentuře u každého jednotlivého případu přiznání dávky.",
+    "whoBenefits": "Stát/Agentura jako příjemce zjednodušeného doručování; nekvantifikovaná zátěž zůstává na straně úřadů práce a orgánů sociálního zabezpečení, které dopad nepředložily číselně.",
+    "evidence": "Bod F. Předpokládaný hospodářský a finanční dopad – „Agenda příslušných orgánů nebude rozšířena nepřiměřeně… jež s sebou nenese významnější zvýšené náklady finanční, časové ani personální“, bez uvedení odhadovaného počtu dotčených osob."
+   },
+   {
+    "effect": "Text sám připouští, že cizinec, kterému je automaticky zřízena datová schránka a který ji nekontroluje, může zmeškat výzvu k doložení podkladů, a v důsledku toho může dojít k zastavení nebo krácení dávky; tento dopad je v obecné části popsán jako vedlejší a není kvantifikován.",
+    "whoBenefits": "Stát – zpráva sama předjímá, že náhrada poštovního doručování datovou schránkou „může dojít ke snížení veřejných výdajů vynakládaných v souvislosti s kontaktováním“ dotčených cizinců.",
+    "evidence": "Bod F. Předpokládaný hospodářský a finanční dopad – „mohou mít sociální dopady… pouze na ty cizince… kteří nesplní potřebné povinnosti… k jejichž splnění byli marně vyzváni prostřednictvím datové schránky“, a dále „implementací navrhované úpravy může dojít ke snížení veřejných výdajů“."
+   }
+  ],
+  "conflictAssessment": "Vstupní data batche přiřazují k tisku 103 dva sektorové leady vázané na zákon č. 155/1995 Sb.: ZPS holding s.r.o. (Jan Bureš) a ČSOB Pojišťovna, a. s. (Karel Haas). Operativní obsah novely zákona č. 155/1995 Sb. v tomto návrhu je ale výhradně nový § 57a – informační povinnost orgánu sociálního zabezpečení vůči Digitální a informační agentuře při vzniku nároku cizince na výplatu důchodu. Nejde o změnu důchodových dávek, sazeb, investičních produktů ani pojistných podmínek, tedy o nic, co by se věcně dotýkalo podnikání strojírenské společnosti ZPS holding s.r.o. nebo pojišťovny ČSOB Pojišťovna, a. s. Mezi soukromým ekonomickým zájmem žádného z předkladatelů a operativním účinkem návrhu (technická notifikační povinnost při zřizování datové schránky) nebyla nalezena žádná věrohodná souvislost; přiřazené leady se jeví jako artefakt heuristiky „sdílený zákon = sektorový lead“ bez věcného opodstatnění. Peněžní vazby ostatních předkladatelů podle případového souboru: Jan Bureš dále drží vazby na Údržbu silnic Karlovarského kraje, a.s. (8 004 685 063 Kč), Léčebné lázně Jáchymov a. s. (11 986 287 Kč), Vodárny a kanalizace Karlovy Vary, a.s. (221 321 239 Kč), Ostrovskou teplárenskou, a.s. (182 963 808 Kč) a Povodí Ohře, státní podnik (7 458 380 247 Kč); Petr Bendl na Vzdělávací centrum pro veřejnou správu ČR, o.p.s. (17 180 776 Kč), Energie - stavební a báňská a.s. (20 790 731 132 Kč – jeho jednotlivě nejvyšší peněžní vazba; částka je úhrn smluv firmy z registru smluv, nikoli údaj o aktuální držbě — podle obchodního rejstříku byl Bendl členem dozorčí rady pouze od 8. 11. 1996 do 23. 2. 2001 a žádný novější vztah rejstřík neeviduje; případový soubor u vazby časové období nenese), MERO ČR, a.s. (2 981 571 045 Kč), Svaz měst a obcí České republiky (57 751 425 Kč) a Povodí Vltavy, státní podnik (11 898 616 361 Kč); Jana Černochová na Nadační fond Českého rozhlasu (54 117 577 Kč), Obecní dům, a.s. (102 372 100 Kč) a Komwag, podnik čistoty a údržby města, a.s. (1 765 842 642 Kč). Mezi těmito vazbami jsou zjevné státní podniky (Povodí Ohře, Povodí Vltavy), ale minimálně jedna je zjevně soukromá akciová společnost bez veřejného vlastníka v základním výpisu z obchodního rejstříku – Energie - stavební a báňská a.s., IČO 45146802, sídlem Kladno, u Petra Bendla; nelze proto paušálně tvrdit, že žádná z vazeb předkladatelů není soukromým vlastnictvím. Případový soubor batche navíc u žádné z těchto vazeb nenese pole `tie_class`, takže jejich povahu (svěřenecká/institucionální vs. vlastnická/řídící) tento verdikt netvrdí a nechává neurčenou. Klíčové pro absenci konfliktu zde není tvrzení o povaze vlastnictví, ale věcný rozsah samotné novely: žádná z uvedených firem a podniků – včetně Energie - stavební a báňská a.s. jako stavební/báňské firmy – nepodniká v oblasti, kterou tento návrh upravuje (notifikace orgánu vůči Agentuře při vzniku nároku na dávku a zřizování datové schránky), takže operativní obsah novely se u žádné z těchto vazeb věcně neprojevuje bez ohledu na to, zda jde o soukromé, nebo státní vlastnictví.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+   {
+    "claim": "Návrh vkládá do zákona č. 155/1995 Sb. nový § 57a ukládající orgánu sociálního zabezpečení informovat Digitální a informační agenturu při vzniku nároku cizince na výplatu důchodu.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=103&ct1=0"
+   },
+   {
+    "claim": "Důvodová zpráva tvrdí nulové dopady na státní rozpočet a zanedbatelné náklady bez číselného odhadu počtu dotčených osob a bez zjištěných korupčních rizik.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=103&ct1=0"
+   },
+   {
+    "claim": "Návrh podala desetičlenná skupina poslanců dne 10. 2. 2026, byl přikázán Výboru pro veřejnou správu a regionální rozvoj a vláda k němu dne 10. 3. 2026 zaujala nesouhlasné stanovisko.",
+    "kind": "web",
+    "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=103"
+   },
+   {
+    "claim": "Tisk 103 mění šest zákonů podle topologie hran grafu (amendsCount = 6) a jeho sponzorský okruh zahrnuje deset poslanců uvedených v případovém souboru, včetně jejich peněžních vazeb a částek.",
+    "kind": "graph_fact",
+    "source": "bill:tisk:43213"
+   },
+   {
+    "claim": "Energie - stavební a báňská a.s. (IČO 45146802, sídlem Kladno) je akciová společnost bez veřejného vlastníka uvedeného v základním výpisu z obchodního rejstříku, tedy soukromá obchodní společnost, nikoli státní či municipální podnik.",
+    "kind": "web",
+    "source": "https://or.justice.cz/ias/ui/rejstrik-$firma?nazev=Energie%20-%20stavebn%C3%AD%20a%20b%C3%A1%C5%88sk%C3%A1"
+   },
+   {
+    "claim": "Zákon č. 155/1995 Sb., o důchodovém pojištění, je reálný předpis dotčený touto novelou.",
+    "kind": "law",
+    "source": "155/1995"
+   },
+   {
+    "claim": "Zákon č. 300/2008 Sb., o elektronických úkonech a autorizované konverzi dokumentů, je reálný předpis, jehož § 3 tato novela mění.",
+    "kind": "law",
+    "source": "300/2008"
+   },
+   {
+    "claim": "Petr Bendl byl podle obchodního rejstříku členem dozorčí rady Energie - stavební a báňská a.s. od 8. 11. 1996 do 23. 2. 2001 (historický vztah); žádný aktuální vztah rejstřík neeviduje.",
+    "kind": "web",
+    "source": "https://www.podnikatel.cz/rejstrik/energie-stavebni-a-banska-a-s-45146802/"
+   }
+  ]
+ },
+ {
+  "billTisk": 189,
+  "statedReasoning": "Vládní návrh (min. financí) zavádí nový zákon o evidenci tržeb, kterým se poplatníkům daně z příjmů fyzických i právnických osob ukládá povinnost elektronicky a v reálném čase evidovat u správce daně kontaktní platby (hotovostní i bezhotovostní) zakládající rozhodný příjem. Důvodová zpráva odůvodňuje návrh tím, že současný právní řád neobsahuje plošnou povinnost reportovat tržby v reálném čase, pouze dílčí záznamní povinnosti (daňový řád, zákon o účetnictví, zákon o DPH aj.), a navazuje na předchozí, dnes již zrušený zákon č. 112/2016 Sb., o evidenci tržeb (účinný 2016–2022), jehož třetí a čtvrtá fáze byly zrušeny nálezem Ústavního soudu Pl. ÚS 26/16 a jehož účinnost byla ukončena k 1. lednu 2023. Cílem nové úpravy je podle předkladatele posílit rovné a poctivé podnikatelské prostředí a zefektivnit ověřování plnění daňových povinností; předkládaný odhad počítá s dodatečnými daňovými výnosy cca 14,4 mld. Kč ročně, kompenzovanými mimo jiné zavedením daňové úlevy na evidenci tržeb pro fyzické osoby a implementačními náklady finanční a celní správy v řádu stovek milionů Kč.",
+  "researchedContext": "Cachovaný text novely (.data/law-collision-cache/tisk-189/270143.txt) potvrzuje, že jde o obnovení elektronické evidence tržeb (EET) po jejím zrušení k 1. lednu 2023 zákonem přijatým za předchozí vlády, a to v podstatě jako nový, samostatný zákon (nikoli novela zrušeného zákona č. 112/2016 Sb.). Zákon dále mění nejen čtyři formálně uvedené novelizované předpisy (č. 17/2012 Sb., č. 235/2004 Sb., č. 456/2011 Sb. a č. 586/1992 Sb.), ale podle stejné důvodové zprávy zavádí v rámci téhož předpisu i řadu věcně samostatných daňových změn nesouvisejících s evidencí tržeb jako takovou. V kapitole 6 (Předpokládaný hospodářský a finanční dopad) jsou samostatně vyčísleny: sleva na dani za umístění dítěte, sleva na studenta a zrušení zastropování volnočasových benefitů (řádky cca 3195–3237), osvobození spropitného v gastronomii (řádky cca 3224–3226), snížení sazby DPH na nealkoholické nápoje v rámci restauračních služeb z 21 % na 12 % (řádky 1380–1388 a 1723–1727 — „Cílem návrhu, v souladu s programovým prohlášením vlády, je zavedení stejné sazby DPH … na nealkoholické nápoje podávané v rámci restauračních služeb, jako se uplatňuje na stravovací služby“), zkrácení lhůty pro opravu základu DPH u malých nedobytných pohledávek z 6 na 3 měsíce a rozšíření limitu z 10 000 Kč na 20 000 Kč (§ 46 zákona o DPH, řádky 1390–1403 a 1729–1744) a osvobození příspěvku zaměstnavatele na vybrané sociální služby (osobní asistence, pečovatelská služba, tísňová péče, odlehčovací služba, raná péče, centrum denních služeb/denní stacionář) od daně z příjmů fyzických osob (nový § 6 odst. 9 písm. d) bod 4 zákona o daních z příjmů, řádky 622–626 a 3217). Každá z těchto změn nese vlastní, samostatně odůvodněný a v části dopadů samostatně vyčíslený rozpočtový efekt v řádu stovek milionů až miliard Kč ročně, nezávislý na evidenci tržeb jako takové. Účinnost evidence tržeb je stanovena k 1. lednu 2027, avšak vybraná administrativně-organizační ustanovení nabývají účinnosti již dnem po vyhlášení zákona, což odpovídá obvyklé praxi u obdobných registračních systémů (viz předchozí zákon č. 112/2016 Sb., kde administrativní ustanovení předcházela obecné účinnosti o několik měsíců).",
+  "unstatedEffects": [
+   {
+    "effect": "Pod souhrnným názvem „o evidenci tržeb a o změně některých dalších zákonů“ je v jediném zákoně provedena nejméně sedmice věcně samostatných daňových změn nesouvisejících s evidencí tržeb jako takovou: (1) sleva na dani za umístění dítěte, (2) sleva na studenta, (3) zrušení zastropování volnočasových benefitů, (4) osvobození spropitného v gastronomii, (5) snížení sazby DPH na nealkoholické nápoje v restauračních službách z 21 % na 12 %, (6) zkrácení lhůty a rozšíření limitu pro opravu základu DPH u malých nedobytných pohledávek (z 6 na 3 měsíce, z 10 000 Kč na 20 000 Kč) a (7) osvobození příspěvku zaměstnavatele na vybrané sociální služby od daně z příjmů fyzických osob. Každá má vlastní, samostatně vyčíslený rozpočtový dopad; jejich zařazení do jednoho balíčku s vysoce sledovanou a politicky citlivou EET snižuje pravděpodobnost, že budou jednotlivě parlamentně diskutovány a hlasovány odděleně od evidence tržeb.",
+    "whoBenefits": "Rodiny s dětmi v předškolních zařízeních, studenti, zaměstnanci čerpající volnočasové benefity nad dosavadní strop, pracovníci v gastronomii inkasující spropitné, provozovatelé a hosté restauračních služeb (nižší DPH na nealkoholické nápoje), plátci DPH s malými nedobytnými pohledávkami vůči odběratelům a zaměstnavatelé/zaměstnanci čerpající příspěvek na vybrané sociální služby — jde o adresné daňové úlevy a sazbové změny bez přímé věcné souvislosti s předmětem evidence tržeb.",
+    "evidence": "Důvodová zpráva v kapitole 6 uvádí samostatné tabulky/pasáže rozpočtových dopadů pro „Zavedení slevy za umístění dítěte“, „Zavedení slevy na studenta“, „Zrušení zastropování u volnočasových benefitů“ a „Osvobození spropitného v gastronomii“ (.data/law-collision-cache/tisk-189/270143.txt, řádky cca 3195–3237); samostatnou pasáž „Sazba DPH na nealkoholické nápoje v rámci restauračních služeb“ se snížením z 21 % na 12 % (řádky 1380–1388, zvláštní část řádky 1723–1727); samostatnou pasáž „Problematika malých nedobytných pohledávek“ měnící § 46 zákona o DPH (řádky 1390–1403, zvláštní část řádky 1729–1744); a pasáž „Osvobození příspěvku zaměstnavatele na sociální služby“ s vlastním (nekvantifikovaným) rozpočtovým rizikem (řádek 3217), odpovídající novému § 6 odst. 9 písm. d) bodu 4 zákona o daních z příjmů (řádky 618–626)."
+   }
+  ],
+  "conflictAssessment": "Cílený soubor batch-010 neobsahuje k tomuto tisku žádnou atribuovanou sektorovou vazbu (sectorAdjacency: false) a jediná uvedená sponzorka, Alena Schillerová, nemá v cíleném souboru zaznamenánu žádnou peněžní vazbu (moneyTies: []). Návrh je vládní předlohou předloženou ministerstvem financí v rámci jeho běžné zákonodárné agendy (obnovení dříve existujícího a zrušeného systému evidence tržeb), nikoli poslaneckou iniciativou jednotlivého zákonodárce s vlastním podnikatelským zájmem. Absence doložitelné vazby mezi předkladatelem/sponzory a subjekty, které by mohly mít z návrhu konkrétní ekonomický prospěch nebo újmu, je zde očekávaným a věrohodným zjištěním u obecné daňově-administrativní legislativy tohoto typu — nelze ji uměle nahrazovat domněnkou o konfliktu zájmů. Zjištěný „quiet rider“ efekt (viz unstatedEffects) je z povahy věci procesní/legislativně-technickou otázkou legislativní transparentnosti, nikoli osobním konfliktem zájmů předkladatele — přesahuje-li ovšem rozsahem sedm věcně samostatných daňových opatření navázaných na politicky sledovanou EET, jde o výraznější formu tohoto jevu, než jak byl v původní verzi tohoto verdiktu popsán.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+   {
+    "claim": "Zákon zavádí povinnost poplatníků daně z příjmů elektronicky a v reálném čase evidovat kontaktní platby zakládající rozhodný příjem u správce daně, s cílem posílit rovné podnikatelské prostředí a efektivněji ověřovat plnění daňových povinností.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=189&ct1=0"
+   },
+   {
+    "claim": "Původní zákon č. 112/2016 Sb., o evidenci tržeb, byl s účinností od 1. ledna 2023 zrušen; třetí a čtvrtá fáze jeho náběhu byly předtím zrušeny nálezem Ústavního soudu Pl. ÚS 26/16.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=189&ct1=0"
+   },
+   {
+    "claim": "Zavedení evidence tržeb má podle odhadu ministerstva financí přinést dodatečné daňové výnosy cca 14,4 mld. Kč ročně, přičemž zákon souběžně zavádí nejméně sedm věcně samostatných daňových změn nesouvisejících s evidencí tržeb: slevu za umístění dítěte, slevu na studenta, zrušení zastropování volnočasových benefitů, osvobození spropitného v gastronomii, snížení sazby DPH na nealkoholické nápoje v restauračních službách z 21 % na 12 %, zkrácení lhůty a rozšíření limitu u malých nedobytných pohledávek v § 46 zákona o DPH a osvobození příspěvku zaměstnavatele na vybrané sociální služby; samotná daňová úleva na evidenci tržeb mezi ně nepatří — je kompenzací přímo spojenou se zavedením EET.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=189&ct1=0"
+   },
+   {
+    "claim": "Zákon zavádí nové osvobození příspěvku zaměstnavatele na vybrané sociální služby (osobní asistence, pečovatelská služba, tísňová péče, odlehčovací služba, raná péče, centrum denních služeb nebo denní stacionář) od daně z příjmů fyzických osob.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=189&ct1=0"
+   },
+   {
+    "claim": "Bill tisk 189 byl schválen Poslaneckou sněmovnou ve třetím čtení 15. 7. 2026 a byl postoupen k projednání Senátu.",
+    "kind": "web",
+    "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=189"
+   }
+  ]
+ },
+ {
+  "billTisk": 213,
+  "statedReasoning": "Vládní návrh je podle titulu předkládán s cílem dále posílit bezpečnost České republiky a mění zákony upravující opatření přijatá v souvislosti s ozbrojeným konfliktem na území Ukrajiny vyvolaným invazí vojsk Ruské federace a další související zákony. Mění sedm předpisů: zákon o některých opatřeních v souvislosti s konfliktem na Ukrajině, zákon o opatřeních v oblasti zaměstnanosti a sociálního zabezpečení v souvislosti s tímto konfliktem, zákon o opatřeních v oblasti školství v souvislosti s tímto konfliktem, zákon o azylu, zákon o pobytu cizinců, soudní řád správní a trestní zákoník. Účinnost je stanovena k 1. lednu 2027, s výjimkou některých ustanovení čl. I, která nabývají účinnosti dříve.",
+  "researchedContext": "Titul návrhu explicitně avizuje dodatkem a další související zákony, že rozsah přesahuje pouze opatření vázaná na ukrajinský konflikt, a operativní text to potvrzuje: novela zákona o pobytu cizinců na území České republiky (č. 326/1999 Sb.) v čl. VIII zavádí obecná ustanovení o navracení státních příslušníků třetích zemí podle čl. 23a Schengenského hraničního kodexu (CELEX 32016R0399), upravuje obecná pravidla dlouhodobých pobytů a studijních víz platná pro všechny cizince, nikoli jen pro osoby dotčené konfliktem na Ukrajině. Novela trestního zákoníku v čl. XI zpřísňuje trestní sazby za organizování a umožnění neoprávněného překročení státní hranice (§ 339, kde nová kvalifikovaná skutková podstata — mimo jiné za stavu ohrožení státu nebo za válečného stavu — zvyšuje sazbu na 3 až 12 let) a za napomáhání neoprávněnému pobytu (§ 340, kde obdobná nová kvalifikovaná podstata činí 3 až 10 let) – jde o obecně použitelná ustanovení namířená proti převaděčství a obchodu s lidmi, nikoli o ustanovení vázaná výlučně na ukrajinský kontext, byť věcně souvisejí s posílením bezpečnosti hranic, jak titul deklaruje.",
+  "unstatedEffects": [
+   {
+    "effect": "Ačkoli je návrh v titulu rámován jako soubor opatření souvisejících s ozbrojeným konfliktem na Ukrajině, čl. VIII novelizuje obecná ustanovení zákona o pobytu cizinců na území České republiky (nový § 12 o zpětném přemístění podle Schengenského hraničního kodexu, pravidla prodlužování studijních a dlouhodobých pobytů), která dopadají na všechny státní příslušníky třetích zemí, nikoli pouze na osoby dotčené invazí na Ukrajinu.",
+    "whoBenefits": "Orgány cizinecké a azylové správy získávají širší a obecně použitelné pravomoci v oblasti navracení a pobytu cizinců nad rámec titulem deklarovaného ukrajinského kontextu; dotčeny jsou všechny kategorie cizinců žádajících o dlouhodobý pobyt nebo studijní vízum, nejen osoby postižené konfliktem.",
+    "evidence": "Čl. VIII bod 1 (nový § 12 zákona č. 326/1999 Sb. s odkazem CELEX 32016R0399) a navazující body upravující § 31, § 42 a § 44a téhož zákona."
+   }
+  ],
+  "conflictAssessment": "Sponzorem návrhu v grafu je Lubomír Metnar, u kterého nejsou evidovány žádné peněžní vazby (moneyTies je prázdné pole), a batch-010 u tohoto tisku nepřiřadil žádný sektorový lead (sectorAdjacency: false, attributedSectorLeads: []). Bez doložené soukromé ekonomické vazby předkladatele k dotčeným odvětvím (cizinecké právo, azylové řízení, trestní represe převaděčství) nelze na základě dostupných dat v grafu formulovat žádné doložitelné tvrzení o střetu zájmů. Jde o vládní bezpečnostní návrh podávaný ministrem vnitra, u něhož analýza peněžních vazeb nezjistila žádný signál k prošetření; jediným zjištěným rizikem je věcný přesah titulu popsaný výše v unstatedEffects, nikoli konflikt zájmů předkladatele.",
+  "severity": "medium",
+  "confidence": 3,
+  "citations": [
+   {
+    "claim": "Titul zákona zní kterým se s cílem dále posílit bezpečnost České republiky mění zákony upravující opatření přijatá v souvislosti s ozbrojeným konfliktem na území Ukrajiny vyvolaným invazí vojsk Ruské federace a další související zákony.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=213&ct1=0"
+   },
+   {
+    "claim": "Čl. VIII bod 1 novely zákona č. 326/1999 Sb. zavádí nový § 12 o zpětném přemístění státního příslušníka třetí země podle čl. 23a Schengenského hraničního kodexu, obecně použitelný na všechny cizince, nikoli jen na osoby dotčené konfliktem na Ukrajině.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=213&ct1=0"
+   },
+   {
+    "claim": "Novela trestního zákoníku v čl. XI zpřísňuje trestní sazby v § 339 a § 340 za organizování neoprávněného překročení státní hranice a napomáhání neoprávněnému pobytu, včetně nových kvalifikovaných skutkových podstat — mimo jiné za stavu ohrožení státu nebo za válečného stavu — s trestní sazbou 3 až 12 let v § 339 a 3 až 10 let v § 340.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=213&ct1=0"
+   },
+   {
+    "claim": "Sponzor návrhu Lubomír Metnar nemá v grafu evidované žádné peněžní vazby a batch-010 tomuto tisku nepřiřadil žádný sektorový lead.",
+    "kind": "graph_fact",
+    "source": "bill:tisk:43335"
+   }
+  ]
+ },
+ {
+  "billTisk": 221,
+  "statedReasoning": "Důvodová zpráva uvádí, že platná úprava systémového střetu zájmů v § 4b a § 4c zákona č. 159/2006 Sb. (plošný zákaz účasti ve veřejných zakázkách a čerpání dotací pro společnosti, v nichž veřejný funkcionář nebo jím ovládaná osoba vlastní alespoň 25 % podíl) je ve srovnání s inspirační rakouskou úpravou nepřiměřeně široká, dopadá až na malé obce a jejich příspěvkové organizace a přesahuje standardní rámec pravidel přijatých členskými státy EU k prevenci střetu zájmů. Návrh proto zužuje osobní i věcný rozsah zákazů na případy, kdy je poskytovatelem dotace či zadavatelem přímo úřad, v jehož čele dotčený veřejný funkcionář stojí, nahrazuje kritérium ovládající osoby kritériem skutečného majitele s odkazem na evidenci skutečných majitelů kvůli výkladovým nejasnostem dosavadního pojmu ovládání, a zavádí nové kompenzační nástroje – oznamovací povinnost veřejného funkcionáře o smlouvách a dotacích jeho společností, povinnost poskytovatelů dotací a investičních pobídek předcházet střetu zájmů čestnými prohlášeními, zveřejňovat záměr poskytnutí dotace a vypořádat námitky dotčených osob.",
+  "researchedContext": "Ustanovení § 2 odst. 1 písm. c) zákona č. 159/2006 Sb., o střetu zájmů, na které se § 4b, § 4c a nový § 11a výslovně odvolávají, vymezuje kategorii dotčených veřejných funkcionářů jako člena vlády nebo vedoucího jiného ústředního správního úřadu, v jehož čele není člen vlády – tedy ministry a šéfy centrálních úřadů, nikoli řadové poslance Poslanecké sněmovny. Novela ovšem nedopadá jen na tuto kategorii: nový § 4c odst. 2 zákona o střetu zájmů (bod 5 čl. I) zavádí samostatný zákaz poskytnout nenárokovou dotaci obchodní společnosti, jejímž skutečným majitelem je člen zastupitelstva územního samosprávného celku, který je poskytovatelem dotace, a nový § 48 odst. 9 zákona č. 134/2016 Sb., o zadávání veřejných zakázek (vložený čl. X bodem 1), dává zadavateli obdobné fakultativní oprávnění vyloučit společnost člena zastupitelstva ÚSC z řízení, které tento ÚSC sám zadává. Podle důvodové zprávy jde o vědomé rozšíření dosavadního rámce (\"pro zachování symetrie a zajištění proporcionality zákazu poskytování dotací se navrhuje jeho rozšíření na obchodní společnosti, jejichž skutečným majitelem je člen zastupitelstva územního samosprávného celku\") – tato větev tedy okruh dotčených osob spíše ROZŠIŘUJE, protože dosud § 4b a § 4c na členy zastupitelstev ÚSC vůbec nemířily (jejich veřejný funkcionář byl vymezen výhradně kategorií podle písm. c)). Souběžně novela u kategorie ministrů a vedoucích ústředních úřadů nahrazuje dosavadní § 4b, tedy plošný a kogentní zákaz účasti ve veřejných zakázkách s povinností zadavatele takovou společnost vyloučit, fakultativním oprávněním zadavatele danou společnost vyloučit podle nového § 48 odst. 8 zákona o zadávání veřejných zakázek, a to jen tehdy, je-li zadavatelem přímo úřad vedený dotčeným funkcionářem. U ministrů jde tedy o přechod od kogentního, plošného zákazu k diskrečnímu oprávnění s výrazně užším rozsahem; u členů zastupitelstev ÚSC jde naopak o zavedení zcela nové, dosud neexistující povinnosti a fakultativního oprávnění k vyloučení. Text novely zákona o zemědělství (č. 252/1997 Sb.) a rozpočtových pravidel (č. 218/2000 Sb.) rozlišuje nárokové a nenárokové dotace a omezuje zákaz podle § 4c jen na dotace, na které není právní nárok, poskytované přímo úřadem nebo ÚSC, v jehož čele dotčený funkcionář stojí, respektive jehož je dotčená osoba členem zastupitelstva. Rešerše dále zjistila, že oba předkladatelé s peněžními vazbami jsou zároveň členy zastupitelstva ÚSC: Radek Vondráček je od roku 2024 zastupitelem Zlínského kraje a v letech 2014–2017 byl zastupitelem a místostarostou města Kroměříž; David Pražák je od roku 2024 zastupitelem Libereckého kraje a od roku 2015 zastupitelem (od 2022 místostarostou) města Semily.",
+  "unstatedEffects": [
+   {
+    "effect": "Zákon nahrazuje dosavadní kogentní a plošný zákaz účasti ve veřejných zakázkách podle § 4b zákona o střetu zájmů, s povinností zadavatele vyloučit dotčenou společnost, fakultativním oprávněním zadavatele vyloučit takovou společnost jen v úzkém okruhu případů, kdy je zadavatelem přímo úřad vedený dotčeným ministrem nebo vedoucím ústředního správního úřadu. Rozsah ochrany veřejných zakázek proti systémovému střetu zájmů se tak u této kategorie funkcionářů reálně zužuje z celostátní plošné úpravy, dopadající podle důvodové zprávy až na nejnižší úroveň včetně malých obcí, na úzkou a nevynutitelnou výjimku.",
+    "whoBenefits": "Obchodní společnosti, jejichž skutečným majitelem je člen vlády nebo vedoucí ústředního správního úřadu podle § 2 odst. 1 písm. c) zákona o střetu zájmů, mimo zakázky zadávané přímo jejich vlastním úřadem – nikoli přímo předkladatelé tohoto návrhu, kteří jako poslanci Poslanecké sněmovny do této kategorie veřejných funkcionářů nespadají.",
+    "evidence": "Bod 3 čl. I novely, kterým se § 4b ruší, a nový § 48 odst. 8 zákona č. 134/2016 Sb. vložený čl. X bodem 1 novely, ve spojení s vysvětlením v obecné části důvodové zprávy k bodu i."
+   },
+   {
+    "effect": "Souběžně s uvedeným zúžením pro ministry novela poprvé zavádí samostatný zákaz nenárokové dotace a fakultativní oprávnění k vyloučení z veřejné zakázky vůči společnostem, jejichž skutečným majitelem je člen zastupitelstva územního samosprávného celku, pokud je tento ÚSC sám poskytovatelem dotace nebo zadavatelem – dosud § 4b a § 4c na tuto skupinu vůbec nemířily. Oba předkladatelé s peněžními vazbami na tomto tisku (Radek Vondráček, David Pražák) jsou zároveň sami zastupiteli kraje (Vondráček Zlínského kraje od 2024, Pražák Libereckého kraje od 2024) a Pražák navíc zastupitelem města Semily. Obě nová ustanovení ale dopadají jen na společnost, jejímž je zastupitel „skutečným majitelem“ ve smyslu evidence skutečných majitelů — případový soubor batche u těchto vazeb žádný údaj o skutečném majiteli nenese, členství ve statutárním či dozorčím orgánu skutečným majitelstvím není a tento verdikt status skutečného majitele neověřoval. Zda tedy MAE invest a.s. a AGROCENTRUM JIZERAN a.s. do nově zavedeného okruhu spadají, zůstává neověřeno; pokud ano, omezení by se na ně vztahovalo při žádosti o nenárokovou dotaci nebo účasti v zakázce právě u Zlínského kraje, Libereckého kraje nebo města Semily.",
+    "whoBenefits": "Nejde o zjevné zvýhodnění předkladatelů – jde o nově zavedené omezení potenciálně dopadající i na jejich vlastní společnosti (podmíněno neověřeným statusem skutečného majitele) ve vztahu k jejich vlastním zastupitelským mandátům; přesný dopad nelze bez údaje o konkrétních smluvních vztazích MAE invest a.s. a AGROCENTRUM JIZERAN a.s. se Zlínským krajem, Libereckým krajem a městem Semily ověřit.",
+    "evidence": "Bod 5 čl. I novely (nový § 4c odst. 2 zákona o střetu zájmů) a nový § 48 odst. 9 zákona č. 134/2016 Sb. vložený čl. X bodem 1 novely, ve spojení s odůvodněním rozšíření v obecné části důvodové zprávy."
+   }
+  ],
+  "conflictAssessment": "Batch-010 přiřadil k tomuto tisku dva vedoucí zájmové signály – MAE invest a.s. u Radka Vondráčka přes zákon č. 218/2000 Sb. a AGROCENTRUM JIZERAN a.s. u Davida Pražáka přes zákon č. 252/1997 Sb. – a oba se skutečně týkají novelizovaných ustanovení o střetu zájmů při poskytování dotací. Novelizovaný rámec nedopadá výhradně na ministry a vedoucí ústředních úřadů (na ně míří dosavadní § 4b a navazující § 11a přes § 2 odst. 1 písm. c) zákona o střetu zájmů): nový § 4c odst. 2 a nový § 48 odst. 9 zákona o zadávání veřejných zakázek rozšiřují obdobný režim i na členy zastupitelstev územních samosprávných celků. Ani Radek Vondráček, ani David Pražák nejsou podle dostupných údajů v grafu členy vlády, ale rešerše zjistila, že oba jsou aktuálně krajskými zastupiteli (Vondráček Zlínský kraj, Pražák Liberecký kraj) a Pražák navíc zastupitelem města Semily. Jejich společnosti MAE invest a.s. a AGROCENTRUM JIZERAN a.s. tak mohou nově spadat do okruhu dotčeného § 4c odst. 2 a § 48 odst. 9, pokud by žádaly o nenárokovou dotaci nebo veřejnou zakázku právě u Zlínského kraje, Libereckého kraje nebo města Semily (podmínkou je status „skutečného majitele“, který případový soubor nenese a tento verdikt jej neověřoval) – jde ovšem o nově zaváděné OMEZENÍ pro tuto skupinu, nikoli o úlevu, takže z něj nelze vyvodit sebezvýhodnění předkladatelů; naopak jde o ustanovení, které by při doslovné aplikaci mohlo omezit přístup jejich vlastních společností k penězům jejich vlastních zastupitelských sborů. Bez údaje o tom, zda MAE invest a.s. nebo AGROCENTRUM JIZERAN a.s. v minulosti od Zlínského kraje, Libereckého kraje nebo města Semily dotaci či zakázku skutečně čerpaly, nelze určit, zda toto nové ustanovení má na ně v praxi vůbec dopad. Naproti tomu zúžení kogentního zákazu na diskreční oprávnění u kategorie ministrů (§ 4b, § 48 odst. 8) se ani Vondráčka, ani Pražáka netýká, protože ministry nejsou – zde závěr o absenci osobního konfliktu obstojí. Třetí peněžní vazba Davida Pražáka, společnost KORID LK, spol. s r.o. se smlouvami v hodnotě 405 232 883 Kč, není mezi přiřazenými sektorovými signály batch-010 – jde o společnost ve stoprocentním vlastnictví Libereckého kraje plnící roli krajského koordinátora veřejné dopravy, tedy o stewardskou, nikoli soukromou ekonomickou vazbu, a proto ji podle ustálené doktríny nelze posuzovat jako střet zájmů; je ovšem pozoruhodné, že Pražák je zároveň zastupitelem téhož Libereckého kraje, jenž KORID LK vlastní.",
+  "severity": "medium",
+  "confidence": 3,
+  "citations": [
+   {
+    "claim": "Bod 3 čl. I novely ruší § 4b zákona o střetu zájmů; ten je nahrazen fakultativním oprávněním zadavatele vyloučit účastníka podle nového § 48 odst. 8 a 9 zákona o zadávání veřejných zakázek, omezeným na případy, kdy je zadavatelem úřad vedený dotčeným funkcionářem.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=221&ct1=0"
+   },
+   {
+    "claim": "Důvodová zpráva sama konstatuje, že dosavadní § 4b a § 4c zákona o střetu zájmů jsou plošné a dopadají až na nejnižší úroveň včetně malých obcí a jejich příspěvkových organizací, a že navrhované zúžení není v rozporu s unijní úpravou, protože tato ustanovení netransponovala unijní právo.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=221&ct1=0"
+   },
+   {
+    "claim": "Kategorie veřejného funkcionáře podle § 2 odst. 1 písm. c) zákona č. 159/2006 Sb. zahrnuje člena vlády nebo vedoucího jiného ústředního správního úřadu, v jehož čele není člen vlády, nikoli poslance Poslanecké sněmovny.",
+    "kind": "web",
+    "source": "https://www.zakonyprolidi.cz/cs/2006-159"
+   },
+   {
+    "claim": "David Pražák má peněžní vazbu na KORID LK, spol. s r.o. ve výši 405 232 883 Kč.",
+    "kind": "graph_fact",
+    "source": "company:ico:27267351"
+   },
+   {
+    "claim": "David Pražák má peněžní vazbu na AGROCENTRUM JIZERAN a.s. ve výši 3 040 369 Kč.",
+    "kind": "graph_fact",
+    "source": "company:ico:60914351"
+   },
+   {
+    "claim": "Radek Vondráček má peněžní vazbu na MAE invest a.s. ve výši 912 000 Kč.",
+    "kind": "graph_fact",
+    "source": "company:ico:29186315"
+   },
+   {
+    "claim": "KORID LK, spol. s r.o. je společnost založená a vlastněná Libereckým krajem jako krajský koordinátor integrované veřejné dopravy IDOL.",
+    "kind": "web",
+    "source": "https://www.korid.cz/stranky/23:korid-lk.html"
+   },
+   {
+    "claim": "Batch-010 přiřadil tomuto tisku sektorové vazby MAE invest a.s. přes zákon č. 218/2000 Sb. a AGROCENTRUM JIZERAN a.s. přes zákon č. 252/1997 Sb.",
+    "kind": "graph_fact",
+    "source": "company:ico:29186315"
+   },
+   {
+    "claim": "Nový § 4c odst. 2 zákona o střetu zájmů (bod 5 čl. I novely) zakazuje poskytnout nenárokovou dotaci obchodní společnosti, jejímž skutečným majitelem je člen zastupitelstva územního samosprávného celku, který je poskytovatelem dotace; nový § 48 odst. 9 zákona č. 134/2016 Sb. (čl. X bod 1 novely) dává obdobné fakultativní oprávnění zadavateli, jímž je územní samosprávný celek.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=221&ct1=0"
+   },
+   {
+    "claim": "Radek Vondráček je od roku 2024 zastupitelem Zlínského kraje a v letech 2014–2017 byl zastupitelem a místostarostou města Kroměříž.",
+    "kind": "web",
+    "source": "https://www.hlidacstatu.cz/osoba/Funkce/radek-vondracek"
+   },
+   {
+    "claim": "David Pražák je od roku 2024 zastupitelem Libereckého kraje a od roku 2015 zastupitelem města Semily.",
+    "kind": "web",
+    "source": "https://www.hlidacstatu.cz/osoba/Funkce/david-prazak-5"
+   }
+  ]
+ }
+]

@@ -1067,3 +1067,23 @@ odst. 1 is a confirmed three-way collision (120/189/244). Manifestation verified
 loaders: 39 forensic blocks render with 0 withheld strings; /zakony/kolize renders 80 pairs
 (48 confirmed), czechPending 0 after the batch-002-era English prior-pair reasoning (silently
 withheld since pass 33) was rewritten in Czech.
+
+## Pass 44 (track: law) — batch-012 P1: fresh independent audit of the remediated batch-011 verdicts, six corrected (2026-08-04)
+The audit the batch-011 note committed to: a second, fully independent Opus pass (max effort, no
+shared context with authors or the first auditor) over the remediated payload. Result: all nine
+first-audit findings verified genuinely closed (9/9, re-derived from primary sources), BUT the
+remediation itself had introduced 1 BLOCKING + 6 MAJOR unaudited defects — five money-touching,
+the same class again. Blocking: the batch's two largest CZK figures (Bendl × Energie - stavební
+a báňská 20,79 mld; Šťastný × Pražské služby 53,27 mld) asserted as present-tense ties while the
+registry records the roles ending 23. 2. 2001 and January 2012. All findings fixed
+(driver-applied, evidence-dictated), closure-checked by the same independent auditor against the
+files (CLOSED WITH NOTES; its two new MINORs — a parenthetical breaking „§ 4c odst. 2" and an
+under-dated Šťastný departure — fixed and re-verified same session). Six corrected verdicts
+(64, 67, 103, 189, 213, 221) re-persisted with pass-44 provenance; gate hardened to
+/^verdict-\d+\.json$/ after it was found exiting 1 on the persist step's own combined artifact;
+final state gate 12/12 · 39 forensic blocks render · 0 withheld strings. Doctrine confirmed
+twice in one day: every remediation round introduced defects in the class it was fixing, and
+only an independent reader with the primary sources caught them — plus one concrete rule worth
+keeping: a money disposition citing a registry page must carry the dates that page records, and
+any CZK figure that could read as a current holding needs its temporal qualifier in the sentence
+itself.
