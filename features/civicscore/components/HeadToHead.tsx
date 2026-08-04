@@ -1,10 +1,24 @@
 "use client";
 
 /**
- * Souboj — dva poslanci vedle sebe, složka po složce (REÁLNÁ DATA). Zrcadlené
- * pruhy se potkávají uprostřed; vítěz složky nese signální hodnotu. Rozdíl
- * kompozitu (indexu přispění) v titulku, váhy složek u popisků. Pruh = body
- * složky / její váha; číslo = získané body.
+ * Souboj — dva poslanci vedle sebe (REÁLNÁ DATA). Dvě patra:
+ *
+ *  1. SLOŽKY INDEXU — zrcadlené pruhy, pruh = body složky / její váha,
+ *     číslo = získané body. Odvozená čísla, ale přiznaně odvozená.
+ *  2. FAKTA (2026-08-04) — to, co čtenář opravdu váží: převzatý mandát,
+ *     vystoupení v sále, pozměňovací návrhy, interpelace, zpravodajská zátěž
+ *     a poctivý korektiv nízkého skóre. Každý fakt ve VLASTNÍ jednotce a proti
+ *     SKUTEČNÉMU mediánu sněmovny (konvence z lib/analysis/score-legibility.ts,
+ *     odkud se bere i `median()`). Pravidla jsou čistá funkce ../duelFacts.ts.
+ *
+ * Tři věci, které se tu nesmí stát:
+ *  · chybějící údaj se NIKDY nekreslí jako nula („údaj v grafu chybí"),
+ *  · `never_seated` poslanec je OZNAČEN — jeho prázdný záznam není nízký výkon,
+ *  · PENÍZE se neporovnávají: všech 211 vazeb v grafu je `pending_review` a
+ *    souboj nesmí z nepotvrzené stopy udělat zjištění. Patička to říká nahlas.
+ *
+ * Verdiktová copy („tichý pracant", „zpravodajský tahoun", korektiv, třída
+ * mandátu) se přebírá VERBATIM z lib/analysis/* — žádný druhý copy engine.
  */
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
@@ -13,9 +27,14 @@ import { useTranslations } from "next-intl";
 import { ArrowUpRight } from "lucide-react";
 import type { LeaderboardData, LeaderboardListEntry } from "../getLeaderboardData";
 import { componentWinner, duelOutcome } from "../duel";
+import { duelFactRows } from "../duelFacts";
+import { tenureClassLabel } from "@/lib/analysis/tenure-copy";
 import { useFormat } from "@/lib/i18n/useFormat";
 import AnimatedScore from "@/features/shared/components/AnimatedScore";
 import SourceNote from "@/features/shared/components/SourceNote";
+import WorkhorseBadge from "./WorkhorseBadge";
+import RapporteurBadge from "./RapporteurBadge";
+import LowScoreReasonChip from "./LowScoreReasonChip";
 
 function Fighter({ row, align, custom }: { row: LeaderboardListEntry; align: "left" | "right"; custom: boolean }) {
   const t = useTranslations("civicscore");
@@ -43,17 +62,58 @@ function Fighter({ row, align, custom }: { row: LeaderboardListEntry; align: "le
         format={f.dec}
         className={`mt-2 block text-6xl font-black leading-none tracking-tighter sm:text-7xl ${custom ? "text-cobalt" : ""}`}
       />
+      {/* Verdiktová copy VERBATIM z lib/analysis/* — žádný druhý copy engine. */}
+      <div className={`mt-2 flex flex-wrap items-center gap-1.5 ${right ? "justify-end" : ""}`}>
+        {row.effortWorkhorse && <WorkhorseBadge flavour={row.effortWorkhorseFlavour} compact />}
+        <RapporteurBadge load={row.effortRapporteurLoad} compact />
+        {row.effortLowScoreReason && (
+          <LowScoreReasonChip
+            reason={row.effortLowScoreReason}
+            recordedAt={row.effortLowScoreRecordedAt}
+            dateLabel={row.effortLowScoreRecordedAt ? f.date(row.effortLowScoreRecordedAt) : null}
+          />
+        )}
+      </div>
     </div>
+  );
+}
+
+/** Třída mandátu jako PODMÍNKA čtení všech čísel pod ní — ne dekorace.
+ *  Kdo mandát nepřevzal, nemá nízký výkon; nemá záznam. */
+function TenureLine({ row, align }: { row: LeaderboardListEntry; align: "left" | "right" }) {
+  const copy = tenureClassLabel(row.duelFacts.tenureClass);
+  const right = align === "right";
+  if (!copy) {
+    return (
+      <p className={`font-mono text-[10px] uppercase tracking-wider text-steel-aa ${right ? "text-right" : ""}`}>
+        údaj v grafu chybí
+      </p>
+    );
+  }
+  return (
+    <p
+      title={copy.detail}
+      className={`font-mono text-[10px] font-bold uppercase tracking-wider ${
+        copy.structural ? "text-signal-deep" : "text-steel-aa"
+      } ${right ? "text-right" : ""}`}
+    >
+      {copy.label}
+      <span className="sr-only"> — {copy.detail}</span>
+    </p>
   );
 }
 
 export default function HeadToHead({
   pair,
   components,
+  chamber,
   custom = false,
 }: {
   pair: [LeaderboardListEntry, LeaderboardListEntry] | null;
   components: LeaderboardData["components"];
+  /** Celá sněmovna, jak ji stránka už drží — pro SKUTEČNÝ medián u každého faktu.
+   *  Prop, ne další čtení storu: souboj nesmí sáhnout do databáze. */
+  chamber: readonly LeaderboardListEntry[];
   /** True = položky i váhy jsou čtenářova čočka (otevřený index) — obě pravidla
    *  z ../duel.ts jsou čisté funkce a běží nad libovolnými vahami beze změny;
    *  jen citace musí říct, čí čísla to jsou. Česká kopie inline (messages/*.json
@@ -82,6 +142,9 @@ export default function HeadToHead({
   // čistá funkce s testy — viz ../duel.ts.
   const outcome = duelOutcome(a, b);
   const diffLabel = `${f.dec(outcome.diff)} ${tcom("pts")}`;
+  // Fakta a jejich sněmovní mediány — čistá funkce nad tím, co stránka už má.
+  const factRows = duelFactRows(a, b, chamber);
+  const factSources = [...new Set(factRows.map((r) => r.def.source))].join(" · ");
 
   return (
     <AnimatePresence mode="wait">
@@ -95,6 +158,11 @@ export default function HeadToHead({
         <div className="grid grid-cols-2 items-end gap-6">
           <Fighter row={a} align="left" custom={custom} />
           <Fighter row={b} align="right" custom={custom} />
+        </div>
+        {/* Třída mandátu stojí NAD čísly, protože je jejich podmínkou. */}
+        <div className="mt-2 grid grid-cols-2 items-start gap-6">
+          <TenureLine row={a} align="left" />
+          <TenureLine row={b} align="right" />
         </div>
         <p className="mt-3 border-y-2 border-ink py-2 text-center font-mono text-xs font-bold uppercase tracking-widest">
           {outcome.tied
@@ -154,6 +222,63 @@ export default function HeadToHead({
             );
           })}
         </div>
+        {/* ── Fakta ─────────────────────────────────────────────────────
+            Vlastní jednotka, skutečný medián sněmovny, chybějící údaj jako
+            chybějící. Pravidla: ../duelFacts.ts (čistá funkce + testy). */}
+        <div className="mt-8 border-t-2 border-ink pt-6">
+          <p className="font-mono text-xs font-bold uppercase tracking-widest text-ink">{t("factsTitle")}</p>
+          <p className="mt-1 max-w-2xl text-[13px] leading-relaxed text-steel-aa">{t("factsLead")}</p>
+          <div className="mt-5 space-y-3">
+            {factRows.map((r) => {
+              const missing = t("factMissing");
+              return (
+                <div
+                  key={r.def.key}
+                  className="grid grid-cols-[4.5rem_1fr_4.5rem] items-baseline gap-3 border-b border-hairline pb-2 sm:grid-cols-[5.5rem_1fr_5.5rem]"
+                >
+                  <span
+                    className={`text-right text-lg font-black tabular-nums ${
+                      r.a === null ? "text-steel-aa" : r.winner === "a" ? "text-signal" : "text-ink"
+                    }`}
+                  >
+                    {r.a === null ? <span className="font-mono text-[10px] uppercase tracking-wider">{missing}</span> : f.int(r.a)}
+                  </span>
+                  <span className="text-center">
+                    <span className="block font-mono text-[11px] font-bold uppercase tracking-wider text-steel-aa">
+                      {r.def.label}
+                    </span>
+                    <span className="block font-mono text-[10px] uppercase tracking-wider text-steel-aa">
+                      {r.chamberMedian === null
+                        ? t("factNoMedian")
+                        : t("factMedian", {
+                            value: f.int(r.chamberMedian),
+                            unit: r.def.unit,
+                            n: f.int(r.chamberN),
+                          })}
+                    </span>
+                  </span>
+                  <span
+                    className={`text-lg font-black tabular-nums ${
+                      r.b === null ? "text-steel-aa" : r.winner === "b" ? "text-signal" : "text-ink"
+                    }`}
+                  >
+                    {r.b === null ? <span className="font-mono text-[10px] uppercase tracking-wider">{missing}</span> : f.int(r.b)}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+          <div className="mt-3">
+            <SourceNote className="!text-[10px]">
+              {t("factsSource", { sources: factSources })}
+            </SourceNote>
+          </div>
+          {/* Peníze se v souboji NEPOROVNÁVAJÍ — a mlčení by bylo horší než věta. */}
+          <div className="mt-1.5">
+            <SourceNote className="!text-[10px]">{t("factsNoMoney")}</SourceNote>
+          </div>
+        </div>
+
         <div className="mt-4">
           {custom ? (
             <SourceNote>

@@ -1510,6 +1510,22 @@ describe("getLeaderboardData against a seeded store", () => {
     expect(novakova.effortLowScoreRecordedAt).toBeNull();
   });
 
+  it("carries the duel FACTS in their own units, with missing kept missing", async () => {
+    const list = (await withReadinessOff(getLeaderboardListData))!;
+    // Novákova's fixture props carry every counter; Adamec's BASE_COUNTERS carry the
+    // counts but no amendments/rapporteur/tenure props at all — those must stay null,
+    // because num()'s zero would print "0 pozměňovacích návrhů" about an un-ingested
+    // field. This is the one rule the duel cannot get wrong.
+    const novakova = list.entries.find((e) => e.name === "Nováková Jana")!;
+    expect(novakova.duelFacts.speechTurns).toBe(10);
+    expect(novakova.duelFacts.interpellations).toBe(1);
+    expect(novakova.duelFacts.tenureClass).toBe("full-term"); // verbatim; an unknown class labels as nothing
+    const adamec = list.entries.find((e) => e.name === "Adamec Alois")!;
+    expect(adamec.duelFacts.amendmentsAuthored).toBeNull();
+    expect(adamec.duelFacts.rapporteurLoad).toBeNull();
+    expect(adamec.duelFacts.tenureClass).toBeNull();
+  });
+
   it("returns null and leaves a trace when the graph is below the readiness floor", async () => {
     await expectTracedDegradation("storeReady", getLeaderboardData);
   });

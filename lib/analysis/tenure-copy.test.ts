@@ -1,9 +1,11 @@
 import { describe, expect, it } from "vitest";
+import { looksEnglish } from "./language-gate";
 import {
   formatCzechDate,
   isTenureClass,
   isTrendTooEarly,
   mandateNoteCopy,
+  tenureClassLabel,
   TREND_MIN_TENURE_DAYS,
 } from "./tenure-copy";
 
@@ -85,5 +87,38 @@ describe("mandateNoteCopy", () => {
     expect(mandateNoteCopy("unknown_class", "2025-10-04")).toBeNull();
     expect(mandateNoteCopy("replacement", undefined)).toBeNull();
     expect(mandateNoteCopy("replacement", 12345)).toBeNull();
+  });
+});
+
+describe("tenureClassLabel", () => {
+  it("labels all FOUR classes — unlike mandateNoteCopy, which stays silent on two", () => {
+    for (const c of ["full_term", "replacement", "departed", "never_seated"] as const) {
+      const l = tenureClassLabel(c)!;
+      expect(l, c).not.toBeNull();
+      expect(l.label.length, c).toBeGreaterThan(0);
+      expect(l.detail.length, c).toBeGreaterThan(0);
+    }
+  });
+
+  it("marks the three classes that structurally explain the counts beside them", () => {
+    expect(tenureClassLabel("full_term")!.structural).toBe(false);
+    expect(tenureClassLabel("replacement")!.structural).toBe(true);
+    expect(tenureClassLabel("departed")!.structural).toBe(true);
+    // The one the head-to-head exists to mark: an empty record is not a low score.
+    expect(tenureClassLabel("never_seated")!.structural).toBe(true);
+  });
+
+  it("degrades to null for an unknown or missing class — never a fabricated label", () => {
+    expect(tenureClassLabel("mid_term")).toBeNull();
+    expect(tenureClassLabel(null)).toBeNull();
+    expect(tenureClassLabel(undefined)).toBeNull();
+    expect(tenureClassLabel(42)).toBeNull();
+  });
+
+  it("is Czech — it renders verbatim to readers (language gate)", () => {
+    for (const c of ["full_term", "replacement", "departed", "never_seated"] as const) {
+      expect(looksEnglish(tenureClassLabel(c)!.label), c).toBe(false);
+      expect(looksEnglish(tenureClassLabel(c)!.detail), c).toBe(false);
+    }
   });
 });

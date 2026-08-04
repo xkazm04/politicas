@@ -198,7 +198,7 @@ export default function CivicScorePage({ data }: { data: LeaderboardListData | n
                 aside={custom ? lensAside : <SourceNote>{t("duelSource")}</SourceNote>}
               />
               <div className="mt-8">
-                <HeadToHead pair={pair} components={components} custom={custom} />
+                <HeadToHead pair={pair} components={components} chamber={entries} custom={custom} />
               </div>
             </section>
 

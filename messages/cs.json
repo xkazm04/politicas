@@ -776,7 +776,14 @@
     "provenanceNote": "skóre spočítal průchod grafu č. {pass} (deterministický přepočet indexu přispění, psp.cz) — metodika sama číslo verze nenese",
     "dossierComplete": "pokrytí analýzy: všech {total} poslanců má pracovní profil (effort-loop enrichment, uzavřeno)",
     "dossierPartial": "pokrytí analýzy: {count} z {total} poslanců má pracovní profil (effort-loop enrichment, probíhá)",
-    "correctionNote": "{count} z {total} poslanců nese poctivý korektiv nízkého skóre — strukturální vysvětlení z uzavřeného slovníku (vzdaný mandát, náhradník, souběžný úřad, člen vlády …). Skóre se jím NEMĚNÍ; text je citovaný záznam, ne omluva od nás. Zdroj: effort-loop enrichment (psp.cz + veřejné registry) · effort_low_score_reason"
+    "correctionNote": "{count} z {total} poslanců nese poctivý korektiv nízkého skóre — strukturální vysvětlení z uzavřeného slovníku (vzdaný mandát, náhradník, souběžný úřad, člen vlády …). Skóre se jím NEMĚNÍ; text je citovaný záznam, ne omluva od nás. Zdroj: effort-loop enrichment (psp.cz + veřejné registry) · effort_low_score_reason",
+    "factsTitle": "Fakta, ne body",
+    "factsLead": "Složky výše jsou odvozené body. Tady jsou čísla, ze kterých vznikly — každé ve své vlastní jednotce a proti skutečnému mediánu sněmovny. Vyšší číslo neznamená lepšího poslance; znamená víc té jedné věci.",
+    "factMedian": "medián sněmovny {value} {unit} · z {n} poslanců",
+    "factNoMedian": "medián sněmovny — údaj v grafu chybí",
+    "factMissing": "údaj chybí",
+    "factsSource": "zdroj: {sources} · medián počítán jen z poslanců, kteří údaj mají · chybějící údaj se nekreslí jako nula",
+    "factsNoMoney": "Peněžní vazby souboj záměrně NEPOROVNÁVÁ: všech 211 vazeb v grafu čeká na kontrolu (pending_review) a postavit je proti sobě by z nepotvrzené stopy udělalo zjištění. Vazby i s jejich stavem jsou ve spisu poslance a v modulu Peníze."
   },
   "money": {
     "real": {

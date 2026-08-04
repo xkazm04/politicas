@@ -50,6 +50,13 @@ function mk(
     effortHasDossier: false,
     effortLowScoreReason: null,
     effortLowScoreRecordedAt: null,
+    duelFacts: {
+      speechTurns: null,
+      amendmentsAuthored: null,
+      interpellations: null,
+      rapporteurLoad: null,
+      tenureClass: null,
+    },
   };
 }
 

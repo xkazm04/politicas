@@ -32,6 +32,54 @@ export function isTenureClass(x: unknown): x is TenureClass {
   return typeof x === "string" && (TENURE_CLASSES as readonly string[]).includes(x);
 }
 
+/**
+ * Short Czech label for a tenure class — all FOUR classes, unlike `mandateNoteCopy`,
+ * which deliberately says nothing for `full_term` / `never_seated` inside a profile
+ * that has other room to explain them.
+ *
+ * It exists for the head-to-head (2026-08-04), where the class is not decoration but
+ * the precondition for reading every other number: an MP who NEVER TOOK THE SEAT has a
+ * structurally empty record, and putting their zero next to a working MP's count
+ * without saying that is the single most misleading thing this surface could do. Copy
+ * lives here rather than in the component so there is ONE tenure vocabulary, pinned to
+ * the Czech language gate by this module's test.
+ *
+ * `structural: true` marks the classes that explain the counts beside them.
+ * Graceful null for an unrecognized or absent class — never a fabricated label.
+ */
+export interface TenureClassLabel {
+  label: string;
+  detail: string;
+  structural: boolean;
+}
+
+const TENURE_CLASS_LABELS: Record<TenureClass, TenureClassLabel> = {
+  full_term: {
+    label: "Celé období",
+    detail: "Mandát drží po celé sledované období — čísla níže popisují plnou dobu ve Sněmovně.",
+    structural: false,
+  },
+  replacement: {
+    label: "Nastoupil(a) v průběhu",
+    detail: "Mandátu se ujal(a) až v průběhu období — čísla níže popisují kratší reálnou dobu ve Sněmovně.",
+    structural: true,
+  },
+  departed: {
+    label: "Odešel(a) v průběhu",
+    detail: "Mandát zanikl v průběhu období — čísla níže popisují kratší reálnou dobu ve Sněmovně.",
+    structural: true,
+  },
+  never_seated: {
+    label: "Mandát nepřevzal(a)",
+    detail: "Mandátu se vzdal(a) nebo ho nepřevzal(a) — ve Sněmovně nepracoval(a), takže čísla níže nejsou výkon, ale prázdný záznam.",
+    structural: true,
+  },
+};
+
+export function tenureClassLabel(tenureClass: unknown): TenureClassLabel | null {
+  return isTenureClass(tenureClass) ? TENURE_CLASS_LABELS[tenureClass] : null;
+}
+
 /** Below this many tenure days, term-over-term rate comparisons are too noisy to show. */
 export const TREND_MIN_TENURE_DAYS = 90;
 

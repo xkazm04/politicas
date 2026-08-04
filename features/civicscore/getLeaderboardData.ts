@@ -56,6 +56,9 @@ import type { OrganRow } from "@/lib/db/types";
 const clamp01 = (x: number) => Math.max(0, Math.min(1, x));
 const round1 = (x: number) => Math.round(x * 10) / 10;
 const num = (x: unknown): number => (typeof x === "number" && Number.isFinite(x) ? x : 0);
+/** `num()`'s honest twin. MISSING IS NOT ZERO: a prop the graph never ingested must not
+ *  render as "0 vystoupení" — the same rule score-legibility.ts keeps for its own units. */
+const numOrNull = (x: unknown): number | null => (typeof x === "number" && Number.isFinite(x) ? x : null);
 
 /** The six contribution components, in published-weight order — the breakdown axis. */
 export const COMPONENT_DEFS = [
@@ -150,6 +153,32 @@ export function componentPoints(props: Record<string, unknown>): Record<Componen
   };
 }
 
+/**
+ * The per-MP FACTS the head-to-head compares — the things a reader actually weighs,
+ * kept apart from the six abstract component point-values because they report in their
+ * OWN units and because every one of them is `number | null`, never `num()`'s 0.
+ *
+ * All five exist on all 207 person nodes today (measured 2026-08-04); the nullability
+ * is not decoration — an un-ingested counter has to render „údaj v grafu chybí", and a
+ * `never_seated` MP's empty record must never be printed as a low score.
+ *
+ * `rapporteurLoad` is the nullable twin of `LeaderboardEntry.effortRapporteurLoad`
+ * (which defaults to 0 so the badge threshold can be evaluated); the duel needs to tell
+ * "zero assignments" from "no data", the badge does not.
+ */
+export interface DuelFacts {
+  /** psp.cz stenozáznamy — floor turns. */
+  speechTurns: number | null;
+  /** psp.cz tisky — written amendments authored. */
+  amendmentsAuthored: number | null;
+  /** psp.cz — written interpellations. */
+  interpellations: number | null;
+  /** Distinct bills this MP is zpravodaj for (pass-34 rapporteur edges). */
+  rapporteurLoad: number | null;
+  /** `effort_tenure_class` — full_term / replacement / departed / never_seated. */
+  tenureClass: string | null;
+}
+
 /** One ranked MP as rendered by the leaderboard + profile. */
 export interface LeaderboardEntry {
   pspId: number;
@@ -205,6 +234,8 @@ export interface LeaderboardEntry {
   // affordance on the leaderboard and an honest coverage count. 165/207 as of
   // batch 005; grows as later batches enrich the remaining army.
   effortHasDossier: boolean;
+  /** What the Souboj compares beyond the composite — see `DuelFacts`. */
+  duelFacts: DuelFacts;
 }
 
 /**
@@ -292,6 +323,14 @@ export type LeaderboardListEntry = Pick<
   // alternative is a leaderboard that keeps the reason out of the reader's sight.
   | "effortLowScoreReason"
   | "effortLowScoreRecordedAt"
+  // Added 2026-08-04 for the Souboj. The duel could compare only the composite and six
+  // weighted point-values — the most abstract numbers the app owns — because nothing
+  // else ever entered the /zebricek payload. MEASURED cost of `duelFacts` over 207 rows:
+  // 95 653 -> 120 264 B raw (+24 611 B), 7 909 -> 9 137 B gzipped (+1 228 B, +15,5 %);
+  // warm buildLeaderboard() unchanged at 424–519 ms. No new store reads: every field
+  // comes from the person props the chamber pass already holds, and the duel's chamber
+  // medians are computed from the entries the page is already rendering.
+  | "duelFacts"
 >;
 
 function toListEntry(e: LeaderboardEntry): LeaderboardListEntry {
@@ -312,6 +351,7 @@ function toListEntry(e: LeaderboardEntry): LeaderboardListEntry {
     effortHasDossier: e.effortHasDossier,
     effortLowScoreReason: e.effortLowScoreReason,
     effortLowScoreRecordedAt: e.effortLowScoreRecordedAt,
+    duelFacts: e.duelFacts,
   };
 }
 
@@ -441,6 +481,13 @@ export const buildLeaderboard = cache(async function buildLeaderboard(): Promise
             ? p.props.effort_rapporteur_load
             : 0,
         effortHasDossier: hasDossierProps(p.props),
+        duelFacts: {
+          speechTurns: numOrNull(p.props.speech_turns),
+          amendmentsAuthored: numOrNull(p.props.amendments_authored),
+          interpellations: numOrNull(p.props.interpellations),
+          rapporteurLoad: numOrNull(p.props.effort_rapporteur_load),
+          tenureClass: typeof p.props.effort_tenure_class === "string" ? p.props.effort_tenure_class : null,
+        },
       };
     });
 

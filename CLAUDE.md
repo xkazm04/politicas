@@ -317,6 +317,27 @@ Route map (politicas.md roadmap execution, sample data):
   gate by `lib/analysis/low-score-reason.test.ts`. Measured payload cost of the
   two new list fields over 207 rows: 81 179 → 95 653 B raw, 7 450 → 7 909 B
   gzipped.
+  **The Souboj compares facts, not only points (2026-08-04).** It used to compare
+  the composite plus the six weighted component point-values — the most abstract
+  numbers the app owns — because nothing else ever entered the /zebricek payload.
+  It now also compares, per fighter: **tenure class** (`effort_tenure_class`,
+  193 full_term / 7 replacement / 4 never_seated / 3 departed — printed ABOVE the
+  numbers because it is their precondition; a `never_seated` MP has an empty
+  record, not a low score), **floor speeches**, **written amendments**,
+  **interpellations** and **rapporteur load**, plus the workhorse / rapporteur /
+  low-score verdict copy reused VERBATIM from `lib/analysis/*` (no second copy
+  engine). Every fact reports in its OWN unit against the REAL chamber median —
+  `score-legibility.ts`'s convention, and literally its `median()` — computed
+  over the MPs that have a value, with that count printed. A fact missing for one
+  fighter renders `údaj chybí` and NOTHING is won against it (`factWinner`);
+  `num()`'s zero never stands in for an un-ingested prop. **Money is deliberately
+  not compared and the duel says so**: all 211 ties are `pending_review`, and
+  setting them against each other would turn an unconfirmed trail into a finding.
+  Rules are pure + tested (`features/civicscore/duelFacts.ts` + `.test.ts`);
+  `tenureClassLabel()` joined `lib/analysis/tenure-copy.ts` (all four classes,
+  language-gate pinned). Measured: list payload 95 653 → 120 264 B raw,
+  7 909 → 9 137 B gzipped; warm `buildLeaderboard()` unchanged at 424–519 ms; no
+  new store reads.
 - `/rozpocty` — **BudgetMirror** (features/budget): town vs peer-group mirror —
   metric duos against the computed peer median, debt-per-capita trend lines
   (town vs median), sortable peer table. Stewardship feeds only executive

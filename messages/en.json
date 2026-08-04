@@ -776,7 +776,14 @@
     "provenanceNote": "the scores were computed by graph pass no. {pass} (deterministic contribution-index recompute, psp.cz) — the methodology itself carries no version number",
     "dossierComplete": "analysis coverage: all {total} MPs have a work profile (effort-loop enrichment, closed)",
     "dossierPartial": "analysis coverage: {count} of {total} MPs have a work profile (effort-loop enrichment, in progress)",
-    "correctionNote": "{count} of {total} MPs carry an honest low-score correction — a structural explanation from a closed vocabulary (relinquished mandate, replacement, dual office, cabinet member …). It does NOT change the score; the text is a cited record, not an excuse from us. Source: effort-loop enrichment (psp.cz + public registries) · effort_low_score_reason"
+    "correctionNote": "{count} of {total} MPs carry an honest low-score correction — a structural explanation from a closed vocabulary (relinquished mandate, replacement, dual office, cabinet member …). It does NOT change the score; the text is a cited record, not an excuse from us. Source: effort-loop enrichment (psp.cz + public registries) · effort_low_score_reason",
+    "factsTitle": "Facts, not points",
+    "factsLead": "The components above are derived points. These are the numbers they came from — each in its own unit and against the real chamber median. A higher number does not mean a better MP; it means more of that one thing.",
+    "factMedian": "chamber median {value} {unit} · from {n} MPs",
+    "factNoMedian": "chamber median — not carried by the graph",
+    "factMissing": "no data",
+    "factsSource": "source: {sources} · the median counts only MPs that have the value · a missing value is never drawn as a zero",
+    "factsNoMoney": "The head-to-head deliberately does NOT compare money ties: all 211 ties in the graph are pending review, and setting them against each other would turn an unconfirmed trail into a finding. The ties, with their state, live on the MP's file and in the Money module."
   },
   "money": {
     "real": {
