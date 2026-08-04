@@ -18,11 +18,12 @@
  */
 
 import { useLocale, useTranslations } from "next-intl";
-import { Crosshair, Stamp } from "lucide-react";
+import { Crosshair, ScrollText, Stamp } from "lucide-react";
 import Link from "next/link";
 import { useFormat } from "@/lib/i18n/useFormat";
 import { compactCzk } from "@/features/money/moneyTypes";
 import type { DatedFact } from "../datedFacts";
+import { denikFactHref, sliceNodeEntityKey } from "../entityLinks";
 import { factExhibitId } from "../exhibit";
 
 const TONE_DOT: Record<DatedFact["tone"], string> = {
@@ -49,6 +50,12 @@ function FactRow({
   const f = useFormat();
   const locale = useLocale();
   const pickable = onPick && fact.subjectRef !== null;
+
+  // Deník TÉHOŽ subjektu. Velín ukazuje 12 faktů o ~17 entitách; deník je celý
+  // proud té jedné entity a je to TÁŽ veřejná adresa, kterou odebírá schránka
+  // (`?entita=`). Klíč se odvozuje pravidlem (../entityLinks.ts), a když ho
+  // subjekt nemá — nebo řádek jeho uzel nekreslí — odkaz se prostě nenabídne.
+  const denikKey = fact.subjectRef ? sliceNodeEntityKey(fact.subjectRef) : null;
 
   return (
     <div
@@ -101,6 +108,16 @@ function FactRow({
           >
             <Crosshair className="h-3.5 w-3.5" />
           </button>
+        )}
+        {denikKey && (
+          <Link
+            href={denikFactHref(denikKey, fact.date)}
+            title={tf("denikLink")}
+            aria-label={tf("denikLinkNamed", { subject: fact.subject })}
+            className="border border-hairline p-1 text-steel transition-colors hover:border-ink hover:text-signal focus-visible:border-cobalt focus-visible:text-cobalt"
+          >
+            <ScrollText className="h-3.5 w-3.5" aria-hidden />
+          </Link>
         )}
         {/* Exponát: trvalá citovatelná adresa TOHOTO faktu (content-hash v URL,
             deterministické znovuodvození — viz ../exhibit.ts). Copy je česky

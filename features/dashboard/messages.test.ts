@@ -132,6 +132,24 @@ describe("dashboard message catalog", () => {
     expect(en["lead"]).toContain("dated facts");
   });
 
+  it("carries the copy for the surfaces the velín links into", () => {
+    // The velín summarizes four modules and used to lead into none of them by
+    // entity: no /denik, no /metodika, and the company node pointed at an MP.
+    for (const ns of [cs, en]) {
+      for (const k of [
+        "feed.denikLink",
+        "feed.denikLinkNamed",
+        "feed.denikAll",
+        "feed.denikNote",
+        "graph.denikEntity",
+        "realStats.methodologyLink",
+      ]) {
+        expect(ns[k], k).toBeTruthy();
+      }
+      expect(placeholders(ns["feed.denikLinkNamed"])).toEqual(["subject"]);
+    }
+  });
+
   it("no hardcoded chamber size stands in for a counted one", () => {
     // `attendanceSub` printed „přes reálný vzorek 207 poslanců" — a literal that goes
     // stale the moment the chamber the loader reads is not 207.

@@ -27,8 +27,10 @@ import { degreeOf, neighbourhood, type StateGraph, type StateNodeKind } from "@/
 import type { StateSliceRule } from "../stateSlice";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
+import FollowButton from "@/features/schranka/FollowButton";
 import GraphGlyph from "./GraphGlyph";
 import GraphLegend from "./GraphLegend";
+import { denikEntityHref, sliceNodeEntityKey } from "../entityLinks";
 import { partyChip, trunc, useGraphText } from "../graphText";
 
 const VB_W = 1000;
@@ -76,6 +78,9 @@ export default function StateGraphCanvas({
 
   const selectedNode = selected ? byId.get(selected) : undefined;
   const selectedText = selectedNode ? text.node(selectedNode) : null;
+  // Veřejný klíč vybrané entity (deník + schránka), nebo null. Pravidlo bydlí
+  // v ../entityLinks.ts, takže o něm platí test, ne jen naděje.
+  const followKey = selected ? sliceNodeEntityKey(selected) : null;
   const selectedDegree = useMemo(
     () => (selected ? degreeOf(selected, graph.edges) : 0),
     [selected, graph],
@@ -295,6 +300,27 @@ export default function StateGraphCanvas({
             >
               {selectedText?.kind} <ArrowUpRight className="h-3.5 w-3.5" />
             </Link>
+          )}
+          {/* Deník a sledování TÉHOŽ uzlu. Nabízí se JEN nad reálným výřezem
+              (`rule !== null`) a jen pro entitu, kterou nějaký proud opravdu
+              adresuje — nad vzorkovým grafem by odkaz i odběr byly fabrikace
+              (viz ../entityLinks.ts). */}
+          {rule && followKey && (
+            <>
+              <Link
+                href={denikEntityHref(followKey)}
+                className="inline-flex shrink-0 items-center gap-1 font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+              >
+                {tg("denikEntity")} <ArrowUpRight className="h-3.5 w-3.5" />
+              </Link>
+              <FollowButton
+                entityKey={followKey}
+                label={selectedText?.label ?? followKey}
+                subject={selectedText?.label ?? followKey}
+                compact
+                iconOnly
+              />
+            </>
           )}
           {selected && (
             <button

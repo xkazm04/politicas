@@ -279,7 +279,20 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
                   sigma: f.dec(data.summary.sigma),
                   count: data.summary.count,
                 })}
-                source={`${tcom("sourcePrefix")} ${t("realStats.avgSource")}`}
+                source={
+                  <>
+                    {tcom("sourcePrefix")} {t("realStats.avgSource")} ·{" "}
+                    {/* Index je odvozené číslo a jeho vzorec je veřejný — /metodika
+                        ho tiskne z importů, ne z literálů. Bez tohohle odkazu bylo
+                        nejvýraznější číslo titulní strany bez metodiky na dosah. */}
+                    <Link
+                      href="/metodika"
+                      className="font-bold text-cobalt underline decoration-hairline underline-offset-2 transition-colors hover:text-signal"
+                    >
+                      {t("realStats.methodologyLink")}
+                    </Link>
+                  </>
+                }
               />
               <StatTile
                 label={t("realStats.attendanceLabel")}
@@ -503,7 +516,17 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
               )}
               <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
                 {data ? (
-                  <SourceNote>{t("realRanking.footnote", { count: data.summary.count })}</SourceNote>
+                  <>
+                    <SourceNote>
+                      {t("realRanking.footnote", { count: data.summary.count })}
+                    </SourceNote>
+                    <Link
+                      href="/metodika"
+                      className="font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+                    >
+                      {t("realStats.methodologyLink")}
+                    </Link>
+                  </>
                 ) : (
                   <>
                     <SourceNote>{t("rankingFootnote")}</SourceNote>

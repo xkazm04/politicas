@@ -18,12 +18,13 @@
  * tahle plocha do něj proto nezapisuje.
  */
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowLeft, Check, Link2, Stamp } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Stamp } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { useFormat } from "@/lib/i18n/useFormat";
+import CopyLinkButton from "@/features/shared/components/CopyLinkButton";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { compactCzk } from "@/features/money/moneyTypes";
@@ -42,65 +43,6 @@ const TONE_DOT: Record<DatedFact["tone"], string> = {
   cobalt: "bg-cobalt",
   ink: "bg-steel",
 };
-
-/** Kopírování odkazu s potvrzením. Adresa se skládá až při kliknutí z
- *  `window.location.origin`, takže SSR nikdy nesází neznámý origin. */
-function CopyExhibitLink({ path }: { path: string }) {
-  const [state, setState] = useState<"idle" | "copied" | "failed">("idle");
-  const reduceMotion = useReducedMotion();
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(
-    () => () => {
-      if (timer.current) clearTimeout(timer.current);
-    },
-    [],
-  );
-
-  const copy = async () => {
-    const url = new URL(path, window.location.origin).toString();
-    try {
-      await navigator.clipboard.writeText(url);
-      setState("copied");
-    } catch (err) {
-      // Clipboard API může být zakázané (permissions, http) — adresa je
-      // vypsaná hned vedle, takže selhání jen pojmenujeme a necháme ruční cestu.
-      console.error("exponát: kopírování odkazu selhalo", err);
-      setState("failed");
-    }
-    if (timer.current) clearTimeout(timer.current);
-    timer.current = setTimeout(() => setState("idle"), 2600);
-  };
-
-  return (
-    <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-      <button
-        type="button"
-        onClick={copy}
-        className="inline-flex items-center gap-1.5 border border-ink px-3 py-1.5 font-mono text-xs font-bold uppercase tracking-wider text-ink transition-colors hover:bg-paper-strong hover:text-signal focus-visible:outline focus-visible:outline-2 focus-visible:outline-cobalt"
-      >
-        <Link2 className="h-3.5 w-3.5" aria-hidden /> kopírovat odkaz
-      </button>
-      {/* Živá oblast: potvrzení se ohlásí i odečítačce, ne jen okem. */}
-      <span role="status" aria-live="polite" className="min-h-[1rem]">
-        {state === "copied" && (
-          <motion.span
-            initial={reduceMotion ? false : { opacity: 0, y: 3 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-1 font-mono text-xs font-bold uppercase tracking-wider text-cobalt"
-          >
-            <Check className="h-3.5 w-3.5" aria-hidden /> odkaz zkopírován
-          </motion.span>
-        )}
-        {state === "failed" && (
-          <span className="font-mono text-xs uppercase tracking-wider text-signal-deep">
-            kopírování se nezdařilo — vyberte adresu níže ručně
-          </span>
-        )}
-      </span>
-    </div>
-  );
-}
 
 /** Citační patička — prameny s odkazy, otisk obsahu, datum získání, průchod. */
 function CitationFooter({
@@ -162,8 +104,21 @@ function CitationFooter({
         </div>
       </div>
       <div className="mt-6 border-t border-hairline pt-4">
-        <CopyExhibitLink path={path} />
+        {/* Jedno tlačítko „kopírovat odkaz" v celém repu — vytažené 2026-08-04
+            z ReceiptPage právě proto, aby druhá kopie nezůstala pozadu při
+            první opravě (features/shared/components/CopyLinkButton.tsx). */}
+        <CopyLinkButton path={path} errorContext="exponát: kopírování odkazu selhalo" />
         <p className="mt-2 break-all font-mono text-xs text-steel-aa">{path}</p>
+        {/* Exponát je URČENÝ k citování — a citace, kterou nelze ověřit, je jen
+            tvrzení. Brána (/overeni) tenhle tvar adresy zná (`family: exponat`)
+            a odvodí ho proti dnešnímu záznamu znovu; odkaz je GET, takže
+            odpověď má vlastní sdílitelnou adresu. */}
+        <Link
+          href={`/overeni?ref=${encodeURIComponent(path)}`}
+          className="mt-3 inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+        >
+          ověřit tuto citaci <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+        </Link>
       </div>
     </footer>
   );

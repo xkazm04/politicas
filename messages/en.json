@@ -525,7 +525,8 @@
         "sponsors": "sponsors",
         "amends": "amends"
       },
-      "selectedLabel": "selected:",
+      "denikEntity": "entity diary",
+    "selectedLabel": "selected:",
       "previewLabel": "preview:"
     },
     "feed": {
@@ -550,7 +551,11 @@
       },
       "dimmedRow": "outside the filter {label}",
       "subjectOffSlice": "the entity this row is about is not in this slice — hence no crosshair",
-      "showInGraphNamed": "show in graph: {subject}"
+      "showInGraphNamed": "show in graph: {subject}",
+      "denikLink": "this entity's diary",
+      "denikLinkNamed": "diary of {subject}",
+      "denikAll": "the full diary",
+      "denikNote": "every row leads to its entity's diary — the same public key (`poslanec:` · `firma:` · `tisk:`) the citizen inbox subscribes to; the velín is a window, the diary is the whole stream"
     },
     "allMpsLinkFallback": "full ranking",
     "realRanking": {
@@ -561,6 +566,7 @@
       "avgLabel": "average contribution index",
       "avgSub": "median {median} · σ {sigma} · {count} MPs",
       "avgSource": "contribution index — real graph",
+      "methodologyLink": "index methodology",
       "attendanceLabel": "average attendance",
       "attendanceSub": "averaged over {count} real MPs",
       "attendanceSource": "psp.cz — real roll-call votes, 10th term",

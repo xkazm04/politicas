@@ -251,7 +251,10 @@ export function buildStateSlice(input: SliceInput): StateSlice | null {
       id: sliceCompanyId(tie.ico),
       kind: "company",
       band: "money",
-      href: `/penize/${row.pspId}`,
+      // Firma je JUNCTION uzel grafu a má vlastní spis (`/penize/firma/<ičo>`,
+      // 6bc8780) — 14 firem je navázaných na víc poslanců než jednoho, takže
+      // odkaz na spis PRVNÍHO poslance byl u nich rovnou zavádějící.
+      href: `/penize/firma/${tie.ico}`,
       label: tie.company,
       sub: `IČO ${tie.ico}`,
       pending: !verified,

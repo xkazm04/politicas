@@ -139,6 +139,29 @@ Route map (politicas.md roadmap execution, sample data):
   `features/dashboard/messages.test.ts` pins all of it (cs/en key parity, ICU
   parity, no empty value, no „9. období", no bare `207`, a sentence per review phase
   and per provenance state, floor language present).
+  **The velín joined the fabric (2026-08-04).** It summarizes four modules and led
+  into almost none of them by ENTITY: zero `/denik` links (the deník is the same
+  dated-fact stream, keyed by the same public keys), zero `/metodika` links under
+  the index it makes the page's largest numeral, no follow affordance on the node
+  a reader just selected, and the **company node linked `/penize/<pspId>`** — the
+  first MP tied to it — although the firm has had its own case file since 6bc8780
+  and **14 firms are tied to more than one MP**, so that link was misleading by
+  construction. `features/dashboard/entityLinks.ts` is the ONE rule (pure +
+  `entityLinks.test.ts`): a slice node id (`p:<pspId>` · `c:/m:<ičo>` · `b:<č>`) →
+  the public entity key, built with `deriveDenik`'s own `mpEntityKey` /
+  `companyEntityKey` / `billEntityKey` and `dayAnchor` — never a second copy — and
+  **null for party, law and vote**, because no stream is keyed by those and offering
+  the affordance would promise a delivery nobody can make (the `obec:` precedent).
+  It also refuses SAMPLE ids by SHAPE (`c:3` is not an IČO, `p:mp-novak` is not a
+  mandate number), and the canvas offers deník + follow only while `rule !== null`,
+  so `buildStateGraph()`'s invented entities can never mint a real address. Fact
+  rows carry a deník link to their subject's day anchor, the feed header links the
+  whole deník, the canvas status bar carries the deník link plus the shared
+  `FollowButton` (imported, `iconOnly`), and the avg-index tile + ranking footnote
+  link `/metodika`. The exhibit dropped its private `CopyExhibitLink` for the shared
+  `CopyLinkButton` (extracted 2026-08-04 to prevent exactly this second copy) and
+  gained **„ověřit tuto citaci" → `/overeni?ref=…`** — the gate already knows the
+  `family: exponat` shape, and a page built to be cited had no path to the verifier.
 - `/poslanec/[id]` — **Spis** (features/profile): the Person profile —
   politicas.md §3's "real product". Wired to the real graph (no mock path):
   poster header + contribution score/rank, the six weighted components, the

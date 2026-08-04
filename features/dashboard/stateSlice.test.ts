@@ -195,12 +195,18 @@ describe("buildStateSlice — invarianty společné se vzorkovým grafem", () =>
     expect(rule.pendingTies).toBe(rule.tiesDrawn);
   });
 
-  it("odkazy vedou na reálné cíle — pspId, číslo tisku, případ poslance", () => {
+  it("odkazy vedou na reálné cíle — pspId, číslo tisku, spis firmy", () => {
     const { graph } = build();
     const person = graph.nodes.find((n) => n.id === slicePersonId(100))!;
     expect(person.href).toBe("/poslanec/100");
     expect(graph.nodes.find((n) => n.id === sliceBillId(20))!.href).toBe("/zakony/20");
-    expect(graph.nodes.find((n) => n.id === sliceCompanyId("00000100"))!.href).toBe("/penize/100");
+    // Firma vede na SVŮJ spis, ne na spis prvního navázaného poslance: 14 firem
+    // v grafu je navázaných na víc poslanců a u nich by ten odkaz lhal.
+    expect(graph.nodes.find((n) => n.id === sliceCompanyId("00000100"))!.href).toBe(
+      "/penize/firma/00000100",
+    );
+    // Uzel peněz zůstává u poslance — přisouzené peníze jsou tvrzení o NĚM.
+    expect(graph.nodes.find((n) => n.id === sliceMoneyId("00000100"))!.href).toBe("/penize/100");
   });
 
   it("bez poslance, který má vazbu i novelizující tisk, výřez nevznikne (spadne se na vzorek)", () => {

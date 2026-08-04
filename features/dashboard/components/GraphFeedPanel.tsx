@@ -13,7 +13,8 @@
  */
 
 import { useTranslations } from "next-intl";
-import { X } from "lucide-react";
+import { ArrowUpRight, X } from "lucide-react";
+import Link from "next/link";
 import type { FeedEvent } from "@/lib/civic/data";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
@@ -67,8 +68,22 @@ export default function GraphFeedPanel({
     <div className="flex h-full flex-col border-2 border-ink bg-paper">
       <div className="flex items-center justify-between gap-3 border-b-2 border-ink px-4 py-2">
         <span className="font-mono text-[11px] font-bold uppercase tracking-widest">{tf("title")}</span>
-        <span className="font-mono text-[11px] uppercase tracking-widest text-steel">
-          {tf("matchCount", { count: f.int(matchCount), total: f.int(total) })}
+        <span className="flex items-center gap-3">
+          <span className="font-mono text-[11px] uppercase tracking-widest text-steel">
+            {tf("matchCount", { count: f.int(matchCount), total: f.int(total) })}
+          </span>
+          {/* Panel je OKNO — 12 faktů o entitách jednoho výřezu. Celý datovaný
+              proud republiky vede deník; bez tohohle odkazu se z okna stal
+              slepý konec. Vzorkový provoz odkaz nedostane: vedl by z vymyšlených
+              událostí na reálnou stránku. */}
+          {ledger && (
+            <Link
+              href="/denik"
+              className="inline-flex shrink-0 items-center gap-1 font-mono text-[11px] font-bold uppercase tracking-widest text-cobalt transition-colors hover:text-signal"
+            >
+              {tf("denikAll")} <ArrowUpRight className="h-3 w-3" aria-hidden />
+            </Link>
+          )}
         </span>
       </div>
 
@@ -150,6 +165,7 @@ export default function GraphFeedPanel({
         {ledger ? (
           <>
             <SourceNote>{tf("realSource", { rows: f.int(ledger.considered) })}</SourceNote>
+            <SourceNote className="mt-1">{tf("denikNote")}</SourceNote>
             {/* Nemožné datum se nikdy neopravuje ani mlčky nezahazuje — kniha
                 přizná, kolik faktů kvůli němu vypadlo (vada ingesce, ne fakt). */}
             {ledger.droppedImplausible > 0 && (

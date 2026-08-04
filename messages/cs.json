@@ -525,7 +525,8 @@
         "sponsors": "předkládá",
         "amends": "novelizuje"
       },
-      "selectedLabel": "vybráno:",
+      "denikEntity": "deník entity",
+    "selectedLabel": "vybráno:",
       "previewLabel": "náhled:"
     },
     "feed": {
@@ -550,7 +551,11 @@
       },
       "dimmedRow": "mimo filtr {label}",
       "subjectOffSlice": "entita, o které řádek je, není v tomto výřezu — proto bez zaměřovače",
-      "showInGraphNamed": "ukázat v grafu: {subject}"
+      "showInGraphNamed": "ukázat v grafu: {subject}",
+      "denikLink": "deník této entity",
+      "denikLinkNamed": "deník entity: {subject}",
+      "denikAll": "celý deník",
+      "denikNote": "každý řádek vede do deníku své entity — týž veřejný klíč (`poslanec:` · `firma:` · `tisk:`), pod kterým ho odebírá občanská schránka; velín je okno, deník celý proud"
     },
     "allMpsLinkFallback": "celý žebříček",
     "realRanking": {
@@ -561,6 +566,7 @@
       "avgLabel": "průměrný kontribuční index",
       "avgSub": "medián {median} · rozptyl σ {sigma} · {count} poslanců",
       "avgSource": "kontribuční index — reálný graf",
+      "methodologyLink": "metodika indexu",
       "attendanceLabel": "průměrná docházka",
       "attendanceSub": "průměr přes {count} reálných poslanců",
       "attendanceSource": "psp.cz — reálná jmenovitá hlasování, 10. období",
