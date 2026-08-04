@@ -8,9 +8,10 @@ import {
   grafVerdict,
   neznamyVerdict,
   verdictGate,
-  verdictHeadline,
-  verdictLead,
+  verdictHeadlineKey,
+  verdictLeadKey,
   verdictTone,
+  VERDICT_COPY_KEYS,
   zdrojVerdict,
 } from "./verdict";
 
@@ -161,25 +162,26 @@ describe("stav lidské brány je modifikátor verdiktu, ne verdikt", () => {
     const v = zdroj("rejected");
     // Slovník se nerozšířil — hrana v grafu je, tedy verified.
     expect(v.kind).toBe("verified");
-    const headline = verdictHeadline(v);
-    expect(headline).toContain("zamítla");
-    expect(headline).not.toContain("Ověřeno");
+    // Titulek zamítnuté hrany je VLASTNÍ klíč, ne klíč potvrzení. (Že ta věta
+    // není potvrzením, hlídá v obou jazycích messages.test.ts.)
+    expect(verdictHeadlineKey(v)).toBe("verdict.headlineZdrojRejected");
+    expect(verdictHeadlineKey(v)).not.toBe(verdictHeadlineKey(zdroj("verified")));
     expect(verdictTone(v)).toBe("gated-rejected");
     expect(verdictGate(v)).toMatchObject({ kind: "gated", info: { status: "rejected" } });
-    expect(verdictLead(v)).toContain("ZAMÍTLA");
+    expect(verdictLeadKey(v)).toBe("verdict.leadZdrojRejected");
   });
 
   it("hrana čekající na kontrolu se nečte jako doložené tvrzení", () => {
     const v = zdroj("pending_review");
-    expect(verdictHeadline(v)).toContain("neprošel");
-    expect(verdictHeadline(v)).not.toContain("Ověřeno");
+    expect(verdictHeadlineKey(v)).toBe("verdict.headlineZdrojPending");
+    expect(verdictHeadlineKey(v)).not.toBe(verdictHeadlineKey(zdroj("verified")));
     expect(verdictTone(v)).toBe("gated-pending");
-    expect(verdictLead(v)).toContain("stopa");
+    expect(verdictLeadKey(v)).toBe("verdict.leadZdrojPending");
   });
 
   it("hrana potvrzená člověkem drží nezeslabené „ověřeno“", () => {
     const v = zdroj("verified");
-    expect(verdictHeadline(v)).toContain("Ověřeno");
+    expect(verdictHeadlineKey(v)).toBe("verdict.headlineZdrojVerified");
     expect(verdictTone(v)).toBe("confirmed");
     expect(verdictGate(v)).toMatchObject({ kind: "gated", info: { status: "verified" } });
   });
@@ -187,8 +189,8 @@ describe("stav lidské brány je modifikátor verdiktu, ne verdikt", () => {
   it("negated záznam (bez brány) je ungated, ne „ověřeno člověkem“", () => {
     const v = zdrojVerdict("h.abc.def.ghi", { status: "ok", receipt: { ...RECEIPT, gate: null } });
     expect(verdictGate(v)).toEqual({ kind: "ungated" });
-    expect(verdictHeadline(v)).toContain("Ověřeno");
-    expect(verdictLead(v)).toContain("deterministické odvození");
+    expect(verdictHeadlineKey(v)).toBe("verdict.headlineZdrojVerified");
+    expect(verdictLeadKey(v)).toBe("verdict.leadZdrojUngated");
   });
 
   it("figura nese stav claimu (chybějící = pending), otiskové rodiny jsou ungated", () => {
@@ -207,33 +209,65 @@ describe("stav lidské brány je modifikátor verdiktu, ne verdikt", () => {
   });
 });
 
-describe("česká copy verdiktu", () => {
-  it("tři titulky, nic čtvrtého", () => {
-    expect(verdictHeadline(figuraVerdict(figuraDet(78.3), FIGURE))).toContain("Ověřeno");
-    expect(verdictHeadline(figuraVerdict(figuraDet(1), FIGURE))).toContain("pohnula");
-    expect(verdictHeadline(neznamyVerdict("nepodporovany"))).toContain("Neznámý");
+// Copy sama žije v messages/{cs,en}.json — tady se drží MAPOVÁNÍ verdiktu na
+// klíč. Že klíč nese správnou větu v obou jazycích, hlídá messages.test.ts.
+describe("mapování verdiktu na klíč copy", () => {
+  it("tři tituly, nic čtvrtého", () => {
+    expect(verdictHeadlineKey(figuraVerdict(figuraDet(78.3), FIGURE))).toBe("verdict.headlineVerified");
+    expect(verdictHeadlineKey(figuraVerdict(figuraDet(1), FIGURE))).toBe("verdict.headlineMoved");
+    expect(verdictHeadlineKey(neznamyVerdict("nepodporovany"))).toBe("verdict.headlineUnknown");
   });
 
   it("naše plocha bez citace má VLASTNÍ důvod, ne „není politicas odkaz“", () => {
-    expect(verdictHeadline(neznamyVerdict("politicas-neni-citace"))).toContain("Naše stránka");
     expect(neznamyVerdict("politicas-neni-citace").kind).toBe("unknown");
-    const lead = verdictLead(neznamyVerdict("politicas-neni-citace"));
-    expect(lead).toContain("naše stránka");
-    expect(lead).toContain("/zdroj/");
-    expect(lead).not.toBe(verdictLead(neznamyVerdict("nepodporovany")));
+    expect(verdictHeadlineKey(neznamyVerdict("politicas-neni-citace"))).toBe("verdict.headlineAppRoute");
+    expect(verdictLeadKey(neznamyVerdict("politicas-neni-citace"))).toBe("verdict.leadAppRoute");
+    expect(verdictLeadKey(neznamyVerdict("politicas-neni-citace"))).not.toBe(
+      verdictLeadKey(neznamyVerdict("nepodporovany")),
+    );
   });
 
-  it("lead pro volný text říká hranici produktu výslovně", () => {
-    expect(verdictLead(neznamyVerdict("nepodporovany"))).toContain("nefactcheckuje");
+  it("každý důvod „unknown“ má vlastní klíč — žádný se nesdílí", () => {
+    const reasons = [
+      "prazdny",
+      "prilis-dlouhy",
+      "nerozlustitelny",
+      "politicas-neni-citace",
+      "nepodporovany",
+    ] as const;
+    const keys = reasons.map((r) => verdictLeadKey(neznamyVerdict(r)));
+    expect(new Set(keys).size).toBe(reasons.length);
   });
 
-  it("lead pro moved otiskové rodiny přiznává chybějící datum vydání", () => {
-    const v = grafVerdict("g.x.0a1b2c3d", {
-      status: "ok",
-      view: { urlHash: "0a1b2c3d", currentHash: "ffff0000", fresh: false },
-      title: "t",
-      currentDate: "2026-07-30",
-    });
-    expect(verdictLead(v)).toContain("Datum vydání citace adresa nenese");
+  it("vyjmenované klíče pokrývají každou větev verdiktu", () => {
+    const all = [
+      figuraVerdict(figuraDet(78.3), FIGURE),
+      figuraVerdict(figuraDet(null), FIGURE),
+      figuraVerdict(figuraDet(1), FIGURE),
+      figuraVerdict(figuraDet(1), null),
+      zdrojVerdict("h.a.b.c", { status: "ok", receipt: RECEIPT }),
+      zdrojVerdict("h.a.b.c", { status: "gone", ref: "h.a.b.c" }),
+      grafVerdict("g.x.0a1b2c3d", {
+        status: "ok",
+        view: { urlHash: "0a1b2c3d", currentHash: "ffff0000", fresh: false },
+        title: "t",
+        currentDate: "2026-07-30",
+      }),
+      grafVerdict("g.x.0a1b2c3d", {
+        status: "ok",
+        view: { urlHash: "0a1b2c3d", currentHash: "0a1b2c3d", fresh: true },
+        title: "t",
+        currentDate: "2026-07-30",
+      }),
+      neznamyVerdict("prazdny"),
+      neznamyVerdict("prilis-dlouhy"),
+      neznamyVerdict("nerozlustitelny"),
+      neznamyVerdict("politicas-neni-citace"),
+      neznamyVerdict("nepodporovany"),
+    ];
+    for (const v of all) {
+      expect(VERDICT_COPY_KEYS, verdictHeadlineKey(v)).toContain(verdictHeadlineKey(v));
+      expect(VERDICT_COPY_KEYS, verdictLeadKey(v)).toContain(verdictLeadKey(v));
+    }
   });
 });

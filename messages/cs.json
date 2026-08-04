@@ -1152,5 +1152,143 @@
     "weightsLead": "Každá složka se normalizuje na 0–1 a vynásobí svou zveřejněnou vahou. Skóre je jejich součet, zaokrouhlený na desetinu — nic dalšího do něj nevstupuje. Ke každé složce patří dataset, ze kterého je spočítaná.",
     "weightsSource": "součet vah: {total} bodů · lib/analysis/contribution.ts",
     "weightsTotal": "součet"
+  },
+  "overeni": {
+    "meta": {
+      "title": "Ověření citace — Politicas",
+      "description": "Civic Claim Gate: vložte politicas odkaz (účtenku původu, citaci grafu, exponát velína nebo data-claim element) a brána tvrzení znovu odvodí proti dnešnímu záznamu. Ověřeno · hodnota se pohnula · neznámý odkaz — nic čtvrtého. Fact-check volného textu to není a nebude."
+    },
+    "header": {
+      "brand": "politicas / ověření",
+      "source": "znovuodvozeno ze záznamu při každém ověření"
+    },
+    "hero": {
+      "kicker": "civic claim gate",
+      "title": "Ověření citace",
+      "lead": "Vložte politicas odkaz — účtenku původu, citaci pohledu na graf, exponát velína, claim-ref nebo zkopírovaný element s data-claim-* atributy. Brána tvrzení znovu odvodí proti dnešnímu záznamu a odpoví jednou ze tří odpovědí: ověřeno · hodnota se pohnula · neznámý odkaz."
+    },
+    "boundary": {
+      "kicker": "hranice nástroje",
+      "body": "<strong>Tohle není fact-check volného textu.</strong> Brána ověřuje výhradně odkazy, které politicas sám vydal — pravdivost cizích výroků neposuzuje a nikdy posuzovat nebude. Právě to je produkt: číslo odvozené z veřejného záznamu se nedá vyfabulovat, protože jeho adresa se dá kdykoli znovu přepočítat."
+    },
+    "form": {
+      "label": "politicas odkaz k ověření",
+      "placeholder": "např. /zdroj/h.… nebo <data value=\"200\" data-claim-ref=\"claim:…\" …>",
+      "submit": "ověřit proti záznamu"
+    },
+    "empty": {
+      "kicker": "zatím bez odpovědi",
+      "body": "Vložte odkaz nebo zkopírovanou citaci do pole výše a brána odpoví jednou ze tří odpovědí. Nevíte, kde adresu vzít? Každá peněžní vazba na <penize>/penize</penize> nese odkaz <mono>účtenka</mono> (/zdroj/…) — a hotové příklady i s tlačítkem kopírovat jsou <priklady>níže v návodu</priklady>."
+    },
+    "unavailable": {
+      "title": "Záznam je teď nedostupný.",
+      "body": "Databáze grafu je jednopřipojení a právě ji drží jiný proces. Tohle <strong>není</strong> verdikt o odkazu — zkuste to znovu za chvíli."
+    },
+    "panel": {
+      "ariaLabel": "verdikt brány",
+      "recognized": "rozpoznáno: {family}"
+    },
+    "family": {
+      "figura": "figura (data-claim)",
+      "zdroj": "účtenka původu",
+      "graf": "citace pohledu na graf",
+      "exponat": "exponát velína",
+      "neznamy": "mimo rodiny politicas"
+    },
+    "verdict": {
+      "headlineVerified": "Ověřeno — sedí, jak bylo citováno.",
+      "headlineZdrojVerified": "Ověřeno — záznam sedí, jak byl citován.",
+      "headlineZdrojPending": "Záznam v grafu je — lidskou kontrolou ještě neprošel.",
+      "headlineZdrojRejected": "Záznam v grafu je — lidská kontrola ho zamítla.",
+      "headlineMoved": "Hodnota se od citace pohnula.",
+      "headlineUnknown": "Neznámý odkaz.",
+      "headlineAppRoute": "Naše stránka, ale ne citovatelná adresa.",
+      "leadFiguraBare": "Odkaz nesl jen adresu figury, žádnou hodnotu — níže je dnešní znění tvrzení i s účtenkou.",
+      "leadFiguraMatch": "Citovaná hodnota se shoduje s dnešním znovuodvozením — bajt po bajtu.",
+      "leadZdrojVerified": "Dnešní znalostní graf tento záznam nese a prošel lidskou kontrolou — účtenka níže včetně jejího stavu.",
+      "leadZdrojUngated": "Dnešní znalostní graf tento záznam nese. Je to deterministické odvození — lidskou branou neprochází a účtenka níže to říká výslovně.",
+      "leadZdrojPending": "Adresa sedí a záznam v dnešním grafu je — lidskou branou ale zatím neprošel. Je to stopa k dohledání, ne doložené tvrzení; účtenka níže říká, kdo a odkud ji zapsal.",
+      "leadZdrojRejected": "Adresa sedí a záznam v dnešním grafu je — lidská kontrola ho ale ZAMÍTLA. Ověřeno je, že jste citovali právě tenhle záznam; doložené tvrzení to není a citovat se tak nesmí.",
+      "leadHashMatch": "Otisk citovaného obsahu se shoduje s otiskem dnešního znovuodvození.",
+      "leadFiguraMoved": "Citovaná hodnota a dnešní znovuodvození se liší — obě strany níže, s daty. Citace nelže, jen zestárla.",
+      "leadHashMoved": "Obsah pod touto adresou se od vydání citace změnil — oba otisky níže. Datum vydání citace adresa nenese, proto ho neuvádíme.",
+      "leadEmpty": "Vložte politicas odkaz — adresu, claim-ref nebo zkopírovaný element s data-claim-* atributy.",
+      "leadTooLong": "Vstup přesahuje horní mez délky — politicas adresa ani opsaný element takhle dlouhé nejsou.",
+      "leadUndecodable": "Tvar odkazu poznáváme, ale adresa se nedá rozluštit. Adresa je tvrzení — neopravujeme ji, odmítáme ji.",
+      "leadAppRoute": "Tohle je naše stránka, ale ne citovatelná adresa — plocha sama tvrzením není. Adresu tvrzení vydává až konkrétní řádek: u peněžních vazeb je to odkaz „účtenka“ (/zdroj/…) na /penize i ve spisu poslance a firmy, u čísel zkopírovaný element s data-claim-*, u pohledu na graf akce citovat. Otevřete tu stránku, vezměte adresu odtamtud a vložte ji sem.",
+      "leadUnsupported": "Tohle není politicas odkaz. Brána ověřuje výhradně odkazy, které politicas vydal — volný text nefactcheckuje.",
+      "leadNotIssued": "Claim-ref má správný tvar, ale rejstřík vydaných figur ho nezná. Ověřit umíme jen figuru, kterou jsme sami vydali.",
+      "leadRecordGone": "Adresa je čitelná, ale dnešní znovuodvození záznam nenese — záznam z grafu zmizel, nebo se přestal odvozovat."
+    },
+    "gate": {
+      "verified": "ověřeno člověkem",
+      "pendingReview": "čeká na lidskou kontrolu",
+      "rejected": "zamítnuto při kontrole",
+      "unmapped": "nepřeložený strojový stav: {token}",
+      "emptyToken": "prázdná hodnota",
+      "ungated": "deterministické odvození — lidskou branou neprochází",
+      "headlineVerified": "Lidská kontrola: potvrzeno.",
+      "headlinePending": "Lidská kontrola: zatím neproběhla.",
+      "headlineRejected": "Lidská kontrola: zamítnuto.",
+      "headlineUnmapped": "Lidská kontrola: nepřeložený strojový stav {token}."
+    },
+    "row": {
+      "claimToday": "tvrzení dnes",
+      "cited": "citováno",
+      "dataset": "dataset",
+      "metric": "metrika",
+      "gateState": "stav lidské brány",
+      "issuedAt": "figura vydaná na",
+      "record": "záznam",
+      "weight": "váha záznamu",
+      "origin": "původ",
+      "fullReceipt": "plná účtenka",
+      "content": "obsah",
+      "citedHash": "otisk citace",
+      "currentHash": "otisk dnes",
+      "fullView": "plný pohled",
+      "noDate": "datum nezaznamenáno",
+      "noCitedDate": "datum citace payload nenese",
+      "noMethod": "metoda nezaznamenána",
+      "noTitle": "titulek záznam nenese",
+      "noIssueDate": "datum vydání adresa nenese",
+      "pass": "průchod {pass}",
+      "exhibitRez": "výřez velína (stav republiky)",
+      "exhibitFakt": "datovaný fakt z knihy velína"
+    },
+    "guide": {
+      "title": "Jak citovat, aby to bylo ověřitelné",
+      "stepLabel": "krok {no}",
+      "examplesTitle": "příklady odkazů, které brána přijímá",
+      "step1Title": "Citujte odkazem, ne opsaným číslem",
+      "step1Body": "Každá plocha politicas vydává trvalou adresu: účtenku původu (/zdroj/…), citaci pohledu na graf (/graf/p/…) nebo exponát velína (/dashboard/exponat/…). Vložte do článku adresu — čtenář i tato brána z ní tvrzení kdykoli znovu odvodí.",
+      "step2Title": "U čísel kopírujte celý element, ne jen číslici",
+      "step2Body": "Citovatelná čísla se vykreslují jako <data> element s atributy data-claim-*: nesou adresu figury, strojovou hodnotu, dataset i datum. Zkopírujte element ze zdrojového kódu stránky — brána pak porovná citovanou hodnotu s dnešní bajt po bajtu.",
+      "step3Title": "Uveďte datum získání a otisk",
+      "step3Body": "Citační řádky ploch obsahují datum znovuodvození a otisk obsahu (fnv-1a/32). Otiskem se pozná, že se obsah od citace pohnul — to není chyba citace, ale vlastnost živého záznamu; brána ukáže obě strany.",
+      "step4Title": "Před vydáním projděte bránou",
+      "step4Body": "Vložte odkaz sem na /overeni. Odpověď je vždy jedna ze tří: ověřeno, hodnota se pohnula (s oběma hodnotami a daty), nebo neznámý odkaz. Nic čtvrtého brána neříká.",
+      "exFiguraPayloadLabel": "figura — zkopírovaný element s data-claim-*",
+      "exFiguraPayloadNote": "Nese adresu i hodnotu — brána porovná citovanou hodnotu s dnešní.",
+      "exFiguraRefLabel": "figura — holý claim-ref",
+      "exFiguraRefNote": "Jen adresa figury: brána odpoví dnešním zněním tvrzení.",
+      "exZdrojLabel": "účtenka původu — hrana grafu",
+      "exZdrojNote": "Skutečná adresa z dnešního grafu: {src} — {rel} → {dst}. Vybraná neutrálně — první hrana {rel} v pořadí grafu, žádná míra. Vložte ji sem a brána odpoví, co o ní dnes ví, včetně stavu lidské kontroly.",
+      "exZdrojIllustrativeLabel": "účtenka původu — hrana grafu (ilustrace)",
+      "exZdrojIllustrativeNote": "Živý příklad se teď nedá načíst, tohle je jen TVAR adresy /zdroj/… — brána na něj odpoví „neznámý odkaz“. Skutečnou adresu vydává odkaz účtenka u každé vazby na /penize.",
+      "exGrafIllustrativeLabel": "citace pohledu na graf (ilustrace)",
+      "exGrafIllustrativeNote": "Ilustrační otisk 00000000 — skutečný vydává akce citovat na /graf.",
+      "exExponatIllustrativeLabel": "exponát velína (ilustrace)",
+      "exExponatIllustrativeNote": "Ilustrační otisk 00000000 — skutečný vydává akce citovat ve velíně."
+    },
+    "copy": {
+      "label": "kopírovat příklad",
+      "copied": "příklad zkopírován",
+      "failed": "kopírování se nezdařilo — vyberte text výše ručně",
+      "verify": "ověřit tento příklad"
+    },
+    "footer": {
+      "rule": "pravidlo instrumentu — brána nic neukládá a nic nefactcheckuje: každou rodinu adres posílá do jejího vlastnického odvození (účtenka původu, citace grafu, exponát velína, rejstřík vydaných figur) a odpověď jen překládá do tří verdiktů. Slovník: features/overeni/verdict.ts."
+    }
   }
 }

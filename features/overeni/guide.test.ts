@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { resolveClaimRef } from "@/lib/claims/registry";
 import { edgeClaimRef } from "@/features/shared/provenance/claimRef";
 import { detectRef } from "./refDetect";
-import { figuraVerdict, verdictHeadline, zdrojVerdict } from "./verdict";
+import { figuraVerdict, verdictHeadlineKey, zdrojVerdict } from "./verdict";
 import { buildExamples, GUIDE_EXAMPLES, GUIDE_STEPS } from "./guide";
 
 /** Hrana tak, jak ji vrátí getGuideExample ze store. */
@@ -17,7 +17,7 @@ describe("návod — příklady zůstávají platné", () => {
   it("každý příklad detekce rozpozná jako deklarovanou rodinu", () => {
     for (const ex of GUIDE_EXAMPLES) {
       const det = detectRef(ex.input);
-      expect(det.family, `příklad „${ex.label}"`).toBe(ex.family);
+      expect(det.family, `příklad „${ex.labelKey}"`).toBe(ex.family);
     }
   });
 
@@ -26,9 +26,9 @@ describe("návod — příklady zůstávají platné", () => {
     expect(figury.length).toBeGreaterThan(0);
     for (const ex of figury) {
       const det = detectRef(ex.input);
-      if (det.family !== "figura") throw new Error(`příklad „${ex.label}" není figura`);
+      if (det.family !== "figura") throw new Error(`příklad „${ex.labelKey}" není figura`);
       const verdict = figuraVerdict(det, resolveClaimRef(det.ref));
-      expect(verdict.kind, `příklad „${ex.label}"`).toBe("verified");
+      expect(verdict.kind, `příklad „${ex.labelKey}"`).toBe("verified");
     }
   });
 
@@ -72,14 +72,16 @@ describe("návod — příklady zůstávají platné", () => {
       },
     });
     expect(verdict.kind).toBe("verified");
-    expect(verdictHeadline(verdict)).not.toContain("Neznámý");
+    expect(verdictHeadlineKey(verdict)).not.toBe("verdict.headlineUnknown");
   });
 
   it("ilustrační příklad se NEVYDÁVÁ za živý a nezve ke zkopírování", () => {
     for (const ex of buildExamples(null)) {
       if (!ex.live) {
-        expect(ex.note.length, ex.label).toBeGreaterThan(0);
-        expect(ex.label.toLowerCase(), ex.label).toContain("ilustrace");
+        // Ilustrační příklad se pozná už na KLÍČI — copy to pak říká v obou
+        // jazycích (messages.test.ts hlídá, že věta nese slovo o ilustraci).
+        expect(ex.noteKey, ex.labelKey).toContain("Illustrative");
+        expect(ex.labelKey, ex.labelKey).toContain("Illustrative");
       }
     }
     // Bez store je příklad účtenky ilustrační, nikdy tichý slepý odkaz.
@@ -90,8 +92,8 @@ describe("návod — příklady zůstávají platné", () => {
   it("kroky návodu jsou čtyři a číslované vzestupně", () => {
     expect(GUIDE_STEPS.map((s) => s.no)).toEqual([1, 2, 3, 4]);
     for (const step of GUIDE_STEPS) {
-      expect(step.title.length).toBeGreaterThan(0);
-      expect(step.body.length).toBeGreaterThan(0);
+      expect(step.titleKey).toBe(`guide.step${step.no}Title`);
+      expect(step.bodyKey).toBe(`guide.step${step.no}Body`);
     }
   });
 });

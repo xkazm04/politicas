@@ -67,7 +67,10 @@ export async function getVerdictData(rawInput: string | null): Promise<GateData>
           ? {
               status: "ok" as const,
               view: result,
-              title: result.kind === "rez" ? "výřez velína (stav republiky)" : "datovaný fakt z knihy velína",
+              // Titulek exponátu skládá BRÁNA, ne rodina — jde tedy klíčem do
+              // katalogu (messages `overeni.*`), ne českou literálou.
+              title: null,
+              titleKey: result.kind === "rez" ? "row.exhibitRez" : "row.exhibitFakt",
               currentDate: result.builtOn,
             }
           : result.status === "gone"

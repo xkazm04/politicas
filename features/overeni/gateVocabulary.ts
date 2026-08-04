@@ -21,7 +21,9 @@
  *     stavu čeká na kontrolu (táž interpretace jako moneyLoader.mapLinkedToTie
  *     a receipt.gateFromEdge) — ale to rozhoduje volající, ne tenhle slovník;
  *     sem přijde už normalizovaný token.
- *  4. Čistý modul, žádný server ani DOM.
+ *  4. Čistý modul, žádný server ani DOM — a od 2026-08-04 vrací KLÍČE do
+ *     messages/*.json, ne českou větu. Copy vlastní katalog, slovník vlastní
+ *     klasifikaci; jinak by dvojjazyčná plocha měla dva zdroje pravdy.
  */
 
 /** Normalizovaný stav brány. `unmapped` = token, který slovník nezná. */
@@ -33,7 +35,10 @@ export interface GateStatusInfo {
   /** false ⇒ slovník token nezná; copy říká právě tohle, nic si nedomýšlí. */
   known: boolean;
   status: GateStatus;
-  labelCs: string;
+  /** Klíč krátkého štítku (řádek „stav lidské brány"); `unmapped` bere {token}. */
+  labelKey: string;
+  /** Klíč věty v hlavičce verdiktu; `unmapped` bere {token}. */
+  headlineKey: string;
 }
 
 /** Tokeny obou rodin → jeden normalizovaný stav. */
@@ -46,39 +51,44 @@ const KNOWN: Record<string, Exclude<GateStatus, "unmapped">> = {
   rejected: "rejected",
 };
 
-const LABELS_CS: Record<Exclude<GateStatus, "unmapped">, string> = {
-  verified: "ověřeno člověkem",
-  pending_review: "čeká na lidskou kontrolu",
-  rejected: "zamítnuto při kontrole",
+const LABEL_KEYS: Record<GateStatus, string> = {
+  verified: "gate.verified",
+  pending_review: "gate.pendingReview",
+  rejected: "gate.rejected",
+  unmapped: "gate.unmapped",
 };
 
-/** Krátký štítek stavu — doslovný token u neznámé hodnoty, nikdy prázdno. */
-export function gateStatusInfo(raw: string): GateStatusInfo {
-  const token = raw.trim();
-  const status = KNOWN[token];
-  if (status === undefined) {
-    return {
-      token,
-      known: false,
-      status: "unmapped",
-      labelCs: `nepřeložený strojový stav: ${token === "" ? "prázdná hodnota" : token}`,
-    };
-  }
-  return { token, known: true, status, labelCs: LABELS_CS[status] };
-}
-
-const HEADLINE_CS: Record<Exclude<GateStatus, "unmapped">, string> = {
-  verified: "Lidská kontrola: potvrzeno.",
-  pending_review: "Lidská kontrola: zatím neproběhla.",
-  rejected: "Lidská kontrola: zamítnuto.",
+const HEADLINE_KEYS: Record<GateStatus, string> = {
+  verified: "gate.headlineVerified",
+  pending_review: "gate.headlinePending",
+  rejected: "gate.headlineRejected",
+  unmapped: "gate.headlineUnmapped",
 };
-
-/** Věta „lidská kontrola: …" v hlavičce verdiktu — modifikátor verdiktu,
- *  ne verdikt sám (existence záznamu a jeho schválení jsou dvě věci). */
-export const gateHeadlineCs = (info: GateStatusInfo): string =>
-  info.status === "unmapped"
-    ? `Lidská kontrola: ${info.labelCs}.`
-    : HEADLINE_CS[info.status];
 
 /** Relace, která lidskou branou neprochází — deterministické odvození. */
-export const UNGATED_LABEL_CS = "deterministické odvození — lidskou branou neprochází";
+export const GATE_UNGATED_KEY = "gate.ungated";
+
+/** Prázdná hodnota má vlastní jméno — neznámý stav nikdy nesází prázdno. */
+export const GATE_EMPTY_TOKEN_KEY = "gate.emptyToken";
+
+/** Stav brány jako KLASIFIKACE + klíče copy. Neznámý token si nese sám sebe. */
+export function gateStatusInfo(raw: string): GateStatusInfo {
+  const token = raw.trim();
+  const known = KNOWN[token];
+  const status: GateStatus = known ?? "unmapped";
+  return {
+    token,
+    known: known !== undefined,
+    status,
+    labelKey: LABEL_KEYS[status],
+    headlineKey: HEADLINE_KEYS[status],
+  };
+}
+
+/** Všechny klíče, které tenhle modul umí vrátit — pro test úplnosti katalogu. */
+export const GATE_COPY_KEYS: readonly string[] = [
+  ...Object.values(LABEL_KEYS),
+  ...Object.values(HEADLINE_KEYS),
+  GATE_UNGATED_KEY,
+  GATE_EMPTY_TOKEN_KEY,
+];

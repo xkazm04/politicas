@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { defaultLocale, isLocale } from "@/lib/i18n/config";
 import { getVerdictData } from "@/features/overeni/getVerdictData";
 import { getGuideExample } from "@/features/overeni/getGuideExample";
@@ -9,15 +9,14 @@ import OvereniPage from "@/features/overeni/OvereniPage";
 /*
  * /overeni — Civic Claim Gate (moonshot 6C): veřejná ověřovací plocha.
  * Tenká routa: `?ref=` z URL (formulář je čistý GET — ověření je sdílitelná
- * adresa), serverové znovuodvození, presentační komponenta. Metadata česky
- * přímo zde (messages/*.json mimo plochu — precedens /zdroj, /denik).
+ * adresa), serverové znovuodvození, presentační komponenta. Copy včetně
+ * metadat žije od 2026-08-04 v messages/{cs,en}.json pod `overeni.*`.
  */
 
-export const metadata: Metadata = {
-  title: "Ověření citace — Politicas",
-  description:
-    "Civic Claim Gate: vložte politicas odkaz (účtenku původu, citaci grafu, exponát velína nebo data-claim element) a brána tvrzení znovu odvodí proti dnešnímu záznamu. Ověřeno · hodnota se pohnula · neznámý odkaz — nic čtvrtého. Fact-check volného textu to není a nebude.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("overeni");
+  return { title: t("meta.title"), description: t("meta.description") };
+}
 
 export default async function OvereniRoute({
   searchParams,

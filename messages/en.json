@@ -1152,5 +1152,143 @@
     "weightsLead": "Every component is normalised to 0-1 and multiplied by its published weight. The score is their sum, rounded to one decimal - nothing else enters it. Each component names the dataset it is computed from.",
     "weightsSource": "weights total: {total} points · lib/analysis/contribution.ts",
     "weightsTotal": "total"
+  },
+  "overeni": {
+    "meta": {
+      "title": "Verify a citation — Politicas",
+      "description": "Civic Claim Gate: paste a politicas address (a provenance receipt, a graph citation, a control-room exhibit or a data-claim element) and the gate re-derives the statement against today's record. Verified · the value moved · unknown address — nothing else. It is not a fact-check of free text and never will be."
+    },
+    "header": {
+      "brand": "politicas / verification",
+      "source": "re-derived from the record on every check"
+    },
+    "hero": {
+      "kicker": "civic claim gate",
+      "title": "Verify a citation",
+      "lead": "Paste a politicas address — a provenance receipt, a graph-view citation, a control-room exhibit, a claim-ref or a copied element carrying data-claim-* attributes. The gate re-derives the statement against today's record and answers one of three ways: verified · the value moved · unknown address."
+    },
+    "boundary": {
+      "kicker": "what this tool is not",
+      "body": "<strong>This is not a fact-check of free text.</strong> The gate verifies only addresses politicas itself issued — it does not judge the truth of anyone else's statements and never will. That restraint is the product: a figure derived from a public record cannot be invented, because its address can be recomputed at any time."
+    },
+    "form": {
+      "label": "politicas address to verify",
+      "placeholder": "e.g. /zdroj/h.… or <data value=\"200\" data-claim-ref=\"claim:…\" …>",
+      "submit": "check against the record"
+    },
+    "empty": {
+      "kicker": "no answer yet",
+      "body": "Paste an address or a copied citation into the field above and the gate will answer one of three ways. Not sure where to find an address? Every money tie on <penize>/penize</penize> carries a <mono>receipt</mono> link (/zdroj/…) — and ready-made examples with a copy button are <priklady>further down in the guide</priklady>."
+    },
+    "unavailable": {
+      "title": "The record is unavailable right now.",
+      "body": "The graph database is single-connection and another process is holding it. This is <strong>not</strong> a verdict about your address — try again in a moment."
+    },
+    "panel": {
+      "ariaLabel": "gate verdict",
+      "recognized": "recognised as: {family}"
+    },
+    "family": {
+      "figura": "figure (data-claim)",
+      "zdroj": "provenance receipt",
+      "graf": "graph-view citation",
+      "exponat": "control-room exhibit",
+      "neznamy": "outside the politicas families"
+    },
+    "verdict": {
+      "headlineVerified": "Verified — it holds exactly as cited.",
+      "headlineZdrojVerified": "Verified — the record holds exactly as cited.",
+      "headlineZdrojPending": "The record is in the graph — human review has not reached it yet.",
+      "headlineZdrojRejected": "The record is in the graph — human review rejected it.",
+      "headlineMoved": "The value has moved since it was cited.",
+      "headlineUnknown": "Unknown address.",
+      "headlineAppRoute": "Our page, but not a citable address.",
+      "leadFiguraBare": "The address carried only the figure's reference, no value — below is how the statement reads today, receipt included.",
+      "leadFiguraMatch": "The cited value matches today's re-derivation — byte for byte.",
+      "leadZdrojVerified": "Today's knowledge graph carries this record and it passed human review — the receipt below states that review's state.",
+      "leadZdrojUngated": "Today's knowledge graph carries this record. It is a deterministic derivation — it never passes through the human gate, and the receipt below says so explicitly.",
+      "leadZdrojPending": "The address resolves and the record is in today's graph — but it has not passed the human gate. It is a lead to follow, not an evidenced statement; the receipt below says who recorded it and from where.",
+      "leadZdrojRejected": "The address resolves and the record is in today's graph — but human review REJECTED it. What is verified is that you cited this exact record; it is not an evidenced statement and must not be cited as one.",
+      "leadHashMatch": "The fingerprint of the cited content matches the fingerprint of today's re-derivation.",
+      "leadFiguraMoved": "The cited value and today's re-derivation differ — both sides are below, with their dates. The citation is not lying, it has aged.",
+      "leadHashMoved": "The content at this address has changed since the citation was issued — both fingerprints are below. The address does not carry the citation's issue date, so we do not state one.",
+      "leadEmpty": "Paste a politicas address — a URL, a claim-ref, or a copied element carrying data-claim-* attributes.",
+      "leadTooLong": "The input exceeds the length limit — neither a politicas address nor a copied element is this long.",
+      "leadUndecodable": "We recognise the shape of the address, but it cannot be decoded. An address is a claim — we reject it rather than repair it.",
+      "leadAppRoute": "This is our page, but not a citable address — a surface is not itself a statement. The address is issued by the individual row: for money ties it is the „účtenka“ (receipt) link (/zdroj/…) on /penize and in the MP and company case files, for figures it is the copied data-claim-* element, for a graph view it is the cite action. Open that page, take the address from there and paste it here.",
+      "leadUnsupported": "This is not a politicas address. The gate verifies only addresses politicas issued — it does not fact-check free text.",
+      "leadNotIssued": "The claim-ref is well formed, but the registry of issued figures does not know it. We can only verify a figure we issued ourselves.",
+      "leadRecordGone": "The address is readable, but today's re-derivation does not carry the record — it has left the graph, or it stopped being derived."
+    },
+    "gate": {
+      "verified": "verified by a human",
+      "pendingReview": "awaiting human review",
+      "rejected": "rejected in review",
+      "unmapped": "untranslated machine state: {token}",
+      "emptyToken": "empty value",
+      "ungated": "deterministic derivation — never passes the human gate",
+      "headlineVerified": "Human review: confirmed.",
+      "headlinePending": "Human review: not yet done.",
+      "headlineRejected": "Human review: rejected.",
+      "headlineUnmapped": "Human review: untranslated machine state {token}."
+    },
+    "row": {
+      "claimToday": "statement today",
+      "cited": "as cited",
+      "dataset": "dataset",
+      "metric": "metric",
+      "gateState": "human gate state",
+      "issuedAt": "figure issued on",
+      "record": "record",
+      "weight": "record weight",
+      "origin": "origin",
+      "fullReceipt": "full receipt",
+      "content": "content",
+      "citedHash": "cited fingerprint",
+      "currentHash": "fingerprint today",
+      "fullView": "full view",
+      "noDate": "date not recorded",
+      "noCitedDate": "the payload carries no citation date",
+      "noMethod": "method not recorded",
+      "noTitle": "the record carries no title",
+      "noIssueDate": "the address carries no issue date",
+      "pass": "pass {pass}",
+      "exhibitRez": "control-room slice (state of the republic)",
+      "exhibitFakt": "dated fact from the control-room ledger"
+    },
+    "guide": {
+      "title": "How to cite so it can be verified",
+      "stepLabel": "step {no}",
+      "examplesTitle": "addresses the gate accepts",
+      "step1Title": "Cite the address, not a copied number",
+      "step1Body": "Every politicas surface issues a permanent address: a provenance receipt (/zdroj/…), a graph-view citation (/graf/p/…) or a control-room exhibit (/dashboard/exponat/…). Put the address in your article — your reader and this gate can both re-derive the statement from it at any time.",
+      "step2Title": "For figures, copy the whole element, not just the digits",
+      "step2Body": "Citable figures render as a <data> element with data-claim-* attributes: they carry the figure's address, the machine value, the dataset and the date. Copy the element from the page source — the gate then compares the cited value with today's, byte for byte.",
+      "step3Title": "State the retrieval date and the fingerprint",
+      "step3Body": "The citation lines on our surfaces carry the re-derivation date and a content fingerprint (fnv-1a/32). The fingerprint is how you tell that the content moved after the citation — that is not a flaw in the citation but a property of a living record, and the gate shows both sides.",
+      "step4Title": "Run it through the gate before you publish",
+      "step4Body": "Paste the address here on /overeni. The answer is always one of three: verified, the value moved (with both values and their dates), or unknown address. The gate says nothing beyond that.",
+      "exFiguraPayloadLabel": "figure — copied element with data-claim-*",
+      "exFiguraPayloadNote": "Carries the address and the value — the gate compares the cited value with today's.",
+      "exFiguraRefLabel": "figure — bare claim-ref",
+      "exFiguraRefNote": "The figure's address only: the gate answers with how the statement reads today.",
+      "exZdrojLabel": "provenance receipt — a graph edge",
+      "exZdrojNote": "A real address from today's graph: {src} — {rel} → {dst}. Picked neutrally — the first {rel} edge in graph order, by no measure at all. Paste it here and the gate will answer what it knows about it today, human-review state included.",
+      "exZdrojIllustrativeLabel": "provenance receipt — a graph edge (illustration)",
+      "exZdrojIllustrativeNote": "The live example cannot be loaded right now, so this is only the SHAPE of a /zdroj/… address — the gate will answer “unknown address”. Real addresses are issued by the receipt link on every tie on /penize.",
+      "exGrafIllustrativeLabel": "graph-view citation (illustration)",
+      "exGrafIllustrativeNote": "Illustrative fingerprint 00000000 — the real one is issued by the cite action on /graf.",
+      "exExponatIllustrativeLabel": "control-room exhibit (illustration)",
+      "exExponatIllustrativeNote": "Illustrative fingerprint 00000000 — the real one is issued by the cite action in the control room."
+    },
+    "copy": {
+      "label": "copy example",
+      "copied": "example copied",
+      "failed": "copying failed — select the text above manually",
+      "verify": "verify this example"
+    },
+    "footer": {
+      "rule": "instrument rule — the gate stores nothing and fact-checks nothing: it forwards every address family to the derivation that owns it (provenance receipt, graph citation, control-room exhibit, registry of issued figures) and only translates the answer into three verdicts. Vocabulary: features/overeni/verdict.ts."
+    }
   }
 }

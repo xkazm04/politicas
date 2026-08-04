@@ -1,42 +1,43 @@
 import { describe, expect, it } from "vitest";
-import { czechGateErrors } from "@/lib/analysis/language-gate";
-import { gateHeadlineCs, gateStatusInfo, UNGATED_LABEL_CS } from "./gateVocabulary";
+import { gateStatusInfo, GATE_COPY_KEYS } from "./gateVocabulary";
 
 describe("slovník stavu lidské brány", () => {
-  it("obě rodiny tokenů mají tutéž větu pro tentýž stav", () => {
+  it("obě rodiny tokenů mají tentýž stav a tentýž klíč copy", () => {
     // ReviewStatus (účtenka) vs ClaimReviewStatus (figura) — dvě jména, jeden stav.
     expect(gateStatusInfo("pending").status).toBe("pending_review");
-    expect(gateStatusInfo("pending").labelCs).toBe(gateStatusInfo("pending_review").labelCs);
+    expect(gateStatusInfo("pending").labelKey).toBe(gateStatusInfo("pending_review").labelKey);
     expect(gateStatusInfo("verified").status).toBe("verified");
     expect(gateStatusInfo("rejected").status).toBe("rejected");
+    for (const t of ["verified", "pending", "pending_review", "rejected"]) {
+      expect(gateStatusInfo(t).known, t).toBe(true);
+    }
   });
 
-  it("neznámý token se vypíše DOSLOVA a označí se jako nepřeložený", () => {
+  it("neznámý token si NESE SÁM SEBE a je označen jako nepřeložený", () => {
     const info = gateStatusInfo("needs_second_reviewer");
     expect(info.known).toBe(false);
     expect(info.status).toBe("unmapped");
+    // Doslovný token je k dispozici, aby ho plocha vysázela do věty {token}.
     expect(info.token).toBe("needs_second_reviewer");
-    expect(info.labelCs).toContain("needs_second_reviewer");
-    expect(info.labelCs).toContain("nepřeložený");
-    // Nikdy prázdno: prázdná hodnota se také pojmenuje.
-    expect(gateStatusInfo("").labelCs).toContain("prázdná hodnota");
+    expect(info.labelKey).toBe("gate.unmapped");
+    expect(info.headlineKey).toBe("gate.headlineUnmapped");
+    // Prázdná hodnota není „neznámý stav bez jména": plocha jí dá vlastní.
+    expect(gateStatusInfo("  ").token).toBe("");
+    expect(gateStatusInfo("  ").known).toBe(false);
   });
 
-  it("titulek modifikátoru rozlišuje potvrzeno / čeká / zamítnuto", () => {
-    expect(gateHeadlineCs(gateStatusInfo("verified"))).toContain("potvrzeno");
-    expect(gateHeadlineCs(gateStatusInfo("pending"))).toContain("neproběhla");
-    expect(gateHeadlineCs(gateStatusInfo("rejected"))).toContain("zamítnuto");
-    expect(gateHeadlineCs(gateStatusInfo("xyz"))).toContain("xyz");
+  it("každý stav má svůj štítek i svou hlavičku, a nikdy tentýž klíč", () => {
+    const keys = ["verified", "pending_review", "rejected", "x"].map((t) => gateStatusInfo(t));
+    expect(new Set(keys.map((i) => i.labelKey)).size).toBe(4);
+    expect(new Set(keys.map((i) => i.headlineKey)).size).toBe(4);
+    for (const i of keys) expect(i.labelKey).not.toBe(i.headlineKey);
   });
 
-  it("česká copy prochází jazykovou branou", () => {
-    const copy = [
-      UNGATED_LABEL_CS,
-      ...["verified", "pending_review", "rejected"].flatMap((t) => [
-        gateStatusInfo(t).labelCs,
-        gateHeadlineCs(gateStatusInfo(t)),
-      ]),
-    ];
-    expect(czechGateErrors(copy.map((text, i) => ({ label: `gate-${i}`, text })))).toEqual([]);
+  it("vyjmenované klíče pokrývají všechno, co modul umí vrátit", () => {
+    for (const t of ["verified", "pending", "pending_review", "rejected", "nesmysl", ""]) {
+      const info = gateStatusInfo(t);
+      expect(GATE_COPY_KEYS, t).toContain(info.labelKey);
+      expect(GATE_COPY_KEYS, t).toContain(info.headlineKey);
+    }
   });
 });

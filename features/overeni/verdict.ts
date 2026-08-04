@@ -39,8 +39,11 @@ export type UnknownReason =
 export interface HashComparison {
   /** Kanonická adresa (path segment) pro odkaz na plnou plochu rodiny. */
   encoded: string;
-  /** Český titulek obsahu (u exponátu druh, u grafu titul pohledu). */
-  title: string;
+  /** Titulek obsahu VLASTNĚNÝ rodinou (titul pohledu na graf) — doslovný
+   *  text; null ⇒ titulek vlastní brána a nese ho `titleKey`. */
+  title: string | null;
+  /** Klíč do katalogu `overeni.*` pro titulek, který skládá brána (exponát). */
+  titleKey: string | null;
   /** Otisk z vložené adresy — co viděl ten, kdo citoval. */
   citedHash: string;
   /** Otisk dnešního znovuodvození. */
@@ -140,7 +143,15 @@ export interface HashedViewLike {
 export type HashedLookup =
   | { status: "invalid" }
   | { status: "gone" }
-  | { status: "ok"; view: HashedViewLike; title: string; currentDate: string };
+  | {
+      status: "ok";
+      view: HashedViewLike;
+      /** Doslovný titulek rodiny; null ⇒ použije se `titleKey`. */
+      title: string | null;
+      /** Klíč titulku, když ho skládá brána. */
+      titleKey?: string;
+      currentDate: string;
+    };
 
 function hashedVerdict(family: "graf" | "exponat", encoded: string, lookup: HashedLookup): GateVerdict {
   if (lookup.status === "invalid") {
@@ -152,6 +163,7 @@ function hashedVerdict(family: "graf" | "exponat", encoded: string, lookup: Hash
   const view: HashComparison = {
     encoded,
     title: lookup.title,
+    titleKey: lookup.titleKey ?? null,
     citedHash: lookup.view.urlHash,
     currentHash: lookup.view.currentHash,
     currentDate: lookup.currentDate,
@@ -209,75 +221,80 @@ export function verdictTone(v: GateVerdict): VerdictTone {
   return "confirmed";
 }
 
-// ── Česká copy verdiktu (čistá, testovatelná — plocha jen sází) ─────────────
+// ── Copy verdiktu jako KLÍČE (čisté, testovatelné — plocha překládá) ───────
+//
+// Modul zůstává čistý a bez i18n: vrací klíč do `overeni.*` v messages/*.json
+// a plocha ho sází přes next-intl. Do 2026-08-04 vracel českou větu, takže
+// brána byla jedinou jednojazyčnou plochou na trase, která začíná na
+// dvojjazyčném /penize.
 
-/**
- * Titulek verdiktu. Slovník verdiktů zůstává TŘÍSLOVNÝ (verified/moved/
- * unknown) — brána nezískala čtvrtou odpověď. Co přibylo, je rozlišení, KTERÉ
- * tvrzení je ověřené: u účtenky je to EXISTENCE záznamu, a ta se nesmí číst
- * jako schválení. Zamítnutá i nezkontrolovaná hrana v grafu totiž zůstává.
- */
-export function verdictHeadline(v: GateVerdict): string {
+/** Titulek verdiktu. Slovník verdiktů zůstává TŘÍSLOVNÝ (verified/moved/
+ *  unknown) — brána nezískala čtvrtou odpověď. Co rozlišuje, je KTERÉ tvrzení
+ *  je ověřené: u účtenky EXISTENCE záznamu, a ta se nesmí číst jako schválení
+ *  (zamítnutá i nezkontrolovaná hrana v grafu zůstává). */
+export function verdictHeadlineKey(v: GateVerdict): string {
   if (v.kind === "verified") {
     if (v.family === "zdroj") {
       const gate = verdictGate(v);
-      if (gate?.kind === "gated" && gate.info.status === "rejected") {
-        return "Záznam v grafu je — lidská kontrola ho zamítla.";
-      }
-      if (gate?.kind === "gated" && gate.info.status !== "verified") {
-        return "Záznam v grafu je — lidskou kontrolou ještě neprošel.";
-      }
-      return "Ověřeno — záznam sedí, jak byl citován.";
+      if (gate?.kind === "gated" && gate.info.status === "rejected") return "verdict.headlineZdrojRejected";
+      if (gate?.kind === "gated" && gate.info.status !== "verified") return "verdict.headlineZdrojPending";
+      return "verdict.headlineZdrojVerified";
     }
-    return "Ověřeno — sedí, jak bylo citováno.";
+    return "verdict.headlineVerified";
   }
-  if (v.kind === "moved") return "Hodnota se od citace pohnula.";
+  if (v.kind === "moved") return "verdict.headlineMoved";
   // Verdikt zůstává `unknown` — jen NEŘÍKÁ „neznámý odkaz" o vlastní stránce.
-  if (v.reason === "politicas-neni-citace") return "Naše stránka, ale ne citovatelná adresa.";
-  return "Neznámý odkaz.";
+  if (v.reason === "politicas-neni-citace") return "verdict.headlineAppRoute";
+  return "verdict.headlineUnknown";
 }
 
-const UNKNOWN_LEADS: Record<UnknownReason, string> = {
-  prazdny: "Vložte politicas odkaz — adresu, claim-ref nebo zkopírovaný element s data-claim-* atributy.",
-  "prilis-dlouhy": "Vstup přesahuje horní mez délky — politicas adresa ani opsaný element takhle dlouhé nejsou.",
-  nerozlustitelny:
-    "Tvar odkazu poznáváme, ale adresa se nedá rozluštit. Adresa je tvrzení — neopravujeme ji, odmítáme ji.",
-  "politicas-neni-citace":
-    "Tohle je naše stránka, ale ne citovatelná adresa — plocha sama tvrzením není. Adresu tvrzení vydává až konkrétní řádek: u peněžních vazeb je to odkaz „účtenka“ (/zdroj/…) na /penize i ve spisu poslance a firmy, u čísel zkopírovaný element s data-claim-*, u pohledu na graf akce citovat. Otevřete tu stránku, vezměte adresu odtamtud a vložte ji sem.",
-  nepodporovany:
-    "Tohle není politicas odkaz. Brána ověřuje výhradně odkazy, které politicas vydal — volný text nefactcheckuje.",
-  "mimo-rejstrik":
-    "Claim-ref má správný tvar, ale rejstřík vydaných figur ho nezná. Ověřit umíme jen figuru, kterou jsme sami vydali.",
-  "zaznam-nenalezen":
-    "Adresa je čitelná, ale dnešní znovuodvození záznam nenese — záznam z grafu zmizel, nebo se přestal odvozovat.",
+const UNKNOWN_LEAD_KEYS: Record<UnknownReason, string> = {
+  prazdny: "verdict.leadEmpty",
+  "prilis-dlouhy": "verdict.leadTooLong",
+  nerozlustitelny: "verdict.leadUndecodable",
+  "politicas-neni-citace": "verdict.leadAppRoute",
+  nepodporovany: "verdict.leadUnsupported",
+  "mimo-rejstrik": "verdict.leadNotIssued",
+  "zaznam-nenalezen": "verdict.leadRecordGone",
 };
 
-export function verdictLead(v: GateVerdict): string {
+export function verdictLeadKey(v: GateVerdict): string {
   if (v.kind === "verified") {
     if (v.family === "figura") {
-      return v.citedValue === null
-        ? "Odkaz nesl jen adresu figury, žádnou hodnotu — níže je dnešní znění tvrzení i s účtenkou."
-        : "Citovaná hodnota se shoduje s dnešním znovuodvozením — bajt po bajtu.";
+      return v.citedValue === null ? "verdict.leadFiguraBare" : "verdict.leadFiguraMatch";
     }
     if (v.family === "zdroj") {
       const gate = verdictGate(v);
-      if (gate?.kind === "gated" && gate.info.status === "rejected") {
-        return "Adresa sedí a záznam v dnešním grafu je — lidská kontrola ho ale ZAMÍTLA. Ověřeno je, že jste citovali právě tenhle záznam; doložené tvrzení to není a citovat se tak nesmí.";
-      }
-      if (gate?.kind === "gated" && gate.info.status !== "verified") {
-        return "Adresa sedí a záznam v dnešním grafu je — lidskou branou ale zatím neprošel. Je to stopa k dohledání, ne doložené tvrzení; účtenka níže říká, kdo a odkud ji zapsal.";
-      }
-      return gate?.kind === "ungated"
-        ? "Dnešní znalostní graf tento záznam nese. Je to deterministické odvození — lidskou branou neprochází a účtenka níže to říká výslovně."
-        : "Dnešní znalostní graf tento záznam nese a prošel lidskou kontrolou — účtenka níže včetně jejího stavu.";
+      if (gate?.kind === "ungated") return "verdict.leadZdrojUngated";
+      if (gate?.kind === "gated" && gate.info.status === "rejected") return "verdict.leadZdrojRejected";
+      if (gate?.kind === "gated" && gate.info.status !== "verified") return "verdict.leadZdrojPending";
+      return "verdict.leadZdrojVerified";
     }
-    return "Otisk citovaného obsahu se shoduje s otiskem dnešního znovuodvození.";
+    return "verdict.leadHashMatch";
   }
   if (v.kind === "moved") {
-    if (v.family === "figura") {
-      return "Citovaná hodnota a dnešní znovuodvození se liší — obě strany níže, s daty. Citace nelže, jen zestárla.";
-    }
-    return "Obsah pod touto adresou se od vydání citace změnil — oba otisky níže. Datum vydání citace adresa nenese, proto ho neuvádíme.";
+    return v.family === "figura" ? "verdict.leadFiguraMoved" : "verdict.leadHashMoved";
   }
-  return UNKNOWN_LEADS[v.reason];
+  return UNKNOWN_LEAD_KEYS[v.reason];
 }
+
+/** Všechny klíče, které tenhle modul umí vrátit — pro test úplnosti katalogu. */
+export const VERDICT_COPY_KEYS: readonly string[] = [
+  "verdict.headlineVerified",
+  "verdict.headlineZdrojVerified",
+  "verdict.headlineZdrojPending",
+  "verdict.headlineZdrojRejected",
+  "verdict.headlineMoved",
+  "verdict.headlineUnknown",
+  "verdict.headlineAppRoute",
+  "verdict.leadFiguraBare",
+  "verdict.leadFiguraMatch",
+  "verdict.leadZdrojVerified",
+  "verdict.leadZdrojUngated",
+  "verdict.leadZdrojPending",
+  "verdict.leadZdrojRejected",
+  "verdict.leadHashMatch",
+  "verdict.leadFiguraMoved",
+  "verdict.leadHashMoved",
+  ...Object.values(UNKNOWN_LEAD_KEYS),
+];

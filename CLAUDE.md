@@ -706,6 +706,25 @@ Route map (politicas.md roadmap execution, sample data):
   section is `id="verdikt"` + `tabIndex=-1` + `aria-live` and is focused after a
   GET submit (`VerdictFocus`), and the unknown headline moved off `steel-aa` to
   `ink` — it is the most common outcome, not a footnote.
+  **The verifier speaks both languages, since 2026-08-04.** It had ZERO English
+  — no `overeni` namespace at all, every sentence a Czech literal in
+  `guide.ts` / `verdict.ts` / `OvereniPage.tsx` / the route metadata — while
+  /penize, the surface that feeds it its traffic, is fully bilingual. All
+  reader-facing copy now lives in `messages/{cs,en}.json` under `overeni.*`; the
+  Czech moved VERBATIM. The pure modules stay pure and return **message keys**
+  (`verdictHeadlineKey` / `verdictLeadKey`, `gateStatusInfo().labelKey`,
+  `GuideStep.titleKey`, `GuideExample.labelKey`/`noteKey`) — that was the smaller
+  honest design than threading a translator into logic, and it makes the mapping
+  itself testable. Each module also exports the list of keys it CAN emit
+  (`VERDICT_COPY_KEYS` / `GATE_COPY_KEYS` / `GUIDE_COPY_KEYS`), and
+  `features/overeni/messages.test.ts` pins cs/en key parity, ICU placeholder AND
+  `t.rich` tag parity, no empty value, every emitted key present in both
+  catalogs, the Czech language gate over every sentence, and the acceptance bar
+  of the gate-verdict work in BOTH languages (a rejected headline may not read as
+  a confirmation; a gate-verified one keeps its unqualified „Ověřeno").
+  Verified against the live store in a production build: the same real pending
+  tie renders „Záznam v grafu je — lidskou kontrolou ještě neprošel." / „The
+  record is in the graph — human review has not reached it yet."
 - `/rentgen` — archived art direction.
 
 All five politicas.md modules now have surfaces. **Update 2026-07-24 — four
