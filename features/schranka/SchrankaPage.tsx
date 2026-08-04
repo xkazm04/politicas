@@ -112,7 +112,7 @@ function EntityBlock({ delta, storedLabel }: { delta: EntityDelta; storedLabel: 
       {delta.total === 0 ? (
         <p className="px-4 py-4 text-sm leading-relaxed text-steel-aa">
           {isObec
-            ? "Deník obce zatím záznam nevede — sledování obce je připravené, ale delty pro ni dnes nemá kdo psát. Zrcadlo rozpočtu je na evidenční stránce."
+            ? "Deník obecní fakta nevede — smlouvy, rejstříkové role, kroky tisků ani rozhodnutí brány se obcí neklíčují, a rozpočtová zrcadla jsou roční dávka výkazů, ne datovaný proud. Tohle sledování proto nemůže nic doručit a schránka ho už nikde nenabízí; zůstává tu jen proto, že uložené sledování nikdo bez vás nemaže. Čísla obce jsou na jejím zrcadle rozpočtu."
             : "Beze změny — od prahu pohledu záznam pro tuhle entitu žádný nový zápis nenese."}
         </p>
       ) : (
@@ -268,8 +268,8 @@ export default function SchrankaPage() {
                 <span>
                   Zatím nesledujete nic<span className="text-signal">.</span> Tlačítko{" "}
                   <span className="font-mono text-sm font-bold uppercase tracking-wider">sledovat</span>{" "}
-                  najdete v levé liště na spisu poslance, na sněmovním tisku, na zrcadle obce a na
-                  filtrovaném deníku — nebo začněte u{" "}
+                  najdete na spisu poslance, ve spisu firmy, na sněmovním tisku a na filtrovaném
+                  deníku — v levé liště i přímo na ploše — nebo začněte u{" "}
                   <Link
                     href="/denik"
                     className="font-mono text-sm font-bold uppercase tracking-widest text-signal-deep hover:underline"

@@ -35,11 +35,16 @@ describe("isEntityKey", () => {
 });
 
 describe("entityHref", () => {
-  it("mapuje klíče na evidenční stránky; firma poctivě nemá", () => {
+  it("mapuje klíče na evidenční stránky včetně spisu firmy", () => {
     expect(entityHref("poslanec:123")).toBe("/poslanec/123");
     expect(entityHref("tisk:141")).toBe("/zakony/141");
     expect(entityHref("obec:00241717")).toBe("/rozpocty/00241717");
-    expect(entityHref("firma:04544152")).toBeNull();
+    expect(entityHref("firma:04544152")).toBe("/penize/firma/04544152");
+  });
+
+  it("ičo v adrese je kanonické (klíč nese 6–8 číslic, uzel vždy 8)", () => {
+    expect(entityHref("firma:2867681")).toBe("/penize/firma/02867681");
+    expect(entityHref("firma:123456")).toBe("/penize/firma/00123456");
   });
 
   it("deník entity je adresa filtru (URL je odběr)", () => {
@@ -151,7 +156,28 @@ describe("followableFromRoute", () => {
   it("odvodí klíč z evidenčních stránek", () => {
     expect(followableFromRoute("/poslanec/123", null)).toBe("poslanec:123");
     expect(followableFromRoute("/zakony/141", null)).toBe("tisk:141");
-    expect(followableFromRoute("/rozpocty/00241717", null)).toBe("obec:00241717");
+  });
+
+  it("peněžní spis poslance je táž entita jako jeho spis", () => {
+    expect(followableFromRoute("/penize/6881", null)).toBe("poslanec:6881");
+    // Podstránky spisu ani konzole entitu z adresy nenesou.
+    expect(followableFromRoute("/penize/6881/paket", null)).toBeNull();
+    expect(followableFromRoute("/penize/kontrola", null)).toBeNull();
+    expect(followableFromRoute("/penize", null)).toBeNull();
+  });
+
+  it("spis firmy je sledovatelný, s kanonickým ičem", () => {
+    expect(followableFromRoute("/penize/firma/46347534", null)).toBe("firma:46347534");
+    expect(followableFromRoute("/penize/firma/2867681", null)).toBe("firma:02867681");
+    expect(followableFromRoute("/penize/firma/abc", null)).toBeNull();
+  });
+
+  it("obec se z chromu už nenabízí — deník pro ni nemá co doručit", () => {
+    expect(followableFromRoute("/rozpocty/00241717", null)).toBeNull();
+    // Uložené sledování obce ale zůstává platným klíčem (kodek ho parsuje)
+    // a filtrovaný deník ho pořád adresuje.
+    expect(isEntityKey("obec:00241717")).toBe(true);
+    expect(followableFromRoute("/denik", "obec:00241717")).toBe("obec:00241717");
   });
 
   it("filtrovaný deník sleduje filtrovanou entitu; jinde je filtr ignorován", () => {

@@ -12,6 +12,8 @@
  * (serializuje jen validní položky, deterministicky seřazené).
  */
 
+import { canonicalIco } from "@/features/money/companyId";
+
 /** Klíč localStorage. Verze je v klíči — změna tvaru = nový klíč, žádná migrace. */
 export const SCHRANKA_STORAGE_KEY = "politicas:schranka:v1";
 
@@ -57,10 +59,13 @@ export const EMPTY_SCHRANKA: SchrankaState = { follows: [], lastVisit: null, see
 /**
  * Validní veřejné klíče entit. Držené tvary:
  *   poslanec:<pspId>  — spis /poslanec/<pspId>
- *   firma:<ičo>       — firma nemá vlastní stránku; odběrem je filtr deníku
+ *   firma:<ičo>       — spis firmy /penize/firma/<ičo> (od 2026-08-04; dřív
+ *                       firma vlastní stránku neměla a klíč vedl jen na filtr)
  *   tisk:<číslo>      — sněmovní tisk /zakony/<číslo>
- *   obec:<ičo>        — zrcadlo rozpočtu /rozpocty/<ičo> (deník obce zatím
- *                       nenese — schránka to u obce přizná, nepředstírá)
+ *   obec:<ičo>        — zrcadlo rozpočtu /rozpocty/<ičo>. Klíč se PARSUJE
+ *                       (starší uložená sledování nikdo nemaže), ale chrom ho
+ *                       už nenabízí: deník obecní fakta nevede, takže by
+ *                       odběr nemohl nic doručit (viz followableFromRoute).
  */
 export function isEntityKey(v: unknown): v is string {
   return (
@@ -69,7 +74,9 @@ export function isEntityKey(v: unknown): v is string {
   );
 }
 
-/** Interní evidenční stránka klíče, je-li jaká (firma poctivě nemá). */
+/** Interní evidenční stránka klíče, je-li jaká. IČO se normalizuje na
+ *  kanonický osmimístný tvar TOUŽ funkcí jako uzel grafu (companyId.ts) —
+ *  klíč schránky nese 6–8 číslic, adresa spisu firmy vždy 8. */
 export function entityHref(key: string): string | null {
   const m = key.match(/^(poslanec|tisk|firma|obec):(.+)$/);
   if (!m) return null;
@@ -78,6 +85,10 @@ export function entityHref(key: string): string | null {
       return `/poslanec/${m[2]}`;
     case "tisk":
       return `/zakony/${m[2]}`;
+    case "firma": {
+      const ico = canonicalIco(m[2]);
+      return ico === null ? null : `/penize/firma/${ico}`;
+    }
     case "obec":
       return `/rozpocty/${m[2]}`;
     default:
@@ -174,6 +185,18 @@ export function serializeSchrankaState(state: SchrankaState): string {
  * odvodí, koho by tlačítko „sledovat" sledovalo. Čistá funkce kvůli testům;
  * plochy, které tu nejsou, sledovatelné z chromu nejsou (záměr: afordance
  * se zapíná tam, kde je klíč entity jednoznačný z adresy).
+ *
+ * Peněžní spis poslance (/penize/<pspId>) je TÁŽ entita jako jeho spis na
+ * /poslanec/<pspId> — jeden klíč, dvě adresy; klíč z čísla je jednoznačný.
+ * Spis firmy (/penize/firma/<ičo>) přibyl 2026-08-04.
+ *
+ * OBEC tu ZÁMĚRNĚ NENÍ. Klíč `obec:` zůstává platný (uložená sledování se
+ * nemažou a schránka je ukazuje), ale nabízet ho jako novou afordanci by
+ * slibovalo doručení, které nemá kdo splnit: deník staví záznamy ze smluv,
+ * rejstříkových rolí, kroků tisků, rozhodnutí brány a change_event —
+ * a žádný z těch proudů obec neklíčuje (features/denik/deriveDenik.ts).
+ * Rozpočtová zrcadla jsou generovaná ROČNÍ dávka výkazů, ne datovaný proud.
+ * Afordance se proto stahuje, dokud obecní datovaný fakt nebude existovat.
  */
 export function followableFromRoute(pathname: string, entita: string | null): string | null {
   if (entita !== null && isEntityKey(entita) && (pathname === "/denik" || pathname === "/schranka")) {
@@ -181,10 +204,15 @@ export function followableFromRoute(pathname: string, entita: string | null): st
   }
   let m = pathname.match(/^\/poslanec\/(\d{1,7})$/);
   if (m) return `poslanec:${m[1]}`;
+  m = pathname.match(/^\/penize\/(\d{1,7})$/);
+  if (m) return `poslanec:${m[1]}`;
   m = pathname.match(/^\/zakony\/(\d{1,7})$/);
   if (m) return `tisk:${m[1]}`;
-  m = pathname.match(/^\/rozpocty\/(\d{6,8})$/);
-  if (m) return `obec:${m[1]}`;
+  m = pathname.match(/^\/penize\/firma\/(\d{1,8})$/);
+  if (m) {
+    const ico = canonicalIco(m[1]);
+    return ico === null ? null : `firma:${ico}`;
+  }
   return null;
 }
 

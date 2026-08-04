@@ -190,6 +190,14 @@ describe("filtr entity — URL je odběr", () => {
     expect(filterDenikEntries(entries(), "firma:99999999")).toEqual([]);
   });
 
+  it("firma nese odkaz na svůj spis — řádek o smlouvě vede na firmu, ne na poslance", () => {
+    const row = entries().find((e) => e.id === "contract:a");
+    const company = row?.entities.find((en) => en.key.startsWith("firma:"));
+    expect(company?.href).toBe("/penize/firma/00000100");
+    // firstHref bere první entitu s adresou a u smlouvy je první firma.
+    expect(row?.internalHref).toBe("/penize/firma/00000100");
+  });
+
   it("entityLabel čte popisek ze záznamů; buildDenik řeže dny až PO filtru", () => {
     const all = entries();
     expect(entityLabel(all, mpEntityKey(9999))).toBe("Eva Malá");

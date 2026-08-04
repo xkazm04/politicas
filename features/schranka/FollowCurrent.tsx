@@ -5,8 +5,9 @@
  *
  * Lišta (Sidebar/MobileNav) ji kreslí na každé ploše; komponenta sama pozná,
  * jestli aktuální adresa nese jednoznačný klíč entity (followableFromRoute):
- * spis poslance, sněmovní tisk, zrcadlo obce, filtrovaný deník. Jinde se
- * nevykreslí nic — sledovat „stránku bez entity" nedává smysl.
+ * spis poslance (i jeho peněžní spis), spis firmy, sněmovní tisk, filtrovaný
+ * deník. Jinde se nevykreslí nic — sledovat „stránku bez entity" nedává smysl,
+ * a obec se nenabízí proto, že by odběr neměl co doručit (viz followCodec).
  *
  * Popisek entity se bere z <title> dokumentu (po hydrataci, v efektu — SSR
  * titulek nezná), očištěný o brandovou příponu; je to jen nápověda uložená

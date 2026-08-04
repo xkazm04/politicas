@@ -46,6 +46,7 @@
 
 import { PLAUSIBLE_FROM } from "@/features/dashboard/datedFacts";
 import { DECISION_CS } from "@/features/dukazy/deriveFeed";
+import { canonicalIco } from "@/features/money/companyId";
 
 export type DenikKind =
   | "contract"
@@ -240,11 +241,18 @@ const mpEntity = (pspId: number, name: string): DenikEntity => ({
   href: `/poslanec/${pspId}`,
 });
 
-const companyEntity = (ico: string, company: string): DenikEntity => ({
-  key: companyEntityKey(ico),
-  label: company,
-  href: null,
-});
+/** Firma má vlastní spis od 2026-08-04 (/penize/firma/[ico]) — do té doby tu
+ *  stálo `href: null` a řádek o smlouvě vedl na profil poslance. IČO se
+ *  normalizuje na kanonický osmimístný tvar (companyId.ts), protože právě tak
+ *  je klíčovaný uzel firmy; nekanonické IČO by vedlo na prázdnou adresu. */
+const companyEntity = (ico: string, company: string): DenikEntity => {
+  const canonical = canonicalIco(ico);
+  return {
+    key: companyEntityKey(ico),
+    label: company,
+    href: canonical === null ? null : `/penize/firma/${canonical}`,
+  };
+};
 
 const billEntity = (cislo: number): DenikEntity => ({
   key: billEntityKey(cislo),

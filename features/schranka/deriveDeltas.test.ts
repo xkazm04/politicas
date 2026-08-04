@@ -73,9 +73,9 @@ describe("deriveEntityDelta — filtr entity a prahu", () => {
     expect(d.entries.map((e) => e.id)).toEqual(["contract:a"]);
     expect(d.total).toBe(1);
     expect(d.latestDate).toBe("2026-07-30");
-    // Popisek ze záznamů, href poctivě null (firma stránku nemá), deník entity vede na filtr.
+    // Popisek ze záznamů, href na spis firmy (od 2026-08-04), deník entity vede na filtr.
     expect(d.label).toBe("popisek firma:04544152");
-    expect(d.href).toBeNull();
+    expect(d.href).toBe("/penize/firma/04544152");
     expect(d.denikHref).toBe("/denik?entita=firma%3A04544152");
   });
 
