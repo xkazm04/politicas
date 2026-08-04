@@ -4,8 +4,11 @@
  * @catalog Plynule přepočítávané číslo — skóre jako živý přístroj.
  *
  * Animuje přechod mezi hodnotami (0,5 s ease-out); formát dodává volající
- * (výchozí je česká desetinná čárka). Respektuje reduced motion tím, že
- * animace je čistě číselná a krátká — žádný pohyb geometrie.
+ * (výchozí je česká desetinná čárka). Při `prefers-reduced-motion` se přechod
+ * NEPŘEHRÁVÁ — hodnota skočí rovnou na cílovou. Dřív tu stálo, že animace je
+ * „čistě číselná a krátká, takže reduced motion respektuje"; běžící číslice je
+ * ale právě ten pohyb, kvůli kterému WCAG 2.3.3 existuje, a zbytek /poslanec
+ * se tou preferencí řídil.
  *
  * S `claim` se z čísla stává CITACE: vysází se jako `<data>` s data-claim-*
  * atributy z jediného emitoru (lib/claims/claim.ts), stejnými, jaké vydává
@@ -14,22 +17,37 @@
  */
 
 import { useEffect, useRef, useState } from "react";
-import { animate } from "framer-motion";
+import { animate, useReducedMotion } from "framer-motion";
 import { czech } from "@/lib/format";
+
+/** Ty členy `Formatters`, které berou číslo a vracejí text (tj. bez `date`/`cite`). */
+type NumericFormatKind = "dec" | "int" | "czk";
+import { useFormat } from "@/lib/i18n/useFormat";
 import { claimDataAttributes, type Claim } from "@/lib/claims/claim";
 
 export default function AnimatedScore({
   value,
   className = "",
-  format = czech,
+  format,
+  formatKind,
   claim,
 }: {
   value: number;
   className?: string;
+  /** Formátovač od volajícího. Použitelný JEN z klientského stromu — funkce se
+   *  přes hranici serverové komponenty neserializuje. Ze serveru se předává
+   *  `formatKind`, který si komponenta vyzvedne sama. */
   format?: (n: number) => string;
+  /** Který formátovač `lib/format` použít, když `format` nepřijde (server → klient). */
+  formatKind?: NumericFormatKind;
   /** Citace figury; bez ní se sází prostý <span> jako dřív. */
   claim?: Claim;
 }) {
+  const reduceMotion = useReducedMotion();
+  const fmts = useFormat();
+  // Beze změny pro dosavadní volající: bez `format` i bez `formatKind` je to
+  // pořád `czech`, jak stálo v defaultní hodnotě parametru.
+  const fmt = format ?? (formatKind ? fmts[formatKind] : czech);
   const [display, setDisplay] = useState(Number.isFinite(value) ? value : 0);
   const prev = useRef(Number.isFinite(value) ? value : 0);
   useEffect(() => {
@@ -39,6 +57,14 @@ export default function AnimatedScore({
     // then hands the formatter garbage. Hold the last good value instead of
     // silently rendering "NaN" in place of a civic score.
     if (!Number.isFinite(value)) return;
+    // Reduced motion: no transition is started at all. The rendered value comes
+    // straight from `value` below (never via setState in an effect), so the
+    // digits do not run; `prev` still tracks the target so a later re-enable
+    // animates from the right place.
+    if (reduceMotion) {
+      prev.current = value;
+      return;
+    }
     const controls = animate(prev.current, value, {
       duration: 0.5,
       ease: "easeOut",
@@ -46,7 +72,10 @@ export default function AnimatedScore({
     });
     prev.current = value;
     return () => controls.stop();
-  }, [value]);
+  }, [value, reduceMotion]);
+  // Při reduced motion se sází CÍLOVÁ hodnota rovnou — žádný mezikrok, a žádné
+  // setState v efektu (kaskádový render).
+  const shown = reduceMotion && Number.isFinite(value) ? value : display;
   // Nefinální hodnota nesvědčí (týž zákaz jako v CitableNumber): pomlčka ani
   // podržená poslední hodnota nesmí nést strojové tvrzení.
   if (claim && Number.isFinite(value)) {
@@ -56,9 +85,9 @@ export default function AnimatedScore({
         {...claimDataAttributes(claim, value)}
         className={`tabular-nums ${className}`}
       >
-        {format(display)}
+        {fmt(shown)}
       </data>
     );
   }
-  return <span className={`tabular-nums ${className}`}>{format(display)}</span>;
+  return <span className={`tabular-nums ${className}`}>{fmt(shown)}</span>;
 }

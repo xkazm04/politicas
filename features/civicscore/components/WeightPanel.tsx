@@ -30,7 +30,7 @@ import {
 import type { LensWeightsState } from "../useLensWeights";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
-import { COMPONENT_FILL } from "./LeaderboardTable";
+import { COMPONENT_FILL } from "../componentFill";
 
 const sameWeights = (a: WeightVector, b: WeightVector) =>
   LENS_COMPONENT_ORDER.every((k) => a[k] === b[k]);

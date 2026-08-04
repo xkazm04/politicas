@@ -32,7 +32,6 @@ import type { Locale } from "@/lib/i18n/config";
 import { contributionScoreClaim } from "../scoreClaim";
 import type { ContributionProvenance } from "../provenance";
 import SourceNote from "@/features/shared/components/SourceNote";
-import { COBALT, INK, OCHRE, SIGNAL, STEEL } from "@/features/landing/palette";
 import { workhorseFlavourCopy, type WorkhorseFlavour } from "@/lib/analysis/workhorse-flavour";
 import { asciiFold } from "@/lib/ingest/normalize";
 import { foldQuery, nameMatches } from "../search";
@@ -41,16 +40,9 @@ import RapporteurBadge from "./RapporteurBadge";
 import LowScoreReasonChip from "./LowScoreReasonChip";
 import FollowButton from "@/features/schranka/FollowButton";
 
-// Barva složky — jen tokeny palety (custom/no-hardcoded-colors). Šest složek,
-// pět tokenů → leadership sdílí odstín s účastí, odlišen průhledností.
-export const COMPONENT_FILL: Record<string, { color: string; opacity?: number }> = {
-  participation: { color: COBALT },
-  committee: { color: SIGNAL },
-  legislative: { color: OCHRE },
-  speech: { color: INK },
-  attendance: { color: STEEL },
-  leadership: { color: COBALT, opacity: 0.5 },
-};
+// Barva složky žije v ../componentFill.ts (neutrální modul) — serverové stromy
+// nesmějí číst hodnotu z "use client" modulu. Re-export drží dosavadní adresu.
+export { COMPONENT_FILL } from "../componentFill";
 
 /** Per-component median across the whole chamber (207 MPs) — the baseline a
  *  single row's standout stat is measured against. Pure function of the full

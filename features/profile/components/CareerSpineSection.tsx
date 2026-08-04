@@ -1,5 +1,3 @@
-"use client";
-
 /*
  * Kariérní spis — svislá stuha volebních období ve hlavičce spisu.
  *
@@ -18,7 +16,8 @@
  * messages/*.json je sdílený soubor a tahle plocha do něj nezapisuje.
  */
 
-import { useFormat } from "@/lib/i18n/useFormat";
+import type { Formatters } from "@/lib/format";
+import { profileIntl } from "../serverIntl";
 import SourceNote from "@/features/shared/components/SourceNote";
 import type { CareerSpine, CareerTerm } from "../careerSpine";
 
@@ -39,7 +38,7 @@ const yearsOf = (t: CareerTerm): string => {
 const servedLabel = (n: number): string =>
   n === 1 ? "1 volební období" : n >= 2 && n <= 4 ? `${n} volební období` : `${n} volebních období`;
 
-function TermRow({ term, f }: { term: CareerTerm; f: ReturnType<typeof useFormat> }) {
+function TermRow({ term, f }: { term: CareerTerm; f: Formatters }) {
   return (
     <div
       className={`grid grid-cols-[auto_1fr] items-baseline gap-x-3 gap-y-1 border-b border-hairline py-3 pr-2 sm:grid-cols-[5.5rem_auto_1fr] ${
@@ -104,8 +103,8 @@ function TermRow({ term, f }: { term: CareerTerm; f: ReturnType<typeof useFormat
   );
 }
 
-export default function CareerSpineSection({ career, asOf }: { career: CareerSpine; asOf: string }) {
-  const f = useFormat();
+export default async function CareerSpineSection({ career, asOf }: { career: CareerSpine; asOf: string }) {
+  const { f } = await profileIntl();
   if (career.terms.length === 0) return null;
 
   // Přestávka se vykresluje ZA obdobím, po kterém následuje.

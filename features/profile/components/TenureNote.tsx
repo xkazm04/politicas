@@ -1,5 +1,3 @@
-"use client";
-
 /*
  * Mandátová poznámka (Case ② build, batch 005 — tenure-aware profile copy).
  * REÁLNÁ DATA: čte `effort_tenure_class` + `effort_tenure_start`/`effort_tenure_end`
@@ -18,11 +16,11 @@
  * datum. Viz lib/analysis/tenure-copy.ts pro čistou logiku.
  */
 
-import { useTranslations } from "next-intl";
+import { profileIntl } from "../serverIntl";
 import { mandateNoteCopy } from "@/lib/analysis/tenure-copy";
 import SourceNote from "@/features/shared/components/SourceNote";
 
-export default function TenureNote({
+export default async function TenureNote({
   tenureClass,
   tenureStart,
   tenureEnd,
@@ -31,7 +29,7 @@ export default function TenureNote({
   tenureStart: string | null;
   tenureEnd?: string | null;
 }) {
-  const t = useTranslations("profile");
+  const { t } = await profileIntl();
   const copy = mandateNoteCopy(tenureClass, tenureStart, tenureEnd);
   if (!copy) return null;
 

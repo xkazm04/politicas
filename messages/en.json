@@ -753,6 +753,8 @@
     "trendNoteSourceDated": "source: effort-loop enrichment · effort_psp9_trend_note · recorded {date}",
     "expandMore": "more",
     "expandLess": "less",
+    "legibilityScrollHint": "the table scrolls sideways",
+    "legibilityTableLabel": "Index components — value, cap, chamber median",
     "legibilityHeading": "What the score is made of",
     "legibilityLead": "Every component carries a published weight and a cap — the value past which it stops paying. Here is this MP's value in the component's own unit, that cap, and the chamber median.",
     "legibilityColComponent": "component",

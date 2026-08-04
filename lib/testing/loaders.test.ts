@@ -65,7 +65,7 @@ const { getCollisionData, COLLISION_CLASSIFICATIONS } = await import("../../feat
 const { getProfileData, getAllProfilePspIds } = await import("../../features/profile/getProfileData");
 const { getVoteThemes } = await import("../../features/votetrack/getVoteThemes");
 const { getAdminData } = await import("../../features/admin/getAdminData");
-const { getLeaderboardData, getLeaderboardListData, buildLeaderboard } = await import(
+const { getLeaderboardData, getLeaderboardListData, buildLeaderboard, resetLeaderboardMemo } = await import(
   "../../features/civicscore/getLeaderboardData"
 );
 const { lowScoreReasonCopy } = await import("../analysis/low-score-reason");
@@ -126,6 +126,11 @@ async function withReadinessOff<T>(fn: () => Promise<T>): Promise<T> {
 /** Assert that a degradation left a trace — reportLoaderFailure logs `[loader:<name>]`
  * before every `return null`, so an invisible degradation fails the test. */
 async function expectTracedDegradation(loader: string, fn: () => Promise<unknown>) {
+  // The chamber pass is memoized ACROSS requests (getLeaderboardData.ts), so a
+  // degradation check must start from a cold process — otherwise it would assert
+  // against an answer read while the store was still healthy. Dropping the memo
+  // is what a restart does; the memo itself never caches a null.
+  resetLeaderboardMemo();
   const spy = vi.spyOn(console, "error").mockImplementation(() => {});
   try {
     expect(await fn()).toBeNull();
@@ -1198,7 +1203,9 @@ describe("getProfileData against a seeded graph", () => {
   it("getAllProfilePspIds enumerates the ranking, and degrades to an EMPTY list", async () => {
     expect(await withReadinessOff(getAllProfilePspIds)).toEqual([200, 250, 100, 300]);
     // Below the floor the static-params source yields [] rather than throwing — the
-    // route pre-renders nothing instead of failing the build.
+    // route pre-renders nothing instead of failing the build. Cold memo, same reason
+    // as expectTracedDegradation.
+    resetLeaderboardMemo();
     const spy = vi.spyOn(console, "error").mockImplementation(() => {});
     try {
       expect(await getAllProfilePspIds()).toEqual([]);

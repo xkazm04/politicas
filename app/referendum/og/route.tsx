@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { getLeaderboardListData } from "@/features/civicscore/getLeaderboardData";
 import { LENS_PARAM, PUBLISHED_WEIGHTS_LABEL } from "@/features/civicscore/lens";
 import { deriveReferendumCard } from "@/features/landing/referendum/ogPayload";
-import { COMPONENT_FILL } from "@/features/civicscore/components/LeaderboardTable";
+import { COMPONENT_FILL } from "@/features/civicscore/componentFill";
 import { HAIRLINE, INK, OCHRE, PAPER, SIGNAL, STEEL } from "@/features/landing/palette";
 import { czech, czechInt } from "@/lib/format";
 

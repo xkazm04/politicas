@@ -1,5 +1,3 @@
-"use client";
-
 /*
  * „Z čeho to skóre je" — čitelnost indexu přispění přímo ve spisu.
  *
@@ -26,12 +24,11 @@
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { useFormat } from "@/lib/i18n/useFormat";
+import { profileIntl } from "../serverIntl";
 import SourceNote from "@/features/shared/components/SourceNote";
 import type { ComponentLegibility, ScoreLegibility } from "@/lib/analysis/score-legibility";
 
-export default function ScoreLegibilityPanel({
+export default async function ScoreLegibilityPanel({
   legibility,
   labels,
 }: {
@@ -39,8 +36,7 @@ export default function ScoreLegibilityPanel({
   /** Component key → the same Czech label the tiles above use. */
   labels: Record<string, string>;
 }) {
-  const t = useTranslations("profile");
-  const f = useFormat();
+  const { t, f } = await profileIntl();
 
   // A rate is stored 0–1 and read as a percentage; a count is read as it stands —
   // and a whole count reads as a whole number ("3 výbory", not "3,0 výbory"),
@@ -71,7 +67,21 @@ export default function ScoreLegibilityPanel({
         </p>
       </div>
 
-      <div className="overflow-x-auto">
+      {/* Pět sloupců v šesti řádcích se pod ~46rem nevejde a tabulka se posouvá
+          do stran. Do teď to byl NĚMÝ posuv: na telefonu nebylo vidět, že vpravo
+          něco je, a klávesnicí se do posuvné oblasti nedalo vůbec dostat (region
+          bez `tabIndex` klávesnice nescrolluje). Není to redesign — je to
+          přiznaný posuv: oblast je pojmenovaná, fokusovatelná, a na malé
+          obrazovce to stránka ŘEKNE. */}
+      <p className="mt-4 px-1 font-mono text-[10px] uppercase tracking-wider text-steel sm:hidden">
+        {t("legibilityScrollHint")}
+      </p>
+      <div
+        className="overflow-x-auto"
+        tabIndex={0}
+        role="region"
+        aria-label={t("legibilityTableLabel")}
+      >
         <table className="w-full min-w-[46rem] border-collapse text-left">
           <thead>
             <tr className="border-b border-hairline font-mono text-[10px] uppercase tracking-widest text-steel">

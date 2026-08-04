@@ -1,5 +1,3 @@
-"use client";
-
 /*
  * Peníze na spisu — důkaz vedle tvrzení.
  *
@@ -34,8 +32,8 @@
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
-import { useFormat } from "@/lib/i18n/useFormat";
+import { getLocale } from "next-intl/server";
+import { profileIntl } from "../serverIntl";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { temporalBadge, tieClassInfo } from "@/features/money/moneyTypes";
@@ -56,7 +54,7 @@ const BADGE_TONE_CLS: Record<string, string> = {
   unknown: "border-dashed border-hairline text-steel",
 };
 
-export default function MoneySection({
+export default async function MoneySection({
   index,
   money,
   pspId,
@@ -65,9 +63,8 @@ export default function MoneySection({
   money: ProfileMoney;
   pspId: number;
 }) {
-  const t = useTranslations("profile");
-  const f = useFormat();
-  const locale = useLocale();
+  const { t, f } = await profileIntl();
+  const locale = await getLocale();
   const en = locale === "en";
 
   // Žádná aritmetika na ploše: hodnota i popisky jdou z `reachableMoney()`,
@@ -209,9 +206,8 @@ export default function MoneySection({
   );
 }
 
-function TieRow({ tie, en }: { tie: ProfileMoneyTie; en: boolean }) {
-  const t = useTranslations("profile");
-  const f = useFormat();
+async function TieRow({ tie, en }: { tie: ProfileMoneyTie; en: boolean }) {
+  const { t, f } = await profileIntl();
   const info = tieClassInfo(tie.tieClass);
   const temporal = temporalBadge(tie);
 

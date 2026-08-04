@@ -1,5 +1,3 @@
-"use client";
-
 /*
  * Rebelie po jménech — instance pod mírou.
  *
@@ -21,25 +19,17 @@
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { useFormat } from "@/lib/i18n/useFormat";
+import { profileIntl } from "../serverIntl";
 import SourceNote from "@/features/shared/components/SourceNote";
 import type { ProfileRebellionRecord } from "../rebellionRecord";
 
-/** Fallback pro `<Suspense>`, dokud se hlasovací záznam čte. Říká, co se děje —
- *  tiché prázdno by se nedalo odlišit od poslance, který nikdy nerebeloval. */
-export function RebellionInstancesPending() {
-  const t = useTranslations("profile");
-  return (
-    <p className="mt-6 max-w-3xl border-l-4 border-hairline pl-4 text-[13px] leading-relaxed text-steel">
-      {t("rebelInstancesPending")}
-    </p>
-  );
-}
+/** Fallback pro `<Suspense>` žije ve vlastním souboru jako KLIENTSKÁ komponenta
+ *  (./RebellionInstancesPending.tsx) — fallback nesmí sám čekat. Re-export, aby
+ *  volající nemusel vědět, že se přestěhoval. */
+export { default as RebellionInstancesPending } from "./RebellionInstancesPending";
 
-export default function RebellionInstances({ record }: { record: ProfileRebellionRecord | null }) {
-  const t = useTranslations("profile");
-  const f = useFormat();
+export default async function RebellionInstances({ record }: { record: ProfileRebellionRecord | null }) {
+  const { t, f } = await profileIntl();
 
   if (record === null) {
     // Záznam hlasování se nepodařilo přečíst. Prázdný seznam by tady tvrdil, že

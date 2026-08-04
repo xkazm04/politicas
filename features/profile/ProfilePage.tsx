@@ -1,5 +1,3 @@
-"use client";
-
 /*
  * Spis poslance (/poslanec/<pspId>) — REÁLNÁ DATA ze znalostního grafu.
  * Hlavička se skóre indexu přispění a pořadím z 207, pak číslované oddíly:
@@ -13,18 +11,32 @@
  *
  * Citace u každého čísla. Žádná čtvrtletní řada / delta / trend (jedno období,
  * bez reálného podloží) — místo nich čestné „jedno období".
+ *
+ * SERVEROVÁ KOMPONENTA (od 2026-08-04). Spis byl celý `"use client"`, takže se
+ * do RSC flightu serializoval CELÝ `ProfileData` — každý řádek smlouvy, název
+ * tisku i kariérní páteř — u plochy, která je z 95 % statická. Klientské jsou
+ * teď jen ostrůvky, kde opravdu žije interakce: `MotionIslands` (pohyb),
+ * `AnimatedScore` (přechod čísla + jeho claim), `FollowButton`,
+ * `ExpandableText`, `RebellionInstancesPending`. Překlad a formátování si
+ * serverové komponenty berou přes `./serverIntl.ts` — tytéž dva objekty jako
+ * `useTranslations`/`useFormat`, jen čtené na serveru.
+ *
+ * Dvě pravidla, která z toho plynou a nelze je porušit potichu:
+ *   1) klientské komponentě se nesmí předat FUNKCE (proto `AnimatedScore`
+ *      dostává `formatKind="dec"` místo `format={f.dec}`);
+ *   2) ze serverové komponenty se nesmí číst HODNOTA z `"use client"` modulu
+ *      (proto `COMPONENT_FILL` bydlí v `features/civicscore/componentFill.ts`).
  */
 
-import { motion, useReducedMotion } from "framer-motion";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
 import type { ProfileData } from "./getProfileData";
-import { useFormat } from "@/lib/i18n/useFormat";
+import { profileIntl } from "./serverIntl";
+import { ComponentBar, HeaderReveal } from "@/features/profile/components/MotionIslands";
 import AnimatedScore from "@/features/shared/components/AnimatedScore";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
-import { COMPONENT_FILL } from "@/features/civicscore/components/LeaderboardTable";
+import { COMPONENT_FILL } from "@/features/civicscore/componentFill";
 import { storedRefLabel } from "@/features/civicscore/provenance";
 import { contributionScoreClaim } from "@/features/civicscore/scoreClaim";
 import { krajSlug } from "@/features/civicscore/kraj";
@@ -50,7 +62,7 @@ const ROLE_KEY: Record<string, string> = {
   member: "committeeRoleMember",
 };
 
-export default function ProfilePage({
+export default async function ProfilePage({
   data,
   rebellionSlot,
 }: {
@@ -60,11 +72,11 @@ export default function ProfilePage({
    *  spis na něj nesmí čekat; klientská komponenta ho jen umístí pod agregát. */
   rebellionSlot?: React.ReactNode;
 }) {
-  const reduceMotion = useReducedMotion();
-  const t = useTranslations("profile");
-  const tcom = useTranslations("common");
-  const tm = useTranslations("metodika");
-  const f = useFormat();
+  const [{ t, f }, { t: tcom }, { t: tm }] = await Promise.all([
+    profileIntl(),
+    profileIntl("common"),
+    profileIntl("metodika"),
+  ]);
 
   const { person, total, components, coVoters, rebellions, committees } = data;
   const [first, ...rest] = person.name.split(" ");
@@ -150,11 +162,7 @@ export default function ProfilePage({
 
       <div className="mx-auto max-w-6xl px-6">
         {/* ── Hlavička spisu ────────────────────────────────── */}
-        <motion.div
-          initial={reduceMotion ? false : { opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="border-b border-hairline py-12"
-        >
+        <HeaderReveal className="border-b border-hairline py-12">
           <SourceNote tone="signal">
             {/* Pořadí je soutěžní (1, 2, 2, 4): shodná skóre sdílejí jedno místo, takže
                 „#2 z 207" u dvou poslanců není chyba — a spis to musí říct, jinak by
@@ -185,10 +193,22 @@ export default function ProfilePage({
           </SourceNote>
           <div className="mt-4 flex flex-wrap items-end justify-between gap-8">
             <div>
+              {/* Jméno je vysázené na dva řádky, ale ČTE se jako jedno jméno:
+                  `{first}<br/>{lastName}` dával odečítači „Petr" a „Hladík" jako
+                  dva samostatné texty (a u jednoslovného jména prázdný druhý
+                  řádek). Přístupný název je tedy celé jméno jednou, sazba je
+                  dekorace — a `<br/>` se vůbec nevykreslí, když příjmení není. */}
               <h1 className="text-6xl font-black uppercase leading-[0.92] tracking-tight sm:text-7xl">
-                {first}
-                <br />
-                <span className="text-signal">{lastName}</span>
+                <span className="sr-only">{person.name}</span>
+                <span aria-hidden>
+                  {first}
+                  {lastName ? (
+                    <>
+                      <br />
+                      <span className="text-signal">{lastName}</span>
+                    </>
+                  ) : null}
+                </span>
               </h1>
               {/* Sledování se razí TAM, kde entita je — do teď stálo jediné
                   tlačítko v liště pod popiskem „tahle stránka" a spis o schránce
@@ -238,7 +258,7 @@ export default function ProfilePage({
               <AnimatedScore
                 value={person.score}
                 claim={scoreClaim}
-                format={f.dec}
+                formatKind="dec"
                 className="text-[7rem] font-black leading-[0.85] tracking-tighter sm:text-[8rem]"
               />
               <div className="mt-2 flex items-center justify-end gap-3">
@@ -250,17 +270,17 @@ export default function ProfilePage({
                   {tcom("of100")}
                 </span>
               </div>
-              {/* Pas sk\u00f3re + jeho LINIE. Spis tiskl \u010d\u00edslo pasu i tehdy, kdy\u017e ho data
-                  nesla jen na prvn\u00edm uzlu, a linii metodiky ne\u010detl v\u016fbec \u2014 proto \u0161est dn\u00ed
-                  ukazoval sk\u00f3re star\u00e9 formule bez jedin\u00e9ho slova o tom. */}
+              {/* Pas skóre + jeho LINIE. Spis tiskl číslo pasu i tehdy, když ho data
+                  nesla jen na prvním uzlu, a linii metodiky nečetl vůbec — proto šest dní
+                  ukazoval skóre staré formule bez jediného slova o tom. */}
               <SourceNote className="mt-1 !text-[10px]">
                 {t("periodNote")}
-                {data.provenancePass != null ? ` \u00b7 ${t("indexPass", { pass: f.int(data.provenancePass) })}` : ""}
+                {data.provenancePass != null ? ` · ${t("indexPass", { pass: f.int(data.provenancePass) })}` : ""}
                 {data.provenance.state === "mixed"
-                  ? ` \u00b7 ${t("indexPassMixed", { count: f.int(data.provenance.distinctCount) })}`
+                  ? ` · ${t("indexPassMixed", { count: f.int(data.provenance.distinctCount) })}`
                   : ""}
                 {!data.provenance.formulaMatch && data.provenance.state !== "absent"
-                  ? ` \u00b7 ${t("indexRefMismatch", {
+                  ? ` · ${t("indexRefMismatch", {
                       dataRef: storedRefLabel(data.provenance),
                       codeRef: data.provenance.declaredRef,
                     })}`
@@ -331,9 +351,9 @@ export default function ProfilePage({
               v registru pro všechna období; záznam aktivity jen pro běžící a
               částečně PSP9 — stuha to přiznává po obdobích). */}
           <CareerSpineSection career={data.career} asOf={data.seatsAsOf} />
-        </motion.div>
+        </HeaderReveal>
 
-        {/* ── 01 Složky přispění ────────────────────────────── */}
+        {/* ── Složky přispění (číslo odvozuje `no()`) ──────────── */}
         <section id="slozky" className="pt-12">
           <SectionHeading
             index={no("components")}
@@ -353,16 +373,11 @@ export default function ProfilePage({
                     {f.dec(pts)}
                     <span className="ml-1 align-top text-lg font-bold text-steel">/{c.weight}</span>
                   </p>
-                  <div className="mt-3 h-2 w-full bg-hairline">
-                    <motion.div
-                      className="h-full"
-                      style={{ background: fill.color, opacity: fill.opacity }}
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${Math.min(100, (pts / c.weight) * 100)}%` }}
-                      viewport={{ once: true }}
-                      transition={reduceMotion ? { duration: 0 } : { duration: 0.6 }}
-                    />
-                  </div>
+                  <ComponentBar
+                    pct={Math.min(100, (pts / c.weight) * 100)}
+                    color={fill.color}
+                    opacity={fill.opacity}
+                  />
                   <SourceNote className="mt-3 !text-[10px]">
                     {tcom("sourcePrefix")} {c.source}
                   </SourceNote>
@@ -386,7 +401,7 @@ export default function ProfilePage({
         {/* ── Peněžní vazby ──────────────────────────────────── */}
         <MoneySection index={no("money")} money={data.money} pspId={person.pspId} />
 
-        {/* ── 03 Nejbližší spojenci ─────────────────────────── */}
+        {/* ── Nejbližší spojenci (číslo oddílu odvozuje `no()`) ─── */}
         <section id="spojenci" className="mt-16 border-t-4 border-ink pt-10">
           <SectionHeading
             index={no("allies")}
@@ -434,7 +449,7 @@ export default function ProfilePage({
           )}
         </section>
 
-        {/* ── 04 Rebelie proti klubu ────────────────────────── */}
+        {/* ── Rebelie proti klubu (číslo odvozuje `no()`) ──────── */}
         <section id="rebelie" className="mt-16 border-t-4 border-ink pt-10">
           <SectionHeading
             index={no("rebellions")}
@@ -469,7 +484,7 @@ export default function ProfilePage({
           {rebellionSlot}
         </section>
 
-        {/* ── 05 Výbory a komise ────────────────────────────── */}
+        {/* ── Výbory a komise (číslo odvozuje `no()`) ──────────── */}
         <section id="vybory" className="mt-16 border-t-4 border-ink pt-10 pb-8">
           <SectionHeading
             index={no("committees")}

@@ -1,5 +1,3 @@
-"use client";
-
 /*
  * Poctivý korektiv nízkého skóre (Case ② build, batch 002 — O-effort-2).
  * REÁLNÁ DATA: čte `effort_low_score_reason` (+ volitelně `effort_public_role`)
@@ -22,19 +20,19 @@
  * z grafu se vykresluje verbatim a nepřekládá se.
  */
 
-import { useTranslations } from "next-intl";
+import { profileIntl } from "../serverIntl";
 import { ShieldCheck, Info } from "lucide-react";
 import { lowScoreReasonCopy } from "@/lib/analysis/low-score-reason";
 import SourceNote from "@/features/shared/components/SourceNote";
 
-export default function LowScoreReasonBadge({
+export default async function LowScoreReasonBadge({
   reason,
   publicRole,
 }: {
   reason: string | null;
   publicRole?: string | null;
 }) {
-  const t = useTranslations("profile");
+  const { t } = await profileIntl();
   const copy = lowScoreReasonCopy(reason);
   if (!copy) return null;
 

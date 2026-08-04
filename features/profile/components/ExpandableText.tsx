@@ -2,17 +2,23 @@
 
 /*
  * Progresivní odkrytí dlouhého prózního textu (Case ② manifestation pass —
- * dosier poslance). effort_bill_focus / effort_notes bývají několik vět
- * dlouhé citované prózy; nad práh znaků se strihnou a nabídnou "více" —
- * čtenář vidí první větu hned, zbytek na vyžádání, bez skrývání do tooltipu
- * (evidence-first: citovaný text musí jít přečíst celý, ne jen najet myší).
+ * dosier poslance). effort_bill_focus / effort_notes / effort_psp9_trend_note
+ * bývají několik vět dlouhé citované prózy; nad práh znaků se sbalí a nabídnou
+ * "více" — čtenář vidí první věty hned, zbytek na vyžádání, bez skrývání do
+ * tooltipu (evidence-first: citovaný text musí jít přečíst celý, ne jen najet
+ * myší).
  *
- * Feature-local, ne shared/: chová se čistě text→text, ale vázané na dosier
- * copy (mono "více"/"méně" tlačítko v tónu profilu). Kandidát na
- * features/shared/components, pokud se objeví druhé použití mimo profil.
+ * SBALENÍ JE VIZUÁLNÍ, NE DATOVÉ (2026-08-04). Dřív se text v DOM opravdu
+ * uřízl — `text.slice(0, …)` — takže Ctrl+F v prohlížeči citovanou prózu
+ * NENAŠEL, tisk vydal půlku věty a odečítač dostal „…" místo zbytku. Na ploše,
+ * jejíž celý smysl je, že tvrzení stojí vedle svého důkazu, je uříznutý důkaz
+ * horší než dlouhý odstavec. Text je proto v DOM VŽDY celý a schovává ho jen
+ * `line-clamp` — najde ho find-in-page, vytiskne se celý a odečítač ho přečte
+ * celý. Tlačítko `aria-expanded` + `aria-controls` míří na region, který
+ * skutečně ovládá.
  */
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import { useTranslations } from "next-intl";
 
 // Raised from 240 (UX audit 2026-07-27, #9): at 240 the cut consistently fell
@@ -21,18 +27,10 @@ import { useTranslations } from "next-intl";
 // finding, the Teleky family-firm note), both of which land past 320.
 const COLLAPSE_AT = 360;
 
-/** Cuts at the sentence boundary (". ", "! ", "? ") nearest to but not before
- *  COLLAPSE_AT, so collapsed prose always ends on a complete thought instead
- *  of mid-word. Falls back to the nearest word boundary if no sentence ends
- *  within a reasonable stretch after the threshold (e.g. one very long
- *  run-on sentence) — never a hard character slice. */
-function collapseBoundary(text: string, at: number): number {
-  const tail = text.slice(at, at + 200);
-  const sentenceEnd = tail.search(/[.!?]\s/);
-  if (sentenceEnd !== -1) return at + sentenceEnd + 1;
-  const wordEnd = text.slice(0, at).lastIndexOf(" ");
-  return wordEnd > 0 ? wordEnd : at;
-}
+/** Řádky, na které se sbalená próza ořízne. `COLLAPSE_AT` znaků odpovídá při
+ *  sazbě téhle plochy zhruba pěti řádkům; klamp je pak vizuální ekvivalent
+ *  původního řezu, jen bez ztráty textu. */
+const COLLAPSED_LINES = 5;
 
 export default function ExpandableText({
   text,
@@ -43,22 +41,39 @@ export default function ExpandableText({
 }) {
   const t = useTranslations("profile");
   const [expanded, setExpanded] = useState(false);
+  const id = useId();
   const isLong = text.length > COLLAPSE_AT;
-  const shown = !isLong || expanded ? text : `${text.slice(0, collapseBoundary(text, COLLAPSE_AT)).trimEnd()}…`;
+  const collapsed = isLong && !expanded;
 
   return (
-    <p className={className}>
-      {shown}
+    <>
+      <p
+        id={id}
+        className={className}
+        style={
+          collapsed
+            ? {
+                display: "-webkit-box",
+                WebkitBoxOrient: "vertical",
+                WebkitLineClamp: COLLAPSED_LINES,
+                overflow: "hidden",
+              }
+            : undefined
+        }
+      >
+        {text}
+      </p>
       {isLong && (
         <button
           type="button"
           onClick={() => setExpanded((e) => !e)}
           aria-expanded={expanded}
-          className="ml-2 inline-block font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt hover:text-signal"
+          aria-controls={id}
+          className="mt-1 inline-block font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt hover:text-signal"
         >
           {expanded ? t("expandLess") : t("expandMore")}
         </button>
       )}
-    </p>
+    </>
   );
 }

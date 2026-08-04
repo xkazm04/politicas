@@ -298,6 +298,56 @@ Route map (politicas.md roadmap execution, sample data):
   it is an INGEST change, not a render change, so the dossier discloses the composition
   as unavailable rather than implying a breakdown it cannot show. Pinned by
   `features/profile/messages.test.ts`.
+  **The spis ships what renders (2026-08-04).** `ProfilePage` was `"use client"` in
+  FULL, so the ENTIRE `ProfileData` — every contract line, bill title, career segment
+  — serialized into the RSC flight for a page that is ~95 % static. It and every
+  section (`DossierSection`, `MoneySection`, `CareerSpineSection`,
+  `ScoreLegibilityPanel`, `TenureNote`, `LowScoreReasonBadge`, `TenureTrendGate`,
+  `RebellionInstances`) are now SERVER components; measured, exactly ONE of them
+  needed a client at all. The client islands are `MotionIslands` (the two
+  framer-motion pieces), `AnimatedScore`, `FollowButton`, `ExpandableText` and
+  `RebellionInstancesPending`. Translations and formatters come from
+  `features/profile/serverIntl.ts` — `getTranslations()` plus `formattersFor()`,
+  literally what `useFormat` memoizes, so a number cannot render differently on the
+  two sides. **Measured props across the boundary (live store):** Hladík 6881
+  23 474 → 3 512 B raw, 6 836 → 2 087 B gzipped (−85 % / −70 %); Babiš 6150 25 796 →
+  3 997 B raw, 7 137 → 2 206 B gzipped; Nacher 6487 −80 %; Vondráček 6165 −81 %.
+  Two rules fall out of this and must not be broken quietly: **(1) never pass a
+  FUNCTION to a client component** — `AnimatedScore` gained `formatKind="dec"`
+  because `format={f.dec}` does not serialize; **(2) never read a VALUE out of a
+  `"use client"` module from a server component** — `COMPONENT_FILL` moved to
+  `features/civicscore/componentFill.ts` (re-exported from `LeaderboardTable`, all
+  four call sites updated) for exactly that reason. The `<Suspense>` fallback is its
+  own CLIENT file: an `async` fallback would suspend the boundary it exists to open.
+  **The chamber pass is memoized across requests.** `buildLeaderboard()` is
+  `react.cache()`d — per REQUEST — while a static build of /poslanec is 207 pages
+  that each await it, and /zebricek, /kraj, /dashboard, /schranka and /overeni pay
+  it again per request. It now also carries a cross-request memo on
+  `MONEY_MEMO_TTL_MS` (imported from `features/dashboard/freshness.ts`, never
+  re-declared). Failure-honest by construction: a `null` is never memoized, and
+  neither is an EMPTY chamber. Measured on the live store: cold chamber pass
+  **585 ms**, memo hit **0 ms**; 207 sequential `getProfileData()` calls → **1**
+  read pass (`leaderboardReadPasses()`). **Honest limit:** in a tsx harness
+  `react.cache()` has no request scope and behaves process-wide, so the harness
+  cannot reproduce a real build's per-page cache scope — the 207× figure for the
+  un-memoized case follows from react.cache's contract plus the measured per-pass
+  cost, it was not observed in a build.
+  **Four a11y/correctness seams closed in the same pass.** `AnimatedScore` ignored
+  `useReducedMotion` while the rest of the page gated on it — running digits are
+  exactly the motion WCAG 2.3.3 is about; it now renders the target value directly
+  (no `setState` in an effect) and the machine-readable claim is unchanged, because
+  it always carried the target. The header's `{first}<br/>{lastName}` gave a screen
+  reader two separate texts (and an empty second line for a single-token name); the
+  `<h1>` now has ONE accessible name and the typesetting is `aria-hidden`
+  decoration. `ExpandableText` truncated in the DOM, so **find-in-page missed cited
+  prose** and printing cut it in half — on a surface whose whole point is that a
+  claim stands beside its evidence; truncation is now visual only (`line-clamp`),
+  the text is always complete in the DOM, and the toggle carries `aria-controls`.
+  `ScoreLegibilityPanel`'s 46rem table scrolled silently and could not be reached by
+  keyboard; the scroll container is now a labelled, focusable region and says so on
+  small screens. Also: the unicode-escaped Czech comment block in `ProfilePage` is
+  normalized, and the stale `03/04/05` section comments — which contradicted the
+  derived numbering right above them — are gone.
   **Section numbers are derived from what renders** — the dossier is omitted for
   an MP carrying none, so nothing may hard-code an index. `getProfileData` is
   `react.cache()`-wrapped and reads per-MP edges through the INDEXED

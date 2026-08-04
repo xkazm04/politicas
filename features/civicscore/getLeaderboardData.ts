@@ -37,6 +37,7 @@
 
 import "server-only";
 import { cache } from "react";
+import { MONEY_MEMO_TTL_MS } from "@/features/dashboard/freshness";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { storeReady } from "@/lib/db/readiness";
 import { KG_READ_CAP } from "@/lib/db/readCap";
@@ -403,15 +404,57 @@ export interface Directory {
   organByPspId: Map<number, OrganRow>;
 }
 
+type BuiltChamber = { data: LeaderboardData; directory: Directory };
+
 /**
- * The one chamber-wide read pass. `react.cache`-wrapped: a single request may hit
- * it from `generateMetadata`, the page body and `generateStaticParams` — before
- * this wrapper each of those ran the whole pipeline again (207 persons + mandates
- * + clubs + organs + party nodes, every time).
+ * Cross-request memo for the chamber pass. `react.cache()` is scoped to ONE
+ * request, and this pass is not per-request work: it is a fold over the whole
+ * `kg_node` person slice plus mandates, clubs, organs and party nodes, and it
+ * changes only when `da:kg-compute` writes. /poslanec is 207 statically
+ * generated pages that each await it, so a build ran the chamber pass 207 times
+ * for one identical answer; /zebricek, /kraj, /dashboard, /schranka and
+ * /overeni pay it again per request.
+ *
+ * The bound is the money layer's — `MONEY_MEMO_TTL_MS`, imported, never
+ * re-declared: two memos over one graph on two clocks is how two surfaces print
+ * two vintages of one number.
+ *
+ * FAILURE-HONEST by construction: `null` is never memoized (an unreachable
+ * store must degrade on the next request, not for a day), and neither is an
+ * EMPTY chamber (a half-ingested read must not freeze into "0 poslanců").
  */
-export const buildLeaderboard = cache(async function buildLeaderboard(): Promise<
-  { data: LeaderboardData; directory: Directory } | null
-> {
+let chamberMemo: { at: number; built: BuiltChamber } | null = null;
+let chamberPasses = 0;
+
+/** Test/measurement seam: drop the cross-request memo and the pass counter
+ *  (`resetRebellionMemo` / `resetSuppliesMemo` precedent). Never called by the app. */
+export function resetLeaderboardMemo(): void {
+  chamberMemo = null;
+  chamberPasses = 0;
+}
+
+/** How many times the chamber pass actually READ the store since the last reset.
+ *  This is the number a static build multiplies by 207 when the memo is absent. */
+export function leaderboardReadPasses(): number {
+  return chamberPasses;
+}
+
+/**
+ * The one chamber-wide read pass. `react.cache`-wrapped for the intra-request
+ * case (a single request may hit it from `generateMetadata`, the page body and
+ * `generateStaticParams`) and memoized ACROSS requests by `chamberMemo` above.
+ */
+export const buildLeaderboard = cache(async function buildLeaderboard(): Promise<BuiltChamber | null> {
+  const now = Date.now();
+  if (chamberMemo && now - chamberMemo.at < MONEY_MEMO_TTL_MS) return chamberMemo.built;
+  const built = await readChamber();
+  // Never memoize a failure, and never memoize an empty chamber.
+  if (built && built.data.entries.length > 0) chamberMemo = { at: now, built };
+  return built;
+});
+
+async function readChamber(): Promise<BuiltChamber | null> {
+  chamberPasses += 1;
   try {
     const store = await getStore();
     if (!store) return null;
@@ -582,7 +625,7 @@ export const buildLeaderboard = cache(async function buildLeaderboard(): Promise
     reportLoaderFailure("buildLeaderboard", err);
     return null;
   }
-});
+}
 
 /** Full-detail loader — `/dashboard` (top-5 widget, needs `absenceRate` etc.)
  *  and anything else needing the whole `LeaderboardEntry` per MP. */

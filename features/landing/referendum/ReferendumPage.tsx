@@ -24,7 +24,7 @@ import { ArrowUpRight, Check, Code2, Vote } from "lucide-react";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
 import WeightPanel from "@/features/civicscore/components/WeightPanel";
-import { COMPONENT_FILL } from "@/features/civicscore/components/LeaderboardTable";
+import { COMPONENT_FILL } from "@/features/civicscore/componentFill";
 import type { LeaderboardListData } from "@/features/civicscore/getLeaderboardData";
 import { encodeWeights, PUBLISHED_WEIGHTS_LABEL, reweigh } from "@/features/civicscore/lens";
 import { useLensWeights } from "@/features/civicscore/useLensWeights";

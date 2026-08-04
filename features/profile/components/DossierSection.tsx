@@ -1,5 +1,3 @@
-"use client";
-
 /*
  * Dosier poslance — manifestační průchod (2026-07-25): poslanci nesou bohaté
  * effort_* dosierové vlastnosti (tematické zaměření, legislativní stopa,
@@ -32,8 +30,7 @@
 
 import Link from "next/link";
 import { AlertTriangle, ArrowUpRight } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { useFormat } from "@/lib/i18n/useFormat";
+import { profileIntl } from "../serverIntl";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
 import ExpandableText from "./ExpandableText";
@@ -104,14 +101,13 @@ export function hasDossierContent(d: DossierContent): boolean {
   );
 }
 
-export default function DossierSection({ index, ...d }: DossierContent & { index: number }) {
-  const t = useTranslations("profile");
+export default async function DossierSection({ index, ...d }: DossierContent & { index: number }) {
   // Numbers reach the ICU strings ALREADY formatted (lib/format.ts) and the raw
   // count is passed only to select the plural category — next-intl would
   // otherwise render them through `Intl.NumberFormat`, which is both outside the
   // app's single formatting authority and an SSR/CSR hydration risk (server and
   // client can carry different ICU data).
-  const f = useFormat();
+  const { t, f } = await profileIntl();
   const {
     publicRole,
     workThemes,
@@ -460,9 +456,8 @@ export default function DossierSection({ index, ...d }: DossierContent & { index
 /** One bill the MP engaged with, with the count of that engagement. Same print
  *  chip as the legislative track above — link built from `cislo`, never `tiskId`
  *  (see SponsoredBill), and a bill with no `cislo` renders unlinked, not broken. */
-function EngagementRow({ bill, unitKey }: { bill: BillEngagement; unitKey: string }) {
-  const t = useTranslations("profile");
-  const f = useFormat();
+async function EngagementRow({ bill, unitKey }: { bill: BillEngagement; unitKey: string }) {
+  const { t, f } = await profileIntl();
   return (
     <li className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
       {bill.appUrl ? (

@@ -753,6 +753,8 @@
     "trendNoteSourceDated": "zdroj: effort-loop enrichment · effort_psp9_trend_note · zaznamenáno {date}",
     "expandMore": "více",
     "expandLess": "méně",
+    "legibilityScrollHint": "tabulku lze posunout do stran",
+    "legibilityTableLabel": "Složky indexu — hodnota, strop, medián sněmovny",
     "legibilityHeading": "Z čeho to skóre je",
     "legibilityLead": "Každá složka má zveřejněnou váhu a strop — hodnotu, nad kterou už nepřidává body. Tady je hodnota tohoto poslance ve vlastní jednotce složky, ten strop a medián sněmovny.",
     "legibilityColComponent": "složka",

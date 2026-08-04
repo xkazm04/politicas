@@ -1,5 +1,3 @@
-"use client";
-
 /*
  * Tenure-aware brána pro TrendPanel (Case ② build, batch 005).
  *
@@ -26,15 +24,14 @@
  * dnešek — chybějící datum se přizná.
  */
 
-import { useTranslations } from "next-intl";
-import { useFormat } from "@/lib/i18n/useFormat";
+import { profileIntl } from "../serverIntl";
 import type { ComponentKey, ContributionTrend } from "@/lib/analysis/contribution-trend";
 import { isTrendTooEarly, TREND_MIN_TENURE_DAYS } from "@/lib/analysis/tenure-copy";
 import TrendPanel from "@/features/civicscore/components/TrendPanel";
 import SourceNote from "@/features/shared/components/SourceNote";
 import ExpandableText from "./ExpandableText";
 
-export default function TenureTrendGate({
+export default async function TenureTrendGate({
   trend,
   componentLabels,
   tenureDays,
@@ -49,8 +46,7 @@ export default function TenureTrendGate({
   /** `effort_provenance.computedAt` — null = nedatováno, nikdy se nedopočítává. */
   recordedAt?: string | null;
 }) {
-  const t = useTranslations("profile");
-  const f = useFormat();
+  const { t, f } = await profileIntl();
 
   // Analytikova mezidobová próza. Stojí vedle panelu i místo něj — a vykreslí se
   // i tehdy, když `trend` chybí: potlačit reálný datovaný fakt jen proto, že
