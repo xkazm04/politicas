@@ -2,9 +2,17 @@
  * Občanská schránka (moonshot 7A) — kodek lokálního seznamu sledovaných entit.
  *
  * Sledování je LOKÁLNÍ a bez účtu: celý stav žije v localStorage čtenáře
- * (klíč SCHRANKA_STORAGE_KEY) a nikdy neopouští prohlížeč jinak než jako
- * parametry dotazu na /schranka/novinky.json (seznam klíčů + datum poslední
- * návštěvy — žádná identita, žádné cookies).
+ * (klíč SCHRANKA_STORAGE_KEY). Prohlížeč ho opouští jen jako PARAMETRY ADRESY
+ * odběrových cest — /schranka/novinky.json a /schranka/feed.{xml,json} (seznam
+ * klíčů + práh dne). Žádné cookies, žádné přihlášení, nic uloženého na serveru.
+ *
+ * Ale ať je to řečeno přesně, protože „žádná identita" to samo o sobě nezaručí:
+ * seznam v adrese je v běžné serverové telemetrii ROVNOU otisk (dvacet klíčů +
+ * IP je identifikace, i když je každý klíč veřejný). Proto se klíče ze stop
+ * Sentry škrtají a zůstává jen jejich počet — features/schranka/telemetryScrub.ts,
+ * zavěšený v sentry.server.config.ts na beforeSend i beforeSendTransaction.
+ * Že seznam JEDE v adrese, je záměr (adresa = přenosný odběr), ne nedopatření;
+ * plocha /schranka to říká čtenáři stejně otevřeně.
  *
  * Čistý modul bez importů z prohlížeče: parse/serialize se testují jako data.
  * Kodek je záměrně TOLERANTNÍ na vstupu (rozbitý JSON, cizí tvary, neznámé

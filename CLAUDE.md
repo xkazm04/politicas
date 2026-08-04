@@ -662,6 +662,40 @@ Route map (politicas.md roadmap execution, sample data):
   leaderboard costs 424–522 ms warm for three fields the badge asks for on every
   page. All subscription addresses now build through ONE server module
   (`getSchrankaDeltas.ts`), so a feed can never report different news than the page.
+  **The follow list stays out of telemetry, and becomes a feed (2026-08-04).** The
+  page and `followCodec`'s header both claimed the list reached the server „pouze
+  jako parametry dotazu … žádná identita" — true about cookies, false about
+  consequences: `sentry.server.config.ts` samples traces at **1,0**, so with a DSN
+  configured every request URL would enter Sentry, and a 20-MP follow list plus an
+  IP is a fingerprint however public each key is. **Measured** against a real SDK
+  event (`telemetryScrub.test.ts` runs `Sentry.startSpan` through
+  `beforeSendTransaction` with a stub transport): set only `url.full` and
+  `@sentry/node` 10.67 copies the query into `http.query` as well — a field nobody
+  set. `features/schranka/telemetryScrub.ts` therefore scrubs **by PARAMETER, not by
+  path** (the address appears as an absolute URL, a relative path and a bare query
+  string; a path rule would silently miss one): every `e=` whose value is a valid
+  entity key is dropped and replaced by `e_count=<n>`, across `contexts.trace.data`,
+  `request.url`/`query_string`, `spans[].data` and `breadcrumbs[].data`. A foreign
+  `e=` is left alone. Both `beforeSend` and `beforeSendTransaction` run it.
+  **Honest limit: no DSN exists in this repo, so verification is at the event level
+  — the event the SDK builds — not at a request observed in Sentry.**
+  The GET URL is deliberately KEPT (the reader owning a shareable, bookmarkable
+  address IS the subscription), and the copy now states exactly that, including the
+  one thing scrubbing does not change: the server still sees the request IP.
+  **`/schranka/feed.xml` + `/schranka/feed.json`** are that subscription — the same
+  `?e=…&od=…` address, the same key guard (`parseFollowKeys`), the same deltas
+  (`getSchrankaDeltas`), and **the same serializer**: `features/denik/feedCodecs`
+  grew an optional `channel` (title/description/home/feed URL, guid prefix, entry
+  URL) plus a `DenikFeedItem` type of what it actually reads, so the schránka is a
+  second channel rather than a second RSS/JSON codec, and the deník's own output is
+  byte-identical (its tests pin it). The schránka's guid prefix is
+  `politicas:schranka` because a recompute row is not in the deník, and an item's
+  permanent address is its own page (`/metodika`, the file, the tisk) rather than a
+  deník day anchor that would not contain it. A row followed through two entities is
+  emitted ONCE. The channel description states what the URL encodes, that nothing is
+  stored server-side, and that the keys are scrubbed from telemetry; both routes
+  503 on an unreadable store (the `/denik/feed.*` precedent) and the JSON side is
+  validated by the SAME `parseEvidenceFeedJson` both deníky use.
 - `/graf` — **Graph playground** (features/graph): the full knowledge graph on
   a full-viewport `<canvas>`; the page opts out of the app shell
   (`isBareRoute`) to own the whole window width — chrome floats over the

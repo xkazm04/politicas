@@ -28,6 +28,7 @@ import {
   type DeltaEntry,
   type EntityDelta,
 } from "./deriveDeltas";
+import { schrankaFeedQuery } from "./feed";
 import { kindTallies } from "./kindVocabulary";
 import type { NovinkyResponse } from "./novinky";
 import FollowButton from "./FollowButton";
@@ -222,6 +223,21 @@ export default function SchrankaPage() {
     markSeen({ day: visit.day, count: countSeen(data.deltas, visit.day) });
   }, [visit, data, markSeen]);
 
+  // Adresa odběru: origin se čte AŽ po připojení (na serveru žádný není a
+  // dokreslit ho do prvního renderu je hydratační rozdíl); do té doby se
+  // ukazuje relativní cesta, která funguje stejně.
+  // (Zapisuje se v rAF, ne v těle efektu — týž důvod jako u razítka návštěvy:
+  // synchronní setState v efektu je kaskádový render.)
+  const [origin, setOrigin] = useState("");
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => setOrigin(window.location.origin));
+    return () => cancelAnimationFrame(frame);
+  }, []);
+  const feedQuery = schrankaFeedQuery(
+    state.follows.map((f) => f.key),
+    since,
+  );
+
   const storedLabels = new Map(state.follows.map((f) => [f.key, f.label]));
   const firstVisit = visit !== null && visit.prev === null;
   const dropped = (data?.droppedEntries ?? 0) + (data?.droppedDeltas ?? 0);
@@ -258,8 +274,12 @@ export default function SchrankaPage() {
         <div className="mt-8 max-w-2xl border-l-4 border-ink bg-paper-strong px-4 py-3">
           <p className="font-mono text-[11px] font-bold uppercase tracking-widest">pravidlo schránky</p>
           <p className="mt-1 text-sm leading-relaxed text-steel-aa">
-            Sledování je bez účtu: seznam žije jen ve vašem prohlížeči (localStorage) a serveru se
-            posílá pouze jako parametry dotazu na novinky — žádná identita. Zápisy deníku jsou
+            Sledování je bez účtu: seznam žije ve vašem prohlížeči (localStorage). Při dotazu na
+            novinky ale celý ten seznam jede v ADRESE requestu (<code>?e=poslanec:…</code>) — to je
+            záměr, protože adresa je zároveň váš odběr: dá se uložit i poslat dál a kdo ji má, vidí
+            týž výběr. Žádné cookies, žádné přihlášení, na serveru se neukládá nic; ze serverové
+            telemetrie se klíče škrtají a zůstává jen jejich počet. Co server vidí jako u každé jiné
+            stránky, je IP adresa requestu — to schránka neruší a netvrdí opak. Zápisy deníku jsou
             datované dnem, práh „od minulé návštěvy&ldquo; je proto denní: den poslední návštěvy se
             počítá celý znovu — raději zápis ukázat podruhé než zamlčet.
             {firstVisit
@@ -401,6 +421,48 @@ export default function SchrankaPage() {
             </>
           )}
         </section>
+
+        {state.follows.length > 0 && (
+          <section className="mt-14 border-t-4 border-ink pt-10">
+            <SectionHeading
+              index={2}
+              title="Odběr"
+              aside={<SourceNote>tytéž delty, jiný formát · RSS 2.0 a JSON Feed 1.1</SourceNote>}
+            />
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel-aa">
+              Bez účtu nemůže být odběr řádkem v databázi — je to ADRESA. Tyhle dvě nesou váš
+              současný výběr ({czechInt(state.follows.length)}) přímo v sobě a vaše čtečka z nich
+              dostane tytéž řádky jako tahle stránka. Kdo adresu má, vidí týž výběr; zacházejte s ní
+              jako se soukromým odkazem. Sledované si schránka pamatuje jen tady v prohlížeči, takže
+              adresu je po změně výběru potřeba vzít znovu.
+            </p>
+            <div className="mt-6 space-y-3">
+              {(["xml", "json"] as const).map((format) => {
+                const path = `/schranka/feed.${format}${feedQuery}`;
+                return (
+                  <div key={format} className="border-2 border-ink bg-paper-strong px-4 py-3">
+                    <p className="font-mono text-[11px] font-bold uppercase tracking-widest">
+                      {format === "xml" ? "RSS 2.0" : "JSON Feed 1.1"}
+                    </p>
+                    <a
+                      href={path}
+                      className="mt-1 block break-all font-mono text-[12px] text-signal-deep hover:underline"
+                    >
+                      {origin}
+                      {path}
+                    </a>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="mt-4">
+              <SourceNote>
+                adresa nese veřejné klíče sledovaných entit a práh dne · nic se na serveru neukládá ·
+                klíče se škrtají ze serverové telemetrie
+              </SourceNote>
+            </div>
+          </section>
+        )}
       </div>
     </main>
   );

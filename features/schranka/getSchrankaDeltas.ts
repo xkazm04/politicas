@@ -17,20 +17,34 @@ import "server-only";
 import { deriveDenikEntries } from "@/features/denik/deriveDenik";
 import { getDenikData } from "@/features/denik/getDenikData";
 import { getDukazyData } from "@/features/dukazy/getDukazyData";
-import { deriveDeltas, DELTA_ENTRIES_CAP, type EntityDelta } from "./deriveDeltas";
+import {
+  daysBefore,
+  deriveDeltas,
+  DELTA_ENTRIES_CAP,
+  FIRST_VISIT_DAYS,
+  type EntityDelta,
+} from "./deriveDeltas";
 import { getRecomputeFact } from "./getRecomputeFact";
 import type { NovinkyCoverage } from "./novinky";
 
 export interface SchrankaDeltas {
   deltas: EntityDelta[];
+  /** Práh, který se SKUTEČNĚ použil — volající ho cituje (feed i odpověď). */
+  since: string;
   coverage: NovinkyCoverage;
   /** `YYYY-MM-DD` serveru — den sestavení (z loaderu deníku). */
   builtOn: string;
 }
 
+/**
+ * `since === null` = volající práh nemá (čtečka feedu žádné razítko návštěvy
+ * nenese) → okno první návštěvy nad dnem sestavení, tedy táž shovívavost jako
+ * na ploše. Den se bere z LOADERU, ne z hodin route handleru: dvě různá „dnes"
+ * v jedné odpovědi jsou přesně ten druh nesouladu, který nikdo nevystopuje.
+ */
 export async function getSchrankaDeltas(
   keys: readonly string[],
-  since: string,
+  sinceOrNull: string | null,
 ): Promise<SchrankaDeltas | null> {
   const [denik, dukazy, recompute] = await Promise.all([
     getDenikData(),
@@ -38,6 +52,8 @@ export async function getSchrankaDeltas(
     getRecomputeFact(),
   ]);
   if (!denik) return null;
+
+  const since = sinceOrNull ?? daysBefore(denik.builtOn, FIRST_VISIT_DAYS - 1);
 
   const { entries } = deriveDenikEntries({
     contracts: denik.contracts,
@@ -49,6 +65,7 @@ export async function getSchrankaDeltas(
   });
 
   return {
+    since,
     deltas: deriveDeltas({
       entries,
       forensic: dukazy?.entries ?? [],

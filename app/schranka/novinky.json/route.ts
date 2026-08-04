@@ -41,7 +41,7 @@ export async function GET(request: Request): Promise<Response> {
   const body: NovinkyResponse = {
     v: 1,
     builtOn: built.builtOn,
-    since,
+    since: built.since,
     coverage: built.coverage,
     deltas: built.deltas,
   };
