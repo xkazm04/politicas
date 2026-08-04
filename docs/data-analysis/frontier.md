@@ -214,3 +214,18 @@ and the graph-metrics block in [[coverage-ledger]] for progress.
   (co-signing is normal club practice; neutrality mandatory, see the batch-008 Okamura BLOCKING).
 - [effort] own_bill_not_defended lens NOT trusted as ranked signal — fires on bills that never
   reached floor debate; refine to "others debated it, sponsor did not" before use.
+- [effort] **Q-effort-17 (new, opened 2026-08-04): per-unit anomalies do not aggregate.** Nine
+  independent dossier agents (batches 001–006) each wrote a „datová nesrovnalost" caveat
+  describing the committee double-counting defect on their own unit, in published prose. The
+  loop had no path from "N units flagged the same anomaly" to "the formula is wrong" — the
+  correction eventually arrived from elsewhere (pass 42), and those nine caveats then became
+  stale warnings about a fixed bug. Needed: a reflection step that clusters recurring per-unit
+  flags across a batch and escalates a repeated one as a population signal.
+- [effort] **Stale-score debt: 9 internal citations remain** (`effort_psp9_trend_note` ×7,
+  `effort_analyst_note` ×2) quoting a pass-42-superseded score. Not rendered, so not a public
+  defect; bounded and fixable, but needs the PSP9 before/after pair extracted because the
+  prior-term baseline carries its own committee correction. (batch 010)
+- [effort] **A guard that fires zero times has proven nothing.** Batch 010's score lens matched
+  „N bodu", fired 6/6 false, and was retired as noise — while 16 real stale citations sat in the
+  corpus written as „skóre … (90,5)". Validate a lens against the CORPUS, not against the shape
+  the prose ought to have. Generalises to every triage signal this family builds.

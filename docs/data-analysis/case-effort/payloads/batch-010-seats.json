@@ -1,0 +1,911 @@
+{
+  "generatedAt": "2026-08-04T13:21:48.536Z",
+  "organTypeCensus": {
+    "Poslanecká sněmovna": 228,
+    "Klub": 251,
+    "Výbor": 512,
+    "Delegace": 86,
+    "Komise": 257
+  },
+  "committeeOrganTypes": [
+    "Výbor",
+    "Komise",
+    "Delegace",
+    "Vyšetřovací komise",
+    "Podvýbor"
+  ],
+  "units": [
+    {
+      "kind": "committee",
+      "pspId": 7049,
+      "name": "Gabriela Svárovská",
+      "field": "effort_notes",
+      "isPublic": true,
+      "claimed": 5,
+      "corrected": 4,
+      "preCorrection": 5,
+      "matchedPreCorrection": true,
+      "raw": "pěti výborů",
+      "window": "Je členkou pěti výborů, komisí a delegací. psp.cz eviduje navíc podvýbory pro energetiku, evropské fo",
+      "allSeatRows": 7,
+      "countedSeatRows": 5,
+      "distinctBodyCount": 4,
+      "bodies": [
+        {
+          "key": "organ:1768",
+          "organName": "Výbor pro životní prostředí",
+          "organType": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1769",
+          "organName": "Zahraniční výbor",
+          "organType": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1781",
+          "organName": "Stálá komise pro kontrolu činnosti Národního bezpečnostního úřadu",
+          "organType": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1787",
+          "organName": "Stálá delegace Parlamentu do Parlamentního shromáždění NATO",
+          "organType": "Delegace",
+          "roles": [
+            "člen",
+            "Náhradník"
+          ],
+          "leads": false,
+          "filedTwice": true
+        }
+      ],
+      "nonCommitteeOrganTypes": [
+        "Klub",
+        "Poslanecká sněmovna"
+      ]
+    },
+    {
+      "kind": "committee",
+      "pspId": 5943,
+      "name": "Helena Langšádlová",
+      "field": "effort_notes",
+      "isPublic": true,
+      "claimed": 7,
+      "corrected": 5,
+      "preCorrection": 7,
+      "matchedPreCorrection": true,
+      "raw": "sedmi výborů",
+      "window": "Datová nesrovnalost: uváděný počet sedmi výborů neodpovídá poskytnutému seznamu čtyř committee položek (SKHH, VEZ, VŽP, SKBIS",
+      "allSeatRows": 9,
+      "countedSeatRows": 7,
+      "distinctBodyCount": 5,
+      "bodies": [
+        {
+          "key": "organ:1760",
+          "organName": "Výbor pro evropské záležitosti",
+          "organType": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1768",
+          "organName": "Výbor pro životní prostředí",
+          "organType": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1776",
+          "organName": "Stálá komise pro hybridní hrozby",
+          "organType": "Komise",
+          "roles": [
+            "člen",
+            "Místopředseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        },
+        {
+          "key": "organ:1780",
+          "organName": "Stálá komise pro kontrolu činnosti Bezpečnostní informační služby",
+          "organType": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1787",
+          "organName": "Stálá delegace Parlamentu do Parlamentního shromáždění NATO",
+          "organType": "Delegace",
+          "roles": [
+            "člen",
+            "Náhradník"
+          ],
+          "leads": false,
+          "filedTwice": true
+        }
+      ],
+      "nonCommitteeOrganTypes": [
+        "Klub",
+        "Poslanecká sněmovna"
+      ]
+    },
+    {
+      "kind": "committee",
+      "pspId": 6738,
+      "name": "Hubert Lang",
+      "field": "effort_notes",
+      "isPublic": true,
+      "claimed": 8,
+      "corrected": 7,
+      "preCorrection": 8,
+      "matchedPreCorrection": true,
+      "raw": "8 výborů",
+      "window": "e spolupodpis. Datová nesrovnalost: v přehledu je uvedeno zapojení do 8 výborů/komisí, ale doložen je jen seznam 7 položek (VB, VVVMS, SKGIBS, SKBIS, SKNBÚ, SKF",
+      "allSeatRows": 10,
+      "countedSeatRows": 8,
+      "distinctBodyCount": 7,
+      "bodies": [
+        {
+          "key": "organ:1765",
+          "organName": "Výbor pro vědu, vzdělávání, mládež a sport",
+          "organType": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1771",
+          "organName": "Výbor pro bezpečnost",
+          "organType": "Výbor",
+          "roles": [
+            "člen",
+            "Místopředseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        },
+        {
+          "key": "organ:1777",
+          "organName": "Stálá komise pro kontrolu činnosti Generální inspekce bezpečnostních sborů",
+          "organType": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1780",
+          "organName": "Stálá komise pro kontrolu činnosti Bezpečnostní informační služby",
+          "organType": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1781",
+          "organName": "Stálá komise pro kontrolu činnosti Národního bezpečnostního úřadu",
+          "organType": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1783",
+          "organName": "Stálá komise pro kontrolu činnosti Finančního analytického úřadu",
+          "organType": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1922",
+          "organName": "Vyšetřovací komise k prošetření okolností, systémových souvislostí a institucionálního fungování Dopravního podniku hlavního města Prahy, akciová společnost, Krajské správy a údržby silnic Středočeského kraje, příspěvková organizace a Všeobecné zdravotní pojišťovny ve věci podezření z korupčního jednání (tzv. &bdquo;kauza Dozimetr&ldquo;)",
+          "organType": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        }
+      ],
+      "nonCommitteeOrganTypes": [
+        "Poslanecká sněmovna",
+        "Klub"
+      ]
+    },
+    {
+      "kind": "committee",
+      "pspId": 5700,
+      "name": "Ivan Adamec",
+      "field": "effort_notes",
+      "isPublic": true,
+      "claimed": 3,
+      "corrected": 2,
+      "preCorrection": 3,
+      "matchedPreCorrection": true,
+      "raw": "tří výborů",
+      "window": "Uváděný počet tří výborů v datech odpovídá nálezu jen přibližně — psp.cz uvádí 2 výbory (Hospodářský, Ži",
+      "allSeatRows": 6,
+      "countedSeatRows": 3,
+      "distinctBodyCount": 2,
+      "bodies": [
+        {
+          "key": "organ:1761",
+          "organName": "Hospodářský výbor",
+          "organType": "Výbor",
+          "roles": [
+            "člen",
+            "Místopředseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        },
+        {
+          "key": "organ:1768",
+          "organName": "Výbor pro životní prostředí",
+          "organType": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        }
+      ],
+      "nonCommitteeOrganTypes": [
+        "Poslanecká sněmovna",
+        "Klub"
+      ]
+    },
+    {
+      "kind": "committee",
+      "pspId": 6732,
+      "name": "Ivana Mádlová",
+      "field": "effort_notes",
+      "isPublic": true,
+      "claimed": 6,
+      "corrected": 5,
+      "preCorrection": 6,
+      "matchedPreCorrection": true,
+      "raw": "6 výborů",
+      "window": "onflikt zájmů. Datová nesrovnalost: v přehledu je uvedeno zapojení do 6 výborů/komisí, ale doloženy jsou jen 3 položky (stejný vzorec jako u dalších poslanců). ",
+      "allSeatRows": 8,
+      "countedSeatRows": 6,
+      "distinctBodyCount": 5,
+      "bodies": [
+        {
+          "key": "organ:1766",
+          "organName": "Výbor pro veřejnou správu a regionální rozvoj",
+          "organType": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1767",
+          "organName": "Výbor pro zdravotnictví",
+          "organType": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1774",
+          "organName": "Stálá komise pro rodinu a rovné příležitosti",
+          "organType": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1786",
+          "organName": "Stálá delegace Parlamentu do Meziparlamentní unie",
+          "organType": "Delegace",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1789",
+          "organName": "Stálá delegace Parlamentu do Parlamentního shromáždění Rady Evropy",
+          "organType": "Delegace",
+          "roles": [
+            "člen",
+            "Člen"
+          ],
+          "leads": false,
+          "filedTwice": true
+        }
+      ],
+      "nonCommitteeOrganTypes": [
+        "Poslanecká sněmovna",
+        "Klub"
+      ]
+    },
+    {
+      "kind": "committee",
+      "pspId": 6537,
+      "name": "Jan Lipavský",
+      "field": "effort_notes",
+      "isPublic": true,
+      "claimed": 4,
+      "corrected": 3,
+      "preCorrection": 4,
+      "matchedPreCorrection": true,
+      "raw": "4 výborů",
+      "window": "Datová nesrovnalost: interní přehled uvádí zapojení do 4 výborů/komisí, ale psp.cz uvádí 5 samostatných funkčních vazeb (člen VEZ, ověřovatel VEZ",
+      "allSeatRows": 6,
+      "countedSeatRows": 4,
+      "distinctBodyCount": 3,
+      "bodies": [
+        {
+          "key": "organ:1760",
+          "organName": "Výbor pro evropské záležitosti",
+          "organType": "Výbor",
+          "roles": [
+            "člen",
+            "Ověřovatel výboru"
+          ],
+          "leads": true,
+          "filedTwice": true
+        },
+        {
+          "key": "organ:1769",
+          "organName": "Zahraniční výbor",
+          "organType": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1780",
+          "organName": "Stálá komise pro kontrolu činnosti Bezpečnostní informační služby",
+          "organType": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        }
+      ],
+      "nonCommitteeOrganTypes": [
+        "Poslanecká sněmovna",
+        "Klub"
+      ]
+    },
+    {
+      "kind": "committee",
+      "pspId": 7030,
+      "name": "Jan Papajanovský",
+      "field": "effort_notes",
+      "isPublic": true,
+      "claimed": 6,
+      "corrected": 4,
+      "preCorrection": 6,
+      "matchedPreCorrection": true,
+      "raw": "šesti výborech",
+      "window": "Zasedá v šesti výborech a komisích, včetně přechodu z předsedy na místopředsedu Výboru pro veřejnou",
+      "allSeatRows": 8,
+      "countedSeatRows": 6,
+      "distinctBodyCount": 4,
+      "bodies": [
+        {
+          "key": "organ:1766",
+          "organName": "Výbor pro veřejnou správu a regionální rozvoj",
+          "organType": "Výbor",
+          "roles": [
+            "člen",
+            "Předseda",
+            "Místopředseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        },
+        {
+          "key": "organ:1772",
+          "organName": "Rozpočtový výbor",
+          "organType": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1780",
+          "organName": "Stálá komise pro kontrolu činnosti Bezpečnostní informační služby",
+          "organType": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1922",
+          "organName": "Vyšetřovací komise k prošetření okolností, systémových souvislostí a institucionálního fungování Dopravního podniku hlavního města Prahy, akciová společnost, Krajské správy a údržby silnic Středočeského kraje, příspěvková organizace a Všeobecné zdravotní pojišťovny ve věci podezření z korupčního jednání (tzv. &bdquo;kauza Dozimetr&ldquo;)",
+          "organType": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        }
+      ],
+      "nonCommitteeOrganTypes": [
+        "Poslanecká sněmovna",
+        "Klub"
+      ]
+    },
+    {
+      "kind": "committee",
+      "pspId": 6664,
+      "name": "Josef Nerušil",
+      "field": "effort_notes",
+      "isPublic": true,
+      "claimed": 2,
+      "corrected": 1,
+      "preCorrection": 1,
+      "matchedPreCorrection": false,
+      "raw": "dva výbory",
+      "window": "ístopředseda ANO Vondráček veřejně vyzvali k větší aktivitě (opustila dva výbory a nepůsobila v žádném); její rezignační dopis musel být opraven kvůli formální ",
+      "allSeatRows": 3,
+      "countedSeatRows": 1,
+      "distinctBodyCount": 1,
+      "bodies": [
+        {
+          "key": "organ:1760",
+          "organName": "Výbor pro evropské záležitosti",
+          "organType": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        }
+      ],
+      "nonCommitteeOrganTypes": [
+        "Klub",
+        "Poslanecká sněmovna"
+      ]
+    },
+    {
+      "kind": "committee",
+      "pspId": 7058,
+      "name": "Libor Vondráček",
+      "field": "effort_notes",
+      "isPublic": true,
+      "claimed": 6,
+      "corrected": 3,
+      "preCorrection": 6,
+      "matchedPreCorrection": true,
+      "raw": "šesti výborů",
+      "window": "' neodpovídá jeho křestnímu jménu. Datová nesrovnalost: uváděný počet šesti výborů odpovídá jen třem doloženým položkám. Firemní vazby v datech nejsou žádné, be",
+      "allSeatRows": 8,
+      "countedSeatRows": 6,
+      "distinctBodyCount": 3,
+      "bodies": [
+        {
+          "key": "organ:1760",
+          "organName": "Výbor pro evropské záležitosti",
+          "organType": "Výbor",
+          "roles": [
+            "člen",
+            "Místopředseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        },
+        {
+          "key": "organ:1762",
+          "organName": "Ústavně-právní výbor",
+          "organType": "Výbor",
+          "roles": [
+            "člen",
+            "Místopředseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        },
+        {
+          "key": "organ:1775",
+          "organName": "Stálá komise pro Ústavu České republiky a parlamentní procedury",
+          "organType": "Komise",
+          "roles": [
+            "člen",
+            "Předseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        }
+      ],
+      "nonCommitteeOrganTypes": [
+        "Klub",
+        "Poslanecká sněmovna"
+      ]
+    },
+    {
+      "kind": "committee",
+      "pspId": 6730,
+      "name": "Lubomír Wenzl",
+      "field": "effort_notes",
+      "isPublic": true,
+      "claimed": 5,
+      "corrected": 4,
+      "preCorrection": 5,
+      "matchedPreCorrection": true,
+      "raw": "5 výborů",
+      "window": "Datová nesrovnalost: interní přehled uvádí zapojení do 5 výborů/komisí, ale ve vstupním seznamu je doloženo jen 4 — podobný vzorec (počítadlo o 1",
+      "allSeatRows": 7,
+      "countedSeatRows": 5,
+      "distinctBodyCount": 4,
+      "bodies": [
+        {
+          "key": "organ:1763",
+          "organName": "Výbor pro obranu",
+          "organType": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1772",
+          "organName": "Rozpočtový výbor",
+          "organType": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1782",
+          "organName": "Stálá komise pro kontrolu činnosti Vojenského zpravodajství",
+          "organType": "Komise",
+          "roles": [
+            "člen",
+            "Místopředseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        },
+        {
+          "key": "organ:1785",
+          "organName": "Stálá komise pro kontrolu činnosti Úřadu pro zahraniční styky a informace",
+          "organType": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        }
+      ],
+      "nonCommitteeOrganTypes": [
+        "Poslanecká sněmovna",
+        "Klub"
+      ]
+    },
+    {
+      "kind": "committee",
+      "pspId": 6745,
+      "name": "Marie Pošarová",
+      "field": "effort_notes",
+      "isPublic": true,
+      "claimed": 6,
+      "corrected": 4,
+      "preCorrection": 6,
+      "matchedPreCorrection": true,
+      "raw": "šesti výborech",
+      "window": "Zasedá v šesti výborech a komisích (dvojí zápis u ÚZSI komise a Zemědělského výboru odráží souběžno",
+      "allSeatRows": 8,
+      "countedSeatRows": 6,
+      "distinctBodyCount": 4,
+      "bodies": [
+        {
+          "key": "organ:1766",
+          "organName": "Výbor pro veřejnou správu a regionální rozvoj",
+          "organType": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1770",
+          "organName": "Zemědělský výbor",
+          "organType": "Výbor",
+          "roles": [
+            "člen",
+            "Místopředseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        },
+        {
+          "key": "organ:1779",
+          "organName": "Stálá komise pro kontrolu poskytnutí údajů z centrální evidence účtů",
+          "organType": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1785",
+          "organName": "Stálá komise pro kontrolu činnosti Úřadu pro zahraniční styky a informace",
+          "organType": "Komise",
+          "roles": [
+            "člen",
+            "Předseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        }
+      ],
+      "nonCommitteeOrganTypes": [
+        "Klub",
+        "Poslanecká sněmovna"
+      ]
+    },
+    {
+      "kind": "committee",
+      "pspId": 6520,
+      "name": "Pavel Růžička",
+      "field": "effort_notes",
+      "isPublic": true,
+      "claimed": 7,
+      "corrected": 5,
+      "preCorrection": 7,
+      "matchedPreCorrection": true,
+      "raw": "sedmi výborů",
+      "window": "Data ukazují stoprocentní docházku, nulovou absenci a zapojení do sedmi výborů/komisí — extrémně vysoká docházka a široké výborové zapojení bez jediného vla",
+      "allSeatRows": 9,
+      "countedSeatRows": 7,
+      "distinctBodyCount": 5,
+      "bodies": [
+        {
+          "key": "organ:1755",
+          "organName": "Mandátový a imunitní výbor",
+          "organType": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1763",
+          "organName": "Výbor pro obranu",
+          "organType": "Výbor",
+          "roles": [
+            "člen",
+            "Místopředseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        },
+        {
+          "key": "organ:1771",
+          "organName": "Výbor pro bezpečnost",
+          "organType": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1780",
+          "organName": "Stálá komise pro kontrolu činnosti Bezpečnostní informační služby",
+          "organType": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1782",
+          "organName": "Stálá komise pro kontrolu činnosti Vojenského zpravodajství",
+          "organType": "Komise",
+          "roles": [
+            "člen",
+            "Předseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        }
+      ],
+      "nonCommitteeOrganTypes": [
+        "Poslanecká sněmovna",
+        "Klub"
+      ]
+    },
+    {
+      "kind": "committee",
+      "pspId": 7001,
+      "name": "Tomáš Doležal",
+      "field": "effort_notes",
+      "isPublic": true,
+      "claimed": 4,
+      "corrected": 3,
+      "preCorrection": 4,
+      "matchedPreCorrection": true,
+      "raw": "čtyřech výborech",
+      "window": "Zasedá ve čtyřech výborech a komisích, přičemž jedno těleso (Výbor pro veřejnou správu a regionální ",
+      "allSeatRows": 6,
+      "countedSeatRows": 4,
+      "distinctBodyCount": 3,
+      "bodies": [
+        {
+          "key": "organ:1757",
+          "organName": "Kontrolní výbor",
+          "organType": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1766",
+          "organName": "Výbor pro veřejnou správu a regionální rozvoj",
+          "organType": "Výbor",
+          "roles": [
+            "člen",
+            "Místopředseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        },
+        {
+          "key": "organ:1773",
+          "organName": "Stálá komise pro práci Kanceláře Poslanecké sněmovny",
+          "organType": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        }
+      ],
+      "nonCommitteeOrganTypes": [
+        "Klub",
+        "Poslanecká sněmovna"
+      ]
+    },
+    {
+      "kind": "committee",
+      "pspId": 6105,
+      "name": "Tomio Okamura",
+      "field": "effort_notes",
+      "isPublic": true,
+      "claimed": 2,
+      "corrected": 1,
+      "preCorrection": 2,
+      "matchedPreCorrection": true,
+      "raw": "dvou výborů",
+      "window": "slancem — nejde o skutečnou vazbu. Datová nesrovnalost: uváděný počet dvou výborů neodpovídá vstupním datům, kde je uveden jen jeden committee záznam (ORGV) — m",
+      "allSeatRows": 5,
+      "countedSeatRows": 2,
+      "distinctBodyCount": 1,
+      "bodies": [
+        {
+          "key": "organ:1758",
+          "organName": "Organizační výbor",
+          "organType": "Výbor",
+          "roles": [
+            "člen",
+            "Předseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        }
+      ],
+      "nonCommitteeOrganTypes": [
+        "Klub",
+        "Poslanecká sněmovna"
+      ]
+    },
+    {
+      "kind": "committee",
+      "pspId": 6214,
+      "name": "Věra Kovářová",
+      "field": "effort_notes",
+      "isPublic": true,
+      "claimed": 6,
+      "corrected": 3,
+      "preCorrection": 6,
+      "matchedPreCorrection": true,
+      "raw": "šesti výborů",
+      "window": "jako první předkladatelka. Výrazná datová nesrovnalost: uváděný počet šesti výborů neodpovídá poskytnutému seznamu dvou committee položek (RV místopředsedkyně, ",
+      "allSeatRows": 9,
+      "countedSeatRows": 6,
+      "distinctBodyCount": 3,
+      "bodies": [
+        {
+          "key": "organ:1766",
+          "organName": "Výbor pro veřejnou správu a regionální rozvoj",
+          "organType": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "key": "organ:1772",
+          "organName": "Rozpočtový výbor",
+          "organType": "Výbor",
+          "roles": [
+            "člen",
+            "Místopředseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        },
+        {
+          "key": "organ:1790",
+          "organName": "Stálá delegace Parlamentu do Parlamentní dimenze Středoevropské iniciativy",
+          "organType": "Delegace",
+          "roles": [
+            "člen",
+            "Vedoucí delegace",
+            "Člen"
+          ],
+          "leads": false,
+          "filedTwice": true
+        }
+      ],
+      "nonCommitteeOrganTypes": [
+        "Poslanecká sněmovna",
+        "Klub"
+      ]
+    }
+  ]
+}

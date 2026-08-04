@@ -368,3 +368,44 @@ fresh copy at finalize time), so `finalize-ledger.ts 4` + `5` were run to advanc
   the graph's 6 = 2 first + 4 co-signed) — driver-corrected from graph data.
 - Persisted pass 38; re-measured on a fresh copy: **0/207 withheld field-instances** — the dossier
   corpus renders fully clean. Full detail in `batch-009.md`.
+
+### Batch 010 — the pass-42 correction reached the numbers, not the prose (2026-08-04)
+- **Staleness trigger**: commit `f5e22b4` applied the pass-42 committee-dedupe correction to
+  the store (formula 2026-07-29, data 2026-08-04). 41 committee counts and 33 scores moved;
+  every dossier from batches 001–009 was written against the OLD values and nothing in the
+  repo could see it. Full detail in `batch-010.md`.
+- Two defect classes, both measured against the real pre-correction store (`.pglite-backup-pass11`):
+  **14** dossier sentences naming the wrong committee count (all reader-facing) and **16**
+  quoting a superseded score (7 reader-facing). **2 claims were INVERTED**, not merely stale —
+  Dražilová's „zůstává nad klubovým průměrem" (now false, 60,4 vs club 60,8) and Oulehlová's
+  „pozitivní trend / skóre vzrostlo" (now backwards, 71,3 < prior 72,9).
+- **The batch's real find: the army had already detected the bug.** 9 of the 14 committee
+  sentences are analyst „datová nesrovnalost" caveats — nine independent agents across
+  batches 001–006 observed the double-filing defect and wrote it into published prose, and the
+  loop had no path from "many units flagged the same anomaly" to "the formula is wrong".
+- Guard discipline: committee scan **59 → 15** survivors after hand-reading every hit
+  (4 category-error classes removed), 14 real / 1 false positive (6,7 %, recorded). The score
+  lens had been retired at 6/6 false — a measurement of the PATTERN, not the corpus; rebuilt
+  value-targeted it found 16 real hits.
+- Army 3×(5/5/4) + 1×7 Sonnet. Score numerals swapped DETERMINISTICALLY before the analyst
+  saw the text (code owns the number, the analyst adjudicates only the claim). Minimal-diff
+  proof at merge: **21/21 accepted**; it correctly rejected an over-long rewrite and was
+  itself corrected where it was too strict about sub-sentence edits.
+- Independent re-verification of pass 42: recomputed distinct bodies reproduce the stored
+  `committee_count` for **15/15** contested MPs.
+- Gate 14/14 + 7/7 PASS. **Persisted pass 43** (21 nodes, props-merge).
+- **Verified live after persist**: committee contradictions **15 → 1** (the adjudicated false
+  positive), stale score citations **16 → 9 with 0 on any rendered field**.
+- Durable fixes: `lib/analysis/committee-claims.ts` and `lib/analysis/score-citations.ts`
+  (both tested, both IMPORTED by `gate.ts`/the scans — no forks), and the check that matters
+  in `scripts/data-analysis/kg-contribution-recompute.ts`, which now reports every dossier
+  field quoting a score it supersedes. A gate-side weak variant was built, measured at 66
+  fires / ~0 real over 765 fields, and deliberately NOT shipped.
+- `npm run check`: typecheck ✅ · lint ✅ (0 errors) · tests — 1360 pass; 5–6 PGlite files
+  intermittently time out in their `open()` hook under parallel load on this machine
+  (unrelated files, varying set; **all pass with `--no-file-parallelism`**). Pre-existing.
+- **Steering**: (1) pay the 9 internal stale-score citations (`effort_psp9_trend_note` ×7,
+  `effort_analyst_note` ×2) — bounded, needs the PSP9 before/after pair extracted, since the
+  prior-term score carries its own pass-42 correction; (2) the aggregation gap is now
+  Q-effort-17 — a per-unit anomaly repeated across N dossiers must surface as a signal;
+  (3) loop returns to staleness-driven mode.

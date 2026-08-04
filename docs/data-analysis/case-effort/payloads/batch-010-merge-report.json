@@ -1,0 +1,118 @@
+{
+  "generatedAt": "2026-08-04T13:28:22.255Z",
+  "report": [
+    {
+      "pspId": 5700,
+      "name": "Ivan Adamec",
+      "shape": "A",
+      "growth": 67,
+      "offendingCount": 1,
+      "fails": []
+    },
+    {
+      "pspId": 5943,
+      "name": "Helena Langšádlová",
+      "shape": "A",
+      "growth": -57,
+      "offendingCount": 1,
+      "fails": []
+    },
+    {
+      "pspId": 6105,
+      "name": "Tomio Okamura",
+      "shape": "A",
+      "growth": -163,
+      "offendingCount": 1,
+      "fails": []
+    },
+    {
+      "pspId": 6214,
+      "name": "Věra Kovářová",
+      "shape": "A",
+      "growth": -32,
+      "offendingCount": 1,
+      "fails": []
+    },
+    {
+      "pspId": 6520,
+      "name": "Pavel Růžička",
+      "shape": "B",
+      "growth": 33,
+      "offendingCount": 1,
+      "fails": []
+    },
+    {
+      "pspId": 6537,
+      "name": "Jan Lipavský",
+      "shape": "A",
+      "growth": -21,
+      "offendingCount": 1,
+      "fails": []
+    },
+    {
+      "pspId": 6730,
+      "name": "Lubomír Wenzl",
+      "shape": "A",
+      "growth": 71,
+      "offendingCount": 1,
+      "fails": []
+    },
+    {
+      "pspId": 6732,
+      "name": "Ivana Mádlová",
+      "shape": "A",
+      "growth": 140,
+      "offendingCount": 1,
+      "fails": []
+    },
+    {
+      "pspId": 6738,
+      "name": "Hubert Lang",
+      "shape": "A",
+      "growth": 207,
+      "offendingCount": 1,
+      "fails": []
+    },
+    {
+      "pspId": 6745,
+      "name": "Marie Pošarová",
+      "shape": "B",
+      "growth": 157,
+      "offendingCount": 1,
+      "fails": []
+    },
+    {
+      "pspId": 7001,
+      "name": "Tomáš Doležal",
+      "shape": "B",
+      "growth": -20,
+      "offendingCount": 1,
+      "fails": []
+    },
+    {
+      "pspId": 7030,
+      "name": "Jan Papajanovský",
+      "shape": "B",
+      "growth": 3,
+      "offendingCount": 1,
+      "fails": []
+    },
+    {
+      "pspId": 7049,
+      "name": "Gabriela Svárovská",
+      "shape": "A",
+      "growth": -40,
+      "offendingCount": 1,
+      "fails": []
+    },
+    {
+      "pspId": 7058,
+      "name": "Libor Vondráček",
+      "shape": "A",
+      "growth": 193,
+      "offendingCount": 1,
+      "fails": []
+    }
+  ],
+  "drops": []
+}

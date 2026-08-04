@@ -1,0 +1,108 @@
+{
+  "case": "effort",
+  "batch": 10,
+  "track": "effort",
+  "method": "pass-42 committee-correction prose reconciliation; minimal-diff proof over analyst rewrites",
+  "ref": "pass42-committee-prose",
+  "generatedAt": "2026-08-04T13:28:22.252Z",
+  "proposals": [
+    {
+      "id": "psp:person:5700",
+      "name": "Ivan Adamec",
+      "props": {
+        "effort_notes": "Poslanec zasedá ve dvou výborech — Hospodářském výboru, kde je místopředsedou, a Výboru pro životní prostředí; dřívější vyšší počet vznikl tím, že dvojí funkce v Hospodářském výboru (člen i místopředseda) byla vedena jako dvě samostatné položky. Šest firem mezi jeho firemními vazbami (Technické služby Trutnov, Lesy a parky Trutnov, Oblastní nemocnice Trutnov, VZP, Společnost Horní Labe, TRANSPORT Trutnov) jsou vesměs trutnovské městské/regionální podniky odpovídající jeho 23letému starostenskému období — opět nejde o potvrzenou osobní vazbu: přímý dotaz do veřejného rejstříku pro ověřované IČO 25968084 vrátil prázdnou stránku a alternativní zdroje (obchodní rejstřík i jeho zrcadlo na rejstrik.penize.cz) rovněž selhaly. Ověření se nezdařilo — doporučujeme jako další krok Registr smluv, ne uzavření na „bez vazby\"."
+      }
+    },
+    {
+      "id": "psp:person:5943",
+      "name": "Helena Langšádlová",
+      "props": {
+        "effort_notes": "Poslankyně zasedá v pěti tělesech — Výboru pro evropské záležitosti, Výboru pro životní prostředí, Stálé komisi pro hybridní hrozby, kde je místopředsedkyní, Stálé komisi pro kontrolu činnosti Bezpečnostní informační služby a Stálé delegaci Parlamentu do Parlamentního shromáždění NATO. Peněžní zjištění: Fórum Karla Schwarzenberga, o.p.s. (IČO 02086778), nulová smluvní částka. Ověřeno přímým dotazem do veřejného rejstříku — Langšádlová je aktuálně vedena jako členka správní rady (spolu s M. Ženíškem, J. Farským a dalšími), statutárním orgánem je Filip Štědrý. Jde o vzdělávací/politickou o.p.s. založenou zesnulým Karlem Schwarzenbergem (zakladatelem TOP 09, zemřel 2023, zápis zakladatele vymazán 3. 11. 2025) — konzistentní s její stranickou příslušností, nulová smluvní částka, žádná obchodní vazba. Jde o transparentní politicko-institucionální roli, ne skrytý obchodní konflikt zájmů, ale patří do evidence jako aktivní správní funkce."
+      }
+    },
+    {
+      "id": "psp:person:6105",
+      "name": "Tomio Okamura",
+      "props": {
+        "effort_notes": "Zaznamenaný počet deseti sponzorovaných tisků odpovídá vstupu, ale žádný z nich není autorský tisk — Okamura je vždy dále v pořadí spolupředkladatelů. Peněžní vazby: MIKI TRAVEL PRAGUE, spol. s r.o. (IČO 25124188, 6 050 000 Kč) — přímé ověření ve veřejném rejstříku potvrzuje, že Okamura je nepřetržitě jednatelem od 2. 6. 2021 (bez výmazu), 100% vlastníkem je GROUP MIKI HOLDINGS LIMITED (UK) od 19. 3. 2021 — Okamura sám společníkem není, přesně jak uvádí i nezávislé zdroje (HlídačPes, Aktuálně.cz, kurzy.cz). Jde o reálnou osobní vazbu k firmě, která má veřejnou zakázku v datech označenou k 6,05 mil. Kč, tedy relevantní konflikt zájmů k dořešení. MEBIUS s.r.o. (IČO 25643461, 0 Kč) — dle stejných zdrojů Okamura firmu vlastní (průvodcovské/překladatelské služby, bez tržeb v posledních letech). Japa Foods s.r.o. (IČO 28406354, 0 Kč) — Okamura je spoluvlastníkem a jednatelem (prodej japonských potravin). U Machtů s.r.o. (IČO 27145433, 0 Kč) — historicky spoluvlastnil restauraci Staré časy přes tuto firmu, ale dle HlídačPes svůj podíl na počátku roku prodal; přesné datum vůči aktuálnímu období (od 10/2025) se nepodařilo ověřit, takže vztah k současnému mandátu je nejistý. Generický záznam OSVČ (IČO 04627695, 0 Kč) se dodatečně potvrdil jako firma nesouvisející s tímto poslancem — nejde o skutečnou vazbu. Poslanec je členem jednoho výboru — Organizačního výboru, jehož je předsedou."
+      }
+    },
+    {
+      "id": "psp:person:6214",
+      "name": "Věra Kovářová",
+      "props": {
+        "effort_notes": "Uváděné 4 sponzorované tisky odpovídají vstupu, ale jen u 1 ze 4 je Kovářová uvedena jako první předkladatelka. Poslankyně zasedá ve třech tělesech — Výboru pro veřejnou správu a regionální rozvoj, Rozpočtovém výboru, kde je místopředsedkyní, a Stálé delegaci Parlamentu do Parlamentní dimenze Středoevropské iniciativy, kterou vede. Peněžní zjištění: (1) generický záznam OSVČ (IČO 04627695, 0 Kč) se dodatečně potvrdil jako firma nesouvisející s tímto poslancem — nejde o skutečnou vazbu; a (2) ČEPRO, a.s. (IČO 60193531, 235 543 222,2 Kč) — zdaleka nejvyšší částka mezi jejími firemními vazbami. ČEPRO je stoprocentně státní logistická společnost pro pohonné hmoty (Ministerstvo financí), relevantní pro její roli místopředsedkyně Rozpočtového výboru. Přímé ověření ve veřejném rejstříku se nepodařilo dokončit; sekundární zdroj uvádí jako členy představenstva Ing. Martina Vojtíška a Mgr. Ing. Luboše Zítku — žádné jméno neodpovídá Kovářové ani nenaznačuje osobní vazbu, jde tedy o rozpočtově-dozorovou relevanci skrze výbor, ne o osobní angažmá ve firmě. Vzhledem k výši částky a nedokončenému přímému ověření doporučujeme dohledat konkrétní smluvní vztah přes Registr smluv."
+      }
+    },
+    {
+      "id": "psp:person:6520",
+      "name": "Pavel Růžička",
+      "props": {
+        "effort_notes": "Data ukazují stoprocentní docházku, nulovou absenci a zapojení do pěti výborů a komisí, ve dvou z nich ve vedoucí roli — extrémně vysoká docházka a široké výborové zapojení bez jediného vlastního tisku je konzistentní obraz \"tichého\" dozorového pracovníka v obranné/bezpečnostní agendě, nikoli legislativního iniciátora. Žádná firemní vazba nebyla v datech nalezena k ověření."
+      }
+    },
+    {
+      "id": "psp:person:6537",
+      "name": "Jan Lipavský",
+      "props": {
+        "effort_notes": "Zasedá ve třech výborech a komisích (Výbor pro evropské záležitosti, Zahraniční výbor, Stálá komise pro kontrolu činnosti Bezpečnostní informační služby); ve Výboru pro evropské záležitosti je navíc veden jako ověřovatel výboru. Žádná firemní vazba nebyla v datech nalezena k ověření."
+      }
+    },
+    {
+      "id": "psp:person:6730",
+      "name": "Lubomír Wenzl",
+      "props": {
+        "effort_notes": "Zasedá ve čtyřech výborech a komisích (Výbor pro obranu, Rozpočtový výbor, Stálá komise pro kontrolu činnosti Vojenského zpravodajství, Stálá komise pro kontrolu činnosti Úřadu pro zahraniční styky a informace); ve Stálé komisi pro kontrolu činnosti Vojenského zpravodajství zastává funkci místopředsedy. Trendové pozorování: skóre kleslo z 78 v předchozím období na 68,4 v aktuálním, ale zatímco v předchozím období měl 15 vlastních zákonů a 89 interpelací, aktuální data uvádějí nulu u obou metrik — může jít o reálný pokles aktivity, nebo o neúplně zachycená data tak brzy v mandátu (293 dní). Doporučujeme ověřit úplnost aktuálních dat o tiscích a interpelacích, než se pokles interpretuje jako skutečný trend. Žádná firemní vazba nebyla v datech nalezena k ověření."
+      }
+    },
+    {
+      "id": "psp:person:6732",
+      "name": "Ivana Mádlová",
+      "props": {
+        "effort_notes": "Obě dohledané firemní vazby jsou historické, skončily roky před začátkem jejího aktuálního mandátu (od cca října 2025): (1) VODÁRNA PLZEŇ a.s. (IČO 25205625, evidovaná částka 915 796 079,85 Kč) — funkce místopředsedkyně dozorčí rady 8. 2. 2016 – 31. 12. 2018, výmaz z obchodního rejstříku 23. 2. 2019, tedy cca 7 let před nástupem do Sněmovny; nezávisle potvrzeno druhým zdrojem (výroční zpráva 2017, Hlídač státu). Vodárna Plzeň je klíčová regionální veřejná infrastrukturní firma (vodohospodářství pro město Plzeň) — tematicky souvisí s jejím výborem pro veřejnou správu a regionální rozvoj, ale jde o dozorčí roli skončenou dávno před mandátem, ne o současné angažmá. (2) DOMOVINKA - sociální služby, o.p.s. (IČO 29123747, evidovaná částka 20 168 230 Kč) — byla členkou správní rady 16. 1. 2012 – 22. 9. 2014 (příp. do 30. 6. 2014), tedy více než 11 let před mandátem; sociální služby tematicky souvisí s jejím výborem pro zdravotnictví, ale opět jde o dávno ukončenou roli. Obě vazby jsou dvakrát nezávisle ověřené, žádná není aktuální osobní finanční angažovanost — jde o historické institucionální role, ne o současný konflikt zájmů. Zasedá v pěti výborech, komisích a delegacích (Výbor pro veřejnou správu a regionální rozvoj, Výbor pro zdravotnictví, Stálá komise pro rodinu a rovné příležitosti, Stálá delegace Parlamentu do Meziparlamentní unie, Stálá delegace Parlamentu do Parlamentního shromáždění Rady Evropy). Trendová poznámka (opatrně, mladý mandát): skóre z předchozího období (83,8; 16 tisků, 33 interpelací) je vyšší než dosavadní aktuální skóre (63,7; 2 tisky, 0 interpelací), ale vzhledem ke krátké délce dosavadního mandátu jde o částečné srovnání, ne o potvrzený pokles."
+      }
+    },
+    {
+      "id": "psp:person:6738",
+      "name": "Hubert Lang",
+      "props": {
+        "effort_notes": "Jediný evidovaný tisk (187) odpovídá tomu, že u něj figuruje jako první předkladatel — jde skutečně o jeho vlastní iniciativu, ne spolupodpis. Zasedá v sedmi výborech a komisích: Výbor pro vědu, vzdělávání, mládež a sport; Výbor pro bezpečnost, kde je místopředsedou; Stálá komise pro kontrolu činnosti Generální inspekce bezpečnostních sborů; Stálá komise pro kontrolu činnosti Bezpečnostní informační služby; Stálá komise pro kontrolu činnosti Národního bezpečnostního úřadu; Stálá komise pro kontrolu činnosti Finančního analytického úřadu; a vyšetřovací komise k prošetření tzv. kauzy Dozimetr. Žádná firemní vazba nebyla v datech nalezena k ověření."
+      }
+    },
+    {
+      "id": "psp:person:6745",
+      "name": "Marie Pošarová",
+      "props": {
+        "effort_notes": "Zasedá ve čtyřech výborech a komisích (Výbor pro veřejnou správu a regionální rozvoj, Zemědělský výbor, Stálá komise pro kontrolu poskytnutí údajů z centrální evidence účtů, Stálá komise pro kontrolu činnosti ÚZSI), přičemž v Zemědělském výboru je místopředsedkyní a v komisi ÚZSI předsedkyní. Jde o nejaktivnější profil ve skupině s vysokou docházkou i podílem na legislativě, byť většinou jako spolupodepisující, ne jako předkladatelka; skóre mírně vzrostlo oproti minulému volebnímu období. Spolupodepsala tisk 87 spolu s Hubíkovou a Petrtýlem — jde o mega-tisk s téměř čtyřiceti spolupodepsanými napříč kluby, což ukazuje, že u širokých vícestranických tisků může počet spolupodepsaných tisků nadhodnocovat individuální legislativní iniciativu. Žádné firemní vazby k prověření nebyly zjištěny."
+      }
+    },
+    {
+      "id": "psp:person:7001",
+      "name": "Tomáš Doležal",
+      "props": {
+        "effort_notes": "Zasedá ve třech výborech a komisích; jedno těleso (Výbor pro veřejnou správu a regionální rozvoj) je uvedeno dvakrát, protože ho vede jako místopředseda a zároveň je v něm veden jako řadový člen. Navzdory vedoucí funkci má nápadně nízkou řečnickou aktivitu při stoprocentní účasti a nulové absenci; proti hlasování vlastního klubu se postavil jen ve 4 z 1 770 sledovaných hlasování. Žádné firemní ani finanční vazby nebyly zjištěny."
+      }
+    },
+    {
+      "id": "psp:person:7030",
+      "name": "Jan Papajanovský",
+      "props": {
+        "effort_notes": "Zasedá ve čtyřech výborech a komisích, včetně přechodu z předsedy na místopředsedu Výboru pro veřejnou správu a regionální rozvoj. Kombinuje vysokou institucionální angažovanost — dvě vedoucí role, aktivní práce ve vyšetřovací komisi — s nižší přítomností na hlasováních než ostatní sledovaní poslanci. Žádné firemní vazby k prověření nebyly zjištěny."
+      }
+    },
+    {
+      "id": "psp:person:7049",
+      "name": "Gabriela Svárovská",
+      "props": {
+        "effort_notes": "Je členkou čtyř výborů, komisí a delegací. psp.cz eviduje navíc podvýbory pro energetiku, evropské fondy a rozvojovou spolupráci, které jsou vedeny jako samostatná kategorie orgánů mimo výbory, komise a delegace. Žádné firemní vazby k prověření nebyly zjištěny."
+      }
+    },
+    {
+      "id": "psp:person:7058",
+      "name": "Libor Vondráček",
+      "props": {
+        "effort_notes": "Tři tisky, u kterých je veden jako signatář, odpovídají uváděnému počtu, ale u žádného není Vondráček prvním předkladatelem — jde o tři spolupodpisy. Údaj o předkladateli u všech tří zní 'Vondráček R. a další', což se na první pohled mohlo jevit jako jeho vlastní iniciativa, ale přímé ověření na psp.cz potvrdilo, že jde o Radka Vondráčka (jiného poslance), nikoli o Libora Vondráčka — jména se shodují jen příjmením, iniciála 'R.' neodpovídá jeho křestnímu jménu. Zasedá ve třech výborech a komisích, ve všech třech ve vedoucí roli (místopředseda Výboru pro evropské záležitosti, místopředseda Ústavně-právního výboru, předseda Stálé komise pro Ústavu České republiky a parlamentní procedury) — proto byl dříve uváděn dvojnásobný počet šesti. Firemní vazby v datech nejsou žádné, bez peněžního zjištění k ověření."
+      }
+    }
+  ]
+}

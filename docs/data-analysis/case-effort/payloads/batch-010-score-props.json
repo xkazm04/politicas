@@ -1,0 +1,59 @@
+{
+  "case": "effort",
+  "batch": 10,
+  "track": "effort",
+  "method": "pass-42 superseded-score reconciliation; deterministic numeral swap + analyst claim adjudication under a minimal-diff proof",
+  "ref": "pass42-score-prose",
+  "generatedAt": "2026-08-04T13:43:05.229Z",
+  "proposals": [
+    {
+      "id": "psp:person:5899",
+      "name": "Jan Bureš",
+      "props": {
+        "effort_notes": "Kontribuční skóre (83,8), nad klubovým průměrem (63,6), přitom regionální tisk ho označil za 'největšího absentéra' domovského kraje (absence 0.5) — dva výborové místopředsednické posty naznačují práci mimo plénum."
+      }
+    },
+    {
+      "id": "psp:person:6431",
+      "name": "Lenka Dražilová",
+      "props": {
+        "effort_notes": "Počet tří vlastních tisků odpovídá evidenci; u žádného není první předkladatelkou, ale přesto jde o pozitivní zjištění — dva ze tří spolupodepsaných tisků skutečně prošly celým legislativním procesem a staly se zákonem, což je jiná kategorie úspěchu než pouhé podání. Datová nesrovnalost: uváděný počet výborů je 3, ale doložený seznam obsahuje jen 2 položky (VSP místopředsedkyně, VZ členka) — opakující se typ diskrepance, který jsme zaznamenali i u jiných poslanců. Skóre kleslo oproti předchozímu období (70,8 → 60,4) a nyní je pod klubovým průměrem (60,8). Žádná firemní vazba v datech, žádné peněžní zjištění k ověření."
+      }
+    },
+    {
+      "id": "psp:person:6770",
+      "name": "Renata Oulehlová",
+      "props": {
+        "effort_notes": "V obou tiscích, které má na kontě, je Oulehlová spolupodepsanou, ne předkladatelkou. V evidovaných výborových rolích je drobná nesrovnalost: uvedený počet vazeb (3) neodpovídá dvěma reálně dohledaným rolím. Skóre přínosu mírně kleslo ze 72,9 na 71,3, ale zůstává nad klubovým průměrem (60,8). Žádné propojené firmy ani peněžní zjištění k ověření."
+      }
+    },
+    {
+      "id": "psp:person:6804",
+      "name": "Zdenka Němečková Crkvenjaš",
+      "props": {
+        "effort_notes": "Skóre přínosu (52,6) odpovídá jedinému sponzorovanému tisku a jen 14 řečnickým vystoupením — nízký legislativní výstup je ale kompenzován funkcí ve výboru pro zdravotnictví a v dozorovém orgánu VZP, kde má reálný vliv na politiku zdravotního pojištění mimo sněmovní sál. Bez propojených firem. Jméno na psp.cz je uvedeno jako 'Zdenka Němčková Crkvenjašová' — jde o stejnou osobu (rozdíl je jen v diakritice/skloňování)."
+      }
+    },
+    {
+      "id": "psp:person:6987",
+      "name": "Jiří Barták",
+      "props": {
+        "effort_notes": "Jediný tisk, který má Barták na kontě, podepsal jako spolupodepsaný, ne jako předkladatel. Datová nesrovnalost: uvedený počet výborů (2) neodpovídá jediné reálně dohledané roli (místopředseda Organizačního výboru). Deset řečnických vystoupení a skóre přínosu 53,4 — jde o legitimní nízkoenergetický profil, ne o chybu dat. Žádné propojené firmy ani peněžní zjištění k ověření."
+      }
+    },
+    {
+      "id": "psp:person:6998",
+      "name": "Benjamin Činčila",
+      "props": {
+        "effort_notes": "Narozen 1996; vysoký kontribuční index (85,2) staví převážně na výborovém vedení a objemu spolupodpisů klubové legislativy — u jednoho ze 6 tisků je první signatář, u zbylých pěti spolupodepsaný."
+      }
+    },
+    {
+      "id": "psp:person:7046",
+      "name": "Eva Šrámková",
+      "props": {
+        "effort_notes": "Vysoké skóre příspěvku (83,9) při jediném sponzorovaném tisku ukazuje, že její příspěvek je tažen komisní/interpelační prací a řečnickými vystoupeními (48), ne autorstvím zákonů — bez jednostranného profilu, tento jediný tisk odpovídá jejímu jedinému záznamu v evidenci sponzorovaných tisků. Mandát trvá celé sledované období (293 dní) bez anomálie. Firemní vazby v datech nejsou žádné."
+      }
+    }
+  ]
+}

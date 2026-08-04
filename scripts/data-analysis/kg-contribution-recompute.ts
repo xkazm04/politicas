@@ -34,6 +34,7 @@ import {
   type CommitteeSeat,
 } from "@/lib/analysis/contribution";
 import { isoDay } from "@/lib/analysis/money-feed";
+import { staleScoreWarnings } from "@/lib/analysis/score-citations";
 import { getStore } from "@/lib/db/store";
 import type { KgNodeRow } from "@/lib/db/types";
 
@@ -351,6 +352,34 @@ async function main() {
     .slice(0, 5);
   console.log("\nlargest rank GAINS (unchanged score, others fell past them):");
   biggestRankGain.forEach(({ a, d }) => console.log(`  ${a.name.padEnd(28)} rank ${rankBefore.get(a.pid)} → ${rankAfter.get(a.pid)} (+${d})`));
+
+  // ── PROSE INVALIDATED BY THIS RECOMPUTE ────────────────────────────────────
+  // A dossier is WRITTEN AGAINST a score, so moving the score silently makes the prose
+  // that quotes it wrong. Pass 42 moved 33 scores and nothing noticed that 16 analyst
+  // fields on 16 MPs still carried the superseded number — for six days, on the public
+  // profile page (found by Case ② batch 010, which had to reconstruct the before-state
+  // from a backup copy of the store to see it).
+  //
+  // This check belongs HERE and nowhere else: it needs both the old and the new value,
+  // and this is the only place that holds both. It reports; it never edits prose.
+  const staleProse: string[] = [];
+  for (const a of moved) {
+    const node = nodeById.get(`psp:person:${a.pid}`);
+    if (!node) continue;
+    for (const [field, text] of Object.entries(node.props)) {
+      if (typeof text !== "string" || !field.startsWith("effort_")) continue;
+      staleProse.push(...staleScoreWarnings(a.name, field, text, a.scoreBefore, a.scoreAfter));
+    }
+  }
+  if (staleProse.length) {
+    console.log(`\n⚠ PROSE INVALIDATED BY THIS RECOMPUTE · ${staleProse.length} field(s) quote a score this pass supersedes.`);
+    console.log("  These are analyst-written and are NOT corrected here — the numeral may sit inside a");
+    console.log("  claim (a trend, a comparison to a club mean) that the new value can break. Route them");
+    console.log("  through the case loop's rewrite path before the correction is considered shipped.");
+    staleProse.forEach((w) => console.log(`  ⚠ ${w}`));
+  } else {
+    console.log("\nprose check: no dossier field quotes a score this recompute supersedes.");
+  }
 
   const jsonPath = arg("json");
   if (jsonPath) {

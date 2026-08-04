@@ -1,0 +1,80 @@
+{
+  "units": [
+    {
+      "pspId": 5899,
+      "field": "effort_notes",
+      "newText": "Kontribuční skóre (83,8), nad klubovým průměrem (63,6), přitom regionální tisk ho označil za 'největšího absentéra' domovského kraje (absence 0.5) — dva výborové místopředsednické posty naznačují práci mimo plénum.",
+      "changed": true,
+      "replacements": [
+        {
+          "old": "Nejvyšší kontribuční skóre z trojice (83,8)",
+          "new": "Kontribuční skóre (83,8), nad klubovým průměrem (63,6)"
+        }
+      ],
+      "reasoning": "'Nejvyšší ... z trojice' is an unverifiable sample-scoped superlative over the analyst's own working set; de-scoped to the plain fact and re-grounded against the real corrected club mean (63,6), which the MP is above."
+    },
+    {
+      "pspId": 6431,
+      "field": "effort_notes",
+      "newText": "Počet tří vlastních tisků odpovídá evidenci; u žádného není první předkladatelkou, ale přesto jde o pozitivní zjištění — dva ze tří spolupodepsaných tisků skutečně prošly celým legislativním procesem a staly se zákonem, což je jiná kategorie úspěchu než pouhé podání. Datová nesrovnalost: uváděný počet výborů je 3, ale doložený seznam obsahuje jen 2 položky (VSP místopředsedkyně, VZ členka) — opakující se typ diskrepance, který jsme zaznamenali i u jiných poslanců. Skóre kleslo oproti předchozímu období (70,8 → 60,4) a nyní je pod klubovým průměrem (60,8). Žádná firemní vazba v datech, žádné peněžní zjištění k ověření.",
+      "changed": true,
+      "replacements": [
+        {
+          "old": "Skóre mírně pokleslo oproti předchozímu období (70,8 → 60,4), ale zůstává nad klubovým průměrem.",
+          "new": "Skóre kleslo oproti předchozímu období (70,8 → 60,4) a nyní je pod klubovým průměrem (60,8)."
+        }
+      ],
+      "reasoning": "Corrected score 60,4 is below the corrected club mean 60,8 (aboveClubMean:false), so 'zůstává nad klubovým průměrem' is now false and the drop from 70,8 is no longer slight; restated as a decline that puts her below the (now-cited) club mean."
+    },
+    {
+      "pspId": 6770,
+      "field": "effort_notes",
+      "newText": "V obou tiscích, které má na kontě, je Oulehlová spolupodepsanou, ne předkladatelkou. V evidovaných výborových rolích je drobná nesrovnalost: uvedený počet vazeb (3) neodpovídá dvěma reálně dohledaným rolím. Skóre přínosu mírně kleslo ze 72,9 na 71,3, ale zůstává nad klubovým průměrem (60,8). Žádné propojené firmy ani peněžní zjištění k ověření.",
+      "changed": true,
+      "replacements": [
+        {
+          "old": "Pozitivní trend mezi volebními obdobími: skóre přínosu vzrostlo ze 72,9 na 71,3, což ukazuje na konzistentní práci napříč obdobími.",
+          "new": "Skóre přínosu mírně kleslo ze 72,9 na 71,3, ale zůstává nad klubovým průměrem (60,8)."
+        }
+      ],
+      "reasoning": "psp9ScoreNow (72,9) confirms the prior-term figure was already correct, but corrected current score 71,3 is LOWER than 72,9, not higher — 'vzrostlo'/'pozitivní trend' was false; restated as a mild decline, still grounded in the real fact that she remains above the corrected club mean (60,8)."
+    },
+    {
+      "pspId": 6804,
+      "field": "effort_notes",
+      "newText": "Skóre přínosu (52,6) odpovídá jedinému sponzorovanému tisku a jen 14 řečnickým vystoupením — nízký legislativní výstup je ale kompenzován funkcí ve výboru pro zdravotnictví a v dozorovém orgánu VZP, kde má reálný vliv na politiku zdravotního pojištění mimo sněmovní sál. Bez propojených firem. Jméno na psp.cz je uvedeno jako 'Zdenka Němčková Crkvenjašová' — jde o stejnou osobu (rozdíl je jen v diakritice/skloňování).",
+      "changed": false,
+      "replacements": [],
+      "reasoning": "No prior-term or club-mean claim is made anywhere in the text (only the raw output counts, which are unaffected by pass 42); no claim is broken, so left byte-identical."
+    },
+    {
+      "pspId": 6987,
+      "field": "effort_notes",
+      "newText": "Jediný tisk, který má Barták na kontě, podepsal jako spolupodepsaný, ne jako předkladatel. Datová nesrovnalost: uvedený počet výborů (2) neodpovídá jediné reálně dohledané roli (místopředseda Organizačního výboru). Deset řečnických vystoupení a skóre přínosu 53,4 — jde o legitimní nízkoenergetický profil, ne o chybu dat. Žádné propojené firmy ani peněžní zjištění k ověření.",
+      "changed": false,
+      "replacements": [],
+      "reasoning": "No prior-term score is quoted (psp9ScoreNow is null) and no club-mean claim is made; the 'nízkoenergetický profil' characterisation is about raw output counts, not the score, and remains accurate. No change needed."
+    },
+    {
+      "pspId": 6998,
+      "field": "effort_notes",
+      "newText": "Narozen 1996; vysoký kontribuční index (85,2) staví převážně na výborovém vedení a objemu spolupodpisů klubové legislativy — u jednoho ze 6 tisků je první signatář, u zbylých pěti spolupodepsaný.",
+      "changed": true,
+      "replacements": [
+        {
+          "old": "Nejmladší z pětice (nar. 1996)",
+          "new": "Narozen 1996"
+        }
+      ],
+      "reasoning": "'Nejmladší z pětice' is a forbidden sample-scoped self-reference; de-scoped to the plain birth fact. 'Vysoký kontribuční index' still holds at 85,2, well above the corrected club mean (77,3), so that characterisation was left untouched."
+    },
+    {
+      "pspId": 7046,
+      "field": "effort_notes",
+      "newText": "Vysoké skóre příspěvku (83,9) při jediném sponzorovaném tisku ukazuje, že její příspěvek je tažen komisní/interpelační prací a řečnickými vystoupeními (48), ne autorstvím zákonů — bez jednostranného profilu, tento jediný tisk odpovídá jejímu jedinému záznamu v evidenci sponzorovaných tisků. Mandát trvá celé sledované období (293 dní) bez anomálie. Firemní vazby v datech nejsou žádné.",
+      "changed": false,
+      "replacements": [],
+      "reasoning": "'Vysoké skóre' still holds at the corrected 83,9, well above the corrected club mean (68); no prior-term score is quoted (psp9ScoreNow is null). No claim is broken."
+    }
+  ]
+}

@@ -1,0 +1,990 @@
+{
+  "generatedAt": "2026-08-04T13:44:59.603Z",
+  "committeeDeltas": [
+    {
+      "pspId": 346,
+      "name": "Petr Bendl",
+      "before": 3,
+      "after": 2,
+      "scoreBefore": 92.6,
+      "scoreAfter": 85.9
+    },
+    {
+      "pspId": 5226,
+      "name": "Pavel Žáček",
+      "before": 8,
+      "after": 7,
+      "scoreBefore": 44.7,
+      "scoreAfter": 44.7
+    },
+    {
+      "pspId": 5379,
+      "name": "Jan Bauer",
+      "before": 4,
+      "after": 3,
+      "scoreBefore": 48.5,
+      "scoreAfter": 48.5
+    },
+    {
+      "pspId": 5459,
+      "name": "Radim Fiala",
+      "before": 3,
+      "after": 2,
+      "scoreBefore": 87.9,
+      "scoreAfter": 81.3
+    },
+    {
+      "pspId": 5512,
+      "name": "Boris Šťastný",
+      "before": 4,
+      "after": 3,
+      "scoreBefore": 94.4,
+      "scoreAfter": 94.4
+    },
+    {
+      "pspId": 5700,
+      "name": "Ivan Adamec",
+      "before": 3,
+      "after": 2,
+      "scoreBefore": 70.2,
+      "scoreAfter": 63.6
+    },
+    {
+      "pspId": 5899,
+      "name": "Jan Bureš",
+      "before": 4,
+      "after": 2,
+      "scoreBefore": 90.5,
+      "scoreAfter": 83.8
+    },
+    {
+      "pspId": 5903,
+      "name": "Jana Černochová",
+      "before": 4,
+      "after": 3,
+      "scoreBefore": 70.9,
+      "scoreAfter": 70.9
+    },
+    {
+      "pspId": 5911,
+      "name": "Jaroslav Foldyna",
+      "before": 4,
+      "after": 3,
+      "scoreBefore": 68.8,
+      "scoreAfter": 68.8
+    },
+    {
+      "pspId": 5943,
+      "name": "Helena Langšádlová",
+      "before": 7,
+      "after": 5,
+      "scoreBefore": 85.3,
+      "scoreAfter": 85.3
+    },
+    {
+      "pspId": 6064,
+      "name": "Miroslav Ševčík",
+      "before": 5,
+      "after": 4,
+      "scoreBefore": 76,
+      "scoreAfter": 76
+    },
+    {
+      "pspId": 6105,
+      "name": "Tomio Okamura",
+      "before": 2,
+      "after": 1,
+      "scoreBefore": 83.4,
+      "scoreAfter": 76.7
+    },
+    {
+      "pspId": 6154,
+      "name": "Marek Ženíšek",
+      "before": 4,
+      "after": 3,
+      "scoreBefore": 61.2,
+      "scoreAfter": 61.2
+    },
+    {
+      "pspId": 6165,
+      "name": "Radek Vondráček",
+      "before": 8,
+      "after": 6,
+      "scoreBefore": 94.3,
+      "scoreAfter": 94.3
+    },
+    {
+      "pspId": 6168,
+      "name": "Helena Válková",
+      "before": 8,
+      "after": 6,
+      "scoreBefore": 74.3,
+      "scoreAfter": 74.3
+    },
+    {
+      "pspId": 6211,
+      "name": "Martin Kolovratník",
+      "before": 6,
+      "after": 3,
+      "scoreBefore": 70.4,
+      "scoreAfter": 70.4
+    },
+    {
+      "pspId": 6214,
+      "name": "Věra Kovářová",
+      "before": 6,
+      "after": 3,
+      "scoreBefore": 89.2,
+      "scoreAfter": 89.2
+    },
+    {
+      "pspId": 6216,
+      "name": "Michal Kučera",
+      "before": 5,
+      "after": 4,
+      "scoreBefore": 74.5,
+      "scoreAfter": 74.5
+    },
+    {
+      "pspId": 6225,
+      "name": "Jana Pastuchová",
+      "before": 9,
+      "after": 5,
+      "scoreBefore": 77.1,
+      "scoreAfter": 77.1
+    },
+    {
+      "pspId": 6240,
+      "name": "Karel Tureček",
+      "before": 3,
+      "after": 2,
+      "scoreBefore": 52.1,
+      "scoreAfter": 45.4
+    },
+    {
+      "pspId": 6246,
+      "name": "Josef Kott",
+      "before": 3,
+      "after": 2,
+      "scoreBefore": 73.5,
+      "scoreAfter": 66.9
+    },
+    {
+      "pspId": 6418,
+      "name": "Jan Skopeček",
+      "before": 2,
+      "after": 1,
+      "scoreBefore": 80.5,
+      "scoreAfter": 73.9
+    },
+    {
+      "pspId": 6431,
+      "name": "Lenka Dražilová",
+      "before": 3,
+      "after": 2,
+      "scoreBefore": 67,
+      "scoreAfter": 60.4
+    },
+    {
+      "pspId": 6433,
+      "name": "Ivan Bartoš",
+      "before": 5,
+      "after": 4,
+      "scoreBefore": 77.7,
+      "scoreAfter": 77.7
+    },
+    {
+      "pspId": 6447,
+      "name": "Kamal Farhan",
+      "before": 2,
+      "after": 1,
+      "scoreBefore": 62.6,
+      "scoreAfter": 55.9
+    },
+    {
+      "pspId": 6455,
+      "name": "Jan Hrnčíř",
+      "before": 4,
+      "after": 3,
+      "scoreBefore": 68.8,
+      "scoreAfter": 68.8
+    },
+    {
+      "pspId": 6457,
+      "name": "Eva Fialová",
+      "before": 3,
+      "after": 2,
+      "scoreBefore": 78.2,
+      "scoreAfter": 71.5
+    },
+    {
+      "pspId": 6459,
+      "name": "Jakub Janda",
+      "before": 3,
+      "after": 2,
+      "scoreBefore": 79.7,
+      "scoreAfter": 73
+    },
+    {
+      "pspId": 6466,
+      "name": "Jana Krutáková",
+      "before": 4,
+      "after": 3,
+      "scoreBefore": 78,
+      "scoreAfter": 78
+    },
+    {
+      "pspId": 6467,
+      "name": "Zuzana Majerová",
+      "before": 6,
+      "after": 3,
+      "scoreBefore": 47.1,
+      "scoreAfter": 47.1
+    },
+    {
+      "pspId": 6468,
+      "name": "Taťána Malá",
+      "before": 5,
+      "after": 4,
+      "scoreBefore": 95.4,
+      "scoreAfter": 95.4
+    },
+    {
+      "pspId": 6474,
+      "name": "Zuzana Ožanová",
+      "before": 5,
+      "after": 3,
+      "scoreBefore": 94.6,
+      "scoreAfter": 94.6
+    },
+    {
+      "pspId": 6475,
+      "name": "Monika Oborná",
+      "before": 5,
+      "after": 4,
+      "scoreBefore": 61.8,
+      "scoreAfter": 61.8
+    },
+    {
+      "pspId": 6479,
+      "name": "Lucie Šafránková",
+      "before": 4,
+      "after": 2,
+      "scoreBefore": 91.6,
+      "scoreAfter": 85
+    },
+    {
+      "pspId": 6482,
+      "name": "Vlastimil Válek",
+      "before": 5,
+      "after": 3,
+      "scoreBefore": 70,
+      "scoreAfter": 70
+    },
+    {
+      "pspId": 6486,
+      "name": "Vojtěch Munzar",
+      "before": 3,
+      "after": 2,
+      "scoreBefore": 72.4,
+      "scoreAfter": 65.7
+    },
+    {
+      "pspId": 6487,
+      "name": "Patrik Nacher",
+      "before": 2,
+      "after": 1,
+      "scoreBefore": 85.7,
+      "scoreAfter": 79
+    },
+    {
+      "pspId": 6500,
+      "name": "Jan Richter",
+      "before": 7,
+      "after": 4,
+      "scoreBefore": 75.2,
+      "scoreAfter": 75.2
+    },
+    {
+      "pspId": 6506,
+      "name": "Tomáš Kohoutek",
+      "before": 8,
+      "after": 6,
+      "scoreBefore": 71.1,
+      "scoreAfter": 71.1
+    },
+    {
+      "pspId": 6508,
+      "name": "Radek Koten",
+      "before": 5,
+      "after": 4,
+      "scoreBefore": 60.9,
+      "scoreAfter": 60.9
+    },
+    {
+      "pspId": 6509,
+      "name": "Robert Králíček",
+      "before": 10,
+      "after": 7,
+      "scoreBefore": 65.4,
+      "scoreAfter": 65.4
+    },
+    {
+      "pspId": 6513,
+      "name": "Marek Výborný",
+      "before": 5,
+      "after": 3,
+      "scoreBefore": 90.4,
+      "scoreAfter": 90.4
+    },
+    {
+      "pspId": 6515,
+      "name": "Jiří Strýček",
+      "before": 5,
+      "after": 4,
+      "scoreBefore": 63.7,
+      "scoreAfter": 63.7
+    },
+    {
+      "pspId": 6520,
+      "name": "Pavel Růžička",
+      "before": 7,
+      "after": 5,
+      "scoreBefore": 69.6,
+      "scoreAfter": 69.6
+    },
+    {
+      "pspId": 6523,
+      "name": "Michal Ratiborský",
+      "before": 10,
+      "after": 6,
+      "scoreBefore": 61.1,
+      "scoreAfter": 61.1
+    },
+    {
+      "pspId": 6524,
+      "name": "Vít Rakušan",
+      "before": 3,
+      "after": 2,
+      "scoreBefore": 75.4,
+      "scoreAfter": 68.7
+    },
+    {
+      "pspId": 6527,
+      "name": "David Pražák",
+      "before": 3,
+      "after": 2,
+      "scoreBefore": 71.3,
+      "scoreAfter": 64.6
+    },
+    {
+      "pspId": 6534,
+      "name": "Jiří Mašek",
+      "before": 7,
+      "after": 5,
+      "scoreBefore": 91,
+      "scoreAfter": 91
+    },
+    {
+      "pspId": 6537,
+      "name": "Jan Lipavský",
+      "before": 4,
+      "after": 3,
+      "scoreBefore": 74.7,
+      "scoreAfter": 74.7
+    },
+    {
+      "pspId": 6555,
+      "name": "Tom Philipp",
+      "before": 6,
+      "after": 4,
+      "scoreBefore": 89.8,
+      "scoreAfter": 89.8
+    },
+    {
+      "pspId": 6623,
+      "name": "Ondřej Babka",
+      "before": 5,
+      "after": 4,
+      "scoreBefore": 76.9,
+      "scoreAfter": 76.9
+    },
+    {
+      "pspId": 6688,
+      "name": "Miroslav Samaš",
+      "before": 7,
+      "after": 5,
+      "scoreBefore": 63.4,
+      "scoreAfter": 63.4
+    },
+    {
+      "pspId": 6722,
+      "name": "Jan Berki",
+      "before": 3,
+      "after": 2,
+      "scoreBefore": 89.2,
+      "scoreAfter": 82.5
+    },
+    {
+      "pspId": 6723,
+      "name": "Jana Berkovcová",
+      "before": 3,
+      "after": 2,
+      "scoreBefore": 55.6,
+      "scoreAfter": 48.9
+    },
+    {
+      "pspId": 6730,
+      "name": "Lubomír Wenzl",
+      "before": 5,
+      "after": 4,
+      "scoreBefore": 68.4,
+      "scoreAfter": 68.4
+    },
+    {
+      "pspId": 6732,
+      "name": "Ivana Mádlová",
+      "before": 6,
+      "after": 5,
+      "scoreBefore": 63.7,
+      "scoreAfter": 63.7
+    },
+    {
+      "pspId": 6738,
+      "name": "Hubert Lang",
+      "before": 8,
+      "after": 7,
+      "scoreBefore": 64.1,
+      "scoreAfter": 64.1
+    },
+    {
+      "pspId": 6743,
+      "name": "Robert Stržínek",
+      "before": 4,
+      "after": 3,
+      "scoreBefore": 75.8,
+      "scoreAfter": 75.8
+    },
+    {
+      "pspId": 6745,
+      "name": "Marie Pošarová",
+      "before": 6,
+      "after": 4,
+      "scoreBefore": 77.3,
+      "scoreAfter": 77.3
+    },
+    {
+      "pspId": 6750,
+      "name": "Josef Flek",
+      "before": 6,
+      "after": 4,
+      "scoreBefore": 62.5,
+      "scoreAfter": 62.5
+    },
+    {
+      "pspId": 6751,
+      "name": "Karel Haas",
+      "before": 6,
+      "after": 4,
+      "scoreBefore": 96.8,
+      "scoreAfter": 96.8
+    },
+    {
+      "pspId": 6753,
+      "name": "Jana Hanzlíková",
+      "before": 5,
+      "after": 3,
+      "scoreBefore": 87.3,
+      "scoreAfter": 87.3
+    },
+    {
+      "pspId": 6754,
+      "name": "Matěj Ondřej Havel",
+      "before": 5,
+      "after": 4,
+      "scoreBefore": 71.5,
+      "scoreAfter": 71.5
+    },
+    {
+      "pspId": 6755,
+      "name": "Jiří Havránek",
+      "before": 7,
+      "after": 5,
+      "scoreBefore": 71.1,
+      "scoreAfter": 71.1
+    },
+    {
+      "pspId": 6756,
+      "name": "Tomáš Helebrant",
+      "before": 8,
+      "after": 6,
+      "scoreBefore": 85.4,
+      "scoreAfter": 85.4
+    },
+    {
+      "pspId": 6758,
+      "name": "Igor Hendrych",
+      "before": 5,
+      "after": 4,
+      "scoreBefore": 79.9,
+      "scoreAfter": 79.9
+    },
+    {
+      "pspId": 6762,
+      "name": "Pavla Pivoňka Vaňková",
+      "before": 5,
+      "after": 4,
+      "scoreBefore": 90.9,
+      "scoreAfter": 90.9
+    },
+    {
+      "pspId": 6763,
+      "name": "Michaela Šebelová",
+      "before": 4,
+      "after": 3,
+      "scoreBefore": 81.1,
+      "scoreAfter": 81.1
+    },
+    {
+      "pspId": 6767,
+      "name": "Michaela Řehková",
+      "before": 3,
+      "after": 2,
+      "scoreBefore": 66.4,
+      "scoreAfter": 59.8
+    },
+    {
+      "pspId": 6770,
+      "name": "Renata Oulehlová",
+      "before": 3,
+      "after": 2,
+      "scoreBefore": 77.9,
+      "scoreAfter": 71.3
+    },
+    {
+      "pspId": 6780,
+      "name": "Berenika Peštová",
+      "before": 6,
+      "after": 5,
+      "scoreBefore": 75.2,
+      "scoreAfter": 75.2
+    },
+    {
+      "pspId": 6783,
+      "name": "Jan Síla",
+      "before": 4,
+      "after": 2,
+      "scoreBefore": 63,
+      "scoreAfter": 56.4
+    },
+    {
+      "pspId": 6788,
+      "name": "Barbora Urbanová",
+      "before": 7,
+      "after": 5,
+      "scoreBefore": 90,
+      "scoreAfter": 90
+    },
+    {
+      "pspId": 6789,
+      "name": "Lukáš Vlček",
+      "before": 5,
+      "after": 3,
+      "scoreBefore": 90.6,
+      "scoreAfter": 90.6
+    },
+    {
+      "pspId": 6793,
+      "name": "Renáta Zajíčková",
+      "before": 8,
+      "after": 5,
+      "scoreBefore": 80.6,
+      "scoreAfter": 80.6
+    },
+    {
+      "pspId": 6796,
+      "name": "Michal Zuna",
+      "before": 8,
+      "after": 5,
+      "scoreBefore": 89.4,
+      "scoreAfter": 89.4
+    },
+    {
+      "pspId": 6803,
+      "name": "Jiří Horák",
+      "before": 3,
+      "after": 2,
+      "scoreBefore": 80.4,
+      "scoreAfter": 73.7
+    },
+    {
+      "pspId": 6804,
+      "name": "Zdenka Němečková Crkvenjaš",
+      "before": 4,
+      "after": 2,
+      "scoreBefore": 59.3,
+      "scoreAfter": 52.6
+    },
+    {
+      "pspId": 6881,
+      "name": "Petr Hladík",
+      "before": 4,
+      "after": 3,
+      "scoreBefore": 89.3,
+      "scoreAfter": 89.3
+    },
+    {
+      "pspId": 6905,
+      "name": "Andrea Hoffmannová",
+      "before": 4,
+      "after": 3,
+      "scoreBefore": 47.2,
+      "scoreAfter": 47.2
+    },
+    {
+      "pspId": 6986,
+      "name": "Hana Ančincová",
+      "before": 3,
+      "after": 2,
+      "scoreBefore": 83.9,
+      "scoreAfter": 77.2
+    },
+    {
+      "pspId": 6987,
+      "name": "Jiří Barták",
+      "before": 2,
+      "after": 1,
+      "scoreBefore": 60,
+      "scoreAfter": 53.4
+    },
+    {
+      "pspId": 6989,
+      "name": "Lucie Bartošová",
+      "before": 7,
+      "after": 5,
+      "scoreBefore": 65.7,
+      "scoreAfter": 65.7
+    },
+    {
+      "pspId": 6990,
+      "name": "Karel Beran",
+      "before": 9,
+      "after": 6,
+      "scoreBefore": 47,
+      "scoreAfter": 47
+    },
+    {
+      "pspId": 6994,
+      "name": "Monika Brzesková",
+      "before": 5,
+      "after": 3,
+      "scoreBefore": 76.2,
+      "scoreAfter": 76.2
+    },
+    {
+      "pspId": 6996,
+      "name": "Igor Červený",
+      "before": 7,
+      "after": 3,
+      "scoreBefore": 66.6,
+      "scoreAfter": 66.6
+    },
+    {
+      "pspId": 6997,
+      "name": "Adriana Chochelová",
+      "before": 10,
+      "after": 6,
+      "scoreBefore": 72.3,
+      "scoreAfter": 72.3
+    },
+    {
+      "pspId": 6998,
+      "name": "Benjamin Činčila",
+      "before": 4,
+      "after": 2,
+      "scoreBefore": 91.9,
+      "scoreAfter": 85.2
+    },
+    {
+      "pspId": 7000,
+      "name": "Denis Doksanský",
+      "before": 7,
+      "after": 5,
+      "scoreBefore": 72.6,
+      "scoreAfter": 72.6
+    },
+    {
+      "pspId": 7001,
+      "name": "Tomáš Doležal",
+      "before": 4,
+      "after": 3,
+      "scoreBefore": 68.2,
+      "scoreAfter": 68.2
+    },
+    {
+      "pspId": 7002,
+      "name": "Karel Dvořák",
+      "before": 6,
+      "after": 4,
+      "scoreBefore": 85.1,
+      "scoreAfter": 85.1
+    },
+    {
+      "pspId": 7003,
+      "name": "Irena Ferčíková Konečná",
+      "before": 4,
+      "after": 3,
+      "scoreBefore": 77.8,
+      "scoreAfter": 77.8
+    },
+    {
+      "pspId": 7006,
+      "name": "Matěj Gregor",
+      "before": 7,
+      "after": 6,
+      "scoreBefore": 64.8,
+      "scoreAfter": 64.8
+    },
+    {
+      "pspId": 7010,
+      "name": "Oto Klempíř",
+      "before": 2,
+      "after": 1,
+      "scoreBefore": 51,
+      "scoreAfter": 44.3
+    },
+    {
+      "pspId": 7011,
+      "name": "Matěj Hlavatý",
+      "before": 4,
+      "after": 3,
+      "scoreBefore": 81.2,
+      "scoreAfter": 81.2
+    },
+    {
+      "pspId": 7016,
+      "name": "Miroslav Krejčí",
+      "before": 7,
+      "after": 4,
+      "scoreBefore": 62.2,
+      "scoreAfter": 62.2
+    },
+    {
+      "pspId": 7017,
+      "name": "Vojtěch Krňanský",
+      "before": 6,
+      "after": 4,
+      "scoreBefore": 65.7,
+      "scoreAfter": 65.7
+    },
+    {
+      "pspId": 7018,
+      "name": "Marie Kršková",
+      "before": 5,
+      "after": 3,
+      "scoreBefore": 87.6,
+      "scoreAfter": 87.6
+    },
+    {
+      "pspId": 7021,
+      "name": "Martin Kupec",
+      "before": 5,
+      "after": 3,
+      "scoreBefore": 66.4,
+      "scoreAfter": 66.4
+    },
+    {
+      "pspId": 7027,
+      "name": "Irena Němcová",
+      "before": 5,
+      "after": 4,
+      "scoreBefore": 61.2,
+      "scoreAfter": 61.2
+    },
+    {
+      "pspId": 7028,
+      "name": "Bohuslav Niemiec",
+      "before": 6,
+      "after": 4,
+      "scoreBefore": 93.4,
+      "scoreAfter": 93.4
+    },
+    {
+      "pspId": 7030,
+      "name": "Jan Papajanovský",
+      "before": 6,
+      "after": 4,
+      "scoreBefore": 82.9,
+      "scoreAfter": 82.9
+    },
+    {
+      "pspId": 7031,
+      "name": "Patrik Pařil",
+      "before": 5,
+      "after": 3,
+      "scoreBefore": 90.2,
+      "scoreAfter": 90.2
+    },
+    {
+      "pspId": 7034,
+      "name": "Vladimír Pikora",
+      "before": 4,
+      "after": 3,
+      "scoreBefore": 61.9,
+      "scoreAfter": 61.9
+    },
+    {
+      "pspId": 7035,
+      "name": "Barbora Pipášová",
+      "before": 4,
+      "after": 2,
+      "scoreBefore": 78.6,
+      "scoreAfter": 71.9
+    },
+    {
+      "pspId": 7037,
+      "name": "Jindřich Rajchl",
+      "before": 9,
+      "after": 6,
+      "scoreBefore": 72.7,
+      "scoreAfter": 72.7
+    },
+    {
+      "pspId": 7038,
+      "name": "Barbora Rázga",
+      "before": 6,
+      "after": 5,
+      "scoreBefore": 78,
+      "scoreAfter": 78
+    },
+    {
+      "pspId": 7039,
+      "name": "Vítězslav Schrek",
+      "before": 4,
+      "after": 3,
+      "scoreBefore": 70.5,
+      "scoreAfter": 70.5
+    },
+    {
+      "pspId": 7041,
+      "name": "Gabriela Sedláčková",
+      "before": 12,
+      "after": 7,
+      "scoreBefore": 67.6,
+      "scoreAfter": 67.6
+    },
+    {
+      "pspId": 7042,
+      "name": "Lucie Sedmihradská",
+      "before": 5,
+      "after": 4,
+      "scoreBefore": 89.7,
+      "scoreAfter": 89.7
+    },
+    {
+      "pspId": 7043,
+      "name": "Štěpán Slovák",
+      "before": 10,
+      "after": 7,
+      "scoreBefore": 82.1,
+      "scoreAfter": 82.1
+    },
+    {
+      "pspId": 7045,
+      "name": "Petr Sokol",
+      "before": 9,
+      "after": 5,
+      "scoreBefore": 80.2,
+      "scoreAfter": 80.2
+    },
+    {
+      "pspId": 7046,
+      "name": "Eva Šrámková",
+      "before": 3,
+      "after": 2,
+      "scoreBefore": 90.6,
+      "scoreAfter": 83.9
+    },
+    {
+      "pspId": 7049,
+      "name": "Gabriela Svárovská",
+      "before": 5,
+      "after": 4,
+      "scoreBefore": 80.6,
+      "scoreAfter": 80.6
+    },
+    {
+      "pspId": 7050,
+      "name": "Jan Sviták",
+      "before": 3,
+      "after": 2,
+      "scoreBefore": 61.9,
+      "scoreAfter": 55.2
+    },
+    {
+      "pspId": 7052,
+      "name": "František Talíř",
+      "before": 3,
+      "after": 2,
+      "scoreBefore": 85.2,
+      "scoreAfter": 78.5
+    },
+    {
+      "pspId": 7054,
+      "name": "Renata Vesecká",
+      "before": 12,
+      "after": 7,
+      "scoreBefore": 95.4,
+      "scoreAfter": 95.4
+    },
+    {
+      "pspId": 7058,
+      "name": "Libor Vondráček",
+      "before": 6,
+      "after": 3,
+      "scoreBefore": 85,
+      "scoreAfter": 85
+    },
+    {
+      "pspId": 7059,
+      "name": "Filip Turek",
+      "before": 4,
+      "after": 2,
+      "scoreBefore": 60.6,
+      "scoreAfter": 53.9
+    },
+    {
+      "pspId": 7064,
+      "name": "Miroslav Žbánek",
+      "before": 5,
+      "after": 3,
+      "scoreBefore": 67.4,
+      "scoreAfter": 67.4
+    },
+    {
+      "pspId": 7106,
+      "name": "Libor Forman",
+      "before": 5,
+      "after": 3,
+      "scoreBefore": 48.8,
+      "scoreAfter": 48.8
+    }
+  ],
+  "proseNodes": 207,
+  "proseFieldInstances": 765,
+  "findings": [
+    {
+      "kind": "committee",
+      "pspId": 6664,
+      "name": "Josef Nerušil",
+      "field": "effort_notes",
+      "isPublic": true,
+      "claimed": 2,
+      "corrected": 1,
+      "preCorrection": 1,
+      "matchedPreCorrection": false,
+      "raw": "dva výbory",
+      "window": "ístopředseda ANO Vondráček veřejně vyzvali k větší aktivitě (opustila dva výbory a nepůsobila v žádném); její rezignační dopis musel být opraven kvůli formální "
+    }
+  ]
+}

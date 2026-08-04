@@ -1,0 +1,56 @@
+{
+  "units": [
+    {
+      "pspId": 7001,
+      "field": "effort_notes",
+      "newText": "Zasedá ve třech výborech a komisích; jedno těleso (Výbor pro veřejnou správu a regionální rozvoj) je uvedeno dvakrát, protože ho vede jako místopředseda a zároveň je v něm veden jako řadový člen. Navzdory vedoucí funkci má nápadně nízkou řečnickou aktivitu při stoprocentní účasti a nulové absenci; proti hlasování vlastního klubu se postavil jen ve 4 z 1 770 sledovaných hlasování. Žádné firemní ani finanční vazby nebyly zjištěny.",
+      "replacements": [
+        {
+          "old": "Zasedá ve čtyřech výborech a komisích, přičemž jedno těleso (Výbor pro veřejnou správu a regionální rozvoj) je v podkladových datech uvedeno dvakrát — jednou jako místopředsednická role, jednou jako řadové členství.",
+          "new": "Zasedá ve třech výborech a komisích; jedno těleso (Výbor pro veřejnou správu a regionální rozvoj) je uvedeno dvakrát, protože ho vede jako místopředseda a zároveň je v něm veden jako řadový člen."
+        }
+      ],
+      "shape": "B",
+      "reasoning": "Corrected inflated body count 4->3 (distinct bodies) and reworded the double-filing explanation to attribute it to the leading role without pipeline jargon ('v podkladových datech' removed)."
+    },
+    {
+      "pspId": 7030,
+      "field": "effort_notes",
+      "newText": "Zasedá ve čtyřech výborech a komisích, včetně přechodu z předsedy na místopředsedu Výboru pro veřejnou správu a regionální rozvoj. Kombinuje vysokou institucionální angažovanost — dvě vedoucí role, aktivní práce ve vyšetřovací komisi — s nižší přítomností na hlasováních než ostatní sledovaní poslanci. Žádné firemní vazby k prověření nebyly zjištěny.",
+      "replacements": [
+        {
+          "old": "Zasedá v šesti výborech a komisích, včetně přechodu z předsedy na místopředsedu Výboru pro veřejnou správu a regionální rozvoj.",
+          "new": "Zasedá ve čtyřech výborech a komisích, včetně přechodu z předsedy na místopředsedu Výboru pro veřejnou správu a regionální rozvoj."
+        }
+      ],
+      "shape": "B",
+      "reasoning": "Corrected inflated body count 6->4 (distinct bodies); kept the untouched sentence about the chair-to-vice-chair transition."
+    },
+    {
+      "pspId": 7049,
+      "field": "effort_notes",
+      "newText": "Je členkou čtyř výborů, komisí a delegací. psp.cz eviduje navíc podvýbory pro energetiku, evropské fondy a rozvojovou spolupráci, které jsou vedeny jako samostatná kategorie orgánů mimo výbory, komise a delegace. Žádné firemní vazby k prověření nebyly zjištěny.",
+      "replacements": [
+        {
+          "old": "Je členkou pěti výborů, komisí a delegací. psp.cz eviduje navíc podvýbory pro energetiku, evropské fondy a rozvojovou spolupráci, které naše přehledy nezachycují jako samostatné položky — jde patrně o rozdílný rozsah sledovaných funkcí, nikoli o chybu.",
+          "new": "Je členkou čtyř výborů, komisí a delegací. psp.cz eviduje navíc podvýbory pro energetiku, evropské fondy a rozvojovou spolupráci, které jsou vedeny jako samostatná kategorie orgánů mimo výbory, komise a delegace."
+        }
+      ],
+      "shape": "A",
+      "reasoning": "Resolved discrepancy caveat: stated the corrected distinct-body count (5->4) as plain fact and kept the psp.cz-sourced subcommittee remark without turning it into a count or self-referencing the analysis sample."
+    },
+    {
+      "pspId": 7058,
+      "field": "effort_notes",
+      "newText": "Tři tisky, u kterých je veden jako signatář, odpovídají uváděnému počtu, ale u žádného není Vondráček prvním předkladatelem — jde o tři spolupodpisy. Údaj o předkladateli u všech tří zní 'Vondráček R. a další', což se na první pohled mohlo jevit jako jeho vlastní iniciativa, ale přímé ověření na psp.cz potvrdilo, že jde o Radka Vondráčka (jiného poslance), nikoli o Libora Vondráčka — jména se shodují jen příjmením, iniciála 'R.' neodpovídá jeho křestnímu jménu. Zasedá ve třech výborech a komisích, ve všech třech ve vedoucí roli (místopředseda Výboru pro evropské záležitosti, místopředseda Ústavně-právního výboru, předseda Stálé komise pro Ústavu České republiky a parlamentní procedury) — proto byl dříve uváděn dvojnásobný počet šesti. Firemní vazby v datech nejsou žádné, bez peněžního zjištění k ověření.",
+      "replacements": [
+        {
+          "old": " Datová nesrovnalost: uváděný počet šesti výborů odpovídá jen třem doloženým položkám.",
+          "new": " Zasedá ve třech výborech a komisích, ve všech třech ve vedoucí roli (místopředseda Výboru pro evropské záležitosti, místopředseda Ústavně-právního výboru, předseda Stálé komise pro Ústavu České republiky a parlamentní procedury) — proto byl dříve uváděn dvojnásobný počet šesti."
+        }
+      ],
+      "shape": "A",
+      "reasoning": "Resolved discrepancy caveat with the sharpest case: all 3 distinct bodies are led roles (filedTwice), which exactly explains the old doubled count of 6, stated as plain fact."
+    }
+  ]
+}

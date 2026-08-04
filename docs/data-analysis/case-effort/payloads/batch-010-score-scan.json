@@ -1,0 +1,111 @@
+{
+  "generatedAt": "2026-08-04T13:45:03.352Z",
+  "renderedFields": [
+    "effort_notes",
+    "effort_bill_focus",
+    "effort_public_role",
+    "effort_work_themes"
+  ],
+  "scoreMovers": 33,
+  "findings": [
+    {
+      "pspId": 346,
+      "name": "Petr Bendl",
+      "field": "effort_psp9_trend_note",
+      "rendered": false,
+      "supersededScore": 92.6,
+      "correctedScore": 85.9,
+      "raw": "92,6",
+      "index": 99,
+      "window": "Kontinuita napříč obdobími: PSP9 skóre 85,4 (6 tisků, 1 vedoucí post, 69 vystoupení) → PSP10 skóre 92,6 (4 tisky, vede výbor, 52 vystoupení za ~8 měsíců) — nejvyšší skóre z obou období u kontinuujícího poslance v této skupině, bez poklesu "
+    },
+    {
+      "pspId": 6418,
+      "name": "Jan Skopeček",
+      "field": "effort_psp9_trend_note",
+      "rendered": false,
+      "supersededScore": 80.5,
+      "correctedScore": 73.9,
+      "raw": "80,5",
+      "index": 30,
+      "window": "Skóre vzrostlo z 66 (PSP9) na 80,5 (PSP10) při zachování téže vedoucí funkce (místopředseda Sněmovny) v obou obdobích — nárůst nese hlavně vyšší účast (participation_rate"
+    },
+    {
+      "pspId": 6447,
+      "name": "Kamal Farhan",
+      "field": "effort_analyst_note",
+      "rendered": false,
+      "supersededScore": 62.6,
+      "correctedScore": 55.9,
+      "raw": "62,6",
+      "index": 107,
+      "window": "committee_count=2 odpovídá 2 doloženým položkám. contributionPsp9 kompletní: skóre kleslo z 69,5 (PSP9) na 62,6 (PSP10); PSP9 měl 13 spolupodepsaných tisků a 14 interpelací, PSP10 zatím 0 a 0 (tenureDays=293)."
+    },
+    {
+      "pspId": 6459,
+      "name": "Jakub Janda",
+      "field": "effort_psp9_trend_note",
+      "rendered": false,
+      "supersededScore": 79.7,
+      "correctedScore": 73,
+      "raw": "79,7",
+      "index": 38,
+      "window": "Skóre vzrostlo mírně z 69,6 (PSP9) na 79,7 (PSP10) díky nové vedoucí roli (0→1, nyní předseda výboru) a vyšší účasti (0,5→0,9); zároveň ale vzrostla absence (0,1→0,5) a klesl poč"
+    },
+    {
+      "pspId": 6479,
+      "name": "Lucie Šafránková",
+      "field": "effort_psp9_trend_note",
+      "rendered": false,
+      "supersededScore": 91.6,
+      "correctedScore": 85,
+      "raw": "91,6",
+      "index": 32,
+      "window": "Skóre vzrostlo z 85,3 (PSP9) na 91,6 (PSP10); leadershipCount z 1 na 2 — z členky postoupila k předsednictví komise pro rodinu a místopředsednictví výboru. participation_ra"
+    },
+    {
+      "pspId": 6487,
+      "name": "Patrik Nacher",
+      "field": "effort_psp9_trend_note",
+      "rendered": false,
+      "supersededScore": 85.7,
+      "correctedScore": 79,
+      "raw": "85,7",
+      "index": 45,
+      "window": "Skóre vzrostlo z 79,9 (PSP9, celé období) na 85,7 (PSP10, ~8 měsíců) navzdory poklesu objemu legislativy (17→4 tisky, 859→264 vystoupení) — nárůst nese hlavně vyšší hlasovací účast (par"
+    },
+    {
+      "pspId": 6722,
+      "name": "Jan Berki",
+      "field": "effort_psp9_trend_note",
+      "rendered": false,
+      "supersededScore": 89.2,
+      "correctedScore": 82.5,
+      "raw": "89,2",
+      "index": 52,
+      "window": "Skóre stabilně vysoké v obou mandátech (84,6 PSP9 → 89,2 PSP10); participation_rate výrazně vzrostla (0,5→0,9) i přes pokles objemu tisků (6→2) a vystoupení (147→82 za kratší období) — konzist"
+    },
+    {
+      "pspId": 6783,
+      "name": "Jan Síla",
+      "field": "effort_psp9_trend_note",
+      "rendered": false,
+      "supersededScore": 63,
+      "correctedScore": 56.4,
+      "raw": "63,0",
+      "index": 110,
+      "window": "V PSP9 patřil k nejhlasitějším poslancům SPD (175 vystoupení, 52 interpelací, 9 tisků, skóre 59,2) — v PSP10 (63,0) je téměř tichý na plénu (3 vystoupení, 0 interpelací), ale nově místopředsedá zdravotnímu výboru a sedí v dozorčí radě VZP. Objem řečn"
+    },
+    {
+      "pspId": 6803,
+      "name": "Jiří Horák",
+      "field": "effort_analyst_note",
+      "rendered": false,
+      "supersededScore": 80.4,
+      "correctedScore": 73.7,
+      "raw": "80,4",
+      "index": 318,
+      "window": " member, korektní toAt) — žádná anomálie oproti systematickému vzorci '+1' z předchozí dávky. Srovnání PSP9→PSP10: skóre vzrostlo z 70,6 na 80,4 navzdory kratší tenuře v tomto vzorku; komponenty (committee 20→ still needs recompute, legislative 20 oba mandáty) naznačují srovnatel"
+    }
+  ]
+}

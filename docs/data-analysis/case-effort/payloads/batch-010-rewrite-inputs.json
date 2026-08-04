@@ -1,0 +1,746 @@
+{
+  "generatedAt": "2026-08-04T13:23:06.203Z",
+  "doctrine": "restate absolutely from the body list, or de-scope; never invent a number",
+  "adjudicatedFalsePositives": {
+    "6664": "Josef Nerušil — the matched „opustila dva výbory a nepůsobila v žádném\" is about ANOTHER person the dossier discusses (feminine „opustila\", „její rezignační dopis\"), not about Nerušil's own seat count. His committee_count of 1 does not contradict it. 1 of 15 survivors (6,7 %) — the guard's residual false-positive rate, hand-read."
+  },
+  "units": [
+    {
+      "pspId": 5700,
+      "name": "Ivan Adamec",
+      "field": "effort_notes",
+      "claimedInProse": 3,
+      "correctedCommitteeCount": 2,
+      "preCorrectionCommitteeCount": 3,
+      "recomputedDistinctBodies": 2,
+      "countedSeatRows": 3,
+      "matchedSubstring": "tří výborů",
+      "bodies": [
+        {
+          "name": "Hospodářský výbor",
+          "type": "Výbor",
+          "roles": [
+            "člen",
+            "Místopředseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        },
+        {
+          "name": "Výbor pro životní prostředí",
+          "type": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        }
+      ],
+      "offendingSentences": [
+        "Uváděný počet tří výborů v datech odpovídá nálezu jen přibližně — psp.cz uvádí 2 výbory (Hospodářský, Životní prostředí) plus dozorčí radu SFDI, což může být zdroj třetí položky."
+      ],
+      "fullText": "Uváděný počet tří výborů v datech odpovídá nálezu jen přibližně — psp.cz uvádí 2 výbory (Hospodářský, Životní prostředí) plus dozorčí radu SFDI, což může být zdroj třetí položky. Šest firem mezi jeho firemními vazbami (Technické služby Trutnov, Lesy a parky Trutnov, Oblastní nemocnice Trutnov, VZP, Společnost Horní Labe, TRANSPORT Trutnov) jsou vesměs trutnovské městské/regionální podniky odpovídající jeho 23letému starostenskému období — opět nejde o potvrzenou osobní vazbu: přímý dotaz do veřejného rejstříku pro ověřované IČO 25968084 vrátil prázdnou stránku a alternativní zdroje (obchodní rejstřík i jeho zrcadlo na rejstrik.penize.cz) rovněž selhaly. Ověření se nezdařilo — doporučujeme jako další krok Registr smluv, ne uzavření na „bez vazby\"."
+    },
+    {
+      "pspId": 5943,
+      "name": "Helena Langšádlová",
+      "field": "effort_notes",
+      "claimedInProse": 7,
+      "correctedCommitteeCount": 5,
+      "preCorrectionCommitteeCount": 7,
+      "recomputedDistinctBodies": 5,
+      "countedSeatRows": 7,
+      "matchedSubstring": "sedmi výborů",
+      "bodies": [
+        {
+          "name": "Výbor pro evropské záležitosti",
+          "type": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Výbor pro životní prostředí",
+          "type": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Stálá komise pro hybridní hrozby",
+          "type": "Komise",
+          "roles": [
+            "člen",
+            "Místopředseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        },
+        {
+          "name": "Stálá komise pro kontrolu činnosti Bezpečnostní informační služby",
+          "type": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Stálá delegace Parlamentu do Parlamentního shromáždění NATO",
+          "type": "Delegace",
+          "roles": [
+            "člen",
+            "Náhradník"
+          ],
+          "leads": false,
+          "filedTwice": true
+        }
+      ],
+      "offendingSentences": [
+        "Datová nesrovnalost: uváděný počet sedmi výborů neodpovídá poskytnutému seznamu čtyř committee položek (SKHH, VEZ, VŽP, SKBIS) — rozdíl tří nedoložených vazeb je pravděpodobně dán tím, že celkový počet zahrnuje i podvýbory a roli ověřovatelky, které v itemizovaném seznamu chybí; číslo samotné je tedy pravděpodobně správné, jen výčet neúplný."
+      ],
+      "fullText": "Datová nesrovnalost: uváděný počet sedmi výborů neodpovídá poskytnutému seznamu čtyř committee položek (SKHH, VEZ, VŽP, SKBIS) — rozdíl tří nedoložených vazeb je pravděpodobně dán tím, že celkový počet zahrnuje i podvýbory a roli ověřovatelky, které v itemizovaném seznamu chybí; číslo samotné je tedy pravděpodobně správné, jen výčet neúplný. Peněžní zjištění: Fórum Karla Schwarzenberga, o.p.s. (IČO 02086778), nulová smluvní částka. Ověřeno přímým dotazem do veřejného rejstříku — Langšádlová je aktuálně vedena jako členka správní rady (spolu s M. Ženíškem, J. Farským a dalšími), statutárním orgánem je Filip Štědrý. Jde o vzdělávací/politickou o.p.s. založenou zesnulým Karlem Schwarzenbergem (zakladatelem TOP 09, zemřel 2023, zápis zakladatele vymazán 3. 11. 2025) — konzistentní s její stranickou příslušností, nulová smluvní částka, žádná obchodní vazba. Jde o transparentní politicko-institucionální roli, ne skrytý obchodní konflikt zájmů, ale patří do evidence jako aktivní správní funkce."
+    },
+    {
+      "pspId": 6105,
+      "name": "Tomio Okamura",
+      "field": "effort_notes",
+      "claimedInProse": 2,
+      "correctedCommitteeCount": 1,
+      "preCorrectionCommitteeCount": 2,
+      "recomputedDistinctBodies": 1,
+      "countedSeatRows": 2,
+      "matchedSubstring": "dvou výborů",
+      "bodies": [
+        {
+          "name": "Organizační výbor",
+          "type": "Výbor",
+          "roles": [
+            "člen",
+            "Předseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        }
+      ],
+      "offendingSentences": [
+        " Datová nesrovnalost: uváděný počet dvou výborů neodpovídá vstupním datům, kde je uveden jen jeden committee záznam (ORGV) — možná se počítá i samotná funkce předsedy Sněmovny jako druhý „orgán\", ale to není z dat jisté; doporučujeme ověřit."
+      ],
+      "fullText": "Zaznamenaný počet deseti sponzorovaných tisků odpovídá vstupu, ale žádný z nich není autorský tisk — Okamura je vždy dále v pořadí spolupředkladatelů. Peněžní vazby: MIKI TRAVEL PRAGUE, spol. s r.o. (IČO 25124188, 6 050 000 Kč) — přímé ověření ve veřejném rejstříku potvrzuje, že Okamura je nepřetržitě jednatelem od 2. 6. 2021 (bez výmazu), 100% vlastníkem je GROUP MIKI HOLDINGS LIMITED (UK) od 19. 3. 2021 — Okamura sám společníkem není, přesně jak uvádí i nezávislé zdroje (HlídačPes, Aktuálně.cz, kurzy.cz). Jde o reálnou osobní vazbu k firmě, která má veřejnou zakázku v datech označenou k 6,05 mil. Kč, tedy relevantní konflikt zájmů k dořešení. MEBIUS s.r.o. (IČO 25643461, 0 Kč) — dle stejných zdrojů Okamura firmu vlastní (průvodcovské/překladatelské služby, bez tržeb v posledních letech). Japa Foods s.r.o. (IČO 28406354, 0 Kč) — Okamura je spoluvlastníkem a jednatelem (prodej japonských potravin). U Machtů s.r.o. (IČO 27145433, 0 Kč) — historicky spoluvlastnil restauraci Staré časy přes tuto firmu, ale dle HlídačPes svůj podíl na počátku roku prodal; přesné datum vůči aktuálnímu období (od 10/2025) se nepodařilo ověřit, takže vztah k současnému mandátu je nejistý. Generický záznam OSVČ (IČO 04627695, 0 Kč) se dodatečně potvrdil jako firma nesouvisející s tímto poslancem — nejde o skutečnou vazbu. Datová nesrovnalost: uváděný počet dvou výborů neodpovídá vstupním datům, kde je uveden jen jeden committee záznam (ORGV) — možná se počítá i samotná funkce předsedy Sněmovny jako druhý „orgán\", ale to není z dat jisté; doporučujeme ověřit."
+    },
+    {
+      "pspId": 6214,
+      "name": "Věra Kovářová",
+      "field": "effort_notes",
+      "claimedInProse": 6,
+      "correctedCommitteeCount": 3,
+      "preCorrectionCommitteeCount": 6,
+      "recomputedDistinctBodies": 3,
+      "countedSeatRows": 6,
+      "matchedSubstring": "šesti výborů",
+      "bodies": [
+        {
+          "name": "Výbor pro veřejnou správu a regionální rozvoj",
+          "type": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Rozpočtový výbor",
+          "type": "Výbor",
+          "roles": [
+            "člen",
+            "Místopředseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        },
+        {
+          "name": "Stálá delegace Parlamentu do Parlamentní dimenze Středoevropské iniciativy",
+          "type": "Delegace",
+          "roles": [
+            "člen",
+            "Vedoucí delegace",
+            "Člen"
+          ],
+          "leads": false,
+          "filedTwice": true
+        }
+      ],
+      "offendingSentences": [
+        " Výrazná datová nesrovnalost: uváděný počet šesti výborů neodpovídá poskytnutému seznamu dvou committee položek (RV místopředsedkyně, VSR členka) — rozdíl čtyř nedoložených vazeb je největší mezi všemi sledovanými poslanci, doporučujeme prioritně ověřit."
+      ],
+      "fullText": "Uváděné 4 sponzorované tisky odpovídají vstupu, ale jen u 1 ze 4 je Kovářová uvedena jako první předkladatelka. Výrazná datová nesrovnalost: uváděný počet šesti výborů neodpovídá poskytnutému seznamu dvou committee položek (RV místopředsedkyně, VSR členka) — rozdíl čtyř nedoložených vazeb je největší mezi všemi sledovanými poslanci, doporučujeme prioritně ověřit. Peněžní zjištění: (1) generický záznam OSVČ (IČO 04627695, 0 Kč) se dodatečně potvrdil jako firma nesouvisející s tímto poslancem — nejde o skutečnou vazbu; a (2) ČEPRO, a.s. (IČO 60193531, 235 543 222,2 Kč) — zdaleka nejvyšší částka mezi jejími firemními vazbami. ČEPRO je stoprocentně státní logistická společnost pro pohonné hmoty (Ministerstvo financí), relevantní pro její roli místopředsedkyně Rozpočtového výboru. Přímé ověření ve veřejném rejstříku se nepodařilo dokončit; sekundární zdroj uvádí jako členy představenstva Ing. Martina Vojtíška a Mgr. Ing. Luboše Zítku — žádné jméno neodpovídá Kovářové ani nenaznačuje osobní vazbu, jde tedy o rozpočtově-dozorovou relevanci skrze výbor, ne o osobní angažmá ve firmě. Vzhledem k výši částky a nedokončenému přímému ověření doporučujeme dohledat konkrétní smluvní vztah přes Registr smluv."
+    },
+    {
+      "pspId": 6520,
+      "name": "Pavel Růžička",
+      "field": "effort_notes",
+      "claimedInProse": 7,
+      "correctedCommitteeCount": 5,
+      "preCorrectionCommitteeCount": 7,
+      "recomputedDistinctBodies": 5,
+      "countedSeatRows": 7,
+      "matchedSubstring": "sedmi výborů",
+      "bodies": [
+        {
+          "name": "Mandátový a imunitní výbor",
+          "type": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Výbor pro obranu",
+          "type": "Výbor",
+          "roles": [
+            "člen",
+            "Místopředseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        },
+        {
+          "name": "Výbor pro bezpečnost",
+          "type": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Stálá komise pro kontrolu činnosti Bezpečnostní informační služby",
+          "type": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Stálá komise pro kontrolu činnosti Vojenského zpravodajství",
+          "type": "Komise",
+          "roles": [
+            "člen",
+            "Předseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        }
+      ],
+      "offendingSentences": [
+        "Data ukazují stoprocentní docházku, nulovou absenci a zapojení do sedmi výborů/komisí — extrémně vysoká docházka a široké výborové zapojení bez jediného vlastního tisku je konzistentní obraz \"tichého\" dozorového pracovníka v obranné/bezpečnostní agendě, nikoli legislativního iniciátora."
+      ],
+      "fullText": "Data ukazují stoprocentní docházku, nulovou absenci a zapojení do sedmi výborů/komisí — extrémně vysoká docházka a široké výborové zapojení bez jediného vlastního tisku je konzistentní obraz \"tichého\" dozorového pracovníka v obranné/bezpečnostní agendě, nikoli legislativního iniciátora. Žádná firemní vazba nebyla v datech nalezena k ověření."
+    },
+    {
+      "pspId": 6537,
+      "name": "Jan Lipavský",
+      "field": "effort_notes",
+      "claimedInProse": 4,
+      "correctedCommitteeCount": 3,
+      "preCorrectionCommitteeCount": 4,
+      "recomputedDistinctBodies": 3,
+      "countedSeatRows": 4,
+      "matchedSubstring": "4 výborů",
+      "bodies": [
+        {
+          "name": "Výbor pro evropské záležitosti",
+          "type": "Výbor",
+          "roles": [
+            "člen",
+            "Ověřovatel výboru"
+          ],
+          "leads": true,
+          "filedTwice": true
+        },
+        {
+          "name": "Zahraniční výbor",
+          "type": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Stálá komise pro kontrolu činnosti Bezpečnostní informační služby",
+          "type": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        }
+      ],
+      "offendingSentences": [
+        "Datová nesrovnalost: interní přehled uvádí zapojení do 4 výborů/komisí, ale psp.cz uvádí 5 samostatných funkčních vazeb (člen VEZ, ověřovatel VEZ, člen ZAV, člen podvýboru pro krajany, člen SKBIS) — data tedy přesně neodpovídají oficiálnímu profilu."
+      ],
+      "fullText": "Datová nesrovnalost: interní přehled uvádí zapojení do 4 výborů/komisí, ale psp.cz uvádí 5 samostatných funkčních vazeb (člen VEZ, ověřovatel VEZ, člen ZAV, člen podvýboru pro krajany, člen SKBIS) — data tedy přesně neodpovídají oficiálnímu profilu. Žádná firemní vazba nebyla v datech nalezena k ověření."
+    },
+    {
+      "pspId": 6730,
+      "name": "Lubomír Wenzl",
+      "field": "effort_notes",
+      "claimedInProse": 5,
+      "correctedCommitteeCount": 4,
+      "preCorrectionCommitteeCount": 5,
+      "recomputedDistinctBodies": 4,
+      "countedSeatRows": 5,
+      "matchedSubstring": "5 výborů",
+      "bodies": [
+        {
+          "name": "Výbor pro obranu",
+          "type": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Rozpočtový výbor",
+          "type": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Stálá komise pro kontrolu činnosti Vojenského zpravodajství",
+          "type": "Komise",
+          "roles": [
+            "člen",
+            "Místopředseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        },
+        {
+          "name": "Stálá komise pro kontrolu činnosti Úřadu pro zahraniční styky a informace",
+          "type": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        }
+      ],
+      "offendingSentences": [
+        "Datová nesrovnalost: interní přehled uvádí zapojení do 5 výborů/komisí, ale ve vstupním seznamu je doloženo jen 4 — podobný vzorec (počítadlo o 1 vyšší) se objevil i u dalších poslanců, což naznačuje systematickou, ne náhodnou chybu."
+      ],
+      "fullText": "Datová nesrovnalost: interní přehled uvádí zapojení do 5 výborů/komisí, ale ve vstupním seznamu je doloženo jen 4 — podobný vzorec (počítadlo o 1 vyšší) se objevil i u dalších poslanců, což naznačuje systematickou, ne náhodnou chybu. Trendové pozorování: skóre kleslo z 78 v předchozím období na 68,4 v aktuálním, ale zatímco v předchozím období měl 15 vlastních zákonů a 89 interpelací, aktuální data uvádějí nulu u obou metrik — může jít o reálný pokles aktivity, nebo o neúplně zachycená data tak brzy v mandátu (293 dní). Doporučujeme ověřit úplnost aktuálních dat o tiscích a interpelacích, než se pokles interpretuje jako skutečný trend. Žádná firemní vazba nebyla v datech nalezena k ověření."
+    },
+    {
+      "pspId": 6732,
+      "name": "Ivana Mádlová",
+      "field": "effort_notes",
+      "claimedInProse": 6,
+      "correctedCommitteeCount": 5,
+      "preCorrectionCommitteeCount": 6,
+      "recomputedDistinctBodies": 5,
+      "countedSeatRows": 6,
+      "matchedSubstring": "6 výborů",
+      "bodies": [
+        {
+          "name": "Výbor pro veřejnou správu a regionální rozvoj",
+          "type": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Výbor pro zdravotnictví",
+          "type": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Stálá komise pro rodinu a rovné příležitosti",
+          "type": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Stálá delegace Parlamentu do Meziparlamentní unie",
+          "type": "Delegace",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Stálá delegace Parlamentu do Parlamentního shromáždění Rady Evropy",
+          "type": "Delegace",
+          "roles": [
+            "člen",
+            "Člen"
+          ],
+          "leads": false,
+          "filedTwice": true
+        }
+      ],
+      "offendingSentences": [
+        " Datová nesrovnalost: v přehledu je uvedeno zapojení do 6 výborů/komisí, ale doloženy jsou jen 3 položky (stejný vzorec jako u dalších poslanců)."
+      ],
+      "fullText": "Obě dohledané firemní vazby jsou historické, skončily roky před začátkem jejího aktuálního mandátu (od cca října 2025): (1) VODÁRNA PLZEŇ a.s. (IČO 25205625, evidovaná částka 915 796 079,85 Kč) — funkce místopředsedkyně dozorčí rady 8. 2. 2016 – 31. 12. 2018, výmaz z obchodního rejstříku 23. 2. 2019, tedy cca 7 let před nástupem do Sněmovny; nezávisle potvrzeno druhým zdrojem (výroční zpráva 2017, Hlídač státu). Vodárna Plzeň je klíčová regionální veřejná infrastrukturní firma (vodohospodářství pro město Plzeň) — tematicky souvisí s jejím výborem pro veřejnou správu a regionální rozvoj, ale jde o dozorčí roli skončenou dávno před mandátem, ne o současné angažmá. (2) DOMOVINKA - sociální služby, o.p.s. (IČO 29123747, evidovaná částka 20 168 230 Kč) — byla členkou správní rady 16. 1. 2012 – 22. 9. 2014 (příp. do 30. 6. 2014), tedy více než 11 let před mandátem; sociální služby tematicky souvisí s jejím výborem pro zdravotnictví, ale opět jde o dávno ukončenou roli. Obě vazby jsou dvakrát nezávisle ověřené, žádná není aktuální osobní finanční angažovanost — jde o historické institucionální role, ne o současný konflikt zájmů. Datová nesrovnalost: v přehledu je uvedeno zapojení do 6 výborů/komisí, ale doloženy jsou jen 3 položky (stejný vzorec jako u dalších poslanců). Trendová poznámka (opatrně, mladý mandát): skóre z předchozího období (83,8; 16 tisků, 33 interpelací) je vyšší než dosavadní aktuální skóre (63,7; 2 tisky, 0 interpelací), ale vzhledem ke krátké délce dosavadního mandátu jde o částečné srovnání, ne o potvrzený pokles."
+    },
+    {
+      "pspId": 6738,
+      "name": "Hubert Lang",
+      "field": "effort_notes",
+      "claimedInProse": 8,
+      "correctedCommitteeCount": 7,
+      "preCorrectionCommitteeCount": 8,
+      "recomputedDistinctBodies": 7,
+      "countedSeatRows": 8,
+      "matchedSubstring": "8 výborů",
+      "bodies": [
+        {
+          "name": "Výbor pro vědu, vzdělávání, mládež a sport",
+          "type": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Výbor pro bezpečnost",
+          "type": "Výbor",
+          "roles": [
+            "člen",
+            "Místopředseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        },
+        {
+          "name": "Stálá komise pro kontrolu činnosti Generální inspekce bezpečnostních sborů",
+          "type": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Stálá komise pro kontrolu činnosti Bezpečnostní informační služby",
+          "type": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Stálá komise pro kontrolu činnosti Národního bezpečnostního úřadu",
+          "type": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Stálá komise pro kontrolu činnosti Finančního analytického úřadu",
+          "type": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Vyšetřovací komise k prošetření okolností, systémových souvislostí a institucionálního fungování Dopravního podniku hlavního města Prahy, akciová společnost, Krajské správy a údržby silnic Středočeského kraje, příspěvková organizace a Všeobecné zdravotní pojišťovny ve věci podezření z korupčního jednání (tzv. \"kauza Dozimetr\")",
+          "type": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        }
+      ],
+      "offendingSentences": [
+        " Datová nesrovnalost: v přehledu je uvedeno zapojení do 8 výborů/komisí, ale doložen je jen seznam 7 položek (VB, VVVMS, SKGIBS, SKBIS, SKNBÚ, SKFAÚ, VKDOZIMETR) — chybí jedna vazba oproti počítadlu, doporučujeme ověřit v dalším kole zpracování dat."
+      ],
+      "fullText": "Jediný evidovaný tisk (187) odpovídá tomu, že u něj figuruje jako první předkladatel — jde skutečně o jeho vlastní iniciativu, ne spolupodpis. Datová nesrovnalost: v přehledu je uvedeno zapojení do 8 výborů/komisí, ale doložen je jen seznam 7 položek (VB, VVVMS, SKGIBS, SKBIS, SKNBÚ, SKFAÚ, VKDOZIMETR) — chybí jedna vazba oproti počítadlu, doporučujeme ověřit v dalším kole zpracování dat. Žádná firemní vazba nebyla v datech nalezena k ověření."
+    },
+    {
+      "pspId": 6745,
+      "name": "Marie Pošarová",
+      "field": "effort_notes",
+      "claimedInProse": 6,
+      "correctedCommitteeCount": 4,
+      "preCorrectionCommitteeCount": 6,
+      "recomputedDistinctBodies": 4,
+      "countedSeatRows": 6,
+      "matchedSubstring": "šesti výborech",
+      "bodies": [
+        {
+          "name": "Výbor pro veřejnou správu a regionální rozvoj",
+          "type": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Zemědělský výbor",
+          "type": "Výbor",
+          "roles": [
+            "člen",
+            "Místopředseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        },
+        {
+          "name": "Stálá komise pro kontrolu poskytnutí údajů z centrální evidence účtů",
+          "type": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Stálá komise pro kontrolu činnosti Úřadu pro zahraniční styky a informace",
+          "type": "Komise",
+          "roles": [
+            "člen",
+            "Předseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        }
+      ],
+      "offendingSentences": [
+        "Zasedá v šesti výborech a komisích (dvojí zápis u ÚZSI komise a Zemědělského výboru odráží souběžnou členskou a vedoucí roli, ne chybu)."
+      ],
+      "fullText": "Zasedá v šesti výborech a komisích (dvojí zápis u ÚZSI komise a Zemědělského výboru odráží souběžnou členskou a vedoucí roli, ne chybu). Jde o nejaktivnější profil ve skupině s vysokou docházkou i podílem na legislativě, byť většinou jako spolupodepisující, ne jako předkladatelka; skóre mírně vzrostlo oproti minulému volebnímu období. Spolupodepsala tisk 87 spolu s Hubíkovou a Petrtýlem — jde o mega-tisk s téměř čtyřiceti spolupodepsanými napříč kluby, což ukazuje, že u širokých vícestranických tisků může počet spolupodepsaných tisků nadhodnocovat individuální legislativní iniciativu. Žádné firemní vazby k prověření nebyly zjištěny."
+    },
+    {
+      "pspId": 7001,
+      "name": "Tomáš Doležal",
+      "field": "effort_notes",
+      "claimedInProse": 4,
+      "correctedCommitteeCount": 3,
+      "preCorrectionCommitteeCount": 4,
+      "recomputedDistinctBodies": 3,
+      "countedSeatRows": 4,
+      "matchedSubstring": "čtyřech výborech",
+      "bodies": [
+        {
+          "name": "Kontrolní výbor",
+          "type": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Výbor pro veřejnou správu a regionální rozvoj",
+          "type": "Výbor",
+          "roles": [
+            "člen",
+            "Místopředseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        },
+        {
+          "name": "Stálá komise pro práci Kanceláře Poslanecké sněmovny",
+          "type": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        }
+      ],
+      "offendingSentences": [
+        "Zasedá ve čtyřech výborech a komisích, přičemž jedno těleso (Výbor pro veřejnou správu a regionální rozvoj) je v podkladových datech uvedeno dvakrát — jednou jako místopředsednická role, jednou jako řadové členství."
+      ],
+      "fullText": "Zasedá ve čtyřech výborech a komisích, přičemž jedno těleso (Výbor pro veřejnou správu a regionální rozvoj) je v podkladových datech uvedeno dvakrát — jednou jako místopředsednická role, jednou jako řadové členství. Navzdory vedoucí funkci má nápadně nízkou řečnickou aktivitu při stoprocentní účasti a nulové absenci; proti hlasování vlastního klubu se postavil jen ve 4 z 1 770 sledovaných hlasování. Žádné firemní ani finanční vazby nebyly zjištěny."
+    },
+    {
+      "pspId": 7030,
+      "name": "Jan Papajanovský",
+      "field": "effort_notes",
+      "claimedInProse": 6,
+      "correctedCommitteeCount": 4,
+      "preCorrectionCommitteeCount": 6,
+      "recomputedDistinctBodies": 4,
+      "countedSeatRows": 6,
+      "matchedSubstring": "šesti výborech",
+      "bodies": [
+        {
+          "name": "Výbor pro veřejnou správu a regionální rozvoj",
+          "type": "Výbor",
+          "roles": [
+            "člen",
+            "Předseda",
+            "Místopředseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        },
+        {
+          "name": "Rozpočtový výbor",
+          "type": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Stálá komise pro kontrolu činnosti Bezpečnostní informační služby",
+          "type": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Vyšetřovací komise k prošetření okolností, systémových souvislostí a institucionálního fungování Dopravního podniku hlavního města Prahy, akciová společnost, Krajské správy a údržby silnic Středočeského kraje, příspěvková organizace a Všeobecné zdravotní pojišťovny ve věci podezření z korupčního jednání (tzv. \"kauza Dozimetr\")",
+          "type": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        }
+      ],
+      "offendingSentences": [
+        "Zasedá v šesti výborech a komisích, včetně přechodu z předsedy na místopředsedu Výboru pro veřejnou správu a regionální rozvoj."
+      ],
+      "fullText": "Zasedá v šesti výborech a komisích, včetně přechodu z předsedy na místopředsedu Výboru pro veřejnou správu a regionální rozvoj. Kombinuje vysokou institucionální angažovanost — dvě vedoucí role, aktivní práce ve vyšetřovací komisi — s nižší přítomností na hlasováních než ostatní sledovaní poslanci. Žádné firemní vazby k prověření nebyly zjištěny."
+    },
+    {
+      "pspId": 7049,
+      "name": "Gabriela Svárovská",
+      "field": "effort_notes",
+      "claimedInProse": 5,
+      "correctedCommitteeCount": 4,
+      "preCorrectionCommitteeCount": 5,
+      "recomputedDistinctBodies": 4,
+      "countedSeatRows": 5,
+      "matchedSubstring": "pěti výborů",
+      "bodies": [
+        {
+          "name": "Výbor pro životní prostředí",
+          "type": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Zahraniční výbor",
+          "type": "Výbor",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Stálá komise pro kontrolu činnosti Národního bezpečnostního úřadu",
+          "type": "Komise",
+          "roles": [
+            "člen"
+          ],
+          "leads": false,
+          "filedTwice": false
+        },
+        {
+          "name": "Stálá delegace Parlamentu do Parlamentního shromáždění NATO",
+          "type": "Delegace",
+          "roles": [
+            "člen",
+            "Náhradník"
+          ],
+          "leads": false,
+          "filedTwice": true
+        }
+      ],
+      "offendingSentences": [
+        "Je členkou pěti výborů, komisí a delegací. psp.cz eviduje navíc podvýbory pro energetiku, evropské fondy a rozvojovou spolupráci, které naše přehledy nezachycují jako samostatné položky — jde patrně o rozdílný rozsah sledovaných funkcí, nikoli o chybu."
+      ],
+      "fullText": "Je členkou pěti výborů, komisí a delegací. psp.cz eviduje navíc podvýbory pro energetiku, evropské fondy a rozvojovou spolupráci, které naše přehledy nezachycují jako samostatné položky — jde patrně o rozdílný rozsah sledovaných funkcí, nikoli o chybu. Žádné firemní vazby k prověření nebyly zjištěny."
+    },
+    {
+      "pspId": 7058,
+      "name": "Libor Vondráček",
+      "field": "effort_notes",
+      "claimedInProse": 6,
+      "correctedCommitteeCount": 3,
+      "preCorrectionCommitteeCount": 6,
+      "recomputedDistinctBodies": 3,
+      "countedSeatRows": 6,
+      "matchedSubstring": "šesti výborů",
+      "bodies": [
+        {
+          "name": "Výbor pro evropské záležitosti",
+          "type": "Výbor",
+          "roles": [
+            "člen",
+            "Místopředseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        },
+        {
+          "name": "Ústavně-právní výbor",
+          "type": "Výbor",
+          "roles": [
+            "člen",
+            "Místopředseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        },
+        {
+          "name": "Stálá komise pro Ústavu České republiky a parlamentní procedury",
+          "type": "Komise",
+          "roles": [
+            "člen",
+            "Předseda"
+          ],
+          "leads": true,
+          "filedTwice": true
+        }
+      ],
+      "offendingSentences": [
+        " Datová nesrovnalost: uváděný počet šesti výborů odpovídá jen třem doloženým položkám."
+      ],
+      "fullText": "Tři tisky, u kterých je veden jako signatář, odpovídají uváděnému počtu, ale u žádného není Vondráček prvním předkladatelem — jde o tři spolupodpisy. Údaj o předkladateli u všech tří zní 'Vondráček R. a další', což se na první pohled mohlo jevit jako jeho vlastní iniciativa, ale přímé ověření na psp.cz potvrdilo, že jde o Radka Vondráčka (jiného poslance), nikoli o Libora Vondráčka — jména se shodují jen příjmením, iniciála 'R.' neodpovídá jeho křestnímu jménu. Datová nesrovnalost: uváděný počet šesti výborů odpovídá jen třem doloženým položkám. Firemní vazby v datech nejsou žádné, bez peněžního zjištění k ověření."
+    }
+  ]
+}

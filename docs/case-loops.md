@@ -143,6 +143,22 @@ resume → triage → dispatch army → gate + persist → reflect → build-rev
      indistinguishable from "that batch found nothing". Before declaring
      manifestation debt cheap, check that the payload's VOCABULARY and required
      FIELDS match what the loader consumes, not just that a file exists.
+   - **A RECOMPUTE is not finished when the numbers are right.** Effort batch 010
+     found that pass 42's committee correction — an exemplary data pass, which
+     replayed the old formula and refused to write unless it reproduced every
+     stored value — still shipped a product defect: **14 dossier sentences named
+     the superseded committee count and 16 quoted a superseded score**, two of
+     them claims that INVERTED (a „stays above the club average" that is now
+     below it). Analyst prose QUOTES the numbers a recompute moves, and no
+     consistency check on the number can see it. So anything that re-derives a
+     value must also ask what already SAYS that value — and the check belongs in
+     the recompute, which holds the before and after by construction, not in a
+     gate that sees only the after state (`kg-contribution-recompute.ts` now
+     reports the prose it invalidates). Corollary from the same batch: **a guard
+     that fires zero times has proven nothing** — the score lens was retired at
+     6/6 false while 16 real hits sat in the corpus, because it had been
+     validated against the shape the prose OUGHT to have rather than against the
+     corpus itself.
    The kernel's older rule stands beneath this one: data that doesn't render
    doesn't exist. Every batch's reflection must answer: *does what this batch
    persisted actually RENDER, and does the surface scale to the data volume it

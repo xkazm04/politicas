@@ -1,5 +1,5 @@
 {
-  "_comment": "Source -> docs coupling map for Politicas. When a turn edits source matching an entry's sourceGlobs with user- or contributor-visible effect (new/removed route, changed module architecture, new command, design-token or lint-rule change, sample-data-layer status), update the coupled doc in the SAME change. Internal-only edits (refactors, bugfixes with no behavior shift) need no doc update. A single source glob may couple to several docs.",
+  "_comment": "Source -> docs coupling map for Politicas. When a turn edits source matching an entry's sourceGlobs with user- or contributor-visible effect (new/removed route, changed module architecture, new command, design-token or lint-rule change, sample-data-layer status), update the coupled doc in the SAME change. Internal-only edits (refactors, bugfixes with no behavior shift) need no doc update. A single source glob may couple to several docs. Globs are scoped to the contexts in context-map.json (25 contexts / 9 groups). Deliberately NOT listed here: dated, append-only or point-in-time artifacts that must never be retro-edited to match new code - docs/harness/** (the 2026-07-26 combined scan snapshot), docs/architect/decisions|scans/** (ADRs and scan records), docs/data-analysis/case-*/** batch notes and the vault ledgers (coverage-ledger, graph-log, frontier, patterns, contradictions), and the docs/data-analysis/justice-sources-* / cluster-* / phase* research notes. Those are history, not documentation of current source.",
   "entries": [
     {
       "doc": "README.md",
@@ -11,27 +11,168 @@
       ]
     },
     {
+      "doc": "CLAUDE.md",
+      "sourceGlobs": [
+        "app/**",
+        "features/**",
+        "lib/**",
+        "eslint-rules/**",
+        "package.json",
+        "context-map.json"
+      ]
+    },
+    {
+      "doc": "AGENTS.md",
+      "sourceGlobs": [
+        "package.json",
+        "app/**",
+        "features/**",
+        "lib/db/**",
+        "lib/analysis/**",
+        "lib/ingest/**",
+        "eslint-rules/**"
+      ]
+    },
+    {
+      "doc": "DESIGN.md",
+      "_note": "Root DESIGN.md is a GENERATED mirror of docs/DESIGN.md in the impeccable/Stitch DESIGN.md spec format (YAML token frontmatter). docs/DESIGN.md stays the authority; this file exists so the impeccable detector's design-system rule family can read the tokens machine-readably. Regenerate with /impeccable document when either the tokens or the authority doc move - never hand-edit.",
+      "sourceGlobs": [
+        "app/globals.css",
+        "docs/DESIGN.md"
+      ]
+    },
+    {
       "doc": "docs/DESIGN.md",
       "sourceGlobs": [
         "app/globals.css",
-        "features/shared/**",
+        "app/layout.tsx",
+        "features/shared/components/**",
+        "features/shell/**",
+        "features/landing/palette.ts",
+        "features/labs/**",
+        "features/graph/kindStyle.ts",
+        "lib/kg/glyph.ts",
+        "lib/kg/layout.ts",
+        "lib/format.ts",
+        "lib/civic/data.ts",
         "eslint-rules/**"
       ]
     },
     {
       "doc": "docs/ROADMAP.md",
       "sourceGlobs": [
-        "lib/civic/**",
-        "features/**"
+        "app/**",
+        "features/**",
+        "lib/civic/**"
       ]
     },
     {
-      "doc": "CLAUDE.md",
+      "doc": "docs/deploy/vercel.md",
       "sourceGlobs": [
-        "app/**",
-        "features/**",
-        "lib/**",
-        "eslint-rules/**"
+        "lib/db/config.ts",
+        "lib/db/store.ts",
+        "lib/db/pglite-store.ts",
+        "lib/db/pglite/internals.ts",
+        "lib/db/readiness.ts",
+        "lib/db/loaderGuard.ts",
+        "features/**/get*Data.ts",
+        "next.config.ts",
+        "instrumentation.ts",
+        ".env.example",
+        ".github/workflows/ci.yml",
+        "package.json"
+      ]
+    },
+    {
+      "doc": "docs/db-architecture-guide.md",
+      "sourceGlobs": [
+        "lib/db/**",
+        "scripts/db-bench/**"
+      ]
+    },
+    {
+      "doc": "docs/data-analysis/onboarding.md",
+      "sourceGlobs": [
+        "lib/db/**",
+        "lib/ingest/normalize.ts",
+        "lib/ingest/unl.ts",
+        "lib/ingest/zip.ts",
+        "lib/ingest/sources/**",
+        "lib/analysis/quality.ts",
+        "scripts/data-analysis/ingest.ts",
+        "scripts/data-analysis/slice-stats.ts"
+      ]
+    },
+    {
+      "doc": "docs/knowledge-graph-loop.md",
+      "sourceGlobs": [
+        "lib/analysis/kg.ts",
+        "lib/analysis/kg-money.ts",
+        "lib/analysis/kg-verdict.ts",
+        "lib/db/types.ts",
+        "lib/db/pglite/repositories/kg.ts",
+        "scripts/data-analysis/**"
+      ]
+    },
+    {
+      "doc": "docs/data-analysis/graph-schema.md",
+      "sourceGlobs": [
+        "lib/analysis/kg.ts",
+        "lib/analysis/kg-money.ts",
+        "lib/analysis/kg-verdict.ts",
+        "lib/db/types.ts",
+        "lib/db/pglite/repositories/kg.ts"
+      ]
+    },
+    {
+      "doc": "docs/case-loops.md",
+      "sourceGlobs": [
+        "scripts/case-loops/**",
+        "lib/analysis/kg-verdict.ts",
+        "features/admin/**",
+        "features/money/**",
+        "features/lawwatch/**",
+        "app/admin/page.tsx",
+        "app/penize/**",
+        "app/zakony/**",
+        "lib/analysis/committee-claims.ts",
+        "lib/analysis/score-citations.ts",
+        "lib/analysis/public-copy.ts"
+      ]
+    },
+    {
+      "doc": "docs/data-analysis/budget-sources.md",
+      "sourceGlobs": [
+        "features/budget/**",
+        "app/rozpocty/page.tsx",
+        "lib/civic/data.ts"
+      ]
+    },
+    {
+      "doc": "docs/data-analysis/graph-explorer-scale.md",
+      "sourceGlobs": [
+        "features/graph/**",
+        "app/graf/page.tsx",
+        "lib/kg/layout.ts"
+      ]
+    },
+    {
+      "doc": "docs/data-analysis/ab-datahub-lite.md",
+      "sourceGlobs": [
+        "lib/analysis/context-model.ts",
+        "lib/analysis/context-provider.ts",
+        "scripts/data-analysis/ab-datahub.ts",
+        "scripts/data-analysis/dh-context.ts",
+        "scripts/data-analysis/datahub-sync.ts"
+      ]
+    },
+    {
+      "doc": "docs/hybrid-benchmark-plan.md",
+      "sourceGlobs": [
+        "scripts/hybrid-bench/**",
+        "lib/analysis/**",
+        "features/votetrack/**",
+        "app/hlasovani/page.tsx"
       ]
     }
   ]

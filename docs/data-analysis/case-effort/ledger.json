@@ -1,9 +1,9 @@
 {
   "case": "effort",
   "term": "PSP10",
-  "generatedAt": "2026-07-27T11:14:23.016Z",
+  "generatedAt": "2026-08-04T13:57:21.826Z",
   "population": 207,
-  "batch": 8,
+  "batch": 10,
   "units": [
     {
       "pspId": 6751,

@@ -1,0 +1,69 @@
+{
+  "units": [
+    {
+      "pspId": 6537,
+      "field": "effort_notes",
+      "newText": "Zasedá ve třech výborech a komisích (Výbor pro evropské záležitosti, Zahraniční výbor, Stálá komise pro kontrolu činnosti Bezpečnostní informační služby); ve Výboru pro evropské záležitosti je navíc veden jako ověřovatel výboru. Žádná firemní vazba nebyla v datech nalezena k ověření.",
+      "replacements": [
+        {
+          "old": "Datová nesrovnalost: interní přehled uvádí zapojení do 4 výborů/komisí, ale psp.cz uvádí 5 samostatných funkčních vazeb (člen VEZ, ověřovatel VEZ, člen ZAV, člen podvýboru pro krajany, člen SKBIS) — data tedy přesně neodpovídají oficiálnímu profilu.",
+          "new": "Zasedá ve třech výborech a komisích (Výbor pro evropské záležitosti, Zahraniční výbor, Stálá komise pro kontrolu činnosti Bezpečnostní informační služby); ve Výboru pro evropské záležitosti je navíc veden jako ověřovatel výboru."
+        }
+      ],
+      "shape": "A",
+      "reasoning": "Discrepancy caveat resolved: 3 distinct bodies match recomputedDistinctBodies; VEZ double-filed due to a held role (ověřovatel), stated as plain fact."
+    },
+    {
+      "pspId": 6730,
+      "field": "effort_notes",
+      "newText": "Zasedá ve čtyřech výborech a komisích (Výbor pro obranu, Rozpočtový výbor, Stálá komise pro kontrolu činnosti Vojenského zpravodajství, Stálá komise pro kontrolu činnosti Úřadu pro zahraniční styky a informace); ve Stálé komisi pro kontrolu činnosti Vojenského zpravodajství zastává funkci místopředsedy. Trendové pozorování: skóre kleslo z 78 v předchozím období na 68,4 v aktuálním, ale zatímco v předchozím období měl 15 vlastních zákonů a 89 interpelací, aktuální data uvádějí nulu u obou metrik — může jít o reálný pokles aktivity, nebo o neúplně zachycená data tak brzy v mandátu (293 dní). Doporučujeme ověřit úplnost aktuálních dat o tiscích a interpelacích, než se pokles interpretuje jako skutečný trend. Žádná firemní vazba nebyla v datech nalezena k ověření.",
+      "replacements": [
+        {
+          "old": "Datová nesrovnalost: interní přehled uvádí zapojení do 5 výborů/komisí, ale ve vstupním seznamu je doloženo jen 4 — podobný vzorec (počítadlo o 1 vyšší) se objevil i u dalších poslanců, což naznačuje systematickou, ne náhodnou chybu.",
+          "new": "Zasedá ve čtyřech výborech a komisích (Výbor pro obranu, Rozpočtový výbor, Stálá komise pro kontrolu činnosti Vojenského zpravodajství, Stálá komise pro kontrolu činnosti Úřadu pro zahraniční styky a informace); ve Stálé komisi pro kontrolu činnosti Vojenského zpravodajství zastává funkci místopředsedy."
+        }
+      ],
+      "shape": "A",
+      "reasoning": "Discrepancy caveat resolved: 4 distinct bodies match recomputedDistinctBodies; leadership seat in one body explains the earlier double count."
+    },
+    {
+      "pspId": 6732,
+      "field": "effort_notes",
+      "newText": "Obě dohledané firemní vazby jsou historické, skončily roky před začátkem jejího aktuálního mandátu (od cca října 2025): (1) VODÁRNA PLZEŇ a.s. (IČO 25205625, evidovaná částka 915 796 079,85 Kč) — funkce místopředsedkyně dozorčí rady 8. 2. 2016 – 31. 12. 2018, výmaz z obchodního rejstříku 23. 2. 2019, tedy cca 7 let před nástupem do Sněmovny; nezávisle potvrzeno druhým zdrojem (výroční zpráva 2017, Hlídač státu). Vodárna Plzeň je klíčová regionální veřejná infrastrukturní firma (vodohospodářství pro město Plzeň) — tematicky souvisí s jejím výborem pro veřejnou správu a regionální rozvoj, ale jde o dozorčí roli skončenou dávno před mandátem, ne o současné angažmá. (2) DOMOVINKA - sociální služby, o.p.s. (IČO 29123747, evidovaná částka 20 168 230 Kč) — byla členkou správní rady 16. 1. 2012 – 22. 9. 2014 (příp. do 30. 6. 2014), tedy více než 11 let před mandátem; sociální služby tematicky souvisí s jejím výborem pro zdravotnictví, ale opět jde o dávno ukončenou roli. Obě vazby jsou dvakrát nezávisle ověřené, žádná není aktuální osobní finanční angažovanost — jde o historické institucionální role, ne o současný konflikt zájmů. Zasedá v pěti výborech, komisích a delegacích (Výbor pro veřejnou správu a regionální rozvoj, Výbor pro zdravotnictví, Stálá komise pro rodinu a rovné příležitosti, Stálá delegace Parlamentu do Meziparlamentní unie, Stálá delegace Parlamentu do Parlamentního shromáždění Rady Evropy). Trendová poznámka (opatrně, mladý mandát): skóre z předchozího období (83,8; 16 tisků, 33 interpelací) je vyšší než dosavadní aktuální skóre (63,7; 2 tisky, 0 interpelací), ale vzhledem ke krátké délce dosavadního mandátu jde o částečné srovnání, ne o potvrzený pokles.",
+      "replacements": [
+        {
+          "old": " Datová nesrovnalost: v přehledu je uvedeno zapojení do 6 výborů/komisí, ale doloženy jsou jen 3 položky (stejný vzorec jako u dalších poslanců).",
+          "new": " Zasedá v pěti výborech, komisích a delegacích (Výbor pro veřejnou správu a regionální rozvoj, Výbor pro zdravotnictví, Stálá komise pro rodinu a rovné příležitosti, Stálá delegace Parlamentu do Meziparlamentní unie, Stálá delegace Parlamentu do Parlamentního shromáždění Rady Evropy)."
+        }
+      ],
+      "shape": "A",
+      "reasoning": "Discrepancy caveat resolved: 5 distinct bodies match recomputedDistinctBodies, named plainly instead of flagging an unresolved gap."
+    },
+    {
+      "pspId": 6738,
+      "field": "effort_notes",
+      "newText": "Jediný evidovaný tisk (187) odpovídá tomu, že u něj figuruje jako první předkladatel — jde skutečně o jeho vlastní iniciativu, ne spolupodpis. Zasedá v sedmi výborech a komisích: Výbor pro vědu, vzdělávání, mládež a sport; Výbor pro bezpečnost, kde je místopředsedou; Stálá komise pro kontrolu činnosti Generální inspekce bezpečnostních sborů; Stálá komise pro kontrolu činnosti Bezpečnostní informační služby; Stálá komise pro kontrolu činnosti Národního bezpečnostního úřadu; Stálá komise pro kontrolu činnosti Finančního analytického úřadu; a vyšetřovací komise k prošetření tzv. kauzy Dozimetr. Žádná firemní vazba nebyla v datech nalezena k ověření.",
+      "replacements": [
+        {
+          "old": " Datová nesrovnalost: v přehledu je uvedeno zapojení do 8 výborů/komisí, ale doložen je jen seznam 7 položek (VB, VVVMS, SKGIBS, SKBIS, SKNBÚ, SKFAÚ, VKDOZIMETR) — chybí jedna vazba oproti počítadlu, doporučujeme ověřit v dalším kole zpracování dat.",
+          "new": " Zasedá v sedmi výborech a komisích: Výbor pro vědu, vzdělávání, mládež a sport; Výbor pro bezpečnost, kde je místopředsedou; Stálá komise pro kontrolu činnosti Generální inspekce bezpečnostních sborů; Stálá komise pro kontrolu činnosti Bezpečnostní informační služby; Stálá komise pro kontrolu činnosti Národního bezpečnostního úřadu; Stálá komise pro kontrolu činnosti Finančního analytického úřadu; a vyšetřovací komise k prošetření tzv. kauzy Dozimetr."
+        }
+      ],
+      "shape": "A",
+      "reasoning": "Discrepancy caveat resolved: 7 distinct bodies exactly match recomputedDistinctBodies and the previously listed 7 items; the eighth row was the double-filed vice-chair seat."
+    },
+    {
+      "pspId": 6745,
+      "field": "effort_notes",
+      "newText": "Zasedá ve čtyřech výborech a komisích (Výbor pro veřejnou správu a regionální rozvoj, Zemědělský výbor, Stálá komise pro kontrolu poskytnutí údajů z centrální evidence účtů, Stálá komise pro kontrolu činnosti ÚZSI), přičemž v Zemědělském výboru je místopředsedkyní a v komisi ÚZSI předsedkyní. Jde o nejaktivnější profil ve skupině s vysokou docházkou i podílem na legislativě, byť většinou jako spolupodepisující, ne jako předkladatelka; skóre mírně vzrostlo oproti minulému volebnímu období. Spolupodepsala tisk 87 spolu s Hubíkovou a Petrtýlem — jde o mega-tisk s téměř čtyřiceti spolupodepsanými napříč kluby, což ukazuje, že u širokých vícestranických tisků může počet spolupodepsaných tisků nadhodnocovat individuální legislativní iniciativu. Žádné firemní vazby k prověření nebyly zjištěny.",
+      "replacements": [
+        {
+          "old": "Zasedá v šesti výborech a komisích (dvojí zápis u ÚZSI komise a Zemědělského výboru odráží souběžnou členskou a vedoucí roli, ne chybu).",
+          "new": "Zasedá ve čtyřech výborech a komisích (Výbor pro veřejnou správu a regionální rozvoj, Zemědělský výbor, Stálá komise pro kontrolu poskytnutí údajů z centrální evidence účtů, Stálá komise pro kontrolu činnosti ÚZSI), přičemž v Zemědělském výboru je místopředsedkyní a v komisi ÚZSI předsedkyní."
+        }
+      ],
+      "shape": "B",
+      "reasoning": "Corrected inflated count from 6 to 4 distinct bodies; the prior double-filing explanation is now redundant with the corrected count and is replaced by stating her two leadership seats directly."
+    }
+  ]
+}

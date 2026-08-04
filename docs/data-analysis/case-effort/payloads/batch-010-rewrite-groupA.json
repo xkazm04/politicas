@@ -1,0 +1,69 @@
+{
+  "units": [
+    {
+      "pspId": 5700,
+      "field": "effort_notes",
+      "newText": "Poslanec zasedá ve dvou výborech — Hospodářském výboru, kde je místopředsedou, a Výboru pro životní prostředí; dřívější vyšší počet vznikl tím, že dvojí funkce v Hospodářském výboru (člen i místopředseda) byla vedena jako dvě samostatné položky. Šest firem mezi jeho firemními vazbami (Technické služby Trutnov, Lesy a parky Trutnov, Oblastní nemocnice Trutnov, VZP, Společnost Horní Labe, TRANSPORT Trutnov) jsou vesměs trutnovské městské/regionální podniky odpovídající jeho 23letému starostenskému období — opět nejde o potvrzenou osobní vazbu: přímý dotaz do veřejného rejstříku pro ověřované IČO 25968084 vrátil prázdnou stránku a alternativní zdroje (obchodní rejstřík i jeho zrcadlo na rejstrik.penize.cz) rovněž selhaly. Ověření se nezdařilo — doporučujeme jako další krok Registr smluv, ne uzavření na „bez vazby\".",
+      "replacements": [
+        {
+          "old": "Uváděný počet tří výborů v datech odpovídá nálezu jen přibližně — psp.cz uvádí 2 výbory (Hospodářský, Životní prostředí) plus dozorčí radu SFDI, což může být zdroj třetí položky.",
+          "new": "Poslanec zasedá ve dvou výborech — Hospodářském výboru, kde je místopředsedou, a Výboru pro životní prostředí; dřívější vyšší počet vznikl tím, že dvojí funkce v Hospodářském výboru (člen i místopředseda) byla vedena jako dvě samostatné položky."
+        }
+      ],
+      "shape": "A",
+      "reasoning": "Resolved discrepancy caveat replaced with the plain distinct-body count and the known double-filing cause (leadership seat in Hospodářský výbor)."
+    },
+    {
+      "pspId": 5943,
+      "field": "effort_notes",
+      "newText": "Poslankyně zasedá v pěti tělesech — Výboru pro evropské záležitosti, Výboru pro životní prostředí, Stálé komisi pro hybridní hrozby, kde je místopředsedkyní, Stálé komisi pro kontrolu činnosti Bezpečnostní informační služby a Stálé delegaci Parlamentu do Parlamentního shromáždění NATO. Peněžní zjištění: Fórum Karla Schwarzenberga, o.p.s. (IČO 02086778), nulová smluvní částka. Ověřeno přímým dotazem do veřejného rejstříku — Langšádlová je aktuálně vedena jako členka správní rady (spolu s M. Ženíškem, J. Farským a dalšími), statutárním orgánem je Filip Štědrý. Jde o vzdělávací/politickou o.p.s. založenou zesnulým Karlem Schwarzenbergem (zakladatelem TOP 09, zemřel 2023, zápis zakladatele vymazán 3. 11. 2025) — konzistentní s její stranickou příslušností, nulová smluvní částka, žádná obchodní vazba. Jde o transparentní politicko-institucionální roli, ne skrytý obchodní konflikt zájmů, ale patří do evidence jako aktivní správní funkce.",
+      "replacements": [
+        {
+          "old": "Datová nesrovnalost: uváděný počet sedmi výborů neodpovídá poskytnutému seznamu čtyř committee položek (SKHH, VEZ, VŽP, SKBIS) — rozdíl tří nedoložených vazeb je pravděpodobně dán tím, že celkový počet zahrnuje i podvýbory a roli ověřovatelky, které v itemizovaném seznamu chybí; číslo samotné je tedy pravděpodobně správné, jen výčet neúplný.",
+          "new": "Poslankyně zasedá v pěti tělesech — Výboru pro evropské záležitosti, Výboru pro životní prostředí, Stálé komisi pro hybridní hrozby, kde je místopředsedkyní, Stálé komisi pro kontrolu činnosti Bezpečnostní informační služby a Stálé delegaci Parlamentu do Parlamentního shromáždění NATO."
+        }
+      ],
+      "shape": "A",
+      "reasoning": "Resolved discrepancy caveat replaced with the plain distinct-body list (5 bodies), naming the leadership seat behind the double filing."
+    },
+    {
+      "pspId": 6105,
+      "field": "effort_notes",
+      "newText": "Zaznamenaný počet deseti sponzorovaných tisků odpovídá vstupu, ale žádný z nich není autorský tisk — Okamura je vždy dále v pořadí spolupředkladatelů. Peněžní vazby: MIKI TRAVEL PRAGUE, spol. s r.o. (IČO 25124188, 6 050 000 Kč) — přímé ověření ve veřejném rejstříku potvrzuje, že Okamura je nepřetržitě jednatelem od 2. 6. 2021 (bez výmazu), 100% vlastníkem je GROUP MIKI HOLDINGS LIMITED (UK) od 19. 3. 2021 — Okamura sám společníkem není, přesně jak uvádí i nezávislé zdroje (HlídačPes, Aktuálně.cz, kurzy.cz). Jde o reálnou osobní vazbu k firmě, která má veřejnou zakázku v datech označenou k 6,05 mil. Kč, tedy relevantní konflikt zájmů k dořešení. MEBIUS s.r.o. (IČO 25643461, 0 Kč) — dle stejných zdrojů Okamura firmu vlastní (průvodcovské/překladatelské služby, bez tržeb v posledních letech). Japa Foods s.r.o. (IČO 28406354, 0 Kč) — Okamura je spoluvlastníkem a jednatelem (prodej japonských potravin). U Machtů s.r.o. (IČO 27145433, 0 Kč) — historicky spoluvlastnil restauraci Staré časy přes tuto firmu, ale dle HlídačPes svůj podíl na počátku roku prodal; přesné datum vůči aktuálnímu období (od 10/2025) se nepodařilo ověřit, takže vztah k současnému mandátu je nejistý. Generický záznam OSVČ (IČO 04627695, 0 Kč) se dodatečně potvrdil jako firma nesouvisející s tímto poslancem — nejde o skutečnou vazbu. Poslanec je členem jednoho výboru — Organizačního výboru, jehož je předsedou.",
+      "replacements": [
+        {
+          "old": " Datová nesrovnalost: uváděný počet dvou výborů neodpovídá vstupním datům, kde je uveden jen jeden committee záznam (ORGV) — možná se počítá i samotná funkce předsedy Sněmovny jako druhý „orgán\", ale to není z dat jisté; doporučujeme ověřit.",
+          "new": " Poslanec je členem jednoho výboru — Organizačního výboru, jehož je předsedou."
+        }
+      ],
+      "shape": "A",
+      "reasoning": "Resolved discrepancy caveat replaced with the plain single-body fact and its leadership role, per recomputedDistinctBodies=1."
+    },
+    {
+      "pspId": 6214,
+      "field": "effort_notes",
+      "newText": "Uváděné 4 sponzorované tisky odpovídají vstupu, ale jen u 1 ze 4 je Kovářová uvedena jako první předkladatelka. Poslankyně zasedá ve třech tělesech — Výboru pro veřejnou správu a regionální rozvoj, Rozpočtovém výboru, kde je místopředsedkyní, a Stálé delegaci Parlamentu do Parlamentní dimenze Středoevropské iniciativy, kterou vede. Peněžní zjištění: (1) generický záznam OSVČ (IČO 04627695, 0 Kč) se dodatečně potvrdil jako firma nesouvisející s tímto poslancem — nejde o skutečnou vazbu; a (2) ČEPRO, a.s. (IČO 60193531, 235 543 222,2 Kč) — zdaleka nejvyšší částka mezi jejími firemními vazbami. ČEPRO je stoprocentně státní logistická společnost pro pohonné hmoty (Ministerstvo financí), relevantní pro její roli místopředsedkyně Rozpočtového výboru. Přímé ověření ve veřejném rejstříku se nepodařilo dokončit; sekundární zdroj uvádí jako členy představenstva Ing. Martina Vojtíška a Mgr. Ing. Luboše Zítku — žádné jméno neodpovídá Kovářové ani nenaznačuje osobní vazbu, jde tedy o rozpočtově-dozorovou relevanci skrze výbor, ne o osobní angažmá ve firmě. Vzhledem k výši částky a nedokončenému přímému ověření doporučujeme dohledat konkrétní smluvní vztah přes Registr smluv.",
+      "replacements": [
+        {
+          "old": " Výrazná datová nesrovnalost: uváděný počet šesti výborů neodpovídá poskytnutému seznamu dvou committee položek (RV místopředsedkyně, VSR členka) — rozdíl čtyř nedoložených vazeb je největší mezi všemi sledovanými poslanci, doporučujeme prioritně ověřit.",
+          "new": " Poslankyně zasedá ve třech tělesech — Výboru pro veřejnou správu a regionální rozvoj, Rozpočtovém výboru, kde je místopředsedkyní, a Stálé delegaci Parlamentu do Parlamentní dimenze Středoevropské iniciativy, kterou vede."
+        }
+      ],
+      "shape": "A",
+      "reasoning": "Resolved discrepancy caveat replaced with the plain distinct-body list (3 bodies), naming her two leadership seats."
+    },
+    {
+      "pspId": 6520,
+      "field": "effort_notes",
+      "newText": "Data ukazují stoprocentní docházku, nulovou absenci a zapojení do pěti výborů a komisí, ve dvou z nich ve vedoucí roli — extrémně vysoká docházka a široké výborové zapojení bez jediného vlastního tisku je konzistentní obraz \"tichého\" dozorového pracovníka v obranné/bezpečnostní agendě, nikoli legislativního iniciátora. Žádná firemní vazba nebyla v datech nalezena k ověření.",
+      "replacements": [
+        {
+          "old": "Data ukazují stoprocentní docházku, nulovou absenci a zapojení do sedmi výborů/komisí — extrémně vysoká docházka a široké výborové zapojení bez jediného vlastního tisku je konzistentní obraz \"tichého\" dozorového pracovníka v obranné/bezpečnostní agendě, nikoli legislativního iniciátora.",
+          "new": "Data ukazují stoprocentní docházku, nulovou absenci a zapojení do pěti výborů a komisí, ve dvou z nich ve vedoucí roli — extrémně vysoká docházka a široké výborové zapojení bez jediného vlastního tisku je konzistentní obraz \"tichého\" dozorového pracovníka v obranné/bezpečnostní agendě, nikoli legislativního iniciátora."
+        }
+      ],
+      "shape": "B",
+      "reasoning": "Plain restatement's inflated count corrected to 5 distinct bodies, adding that two of them are held in a leadership role per the given data."
+    }
+  ]
+}

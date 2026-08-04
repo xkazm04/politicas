@@ -11,6 +11,7 @@
 import { readFileSync } from "node:fs";
 import { getStore } from "@/lib/db/store";
 import { jargonViolationDetails } from "@/lib/analysis/public-copy";
+import { committeeClaimWarnings } from "@/lib/analysis/committee-claims";
 
 const FORBIDDEN_PROP = /^(contribution_score|participation_rate|committee_count|leadership_count|absence_rate|bills_authored|interpellations|speech_turns|contribution_provenance)$/;
 const LOW_SCORE_REASONS = new Set(["minister", "deputy_pm", "prime_minister", "opposition_leader", "replacement", "new_mp", "dual_mandate", "genuine_absentee", "low_legislative_output", "declined_mandate", "institutional_promotion", "unknown"]);
@@ -217,6 +218,33 @@ async function main() {
         speech_turns: person.props.speech_turns as number | undefined,
         effort_tenure_days: person.props.effort_tenure_days as number | undefined,
       }));
+      // Batch 010: the committee noun group, which the extractor above never had — the
+      // gap that let 14 dossiers keep quoting the pre-pass-42 inflated committee count
+      // for six days after the formula was corrected. Imported, never re-implemented:
+      // the batch scan (scripts/case-loops/effort/pass42-prose-scan.ts) shares this
+      // exact definition, and the last two times this loop forked a shared rule into a
+      // script the copies diverged and shipped a defect.
+      const committeeCount = person.props.committee_count as number | undefined;
+      for (const field of Object.keys(prop.props)) {
+        const text = prop.props[field];
+        if (typeof text !== "string") continue;
+        warnings.push(...committeeClaimWarnings(`${prop.id} (${prop.name})`, field, text, committeeCount));
+      }
+      // `headline` is optional on a proposal but is the most public string in it — the
+      // same reason proseVsPropsWarnings scans it (batch 004).
+      const headline = (prop as { headline?: unknown }).headline;
+      if (typeof headline === "string") {
+        warnings.push(...committeeClaimWarnings(`${prop.id} (${prop.name})`, "headline", headline, committeeCount));
+      }
+      // NOT CHECKED HERE, deliberately: prose that quotes a SUPERSEDED contribution
+      // score (batch 010's second defect class — 16 citations on 16 MPs). Answering it
+      // needs the value the score used to be, which this gate does not hold and cannot
+      // infer: a weak "is this score-shaped number one the graph still carries" variant
+      // was built, measured over all 765 prose fields, and fired 66 times with almost no
+      // real hits (prior-term scores, „1 vedoucí post", the 9 inside „PSP9"). A gate that
+      // cries wolf is worse than no gate, so it was removed rather than tuned further.
+      // The check lives where both values exist by construction — the recompute itself,
+      // scripts/data-analysis/kg-contribution-recompute.ts.
     }
   }
 

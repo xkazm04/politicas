@@ -1019,3 +1019,27 @@ Verified on a throwaway copy of the 1,6 GB store before touching the live one: a
 full before/after props diff over all **153 646 nodes** showed **0 differences**
 outside the eight declared props (140 bill summaries, 195 effort dossiers and all
 207 rapporteur loads intact).
+
+## Pass 43 — effort track: prose reconciled to the pass-42 correction (2026-08-04)
+
+21 person nodes props-merged (`track: "effort"`, refs `pass42-committee-prose` and
+`pass42-score-prose`). No number changed: pass 42 owns every contribution value, and this
+pass touches only the analyst prose that QUOTED those values.
+
+Why it exists: pass 42 moved 41 committee counts and 33 scores. The dossier prose written in
+batches 001–009 had quoted the old numbers, so the correction left **14 sentences naming the
+wrong committee count** and **16 quoting a superseded score** — including two claims that
+INVERTED (a „stays above the club average" that is now below it; a „positive trend" that now
+runs backwards). Measured by diffing the live store against `.pglite-backup-pass11`.
+
+Every rewrite passed a minimal-diff proof: sentences not opened for rewrite are byte-identical,
+so no money sentence, hedge, date or IČO can have moved. Verified on the live store afterwards:
+committee contradictions 15 → 1 (an adjudicated false positive — a sentence about a different
+person quoted inside a dossier), stale score citations 16 → 9 with **0 on any rendered field**.
+
+Recomputing distinct bodies from the membership rows independently reproduced the stored
+`committee_count` for 15/15 contested MPs — pass 42 re-verified from the outside.
+
+Guard added where it belongs: `kg-contribution-recompute.ts` now reports every dossier field
+quoting a score it supersedes, so a future contribution correction cannot silently invalidate
+prose again. Detail in `case-effort/batch-010.md`.

@@ -1,0 +1,159 @@
+{
+  "generatedAt": "2026-08-04T13:36:12.242Z",
+  "units": [
+    {
+      "pspId": 5899,
+      "name": "Jan Bureš",
+      "field": "effort_notes",
+      "club": "ODS",
+      "supersededScore": 90.5,
+      "correctedScore": 83.8,
+      "swapFrom": "90,5",
+      "swapTo": "83,8",
+      "citationCount": 1,
+      "swapApplied": 1,
+      "swappedText": "Nejvyšší kontribuční skóre z trojice (83,8), přitom regionální tisk ho označil za 'největšího absentéra' domovského kraje (absence 0.5) — dva výborové místopředsednické posty naznačují práci mimo plénum.",
+      "facts": {
+        "correctedClubMean": 63.6,
+        "aboveClubMean": true,
+        "psp9ScoreNow": 72.4
+      },
+      "sentenceWindows": [
+        "Nejvyšší kontribuční skóre z trojice (90,5), přitom regionální tisk ho označil za 'největšího absentéra' domovského kraje (absence 0.5) — dva výborové místopředsednické posty naz"
+      ],
+      "fullText": "Nejvyšší kontribuční skóre z trojice (90,5), přitom regionální tisk ho označil za 'největšího absentéra' domovského kraje (absence 0.5) — dva výborové místopředsednické posty naznačují práci mimo plénum."
+    },
+    {
+      "pspId": 6431,
+      "name": "Lenka Dražilová",
+      "field": "effort_notes",
+      "club": "ANO2011",
+      "supersededScore": 67,
+      "correctedScore": 60.4,
+      "swapFrom": "67",
+      "swapTo": "60,4",
+      "citationCount": 1,
+      "swapApplied": 1,
+      "swappedText": "Počet tří vlastních tisků odpovídá evidenci; u žádného není první předkladatelkou, ale přesto jde o pozitivní zjištění — dva ze tří spolupodepsaných tisků skutečně prošly celým legislativním procesem a staly se zákonem, což je jiná kategorie úspěchu než pouhé podání. Datová nesrovnalost: uváděný počet výborů je 3, ale doložený seznam obsahuje jen 2 položky (VSP místopředsedkyně, VZ členka) — opakující se typ diskrepance, který jsme zaznamenali i u jiných poslanců. Skóre mírně pokleslo oproti předchozímu období (70,8 → 60,4), ale zůstává nad klubovým průměrem. Žádná firemní vazba v datech, žádné peněžní zjištění k ověření.",
+      "facts": {
+        "correctedClubMean": 60.8,
+        "aboveClubMean": false,
+        "psp9ScoreNow": 70.8
+      },
+      "sentenceWindows": [
+        " členka) — opakující se typ diskrepance, který jsme zaznamenali i u jiných poslanců. Skóre mírně pokleslo oproti předchozímu období (70,8 → 67), ale zůstává nad klubovým průměrem. Žádná firemní vazba v datech, žádné peněžní zjištění k ověření."
+      ],
+      "fullText": "Počet tří vlastních tisků odpovídá evidenci; u žádného není první předkladatelkou, ale přesto jde o pozitivní zjištění — dva ze tří spolupodepsaných tisků skutečně prošly celým legislativním procesem a staly se zákonem, což je jiná kategorie úspěchu než pouhé podání. Datová nesrovnalost: uváděný počet výborů je 3, ale doložený seznam obsahuje jen 2 položky (VSP místopředsedkyně, VZ členka) — opakující se typ diskrepance, který jsme zaznamenali i u jiných poslanců. Skóre mírně pokleslo oproti předchozímu období (70,8 → 67), ale zůstává nad klubovým průměrem. Žádná firemní vazba v datech, žádné peněžní zjištění k ověření."
+    },
+    {
+      "pspId": 6770,
+      "name": "Renata Oulehlová",
+      "field": "effort_notes",
+      "club": "ANO2011",
+      "supersededScore": 77.9,
+      "correctedScore": 71.3,
+      "swapFrom": "77,9",
+      "swapTo": "71,3",
+      "citationCount": 1,
+      "swapApplied": 1,
+      "swappedText": "V obou tiscích, které má na kontě, je Oulehlová spolupodepsanou, ne předkladatelkou. V evidovaných výborových rolích je drobná nesrovnalost: uvedený počet vazeb (3) neodpovídá dvěma reálně dohledaným rolím. Pozitivní trend mezi volebními obdobími: skóre přínosu vzrostlo ze 72,9 na 71,3, což ukazuje na konzistentní práci napříč obdobími. Žádné propojené firmy ani peněžní zjištění k ověření.",
+      "facts": {
+        "correctedClubMean": 60.8,
+        "aboveClubMean": true,
+        "psp9ScoreNow": 72.9
+      },
+      "sentenceWindows": [
+        "vedený počet vazeb (3) neodpovídá dvěma reálně dohledaným rolím. Pozitivní trend mezi volebními obdobími: skóre přínosu vzrostlo ze 72,9 na 77,9, což ukazuje na konzistentní práci napříč obdobími. Žádné propojené firmy ani peněžní zjištění k ověření."
+      ],
+      "fullText": "V obou tiscích, které má na kontě, je Oulehlová spolupodepsanou, ne předkladatelkou. V evidovaných výborových rolích je drobná nesrovnalost: uvedený počet vazeb (3) neodpovídá dvěma reálně dohledaným rolím. Pozitivní trend mezi volebními obdobími: skóre přínosu vzrostlo ze 72,9 na 77,9, což ukazuje na konzistentní práci napříč obdobími. Žádné propojené firmy ani peněžní zjištění k ověření."
+    },
+    {
+      "pspId": 6804,
+      "name": "Zdenka Němečková Crkvenjaš",
+      "field": "effort_notes",
+      "club": "ODS",
+      "supersededScore": 59.3,
+      "correctedScore": 52.6,
+      "swapFrom": "59,3",
+      "swapTo": "52,6",
+      "citationCount": 1,
+      "swapApplied": 1,
+      "swappedText": "Skóre přínosu (52,6) odpovídá jedinému sponzorovanému tisku a jen 14 řečnickým vystoupením — nízký legislativní výstup je ale kompenzován funkcí ve výboru pro zdravotnictví a v dozorovém orgánu VZP, kde má reálný vliv na politiku zdravotního pojištění mimo sněmovní sál. Bez propojených firem. Jméno na psp.cz je uvedeno jako 'Zdenka Němčková Crkvenjašová' — jde o stejnou osobu (rozdíl je jen v diakritice/skloňování).",
+      "facts": {
+        "correctedClubMean": 63.6,
+        "aboveClubMean": false,
+        "psp9ScoreNow": 75.1
+      },
+      "sentenceWindows": [
+        "Skóre přínosu (59,3) odpovídá jedinému sponzorovanému tisku a jen 14 řečnickým vystoupením — nízký legislativní výstup je ale kompenzován funkcí ve výboru "
+      ],
+      "fullText": "Skóre přínosu (59,3) odpovídá jedinému sponzorovanému tisku a jen 14 řečnickým vystoupením — nízký legislativní výstup je ale kompenzován funkcí ve výboru pro zdravotnictví a v dozorovém orgánu VZP, kde má reálný vliv na politiku zdravotního pojištění mimo sněmovní sál. Bez propojených firem. Jméno na psp.cz je uvedeno jako 'Zdenka Němčková Crkvenjašová' — jde o stejnou osobu (rozdíl je jen v diakritice/skloňování)."
+    },
+    {
+      "pspId": 6987,
+      "name": "Jiří Barták",
+      "field": "effort_notes",
+      "club": "MS",
+      "supersededScore": 60,
+      "correctedScore": 53.4,
+      "swapFrom": "60",
+      "swapTo": "53,4",
+      "citationCount": 1,
+      "swapApplied": 1,
+      "swappedText": "Jediný tisk, který má Barták na kontě, podepsal jako spolupodepsaný, ne jako předkladatel. Datová nesrovnalost: uvedený počet výborů (2) neodpovídá jediné reálně dohledané roli (místopředseda Organizačního výboru). Deset řečnických vystoupení a skóre přínosu 53,4 — jde o legitimní nízkoenergetický profil, ne o chybu dat. Žádné propojené firmy ani peněžní zjištění k ověření.",
+      "facts": {
+        "correctedClubMean": 63.1,
+        "aboveClubMean": false,
+        "psp9ScoreNow": null
+      },
+      "sentenceWindows": [
+        " počet výborů (2) neodpovídá jediné reálně dohledané roli (místopředseda Organizačního výboru). Deset řečnických vystoupení a skóre přínosu 60 — jde o legitimní nízkoenergetický profil, ne o chybu dat. Žádné propojené firmy ani peněžní zjištění k ověření."
+      ],
+      "fullText": "Jediný tisk, který má Barták na kontě, podepsal jako spolupodepsaný, ne jako předkladatel. Datová nesrovnalost: uvedený počet výborů (2) neodpovídá jediné reálně dohledané roli (místopředseda Organizačního výboru). Deset řečnických vystoupení a skóre přínosu 60 — jde o legitimní nízkoenergetický profil, ne o chybu dat. Žádné propojené firmy ani peněžní zjištění k ověření."
+    },
+    {
+      "pspId": 6998,
+      "name": "Benjamin Činčila",
+      "field": "effort_notes",
+      "club": "KDU-ČSL",
+      "supersededScore": 91.9,
+      "correctedScore": 85.2,
+      "swapFrom": "91,9",
+      "swapTo": "85,2",
+      "citationCount": 1,
+      "swapApplied": 1,
+      "swappedText": "Nejmladší z pětice (nar. 1996); vysoký kontribuční index (85,2) staví převážně na výborovém vedení a objemu spolupodpisů klubové legislativy — u jednoho ze 6 tisků je první signatář, u zbylých pěti spolupodepsaný.",
+      "facts": {
+        "correctedClubMean": 77.3,
+        "aboveClubMean": true,
+        "psp9ScoreNow": null
+      },
+      "sentenceWindows": [
+        "Nejmladší z pětice (nar. 1996); vysoký kontribuční index (91,9) staví převážně na výborovém vedení a objemu spolupodpisů klubové legislativy — u jednoho ze 6 tisků je první signatář, u zbylých pěti "
+      ],
+      "fullText": "Nejmladší z pětice (nar. 1996); vysoký kontribuční index (91,9) staví převážně na výborovém vedení a objemu spolupodpisů klubové legislativy — u jednoho ze 6 tisků je první signatář, u zbylých pěti spolupodepsaný."
+    },
+    {
+      "pspId": 7046,
+      "name": "Eva Šrámková",
+      "field": "effort_notes",
+      "club": "Piráti",
+      "supersededScore": 90.6,
+      "correctedScore": 83.9,
+      "swapFrom": "90,6",
+      "swapTo": "83,9",
+      "citationCount": 1,
+      "swapApplied": 1,
+      "swappedText": "Vysoké skóre příspěvku (83,9) při jediném sponzorovaném tisku ukazuje, že její příspěvek je tažen komisní/interpelační prací a řečnickými vystoupeními (48), ne autorstvím zákonů — bez jednostranného profilu, tento jediný tisk odpovídá jejímu jedinému záznamu v evidenci sponzorovaných tisků. Mandát trvá celé sledované období (293 dní) bez anomálie. Firemní vazby v datech nejsou žádné.",
+      "facts": {
+        "correctedClubMean": 68,
+        "aboveClubMean": true,
+        "psp9ScoreNow": null
+      },
+      "sentenceWindows": [
+        "Vysoké skóre příspěvku (90,6) při jediném sponzorovaném tisku ukazuje, že její příspěvek je tažen komisní/interpelační prací a řečnickými vystoupeními (48), ne auto"
+      ],
+      "fullText": "Vysoké skóre příspěvku (90,6) při jediném sponzorovaném tisku ukazuje, že její příspěvek je tažen komisní/interpelační prací a řečnickými vystoupeními (48), ne autorstvím zákonů — bez jednostranného profilu, tento jediný tisk odpovídá jejímu jedinému záznamu v evidenci sponzorovaných tisků. Mandát trvá celé sledované období (293 dní) bez anomálie. Firemní vazby v datech nejsou žádné."
+    }
+  ]
+}
