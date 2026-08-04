@@ -129,6 +129,55 @@ export interface MoneyTieDetail extends MoneyTie {
   contractsMoreCount: number;
 }
 
+/** One MP↔company tie seen FROM THE COMPANY — the shared `MoneyTie` plus who the MP is.
+ *  Extends the shared shape rather than re-declaring a subset of it: a prop the ledger's
+ *  mapper learns to read reaches this surface in the same commit
+ *  (memory/two-mappers-over-one-edge-starve-the-decider.md). Same rule as `ReviewTie`. */
+export interface CompanyTie extends MoneyTie {
+  pspId: number;
+  mpName: string;
+  club: string | null;
+}
+
+/** The company case file (/penize/firma/[ico]).
+ *
+ *  A company is the graph's JUNCTION node — the one entity a contract, a subsidy, a party
+ *  donation and (for 14 of them) SEVERAL MPs all meet at. Until this existed the
+ *  cross-MP view was computable and unpublished: the ledger showed one row per tie and
+ *  the case file showed one MP's side of it, so nothing said "these three MPs sit on the
+ *  same board".
+ *
+ *  IT IS NOT A RANKING and there is no index page above it. The multi-MP pattern renders
+ *  as fact rows in the graph's own order; adjacency is not an accusation. */
+export interface MoneyCompanyDetail {
+  companyId: string;
+  ico: string;
+  name: string;
+  /** Every MP tied to this company, strongest evidence first (reviewRank asc). */
+  ties: CompanyTie[];
+  /** Contract line items, amount desc — the top `contractsShownCount` of them. */
+  contracts: ContractLine[];
+  /** Contracts the company has beyond the ones in `contracts`. */
+  contractsMoreCount: number;
+  /** Of the rows in `contracts`, how many carry a `signedOn` that could not have happened
+   *  (the corpus holds 0002 / 1970 / 2027 / 3062). The row and its amount stay, the DATE
+   *  is dropped, and the count is disclosed — never repaired
+   *  (lib/analysis/plausible-date.ts, the /poslanec precedent). */
+  implausibleDateCount: number;
+  /** The day the plausibility bound was drawn against, printed so the reader can redo it. */
+  asOf: string;
+  /** THE shared definition (`reachableMoney.ts`) over this company's ties. One company,
+   *  so exactly one of the two buckets is populated — which one IS the attribution rule's
+   *  answer for this firm, and the page states it rather than summing both. */
+  money: ReachableMoney;
+  subsidiesCount: number;
+  subsidiesCzk: number;
+  donatedToPartyCzk: number | null;
+  donationRecipientParty: string | null;
+  source: string;
+  pass: number;
+}
+
 /** Full evidence chain for one MP — the /penize/[pspId] case-file surface. */
 export interface MoneyMpDetail {
   pspId: number;

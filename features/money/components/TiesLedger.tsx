@@ -274,7 +274,15 @@ function RealLedger({ data }: { data: MoneyData }) {
                     {mp.club && <span className="ml-1.5 font-mono text-[10px] text-steel">{mp.club}</span>}
                   </td>
                   <td className="px-3 py-3">
-                    <span className="font-bold">{tie.company}</span>
+                    {/* The company is the graph's JUNCTION node — 14 of them are tied to
+                        more than one MP, a fact this ledger's one-row-per-tie shape
+                        cannot show. Its own file can. */}
+                    <Link
+                      href={`/penize/firma/${tie.ico}`}
+                      className="font-bold transition-colors hover:text-signal"
+                    >
+                      {tie.company}
+                    </Link>
                     <span className="ml-1.5 font-mono text-[10px] text-steel">IČO {tie.ico}</span>
                     {/* Every row is a money CLAIM about a named person, so every row has a
                         permanent address that /overeni can resolve. The label states what

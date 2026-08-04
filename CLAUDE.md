@@ -291,6 +291,27 @@ Route map (politicas.md roadmap execution, sample data):
   pins decode + resolution + gate agreement for every tie. One-hop links added:
   /penize → `/penize/strety` + `/dukazy`, the case file → `/dukazy` (its `/paket`
   link was already there).
+  **The company is addressable (2026-08-04) — `/penize/firma/[ico]`.** A company
+  is the graph's JUNCTION node (contract ⋈ subsidy ⋈ donation ⋈ MPs) with a stable
+  id, and **14 of them are tied to more than one MP** — a fact the ledger's
+  one-row-per-TIE shape and /penize/[pspId]'s one-MP shape could both compute and
+  neither could publish. `getCompanyDetail.ts` + `loadCompanyMoneySlice()` read it
+  through TWO indexed `kgNeighbours` calls (`kg_edge_dst_idx` for the inbound
+  `linked_to`, then the company's `supplies`), never a relation scan; the per-company
+  supplies read is now ONE function (`readCompanySupplies`) shared with
+  `loadMpMoneySlice`, so the two case files cannot report different money for the
+  same firm. The `[ico]` segment is normalized to the canonical 8-digit form BEFORE
+  lookup (`features/money/companyId.ts`, pure + tested) — `/penize/firma/2867681`
+  resolves `company:ico:02867681`, the exact node that unpadded ids once duplicated
+  (memory/ico-node-id-canonical-form.md). Ties are `MoneyTie` + who the MP is
+  (`CompanyTie`), filled by the SAME `mapLinkedToTie`, ordered by `reviewRank` —
+  **never by money: this page is not a ranking and no index page sits above it.**
+  The steward/attributable verdict comes from `reachableMoney`/`isAttributable`, an
+  impossible `signedOn` loses its date and is disclosed (rows kept, never repaired),
+  and every undecided tie says `čeká na kontrolu`. Live renders: Plzeňské městské
+  dopravní podniky (3 MPs, steward, 13,41 mld. Kč, 1 296 contracts), AGROFERT
+  (2 MPs — Babiš `manager`, Faltýnek `steward` — attributable 8,71 mil. Kč).
+  Ledger company cells and case-file tie headings link into it.
 - `/zebricek` — **CivicScore** (features/civicscore): leaderboard — score
   histogram + chamber summary, party filter + name search, mini
   weighted-breakdown bars per row, and Souboj (pick two via "vs" → mirrored

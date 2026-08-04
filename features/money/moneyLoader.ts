@@ -188,7 +188,7 @@ export interface MoneyLayer {
 
 /** personPspId → club abbreviation. Registry tables (207 mandates), not the graph.
  *  Clubs are decorative here: their absence must never drop the money picture. */
-async function loadClubs(store: Store): Promise<Map<number, string>> {
+export async function loadClubs(store: Store): Promise<Map<number, string>> {
   const clubByPerson = new Map<number, string>();
   try {
     const mandates = await store.listMandates({ termCode: TERM });
@@ -260,6 +260,50 @@ export const loadMoneyLayer = cache(async function loadMoneyLayer(): Promise<Mon
   }
 });
 
+/**
+ * ONE company's contracts, read through the INDEX only (`kg_edge_src_idx`) — the
+ * aggregate AND the line items in a single pass, so `/penize/[pspId]` and
+ * `/penize/firma/[ico]` cannot report different money for the same firm.
+ *
+ * Weight ONLY — the identical rule the ledger's aggregate uses. The contract node is
+ * read here for its label and signature date, not for a second amount source: measured
+ * over all 153 731 `supplies` edges, every one of the 33 628 with no weight points at a
+ * node with no `amount` either, so an `|| props.amount` fallback rescues nothing and
+ * only creates a way for the two paths to drift.
+ *
+ * ORDERING: `kgNeighbours` orders by `weight desc nulls last`, which is NOT a total
+ * order (contract amounts repeat densely), so the edge set is re-sorted into
+ * `listKgEdges`' `(src, rel, dst)` order before anything reads it — including the CZK
+ * sum, whose floating-point result depends on the addition order.
+ */
+async function readCompanySupplies(
+  store: Store,
+  companyId: string,
+): Promise<{ contracts: CompanyContracts; lines: ContractLine[] }> {
+  const supplied = await store.kgNeighbours({ id: companyId, rels: ["supplies"], limit: KG_READ_CAP });
+  const edges = supplied.edges.filter((e) => e.src === companyId).sort(byListOrder);
+  const nodeById = new Map(supplied.nodes.map((n) => [n.id, n]));
+  const contracts: CompanyContracts = { count: 0, czk: 0, amounts: [] };
+  const lines: ContractLine[] = [];
+  for (const e of edges) {
+    const ct = nodeById.get(e.dst);
+    const amount = num(e.weight);
+    contracts.count += 1;
+    contracts.czk += amount;
+    if (amount > 0) contracts.amounts.push(amount);
+    if (lines.length < CONTRACT_LINES_PER_COMPANY) {
+      lines.push({
+        id: e.dst,
+        label: ct?.label ?? e.dst,
+        amountCzk: amount > 0 ? amount : null,
+        signedOn: (ct?.props?.signedOn as string | null | undefined) ?? null,
+      });
+    }
+  }
+  lines.sort((a, b) => (b.amountCzk ?? 0) - (a.amountCzk ?? 0));
+  return { contracts, lines };
+}
+
 /** One MP's money, read through the INDEX only — never a whole-relation scan. */
 export interface MpMoneySlice {
   person: KgNodeRow;
@@ -312,34 +356,8 @@ export const loadMpMoneySlice = cache(async function loadMpMoneySlice(
     const contractsByCompany = new Map<string, CompanyContracts>();
     const linesByCompany = new Map<string, ContractLine[]>();
     for (const comp of companyById.values()) {
-      const supplied = await store.kgNeighbours({ id: comp.id, rels: ["supplies"], limit: KG_READ_CAP });
-      const edges = supplied.edges.filter((e) => e.src === comp.id).sort(byListOrder);
-      const nodeById = new Map(supplied.nodes.map((n) => [n.id, n]));
-      const agg: CompanyContracts = { count: 0, czk: 0, amounts: [] };
-      const lines: ContractLine[] = [];
-      for (const e of edges) {
-        const ct = nodeById.get(e.dst);
-        // Weight ONLY — the identical rule the ledger's aggregate uses, so the two
-        // surfaces cannot report different money for the same company. The contract node
-        // is read here for its label and signature date, not for a second amount source:
-        // measured over all 153 731 `supplies` edges, every one of the 33 628 with no
-        // weight points at a node with no `amount` either, so the old `|| props.amount`
-        // fallback rescued nothing and only created a way for the two paths to drift.
-        const amount = num(e.weight);
-        agg.count += 1;
-        agg.czk += amount;
-        if (amount > 0) agg.amounts.push(amount);
-        if (lines.length < CONTRACT_LINES_PER_COMPANY) {
-          lines.push({
-            id: e.dst,
-            label: ct?.label ?? e.dst,
-            amountCzk: amount > 0 ? amount : null,
-            signedOn: (ct?.props?.signedOn as string | null | undefined) ?? null,
-          });
-        }
-      }
-      lines.sort((a, b) => (b.amountCzk ?? 0) - (a.amountCzk ?? 0));
-      contractsByCompany.set(comp.id, agg);
+      const { contracts, lines } = await readCompanySupplies(store, comp.id);
+      contractsByCompany.set(comp.id, contracts);
       linesByCompany.set(comp.id, lines);
     }
 
@@ -357,6 +375,61 @@ export const loadMpMoneySlice = cache(async function loadMpMoneySlice(
     };
   } catch (err) {
     reportLoaderFailure("moneyLoader.loadMpMoneySlice", err);
+    return null;
+  }
+});
+
+/** One company's money and every MP tied to it — read through the INDEX only. */
+export interface CompanyMoneySlice {
+  company: KgNodeRow;
+  /** the company's inbound `linked_to` edges, in `listKgEdges` order (see byListOrder). */
+  ties: KgEdgeRow[];
+  /** tied person node by kg id — the mapper reads `absentee_manager_lead` off it. */
+  personById: Map<string, KgNodeRow>;
+  clubByPerson: Map<number, string>;
+  contracts: CompanyContracts;
+  /** the company's contract line items, amount desc, capped like the case file's. */
+  lines: ContractLine[];
+  pass: number;
+}
+
+/**
+ * The `/penize/firma/[ico]` read — the junction-node counterpart of `loadMpMoneySlice`.
+ * Two indexed reads, no relation scan: `kg_edge_dst_idx` for the company's inbound
+ * `linked_to` edges (and `kgNeighbours` hands back the person nodes with them), then
+ * `readCompanySupplies` for its contracts.
+ *
+ * A company is the graph's JUNCTION node — 14 of them are tied to more than one MP — so
+ * this is the only read in the feature that starts from the company rather than from a
+ * person. `companyId` must already be canonical (`companyId.ts::companyNodeId`): an
+ * unpadded IČO resolves to nothing here, silently.
+ */
+export const loadCompanyMoneySlice = cache(async function loadCompanyMoneySlice(
+  companyId: string,
+): Promise<CompanyMoneySlice | null> {
+  try {
+    const store = await getStore();
+    if (!store) return null;
+    if (!(await storeReady(store, ["person", "company", "contract"]))) return null;
+
+    const [company] = await store.getKgNodes([companyId]);
+    if (!company || company.kind !== "company") return null;
+
+    const tieRead = await store.kgNeighbours({ id: companyId, rels: ["linked_to"], limit: KG_READ_CAP });
+    // Only edges pointing AT the company are MP↔company ties; kgNeighbours' other leg
+    // would also return an edge the company is the source of.
+    const ties = tieRead.edges.filter((e) => e.dst === companyId).sort(byListOrder);
+    const personById = new Map(
+      tieRead.nodes.filter((n) => n.kind === "person").map((n) => [n.id, n] as const),
+    );
+
+    const { contracts, lines } = await readCompanySupplies(store, companyId);
+    const clubByPerson = await loadClubs(store);
+    const pass = num((ties[0]?.provenance as Record<string, unknown> | undefined)?.pass) || 0;
+
+    return { company, ties, personById, clubByPerson, contracts, lines, pass };
+  } catch (err) {
+    reportLoaderFailure("moneyLoader.loadCompanyMoneySlice", err);
     return null;
   }
 });

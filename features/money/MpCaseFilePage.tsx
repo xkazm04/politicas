@@ -250,7 +250,13 @@ function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en:
     <article className="border-2 border-ink">
       <div className="flex flex-wrap items-start justify-between gap-3 border-b-2 border-ink bg-paper-strong px-5 py-4">
         <div>
-          <h2 className="text-xl font-black uppercase tracking-tight">{tie.company}</h2>
+          {/* The firm has its own file — the cross-MP view this page cannot show
+              (14 companies in the graph are tied to more than one MP). */}
+          <h2 className="text-xl font-black uppercase tracking-tight">
+            <Link href={`/penize/firma/${tie.ico}`} className="transition-colors hover:text-signal">
+              {tie.company}
+            </Link>
+          </h2>
           <p className="mt-1 font-mono text-[11px] uppercase tracking-wider text-steel">
             IČO {tie.ico}
             {tie.role ? ` · ${tie.role}` : ""}
