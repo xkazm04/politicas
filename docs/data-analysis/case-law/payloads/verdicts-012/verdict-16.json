@@ -9,7 +9,7 @@
       "evidence": "Bill text, obecná část důvodové zprávy, oddíl 2, odstavec „Nad rámec úpravy týkající se smluv o finančních službách…“ — https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=16&ct1=0"
     }
   ],
-  "conflictAssessment": "Datový soubor pro tento tisk neuvádí žádný přiřazený sektorový vztah předkladatele k projednávané agendě. Předkladatelem je vláda (min. financí); jediný uvedený sponzor Zbyněk Stanjura nemá v datovém souboru zaznamenanou žádnou peněžní vazbu (moneyTies je prázdný seznam). Konflikt zájmů mezi předkladatelem a předmětem úpravy (finanční služby na dálku) nebyl na základě dostupných dat zjištěn.",
+  "conflictAssessment": "Datový soubor pro tento tisk neuvádí žádný přiřazený sektorový vztah předkladatele k projednávané agendě. Předkladatelem je vláda (min. financí); jediný uvedený sponzor Zbyněk Stanjura nemá v datovém souboru zaznamenanou žádnou peněžní vazbu. Konflikt zájmů mezi předkladatelem a předmětem úpravy (finanční služby na dálku) nebyl na základě dostupných dat zjištěn.",
   "severity": "low",
   "confidence": 3,
   "citations": [

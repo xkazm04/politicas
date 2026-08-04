@@ -1,16 +1,16 @@
 {
  "case": "law",
- "generatedAt": "2026-08-04T15:08:24.893Z",
- "source": "PGLITE_PATH copy of the LIVE graph (read-only) — batch-012 re-triage",
+ "generatedAt": "2026-08-04T16:18:23.580Z",
+ "source": "PGLITE_PATH copy of the LIVE graph (read-only) — batch-013 re-triage",
  "batch002TriagePolicy": "churn PRIMARY, sector-adjacency SECONDARY (company-sectors.ts heuristic, excludes municipal/SOE), money log-scaled TERTIARY, amends quaternary",
  "totals": {
   "bills": 141,
-  "laws": 288,
-  "amends": 577,
+  "laws": 293,
+  "amends": 582,
   "assignedTo": 150,
   "sectorAdjacencyHits": 8,
   "municipalSoeExcludedBills": 60,
-  "existingForensic": 39,
+  "existingForensic": 49,
   "collisionCandidateGroups": 150,
   "collisionCandidateBills": 117,
   "batch003NewVerdicts": 8,
@@ -292,6 +292,13 @@
    "billsWithVerdictTotal": 49,
    "billsPendingTotal": 92,
    "note": "Batch-012 verdict wave on the pending triage head. Verdict files live under payloads/verdicts-012/ (Czech-native, requireCzech gate)."
+  },
+  "batch013Verdicts": {
+   "status": "APPLIED to live graph (pass 47) and mirrored here",
+   "verdicts": 10,
+   "billsWithVerdictTotal": 59,
+   "billsPendingTotal": 82,
+   "note": "Batch-013 verdict wave on the pending triage head. Verdict files live under payloads/verdicts-013/ (Czech-native, requireCzech gate)."
   }
  },
  "rows": [
@@ -531,6 +538,84 @@
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
    "triageScoreV2": 11203500
+  },
+  {
+   "tiskId": 43176,
+   "billNodeId": "bill:tisk:43176",
+   "cislo": 69,
+   "origin": "government",
+   "title": "Vládní návrh zákona o digitální ekonomice a o změně některých souvisejících zákonů",
+   "amendedLaws": [
+    "121/2000",
+    "132/2010",
+    "141/1961",
+    "292/2013",
+    "634/1992",
+    "634/2004",
+    "89/2012"
+   ],
+   "amendsCount": 7,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 3728628.859,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 12,
+   "signal": null,
+   "verdictFile": "payloads/verdicts-012/verdict-69.json",
+   "forensicConfidence": 3,
+   "flags": [
+    "high_churn_target",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "SOMPO, a.s.",
+    "PRO VYSOČINU, občanské sdružení",
+    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
+   ],
+   "triageScoreV2": 10704814
+  },
+  {
+   "tiskId": 43117,
+   "billNodeId": "bill:tisk:43117",
+   "cislo": 10,
+   "origin": "government",
+   "title": "Vládní návrh zákona o některých podmínkách poskytování mediálních služeb a o změně některých souvisejících zákonů",
+   "amendedLaws": [
+    "104/2013",
+    "141/1961",
+    "231/2001",
+    "46/2000"
+   ],
+   "amendsCount": 4,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 174822781.92,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 12,
+   "signal": null,
+   "verdictFile": "payloads/verdicts-012/verdict-10.json",
+   "forensicConfidence": 3,
+   "flags": [
+    "high_churn_target",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "Plzeňské městské dopravní podniky, a.s.",
+    "Plzeňská filharmonie, obecně prospěšná společnost",
+    "Galerie města Plzně, o.p.s.",
+    "Regionální rozvojová agentura Plzeňského kraje, obecně prospěšná společnost",
+    "Techmania Science Center o.p.s.",
+    "Nadace Věry a Vladimíra Janouškových",
+    "Nadace 700 let města Plzně",
+    "Sdružení měst a obcí Plzeňského kraje"
+   ],
+   "triageScoreV2": 10703649
   },
   {
    "tiskId": 43343,
@@ -1483,6 +1568,183 @@
    "triageScoreV2": 5753319
   },
   {
+   "tiskId": 43172,
+   "billNodeId": "bill:tisk:43172",
+   "cislo": 65,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti s úpravou vybraných agend v působnosti Digitální a informační agentury",
+   "amendedLaws": [
+    "106/1999",
+    "12/2020",
+    "2/1969",
+    "21/1992",
+    "250/2017",
+    "277/2009",
+    "29/2000",
+    "297/2016",
+    "300/2008",
+    "365/2000",
+    "427/2011"
+   ],
+   "amendsCount": 11,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 10864254.9,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 12,
+   "signal": null,
+   "verdictFile": "payloads/verdicts-012/verdict-65.json",
+   "forensicConfidence": 3,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 5706907
+  },
+  {
+   "tiskId": 43123,
+   "billNodeId": "bill:tisk:43123",
+   "cislo": 16,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti se smlouvami o finančních službách uzavíranými na dálku",
+   "amendedLaws": [
+    "170/2018",
+    "240/2013",
+    "256/2004",
+    "257/2016",
+    "31/2025",
+    "340/2006",
+    "370/2017",
+    "6/1993",
+    "634/1992",
+    "89/2012",
+    "91/2022"
+   ],
+   "amendsCount": 11,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 12,
+   "signal": null,
+   "verdictFile": "payloads/verdicts-012/verdict-16.json",
+   "forensicConfidence": 3,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 5705500
+  },
+  {
+   "tiskId": 43372,
+   "billNodeId": "bill:tisk:43372",
+   "cislo": 250,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Drahoslava Ryby a Jiřího Bartáka na vydání zákona o standardizaci a o změně některých zákonů (zákon o standardizaci)",
+   "amendedLaws": [
+    "2/1969",
+    "20/1993",
+    "22/1997",
+    "330/2025",
+    "387/2024",
+    "505/1990",
+    "539/1992",
+    "634/2004",
+    "64/1986",
+    "87/2023"
+   ],
+   "amendsCount": 10,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 12,
+   "signal": null,
+   "verdictFile": "payloads/verdicts-012/verdict-250.json",
+   "forensicConfidence": 3,
+   "flags": [
+    "high_churn_target",
+    "mp_group"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 5705000
+  },
+  {
+   "tiskId": 43163,
+   "billNodeId": "bill:tisk:43163",
+   "cislo": 56,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o opatřeních ke snížení nákladů na zavádění sítí elektronických komunikací s velmi vysokou kapacitou",
+   "amendedLaws": [
+    "127/2005",
+    "200/1994",
+    "283/2021",
+    "416/2009",
+    "634/2004"
+   ],
+   "amendsCount": 5,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 3728628.859,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 12,
+   "signal": null,
+   "verdictFile": "payloads/verdicts-012/verdict-56.json",
+   "forensicConfidence": 3,
+   "flags": [
+    "high_churn_target",
+    "municipal_soe_excluded"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [
+    "SOMPO, a.s.",
+    "PRO VYSOČINU, občanské sdružení",
+    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
+   ],
+   "triageScoreV2": 5703814
+  },
+  {
+   "tiskId": 43161,
+   "billNodeId": "bill:tisk:43161",
+   "cislo": 54,
+   "origin": "government",
+   "title": "Vládní návrh zákona o správě dat, o řízeném přístupu k datům a o změně některých souvisejících zákonů (zákon o správě dat a o řízeném přístupu k datům)",
+   "amendedLaws": [
+    "269/1994",
+    "372/2011",
+    "634/2004",
+    "89/1995"
+   ],
+   "amendsCount": 4,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 10864254.9,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 12,
+   "signal": null,
+   "verdictFile": "payloads/verdicts-012/verdict-54.json",
+   "forensicConfidence": 3,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 5703407
+  },
+  {
    "tiskId": 43263,
    "billNodeId": "bill:tisk:43263",
    "cislo": 143,
@@ -1513,6 +1775,101 @@
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
    "triageScoreV2": 5703000
+  },
+  {
+   "tiskId": 43293,
+   "billNodeId": "bill:tisk:43293",
+   "cislo": 172,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 329/1999 Sb., o cestovních dokladech, ve znění pozdějších předpisů, zákon č. 269/2021 Sb., o občanských průkazech, ve znění pozdějších předpisů, a další so",
+   "amendedLaws": [
+    "111/2009",
+    "12/2020",
+    "251/2016",
+    "269/2021",
+    "329/1999",
+    "634/2004"
+   ],
+   "amendsCount": 6,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 12,
+   "signal": null,
+   "verdictFile": "payloads/verdicts-012/verdict-172.json",
+   "forensicConfidence": 3,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 5703000
+  },
+  {
+   "tiskId": 43120,
+   "billNodeId": "bill:tisk:43120",
+   "cislo": 13,
+   "origin": "government",
+   "title": "Vládní návrh zákona, kterým se mění zákon č. 240/2013 Sb., o investičních společnostech a investičních fondech, ve znění pozdějších předpisů, a další související zákony",
+   "amendedLaws": [
+    "15/1998",
+    "240/2013",
+    "256/2004",
+    "634/2004",
+    "84/2024"
+   ],
+   "amendsCount": 5,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 12,
+   "signal": null,
+   "verdictFile": "payloads/verdicts-012/verdict-13.json",
+   "forensicConfidence": 4,
+   "flags": [
+    "high_churn_target"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 5702500
+  },
+  {
+   "tiskId": 43210,
+   "billNodeId": "bill:tisk:43210",
+   "cislo": 100,
+   "origin": "mp_group",
+   "title": "Návrh poslanců Elišky Olšákové a Karla Dvořáka na vydání zákona, kterým se mění zákon č. 128/2000 Sb., o obcích (obecní zřízení), ve znění pozdějších předpisů, a další zákony v souvislosti se změnami ",
+   "amendedLaws": [
+    "128/2000",
+    "131/2000",
+    "2/1969",
+    "292/2013",
+    "89/2012"
+   ],
+   "amendsCount": 5,
+   "maxTargetChurn": 7,
+   "sponsorContractCzk": 0,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 12,
+   "signal": null,
+   "verdictFile": "payloads/verdicts-012/verdict-100.json",
+   "forensicConfidence": 4,
+   "flags": [
+    "high_churn_target",
+    "mp_group"
+   ],
+   "sectorAdjacency": false,
+   "sectorAdjacentCompanies": [],
+   "municipalExcludedCompanies": [],
+   "triageScoreV2": 5702500
   },
   {
    "tiskId": 43332,
@@ -2100,351 +2457,6 @@
    "triageScoreV2": 5152289
   },
   {
-   "tiskId": 43172,
-   "billNodeId": "bill:tisk:43172",
-   "cislo": 65,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti s úpravou vybraných agend v působnosti Digitální a informační agentury",
-   "amendedLaws": [
-    "106/1999",
-    "12/2020",
-    "2/1969",
-    "21/1992",
-    "250/2017",
-    "277/2009",
-    "29/2000",
-    "297/2016",
-    "300/2008",
-    "365/2000",
-    "427/2011"
-   ],
-   "amendsCount": 11,
-   "maxTargetChurn": 7,
-   "sponsorContractCzk": 10864254.9,
-   "forensicSeverity": "low",
-   "forensicState": "pending_review",
-   "stage": "verdict",
-   "batch": 12,
-   "signal": null,
-   "flags": [
-    "high_churn_target"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 706907,
-   "forensicConfidence": 3,
-   "verdictFile": "payloads/verdicts-012/verdict-65.json"
-  },
-  {
-   "tiskId": 43123,
-   "billNodeId": "bill:tisk:43123",
-   "cislo": 16,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti se smlouvami o finančních službách uzavíranými na dálku",
-   "amendedLaws": [
-    "170/2018",
-    "240/2013",
-    "256/2004",
-    "257/2016",
-    "31/2025",
-    "340/2006",
-    "370/2017",
-    "6/1993",
-    "634/1992",
-    "89/2012",
-    "91/2022"
-   ],
-   "amendsCount": 11,
-   "maxTargetChurn": 7,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": "low",
-   "forensicState": "pending_review",
-   "stage": "verdict",
-   "batch": 12,
-   "signal": null,
-   "flags": [
-    "high_churn_target"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 705500,
-   "forensicConfidence": 3,
-   "verdictFile": "payloads/verdicts-012/verdict-16.json"
-  },
-  {
-   "tiskId": 43176,
-   "billNodeId": "bill:tisk:43176",
-   "cislo": 69,
-   "origin": "government",
-   "title": "Vládní návrh zákona o digitální ekonomice a o změně některých souvisejících zákonů",
-   "amendedLaws": [
-    "121/2000",
-    "141/1961",
-    "292/2013",
-    "634/1992",
-    "634/2004",
-    "89/2012"
-   ],
-   "amendsCount": 6,
-   "maxTargetChurn": 7,
-   "sponsorContractCzk": 3728628.859,
-   "forensicSeverity": "medium",
-   "forensicState": "pending_review",
-   "stage": "verdict",
-   "batch": 12,
-   "signal": null,
-   "flags": [
-    "high_churn_target",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "SOMPO, a.s.",
-    "PRO VYSOČINU, občanské sdružení",
-    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
-   ],
-   "triageScoreV2": 704314,
-   "forensicConfidence": 3,
-   "verdictFile": "payloads/verdicts-012/verdict-69.json"
-  },
-  {
-   "tiskId": 43163,
-   "billNodeId": "bill:tisk:43163",
-   "cislo": 56,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění některé zákony v souvislosti s přijetím zákona o opatřeních ke snížení nákladů na zavádění sítí elektronických komunikací s velmi vysokou kapacitou",
-   "amendedLaws": [
-    "127/2005",
-    "200/1994",
-    "283/2021",
-    "416/2009",
-    "634/2004"
-   ],
-   "amendsCount": 5,
-   "maxTargetChurn": 7,
-   "sponsorContractCzk": 3728628.859,
-   "forensicSeverity": "low",
-   "forensicState": "pending_review",
-   "stage": "verdict",
-   "batch": 12,
-   "signal": null,
-   "flags": [
-    "high_churn_target",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "SOMPO, a.s.",
-    "PRO VYSOČINU, občanské sdružení",
-    "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
-   ],
-   "triageScoreV2": 703814,
-   "forensicConfidence": 3,
-   "verdictFile": "payloads/verdicts-012/verdict-56.json"
-  },
-  {
-   "tiskId": 43117,
-   "billNodeId": "bill:tisk:43117",
-   "cislo": 10,
-   "origin": "government",
-   "title": "Vládní návrh zákona o některých podmínkách poskytování mediálních služeb a o změně některých souvisejících zákonů",
-   "amendedLaws": [
-    "104/2013",
-    "141/1961",
-    "231/2001",
-    "46/2000"
-   ],
-   "amendsCount": 4,
-   "maxTargetChurn": 7,
-   "sponsorContractCzk": 174822781.92,
-   "forensicSeverity": "medium",
-   "forensicState": "pending_review",
-   "stage": "verdict",
-   "batch": 12,
-   "signal": null,
-   "flags": [
-    "high_churn_target",
-    "municipal_soe_excluded"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [
-    "Plzeňské městské dopravní podniky, a.s.",
-    "Plzeňská filharmonie, obecně prospěšná společnost",
-    "Galerie města Plzně, o.p.s.",
-    "Regionální rozvojová agentura Plzeňského kraje, obecně prospěšná společnost",
-    "Techmania Science Center o.p.s.",
-    "Nadace Věry a Vladimíra Janouškových",
-    "Nadace 700 let města Plzně",
-    "Sdružení měst a obcí Plzeňského kraje"
-   ],
-   "triageScoreV2": 703649,
-   "forensicConfidence": 3,
-   "verdictFile": "payloads/verdicts-012/verdict-10.json"
-  },
-  {
-   "tiskId": 43161,
-   "billNodeId": "bill:tisk:43161",
-   "cislo": 54,
-   "origin": "government",
-   "title": "Vládní návrh zákona o správě dat, o řízeném přístupu k datům a o změně některých souvisejících zákonů (zákon o správě dat a o řízeném přístupu k datům)",
-   "amendedLaws": [
-    "269/1994",
-    "372/2011",
-    "634/2004",
-    "89/1995"
-   ],
-   "amendsCount": 4,
-   "maxTargetChurn": 7,
-   "sponsorContractCzk": 10864254.9,
-   "forensicSeverity": "low",
-   "forensicState": "pending_review",
-   "stage": "verdict",
-   "batch": 12,
-   "signal": null,
-   "flags": [
-    "high_churn_target"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 703407,
-   "forensicConfidence": 3,
-   "verdictFile": "payloads/verdicts-012/verdict-54.json"
-  },
-  {
-   "tiskId": 43293,
-   "billNodeId": "bill:tisk:43293",
-   "cislo": 172,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 329/1999 Sb., o cestovních dokladech, ve znění pozdějších předpisů, zákon č. 269/2021 Sb., o občanských průkazech, ve znění pozdějších předpisů, a další so",
-   "amendedLaws": [
-    "111/2009",
-    "12/2020",
-    "251/2016",
-    "269/2021",
-    "329/1999",
-    "634/2004"
-   ],
-   "amendsCount": 6,
-   "maxTargetChurn": 7,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": "low",
-   "forensicState": "pending_review",
-   "stage": "verdict",
-   "batch": 12,
-   "signal": null,
-   "flags": [
-    "high_churn_target"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 703000,
-   "forensicConfidence": 3,
-   "verdictFile": "payloads/verdicts-012/verdict-172.json"
-  },
-  {
-   "tiskId": 43372,
-   "billNodeId": "bill:tisk:43372",
-   "cislo": 250,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Drahoslava Ryby a Jiřího Bartáka na vydání zákona o standardizaci a o změně některých zákonů (zákon o standardizaci)",
-   "amendedLaws": [
-    "2/1969",
-    "20/1993",
-    "22/1997",
-    "634/2004",
-    "64/1986",
-    "87/2023"
-   ],
-   "amendsCount": 6,
-   "maxTargetChurn": 7,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": "low",
-   "forensicState": "pending_review",
-   "stage": "verdict",
-   "batch": 12,
-   "signal": null,
-   "flags": [
-    "high_churn_target",
-    "mp_group"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 703000,
-   "forensicConfidence": 3,
-   "verdictFile": "payloads/verdicts-012/verdict-250.json"
-  },
-  {
-   "tiskId": 43120,
-   "billNodeId": "bill:tisk:43120",
-   "cislo": 13,
-   "origin": "government",
-   "title": "Vládní návrh zákona, kterým se mění zákon č. 240/2013 Sb., o investičních společnostech a investičních fondech, ve znění pozdějších předpisů, a další související zákony",
-   "amendedLaws": [
-    "15/1998",
-    "240/2013",
-    "256/2004",
-    "634/2004",
-    "84/2024"
-   ],
-   "amendsCount": 5,
-   "maxTargetChurn": 7,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": "low",
-   "forensicState": "pending_review",
-   "stage": "verdict",
-   "batch": 12,
-   "signal": null,
-   "flags": [
-    "high_churn_target"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 702500,
-   "forensicConfidence": 4,
-   "verdictFile": "payloads/verdicts-012/verdict-13.json"
-  },
-  {
-   "tiskId": 43210,
-   "billNodeId": "bill:tisk:43210",
-   "cislo": 100,
-   "origin": "mp_group",
-   "title": "Návrh poslanců Elišky Olšákové a Karla Dvořáka na vydání zákona, kterým se mění zákon č. 128/2000 Sb., o obcích (obecní zřízení), ve znění pozdějších předpisů, a další zákony v souvislosti se změnami ",
-   "amendedLaws": [
-    "128/2000",
-    "131/2000",
-    "2/1969",
-    "292/2013",
-    "89/2012"
-   ],
-   "amendsCount": 5,
-   "maxTargetChurn": 7,
-   "sponsorContractCzk": 0,
-   "forensicSeverity": "low",
-   "forensicState": "pending_review",
-   "stage": "verdict",
-   "batch": 12,
-   "signal": null,
-   "flags": [
-    "high_churn_target",
-    "mp_group"
-   ],
-   "sectorAdjacency": false,
-   "sectorAdjacentCompanies": [],
-   "municipalExcludedCompanies": [],
-   "triageScoreV2": 702500,
-   "forensicConfidence": 4,
-   "verdictFile": "payloads/verdicts-012/verdict-100.json"
-  },
-  {
    "tiskId": 43327,
    "billNodeId": "bill:tisk:43327",
    "cislo": 205,
@@ -2456,10 +2468,10 @@
    "amendsCount": 1,
    "maxTargetChurn": 7,
    "sponsorContractCzk": 3728628.859,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 13,
    "signal": null,
    "flags": [
     "high_churn_target",
@@ -2475,7 +2487,9 @@
     "PRO VYSOČINU, občanské sdružení",
     "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
    ],
-   "triageScoreV2": 701814
+   "triageScoreV2": 701814,
+   "forensicConfidence": 5,
+   "verdictFile": "payloads/verdicts-013/verdict-205.json"
   },
   {
    "tiskId": 43200,
@@ -2497,10 +2511,10 @@
    "amendsCount": 9,
    "maxTargetChurn": 6,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 13,
    "signal": null,
    "flags": [
     "high_churn_target"
@@ -2508,7 +2522,9 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 604500
+   "triageScoreV2": 604500,
+   "forensicConfidence": 3,
+   "verdictFile": "payloads/verdicts-013/verdict-90.json"
   },
   {
    "tiskId": 43175,
@@ -2529,10 +2545,10 @@
    "amendsCount": 8,
    "maxTargetChurn": 6,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 13,
    "signal": null,
    "flags": [
     "high_churn_target"
@@ -2540,7 +2556,9 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 604000
+   "triageScoreV2": 604000,
+   "forensicConfidence": 3,
+   "verdictFile": "payloads/verdicts-013/verdict-68.json"
   },
   {
    "tiskId": 43328,
@@ -2558,10 +2576,10 @@
    "amendsCount": 5,
    "maxTargetChurn": 6,
    "sponsorContractCzk": 3728628.859,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 13,
    "signal": null,
    "flags": [
     "high_churn_target",
@@ -2577,7 +2595,9 @@
     "PRO VYSOČINU, občanské sdružení",
     "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
    ],
-   "triageScoreV2": 603814
+   "triageScoreV2": 603814,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-013/verdict-206.json"
   },
   {
    "tiskId": 43180,
@@ -2593,10 +2613,10 @@
    "amendsCount": 3,
    "maxTargetChurn": 6,
    "sponsorContractCzk": 5397460397.25,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 13,
    "signal": null,
    "flags": [
     "high_churn_target",
@@ -2610,7 +2630,9 @@
     "Teplárny Brno, a.s.",
     "MERO ČR, a.s."
    ],
-   "triageScoreV2": 603446
+   "triageScoreV2": 603446,
+   "forensicConfidence": 3,
+   "verdictFile": "payloads/verdicts-013/verdict-73.json"
   },
   {
    "tiskId": 43295,
@@ -2626,10 +2648,10 @@
    "amendsCount": 3,
    "maxTargetChurn": 6,
    "sponsorContractCzk": 1473240095.16,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 13,
    "signal": null,
    "flags": [
     "high_churn_target",
@@ -2646,7 +2668,9 @@
     "Česká lékařská komora - o.s., z.s.",
     "Lesy města Prostějova, s.r.o."
    ],
-   "triageScoreV2": 603334
+   "triageScoreV2": 603334,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-013/verdict-174.json"
   },
   {
    "tiskId": 43160,
@@ -2661,10 +2685,10 @@
    "amendsCount": 2,
    "maxTargetChurn": 6,
    "sponsorContractCzk": 3728628.859,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 13,
    "signal": null,
    "flags": [
     "high_churn_target",
@@ -2677,7 +2701,9 @@
     "PRO VYSOČINU, občanské sdružení",
     "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
    ],
-   "triageScoreV2": 602314
+   "triageScoreV2": 602314,
+   "forensicConfidence": 3,
+   "verdictFile": "payloads/verdicts-013/verdict-53.json"
   },
   {
    "tiskId": 43219,
@@ -2691,10 +2717,10 @@
    "amendsCount": 1,
    "maxTargetChurn": 6,
    "sponsorContractCzk": 10864254.9,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 13,
    "signal": null,
    "flags": [
     "high_churn_target",
@@ -2703,7 +2729,9 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 601907
+   "triageScoreV2": 601907,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-013/verdict-109.json"
   },
   {
    "tiskId": 43169,
@@ -2717,10 +2745,10 @@
    "amendsCount": 1,
    "maxTargetChurn": 6,
    "sponsorContractCzk": 3728628.859,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 13,
    "signal": null,
    "flags": [
     "high_churn_target",
@@ -2733,7 +2761,9 @@
     "PRO VYSOČINU, občanské sdružení",
     "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
    ],
-   "triageScoreV2": 601814
+   "triageScoreV2": 601814,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-013/verdict-62.json"
   },
   {
    "tiskId": 43260,
@@ -2747,10 +2777,10 @@
    "amendsCount": 1,
    "maxTargetChurn": 6,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 13,
    "signal": null,
    "flags": [
     "high_churn_target"
@@ -2758,7 +2788,9 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 600500
+   "triageScoreV2": 600500,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-013/verdict-140.json"
   },
   {
    "tiskId": 43261,

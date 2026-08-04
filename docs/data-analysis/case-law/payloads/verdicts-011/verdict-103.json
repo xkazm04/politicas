@@ -34,7 +34,7 @@
    "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=103"
   },
   {
-   "claim": "Tisk 103 mění šest zákonů podle topologie hran grafu (amendsCount = 6) a jeho sponzorský okruh zahrnuje deset poslanců uvedených v případovém souboru, včetně jejich peněžních vazeb a částek.",
+   "claim": "Tisk 103 mění šest zákonů podle grafu vazeb mezi tiskem a novelizovanými zákony a jeho sponzorský okruh zahrnuje deset poslanců uvedených v případovém souboru, včetně jejich peněžních vazeb a částek.",
    "kind": "graph_fact",
    "source": "bill:tisk:43213"
   },

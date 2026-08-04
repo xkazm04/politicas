@@ -14,7 +14,7 @@
    "evidence": "§ 11 odst. 1 a 2 (složení a působnost Rady, včetně jmenování části členů na návrh oborových právnických osob), § 12 odst. 1 a 2 (složení a působnost Dozorčí rady, jmenované především ze zástupců ústředních správních úřadů) a § 21 odst. 2 (ceník vedlejší činnosti podléhá projednání Dozorčí radou a souhlasu Úřadu) návrhu zákona o standardizaci."
   }
  ],
- "conflictAssessment": "Předkladateli jsou poslanci Drahoslav Ryba a Jiří Barták; případový soubor u obou neeviduje žádnou peněžní vazbu (moneyTies je u obou prázdné pole) ani přiřazený sektorový konflikt (attributedSectorLeads prázdné, sectorAdjacency nastaveno na false). Předmětem návrhu je veřejná správa v oblasti standardizace a přeměna právní formy dosavadní normalizační agentury; v datech dostupných platformě tak není podklad pro tvrzení o střetu zájmů žádného ze sponzorů s předmětem návrhu.",
+ "conflictAssessment": "Předkladateli jsou poslanci Drahoslav Ryba a Jiří Barták; případový soubor u obou neeviduje žádnou peněžní vazbu ani přiřazený sektorový konflikt (deterministický odvětvový signál tohoto projektu jej nenašel). Předmětem návrhu je veřejná správa v oblasti standardizace a přeměna právní formy dosavadní normalizační agentury; v datech dostupných platformě tak není podklad pro tvrzení o střetu zájmů žádného ze sponzorů s předmětem návrhu.",
  "severity": "low",
  "confidence": 3,
  "citations": [

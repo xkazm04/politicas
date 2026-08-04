@@ -165,6 +165,45 @@ export function validateLawVerdict(input: unknown, opts: ValidateLawVerdictOptio
       }
     });
 
+  // PIPELINE-JARGON GATE (batch-013 M6): the audit found internal tokens (`sectorAdjacency:
+  // false`, `mp_group`, cache file paths, `psp:person:` ids, batch numbers) in reader-facing
+  // prose in 9 of 10 verdicts, and nothing in this contract blocked them — prose rules do not
+  // survive the next army; only code does. Scoped to the law case's own token classes;
+  // `lib/analysis/public-copy.ts` (the effort case's list) composes separately at call sites.
+  if (opts.requireCzech !== false) {
+    const JARGON: { re: RegExp; what: string }[] = [
+      { re: /\b(sectorAdjacency|triageScoreV2|maxTargetChurn|amendsCount|moneyTies|attributedSectorLeads|forensic_[a-z_]+)\b/, what: "internal prop identifier" },
+      { re: /\bmp_group\b/, what: "origin enum token" },
+      { re: /\.data[\\/]law-collision-cache|law-collision-cache[\\/]tisk-|\.txt\b/, what: "cache file path (cite the psp.cz document URL instead)" },
+      { re: /\bpsp:person:\d+|\bbill:tisk:\d+|\bcompany:ico:\d+|\blaw:sb:\d+/, what: "graph urn in prose (urns belong in citation sources, not sentences)" },
+      { re: /\bbatch\b|\bpass[- ]?\d{1,3}\b/i, what: "internal batch/pass reference" },
+      { re: /\bkg_(node|edge)s?\b|\bknownIds\b|\bknownLawRefs\b/, what: "pipeline identifier" },
+    ];
+    const readerFields: { label: string; text: unknown }[] = [
+      { label: "statedReasoning", text: input.statedReasoning },
+      { label: "researchedContext", text: input.researchedContext },
+      { label: "conflictAssessment", text: input.conflictAssessment },
+    ];
+    if (Array.isArray(input.unstatedEffects))
+      input.unstatedEffects.forEach((u, i) => {
+        if (!isObj(u)) return;
+        readerFields.push({ label: `unstatedEffects[${i}].effect`, text: u.effect });
+        readerFields.push({ label: `unstatedEffects[${i}].whoBenefits`, text: u.whoBenefits });
+        readerFields.push({ label: `unstatedEffects[${i}].evidence`, text: u.evidence });
+      });
+    if (Array.isArray(input.citations))
+      input.citations.forEach((c, i) => {
+        if (isObj(c)) readerFields.push({ label: `citations[${i}].claim`, text: c.claim });
+      });
+    for (const f of readerFields) {
+      if (typeof f.text !== "string") continue;
+      for (const { re, what } of JARGON) {
+        const m = re.exec(f.text);
+        if (m) e.push(`${f.label}: pipeline jargon in reader-facing prose — ${what} ("${m[0]}")`);
+      }
+    }
+  }
+
   // CZECH-FIRST: every string this verdict renders to a reader must be Czech. An English
   // artifact on a reader-facing field is a defect, not a style preference — the same rule
   // `features/lawwatch/getLawData.ts` enforces at render time (lib/analysis/language-gate.ts).

@@ -1,0 +1,67 @@
+{
+  "billTisk": 174,
+  "statedReasoning": "Novela mění zákon č. 246/1992 Sb., na ochranu zvířat proti týrání, zákon č. 273/2008 Sb., o Policii České republiky, a zákon č. 89/2012 Sb., občanský zákoník. Podle důvodové zprávy reaguje na programové prohlášení vlády ze dne 5. 1. 2026 a na 85. usnesení Poslanecké sněmovny ze 7. schůze (12. 2. 2026) k odsouzení týrání zvířat. Cílem je zvýšení úrovně ochrany zvířat: (1) zvýšení dolních hranic pokut za týrání dvou a více zvířat a prodloužení nejvyšší přípustné doby trestu zákazu chovu zvířat z 5 na 10 let (§ 27 odst. 13 a § 27a odst. 20); (2) nová povinnost obcí zajišťovat a hradit kastraci opuštěných koček a koček bez pána formou opakovaného programu odchytu-kastrace-navrácení (nový § 13b odst. 3); (3) rozšíření vstupního oprávnění Policie ČR o \"obydlí\" při podezření na týrání (§ 40 odst. 2 písm. c) zákona o Policii ČR); (4) nová povinnost obce nabýt vlastnictví nalezeného opuštěného (nikoli zdivočelého) zvířete, které si nikdo nepřivlastnil (§ 1048 odst. 2 občanského zákoníku). Důvodová zpráva tvrdí, že návrh nemá významné hospodářské dopady na podnikatelské prostředí.",
+  "researchedContext": "Ověřením textu novely byly potvrzeny citované paragrafy: § 13b odst. 3 (\"Obec zajistí kastraci opuštěných koček... Kastraci těchto koček hradí obec... Obec je povinna provádět program odchytu, kastrace a navrácení... opakovaně\"), § 27 odst. 13 a § 27a odst. 20 (prodloužení nejvyšší doby trestu zákazu chovu zvířat z \"5 let\" na \"10 let\"), § 27 odst. 14 a § 27a odst. 21 (nová věta o minimální pokutě \"vyšší než 5 000 Kč\", resp. \"vyšší než 10 000 Kč\", a navýšení částky z 5 000 Kč na 10 000 Kč, resp. z 10 000 Kč na 20 000 Kč), § 40 odst. 2 písm. c) zákona o Policii ČR (doplnění slova \"obydlí\") a § 1048 občanského zákoníku (nový odstavec 2 o nabytí vlastnictví obcí k opuštěnému zvířeti, s výjimkou zdivočelé kočky). Důvodová zpráva v bodě 5 (hospodářský a finanční dopad) sama přiznává u kastračního programu (§ 13b odst. 3) i u nové povinnosti péče o opuštěná zvířata (§ 1048 odst. 2), že \"v České republice nejsou k dispozici údaje o počtu opuštěných koček... Není tedy možné dopředu predikovat, jaká bude výše nákladů\", a řadí obě povinnosti do \"samostatné působnosti obcí\".",
+  "unstatedEffects": [
+    {
+      "effect": "Povinnost obce zajišťovat a hradit kastrační program (§ 13b odst. 3) je zákonem zařazena do samostatné, nikoli přenesené působnosti obcí — což znamená, že jde o výdaj z vlastního rozpočtu obce bez nároku na state kompenzaci, jaká by jinak náležela u přenesené (státem delegované) působnosti. Text ani důvodová zpráva přitom neobsahuje žádný mechanismus vymáhání či sankci pro obec, která zákonem uloženou povinnost neplní, ani žádný dotační titul kompenzující rozpočtově slabším obcím nepředvídatelné náklady, které zpráva sama označuje za nemožné dopředu odhadnout.",
+      "whoBenefits": "Nelze jednoznačně určit — dotčeny jsou obce, zejména rozpočtově slabší, kterým vzniká zákonná povinnost bez garantovaného financování a bez stanoveného vynucovacího mechanismu.",
+      "evidence": "Text novely, nový § 13b odst. 3: \"Kastraci těchto koček hradí obec... Obec je povinna provádět program odchytu, kastrace a navrácení... opakovaně\"; důvodová zpráva, bod 5: \"V České republice nejsou k dispozici údaje o počtu opuštěných koček a koček, které jsou zvířaty bez pána. Není tedy možné dopředu predikovat, jaká bude výše nákladů spojená s touto činností.\""
+    }
+  ],
+  "conflictAssessment": "Předkladateli jsou Lucie Šafránková, Andrej Babiš, Tomio Okamura, Petr Macinka, Boris Šťastný, Taťána Malá, Radim Fiala, Renata Vesecká a Jana Hanzlíková (poslanecký návrh). Macinka, Malá, Hanzlíková a Vesecká nemají v grafu evidované peněžní vazby. Šafránkové vazba (Pražská vysoká škola psychosociálních studií, s.r.o., 20 857 960 Kč — úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu) je subjekt v oblasti vysokého školství bez vztahu k ochraně zvířat. Okamurovy vazby (MIKI TRAVEL PRAGUE, MEBIUS, U Machtů, Japa Foods) jsou z oblasti cestovního ruchu a gastronomie, bez věcné adjacence k předmětu novely. Babišovy vazby zahrnují rozsáhlý okruh firem koncernu Agrofert (chemický, potravinářský a zemědělský průmysl — PRECHEZA, Lovochemie, Synthesia, Fatra, Kostelecké uzeniny, AGROFERT a.s. aj.; uváděné částky jsou úhrnem veřejných smluv dané firmy, nikoli příjmem poslance, a čekají na lidskou kontrolu), avšak novela se svým operativním rozsahem (toulavé a opuštěné kočky/psi, nelegální množírny, oprávnění Policie ČR, vlastnictví nalezených zvířat obcí) netýká chovu hospodářských zvířat, zemědělské prvovýroby ani potravinářského zpracování, kterými se tyto firmy zabývají — adjacence k Babišovým podnikatelským zájmům nebyla zjištěna, jde o poctivý negativní nález, nikoli o vazbu plynoucí ze samotné přítomnosti jeho jména na seznamu předkladatelů. Šťastného vazby (VZP — celostátní zdravotní pojišťovna; Pražské služby, a.s. — pražská městská úklidová/odpadová firma, institucionální, 53 271 958 488 Kč úhrnem veřejných smluv firmy, vazba čeká na lidskou kontrolu; GEKO SPORT, Nadační fond Klausových, ASPEN SPORT, Česká lékařská komora) nemají věcný vztah k předmětu novely. Fialova vazba na Lesy města Prostějova, s.r.o. (municipální lesní správa, 177 151 008 Kč úhrnem veřejných smluv firmy, vazba čeká na lidskou kontrolu) je institucionální a bez adjacence k ochraně zvířat; ostatní jeho vazby (IF Holding, B.S.-KINGS, IF FACILITY, Studio PN Prostějov) rovněž nesouvisejí s předmětem novely. U žádného z předkladatelů nebyl zjištěn střet zájmů.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Novela zavádí novou povinnost obcí zajišťovat a hradit kastraci opuštěných koček formou opakovaného TNR programu (§ 13b odst. 3) a zpřísňuje pokuty i nejvyšší dobu trestu zákazu chovu zvířat za týrání zvířat (§ 27, § 27a).",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=174&ct1=0"
+    },
+    {
+      "claim": "Text novely, nový § 13b odst. 3: \"Kastraci těchto koček hradí obec... Obec je povinna provádět program odchytu, kastrace a navrácení... opakovaně tak, aby nedocházelo k nárůstu populace těchto koček.\"",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=174&ct1=0"
+    },
+    {
+      "claim": "Důvodová zpráva, bod 5: \"V České republice nejsou k dispozici údaje o počtu opuštěných koček a koček, které jsou zvířaty bez pána. Není tedy možné dopředu predikovat, jaká bude výše nákladů spojená s touto činností.\"",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=174&ct1=0"
+    },
+    {
+      "claim": "Novela mění § 40 odst. 2 písm. c) zákona o Policii ČR (rozšíření vstupního oprávnění o \"obydlí\") a § 1048 občanského zákoníku (nabytí vlastnictví obcí k nalezenému opuštěnému zvířeti).",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=174&ct1=0"
+    },
+    {
+      "claim": "Novela se týká zákona č. 246/1992 Sb., na ochranu zvířat proti týrání.",
+      "kind": "law",
+      "source": "č. 246/1992 Sb."
+    },
+    {
+      "claim": "Novela se týká zákona č. 273/2008 Sb., o Policii České republiky.",
+      "kind": "law",
+      "source": "č. 273/2008 Sb."
+    },
+    {
+      "claim": "Novela se týká zákona č. 89/2012 Sb., občanský zákoník.",
+      "kind": "law",
+      "source": "č. 89/2012 Sb."
+    },
+    {
+      "claim": "Andrej Babiš má peněžní vazbu na Kostelecké uzeniny a.s. v souhrnné výši 254 454 304 Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu); podnikatelský okruh Agrofert nesouvisí s předmětem novely (toulavá a opuštěná zvířata, množírny, oprávnění Policie ČR, vlastnictví nalezeného zvířete).",
+      "kind": "graph_fact",
+      "source": "company:ico:46900411"
+    },
+    {
+      "claim": "Boris Šťastný má peněžní vazbu na Pražské služby, a.s. v souhrnné výši 53 271 958 488 Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu) — institucionální municipální subjekt bez adjacence k předmětu novely.",
+      "kind": "graph_fact",
+      "source": "company:ico:60194120"
+    },
+    {
+      "claim": "Radim Fiala má peněžní vazbu na Lesy města Prostějova, s.r.o. v souhrnné výši 177 151 008 Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu) — institucionální municipální subjekt bez adjacence k předmětu novely.",
+      "kind": "graph_fact",
+      "source": "company:ico:25321692"
+    }
+  ]
+}

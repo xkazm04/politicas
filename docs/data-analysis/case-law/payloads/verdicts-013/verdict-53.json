@@ -1,0 +1,37 @@
+{
+  "billTisk": 53,
+  "statedReasoning": "Vládní návrh (sněmovní tisk 53), předkládaný ministrem průmyslu a obchodu Lukášem Vlčkem jako zástupcem vládního navrhovatele, je podle důvodové zprávy transpoziční novelou implementující směrnici (EU) 2024/825 (posílení postavení spotřebitelů v zelené transformaci — zákaz klamavých environmentálních tvrzení a předčasného zastarávání výrobků, novelizace směrnic 2005/29/ES a 2011/83/EU) a směrnici (EU) 2024/1799 (prodloužení záruční doby po opravě vadné věci), spolu s legislativně-technickým promítnutím zrušení nařízení (EU) č. 524/2013 o řešení spotřebitelských sporů on-line nařízením (EU) 2024/3228. Mění zákon č. 634/1992 Sb., o ochraně spotřebitele (čl. I, 45 bodů), a zákon č. 89/2012 Sb., občanský zákoník (čl. II, 18 bodů). Cílem je rozšířit seznam vždy zakázaných klamavých obchodních praktik v příloze č. 1 zákona o ochraně spotřebitele o 12 nových položek mířících na tzv. greenwashing a plánované zastarávání, zavést definice environmentálního tvrzení, označení udržitelnosti a systému certifikace, rozšířit informační povinnosti prodávajícího o opravitelnosti a životnosti výrobků a prodloužit záruční dobu po první opravě vadné věci (nové § 2165 odst. 4 a § 2168 občanského zákoníku).",
+  "researchedContext": "Novela se věcně netýká odvětví, ve kterém by měl navrhovatel nebo sponzor přímou obchodní návaznost — v případovém spisu není u žádného z nich uvedena žádná sektorová vazba na předmět úpravy. Vlastní text tisku 53 má ovšem legislativně-technickou zvláštnost související s pořadím přijímání souběžných novel: čl. I bod 18 (mění § 23 odst. 2 písm. a) a § 23d zákona o ochraně spotřebitele) a čl. I bod 29 (nový § 24 odst. 18 téhož zákona) odkazují na § 2174a odst. 1 občanského zákoníku, avšak čl. II tisku 53, který mění občanský zákoník v 18 bodech, ustanovení § 2174a nikde nezavádí ani neupravuje. Ustanovení § 2174a tedy musí vzniknout jinou, samostatně projednávanou novelou občanského zákoníku. Tomu odpovídá i to, že novelizační věta k oběma měněným zákonům v čl. I i čl. II končí odkazem na dosud číselně nepřidělený předpis („zákona č. …/2025 Sb.“), tj. na zákon, který má nabýt platnosti dříve, ale v době přípravy tisku 53 ještě nemá přiděleno číslo Sbírky zákonů. Jde o vztah mezi souběžně projednávanými vládními novelami (závislost na pořadí nabytí účinnosti), nikoli o věcnou vadu tisku 53 samotného.",
+  "unstatedEffects": [
+    {
+      "effect": "Skutková podstata nového přestupku podle § 24 odst. 18 zákona o ochraně spotřebitele (čl. I bod 29) i odkaz v § 23 odst. 2 písm. a) a § 23d téhož zákona (čl. I bod 18) se opírají o § 2174a odst. 1 občanského zákoníku, který tisk 53 sám nezavádí ani neobsahuje mezi 18 body čl. II. Pokud by novela zavádějící § 2174a nabyla účinnosti později než tisk 53 nebo v odlišném znění, byl by tento odkaz — a s ním i nová sankce za nevydání záručního listu — dočasně nebo trvale nevymahatelný. Důvodová zpráva tuto závislost na jiné, souběžně projednávané novele nezmiňuje.",
+      "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou spotřebitelé, jejichž právo na záruční list by zůstalo bez sankce vymahatelné, a poskytovatelé záruky, u nichž by nová skutková podstata přestupku fakticky nenabyla účinku, dokud předpis zavádějící § 2174a občanského zákoníku nenabude platnosti.",
+      "evidence": "Zákon č. 634/1992 Sb., čl. I body 18 a 29 (§ 23 odst. 2 písm. a), § 23d a nový § 24 odst. 18) — vládní návrh, sněmovní tisk 53; § 2174a občanského zákoníku není zaveden ani měněn 18 body čl. II tisku 53."
+    }
+  ],
+  "conflictAssessment": "Sponzorem je poslanec Lukáš Vlček; v případovém spisu je u něj uvedeno šest peněžních vazeb na společnosti a spolky (SOMPO, a.s.; PEVAK Pelhřimov, družstvo; W.H.V. Projekt spol. s r.o.; Via rustica z.s.; PRO VYSOČINU, občanské sdružení; Společenství vlastníků jednotek Nádražní čp. 767 Pacov). Všechny tyto vazby dosud čekají na lidské ověření (nejsou potvrzené) a v součtu jde o doložené smluvní vztahy v hodnotě přibližně 12,4 mil. Kč — jde o součet dosud neověřených smluv, nikoli o podíl nebo majetkovou držbu. Žádná z těchto vazeb neleží v odvětví, které novela věcně upravuje — maloobchod, e-commerce, výrobci spotřebního zboží nebo poskytovatelé záruk; jde o vodárenské družstvo, projekční firmu, občanská sdružení a společenství vlastníků jednotek. Sektorová vazba na předmět novely proto v případovém spisu není uvedena a nebyl zjištěn žádný střet zájmů.",
+  "severity": "low",
+  "confidence": 3,
+  "citations": [
+    {
+      "claim": "Tisk 53 je vládním návrhem transponujícím směrnici (EU) 2024/825 a (EU) 2024/1799 a promítajícím zrušení nařízení (EU) č. 524/2013 nařízením (EU) 2024/3228 do zákona č. 634/1992 Sb. a zákona č. 89/2012 Sb.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=53&ct1=0"
+    },
+    {
+      "claim": "Čl. I bod 29 zavádí nový § 24 odst. 18 zákona o ochraně spotřebitele odkazující na § 2174a odst. 1 občanského zákoníku, který čl. II tisku 53 nezavádí.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=53&ct1=0"
+    },
+    {
+      "claim": "Zákon č. 634/1992 Sb., o ochraně spotřebitele, je novelizován v 45 bodech čl. I.",
+      "kind": "law",
+      "source": "634/1992"
+    },
+    {
+      "claim": "Zákon č. 89/2012 Sb., občanský zákoník, je novelizován v 18 bodech čl. II.",
+      "kind": "law",
+      "source": "89/2012"
+    }
+  ]
+}

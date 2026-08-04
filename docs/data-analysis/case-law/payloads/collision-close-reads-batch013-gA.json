@@ -1,0 +1,125 @@
+{
+ "generatedAt": "2026-08-04T00:00:00.000Z",
+ "batch": 13,
+ "group": "A",
+ "classificationVocabulary": [
+  "confirmed-collision",
+  "coordination-risk",
+  "incidental"
+ ],
+ "classificationCounts": {
+  "confirmed-collision": 0,
+  "coordination-risk": 8,
+  "incidental": 0
+ },
+ "coverage": {
+  "pairsRead": 8,
+  "pairsAssigned": 8
+ },
+ "pairs": [
+  {
+   "pairId": "64-121-586-1992",
+   "lawRef": "586/1992",
+   "billA": 64,
+   "billB": 121,
+   "sharedParagraph": "35c",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 64, bod 320: '320. V § 35c odst. 7 se část věty za středníkem včetně středníku zrušuje.' -- ruší se obsoletní část textu odstavce 7 (technická úprava po zrušení limitu daňového bonusu zákonem č. 609/2020 Sb., viz důvodová zpráva k bodu 320).",
+    "billBExcerpt": "tisk 121, Čl. I: 'V § 35c odst. 1 zákona č. 586/1992 Sb., o daních z příjmů... se částka „15204 Kč“ nahrazuje částkou „22380 Kč“, částka „22320 Kč“ se nahrazuje částkou „29808 Kč“ a částka „27840 Kč“ se nahrazuje částkou „37176 Kč“.' -- navyšuje částky daňového zvýhodnění na děti v odstavci 1."
+   },
+   "reasoning": "Obě novely míří do § 35c, ale do odlišných odstavců: tisk 64 provádí legislativně technický úklid v odstavci 7 (ruší obsoletní část věty za středníkem, navazující na zrušení limitu daňového bonusu zákonem č. 609/2020 Sb.), zatímco tisk 121 mění konkrétní částky daňového zvýhodnění v odstavci 1. Instrukce se textově nepřekrývají a obě mohou být provedeny nezávisle na sobě -- nejde o kolizi ve smyslu vzájemně se vylučujících zásahů, ale o souběh dvou novel téhož paragrafu, který při sloučení do jednoho konsolidovaného znění vyžaduje koordinaci pořadí (podobně jako u trojice 120/189/244 na § 35ba z dávky 011, případně dvojice 64×120 na § 35c/38gb -- tato dvojice tedy patří do stejného shlukového sousedství novel slevy na dani, ale odlišné odstavce vylučují přímou textovou kolizi)."
+  },
+  {
+   "pairId": "121-189-586-1992",
+   "lawRef": "586/1992",
+   "billA": 121,
+   "billB": 189,
+   "sharedParagraph": "35c",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 121, Čl. I: 'V § 35c odst. 1 zákona č. 586/1992 Sb., o daních z příjmů... se částka „15204 Kč“ nahrazuje částkou „22380 Kč“, částka „22320 Kč“ se nahrazuje částkou „29808 Kč“ a částka „27840 Kč“ se nahrazuje částkou „37176 Kč“.' -- navyšuje částky daňového zvýhodnění na děti v odstavci 1.",
+    "billBExcerpt": "tisk 189, bod 16: '16. V § 35c odst. 6 písm. b) bod 1 zní: „1. soustavně se připravuje na budoucí povolání,“.' -- mění definiční ustanovení v odstavci 6 písm. b) bodu 1 (sjednocení terminologie s § 35bc odst. 3, viz důvodová zpráva k bodu 16)."
+   },
+   "reasoning": "I zde jde o dvě novely téhož § 35c, ale opět do odlišných odstavců -- tisk 121 do odstavce 1 (výše částek daňového zvýhodnění), tisk 189 do odstavce 6 písm. b) bodu 1 (definice přípravy na budoucí povolání, legislativně technická unifikace terminologie napříč zákonem). Text obou instrukcí se nikde nepřekrývá a obě mohou platit současně bez rozporu v adresaci. Klasifikováno jako coordination-risk, neboť jde o souběžné novely stejného paragrafu vyžadující sloučení v konsolidovaném znění, nikoli o vzájemně se vylučující zásahy -- dvojice tak rozšiřuje shlukové sousedství novel slevy na dani (§ 35ba/§ 35c) identifikované v dávkách 011/013, aniž by šlo o třetí uzel přímé kolize."
+  },
+  {
+   "pairId": "7-67-2-1969",
+   "lawRef": "2/1969",
+   "billA": 7,
+   "billB": 67,
+   "sharedParagraph": "2",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 7, Čl. II, bod 1: '1. V § 2 v bodě 14 se slova „dohled nad hospodařením politických stran a politických hnutí“ nahrazují slovy „prevenci korupce a střetu zájmů“.' -- přejmenovává působnost úřadu v bodě 14 výčtu ústředních orgánů státní správy.",
+    "billBExcerpt": "tisk 67, Čl. III, bod 1: '1. V § 2 se na konci bodu 19 tečka nahrazuje čárkou a doplňuje se nový bod 20, který zní: „20. Úřad rozvoje území České republiky.“.' -- doplňuje nový bod 20 na konec výčtu ústředních orgánů v § 2."
+   },
+   "reasoning": "Obě novely mění výčtové ustanovení § 2 zákona o zřízení ministerstev, ale každá jiný bod: tisk 7 přeformulovává text bodu 14 (přejmenování úřadu na dohled nad politickými stranami na úřad pro prevenci korupce a střetu zájmů), tisk 67 pouze doplňuje zcela nový bod 20 na konec seznamu (a upravuje interpunkci za bodem 19). Adresace se nekříží -- vložení nového bodu 20 nijak neposouvá ani nepřepisuje bod 14. Jde o typický souběh dvou nezávislých doplnění jednoho výčtového paragrafu, který je nutné při slučování novel seřadit (aby se předešlo dvojímu zápisu tečka/čárka na konci seznamu), proto coordination-risk, nikoli confirmed-collision."
+  },
+  {
+   "pairId": "64-103-187-2006",
+   "lawRef": "187/2006",
+   "billA": 64,
+   "billB": 103,
+   "sharedParagraph": "84",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 64, Čl. ..., § 84 odst. 2: 'V § 84 odst. 2 zákona č. 187/2006 Sb., o nemocenském pojištění... se v písmeni q) slova „účetní evidenci“ nahrazují slovy „evidenci pro účely účetnictví“.' -- upravuje terminologii v písmenu q).",
+    "billBExcerpt": "tisk 103, čl. V: 'V § 84 odst. 2 se za písmeno w) vkládá nové písmeno x), které včetně poznámky pod čarou zní: „x) informují neprodleně Digitální a informační agenturu' -- tisk 103 do § 84 odst. 2 vkládá nové písmeno x) (informační povinnost vůči DIA), aniž by zasahoval do písmene q), které mění tisk 64."
+   },
+   "reasoning": "Obě novely zasahují do § 84 odst. 2, ale do různých písmen výčtu povinností: tisk 64 mění terminologii v písmenu q) (nahrazuje „účetní evidenci“ slovy „evidenci pro účely účetnictví“), tisk 103 upravuje interpunkci na konci písmene w) a za ně vkládá zcela nové písmeno x). Písmena q) a w)/x) leží v odlišných částech výčtu a instrukce se navzájem nevylučují -- lze je provést v libovolném pořadí, aniž by jedna zničila text, do kterého cílí druhá. Jde o coordination-risk: shodný odstavec vyžaduje při konsolidaci sladit pořadí novelizačních bodů, ale k faktické kolizi adresace nedochází."
+  },
+  {
+   "pairId": "77-109-187-2006",
+   "lawRef": "187/2006",
+   "billA": 77,
+   "billB": 109,
+   "sharedParagraph": "84b",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 77, Čl. XXII, bod 7: '7. V § 84b odst. 2 se věta poslední zrušuje.' -- ruší poslední větu odstavce 2 § 84b.",
+    "billBExcerpt": "tisk 109, Čl. I, bod 7: '7. V § 84b odst. 1 písm. e) se slova „a v § 57 odst. 3 a 5“ nahrazují slovy „, v § 57 odst. 3 a 5 nebo v § 72c odst. 3“.' -- rozšiřuje odkaz v písmenu e) odstavce 1 o nový odkaz na § 72c odst. 3 (navazuje na zavedení souhlasu podle § 72c odst. 3, viz důvodová zpráva k bodu 7)."
+   },
+   "reasoning": "Instrukce míří do odlišných odstavců téhož § 84b -- tisk 77 ruší poslední větu odstavce 2, tisk 109 mění text v písmenu e) odstavce 1. Adresace se nepřekrývá a zásah jedné novely nemění text, do kterého cílí druhá; obě mohou být provedeny nezávisle. Klasifikováno jako coordination-risk, protože jde o souběžné novely stejného paragrafu, jejichž pořadí je při sloučení do jednoho konsolidovaného znění nutné ošetřit, nikoli o instrukce, které by se vzájemně vylučovaly."
+  },
+  {
+   "pairId": "64-86-427-2011",
+   "lawRef": "427/2011",
+   "billA": 64,
+   "billB": 86,
+   "sharedParagraph": "3",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 64, Čl. ..., bod 1: '1. V § 3 písm. q) se slova „zákona upravujícího účetnictví“ nahrazují slovy „účetních předpisů“.' -- terminologická úprava v písmenu q).",
+    "billBExcerpt": "tisk 86, Čl. I, bod 1: '1. V § 3 se na konci písmene v) tečka nahrazuje čárkou a doplňují se písmena w) a x), která znějí: „w) fondem soukromého kapitálu investiční fond... x) fondem rizikového kapitálu investiční fond...“.' -- doplňuje nová písmena w) a x) definičního výčtu za písmeno v)."
+   },
+   "reasoning": "Tisk 64 novým slovním zněním upravuje písmeno q) v definičním § 3 (sjednocení odkazu na účetní předpisy), tisk 86 pak doplňuje na konec výčtu zcela nová písmena w) a x) (definice fondu soukromého a rizikového kapitálu). Písmeno q) leží mimo dosah zásahu za písmenem v) a naopak -- žádná z novel neničí text, do kterého se snaží zapsat druhá, ani nemění číslování písmen, kterým se odkazuje písmeno q). Opakuje se zde profil dvojice 64 (úzká terminologická úprava jednoho písmene) proti jiné novele doplňující nová písmena na konec výčtu -- typický vzorec chování tisku 64 (úzký zásah do existujícího textu) v kombinaci s vkládací novelou. Jelikož se adresace fakticky nekříží, jde o coordination-risk, nikoli o kolizi."
+  },
+  {
+   "pairId": "7-68-222-2016",
+   "lawRef": "222/2016",
+   "billA": 7,
+   "billB": 68,
+   "sharedParagraph": "20",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 7, Čl. XVIII: 'V § 20 odst. 1 zákona č. 222/2016 Sb., o Sbírce zákonů a mezinárodních smluv... písmeno j) zní: „j) informace o lobbování, na základě kterého byl předložen návrh právního předpisu nebo návrh právního předpisu doznal změn...“.' -- nahrazuje celé písmeno j) odstavce 1 novým zněním o informacích o lobbování.",
+    "billBExcerpt": "tisk 68, Čl. XI: '...se na konci písmene c) doplňuje bod 10, který zní: „10. dopad na příjmy a výdaje domácností, na rozdělení těchto příjmů a výdajů mezi domácnosti a na míru nerovnosti v tomto rozdělení,“.' -- doplňuje nový bod 10 do písmene c) odstavce 2 (transpozice CELEX 32024L1265)."
+   },
+   "reasoning": "Tisk 7 nahrazuje celé písmeno j) odstavce 1 § 20 (rozsah informací o lobbování), zatímco tisk 68 doplňuje nový bod 10 do písmene c) odstavce 2 (dopad na příjmy a výdaje domácností, transpozice unijní směrnice). Jde o zcela odlišné odstavce (1 vs. 2) i odlišná písmena, instrukce se textově vůbec nedotýkají stejného místa a nemohou se vzájemně zničit. Deterministická předkontrola proto správně nenašla žádný překryv na úrovni odstavce (odstavecOverlap je prázdné) -- přesto jde o dvě souběžné novely téhož paragrafu, jejichž pořadí je třeba při konsolidaci ošetřit, proto coordination-risk. Tato dvojice je zároveň součástí rodiny tisk 68 / tisk 90: viz pár 7×90 níže -- text nově vkládaného bodu 10 je mezi tiskem 68 a tiskem 90 bajtově identický, byť uvozující novelizační věta se liší (tisk 90 má navíc dílčí krok upravující interpunkci v bodě 8, a formuluje vložení bodu 10 jako záměnu čárky za slovo „a“, zatímco tisk 68 jde přímo k doplnění bodu)."
+  },
+  {
+   "pairId": "7-90-222-2016",
+   "lawRef": "222/2016",
+   "billA": 7,
+   "billB": 90,
+   "sharedParagraph": "20",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 7, Čl. XVIII: 'V § 20 odst. 1 zákona č. 222/2016 Sb., o Sbírce zákonů a mezinárodních smluv... písmeno j) zní: „j) informace o lobbování, na základě kterého byl předložen návrh právního předpisu nebo návrh právního předpisu doznal změn...“.' -- nahrazuje celé písmeno j) odstavce 1 novým zněním o informacích o lobbování.",
+    "billBExcerpt": "tisk 90, Čl. XI, body 1-2: '1. V § 20 odst. 2 písm. c) bodě 8 se slovo „a“ nahrazuje čárkou. 2. V § 20 odst. 2 se na konci písmene c) čárka nahrazuje slovem „a“ a doplňuje se bod 10, který zní: „10. dopad na příjmy a výdaje domácností, na rozdělení těchto příjmů a výdajů mezi domácnosti a na míru nerovnosti v tomto rozdělení,“.' -- upravuje interpunkci bodu 8 a doplňuje bod 10 do písmene c) odstavce 2."
+   },
+   "reasoning": "Stejně jako v páru 7×68 míří tisk 7 do písmene j) odstavce 1, zatímco tisk 90 doplňuje bod 10 do písmene c) odstavce 2 -- odlišné odstavce i písmena, žádný textový průnik, tedy coordination-risk. Tento pár je navíc členem rodiny obsahující tisk 68: text nově vkládaného bodu 10 v písmenu c) odstavce 2 -- „10. dopad na příjmy a výdaje domácností, na rozdělení těchto příjmů a výdajů mezi domácnosti a na míru nerovnosti v tomto rozdělení,“ -- je mezi tiskem 90 a tiskem 68 bajtově identický (shodná transpozice CELEX 32024L1265). Uvozující novelizační věta se ale liší: tisk 68 jde přímo „se na konci písmene c) doplňuje bod 10, který zní“, zatímco tisk 90 formuluje totéž ve dvou krocích (bod 1: oprava interpunkce v bodě 8 písmene c) -- slovo „a“ na čárku; bod 2: záměna čárky za slovo „a“ na konci písmene c) a teprve poté doplnění bodu 10). Tisk 90 tedy obsahuje tiskem 68 zavedenou hmotněprávní změnu jako svou podmnožinu, obalenou jedním přípravným krokem navíc -- přesně podle vzorce 'tisk 90 obsahuje tisk 68' popsaného ve struktuře dávky. Klasifikace vůči tisku 7 je proto shodná s párem 7×68: coordination-risk, se stejnou rodinnou poznámkou uvedenou i v tomto záznamu."
+  }
+ ]
+}

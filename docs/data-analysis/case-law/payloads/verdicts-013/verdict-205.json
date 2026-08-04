@@ -1,0 +1,52 @@
+{
+  "billTisk": 205,
+  "statedReasoning": "Novela mění pouze § 28 odst. 3 zákona č. 2/1969 Sb. (kompetenční zákon) a výslovně zakotvuje, že Úřad vlády ČR plní koordinační úlohu v oblasti ochrany lidských práv, rovného zacházení a práv menšin, občanské společnosti a rovnosti žen a mužů (včetně prevence a řešení souvisejících forem násilí) a dále úkoly spojené s meziresortní koordinací protidrogové politiky. Důvodová zpráva tvrdí, že jde o kodifikaci již fakticky vykonávané činnosti (zmocněnci vlády, rady vlády pro lidská práva, pro koordinaci politiky v oblasti závislostí, pro rovné příležitosti žen a mužů, pro národnostní menšiny), která dosud stojí na usneseních vlády a statutech rad, nikoli na výslovném zákonném zmocnění. Zakotvení je odůvodněno i právem EU (směrnice ukládající určení ústředního orgánu pro agendu rovnosti a nediskriminace). Předkladatelé tvrdí nulový dopad na státní rozpočet i na podnikatelské prostředí.",
+  "researchedContext": "Ověřením textu novely bylo potvrzeno, že jde o jedinou věcnou změnu — nové znění § 28 odst. 3 — bez další systémové úpravy kompetenčního zákona. Návrh skutečně jen přenáší do zákonného textu agendy, které Úřad vlády podle důvodové zprávy fakticky již vykonává prostřednictvím zmocněnců a poradních orgánů vlády (např. Rada vlády pro lidská práva, Rada vlády pro koordinaci politiky v oblasti závislostí). Novela nezakládá žádnou novou pravomoc vůči třetím osobám, nemění působnost jiných ministerstev ani nezasahuje do rozpočtového určení daní či veřejných zakázek. Účinnost je navržena k 1. 1. 2027.",
+  "unstatedEffects": [
+    {
+      "effect": "Zákonné zakotvení průřezové koordinační role Úřadu vlády pro čtyři samostatné agendy (lidská práva, rovnost a menšiny, protidrogová politika, prevence násilí) vytváří trvalý právní nárok na personální a organizační kapacity Úřadu vlády, ačkoli důvodová zpráva v bodě 4 tvrdí, že návrh \"nebude mít dopad na výdaje státního rozpočtu\" — tvrzení se opírá jen o to, že agendy jsou dnes fakticky již vykonávány na základě usnesení vlády, nikoli o rozpočtovou analýzu budoucího rozsahu úkolů po jejich zákonném zakotvení.",
+      "whoBenefits": "Nelze jednoznačně určit — dotčen je Úřad vlády ČR jako instituce, jejíž zákonná působnost se rozšiřuje, nikoli konkrétní osoba.",
+      "evidence": "Důvodová zpráva, bod 4: \"Navrhovaná právní úprava nebude mít dopad na výdaje státního rozpočtu ani na rozpočty územních samosprávných celků.\""
+    }
+  ],
+  "conflictAssessment": "Předkladateli jsou Barbora Urbanová, Vít Rakušan, Karel Dvořák, Lukáš Vlček a Adriana Chochelová (poslanecký návrh). Urbanová, Dvořák a Chochelová nemají v grafu evidované žádné peněžní vazby. Rakušanovy vazby (Vodní cesty na Labi, o.p.s. — 0 Kč; Změna pro Kolín z.s. — 0 Kč; SVJ Rimavské Soboty Kolín — 0 Kč; Nadační fond Gymnázia Kutná Hora — 200 000 Kč, úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu) jsou neziskové/komunitní subjekty bez vztahu k působnosti Úřadu vlády v oblasti lidských práv, menšin či protidrogové politiky. Vlčkovy vazby (SOMPO, a.s. — obecní svazková firma pro odpadové hospodářství, 9 174 258 Kč; PEVAK Pelhřimov, družstvo — vodárenské družstvo, 1 234 888 Kč; W.H.V. Projekt spol. s r.o. — 0 Kč; Via rustica z.s. — 2 008 259 Kč; PRO VYSOČINU — 0 Kč; SVJ Nádražní Pacov — 0 Kč), kde nenulové částky jsou úhrnem veřejných smluv dané firmy evidovaným v grafu a čekají na lidskou kontrolu, jsou komunální/vodárenské a odpadové subjekty ve Vysočině, věcně mimo předmět novely (kompetence Úřadu vlády). Novela nezakládá žádnou úpravu dotační, zakázkové ani regulační povahy, která by se dotýkala kterékoli z uvedených firem. Nejde o konflikt zájmů — jde o čistě institucionální, kompetenční úpravu bez adjacence k obchodním zájmům předkladatelů.",
+  "severity": "low",
+  "confidence": 5,
+  "citations": [
+    {
+      "claim": "Novela mění § 28 odst. 3 zákona č. 2/1969 Sb. a zakotvuje koordinační roli Úřadu vlády pro lidská práva, rovnost a menšiny, občanskou společnost a protidrogovou politiku.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=205&ct1=0"
+    },
+    {
+      "claim": "Důvodová zpráva, bod 4: \"Navrhovaná právní úprava nebude mít dopad na výdaje státního rozpočtu ani na rozpočty územních samosprávných celků.\"",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=205&ct1=0"
+    },
+    {
+      "claim": "Zákon dotčený novelou je zákon č. 2/1969 Sb. (kompetenční zákon).",
+      "kind": "law",
+      "source": "č. 2/1969 Sb."
+    },
+    {
+      "claim": "Vít Rakušan má peněžní vazbu na Nadační fond Gymnázia Kutná Hora v souhrnné výši 200 000 Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu); ostatní jeho vazby vykazují 0 Kč.",
+      "kind": "graph_fact",
+      "source": "company:ico:68404999"
+    },
+    {
+      "claim": "Lukáš Vlček má peněžní vazbu na SOMPO, a.s. v souhrnné výši 9 174 258 Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu).",
+      "kind": "graph_fact",
+      "source": "company:ico:25172263"
+    },
+    {
+      "claim": "Lukáš Vlček má peněžní vazbu na PEVAK Pelhřimov, družstvo, v souhrnné výši 1 234 888 Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu).",
+      "kind": "graph_fact",
+      "source": "company:ico:26039907"
+    },
+    {
+      "claim": "Historie projednávání tisku 205 a jeho přikázání k projednání ÚPV.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=205"
+    }
+  ]
+}

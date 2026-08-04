@@ -9,7 +9,7 @@
    "evidence": "Čl. VIII bod 1 (nový § 12 zákona č. 326/1999 Sb. s odkazem CELEX 32016R0399) a navazující body upravující § 31, § 42 a § 44a téhož zákona."
   }
  ],
- "conflictAssessment": "Sponzorem návrhu v grafu je Lubomír Metnar, u kterého nejsou evidovány žádné peněžní vazby (moneyTies je prázdné pole), a batch-010 u tohoto tisku nepřiřadil žádný sektorový lead (sectorAdjacency: false, attributedSectorLeads: []). Bez doložené soukromé ekonomické vazby předkladatele k dotčeným odvětvím (cizinecké právo, azylové řízení, trestní represe převaděčství) nelze na základě dostupných dat v grafu formulovat žádné doložitelné tvrzení o střetu zájmů. Jde o vládní bezpečnostní návrh podávaný ministrem vnitra, u něhož analýza peněžních vazeb nezjistila žádný signál k prošetření; jediným zjištěným rizikem je věcný přesah titulu popsaný výše v unstatedEffects, nikoli konflikt zájmů předkladatele.",
+ "conflictAssessment": "Sponzorem návrhu v grafu je Lubomír Metnar, u kterého nejsou evidovány žádné peněžní vazby, a odvětvová analýza u tohoto tisku nepřiřadila žádný sektorový lead (bez odvětvového signálu v datech). Bez doložené soukromé ekonomické vazby předkladatele k dotčeným odvětvím (cizinecké právo, azylové řízení, trestní represe převaděčství) nelze na základě dostupných dat v grafu formulovat žádné doložitelné tvrzení o střetu zájmů. Jde o vládní bezpečnostní návrh podávaný ministrem vnitra, u něhož analýza peněžních vazeb nezjistila žádný signál k prošetření; jediným zjištěným rizikem je věcný přesah titulu popsaný výše v unstatedEffects, nikoli konflikt zájmů předkladatele.",
  "severity": "medium",
  "confidence": 3,
  "citations": [
@@ -29,7 +29,7 @@
    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=213&ct1=0"
   },
   {
-   "claim": "Sponzor návrhu Lubomír Metnar nemá v grafu evidované žádné peněžní vazby a batch-010 tomuto tisku nepřiřadil žádný sektorový lead.",
+   "claim": "Sponzor návrhu Lubomír Metnar nemá v grafu evidované žádné peněžní vazby a odvětvová analýza tomuto tisku nepřiřadila žádný sektorový lead.",
    "kind": "graph_fact",
    "source": "bill:tisk:43335"
   }

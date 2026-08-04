@@ -1,0 +1,37 @@
+{
+  "billTisk": 140,
+  "statedReasoning": "Zastupitelstvo Pardubického kraje (zákonodárná iniciativa, podepsán hejtman Martin Netolický) navrhuje nahradit dosavadní fixní přílohu č. 1 zákona č. 243/2000 Sb. (procenta jednotlivých krajů na sdíleném daňovém výnosu, nastavená reformou z let 2001–2005) novým výpočtovým modelem s osmi objektivními kritérii a váhami: počet obyvatel kraje 40 %, počet km silnic II. a III. třídy 20 %, rozloha kraje 13 %, podíl počtu obcí k rozloze kraje 8 %, vyrovnávací koeficient 7 %, počet výjezdových základen zdravotnické záchranné služby 6 %, počet dětí/žáků/studentů škol zřizovaných krajem 4 % a počet urgentních příjmů typu I v krajských nemocnicích 2 %, s každoroční aktualizací vyhláškou Ministerstva financí. Důvodová zpráva odůvodňuje návrh tím, že dosavadní téměř dvacet let neměnné rozdělení neodráží vývoj objemu činností krajů, a výslovně uvádí, že návrh nemá dopad na státní rozpočet, neboť se pouze mění mechanismus rozdělení téhož celkového podílu krajů, nikoli jeho výše (10,23 % z příslušných sdílených daní zůstává nezměněno).",
+  "researchedContext": "Text potvrzuje, že se návrh omezuje na přerozdělovací mechanismus mezi 14 kraji a nezvyšuje podíl krajů na sdílených daních na úkor státního rozpočtu (\"Předložený návrh nemá vliv na navýšení sdíleného výnosu z vybraných daní na úkor státního rozpočtu\"). Srovnání znění obou tisků odhaluje střet: tisk 140 a tisk 141 pocházejí od téhož předkladatele (zákonodárná iniciativa Pardubického kraje, hejtman Netolický) a obě novely přepisují stejný § 3 odst. 2–6 zákona č. 243/2000 Sb. — nejde však o prostou duplicitu, ale o dvě vzájemně neslučitelné verze téže reformy: tisk 140 zachovává hl. m. Prahu ve stejném výpočtovém poolu jako ostatní kraje a nemění procento sdíleného výnosu (10,23 % beze změny), zatímco tisk 141 vyjímá Prahu z části kritérií (\"s výjimkou hlavního města Prahy\") a současně zvyšuje sdílený výnos z 10,23 % na 10,97 % — tedy skutečně zasahuje do státního rozpočtu, na rozdíl od tisku 140. Přijetí obou tisků v nezměněné podobě by vedlo k přímo kolidujícím zněním § 3 zákona o RUD.",
+  "unstatedEffects": [
+    {
+      "effect": "Nahrazení fixních historických procentuálních podílů z let 2001–2005 novým modelem s vahou 40 % na počet obyvatel a 20 % na délku silnic II. a III. třídy nutně mění meziroční příjmy jednotlivých krajů (důvodová zpráva to výslovně přiznává obecnou větou), avšak žádná část důvodové zprávy neobsahuje propočet, o kolik se podíl kterého konkrétního kraje oproti dosavadní příloze č. 1 zvýší nebo sníží.",
+      "whoBenefits": "z textu ani z grafu nelze bez samostatného přepočtu podle nových kritérií určit, které konkrétní kraje by byly čistými příjemci a které čistými plátci reformy — důvodová zpráva tento propočet neobsahuje",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=140&ct1=0"
+    }
+  ],
+  "conflictAssessment": "Předkladatelem je Zastupitelstvo Pardubického kraje, nikoli poslanec nebo skupina poslanců — u tohoto tisku proto v datech není evidován žádný poslanecký sponzor ani peněžní vazba, protože rámec střetu zájmů založený na majetkových vazbách jednotlivých poslanců se na krajskou zákonodárnou iniciativu nevztahuje stejným způsobem: předkladatelem je kolektivní orgán územní samosprávy, nikoli fyzická osoba s podnikatelskými vazbami evidovanými v grafu. Krajský/komunální mandát sám o sobě není podle zadání konfliktem zájmů. Žádný střet zájmů proto nelze a ani nelze z povahy věci konstatovat; jde o poctivou negativní zprávu vyplývající z konstrukce podání, nikoli o mezeru ve zjišťování.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Návrh nahrazuje přílohu č. 1 zákona č. 243/2000 Sb. modelem s osmi kritérii (obyvatelé 40 %, silnice II. a III. třídy 20 %, rozloha 13 %, obce/rozloha 8 %, vyrovnávací koeficient 7 %, výjezdové základny ZZS 6 %, žáci/studenti 4 %, urgentní příjmy typu I 2 %) a výslovně uvádí, že nemá dopad na státní rozpočet, protože se nemění celkový podíl krajů na sdílených daních, jen jeho rozdělení mezi kraje.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=140&ct1=0"
+    },
+    {
+      "claim": "Tisk 140 nemění § 3 odst. 1 zákona č. 243/2000 Sb. (procento 10,23 % zůstává), zatímco tisk 141 od téhož předkladatele (Pardubický kraj, hejtman Netolický) totéž procento v § 3 odst. 1 písm. b) až g) zvyšuje na 10,97 % a zároveň vyjímá hlavní město Prahu z části přerozdělovacích kritérií — obě novely přepisují stejný § 3 zákona o RUD vzájemně neslučitelným způsobem.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=141&ct1=0"
+    },
+    {
+      "claim": "Reforma mění váhy kritérií oproti fixní příloze č. 1 (nastavené reformou z let 2001–2005), aniž by důvodová zpráva uváděla propočet dopadu na jednotlivé kraje; obecně pouze konstatuje, že jednotlivé kraje zaznamenají různý procentuální podíl meziročního přírůstku příjmů.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=140&ct1=0"
+    },
+    {
+      "claim": "Zákon č. 243/2000 Sb., o rozpočtovém určení daní, je statutem, který tisk 140 novelizuje.",
+      "kind": "law",
+      "source": "243/2000"
+    }
+  ]
+}

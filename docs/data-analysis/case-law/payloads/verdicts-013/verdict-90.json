@@ -1,0 +1,57 @@
+{
+ "billTisk": 90,
+ "statedReasoning": "Vládní návrh (sněmovní tisk 90) je souhrnnou novelou 9 zákonů v oblasti veřejných rozpočtů, kterou předkládá Ministerstvo financí (zástupkyní navrhovatele je ministryně financí Alena Schillerová). Důvodová zpráva jej představuje jako transpozici směrnice (EU) 2024/1265 a adaptaci nařízení (EU) 2024/1263 (reforma evropského Paktu o stabilitě a růstu, nové fiskální pravidlo tzv. růstu čistých výdajů) do zákona č. 23/2017 Sb., o pravidlech rozpočtové odpovědnosti, doplněnou o rozsáhlý soubor legislativně-technických a zefektivňujících úprav zákona č. 218/2000 Sb., o rozpočtových pravidlech, a dalších sedmi navazujících zákonů. Zvláštní část k § 20 odst. 1 a 2 zákona č. 218/2000 Sb. výslovně uvádí, že Poslanecká sněmovna dosud předkládané zprávy o plnění státního rozpočtu pouze brala na vědomí a svým usnesením v nich neschvalovala žádné parametry hospodaření — návrh proto mění adresáta pololetní zprávy z pléna na rozpočtový výbor (odůvodněno jako zefektivnění a snížení administrativy) a čtvrtletní informace o plnění státního rozpočtu, které již dosud chodily pouze rozpočtovému výboru, ruší úplně s odůvodněním, že je nahrazují měsíční tiskové zprávy Ministerstva financí. Novela dále zavádí novou Hlavu VIII (§ 31 a § 32 zákona č. 218/2000 Sb.), která vládě, případně ministru financí, umožňuje překročit celkové výdaje státního rozpočtu až o 10 % v době stavu ohrožení státu, válečného stavu nebo zhoršené bezpečnostní situace posouzené vládou na doporučení Bezpečnostní rady státu.",
+ "researchedContext": "Textová kolace potvrzuje, že tisk 90 v části osmé (čl. XII, novelizující zákon č. 23/2017 Sb.) přejímá prakticky doslovně sdílené jádro tisku 68 (jeho čl. I) — nové znění § 1, zrušení § 3 písm. f), nová Hlava o fiskálně-strukturálním plánu (§ 9, § 9a), únikové doložky (§ 11) i celá pátá část o zákonu o střetu zájmů jsou v obou tiscích shodné, včetně § 8 odst. 2 zákona č. 218/2000 Sb., kde tisk 90 (čl. II bod 2) přebírá stejné znění, které tisk 68 zavádí ve svém čl. III. Toto je doložená skutečnost souběžného legislativního procesu dvou vládních novel se sdíleným jádrem (dřívější deterministická textová kolace uvádí 36 z 42 novelizačních instrukcí tisku 68 obsažených v tisku 90 doslovně), nikoli tvrzení o pochybení. Tisk 90 je oproti tisku 68 širší veřejnorozpočtový omnibus: mění navíc zákon č. 166/1993 Sb., o Nejvyšším kontrolním úřadu (tisk 68 jej vůbec nenovelizuje), a v rámci zákona č. 218/2000 Sb. doplňuje čl. II o 41 bodů, zatímco tisk 68 v tomto zákoně mění jediné ustanovení (§ 8 odst. 2). Tento přírůstek — nikoli sdílené jádro ZPRO — je vlastním jádrem forenzního nálezu k tisku 90.",
+ "unstatedEffects": [
+  {
+   "effect": "Bod 13 čl. II zcela ruší § 20 odst. 2 zákona č. 218/2000 Sb., tedy zákonnou povinnost předkládat čtvrtletní informace o plnění státního rozpočtu — a to i přesto, že tato povinnost dosud směřovala výhradně k rozpočtovému výboru Poslanecké sněmovny, nikoli k plénu. Zvláštní část zdůvodňuje zrušení tím, že postačí měsíční tiskové zprávy Ministerstva financí zveřejňované na webu. Jde tedy o zrušení zákonem uložené informační povinnosti vůči Parlamentu a její nahrazení nezávaznou komunikací vlastního předkladatele, nikoli o pouhé přeřazení mezi orgány Sněmovny — tento rozměr (zánik parlamentní kontroly, nikoli jen změna jejího adresáta) zvláštní část nepojmenovává.",
+   "whoBenefits": "Nelze jednoznačně určit — dotčeno je Ministerstvo financí, které přestává být vázáno zákonnou lhůtou a formou čtvrtletního reportu Parlamentu, a rozpočtový výbor Poslanecké sněmovny, kterému zaniká zákonem upravený zdroj čtvrtletních informací o plnění státního rozpočtu.",
+   "evidence": "Zákon č. 218/2000 Sb., čl. II bod 13 (zrušení § 20 odst. 2) — vládní návrh, sněmovní tisk 90; zvláštní část k bodu 13 uvádí jako náhradu měsíční tiskové zprávy Ministerstva financí."
+  },
+  {
+   "effect": "Novela mění adresáta několika dalších rozpočtových a kontrolních materiálů z pléna Poslanecké sněmovny na její rozpočtový výbor — pololetní zprávy o plnění státního rozpočtu podle § 20 odst. 1 zákona č. 218/2000 Sb. (bod 12) a stanoviska Nejvyššího kontrolního úřadu ke zprávě o vývoji ekonomiky a plnění státního rozpočtu podle § 5 odst. 2 zákona č. 166/1993 Sb. (čl. I bod 1); u stanoviska ke státnímu závěrečnému účtu podle § 5 odst. 3 novela pouze zkracuje lhůtu ze čtyř na tři měsíce (bod 2), adresát se nemění; obdobně se u dosavadního § 24 odst. 7 zákona č. 218/2000 Sb. (přeznačeného bodem 20 na § 24 odst. 6) bodem 21 mění adresát ze slov „Poslaneckou sněmovnu“/„Poslanecká sněmovna“ na „rozpočtový výbor Poslanecké sněmovny“ — věcný obsah tohoto konkrétního ustanovení není v dostupném textu novely dále rozveden. Jde o přeřazení adresáta u materiálů, které plénum podle vlastní zvláštní části dosud pouze bralo na vědomí a svým usnesením neschvalovalo (nejde tedy o přesun schvalovací pravomoci), zdůvodněné zefektivněním a rychlejším zveřejněním. Zvláštní část nezmiňuje, že se tím zároveň zužuje okruh poslanců, kteří se s materiály seznamují v rámci formálního projednávání.",
+   "whoBenefits": "Nelze jednoznačně určit — dotčena je vláda a Ministerstvo financí, jejichž materiály budou nově projednávat jen členové rozpočtového výboru, a poslanci mimo tento výbor, kterým odpadá přímé seznámení s materiálem na plénu.",
+   "evidence": "Zákon č. 218/2000 Sb., čl. II body 12 a 21 (§ 20 odst. 1, § 24 odst. 6 nově označený z dosavadního odst. 7) a zákon č. 166/1993 Sb., čl. I bod 1 (§ 5 odst. 2 — stanovisko ke zprávě o vývoji ekonomiky a plnění státního rozpočtu) a bod 2 (§ 5 odst. 3 — zkrácení lhůty) — vládní návrh, sněmovní tisk 90."
+  },
+  {
+   "effect": "Nová Hlava VIII zákona č. 218/2000 Sb. (§ 31 a § 32) svěřuje vládě, případně na základě jejího pověření ministru financí, oprávnění překročit celkové schválené výdaje státního rozpočtu až o 10 % nejen v době formálně vyhlášeného stavu ohrožení státu nebo válečného stavu, ale i na základě vlastního rozhodnutí vlády učiněného pouze na doporučení Bezpečnostní rady státu při 'zhoršené bezpečnostní situaci' — tedy i bez formální nouzové deklarace a bez předchozího schválení Poslaneckou sněmovnou. Zvláštní část důvodové zprávy popisuje pouze účel tohoto oprávnění (rychlá reakce, financování obrany), nikoliv skutečnost, že jde zároveň o oslabení parlamentní kontroly nad tímto rozšířeným rozpočtovým manévrovacím prostorem právě v situacích, kdy je fiskální kontrola nejcitlivější.",
+   "whoBenefits": "Nelze jednoznačně určit — dotčena je vláda, resp. ministr financí, kterým návrh svěřuje rozšířenou rozpočtovou diskreci, a Poslanecká sněmovna, jejíž schvalovací role je v těchto situacích oslabena.",
+   "evidence": "Zákon č. 218/2000 Sb., čl. II bod 25 (nová Hlava VIII, § 31 a § 32) — vládní návrh, sněmovní tisk 90."
+  }
+ ],
+ "conflictAssessment": "Předkladatelkou je ministryně financí Alena Schillerová jako zástupkyně vládního navrhovatele; v případovém spisu k ní nejsou evidovány žádné peněžní vazby ani sektorová návaznost k předmětu novely. Předmět novely — rozpočtová pravidla státu, dozor Nejvyššího kontrolního úřadu, mimořádné rozpočtové pravomoci vlády — se netýká soukromého podnikání ani konkrétních dodavatelů, u nichž by bylo možné zkoumat střet zájmů podle metodiky peněžních vazeb; žádný střet zájmů nebyl zjištěn.",
+ "severity": "medium",
+ "confidence": 3,
+ "citations": [
+  {
+   "claim": "Tisk 90 v čl. XII přejímá totožné znění § 1, § 9, § 9a a § 11 zákona č. 23/2017 Sb. i § 8 odst. 2 zákona č. 218/2000 Sb. jako tisk 68.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=90&ct1=0"
+  },
+  {
+   "claim": "Tisk 68 zavádí sdílené jádro reformy ZPRO (zákon č. 23/2017 Sb.) v čl. I a § 8 odst. 2 zákona č. 218/2000 Sb. v čl. III, které tisk 90 přejímá.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=68&ct1=0"
+  },
+  {
+   "claim": "Zvláštní část k bodům 12 a 14 (§ 20 odst. 1 a 2 zákona č. 218/2000 Sb.) uvádí, že Poslanecká sněmovna materiál dosud pouze brala na vědomí a svým usnesením neschvalovala žádné parametry hospodaření; novela proto mění pouze adresáta pololetní zprávy z pléna na rozpočtový výbor. Obdobně u dosavadního § 24 odst. 7 (přeznačeného bodem 20 na § 24 odst. 6) mění bod 21 adresáta ze slov „Poslaneckou sněmovnu“/„Poslanecká sněmovna“ na „rozpočtový výbor Poslanecké sněmovny“.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=90&ct1=0"
+  },
+  {
+   "claim": "Bod 13 čl. II ruší § 20 odst. 2 zákona č. 218/2000 Sb. (dosavadní zákonná povinnost čtvrtletních informací o plnění státního rozpočtu, dosud předkládaných rozpočtovému výboru); zvláštní část k bodu 13 uvádí jako náhradu měsíční tiskové zprávy Ministerstva financí.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=90&ct1=0"
+  },
+  {
+   "claim": "Zákon č. 166/1993 Sb., o Nejvyšším kontrolním úřadu, je novelizován pouze tiskem 90, nikoli tiskem 68.",
+   "kind": "law",
+   "source": "166/1993"
+  },
+  {
+   "claim": "Zákon č. 218/2000 Sb. je tiskem 90 novelizován ve 41 bodech čl. II, zatímco tisk 68 v tomto zákoně mění pouze jeden bod (§ 8 odst. 2).",
+   "kind": "law",
+   "source": "218/2000"
+  }
+ ]
+}

@@ -1,0 +1,31 @@
+{
+  "billTisk": 68,
+  "statedReasoning": "Vládní návrh (sněmovní tisk 68), předkládaný ministrem financí Zbyňkem Stanjurou jako zástupcem vládního navrhovatele, je podle důvodové zprávy transpoziční novelou implementující směrnici (EU) 2024/1265, kterou se mění směrnice 2011/85/EU o rozpočtových rámcích členských států, a adaptující národní právo na přímo použitelné nařízení (EU) 2024/1263 — reformu evropského Paktu o stabilitě a růstu se základním fiskálním pravidlem tzv. růstu čistých výdajů, které nahrazuje dosavadní strukturální saldo. Předsedovi Legislativní rady vlády byla schválena žádost o neprovedení RIA, protože jde o transpoziční předpis bez prostoru pro diskreci, který nejde nad rámec požadavků práva EU. Novela mění zákon č. 23/2017 Sb. (ZPRO) v 68 bodech čl. I a dále sedm navazujících zákonů (č. 218/2000, 243/2000, 250/2000, 159/2006, 262/2006, 222/2016 a 177/2023 Sb.), aby jejich terminologie a kompetence navazovaly na nový fiskální rámec, zařazuje členy Národní rozpočtové rady mezi veřejné funkcionáře podléhající zákonu o střetu zájmů a zavádí pravidelný pětiletý externí přezkum Výboru pro rozpočtové prognózy i Národní rozpočtové rady.",
+  "researchedContext": "Textová kolace potvrzuje, že tisk 68 je zdrojovou, užší verzí jádra, které se později doslovně objevuje v širším tisku 90 (např. shodné znění § 1, § 9, § 9a a § 11 zákona č. 23/2017 Sb., stejně jako celá pátá část o novele zákona č. 159/2006 Sb., o střetu zájmů, a § 8 odst. 2 zákona č. 218/2000 Sb.). Tisk 68 sám o sobě neobsahuje ani novelu zákona č. 166/1993 Sb., o Nejvyšším kontrolním úřadu, ani rozsáhlý blok 41 bodů měnících zákon č. 218/2000 Sb., ani mimořádné rozpočtové pravomoci vlády podle nové Hlavy VIII téhož zákona — tyto prvky patří výhradně širšímu tisku 90 a jsou analyzovány v jeho vlastním verdiktu. Zvláštní část důvodové zprávy tisku 68 zdůvodňuje i drobnější, na první pohled netransparentní kroky vlastní přesně: to, že Úřad Národní rozpočtové rady se stává evidenčním orgánem pro oznámení podle zákona o střetu zájmů podávaná vlastními členy Rady (čl. VII bod 6, § 14a odst. 2 písm. f) zákona č. 159/2006 Sb.), je výslovně odůvodněno tím, že Národní rozpočtová rada je nezávislou institucí nepodléhající žádnému ministerstvu, obdobně jako u jiných nezávislých orgánů (Česká národní banka, Nejvyšší kontrolní úřad). Jde tedy o zdůvodněný, nikoli zamlčený krok.",
+  "unstatedEffects": [],
+  "conflictAssessment": "Předkladatelem je ministr financí Zbyněk Stanjura jako zástupce vládního navrhovatele; v případovém spisu k němu nejsou evidovány žádné peněžní vazby ani sektorová návaznost k předmětu novely. Novela je transpozičním předpisem bez prostoru pro diskreci, kterému byla schválena výjimka z povinnosti provést RIA; nebyl zjištěn žádný střet zájmů.",
+  "severity": "low",
+  "confidence": 3,
+  "citations": [
+    {
+      "claim": "Tisk 68 je vládním návrhem transponujícím směrnici (EU) 2024/1265 a adaptujícím nařízení (EU) 2024/1263 do zákona č. 23/2017 Sb. a sedmi souvisejících zákonů, se schválenou výjimkou z RIA.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=68&ct1=0"
+    },
+    {
+      "claim": "Tisk 90 v čl. XII přejímá totožné znění § 1, § 9, § 9a a § 11 zákona č. 23/2017 Sb. jako tisk 68 v čl. I, a § 8 odst. 2 zákona č. 218/2000 Sb. shodně s čl. III tisku 68.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=90&ct1=0"
+    },
+    {
+      "claim": "Zákon č. 23/2017 Sb., o pravidlech rozpočtové odpovědnosti, je novelizován.",
+      "kind": "law",
+      "source": "23/2017"
+    },
+    {
+      "claim": "Zákon č. 159/2006 Sb., o střetu zájmů, je novelizován tak, že mezi veřejné funkcionáře zařazuje členy Národní rozpočtové rady.",
+      "kind": "law",
+      "source": "159/2006"
+    }
+  ]
+}

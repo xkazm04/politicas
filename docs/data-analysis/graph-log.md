@@ -1112,3 +1112,38 @@ REOPENED (SOMPO role mis-sourced; resolved by fetching ARES VR: Vlček předseda
 since 2024-12-03, stale corpus snapshot corrected) → final CLOSED. Data-quality yield: two live
 amends undercounts found and disclosed in the verdicts themselves (tisk 250: 6 edges vs 10 real
 parts; tisk 69: 6 vs 7, 132/2010 missing) — owed to the census, not hand-fixed.
+
+## Pass 46 (track: law) — batch-013 P1: census completion, 5 law nodes + 5 amends edges (2026-08-04)
+The two amends undercounts the batch-012 verdicts disclosed on their own pages (tisk 250: 6 edges
+vs 10 real novelization parts; tisk 69: 6 vs 7) traced to a clean root cause: the batch-008 census
+was correct, but its regen could not emit five edges whose target statutes had no law node — and
+said so in its own missingLawNodeCensus (132/2010; 330/2025, 387/2024, 505/1990, 539/1992), a set
+that fell in the gap after the batch-005 node ingest. ingest-missing-laws.ts (now parameterized)
+resolved 5/5 against the e-Sbírka bulk registry; apply-census-completion-013.ts — an additive,
+node-then-edge, guard-heavy apply (refuses existing nodes/edges, verifies every src/dst) — wrote
+5 law nodes + 5 amends edges live. Graph: 288 → 293 laws, 577 → 582 amends; merge-preserving
+re-triage moved exactly the 2 affected rows. Alongside (no graph write): tisk 87's PDF fetched
+and extracted (the cached index always listed it; the original fetcher's header heuristic skipped
+it), bill summaries now 141/141.
+
+## Pass 47 (track: law) — batch-013: 10 verdicts (3 medium), a live registry correction, and the jargon rule become code (2026-08-04)
+One write, 28 bill nodes: 10 NEW batch-013 verdicts (tisky 205, 90, 68, 206, 73, 174, 53, 109,
+62, 140 — the churn-6/7 pending head; 68⊂90 written as a family) + 18 CORRECTED earlier verdicts.
+Coverage 49 → 59/141. New mediums: tisk 90 (bod 13 abolishes the statutory quarterly
+budget-execution report in favour of MF press releases; several materials move from the plenary
+agenda to the budget committee alone; new Hlava VIII allows exceeding total budgeted spending by
+up to 10 % below a declared emergency), tisk 206 (court fee 3 000 → 50 000 Kč; tender-conditions
+kauce flat 100 000 Kč → 1 % of estimated value up to 10 000 000 Kč), tisk 73 (deposit-system
+handling fee has no statutory floor; the DZ concedes waste companies lose PET/Al resale revenue).
+The corrections: the persisted batch-012 SOMPO claim had attributed Tomáš Kocour's registry
+record to Lukáš Vlček — five model-mediated reads of one ARES VR document disagreed until a raw
+download + NFC-normalized structural parse settled it (Vlček předseda 27. 2. 2020 – 31. 10. 2024,
+vymaz 4. 2. 2025; Kocour předseda od 3. 12. 2024); verdicts 69/56 now state that, past-tense and
+dated. And the batch-013 audit's M6 became CODE: lib/analysis/law-verdict.ts rejects pipeline
+jargon (prop identifiers, origin enums, cache paths, graph urns in prose, batch/pass refs) in
+reader-facing fields — the rule retroactively failed 13 live batch-011/012 verdicts, all swept
+meaning-preservingly; gates 12/12 · 10/10 · 10/10. Collision wave alongside: 16 pairs
+(3 confirmed / 11 coordination-risk / 2 incidental, P49 32/32) — the §35c null keeps the §35ba
+complex honest; 56×67 byte-identical duplicate insertion; 64×65 a reversed-direction renumbering
+collision. /zakony/kolize renders 108 pairs / 59 confirmed / czechPending 0; 141/141 summaries;
+59 forensic blocks, 0 withheld. Backlog: 28 pairs, 82 pending bills.

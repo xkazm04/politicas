@@ -9,7 +9,7 @@
       "evidence": "Zvláštní část, K čl. III – změna trestního zákoníku: „Předmětné ustanovení trestního zákoníku se doplňuje… i v případě látek poškozujících ozonovou vrstvu také na výrobky, zařízení a jejich části, které uvedené látky obsahují nebo jsou na nich závislé.“"
     }
   ],
-  "conflictAssessment": "Vstupní data batche neuvádějí k tisku 14 žádný sektorový lead (attributedSectorLeads je prázdné pole) a jediný sponzor v datech, Petr Hladík, má evidováno pět peněžních vazeb na brněnské městské a polostátní podniky (ARENA BRNO, a.s.; Dopravní podnik města Brna, a.s.; Teplárny Brno, a.s.; MERO ČR, a.s.; SAKO Brno, a.s.). Jde o vazby vyplývající z jeho dosavadní komunální/vládní role (dozorčí či správní orgány obecních a státních podniků), nikoli o soukromé vlastnictví – takové svěřenecké role nejsou konfliktem podle pravidel projektu. Věcně navíc žádná z uvedených firem nepodniká v regulaci fluorovaných plynů a látek poškozujících ozonovou vrstvu jako svém předmětu činnosti (jde o dopravní podnik, teplárnu, ropovodní společnost, odpadové hospodářství a víceúčelovou arénu); byť teplárenství a odpadové hospodářství mohou provozovat chladicí či klimatizační zařízení dotčená prováděcími povinnostmi zákona, nejde o jejich hlavní podnikatelský zájem a návrh jim neukládá žádnou zvláštní, k nim adresnou povinnost. Konflikt zájmů mezi sponzorem a operativním obsahem návrhu nebyl zjištěn.",
+  "conflictAssessment": "Vstupní data případu neuvádějí k tisku 14 žádný sektorový lead a jediný sponzor v datech, Petr Hladík, má evidováno pět peněžních vazeb na brněnské městské a polostátní podniky (ARENA BRNO, a.s.; Dopravní podnik města Brna, a.s.; Teplárny Brno, a.s.; MERO ČR, a.s.; SAKO Brno, a.s.). Jde o vazby vyplývající z jeho dosavadní komunální/vládní role (dozorčí či správní orgány obecních a státních podniků), nikoli o soukromé vlastnictví – takové svěřenecké role nejsou konfliktem podle pravidel projektu. Věcně navíc žádná z uvedených firem nepodniká v regulaci fluorovaných plynů a látek poškozujících ozonovou vrstvu jako svém předmětu činnosti (jde o dopravní podnik, teplárnu, ropovodní společnost, odpadové hospodářství a víceúčelovou arénu); byť teplárenství a odpadové hospodářství mohou provozovat chladicí či klimatizační zařízení dotčená prováděcími povinnostmi zákona, nejde o jejich hlavní podnikatelský zájem a návrh jim neukládá žádnou zvláštní, k nim adresnou povinnost. Konflikt zájmů mezi sponzorem a operativním obsahem návrhu nebyl zjištěn.",
   "severity": "low",
   "confidence": 4,
   "citations": [
@@ -34,7 +34,7 @@
       "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=14"
     },
     {
-      "claim": "Batch přiřazuje k tisku 14 nulové sektorové leady (attributedSectorLeads = []) a jediného sponzora Petra Hladíka s pěti peněžními vazbami na brněnské městské/polostátní podniky.",
+      "claim": "Případový soubor přiřazuje k tisku 14 nulové sektorové leady a jediného sponzora Petra Hladíka s pěti peněžními vazbami na brněnské městské/polostátní podniky.",
       "kind": "graph_fact",
       "source": "bill:tisk:43121"
     },

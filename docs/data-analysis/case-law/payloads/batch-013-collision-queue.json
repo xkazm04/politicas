@@ -1,0 +1,372 @@
+{
+ "generatedAt": "2026-08-04T16:21:26.860Z",
+ "batch": 13,
+ "backlogRemaining": 44,
+ "queued": 16,
+ "pairs": [
+  {
+   "lawRef": "586/1992",
+   "lawTitle": "zákon č. 586/1992 Sb. — Zákon České národní rady o daních z příjmů",
+   "billA": 64,
+   "billB": 121,
+   "paragraphs": [
+    "35c"
+   ],
+   "genuineParagraphs": [
+    "35c"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 35c",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-121\\268020.txt",
+    ".data\\law-collision-cache\\tisk-121\\268022.txt"
+   ]
+  },
+  {
+   "lawRef": "586/1992",
+   "lawTitle": "zákon č. 586/1992 Sb. — Zákon České národní rady o daních z příjmů",
+   "billA": 121,
+   "billB": 189,
+   "paragraphs": [
+    "35c"
+   ],
+   "genuineParagraphs": [
+    "35c"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 35c",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-121\\268020.txt",
+    ".data\\law-collision-cache\\tisk-121\\268022.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-189\\270143.txt"
+   ]
+  },
+  {
+   "lawRef": "2/1969",
+   "lawTitle": "zákon č. 2/1969 Sb. — Zákon České národní rady  o zřízení ministerstev a jiných ústředních orgánů státní správy České socialistické republiky",
+   "billA": 7,
+   "billB": 67,
+   "paragraphs": [
+    "2"
+   ],
+   "genuineParagraphs": [
+    "2"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "2"
+   ],
+   "reason": "1 § with a real instruction on both sides: 2",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-7\\265064.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-67\\266188.txt",
+    ".data\\law-collision-cache\\tisk-67\\266190.txt"
+   ]
+  },
+  {
+   "lawRef": "187/2006",
+   "lawTitle": "zákon č. 187/2006 Sb. — Zákon o nemocenském pojištění",
+   "billA": 64,
+   "billB": 103,
+   "paragraphs": [
+    "84"
+   ],
+   "genuineParagraphs": [
+    "84"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "84"
+   ],
+   "reason": "1 § with a real instruction on both sides: 84",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-103\\267494.txt"
+   ]
+  },
+  {
+   "lawRef": "187/2006",
+   "lawTitle": "zákon č. 187/2006 Sb. — Zákon o nemocenském pojištění",
+   "billA": 77,
+   "billB": 109,
+   "paragraphs": [
+    "84b"
+   ],
+   "genuineParagraphs": [
+    "84b"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 84b",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-77\\266520.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-109\\267612.txt",
+    ".data\\law-collision-cache\\tisk-109\\267614.txt"
+   ]
+  },
+  {
+   "lawRef": "427/2011",
+   "lawTitle": "zákon č. 427/2011 Sb. — Zákon o doplňkovém penzijním spoření",
+   "billA": 64,
+   "billB": 86,
+   "paragraphs": [
+    "3"
+   ],
+   "genuineParagraphs": [
+    "3"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "3"
+   ],
+   "reason": "1 § with a real instruction on both sides: 3",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-86\\266990.txt",
+    ".data\\law-collision-cache\\tisk-86\\266992.txt"
+   ]
+  },
+  {
+   "lawRef": "222/2016",
+   "lawTitle": "zákon č. 222/2016 Sb. — Zákon o Sbírce zákonů a mezinárodních smluv a o tvorbě právních předpisů vyhlašovaných ve Sbírce zákonů a mezinárodních ",
+   "billA": 7,
+   "billB": 68,
+   "paragraphs": [
+    "20"
+   ],
+   "genuineParagraphs": [
+    "20"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 20",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-7\\265064.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-68\\266205.txt"
+   ]
+  },
+  {
+   "lawRef": "222/2016",
+   "lawTitle": "zákon č. 222/2016 Sb. — Zákon o Sbírce zákonů a mezinárodních smluv a o tvorbě právních předpisů vyhlašovaných ve Sbírce zákonů a mezinárodních ",
+   "billA": 7,
+   "billB": 90,
+   "paragraphs": [
+    "20"
+   ],
+   "genuineParagraphs": [
+    "20"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 20",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-7\\265064.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-90\\267105.txt"
+   ]
+  },
+  {
+   "lawRef": "283/2021",
+   "lawTitle": "zákon č. 283/2021 Sb. — Zákon stavební zákon",
+   "billA": 56,
+   "billB": 67,
+   "paragraphs": [
+    "156"
+   ],
+   "genuineParagraphs": [
+    "156"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "156"
+   ],
+   "reason": "1 § with a real instruction on both sides: 156",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-56\\266014.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-67\\266188.txt",
+    ".data\\law-collision-cache\\tisk-67\\266190.txt"
+   ]
+  },
+  {
+   "lawRef": "218/2000",
+   "lawTitle": "zákon č. 218/2000 Sb. — Zákon o rozpočtových pravidlech a o změně některých souvisejících zákonů (rozpočtová pravidla)",
+   "billA": 64,
+   "billB": 89,
+   "paragraphs": [
+    "3"
+   ],
+   "genuineParagraphs": [
+    "3"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "3"
+   ],
+   "reason": "1 § with a real instruction on both sides: 3",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-89\\267100.txt"
+   ]
+  },
+  {
+   "lawRef": "235/2004",
+   "lawTitle": "zákon č. 235/2004 Sb. — Zákon o dani z přidané hodnoty",
+   "billA": 64,
+   "billB": 218,
+   "paragraphs": [
+    "21"
+   ],
+   "genuineParagraphs": [
+    "21"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "21"
+   ],
+   "reason": "1 § with a real instruction on both sides: 21",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-218\\271424.txt",
+    ".data\\law-collision-cache\\tisk-218\\271426.txt"
+   ]
+  },
+  {
+   "lawRef": "21/1992",
+   "lawTitle": "zákon č. 21/1992 Sb. — Zákon o bankách",
+   "billA": 7,
+   "billB": 65,
+   "paragraphs": [
+    "38"
+   ],
+   "genuineParagraphs": [
+    "38"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "38"
+   ],
+   "reason": "1 § with a real instruction on both sides: 38",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-7\\265064.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-65\\266164.txt"
+   ]
+  },
+  {
+   "lawRef": "262/2006",
+   "lawTitle": "zákon č. 262/2006 Sb. — Zákon zákoník práce",
+   "billA": 24,
+   "billB": 68,
+   "paragraphs": [
+    "303"
+   ],
+   "genuineParagraphs": [
+    "303"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "303"
+   ],
+   "reason": "1 § with a real instruction on both sides: 303",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-24\\265302.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-68\\266205.txt"
+   ]
+  },
+  {
+   "lawRef": "262/2006",
+   "lawTitle": "zákon č. 262/2006 Sb. — Zákon zákoník práce",
+   "billA": 24,
+   "billB": 90,
+   "paragraphs": [
+    "303"
+   ],
+   "genuineParagraphs": [
+    "303"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "303"
+   ],
+   "reason": "1 § with a real instruction on both sides: 303",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-24\\265302.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-90\\267105.txt"
+   ]
+  },
+  {
+   "lawRef": "365/2000",
+   "lawTitle": "zákon č. 365/2000 Sb. — Zákon o informačních systémech veřejné správy a o změně některých dalších zákonů",
+   "billA": 64,
+   "billB": 65,
+   "paragraphs": [
+    "2"
+   ],
+   "genuineParagraphs": [
+    "2"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "2"
+   ],
+   "reason": "1 § with a real instruction on both sides: 2",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-65\\266164.txt"
+   ]
+  },
+  {
+   "lawRef": "561/2004",
+   "lawTitle": "zákon č. 561/2004 Sb. — Zákon o předškolním, základním, středním, vyšším odborném a jiném vzdělávání (školský zákon)",
+   "billA": 64,
+   "billB": 232,
+   "paragraphs": [
+    "136"
+   ],
+   "genuineParagraphs": [
+    "136"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 136",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-232\\277445.txt",
+    ".data\\law-collision-cache\\tisk-232\\277448.txt"
+   ]
+  }
+ ]
+}

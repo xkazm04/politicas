@@ -38,8 +38,12 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { gunzipSync } from "node:zlib";
 
-const REGEN_IN = "docs/data-analysis/case-law/payloads/batch-005-amends-regen.json";
-const OUT = "docs/data-analysis/case-law/payloads/batch-005-missing-law-nodes.json";
+// --in= / --out= override the batch-005 defaults (batch-013 reuses this for the five refs
+// batch-008's regen census flagged after the batch-005 ingest had already run).
+const REGEN_IN =
+  process.argv.find((a) => a.startsWith("--in="))?.slice(5) ?? "docs/data-analysis/case-law/payloads/batch-005-amends-regen.json";
+const OUT =
+  process.argv.find((a) => a.startsWith("--out="))?.slice(6) ?? "docs/data-analysis/case-law/payloads/batch-005-missing-law-nodes.json";
 const ESBIRKA_DIR = ".data/esbirka";
 const URL_002 = "https://opendata.eselpoint.gov.cz/datove-sady-esbirka/002PravniAkt.json.gz";
 const CITATION = /^(\d{1,4})\/(\d{4})\s+Sb\.$/; // Sbírka zákonů only (excludes "Sb. m. s.")

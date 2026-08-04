@@ -1,0 +1,122 @@
+{
+ "generatedAt": "2026-08-04T16:15:44.937Z",
+ "method": "For each of the 188 statutes in batch-004's missingLawNodeCensus (real amendment citations with no law node), resolve against the e-Sbírka act-master bulk registry (002PravniAkt.json.gz, cached .data/esbirka/002.json.gz) by exact 'N/RRRR Sb.' citation match. A node is emitted ONLY for a registry hit; the title (esbirka_title) is the verbatim akt-název-vyhlášený string, the ELI (esbirka_eli) is the expanded akt-iri. No node is fabricated for a registry miss — those are recorded honestly in `unresolvable` with a reason, split into genuinely-out-of-scope (pre-1918, outside the registry's stated coverage) vs needs-audit (post-1918 ref not found — likely a citation-extraction artifact upstream, not a real gap in the law).",
+ "boundary": "PREPARE only — no .pglite read or write. Node payloads for the orchestrator's persist step; amends-regen.ts must be RE-RUN after these land so the now-resolvable citations become edges (that is Q-law-11's job, not this script's).",
+ "stats": {
+  "totalStatutes": 5,
+  "resolved": 5,
+  "unresolvableTotal": 0,
+  "unresolvablePre1918": 0,
+  "unresolvableNeedsAudit": 0,
+  "totalCitingBillCitationsResolved": 5,
+  "totalCitingBillCitationsUnresolved": 0
+ },
+ "resolved": [
+  {
+   "id": "law:sb:132-2010",
+   "kind": "law",
+   "label": "zákon č. 132/2010 Sb. — Zákon o audiovizuálních mediálních službách na vyžádání a o změně některých zákonů (zákon o audiovizuálních mediálních s",
+   "props": {
+    "ref": "132/2010",
+    "esbirka_title": "Zákon o audiovizuálních mediálních službách na vyžádání a o změně některých zákonů (zákon o audiovizuálních mediálních službách na vyžádání)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2010/132"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-08-04T16:15:44.937Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    69
+   ]
+  },
+  {
+   "id": "law:sb:330-2025",
+   "kind": "law",
+   "label": "zákon č. 330/2025 Sb. — Zákon o správě informací o stavbě a vystavěném prostředí a o změně některých dalších zákonů",
+   "props": {
+    "ref": "330/2025",
+    "esbirka_title": "Zákon o správě informací o stavbě a vystavěném prostředí a o změně některých dalších zákonů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2025/330"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-08-04T16:15:44.937Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    250
+   ]
+  },
+  {
+   "id": "law:sb:387-2024",
+   "kind": "law",
+   "label": "zákon č. 387/2024 Sb. — Zákon o obecné bezpečnosti výrobků a o změně některých souvisejících zákonů",
+   "props": {
+    "ref": "387/2024",
+    "esbirka_title": "Zákon o obecné bezpečnosti výrobků a o změně některých souvisejících zákonů",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/2024/387"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-08-04T16:15:44.937Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    250
+   ]
+  },
+  {
+   "id": "law:sb:505-1990",
+   "kind": "law",
+   "label": "zákon č. 505/1990 Sb. — Zákon o metrologii",
+   "props": {
+    "ref": "505/1990",
+    "esbirka_title": "Zákon o metrologii",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1990/505"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-08-04T16:15:44.937Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    250
+   ]
+  },
+  {
+   "id": "law:sb:539-1992",
+   "kind": "law",
+   "label": "zákon č. 539/1992 Sb. — Zákon o puncovnictví a zkoušení drahých kovů (puncovní zákon)",
+   "props": {
+    "ref": "539/1992",
+    "esbirka_title": "Zákon o puncovnictví a zkoušení drahých kovů (puncovní zákon)",
+    "esbirka_exists": true,
+    "esbirka_eli": "https://opendata.eselpoint.gov.cz/esel-esb/eli/cz/sb/1992/539"
+   },
+   "provenance": {
+    "track": "law",
+    "method": "deterministic",
+    "ref": "missing-law-ingest",
+    "computedAt": "2026-08-04T16:15:44.937Z"
+   },
+   "citingBillCount": 1,
+   "sampleBillCislo": [
+    250
+   ]
+  }
+ ],
+ "unresolvable": []
+}

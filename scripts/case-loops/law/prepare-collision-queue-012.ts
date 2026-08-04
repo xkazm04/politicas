@@ -10,8 +10,11 @@ import { join } from "node:path";
 
 import { getStore } from "@/lib/db/store";
 
+// --batch=013 writes batch-013-collision-queue.json etc. (default 012). Parameterized in
+// batch-013 instead of copied — the retriage-009 --batch= precedent.
+const BATCH = (process.argv.find((a) => a.startsWith("--batch=")) ?? "--batch=012").slice(8);
 const QUEUE_SIZE = 16;
-const OUT = "docs/data-analysis/case-law/payloads/batch-012-collision-queue.json";
+const OUT = `docs/data-analysis/case-law/payloads/batch-${BATCH}-collision-queue.json`;
 
 function cachedTexts(cislo: number): string[] {
   const dir = `.data/law-collision-cache/tisk-${cislo}`;
@@ -43,7 +46,7 @@ async function main() {
     .sort((a, b) => b.genuineParagraphs.length - a.genuineParagraphs.length)
     .slice(0, QUEUE_SIZE)
     .map((p) => ({ ...p, lawTitle: lawByRef.get(p.lawRef) ?? null, cachedTextsA: cachedTexts(p.billA), cachedTextsB: cachedTexts(p.billB) }));
-  writeFileSync(OUT, JSON.stringify({ generatedAt: new Date().toISOString(), batch: 12, backlogRemaining: unread.length, queued: queue.length, pairs: queue }, null, 1));
+  writeFileSync(OUT, JSON.stringify({ generatedAt: new Date().toISOString(), batch: Number(BATCH), backlogRemaining: unread.length, queued: queue.length, pairs: queue }, null, 1));
   console.log(`collision queue: ${queue.length} of ${unread.length} unread → ${OUT}`);
   for (const q of queue) console.log(`  ${q.lawRef} · ${q.billA}×${q.billB} · §§ ${q.genuineParagraphs.join(",")}`);
   await store.close();

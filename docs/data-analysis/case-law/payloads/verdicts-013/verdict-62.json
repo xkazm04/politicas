@@ -1,0 +1,37 @@
+{
+  "billTisk": 62,
+  "statedReasoning": "Vládní návrh (předkladatel Ministerstvo průmyslu a obchodu) transponuje směrnici (EU) 2024/1799 o společných pravidlech na podporu oprav zboží. Zavádí novým zákonem povinnost výrobce opravit na žádost spotřebitele výrobek, pro který právo EU stanoví požadavky na opravitelnost (§ 3 a § 4), za přiměřenou cenu, dobrovolný Evropský informační formulář o opravě (§ 8–10), zřízení české sekce evropské online platformy pro opravy s Ministerstvem průmyslu a obchodu jako kontaktním místem (§ 11–12), dozor České obchodní inspekce a přestupky s pokutou do 5 000 000 Kč (§ 13–15), a doprovodnou novelu přílohy č. 3 zákona č. 634/1992 Sb., o ochraně spotřebitele (§ 16), kterou se do výčtu dozorových kompetencí ČOI doplňuje směrnice 2024/1799. Důvodová zpráva výslovně uvádí, že návrh nejde nad rámec požadavků práva EU, a proto nebylo zpracováno hodnocení RIA; zákon nabývá účinnosti 31. 7. 2026.",
+  "researchedContext": "Text potvrzuje, že povinnost opravy podle § 3 se váže výhradně na výrobky uvedené v příloze č. 1 k zákonu — jde o jedenáct kategorií vymezených unijními ekodesignovými nařízeními (pračky, myčky, chladicí spotřebiče, elektronické displeje, svařovací zařízení, vysavače, servery a datová úložiště, mobilní telefony a počítače typu slate, bubnové sušičky, zboží se zabudovanou baterií lehkých dopravních prostředků, lokální topidla). Důvodová zpráva sama cituje připomínku Hospodářské komory k nedostatku financování učňovského školství oprávářů a úbytku opravářů coby riziko pro reálnou vymahatelnost práva na opravu, a část G explicitně konstatuje, že návrh nezakládá veřejnou podporu a nejde nad rámec směrnice 2024/1799.",
+  "unstatedEffects": [
+    {
+      "effect": "Ačkoliv se zákon veřejně prezentuje jako obecné \"právo na opravu výrobku\", vynutitelná povinnost výrobce opravu provést (§ 3) se podle přílohy č. 1 vztahuje jen na jedenáct úzce vymezených kategorií výrobků podléhajících unijním ekodesignovým nařízením; u všech ostatních spotřebních výrobků (např. běžné kuchyňské spotřebiče mimo vyjmenované kategorie, televizory nespadající pod \"elektronické displeje\", nábytek, textil) zůstává poskytnutí opravy zcela na dobrovolnosti opraváře prostřednictvím nezávazného evropského informačního formuláře (§ 8 odst. 1: \"na žádost spotřebitele může opravář poskytnout\").",
+      "whoBenefits": "výrobci výrobků mimo přílohu č. 1, kteří touto novelou nezískávají žádnou novou právní povinnost opravy, byť název zákona a mediální rámování naznačují širší spotřebitelskou ochranu",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=62&ct1=0"
+    }
+  ],
+  "conflictAssessment": "Jde o vládní návrh; předkladatelem je Ministerstvo průmyslu a obchodu, nikoli jednotlivý poslanec. Ve zdrojových datech k tomuto tisku je jako poslanec spojený s návrhem uveden Lukáš Vlček, jemuž graf eviduje šest peněžních vazeb: SOMPO, a.s. (IČO 25172263) — obecní svazková společnost pro odpadové hospodářství založená sto sedmnácti obcemi (souhrn veřejných smluv cca 9 174 258 Kč, vazba čeká na lidskou kontrolu), PEVAK Pelhřimov, družstvo (IČO 26039907) — vodárenské družstvo (cca 1 234 888 Kč, vazba čeká na lidskou kontrolu), W.H.V. Projekt spol. s r.o. (IČO 26109859, inženýrská firma, 0 Kč), Via rustica z.s. (IČO 26982170, cca 2 008 259 Kč, vazba čeká na lidskou kontrolu), PRO VYSOČINU, občanské sdružení (IČO 27043843, 0 Kč) a SVJ Nádražní čp. 767 Pacov (IČO 28095405, 0 Kč). Žádný z těchto subjektů nepůsobí ve výrobě, dovozu, distribuci nebo opravách spotřebních výrobků z přílohy č. 1 — jde o komunální/družstevní subjekty odpadového a vodárenského hospodářství, inženýrskou firmu, spolky a společenství vlastníků jednotek, věcně mimo předmět zákona (dozor a povinnosti výrobců/opravářů); SOMPO jako obcemi vlastněná společnost navíc spadá pod municipální/SOE roli, kterou toto hodnocení samo o sobě nepovažuje za střet zájmů. Tisk 62 nemá v datech evidovaného odvětvového vedoucího. Konflikt zájmů se z dostupných dat nepotvrzuje; jde o poctivou negativní zprávu.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Zákon transponuje směrnici (EU) 2024/1799, stanovuje povinnost výrobce opravit výrobek podle § 3 jen v rozsahu přílohy č. 1, zavádí dobrovolný evropský informační formulář o opravě (§ 8) a novelizuje přílohu č. 3 zákona č. 634/1992 Sb.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=62&ct1=0"
+    },
+    {
+      "claim": "Příloha č. 1 vymezuje jedenáct kategorií výrobků (pračky, myčky, chladicí spotřebiče, elektronické displeje, svařovací zařízení, vysavače, servery a datová úložiště, mobilní telefony a počítače typu slate, bubnové sušičky, zboží se zabudovanou baterií lehkých dopravních prostředků, lokální topidla), na které se jediná vynutitelná povinnost opravy podle § 3 vztahuje.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=62&ct1=0"
+    },
+    {
+      "claim": "Důvodová zpráva výslovně uvádí, že předkladatel nepředpokládá úpravy nad rámec požadavků práva EU, a proto nebylo zpracováno hodnocení RIA, a že návrh nezakládá veřejnou podporu.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=62&ct1=0"
+    },
+    {
+      "claim": "Lukáš Vlček je v grafu evidován s peněžními vazbami (vazby čekají na lidskou kontrolu) na SOMPO, a.s. (IČO 25172263, obecní svazková společnost pro odpadové hospodářství), PEVAK Pelhřimov, družstvo (IČO 26039907, vodárenské družstvo), W.H.V. Projekt spol. s r.o. (IČO 26109859), Via rustica z.s. (IČO 26982170), PRO VYSOČINU (IČO 27043843) a SVJ Nádražní čp. 767 Pacov (IČO 28095405); žádný ze subjektů nepůsobí v oblasti výroby, dovozu ani oprav výrobků podléhajících § 3.",
+      "kind": "graph_fact",
+      "source": "company:ico:25172263"
+    }
+  ]
+}

@@ -18,8 +18,10 @@ const valid: LawForensicVerdict = {
       evidence: "https://example.com/analysis",
     },
   ],
+  // The urn stays in the citation SOURCE; prose says it in Czech (the batch-013 M6 jargon
+  // gate rejects graph urns inside reader-facing sentences).
   conflictAssessment:
-    "Předkladatel je vázán na společnost company:ico:26185610 působící v odpadovém hospodářství — možný prospěch, který si zaslouží prověření.",
+    "Předkladatel je vázán na společnost s IČO 26185610 působící v odpadovém hospodářství — možný prospěch, který si zaslouží prověření.",
   severity: "medium",
   confidence: 3,
   citations: [
@@ -65,6 +67,37 @@ describe("validateLawVerdict", () => {
   it("parses a fenced JSON block then validates", () => {
     const text = "Here is my verdict:\n```json\n" + JSON.stringify(valid) + "\n```\n";
     expect(parseAndValidateLawVerdict(text, opts).ok).toBe(true);
+  });
+
+  // Batch 013 (M6): the audit found pipeline tokens in reader-facing prose in 9 of 10
+  // verdicts — internal prop names, origin enums, cache paths, graph urns, batch numbers.
+  // Prose rules do not survive the next army; the contract now rejects them in code.
+  it("REJECTS pipeline jargon in reader-facing prose (urns, enums, cache paths, batch refs)", () => {
+    const urnInProse = { ...valid, conflictAssessment: "Vazba na společnost company:ico:26185610 je v datech evidována." };
+    const r1 = validateLawVerdict(urnInProse, opts);
+    expect(r1.ok).toBe(false);
+    expect(r1.errors.join(" ")).toContain("pipeline jargon");
+
+    const enumToken = { ...valid, researchedContext: "Jde o návrh typu mp_group s vysokou prioritou projednání ve výborech." };
+    expect(validateLawVerdict(enumToken, opts).ok).toBe(false);
+
+    const cachePath = {
+      ...valid,
+      unstatedEffects: [{ ...valid.unstatedEffects[0], evidence: "Ověřeno v .data/law-collision-cache/tisk-58/12345.txt na řádku 42." }],
+    };
+    expect(validateLawVerdict(cachePath, opts).ok).toBe(false);
+
+    const batchRef = { ...valid, researchedContext: "Souvislost potvrdila už dávka batch-004 při ručním porovnání znění obou tisků." };
+    expect(validateLawVerdict(batchRef, opts).ok).toBe(false);
+
+    // The closure audit (C2) found the first regex list covered only one of the three prop
+    // identifiers the finding named — a gate must cover what its own motivating defect showed.
+    const moneyTies = { ...valid, conflictAssessment: "Pole moneyTies je u předkladatele prázdné, takže vazby neevidujeme." };
+    expect(validateLawVerdict(moneyTies, opts).ok).toBe(false);
+    const leads = { ...valid, conflictAssessment: "Signál attributedSectorLeads je u tisku prázdný." };
+    expect(validateLawVerdict(leads, opts).ok).toBe(false);
+    const bareBatch = { ...valid, researchedContext: "Zjištění pochází z interního batch zpracování textů." };
+    expect(validateLawVerdict(bareBatch, opts).ok).toBe(false);
   });
 
   // Batch 009 (presentation gate): 27/27 gated verdicts were English and rendered verbatim

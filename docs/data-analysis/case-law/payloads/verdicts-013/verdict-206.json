@@ -1,0 +1,72 @@
+{
+ "billTisk": 206,
+ "statedReasoning": "Novela mění zákon č. 134/2016 Sb., o zadávání veřejných zakázek, a čtyři další předpisy — zákon č. 549/1991 Sb., o soudních poplatcích, zákon č. 166/1993 Sb., o Nejvyšším kontrolním úřadu, zákon č. 273/1996 Sb., o působnosti Úřadu pro ochranu hospodářské soutěže, a zákon č. 194/2010 Sb., o veřejných službách v přepravě cestujících. Cílem je podle důvodové zprávy zrychlit a zefektivnit přezkumné řízení vedené Úřadem pro ochranu hospodářské soutěže (ÚOHS) prostřednictvím pěti pilířů: (1) zrušení druhého stupně (rozkladu) — proti rozhodnutí ÚOHS bude možné podat přímo správní žalobu; (2) zavedení kolektivního rozhodování v komisích místo rozhodování jediného úředníka; (3) oslabení zásady materiální pravdy v návrhovém řízení; (4) zpřísnění podmínek soudní žaloby (lhůta 2 týdny, navýšení soudního poplatku z 3 000 Kč na 50 000 Kč, u návrhů bez určitelné nabídkové ceny nahrazení pevné kauce 100 000 Kč kaucí 1 % z předpokládané hodnoty v § 255 odst. 1, na niž odkazem navazuje i kauce k předběžnému opatření u soudu); (5) úprava blokace zadávacího řízení v řízeních zahajovaných z moci úřední. Předkladatelé tvrdí, že cílem je i snížení koncentrace pravomocí předsedy ÚOHS a snížení korupčních rizik, při rozpočtově neutrálním dopadu.",
+ "researchedContext": "Platné znění, které novela sama přikládá, ukazuje u § 255 odst. 1 dva případy. Byla-li podána nabídka, činí kauce 1 % z nabídkové ceny navrhovatele, nejméně 50 000 Kč a nejvýše 10 000 000 Kč — to novela nemění. Nelze-li celkovou nabídkovou cenu určit (typicky u návrhu proti zadávacím podmínkám), platila dosud pevná kauce 100 000 Kč; novelizační bod 14 ji nahrazuje kaucí ve výši 1 % z předpokládané hodnoty zakázky se stejnými limity 50 000 Kč / 10 000 000 Kč, přičemž pevných 100 000 Kč zůstává jen pro případ, kdy předpokládaná hodnota nebyla uveřejněna. Důvodová zpráva uvádí, že limity odpovídají limitům pro případ podané nabídky a kauce má být „srovnatelná“. Kauce skládaná soudu s návrhem na předběžné opatření se řídí § 255 a mění se proto shodně. Novela zavádí kolektivní rozhodování formou komise v novém § 2a zákona č. 273/1996 Sb., o působnosti Úřadu pro ochranu hospodářské soutěže (nikoli v § 1a, který upravuje pouze funkci místopředsedy pro veřejné zakázky). Podle položky 18 bodu 2 přílohy k zákonu č. 549/1991 Sb., o soudních poplatcích, se soudní poplatek za žalobu proti rozhodnutí ÚOHS zvyšuje z dosavadních 3 000 Kč (dle vlastního srovnání důvodové zprávy) na 50 000 Kč. Novela dále ruší rozkladové řízení (druhý stupeň) v řízení o přezkoumání úkonů zadavatele. Důvodová zpráva v části J) sama uvádí, že klíčové pravomoci ÚOHS jsou dosud koncentrovány v rukou předsedy.",
+ "unstatedEffects": [
+  {
+   "effect": "Novela zvyšuje soudní poplatek za žalobu proti rozhodnutí ÚOHS z 3 000 Kč na 50 000 Kč (cca 16,7násobek), a to vložením nového písmene d) do položky 18 bodu 2 přílohy k zákonu o soudních poplatcích. Důvodová zpráva odůvodňuje zvýšení přiměřeností k typové hodnotě sporů v oblasti veřejných zakázek, ale nehodnotí dopad skokového zvýšení na ochotu dodavatelů s omezenou kapitálovou silou žalobu vůbec podat, zejména u zakázek nižší hodnoty, kde je nový poplatek relativně mnohem citelnější bariérou než dosavadních 3 000 Kč.",
+   "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou zejména menší dodavatelé zvažující žalobu proti rozhodnutí ÚOHS, pro něž je nový poplatek citelně vyšší bariérou přístupu k soudnímu přezkumu než dosavadních 3 000 Kč.",
+   "evidence": "Položka 18 bodu 2 přílohy k zákonu č. 549/1991 Sb., o soudních poplatcích (nové písmeno d)): soudní poplatek za žalobu proti rozhodnutí Úřadu vydanému v řízení o přezkoumání úkonů zadavatele zahájeném na návrh činí 50 000 Kč; důvodová zpráva sama srovnává tuto částku s dosavadními 3 000 Kč."
+  },
+  {
+   "effect": "U návrhu proti zadávacím podmínkám — tedy v situaci, kdy nabídková cena z povahy věci neexistuje a dodavatel může zadávací řízení napadnout ještě před podáním nabídek — se kauce podle § 255 odst. 1 mění z pevných 100 000 Kč na 1 % z předpokládané hodnoty zakázky, u velkých zakázek tedy až na 10 000 000 Kč. Návrh tuto změnu v obecném rámování „zrychlení a zjednodušení přezkumu“ samostatně nepojmenovává.",
+   "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou dodavatelé zvažující návrh proti zadávacím podmínkám velkých zakázek, pro něž kauce může vzrůst až stonásobně; zadavatelům velkých zakázek se tím snižuje riziko blokace řízení. Směr čistého dopadu na kvalitu přezkumu verdikt nemodeluje.",
+   "evidence": "Platné znění § 255 odst. 1 s vyznačením změn v příloze novely (úplný text tisku na psp.cz, řádky 164–176 strojového přepisu); důvodová zpráva k bodům 14–15."
+  }
+ ],
+ "conflictAssessment": "Předkladateli jsou Vít Rakušan, Karel Dvořák a Lukáš Vlček (poslanecký návrh). Rakušanovy peněžní vazby (Vodní cesty na Labi o.p.s., Změna pro Kolín z.s., SVJ Kolín — vše 0 Kč; Nadační fond Gymnázia Kutná Hora — 200 000 Kč, úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu) i Dvořákova absence vazeb nemají věcný vztah k přezkumu veřejných zakázek. Vlčkovy vazby zahrnují SOMPO, a.s. (9 174 258 Kč) a PEVAK Pelhřimov, družstvo (1 234 888 Kč) — obě částky jsou úhrnem veřejných smluv dané firmy evidovaným v grafu, nikoli příjmem poslance, a obě vazby čekají na lidskou kontrolu (pending_review). Obě firmy jsou svazkové/družstevní subjekty vlastněné obcemi Pelhřimovska (SOMPO je dle vlastní prezentace stoprocentně vlastněno svazkem 117 obcí), tedy municipální, nikoli soukromé firmy Vlčka. Jako municipální zadavatelé jsou SOMPO i PEVAK subjekty, které SAMY zadávají veřejné zakázky a mohly by ze zpřísněného přezkumu (vyšší bariéra pro dodavatele podávající námitky) profitovat jako zadavatel — jde ale o institucionální, nikoli osobní finanční vazbu Vlčka. Podle veřejného rejstříku (ARES VR, ověřeno 4. 8. 2026) byl Lukáš Vlček předsedou představenstva SOMPO, a.s. od 27. 2. 2020; členství i funkce zanikly 31. 10. 2024 a záznam byl z rejstříku vymazán 4. 2. 2025. Od 3. 12. 2024 je předsedou představenstva Tomáš Kocour, což potvrzuje i vlastní stránka společnosti — Vlček v aktuálním výčtu představenstva ani dozorčí rady uveden není. Vlčkova případná role v PEVAK Pelhřimov (uváděná staršími zdroji od roku 2007) nebyla pro účely tohoto verdiktu nezávisle ověřena jako aktuální. Za konflikt zájmů v obchodním smyslu nelze tyto vazby označit — jde o municipální/družstevní subjekty, nikoli o Vlčkovo soukromé podnikání, a Vlčkova funkce v SOMPO navíc skončila před podáním tohoto návrhu.",
+ "severity": "medium",
+ "confidence": 4,
+ "citations": [
+  {
+   "claim": "Novela mění zákon č. 134/2016 Sb. a čtyři další předpisy v oblasti přezkumu veřejných zakázek — zrušení rozkladu, kolektivní rozhodování, zvýšení soudního poplatku.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=206&ct1=0"
+  },
+  {
+   "claim": "Platné znění § 255 odst. 1 přiložené k novele: kauce 1 % z nabídkové ceny (50 000–10 000 000 Kč) zůstává; pro případ, kdy nabídkovou cenu nelze určit, se dosavadní pevná kauce 100 000 Kč nahrazuje 1 % z předpokládané hodnoty zakázky s limity 50 000 Kč / 10 000 000 Kč a pevných 100 000 Kč zůstává jen při neuveřejněné předpokládané hodnotě.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=206&ct1=0"
+  },
+  {
+   "claim": "Položka 18 bodu 2 přílohy k zákonu č. 549/1991 Sb., o soudních poplatcích: soudní poplatek za žalobu proti rozhodnutí Úřadu se stanovuje na 50 000 Kč (dosud 3 000 Kč dle srovnání důvodové zprávy).",
+   "kind": "law",
+   "source": "č. 549/1991 Sb."
+  },
+  {
+   "claim": "Novela se týká zákona č. 134/2016 Sb., o zadávání veřejných zakázek.",
+   "kind": "law",
+   "source": "č. 134/2016 Sb."
+  },
+  {
+   "claim": "Novela se týká zákona č. 166/1993 Sb., o Nejvyšším kontrolním úřadu.",
+   "kind": "law",
+   "source": "č. 166/1993 Sb."
+  },
+  {
+   "claim": "Lukáš Vlček má peněžní vazbu na SOMPO, a.s. v souhrnné výši 9 174 258 Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu).",
+   "kind": "graph_fact",
+   "source": "company:ico:25172263"
+  },
+  {
+   "claim": "Lukáš Vlček má peněžní vazbu na PEVAK Pelhřimov, družstvo, v souhrnné výši 1 234 888 Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu).",
+   "kind": "graph_fact",
+   "source": "company:ico:26039907"
+  },
+  {
+   "claim": "Aktuální představenstvo Sompo, a.s. (srpen 2026): předsedou je Tomáš Kocour; Lukáš Vlček v seznamu představenstva ani dozorčí rady uveden není. Společnost je vlastněna svazkem obcí.",
+   "kind": "web",
+   "source": "https://www.sompo.cz/sompo/vedeni-spolecnosti/"
+  },
+  {
+   "claim": "Podle ARES VR byl Lukáš Vlček (nar. 1982-02-27) předsedou představenstva SOMPO, a.s. od 2020-02-27, členství i funkce zanikly 2024-10-31, záznam vymazán 2025-02-04; od 2024-12-03 je předsedou představenstva Tomáš Kocour (nar. 1974-10-17), bez zapsaného zániku funkce.",
+   "kind": "web",
+   "source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25172263"
+  },
+  {
+   "claim": "Vít Rakušan má peněžní vazbu na Nadační fond Gymnázia Kutná Hora v souhrnné výši 200 000 Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu).",
+   "kind": "graph_fact",
+   "source": "company:ico:68404999"
+  }
+ ]
+}

@@ -14,7 +14,7 @@
       "evidence": "Bod 35 (§ 21a odst. 3) čl. I novely zákona o cestovních dokladech a odpovídající komentář důvodové zprávy k opakovanému využití biometrických údajů při souběžné žádosti o občanský průkaz a cestovní pas týž den."
     }
   ],
-  "conflictAssessment": "Předkladatelem je vláda, garančním sponzorem v grafu je ministr vnitra Lubomír Metnar. Případový soubor u tohoto sponzora neeviduje žádnou peněžní vazbu (moneyTies je prázdné pole) a nebyl mu přiřazen žádný sektorový konflikt (attributedSectorLeads je prázdné, sectorAdjacency nastaveno na false) — v datech dostupných platformě tak není podklad pro tvrzení o střetu zájmů sponzora s předmětem návrhu (cestovní doklady, občanské průkazy, správní poplatky).",
+  "conflictAssessment": "Předkladatelem je vláda, garančním sponzorem v grafu je ministr vnitra Lubomír Metnar. Případový soubor u tohoto sponzora neeviduje žádnou peněžní vazbu a nebyl mu přiřazen žádný sektorový konflikt (deterministický odvětvový signál tohoto projektu jej nenašel) — v datech dostupných platformě tak není podklad pro tvrzení o střetu zájmů sponzora s předmětem návrhu (cestovní doklady, občanské průkazy, správní poplatky).",
   "severity": "low",
   "confidence": 3,
   "citations": [

@@ -1,20 +1,15 @@
 {
-  "generatedAt": "2026-07-27T09:10:36.477Z",
+  "generatedAt": "2026-08-04T16:20:05.445Z",
   "source": "deterministic derivation from .data/law-collision-cache/tisk-<cislo>/*.txt (pdftotext of the print's own PDF on psp.cz)",
   "total": 141,
-  "covered": 140,
+  "covered": 141,
   "byMethod": {
     "cast_captions": 60,
     "title_preamble": 65,
     "repeal": 2,
-    "new_act": 13
+    "new_act": 14
   },
-  "missing": [
-    {
-      "cislo": 87,
-      "reason": "text tisku není v cache (.data/law-collision-cache) nebo je příliš krátký"
-    }
-  ],
+  "missing": [],
   "rows": [
     {
       "cislo": 4,
@@ -383,10 +378,9 @@
     {
       "cislo": 87,
       "billUrn": "bill:tisk:43197",
-      "summary": null,
-      "method": null,
-      "source": null,
-      "missingReason": "text tisku není v cache (.data/law-collision-cache) nebo je příliš krátký"
+      "summary": "Nový zákon o zemských znacích a vlajkách.",
+      "method": "new_act",
+      "source": ".data\\law-collision-cache\\tisk-87\\267037.txt"
     },
     {
       "cislo": 88,

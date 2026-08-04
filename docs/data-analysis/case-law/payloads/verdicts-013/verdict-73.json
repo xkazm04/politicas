@@ -1,0 +1,57 @@
+{
+  "billTisk": 73,
+  "statedReasoning": "Novela zákona č. 477/2001 Sb., o obalech, spolu se souvisejícími změnami zákona č. 634/1992 Sb., o ochraně spotřebitele, a zákona č. 541/2020 Sb., o odpadech, zavádí povinný zálohový systém pro vybrané jednorázové nápojové obaly (plastové PET lahve a kovové plechovky). Systém má spravovat nově založený \"operátor\" — akciová společnost autorizovaná Ministerstvem životního prostředí, kterou zakládají osoby uvádějící vybrané obaly na trh. Cílem je podle důvodové zprávy plnění unijních cílů zpětného odběru (77 % do 2025, 90 % do 2029 dle § 10 odst. 5 zákona o obalech), snížení litteringu a podpora cirkulární ekonomiky (\"bottle-to-bottle, can-to-can\"). Alternativa v podobě masivního rozšíření sběrných míst by dle MŽP vyžadovala investice cca 3 mld. Kč a srovnatelné roční provozní náklady, s menším efektem. Operátor bude odvádět 15 % z nevyplacených záloh obcím (v průměru 39 Kč na obyvatele), poslední prodejci (cca 11 000 subjektů) ponesou investiční náklady cca 5,6 mld. Kč a provozní náklady cca 1,8 mld. Kč ročně, kompenzované operátorem prostřednictvím manipulačního poplatku (handling fee).",
+  "researchedContext": "Ověřením textu novely bylo potvrzeno, že novela zavádí novou hlavu o zálohovém systému (nové § 29a a násl.), stanovuje autorizaci jediného operátora Ministerstvem životního prostředí a ukládá posledním prodejcům s prodejní plochou nad 50 m2 (a čerpacím stanicím, e-shopům s vlastním rozvozem) povinný zpětný odběr do 500 metrů od místa prodeje. Důvodová zpráva v části G) sama uvádí jako indikovanou negativně dotčenou skupinu \"odpadové společnosti, které nebudou vlastnit vytříděný materiál, a tudíž nebudou realizovat prodej tohoto materiálu\" — tedy stávající svozové/třídicí subjekty přijdou o příjem z prodeje vytříděného PET a hliníku, který přejde k operátorovi. Část I) (Zhodnocení korupčních rizik) se věnuje výhradně riziku netransparentního nastavení poplatků operátora vůči výrobcům (\"korupční rizika spojená s nastavením poplatků výrobcům\") a ukládá povinnost zveřejnit sazebníky; korupční rizika ani transparentnostní záruky vůči druhé skupině dotčených subjektů — posledním prodejcům, kteří nesou investiční náklady cca 5,6 mld. Kč a jejichž kompenzace závisí na smluvně sjednaném manipulačním poplatku — v textu řešeny nejsou.",
+  "unstatedEffects": [
+    {
+      "effect": "Výše \"manipulačního poplatku\" (handling fee), kterým má operátor kompenzovat posledním prodejcům investiční (5,6 mld. Kč) a provozní (1,8 mld. Kč ročně) náklady na zřízení a provoz míst zpětného odběru, není zákonem ani důvodovou zprávou nijak minimálně garantována ani metodicky vázána — na rozdíl od poplatků vůči výrobcům, jejichž transparentnost a nediskriminační nastavení zákon výslovně vyžaduje (část I) důvodové zprávy). Poslední prodejci tak nesou zákonem uloženou investiční povinnost vůči jedinému, zákonem autorizovanému operátorovi bez jakékoli zákonné záruky přiměřené kompenzace.",
+      "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou zejména malí a střední poslední prodejci (maloobchod, čerpací stanice) vyjednávající kompenzaci s jediným autorizovaným operátorem bez zákonné záruky minimální sazby.",
+      "evidence": "Důvodová zpráva, část G): \"Náklady na zajištění zpětného odběru bude posledním prodejcům kompenzovat operátor zálohového systému prostřednictvím manipulačního poplatku (tzv. handling fee).\"; část I): korupční rizika řešena pouze ve vztahu k \"nastavení poplatků výrobcům\"."
+    }
+  ],
+  "conflictAssessment": "Předkladateli jsou Petr Hladík, Václav Pláteník a Gabriela Svárovská (poslanecký návrh). Pláteník a Svárovská nemají v grafu evidované peněžní vazby. Hladíkovy vazby zahrnují ARENA BRNO, a.s., Dopravní podnik města Brna, a.s., Teplárny Brno, a.s., MERO ČR, a.s. a SAKO Brno, a.s. — všechny s velmi vysokými souhrnnými hodnotami veřejných zakázek dané firmy (řádově miliardy Kč, úhrn evidovaný v grafu, nikoli příjem poslance, vazba čeká na lidskou kontrolu), které ovšem reprezentují institucionální/svěřenecké role, nikoli osobní podíl: Hladík byl 1. náměstkem primátorky města Brna (do r. 2022) pro oblast životního prostředí a v letech 2023–2025 ministrem životního prostředí ČR — z těchto funkcí plynou dozorčí a poradenské posty v brněnských městských firmách a ve státním MERO ČR, nikoli soukromé vlastnictví. Věcná adjacence k předmětu novely (zálohový systém, odpadové hospodářství) reálně existuje u SAKO Brno, a.s. — brněnské městské odpadové společnosti, tedy přesně typu subjektu, který podle vlastního znění důvodové zprávy (část G) přijde zavedením zálohového systému o příjem z prodeje vytříděného PET a hliníkového odpadu. Jde však o instituci ve svěřenecké (municipální) správě, nikoli o Hladíkovo soukromé podnikání — podle doktríny platformy nejde o osobní střet zájmů, ale o hospodářský dopad na instituci, ve které dříve zastával veřejnou funkci. Aktuální (2026) formální angažmá Hladíka v představenstvech/dozorčích radách uvedených společností nebylo pro účely tohoto verdiktu nezávisle ověřeno jako trvající.",
+  "severity": "medium",
+  "confidence": 3,
+  "citations": [
+    {
+      "claim": "Novela zákona č. 477/2001 Sb. zavádí zálohový systém pro PET lahve a plechovky spravovaný autorizovaným operátorem.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=73&ct1=0"
+    },
+    {
+      "claim": "Důvodová zpráva, část G): odpadové společnosti nebudou vlastnit vytříděný materiál z vybraných zálohovaných obalů, a tudíž nebudou realizovat jeho prodej.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=73&ct1=0"
+    },
+    {
+      "claim": "Důvodová zpráva, část G): \"Náklady na zajištění zpětného odběru bude posledním prodejcům kompenzovat operátor zálohového systému prostřednictvím manipulačního poplatku (tzv. handling fee).\"; část I): korupční rizika řešena pouze ve vztahu k \"nastavení poplatků výrobcům\".",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=73&ct1=0"
+    },
+    {
+      "claim": "Novela se týká zákona č. 477/2001 Sb., o obalech.",
+      "kind": "law",
+      "source": "č. 477/2001 Sb."
+    },
+    {
+      "claim": "Novela se týká zákona č. 541/2020 Sb., o odpadech.",
+      "kind": "law",
+      "source": "č. 541/2020 Sb."
+    },
+    {
+      "claim": "Petr Hladík má peněžní vazbu na SAKO Brno, a.s. v souhrnné výši 24 673 935 464 Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu).",
+      "kind": "graph_fact",
+      "source": "company:ico:60713470"
+    },
+    {
+      "claim": "Petr Hladík má peněžní vazbu na MERO ČR, a.s. v souhrnné výši 2 981 571 045 Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu).",
+      "kind": "graph_fact",
+      "source": "company:ico:60193468"
+    },
+    {
+      "claim": "Petr Hladík má peněžní vazbu na Dopravní podnik města Brna, a.s. v souhrnné výši 88 987 670 810 Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu).",
+      "kind": "graph_fact",
+      "source": "company:ico:25508881"
+    }
+  ]
+}

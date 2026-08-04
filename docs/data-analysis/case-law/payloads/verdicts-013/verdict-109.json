@@ -1,0 +1,37 @@
+{
+  "billTisk": 109,
+  "statedReasoning": "Návrh (Jurečka, Brzesková, Philipp, Činčila a další) mění zákon č. 187/2006 Sb., o nemocenském pojištění, tak, že prodlužuje podpůrčí dobu u dlouhodobého ošetřovného z 90 na 180 kalendářních dnů (§ 41e odst. 1) a zavádí mechanismus prodloužení na základě žádosti ošetřujícího lékaře se souhlasem orgánu nemocenského pojištění (nový § 72c odst. 3), s navazujícími úpravami § 72d odst. 1, § 72g odst. 1 písm. f) a m), § 73a odst. 1 písm. d), § 84b odst. 1 písm. e) a § 155 odst. 3. Předkladatelé odůvodňují návrh posílením prorodinné politiky a flexibility při slaďování rodinného a pracovního života, snížením potřeby ústavní péče a mezigenerační solidaritou. Důvodová zpráva odhaduje nárůst výdajů na dlouhodobé ošetřovné o cca 100 až 140 mil. Kč ročně od účinnosti 1. 1. 2027, opřený o data MPSV o ukončených případech potřeby dlouhodobé péče za roky 2023–2024.",
+  "researchedContext": "Text novely v cache (tisk 109) obsahuje výhradně změny nemocenského pojištění v části týkající se dlouhodobého ošetřovného; žádné ustanovení se nedotýká zemědělství, potravinářství ani jiného odvětví, ve kterém by první předkladatel podnikal. Důvodová zpráva (část F) kvantifikuje pouze dopad na výdaje systému nemocenského pojištění (státní rozpočet), nikoli dopad na zaměstnavatele. Přitom prodloužení podpůrčí doby na 180 dnů fakticky prodlužuje i dobu, po kterou je podle § 72g odst. 1 písm. m) a odůvodnění k bodu 5 (odkaz na zákon č. 262/2006 Sb., zákoník práce) prokazována překážka v práci u zaměstnance pečujícího o blízkou osobu — návrh přitom neobsahuje žádnou samostatnou část hodnotící dopad na podnikatelské prostředí či zaměstnavatele (na rozdíl např. od vládních návrhů, které takovou část běžně obsahují), viz analogická struktura RIA v tisku 62.",
+  "unstatedEffects": [
+    {
+      "effect": "Prodloužení maximální podpůrčí doby dlouhodobého ošetřovného z 90 na 180 dnů úměrně prodlužuje i dobu, po kterou musí zaměstnavatel podle zákoníku práce tolerovat překážku v práci na straně pečujícího zaměstnance, aniž by důvodová zpráva tento dopad na zaměstnavatele (na rozdíl od dopadu na státní rozpočet) jakkoliv kvantifikovala nebo posoudila.",
+      "whoBenefits": "pečující zaměstnanci a jejich rodiny (delší jistota pracovního místa); dopad na zaměstnavatele zůstává v důvodové zprávě nevyčíslen",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=109&ct1=0"
+    }
+  ],
+  "conflictAssessment": "Prvním předkladatelem je poslanec Marian Jurečka, u něhož graf eviduje peněžní vazbu na společnost AGRO 2000 s.r.o. (IČO 25586521) s agregovanou hodnotou smluv cca 253 958 310 Kč; vazba čeká na lidskou kontrolu a nejde o podíl ani funkci potvrzenou jako aktuální, nýbrž o souhrn firemních zakázek dohledaných ke jménu poslance. AGRO 2000 s.r.o. je zemědělsko-obchodní společnost a novela se týká výhradně nemocenského pojištění (dlouhodobé ošetřovné) — mezi předmětem zákona a předmětem podnikání vázané firmy není žádná věcná souvislost, kterou by bylo možné z textu návrhu nebo z dostupných dat dovodit. U ostatních devíti spolupředkladatelů (Brzesková, Philipp, Činčila, Pláteník, Filipovičová, Talíř, Kršková, Okamura, Vojáček) graf neeviduje žádnou peněžní vazbu. Konflikt zájmů proto nelze na základě dostupných dat prokázat; jde o poctivou negativní zprávu, nikoli o mezeru ve zjišťování.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Novela mění zákon č. 187/2006 Sb., o nemocenském pojištění, a prodlužuje podpůrčí dobu u dlouhodobého ošetřovného z 90 na 180 kalendářních dnů (§ 41e odst. 1) s doprovodným mechanismem souhlasu podle nového § 72c odst. 3.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=109&ct1=0"
+    },
+    {
+      "claim": "Důvodová zpráva odhaduje nárůst výdajů na dlouhodobé ošetřovné o cca 100 až 140 mil. Kč ročně při účinnosti od 1. 1. 2027.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=109&ct1=0"
+    },
+    {
+      "claim": "Prodloužení podpůrčí doby má prostřednictvím § 72g odst. 1 písm. m) a odůvodnění k bodu 5 vazbu na ochranu před výpovědí podle zákona č. 262/2006 Sb., zákoníku práce, aniž by dopad na zaměstnavatele byl v důvodové zprávě kvantifikován.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=109&ct1=0"
+    },
+    {
+      "claim": "Marian Jurečka je v grafu evidován s peněžní vazbou (čeká na lidskou kontrolu) na AGRO 2000 s.r.o. (IČO 25586521) v agregované výši cca 253 958 310 Kč firemních zakázek.",
+      "kind": "graph_fact",
+      "source": "company:ico:25586521"
+    }
+  ]
+}

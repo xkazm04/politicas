@@ -1,0 +1,121 @@
+{
+ "generatedAt": "2026-08-04T00:00:00.000Z",
+ "batch": 13,
+ "group": "B",
+ "classificationVocabulary": ["confirmed-collision", "coordination-risk", "incidental"],
+ "classificationCounts": {
+  "confirmed-collision": 3,
+  "coordination-risk": 3,
+  "incidental": 2
+ },
+ "coverage": {
+  "pairsRead": 8,
+  "pairsAssigned": 8
+ },
+ "pairs": [
+  {
+   "pairId": "56-67-283-2021",
+   "lawRef": "283/2021",
+   "billA": 56,
+   "billB": 67,
+   "sharedParagraph": "156",
+   "classification": "confirmed-collision",
+   "evidence": {
+    "billAExcerpt": "tisk 56, bod 1: 'V § 156 odst. 3 se za slovo „Projektantovi“ vkládají slova „a osobě podle odstavce 2“ a slova „neveřejné části“ se zrušují.'",
+    "billBExcerpt": "tisk 67, bod 318: 'V § 156 odst. 3 se za slovo „Projektantovi“ vkládají slova „a osobě podle odstavce 2“ a slova „neveřejné části“ se zrušují.'"
+   },
+   "reasoning": "Instrukce jsou bajtově identické (ověřeno grepem v obou cache souborech, shoda slovo od slova včetně uvozovek) -- obě míří do § 156 odst. 3 stavebního zákona a provádějí naprosto stejný zásah: vložení slov „a osobě podle odstavce 2“ za slovo „Projektantovi“ a zrušení slov „neveřejné části“. Tisk 67 je Babišův stavebně-zákonový omnibus (42 novelizovaných zákonů) a tento konkrétní bod (318) je jeho jedinou shodou s tiskem 56 na § 156 -- sousední bod 317 tisku 67 mění odst. 2, což s tiskem 56 nekoliduje. Protože jde o zcela duplicitní instrukci nad totožnou předlohou textu, po provedení první z nich text „neveřejné části“ v odstavci 3 již neexistuje a druhá aplikace by na cílový text nenarazila (buď selže, nebo se v konsolidovaném znění stane bezobsažnou duplicitou) -- jde tedy o confirmed-collision, ne o neškodnou shodu."
+  },
+  {
+   "pairId": "64-89-218-2000",
+   "lawRef": "218/2000",
+   "billA": 64,
+   "billB": 89,
+   "sharedParagraph": "3",
+   "classification": "confirmed-collision",
+   "evidence": {
+    "billAExcerpt": "tisk 64, body 4-5: '4. V § 3 písm. r) se slovo „technické“ zrušuje a slova „podle právních předpisů upravujících účetnictví“ se nahrazují slovy „, s výjimkou majetku, který je podle účetních předpisů vykazován jako stálé drobné hmotné nebo stálé drobné nehmotné aktivum, se kterým hospodaří organizační složka státu, popřípadě souvisejících výdajů“. 5. V § 3 se na konci písmene r) tečka nahrazuje čárkou a doplňuje se písmeno s), které zní: „s) dlouhodobým hmotným nebo nehmotným majetkem věc, která je podle účetních předpisů vykazována jako hmotné nebo nehmotné aktivum s dobou použitelnosti delší než 1 rok.“.'",
+    "billBExcerpt": "tisk 89, bod 1: '1. V § 3 se na konci písmene r) nahrazuje tečka čárkou a doplňuje se písmeno s), které včetně poznámky pod čarou zní: „s) rozvojem sociální infrastruktury budování a rekonstrukce zařízení sociálních služeb a zajišťování materiálního a technického zabezpečení sociálních služeb poskytovaných podle jiného právního předpisu4e) ... 4e) zákon č. 108/2006 Sb. o sociálních službách, ve znění pozdějších předpisů.“.'"
+   },
+   "reasoning": "Obě novely cílí na identickou adresu: konec písmene r) v § 3, kde se tečka mění na čárku a doplňuje se zcela nové písmeno s). Obsah nového písmene s) je ale u obou tisků vzájemně vylučující -- tisk 64 definuje pojem „dlouhodobý hmotný nebo nehmotný majetek“, tisk 89 definuje pojem „rozvoj sociální infrastruktury“ (včetně vlastní poznámky pod čarou 4e). Pod jedním písmenným označením s) může existovat jen jeden text; po provedení jedné novely je interpunkce za r) již čárkou a druhá instrukce „tečka se nahrazuje čárkou“ na svůj cílový text nenarazí, resp. výsledné konsolidované znění by muselo dvě různá písmena s) sloučit do jednoho, což definice nedovolují. Navíc tisk 64 navíc mění samotné znění písmene r) (bod 4) nezávisle na tisku 89. Jde o confirmed-collision -- stejná adresa, neslučitelný obsah."
+  },
+  {
+   "pairId": "64-218-235-2004",
+   "lawRef": "235/2004",
+   "billA": 64,
+   "billB": 218,
+   "sharedParagraph": "21",
+   "classification": "incidental",
+   "evidence": {
+    "billAExcerpt": "tisk 64, body 4-5: '4. V § 13 odst. 4 písm. d) a v § 21 odst. 6 se slova „nevede účetnictví“ nahrazují slovy „není účetní jednotkou“. 5. V § 21 odst. 2 se za text „c)“ vkládají slova „nebo dodání práva stavby“.'",
+    "billBExcerpt": "tisk 218, bod 9: '9. V § 21 se na konci odstavce 3 doplňuje věta „Pokud je na poskytnutí služby použit režim mimo Evropskou unii nebo režim Evropské unie zvláštního režimu jednoho správního místa, považuje se zdanitelné plnění za uskutečněné dnem poskytnutí této služby.“.'"
+   },
+   "reasoning": "Tisk 64 upravuje výhradně odstavce 2 a 6 § 21 zákona o DPH (vložení slov za text „c)“ v odst. 2, resp. terminologická záměna „nevede účetnictví“ → „není účetní jednotkou“ v odst. 6, sdílená s § 13 odst. 4 písm. d)). Tisk 218 pouze doplňuje novou větu na konec odstavce 3 (transpozice směrnice o DPH v digitálním věku, CELEX 32025L0516) -- ostatní výskyty „§ 21“ v cache tisku 218 jsou výhradně důvodová zpráva, žádná další novelizační instrukce k § 21 v textu není. Odstavce 2, 3 a 6 jsou zcela oddělené a žádná z novel nezasahuje do místa, kam směřuje druhá, ani nemění číslování odstavců. Přestože deterministická předkontrola vykázala genuine overlap na úrovni paragrafu (oba tisky formálně novelizují § 21), po přečtení textu jde o zcela disjunktní odstavce bez jakékoli adresní nebo textové interakce -- klasifikováno jako incidental."
+  },
+  {
+   "pairId": "7-65-21-1992",
+   "lawRef": "21/1992",
+   "billA": 7,
+   "billB": 65,
+   "sharedParagraph": "38",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 7, Čl. V: 'V § 38 odst. 3 písm. k) zákona č. 21/1992 Sb., o bankách... se slova „dohled nad hospodařením politických stran a politických hnutí“ nahrazují slovy „prevenci korupce a střetu zájmů“.' (dův. zpráva: 'Technické sladění terminologie v § 38 odst. 3 písm. k) v souvislosti s transformací ÚDHPSH.')",
+    "billBExcerpt": "tisk 65, body 2-3: '2. V § 38 odst. 3 písm. r) se slovo „nebo“ zrušuje. 3. V § 38 se na konci odstavce 3 tečka nahrazuje slovem „, nebo“ a doplňuje se písmeno t), které zní: „t) Digitální a informační agentury pro účely výkonu její působnosti v oblasti identifikačních služeb.“.'"
+   },
+   "reasoning": "Tisk 7 mění výhradně písmeno k) odstavce 3 § 38 zákona o bankách (přejmenování ÚDHPSH na Úřad pro prevenci korupce a střetu zájmů). Tisk 65 v témže odstavci 3 mění pouze písmeno r) (ruší slovo „nebo“) a doplňuje zcela nové poslední písmeno t) (mění koncovou tečku na „, nebo“ a připojuje nový text o Digitální a informační agentuře); tisk 65 dále samostatně doplňuje odst. 2 (nová věta) a nový odst. 14, které s § 38 odst. 3 písm. k) vůbec nesouvisejí. Písmeno k) leží mimo dosah obou bodů tisku 65 -- vložení t) na konec výčtu ani úprava r) nepřepisují ani neposouvají k). Jde o dvě nezávislé, textově se nekřížící novely téhož odstavce 3, které lze provést v libovolném pořadí, ale jejichž sloučení do jednoho konsolidovaného znění (dvě různé změny koncové interpunkce/výčtu) vyžaduje koordinaci pořadí zápisu -- coordination-risk."
+  },
+  {
+   "pairId": "24-68-262-2006",
+   "lawRef": "262/2006",
+   "billA": 24,
+   "billB": 68,
+   "sharedParagraph": "303",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 24, body 2-3: '2. V § 303 odst. 1 se za písmeno e) vkládá nové písmeno f), které zní: „f) zaměstnanci společenství obcí,“. Dosavadní písmena f) a g) se označují jako písmena g) a h). 3. V § 303 odst. 1 písm. g) se za slovo „celků“ vkládají slova „a společenství obcí“.'",
+    "billBExcerpt": "tisk 68, Čl. IX: 'V § 303 odst. 1 zákona č. 262/2006 Sb., zákoník práce... se na konci písmene b) doplňuje bod 20, který zní: „20. Úřadu Národní rozpočtové rady,“.'"
+   },
+   "reasoning": "Tisk 24 zasahuje do § 303 odst. 1 vkládáním nového písmene f) za dosavadní e) (s navazujícím přečíslováním dosavadních f)/g) na g)/h)) a úpravou nově vzniklého písmene g). Tisk 68 doplňuje bod 20 výhradně do písmene b) -- písmene, které v abecedním pořadí předchází vkládanému místu (e→f), a přečíslováním tisku 24 tedy není nijak dotčeno. Adresace se fakticky nekříží a ani jedna novela neničí text, do kterého míří druhá, jde ale o dvě souběžné novely téhož odstavce 1 § 303, jejichž pořadí je při konsolidaci nutné ošetřit (aby vložení nového f)/g) proběhlo konzistentně vedle doplnění bodu 20 do b)) -- coordination-risk. Rodinná poznámka: instrukce tisku 68 k § 303 je bajtově identická s instrukcí tisku 90 ke stejnému místu (viz pár 24×90 níže) -- tisk 90 obsahuje tisk 68 jako svou podmnožinu i zde, proto je klasifikace vůči tisku 24 pro oba páry shodná."
+  },
+  {
+   "pairId": "24-90-262-2006",
+   "lawRef": "262/2006",
+   "billA": 24,
+   "billB": 90,
+   "sharedParagraph": "303",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 24, body 2-3: '2. V § 303 odst. 1 se za písmeno e) vkládá nové písmeno f), které zní: „f) zaměstnanci společenství obcí,“. Dosavadní písmena f) a g) se označují jako písmena g) a h). 3. V § 303 odst. 1 písm. g) se za slovo „celků“ vkládají slova „a společenství obcí“.'",
+    "billBExcerpt": "tisk 90, Čl. IX: 'V § 303 odst. 1 zákona č. 262/2006 Sb., zákoník práce... se na konci písmene b) doplňuje bod 20, který zní: „20. Úřadu Národní rozpočtové rady,“.'"
+   },
+   "reasoning": "Shodné s párem 24×68: tisk 24 vkládá nové písmeno f) (s přečíslováním f)/g) na g)/h)) a upravuje nově vzniklé g), tisk 90 doplňuje bod 20 do písmene b), mimo dosah přečíslování. Ověřeno grepem, že instrukce tisku 90 k § 303 odst. 1 písm. b) je bajtově identická s instrukcí tisku 68 -- „se na konci písmene b) doplňuje bod 20, který zní: „20. Úřadu Národní rozpočtové rady,“.“ souhlasí slovo od slova, včetně navazujícího přechodného ustanovení Čl. X o § 303 odst. 3 a 4. Tisk 90 tedy skutečně obsahuje tisk 68 jako svou podmnožinu (rodina 68⊂90 potvrzena i na tomto místě zákoníku práce, nejen tam, kde byla dosud dokumentována). Adresace vůči tisku 24 se nekříží, ale koordinace pořadí při konsolidaci je nutná -- coordination-risk, klasifikace shodná s párem 24×68 a rodinná vazba disclosed i zde."
+  },
+  {
+   "pairId": "64-65-365-2000",
+   "lawRef": "365/2000",
+   "billA": 64,
+   "billB": 65,
+   "sharedParagraph": "2",
+   "classification": "confirmed-collision",
+   "evidence": {
+    "billAExcerpt": "tisk 64, Čl. LXVI: 'V § 2 odst. 2 písm. f) zákona č. 365/2000 Sb., o informačních systémech veřejné správy, ve znění zákona č. 471/2022 Sb., se slovo „technické“ zrušuje.' (dův. zpráva k čl. LXVI: '...namísto dosavadního pojmu „technické zhodnocení“ nově používá pojem „zhodnocení“... navrhuje se v dotčeném ustanovení používat namísto pojmu „technické zhodnocení“ pojem „zhodnocení“.')",
+    "billBExcerpt": "tisk 65, bod 4: '4. V § 2 odst. 2 se písmena c) a d) zrušují. Dosavadní písmena e) až g) se označují jako písmena c) až e).'"
+   },
+   "reasoning": "Tisk 65 v § 2 odst. 2 ruší písmena c) a d) a přečísluje dosavadní e), f), g) na c), d), e). Dosavadní písmeno f) -- obsahující slovní spojení „technické zhodnocení“, do kterého míří tisk 64 (nahrazení „technického zhodnocení“ pojmem „zhodnocení“, terminologické sjednocení s novým zákonem o účetnictví) -- se tím stává novým písmenem d) a v adresním prostoru odstavce 2 už žádné písmeno f) neexistuje (odstavec po novele končí písmenem e), dřívějším g)). Instrukce tisku 64 „V § 2 odst. 2 písm. f)...“ tak po aplikaci tisku 65 cílí na neexistující adresu -- jde o zničení adresace vkládacím/rušícím přečíslováním, stejný jev jako u opakovaně zjištěného vzorce přečíslování rozbíjejícího sousední adresaci, tentokrát iniciovaný tiskem 65 (nikoli tiskem 64, který je zde naopak obětí cizího přečíslování). Obě novely nemohou obě proběhnout se zachovaným věcným smyslem -- confirmed-collision."
+  },
+  {
+   "pairId": "64-232-561-2004",
+   "lawRef": "561/2004",
+   "billA": 64,
+   "billB": 232,
+   "sharedParagraph": "136",
+   "classification": "incidental",
+   "evidence": {
+    "billAExcerpt": "tisk 64, bod 23: '23. V § 136 odst. 1 písm. c) se slova „zajišťovat závazky“ nahrazují slovy „zajistit dluhy“.'",
+    "billBExcerpt": "tisk 232, bod 3: '3. V § 136 odst. 2 písm. d) se text „§ 30 odst. 5“ nahrazuje textem „§ 30 odst. 4“.' (dův. zpráva: 'V § 136 odst. 2 písm. d) školského zákona se ve vnitřním odkazu promítá změna číslování odstavců v § 30 školského zákona.')"
+   },
+   "reasoning": "Tisk 64 mění text odstavce 1 písmene c) § 136 (terminologická úprava „zajišťovat závazky“ na „zajistit dluhy“, navazující na terminologii nového občanského/účetního rámce). Tisk 232 mění pouze vnitřní odkaz v odstavci 2 písmeni d) -- a to výhradně jako důsledek vlastního přečíslování odstavců § 30 (novela o mobilních telefonech ve školách, věcně s § 136 nesouvisející); dův. zpráva tisku 232 to výslovně potvrzuje jako promítnutí cizí změny číslování, ne jako úpravu obsahu § 136. Odstavce 1 a 2 § 136 jsou zcela oddělené (shodně s tím, co ukázala deterministická předkontrola: odstavecOverlap je u tohoto páru prázdné), žádná z novel nezasahuje do místa, které mění druhá, a přečíslování tisku 232 se týká výhradně § 30, nikoli adresace uvnitř § 136. Jde o čistě náhodné sdílení paragrafu bez textové nebo adresní interakce -- incidental."
+  }
+ ]
+}
