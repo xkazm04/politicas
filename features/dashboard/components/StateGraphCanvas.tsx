@@ -5,6 +5,22 @@
  * svislé ose vlevo, z nich vpravo nahoru peněžní pruh, vpravo dolů pruh
  * legislativy.
  *
+ * ── KLÁVESNICE (2026-08-05) ────────────────────────────────────────────────
+ * Plátno má JEDEN tabstop (roving tabindex): tabulátorem se do obrázku vstoupí
+ * a jedním dalším stiskem se z něj vystoupí na pás provozu — dřív tu stálo
+ * sedmnáct zastávek v pořadí, ve kterém je pole náhodou složené. Uvnitř se
+ * chodí ŠIPKAMI PO HRANÁCH (../graphTraversal.ts: soused, na kterého šipka
+ * ukazuje; když tím směrem soused není, klávesa nedělá nic — zabalení na druhý
+ * konec by čtenáře teleportovalo), Home/End skočí na první a poslední uzel v
+ * pořadí kreslení, Enter/mezerník vybírá. Escape ruší výběr z CELÉHO panelu,
+ * ne jen zevnitř SVG.
+ * Ohlašování je nativní: šipka posune SKUTEČNÝ fokus, takže odečítačka přečte
+ * jméno nového uzlu sama. Vlastní `aria-live` k tomu by četl všechno dvakrát,
+ * proto ho tu nemáme — živá oblast dole nese jen VÝBĚR. Popisek uzlu si nese
+ * pozici („uzel 4 z 17") a počet vazeb, aby byl krok orientovatelný.
+ * Vedle obrázku je jeho TEXTOVÁ PODOBA (./GraphNodeList.tsx) nad TÝMŽ výřezem
+ * a TÝMŽ výběrem — ne druhá derivace grafu.
+ *
  * ── DVA STAVY, JEDNA SÉMANTIKA (viz ../useGraphSelection.ts) ────────────────
  *   VÝBĚR přichází zvenčí (`selected`), je v URL a profiltruje pás provozu.
  *     Drží ho signální kroužek u uzlu a stavový řádek ho pojmenuje.
@@ -19,7 +35,7 @@
  * dělá rodič. recharts se tu nepoužívá, takže neplatí past resize loopu.
  */
 
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { ArrowUpRight, Crosshair, X } from "lucide-react";
@@ -30,7 +46,15 @@ import SourceNote from "@/features/shared/components/SourceNote";
 import FollowButton from "@/features/schranka/FollowButton";
 import GraphGlyph from "./GraphGlyph";
 import GraphLegend from "./GraphLegend";
+import GraphNodeList from "./GraphNodeList";
 import { denikEntityHref, sliceNodeEntityKey } from "../entityLinks";
+import {
+  firstNodeId,
+  isArrowKey,
+  lastNodeId,
+  neighbourStep,
+  rovingNodeId,
+} from "../graphTraversal";
 import { partyChip, trunc, useGraphText } from "../graphText";
 
 const VB_W = 1000;
@@ -61,6 +85,22 @@ export default function StateGraphCanvas({
   // protože indikátor fokusu MUSÍ ukazovat, kde je klávesnice, ne co je vybráno.
   const [hover, setHover] = useState<string | null>(null);
   const [focusedId, setFocusedId] = useState<string | null>(null);
+  // PAMĚŤ tabstopu. `focusedId` je vizuální stav („klávesnice je TADY") a s
+  // odchodem fokusu padá; tohle si pamatuje, kam se má tabulátor vrátit, jinak
+  // by se do obrázku vstupovalo pokaždé na začátku.
+  const [rovingMemo, setRovingMemo] = useState<string | null>(null);
+  const nodeRefs = useRef(new Map<string, SVGGElement | null>());
+
+  /** Jediný uzel plátna s `tabIndex=0` — viz ../graphTraversal.ts. */
+  const rovingId = rovingNodeId(rovingMemo, selected, graph.nodes);
+
+  const focusNode = useCallback((id: string | null) => {
+    if (id === null) return;
+    const el = nodeRefs.current.get(id);
+    if (!el) return;
+    setRovingMemo(id);
+    el.focus();
+  }, []);
 
   const byId = useMemo(() => new Map(graph.nodes.map((n) => [n.id, n])), [graph]);
   const kinds = useMemo(
@@ -89,7 +129,19 @@ export default function StateGraphCanvas({
   const hoverText = hoverNode ? text.node(hoverNode) : null;
 
   return (
-    <div className="border-2 border-ink bg-paper">
+    /* Escape na ÚROVNI PANELU. Dřív visel na `<svg>`, takže výběr nešlo zrušit,
+       když fokus stál na tlačítku ve stavovém řádku nebo v textovém seznamu pod
+       obrázkem — tedy přesně tam, kam klávesnice po výběru dojde. Obálka není
+       fokusovatelná a nic neodchytává: událost k ní jen probublá. */
+    <div
+      className="border-2 border-ink bg-paper"
+      onKeyDown={(ev) => {
+        if (ev.key === "Escape" && selected) {
+          ev.stopPropagation();
+          onSelect(null);
+        }
+      }}
+    >
       <div className="flex items-center justify-between gap-3 border-b-2 border-ink px-4 py-2 font-mono text-[11px] uppercase tracking-widest text-steel">
         <span className="flex items-center gap-2 font-bold text-ink">
           <Crosshair className="h-3.5 w-3.5 text-signal" />
@@ -115,9 +167,6 @@ export default function StateGraphCanvas({
           role="group"
           aria-label={tg("ariaLabel")}
           onMouseLeave={() => setHover(null)}
-          onKeyDown={(ev) => {
-            if (ev.key === "Escape" && selected) onSelect(null);
-          }}
         >
           {/* Prázdná plocha ruší výběr — dosud to uměl jen opakovaný klik na
               týž uzel, což nikdo neuhodne. Klávesová cesta k témuž je Escape
@@ -192,22 +241,33 @@ export default function StateGraphCanvas({
             );
           })}
 
-          {graph.nodes.map((n) => {
+          {graph.nodes.map((n, i) => {
             const on = lit === null || lit.has(n.id);
             const t = text.node(n);
             // Reálný uzel nese barvu klubu z dat; vzorkový si ji dohledá ve vzorku.
             const chip = n.kind === "person" ? (n.partyColor ?? partyChip(n.mpId)) : undefined;
+            const degree = degreeOf(n.id, graph.edges);
             return (
               <g
                 key={n.id}
+                ref={(el) => {
+                  nodeRefs.current.set(n.id, el);
+                }}
                 transform={`translate(${px(n.x)} ${py(n.y)})`}
                 role="button"
-                tabIndex={0}
-                aria-label={`${t.kind}: ${t.label}`}
+                // JEDEN tabstop na celé plátno; uvnitř se chodí šipkami.
+                tabIndex={rovingId === n.id ? 0 : -1}
+                // Popisek nese i POZICI a počet vazeb — bez nich je krok šipkou
+                // pohyb naslepo, protože obrázek odečítačka nevidí.
+                aria-label={`${t.kind}: ${t.label} · ${tg("nodePosition", {
+                  index: f.int(i + 1),
+                  total: f.int(graph.nodes.length),
+                })} · ${degree > 0 ? tg("edgesInRecord", { count: f.int(degree) }) : tg("noEdges")}`}
                 aria-pressed={selected === n.id}
                 onMouseEnter={() => setHover(n.id)}
                 onFocus={() => {
                   setFocusedId(n.id);
+                  setRovingMemo(n.id);
                   setHover(n.id);
                 }}
                 onBlur={() => {
@@ -224,6 +284,24 @@ export default function StateGraphCanvas({
                   if (ev.key === "Enter" || ev.key === " ") {
                     ev.preventDefault();
                     onSelect(n.id);
+                    return;
+                  }
+                  // Šipka jde PO HRANĚ. Když tím směrem soused není, klávesa
+                  // nedělá nic a nechá si událost probublat (Escape výš).
+                  if (isArrowKey(ev.key)) {
+                    const next = neighbourStep(n.id, ev.key, graph.nodes, graph.edges);
+                    if (next !== null) {
+                      ev.preventDefault();
+                      focusNode(next);
+                    }
+                    return;
+                  }
+                  if (ev.key === "Home") {
+                    ev.preventDefault();
+                    focusNode(firstNodeId(graph.nodes));
+                  } else if (ev.key === "End") {
+                    ev.preventDefault();
+                    focusNode(lastNodeId(graph.nodes));
                   }
                 }}
                 style={{ cursor: "pointer" }}
@@ -263,6 +341,13 @@ export default function StateGraphCanvas({
           })}
         </svg>
       </div>
+
+      {/* Klávesová obsluha se VYPISUJE. Nástroj, o kterém se čtenář nedozví,
+          neexistuje — a tenhle vzor (jeden tabstop, šipky po hranách) není
+          natolik samozřejmý, aby se dal uhodnout. */}
+      <p className="border-t border-hairline px-4 py-1.5 font-mono text-[11px] uppercase tracking-wider text-steel">
+        {tg("keyboardHint")}
+      </p>
 
       {/* Stavový řádek — identita VYBRANÉHO uzlu, jeho stupeň a cesta dovnitř.
           Náhled se přidává za něj a je označený jako náhled, aby se výběr a
@@ -333,6 +418,11 @@ export default function StateGraphCanvas({
           )}
         </span>
       </div>
+
+      {/* TEXTOVÁ PODOBA TÉHOŽ VÝŘEZU — ne druhá derivace grafu: čte `graph`,
+          `rule` i `selected` z týchž propů jako obrázek nad ní a vybírá týmž
+          `onSelect`. Do 2026-08-05 tu obrázek neměl textovou alternativu vůbec. */}
+      <GraphNodeList graph={graph} rule={rule ?? null} selected={selected} onSelect={onSelect} />
 
       <div className="border-t border-hairline px-4 py-3">
         <GraphLegend kinds={kinds} />

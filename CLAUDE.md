@@ -205,6 +205,38 @@ Route map (politicas.md roadmap execution, sample data):
   diffed against the pre-change tree on the same store). Honest limit: the shared
   `lib/civic/data` chunk stays eager anyway — `features/shell/sidebarParts.tsx`
   imports `MODULES` on every route.
+  **The canvas reads for keyboards and screen readers (2026-08-05).** It drew ~17
+  `<g role="button" tabIndex={0}>` nodes, so the picture was **seventeen tab stops**
+  a reader had to walk through to reach the traffic feed — in the order the array
+  happens to be built — and there was **no textual alternative to the graph at all**.
+  It now has ONE tab stop (roving tabindex) and is traversed with the **arrow keys
+  along its own edges**: `features/dashboard/graphTraversal.ts` is the pure rule
+  (`neighbourStep` picks the NEIGHBOUR whose direction is closest to the arrow's,
+  ties broken by id asc; a direction with no neighbour is a **no-op — wrapping would
+  teleport the reader to a node the arrow does not point at**), Home/End jump to the
+  first/last node in the canvas's own drawing order, Enter/Space select, and
+  **Escape now clears from PANEL level** — it used to hang off the `<svg>`, so it did
+  nothing while focus sat on the status bar's own „zrušit výběr" button. The pattern
+  is PRINTED on the surface (`graph.keyboardHint`), because one tab stop plus
+  edge-walking arrows is not guessable. Announcement is deliberately native: the
+  arrow moves REAL DOM focus, so the screen reader reads the new node itself; a second
+  `aria-live` would read everything twice. Each node's `aria-label` gained its
+  position („uzel 4 z 16") and its degree, so a step is orientable without the picture.
+  Beside it, `components/GraphNodeList.tsx` is the graph AS TEXT (collapsible) — the
+  SAME `graph` / `rule` / `selected` props and the SAME `onSelect`, never a second
+  derivation: nodes in drawing order, each with its ties (rel + the other node,
+  `pending_review` stated), its case-file `href` and — only over a REAL slice — its
+  deník address through the shared `entityLinks.ts`.
+  Verified live in headless Chrome over the live store (CDP key events, not a
+  simulation): **16 canvas nodes / 1 tab stop**; ArrowRight→ArrowRight→ArrowLeft→
+  ArrowDown→ArrowUp→End→Home walked Benda → tisk 72 → z. 90/1995 → tisk 72 → tisk 72 →
+  Benda → z. 491/2001 → Benda; ArrowLeft with no neighbour was a no-op; Enter wrote
+  `?uzel=b%3A72` with **1** canvas node `aria-pressed` and **1** list row
+  `aria-current` (one selection, two surfaces); Escape pressed with focus on the
+  status-bar button cleared the URL; and ONE Tab from the canvas node landed on the
+  textual list. Honest gap: this repo has no jsdom/testing-library, so the DOM wiring
+  is covered by that live pass plus `graphTraversal.test.ts` over the pure rule — not
+  by a component test.
 - `/poslanec/[id]` — **Spis** (features/profile): the Person profile —
   politicas.md §3's "real product". Wired to the real graph (no mock path):
   poster header + contribution score/rank, the six weighted components, the

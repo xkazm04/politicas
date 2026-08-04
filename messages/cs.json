@@ -526,8 +526,17 @@
         "amends": "novelizuje"
       },
       "denikEntity": "deník entity",
-    "selectedLabel": "vybráno:",
-      "previewLabel": "náhled:"
+      "selectedLabel": "vybráno:",
+      "previewLabel": "náhled:",
+      "keyboardHint": "klávesnice: tabulátor vstoupí do obrázku (jedna zastávka), šipky chodí po hranách na sousední uzel, Home/End skočí na první a poslední uzel, Enter vybírá, Escape výběr zruší",
+      "nodePosition": "uzel {index} z {total}",
+      "list": {
+        "summary": "textová podoba grafu — {nodes} uzlů a {edges} vazeb",
+        "intro": "týž výřez jako obrázek nad ním a týž výběr — uzel vybraný tady se vybere i v grafu",
+        "index": "{index}.",
+        "realSource": "zdroj: znalostní graf politicas — psp.cz ⋈ ares ⋈ registr smluv ⋈ e-sbírka; seznam kreslí tytéž uzly a hrany jako obrázek, nic nedopočítává",
+        "mockSource": "zdroj: ilustrativní ukázka — jména, IČO i částky jsou smyšlené, nejde o reálná data"
+      }
     },
     "feed": {
       "title": "Provoz grafu",

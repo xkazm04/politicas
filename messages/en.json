@@ -526,8 +526,17 @@
         "amends": "amends"
       },
       "denikEntity": "entity diary",
-    "selectedLabel": "selected:",
-      "previewLabel": "preview:"
+      "selectedLabel": "selected:",
+      "previewLabel": "preview:",
+      "keyboardHint": "keyboard: Tab enters the picture (one stop), arrow keys walk the edges to a neighbouring node, Home/End jump to the first and last node, Enter selects, Escape clears",
+      "nodePosition": "node {index} of {total}",
+      "list": {
+        "summary": "the graph as text — {nodes} nodes and {edges} ties",
+        "intro": "the same slice as the picture above and the same selection — a node picked here is picked in the graph",
+        "index": "{index}.",
+        "realSource": "source: politicas knowledge graph — psp.cz ⋈ ares ⋈ contract registry ⋈ e-sbírka; the list draws the same nodes and edges as the picture and derives nothing",
+        "mockSource": "source: illustrative sample — names, company numbers and amounts are invented, not real data"
+      }
     },
     "feed": {
       "title": "Graph traffic",

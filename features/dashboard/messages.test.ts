@@ -177,6 +177,39 @@ describe("dashboard message catalog", () => {
     expect(en["realRanking.footnote"]).toContain("competition ranks");
   });
 
+  it("the canvas documents its keyboard pattern and carries a textual alternative", () => {
+    // One tab stop + arrow traversal along edges is not a pattern a reader can guess,
+    // and a picture with no text alternative is not readable at all. Both are copy the
+    // surface must carry in both languages, not a comment in the source.
+    for (const ns of [cs, en]) {
+      for (const k of [
+        "graph.keyboardHint",
+        "graph.nodePosition",
+        "graph.list.summary",
+        "graph.list.intro",
+        "graph.list.index",
+        "graph.list.realSource",
+        "graph.list.mockSource",
+      ]) {
+        expect(ns[k], k).toBeTruthy();
+      }
+      expect(placeholders(ns["graph.nodePosition"])).toEqual(["index", "total"]);
+      expect(placeholders(ns["graph.list.summary"])).toEqual(["edges", "nodes"]);
+      expect(placeholders(ns["graph.list.index"])).toEqual(["index"]);
+    }
+    // The hint must name every key the canvas actually binds — a documented pattern
+    // that omits Home/End documents a different product.
+    for (const [ns, keys] of [
+      [cs, ["šipky", "Home/End", "Enter", "Escape"]],
+      [en, ["arrow", "Home/End", "Enter", "Escape"]],
+    ] as const) {
+      for (const token of keys) expect(ns["graph.keyboardHint"]).toContain(token);
+    }
+    // The sample slice may never claim the list shows real ties.
+    expect(cs["graph.list.mockSource"]).toContain("smyšlené");
+    expect(en["graph.list.mockSource"]).toContain("invented");
+  });
+
   it("no hardcoded chamber size stands in for a counted one", () => {
     // `attendanceSub` printed „přes reálný vzorek 207 poslanců" — a literal that goes
     // stale the moment the chamber the loader reads is not 207.
