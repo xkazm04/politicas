@@ -167,3 +167,29 @@ export async function upsertMany<T extends { id: string }>(
 }
 
 export const limitOf = (opts?: ListOptions) => Math.max(1, Math.min(2_000_000, opts?.limit ?? 1_000_000));
+
+/**
+ * A `limit` that exactly equals the row count is indistinguishable from a full read, and
+ * the truncation is SYSTEMATIC, not random: every lister ORDERS its read, so whatever
+ * sorts last is simply absent. Money batch 012 grew `supplies` from 2 290 to 153 731 rows
+ * against callers that passed `limit: 100_000` — every company whose id sorted late
+ * silently lost all of its contracts, and nothing anywhere said so.
+ *
+ * The kernel's rule is that a dropped row is logged, never silent. This lives in
+ * `internals` (rather than in one repository file) because the hazard is not specific to
+ * the knowledge-graph tables: `listOrgans({ limit: 2000 })` sat 210 rows from the same
+ * silent cliff on the relational side with no guard behind it at all.
+ *
+ * It cannot distinguish "exactly at the limit" from "truncated", so it warns on both —
+ * the false positive is cheap, the miss is not. A caller that legitimately reads exactly
+ * its own floor (the readiness probe) must therefore not use a limit as a counter; ask
+ * for a COUNT instead.
+ */
+export function warnIfTruncated(fn: string, got: number, limit: number, filter?: string): void {
+  if (got < limit) return;
+  console.warn(
+    `[db] ${fn} returned exactly its limit (${limit}${filter ? `, filter=${filter}` : ""}) — ` +
+      `the result is probably TRUNCATED and, because the query is ordered, systematically so. ` +
+      `Raise the limit or page the read; do not trust aggregates computed from this.`,
+  );
+}

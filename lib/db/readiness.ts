@@ -61,7 +61,7 @@ let loggedReadinessBypass = false;
  * on purpose; never set it in a deployment.
  */
 export async function storeReady(
-  store: Pick<Store, "listKgNodes">,
+  store: Pick<Store, "listKgNodes"> & Partial<Pick<Store, "kgKindCounts">>,
   kinds: readonly FloorKind[],
 ): Promise<boolean> {
   if (process.env.KG_READINESS_OFF === "1") {
@@ -71,11 +71,23 @@ export async function storeReady(
     }
     return true;
   }
+  // Counting by COUNT, not by reading a floor's worth of rows. The old probe asked
+  // `listKgNodes({ kind, limit: floor })` — which (a) tripped the truncation guard on
+  // every healthy call, because a probe that reads exactly its own limit is exactly
+  // what that guard cannot distinguish from a truncated read, and (b) was the single
+  // most expensive statement on the /zebricek path: measured on the live store, the
+  // `person` probe at limit 150 cost 419–692 ms against 237–380 ms for one indexed
+  // `kgKindCounts()` group-by that answers EVERY kind at once. `listKgNodes` remains
+  // the fallback so a hand-built test store implementing only that keeps working.
   const failures: string[] = [];
+  const counts = store.kgKindCounts ? await store.kgKindCounts() : null;
+  const countByKind = counts ? new Map(counts.map((c) => [c.kind, c.count])) : null;
   for (const kind of kinds) {
     const floor = CARDINALITY_FLOORS[kind];
-    const rows = await store.listKgNodes({ kind, limit: floor });
-    if (rows.length < floor) failures.push(`${kind} ${rows.length}<${floor}`);
+    const got = countByKind
+      ? (countByKind.get(kind) ?? 0)
+      : (await store.listKgNodes({ kind, limit: floor })).length;
+    if (got < floor) failures.push(`${kind} ${got}<${floor}`);
   }
   if (failures.length > 0) {
     reportLoaderFailure("storeReady", new Error(`graph below cardinality floor: ${failures.join(", ")}`));

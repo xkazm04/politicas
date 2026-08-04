@@ -31,12 +31,15 @@
 // rows let a filing convention move a rank. See lib/analysis/contribution.ts.
 //
 // delta / trend (quarter-over-quarter) has NO real backing — single term, no
-// time series — so it is OMITTED, never fabricated.
+// time series — so it is OMITTED, never fabricated. The one real movement that
+// DOES exist (PSP9 → PSP10, `contribution_psp9`) is a profile-only field: see
+// `ProfileOnlyFields` / `toProfileEntry` below.
 
 import "server-only";
 import { cache } from "react";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { storeReady } from "@/lib/db/readiness";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 import { getStore } from "@/lib/db/store";
 import {
   COMMITTEE_SATURATION,
@@ -163,16 +166,12 @@ export interface LeaderboardEntry {
   billsAuthored: number;
   interpellations: number;
   speechTurns: number;
-  // Term-over-term (PSP9→PSP10) movement — null until the prior term is restored
-  // onto the node (contribution_psp9). Null ⇒ the UI shows today's single-term view.
-  trend: ContributionTrend | null;
   // Effort-loop enrichment (batch 001+): a closed-vocabulary reason the score
   // sits low that is a STRUCTURAL artifact, not disengagement (declined mandate,
   // replacement, dual mandate, ministerial role, …) — see lib/analysis/low-score-reason.ts.
-  // Null for the ~189/207 MPs not yet enriched, or where enrichment found no
-  // structural explanation (graceful null; never fabricated).
+  // Null where enrichment found no structural explanation (graceful null; never
+  // fabricated) — 34 of the 207 carry one (measured on the live graph 2026-08-04).
   effortLowScoreReason: string | null;
-  effortPublicRole: string | null;
   // Quiet-workhorse surface (batch 003, O-effort-3): P31's two positive-symmetry
   // flavours — legislative-authorship vs oversight-institutional. Null/false for the
   // ~191/207 MPs not (yet) flagged by the deterministic triage lens; never fabricated.
@@ -190,6 +189,51 @@ export interface LeaderboardEntry {
   effortHasDossier: boolean;
 }
 
+/**
+ * The two fields ONLY `/poslanec` reads, split out of `LeaderboardEntry` because the
+ * chamber pass computed them 207 times per request and every surface except one profile
+ * page threw them away.
+ *
+ * Measured on the live store (2026-08-04, 207 MPs): `computeTrend` 3,5 ms and the
+ * `effort_public_role` public-copy guard 25,7 ms per request — ~29 ms of a read path
+ * whose whole warm cost is ~500 ms after this change. `trend` additionally serialized
+ * a full per-component prior-term structure for MPs no page was showing it to.
+ *
+ * `toProfileEntry()` re-attaches them for the ONE MP a profile renders, from the person
+ * props the chamber pass already read (`Directory.personPropsByPspId`) — so this is a
+ * shape split, not a second read.
+ */
+export interface ProfileOnlyFields {
+  /** Term-over-term (PSP9→PSP10) movement — null until the prior term is restored onto
+   *  the node (`contribution_psp9`). Null ⇒ the UI shows today's single-term view. */
+  trend: ContributionTrend | null;
+  /** Analyst prose, rendered VERBATIM → passed through the public-copy guard. */
+  effortPublicRole: string | null;
+}
+
+/** A `LeaderboardEntry` with the profile-only fields attached — what `/poslanec` needs. */
+export type ProfileEntry = LeaderboardEntry & ProfileOnlyFields;
+
+/** Attach the profile-only fields to one ranked entry, from that MP's raw person props. */
+export function toProfileEntry(entry: LeaderboardEntry, props: Record<string, unknown>): ProfileEntry {
+  return {
+    ...entry,
+    trend: computeTrend(
+      {
+        score: entry.score,
+        components: entry.components,
+        billsAuthored: entry.billsAuthored,
+        interpellations: entry.interpellations,
+        speechTurns: entry.speechTurns,
+        committeeCount: entry.committeeCount,
+        leadershipCount: entry.leadershipCount,
+      },
+      props.contribution_psp9,
+    ),
+    effortPublicRole: publicCopyOrNull(props.effort_public_role as string | undefined),
+  };
+}
+
 export interface ClubFacet {
   abbrev: string;
   name: string;
@@ -198,15 +242,13 @@ export interface ClubFacet {
 }
 
 /** What /zebricek actually renders per row (list + duel) — a fraction of
- *  LeaderboardEntry. The full entry also carries `trend`, `effortPublicRole`
- *  prose, `effortLowScoreReason`, and seven raw per-MP counters: real fields,
- *  but ones the leaderboard list and the head-to-head duel never read (both
- *  render only identity, score, and the six component points). Serializing
- *  the full shape for all 207 rows cost ~5 KB/MP of dead weight — measured at
- *  1 045 363 bytes for a page that displays none of it (UX audit 2026-07-27,
- *  #8). `getProfileData.ts` still calls `buildLeaderboard()` directly and
- *  gets the FULL `LeaderboardEntry` for the one MP a profile page needs —
- *  only this list-facing wrapper trims. */
+ *  LeaderboardEntry. The full entry also carries `effortLowScoreReason` and seven raw
+ *  per-MP counters: real fields, but ones the leaderboard list never read.
+ *  `getProfileData.ts` still calls `buildLeaderboard()` directly and gets the FULL
+ *  `LeaderboardEntry` (plus `ProfileOnlyFields`, via `toProfileEntry`) for the one MP a
+ *  profile page needs — only this list-facing wrapper trims. Measured on the live store
+ *  2026-08-04: the whole `LeaderboardData` payload serializes to 296 473 bytes, the
+ *  trimmed list payload to 81 179. */
 export type LeaderboardListEntry = Pick<
   LeaderboardEntry,
   | "pspId"
@@ -294,14 +336,23 @@ export const buildLeaderboard = cache(async function buildLeaderboard(): Promise
     if (!store) return null;
     if (!(await storeReady(store, ["person"]))) return null;
 
-    const persons = await store.listKgNodes({ kind: "person", limit: 1000 });
+    // Every read on this path uses the ONE shared cap (lib/db/readCap.ts). The four
+    // hand-picked limits this replaced were not just inconsistent, they were SLOW: a
+    // small limit makes the planner walk the `kg_node` primary key and filter by kind
+    // instead of using `kg_node_kind_idx`, so it scans the whole 154k-row table until
+    // it has collected N matches. Measured on the live store (2026-08-04, 3 rounds):
+    // `listKgNodes({kind:"party", limit:30})` cost 498/632/723 ms and returns 8 rows;
+    // the same read at the cap cost 2,4/2,9/41,7 ms. `listOrgans({limit:2000})` was
+    // also 210 rows from silent truncation (1 790 actual) with no guard behind it —
+    // `graph.ts`'s listers now carry the same `warnIfTruncated` the kg listers do.
+    const persons = await store.listKgNodes({ kind: "person", limit: KG_READ_CAP });
     if (persons.length === 0) return null;
 
-    const mandates = await store.listMandates({ termCode: "PSP10" });
+    const mandates = await store.listMandates({ termCode: "PSP10", limit: KG_READ_CAP });
     const clubByMandate = await store.clubByMandate("PSP10");
-    const organs = await store.listOrgans({ limit: 2000 });
+    const organs = await store.listOrgans({ limit: KG_READ_CAP });
     const organByPsp = new Map(organs.map((o) => [o.pspId, o]));
-    const partyNodes = await store.listKgNodes({ kind: "party", limit: 30 });
+    const partyNodes = await store.listKgNodes({ kind: "party", limit: KG_READ_CAP });
     const seatsByAbbrev = new Map(partyNodes.map((p) => [p.label, num(p.props.seats)]));
 
     // personPspId → club abbrev / region label
@@ -352,13 +403,7 @@ export const buildLeaderboard = cache(async function buildLeaderboard(): Promise
         billsAuthored,
         interpellations,
         speechTurns,
-        trend: computeTrend(
-          { score, components, billsAuthored, interpellations, speechTurns, committeeCount, leadershipCount },
-          p.props.contribution_psp9,
-        ),
         effortLowScoreReason: typeof p.props.effort_low_score_reason === "string" ? p.props.effort_low_score_reason : null,
-        // Renders verbatim in the badge → public-copy guard (see public-copy.ts).
-        effortPublicRole: publicCopyOrNull(p.props.effort_public_role as string | undefined),
         effortWorkhorse: p.props.effort_workhorse === true,
         effortWorkhorseFlavour: typeof p.props.effort_workhorse_flavour === "string" ? p.props.effort_workhorse_flavour : null,
         effortRapporteurLoad:

@@ -4,7 +4,7 @@
 
 import type { KnowledgeGraphRepository } from "../../store";
 import type { KgEdgeRow, KgNodeRow } from "../../types";
-import { num, str, type Pglite, type PgTransaction } from "../internals";
+import { num, str, warnIfTruncated, type Pglite, type PgTransaction } from "../internals";
 import { KG_EDGE_COLS, KG_NODE_COLS, mapKgEdge, mapKgNode } from "../mappers";
 
 /* ── bitemporal write discipline (SUPERSEDE, never overwrite) ────────────────
@@ -74,25 +74,9 @@ export interface BitemporalKnowledgeGraphRepository extends KnowledgeGraphReposi
  * `id` on the "other end" no matter which side you read, so it must be dropped
  * rather than returned as a neighbour of itself.
  */
-/**
- * A `limit` that exactly equals the row count is indistinguishable from a full read, and
- * the truncation is SYSTEMATIC, not random: both listers order by id / (src,rel,dst), so
- * whatever sorts last is simply absent. Money batch 012 grew `supplies` from 2 290 to
- * 153 731 rows against callers that passed `limit: 100_000` — every company whose id
- * sorted late silently lost all of its contracts, and nothing anywhere said so.
- *
- * The kernel's rule is that a dropped row is logged, never silent. This is that rule in
- * the one place every caller passes through. It cannot distinguish "exactly at the limit"
- * from "truncated", so it warns on both — the false positive is cheap, the miss is not.
- */
-function warnIfTruncated(fn: string, got: number, limit: number, filter?: string): void {
-  if (got < limit) return;
-  console.warn(
-    `[kg] ${fn} returned exactly its limit (${limit}${filter ? `, filter=${filter}` : ""}) — ` +
-      `the result is probably TRUNCATED and, because the query is ordered, systematically so. ` +
-      `Raise the limit or page the read; do not trust aggregates computed from this.`,
-  );
-}
+/* The truncation guard used by the two listers below now lives in `../internals`
+ * (`warnIfTruncated`) — the relational listers in `graph.ts` had the same hazard and
+ * no guard at all, so the rule has one definition for both sides of the store. */
 
 export function neighbourIds(edges: KgEdgeRow[], id: string): string[] {
   const out = new Set<string>();

@@ -3,7 +3,7 @@
 
 import type { GraphRepository } from "../../store";
 import type { MandateRow, MembershipRow, OrganRow, PersonRow } from "../../types";
-import { limitOf, num, str, upsertMany, type Pglite } from "../internals";
+import { limitOf, num, str, upsertMany, warnIfTruncated, type Pglite } from "../internals";
 import {
   MANDATE_COLS,
   MEMBERSHIP_COLS,
@@ -42,24 +42,35 @@ export function makeGraphRepo(pg: Pglite): GraphRepository {
         r.source, r.sourceUrl, r.fetchedAt, r.ingestRunId, JSON.stringify(r.raw),
       ]),
 
+    // The four listers below order their reads, so an ad-hoc caller limit truncates
+    // SYSTEMATICALLY (whatever sorts last is simply absent). `warnIfTruncated` is the
+    // same guard the kg listers carry — the relational side used to have none, and
+    // `listOrgans({ limit: 2000 })` was reading 1 790 of 1 790 rows, 210 from a silent
+    // cliff, for the /zebricek + /poslanec region resolution.
     async listPersons(opts) {
+      const lim = limitOf(opts);
       const { rows } = await pg.query<Record<string, unknown>>(
-        `select * from person order by psp_id limit ${limitOf(opts)}`,
+        `select * from person order by psp_id limit ${lim}`,
       );
+      warnIfTruncated("listPersons", rows.length, lim);
       return rows.map(mapPerson);
     },
     async listOrgans(opts) {
+      const lim = limitOf(opts);
       const { rows } = await pg.query<Record<string, unknown>>(
-        `select * from organ order by psp_id limit ${limitOf(opts)}`,
+        `select * from organ order by psp_id limit ${lim}`,
       );
+      warnIfTruncated("listOrgans", rows.length, lim);
       return rows.map(mapOrgan);
     },
     async listMandates(opts) {
+      const lim = limitOf(opts);
       const where = opts?.termCode ? `where term_code = $1` : "";
       const { rows } = await pg.query<Record<string, unknown>>(
-        `select * from mandate ${where} order by psp_id limit ${limitOf(opts)}`,
+        `select * from mandate ${where} order by psp_id limit ${lim}`,
         opts?.termCode ? [opts.termCode] : [],
       );
+      warnIfTruncated("listMandates", rows.length, lim, opts?.termCode);
       return rows.map(mapMandate);
     },
     async listMemberships(opts) {
@@ -71,10 +82,12 @@ export function makeGraphRepo(pg: Pglite): GraphRepository {
              where o.abbrev = $1 or o.parent_psp_id = (select psp_id from organ where abbrev = $1)
            )`
         : "";
+      const lim = limitOf(opts);
       const { rows } = await pg.query<Record<string, unknown>>(
-        `select m.* from membership m ${where} order by m.id limit ${limitOf(opts)}`,
+        `select m.* from membership m ${where} order by m.id limit ${lim}`,
         opts?.termCode ? [opts.termCode] : [],
       );
+      warnIfTruncated("listMemberships", rows.length, lim, opts?.termCode);
       // Same "unknown term vs. genuinely empty term" ambiguity as
       // votes.ts's listAbsences — one cheap existence check only on the
       // empty-result path.

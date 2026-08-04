@@ -263,6 +263,33 @@ Route map (politicas.md roadmap execution, sample data):
   pure + tested); histogram bands are labelled with the bound they actually run
   to (`65–70`, half-open) and the band CONTAINING the median is coloured
   separately from the bands below it; `σ` is named a standard deviation.
+  **The read path is capped and indexed (2026-08-04).** `buildLeaderboard()` no
+  longer carries ad-hoc numeric limits — every read uses `KG_READ_CAP`, like
+  /penize and /poslanec. This is not tidiness: a SMALL limit makes PGlite walk
+  the `kg_node` primary key and filter by kind instead of using
+  `kg_node_kind_idx`, so it scans the whole ~154 k-row table until it has
+  collected N matches. Measured on the live store (3 rounds):
+  `listKgNodes({kind:"party", limit:30})` cost **498/632/723 ms** for 8 rows and
+  **2,4/2,9/41,7 ms** at the cap. `storeReady()` had the same shape — it probed
+  `listKgNodes({kind, limit: floor})`, which cost 419–692 ms for `person` and
+  tripped the truncation guard on every healthy call (a probe that reads exactly
+  its own limit is precisely what that guard cannot tell from a truncated read);
+  it now asks `kgKindCounts()` (one indexed group-by, 237–380 ms, answering every
+  kind at once) and keeps the old probe only as a fallback for hand-built test
+  stores. Net: **warm `buildLeaderboard()` 1 113–1 312 ms → 444–522 ms**, with the
+  list payload byte-identical (81 179 B for all 207 MPs).
+  `listOrgans`/`listPersons`/`listMandates`/`listMemberships` in
+  `lib/db/pglite/repositories/graph.ts` now carry the same `warnIfTruncated`
+  guard the kg listers do (it moved to `lib/db/pglite/internals.ts` so both
+  sides share ONE definition) — the organ read was sitting 210 rows from a
+  silent cliff at 1 790/2 000.
+  `trend` and `effortPublicRole` left `LeaderboardEntry` for `ProfileOnlyFields`
+  / `toProfileEntry()`: the chamber pass computed them 207× per request (29 ms
+  measured) for the one profile page that reads them, and the full payload
+  dropped 296 473 → 121 144 B.
+  Name search folds diacritics through `asciiFold()` — the SAME function that
+  fills `person.name_norm` at ingest — so „zacek" finds *Žáček*
+  (`features/civicscore/search.ts`, pure + tested).
 - `/rozpocty` — **BudgetMirror** (features/budget): town vs peer-group mirror —
   metric duos against the computed peer median, debt-per-capita trend lines
   (town vs median), sortable peer table. Stewardship feeds only executive

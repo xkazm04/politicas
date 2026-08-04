@@ -28,8 +28,10 @@ import { publicCopyOrNull } from "@/lib/analysis/public-copy";
 import {
   buildLeaderboard,
   CLUB_FALLBACK_COLOR,
+  toProfileEntry,
   type LeaderboardData,
   type LeaderboardEntry,
+  type ProfileEntry,
 } from "@/features/civicscore/getLeaderboardData";
 import { isCommitteeSeat, type CommitteeSeat as ContributionCommitteeSeat } from "@/lib/analysis/contribution";
 import { computeScoreLegibility, type ScoreLegibility } from "@/lib/analysis/score-legibility";
@@ -207,7 +209,11 @@ export interface BillEngagement {
 }
 
 export interface ProfileData {
-  person: LeaderboardEntry; // includes rank
+  // `ProfileEntry` = the ranked chamber entry PLUS the two fields only this page
+  // reads (`trend`, `effortPublicRole`) — the chamber pass no longer computes those
+  // 207 times per request; `toProfileEntry()` attaches them for this one MP from the
+  // person props that pass already read. See ProfileOnlyFields.
+  person: ProfileEntry; // includes rank
   total: number; // 207
   prevPspId: number;
   nextPspId: number;
@@ -325,7 +331,7 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
     const entries = data.entries;
     const idx = entries.findIndex((e) => e.pspId === pspId);
     if (idx === -1) return null;
-    const person = entries[idx];
+    const person = toProfileEntry(entries[idx], directory.personPropsByPspId.get(pspId) ?? {});
 
     const store = await getStore();
     if (!store) return null;

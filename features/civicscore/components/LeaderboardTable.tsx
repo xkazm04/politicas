@@ -30,6 +30,8 @@ import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { COBALT, INK, OCHRE, SIGNAL, STEEL } from "@/features/landing/palette";
 import { workhorseFlavourCopy, type WorkhorseFlavour } from "@/lib/analysis/workhorse-flavour";
+import { asciiFold } from "@/lib/ingest/normalize";
+import { foldQuery, nameMatches } from "../search";
 import WorkhorseBadge from "./WorkhorseBadge";
 import RapporteurBadge from "./RapporteurBadge";
 
@@ -157,16 +159,21 @@ export default function LeaderboardTable({
     return { shared: groups.reduce((a, b) => a + b, 0), groups: groups.length, total: entries.length };
   }, [entries]);
 
+  // Hledání bez diakritiky: „zacek" musí najít „Žáček". Skládá se TOUTÉŽ funkcí,
+  // která při ingestu plní person.name_norm (asciiFold) — viz ../search.ts. Složená
+  // jména se počítají jednou na seznam, ne na každý úhoz.
+  const foldedNames = useMemo(() => new Map(entries.map((e) => [e.pspId, asciiFold(e.name)])), [entries]);
+
   const rows = useMemo(() => {
-    const q = query.trim().toLowerCase();
+    const q = foldQuery(query);
     return entries.filter(
       (r) =>
         (!club || r.clubAbbrev === club) &&
-        (!q || r.name.toLowerCase().includes(q)) &&
+        nameMatches(foldedNames.get(r.pspId) ?? asciiFold(r.name), q) &&
         (!workhorseFlavour || (r.effortWorkhorse && r.effortWorkhorseFlavour === workhorseFlavour)) &&
         (!dossierOnly || r.effortHasDossier),
     );
-  }, [entries, club, query, workhorseFlavour, dossierOnly]);
+  }, [entries, foldedNames, club, query, workhorseFlavour, dossierOnly]);
 
   return (
     <div>
