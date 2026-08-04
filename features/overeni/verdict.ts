@@ -17,8 +17,10 @@
  * testovatelný bez server-only importů.
  */
 
+import { claimStatus } from "@/lib/claims/claim";
 import type { IssuedFigure } from "@/lib/claims/registry";
 import type { ProvenanceReceipt } from "@/features/shared/provenance/receipt";
+import { gateStatusInfo, type GateStatusInfo } from "./gateVocabulary";
 import type { DetectedRef, NeznamyReason } from "./refDetect";
 
 // ── Slovník verdiktů ────────────────────────────────────────────────────────
@@ -108,9 +110,14 @@ export type ZdrojLookup =
   | { status: "ok"; receipt: ProvenanceReceipt };
 
 /** Účtenka nenese hodnotu ani otisk — tvrzením JE záznam grafu sám. Existuje
- *  ⇒ verified (stav lidské brány nese účtenka); nerozluštitelná adresa nebo
+ *  ⇒ verified (adresa sedí, záznam je tam); nerozluštitelná adresa nebo
  *  záznam, který dnešní graf nenese ⇒ unknown. „Moved" tu z principu není:
- *  hrana buď v grafu je, nebo není. */
+ *  hrana buď v grafu je, nebo není.
+ *
+ *  POZOR: `verified` tu znamená EXISTENCI záznamu, ne jeho schválení. Stav
+ *  lidské brány je samostatný modifikátor (verdictGate/verdictHeadline) —
+ *  `review_state` je terminální a zamítnutá hrana v grafu ZŮSTÁVÁ, takže bez
+ *  toho rozlišení by /zdroj odkaz zamítnuté vazby vysázel obří „OVĚŘENO". */
 export function zdrojVerdict(encoded: string, lookup: ZdrojLookup): GateVerdict {
   if (lookup.status === "invalid") {
     return { family: "zdroj", kind: "unknown", reason: "nerozlustitelny", encoded };
@@ -164,11 +171,69 @@ export const neznamyVerdict = (reason: NeznamyReason): GateVerdict => ({
   reason,
 });
 
+// ── Stav lidské brány jako modifikátor verdiktu ─────────────────────────────
+
+/** Kde verdikt stojí vůči LIDSKÉ BRÁNĚ — samostatně od toho, zda záznam
+ *  existuje a zda sedí. `ungated` = deterministické odvození (negated relace,
+ *  uzel, otiskové rodiny), null = na co se ptát není (neznámý odkaz). */
+export type GateStanding =
+  | { kind: "gated"; info: GateStatusInfo }
+  | { kind: "ungated" };
+
+export function verdictGate(v: GateVerdict): GateStanding | null {
+  if (v.kind === "unknown") return null;
+  if (v.family === "figura") {
+    // Figura nese ClaimReviewStatus; chybějící stav je „pending" (claim.ts).
+    return { kind: "gated", info: gateStatusInfo(claimStatus(v.figure.claim)) };
+  }
+  if (v.family === "zdroj") {
+    const gate = v.receipt.kind === "edge" ? v.receipt.gate : null;
+    return gate === null ? { kind: "ungated" } : { kind: "gated", info: gateStatusInfo(gate.status) };
+  }
+  // Otiskové rodiny (graf, exponát) jsou deterministický přepočet pohledu.
+  return { kind: "ungated" };
+}
+
+/** Odstín verdiktu. Není to `kind`: existující, ale ZAMÍTNUTÝ nebo dosud
+ *  nezkontrolovaný záznam nesmí nosit potvrzující barvu. */
+export type VerdictTone = "confirmed" | "gated-pending" | "gated-rejected" | "moved" | "unknown";
+
+export function verdictTone(v: GateVerdict): VerdictTone {
+  if (v.kind === "unknown") return "unknown";
+  if (v.kind === "moved") return "moved";
+  const gate = verdictGate(v);
+  if (gate?.kind === "gated") {
+    if (gate.info.status === "rejected") return "gated-rejected";
+    if (gate.info.status !== "verified") return "gated-pending";
+  }
+  return "confirmed";
+}
+
 // ── Česká copy verdiktu (čistá, testovatelná — plocha jen sází) ─────────────
 
+/**
+ * Titulek verdiktu. Slovník verdiktů zůstává TŘÍSLOVNÝ (verified/moved/
+ * unknown) — brána nezískala čtvrtou odpověď. Co přibylo, je rozlišení, KTERÉ
+ * tvrzení je ověřené: u účtenky je to EXISTENCE záznamu, a ta se nesmí číst
+ * jako schválení. Zamítnutá i nezkontrolovaná hrana v grafu totiž zůstává.
+ */
 export function verdictHeadline(v: GateVerdict): string {
-  if (v.kind === "verified") return "Ověřeno — sedí, jak bylo citováno.";
+  if (v.kind === "verified") {
+    if (v.family === "zdroj") {
+      const gate = verdictGate(v);
+      if (gate?.kind === "gated" && gate.info.status === "rejected") {
+        return "Záznam v grafu je — lidská kontrola ho zamítla.";
+      }
+      if (gate?.kind === "gated" && gate.info.status !== "verified") {
+        return "Záznam v grafu je — lidskou kontrolou ještě neprošel.";
+      }
+      return "Ověřeno — záznam sedí, jak byl citován.";
+    }
+    return "Ověřeno — sedí, jak bylo citováno.";
+  }
   if (v.kind === "moved") return "Hodnota se od citace pohnula.";
+  // Verdikt zůstává `unknown` — jen NEŘÍKÁ „neznámý odkaz" o vlastní stránce.
+  if (v.reason === "politicas-neni-citace") return "Naše stránka, ale ne citovatelná adresa.";
   return "Neznámý odkaz.";
 }
 
@@ -177,6 +242,8 @@ const UNKNOWN_LEADS: Record<UnknownReason, string> = {
   "prilis-dlouhy": "Vstup přesahuje horní mez délky — politicas adresa ani opsaný element takhle dlouhé nejsou.",
   nerozlustitelny:
     "Tvar odkazu poznáváme, ale adresa se nedá rozluštit. Adresa je tvrzení — neopravujeme ji, odmítáme ji.",
+  "politicas-neni-citace":
+    "Tohle je naše stránka, ale ne citovatelná adresa — plocha sama tvrzením není. Adresu tvrzení vydává až konkrétní řádek: u peněžních vazeb je to odkaz „účtenka“ (/zdroj/…) na /penize i ve spisu poslance a firmy, u čísel zkopírovaný element s data-claim-*, u pohledu na graf akce citovat. Otevřete tu stránku, vezměte adresu odtamtud a vložte ji sem.",
   nepodporovany:
     "Tohle není politicas odkaz. Brána ověřuje výhradně odkazy, které politicas vydal — volný text nefactcheckuje.",
   "mimo-rejstrik":
@@ -193,7 +260,16 @@ export function verdictLead(v: GateVerdict): string {
         : "Citovaná hodnota se shoduje s dnešním znovuodvozením — bajt po bajtu.";
     }
     if (v.family === "zdroj") {
-      return "Dnešní znalostní graf tento záznam nese — účtenka níže včetně stavu lidské kontroly.";
+      const gate = verdictGate(v);
+      if (gate?.kind === "gated" && gate.info.status === "rejected") {
+        return "Adresa sedí a záznam v dnešním grafu je — lidská kontrola ho ale ZAMÍTLA. Ověřeno je, že jste citovali právě tenhle záznam; doložené tvrzení to není a citovat se tak nesmí.";
+      }
+      if (gate?.kind === "gated" && gate.info.status !== "verified") {
+        return "Adresa sedí a záznam v dnešním grafu je — lidskou branou ale zatím neprošel. Je to stopa k dohledání, ne doložené tvrzení; účtenka níže říká, kdo a odkud ji zapsal.";
+      }
+      return gate?.kind === "ungated"
+        ? "Dnešní znalostní graf tento záznam nese. Je to deterministické odvození — lidskou branou neprochází a účtenka níže to říká výslovně."
+        : "Dnešní znalostní graf tento záznam nese a prošel lidskou kontrolou — účtenka níže včetně jejího stavu.";
     }
     return "Otisk citovaného obsahu se shoduje s otiskem dnešního znovuodvození.";
   }

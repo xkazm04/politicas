@@ -16,12 +16,21 @@ import { ArrowRight, ScanLine, Stamp } from "lucide-react";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
 import CitableNumber from "@/lib/claims/CitableNumber";
+import { claimStatus } from "@/lib/claims/claim";
 import { formattersFor } from "@/lib/format";
 import type { Locale } from "@/lib/i18n/config";
 import { formatWeightCs } from "@/features/shared/provenance/receipt";
 import type { GateData } from "./getVerdictData";
 import { GUIDE_EXAMPLES, GUIDE_STEPS } from "./guide";
-import { verdictHeadline, verdictLead, type GateVerdict } from "./verdict";
+import { gateHeadlineCs, gateStatusInfo, UNGATED_LABEL_CS } from "./gateVocabulary";
+import {
+  verdictGate,
+  verdictHeadline,
+  verdictLead,
+  verdictTone,
+  type GateVerdict,
+  type VerdictTone,
+} from "./verdict";
 
 // ── Slovníček sazby ─────────────────────────────────────────────────────────
 
@@ -33,17 +42,15 @@ const FAMILY_LABELS: Record<GateVerdict["family"], string> = {
   neznamy: "mimo rodiny politicas",
 };
 
-const GATE_STATUS_CS: Record<string, string> = {
-  verified: "ověřeno člověkem",
-  pending_review: "čeká na lidskou kontrolu",
-  rejected: "zamítnuto při kontrole",
-};
-
-/** Barevný akcent verdiktu — tokeny, žádné hex hodnoty. */
-const VERDICT_TONE: Record<GateVerdict["kind"], { border: string; text: string }> = {
-  verified: { border: "border-cobalt", text: "text-cobalt" },
+/** Barevný akcent verdiktu — tokeny, žádné hex hodnoty. Odstín NENÍ `kind`:
+ *  existující, ale zamítnutý či nezkontrolovaný záznam nesmí nosit potvrzující
+ *  kobalt (viz verdictTone). */
+const VERDICT_TONE: Record<VerdictTone, { border: string; text: string }> = {
+  confirmed: { border: "border-cobalt", text: "text-cobalt" },
+  "gated-pending": { border: "border-ochre", text: "text-ink" },
+  "gated-rejected": { border: "border-signal-deep", text: "text-signal-deep" },
   moved: { border: "border-signal-deep", text: "text-signal-deep" },
-  unknown: { border: "border-steel-aa", text: "text-steel-aa" },
+  unknown: { border: "border-steel-aa", text: "text-ink" },
 };
 
 // ── Dílčí sazba verdiktu ────────────────────────────────────────────────────
@@ -89,9 +96,7 @@ function VerdictBody({ verdict, locale }: { verdict: GateVerdict; locale: Locale
         )}
         <Row label="dataset">{figure.claim.dataset}</Row>
         <Row label="metrika">{figure.claim.metric}</Row>
-        <Row label="stav lidské brány">
-          {GATE_STATUS_CS[figure.claim.reviewStatus ?? "pending"] ?? figure.claim.reviewStatus}
-        </Row>
+        <Row label="stav lidské brány">{gateStatusInfo(claimStatus(figure.claim)).labelCs}</Row>
         <Row label="figura vydaná na">
           <Link href={figure.issuedAt} className="text-cobalt underline-offset-2 hover:underline">
             {figure.issuedAt}
@@ -112,9 +117,7 @@ function VerdictBody({ verdict, locale }: { verdict: GateVerdict; locale: Locale
             </Row>
             {r.weight !== null && <Row label="váha záznamu">{formatWeightCs(r.weight)}</Row>}
             <Row label="stav lidské brány">
-              {r.gate === null
-                ? "deterministické odvození — lidskou branou neprochází"
-                : (GATE_STATUS_CS[r.gate.status] ?? r.gate.status)}
+              {r.gate === null ? UNGATED_LABEL_CS : gateStatusInfo(r.gate.status).labelCs}
             </Row>
           </>
         ) : (
@@ -163,7 +166,8 @@ function VerdictBody({ verdict, locale }: { verdict: GateVerdict; locale: Locale
 }
 
 function VerdictPanel({ verdict, locale }: { verdict: GateVerdict; locale: Locale }) {
-  const tone = VERDICT_TONE[verdict.kind];
+  const tone = VERDICT_TONE[verdictTone(verdict)];
+  const gate = verdictGate(verdict);
   return (
     <section aria-label="verdikt brány" className={`mt-8 border-2 border-ink border-l-8 ${tone.border} bg-paper p-5`}>
       <p className="font-mono text-xs font-bold uppercase tracking-[0.25em] text-steel-aa">
@@ -172,6 +176,18 @@ function VerdictPanel({ verdict, locale }: { verdict: GateVerdict; locale: Local
       <h2 className={`mt-2 text-2xl font-black uppercase tracking-tight sm:text-3xl ${tone.text}`}>
         {verdictHeadline(verdict)}
       </h2>
+      {/* Stav lidské brány STOJÍ V HLAVIČCE, ne šedesát pixelů pod ní: existence
+          záznamu a jeho schválení jsou dvě různá tvrzení a screenshot musí unést
+          obě. Zamítnutá vazba se tak nedá vyfotit jako „OVĚŘENO". */}
+      {gate !== null && (
+        <p
+          className={`mt-1.5 text-lg font-black uppercase tracking-tight sm:text-xl ${
+            gate.kind === "ungated" ? "text-steel-aa" : tone.text
+          }`}
+        >
+          {gate.kind === "ungated" ? UNGATED_LABEL_CS : gateHeadlineCs(gate.info)}
+        </p>
+      )}
       <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink">{verdictLead(verdict)}</p>
       <VerdictBody verdict={verdict} locale={locale} />
     </section>

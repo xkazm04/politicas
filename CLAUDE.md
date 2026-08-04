@@ -646,6 +646,39 @@ Route map (politicas.md roadmap execution, sample data):
   through GraphStage's single label engine. Node click opens provenance and
   registry deep-links from stable ids (`lib/kg/sourceLinks.ts`). Sizing
   ground truth: `docs/data-analysis/graph-explorer-scale.md`.
+- `/overeni` — **Ověření citace / Civic Claim Gate** (features/overeni): paste a
+  politicas address (receipt `/zdroj/…`, graph citation `/graf/p/…`, velín
+  exhibit, claim-ref or a copied `data-claim-*` element) and the gate re-derives
+  it against today's record. The vocabulary is THREE verdicts and no fourth —
+  `verified` · `moved` · `unknown` (`verdict.ts`); the gate itself derives
+  nothing, it forwards each family to the loader that owns it.
+  **The verdict states the human gate separately, since 2026-08-04.** For a
+  receipt, `verified` means the RECORD EXISTS — and `review_state` is terminal
+  per edge, so a rejected `linked_to` tie stays in the graph. The page used to
+  print a 3xl „Ověřeno" over exactly that, with the gate state demoted to a small
+  row 60 px below; since every money tie on /penize now ships a `/zdroj` receipt
+  link, that is the address a reader is most likely to paste. `verdictGate()` /
+  `verdictTone()` are pure and tested: existence and endorsement are two
+  sentences at headline weight („Záznam v grafu je — lidská kontrola ho
+  zamítla."), a non-confirmed gate loses the confirming cobalt (ochre for
+  pending, `signal-deep` for rejected), and a gate-verified edge keeps its
+  unqualified „Ověřeno". Measured on the live store: **211/211 `linked_to` edges
+  are `pending_review`, 0 rejected** — the rejected path is proven by test, not
+  by data.
+  **One claim-status vocabulary** — `features/overeni/gateVocabulary.ts`. The
+  page's table was keyed on the RECEIPT tokens (`verified|pending_review|
+  rejected`) while a registry figure carries `ClaimReviewStatus`
+  (`verified|pending`), so 2 of 3 issued figures rendered the raw English token
+  and an omitted status rendered EMPTY. `pending` and `pending_review` are one
+  state with one sentence; an unmapped token renders VERBATIM and labelled as
+  untranslated (the `tieFlags.ts` precedent), never hidden and never guessed.
+  **Our own page is not „not a politicas link"** — `refDetect` knew three path
+  patterns and called everything else `nepodporovany`, which is false for
+  `/penize/firma/<ico>`, `/poslanec/<id>`, `/zebricek`… The new
+  `politicas-neni-citace` reason says it is our page but not a citable address
+  and where that page issues one. The known-segment set is derived from
+  `features/shell/navModel.ts` (NAV + children + `UNLISTED_ROUTES`), never
+  retyped, and a foreign origin on the same path is still `nepodporovany`.
 - `/rentgen` — archived art direction.
 
 All five politicas.md modules now have surfaces. **Update 2026-07-24 — four

@@ -124,6 +124,27 @@ describe("hranice produktu — co brána nepřijímá", () => {
     });
   });
 
+  it("NAŠE plocha bez citace má vlastní důvod, ne „není politicas odkaz“", () => {
+    for (const path of [
+      "/penize/firma/46347534",
+      "/penize/6881",
+      "/poslanec/6881",
+      "/zebricek",
+      "/zakony/58",
+      "https://politicas.cz/penize/firma/46347534",
+    ]) {
+      expect(detectRef(path), path).toEqual({ family: "neznamy", reason: "politicas-neni-citace" });
+    }
+  });
+
+  it("cizí origin naší plochou není ani na shodné cestě", () => {
+    expect(detectRef("https://example.com/penize/firma/46347534")).toEqual({
+      family: "neznamy",
+      reason: "nepodporovany",
+    });
+    expect(detectRef("/neexistujici-routa")).toEqual({ family: "neznamy", reason: "nepodporovany" });
+  });
+
   it("malformovaný token známé rodiny → nerozluštitelný", () => {
     expect(detectRef("claim:jen-dataset")).toEqual({ family: "neznamy", reason: "nerozlustitelny" });
     expect(detectRef("u.%%%")).toEqual({ family: "neznamy", reason: "nerozlustitelny" });

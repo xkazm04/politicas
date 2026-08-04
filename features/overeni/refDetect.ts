@@ -21,6 +21,7 @@ import { parseClaimRef, type ClaimRefParts } from "@/lib/claims/claim";
 import { decodeClaimRef, type ClaimRef } from "@/features/shared/provenance/claimRef";
 import { decodeGraphRef, type GraphRef } from "@/features/graph/permalink";
 import { decodeExhibitId, type ExhibitParams } from "@/features/dashboard/exhibit";
+import { NAV, UNLISTED_ROUTES } from "@/features/shell/navModel";
 
 // ── Tvar výsledku ───────────────────────────────────────────────────────────
 
@@ -44,6 +45,10 @@ export type NeznamyReason =
   | "prilis-dlouhy"
   /** Tvar rodiny poznáváme, ale adresa se nedá rozluštit. */
   | "nerozlustitelny"
+  /** NAŠE stránka, ale ne citovatelná adresa (/penize/firma/…, /poslanec/…,
+   *  /zebricek…). Není to „mimo politicas" — čtenář jen vložil plochu místo
+   *  adresy tvrzení, kterou ta plocha vydává. */
+  | "politicas-neni-citace"
   /** Volný text / cizí URL — brána volný text neověřuje (hranice produktu). */
   | "nepodporovany";
 
@@ -126,6 +131,47 @@ function decodeSegment(seg: string): string {
   }
 }
 
+// ── Naše cesty, které citací NEJSOU ─────────────────────────────────────────
+//
+// Rozpoznané rodiny výše jsou tři; všechno ostatní padalo na „tohle není
+// politicas odkaz", což je u /penize/firma/<ico> nebo /poslanec/<id> prostě
+// nepravda. Seznam prvních segmentů se NEOPISUJE — bere se z navModelu, který
+// deklaruje, co aplikace vydává (NAV + jeho children + UNLISTED_ROUTES), takže
+// nová routa je tu automaticky a nemůže zestárnout.
+
+const firstSegment = (path: string): string | null => {
+  const seg = path.replace(/^\/+/, "").split(/[/?#]/)[0];
+  return seg === undefined || seg === "" ? null : seg.toLowerCase();
+};
+
+const APP_SEGMENTS: ReadonlySet<string> = new Set(
+  [
+    ...NAV.flatMap((entry) => [entry.href, ...entry.children.map((c) => c.href)]),
+    ...UNLISTED_ROUTES.map((r) => r.route),
+  ]
+    .map(firstSegment)
+    .filter((s): s is string => s !== null),
+);
+
+/** Cesta vstupu, je-li vstup holá cesta nebo URL; jinak null. Cizí origin
+ *  nikdy nevrací cestu — /clanek na example.com naší stránkou není. */
+export function politicasPath(input: string): string | null {
+  if (input.startsWith("/")) return input;
+  const m = input.match(/^https?:\/\/([^/\s]+)(\/[^\s]*)?$/i);
+  if (!m) return null;
+  const host = m[1].toLowerCase().replace(/:\d+$/, "");
+  const ours = host === "politicas.cz" || host.endsWith(".politicas.cz") || host === "localhost";
+  return ours ? (m[2] ?? "/") : null;
+}
+
+/** Vstup je naše plocha, ale ne adresa tvrzení. */
+export function isAppRouteWithoutClaim(input: string): boolean {
+  const path = politicasPath(input);
+  if (path === null) return false;
+  const seg = firstSegment(path);
+  return seg !== null && APP_SEGMENTS.has(seg);
+}
+
 function decodeFamily(family: PathFamily, encoded: string): DetectedRef {
   if (family === "zdroj") {
     const ref = decodeClaimRef(encoded);
@@ -156,7 +202,13 @@ export function detectRef(raw: string): DetectedRef {
     if (m) return decodeFamily(family, decodeSegment(m[1]));
   }
 
-  // 3) Holý token jedné rodiny. Víceslovný vstup bez rozpoznané cesty je
+  // 3) Naše plocha, která ale citací není (/penize/firma/…, /poslanec/…).
+  //    Vlastní důvod — „tohle není politicas odkaz" by tu byla nepravda.
+  if (!/\s/.test(input) && isAppRouteWithoutClaim(input)) {
+    return neznamy("politicas-neni-citace");
+  }
+
+  // 4) Holý token jedné rodiny. Víceslovný vstup bez rozpoznané cesty je
   //    volný text — hranice produktu, žádný fact-check.
   if (/\s/.test(input)) return neznamy("nepodporovany");
 

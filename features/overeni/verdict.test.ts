@@ -7,8 +7,10 @@ import {
   figuraVerdict,
   grafVerdict,
   neznamyVerdict,
+  verdictGate,
   verdictHeadline,
   verdictLead,
+  verdictTone,
   zdrojVerdict,
 } from "./verdict";
 
@@ -147,11 +149,78 @@ describe("verdikt otiskových rodin (graf, exponát)", () => {
   });
 });
 
+describe("stav lidské brány je modifikátor verdiktu, ne verdikt", () => {
+  const receiptWithGate = (status: "verified" | "pending_review" | "rejected"): ProvenanceReceipt => ({
+    ...RECEIPT,
+    gate: { status, reviewer: null, reviewedAt: null, note: null, audit: [] },
+  });
+  const zdroj = (status: "verified" | "pending_review" | "rejected") =>
+    zdrojVerdict("h.abc.def.ghi", { status: "ok", receipt: receiptWithGate(status) });
+
+  it("zamítnutá hrana: verdikt zůstává trojslovný, ale titulek NENÍ potvrzení", () => {
+    const v = zdroj("rejected");
+    // Slovník se nerozšířil — hrana v grafu je, tedy verified.
+    expect(v.kind).toBe("verified");
+    const headline = verdictHeadline(v);
+    expect(headline).toContain("zamítla");
+    expect(headline).not.toContain("Ověřeno");
+    expect(verdictTone(v)).toBe("gated-rejected");
+    expect(verdictGate(v)).toMatchObject({ kind: "gated", info: { status: "rejected" } });
+    expect(verdictLead(v)).toContain("ZAMÍTLA");
+  });
+
+  it("hrana čekající na kontrolu se nečte jako doložené tvrzení", () => {
+    const v = zdroj("pending_review");
+    expect(verdictHeadline(v)).toContain("neprošel");
+    expect(verdictHeadline(v)).not.toContain("Ověřeno");
+    expect(verdictTone(v)).toBe("gated-pending");
+    expect(verdictLead(v)).toContain("stopa");
+  });
+
+  it("hrana potvrzená člověkem drží nezeslabené „ověřeno“", () => {
+    const v = zdroj("verified");
+    expect(verdictHeadline(v)).toContain("Ověřeno");
+    expect(verdictTone(v)).toBe("confirmed");
+    expect(verdictGate(v)).toMatchObject({ kind: "gated", info: { status: "verified" } });
+  });
+
+  it("negated záznam (bez brány) je ungated, ne „ověřeno člověkem“", () => {
+    const v = zdrojVerdict("h.abc.def.ghi", { status: "ok", receipt: { ...RECEIPT, gate: null } });
+    expect(verdictGate(v)).toEqual({ kind: "ungated" });
+    expect(verdictHeadline(v)).toContain("Ověřeno");
+    expect(verdictLead(v)).toContain("deterministické odvození");
+  });
+
+  it("figura nese stav claimu (chybějící = pending), otiskové rodiny jsou ungated", () => {
+    expect(verdictGate(figuraVerdict(figuraDet(78.3), FIGURE))).toMatchObject({
+      kind: "gated",
+      info: { status: "pending_review", token: "pending" },
+    });
+    const graf = grafVerdict("g.x.0a1b2c3d", {
+      status: "ok",
+      view: { urlHash: "0a1b2c3d", currentHash: "0a1b2c3d", fresh: true },
+      title: "t",
+      currentDate: "2026-07-30",
+    });
+    expect(verdictGate(graf)).toEqual({ kind: "ungated" });
+    expect(verdictGate(neznamyVerdict("nepodporovany"))).toBeNull();
+  });
+});
+
 describe("česká copy verdiktu", () => {
   it("tři titulky, nic čtvrtého", () => {
     expect(verdictHeadline(figuraVerdict(figuraDet(78.3), FIGURE))).toContain("Ověřeno");
     expect(verdictHeadline(figuraVerdict(figuraDet(1), FIGURE))).toContain("pohnula");
     expect(verdictHeadline(neznamyVerdict("nepodporovany"))).toContain("Neznámý");
+  });
+
+  it("naše plocha bez citace má VLASTNÍ důvod, ne „není politicas odkaz“", () => {
+    expect(verdictHeadline(neznamyVerdict("politicas-neni-citace"))).toContain("Naše stránka");
+    expect(neznamyVerdict("politicas-neni-citace").kind).toBe("unknown");
+    const lead = verdictLead(neznamyVerdict("politicas-neni-citace"));
+    expect(lead).toContain("naše stránka");
+    expect(lead).toContain("/zdroj/");
+    expect(lead).not.toBe(verdictLead(neznamyVerdict("nepodporovany")));
   });
 
   it("lead pro volný text říká hranici produktu výslovně", () => {
