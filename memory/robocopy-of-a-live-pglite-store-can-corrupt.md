@@ -15,6 +15,16 @@ same day were fine.
 copy can catch a write mid-flight. A builder on a corrupt copy loses ALL live verification
 for its whole session and can only reason from read shapes.
 
+**Round-6 addendum (same day):** the deeper failure was found — the MAIN store itself can be
+damaged by orphaned writers: 11 zombie `next start` servers from a dead builder session ran
+for days out of deleted worktrees, and the store went from sentinel-green to
+aborting-every-open within 30 minutes. Diagnosis order that worked: probe a COPY → probe the
+BACKUP (opens = code is fine) → check postmaster.pid (PGlite writes a fake pid, useless) →
+enumerate node processes by command line → kill only what you can attribute → if it still
+aborts with zero holders, the store is damaged; restore from backup and REPLAY the
+provenance-stamped writes (the recompute's replay gate makes this safe). Always `Stop-Process`
+orphaned worktree servers BEFORE deleting worktrees.
+
 **How to apply:** after copying a store for a worktree, verify it opens before briefing
 anyone (cheapest: `NODE_OPTIONS="--conditions=react-server" npx tsx` a one-line
 `storeReady()` probe, or run any `da:*` metric script against it). If a builder reports
