@@ -47,6 +47,8 @@
 import { PLAUSIBLE_FROM } from "@/features/dashboard/datedFacts";
 import { DECISION_CS } from "@/features/dukazy/deriveFeed";
 import { canonicalIco } from "@/features/money/companyId";
+import { buildRegistryLinks } from "@/features/money/reviewTypes";
+import { sourceLinksFor } from "@/lib/kg/sourceLinks";
 
 export type DenikKind =
   | "contract"
@@ -75,6 +77,19 @@ export interface DenikEntity {
   href: string | null;
 }
 
+/** Odkaz do PRIMÁRNÍHO registru — co si čtenář může sám otevřít a přečíst. */
+export interface DenikLink {
+  /** Vlastní jméno registru — renderuje se doslova. */
+  label: string;
+  href: string;
+}
+
+/** Doslovný ukazatel na záznam, ze kterého fakt pochází (change_event.evidence). */
+export interface DenikEvidence {
+  label: string;
+  value: string;
+}
+
 export interface DenikEntry {
   /** Deterministické id — veřejná adresa záznamu ve feedu (guid). */
   id: string;
@@ -96,6 +111,11 @@ export interface DenikEntry {
   entities: DenikEntity[];
   /** Interní evidenční odkaz věty (první entita s href). */
   internalHref: string | null;
+  /** Odkazy do primárních registrů — řádek nese SVŮJ doklad, ne jen jméno
+   *  registru. Prázdné pole = z toho, co řádek nese, se odkaz postavit nedá. */
+  links: DenikLink[];
+  /** Ukazatel na záznam, ze kterého fakt vznikl (u proudu „zaznamenáno"). */
+  evidence: DenikEvidence[];
 }
 
 export interface DenikDay {
@@ -250,6 +270,9 @@ export interface DenikChange {
   termCode: string | null;
   /** Název funkce ve sněmovním orgánu (`payload.functionNameCz`), u role-*. */
   functionNameCz: string | null;
+  /** Ukazatel na doklad (`change_event.evidence`) — tabulka + řádek, nebo
+   *  hrana grafu. Vykresluje se u řádku; deník ho nikdy nedomýšlí. */
+  evidence?: Record<string, unknown>;
   /** Doslovný název záznamu, ze kterého byl event odvozen (`change_event.source`)
    *  — kg_edge_history, nebo diff snímků psp.cz. Deník cituje TENHLE řetězec,
    *  ne jméno tabulky, ve které event skončil. */
@@ -311,6 +334,55 @@ const companyEntity = (ico: string | null, company: string): DenikEntity | null 
     href: `/penize/firma/${canonical}`,
   };
 };
+
+/**
+ * Odkazy na firmu — TÁŽ TROJICE, jakou u své vazby publikuje Deník důkazů
+ * (features/dukazy/deriveFeed), a týmž builderem (`buildRegistryLinks`), aby
+ * dva deníky jedné platformy neposílaly čtenáře do dvou různých registrů.
+ * `source` je vstup pro slug osoby na Hlídači; řádek deníku ho nenese, a tak
+ * se nepředstírá (`hlidacPerson` zůstane null a mezi odkazy se neobjeví).
+ * Firma bez kanonického IČO nedostane odkaz žádný — viz companyEntity.
+ */
+function companyLinks(ico: string | null, prefix?: string): DenikLink[] {
+  const canonical = ico === null ? null : canonicalIco(ico);
+  if (canonical === null) return [];
+  const r = buildRegistryLinks(canonical, "");
+  const name = (base: string) => (prefix ? `${base} · ${prefix}` : base);
+  return [
+    { label: name("ARES VR"), href: r.aresVr },
+    { label: name("Hlídač státu"), href: r.hlidacSubjekt },
+    { label: name("Registr smluv"), href: r.registrSmluv },
+  ];
+}
+
+/** Odkaz na sněmovní tisk. `buildRegistryLinks` je o firmách a o tisku neví nic,
+ *  takže tady mluví builder, který o něm ví — `lib/kg/sourceLinks` (týž, jakým
+ *  registrové odkazy staví /graf). Zase import, ne druhá kopie adresy psp.cz. */
+function billLinks(cislo: number): DenikLink[] {
+  return sourceLinksFor({
+    kind: "bill",
+    id: `psp:bill:${cislo}`,
+    label: `sn. tisk ${cislo}`,
+    props: { cislo },
+  }).map((l) => ({ label: l.registry, href: l.url }));
+}
+
+/** `change_event.evidence` → deterministicky seřazené dvojice klíč/hodnota.
+ *  Hodnoty jiné než primitivní se serializují, nikdy nezahazují. */
+function evidencePairs(evidence: Record<string, unknown> | undefined): DenikEvidence[] {
+  if (!evidence) return [];
+  return Object.keys(evidence)
+    .sort()
+    .map((label) => {
+      const v = evidence[label];
+      return {
+        label,
+        value:
+          typeof v === "string" ? v : typeof v === "number" || typeof v === "boolean" ? String(v) : JSON.stringify(v),
+      };
+    })
+    .filter((e) => e.value !== undefined && e.value !== "undefined");
+}
 
 const billEntity = (cislo: number): DenikEntity => ({
   key: billEntityKey(cislo),
@@ -409,6 +481,12 @@ function mergeContracts(contracts: readonly DenikContract[]): MergedContracts {
       tone: "signal",
       entities,
       internalHref: firstHref(entities),
+      // Doklad každého dodavatele; u víc dodavatelů se odkaz pojmenuje firmou,
+      // aby čtenář věděl, čí rejstřík otevírá.
+      links: suppliers.flatMap((sup) =>
+        companyLinks(sup.ico, suppliers.length > 1 ? sup.company : undefined),
+      ),
+      evidence: [],
     });
   }
   return { entries, merged, amountConflicts };
@@ -495,6 +573,11 @@ function changeEntry(ch: DenikChange): RawEntry {
     tone,
     entities: entities.length > 0 ? entities : [{ key: `zaznam:${ch.id}`, label: titleCs, href: null }],
     internalHref: firstHref(entities),
+    links: companyLinks(ch.ico),
+    // `change_event.evidence` je NAVRŽENÝ ukazatel na doklad (tabulka a řádek,
+    // nebo hrana grafu) a do 2026-08-04 ho loader ani nemapoval — řádek proudu
+    // „zaznamenáno" tak tvrdil změnu bez jediného odkazu na to, odkud ji ví.
+    evidence: evidencePairs(ch.evidence),
   };
 }
 
@@ -518,6 +601,8 @@ function collectRaw(input: DenikInput): RawCollection {
       tone: "cobalt" as const,
       entities,
       internalHref: firstHref(entities),
+      links: companyLinks(r.ico),
+      evidence: [],
     };
     raw.push({
       // Klíč řádku: IČO, a když ho firma nemá, její JMÉNO — dvě firmy bez IČO
@@ -547,6 +632,8 @@ function collectRaw(input: DenikInput): RawCollection {
       tone: "ink" as const,
       entities,
       internalHref: firstHref(entities),
+      links: billLinks(b.cislo),
+      evidence: [],
     };
     for (const c of b.committees) {
       raw.push({
@@ -586,6 +673,9 @@ function collectRaw(input: DenikInput): RawCollection {
       tone: "ochre",
       entities: entities.length > 0 ? entities : [{ key: `zaznam:${rv.id}`, label: `${rv.mpName} ↔ ${rv.company}`, href: null }],
       internalHref: firstHref(entities),
+      links: companyLinks(rv.ico),
+      // review_audit je append-only log; id řádku JE ukazatel na rozhodnutí.
+      evidence: [{ label: "review_audit", value: rv.id }],
     });
   }
 

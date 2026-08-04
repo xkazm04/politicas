@@ -18,6 +18,7 @@ import SourceNote from "@/features/shared/components/SourceNote";
 import { czechDate, czechInt } from "@/lib/format";
 import { compactCzk } from "@/features/money/moneyTypes";
 import { czechWeekday, DAYS_SHOWN, type DenikDay, type DenikEntry, type DenikLedger } from "./deriveDenik";
+import { denikKindLabel, TIME_BASIS_TITLE } from "./kindLabels";
 import type { DenikCoverage, DenikLimits } from "./getDenikData";
 import FollowButton from "@/features/schranka/FollowButton";
 
@@ -28,11 +29,32 @@ const TONE_DOT: Record<DenikEntry["tone"], string> = {
   ochre: "bg-ochre",
 };
 
-function EntryRow({ e, followedKey }: { e: DenikEntry; followedKey: string | null }) {
+/**
+ * Jeden zápis. ČTE SE JAKO ŘÁDEK KNIHY, ne jako odstavec: druh SLOVEM (tečka
+ * je jeho dekorace, ne jediný nositel — `aria-hidden` tečka byla do 2026-08-04
+ * jediné, co druh sdělovalo), věta, částka, zdroj, časová osa s vlastním
+ * výkladem u sebe, doklady do primárních rejstříků a čipy entit.
+ *
+ * `<li>` uvnitř `<ul>` dne: seznam zápisů JE seznam a čtečka to má vědět
+ * („položka 3 z 12“). `<time dateTime>` nese den strojově i pro řádek, který
+ * někdo přečte mimo jeho hlavičku.
+ */
+function EntryRow({ e, followedKey, dayCs }: { e: DenikEntry; followedKey: string | null; dayCs: string }) {
+  const kind = denikKindLabel(e.kind);
   return (
-    <div className="grid grid-cols-[auto_1fr] items-baseline gap-x-3 gap-y-1 border-b border-hairline px-3 py-3.5">
+    <li className="grid grid-cols-[auto_1fr] items-baseline gap-x-3 gap-y-1 border-b border-hairline px-3 py-3.5">
       <span className={`mt-1.5 inline-block h-2.5 w-2.5 shrink-0 ${TONE_DOT[e.tone]}`} aria-hidden />
       <span className="min-w-0 text-[15px] leading-relaxed">
+        <time dateTime={e.date} className="sr-only">
+          {dayCs}
+        </time>
+        {/* Druh SLOVEM — tečka vlevo je jeho barevná dekorace. */}
+        <span className="mr-2 whitespace-nowrap font-mono text-[11px] font-bold uppercase tracking-wider text-steel-aa">
+          {kind.text}
+          {!kind.translated && (
+            <span className="ml-1 font-normal normal-case tracking-normal">(nepřeložený druh)</span>
+          )}
+        </span>
         {e.internalHref ? (
           <Link href={e.internalHref} className="hover:text-signal-deep hover:underline">
             {e.titleCs}
@@ -48,19 +70,55 @@ function EntryRow({ e, followedKey }: { e: DenikEntry; followedKey: string | nul
         <span className="ml-2 whitespace-nowrap font-mono text-[11px] uppercase tracking-wider text-steel">
           [{e.source}]
         </span>
-        {/* Kterým časem je řádek datován — světový den události vs. den záznamu. */}
+        {/* Kterým časem je řádek datován — a co to znamená, U ŘÁDKU: výklad
+            stál 200 px výš, mimo pohled čtenáře, který zrovna čte tenhle řádek.
+            Tečkované podtržení je viditelný příslib vysvětlení. */}
         {e.timeBasis === "zaznamenano" ? (
-          <span className="ml-2 whitespace-nowrap border border-cobalt px-1 font-mono text-[10px] font-bold uppercase tracking-wider text-cobalt">
+          <span
+            className="ml-2 cursor-help whitespace-nowrap border border-cobalt px-1 font-mono text-[10px] font-bold uppercase tracking-wider text-cobalt"
+            title={TIME_BASIS_TITLE.zaznamenano}
+            aria-label={TIME_BASIS_TITLE.zaznamenano}
+          >
             zaznamenáno
           </span>
         ) : (
-          <span className="ml-2 whitespace-nowrap font-mono text-[10px] uppercase tracking-wider text-steel-aa">
+          <span
+            className="ml-2 cursor-help whitespace-nowrap border-b border-dotted border-steel font-mono text-[10px] uppercase tracking-wider text-steel-aa"
+            title={TIME_BASIS_TITLE.ucinne}
+            aria-label={TIME_BASIS_TITLE.ucinne}
+          >
             účinné
           </span>
         )}
         {e.pending && (
           <span className="mt-1 block font-mono text-[11px] uppercase tracking-wider text-ochre">
             stojí na vazbě čekající na lidskou kontrolu
+          </span>
+        )}
+        {/* Doklad: co si čtenář může sám otevřít. Do 2026-08-04 tu stálo jen
+            JMÉNO rejstříku v hranatých závorkách — citace, kterou neslo přečíst. */}
+        {(e.links.length > 0 || e.evidence.length > 0) && (
+          <span className="mt-1 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            {e.links.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-0.5 font-mono text-[11px] uppercase tracking-wider text-signal-deep hover:underline"
+              >
+                {l.label}
+                <ArrowUpRight className="h-3 w-3" aria-hidden />
+              </a>
+            ))}
+            {e.evidence.map((ev) => (
+              <span
+                key={`${ev.label}:${ev.value}`}
+                className="font-mono text-[11px] tracking-wider text-steel"
+              >
+                {ev.label}: {ev.value}
+              </span>
+            ))}
           </span>
         )}
         {/* Filtr je adresa — každý čip je odkaz na vlastní deník entity. Sledovat
@@ -87,7 +145,7 @@ function EntryRow({ e, followedKey }: { e: DenikEntry; followedKey: string | nul
           )}
         </span>
       </span>
-    </div>
+    </li>
   );
 }
 
@@ -96,9 +154,13 @@ function DayMasthead({ day }: { day: DenikDay }) {
   const weekday = czechWeekday(day.date);
   return (
     <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b-2 border-ink pb-2">
-      <h3 className="text-2xl font-black uppercase tracking-tight sm:text-3xl">
-        {weekday ? `${weekday} ` : ""}
-        {czechDate(day.date)}
+      <h3 id={`h-${day.anchor}`} className="text-2xl font-black uppercase tracking-tight sm:text-3xl">
+        {/* Den vydání strojově čitelně — kotva `#d-<datum>` je jeho adresa,
+            `<time dateTime>` jeho datum. */}
+        <time dateTime={day.date}>
+          {weekday ? `${weekday} ` : ""}
+          {czechDate(day.date)}
+        </time>
         <span className="text-signal">.</span>
       </h3>
       <span className="flex items-baseline gap-4">
@@ -365,15 +427,23 @@ export default function DenikPage({
             </div>
           ) : (
             <>
+              {/* Vydání dne = <article>, jeho zápisy = <ul>/<li>. Byly to holé
+                  <div>y, takže čtečka nevěděla, že jde o seznam, ani kolik má
+                  položek — deník je přitom seznam ze všeho nejdřív. */}
               <div className="mt-8 space-y-12">
                 {ledger.days.map((day) => (
-                  <article key={day.date} id={day.anchor} className="scroll-mt-24 target:bg-paper-strong">
+                  <article
+                    key={day.date}
+                    id={day.anchor}
+                    aria-labelledby={`h-${day.anchor}`}
+                    className="scroll-mt-24 target:bg-paper-strong"
+                  >
                     <DayMasthead day={day} />
-                    <div>
+                    <ul className="list-none" aria-label={`Zápisy dne ${czechDate(day.date)}`}>
                       {day.entries.map((e) => (
-                        <EntryRow key={e.id} e={e} followedKey={entityKey} />
+                        <EntryRow key={e.id} e={e} followedKey={entityKey} dayCs={czechDate(day.date)} />
                       ))}
-                    </div>
+                    </ul>
                   </article>
                 ))}
               </div>

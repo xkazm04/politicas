@@ -25,6 +25,8 @@ function entry(over: Partial<DenikEntry> & { id: string; date: string; keys: str
     tone: "signal",
     entities: keys.map((key) => ({ key, label: `popisek ${key}`, href: null })),
     internalHref: null,
+  links: [],
+  evidence: [],
     ...rest,
   };
 }

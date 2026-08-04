@@ -27,6 +27,8 @@ const entry = (over: Partial<DenikEntry> = {}): DenikEntry => ({
   tone: "signal",
   entities: [{ key: "firma:00000100", label: "Alfa & Beta s.r.o.", href: null }],
   internalHref: null,
+  links: [],
+  evidence: [],
   ...over,
 });
 

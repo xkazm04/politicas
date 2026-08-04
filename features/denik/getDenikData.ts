@@ -500,6 +500,7 @@ async function readChanges(): Promise<{
         company: companyId ? (labels.get(companyId) ?? null) : null,
         ico,
         contractLabel: isContract && e.dst ? (labels.get(e.dst) ?? null) : null,
+        evidence: e.evidence,
         termCode: strOrNull(e.payload.termCode),
         functionNameCz: strOrNull(e.payload.functionNameCz),
         source: e.source,

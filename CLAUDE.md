@@ -852,6 +852,30 @@ Route map (politicas.md roadmap execution, sample data):
   disclosed, never dropped. Change rows also cite the event's own verbatim
   `source` (`kg_edge_history` / `diff snímků ingestů — psp.cz`) instead of the
   table they landed in.
+  **Rows cite like /dukazy, and read like a ledger (2026-08-04).** A row named a
+  registry in brackets and linked nothing — a citation the reader could not
+  follow, next to /dukazy rows that carry real links off the identical IČO.
+  Company-keyed rows (contract, registry role, gate decision) now link the SAME
+  trio through the SAME `buildRegistryLinks` /dukazy uses, so two ledgers of one
+  platform cannot send a reader to two different registries; bill rows link
+  psp.cz through `sourceLinksFor` (`lib/kg/sourceLinks.ts`), which is the builder
+  that knows what a tisk is — both imported, neither forked, and a company with
+  no canonical IČO gets no link rather than an address into nothing. Change rows
+  finally carry `change_event.evidence` (the designed evidence pointer, which the
+  loader had never mapped) as deterministically sorted key/value pairs. Live:
+  **136 of 136 rendered rows carry a link**, none without.
+  Reading layer: a day is an `<article>` and its entries a real `<ul>`/`<li>`
+  (they were bare `<div>`s, so a screen reader could not tell it was a list or
+  how long); `<time dateTime>` on the day masthead and, `sr-only`, on every row;
+  the `účinné` / `zaznamenáno` badges carry their explanation AT the badge
+  (`title` + `aria-label`, dotted underline as the visible affordance) instead of
+  200 px away; and the kind is rendered as a WORD (`features/denik/kindLabels.ts`,
+  pure + language-gate pinned) with the tone dot demoted to decoration — it was
+  `aria-hidden`, so the deník's own taxonomy did not exist for assistive tech,
+  print, or anyone who cannot separate four hues. An unknown kind prints its token
+  VERBATIM and labelled untranslated (the `tieFlags.ts` precedent). The vocabulary
+  is deliberately NOT /schranka's `KIND_NOUNS`: that one inflects for a COUNT
+  („3 smlouvy"), this one names ONE row.
 - `/schranka` — **Občanská schránka** (features/schranka): a follow list with no
   account — the whole state is one localStorage record (`politicas:schranka:v1`,
   `followCodec.ts`) keyed by the SAME public entity keys `/denik` addresses with

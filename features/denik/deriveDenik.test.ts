@@ -545,3 +545,101 @@ describe("všech devět zobrazitelných change eventů má českou větu", () =>
     expect(byId.get("change:t")!.pending).toBe(true);
   });
 });
+
+describe("řádek nese svůj doklad, ne jen jméno rejstříku", () => {
+  it("smlouva a role odkazují téhož rejstříku jako /dukazy — jeden builder, ne dvě adresy", () => {
+    const { entries } = deriveDenikEntries(
+      input({
+        contracts: [contract("a", "2026-07-20")],
+        roles: [role(6543, "00000100", "2026-07-20")],
+      }),
+    );
+    for (const e of entries) {
+      expect(e.links.map((l) => l.label)).toEqual(["ARES VR", "Hlídač státu", "Registr smluv"]);
+      expect(e.links.every((l) => l.href.startsWith("https://"))).toBe(true);
+      expect(e.links.every((l) => l.href.includes("00000100"))).toBe(true);
+    }
+  });
+
+  it("firma bez kanonického IČO nedostane odkaz — nikdy adresa do prázdna", () => {
+    const { entries } = deriveDenikEntries(input({ roles: [role(6543, null, "2026-07-20")] }));
+    expect(entries[0].links).toEqual([]);
+  });
+
+  it("smlouva dvou dodavatelů pojmenuje odkaz firmou, aby bylo jasné, čí rejstřík se otevírá", () => {
+    const sup = (ico: string, company: string) => ({
+      id: "contract:x",
+      title: "Dodávka",
+      signedOn: "2026-07-20",
+      amountCzk: 1,
+      company,
+      ico,
+      mps: [{ pspId: 6543, name: "Jan Novák", pending: false }],
+    });
+    const { entries } = deriveDenikEntries(
+      input({ contracts: [sup("00000100", "Alfa"), sup("00000200", "Beta")] }),
+    );
+    expect(entries[0].links.map((l) => l.label)).toEqual([
+      "ARES VR · Alfa",
+      "Hlídač státu · Alfa",
+      "Registr smluv · Alfa",
+      "ARES VR · Beta",
+      "Hlídač státu · Beta",
+      "Registr smluv · Beta",
+    ]);
+  });
+
+  it("tisk odkazuje psp.cz — `buildRegistryLinks` o tisku neví nic, `sourceLinksFor` ano", () => {
+    const { entries } = deriveDenikEntries(
+      input({
+        bills: [
+          {
+            cislo: 58,
+            title: "Novela",
+            sponsors: [{ pspId: 6543, name: "Jan Novák" }],
+            committees: [{ organLabel: "hospodářský výbor", assignedOn: "2026-07-20" }],
+            fateSb: null,
+            fatePublishedOn: null,
+          },
+        ],
+      }),
+    );
+    expect(entries[0].links).toEqual([
+      { label: "psp.cz", href: "https://www.psp.cz/sqw/historie.sqw?o=10&t=58" },
+    ]);
+  });
+
+  it("rozhodnutí brány nese id svého řádku v append-only logu", () => {
+    const { entries } = deriveDenikEntries(input({ reviews: [review("r1", "2026-07-21T09:00:00.000Z")] }));
+    expect(entries[0].evidence).toEqual([{ label: "review_audit", value: "r1" }]);
+  });
+
+  it("řádek proudu „zaznamenáno“ nese ukazatel na doklad, ne jen tvrzení o změně", () => {
+    const { entries } = deriveDenikEntries(
+      input({
+        changes: [
+          {
+            id: "chev:tie-new:a|b",
+            eventType: "tie-new",
+            recordedAt: "2026-07-22T08:00:00.000Z",
+            mpName: "Jan Novák",
+            pspId: 6543,
+            company: "Firma s.r.o.",
+            ico: "00000100",
+            contractLabel: null,
+            termCode: null,
+            functionNameCz: null,
+            evidence: { rel: "linked_to", rowId: 7 },
+            source: "kg_edge_history — bitemporální graf",
+            pending: true,
+          },
+        ],
+      }),
+    );
+    // Deterministicky seřazené dvojice — dvě sestavení téhož vstupu jsou shodná.
+    expect(entries[0].evidence).toEqual([
+      { label: "rel", value: "linked_to" },
+      { label: "rowId", value: "7" },
+    ]);
+  });
+});
