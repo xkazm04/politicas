@@ -876,6 +876,54 @@ Route map (politicas.md roadmap execution, sample data):
   VERBATIM and labelled untranslated (the `tieFlags.ts` precedent). The vocabulary
   is deliberately NOT /schranka's `KIND_NOUNS`: that one inflects for a COUNT
   („3 smlouvy"), this one names ONE row.
+  **The ledger is one hop from its subjects (2026-08-04).** The deník is keyed by
+  `poslanec:` / `firma:` / `tisk:`, and the three pages that ARE those entities led
+  into it from one: `/poslanec` (wave 1). `/zakony/<číslo>` now links its tisk's
+  deník (only when `bill.cislo` exists — a tisk with no number has no key, and the
+  filter would select nothing), and both money case files link theirs:
+  `/penize/<pspId>` beside the packet/gate links, `/penize/firma/<ičo>` beside the
+  follow button that already used the same key. **No fourth copy of the address**:
+  the key comes from `deriveDenik`'s own `mpEntityKey`/`companyEntityKey`/
+  `billEntityKey` and the address from `followCodec.entityDenikHref` — both
+  imported. `ProfilePage`'s inline `/denik?entita=${encodeURIComponent(…)}` literal
+  and `CompanyCaseFilePage`'s inline `firma:${ico}` key were the two forks and are
+  gone. (`features/dashboard/entityLinks.ts` keeps its own `denikEntityHref` on
+  purpose — importing `followCodec` there is not worth the reshuffle, and both are
+  pinned by tests.)
+- `/data` — **Datové verze** (features/data-releases): the release train of the
+  data layer (version, cut date, cardinality gates, integrity, snapshot,
+  changelog). **It is also the app's feed address book since 2026-08-04** — four
+  feed families (`/denik`, `/dukazy`, `/zakony/kolize`, `/schranka`) share ONE wire
+  (RSS 2.0 + JSON Feed 1.1, one validator `parseEvidenceFeedJson`) and no page
+  named any of them; the addresses lived in route-handler headers.
+  `features/data-releases/feedIndex.ts` is the pure list (what each carries, what
+  limits it, `FEED_ENTRIES` imported rather than retyped), plus the three machine
+  endpoints that are NOT feeds (`/schranka/novinky.json`, `/data/manifest.json`,
+  `/data/snapshot.json`) kept in a separate list so the page cannot claim a format
+  that does not hold. The schránka's row states its parameterized nature in full:
+  `?e=<klíč>` repeated + `?od=RRRR-MM-DD`, nothing stored server-side, keys scrubbed
+  from telemetry — and that the server still sees the IP. Counts are computed from
+  the list (`FEED_ADDRESSES`), never written as digits, and the section's index is
+  derived from what renders (5 with the store, 1 without — the addresses hold even
+  when the graph does not, because a feed then answers 503, not emptiness).
+  `feedIndex.test.ts` checks every address against the real `app/` tree and puts the
+  prose through the Czech language gate.
+  **`app/sitemap.ts` exists (2026-08-04).** `robots.ts` said what NOT to crawl and
+  nothing said what to crawl, so the whole evidence half of the platform waited to
+  be found by accident. The route list is DERIVED from `navModel`'s own two
+  declarations (`NAV` + `UNLISTED_ROUTES`) via `features/shell/publicRoutes.ts` —
+  the same decision that puts a page in the rail puts it in the sitemap — minus the
+  paths `robots.ts` disallows (`DISALLOWED_PATHS`, now exported and imported, never
+  retyped: a sitemap advertising a Disallow-ed path is two files contradicting each
+  other) and minus dynamic segments. **23 routes live**, `/penize/kontrola`,
+  `/rentgen` and `/admin` excluded. `/poslanec/<id>`, `/zakony/<číslo>`,
+  `/penize/firma/<ičo>` and `/zdroj/<ref>` are deliberately absent — enumerating
+  them means reading the graph per request — and /data says so out loud. Base URL
+  comes from request headers (the four feeds' precedent: honest localhost in dev,
+  never an invented domain), hence `force-dynamic`; `lastModified` is omitted
+  because no route records one and the build clock is not a content date.
+  `publicRoutes.test.ts` scans `app/` and fails on any static public page missing
+  from the sitemap.
 - `/schranka` — **Občanská schránka** (features/schranka): a follow list with no
   account — the whole state is one localStorage record (`politicas:schranka:v1`,
   `followCodec.ts`) keyed by the SAME public entity keys `/denik` addresses with

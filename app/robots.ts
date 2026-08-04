@@ -20,13 +20,21 @@ import type { MetadataRoute } from "next";
  * `app/admin/accessGate.ts` already spells out. Nothing here protects anything; the
  * console's write path is gated by REVIEWER_TOKEN, and it always will be.
  */
+/**
+ * The paths this app asks crawlers not to fetch. Exported because `app/sitemap.ts`
+ * MUST exclude exactly these — a sitemap that advertises a Disallow-ed path is two
+ * files disagreeing about what is public, and the disagreement is invisible until a
+ * crawler acts on it. One declaration, two readers.
+ */
+export const DISALLOWED_PATHS = ["/penize/kontrola", "/rentgen", "/admin"] as const;
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/penize/kontrola", "/rentgen", "/admin"],
+        disallow: [...DISALLOWED_PATHS],
       },
     ],
   };

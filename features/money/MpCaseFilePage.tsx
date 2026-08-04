@@ -16,6 +16,8 @@ import FlagList from "@/features/shared/components/FlagList";
 import { claimRefPath } from "@/features/shared/provenance/claimRef";
 import CitableNumber from "@/lib/claims/CitableNumber";
 import type { Locale } from "@/lib/i18n/config";
+import { mpEntityKey } from "@/features/denik/deriveDenik";
+import { entityDenikHref } from "@/features/schranka/followCodec";
 import { mpBucketClaim } from "./moneyClaims";
 import { buildRegistryLinks, type ReviewState } from "./reviewTypes";
 import { tieFlagInfos } from "./tieFlags";
@@ -104,6 +106,17 @@ export default function MpCaseFilePage({ data }: { data: MoneyMpDetail | null })
                 className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
               >
                 {en ? "gate decision log" : "deník důkazů (brána)"} →
+              </Link>
+              {/* Spis je průřez STAVEM: všechny vazby poslance najednou. Deník je
+                  týž materiál v čase — podpisy smluv, zápisy a výmazy rolí,
+                  rozhodnutí brány, den po dni. Klíč staví builder deníku
+                  (`mpEntityKey`), adresu kodek schránky — dva importy, žádná
+                  třetí kopie adresy `?entita=`. */}
+              <Link
+                href={entityDenikHref(mpEntityKey(data.pspId))}
+                className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+              >
+                {en ? "this MP's daily record" : "deník tohoto poslance"} →
               </Link>
               <span className="font-mono text-[10px] uppercase tracking-widest text-steel">
                 {en ? "verified material only, exclusions stated" : "jen ověřený materiál, vyloučení přiznána"}

@@ -9,11 +9,13 @@
  */
 
 import Link from "next/link";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import type { BillDossier } from "./getLawData";
 import BillDetail from "./components/BillDetail";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
+import { billEntityKey } from "@/features/denik/deriveDenik";
+import { entityDenikHref } from "@/features/schranka/followCodec";
 
 export default function BillDossierPage({ dossier }: { dossier: BillDossier }) {
   const { bill, prevCislo, nextCislo } = dossier;
@@ -38,6 +40,23 @@ export default function BillDossierPage({ dossier }: { dossier: BillDossier }) {
           <div className="mt-4 max-w-xl">
             <SectionRule />
           </div>
+          {/* Spis tisku říká, CO tisk je; deník říká, KDY se s ním co stalo —
+              přikázání výborům a vyhlášení ve Sbírce jsou datované řádky téhož
+              záznamu, klíčované týmž veřejným klíčem (`tisk:<číslo>`). Klíč se
+              staví builderem deníku a adresa kodekem schránky — ani jedno se
+              tady neopisuje. Tisk bez čísla klíč nemá, a tak odkaz nedostane:
+              vedl by na filtr, který nic nevybere. */}
+          {bill.cislo != null && (
+            <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
+              <Link
+                href={entityDenikHref(billEntityKey(bill.cislo))}
+                className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+              >
+                deník tohoto tisku <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+              </Link>
+              <SourceNote>datované kroky tisku — deník republiky, filtr entity</SourceNote>
+            </div>
+          )}
         </div>
 
         <BillDetail bill={bill} />

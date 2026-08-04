@@ -29,6 +29,7 @@ import { storedRefLabel } from "@/features/civicscore/provenance";
 import { contributionScoreClaim } from "@/features/civicscore/scoreClaim";
 import { krajSlug } from "@/features/civicscore/kraj";
 import { mpEntityKey } from "@/features/denik/deriveDenik";
+import { entityDenikHref } from "@/features/schranka/followCodec";
 import LowScoreReasonBadge from "@/features/profile/components/LowScoreReasonBadge";
 import TenureNote from "@/features/profile/components/TenureNote";
 import TenureTrendGate from "@/features/profile/components/TenureTrendGate";
@@ -212,7 +213,7 @@ export default function ProfilePage({
                     vlastní jeho tvar, spis si ho neskládá po svém). Spis říká, KDO to
                     je; deník, co se s ním dělo. */}
                 <Link
-                  href={`/denik?entita=${encodeURIComponent(mpEntityKey(person.pspId))}`}
+                  href={entityDenikHref(mpEntityKey(person.pspId))}
                   className="inline-flex items-center gap-1 font-mono text-[11px] font-bold uppercase tracking-widest text-cobalt hover:underline"
                 >
                   {t("denikLink")}

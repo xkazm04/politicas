@@ -19,6 +19,12 @@ import SourceNote from "@/features/shared/components/SourceNote";
 import { czech, czechDate, czechInt } from "@/lib/format";
 import { CARDINALITY_FLOORS } from "@/lib/db/readiness";
 import { bytesToMegabytes, SNAPSHOT_EDGE_CAP, SNAPSHOT_NODE_CAP } from "./snapshot";
+import {
+  FEED_ADDRESSES,
+  FEED_FAMILIES,
+  FEED_FORMATS,
+  MACHINE_ENDPOINTS,
+} from "./feedIndex";
 import type { DataReleasesData } from "./getDataReleasesData";
 
 /** sha256 kořeny mají 64 znaků — v tabulce se sází zkrácený otisk, plná
@@ -42,6 +48,11 @@ function StoreDownState() {
 
 export default function DataReleasesPage({ data }: { data: DataReleasesData | null }) {
   const m = data?.manifest ?? null;
+  // Číslo sekce se ODVOZUJE z toho, co se skutečně vykreslí: při nedostupném
+  // úložišti sekce 01–04 nejsou, a „05" nad prázdnem by odkazovalo na kapitoly,
+  // které na stránce nikde nestojí. Adresář odběrů úložiště nepotřebuje —
+  // adresy platí, i když je graf zrovna nečitelný (feedy tehdy vrací 503).
+  const feedSectionIndex = data !== null && m !== null ? 5 : 1;
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
       <header className="border-b-4 border-ink">
@@ -376,6 +387,85 @@ export default function DataReleasesPage({ data }: { data: DataReleasesData | nu
             </section>
           </>
         )}
+
+        {/* ── Odběry ── Adresář feedů. Do teď žily adresy jen v hlavičkách route
+            handlerů, takže o strojových podobách platformy nevěděl nikdo, kdo
+            nečte zdroják. Sekce stojí MIMO větev dostupnosti úložiště: adresy
+            platí i tehdy, když je graf nečitelný (feed pak vrací 503, ne
+            prázdno). */}
+        <section className="mt-14 border-t-4 border-ink pt-10">
+          <SectionHeading
+            index={feedSectionIndex}
+            title="Odběry"
+            aside={<SourceNote>zdroj: route handlery aplikace — {czechInt(FEED_ADDRESSES.length)} veřejných adres</SourceNote>}
+          />
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-steel-aa">
+            {czechInt(FEED_FAMILIES.length)} rodiny feedů, každá ve dvou formátech:{" "}
+            {FEED_FORMATS.map((f) => f.label).join(" a ")}. JSON podoba je u všech týž drát —
+            ověřit si ji můžete jedním validátorem (<span className="font-mono">parseEvidenceFeedJson</span>).
+            Feed nikdy nevrací prázdno místo poruchy: je-li úložiště nečitelné, odpoví{" "}
+            <span className="font-mono">503</span>, protože prázdný seznam je tvrzení „nic se nestalo&ldquo;.
+          </p>
+
+          <div className="mt-8 border-t-2 border-ink">
+            {FEED_FAMILIES.map((f) => (
+              <article key={f.base} className="grid gap-x-6 gap-y-2 border-b border-hairline py-5 sm:grid-cols-[13rem_1fr]">
+                <div className="flex flex-col gap-2">
+                  <Link
+                    href={f.page}
+                    className="font-mono text-sm font-bold text-signal-deep hover:underline"
+                  >
+                    {f.title}
+                  </Link>
+                  <div className="flex flex-wrap gap-2">
+                    {FEED_FORMATS.map((fmt) => (
+                      <a
+                        key={fmt.ext}
+                        href={`${f.base}${fmt.ext}`}
+                        className="border border-ink px-2 py-0.5 font-mono text-[11px] font-bold uppercase tracking-widest hover:bg-ink hover:text-paper"
+                      >
+                        {fmt.ext.slice(1)}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex min-w-0 flex-col gap-2">
+                  <p className="font-mono text-xs text-steel-aa">
+                    {FEED_FORMATS.map((fmt) => `${f.base}${fmt.ext}`).join(" · ")}
+                  </p>
+                  <p className="text-sm leading-relaxed">{f.carries}</p>
+                  {f.note && (
+                    <p className="border-l-4 border-hairline pl-3 text-sm leading-relaxed text-steel-aa">{f.note}</p>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <h3 className="mt-10 font-mono text-[11px] font-bold uppercase tracking-widest">
+            strojové podoby, které nejsou feed
+          </h3>
+          <ul className="mt-3 border-t-2 border-ink">
+            {MACHINE_ENDPOINTS.map((e) => (
+              <li key={e.href} className="grid gap-x-6 gap-y-1 border-b border-hairline py-4 sm:grid-cols-[13rem_1fr]">
+                <a href={e.href} className="font-mono text-sm font-bold text-signal-deep hover:underline">
+                  {e.href}
+                </a>
+                <div className="flex min-w-0 flex-col gap-1">
+                  <p className="font-mono text-xs uppercase tracking-widest text-steel-aa">{e.title}</p>
+                  <p className="text-sm leading-relaxed">{e.carries}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          <p className="mt-6 max-w-2xl text-sm leading-relaxed text-steel-aa">
+            Mapu stránek pro roboty vydává <span className="font-mono">/sitemap.xml</span>, pravidla
+            procházení <span className="font-mono">/robots.txt</span>. Sitemapa nese statické plochy;
+            adresy konkrétních poslanců, tisků a firem v ní záměrně nejsou — vyjmenovat je znamená
+            číst za běhu celý graf, a vedou na ně rozcestníky, které v sitemapě jsou.
+          </p>
+        </section>
       </div>
     </main>
   );

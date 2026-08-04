@@ -22,6 +22,8 @@ import { tieFlagInfos } from "./tieFlags";
 import AnalystNote from "./components/AnalystNote";
 import TieClassExplainer from "./components/TieClassExplainer";
 import FollowButton from "@/features/schranka/FollowButton";
+import { companyEntityKey } from "@/features/denik/deriveDenik";
+import { entityDenikHref } from "@/features/schranka/followCodec";
 import CitableNumber from "@/lib/claims/CitableNumber";
 import type { Locale } from "@/lib/i18n/config";
 import { companyReachClaim } from "./moneyClaims";
@@ -117,7 +119,7 @@ export default function CompanyCaseFilePage({ data }: { data: MoneyCompanyDetail
             deník adresuje `?entita=` — jedna adresa odběru pro celou aplikaci. */}
         <div className="mt-4 flex flex-wrap items-center gap-3">
           <FollowButton
-            entityKey={`firma:${data.ico}`}
+            entityKey={companyEntityKey(data.ico)}
             label={data.name}
             subject={en ? `company ${data.name}` : `firma ${data.name}`}
             words={{
@@ -130,6 +132,16 @@ export default function CompanyCaseFilePage({ data }: { data: MoneyCompanyDetail
             className="inline-flex items-center gap-1 font-mono text-[11px] font-bold uppercase tracking-widest text-signal-deep hover:underline"
           >
             {en ? "overview in your inbox" : "přehled ve schránce"}
+            <ExternalLink className="h-3 w-3" aria-hidden />
+          </Link>
+          {/* Sledovat entitu a PŘEČÍST SI, co se u ní dělo, jsou dvě věci —
+              dosud tu bylo jen to první. Týž klíč, jaký sleduje tlačítko vedle;
+              adresu staví kodek schránky, klíč builder deníku. */}
+          <Link
+            href={entityDenikHref(companyEntityKey(data.ico))}
+            className="inline-flex items-center gap-1 font-mono text-[11px] font-bold uppercase tracking-widest text-signal-deep hover:underline"
+          >
+            {en ? "this company's daily record" : "deník této firmy"}
             <ExternalLink className="h-3 w-3" aria-hidden />
           </Link>
         </div>
