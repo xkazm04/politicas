@@ -276,6 +276,21 @@ Route map (politicas.md roadmap execution, sample data):
   `/rentgen` and `/admin` are disallowed, everything else allowed. The console page
   also declares `robots: { index: false }`. Neither is access control — that is
   still `REVIEWER_TOKEN`.
+  **Every tie is citable (2026-08-04).** `features/money/**` contained ZERO
+  claim-ref calls, so /penize published 211 money claims about named people and
+  not one had a permanent address — /overeni, the citation verifier, had nothing
+  on this surface to verify. `MoneyTie.receiptRef` is now minted ONCE in
+  `mapLinkedToTie()` with the shared `edgeClaimRef()` from the edge's OWN
+  endpoints (never a reconstructed `psp:person:<pspId>` string, which would look
+  right and resolve to `gone`), and both the ledger row and the case-file tie
+  section link `/zdroj/<ref>` through `claimRefPath()`. There is exactly ONE ref
+  builder in the repo and no surface forks it. A receipt cites a CLAIM, not a
+  verdict, so the link states the gate state beside it. Verified against the live
+  store: 5/5 sampled refs resolve `ok` with `gate=pending_review`, e.g.
+  `psp:person:6881 --linked_to--> company:ico:46347534`; the fixture suite now
+  pins decode + resolution + gate agreement for every tie. One-hop links added:
+  /penize → `/penize/strety` + `/dukazy`, the case file → `/dukazy` (its `/paket`
+  link was already there).
 - `/zebricek` — **CivicScore** (features/civicscore): leaderboard — score
   histogram + chamber summary, party filter + name search, mini
   weighted-breakdown bars per row, and Souboj (pick two via "vs" → mirrored

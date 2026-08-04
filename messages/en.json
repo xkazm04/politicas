@@ -799,6 +799,10 @@
         "allDecided": "All {total} person ↔ company ties have been through the human gate: {verified} confirmed, {rejected} rejected. Only confirmed ties feed the Integrity pillar; a decision is reversible and every step is in the audit chain.",
         "source": "kg_edge.props.review_state ⋈ review_audit — counted at read time, not an asserted literal"
       },
+      "links": {
+        "conflicts": "vote conflicts",
+        "gateLog": "evidence log"
+      },
       "stats": {
         "ownerLabel": "MPs with an owner-class firm",
         "ownerSub": "owner/operator of a firm that supplies the state — the real tie",
@@ -835,6 +839,7 @@
         "tiesCount": "{count} recorded ties",
         "reachLabel": "public money in the company's reach",
         "reachHeader": "company reach",
+        "receiptLink": "provenance receipt ↗",
         "reachAttributable": "the MP's firm",
         "reachSteward": "the institution's money",
         "reachNote": "reach = contracts from the contracts register (Σ supplies.weight) plus subsidies of that one company, counted once — the same definition the tiles above sum (reachableMoney.ts). The tie class decides how to read it: “the MP's firm” is money at a company they own or run; “the institution's money” is the own public activity of a hospital, waterworks or fund where the MP merely holds a seat — which is why it never carries the signal colour.",

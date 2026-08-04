@@ -39,6 +39,12 @@ import type { ReceiptProvenance } from "@/features/shared/provenance/receipt";
 /** One MP↔company tie, enriched with the public money reachable through the firm. */
 export interface MoneyTie {
   companyId: string; // kg_node id, e.g. "company:ico:25586521"
+  /** The tie's PERMANENT citable address — the `h.<src>.<rel>.<dst>` claim ref behind
+   *  `/zdroj/<ref>`. Computed once in the loader from the edge's own endpoints with the
+   *  shared `edgeClaimRef` (features/shared/provenance/claimRef.ts); no surface may build
+   *  a second one. Until this existed, /penize published 211 money claims and not one of
+   *  them had an address a reader — or /overeni, the citation verifier — could resolve. */
+  receiptRef: string;
   ico: string;
   company: string; // company node label
   role: string; // props.role — how the MP figures in the firm

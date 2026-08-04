@@ -20,6 +20,7 @@ import { CORROBORATIONS, type ContractLine, type MoneyTie, type ReviewState } fr
 // One reader of `provenance`-shaped props across the platform (features/shared/provenance):
 // the receipt page and the money tie must date an analyst note by the same rule.
 import { toProvenance } from "@/features/shared/provenance/receipt";
+import { edgeClaimRef } from "@/features/shared/provenance/claimRef";
 import { isDeMinimis, nearThresholdCount, resolveReviewOrder, resolveTieClass, reviewSignal } from "./reviewTypes";
 import { KG_READ_CAP } from "@/lib/db/readCap";
 
@@ -105,6 +106,11 @@ export function mapLinkedToTie(args: {
 
   return {
     companyId: comp.id,
+    // The tie's PERMANENT citable address. Built from the edge's OWN endpoints (never
+    // from a reconstructed `psp:person:<pspId>` string) with the shared `edgeClaimRef`
+    // helper — the same one /rentgen and the /overeni guide use — so the ref that a
+    // reader copies is by construction the triple `getReceiptData` will look up.
+    receiptRef: edgeClaimRef(e.src, e.rel, e.dst),
     ico: String(cp.ico ?? comp.id.split(":").pop() ?? ""),
     company: comp.label,
     role,

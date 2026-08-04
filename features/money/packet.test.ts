@@ -5,6 +5,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
+import { edgeClaimRef } from "@/features/shared/provenance/claimRef";
 import type { MoneyMpDetail, MoneyTieDetail } from "./moneyTypes";
 import type { ReviewState } from "./reviewTypes";
 import {
@@ -21,6 +22,7 @@ function mkTie(over: Partial<MoneyTieDetail> = {}): MoneyTieDetail {
   seq++;
   return {
     companyId: `company:ico:${10000000 + seq}`,
+    receiptRef: edgeClaimRef("psp:person:1", "linked_to", `company:ico:${10000000 + seq}`),
     ico: String(10000000 + seq),
     company: `Firma ${seq} s.r.o.`,
     role: "jednatel",

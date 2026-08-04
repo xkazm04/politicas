@@ -13,6 +13,7 @@ import { ExternalLink } from "lucide-react";
 import { useLocale } from "next-intl";
 import SourceNote from "@/features/shared/components/SourceNote";
 import FlagList from "@/features/shared/components/FlagList";
+import { claimRefPath } from "@/features/shared/provenance/claimRef";
 import { buildRegistryLinks } from "./reviewTypes";
 import { tieFlagInfos } from "./tieFlags";
 import AnalystNote from "./components/AnalystNote";
@@ -91,6 +92,15 @@ export default function MpCaseFilePage({ data }: { data: MoneyMpDetail | null })
                 className="inline-flex items-center gap-1.5 border-2 border-ink px-2 py-1 font-mono text-xs font-bold uppercase tracking-wider text-ink transition-colors hover:border-signal hover:text-signal"
               >
                 {en ? "compile evidence packet" : "sestavit důkazní paket"} →
+              </Link>
+              {/* The packet compiles ONLY verified ties, so the reader needs one hop to
+                  the log that says what the gate has actually ruled — otherwise an empty
+                  packet reads as "no evidence" rather than "nothing decided yet". */}
+              <Link
+                href="/dukazy"
+                className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+              >
+                {en ? "gate decision log" : "deník důkazů (brána)"} →
               </Link>
               <span className="font-mono text-[10px] uppercase tracking-widest text-steel">
                 {en ? "verified material only, exclusions stated" : "jen ověřený materiál, vyloučení přiznána"}
@@ -384,6 +394,29 @@ function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en:
           <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-steel">
             {en ? "source" : "zdroj"}: registr smluv Σ supplies.weight + subsidies_total_czk
           </p>
+          {/* The tie's PERMANENT address. /overeni (the citation verifier) had nothing on
+              /penize to resolve, because this feature contained no claim-ref at all —
+              211 published money claims, none of them citable. A receipt is a citation of
+              a CLAIM, so the link says which gate state the claim is in. */}
+          <p className="mt-3 font-mono text-[10px] uppercase tracking-widest text-steel">
+            {en ? "cite this tie" : "citovat tuto vazbu"}
+          </p>
+          <Link
+            href={claimRefPath(tie.receiptRef)}
+            className="mt-1 inline-flex items-center gap-1.5 border-2 border-cobalt px-2 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:border-signal hover:text-signal"
+          >
+            {en ? "provenance receipt" : "účtenka původu"} →
+          </Link>
+          <p className="mt-1 text-xs leading-relaxed text-steel">
+            {tie.reviewState === "pending_review"
+              ? en
+                ? "A permanent address for this claim. It cites the tie AND its gate state — this one is still awaiting human review, so the receipt records a claim, not a verdict."
+                : "Trvalá adresa tohoto tvrzení. Cituje vazbu I stav brány — tahle stále čeká na lidskou kontrolu, takže účtenka zaznamenává tvrzení, ne verdikt."
+              : en
+                ? "A permanent address for this claim, carrying the human gate's decision and its audit trail."
+                : "Trvalá adresa tohoto tvrzení; nese rozhodnutí lidské brány i jeho auditní stopu."}
+          </p>
+
           <p className="mt-3 font-mono text-[10px] uppercase tracking-widest text-steel">
             {en ? "verify in registry" : "ověřit v rejstříku"}
           </p>

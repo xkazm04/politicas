@@ -28,6 +28,7 @@ import {
   type MoneyTie,
   type TieClass,
 } from "../moneyTypes";
+import { claimRefPath } from "@/features/shared/provenance/claimRef";
 import { tieReach } from "../reachableMoney";
 import TieClassExplainer from "./TieClassExplainer";
 
@@ -275,6 +276,16 @@ function RealLedger({ data }: { data: MoneyData }) {
                   <td className="px-3 py-3">
                     <span className="font-bold">{tie.company}</span>
                     <span className="ml-1.5 font-mono text-[10px] text-steel">IČO {tie.ico}</span>
+                    {/* Every row is a money CLAIM about a named person, so every row has a
+                        permanent address that /overeni can resolve. The label states what
+                        the receipt cites — a claim and its gate state — not a verdict. */}
+                    <Link
+                      href={claimRefPath(tie.receiptRef)}
+                      className="mt-0.5 block font-mono text-[10px] uppercase tracking-widest text-cobalt transition-colors hover:text-signal"
+                    >
+                      {t("real.ledger.receiptLink")}
+                      {tie.reviewState === "pending_review" ? ` · ${tcom("pendingReview")}` : ""}
+                    </Link>
                   </td>
                   <td className="px-3 py-3">
                     <span

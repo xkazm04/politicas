@@ -799,6 +799,10 @@
         "allDecided": "Všech {total} vazeb osoba ↔ firma prošlo lidskou branou: {verified} potvrzeno, {rejected} zamítnuto. Do pilíře Integrita se propisují jedině potvrzené vazby; rozhodnutí je vratné a každý krok je v auditním řetězci.",
         "source": "kg_edge.props.review_state ⋈ review_audit — počítáno při čtení, ne přepsané tvrzení"
       },
+      "links": {
+        "conflicts": "střety u hlasování",
+        "gateLog": "deník důkazů"
+      },
       "stats": {
         "ownerLabel": "poslanci s vlastní firmou u státu",
         "ownerSub": "vlastník/jednatel firmy, která dodává státu — skutečná vazba",
@@ -835,6 +839,7 @@
         "tiesCount": "{count} evidovaných vazeb",
         "reachLabel": "veřejné peníze v dosahu firmy",
         "reachHeader": "dosah firmy",
+        "receiptLink": "účtenka původu ↗",
         "reachAttributable": "firma poslance",
         "reachSteward": "peníze instituce",
         "reachNote": "dosah = smlouvy z registru smluv (Σ supplies.weight) + dotace té jedné firmy, jedna firma jednou — táž definice, jakou sčítají dlaždice nahoře (reachableMoney.ts). Třída vazby rozhoduje, jak číslo číst: „firma poslance\" jsou peníze u firmy, kterou vlastní nebo řídí; „peníze instituce\" jsou vlastní veřejnou činností nemocnice, vodárny či fondu, kde poslanec jen zasedá v orgánu — proto nikdy nesvítí signální barvou.",

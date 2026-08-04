@@ -56,6 +56,8 @@ const { open } = await import("../db/pglite/internals");
 const { loadMoneyLayer, loadMpMoneySlice, num, pspIdFromNodeId } = await import("../../features/money/moneyLoader");
 const { getMoneyData } = await import("../../features/money/getMoneyData");
 const { reviewSummary } = await import("../../features/money/reviewSummary");
+const { getReceiptData } = await import("../../features/shared/provenance/getReceiptData");
+const { decodeClaimRef } = await import("../../features/shared/provenance/claimRef");
 const { getMoneyMpDetail } = await import("../../features/money/getMpDetail");
 const { getVerificationQueue } = await import("../../features/money/getVerificationData");
 const { getLawData, findBillByCislo } = await import("../../features/lawwatch/getLawData");
@@ -548,6 +550,30 @@ describe("getMoneyData (the /penize ledger)", () => {
 
     expect(data.pass).toBe(42);
     expect(data.source).toBe("registr smluv ⋈ ares ⋈ hlídač státu");
+  });
+
+  it("every tie carries a /zdroj receipt ref that RESOLVES — a claim with no address is not citable", async () => {
+    // /penize published 211 money claims about named people and not one of them had a
+    // permanent address, so /overeni (the citation verifier) had nothing here to verify.
+    // The ref must be minted from the EDGE's own endpoints; a reconstructed
+    // `psp:person:<pspId>` string would look right and resolve to "gone".
+    const data = (await withReadinessOff(getMoneyData))!;
+    const ties = data.mps.flatMap((m) => m.ties);
+    expect(ties.length).toBeGreaterThan(0);
+    for (const t of ties) {
+      expect(decodeClaimRef(t.receiptRef)).toEqual({
+        kind: "edge",
+        src: `psp:person:${data.mps.find((m) => m.ties.includes(t))!.pspId}`,
+        rel: "linked_to",
+        dst: t.companyId,
+      });
+      const res = await withReadinessOff(() => getReceiptData(t.receiptRef));
+      expect(res.status, t.receiptRef).toBe("ok");
+      // A receipt is a citation of a CLAIM, so it carries the gate's state, not a verdict.
+      if (res.status === "ok" && res.receipt.kind === "edge") {
+        expect(res.receipt.gate?.status).toBe(t.reviewState);
+      }
+    }
   });
 
   it("does not claim a per-company cap when the fixture has no ceiling (a floor label must be earned)", async () => {
