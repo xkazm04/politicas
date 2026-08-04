@@ -14,6 +14,21 @@
  *     If the replay disagrees, the store is not the one pass 11 scored and a "correction"
  *     would be a rewrite — so it aborts instead.
  *
+ * ── RELATION TO kg-contribution-ingest.ts (2026-08-04) ─────────────────────────────
+ * That script is the OTHER writer of these props. It re-derives from live psp.cz dumps
+ * and now refuses `--commit` over nodes stamped with a ref it does not stamp itself
+ * (guardContributionWrite) — so it can no longer quietly overwrite a correction this
+ * script applied. This script needs no such guard: its REPLAY GATE is stronger, since it
+ * refuses to write unless the OLD formula reproduces every stored value first, which no
+ * store written by a third formula can satisfy.
+ *
+ * This script is also the ONLY one that moves `contribution_psp9`, the PSP9 trend
+ * baseline; the ingest states on every commit that it leaves it alone.
+ *
+ * The pre-correction formula it replays lives in lib/analysis/contribution-legacy.ts,
+ * deliberately frozen (its saturation literals must NOT follow the live formula — a
+ * moving proof gate proves nothing).
+ *
  * MERGE-PRESERVING (memory/kg-upsert-replaces-props.md): upsertKgNodes REPLACES props, so
  * every write here is `{...liveNode.props, ...corrected}` over the node read in this run,
  * and only person nodes are touched. firstSeenPass + node provenance are carried through.
@@ -31,9 +46,9 @@ import {
   CONTRIBUTION_FORMULA_REF,
   CONTRIBUTION_WEIGHTS,
   isCommitteeSeat,
-  isLeadership,
   type CommitteeSeat,
 } from "@/lib/analysis/contribution";
+import { legacyScore } from "@/lib/analysis/contribution-legacy";
 import { isoDay } from "@/lib/analysis/money-feed";
 import { staleScoreWarnings } from "@/lib/analysis/score-citations";
 import { getStore } from "@/lib/db/store";
@@ -51,34 +66,6 @@ const num = (x: unknown): number => (typeof x === "number" && Number.isFinite(x)
 
 /** Same ballot vocabulary as kg-contribution-ingest.ts (pass 11). */
 const POSITION = new Set(["yes", "no", "abstain", "not_voting", "abstain_or_not_voting"]);
-
-/** The formula AS IT STOOD before the correction — committee breadth over ROWS, rates at
- *  1 decimal. Used only to prove that this store is the one the stored scores came from. */
-function legacyScore(i: {
-  seats: CommitteeSeat[];
-  participationRate: number;
-  absenceRate: number;
-  bills: number;
-  interpellations: number;
-  speechTurns: number;
-}): { score: number; committeeRows: number; leadershipRows: number; participationRate: number; absenceRate: number } {
-  const committeeSeats = i.seats.filter(isCommitteeSeat);
-  const committeeRows = committeeSeats.length;
-  const leadershipRows = committeeSeats.filter(isLeadership).length;
-  const committee = clamp01(committeeRows / COMMITTEE_SATURATION) * CONTRIBUTION_WEIGHTS.committee;
-  const leadership = leadershipRows > 0 ? CONTRIBUTION_WEIGHTS.leadership : 0;
-  const participation = i.participationRate * CONTRIBUTION_WEIGHTS.participation;
-  const attendance = (1 - i.absenceRate) * CONTRIBUTION_WEIGHTS.attendance;
-  const legislative = clamp01((i.bills + i.interpellations) / 4) * CONTRIBUTION_WEIGHTS.legislative;
-  const speech = clamp01(i.speechTurns / 40) * CONTRIBUTION_WEIGHTS.speech;
-  return {
-    score: round1(committee + leadership + participation + attendance + legislative + speech),
-    committeeRows,
-    leadershipRows,
-    participationRate: round1(i.participationRate),
-    absenceRate: round1(i.absenceRate),
-  };
-}
 
 async function main() {
   const commit = flag("commit");

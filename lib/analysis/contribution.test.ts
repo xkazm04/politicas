@@ -4,6 +4,8 @@ import {
   absenteeManagerSignal,
   computeContribution,
   CONTRIBUTION_FORMULA_REF,
+  guardContributionWrite,
+  storedFormulaRef,
   type ContributionInputs,
 } from "@/lib/analysis/contribution";
 
@@ -194,5 +196,77 @@ describe("CONTRIBUTION_FORMULA_REF", () => {
 
   it("is a non-empty stable identifier (a writer stamps it verbatim into contribution_provenance.ref)", () => {
     expect(CONTRIBUTION_FORMULA_REF).toMatch(/^[a-z0-9][a-z0-9-]*$/);
+  });
+});
+
+// The write-end enforcement of CONTRIBUTION_FORMULA_REF. Re-running
+// scripts/data-analysis/kg-contribution-ingest.ts --commit over a corrected store used to
+// replace the correction with fresh psp.cz numbers and DOWNGRADE the declared ref, with
+// nothing in the repo to stop it — the doctrine lived only in memory/*.md.
+describe("storedFormulaRef", () => {
+  it("reads the ref off a well-formed provenance object", () => {
+    expect(storedFormulaRef({ contribution_provenance: { pass: 42, ref: "x" } })).toBe("x");
+  });
+
+  it("returns null for absent, non-object, empty-string and non-string refs — never guesses", () => {
+    expect(storedFormulaRef({})).toBeNull();
+    expect(storedFormulaRef({ contribution_provenance: null })).toBeNull();
+    expect(storedFormulaRef({ contribution_provenance: "pass 42" })).toBeNull();
+    expect(storedFormulaRef({ contribution_provenance: { pass: 42 } })).toBeNull();
+    expect(storedFormulaRef({ contribution_provenance: { ref: "" } })).toBeNull();
+    expect(storedFormulaRef({ contribution_provenance: { ref: 42 } })).toBeNull();
+  });
+});
+
+describe("guardContributionWrite", () => {
+  const node = (id: string, ref: string | null) => ({
+    id,
+    props: ref === null ? {} : { contribution_provenance: { pass: 11, ref } },
+  });
+  const stampRef = CONTRIBUTION_FORMULA_REF;
+
+  it("allows a write when every node was scored by the same formula", () => {
+    const v = guardContributionWrite({ nodes: [node("a", stampRef), node("b", stampRef)], stampRef, supersede: false });
+    expect(v.allowed).toBe(true);
+    expect(v.conflicts).toEqual([]);
+    expect(v.message).toContain("no formula-ref conflict");
+  });
+
+  it("REFUSES over a node stamped with another formula, naming both refs and the way out", () => {
+    const v = guardContributionWrite({
+      nodes: [node("psp:person:1", stampRef), node("psp:person:2", "contribution")],
+      stampRef,
+      supersede: false,
+    });
+    expect(v.allowed).toBe(false);
+    expect(v.conflicts).toEqual([{ id: "psp:person:2", storedRef: "contribution" }]);
+    expect(v.message).toContain('stored ref "contribution"');
+    expect(v.message).toContain(`this writer stamps "${stampRef}"`);
+    expect(v.message).toContain("kg-contribution-recompute.ts --commit");
+    expect(v.message).toContain("--supersede");
+  });
+
+  it("--supersede is the explicit escape hatch: allowed, and the message says it was overridden", () => {
+    const v = guardContributionWrite({ nodes: [node("a", "contribution")], stampRef, supersede: true });
+    expect(v.allowed).toBe(true);
+    expect(v.conflicts).toHaveLength(1); // the conflict is reported, not erased
+    expect(v.message).toContain("OVERRIDDEN by --supersede");
+  });
+
+  it("an UNSTAMPED node is not a conflict — it carries no claim to contradict", () => {
+    const v = guardContributionWrite({ nodes: [node("a", null), node("b", stampRef)], stampRef, supersede: false });
+    expect(v.allowed).toBe(true);
+    expect(v.unstamped).toEqual(["a"]);
+    expect(v.message).toContain("carry no ref yet");
+  });
+
+  it("blocks in BOTH directions — a ref the writer does not implement is a conflict even if it is newer", () => {
+    const v = guardContributionWrite({ nodes: [node("a", "contribution-some-future-fix")], stampRef, supersede: false });
+    expect(v.allowed).toBe(false);
+    expect(v.message).toContain("contribution-some-future-fix");
+  });
+
+  it("an empty write is trivially allowed", () => {
+    expect(guardContributionWrite({ nodes: [], stampRef, supersede: false }).allowed).toBe(true);
   });
 });

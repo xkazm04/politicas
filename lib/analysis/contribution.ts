@@ -59,6 +59,92 @@ export const SPEECH_SATURATION = 40; // speaking turns that saturates floor pres
  */
 export const CONTRIBUTION_FORMULA_REF = "contribution-committee-dedupe";
 
+/* ── the ref's enforcement, at the WRITE end ──────────────────────────────────
+ *
+ * A ref that only the readers check is a label. This is the other half: a writer asks
+ * before it commits whether the nodes it is about to overwrite were scored by the same
+ * formula it implements. If they were not, the newer correction is the one at risk, so
+ * the write is REFUSED and a human decides.
+ *
+ * The rule is EQUALITY, not lineage ordering — deliberately. Both writers stamp
+ * CONTRIBUTION_FORMULA_REF, so a stored ref that differs means the data was authored by
+ * a formula this build does not implement, in EITHER direction (older, or newer from
+ * another branch). Ranking those refs would require a version history the props do not
+ * carry; `pass` cannot stand in for it either, since a pass number is a graph-wide
+ * counter that any unrelated enrichment can advance.
+ */
+
+/** One node as the guard sees it — id plus its stored props. */
+export interface GuardedNode {
+  id: string;
+  props: Record<string, unknown>;
+}
+
+export interface ContributionWriteVerdict {
+  /** May the writer commit? */
+  allowed: boolean;
+  /** Nodes whose stored ref differs from the ref the writer would stamp. */
+  conflicts: { id: string; storedRef: string | null }[];
+  /** Nodes carrying no contribution_provenance.ref at all (never scored, or pre-ref). */
+  unstamped: string[];
+  /** Human sentence for the console — names both refs and the way out. */
+  message: string;
+}
+
+/** `contribution_provenance.ref` off a node's props, or null when absent/malformed. */
+export function storedFormulaRef(props: Record<string, unknown>): string | null {
+  const raw = props.contribution_provenance;
+  if (!raw || typeof raw !== "object") return null;
+  const ref = (raw as Record<string, unknown>).ref;
+  return typeof ref === "string" && ref.length > 0 ? ref : null;
+}
+
+/**
+ * Decide whether a contribution writer may overwrite these nodes.
+ *
+ * An UNSTAMPED node is not a conflict: it carries no claim to contradict, so writing a
+ * ref onto it is an improvement, not a regression. Only a node stamped with a DIFFERENT
+ * ref blocks — and `supersede` is the explicit human override, which the message names.
+ */
+export function guardContributionWrite(args: {
+  nodes: readonly GuardedNode[];
+  /** The ref this writer would stamp (always CONTRIBUTION_FORMULA_REF in production). */
+  stampRef: string;
+  /** The operator passed --supersede: they have decided this write wins. */
+  supersede: boolean;
+}): ContributionWriteVerdict {
+  const conflicts: { id: string; storedRef: string | null }[] = [];
+  const unstamped: string[] = [];
+  for (const n of args.nodes) {
+    const stored = storedFormulaRef(n.props);
+    if (stored === null) unstamped.push(n.id);
+    else if (stored !== args.stampRef) conflicts.push({ id: n.id, storedRef: stored });
+  }
+  const suffix = unstamped.length > 0 ? ` · ${unstamped.length} node(s) carry no ref yet (not a conflict)` : "";
+
+  if (conflicts.length === 0) {
+    return { allowed: true, conflicts, unstamped, message: `no formula-ref conflict over ${args.nodes.length} node(s)${suffix}` };
+  }
+  const storedRefs = [...new Set(conflicts.map((c) => c.storedRef))].join(", ");
+  const head =
+    `${conflicts.length}/${args.nodes.length} node(s) were scored by ANOTHER formula — ` +
+    `stored ref "${storedRefs}", this writer stamps "${args.stampRef}" ` +
+    `(e.g. ${conflicts.slice(0, 3).map((c) => c.id).join(", ")})${suffix}`;
+  if (args.supersede) {
+    return { allowed: true, conflicts, unstamped, message: `${head} — OVERRIDDEN by --supersede; the stored scores are being replaced.` };
+  }
+  return {
+    allowed: false,
+    conflicts,
+    unstamped,
+    message:
+      `${head}. REFUSING to write: this would overwrite a correction the data already carries. ` +
+      `To re-apply the formula correction to the existing scores use ` +
+      `scripts/data-analysis/kg-contribution-recompute.ts --commit (it proves the store is the one it corrects). ` +
+      `To overwrite anyway, re-run with --supersede.`,
+  };
+}
+
 const clamp01 = (x: number) => Math.max(0, Math.min(1, x));
 const round1 = (x: number) => Math.round(x * 10) / 10;
 // Stored rates are PUBLISHED inputs: the leaderboard re-derives the participation and

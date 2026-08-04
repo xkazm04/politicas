@@ -299,6 +299,25 @@ Route map (politicas.md roadmap execution, sample data):
   **`npm run sentinel` is the only path on which these actually execute** —
   `.github/workflows/sentinel.yml` has no `./.pglite` on a hosted runner and its guard
   makes the nightly a deliberate no-op; a green nightly is not coverage.
+  **A writer cannot regress a correction (2026-08-04).** `kg-contribution-ingest.ts`
+  re-derives scores from live psp.cz dumps; run over a store the recompute has
+  corrected it would have replaced that correction with fresh numbers under a commit
+  whose stated subject is an ingest. `--commit` now REFUSES over any node whose stored
+  `contribution_provenance.ref` differs from the ref it stamps
+  (`guardContributionWrite`, pure + tested); the refusal names both refs and points at
+  the recompute, `--supersede` is the explicit human override, dry-run is never blocked
+  and always prints the verdict. The rule is **equality, not lineage ordering** — both
+  writers stamp `CONTRIBUTION_FORMULA_REF`, so a differing ref means a formula this
+  build does not implement, in either direction; `pass` cannot rank them (any unrelated
+  enrichment advances it). The recompute needs no such guard — its replay gate is
+  strictly stronger. The ingest also states on every commit that it does NOT touch
+  `contribution_psp9`; the recompute owns that baseline. The recompute's `legacyScore`
+  moved to `lib/analysis/contribution-legacy.ts`, labelled FROZEN with its own tests:
+  its `/4` and `/40` are deliberately literals, never the live saturation constants,
+  because a proof gate that follows the formula it is proving proves nothing.
+  Found while verifying the guard: `kg-contribution-ingest.ts` could not run at all on
+  the live graph — `Math.max(0, ...nodes.map(…))` spread ~153 700 arguments and threw
+  `Maximum call stack size exceeded` before reading a score. Now a `reduce`.
   **Ties are ties (2026-07-29)** — ranks are now COMPETITION ranks (1, 2, 2, 4):
   a rank is one more than the number of MPs who score higher, so it is shared on
   an identical score and the red top-3 can no longer be won by Czech name

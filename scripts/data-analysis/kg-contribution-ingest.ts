@@ -8,9 +8,26 @@
  * contribution_* props on top, and keeps firstSeenPass + the original provenance,
  * tagging the enrichment with a contribution_provenance sub-object (a new pass).
  *
+ * ── THE WRITE GUARD (2026-08-04) ───────────────────────────────────────────────────
+ * This script re-derives scores from LIVE psp.cz dumps. Its sibling
+ * scripts/data-analysis/kg-contribution-recompute.ts applies a FORMULA CORRECTION to the
+ * scores already in the graph and proves the store is the one it corrects before writing.
+ * Running this one over a store the recompute has corrected would silently replace that
+ * correction with fresh numbers, under a commit whose stated subject is an ingest.
+ *
+ * So: --commit REFUSES over any person node whose stored contribution_provenance.ref
+ * differs from the ref this script stamps (guardContributionWrite, lib/analysis/
+ * contribution.ts — equality, not lineage ordering; see the constant's contract).
+ * --supersede is the explicit human override. Dry-run is never blocked, and reports the
+ * verdict so the conflict is visible before anyone reaches for a flag.
+ *
+ * It also does NOT touch `contribution_psp9`, the PSP9 trend baseline — that baseline
+ * was scored by the same formula and only the recompute knows how to move it. This
+ * script says so on every commit rather than leaving the two silently out of step.
+ *
  *   npx tsx scripts/data-analysis/kg-contribution-ingest.ts               # dry-run
  *   npx tsx scripts/data-analysis/kg-contribution-ingest.ts --commit      # write
- * Flags: --commit  --term=PSP10  --pass=N
+ * Flags: --commit  --term=PSP10  --pass=N  --supersede
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
@@ -19,6 +36,7 @@ import {
   absenteeManagerSignal,
   computeContribution,
   CONTRIBUTION_FORMULA_REF,
+  guardContributionWrite,
   type CommitteeSeat,
   type ContributionInputs,
 } from "@/lib/analysis/contribution";
@@ -127,7 +145,11 @@ async function main() {
   }
 
   const personNodeById = new Map(nodes.filter((n) => n.kind === "person").map((n) => [n.id, n]));
-  const pass = Number(arg("pass")) || Math.max(0, ...nodes.map((n) => n.firstSeenPass)) + 1;
+  // NOT `Math.max(0, ...nodes.map(...))`: the spread pushes one argument per node onto the
+  // stack, and the live graph has ~153 700 of them — the script died with
+  // "Maximum call stack size exceeded" before it read a single score (found 2026-08-04
+  // while verifying the write guard below, i.e. this writer could not run at all).
+  const pass = Number(arg("pass")) || nodes.reduce((m, n) => Math.max(m, n.firstSeenPass), 0) + 1;
   const computedAt = new Date().toISOString();
 
   const currentPersonIds = [...new Set(mandates.map((m) => m.personPspId))];
@@ -224,9 +246,25 @@ async function main() {
   console.log(`\nABSENTEE-MANAGER LEADS (low effort + real money ties) — ${leads.length}:`);
   leads.forEach((r) => console.log(`  ⚑ ${(nameById.get(r.pid) ?? `psp:${r.pid}`).padEnd(24)} score ${r.score} · ${r.companies} companies · ${fmt(r.czk)} CZK contracts`));
 
+  // The write guard judges the nodes AS THEY STAND IN THE STORE — what would be
+  // overwritten — not what we are about to write. See the header block.
+  const verdict = guardContributionWrite({
+    nodes: toWrite.map((n) => ({ id: n.id, props: personNodeById.get(n.id)?.props ?? {} })),
+    stampRef: CONTRIBUTION_FORMULA_REF,
+    supersede: flag("supersede"),
+  });
+  console.log(`\nformula-ref guard: ${verdict.message}`);
+
+  if (commit && !verdict.allowed) {
+    console.error("\nNOTHING WRITTEN.");
+    await store.close();
+    process.exit(3);
+  }
+
   if (commit) {
     const n = await store.upsertKgNodes(toWrite);
     console.log(`\nCOMMITTED: contribution enriched onto ${n} person nodes (pass ${pass})${missingNode ? ` · ${missingNode} MPs had no graph node (skipped)` : ""}.`);
+    console.log("NOTE: contribution_psp9 (the PSP9 trend baseline) was NOT touched — only kg-contribution-recompute.ts moves it.");
   } else {
     console.log(`\nDRY-RUN — would enrich ${toWrite.length} person nodes${missingNode ? ` · ${missingNode} MPs have no graph node` : ""}. Re-run with --commit to write.`);
   }
