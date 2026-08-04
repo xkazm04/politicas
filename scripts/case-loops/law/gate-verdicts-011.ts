@@ -12,8 +12,11 @@ import { join } from "node:path";
 
 import { validateLawVerdict } from "@/lib/analysis/law-verdict";
 
-const DIR = "docs/data-analysis/case-law/payloads/verdicts-011";
-const TARGETS = "docs/data-analysis/case-law/payloads/batch-011-targets.json";
+// --batch=012 gates payloads/verdicts-012/ against batch-012-targets.json etc. (default 011).
+// Parameterized in batch-012 instead of copied — the retriage-009 --batch= precedent.
+const BATCH = (process.argv.find((a) => a.startsWith("--batch=")) ?? "--batch=011").slice(8);
+const DIR = `docs/data-analysis/case-law/payloads/verdicts-${BATCH}`;
+const TARGETS = `docs/data-analysis/case-law/payloads/batch-${BATCH}-targets.json`;
 
 function main() {
   const t = JSON.parse(readFileSync(TARGETS, "utf8")) as { targets: { billTisk: number }[]; knownLawRefs: string[]; knownIds: string[] };
@@ -37,7 +40,7 @@ function main() {
     const errors: string[] = [];
     const r = validateLawVerdict(v, { knownLawRefs, knownIds }); // requireCzech defaults TRUE
     if (!r.ok) errors.push(...r.errors);
-    if (typeof v.billTisk === "number" && !targetCisla.has(v.billTisk)) errors.push(`billTisk ${v.billTisk} is not a batch-011 target`);
+    if (typeof v.billTisk === "number" && !targetCisla.has(v.billTisk)) errors.push(`billTisk ${v.billTisk} is not a batch-${BATCH} target`);
     const ok = errors.length === 0;
     if (ok) pass++;
     console.log(
@@ -45,7 +48,7 @@ function main() {
     );
     for (const e of errors.slice(0, 8)) console.log(`     • ${e}`);
   }
-  console.log(`\nGATE: ${pass}/${files.length} batch-011 verdicts pass.`);
+  console.log(`\nGATE: ${pass}/${files.length} batch-${BATCH} verdicts pass.`);
   process.exit(pass === files.length ? 0 : 1);
 }
 

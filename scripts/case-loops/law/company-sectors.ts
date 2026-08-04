@@ -93,6 +93,12 @@ const MUNICIPAL_SOE_EXPLICIT = new Set([
   // ordering the work queue via triageScoreV2 and would have become a false public conflict
   // claim the moment anyone rendered it.
   "SOMPO, a.s.",
+  // batch-012 ARES sweep (batch-012-sector-audit.json): the Pardubice airport operator is now
+  // 100% publicly owned — 66% City of Pardubice, 34% Pardubice Region, no private shareholder
+  // left after the city's buyout (epravo.cz). Was in SECTOR_OVERRIDES as "transport"; the
+  // sector was right but the list was wrong — a board seat here must not feed the
+  // sector-adjacency conflict signal, same reasoning as ČEPRO/MERO/Pražská energetika.
+  "EAST BOHEMIAN AIRPORT a.s.",
 ]);
 
 export function isMunicipalOrSoe(label: string): boolean {
@@ -121,9 +127,14 @@ const SECTOR_OVERRIDES: Record<string, Sector> = {
   "ČSOB Pojišťovna, a. s., člen holdingu ČSOB": "economy", // private insurer (name contains "pojišťovna" but NOT the public VZP one)
   "COMBIN BOHEMIA spol. s r.o.": "economy", // construction
   "Energie - stavební a báňská a.s.": "environment", // construction/mining/energy
-  "EAST BOHEMIAN AIRPORT a.s.": "transport",
+  // EAST BOHEMIAN AIRPORT a.s. moved to MUNICIPAL_SOE_EXPLICIT (batch-012 ARES sweep —
+  // 100% City of Pardubice + Pardubice Region).
   "Teleky Medicus s.r.o.": "health",
-  "SynBiol, a.s.": "health", // biotech
+  // batch-012 ARES sweep: NOT health/biotech despite the name — ARES carries no health NACE at
+  // all (68200, 46900, 205, 20599, 46850, 62, 64210, 20130) and synbiol.cz describes fuels,
+  // lubricants and hazardous/toxic chemicals. AGROFERT-family chemicals (2013 spin-off, now in
+  // the Babiš trust funds) — same bucket as Synthesia/Fatra/PRECHEZA/SPOLANA/CS CABOT.
+  "SynBiol, a.s.": "environment",
   "Národní Centrum Tkání a Buněk a.s.": "health",
   // NOTE: CHOMUTOVSKÁ BYTOVÁ a.s. was here as "economy" (housing/real estate) until batch-002's
   // army independently confirmed it's 100% city-of-Chomutov owned — moved to

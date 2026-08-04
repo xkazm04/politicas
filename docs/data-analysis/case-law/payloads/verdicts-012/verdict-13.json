@@ -1,0 +1,42 @@
+{
+ "billTisk": 13,
+ "statedReasoning": "Vládní návrh mění zákon č. 240/2013 Sb., o investičních společnostech a investičních fondech (ZISIF), a dále zákon o Komisi pro cenné papíry, zákon o podnikání na kapitálovém trhu, zákon o správních poplatcích a zákon o trhu s nevýkonnými úvěry. Důvodová zpráva odůvodňuje novelu promítnutím revidovaných evropských nařízení upravujících evropské fondy rizikového kapitálu, fondy sociálního podnikání, fondy dlouhodobých investic a fondy peněžního trhu do vnitrostátní úpravy, doplněním úpravy nástrojů pro řízení likvidity fondů a řízení střetu zájmů obhospodařovatele a navazující revizí souvisejících přestupkových skutkových podstat.",
+ "researchedContext": "Kešovaný text novelizuje § 604 ZISIF, který vyjmenovává přestupkové skutkové podstaty, výhradně formou odkazů na konkrétní písmena a odstavce — např. „V § 604 odst. 1 písmeno a) zní…“, „v § 604 odst. 1 písm. e) se za číslo 3 vkládají slova…“ — a dále v odstavci 4 ruší písmeno c) a přeznačuje dosavadní písmeno d) na písmeno c), a do odstavce 5 vkládá nové písmeno e). Důvodová zpráva k těmto bodům sama odkazuje na obdobné, souběžně prováděné změny stejného typu adresování v § 599 odst. 1 písm. a) a § 612 odst. 1 písm. t) ZISIF v rámci téhož tisku. Vlastní čtení kešované verze tisku 13 potvrzuje, že jde o adresování písmen podle jejich aktuálního pořadí — postup citlivý na to, aby žádná jiná souběžně projednávaná novela téhož paragrafu nezměnila pořadí písmen dříve, než tato novela nabude účinnosti; zda konkrétní jiný, v tuto chvíli neověřovaný tisk na stejné pořadí písmen skutečně cílí, přesahuje rozsah tohoto ověření.",
+ "unstatedEffects": [
+  {
+   "effect": "Přečíslování písmen v § 604 odst. 4 (zrušení písmene c, přeznačení písmene d na c) a vložení nového písmene e) do odstavce 5 mění pořadí písmen v paragrafu, který je adresován i z jiných částí tohoto tisku (§ 599, § 612) — případná souběžně projednávaná novela stejného paragrafu by odkazovala na jiné pořadí písmen, než jaké po přijetí tisku 13 skutečně platí, aniž by na toto riziko důvodová zpráva u těchto bodů upozornila.",
+   "whoBenefits": "Nelze jednoznačně určit — dotčeni by byli adresáti § 604 ZISIF a legislativní proces jako takový v případě střetu číslování se souběžně projednávanou novelou.",
+   "evidence": "Bod 182 mění § 604 odst. 4 tak, že ruší písmeno c) a dosavadní písmeno d) označuje jako písmeno c); bod 185 vkládá do § 604 odst. 5 nové písmeno e) a dosavadní písmeno e) označuje jako písmeno f)."
+  },
+  {
+   "effect": "Novela vkládá nový § 603a, který pro přestupky obhospodařovatele otevřeného fondu při použití nástrojů pro řízení likvidity stanoví pokutu až do vyšší z částek — 300 000 000 Kč, případně 10 % celkového ročního obratu, přesahuje-li takto určená výše pokuty tuto částku, nebo dvojnásobek neoprávněného prospěchu ze spáchání přestupku — ačkoli shrnutí tisku v podkladech hovoří pouze o „změně“ pěti předpisů bez zmínky o novém, takto vysoko stanoveném sankčním rámci vůči obhospodařovatelům fondů.",
+   "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou obhospodařovatelé otevřených podílových fondů, na které se nový sankční rámec § 603a odst. 2 vztahuje.",
+   "evidence": "Nový § 603a odst. 2 (bod 177) stanoví, že pokutu za přestupek podle § 603a odst. 1 (porušení povinností při řízení likvidity fondu podle § 37b) lze uložit až do výše 300 000 000 Kč, nebo do výše 10 % celkového ročního obratu právnické osoby, přesahuje-li takto určená výše pokuty tuto částku, nebo do výše dvojnásobku neoprávněného prospěchu, přesahuje-li tato hodnota rovněž 300 000 000 Kč."
+  }
+ ],
+ "conflictAssessment": "Předkladatelem je ministr financí a jediným poslaneckým sponzorem uvedeným v grafu vazeb k tisku 13 je Zbyněk Stanjura, u kterého případový soubor neeviduje žádnou peněžní vazbu (pole je v datech přítomné a prázdné). V datech tedy není doložena žádná vazba na investiční společnost, investiční fond ani jiný subjekt regulovaný ZISIF. Tisk 13 nemá v datech ani atribuovaného odvětvového vedoucího. Jde o věcnou absenci dokladu o střetu zájmů, kterou lze u tohoto tisku konstatovat přímo.",
+ "severity": "low",
+ "confidence": 4,
+ "citations": [
+  {
+   "claim": "Bod 182 mění § 604 odst. 4 tak, že ruší písmeno c) a dosavadní písmeno d) označuje jako písmeno c); bod 185 vkládá do § 604 odst. 5 nové písmeno e) a dosavadní písmeno e) označuje jako písmeno f).",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=13&ct1=0"
+  },
+  {
+   "claim": "Nový § 603a odst. 2 (bod 177) stanoví, že pokutu za přestupek podle § 603a odst. 1 (porušení povinností při řízení likvidity fondu podle § 37b) lze uložit až do výše 300 000 000 Kč, nebo do výše 10 % celkového ročního obratu právnické osoby, přesahuje-li takto určená výše pokuty tuto částku, nebo do výše dvojnásobku neoprávněného prospěchu, přesahuje-li tato hodnota rovněž 300 000 000 Kč.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=13&ct1=0"
+  },
+  {
+   "claim": "Důvodová zpráva k bodům 178 a 188 tisku 13 sama odkazuje na totožný typ adresovacích změn v § 599 odst. 1 písm. a) a § 612 odst. 1 písm. t) ZISIF v rámci téhož tisku.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=13&ct1=0"
+  },
+  {
+   "claim": "Tisk 13 mění zákon č. 240/2013 Sb., o investičních společnostech a investičních fondech, a zákon č. 256/2004 Sb., o podnikání na kapitálovém trhu.",
+   "kind": "law",
+   "source": "240/2013"
+  }
+ ]
+}

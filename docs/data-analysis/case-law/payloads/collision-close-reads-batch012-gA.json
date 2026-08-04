@@ -1,0 +1,118 @@
+{
+  "generatedAt": "2026-08-04T00:00:00.000Z",
+  "batch": 12,
+  "group": "A",
+  "classificationVocabulary": ["confirmed-collision", "coordination-risk", "incidental"],
+  "classificationCounts": {
+    "confirmed-collision": 5,
+    "coordination-risk": 2,
+    "incidental": 1
+  },
+  "coverage": { "pairsRead": 8, "pairsAssigned": 8 },
+  "pairs": [
+    {
+      "pairId": "16-53-634-1992",
+      "lawRef": "634/1992",
+      "billA": 16,
+      "billB": 53,
+      "sharedParagraph": "24",
+      "classification": "confirmed-collision",
+      "evidence": {
+        "billAExcerpt": "tisk 16, § 24: 'V § 24 se za odstavec 16 vkládá nový odstavec 17, který zní: „(17) Prodávající se dopustí přestupku tím, že...“. Dosavadní odstavce 17 až 24 se označují jako odstavce 18 až 25.' -- tisk 16 vkládá nový odst. 17 (skutkové podstaty k § 1843/1844a OZ) a v důsledku toho přeznačuje dosavadní odst. 17 až 24 na 18 až 25.",
+        "billBExcerpt": "tisk 53, § 24: 'V § 24 se za odstavec 17 vkládá nový odstavec 18, který zní: „(18) Poskytovatel záruky se dopustí přestupku tím, že nevydá spotřebiteli záruční list podle § 2174a odst. 1 občanského zákoníku.“. Dosavadní odstavce 18 až 25 se označují jako odstavce 19 až 26.' -- tisk 53 vkládá vlastní nový odst. 18 A OPĚT přeznačuje odst. 18 až 25 na 19 až 26 — číslováno tak, jako by tisk 16 už byl v účinnosti."
+      },
+      "reasoning": "Obě novely vkládají do § 24 nový odstavec ve stejné oblasti (za dosavadní odst. 16/17) a obě mění navazující číslování zbytku paragrafu. Průkazné je, že důvodová příloha tisku 53 („Platné znění... s vyznačením navrhovaných změn“) už na tomto místě obsahuje HOTOVÝ text tisku 16 (nový odst. 7 o finančních službách na dálku, nová písm. q)/r) v odst. 16) — tisk 53 byl tedy sestaven tak, jako by tisk 16 už byl přijat, a jeho bod 29 vkládá „nový odstavec 18“ za odstavec 17, který ve skutečnosti fyzicky vznikl teprve novelizací tisku 16. Bude-li tisk 53 projednán/přijat NEZÁVISLE na tisku 16 (jiné pořadí, nebo tisk 16 neprojde), odkazuje jeho novelizační bod na neexistující/jiný odstavec 17 platného znění a navazující přeznačovací klauzule „Dosavadní odstavce 18 až 25 na 19 až 26“ neodpovídá skutečnému rozsahu paragrafu (platné znění bez tisku 16 nemá odstavec 25). Jde o typický mechanismus vkládání odstavce s kaskádovým přečíslováním, který rozbíjí adresaci druhé novely — konfirmovaná kolize. (Vedlejší nálezy: § 23 odst. 2 písm. a) a § 23b odst. 1–3 jsou oběma tisky novelizovány, ale na vzájemně disjunktních textových úsecích v témže odstavci — jde o koordinovatelné, nikoli kolizní zásahy.)"
+    },
+    {
+      "pairId": "64-90-218-2000",
+      "lawRef": "218/2000",
+      "billA": 64,
+      "billB": 90,
+      "sharedParagraph": "20",
+      "classification": "confirmed-collision",
+      "evidence": {
+        "billAExcerpt": "tisk 64, § 20: '8. V § 20 odst. 5 se věta druhá zrušuje.' -- tisk 64 mazáno druhou větu odstavce 5 rozpočtových pravidel.",
+        "billBExcerpt": "tisk 90, § 20: '13. V § 20 se odstavec 2 zrušuje. Dosavadní odstavce 3 až 6 se označují jako odstavce 2 až 5.' -- tisk 90 ruší celý odstavec 2 a v důsledku toho přeznačuje dosavadní odstavce 3 až 6 na 2 až 5, tedy i dosavadní odstavec 5 se stává novým odstavcem 4."
+      },
+      "reasoning": "Tisk 90 ruší § 20 odst. 2 a navazujícím ustanovením (bod 13) posouvá číslování dosavadních odstavců 3–6 o jednu pozici níž — dosavadní odstavec 5 (obsahující větu, kterou chce tisk 64 zrušit) se tak stává novým odstavcem 4. Tisk 64 přitom svou novelizační instrukci cílí doslovně na „§ 20 odst. 5“ platného znění. Bude-li tisk 90 přijat jako první, instrukce tisku 64 dopadne na jiný (přeznačený) odstavec, než byl zamýšlen, případně na odstavec s odlišným obsahem. Jde o stejný mechanismus, jaký je u tisku 64 dokumentován jinde (mazání/vkládání s kaskádovým přečíslováním), zde jej ovšem vyvolává protistrana (tisk 90) a láme adresaci tisku 64 — konfirmovaná kolize. Doplňkově kolizní je i odst. 2: tisk 64 (bod 13) doplňuje na konec věty třetí odst. 2 vlastní výjimku „s výjimkou nepoužitých prostředků přijatých do rezervního fondu z rozpočtu EU...“, zatímco tisk 90 (bod 38) doplňuje na konec téhož odstavce 2 jinou, obsahově odlišnou výjimku o programech spolufinancovaných z rozpočtu EU — obě instrukce cílí na stejné závěrečné místo textu a jejich mechanické spojení by vytvořilo protichůdné dvojí „s výjimkou“. § 12 naproti tomu genuinní kolizi nezakládá — tisk 64 mění pouze odst. 1 písm. b), zatímco tisk 90 mění odst. 4 a nově zní odst. 9; jde o disjunktní odstavce."
+    },
+    {
+      "pairId": "64-248-586-1992",
+      "lawRef": "586/1992",
+      "billA": 64,
+      "billB": 248,
+      "sharedParagraph": "24",
+      "classification": "confirmed-collision",
+      "evidence": {
+        "billAExcerpt": "tisk 64, § 24: '210. V § 24 odst. 2 se písmeno a) zrušuje. Dosavadní písmena b) až ch) se označují jako písmena a) až h).' -- první z dlouhé kaskády bodů 210–230, které v § 24 odst. 2 postupně ruší písmena a), b), d), e), f), k), l)-p), m), n), o), p), r), s), t), u) a při každém kroku přeznačují všechna následující písmena.",
+        "billBExcerpt": "tisk 248, § 24: '5. V § 24 odst. 2 písm. j) bodě 4 se za slova „práva zaměstnanců vyplývající“ vkládají slova „ze zákoníku práce,“.' -- cílí na konkrétní, dnešním písmenem adresované písmeno j) odst. 2."
+      },
+      "reasoning": "Tisk 64 provádí v § 24 odst. 2 desítky po sobě jdoucích rušení písmen s kaskádovým přeznačováním zbytku abecedy (body 210–230) — přesně mechanismus popsaný u tohoto sněmovního tisku i v jiných částech případu. Tisk 248 naproti tomu cílí úzkou substitucí přímo na aktuálně platné písmeno „j) bod 4“ platného znění. Po sérii škrtů a přeznačení tisku 64 už písmeno, které bylo v okamžiku psaní tisku 248 označeno „j)“, nese v konečném znění tisku 64 jiné písmeno (nebo v mezikroku neexistuje) — instrukce tisku 248 tak míří na adresu, kterou tisk 64 svými škrty posouvá. Jde o učebnicový příklad mazání/přeznačování písmen, které rozbíjí adresaci sesterského tisku — konfirmovaná kolize. § 6 kolizi nezakládá: tisk 64 mění § 6 odst. 3, 6, 8 a 15 (terminologické úpravy „cena“→„hodnota“), zatímco tisk 248 mění výhradně § 6 odst. 9 písm. m) (příspěvek zaměstnavatele) — jde o zcela odlišné odstavce bez jakékoli textové nebo číslovací interakce, přítomnost obou v § 6 je vedlejším produktem toho, že jde o rozsáhlý paragraf s mnoha samostatnými odstavci."
+    },
+    {
+      "pairId": "64-210-256-2004",
+      "lawRef": "256/2004",
+      "billA": 64,
+      "billB": 210,
+      "sharedParagraph": "118",
+      "classification": "confirmed-collision",
+      "evidence": {
+        "billAExcerpt": "tisk 64, § 118: '23. V § 118 odst. 7 se slova „Výroční zpráva nebo konsolidovaná výroční zpráva“ nahrazují slovy „Účetní závěrka a zpráva vedení“...' a '25. V § 118 se odstavec 8 zrušuje.' -- tisk 64 obsahově přepisuje odst. 7 a zcela ruší odst. 8.",
+        "billBExcerpt": "tisk 210, § 118: '6. V § 118 se za odstavec 6 vkládá nový odstavec 7, který zní: „(7) Zpráva o správě a řízení podle odstavce 4 emitenta podle § 134m obsahuje také informaci o zastoupení žen a mužů mezi členy vedoucího orgánu emitenta podle § 134l,...“.' -- tisk 210 vkládá zcela nový odstavec 7 (o genderovém zastoupení) a posouvá vše od dosavadního odst. 7 o jednu pozici výš."
+      },
+      "reasoning": "Tisk 210 vkládá do § 118 nový odstavec 7 hned za dosavadní odstavec 6 — v důsledku toho se dosavadní odstavec 7 (obsahující ustanovení o výroční/konsolidované výroční zprávě, které tisk 64 v bodech 23–24 mění) posouvá na odstavec 8, a dosavadní odstavec 8 (který tisk 64 bodem 25 zcela ruší) se posouvá na odstavec 9. Instrukce tisku 64 cílí doslovně na „odstavec 7“ a „odstavec 8“ platného znění; pokud tisk 210 vejde v účinnost jako první, obě tyto instrukce dopadnou na jiná ustanovení, než jaká byla zamýšlena — instrukce k „odst. 7“ by nově mířila na tisk 210 nový text o genderovém zastoupení, nikoli na text o výroční zprávě. Jde o vložení odstavce s posunem číslování, které láme odstavcovou adresaci sesterského tisku — konfirmovaná kolize. § 172 kolizi nezakládá: tisk 64 mění výhradně odst. 3 (body 58–59), který leží před vkládacím bodem tisku 210 (za odst. 4) a jeho číslo se posunem nemění; jde tedy o odstavec mimo dosah kolize."
+    },
+    {
+      "pairId": "16-53-89-2012",
+      "lawRef": "89/2012",
+      "billA": 16,
+      "billB": 53,
+      "sharedParagraph": "1820",
+      "classification": "coordination-risk",
+      "evidence": {
+        "billAExcerpt": "tisk 16, § 1820: '1. V § 1820 odst. 1 písmeno i) zní: „i) má-li spotřebitel právo odstoupit od smlouvy, podmínky, lhůtu a postup pro uplatnění...“.' -- tisk 16 přepisuje pouze písmeno i).",
+        "billBExcerpt": "tisk 53, § 1820: '8. V § 1820 odst. 1 se na konci písmene r) slovo „a“ zrušuje a za písmeno r) se vkládají nová písmena s) a t), která znějí:' -- tisk 53 mění písmena h) a m) (body 6–7) a doplňuje zcela nová písmena s), t) na konec seznamu (za dosavadní poslední písmeno r))."
+      },
+      "reasoning": "Oba tisky skutečně novelizují tentýž odstavec (§ 1820 odst. 1), avšak na disjunktních písmenech: tisk 16 mění pouze písmeno i), tisk 53 mění písmena h) a m) a připojuje nová písmena s) a t) na konec výčtu (za dosavadní poslední písmeno r), tedy bez jakéhokoli přeznačování existujících písmen). Žádná z instrukcí neruší ani nepřečíslovává písmeno, kterého se týká ta druhá — po mechanickém sloučení obou novel by odstavec 1 obsahoval opravené i), h), m) i nová s), t) bez kolize adres. Jde o typickou koordinovatelnou situaci (sloučit s péčí, ale technicky proveditelné). U § 1840 je situace obdobná — tisk 16 doplňuje slova na konec písmene f) (bod 3), tisk 53 upravuje písmeno h) (bod 10); jiná písmena, žádné rušení/vkládání s přeznačováním, tedy rovněž koordinovatelné."
+    },
+    {
+      "pairId": "24-65-365-2000",
+      "lawRef": "365/2000",
+      "billA": 24,
+      "billB": 65,
+      "sharedParagraph": "4",
+      "classification": "confirmed-collision",
+      "evidence": {
+        "billAExcerpt": "tisk 24, § 4: '1. V § 4 se na konci odstavce 2 tečka nahrazuje čárkou a doplňuje se písmeno l), které zní: „l) vede seznam obecních úřadů, úřadů městských částí nebo městských obvodů územně členěných statutárních měst, úřadů městských částí hlavního města Prahy a společenství obcí, které jsou kontaktními místy veřejné správy, a zveřejňuje jej způsobem umožňujícím dálkový přístup.“.'",
+        "billBExcerpt": "tisk 65, § 4: '9. V § 4 se na konci odstavce 2 tečka nahrazuje čárkou a doplňují se písmena l) až n), která znějí: „l) vykonává působnost členského státu Evropské unie a je příslušným orgánem, který plní úkoly vyplývající pro členský stát z přímo použitelného předpisu Evropské unie o přeshraniční interoperabilitě transevropských digitálních veřejných služeb18),...“.'"
+      },
+      "reasoning": "Oba tisky nezávisle na sobě zavádějí nové písmeno l) v § 4 odst. 2 zákona o informačních systémech veřejné správy, a to identickým obratem („na konci odstavce 2 tečka nahrazuje čárkou a doplňuje se písmeno l)“), avšak s naprosto odlišným obsahem — tisk 24 zavádí povinnost vedení seznamu kontaktních míst veřejné správy, tisk 65 zavádí zcela jiné (evropské) kompetence Agentury. Obě instrukce cílí na tutéž adresu (za dosavadní poslední písmeno, jímž je patrně k)) a nemohou obě zavést odlišný obsah pod totožným písmenem — jde o přímou kolizi adresace nového písmene. Ve stejném § 12 pak tisk 24 (bod 5) ruší písmeno i) a přeznačuje dosavadní písmeno j) na i), zatímco tisk 65 (bod 39) ponechává písmeno i) beze změny obsahu (mění mu jen interpunkci na poslední) a ruší písmeno j) — obě instrukce předpokládají odlišný, vzájemně se vylučující výsledný stav písmen i)/j), což je druhá, samostatná kolize v témže paragrafu. Přesně jde o mechanismus mazání/vkládání písmene s kaskádovým přeznačováním, který láme adresaci sesterského tisku."
+    },
+    {
+      "pairId": "64-145-257-2016",
+      "lawRef": "257/2016",
+      "billA": 64,
+      "billB": 145,
+      "sharedParagraph": "3",
+      "classification": "coordination-risk",
+      "evidence": {
+        "billAExcerpt": "tisk 64, § 3: '1. V § 3 odst. 1 písm. k) bodě 5 se za slova „uvedeného v“ vkládají slova „řádné individuální“.' -- cílí na písm. k) bod 5 odstavce 1.",
+        "billBExcerpt": "tisk 145, § 3: '6. V § 3 odst. 1 písmena b) a c) znějí: „b) zprostředkováním spotřebitelského úvěru činnost odlišná od poskytování spotřebitelského...“.' -- přepisuje písmena b) a c) odstavce 1; bodem 7 dále doplňuje nové písmeno p) na konec odstavce 2."
+      },
+      "reasoning": "Oba tisky skutečně zasahují do § 3 odst. 1 zákona o spotřebitelském úvěru, ale na navzájem disjunktních písmenech (tisk 64: k) bod 5; tisk 145: b) a c)) a žádná z instrukcí neruší ani nepřeznačuje písmena, jichž se dotýká ta druhá — přepis b) a c) tiskem 145 je uzavřený „zní:“ blok, který nemění polohu ani existenci písmene k). Doplnění nového písmene p) tiskem 145 se navíc týká odstavce 2, nikoli 1. Jde o koordinovatelný souběh bez destruktivního mechanismu. § 113 kolizi nezakládá vůbec — tisk 64 mění odst. 3 (oceňovací terminologie), tisk 145 mění odst. 1 (definice pro účely limitu 100 000 EUR); jde o zcela odlišné, vzájemně neprovázané odstavce."
+    },
+    {
+      "pairId": "64-143-190-2004",
+      "lawRef": "190/2004",
+      "billA": 64,
+      "billB": 143,
+      "sharedParagraph": "40b",
+      "classification": "incidental",
+      "evidence": {
+        "billAExcerpt": "tisk 64, § 40b: '7. V § 40b odst. 4 písm. b) se za slovo „poslední“ vkládá slovo „řádné“ a za slova „nebo řádné“ se vkládá slovo „individuální“.' -- mění přímo text uvnitř § 40b.",
+        "billBExcerpt": "tisk 143, § 40b: '3. Za § 40b se vkládá nový § 40c, který zní: „§ 40c (1) Emitent nebo osoba nabízející dluhopis se dopustí přestupku tím, že při nabízení dluhopisu neuvede nebo nesdělí varování podle § 7a...“.' -- § 40b je zde použit jen jako kotva k vložení zcela nového § 40c; obsah § 40b tisk 143 nemění."
+      },
+      "reasoning": "Tisk 64 mění obsah přímo uvnitř § 40b odst. 4 písm. b) (drobná terminologická vsuvka). Tisk 143 naproti tomu § 40b vůbec obsahově nenovelizuje — používá jej pouze jako polohové označení („za § 40b se vkládá...“) pro vložení zcela samostatného, nově číslovaného § 40c s vlastním, na § 40b nezávislým odstavcovým členěním; navazující bod 4 dokonce jen opravuje křížový odkaz v § 41 z „40b“ na „40c“, aniž by se dotýkal § 40b samotného. Vložení nového § na úrovni paragrafu (nikoli odstavce/písmene) nevyžaduje přečíslování ničeho v § 40b ani v navazujících paragrafech — jde tedy o formální, nikoli obsahový průnik: § 40b je zmíněn v obou tiscích, ale jen v jednom z nich je skutečně novelizován, ve druhém slouží jen jako číslovací orientační bod pro nové ustanovení vedle něj. To odpovídá kategorii artefaktu překryvu (obdobně jako vlastní číslování článku), nikoli reálné kolizi ani nutnosti koordinace. § 9a doplňkově potvrzuje neškodnost: tisk 64 mění odst. 2 písm. i)–k), tisk 143 mění odst. 1 písm. d) — odlišné odstavce bez interakce."
+    }
+  ]
+}

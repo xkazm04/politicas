@@ -1,0 +1,57 @@
+{
+ "billTisk": 69,
+ "statedReasoning": "Vládní návrh nového zákona o digitální ekonomice zavádí vnitrostátní rámec k několika přímo použitelným nařízením Evropské unie — nařízení o digitálních službách (DSA), nařízení o vztazích platforem a podnikatelů (P2B) a nařízení o správě dat (DGA) — a v navazujících novelizačních částech mění související předpisy. Důvodová zpráva volbu Českého telekomunikačního úřadu (ČTÚ) jako ústředního orgánu dozoru nad nařízeními DSA a DGA sama odůvodňuje srovnávací analýzou variant (nejnižší dodatečné náklady pro státní rozpočet vzhledem k blízkosti agendy, soulad s usnesením vlády č. 590 ze dne 16. srpna 2023, praxe většiny ostatních členských států), přičemž podrobnou analýzu odkazuje do samostatné Závěrečné zprávy z hodnocení dopadů regulace (RIA). Roli orgánu dozoru nad nařízením P2B ČTÚ plní už od roku 2023 na základě zákona č. 58/2023 Sb.; tento tisk ji nezavádí, jen na ni navazuje.",
+ "researchedContext": "Přímým součtem novelizačních částí (ČÁST DRUHÁ až ČÁST OSMÁ) bylo ověřeno, že text mění sedm navazujících předpisů: trestní řád (141/1961, § 68), zákon o ochraně spotřebitele (634/1992, § 69), autorský zákon (121/2000, § 70), zákon o správních poplatcích (634/2004, § 71), zákon o audiovizuálních mediálních službách na vyžádání (132/2010, § 72), občanský zákoník (89/2012, § 73) a zákon o zvláštních řízeních soudních (292/2013, ČÁST OSMÁ). Regenerovaná topologie hran amends v grafu (pole amendedLaws u tohoto tisku) eviduje jen 6 z těchto 7 zákonů — chybí zákon č. 132/2010 Sb., o audiovizuálních mediálních službách na vyžádání, měněný v ČÁST ŠESTÁ, § 72. Nezávisle na tom bylo ověřeno, že §§ 40–41 zavádí mechanismus soudem podloženého blokování internetových stránek prostřednictvím seznamu vedeného ČTÚ, s povinností poskytovatelů služby přístupu k internetu takový přístup technicky znemožnit.",
+ "unstatedEffects": [
+  {
+   "effect": "Návrh zavádí mechanismus soudem podloženého blokování internetových stránek prostřednictvím seznamu vedeného ČTÚ a ukládá poskytovatelům služby přístupu k internetu povinnost takový přístup technicky znemožnit — jde o zásah do dostupnosti obsahu na internetu, jehož konkrétní procesní podobu (§§ 40–41) shrnutí novely v podkladech tisku nezmiňuje.",
+   "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou poskytovatelé připojení k internetu (nová technická a procesní povinnost) a provozovatelé služeb zařazených na seznam (omezení dostupnosti jejich služby uživatelům v České republice).",
+   "evidence": "§ 41 tisku 69 ukládá poskytovatelům služby přístupu k internetu povinnost zamezit přístupu k internetovým stránkám uvedeným v seznamu služeb s dočasně omezeným přístupem, vede-li ČTÚ takový seznam na základě rozhodnutí soudu podle čl. 51 odst. 3 nařízení DSA."
+  }
+ ],
+ "conflictAssessment": "Předkladatelem je Ministerstvo průmyslu a obchodu a jediným poslaneckým sponzorem uvedeným v grafu vazeb k tisku 69 je Lukáš Vlček. Graf u něj eviduje šest peněžních vazeb, včetně jeho největší — SOMPO, a.s. (IČO 25172263, evidováno 9 174 258 Kč). SOMPO byla založena v roce 1997 sto sedmnácti obcemi jako akcionáři a zabývá se odpadovým hospodářstvím (NACE 38); Vlček v ní podle obchodního rejstříku zastává funkci předsedy představenstva od 3. 12. 2024 (v orgánech společnosti podle téhož rejstříku působil v různých funkcích i dříve). Jde tedy o vazbu na komunálně vlastněnou obchodní společnost — podle ustáleného pravidla tohoto projektu se taková vazba posuzuje jako municipální/SOE role a NENÍ sama o sobě střetem zájmů, i když ji je namístě jmenovat, nikoli mlčky vynechat. Zbývajících pět vazeb (vodárenské družstvo, projekční firma, dva občanské spolky, společenství vlastníků jednotek) směřuje k dalším regionálním subjektům v okrese Pelhřimov. U žádné z šesti vazeb nejde o poskytovatele digitálních služeb, provozovatele online platformy ani jiný subjekt, který by zákon o digitální ekonomice přímo regulovala. Uváděné částky u jednotlivých firem jsou souhrnem veřejných smluv evidovaných u dané firmy, nikoli osobním příjmem poslance. Tisk 69 nemá v datech atribuovaného odvětvového vedoucího — v datech tedy není doložen přímý střet zájmů předkladatele s obsahem novely.",
+ "severity": "medium",
+ "confidence": 3,
+ "citations": [
+  {
+   "claim": "§ 41 tisku 69 ukládá poskytovatelům služby přístupu k internetu povinnost zamezit přístupu k internetovým stránkám uvedeným v seznamu služeb s dočasně omezeným přístupem, vede-li ČTÚ takový seznam na základě rozhodnutí soudu podle čl. 51 odst. 3 nařízení DSA.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=69&ct1=0"
+  },
+  {
+   "claim": "Důvodová zpráva odůvodňuje volbu ČTÚ jako orgánu dozoru nad nařízeními DSA a DGA srovnávací analýzou variant a odkazuje podrobnou analýzu do samostatné Závěrečné zprávy z hodnocení dopadů regulace; roli orgánu dozoru nad nařízením P2B ČTÚ plní už od roku 2023 podle zákona č. 58/2023 Sb.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=69&ct1=0"
+  },
+  {
+   "claim": "ČÁST ŠESTÁ, § 72 tisku 69 mění zákon č. 132/2010 Sb., o audiovizuálních mediálních službách na vyžádání — sedmý měněný předpis, který regenerovaná topologie amends v grafu u tohoto tisku neeviduje.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=69&ct1=0"
+  },
+  {
+   "claim": "Poslanec Lukáš Vlček má u tisku 69 v grafu evidovanou peněžní vazbu na SOMPO, a.s. (IČO 25172263) ve výši 9 174 258 Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu).",
+   "kind": "graph_fact",
+   "source": "company:ico:25172263"
+  },
+  {
+   "claim": "Poslanec Lukáš Vlček má u tisku 69 evidovanou peněžní vazbu na PEVAK Pelhřimov, družstvo — vodárenský subjekt bez vztahu k digitálním službám.",
+   "kind": "graph_fact",
+   "source": "company:ico:26039907"
+  },
+  {
+   "claim": "Tisk 69 mění mimo jiné zákon č. 89/2012 Sb., občanský zákoník, a zákon č. 121/2000 Sb., autorský zákon.",
+   "kind": "law",
+   "source": "89/2012"
+  },
+  {
+   "claim": "Lukáš Vlček je podle veřejného rejstříku (ARES VR) předsedou představenstva SOMPO, a.s. od 3. 12. 2024 (vznik funkce 2024-12-03, bez zapsaného zániku); v orgánech společnosti podle téhož rejstříku působil v různých funkcích i v dřívějších obdobích.",
+   "kind": "web",
+   "source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25172263"
+  },
+  {
+   "claim": "SOMPO, a.s. byla založena v roce 1997 sto sedmnácti členskými obcemi jako akcionáři a zabývá se odpadovým hospodářstvím (ARES: NACE 38, sběr a zpracování odpadů) — jde o komunálně vlastněnou společnost.",
+   "kind": "web",
+   "source": "https://www.sompo.cz/sompo/zakladni-informace/"
+  }
+ ]
+}

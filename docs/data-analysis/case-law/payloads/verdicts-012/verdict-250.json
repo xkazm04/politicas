@@ -1,0 +1,77 @@
+{
+ "billTisk": 250,
+ "statedReasoning": "Poslanecký návrh Drahoslava Ryby a Jiřího Bartáka zavádí nový zákon o standardizaci, který nahrazuje dosavadní úpravu tvorby a vydávání českých technických norem. Zřizuje Českou agenturu pro standardizaci jako právnickou osobu veřejného práva s vlastními orgány (generální ředitel, Rada, Dozorčí rada), přebírající činnost dosavadní agentury coby jejího právního nástupce (přechod zaměstnanců, majetku, databází, poplatků a probíhajících řízení). Úřad pro technickou normalizaci, metrologii a státní zkušebnictví si ponechává dozorovou a přestupkovou působnost. Podle vlastního odůvodnění zákon dále mění deset souvisejících předpisů — mimo jiné kompetenční zákon, zákon o České obchodní inspekci, o metrologii, puncovní zákon, o zabezpečení výkonu státní správy v oblasti technické normalizace, o technických požadavcích na výrobky, o správních poplatcích, o dozoru nad trhem s výrobky, o obecné bezpečnosti výrobků a o správě informací o stavbě a vystavěném prostředí. Distribuce technických norem zůstává podle důvodové zprávy nadále na komerční bázi prodeje, vedle toho agentura zajišťuje tzv. sponzorovaný přístup k normám.",
+ "researchedContext": "Přímým součtem částí druhá až jedenáctá návrhu (deset samostatných novelizačních částí, každá s vlastním „Zákon č. …, se mění takto\") bylo ověřeno, že text novelizuje přesně deset zákonů: č. 2/1969 Sb., č. 64/1986 Sb., č. 505/1990 Sb. (metrologie), č. 539/1992 Sb. (puncovní zákon), č. 20/1993 Sb., č. 22/1997 Sb., č. 634/2004 Sb., č. 87/2023 Sb., č. 387/2024 Sb. (obecná bezpečnost výrobků) a č. 330/2025 Sb. (správa informací o stavbě a vystavěném prostředí) — což odpovídá vlastnímu shrnutí předlohy (\"mění 10 předpisů\"). Regenerovaná topologie hran amends v grafu (pole amendedLaws u tohoto tisku) však eviduje jen 6 z těchto 10 zákonů; zákony o metrologii (505/1990), puncovní zákon (539/1992), o obecné bezpečnosti výrobků (387/2024) a o správě informací o stavbě (330/2025) v grafové topologii chybí — jde o počet chybějících předpisů, nikoli o podíl věcného záběru tisku. Dále bylo ověřeno, že Agentura zůstává právnickou osobou veřejného práva (§ 7 odst. 1) a že komerční prodej norem je pokračováním dosavadní praxe, nikoli novým prvkem. Agentura má tři orgány (§ 9 odst. 1): generálního ředitele, Radu (§ 11) a Dozorčí radu (§ 12). Radu, orgán zajišťující nezávislost a nestrannost Agentury a schvalující koncepci, strategii a návrh rozpočtu, tvoří 5 členů, z nichž část jmenuje předseda Úřadu na návrh právnických osob, jejichž činnost souvisí s oblastí normalizace (§ 11 odst. 2). Dozorčí radu, orgán dohlížející na hospodaření Agentury a projednávající návrh rozpočtu a výroční zprávu o hospodaření, tvoří rovněž 5 členů, jejího předsedu jmenuje ministr a ostatní jmenuje předseda Úřadu především ze zástupců ústředních správních úřadů (§ 12 odst. 1 a 2) — nikoli na návrh oborových subjektů. Ceník za vedlejší činnost (placený přístup k normám a databázi) vydává Agentura teprve po předchozím projednání Dozorčí radou a se souhlasem Úřadu (§ 21 odst. 2); samostatný poplatek za sponzorovaný přístup je odlišný nástroj, jehož rozpočet zákon označuje za veřejný rozpočet (§ 20 odst. 4).",
+ "unstatedEffects": [
+  {
+   "effect": "Návrh věcně novelizuje deset zákonů (potvrzeno přímým výčtem částí druhá až jedenáctá), avšak regenerovaná topologie amends hran v grafu eviduje jen šest z nich — zákon o metrologii, puncovní zákon, zákon o obecné bezpečnosti výrobků a zákon o správě informací o stavbě chybí. Čtyři z deseti novelizovaných zákonů (počet předpisů, nikoli podíl věcného záběru) tak v datech platformy, na nichž staví zobrazení rozsahu novely, chybí.",
+   "whoBenefits": "Nelze jednoznačně určit — jde o mezeru v grafové topologii dat platformy, nikoli o zjištěný záměr předkladatelů; důsledkem je pouze to, že čtenář spoléhající na pole amendedLaws vidí užší záběr tisku, než jaký text skutečně má.",
+   "evidence": "Části druhá až jedenáctá textu návrhu (§ 49 až § 59) novelizují zákony č. 2/1969 Sb., č. 64/1986 Sb., č. 505/1990 Sb., č. 539/1992 Sb., č. 20/1993 Sb., č. 22/1997 Sb., č. 634/2004 Sb., č. 87/2023 Sb., č. 387/2024 Sb. a č. 330/2025 Sb. — deset zákonů oproti šesti uvedeným v poli amendedLaws tohoto tisku."
+  },
+  {
+   "effect": "Radu Agentury (§ 11), která schvaluje koncepci, strategii a návrh rozpočtu Agentury, z pěti členů z části jmenuje předseda Úřadu na návrh právnických osob, jejichž činnost souvisí s oblastí normalizace (§ 11 odst. 2). Cenu za placený přístup k normám a databázi (vedlejší činnost) naproti tomu stanovuje Agentura teprve po předchozím projednání Dozorčí radou a se souhlasem Úřadu (§ 21 odst. 2); Dozorčí radu přitom jmenuje ministr (předsedu) a předseda Úřadu především ze zástupců ústředních správních úřadů, nikoli na návrh oborových subjektů (§ 12 odst. 2). Bod, v němž mají oborové subjekty přímý hlas, je tedy schvalování strategie a rozpočtu Agentury (Rada), nikoli stanovení ceníku (Dozorčí rada a Úřad); tento rozdíl mezi působností obou orgánů návrh v důvodové zprávě nerozebírá.",
+   "whoBenefits": "Nelze jednoznačně určit — jde o strukturální popis rozdělení pravomocí mezi Radou a Dozorčí radou Agentury, nikoli o zjištěnou vazbu na konkrétní subjekt; graf neeviduje u žádného ze sponzorů peněžní vazbu na konkrétní normalizační nebo certifikační firmu.",
+   "evidence": "§ 11 odst. 1 a 2 (složení a působnost Rady, včetně jmenování části členů na návrh oborových právnických osob), § 12 odst. 1 a 2 (složení a působnost Dozorčí rady, jmenované především ze zástupců ústředních správních úřadů) a § 21 odst. 2 (ceník vedlejší činnosti podléhá projednání Dozorčí radou a souhlasu Úřadu) návrhu zákona o standardizaci."
+  }
+ ],
+ "conflictAssessment": "Předkladateli jsou poslanci Drahoslav Ryba a Jiří Barták; případový soubor u obou neeviduje žádnou peněžní vazbu (moneyTies je u obou prázdné pole) ani přiřazený sektorový konflikt (attributedSectorLeads prázdné, sectorAdjacency nastaveno na false). Předmětem návrhu je veřejná správa v oblasti standardizace a přeměna právní formy dosavadní normalizační agentury; v datech dostupných platformě tak není podklad pro tvrzení o střetu zájmů žádného ze sponzorů s předmětem návrhu.",
+ "severity": "low",
+ "confidence": 3,
+ "citations": [
+  {
+   "claim": "Návrh zřizuje Českou agenturu pro standardizaci jako právnickou osobu veřejného práva a právního nástupce dosavadní agentury.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=250&ct1=0"
+  },
+  {
+   "claim": "Distribuce technických norem zůstává na komerční bázi prodeje; Agentura vedle toho zajišťuje sponzorovaný přístup k normám.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=250&ct1=0"
+  },
+  {
+   "claim": "Návrh novelizuje zákon o metrologii, který v grafové topologii amends hran tohoto tisku chybí.",
+   "kind": "law",
+   "source": "č. 505/1990 Sb."
+  },
+  {
+   "claim": "Návrh novelizuje puncovní zákon, který v grafové topologii amends hran tohoto tisku chybí.",
+   "kind": "law",
+   "source": "č. 539/1992 Sb."
+  },
+  {
+   "claim": "Návrh novelizuje zákon o obecné bezpečnosti výrobků, který v grafové topologii amends hran tohoto tisku chybí.",
+   "kind": "law",
+   "source": "č. 387/2024 Sb."
+  },
+  {
+   "claim": "Návrh novelizuje zákon o správě informací o stavbě a vystavěném prostředí, který v grafové topologii amends hran tohoto tisku chybí.",
+   "kind": "law",
+   "source": "č. 330/2025 Sb."
+  },
+  {
+   "claim": "Radu Agentury (5 členů, schvalující koncepci, strategii a rozpočet Agentury) z části jmenuje předseda Úřadu na návrh právnických osob, jejichž činnost souvisí s oblastí normalizace.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=250&ct1=0"
+  },
+  {
+   "claim": "Dozorčí radu (5 členů, dohlížející na hospodaření Agentury) jmenuje ministr a předseda Úřadu především ze zástupců ústředních správních úřadů.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=250&ct1=0"
+  },
+  {
+   "claim": "Ceník za vedlejší činnost (placený přístup k normám a databázi) vydává Agentura teprve po předchozím projednání Dozorčí radou a se souhlasem Úřadu.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=250&ct1=0"
+  },
+  {
+   "claim": "Sponzoři návrhu Drahoslav Ryba a Jiří Barták nemají v grafu evidovánu žádnou peněžní vazbu.",
+   "kind": "graph_fact",
+   "source": "psp:person:6782"
+  },
+  {
+   "claim": "Sponzoři návrhu Drahoslav Ryba a Jiří Barták nemají v grafu evidovánu žádnou peněžní vazbu.",
+   "kind": "graph_fact",
+   "source": "psp:person:6987"
+  }
+ ]
+}

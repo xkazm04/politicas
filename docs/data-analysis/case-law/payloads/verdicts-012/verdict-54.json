@@ -1,0 +1,52 @@
+{
+  "billTisk": 54,
+  "statedReasoning": "Vládní návrh transponuje nařízení EU 2022/868 o evropské správě dat (akt o správě dat) a zavádí dva instituty: povinnosti při správě dat vedených v informačních systémech veřejné správy (hlava II) a řízený přístup k datům – kontrolované, zpravidla anonymizované zpřístupnění dat pro účely vědeckého výzkumu, kontroly veřejné správy nebo výuky (hlava III). Povolujícím orgánem je zpravidla správce dat nebo Digitální a informační agentura, u vyjmenovaných oblastí (sociální zabezpečení, statistika, daně, zdravotnictví) tzv. příslušný subjekt podle § 29. Součástí návrhu jsou čtyři doprovodné novely: zrušení duplicitní úpravy v zákoně o rejstříku trestů a evidenci přestupků (§ 37, důvodová zpráva odůvodňuje toto zrušení kolizí s obecnou úpravou), doplnění vztahu k zákonu o státní statistické službě jako lex specialis (§ 38), zavedení správního poplatku 3 000 Kč za přijetí žádosti o řízený přístup (§ 39) a úprava zákona o zdravotních službách ve vztahu k Ústavu zdravotnických informací a statistiky (§ 40).",
+  "researchedContext": "Z textu návrhu (§ 41 – účinnost) vyplývá, že zákon nenabývá účinnosti jednotně. Obecná ustanovení (hlava I, II, přestupky správců dat mimo § 32 a další) nabývají účinnosti patnáctým dnem po vyhlášení, avšak celá hlava III (§ 11 až § 27), tedy samotný řízený přístup k datům, spolu s vymezením příslušných subjektů (§ 28 písm. d), e), i)) a doprovodnými novelami zákona o rejstříku trestů, o státní statistické službě a o správních poplatcích (§ 38 až § 40), nabývá účinnosti až 1. ledna 2028. Ustanovení o místním katalogu dat a datovém slovníku (§ 6 až § 8) a přestupky správců dat podle § 32 (jediný sankční nástroj vůči nedodržení povinností správy dat) nabývají účinnosti teprve 1. ledna 2029. Nástroj, po němž je zákon pojmenován, je tedy po dobu přibližně dvou až tří let od formální účinnosti zbytku předpisu fakticky neaktivní a bez sankčního zajištění. Dále novela zákona o státní statistické službě (§ 38) a novela zákona o zdravotních službách (§ 40 bod 5) výslovně vylučují použití hlavy III na poskytování dat Českým statistickým úřadem, resp. na postup Ústavu zdravotnických informací a statistiky podle § 73 odst. 8 zákona o zdravotních službách – tedy u dvou ze čtyř oblastí vyjmenovaných v § 29 jako \"příslušný subjekt\" se nově zaváděné záruky řízeného přístupu (účelové omezení, anonymizace) na existující kanál poskytování dat vůbec neuplatní a zůstává zachován dosavadní zvláštní režim.",
+  "unstatedEffects": [
+    {
+      "effect": "Klíčová hlava III (řízený přístup k datům, § 11 až § 27) a jediné sankční ustanovení vůči jejímu nedodržení (§ 32, přestupky) nabývají účinnosti až 1. ledna 2028, resp. 1. ledna 2029 – tedy roky po obecné patnáctidenní účinnosti zbytku zákona, aniž by to shrnutí předlohy (\"mění 4 předpisy\") jakkoli signalizovalo.",
+      "whoBenefits": "Nelze jednoznačně určit, kdo z odkladu profituje – doloženo je pouze to, že správci informačních systémů veřejné správy získávají několikaletou lhůtu k přípravě, zatímco žadatelé o řízený přístup k datům (výzkumníci, kontrolní orgány, vzdělávací instituce) po tuto dobu nástroj k dispozici nemají a jeho nedodržení není sankcionovatelné.",
+      "evidence": "§ 41 návrhu zákona (ustanovení o účinnosti) stanoví dvoustupňový odklad – 1. ledna 2028 pro hlavu III a doprovodné novely, 1. ledna 2029 pro § 6 až § 8 a § 32."
+    },
+    {
+      "effect": "Novela zákona o státní statistické službě (§ 38) a novela zákona o zdravotních službách (§ 40 bod 5) vyjímají poskytování dat Českým statistickým úřadem a postup Ústavu zdravotnických informací a statistiky podle § 73 odst. 8 z použití hlavy III tohoto zákona – u dvou ze čtyř \"příslušných subjektů\" (§ 29) tak nově zaváděné ochranné mechanismy řízeného přístupu vůbec neplatí a zachovává se dosavadní zvláštní úprava.",
+      "whoBenefits": "Nelze jednoznačně určit – dotčeny jsou Český statistický úřad a Ústav zdravotnických informací a statistiky, jejichž dosavadní způsob poskytování dat zůstává mimo nově zaváděné záruky řízeného přístupu podle hlavy III; dopad na žadatele o data z těchto zdrojů návrh sám neuvádí.",
+      "evidence": "K § 38 (novela zákona č. 89/1995 Sb.) a bod 5 § 40 (novela zákona č. 372/2011 Sb.) v důvodové zprávě výslovně stanoví aplikační přednost zvláštní úpravy před hlavou III tohoto zákona."
+    }
+  ],
+  "conflictAssessment": "Předkladatel je vládním návrhem (ministerstvo práce a sociálních věcí), garančním sponzorem v grafu je ministr Marian Jurečka. Jeho jedinou v případovém souboru evidovanou peněžní vazbou je společnost AGRO 2000 s.r.o. (IČO 25586521) s agregovanou hodnotou veřejných zakázek 253 958 310 Kč – jde o souhrn veřejných zakázek této společnosti, nikoli o osobní majetek jmenovaného, a vazba je v grafu vedena jako čekající na kontrolu (pending_review), tedy dosud lidsky neověřená. Předmětem návrhu je správa dat veřejné správy a řízený přístup k anonymizovaným datům (rejstřík trestů, zdravotnictví, statistika, správní poplatky); AGRO 2000 s.r.o. je zemědělská společnost bez zjevné věcné souvislosti s předmětem úpravy. Graf neobsahuje žádný přiřazený sektorový konflikt (attributedSectorLeads je prázdné, sectorAdjacency nastaveno na false) a případový soubor pro tohoto sponzora neeviduje žádnou další peněžní vazbu.",
+  "severity": "low",
+  "confidence": 3,
+  "citations": [
+    {
+      "claim": "Návrh transponuje nařízení EU 2022/868 (akt o správě dat) a zavádí správu dat a řízený přístup k datům.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=54&ct1=0"
+    },
+    {
+      "claim": "Řízený přístup k datům (hlava III, § 11 až § 27) a přestupky správců dat podle § 32 nabývají účinnosti až 1. ledna 2028, resp. 1. ledna 2029, zatímco zbytek zákona nabývá účinnosti patnáctým dnem po vyhlášení.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=54&ct1=0"
+    },
+    {
+      "claim": "Novela zákona o státní statistické službě (§ 38) vylučuje použití hlavy III na poskytování statistických dat Českým statistickým úřadem pro účely vědeckého výzkumu.",
+      "kind": "law",
+      "source": "č. 89/1995 Sb."
+    },
+    {
+      "claim": "Novela zákona o zdravotních službách (§ 40) vylučuje použití hlavy III na postup Ústavu zdravotnických informací a statistiky podle § 73 odst. 8.",
+      "kind": "law",
+      "source": "č. 372/2011 Sb."
+    },
+    {
+      "claim": "Ustanovení § 16m odst. 2 až 4 zákona o rejstříku trestů a evidenci přestupků se ruší jako duplicitní vůči obecné úpravě navrhovaného zákona o správě dat.",
+      "kind": "law",
+      "source": "č. 269/1994 Sb."
+    },
+    {
+      "claim": "Sponzor návrhu Marian Jurečka je v grafu vázán na společnost AGRO 2000 s.r.o. s agregovanou hodnotou veřejných zakázek 253 958 310 Kč (zemědělská společnost bez věcné souvislosti s předmětem návrhu); vazba je v grafu vedena jako čekající na kontrolu (pending_review).",
+      "kind": "graph_fact",
+      "source": "company:ico:25586521"
+    }
+  ]
+}

@@ -90,7 +90,11 @@ export interface TriageRow {
   verdictFile?: string;
   forensicConfidence?: number;
   sectorAdjacency: boolean;
-  sectorAdjacentCompanies: { company: string; sector: Sector; sponsor: string }[];
+  /** `viaLaw` names the SPECIFIC amended law whose own label carries the company's sector
+   * (batch-012 wiring of the batch-010 attributed signal), or null when the bill's OWN title
+   * carries it. A flag without attribution no longer exists — union matching was degenerate
+   * on high-amends bills (tisk 77 matched 9 of 10 sectors by union). */
+  sectorAdjacentCompanies: { company: string; sector: Sector; sponsor: string; viaLaw: { ref: string; title: string } | null }[];
   municipalExcludedCompanies: string[];
   triageScoreV2: number;
 }
@@ -156,6 +160,14 @@ export async function computeTriage(store: Store, priorByBill: Map<string, Prior
     ]);
   }
 
+  // A law's own domain set, from its own label alone — never the union (batch-012, wiring
+  // batch-010's attributed signal: the union of all amended laws' labels was degenerate on
+  // high-amends bills — mean domains matched rose 0.73 → 8.25 with amends count while a
+  // title-only measure stayed flat, so a union match measured the bill's breadth, not the
+  // sponsor). An adjacency flag must NAME the statute that carries the sector.
+  const domainsOfLaw = new Map<string, Set<Sector>>();
+  for (const l of laws) domainsOfLaw.set(l.id, new Set(lawDomains(l.label)));
+
   const rows: TriageRow[] = bills.map((b: KgNodeRow) => {
     const p = (b.props ?? {}) as Record<string, unknown>;
     const amendedUrns = lawsByBill.get(b.id) ?? [];
@@ -163,13 +175,12 @@ export async function computeTriage(store: Store, priorByBill: Map<string, Prior
     const maxTargetChurn = Math.max(0, ...amendedUrns.map((u) => amendCountByLaw.get(u) ?? 0));
     for (const u of amendedUrns) billsByLaw.set(u, [...(billsByLaw.get(u) ?? []), Number((p.cislo as number) ?? 0)]);
 
-    // law domain buckets: union of amended-law titles + labels
-    const domainHay = [b.label, ...amendedRefs, ...amendedUrns.map((u) => lawByUrn.get(u)?.label ?? "")].join(" ");
-    const domains = new Set(lawDomains(domainHay));
+    const titleDomains = new Set(lawDomains(b.label));
 
-    // sector-adjacency: any sponsor's PRIVATE (non-municipal/SOE) company whose sector hits a law domain
+    // sector-adjacency: any sponsor's PRIVATE (non-municipal/SOE) company whose sector is
+    // carried by a NAMED amended law's own label, or by the bill's own title.
     const sponsorIds = Array.isArray(p.sponsors) ? (p.sponsors as number[]) : [];
-    const adjacent: { company: string; sector: Sector; sponsor: string }[] = [];
+    const adjacent: { company: string; sector: Sector; sponsor: string; viaLaw: { ref: string; title: string } | null }[] = [];
     const excluded: string[] = [];
     for (const sid of sponsorIds) {
       for (const c of companiesByPerson.get(sid) ?? []) {
@@ -178,8 +189,14 @@ export async function computeTriage(store: Store, priorByBill: Map<string, Prior
           continue;
         }
         const sec = sectorOf(c.label);
-        if (sec && domains.has(sec)) {
-          adjacent.push({ company: c.label, sector: sec, sponsor: personName.get(sid) ?? `#${sid}` });
+        if (!sec) continue;
+        const sponsor = personName.get(sid) ?? `#${sid}`;
+        const viaUrn = amendedUrns.find((u) => domainsOfLaw.get(u)?.has(sec));
+        if (viaUrn) {
+          const l = lawByUrn.get(viaUrn);
+          adjacent.push({ company: c.label, sector: sec, sponsor, viaLaw: { ref: String((l?.props as Record<string, unknown>)?.ref ?? viaUrn), title: l?.label ?? "" } });
+        } else if (titleDomains.has(sec)) {
+          adjacent.push({ company: c.label, sector: sec, sponsor, viaLaw: null });
         }
       }
     }

@@ -1,0 +1,462 @@
+{
+ "generatedAt": "2026-08-04T14:57:51.570Z",
+ "batch": 12,
+ "backlogRemaining": 60,
+ "queued": 16,
+ "pairs": [
+  {
+   "lawRef": "634/1992",
+   "lawTitle": "zákon č. 634/1992 Sb. — Zákon o ochraně spotřebitele",
+   "billA": 16,
+   "billB": 53,
+   "paragraphs": [
+    "23",
+    "23b",
+    "23d",
+    "24"
+   ],
+   "genuineParagraphs": [
+    "23",
+    "23b",
+    "24"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "23d",
+     "citingBill": 0
+    }
+   ],
+   "odstavecOverlap": [
+    "23",
+    "23b",
+    "24"
+   ],
+   "reason": "3 § with a real instruction on both sides: 23, 23b, 24",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-16\\265180.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-53\\265983.txt",
+    ".data\\law-collision-cache\\tisk-53\\265985.txt"
+   ]
+  },
+  {
+   "lawRef": "218/2000",
+   "lawTitle": "zákon č. 218/2000 Sb. — Zákon o rozpočtových pravidlech a o změně některých souvisejících zákonů (rozpočtová pravidla)",
+   "billA": 64,
+   "billB": 90,
+   "paragraphs": [
+    "12",
+    "14",
+    "20",
+    "3",
+    "4",
+    "50",
+    "8"
+   ],
+   "genuineParagraphs": [
+    "12",
+    "20",
+    "50"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "14",
+     "citingBill": 90
+    },
+    {
+     "paragraph": "3",
+     "citingBill": 90
+    },
+    {
+     "paragraph": "4",
+     "citingBill": 64
+    },
+    {
+     "paragraph": "8",
+     "citingBill": 64
+    }
+   ],
+   "odstavecOverlap": [
+    "12",
+    "50"
+   ],
+   "reason": "3 § with a real instruction on both sides: 12, 20, 50",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-90\\267105.txt"
+   ]
+  },
+  {
+   "lawRef": "586/1992",
+   "lawTitle": "zákon č. 586/1992 Sb. — Zákon České národní rady o daních z příjmů",
+   "billA": 64,
+   "billB": 248,
+   "paragraphs": [
+    "24",
+    "6"
+   ],
+   "genuineParagraphs": [
+    "24",
+    "6"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "24"
+   ],
+   "reason": "2 § with a real instruction on both sides: 24, 6",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-248\\277937.txt",
+    ".data\\law-collision-cache\\tisk-248\\277939.txt"
+   ]
+  },
+  {
+   "lawRef": "256/2004",
+   "lawTitle": "zákon č. 256/2004 Sb. — Zákon o podnikání na kapitálovém trhu",
+   "billA": 64,
+   "billB": 210,
+   "paragraphs": [
+    "118",
+    "172"
+   ],
+   "genuineParagraphs": [
+    "118",
+    "172"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "118"
+   ],
+   "reason": "2 § with a real instruction on both sides: 118, 172",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-210\\271236.txt",
+    ".data\\law-collision-cache\\tisk-210\\271240.txt"
+   ]
+  },
+  {
+   "lawRef": "89/2012",
+   "lawTitle": "zákon č. 89/2012 Sb. — Zákon občanský zákoník",
+   "billA": 16,
+   "billB": 53,
+   "paragraphs": [
+    "1820",
+    "1840"
+   ],
+   "genuineParagraphs": [
+    "1820",
+    "1840"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "1820",
+    "1840"
+   ],
+   "reason": "2 § with a real instruction on both sides: 1820, 1840",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-16\\265180.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-53\\265983.txt",
+    ".data\\law-collision-cache\\tisk-53\\265985.txt"
+   ]
+  },
+  {
+   "lawRef": "365/2000",
+   "lawTitle": "zákon č. 365/2000 Sb. — Zákon o informačních systémech veřejné správy a o změně některých dalších zákonů",
+   "billA": 24,
+   "billB": 65,
+   "paragraphs": [
+    "12",
+    "4"
+   ],
+   "genuineParagraphs": [
+    "12",
+    "4"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "12",
+    "4"
+   ],
+   "reason": "2 § with a real instruction on both sides: 12, 4",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-24\\265302.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-65\\266164.txt"
+   ]
+  },
+  {
+   "lawRef": "257/2016",
+   "lawTitle": "zákon č. 257/2016 Sb. — Zákon o spotřebitelském úvěru",
+   "billA": 64,
+   "billB": 145,
+   "paragraphs": [
+    "113",
+    "3"
+   ],
+   "genuineParagraphs": [
+    "113",
+    "3"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "3"
+   ],
+   "reason": "2 § with a real instruction on both sides: 113, 3",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-145\\268811.txt"
+   ]
+  },
+  {
+   "lawRef": "190/2004",
+   "lawTitle": "zákon č. 190/2004 Sb. — Zákon o dluhopisech",
+   "billA": 64,
+   "billB": 143,
+   "paragraphs": [
+    "40b",
+    "9a"
+   ],
+   "genuineParagraphs": [
+    "40b",
+    "9a"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "40b"
+   ],
+   "reason": "2 § with a real instruction on both sides: 40b, 9a",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-143\\268781.txt",
+    ".data\\law-collision-cache\\tisk-143\\268785.txt"
+   ]
+  },
+  {
+   "lawRef": "503/2012",
+   "lawTitle": "zákon č. 503/2012 Sb. — Zákon o Státním pozemkovém úřadu a o změně některých souvisejících zákonů",
+   "billA": 64,
+   "billB": 67,
+   "paragraphs": [
+    "3",
+    "8"
+   ],
+   "genuineParagraphs": [
+    "3",
+    "8"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "8"
+   ],
+   "reason": "2 § with a real instruction on both sides: 3, 8",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-67\\266188.txt",
+    ".data\\law-collision-cache\\tisk-67\\266190.txt"
+   ]
+  },
+  {
+   "lawRef": "40/2009",
+   "lawTitle": "zákon č. 40/2009 Sb. — Zákon trestní zákoník",
+   "billA": 67,
+   "billB": 207,
+   "paragraphs": [
+    "293",
+    "294",
+    "296",
+    "299",
+    "300"
+   ],
+   "genuineParagraphs": [
+    "296",
+    "299"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "293",
+     "citingBill": 67
+    },
+    {
+     "paragraph": "294",
+     "citingBill": 67
+    },
+    {
+     "paragraph": "300",
+     "citingBill": 207
+    }
+   ],
+   "odstavecOverlap": [
+    "296",
+    "299"
+   ],
+   "reason": "2 § with a real instruction on both sides: 296, 299",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-67\\266188.txt",
+    ".data\\law-collision-cache\\tisk-67\\266190.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-207\\271152.txt",
+    ".data\\law-collision-cache\\tisk-207\\271154.txt"
+   ]
+  },
+  {
+   "lawRef": "40/2009",
+   "lawTitle": "zákon č. 40/2009 Sb. — Zákon trestní zákoník",
+   "billA": 7,
+   "billB": 111,
+   "paragraphs": [
+    "88"
+   ],
+   "genuineParagraphs": [
+    "88"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "88"
+   ],
+   "reason": "1 § with a real instruction on both sides: 88",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-7\\265064.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-111\\267623.txt",
+    ".data\\law-collision-cache\\tisk-111\\267625.txt"
+   ]
+  },
+  {
+   "lawRef": "40/2009",
+   "lawTitle": "zákon č. 40/2009 Sb. — Zákon trestní zákoník",
+   "billA": 7,
+   "billB": 213,
+   "paragraphs": [
+    "88"
+   ],
+   "genuineParagraphs": [
+    "88"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "88"
+   ],
+   "reason": "1 § with a real instruction on both sides: 88",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-7\\265064.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-213\\271314.txt"
+   ]
+  },
+  {
+   "lawRef": "40/2009",
+   "lawTitle": "zákon č. 40/2009 Sb. — Zákon trestní zákoník",
+   "billA": 14,
+   "billB": 207,
+   "paragraphs": [
+    "298a"
+   ],
+   "genuineParagraphs": [
+    "298a"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "298a"
+   ],
+   "reason": "1 § with a real instruction on both sides: 298a",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-14\\265109.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-207\\271152.txt",
+    ".data\\law-collision-cache\\tisk-207\\271154.txt"
+   ]
+  },
+  {
+   "lawRef": "40/2009",
+   "lawTitle": "zákon č. 40/2009 Sb. — Zákon trestní zákoník",
+   "billA": 111,
+   "billB": 213,
+   "paragraphs": [
+    "88"
+   ],
+   "genuineParagraphs": [
+    "88"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "88"
+   ],
+   "reason": "1 § with a real instruction on both sides: 88",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-111\\267623.txt",
+    ".data\\law-collision-cache\\tisk-111\\267625.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-213\\271314.txt"
+   ]
+  },
+  {
+   "lawRef": "586/1992",
+   "lawTitle": "zákon č. 586/1992 Sb. — Zákon České národní rady o daních z příjmů",
+   "billA": 40,
+   "billB": 64,
+   "paragraphs": [
+    "25"
+   ],
+   "genuineParagraphs": [
+    "25"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "25"
+   ],
+   "reason": "1 § with a real instruction on both sides: 25",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-40\\265587.txt",
+    ".data\\law-collision-cache\\tisk-40\\265589.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ]
+  },
+  {
+   "lawRef": "586/1992",
+   "lawTitle": "zákon č. 586/1992 Sb. — Zákon České národní rady o daních z příjmů",
+   "billA": 40,
+   "billB": 189,
+   "paragraphs": [
+    "25"
+   ],
+   "genuineParagraphs": [
+    "25"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "25"
+   ],
+   "reason": "1 § with a real instruction on both sides: 25",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-40\\265587.txt",
+    ".data\\law-collision-cache\\tisk-40\\265589.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-189\\270143.txt"
+   ]
+  }
+ ]
+}

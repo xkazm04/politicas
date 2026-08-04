@@ -1,0 +1,47 @@
+{
+  "billTisk": 10,
+  "statedReasoning": "Vládní návrh mění čtyři předpisy — trestní řád, zákon o mezinárodní justiční spolupráci ve věcech trestních, zákon o provozování rozhlasového a televizního vysílání a tiskový zákon — v souvislosti s přímo použitelným nařízením EU 2024/1083 (EMFA), kterým se stanoví společný rámec pro mediální služby na vnitřním trhu. Důvodová zpráva uvádí jako hlavní cíl posílení ochrany novinářských zdrojů a důvěrné komunikace před zásahy orgánů veřejné moci, zavedení evidence vlastnictví médií podle čl. 6 nařízení EMFA a určení příslušných vnitrostátních orgánů k výkonu nařízení.",
+  "researchedContext": "Kešovaný text tisku svěřuje vedení nové evidence (databáze) vlastnictví médií — obsahující údaje o vlastnících, skutečných majitelích a příjmech z veřejné i zahraniční reklamy podle čl. 6 nařízení EMFA — Ministerstvu kultury, nikoli Radě pro rozhlasové a televizní vysílání (RRTV), přestože RRTV už obdobné seznamy provozovatelů vysílání vede. Důvodová zpráva tuto volbu odůvodňuje pouze věcným rozsahem (RRTV má působnost jen pro audiovizuální služby), nikoli hlediskem nezávislosti dohledu nad médii. Novela zároveň svěřuje RRTV novou přezkumnou pravomoc podle čl. 22 nařízení EMFA — posuzovat dopad spojování na mediálním trhu na pluralitu a redakční nezávislost a přihlížet přitom i k zájmům, vazbám a činnostem účastníků spojení v jiných odvětvích. Text zároveň v § 3 a navazujících ustanoveních trestního řádu posiluje ochranu novinářských zdrojů před sledováním a domovními prohlídkami.",
+  "unstatedEffects": [
+    {
+      "effect": "Evidence vlastnictví médií podle čl. 6 nařízení EMFA má být vedena přímo Ministerstvem kultury — tedy exekutivním orgánem podřízeným vládě — namísto nezávislého regulátora RRTV, ačkoli RRTV srovnatelné seznamy poskytovatelů vysílání již vede; volba gestora není v důvodové zprávě zdůvodněna z hlediska nezávislosti dohledu nad médii, jen z hlediska věcné působnosti RRTV.",
+      "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou poskytovatelé mediálních služeb, kteří budou hlásit údaje o vlastnictví přímo ministerstvu, a veřejnost, jejíž důvěra v evidenci vlastnictví médií závisí na nezávislosti gestora databáze.",
+      "evidence": "Důvodová zpráva k § 5 tisku 10 uvádí, že evidenci vlastnictví médií podle čl. 6 nařízení EMFA má vést Ministerstvo kultury, a nikoli Radu pro rozhlasové a televizní vysílání, jejíž působnost se týká pouze audiovizuálních služeb."
+    },
+    {
+      "effect": "Novela dává RRTV oprávnění posuzovat dopad spojování na mediálním trhu na pluralitu a redakční nezávislost médií a přihlížet přitom i k zájmům, vazbám nebo činnostem účastníků spojení v jiných odvětvích — jde o věcně širší přezkumnou pravomoc regulátora vysílání nad strukturou vlastnictví médií, než jakou dosud v této podobě měl.",
+      "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou účastníci spojení na mediálním trhu, jejichž záměr nově podléhá posouzení RRTV podle kritérií nařízení EMFA.",
+      "evidence": "§ 7 tisku 10 ukládá účastníkovi spojení na mediálním trhu oznámit RRTV záměr před zápisem do obchodního rejstříku; RRTV posoudí dopad na pluralitu a redakční nezávislost podle čl. 22 odst. 2 nařízení EMFA včetně zájmů, vazeb a činností účastníků v jiných odvětvích."
+    }
+  ],
+  "conflictAssessment": "Předkladatelem je ministr kultury a jediným poslaneckým sponzorem uvedeným v grafu vazeb k tisku 10 je Martin Baxa, jehož evidované peněžní vazby směřují k plzeňským kulturním, dopravním a rozvojovým institucím — filharmonii, galerii, vědeckému centru, rozvojové agentuře, dopravnímu podniku a nadacím regionálního významu. Jde o vazby na subjekty veřejné či komunální správy a jimi zřizované příspěvkové a obecně prospěšné organizace; takové vazby na obecní či krajem řízené organizace samy o sobě nepředstavují střet zájmů. Žádná z uvedených vazeb nesměřuje k provozovateli vysílání, vydavateli tisku ani jinému subjektu, který by novela mediálních služeb přímo regulovala. Tisk 10 nemá v datech atribuovaného odvětvového vedoucího. Uváděné částky u jednotlivých institucí jsou souhrnem veřejných zakázek evidovaných u dané organizace, nikoli osobním příjmem poslance Baxy.",
+  "severity": "medium",
+  "confidence": 3,
+  "citations": [
+    {
+      "claim": "Důvodová zpráva k § 5 tisku 10 uvádí, že evidenci vlastnictví médií podle čl. 6 nařízení EMFA má vést Ministerstvo kultury, a nikoli Radu pro rozhlasové a televizní vysílání, jejíž působnost se týká pouze audiovizuálních služeb.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=10&ct1=0"
+    },
+    {
+      "claim": "§ 7 tisku 10 ukládá účastníkovi spojení na mediálním trhu oznámit RRTV záměr před zápisem do obchodního rejstříku; RRTV posoudí dopad na pluralitu a redakční nezávislost podle čl. 22 odst. 2 nařízení EMFA včetně zájmů, vazeb a činností účastníků v jiných odvětvích.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=10&ct1=0"
+    },
+    {
+      "claim": "Tisk 10 v § 3 posiluje ochranu novinářských zdrojů a důvěrné komunikace před sledováním a domovními prohlídkami orgánů veřejné moci v návaznosti na čl. 4 nařízení EMFA.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=10&ct1=0"
+    },
+    {
+      "claim": "Poslanec Martin Baxa má u tisku 10 evidovanou peněžní vazbu na Plzeňskou filharmonii, obecně prospěšnou společnost — regionální kulturní instituci bez vztahu k provozování vysílání nebo vydávání tisku.",
+      "kind": "graph_fact",
+      "source": "company:ico:25224662"
+    },
+    {
+      "claim": "Tisk 10 mění mimo jiné zákon č. 231/2001 Sb., o provozování rozhlasového a televizního vysílání, a zákon č. 46/2000 Sb., tiskový zákon.",
+      "kind": "law",
+      "source": "231/2001"
+    }
+  ]
+}

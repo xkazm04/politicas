@@ -1,0 +1,57 @@
+{
+ "billTisk": 56,
+ "statedReasoning": "Vládní doprovodný návrh mění pět předpisů — zákon o zeměměřictví, zákon o správních poplatcích, zákon o elektronických komunikacích, stavební zákon a zákon o urychlení výstavby dopravní infrastruktury — v souvislosti s přijetím zákona provádějícího přímo použitelné nařízení EU 2024/1309 o opatřeních ke snížení nákladů na budování gigabitových sítí elektronických komunikací. Důvodová zpráva odůvodňuje novelu potřebou určit vnitrostátní databázi fyzické infrastruktury, upravit ohlašovací povinnosti provozovatelů sítí a subjektů veřejného sektoru a doplnit přestupkové skutkové podstaty a příslušné správní orgány k nařízení.",
+ "researchedContext": "Kešovaný text tisku vkládá do zákona č. 200/1994 Sb., o zeměměřictví, nový § 17d bezprostředně za stávající § 17c. Toto nové ustanovení rozděluje projednávání přestupků mezi inspektorát, Zeměměřický úřad, Ministerstvo obrany a Český telekomunikační úřad. Samotnou výši sankce stanoví jiné, dříve vkládané ustanovení téže novely — nový § 17a odst. 5 (bod 12) — pokutou až do výše 10 000 000 Kč nebo 5 % čistého obratu pachatele, podle toho, která hodnota je vyšší; § 17d jen určuje, který orgán kterou skupinu přestupků projednává. Vkládání nového ustanovení odkazem na pořadí za existujícím paragrafem (§ 17d za § 17c) je legislativně-technický postup citlivý na souběžně projednávané novely téhož zákona — vloží-li jiná novela vlastní ustanovení na totéž místo dříve, číslování paragrafů se rozejde. Vlastní čtení kešované verze tisku 56 tuto vkládací techniku a přesné místo vložení potvrzuje; zda se s tímto konkrétním místem skutečně střetává jiný, v tuto chvíli neověřovaný tisk, přesahuje rozsah tohoto ověření a v podkladech k tisku 56 samotnému doloženo není.",
+ "unstatedEffects": [
+  {
+   "effect": "Novela zavádí pro provozovatele sítí a subjekty veřejného sektoru sankční rámec s pokutou až do výše 5 % čistého obratu za nesplnění ohlašovacích povinností vůči databázi fyzické infrastruktury, ačkoli název novely hovoří výhradně o „snížení nákladů“ na výstavbu sítí a sankční dopad není v tomto shrnutí zmíněn.",
+   "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou provozovatelé sítí elektronických komunikací a subjekty veřejného sektoru, kterým nová ohlašovací povinnost a přestupková sankce vzniká.",
+   "evidence": "Nový § 17a odst. 5 zákona o zeměměřictví (vkládaný tiskem 56) stanoví pokutu až do výše 10 000 000 Kč nebo 5 % čistého obratu pachatele dosaženého za poslední ukončené účetní období, podle toho, která hodnota je vyšší."
+  },
+  {
+   "effect": "Vkládací technika, kterou tisk 56 vkládá nový § 17d bezprostředně za § 17c zákona o zeměměřictví, zakládá legislativně-technické riziko kolize se souběžně projednávanou novelou téhož zákona, pokud by cílila na totéž vkládací místo — riziko, na které vlastní důvodová zpráva tisku 56 neupozorňuje.",
+   "whoBenefits": "Nelze jednoznačně určit — dotčeni by byli všichni adresáti zákona o zeměměřictví v případě, že by souběžné novelizace vedly k rozporu v číslování paragrafů.",
+   "evidence": "Bod 15 novely zní „Za § 17c se vkládá nový § 17d“ a vkládá text nového § 17d do zákona č. 200/1994 Sb."
+  }
+ ],
+ "conflictAssessment": "Předkladatelem je Ministerstvo průmyslu a obchodu a jediným poslaneckým sponzorem uvedeným v grafu vazeb k tisku 56 je Lukáš Vlček se stejnými evidovanými peněžními vazbami jako u tisku 69. Případový soubor u tohoto předkladatele eviduje šest vazeb, včetně jeho největší — SOMPO, a.s. (IČO 25172263, evidováno 9 174 258 Kč). SOMPO byla založena v roce 1997 sto sedmnácti obcemi jako akcionáři a zabývá se odpadovým hospodářstvím (NACE 38); Vlček v ní podle obchodního rejstříku zastává funkci předsedy představenstva od 3. 12. 2024 (v orgánech společnosti podle téhož rejstříku působil v různých funkcích i dříve), jde tedy o komunálně vlastněnou obchodní společnost, kterou podle ustáleného pravidla tohoto projektu posuzujeme jako municipální/SOE roli — sama o sobě NENÍ střetem zájmů, i když ji je namístě jmenovat, nikoli mlčky vynechat. Zbývajících pět vazeb (vodárenské družstvo, projekční firma, dva občanské spolky, společenství vlastníků jednotek) směřuje k dalším regionálním subjektům v okrese Pelhřimov. Žádná z těchto šesti vazeb nesměřuje k telekomunikačnímu operátorovi, provozovateli sítě ani jinému subjektu, který touto novelou získává novou ohlašovací nebo přestupkovou povinnost. Tisk 56 nemá v datech atribuovaného odvětvového vedoucího.",
+ "severity": "low",
+ "confidence": 3,
+ "citations": [
+  {
+   "claim": "Bod 15 novely zní „Za § 17c se vkládá nový § 17d“ a vkládá text nového § 17d do zákona č. 200/1994 Sb.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=56&ct1=0"
+  },
+  {
+   "claim": "Nový § 17a odst. 5 zákona o zeměměřictví (vkládaný tiskem 56) stanoví pokutu až do výše 10 000 000 Kč nebo 5 % čistého obratu pachatele dosaženého za poslední ukončené účetní období, podle toho, která hodnota je vyšší.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=56&ct1=0"
+  },
+  {
+   "claim": "Poslanec Lukáš Vlček má u tisku 56 v grafu evidovanou peněžní vazbu na SOMPO, a.s. (IČO 25172263) ve výši 9 174 258 Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu).",
+   "kind": "graph_fact",
+   "source": "company:ico:25172263"
+  },
+  {
+   "claim": "Poslanec Lukáš Vlček má u tisku 56 evidovanou peněžní vazbu na PEVAK Pelhřimov, družstvo — vodárenský subjekt bez vztahu k síťové infrastruktuře elektronických komunikací.",
+   "kind": "graph_fact",
+   "source": "company:ico:26039907"
+  },
+  {
+   "claim": "Tisk 56 mění mimo jiné zákon č. 200/1994 Sb., o zeměměřictví, a zákon č. 127/2005 Sb., o elektronických komunikacích.",
+   "kind": "law",
+   "source": "200/1994"
+  },
+  {
+   "claim": "Lukáš Vlček je podle veřejného rejstříku (ARES VR) předsedou představenstva SOMPO, a.s. od 3. 12. 2024 (vznik funkce 2024-12-03, bez zapsaného zániku); v orgánech společnosti podle téhož rejstříku působil v různých funkcích i v dřívějších obdobích.",
+   "kind": "web",
+   "source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25172263"
+  },
+  {
+   "claim": "SOMPO, a.s. byla založena v roce 1997 sto sedmnácti členskými obcemi jako akcionáři a zabývá se odpadovým hospodářstvím (ARES: NACE 38, sběr a zpracování odpadů) — jde o komunálně vlastněnou společnost.",
+   "kind": "web",
+   "source": "https://www.sompo.cz/sompo/zakladni-informace/"
+  }
+ ]
+}

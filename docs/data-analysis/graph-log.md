@@ -1087,3 +1087,28 @@ only an independent reader with the primary sources caught them — plus one con
 keeping: a money disposition citing a registry page must carry the dates that page records, and
 any CZK figure that could read as a current holding needs its temporal qualifier in the sentence
 itself.
+
+## Pass 45 (track: law) — batch-012: 10 verdicts on the unflagged head, the attributed conflict signal wired, the §88 cluster closed (2026-08-04)
+One live write: kg-forensics --pass=45 --commit enriched 10 bill nodes (tisky 65, 16, 69, 56, 10,
+54, 172, 250, 13, 100 — the pending churn-7 head after the batch-012 re-triage) with
+pending_review forensic_* props. Verdicts 39 → 49 (92 pending); 2 medium — tisk 69 (§§40–41
+court-triggered ISP website-blocking under the „určení příslušných orgánů" framing; the
+ČTÚ-concentration claim was killed by the audit as RIA-disclosed) and tisk 10 (the EMFA
+media-ownership registry assigned to the sponsoring minister's own ministry, not the independent
+RRTV) — plus 8 honest-negative lows including tisk 172's passport-suspension-without-notification
+power. Signal hygiene shipped alongside (no graph writes): the 27-company SECTOR_OVERRIDES ARES
+sweep (25 confirmed; SynBiol → environment, EAST BOHEMIAN AIRPORT → municipal) and the batch-010
+attributed sector-adjacency computation wired into triage-core.ts — both honest NULLS at the
+bill level (sectorAdjacencyHits 8 → 8, zero flips). Collision wave: 16 pairs (8 confirmed / 6
+coordination-risk / 2 incidental, P49 32/32) — the §88 trestní-zákoník star closes into a full
+6-pair coordination cluster (tisky 7/111/207/213); tisk 207 named a two-pattern hub (coordination
+on §88, DESTRUCTIVE wholesale-rewrite collisions with 67 and 14 on §§296/298a/299/300 incl. a
+§298a label reuse its own DZ admits); tisk 64's renumbering habit proven on four more statutes;
+a new shape — tisk 53's platné-znění annex bakes in tisk 16's insertions (enactment-order
+dependency). /zakony/kolize renders 94 pairs / 56 confirmed / czechPending 0. Audit cycle: fresh
+Opus NOT READY (3 blocking + 11 major — §-citation precision, count precision, one uncited
+insinuation; batch-011's money/temporal class did NOT recur) → author remediation → closure
+REOPENED (SOMPO role mis-sourced; resolved by fetching ARES VR: Vlček předseda představenstva
+since 2024-12-03, stale corpus snapshot corrected) → final CLOSED. Data-quality yield: two live
+amends undercounts found and disclosed in the verdicts themselves (tisk 250: 6 edges vs 10 real
+parts; tisk 69: 6 vs 7, 132/2010 missing) — owed to the census, not hand-fixed.

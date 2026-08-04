@@ -1,0 +1,47 @@
+{
+  "billTisk": 172,
+  "statedReasoning": "Vládní návrh novelizuje zákon o cestovních dokladech (č. 329/1999 Sb.), zákon o občanských průkazech (č. 269/2021 Sb.) a čtyři další předpisy. Důvodová zpráva jej prezentuje jako soubor procesních zjednodušení: rozšíření okruhu zastupitelských úřadů oprávněných vydávat a přebírat doklady, rozšíření možností zastoupení žadatele plnou mocí, opakované využití již pořízených biometrických údajů (otisky prstů, snímek obličeje), pokud občan žádá o cestovní pas i občanský průkaz týž den, a přehodnocení sazeb pokut za přestupky podle typové závažnosti (do 10 000, 20 000 a 50 000 Kč). Návrh dále zavádí nový právní institut pozastavení platnosti cestovního pasu pro případ, že byl na držitele vydán evropský zatýkací rozkaz nebo učiněno opatření k jeho vyžádání z ciziny; zápis a výmaz této skutečnosti do evidence cestovních dokladů provádí Policie České republiky. Důvodová zpráva sama výslovně uvádí, že se držitel o pozastavení platnosti nemusí dozvědět, a proto upravuje skutkovou podstatu souvisejícího přestupku tak, aby tento případ nepostihovala.",
+  "researchedContext": "Návrh je v grafu i v platformovém krátkém popisu (\"cast_captions\": \"mění 6 předpisů — zákon o cestovních dokladech, zákona o občanských průkazech, zákona o správních poplatcích a 3 další předpis\") klasifikován jako technická novela evidenčních zákonů. Tento krátký popis, na rozdíl od plné důvodové zprávy, nezmiňuje, že součástí novely je zcela nový institut pozastavení platnosti cestovního pasu vázaný na evropský zatýkací rozkaz – tedy nástroj omezující svobodu pohybu držitele, jehož zápis do evidence provádí Policie ČR. Samotná důvodová zpráva tento institut zdůvodňuje a existenci tohoto rizika (že se držitel o pozastavení nemusí dozvědět) sama přiznává; nejde tedy o utajenou informaci vůči zákonodárci, ale o změnu, kterou stručná platformová charakteristika bilu jako \"technického\" nepřenáší. Dále novela v § 21a odst. 3 zákona o cestovních dokladech (a zrcadlové ustanovení v zákoně o občanských průkazech) zavádí opakované využití již pořízených biometrických údajů mezi žádostmi o cestovní pas a občanský průkaz podanými týž den. Důvodová zpráva toto zdůvodňuje výhradně snížením administrativní zátěže občana; otázku, že tím dochází k propojení biometrické stopy mezi dvěma samostatnými evidencemi (evidence cestovních dokladů a evidence občanských průkazů), návrh explicitně nerozebírá.",
+  "unstatedEffects": [
+    {
+      "effect": "Novela zavádí nový právní institut pozastavení platnosti cestovního pasu vázaný na evropský zatýkací rozkaz nebo opatření k vyžádání osoby z ciziny, se zápisem a výmazem prováděným Policií České republiky – tedy věcně významné rozšíření státní pravomoci nad cestovními doklady, které stručný platformový popis novely (\"mění 6 předpisů\") nezachycuje, ačkoli je v plné důvodové zprávě podrobně odůvodněno.",
+      "whoBenefits": "Nelze jednoznačně určit beneficienta v podobě konkrétní osoby či skupiny mimo rámec stanovený zákonem – doloženo je pouze to, že nový nástroj svěřuje Policii ČR přímou kontrolu nad zápisem skutečnosti ovlivňující platnost cestovního dokladu občana, a to i bez zjištěné povinnosti tohoto občana o tom vyrozumět.",
+      "evidence": "K čl. I bodu 48 (§ 27) a K čl. I bodu 91 [§ 34a odst. 1 písm. c)] důvodové zprávy popisují zavedení institutu pozastavení platnosti cestovního pasu a výslovně uvádějí, že se držitel o pozastavení nemusí dozvědět."
+    },
+    {
+      "effect": "Ustanovení § 21a odst. 3 zákona o cestovních dokladech zavádí opakované využití biometrických údajů pořízených při žádosti o občanský průkaz pro účely téhož dne podané žádosti o cestovní pas (a obdobně naopak) – dochází tak k propojení biometrické stopy mezi evidencí cestovních dokladů a evidencí občanských průkazů, což důvodová zpráva odůvodňuje pouze snížením administrativní zátěže, bez rozboru důsledků tohoto propojení mezi dvěma evidencemi.",
+      "whoBenefits": "Nelze jednoznačně určit — doloženo je pouze snížení administrativní zátěže pro žadatele, který nemusí opakovaně poskytovat biometrické údaje; dopad propojení dat mezi evidencemi na okruh subjektů s přístupem k oběma evidencím návrh sám nerozebírá.",
+      "evidence": "Bod 35 (§ 21a odst. 3) čl. I novely zákona o cestovních dokladech a odpovídající komentář důvodové zprávy k opakovanému využití biometrických údajů při souběžné žádosti o občanský průkaz a cestovní pas týž den."
+    }
+  ],
+  "conflictAssessment": "Předkladatelem je vláda, garančním sponzorem v grafu je ministr vnitra Lubomír Metnar. Případový soubor u tohoto sponzora neeviduje žádnou peněžní vazbu (moneyTies je prázdné pole) a nebyl mu přiřazen žádný sektorový konflikt (attributedSectorLeads je prázdné, sectorAdjacency nastaveno na false) — v datech dostupných platformě tak není podklad pro tvrzení o střetu zájmů sponzora s předmětem návrhu (cestovní doklady, občanské průkazy, správní poplatky).",
+  "severity": "low",
+  "confidence": 3,
+  "citations": [
+    {
+      "claim": "Novela zavádí institut pozastavení platnosti cestovního pasu vázaný na evropský zatýkací rozkaz, se zápisem a výmazem prováděným Policií České republiky.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=172&ct1=0"
+    },
+    {
+      "claim": "Držitel cestovního pasu, jehož platnost byla pozastavena, se o této skutečnosti nemusí dozvědět; skutková podstata přestupku byla proto upravena tak, aby tento případ nezahrnovala.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=172&ct1=0"
+    },
+    {
+      "claim": "§ 21a odst. 3 zákona o cestovních dokladech zavádí opakované využití biometrických údajů pořízených při žádosti o občanský průkaz pro účely téhož dne podané žádosti o cestovní pas.",
+      "kind": "law",
+      "source": "č. 329/1999 Sb."
+    },
+    {
+      "claim": "Zrcadlová úprava opakovaného využití biometrických údajů se zavádí i v zákoně o občanských průkazech.",
+      "kind": "law",
+      "source": "č. 269/2021 Sb."
+    },
+    {
+      "claim": "Sponzor návrhu Lubomír Metnar nemá v grafu evidovánu žádnou peněžní vazbu ani sektorový konflikt.",
+      "kind": "graph_fact",
+      "source": "psp:person:6544"
+    }
+  ]
+}

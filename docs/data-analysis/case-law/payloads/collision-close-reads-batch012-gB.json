@@ -1,0 +1,129 @@
+{
+ "generatedAt": "2026-08-04T00:00:00.000Z",
+ "batch": 12,
+ "group": "B",
+ "classificationVocabulary": [
+  "confirmed-collision",
+  "coordination-risk",
+  "incidental"
+ ],
+ "classificationCounts": {
+  "confirmed-collision": 3,
+  "coordination-risk": 4,
+  "incidental": 1
+ },
+ "coverage": {
+  "pairsRead": 8,
+  "pairsAssigned": 8
+ },
+ "pairs": [
+  {
+   "pairId": "64-67-503-2012",
+   "lawRef": "503/2012",
+   "billA": 64,
+   "billB": 67,
+   "sharedParagraph": "3, 8",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 64, Čl. (změna zákona č. 503/2012 Sb.), bod 2 a bod 3: '2. V § 3 odst. 2 se slova „cenu obvyklou38)“ nahrazují slovy „obvyklou hodnotu“.' a '3. V § 8 odst. 1 se slova „ceny pozemku zjištěné podle zákona o oceňování majetku18) platného“ nahrazují slovy „zjištěné hodnoty pozemku určené podle zákona o oceňování účinného“.' -- terminologická harmonizace „cena“ -> „hodnota“ v § 3 odst. 2 a v § 8 odst. 1",
+    "billBExcerpt": "tisk 67, Čl. (změna zákona č. 503/2012 Sb.), bod 1, 2 a 14: '1. V § 3 odst. 4 větě první se slova „pravomocného rozhodnutí o umístění stavby“ nahrazují slovy „pravomocného rozhodnutí o povolení záměru“...' a '14. V § 8 odst. 1 větě první a v § 8 odst. 2 větě první se slova „umístění stavby“ nahrazují slovy „povolení záměru“.' -- terminologická harmonizace stavebního práva („umístění stavby“ -> „povolení záměru“) v § 3 odst. 4, odst. 5 písm. c) a v § 8 odst. 1 a 2"
+   },
+   "reasoning": "Obě novely mění tentýž § 8 odst. 1 zákona č. 503/2012 Sb., ale nahrazují v něm ODLIŠNÉ textové řetězce v rámci patrně různých vět téhož odstavce: tisk 64 (rozsáhlá účetní/oceňovací harmonizace, viz i její dřívější klasifikovaný pár 64-120 na 586/1992 v dávce 011) nahrazuje frázi o způsobu zjištění ceny pozemku podle oceňovacího předpisu („ceny pozemku zjištěné... platného“ -> „zjištěné hodnoty pozemku... účinného“), zatímco tisk 67 (rozsáhlá stavebně-právní terminologická novela navazující na nový stavební zákon) v témže odstavci mění frázi „umístění stavby“ na „povolení záměru“, výslovně cílenou na „větu první“. Přímý textový střet (shodný nahrazovaný řetězec) nebyl grep-ověřením nalezen -- jde patrně o dvě různé věty téhož odstavce 1, takže mechanicky lze obě substituce provést nezávisle. Vzhledem k tomu, že obě novely přesto zasahují do STEJNÉHO odstavce (nikoli jen paragrafu), a jedna z nich (tisk 67) svou cílovou větu výslovně určuje jako „větu první“, zatímco druhá (tisk 64) větu neurčuje, je namístě legislativně-technická kontrola pořadí a přesné polohy obou substitucí v konečném znění -- stejná opatrnostní kategorie jako u dříve klasifikovaných párů 64-120 (§ 38gb odst. 1, dávka 011) a 73-161 (§ 59 odst. 3, dávka 008). § 3 naproti tomu je pouze náhodným přesahem na úrovni paragrafu: tisk 64 mění odst. 2 (cena/hodnota), tisk 67 mění odst. 4 a odst. 5 písm. c) (umístění stavby/povolení záměru) -- different odstavce, bez závislosti. Klasifikace páru jako celku: coordination-risk, tažená ohniskem v § 8 odst. 1."
+  },
+  {
+   "pairId": "67-207-40-2009",
+   "lawRef": "40/2009",
+   "billA": 67,
+   "billB": 207,
+   "sharedParagraph": "296, 299 (300 jako korobující, mimo genuineParagraphs)",
+   "classification": "confirmed-collision",
+   "evidence": {
+    "billAExcerpt": "tisk 67, Čl. (změna trestního zákoníku), body 1 a 3-7: '1. V § 296 se doplňuje odstavec 4, který zní: „(4) Trestný čin poškození a ohrožení životního prostředí (§ 293) a poškození a ohrožení životního prostředí z nedbalosti (§ 294) je spáchán ve větším rozsahu i tehdy, jestliže v jeho důsledku...“.' a '3. V § 299 odst. 1 se za slovo „předpisem“ vkládají slova „dlouhodobě nebo nevratně poškodí místní populaci zvláště chráněného druhu živočicha nebo rostliny,“...' -- úzké, dílčí novelizace předpokládající, že § 296 má dosud tři odstavce a § 299 svou dosavadní strukturu odst. 1-4",
+    "billBExcerpt": "tisk 207, Čl. I (implementace směrnice 2024/1203), body 27 a 31: '27. § 296 a 297 včetně nadpisů znějí: „§ 296 Neoprávněné vypuštění znečišťujících látek z lodi...“.' a '31. § 299 a 300 včetně nadpisů znějí: „§ 299 Neoprávněné nakládání s chráněnými volně žijícími živočichy...“.' -- úplné (wholesale) nahrazení obou paragrafů včetně nadpisů, měnící i jejich předmět úpravy"
+   },
+   "reasoning": "Jde o čistý případ tiskem 64 zdokumentovaného mechanismu (zde ovšem na tisku 207, ne na 64): wholesale nahrazení paragrafu proti dílčí novelizaci do rušeného textu -- a to na DVOU paragrafech současně. Tisk 67 v § 296 předpokládá, že paragraf má dosud tři odstavce (společné ustanovení o „větším území“ a „celkové větší/značné ploše lesa“) a bodem 1 k nim DOPLŇUJE čtvrtý. Tisk 207 bodem 27 ale § 296 CELÝ NAHRAZUJE novým textem o neoprávněném vypuštění znečišťujících látek z lodi -- zcela jiný předmět úpravy; obsah dosavadního § 296 (společné ustanovení) se v tisku 207 přesouvá jinam (viz nově zaváděný § 301 „poškození chráněných částí přírody“ a přeznačení navazujících paragrafů v odůvodnění tisku 207). Pokud by se aplikoval tisk 207, odstavce 1-3 § 296, do nichž tisk 67 doplňuje odstavec 4, by v tomto paragrafu vůbec neexistovaly -- instrukce tisku 67 by postrádala textový nosič. Stejný mechanismus se opakuje na § 299: tisk 67 v bodech 3-7 dílčí instrukcí upravuje dosavadní odstavce 1-4 § 299 (vkládání slov, náhrady sousloví), zatímco tisk 207 bodem 31 § 299 (spolu s § 300) CELÝ NAHRAZUJE novým zněním implementujícím směrnici 2024/1203 -- opět jiná struktura odstavců a jiná terminologie (např. „zvláště chráněného druhu... zařazeného do I. nebo II. kategorie ochrany“ místo dosavadního „silně nebo kriticky ohroženého druhu“). Korobující (byť pre-checkem jako citační označený) třetí zásah je patrný i na § 300: tisk 67 body 8-9 dílčí instrukcí mění nadpis a text § 300, tisk 207 bod 31 jej nahrazuje spolu s § 299 zcela. Jde tedy o dvojnásobně (až trojnásobně) potvrzenou kolizi typu wholesale nahrazení vs. dílčí substituce do rušeného textu -- nejjednoznačnější třída kolize podle metodiky této dávky."
+  },
+  {
+   "pairId": "7-111-40-2009",
+   "lawRef": "40/2009",
+   "billA": 7,
+   "billB": 111,
+   "sharedParagraph": "88 (odst. 2 písm. c)",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 7, Čl. XI bod 2: '2. V § 88 odst. 2 písm. c) se za text „§ 187 odst. 2, 3,“ vkládají slova „podvodu podle § 209 odst. 4, dotačního podvodu podle § 212 odst. 5,... poškození finančních zájmů Evropské unie podle § 260 odst. 5,“ a za text „(§ 320),“ se vkládají slova „přijetí úplatku podle § 331 odst. 4, podplacení podle § 332 odst. 3,“.' -- vkládá nové skutkové podstaty na dvou místech výčtu v písm. c)",
+    "billBExcerpt": "tisk 111, Čl. I bod 2: '2. V § 88 odst. 2 písm. c) se čísla „4, 5“ nahrazují čísly „5, 6“.' -- dle vlastní důvodové zprávy 'Legislativně technická změna reagující na přečíslování odstavců v § 168 trestního zákoníku' (tisk 111 sám v § 168 vkládá nový odstavec 3, čímž se dosavadní odstavce 4 a 5 stávají 5 a 6, a citace „§ 168 odst. 4, 5“ uvnitř výčtu § 88 odst. 2 písm. c) musí být opravena)"
+   },
+   "reasoning": "Toto je čtvrtá strana hvězdicového clusteru zdokumentovaného v dávce 008 (tisky 7, 111, 207, 213 nezávisle novelizující stejný výčet v § 88 odst. 2 písm. c) trestního zákoníku, tehdy potvrzeno pro 7-207, 111-207 a 207-213). Tisk 7 do výčtu VKLÁDÁ nové skutkové podstaty na dvou místech (za „§ 187 odst. 2, 3,“ a za „(§ 320),“), aniž by měnil číslice „4, 5“ u odkazu na obchodování s lidmi (§ 168), který se nachází mnohem dříve ve výčtu. Tisk 111 naopak NEVKLÁDÁ nic nového do písm. c) -- pouze opravuje citaci „§ 168 odst. 4, 5“ na „§ 168 odst. 5, 6“ jako důsledek vlastního přečíslování § 168 (vložení nového odstavce 3 do § 168 posouvá dosavadní odstavce 4 a 5 na 5 a 6). Grep-ověřením nebyl nalezen přímý textový střet -- oba zásahy míří na odlišné substringy téhož výčtu (tisk 111 na číslice u §168, tisk 7 na místa za §187 a za §320), takže mechanická aplikace v libovolném pořadí text nerozbije. Přesto jde o stejnou třídu rizika jako u již potvrzených sesterských párů tohoto clusteru: čtyři samostatné novely nezávisle zasahující do jednoho a téhož výčtu vyžadují sladění při finalizaci textu (typicky ten tisk, který dorazí na plénum poslední, musí sladit své číslo/pozici s mezitím schválenými změnami ostatních). Klasifikace: coordination-risk, shodná s 111-207 a 207-213."
+  },
+  {
+   "pairId": "7-213-40-2009",
+   "lawRef": "40/2009",
+   "billA": 7,
+   "billB": 213,
+   "sharedParagraph": "88 (odst. 2 písm. c)",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 7, Čl. XI bod 2: '...a za text „(§ 320),“ se vkládají slova „přijetí úplatku podle § 331 odst. 4, podplacení podle § 332 odst. 3,“.' -- vkládá nový text bezprostředně PŘED úsek výčtu, který navazuje frází 'násilného překročení státní hranice podle § 339 odst. 3, organizování a umožnění nedovoleného překročení státní hranice podle § 340 odst. 4'",
+    "billBExcerpt": "tisk 213, čl. XI bod 1: 'V § 88 odst. 2 písm. c) se text „339 odst. 3“ nahrazuje textem „339 odst. 4“ a text „340 odst. 4“ se nahrazuje textem „340 odst. 5“' -- tisk 213 v § 88 odst. 2 písm. c) přečíslovává odkazy na kvalifikované podstaty § 339 a § 340, které sám posouvá."
+   },
+   "reasoning": "Třetí strana clusteru. Tisk 213 opravuje odkazy „§ 339 odst. 3“ -> „§ 339 odst. 4“ a „§ 340 odst. 4“ -> „§ 340 odst. 5“ uvnitř téhož výčtu v § 88 odst. 2 písm. c) jako důsledek vlastního přečíslování odstavců § 339 a § 340 (vložení nových odstavců jinde v týchž paragrafech). Tisk 7 vkládá nový text bezprostředně PŘED tento úsek výčtu (za citaci „(§ 320),“), tedy sousedí s ním, aniž by přímo přepisoval stejný textový řetězec „339 odst. 3“ / „340 odst. 4“ -- grep-ověřením nebyl nalezen doslovný střet. Jde nicméně o stejnou situaci jako u páru 207-213 v dávce 008 (tam tisk 213 rovněž opravoval navazující odkazy v témže výčtu a klasifikace byla coordination_risk) -- sousedství vkládaného textu tisku 7 s právě přečíslovávaným úsekem tisku 213 zvyšuje riziko, že finální redakce výčtu vyžaduje ruční sladění pořadí a interpunkce, i když samotné řetězce se nekryjí. Klasifikace: coordination-risk, shodná s dosavadními stranami clusteru."
+  },
+  {
+   "pairId": "14-207-40-2009",
+   "lawRef": "40/2009",
+   "billA": 14,
+   "billB": 207,
+   "sharedParagraph": "298a",
+   "classification": "confirmed-collision",
+   "evidence": {
+    "billAExcerpt": "tisk 14, Čl. I body 1-2: '1. V nadpisu § 298a se doplňují slova „a fluorovanými skleníkovými plyny“.' a '2. V § 298a odstavec 1 zní: „(1) Kdo v rozporu s jiným právním předpisem, byť i z hrubé nedbalosti, a) vyrobí, doveze, vyveze, uvede na trh látku poškozující ozonovou vrstvu nebo výrobek anebo zařízení,... b) vyrobí, doveze, vyveze, uvede na trh fluorovaný skleníkový plyn nebo výrobek...“.' -- dílčí novelizace předpokládající, že § 298a je i nadále paragrafem o látkách poškozujících ozonovou vrstvu (nyní rozšířeným o fluorované skleníkové plyny)",
+    "billBExcerpt": "tisk 207, Čl. I bod 29 a jeho vlastní 'Platná znění... s vyznačením navrhovaných změn': '29. § 298 a 298a včetně nadpisů znějí: „§ 298... § 298a Neoprávněné nakládání s odpady z nedbalosti (1) Kdo v rozporu s jiným právním předpisem z hrubé nedbalosti přepraví odpad přes hranice státu...“.' -- WHOLESALE nahrazuje § 298a zcela jiným předmětem úpravy (nedbalostní nakládání s odpady); vlastní důvodová zpráva tisku 207 výslovně přiznává: 'S ohledem na předřazení jiných nově zaváděných trestných činů bylo zapotřebí dnešní § 298a tr. zák. přeznačit na § 298b tr. zák.'"
+   },
+   "reasoning": "Jde o nejsilnější variantu tiskem 64 zdokumentovaného mechanismu -- wholesale nahrazení paragrafu (zde spojené s ROZEBRÁNÍM zákona a PŘEZNAČENÍM cílového paragrafu pro jiný obsah) proti dílčí novelizaci předpokládající, že paragraf zůstává tím, čím je dnes. Tisk 14 mění nadpis a odstavec 1 § 298a v domnění, že jde nadále o paragraf 'Neoprávněná výroba a jiné nakládání s látkami poškozujícími ozonovou vrstvu' (nyní rozšířený o fluorované skleníkové plyny -- terminologie, kterou tisk 207 sám ve své přílohové 'platná znění' verzi cituje jako 'znění dle tisku 14 s účinností od 1. 7. 2026', tedy s jeho existencí PROKAZATELNĚ POČÍTÁ). Tisk 207 bodem 29 ale § 298 A 298a CELÉ NAHRAZUJE, přičemž -- podle vlastní důvodové zprávy -- PŘEZNAČUJE dnešní obsah § 298a (látky poškozující ozonovou vrstvu, včetně fluorovaných plynů dle tisku 14) na NOVÝ § 298b (vkládaný bodem 30 mezi nové § 298b až 298j), a označení „§ 298a“ ZNOVU POUŽIJE pro zcela jiný obsah (nedbalostní nakládání s odpady, dříve součást § 298). Pokud by se instrukce tisku 14 aplikovala na stav po tisku 207, dopadla by buď na neexistující text, nebo -- což je horší -- by se DÍLČÍ SUBSTITUCE VLOŽILA DO VĚCNĚ NESOUVISEJÍCÍHO PARAGRAFU O ODPADECH, protože označení § 298a by v mezidobí změnilo význam, aniž by se změnil jeho název v citaci. To, že drafteři tisku 207 zjevně o tisku 14 VĚDĚLI a obsahově jeho rozšíření (fluorované plyny) převzali do nového § 298b, dokládá vědomí problému, ale procedurálně nejde o formální sladění instrukcí -- obě novely zůstávají, jak podány, vzájemně neslučitelné na úrovni novelizačního bodu. Potvrzená kolize."
+  },
+  {
+   "pairId": "111-213-40-2009",
+   "lawRef": "40/2009",
+   "billA": 111,
+   "billB": 213,
+   "sharedParagraph": "88 (odst. 2 písm. c)",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 111, Čl. I bod 2: '2. V § 88 odst. 2 písm. c) se čísla „4, 5“ nahrazují čísly „5, 6“.' -- cílí na citaci „§ 168 odst. 4, 5“ blízko ZAČÁTKU výčtu v písm. c)",
+    "billBExcerpt": "tisk 213, Čl. (změna trestního zákoníku) bod 1: '1. V § 88 odst. 2 písm. c) se text „339 odst. 3“ nahrazuje textem „339 odst. 4“ a text „340 odst. 4“ se nahrazuje textem „340 odst. 5“.' -- cílí na citace „§ 339 odst. 3“ a „§ 340 odst. 4“ blízko KONCE výčtu v písm. c)"
+   },
+   "reasoning": "Poslední, dosud nepotvrzená strana čtyřúhelníku clusteru (spolu s 7-111, 7-213, 111-207, 207-213 a 7-207 z dávky 008 tak clusteru uzavírá VŠECH ŠEST párů mezi čtyřmi tisky 7/111/207/213). Tisk 111 opravuje citaci „§ 168 odst. 4, 5“ (kvůli vlastnímu přečíslování § 168, viz pár 7-111), tisk 213 opravuje citace „§ 339 odst. 3“ a „§ 340 odst. 4“ (kvůli vlastnímu přečíslování § 339/340, viz pár 7-213) -- tedy dvě zcela odlišné, vzájemně nesousedící citace ve stejném rozsáhlém výčtu písm. c). Grep-ověřením nebyl nalezen žádný přímý textový střet. Přesto jde o čtvrtou nezávislou novelu tohoto jediného výčtu v této legislativní sezóně (spolu s tisky 7 a 207) -- přesně ta situace, kterou dávka 008 pojmenovala jako emergentní N-way cluster a doporučila sledovat jako celek pro finální sladění. Klasifikace: coordination-risk, konzistentní s ostatními stranami clusteru."
+  },
+  {
+   "pairId": "40-64-586-1992",
+   "lawRef": "586/1992",
+   "billA": 40,
+   "billB": 64,
+   "sharedParagraph": "25 (odst. 1 písm. t) resp. za))",
+   "classification": "confirmed-collision",
+   "evidence": {
+    "billAExcerpt": "tisk 40, Čl. I: 'V § 25 zákona č. 586/1992 Sb.,... odst. 1 písmeno t) část věty za středníkem zní: „t) výdaje na reprezentaci, kterými jsou zejména výdaje na pohoštění, občerstvení a dar; za dar se nepovažuje poskytnutí dárku v rámci ekonomické činnosti, pokud jeho pořizovací cena bez daně z přidané hodnoty nepřesahuje 500 Kč, nebo poskytnutí obchodních vzorků bez úplaty v rámci ekonomické činnosti,“.' -- cílí na CURRENT (platné) písm. t) = „výdaje na reprezentaci“, jak potvrzuje i tiskem 40 přiložené platné znění (soubor 265589.txt, řádek 90: 't) výdaje na reprezentaci, kterými jsou zejména výdaje na pohoštění, občerstvení a dar; za dar se nepovažuje reklamní nebo propagační předmět...')",
+    "billBExcerpt": "tisk 64, Čl. XXIII (změna 586/1992), bod 260: '260. V § 25 odst. 1 písm. t) se slova „a výdaje (náklady) za restaurování uměleckých děl“ a slova „, s výjimkou uvedenou v § 24 odst. 2 písm. zf)“ zrušují.' -- text mazaných slov je VERBATIM shodný s CURRENT (platným) písm. za), nikoli t): tiskem 40 přiložené platné znění (265589.txt, řádek 131-133) zní 'za) nájemné za umělecká díla a výdaje (náklady) za restaurování uměleckých děl, která nejsou součástí staveb a budov,... s výjimkou uvedenou v § 24 odst. 2 písm. zf),'"
+   },
+   "reasoning": "Toto je přesně tiskem 64 dokumentovaný habit -- vkládání/rušení + přečíslování rozbíjející adresaci sousedních písmen -- tentokrát na 586/1992. Tisk 64 provádí v § 25 odst. 1 dlouhou KASKÁDU rušení a přeznačování písmen (bod 245: písmena a) až c) se ruší, d) až zq) se přeznačují na a) až zm; bod 252: (nové) m) se ruší, přeznačení pokračuje; bod 256: (nové) q) se ruší; bod 259: 'V § 25 odst. 1 se písmeno t) zrušuje. Dosavadní písmena u) až zk) se označují jako písmena t) až zj)' -- teprve PO této čtvrté vlně přeznačení bod 260 mění 'písm. t)'. Grep-ověřením v tiskem 40 přiloženém platném znění (jediný dostupný textový baseline § 25 v této dávce) je jednoznačně prokázáno, že mazaný text bodu 260 ('a výdaje (náklady) za restaurování uměleckých děl' a ', s výjimkou uvedenou v § 24 odst. 2 písm. zf)') je DOSLOVNĚ součástí PŮVODNÍHO (platného) písm. za) -- nikoli písm. t) (=„výdaje na reprezentaci“), na které cílí tisk 40. Jinými slovy: v okamžiku, kdy tisk 64 dokončí svou vlastní vnitřní kaskádu přeznačení, začne označení „t)“ uvnitř JEHO VLASTNÍHO textu odkazovat na věcně JINÉ ustanovení, než je CURRENT (a tiskem 40 předpokládané) písm. t). Oba tisky tedy používají identickou citaci „§ 25 odst. 1 písm. t)“ pro DVĚ VĚCNĚ ODLIŠNÁ ustanovení platného zákona -- tisk 40 pro klauzuli o výdajích na reprezentaci/dary, tisk 64 (svým vlastním přeznačením) fakticky pro klauzuli o nájemném a restaurování uměleckých děl. Budou-li obě novely podány a projednávány nezávisle proti témuž (nepřeznačenému) platnému textu, jak je legislativně obvyklé, dojde k přímému kolizi adresace: instrukce tisku 64 by se buď minula účinkem, nebo (při doslovné aplikaci na CURRENT t) po zásahu tisku 40) by omylem zasáhla do klauzule o reprezentaci/darech místo klauzule o uměleckých dílech. Potvrzená kolize -- typový příklad zdokumentovaného chování tisku 64."
+  },
+  {
+   "pairId": "40-189-586-1992",
+   "lawRef": "586/1992",
+   "billA": 40,
+   "billB": 189,
+   "sharedParagraph": "25 (odst. 1 písm. t) vs. písm. h))",
+   "classification": "incidental",
+   "evidence": {
+    "billAExcerpt": "tisk 40, Čl. I: 'V § 25 zákona č. 586/1992 Sb.,... odst. 1 písmeno t) část věty za středníkem zní: „t) výdaje na reprezentaci, kterými jsou zejména výdaje na pohoštění, občerstvení a dar;...“.' -- jediná novelizační instrukce tisku 40 v § 25, cílená na písm. t)",
+    "billBExcerpt": "tisk 189, Čl. (změna 586/1992) bod 11: '11. V § 25 odst. 1 písm. h) bodě 1 se za slovo „zájezdy,“ vkládají slova „rekreace nebo“, slova „společenské akce“ se nahrazují slovy „účasti na společenských akcích“ a slovo „a“ se nahrazuje slovy „pořádaných zaměstnavatelem pro omezený okruh účastníků, poskytnutí příspěvku na osobní asistenci, pečovatelskou službu, tísňovou péči,...“.' -- jediná novelizační instrukce tisku 189 v § 25, cílená na písm. h) bod 1 (nepeněžní zaměstnanecké benefity)"
+   },
+   "reasoning": "Na rozdíl od páru 40-64 nejde zde o žádnou kaskádu rušení/přeznačování na straně tisku 189 -- jde o jedinou, bodově přesnou novelizační instrukci (vložení/nahrazení slov v § 25 odst. 1 písm. h) bodě 1, o zaměstnanecké nepeněžní benefity), která ani po grep-ověření nemění číslování ani obsah žádného jiného písmene § 25. Tisk 40 cílí výhradně na písm. t) (výdaje na reprezentaci a dary) -- zcela odlišné, nesousedící písmeno bez jakékoli textové nebo přeznačovací vazby na písm. h). Oba tisky tedy skutečně novelizují § 25 odst. 1, ale na DVOU DISJUNKTNÍCH písmenech beze změny adresace mezi nimi -- přesah je artefaktem deterministické předkontroly na úrovni čísla paragrafu, nikoli skutečnou legislativně-technickou kolizí. Klasifikace: incidental."
+  }
+ ],
+ "clusterVerdict": {
+  "title": "N-way cluster na § 88 odst. 2 písm. c) trestního zákoníku (40/2009) -- tisky 7, 111, 207, 213 -- UZAVŘEN na VŠECH ŠESTI párech",
+  "detail": "Dávka 008 potvrdila tři strany hvězdicového clusteru okolo tisku 207 (7-207, 111-207, 207-213), s otevřenou otázkou, zda i zbylé tři strany (7-111, 7-213, 111-213) sdílejí stejný mechanismus. Tato dávka je uzavírá: všechny tři chybějící páry skutečně cílí na TENTÝŽ výčet v § 88 odst. 2 písm. c) -- tisk 7 vkládá nové skutkové podstaty na dvou místech výčtu, tisk 111 opravuje citaci '§ 168 odst. 4, 5' -> '5, 6' (důsledek vlastního přečíslování § 168), tisk 213 opravuje citace '§ 339 odst. 3' a '§ 340 odst. 4' (důsledek vlastního přečíslování § 339/340). Žádný z těchto tří párů nevykazuje doslovný textový střet (každý cílí na jiný substring téhož výčtu), takže žádná jednotlivá dvojice sama o sobě nezakládá potvrzenou kolizi -- ale VŠECH ŠEST párů mezi čtyřmi tisky (C(4,2)=6) nyní ukazuje na STEJNÝ mechanismus koordinačního rizika: čtyři nezávislé novely nekoordinovaně rozšiřující/opravující jeden a týž výčet v jedné legislativní sezóně. Cluster je tedy plně uzavřen jako ČTYŘSTRANNÝ koordinační cluster (ne přímá kolize) -- ten, kdo z těchto čtyř tisků dorazí na plénum poslední, musí sladit svůj bod se všemi mezitím schválenými změnami ostatních tří, jinak riskuje duplicitní nebo zastaralé odkazy uvnitř písm. c). Samostatně, mimo tento cluster, dávka 012B nalezla NOVÝ, druhý N-way vzorec na TÉŽE novele č. 207: tisk 207 zároveň wholesale přepisuje § 296, § 298a a § 299/300 (implementace směrnice 2024/1203), čímž se dostává do PŘÍMÉ (nikoli jen koordinační) kolize s DVĚMA dalšími samostatnými tisky -- 67 (§ 296, § 299/300) a 14 (§ 298a) -- oba nezávisle mířícími dílčími instrukcemi do textu, který tisk 207 jako celek ruší a/nebo přeznačuje. Tisk 207 se tak ukazuje jako uzel DVOU odlišných kolizních vzorců v trestním zákoníku najednou: koordinačního (§ 88, sdílený se 7/111/213) a přímo destruktivního (§§ 296/298a/299/300, proti 67 a 14)."
+ }
+}

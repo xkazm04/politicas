@@ -1,0 +1,511 @@
+[
+ {
+  "billTisk": 10,
+  "statedReasoning": "Vládní návrh mění čtyři předpisy — trestní řád, zákon o mezinárodní justiční spolupráci ve věcech trestních, zákon o provozování rozhlasového a televizního vysílání a tiskový zákon — v souvislosti s přímo použitelným nařízením EU 2024/1083 (EMFA), kterým se stanoví společný rámec pro mediální služby na vnitřním trhu. Důvodová zpráva uvádí jako hlavní cíl posílení ochrany novinářských zdrojů a důvěrné komunikace před zásahy orgánů veřejné moci, zavedení evidence vlastnictví médií podle čl. 6 nařízení EMFA a určení příslušných vnitrostátních orgánů k výkonu nařízení.",
+  "researchedContext": "Kešovaný text tisku svěřuje vedení nové evidence (databáze) vlastnictví médií — obsahující údaje o vlastnících, skutečných majitelích a příjmech z veřejné i zahraniční reklamy podle čl. 6 nařízení EMFA — Ministerstvu kultury, nikoli Radě pro rozhlasové a televizní vysílání (RRTV), přestože RRTV už obdobné seznamy provozovatelů vysílání vede. Důvodová zpráva tuto volbu odůvodňuje pouze věcným rozsahem (RRTV má působnost jen pro audiovizuální služby), nikoli hlediskem nezávislosti dohledu nad médii. Novela zároveň svěřuje RRTV novou přezkumnou pravomoc podle čl. 22 nařízení EMFA — posuzovat dopad spojování na mediálním trhu na pluralitu a redakční nezávislost a přihlížet přitom i k zájmům, vazbám a činnostem účastníků spojení v jiných odvětvích. Text zároveň v § 3 a navazujících ustanoveních trestního řádu posiluje ochranu novinářských zdrojů před sledováním a domovními prohlídkami.",
+  "unstatedEffects": [
+   {
+    "effect": "Evidence vlastnictví médií podle čl. 6 nařízení EMFA má být vedena přímo Ministerstvem kultury — tedy exekutivním orgánem podřízeným vládě — namísto nezávislého regulátora RRTV, ačkoli RRTV srovnatelné seznamy poskytovatelů vysílání již vede; volba gestora není v důvodové zprávě zdůvodněna z hlediska nezávislosti dohledu nad médii, jen z hlediska věcné působnosti RRTV.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou poskytovatelé mediálních služeb, kteří budou hlásit údaje o vlastnictví přímo ministerstvu, a veřejnost, jejíž důvěra v evidenci vlastnictví médií závisí na nezávislosti gestora databáze.",
+    "evidence": "Důvodová zpráva k § 5 tisku 10 uvádí, že evidenci vlastnictví médií podle čl. 6 nařízení EMFA má vést Ministerstvo kultury, a nikoli Radu pro rozhlasové a televizní vysílání, jejíž působnost se týká pouze audiovizuálních služeb."
+   },
+   {
+    "effect": "Novela dává RRTV oprávnění posuzovat dopad spojování na mediálním trhu na pluralitu a redakční nezávislost médií a přihlížet přitom i k zájmům, vazbám nebo činnostem účastníků spojení v jiných odvětvích — jde o věcně širší přezkumnou pravomoc regulátora vysílání nad strukturou vlastnictví médií, než jakou dosud v této podobě měl.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou účastníci spojení na mediálním trhu, jejichž záměr nově podléhá posouzení RRTV podle kritérií nařízení EMFA.",
+    "evidence": "§ 7 tisku 10 ukládá účastníkovi spojení na mediálním trhu oznámit RRTV záměr před zápisem do obchodního rejstříku; RRTV posoudí dopad na pluralitu a redakční nezávislost podle čl. 22 odst. 2 nařízení EMFA včetně zájmů, vazeb a činností účastníků v jiných odvětvích."
+   }
+  ],
+  "conflictAssessment": "Předkladatelem je ministr kultury a jediným poslaneckým sponzorem uvedeným v grafu vazeb k tisku 10 je Martin Baxa, jehož evidované peněžní vazby směřují k plzeňským kulturním, dopravním a rozvojovým institucím — filharmonii, galerii, vědeckému centru, rozvojové agentuře, dopravnímu podniku a nadacím regionálního významu. Jde o vazby na subjekty veřejné či komunální správy a jimi zřizované příspěvkové a obecně prospěšné organizace; takové vazby na obecní či krajem řízené organizace samy o sobě nepředstavují střet zájmů. Žádná z uvedených vazeb nesměřuje k provozovateli vysílání, vydavateli tisku ani jinému subjektu, který by novela mediálních služeb přímo regulovala. Tisk 10 nemá v datech atribuovaného odvětvového vedoucího. Uváděné částky u jednotlivých institucí jsou souhrnem veřejných zakázek evidovaných u dané organizace, nikoli osobním příjmem poslance Baxy.",
+  "severity": "medium",
+  "confidence": 3,
+  "citations": [
+   {
+    "claim": "Důvodová zpráva k § 5 tisku 10 uvádí, že evidenci vlastnictví médií podle čl. 6 nařízení EMFA má vést Ministerstvo kultury, a nikoli Radu pro rozhlasové a televizní vysílání, jejíž působnost se týká pouze audiovizuálních služeb.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=10&ct1=0"
+   },
+   {
+    "claim": "§ 7 tisku 10 ukládá účastníkovi spojení na mediálním trhu oznámit RRTV záměr před zápisem do obchodního rejstříku; RRTV posoudí dopad na pluralitu a redakční nezávislost podle čl. 22 odst. 2 nařízení EMFA včetně zájmů, vazeb a činností účastníků v jiných odvětvích.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=10&ct1=0"
+   },
+   {
+    "claim": "Tisk 10 v § 3 posiluje ochranu novinářských zdrojů a důvěrné komunikace před sledováním a domovními prohlídkami orgánů veřejné moci v návaznosti na čl. 4 nařízení EMFA.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=10&ct1=0"
+   },
+   {
+    "claim": "Poslanec Martin Baxa má u tisku 10 evidovanou peněžní vazbu na Plzeňskou filharmonii, obecně prospěšnou společnost — regionální kulturní instituci bez vztahu k provozování vysílání nebo vydávání tisku.",
+    "kind": "graph_fact",
+    "source": "company:ico:25224662"
+   },
+   {
+    "claim": "Tisk 10 mění mimo jiné zákon č. 231/2001 Sb., o provozování rozhlasového a televizního vysílání, a zákon č. 46/2000 Sb., tiskový zákon.",
+    "kind": "law",
+    "source": "231/2001"
+   }
+  ]
+ },
+ {
+  "billTisk": 100,
+  "statedReasoning": "Poslanecký návrh Elišky Olšákové a Karla Dvořáka mění zákon č. 128/2000 Sb., o obcích, zákon č. 131/2000 Sb., o hlavním městě Praze, a další předpisy v souvislosti se změnami veřejného opatrovnictví. Návrh vychází ze sněmovního tisku 755 z 9. volebního období (dvakrát dříve neprojednaného) a řeší čtyři dlouhodobě známé nedostatky: umožnění přenosu výkonu veřejného opatrovnictví na jinou vhodnou obec, není-li místně příslušná obec schopna agendu zajistit; umožnění přenosu prostřednictvím veřejnoprávní smlouvy mezi obcemi; zavedení povinnosti sběru dat o počtu opatrovanců pro účely průběžného financování; a určení ústředního správního úřadu příslušného pro oblast veřejného opatrovnictví. Důvodová zpráva výslovně uvádí, že se ruší dosud nevyužitá možnost jmenovat opatrovníkem právnickou osobu zřízenou obcí, a že účinností veřejnoprávní smlouvy o přenosu agendy nastupuje zákonná fikce nahrazující nové soudní rozhodnutí o jmenování opatrovníka. Předpokládaný dopad na státní rozpočet je popsán jako pokrytelný v rámci stávající kapitoly Ministerstva práce a sociálních věcí bez dodatečných nároků; účinnost se navrhuje k 1. lednu 2027. Zhodnocení korupčních rizik v důvodové zprávě konstatuje, že návrh soustředění pravomocí ani neodůvodněné rozdělení odpovědnosti nezakládá.",
+  "researchedContext": "Kontrolovaný text (dvě cache verze tisku) potvrzuje, že zákonná fikce podle navrhovaného § 471 odst. 4 občanského zákoníku nahrazuje individuální soudní přezkum při každé jednotlivé změně veřejného opatrovníka na základě veřejnoprávní smlouvy — místo nového soudního rozhodnutí o jmenování se má na obec, na kterou byl výkon přenesen, hledět, jako by byla soudem jmenována. Důvodová zpráva tento mechanismus sama zdůvodňuje tím, že ingerence opatrovnického soudu do procesu změny „by obecně nepřinesla žádné zřejmé výhody“, a stanoví jako kontrolní pojistku předchozí souhlas krajského úřadu s uzavřením veřejnoprávní smlouvy. Jde tedy o vědomě zvolené, v textu odůvodněné řešení, nikoli o skrytou změnu. Návrh dále výslovně ruší možnost svěřit opatrovnictví právnické osobě zřízené obcí s odůvodněním, že tato možnost nebyla nikdy využita a je právně nekoncepční. Hodnocení dopadů na ochranu osobních údajů uvádí, že Ministerstvu vnitra se předávají pouze agregovaná data o počtu opatrovanců, nikoli osobní údaje; toto tvrzení odpovídá popsanému toku dat (obec → krajský úřad s osobními údaji, krajský úřad → ministerstvo pouze s agregáty). Účinnost k 1. lednu 2027 při projednávání v garančním výboru zahájeném 2026-03-04 nepůsobí jako neobvykle urychlená.",
+  "unstatedEffects": [],
+  "conflictAssessment": "Oba předkladatelé, Eliška Olšáková (PSP ID 6766) a Karel Dvořák (PSP ID 7002), mají v datovém souboru u tohoto tisku zaznamenán prázdný seznam peněžních vazeb — žádná peněžní vazba k prověření tedy u žádného z nich neexistuje. Datový soubor rovněž neuvádí u tisku žádný přiřazený sektorový vztah k obecní samosprávě nebo sociální oblasti. Předmětem návrhu je výkon veřejného opatrovnictví obcemi v přenesené působnosti — jde o čistě institucionální (obecní) agendu bez vazby na soukromé podnikatelské subjekty, u níž ani povaha úpravy střet zájmů předkladatelů nezakládá. Konflikt zájmů nebyl na základě dostupných dat zjištěn.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+   {
+    "claim": "Návrh mění zákon o obcích, zákon o hlavním městě Praze a další předpisy v souvislosti se změnami veřejného opatrovnictví; vychází ze sněmovního tisku 755 z 9. volebního období.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=100&ct1=0"
+   },
+   {
+    "claim": "Účinností veřejnoprávní smlouvy o přenosu opatrovnictví nastupuje zákonná fikce jmenování bez nového soudního rozhodnutí; ingerence soudu je odůvodněna jako nepřinášející zřejmé výhody, kontrolní pojistkou je souhlas krajského úřadu.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=100&ct1=0"
+   },
+   {
+    "claim": "Ministerstvu práce a sociálních věcí se hradí výdaje z vlastní kapitoly bez dodatečného navýšení rozpočtu; účinnost se navrhuje k 1. lednu 2027.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=100&ct1=0"
+   },
+   {
+    "claim": "Podle grafových dat o projednávání tisku 100 je garančním výborem VSR se stavem navrženo k 2026-03-04.",
+    "kind": "graph_fact",
+    "source": "bill:tisk:43210"
+   },
+   {
+    "claim": "Předkladatelé Eliška Olšáková a Karel Dvořák nemají v datovém souboru zaznamenanou žádnou peněžní vazbu.",
+    "kind": "graph_fact",
+    "source": "bill:tisk:43210"
+   }
+  ]
+ },
+ {
+  "billTisk": 13,
+  "statedReasoning": "Vládní návrh mění zákon č. 240/2013 Sb., o investičních společnostech a investičních fondech (ZISIF), a dále zákon o Komisi pro cenné papíry, zákon o podnikání na kapitálovém trhu, zákon o správních poplatcích a zákon o trhu s nevýkonnými úvěry. Důvodová zpráva odůvodňuje novelu promítnutím revidovaných evropských nařízení upravujících evropské fondy rizikového kapitálu, fondy sociálního podnikání, fondy dlouhodobých investic a fondy peněžního trhu do vnitrostátní úpravy, doplněním úpravy nástrojů pro řízení likvidity fondů a řízení střetu zájmů obhospodařovatele a navazující revizí souvisejících přestupkových skutkových podstat.",
+  "researchedContext": "Kešovaný text novelizuje § 604 ZISIF, který vyjmenovává přestupkové skutkové podstaty, výhradně formou odkazů na konkrétní písmena a odstavce — např. „V § 604 odst. 1 písmeno a) zní…“, „v § 604 odst. 1 písm. e) se za číslo 3 vkládají slova…“ — a dále v odstavci 4 ruší písmeno c) a přeznačuje dosavadní písmeno d) na písmeno c), a do odstavce 5 vkládá nové písmeno e). Důvodová zpráva k těmto bodům sama odkazuje na obdobné, souběžně prováděné změny stejného typu adresování v § 599 odst. 1 písm. a) a § 612 odst. 1 písm. t) ZISIF v rámci téhož tisku. Vlastní čtení kešované verze tisku 13 potvrzuje, že jde o adresování písmen podle jejich aktuálního pořadí — postup citlivý na to, aby žádná jiná souběžně projednávaná novela téhož paragrafu nezměnila pořadí písmen dříve, než tato novela nabude účinnosti; zda konkrétní jiný, v tuto chvíli neověřovaný tisk na stejné pořadí písmen skutečně cílí, přesahuje rozsah tohoto ověření.",
+  "unstatedEffects": [
+   {
+    "effect": "Přečíslování písmen v § 604 odst. 4 (zrušení písmene c, přeznačení písmene d na c) a vložení nového písmene e) do odstavce 5 mění pořadí písmen v paragrafu, který je adresován i z jiných částí tohoto tisku (§ 599, § 612) — případná souběžně projednávaná novela stejného paragrafu by odkazovala na jiné pořadí písmen, než jaké po přijetí tisku 13 skutečně platí, aniž by na toto riziko důvodová zpráva u těchto bodů upozornila.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeni by byli adresáti § 604 ZISIF a legislativní proces jako takový v případě střetu číslování se souběžně projednávanou novelou.",
+    "evidence": "Bod 182 mění § 604 odst. 4 tak, že ruší písmeno c) a dosavadní písmeno d) označuje jako písmeno c); bod 185 vkládá do § 604 odst. 5 nové písmeno e) a dosavadní písmeno e) označuje jako písmeno f)."
+   },
+   {
+    "effect": "Novela vkládá nový § 603a, který pro přestupky obhospodařovatele otevřeného fondu při použití nástrojů pro řízení likvidity stanoví pokutu až do vyšší z částek — 300 000 000 Kč, případně 10 % celkového ročního obratu, přesahuje-li takto určená výše pokuty tuto částku, nebo dvojnásobek neoprávněného prospěchu ze spáchání přestupku — ačkoli shrnutí tisku v podkladech hovoří pouze o „změně“ pěti předpisů bez zmínky o novém, takto vysoko stanoveném sankčním rámci vůči obhospodařovatelům fondů.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou obhospodařovatelé otevřených podílových fondů, na které se nový sankční rámec § 603a odst. 2 vztahuje.",
+    "evidence": "Nový § 603a odst. 2 (bod 177) stanoví, že pokutu za přestupek podle § 603a odst. 1 (porušení povinností při řízení likvidity fondu podle § 37b) lze uložit až do výše 300 000 000 Kč, nebo do výše 10 % celkového ročního obratu právnické osoby, přesahuje-li takto určená výše pokuty tuto částku, nebo do výše dvojnásobku neoprávněného prospěchu, přesahuje-li tato hodnota rovněž 300 000 000 Kč."
+   }
+  ],
+  "conflictAssessment": "Předkladatelem je ministr financí a jediným poslaneckým sponzorem uvedeným v grafu vazeb k tisku 13 je Zbyněk Stanjura, u kterého případový soubor neeviduje žádnou peněžní vazbu (pole je v datech přítomné a prázdné). V datech tedy není doložena žádná vazba na investiční společnost, investiční fond ani jiný subjekt regulovaný ZISIF. Tisk 13 nemá v datech ani atribuovaného odvětvového vedoucího. Jde o věcnou absenci dokladu o střetu zájmů, kterou lze u tohoto tisku konstatovat přímo.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+   {
+    "claim": "Bod 182 mění § 604 odst. 4 tak, že ruší písmeno c) a dosavadní písmeno d) označuje jako písmeno c); bod 185 vkládá do § 604 odst. 5 nové písmeno e) a dosavadní písmeno e) označuje jako písmeno f).",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=13&ct1=0"
+   },
+   {
+    "claim": "Nový § 603a odst. 2 (bod 177) stanoví, že pokutu za přestupek podle § 603a odst. 1 (porušení povinností při řízení likvidity fondu podle § 37b) lze uložit až do výše 300 000 000 Kč, nebo do výše 10 % celkového ročního obratu právnické osoby, přesahuje-li takto určená výše pokuty tuto částku, nebo do výše dvojnásobku neoprávněného prospěchu, přesahuje-li tato hodnota rovněž 300 000 000 Kč.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=13&ct1=0"
+   },
+   {
+    "claim": "Důvodová zpráva k bodům 178 a 188 tisku 13 sama odkazuje na totožný typ adresovacích změn v § 599 odst. 1 písm. a) a § 612 odst. 1 písm. t) ZISIF v rámci téhož tisku.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=13&ct1=0"
+   },
+   {
+    "claim": "Tisk 13 mění zákon č. 240/2013 Sb., o investičních společnostech a investičních fondech, a zákon č. 256/2004 Sb., o podnikání na kapitálovém trhu.",
+    "kind": "law",
+    "source": "240/2013"
+   }
+  ]
+ },
+ {
+  "billTisk": 16,
+  "statedReasoning": "Vládní návrh (sněmovní tisk 16, min. financí) transponuje směrnici Evropského parlamentu a Rady (EU) 2023/2673 o smlouvách o finančních službách uzavíraných na dálku (DMFS), která nahrazuje dosavadní směrnici 2002/65/ES a část úpravy přesouvá do horizontální spotřebitelské směrnice 2011/83/EU (CRD). Novelizuje 11 předpisů, primárně občanský zákoník (§ 1841 a násl.) a zákon o ochraně spotřebitele, dále navazující sektorové zákony (o bankách, o platebním styku, o spotřebitelském úvěru, o distribuci pojištění a zajištění, o podnikání na kapitálovém trhu, o investičních společnostech a fondech, o institucích zaměstnaneckého penzijního pojištění, o panevropském osobním penzijním produktu, o digitalizaci finančního trhu). Důvodová zpráva výslovně uvádí, že transponuje pouze ty prvky DMFS, které dosud nejsou v české úpravě obsaženy nebo nejsou plně kompatibilní, a to zejména v oblasti předsmluvních informací, odstoupení od smlouvy a ochrany spotřebitele v on-line prostředí (tzv. dark patterns). Nezbytnost úpravy je zdůvodněna rizikem řízení pro porušení Smlouvy o fungování EU při netransponování; dozor nad dodržováním nadále vykonává Česká národní banka.",
+  "researchedContext": "Text důvodové zprávy sám upozorňuje, že DMFS jde nad rámec úpravy smluv o finančních službách: zavádí právo na odstoupení od smlouvy uzavřené na dálku prostřednictvím tzv. tlačítka pro odstoupení v on-line rozhraní, které se výslovně vztahuje na všechny obchodníky (podnikatele) při jakémkoli on-line prodeji zboží nebo služeb, nikoli jen na poskytovatele finančních služeb. Jde o unijně nařízené rozšíření dosahu novely nad rámec toho, co název tisku („smlouvy o finančních službách uzavírané na dálku“) čtenáři naznačuje — novela se tak fakticky dotýká všech provozovatelů e-shopů a on-line platforem, ne pouze finančního sektoru. Pokud jde o volbu přísnější vnitrostátní úpravy nad rámec minimálních požadavků směrnice, kontrolovaný text ani obecná část důvodové zprávy neobsahují samostatný oddíl srovnávající směrnici s návrhem (tzv. rozdílovou tabulku) ani odkaz na přísnější vnitrostátní volbu; jediná zmínka o regulatorní volbě členských států („vyhodnocení způsobů transpozice těch ustanovení DMFS, které členským státům umožňují regulatorní volbu“) odkazuje na samostatnou závěrečnou zprávu z hodnocení dopadů regulace, která nebyla součástí zkoumaného cache. Výše navrhovaných pokut za přestupky je podle textu odvozena analogicky od výše pokut za obdobné přestupky u jiných smluv uzavíraných na dálku mimo obchodní prostory (§ 23 a § 24 zákona o ochraně spotřebitele), nikoli stanovena nad tento rámec.",
+  "unstatedEffects": [
+   {
+    "effect": "Nová úprava odstoupení od smlouvy uzavřené na dálku v on-line rozhraní (tlačítko pro odstoupení) se podle textu DMFS a předkládané novely vztahuje na všechny obchodníky při jakémkoli on-line prodeji zboží nebo služeb, nejen na poskytovatele finančních služeb, ačkoli název tisku hovoří výhradně o smlouvách o finančních službách.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou všichni provozovatelé on-line prodeje zboží a služeb (nová technická a procesní povinnost) a spotřebitelé uzavírající smlouvy on-line (rozšířené právo na odstoupení).",
+    "evidence": "Bill text, obecná část důvodové zprávy, oddíl 2, odstavec „Nad rámec úpravy týkající se smluv o finančních službách…“ — https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=16&ct1=0"
+   }
+  ],
+  "conflictAssessment": "Datový soubor pro tento tisk neuvádí žádný přiřazený sektorový vztah předkladatele k projednávané agendě. Předkladatelem je vláda (min. financí); jediný uvedený sponzor Zbyněk Stanjura nemá v datovém souboru zaznamenanou žádnou peněžní vazbu (moneyTies je prázdný seznam). Konflikt zájmů mezi předkladatelem a předmětem úpravy (finanční služby na dálku) nebyl na základě dostupných dat zjištěn.",
+  "severity": "low",
+  "confidence": 3,
+  "citations": [
+   {
+    "claim": "Návrh transponuje směrnici Evropského parlamentu a Rady (EU) 2023/2673 o smlouvách o finančních službách uzavíraných na dálku a mění 11 předpisů, primárně občanský zákoník a zákon o ochraně spotřebitele.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=16&ct1=0"
+   },
+   {
+    "claim": "DMFS jde nad rámec úpravy finančních služeb a zavádí právo na odstoupení prostřednictvím on-line tlačítka pro veškerý on-line prodej zboží a služeb všemi obchodníky.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=16&ct1=0"
+   },
+   {
+    "claim": "Výše navrhovaných pokut za přestupky odpovídá výši pokut za obdobné přestupky u jiných smluv uzavíraných na dálku podle stávajícího zákona o ochraně spotřebitele.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=16&ct1=0"
+   },
+   {
+    "claim": "Podle grafových dat o projednávání tisku 16 je garančním výborem RV se stavem přikázáno k 2026-03-24.",
+    "kind": "graph_fact",
+    "source": "bill:tisk:43123"
+   },
+   {
+    "claim": "Sponzor Zbyněk Stanjura nemá v datovém souboru zaznamenanou žádnou peněžní vazbu.",
+    "kind": "graph_fact",
+    "source": "bill:tisk:43123"
+   }
+  ]
+ },
+ {
+  "billTisk": 172,
+  "statedReasoning": "Vládní návrh novelizuje zákon o cestovních dokladech (č. 329/1999 Sb.), zákon o občanských průkazech (č. 269/2021 Sb.) a čtyři další předpisy. Důvodová zpráva jej prezentuje jako soubor procesních zjednodušení: rozšíření okruhu zastupitelských úřadů oprávněných vydávat a přebírat doklady, rozšíření možností zastoupení žadatele plnou mocí, opakované využití již pořízených biometrických údajů (otisky prstů, snímek obličeje), pokud občan žádá o cestovní pas i občanský průkaz týž den, a přehodnocení sazeb pokut za přestupky podle typové závažnosti (do 10 000, 20 000 a 50 000 Kč). Návrh dále zavádí nový právní institut pozastavení platnosti cestovního pasu pro případ, že byl na držitele vydán evropský zatýkací rozkaz nebo učiněno opatření k jeho vyžádání z ciziny; zápis a výmaz této skutečnosti do evidence cestovních dokladů provádí Policie České republiky. Důvodová zpráva sama výslovně uvádí, že se držitel o pozastavení platnosti nemusí dozvědět, a proto upravuje skutkovou podstatu souvisejícího přestupku tak, aby tento případ nepostihovala.",
+  "researchedContext": "Návrh je v grafu i v platformovém krátkém popisu (\"cast_captions\": \"mění 6 předpisů — zákon o cestovních dokladech, zákona o občanských průkazech, zákona o správních poplatcích a 3 další předpis\") klasifikován jako technická novela evidenčních zákonů. Tento krátký popis, na rozdíl od plné důvodové zprávy, nezmiňuje, že součástí novely je zcela nový institut pozastavení platnosti cestovního pasu vázaný na evropský zatýkací rozkaz – tedy nástroj omezující svobodu pohybu držitele, jehož zápis do evidence provádí Policie ČR. Samotná důvodová zpráva tento institut zdůvodňuje a existenci tohoto rizika (že se držitel o pozastavení nemusí dozvědět) sama přiznává; nejde tedy o utajenou informaci vůči zákonodárci, ale o změnu, kterou stručná platformová charakteristika bilu jako \"technického\" nepřenáší. Dále novela v § 21a odst. 3 zákona o cestovních dokladech (a zrcadlové ustanovení v zákoně o občanských průkazech) zavádí opakované využití již pořízených biometrických údajů mezi žádostmi o cestovní pas a občanský průkaz podanými týž den. Důvodová zpráva toto zdůvodňuje výhradně snížením administrativní zátěže občana; otázku, že tím dochází k propojení biometrické stopy mezi dvěma samostatnými evidencemi (evidence cestovních dokladů a evidence občanských průkazů), návrh explicitně nerozebírá.",
+  "unstatedEffects": [
+   {
+    "effect": "Novela zavádí nový právní institut pozastavení platnosti cestovního pasu vázaný na evropský zatýkací rozkaz nebo opatření k vyžádání osoby z ciziny, se zápisem a výmazem prováděným Policií České republiky – tedy věcně významné rozšíření státní pravomoci nad cestovními doklady, které stručný platformový popis novely (\"mění 6 předpisů\") nezachycuje, ačkoli je v plné důvodové zprávě podrobně odůvodněno.",
+    "whoBenefits": "Nelze jednoznačně určit beneficienta v podobě konkrétní osoby či skupiny mimo rámec stanovený zákonem – doloženo je pouze to, že nový nástroj svěřuje Policii ČR přímou kontrolu nad zápisem skutečnosti ovlivňující platnost cestovního dokladu občana, a to i bez zjištěné povinnosti tohoto občana o tom vyrozumět.",
+    "evidence": "K čl. I bodu 48 (§ 27) a K čl. I bodu 91 [§ 34a odst. 1 písm. c)] důvodové zprávy popisují zavedení institutu pozastavení platnosti cestovního pasu a výslovně uvádějí, že se držitel o pozastavení nemusí dozvědět."
+   },
+   {
+    "effect": "Ustanovení § 21a odst. 3 zákona o cestovních dokladech zavádí opakované využití biometrických údajů pořízených při žádosti o občanský průkaz pro účely téhož dne podané žádosti o cestovní pas (a obdobně naopak) – dochází tak k propojení biometrické stopy mezi evidencí cestovních dokladů a evidencí občanských průkazů, což důvodová zpráva odůvodňuje pouze snížením administrativní zátěže, bez rozboru důsledků tohoto propojení mezi dvěma evidencemi.",
+    "whoBenefits": "Nelze jednoznačně určit — doloženo je pouze snížení administrativní zátěže pro žadatele, který nemusí opakovaně poskytovat biometrické údaje; dopad propojení dat mezi evidencemi na okruh subjektů s přístupem k oběma evidencím návrh sám nerozebírá.",
+    "evidence": "Bod 35 (§ 21a odst. 3) čl. I novely zákona o cestovních dokladech a odpovídající komentář důvodové zprávy k opakovanému využití biometrických údajů při souběžné žádosti o občanský průkaz a cestovní pas týž den."
+   }
+  ],
+  "conflictAssessment": "Předkladatelem je vláda, garančním sponzorem v grafu je ministr vnitra Lubomír Metnar. Případový soubor u tohoto sponzora neeviduje žádnou peněžní vazbu (moneyTies je prázdné pole) a nebyl mu přiřazen žádný sektorový konflikt (attributedSectorLeads je prázdné, sectorAdjacency nastaveno na false) — v datech dostupných platformě tak není podklad pro tvrzení o střetu zájmů sponzora s předmětem návrhu (cestovní doklady, občanské průkazy, správní poplatky).",
+  "severity": "low",
+  "confidence": 3,
+  "citations": [
+   {
+    "claim": "Novela zavádí institut pozastavení platnosti cestovního pasu vázaný na evropský zatýkací rozkaz, se zápisem a výmazem prováděným Policií České republiky.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=172&ct1=0"
+   },
+   {
+    "claim": "Držitel cestovního pasu, jehož platnost byla pozastavena, se o této skutečnosti nemusí dozvědět; skutková podstata přestupku byla proto upravena tak, aby tento případ nezahrnovala.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=172&ct1=0"
+   },
+   {
+    "claim": "§ 21a odst. 3 zákona o cestovních dokladech zavádí opakované využití biometrických údajů pořízených při žádosti o občanský průkaz pro účely téhož dne podané žádosti o cestovní pas.",
+    "kind": "law",
+    "source": "č. 329/1999 Sb."
+   },
+   {
+    "claim": "Zrcadlová úprava opakovaného využití biometrických údajů se zavádí i v zákoně o občanských průkazech.",
+    "kind": "law",
+    "source": "č. 269/2021 Sb."
+   },
+   {
+    "claim": "Sponzor návrhu Lubomír Metnar nemá v grafu evidovánu žádnou peněžní vazbu ani sektorový konflikt.",
+    "kind": "graph_fact",
+    "source": "psp:person:6544"
+   }
+  ]
+ },
+ {
+  "billTisk": 250,
+  "statedReasoning": "Poslanecký návrh Drahoslava Ryby a Jiřího Bartáka zavádí nový zákon o standardizaci, který nahrazuje dosavadní úpravu tvorby a vydávání českých technických norem. Zřizuje Českou agenturu pro standardizaci jako právnickou osobu veřejného práva s vlastními orgány (generální ředitel, Rada, Dozorčí rada), přebírající činnost dosavadní agentury coby jejího právního nástupce (přechod zaměstnanců, majetku, databází, poplatků a probíhajících řízení). Úřad pro technickou normalizaci, metrologii a státní zkušebnictví si ponechává dozorovou a přestupkovou působnost. Podle vlastního odůvodnění zákon dále mění deset souvisejících předpisů — mimo jiné kompetenční zákon, zákon o České obchodní inspekci, o metrologii, puncovní zákon, o zabezpečení výkonu státní správy v oblasti technické normalizace, o technických požadavcích na výrobky, o správních poplatcích, o dozoru nad trhem s výrobky, o obecné bezpečnosti výrobků a o správě informací o stavbě a vystavěném prostředí. Distribuce technických norem zůstává podle důvodové zprávy nadále na komerční bázi prodeje, vedle toho agentura zajišťuje tzv. sponzorovaný přístup k normám.",
+  "researchedContext": "Přímým součtem částí druhá až jedenáctá návrhu (deset samostatných novelizačních částí, každá s vlastním „Zákon č. …, se mění takto\") bylo ověřeno, že text novelizuje přesně deset zákonů: č. 2/1969 Sb., č. 64/1986 Sb., č. 505/1990 Sb. (metrologie), č. 539/1992 Sb. (puncovní zákon), č. 20/1993 Sb., č. 22/1997 Sb., č. 634/2004 Sb., č. 87/2023 Sb., č. 387/2024 Sb. (obecná bezpečnost výrobků) a č. 330/2025 Sb. (správa informací o stavbě a vystavěném prostředí) — což odpovídá vlastnímu shrnutí předlohy (\"mění 10 předpisů\"). Regenerovaná topologie hran amends v grafu (pole amendedLaws u tohoto tisku) však eviduje jen 6 z těchto 10 zákonů; zákony o metrologii (505/1990), puncovní zákon (539/1992), o obecné bezpečnosti výrobků (387/2024) a o správě informací o stavbě (330/2025) v grafové topologii chybí — jde o počet chybějících předpisů, nikoli o podíl věcného záběru tisku. Dále bylo ověřeno, že Agentura zůstává právnickou osobou veřejného práva (§ 7 odst. 1) a že komerční prodej norem je pokračováním dosavadní praxe, nikoli novým prvkem. Agentura má tři orgány (§ 9 odst. 1): generálního ředitele, Radu (§ 11) a Dozorčí radu (§ 12). Radu, orgán zajišťující nezávislost a nestrannost Agentury a schvalující koncepci, strategii a návrh rozpočtu, tvoří 5 členů, z nichž část jmenuje předseda Úřadu na návrh právnických osob, jejichž činnost souvisí s oblastí normalizace (§ 11 odst. 2). Dozorčí radu, orgán dohlížející na hospodaření Agentury a projednávající návrh rozpočtu a výroční zprávu o hospodaření, tvoří rovněž 5 členů, jejího předsedu jmenuje ministr a ostatní jmenuje předseda Úřadu především ze zástupců ústředních správních úřadů (§ 12 odst. 1 a 2) — nikoli na návrh oborových subjektů. Ceník za vedlejší činnost (placený přístup k normám a databázi) vydává Agentura teprve po předchozím projednání Dozorčí radou a se souhlasem Úřadu (§ 21 odst. 2); samostatný poplatek za sponzorovaný přístup je odlišný nástroj, jehož rozpočet zákon označuje za veřejný rozpočet (§ 20 odst. 4).",
+  "unstatedEffects": [
+   {
+    "effect": "Návrh věcně novelizuje deset zákonů (potvrzeno přímým výčtem částí druhá až jedenáctá), avšak regenerovaná topologie amends hran v grafu eviduje jen šest z nich — zákon o metrologii, puncovní zákon, zákon o obecné bezpečnosti výrobků a zákon o správě informací o stavbě chybí. Čtyři z deseti novelizovaných zákonů (počet předpisů, nikoli podíl věcného záběru) tak v datech platformy, na nichž staví zobrazení rozsahu novely, chybí.",
+    "whoBenefits": "Nelze jednoznačně určit — jde o mezeru v grafové topologii dat platformy, nikoli o zjištěný záměr předkladatelů; důsledkem je pouze to, že čtenář spoléhající na pole amendedLaws vidí užší záběr tisku, než jaký text skutečně má.",
+    "evidence": "Části druhá až jedenáctá textu návrhu (§ 49 až § 59) novelizují zákony č. 2/1969 Sb., č. 64/1986 Sb., č. 505/1990 Sb., č. 539/1992 Sb., č. 20/1993 Sb., č. 22/1997 Sb., č. 634/2004 Sb., č. 87/2023 Sb., č. 387/2024 Sb. a č. 330/2025 Sb. — deset zákonů oproti šesti uvedeným v poli amendedLaws tohoto tisku."
+   },
+   {
+    "effect": "Radu Agentury (§ 11), která schvaluje koncepci, strategii a návrh rozpočtu Agentury, z pěti členů z části jmenuje předseda Úřadu na návrh právnických osob, jejichž činnost souvisí s oblastí normalizace (§ 11 odst. 2). Cenu za placený přístup k normám a databázi (vedlejší činnost) naproti tomu stanovuje Agentura teprve po předchozím projednání Dozorčí radou a se souhlasem Úřadu (§ 21 odst. 2); Dozorčí radu přitom jmenuje ministr (předsedu) a předseda Úřadu především ze zástupců ústředních správních úřadů, nikoli na návrh oborových subjektů (§ 12 odst. 2). Bod, v němž mají oborové subjekty přímý hlas, je tedy schvalování strategie a rozpočtu Agentury (Rada), nikoli stanovení ceníku (Dozorčí rada a Úřad); tento rozdíl mezi působností obou orgánů návrh v důvodové zprávě nerozebírá.",
+    "whoBenefits": "Nelze jednoznačně určit — jde o strukturální popis rozdělení pravomocí mezi Radou a Dozorčí radou Agentury, nikoli o zjištěnou vazbu na konkrétní subjekt; graf neeviduje u žádného ze sponzorů peněžní vazbu na konkrétní normalizační nebo certifikační firmu.",
+    "evidence": "§ 11 odst. 1 a 2 (složení a působnost Rady, včetně jmenování části členů na návrh oborových právnických osob), § 12 odst. 1 a 2 (složení a působnost Dozorčí rady, jmenované především ze zástupců ústředních správních úřadů) a § 21 odst. 2 (ceník vedlejší činnosti podléhá projednání Dozorčí radou a souhlasu Úřadu) návrhu zákona o standardizaci."
+   }
+  ],
+  "conflictAssessment": "Předkladateli jsou poslanci Drahoslav Ryba a Jiří Barták; případový soubor u obou neeviduje žádnou peněžní vazbu (moneyTies je u obou prázdné pole) ani přiřazený sektorový konflikt (attributedSectorLeads prázdné, sectorAdjacency nastaveno na false). Předmětem návrhu je veřejná správa v oblasti standardizace a přeměna právní formy dosavadní normalizační agentury; v datech dostupných platformě tak není podklad pro tvrzení o střetu zájmů žádného ze sponzorů s předmětem návrhu.",
+  "severity": "low",
+  "confidence": 3,
+  "citations": [
+   {
+    "claim": "Návrh zřizuje Českou agenturu pro standardizaci jako právnickou osobu veřejného práva a právního nástupce dosavadní agentury.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=250&ct1=0"
+   },
+   {
+    "claim": "Distribuce technických norem zůstává na komerční bázi prodeje; Agentura vedle toho zajišťuje sponzorovaný přístup k normám.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=250&ct1=0"
+   },
+   {
+    "claim": "Návrh novelizuje zákon o metrologii, který v grafové topologii amends hran tohoto tisku chybí.",
+    "kind": "law",
+    "source": "č. 505/1990 Sb."
+   },
+   {
+    "claim": "Návrh novelizuje puncovní zákon, který v grafové topologii amends hran tohoto tisku chybí.",
+    "kind": "law",
+    "source": "č. 539/1992 Sb."
+   },
+   {
+    "claim": "Návrh novelizuje zákon o obecné bezpečnosti výrobků, který v grafové topologii amends hran tohoto tisku chybí.",
+    "kind": "law",
+    "source": "č. 387/2024 Sb."
+   },
+   {
+    "claim": "Návrh novelizuje zákon o správě informací o stavbě a vystavěném prostředí, který v grafové topologii amends hran tohoto tisku chybí.",
+    "kind": "law",
+    "source": "č. 330/2025 Sb."
+   },
+   {
+    "claim": "Radu Agentury (5 členů, schvalující koncepci, strategii a rozpočet Agentury) z části jmenuje předseda Úřadu na návrh právnických osob, jejichž činnost souvisí s oblastí normalizace.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=250&ct1=0"
+   },
+   {
+    "claim": "Dozorčí radu (5 členů, dohlížející na hospodaření Agentury) jmenuje ministr a předseda Úřadu především ze zástupců ústředních správních úřadů.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=250&ct1=0"
+   },
+   {
+    "claim": "Ceník za vedlejší činnost (placený přístup k normám a databázi) vydává Agentura teprve po předchozím projednání Dozorčí radou a se souhlasem Úřadu.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=250&ct1=0"
+   },
+   {
+    "claim": "Sponzoři návrhu Drahoslav Ryba a Jiří Barták nemají v grafu evidovánu žádnou peněžní vazbu.",
+    "kind": "graph_fact",
+    "source": "psp:person:6782"
+   },
+   {
+    "claim": "Sponzoři návrhu Drahoslav Ryba a Jiří Barták nemají v grafu evidovánu žádnou peněžní vazbu.",
+    "kind": "graph_fact",
+    "source": "psp:person:6987"
+   }
+  ]
+ },
+ {
+  "billTisk": 54,
+  "statedReasoning": "Vládní návrh transponuje nařízení EU 2022/868 o evropské správě dat (akt o správě dat) a zavádí dva instituty: povinnosti při správě dat vedených v informačních systémech veřejné správy (hlava II) a řízený přístup k datům – kontrolované, zpravidla anonymizované zpřístupnění dat pro účely vědeckého výzkumu, kontroly veřejné správy nebo výuky (hlava III). Povolujícím orgánem je zpravidla správce dat nebo Digitální a informační agentura, u vyjmenovaných oblastí (sociální zabezpečení, statistika, daně, zdravotnictví) tzv. příslušný subjekt podle § 29. Součástí návrhu jsou čtyři doprovodné novely: zrušení duplicitní úpravy v zákoně o rejstříku trestů a evidenci přestupků (§ 37, důvodová zpráva odůvodňuje toto zrušení kolizí s obecnou úpravou), doplnění vztahu k zákonu o státní statistické službě jako lex specialis (§ 38), zavedení správního poplatku 3 000 Kč za přijetí žádosti o řízený přístup (§ 39) a úprava zákona o zdravotních službách ve vztahu k Ústavu zdravotnických informací a statistiky (§ 40).",
+  "researchedContext": "Z textu návrhu (§ 41 – účinnost) vyplývá, že zákon nenabývá účinnosti jednotně. Obecná ustanovení (hlava I, II, přestupky správců dat mimo § 32 a další) nabývají účinnosti patnáctým dnem po vyhlášení, avšak celá hlava III (§ 11 až § 27), tedy samotný řízený přístup k datům, spolu s vymezením příslušných subjektů (§ 28 písm. d), e), i)) a doprovodnými novelami zákona o rejstříku trestů, o státní statistické službě a o správních poplatcích (§ 38 až § 40), nabývá účinnosti až 1. ledna 2028. Ustanovení o místním katalogu dat a datovém slovníku (§ 6 až § 8) a přestupky správců dat podle § 32 (jediný sankční nástroj vůči nedodržení povinností správy dat) nabývají účinnosti teprve 1. ledna 2029. Nástroj, po němž je zákon pojmenován, je tedy po dobu přibližně dvou až tří let od formální účinnosti zbytku předpisu fakticky neaktivní a bez sankčního zajištění. Dále novela zákona o státní statistické službě (§ 38) a novela zákona o zdravotních službách (§ 40 bod 5) výslovně vylučují použití hlavy III na poskytování dat Českým statistickým úřadem, resp. na postup Ústavu zdravotnických informací a statistiky podle § 73 odst. 8 zákona o zdravotních službách – tedy u dvou ze čtyř oblastí vyjmenovaných v § 29 jako \"příslušný subjekt\" se nově zaváděné záruky řízeného přístupu (účelové omezení, anonymizace) na existující kanál poskytování dat vůbec neuplatní a zůstává zachován dosavadní zvláštní režim.",
+  "unstatedEffects": [
+   {
+    "effect": "Klíčová hlava III (řízený přístup k datům, § 11 až § 27) a jediné sankční ustanovení vůči jejímu nedodržení (§ 32, přestupky) nabývají účinnosti až 1. ledna 2028, resp. 1. ledna 2029 – tedy roky po obecné patnáctidenní účinnosti zbytku zákona, aniž by to shrnutí předlohy (\"mění 4 předpisy\") jakkoli signalizovalo.",
+    "whoBenefits": "Nelze jednoznačně určit, kdo z odkladu profituje – doloženo je pouze to, že správci informačních systémů veřejné správy získávají několikaletou lhůtu k přípravě, zatímco žadatelé o řízený přístup k datům (výzkumníci, kontrolní orgány, vzdělávací instituce) po tuto dobu nástroj k dispozici nemají a jeho nedodržení není sankcionovatelné.",
+    "evidence": "§ 41 návrhu zákona (ustanovení o účinnosti) stanoví dvoustupňový odklad – 1. ledna 2028 pro hlavu III a doprovodné novely, 1. ledna 2029 pro § 6 až § 8 a § 32."
+   },
+   {
+    "effect": "Novela zákona o státní statistické službě (§ 38) a novela zákona o zdravotních službách (§ 40 bod 5) vyjímají poskytování dat Českým statistickým úřadem a postup Ústavu zdravotnických informací a statistiky podle § 73 odst. 8 z použití hlavy III tohoto zákona – u dvou ze čtyř \"příslušných subjektů\" (§ 29) tak nově zaváděné ochranné mechanismy řízeného přístupu vůbec neplatí a zachovává se dosavadní zvláštní úprava.",
+    "whoBenefits": "Nelze jednoznačně určit – dotčeny jsou Český statistický úřad a Ústav zdravotnických informací a statistiky, jejichž dosavadní způsob poskytování dat zůstává mimo nově zaváděné záruky řízeného přístupu podle hlavy III; dopad na žadatele o data z těchto zdrojů návrh sám neuvádí.",
+    "evidence": "K § 38 (novela zákona č. 89/1995 Sb.) a bod 5 § 40 (novela zákona č. 372/2011 Sb.) v důvodové zprávě výslovně stanoví aplikační přednost zvláštní úpravy před hlavou III tohoto zákona."
+   }
+  ],
+  "conflictAssessment": "Předkladatel je vládním návrhem (ministerstvo práce a sociálních věcí), garančním sponzorem v grafu je ministr Marian Jurečka. Jeho jedinou v případovém souboru evidovanou peněžní vazbou je společnost AGRO 2000 s.r.o. (IČO 25586521) s agregovanou hodnotou veřejných zakázek 253 958 310 Kč – jde o souhrn veřejných zakázek této společnosti, nikoli o osobní majetek jmenovaného, a vazba je v grafu vedena jako čekající na kontrolu (pending_review), tedy dosud lidsky neověřená. Předmětem návrhu je správa dat veřejné správy a řízený přístup k anonymizovaným datům (rejstřík trestů, zdravotnictví, statistika, správní poplatky); AGRO 2000 s.r.o. je zemědělská společnost bez zjevné věcné souvislosti s předmětem úpravy. Graf neobsahuje žádný přiřazený sektorový konflikt (attributedSectorLeads je prázdné, sectorAdjacency nastaveno na false) a případový soubor pro tohoto sponzora neeviduje žádnou další peněžní vazbu.",
+  "severity": "low",
+  "confidence": 3,
+  "citations": [
+   {
+    "claim": "Návrh transponuje nařízení EU 2022/868 (akt o správě dat) a zavádí správu dat a řízený přístup k datům.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=54&ct1=0"
+   },
+   {
+    "claim": "Řízený přístup k datům (hlava III, § 11 až § 27) a přestupky správců dat podle § 32 nabývají účinnosti až 1. ledna 2028, resp. 1. ledna 2029, zatímco zbytek zákona nabývá účinnosti patnáctým dnem po vyhlášení.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=54&ct1=0"
+   },
+   {
+    "claim": "Novela zákona o státní statistické službě (§ 38) vylučuje použití hlavy III na poskytování statistických dat Českým statistickým úřadem pro účely vědeckého výzkumu.",
+    "kind": "law",
+    "source": "č. 89/1995 Sb."
+   },
+   {
+    "claim": "Novela zákona o zdravotních službách (§ 40) vylučuje použití hlavy III na postup Ústavu zdravotnických informací a statistiky podle § 73 odst. 8.",
+    "kind": "law",
+    "source": "č. 372/2011 Sb."
+   },
+   {
+    "claim": "Ustanovení § 16m odst. 2 až 4 zákona o rejstříku trestů a evidenci přestupků se ruší jako duplicitní vůči obecné úpravě navrhovaného zákona o správě dat.",
+    "kind": "law",
+    "source": "č. 269/1994 Sb."
+   },
+   {
+    "claim": "Sponzor návrhu Marian Jurečka je v grafu vázán na společnost AGRO 2000 s.r.o. s agregovanou hodnotou veřejných zakázek 253 958 310 Kč (zemědělská společnost bez věcné souvislosti s předmětem návrhu); vazba je v grafu vedena jako čekající na kontrolu (pending_review).",
+    "kind": "graph_fact",
+    "source": "company:ico:25586521"
+   }
+  ]
+ },
+ {
+  "billTisk": 56,
+  "statedReasoning": "Vládní doprovodný návrh mění pět předpisů — zákon o zeměměřictví, zákon o správních poplatcích, zákon o elektronických komunikacích, stavební zákon a zákon o urychlení výstavby dopravní infrastruktury — v souvislosti s přijetím zákona provádějícího přímo použitelné nařízení EU 2024/1309 o opatřeních ke snížení nákladů na budování gigabitových sítí elektronických komunikací. Důvodová zpráva odůvodňuje novelu potřebou určit vnitrostátní databázi fyzické infrastruktury, upravit ohlašovací povinnosti provozovatelů sítí a subjektů veřejného sektoru a doplnit přestupkové skutkové podstaty a příslušné správní orgány k nařízení.",
+  "researchedContext": "Kešovaný text tisku vkládá do zákona č. 200/1994 Sb., o zeměměřictví, nový § 17d bezprostředně za stávající § 17c. Toto nové ustanovení rozděluje projednávání přestupků mezi inspektorát, Zeměměřický úřad, Ministerstvo obrany a Český telekomunikační úřad. Samotnou výši sankce stanoví jiné, dříve vkládané ustanovení téže novely — nový § 17a odst. 5 (bod 12) — pokutou až do výše 10 000 000 Kč nebo 5 % čistého obratu pachatele, podle toho, která hodnota je vyšší; § 17d jen určuje, který orgán kterou skupinu přestupků projednává. Vkládání nového ustanovení odkazem na pořadí za existujícím paragrafem (§ 17d za § 17c) je legislativně-technický postup citlivý na souběžně projednávané novely téhož zákona — vloží-li jiná novela vlastní ustanovení na totéž místo dříve, číslování paragrafů se rozejde. Vlastní čtení kešované verze tisku 56 tuto vkládací techniku a přesné místo vložení potvrzuje; zda se s tímto konkrétním místem skutečně střetává jiný, v tuto chvíli neověřovaný tisk, přesahuje rozsah tohoto ověření a v podkladech k tisku 56 samotnému doloženo není.",
+  "unstatedEffects": [
+   {
+    "effect": "Novela zavádí pro provozovatele sítí a subjekty veřejného sektoru sankční rámec s pokutou až do výše 5 % čistého obratu za nesplnění ohlašovacích povinností vůči databázi fyzické infrastruktury, ačkoli název novely hovoří výhradně o „snížení nákladů“ na výstavbu sítí a sankční dopad není v tomto shrnutí zmíněn.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou provozovatelé sítí elektronických komunikací a subjekty veřejného sektoru, kterým nová ohlašovací povinnost a přestupková sankce vzniká.",
+    "evidence": "Nový § 17a odst. 5 zákona o zeměměřictví (vkládaný tiskem 56) stanoví pokutu až do výše 10 000 000 Kč nebo 5 % čistého obratu pachatele dosaženého za poslední ukončené účetní období, podle toho, která hodnota je vyšší."
+   },
+   {
+    "effect": "Vkládací technika, kterou tisk 56 vkládá nový § 17d bezprostředně za § 17c zákona o zeměměřictví, zakládá legislativně-technické riziko kolize se souběžně projednávanou novelou téhož zákona, pokud by cílila na totéž vkládací místo — riziko, na které vlastní důvodová zpráva tisku 56 neupozorňuje.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeni by byli všichni adresáti zákona o zeměměřictví v případě, že by souběžné novelizace vedly k rozporu v číslování paragrafů.",
+    "evidence": "Bod 15 novely zní „Za § 17c se vkládá nový § 17d“ a vkládá text nového § 17d do zákona č. 200/1994 Sb."
+   }
+  ],
+  "conflictAssessment": "Předkladatelem je Ministerstvo průmyslu a obchodu a jediným poslaneckým sponzorem uvedeným v grafu vazeb k tisku 56 je Lukáš Vlček se stejnými evidovanými peněžními vazbami jako u tisku 69. Případový soubor u tohoto předkladatele eviduje šest vazeb, včetně jeho největší — SOMPO, a.s. (IČO 25172263, evidováno 9 174 258 Kč). SOMPO byla založena v roce 1997 sto sedmnácti obcemi jako akcionáři a zabývá se odpadovým hospodářstvím (NACE 38); Vlček v ní podle obchodního rejstříku zastává funkci předsedy představenstva od 3. 12. 2024 (v orgánech společnosti podle téhož rejstříku působil v různých funkcích i dříve), jde tedy o komunálně vlastněnou obchodní společnost, kterou podle ustáleného pravidla tohoto projektu posuzujeme jako municipální/SOE roli — sama o sobě NENÍ střetem zájmů, i když ji je namístě jmenovat, nikoli mlčky vynechat. Zbývajících pět vazeb (vodárenské družstvo, projekční firma, dva občanské spolky, společenství vlastníků jednotek) směřuje k dalším regionálním subjektům v okrese Pelhřimov. Žádná z těchto šesti vazeb nesměřuje k telekomunikačnímu operátorovi, provozovateli sítě ani jinému subjektu, který touto novelou získává novou ohlašovací nebo přestupkovou povinnost. Tisk 56 nemá v datech atribuovaného odvětvového vedoucího.",
+  "severity": "low",
+  "confidence": 3,
+  "citations": [
+   {
+    "claim": "Bod 15 novely zní „Za § 17c se vkládá nový § 17d“ a vkládá text nového § 17d do zákona č. 200/1994 Sb.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=56&ct1=0"
+   },
+   {
+    "claim": "Nový § 17a odst. 5 zákona o zeměměřictví (vkládaný tiskem 56) stanoví pokutu až do výše 10 000 000 Kč nebo 5 % čistého obratu pachatele dosaženého za poslední ukončené účetní období, podle toho, která hodnota je vyšší.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=56&ct1=0"
+   },
+   {
+    "claim": "Poslanec Lukáš Vlček má u tisku 56 v grafu evidovanou peněžní vazbu na SOMPO, a.s. (IČO 25172263) ve výši 9 174 258 Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu).",
+    "kind": "graph_fact",
+    "source": "company:ico:25172263"
+   },
+   {
+    "claim": "Poslanec Lukáš Vlček má u tisku 56 evidovanou peněžní vazbu na PEVAK Pelhřimov, družstvo — vodárenský subjekt bez vztahu k síťové infrastruktuře elektronických komunikací.",
+    "kind": "graph_fact",
+    "source": "company:ico:26039907"
+   },
+   {
+    "claim": "Tisk 56 mění mimo jiné zákon č. 200/1994 Sb., o zeměměřictví, a zákon č. 127/2005 Sb., o elektronických komunikacích.",
+    "kind": "law",
+    "source": "200/1994"
+   },
+   {
+    "claim": "Lukáš Vlček je podle veřejného rejstříku (ARES VR) předsedou představenstva SOMPO, a.s. od 3. 12. 2024 (vznik funkce 2024-12-03, bez zapsaného zániku); v orgánech společnosti podle téhož rejstříku působil v různých funkcích i v dřívějších obdobích.",
+    "kind": "web",
+    "source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25172263"
+   },
+   {
+    "claim": "SOMPO, a.s. byla založena v roce 1997 sto sedmnácti členskými obcemi jako akcionáři a zabývá se odpadovým hospodářstvím (ARES: NACE 38, sběr a zpracování odpadů) — jde o komunálně vlastněnou společnost.",
+    "kind": "web",
+    "source": "https://www.sompo.cz/sompo/zakladni-informace/"
+   }
+  ]
+ },
+ {
+  "billTisk": 65,
+  "statedReasoning": "Vládní návrh (sněmovní tisk 65, MPSV) novelizuje 11 předpisů v souvislosti s úpravou vybraných agend v působnosti Digitální a informační agentury (DIA). Důvodová zpráva uvádí čtyři samostatné okruhy: (1) svěření monitoringu bezpečnosti informačních systémů státní správy Ministerstvu vnitra formou tzv. vládního dohledového centra, s výslovným ujištěním, že jde o zakotvení již provozované praxe, nikoli o novou kontrolní pravomoc; (2) umožnění sdílení relevantních informací (včetně údajů jinak krytých bankovním tajemstvím) mezi bankami, pobočkami zahraničních bank a poskytovateli identifikačních služeb na jedné straně a DIA na straně druhé pro účely dohledu nad identifikačními službami a prevenci zneužití prostředku pro elektronickou identifikaci; (3) rozšíření okruhu údajů ze základních registrů a agendových informačních systémů, které smějí soukromoprávní uživatelé údajů (banky, pojišťovny, poskytovatelé identifikačních služeb) využívat — rodné příjmení, pohlaví, rodinný stav nebo registrované partnerství, omezení svéprávnosti, datum skončení platnosti dokladu a údaje o opatrovnictví; (4) obdobné narovnání položkové skladby a umožnění sdílení soukromoprávního systému pro využívání údajů (SSVÚ) uvnitř jedné propojené finanční skupiny u zákona o pojišťovnictví a zákona o doplňkovém penzijním spoření. Návrh dále v čl. III doplňuje § 18a zákona č. 106/1999 Sb., o svobodném přístupu k informacím, o nový odstavec 4.",
+  "researchedContext": "Podle zvláštní části důvodové zprávy (k čl. III, § 18a odst. 4) se doplněné ustanovení netýká obecného přístupu k informacím, ale umožňuje Ministerstvu vnitra delegovat provoz centrálního registru výročních zpráv jako informačního systému veřejné správy na jiný státní orgán nebo na státem zřízenou či založenou právnickou osobu. Text sám uvádí, že vztah adresáta delegace k Ministerstvu vnitra ani forma delegačního aktu nejsou zákonem záměrně řešeny — cituje se doslova: „Zákon úmyslně neřeší případný vztah státního orgánu či právnické osoby k Ministerstvu vnitra ani formu delegačního aktu, aby byla umožněna co největší variabilita řešení.“ Jde tedy o zákonem výslovně připuštěnou neurčitost adresáta i formy delegace provozu registru výročních zpráv, byť věcně omezenou na okruh státních subjektů. V obecné části důvodové zprávy (oddíl 1, zhodnocení platného právního stavu) přitom samostatný odstavec věnovaný zákonu o svobodném přístupu k informacím chybí — z jedenácti novelizovaných předpisů má deset vlastní odůvodňující pasáž v tomto oddíle (o zřízení ministerstev, o bankách, o poštovních službách, o informačních systémech veřejné správy, o elektronických úkonech a autorizované konverzi dokumentů, o pojišťovnictví, o doplňkovém penzijním spoření, o službách vytvářejících důvěru pro elektronické transakce, o elektronické identifikaci a o právu na digitální služby), zákon o svobodném přístupu k informacím jako jediný z jedenácti ji nemá; vysvětlení se u něj nachází teprve ve zvláštní části u konkrétního ustanovení. Jde o legislativně-technický detail v rámci širšího digitalizačního balíku, nikoli o změnu přístupového práva k informacím jako takového.",
+  "unstatedEffects": [
+   {
+    "effect": "Novela rozšiřuje okruh osobních údajů (rodné příjmení, pohlaví, rodinný stav nebo registrované partnerství, omezení svéprávnosti, údaje o opatrovnictví), které smějí banky, zahraniční banky a poskytovatelé identifikačních služeb jakožto soukromoprávní uživatelé údajů čerpat ze základních registrů a agendových informačních systémů — nad rámec dosavadního účelu (dohled nad identifikačními službami) jde o obecné rozšíření položkové skladby pro tyto subjekty.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou zejména banky, zahraniční banky a poskytovatelé identifikačních služeb jako příjemci rozšířené položkové skladby a osoby, jejichž údaje jsou takto zpřístupňovány.",
+    "evidence": "Bill text, čl. II bod 9–15 (novela § 38af zákona č. 21/1992 Sb.); důvodová zpráva, obecná část, oddíl 2, K zákonu o bankách — https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=65&ct1=0"
+   },
+   {
+    "effect": "Novela zavádí sdílení soukromoprávního systému pro využívání údajů (SSVÚ) mezi soukromoprávními uživateli údajů v rámci jedné propojené finanční skupiny (banky, pojišťovny, penzijní společnosti) — jde o funkční propojení přístupu ke státním registrům napříč více subjekty jedné korporátní skupiny, které dosud zákon neupravoval.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeny jsou propojené finanční skupiny (úspora nákladů na technické řešení SSVÚ) a osoby, jejichž údaje jsou v rámci skupiny sdíleny.",
+    "evidence": "Bill text, čl. II bod 8 (nový § 38ae odst. 3 zákona č. 21/1992 Sb.); důvodová zpráva, obecná část, oddíl 2, K zákonu o bankách — https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=65&ct1=0"
+   },
+   {
+    "effect": "Doplněný § 18a odst. 4 zákona č. 106/1999 Sb. umožňuje Ministerstvu vnitra přenést provoz centrálního registru výročních zpráv na jiný státní orgán nebo státem zřízenou či založenou právnickou osobu, aniž zákon stanoví formu delegačního aktu nebo vztah adresáta delegace k Ministerstvu vnitra — sama důvodová zpráva tuto neurčitost označuje za záměrnou.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeno je Ministerstvo vnitra jako delegující orgán a subjekt, na který bude provoz registru výročních zpráv případně přenesen.",
+    "evidence": "Bill text, čl. III (nový § 18a odst. 4 zákona č. 106/1999 Sb.); důvodová zpráva, zvláštní část, K čl. III [§ 18a odst. 4] — https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=65&ct1=0"
+   }
+  ],
+  "conflictAssessment": "Datový soubor pro tento tisk neuvádí žádný přiřazený sektorový vztah předkladatele k projednávané agendě. Předkladatelem je vláda, resp. věcně min. práce a soc. věcí, a jediným uvedeným sponzorem tisku je Marian Jurečka — tedy tatáž osoba, která je ministrem práce a sociálních věcí, nikoli osoba odlišná od předkládajícího ministerstva. Marian Jurečka má v datovém souboru zaznamenanou peněžní vazbu na společnost AGRO 2000 s.r.o. (IČO 25586521, veřejné státní zakázky v souhrnné výši 253 958 310 Kč — jde o souhrn veřejných zakázek firmy, nikoli o osobní majetek jmenované osoby, a vazba je v grafu vedena jako čekající na kontrolu). Předmět tisku 65 (digitalizace agend DIA, bankovní tajemství, elektronická identifikace) nemá věcnou souvislost se zemědělským podnikáním AGRO 2000 s.r.o., kterým se váže tato vazba; nejde tedy o sektorový střet zájmů v obvyklém smyslu, byť je ministr sám nositelem peněžní vazby. Konflikt v tomto tisku nebyl na základě dostupných dat zjištěn.",
+  "severity": "low",
+  "confidence": 3,
+  "citations": [
+   {
+    "claim": "Novela zákona o bankách umožňuje sdílení relevantních informací s Digitální a informační agenturou a rozšiřuje okruh využitelných registrových údajů (rodné příjmení, pohlaví, rodinný stav, omezení svéprávnosti).",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=65&ct1=0"
+   },
+   {
+    "claim": "Nový § 38ae odst. 3 zákona č. 21/1992 Sb. umožňuje sdílení systému pro využívání údajů (SSVÚ) mezi soukromoprávními uživateli údajů v rámci jedné propojené finanční skupiny.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=65&ct1=0"
+   },
+   {
+    "claim": "Doplněný § 18a odst. 4 zákona č. 106/1999 Sb. umožňuje Ministerstvu vnitra delegovat provoz registru výročních zpráv, přičemž zákon záměrně neupravuje formu delegačního aktu ani vztah adresáta delegace k ministerstvu.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=65&ct1=0"
+   },
+   {
+    "claim": "Podle grafových dat o projednávání tisku 65 je garančním výborem VSR se stavem navrženo k 2025-12-17.",
+    "kind": "graph_fact",
+    "source": "bill:tisk:43172"
+   },
+   {
+    "claim": "Sponzor Marian Jurečka je v datovém souboru veden s peněžní vazbou na AGRO 2000 s.r.o. (IČO 25586521), veřejné zakázky v souhrnu 253 958 310 Kč, čekající na kontrolu; tisk nemá přiřazený sektorový vztah k zemědělství; Jurečka je zároveň ministrem předkládajícího resortu.",
+    "kind": "graph_fact",
+    "source": "company:ico:25586521"
+   }
+  ]
+ },
+ {
+  "billTisk": 69,
+  "statedReasoning": "Vládní návrh nového zákona o digitální ekonomice zavádí vnitrostátní rámec k několika přímo použitelným nařízením Evropské unie — nařízení o digitálních službách (DSA), nařízení o vztazích platforem a podnikatelů (P2B) a nařízení o správě dat (DGA) — a v navazujících novelizačních částech mění související předpisy. Důvodová zpráva volbu Českého telekomunikačního úřadu (ČTÚ) jako ústředního orgánu dozoru nad nařízeními DSA a DGA sama odůvodňuje srovnávací analýzou variant (nejnižší dodatečné náklady pro státní rozpočet vzhledem k blízkosti agendy, soulad s usnesením vlády č. 590 ze dne 16. srpna 2023, praxe většiny ostatních členských států), přičemž podrobnou analýzu odkazuje do samostatné Závěrečné zprávy z hodnocení dopadů regulace (RIA). Roli orgánu dozoru nad nařízením P2B ČTÚ plní už od roku 2023 na základě zákona č. 58/2023 Sb.; tento tisk ji nezavádí, jen na ni navazuje.",
+  "researchedContext": "Přímým součtem novelizačních částí (ČÁST DRUHÁ až ČÁST OSMÁ) bylo ověřeno, že text mění sedm navazujících předpisů: trestní řád (141/1961, § 68), zákon o ochraně spotřebitele (634/1992, § 69), autorský zákon (121/2000, § 70), zákon o správních poplatcích (634/2004, § 71), zákon o audiovizuálních mediálních službách na vyžádání (132/2010, § 72), občanský zákoník (89/2012, § 73) a zákon o zvláštních řízeních soudních (292/2013, ČÁST OSMÁ). Regenerovaná topologie hran amends v grafu (pole amendedLaws u tohoto tisku) eviduje jen 6 z těchto 7 zákonů — chybí zákon č. 132/2010 Sb., o audiovizuálních mediálních službách na vyžádání, měněný v ČÁST ŠESTÁ, § 72. Nezávisle na tom bylo ověřeno, že §§ 40–41 zavádí mechanismus soudem podloženého blokování internetových stránek prostřednictvím seznamu vedeného ČTÚ, s povinností poskytovatelů služby přístupu k internetu takový přístup technicky znemožnit.",
+  "unstatedEffects": [
+   {
+    "effect": "Návrh zavádí mechanismus soudem podloženého blokování internetových stránek prostřednictvím seznamu vedeného ČTÚ a ukládá poskytovatelům služby přístupu k internetu povinnost takový přístup technicky znemožnit — jde o zásah do dostupnosti obsahu na internetu, jehož konkrétní procesní podobu (§§ 40–41) shrnutí novely v podkladech tisku nezmiňuje.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou poskytovatelé připojení k internetu (nová technická a procesní povinnost) a provozovatelé služeb zařazených na seznam (omezení dostupnosti jejich služby uživatelům v České republice).",
+    "evidence": "§ 41 tisku 69 ukládá poskytovatelům služby přístupu k internetu povinnost zamezit přístupu k internetovým stránkám uvedeným v seznamu služeb s dočasně omezeným přístupem, vede-li ČTÚ takový seznam na základě rozhodnutí soudu podle čl. 51 odst. 3 nařízení DSA."
+   }
+  ],
+  "conflictAssessment": "Předkladatelem je Ministerstvo průmyslu a obchodu a jediným poslaneckým sponzorem uvedeným v grafu vazeb k tisku 69 je Lukáš Vlček. Graf u něj eviduje šest peněžních vazeb, včetně jeho největší — SOMPO, a.s. (IČO 25172263, evidováno 9 174 258 Kč). SOMPO byla založena v roce 1997 sto sedmnácti obcemi jako akcionáři a zabývá se odpadovým hospodářstvím (NACE 38); Vlček v ní podle obchodního rejstříku zastává funkci předsedy představenstva od 3. 12. 2024 (v orgánech společnosti podle téhož rejstříku působil v různých funkcích i dříve). Jde tedy o vazbu na komunálně vlastněnou obchodní společnost — podle ustáleného pravidla tohoto projektu se taková vazba posuzuje jako municipální/SOE role a NENÍ sama o sobě střetem zájmů, i když ji je namístě jmenovat, nikoli mlčky vynechat. Zbývajících pět vazeb (vodárenské družstvo, projekční firma, dva občanské spolky, společenství vlastníků jednotek) směřuje k dalším regionálním subjektům v okrese Pelhřimov. U žádné z šesti vazeb nejde o poskytovatele digitálních služeb, provozovatele online platformy ani jiný subjekt, který by zákon o digitální ekonomice přímo regulovala. Uváděné částky u jednotlivých firem jsou souhrnem veřejných smluv evidovaných u dané firmy, nikoli osobním příjmem poslance. Tisk 69 nemá v datech atribuovaného odvětvového vedoucího — v datech tedy není doložen přímý střet zájmů předkladatele s obsahem novely.",
+  "severity": "medium",
+  "confidence": 3,
+  "citations": [
+   {
+    "claim": "§ 41 tisku 69 ukládá poskytovatelům služby přístupu k internetu povinnost zamezit přístupu k internetovým stránkám uvedeným v seznamu služeb s dočasně omezeným přístupem, vede-li ČTÚ takový seznam na základě rozhodnutí soudu podle čl. 51 odst. 3 nařízení DSA.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=69&ct1=0"
+   },
+   {
+    "claim": "Důvodová zpráva odůvodňuje volbu ČTÚ jako orgánu dozoru nad nařízeními DSA a DGA srovnávací analýzou variant a odkazuje podrobnou analýzu do samostatné Závěrečné zprávy z hodnocení dopadů regulace; roli orgánu dozoru nad nařízením P2B ČTÚ plní už od roku 2023 podle zákona č. 58/2023 Sb.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=69&ct1=0"
+   },
+   {
+    "claim": "ČÁST ŠESTÁ, § 72 tisku 69 mění zákon č. 132/2010 Sb., o audiovizuálních mediálních službách na vyžádání — sedmý měněný předpis, který regenerovaná topologie amends v grafu u tohoto tisku neeviduje.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=69&ct1=0"
+   },
+   {
+    "claim": "Poslanec Lukáš Vlček má u tisku 69 v grafu evidovanou peněžní vazbu na SOMPO, a.s. (IČO 25172263) ve výši 9 174 258 Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu).",
+    "kind": "graph_fact",
+    "source": "company:ico:25172263"
+   },
+   {
+    "claim": "Poslanec Lukáš Vlček má u tisku 69 evidovanou peněžní vazbu na PEVAK Pelhřimov, družstvo — vodárenský subjekt bez vztahu k digitálním službám.",
+    "kind": "graph_fact",
+    "source": "company:ico:26039907"
+   },
+   {
+    "claim": "Tisk 69 mění mimo jiné zákon č. 89/2012 Sb., občanský zákoník, a zákon č. 121/2000 Sb., autorský zákon.",
+    "kind": "law",
+    "source": "89/2012"
+   },
+   {
+    "claim": "Lukáš Vlček je podle veřejného rejstříku (ARES VR) předsedou představenstva SOMPO, a.s. od 3. 12. 2024 (vznik funkce 2024-12-03, bez zapsaného zániku); v orgánech společnosti podle téhož rejstříku působil v různých funkcích i v dřívějších obdobích.",
+    "kind": "web",
+    "source": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25172263"
+   },
+   {
+    "claim": "SOMPO, a.s. byla založena v roce 1997 sto sedmnácti členskými obcemi jako akcionáři a zabývá se odpadovým hospodářstvím (ARES: NACE 38, sběr a zpracování odpadů) — jde o komunálně vlastněnou společnost.",
+    "kind": "web",
+    "source": "https://www.sompo.cz/sompo/zakladni-informace/"
+   }
+  ]
+ }
+]
