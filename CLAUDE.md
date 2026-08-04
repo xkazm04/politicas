@@ -312,6 +312,43 @@ Route map (politicas.md roadmap execution, sample data):
   dopravní podniky (3 MPs, steward, 13,41 mld. Kč, 1 296 contracts), AGROFERT
   (2 MPs — Babiš `manager`, Faltýnek `steward` — attributable 8,71 mil. Kč).
   Ledger company cells and case-file tie headings link into it.
+  **The public wire carries what renders (2026-08-04).** `getMoneyData()` handed the
+  ledger 211 ties × **38 fields**; `TiesLedger` renders **15**. The other 23 crossed
+  the network every request — analyst prose (`reviewerNote`, 211/211), the
+  corroboration capsule + its source URL, the review trail, the signal/tier internals.
+  `features/money/publicWire.ts` is the projection, applied in `app/penize/page.tsx`
+  BETWEEN the loader and the client: `TIE_WIRE` classifies every `MoneyTie` field
+  `public`/`internal` under `satisfies Record<keyof MoneyTie, …>`, so a field added to
+  `MoneyTie` **fails to compile until someone classifies it**, and `PublicMoneyTie` is
+  `Pick`ed from that table (a missing `public` field is a type error; the colocated
+  test holds `toPublicTie` to `PUBLIC_TIE_KEYS`). There is **no second mapper** — the
+  case file and the console keep the FULL `MoneyTie`, because the person deciding a
+  tie must never see less than the public does. `mpsWithoutTies` ships the 36 chips
+  that render plus the TRUE count (144), not 144 stubs. Measured on the live store:
+  **/penize props 337 330 → 107 724 B raw (−68 %), 40 815 → 17 312 B gzipped (−58 %)**,
+  with `stats` and `graph` byte-identical.
+  **The supplies fold is memoized across requests.** `listKgEdges({rel:"supplies"})`
+  is ~153 731 rows folded into a ~196-entry per-company aggregate that changes only on
+  `da:kg-compute`, and `react.cache()` is scoped to ONE request — so every /penize and
+  /penize/kontrola request re-read the whole relation. It now expires on the SAME bound
+  /dashboard declares (`MONEY_MEMO_TTL_MS`, imported, never re-declared: two memos over
+  one graph layer on two clocks is how two surfaces print two vintages of one number),
+  and neither an empty read nor a failure is memoized. Measured: **`getMoneyData()`
+  cold 5 965 ms → warm 206 / 240 ms** (it was 5 572 ms warm before). The page PRINTS
+  the bound (`money.real.freshness`), because memoization — not `revalidate` — is what
+  actually bounds staleness here.
+  **The mock is code-split.** `lib/civic/data.ts` was imported at module scope by
+  `FollowTheMoneyPage`, `TiesLedger` and `MoneyGraph` for the fallback alone.
+  `MockLedger` / `MockMoneyGraph` / `MockStatTiles` are now their own modules loaded via
+  `next/dynamic` (no `ssr:false` — the fallback still server-renders), and the real and
+  sample tiles share ONE `components/StatTiles.tsx` rather than two copies of the grid.
+  The /penize page chunk drops **40 336 → 38 367 B** and the three mock chunks
+  (1 224 + 3 794 + 3 415 B) leave the parse path. **Honest limit: the shared
+  `lib/civic/data` chunk (15 269 B) stays eager anyway** — `features/shell/
+  sidebarParts.tsx` imports `MODULES` on every route, so no /penize change can evict
+  it. Fallback verified against the production build with `PGLITE_PATH` pointed at a
+  nonexistent dir: /penize renders the labelled mock, `/penize/firma/<ico>` renders its
+  honest empty state at HTTP 200, `/penize/firma/abc` 404s.
 - `/zebricek` — **CivicScore** (features/civicscore): leaderboard — score
   histogram + chamber summary, party filter + name search, mini
   weighted-breakdown bars per row, and Souboj (pick two via "vs" → mirrored

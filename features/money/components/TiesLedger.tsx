@@ -12,25 +12,28 @@
  */
 
 import { useMemo, useState } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { ArrowUpDown, ArrowUpRight } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { MONEY_TIES, MPS } from "@/lib/civic/data";
-import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import {
   compactCzk,
   temporalBadge,
   tieClassInfo,
   tieClassOriginInfo,
-  type MoneyData,
-  type MoneyMp,
-  type MoneyTie,
   type TieClass,
 } from "../moneyTypes";
+import { LEDGER_CHIP_CAP, type MoneyLedgerData, type PublicMoneyMp, type PublicMoneyTie } from "../publicWire";
 import { claimRefPath } from "@/features/shared/provenance/claimRef";
 import { tieReach } from "../reachableMoney";
 import TieClassExplainer from "./TieClassExplainer";
+
+/* The labelled sample ledger is a FALLBACK — it renders only when the money layer is
+   unavailable. Importing it (and with it the 27 KB `lib/civic/data.ts`) at module scope
+   put it in the bundle of every request that will never show it. `next/dynamic` without
+   `ssr: false` keeps the fallback working on the server too. */
+const MockLedger = dynamic(() => import("./MockLedger"));
 
 const BADGE_TONE_CLS: Record<string, string> = {
   current: "border-cobalt text-cobalt",
@@ -45,17 +48,16 @@ const CLASS_TONE_CLS: Record<string, string> = {
   steel: "border-hairline text-steel",
 };
 
-const CHIP_CAP = 36; // MPs without ties rendered as chips before "+ N more"
 const PAGE_SIZE = 25;
 
-export default function TiesLedger({ data }: { data: MoneyData | null }) {
+export default function TiesLedger({ data }: { data: MoneyLedgerData | null }) {
   if (data) return <RealLedger data={data} />;
   return <MockLedger />;
 }
 
 // ── Real: filterable/sortable/paginated ledger over the knowledge-graph money layer ──
 
-type FlatRow = { mp: MoneyMp; tie: MoneyTie };
+type FlatRow = { mp: PublicMoneyMp; tie: PublicMoneyTie };
 // "evidence" = the batch-005 review order (reviewRank: registry-confirmed
 // owner-operator first, then manager, then steward, unconfirmed/conflicting
 // last; reachable CZK only breaks ties within the same tier). Default sort —
@@ -65,7 +67,7 @@ type SortKey = "evidence" | "reach" | "mp" | "company";
 type CorroborationFilter = "all" | "confirmed" | "unconfirmed" | "conflicting" | "unchecked";
 type TemporalFilter = "all" | "current" | "ended" | "warn" | "unknown";
 
-function RealLedger({ data }: { data: MoneyData }) {
+function RealLedger({ data }: { data: MoneyLedgerData }) {
   const t = useTranslations("money");
   const tcom = useTranslations("common");
   const locale = useLocale();
@@ -135,8 +137,10 @@ function RealLedger({ data }: { data: MoneyData }) {
     }
   };
 
-  const shownChips = data.mpsWithoutTies.slice(0, CHIP_CAP);
-  const restChips = data.mpsWithoutTies.length - shownChips.length;
+  // The server already cut this list to what renders (`toLedgerData`); the count of the
+  // rest travels as a NUMBER, not as 108 unrendered stubs.
+  const shownChips = data.mpsWithoutTies.slice(0, LEDGER_CHIP_CAP);
+  const restChips = data.mpsWithoutTiesCount - shownChips.length;
 
   return (
     <div>
@@ -479,96 +483,5 @@ function FilterChip({
     >
       {children}
     </button>
-  );
-}
-
-// ── Mock fallback (unchanged behaviour, kept for graceful degradation) ───────
-
-const WITH_TIES = MPS.filter((m) => MONEY_TIES.some((tie) => tie.mpId === m.id));
-const WITHOUT_TIES = MPS.filter((m) => !MONEY_TIES.some((tie) => tie.mpId === m.id));
-
-function MockLedger() {
-  const t = useTranslations("money");
-  const tc = useTranslations("content");
-  const tcom = useTranslations("common");
-  const f = useFormat();
-
-  return (
-    <div>
-      {WITH_TIES.map((mp) => {
-        const ties = MONEY_TIES.filter((tie) => tie.mpId === mp.id);
-        return (
-          <div key={mp.id} className="mb-8">
-            <Link
-              href={`/poslanec/${mp.id}`}
-              className="group flex items-center justify-between gap-3 border-b-2 border-ink pb-2 transition-colors hover:text-signal"
-            >
-              <span className="text-xl font-black uppercase tracking-tight">
-                {mp.name}
-                <span className="ml-2 font-mono text-xs font-normal normal-case tracking-normal text-steel">
-                  · {mp.party} · {t("ledger.caseFile", { rank: f.int(mp.rank) })}
-                </span>
-              </span>
-              <ArrowUpRight className="h-5 w-5 text-signal transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </Link>
-            {ties.map((tie) => {
-              const i = MONEY_TIES.indexOf(tie);
-              return (
-                <div
-                  key={`${tie.mpId}-${tie.company}`}
-                  className="grid gap-3 border-b border-hairline px-1 py-4 sm:grid-cols-[1.2fr_1fr_auto]"
-                >
-                  <span>
-                    <span className="flex flex-wrap items-center gap-2">
-                      <span className="text-base font-black uppercase tracking-tight">{tc(`moneyTies.${i}.company`)}</span>
-                      {tie.verified ? (
-                        <span className="border-2 border-cobalt px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-cobalt">
-                          {tcom("verified")}
-                        </span>
-                      ) : (
-                        <span className="border-2 border-ochre bg-ochre/15 px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-ink">
-                          {tcom("pendingReview")}
-                        </span>
-                      )}
-                    </span>
-                    <span className="mt-0.5 block font-mono text-[11px] uppercase tracking-wider text-steel">
-                      IČO {tie.ico} · {tc(`moneyTies.${i}.kind`)}
-                    </span>
-                  </span>
-                  <span className="text-[15px] leading-relaxed text-steel">{tc(`moneyTies.${i}.note`)}</span>
-                  <span className="text-right">
-                    <span className={`block text-xl font-black tabular-nums ${tie.amount === "—" ? "text-steel" : "text-signal"}`}>
-                      {tc(`moneyTies.${i}.amount`)}
-                    </span>
-                    <span className="mt-0.5 block font-mono text-[11px] uppercase tracking-wider text-steel">
-                      {tie.year} · {tc(`moneyTies.${i}.source`)}
-                    </span>
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        );
-      })}
-
-      <div className="border-2 border-dashed border-hairline p-5">
-        <SourceNote>{t("ledger.noTiesNote")}</SourceNote>
-        <div className="mt-2 flex flex-wrap gap-2">
-          {WITHOUT_TIES.map((mp) => (
-            <Link
-              key={mp.id}
-              href={`/poslanec/${mp.id}`}
-              className="border-2 border-hairline px-3 py-1.5 text-sm font-bold transition-colors hover:border-ink hover:bg-paper-strong"
-            >
-              {mp.name}
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      <p className="mt-4 max-w-3xl text-sm italic leading-relaxed text-steel">
-        {t("ledger.disclaimer", { pendingLabel: tcom("pendingReview") })}
-      </p>
-    </div>
   );
 }

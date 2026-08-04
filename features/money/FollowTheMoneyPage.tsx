@@ -10,25 +10,34 @@
  */
 
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
-import { MODULES, MONEY_TIES } from "@/lib/civic/data";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
 import MoneyGraph from "./MoneyGraph";
+import StatTiles, { type StatTileItem } from "./components/StatTiles";
 import TiesLedger from "./components/TiesLedger";
 import TrailMethod from "./components/TrailMethod";
-import { compactCzk, type MoneyData } from "./moneyTypes";
+import { compactCzk } from "./moneyTypes";
+import type { MoneyLedgerData } from "./publicWire";
 import { reviewSummary } from "./reviewSummary";
+import { MONEY_MEMO_TTL_MS } from "@/features/dashboard/freshness";
 
-const MODULE = MODULES.find((m) => m.key === "follow-the-money")!;
-const PENDING = MONEY_TIES.filter((tie) => !tie.verified).length;
+/* The sample tiles are a FALLBACK — and they were the only reason this module imported
+   `lib/civic/data.ts` (27 KB) at module scope, which every reader of the REAL page paid
+   for. `next/dynamic` without `ssr: false` keeps the fallback server-rendered. */
+const MockStatTiles = dynamic(() => import("./components/MockStatTiles"));
 
-export default function FollowTheMoneyPage({ data }: { data?: MoneyData | null }) {
+/** Kolik hodin smí být peněžní vrstva stará — táž mez, kterou deklaruje /dashboard
+ *  (features/dashboard/freshness.ts). Věta pod dlaždicemi ji tiskne, protože memoizace
+ *  je dnes to, co stáří těch čísel skutečně omezuje. */
+const MONEY_MEMO_HOURS = MONEY_MEMO_TTL_MS / 3_600_000;
+
+export default function FollowTheMoneyPage({ data }: { data?: MoneyLedgerData | null }) {
   const t = useTranslations("money");
-  const tc = useTranslations("content");
   const tcom = useTranslations("common");
   const f = useFormat();
   const locale = useLocale();
@@ -49,7 +58,7 @@ export default function FollowTheMoneyPage({ data }: { data?: MoneyData | null }
   // it must not be the number a reader sees first (UX audit 2026-07-27, #3).
   /** `note` is the second, qualifying line a tile may need — today only the lower-bound
    *  explainer, which must not be optional-by-omission again. */
-  const STATS: Array<{ label: string; value: string; sub: string; source: string; note?: string | null }> = data
+  const STATS: StatTileItem[] | null = data
     ? [
         {
           // The count mixes two kinds of evidence: a class a person or an analysis pass
@@ -108,32 +117,7 @@ export default function FollowTheMoneyPage({ data }: { data?: MoneyData | null }
             : t("real.stats.reachableSource"),
         },
       ]
-    : [
-        {
-          label: tc(`modules.${MODULE.key}.metricLabel`),
-          value: tc(`modules.${MODULE.key}.metricValue`),
-          sub: t("stats.contracted.sub"),
-          source: t("stats.contracted.source"),
-        },
-        {
-          label: t("stats.sampleTies.label"),
-          value: f.int(MONEY_TIES.length),
-          sub: t("stats.sampleTies.sub"),
-          source: t("stats.sampleTies.source"),
-        },
-        {
-          label: t("stats.pendingReview.label"),
-          value: f.int(PENDING),
-          sub: t("stats.pendingReview.sub"),
-          source: t("stats.pendingReview.source"),
-        },
-        {
-          label: t("stats.joinKey.label"),
-          value: "IČO",
-          sub: t("stats.joinKey.sub"),
-          source: t("stats.joinKey.source"),
-        },
-      ];
+    : null;
 
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
@@ -225,23 +209,15 @@ export default function FollowTheMoneyPage({ data }: { data?: MoneyData | null }
         </div>
 
         {/* ── Agregátní dlaždice ────────────────────────────── */}
-        <div className="grid gap-px border border-ink bg-ink sm:grid-cols-2 lg:grid-cols-4">
-          {STATS.map((s, i) => (
-            <motion.div
-              key={s.label}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.06 }}
-              className="bg-paper p-6"
-            >
-              <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">{s.label}</p>
-              <p className="mt-3 text-4xl font-black tabular-nums tracking-tight">{s.value}</p>
-              <p className="mt-2 text-sm text-steel">{s.sub}</p>
-              {s.note ? <p className="mt-2 border-l-2 border-ochre pl-2 text-sm text-steel">{s.note}</p> : null}
-              <SourceNote className="mt-3 !text-[10px]">{tcom("sourcePrefix")} {s.source}</SourceNote>
-            </motion.div>
-          ))}
-        </div>
+        {STATS ? <StatTiles items={STATS} /> : <MockStatTiles />}
+        {/* Co dnes skutečně omezuje stáří těchhle čísel: peněžní vrstva se čte přes
+            memoizovaný fold ~153 731 hran `supplies`, který vyprší po témž okně, jaké
+            deklaruje /dashboard. Mez patří k číslům, ne do komentáře. */}
+        {data && (
+          <div className="mt-3">
+            <SourceNote>{t("real.freshness", { hours: f.int(MONEY_MEMO_HOURS) })}</SourceNote>
+          </div>
+        )}
 
         {/* ── 01 Graf entit ─────────────────────────────────── */}
         <section id="graf" className="mt-16">

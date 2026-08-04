@@ -837,6 +837,7 @@
         "allDecided": "● všechny vazby rozhodnuty · {verified} potvrzeno"
       },
       "graphCaption": "obr. — stopa poslance {name} · osoba kobalt · firma čerň · veřejné peníze signální ◆ · vše čeká na lidskou kontrolu",
+      "freshness": "peněžní vrstva se čte z memoizovaného foldu ~153 731 hran supplies v grafu; memo vyprší po {hours} h, takže tak stará mohou tahle čísla nejvýš být — stejnou mez deklaruje /dashboard",
       "graphSelection": "obr. — stopa poslance {name} · vybrán pravidlem: nejvyšší přisouditelný dosah v grafu ({value}) — smlouvy a dotace firem, které poslanec vlastní nebo řídí; peníze institucí, kde jen zasedá v orgánu, do výběru nevstupují a v grafu jsou ocelové · osoba kobalt · firma čerň",
       "ledger": {
         "tiesCount": "{count} evidovaných vazeb",

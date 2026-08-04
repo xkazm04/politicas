@@ -23,6 +23,10 @@ import { toProvenance } from "@/features/shared/provenance/receipt";
 import { edgeClaimRef } from "@/features/shared/provenance/claimRef";
 import { isDeMinimis, nearThresholdCount, resolveReviewOrder, resolveTieClass, reviewSignal } from "./reviewTypes";
 import { KG_READ_CAP } from "@/lib/db/readCap";
+// ONE staleness bound over the graph's money layer, not a second one: /dashboard already
+// declares how long a memoized money read may live (and prints it), and this memo caches
+// the same layer for the same reason.
+import { MONEY_MEMO_TTL_MS } from "@/features/dashboard/freshness";
 
 const TERM = "PSP10";
 const CONTRACT_LINES_PER_COMPANY = 400; // generous cap; UI slices its own top-N
@@ -203,6 +207,64 @@ export async function loadClubs(store: Store): Promise<Map<number, string>> {
   return clubByPerson;
 }
 
+/* ── the supplies fold, memoized across requests ─────────────────────────────
+ *
+ * `listKgEdges({rel:"supplies"})` returns ~153 731 rows and the fold below turns them
+ * into a ~196-entry per-company aggregate. That aggregate changes only when the graph
+ * is re-materialized by `npm run da:kg-compute` — never at request time — yet every
+ * /penize and /penize/kontrola request re-read and re-folded the whole relation,
+ * because `react.cache()` is scoped to ONE request.
+ *
+ * The memo is bounded by the SAME window the dashboard's money memo uses
+ * (`features/dashboard/freshness.ts::MONEY_MEMO_TTL_MS`) — imported, not re-declared:
+ * two memos over the same graph layer expiring on two different clocks is exactly how
+ * two surfaces start printing two vintages of one number. A process-lifetime memo would
+ * additionally make "how stale can this page be" unanswerable.
+ *
+ * Neither an empty read nor a failure is memoized: a transient PGlite hiccup on cold
+ * start must not be cached for a day. */
+let suppliesFold: Promise<Map<string, CompanyContracts>> | null = null;
+let suppliesFoldAt = 0;
+
+function foldSupplies(edges: readonly KgEdgeRow[]): Map<string, CompanyContracts> {
+  const byCompany = new Map<string, CompanyContracts>();
+  for (const e of edges) {
+    const cur = byCompany.get(e.src) ?? { count: 0, czk: 0, amounts: [] };
+    const amount = num(e.weight);
+    cur.count += 1;
+    cur.czk += amount;
+    if (amount > 0) cur.amounts.push(amount);
+    byCompany.set(e.src, cur);
+  }
+  return byCompany;
+}
+
+function contractsByCompanyMemo(store: Store): Promise<Map<string, CompanyContracts>> {
+  if (suppliesFold !== null && Date.now() - suppliesFoldAt >= MONEY_MEMO_TTL_MS) suppliesFold = null;
+  if (suppliesFold === null) {
+    suppliesFoldAt = Date.now();
+    suppliesFold = store
+      .listKgEdges({ rel: "supplies", limit: KG_READ_CAP })
+      .then((edges) => {
+        if (edges.length === 0) suppliesFold = null; // don't memoize an absent layer
+        return foldSupplies(edges);
+      })
+      .catch((err) => {
+        suppliesFold = null; // don't memoize a transient failure
+        throw err;
+      });
+  }
+  return suppliesFold;
+}
+
+/** Test hook: drop the cross-request supplies memo. Nothing in the app calls it —
+ *  it exists so a test that swaps the underlying store can do so explicitly rather than
+ *  depending on module-instance isolation. */
+export function resetSuppliesMemo(): void {
+  suppliesFold = null;
+  suppliesFoldAt = 0;
+}
+
 /**
  * The whole-corpus read, for the two surfaces that genuinely need every tie: the
  * `/penize` ledger and the `/penize/kontrola` console.
@@ -223,21 +285,13 @@ export const loadMoneyLayer = cache(async function loadMoneyLayer(): Promise<Mon
     const companies = await store.listKgNodes({ kind: "company", limit: KG_READ_CAP });
     const persons = await store.listKgNodes({ kind: "person", limit: KG_READ_CAP });
     const linked = await store.listKgEdges({ rel: "linked_to", limit: KG_READ_CAP });
-    const supplies = await store.listKgEdges({ rel: "supplies", limit: KG_READ_CAP });
     if (linked.length === 0 || companies.length === 0) return null;
 
     const companyById = new Map(companies.map((c) => [c.id, c]));
     const personById = new Map(persons.map((p) => [p.id, p]));
 
-    const contractsByCompany = new Map<string, CompanyContracts>();
-    for (const e of supplies) {
-      const cur = contractsByCompany.get(e.src) ?? { count: 0, czk: 0, amounts: [] };
-      const amount = num(e.weight);
-      cur.count += 1;
-      cur.czk += amount;
-      if (amount > 0) cur.amounts.push(amount);
-      contractsByCompany.set(e.src, cur);
-    }
+    // The ~153 731-row supplies read + fold, memoized across requests (see above).
+    const contractsByCompany = await contractsByCompanyMemo(store);
 
     const clubByPerson = await loadClubs(store);
     const pass = num((linked[0]?.provenance as Record<string, unknown> | undefined)?.pass) || 0;
