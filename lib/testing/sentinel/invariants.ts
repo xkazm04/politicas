@@ -25,10 +25,16 @@ import {
   stalenessOf,
   SOURCE_CADENCE_DAYS,
 } from "@/lib/analysis/atlas";
+import {
+  computeContribution,
+  CONTRIBUTION_FORMULA_REF,
+  type CommitteeSeat,
+  type ContributionInputs,
+} from "@/lib/analysis/contribution";
 import { canonicalJson, sha256Hex } from "@/lib/db/pglite/ledger";
 import { floorVerdicts } from "@/lib/db/readiness";
 import { deriveReleaseManifest, type ReleaseManifest } from "@/features/data-releases/manifest";
-import type { SentinelFacts } from "./facts";
+import type { PersonScoreFact, SentinelFacts } from "./facts";
 import type { SentinelCheck, SentinelReport } from "./report";
 import { SENTINEL_SCHEMA } from "./report";
 
@@ -168,6 +174,205 @@ function checkScoreSample(facts: SentinelFacts): SentinelCheck {
   return ok(id, label, `${facts.persons.length} persons, all with finite contribution_score`);
 }
 
+/* ── the four scoring invariants (2026-08-04) ───────────────────────────────
+ *
+ * What they close: between 2026-07-29 and 2026-08-04 the committee-dedupe correction
+ * lived in lib/analysis/contribution.ts while every person node still carried pass-11
+ * scores. /zebricek served the pre-correction ranking for six days and NOTHING saw it —
+ * the sentinel read `contribution_score` and asserted only that it was finite, and
+ * `checkDeterminism` compares the store to ITSELF (a stale store is perfectly
+ * self-consistent). These four give the sentinel an edge between the FORMULA and the DATA.
+ *
+ * NB on execution: `.github/workflows/sentinel.yml` is a NO-OP on a hosted runner —
+ * there is no `./.pglite` there, so the runner exits 2 ("store not found") and the
+ * nightly proves nothing about these invariants. Local `npm run sentinel` against a copy
+ * of the real store is the ONLY path on which they actually execute today. Do not read a
+ * green nightly as coverage.
+ */
+
+/**
+ * The composite is round1() of a sum whose terms were computed from the RAW ratios, while
+ * the store publishes those ratios at 3 decimals — so a re-derivation from stored props
+ * can land one displayed tenth away from the stored composite and be entirely correct.
+ * Measured on the live store 2026-08-04: 13 of 207 MPs at exactly 0,1, none above. This
+ * is the SAME tolerance getLeaderboardData's breakdown footnote publishes; a pass-11-era
+ * store (rates at 1 decimal) blows straight through it, which is the point.
+ */
+export const SCORE_TOLERANCE = 0.1;
+
+/** How many MPs the recompute invariant actually re-scores. Deterministic stride sample. */
+export const RECOMPUTE_SAMPLE_SIZE = 40;
+
+const round1 = (x: number) => Math.round(x * 10) / 10;
+
+/**
+ * Deterministic sample: persons ordered by id (the collection's own order), taken at an
+ * even stride. NO Date.now(), NO Math.random() — two runs over one store pick the same
+ * MPs, so a violation is reproducible and a green run is not luck.
+ */
+export function sampleForRecompute(persons: readonly PersonScoreFact[]): PersonScoreFact[] {
+  const ordered = [...persons].sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+  if (ordered.length <= RECOMPUTE_SAMPLE_SIZE) return ordered;
+  const stride = Math.floor(ordered.length / RECOMPUTE_SAMPLE_SIZE);
+  const out: PersonScoreFact[] = [];
+  for (let i = 0; out.length < RECOMPUTE_SAMPLE_SIZE && i < ordered.length; i += stride) out.push(ordered[i]);
+  return out;
+}
+
+/**
+ * Rebuild the formula's INPUT from a person's stored props.
+ *
+ * The store publishes the scorer's derived counts (`committee_count` = distinct bodies,
+ * `leadership_count` = distinct led bodies) rather than the raw membership rows, so the
+ * seats are reconstructed as exactly that many distinct synthetic organs. That is faithful
+ * for everything downstream of the dedupe — and the dedupe itself is guarded by the REF
+ * invariant, which is the only thing that can see a change in what "one body" means.
+ *
+ * The rates are re-expressed over a 1 000-unit denominator: a 3-decimal rate is an exact
+ * integer there, so no precision is invented. Returns null when an input is missing.
+ */
+export function inputsFromStored(p: PersonScoreFact): ContributionInputs | null {
+  const { committeeCount, leadershipCount, participationRate, absenceRate } = p.inputs;
+  if (committeeCount === null || leadershipCount === null || participationRate === null || absenceRate === null) {
+    return null;
+  }
+  if (leadershipCount > committeeCount) return null; // incoherent: more led bodies than bodies
+  const seats: CommitteeSeat[] = [];
+  for (let i = 0; i < committeeCount; i++) {
+    seats.push({ organPspId: 900_000 + i, organType: "Výbor", functionType: i < leadershipCount ? "předseda" : null });
+  }
+  return {
+    personPspId: 0,
+    seats,
+    ballotsWithPosition: Math.round(participationRate * 1000),
+    rollCallsHeld: 1000,
+    excusedDays: Math.round(absenceRate * 1000),
+    sessionDays: 1000,
+    billsAuthored: p.inputs.billsAuthored ?? 0,
+    interpellations: p.inputs.interpellations ?? 0,
+    speechTurns: p.inputs.speechTurns ?? 0,
+  };
+}
+
+/** (a) Every person's stored formula ref is the one lib/analysis/contribution.ts declares. */
+function checkFormulaRef(facts: SentinelFacts): SentinelCheck {
+  const id = "formula-ref";
+  const label = `stored formula ref === CONTRIBUTION_FORMULA_REF ("${CONTRIBUTION_FORMULA_REF}")`;
+  if (facts.persons.length === 0) return violation(id, label, "no person nodes — no ref to check");
+  const missing = facts.persons.filter((p) => p.provenanceRef === null);
+  const wrong = facts.persons.filter((p) => p.provenanceRef !== null && p.provenanceRef !== CONTRIBUTION_FORMULA_REF);
+  const problems: string[] = [];
+  if (missing.length > 0) {
+    problems.push(
+      `${missing.length}/${facts.persons.length} person(s) carry NO contribution_provenance.ref, ` +
+        `e.g. ${missing.slice(0, 3).map((p) => p.id).join(", ")}`,
+    );
+  }
+  if (wrong.length > 0) {
+    const refs = [...new Set(wrong.map((p) => p.provenanceRef))].join(", ");
+    problems.push(
+      `${wrong.length}/${facts.persons.length} person(s) were scored by a DIFFERENT formula (stored: ${refs}) — ` +
+        `the published ranking is not the one this code computes; run scripts/data-analysis/kg-contribution-recompute.ts --commit`,
+    );
+  }
+  if (problems.length > 0) return violation(id, label, problems.join("; "));
+  return ok(id, label, `all ${facts.persons.length} persons carry ref "${CONTRIBUTION_FORMULA_REF}"`);
+}
+
+/** (b) The whole chamber agrees on ONE {pass, ref} — a half-finished recompute is a lie. */
+function checkProvenanceUniformity(facts: SentinelFacts): SentinelCheck {
+  const id = "provenance-uniformity";
+  const label = "every person agrees on one {pass, ref}";
+  if (facts.persons.length === 0) return violation(id, label, "no person nodes — nothing to compare");
+  const buckets = new Map<string, number>();
+  for (const p of facts.persons) {
+    const key = `pass ${p.provenancePass ?? "—"} / ref ${p.provenanceRef ?? "—"}`;
+    buckets.set(key, (buckets.get(key) ?? 0) + 1);
+  }
+  const variants = [...buckets.entries()].sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1));
+  if (variants.length > 1) {
+    return violation(
+      id,
+      label,
+      `${variants.length} distinct provenances across ${facts.persons.length} persons — a partially applied ` +
+        `recompute publishes one ranking built from two formulas: ${variants.map(([k, n]) => `${k} ×${n}`).join(" · ")}`,
+    );
+  }
+  return ok(id, label, `${facts.persons.length} persons, all on ${variants[0][0]}`);
+}
+
+/** (c) The six weighted components derived from stored inputs sum to the stored composite. */
+function checkComponentsSum(facts: SentinelFacts): SentinelCheck {
+  const id = "components-sum";
+  const label = `six components sum to the stored composite (±${SCORE_TOLERANCE})`;
+  if (facts.persons.length === 0) return violation(id, label, "no person nodes — nothing to reconcile");
+  const unevaluable: string[] = [];
+  const off: string[] = [];
+  let worst = 0;
+  for (const p of facts.persons) {
+    const inputs = inputsFromStored(p);
+    if (inputs === null || p.score === null) {
+      unevaluable.push(p.id);
+      continue;
+    }
+    const c = computeContribution(inputs).components;
+    const sum = round1(c.committee + c.leadership + c.participation + c.attendance + c.legislative + c.speech);
+    const delta = round1(sum - p.score);
+    if (Math.abs(delta) > SCORE_TOLERANCE) {
+      worst = Math.max(worst, Math.abs(delta));
+      if (off.length < 5) off.push(`${p.id}: parts ${sum} vs composite ${p.score} (Δ ${delta})`);
+    }
+  }
+  const problems: string[] = [];
+  if (unevaluable.length > 0) {
+    problems.push(
+      `${unevaluable.length}/${facts.persons.length} person(s) lack the stored inputs the components are made of, ` +
+        `e.g. ${unevaluable.slice(0, 3).join(", ")}`,
+    );
+  }
+  if (off.length > 0) problems.push(`worst |Δ| ${round1(worst)} > ${SCORE_TOLERANCE}: ${off.join("; ")}`);
+  if (problems.length > 0) return violation(id, label, problems.join(" · "));
+  return ok(id, label, `${facts.persons.length} persons reconcile within ±${SCORE_TOLERANCE}`);
+}
+
+/** (d) Re-run the REAL formula on a deterministic sample of MPs' stored inputs. */
+function checkRecomputeSample(facts: SentinelFacts): SentinelCheck {
+  const id = "recompute-sample";
+  const label = `computeContribution() over stored inputs reproduces the stored score (±${SCORE_TOLERANCE})`;
+  const sample = sampleForRecompute(facts.persons);
+  if (sample.length === 0) return violation(id, label, "no person nodes to re-score");
+  const failures: string[] = [];
+  const unevaluable: string[] = [];
+  for (const p of sample) {
+    const inputs = inputsFromStored(p);
+    if (inputs === null || p.score === null) {
+      unevaluable.push(p.id);
+      continue;
+    }
+    const recomputed = computeContribution(inputs).contributionScore;
+    const delta = round1(recomputed - p.score);
+    if (Math.abs(delta) > SCORE_TOLERANCE) {
+      failures.push(`${p.id}: formula says ${recomputed}, store says ${p.score} (Δ ${delta})`);
+    }
+  }
+  const problems: string[] = [];
+  if (unevaluable.length > 0) {
+    problems.push(`${unevaluable.length}/${sample.length} sampled person(s) have no usable stored inputs: ${unevaluable.slice(0, 3).join(", ")}`);
+  }
+  if (failures.length > 0) {
+    problems.push(
+      `${failures.length}/${sample.length} sampled score(s) are NOT what this formula produces — the store was ` +
+        `written by another version: ${failures.slice(0, 5).join("; ")}`,
+    );
+  }
+  if (problems.length > 0) return violation(id, label, problems.join(" · "));
+  return ok(
+    id,
+    label,
+    `${sample.length} of ${facts.persons.length} persons re-scored (deterministic stride over id asc), all within ±${SCORE_TOLERANCE}`,
+  );
+}
+
 /** Fingerprint of the leaderboard-shaped sample: persons ranked score desc, id asc. */
 export function scoreSampleFingerprint(facts: SentinelFacts): string {
   const ranked = [...facts.persons].sort((a, b) =>
@@ -229,6 +434,14 @@ export function evaluateSentinel(a: SentinelFacts, b: SentinelFacts, opts: Evalu
     checkOrphanEdges(a),
     checkFreshness(a, opts.now),
     checkScoreSample(a),
+    // The scoring edge between the formula and the data (see the block comment above
+    // checkFormulaRef). Ordered ref → uniformity → parts → recompute: the ref names the
+    // formula, uniformity says the whole chamber used ONE, and the last two actually
+    // execute it. Pinned order — reports diff cleanly.
+    checkFormulaRef(a),
+    checkProvenanceUniformity(a),
+    checkComponentsSum(a),
+    checkRecomputeSample(a),
     checkDeterminism(a, b, opts.now),
   ];
   return {

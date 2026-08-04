@@ -14,10 +14,11 @@ process.env.PGLITE_PATH = dataDir;
 const { open } = await import("../../db/pglite/internals");
 const { GENESIS_HASH, computeAuditRowHash } = await import("../../db/pglite/ledger");
 const { collectSentinelFacts } = await import("./facts");
-const { evaluateSentinel } = await import("./invariants");
+const { evaluateSentinel, sampleForRecompute, RECOMPUTE_SAMPLE_SIZE } = await import("./invariants");
 const { parseSentinelReport, renderSentinelSummary, serializeSentinelReport, SENTINEL_SCHEMA } =
   await import("./report");
 const { CARDINALITY_FLOORS } = await import("../../db/readiness");
+const { computeContribution, CONTRIBUTION_FORMULA_REF } = await import("../../analysis/contribution");
 
 type Facts = Awaited<ReturnType<typeof collectSentinelFacts>>;
 type Report = ReturnType<typeof evaluateSentinel>;
@@ -59,6 +60,46 @@ async function seedKind(kind: string, count: number, props: (i: number) => Recor
   }
 }
 
+/**
+ * A person node exactly as a healthy contribution pass leaves it: the score and every
+ * published input are the OUTPUT of the real formula over a deterministic input, and the
+ * provenance names that formula. Seeding a bare `contribution_score` (as this fixture did
+ * until 2026-08-04) is precisely the store shape the sentinel could not judge.
+ */
+function scoredPerson(i: number, opts: { ref?: string; pass?: number } = {}) {
+  const seats = Array.from({ length: i % 5 }, (_, k) => ({
+    organPspId: 700_000 + k,
+    organType: "Výbor",
+    functionType: k === 0 && i % 3 === 0 ? "předseda" : null,
+  }));
+  const p = computeContribution({
+    personPspId: i,
+    seats,
+    ballotsWithPosition: 600 + (i % 300),
+    rollCallsHeld: 1000,
+    excusedDays: i % 40,
+    sessionDays: 1000,
+    billsAuthored: i % 4,
+    interpellations: i % 3,
+    speechTurns: i % 60,
+  });
+  return {
+    contribution_score: p.contributionScore,
+    committee_count: p.committeeCount,
+    leadership_count: p.leadershipCount,
+    participation_rate: p.participationRate,
+    absence_rate: p.absenceRate,
+    bills_authored: p.billsAuthored,
+    interpellations: p.interpellations,
+    speech_turns: p.speechTurns,
+    contribution_provenance: {
+      pass: opts.pass ?? 42,
+      method: "deterministic",
+      ref: opts.ref ?? CONTRIBUTION_FORMULA_REF,
+    },
+  };
+}
+
 describe("live-graph sentinel against fixture stores", () => {
   // First test in the file pays the PGlite WASM boot (30s file-level timeout
   // comes from vitest.config.ts).
@@ -70,6 +111,10 @@ describe("live-graph sentinel against fixture stores", () => {
     expect(check(report, "readiness-floors").status).toBe("violation");
     expect(check(report, "freshness").status).toBe("violation");
     expect(check(report, "score-sample").status).toBe("violation");
+    expect(check(report, "formula-ref").status).toBe("violation");
+    expect(check(report, "provenance-uniformity").status).toBe("violation");
+    expect(check(report, "components-sum").status).toBe("violation");
+    expect(check(report, "recompute-sample").status).toBe("violation");
     // An empty chain and an empty edge set are honestly valid.
     expect(check(report, "audit-chain").status).toBe("ok");
     expect(check(report, "orphan-edges").status).toBe("ok");
@@ -78,7 +123,7 @@ describe("live-graph sentinel against fixture stores", () => {
 
   it("clean fixture store: every invariant passes", async () => {
     // Floors exactly met (lib/db/readiness.ts is the ground truth being read).
-    await seedKind("person", CARDINALITY_FLOORS.person, (i) => ({ contribution_score: 40 + (i % 50) }));
+    await seedKind("person", CARDINALITY_FLOORS.person, (i) => scoredPerson(i));
     await seedKind("company", CARDINALITY_FLOORS.company, () => ({}));
     await seedKind("bill", CARDINALITY_FLOORS.bill, () => ({}));
     await seedKind("law", CARDINALITY_FLOORS.law, () => ({}));
@@ -136,6 +181,10 @@ describe("live-graph sentinel against fixture stores", () => {
       ["orphan-edges", "ok"],
       ["freshness", "ok"],
       ["score-sample", "ok"],
+      ["formula-ref", "ok"],
+      ["provenance-uniformity", "ok"],
+      ["components-sum", "ok"],
+      ["recompute-sample", "ok"],
       ["determinism", "ok"],
     ]);
     expect(report.verdict).toBe("ok");
@@ -196,7 +245,106 @@ describe("live-graph sentinel against fixture stores", () => {
     const c = check(report, "score-sample");
     expect(c.status).toBe("violation");
     expect(c.detail).toContain("fx:person:0");
-    await pg.query(`update kg_node set props = jsonb_set(props, '{contribution_score}', '40') where id = 'fx:person:0'`);
+    await pg.query(
+      `update kg_node set props = jsonb_set(props, '{contribution_score}', $1::jsonb) where id = 'fx:person:0'`,
+      [JSON.stringify(scoredPerson(0).contribution_score)],
+    );
+  });
+
+  // ── THE PROOF ────────────────────────────────────────────────────────────
+  // Reconstructs the store as it stood 2026-07-29 → 2026-08-04: the code counted
+  // DISTINCT BODIES while every person node still carried pass-11 numbers — committee
+  // breadth counted psp.cz membership ROWS (a led body files as two rows), rates
+  // published at 1 decimal, and provenance ref "contribution". That store served a
+  // wrong ranking for six days and the sentinel called it healthy, because
+  // `contribution_score` was finite on all of them and the determinism check compares
+  // the store to itself. Both new invariants must fire on it, or nothing has changed.
+  it("the pass-11 store (stale ref + row-counted committees) fires formula-ref AND recompute-sample", async () => {
+    const pg = await open();
+    const legacy = (i: number) => {
+      const p = computeContribution({
+        personPspId: i,
+        seats: Array.from({ length: i % 5 }, (_, k) => ({
+          organPspId: 700_000 + k,
+          organType: "Výbor",
+          functionType: k === 0 && i % 3 === 0 ? "předseda" : null,
+        })),
+        ballotsWithPosition: 600 + (i % 300),
+        rollCallsHeld: 1000,
+        excusedDays: i % 40,
+        sessionDays: 1000,
+        billsAuthored: i % 4,
+        interpellations: i % 3,
+        speechTurns: i % 60,
+      });
+      return {
+        ...scoredPerson(i),
+        // ROWS, not bodies: psp.cz files a led body twice, so pass 11 counted it twice.
+        committee_count: p.committeeCount + p.leadershipCount,
+        // Pass-11 published its rates at ONE decimal while scoring from the raw ratio.
+        participation_rate: Math.round(p.participationRate * 10) / 10,
+        absence_rate: Math.round(p.absenceRate * 10) / 10,
+        contribution_provenance: { pass: 11, method: "deterministic", ref: "contribution" },
+      };
+    };
+    const persons = await pg.query<{ id: string }>(`select id from kg_node where kind = 'person' order by id`);
+    for (const row of persons.rows) {
+      const i = Number(row.id.split(":").pop());
+      await pg.query(`update kg_node set props = $1::jsonb where id = $2`, [JSON.stringify(legacy(i)), row.id]);
+    }
+
+    const report = await audit();
+    const ref = check(report, "formula-ref");
+    expect(ref.status).toBe("violation");
+    expect(ref.detail).toContain("scored by a DIFFERENT formula");
+    expect(ref.detail).toContain("contribution");
+    expect(ref.detail).toContain("kg-contribution-recompute.ts");
+
+    const recompute = check(report, "recompute-sample");
+    expect(recompute.status).toBe("violation");
+    expect(recompute.detail).toContain("NOT what this formula produces");
+
+    // Provenance is UNIFORM here (the whole chamber is stale) — the ref invariant is what
+    // catches a fully-applied wrong formula; uniformity catches the half-applied one.
+    expect(check(report, "provenance-uniformity").status).toBe("ok");
+    expect(report.verdict).toBe("violation");
+
+    // Restore the healthy fixture for the tests that follow.
+    for (const row of persons.rows) {
+      const i = Number(row.id.split(":").pop());
+      await pg.query(`update kg_node set props = $1::jsonb where id = $2`, [JSON.stringify(scoredPerson(i)), row.id]);
+    }
+    expect((await audit()).verdict).toBe("ok");
+  });
+
+  // A recompute that stopped halfway publishes ONE ranking built by TWO formulas.
+  it("a half-recomputed chamber fires provenance-uniformity", async () => {
+    const pg = await open();
+    await pg.query(
+      `update kg_node set props = jsonb_set(props, '{contribution_provenance,pass}', '11')
+        where kind = 'person' and id in (select id from kg_node where kind = 'person' order by id limit 5)`,
+    );
+    const report = await audit();
+    const c = check(report, "provenance-uniformity");
+    expect(c.status).toBe("violation");
+    expect(c.detail).toContain("2 distinct provenances");
+    expect(c.detail).toContain("pass 11");
+    // The ref is untouched, so the ref invariant is silent — the two see different things.
+    expect(check(report, "formula-ref").status).toBe("ok");
+    await pg.query(
+      `update kg_node set props = jsonb_set(props, '{contribution_provenance,pass}', '42') where kind = 'person'`,
+    );
+    expect((await audit()).verdict).toBe("ok");
+  });
+
+  it("the recompute sample is deterministic — same store, same MPs, no clock or RNG", async () => {
+    const pg = await open();
+    const facts = await collectSentinelFacts(pg);
+    const a = sampleForRecompute(facts.persons).map((p) => p.id);
+    const b = sampleForRecompute([...facts.persons].reverse()).map((p) => p.id);
+    expect(a).toEqual(b);
+    expect(a.length).toBeLessThanOrEqual(RECOMPUTE_SAMPLE_SIZE);
+    expect(new Set(a).size).toBe(a.length);
   });
 
   it("dropping below a cardinality floor fires readiness-floors AND degrades the manifest", async () => {

@@ -20,7 +20,15 @@
  *
  * Output: human summary on stdout, machine JSON (canonical, politicas.sentinel/1)
  * after the marker line, exit 0 = all invariants hold, 1 = violation, 2 = store
- * unreadable. Nightly scheduling: .github/workflows/sentinel.yml (proposal).
+ * unreadable.
+ *
+ * THIS COMMAND IS THE REAL EXECUTION PATH. `.github/workflows/sentinel.yml` exists,
+ * but on a hosted runner there is no `./.pglite` (a local, gitignored 1.6 GB data dir),
+ * so its guard step turns the nightly into a deliberate no-op. A green nightly is
+ * therefore NOT evidence that the invariants hold — including the four scoring
+ * invariants added 2026-08-04, which are the only thing standing between a formula
+ * correction and a silently stale published ranking. Run this locally after any
+ * contribution pass.
  */
 
 import { cpSync, existsSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";

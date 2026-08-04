@@ -28,10 +28,37 @@ import { makeLedgerRepo } from "@/lib/db/pglite/repositories/ledger";
 import type { IngestRunRow } from "@/lib/db/types";
 import type { ReleaseStats } from "@/features/data-releases/manifest";
 
-/** One person node's published score, as stored (null = missing/non-numeric). */
+/**
+ * The stored props the contribution formula consumes, verbatim off the person node.
+ * `null` = the prop is absent or non-numeric — MISSING IS NOT ZERO, so an invariant that
+ * needs an input says it cannot be evaluated rather than scoring a fabricated 0.
+ */
+export interface PersonInputFacts {
+  committeeCount: number | null;
+  leadershipCount: number | null;
+  participationRate: number | null;
+  absenceRate: number | null;
+  billsAuthored: number | null;
+  interpellations: number | null;
+  speechTurns: number | null;
+}
+
+/**
+ * One person node's published score AND the evidence needed to judge it.
+ *
+ * It used to be `{id, score}` only, and that is exactly why the sentinel could not see
+ * the 2026-07-29 → 2026-08-04 divergence: a score is finite whether or not the formula
+ * that produced it still exists. The provenance says WHICH formula authored it; the
+ * inputs let the sentinel re-run that formula (lib/analysis/contribution.ts) over the
+ * store's own numbers instead of comparing the store to itself.
+ */
 export interface PersonScoreFact {
   id: string;
   score: number | null;
+  /** `contribution_provenance.pass` / `.ref` as stored; null = absent or malformed. */
+  provenancePass: number | null;
+  provenanceRef: string | null;
+  inputs: PersonInputFacts;
 }
 
 export interface OrphanEdgeFacts {
@@ -50,7 +77,7 @@ export interface SentinelFacts {
   runStats: AtlasSourceRunStats[];
   /** Per-entity provenance coverage — atlas determinism input. */
   entityCoverage: AtlasEntityCoverage[];
-  /** Every person node's contribution_score, ordered by id (score sample). */
+  /** Every person node's score, provenance and stored formula inputs, ordered by id. */
   persons: PersonScoreFact[];
 }
 
@@ -174,16 +201,44 @@ async function readEntityCoverage(pg: Pglite): Promise<AtlasEntityCoverage[]> {
   return out;
 }
 
+/** JSON text → finite number, or null. Never NaN, never a silent 0. */
+function numOrNull(raw: unknown): number | null {
+  const s = strOrNull(raw);
+  if (s === null || s.trim() === "") return null;
+  const n = Number(s);
+  return Number.isFinite(n) ? n : null;
+}
+
 async function readPersonScores(pg: Pglite): Promise<PersonScoreFact[]> {
   const { rows } = await pg.query<Record<string, unknown>>(
-    `select id, props->>'contribution_score' as score
+    `select id,
+            props->>'contribution_score'              as score,
+            props->'contribution_provenance'->>'pass' as prov_pass,
+            props->'contribution_provenance'->>'ref'  as prov_ref,
+            props->>'committee_count'                 as committee_count,
+            props->>'leadership_count'                as leadership_count,
+            props->>'participation_rate'              as participation_rate,
+            props->>'absence_rate'                    as absence_rate,
+            props->>'bills_authored'                  as bills_authored,
+            props->>'interpellations'                 as interpellations,
+            props->>'speech_turns'                    as speech_turns
        from kg_node where kind = 'person' order by id`,
   );
-  return rows.map((r) => {
-    const raw = strOrNull(r.score);
-    const n = raw === null ? NaN : Number(raw);
-    return { id: str(r.id), score: Number.isFinite(n) ? n : null };
-  });
+  return rows.map((r) => ({
+    id: str(r.id),
+    score: numOrNull(r.score),
+    provenancePass: numOrNull(r.prov_pass),
+    provenanceRef: strOrNull(r.prov_ref),
+    inputs: {
+      committeeCount: numOrNull(r.committee_count),
+      leadershipCount: numOrNull(r.leadership_count),
+      participationRate: numOrNull(r.participation_rate),
+      absenceRate: numOrNull(r.absence_rate),
+      billsAuthored: numOrNull(r.bills_authored),
+      interpellations: numOrNull(r.interpellations),
+      speechTurns: numOrNull(r.speech_turns),
+    },
+  }));
 }
 
 /** One full read-only pass over the store. Called TWICE by the runner —

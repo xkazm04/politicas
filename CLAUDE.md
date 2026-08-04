@@ -280,6 +280,25 @@ Route map (politicas.md roadmap execution, sample data):
   each render the mismatch as an honest sentence — „žebříček spočítala starší verze
   metodiky" plus both refs — not an error page. Measured on the live store today:
   uniform, pass 42, `contribution-committee-dedupe`, 207/207, `formulaMatch: true`.
+  **The sentinel can see the divergence now (2026-08-04).** `lib/testing/sentinel/`
+  read only `contribution_score` and asserted it was finite, while `checkDeterminism`
+  compared the store to ITSELF — a stale store is perfectly self-consistent, which is
+  why six days of a wrong ranking looked healthy. `facts.ts` now also collects each
+  person's `{pass, ref}` and the stored inputs the formula consumes, and four
+  invariants judge them: **formula-ref** (every ref === `CONTRIBUTION_FORMULA_REF`),
+  **provenance-uniformity** (the chamber agrees on one `{pass, ref}` — a half-applied
+  recompute publishes one ranking from two formulas), **components-sum** (the six
+  components reconcile with the composite) and **recompute-sample** (the REAL
+  `computeContribution` re-run over 40 MPs' stored inputs, deterministic stride over
+  id asc — no clock, no RNG). Tolerance is ±0,1 and it is not slack: the composite was
+  scored from RAW ratios while the store publishes them at 3 decimals, measured at
+  exactly 0,1 on 13/207 today and 0 above; a pass-11-era store (rates at 1 decimal)
+  blows straight through it. `sentinel.test.ts` reconstructs that pass-11 store and
+  proves formula-ref AND recompute-sample fire on it. Live run 2026-08-04: **all 11
+  invariants PASS**. The sentinel stays strictly read-only (SELECT only, over a copy).
+  **`npm run sentinel` is the only path on which these actually execute** —
+  `.github/workflows/sentinel.yml` has no `./.pglite` on a hosted runner and its guard
+  makes the nightly a deliberate no-op; a green nightly is not coverage.
   **Ties are ties (2026-07-29)** — ranks are now COMPETITION ranks (1, 2, 2, 4):
   a rank is one more than the number of MPs who score higher, so it is shared on
   an identical score and the red top-3 can no longer be won by Czech name
