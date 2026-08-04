@@ -79,6 +79,29 @@ describe("profile message catalog", () => {
     }
   });
 
+  it("the cross-term analyst note can be dated or say it is not", () => {
+    // `effort_psp9_trend_note` renders verbatim; its citation must be able to
+    // state BOTH states, because a note without `effort_provenance.computedAt`
+    // is never dated to today (the LowScoreReasonChip rule).
+    for (const ns of [cs, en]) {
+      expect(ns.trendNoteHeading).toBeTruthy();
+      expect(ns.trendNoteSource).toBeTruthy();
+      expect(ns.trendNoteSourceDated).toBeTruthy();
+    }
+    expect(placeholders(cs.trendNoteSourceDated)).toEqual(["date"]);
+    expect(placeholders(cs.trendNoteSource)).toEqual([]);
+  });
+
+  it("the interpellation figure admits it is a sum, and promises no split", () => {
+    // The graph carries ONE `interpellations` prop — ingest sums written (tisky
+    // druh 6) and oral (interp.zip) before writing it. The page may say the split
+    // is unavailable; it may never render a number for either half.
+    for (const ns of [cs, en]) {
+      expect(ns.dossierInterpellationsComposition, "composition copy").toBeTruthy();
+      expect(placeholders(ns.dossierInterpellationsComposition)).toEqual([]);
+    }
+  });
+
   it("no Czech sentence reads as English", () => {
     // The same stopword gate the analysis copy is held to, asserted the way that gate
     // is actually defined: `looksEnglish`. It is deliberately NOT the inverse claim —

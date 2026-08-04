@@ -15,6 +15,15 @@
  * stejný "graceful null" princip jako LowScoreReasonBadge/TenureNote, jen
  * s viditelným (ne prázdným) odstavcem, protože tady jde o VYSVĚTLENÍ
  * nepřítomnosti panelu, ne jen o jeho vynechání.
+ *
+ * `effort_psp9_trend_note` (13/207 uzlů, 6 projde public-copy bránou) je
+ * JEDINÁ mezidobová próza, kterou graf drží — analytikovo čtení téhož
+ * srovnání, které panel počítá. Do teď se nevykreslovala nikde. Vykresluje se
+ * v OBOU větvích: vedle panelu, i tam, kde je panel potlačen — potlačené sazby
+ * nejsou důvod ztratit srovnání celé, jen důvod netisknout čísla. Verbatim,
+ * datovaně (`effort_provenance.computedAt`) a označeně jako analytická próza,
+ * stejně jako `effort_notes` v dosieru. Nedatovaná próza se nedopočítává na
+ * dnešek — chybějící datum se přizná.
  */
 
 import { useTranslations } from "next-intl";
@@ -23,19 +32,42 @@ import type { ComponentKey, ContributionTrend } from "@/lib/analysis/contributio
 import { isTrendTooEarly, TREND_MIN_TENURE_DAYS } from "@/lib/analysis/tenure-copy";
 import TrendPanel from "@/features/civicscore/components/TrendPanel";
 import SourceNote from "@/features/shared/components/SourceNote";
+import ExpandableText from "./ExpandableText";
 
 export default function TenureTrendGate({
   trend,
   componentLabels,
   tenureDays,
+  psp9TrendNote,
+  recordedAt,
 }: {
   trend: ContributionTrend | null;
   componentLabels: Partial<Record<ComponentKey, string>>;
   tenureDays: number | null;
+  /** `effort_psp9_trend_note`, already past the public-copy guard (getProfileData). */
+  psp9TrendNote?: string | null;
+  /** `effort_provenance.computedAt` — null = nedatováno, nikdy se nedopočítává. */
+  recordedAt?: string | null;
 }) {
   const t = useTranslations("profile");
   const f = useFormat();
-  if (!trend) return null;
+
+  // Analytikova mezidobová próza. Stojí vedle panelu i místo něj — a vykreslí se
+  // i tehdy, když `trend` chybí: potlačit reálný datovaný fakt jen proto, že
+  // odvozený panel není, je právě to mlčení, které tenhle průchod odstraňuje.
+  const note = psp9TrendNote ? (
+    <div className="mt-6 max-w-3xl border-l-4 border-hairline pl-4">
+      <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
+        {t("trendNoteHeading")}
+      </p>
+      <ExpandableText className="mt-2 text-[15px] leading-relaxed text-steel" text={psp9TrendNote} />
+      <SourceNote className="mt-2 !text-[10px]">
+        {recordedAt ? t("trendNoteSourceDated", { date: f.date(recordedAt) }) : t("trendNoteSource")}
+      </SourceNote>
+    </div>
+  ) : null;
+
+  if (!trend) return note;
 
   if (isTrendTooEarly(tenureDays)) {
     const unknown = typeof tenureDays !== "number" || !Number.isFinite(tenureDays);
@@ -49,9 +81,15 @@ export default function TenureTrendGate({
         <SourceNote className="mt-2 !text-[10px]">
           {t("trendGateSource", { days: f.int(TREND_MIN_TENURE_DAYS) })}
         </SourceNote>
+        {note}
       </div>
     );
   }
 
-  return <TrendPanel trend={trend} componentLabels={componentLabels} />;
+  return (
+    <>
+      <TrendPanel trend={trend} componentLabels={componentLabels} />
+      {note}
+    </>
+  );
 }

@@ -190,6 +190,20 @@ export interface ProfileData {
   effortBillFocus: string | null;
   effortNotes: string | null;
   effortDataFlag: string | null;
+  /**
+   * `effort_psp9_trend_note` — the analyst's reading of the SAME PSP9→PSP10
+   * comparison `person.trend` computes. 13/207 nodes carry it; 6 of those pass
+   * the public-copy guard (the other 7 quote raw prop identifiers and are
+   * withheld whole, like every other effort_* prose field here).
+   *
+   * It is the only cross-term prose the graph holds, and it renders BESIDE the
+   * trend — both where the panel shows and where TenureTrendGate suppresses it,
+   * so a reader never loses the comparison entirely just because the rates are
+   * unsafe to print. `CROSS_TERM_PROSE_FIELDS` (lib/analysis/committee-claims.ts)
+   * already exempts it from the committee-count cross-check for that reason: its
+   * two committee numbers describe two different terms.
+   */
+  effortPsp9TrendNote: string | null;
   sponsoredBills: SponsoredBill[];
   /** Q-effort-2 split of bills_authored (pass 34): first-signatory vs co-signer
    * counts over the same universe — sums to bills_authored, which stays untouched. */
@@ -441,6 +455,9 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
     const effortDataFlag = personNode && typeof personNode.props.effort_data_flag === "string"
       ? personNode.props.effort_data_flag
       : null;
+    const effortPsp9TrendNote = personNode
+      ? publicCopyOrNull(personNode.props.effort_psp9_trend_note as string | undefined)
+      : null;
 
     // ── Kariérní spis ─────────────────────────────────────────────────────────
     // The mandate registry is ingested in FULL across all terms (2 157 rows,
@@ -674,6 +691,7 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
       effortBillFocus,
       effortNotes,
       effortDataFlag,
+      effortPsp9TrendNote,
       sponsoredBills,
       billsFirstSigned,
       billsCoSigned,

@@ -274,6 +274,30 @@ Route map (politicas.md roadmap execution, sample data):
   new states, and the Czech language gate over prose — ICU markup and citation keys
   excluded, because `one/few/other` and `lib/analysis/contribution.ts` are English
   by construction).
+  **The record speaks across terms (2026-08-04).** `effort_psp9_trend_note` — the
+  ONLY cross-term prose the graph holds, and the reason
+  `CROSS_TERM_PROSE_FIELDS` exists in `lib/analysis/committee-claims.ts` — rendered
+  NOWHERE. It now renders in `TenureTrendGate`, verbatim, dated from
+  `effort_provenance.computedAt` and behind the SAME `publicCopyOrNull` guard every
+  other `effort_*` prose field on this page passes. It renders in BOTH branches: beside
+  `TrendPanel` where the comparison shows, and inside the suppression notice where it
+  does not — suppressed RATES are a reason not to print numbers, never a reason to lose
+  the comparison entirely. Measured on the live graph: **13 of 207** nodes carry it,
+  **6 pass** the guard (the other 7 quote raw prop identifiers or a sample-scoped
+  superlative and are withheld whole), and **all 13 sit at `effort_tenure_days` = 293**
+  — so on today's data the note only ever materialises in the panel branch; the
+  suppressed branch is proven by construction, not by a row. Verified live through the
+  loader: 6165 Vondráček (recorded 2026-07-24) and 6459 Janda (2026-07-26) render it,
+  346 Bendl is correctly withheld.
+  **Interpellations stay ONE figure, and the page says why.** The ingest distinguishes
+  written (`tisky.zip` `id_druh = 6`, attributed via `tisky.id_osoba`) from oral
+  (`interp.zip` `poradi.id_poslanec`) — `lib/ingest/sources/psp-activity.ts` computes
+  both — but `kg-contribution-ingest.ts:195` writes `writtenInterpellations +
+  oralInterpellations` into one `interpellations` prop. Verified on the live store:
+  **207/207 person nodes carry the sum and no split prop of any kind exists**. Splitting
+  it is an INGEST change, not a render change, so the dossier discloses the composition
+  as unavailable rather than implying a breakdown it cannot show. Pinned by
+  `features/profile/messages.test.ts`.
   **Section numbers are derived from what renders** — the dossier is omitted for
   an MP carrying none, so nothing may hard-code an index. `getProfileData` is
   `react.cache()`-wrapped and reads per-MP edges through the INDEXED

@@ -317,11 +317,14 @@ export default function ProfilePage({
 
           {/* Vývoj proti minulému období — vykreslí se jen když existuje reálné
               srovnání (contribution_psp9); pod ~90 dní tenure je srovnání
-              potlačeno (TenureTrendGate) místo zavádějících sazeb. */}
+              potlačeno (TenureTrendGate) místo zavádějících sazeb. Analytikova
+              mezidobová próza (effort_psp9_trend_note) jde s ním v obou větvích. */}
           <TenureTrendGate
             trend={person.trend}
             componentLabels={Object.fromEntries(components.map((c) => [c.key, c.label])) as Partial<Record<ComponentKey, string>>}
             tenureDays={data.effortTenureDays}
+            psp9TrendNote={data.effortPsp9TrendNote}
+            recordedAt={person.effortRecordedAt}
           />
 
           {/* Kariérní spis — služební záznam přes volební období (mandáty jsou

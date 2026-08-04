@@ -383,6 +383,17 @@ export default function DossierSection({ index, ...d }: DossierContent & { index
                 missing={t("dossierCounterMissing")}
               />
             </div>
+            {/* Písemná a ústní interpelace jsou DVA různé nástroje z DVOU různých
+                datových sad (tisky.zip druh 6 · interp.zip poradi) a ingest je
+                sečte do jediné vlastnosti `interpellations` — rozpad na uzlu
+                neexistuje (ověřeno na živém grafu: 207/207 uzlů nese jen součet).
+                Stránka to říká místo aby nechala čtenáře hádat, co v čísle je;
+                rozdělit ho může až průchod ingestem, ne renderer. */}
+            {interpellations != null && (
+              <p className="mt-2.5 max-w-3xl text-[13px] leading-relaxed text-steel">
+                {t("dossierInterpellationsComposition")}
+              </p>
+            )}
           </div>
         )}
 
