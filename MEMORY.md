@@ -22,6 +22,7 @@ from `docs/`.
 - [OR shareholder entries mean *sole* shareholder](memory/or-shareholder-entry-semantics.md) — an a.s. shareholder is registered only when there's one; and those dates are registration, never acquisition, dates.
 
 ## Conventions & traps
+- [A small LIMIT is ~200× slower than the cap](memory/small-limit-is-slower-than-the-cap.md) — a kind-filtered `kg_node` read at `limit:30` costs 500–720 ms and at `KG_READ_CAP` costs 2–3 ms; never size a kg read to what you expect back, and ask for a COUNT rather than a limited row list.
 - [kgNeighbours' weight order is not total](memory/kgneighbours-weight-order-is-not-total.md) — the indexed per-node read ties densely; a ranked top-N cut must re-sort via `byListOrder` or the page shuffles between builds (it reordered 202/207 MPs' ally lists, silently).
 - [`revalidate` is inert — every route is dynamic](memory/revalidate-is-inert-every-route-is-dynamic.md) — `cookies()` in the i18n request config opts the whole app out of static generation; what actually bounds staleness is loader memoization.
 - [An `infinity` timestamp collapses a whole surface](memory/infinity-timestamp-collapses-a-whole-surface.md) — a legal `timestamptz` threw in the mapper, and the loader convention turned one bad cell into an empty page.
