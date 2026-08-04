@@ -34,6 +34,7 @@ import { asciiFold } from "@/lib/ingest/normalize";
 import { foldQuery, nameMatches } from "../search";
 import WorkhorseBadge from "./WorkhorseBadge";
 import RapporteurBadge from "./RapporteurBadge";
+import LowScoreReasonChip from "./LowScoreReasonChip";
 
 // Barva složky — jen tokeny palety (custom/no-hardcoded-colors). Šest složek,
 // pět tokenů → leadership sdílí odstín s účastí, odlišen průhledností.
@@ -141,6 +142,15 @@ export default function LeaderboardTable({
   // Souměrný s workhorse-filtrem: jen jeden aktivní stav, vlastní tlačítko.
   const [dossierOnly, setDossierOnly] = useState(false);
   const dossierCount = useMemo(() => entries.filter((e) => e.effortHasDossier).length, [entries]);
+  // Pokrytí se uzavřelo na 207/207 (batch 006/007). Filtr, který vybere všechny
+  // řádky, a ikona na každém řádku nic nerozlišují — proto se afordance ukazuje
+  // jen dokud je pokrytí ČÁSTEČNÉ. Není to skrývání: úplnost říká věta pod
+  // titulkem stránky. Zůstává funkční, kdyby graf o poslance povyrostl.
+  const dossierPartial = dossierCount > 0 && dossierCount < entries.length;
+
+  // Kolik řádků nese poctivý korektiv nízkého skóre (uzavřený slovník
+  // effort_low_score_reason) — počítáno z celého žebříčku, ne z filtru.
+  const correctionCount = useMemo(() => entries.filter((e) => e.effortLowScoreReason).length, [entries]);
 
   // Kompaktní/rozšířený přepínač řádků (manifestation pass 2026-07-25) —
   // kompaktní režim skryje standout statistiku a klubovou/regionální meta
@@ -247,7 +257,7 @@ export default function LeaderboardTable({
 
       {/* dosier filtr + kompaktní přepínač — jeden souvislý ovládací řádek */}
       <div className="mt-3 flex flex-wrap items-center gap-2">
-        {dossierCount > 0 && (
+        {dossierPartial && (
           <button
             type="button"
             onClick={() => setDossierOnly((v) => !v)}
@@ -307,7 +317,7 @@ export default function LeaderboardTable({
                   className="group inline-flex items-center gap-1.5 text-[15px] font-black uppercase tracking-tight hover:text-signal"
                 >
                   <span className="truncate">{r.name}</span>
-                  {r.effortHasDossier && (
+                  {dossierPartial && r.effortHasDossier && (
                     <FileText
                       className="h-3 w-3 shrink-0 text-cobalt"
                       aria-hidden
@@ -315,6 +325,18 @@ export default function LeaderboardTable({
                   )}
                   <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-signal" />
                 </Link>
+                {/* Korektiv stojí VEDLE čísla, které opravuje — a je vidět i v
+                    kompaktním režimu, protože skrýt ho znamená nechat pořadí
+                    tvrdit něco, co data samy opravují. */}
+                {r.effortLowScoreReason && (
+                  <span className="ml-1.5 inline-flex align-middle">
+                    <LowScoreReasonChip
+                      reason={r.effortLowScoreReason}
+                      recordedAt={r.effortLowScoreRecordedAt}
+                      dateLabel={r.effortLowScoreRecordedAt ? f.date(r.effortLowScoreRecordedAt) : null}
+                    />
+                  </span>
+                )}
                 {!compact && (
                   <span className="flex flex-wrap items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-steel">
                     <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: r.clubColor }} />
@@ -364,6 +386,13 @@ export default function LeaderboardTable({
           <SourceNote className="!text-[10px]">{t("realNote")}</SourceNote>
         )}
       </div>
+      {correctionCount > 0 && (
+        <div className="mt-2">
+          <SourceNote className="!text-[10px]">
+            {t("correctionNote", { count: f.int(correctionCount), total: f.int(entries.length) })}
+          </SourceNote>
+        </div>
+      )}
       {/* Co „=" znamená a co zbylý pořádek uvnitř shody NEznamená — bez toho by
           abecední řazení vypadalo jako výsledek. */}
       <div className="mt-2">

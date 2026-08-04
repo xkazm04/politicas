@@ -2,7 +2,8 @@
 
 /*
  * CivicScore — plný žebříček republiky (/zebricek).
- * REÁLNÁ DATA: všech 207 poslanců 9. období seřazených podle indexu přispění
+ * REÁLNÁ DATA: všech 207 poslanců 10. období (PSP10 — loader čte termCode
+ * "PSP10"; stránka roky tvrdila „9. období") seřazených podle indexu přispění
  * (contribution_score) z deterministického znalostního grafu (psp.cz). Šest
  * složek se zveřejněnou vahou nahrazuje původní čtyři mock pilíře — každé číslo
  * pochází z grafu, žádné se zde nedopočítává ani nevymýšlí. Trend/delta
@@ -37,9 +38,11 @@ import LeaderboardTable from "./components/LeaderboardTable";
 import WeightPanel from "./components/WeightPanel";
 import { encodeWeights, reweigh } from "./lens";
 import { useLensWeights } from "./useLensWeights";
+import { useFormat } from "@/lib/i18n/useFormat";
 
 export default function CivicScorePage({ data }: { data: LeaderboardListData | null }) {
   const t = useTranslations("civicscore");
+  const f = useFormat();
   // Souboj: max dva vybraní (klíč = pspId); třetí výběr vyřadí staršího.
   const initial = data?.entries.slice(0, 2).map((e) => e.pspId) ?? [];
   const [duel, setDuel] = useState<number[]>(initial);
@@ -128,10 +131,26 @@ export default function CivicScorePage({ data }: { data: LeaderboardListData | n
             {t("lead")}
           </p>
           {data && (
-            <SourceNote className="mt-3">
-              pokrytí analýzy: {data.dossierCoverage.withDossier}/{data.dossierCoverage.total} poslanců má
-              pracovní profil (effort-loop enrichment, dosud probíhá)
-            </SourceNote>
+            <>
+              {/* Původ SKÓRE, ne verze metodiky. Stránka dřív citovala „metodika
+                  v1.4" — verzi smazaného mock datasetu se čtyřmi pilíři; reálný
+                  šestisložkový index žádné číslo verze nenese. Co data opravdu
+                  nesou, je průchod grafu, který skóre spočítal. */}
+              {data.provenancePass !== null && (
+                <SourceNote className="mt-3">
+                  {t("provenanceNote", { pass: f.int(data.provenancePass) })}
+                </SourceNote>
+              )}
+              {/* Pokrytí se uzavřelo — věta to říká místo věčného „dosud probíhá". */}
+              <SourceNote className="mt-1.5">
+                {data.dossierCoverage.withDossier >= data.dossierCoverage.total
+                  ? t("dossierComplete", { total: f.int(data.dossierCoverage.total) })
+                  : t("dossierPartial", {
+                      count: f.int(data.dossierCoverage.withDossier),
+                      total: f.int(data.dossierCoverage.total),
+                    })}
+              </SourceNote>
+            </>
           )}
         </div>
 

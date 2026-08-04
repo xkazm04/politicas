@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { looksEnglish } from "./language-gate";
 import { isLowScoreReason, lowScoreReasonCopy, LOW_SCORE_REASONS } from "./low-score-reason";
 
 describe("isLowScoreReason", () => {
@@ -40,5 +41,19 @@ describe("lowScoreReasonCopy", () => {
 
   it("marks genuine_absentee as the one reason that is NOT a score correction", () => {
     expect(lowScoreReasonCopy("genuine_absentee")!.detail).toMatch(/NENÍ korektiv/);
+  });
+});
+
+// This vocabulary renders VERBATIM to Czech readers — on /poslanec since batch 002 and
+// on the /zebricek row since 2026-08-04. Analyst prose has reached three surfaces in
+// English before (memory/reader-facing-loaders-need-the-language-gate.md), so the copy
+// is pinned to the gate here rather than trusted.
+describe("lowScoreReasonCopy — Czech language gate", () => {
+  it("no badge or detail reads as English", () => {
+    for (const r of LOW_SCORE_REASONS) {
+      const c = lowScoreReasonCopy(r)!;
+      expect(looksEnglish(c.badge), `${r}.badge`).toBe(false);
+      expect(looksEnglish(c.detail), `${r}.detail`).toBe(false);
+    }
   });
 });

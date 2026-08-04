@@ -62,7 +62,10 @@ const { getCollisionData, COLLISION_CLASSIFICATIONS } = await import("../../feat
 const { getProfileData, getAllProfilePspIds } = await import("../../features/profile/getProfileData");
 const { getVoteThemes } = await import("../../features/votetrack/getVoteThemes");
 const { getAdminData } = await import("../../features/admin/getAdminData");
-const { getLeaderboardData, buildLeaderboard } = await import("../../features/civicscore/getLeaderboardData");
+const { getLeaderboardData, getLeaderboardListData, buildLeaderboard } = await import(
+  "../../features/civicscore/getLeaderboardData"
+);
+const { lowScoreReasonCopy } = await import("../analysis/low-score-reason");
 
 const ALFA = "kg:company:ico:111"; // private supplier of the state → owner-operator tie
 const NEMOCNICE = "kg:company:ico:222"; // public body → steward tie
@@ -209,7 +212,14 @@ async function seedFixture(): Promise<void> {
         effort_work_themes: ["doprava", "rozpočet", 42],
       }),
       JSON.stringify({ ...BASE_COUNTERS, contribution_score: 80 }),
-      JSON.stringify({ ...BASE_COUNTERS, contribution_score: 60 }),
+      JSON.stringify({
+        ...BASE_COUNTERS,
+        contribution_score: 60,
+        // The honest low-score correction + the vintage it was recorded at. Cimrman is
+        // last on score; without this the ranking says "lazy" about a structural fact.
+        effort_low_score_reason: "declined_mandate",
+        effort_provenance: { pass: 14, track: "effort", method: "verdict", computedAt: "2026-07-24T17:41:34.737Z" },
+      }),
       JSON.stringify({
         ico: "111",
         subsidies_count: 2,
@@ -1482,6 +1492,22 @@ describe("getLeaderboardData against a seeded store", () => {
     // getLeaderboardData is buildLeaderboard's `data` half — the page's actual entry point.
     const page = (await withReadinessOff(getLeaderboardData))!;
     expect(page.entries.map((e) => e.pspId)).toEqual(data.entries.map((e) => e.pspId));
+  });
+
+  it("carries the honest low-score correction, dated, all the way to the /zebricek list", async () => {
+    // The reason exists on the person node, is a CLOSED-VOCABULARY value, and until
+    // 2026-08-04 it reached only /poslanec — so the ranking printed the lowest number
+    // in the chamber with nothing beside it. The list shape now carries it, with the
+    // record time of the enrichment that wrote it (effort_provenance.computedAt).
+    const list = (await withReadinessOff(getLeaderboardListData))!;
+    const cimrman = list.entries.find((e) => e.name === "Cimrman Jára")!;
+    expect(cimrman.effortLowScoreReason).toBe("declined_mandate");
+    expect(lowScoreReasonCopy(cimrman.effortLowScoreReason)).not.toBeNull();
+    expect(cimrman.effortLowScoreRecordedAt).toBe("2026-07-24"); // a DATE, not the instant
+    // An MP without one gets null, never a fabricated explanation or a stand-in date.
+    const novakova = list.entries.find((e) => e.name === "Nováková Jana")!;
+    expect(novakova.effortLowScoreReason).toBeNull();
+    expect(novakova.effortLowScoreRecordedAt).toBeNull();
   });
 
   it("returns null and leaves a trace when the graph is below the readiness floor", async () => {

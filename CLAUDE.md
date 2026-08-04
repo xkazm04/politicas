@@ -290,6 +290,33 @@ Route map (politicas.md roadmap execution, sample data):
   Name search folds diacritics through `asciiFold()` — the SAME function that
   fills `person.name_norm` at ingest — so „zacek" finds *Žáček*
   (`features/civicscore/search.ts`, pure + tested).
+  **Three false claims retired (2026-08-04).** The page said *"Všech 207 poslanců
+  9. období"* while the loader reads `termCode: "PSP10"` — the TENTH term; it now
+  says so, consistently with `/kraj` and `TrendPanel`. It cited *"metodika v1.4"*,
+  which is the source string of the **deleted** mock 4-pillar dataset
+  (`lib/civic/data.ts`) — the real six-component index carries no version number
+  at all, so the claim is gone and what the data DOES carry is rendered instead:
+  `provenancePass` (`contribution_provenance.pass`, **11** on the live graph), the
+  computation that authored the scores. And the dossier note said *"dosud
+  probíhá"* regardless of count while coverage closed at **207/207** (batches
+  006/007) — it now states completion, and the dossier FILTER + per-row icon
+  render only while coverage is PARTIAL (a filter that selects every row and an
+  icon on every row distinguish nothing; both stay live if the chamber grows).
+  `features/civicscore/messages.test.ts` pins all of it: cs/en key parity, ICU
+  placeholder parity, no `9. období`, no `v1.\d`. The five dead `civicscore.*`
+  keys with zero call sites (`distributionSource`, `allSource`, `mockNote`,
+  `componentLegendNote`, `legendWidthNote`) are deleted from both catalogs.
+  **The low-score correction reaches the ranking.** `effort_low_score_reason`
+  (closed vocabulary, `lib/analysis/low-score-reason.ts`) exists on **34 of 207**
+  person nodes and used to render only on `/poslanec` — so `/zebricek` printed the
+  chamber's lowest number beside an MP who relinquished the mandate before the
+  oath, with nothing next to it. `LowScoreReasonChip` puts it on the row in BOTH
+  densities, verbatim from the vocabulary (the app never rewrites it into an
+  excuse — `genuine_absentee`'s own copy says it is NOT a correction) and DATED
+  with `effort_provenance.computedAt`. The copy is pinned to the Czech language
+  gate by `lib/analysis/low-score-reason.test.ts`. Measured payload cost of the
+  two new list fields over 207 rows: 81 179 → 95 653 B raw, 7 450 → 7 909 B
+  gzipped.
 - `/rozpocty` — **BudgetMirror** (features/budget): town vs peer-group mirror —
   metric duos against the computed peer median, debt-per-capita trend lines
   (town vs median), sortable peer table. Stewardship feeds only executive

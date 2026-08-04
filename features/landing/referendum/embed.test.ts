@@ -38,6 +38,8 @@ function mk(name: string, pspId: number, score: number): LeaderboardListEntry {
     effortWorkhorseFlavour: null,
     effortRapporteurLoad: 0,
     effortHasDossier: false,
+  effortLowScoreReason: null,
+  effortLowScoreRecordedAt: null,
   };
 }
 

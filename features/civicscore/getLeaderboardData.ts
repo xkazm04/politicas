@@ -106,6 +106,17 @@ function hasDossierProps(props: Record<string, unknown>): boolean {
   return false;
 }
 
+/** When the effort-loop enrichment RECORDED its claims about this MP
+ *  (`effort_provenance.computedAt`, kept as a bare ISO date). Null when the node carries
+ *  no effort provenance — a correction without a vintage is printed undated, never
+ *  back-dated to today. */
+function effortRecordedAt(props: Record<string, unknown>): string | null {
+  const prov = props.effort_provenance;
+  if (!prov || typeof prov !== "object") return null;
+  const at = (prov as { computedAt?: unknown }).computedAt;
+  return typeof at === "string" && at.length >= 10 ? at.slice(0, 10) : null;
+}
+
 /** Volební kraj organ nameCz → the label we render. */
 function regionLabel(nameCz: string | null): string | null {
   if (!nameCz) return null;
@@ -172,6 +183,13 @@ export interface LeaderboardEntry {
   // Null where enrichment found no structural explanation (graceful null; never
   // fabricated) — 34 of the 207 carry one (measured on the live graph 2026-08-04).
   effortLowScoreReason: string | null;
+  /**
+   * When the correction above was RECORDED (`effort_provenance.computedAt`, ISO date).
+   * A correction is a claim with a vintage — it was true of the term as the enrichment
+   * pass found it, not forever — so a surface that prints the reason must be able to
+   * date it. Null when the node carries no effort provenance; never invented.
+   */
+  effortLowScoreRecordedAt: string | null;
   // Quiet-workhorse surface (batch 003, O-effort-3): P31's two positive-symmetry
   // flavours — legislative-authorship vs oversight-institutional. Null/false for the
   // ~191/207 MPs not (yet) flagged by the deterministic triage lens; never fabricated.
@@ -265,6 +283,15 @@ export type LeaderboardListEntry = Pick<
   | "effortWorkhorseFlavour"
   | "effortRapporteurLoad"
   | "effortHasDossier"
+  // Added 2026-08-04: the honest correction the ranking owed the reader. It exists on
+  // 34 of 207 person nodes and used to reach only /poslanec, so /zebricek printed a low
+  // number for an MP who declined the mandate with nothing beside it. MEASURED cost of
+  // the two fields over all 207 rows: 81 179 -> 95 653 B raw (+14 474 B, +17,8 %) but
+  // 7 450 -> 7 909 B gzipped (+459 B, +6,2 %) — most of the raw growth is 173 repeats
+  // of two null fields, which is exactly what compresses away. Paid deliberately: the
+  // alternative is a leaderboard that keeps the reason out of the reader's sight.
+  | "effortLowScoreReason"
+  | "effortLowScoreRecordedAt"
 >;
 
 function toListEntry(e: LeaderboardEntry): LeaderboardListEntry {
@@ -283,6 +310,8 @@ function toListEntry(e: LeaderboardEntry): LeaderboardListEntry {
     effortWorkhorseFlavour: e.effortWorkhorseFlavour,
     effortRapporteurLoad: e.effortRapporteurLoad,
     effortHasDossier: e.effortHasDossier,
+    effortLowScoreReason: e.effortLowScoreReason,
+    effortLowScoreRecordedAt: e.effortLowScoreRecordedAt,
   };
 }
 
@@ -404,6 +433,7 @@ export const buildLeaderboard = cache(async function buildLeaderboard(): Promise
         interpellations,
         speechTurns,
         effortLowScoreReason: typeof p.props.effort_low_score_reason === "string" ? p.props.effort_low_score_reason : null,
+        effortLowScoreRecordedAt: effortRecordedAt(p.props),
         effortWorkhorse: p.props.effort_workhorse === true,
         effortWorkhorseFlavour: typeof p.props.effort_workhorse_flavour === "string" ? p.props.effort_workhorse_flavour : null,
         effortRapporteurLoad:

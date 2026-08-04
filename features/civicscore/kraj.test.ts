@@ -57,6 +57,8 @@ function mk(
     effortWorkhorseFlavour: null,
     effortRapporteurLoad: 0,
     effortHasDossier: false,
+    effortLowScoreReason: null,
+    effortLowScoreRecordedAt: null,
   };
 }
 

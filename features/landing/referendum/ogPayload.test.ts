@@ -36,6 +36,8 @@ function mk(name: string, pspId: number, components: Record<ComponentKey, number
     effortWorkhorseFlavour: null,
     effortRapporteurLoad: 0,
     effortHasDossier: false,
+  effortLowScoreReason: null,
+  effortLowScoreRecordedAt: null,
   };
 }
 
