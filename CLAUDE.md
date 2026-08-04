@@ -251,6 +251,20 @@ Route map (politicas.md roadmap execution, sample data):
   `scripts/data-analysis/kg-contribution-recompute.ts` — merge-preserving, and
   it refuses to write unless replaying the OLD formula reproduces every stored
   value first. Details in `docs/data-analysis/graph-log.md` (pass 42).
+  **The formula changed 2026-07-29; the STORE was only corrected 2026-08-04.**
+  The recompute was written, audited (`docs/data-analysis/contribution-pass42-audit.json`,
+  207 rows) and never run with `--commit` — so for six days the code counted
+  distinct bodies while every person node still carried pass-11 scores written by
+  `kg-contribution-ingest.ts`, and `/zebricek` served the PRE-correction ranking
+  under a comment claiming otherwise. Caught by rendering `provenancePass` on the
+  page, which printed 11. On 2026-08-04 the recompute ran: its replay gate
+  reproduced the old formula for 207/207 MPs (proving nothing had touched the
+  scores in between), and the re-generated audit is byte-identical to July's on
+  all 207 rows — only `computedAt` moved. Every node now carries
+  `contribution_provenance = {pass: 42, ref: "contribution-committee-dedupe"}`.
+  **The lesson is the check, not the fix: a formula correction is not applied
+  until the DATA carries its provenance ref, and nothing in the suite could see
+  the difference.**
   **Ties are ties (2026-07-29)** — ranks are now COMPETITION ranks (1, 2, 2, 4):
   a rank is one more than the number of MPs who score higher, so it is shared on
   an identical score and the red top-3 can no longer be won by Czech name
