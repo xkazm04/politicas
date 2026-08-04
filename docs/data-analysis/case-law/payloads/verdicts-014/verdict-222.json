@@ -1,0 +1,42 @@
+{
+  "billTisk": 222,
+  "statedReasoning": "Vládní návrh (předkládá Ministerstvo průmyslu a obchodu) adaptuje český právní řád na přímo použitelné nařízení EU 2024/2747 (tzv. nařízení IMERA, zavádí rámec opatření pro mimořádné situace na vnitřním trhu), na navazující nařízení 2024/2748 o mimořádných postupech posuzování shody a na směrnici 2024/2749. Zákon určuje Ministerstvo průmyslu a obchodu ústředním styčným orgánem a jednotným kontaktním místem, upravuje monitorování krizově relevantního zboží, dozor nad trhem, sankce a v části druhé vkládá do zákona č. 134/2016 Sb., o zadávání veřejných zakázek, nový § 9a, podle něhož se za zadání veřejné zakázky nepovažuje pořízení zboží nebo služeb, které Evropská komise zadala v zastoupení nebo jménem členských států nebo které byly zadány společně podle přímo použitelného předpisu EU. Důvodová zpráva uvádí, že návrh v době mimo mimořádnou situaci nemá dopad na státní rozpočet, protože náklady vzniknou až vyhlášením mimořádné situace a nelze je předem vyčíslit, a že předpisu byla udělena výjimka z povinnosti zpracovat RIA. Zpráva sama přiznává, že § 12 odst. 3 vylučuje použití zákona č. 106/1999 Sb., o svobodném přístupu k informacím, na údaje o hospodářských subjektech chráněné podle § 12 odst. 1 a 2 (obchodní tajemství a citlivé informace).",
+  "researchedContext": "Text potvrzuje, že § 16 část druhá vkládá do zákona č. 134/2016 Sb. za § 9 nový § 9a: „Za zadání veřejné zakázky se nepovažuje pořízení zboží nebo služeb, které Evropská komise zadala v zastoupení nebo jménem členských států nebo které byly zadány společně podle přímo použitelného předpisu Evropské unie.“ Zákon o zadávání veřejných zakázek jinak neupravuje výjimky pro takto společně zadávané zakázky. Dále text potvrzuje § 12 odst. 3: „Informace podle odstavců 1 a 2 nelze poskytnout podle právních předpisů upravujících právo na informace,“ přičemž odstavce 1 a 2 se týkají obchodního tajemství, citlivých a důvěrných informací hospodářských subjektů a utajovaných informací získaných při uplatňování nařízení IMERA — důvodová zpráva sama v části J (Zhodnocení korupčních rizik) uvádí, že jde o vyloučení aplikace zákona č. 106/1999 Sb. Návrh v části F (hospodářský a finanční dopad) výslovně uvádí, že náklady „není zatím možné vyčíslit“, protože jsou vázány na vyhlášení mimořádné situace, a v části H potvrzuje uděleno výjimku z RIA v rámci Plánu legislativních prací vlády na rok 2025.",
+  "unstatedEffects": [
+    {
+      "effect": "Nový § 9a zákona č. 134/2016 Sb. vyjímá pořízení zboží nebo služeb zadané Evropskou komisí v zastoupení členských států, nebo společně zadané podle přímo použitelného předpisu EU, z definice zadání veřejné zakázky. Důvodová zpráva tuto výjimku popisuje jako technické promítnutí spolupráce podle unijního nařízení, ale neuvádí výslovně, že takto vyňatá pořízení tím zároveň vypadávají z dohledových a přezkumných mechanismů zákona o zadávání veřejných zakázek (např. možnost podat námitky zadavateli nebo návrh k Úřadu pro ochranu hospodářské soutěže), které se na „zadání veřejné zakázky“ ve smyslu zákona jinak vážou.",
+      "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou dodavatelé, kteří by se o takto společně zadávané zakázky ucházeli a kteří by jinak měli k dispozici opravné prostředky podle zákona o zadávání veřejných zakázek, a orgány dohledu nad zadáváním veřejných zakázek v ČR, jejichž přezkumná pravomoc se na tato pořízení nevztahuje.",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=222&ct1=0"
+    },
+    {
+      "effect": "Ustanovení § 12 odst. 3 vylučuje z použití zákon č. 106/1999 Sb., o svobodném přístupu k informacím, na veškeré údaje o hospodářských subjektech shromážděné podle § 12 odst. 1 a 2. Důvodová zpráva tento dopad na dostupnost informací sama uvádí a odůvodňuje ochranou obchodního tajemství a citlivých údajů, avšak nekvantifikuje rozsah takto vyloučených údajů ani nestanoví žádné časové omezení či následnou zpřístupnitelnost této výjimky po odeznění mimořádné situace.",
+      "whoBenefits": "Nelze jednoznačně určit — výjimka chrání hospodářské subjekty poskytující údaje ministerstvům před jejich zveřejněním na úkor obecné informační otevřenosti vůči veřejnosti a žadatelům podle zákona č. 106/1999 Sb.",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=222&ct1=0"
+    }
+  ],
+  "conflictAssessment": "Předkladatelem je vláda prostřednictvím Ministerstva průmyslu a obchodu, sponzorem v datech je ministr Karel Havlíček. Ke sponzorovi není v grafu evidována žádná peněžní vazba k dodavatelským firmám — jde o poctivou negativní zprávu, nikoli o mezeru ve zjišťování: návrh implementuje přímo použitelné nařízení EU s obecnou, nikoli konkrétním subjektům adresnou působností a týká se výkonu ministerské agendy, nikoli podnikatelských vazeb jednotlivce. Výkon ministerského úřadu sám o sobě není střetem zájmů.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Část druhá, § 16 návrhu vkládá do zákona č. 134/2016 Sb. nový § 9a: pořízení zboží nebo služeb, které Evropská komise zadala v zastoupení nebo jménem členských států nebo které byly zadány společně podle přímo použitelného předpisu Evropské unie, se nepovažuje za zadání veřejné zakázky.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=222&ct1=0"
+    },
+    {
+      "claim": "Ustanovení § 12 odst. 3 návrhu stanoví, že informace chráněné podle § 12 odst. 1 a 2 (obchodní tajemství a citlivé informace hospodářských subjektů) nelze poskytnout podle právních předpisů upravujících právo na informace; důvodová zpráva to sama vykládá jako vyloučení aplikace zákona č. 106/1999 Sb., o svobodném přístupu k informacím.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=222&ct1=0"
+    },
+    {
+      "claim": "Zákon č. 134/2016 Sb., o zadávání veřejných zakázek, je statutem, který tisk 222 novelizuje.",
+      "kind": "law",
+      "source": "134/2016"
+    },
+    {
+      "claim": "Zákon č. 106/1999 Sb., o svobodném přístupu k informacím, je statutem, jehož použití § 12 odst. 3 tisku 222 vylučuje na chráněné údaje.",
+      "kind": "law",
+      "source": "106/1999"
+    }
+  ]
+}

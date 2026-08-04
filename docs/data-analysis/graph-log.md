@@ -1147,3 +1147,30 @@ meaning-preservingly; gates 12/12 · 10/10 · 10/10. Collision wave alongside: 1
 complex honest; 56×67 byte-identical duplicate insertion; 64×65 a reversed-direction renumbering
 collision. /zakony/kolize renders 108 pairs / 59 confirmed / czechPending 0; 141/141 summaries;
 59 forensic blocks, 0 withheld. Backlog: 28 pairs, 82 pending bills.
+
+## Pass 48 (track: law) — batch-014: dependency census validated, 10 verdicts, a false sponsor corrected, and a store restore survived (2026-08-05)
+Writes: 10 bill nodes with pending_review forensic_* props (tisky 141, 168, 187, 217, 222, 234,
+25, 257, 83, 89 — coverage 59 → 69/141; 5 mediums: 141 RUD rival cuts state revenue ≈7,35 mld a
+vylučuje Prahu z 55 % vah modelu; 187 permanent security-forces e-records carve-out; 217 NKÚ
+power over ČT/ČRo entire holdings; 89 uncapped pension-reserve outflow; 25 permanent state-budget
+exemption from e-Legislativa) + ONE prop correction: tisk 217's bill node listed a fifth sponsor
+(pspId 6743) whom the bill's own signature page does not carry — three companies' ties were
+drafted against him and caught by the audit BEFORE anything persisted (the closure-gates-the-write
+doctrine's first save), sponsors corrected with an expectation-guarded script. NEW artifact class:
+the bill-dependency census (placeholder Sbírka citations „č. …/2026 Sb.") — detector + audited
+triage = 18 companion-dependency edges (53→16, 144→64, 153→69, 206→ST 777, 207→14, 216→207,
+210→143, …), 23 honest unclears; no product surface yet (open build item). Collision wave: 16
+pairs (2 confirmed — 64×162 insertion-vs-append on 99/1963 §141, 7×260 renumbering retarget on
+37/2021 §16; the 108/2006 §21 candidates honestly do NOT close a triangle), and the
+classification rubric unified corpus-wide (same-§ genuine instructions both sides ⇒ at least
+coordination-risk) with 8 pairs reclassified under it, disclosed per pair; /zakony/kolize renders
+125 pairs / 61 confirmed. Gates hardened: lawJargonIssues() now runs identically at persist AND
+render (getLawData withholds + counts, evidence field included after the closure audit caught it
+bypassing). INCIDENT: at 2026-08-05 00:09 a concurrent session restored ./.pglite from the
+pass-42 backup, wiping law passes 43–47; detected by the manifestation probe (59 → 27 forensic
+blocks), replayed deterministically from committed payloads (45: 4 verdicts, 46: 5+5 census
+completion, 47: 28 verdicts) — the persist gate rejected one stale-text entry en route, which is
+the gate working. Fresh backup .pglite-backup-20260805-pass48 taken. Residue: the restored copies
+of the original 27 verdicts carry pre-sweep evidence prose — the render gate withholds those 16
+strings (disclosed per block); sweeping the old 27's graph props is an open item, as is any
+non-law pass written after the backup was taken (flagged to the money/effort owners).

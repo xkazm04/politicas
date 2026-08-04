@@ -1,0 +1,42 @@
+{
+  "billTisk": 257,
+  "statedReasoning": "Senátní návrh (senátor Zdeněk Sýkora a další) je malá technická novela zákona č. 187/2006 Sb., o nemocenském pojištění. V § 28 odst. 1 se ruší zvláštní 70denní strop výplaty nemocenského pro ekonomicky aktivní poživatele invalidního důchodu pro invaliditu třetího stupně a nový § 28 odst. 2 místo toho váže délku výplaty této skupiny na obecnou podpůrčí dobu podle § 26 (až 380 kalendářních dnů), při zachování pravidla, že nemocenské nenáleží po skončení zaměstnání nebo pojištění. Doprovodné legislativně-technické úpravy se týkají § 18 odst. 7 písm. a), § 103 odst. 1 písm. d) a § 124 odst. 2 (přečíslování odkazů na odstavce § 28). Důvodová zpráva kvantifikuje dopad na státní rozpočet na cca 40 až 60 mil. Kč ročně, vychází z dat Ministerstva práce a sociálních věcí za rok 2024 (41 092 zaměstnaných poživatelů invalidního důchodu pro invaliditu třetího stupně, 25 466 dočasných pracovních neschopností této skupiny, průměrná délka 63,4 dne, u cca 20 % skupiny očekávané prodloužení výplaty). Zpráva sama přiznává lobbování ze strany České asociace paraplegiků – CZEPA, z. s., a navrhuje schválení již v prvním čtení podle § 90 odst. 2 zákona č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny, s odůvodněním, že jde o věcně úzkou a technicky jednoduchou novelu.",
+  "researchedContext": "Text potvrzuje v čl. I bodu 2, že z § 28 odst. 1 zákona č. 187/2006 Sb. se vypouštějí slova „nebo invalidního důchodu pro invaliditu třetího stupně“, a bodu 3, že se vkládá nový § 28 odst. 2 vážící výplatu nemocenského této skupiny na podpůrčí dobu podle § 26 se zachováním limitu do skončení zaměstnání či pojištění. Navazující legislativně-technická přečíslování v § 18 odst. 7 písm. a) („odst. 4“ na „odst. 5“), § 103 odst. 1 písm. d) („odst. 2“ na „odst. 3“) a § 124 odst. 2 (doplnění odkazu „a 2“) odpovídají vloženému novému odstavci. Fiskální kvantifikace (40 až 60 mil. Kč ročně, 41 092 osob, 25 466 dočasných pracovních neschopností, průměr 63,4 dne, cca 20 % skupiny) je v textu uvedena doslovně v části 5 obecné části důvodové zprávy. Lobbovací aktivita České asociace paraplegiků – CZEPA, z. s. (ev. č. RL1459912985) je uvedena v části 12 podle § 20 odst. 1 písm. j) zákona o Sbírce zákonů a mezinárodních smluv jako povinné zveřejnění, nikoli jako skrytá informace.",
+  "unstatedEffects": [
+    {
+      "effect": "Důvodová zpráva odhaduje fiskální dopad na 40 až 60 mil. Kč ročně a uvádí, že „přesné vyčíslení tohoto dopadu závisí zejména na počtu dotčených pojištěnců“, avšak neuvádí rozpětí nejistoty kolem uváděných cca 20 % postižené skupiny ani citlivost odhadu na to, kolik pojištěnců by nově čerpalo nemocenské po dobu blížící se celé obecné podpůrčí době 380 dnů namísto dosavadního 70denního stropu — údaje z roku 2024 (41 092 osob, průměrná délka pracovní neschopnosti 63,4 dne) jsou uvedeny jen jako souhrnný podklad bez rozpětí odhadu.",
+      "whoBenefits": "Přímými příjemci jsou ekonomicky aktivní poživatelé invalidního důchodu pro invaliditu třetího stupně, které návrh sám v důvodové zprávě označuje jako cílovou skupinu; náklady nese systém nemocenského pojištění a v důsledku státní rozpočet, jak sama důvodová zpráva uvádí.",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=257&ct1=0"
+    },
+    {
+      "effect": "Odstraněním 70denního stropu se výplata nemocenského u ekonomicky aktivních poživatelů invalidního důchodu pro invaliditu třetího stupně fakticky přibližuje obecnému režimu platnému pro většinu pojištěnců (podpůrčí doba až 380 dnů). Návrh tím ruší rozdílné zacházení zavedené dosavadní úpravou, ale mimo přímý dopad na rozpočet již dále nekomentuje, zda a jak se tím mění motivace k návratu do zaměstnání u dlouhodobě nemocných v této skupině.",
+      "whoBenefits": "Ekonomicky aktivní poživatelé invalidního důchodu pro invaliditu třetího stupně a osoby s nimi žijící ve společné domácnosti, jak návrh sám uvádí v části o předpokládaných sociálních dopadech.",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=257&ct1=0"
+    }
+  ],
+  "conflictAssessment": "Předkladatelem je Senát Parlamentu České republiky (senátor Zdeněk Sýkora a další), nikoli poslanec Poslanecké sněmovny — datový rámec peněžních vazeb vedený v grafu pokrývá výhradně poslance a jejich podnikatelské vazby, nikoli senátory. V datech tedy u tohoto tisku není a nemůže být evidována žádná peněžní vazba předkladatele; jde o mezeru v rozsahu použitých dat (senátoři nejsou sledovanou skupinou), nikoli o zjištěnou absenci střetu zájmů, a tento rozdíl je třeba takto uvést. Důvodová zpráva sama transparentně přiznává, že v souvislosti s přípravou návrhu došlo k lobbování ze strany České asociace paraplegiků – CZEPA, z. s. — jde o veřejně přiznanou advokační aktivitu zájmové organizace odpovídající přímo cílové skupině návrhu, nikoli o majetkovou vazbu předkladatele, a zákon o regulaci lobbování takové zveřejnění vyžaduje.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Čl. I bod 2 návrhu vypouští z § 28 odst. 1 zákona č. 187/2006 Sb. slova „nebo invalidního důchodu pro invaliditu třetího stupně“ a bod 3 vkládá nový § 28 odst. 2, který váže výplatu nemocenského této skupiny na obecnou podpůrčí dobu podle § 26 při zachování limitu do skončení zaměstnání nebo pojištění.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=257&ct1=0"
+    },
+    {
+      "claim": "Důvodová zpráva kvantifikuje dopad na státní rozpočet na cca 40 až 60 mil. Kč ročně na základě dat Ministerstva práce a sociálních věcí za rok 2024 (41 092 zaměstnaných poživatelů invalidního důchodu pro invaliditu třetího stupně, 25 466 dočasných pracovních neschopností, průměrná délka 63,4 dne, u cca 20 % skupiny očekávané prodloužení výplaty).",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=257&ct1=0"
+    },
+    {
+      "claim": "Důvodová zpráva v části 12 (Informace o lobbování) uvádí, že v souvislosti s přípravou návrhu došlo ze strany České asociace paraplegiků – CZEPA, z. s., ev. č. RL1459912985, k lobbování podle zákona o regulaci lobbování.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=257&ct1=0"
+    },
+    {
+      "claim": "Zákon č. 187/2006 Sb., o nemocenském pojištění, je statutem, který tisk 257 novelizuje.",
+      "kind": "law",
+      "source": "187/2006"
+    }
+  ]
+}

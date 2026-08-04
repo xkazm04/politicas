@@ -299,6 +299,13 @@
    "billsWithVerdictTotal": 59,
    "billsPendingTotal": 82,
    "note": "Batch-013 verdict wave on the pending triage head. Verdict files live under payloads/verdicts-013/ (Czech-native, requireCzech gate)."
+  },
+  "batch014Verdicts": {
+   "status": "APPLIED to live graph (pass 48) and mirrored here",
+   "verdicts": 10,
+   "billsWithVerdictTotal": 69,
+   "billsPendingTotal": 72,
+   "note": "Batch-014 verdict wave on the pending triage head. Verdict files live under payloads/verdicts-014/ (Czech-native, requireCzech gate)."
   }
  },
  "rows": [
@@ -2804,10 +2811,10 @@
    "amendsCount": 1,
    "maxTargetChurn": 6,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 14,
    "signal": null,
    "flags": [
     "high_churn_target"
@@ -2815,7 +2822,9 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 600500
+   "triageScoreV2": 600500,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-014/verdict-141.json"
   },
   {
    "tiskId": 43344,
@@ -2829,10 +2838,10 @@
    "amendsCount": 1,
    "maxTargetChurn": 6,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 14,
    "signal": null,
    "flags": [
     "high_churn_target"
@@ -2840,7 +2849,9 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 600500
+   "triageScoreV2": 600500,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-014/verdict-222.json"
   },
   {
    "tiskId": 43379,
@@ -2854,10 +2865,10 @@
    "amendsCount": 1,
    "maxTargetChurn": 6,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 14,
    "signal": null,
    "flags": [
     "high_churn_target"
@@ -2865,7 +2876,9 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 600500
+   "triageScoreV2": 600500,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-014/verdict-257.json"
   },
   {
    "tiskId": 43308,
@@ -2886,10 +2899,10 @@
    "amendsCount": 8,
    "maxTargetChurn": 5,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 14,
    "signal": null,
    "flags": [
     "high_churn_target",
@@ -2898,7 +2911,9 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 504000
+   "triageScoreV2": 504000,
+   "forensicConfidence": 3,
+   "verdictFile": "payloads/verdicts-014/verdict-187.json"
   },
   {
    "tiskId": 43193,
@@ -2917,10 +2932,10 @@
    "amendsCount": 6,
    "maxTargetChurn": 5,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 14,
    "signal": null,
    "flags": [
     "high_churn_target"
@@ -2928,7 +2943,9 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 503000
+   "triageScoreV2": 503000,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-014/verdict-83.json"
   },
   {
    "tiskId": 43339,
@@ -2942,10 +2959,10 @@
    "amendsCount": 1,
    "maxTargetChurn": 5,
    "sponsorContractCzk": 884856389,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 14,
    "signal": null,
    "flags": [
     "high_churn_target",
@@ -2960,7 +2977,9 @@
     "Nemocnice AGEL Valašské Meziříčí a.s.",
     "Vodovody a kanalizace Vsetín, a.s."
    ],
-   "triageScoreV2": 502289
+   "triageScoreV2": 502289,
+   "forensicConfidence": 3,
+   "verdictFile": "payloads/verdicts-014/verdict-217.json"
   },
   {
    "tiskId": 43199,
@@ -2974,10 +2993,10 @@
    "amendsCount": 1,
    "maxTargetChurn": 5,
    "sponsorContractCzk": 278778307,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 14,
    "signal": null,
    "flags": [
     "high_churn_target",
@@ -2989,7 +3008,9 @@
    "municipalExcludedCompanies": [
     "Gymnázium, Pardubice, Mozartova 449"
    ],
-   "triageScoreV2": 502189
+   "triageScoreV2": 502189,
+   "forensicConfidence": 3,
+   "verdictFile": "payloads/verdicts-014/verdict-89.json"
   },
   {
    "tiskId": 43289,
@@ -3003,10 +3024,10 @@
    "amendsCount": 1,
    "maxTargetChurn": 5,
    "sponsorContractCzk": 224319743.1,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 14,
    "signal": null,
    "flags": [
     "high_churn_target",
@@ -3019,7 +3040,9 @@
     "Hvězdárna a planetárium v Hradci Králové",
     "Univerzita Palackého v Olomouci"
    ],
-   "triageScoreV2": 502170
+   "triageScoreV2": 502170,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-014/verdict-168.json"
   },
   {
    "tiskId": 43132,
@@ -3034,10 +3057,10 @@
    "amendsCount": 2,
    "maxTargetChurn": 5,
    "sponsorContractCzk": 200000,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 14,
    "signal": null,
    "flags": [
     "high_churn_target",
@@ -3049,7 +3072,9 @@
     "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
     "Nadační fond Gymnázia Kutná Hora"
    ],
-   "triageScoreV2": 502060
+   "triageScoreV2": 502060,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-014/verdict-25.json"
   },
   {
    "tiskId": 43356,
@@ -3065,10 +3090,10 @@
    "amendsCount": 3,
    "maxTargetChurn": 5,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 14,
    "signal": null,
    "flags": [
     "high_churn_target"
@@ -3076,7 +3101,9 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 501500
+   "triageScoreV2": 501500,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-014/verdict-234.json"
   },
   {
    "tiskId": 43288,

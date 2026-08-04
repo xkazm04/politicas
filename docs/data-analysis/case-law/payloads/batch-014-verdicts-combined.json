@@ -1,0 +1,431 @@
+[
+ {
+  "billTisk": 141,
+  "statedReasoning": "Zastupitelstvo Pardubického kraje (zákonodárná iniciativa, podepsán hejtman Martin Netolický) navrhuje nahradit dosavadní fixní přílohu č. 1 zákona č. 243/2000 Sb. novým výpočtovým modelem s osmi kritérii a váhami: počet obyvatel kraje 40 %, počet km silnic II. a III. třídy 20 %, rozloha kraje 13 %, podíl počtu obcí k rozloze kraje 8 %, vyrovnávací koeficient 7 %, počet výjezdových základen zdravotnické záchranné služby 6 %, počet dětí/žáků/studentů škol zřizovaných krajem 4 % a počet urgentních příjmů typu I v krajských nemocnicích 2 %, s každoroční aktualizací vyhláškou Ministerstva financí. Součástí návrhu je zvýšení procentního podílu krajů na sdílených daních v § 3 odst. 1 písm. b) až g) z 10,23 % na 10,97 % a nový § 3a, který zavádí samostatný dodatečný podíl hlavního města Prahy ve výši 0,1 % na šesti kategoriích sdílených daní. Důvodová zpráva výslovně uvádí, že návrh bude mít dopad na státní rozpočet, protože se zvyšuje podíl krajů na hrubém výnosu daní na úkor zdrojů státního rozpočtu, a tento dopad kvantifikuje.",
+  "researchedContext": "Text potvrzuje změnu čísla v § 3 odst. 1 písm. b) až g) z „10,23“ na „10,97“ (čl. I bod 1) a nové znění § 3 odstavců 2 až 13, kde kritérium počtu obyvatel (váha 0,4, písm. f) nového odstavce 2) i kritérium podílu počtu obcí k rozloze kraje (váha 0,08, písm. g) nového odstavce 2) se výslovně počítají „s výjimkou hlavního města Prahy“. Nově vložený § 3 odstavec 13 to potvrzuje a rozšiřuje: „V případě hlavního města Prahy se pro účely výpočtu procenta podle odstavce 2 použije ustanovení odstavce 2 písm. a) až e) obdobně“ — Praha se tedy na propočtu podílí jen kritérii a) až e) (silnice, rozloha, výjezdové základny zdravotnické záchranné služby, urgentní příjmy typu I, děti/žáci/studenti) a je vyňata ze všech tří zbývajících kritérií: písm. f) počet obyvatel (váha 0,4), písm. g) podíl obcí k rozloze (váha 0,08) a písm. h) vyrovnávací koeficient (váha 0,07) — dohromady 0,55, tedy 55 % váhy modelu. Kritérium h) je ve zvláštní části důvodové zprávy nezávisle popsáno jako „Vyrovnávací koeficient (kraje bez hl. m. Prahy)“ s poznámkou, že přispívá shodnou výší „všem krajům (vyjma hlavního města Prahy)“. Praha místo toho dostává samostatný paušální podíl 0,1 % podle nového § 3a. Kvantifikace dopadu na státní rozpočet v důvodové zprávě (bod 2.1) popisuje celkové navýšení alokace do RUD krajů ve výši 11,35 mld. Kč ročně jako součet tří položek v jedné větě: 4 mld. Kč odpovídající zrušeným dotacím Státního fondu dopravní infrastruktury (SFDI) na silnice II. a III. třídy, 6,0 mld. Kč připadající krajům a Praze na základě nového modelu rozdělení a 1,35 mld. Kč připadající Praze podle nového § 3a (4 + 6,0 + 1,35 = 11,35). Bod 6.1 popisuje stejné navýšení jinak — jako zvýšení procenta z 10,23 % na 10,97 %, které samo „představuje částku 10 mld. Kč“, plus 1,335 mld. Kč pro Prahu (10 + 1,335 = 11,335 ≈ 11,35; mezi oběma pasážemi je drobná zaokrouhlovací nesrovnalost 1,35 vs. 1,335). Bod 6.1 zároveň výslovně uvádí, že prostředky SFDI jsou „součástí tohoto navýšení“ (míněno desetimiliardové navýšení z procentní změny), nikoli položkou navíc — těch 4 mld. Kč tedy leží uvnitř oněch 10 mld. Kč, nikoli vedle nich, a protože o stejnou částku 4 mld. Kč zároveň klesne státní dotace do rozpočtu SFDI, je tato část navýšení pro státní rozpočet rozpočtově neutrální. Skutečné snížení příjmů státního rozpočtu ze sdílených daní tak odpovídá jen skutečně nové části peněz — 6,0 mld. Kč pro kraje z nového modelu a 1,35 mld. Kč pro Prahu podle § 3a, tedy přibližně 7,35 mld. Kč ročně, nikoli celým 11,35 mld. Kč. Srovnání se souběžně podaným tiskem 140 (tentýž předkladatel, hejtman Netolický) odhaluje střet: oba tisky přepisují stejný § 3 odst. 1 písm. b) až g) a odstavce 2 až 13 zákona č. 243/2000 Sb., avšak tisk 140 ponechává procento 10,23 % beze změny a nevyjímá Prahu z žádného kritéria, zatímco tisk 141 procento zvyšuje na 10,97 % a Prahu z části kritérií vyjímá. Přijetí obou tisků v nezměněné podobě by vedlo k přímo kolidujícím zněním téhož paragrafu.",
+  "unstatedEffects": [
+   {
+    "effect": "Vyloučení hlavního města Prahy ze tří z osmi přerozdělovacích kritérií — nový § 3 odst. 13 omezuje Prahu na kritéria písm. a) až e), takže se na ni nevztahují písm. f) počet obyvatel (váha 40 %), písm. g) poměr počtu obcí k rozloze kraje (váha 8 %) ani písm. h) vyrovnávací koeficient (váha 7 %), dohromady 55 % váhy modelu — mění relativní postavení Prahy v novém modelu vůči ostatním krajům podstatně více, než by naznačovala jen dvě vyloučená kritéria, a je kompenzováno pouze paušálním novým podílem 0,1 % podle nového § 3a. Důvodová zpráva neobsahuje propočet, o kolik by se procentní podíl hlavního města na sdíleném výnosu oproti dosavadní příloze č. 1 zvýšil nebo snížil, ani zda paušální podíl 0,1 % vyrovnává ztrátu z vyloučení z většiny váhy modelu, nebo ji zdaleka nedosahuje.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeny jsou všechny kraje včetně hlavního města Prahy, jejichž procentní podíly na sdílených daních se novým modelem přerozdělují; text neobsahuje propočet dopadu na jednotlivé kraje, který by umožnil určit konkrétní čisté příjemce a plátce reformy.",
+    "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=141&ct1=0"
+   },
+   {
+    "effect": "Tisk 141 přepisuje stejný § 3 odst. 1 písm. b) až g) a odstavce 2 až 13 zákona č. 243/2000 Sb. jako souběžně projednávaný tisk 140 od téhož předkladatele (Zastupitelstvo Pardubického kraje, hejtman Martin Netolický). Na rozdíl od tisku 140, který procento 10,23 % nemění a Prahu z žádného kritéria nevyjímá, tisk 141 procento zvyšuje na 10,97 % a Prahu z části kritérií vyjímá — schválení obou tisků v nezměněné podobě by vedlo k vzájemně kolidujícím zněním téhož paragrafu, a legislativní proces bude muset jeden z tisků vyřadit nebo sloučit.",
+    "whoBenefits": "Nelze jednoznačně určit — jde o důsledek souběžného podání dvou vzájemně neslučitelných novel téhož paragrafu týmž předkladatelem, nikoli o zvýhodnění konkrétní strany; dotčeny jsou všechny kraje, jejichž budoucí podíl na RUD závisí na tom, která verze bude nakonec přijata.",
+    "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=140&ct1=0"
+   }
+  ],
+  "conflictAssessment": "Předkladatelem je Zastupitelstvo Pardubického kraje, nikoli poslanec nebo skupina poslanců — u tohoto tisku proto v datech není evidován žádný poslanecký sponzor ani peněžní vazba, protože rámec střetu zájmů založený na majetkových vazbách jednotlivých poslanců se na krajskou zákonodárnou iniciativu nevztahuje: předkladatelem je kolektivní orgán územní samosprávy, nikoli fyzická osoba s podnikatelskými vazbami evidovanými v grafu. Krajský mandát sám o sobě není konfliktem zájmů. Žádný střet zájmů proto nelze konstatovat; jde o poctivou negativní zprávu vyplývající z povahy podání, nikoli o mezeru ve zjišťování.",
+  "severity": "medium",
+  "confidence": 4,
+  "citations": [
+   {
+    "claim": "Návrh v čl. I bodu 1 mění v § 3 odst. 1 písm. b) až g) zákona č. 243/2000 Sb. číslo „10,23“ na „10,97“ a v nových odstavcích 2 a 13 zavádí osmikritériový výpočtový model. Kritéria počtu obyvatel (váha 40 %, písm. f), podílu počtu obcí k rozloze kraje (váha 8 %, písm. g) a vyrovnávacího koeficientu (váha 7 %, písm. h) nového § 3 odst. 2 vylučují hlavní město Prahu; nový § 3 odst. 13 to potvrzuje tím, že pro Prahu předepisuje použití pouze písm. a) až e) — Praha je tedy vyloučena ze tří kritérií v souhrnné váze 55 % modelu. Nový § 3a zavádí samostatný dodatečný podíl Prahy ve výši 0,1 %.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=141&ct1=0"
+   },
+   {
+    "claim": "Důvodová zpráva (body 2.1 a 6.1) uvádí celkové navýšení alokace do RUD krajů o 11,35 mld. Kč ročně, které se v bodu 2.1 rozepisuje na 4 mld. Kč (zrušené dotace SFDI), 6,0 mld. Kč (nový model rozdělení mezi kraje a Prahu) a 1,35 mld. Kč (nový podíl Prahy podle § 3a). Bod 6.1 stejné navýšení popisuje jako zvýšení procenta na 10,97 % v hodnotě 10 mld. Kč, jehož je oněch 4 mld. Kč SFDI podle vlastní formulace „součástí“, plus 1,335 mld. Kč pro Prahu. Protože je částka SFDI rozpočtově neutrální (klesá o ni současně dotace do SFDI), skutečné snížení příjmů státního rozpočtu ze sdílených daní činí přibližně 7,35 mld. Kč (6,0 + 1,35), nikoli celých 11,35 mld. Kč.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=141&ct1=0"
+   },
+   {
+    "claim": "Tisk 140 od téhož předkladatele (Pardubický kraj, hejtman Netolický) přepisuje stejný § 3 zákona č. 243/2000 Sb., ale procento 10,23 % nemění a Prahu z žádného kritéria nevyjímá — obě novely jsou vzájemně neslučitelné.",
+    "kind": "web",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=140&ct1=0"
+   },
+   {
+    "claim": "Zákon č. 243/2000 Sb., o rozpočtovém určení výnosů některých daní územním samosprávným celkům a některým státním fondům, je statutem, který tisk 141 novelizuje.",
+    "kind": "law",
+    "source": "243/2000"
+   }
+  ]
+ },
+ {
+  "billTisk": 168,
+  "statedReasoning": "Skupina poslanců (Richterová, Bartoš, Hřib a další) navrhuje novelizovat zákon č. 235/2004 Sb., o dani z přidané hodnoty, zavedením druhé snížené sazby daně ve výši 6 % vedle dosavadní základní sazby 21 % a první snížené sazby 12 %. Novou sazbou by měly být zdaněny vybrané základní potraviny (ovoce, zelenina, luštěniny, rýže, proso, mlýnské výrobky, těstoviny, rostlinné oleje), počáteční a pokračovací kojenecká výživa, pitná voda a hygienické výrobky jako vložky, tampony a dětské pleny — vymezené novou přílohou č. 3a. Předkladatelé odůvodňují návrh potřebou přesněji zacílit daňovou úlevu na sociálně citlivé statky a zmírnit dopady doznívající inflace z let 2022–2023 i nového proinflačního tlaku, který v březnu 2026 vyvolala vojenská eskalace kolem Hormuzského průlivu. Navrhují projednání již v prvním čtení kvůli časové naléhavosti.",
+  "researchedContext": "Text novely potvrzuje rozsah změn: úpravy § 37 (koeficient pro přepočet daně), § 47 (rozlišení první a druhé snížené sazby), § 47a a § 49 (terminologie) a přílohy č. 2 a 3, spolu s vložením nové přílohy č. 3a. Sama důvodová zpráva (část 5) otevřeně kvantifikuje rozpočtový dopad: pokles inkasa DPH v rozmezí přibližně 5,9 až 7,5 mld. Kč ročně, se středním odhadem 6,7 mld. Kč, rozpadnutý na stát (−3,92 až −4,98 mld. Kč), obce (−1,43 až −1,81 mld. Kč) a kraje (−0,56 až −0,71 mld. Kč) podle pravidel rozpočtového určení daní. Návrh se tedy — na rozdíl od řady jiných poslaneckých návrhů — nesnaží rozpočtový náklad zamlčet. Věcně jde o návrat ke třístupňové struktuře sazeb DPH, ačkoli reforma účinná od roku 2024 sazby naopak zjednodušila na dvoustupňový systém (základní a jediná snížená sazba); tento posun směru důvodová zpráva výslovně přiznává v úvodu obecné části.",
+  "unstatedEffects": [
+   {
+    "effect": "Nová příloha č. 3a vymezuje zboží podléhající druhé snížené sazbě stejnou dvojí podmínkou, jakou už pro první sníženou sazbu používá příloha č. 3 — současným splněním kódu nomenklatury celního sazebníku a výslovného slovního popisu; několik kódů (např. 0701 až 0811, 1101 až 1109, 1901, 2106) se u obou příloh částečně překrývá a liší se jen slovním vymezením. To vytváří riziko výkladových sporů na hranici první a druhé snížené sazby, které důvodová zpráva u administrativních nákladů zmiňuje jen obecně a nekvantifikuje.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou plátci DPH prodávající zboží na hranici obou příloh a správci daně, kteří budou muset hraniční případy posuzovat individuálně podle slovního popisu, nikoli jen podle kódu.",
+    "evidence": "úplný text tisku na psp.cz, řádky 111–186 a 341–343 strojového přepisu (dvojí test kódu nomenklatury a slovního popisu v přílohách č. 3 a 3a)."
+   }
+  ],
+  "conflictAssessment": "Návrh podepsalo 18 poslanců. U tří z nich graf eviduje peněžní vazbu: Lenka Martínková Španihelová je vázána na MATURUS, o.p.s. (IČO 24766216, cca 1,06 mil. Kč — úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu), Jana Patková na Hvězdárnu a planetárium v Hradci Králové (IČO 00084018, cca 19 mil. Kč — úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu) a Andrea Hoffmannová na Univerzitu Palackého v Olomouci (IČO 61989592, cca 28,35 mld. Kč — úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu). Všechny tři vázané subjekty jsou veřejné nebo neziskové instituce (veřejná vysoká škola, krajská hvězdárna, obecně prospěšná společnost), nikoli obchodníci s potravinami, pitnou vodou nebo hygienickým zbožím, jehož sazba se návrhem mění; souhrnná výše u Univerzity Palackého navíc odpovídá institucionálním zakázkám veřejné vysoké školy za delší období, nikoli osobnímu prospěchu poslankyně. U zbývajících patnácti předkladatelů (Richterová, Bartoš, Hřib, Svárovská, Svobodová, Ferčíková Konečná, Stojanová, Ančincová, Pipášová, Demetrashvili, Šrámková, Moricová, Kovářová, Volpe, Šmída) graf neeviduje žádnou peněžní vazbu. Mezi předmětem novely (sazby DPH na potraviny, vodu a hygienické zboží) a evidovanými vazbami předkladatelů proto nelze na základě dostupných dat prokázat věcnou souvislost — jde o poctivou negativní zprávu.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+   {
+    "claim": "Novela zavádí druhou sníženou sazbu DPH ve výši 6 % novým § 47 odst. 1 písm. c) a novou přílohou č. 3a zákona č. 235/2004 Sb., o dani z přidané hodnoty.",
+    "kind": "law",
+    "source": "235/2004"
+   },
+   {
+    "claim": "Důvodová zpráva odhaduje pokles inkasa DPH v rozmezí 5,9 až 7,5 mld. Kč ročně (střední odhad 6,7 mld. Kč), rozpadnutý na stát, obce a kraje podle rozpočtového určení daní.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=168&ct1=0"
+   },
+   {
+    "claim": "Nová příloha č. 3a i stávající příloha č. 3 podmiňují zařazení zboží do snížené sazby současným splněním kódu nomenklatury celního sazebníku a výslovného slovního popisu, přičemž se u obou příloh částečně překrývají tytéž kódy.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=168&ct1=0"
+   },
+   {
+    "claim": "Lenka Martínková Španihelová je v grafu evidována s peněžní vazbou na MATURUS, o.p.s. v souhrnné výši cca 1,06 mil. Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu).",
+    "kind": "graph_fact",
+    "source": "company:ico:24766216"
+   },
+   {
+    "claim": "Jana Patková je v grafu evidována s peněžní vazbou na Hvězdárnu a planetárium v Hradci Králové v souhrnné výši cca 19 mil. Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu).",
+    "kind": "graph_fact",
+    "source": "company:ico:00084018"
+   },
+   {
+    "claim": "Andrea Hoffmannová je v grafu evidována s peněžní vazbou na Univerzitu Palackého v Olomouci v souhrnné výši cca 28,35 mld. Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu); jde o institucionální zakázky veřejné vysoké školy, nikoli o osobní prospěch poslankyně.",
+    "kind": "graph_fact",
+    "source": "company:ico:61989592"
+   }
+  ]
+ },
+ {
+  "billTisk": 187,
+  "statedReasoning": "Návrh čtyř poslanců mění osm zákonů z oblasti vnitřní správy. U zákona o poštovních službách vrací zákonný strop kompenzace čistých nákladů držitele poštovní licence z 2,0 mld. Kč na 1,5 mld. Kč a omezuje zálohové platby na 0,75 mld. Kč, aby byl obnoven soulad s rozhodnutím Evropské komise o veřejné podpoře pro období 2025 až 2029 – předkladatel sám v důvodové zprávě přiznává, že úprava má nevyhnutelně retroaktivní účinky vůči zúčtovacímu období 2025, které však označuje za spíše teoretické, neboť peníze na úhradu čistých nákladů nelze vyplatit dříve, než o jejich oprávněnosti rozhodne Komise. U zákona o archivnictví a spisové službě odkládá povinnost vykonávat spisovou službu v atestovaném elektronickém systému o dva roky pro ústřední správní úřady (na 1. leden 2029) a o tři roky pro ostatní veřejnoprávní původce (na 1. leden 2030) s odůvodněním, že trh dosud nenabízí dostatek atestovaných systémů. Zároveň natrvalo vyjímá bezpečnostní sbory a Vojenskou policii z povinnosti atestovaný systém používat, s odůvodněním bezpečnostních rizik spojených s otevřením jejich uzavřených systémů běžnému atestačnímu procesu. Dále odkládá povinné zavedení systému eLegislativa pro novelizace zákonů na 15. leden 2029 a spuštění matričního informačního systému na 1. červenec 2028, s navazujícím posunem souvisejících přechodných ustanovení, a posouvá jeden z termínů v zákoně o Sbírce zákonů z roku 2027 na rok 2029.",
+  "researchedContext": "Vlastní čtení úplného textu tisku 187 na psp.cz (strojový přepis, řádky 27–211 novelizační části a řádky 214–549 důvodové zprávy) potvrzuje, že popsané body odpovídají skutečnému normativnímu textu novely – jde skutečně o osm samostatných částí měnících osm různých zákonů, nikoli o jednotnou věcnou novelu. Text dále ukazuje, že odklad atestace elektronických systémů spisové služby není první svého druhu: povinnost byla zavedena v roce 2021 s původním termínem 1. leden 2024, respektive 1. leden 2025 (řádky 239–242), poté podle vlastní historie zákona v důvodové zprávě (řádky 258–280) postupně odsunuta na rok 2026 a poté na rok 2027, a nyní se navrhuje třetí odklad, tentokrát na roky 2029/2030. Text také výslovně uvádí, že nesplnění dosavadní povinnosti je přestupkem s pokutou až 200 000 Kč (řádky 415–416), takže odklad má i praktický dopad na to, komu taková sankce reálně hrozí.",
+  "unstatedEffects": [
+   {
+    "effect": "Vynětí bezpečnostních sborů (Policie ČR, Hasičský záchranný sbor, Celní správa, Vězeňská služba, Generální inspekce bezpečnostních sborů, Bezpečnostní informační služba, Úřad pro zahraniční styky a informace) a Vojenské policie z povinnosti atestovaného elektronického systému spisové služby není časově omezené jako u ostatních subjektů, ale trvalé. Mezi vyňatými subjekty je i Generální inspekce bezpečnostních sborů, jejímž úkolem je dohled nad ostatními bezpečnostními sbory – jednotný standard kvality a interoperability vedení spisů se tak natrvalo nebude vztahovat ani na orgán, který sám kontroluje ostatní bezpečnostní sbory.",
+    "whoBenefits": "Nelze jednoznačně určit – dotčeny jsou vyjmenované bezpečnostní sbory a Vojenská policie, jejichž evidenční a spisové systémy zůstanou mimo povinnou atestaci trvale, a nikoli jen do doby, než trh nabídne dostatek atestovaných řešení.",
+    "evidence": "Text tisku 187 na psp.cz, řádky 100–104 (novelizační ustanovení § 63 odst. 3 a § 69e odst. 1 zákona o archivnictví a spisové službě) a řádky 431–468 důvodové zprávy, kde předkladatelé navrhují výjimku jako trvalou, nikoli časově omezenou jako u odkladu pro ostatní veřejnoprávní původce."
+   },
+   {
+    "effect": "Odklad atestace elektronických systémů spisové služby je již třetím posunem téhož závazku od jeho zavedení v roce 2021 s původním termínem 2024/2025 (2024/2025 → 2026 → 2027 → nyní 2029/2030), přičemž novela sama tuto historii popisuje, ale nevysvětluje, proč přetrvávající nedostatek atestovaných systémů na trhu nebyl řešen jinak než opakovaným prodlužováním lhůty.",
+    "whoBenefits": "Nelze jednoznačně určit – prospěch mají veřejnoprávní původci, kteří dosud atestovaný systém spisové služby nemají a přestupkové sankci se tak i nadále vyhnou, na úkor předvídatelnosti právní úpravy vůči původcům i dodavatelům, kteří atestaci již dokončili.",
+    "evidence": "Text tisku 187 na psp.cz, řádky 239–280 a 402–420 důvodové zprávy, popisující původní termín 2024/2025, dosavadní dva odklady na roky 2026 a 2027 a přiznávající, že do dubna 2026 byl vydán jen jeden atest."
+   }
+  ],
+  "conflictAssessment": "Všichni čtyři navrhovatelé (Hubert Lang, Igor Hendrych, Jiří Mašek, Drahoslav Ryba) mají v grafu peněžních vazeb prázdný seznam vazeb na firmy dodávající státu – u žádného z nich tedy nebyla nalezena vazba na poštovní, archivní ani bezpečnostní sektor, kterého se novela týká. Bez zjištěné peněžní vazby nelze u žádného ze čtyř sponzorů popsat konkrétní osobní ekonomický zájem na obsahu novely.",
+  "severity": "medium",
+  "confidence": 3,
+  "citations": [
+   {
+    "claim": "Novela snižuje zákonný strop kompenzace čistých nákladů držitele poštovní licence z 2,0 mld. Kč na 1,5 mld. Kč a přiznává retroaktivní účinek vůči roku 2025.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=187&ct1=0"
+   },
+   {
+    "claim": "Novela mění zákon o poštovních službách.",
+    "kind": "law",
+    "source": "29/2000"
+   },
+   {
+    "claim": "Novela mění zákon o archivnictví a spisové službě, včetně výjimky pro bezpečnostní sbory a Vojenskou policii z atestace elektronického systému spisové služby.",
+    "kind": "law",
+    "source": "499/2004"
+   },
+   {
+    "claim": "Novela odkládá termíny zavedené zákonem o další elektronizaci postupů orgánů veřejné moci.",
+    "kind": "law",
+    "source": "261/2021"
+   },
+   {
+    "claim": "Novela posouvá termín v zákoně o Sbírce zákonů a mezinárodních smluv z roku 2027 na rok 2029.",
+    "kind": "law",
+    "source": "222/2016"
+   },
+   {
+    "claim": "Novela mění navazující ustanovení zákona, kterým byl v roce 2025 naposledy upraven zákon o poštovních službách.",
+    "kind": "law",
+    "source": "332/2025"
+   },
+   {
+    "claim": "Novela posouvá účinnost ustanovení souvisejících s matričním informačním systémem zavedeným novelou z roku 2023.",
+    "kind": "law",
+    "source": "414/2023"
+   }
+  ]
+ },
+ {
+  "billTisk": 217,
+  "statedReasoning": "Poslanecký návrh mění zákon č. 166/1993 Sb., o Nejvyšším kontrolním úřadu, tak, že doplňuje nový § 3 odst. 4, podle kterého Nejvyšší kontrolní úřad (NKÚ) nově vykonává kontrolu hospodaření právnických osob zřízených zákonem, které poskytují veřejnou službu v oblasti televizního a rozhlasového vysílání – tedy České televize a Českého rozhlasu. Předkladatelé v důvodové zprávě uvádějí, že návrh navazuje na souběžně projednávaný senátní návrh ústavního zákona (senátní tisk č. 47), který má rozšířit ústavní působnost NKÚ, a tuto ústavní změnu fakticky provádí. Cílem je posílit vnější, na kontrolovaných subjektech nezávislou kontrolu hospodaření veřejnoprávních médií, protože podle předkladatelů vnitřní kontrolní orgány (Rada České televize, Rada Českého rozhlasu) nemají dostatečné odborné zázemí a pravomoci, zatímco stávající právní úprava neumožňuje NKÚ kontrolovat hospodaření České televize a Českého rozhlasu, protože nejde o hospodaření se státním majetkem. Přechodné ustanovení umožňuje kontrolu i za období předcházející účinnosti zákona. Návrh nemá mít podle předkladatelů dopad na státní rozpočet ani na podnikatelské prostředí.",
+  "researchedContext": "Vlastní čtení úplného textu tisku 217 na psp.cz (strojový přepis) potvrzuje, že nové zmocnění je formulováno šířeji, než jen jako kontrola prostředků z povinných koncesionářských poplatků: text (řádky 189–193 důvodové zprávy) výslovně uvádí, že cílem je, aby NKÚ mohl kontrolovat hospodaření s veškerým majetkem České televize a Českého rozhlasu, tedy i s majetkem pocházejícím například z jejich vlastní podnikatelské činnosti, nikoli jen s finančními prostředky vybranými na základě zákona o televizních a rozhlasových poplatcích. Text také potvrzuje (řádky 65–68 a 175–187), že Česká televize a Český rozhlas jsou samostatné právnické osoby hospodařící s vlastním majetkem, za jehož závazky stát neodpovídá, a že proto na ně dosud nelze podle Ústavy vztáhnout kontrolní působnost NKÚ. Podepsanými navrhovateli podle textu tisku (řádky 219–224) jsou Ondřej Babka, Jan Richter, Gabriela Sedláčková a Patrik Nacher – to odpovídá čtyřem jménům v titulu návrhu.",
+  "unstatedEffects": [
+   {
+    "effect": "Rozšíření kontrolní působnosti NKÚ na veškeré hospodaření veřejnoprávních médií (nikoli jen na prostředky z koncesionářských poplatků) vytváří nástroj vnější kontroly, jehož závěry jsou sice podle vlastního textu návrhu (řádky 195–197) pouze nezávazným kontrolním závěrem bez přímého zásahu do činnosti kontrolovaného subjektu, ale jsou veřejné a mohou být politicky využity k tlaku na hospodářské, a tím nepřímo i na redakční rozhodování veřejnoprávních médií – tento možný efekt na jejich nezávislost není v důvodové zprávě nikde zmíněn ani zvažován, ačkoli text sám zdůrazňuje citlivost otázky nezávislosti financování veřejné služby.",
+    "whoBenefits": "Nelze jednoznačně určit – dotčeny jsou Česká televize a Český rozhlas, jejichž veškeré hospodaření (nikoli jen prostředky z poplatků) bude nově pod vnější kontrolou orgánu, jehož zřízení a působnost upravuje moc zákonodárná a výkonná.",
+    "evidence": "Text tisku 217 na psp.cz, řádky 165–193 (zvláštní část důvodové zprávy k § 3 odst. 4) a řádky 50–71 (obecná část o dosavadní nezávislosti hospodaření obou médií)."
+   }
+  ],
+  "conflictAssessment": "Podle grafu peněžních vazeb má ze čtyř sponzorů, jejichž jména nese titul návrhu i podpisová strana textu tisku (Ondřej Babka, Jan Richter, Gabriela Sedláčková, Patrik Nacher), vazby na firmy dodávající státu Jan Richter (Chomutovská bytová a.s., Sportovní klub policie Kadaň a Dopravní podnik měst Chomutova a Jirkova a.s.) a Patrik Nacher (Operátor ICT, a.s.); Ondřej Babka a Gabriela Sedláčková nemají v grafu žádnou evidovanou vazbu. Všechny uvedené firmy jsou komunálního nebo státního charakteru (bytová správa, dopravní podnik, městská IT organizace) nebo jde o sportovní klub bez vztahu k mediálnímu sektoru – jde tedy o vazby plynoucí z výkonu obecní či státní role, nikoli o soukromý podnikatelský zájem, a navíc žádná z nich nepůsobí v oblasti televizního nebo rozhlasového vysílání, které je předmětem rozšířené kontrolní pravomoci NKÚ. U žádného ze čtyř sponzorů tak nebyl nalezen peněžní zájem na obsahu předkládané novely. Podkladový seznam sponzorů k tomuto tisku navíc uváděl páté jméno (s vazbami na zdravotnickou a vodárenskou firmu), které se ale na podpisové straně textu tisku nenachází – jde o datovou nesrovnalost mezi podkladovým seznamem a textem tisku, kterou toto hodnocení dále neřeší.",
+  "severity": "medium",
+  "confidence": 3,
+  "citations": [
+   {
+    "claim": "Novela rozšiřuje kontrolní působnost Nejvyššího kontrolního úřadu na veškeré hospodaření České televize a Českého rozhlasu, nejen na prostředky z koncesionářských poplatků.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=217&ct1=0"
+   },
+   {
+    "claim": "Novela mění zákon o Nejvyšším kontrolním úřadu.",
+    "kind": "law",
+    "source": "166/1993"
+   }
+  ]
+ },
+ {
+  "billTisk": 222,
+  "statedReasoning": "Vládní návrh (předkládá Ministerstvo průmyslu a obchodu) adaptuje český právní řád na přímo použitelné nařízení EU 2024/2747 (tzv. nařízení IMERA, zavádí rámec opatření pro mimořádné situace na vnitřním trhu), na navazující nařízení 2024/2748 o mimořádných postupech posuzování shody a na směrnici 2024/2749. Zákon určuje Ministerstvo průmyslu a obchodu ústředním styčným orgánem a jednotným kontaktním místem, upravuje monitorování krizově relevantního zboží, dozor nad trhem, sankce a v části druhé vkládá do zákona č. 134/2016 Sb., o zadávání veřejných zakázek, nový § 9a, podle něhož se za zadání veřejné zakázky nepovažuje pořízení zboží nebo služeb, které Evropská komise zadala v zastoupení nebo jménem členských států nebo které byly zadány společně podle přímo použitelného předpisu EU. Důvodová zpráva uvádí, že návrh v době mimo mimořádnou situaci nemá dopad na státní rozpočet, protože náklady vzniknou až vyhlášením mimořádné situace a nelze je předem vyčíslit, a že předpisu byla udělena výjimka z povinnosti zpracovat RIA. Zpráva sama přiznává, že § 12 odst. 3 vylučuje použití zákona č. 106/1999 Sb., o svobodném přístupu k informacím, na údaje o hospodářských subjektech chráněné podle § 12 odst. 1 a 2 (obchodní tajemství a citlivé informace).",
+  "researchedContext": "Text potvrzuje, že § 16 část druhá vkládá do zákona č. 134/2016 Sb. za § 9 nový § 9a: „Za zadání veřejné zakázky se nepovažuje pořízení zboží nebo služeb, které Evropská komise zadala v zastoupení nebo jménem členských států nebo které byly zadány společně podle přímo použitelného předpisu Evropské unie.“ Zákon o zadávání veřejných zakázek jinak neupravuje výjimky pro takto společně zadávané zakázky. Dále text potvrzuje § 12 odst. 3: „Informace podle odstavců 1 a 2 nelze poskytnout podle právních předpisů upravujících právo na informace,“ přičemž odstavce 1 a 2 se týkají obchodního tajemství, citlivých a důvěrných informací hospodářských subjektů a utajovaných informací získaných při uplatňování nařízení IMERA — důvodová zpráva sama v části J (Zhodnocení korupčních rizik) uvádí, že jde o vyloučení aplikace zákona č. 106/1999 Sb. Návrh v části F (hospodářský a finanční dopad) výslovně uvádí, že náklady „není zatím možné vyčíslit“, protože jsou vázány na vyhlášení mimořádné situace, a v části H potvrzuje uděleno výjimku z RIA v rámci Plánu legislativních prací vlády na rok 2025.",
+  "unstatedEffects": [
+   {
+    "effect": "Nový § 9a zákona č. 134/2016 Sb. vyjímá pořízení zboží nebo služeb zadané Evropskou komisí v zastoupení členských států, nebo společně zadané podle přímo použitelného předpisu EU, z definice zadání veřejné zakázky. Důvodová zpráva tuto výjimku popisuje jako technické promítnutí spolupráce podle unijního nařízení, ale neuvádí výslovně, že takto vyňatá pořízení tím zároveň vypadávají z dohledových a přezkumných mechanismů zákona o zadávání veřejných zakázek (např. možnost podat námitky zadavateli nebo návrh k Úřadu pro ochranu hospodářské soutěže), které se na „zadání veřejné zakázky“ ve smyslu zákona jinak vážou.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou dodavatelé, kteří by se o takto společně zadávané zakázky ucházeli a kteří by jinak měli k dispozici opravné prostředky podle zákona o zadávání veřejných zakázek, a orgány dohledu nad zadáváním veřejných zakázek v ČR, jejichž přezkumná pravomoc se na tato pořízení nevztahuje.",
+    "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=222&ct1=0"
+   },
+   {
+    "effect": "Ustanovení § 12 odst. 3 vylučuje z použití zákon č. 106/1999 Sb., o svobodném přístupu k informacím, na veškeré údaje o hospodářských subjektech shromážděné podle § 12 odst. 1 a 2. Důvodová zpráva tento dopad na dostupnost informací sama uvádí a odůvodňuje ochranou obchodního tajemství a citlivých údajů, avšak nekvantifikuje rozsah takto vyloučených údajů ani nestanoví žádné časové omezení či následnou zpřístupnitelnost této výjimky po odeznění mimořádné situace.",
+    "whoBenefits": "Nelze jednoznačně určit — výjimka chrání hospodářské subjekty poskytující údaje ministerstvům před jejich zveřejněním na úkor obecné informační otevřenosti vůči veřejnosti a žadatelům podle zákona č. 106/1999 Sb.",
+    "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=222&ct1=0"
+   }
+  ],
+  "conflictAssessment": "Předkladatelem je vláda prostřednictvím Ministerstva průmyslu a obchodu, sponzorem v datech je ministr Karel Havlíček. Ke sponzorovi není v grafu evidována žádná peněžní vazba k dodavatelským firmám — jde o poctivou negativní zprávu, nikoli o mezeru ve zjišťování: návrh implementuje přímo použitelné nařízení EU s obecnou, nikoli konkrétním subjektům adresnou působností a týká se výkonu ministerské agendy, nikoli podnikatelských vazeb jednotlivce. Výkon ministerského úřadu sám o sobě není střetem zájmů.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+   {
+    "claim": "Část druhá, § 16 návrhu vkládá do zákona č. 134/2016 Sb. nový § 9a: pořízení zboží nebo služeb, které Evropská komise zadala v zastoupení nebo jménem členských států nebo které byly zadány společně podle přímo použitelného předpisu Evropské unie, se nepovažuje za zadání veřejné zakázky.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=222&ct1=0"
+   },
+   {
+    "claim": "Ustanovení § 12 odst. 3 návrhu stanoví, že informace chráněné podle § 12 odst. 1 a 2 (obchodní tajemství a citlivé informace hospodářských subjektů) nelze poskytnout podle právních předpisů upravujících právo na informace; důvodová zpráva to sama vykládá jako vyloučení aplikace zákona č. 106/1999 Sb., o svobodném přístupu k informacím.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=222&ct1=0"
+   },
+   {
+    "claim": "Zákon č. 134/2016 Sb., o zadávání veřejných zakázek, je statutem, který tisk 222 novelizuje.",
+    "kind": "law",
+    "source": "134/2016"
+   },
+   {
+    "claim": "Zákon č. 106/1999 Sb., o svobodném přístupu k informacím, je statutem, jehož použití § 12 odst. 3 tisku 222 vylučuje na chráněné údaje.",
+    "kind": "law",
+    "source": "106/1999"
+   }
+  ]
+ },
+ {
+  "billTisk": 234,
+  "statedReasoning": "Vládní návrh (podává ministr pro místní rozvoj) mění autorizační zákon č. 360/1992 Sb. (výkon povolání autorizovaných architektů, inženýrů a techniků), zákon o zeměměřictví č. 200/1994 Sb. a stavební zákon č. 283/2021 Sb. Hlavní změnou je zavedení nové profesní kategorie „autorizovaný stavitel“ vedle architektů, inženýrů a techniků, s vlastním seznamem vedeným Českou komorou autorizovaných inženýrů a techniků a vlastním vymezením činností v novém § 19a. Návrh dále zpřesňuje podmínky prokazování bezúhonnosti, upravuje disciplinární řízení a opravné prostředky proti němu, stanoví horní hranici poplatků za přijetí žádosti a zkoušku odborné způsobilosti (10 000 Kč) a horní hranici pokuty za disciplinární provinění (300 000 Kč), zavádí povinné pojištění odpovědnosti a u zákona o zeměměřictví zavádí digitální autorizační deník spravovaný Komorou. V zákoně o zeměměřictví se nově upravuje také příslušnost k projednávání přestupků mezi inspektorátem, Zeměměřickým úřadem a Ministerstvem obrany.",
+  "researchedContext": "Text novely potvrzuje rozsah bodů 1 až 98 v části první (autorizační zákon) a odpovídajících bodů v části druhé (zákon o zeměměřictví); ověřeno bylo zejména zavedení kategorie autorizovaného stavitele (body 1, 2, 4 a 7 části první) a nový § 17d zákona č. 200/1994 Sb. vkládaný bodem 47 části druhé. Tento § 17d — dělící příslušnost k projednávání přestupků na úseku zeměměřictví mezi inspektorát, Zeměměřický úřad a Ministerstvo obrany ve dvou písmenech a) a b) — je téměř doslovně totožný s § 17d, který do téhož zákona č. 200/1994 Sb. vkládá jiný, samostatně projednávaný vládní návrh (sněmovní tisk 56, novela zákonů v souvislosti se sítěmi elektronických komunikací s velmi vysokou kapacitou); tisk 56 obsahuje tatáž písmena a) a b), rozšířená navíc o písmeno c) a odstavec 2 pro Český telekomunikační úřad. Shoda textu dvou samostatných novel téhož nového paragrafu ukazuje na sdílenou legislativní přípravu obou předloh (patrně společný zdroj textu na straně předkladatele nebo připomínkového místa), nikoli na obsahový rozpor mezi návrhy — jde o zjištění z procesu přípravy legislativy, nikoli o etické hodnocení.",
+  "unstatedEffects": [
+   {
+    "effect": "Pokud budou přijaty oba návrhy, které nezávisle na sobě vkládají nový § 17d do zákona č. 200/1994 Sb. s částečně odlišným obsahem (tisk 234 jen písmena a) a b); souběžně projednávaný tisk 56 navíc písmeno c) a odstavec 2 pro Český telekomunikační úřad), vznikne kolize v číslování a obsahu novelizovaného ustanovení, kterou ani jedna z důvodových zpráv nezmiňuje ani neřeší koordinačním ustanovením.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou uživatelé zákona o zeměměřictví (autorizovaní zeměměřičtí inženýři a orgány projednávající přestupky), kterým hrozí nejasnost, které znění § 17d platí, pokud se legislativní proces obou návrhů nezkoordinuje.",
+    "evidence": "úplný text tisku na psp.cz, řádky 904–912 strojového přepisu (nový § 17d vkládaný bodem 47 části druhé, zvláštní část důvodové zprávy k bodům 44 až 47)."
+   }
+  ],
+  "conflictAssessment": "Jedinou uvedenou předkladatelkou je poslankyně Zuzana Mrázová (návrh je vládní, podává ho ministr pro místní rozvoj); u ní graf neeviduje žádnou peněžní vazbu na obchodní společnost ani jinou organizaci. Návrh se věcně týká profesní regulace architektů, inženýrů, techniků a nově i stavitelů a zeměměřických inženýrů — bez evidované peněžní vazby předkladatelky nelze na základě dostupných dat dovodit žádný osobní prospěch ani střet zájmů. Jde o poctivou negativní zprávu.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+   {
+    "claim": "Návrh zavádí novou profesní kategorii autorizovaný stavitel v autorizačním zákoně č. 360/1992 Sb. (body 1, 2, 4 a 7 části první, nový § 19a).",
+    "kind": "law",
+    "source": "360/1992"
+   },
+   {
+    "claim": "Novela zákona o zeměměřictví č. 200/1994 Sb. vkládá nový § 17d, který dělí příslušnost k projednávání přestupků mezi inspektorát, Zeměměřický úřad a Ministerstvo obrany.",
+    "kind": "law",
+    "source": "200/1994"
+   },
+   {
+    "claim": "Autorizační zákon nově odkazuje na stavební zákon č. 283/2021 Sb. jako na související předpis (poznámka pod čarou č. 1a).",
+    "kind": "law",
+    "source": "283/2021"
+   },
+   {
+    "claim": "Text tisku 234 vkládá do zákona č. 200/1994 Sb. nový § 17d s písmeny a) a b) dělícími příslušnost k projednávání přestupků mezi inspektorát, Zeměměřický úřad a Ministerstvo obrany.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=234&ct1=0"
+   },
+   {
+    "claim": "Návrh stanoví horní hranici poplatků za přijetí žádosti a zkoušku odborné způsobilosti na 10 000 Kč a horní hranici pokuty za disciplinární provinění na 300 000 Kč.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=234&ct1=0"
+   }
+  ]
+ },
+ {
+  "billTisk": 25,
+  "statedReasoning": "Vládní návrh (podává 1. místopředseda vlády a ministr vnitra) mění zákon č. 222/2016 Sb., o Sbírce zákonů a mezinárodních smluv, a navazující zákon č. 277/2019 Sb. Hlavním cílem je o rok odložit — z 15. ledna 2026 na 15. ledna 2027 — povinné používání elektronického systému tvorby právních předpisů (e-Legislativa) pro novely ústavních zákonů, zákonů a zákonných opatření Senátu, s odůvodněním, že systém není dosud dostatečně stabilní a noví poslanci a senátoři po podzimních volbách 2025 potřebují čas na zaškolení. Zcela nové zákony (bez novelizační části) mají povinnost používat e-Legislativu už od 15. ledna 2026 kvůli podmínkám unijního spolufinancování projektu. Návrh dále zavádí výjimku pro zákon o státním rozpočtu a jeho novely, které mají být nadále připravovány a vyhlašovány mimo systém e-Legislativa i po skončení přechodného období — odůvodněnou odlišnou strukturou a harmonogramem přípravy rozpočtového zákona. Vláda žádá projednání v prvním čtení pro časovou naléhavost, protože platná úprava stanoví povinnost k 15. lednu 2026.",
+  "researchedContext": "Text novely potvrzuje rozsah bodů 1 až 11 v části první (zákon č. 222/2016 Sb.) a bodu v části druhé (zákon č. 277/2019 Sb.). Nový § 22a skutečně vylučuje použití § 16 až 21 (povinnosti e-Legislativy) na zákon o státním rozpočtu a jeho novely. Důvodová zpráva to opakuje na dvou místech: v obecné části uvádí „Nemá se jednat o dočasnou výjimku, ale o trvalý zvláštní právní režim“ a ve zvláštní části k bodům 1 a 3 „Nejde o dočasnou výjimku, ale o trvalou výluku z využití e-Legislativy“ — na rozdíl od odkladu pro ostatní novely zákonů, který je časově omezený do 14. ledna 2027. Novelizovaný § 26 odst. 1 písm. a) navíc stanoví dvě různá rozhodná data pro zachování dosavadního (bez e-Legislativy) legislativního režimu podle toho, kdo je předkladatelem: u vládních návrhů stačí, aby byl návrh předložen do meziresortního připomínkového řízení nebo vládě přede dnem 15. ledna 2026, zatímco u návrhů, jejichž předkladatelem není vláda (poslanecké, senátní či krajské návrhy), musí být tentýž den předložen už Poslanecké sněmovně k projednání — což je pozdější a formálnější krok legislativního procesu.",
+  "unstatedEffects": [
+   {
+    "effect": "Nový § 22a zákona č. 222/2016 Sb. trvale vyjímá přípravu a vyhlašování zákona o státním rozpočtu (a jeho novel) z povinného použití systému e-Legislativa, ačkoli tentýž systém se stává povinným pro všechny ostatní zákony včetně ústavních zákonů. Rozpočtový zákon je politicky nejsledovanějším ročním předpisem, u kterého si vláda sama zachovává dosavadní, elektronicky méně sledovatelný proces přípravy.",
+    "whoBenefits": "Vláda jako předkladatelka zákona o státním rozpočtu — a to i budoucí vlády, protože jde o trvalou, nikoli časově omezenou výjimku platnou i po skončení přechodného období tohoto návrhu.",
+    "evidence": "úplný text tisku na psp.cz, řádky 38–43, 201–202 a 474–476 strojového přepisu (nový § 22a; obecná část: „trvalý zvláštní právní režim“; zvláštní část k bodům 1 a 3: „trvalou výluku z využití e-Legislativy“)."
+   },
+   {
+    "effect": "Nová formulace § 26 odst. 1 písm. a) zákona č. 222/2016 Sb. stanoví pro zachování dosavadního legislativního režimu bez e-Legislativy dřívější a formálně méně náročné rozhodné datum u vládních návrhů (předložení do meziresortního připomínkového řízení nebo vládě) než u návrhů, jejichž předkladatelem vláda není (předložení až Poslanecké sněmovně k projednání) — ačkoli rozhodné datum 15. ledna 2026 je pro obě skupiny předkladatelů stejné.",
+    "whoBenefits": "Vládní návrhy zákonů — mají oproti poslaneckým, senátním a krajským návrhům výhodnější, dřívější milník pro zachování dosavadního legislativního režimu bez e-Legislativy.",
+    "evidence": "úplný text tisku na psp.cz, řádky 44–52 strojového přepisu (§ 26 odst. 1 písm. a) body 1 a 2)."
+   }
+  ],
+  "conflictAssessment": "Jediným uvedeným předkladatelem-poslancem je Vít Rakušan (1. místopředseda vlády a ministr vnitra, který návrh jako člen vlády i podepsal). Graf u něj eviduje čtyři peněžní vazby čekající na lidskou kontrolu: Vodní cesty na Labi, o.p.s. (IČO 02312701, 0 Kč zaznamenaných zakázek), Změna pro Kolín z.s. (IČO 22874381, 0 Kč), Společenství vlastníků jednotek domu v Kolíně (IČO 26745615, 0 Kč — jde o SVJ domu, tedy patrně bydliště) a Nadační fond Gymnázia Kutná Hora (IČO 68404999, cca 200 000 Kč — úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu). Žádný z těchto subjektů nepodniká v oblasti tvorby, vyhlašování ani elektronizace právních předpisů a nemá zjevný vztah k přípravě státního rozpočtu; tři ze čtyř vazeb navíc nesou nulovou zaznamenanou hodnotu zakázek. Věcný konflikt zájmů mezi předmětem novely a evidovanými vazbami předkladatele proto nelze na základě dostupných dat prokázat — jde o poctivou negativní zprávu k penězům. Rizika zjištěná u tohoto návrhu jsou procesní povahy (viz výše uvedené nevyřčené efekty), nikoli otázkou osobního prospěchu předkladatele.",
+  "severity": "medium",
+  "confidence": 4,
+  "citations": [
+   {
+    "claim": "Návrh vkládá nový § 22a zákona č. 222/2016 Sb., který trvale vylučuje použití § 16 až 21 (povinnosti systému e-Legislativa) na zákon o státním rozpočtu a jeho novely.",
+    "kind": "law",
+    "source": "222/2016"
+   },
+   {
+    "claim": "Ve zvláštní části k bodům 1 a 3 i v obecné části důvodová zpráva dvakrát výslovně uvádí, že výjimka pro zákon o státním rozpočtu z e-Legislativy není dočasná, ale trvalá.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=25&ct1=0"
+   },
+   {
+    "claim": "Novelizovaný § 26 odst. 1 písm. a) zákona č. 222/2016 Sb. stanoví pro zachování dosavadního legislativního režimu u vládních návrhů dřívější rozhodný milník (předložení do meziresortního připomínkového řízení nebo vládě) než u návrhů, jejichž předkladatelem vláda není (předložení Poslanecké sněmovně).",
+    "kind": "law",
+    "source": "222/2016"
+   },
+   {
+    "claim": "Návrh zároveň mění zákon č. 277/2019 Sb. v části upravující přechodné období zavádění systému e-Legislativa.",
+    "kind": "law",
+    "source": "277/2019"
+   },
+   {
+    "claim": "Vít Rakušan je v grafu evidován se čtyřmi peněžními vazbami, z nichž tři nesou nulovou zaznamenanou hodnotu zakázek a čtvrtá (Nadační fond Gymnázia Kutná Hora) cca 200 000 Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu).",
+    "kind": "graph_fact",
+    "source": "psp:person:6524"
+   }
+  ]
+ },
+ {
+  "billTisk": 257,
+  "statedReasoning": "Senátní návrh (senátor Zdeněk Sýkora a další) je malá technická novela zákona č. 187/2006 Sb., o nemocenském pojištění. V § 28 odst. 1 se ruší zvláštní 70denní strop výplaty nemocenského pro ekonomicky aktivní poživatele invalidního důchodu pro invaliditu třetího stupně a nový § 28 odst. 2 místo toho váže délku výplaty této skupiny na obecnou podpůrčí dobu podle § 26 (až 380 kalendářních dnů), při zachování pravidla, že nemocenské nenáleží po skončení zaměstnání nebo pojištění. Doprovodné legislativně-technické úpravy se týkají § 18 odst. 7 písm. a), § 103 odst. 1 písm. d) a § 124 odst. 2 (přečíslování odkazů na odstavce § 28). Důvodová zpráva kvantifikuje dopad na státní rozpočet na cca 40 až 60 mil. Kč ročně, vychází z dat Ministerstva práce a sociálních věcí za rok 2024 (41 092 zaměstnaných poživatelů invalidního důchodu pro invaliditu třetího stupně, 25 466 dočasných pracovních neschopností této skupiny, průměrná délka 63,4 dne, u cca 20 % skupiny očekávané prodloužení výplaty). Zpráva sama přiznává lobbování ze strany České asociace paraplegiků – CZEPA, z. s., a navrhuje schválení již v prvním čtení podle § 90 odst. 2 zákona č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny, s odůvodněním, že jde o věcně úzkou a technicky jednoduchou novelu.",
+  "researchedContext": "Text potvrzuje v čl. I bodu 2, že z § 28 odst. 1 zákona č. 187/2006 Sb. se vypouštějí slova „nebo invalidního důchodu pro invaliditu třetího stupně“, a bodu 3, že se vkládá nový § 28 odst. 2 vážící výplatu nemocenského této skupiny na podpůrčí dobu podle § 26 se zachováním limitu do skončení zaměstnání či pojištění. Navazující legislativně-technická přečíslování v § 18 odst. 7 písm. a) („odst. 4“ na „odst. 5“), § 103 odst. 1 písm. d) („odst. 2“ na „odst. 3“) a § 124 odst. 2 (doplnění odkazu „a 2“) odpovídají vloženému novému odstavci. Fiskální kvantifikace (40 až 60 mil. Kč ročně, 41 092 osob, 25 466 dočasných pracovních neschopností, průměr 63,4 dne, cca 20 % skupiny) je v textu uvedena doslovně v části 5 obecné části důvodové zprávy. Lobbovací aktivita České asociace paraplegiků – CZEPA, z. s. (ev. č. RL1459912985) je uvedena v části 12 podle § 20 odst. 1 písm. j) zákona o Sbírce zákonů a mezinárodních smluv jako povinné zveřejnění, nikoli jako skrytá informace.",
+  "unstatedEffects": [
+   {
+    "effect": "Důvodová zpráva odhaduje fiskální dopad na 40 až 60 mil. Kč ročně a uvádí, že „přesné vyčíslení tohoto dopadu závisí zejména na počtu dotčených pojištěnců“, avšak neuvádí rozpětí nejistoty kolem uváděných cca 20 % postižené skupiny ani citlivost odhadu na to, kolik pojištěnců by nově čerpalo nemocenské po dobu blížící se celé obecné podpůrčí době 380 dnů namísto dosavadního 70denního stropu — údaje z roku 2024 (41 092 osob, průměrná délka pracovní neschopnosti 63,4 dne) jsou uvedeny jen jako souhrnný podklad bez rozpětí odhadu.",
+    "whoBenefits": "Přímými příjemci jsou ekonomicky aktivní poživatelé invalidního důchodu pro invaliditu třetího stupně, které návrh sám v důvodové zprávě označuje jako cílovou skupinu; náklady nese systém nemocenského pojištění a v důsledku státní rozpočet, jak sama důvodová zpráva uvádí.",
+    "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=257&ct1=0"
+   },
+   {
+    "effect": "Odstraněním 70denního stropu se výplata nemocenského u ekonomicky aktivních poživatelů invalidního důchodu pro invaliditu třetího stupně fakticky přibližuje obecnému režimu platnému pro většinu pojištěnců (podpůrčí doba až 380 dnů). Návrh tím ruší rozdílné zacházení zavedené dosavadní úpravou, ale mimo přímý dopad na rozpočet již dále nekomentuje, zda a jak se tím mění motivace k návratu do zaměstnání u dlouhodobě nemocných v této skupině.",
+    "whoBenefits": "Ekonomicky aktivní poživatelé invalidního důchodu pro invaliditu třetího stupně a osoby s nimi žijící ve společné domácnosti, jak návrh sám uvádí v části o předpokládaných sociálních dopadech.",
+    "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=257&ct1=0"
+   }
+  ],
+  "conflictAssessment": "Předkladatelem je Senát Parlamentu České republiky (senátor Zdeněk Sýkora a další), nikoli poslanec Poslanecké sněmovny — datový rámec peněžních vazeb vedený v grafu pokrývá výhradně poslance a jejich podnikatelské vazby, nikoli senátory. V datech tedy u tohoto tisku není a nemůže být evidována žádná peněžní vazba předkladatele; jde o mezeru v rozsahu použitých dat (senátoři nejsou sledovanou skupinou), nikoli o zjištěnou absenci střetu zájmů, a tento rozdíl je třeba takto uvést. Důvodová zpráva sama transparentně přiznává, že v souvislosti s přípravou návrhu došlo k lobbování ze strany České asociace paraplegiků – CZEPA, z. s. — jde o veřejně přiznanou advokační aktivitu zájmové organizace odpovídající přímo cílové skupině návrhu, nikoli o majetkovou vazbu předkladatele, a zákon o regulaci lobbování takové zveřejnění vyžaduje.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+   {
+    "claim": "Čl. I bod 2 návrhu vypouští z § 28 odst. 1 zákona č. 187/2006 Sb. slova „nebo invalidního důchodu pro invaliditu třetího stupně“ a bod 3 vkládá nový § 28 odst. 2, který váže výplatu nemocenského této skupiny na obecnou podpůrčí dobu podle § 26 při zachování limitu do skončení zaměstnání nebo pojištění.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=257&ct1=0"
+   },
+   {
+    "claim": "Důvodová zpráva kvantifikuje dopad na státní rozpočet na cca 40 až 60 mil. Kč ročně na základě dat Ministerstva práce a sociálních věcí za rok 2024 (41 092 zaměstnaných poživatelů invalidního důchodu pro invaliditu třetího stupně, 25 466 dočasných pracovních neschopností, průměrná délka 63,4 dne, u cca 20 % skupiny očekávané prodloužení výplaty).",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=257&ct1=0"
+   },
+   {
+    "claim": "Důvodová zpráva v části 12 (Informace o lobbování) uvádí, že v souvislosti s přípravou návrhu došlo ze strany České asociace paraplegiků – CZEPA, z. s., ev. č. RL1459912985, k lobbování podle zákona o regulaci lobbování.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=257&ct1=0"
+   },
+   {
+    "claim": "Zákon č. 187/2006 Sb., o nemocenském pojištění, je statutem, který tisk 257 novelizuje.",
+    "kind": "law",
+    "source": "187/2006"
+   }
+  ]
+ },
+ {
+  "billTisk": 83,
+  "statedReasoning": "Vládní návrh ministra dopravy je podle důvodové zprávy monotematickým návrhem, jehož jediným cílem je transponovat směrnici EU 2023/2661, kterou se mění směrnice 2010/40/EU o rámci pro zavedení inteligentních dopravních systémů (ITS). Novela mění šest zákonů (o silničním provozu, o silniční dopravě, o dráhách, o vnitrozemské plavbě, o pozemních komunikacích a o civilním letectví) tak, aby vlastníci a provozovatelé dopravní infrastruktury (silnic, drah, přístavů, letišť) povinně a bezodkladně poskytovali Ministerstvu dopravy nebo Ředitelství silnic a dálnic s. p. aktuální údaje o umístění a přístupnosti zastávek, stanic, přístavů a letišť, které ministerstvo následně zveřejní prostřednictvím národního přístupového místa k datům. Za nesplnění této oznamovací povinnosti se zavádí nové skutkové podstaty přestupků s pokutou do 100 000 Kč pro dotčené právnické a podnikající fyzické osoby. Novela dále doplňuje pravidla anonymizace nebo pseudonymizace osobních údajů zpracovávaných poskytovateli služeb inteligentních dopravních systémů. Účinnost části ustanovení je odložena na konec roku 2026, respektive 2028, podle rozsahu přechodných povinností.",
+  "researchedContext": "Vlastní čtení úplného textu tisku 83 na psp.cz (strojový přepis) potvrzuje stavenou tezi o monotematickém obsahu: každá z šesti novelizovaných částí (řádky 39–497) obsahuje shodný vzorec – doplnění poznámky pod čarou odkazující na směrnici 2023/2661, novou oznamovací povinnost vlastníka nebo provozovatele infrastruktury vůči Ministerstvu dopravy či Ředitelství silnic a dálnic s. p. a odpovídající přestupek s pokutou do 100 000 Kč. Cíleně bylo prověřeno, zda novela zavádí sledování, evidenci nebo sankce vůči jednotlivým řidičům či cestujícím – v textu (řádky 39–508) ani v důvodové zprávě (řádky 800–1946) taková ustanovení nalezena nebyla. Nové přestupky a pokuty dopadají výhradně na vlastníky a provozovatele infrastruktury (právnické a podnikající fyzické osoby jako správce silnic, provozovatele drah, přístavů a letišť), nikoli na řidiče nebo cestující, a jde o údaje o poloze a přístupnosti zastávek, stanic, přístavů a letišť, nikoli o osobní nebo pohybová data konkrétních osob. Novela naopak nově doplňuje povinnost anonymizace nebo pseudonymizace osobních údajů zpracovávaných poskytovateli služeb inteligentních dopravních systémů (řádky 410–429), což jde spíše směrem k ochraně soukromí než k jeho oslabení. Předložený obsah tedy odpovídá stavenému účelu transpozice směrnice a v textu nebyl nalezen skrytý sankční nebo sledovací mechanismus vůči občanům, který by přesahoval rámec technické transpozice.",
+  "unstatedEffects": [],
+  "conflictAssessment": "Jediným uvedeným navrhovatelem je vládní ministr dopravy, formálně provázaný v grafu s poslancem Ivanem Bednárikem, u kterého graf peněžních vazeb neeviduje žádnou vazbu na firmu dodávající státu. Vzhledem k tomu, že jde o vládní návrh transponující závaznou směrnici EU a novela se netýká konkrétního dodavatelského sektoru, nebyla nalezena žádná peněžní vazba, kterou by bylo možné dát do souvislosti s obsahem novely.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+   {
+    "claim": "Novela transponuje směrnici EU 2023/2661 a ukládá vlastníkům a provozovatelům dopravní infrastruktury povinnost poskytovat údaje o umístění a přístupnosti zastávek, stanic, přístavů a letišť pod hrozbou pokuty do 100 000 Kč, aniž by zaváděla sledování nebo sankce vůči jednotlivým řidičům či cestujícím.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=83&ct1=0"
+   },
+   {
+    "claim": "Novela mění zákon o provozu na pozemních komunikacích.",
+    "kind": "law",
+    "source": "361/2000"
+   },
+   {
+    "claim": "Novela mění zákon o silniční dopravě.",
+    "kind": "law",
+    "source": "111/1994"
+   },
+   {
+    "claim": "Novela mění zákon o dráhách.",
+    "kind": "law",
+    "source": "266/1994"
+   },
+   {
+    "claim": "Novela mění zákon o vnitrozemské plavbě.",
+    "kind": "law",
+    "source": "114/1995"
+   },
+   {
+    "claim": "Novela mění zákon o pozemních komunikacích.",
+    "kind": "law",
+    "source": "13/1997"
+   },
+   {
+    "claim": "Novela mění zákon o civilním letectví.",
+    "kind": "law",
+    "source": "49/1997"
+   }
+  ]
+ },
+ {
+  "billTisk": 89,
+  "statedReasoning": "Poslanecký návrh jedenácti poslanců mění zákon o rozpočtových pravidlech ve dvou bodech. Podle důvodové zprávy zákon dosud umožňuje čerpat prostředky zvláštního účtu rezervy důchodového pojištění (kam se v přebytkových letech ukládají prostředky z důchodového systému) buď na výdaje na dávky důchodového pojištění, nebo na úhradu záporného rozdílu příjmů a výdajů důchodového systému. Předkladatelé tvrdí, že první možnost obsahuje mezeru: v letech přebytku lze do státního rozpočtu na důchody vyčlenit méně peněz z běžného pojistného a chybějící část nahradit právě z rezervy, čímž se uvolněné pojistné použije na jiné účely mimo důchodový systém a rezerva se rozpouští – k čemuž podle nich již jednou došlo, v roce 2020. Návrh proto ruší možnost čerpat rezervu na výdaje na dávky důchodového pojištění a ponechává jen možnost hradit z ní záporný rozdíl příjmů a výdajů. Zároveň nově zavádí možnost čerpat rezervu na dotační investiční akce pro rozvoj sociální infrastruktury (výstavba a rekonstrukce zařízení sociálních služeb), odůvodněnou očekávaným růstem potřeby sociálních služeb kvůli demografickému vývoji. Účinnost se navrhuje od 1. července 2026.",
+  "researchedContext": "Vlastní čtení úplného textu tisku 89 na psp.cz (strojový přepis) potvrzuje formulaci obou bodů novely: bod 1 (řádky 37–46) vkládá do § 3 zákona č. 218/2000 Sb. nové písmeno s), definující „rozvoj sociální infrastruktury“, a bod 2 (řádky 48–50) mění § 36 odst. 3 tak, že ruší možnost čerpat rezervu na dávky důchodového pojištění a doplňuje možnost čerpat ji na dotační investiční akce podle nového písmene s). Při čtení bodu 1 bylo rovněž zjištěno, že novela vkládá zcela nové písmeno s) na konec výčtu v § 3 (za dosavadní písmeno r), přičemž stejné písmeno s) na stejném místě téhož ustanovení je předmětem i jiného, souběžně projednávaného sněmovního tisku (č. 64, 10. volební období), který mu dává odlišný obsah – jde o zjištěný procesní kolizní bod: schválení obou návrhů v předložené podobě by vedlo k tomu, že jeden z nich přepíše nebo znemožní ustanovení druhého, protože obě novely míří na stejné písmeno stejného paragrafu se vzájemně se vylučujícím obsahem.",
+  "unstatedEffects": [
+   {
+    "effect": "Novela ruší dosavadní možnost čerpat rezervu na dávky důchodového pojištění s odůvodněním, že to oslabovalo účel rezervy jako pojistky proti budoucímu schodkovému období, ale ve stejném ustanovení zároveň otevírá nový kanál čerpání téže rezervy na dotační investiční akce pro sociální infrastrukturu, aniž by text stanovil pro tento nový účel jakýkoli číselný strop nebo omezení objemu čerpání – uzavření jedné cesty čerpání je tak doprovázeno otevřením jiné, bez informace o tom, jak velkou část rezervy může nové oprávnění vyčerpat.",
+    "whoBenefits": "Nelze jednoznačně určit – profitovat mohou příjemci dotačních investičních akcí pro rozvoj sociální infrastruktury, zatímco funkce rezervy jako pojistky proti budoucímu schodkovému období důchodového systému, kterou stejná novela deklaruje jako svůj cíl, se čerpáním na jiný účel oslabuje.",
+    "evidence": "Text tisku 89 na psp.cz, řádky 63–70 (popis dosavadního účelu rezervy) a řádky 37–50 a 94–96 (nové písmeno s) a změna § 36 odst. 3 bez číselného omezení nového čerpání)."
+   },
+   {
+    "effect": "Nové písmeno s) v § 3 zákona o rozpočtových pravidlech, které tento návrh zavádí, je na stejném místě předmětem i jiného souběžně projednávaného sněmovního tisku (č. 64, 10. volební období) s odlišným obsahem – jde o procesní kolizi mezi dvěma návrhy, kterou žádný z textů sám neřeší a se kterou žádná z důvodových zpráv tisku 89 nepočítá.",
+    "whoBenefits": "Nelze jednoznačně určit – jde o riziko legislativně-technické kolize dotýkající se výkladové jistoty ustanovení § 3 zákona o rozpočtových pravidlech pro všechny adresáty zákona, nikoli o zjištěný prospěch konkrétní osoby.",
+    "evidence": "Text tisku 89 na psp.cz, řádky 37–46 (vložení nového písmene s) na konec výčtu § 3) – zjištěno vlastním porovnáním umístění novelizačního bodu s obdobně umístěným bodem souběžně projednávaného sněmovního tisku č. 64."
+   }
+  ],
+  "conflictAssessment": "Z jedenácti sponzorů mají v grafu peněžních vazeb evidované vazby Marian Jurečka (AGRO 2000 s.r.o.), Marek Výborný (Gymnázium Pardubice, Mozartova 449 – veřejná střední škola) a Bohuslav Niemiec (CEVYKO a.s.); zbylých osm sponzorů (Monika Brzesková, Václav Pláteník, Benjamin Činčila, Tom Philipp, Hayato Okamura, Jiří Vojáček, František Talíř, Marie Kršková) nemá v grafu žádnou evidovanou vazbu. Žádná z uvedených firem nepůsobí v oblasti poskytování sociálních služeb ani ve správě zvláštního účtu rezervy důchodového pojištění, kterých se novela věcně týká – vazba na Gymnázium Pardubice navíc plyne z veřejné, nikoli soukromé podnikatelské role. U žádného ze sponzorů tak nebyla nalezena peněžní vazba na sektor dotčený obsahem novely.",
+  "severity": "medium",
+  "confidence": 3,
+  "citations": [
+   {
+    "claim": "Novela ruší možnost čerpat rezervu důchodového pojištění na dávky důchodového pojištění a zavádí místo toho možnost čerpat ji na dotační investiční akce pro rozvoj sociální infrastruktury, aniž by stanovila číselný strop nového čerpání.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=89&ct1=0"
+   },
+   {
+    "claim": "Nové písmeno s) vkládané touto novelou do § 3 zákona o rozpočtových pravidlech je na stejném místě předmětem i jiného souběžně projednávaného návrhu s odlišným obsahem.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=89&ct1=0"
+   },
+   {
+    "claim": "Novela mění zákon o rozpočtových pravidlech.",
+    "kind": "law",
+    "source": "218/2000"
+   }
+  ]
+ }
+]

@@ -1,0 +1,42 @@
+{
+  "billTisk": 234,
+  "statedReasoning": "Vládní návrh (podává ministr pro místní rozvoj) mění autorizační zákon č. 360/1992 Sb. (výkon povolání autorizovaných architektů, inženýrů a techniků), zákon o zeměměřictví č. 200/1994 Sb. a stavební zákon č. 283/2021 Sb. Hlavní změnou je zavedení nové profesní kategorie „autorizovaný stavitel“ vedle architektů, inženýrů a techniků, s vlastním seznamem vedeným Českou komorou autorizovaných inženýrů a techniků a vlastním vymezením činností v novém § 19a. Návrh dále zpřesňuje podmínky prokazování bezúhonnosti, upravuje disciplinární řízení a opravné prostředky proti němu, stanoví horní hranici poplatků za přijetí žádosti a zkoušku odborné způsobilosti (10 000 Kč) a horní hranici pokuty za disciplinární provinění (300 000 Kč), zavádí povinné pojištění odpovědnosti a u zákona o zeměměřictví zavádí digitální autorizační deník spravovaný Komorou. V zákoně o zeměměřictví se nově upravuje také příslušnost k projednávání přestupků mezi inspektorátem, Zeměměřickým úřadem a Ministerstvem obrany.",
+  "researchedContext": "Text novely potvrzuje rozsah bodů 1 až 98 v části první (autorizační zákon) a odpovídajících bodů v části druhé (zákon o zeměměřictví); ověřeno bylo zejména zavedení kategorie autorizovaného stavitele (body 1, 2, 4 a 7 části první) a nový § 17d zákona č. 200/1994 Sb. vkládaný bodem 47 části druhé. Tento § 17d — dělící příslušnost k projednávání přestupků na úseku zeměměřictví mezi inspektorát, Zeměměřický úřad a Ministerstvo obrany ve dvou písmenech a) a b) — je téměř doslovně totožný s § 17d, který do téhož zákona č. 200/1994 Sb. vkládá jiný, samostatně projednávaný vládní návrh (sněmovní tisk 56, novela zákonů v souvislosti se sítěmi elektronických komunikací s velmi vysokou kapacitou); tisk 56 obsahuje tatáž písmena a) a b), rozšířená navíc o písmeno c) a odstavec 2 pro Český telekomunikační úřad. Shoda textu dvou samostatných novel téhož nového paragrafu ukazuje na sdílenou legislativní přípravu obou předloh (patrně společný zdroj textu na straně předkladatele nebo připomínkového místa), nikoli na obsahový rozpor mezi návrhy — jde o zjištění z procesu přípravy legislativy, nikoli o etické hodnocení.",
+  "unstatedEffects": [
+    {
+      "effect": "Pokud budou přijaty oba návrhy, které nezávisle na sobě vkládají nový § 17d do zákona č. 200/1994 Sb. s částečně odlišným obsahem (tisk 234 jen písmena a) a b); souběžně projednávaný tisk 56 navíc písmeno c) a odstavec 2 pro Český telekomunikační úřad), vznikne kolize v číslování a obsahu novelizovaného ustanovení, kterou ani jedna z důvodových zpráv nezmiňuje ani neřeší koordinačním ustanovením.",
+      "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou uživatelé zákona o zeměměřictví (autorizovaní zeměměřičtí inženýři a orgány projednávající přestupky), kterým hrozí nejasnost, které znění § 17d platí, pokud se legislativní proces obou návrhů nezkoordinuje.",
+      "evidence": "úplný text tisku na psp.cz, řádky 904–912 strojového přepisu (nový § 17d vkládaný bodem 47 části druhé, zvláštní část důvodové zprávy k bodům 44 až 47)."
+    }
+  ],
+  "conflictAssessment": "Jedinou uvedenou předkladatelkou je poslankyně Zuzana Mrázová (návrh je vládní, podává ho ministr pro místní rozvoj); u ní graf neeviduje žádnou peněžní vazbu na obchodní společnost ani jinou organizaci. Návrh se věcně týká profesní regulace architektů, inženýrů, techniků a nově i stavitelů a zeměměřických inženýrů — bez evidované peněžní vazby předkladatelky nelze na základě dostupných dat dovodit žádný osobní prospěch ani střet zájmů. Jde o poctivou negativní zprávu.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Návrh zavádí novou profesní kategorii autorizovaný stavitel v autorizačním zákoně č. 360/1992 Sb. (body 1, 2, 4 a 7 části první, nový § 19a).",
+      "kind": "law",
+      "source": "360/1992"
+    },
+    {
+      "claim": "Novela zákona o zeměměřictví č. 200/1994 Sb. vkládá nový § 17d, který dělí příslušnost k projednávání přestupků mezi inspektorát, Zeměměřický úřad a Ministerstvo obrany.",
+      "kind": "law",
+      "source": "200/1994"
+    },
+    {
+      "claim": "Autorizační zákon nově odkazuje na stavební zákon č. 283/2021 Sb. jako na související předpis (poznámka pod čarou č. 1a).",
+      "kind": "law",
+      "source": "283/2021"
+    },
+    {
+      "claim": "Text tisku 234 vkládá do zákona č. 200/1994 Sb. nový § 17d s písmeny a) a b) dělícími příslušnost k projednávání přestupků mezi inspektorát, Zeměměřický úřad a Ministerstvo obrany.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=234&ct1=0"
+    },
+    {
+      "claim": "Návrh stanoví horní hranici poplatků za přijetí žádosti a zkoušku odborné způsobilosti na 10 000 Kč a horní hranici pokuty za disciplinární provinění na 300 000 Kč.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=234&ct1=0"
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+{
+ "generatedAt": "2026-08-04T00:00:00.000Z",
+ "batch": 14,
+ "group": "A",
+ "classificationVocabulary": [
+  "confirmed-collision",
+  "coordination-risk",
+  "incidental"
+ ],
+ "classificationCounts": {
+  "confirmed-collision": 2,
+  "coordination-risk": 6
+ },
+ "coverage": {
+  "pairsRead": 8,
+  "pairsAssigned": 8
+ },
+ "pairs": [
+  {
+   "pairId": "64-162-99-1963",
+   "lawRef": "99/1963",
+   "billA": 64,
+   "billB": 162,
+   "sharedParagraph": "141",
+   "classification": "confirmed-collision",
+   "evidence": {
+    "billAExcerpt": "tisk 64, Čl. I bod 1: '1. V § 141 se doplňuje odstavec 3, který zní: „(3) Zálohu podle odstavce 1 skládá účastník řízení na účet cizích prostředků soudu; záloha podle odstavce 1 není příjmem státního rozpočtu.“.' -- tisk 64 předpokládá, že § 141 má aktuálně jen odstavce 1–2, a doplňuje NOVÝ POSLEDNÍ odstavec 3 na konec ustanovení.",
+    "billBExcerpt": "tisk 162, Čl. I bod 8: '8. V § 141 se za odstavec 1 vkládá nový odstavec 2, který zní: „(2) Obdobně podle odstavce 1 předseda senátu postupuje v případě, kdy mají při doručování do ciziny vzniknout náklady na překlad nebo doručení písemností, jejichž zaslání je v zájmu účastníka. ...“.' -- tisk 162 VKLÁDÁ nový odstavec 2 ZA odstavec 1, čímž se dosavadní (druhý) odstavec posouvá na odstavec 3."
+   },
+   "reasoning": "Obě novely mají shodně 141 § OSŘ, ale řeší jej neslučitelnými technikami adresace. Tisk 162 vkládá zcela nový odstavec 2 za odstavec 1 – touto vsuvkou se dosavadní druhý odstavec § 141 přečísluje na odstavec 3. Tisk 64 naproti tomu 'doplňuje' nový odstavec 3 na konec ustanovení, tedy počítá s tím, že odstavec 3 je dosud volný a text na této pozici svým doplňkem obsadí poprvé. Provede-li se tisk 162 jako první, existující (přečíslovaný) odstavec 3 by byl obsazen jiným, dosavadním textem, a doplněk tisku 64 by buď kolidoval s touto pozicí, nebo (provede-li se v opačném pořadí) by novela tisku 162 přečíslovala právě nově vložený text tisku 64. Instrukce nelze aplikovat současně bez explicitní deklarace pořadí a bez rizika ztráty nebo přepsání jednoho z textů – jde o klasickou kolizi vkládání/přečíslování versus přímé doplnění na konec, obdobnou známému vzorci tisku 64, tentokrát však jako STRANA POSTIŽENÁ přečíslováním od tisku 162."
+  },
+  {
+   "pairId": "7-260-37-2021",
+   "lawRef": "37/2021",
+   "billA": 7,
+   "billB": 260,
+   "sharedParagraph": "16",
+   "classification": "confirmed-collision",
+   "evidence": {
+    "billAExcerpt": "tisk 7, Čl. XIX: 'V § 16 odst. 2 písm. n) zákona č. 37/2021 Sb., o evidenci skutečných majitelů, ve znění zákona č. 245/2022 Sb., zákona č. 263/2024 Sb. a zákona č. 232/2025 Sb., se slova „dohled nad hospodařením politických stran a politických hnutí“ nahrazují slovy „prevenci korupce a střetu zájmů“.' -- tisk 7 mění DOSAVADNÍ (staré) písmeno n), tj. ustanovení o dohledu nad hospodařením politických stran.",
+    "billBExcerpt": "tisk 260, bod 15: '15. V § 16 odst. 2 se za písmeno g) vkládají písmena h) až l), která včetně poznámky pod čarou č. 11 znějí: „h) Orgánu pro boj proti praní peněz...“ ... Dosavadní písmena h) až u) se označují jako písmena m) až z).' -- tisk 260 vkládá PĚT nových písmen h) až l) a dosavadní písmena h) až u) přeznačuje na m) až z)."
+   },
+   "reasoning": "Tisk 260 vkládá do § 16 odst. 2 pět nových písmen h) až l) a explicitně přeznačuje dosavadní písmena h) až u) na m) až z). Dosavadní písmeno n) (sedmé písmeno v řadě h,i,j,k,l,m,n) se tímto posunem stává novým písmenem s) (posun o 5 pozic: h→m, i→n, j→o, k→p, l→q, m→r, n→s). Tisk 7 přitom cílí přímo na 'písm. n)' a nahrazuje jeho text o dohledu nad politickými stranami zněním o prevenci korupce. Provede-li se nejprve tisk 260, adresa 'písm. n)' po přečíslování ukazuje na zcela jiný text — po přečíslování jde o dosavadní písmeno i), jehož obsah ale korpus nenese (platné znění zákona č. 37/2021 Sb. není v archivu), takže by instrukce tisku 7 omylem přepsala nesprávné ustanovení; provede-li se tisk 7 jako první, jeho úprava se posléze správně přesune na nové písmeno s), ale ŽÁDNÁ z novel tuto interakci nereflektuje ani neobsahuje křížový odkaz. Jde o stejný mechanismus, jaký byl již prokázán u tisku 64 (vkládání písmen rozbíjející adresaci navazujících novel) – zde ovšem nositelem přečíslování je tisk 260, nikoli tisk 64."
+  },
+  {
+   "pairId": "16-64-240-2013",
+   "lawRef": "240/2013",
+   "billA": 16,
+   "billB": 64,
+   "sharedParagraph": "604",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 16, Čl. VI body 3-5: '3. V § 604 odst. 1 se na konci písmene l) doplňuje slovo „nebo“. 4. V § 604 odst. 1 písm. m) se slovo ,,,nebo“ nahrazuje tečkou a písmeno n) se zrušuje. 5. V § 604 odst. 6 úvodní části ustanovení se slova „, m) nebo n)“ nahrazují slovy „ nebo m)“.' -- tisk 16 mění výhradně odstavce 1 a 6.",
+    "billBExcerpt": "tisk 64, bod 69: '69. V § 604 odst. 3 se písmeno b) zrušuje. Dosavadní písmena c) až h) se označují jako písmena b) až g).' a bod 68 (hromadná substituce zahrnující podle důvodové zprávy i § 604 odst. 6 písm. b) a odst. 7 písm. b)) -- tisk 64 mění odst. 3, 4 a písmena b) v odst. 6 a 7."
+   },
+   "reasoning": "Tisk 16 v § 604 mění odst. 1 (písmena l), m), ruší n)) a odst. 6 úvodní část ustanovení (odkaz „, m) nebo n)“ → „ nebo m)“). Tisk 64 v § 604 nemění jen odst. 3 a 4 (body 69–72, zrušení a přeznačení písmen), ale bodem 68 hromadnou substitucí zasahuje i do odst. 6 písm. b) a odst. 7 písm. b) (náhrada „její poslední řádné účetní závěrky…“ za konsolidační formulaci). Oba tisky tedy souběžně mění § 604 odst. 6 — tisk 16 jeho úvodní část, tisk 64 jeho písmeno b) — v rozdílných částech téhož odstavce; přímý textový střet nebyl nalezen, ale redaktor slučující obě novely musí použít obě instrukce. Zároveň jde o další doklad přeznačovacího vzorce tisku 64 v § 604 odst. 3 (návaznost na dřívější potvrzený střet s tiskem 13). (Sjednocené pravidlo klasifikace: společný § s věcnou novelizační instrukcí na obou stranách je nejméně koordinačním rizikem; jako nahodilé se značí jen páry, kde je vazba jedné strany na § pouze citační, kotevní nebo číslováním vlastního článku.)"
+  },
+  {
+   "pairId": "111-162-82-1998",
+   "lawRef": "82/1998",
+   "billA": 111,
+   "billB": 162,
+   "sharedParagraph": "12",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 111, Čl. IV: 'V § 12 odst. 2 písm. d) zákona č. 82/1998 Sb., ... se text „c)“ nahrazuje textem „d)“.' -- tisk 111 mění vnitřní odkaz uvnitř odstavce 2 písm. d).",
+    "billBExcerpt": "tisk 162, Čl. V: 'V § 12 odst. 1 písm. b) zákona č. 82/1998 Sb., ... se za slovo „zastaveno“ vkládají slova „z důvodu promlčení, nebo“.' -- tisk 162 mění text v odstavci 1 písm. b)."
+   },
+   "reasoning": "Tisk 111 zasahuje do § 12 odst. 2 písm. d) (oprava vnitřního křížového odkazu z 'c)' na 'd)'), zatímco tisk 162 mění § 12 odst. 1 písm. b) (vložení slov o promlčení). Jde o dva zcela odlišné odstavce s věcně nesouvisejícím obsahem – odstavec 1 upravuje důvody zastavení řízení, odstavec 2 písm. d) vnitřní numerický odkaz uvnitř výčtu. Ani jedna novela nepřečísluje písmena ani odstavce druhé strany a instrukce lze aplikovat zcela nezávisle a v libovolném pořadí bez ztráty textu. (Sjednocené pravidlo klasifikace: společný § s věcnou novelizační instrukcí na obou stranách je nejméně koordinačním rizikem; jako nahodilé se značí jen páry, kde je vazba jedné strany na § pouze citační, kotevní nebo číslováním vlastního článku.)"
+  },
+  {
+   "pairId": "64-67-219-2000",
+   "lawRef": "219/2000",
+   "billA": 64,
+   "billB": 67,
+   "sharedParagraph": "21b",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 64, bod 11: '11. V § 21b odst. 3 písm. e) se slovo „ceny“ nahrazuje slovem „hodnoty“ a slova „upravujícího oceňování majetku“ se nahrazují slovy „o oceňování“.' -- tisk 64 mění odstavec 3 písm. e).",
+    "billBExcerpt": "tisk 67, Čl. XXVIII: 'V § 21b odst. 1 zákona č. 219/2000 Sb., ... se v písmeni g) slovo „zastavěném“ nahrazuje slovem „zastavitelném“ a slova „nebo v zastavitelné ploše“ se zrušují.' -- tisk 67 mění odstavec 1 písm. g)."
+   },
+   "reasoning": "Tisk 64 upravuje § 21b odst. 3 písm. e) (terminologická záměna 'ceny' za 'hodnoty' v návaznosti na zákon o oceňování), tisk 67 upravuje § 21b odst. 1 písm. g) (terminologická záměna 'zastavěném'/'zastavitelném' typická pro stavební omnibus tisku 67). Odstavce 1 a 3 jsou samostatné, obsahově nesouvisející úpravy a žádná z novel neobsahuje přečíslování písmen, které by zasáhlo do rozsahu té druhé. Instrukce jsou vzájemně nezávislé. (Sjednocené pravidlo klasifikace: společný § s věcnou novelizační instrukcí na obou stranách je nejméně koordinačním rizikem; jako nahodilé se značí jen páry, kde je vazba jedné strany na § pouze citační, kotevní nebo číslováním vlastního článku.)"
+  },
+  {
+   "pairId": "67-77-258-2000",
+   "lawRef": "258/2000",
+   "billA": 67,
+   "billB": 77,
+   "sharedParagraph": "80",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 67, Čl. XVI bod 7: '7. V § 80 odst. 2 se slovo „zastavěných“ nahrazuje slovem „zastavitelných“.' -- tisk 67 mění odstavec 2 (terminologie stavebního práva).",
+    "billBExcerpt": "tisk 77, Čl. XIII: 'V § 80 odst. 8 zákona č. 258/2000 Sb., ... se slovo „služební“ nahrazuje slovem „pracovní“, za slovo „který“ se vkládají slova „je státním zaměstnancem podle zákona o státních zaměstnancích a“ ...' -- tisk 77 mění odstavec 8 (terminologie pracovněprávní/služební)."
+   },
+   "reasoning": "Tisk 67 mění § 80 odst. 2 zákona o ochraně veřejného zdraví v rámci plošné terminologické záměny 'zastavěné'/'zastavitelné' napříč stavebním omnibusem, zatímco tisk 77 mění zcela jiný, věcně nesouvisející odstavec 8 (úprava postavení zaměstnance vykonávajícího dozor podle zákona o státních zaměstnancích). Odstavce se nepřekrývají a ani jedna novela neobsahuje přečíslování, které by druhou zasáhlo – jde o čistě souběžné, na sobě nezávislé zásahy do téhož paragrafu. (Sjednocené pravidlo klasifikace: společný § s věcnou novelizační instrukcí na obou stranách je nejméně koordinačním rizikem; jako nahodilé se značí jen páry, kde je vazba jedné strany na § pouze citační, kotevní nebo číslováním vlastního článku.)"
+  },
+  {
+   "pairId": "64-83-266-1994",
+   "lawRef": "266/1994",
+   "billA": 64,
+   "billB": 83,
+   "sharedParagraph": "51",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 64, bod 6 novely drážního zákona: 'V § 51 odst. 5 písmeno v) zní:' s novým zněním 'v rozporu s § 62 odst. 4 převede finanční prostředky k provozování veřejné drážní osobní dopravy' -- tisk 64 přepisuje přestupkové písmeno v) v odst. 5 a dále mění odst. 8 a 9 (účetní terminologie); do odst. 4 a 10, které mění tisk 83, nezasahuje.",
+    "billBExcerpt": "tisk 83, body 5-9: '5. V § 51 odst. 4 se za písmeno f) vkládá nové písmeno g), které zní: ...' a '9. V § 51 odst. 10 písm. e) se slova „písm. c), d), g), j), k), l), m), n) nebo p)“ nahrazují slovy...' -- tisk 83 mění odstavce 4 a 10 (vložení nového písmene g) do odst. 4 s navazujícím přečíslováním odkazů v odst. 10)."
+   },
+   "reasoning": "Tisk 83 vkládá do § 51 odst. 4 nové písmeno g) a v odstavci 10 upravuje navazující křížové odkazy na písmena odstavce 4 (posun g)→h), h)→i) atd., viz i navazující bod 10 měnící § 52a odst. 1 písm. b) z 'písm. g)' na 'písm. h)'). Tisk 64 naproti tomu mění odstavce 5, 8 a 9 – účetní a auditní ustanovení o odděleném sledování finančních prostředků, přičemž jeho jediný odkaz na jiné ustanovení (§ 62 odst. 4) s § 51 odst. 4 nijak nesouvisí. Přečíslování písmen odstavce 4 provedené tiskem 83 tak nezasahuje do žádného textu ani odkazu, který mění tisk 64 – oba návrhy se v § 51 pohybují v disjunktních odstavcích bez křížové závislosti. (Sjednocené pravidlo klasifikace: společný § s věcnou novelizační instrukcí na obou stranách je nejméně koordinačním rizikem; jako nahodilé se značí jen páry, kde je vazba jedné strany na § pouze citační, kotevní nebo číslováním vlastního článku.)"
+  },
+  {
+   "pairId": "64-145-277-2009",
+   "lawRef": "277/2009",
+   "billA": 64,
+   "billB": 145,
+   "sharedParagraph": "120",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 64, bod 10: '10. V § 120 odst. 2 písm. e) se za text „82a“ vkládá text „, 82b“ a za slovo „uveřejnit“ se vkládají slova „nebo zveřejnit“.' -- tisk 64 mění odstavec 2 písm. e) v návaznosti na svůj vlastní nový § 82b.",
+    "billBExcerpt": "tisk 145, body 2-3: '2. V § 120 odst. 3 písm. a) se za text „§ 59 odst. 2“ vkládají slova „nebo § 59a“. 3. V § 120 odst. 3 písm. b) se slova „anebo zákona upravujícího činnost pojišťovacích zprostředkovatelů a samostatných likvidátorů pojistných událostí“ zrušují.' -- tisk 145 mění odstavec 3 písm. a) a b) v návaznosti na svůj vlastní nový § 59a."
+   },
+   "reasoning": "Tisk 64 mění § 120 odst. 2 písm. e) zákona o pojišťovnictví tak, aby zohlednil vlastní novelizační krok – nově vkládaný § 82b (uveřejňování informací zahraničními pojišťovnami). Tisk 145 mění § 120 odst. 3 písm. a) a b), rovněž v návaznosti na svůj vlastní nově vkládaný § 59a (ochrana údajů o zdravotním stavu). Jde o dva odstavce (2 a 3) se zcela odlišným věcným obsahem i účelem, žádná z novel do druhé nezasahuje ani ji nepřečísluje – souběh je čistě formální (shodný paragraf, různé odstavce a různé důvody novelizace). (Sjednocené pravidlo klasifikace: společný § s věcnou novelizační instrukcí na obou stranách je nejméně koordinačním rizikem; jako nahodilé se značí jen páry, kde je vazba jedné strany na § pouze citační, kotevní nebo číslováním vlastního článku.)"
+  }
+ ]
+}

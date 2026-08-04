@@ -1,0 +1,47 @@
+{
+  "billTisk": 168,
+  "statedReasoning": "Skupina poslanců (Richterová, Bartoš, Hřib a další) navrhuje novelizovat zákon č. 235/2004 Sb., o dani z přidané hodnoty, zavedením druhé snížené sazby daně ve výši 6 % vedle dosavadní základní sazby 21 % a první snížené sazby 12 %. Novou sazbou by měly být zdaněny vybrané základní potraviny (ovoce, zelenina, luštěniny, rýže, proso, mlýnské výrobky, těstoviny, rostlinné oleje), počáteční a pokračovací kojenecká výživa, pitná voda a hygienické výrobky jako vložky, tampony a dětské pleny — vymezené novou přílohou č. 3a. Předkladatelé odůvodňují návrh potřebou přesněji zacílit daňovou úlevu na sociálně citlivé statky a zmírnit dopady doznívající inflace z let 2022–2023 i nového proinflačního tlaku, který v březnu 2026 vyvolala vojenská eskalace kolem Hormuzského průlivu. Navrhují projednání již v prvním čtení kvůli časové naléhavosti.",
+  "researchedContext": "Text novely potvrzuje rozsah změn: úpravy § 37 (koeficient pro přepočet daně), § 47 (rozlišení první a druhé snížené sazby), § 47a a § 49 (terminologie) a přílohy č. 2 a 3, spolu s vložením nové přílohy č. 3a. Sama důvodová zpráva (část 5) otevřeně kvantifikuje rozpočtový dopad: pokles inkasa DPH v rozmezí přibližně 5,9 až 7,5 mld. Kč ročně, se středním odhadem 6,7 mld. Kč, rozpadnutý na stát (−3,92 až −4,98 mld. Kč), obce (−1,43 až −1,81 mld. Kč) a kraje (−0,56 až −0,71 mld. Kč) podle pravidel rozpočtového určení daní. Návrh se tedy — na rozdíl od řady jiných poslaneckých návrhů — nesnaží rozpočtový náklad zamlčet. Věcně jde o návrat ke třístupňové struktuře sazeb DPH, ačkoli reforma účinná od roku 2024 sazby naopak zjednodušila na dvoustupňový systém (základní a jediná snížená sazba); tento posun směru důvodová zpráva výslovně přiznává v úvodu obecné části.",
+  "unstatedEffects": [
+    {
+      "effect": "Nová příloha č. 3a vymezuje zboží podléhající druhé snížené sazbě stejnou dvojí podmínkou, jakou už pro první sníženou sazbu používá příloha č. 3 — současným splněním kódu nomenklatury celního sazebníku a výslovného slovního popisu; několik kódů (např. 0701 až 0811, 1101 až 1109, 1901, 2106) se u obou příloh částečně překrývá a liší se jen slovním vymezením. To vytváří riziko výkladových sporů na hranici první a druhé snížené sazby, které důvodová zpráva u administrativních nákladů zmiňuje jen obecně a nekvantifikuje.",
+      "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou plátci DPH prodávající zboží na hranici obou příloh a správci daně, kteří budou muset hraniční případy posuzovat individuálně podle slovního popisu, nikoli jen podle kódu.",
+      "evidence": "úplný text tisku na psp.cz, řádky 111–186 a 341–343 strojového přepisu (dvojí test kódu nomenklatury a slovního popisu v přílohách č. 3 a 3a)."
+    }
+  ],
+  "conflictAssessment": "Návrh podepsalo 18 poslanců. U tří z nich graf eviduje peněžní vazbu: Lenka Martínková Španihelová je vázána na MATURUS, o.p.s. (IČO 24766216, cca 1,06 mil. Kč — úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu), Jana Patková na Hvězdárnu a planetárium v Hradci Králové (IČO 00084018, cca 19 mil. Kč — úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu) a Andrea Hoffmannová na Univerzitu Palackého v Olomouci (IČO 61989592, cca 28,35 mld. Kč — úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu). Všechny tři vázané subjekty jsou veřejné nebo neziskové instituce (veřejná vysoká škola, krajská hvězdárna, obecně prospěšná společnost), nikoli obchodníci s potravinami, pitnou vodou nebo hygienickým zbožím, jehož sazba se návrhem mění; souhrnná výše u Univerzity Palackého navíc odpovídá institucionálním zakázkám veřejné vysoké školy za delší období, nikoli osobnímu prospěchu poslankyně. U zbývajících patnácti předkladatelů (Richterová, Bartoš, Hřib, Svárovská, Svobodová, Ferčíková Konečná, Stojanová, Ančincová, Pipášová, Demetrashvili, Šrámková, Moricová, Kovářová, Volpe, Šmída) graf neeviduje žádnou peněžní vazbu. Mezi předmětem novely (sazby DPH na potraviny, vodu a hygienické zboží) a evidovanými vazbami předkladatelů proto nelze na základě dostupných dat prokázat věcnou souvislost — jde o poctivou negativní zprávu.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Novela zavádí druhou sníženou sazbu DPH ve výši 6 % novým § 47 odst. 1 písm. c) a novou přílohou č. 3a zákona č. 235/2004 Sb., o dani z přidané hodnoty.",
+      "kind": "law",
+      "source": "235/2004"
+    },
+    {
+      "claim": "Důvodová zpráva odhaduje pokles inkasa DPH v rozmezí 5,9 až 7,5 mld. Kč ročně (střední odhad 6,7 mld. Kč), rozpadnutý na stát, obce a kraje podle rozpočtového určení daní.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=168&ct1=0"
+    },
+    {
+      "claim": "Nová příloha č. 3a i stávající příloha č. 3 podmiňují zařazení zboží do snížené sazby současným splněním kódu nomenklatury celního sazebníku a výslovného slovního popisu, přičemž se u obou příloh částečně překrývají tytéž kódy.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=168&ct1=0"
+    },
+    {
+      "claim": "Lenka Martínková Španihelová je v grafu evidována s peněžní vazbou na MATURUS, o.p.s. v souhrnné výši cca 1,06 mil. Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu).",
+      "kind": "graph_fact",
+      "source": "company:ico:24766216"
+    },
+    {
+      "claim": "Jana Patková je v grafu evidována s peněžní vazbou na Hvězdárnu a planetárium v Hradci Králové v souhrnné výši cca 19 mil. Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu).",
+      "kind": "graph_fact",
+      "source": "company:ico:00084018"
+    },
+    {
+      "claim": "Andrea Hoffmannová je v grafu evidována s peněžní vazbou na Univerzitu Palackého v Olomouci v souhrnné výši cca 28,35 mld. Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu); jde o institucionální zakázky veřejné vysoké školy, nikoli o osobní prospěch poslankyně.",
+      "kind": "graph_fact",
+      "source": "company:ico:61989592"
+    }
+  ]
+}

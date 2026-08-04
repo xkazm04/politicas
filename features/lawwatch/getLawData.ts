@@ -20,6 +20,7 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 import { czechCopyOrNull } from "@/lib/analysis/language-gate";
+import { lawJargonIssues } from "@/lib/analysis/law-verdict";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { storeReady } from "@/lib/db/readiness";
 import { getStore } from "@/lib/db/store";
@@ -234,14 +235,19 @@ function readForensic(p: Record<string, unknown>): LawForensicView | null {
   if (!state && !severity) return null;
   const prov = (p.forensic_provenance ?? {}) as Record<string, unknown>;
 
-  // Every reader-facing string passes the Czech gate before it can ship. `cz()` counts the
-  // withholds so the block can disclose them instead of quietly shrinking.
+  // Every reader-facing string passes the Czech gate AND the pipeline-jargon gate before it
+  // can ship (batch-014 M8 — the persist-time rule alone left render unguarded for content
+  // written before the rule existed). `cz()` counts the withholds so the block can disclose
+  // them instead of quietly shrinking.
   let withheldFields = 0;
   const cz = (v: unknown): string | null => {
     const s = asStr(v);
     if (s === null) return null;
     const safe = czechCopyOrNull(s);
-    if (safe === null) withheldFields++;
+    if (safe === null || lawJargonIssues(safe).length > 0) {
+      withheldFields++;
+      return null;
+    }
     return safe;
   };
 
@@ -252,7 +258,9 @@ function readForensic(p: Record<string, unknown>): LawForensicView | null {
         return [{
           effect: cz(o.effect),
           whoBenefits: cz(o.whoBenefits),
-          evidence: asStr(o.evidence) ?? "",
+          // evidence goes through the same gate (batch-014 N2 — it bypassed cz(), so the
+          // cache-path jargon rule written FOR this field never ran at render time).
+          evidence: cz(o.evidence) ?? "",
         }];
       })
     : [];

@@ -1,0 +1,610 @@
+{
+ "generatedAt": "2026-08-04T21:54:43.000Z",
+ "method": "Přepracováno po auditu batch-014-audit.md (B4, M7). Opravené pravidlo: (a) sedí-li placeholder v CÍLOVÉHO zákona ve-znění enumeraci („Zákon č. X, ve znění ..., a zákona č. …/20YY Sb., se mění takto“) — tisk NIKDY nevyjmenovává sám sebe jako vlastní PŘEDCHOZÍ novelu zákona, který právě mění, takže tento tvar je STRUKTURNĚ vyloučen z self_reference; adresátem je vždy jiný, jmenovaný (companion_dependency) nebo nejmenovaný (unclear, pokud chybí hit-specifický důkaz) akt. (b) sedí-li placeholder ve VLASTNÍ sebecitaci tisku (přílohový nadpis nebo poznámka nesoucí titul shodný s vlastním titulem tisku, případně ustanovení pozitivně dohledané jako vlastní pozdější text téhož tisku) — self_reference. (c) jinak dle důkazů. Companion se JMENUJE jen tam, kde to dovoluje explicitní marker („ve znění sněmovního tisku N“, „(ST N)“, poznámka „zohledňuje ST N“), doslovná shoda předmětu s titulem jiného tisku v korpusu, nebo vnitřní důkaz (citované ustanovení, které tisk sám nikde nevytváří). Kde placeholder sedí ve ve-znění enumeraci, ale žádný z těchto důkazů není dostupný — jen sdílený generický řetězec případů Sb. — je nález unclear, ne vynucený self ani companion; „unclear: 0“ na korpusu s takto rozšířeným výskytem generického tvaru by byl výchozí hodnotou, ne nálezem.",
+ "counts": {
+  "self_reference": 26,
+  "companion_dependency": 18,
+  "unclear": 23
+ },
+ "bills": [
+  {
+   "cislo": 113,
+   "hits": [
+    {
+     "context": "onů, ve znění pozdějších předpisů. Zákon č. 387/2024 Sb., o obecné bezpečnosti výrobků a o změně některých zákonů (zákon",
+     "class": "self_reference",
+     "reasoning": "Tisk 113 je návrhem zákona o ekodesignu výrobků. Zde se placeholder nesedí do ŽÁDNÉ výčtové ve-znění enumerace jiného zákona — jde o VLASTNÍ, plným titulem jmenovanou citaci („o ekodesignu výrobků a o výkonu státní správy...“, shodné s vlastním titulem tisku 113), vkládanou jako nová položka do příloh JINÝCH zákonů, plus vlastní přílohu č. 14 („Příloha k zákonu č. …/2026 Sb.“) tohoto tisku samotného. Auditem (batch-014-audit.md, „Spot-verified“) potvrzeno jako odlišný, korektní tvar.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "CELEX: 32024R1781 4. V příloze se u orgánu dozoru Česká obchodní inspekce doplňuje položka „ Nařízení Evropského parlame",
+     "class": "self_reference",
+     "reasoning": "Tisk 113 je návrhem zákona o ekodesignu výrobků. Zde se placeholder nesedí do ŽÁDNÉ výčtové ve-znění enumerace jiného zákona — jde o VLASTNÍ, plným titulem jmenovanou citaci („o ekodesignu výrobků a o výkonu státní správy...“, shodné s vlastním titulem tisku 113), vkládanou jako nová položka do příloh JINÝCH zákonů, plus vlastní přílohu č. 14 („Příloha k zákonu č. …/2026 Sb.“) tohoto tisku samotného. Auditem (batch-014-audit.md, „Spot-verified“) potvrzeno jako odlišný, korektní tvar.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "“. 5. V příloze se u orgánu dozoru Český báňský úřad doplňuje položka „ Nařízení Evropského parlamentu Zákon č. …/2026 S",
+     "class": "self_reference",
+     "reasoning": "Tisk 113 je návrhem zákona o ekodesignu výrobků. Zde se placeholder nesedí do ŽÁDNÉ výčtové ve-znění enumerace jiného zákona — jde o VLASTNÍ, plným titulem jmenovanou citaci („o ekodesignu výrobků a o výkonu státní správy...“, shodné s vlastním titulem tisku 113), vkládanou jako nová položka do příloh JINÝCH zákonů, plus vlastní přílohu č. 14 („Příloha k zákonu č. …/2026 Sb.“) tohoto tisku samotného. Auditem (batch-014-audit.md, „Spot-verified“) potvrzeno jako odlišný, korektní tvar.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "“. 6. V příloze se u orgánu dozoru Státní energetická inspekce doplňuje položka „ Nařízení Evropského parlamentu Zákon č",
+     "class": "self_reference",
+     "reasoning": "Tisk 113 je návrhem zákona o ekodesignu výrobků. Zde se placeholder nesedí do ŽÁDNÉ výčtové ve-znění enumerace jiného zákona — jde o VLASTNÍ, plným titulem jmenovanou citaci („o ekodesignu výrobků a o výkonu státní správy...“, shodné s vlastním titulem tisku 113), vkládanou jako nová položka do příloh JINÝCH zákonů, plus vlastní přílohu č. 14 („Příloha k zákonu č. …/2026 Sb.“) tohoto tisku samotného. Auditem (batch-014-audit.md, „Spot-verified“) potvrzeno jako odlišný, korektní tvar.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "“. 7. V příloze se u orgánu dozoru Ministerstvo dopravy doplňuje položka „ Nařízení Evropského parlamentu Zákon č. …/202",
+     "class": "self_reference",
+     "reasoning": "Tisk 113 je návrhem zákona o ekodesignu výrobků. Zde se placeholder nesedí do ŽÁDNÉ výčtové ve-znění enumerace jiného zákona — jde o VLASTNÍ, plným titulem jmenovanou citaci („o ekodesignu výrobků a o výkonu státní správy...“, shodné s vlastním titulem tisku 113), vkládanou jako nová položka do příloh JINÝCH zákonů, plus vlastní přílohu č. 14 („Příloha k zákonu č. …/2026 Sb.“) tohoto tisku samotného. Auditem (batch-014-audit.md, „Spot-verified“) potvrzeno jako odlišný, korektní tvar.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "“. 8. V příloze se u orgánu dozoru Drážní úřad doplňuje položka „ Nařízení Evropského parlamentu Zákon č. …/2026 Sb., o ",
+     "class": "self_reference",
+     "reasoning": "Tisk 113 je návrhem zákona o ekodesignu výrobků. Zde se placeholder nesedí do ŽÁDNÉ výčtové ve-znění enumerace jiného zákona — jde o VLASTNÍ, plným titulem jmenovanou citaci („o ekodesignu výrobků a o výkonu státní správy...“, shodné s vlastním titulem tisku 113), vkládanou jako nová položka do příloh JINÝCH zákonů, plus vlastní přílohu č. 14 („Příloha k zákonu č. …/2026 Sb.“) tohoto tisku samotného. Auditem (batch-014-audit.md, „Spot-verified“) potvrzeno jako odlišný, korektní tvar.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "9. V příloze se u orgánu dozoru Krajské hygienické stanice doplňuje položka „ Nařízení Evropského parlamentu Zákon č. …/",
+     "class": "self_reference",
+     "reasoning": "Tisk 113 je návrhem zákona o ekodesignu výrobků. Zde se placeholder nesedí do ŽÁDNÉ výčtové ve-znění enumerace jiného zákona — jde o VLASTNÍ, plným titulem jmenovanou citaci („o ekodesignu výrobků a o výkonu státní správy...“, shodné s vlastním titulem tisku 113), vkládanou jako nová položka do příloh JINÝCH zákonů, plus vlastní přílohu č. 14 („Příloha k zákonu č. …/2026 Sb.“) tohoto tisku samotného. Auditem (batch-014-audit.md, „Spot-verified“) potvrzeno jako odlišný, korektní tvar.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "10. V příloze se u orgánu dozoru Státní úřad pro kontrolu léčiv doplňuje položka „ Nařízení Evropského parlamentu Zákon ",
+     "class": "self_reference",
+     "reasoning": "Tisk 113 je návrhem zákona o ekodesignu výrobků. Zde se placeholder nesedí do ŽÁDNÉ výčtové ve-znění enumerace jiného zákona — jde o VLASTNÍ, plným titulem jmenovanou citaci („o ekodesignu výrobků a o výkonu státní správy...“, shodné s vlastním titulem tisku 113), vkládanou jako nová položka do příloh JINÝCH zákonů, plus vlastní přílohu č. 14 („Příloha k zákonu č. …/2026 Sb.“) tohoto tisku samotného. Auditem (batch-014-audit.md, „Spot-verified“) potvrzeno jako odlišný, korektní tvar.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "doplňuje položka „ 12 Nařízení Evropského parlamentu Zákon č. …/2026 Sb., o a Rady (EU) 2024/1781 ze dne 13. ekodesignu ",
+     "class": "self_reference",
+     "reasoning": "Tisk 113 je návrhem zákona o ekodesignu výrobků. Zde se placeholder nesedí do ŽÁDNÉ výčtové ve-znění enumerace jiného zákona — jde o VLASTNÍ, plným titulem jmenovanou citaci („o ekodesignu výrobků a o výkonu státní správy...“, shodné s vlastním titulem tisku 113), vkládanou jako nová položka do příloh JINÝCH zákonů, plus vlastní přílohu č. 14 („Příloha k zákonu č. …/2026 Sb.“) tohoto tisku samotného. Auditem (batch-014-audit.md, „Spot-verified“) potvrzeno jako odlišný, korektní tvar.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "říloze se u orgánu dozoru Státní zemědělská a potravinářská inspekce doplňuje položka „ Nařízení Evropského parlamentu Z",
+     "class": "self_reference",
+     "reasoning": "Tisk 113 je návrhem zákona o ekodesignu výrobků. Zde se placeholder nesedí do ŽÁDNÉ výčtové ve-znění enumerace jiného zákona — jde o VLASTNÍ, plným titulem jmenovanou citaci („o ekodesignu výrobků a o výkonu státní správy...“, shodné s vlastním titulem tisku 113), vkládanou jako nová položka do příloh JINÝCH zákonů, plus vlastní přílohu č. 14 („Příloha k zákonu č. …/2026 Sb.“) tohoto tisku samotného. Auditem (batch-014-audit.md, „Spot-verified“) potvrzeno jako odlišný, korektní tvar.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "dozoru Ústav pro státní kontrolu veterinárních biopreparátů a léčiv doplňuje položka „ Nařízení Evropského parlamentu Zá",
+     "class": "self_reference",
+     "reasoning": "Tisk 113 je návrhem zákona o ekodesignu výrobků. Zde se placeholder nesedí do ŽÁDNÉ výčtové ve-znění enumerace jiného zákona — jde o VLASTNÍ, plným titulem jmenovanou citaci („o ekodesignu výrobků a o výkonu státní správy...“, shodné s vlastním titulem tisku 113), vkládanou jako nová položka do příloh JINÝCH zákonů, plus vlastní přílohu č. 14 („Příloha k zákonu č. …/2026 Sb.“) tohoto tisku samotného. Auditem (batch-014-audit.md, „Spot-verified“) potvrzeno jako odlišný, korektní tvar.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "“. 14. V příloze se doplňuje položka, která zní: „ Ministerstvo životního prostředí Nařízení Evropského parlamentu Zákon",
+     "class": "self_reference",
+     "reasoning": "Tisk 113 je návrhem zákona o ekodesignu výrobků. Zde se placeholder nesedí do ŽÁDNÉ výčtové ve-znění enumerace jiného zákona — jde o VLASTNÍ, plným titulem jmenovanou citaci („o ekodesignu výrobků a o výkonu státní správy...“, shodné s vlastním titulem tisku 113), vkládanou jako nová položka do příloh JINÝCH zákonů, plus vlastní přílohu č. 14 („Příloha k zákonu č. …/2026 Sb.“) tohoto tisku samotného. Auditem (batch-014-audit.md, „Spot-verified“) potvrzeno jako odlišný, korektní tvar.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "14 Příloha k zákonu č. …/2026 Sb. Jiné zákony stanovící rozsah působnosti orgánu dozoru Orgán dozoru",
+     "class": "self_reference",
+     "reasoning": "Tisk 113 je návrhem zákona o ekodesignu výrobků. Zde se placeholder nesedí do ŽÁDNÉ výčtové ve-znění enumerace jiného zákona — jde o VLASTNÍ, plným titulem jmenovanou citaci („o ekodesignu výrobků a o výkonu státní správy...“, shodné s vlastním titulem tisku 113), vkládanou jako nová položka do příloh JINÝCH zákonů, plus vlastní přílohu č. 14 („Příloha k zákonu č. …/2026 Sb.“) tohoto tisku samotného. Auditem (batch-014-audit.md, „Spot-verified“) potvrzeno jako odlišný, korektní tvar.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    }
+   ]
+  },
+  {
+   "cislo": 153,
+   "hits": [
+    {
+     "context": "kých povoláních), ve znění pozdějších předpisů. 50) § 44 odst. 1 zákona č. 375/2022 Sb.“. 8. Poznámka pod čarou č. 10a z",
+     "class": "companion_dependency",
+     "reasoning": "Poznámka pod čarou cituje jiný, jmenovaný zákon — „o digitální ekonomice a o změně některých souvisejících zákonů“ — doslovný název tisku 69, ne tisku 153. Poznámky č. 55 a 32 předefinovávají stejným způsobem odkaz na zákon 480/2004 Sb. (služby informační společnosti) odkazem na §2/§25 zákona č. …/2026 Sb. — sdílejí shodný vzor s poznámkou 10a, která tento zákon jmenuje přímo (digitální ekonomika, tisk 69, nahrazuje 480/2004 Sb.).",
+     "companionSubject": "zákon o digitální ekonomice (tisk 69)",
+     "likelyCompanionTisk": 69
+    },
+    {
+     "context": "CELEX: 32001L0083 32. V § 7 písm. f) se slovo „prostředky10a)“ nahrazuje slovem „prostředky55)“. Poznámka pod čarou č. 5",
+     "class": "companion_dependency",
+     "reasoning": "Poznámka pod čarou cituje jiný, jmenovaný zákon — „o digitální ekonomice a o změně některých souvisejících zákonů“ — doslovný název tisku 69, ne tisku 153. Poznámky č. 55 a 32 předefinovávají stejným způsobem odkaz na zákon 480/2004 Sb. (služby informační společnosti) odkazem na §2/§25 zákona č. …/2026 Sb. — sdílejí shodný vzor s poznámkou 10a, která tento zákon jmenuje přímo (digitální ekonomika, tisk 69, nahrazuje 480/2004 Sb.).",
+     "companionSubject": "zákon o digitální ekonomice (tisk 69)",
+     "likelyCompanionTisk": 69
+    },
+    {
+     "context": "azuje slovem „prostředky55)“. Poznámka pod čarou č. 55 zní: „55) § 2 písm. c) zákona č. …/2026 Sb.“. 33. Poznámka pod ča",
+     "class": "companion_dependency",
+     "reasoning": "Poznámka pod čarou cituje jiný, jmenovaný zákon — „o digitální ekonomice a o změně některých souvisejících zákonů“ — doslovný název tisku 69, ne tisku 153. Poznámky č. 55 a 32 předefinovávají stejným způsobem odkaz na zákon 480/2004 Sb. (služby informační společnosti) odkazem na §2/§25 zákona č. …/2026 Sb. — sdílejí shodný vzor s poznámkou 10a, která tento zákon jmenuje přímo (digitální ekonomika, tisk 69, nahrazuje 480/2004 Sb.).",
+     "companionSubject": "zákon o digitální ekonomice (tisk 69)",
+     "likelyCompanionTisk": 69
+    },
+    {
+     "context": "tnických prostředcích a diagnostických zdravotnických prostředcích in vitro, ve znění zákona č. 241/2024 Sb., zákona č. ",
+     "class": "unclear",
+     "reasoning": "Placeholder sedí v cílového zákona (375/2022 Sb., zdravotnické prostředky) ve-znění enumeraci („ve znění ..., a zákona č. …/2026 Sb., se mění takto“) — strukturně to nemůže být tisk 153 sám. V cache (tisk-153/268952.txt) k této části (Čl. III) ale není žádný „ve znění sněmovního tisku N“ marker ani jiná dohledatelná vazba na konkrétní tisk — chybí hit-specifický důkaz, kdo tento zákon souběžně novelizuje.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "480/2004 Sb., o některých službách informační společnosti a o změně některých zákonů (zákon o některých službách informa",
+     "class": "companion_dependency",
+     "reasoning": "Poznámka pod čarou cituje jiný, jmenovaný zákon — „o digitální ekonomice a o změně některých souvisejících zákonů“ — doslovný název tisku 69, ne tisku 153. Poznámky č. 55 a 32 předefinovávají stejným způsobem odkaz na zákon 480/2004 Sb. (služby informační společnosti) odkazem na §2/§25 zákona č. …/2026 Sb. — sdílejí shodný vzor s poznámkou 10a, která tento zákon jmenuje přímo (digitální ekonomika, tisk 69, nahrazuje 480/2004 Sb.).",
+     "companionSubject": "zákon o digitální ekonomice (tisk 69)",
+     "likelyCompanionTisk": 69
+    },
+    {
+     "context": "předpisů. 30) § 70 zákona č. 20/1966 Sb., ve znění pozdějších předpisů. 31) § 12 zákona č. 79/1997 Sb., ve znění pozdějš",
+     "class": "companion_dependency",
+     "reasoning": "Poznámka pod čarou cituje jiný, jmenovaný zákon — „o digitální ekonomice a o změně některých souvisejících zákonů“ — doslovný název tisku 69, ne tisku 153. Poznámky č. 55 a 32 předefinovávají stejným způsobem odkaz na zákon 480/2004 Sb. (služby informační společnosti) odkazem na §2/§25 zákona č. …/2026 Sb. — sdílejí shodný vzor s poznámkou 10a, která tento zákon jmenuje přímo (digitální ekonomika, tisk 69, nahrazuje 480/2004 Sb.).",
+     "companionSubject": "zákon o digitální ekonomice (tisk 69)",
+     "likelyCompanionTisk": 69
+    },
+    {
+     "context": "12 zákona č. 79/1997 Sb., ve znění pozdějších předpisů. 55) § 2 písm. c) zákona č. …/2026 Sb. 32) § 10 odst. 1 písm. a) ",
+     "class": "companion_dependency",
+     "reasoning": "Poznámka pod čarou cituje jiný, jmenovaný zákon — „o digitální ekonomice a o změně některých souvisejících zákonů“ — doslovný název tisku 69, ne tisku 153. Poznámky č. 55 a 32 předefinovávají stejným způsobem odkaz na zákon 480/2004 Sb. (služby informační společnosti) odkazem na §2/§25 zákona č. …/2026 Sb. — sdílejí shodný vzor s poznámkou 10a, která tento zákon jmenuje přímo (digitální ekonomika, tisk 69, nahrazuje 480/2004 Sb.).",
+     "companionSubject": "zákon o digitální ekonomice (tisk 69)",
+     "likelyCompanionTisk": 69
+    }
+   ]
+  },
+  {
+   "cislo": 69,
+   "hits": [
+    {
+     "context": "u upravujícího některé služby informační společnosti57)“ nahrazují slovy „zákona o digitální ekonomice57)“. Poznámka pod",
+     "class": "self_reference",
+     "reasoning": "Tisk 69 je návrhem zákona o digitální ekonomice. Placeholder zde není ve výčtové ve-znění enumeraci — je to vlastní, plným titulem jmenovaná citace („o digitální ekonomice a o změně některých souvisejících zákonů“, shodné s vlastním titulem tisku 69) v poznámkách pod čarou a přílohách, které tisk 69 vkládá do jiných zákonů namísto zákona č. 480/2004 Sb. Auditem potvrzeno jako odlišný, korektní tvar.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "…/2026 Sb., o digitální ekonomice a o změně některých souvisejících zákonů.“. 8. V příloze č. 2 písm. c) se slova „zákon",
+     "class": "self_reference",
+     "reasoning": "Tisk 69 je návrhem zákona o digitální ekonomice. Placeholder zde není ve výčtové ve-znění enumeraci — je to vlastní, plným titulem jmenovaná citace („o digitální ekonomice a o změně některých souvisejících zákonů“, shodné s vlastním titulem tisku 69) v poznámkách pod čarou a přílohách, které tisk 69 vkládá do jiných zákonů namísto zákona č. 480/2004 Sb. Auditem potvrzeno jako odlišný, korektní tvar.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "o ochranu osobních údajů zní: „ 42 Úřad pro ochranu 4. Směrnice Evropského Zákon č. …/2026 Sb., osobních údajů parlament",
+     "class": "self_reference",
+     "reasoning": "Tisk 69 je návrhem zákona o digitální ekonomice. Placeholder zde není ve výčtové ve-znění enumeraci — je to vlastní, plným titulem jmenovaná citace („o digitální ekonomice a o změně některých souvisejících zákonů“, shodné s vlastním titulem tisku 69) v poznámkách pod čarou a přílohách, které tisk 69 vkládá do jiných zákonů namísto zákona č. 480/2004 Sb. Auditem potvrzeno jako odlišný, korektní tvar.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "o zpracování osobních nevyžádaných sdělení. údajů a ochraně soukromí v odvětví elektronických Zákon č. …/2026 Sb., o dig",
+     "class": "self_reference",
+     "reasoning": "Tisk 69 je návrhem zákona o digitální ekonomice. Placeholder zde není ve výčtové ve-znění enumeraci — je to vlastní, plným titulem jmenovaná citace („o digitální ekonomice a o změně některých souvisejících zákonů“, shodné s vlastním titulem tisku 69) v poznámkách pod čarou a přílohách, které tisk 69 vkládá do jiných zákonů namísto zákona č. 480/2004 Sb. Auditem potvrzeno jako odlišný, korektní tvar.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "erých službách informační společnosti), ve znění pozdějších předpisů“ nahrazují slovy „o digitální ekonomice2)“. Poznámk",
+     "class": "self_reference",
+     "reasoning": "Tisk 69 je návrhem zákona o digitální ekonomice. Placeholder zde není ve výčtové ve-znění enumeraci — je to vlastní, plným titulem jmenovaná citace („o digitální ekonomice a o změně některých souvisejících zákonů“, shodné s vlastním titulem tisku 69) v poznámkách pod čarou a přílohách, které tisk 69 vkládá do jiných zákonů namísto zákona č. 480/2004 Sb. Auditem potvrzeno jako odlišný, korektní tvar.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    }
+   ]
+  },
+  {
+   "cislo": 192,
+   "hits": [
+    {
+     "context": "(zákon o některých službách informační společnosti), ve znění pozdějších předpisů. 13) § 3 odst. 1 písm. b) zákona č. 37",
+     "class": "self_reference",
+     "reasoning": "Nejde o výčtovou ve-znění enumeraci ukončenou „se mění takto“ — jde o krátkou citaci „ve znění zákona č. …/2026 Sb.“ uvnitř poznámky pod čarou (13/14/18/20) vložené tiskem 192 do části měnící knihovní zákon (257/2001). Ověřeno přímo v cache (tisk-192/270237.txt): tisk 192 SÁM v Čl. II bodu 10 přepisuje § 3 odst. 1 (a v Čl. III bodu 17 vkládá nový § 9a do zákona č. 46/2000 Sb.) — přesně ta ustanovení, na která poznámky odkazují. Na rozdíl od tisku 53 (kde citované ustanovení nikdy nevzniká), zde byl citovaný paragraf pozitivně dohledán jako vlastní pozdější ustanovení téhož tisku.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "ějších předpisů. 13) § 3 odst. 1 písm. b) zákona č. 37/1995 Sb., ve znění zákona č. …/2026 Sb. 14) § 9a zákona č. 46/200",
+     "class": "self_reference",
+     "reasoning": "Nejde o výčtovou ve-znění enumeraci ukončenou „se mění takto“ — jde o krátkou citaci „ve znění zákona č. …/2026 Sb.“ uvnitř poznámky pod čarou (13/14/18/20) vložené tiskem 192 do části měnící knihovní zákon (257/2001). Ověřeno přímo v cache (tisk-192/270237.txt): tisk 192 SÁM v Čl. II bodu 10 přepisuje § 3 odst. 1 (a v Čl. III bodu 17 vkládá nový § 9a do zákona č. 46/2000 Sb.) — přesně ta ustanovení, na která poznámky odkazují. Na rozdíl od tisku 53 (kde citované ustanovení nikdy nevzniká), zde byl citovaný paragraf pozitivně dohledán jako vlastní pozdější ustanovení téhož tisku.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "17) § 37 odst. 1 písm. c) zákona č. 121/2000 Sb., ve znění zákona č. 216/2006 Sb. 18) § 1 odst. 2 písm. d) zákona č. 37/",
+     "class": "self_reference",
+     "reasoning": "Nejde o výčtovou ve-znění enumeraci ukončenou „se mění takto“ — jde o krátkou citaci „ve znění zákona č. …/2026 Sb.“ uvnitř poznámky pod čarou (13/14/18/20) vložené tiskem 192 do části měnící knihovní zákon (257/2001). Ověřeno přímo v cache (tisk-192/270237.txt): tisk 192 SÁM v Čl. II bodu 10 přepisuje § 3 odst. 1 (a v Čl. III bodu 17 vkládá nový § 9a do zákona č. 46/2000 Sb.) — přesně ta ustanovení, na která poznámky odkazují. Na rozdíl od tisku 53 (kde citované ustanovení nikdy nevzniká), zde byl citovaný paragraf pozitivně dohledán jako vlastní pozdější ustanovení téhož tisku.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "19) § 30a odst. 1 písm. c) a d) zákona č. 121/2000 Sb., ve znění zákona č. 216/2006 Sb. 20) § 1 odst. 2 písm. c) zákona ",
+     "class": "self_reference",
+     "reasoning": "Nejde o výčtovou ve-znění enumeraci ukončenou „se mění takto“ — jde o krátkou citaci „ve znění zákona č. …/2026 Sb.“ uvnitř poznámky pod čarou (13/14/18/20) vložené tiskem 192 do části měnící knihovní zákon (257/2001). Ověřeno přímo v cache (tisk-192/270237.txt): tisk 192 SÁM v Čl. II bodu 10 přepisuje § 3 odst. 1 (a v Čl. III bodu 17 vkládá nový § 9a do zákona č. 46/2000 Sb.) — přesně ta ustanovení, na která poznámky odkazují. Na rozdíl od tisku 53 (kde citované ustanovení nikdy nevzniká), zde byl citovaný paragraf pozitivně dohledán jako vlastní pozdější ustanovení téhož tisku.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    }
+   ]
+  },
+  {
+   "cislo": 207,
+   "hits": [
+    {
+     "context": "268/2024 Sb., zákona č. 321/2024 Sb., zákona č. 24/2025 Sb., zákona č. 220/2025 Sb., zákona č. 250/2025 Sb., zákona č. 2",
+     "class": "companion_dependency",
+     "reasoning": "Placeholder sedí v cílového zákona (trestní zákoník, 40/2009) ve-znění enumeraci („ve znění ..., 314/2025 Sb. a zákona č. …/2026 Sb., se mění takto“) — strukturně to nemůže být tisk 207 sám. Přímý textový důkaz: tisk-207/271154.txt (platné znění s vyznačením změn), řádek 4: „Změna trestního zákoníku (ve znění sněmovního tisku 14)“. Potvrzeno i důvodovou zprávou tisku 207 (271152.txt, ř. 2046): „...s úpravou počítá novela trestního zákoníku projednávaná jako sněmovní tisk 14“.",
+     "companionSubject": "novela trestního zákoníku projednávaná jako sněmovní tisk 14",
+     "likelyCompanionTisk": 14
+    },
+    {
+     "context": "448/2024 Sb., zákona č. 24/2025 Sb., zákona č. 218/2025 Sb., zákona č. 220/2025 Sb., zákona č. 269/2025 Sb., zákona č. 2",
+     "class": "unclear",
+     "reasoning": "Placeholder opět sedí v ve-znění enumeraci téhož tvaru jako hit 0, takže strukturně NENÍ sebeodkazem — ale hit 0 vyčerpal jedinou dohledanou vazbu (sněmovní tisk 14, specifickou pro Část měnící trestní zákoník). Tento nález cílí na jinou novelizovanou část (jiný zákon v témže tisku 207) a v cache k němu není žádný marker („ve znění sněmovního tisku N“) ani odstavec důvodové zprávy — chybí jakýkoli hit-specifický důkaz, který by jmenoval konkrétní tisk. Nelze rozhodnout mezi „jiný, blíže neurčený souběžný tisk“ a „shodou okolností stejný tisk 14“ bez dalšího čtení plného znění.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "130/2022 Sb., zákona č. 78/2025 Sb., zákona č. 173/2025 Sb., zákona č. 218/2025 Sb., zákona č. 220/2025 Sb., zákona č. 2",
+     "class": "unclear",
+     "reasoning": "Placeholder opět sedí v ve-znění enumeraci téhož tvaru jako hit 0, takže strukturně NENÍ sebeodkazem — ale hit 0 vyčerpal jedinou dohledanou vazbu (sněmovní tisk 14, specifickou pro Část měnící trestní zákoník). Tento nález cílí na jinou novelizovanou část (jiný zákon v témže tisku 207) a v cache k němu není žádný marker („ve znění sněmovního tisku N“) ani odstavec důvodové zprávy — chybí jakýkoli hit-specifický důkaz, který by jmenoval konkrétní tisk. Nelze rozhodnout mezi „jiný, blíže neurčený souběžný tisk“ a „shodou okolností stejný tisk 14“ bez dalšího čtení plného znění.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "250/2021 Sb., zákona č. 130/2022 Sb., zákona č. 30/2024 Sb., zákona č. 238/2024 Sb., zákona č. 220/2025 Sb., zákona č. 2",
+     "class": "unclear",
+     "reasoning": "Placeholder opět sedí v ve-znění enumeraci téhož tvaru jako hit 0, takže strukturně NENÍ sebeodkazem — ale hit 0 vyčerpal jedinou dohledanou vazbu (sněmovní tisk 14, specifickou pro Část měnící trestní zákoník). Tento nález cílí na jinou novelizovanou část (jiný zákon v témže tisku 207) a v cache k němu není žádný marker („ve znění sněmovního tisku N“) ani odstavec důvodové zprávy — chybí jakýkoli hit-specifický důkaz, který by jmenoval konkrétní tisk. Nelze rozhodnout mezi „jiný, blíže neurčený souběžný tisk“ a „shodou okolností stejný tisk 14“ bez dalšího čtení plného znění.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    }
+   ]
+  },
+  {
+   "cislo": 62,
+   "hits": [
+    {
+     "context": "ákona č. 303/2023 Sb., se u příslušného orgánu „Česká obchodní inspekce“ doplňuje řádek č. 29, který zní: „ 29. Směrnice",
+     "class": "self_reference",
+     "reasoning": "Tisk 62 je návrhem zákona „o některých povinnostech souvisejících s opravou výrobku“. Placeholder zde není ve výčtové ve-znění enumeraci — je to vlastní, předmětem shodná citace („o některých povinnostech souvisejících s...“) vkládaná jako nová položka do přílohy zákona č. 87/2023 Sb., a vlastní přílohy č. 1/2 k tomuto tisku samotnému („Příloha č. 1/2 k zákonu č. …/2026 Sb.“).",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "7 Příloha č. 1 k zákonu č. …/2026 Sb. SEZNAM PŘÍMO POUŽITELNÝCH PŘEDPISŮ EVROPSKÉ UNIE STANOVUJÍCÍ",
+     "class": "self_reference",
+     "reasoning": "Tisk 62 je návrhem zákona „o některých povinnostech souvisejících s opravou výrobku“. Placeholder zde není ve výčtové ve-znění enumeraci — je to vlastní, předmětem shodná citace („o některých povinnostech souvisejících s...“) vkládaná jako nová položka do přílohy zákona č. 87/2023 Sb., a vlastní přílohy č. 1/2 k tomuto tisku samotnému („Příloha č. 1/2 k zákonu č. …/2026 Sb.“).",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "8 Příloha č. 2 k zákonu č. …/2026 Sb. EVROPSKÝ INFORMAČNÍ FORMULÁŘ O OPRAVĚ",
+     "class": "self_reference",
+     "reasoning": "Tisk 62 je návrhem zákona „o některých povinnostech souvisejících s opravou výrobku“. Placeholder zde není ve výčtové ve-znění enumeraci — je to vlastní, předmětem shodná citace („o některých povinnostech souvisejících s...“) vkládaná jako nová položka do přílohy zákona č. 87/2023 Sb., a vlastní přílohy č. 1/2 k tomuto tisku samotnému („Příloha č. 1/2 k zákonu č. …/2026 Sb.“).",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "bsahu a digitálních služeb (Úř. záruky za jakost věst. L 136, 22.5.2019, s. 1) 3 29. Směrnice Evropského parlamentu a Zá",
+     "class": "self_reference",
+     "reasoning": "Tisk 62 je návrhem zákona „o některých povinnostech souvisejících s opravou výrobku“. Placeholder zde není ve výčtové ve-znění enumeraci — je to vlastní, předmětem shodná citace („o některých povinnostech souvisejících s...“) vkládaná jako nová položka do přílohy zákona č. 87/2023 Sb., a vlastní přílohy č. 1/2 k tomuto tisku samotnému („Příloha č. 1/2 k zákonu č. …/2026 Sb.“).",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    }
+   ]
+  },
+  {
+   "cislo": 102,
+   "hits": [
+    {
+     "context": "448/2024 Sb., zákona č. 24/2025 Sb., zákona č. 218/2025 Sb., zákona č. 220/2025 Sb., zákona č. 269/2025 Sb., zákona č. 2",
+     "class": "unclear",
+     "reasoning": "Placeholder sedí v cílového zákona (zákon o evidenci skutečných majitelů / veřejných zakázkách — přesná identifikace přesahuje census kontext) ve-znění enumeraci („ve znění ..., a zákona č. …/20YY Sb., se mění takto“) — strukturně to NEMŮŽE být tisk 102 sám (nemůže figurovat jako vlastní předchozí novela zákona, který právě mění). V cache k tisku 102 ale není žádný „ve znění sněmovního tisku N“ marker, žádná jmenovaná citace shodná s titulem jiného tisku, ani rokový nesoulad — jen sdílený generický řetězec už promlčených čísel Sb. Chybí hit-specifický důkaz, kdo je adresátem; nelze rozhodnout mezi konkrétními kandidáty bez dalšího čtení plného znění nebo psp.cz.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "268/2024 Sb., zákona č. 321/2024 Sb., zákona č. 24/2025 Sb., zákona č. 220/2025 Sb., zákona č. 250/2025 Sb., zákona č. 2",
+     "class": "unclear",
+     "reasoning": "Placeholder sedí v cílového zákona (zákon o evidenci skutečných majitelů / veřejných zakázkách — přesná identifikace přesahuje census kontext) ve-znění enumeraci („ve znění ..., a zákona č. …/20YY Sb., se mění takto“) — strukturně to NEMŮŽE být tisk 102 sám (nemůže figurovat jako vlastní předchozí novela zákona, který právě mění). V cache k tisku 102 ale není žádný „ve znění sněmovního tisku N“ marker, žádná jmenovaná citace shodná s titulem jiného tisku, ani rokový nesoulad — jen sdílený generický řetězec už promlčených čísel Sb. Chybí hit-specifický důkaz, kdo je adresátem; nelze rozhodnout mezi konkrétními kandidáty bez dalšího čtení plného znění nebo psp.cz.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "33/2020 Sb., zákona č. 220/2021 Sb., zákona č. 261/2021 Sb., zákona č. 422/2022 Sb., zákona č. 349/2023 Sb., zákona č. 3",
+     "class": "unclear",
+     "reasoning": "Placeholder sedí v cílového zákona (zákon o evidenci skutečných majitelů / veřejných zakázkách — přesná identifikace přesahuje census kontext) ve-znění enumeraci („ve znění ..., a zákona č. …/20YY Sb., se mění takto“) — strukturně to NEMŮŽE být tisk 102 sám (nemůže figurovat jako vlastní předchozí novela zákona, který právě mění). V cache k tisku 102 ale není žádný „ve znění sněmovního tisku N“ marker, žádná jmenovaná citace shodná s titulem jiného tisku, ani rokový nesoulad — jen sdílený generický řetězec už promlčených čísel Sb. Chybí hit-specifický důkaz, kdo je adresátem; nelze rozhodnout mezi konkrétními kandidáty bez dalšího čtení plného znění nebo psp.cz.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    }
+   ]
+  },
+  {
+   "cislo": 111,
+   "hits": [
+    {
+     "context": "268/2024 Sb., zákona č. 321/2024 Sb., zákona č. 24/2025 Sb., zákona č. 220/2025 Sb., zákona č. 250/2025 Sb., zákona č. 2",
+     "class": "unclear",
+     "reasoning": "Placeholder sedí v cílového zákona (trestní zákoník 40/2009 pro hit 0; související trestněprávní předpisy pro hity 1-2) ve-znění enumeraci („ve znění ..., a zákona č. …/20YY Sb., se mění takto“) — strukturně to NEMŮŽE být tisk 111 sám (nemůže figurovat jako vlastní předchozí novela zákona, který právě mění). V cache k tisku 111 ale není žádný „ve znění sněmovního tisku N“ marker, žádná jmenovaná citace shodná s titulem jiného tisku, ani rokový nesoulad — jen sdílený generický řetězec už promlčených čísel Sb. Chybí hit-specifický důkaz, kdo je adresátem; nelze rozhodnout mezi konkrétními kandidáty bez dalšího čtení plného znění nebo psp.cz.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "448/2024 Sb., zákona č. 24/2025 Sb., zákona č. 218/2025 Sb., zákona č. 220/2025 Sb., zákona č. 269/2025 Sb., zákona č. 2",
+     "class": "unclear",
+     "reasoning": "Placeholder sedí v cílového zákona (trestní zákoník 40/2009 pro hit 0; související trestněprávní předpisy pro hity 1-2) ve-znění enumeraci („ve znění ..., a zákona č. …/20YY Sb., se mění takto“) — strukturně to NEMŮŽE být tisk 111 sám (nemůže figurovat jako vlastní předchozí novela zákona, který právě mění). V cache k tisku 111 ale není žádný „ve znění sněmovního tisku N“ marker, žádná jmenovaná citace shodná s titulem jiného tisku, ani rokový nesoulad — jen sdílený generický řetězec už promlčených čísel Sb. Chybí hit-specifický důkaz, kdo je adresátem; nelze rozhodnout mezi konkrétními kandidáty bez dalšího čtení plného znění nebo psp.cz.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "03/2019 Sb., zákona č. 333/2020 Sb., zákona č. 220/2021 Sb., zákona č. 422/2022 Sb., zákona č. 165/2024 Sb., zákona č. 3",
+     "class": "unclear",
+     "reasoning": "Placeholder sedí v cílového zákona (trestní zákoník 40/2009 pro hit 0; související trestněprávní předpisy pro hity 1-2) ve-znění enumeraci („ve znění ..., a zákona č. …/20YY Sb., se mění takto“) — strukturně to NEMŮŽE být tisk 111 sám (nemůže figurovat jako vlastní předchozí novela zákona, který právě mění). V cache k tisku 111 ale není žádný „ve znění sněmovního tisku N“ marker, žádná jmenovaná citace shodná s titulem jiného tisku, ani rokový nesoulad — jen sdílený generický řetězec už promlčených čísel Sb. Chybí hit-specifický důkaz, kdo je adresátem; nelze rozhodnout mezi konkrétními kandidáty bez dalšího čtení plného znění nebo psp.cz.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    }
+   ]
+  },
+  {
+   "cislo": 196,
+   "hits": [
+    {
+     "context": "33/2020 Sb., zákona č. 220/2021 Sb., zákona č. 261/2021 Sb., zákona č. 422/2022 Sb., zákona č. 349/2023 Sb., zákona č. 3",
+     "class": "unclear",
+     "reasoning": "Placeholder sedí v cílového zákona (trestní řád 141/1961 (hit 0) / trestní řád, část o mezinárodní justiční spolupráci (hit 1)) ve-znění enumeraci („ve znění ..., a zákona č. …/20YY Sb., se mění takto“) — strukturně to NEMŮŽE být tisk 196 sám (nemůže figurovat jako vlastní předchozí novela zákona, který právě mění). V cache k tisku 196 ale není žádný „ve znění sněmovního tisku N“ marker, žádná jmenovaná citace shodná s titulem jiného tisku, ani rokový nesoulad — jen sdílený generický řetězec už promlčených čísel Sb. Chybí hit-specifický důkaz, kdo je adresátem; nelze rozhodnout mezi konkrétními kandidáty bez dalšího čtení plného znění nebo psp.cz.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "268/2024 Sb., zákona č. 321/2024 Sb., zákona č. 24/2025 Sb., zákona č. 220/2025 Sb., zákona č. 250/2025 Sb., zákona č. 2",
+     "class": "unclear",
+     "reasoning": "Placeholder sedí v cílového zákona (trestní řád 141/1961 (hit 0) / trestní řád, část o mezinárodní justiční spolupráci (hit 1)) ve-znění enumeraci („ve znění ..., a zákona č. …/20YY Sb., se mění takto“) — strukturně to NEMŮŽE být tisk 196 sám (nemůže figurovat jako vlastní předchozí novela zákona, který právě mění). V cache k tisku 196 ale není žádný „ve znění sněmovního tisku N“ marker, žádná jmenovaná citace shodná s titulem jiného tisku, ani rokový nesoulad — jen sdílený generický řetězec už promlčených čísel Sb. Chybí hit-specifický důkaz, kdo je adresátem; nelze rozhodnout mezi konkrétními kandidáty bez dalšího čtení plného znění nebo psp.cz.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    }
+   ]
+  },
+  {
+   "cislo": 210,
+   "hits": [
+    {
+     "context": "349/2023 Sb., zákona č. 462/2023 Sb., zákona č. 32/2025 Sb., zákona č. 259/2025 Sb., zákona č. 258/2025 Sb., zákona č. 2",
+     "class": "companion_dependency",
+     "reasoning": "Placeholder sedí v cílového zákona (256/2004 Sb., podnikání na kapitálovém trhu) ve-znění enumeraci — strukturně to nemůže být tisk 210 sám. Přímý textový důkaz: tisk-210/271240.txt (platné znění s vyznačením změn), úvodní poznámka: „Platné znění zákona ve svém textu zohledňuje ST 64 — vládní návrh zákona, kterým se v souvislosti s přijetím zákona o účetnictví mění některé zákony... a ST 143 — návrh vládního návrhu zákona, kterým se mění zákon č. 256/2004 Sb....“. Tisk 143 mění TÝŽ základní zákon (256/2004) souběžně, takže je pro tuto konkrétní enumeraci nejpravděpodobnějším adresátem placeholderu; ST 64 je uveden ve stejné poznámce, ale mění 256/2004 jen nepřímo (jako součást širšího účetního balíčku).",
+     "companionSubject": "souběžná novela zákona č. 256/2004 Sb. o podnikání na kapitálovém trhu — tisk 143 (a v téže poznámce zmíněný tisk 64, širší doprovodný zákon k zákonu o účetnictví)",
+     "likelyCompanionTisk": 143
+    },
+    {
+     "context": "0/2000 Sb., zákona č. 151/2002 Sb., zákona č. 112/2006 Sb., zákona č. 198/2009 Sb., zákona č. 293/2013 Sb., zákona č. 17",
+     "class": "companion_dependency",
+     "reasoning": "Placeholder sedí v cílového zákona (256/2004 Sb., podnikání na kapitálovém trhu) ve-znění enumeraci — strukturně to nemůže být tisk 210 sám. Přímý textový důkaz: tisk-210/271240.txt (platné znění s vyznačením změn), úvodní poznámka: „Platné znění zákona ve svém textu zohledňuje ST 64 — vládní návrh zákona, kterým se v souvislosti s přijetím zákona o účetnictví mění některé zákony... a ST 143 — návrh vládního návrhu zákona, kterým se mění zákon č. 256/2004 Sb....“. Tisk 143 mění TÝŽ základní zákon (256/2004) souběžně, takže je pro tuto konkrétní enumeraci nejpravděpodobnějším adresátem placeholderu; ST 64 je uveden ve stejné poznámce, ale mění 256/2004 jen nepřímo (jako součást širšího účetního balíčku).",
+     "companionSubject": "souběžná novela zákona č. 256/2004 Sb. o podnikání na kapitálovém trhu — tisk 143 (a v téže poznámce zmíněný tisk 64, širší doprovodný zákon k zákonu o účetnictví)",
+     "likelyCompanionTisk": 143
+    }
+   ]
+  },
+  {
+   "cislo": 221,
+   "hits": [
+    {
+     "context": "261/2021 Sb., zákona č. 180/2022 Sb., zákona č. 253/2023 Sb., zákona č. 263/2024 Sb., zákona č. 448/2024 Sb., zákona č. ",
+     "class": "unclear",
+     "reasoning": "Placeholder sedí v cílového zákona (zákon č. 159/2006 Sb., o střetu zájmů, a související zákony) ve-znění enumeraci („ve znění ..., a zákona č. …/20YY Sb., se mění takto“) — strukturně to NEMŮŽE být tisk 221 sám (nemůže figurovat jako vlastní předchozí novela zákona, který právě mění). V cache k tisku 221 ale není žádný „ve znění sněmovního tisku N“ marker, žádná jmenovaná citace shodná s titulem jiného tisku, ani rokový nesoulad — jen sdílený generický řetězec už promlčených čísel Sb. Chybí hit-specifický důkaz, kdo je adresátem; nelze rozhodnout mezi konkrétními kandidáty bez dalšího čtení plného znění nebo psp.cz.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "84/2023 Sb., zákona č. 254/2023 Sb., zákona č. 349/2023 Sb., zákona č. 262//2024 Sb., zákona č. 263/2024 Sb., zákona č. ",
+     "class": "unclear",
+     "reasoning": "Placeholder sedí v cílového zákona (zákon č. 159/2006 Sb., o střetu zájmů, a související zákony) ve-znění enumeraci („ve znění ..., a zákona č. …/20YY Sb., se mění takto“) — strukturně to NEMŮŽE být tisk 221 sám (nemůže figurovat jako vlastní předchozí novela zákona, který právě mění). V cache k tisku 221 ale není žádný „ve znění sněmovního tisku N“ marker, žádná jmenovaná citace shodná s titulem jiného tisku, ani rokový nesoulad — jen sdílený generický řetězec už promlčených čísel Sb. Chybí hit-specifický důkaz, kdo je adresátem; nelze rozhodnout mezi konkrétními kandidáty bez dalšího čtení plného znění nebo psp.cz.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    }
+   ]
+  },
+  {
+   "cislo": 250,
+   "hits": [
+    {
+     "context": "18/2025 Sb., zákona č. 220/2025 Sb., zákona č. 230/2025 Sb., zákona č. 277/2025 Sb., zákona č. 280/2025 Sb., zákona č. 3",
+     "class": "unclear",
+     "reasoning": "Placeholder sedí v cílového zákona (o správních poplatcích, Sazebník) ve-znění enumeraci — strukturně to nemůže být tisk 250 sám. Tisk 250 má jen JEDEN cachovaný soubor (277952.txt, žádné samostatné „platné znění“ s poznámkou o zohledněných tiscích jako u tisku 210) — žádný marker, žádné jmenované podobné jméno, žádný rokový nesoulad (2026 = vlastní hlavička). Chybí jakýkoli hit-specifický důkaz.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "nad trhem s výrobky a o změně některých souvisejících zákonů (zákon o dozoru nad trhem s výrobky), ve znění zákona č. 38",
+     "class": "companion_dependency",
+     "reasoning": "Placeholder sedí v cílového zákona (87/2023 Sb., dozor nad trhem s výrobky) ve-znění enumeraci (Část devátá tisku 250, § 57) — strukturně to nemůže být tisk 250 sám. Týž zákon 87/2023 je ve stejném roce (2026) souběžně novelizován i tiskem 62 stejnou přílohovou/tabulkovou technikou — nejpravděpodobnější, ale NEPOTVRZENÝ (žádný marker nebo jmenovaná citace v cache tisku 250, jediný soubor 277952.txt) kandidát na adresáta placeholderu. Ponecháno jako companion_dependency (slabá vazba) na výslovný pokyn koordinátora — pravidlo B4 samo o sobě klasifikaci self_reference vylučuje bez ohledu na to, zda lze jmenovat konkrétní tisk.",
+     "companionSubject": "souběžná novela zákona č. 87/2023 Sb. o dozoru nad trhem s výrobky — možná tisk 62 (týž zákon, táž vkládací technika, ale bez explicitní textové vazby)",
+     "likelyCompanionTisk": 62
+    }
+   ]
+  },
+  {
+   "cislo": 53,
+   "hits": [
+    {
+     "context": "303/2023 Sb., zákona č. 412/2023 Sb., zákona č. 124/2024 Sb., zákona č. 180/2024 Sb., zákona č. 387/2024 Sb., zákona č. ",
+     "class": "companion_dependency",
+     "reasoning": "Placeholder sedí v CÍLOVÉHO zákona ve-znění enumeraci („ve znění ..., a zákona č. …/2025 Sb., se mění takto“) — strukturně to NEMŮŽE být tisk 53 sám (bill nemůže figurovat jako vlastní předchozí novela zákona, který právě mění), navíc rok placeholderu (2025) nesouhlasí s vlastní hlavičkou tisku 53 (2026). Textový důkaz: část I tisku 53 opakovaně cituje § 2174a občanského zákoníku jako již existující ustanovení („nevydá spotřebiteli záruční list podle § 2174a odst. 1“), ale vlastní část II tisku 53 (Čl. II, změna občanského zákoníku) mění jen § 1811–2171 a § 2174a NIKDY nevytváří — ověřeno čtením celého Čl. II v cache. Tisk 16 („kterým se mění některé zákony v souvislosti se smlouvami o finančních službách uzavíranými na dálku“) má vlastní Část první „Změna zákona o ochraně spotřebitele“ a jeho placeholder rovněž nese ročník 2025.",
+     "companionSubject": "novela občanského zákoníku a zákona o ochraně spotřebitele v souvislosti se smlouvami o finančních službách uzavíranými na dálku (zavádí § 2174a OZ, který tisk 53 předpokládá jako již existující)",
+     "likelyCompanionTisk": 16
+    },
+    {
+     "context": "78/2025 Sb., zákona č. 120/2025 Sb., zákona č. 176/2025 Sb., zákona č. 268/2025 Sb., zákona č. 270/2025 Sb., zákona č. 2",
+     "class": "companion_dependency",
+     "reasoning": "Placeholder sedí v CÍLOVÉHO zákona ve-znění enumeraci („ve znění ..., a zákona č. …/2025 Sb., se mění takto“) — strukturně to NEMŮŽE být tisk 53 sám (bill nemůže figurovat jako vlastní předchozí novela zákona, který právě mění), navíc rok placeholderu (2025) nesouhlasí s vlastní hlavičkou tisku 53 (2026). Textový důkaz: část I tisku 53 opakovaně cituje § 2174a občanského zákoníku jako již existující ustanovení („nevydá spotřebiteli záruční list podle § 2174a odst. 1“), ale vlastní část II tisku 53 (Čl. II, změna občanského zákoníku) mění jen § 1811–2171 a § 2174a NIKDY nevytváří — ověřeno čtením celého Čl. II v cache. Tisk 16 („kterým se mění některé zákony v souvislosti se smlouvami o finančních službách uzavíranými na dálku“) má vlastní Část první „Změna zákona o ochraně spotřebitele“ a jeho placeholder rovněž nese ročník 2025.",
+     "companionSubject": "novela občanského zákoníku a zákona o ochraně spotřebitele v souvislosti se smlouvami o finančních službách uzavíranými na dálku (zavádí § 2174a OZ, který tisk 53 předpokládá jako již existující)",
+     "likelyCompanionTisk": 16
+    }
+   ]
+  },
+  {
+   "cislo": 64,
+   "hits": [
+    {
+     "context": "119/2020 Sb., zákona č. 96/2022 Sb., zákona č. 106/2023 Sb., zákona č. 163/2024 Sb., zákona č. 32/2025 Sb., zákona č. 17",
+     "class": "companion_dependency",
+     "reasoning": "Placeholder sedí v cílového zákona ve-znění enumeraci a nese ROK 2025, ačkoli vlastní hlavička tisku 64 je 2026 — strukturně to navíc nemůže být tisk 64 sám. Vlastní název tisku 64 zní „kterým se V SOUVISLOSTI S PŘIJETÍM zákona o účetnictví mění některé zákony...“ — bill sám se prohlašuje za navazující na jiný, samostatně projednávaný zákon o účetnictví, což dává rokovému nesouladu věcné zdůvodnění. Konkrétní číslo tisku zákona o účetnictví se ale z dostupného korpusu nedá určit (žádná cache).",
+     "companionSubject": "nový zákon o účetnictví (samostatný, hlavní předpis, na jehož přijetí tisk 64 přímo navazuje dle vlastního názvu); konkrétní číslo tisku se z dostupného korpusu nedá určit",
+     "likelyCompanionTisk": null
+    },
+    {
+     "context": "307/2018 Sb., zákona č. 186/2020 Sb., zákona č. 237/2020 Sb., zákona č. 353/2021 Sb., zákona č. 96/2022 Sb., zákona č. 4",
+     "class": "companion_dependency",
+     "reasoning": "Placeholder sedí v cílového zákona ve-znění enumeraci a nese ROK 2025, ačkoli vlastní hlavička tisku 64 je 2026 — strukturně to navíc nemůže být tisk 64 sám. Vlastní název tisku 64 zní „kterým se V SOUVISLOSTI S PŘIJETÍM zákona o účetnictví mění některé zákony...“ — bill sám se prohlašuje za navazující na jiný, samostatně projednávaný zákon o účetnictví, což dává rokovému nesouladu věcné zdůvodnění. Konkrétní číslo tisku zákona o účetnictví se ale z dostupného korpusu nedá určit (žádná cache).",
+     "companionSubject": "nový zákon o účetnictví (samostatný, hlavní předpis, na jehož přijetí tisk 64 přímo navazuje dle vlastního názvu); konkrétní číslo tisku se z dostupného korpusu nedá určit",
+     "likelyCompanionTisk": null
+    }
+   ]
+  },
+  {
+   "cislo": 119,
+   "hits": [
+    {
+     "context": "84/2025 Sb., zákona č. 87/2025 Sb., zákona č. 120/2025 Sb., zákona č. 152/2025 Sb., zákona č. 176/2025 Sb., zákona č. 27",
+     "class": "unclear",
+     "reasoning": "Placeholder sedí v cílového zákona (zákon č. 427/2011 Sb., o doplňkovém penzijním spoření, nebo zákon č. 586/1992 Sb., o daních z příjmů) ve-znění enumeraci („ve znění ..., a zákona č. …/20YY Sb., se mění takto“) — strukturně to NEMŮŽE být tisk 119 sám (nemůže figurovat jako vlastní předchozí novela zákona, který právě mění). V cache k tisku 119 ale není žádný „ve znění sněmovního tisku N“ marker, žádná jmenovaná citace shodná s titulem jiného tisku, ani rokový nesoulad — jen sdílený generický řetězec už promlčených čísel Sb. Chybí hit-specifický důkaz, kdo je adresátem; nelze rozhodnout mezi konkrétními kandidáty bez dalšího čtení plného znění nebo psp.cz.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    }
+   ]
+  },
+  {
+   "cislo": 143,
+   "hits": [
+    {
+     "context": "349/2023 Sb., zákona č. 462/2023 Sb., zákona č. 32/2025 Sb., zákona č. 258/2025 Sb., zákona č. 259/2025 Sb., zákona č. 2",
+     "class": "unclear",
+     "reasoning": "Placeholder sedí v cílového zákona (zákon č. 256/2004 Sb., o podnikání na kapitálovém trhu — souběžně jej mění i tisk 210, ale tisk 143 vlastní text jmenuje jen již číslované zákony 258/2025 a 317/2025, ne tisk 210) ve-znění enumeraci („ve znění ..., a zákona č. …/20YY Sb., se mění takto“) — strukturně to NEMŮŽE být tisk 143 sám (nemůže figurovat jako vlastní předchozí novela zákona, který právě mění). V cache k tisku 143 ale není žádný „ve znění sněmovního tisku N“ marker, žádná jmenovaná citace shodná s titulem jiného tisku, ani rokový nesoulad — jen sdílený generický řetězec už promlčených čísel Sb. Chybí hit-specifický důkaz, kdo je adresátem; nelze rozhodnout mezi konkrétními kandidáty bez dalšího čtení plného znění nebo psp.cz.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    }
+   ]
+  },
+  {
+   "cislo": 144,
+   "hits": [
+    {
+     "context": "zinců na území České republiky a o změně některých zákonů, ve znění pozdějších předpisů, a další související zákony. 71.",
+     "class": "companion_dependency",
+     "reasoning": "Kontext cituje „Část čtyřicátá pátá zákona č. …/2026 Sb., kterým se v souvislosti s přijetím zákona o účetnictví mění některé zákony a zrušuje zákon...“ — to je DOSLOVNÝ název tisku 64 („kterým se v souvislosti s přijetím zákona o účetnictví mění některé zákony a zrušuje zákon č. 25/2017 Sb....“), ne vlastní předmět tisku 144 (cizinecký zákon). Auditem spot-verified: ČÁST ČTYŘICÁTÁ PÁTÁ tisku 64 (~ř. 6073) skutečně odpovídá cizineckému zákonu.",
+     "companionSubject": "zákon, kterým se v souvislosti s přijetím zákona o účetnictví mění některé zákony a zrušuje zákon č. 25/2017 Sb. (doslovný název tisku 64)",
+     "likelyCompanionTisk": 64
+    }
+   ]
+  },
+  {
+   "cislo": 172,
+   "hits": [
+    {
+     "context": "zákona č. 300/2025 Sb., zákona 25 č. 314/2025 Sb., zákona č. 330/2025 Sb., zákona č. 344/2025 Sb. a zákona č. …/2026 Sb.",
+     "class": "unclear",
+     "reasoning": "Placeholder sedí v cílového zákona (zákon č. 329/1999 Sb., o cestovních dokladech, nebo zákon č. 269/2021 Sb., o občanských průkazech) ve-znění enumeraci („ve znění ..., a zákona č. …/20YY Sb., se mění takto“) — strukturně to NEMŮŽE být tisk 172 sám (nemůže figurovat jako vlastní předchozí novela zákona, který právě mění). V cache k tisku 172 ale není žádný „ve znění sněmovního tisku N“ marker, žádná jmenovaná citace shodná s titulem jiného tisku, ani rokový nesoulad — jen sdílený generický řetězec už promlčených čísel Sb. Chybí hit-specifický důkaz, kdo je adresátem; nelze rozhodnout mezi konkrétními kandidáty bez dalšího čtení plného znění nebo psp.cz.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    }
+   ]
+  },
+  {
+   "cislo": 173,
+   "hits": [
+    {
+     "context": "268/2024 Sb., zákona č. 321/2024 Sb., zákona č. 24/2025 Sb., zákona č. 220/2025 Sb., zákona č. 250/2025 Sb., zákona č. 2",
+     "class": "unclear",
+     "reasoning": "Placeholder sedí v cílového zákona (trestní zákoník 40/2009) ve-znění enumeraci („ve znění ..., a zákona č. …/20YY Sb., se mění takto“) — strukturně to NEMŮŽE být tisk 173 sám (nemůže figurovat jako vlastní předchozí novela zákona, který právě mění). V cache k tisku 173 ale není žádný „ve znění sněmovního tisku N“ marker, žádná jmenovaná citace shodná s titulem jiného tisku, ani rokový nesoulad — jen sdílený generický řetězec už promlčených čísel Sb. Chybí hit-specifický důkaz, kdo je adresátem; nelze rozhodnout mezi konkrétními kandidáty bez dalšího čtení plného znění nebo psp.cz.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    }
+   ]
+  },
+  {
+   "cislo": 206,
+   "hits": [
+    {
+     "context": "oplatcích Čl. III V položce 18 bodu 2 přílohy k zákonu č. 549/1991 Sb., o soudních poplatcích, ve znění zákona č. 218/20",
+     "class": "companion_dependency",
+     "reasoning": "Kontext explicitně cituje „(ST 777)“ za placeholderem „zákona č. .../2025 Sb.“ v ve-znění enumeraci zákona č. 549/1991 Sb., o soudních poplatcích — přímý, jednoznačný odkaz na jiný sněmovní tisk. m10 v auditu poznamenává, že tisk 777 je mimo 141-bill korpus (žádná cache), takže odkaz je čitelný, ale zde neověřitelný dalším čtením.",
+     "companionSubject": "novela zákona č. 549/1991 Sb., o soudních poplatcích, označena přímo jako sněmovní tisk 777",
+     "likelyCompanionTisk": 777
+    }
+   ]
+  },
+  {
+   "cislo": 213,
+   "hits": [
+    {
+     "context": "268/2024 Sb., zákona č. 321/2024 Sb., zákona č. 24/2025 Sb., zákona č. 220/2025 Sb., zákona č. 250/2025 Sb., zákona č. 2",
+     "class": "unclear",
+     "reasoning": "Placeholder sedí v cílového zákona (zákon upravující opatření v souvislosti s ozbrojeným konfliktem na Ukrajině — vlastní odůvodnění tisku 213 mluví o „bezpečnostním balíčku“, což ukazuje na provázanost s dalšími tisky, ale žádný konkrétní tisk nejmenuje) ve-znění enumeraci („ve znění ..., a zákona č. …/20YY Sb., se mění takto“) — strukturně to NEMŮŽE být tisk 213 sám (nemůže figurovat jako vlastní předchozí novela zákona, který právě mění). V cache k tisku 213 ale není žádný „ve znění sněmovního tisku N“ marker, žádná jmenovaná citace shodná s titulem jiného tisku, ani rokový nesoulad — jen sdílený generický řetězec už promlčených čísel Sb. Chybí hit-specifický důkaz, kdo je adresátem; nelze rozhodnout mezi konkrétními kandidáty bez dalšího čtení plného znění nebo psp.cz.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    }
+   ]
+  },
+  {
+   "cislo": 216,
+   "hits": [
+    {
+     "context": "268/2024 Sb., zákona č. 321/2024 Sb., zákona č. 24/2025 Sb., zákona č. 220/2025 Sb., zákona č. 250/2025 Sb., zákona č. 2",
+     "class": "companion_dependency",
+     "reasoning": "Placeholder sedí v cílového zákona (trestní zákoník, 40/2009) ve-znění enumeraci („ve znění ..., 314/2025 Sb. a zákona č. …/2026 Sb., se mění takto“) — strukturně to nemůže být tisk 216 sám. Přímý textový důkaz: tisk-216/271416.txt (platné znění s vyznačením navrhovaných změn), řádek 4: „...s vyznačením navrhovaných změn a doplnění (ve znění sněmovního tisku 207/0)“.",
+     "companionSubject": "novela trestního zákoníku projednávaná jako sněmovní tisk 207 (verze/0)",
+     "likelyCompanionTisk": 207
+    }
+   ]
+  },
+  {
+   "cislo": 218,
+   "hits": [
+    {
+     "context": "51/2023 Sb., zákona č. 285/2023 Sb., zákona č. 349/2023 Sb., zákona č. 417/2023 Sb., zákona č. 469/2023 Sb., zákona č. 4",
+     "class": "unclear",
+     "reasoning": "Placeholder sedí v cílového zákona (zákon č. 235/2004 Sb., o dani z přidané hodnoty) ve-znění enumeraci („ve znění ..., a zákona č. …/20YY Sb., se mění takto“) — strukturně to NEMŮŽE být tisk 218 sám (nemůže figurovat jako vlastní předchozí novela zákona, který právě mění). V cache k tisku 218 ale není žádný „ve znění sněmovního tisku N“ marker, žádná jmenovaná citace shodná s titulem jiného tisku, ani rokový nesoulad — jen sdílený generický řetězec už promlčených čísel Sb. Chybí hit-specifický důkaz, kdo je adresátem; nelze rozhodnout mezi konkrétními kandidáty bez dalšího čtení plného znění nebo psp.cz.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    }
+   ]
+  },
+  {
+   "cislo": 234,
+   "hits": [
+    {
+     "context": "kona Čl. V V § 285 odst. 1 zákona č. 283/2021 Sb., stavební zákon, ve znění zákona č. 152/2023 Sb. a zákona č. …/2026 Sb",
+     "class": "unclear",
+     "reasoning": "Placeholder sedí v cílového zákona (zákon č. 283/2021 Sb., stavební zákon (Čl. V tisku 234, mimo jeho vlastní hlavní předmět — autorizační zákon)) ve-znění enumeraci („ve znění ..., a zákona č. …/20YY Sb., se mění takto“) — strukturně to NEMŮŽE být tisk 234 sám (nemůže figurovat jako vlastní předchozí novela zákona, který právě mění). V cache k tisku 234 ale není žádný „ve znění sněmovního tisku N“ marker, žádná jmenovaná citace shodná s titulem jiného tisku, ani rokový nesoulad — jen sdílený generický řetězec už promlčených čísel Sb. Chybí hit-specifický důkaz, kdo je adresátem; nelze rozhodnout mezi konkrétními kandidáty bez dalšího čtení plného znění nebo psp.cz.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    }
+   ]
+  },
+  {
+   "cislo": 54,
+   "hits": [
+    {
+     "context": "38/2025 Sb., zákona č. 77/2025 Sb., zákona č. 236/2025 Sb., zákona č. 270/2025 Sb., zákona č. 290/2025 Sb., zákona č. 30",
+     "class": "unclear",
+     "reasoning": "Placeholder sedí v cílového zákona (jeden ze zákonů novelizovaných tiskem 54 (správa dat / řízený přístup k datům)) ve-znění enumeraci („ve znění ..., a zákona č. …/20YY Sb., se mění takto“) — strukturně to NEMŮŽE být tisk 54 sám (nemůže figurovat jako vlastní předchozí novela zákona, který právě mění). V cache k tisku 54 ale není žádný „ve znění sněmovního tisku N“ marker, žádná jmenovaná citace shodná s titulem jiného tisku, ani rokový nesoulad — jen sdílený generický řetězec už promlčených čísel Sb. Chybí hit-specifický důkaz, kdo je adresátem; nelze rozhodnout mezi konkrétními kandidáty bez dalšího čtení plného znění nebo psp.cz.",
+     "companionSubject": null,
+     "likelyCompanionTisk": null
+    }
+   ]
+  },
+  {
+   "cislo": 58,
+   "hits": [
+    {
+     "context": "č. 87/2023 Sb., o dozoru nad trhem s výrobky a o změně některých souvisejících zákonů (zákon o dozoru nad trhem s výrobk",
+     "class": "companion_dependency",
+     "reasoning": "Placeholder sedí v cílového zákona (87/2023 Sb., dozor nad trhem s výrobky) ve-znění enumeraci a nese ROK 2025, ačkoli vlastní hlavička tisku 58 je 2026 — strukturně to navíc nemůže být tisk 58 sám. Zákon 87/2023 je ve stejném roce (2026) souběžně novelizován i tisky 62 a 250 stejnou přílohovou technikou, ale ani jeden z nich není datován 2025 — konkrétní původce placeholderu 2025 tedy není z dostupného korpusu jednoznačně určitelný.",
+     "companionSubject": "jiná, samostatně projednávaná novela zákona č. 87/2023 Sb., o dozoru nad trhem s výrobky, očekávaná v roce 2025; konkrétní tisk neurčitelný z dostupného korpusu",
+     "likelyCompanionTisk": null
+    }
+   ]
+  }
+ ]
+}

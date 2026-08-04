@@ -13,6 +13,7 @@
 // are written pending_review — a lead for a human, never a published verdict.
 
 import { czechGateErrors } from "@/lib/analysis/language-gate";
+import { jargonViolationDetails } from "@/lib/analysis/public-copy";
 import { LAW_CITATION } from "@/lib/ingest/sources/psp-legislation";
 
 export const LAW_FINDING_SEVERITY = ["low", "medium", "high"] as const;
@@ -106,6 +107,38 @@ export interface ValidateLawVerdictOptions {
   requireCzech?: boolean;
 }
 
+/** Law-case pipeline-jargon classes (batch-013 M6, widened batch-014 M8). Module-scoped and
+ * exported so the SAME rule runs at persist time (validateLawVerdict) and at render time
+ * (features/lawwatch/getLawData.ts withholds on it) — a gate that exists in one place only is
+ * a gate the other surface silently lacks. Composes the effort case's shared PIPELINE_JARGON
+ * list (public-copy.ts) rather than forking it. */
+const LAW_PIPELINE_JARGON: { re: RegExp; what: string }[] = [
+  { re: /\b(sectorAdjacency|triageScoreV2|maxTargetChurn|amendsCount|moneyTies|attributedSectorLeads|forensic_[a-z_]+)\b/, what: "internal prop identifier" },
+  { re: /\bmp_group\b/, what: "origin enum token" },
+  { re: /\.data[\\/]law-collision-cache|law-collision-cache[\\/]tisk-|\.txt\b/, what: "cache file path (cite the psp.cz document URL instead)" },
+  { re: /\bpsp:person:\d+|\bbill:tisk:\d+|\bcompany:ico:\d+|\blaw:sb:\d+/, what: "graph urn in prose (urns belong in citation sources, not sentences)" },
+  { re: /\bbatch\b|\bpass[- ]?\d{1,3}\b/i, what: "internal batch/pass reference" },
+  { re: /\bkg_(node|edge)s?\b|\bknownIds\b|\bknownLawRefs\b/, what: "pipeline identifier" },
+];
+
+/** All pipeline-jargon issues in one reader-facing string (law list ∪ shared effort list). */
+export function lawJargonIssues(text: string): string[] {
+  const out: string[] = [];
+  for (const { re, what } of LAW_PIPELINE_JARGON) {
+    const m = re.exec(text);
+    if (m) out.push(`pipeline jargon in reader-facing prose — ${what} ("${m[0]}")`);
+  }
+  for (const { what, match } of jargonViolationDetails(text)) {
+    // Documented scope limit: the effort case's "sample-scoped self-reference" rule ("v této
+    // skupině" etc.) targets dossier prose about the analysis COHORT; in legal prose the same
+    // words legitimately denote a statutory group of persons (verdict-257: „v této skupině
+    // pojištěnců"). Composing it verbatim would withhold correct Czech.
+    if (what.includes("sample-scoped")) continue;
+    out.push(`pipeline jargon in reader-facing prose — ${what} ("${match}")`);
+  }
+  return out;
+}
+
 function isObj(v: unknown): v is Record<string, unknown> {
   return typeof v === "object" && v !== null && !Array.isArray(v);
 }
@@ -171,14 +204,6 @@ export function validateLawVerdict(input: unknown, opts: ValidateLawVerdictOptio
   // survive the next army; only code does. Scoped to the law case's own token classes;
   // `lib/analysis/public-copy.ts` (the effort case's list) composes separately at call sites.
   if (opts.requireCzech !== false) {
-    const JARGON: { re: RegExp; what: string }[] = [
-      { re: /\b(sectorAdjacency|triageScoreV2|maxTargetChurn|amendsCount|moneyTies|attributedSectorLeads|forensic_[a-z_]+)\b/, what: "internal prop identifier" },
-      { re: /\bmp_group\b/, what: "origin enum token" },
-      { re: /\.data[\\/]law-collision-cache|law-collision-cache[\\/]tisk-|\.txt\b/, what: "cache file path (cite the psp.cz document URL instead)" },
-      { re: /\bpsp:person:\d+|\bbill:tisk:\d+|\bcompany:ico:\d+|\blaw:sb:\d+/, what: "graph urn in prose (urns belong in citation sources, not sentences)" },
-      { re: /\bbatch\b|\bpass[- ]?\d{1,3}\b/i, what: "internal batch/pass reference" },
-      { re: /\bkg_(node|edge)s?\b|\bknownIds\b|\bknownLawRefs\b/, what: "pipeline identifier" },
-    ];
     const readerFields: { label: string; text: unknown }[] = [
       { label: "statedReasoning", text: input.statedReasoning },
       { label: "researchedContext", text: input.researchedContext },
@@ -197,10 +222,7 @@ export function validateLawVerdict(input: unknown, opts: ValidateLawVerdictOptio
       });
     for (const f of readerFields) {
       if (typeof f.text !== "string") continue;
-      for (const { re, what } of JARGON) {
-        const m = re.exec(f.text);
-        if (m) e.push(`${f.label}: pipeline jargon in reader-facing prose — ${what} ("${m[0]}")`);
-      }
+      for (const issue of lawJargonIssues(f.text)) e.push(`${f.label}: ${issue}`);
     }
   }
 

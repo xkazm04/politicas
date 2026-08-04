@@ -2,11 +2,14 @@
  "generatedAt": "2026-08-04T00:00:00.000Z",
  "batch": 13,
  "group": "B",
- "classificationVocabulary": ["confirmed-collision", "coordination-risk", "incidental"],
+ "classificationVocabulary": [
+  "confirmed-collision",
+  "coordination-risk",
+  "incidental"
+ ],
  "classificationCounts": {
   "confirmed-collision": 3,
-  "coordination-risk": 3,
-  "incidental": 2
+  "coordination-risk": 5
  },
  "coverage": {
   "pairsRead": 8,
@@ -45,12 +48,12 @@
    "billA": 64,
    "billB": 218,
    "sharedParagraph": "21",
-   "classification": "incidental",
+   "classification": "coordination-risk",
    "evidence": {
     "billAExcerpt": "tisk 64, body 4-5: '4. V § 13 odst. 4 písm. d) a v § 21 odst. 6 se slova „nevede účetnictví“ nahrazují slovy „není účetní jednotkou“. 5. V § 21 odst. 2 se za text „c)“ vkládají slova „nebo dodání práva stavby“.'",
     "billBExcerpt": "tisk 218, bod 9: '9. V § 21 se na konci odstavce 3 doplňuje věta „Pokud je na poskytnutí služby použit režim mimo Evropskou unii nebo režim Evropské unie zvláštního režimu jednoho správního místa, považuje se zdanitelné plnění za uskutečněné dnem poskytnutí této služby.“.'"
    },
-   "reasoning": "Tisk 64 upravuje výhradně odstavce 2 a 6 § 21 zákona o DPH (vložení slov za text „c)“ v odst. 2, resp. terminologická záměna „nevede účetnictví“ → „není účetní jednotkou“ v odst. 6, sdílená s § 13 odst. 4 písm. d)). Tisk 218 pouze doplňuje novou větu na konec odstavce 3 (transpozice směrnice o DPH v digitálním věku, CELEX 32025L0516) -- ostatní výskyty „§ 21“ v cache tisku 218 jsou výhradně důvodová zpráva, žádná další novelizační instrukce k § 21 v textu není. Odstavce 2, 3 a 6 jsou zcela oddělené a žádná z novel nezasahuje do místa, kam směřuje druhá, ani nemění číslování odstavců. Přestože deterministická předkontrola vykázala genuine overlap na úrovni paragrafu (oba tisky formálně novelizují § 21), po přečtení textu jde o zcela disjunktní odstavce bez jakékoli adresní nebo textové interakce -- klasifikováno jako incidental."
+   "reasoning": "Tisk 64 upravuje výhradně odstavce 2 a 6 § 21 zákona o DPH (vložení slov za text „c)“ v odst. 2, resp. terminologická záměna „nevede účetnictví“ → „není účetní jednotkou“ v odst. 6, sdílená s § 13 odst. 4 písm. d)). Tisk 218 pouze doplňuje novou větu na konec odstavce 3 (transpozice směrnice o DPH v digitálním věku, CELEX 32025L0516) -- ostatní výskyty „§ 21“ v cache tisku 218 jsou výhradně důvodová zpráva, žádná další novelizační instrukce k § 21 v textu není. Odstavce 2, 3 a 6 jsou zcela oddělené a žádná z novel nezasahuje do místa, kam směřuje druhá, ani nemění číslování odstavců. Přestože deterministická předkontrola vykázala genuine overlap na úrovni paragrafu (oba tisky formálně novelizují § 21), po přečtení textu jde o disjunktní odstavce bez adresní nebo textové interakce; protože však obě strany nesou věcnou novelizační instrukci do téhož paragrafu, je pár podle sjednoceného pravidla klasifikován jako koordinační riziko. (Sjednocené pravidlo klasifikace: společný § s věcnou novelizační instrukcí na obou stranách je nejméně koordinačním rizikem; jako nahodilé se značí jen páry, kde je vazba jedné strany na § pouze citační, kotevní nebo číslováním vlastního článku.)"
   },
   {
    "pairId": "7-65-21-1992",
@@ -110,12 +113,12 @@
    "billA": 64,
    "billB": 232,
    "sharedParagraph": "136",
-   "classification": "incidental",
+   "classification": "coordination-risk",
    "evidence": {
     "billAExcerpt": "tisk 64, bod 23: '23. V § 136 odst. 1 písm. c) se slova „zajišťovat závazky“ nahrazují slovy „zajistit dluhy“.'",
     "billBExcerpt": "tisk 232, bod 3: '3. V § 136 odst. 2 písm. d) se text „§ 30 odst. 5“ nahrazuje textem „§ 30 odst. 4“.' (dův. zpráva: 'V § 136 odst. 2 písm. d) školského zákona se ve vnitřním odkazu promítá změna číslování odstavců v § 30 školského zákona.')"
    },
-   "reasoning": "Tisk 64 mění text odstavce 1 písmene c) § 136 (terminologická úprava „zajišťovat závazky“ na „zajistit dluhy“, navazující na terminologii nového občanského/účetního rámce). Tisk 232 mění pouze vnitřní odkaz v odstavci 2 písmeni d) -- a to výhradně jako důsledek vlastního přečíslování odstavců § 30 (novela o mobilních telefonech ve školách, věcně s § 136 nesouvisející); dův. zpráva tisku 232 to výslovně potvrzuje jako promítnutí cizí změny číslování, ne jako úpravu obsahu § 136. Odstavce 1 a 2 § 136 jsou zcela oddělené (shodně s tím, co ukázala deterministická předkontrola: odstavecOverlap je u tohoto páru prázdné), žádná z novel nezasahuje do místa, které mění druhá, a přečíslování tisku 232 se týká výhradně § 30, nikoli adresace uvnitř § 136. Jde o čistě náhodné sdílení paragrafu bez textové nebo adresní interakce -- incidental."
+   "reasoning": "Tisk 64 mění text odstavce 1 písmene c) § 136 (terminologická úprava „zajišťovat závazky“ na „zajistit dluhy“, navazující na terminologii nového občanského/účetního rámce). Tisk 232 mění pouze vnitřní odkaz v odstavci 2 písmeni d) -- a to výhradně jako důsledek vlastního přečíslování odstavců § 30 (novela o mobilních telefonech ve školách, věcně s § 136 nesouvisející); dův. zpráva tisku 232 to výslovně potvrzuje jako promítnutí cizí změny číslování, ne jako úpravu obsahu § 136. Odstavce 1 a 2 § 136 jsou zcela oddělené (shodně s tím, co ukázala deterministická předkontrola: odstavecOverlap je u tohoto páru prázdné), žádná z novel nezasahuje do místa, které mění druhá, a přečíslování tisku 232 se týká výhradně § 30, nikoli adresace uvnitř § 136. Textová ani adresní interakce nebyla nalezena; protože však obě strany nesou věcnou novelizační instrukci do téhož paragrafu, je pár podle sjednoceného pravidla klasifikován jako koordinační riziko. (Sjednocené pravidlo klasifikace: společný § s věcnou novelizační instrukcí na obou stranách je nejméně koordinačním rizikem; jako nahodilé se značí jen páry, kde je vazba jedné strany na § pouze citační, kotevní nebo číslováním vlastního článku.)"
   }
  ]
 }

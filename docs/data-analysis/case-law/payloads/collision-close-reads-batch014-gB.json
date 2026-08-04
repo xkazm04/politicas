@@ -1,0 +1,125 @@
+{
+ "generatedAt": "2026-08-04T21:30:00.000Z",
+ "batch": 14,
+ "group": "B",
+ "classificationVocabulary": [
+  "confirmed-collision",
+  "coordination-risk",
+  "incidental"
+ ],
+ "classificationCounts": {
+  "confirmed-collision": 0,
+  "coordination-risk": 7,
+  "incidental": 1
+ },
+ "coverage": {
+  "pairsRead": 8,
+  "pairsAssigned": 8
+ },
+ "pairs": [
+  {
+   "pairId": "77-125-582-1991",
+   "lawRef": "582/1991",
+   "billA": 77,
+   "billB": 125,
+   "sharedParagraph": "8",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 77, ČÁST ČTVRTÁ Čl. V: 'V § 8 odst. 4 zákona č. 582/1991 Sb., o organizaci a provádění sociálního zabezpečení, ... se věta poslední zrušuje.' -- podle vlastního citovaného platného znění § 8 odst. 4 v tisku 77 (Platná znění, viz níže) je poslední (čtvrtou) větou odstavce: 'Je-li lékař Institutu posuzování zdravotního stavu nebo odborný nelékařský zdravotnický pracovník vedoucím zaměstnancem, je oprávněn dávat státnímu zaměstnanci příkazy k výkonu státní služby podle zákona o státní službě.'",
+    "billBExcerpt": "tisk 125, ČÁST TŘETÍ Čl. III: 'V § 8 odst. 4 zákona č. 582/1991 Sb., o organizaci a provádění sociálního zabezpečení, ... se slova „a e)“ zrušují.' -- cílovou větou je TŘETÍ věta odstavce 4 (dle platného znění citovaného tiskem 77): 'Posudek Institutu posuzování zdravotního stavu vydaný podle odstavce 1 písm. a) až c) a e) musí být schválen a podepsán lékařem Institutu posuzování zdravotního stavu.'"
+   },
+   "reasoning": "Obě novely míří do § 8 odst. 4 zákona č. 582/1991 Sb., ale na ROZDÍLNÉ věty téhož odstavce. Tisk 77 ruší poslední (čtvrtou) větu o oprávnění vedoucího zaměstnance dávat příkazy podle zákona o státní službě. Tisk 125 ruší slova „a e)“ uvnitř třetí věty, která upravuje schvalování posudku lékařem. Podle plného znění § 8 odst. 4, které tisk 77 sám cituje ve své příloze 'Platná znění', jsou to skutečně dvě samostatné věty oddělené tečkou – textové rozsahy se nepřekrývají a instrukce lze aplikovat v libovolném pořadí bez kolize. Jde nicméně o stejný odstavec téhož paragrafu ve dvou souběžně projednávaných novelách sociálního zabezpečení, takže sběrná redakce Sbírky musí obě dílčí úpravy sloučit do jednoho konsolidovaného znění odstavce 4 – proto koordinační riziko, nikoli potvrzená kolize."
+  },
+  {
+   "pairId": "85-125-108-2006",
+   "lawRef": "108/2006",
+   "billA": 85,
+   "billB": 125,
+   "sharedParagraph": "21",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 85, ČÁST DRUHÁ Čl. II: 'V § 21 odst. 2 písm. e) zákona č. 108/2006 Sb., o sociálních službách, ... se část věty za středníkem včetně středníku zrušuje.' -- cílí na ODSTAVEC 2 PÍSMENO E).",
+    "billBExcerpt": "tisk 125, ČÁST PRVNÍ Čl. I bod 7: '7. V § 21 odstavec 1 zní: „(1) Žadatel o příspěvek a oprávněná osoba, jejichž zdravotní stav je třeba posoudit pro stanovení stupně závislosti, jsou povinni a) doložit potvrzení o zdravotním stavu podle § 8a, ... k) písemně ohlásit příslušné územní správě sociálního zabezpečení propuštění ze zdravotnického zařízení lůžkové péče v případech uvedených v písmenu j), a to ve lhůtě 5 dnů.“.' -- kompletně PŘEPISUJE ODSTAVEC 1 (celé písmena a) až k)); odstavce 2 se tento bod netýká."
+   },
+   "reasoning": "Deterministická předkontrola shodně vlajkuje § 21, ale na úrovni odstavců jde o zcela oddělené zásahy: tisk 85 ruší část věty za středníkem v § 21 ODST. 2 PÍSM. E) (povinnost hlásit rozhodný příjem), zatímco tisk 125 nahrazuje v CELÉM ROZSAHU § 21 ODSTAVEC 1 (výčet povinností žadatele a) až k)) – jde o jinou subdivizi paragrafu, kterou tisk 125 nikde neupravuje odstavec 2. Souvisejícími body 3-6 tisk 125 pouze opravuje křížové odkazy v JINÝCH paragrafech (§13, §25, §26, §14a, §16, §29) na přeznačená písmena nového odstavce 1 – tyto odkazy se § 21 odst. 2 písm. e) rovněž netýkají. Trojúhelník s již publikovaným párem 85×88 (batch-009, byte-identická kolize na odst. 2 písm. e)) se tedy NEUZAVÍRÁ jako plnohodnotná trojkolize: tisk 125 sedí na jiné části téhož paragrafu než 85 a 88, takže reálně koliduje jen dvojice 85×88, nikoli trojice. Pár 85×125 je klasifikován jako koordinační riziko – stejný paragraf, disjunktní odstavce, mergovatelné bez skutečného textového střetu, ale vyžadující pozornost redaktora při sloučení novel zákona o sociálních službách."
+  },
+  {
+   "pairId": "88-125-108-2006",
+   "lawRef": "108/2006",
+   "billA": 88,
+   "billB": 125,
+   "sharedParagraph": "21",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 88, ČÁST TŘETÍ Čl. IV: 'V § 21 odst. 2 písm. e) zákona č. 108/2006 Sb., o sociálních službách, ... se část věty za středníkem včetně středníku zrušuje.' -- text INSTRUKCE je byte-identický s tiskem 85 (odst. 2 písm. e)), což potvrzuje již publikovaný pár 85×88 z batch-009.",
+    "billBExcerpt": "tisk 125, ČÁST PRVNÍ Čl. I bod 7: '7. V § 21 odstavec 1 zní: „(1) Žadatel o příspěvek a oprávněná osoba, ... k) písemně ohlásit příslušné územní správě sociálního zabezpečení propuštění ze zdravotnického zařízení lůžkové péče v případech uvedených v písmenu j), a to ve lhůtě 5 dnů.“.' -- přepisuje výhradně ODSTAVEC 1."
+   },
+   "reasoning": "Stejná situace jako u páru 85×125: tisk 88 přebírá naprosto stejnou instrukci jako tisk 85 na § 21 odst. 2 písm. e) (potvrzuje se tím dřívější nález o byte-identické kolizi 85×88), zatímco tisk 125 se v § 21 pohybuje výhradně v odstavci 1 (kompletní přepis a)-k)), který 88 vůbec nezmiňuje. Trojúhelník 85-88-125 se NEUZAVÍRÁ jako trojkolize: hranou reálné kolize zůstává jen 85×88 (odst. 2 písm. e), již publikováno), zatímco 125 se dotýká § 21 jen na úrovni odstavce 1 – jde o formálně shodný paragraf, ale věcně nekřížící se subdivizi. Klasifikováno jako koordinační riziko z týchž důvodů jako 85×125."
+  },
+  {
+   "pairId": "7-67-234-2014",
+   "lawRef": "234/2014",
+   "billA": 7,
+   "billB": 67,
+   "sharedParagraph": "2",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 7, ČÁST PATNÁCTÁ Čl. XVI: 'V § 2 odst. 1 písm. i) a § 19 odst. 4 zákona č. 234/2014 Sb., o státní službě, ... se slova „dohled nad hospodařením politických stran a politických hnutí“ nahrazují slovy „prevenci korupce a střetu zájmů“.' -- mění ZNĚNÍ existujícího písmene i).",
+    "billBExcerpt": "tisk 67, ČÁST TŘICÁTÁ PÁTÁ Čl. XXXII bod 1: '1. V § 2 odst. 1 se na konci písmene p) tečka nahrazuje čárkou a za písmeno p) se vkládá nové písmeno q), které zní: „q) předsedu a místopředsedy Úřadu rozvoje území České republiky,“' a bod 2: '2. V § 33 odst. 1 písm. o), v § 104a odst. 1 větě druhé a v § 104a odst. 2 větě první se text „r)“ nahrazuje textem „q)“.' -- VKLÁDÁ nové písmeno q) za písmeno p), s navazujícím přeznačením v jiných paragrafech."
+   },
+   "reasoning": "Obě novely zasahují do § 2 odst. 1 zákona o státní službě, ale na různých pozicích výčtu: tisk 7 mění text existujícího písmene i) (terminologická náhrada 'dohled nad politickými stranami' → 'prevence korupce', součást rozsáhlé antikorupční novely), tisk 67 vkládá zcela nové písmeno q) za písmeno p) (přidání předsedy/místopředsedů Úřadu rozvoje území). Písmeno i) předchází písmenu p) v abecedním pořadí výčtu, takže vložení nového písmene q) za p) písmeno i) NEPŘEČÍSLOVÁVÁ ani jinak nezasahuje do jeho pozice či obsahu – instrukce lze aplikovat v libovolném pořadí. Přesto jde o zásah do téhož odstavce téhož paragrafu ve dvou souběžných novelách, což vyžaduje koordinaci při redakci konsolidovaného znění (ověření, že vložení q) nezasáhne číslování použité v novele tisku 7, což se v tomto případě nestane, ale musí to redaktor ověřit) – klasifikováno jako koordinační riziko."
+  },
+  {
+   "pairId": "13-145-84-2024",
+   "lawRef": "84/2024",
+   "billA": 13,
+   "billB": 145,
+   "sharedParagraph": "11",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 13, ČÁST PÁTÁ (novela ZTNÚ) bod 5: '5. V § 11 odst. 2 písm. d) se na konci textu bodu 1 doplňují slova „, včetně ochrany jeho osobních údajů“.' -- doplňuje text na konci BODU 1 uvnitř písmene d).",
+    "billBExcerpt": "tisk 145, ČÁST šestá Čl. VIII: 'V § 11 odst. 2 písm. d) bodě 3 zákona č. 84/2024 Sb., o trhu s nevýkonnými úvěry, se slova „provozovatele činnosti bezplatného dluhového poradenství v rámci dobrovolnické služby podle zákona upravujícího dobrovolnickou službu“ nahrazují slovy „poskytovatele dluhového poradenství podle jiného právního předpisu4)“.' -- nahrazuje text BODU 3 uvnitř téhož písmene d)."
+   },
+   "reasoning": "Oba tisky míří do stejného § 11 odst. 2 písm. d) zákona o trhu s nevýkonnými úvěry, ale na ROZDÍLNÉ číslované body uvnitř tohoto písmene: tisk 13 doplňuje slova na konec bodu 1 (o ochraně osobních údajů dlužníka, v návaznosti na transpozici AIFMD II), tisk 145 nahrazuje celý text bodu 3 (přesměrování odkazu z dobrovolnické služby na obecného poskytovatele dluhového poradenství). Body 1 a 3 jsou oddělené položky výčtu bez vzájemného textového průniku a ani jedna novela body nepřečísluje, takže instrukce lze aplikovat v libovolném pořadí bez ztráty textu. Vzhledem k tomu, že jde o stejné písmeno d) téhož odstavce ve dvou souběžně projednávaných novelách, je namístě opatrnost při sestavování konsolidovaného znění (aby redaktor Sbírky nezaměnil bod 1 a bod 3) – klasifikováno jako koordinační riziko."
+  },
+  {
+   "pairId": "64-77-181-2007",
+   "lawRef": "181/2007",
+   "billA": 64,
+   "billB": 77,
+   "sharedParagraph": "12",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 64, ČÁST STO PÁTÁ (novela zákona o ÚSTR): '2. V § 12 odst. 5 se slova „je účetní jednotkou a“ zrušují.' -- mění ODSTAVEC 5, součást plošné deregulace odkazů na 'účetní jednotku' napříč desítkami zákonů v tisku 64.",
+    "billBExcerpt": "tisk 77, ČÁST DVACÁTÁ Čl. XXIII: 'V § 12 odst. 3 zákona č. 181/2007 Sb., o Ústavu pro studium totalitních režimů a o Archivu bezpečnostních složek a o změně některých zákonů, ... se část věty první za středníkem včetně středníku a věta druhá zrušují.' -- mění ODSTAVEC 3."
+   },
+   "reasoning": "Tisk 64 zasahuje do § 12 ODST. 5 zákona o ÚSTR (ruší slova 'je účetní jednotkou a' – typický projev deregulační vlny tisku 64, který napříč desítkami zákonů odstraňuje zastaralé odkazy na účetní jednotku a nahrazuje 'cenu' 'hodnotou'). Tisk 77 zasahuje do § 12 ODST. 3 (ruší část první věty za středníkem a celou druhou větu, v rámci rozsáhlé reorganizace státní služby a Institutu posuzování zdravotního stavu). Odstavce 3 a 5 jsou textově a věcně samostatné, žádná novela nepřečíslovává odstavce ani nezasahuje do rozsahu té druhé. Klasifikováno jako koordinační riziko (stejný paragraf, disjunktní odstavce, bez skutečného textového střetu, ale vyžadující sloučení do jednoho konsolidovaného znění § 12)."
+  },
+  {
+   "pairId": "64-67-184-2006",
+   "lawRef": "184/2006",
+   "billA": 64,
+   "billB": 67,
+   "sharedParagraph": "28",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 64, novela zákona o vyvlastnění, bod 9: '9. V § 28 odst. 3 písm. a) až d) se slova „ceny stanovené“ nahrazují slovy „hodnoty určené“.' -- nahrazuje frázi 'ceny stanovené' ve VŠECH písmenech a) až d) odstavce 3, tedy i v písmenu b).",
+    "billBExcerpt": "tisk 67, ČÁST DVACÁTÁ DEVÁTÁ Čl. XXVI bod 3: '3. V § 28 odst. 3 písm. b) se slovo „zastavěném“ nahrazuje slovem „zastavitelném“' -- nahrazuje jiné slovo, rovněž v písmenu b) odstavce 3."
+   },
+   "reasoning": "Toto je nejtěsnější průnik v dávce: obě novely upravují DOSLOVA STEJNÉ PÍSMENO § 28 odst. 3 písm. b) zákona o vyvlastnění, byť odlišná slova v jeho textu – tisk 64 v rámci plošné náhrady oceňovací terminologie ('cena'→'hodnota', napříč písmeny a)-d)) a tisk 67 v rámci stavebního omnibusu ('zastavěném'→'zastavitelném', typická záměna tisku 67 napříč desítkami zákonů). Protože jde o dvě odlišné podřetězce ('ceny stanovené' vs. 'zastavěném'), lze technicky obě náhrady provést nezávisle na sobě a v libovolném pořadí, aniž by jedna přepsala cíl druhé. Přesto jde o skutečný souběh dvou samostatných novelizačních zásahů do JEDNÉ VĚTY jednoho písmene – nejtěsnější případ v této dávce, kdy sloučení do konsolidovaného znění vyžaduje explicitní koordinaci (obě náhrady musí být aplikovány, ne jen jedna, a výsledný text obou musí zůstat gramaticky konzistentní). Klasifikováno jako koordinační riziko."
+  },
+  {
+   "pairId": "64-74-282-1991",
+   "lawRef": "282/1991",
+   "billA": 64,
+   "billB": 74,
+   "sharedParagraph": "1",
+   "classification": "incidental",
+   "evidence": {
+    "billAExcerpt": "tisk 64, ČÁST ŠESTÁ Čl. VI: 'V § 1 odst. 3 zákona č. 282/1991 Sb., o České inspekci životního prostředí a její působnosti v ochraně lesa, ... se slova „a účetní jednotkou“ zrušují.' -- edituje TEXT UVNITŘ existujícího § 1 odstavce 3.",
+    "billBExcerpt": "tisk 74, ČÁST DRUHÁ Čl. III bod 1: '1. Za § 1 se vkládá nový § 1a, který včetně poznámky pod čarou č. 8 zní: „§ 1a (1) Uložila-li inspekce povinnost provést opatření k nápravě podle jiného právního předpisu8), ... a ten, komu byla povinnost uložena, ji nesplní a hrozí nebezpečí z prodlení, může zajistit provedení opatření k nápravě ... inspekce na náklady toho, komu byla povinnost uložena. ... (2) Odstavec 1 se nepoužije na opatření k nápravě uložené podle zákona o předcházení ekologické újmě.“.' -- VKLÁDÁ zcela nový § 1a ZA § 1; text § 1 samotného vůbec neupravuje."
+   },
+   "reasoning": "Deterministická předkontrola spáruje oba tisky na 'paragrafu 1', ale jde o falešně pozitivní shodu způsobenou tím, že tisk 74 používá § 1 jen jako POZIČNÍ KOTVU ('za § 1 se vkládá nový § 1a') pro vložení zcela nového, samostatně číslovaného ustanovení § 1a (náhradní výkon nápravných opatření Inspekcí na náklady povinné osoby) – vlastní text § 1 (vymezení ČIŽP a jejích orgánů) tisk 74 nikde nemění. Tisk 64 naproti tomu skutečně edituje OBSAH § 1 ODST. 3 (ruší slova 'a účetní jednotkou', součást své celorepublikové deregulace odkazů na účetní jednotku). Protože instrukce tisku 74 se textově vůbec nedotýká existujícího ustanovení § 1, nejde o věcnou kolizi ani o riziko vyžadující koordinaci při slučování - shoda paragrafového čísla je čistě citační/poziční artefakt vzniklý tím, že '§ 1' je textovou podřetězcovou součástí '§ 1a'. Klasifikováno jako incidentální."
+  }
+ ]
+}

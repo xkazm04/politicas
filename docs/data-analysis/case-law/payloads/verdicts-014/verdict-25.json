@@ -1,0 +1,47 @@
+{
+  "billTisk": 25,
+  "statedReasoning": "Vládní návrh (podává 1. místopředseda vlády a ministr vnitra) mění zákon č. 222/2016 Sb., o Sbírce zákonů a mezinárodních smluv, a navazující zákon č. 277/2019 Sb. Hlavním cílem je o rok odložit — z 15. ledna 2026 na 15. ledna 2027 — povinné používání elektronického systému tvorby právních předpisů (e-Legislativa) pro novely ústavních zákonů, zákonů a zákonných opatření Senátu, s odůvodněním, že systém není dosud dostatečně stabilní a noví poslanci a senátoři po podzimních volbách 2025 potřebují čas na zaškolení. Zcela nové zákony (bez novelizační části) mají povinnost používat e-Legislativu už od 15. ledna 2026 kvůli podmínkám unijního spolufinancování projektu. Návrh dále zavádí výjimku pro zákon o státním rozpočtu a jeho novely, které mají být nadále připravovány a vyhlašovány mimo systém e-Legislativa i po skončení přechodného období — odůvodněnou odlišnou strukturou a harmonogramem přípravy rozpočtového zákona. Vláda žádá projednání v prvním čtení pro časovou naléhavost, protože platná úprava stanoví povinnost k 15. lednu 2026.",
+  "researchedContext": "Text novely potvrzuje rozsah bodů 1 až 11 v části první (zákon č. 222/2016 Sb.) a bodu v části druhé (zákon č. 277/2019 Sb.). Nový § 22a skutečně vylučuje použití § 16 až 21 (povinnosti e-Legislativy) na zákon o státním rozpočtu a jeho novely. Důvodová zpráva to opakuje na dvou místech: v obecné části uvádí „Nemá se jednat o dočasnou výjimku, ale o trvalý zvláštní právní režim“ a ve zvláštní části k bodům 1 a 3 „Nejde o dočasnou výjimku, ale o trvalou výluku z využití e-Legislativy“ — na rozdíl od odkladu pro ostatní novely zákonů, který je časově omezený do 14. ledna 2027. Novelizovaný § 26 odst. 1 písm. a) navíc stanoví dvě různá rozhodná data pro zachování dosavadního (bez e-Legislativy) legislativního režimu podle toho, kdo je předkladatelem: u vládních návrhů stačí, aby byl návrh předložen do meziresortního připomínkového řízení nebo vládě přede dnem 15. ledna 2026, zatímco u návrhů, jejichž předkladatelem není vláda (poslanecké, senátní či krajské návrhy), musí být tentýž den předložen už Poslanecké sněmovně k projednání — což je pozdější a formálnější krok legislativního procesu.",
+  "unstatedEffects": [
+    {
+      "effect": "Nový § 22a zákona č. 222/2016 Sb. trvale vyjímá přípravu a vyhlašování zákona o státním rozpočtu (a jeho novel) z povinného použití systému e-Legislativa, ačkoli tentýž systém se stává povinným pro všechny ostatní zákony včetně ústavních zákonů. Rozpočtový zákon je politicky nejsledovanějším ročním předpisem, u kterého si vláda sama zachovává dosavadní, elektronicky méně sledovatelný proces přípravy.",
+      "whoBenefits": "Vláda jako předkladatelka zákona o státním rozpočtu — a to i budoucí vlády, protože jde o trvalou, nikoli časově omezenou výjimku platnou i po skončení přechodného období tohoto návrhu.",
+      "evidence": "úplný text tisku na psp.cz, řádky 38–43, 201–202 a 474–476 strojového přepisu (nový § 22a; obecná část: „trvalý zvláštní právní režim“; zvláštní část k bodům 1 a 3: „trvalou výluku z využití e-Legislativy“)."
+    },
+    {
+      "effect": "Nová formulace § 26 odst. 1 písm. a) zákona č. 222/2016 Sb. stanoví pro zachování dosavadního legislativního režimu bez e-Legislativy dřívější a formálně méně náročné rozhodné datum u vládních návrhů (předložení do meziresortního připomínkového řízení nebo vládě) než u návrhů, jejichž předkladatelem vláda není (předložení až Poslanecké sněmovně k projednání) — ačkoli rozhodné datum 15. ledna 2026 je pro obě skupiny předkladatelů stejné.",
+      "whoBenefits": "Vládní návrhy zákonů — mají oproti poslaneckým, senátním a krajským návrhům výhodnější, dřívější milník pro zachování dosavadního legislativního režimu bez e-Legislativy.",
+      "evidence": "úplný text tisku na psp.cz, řádky 44–52 strojového přepisu (§ 26 odst. 1 písm. a) body 1 a 2)."
+    }
+  ],
+  "conflictAssessment": "Jediným uvedeným předkladatelem-poslancem je Vít Rakušan (1. místopředseda vlády a ministr vnitra, který návrh jako člen vlády i podepsal). Graf u něj eviduje čtyři peněžní vazby čekající na lidskou kontrolu: Vodní cesty na Labi, o.p.s. (IČO 02312701, 0 Kč zaznamenaných zakázek), Změna pro Kolín z.s. (IČO 22874381, 0 Kč), Společenství vlastníků jednotek domu v Kolíně (IČO 26745615, 0 Kč — jde o SVJ domu, tedy patrně bydliště) a Nadační fond Gymnázia Kutná Hora (IČO 68404999, cca 200 000 Kč — úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu). Žádný z těchto subjektů nepodniká v oblasti tvorby, vyhlašování ani elektronizace právních předpisů a nemá zjevný vztah k přípravě státního rozpočtu; tři ze čtyř vazeb navíc nesou nulovou zaznamenanou hodnotu zakázek. Věcný konflikt zájmů mezi předmětem novely a evidovanými vazbami předkladatele proto nelze na základě dostupných dat prokázat — jde o poctivou negativní zprávu k penězům. Rizika zjištěná u tohoto návrhu jsou procesní povahy (viz výše uvedené nevyřčené efekty), nikoli otázkou osobního prospěchu předkladatele.",
+  "severity": "medium",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Návrh vkládá nový § 22a zákona č. 222/2016 Sb., který trvale vylučuje použití § 16 až 21 (povinnosti systému e-Legislativa) na zákon o státním rozpočtu a jeho novely.",
+      "kind": "law",
+      "source": "222/2016"
+    },
+    {
+      "claim": "Ve zvláštní části k bodům 1 a 3 i v obecné části důvodová zpráva dvakrát výslovně uvádí, že výjimka pro zákon o státním rozpočtu z e-Legislativy není dočasná, ale trvalá.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=25&ct1=0"
+    },
+    {
+      "claim": "Novelizovaný § 26 odst. 1 písm. a) zákona č. 222/2016 Sb. stanoví pro zachování dosavadního legislativního režimu u vládních návrhů dřívější rozhodný milník (předložení do meziresortního připomínkového řízení nebo vládě) než u návrhů, jejichž předkladatelem vláda není (předložení Poslanecké sněmovně).",
+      "kind": "law",
+      "source": "222/2016"
+    },
+    {
+      "claim": "Návrh zároveň mění zákon č. 277/2019 Sb. v části upravující přechodné období zavádění systému e-Legislativa.",
+      "kind": "law",
+      "source": "277/2019"
+    },
+    {
+      "claim": "Vít Rakušan je v grafu evidován se čtyřmi peněžními vazbami, z nichž tři nesou nulovou zaznamenanou hodnotu zakázek a čtvrtá (Nadační fond Gymnázia Kutná Hora) cca 200 000 Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu).",
+      "kind": "graph_fact",
+      "source": "psp:person:6524"
+    }
+  ]
+}
