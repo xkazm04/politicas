@@ -818,6 +818,40 @@ Route map (politicas.md roadmap execution, sample data):
   stamp rather than a guess. Feed order (date descending) is now pinned by test at
   the codec boundary — `DenikTeaser` reads „the latest day" as `items[0]` and
   nothing across the format boundary held that.
+  **Every silent loss is now counted and disclosed (2026-08-04).** Four leaks,
+  all of them the same failure — a limit that drops a row without a sentence,
+  on a page whose `droppedImplausible` counter exists precisely to say the
+  opposite. (1) The per-company `kgNeighbours` edge cap was **500 and silent**:
+  measured on the live graph, **5 of 35 companies returned exactly 500** and
+  **4 872 contracts** — more than the whole ledger carried — never reached the
+  page. The cap is now `MAX_CONTRACT_EDGES = 5 000` (live max 2 387; reading all
+  57 attributable companies costs **1 468 ms vs 1 009 ms**, once per memo
+  window), truncation is detected by the `warnIfTruncated` shape (length ===
+  limit) and rendered as a counted note. Live: contract rows **4 380 → 9 252**,
+  companies truncated **0**. (2) A contract node reached through two supplier
+  companies emitted TWO rows with the same `contract:<id>` — a duplicate React
+  key and a duplicate feed guid (**5 such nodes live**). Rows are merged one per
+  node: suppliers all named (IČO asc), MP and company entities UNIONed, `pending`
+  disjoined, and the **amount kept only when every input agrees** — otherwise no
+  amount and a counted conflict, because picking one would be inventing money.
+  (3) IČO is validated at the loader with `canonicalIco` (imported, not forked):
+  the entity key used to be built from the RAW string while the href used the
+  canonical one, and an empty IČO collapsed every IČO-less company into one
+  `firma:` key that `/schranka`'s `isEntityKey` then silently refuses. A
+  non-canonical IČO now yields NO company entity — the row still renders and the
+  count is disclosed (live: **0**). Role ids fall back to the company NAME so two
+  IČO-less companies of one MP cannot merge. (4) `change_event` declares 10 types
+  and the deník rendered 3, so an emitted `mandate-removed` had no surface at
+  all. `DENIK_CHANGE_TYPES` is now the closed union of **9** (all but
+  `review-decision`, which the deník reads from `review_audit` itself and counts
+  separately), with two new `DenikKind`s — `mandate` and `organRole` — placed in
+  `/schranka`'s `KIND_ORDER` and `KIND_NOUNS` in the same order the deník uses.
+  The sentences say **„v evidenci"**: a snapshot diff knows the row left the psp.cz
+  dump, not why or when. `pending` is a fact about a TIE, so mandate/organ rows
+  assert nothing about review. A type this build cannot speak is counted and
+  disclosed, never dropped. Change rows also cite the event's own verbatim
+  `source` (`kg_edge_history` / `diff snímků ingestů — psp.cz`) instead of the
+  table they landed in.
 - `/schranka` — **Občanská schránka** (features/schranka): a follow list with no
   account — the whole state is one localStorage record (`politicas:schranka:v1`,
   `followCodec.ts`) keyed by the SAME public entity keys `/denik` addresses with

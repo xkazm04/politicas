@@ -55,7 +55,12 @@ export type DenikKind =
   | "roleStart"
   | "roleEnd"
   | "review"
-  | "change";
+  | "change"
+  /** Mandát poslance podle snímků psp.cz (vznik / změna / zánik v evidenci). */
+  | "mandate"
+  /** Funkce ve sněmovním orgánu podle snímků psp.cz — jiná věc než rejstříková
+   *  role (`roleStart`/`roleEnd`), která je zápisem v ARES. */
+  | "organRole";
 
 /** Kterým časem je řádek datován: světovým dnem události („účinné"), nebo dnem,
  *  kdy fakt vstoupil do záznamu („zaznamenáno"). Plocha to u řádku přizná. */
@@ -111,6 +116,11 @@ export interface DenikLedger {
   consideredEntries: number;
   /** Kolik záznamů mělo nemožné datum a bylo vyhozeno (nikdy opraveno). */
   droppedImplausible: number;
+  /** Kolik vstupních řádků o smlouvách se slilo do jiného (jedna smlouva =
+   *  jeden řádek; uzel smlouvy může viset na víc dodavatelských firem). */
+  mergedContractRows: number;
+  /** Kolik slitých smluv neslo rozporné částky, a proto neuvádí žádnou. */
+  contractAmountConflicts: number;
 }
 
 /** Kolik zapsaných dnů stránka ukáže. Starší dny zůstávají dostupné přes filtr
@@ -157,14 +167,17 @@ export interface DenikContract {
   signedOn: string | null;
   amountCzk: number | null;
   company: string;
-  ico: string;
+  /** KANONICKÉ osmimístné IČO, nebo null, když ho z korpusu takové udělat nejde
+   *  (loader validuje `canonicalIco`; viz companyEntity). */
+  ico: string | null;
   /** Poslanci, jimž se smlouvy firmy SMÍ přisoudit (vazba vlastník/jednatel). */
   mps: { pspId: number; name: string; pending: boolean }[];
 }
 
 export interface DenikRole {
   company: string;
-  ico: string;
+  /** KANONICKÉ osmimístné IČO, nebo null (viz DenikContract.ico). */
+  ico: string | null;
   mpName: string;
   pspId: number;
   role: string;
@@ -195,22 +208,52 @@ export interface DenikReview {
 }
 
 /**
- * Typovaný change event z tabulky change_event (5C) — proud „zaznamenáno".
- * Loader NEPOSÍLÁ eventy typu review-decision: rozhodnutí brány už deník nese
- * ze svého vlastního čtení review_audit a duplikát by lhal o počtu událostí.
+ * Druhy change eventů, které deník UMÍ vyslovit českou větou. Je to
+ * CHANGE_EVENT_TYPES (lib/ingest/changeEvents.ts) MÍNUS `review-decision`:
+ * rozhodnutí brány už deník nese ze svého vlastního čtení review_audit
+ * a duplikát by lhal o počtu událostí dne.
+ *
+ * Do 2026-08-04 tu stály jen tři typy a zbylých šest loader mlčky zahazoval —
+ * takže „poslanec ztratil mandát" nemělo v produktu ŽÁDNOU plochu. Union je
+ * teď uzavřený a loader typ, který v něm není, POČÍTÁ a plocha ten počet
+ * přizná (nikdy tiché zahození).
  */
+export const DENIK_CHANGE_TYPES = [
+  "tie-new",
+  "tie-changed",
+  "contract-new",
+  "mandate-new",
+  "mandate-changed",
+  "mandate-removed",
+  "role-new",
+  "role-changed",
+  "role-removed",
+] as const;
+
+export type DenikChangeType = (typeof DENIK_CHANGE_TYPES)[number];
+
+/** Typovaný change event z tabulky change_event (5C) — proud „zaznamenáno". */
 export interface DenikChange {
   /** change_event.id — deterministický, vstupuje do id záznamu. */
   id: string;
-  eventType: "tie-new" | "tie-changed" | "contract-new";
+  eventType: DenikChangeType;
   /** ISO instant záznamu — den řádku je dnem ZÁZNAMU, ne účinnosti. */
   recordedAt: string;
   mpName: string | null;
   pspId: number | null;
   company: string | null;
+  /** KANONICKÉ IČO, nebo null (viz companyEntity). */
   ico: string | null;
   /** Popisek smlouvy (uzlu), jen u contract-new, je-li v grafu. */
   contractLabel: string | null;
+  /** Volební období mandátu (`payload.termCode`), u mandate-* eventů. */
+  termCode: string | null;
+  /** Název funkce ve sněmovním orgánu (`payload.functionNameCz`), u role-*. */
+  functionNameCz: string | null;
+  /** Doslovný název záznamu, ze kterého byl event odvozen (`change_event.source`)
+   *  — kg_edge_history, nebo diff snímků psp.cz. Deník cituje TENHLE řetězec,
+   *  ne jméno tabulky, ve které event skončil. */
+  source: string;
   /** Vazba, na které event stojí, čeká na lidskou kontrolu. */
   pending: boolean;
 }
@@ -236,6 +279,8 @@ const KIND_ORDER: Record<DenikKind, number> = {
   roleEnd: 4,
   review: 5,
   change: 6,
+  mandate: 7,
+  organRole: 8,
 };
 
 const mpEntity = (pspId: number, name: string): DenikEntity => ({
@@ -244,16 +289,26 @@ const mpEntity = (pspId: number, name: string): DenikEntity => ({
   href: `/poslanec/${pspId}`,
 });
 
-/** Firma má vlastní spis od 2026-08-04 (/penize/firma/[ico]) — do té doby tu
- *  stálo `href: null` a řádek o smlouvě vedl na profil poslance. IČO se
- *  normalizuje na kanonický osmimístný tvar (companyId.ts), protože právě tak
- *  je klíčovaný uzel firmy; nekanonické IČO by vedlo na prázdnou adresu. */
-const companyEntity = (ico: string, company: string): DenikEntity => {
-  const canonical = canonicalIco(ico);
+/**
+ * Firma má vlastní spis od 2026-08-04 (/penize/firma/[ico]) — do té doby tu
+ * stálo `href: null` a řádek o smlouvě vedl na profil poslance.
+ *
+ * IČO SE VALIDUJE, NE OŘEŽE (oprava 2026-08-04). Klíč se stavěl ze SUROVÉHO
+ * IČO (`firma:${ico}`), zatímco adresa spisu z kanonického — dvě podoby jedné
+ * firmy na jednom řádku. Horší: prázdné nebo chybějící IČO dalo klíč `firma:`,
+ * pod který spadly VŠECHNY firmy bez IČO dohromady, a filtr `?entita=firma:`
+ * by pak ukázal řádky o nesouvisejících firmách jako jednu entitu (schránka
+ * takový klíč navíc mlčky odmítá — `isEntityKey` chce `\d{6,8}`). Nekanonické
+ * IČO proto entitu firmy NEVYDÁ vůbec: řádek se zobrazí dál (jméno firmy je ve
+ * větě), jen bez čipu a bez odkazu, a loader ten počet přizná.
+ */
+const companyEntity = (ico: string | null, company: string): DenikEntity | null => {
+  const canonical = ico === null ? null : canonicalIco(ico);
+  if (canonical === null) return null;
   return {
-    key: companyEntityKey(ico),
+    key: companyEntityKey(canonical),
     label: company,
-    href: canonical === null ? null : `/penize/firma/${canonical}`,
+    href: `/penize/firma/${canonical}`,
   };
 };
 
@@ -276,19 +331,79 @@ const datePart = (iso: string | null): string | null => {
   return m ? m[1] : null;
 };
 
-function collectRaw(input: DenikInput): RawEntry[] {
-  const raw: RawEntry[] = [];
+/**
+ * Jedna smlouva = JEDEN řádek (oprava 2026-08-04). Loader posílá jeden vstup na
+ * dvojici (firma, smlouva), a uzel smlouvy může viset na VÍC dodavatelských
+ * firem — na živém grafu 5 uzlů ze 4 380 vydávalo dva řádky s TÝMŽ id, tedy
+ * duplicitní React key a duplicitní guid ve feedu (čtečka by tutéž smlouvu
+ * ukázala dvakrát). Řádky se proto slévají podle id uzlu:
+ *   – dodavatelé se vypisují všichni, seřazení podle IČO (determinismus),
+ *   – poslanci se SJEDNOTÍ (řádek patří všem, jimž se smlouva smí přisoudit),
+ *   – `pending` je disjunkce (stačí jedna nezkontrolovaná vazba),
+ *   – ČÁSTKA se slévá jen tehdy, když se všechny shodují; jinak řádek částku
+ *     NEUVEDE a vrátí to jako `amountConflicts` — vybrat jednu z rozporných
+ *     hodnot by znamenalo vymyslet peníze.
+ */
+interface MergedContracts {
+  entries: RawEntry[];
+  /** Kolik vstupních řádků slévání pohltilo (počet = duplicity v korpusu). */
+  merged: number;
+  /** Kolik slitých smluv nese rozporné částky, a proto žádnou. */
+  amountConflicts: number;
+}
 
-  for (const c of input.contracts) {
+function mergeContracts(contracts: readonly DenikContract[]): MergedContracts {
+  const byNode = new Map<string, DenikContract[]>();
+  let merged = 0;
+  for (const c of contracts) {
     if (c.mps.length === 0) continue; // bez přisouditelné vazby smlouva do deníku nepatří
-    const entities = [companyEntity(c.ico, c.company), ...c.mps.map((m) => mpEntity(m.pspId, m.name))];
-    raw.push({
-      id: `contract:${c.id}`,
-      date: datePart(c.signedOn),
+    const prev = byNode.get(c.id);
+    if (prev) {
+      prev.push(c);
+      merged += 1;
+    } else {
+      byNode.set(c.id, [c]);
+    }
+  }
+
+  let amountConflicts = 0;
+  const entries: RawEntry[] = [];
+  for (const [id, group] of byNode) {
+    const suppliers = [...group].sort(
+      (a, b) => (a.ico ?? "").localeCompare(b.ico ?? "") || a.company.localeCompare(b.company),
+    );
+    const first = suppliers[0];
+
+    const mps = new Map<number, { pspId: number; name: string; pending: boolean }>();
+    for (const s of suppliers) {
+      for (const m of s.mps) {
+        const prev = mps.get(m.pspId);
+        mps.set(m.pspId, prev ? { ...prev, pending: prev.pending || m.pending } : m);
+      }
+    }
+    const mpList = [...mps.values()].sort((a, b) => a.pspId - b.pspId);
+
+    const amounts = suppliers
+      .map((s) => s.amountCzk)
+      .filter((a): a is number => typeof a === "number" && Number.isFinite(a));
+    const agreed = amounts.length > 0 && amounts.every((a) => a === amounts[0]);
+    if (amounts.length > 1 && !agreed) amountConflicts += 1;
+
+    const entities: DenikEntity[] = [];
+    for (const s of suppliers) {
+      const en = companyEntity(s.ico, s.company);
+      // Táž firma může být v poli dvakrát jen chybou vstupu; klíč to zachytí.
+      if (en && !entities.some((x) => x.key === en.key)) entities.push(en);
+    }
+    for (const m of mpList) entities.push(mpEntity(m.pspId, m.name));
+
+    entries.push({
+      id: `contract:${id}`,
+      date: datePart(first.signedOn),
       kind: "contract",
-      titleCs: `podepsána smlouva — ${c.company}: ${c.title}`,
-      czk: typeof c.amountCzk === "number" && Number.isFinite(c.amountCzk) ? c.amountCzk : undefined,
-      pending: c.mps.some((m) => m.pending),
+      titleCs: `podepsána smlouva — ${suppliers.map((s) => s.company).join(" + ")}: ${first.title}`,
+      czk: agreed ? amounts[0] : undefined,
+      pending: mpList.some((m) => m.pending),
       timeBasis: "ucinne",
       source: SOURCE_CONTRACT,
       tone: "signal",
@@ -296,9 +411,106 @@ function collectRaw(input: DenikInput): RawEntry[] {
       internalHref: firstHref(entities),
     });
   }
+  return { entries, merged, amountConflicts };
+}
+
+/**
+ * Jeden change event → jeden řádek deníku. Věta je vždy o tom, co záznam
+ * SKUTEČNĚ nese: mandátové a orgánové eventy vznikají diffem snímků psp.cz,
+ * takže se říká „v evidenci", ne „poslanec přišel o mandát" — snímek nemluví
+ * o důvodu ani o okamžiku, jen o tom, že řádek v dumpu už není.
+ *
+ * Řádky mandátu a funkce ve sněmovním orgánu mají VLASTNÍ druhy (`mandate`,
+ * `organRole`): pod společné „zápis do grafu" by zánik mandátu vypadal jako
+ * technická událost úložiště, což není.
+ */
+function changeEntry(ch: DenikChange): RawEntry {
+  const entities: DenikEntity[] = [];
+  if (ch.pspId !== null) entities.push(mpEntity(ch.pspId, ch.mpName ?? `poslanec ${ch.pspId}`));
+  const company = companyEntity(ch.ico, ch.company ?? (ch.ico ? `IČO ${ch.ico}` : ""));
+  if (company) entities.push(company);
+
+  const companyCs = ch.company ?? (ch.ico ? `IČO ${ch.ico}` : "neurčená firma");
+  const mpCs = ch.mpName ?? (ch.pspId !== null ? `poslanec ${ch.pspId}` : "neurčená osoba");
+  const term = ch.termCode ? ` (období ${ch.termCode})` : "";
+  const fn = ch.functionNameCz ? `: ${ch.functionNameCz}` : "";
+
+  const kind: DenikKind = ch.eventType.startsWith("mandate-")
+    ? "mandate"
+    : ch.eventType.startsWith("role-")
+      ? "organRole"
+      : "change";
+
+  let titleCs: string;
+  let tone: DenikEntry["tone"];
+  switch (ch.eventType) {
+    case "tie-new":
+      titleCs = `zaznamenána nová vazba — ${mpCs} ↔ ${companyCs}`;
+      tone = "cobalt";
+      break;
+    case "tie-changed":
+      titleCs = `zaznamenána změna vazby — ${mpCs} ↔ ${companyCs}`;
+      tone = "cobalt";
+      break;
+    case "contract-new":
+      titleCs = `zaznamenána smlouva v grafu — ${companyCs}${ch.contractLabel ? `: ${ch.contractLabel}` : ""}`;
+      tone = "signal";
+      break;
+    case "mandate-new":
+      titleCs = `zaznamenán vznik mandátu v evidenci — ${mpCs}${term}`;
+      tone = "cobalt";
+      break;
+    case "mandate-changed":
+      titleCs = `zaznamenána změna mandátu v evidenci — ${mpCs}${term}`;
+      tone = "cobalt";
+      break;
+    case "mandate-removed":
+      titleCs = `zaznamenán zánik mandátu v evidenci — ${mpCs}${term}`;
+      tone = "ochre";
+      break;
+    case "role-new":
+      titleCs = `zaznamenán vznik funkce ve sněmovním orgánu — ${mpCs}${fn}`;
+      tone = "cobalt";
+      break;
+    case "role-changed":
+      titleCs = `zaznamenána změna funkce ve sněmovním orgánu — ${mpCs}${fn}`;
+      tone = "cobalt";
+      break;
+    case "role-removed":
+      titleCs = `zaznamenán zánik funkce ve sněmovním orgánu — ${mpCs}${fn}`;
+      tone = "ochre";
+      break;
+  }
+
+  return {
+    id: `change:${ch.id}`,
+    date: datePart(ch.recordedAt),
+    kind,
+    titleCs,
+    pending: ch.pending,
+    timeBasis: "zaznamenano",
+    // Zdroj je DOSLOVNÝ řetězec eventu (kg_edge_history / diff snímků psp.cz),
+    // ne jméno tabulky, ve které event skončil. Chybí-li, řekne se aspoň ta.
+    source: ch.source.length > 0 ? ch.source : SOURCE_CHANGE,
+    tone,
+    entities: entities.length > 0 ? entities : [{ key: `zaznam:${ch.id}`, label: titleCs, href: null }],
+    internalHref: firstHref(entities),
+  };
+}
+
+interface RawCollection {
+  raw: RawEntry[];
+  mergedContractRows: number;
+  contractAmountConflicts: number;
+}
+
+function collectRaw(input: DenikInput): RawCollection {
+  const contracts = mergeContracts(input.contracts);
+  const raw: RawEntry[] = [...contracts.entries];
 
   for (const r of input.roles) {
-    const entities = [mpEntity(r.pspId, r.mpName), companyEntity(r.ico, r.company)];
+    const company = companyEntity(r.ico, r.company);
+    const entities = [mpEntity(r.pspId, r.mpName), ...(company ? [company] : [])];
     const base = {
       pending: r.pending,
       timeBasis: "ucinne" as const,
@@ -308,14 +520,17 @@ function collectRaw(input: DenikInput): RawEntry[] {
       internalHref: firstHref(entities),
     };
     raw.push({
-      id: `role-from:${r.pspId}:${r.ico}`,
+      // Klíč řádku: IČO, a když ho firma nemá, její JMÉNO — dvě firmy bez IČO
+      // u jednoho poslance by pod `role-from:<pspId>:null` splynuly v jeden
+      // řádek a jedna z rolí by z deníku beze stopy zmizela.
+      id: `role-from:${r.pspId}:${r.ico ?? `bez-ico|${r.company}`}`,
       date: datePart(r.validFrom),
       kind: "roleStart",
       titleCs: `zápis role v rejstříku — ${r.mpName}: ${r.role} — ${r.company}`,
       ...base,
     });
     raw.push({
-      id: `role-to:${r.pspId}:${r.ico}`,
+      id: `role-to:${r.pspId}:${r.ico ?? `bez-ico|${r.company}`}`,
       date: datePart(r.validTo),
       kind: "roleEnd",
       titleCs: `výmaz role v rejstříku — ${r.mpName}: ${r.role} — ${r.company}`,
@@ -356,7 +571,8 @@ function collectRaw(input: DenikInput): RawEntry[] {
   for (const rv of input.reviews) {
     const entities: DenikEntity[] = [];
     if (rv.pspId !== null) entities.push(mpEntity(rv.pspId, rv.mpName));
-    if (rv.ico !== null) entities.push(companyEntity(rv.ico, rv.company));
+    const rvCompany = companyEntity(rv.ico, rv.company);
+    if (rvCompany) entities.push(rvCompany);
     raw.push({
       id: `review:${rv.id}`,
       date: datePart(rv.decidedAt),
@@ -375,33 +591,10 @@ function collectRaw(input: DenikInput): RawEntry[] {
 
   // Proud „zaznamenáno" (5C): typované change eventy, datované dnem ZÁZNAMU.
   for (const ch of input.changes ?? []) {
-    const entities: DenikEntity[] = [];
-    if (ch.pspId !== null) entities.push(mpEntity(ch.pspId, ch.mpName ?? `poslanec ${ch.pspId}`));
-    if (ch.ico !== null) entities.push(companyEntity(ch.ico, ch.company ?? `IČO ${ch.ico}`));
-    const companyCs = ch.company ?? (ch.ico ? `IČO ${ch.ico}` : "neurčená firma");
-    const mpCs = ch.mpName ?? (ch.pspId !== null ? `poslanec ${ch.pspId}` : "neurčená osoba");
-    const titleCs =
-      ch.eventType === "tie-new"
-        ? `zaznamenána nová vazba — ${mpCs} ↔ ${companyCs}`
-        : ch.eventType === "tie-changed"
-          ? `zaznamenána změna vazby — ${mpCs} ↔ ${companyCs}`
-          : `zaznamenána smlouva v grafu — ${companyCs}${ch.contractLabel ? `: ${ch.contractLabel}` : ""}`;
-    raw.push({
-      id: `change:${ch.id}`,
-      date: datePart(ch.recordedAt),
-      kind: "change",
-      titleCs,
-      pending: ch.pending,
-      timeBasis: "zaznamenano",
-      source: SOURCE_CHANGE,
-      tone: ch.eventType === "contract-new" ? "signal" : "cobalt",
-      entities:
-        entities.length > 0 ? entities : [{ key: `zaznam:${ch.id}`, label: titleCs, href: null }],
-      internalHref: firstHref(entities),
-    });
+    raw.push(changeEntry(ch));
   }
 
-  return raw;
+  return { raw, mergedContractRows: contracts.merged, contractAmountConflicts: contracts.amountConflicts };
 }
 
 const entryCompare = (a: DenikEntry, b: DenikEntry): number => {
@@ -414,15 +607,22 @@ export interface DenikEntries {
   /** Všechny datované, možné záznamy — dny sestupně, uvnitř dne deterministicky. */
   entries: DenikEntry[];
   droppedImplausible: number;
+  mergedContractRows: number;
+  contractAmountConflicts: number;
 }
 
 /** Krok 1: záznamy z celého korpusu, datované a seřazené. */
 export function deriveDenikEntries(input: DenikInput): DenikEntries {
-  const raw = collectRaw(input);
+  const { raw, mergedContractRows, contractAmountConflicts } = collectRaw(input);
   const dated = raw.filter((r) => r.date !== null);
   const plausible = dated.filter((r) => r.date! >= PLAUSIBLE_FROM && r.date! <= input.today);
   const entries = (plausible as DenikEntry[]).slice().sort(entryCompare);
-  return { entries, droppedImplausible: dated.length - plausible.length };
+  return {
+    entries,
+    droppedImplausible: dated.length - plausible.length,
+    mergedContractRows,
+    contractAmountConflicts,
+  };
 }
 
 /** Krok 2 (čistý filtr „sledovat entitu"): záznamy, jejichž entity nesou klíč. */
@@ -470,7 +670,8 @@ export interface DenikView {
  * VŠECH záznamů (mimo filtr by byl týž) — jedno odvození, žádný extra lookup.
  */
 export function buildDenik(input: DenikInput, entityKey?: string | null): DenikView {
-  const { entries, droppedImplausible } = deriveDenikEntries(input);
+  const { entries, droppedImplausible, mergedContractRows, contractAmountConflicts } =
+    deriveDenikEntries(input);
   const scoped = entityKey ? filterDenikEntries(entries, entityKey) : entries;
   const { days, daysTotal } = groupDenikDays(scoped);
   return {
@@ -480,6 +681,8 @@ export function buildDenik(input: DenikInput, entityKey?: string | null): DenikV
       totalEntries: days.reduce((s, d) => s + d.entries.length, 0),
       consideredEntries: scoped.length,
       droppedImplausible,
+      mergedContractRows,
+      contractAmountConflicts,
     },
     entityLabelCs: entityKey ? entityLabel(entries, entityKey) : null,
   };

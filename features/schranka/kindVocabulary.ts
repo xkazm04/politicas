@@ -39,6 +39,12 @@ export const KIND_NOUNS: Record<DeltaEntry["kind"], KindNoun> = {
   roleEnd: { one: "výmaz role", few: "výmazy role", many: "výmazů role" },
   review: { one: "rozhodnutí brány", few: "rozhodnutí brány", many: "rozhodnutí brány" },
   change: { one: "zápis do grafu", few: "zápisy do grafu", many: "zápisů do grafu" },
+  mandate: { one: "zápis o mandátu", few: "zápisy o mandátu", many: "zápisů o mandátu" },
+  organRole: {
+    one: "zápis o funkci v orgánu",
+    few: "zápisy o funkci v orgánu",
+    many: "zápisů o funkci v orgánu",
+  },
   forensic: { one: "forenzní posudek", few: "forenzní posudky", many: "forenzních posudků" },
   recompute: { one: "přepočet indexu", few: "přepočty indexu", many: "přepočtů indexu" },
 };

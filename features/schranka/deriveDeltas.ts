@@ -151,8 +151,12 @@ const KIND_ORDER: Record<DeltaEntry["kind"], number> = {
   roleEnd: 4,
   review: 5,
   change: 6,
-  forensic: 7,
-  recompute: 8,
+  // Mandát a funkce ve sněmovním orgánu stojí tam, kam je řadí deník (hned za
+  // proudem „zaznamenáno") — jeden pořádek na obou plochách, ne dva.
+  mandate: 7,
+  organRole: 8,
+  forensic: 9,
+  recompute: 10,
 };
 
 /** Druhy v pořadí KIND_ORDER — jediný zdroj pořadí souhrnu i řazení řádků. */

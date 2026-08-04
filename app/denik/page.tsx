@@ -34,7 +34,15 @@ export default async function DenikRoute({
   const data = await getDenikData();
   if (!data) {
     return (
-      <DenikPage ledger={null} coverage={null} auditRows={0} builtOn={null} entityKey={entityKey} entityLabelCs={null} />
+      <DenikPage
+        ledger={null}
+        coverage={null}
+        limits={null}
+        auditRows={0}
+        builtOn={null}
+        entityKey={entityKey}
+        entityLabelCs={null}
+      />
     );
   }
 
@@ -54,6 +62,7 @@ export default async function DenikRoute({
     <DenikPage
       ledger={view.ledger}
       coverage={data.coverage}
+      limits={data.limits}
       auditRows={data.auditRows}
       builtOn={data.builtOn}
       entityKey={entityKey}

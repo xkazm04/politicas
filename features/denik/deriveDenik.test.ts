@@ -17,6 +17,7 @@ import {
   billEntityKey,
   czechWeekday,
   type DenikInput,
+  DENIK_CHANGE_TYPES,
 } from "./deriveDenik";
 import { pragueDay } from "./pragueDay";
 
@@ -39,7 +40,7 @@ const contract = (id: string, signedOn: string | null, amountCzk: number | null 
   mps: [{ pspId: 6543, name: "Jan Novák", pending: true }],
 });
 
-const role = (pspId: number, ico: string, validFrom: string | null, validTo: string | null = null) => ({
+const role = (pspId: number, ico: string | null, validFrom: string | null, validTo: string | null = null) => ({
   company: "Firma s.r.o.",
   ico,
   mpName: "Jan Novák",
@@ -248,6 +249,9 @@ describe("proud „zaznamenáno“ — change eventy v deníku (5C)", () => {
     company: "Firma s.r.o.",
     ico: "00000100",
     contractLabel: null,
+    termCode: null,
+    functionNameCz: null,
+    source: "kg_edge_history — bitemporální graf",
     pending: true,
     ...over,
   });
@@ -265,7 +269,8 @@ describe("proud „zaznamenáno“ — change eventy v deníku (5C)", () => {
     expect(ch.kind).toBe("change");
     expect(ch.date).toBe("2026-07-22"); // den záznamu, ne účinnosti
     expect(ch.timeBasis).toBe("zaznamenano");
-    expect(ch.source).toContain("change_event");
+    // Zdroj je DOSLOVNÝ řetězec eventu, ne jméno tabulky, ve které skončil.
+    expect(ch.source).toBe("kg_edge_history — bitemporální graf");
   });
 
   it("vizuální rozlišení: světové řádky jsou účinné, brána a change eventy zaznamenáno", () => {
@@ -359,5 +364,184 @@ describe("hlas deníku — brankovaná čeština a zdroj na každém řádku", (
     expect(r.titleCs).toBe("vazba ověřena — Jan Novák ↔ Firma s.r.o.");
     expect(r.source).toContain("review_audit");
     expect(r.pending).toBe(false);
+  });
+});
+
+describe("jedna smlouva = jeden řádek (slévání duplicit)", () => {
+  const shared = (
+    ico: string,
+    company: string,
+    amountCzk: number | null,
+    pspId: number,
+    pending = false,
+  ) => ({
+    id: "contract:30754712",
+    title: "Dodávka tepla",
+    signedOn: "2026-07-20",
+    amountCzk,
+    company,
+    ico,
+    mps: [{ pspId, name: `Poslanec ${pspId}`, pending }],
+  });
+
+  it("uzel smlouvy visící na DVOU firmách dvou poslanců dá JEDEN řádek s jedním id", () => {
+    // Na živém grafu je to 5 uzlů ze 4 380: dva řádky s týmž `contract:<id>`
+    // znamenaly duplicitní React key a duplicitní guid ve feedu.
+    const { entries, mergedContractRows } = deriveDenikEntries(
+      input({
+        contracts: [
+          shared("46347534", "Teplárny Brno, a.s.", 263_730, 6881),
+          shared("45534306", "ČSOB Pojišťovna, a. s.", 263_730, 6543, true),
+        ],
+      }),
+    );
+    expect(entries).toHaveLength(1);
+    expect(new Set(entries.map((e) => e.id)).size).toBe(1);
+    expect(mergedContractRows).toBe(1);
+
+    const e = entries[0];
+    // Dodavatelé se vypíšou VŠICHNI, seřazení podle IČO (determinismus).
+    expect(e.titleCs).toBe(
+      "podepsána smlouva — ČSOB Pojišťovna, a. s. + Teplárny Brno, a.s.: Dodávka tepla",
+    );
+    // Entity se SJEDNOTÍ — filtr obou firem i obou poslanců najde tentýž řádek.
+    expect(e.entities.map((en) => en.key).sort()).toEqual([
+      "firma:45534306",
+      "firma:46347534",
+      "poslanec:6543",
+      "poslanec:6881",
+    ]);
+    expect(e.czk).toBe(263_730);
+    // pending je disjunkce: stačí jedna nezkontrolovaná vazba.
+    expect(e.pending).toBe(true);
+    expect(filterDenikEntries(entries, "firma:46347534")).toHaveLength(1);
+    expect(filterDenikEntries(entries, mpEntityKey(6543))).toHaveLength(1);
+  });
+
+  it("rozporné částky se neslévají — řádek NEUVEDE žádnou a rozpor se počítá", () => {
+    const { entries, contractAmountConflicts } = deriveDenikEntries(
+      input({
+        contracts: [
+          shared("46347534", "Teplárny Brno, a.s.", 263_730, 6881),
+          shared("45534306", "ČSOB Pojišťovna, a. s.", 999_999, 6543),
+        ],
+      }),
+    );
+    expect(entries[0].czk).toBeUndefined();
+    expect(contractAmountConflicts).toBe(1);
+  });
+
+  it("dvě RŮZNÉ smlouvy zůstávají dvěma řádky", () => {
+    const { entries, mergedContractRows } = deriveDenikEntries(
+      input({ contracts: [contract("a", "2026-07-20"), contract("b", "2026-07-20")] }),
+    );
+    expect(entries).toHaveLength(2);
+    expect(mergedContractRows).toBe(0);
+  });
+});
+
+describe("IČO se validuje, nekolabuje", () => {
+  it("nekanonické IČO nevydá entitu firmy — řádek zůstane, klíč `firma:` nevznikne", () => {
+    const { entries } = deriveDenikEntries(
+      input({
+        contracts: [{ ...contract("a", "2026-07-20"), ico: null, company: "Firma bez IČO" }],
+        roles: [role(6543, null, "2026-07-20")],
+      }),
+    );
+    const keys = entries.flatMap((e) => e.entities.map((en) => en.key));
+    expect(keys).not.toContain("firma:");
+    expect(keys.some((k) => k.startsWith("firma:"))).toBe(false);
+    // Řádek se pořád zobrazuje — jméno firmy je ve větě, jen bez čipu.
+    expect(entries.some((e) => e.titleCs.includes("Firma bez IČO"))).toBe(true);
+    expect(entries.every((e) => e.entities.length > 0)).toBe(true);
+  });
+
+  it("dvě firmy bez IČO u jednoho poslance nesplynou v jeden řádek role", () => {
+    const { entries } = deriveDenikEntries(
+      input({
+        roles: [
+          { ...role(6543, null, "2026-07-20"), company: "Alfa" },
+          { ...role(6543, null, "2026-07-20"), company: "Beta" },
+        ],
+      }),
+    );
+    expect(new Set(entries.map((e) => e.id)).size).toBe(entries.length);
+    expect(entries.filter((e) => e.kind === "roleStart")).toHaveLength(2);
+  });
+
+  it("IČO se normalizuje na kanonický osmimístný tvar — klíč i adresa jsou jeden tvar", () => {
+    const { entries } = deriveDenikEntries(
+      input({ roles: [role(6543, "2867681", "2026-07-20")] }),
+    );
+    const firma = entries[0].entities.find((en) => en.key.startsWith("firma:"))!;
+    expect(firma.key).toBe("firma:02867681");
+    expect(firma.href).toBe("/penize/firma/02867681");
+  });
+});
+
+describe("všech devět zobrazitelných change eventů má českou větu", () => {
+  const ev = (id: string, over: Partial<DenikChange>): DenikChange => ({
+    id,
+    eventType: "tie-new",
+    recordedAt: "2026-07-22T08:00:00.000Z",
+    mpName: "Jan Novák",
+    pspId: 6543,
+    company: "Firma s.r.o.",
+    ico: "00000100",
+    contractLabel: null,
+    termCode: null,
+    functionNameCz: null,
+    source: "diff snímků ingestů — psp.cz",
+    pending: false,
+    ...over,
+  });
+
+  it("žádný typ nezmizí a každý dostane větu, druh a tón", () => {
+    const { entries } = deriveDenikEntries(
+      input({ changes: DENIK_CHANGE_TYPES.map((t, i) => ev(`c${i}`, { eventType: t })) }),
+    );
+    expect(entries).toHaveLength(DENIK_CHANGE_TYPES.length);
+    for (const e of entries) {
+      expect(e.titleCs.length).toBeGreaterThan(10);
+      expect(e.titleCs).not.toMatch(/undefined|null|-new|-changed|-removed/);
+    }
+  });
+
+  it("mandát a funkce v orgánu mají VLASTNÍ druhy — ne „zápis do grafu“", () => {
+    const { entries } = deriveDenikEntries(
+      input({
+        changes: [
+          ev("m", { eventType: "mandate-removed", termCode: "PSP10" }),
+          ev("r", { eventType: "role-new", functionNameCz: "místopředseda výboru" }),
+          ev("t", { eventType: "tie-new" }),
+        ],
+      }),
+    );
+    const byId = new Map(entries.map((e) => [e.id, e]));
+    expect(byId.get("change:m")!.kind).toBe("mandate");
+    expect(byId.get("change:m")!.titleCs).toBe(
+      "zaznamenán zánik mandátu v evidenci — Jan Novák (období PSP10)",
+    );
+    // Snímek nemluví o důvodu ani okamžiku, jen o tom, že řádek v dumpu není.
+    expect(byId.get("change:m")!.titleCs).toContain("v evidenci");
+    expect(byId.get("change:r")!.kind).toBe("organRole");
+    expect(byId.get("change:r")!.titleCs).toBe(
+      "zaznamenán vznik funkce ve sněmovním orgánu — Jan Novák: místopředseda výboru",
+    );
+    expect(byId.get("change:t")!.kind).toBe("change");
+  });
+
+  it("„čeká na kontrolu“ je stav VAZBY — mandátový řádek o kontrole netvrdí nic", () => {
+    const { entries } = deriveDenikEntries(
+      input({
+        changes: [
+          ev("m", { eventType: "mandate-removed", pending: false }),
+          ev("t", { eventType: "tie-new", pending: true }),
+        ],
+      }),
+    );
+    const byId = new Map(entries.map((e) => [e.id, e]));
+    expect(byId.get("change:m")!.pending).toBe(false);
+    expect(byId.get("change:t")!.pending).toBe(true);
   });
 });

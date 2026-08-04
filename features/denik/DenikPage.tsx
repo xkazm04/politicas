@@ -18,7 +18,7 @@ import SourceNote from "@/features/shared/components/SourceNote";
 import { czechDate, czechInt } from "@/lib/format";
 import { compactCzk } from "@/features/money/moneyTypes";
 import { czechWeekday, DAYS_SHOWN, type DenikDay, type DenikEntry, type DenikLedger } from "./deriveDenik";
-import type { DenikCoverage } from "./getDenikData";
+import type { DenikCoverage, DenikLimits } from "./getDenikData";
 import FollowButton from "@/features/schranka/FollowButton";
 
 const TONE_DOT: Record<DenikEntry["tone"], string> = {
@@ -124,10 +124,65 @@ const COVERAGE_NOTES: { key: keyof DenikCoverage; note: string }[] = [
   { key: "changes", note: "tabulka change_event je teď nečitelná — proud „zaznamenáno“ v deníku chybí" },
 ];
 
+/**
+ * MEZE ČTENÍ, VYPSANÉ VĚTOU (2026-08-04). Každý strop, který smí ztratit řádek,
+ * má svou větu a svůj počet — precedens `droppedImplausible`: vyhozeno,
+ * spočítáno, počet vypsán. Věta se ukáže jen tehdy, když se mez SKUTEČNĚ
+ * dotkla dat; nulová mez je pojistka, ne sdělení.
+ */
+function limitNotes(limits: DenikLimits, ledger: DenikLedger | null): string[] {
+  const notes: string[] = [];
+  if (limits.companiesOverCap > 0) {
+    notes.push(
+      `firem s přisouditelnou vazbou je víc než strop ${czechInt(limits.companyCap)}; ` +
+        `smlouvy ${czechInt(limits.companiesOverCap)} z nich se nečetly vůbec`,
+    );
+  }
+  if (limits.companiesEdgeTruncated > 0) {
+    notes.push(
+      `u ${czechInt(limits.companiesEdgeTruncated)} firem se dosáhlo stropu ` +
+        `${czechInt(limits.edgeCap)} smluv na firmu — jejich starší smlouvy deník nenese`,
+    );
+  }
+  if (limits.malformedIco > 0) {
+    notes.push(
+      `${czechInt(limits.malformedIco)} vazeb nese IČO, které nelze převést na kanonický tvar; ` +
+        `řádek se zobrazuje, ale firmu v něm nelze sledovat ani otevřít`,
+    );
+  }
+  if (limits.changesUndisplayable > 0) {
+    notes.push(
+      `${czechInt(limits.changesUndisplayable)} záznamů grafu nese druh, který tahle verze deníku neumí vyslovit — ` +
+        `nezobrazují se, ale ani nemizí bez počtu`,
+    );
+  }
+  if (limits.changesFromGate > 0) {
+    notes.push(
+      `${czechInt(limits.changesFromGate)} záznamů grafu popisuje rozhodnutí lidské brány; ` +
+        `ta deník uvádí ze samotného review_audit, aby se událost nepočítala dvakrát`,
+    );
+  }
+  if (ledger && ledger.mergedContractRows > 0) {
+    notes.push(
+      `${czechInt(ledger.mergedContractRows)} řádků o smlouvách se slilo do jiného — ` +
+        `jedna smlouva je jeden řádek, i když ji v grafu dodává víc firem`,
+    );
+  }
+  if (ledger && ledger.contractAmountConflicts > 0) {
+    notes.push(
+      `${czechInt(ledger.contractAmountConflicts)} slitých smluv neslo rozporné částky, ` +
+        `a proto neuvádějí žádnou (vybrat jednu by znamenalo vymyslet peníze)`,
+    );
+  }
+  return notes;
+}
+
 export interface DenikPageProps {
   /** null ⇒ žádná vrstva nebyla čitelná (čestný stav „nečitelné, ne prázdné"). */
   ledger: DenikLedger | null;
   coverage: DenikCoverage | null;
+  /** Meze čtení loaderu; null při zcela nečitelném úložišti. */
+  limits: DenikLimits | null;
   auditRows: number;
   builtOn: string | null;
   /** Klíč sledované entity (`?entita=`), je-li pohled filtrovaný. */
@@ -136,9 +191,18 @@ export interface DenikPageProps {
   entityLabelCs: string | null;
 }
 
-export default function DenikPage({ ledger, coverage, auditRows, builtOn, entityKey, entityLabelCs }: DenikPageProps) {
+export default function DenikPage({
+  ledger,
+  coverage,
+  limits,
+  auditRows,
+  builtOn,
+  entityKey,
+  entityLabelCs,
+}: DenikPageProps) {
   const feedQuery = entityKey ? `?entita=${encodeURIComponent(entityKey)}` : "";
   const missing = coverage ? COVERAGE_NOTES.filter((c) => !coverage[c.key]) : [];
+  const limitsCs = limits ? limitNotes(limits, ledger) : [];
 
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
@@ -203,6 +267,18 @@ export default function DenikPage({ ledger, coverage, auditRows, builtOn, entity
             <ul className="mt-1 list-none text-sm leading-relaxed text-steel-aa">
               {missing.map((m) => (
                 <li key={m.key}>{m.note}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* Meze čtení — každý strop, který smí ztratit řádek, se přizná i s počtem. */}
+        {limitsCs.length > 0 && (
+          <div className="mt-4 max-w-2xl border-l-4 border-steel bg-paper-strong px-4 py-3">
+            <p className="font-mono text-[11px] font-bold uppercase tracking-widest">meze čtení</p>
+            <ul className="mt-1 list-none space-y-1 text-sm leading-relaxed text-steel-aa">
+              {limitsCs.map((n) => (
+                <li key={n}>{n}</li>
               ))}
             </ul>
           </div>
