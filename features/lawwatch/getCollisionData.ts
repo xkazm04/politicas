@@ -213,22 +213,12 @@ function loadRawPairs(file: string): RawPair[] {
  * `batch-002.md` §3 ("The tisk 111↔207 collision claim") — but no verbatim grep excerpt
  * was captured in that narrative form, so `evidence` is honestly left null rather than
  * inventing quoted text. Never delete the reasoning without checking those source .md files. */
+/* The 120-244 prior pair (batch-001's first discovered collision, narrated in batch-001.md
+ * with no captured excerpt) was SUPERSEDED in batch-011: the pair was independently re-read
+ * with grep-verified verbatim excerpts and native-Czech reasoning, and now enters through
+ * collision-close-reads-batch011-gA.json — whose reasoning discloses the batch-001 lineage.
+ * Keeping both would render the same finding twice under two batches. */
 const PRIOR_PAIRS: RawPair[] = [
-  {
-    pairId: "120-244",
-    billA: 120,
-    billB: 244,
-    lawRef: "586/1992",
-    classification: "confirmed-collision",
-    sharedParagraph: "35ba odst. 1",
-    reasoning:
-      "tisk 244 repeals the married-couple spousal credit and tisk 120 restructures the same " +
-      "§35ba(1) a)–e) list — both bills issue renumbering instructions to §35ba that assume " +
-      "DIFFERENT starting letterings. If tisk 120 enacts first, tisk 244's clause strikes the " +
-      "wrong provision. First discovered case in the loop (batch-001) — the seed for the whole " +
-      "collision-detection line of work; batch-003/004 close-reads confirmed tisk 4 and tisk 121 " +
-      "also touch this §35ba/§35c complex, extending it to a 4-bill cluster.",
-  },
   {
     pairId: "111-207",
     billA: 111,
@@ -236,14 +226,17 @@ const PRIOR_PAIRS: RawPair[] = [
     lawRef: "40/2009",
     classification: "coordination-risk",
     sharedParagraph: "88 odst. 2 písm. c)",
+    // Czech since batch-011 — the English original sat withheld by the render-time language
+    // gate (czechPendingCount 1) from the moment the gate landed in pass 33; the substance is
+    // carried unchanged from batch-002.md §3.
     reasoning:
-      "Both government EU-transposition bills independently amend §88 odst. 2 písm. c) of the " +
-      "trestní zákoník — the deterministic pre-check flagged the shared §88 header verbatim in " +
-      "both bills' fetched texts (collision-report.json, no LLM in the loop). The two edits touch " +
-      "DIFFERENT substrings of the same clause (tisk 111 renumbers a §168 cross-reference \"4, 5\"→" +
-      "\"5, 6\"; tisk 207 renumbers a §283 cross-reference \"odst. 4\"→\"odst. 5\" and inserts rtuť " +
-      "language) rather than clashing on the same text, so this is a softer coordination risk than " +
-      "the same-text 120↔244 clash, not a guaranteed drafting error.",
+      "Oba vládní transpoziční tisky nezávisle novelizují § 88 odst. 2 písm. c) trestního " +
+      "zákoníku — deterministická předkontrola zachytila sdílený nadpis § 88 doslovně v obou " +
+      "stažených textech (collision-report.json, bez zapojení jazykového modelu). Obě úpravy se " +
+      "ale dotýkají RŮZNÝCH úseků téhož ustanovení (tisk 111 přečíslovává odkaz na § 168 „4, 5“ → " +
+      "„5, 6“; tisk 207 přečíslovává odkaz na § 283 „odst. 4“ → „odst. 5“ a vkládá formulaci o " +
+      "rtuti), nestřetávají se tedy na stejném textu — jde o měkčí koordinační riziko, nikoli o " +
+      "zaručenou legislativní chybu, jakou byl textově shodný střet 120↔244.",
   },
 ];
 
@@ -285,6 +278,10 @@ export async function getCollisionData(): Promise<CollisionData | null> {
     const batch5Pairs = loadRawPairs("collision-close-reads-batch005.json");
     const batch8Pairs = loadRawPairs("collision-close-reads-batch008.json");
     const batch9Pairs = loadRawPairs("collision-close-reads-batch009.json");
+    const batch11Pairs = [
+      ...loadRawPairs("collision-close-reads-batch011-gA.json"),
+      ...loadRawPairs("collision-close-reads-batch011-gB.json"),
+    ];
     const rawAll = [
       ...PRIOR_PAIRS.map((p) => ({ ...p, detectedAt: precheckDate })),
       ...loadRawPairs("collision-close-reads.json"),
@@ -292,6 +289,7 @@ export async function getCollisionData(): Promise<CollisionData | null> {
       ...batch5Pairs,
       ...batch8Pairs,
       ...batch9Pairs,
+      ...batch11Pairs,
     ].filter((p) => p.classification === "confirmed-collision" || p.classification === "coordination-risk");
 
     if (rawAll.length === 0) return null;
@@ -304,8 +302,10 @@ export async function getCollisionData(): Promise<CollisionData | null> {
     const batch5Ids = new Set(batch5Pairs.map((p) => p.pairId));
     const batch8Ids = new Set(batch8Pairs.map((p) => p.pairId));
     const batch9Ids = new Set(batch9Pairs.map((p) => p.pairId));
+    const batch11Ids = new Set(batch11Pairs.map((p) => p.pairId));
     const sourceBatchOf = (pairId: string): number => {
-      if (priorIds.has(pairId)) return pairId === "120-244" ? 1 : 2;
+      if (priorIds.has(pairId)) return 2;
+      if (batch11Ids.has(pairId)) return 11;
       if (batch3Ids.has(pairId)) return 3;
       if (batch9Ids.has(pairId)) return 9;
       if (batch8Ids.has(pairId)) return 8;

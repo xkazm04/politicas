@@ -1,0 +1,125 @@
+{
+ "generatedAt": "2026-08-04T00:00:00.000Z",
+ "batch": 11,
+ "group": "B",
+ "classificationVocabulary": [
+  "confirmed-collision",
+  "coordination-risk",
+  "incidental"
+ ],
+ "classificationCounts": {
+  "confirmed-collision": 6,
+  "coordination-risk": 1,
+  "incidental": 1
+ },
+ "coverage": {
+  "pairsRead": 8,
+  "pairsAssigned": 8
+ },
+ "pairs": [
+  {
+   "pairId": "65-154-250-2017",
+   "lawRef": "250/2017",
+   "billA": 65,
+   "billB": 154,
+   "sharedParagraph": "25, 19",
+   "classification": "confirmed-collision",
+   "evidence": {
+    "billAExcerpt": "tisk 65, Čl. X bod 10-11: '10. V § 25 odst. 1 písm. k) se slovo „nebo“ zrušuje.' -- tisk 65 pracuje s DOSAVADNÍM písmenem k) a dále v bodě 11 doplňuje na konec odstavce 1 nová písmena m) a n)",
+    "billBExcerpt": "tisk 154, Čl. III bod 53: '53. V § 25 odst. 1 se za písmeno j) vkládají nová písmena k) až m), která znějí:' ... 'Dosavadní písmena k) a l) se označují jako písmena n) a o).' -- tisk 154 vkládá tři nová písmena k) až m) PŘED dosavadní písmeno k) a přeznačuje dosavadní k), l) na n), o)"
+   },
+   "reasoning": "Obě novely mění § 25 odst. 1 zákona č. 250/2017 Sb. vkládáním nových písmen na stejném místě výčtu, ale s neslučitelnou logikou značení. Tisk 65 předpokládá, že dosavadní písmeno k) zůstává na svém místě (bod 10 ruší slovo „nebo“ v tomto písmenu) a nové přestupky doplňuje AŽ NA KONEC odstavce jako nová písmena m) a n). Tisk 154 naproti tomu VKLÁDÁ tři zcela nová písmena k) až m) PŘED dosavadní písmeno k) a dosavadní písmena k) a l) přeznačuje na n) a o) -- čímž mizí adresát novely tisku 65 (písmeno k) v původním významu) a navíc obě novely nezávisle na sobě obsazují označení „m)“ odlišným textem (tisk 65: povinnost oznámit změny v kvalifikovaném systému podle § 16 odst. 4 písm. b); tisk 154: povinnost poskytnout součinnost podle § 16 odst. 1 písm. o)). Při současné aplikaci obou novel by ve výsledném § 25 odst. 1 vznikl kolizní stav – duplicitní písmeno m) s neslučitelným obsahem a rozbité navazující odkazy v odstavcích 2 a 3. Kolize se navíc opakuje na § 19, kde obě novely nezávisle doplňují nová písmena i) a j) za stávající písmeno h) (tisk 65 body 7-8; tisk 154 body 35-36) -- opět se stejným označením „i)“ a „j)“, ale s odlišným obsahem. Jde tedy o potvrzenou kolizi vyplývající z nekoordinovaného souběžného rozšiřování téhož výčtu."
+  },
+  {
+   "pairId": "7-64-424-1991",
+   "lawRef": "424/1991",
+   "billA": 7,
+   "billB": 64,
+   "sharedParagraph": "6",
+   "classification": "confirmed-collision",
+   "evidence": {
+    "billAExcerpt": "tisk 7, Čl. III bod 1: '1. V § 6 odst. 2 písm. b) bodě 9, § 18 odst. 2 a § 19h odst. 1 písm. j) se číslo „50 000” nahrazuje číslem „5 000”.' -- novela nahrazuje konkrétní číselnou hodnotu uvnitř textu bodu 9",
+    "billBExcerpt": "tisk 64, Čl. VIII bod 1: '1. V § 6 odst. 2 písm. b) bodu 9 se za slovem „příspěvky“ tečka nahrazuje čárkou a věta poslední se zrušuje.' -- novela ruší celou poslední větu bodu 9"
+   },
+   "reasoning": "Obě novely mění tentýž § 6 odst. 2 písm. b) bod 9 zákona č. 424/1991 Sb., ale neslučitelným způsobem. Tisk 7 předpokládá, že text bodu 9 obsahuje formulaci s částkou „50 000“ (patrně v poslední větě bodu, upravující limit) a tuto částku nahrazuje hodnotou „5 000“. Tisk 64 naproti tomu VĚTU POSLEDNÍ BODU 9 CELOU RUŠÍ a nahrazuje tečku po slově „příspěvky“ čárkou. Pokud by se aplikovala novela tisku 64, zanikl by textový nosič, do něhož tisk 7 vkládá číselnou substituci -- instrukce tisku 7 by tak neměla k čemu se vztáhnout, případně by aplikaci bránila. Jde o klasický případ souběhu wholesale rušení (mazání věty) s dílčí substitucí do právě mazaného textu, tedy o potvrzenou kolizi. Vedlejší kolizní bod je patrný i v § 19j odst. 2 písm. g), kde tisk 7 mění interpunkci na konci písmene a tisk 64 nezávisle mění slovo „ceně“ na „hodnotě“ v témže písmenu -- zde jde spíše o koordinovatelný souběh, hlavní kolize však stojí na § 6."
+  },
+  {
+   "pairId": "64-73",
+   "lawRef": "477/2001",
+   "billA": 64,
+   "billB": 73,
+   "sharedParagraph": "17, 20, 23a, 44",
+   "classification": "incidental",
+   "evidence": {
+    "billAExcerpt": "tisk 64, Čl. LXXIII bod 1 a bod 10: '1. V § 17 odst. 3 písm. c) se slova „výroční zpráva, pokud existuje“ nahrazují slovy „zpráva ...' a '10. V § 44 odst. 4 písm. e) se slovo „údajů“ zrušuje.' -- terminologické změny účetní harmonizace v odst. 3 (§17) a odst. 4 (§44)",
+    "billBExcerpt": "tisk 73, Čl. I bod 30 a bod 61: '30. V § 17 odst. 5 se slova „nebo 4“ nahrazují slovy „, 4 nebo 6 nebo § 19 odst. 2“ ...' a '61. V § 44 odst. 1 písmeno i) zní:' -- věcné změny autorizačního a přestupkového režimu v odst. 5/8 (§17) a odst. 1 (§44)"
+   },
+   "reasoning": "Deterministická předkontrola oba tisky spárovala, protože oba obsahují skutečné novelizační instrukce v § 17, § 20, § 23a a § 44 zákona o obalech, avšak při bližším čtení se ukazuje, že cílí na zcela odlišné odstavce v rámci týchž paragrafů: tisk 64 (rozsáhlá účetní harmonizační novela) upravuje § 17 odst. 3, § 20 odst. 5, § 23a odst. 1 a 4 a § 44 odst. 4 -- vždy terminologické záměny typu „výroční zpráva“ → „zpráva vedení“ nebo „cena“ → „hodnota“. Tisk 73 (věcná novela obalového zákona) mění § 17 odst. 5 a 8, § 20 odst. 1, § 23a odst. 2 a § 44 odst. 1 -- vždy jiné odstavce téhož paragrafu. Ani v jednom ze čtyř sdílených paragrafů se cílové odstavce/písmena nepřekrývají a žádná z novel neruší ani nepřečísluje odstavec, do něhož by mířila ta druhá. Přítomnost obou tisků ve stejné frontě kolizí je tedy artefaktem detekce na úrovni čísla paragrafu, nikoli skutečnou legislativně technickou kolizí -- obě novely lze aplikovat nezávisle na sobě beze změny výsledku."
+  },
+  {
+   "pairId": "64-68-23-2017",
+   "lawRef": "23/2017",
+   "billA": 64,
+   "billB": 68,
+   "sharedParagraph": "5, 7",
+   "classification": "confirmed-collision",
+   "evidence": {
+    "billAExcerpt": "tisk 64, Čl. CXLII bod 2: '2. V § 5 odst. 3 se slova „Ministerstva financí (dále jen „ministerstvo“)“ nahrazují slovem „ministerstva“.' -- dílčí substituce v odstavci 3 § 5",
+    "billBExcerpt": "tisk 68, Čl. I bod 11: '§ 5 zní:' s novým zněním '„§ 5 Veřejná instituce sestavuje rozpočet na rozpočtový rok a střednědobý výhled na nejméně' -- úplné nahrazení celého § 5 jednou větou bez členění na odstavce, čímž zaniká odst. 3, který tisk 64 úzce novelizuje."
+   },
+   "reasoning": "Tisk 68 nahrazuje § 5 zákona č. 23/2017 Sb. CELÝ novým, jednoduchým, neodstavcovaným zněním (bod 11: „§ 5 zní:“), čímž zanikají všechny dosavadní odstavce § 5 včetně odstavce 3. Tisk 64 v bodě 2 mění právě text v „§ 5 odst. 3“ dílčí slovní substitucí -- pokud by se aplikoval tisk 68, odstavec 3, do něhož tisk 64 cílí, by v zákoně vůbec neexistoval, takže by novelizační instrukce tisku 64 postrádala textový nosič. Jde o typický souběh wholesale nahrazení paragrafu („§ N zní:“) s dílčí substitucí do zanikajícího textu, tedy o potvrzenou kolizi. Druhá, samostatně dostačující kolize je patrná v § 7 odst. 1 písm. a): tisk 64 nahrazuje slovo „účetnictví4)“ (i s odkazem na poznámku pod čarou) souslovím „účetních předpisů“ v rámci širší formulace, zatímco tisk 68 cílí na TENTÝŽ textový řetězec „účetnictví4)“, který nahrazuje slovem „účetnictví“ (bez poznámky). Obě novely tedy substituují stejný textový úsek různým výsledným zněním -- nelze určit, které pořadí či která verze má platit, což je opět potvrzená kolize. Tato dvojice je součástí rodiny tisk 68 ⊂ tisk 90 (zjištění dávky 009: 36 z 42 novelizačních instrukcí tisku 68 se doslovně opakuje v tisku 90); klasifikace je proto sdílená s párem 64-90 na stejném zákoně."
+  },
+  {
+   "pairId": "64-90-23-2017",
+   "lawRef": "23/2017",
+   "billA": 64,
+   "billB": 90,
+   "sharedParagraph": "5, 7",
+   "classification": "confirmed-collision",
+   "evidence": {
+    "billAExcerpt": "tisk 64, Čl. CXLII bod 2: '2. V § 5 odst. 3 se slova „Ministerstva financí (dále jen „ministerstvo“)“ nahrazují slovem „ministerstva“.' -- dílčí substituce v odstavci 3 § 5, totožná instrukce jako v páru 64-68",
+    "billBExcerpt": "tisk 90, Čl. I bod 11: '11. § 5 zní:' následováno textem '„§ 5 Veřejná instituce sestavuje rozpočet na rozpočtový rok a střednědobý výhled na nejméně 2 další následující rozpočtové roky ...“.' -- bod 14 dále: '14. V § 7 odst. 1 písm. a) se slovo „účetnictví4)“ nahrazuje slovem „účetnictví“ ...' -- oba body doslovně shodné s tiskem 68"
+   },
+   "reasoning": "Tisk 90 obsahuje na sdílených paragrafech § 5 a § 7 tytéž novelizační instrukce jako tisk 68 (bod 11 „§ 5 zní:“ a bod 14 substituci v § 7 odst. 1 písm. a) v § 7 odst. 1 písm. a)) -- ověřeno doslovnou shodou textu (byť s drobnými rozdíly ve zlomu řádků při extrakci PDF, obsahově identické). Jde tedy o TENTÝŽ mechanismus kolize jako v páru 64-68: wholesale nahrazení § 5 (mažící odstavec 3, do něhož tisk 64 cílí dílčí substitucí) a souběžná substituce téhož textového řetězce „účetnictví4)“ v § 7 odst. 1 písm. a) různým výsledným zněním. Tato dvojice je součástí rodiny tisk 68 ⊂ tisk 90 zjištěné v dávce 009 (36 z 42 instrukcí tisku 68 se doslovně opakuje v tisku 90) -- pár 64-90 je proto na daném zákoně jedna rodina s párem 64-68 a nese shodnou klasifikaci i zdůvodnění."
+  },
+  {
+   "pairId": "64-120",
+   "lawRef": "586/1992",
+   "billA": 64,
+   "billB": 120,
+   "sharedParagraph": "38gb",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 64, bod 368: '368. V § 38gb odst. 1 větě poslední se slova „, u poplatníka vedoucího účetnictví z výsledku hospodaření,“ nahrazují slovy „nebo výsledku hospodaření za účetní období“.' -- cílí na poslední větu odstavce 1",
+    "billBExcerpt": "tisk 120, Čl. I bod 6: '6. V § 38gb odstavci 1 se text „§ 35ba odst. 1 písm. a)“ nahrazuje textem „§ 35c odst. 1 písm. a)“.' -- cílí na odkazový text patrně v úvodní části odstavce 1"
+   },
+   "reasoning": "Obě novely mění § 38gb odst. 1 zákona č. 586/1992 Sb., ale patrně různé věty téhož odstavce -- tisk 64 výslovně cílí na „větu poslední“ (terminologickou úpravu účetní harmonizace, „u poplatníka vedoucího účetnictví z výsledku hospodaření“ → „nebo výsledku hospodaření za účetní období“), zatímco tisk 120 (rozsáhlá věcná přestavba daňového zvýhodnění na dítě, § 35ba/§35c/§35d/§38gb/§38h/§38k/§38l) mění odkazové texty typu „§ 35ba odst. 1 písm. a)“ na „§ 35c odst. 1 písm. a)“, které se podle přiloženého „platného znění“ nacházejí v úvodní/výjimkové části odstavce 1, nikoli v poslední větě. Přímý textový střet nebyl grep-ověřením nalezen, avšak vzhledem k tomu, že obě novely skutečně mění TENTÝŽ odstavec 1 § 38gb a tisk 120 zároveň zcela přepisuje § 35c odst. 1 a 4 (wholesale „zní:“), jejichž návazné odkazy se řetězí přes § 35d, § 38g, § 38h, § 38gb, § 38k a § 38l, je zapotřebí legislativně-technická kontrola, zda pořadí vět a odkazů v § 38gb odst. 1 po aplikaci obou novel zůstane konzistentní. V § 35c samotném (tisk 64 mění pouze odst. 7, tisk 120 přepisuje odst. 1 a 4) ani v § 35d (tisk 64 pouze vkládá nadpis hlavy XI ZA § 35d, tisk 120 mění text uvnitř § 35d odst. 1 a 2) nebyla nalezena kolize cílových odstavců -- jde o disjunktní, byť sousedící novelizace. Souhrnně jde o koordinovatelný souběh vyžadující legislativní péči, nikoli o potvrzenou kolizi ani o čistě náhodný přesah."
+  },
+  {
+   "pairId": "64-68-250-2000",
+   "lawRef": "250/2000",
+   "billA": 64,
+   "billB": 68,
+   "sharedParagraph": "28a",
+   "classification": "confirmed-collision",
+   "evidence": {
+    "billAExcerpt": "tisk 64, Čl. LXI bod 41: '41. V§ 28a se doplňuje odstavec 5, který zní:' následováno textem '„(5) Příspěvková organizace zveřejní závěrečný účet na svých internetových stránkách ...“.' -- předpokládá, že § 28a má dosud čtyři odstavce a doplňuje pátý",
+    "billBExcerpt": "tisk 68, Čl. V bod 4: '4. V § 28a se odstavec 1 zrušuje.' následováno 'Dosavadní odstavce 2 až 4 se označují jako odstavce 1 až 3.' -- ruší odstavec 1 a přečíslovává zbylé tři odstavce"
+   },
+   "reasoning": "Tisk 68 v § 28a zákona č. 250/2000 Sb. postupně ruší dosavadní odstavec 1 (bod 4, s přečíslováním odstavců 2-4 na 1-3) a poté ruší i (nově přečíslovaný) odstavec 2, tedy PŮVODNÍ odstavec 3 (bod 6, s dalším přečíslováním). Po aplikaci tisku 68 by § 28a měl místo čtyř jen dva odstavce. Tisk 64 v bodě 41 předpokládá, že § 28a má dosud čtyři odstavce, a novým textem „doplňuje se odstavec 5“ chce přiřadit další, pátý odstavec na konec. Pokud by obě novely platily současně, vznikl by v § 28a číslovací zlom -- odstavec by skončil na čísle 2 (po redukci tisku 68) a hned poté by se objevil odstavec označený číslem 5 podle tisku 64, bez odstavců 3 a 4. Jde o jednoznačnou kolizi mezi rušením a přečíslováním odstavců na jedné straně a doplněním nového odstavce s pevným (a po aplikaci první novely již neplatným) číslem na straně druhé -- potvrzená kolize. Tato dvojice je součástí rodiny tisk 68 ⊂ tisk 90 (viz zjištění dávky 009); klasifikace je sdílená s párem 64-90 na stejném zákoně."
+  },
+  {
+   "pairId": "64-90-250-2000",
+   "lawRef": "250/2000",
+   "billA": 64,
+   "billB": 90,
+   "sharedParagraph": "28a",
+   "classification": "confirmed-collision",
+   "evidence": {
+    "billAExcerpt": "tisk 64, Čl. LXI bod 41: '41. V§ 28a se doplňuje odstavec 5, který zní:' -- totožná instrukce jako v páru 64-68, předpokládá čtyři existující odstavce § 28a",
+    "billBExcerpt": "tisk 90, Čl. IV bod 4: '4. V § 28a se odstavec 1 zrušuje.' následováno 'Dosavadní odstavce 2 až 4 se označují jako odstavce 1 až 3.' -- doslovně shodné s tiskem 68, ruší a přečísluje odstavce"
+   },
+   "reasoning": "Tisk 90 obsahuje na § 28a zákona č. 250/2000 Sb. tytéž instrukce jako tisk 68 -- doslovně ověřeno bodem 4 (zrušení odstavce 1 a přečíslování 2-4 na 1-3) i navazujícím bodem 6 (další zrušení a přečíslování). Jde tedy o TENTÝŽ mechanismus kolize jako v páru 64-68: tisk 64 předpokládá zachování čtyř původních odstavců § 28a a doplňuje na konec nový „odstavec 5“, zatímco tisk 90 dva z původních čtyř odstavců ruší a zbylé přečíslovává, takže by po jeho aplikaci § 28a měl jen dva odstavce a instrukce tisku 64 by vytvořila číslovací mezeru (chybějící odstavce 3 a 4, odstavec rovnou skáče na číslo 5). Tato dvojice je součástí rodiny tisk 68 ⊂ tisk 90 zjištěné v dávce 009 (36 z 42 instrukcí tisku 68 se doslovně opakuje v tisku 90) -- pár 64-90 je na daném zákoně jedna rodina s párem 64-68 a nese shodnou klasifikaci i zdůvodnění."
+  }
+ ]
+}

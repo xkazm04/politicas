@@ -1,0 +1,37 @@
+{
+  "billTisk": 213,
+  "statedReasoning": "Vládní návrh je podle titulu předkládán s cílem dále posílit bezpečnost České republiky a mění zákony upravující opatření přijatá v souvislosti s ozbrojeným konfliktem na území Ukrajiny vyvolaným invazí vojsk Ruské federace a další související zákony. Mění sedm předpisů: zákon o některých opatřeních v souvislosti s konfliktem na Ukrajině, zákon o opatřeních v oblasti zaměstnanosti a sociálního zabezpečení v souvislosti s tímto konfliktem, zákon o opatřeních v oblasti školství v souvislosti s tímto konfliktem, zákon o azylu, zákon o pobytu cizinců, soudní řád správní a trestní zákoník. Účinnost je stanovena k 1. lednu 2027, s výjimkou některých ustanovení čl. I, která nabývají účinnosti dříve.",
+  "researchedContext": "Titul návrhu explicitně avizuje dodatkem a další související zákony, že rozsah přesahuje pouze opatření vázaná na ukrajinský konflikt, a operativní text to potvrzuje: novela zákona o pobytu cizinců na území České republiky (č. 326/1999 Sb.) v čl. VIII zavádí obecná ustanovení o navracení státních příslušníků třetích zemí podle čl. 23a Schengenského hraničního kodexu (CELEX 32016R0399), upravuje obecná pravidla dlouhodobých pobytů a studijních víz platná pro všechny cizince, nikoli jen pro osoby dotčené konfliktem na Ukrajině. Novela trestního zákoníku v čl. XI zpřísňuje trestní sazby za organizování a umožnění neoprávněného překročení státní hranice (§ 339) a za napomáhání neoprávněnému pobytu (§ 340), včetně nové kvalifikované skutkové podstaty za stavu ohrožení státu nebo za válečného stavu (odnětí svobody 3 až 12 let) – jde o obecně použitelná ustanovení namířená proti převaděčství a obchodu s lidmi, nikoli o ustanovení vázaná výlučně na ukrajinský kontext, byť věcně souvisejí s posílením bezpečnosti hranic, jak titul deklaruje.",
+  "unstatedEffects": [
+    {
+      "effect": "Ačkoli je návrh v titulu rámován jako soubor opatření souvisejících s ozbrojeným konfliktem na Ukrajině, čl. VIII novelizuje obecná ustanovení zákona o pobytu cizinců na území České republiky (nový § 12 o zpětném přemístění podle Schengenského hraničního kodexu, pravidla prodlužování studijních a dlouhodobých pobytů), která dopadají na všechny státní příslušníky třetích zemí, nikoli pouze na osoby dotčené invazí na Ukrajinu.",
+      "whoBenefits": "Orgány cizinecké a azylové správy získávají širší a obecně použitelné pravomoci v oblasti navracení a pobytu cizinců nad rámec titulem deklarovaného ukrajinského kontextu; dotčeny jsou všechny kategorie cizinců žádajících o dlouhodobý pobyt nebo studijní vízum, nejen osoby postižené konfliktem.",
+      "evidence": "Čl. VIII bod 1 (nový § 12 zákona č. 326/1999 Sb. s odkazem CELEX 32016R0399) a navazující body upravující § 31, § 42 a § 44a téhož zákona."
+    }
+  ],
+  "conflictAssessment": "Sponzorem návrhu v grafu je Lubomír Metnar, u kterého nejsou evidovány žádné peněžní vazby (moneyTies je prázdné pole), a batch-010 u tohoto tisku nepřiřadil žádný sektorový lead (sectorAdjacency: false, attributedSectorLeads: []). Bez doložené soukromé ekonomické vazby předkladatele k dotčeným odvětvím (cizinecké právo, azylové řízení, trestní represe převaděčství) nelze na základě dostupných dat v grafu formulovat žádné doložitelné tvrzení o střetu zájmů. Jde o vládní bezpečnostní návrh podávaný ministrem vnitra, u něhož analýza peněžních vazeb nezjistila žádný signál k prošetření; jediným zjištěným rizikem je věcný přesah titulu popsaný výše v unstatedEffects, nikoli konflikt zájmů předkladatele.",
+  "severity": "medium",
+  "confidence": 3,
+  "citations": [
+    {
+      "claim": "Titul zákona zní kterým se s cílem dále posílit bezpečnost České republiky mění zákony upravující opatření přijatá v souvislosti s ozbrojeným konfliktem na území Ukrajiny vyvolaným invazí vojsk Ruské federace a další související zákony.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=213&ct1=0"
+    },
+    {
+      "claim": "Čl. VIII bod 1 novely zákona č. 326/1999 Sb. zavádí nový § 12 o zpětném přemístění státního příslušníka třetí země podle čl. 23a Schengenského hraničního kodexu, obecně použitelný na všechny cizince, nikoli jen na osoby dotčené konfliktem na Ukrajině.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=213&ct1=0"
+    },
+    {
+      "claim": "Novela trestního zákoníku v čl. XI zpřísňuje trestní sazby v § 339 a § 340 za organizování neoprávněného překročení státní hranice a napomáhání neoprávněnému pobytu, včetně nové kvalifikované skutkové podstaty za stavu ohrožení státu nebo za válečného stavu s trestní sazbou 3 až 12 let.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=213&ct1=0"
+    },
+    {
+      "claim": "Sponzor návrhu Lubomír Metnar nemá v grafu evidované žádné peněžní vazby a batch-010 tomuto tisku nepřiřadil žádný sektorový lead.",
+      "kind": "graph_fact",
+      "source": "bill:tisk:43335"
+    }
+  ]
+}

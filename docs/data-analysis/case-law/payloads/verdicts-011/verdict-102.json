@@ -1,0 +1,36 @@
+{
+  "billTisk": 102,
+  "statedReasoning": "Návrh je vládním doprovodným zákonem k novému samostatnému zákonu o odčerpání majetku nevysvětleného původu a mění dvanáct souvisejících předpisů, zejména trestní řád, trestní zákoník, zákon o státním zastupitelství a zákon o majetku České republiky. Důvodová zpráva uvádí dva důvody: zaprvé transpozici čl. 16 směrnice Evropského parlamentu a Rady (EU) 2024/1260 o vymáhání a konfiskaci majetku, který zavádí institut odčerpání majetku bez ohledu na odsouzení pachatele, pokud je soud přesvědčen, že majetek pochází z trestné činnosti, s transpoziční lhůtou do 23. listopadu 2026, a zadruhé řešení mezery při tzv. průtokových účtech identifikované vládní analýzou z roku 2023 tam, kde nelze prokázat konkrétní zdrojový trestný čin spáchaný v zahraničí. Předkladatel výslovně vychází z německého institutu samostatné konfiskace (Selbständige Einziehung) a sám v obecné části rozebírá test proporcionality podle judikatury Ústavního soudu k ochraně vlastnického práva.",
+  "researchedContext": "Operativní text zůstává věcně v mezích deklarovaného účelu: dvanáct novelizovaných předpisů (trestní řád, insolvenční zákon, zákon o majetku ČR, zákon o výkonu zajištění majetku, zákon o státním zastupitelství, zákon o preventivní restrukturalizaci, zákon o insolvenčních správcích, trestní zákoník, zákon o podmínkách provozu vozidel, zákon o zbraních a střelivu, zákon o munici, zákon o mezinárodní justiční spolupráci) obsahuje výhradně navazující, konzistentní úpravy nezbytné k zavedení nového institutu odčerpávacího opatření – například doplnění důvodu vyloučení vozidla z registru, terminologické sladění zajišťovacích institutů u zbraní a munice slovem odčerpání vedle stávajících pojmů propadnutí a zabrání, a nový institut zajištění věci zúčastněné osoby v § 79i trestního řádu. Účinnost je stanovena k 1. červenci 2026, tedy s dostatečnou rezervou před unijní transpoziční lhůtou 23. listopadu 2026, takže návrh nevykazuje znaky časové tísně obcházející standardní projednávací lhůty. Ustanovení o odčerpání nevysvětleného majetku bez podmínky pravomocného odsouzení je závažný zásah do vlastnického práva podle čl. 11 Listiny základních práv a svobod, ale tuto skutečnost a test proporcionality předkladatel sám podrobně rozebírá v části B obecné části důvodové zprávy s odkazy na konkrétní nálezy Ústavního soudu, takže nejde o nedeklarovaný (unstated) účinek, nýbrž o transparentně pojmenované legislativní riziko.",
+  "unstatedEffects": [],
+  "conflictAssessment": "Sponzorem návrhu v grafu je Jeroným Tejc, u kterého nejsou evidovány žádné peněžní vazby (moneyTies je prázdné pole) a batch-010 u tohoto tisku nepřiřadil žádný sektorový lead (sectorAdjacency: false, attributedSectorLeads: []). Bez doložené soukromé ekonomické vazby předkladatele k dotčeným odvětvím (trestní právo, insolvenční správa, obchod se zbraněmi a municí) nelze na základě dostupných dat v grafu formulovat žádné doložitelné tvrzení o střetu zájmů. Jde o vládní návrh podávaný ministrem spravedlnosti k transpozici závazné unijní směrnice, u něhož analýza peněžních vazeb nezjistila žádný signál k prošetření.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Návrh transponuje čl. 16 směrnice Evropského parlamentu a Rady (EU) 2024/1260 o vymáhání a konfiskaci majetku s transpoziční lhůtou do 23. listopadu 2026, přičemž zaváděný institut umožňuje odčerpání majetku bez ohledu na odsouzení pachatele, je-li soud přesvědčen, že majetek pochází z trestné činnosti.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=102&ct1=0"
+    },
+    {
+      "claim": "Zákon nabývá účinnosti dnem 1. července 2026, tedy před unijní transpoziční lhůtou 23. listopadu 2026.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=102&ct1=0"
+    },
+    {
+      "claim": "Obecná část důvodové zprávy podrobně rozebírá test proporcionality zásahu do vlastnického práva podle čl. 11 Listiny základních práv a svobod s odkazy na konkrétní nálezy Ústavního soudu, včetně nálezu sp. zn. II. ÚS 1026/21 k důkaznímu standardu při zabrání části majetku.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=102&ct1=0"
+    },
+    {
+      "claim": "Novely zákona o zbraních a střelivu a zákona o munici pouze doplňují slovo odčerpání vedle stávajících pojmů propadnutí a zabrání v ustanoveních o vyřazení zbraně nebo munice z evidence.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=102&ct1=0"
+    },
+    {
+      "claim": "Sponzor návrhu Jeroným Tejc nemá v grafu evidované žádné peněžní vazby a batch-010 tomuto tisku nepřiřadil žádný sektorový lead.",
+      "kind": "graph_fact",
+      "source": "bill:tisk:43212"
+    }
+  ]
+}

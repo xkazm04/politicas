@@ -1,0 +1,125 @@
+{
+ "generatedAt": "2026-08-04T00:00:00.000Z",
+ "batch": 11,
+ "group": "A",
+ "classificationVocabulary": [
+  "confirmed-collision",
+  "coordination-risk",
+  "incidental"
+ ],
+ "classificationCounts": {
+  "confirmed-collision": 7,
+  "coordination-risk": 1,
+  "incidental": 0
+ },
+ "coverage": {
+  "pairsRead": 8,
+  "pairsAssigned": 8
+ },
+ "pairs": [
+  {
+   "pairId": "189-244",
+   "lawRef": "586/1992",
+   "billA": 189,
+   "billB": 244,
+   "sharedParagraph": "35ba",
+   "classification": "confirmed-collision",
+   "evidence": {
+    "billAExcerpt": "tisk 189, bod 12: 'V § 35ba se na konci odstavce 1 tečka nahrazuje čárkou a doplňují se písmena f) až h), která znějí: „f) slevu na studenta, g) slevu za umístění dítěte, h) slevu na evidenci tržeb.“.' -- tisk 189 zachovává stávající písmena a) až e) beze změny a doplňuje za ně tři nová písmena f) až h) (nové slevy na dani).",
+    "billBExcerpt": "tisk 244, bod 2: 'V § 35ba odst. 1 se písmeno b) zrušuje a dosavadní písmena c) až e) se označují jako písmena b) až d).' -- tisk 244 naopak ruší písmeno b) (sleva na manžela/manželku) a přečísluje dosavadní písmena c) až e) na b) až d), takže dosavadní písmeno e) přestává existovat pod tímto označením."
+   },
+   "reasoning": "Obě novely zasahují do téhož § 35ba odst. 1, ale z protichůdných výchozích předpokladů o jeho struktuře. Tisk 189 ponechává písmena a) až e) beze změny a pouze za ně doplňuje nová písmena f) až h) (bod 12), přičemž navazující body 13-14 upravují odstavce 2 a 3 s odkazem na dosavadní písmeno „e)“ (měněné na „f)“ v odst. 3). Tisk 244 naproti tomu ruší písmeno b) a dosavadní c) až e) přeznačuje na b) až d) (bod 2) a navazující body 3-4 nahrazují odkaz „b) až e)“ odkazem „b) až d)“ v odstavcích 2 i 3. Budou-li obě novely aplikovány na stejné výchozí znění zákona, dojde k neslučitelnému výsledku: písmeno „e)“, se kterým dále pracuje tisk 189 (doplňující f) až h) za ně a měnící odkaz na „f)“), po přijetí tisku 244 zaniká přeznačením na „d)“ — odkazy a nově vkládaná písmena tisku 189 by tak mířila na neexistující nebo jinak obsazené písmeno. Jde o stejný mechanismus, jaký se v tomto dávkovém shluku opakuje i u dvojic 120×244 a 120×189: úprava sady slev na dani v § 35ba odst. 1 je předmětem několika vzájemně nekompatibilních přečíslovacích/vkládacích novel (189, 120, 244), které nelze bez legislativně-technického sladění sloučit do jednoho konsolidovaného znění. Klasifikuji proto jako potvrzenou kolizi, nikoli jako pouhé riziko koordinace."
+  },
+  {
+   "pairId": "13-64-240-2013",
+   "lawRef": "240/2013",
+   "billA": 13,
+   "billB": 64,
+   "sharedParagraph": "604",
+   "classification": "confirmed-collision",
+   "evidence": {
+    "billAExcerpt": "tisk 13, § 604 odst. 4 (bod 182): 'V § 604 odst. 4 se na konci písmene b) doplňuje slovo „nebo“ a písmeno c) se zrušuje. Dosavadní písmeno d) se označuje jako písmeno c).' -- tisk 13 pracuje se stávajícím písmenným značením § 604 odst. 4: doplňuje slovo do písmene b), ruší písmeno c) a dosavadní písmeno d) přeznačuje na c).",
+    "billBExcerpt": "tisk 64, § 604 odst. 4 (bod 72): 'V § 604 odst. 4 se vkládá nové písmeno a), které zní: „a) nesplní některou z povinností související s účetnictvím tohoto fondu podle § 38 odst. 1 písm. a),“. Dosavadní písmena a) až c) se označují jako písmena b) až d).' -- tisk 64 vkládá zcela nové písmeno a) a celé stávající značení odst. 4 posouvá o jedno písmeno dál (a→b, b→c, c→d)."
+   },
+   "reasoning": "Oba návrhy novelizují stejný § 604 odst. 4 ZISIF, ale používají neslučitelné novelizační techniky. Tisk 13 (bod 182) cílí na stávající písmena b) a c) — doplňuje slovo „nebo“ na konec písmene b), ruší písmeno c) a dosavadní písmeno d) přeznačuje na nové písmeno c). Tisk 64 (bod 72) naproti tomu vkládá zcela nové písmeno a) na začátek odstavce a v důsledku toho posouvá všechna dosavadní písmena a) až c) o jednu pozici níž (na b) až d)). Pokud by byly oba návrhy přijaty a aplikovány v libovolném pořadí, adresace „písmeno b)“ a „písmeno c)“ z tisku 13 by po vložení nového písmene a) tiskem 64 ukazovala na jiný obsah, než na jaký cílil předkladatel tisku 13. Jde o typický střet vkládací/přečíslovací novely (tisk 64) s novelou adresující konkrétní stávající písmena beze změny jejich pořadí (tisk 13) — nikoli o souběžnou úpravu, kterou by šlo mechanicky sloučit, ale o vzájemně se rušící instrukce vyžadující legislativně-technické přepracování jedné z novel. Podpůrně se stejný vzorec opakuje i jinde v obou tiscích (§ 599 odst. 1 písm. w), § 238 odst. 1), což potvrzuje, že přítomnost tisku 64 jako velké novely s vkládáním a přečíslováním písmen systematicky koliduje s úzkými novelizačními body tisku 13 ve stejných ustanoveních ZISIF."
+  },
+  {
+   "pairId": "64-189",
+   "lawRef": "586/1992",
+   "billA": 64,
+   "billB": 189,
+   "sharedParagraph": "18a, 25",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 64, bod 72 (§ 18a odst. 5): 'V § 18a odst. 5 úvodní části ustanovení se slova „S výjimkou příjmů z investičních dotací jsou předmětem daně“ nahrazují slovy „Předmětem daně jsou“.' -- tisk 64 nahrazuje úvodní slova úvodní části ustanovení odstavce 5 (odstraňuje výjimku pro investiční dotace).",
+    "billBExcerpt": "tisk 189, bod 10 (§ 18a odst. 5): 'V § 18a odst. 5 se na konci textu úvodní části ustanovení doplňují slova „k prvnímu dni zdaňovacího období nebo období, za které se podává daňové přiznání, nebo ke dni svého vzniku, pokud vznikl v tomto zdaňovacím období nebo období, za které se podává daňové přiznání,“.' -- tisk 189 doplňuje slova na konec téže úvodní části ustanovení odstavce 5 (upřesňuje časový okamžik posuzování)."
+   },
+   "reasoning": "Ověřením obou kešovaných textů se nepotvrdila výchozí hypotéza, že by u této dvojice šlo o kolizi z plošného přepisu § 35c/§ 35d — tisk 64 v § 35c mění pouze odstavec 7 (zrušuje část věty za středníkem) a § 35d vůbec textově nenovelizuje, pouze za něj vkládá nadpis nové hlavy XI, zatímco tisk 189 edituje § 35c odst. 6 písm. b) bod 1 a § 35d odst. 1 a 2 (záměna odkazu „e)“ za „f)“) — jde tedy o odlišná ustanovení, nikoli o skutečný souběh. Skutečná průsečíková kolize u tohoto páru leží v § 18a odst. 5 úvodní části ustanovení: tisk 64 (bod 72) nahrazuje úvodní slova této části textu, zatímco tisk 189 (bod 10) doplňuje slova na konec téže úvodní části ustanovení. Obě instrukce míří na tutéž textovou jednotku, ale zasahují odlišné části věty (začátek vs. konec), takže je lze mechanicky aplikovat v sekvenci, aniž by šlo o doslovně protichůdný přepis — vyžaduje to ovšem koordinaci pořadí aplikace a kontrolu výsledného spojeného znění. Obdobný, slabší souběh je i v § 25 odst. 1 písm. h): tisk 64 (bod 248) mění vnitřní odkazy „j)“→„f)“ a „zs)“→„z)“, zatímco tisk 189 (bod 11) věcně přepracovává text bodu 1 uvnitř téhož písmene. Shrnuto: pro dvojici 64×189 samotnou jde o riziko koordinace, nikoli o tvrdou kolizi jako u ostatních párů v 586/1992 klastru (120×189, 120×244, 189×244), kde je zdrojem kolize sporné přečíslování písmen § 35ba."
+  },
+  {
+   "pairId": "120-244",
+   "lawRef": "586/1992",
+   "billA": 120,
+   "billB": 244,
+   "sharedParagraph": "35ba, 38g, 38h",
+   "classification": "confirmed-collision",
+   "evidence": {
+    "billAExcerpt": "tisk 120, § 35ba: 'V § 35ba se v odst. 1 zrušuje písm. a) a dosavadní písmena b) až e) se označují jako a) až d).' -- tisk 120 ruší písmeno a) (základní sleva na poplatníka, přesouvaná do § 35c) a přečísluje zbývající písmena b)-e) na a)-d).",
+    "billBExcerpt": "tisk 244, § 35ba: 'V § 35ba odst. 1 se písmeno b) zrušuje a dosavadní písmena c) až e) se označují jako písmena b) až d).' -- tisk 244 naopak ruší písmeno b) (sleva na manžela/manželku) a přečísluje c)–e) na b)–d), přičemž písmeno a) ponechává beze změny."
+   },
+   "reasoning": "Oba návrhy novelizují § 35ba odst. 1 formou zrušení jednoho písmene a přečíslování zbývajících, avšak každý vychází z odlišného předpokladu, které písmeno zaniká — tisk 120 ruší písmeno a), tisk 244 ruší písmeno b) a písmeno a) ponechává nedotčené. Jelikož obě instrukce operují nad stejným výchozím zněním odstavce 1 a přiřazují stejným písmenům odlišný nový obsah a označení, nelze je legislativně-technicky sloučit ani aplikovat v libovolném pořadí, aniž by výsledné znění bylo vnitřně rozporné. Kolize se promítá i do navazujících odkazů: oba návrhy mění identický textový řetězec „písm. b) až e)“ v § 38g odst. 2 a § 38h odst. 13, ale nahrazují jej odlišnými texty („písm. a) až d)“ u tisku 120, resp. „písm. b) až d)“ u tisku 244) — jde o textově neslučitelnou duplicitní novelizační instrukci nad stejným místem zákona. Tento pár dokládá totéž jádro klastru jako 120×189 a 189×244: sada slev na dani v § 35ba odst. 1 je předmětem tří vzájemně nekompatibilních přečíslovacích novel (120, 189, 244), nezávisle na tom, že tisk 64 tatáž ustanovení novelizuje jiným mechanismem (viz pár 64×189). Tento pár byl poprvé identifikován už v dávce 001 (první potvrzená kolize celé řady); toto čtení jej nezávisle znovu potvrzuje a doplňuje doslovné, ověřené citace z obou tisků."
+  },
+  {
+   "pairId": "64-143-21-1992",
+   "lawRef": "21/1992",
+   "billA": 64,
+   "billB": 143,
+   "sharedParagraph": "36c odst. 8 (obdobně 26 odst. 6-10)",
+   "classification": "confirmed-collision",
+   "evidence": {
+    "billAExcerpt": "tisk 64, bod 26: '§ 36c se za odstavec 7 vkládá nový odstavec 8, který zní: „(8) Právnická nebo podnikající fyzická osoba se jako ověřovatel podle § 22a odst. 1 dopustí přestupku tím, že poruší povinnost zachovávat mlčenlivost podle § 39 odst. 4.“. Dosavadní odstavec 8 se označuje jako odstavec 9.' -- tisk 64 vkládá do § 36c zcela nový odstavec 8 a dosavadní odstavec 8 přečísluje na odstavec 9.",
+    "billBExcerpt": "tisk 143, bod 13-14: 'V § 36c odst. 8 písm. f), § 36d odst. 7 písm. b) a v § 36da odst. 5 písm. b) se slova „dosaženého právnickou osobou za bezprostředně předcházející účetní období“ zrušují.' a 'V § 36c odst. 8 se na konci písmene f) čárka nahrazuje tečkou a písmeno g) se zrušuje.' -- tisk 143 mění text písmene f) a ruší písmeno g) v dosavadním (před vložením tisku 64) odstavci 8."
+   },
+   "reasoning": "Novelizační body kolidují v adresaci téhož ustanovení: tisk 64 vkládá do § 36c za dosavadní odstavec 7 zcela nový odstavec 8 (o přestupku ověřovatele proti mlčenlivosti) a explicitně přečísluje dosavadní odstavec 8 na odstavec 9. Tisk 143 naproti tomu cílí body 13-14 přímo na „§ 36c odst. 8 písm. f)“ a „odst. 8 písm. g)“, tedy na dosavadní (nepřečíslované) znění. Budou-li oba návrhy přijaty a legislativně sloučeny bez koordinace, novela tisku 143 se buď připojí k obsahově nesouvisejícímu nově vloženému odstavci 8 tisku 64, nebo bude nutné ji technicky přesměrovat na odstavec 9 — v obou případech jde o kolizi v číslování a adresaci ustanovení. Analogický jev se opakuje i v § 26: tisk 64 přečíslovává písmena uvnitř odstavce 5 a navazující odkazy v odstavcích 8-9, zatímco tisk 143 vkládá za odstavec 5 zcela nový odstavec 6 a přečísluje dosavadní odstavce 6-9 na 7-10 — odstavce, na něž odkazuje tisk 64, se po přijetí tisku 143 posouvají o jednu pozici. U § 26ac, § 36e, § 36h, § 36i a § 38hc jde spíše o odkazové úpravy na jiná, nekolidující písmena/odstavce, tam by šlo spíše o riziko koordinace. Vzhledem k vlastnostem pdftotext renderu (bez oficiálního srovnávacího znění) je klasifikace hodnocena s opatrností, ale strukturní kolize v číslování odstavců § 36c (a obdobně § 26) je podle dostupného textu zjevná."
+  },
+  {
+   "pairId": "120-189",
+   "lawRef": "586/1992",
+   "billA": 120,
+   "billB": 189,
+   "sharedParagraph": "35ba, 35d",
+   "classification": "confirmed-collision",
+   "evidence": {
+    "billAExcerpt": "tisk 120, § 35ba: '1. V § 35ba se v odst. 1 zrušuje písm. a) a dosavadní písmena b) až e) se označují jako a) až d).' -- ruší se písmeno a) odst. 1 a zbývající písmena b)-e) se přeznačují na a)-d), tedy dosavadní písmeno e) se stává písmenem d).",
+    "billBExcerpt": "tisk 189, § 35ba: '12. V § 35ba se na konci odstavce 1 tečka nahrazuje čárkou a doplňují se písmena f) až h)' a '14. V § 35ba odst. 3 se text „e)“ nahrazuje textem „f)“.' -- k dosavadnímu odst. 1 (písmena a) až e) beze změny) se doplňují nová písmena f) až h), a navazující odkazy na písmeno e) se mění na f), tedy novela počítá s tím, že písmeno e) v odst. 1 nadále existuje."
+   },
+   "reasoning": "Obě novely zasahují do stejného odstavce 1 § 35ba, ale vycházejí z neslučitelných předpokladů o jeho struktuře. Tisk 120 ruší písmeno a) a přeznačuje dosavadní písmena b) až e) na a) až d) — písmeno e) po přijetí této novely přestává existovat (stává se d)). Tisk 189 naproti tomu předpokládá zachování původního značení a) až e) beze změny a pouze za ně doplňuje nová písmena f) až h), přičemž navazující ustanovení upravuje odkazem na dosavadní písmeno „e)“ (měněné na „f)“). Budou-li obě novely aplikovány v libovolném pořadí na stejné znění zákona, odkazy tisku 189 na písmeno „e)“ se po novelizaci tiskem 120 budou vztahovat k jinému (přesunutému) obsahu — jde tedy o kolizi v doslovném smyslu, kde textové substituce cílí na stejný, ale vzájemně neslučitelně přečíslovaný text. Totéž se opakuje u § 35d odst. 1 a 2, kde tisk 120 nahrazuje text „písm. a), c) až e)“ textem „písm. b) až d)“, zatímco tisk 189 na témže místě nahrazuje text „e)“ textem „f)“. V širším kontextu dávky je zřejmé, že skutečným zdrojem kolize v bloku §§ 35ba/35c/35d/38g/38h/38k/38l je tříúhelníkový střet mezi tisky 120, 189 a 244 (viz i páry 120×244 a 189×244) — tisk 64 zasahuje tatáž ustanovení jiným mechanismem a s tiskem 189 koliduje jinde (viz pár 64×189). Pro dvojici 120×189 samotnou jde o přímou vzájemnou kolizi nezávislou na tisku 64."
+  },
+  {
+   "pairId": "58-64",
+   "lawRef": "542/2020",
+   "billA": 58,
+   "billB": 64,
+   "sharedParagraph": "124 odst. 1 písm. o)",
+   "classification": "confirmed-collision",
+   "evidence": {
+    "billAExcerpt": "tisk 58, § 124: 'V § 124 odst. 1 se na konci písmene o) slovo „nebo“ zrušuje.' -- bod provádí úzkou textovou úpravu stávajícího písmene o) (ruší koncové slovo „nebo“), navazuje na doplnění nového písmene na konec výčtu.",
+    "billBExcerpt": "tisk 64, § 124: 'V § 124 odst. 1 písmeno o) zní: „o) poruší povinnost auditu řádné individuální účetní závěrky podle § 53 odst. 1 nebo některou z povinností týkajících se ověřování auditorem stanovených v § 53 odst. 2 až 4, nebo“.' -- bod nahrazuje celý text písmene o) novým zněním, které se věcně týká auditorské povinnosti dle § 53 a samo končí spojkou „nebo“."
+   },
+   "reasoning": "Oba návrhy novelizují tutéž dílčí jednotku textu — písmeno o) v § 124 odst. 1 zákona č. 542/2020 Sb. — odlišným legislativně-technickým mechanismem. Tisk 58 provádí úzký zásah do stávajícího znění (ruší jen koncové slovo „nebo“, aby mohl v návazném bodě doplnit nové písmeno na konec výčtu skutkových podstat). Tisk 64 naproti tomu nahrazuje písmeno o) celé novým zněním („zní:“), které se věcně týká zcela jiné materie (auditorská povinnost dle § 53), a toto nové znění samo končí slovem „nebo“. Pokud by byla přijata a do sbírky zákonů zařazena obě znění, instrukce tisku 58 by se buď vztahovala k textu, který již neexistuje ve svém původním znění (nahrazen tiskem 64), nebo by po jejím provedení na novém textu tisku 64 vznikl věcně nesmyslný hybrid — písmeno o) s obsahem o auditorské povinnosti, ale bez koncové spojky potřebné pro navazující výčet. Jde o klasickou kolizi mezi dílčí (chirurgickou) novelizací a paralelní úplnou náhradou téhož ustanovení — nelze je aplikovat současně bez legislativně-technického sladění, což odpovídá vzorci pozorovanému u tisku 64 i v jiných zákonech tohoto svazku (viz 240/2013, 21/1992, 256/2004)."
+  },
+  {
+   "pairId": "64-143-256-2004",
+   "lawRef": "256/2004",
+   "billA": 64,
+   "billB": 143,
+   "sharedParagraph": "136",
+   "classification": "confirmed-collision",
+   "evidence": {
+    "billAExcerpt": "tisk 64, § 136: '48. V § 136 odst. 1 se písmeno b) zrušuje. Dosavadní písmena c) až s) se označují jako písmena b) až r).' -- tisk 64 ruší písmeno b) a přeznačuje všechna následující písmena odstavce 1 (c) až s)) o jedno místo níž (na b) až r)), takže dosavadní m) se stává l) a dosavadní r) se stává q).",
+    "billBExcerpt": "tisk 143, body 68-71: 'V § 136 odst. 1 písm. r) se slovo „, nebo“ nahrazuje čárkou.' a 'V § 136 se na konci odstavce 1 tečka nahrazuje slovem „, nebo“ a doplňuje se písmeno t), které zní: ...' -- tisk 143 cílí na původní (nepřečíslovaná) písmena m) a r) a připojuje nové písmeno t) navazující na dosavadní poslední písmeno s)."
+   },
+   "reasoning": "Obě novely míří do téhož § 136 odst. 1, ale pracují s jeho písmenným členěním neslučitelným způsobem. Tisk 64 (bod 48) ruší písmeno b) a v důsledku toho přeznačuje všechna následující písmena c) až s) na b) až r) — jde o strukturální přečíslovací novelizaci celého odstavce. Tisk 143 naproti tomu cílí body 68-71 na původní označení písmen (úpravy uvnitř písmene m), úprava interpunkce v písmenu r), nové písmeno t) navazující na dosavadní poslední písmeno s)). Pokud by se obě novely aplikovaly bez explicitní koordinace, dosavadní písmeno m) by se po zásahu tisku 64 stalo písmenem l) a dosavadní r) by se stalo q) — novelizační body tisku 143 by tak mířily na jiné, obsahově nesouvisející písmeno, nebo by se jejich odkazy staly nevykonatelnými. Jde o týž kolizní vzorec jako u páru 64×143 na 21/1992 a u páru 13×64 na 240/2013: tisk 64 provádí strukturální (přečíslovací) zásah do ustanovení, které jiná novela mění bod po bodu s odkazy na konkrétní litery — ty se po slučování rozejdou, ledaže by Parlament výslovně stanovil pořadí účinnosti a legislativně-technicky sladil číslování, což ze samotných textů novel nevyplývá."
+  }
+ ]
+}

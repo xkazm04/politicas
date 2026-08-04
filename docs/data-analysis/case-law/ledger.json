@@ -272,6 +272,13 @@
    "inversionWorthRecording": "tisk 120 published forensic verdict ALREADY described SOMPO correctly as \"drobne spolecnosti typu mestskych/komunalnich\". The analyst prose was right and the deterministic classifier was wrong - the opposite of this case usual failure direction, where code is right and prose overclaims.",
    "attributionKept": "The attributed computation ships anyway (sector-adjacency-010.ts): each surviving flag can now name WHICH amended law puts the sponsor in the bill path, which makes the claim checkable instead of unfalsifiable. This is the law-level increment of the section-level rework deferred since batch-004; it does not reach individual sections.",
    "remainingSurvivors": 8
+  },
+  "batch011Verdicts": {
+   "status": "APPLIED to live graph (pass 43) and mirrored here",
+   "verdicts": 12,
+   "billsWithVerdictTotal": 39,
+   "billsPendingTotal": 102,
+   "note": "Batch-011 ran the audited triage head (top-9 pending by triageScoreV2 after the batch-010 sector-adjacency audit) plus the three attributed sector-adjacency survivors outside it. Verdict files live under payloads/verdicts-011/ (Czech-native, requireCzech gate)."
   }
  },
  "rows": [
@@ -1352,10 +1359,10 @@
    "amendsCount": 147,
    "maxTargetChurn": 12,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 11,
    "signal": null,
    "flags": [
     "high_churn_target"
@@ -1363,7 +1370,9 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 1273500
+   "triageScoreV2": 1273500,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-011/verdict-64.json"
   },
   {
    "tiskId": 43174,
@@ -1418,10 +1427,10 @@
    "amendsCount": 42,
    "maxTargetChurn": 12,
    "sponsorContractCzk": 1473240095.16,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 11,
    "signal": null,
    "flags": [
     "sector_adjacent_conflict",
@@ -1509,7 +1518,9 @@
     "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
     "Česká lékařská komora - o.s., z.s."
    ],
-   "triageScoreV2": 1272834
+   "triageScoreV2": 1272834,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-011/verdict-67.json"
   },
   {
    "tiskId": 43114,
@@ -1544,10 +1555,10 @@
    "amendsCount": 22,
    "maxTargetChurn": 12,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 11,
    "signal": null,
    "flags": [
     "high_churn_target",
@@ -1556,7 +1567,9 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 1211000
+   "triageScoreV2": 1211000,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-011/verdict-7.json"
   },
   {
    "tiskId": 43212,
@@ -1581,10 +1594,10 @@
    "amendsCount": 12,
    "maxTargetChurn": 12,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 11,
    "signal": null,
    "flags": [
     "high_churn_target"
@@ -1592,7 +1605,9 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 1206000
+   "triageScoreV2": 1206000,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-011/verdict-102.json"
   },
   {
    "tiskId": 43335,
@@ -1612,10 +1627,10 @@
    "amendsCount": 7,
    "maxTargetChurn": 12,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 11,
    "signal": null,
    "flags": [
     "high_churn_target"
@@ -1623,7 +1638,9 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 1203500
+   "triageScoreV2": 1203500,
+   "forensicConfidence": 3,
+   "verdictFile": "payloads/verdicts-011/verdict-213.json"
   },
   {
    "tiskId": 43121,
@@ -1639,10 +1656,10 @@
    "amendsCount": 3,
    "maxTargetChurn": 12,
    "sponsorContractCzk": 5397460397.25,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 11,
    "signal": null,
    "flags": [
     "high_churn_target",
@@ -1655,7 +1672,9 @@
     "Teplárny Brno, a.s.",
     "MERO ČR, a.s."
    ],
-   "triageScoreV2": 1203446
+   "triageScoreV2": 1203446,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-011/verdict-14.json"
   },
   {
    "tiskId": 43310,
@@ -1672,10 +1691,10 @@
    "amendsCount": 4,
    "maxTargetChurn": 9,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 11,
    "signal": null,
    "flags": [
     "high_churn_target"
@@ -1683,7 +1702,9 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 902000
+   "triageScoreV2": 902000,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-011/verdict-189.json"
   },
   {
    "tiskId": 43184,
@@ -1720,10 +1741,10 @@
    "amendsCount": 24,
    "maxTargetChurn": 7,
    "sponsorContractCzk": 4432684.16,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 11,
    "signal": null,
    "flags": [
     "sector_adjacent_conflict",
@@ -1747,7 +1768,9 @@
    "municipalExcludedCompanies": [
     "Vodovody a kanalizace Kroměříž, a.s."
    ],
-   "triageScoreV2": 763329
+   "triageScoreV2": 763329,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-011/verdict-77.json"
   },
   {
    "tiskId": 43275,
@@ -1763,10 +1786,10 @@
    "amendsCount": 3,
    "maxTargetChurn": 7,
    "sponsorContractCzk": 1238034699.1190002,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 11,
    "signal": null,
    "flags": [
     "sector_adjacent_conflict",
@@ -1789,7 +1812,9 @@
    "municipalExcludedCompanies": [
     "Nadace AGROFERT"
    ],
-   "triageScoreV2": 753319
+   "triageScoreV2": 753319,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-011/verdict-154.json"
   },
   {
    "tiskId": 43172,
@@ -2166,10 +2191,10 @@
    "amendsCount": 6,
    "maxTargetChurn": 6,
    "sponsorContractCzk": 551584148.19,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 11,
    "signal": null,
    "flags": [
     "sector_adjacent_conflict",
@@ -2205,7 +2230,9 @@
     "Svaz měst a obcí České republiky",
     "Povodí Vltavy, státní podnik"
    ],
-   "triageScoreV2": 654748
+   "triageScoreV2": 654748,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-011/verdict-103.json"
   },
   {
    "tiskId": 43343,
@@ -2224,10 +2251,10 @@
    "amendsCount": 6,
    "maxTargetChurn": 6,
    "sponsorContractCzk": 62959422.74260001,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 11,
    "signal": null,
    "flags": [
     "sector_adjacent_conflict",
@@ -2251,7 +2278,9 @@
    "municipalExcludedCompanies": [
     "Vodovody a kanalizace Kroměříž, a.s."
    ],
-   "triageScoreV2": 654560
+   "triageScoreV2": 654560,
+   "forensicConfidence": 3,
+   "verdictFile": "payloads/verdicts-011/verdict-221.json"
   },
   {
    "tiskId": 43200,
@@ -4194,10 +4223,10 @@
    "amendsCount": 1,
    "maxTargetChurn": 1,
    "sponsorContractCzk": 884856389,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 11,
    "signal": null,
    "flags": [
     "sector_adjacent_conflict",
@@ -4223,7 +4252,9 @@
     "ČESKÝ ROZHLAS",
     "Dopravní podnik města Pardubic a.s."
    ],
-   "triageScoreV2": 152289
+   "triageScoreV2": 152289,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-011/verdict-201.json"
   },
   {
    "tiskId": 43365,

@@ -1,0 +1,926 @@
+{
+ "generatedAt": "2026-08-04T13:17:08.508Z",
+ "batch": 11,
+ "backlogRemaining": 76,
+ "queued": 16,
+ "pairs": [
+  {
+   "lawRef": "586/1992",
+   "lawTitle": "zákon č. 586/1992 Sb. — Zákon České národní rady o daních z příjmů",
+   "billA": 189,
+   "billB": 244,
+   "paragraphs": [
+    "13",
+    "35",
+    "35ba",
+    "35bb",
+    "35c",
+    "35d",
+    "38g",
+    "38h",
+    "38k",
+    "38l"
+   ],
+   "genuineParagraphs": [
+    "35ba",
+    "35bb",
+    "35c",
+    "35d",
+    "38g",
+    "38h",
+    "38k",
+    "38l"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "13",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "35",
+     "citingBill": 0
+    }
+   ],
+   "odstavecOverlap": [
+    "35ba",
+    "35bb",
+    "35d",
+    "38g",
+    "38h",
+    "38k",
+    "38l"
+   ],
+   "reason": "8 § with a real instruction on both sides: 35ba, 35bb, 35c, 35d, 38g, 38h, 38k, 38l",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-189\\270143.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-244\\277769.txt",
+    ".data\\law-collision-cache\\tisk-244\\277771.txt"
+   ]
+  },
+  {
+   "lawRef": "240/2013",
+   "lawTitle": "zákon č. 240/2013 Sb. — Zákon o investičních společnostech a investičních fondech",
+   "billA": 13,
+   "billB": 64,
+   "paragraphs": [
+    "190",
+    "21",
+    "234",
+    "238",
+    "29",
+    "316",
+    "38",
+    "461",
+    "47",
+    "475",
+    "539",
+    "599",
+    "601",
+    "603",
+    "603a",
+    "604",
+    "609",
+    "612",
+    "614",
+    "615",
+    "616"
+   ],
+   "genuineParagraphs": [
+    "190",
+    "238",
+    "29",
+    "316",
+    "38",
+    "539",
+    "599",
+    "604"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "21",
+     "citingBill": 64
+    },
+    {
+     "paragraph": "234",
+     "citingBill": 13
+    },
+    {
+     "paragraph": "461",
+     "citingBill": 13
+    },
+    {
+     "paragraph": "47",
+     "citingBill": 13
+    },
+    {
+     "paragraph": "475",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "601",
+     "citingBill": 64
+    },
+    {
+     "paragraph": "603",
+     "citingBill": 64
+    },
+    {
+     "paragraph": "603a",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "609",
+     "citingBill": 64
+    },
+    {
+     "paragraph": "612",
+     "citingBill": 64
+    },
+    {
+     "paragraph": "614",
+     "citingBill": 64
+    },
+    {
+     "paragraph": "615",
+     "citingBill": 64
+    },
+    {
+     "paragraph": "616",
+     "citingBill": 64
+    }
+   ],
+   "odstavecOverlap": [
+    "238",
+    "29",
+    "38",
+    "539",
+    "599",
+    "604"
+   ],
+   "reason": "8 § with a real instruction on both sides: 190, 238, 29, 316, 38, 539, 599, 604",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-13\\265099.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ]
+  },
+  {
+   "lawRef": "586/1992",
+   "lawTitle": "zákon č. 586/1992 Sb. — Zákon České národní rady o daních z příjmů",
+   "billA": 64,
+   "billB": 189,
+   "paragraphs": [
+    "10",
+    "17",
+    "18",
+    "18a",
+    "19",
+    "2",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29",
+    "2a",
+    "3",
+    "30",
+    "31",
+    "32",
+    "33",
+    "34",
+    "35",
+    "35c",
+    "35d",
+    "38",
+    "4",
+    "5",
+    "6",
+    "7",
+    "7a",
+    "8",
+    "9"
+   ],
+   "genuineParagraphs": [
+    "18a",
+    "25",
+    "2a",
+    "35c",
+    "35d",
+    "38",
+    "6",
+    "7a"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "10",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "17",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "18",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "19",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "2",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "20",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "21",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "22",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "23",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "24",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "26",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "27",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "28",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "29",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "3",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "30",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "31",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "32",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "33",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "34",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "35",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "4",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "5",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "7",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "8",
+     "citingBill": 189
+    },
+    {
+     "paragraph": "9",
+     "citingBill": 189
+    }
+   ],
+   "odstavecOverlap": [
+    "18a",
+    "25",
+    "2a",
+    "35d",
+    "6",
+    "7a"
+   ],
+   "reason": "8 § with a real instruction on both sides: 18a, 25, 2a, 35c, 35d, 38, 6, 7a",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-189\\270143.txt"
+   ]
+  },
+  {
+   "lawRef": "586/1992",
+   "lawTitle": "zákon č. 586/1992 Sb. — Zákon České národní rady o daních z příjmů",
+   "billA": 120,
+   "billB": 244,
+   "paragraphs": [
+    "35",
+    "35ba",
+    "35c",
+    "35d",
+    "38g",
+    "38h",
+    "38k",
+    "38l"
+   ],
+   "genuineParagraphs": [
+    "35ba",
+    "35c",
+    "35d",
+    "38g",
+    "38h",
+    "38k",
+    "38l"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "35",
+     "citingBill": 0
+    }
+   ],
+   "odstavecOverlap": [
+    "35ba",
+    "35c",
+    "35d",
+    "38g",
+    "38h",
+    "38k",
+    "38l"
+   ],
+   "reason": "7 § with a real instruction on both sides: 35ba, 35c, 35d, 38g, 38h, 38k, 38l",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-120\\268221.txt",
+    ".data\\law-collision-cache\\tisk-120\\268223.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-244\\277769.txt",
+    ".data\\law-collision-cache\\tisk-244\\277771.txt"
+   ]
+  },
+  {
+   "lawRef": "21/1992",
+   "lawTitle": "zákon č. 21/1992 Sb. — Zákon o bankách",
+   "billA": 64,
+   "billB": 143,
+   "paragraphs": [
+    "21",
+    "26",
+    "26ac",
+    "36c",
+    "36e",
+    "36h",
+    "36i",
+    "38d",
+    "38hc"
+   ],
+   "genuineParagraphs": [
+    "26",
+    "26ac",
+    "36c",
+    "36e",
+    "36h",
+    "36i",
+    "38hc"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "21",
+     "citingBill": 143
+    },
+    {
+     "paragraph": "38d",
+     "citingBill": 143
+    }
+   ],
+   "odstavecOverlap": [
+    "26",
+    "26ac",
+    "36e",
+    "36h",
+    "38hc"
+   ],
+   "reason": "7 § with a real instruction on both sides: 26, 26ac, 36c, 36e, 36h, 36i, 38hc",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-143\\268781.txt",
+    ".data\\law-collision-cache\\tisk-143\\268785.txt"
+   ]
+  },
+  {
+   "lawRef": "586/1992",
+   "lawTitle": "zákon č. 586/1992 Sb. — Zákon České národní rady o daních z příjmů",
+   "billA": 120,
+   "billB": 189,
+   "paragraphs": [
+    "16",
+    "2",
+    "35",
+    "35ba",
+    "35c",
+    "35d",
+    "38g",
+    "38h",
+    "38k",
+    "38l",
+    "6",
+    "7"
+   ],
+   "genuineParagraphs": [
+    "35ba",
+    "35c",
+    "35d",
+    "38g",
+    "38h",
+    "38k",
+    "38l"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "16",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "2",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "35",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "6",
+     "citingBill": 120
+    },
+    {
+     "paragraph": "7",
+     "citingBill": 0
+    }
+   ],
+   "odstavecOverlap": [
+    "35ba",
+    "35c",
+    "35d",
+    "38g",
+    "38h",
+    "38k",
+    "38l"
+   ],
+   "reason": "7 § with a real instruction on both sides: 35ba, 35c, 35d, 38g, 38h, 38k, 38l",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-120\\268221.txt",
+    ".data\\law-collision-cache\\tisk-120\\268223.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-189\\270143.txt"
+   ]
+  },
+  {
+   "lawRef": "542/2020",
+   "lawTitle": "zákon č. 542/2020 Sb. — Zákon o výrobcích s ukončenou životností",
+   "billA": 58,
+   "billB": 64,
+   "paragraphs": [
+    "122",
+    "124",
+    "36",
+    "46",
+    "48",
+    "53",
+    "55",
+    "97"
+   ],
+   "genuineParagraphs": [
+    "122",
+    "124",
+    "36",
+    "46",
+    "48",
+    "53",
+    "55"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "97",
+     "citingBill": 58
+    }
+   ],
+   "odstavecOverlap": [
+    "122",
+    "124",
+    "36",
+    "48",
+    "53"
+   ],
+   "reason": "7 § with a real instruction on both sides: 122, 124, 36, 46, 48, 53, 55",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-58\\266045.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ]
+  },
+  {
+   "lawRef": "256/2004",
+   "lawTitle": "zákon č. 256/2004 Sb. — Zákon o podnikání na kapitálovém trhu",
+   "billA": 64,
+   "billB": 143,
+   "paragraphs": [
+    "121k",
+    "136",
+    "16",
+    "16b",
+    "172",
+    "177",
+    "181",
+    "183",
+    "184",
+    "50",
+    "73b"
+   ],
+   "genuineParagraphs": [
+    "121k",
+    "136",
+    "16",
+    "172",
+    "50",
+    "73b"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "16b",
+     "citingBill": 143
+    },
+    {
+     "paragraph": "177",
+     "citingBill": 64
+    },
+    {
+     "paragraph": "181",
+     "citingBill": 64
+    },
+    {
+     "paragraph": "183",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "184",
+     "citingBill": 64
+    }
+   ],
+   "odstavecOverlap": [
+    "136",
+    "172",
+    "50",
+    "73b"
+   ],
+   "reason": "6 § with a real instruction on both sides: 121k, 136, 16, 172, 50, 73b",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-143\\268781.txt",
+    ".data\\law-collision-cache\\tisk-143\\268785.txt"
+   ]
+  },
+  {
+   "lawRef": "250/2017",
+   "lawTitle": "zákon č. 250/2017 Sb. — Zákon o elektronické identifikaci",
+   "billA": 65,
+   "billB": 154,
+   "paragraphs": [
+    "16",
+    "19",
+    "24",
+    "25",
+    "5"
+   ],
+   "genuineParagraphs": [
+    "16",
+    "19",
+    "25",
+    "5"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "24",
+     "citingBill": 65
+    }
+   ],
+   "odstavecOverlap": [
+    "16",
+    "19",
+    "25",
+    "5"
+   ],
+   "reason": "4 § with a real instruction on both sides: 16, 19, 25, 5",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-65\\266164.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-154\\268961.txt"
+   ]
+  },
+  {
+   "lawRef": "424/1991",
+   "lawTitle": "zákon č. 424/1991 Sb. — Zákon o sdružování v politických stranách a v politických hnutích",
+   "billA": 7,
+   "billB": 64,
+   "paragraphs": [
+    "18",
+    "19",
+    "19h",
+    "19j",
+    "6"
+   ],
+   "genuineParagraphs": [
+    "18",
+    "19",
+    "19j",
+    "6"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "19h",
+     "citingBill": 7
+    }
+   ],
+   "odstavecOverlap": [
+    "18",
+    "19",
+    "19j",
+    "6"
+   ],
+   "reason": "4 § with a real instruction on both sides: 18, 19, 19j, 6",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-7\\265064.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ]
+  },
+  {
+   "lawRef": "477/2001",
+   "lawTitle": "zákon č. 477/2001 Sb. — Zákon o obalech a o změně některých zákonů (zákon o obalech)",
+   "billA": 64,
+   "billB": 73,
+   "paragraphs": [
+    "17",
+    "20",
+    "21a",
+    "23a",
+    "44"
+   ],
+   "genuineParagraphs": [
+    "17",
+    "20",
+    "23a",
+    "44"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "21a",
+     "citingBill": 73
+    }
+   ],
+   "odstavecOverlap": [],
+   "reason": "4 § with a real instruction on both sides: 17, 20, 23a, 44",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-73\\266491.txt",
+    ".data\\law-collision-cache\\tisk-73\\266493.txt"
+   ]
+  },
+  {
+   "lawRef": "23/2017",
+   "lawTitle": "zákon č. 23/2017 Sb. — Zákon o pravidlech rozpočtové odpovědnosti",
+   "billA": 64,
+   "billB": 68,
+   "paragraphs": [
+    "1",
+    "17",
+    "3",
+    "33",
+    "5",
+    "7"
+   ],
+   "genuineParagraphs": [
+    "17",
+    "33",
+    "5",
+    "7"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "1",
+     "citingBill": 68
+    },
+    {
+     "paragraph": "3",
+     "citingBill": 64
+    }
+   ],
+   "odstavecOverlap": [
+    "33",
+    "5",
+    "7"
+   ],
+   "reason": "4 § with a real instruction on both sides: 17, 33, 5, 7",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-68\\266205.txt"
+   ]
+  },
+  {
+   "lawRef": "23/2017",
+   "lawTitle": "zákon č. 23/2017 Sb. — Zákon o pravidlech rozpočtové odpovědnosti",
+   "billA": 64,
+   "billB": 90,
+   "paragraphs": [
+    "1",
+    "17",
+    "3",
+    "33",
+    "5",
+    "7"
+   ],
+   "genuineParagraphs": [
+    "17",
+    "33",
+    "5",
+    "7"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "1",
+     "citingBill": 90
+    },
+    {
+     "paragraph": "3",
+     "citingBill": 64
+    }
+   ],
+   "odstavecOverlap": [
+    "33",
+    "5",
+    "7"
+   ],
+   "reason": "4 § with a real instruction on both sides: 17, 33, 5, 7",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-90\\267105.txt"
+   ]
+  },
+  {
+   "lawRef": "586/1992",
+   "lawTitle": "zákon č. 586/1992 Sb. — Zákon České národní rady o daních z příjmů",
+   "billA": 64,
+   "billB": 120,
+   "paragraphs": [
+    "2",
+    "35",
+    "35a",
+    "35c",
+    "35d",
+    "38gb",
+    "6",
+    "7"
+   ],
+   "genuineParagraphs": [
+    "35c",
+    "35d",
+    "38gb"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "2",
+     "citingBill": 0
+    },
+    {
+     "paragraph": "35",
+     "citingBill": 120
+    },
+    {
+     "paragraph": "35a",
+     "citingBill": 120
+    },
+    {
+     "paragraph": "6",
+     "citingBill": 120
+    },
+    {
+     "paragraph": "7",
+     "citingBill": 120
+    }
+   ],
+   "odstavecOverlap": [
+    "35c",
+    "35d",
+    "38gb"
+   ],
+   "reason": "3 § with a real instruction on both sides: 35c, 35d, 38gb",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-120\\268221.txt",
+    ".data\\law-collision-cache\\tisk-120\\268223.txt"
+   ]
+  },
+  {
+   "lawRef": "250/2000",
+   "lawTitle": "zákon č. 250/2000 Sb. — Zákon o rozpočtových pravidlech územních rozpočtů",
+   "billA": 64,
+   "billB": 68,
+   "paragraphs": [
+    "13",
+    "28a",
+    "4"
+   ],
+   "genuineParagraphs": [
+    "13",
+    "28a",
+    "4"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "28a",
+    "4"
+   ],
+   "reason": "3 § with a real instruction on both sides: 13, 28a, 4",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-68\\266205.txt"
+   ]
+  },
+  {
+   "lawRef": "250/2000",
+   "lawTitle": "zákon č. 250/2000 Sb. — Zákon o rozpočtových pravidlech územních rozpočtů",
+   "billA": 64,
+   "billB": 90,
+   "paragraphs": [
+    "13",
+    "28a",
+    "4"
+   ],
+   "genuineParagraphs": [
+    "13",
+    "28a",
+    "4"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "28a",
+    "4"
+   ],
+   "reason": "3 § with a real instruction on both sides: 13, 28a, 4",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-90\\267105.txt"
+   ]
+  }
+ ]
+}

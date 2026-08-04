@@ -1,0 +1,52 @@
+{
+  "billTisk": 14,
+  "statedReasoning": "Vládní návrh Ministerstva životního prostředí mění zákon č. 73/2012 Sb., o látkách, které poškozují ozonovou vrstvu, a o fluorovaných skleníkových plynech, dále trestní zákoník (č. 40/2009 Sb.) a zákon o zdravotních službách (č. 372/2011 Sb.). Důvodová zpráva jej označuje z velké části za implementační předpis, který adaptuje český právní řád na dvě nová přímo použitelná nařízení EU – 2024/573 o fluorovaných skleníkových plynech a 2024/590 o látkách poškozujících ozonovou vrstvu – jež nahrazují dřívější nařízení č. 517/2014 a č. 1005/2009. Novela kompletně přepracovává skutkové podstaty přestupků a jejich sankce (cca 160 jednotlivých povinností plynoucích přímo z nařízení), zavádí tzv. alternativní sankci vázanou na tržní hodnotu dotčené látky, doplňuje označování výrobků, evidenci znovuzískaných plynů a certifikaci osob, rozšiřuje skutkovou podstatu trestného činu v § 298a trestního zákoníku a v zákoně o zdravotních službách zapracovává unijní zákaz použití inhalačního anestetika desfluran s výjimkou zdravotně odůvodněných případů (čl. 13 odst. 8 nařízení 2024/573), včetně evidenční a oznamovací povinnosti poskytovatele. Účinnost je navržena k 1. červenci 2026, odůvodněná souladem s notifikační směrnicí 2015/1535.",
+  "researchedContext": "Historie tisku na psp.cz (fetched) potvrzuje vládní předložení dne 7. 11. 2025, přikázání Výboru pro životní prostředí jako garančnímu výboru dne 20. 11. 2025 a stav, kdy k srpnu 2026 garanční výbor návrh ještě neprojednal. Přímé čtení normativního textu (čl. I–VI, cache tisk-14) potvrzuje, že drtivá většina novelizačních bodů skutečně jen přepisuje odkazy ze zrušených nařízení (ES) č. 1005/2009 a (EU) č. 517/2014 na nová nařízení 2024/590 a 2024/573 a jejich prováděcí předpisy, a že sazby pokut jsou dle vlastního tvrzení zprávy „přibližně navýšeny o kumulativní inflaci“ oproti stávajícímu stavu. Novela § 298a trestního zákoníku (čl. III) skutečně rozšiřuje skutkovou podstatu z pouhého nakládání s regulovanou látkou/plynem také na „výrobky, zařízení a jejich části“, které takovou látku obsahují nebo na ní závisí – zvláštní část to zmiňuje jedním souhrnným odstavcem, aniž by dále rozvádí, na jaký okruh subjektů (dovozci, servisní technici chladicích a klimatizačních zařízení, provozovatelé) se rozšířená trestní odpovědnost (odnětí svobody až na jeden rok) nově vztahuje.",
+  "unstatedEffects": [
+    {
+      "effect": "Novela § 298a trestního zákoníku rozšiřuje trestní odpovědnost z nakládání se samotnou regulovanou látkou/fluorovaným plynem také na výrobky, zařízení a jejich části, které takovou látku obsahují nebo na ní závisí; zvláštní část důvodové zprávy tuto změnu shrnuje jedním odstavcem bez rozboru dopadu na okruh nově trestněprávně exponovaných subjektů (např. servisní technici chladicích a klimatizačních zařízení, dovozci zařízení).",
+      "whoBenefits": "Stát získává širší nástroj trestního postihu; riziko nese okruh subjektů nakládajících s regulovanými výrobky a zařízeními, jehož rozsah zvláštní část nekvantifikuje.",
+      "evidence": "Zvláštní část, K čl. III – změna trestního zákoníku: „Předmětné ustanovení trestního zákoníku se doplňuje… i v případě látek poškozujících ozonovou vrstvu také na výrobky, zařízení a jejich části, které uvedené látky obsahují nebo jsou na nich závislé.“"
+    }
+  ],
+  "conflictAssessment": "Vstupní data batche neuvádějí k tisku 14 žádný sektorový lead (attributedSectorLeads je prázdné pole) a jediný sponzor v datech, Petr Hladík, má evidováno pět peněžních vazeb na brněnské městské a polostátní podniky (ARENA BRNO, a.s.; Dopravní podnik města Brna, a.s.; Teplárny Brno, a.s.; MERO ČR, a.s.; SAKO Brno, a.s.). Jde o vazby vyplývající z jeho dosavadní komunální/vládní role (dozorčí či správní orgány obecních a státních podniků), nikoli o soukromé vlastnictví – takové svěřenecké role nejsou konfliktem podle pravidel projektu. Věcně navíc žádná z uvedených firem nepodniká v regulaci fluorovaných plynů a látek poškozujících ozonovou vrstvu jako svém předmětu činnosti (jde o dopravní podnik, teplárnu, ropovodní společnost, odpadové hospodářství a víceúčelovou arénu); byť teplárenství a odpadové hospodářství mohou provozovat chladicí či klimatizační zařízení dotčená prováděcími povinnostmi zákona, nejde o jejich hlavní podnikatelský zájem a návrh jim neukládá žádnou zvláštní, k nim adresnou povinnost. Konflikt zájmů mezi sponzorem a operativním obsahem návrhu nebyl zjištěn.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Novela přepisuje odkazy zákona č. 73/2012 Sb. ze zrušených nařízení (ES) č. 1005/2009 a (EU) č. 517/2014 na nová nařízení (EU) 2024/590 a (EU) 2024/573.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=14&ct1=0"
+    },
+    {
+      "claim": "§ 298a trestního zákoníku se rozšiřuje o výrobky, zařízení a jejich části obsahující regulovanou látku nebo fluorovaný skleníkový plyn.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=14&ct1=0"
+    },
+    {
+      "claim": "Zákon o zdravotních službách se v § 47 doplňuje o omezení použití inhalačního anestetika desfluran a evidenční povinnost poskytovatele podle čl. 13 odst. 8 nařízení 2024/573.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=14&ct1=0"
+    },
+    {
+      "claim": "Vládní návrh byl předložen 7. 11. 2025, přikázán Výboru pro životní prostředí 20. 11. 2025 a k srpnu 2026 jej garanční výbor ještě neprojednal.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=14"
+    },
+    {
+      "claim": "Batch přiřazuje k tisku 14 nulové sektorové leady (attributedSectorLeads = []) a jediného sponzora Petra Hladíka s pěti peněžními vazbami na brněnské městské/polostátní podniky.",
+      "kind": "graph_fact",
+      "source": "bill:tisk:43121"
+    },
+    {
+      "claim": "Zákon č. 73/2012 Sb., o látkách, které poškozují ozonovou vrstvu, a o fluorovaných skleníkových plynech, je reálný předpis novelizovaný tímto návrhem.",
+      "kind": "law",
+      "source": "73/2012"
+    },
+    {
+      "claim": "Zákon č. 40/2009 Sb., trestní zákoník, a zákon č. 372/2011 Sb., o zdravotních službách, jsou reálné předpisy novelizované tímto návrhem.",
+      "kind": "law",
+      "source": "40/2009"
+    }
+  ]
+}

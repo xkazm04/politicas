@@ -1043,3 +1043,27 @@ Recomputing distinct bodies from the membership rows independently reproduced th
 Guard added where it belongs: `kg-contribution-recompute.ts` now reports every dossier field
 quoting a score it supersedes, so a future contribution correction cannot silently invalidate
 prose again. Detail in `case-effort/batch-010.md`.
+
+## Pass 43 (track: law) — Case ③ batch-011: 12 forensic verdicts on the audited triage head, the case's first medium severities (2026-08-04)
+One live write: kg-forensics.ts --write --pass=43 --commit enriched 12 bill nodes (tisky 64, 67,
+7, 102, 213, 14, 189, 77, 154, 221, 103, 201) with pending_review forensic_* props — the top-9
+pending bills by triageScoreV2 after batch-010's sector-adjacency audit plus the three attributed
+survivors outside the head. All 12 written Czech-native against requireCzech and gated twice
+(DB-free scoped gate off the targets file's 24 774-statute anti-fabrication scope, then the
+write-time gate). Verdict backlog 114 → 102; totals 27 → 39 verdicts. Severities: 3 medium
+(67 — EIA one-stop-shop reaches AGROFERT chemical operators and the 235/2004 § 55a edit moves
+the VAT-exemption boundary with Hartenberg/IMOBA active in real estate, channel held open not
+cleared; 213 — foreigner-residency scope beyond the Ukraine title; 221 — the conflict-of-interest
+reform loosens the minister exclusion while creating a new ÚSC-councillor restriction class that
+covers both sponsors' own companies) and 9 low. An Opus adversarial audit at max effort
+(batch-011-audit.md) found 1 BLOCKING + 8 MAJOR defects pre-persist — six money-touching, the
+class the kernel predicts — all remediated by the resumed authors and re-gated 12/12 before the
+write; a FRESH independent audit of the remediated payload is batch-012 P1. Alongside (no graph
+writes): 16 collision pairs close-read (12 confirmed / 2 coordination-risk / 2 incidental, plus a
+verbatim-evidence re-confirmation of batch-001's 120-244 that supersedes the loader's hardcoded
+prior pair), all 32 E-CHECKs pass the P49 guard; two mechanisms named — tisk 64's
+insert-letter-and-renumber habit breaks sibling bills on four statutes, and 586/1992 § 35ba
+odst. 1 is a confirmed three-way collision (120/189/244). Manifestation verified by running the
+loaders: 39 forensic blocks render with 0 withheld strings; /zakony/kolize renders 80 pairs
+(48 confirmed), czechPending 0 after the batch-002-era English prior-pair reasoning (silently
+withheld since pass 33) was rewritten in Czech.
