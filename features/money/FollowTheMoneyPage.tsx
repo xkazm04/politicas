@@ -21,6 +21,7 @@ import MoneyGraph from "./MoneyGraph";
 import TiesLedger from "./components/TiesLedger";
 import TrailMethod from "./components/TrailMethod";
 import { compactCzk, type MoneyData } from "./moneyTypes";
+import { reviewSummary } from "./reviewSummary";
 
 const MODULE = MODULES.find((m) => m.key === "follow-the-money")!;
 const PENDING = MONEY_TIES.filter((tie) => !tie.verified).length;
@@ -31,6 +32,13 @@ export default function FollowTheMoneyPage({ data }: { data?: MoneyData | null }
   const tcom = useTranslations("common");
   const f = useFormat();
   const locale = useLocale();
+  // Derived once and handed to every surface that speaks about the gate, so the lede
+  // banner and the graph footer cannot disagree about the same 211 ties.
+  const review = reviewSummary({
+    verified: data?.stats.verifiedTies ?? 0,
+    pending: data?.stats.pendingTies ?? 0,
+    rejected: data?.stats.rejectedTies ?? 0,
+  });
 
   // Real store data (kg money layer) when present; otherwise the labelled mock.
   // Headline tile is the number that IS a finding — how many MPs own/run a firm
@@ -39,7 +47,9 @@ export default function FollowTheMoneyPage({ data }: { data?: MoneyData | null }
   // stewards' own institutions (hospitals, waterworks) and the page's own
   // TieClassExplainer says that money must never be read as MP enrichment —
   // it must not be the number a reader sees first (UX audit 2026-07-27, #3).
-  const STATS = data
+  /** `note` is the second, qualifying line a tile may need — today only the lower-bound
+   *  explainer, which must not be optional-by-omission again. */
+  const STATS: Array<{ label: string; value: string; sub: string; source: string; note?: string | null }> = data
     ? [
         {
           // The count mixes two kinds of evidence: a class a person or an analysis pass
@@ -83,6 +93,16 @@ export default function FollowTheMoneyPage({ data }: { data?: MoneyData | null }
           sub: t("real.stats.reachableSubSplit", {
             steward: compactCzk(data.stats.money.steward.contractCzk, locale),
           }),
+          // The "nejméně" prefix rendered while the string that EXPLAINS why it is a
+          // floor sat unused in both catalogs — the reader saw a hedge with no reason.
+          // (Measured on the live store the corpus is NOT capped, isFloor === false, so
+          // this renders only if a future re-ingest reintroduces a per-company ceiling.)
+          note: data.stats.money.coverage.isFloor
+            ? t("real.stats.reachableSubCapped", {
+                cap: data.stats.money.coverage.perCompanyCap ?? 0,
+                companies: data.stats.money.coverage.companiesAtCap,
+              })
+            : null,
           source: data.stats.money.coverage.isFloor
             ? t("real.stats.reachableSourceCapped", { cap: data.stats.money.coverage.perCompanyCap ?? 0 })
             : t("real.stats.reachableSource"),
@@ -157,9 +177,33 @@ export default function FollowTheMoneyPage({ data }: { data?: MoneyData | null }
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">
             {t("intro")}
           </p>
-          {data && (
-            <div className="mt-6 max-w-2xl border-l-4 border-ochre bg-ochre/10 px-4 py-3">
-              <p className="text-sm leading-relaxed text-ink">{t("real.allPendingBanner")}</p>
+          {/* WHAT THE GATE HAS DECIDED, derived. This used to be one hard-coded sentence
+              claiming every tie was still pending — false from the first confirmation the
+              console records, on the page whose whole promise is that it never says more
+              than the data does. */}
+          {data && review.phase !== "empty" && (
+            <div
+              className={`mt-6 max-w-2xl border-l-4 px-4 py-3 ${review.pending > 0 ? "border-ochre bg-ochre/10" : "border-cobalt bg-cobalt/10"}`}
+            >
+              <p className="text-sm leading-relaxed text-ink">
+                {review.phase === "all-pending"
+                  ? t("real.review.allPending", { total: f.int(review.total) })
+                  : review.phase === "all-decided"
+                    ? t("real.review.allDecided", {
+                        verified: f.int(review.verified),
+                        rejected: f.int(review.rejected),
+                        total: f.int(review.total),
+                      })
+                    : t("real.review.mixed", {
+                        decided: f.int(review.decided),
+                        verified: f.int(review.verified),
+                        pending: f.int(review.pending),
+                        total: f.int(review.total),
+                      })}
+              </p>
+              <SourceNote className="mt-2 !text-[10px]">
+                {tcom("sourcePrefix")} {t("real.review.source")}
+              </SourceNote>
             </div>
           )}
         </div>
@@ -177,6 +221,7 @@ export default function FollowTheMoneyPage({ data }: { data?: MoneyData | null }
               <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">{s.label}</p>
               <p className="mt-3 text-4xl font-black tabular-nums tracking-tight">{s.value}</p>
               <p className="mt-2 text-sm text-steel">{s.sub}</p>
+              {s.note ? <p className="mt-2 border-l-2 border-ochre pl-2 text-sm text-steel">{s.note}</p> : null}
               <SourceNote className="mt-3 !text-[10px]">{tcom("sourcePrefix")} {s.source}</SourceNote>
             </motion.div>
           ))}
@@ -190,7 +235,7 @@ export default function FollowTheMoneyPage({ data }: { data?: MoneyData | null }
             aside={<SourceNote>{t("sections.graph.aside")}</SourceNote>}
           />
           <div className="mt-8">
-            <MoneyGraph data={data?.graph ?? null} />
+            <MoneyGraph data={data?.graph ?? null} review={review} />
           </div>
           {/* The picture crowns ONE MP, so the caption states the rule that picked them —
               attributable reach only. Under the old key it was the raw contracts+subsidies

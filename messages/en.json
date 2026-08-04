@@ -793,7 +793,12 @@
   "money": {
     "real": {
       "eyebrow": "live knowledge-graph data · pass {pass}",
-      "allPendingBanner": "Every person ↔ company tie is awaiting human review — we publish them as a dated trail, not as fact. None feeds the Integrity pillar.",
+      "review": {
+        "allPending": "All {total} person ↔ company ties are awaiting human review — we publish them as a dated trail, not as fact. None feeds the Integrity pillar.",
+        "mixed": "{decided} of {total} person ↔ company ties have been through the human gate ({verified} confirmed); {pending} are still awaiting review and are published as a dated trail, not as fact. Only confirmed ties feed the Integrity pillar.",
+        "allDecided": "All {total} person ↔ company ties have been through the human gate: {verified} confirmed, {rejected} rejected. Only confirmed ties feed the Integrity pillar; a decision is reversible and every step is in the audit chain.",
+        "source": "kg_edge.props.review_state ⋈ review_audit — counted at read time, not an asserted literal"
+      },
       "stats": {
         "ownerLabel": "MPs with an owner-class firm",
         "ownerSub": "owner/operator of a firm that supplies the state — the real tie",
@@ -804,7 +809,7 @@
         "reachableSub": "contracts traced through tied companies — for stewards this is the institution's own money, not the MP's",
         "reachableSource": "registr smluv · Σ of contract values (owner and manager ties)",
         "mpsLabel": "MPs with a tie",
-        "mpsSub": "of 207 mandates this term",
+        "mpsSub": "of 207 mandates in the 10th term (PSP10 — the term the loader actually reads)",
         "mpsSource": "ares v3 ⋈ Hlídač státu",
         "companiesLabel": "tied companies",
         "companiesSub": "distinct company IDs in the graph",
@@ -820,7 +825,9 @@
       "graph": {
         "badge": "entity graph · strongest case file",
         "hoverHint": "hover a node and its trail lights up",
-        "allPending": "● all edges dated · awaiting review"
+        "allPending": "● all edges dated · awaiting review",
+        "mixed": "● {decided} of {total} ties through the human gate",
+        "allDecided": "● every tie decided · {verified} confirmed"
       },
       "graphCaption": "fig. — trail of MP {name} · person cobalt · company black · public money signal ◆ · all awaiting human review",
       "graphSelection": "fig. — trail of MP {name} · selected by the rule: the highest attributable reach in the graph ({value}) — contracts and subsidies of firms this MP owns or runs; money of bodies where they merely hold a seat does not enter the selection and is drawn in steel · person cobalt · company black",
@@ -848,7 +855,7 @@
     "intro": "Public contracts, subsidies and donations traced through companies to the politicians tied to them. This is where CivicScore shows the evidence behind a low integrity score — as dated facts, never as accusations.",
     "stats": {
       "contracted": {
-        "sub": "public contracts, subsidies and donations, 9th term",
+        "sub": "public contracts, subsidies and donations — an illustrative sample, no term",
         "source": "Contract Register ⋈ ARES ⋈ Subsidy Register"
       },
       "sampleTies": {
@@ -888,7 +895,7 @@
       "ariaLabel": "Money trail graph: MP, companies, public money",
       "edgesInRecord": "{count} edges in the record",
       "hoverHint": "hover a node to light up its trail",
-      "allEdgesVerified": "● every edge dated + documented"
+      "sampleNotice": "● sample data — no edge has been through the human gate"
     },
     "ledger": {
       "caseFile": "case file no. {rank}",

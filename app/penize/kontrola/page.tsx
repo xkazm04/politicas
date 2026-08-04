@@ -6,6 +6,11 @@ export const metadata: Metadata = {
   title: "Kontrola vazeb · FollowTheMoney",
   description:
     "Ověřovací konzole pro nepotvrzené vazby poslanec↔firma — důkazní složka a proklik do primárních rejstříků. Lidská brána: potvrdit vazbu může jedině člověk.",
+  // Interní fronta nerozhodnutých vazeb, veřejně prolinkovaná z /penize. Není to
+  // publikace: nese poznámky revizora a analytickou prózu o jmenovaných lidech,
+  // které ještě neprošly branou. `app/robots.ts` k tomu přidává Disallow; obojí je
+  // prosba k prohledávači, nikoli řízení přístupu (to dělá REVIEWER_TOKEN).
+  robots: { index: false },
 };
 
 export default async function KontrolaPage() {

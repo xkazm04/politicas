@@ -9,8 +9,13 @@
 //
 // TRUST IS THE PRODUCT: every MP↔company `linked_to` edge is human-gated
 // (props.review_state). Ties that have not passed review are surfaced as
-// pending_review and excluded from `verifiedCount`/any score — exactly as the
-// mock's verified:false ties.
+// pending_review and excluded from `verifiedCount`/any score.
+//
+// The three counts (`verifiedTies` / `pendingTies` / `rejectedTies`) are the
+// page's ONLY source for what the gate has decided. They used to be computed
+// and rendered nowhere, while two hard-coded sentences asserted that everything
+// was still pending — true only until the console could write `verified`, which
+// it has been able to since e8bf6c8. See `reviewSummary.ts`.
 //
 // Each tie also carries the SAME deterministic annotation the /penize/kontrola
 // review console computes (tieClass, signalScore, reviewTier/Rank, triangle,
@@ -39,6 +44,7 @@ export async function getMoneyData(): Promise<MoneyData | null> {
     const distinctCompanies = new Set<string>();
     let verifiedTies = 0;
     let pendingTies = 0;
+    let rejectedTies = 0;
     /** Every tie that survived resolution, handed to THE shared money definition
      *  (reachableMoney.ts) — per-company de-duplication and the steward/attributable
      *  split are not this surface's private choices. */
@@ -67,6 +73,7 @@ export async function getMoneyData(): Promise<MoneyData | null> {
       const tie = mapLinkedToTie({ edge: e, company: comp, contracts, person: pnode });
       if (tie.reviewState === "verified") verifiedTies += 1;
       else if (tie.reviewState === "pending_review") pendingTies += 1;
+      else if (tie.reviewState === "rejected") rejectedTies += 1;
 
       const arr = tiesByPerson.get(e.src) ?? [];
       arr.push(tie);
@@ -180,6 +187,7 @@ export async function getMoneyData(): Promise<MoneyData | null> {
         totalTies: linked.length,
         verifiedTies,
         pendingTies,
+        rejectedTies,
         ownerOperatorMps,
         ownerOperatorMpsStoredClass,
       },

@@ -55,6 +55,7 @@ process.env.PGLITE_PATH = dataDir;
 const { open } = await import("../db/pglite/internals");
 const { loadMoneyLayer, loadMpMoneySlice, num, pspIdFromNodeId } = await import("../../features/money/moneyLoader");
 const { getMoneyData } = await import("../../features/money/getMoneyData");
+const { reviewSummary } = await import("../../features/money/reviewSummary");
 const { getMoneyMpDetail } = await import("../../features/money/getMpDetail");
 const { getVerificationQueue } = await import("../../features/money/getVerificationData");
 const { getLawData, findBillByCislo } = await import("../../features/lawwatch/getLawData");
@@ -534,6 +535,16 @@ describe("getMoneyData (the /penize ledger)", () => {
     // and the tile may not cite ARES for it.
     expect(data.stats.ownerOperatorMps).toBe(2);
     expect(data.stats.ownerOperatorMpsStoredClass).toBe(0);
+
+    // What the human gate has decided is COUNTED, not asserted. The fixture holds one of
+    // each state, so the page's banner is in its `mixed` phase here — the case the two
+    // hard-coded "everything is pending" sentences got wrong.
+    expect([data.stats.verifiedTies, data.stats.pendingTies, data.stats.rejectedTies]).toEqual([1, 1, 1]);
+    expect(reviewSummary({
+      verified: data.stats.verifiedTies,
+      pending: data.stats.pendingTies,
+      rejected: data.stats.rejectedTies,
+    })).toMatchObject({ phase: "mixed", decided: 2, total: 3 });
 
     expect(data.pass).toBe(42);
     expect(data.source).toBe("registr smluv ⋈ ares ⋈ hlídač státu");

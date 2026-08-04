@@ -251,6 +251,31 @@ Route map (politicas.md roadmap execution, sample data):
   are deleted from the type. The owner-operator tile no longer cites bare ARES for
   a partly-guessed count: it prints `ownerOperatorMpsStoredClass` beside it
   (live: **18 of 18** rest on a recorded `tie_class`, 0 on `classifyTie`'s guess).
+  **Review truth propagates (2026-08-04).** Two sentences on /penize were LITERALS
+  asserting that every tie was still pending — the lede banner and the graph
+  footer badge. They were true only while the console could not write; since it
+  can (e8bf6c8), the first confirmation makes both false, on the page whose whole
+  promise is that a claim never outruns its data. `features/money/reviewSummary.ts`
+  is a pure four-state derivation (`all-pending` · `mixed` · `all-decided` ·
+  `empty`) over `verifiedTies` / `pendingTies` / **`rejectedTies`** (new — a
+  rejection is DECIDED, not pending) — counts that were already computed and
+  rendered nowhere. Both surfaces read the same object, and the banner cites it.
+  Its population is deliberately NOT `totalTies` (every edge read, including ones
+  dropped for an unresolved endpoint). One test per state. Also: a review decision
+  now revalidates **`/dukazy`**, the public bulletin of gate decisions, which reads
+  the very `review_audit` table the action appends to; the „nejméně" floor prefix
+  finally renders the explainer that says WHY (`reachableSubCapped`, dead in both
+  catalogs until now — live `isFloor` is currently **false**, the corpus is not
+  capped); the mock graph footer no longer certifies its own invented edges
+  („● všechny hrany datované + doložené", in the CONFIRMED colour); and the copy
+  says **10. období**, the term `moneyLoader`'s `TERM = "PSP10"` actually reads.
+  `features/money/messages.test.ts` pins all of it (cs/en key parity, ICU parity,
+  no `9. období`, a sentence per phase). **`app/robots.ts` now exists** — the repo
+  had none, so `/penize/kontrola` (the internal review queue, PUBLICLY LINKED from
+  the /penize header, showing analyst prose about named people) was crawlable; it,
+  `/rentgen` and `/admin` are disallowed, everything else allowed. The console page
+  also declares `robots: { index: false }`. Neither is access control — that is
+  still `REVIEWER_TOKEN`.
 - `/zebricek` — **CivicScore** (features/civicscore): leaderboard — score
   histogram + chamber summary, party filter + name search, mini
   weighted-breakdown bars per row, and Souboj (pick two via "vs" → mirrored

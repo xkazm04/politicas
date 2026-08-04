@@ -109,6 +109,10 @@ export async function submitReviewDecision(input: SubmitReviewInput): Promise<Su
     const paths = [
       "/penize/kontrola",
       "/penize",
+      // /dukazy is the PUBLIC bulletin of gate decisions — it reads `review_audit`, the
+      // very table this action appends to, so a decision that did not revalidate it left
+      // the one page built to announce the decision serving the state before it.
+      "/dukazy",
       ...(pspId != null ? [`/penize/${pspId}`, `/penize/${pspId}/paket`] : []),
     ];
     for (const p of paths) {

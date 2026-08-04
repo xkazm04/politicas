@@ -5,9 +5,12 @@
 //
 // GROUND TRUTH the loader encodes (verified against the live graph, pass 10–12):
 //   • person --linked_to--> company     the human-GATED MP↔company tie.
-//     Every such edge currently carries props.review_state = "pending_review":
-//     nothing here is human-approved yet, so nothing feeds any score. We render
-//     the whole ledger as unverified, exactly as the mock's verified:false ties.
+//     props.review_state is one of pending_review / verified / rejected, and the
+//     review console can write all three (and reverse a decision). On the live
+//     store today all 211 are pending_review — but that is a MEASUREMENT, not an
+//     invariant, and no copy on this surface may assume it: what the gate has
+//     decided is derived from the counts (`reviewSummary.ts`). Only a `verified`
+//     tie may feed a score.
 //   • company --supplies--> contract     (weight = contract amount in CZK)
 //   • company node props: {ico, subsidies_count, subsidies_total_czk,
 //     donated_to_party_czk?, donation_count?, donation_recipient_party?}
@@ -234,9 +237,15 @@ export interface MoneyStats {
   contractCzkAttributable: number;
   /** `money.steward.contractCzk` — same. NEVER read as MP enrichment. */
   contractCzkSteward: number;
+  /** Every `linked_to` edge the layer READ — including ones dropped for an unresolved
+   *  endpoint. It is therefore NOT the population of the three counts below, and the
+   *  review banner must not mix them (see `reviewSummary.ts`). */
   totalTies: number;
   verifiedTies: number;
   pendingTies: number;
+  /** "rejected" is TERMINAL (D7) — decided, not pending. Counted so the banner can say
+   *  what the gate ruled instead of asserting that nothing has been ruled on. */
+  rejectedTies: number;
   /** MPs with at least one owner-operator tie (owns/runs a firm that supplies
    *  the state) — the actual FollowTheMoney finding, as opposed to
    *  `contractCzkReachable`, which is dominated by stewards' own institutions

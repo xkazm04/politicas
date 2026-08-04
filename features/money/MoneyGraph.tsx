@@ -15,6 +15,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { GRAPH_EDGES, GRAPH_NODES } from "@/lib/civic/data";
 import { useFormat } from "@/lib/i18n/useFormat";
 import { compactCzk, type MoneyGraphData } from "./moneyTypes";
+import type { ReviewSummary } from "./reviewSummary";
 
 const px = (x: number) => x * 6.4;
 const py = (y: number) => y * 4;
@@ -28,8 +29,14 @@ const NODE_FILL: Record<string, string> = {
 
 const trunc = (s: string, n: number) => (s.length > n ? `${s.slice(0, n - 1)}…` : s);
 
-export default function MoneyGraph({ data }: { data: MoneyGraphData | null }) {
-  if (data && data.companies.length > 0) return <RealGraph data={data} />;
+export default function MoneyGraph({
+  data,
+  review,
+}: {
+  data: MoneyGraphData | null;
+  review: ReviewSummary;
+}) {
+  if (data && data.companies.length > 0) return <RealGraph data={data} review={review} />;
   return <MockGraph />;
 }
 
@@ -48,7 +55,7 @@ type GNode = {
 };
 type GEdge = { from: string; to: string; label: string; trail?: boolean };
 
-function RealGraph({ data }: { data: MoneyGraphData }) {
+function RealGraph({ data, review }: { data: MoneyGraphData; review: ReviewSummary }) {
   const t = useTranslations("money");
   const locale = useLocale();
   const f = useFormat();
@@ -91,6 +98,12 @@ function RealGraph({ data }: { data: MoneyGraphData }) {
     });
     return { nodes: ns, edges: es };
   }, [data, locale, t]);
+
+  // citation-ok: the review counts and their source note (`money.real.review.source` —
+  // kg_edge.props.review_state ⋈ review_audit) are rendered by the parent,
+  // FollowTheMoneyPage, immediately above this frame; the footer badge restates the same
+  // `ReviewSummary` object rather than introducing a second figure.
+  const reviewCounts = { verified: f.int(review.verified), decided: f.int(review.decided), total: f.int(review.total) };
 
   const nodeById = useMemo(() => new Map(nodes.map((nd) => [nd.id, nd])), [nodes]);
   const [hover, setHover] = useState<string | null>("person");
@@ -194,9 +207,23 @@ function RealGraph({ data }: { data: MoneyGraphData }) {
         ) : (
           <span className="text-steel">{t("real.graph.hoverHint")}</span>
         )}
-        <span className="hidden shrink-0 font-bold uppercase tracking-wider text-ochre sm:inline">
-          {t("real.graph.allPending")}
-        </span>
+        {/* Derived from the same counts as the lede banner — the badge used to assert
+            „všechny hrany … čekají na kontrolu" as a constant.
+            citation-ok: the counts and their source note (`money.real.review.source` —
+            kg_edge.props.review_state ⋈ review_audit) are rendered by the parent,
+            FollowTheMoneyPage, immediately above this frame; the badge is the same
+            `ReviewSummary` object restated, not a second figure. */}
+        {review.phase !== "empty" && (
+          <span
+            className={`hidden shrink-0 font-bold uppercase tracking-wider sm:inline ${review.pending > 0 ? "text-ochre" : "text-cobalt"}`}
+          >
+            {review.phase === "all-pending"
+              ? t("real.graph.allPending")
+              : review.phase === "all-decided"
+                ? t("real.graph.allDecided", { verified: reviewCounts.verified })
+                : t("real.graph.mixed", { decided: reviewCounts.decided, total: reviewCounts.total })}
+          </span>
+        )}
       </div>
     </div>
   );
@@ -310,8 +337,11 @@ function MockGraph() {
         ) : (
           <span className="text-steel">{t("graph.hoverHint")}</span>
         )}
-        <span className="hidden shrink-0 font-bold uppercase tracking-wider text-cobalt sm:inline">
-          {t("graph.allEdgesVerified")}
+        {/* The mock used to claim „všechny hrany datované + doložené" in the CONFIRMED
+            colour — a made-up verdict on made-up edges, and the exact opposite of the
+            doctrine the real graph beside it renders. A fallback says it is a fallback. */}
+        <span className="hidden shrink-0 font-bold uppercase tracking-wider text-ochre sm:inline">
+          {t("graph.sampleNotice")}
         </span>
       </div>
     </div>

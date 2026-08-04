@@ -793,7 +793,12 @@
   "money": {
     "real": {
       "eyebrow": "reálná data znalostního grafu · pass {pass}",
-      "allPendingBanner": "Všechny vazby osoba ↔ firma čekají na lidskou kontrolu — zveřejňujeme je jako datovanou stopu, nikoli jako fakt. Do pilíře Integrita se nepropisuje žádná.",
+      "review": {
+        "allPending": "Všech {total} vazeb osoba ↔ firma čeká na lidskou kontrolu — zveřejňujeme je jako datovanou stopu, nikoli jako fakt. Do pilíře Integrita se nepropisuje žádná.",
+        "mixed": "Lidskou branou zatím prošlo {decided} z {total} vazeb osoba ↔ firma ({verified} potvrzeno); {pending} stále čeká na kontrolu a zveřejňujeme je jako datovanou stopu, nikoli jako fakt. Do pilíře Integrita se propisují jedině potvrzené vazby.",
+        "allDecided": "Všech {total} vazeb osoba ↔ firma prošlo lidskou branou: {verified} potvrzeno, {rejected} zamítnuto. Do pilíře Integrita se propisují jedině potvrzené vazby; rozhodnutí je vratné a každý krok je v auditním řetězci.",
+        "source": "kg_edge.props.review_state ⋈ review_audit — počítáno při čtení, ne přepsané tvrzení"
+      },
       "stats": {
         "ownerLabel": "poslanci s vlastní firmou u státu",
         "ownerSub": "vlastník/jednatel firmy, která dodává státu — skutečná vazba",
@@ -804,7 +809,7 @@
         "reachableSub": "smlouvy dohledané přes napojené firmy — u stewardů jde o peníze instituce, ne poslance",
         "reachableSource": "registr smluv · Σ hodnot smluv (vlastnické a manažerské vazby)",
         "mpsLabel": "poslanci s vazbou",
-        "mpsSub": "z 207 mandátů 9. období",
+        "mpsSub": "z 207 mandátů 10. období (PSP10 — období, které loader skutečně čte)",
         "mpsSource": "ares v3 ⋈ hlídač státu",
         "companiesLabel": "napojené firmy",
         "companiesSub": "unikátní IČO v grafu",
@@ -820,7 +825,9 @@
       "graph": {
         "badge": "graf entit · nejsilnější spis",
         "hoverHint": "najeďte na uzel a stopa se rozsvítí",
-        "allPending": "● všechny hrany datované · čekají na kontrolu"
+        "allPending": "● všechny hrany datované · čekají na kontrolu",
+        "mixed": "● lidskou branou prošlo {decided} z {total} vazeb",
+        "allDecided": "● všechny vazby rozhodnuty · {verified} potvrzeno"
       },
       "graphCaption": "obr. — stopa poslance {name} · osoba kobalt · firma čerň · veřejné peníze signální ◆ · vše čeká na lidskou kontrolu",
       "graphSelection": "obr. — stopa poslance {name} · vybrán pravidlem: nejvyšší přisouditelný dosah v grafu ({value}) — smlouvy a dotace firem, které poslanec vlastní nebo řídí; peníze institucí, kde jen zasedá v orgánu, do výběru nevstupují a v grafu jsou ocelové · osoba kobalt · firma čerň",
@@ -848,7 +855,7 @@
     "intro": "Veřejné zakázky, dotace a dary dohledané přes firmy až k politikům, kteří jsou s nimi spojeni. Tady CivicScore ukazuje důkazy za nízkou integritou — jako datovaná fakta, nikdy jako obvinění.",
     "stats": {
       "contracted": {
-        "sub": "veřejné zakázky, dotace a dary za 9. období",
+        "sub": "veřejné zakázky, dotace a dary — ilustrativní ukázka, žádné volební období",
         "source": "registr smluv ⋈ ares ⋈ registr dotací"
       },
       "sampleTies": {
@@ -888,7 +895,7 @@
       "ariaLabel": "Graf peněžní stopy: poslanec, firmy, veřejné peníze",
       "edgesInRecord": "{count} hran v záznamu",
       "hoverHint": "najeďte na uzel a stopa se rozsvítí",
-      "allEdgesVerified": "● všechny hrany datované + doložené"
+      "sampleNotice": "● ukázková data — žádná hrana neprošla lidskou branou"
     },
     "ledger": {
       "caseFile": "spis č. {rank}",
