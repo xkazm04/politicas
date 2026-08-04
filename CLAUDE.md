@@ -179,6 +179,32 @@ Route map (politicas.md roadmap execution, sample data):
   `duelFacts.speechTurns`; the six component points, seven raw counters and the PSP9
   trend deliberately stay out. The money tile's gate sentence is Direction 1's
   `reviewSummary()`.
+  **The velín ships what renders (2026-08-05).** `features/dashboard/publicWire.ts`
+  is the projection, applied in `app/dashboard/page.tsx` BETWEEN the loader and the
+  client (the /penize `TIE_WIRE` pattern). Two things crossed the network for
+  nobody: `StateSlice.sources` — the working set `sliceContracts()` reads contracts
+  with and `buildDatedFacts()` turns into `feed`, consumed ENTIRELY on the server —
+  and `DashboardMoney`'s `mpsWithTies` / `companiesLinked` / `totalTies`, /penize's
+  own aggregates that this page renders nowhere. `MONEY_WIRE` classifies every
+  `DashboardMoney` field under `satisfies Record<keyof DashboardMoney, …>`, so a new
+  field fails to compile until someone classifies it. The slice narrows to
+  **`Pick<StateSlice, "graph" | "rule">` — literally the type `hashSlice()` accepts**,
+  so the exhibit address computed from the wire IS the one computed from the full
+  slice (verified live: `rez.03b874d8` from both). `getExhibitData()` keeps the FULL
+  shape: it re-derives on the server and must not see less than the page.
+  The four mock renderers are **code-split** via `next/dynamic` (no `ssr:false` —
+  the fallback still server-renders): `MockStatTile` · `MockStatTiles` ·
+  `MockRankingLedger` · `MockGraphFeedPanel`. The mock feed's `event.id → uzly` maps
+  and its relevance rule (`feedRelevance.ts`) used to be computed on EVERY render of
+  the happy path, where they draw nothing; they now live inside the mock panel. The
+  real and sample feeds share ONE chrome (`components/FeedPanelShell.tsx`) rather
+  than two copies of the window. Measured on the live store: **props 12 271 →
+  10 605 B raw (−13,6 %), 3 222 → 2 903 B gzipped**; the /dashboard page chunk
+  **34 359 → 32 866 B** with 8 460 B of mock renderers moved to four lazy chunks;
+  the rendered markup of the real path is **byte-identical** (83 327 B normalized,
+  diffed against the pre-change tree on the same store). Honest limit: the shared
+  `lib/civic/data` chunk stays eager anyway — `features/shell/sidebarParts.tsx`
+  imports `MODULES` on every route.
 - `/poslanec/[id]` — **Spis** (features/profile): the Person profile —
   politicas.md §3's "real product". Wired to the real graph (no mock path):
   poster header + contribution score/rank, the six weighted components, the

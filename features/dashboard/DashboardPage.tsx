@@ -21,11 +21,11 @@ import { useMemo } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Stamp } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
+import dynamic from "next/dynamic";
 import Link from "next/link";
-import { CHAMBER_STATS, CHAMBER_TREND, EVENTS, MPS, PILLARS, TREND_QUARTERS } from "@/lib/civic/data";
-import { buildStateGraph, nodesForRefs } from "@/lib/civic/stateGraph";
+import { CHAMBER_TREND, TREND_QUARTERS } from "@/lib/civic/data";
+import { buildStateGraph } from "@/lib/civic/stateGraph";
 import { useFormat } from "@/lib/i18n/useFormat";
-import RankDelta from "@/features/shared/components/RankDelta";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
@@ -36,41 +36,32 @@ import type { ReviewSummary } from "@/features/money/reviewSummary";
 import LowScoreReasonChip from "@/features/civicscore/components/LowScoreReasonChip";
 import RapporteurBadge from "@/features/civicscore/components/RapporteurBadge";
 import WorkhorseBadge from "@/features/civicscore/components/WorkhorseBadge";
-import { PILLAR_BG } from "@/features/landing/palette";
-import type { DashboardData } from "./getDashboardData";
+import type { DashboardWire } from "./publicWire";
 import ChamberChart from "./components/ChamberChart";
 import GraphFeedPanel from "./components/GraphFeedPanel";
 import StateGraphCanvas from "./components/StateGraphCanvas";
 import { sliceExhibitId } from "./exhibit";
-import { primaryNodeForEvent } from "./feedRelevance";
 import { DASHBOARD_REVALIDATE_HOURS } from "./freshness";
 import { useGraphText } from "./graphText";
 import { useGraphSelection } from "./useGraphSelection";
 
-/**
- * Dlaždice ze vzorku `lib/civic` — vykreslí se jen tehdy, když příslušná vrstva
- * grafu není k dispozici. Nese ILUSTRATIVNÍ variantu, takže se od spočítaného
- * čísla liší plochou a barvou číselníku, ne pouze textem pod ním.
+/*
+ * VZOREK SE NAČÍTÁ, AŽ KDYŽ SE KRESLÍ (vzor /penize, round 4).
+ *
+ * Tyhle čtyři rendery existují pro výpadek grafu — na šťastné cestě z nich
+ * nevznikne ani jeden pixel, a přesto se vozily v balíku a jejich vstupy se
+ * počítaly při každém renderu. `next/dynamic` BEZ `ssr:false`: fallback se
+ * pořád vykresluje na serveru, jen se nedostane do parse cesty šťastného
+ * případu. (Poctivá mez: sdílený chunk `lib/civic/data` zůstává eager tak jako
+ * tak — `features/shell/sidebarParts.tsx` z něj čte `MODULES` na každé routě.)
  */
-function MockStatTile({ statKey }: { statKey: string }) {
-  const t = useTranslations("dashboard");
-  const tc = useTranslations("content");
-  return (
-    <StatTile
-      variant="illustrative"
-      illustrativeTag={t("mockTag")}
-      label={tc(`chamberStats.${statKey}.label`)}
-      value={tc(`chamberStats.${statKey}.value`)}
-      // Bez `sub`: štítek nahoře a citace dole už to říkají dvakrát, potřetí
-      // by z upozornění byl šum.
-      source={tc(`chamberStats.${statKey}.source`)}
-    />
-  );
-}
+const MockStatTile = dynamic(() => import("./components/MockStatTile"));
+const MockStatTiles = dynamic(() => import("./components/MockStatTiles"));
+const MockRankingLedger = dynamic(() => import("./components/MockRankingLedger"));
+const MockGraphFeedPanel = dynamic(() => import("./components/MockGraphFeedPanel"));
 
-export default function DashboardPage({ data }: { data: DashboardData | null }) {
+export default function DashboardPage({ data }: { data: DashboardWire | null }) {
   const t = useTranslations("dashboard");
-  const tc = useTranslations("content");
   const tcom = useTranslations("common");
   const f = useFormat();
   const locale = useLocale();
@@ -88,18 +79,6 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
   const drawnIds = useMemo(() => new Set(graph.nodes.map((n) => n.id)), [graph]);
   const { selected, select, clear } = useGraphSelection(drawnIds);
 
-  // event.id → uzly, které řádek rozsvítí. Počítá se jednou; provoz i graf
-  // pak čtou tutéž mapu, takže se filtr nemůže rozejít s obrázkem.
-  const nodesByEvent = useMemo(
-    () => new Map(EVENTS.map((e) => [e.id, nodesForRefs(e.refs, graph)])),
-    [graph],
-  );
-  // event.id → uzel, o KTERÉM řádek je (pravidlo relevance, ne pořadí v poli).
-  const primaryByEvent = useMemo(
-    () => new Map(EVENTS.map((e) => [e.id, primaryNodeForEvent(e, graph)])),
-    [graph],
-  );
-
   const selectedNode = selected ? graph.nodes.find((n) => n.id === selected) : undefined;
   const selectedLabel = selectedNode ? text.node(selectedNode).label : null;
 
@@ -110,10 +89,12 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
     [slice],
   );
 
-  // Mock fallback trend — only rendered when the real store is unavailable.
+  // Mock fallback trend — only rendered when the real store is unavailable, and
+  // since 2026-08-05 only COMPUTED then: `null` on the happy path, where the
+  // histogram below wins and this array was built for nobody.
   const chamberTrendData = useMemo(
-    () => CHAMBER_TREND.map((v, i) => ({ q: TREND_QUARTERS[i], avg: v })),
-    [],
+    () => (data ? null : CHAMBER_TREND.map((v, i) => ({ q: TREND_QUARTERS[i], avg: v }))),
+    [data],
   );
   // Real score-distribution histogram (207 real MPs) — replaces the fake
   // quarter-over-quarter trend, which has no real analog (contribution_score
@@ -391,7 +372,7 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
               )}
             </>
           ) : (
-            CHAMBER_STATS.map((s) => <MockStatTile key={s.key} statKey={s.key} />)
+            <MockStatTiles />
           )}
         </div>
 
@@ -452,16 +433,26 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
               )}
             </div>
             <div id="provoz" className="min-w-0 xl:col-span-5">
-              <GraphFeedPanel
-                events={EVENTS}
-                nodesByEvent={nodesByEvent}
-                primaryByEvent={primaryByEvent}
-                ledger={data?.feed ?? null}
-                selected={selected}
-                selectedLabel={selectedLabel}
-                onPick={select}
-                onClear={clear}
-              />
+              {/* Reálná kniha faktů, nebo OZNAČENÝ vzorek — dva moduly, jeden
+                  rám (components/FeedPanelShell.tsx). Vzorkový se načte, až
+                  když graf není k dispozici. */}
+              {data?.feed ? (
+                <GraphFeedPanel
+                  ledger={data.feed}
+                  selected={selected}
+                  selectedLabel={selectedLabel}
+                  onPick={select}
+                  onClear={clear}
+                />
+              ) : (
+                <MockGraphFeedPanel
+                  graph={graph}
+                  selected={selected}
+                  selectedLabel={selectedLabel}
+                  onPick={select}
+                  onClear={clear}
+                />
+              )}
             </div>
           </div>
         </section>
@@ -484,9 +475,10 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
           <div className="mt-6 grid gap-10 lg:grid-cols-12">
             <div className="min-w-0 border-t-2 border-ink lg:col-span-8">
               {data ? (
-                // Real top-5 by contribution_score, from the same materialized
-                // graph as /zebricek — real pspId links, no dead ends.
-                data.top.map((m) => (
+                <>
+                  {/* Real top-5 by contribution_score, from the same materialized
+                      graph as /zebricek — real pspId links, no dead ends. */}
+                  {data.top.map((m) => (
                   <Link
                     key={m.pspId}
                     href={`/poslanec/${m.pspId}`}
@@ -543,48 +535,8 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
                       <ArrowUpRight className="h-4 w-4 text-signal transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </span>
                   </Link>
-                ))
-              ) : (
-                MPS.map((m) => (
-                  <Link
-                    key={m.id}
-                    href="/zebricek"
-                    className="group grid grid-cols-[2.5rem_1fr_auto_auto_auto] items-center gap-4 border-b border-hairline px-2 py-3.5 transition-colors hover:bg-paper-strong"
-                  >
-                    <span className={`font-mono text-xl font-bold ${m.rank <= 3 ? "text-signal" : "text-steel"}`}>
-                      {m.rank}
-                    </span>
-                    <span className="min-w-0">
-                      <span className="block truncate text-base font-black uppercase tracking-tight">
-                        {m.name}
-                      </span>
-                      <span className="mt-0.5 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-steel">
-                        <span
-                          className="inline-block h-2 w-2 rounded-full"
-                          style={{ background: m.partyColor }}
-                        />
-                        {m.party} · {tc(`regions.${m.region}`)}
-                      </span>
-                      {/* Rozpad kompozitu na pilíře — odečet, ne dekorace. */}
-                      <span className="mt-1.5 flex h-1.5 w-full max-w-56 gap-px" aria-hidden>
-                        {PILLARS.map((p) => (
-                          <span
-                            key={p.key}
-                            className={`${PILLAR_BG[p.key]} block`}
-                            style={{ width: `${m.pillars[p.key] / 4}%`, minWidth: 2 }}
-                          />
-                        ))}
-                      </span>
-                    </span>
-                    <RankDelta delta={m.delta} />
-                    <span className="text-xl font-black tabular-nums">{f.dec(m.score)}</span>
-                    <ArrowUpRight className="h-4 w-4 text-signal transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </Link>
-                ))
-              )}
-              <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
-                {data ? (
-                  <>
+                  ))}
+                  <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
                     <SourceNote>
                       {t("realRanking.footnote", { count: data.summary.count })}
                     </SourceNote>
@@ -597,24 +549,11 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
                     >
                       {t("realStats.methodologyLink")}
                     </Link>
-                  </>
-                ) : (
-                  <>
-                    <SourceNote>{t("rankingFootnote")}</SourceNote>
-                    <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                      {PILLARS.map((p) => (
-                        <span
-                          key={p.key}
-                          className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-widest text-steel"
-                        >
-                          <span className={`inline-block h-2 w-2 ${PILLAR_BG[p.key]}`} />
-                          {tc(`pillars.${p.key}.label`)}
-                        </span>
-                      ))}
-                    </span>
-                  </>
-                )}
-              </div>
+                  </div>
+                </>
+              ) : (
+                <MockRankingLedger />
+              )}
             </div>
 
             <div className="min-w-0 lg:col-span-4">

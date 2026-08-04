@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import DashboardPage from "@/features/dashboard/DashboardPage";
 import { getDashboardData } from "@/features/dashboard/getDashboardData";
+import { toDashboardWire } from "@/features/dashboard/publicWire";
 
 /**
  * Denní okno. Musí být LITERÁL — Next čte segmentovou konfiguraci staticky a
@@ -29,5 +30,9 @@ export default async function Dashboard() {
   // when the store is unavailable, in which case DashboardPage falls back to
   // the honestly-labelled lib/civic mock.
   const data = await getDashboardData();
-  return <DashboardPage data={data} />;
+  // The wire projection sits BETWEEN the loader and the client (the /penize
+  // pattern, features/money/publicWire.ts): the slice's `sources` working set and
+  // /penize's own money aggregates are consumed on this side and never rendered,
+  // so they must not cross the network. `getExhibitData()` keeps the full shape.
+  return <DashboardPage data={data ? toDashboardWire(data) : null} />;
 }

@@ -39,8 +39,9 @@ const CHART_TICK = { fill: STEEL, fontSize: 12, fontFamily: "var(--font-plex)" }
 export interface ChamberChartProps {
   /** Reálný histogram skóre (207 poslanců). null ⇒ kreslí se vzorkový trend. */
   histogram: { band: string; count: number }[] | null;
-  /** Vzorkový trend — vykreslí se JEN když histogram chybí, a je označený. */
-  mockTrend: { q: string; avg: number }[];
+  /** Vzorkový trend — vykreslí se JEN když histogram chybí, a je označený.
+   *  `null` když histogram JE: plocha ho pak vůbec nepočítá (viz ../DashboardPage). */
+  mockTrend: { q: string; avg: number }[] | null;
   /** Počet poslanců do popisky histogramu. */
   count: number;
   reduceMotion: boolean;
@@ -70,7 +71,7 @@ function ChamberChart({ histogram, mockTrend, count, reduceMotion }: ChamberChar
               <Bar dataKey="count" fill={SIGNAL} isAnimationActive={!reduceMotion} />
             </BarChart>
           ) : (
-            <AreaChart data={mockTrend} margin={{ top: 8, right: 8, left: -14, bottom: 0 }}>
+            <AreaChart data={mockTrend ?? []} margin={{ top: 8, right: 8, left: -14, bottom: 0 }}>
               <CartesianGrid stroke={HAIRLINE} vertical={false} />
               <XAxis dataKey="q" tick={CHART_TICK} tickLine={false} axisLine={{ stroke: INK, strokeWidth: 2 }} />
               <YAxis
