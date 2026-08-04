@@ -1,0 +1,104 @@
+import { describe, expect, it } from "vitest";
+import { parseNovinkyResponse } from "./novinky";
+
+const entry = (over: Record<string, unknown> = {}) => ({
+  id: "c-1",
+  date: "2026-08-04",
+  kind: "contract",
+  titleCs: "smlouva",
+  pending: false,
+  timeBasis: "ucinne",
+  source: "registr smluv — smlouvy.gov.cz",
+  tone: "signal",
+  internalHref: null,
+  ...over,
+});
+
+const response = (deltas: unknown[]) => ({
+  v: 1,
+  builtOn: "2026-08-04",
+  since: "2026-08-01",
+  coverage: { money: true, law: true, reviews: true, changes: true, dukazy: true },
+  deltas,
+});
+
+const delta = (entries: unknown[]) => ({
+  key: "poslanec:1",
+  label: "Jan Novák",
+  href: "/poslanec/1",
+  denikHref: "/denik?entita=poslanec%3A1",
+  total: entries.length,
+  latestDate: "2026-08-04",
+  entries,
+});
+
+describe("parseNovinkyResponse — obálka", () => {
+  it("odmítá cizí tvar celé odpovědi", () => {
+    expect(parseNovinkyResponse(null)).toBeNull();
+    expect(parseNovinkyResponse(42)).toBeNull();
+    expect(parseNovinkyResponse({ ...response([]), v: 2 })).toBeNull();
+    expect(parseNovinkyResponse({ ...response([]), deltas: "ne" })).toBeNull();
+    expect(parseNovinkyResponse({ ...response([]), coverage: null })).toBeNull();
+  });
+
+  it("zdravou odpověď propustí beze ztráty", () => {
+    const parsed = parseNovinkyResponse(response([delta([entry()])]));
+    expect(parsed?.deltas).toHaveLength(1);
+    expect(parsed?.deltas[0].entries).toHaveLength(1);
+    expect(parsed?.droppedEntries).toBe(0);
+    expect(parsed?.droppedDeltas).toBe(0);
+  });
+
+  it("částka projde jen jako konečné číslo", () => {
+    expect(parseNovinkyResponse(response([delta([entry({ czk: 1_000 })])]))?.deltas[0].entries[0].czk)
+      .toBe(1_000);
+    expect(parseNovinkyResponse(response([delta([entry({ czk: "hodně" })])]))?.droppedEntries).toBe(1);
+  });
+});
+
+describe("parseNovinkyResponse — vadné řádky se zahodí a POČÍTAJÍ", () => {
+  it("neznámý tón by se v renderu ztratil jako prázdná tečka — nezahodí se mlčky", () => {
+    const parsed = parseNovinkyResponse(response([delta([entry(), entry({ id: "c-2", tone: "duha" })])]));
+    expect(parsed?.deltas[0].entries.map((e) => e.id)).toEqual(["c-1"]);
+    expect(parsed?.droppedEntries).toBe(1);
+  });
+
+  it("zahodí i neznámý druh, čas a nedatovaný řádek", () => {
+    const parsed = parseNovinkyResponse(
+      response([
+        delta([
+          entry({ id: "a", kind: "vymysl" }),
+          entry({ id: "b", timeBasis: "kdysi" }),
+          entry({ id: "c", date: "4. srpna" }),
+          entry({ id: "d", pending: "ano" }),
+          entry({ id: "e", internalHref: 5 }),
+          null,
+        ]),
+      ]),
+    );
+    expect(parsed?.deltas[0].entries).toHaveLength(0);
+    expect(parsed?.droppedEntries).toBe(6);
+    // `total` je počet zápisů entity, ne počet vykreslených řádků — zahozením
+    // řádku zápis nezmizel, takže se nesnižuje.
+    expect(parsed?.deltas[0].total).toBe(6);
+  });
+
+  it("vadná entita padne celá a spočítá se zvlášť", () => {
+    const parsed = parseNovinkyResponse(
+      response([delta([entry()]), { key: "poslanec:2", entries: [] }, "nesmysl"]),
+    );
+    expect(parsed?.deltas).toHaveLength(1);
+    expect(parsed?.droppedDeltas).toBe(2);
+  });
+
+  it("chybějící pokrytí se čte jako nečitelná vrstva, ne jako v pořádku", () => {
+    const parsed = parseNovinkyResponse({ ...response([]), coverage: { money: true } });
+    expect(parsed?.coverage).toEqual({
+      money: true,
+      law: false,
+      reviews: false,
+      changes: false,
+      dukazy: false,
+    });
+  });
+});

@@ -20,7 +20,9 @@ import {
   serializeSchrankaState,
   withFollow,
   withoutFollow,
+  withSeen,
   type SchrankaState,
+  type SeenWatermark,
 } from "./followCodec";
 
 const CHANGE_EVENT = "politicas:schranka-changed";
@@ -79,8 +81,12 @@ export interface SchrankaApi {
   isFollowed: (key: string) => boolean;
   follow: (key: string, label: string) => void;
   unfollow: (key: string) => void;
-  /** Orazítkuje návštěvu schránky; vrací PŘEDCHOZÍ razítko (práh delty). */
-  stampVisit: () => string | null;
+  /** Orazítkuje návštěvu schránky; vrací PŘEDCHOZÍ razítko (práh delty) i to
+   *  právě zapsané (den, ke kterému se pak zapíše vodoznak viděného). */
+  stampVisit: () => { prev: string | null; now: string };
+  /** Zapíše vodoznak viděného — co plocha při téhle návštěvě ukázala (odznak
+   *  v liště to pak odečítá, viz visitWindow.ts). */
+  markSeen: (seen: SeenWatermark) => void;
 }
 
 export function useSchranka(): SchrankaApi {
@@ -96,11 +102,20 @@ export function useSchranka(): SchrankaApi {
     writeState(withoutFollow(getSnapshot(), key));
   }, []);
 
-  const stampVisit = useCallback((): string | null => {
+  const stampVisit = useCallback((): { prev: string | null; now: string } => {
     const fresh = getSnapshot();
-    writeState({ ...fresh, lastVisit: new Date().toISOString() });
-    return fresh.lastVisit;
+    const now = new Date().toISOString();
+    writeState({ ...fresh, lastVisit: now });
+    return { prev: fresh.lastVisit, now };
   }, []);
 
-  return { state, isFollowed, follow, unfollow, stampVisit };
+  const markSeen = useCallback((seen: SeenWatermark) => {
+    const fresh = getSnapshot();
+    const next = withSeen(fresh, seen);
+    // Beze změny se nezapisuje: zápis rozvlní odběratele (odznak i tlačítka)
+    // a opakovaný zápis téhož vodoznaku by je překresloval pro nic.
+    if (next !== fresh) writeState(next);
+  }, []);
+
+  return { state, isFollowed, follow, unfollow, stampVisit, markSeen };
 }

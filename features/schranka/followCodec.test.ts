@@ -10,6 +10,7 @@ import {
   serializeSchrankaState,
   withFollow,
   withoutFollow,
+  withSeen,
 } from "./followCodec";
 
 const NOW = "2026-07-31T10:00:00.000Z";
@@ -100,6 +101,39 @@ describe("serialize/parse round-trip", () => {
     expect(round.lastVisit).toBe(NOW);
     // Serializace je deterministická — dvakrát totéž = byte-identické.
     expect(serializeSchrankaState(round)).toBe(serializeSchrankaState(state));
+  });
+});
+
+describe("vodoznak viděného (seen)", () => {
+  it("stav bez vodoznaku je platný stav — neodečítá se nic", () => {
+    expect(parseSchrankaState(JSON.stringify({ follows: [], lastVisit: NOW })).seen).toBeNull();
+  });
+
+  it("vodoznak platí jen celý; vadný tvar → null", () => {
+    const read = (seen: unknown) =>
+      parseSchrankaState(JSON.stringify({ follows: [], lastVisit: NOW, seen })).seen;
+    expect(read({ day: "2026-08-04", count: 3 })).toEqual({ day: "2026-08-04", count: 3 });
+    expect(read({ day: "2026-08-04" })).toBeNull();
+    expect(read({ day: "včera", count: 3 })).toBeNull();
+    expect(read({ day: "2026-08-04", count: -1 })).toBeNull();
+    expect(read({ day: "2026-08-04", count: 1.5 })).toBeNull();
+    expect(read("nesmysl")).toBeNull();
+  });
+
+  it("withSeen zapisuje jen platnou změnu (týž vodoznak je no-op)", () => {
+    const a = withSeen(EMPTY_SCHRANKA, { day: "2026-08-04", count: 2 });
+    expect(a.seen).toEqual({ day: "2026-08-04", count: 2 });
+    expect(withSeen(a, { day: "2026-08-04", count: 2 })).toBe(a);
+    expect(withSeen(a, { day: "kdysi", count: 2 })).toBe(a);
+    expect(withSeen(a, { day: "2026-08-05", count: 0 }).seen).toEqual({ day: "2026-08-05", count: 0 });
+  });
+
+  it("přežije okruh serializace", () => {
+    const state = withSeen({ ...EMPTY_SCHRANKA, lastVisit: NOW }, { day: "2026-08-04", count: 7 });
+    expect(parseSchrankaState(serializeSchrankaState(state)).seen).toEqual({
+      day: "2026-08-04",
+      count: 7,
+    });
   });
 });
 

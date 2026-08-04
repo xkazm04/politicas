@@ -30,13 +30,29 @@ export interface Follow {
   followedAt: string;
 }
 
+/**
+ * Vodoznak viděného — co plocha schránky při poslední návštěvě SKUTEČNĚ
+ * ukázala. Den záznamů deníku je nejjemnější zrnitost, kterou data mají, takže
+ * samotné razítko návštěvy odznak v liště zhasnout neumí (den návštěvy se
+ * počítá celý znovu — to je pravidlo PLOCHY, viz deriveDeltas). Odznak proto
+ * odečítá počet zápisů toho dne, které měl čtenář před očima.
+ */
+export interface SeenWatermark {
+  /** `YYYY-MM-DD` — den, od kterého se při té návštěvě počítalo. */
+  day: string;
+  /** Kolik zápisů s dnem >= `day` plocha při návštěvě nesla. */
+  count: number;
+}
+
 export interface SchrankaState {
   follows: Follow[];
   /** ISO instant poslední návštěvy /schranka; null = ještě nikdy. */
   lastVisit: string | null;
+  /** Vodoznak viděného pro odznak lišty; null = nic se ještě neodečítá. */
+  seen: SeenWatermark | null;
 }
 
-export const EMPTY_SCHRANKA: SchrankaState = { follows: [], lastVisit: null };
+export const EMPTY_SCHRANKA: SchrankaState = { follows: [], lastVisit: null, seen: null };
 
 /**
  * Validní veřejné klíče entit. Držené tvary:
@@ -120,7 +136,27 @@ export function parseSchrankaState(raw: string | null): SchrankaState {
   return {
     follows,
     lastVisit: isIsoInstant(o.lastVisit) ? o.lastVisit : null,
+    seen: parseSeen(o.seen),
   };
+}
+
+const DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+/** Vodoznak je platný jen celý (den + počet); cokoli jiného → null, tedy
+ *  „neodečítej nic" — odznak pak raději ukáže víc než zamlčí. */
+function parseSeen(v: unknown): SeenWatermark | null {
+  if (typeof v !== "object" || v === null) return null;
+  const o = v as Record<string, unknown>;
+  if (typeof o.day !== "string" || !DAY_RE.test(o.day)) return null;
+  if (typeof o.count !== "number" || !Number.isInteger(o.count) || o.count < 0) return null;
+  return { day: o.day, count: o.count };
+}
+
+/** Zápis vodoznaku — čistá operace (UI ji jen volá po dokreslení novinek). */
+export function withSeen(state: SchrankaState, seen: SeenWatermark): SchrankaState {
+  if (!DAY_RE.test(seen.day) || !Number.isInteger(seen.count) || seen.count < 0) return state;
+  if (state.seen !== null && state.seen.day === seen.day && state.seen.count === seen.count) return state;
+  return { ...state, seen };
 }
 
 /** Přísná serializace: jen validní položky, klíče vzestupně (deterministicky —
@@ -130,7 +166,7 @@ export function serializeSchrankaState(state: SchrankaState): string {
     .filter((f) => isEntityKey(f.key))
     .slice(0, MAX_FOLLOWS)
     .sort((a, b) => a.key.localeCompare(b.key));
-  return JSON.stringify({ follows, lastVisit: state.lastVisit });
+  return JSON.stringify({ follows, lastVisit: state.lastVisit, seen: state.seen });
 }
 
 /**

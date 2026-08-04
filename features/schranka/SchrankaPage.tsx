@@ -13,7 +13,7 @@
  * Copy česky přímo zde (messages/*.json mimo plochu — precedens /denik).
  */
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Eye, Inbox } from "lucide-react";
 import SectionHeading from "@/features/shared/components/SectionHeading";
@@ -26,6 +26,8 @@ import type { NovinkyResponse } from "./novinky";
 import FollowButton from "./FollowButton";
 import { fetchNovinky } from "./useNews";
 import { useSchranka } from "./useSchranka";
+import { useToday } from "./useToday";
+import { countSeen, newVisitGuard, openVisit, type VisitWindow } from "./visitWindow";
 
 const TONE_DOT: Record<DeltaEntry["tone"], string> = {
   signal: "bg-signal",
@@ -137,17 +139,23 @@ function EntityBlock({ delta, storedLabel }: { delta: EntityDelta; storedLabel: 
 }
 
 export default function SchrankaPage() {
-  const { state, stampVisit } = useSchranka();
+  const { state, stampVisit, markSeen } = useSchranka();
+  const today = useToday();
 
   // Práh pohledu = PŘEDCHOZÍ razítko; nová návštěva se orazítkuje hned při
-  // otevření (odznak v liště zhasne), ale pohled drží starý práh do reloadu.
+  // otevření, ale pohled drží starý práh do reloadu.
   // Razítkuje se v rAF — zápis do localStorage rozvlní useSchranka a
   // synchronní setState v těle efektu je kaskádový render (precedens
-  // useActiveSection; react-hooks/set-state-in-effect).
-  const [visit, setVisit] = useState<{ prev: string | null } | null>(null);
+  // useActiveSection; react-hooks/set-state-in-effect). Razítko se počítá
+  // PŘED setState a přes jednorázovou pojistku: updater ve StrictMode běží
+  // dvakrát a razítkování uvnitř něj by okno „od minulé návštěvy" zavřelo
+  // (viz openVisit v visitWindow.ts).
+  const [visit, setVisit] = useState<VisitWindow | null>(null);
+  const guard = useRef(newVisitGuard());
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
-      setVisit((v) => v ?? { prev: stampVisit() });
+      const opened = openVisit(guard.current, stampVisit);
+      if (opened !== null) setVisit(opened);
     });
     return () => cancelAnimationFrame(frame);
   }, [stampVisit]);
@@ -156,7 +164,7 @@ export default function SchrankaPage() {
     .map((f) => f.key)
     .sort()
     .join("|");
-  const since = visit !== null ? sinceDay(visit.prev, new Date().toISOString().slice(0, 10)) : null;
+  const since = visit !== null ? sinceDay(visit.prev, today) : null;
   const sig = since !== null && keysSig !== "" ? `${keysSig}@${since}` : null;
 
   // Odpověď nese podpis dotazu — zastaralá se v renderu prostě nepoužije,
@@ -177,8 +185,17 @@ export default function SchrankaPage() {
   const data: NovinkyResponse | null | undefined =
     fetched !== null && fetched.sig === sig ? fetched.res : undefined;
 
+  // Vodoznak viděného: co tahle návštěva ukázala z DNEŠNÍHO dne. Odznak
+  // v liště to pak odečítá a po návštěvě zhasne (visitWindow.ts). Zapisuje se
+  // až nad načtenými daty a jen při změně — markSeen sám nezapíše totéž znovu.
+  useEffect(() => {
+    if (visit === null || data === undefined || data === null) return;
+    markSeen({ day: visit.day, count: countSeen(data.deltas, visit.day) });
+  }, [visit, data, markSeen]);
+
   const storedLabels = new Map(state.follows.map((f) => [f.key, f.label]));
   const firstVisit = visit !== null && visit.prev === null;
+  const dropped = (data?.droppedEntries ?? 0) + (data?.droppedDeltas ?? 0);
 
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
@@ -219,6 +236,12 @@ export default function SchrankaPage() {
             {firstVisit
               ? ` První návštěva razítko nemá — ukazuje se posledních ${czechInt(FIRST_VISIT_DAYS)} dnů záznamu.`
               : ""}
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-steel-aa">
+            Odznak v liště se řídí přísnějším pravidlem: po návštěvě si schránka poznamená, kolik
+            zápisů dnešního dne jste tady měli před sebou, a odznak je pak nepočítá — proto po
+            návštěvě zhasne, i když je den návštěvy nad prahem pořád celý. Odečítá se jen počet
+            z téhož dne; jinak nic. Stránka zůstává shovívavá — pravidla jsou dvě záměrně.
           </p>
         </div>
 
@@ -287,6 +310,20 @@ export default function SchrankaPage() {
                     {!data.coverage.reviews ? " rozhodnutí lidské brány;" : ""}
                     {!data.coverage.changes ? " proud „zaznamenáno“;" : ""}
                     {!data.coverage.dukazy ? " forenzní posudky;" : ""} chybějící skupina se nedopisuje.
+                  </p>
+                </div>
+              )}
+
+              {dropped > 0 && (
+                <div className="mt-6 max-w-2xl border-l-4 border-ochre bg-paper-strong px-4 py-3">
+                  <p className="font-mono text-[11px] font-bold uppercase tracking-widest">
+                    nečitelné řádky odpovědi
+                  </p>
+                  <p className="mt-1 text-sm leading-relaxed text-steel-aa">
+                    {czechInt(dropped)}{" "}
+                    {dropped === 1 ? "řádek odpovědi měl" : "řádků odpovědi mělo"} tvar, kterému
+                    schránka nerozumí — {dropped === 1 ? "byl zahozen" : "byly zahozeny"} a
+                    nedokreslují se odhadem. Zbytek delty platí; úplný záznam nese deník entity.
                   </p>
                 </div>
               )}
