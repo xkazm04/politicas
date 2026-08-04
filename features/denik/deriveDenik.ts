@@ -123,7 +123,10 @@ export const FEED_ENTRIES = 100;
 export const dayAnchor = (date: string): string => `d-${date}`;
 
 /** Deterministický český den v týdnu z `YYYY-MM-DD` — bez Intl (server a
- *  klient mohou mít různé verze ICU; toLocaleDateString by rozjelo hydrataci). */
+ *  klient mohou mít různé verze ICU; toLocaleDateString by rozjelo hydrataci).
+ *  Zóna se sem NEVRACÍ ani po pražské opravě dne (features/denik/pragueDay.ts):
+ *  vstupem je DATUM, ne okamžik, a den v týdnu data se počítá kalendářně. Zóna
+ *  rozhoduje jen o tom, KTERÝ den je „dnes" — a to řeší loader na serveru. */
 const WEEKDAYS_CS = ["neděle", "pondělí", "úterý", "středa", "čtvrtek", "pátek", "sobota"] as const;
 export function czechWeekday(isoDate: string): string | null {
   const m = isoDate.match(/^(\d{4})-(\d{2})-(\d{2})$/);

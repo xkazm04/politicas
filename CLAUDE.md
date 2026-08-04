@@ -786,6 +786,38 @@ Route map (politicas.md roadmap execution, sample data):
   (the `č. N/RRRR Sb.` title citation is the only structured bill→law link
   psp.cz publishes); fabricating them would violate the brand rule. Mock kept as
   fallback.
+- `/denik` — **Deník republiky** (features/denik): the chronological daily
+  record of the state — signed contracts of firms MPs own/run, committee
+  assignments, Sbírka publication, registry role starts/ends, human-gate
+  decisions and the `change_event` „zaznamenáno" stream. Copy is deliberately
+  hardcoded Czech (the /dukazy precedent). `getDenikData.ts` re-uses
+  `getMoneyData` / `getLawData` / `listReviewAudit` (batch layers memoized on
+  `MONEY_MEMO_TTL_MS`); every layer degrades independently and `coverage` says
+  which groups the page can carry. `?entita=<klíč>` is the subscription — the
+  same public keys /schranka follows — and `/denik/feed.{xml,json}` serialize
+  the same filter.
+  **The day is a PRAGUE day since 2026-08-04** (`features/denik/pragueDay.ts`).
+  `builtOn` was `new Date().toISOString().slice(0,10)` — UTC — on a ledger whose
+  whole subject is Czech days. Between local midnight and 01:00/02:00 the Prague
+  day runs one day AHEAD of UTC, so a contract signed „today" in Prague fell past
+  `deriveDenik`'s `date <= today` bound and was counted into **`droppedImplausible`
+  — the counter with which the page discloses CORRUPT DATES IN THE CORPUS**. A
+  server timezone was inflating an honesty counter. Intl is allowed there and
+  nowhere near render: the value is computed server-side and crosses to the client
+  as data, while `czechWeekday` stays pure arithmetic (ICU version skew would trip
+  hydration). DST is read from the zone per instant, never a constant, and the
+  day's midnight is resolved two-pass so the spring-forward day gets the offset in
+  force AT midnight (`+01:00`), not after it.
+  **`date_published` is RFC 3339 since 2026-08-04.** The JSON feed emitted a bare
+  `YYYY-MM-DD`, which JSON Feed 1.1 does not permit; the shared
+  `parseEvidenceFeedJson` never caught it because it only checks `typeof string`
+  (/dukazy passes a full ISO instant). A deník row carries a DAY, not an instant,
+  so the stamp is that day's **Prague midnight with its own offset**
+  (`2026-08-04T00:00:00+02:00`), and RSS `pubDate` is derived from the same instant
+  so the two formats cannot date one row differently. An undatable day emits no
+  stamp rather than a guess. Feed order (date descending) is now pinned by test at
+  the codec boundary — `DenikTeaser` reads „the latest day" as `items[0]` and
+  nothing across the format boundary held that.
 - `/schranka` — **Občanská schránka** (features/schranka): a follow list with no
   account — the whole state is one localStorage record (`politicas:schranka:v1`,
   `followCodec.ts`) keyed by the SAME public entity keys `/denik` addresses with

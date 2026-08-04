@@ -32,6 +32,7 @@ import { getMoneyData } from "@/features/money/getMoneyData";
 import { isAttributable } from "@/features/money/reachableMoney";
 import { getLawData } from "@/features/lawwatch/getLawData";
 import { icoFromDst, pspIdFromSrc } from "@/features/dukazy/deriveFeed";
+import { pragueDay } from "./pragueDay";
 import type { DenikBill, DenikChange, DenikContract, DenikReview, DenikRole } from "./deriveDenik";
 
 export interface DenikCoverage {
@@ -54,7 +55,12 @@ export interface DenikSourceData {
   coverage: DenikCoverage;
   /** Kolik řádků review_audit branou prošlo — cituje se v hlavičce plochy. */
   auditRows: number;
-  /** `YYYY-MM-DD` serveru — `today` čistého odvození a datum sestavení plochy. */
+  /** `YYYY-MM-DD` v Europe/Prague — `today` čistého odvození a datum sestavení
+   *  plochy. Pražský, ne UTC: deník je denní záznam ČESKÉ republiky a mezi
+   *  půlnocí a druhou hodinou je pražský den o den napřed (features/denik/
+   *  pragueDay.ts). Pod UTC dnem padala dnešní pražská smlouva za horní mez
+   *  `date <= today` a započítala se do `droppedImplausible` — do čísla, kterým
+   *  plocha přiznává vadná data v korpusu. */
   builtOn: string;
 }
 
@@ -370,6 +376,6 @@ export async function getDenikData(): Promise<DenikSourceData | null> {
     changes: changeStream.changes,
     coverage,
     auditRows: gate.auditRows,
-    builtOn: new Date().toISOString().slice(0, 10),
+    builtOn: pragueDay(),
   };
 }

@@ -18,6 +18,7 @@ import {
   czechWeekday,
   type DenikInput,
 } from "./deriveDenik";
+import { pragueDay } from "./pragueDay";
 
 const input = (over: Partial<DenikInput> = {}): DenikInput => ({
   today: "2026-07-28",
@@ -73,6 +74,27 @@ describe("deriveDenikEntries — nemožné datum není datum", () => {
     );
     expect(entries.map((e) => e.id)).toEqual(["contract:d"]);
     expect(droppedImplausible).toBe(3);
+  });
+
+  it("dnešek je PRAŽSKÝ den, ne UTC — smlouva podepsaná dnes v Praze nepadá do vyhozených", () => {
+    // 2026-08-04 22:30 UTC = 2026-08-05 00:30 v Praze. Loader do 2026-08-04
+    // počítal `today` z UTC, takže dnešní pražská smlouva byla „z budoucnosti"
+    // a přičetla se k droppedImplausible — tedy k číslu, kterým plocha přiznává
+    // VADNÁ DATA V KORPUSU. Časové pásmo serveru nafukovalo počítadlo poctivosti.
+    const instant = new Date("2026-08-04T22:30:00.000Z");
+    const utcToday = instant.toISOString().slice(0, 10);
+    const pragueToday = pragueDay(instant);
+    expect(utcToday).toBe("2026-08-04");
+    expect(pragueToday).toBe("2026-08-05");
+
+    const contracts = [contract("dnes", "2026-08-05")];
+    const podUtc = deriveDenikEntries(input({ contracts, today: utcToday }));
+    expect(podUtc.entries).toHaveLength(0);
+    expect(podUtc.droppedImplausible).toBe(1); // vada dat, která vadou dat není
+
+    const podPrahou = deriveDenikEntries(input({ contracts, today: pragueToday }));
+    expect(podPrahou.entries.map((e) => e.id)).toEqual(["contract:dnes"]);
+    expect(podPrahou.droppedImplausible).toBe(0);
   });
 
   it("záznam bez data se nedatuje odhadem — prostě není", () => {

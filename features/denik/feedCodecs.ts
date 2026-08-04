@@ -17,6 +17,7 @@ import {
   type EvidenceFeedJsonItem,
 } from "@/features/dukazy/feedCodecs";
 import { dayAnchor, type DenikEntry } from "./deriveDenik";
+import { pragueDayRfc3339 } from "./pragueDay";
 
 /**
  * Co serializér z jednoho záznamu SKUTEČNĚ potřebuje. `DenikEntry` to splňuje;
@@ -114,10 +115,26 @@ function rfc822(iso: string): string | null {
   return Number.isFinite(t) ? new Date(t).toUTCString() : null;
 }
 
+/**
+ * Razítko vydání položky — RFC 3339, jak JSON Feed 1.1 u `date_published`
+ * VYŽADUJE. Do 2026-08-04 se emitoval holý `YYYY-MM-DD` (`e.date`), což RFC
+ * 3339 není; sdílený validátor to nechytil, protože kontroluje jen `typeof
+ * string` (Deník důkazů posílá plný ISO instant a formát tím splňoval).
+ *
+ * Řádek deníku nese DEN, ne okamžik — razítkem je proto PRAŽSKÁ PŮLNOC toho
+ * dne i s posunem, který v ní platil (`2026-08-04T00:00:00+02:00`). Půlnoc UTC
+ * by o pražském dni tvrdila něco jiného než plocha; a `pubDate` v RSS jde ze
+ * stejného okamžiku, aby obě podoby feedu nedatovaly týž řádek jinam.
+ * Neparsovatelný den → null a element se vynechá (nikdy odhad).
+ */
+export function denikEntryPublishedAt(e: DenikFeedItem): string | null {
+  return pragueDayRfc3339(e.date);
+}
+
 export function denikFeedToRss(entries: readonly DenikFeedItem[], ctx: DenikFeedContext): string {
   const items = entries
     .map((e) => {
-      const pub = rfc822(e.date);
+      const pub = rfc822(denikEntryPublishedAt(e) ?? "");
       return [
         "    <item>",
         `      <guid isPermaLink="false">${escapeXml(denikEntryGuid(e, ctx.channel?.guidPrefix))}</guid>`,
@@ -167,7 +184,9 @@ export function denikFeedToJson(entries: readonly DenikFeedItem[], ctx: DenikFee
         url: itemUrl(e, ctx),
         title: e.titleCs,
         content_text: denikEntrySummaryCs(e),
-        date_published: e.date,
+        // RFC 3339 (viz denikEntryPublishedAt). Nedatovatelný den → prázdný
+        // řetězec: čtečka pozná chybějící datum, ale nikdy nedostane odhad.
+        date_published: denikEntryPublishedAt(e) ?? "",
         authors: [{ name: e.source }],
       }),
     ),
