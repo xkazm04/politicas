@@ -67,10 +67,15 @@ export type GateVerdict =
       family: "figura";
       kind: "moved";
       figure: IssuedFigure;
-      citedValue: number;
+      /** null jen u `movedBy: "basis"` — hodnota sedí, pohnul se její základ. */
+      citedValue: number | null;
       citedDate: string | null;
+      /** CO se pohnulo: sama hodnota, nebo výpočet, který ji napsal. */
+      movedBy: "value" | "basis";
+      /** Základ odvození, jak ho nesl payload; null = payload žádný nenesl. */
+      citedDerivation: string | null;
     }
-  | { family: "figura"; kind: "unknown"; reason: "mimo-rejstrik"; ref: string }
+  | { family: "figura"; kind: "unknown"; reason: "mimo-rejstrik" | "zaznam-nenalezen"; ref: string }
   // Účtenka původu (/zdroj)
   | { family: "zdroj"; kind: "verified"; encoded: string; receipt: ProvenanceReceipt }
   | { family: "zdroj"; kind: "unknown"; reason: "zaznam-nenalezen" | "nerozlustitelny"; encoded: string }
@@ -90,7 +95,14 @@ export type GateVerdict =
 /** Verdikt nad figurou: rejstřík nezná ⇒ unknown; payload s hodnotou se
  *  porovná přesně (strojové hodnoty jdou přes String(value) round-trip,
  *  takže rovnost čísel je rovnost bajtů); holý ref bez hodnoty dostane
- *  verified s dnešní hodnotou — vstup nic netvrdil, jen se ptal. */
+ *  verified s dnešní hodnotou — vstup nic netvrdil, jen se ptal.
+ *
+ *  ZÁKLAD ODVOZENÍ SE POROVNÁVÁ TAKY (`data-claim-derivation`). Když se číslo
+ *  nezměnilo, ale napsal ho jiný výpočet, verdikt je `moved` — ne `verified`:
+ *  „ověřeno" by potvrzovalo shodu, která je náhoda dvou různých formulí. Přesně
+ *  tenhle případ vznikl 2026-07-29→08-04 (opravená formule, neopravená data);
+ *  na úrovni citace ho zachytí jedině tohle porovnání. Chybějící základ na
+ *  jedné ze stran se neporovnává — nic netvrdí. */
 export function figuraVerdict(
   det: Extract<DetectedRef, { family: "figura" }>,
   figure: IssuedFigure | null,
@@ -98,11 +110,26 @@ export function figuraVerdict(
   if (!figure) return { family: "figura", kind: "unknown", reason: "mimo-rejstrik", ref: det.ref };
   const citedValue = det.pasted?.value ?? null;
   const citedDate = det.pasted?.retrievedAt ?? null;
+  const citedDerivation = det.pasted?.derivation ?? null;
   if (citedValue !== null && !Object.is(citedValue, figure.value)) {
-    return { family: "figura", kind: "moved", figure, citedValue, citedDate };
+    return { family: "figura", kind: "moved", figure, citedValue, citedDate, movedBy: "value", citedDerivation };
+  }
+  const today = figure.claim.derivation ?? null;
+  if (citedDerivation !== null && today !== null && citedDerivation !== today) {
+    return { family: "figura", kind: "moved", figure, citedValue, citedDate, movedBy: "basis", citedDerivation };
   }
   return { family: "figura", kind: "verified", figure, citedValue, citedDate };
 }
+
+/** Živá figura, jejíž předmět dnešní odvození nenese (poslanec bez vazeb, IČO
+ *  mimo graf, vazba, která z grafu zmizela). NENÍ to „rejstřík ji nezná" —
+ *  adresa je naše a vydali jsme ji; nenese ji dnešní záznam. */
+export const figuraGoneVerdict = (ref: string): GateVerdict => ({
+  family: "figura",
+  kind: "unknown",
+  reason: "zaznam-nenalezen",
+  ref,
+});
 
 // ── Účtenka původu (/zdroj) ─────────────────────────────────────────────────
 
@@ -273,7 +300,8 @@ export function verdictLeadKey(v: GateVerdict): string {
     return "verdict.leadHashMatch";
   }
   if (v.kind === "moved") {
-    return v.family === "figura" ? "verdict.leadFiguraMoved" : "verdict.leadHashMoved";
+    if (v.family !== "figura") return "verdict.leadHashMoved";
+    return v.movedBy === "basis" ? "verdict.leadFiguraMovedBasis" : "verdict.leadFiguraMoved";
   }
   return UNKNOWN_LEAD_KEYS[v.reason];
 }
@@ -295,6 +323,7 @@ export const VERDICT_COPY_KEYS: readonly string[] = [
   "verdict.leadZdrojRejected",
   "verdict.leadHashMatch",
   "verdict.leadFiguraMoved",
+  "verdict.leadFiguraMovedBasis",
   "verdict.leadHashMoved",
   ...Object.values(UNKNOWN_LEAD_KEYS),
 ];

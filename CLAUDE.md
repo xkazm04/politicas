@@ -291,6 +291,30 @@ Route map (politicas.md roadmap execution, sample data):
   pins decode + resolution + gate agreement for every tie. One-hop links added:
   /penize → `/penize/strety` + `/dukazy`, the case file → `/dukazy` (its `/paket`
   link was already there).
+  **The NUMBER is citable too (2026-08-04).** A tie had a permanent address since
+  the receipt work; the amount beside it had none — so a journalist could cite „the
+  tie exists" and not „firma X dostala 23,7 mld. Kč", which is what actually gets
+  quoted. The ledger's „dosah" cell, the case file's two split tiles and the company
+  file's headline now render through `CitableNumber` with a `data-claim-*` payload
+  minted in ONE place, `features/money/moneyClaims.ts` (pure — the surface that
+  ISSUES a figure and the gate that RE-DERIVES it must compose the identical ref).
+  The ref grammar is not new: `claim:<dataset>:<metric>:<subject>` where the subject
+  is the entity's own address — a tie's `receiptRef` (`h.<src>.<rel>.<dst>`, decoded
+  by `decodeClaimRef`) or a node id (`psp:person:6881` / `company:ico:46347534`,
+  decoded by `pspIdFromEntityId` / `icoFromEntityId`, which moved into
+  `caseFileLink.ts` so ONE module owns what our ids look like). Four metrics:
+  `dosah-vazby` · `smlouvy-firem-poslance` · `smlouvy-instituci-poslance` ·
+  `dosah-firmy` — the two sides of the attribution split are DIFFERENT metrics
+  because they are different statements. Values come from `tieReach` /
+  `bucketReachCzk` and nowhere else; the claim's gate state is the tie's own
+  (`rejected` joined `ClaimReviewStatus` — a rejected tie stays in the graph and a
+  figure resting on one may not read as merely unchecked), and an AGGREGATE is
+  `verified` only when every tie under it is. `compactCzk` moved to `lib/format.ts`
+  as the `czkCompact` citable kind (re-exported under its old name). **`TIE_WIRE` is
+  unchanged and that is the finding**: every input the claim needs was already
+  `public`, so /penize ships **zero new wire bytes** — measured 107 724 B raw /
+  17 312 B gzipped, byte-identical to before. The cost is HTML: **+11 914 B raw /
+  +941 B gzipped** for the 25 rows one ledger page draws.
   **The company is addressable (2026-08-04) — `/penize/firma/[ico]`.** A company
   is the graph's JUNCTION node (contract ⋈ subsidy ⋈ donation ⋈ MPs) with a stable
   id, and **14 of them are tied to more than one MP** — a fact the ledger's
@@ -768,6 +792,27 @@ Route map (politicas.md roadmap execution, sample data):
   section is `id="verdikt"` + `tabIndex=-1` + `aria-live` and is focused after a
   GET submit (`VerdictFocus`), and the unknown headline moved off `steel-aa` to
   `ink` — it is the most common outcome, not a footnote.
+  **The gate verifies live VALUES, not only the sample registry (2026-08-04).**
+  `lib/claims/registry.ts` is a pure module over the sample layer — three figures,
+  all issued by /svedectvi — so a money figure could never enter it (it would have to
+  be frozen there, and start lying). `features/overeni/liveFigures.ts` is the second
+  half: server-only, it decodes a claim's subject and hands the question to the
+  loader that OWNS the number (`getMoneyMpDetail`, `getCompanyDetail`), which mints
+  the claim with the SAME `features/money/moneyClaims.ts` the page used. The gate
+  still derives nothing. Order is registry-then-live, so a store is only touched for
+  a ref the finite registry does not know; a store that is down answers
+  `unavailable`, never „the registry does not know this figure", and a live address
+  today's graph no longer carries answers `zaznam-nenalezen`, not `mimo-rejstrik`.
+  **The verdict now also compares the DERIVATION** (`data-claim-derivation`, new and
+  optional on `Claim`): equal value + different basis is `moved`, not `verified` —
+  a match between two different formulas is a coincidence, and this is exactly the
+  2026-07-29→08-04 pass-42 case at the citation layer. A missing basis on either
+  side is not compared: it claims nothing. Verified against the live store: the
+  ledger's first row (Petr Hladík → Teplárny Brno, `kg-pass:10`) verifies at
+  **23 653 407 340,55 Kč** from a bare ref AND from a pasted element; +1 000 000 on
+  the pasted value answers `moved/value`; the same value stamped `kg-pass:11`
+  answers `moved/basis`; the MP total (23 570 594 009,66) and the company reach
+  verify the same way, and all of them carry `pending` because all 211 ties do.
   **The verifier speaks both languages, since 2026-08-04.** It had ZERO English
   — no `overeni` namespace at all, every sentence a Czech literal in
   `guide.ts` / `verdict.ts` / `OvereniPage.tsx` / the route metadata — while

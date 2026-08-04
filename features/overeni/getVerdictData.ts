@@ -14,9 +14,11 @@ import { getReceiptData } from "@/features/shared/provenance/getReceiptData";
 import { getPermalinkData } from "@/features/graph/getPermalinkData";
 import { getExhibitData } from "@/features/dashboard/getExhibitData";
 import { resolveClaimRef } from "@/lib/claims/registry";
+import { resolveLiveFigure } from "./liveFigures";
 import { detectRef, type DetectedRef } from "./refDetect";
 import {
   exponatVerdict,
+  figuraGoneVerdict,
   figuraVerdict,
   grafVerdict,
   neznamyVerdict,
@@ -34,9 +36,27 @@ export async function getVerdictData(rawInput: string | null): Promise<GateData>
   const detected = detectRef(rawInput);
 
   switch (detected.family) {
-    case "figura":
-      // Rejstřík je čistý modul — figura se ověřuje i bez běžícího store.
-      return { status: "ok", detected, verdict: figuraVerdict(detected, resolveClaimRef(detected.ref)) };
+    case "figura": {
+      // Dvě rodiny figur, jeden verdikt. Rejstřík (lib/claims/registry) je čistý
+      // modul nad vzorkovou vrstvou a ověřuje se i bez běžícího store; ŽIVÁ
+      // figura (peněžní číslo /penize) se znovu odvozuje vlastnickým loaderem —
+      // ./liveFigures.ts. Pořadí je dané: rejstřík je konečný výčet tří figur,
+      // takže se ptáme napřed jeho a store obtěžujeme jen tehdy, když ref nezná.
+      const issued = resolveClaimRef(detected.ref);
+      if (issued) return { status: "ok", detected, verdict: figuraVerdict(detected, issued) };
+
+      const live = await resolveLiveFigure(detected.parts);
+      // Nedostupný store NENÍ verdikt o odkazu — figura by jinak dostala
+      // „rejstřík ji nezná", což je o živém čísle nepravda.
+      if (live.status === "unavailable") return { status: "unavailable" };
+      // Živá adresa, kterou dnešní odvození nenese, není „figuru neznáme":
+      // vydali jsme ji, jen za ní dnes žádný záznam nestojí.
+      if (live.status === "gone") {
+        return { status: "ok", detected, verdict: figuraGoneVerdict(detected.ref) };
+      }
+      const figure = live.status === "ok" ? live.figure : null;
+      return { status: "ok", detected, verdict: figuraVerdict(detected, figure) };
+    }
 
     case "zdroj": {
       const result = await getReceiptData(detected.encoded);

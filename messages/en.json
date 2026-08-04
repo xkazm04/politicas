@@ -1211,6 +1211,7 @@
       "leadZdrojRejected": "The address resolves and the record is in today's graph — but human review REJECTED it. What is verified is that you cited this exact record; it is not an evidenced statement and must not be cited as one.",
       "leadHashMatch": "The fingerprint of the cited content matches the fingerprint of today's re-derivation.",
       "leadFiguraMoved": "The cited value and today's re-derivation differ — both sides are below, with their dates. The citation is not lying, it has aged.",
+      "leadFiguraMovedBasis": "The figure matches, but a different computation wrote it than the one running today — the cited derivation and today's derivation differ. A matching value under two different methodologies is a coincidence, not a confirmation; both bases are named below.",
       "leadHashMoved": "The content at this address has changed since the citation was issued — both fingerprints are below. The address does not carry the citation's issue date, so we do not state one.",
       "leadEmpty": "Paste a politicas address — a URL, a claim-ref, or a copied element carrying data-claim-* attributes.",
       "leadTooLong": "The input exceeds the length limit — neither a politicas address nor a copied element is this long.",
@@ -1254,7 +1255,10 @@
       "noIssueDate": "the address carries no issue date",
       "pass": "pass {pass}",
       "exhibitRez": "control-room slice (state of the republic)",
-      "exhibitFakt": "dated fact from the control-room ledger"
+      "exhibitFakt": "dated fact from the control-room ledger",
+      "derivation": "derivation today",
+      "citedDerivation": "derivation cited",
+      "subject": "subject of the claim"
     },
     "guide": {
       "title": "How to cite so it can be verified",

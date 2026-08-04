@@ -123,8 +123,34 @@ export const formatCzk = (n: number, locale: Locale) =>
 // claim payload from lib/claims. The claim shape and gate live in
 // lib/claims/claim.ts; this is only the join point with locale formatting.
 
-/** Which string formatter renders the visible number. */
-export type CitableKind = "dec" | "int" | "czk";
+/**
+ * Compact CZK for dense tiles, graph labels and ledger cells — "23,7 mld. Kč".
+ *
+ * Lived in `features/money/moneyTypes.ts` until 2026-08-04, when the money figures
+ * became citable claims: a claim's visible text has to be byte-identical to the plain
+ * formatter of its `kind`, and that contract is only enforceable while every kind is
+ * declared here (`CitableKind` below). Moved verbatim, with the file's own non-finite
+ * guard added — a "—" placeholder must never reach `toFixed`.
+ */
+export function formatCompactCzk(n: number, locale: string): string {
+  if (!Number.isFinite(n)) return NOT_A_NUMBER_PLACEHOLDER;
+  const cs = locale !== "en";
+  const abs = Math.abs(n);
+  const dec = (x: number) => (cs ? x.toFixed(1).replace(".", ",") : x.toFixed(1));
+  if (abs >= 1e9) return cs ? `${dec(n / 1e9)} mld. Kč` : `${dec(n / 1e9)} bn CZK`;
+  if (abs >= 1e6) return cs ? `${dec(n / 1e6)} mil. Kč` : `${dec(n / 1e6)} M CZK`;
+  if (abs >= 1e3) {
+    const k = Math.round(n / 1e3);
+    return cs ? `${k.toLocaleString("cs-CZ")} tis. Kč` : `${k.toLocaleString("en-US")}k CZK`;
+  }
+  const r = Math.round(n);
+  return cs ? `${r.toLocaleString("cs-CZ")} Kč` : `CZK ${r.toLocaleString("en-US")}`;
+}
+
+/** Which plain formatter sets the visible text of a citable figure. `czkCompact`
+ *  is the money surfaces' own density (`formatCompactCzk`) — the machine value in
+ *  `data-claim-value` stays full precision, the compaction is the locale's business. */
+export type CitableKind = "dec" | "int" | "czk" | "czkCompact";
 
 export interface CitableText {
   /** Visible string — byte-identical to the plain formatter of `kind`. */
@@ -133,6 +159,20 @@ export interface CitableText {
    *  placeholder must never testify as a machine-readable figure). */
   attrs: Record<string, string> | null;
 }
+
+/** The plain formatter of a `CitableKind` — the ONE mapping from kind to visible
+ *  text. Exported because a surface that compares a CITED value with today's has to
+ *  set both in the same density (the gate's verdict body), and re-deriving that
+ *  mapping there is how two numbers stacked on each other start disagreeing about
+ *  what they are. */
+export const formatByKind = (n: number, locale: Locale, kind: CitableKind = "dec"): string =>
+  kind === "int"
+    ? formatInt(n, locale)
+    : kind === "czk"
+      ? formatCzk(n, locale)
+      : kind === "czkCompact"
+        ? formatCompactCzk(n, locale)
+        : formatDecimal(n, locale);
 
 /** Formats `n` exactly like the plain formatter of `kind`, and attaches the
  *  claim's data-attributes. Pure strings — the element wrapper lives in
@@ -143,9 +183,7 @@ export const formatCitable = (
   locale: Locale,
   kind: CitableKind = "dec",
 ): CitableText => {
-  const text =
-    kind === "int" ? formatInt(n, locale) : kind === "czk" ? formatCzk(n, locale) : formatDecimal(n, locale);
-  return { text, attrs: Number.isFinite(n) ? claimDataAttributes(claim, n) : null };
+  return { text: formatByKind(n, locale, kind), attrs: Number.isFinite(n) ? claimDataAttributes(claim, n) : null };
 };
 
 /** Bundle of formatters bound to a locale — convenient in components. */

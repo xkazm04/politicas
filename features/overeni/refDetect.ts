@@ -36,6 +36,10 @@ export interface PastedFigure {
   unit: string | null;
   /** Stav lidské brány, jak ho payload tvrdí (verified/pending); doslova. */
   status: string | null;
+  /** Základ odvození z `data-claim-derivation` — KTERÝ výpočet hodnotu napsal
+   *  (`kg-pass:42`, `contribution-committee-dedupe@42`). null = payload ho
+   *  nenese; porovnává se jen tehdy, když ho nesou obě strany. */
+  derivation: string | null;
 }
 
 export type NeznamyReason =
@@ -107,6 +111,7 @@ function detectClaimPayload(input: string): DetectedRef {
       metric: nonEmpty(attrs.get("metric")),
       unit: nonEmpty(attrs.get("unit")),
       status: nonEmpty(attrs.get("status")),
+      derivation: nonEmpty(attrs.get("derivation")),
     },
   };
 }

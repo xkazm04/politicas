@@ -18,8 +18,14 @@
 //      unreviewed figure as a machine-readable verified claim.
 
 /** Review-gate state of the underlying fact. `pending` (the default) emits
- *  data-attributes only; `verified` additionally allows ClaimReview JSON-LD. */
-export type ClaimReviewStatus = "verified" | "pending";
+ *  data-attributes only; `verified` additionally allows ClaimReview JSON-LD.
+ *
+ *  `rejected` joined the union on 2026-08-04, when live money figures started
+ *  minting claims: `review_state` is TERMINAL per edge and a rejected tie stays
+ *  in the graph, so a figure resting on one had to be able to say so. Collapsing
+ *  it into `pending` would have published a refused claim as merely unchecked.
+ *  Only `verified` ever emits ClaimReview — the gate below is unchanged. */
+export type ClaimReviewStatus = "verified" | "pending" | "rejected";
 
 /** A machine-readable citation for one rendered figure. */
 export interface Claim {
@@ -42,6 +48,20 @@ export interface Claim {
   methodologyUrl?: string;
   /** Human review-gate state. Defaults to "pending" when omitted. */
   reviewStatus?: ClaimReviewStatus;
+  /**
+   * WHAT COMPUTED THE VALUE — the identity of the derivation behind the figure,
+   * as the store carries it (`contribution-committee-dedupe@42`, `kg-pass:42`).
+   *
+   * Not decoration: on 2026-07-29 the contribution formula changed and the store
+   * was corrected only on 2026-08-04, so for six days one number had two possible
+   * authors and a citation could not name its own. A value claim that carries its
+   * derivation lets the gate answer "the figure is the same, but a different
+   * formula wrote it" instead of stamping a coincidence "verified".
+   *
+   * Omit when the derivation is not knowable (a half-recomputed store has no
+   * single one) — an absent basis claims nothing, which is the honest state.
+   */
+  derivation?: string;
 }
 
 /** Canonical key order — the single source of truth for serialization.
@@ -56,6 +76,7 @@ const CLAIM_KEYS = [
   "retrievedAt",
   "methodologyUrl",
   "reviewStatus",
+  "derivation",
 ] as const satisfies readonly (keyof Claim)[];
 
 export const claimStatus = (claim: Claim): ClaimReviewStatus => claim.reviewStatus ?? "pending";
@@ -126,6 +147,7 @@ export function claimDataAttributes(claim: Claim, value: number): Record<string,
   if (claim.sourceUrl !== undefined) attrs["data-claim-source-url"] = claim.sourceUrl;
   if (claim.retrievedAt !== undefined) attrs["data-claim-retrieved"] = claim.retrievedAt;
   if (claim.methodologyUrl !== undefined) attrs["data-claim-methodology"] = claim.methodologyUrl;
+  if (claim.derivation !== undefined) attrs["data-claim-derivation"] = claim.derivation;
   return attrs;
 }
 

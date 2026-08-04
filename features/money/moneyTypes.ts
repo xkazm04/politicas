@@ -459,17 +459,13 @@ export function tieClassOriginInfo(origin: TieClassOrigin): {
   };
 }
 
-/** Compact CZK for dense tiles/graph labels: data-derived Czech (en fallback). */
-export function compactCzk(n: number, locale: string): string {
-  const cs = locale !== "en";
-  const abs = Math.abs(n);
-  const dec = (x: number) => (cs ? x.toFixed(1).replace(".", ",") : x.toFixed(1));
-  if (abs >= 1e9) return cs ? `${dec(n / 1e9)} mld. Kč` : `${dec(n / 1e9)} bn CZK`;
-  if (abs >= 1e6) return cs ? `${dec(n / 1e6)} mil. Kč` : `${dec(n / 1e6)} M CZK`;
-  if (abs >= 1e3) {
-    const k = Math.round(n / 1e3);
-    return cs ? `${k.toLocaleString("cs-CZ")} tis. Kč` : `${k.toLocaleString("en-US")}k CZK`;
-  }
-  const r = Math.round(n);
-  return cs ? `${r.toLocaleString("cs-CZ")} Kč` : `CZK ${r.toLocaleString("en-US")}`;
-}
+/**
+ * Compact CZK for dense tiles/graph labels.
+ *
+ * THE IMPLEMENTATION MOVED to `lib/format.ts` (2026-08-04) and this is a re-export,
+ * not a second copy: /penize's money figures became citable claims, and a claim's
+ * visible text must be byte-identical to the plain formatter of its kind — which is
+ * only enforceable while `formatCitable` owns every kind. Display numbers belong to
+ * lib/format by repo law anyway; the name stays so the ~20 call sites do not churn.
+ */
+export { formatCompactCzk as compactCzk } from "@/lib/format";

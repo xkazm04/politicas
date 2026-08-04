@@ -1211,6 +1211,7 @@
       "leadZdrojRejected": "Adresa sedí a záznam v dnešním grafu je — lidská kontrola ho ale ZAMÍTLA. Ověřeno je, že jste citovali právě tenhle záznam; doložené tvrzení to není a citovat se tak nesmí.",
       "leadHashMatch": "Otisk citovaného obsahu se shoduje s otiskem dnešního znovuodvození.",
       "leadFiguraMoved": "Citovaná hodnota a dnešní znovuodvození se liší — obě strany níže, s daty. Citace nelže, jen zestárla.",
+      "leadFiguraMovedBasis": "Číslo sedí, ale napsal ho jiný výpočet, než jaký běží dnes — základ odvození citace a základ dnešního znovuodvození se liší. Shoda hodnoty je za těchto okolností náhoda dvou různých metodik, ne potvrzení; oba základy jsou vypsané níže.",
       "leadHashMoved": "Obsah pod touto adresou se od vydání citace změnil — oba otisky níže. Datum vydání citace adresa nenese, proto ho neuvádíme.",
       "leadEmpty": "Vložte politicas odkaz — adresu, claim-ref nebo zkopírovaný element s data-claim-* atributy.",
       "leadTooLong": "Vstup přesahuje horní mez délky — politicas adresa ani opsaný element takhle dlouhé nejsou.",
@@ -1254,7 +1255,10 @@
       "noIssueDate": "datum vydání adresa nenese",
       "pass": "průchod {pass}",
       "exhibitRez": "výřez velína (stav republiky)",
-      "exhibitFakt": "datovaný fakt z knihy velína"
+      "exhibitFakt": "datovaný fakt z knihy velína",
+      "derivation": "základ odvození dnes",
+      "citedDerivation": "základ odvození citace",
+      "subject": "předmět tvrzení"
     },
     "guide": {
       "title": "Jak citovat, aby to bylo ověřitelné",

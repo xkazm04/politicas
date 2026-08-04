@@ -14,11 +14,14 @@ import { useLocale } from "next-intl";
 import SourceNote from "@/features/shared/components/SourceNote";
 import FlagList from "@/features/shared/components/FlagList";
 import { claimRefPath } from "@/features/shared/provenance/claimRef";
-import { buildRegistryLinks } from "./reviewTypes";
+import CitableNumber from "@/lib/claims/CitableNumber";
+import type { Locale } from "@/lib/i18n/config";
+import { mpBucketClaim } from "./moneyClaims";
+import { buildRegistryLinks, type ReviewState } from "./reviewTypes";
 import { tieFlagInfos } from "./tieFlags";
 import AnalystNote from "./components/AnalystNote";
 import type { ContractCoverage } from "./moneyTypes";
-import { tieReach, type MoneyBucket } from "./reachableMoney";
+import { isAttributable, tieReach, type MoneyBucket } from "./reachableMoney";
 import {
   compactCzk,
   temporalBadge,
@@ -129,6 +132,10 @@ export default function MpCaseFilePage({ data }: { data: MoneyMpDetail | null })
                 }
                 locale={locale}
                 en={en}
+                pspId={data.pspId}
+                side="owned"
+                tieStates={data.ties.filter((t) => isAttributable(t.tieClass)).map((t) => t.reviewState)}
+                pass={data.pass}
               />
               <MoneyTile
                 tone="steel"
@@ -149,6 +156,10 @@ export default function MpCaseFilePage({ data }: { data: MoneyMpDetail | null })
                 }
                 locale={locale}
                 en={en}
+                pspId={data.pspId}
+                side="steward"
+                tieStates={data.ties.filter((t) => !isAttributable(t.tieClass)).map((t) => t.reviewState)}
+                pass={data.pass}
               />
             </div>
 
@@ -190,6 +201,10 @@ function MoneyTile({
   emptyNote,
   locale,
   en,
+  pspId,
+  side,
+  tieStates,
+  pass,
 }: {
   tone: "signal" | "steel";
   label: string;
@@ -199,14 +214,34 @@ function MoneyTile({
   emptyNote: string;
   locale: string;
   en: boolean;
+  /** Subject of the claim minted on this tile's figure. */
+  pspId: number;
+  /** Which side of the attribution split — it is part of the claim's metric, because
+   *  a steward total and an owned total are two different statements. */
+  side: "owned" | "steward";
+  /** Gate states of the ties behind THIS bucket (moneyClaims.ts rule 4). */
+  tieStates: readonly ReviewState[];
+  /** kg pass that materialized the money layer — the claim's derivation. */
+  pass: number;
 }) {
   const empty = bucket.companies === 0;
-  const amount = compactCzk(bucket.contractCzk, locale);
+  // The tile's own figure is a citable claim: the number a journalist quotes carries the
+  // `data-claim-*` payload /overeni re-derives through `getMoneyMpDetail` — the same
+  // loader, the same shared arithmetic. The „nejméně" prefix stays OUTSIDE the claim: a
+  // floor is a property of the corpus, and `data-claim-value` is the machine figure.
+  const amount = (
+    <CitableNumber
+      value={bucket.contractCzk}
+      claim={mpBucketClaim(pspId, side, bucket, tieStates, pass).claim}
+      locale={locale as Locale}
+      kind="czkCompact"
+    />
+  );
   return (
     <div className="bg-paper p-6">
       <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">{label}</p>
       <p className={`mt-2 text-3xl font-black tabular-nums tracking-tight ${tone === "signal" ? "text-signal" : "text-ink"}`}>
-        {empty ? "—" : coverage.isFloor ? `${en ? "at least " : "nejméně "}${amount}` : amount}
+        {empty ? "—" : coverage.isFloor ? <>{en ? "at least " : "nejméně "}{amount}</> : amount}
       </p>
       {empty ? (
         <p className="mt-2 text-sm leading-relaxed text-steel">{emptyNote}</p>

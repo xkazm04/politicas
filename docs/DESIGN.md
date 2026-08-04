@@ -62,7 +62,12 @@ errors on it. Declared exceptions (scoped in `eslint.config.mjs`):
 - `font-serif` — **Fraunces**. Reserved; not used by Konstrukt (kept wired for
   editorial sub-surfaces if a module needs one).
 - Czech numerals: decimal comma via `czech()` / `czechInt()` from
-  `lib/format.ts` — components never call `.toFixed()` for display.
+  `lib/format.ts` — components never call `.toFixed()` for display. Dense money
+  („23,7 mld. Kč") is `formatCompactCzk()`, which moved here from
+  `features/money/moneyTypes.ts` on 2026-08-04 and is re-exported there under its
+  old name `compactCzk`: it became the `czkCompact` **citable kind**, and a citable
+  figure's visible text has to be byte-identical to the plain formatter of its kind
+  — a contract only enforceable while `formatByKind()` owns every kind.
 - Readable copy ≥ `text-sm`; uppercase tracked labels only for meta **and only
   when short** (§3 — length, not role, decides).
 - **No pixel-valued arbitrary sizes.** The real extent of this debt was measured

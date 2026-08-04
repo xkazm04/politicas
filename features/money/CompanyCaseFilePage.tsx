@@ -22,6 +22,9 @@ import { tieFlagInfos } from "./tieFlags";
 import AnalystNote from "./components/AnalystNote";
 import TieClassExplainer from "./components/TieClassExplainer";
 import FollowButton from "@/features/schranka/FollowButton";
+import CitableNumber from "@/lib/claims/CitableNumber";
+import type { Locale } from "@/lib/i18n/config";
+import { companyReachClaim } from "./moneyClaims";
 import { bucketReachCzk, isAttributable } from "./reachableMoney";
 import {
   compactCzk,
@@ -76,6 +79,9 @@ export default function CompanyCaseFilePage({ data }: { data: MoneyCompanyDetail
   const attributable = data.money.attributable.companies > 0;
   const bucket = attributable ? data.money.attributable : data.money.steward;
   const reachCzk = bucketReachCzk(bucket);
+  // Gate states of the ties the figure rests on — an aggregate is confirmed only when
+  // all of them are (moneyClaims.ts rule 4), and all 211 in the graph are pending today.
+  const tieStates = data.ties.map((t) => t.reviewState);
   const links = buildRegistryLinks(data.ico, "");
   const mpCount = new Set(data.ties.map((t) => t.pspId)).size;
 
@@ -147,7 +153,21 @@ export default function CompanyCaseFilePage({ data }: { data: MoneyCompanyDetail
             <p
               className={`mt-2 text-3xl font-black tabular-nums tracking-tight ${attributable ? "text-signal" : "text-ink"}`}
             >
-              {reachCzk > 0 ? compactCzk(reachCzk, locale) : "—"}
+              {/* The headline figure is what a journalist quotes, so it carries its own
+                  citable address (`claim:…:dosah-firmy:company:ico:<ičo>`) — the value
+                  comes from the shared arithmetic and /overeni re-derives it through the
+                  same loader. Gate state is part of the claim: this total is „verified"
+                  only if EVERY tie behind it is (moneyClaims.ts, rule 4). */}
+              {reachCzk > 0 ? (
+                <CitableNumber
+                  value={reachCzk}
+                  claim={companyReachClaim(data.ico, bucket, tieStates, data.pass).claim}
+                  locale={locale as Locale}
+                  kind="czkCompact"
+                />
+              ) : (
+                "—"
+              )}
             </p>
             <p className="mt-2 font-mono text-[11px] uppercase tracking-wider text-steel">
               {bucket.contractCount} {en ? "contracts" : "smluv"}

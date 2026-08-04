@@ -4,6 +4,7 @@ import type { ProvenanceReceipt } from "@/features/shared/provenance/receipt";
 import type { DetectedRef } from "./refDetect";
 import {
   exponatVerdict,
+  figuraGoneVerdict,
   figuraVerdict,
   grafVerdict,
   neznamyVerdict,
@@ -29,15 +30,32 @@ const FIGURE: IssuedFigure = {
   issuedAt: "/svedectvi",
 };
 
-const figuraDet = (pastedValue: number | null): Extract<DetectedRef, { family: "figura" }> => ({
+const figuraDet = (
+  pastedValue: number | null,
+  derivation: string | null = null,
+): Extract<DetectedRef, { family: "figura" }> => ({
   family: "figura",
   ref: "claim:d:m",
   parts: { dataset: "d", metric: "m" },
   pasted:
     pastedValue === null
       ? null
-      : { value: pastedValue, retrievedAt: "2026-06-01", dataset: "d", metric: "m", unit: "%", status: "pending" },
+      : {
+          value: pastedValue,
+          retrievedAt: "2026-06-01",
+          dataset: "d",
+          metric: "m",
+          unit: "%",
+          status: "pending",
+          derivation,
+        },
 });
+
+/** Živá figura: nese ZÁKLAD ODVOZENÍ (který výpočet hodnotu napsal). */
+const LIVE_FIGURE: IssuedFigure = {
+  ...FIGURE,
+  claim: { ...FIGURE.claim, derivation: "kg-pass:42" },
+};
 
 const RECEIPT: ProvenanceReceipt = {
   kind: "edge",
@@ -81,6 +99,65 @@ describe("verdikt figury", () => {
   it("figura mimo rejstřík → unknown, nikdy dosazená hodnota", () => {
     const v = figuraVerdict(figuraDet(78.3), null);
     expect(v).toEqual({ family: "figura", kind: "unknown", reason: "mimo-rejstrik", ref: "claim:d:m" });
+  });
+
+  it("živá adresa, kterou dnešní odvození nenese, NENÍ „rejstřík ji nezná“", () => {
+    expect(figuraGoneVerdict("claim:d:m")).toEqual({
+      family: "figura",
+      kind: "unknown",
+      reason: "zaznam-nenalezen",
+      ref: "claim:d:m",
+    });
+  });
+});
+
+describe("verdikt hodnotové figury — základ odvození", () => {
+  it("shodná hodnota i shodný základ → verified", () => {
+    const v = figuraVerdict(figuraDet(78.3, "kg-pass:42"), LIVE_FIGURE);
+    expect(v.kind).toBe("verified");
+  });
+
+  it("shodná hodnota, JINÝ základ → moved (shoda dvou formulí je náhoda)", () => {
+    const v = figuraVerdict(figuraDet(78.3, "kg-pass:11"), LIVE_FIGURE);
+    expect(v.kind).toBe("moved");
+    if (v.family === "figura" && v.kind === "moved") {
+      expect(v.movedBy).toBe("basis");
+      expect(v.citedDerivation).toBe("kg-pass:11");
+      expect(v.figure.claim.derivation).toBe("kg-pass:42");
+      // obě strany se dají pojmenovat, hodnota se nepohnula
+      expect(v.citedValue).toBe(78.3);
+    }
+    expect(verdictLeadKey(v)).toBe("verdict.leadFiguraMovedBasis");
+  });
+
+  it("rozdíl hodnoty přebíjí rozdíl základu — verdikt mluví o čísle", () => {
+    const v = figuraVerdict(figuraDet(79.5, "kg-pass:11"), LIVE_FIGURE);
+    if (v.family === "figura" && v.kind === "moved") expect(v.movedBy).toBe("value");
+    expect(verdictLeadKey(v)).toBe("verdict.leadFiguraMoved");
+  });
+
+  it("chybějící základ na jedné straně se NEporovnává — nic netvrdí", () => {
+    expect(figuraVerdict(figuraDet(78.3, null), LIVE_FIGURE).kind).toBe("verified");
+    expect(figuraVerdict(figuraDet(78.3, "kg-pass:42"), FIGURE).kind).toBe("verified");
+  });
+
+  it("hodnotový claim nad nezkontrolovanou vazbou drží stav brány v titulkové váze", () => {
+    const pending: IssuedFigure = {
+      ...LIVE_FIGURE,
+      claim: { ...LIVE_FIGURE.claim, reviewStatus: "pending" },
+    };
+    const v = figuraVerdict(figuraDet(78.3, "kg-pass:42"), pending);
+    expect(verdictTone(v)).toBe("gated-pending");
+    const gate = verdictGate(v);
+    expect(gate?.kind === "gated" && gate.info.status).toBe("pending_review");
+  });
+
+  it("hodnotový claim nad ZAMÍTNUTOU vazbou ztrácí potvrzující odstín", () => {
+    const rejected: IssuedFigure = {
+      ...LIVE_FIGURE,
+      claim: { ...LIVE_FIGURE.claim, reviewStatus: "rejected" },
+    };
+    expect(verdictTone(figuraVerdict(figuraDet(78.3, "kg-pass:42"), rejected))).toBe("gated-rejected");
   });
 });
 

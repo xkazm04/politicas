@@ -18,7 +18,6 @@ import { ArrowUpDown, ArrowUpRight } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import SourceNote from "@/features/shared/components/SourceNote";
 import {
-  compactCzk,
   temporalBadge,
   tieClassInfo,
   tieClassOriginInfo,
@@ -26,6 +25,9 @@ import {
 } from "../moneyTypes";
 import { LEDGER_CHIP_CAP, type MoneyLedgerData, type PublicMoneyMp, type PublicMoneyTie } from "../publicWire";
 import { claimRefPath } from "@/features/shared/provenance/claimRef";
+import CitableNumber from "@/lib/claims/CitableNumber";
+import type { Locale } from "@/lib/i18n/config";
+import { tieReachClaim } from "../moneyClaims";
 import { tieReach } from "../reachableMoney";
 import TieClassExplainer from "./TieClassExplainer";
 
@@ -344,7 +346,21 @@ function RealLedger({ data }: { data: MoneyLedgerData }) {
                     <span
                       className={`block font-black tabular-nums ${reach.czk > 0 && reach.attributable ? "text-signal" : "text-steel"}`}
                     >
-                      {reach.czk > 0 ? compactCzk(reach.czk, locale) : "—"}
+                      {/* The NUMBER is what gets quoted, so the number carries its own
+                          address: the same `data-claim-*` payload /overeni re-derives,
+                          minted from the tie's own receipt ref and the shared reach
+                          arithmetic (moneyClaims.ts). Zero new wire fields — every input
+                          is already `public` in TIE_WIRE. A zero reach is not a claim. */}
+                      {reach.czk > 0 ? (
+                        <CitableNumber
+                          value={reach.czk}
+                          claim={tieReachClaim(tie, data.pass).claim}
+                          locale={locale as Locale}
+                          kind="czkCompact"
+                        />
+                      ) : (
+                        "—"
+                      )}
                     </span>
                     <span className="mt-0.5 block font-mono text-[9px] uppercase tracking-widest text-steel">
                       {reach.czk > 0

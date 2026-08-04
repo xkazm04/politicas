@@ -25,7 +25,7 @@ import SourceNote from "@/features/shared/components/SourceNote";
 import { caseFileLinkFor } from "@/features/shared/provenance/caseFileLink";
 import CitableNumber from "@/lib/claims/CitableNumber";
 import { claimStatus } from "@/lib/claims/claim";
-import { formattersFor } from "@/lib/format";
+import { formatByKind, formattersFor, type CitableKind } from "@/lib/format";
 import type { Locale } from "@/lib/i18n/config";
 import { formatWeightCs } from "@/features/shared/provenance/receipt";
 import type { GateData } from "./getVerdictData";
@@ -103,13 +103,23 @@ function EndpointLink({ label, id, kind }: { label: string; id: string; kind: st
   );
 }
 
+/** Spis pro PŘEDMĚT hodnotového claimu. Druh uzlu ref nenese, tvar id ano —
+ *  zkusí se obě naše rodiny a rozhodne shoda tvaru (caseFileLink.ts). */
+function subjectCaseFile(id: string) {
+  return caseFileLinkFor({ id, kind: "person" }) ?? caseFileLinkFor({ id, kind: "company" });
+}
+
 function VerdictBody({ verdict, locale, t }: { verdict: GateVerdict; locale: Locale; t: T }) {
   const f = formattersFor(locale);
-  const num = (v: number, kind: "dec" | "int" | "czk") =>
-    kind === "int" ? f.int(v) : kind === "czk" ? f.czk(v) : f.dec(v);
+  // Citovaná hodnota se sází TÝMŽ formátovačem jako dnešní (formatCitable), aby
+  // se dvě čísla nad sebou nedala porovnat jen proto, že mají jinou hustotu.
+  const num = (v: number, kind: CitableKind) => formatByKind(v, locale, kind);
 
   if (verdict.family === "figura" && verdict.kind !== "unknown") {
     const { figure } = verdict;
+    // Předmět claimu je id uzlu grafu (`psp:person:6881`, `company:ico:…`) —
+    // odkaz se odvodí z JEHO TVARU jedním sdíleným resolverem, nikdy z odhadu.
+    const subject = figure.claim.subject === undefined ? null : subjectCaseFile(figure.claim.subject);
     return (
       <div className="mt-4">
         <Row label={t("row.claimToday")}>
@@ -133,6 +143,32 @@ function VerdictBody({ verdict, locale, t }: { verdict: GateVerdict; locale: Loc
         )}
         <Row label={t("row.dataset")}>{figure.claim.dataset}</Row>
         <Row label={t("row.metric")}>{figure.claim.metric}</Row>
+        {/* ZÁKLAD ODVOZENÍ — který výpočet dnešní hodnotu napsal. U živé figury
+            (peněžní číslo z grafu, index) je to jediné, co odlišuje shodu od
+            náhody: když se citovaný základ liší, verdikt je „pohnulo se" a obě
+            strany se pojmenují na vlastních řádcích. */}
+        {figure.claim.derivation !== undefined && (
+          <Row label={t("row.derivation")}>
+            <span className="font-mono">{figure.claim.derivation}</span>
+          </Row>
+        )}
+        {verdict.kind === "moved" && verdict.citedDerivation !== null && (
+          <Row label={t("row.citedDerivation")}>
+            <span className="font-mono">{verdict.citedDerivation}</span>
+          </Row>
+        )}
+        {/* Kde tvrzení bydlí — u peněžní figury vede předmět claimu do našeho
+            spisu (poslanec / firma), stejným čistým resolverem jako účtenka. */}
+        {subject !== null && (
+          <Row label={t("row.subject")}>
+            <Link
+              href={subject.href}
+              className="text-cobalt underline decoration-hairline underline-offset-2 hover:text-signal"
+            >
+              {figure.claim.subject}
+            </Link>
+          </Row>
+        )}
         <Row label={t("row.gateState")}>{gateLabel(t, claimStatus(figure.claim))}</Row>
         <Row label={t("row.issuedAt")}>
           <Link href={figure.issuedAt} className="text-cobalt underline-offset-2 hover:underline">
