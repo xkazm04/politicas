@@ -33,6 +33,7 @@ import CareerSpineSection from "@/features/profile/components/CareerSpineSection
 import DossierSection, { hasDossierContent, type DossierContent } from "@/features/profile/components/DossierSection";
 import MoneySection from "@/features/profile/components/MoneySection";
 import ScoreLegibilityPanel from "@/features/profile/components/ScoreLegibilityPanel";
+import FollowButton from "@/features/schranka/FollowButton";
 import type { ComponentKey } from "@/lib/analysis/contribution-trend";
 import { MIN_SHARED_VOTES } from "@/lib/analysis/kg";
 
@@ -148,11 +149,32 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
             {person.region ? ` · ${person.region}` : ""}
           </SourceNote>
           <div className="mt-4 flex flex-wrap items-end justify-between gap-8">
-            <h1 className="text-6xl font-black uppercase leading-[0.92] tracking-tight sm:text-7xl">
-              {first}
-              <br />
-              <span className="text-signal">{lastName}</span>
-            </h1>
+            <div>
+              <h1 className="text-6xl font-black uppercase leading-[0.92] tracking-tight sm:text-7xl">
+                {first}
+                <br />
+                <span className="text-signal">{lastName}</span>
+              </h1>
+              {/* Sledování se razí TAM, kde entita je — do teď stálo jediné
+                  tlačítko v liště pod popiskem „tahle stránka" a spis o schránce
+                  nevěděl. Odkaz vedle je zpáteční cesta k tomu, co se právě
+                  zapsalo. */}
+              <div className="mt-5 flex flex-wrap items-center gap-3">
+                <FollowButton
+                  entityKey={`poslanec:${person.pspId}`}
+                  label={person.name}
+                  subject={tcom("followSubjectMp", { name: person.name })}
+                  words={{ follow: tcom("followWord"), following: tcom("followingWord") }}
+                />
+                <Link
+                  href="/schranka"
+                  className="inline-flex items-center gap-1 font-mono text-[11px] font-bold uppercase tracking-widest text-signal-deep hover:underline"
+                >
+                  {tcom("followInbox")}
+                  <ArrowUpRight className="h-3 w-3" aria-hidden />
+                </Link>
+              </div>
+            </div>
             <div className="text-right">
               <AnimatedScore
                 value={person.score}

@@ -5,6 +5,10 @@
  * entit od poslední návštěvy. Nesvítí bez sledování, bez razítka návštěvy
  * ani při nule; když se novinky nepodaří načíst, mlčí (odznak je nápověda,
  * ne tvrzení — čestný stav chyby nese plocha /schranka).
+ *
+ * Číslo se mění bez akce čtenáře (dotaz doběhne, sledování se přidá, návštěva
+ * ho zhasne), takže vnější obálka je `aria-live="polite"` a je v DOMu POŘÁD —
+ * region, který se objeví až se změnou, odečítač obrazovky neohlásí.
  */
 
 import { czechInt } from "@/lib/format";
@@ -12,14 +16,18 @@ import { useNewsCount } from "./useNews";
 
 export default function SchrankaBadge() {
   const count = useNewsCount();
-  if (count === null || count === 0) return null;
+  const empty = count === null || count === 0;
   return (
-    <span
-      className="shrink-0 border border-signal-deep px-1.5 font-mono text-[11px] font-bold tabular-nums text-signal-deep"
-      aria-label={`nové záznamy u sledovaných entit: ${czechInt(count)}`}
-    >
-      {/* citation-ok: odznak je počet položek UI; citaci zdrojů nese plocha /schranka, kam řádek lišty vede */}
-      {czechInt(count)}
+    <span aria-live="polite" aria-atomic="true" className="shrink-0">
+      {!empty && (
+        <span
+          className="border border-signal-deep px-1.5 font-mono text-[11px] font-bold tabular-nums text-signal-deep"
+          aria-label={`nové záznamy u sledovaných entit: ${czechInt(count)}`}
+        >
+          {/* citation-ok: odznak je počet položek UI; citaci zdrojů nese plocha /schranka, kam řádek lišty vede */}
+          {czechInt(count)}
+        </span>
+      )}
     </span>
   );
 }

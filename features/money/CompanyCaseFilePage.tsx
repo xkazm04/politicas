@@ -21,6 +21,7 @@ import { buildRegistryLinks } from "./reviewTypes";
 import { tieFlagInfos } from "./tieFlags";
 import AnalystNote from "./components/AnalystNote";
 import TieClassExplainer from "./components/TieClassExplainer";
+import FollowButton from "@/features/schranka/FollowButton";
 import { bucketReachCzk, isAttributable } from "./reachableMoney";
 import {
   compactCzk,
@@ -106,6 +107,26 @@ export default function CompanyCaseFilePage({ data }: { data: MoneyCompanyDetail
             ? `${data.ties.length} ties · ${mpCount} MPs`
             : `${data.ties.length} vazeb · ${mpCount} poslanců`}
         </p>
+        {/* Sledování se razí tam, kde entita je. Klíč je týž veřejný klíč, kterým
+            deník adresuje `?entita=` — jedna adresa odběru pro celou aplikaci. */}
+        <div className="mt-4 flex flex-wrap items-center gap-3">
+          <FollowButton
+            entityKey={`firma:${data.ico}`}
+            label={data.name}
+            subject={en ? `company ${data.name}` : `firma ${data.name}`}
+            words={{
+              follow: en ? "follow" : "sledovat",
+              following: en ? "following" : "sledujete",
+            }}
+          />
+          <Link
+            href="/schranka"
+            className="inline-flex items-center gap-1 font-mono text-[11px] font-bold uppercase tracking-widest text-signal-deep hover:underline"
+          >
+            {en ? "overview in your inbox" : "přehled ve schránce"}
+            <ExternalLink className="h-3 w-3" aria-hidden />
+          </Link>
+        </div>
         {/* The cross-MP fact, stated as a fact and immediately qualified. Sitting on the
             same board is not a finding about either person — it is why this page exists,
             and why it is not a ranking. */}

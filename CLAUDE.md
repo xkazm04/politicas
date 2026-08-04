@@ -598,6 +598,42 @@ Route map (politicas.md roadmap execution, sample data):
   (the `č. N/RRRR Sb.` title citation is the only structured bill→law link
   psp.cz publishes); fabricating them would violate the brand rule. Mock kept as
   fallback.
+- `/schranka` — **Občanská schránka** (features/schranka): a follow list with no
+  account — the whole state is one localStorage record (`politicas:schranka:v1`,
+  `followCodec.ts`) keyed by the SAME public entity keys `/denik` addresses with
+  `?entita=` (`poslanec:<pspId>` · `tisk:<č>` · `firma:<ičo>` · `obec:<ičo>`).
+  Deltas derive server-side at `/schranka/novinky.json` (`force-dynamic`) over
+  the memoized deník + dukazy loaders; nothing is stored server-side and no
+  identity is sent — only the key list and a day threshold.
+  **Two visit rules, deliberately different (2026-08-04).** The PAGE is lenient:
+  entries are dated by DAY, so the threshold is the day of the last visit and
+  that day counts whole (rather show a row twice than withhold it). The BADGE
+  cannot be — under that rule it would never go dark until midnight — so it
+  subtracts a **seen watermark**: on each visit the page records how many
+  entries of that day it actually showed (`SchrankaState.seen`), and the badge
+  deducts it while the day matches (`visitWindow.ts`, pure + tested; the page
+  states both rules). The visit is stamped through a one-shot guard BEFORE
+  `setState` — stamping inside the updater collapsed the window under
+  StrictMode's double invoke — and the day enters every derivation through
+  `useToday()` (a subscription, not a render-time `new Date()`, which the effect
+  deps never saw across midnight). `parseNovinkyResponse` validates entries
+  field by field; a malformed row is dropped, COUNTED and disclosed.
+  **Follow lives where the entities live.** `FollowButton` (one component,
+  reused — compact and icon-only densities) is inline on `/poslanec`, every
+  `/zebricek` row, `/penize/firma/[ico]` and the `/denik` entity view, beside a
+  backlink to /schranka; its accessible label NAMES the entity, and the nav
+  badge is a permanent `aria-live="polite"` region. Copy is hardcoded Czech
+  (the /denik precedent); only strings on catalog-driven surfaces go through
+  `messages/{cs,en}.json` (`common.follow*`).
+  **`firma:` links to `/penize/firma/<ičo>`** since that page exists (6bc8780) —
+  in the codec AND in `deriveDenik`'s company entity, both normalizing through
+  `canonicalIco()`, so a contract row in the deník now links to the company
+  whose contract it is instead of the first MP. **`obec:` is no longer offered**:
+  `deriveDenik` emits only `poslanec:`/`firma:`/`tisk:` keys (no stream is keyed
+  by a municipality; budget mirrors are an annual batch, not a dated stream), so
+  the affordance was withdrawn rather than left promising a delivery nobody
+  could make. Stored obec follows keep parsing and say exactly why nothing
+  arrives.
 - `/graf` — **Graph playground** (features/graph): the full knowledge graph on
   a full-viewport `<canvas>`; the page opts out of the app shell
   (`isBareRoute`) to own the whole window width — chrome floats over the

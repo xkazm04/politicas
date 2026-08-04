@@ -44,7 +44,11 @@
       "accepted": "přijato",
       "rejected": "zamítnuto"
     },
-    "ingestion": "ingesce: denně (psp, smlouvy) · čtvrtletně (dotace, rozpočty)"
+    "ingestion": "ingesce: denně (psp, smlouvy) · čtvrtletně (dotace, rozpočty)",
+    "followWord": "sledovat",
+    "followingWord": "sledujete",
+    "followSubjectMp": "poslanec {name}",
+    "followInbox": "přehled ve schránce"
   },
   "nav": {
     "sidebarLabel": "Hlavní navigace",

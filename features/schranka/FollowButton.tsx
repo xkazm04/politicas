@@ -7,16 +7,36 @@
  * entity (týž veřejný klíč jako filtr deníku `?entita=`) a popisek. Stav žije
  * v localStorage (useSchranka), žádný účet. Přepínač je `aria-pressed`,
  * plně klávesový (skutečný <button>), bez animací.
+ *
+ * PŘÍSTUPNÁ JMENOVKA: samotné „sledovat" je pro odečítač obrazovky tvrzení
+ * bez podmětu — na žebříčku jich vedle sebe stojí dvě stě. Plocha proto smí
+ * dodat `subject` (koho tlačítko sleduje) a jmenovka pak zní „sledovat: Jan
+ * Novák". Dvojtečka je záměr: čeština by u „sledovat poslance <jméno>"
+ * vyžadovala skloňování jména, které aplikace nemá odkud vzít.
+ *
+ * SLOVA: viditelný text je česky, jako celá schránka (precedens /denik). Plocha
+ * s vlastním katalogem (spis firmy je dvojjazyčný) může slova podat v `words`;
+ * schránka si nepřekládá sama sebe.
  */
 
 import { Eye, EyeOff } from "lucide-react";
 import { isEntityKey } from "./followCodec";
 import { useSchranka } from "./useSchranka";
 
+export interface FollowWords {
+  follow: string;
+  following: string;
+}
+
+const CS_WORDS: FollowWords = { follow: "sledovat", following: "sledujete" };
+
 export default function FollowButton({
   entityKey,
   label,
   compact = false,
+  iconOnly = false,
+  subject,
+  words = CS_WORDS,
 }: {
   /** Veřejný klíč entity (`poslanec:<id>` | `firma:<ičo>` | `tisk:<č>` | `obec:<ičo>`). */
   entityKey: string;
@@ -24,15 +44,25 @@ export default function FollowButton({
   label: string;
   /** Úsporná varianta pro lištu. */
   compact?: boolean;
+  /** Jen ikona — pro husté řádky (žebříček). Význam nese přístupná jmenovka. */
+  iconOnly?: boolean;
+  /** Koho tlačítko sleduje — jde do přístupné jmenovky („sledovat: Jan Novák"). */
+  subject?: string;
+  /** Viditelná slova pro jinojazyčnou plochu; výchozí je čeština schránky. */
+  words?: FollowWords;
 }) {
   const { isFollowed, follow, unfollow } = useSchranka();
   if (!isEntityKey(entityKey)) return null;
 
   const on = isFollowed(entityKey);
+  const word = on ? words.following : words.follow;
+  const ariaLabel = subject ? `${word}: ${subject}` : iconOnly ? word : undefined;
   return (
     <button
       type="button"
       aria-pressed={on}
+      aria-label={ariaLabel}
+      title={subject ? `${word}: ${subject}` : undefined}
       onClick={() => (on ? unfollow(entityKey) : follow(entityKey, label))}
       className={`inline-flex items-center gap-1.5 border font-mono font-bold uppercase tracking-wider transition-colors ${
         compact ? "px-2 py-1 text-[11px]" : "px-3 py-1.5 text-xs"
@@ -43,7 +73,7 @@ export default function FollowButton({
       }`}
     >
       {on ? <EyeOff className="h-3.5 w-3.5" aria-hidden /> : <Eye className="h-3.5 w-3.5" aria-hidden />}
-      {on ? "sledujete" : "sledovat"}
+      {!iconOnly && word}
     </button>
   );
 }

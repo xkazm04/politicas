@@ -35,6 +35,7 @@ import { foldQuery, nameMatches } from "../search";
 import WorkhorseBadge from "./WorkhorseBadge";
 import RapporteurBadge from "./RapporteurBadge";
 import LowScoreReasonChip from "./LowScoreReasonChip";
+import FollowButton from "@/features/schranka/FollowButton";
 
 // Barva složky — jen tokeny palety (custom/no-hardcoded-colors). Šest složek,
 // pět tokenů → leadership sdílí odstín s účastí, odlišen průhledností.
@@ -114,6 +115,7 @@ export default function LeaderboardTable({
   custom?: boolean;
 }) {
   const t = useTranslations("civicscore");
+  const tcom = useTranslations("common");
   const f = useFormat();
   const reduceMotion = useReducedMotion();
   // Živé přeřazení pod čočkou: layout animace jen v režimu čočky (oficiální
@@ -362,6 +364,18 @@ export default function LeaderboardTable({
               )}
               {/* Kobaltové skóre = vaše číslo, ne zveřejněné (konvence z landing LiveSpecimen). */}
               <span className={`w-12 text-right text-lg font-black tabular-nums ${custom ? "text-cobalt" : ""}`}>{f.dec(r.score)}</span>
+              <span className="flex items-center gap-1.5">
+              {/* Sledovat rovnou z řádku. V husté tabulce jen ikona — význam
+                  nese přístupná jmenovka, která JMENUJE poslance (dvě stě
+                  tlačítek „sledovat" bez podmětu vedle sebe nerozliší nikdo). */}
+              <FollowButton
+                entityKey={`poslanec:${r.pspId}`}
+                label={r.name}
+                subject={tcom("followSubjectMp", { name: r.name })}
+                words={{ follow: tcom("followWord"), following: tcom("followingWord") }}
+                compact
+                iconOnly
+              />
               <button
                 type="button"
                 onClick={() => onToggleDuel(r.pspId)}
@@ -373,6 +387,7 @@ export default function LeaderboardTable({
               >
                 <Swords className="h-3 w-3" /> {t("vsButton")}
               </button>
+              </span>
             </motion.div>
           );
         })}

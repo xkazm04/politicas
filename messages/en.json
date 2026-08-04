@@ -44,7 +44,11 @@
       "accepted": "passed",
       "rejected": "rejected"
     },
-    "ingestion": "ingestion: daily (psp, contracts) · quarterly (subsidies, budgets)"
+    "ingestion": "ingestion: daily (psp, contracts) · quarterly (subsidies, budgets)",
+    "followWord": "follow",
+    "followingWord": "following",
+    "followSubjectMp": "MP {name}",
+    "followInbox": "overview in your inbox"
   },
   "nav": {
     "sidebarLabel": "Main navigation",

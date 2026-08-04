@@ -19,6 +19,7 @@ import { czechDate, czechInt } from "@/lib/format";
 import { compactCzk } from "@/features/money/moneyTypes";
 import { czechWeekday, DAYS_SHOWN, type DenikDay, type DenikEntry, type DenikLedger } from "./deriveDenik";
 import type { DenikCoverage } from "./getDenikData";
+import FollowButton from "@/features/schranka/FollowButton";
 
 const TONE_DOT: Record<DenikEntry["tone"], string> = {
   signal: "bg-signal",
@@ -62,7 +63,8 @@ function EntryRow({ e, followedKey }: { e: DenikEntry; followedKey: string | nul
             stojí na vazbě čekající na lidskou kontrolu
           </span>
         )}
-        {/* Sledovat entitu: filtr je adresa — každý čip je odkaz na vlastní deník entity. */}
+        {/* Filtr je adresa — každý čip je odkaz na vlastní deník entity. Sledovat
+            se dá až v tom pohledu (tlačítko u filtru), čip sám nic neukládá. */}
         <span className="mt-1 flex flex-wrap gap-x-3 gap-y-1">
           {e.entities.map((en) =>
             en.key === followedKey ? (
@@ -77,7 +79,7 @@ function EntryRow({ e, followedKey }: { e: DenikEntry; followedKey: string | nul
                 key={en.key}
                 href={`/denik?entita=${encodeURIComponent(en.key)}`}
                 className="inline-flex items-center gap-1 font-mono text-[11px] uppercase tracking-wider text-steel-aa hover:text-cobalt hover:underline"
-                aria-label={`Sledovat entitu ${en.label}`}
+                aria-label={`Deník entity ${en.label}`}
               >
                 <Eye className="h-3 w-3" aria-hidden /> {en.label}
               </Link>
@@ -206,18 +208,40 @@ export default function DenikPage({ ledger, coverage, auditRows, builtOn, entity
           </div>
         )}
 
-        {/* Aktivní filtr entity — pohled i odběr téhle entity. */}
+        {/* Aktivní filtr entity. Dřív tu stálo „sledujete:" — filtr je ale
+            POHLED, ne odběr; sledování je tlačítko vedle a žije ve schránce. */}
         {entityKey && (
-          <div className="mt-4 flex max-w-2xl flex-wrap items-center gap-x-4 gap-y-1 border-l-4 border-cobalt bg-paper-strong px-4 py-3">
-            <span className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-widest text-cobalt">
-              <Eye className="h-3.5 w-3.5" aria-hidden /> sledujete: {entityLabelCs ?? entityKey}
-            </span>
-            <Link
-              href="/denik"
-              className="font-mono text-xs uppercase tracking-widest text-steel-aa hover:text-signal-deep hover:underline"
-            >
-              zrušit filtr
-            </Link>
+          <div className="mt-4 max-w-2xl border-l-4 border-cobalt bg-paper-strong px-4 py-3">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+              <span className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-widest text-cobalt">
+                <Eye className="h-3.5 w-3.5" aria-hidden /> filtr entity: {entityLabelCs ?? entityKey}
+              </span>
+              <Link
+                href="/denik"
+                className="font-mono text-xs uppercase tracking-widest text-steel-aa hover:text-signal-deep hover:underline"
+              >
+                zrušit filtr
+              </Link>
+            </div>
+            <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2">
+              <FollowButton
+                entityKey={entityKey}
+                label={entityLabelCs ?? entityKey}
+                subject={entityLabelCs ?? entityKey}
+                compact
+              />
+              <span className="text-sm leading-relaxed text-steel-aa">
+                Sledovaná entita se ukládá jen ve vašem prohlížeči; co jí přibylo od minulé
+                návštěvy, pak sečte{" "}
+                <Link
+                  href="/schranka"
+                  className="font-mono text-xs font-bold uppercase tracking-widest text-signal-deep hover:underline"
+                >
+                  občanská schránka
+                </Link>
+                .
+              </span>
+            </div>
           </div>
         )}
 
