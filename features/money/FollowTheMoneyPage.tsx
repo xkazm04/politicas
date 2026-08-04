@@ -42,10 +42,17 @@ export default function FollowTheMoneyPage({ data }: { data?: MoneyData | null }
   const STATS = data
     ? [
         {
+          // The count mixes two kinds of evidence: a class a person or an analysis pass
+          // RECORDED on the edge, and one `classifyTie` guessed from a company name. Only
+          // the first is an ARES fact, so the tile states the split instead of letting a
+          // partly-guessed number sit under a bare registry citation.
           label: t("real.stats.ownerLabel"),
           value: f.int(data.stats.ownerOperatorMps),
-          sub: t("real.stats.ownerSub"),
-          source: t("real.stats.ownerSource"),
+          sub: t("real.stats.ownerSubSplit", {
+            stored: f.int(data.stats.ownerOperatorMpsStoredClass),
+            derived: f.int(data.stats.ownerOperatorMps - data.stats.ownerOperatorMpsStoredClass),
+          }),
+          source: t("real.stats.ownerSourceSplit"),
         },
         {
           label: t("real.stats.mpsLabel"),
@@ -185,9 +192,18 @@ export default function FollowTheMoneyPage({ data }: { data?: MoneyData | null }
           <div className="mt-8">
             <MoneyGraph data={data?.graph ?? null} />
           </div>
+          {/* The picture crowns ONE MP, so the caption states the rule that picked them —
+              attributable reach only. Under the old key it was the raw contracts+subsidies
+              sum across all classes, which most often nominated whoever sat on the board
+              of the biggest hospital. */}
           <div className="mt-3">
             <SourceNote>
-              {data?.graph ? t("real.graphCaption", { name: data.graph.mp.name }) : t("graphCaption")}
+              {data?.graph
+                ? t("real.graphSelection", {
+                    name: data.graph.mp.name,
+                    value: compactCzk(data.graph.selectedByCzk, locale),
+                  })
+                : t("graphCaption")}
             </SourceNote>
           </div>
         </section>

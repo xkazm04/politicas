@@ -179,10 +179,18 @@ export interface MoneyMp {
   /** Read-only flag from the effort case; a "money + low work" hint (never computed here). */
   absenteeManagerLead: boolean;
   ties: MoneyTie[];
-  verifiedCount: number; // ties whose review passed (currently always 0)
+  /** ties whose review passed — 0 until a human confirms one in /penize/kontrola, which
+   *  it can since the console learned to write `verified`; nothing here assumes zero. */
+  verifiedCount: number;
   pendingCount: number;
-  totalContractCzk: number;
-  totalSubsidiesCzk: number;
+  /** Σ reach of the companies this MP OWNS OR RUNS, from the shared definition
+   *  (`reachableMoney` → `bucketReachCzk`), per company de-duplicated. THE ranking key
+   *  for the featured case file. Replaces `totalContractCzk`/`totalSubsidiesCzk`, which
+   *  summed a hospital's own contracting into the same number and then sorted by it. */
+  attributableReachCzk: number;
+  /** The other side of the split — the institutions' own activity. Rendered separately
+   *  and never in the alarm colour; never a ranking key. */
+  stewardReachCzk: number;
 }
 
 /** A short reference to an MP with no ties (absence of a finding is also a finding). */
@@ -195,13 +203,19 @@ export interface MoneyMpStub {
 /** The featured single-MP subgraph rendered as the entity graph. */
 export interface MoneyGraphData {
   mp: MoneyMpStub;
+  /** The value the selection rule ranked on — this MP's attributable reach. Rendered in
+   *  the caption so the picture states WHY it is this MP and not another. */
+  selectedByCzk: number;
   companies: Array<{
     id: string;
     company: string;
     role: string;
     reviewState: ReviewState;
-    contractCzk: number;
-    subsidiesCzk: number;
+    tieClass: TieClass;
+    /** `tieReach()` — computed in the loader from the shared definition, never re-added
+     *  in the renderer. */
+    reachCzk: number;
+    attributable: boolean;
     donatedToPartyCzk: number | null;
     donationRecipientParty: string | null;
   }>;
@@ -228,6 +242,10 @@ export interface MoneyStats {
    *  `contractCzkReachable`, which is dominated by stewards' own institutions
    *  and must never be read as personal enrichment (see `tieClassInfo`). */
   ownerOperatorMps: number;
+  /** Of `ownerOperatorMps`, how many rest on a class RECORDED on the edge rather than on
+   *  `classifyTie`'s substring guess. The difference is not cosmetic: a derived class has
+   *  no registry fact behind it, so the tile may not cite ARES for the whole count. */
+  ownerOperatorMpsStoredClass: number;
   /** `money.coverage` — a named view, read by /dashboard. */
   contractCoverage: ContractCoverage;
 }

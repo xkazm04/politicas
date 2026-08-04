@@ -472,14 +472,17 @@ describe("getMoneyData (the /penize ledger)", () => {
     const data = (await withReadinessOff(getMoneyData))!;
     expect(data).not.toBeNull();
 
-    // MPs ordered by reachable money desc: 6.9M contracts + 2M subsidies leads.
+    // MPs ordered by ATTRIBUTABLE reach desc (the shared definition, per company
+    // de-duplicated): 6.9M contracts + 2M subsidies of a firm the MP runs leads. Steward
+    // money is not in the key at all — /penize's own methodology says it is the
+    // institution's, so it may not decide who the front page draws.
     expect(data.mps.map((m) => m.pspId)).toEqual([100, 200]);
     const lead = data.mps[0];
     expect(lead.name).toBe("Nováková Jana");
     expect(lead.club).toBe("ODS"); // resolved through mandate ⋈ club organ
     expect(lead.absenteeManagerLead).toBe(true);
-    expect(lead.totalContractCzk).toBe(6_900_000);
-    expect(lead.totalSubsidiesCzk).toBe(2_000_000);
+    expect(lead.attributableReachCzk).toBe(8_900_000);
+    expect(lead.stewardReachCzk).toBe(0);
 
     // GATED VALUES MUST STAY LABELLED: a tie that has not passed human review is
     // pending_review and is excluded from verifiedCount — never silently promoted.
@@ -508,9 +511,29 @@ describe("getMoneyData (the /penize ledger)", () => {
     // Absence of a finding is a finding: untied MPs are listed (name-sorted), not dropped.
     expect(data.mpsWithoutTies.map((m) => m.name)).toEqual(["Beneš Bohumil", "Cimrman Jára"]);
 
-    // Featured entity graph = the strongest case file.
+    // Featured entity graph = the case file the SELECTION RULE picks — heaviest
+    // attributable reach — and the picture states the value it was picked on.
     expect(data.graph?.mp.pspId).toBe(100);
     expect(data.graph?.companies.map((c) => c.id)).toEqual([ALFA]);
+    expect(data.graph?.selectedByCzk).toBe(8_900_000);
+    expect(data.graph?.companies[0]).toMatchObject({
+      tieClass: "owner-operator",
+      attributable: true,
+      reachCzk: 8_900_000,
+    });
+
+    // The steward MP is second and carries no attributable reach — so a board seat in a
+    // public body can never be crowned "nejsilnější spis". (The fixture's hospital signs
+    // no contracts, so its steward reach is 0 too; the ranking claim is the attributable
+    // key, pinned per class in features/money/reachableMoney.test.ts.)
+    expect(data.mps[1].ties.some((t) => t.tieClass === "steward")).toBe(true);
+    expect(data.mps[1].attributableReachCzk).toBe(0);
+
+    // The owner-operator tile splits recorded classes from guessed ones: this fixture
+    // stores no `tie_class`, so every owner-operator class here is `classifyTie`'s guess
+    // and the tile may not cite ARES for it.
+    expect(data.stats.ownerOperatorMps).toBe(2);
+    expect(data.stats.ownerOperatorMpsStoredClass).toBe(0);
 
     expect(data.pass).toBe(42);
     expect(data.source).toBe("registr smluv ⋈ ares ⋈ hlídač státu");

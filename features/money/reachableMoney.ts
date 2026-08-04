@@ -62,6 +62,29 @@ export interface ReachableMoney {
   coverage: ContractCoverage;
 }
 
+/**
+ * Rule 2 as a PREDICATE — the one place that decides whether a tie's money may be read
+ * as reaching the politician. It was re-implemented three times (here,
+ * `features/dashboard/stateSlice.ts`, `features/denik/getDenikData.ts`); three copies of
+ * a rule is three chances for one of them to drift into calling a hospital's contracting
+ * an MP's money. Import it; never re-test the class inline.
+ *
+ * Takes a plain `string` on purpose: two of the three callers carry the class on a
+ * projection typed `string` (`SliceTie`, the /denik role row), and forcing a cast at the
+ * call site would just move the guesswork rather than remove it.
+ */
+export function isAttributable(tieClass: TieClass | string): boolean {
+  return tieClass !== "steward";
+}
+
+/**
+ * "Dosah" — the reach of one side of the split, in ONE arithmetic: the contracts the
+ * state signed with those companies plus the subsidies they drew. Every surface that
+ * prints a reach (the ledger's per-row column, the featured-case selection) goes through
+ * this, so the page cannot hold two answers to the same question.
+ */
+export const bucketReachCzk = (b: MoneyBucket): number => b.contractCzk + b.subsidiesCzk;
+
 const emptyBucket = (): MoneyBucket => ({
   companies: 0,
   contractCount: 0,
@@ -101,7 +124,7 @@ export function reachableMoney(ties: readonly ReachableTie[]): ReachableMoney {
   // ALL of that company's ties rather than from whichever arrived first.
   const byCompany = new Map<string, { tie: ReachableTie; attributable: boolean }>();
   for (const t of ties) {
-    const attributable = t.tieClass !== "steward";
+    const attributable = isAttributable(t.tieClass);
     const prev = byCompany.get(t.companyId);
     if (!prev) byCompany.set(t.companyId, { tie: t, attributable });
     else if (attributable) prev.attributable = true;
@@ -127,4 +150,17 @@ export function reachableMoney(ties: readonly ReachableTie[]): ReachableMoney {
     companies: byCompany.size,
     coverage: contractCoverage(counts),
   };
+}
+
+/**
+ * The reach of ONE tie — the ledger's per-row „dosah" column and its sort key. A row is a
+ * one-tie population, so it goes through the same function as every total rather than
+ * re-adding `contractCzk + subsidiesCzk` at the cell (which is how the page grew a fourth
+ * definition of reachable money, unlabelled, sitting in the alarm colour under a
+ * steward's hospital). `attributable` is what the surface must colour and caption by.
+ */
+export function tieReach(tie: ReachableTie): { czk: number; attributable: boolean } {
+  const money = reachableMoney([tie]);
+  const attributable = isAttributable(tie.tieClass);
+  return { czk: bucketReachCzk(attributable ? money.attributable : money.steward), attributable };
 }

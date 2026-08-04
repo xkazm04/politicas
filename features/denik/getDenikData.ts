@@ -29,6 +29,7 @@ import { getStore } from "@/lib/db/store";
 import { getChangesRepo } from "@/lib/db/pglite/repositories/changes";
 import { MONEY_MEMO_TTL_MS } from "@/features/dashboard/freshness";
 import { getMoneyData } from "@/features/money/getMoneyData";
+import { isAttributable } from "@/features/money/reachableMoney";
 import { getLawData } from "@/features/lawwatch/getLawData";
 import { icoFromDst, pspIdFromSrc } from "@/features/dukazy/deriveFeed";
 import type { DenikBill, DenikChange, DenikContract, DenikReview, DenikRole } from "./deriveDenik";
@@ -110,7 +111,9 @@ async function readMoneyLayers(): Promise<{ contracts: DenikContract[]; roles: D
           validTo: t.roleValidTo ?? null,
           pending,
         });
-        if (t.tieClass === "steward") continue;
+        // Pravidlo /penize, JEDNOU napsané (features/money/reachableMoney.ts) — tady
+        // stávala třetí kopie téhož testu na třídu vazby.
+        if (!isAttributable(t.tieClass)) continue;
         const existing = attributable.get(t.companyId) ?? {
           kgId: t.companyId,
           ico: t.ico,

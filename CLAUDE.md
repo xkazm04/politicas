@@ -230,6 +230,27 @@ Route map (politicas.md roadmap execution, sample data):
   replaced); a capped corpus yields a FLOOR rendered "nejméně". `MoneyStats`'s
   `contractCzk*` / `contractCoverage` fields are named VIEWS onto it kept for
   /dashboard — never recompute either anywhere.
+  **The ledger obeys that doctrine since 2026-08-04.** `reachableMoney.ts` now also
+  exports the two things every surface was re-deriving: `isAttributable(tieClass)`
+  (the class predicate, previously written out three times — here,
+  `features/dashboard/stateSlice.ts`, `features/denik/getDenikData.ts`) and
+  `tieReach(tie)` / `bucketReachCzk(bucket)` (ONE reach arithmetic: contracts +
+  subsidies, per company de-duplicated). Four surfaces had grown their own sum —
+  the ledger's „dosah" cell AND its sort comparator, `MoneyGraph`'s money node,
+  the case file's per-tie panel. **The featured „nejsilnější spis" is now selected
+  by ATTRIBUTABLE reach only** (`MoneyMp.attributableReachCzk`, ties broken by
+  pspId asc), and the caption prints the rule and the value it ranked on
+  (`money.real.graphSelection`). Measured on the live store: the lead is Petr
+  Hladík (6881) at **23,65 mld. Kč attributable** — but the picture beside his name
+  drew Dopravní podnik města Brna (90,0 mld.), SAKO Brno (25,9 mld.) and ARENA BRNO
+  (20,1 mld.) in the SIGNAL colour; his steward total is **139,1 mld. Kč**, ~5,9× his
+  attributable one. Steward money now renders in steel with `peníze instituce` on
+  the ledger row, the money node and the case file alike, and an MP whose whole file
+  is steward seats is never featured at all. `MoneyMp.totalContractCzk` /
+  `totalSubsidiesCzk` — the class-MIXING pair that used to BE the ranking key —
+  are deleted from the type. The owner-operator tile no longer cites bare ARES for
+  a partly-guessed count: it prints `ownerOperatorMpsStoredClass` beside it
+  (live: **18 of 18** rest on a recorded `tie_class`, 0 on `classifyTie`'s guess).
 - `/zebricek` — **CivicScore** (features/civicscore): leaderboard — score
   histogram + chamber summary, party filter + name search, mini
   weighted-breakdown bars per row, and Souboj (pick two via "vs" → mirrored

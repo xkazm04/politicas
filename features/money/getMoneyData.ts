@@ -23,7 +23,7 @@
 import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { loadMoneyLayer, mapLinkedToTie, pspIdFromNodeId } from "./moneyLoader";
-import { reachableMoney, type ReachableTie } from "./reachableMoney";
+import { bucketReachCzk, reachableMoney, tieReach, type ReachableTie } from "./reachableMoney";
 import type { MoneyData, MoneyGraphData, MoneyMp, MoneyMpStub, MoneyTie } from "./moneyTypes";
 
 const GRAPH_COMPANY_CAP = 5; // companies rendered in the featured entity graph
@@ -92,8 +92,13 @@ export async function getMoneyData(): Promise<MoneyData | null> {
       // ascending, reachable CZK descending only within a tier). Was sorted
       // by raw money, contradicting this very comment (UX audit 2026-07-27, #4).
       ties.sort((a, b) => a.reviewRank - b.reviewRank);
-      const totalContractCzk = ties.reduce((s, t) => s + t.contractCzk, 0);
-      const totalSubsidiesCzk = ties.reduce((s, t) => s + t.subsidiesCzk, 0);
+      // The two class-MIXING totals this used to carry (`totalContractCzk` /
+      // `totalSubsidiesCzk`) were the ranking key, so the "strongest case file" — the one
+      // the front page draws as a graph — was most often the MP who sits on the
+      // supervisory board of the biggest hospital. Both sides now come from THE shared
+      // definition, per company de-duplicated and split by class.
+      // `MoneyTie` structurally satisfies `ReachableTie` — no projection, no second shape.
+      const perMp = reachableMoney(ties);
       mps.push({
         pspId,
         name: pnode.label,
@@ -102,15 +107,16 @@ export async function getMoneyData(): Promise<MoneyData | null> {
         ties,
         verifiedCount: ties.filter((t) => t.reviewState === "verified").length,
         pendingCount: ties.filter((t) => t.reviewState === "pending_review").length,
-        totalContractCzk,
-        totalSubsidiesCzk,
+        attributableReachCzk: bucketReachCzk(perMp.attributable),
+        stewardReachCzk: bucketReachCzk(perMp.steward),
       });
     }
-    // MPs with the heaviest reachable money first.
-    mps.sort(
-      (a, b) =>
-        b.totalContractCzk + b.totalSubsidiesCzk - (a.totalContractCzk + a.totalSubsidiesCzk),
-    );
+    // THE selection rule, stated on the page beside the graph it decides: MPs ordered by
+    // ATTRIBUTABLE reach descending — money reaching firms the MP owns or runs. Steward
+    // money never enters the key, because /penize's own methodology says it is the
+    // institution's. Ties broken by pspId ascending so the order is total and stable
+    // (a registry number makes no claim), never by name collation.
+    mps.sort((a, b) => b.attributableReachCzk - a.attributableReachCzk || a.pspId - b.pspId);
 
     // MPs with no tie — absence of a finding is also a finding.
     const tiedPersonIds = new Set(tiesByPerson.keys());
@@ -121,26 +127,41 @@ export async function getMoneyData(): Promise<MoneyData | null> {
       .map((s) => ({ ...s, club: clubByPerson.get(s.pspId) ?? null }))
       .sort((a, b) => a.name.localeCompare(b.name, "cs"));
 
-    // Featured entity graph = the strongest case file, its top firms by reach.
+    // Featured entity graph = the case file the SELECTION RULE above picks, i.e. the
+    // heaviest ATTRIBUTABLE reach. An MP whose whole file is steward seats is never
+    // featured: there is no claim to draw, so rather than crowning a waterworks board the
+    // graph stays empty and the page falls back to its labelled mock.
     let graph: MoneyGraphData | null = null;
-    const lead = mps[0];
+    const lead = mps.find((mp) => mp.attributableReachCzk > 0);
     if (lead) {
       graph = {
         mp: { pspId: lead.pspId, name: lead.name, club: lead.club },
-        companies: lead.ties.slice(0, GRAPH_COMPANY_CAP).map((t) => ({
-          id: t.companyId,
-          company: t.company,
-          role: t.role,
-          reviewState: t.reviewState,
-          contractCzk: t.contractCzk,
-          subsidiesCzk: t.subsidiesCzk,
-          donatedToPartyCzk: t.donatedToPartyCzk,
-          donationRecipientParty: t.donationRecipientParty,
-        })),
+        selectedByCzk: lead.attributableReachCzk,
+        companies: lead.ties.slice(0, GRAPH_COMPANY_CAP).map((t) => {
+          const reach = tieReach(t);
+          return {
+            id: t.companyId,
+            company: t.company,
+            role: t.role,
+            reviewState: t.reviewState,
+            tieClass: t.tieClass,
+            reachCzk: reach.czk,
+            attributable: reach.attributable,
+            donatedToPartyCzk: t.donatedToPartyCzk,
+            donationRecipientParty: t.donationRecipientParty,
+          };
+        }),
       };
     }
 
-    const ownerOperatorMps = mps.filter((mp) => mp.ties.some((t) => t.tieClass === "owner-operator")).length;
+    // The finding, and how much of it is a RECORDED class rather than a substring guess.
+    // `classifyTie`'s derived class carries no registry fact (see `tieClassOriginInfo`),
+    // so a count that mixes the two may not sit under a bare ARES citation.
+    const ownerOperator = mps.filter((mp) => mp.ties.some((t) => t.tieClass === "owner-operator"));
+    const ownerOperatorMps = ownerOperator.length;
+    const ownerOperatorMpsStoredClass = ownerOperator.filter((mp) =>
+      mp.ties.some((t) => t.tieClass === "owner-operator" && t.tieClassOrigin === "stored"),
+    ).length;
 
     return {
       mps,
@@ -160,6 +181,7 @@ export async function getMoneyData(): Promise<MoneyData | null> {
         verifiedTies,
         pendingTies,
         ownerOperatorMps,
+        ownerOperatorMpsStoredClass,
       },
       source: "registr smluv ⋈ ares ⋈ hlídač státu",
       pass,

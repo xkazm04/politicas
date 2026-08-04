@@ -38,6 +38,7 @@
  */
 
 import { r2, spread, type StateEdge, type StateGraph, type StateNode } from "@/lib/civic/stateGraph";
+import { isAttributable as isAttributableClass } from "@/features/money/reachableMoney";
 import type { FactBill, FactTie } from "./datedFacts";
 
 // ── Vstupní projekce (strukturální — MoneyData/LawData je splňují) ──────────
@@ -147,8 +148,11 @@ const lawKey = (ref: string) => {
   return m ? Number(m[2]) * 100000 + Number(m[1]) : Number.MAX_SAFE_INTEGER;
 };
 
-/** Vazba, jejíž peníze smí výřez připsat poslanci (pravidlo /penize). */
-const isAttributable = (t: SliceTie) => t.tieClass !== "steward";
+/** Vazba, jejíž peníze smí výřez připsat poslanci (pravidlo /penize). Predikát je JEDEN
+ *  a bydlí u definice dosažitelných peněz (`features/money/reachableMoney.ts`) — tenhle
+ *  soubor si ho dřív psal sám, stejně jako /denik, takže totéž pravidlo existovalo ve
+ *  třech kopiích. */
+const isAttributable = (t: SliceTie) => isAttributableClass(t.tieClass);
 
 export function buildStateSlice(input: SliceInput): StateSlice | null {
   const { mps, bills, chamberTotal } = input;

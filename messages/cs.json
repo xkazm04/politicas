@@ -798,6 +798,8 @@
         "ownerLabel": "poslanci s vlastní firmou u státu",
         "ownerSub": "vlastník/jednatel firmy, která dodává státu — skutečná vazba",
         "ownerSource": "ares v3 — role v obchodním rejstříku",
+        "ownerSubSplit": "vlastník/jednatel firmy, která dodává státu — skutečná vazba · {stored} z nich stojí na zapsané třídě, {derived} jen na odhadu programu z názvu firmy",
+        "ownerSourceSplit": "ares v3 ⋈ kg_edge.props.tie_class — zapsaná třída; odvozená třída (classifyTie) není rejstříkový údaj",
         "reachableLabel": "veřejné peníze u firem poslanců",
         "reachableSub": "smlouvy dohledané přes napojené firmy — u stewardů jde o peníze instituce, ne poslance",
         "reachableSource": "registr smluv · Σ hodnot smluv (vlastnické a manažerské vazby)",
@@ -821,9 +823,14 @@
         "allPending": "● všechny hrany datované · čekají na kontrolu"
       },
       "graphCaption": "obr. — stopa poslance {name} · osoba kobalt · firma čerň · veřejné peníze signální ◆ · vše čeká na lidskou kontrolu",
+      "graphSelection": "obr. — stopa poslance {name} · vybrán pravidlem: nejvyšší přisouditelný dosah v grafu ({value}) — smlouvy a dotace firem, které poslanec vlastní nebo řídí; peníze institucí, kde jen zasedá v orgánu, do výběru nevstupují a v grafu jsou ocelové · osoba kobalt · firma čerň",
       "ledger": {
         "tiesCount": "{count} evidovaných vazeb",
         "reachLabel": "veřejné peníze v dosahu firmy",
+        "reachHeader": "dosah firmy",
+        "reachAttributable": "firma poslance",
+        "reachSteward": "peníze instituce",
+        "reachNote": "dosah = smlouvy z registru smluv (Σ supplies.weight) + dotace té jedné firmy, jedna firma jednou — táž definice, jakou sčítají dlaždice nahoře (reachableMoney.ts). Třída vazby rozhoduje, jak číslo číst: „firma poslance\" jsou peníze u firmy, kterou vlastní nebo řídí; „peníze instituce\" jsou vlastní veřejnou činností nemocnice, vodárny či fondu, kde poslanec jen zasedá v orgánu — proto nikdy nesvítí signální barvou.",
         "contractsLabel": "smlouvy",
         "subsidiesLabel": "dotace",
         "donationLabel": "dar straně",

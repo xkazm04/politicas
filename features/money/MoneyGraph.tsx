@@ -35,7 +35,17 @@ export default function MoneyGraph({ data }: { data: MoneyGraphData | null }) {
 
 // ── Real: strongest case file from the knowledge graph ───────────────────────
 
-type GNode = { id: string; kind: "person" | "company" | "money"; label: string; sub: string; x: number; y: number };
+type GNode = {
+  id: string;
+  kind: "person" | "company" | "money";
+  label: string;
+  sub: string;
+  x: number;
+  y: number;
+  /** money nodes only: false = a steward institution's own activity, drawn in steel.
+   *  Drawing it in the signal colour is how a supervisory seat reads as graft. */
+  attributable?: boolean;
+};
 type GEdge = { from: string; to: string; label: string; trail?: boolean };
 
 function RealGraph({ data }: { data: MoneyGraphData }) {
@@ -55,12 +65,27 @@ function RealGraph({ data }: { data: MoneyGraphData }) {
     companies.forEach((c, i) => {
       const cy = yFor(i);
       const cid = `c${i}`;
-      const reach = c.contractCzk + c.subsidiesCzk;
+      // `reachCzk` arrives PRECOMPUTED from the shared definition (`tieReach` in the
+      // loader). The renderer used to add `contractCzk + subsidiesCzk` itself — a second
+      // arithmetic on the same picture, and it painted every result signal-red.
+      const reach = c.reachCzk;
       ns.push({ id: cid, kind: "company", label: trunc(c.company, 20), sub: c.role || `IČO ${c.id.split(":").pop()}`, x: 44, y: cy });
       es.push({ from: "person", to: cid, label: trunc(c.role || "vazba", 16), trail: reach > 0 });
       if (reach > 0) {
         const mid = `m${i}`;
-        ns.push({ id: mid, kind: "money", label: compactCzk(reach, locale), sub: c.donationRecipientParty ? `→ ${c.donationRecipientParty}` : t("real.ledger.reachLabel"), x: 82, y: cy });
+        ns.push({
+          id: mid,
+          kind: "money",
+          label: compactCzk(reach, locale),
+          sub: c.donationRecipientParty
+            ? `→ ${c.donationRecipientParty}`
+            : c.attributable
+              ? t("real.ledger.reachAttributable")
+              : t("real.ledger.reachSteward"),
+          x: 82,
+          y: cy,
+          attributable: c.attributable,
+        });
         es.push({ from: cid, to: mid, label: compactCzk(reach, locale), trail: true });
       }
     });
@@ -134,7 +159,14 @@ function RealGraph({ data }: { data: MoneyGraphData }) {
               style={{ cursor: "pointer", outline: "none" }}
             >
               {n.kind === "money" ? (
-                <rect x={-7.5} y={-7.5} width={15} height={15} className={lit ? NODE_FILL[n.kind] : "fill-hairline"} transform="rotate(45)" />
+                <rect
+                  x={-7.5}
+                  y={-7.5}
+                  width={15}
+                  height={15}
+                  className={lit ? (n.attributable === false ? "fill-steel" : NODE_FILL[n.kind]) : "fill-hairline"}
+                  transform="rotate(45)"
+                />
               ) : (
                 <circle r={n.id === hover ? 10 : 7.5} className={lit ? NODE_FILL[n.kind] : "fill-hairline"} />
               )}

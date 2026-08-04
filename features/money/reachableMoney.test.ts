@@ -5,7 +5,14 @@
 // uncited tiles that merged both classes above the fold.
 
 import { describe, expect, it } from "vitest";
-import { contractCoverage, reachableMoney, type ReachableTie } from "./reachableMoney";
+import {
+  bucketReachCzk,
+  contractCoverage,
+  isAttributable,
+  reachableMoney,
+  tieReach,
+  type ReachableTie,
+} from "./reachableMoney";
 
 const tie = (over: Partial<ReachableTie> & { companyId: string }): ReachableTie => ({
   tieClass: "owner-operator",
@@ -124,5 +131,44 @@ describe("contractCoverage — a capped corpus is a floor, not a total", () => {
     ]);
     expect(m.coverage.isFloor).toBe(false);
     expect(m.companies).toBe(2);
+  });
+});
+
+// ── The predicate and the per-tie view — one class rule, one reach arithmetic ─────────
+
+describe("isAttributable — the one class predicate", () => {
+  it("is true for the two classes the attribution rule permits", () => {
+    expect(isAttributable("owner-operator")).toBe(true);
+    expect(isAttributable("manager")).toBe(true);
+  });
+
+  it("is false for a steward seat — the institution's own activity", () => {
+    expect(isAttributable("steward")).toBe(false);
+  });
+
+  it("agrees with the bucket reachableMoney() puts a tie in (no second rule)", () => {
+    for (const cls of ["owner-operator", "manager", "steward"] as const) {
+      const m = reachableMoney([tie({ companyId: "co:1", tieClass: cls, contractCzk: 5 })]);
+      const inAttributable = m.attributable.companies === 1;
+      expect(inAttributable).toBe(isAttributable(cls));
+    }
+  });
+});
+
+describe("tieReach — the ledger's per-row column", () => {
+  it("adds contracts and subsidies of the one company, and says which side it is", () => {
+    const r = tieReach(tie({ companyId: "co:1", contractCzk: 3_000_000, subsidiesCzk: 500_000 }));
+    expect(r).toEqual({ czk: 3_500_000, attributable: true });
+  });
+
+  it("marks a steward row NOT attributable — the surface may not colour it as alarm", () => {
+    const r = tieReach(tie({ companyId: "co:9", tieClass: "steward", contractCzk: 9_000_000_000 }));
+    expect(r.attributable).toBe(false);
+    expect(r.czk).toBe(9_000_000_000); // the number is published, the reading is not
+  });
+
+  it("equals the whole-population definition when the population is that one tie", () => {
+    const t = tie({ companyId: "co:1", contractCzk: 7, subsidiesCzk: 3 });
+    expect(tieReach(t).czk).toBe(bucketReachCzk(reachableMoney([t]).attributable));
   });
 });

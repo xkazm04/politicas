@@ -798,6 +798,8 @@
         "ownerLabel": "MPs with an owner-class firm",
         "ownerSub": "owner/operator of a firm that supplies the state — the real tie",
         "ownerSource": "ares v3 — commercial register roles",
+        "ownerSubSplit": "owner/operator of a firm that supplies the state — the real tie · {stored} of them rest on a recorded class, {derived} only on the program's guess from the company name",
+        "ownerSourceSplit": "ares v3 ⋈ kg_edge.props.tie_class — recorded class; a derived class (classifyTie) is not a registry fact",
         "reachableLabel": "public money at MPs' own firms",
         "reachableSub": "contracts traced through tied companies — for stewards this is the institution's own money, not the MP's",
         "reachableSource": "registr smluv · Σ of contract values (owner and manager ties)",
@@ -821,9 +823,14 @@
         "allPending": "● all edges dated · awaiting review"
       },
       "graphCaption": "fig. — trail of MP {name} · person cobalt · company black · public money signal ◆ · all awaiting human review",
+      "graphSelection": "fig. — trail of MP {name} · selected by the rule: the highest attributable reach in the graph ({value}) — contracts and subsidies of firms this MP owns or runs; money of bodies where they merely hold a seat does not enter the selection and is drawn in steel · person cobalt · company black",
       "ledger": {
         "tiesCount": "{count} recorded ties",
         "reachLabel": "public money in the company's reach",
+        "reachHeader": "company reach",
+        "reachAttributable": "the MP's firm",
+        "reachSteward": "the institution's money",
+        "reachNote": "reach = contracts from the contracts register (Σ supplies.weight) plus subsidies of that one company, counted once — the same definition the tiles above sum (reachableMoney.ts). The tie class decides how to read it: “the MP's firm” is money at a company they own or run; “the institution's money” is the own public activity of a hospital, waterworks or fund where the MP merely holds a seat — which is why it never carries the signal colour.",
         "contractsLabel": "contracts",
         "subsidiesLabel": "subsidies",
         "donationLabel": "party donation",

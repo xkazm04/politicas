@@ -28,6 +28,7 @@ import {
   type MoneyTie,
   type TieClass,
 } from "../moneyTypes";
+import { tieReach } from "../reachableMoney";
 import TieClassExplainer from "./TieClassExplainer";
 
 const BADGE_TONE_CLS: Record<string, string> = {
@@ -112,9 +113,10 @@ function RealLedger({ data }: { data: MoneyData }) {
       if (sortKey === "mp") return sortDir * a.mp.name.localeCompare(b.mp.name, "cs");
       if (sortKey === "company") return sortDir * a.tie.company.localeCompare(b.tie.company, "cs");
       if (sortKey === "evidence") return sortDir * (a.tie.reviewRank - b.tie.reviewRank);
-      const reachA = a.tie.contractCzk + a.tie.subsidiesCzk;
-      const reachB = b.tie.contractCzk + b.tie.subsidiesCzk;
-      return sortDir * (reachA - reachB);
+      // Sort key and cell come from the SAME shared definition (`tieReach`) — the column
+      // used to re-add `contractCzk + subsidiesCzk` here and again at the cell, which was
+      // a fourth answer to "kolik peněz je v dosahu" living inside the ledger.
+      return sortDir * (tieReach(a.tie).czk - tieReach(b.tie).czk);
     });
     return copy;
   }, [filtered, sortKey, sortDir]);
@@ -246,13 +248,13 @@ function RealLedger({ data }: { data: MoneyData }) {
               </Th>
               <th className="px-3 py-2">{en ? "status" : "stav"}</th>
               <Th onClick={() => toggleSort("reach")} active={sortKey === "reach"} dir={sortDir} align="right">
-                {en ? "reach" : "dosah"}
+                {t("real.ledger.reachHeader")}
               </Th>
             </tr>
           </thead>
           <tbody>
             {shown.map(({ mp, tie }) => {
-              const reach = tie.contractCzk + tie.subsidiesCzk;
+              const reach = tieReach(tie);
               const temporal = temporalBadge(tie);
               const info = tieClassInfo(tie.tieClass);
               return (
@@ -313,8 +315,20 @@ function RealLedger({ data }: { data: MoneyData }) {
                     </div>
                   </td>
                   <td className="px-3 py-3 text-right">
-                    <span className={`block font-black tabular-nums ${reach > 0 ? "text-signal" : "text-steel"}`}>
-                      {reach > 0 ? compactCzk(reach, locale) : "—"}
+                    {/* A steward's number is the institution's own public activity — it
+                        may not be printed in the alarm colour, at any density. Same rule
+                        the case file already applied (MpCaseFilePage's reach panel). */}
+                    <span
+                      className={`block font-black tabular-nums ${reach.czk > 0 && reach.attributable ? "text-signal" : "text-steel"}`}
+                    >
+                      {reach.czk > 0 ? compactCzk(reach.czk, locale) : "—"}
+                    </span>
+                    <span className="mt-0.5 block font-mono text-[9px] uppercase tracking-widest text-steel">
+                      {reach.czk > 0
+                        ? reach.attributable
+                          ? t("real.ledger.reachAttributable")
+                          : t("real.ledger.reachSteward")
+                        : ""}
                     </span>
                   </td>
                 </tr>
@@ -329,6 +343,12 @@ function RealLedger({ data }: { data: MoneyData }) {
             )}
           </tbody>
         </table>
+      </div>
+
+      {/* The reach column is a number about money and therefore cites what it is: which
+          arithmetic, over which population, and that the class decides how to read it. */}
+      <div className="mt-3">
+        <SourceNote>{t("real.ledger.reachNote")}</SourceNote>
       </div>
 
       {/* ── pagination ──────────────────────────────────────── */}

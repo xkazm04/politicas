@@ -17,7 +17,7 @@ import { buildRegistryLinks } from "./reviewTypes";
 import { tieFlagInfos } from "./tieFlags";
 import AnalystNote from "./components/AnalystNote";
 import type { ContractCoverage } from "./moneyTypes";
-import type { MoneyBucket } from "./reachableMoney";
+import { tieReach, type MoneyBucket } from "./reachableMoney";
 import {
   compactCzk,
   temporalBadge,
@@ -226,7 +226,8 @@ function MoneyTile({
 }
 
 function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en: boolean }) {
-  const reach = tie.contractCzk + tie.subsidiesCzk;
+  // Shared definition, not a fifth local sum (`reachableMoney.ts::tieReach`).
+  const reach = tieReach(tie);
   const temporal = temporalBadge(tie);
   const info = tieClassInfo(tie.tieClass);
   const origin = tieClassOriginInfo(tie.tieClassOrigin);
@@ -371,9 +372,9 @@ function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en:
             {en ? "reachable public money" : "dosažitelné veřejné peníze"}
           </p>
           <p
-            className={`mt-1 text-2xl font-black tabular-nums ${tie.tieClass === "steward" ? "text-steel" : "text-signal"}`}
+            className={`mt-1 text-2xl font-black tabular-nums ${reach.attributable ? "text-signal" : "text-steel"}`}
           >
-            {reach > 0 ? compactCzk(reach, locale) : "—"}
+            {reach.czk > 0 ? compactCzk(reach.czk, locale) : "—"}
           </p>
           {/* The P29 rule AT the number. Without it a supervisory seat's billions read
               exactly like a supplier an MP owns. */}
