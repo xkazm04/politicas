@@ -1,7 +1,10 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import ProfilePage from "@/features/profile/ProfilePage";
+import RebellionSlot from "@/features/profile/RebellionSlot";
+import { RebellionInstancesPending } from "@/features/profile/components/RebellionInstances";
 import DataUnavailable from "@/features/shared/components/DataUnavailable";
 import { getAllProfilePspIds, getProfileData } from "@/features/profile/getProfileData";
 import { formatDecimal } from "@/lib/format";
@@ -44,7 +47,21 @@ export default async function PoslanecPage({ params }: { params: Promise<{ id: s
   const pspId = Number(id);
   if (!Number.isFinite(pspId)) notFound(); // a non-numeric slug is genuinely no MP
   const data = await getProfileData(pspId);
-  if (data) return <ProfilePage data={data} />;
+  if (data) {
+    // Jmenovité rebelie stojí na čtení celého hlasovacího záznamu (406 000 řádků,
+    // 15,8–16,0 s měřeno; pak mezizádostní paměť). Streamují se, aby zbytek spisu
+    // nečekal — a fallback říká, na co se čeká.
+    return (
+      <ProfilePage
+        data={data}
+        rebellionSlot={
+          <Suspense fallback={<RebellionInstancesPending />}>
+            <RebellionSlot pspId={pspId} />
+          </Suspense>
+        }
+      />
+    );
+  }
   // Null means EITHER the graph is unreachable (single-connection PGlite held by
   // another process) OR this pspId is not a real MP. getAllProfilePspIds() tells
   // them apart: empty ⇒ no store. Never answer "neexistuje" for a busy database.

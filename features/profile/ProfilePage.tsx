@@ -47,7 +47,16 @@ const ROLE_KEY: Record<string, string> = {
   member: "committeeRoleMember",
 };
 
-export default function ProfilePage({ data }: { data: ProfileData }) {
+export default function ProfilePage({
+  data,
+  rebellionSlot,
+}: {
+  data: ProfileData;
+  /** Jmenovité rebelie — streamovaný server-slot (features/profile/RebellionSlot.tsx).
+   *  Přichází zvenčí, protože jejich zdroj je celý hlasovací záznam (~16 s cold) a
+   *  spis na něj nesmí čekat; klientská komponenta ho jen umístí pod agregát. */
+  rebellionSlot?: React.ReactNode;
+}) {
   const reduceMotion = useReducedMotion();
   const t = useTranslations("profile");
   const tcom = useTranslations("common");
@@ -397,6 +406,10 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
               ))}
             </div>
           )}
+          {/* Míra je odvozená z jednotlivých hlasování; tady jsou ta hlasování.
+              Vykresluje se i u poslance bez rebelie (čestný prázdný stav), aby
+              se mlčení nedalo splést se skrytým nálezem. */}
+          {rebellionSlot}
         </section>
 
         {/* ── 05 Výbory a komise ────────────────────────────── */}

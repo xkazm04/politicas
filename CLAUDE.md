@@ -234,6 +234,29 @@ Route map (politicas.md roadmap execution, sample data):
   edges, so **144 of 207 MPs pay nothing**. A null against a non-empty resolvable
   tie set renders „peněžní vrstvu se nepodařilo přečíst", never „žádné vazby" — an
   outage must not become a claim about a person.
+  **Rebellions carry their instances since 2026-08-04.** The section printed one
+  aggregate rate per club — the only number on the spis a reader could not open.
+  It now lists the MP's OWN roll calls against the club line (date, how they
+  voted, where the club stood, the bill), each linking `/hlasovani#h-<votePspId>`
+  when the vote is inside that page's ledger window and `hlasy.sqw` on psp.cz
+  always. **No second rebellion rule exists**: `features/profile/
+  getRebellionRecord.ts` calls the SAME `deriveVoteRecord()` /hlasovani uses and
+  changes exactly one option it already exposes — `chronicleCap` — because the
+  chamber-wide chronicle is capped at 24 newest rows and indexing THAT would
+  answer „no rebellions" for nearly everyone. Uncapped it is **1 301 instances
+  across 188 of 207 MPs** (median 4, max 89 — Vladimír Pikora 7034);
+  `rebellionRecord.ts` is the pure index + row cap (12, disclosed) and
+  `rebellionRecord.test.ts` runs the real derivation over a synthetic term to pin
+  all of it, including that the DEFAULT cap truncates a rebel's record.
+  **Cost is why it streams.** Measured on the live store: `listVoteBallots`
+  406 000 rows = **15 758 / 15 987 / 15 984 ms** (events 251 ms, registry 779 ms,
+  derivation 459–555 ms). `react.cache()` is per-request, so the per-MP index is
+  memoized ACROSS requests on `MONEY_MEMO_TTL_MS` (imported, never re-declared),
+  and the section renders inside a `<Suspense>` boundary fed by a server slot
+  (`RebellionSlot.tsx`) so the first request after expiry ships the rest of the
+  spis immediately. Neither an empty index nor a failure is memoized; a null
+  renders „hlasovací záznam není dostupný", never an empty list, and an MP who
+  never broke the line gets a stated empty record.
   **Section numbers are derived from what renders** — the dossier is omitted for
   an MP carrying none, so nothing may hard-code an index. `getProfileData` is
   `react.cache()`-wrapped and reads per-MP edges through the INDEXED
