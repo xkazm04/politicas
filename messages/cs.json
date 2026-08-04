@@ -20,7 +20,9 @@
     "rentgenTitle": "Politicas/rentgen — investigativní důkazní terminál",
     "rentgenDescription": "Archivní výtvarný směr Politicas: rentgen státu — graf peněžní stopy, auditní log a registr zdrojů.",
     "graphTitle": "Graf státu — Politicas",
-    "graphDescription": "Prohledávatelný znalostní graf české politiky: osoby, firmy, veřejné peníze, hlasování a zákony v jedné síti, každý uzel s odkazem do registru."
+    "graphDescription": "Prohledávatelný znalostní graf české politiky: osoby, firmy, veřejné peníze, hlasování a zákony v jedné síti, každý uzel s odkazem do registru.",
+    "metodikaTitle": "Metodika indexu přispění — Politicas",
+    "metodikaDescription": "Šest složek indexu přispění, jejich zveřejněné váhy, nasycení počtů a otisk vzorce — vykreslené z kódu, který skóre počítá."
   },
   "common": {
     "languageSwitch": "Přepnout jazyk",
@@ -742,7 +744,7 @@
   },
   "civicscore": {
     "backToControl": "velín",
-    "sourceNote": "civicscore · index přispění nad znalostním grafem psp.cz · zveřejněné váhy 25-20-20-15-10-10",
+    "sourceNote": "civicscore · index přispění nad znalostním grafem psp.cz · zveřejněné váhy {weights}",
     "title": "Žebříček republiky",
     "lead": "Všech 207 poslanců 10. období podle indexu přispění — šest složek se zveřejněnou vahou, každé číslo z deterministického grafu (psp.cz). Skóre = kompozit, pořadí sestupně. Klikněte na jméno pro spis.",
     "distributionTitle": "Rozložení sněmovny",
@@ -788,7 +790,8 @@
     "factNoMedian": "medián sněmovny — údaj v grafu chybí",
     "factMissing": "údaj chybí",
     "factsSource": "zdroj: {sources} · medián počítán jen z poslanců, kteří údaj mají · chybějící údaj se nekreslí jako nula",
-    "factsNoMoney": "Peněžní vazby souboj záměrně NEPOROVNÁVÁ: všech 211 vazeb v grafu čeká na kontrolu (pending_review) a postavit je proti sobě by z nepotvrzené stopy udělalo zjištění. Vazby i s jejich stavem jsou ve spisu poslance a v modulu Peníze."
+    "factsNoMoney": "Peněžní vazby souboj záměrně NEPOROVNÁVÁ: všech 211 vazeb v grafu čeká na kontrolu (pending_review) a postavit je proti sobě by z nepotvrzené stopy udělalo zjištění. Vazby i s jejich stavem jsou ve spisu poslance a v modulu Peníze.",
+    "publishedWeights": "zveřejněné váhy: {weights} · psp.cz"
   },
   "money": {
     "real": {
@@ -1106,5 +1109,43 @@
         }
       }
     }
+  },
+  "metodika": {
+    "backToLeaderboard": "zpět na žebříček",
+    "capCommittee": "různých výborů, komisí a delegací, kde už práce ve výborech platí plnou vahou",
+    "capLegislative": "tisků a interpelací dohromady, kde už legislativní výstup platí plnou vahou",
+    "capSpeech": "vystoupení v sále, kde už řečnická složka platí plnou vahou",
+    "capsHeading": "Kde se počty nasytí",
+    "capsLead": "Tři složky stojí na počtech, ne na poměrech, a počet roste bez horní meze. Nasycení je hodnota, nad kterou už složka platí plnou vahou — jinak by jeden mimořádně upovídaný poslanec posunul měřítko celé sněmovně.",
+    "capsSource": "nasycení: lib/analysis/contribution.ts",
+    "colComponent": "složka",
+    "colWeight": "váha",
+    "dedupeHeading": "Výbory se počítají po tělesech, ne po řádcích",
+    "dedupeLead": "psp.cz eviduje těleso, které poslanec vede, jako DVA řádky členství — samotné členství a funkci. Počítat řádky proto znamenalo, že předsednictví jednoho výboru mohlo přebít členství ve dvou. Index od té doby počítá různá tělesa; váha role se tím nemění, ta si žije ve vlastní složce vedení orgánů.",
+    "dedupeSource": "oprava z 29. 7. 2026 · lib/analysis/contribution.ts",
+    "dedupeUnknownOrgan": "Řádek, u kterého chybí identifikátor tělesa, se nesloučí s ničím: o žádném jiném řádku nelze dokázat, že jde o totéž těleso, a slučovat na dohad by znamenalo tiše ubrat body.",
+    "lead": "Index přispění je průhledný vážený součet přes šest složek, které psp.cz zveřejňuje. Tahle stránka není přepis vzorce do slov — čísla na ní se čtou přímo z kódu, který skóre počítá, takže změna váhy nebo nasycení stránku přetéká. Co tu nestojí, to index nedělá.",
+    "leadershipLabel": "funkce, které platí jako vedení",
+    "linkLabel": "metodika",
+    "organTypesLabel": "typy těles, které se počítají",
+    "pointsUnit": "b.",
+    "ratesLead": "Zbylé tři složky jsou poměry: účast při hlasování je podíl hlasování, u kterých poslanec zaujal stanovisko; docházka je doplněk podílu omluvených dnů; vedení orgánů je binární — kdo vede aspoň jedno těleso, dostává celou váhu.",
+    "refHeading": "Otisk vzorce a co o sobě říkají data",
+    "refLead": "Vzorec má jméno. Každý zápis skóre razí tenhle otisk na uzel poslance, takže se dá porovnat, čím byla uložená čísla doopravdy spočítaná — a přesně tenhle rozdíl zůstal mezi 29. 7. a 4. 8. 2026 šest dní neviditelný.",
+    "refSource": "otisk vzorce · lib/analysis/contribution.ts",
+    "sourceNote": "metodika indexu přispění — vykreslena z lib/analysis/contribution.ts",
+    "storeAbsent": "uzly poslanců nenesou žádný záznam o původu skóre — o tom, čím byla spočítaná, tedy data netvrdí nic",
+    "storeMatch": "uložený otisk se shoduje s tím, co kód deklaruje dnes — žebříček počítal vzorec popsaný výše",
+    "storeMismatch": "uložený otisk „{dataRef}“ se NESHODUJE s tím, co kód deklaruje dnes („{codeRef}“) — žebříček spočítala starší verze metodiky, než je ta popsaná výše",
+    "storeMixed": "uložená skóre nesou {count} různých verzí metodiky ({covered} z {total} poslanců má zaznamenaný původ) — část sněmovny počítal jiný vzorec než zbytek, proto se tu netiskne jediné číslo průchodu",
+    "storeUnavailable": "znalostní graf teď není k dispozici, takže se tu netiskne původ uložených skóre — vzorec výše je vždy ten, který je v kódu",
+    "storeUniform": "uložená skóre: průchod grafu {pass}, otisk „{ref}“, {covered} z {total} poslanců",
+    "title": "Metodika",
+    "toReferendum": "převážit index po svém",
+    "vocabSource": "číselník orgánů a funkcí psp.cz · lib/analysis/contribution.ts",
+    "weightsHeading": "Šest složek a jejich váhy",
+    "weightsLead": "Každá složka se normalizuje na 0–1 a vynásobí svou zveřejněnou vahou. Skóre je jejich součet, zaokrouhlený na desetinu — nic dalšího do něj nevstupuje. Ke každé složce patří dataset, ze kterého je spočítaná.",
+    "weightsSource": "součet vah: {total} bodů · lib/analysis/contribution.ts",
+    "weightsTotal": "součet"
   }
 }

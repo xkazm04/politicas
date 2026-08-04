@@ -26,7 +26,7 @@ import SourceNote from "@/features/shared/components/SourceNote";
 import WeightPanel from "@/features/civicscore/components/WeightPanel";
 import { COMPONENT_FILL } from "@/features/civicscore/components/LeaderboardTable";
 import type { LeaderboardListData } from "@/features/civicscore/getLeaderboardData";
-import { encodeWeights, reweigh } from "@/features/civicscore/lens";
+import { encodeWeights, PUBLISHED_WEIGHTS_LABEL, reweigh } from "@/features/civicscore/lens";
 import { useLensWeights } from "@/features/civicscore/useLensWeights";
 import { useFormat } from "@/lib/i18n/useFormat";
 import { submitLensVector } from "./actions";
@@ -185,7 +185,7 @@ export default function ReferendumPage({
                       váš index — váhy {vector}
                     </span>
                   ) : (
-                    <SourceNote>zveřejněné váhy: 25-20-20-15-10-10 · psp.cz</SourceNote>
+                    <SourceNote>zveřejněné váhy: {PUBLISHED_WEIGHTS_LABEL} · psp.cz</SourceNote>
                   )
                 }
               />

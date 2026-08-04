@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import type { NextRequest } from "next/server";
 import { getLeaderboardListData } from "@/features/civicscore/getLeaderboardData";
-import { LENS_PARAM } from "@/features/civicscore/lens";
+import { LENS_PARAM, PUBLISHED_WEIGHTS_LABEL } from "@/features/civicscore/lens";
 import { deriveReferendumCard } from "@/features/landing/referendum/ogPayload";
 import { COMPONENT_FILL } from "@/features/civicscore/components/LeaderboardTable";
 import { HAIRLINE, INK, OCHRE, PAPER, SIGNAL, STEEL } from "@/features/landing/palette";
@@ -78,7 +78,7 @@ export async function GET(req: NextRequest) {
         ? "nastavte si váhy šesti složek na politicas/referendum"
         : card.kind === "lens"
           ? `váš index — váhy ${card.vector} · nejde o zveřejněnou metodiku`
-          : "zveřejněná metodika 25-20-20-15-10-10";
+          : `zveřejněná metodika ${PUBLISHED_WEIGHTS_LABEL}`;
 
   const rows =
     card.kind === "official" || card.kind === "lens"

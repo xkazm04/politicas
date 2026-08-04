@@ -24,6 +24,7 @@ import {
   encodeWeights,
   LENS_COMPONENT_ORDER,
   LENS_PRESETS,
+  PUBLISHED_WEIGHTS_LABEL,
   type WeightVector,
 } from "../lens";
 import type { LensWeightsState } from "../useLensWeights";
@@ -194,7 +195,7 @@ export default function WeightPanel({
               pravidlo čočky: z každé složky se vezme zveřejněná míra naplnění (body ÷ zveřejněná
               váha), vaše váhy se přepočtou na součet 100 a index je jejich vážený součet,
               zaokrouhlený na desetiny. Počítá se z bodů publikovaných na desetiny, takže se od
-              autoritativního skóre z grafu může lišit až o 0,1 b. Výchozí metodika 25-20-20-15-10-10
+              autoritativního skóre z grafu může lišit až o 0,1 b. Výchozí metodika {PUBLISHED_WEIGHTS_LABEL}
               (psp.cz, deterministický výpočet).
             </SourceNote>
           </div>

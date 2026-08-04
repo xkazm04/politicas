@@ -82,7 +82,12 @@ export const NAV: NavEntry[] = [
   {
     key: "civic-score",
     href: "/zebricek",
-    children: [{ href: "/kraj", labelCs: "můj kraj — volební karta" }],
+    children: [
+      { href: "/kraj", labelCs: "můj kraj — volební karta" },
+      // Metodika indexu (2026-08-04) — vzorec vykreslený z lib/analysis/contribution.ts.
+      // Patří pod žebříček: je to jeho vlastní pravidlo, ne samostatný modul.
+      { href: "/metodika", labelCs: "metodika indexu" },
+    ],
   },
   {
     key: "vote-track",

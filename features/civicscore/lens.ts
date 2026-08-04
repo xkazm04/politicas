@@ -40,6 +40,19 @@ export const LENS_COMPONENT_ORDER: readonly ComponentKey[] = COMPONENT_DEFS.map(
 /** Zveřejněná metodika (25-20-20-15-10-10) — jediný zdroj: lib/analysis/contribution.ts. */
 export const PUBLISHED_WEIGHTS: WeightVector = { ...CONTRIBUTION_WEIGHTS };
 
+/**
+ * Zveřejněné váhy jako čitelný řetězec „25-20-20-15-10-10" — v pořadí
+ * LENS_COMPONENT_ORDER, tedy přesně tak, jak je kóduje `?vahy=`.
+ *
+ * Existuje proto, že tenhle řetězec stál do 2026-08-04 jako LITERÁL na čtyřech
+ * vykreslovaných místech (/zebricek, /referendum, panel vah, OG obraz) i v obou
+ * katalozích zpráv — na stránce, která čtenáře zve index převážit. Změna váhy
+ * ve vzorci by je nechala tvrdit staré číslo; teď je nechá přetéct.
+ */
+export const PUBLISHED_WEIGHTS_LABEL: string = LENS_COMPONENT_ORDER.map(
+  (k) => PUBLISHED_WEIGHTS[k],
+).join("-");
+
 /** Query parametr nesoucí čočku. Česky, jako `?uzel=` ve Velíně. */
 export const LENS_PARAM = "vahy";
 

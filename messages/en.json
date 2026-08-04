@@ -20,7 +20,9 @@
     "rentgenTitle": "Politicas/rentgen — investigative evidence terminal",
     "rentgenDescription": "Archived art direction of Politicas: an X-ray of the state — the money-trail graph, an audit log and a source register.",
     "graphTitle": "Graph of the state — Politicas",
-    "graphDescription": "A searchable knowledge graph of Czech politics: people, companies, public money, votes and laws in one network, every node linked to its register."
+    "graphDescription": "A searchable knowledge graph of Czech politics: people, companies, public money, votes and laws in one network, every node linked to its register.",
+    "metodikaTitle": "Contribution index methodology — Politicas",
+    "metodikaDescription": "The six components of the contribution index, their published weights, the saturation caps and the formula ref — rendered from the code that computes the score."
   },
   "common": {
     "languageSwitch": "Switch language",
@@ -742,7 +744,7 @@
   },
   "civicscore": {
     "backToControl": "control room",
-    "sourceNote": "civicscore · contribution index over the psp.cz knowledge graph · published weights 25-20-20-15-10-10",
+    "sourceNote": "civicscore · contribution index over the psp.cz knowledge graph · published weights {weights}",
     "title": "The republic's ranking",
     "lead": "All 207 MPs of the 10th term by the contribution index — six components with published weights, every number from the deterministic graph (psp.cz). Score = composite, ranked descending. Click a name for the file.",
     "distributionTitle": "Chamber distribution",
@@ -788,7 +790,8 @@
     "factNoMedian": "chamber median — not carried by the graph",
     "factMissing": "no data",
     "factsSource": "source: {sources} · the median counts only MPs that have the value · a missing value is never drawn as a zero",
-    "factsNoMoney": "The head-to-head deliberately does NOT compare money ties: all 211 ties in the graph are pending review, and setting them against each other would turn an unconfirmed trail into a finding. The ties, with their state, live on the MP's file and in the Money module."
+    "factsNoMoney": "The head-to-head deliberately does NOT compare money ties: all 211 ties in the graph are pending review, and setting them against each other would turn an unconfirmed trail into a finding. The ties, with their state, live on the MP's file and in the Money module.",
+    "publishedWeights": "published weights: {weights} · psp.cz"
   },
   "money": {
     "real": {
@@ -1106,5 +1109,43 @@
         }
       }
     }
+  },
+  "metodika": {
+    "backToLeaderboard": "back to the leaderboard",
+    "capCommittee": "distinct committees, commissions and delegations at which committee work already pays its full weight",
+    "capLegislative": "bills and interpellations combined at which legislative output already pays its full weight",
+    "capSpeech": "floor turns at which the speech component already pays its full weight",
+    "capsHeading": "Where the counts saturate",
+    "capsLead": "Three components rest on counts rather than ratios, and a count grows without a ceiling. The saturation point is the value above which the component already pays its full weight - otherwise one exceptionally talkative MP would move the scale for the whole chamber.",
+    "capsSource": "saturation caps: lib/analysis/contribution.ts",
+    "colComponent": "component",
+    "colWeight": "weight",
+    "dedupeHeading": "Committees are counted by body, not by row",
+    "dedupeLead": "psp.cz files a body an MP leads as TWO membership rows - the membership itself and the function. Counting rows therefore let chairing one committee outrank sitting on two. The index has counted distinct bodies since; role weighting is unchanged and lives in its own leadership component.",
+    "dedupeSource": "correction of 2026-07-29 · lib/analysis/contribution.ts",
+    "dedupeUnknownOrgan": "A row whose body identifier is missing is merged with nothing: no other row can be proven to be the same body, and merging on a guess would quietly remove points.",
+    "lead": "The contribution index is a transparent weighted sum over six components psp.cz publishes. This page is not a prose restatement of the formula — its figures are read straight from the code that computes the score, so changing a weight or a saturation cap reflows the page. What is not here is not part of the index.",
+    "leadershipLabel": "functions that count as leadership",
+    "linkLabel": "methodology",
+    "organTypesLabel": "body types that count",
+    "pointsUnit": "pt",
+    "ratesLead": "The remaining three components are ratios: voting participation is the share of roll calls at which the MP took a position; attendance is the complement of the excused-day share; leadership is binary - an MP who leads at least one body earns the whole weight.",
+    "refHeading": "The formula ref, and what the data says about itself",
+    "refLead": "The formula has a name. Every writer that stores a score stamps this ref on the MP node, so it can be compared against what actually authored the stored numbers - and that is exactly the difference that stayed invisible for six days between 2026-07-29 and 2026-08-04.",
+    "refSource": "formula ref · lib/analysis/contribution.ts",
+    "sourceNote": "contribution index methodology — rendered from lib/analysis/contribution.ts",
+    "storeAbsent": "MP nodes carry no record of where their scores came from - the data therefore claims nothing about what computed them",
+    "storeMatch": "the stored ref matches what the code declares today - the leaderboard was computed by the formula described above",
+    "storeMismatch": "the stored ref “{dataRef}” does NOT match what the code declares today (“{codeRef}”) - the leaderboard was computed by an older version of the methodology than the one described above",
+    "storeMixed": "stored scores carry {count} different methodology versions ({covered} of {total} MPs record a provenance) - part of the chamber was computed by a different formula than the rest, so no single pass number is printed here",
+    "storeUnavailable": "the knowledge graph is unavailable, so the provenance of the stored scores is not printed here - the formula above is always the one in the code",
+    "storeUniform": "stored scores: graph pass {pass}, ref “{ref}”, {covered} of {total} MPs",
+    "title": "Methodology",
+    "toReferendum": "re-weigh the index yourself",
+    "vocabSource": "psp.cz organ and function code lists · lib/analysis/contribution.ts",
+    "weightsHeading": "Six components and their weights",
+    "weightsLead": "Every component is normalised to 0-1 and multiplied by its published weight. The score is their sum, rounded to one decimal - nothing else enters it. Each component names the dataset it is computed from.",
+    "weightsSource": "weights total: {total} points · lib/analysis/contribution.ts",
+    "weightsTotal": "total"
   }
 }

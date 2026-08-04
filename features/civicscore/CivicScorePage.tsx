@@ -27,7 +27,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { RotateCcw } from "lucide-react";
+import { ArrowUpRight, RotateCcw } from "lucide-react";
 import type { LeaderboardListData, LeaderboardListEntry } from "./getLeaderboardData";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
@@ -36,13 +36,14 @@ import ScoreHistogram from "./components/ScoreHistogram";
 import HeadToHead from "./components/HeadToHead";
 import LeaderboardTable from "./components/LeaderboardTable";
 import WeightPanel from "./components/WeightPanel";
-import { encodeWeights, reweigh } from "./lens";
+import { encodeWeights, PUBLISHED_WEIGHTS_LABEL, reweigh } from "./lens";
 import { storedRefLabel } from "./provenance";
 import { useLensWeights } from "./useLensWeights";
 import { useFormat } from "@/lib/i18n/useFormat";
 
 export default function CivicScorePage({ data }: { data: LeaderboardListData | null }) {
   const t = useTranslations("civicscore");
+  const tm = useTranslations("metodika");
   const f = useFormat();
   // Souboj: max dva vybraní (klíč = pspId); třetí výběr vyřadí staršího.
   const initial = data?.entries.slice(0, 2).map((e) => e.pspId) ?? [];
@@ -117,7 +118,7 @@ export default function CivicScorePage({ data }: { data: LeaderboardListData | n
       <div className="mx-auto max-w-6xl px-6">
         {/* ── Titulní pás ───────────────────────────────────── */}
         <div className="py-10">
-          <SourceNote tone="signal">{t("sourceNote")}</SourceNote>
+          <SourceNote tone="signal">{t("sourceNote", { weights: PUBLISHED_WEIGHTS_LABEL })}</SourceNote>
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -165,6 +166,18 @@ export default function CivicScorePage({ data }: { data: LeaderboardListData | n
                   })}
                 </SourceNote>
               )}
+              {/* Provenience říká, ČÍM se počítalo; tenhle odkaz říká CO se počítá.
+                  /metodika vykresluje váhy, nasycení i otisk vzorce přímo z
+                  lib/analysis/contribution.ts — do 2026-08-04 nebyl vzorec vidět nikde. */}
+              <p className="mt-2">
+                <Link
+                  href="/metodika"
+                  className="inline-flex items-center gap-1 font-mono text-xs font-bold uppercase tracking-wider text-signal hover:underline"
+                >
+                  {tm("linkLabel")}
+                  <ArrowUpRight className="h-3 w-3" aria-hidden />
+                </Link>
+              </p>
               {/* Pokrytí se uzavřelo — věta to říká místo věčného „dosud probíhá". */}
               <SourceNote className="mt-1.5">
                 {data.dossierCoverage.withDossier >= data.dossierCoverage.total
@@ -190,7 +203,7 @@ export default function CivicScorePage({ data }: { data: LeaderboardListData | n
                 index={1}
                 title="Otevřený index"
                 aside={
-                  custom ? lensAside : <SourceNote>zveřejněné váhy: 25-20-20-15-10-10 · psp.cz</SourceNote>
+                  custom ? lensAside : <SourceNote>{t("publishedWeights", { weights: PUBLISHED_WEIGHTS_LABEL })}</SourceNote>
                 }
               />
               <div className="mt-8">

@@ -23,7 +23,8 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { RotateCcw } from "lucide-react";
+import { ArrowUpRight, RotateCcw } from "lucide-react";
+import { useTranslations } from "next-intl";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { buildPosterCitation } from "@/features/shared/poster/citation";
 import PosterFrame, { type PosterFormat } from "@/features/shared/poster/PosterFrame";
@@ -94,6 +95,7 @@ export default function KrajPage({
   liveUrl: string;
 }) {
   const f = useFormat();
+  const tm = useTranslations("metodika");
   const { printPoster } = usePosterMode();
   const [format, setFormat] = useState<PosterFormat>("a4");
 
@@ -185,6 +187,17 @@ export default function KrajPage({
           Kandidátka vašeho kraje: poslanci zvolení za {slate.unassigned ? "mandáty bez uvedeného kraje" : slate.label},
           seřazení indexem přispění. Karta se dá vytisknout jako arch A4/A3 — na papíře zůstane jen
           kandidátka s citací zdroje a datem.
+        </p>
+
+        <p className="mt-3">
+          {/* Táž metodika jako celostátní žebříček — a od 2026-08-04 je i vidět. */}
+          <Link
+            href="/metodika"
+            className="inline-flex items-center gap-1 font-mono text-xs font-bold uppercase tracking-wider text-signal hover:underline"
+          >
+            {tm("linkLabel")}
+            <ArrowUpRight className="h-3 w-3" aria-hidden />
+          </Link>
         </p>
 
         <div className="mt-8">

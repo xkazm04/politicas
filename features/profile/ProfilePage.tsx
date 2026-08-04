@@ -16,7 +16,7 @@
  */
 
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import type { ProfileData } from "./getProfileData";
@@ -49,6 +49,7 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
   const reduceMotion = useReducedMotion();
   const t = useTranslations("profile");
   const tcom = useTranslations("common");
+  const tm = useTranslations("metodika");
   const f = useFormat();
 
   const { person, total, components, coVoters, rebellions, committees } = data;
@@ -183,6 +184,17 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
                     })}`
                   : ""}
               </SourceNote>
+              {/* Pas skóre pojmenuje průchod; odkaz ukáže vzorec, který ten průchod
+                  počítal (vykreslený z lib/analysis/contribution.ts, ne z dokumentu). */}
+              <p className="mt-1">
+                <Link
+                  href="/metodika"
+                  className="inline-flex items-center gap-1 font-mono text-[10px] font-bold uppercase tracking-wider text-signal hover:underline"
+                >
+                  {tm("linkLabel")}
+                  <ArrowUpRight className="h-2.5 w-2.5" aria-hidden />
+                </Link>
+              </p>
             </div>
           </div>
           <p className="mt-6 max-w-2xl border-l-4 border-signal pl-4 text-base italic leading-relaxed text-steel">

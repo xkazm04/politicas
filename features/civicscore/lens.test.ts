@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { CONTRIBUTION_WEIGHTS } from "@/lib/analysis/contribution";
 import { componentDefs } from "./componentDefs";
 import type { ComponentKey, LeaderboardData, LeaderboardListEntry } from "./getLeaderboardData";
 import {
@@ -11,6 +12,7 @@ import {
   LENS_COMPONENT_ORDER,
   LENS_PRESETS,
   PUBLISHED_WEIGHTS,
+  PUBLISHED_WEIGHTS_LABEL,
   reweigh,
   summarizeScores,
   type WeightVector,
@@ -214,5 +216,22 @@ describe("summarizeScores / histogramOf — mirror the loader's rules", () => {
     }
     // maximum, které samo je násobkem 5, má vlastní pásmo (ostrá horní mez)
     expect(bands.at(-1)).toEqual({ from: 100, label: "100–105", count: 1 });
+  });
+});
+
+describe("PUBLISHED_WEIGHTS_LABEL", () => {
+  // Ten řetězec se tiskne na /zebricek, /referendum, v panelu vah i do OG obrazu.
+  // Je ODVOZENÝ ze vzorce — přesně proto, aby změna váhy neponechala čtyři místa
+  // tvrdit staré číslo (což do 2026-08-04 dělal jako literál).
+  it("je serializace zveřejněných vah v pořadí LENS_COMPONENT_ORDER", () => {
+    expect(PUBLISHED_WEIGHTS_LABEL).toBe(
+      LENS_COMPONENT_ORDER.map((k) => PUBLISHED_WEIGHTS[k]).join("-"),
+    );
+  });
+
+  it("odpovídá vahám, které deklaruje lib/analysis/contribution.ts", () => {
+    expect(PUBLISHED_WEIGHTS_LABEL).toBe(
+      LENS_COMPONENT_ORDER.map((k) => CONTRIBUTION_WEIGHTS[k]).join("-"),
+    );
   });
 });

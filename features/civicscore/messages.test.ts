@@ -76,3 +76,58 @@ describe("civicscore — provenience skóre je česky a nese obě linie", () => 
     expect(placeholders(csNs.provenanceMixed)).toEqual(["count", "total", "withProv"]);
   });
 });
+
+// /metodika je stránka, jejíž jediný obsah je TVRZENÍ O VZORCI. Kdyby se rozešla
+// s katalogem druhého jazyka nebo dojela na plochu anglicky, byla by to přesně ta
+// třída chyby, kterou má zavírat (metodická průhlednost, která sama sobě nesedí).
+describe("metodika — katalog stránky metodiky", () => {
+  const csM: Record<string, string> = csCatalog.metodika;
+  const enM: Record<string, string> = enCatalog.metodika;
+
+  it("existuje v obou katalozích se stejnými klíči", () => {
+    expect(Object.keys(csM).sort()).toEqual(Object.keys(enM).sort());
+    expect(Object.keys(csM).length).toBeGreaterThan(0);
+  });
+
+  it("každý klíč deklaruje tytéž ICU placeholdery v obou jazycích", () => {
+    for (const k of Object.keys(csM)) {
+      expect(placeholders(enM[k]), k).toEqual(placeholders(csM[k]));
+    }
+  });
+
+  it("česká věta neprojde jako anglická (jazyková brána)", () => {
+    for (const [k, v] of Object.entries(csM)) {
+      expect(v.length, k).toBeGreaterThan(0);
+      expect(looksEnglish(v), `cs.metodika.${k}`).toBe(false);
+    }
+  });
+
+  it("věta o rozporu pojmenuje uloženou I deklarovanou linii", () => {
+    expect(placeholders(csM.storeMismatch)).toEqual(["codeRef", "dataRef"]);
+  });
+
+  it("věta o smíšeném grafu přiznává počet verzí i pokrytí", () => {
+    expect(placeholders(csM.storeMixed)).toEqual(["count", "covered", "total"]);
+  });
+
+  it("součet vah je PLACEHOLDER, ne napsané číslo — stránka ho čte ze vzorce", () => {
+    for (const ns of [csM, enM]) {
+      expect(placeholders(ns.weightsSource)).toEqual(["total"]);
+      expect(ns.weightsSource).not.toMatch(/\b100\b/);
+    }
+  });
+});
+
+// Vektor zveřejněných vah je odvozený (lens.PUBLISHED_WEIGHTS_LABEL), ne psaný. Do
+// 2026-08-04 stál jako literál na čtyřech vykreslovaných místech a v OBOU katalozích,
+// takže by ho změna vzorce nechala tvrdit staré číslo.
+describe("katalogy netisknou zveřejněné váhy jako literál", () => {
+  it("žádný řetězec v cs ani en nenese '25-20-20-15-10-10'", () => {
+    for (const [locale, cat] of [["cs", csCatalog], ["en", enCatalog]] as const) {
+      const flat = JSON.stringify(cat);
+      expect(flat, `${locale}.json hardcodes the published weight vector`).not.toContain(
+        "25-20-20-15-10-10",
+      );
+    }
+  });
+});
