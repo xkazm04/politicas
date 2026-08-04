@@ -150,6 +150,33 @@ describe("dashboard message catalog", () => {
     }
   });
 
+  it("the law tile can state the forensic layer, not only the plumbing", () => {
+    // `flaggedCount` / `forensicCount` / `paragraphDiffCount` / `summaryCount` /
+    // `forensicWithheldCount` were all in LawData and rendered nowhere here: the front
+    // door advertised bill→law EDGE counts and hid round 4's findings.
+    for (const ns of [cs, en]) {
+      expect(placeholders(ns["realStats.lawsForensic"])).toEqual([
+        "diffs",
+        "flagged",
+        "forensic",
+        "summaries",
+      ]);
+      expect(placeholders(ns["realStats.lawsWithheld"])).toEqual(["count"]);
+    }
+    // A withheld string is disclosed, never described as absent.
+    expect(cs["realStats.lawsWithheld"]).toContain("zadržený, ne smazaný");
+    expect(en["realStats.lawsWithheld"]).toContain("withheld, not deleted");
+  });
+
+  it("a shared rank is stated rather than silently broken", () => {
+    for (const ns of [cs, en]) {
+      expect(placeholders(ns["realRanking.tiedRank"])).toEqual(["count"]);
+      expect(ns["realRanking.badgeSource"], "the row badges carry their own citation").toBeTruthy();
+    }
+    expect(cs["realRanking.footnote"]).toContain("soutěžní");
+    expect(en["realRanking.footnote"]).toContain("competition ranks");
+  });
+
   it("no hardcoded chamber size stands in for a counted one", () => {
     // `attendanceSub` printed „přes reálný vzorek 207 poslanců" — a literal that goes
     // stale the moment the chamber the loader reads is not 207.

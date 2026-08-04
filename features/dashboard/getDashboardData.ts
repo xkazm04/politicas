@@ -114,22 +114,66 @@ export interface DashboardLaws {
   amends: number;
   /** Body-amended statutes the title-citation `amends` edges are known to MISS. */
   censusUndercount: number;
+  /**
+   * THE FORENSIC LAYER — round 4's product, invisible on the front door until now.
+   * All five numbers were already in `LawData`; the tile rendered bills/laws/amends
+   * and nothing else, so the velín advertised the graph's PLUMBING and hid its
+   * findings. No new store read: `getLawData()` computes every one of these on the
+   * read the dashboard already performs.
+   */
+  /** Bills carrying a Case-① conflict flag (`flagged_conflict`). */
+  flagged: number;
+  /** Bills carrying a gated forensic verdict. */
+  forensic: number;
+  /** Of those, verdicts with ≥1 reader-facing string WITHHELD by the Czech-language
+   *  gate — disclosed rather than hidden, like every other suppression here. */
+  forensicWithheld: number;
+  /** Bills carrying a real e-Sbírka §-diff artifact (not a fabricated before/after). */
+  paragraphDiffs: number;
+  /** Bills carrying a derived „co to mění" summary; the rest say so themselves. */
+  summaries: number;
   pass: number | null;
 }
 
 /**
- * One ranked row as the velín's top-5 ledger ACTUALLY renders it: rank, name,
- * club chip, region, score. The full `LeaderboardEntry` additionally carries the
- * six component points, seven raw counters, the PSP9 trend and four effort-loop
- * enrichment fields — real data, none of which this widget reads, and all of
- * which would be serialized into the client payload for five rows. Same
- * reasoning as `LeaderboardListEntry` (/zebricek); the dashboard needs a
- * narrower cut still, because it renders neither components nor badges.
+ * One ranked row as the velín's top-5 ledger ACTUALLY renders it.
+ *
+ * Still a narrow cut of `LeaderboardEntry` — the six component points, the seven raw
+ * counters and the PSP9 trend stay out, because this widget renders none of them.
+ * What CAME IN (2026-08-04) is the row's own qualifications, which /zebricek has
+ * carried for months while the front door printed a bare number beside a name:
+ *
+ *   `tiedCount`   — a rank is a COMPETITION rank and 55 of 207 MPs share one. Printing
+ *                   „1." over a tie, in the red top-3 colour, invents a winner.
+ *   the three effort verdicts + `effortRecordedAt` — the low-score corrective exists on
+ *                   34 of 207 nodes; without it the velín can print the chamber's
+ *                   lowest number beside an MP who never took the oath. The workhorse
+ *                   and rapporteur badges are the positive symmetry of the same pass.
+ *   `speechTurns` — the figure the workhorse verdict rests on (`DuelFacts.speechTurns`,
+ *                   nullable: an un-ingested counter must never render as 0).
+ *
+ * Every field is already on the `getLeaderboardData()` payload — this adds ZERO store
+ * reads and ZERO recomputation, for five rows.
  */
 export type DashboardTopEntry = Pick<
   LeaderboardEntry,
-  "pspId" | "rank" | "name" | "clubName" | "clubColor" | "region" | "score"
->;
+  | "pspId"
+  | "rank"
+  | "name"
+  | "clubName"
+  | "clubColor"
+  | "region"
+  | "score"
+  | "tiedCount"
+  | "effortLowScoreReason"
+  | "effortRecordedAt"
+  | "effortWorkhorse"
+  | "effortWorkhorseFlavour"
+  | "effortRapporteurLoad"
+> & {
+  /** `DuelFacts.speechTurns` — null means the graph carries no counter, never 0. */
+  speechTurns: number | null;
+};
 
 export interface DashboardData {
   /** Top-N real MPs by contribution_score, for the ranking section. */
@@ -166,6 +210,13 @@ const toTopEntry = (e: LeaderboardEntry): DashboardTopEntry => ({
   clubColor: e.clubColor,
   region: e.region,
   score: e.score,
+  tiedCount: e.tiedCount,
+  effortLowScoreReason: e.effortLowScoreReason,
+  effortRecordedAt: e.effortRecordedAt,
+  effortWorkhorse: e.effortWorkhorse,
+  effortWorkhorseFlavour: e.effortWorkhorseFlavour,
+  effortRapporteurLoad: e.effortRapporteurLoad,
+  speechTurns: e.duelFacts.speechTurns,
 });
 
 // ── memoized money headline (see header) ────────────────────────────────────
@@ -251,6 +302,11 @@ function lawHeadline(law: LawData): DashboardLaws {
     laws: law.totalLaws,
     amends: law.totalAmends,
     censusUndercount: law.censusUndercountTotal,
+    flagged: law.flaggedCount,
+    forensic: law.forensicCount,
+    forensicWithheld: law.forensicWithheldCount,
+    paragraphDiffs: law.paragraphDiffCount,
+    summaries: law.summaryCount,
     pass: law.pass,
   };
 }

@@ -560,7 +560,9 @@
     "allMpsLinkFallback": "celý žebříček",
     "realRanking": {
       "title": "Žebříček — reálná data",
-      "footnote": "kontribuční index · {count} reálných poslanců · řádek otevírá spis poslance"
+      "footnote": "kontribuční index · {count} reálných poslanců · pořadí je soutěžní (1, 2, 2, 4), takže se při shodě skóre sdílí · řádek otevírá spis poslance",
+      "tiedRank": "pořadí sdílí {count} poslanců",
+      "badgeSource": "štítky u jmen: effort-loop enrichment nad uzly poslanců (`effort_low_score_reason`, `effort_workhorse`, zpravodajská zátěž z hran průchodu 34) — každý nese datum svého zápisu a číslo, o které se opírá; chybějící údaj se nevykresluje"
     },
     "realStats": {
       "avgLabel": "průměrný kontribuční index",
@@ -583,6 +585,8 @@
       },
       "lawsLabel": "vazby tisk → zákon",
       "lawsSub": "{bills} sněmovních tisků · {laws} zákonů v grafu",
+      "lawsForensic": "{flagged} tisků s možným střetem · {forensic} gated posudků · {diffs} tisků se skutečným §-diffem z e-Sbírky · {summaries} tisků se shrnutím „co to mění“",
+      "lawsWithheld": "{count} posudků má aspoň jeden čtenářský řetězec zadržený jazykovou branou — zadržený, ne smazaný",
       "lawsSource": "psp.cz tisky ⋈ e-sbírka · průchod {pass} · dalších {undercount} novelizovaných zákonů hrany zatím nezachycují"
     },
     "histogram": {

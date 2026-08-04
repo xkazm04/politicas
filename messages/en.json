@@ -560,7 +560,9 @@
     "allMpsLinkFallback": "full ranking",
     "realRanking": {
       "title": "Ranking — real data",
-      "footnote": "contribution index · {count} real MPs · row opens the MP's file"
+      "footnote": "contribution index · {count} real MPs · ranks are competition ranks (1, 2, 2, 4), so an identical score shares one · row opens the MP's file",
+      "tiedRank": "rank shared by {count} MPs",
+      "badgeSource": "badges beside the names: effort-loop enrichment on the MP nodes (`effort_low_score_reason`, `effort_workhorse`, rapporteur load from pass-34 edges) — each carries the date it was recorded and the figure it rests on; a missing value renders nothing"
     },
     "realStats": {
       "avgLabel": "average contribution index",
@@ -583,6 +585,8 @@
       },
       "lawsLabel": "print → law edges",
       "lawsSub": "{bills} chamber prints · {laws} laws in the graph",
+      "lawsForensic": "{flagged} prints with a possible conflict · {forensic} gated forensic verdicts · {diffs} prints with a real e-Sbírka §-diff · {summaries} prints with a “what it changes” summary",
+      "lawsWithheld": "{count} verdicts have at least one reader-facing string withheld by the language gate — withheld, not deleted",
       "lawsSource": "psp.cz prints ⋈ e-Sbírka · pass {pass} · a further {undercount} amended statutes the edges do not yet capture"
     },
     "histogram": {

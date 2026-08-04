@@ -162,6 +162,23 @@ Route map (politicas.md roadmap execution, sample data):
   `CopyLinkButton` (extracted 2026-08-04 to prevent exactly this second copy) and
   gained **„ověřit tuto citaci" → `/overeni?ref=…`** — the gate already knows the
   `family: exponat` shape, and a page built to be cited had no path to the verifier.
+  **The tiles carry round 4 (2026-08-04).** Three finished products were invisible on
+  the front door while sitting in the payloads the loader already awaited — so this
+  is **zero new store reads** (the loader's read set is unchanged; grep it). The law
+  tile printed bills/laws/amends — the graph's PLUMBING — while `LawData` carried
+  `flaggedCount`, `forensicCount`, `summaryCount`, `paragraphDiffCount` and
+  `forensicWithheldCount`; all five now render, and a WITHHELD verdict string is
+  disclosed as withheld rather than described as absent. The top-5 ledger printed
+  rank/name/club/score beside a **competition rank 55 of 207 MPs share** — „1." in
+  the red top-3 colour over a tie invents a winner — so a shared rank now says so
+  (never reorders), and the row carries the three effort verdicts through the
+  EXISTING components (`LowScoreReasonChip`, `WorkhorseBadge`, `RapporteurBadge`,
+  compact densities, imported not forked): each dated from `effort_provenance
+  .computedAt`, each printing the figure it rests on, each rendering nothing when
+  the node carries no value. `DashboardTopEntry` grew six fields plus
+  `duelFacts.speechTurns`; the six component points, seven raw counters and the PSP9
+  trend deliberately stay out. The money tile's gate sentence is Direction 1's
+  `reviewSummary()`.
 - `/poslanec/[id]` — **Spis** (features/profile): the Person profile —
   politicas.md §3's "real product". Wired to the real graph (no mock path):
   poster header + contribution score/rank, the six weighted components, the

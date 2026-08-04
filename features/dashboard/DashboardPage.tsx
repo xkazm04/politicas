@@ -33,6 +33,9 @@ import LiveDataNotice from "@/features/shared/components/LiveDataNotice";
 import StatTile from "@/features/shared/components/StatTile";
 import { compactCzk } from "@/features/money/moneyTypes";
 import type { ReviewSummary } from "@/features/money/reviewSummary";
+import LowScoreReasonChip from "@/features/civicscore/components/LowScoreReasonChip";
+import RapporteurBadge from "@/features/civicscore/components/RapporteurBadge";
+import WorkhorseBadge from "@/features/civicscore/components/WorkhorseBadge";
 import { PILLAR_BG } from "@/features/landing/palette";
 import type { DashboardData } from "./getDashboardData";
 import ChamberChart from "./components/ChamberChart";
@@ -343,14 +346,45 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
                 <StatTile
                   label={t("realStats.lawsLabel")}
                   value={f.int(data.laws.amends)}
-                  sub={t("realStats.lawsSub", {
-                    bills: f.int(data.laws.bills),
-                    laws: f.int(data.laws.laws),
-                  })}
-                  source={`${tcom("sourcePrefix")} ${t("realStats.lawsSource", {
-                    pass: data.laws.pass ?? "—",
-                    undercount: f.int(data.laws.censusUndercount),
-                  })}`}
+                  sub={
+                    <>
+                      {t("realStats.lawsSub", {
+                        bills: f.int(data.laws.bills),
+                        laws: f.int(data.laws.laws),
+                      })}
+                      {/* FORENZNÍ VRSTVA — produkt 4. kola, který titulní strana
+                          neukazovala vůbec: tiskla jen instalatérské počty hran.
+                          Všechna čísla už `getLawData()` počítá na tomtéž čtení,
+                          takže je to nula nových dotazů do grafu. */}
+                      <span className="mt-1 block">
+                        {t("realStats.lawsForensic", {
+                          flagged: f.int(data.laws.flagged),
+                          forensic: f.int(data.laws.forensic),
+                          diffs: f.int(data.laws.paragraphDiffs),
+                          summaries: f.int(data.laws.summaries),
+                        })}
+                      </span>
+                    </>
+                  }
+                  source={
+                    <>
+                      {tcom("sourcePrefix")}{" "}
+                      {t("realStats.lawsSource", {
+                        pass: data.laws.pass ?? "—",
+                        undercount: f.int(data.laws.censusUndercount),
+                      })}
+                      {/* Zadržený řetězec se přizná, nezmizí — táž zásada, s jakou
+                          se přiznává nemožné datum v knize faktů. */}
+                      {data.laws.forensicWithheld > 0 && (
+                        <>
+                          {" · "}
+                          {t("realStats.lawsWithheld", {
+                            count: f.int(data.laws.forensicWithheld),
+                          })}
+                        </>
+                      )}
+                    </>
+                  }
                 />
               ) : (
                 <MockStatTile statKey="laws" />
@@ -468,7 +502,41 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
                       <span className="mt-0.5 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-steel">
                         <span className="inline-block h-2 w-2 rounded-full" style={{ background: m.clubColor }} />
                         {m.clubName} {m.region ? `· ${m.region}` : ""}
+                        {/* Pořadí je SOUTĚŽNÍ (1, 2, 2, 4) a 55 z 207 poslanců ho
+                            s někým sdílí — „1." v červené barvě nad shodou vyrábí
+                            vítěze, kterého data nenesou. Řeklo se to, nepřeřadilo. */}
+                        {m.tiedCount > 1 && (
+                          <span className="text-ochre">
+                            · {t("realRanking.tiedRank", { count: f.int(m.tiedCount) })}
+                          </span>
+                        )}
                       </span>
+                      {/* Kvalifikace řádku — TYTÉŽ komponenty, které je kreslí na
+                          /zebricek a ve spisu; velín si je nepřepisuje. Každá nese
+                          své datum (`effort_provenance.computedAt`) i číslo, o které
+                          se opírá, a chybějící údaj se nevykreslí jako nula. */}
+                      {(m.effortLowScoreReason || m.effortWorkhorse || m.effortRapporteurLoad > 0) && (
+                        <span className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                          <LowScoreReasonChip
+                            reason={m.effortLowScoreReason}
+                            recordedAt={m.effortRecordedAt}
+                            dateLabel={m.effortRecordedAt ? f.date(m.effortRecordedAt) : null}
+                          />
+                          {m.effortWorkhorse && (
+                            <WorkhorseBadge
+                              flavour={m.effortWorkhorseFlavour}
+                              speechTurns={m.speechTurns}
+                              recordedAt={m.effortRecordedAt}
+                              compact
+                            />
+                          )}
+                          <RapporteurBadge
+                            load={m.effortRapporteurLoad}
+                            recordedAt={m.effortRecordedAt}
+                            compact
+                          />
+                        </span>
+                      )}
                     </span>
                     <span className="flex items-center gap-2">
                       <span className="text-xl font-black tabular-nums">{f.dec(m.score)}</span>
@@ -520,6 +588,9 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
                     <SourceNote>
                       {t("realRanking.footnote", { count: data.summary.count })}
                     </SourceNote>
+                    {/* Štítky na řádku jsou TVRZENÍ enrichmentu — mají vlastní
+                        citaci, ne jen datum schované v titulku. */}
+                    <SourceNote>{t("realRanking.badgeSource")}</SourceNote>
                     <Link
                       href="/metodika"
                       className="font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
