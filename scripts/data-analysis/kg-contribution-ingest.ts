@@ -15,7 +15,13 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { absenteeManagerSignal, computeContribution, type CommitteeSeat, type ContributionInputs } from "@/lib/analysis/contribution";
+import {
+  absenteeManagerSignal,
+  computeContribution,
+  CONTRIBUTION_FORMULA_REF,
+  type CommitteeSeat,
+  type ContributionInputs,
+} from "@/lib/analysis/contribution";
 import { isoDay } from "@/lib/analysis/money-feed";
 import { emptyCounts, normalizeActivity, type ActivityCounts } from "@/lib/ingest/sources/psp-activity";
 import { getStore } from "@/lib/db/store";
@@ -194,7 +200,11 @@ async function main() {
         interpellations: profile.interpellations,
         speech_turns: profile.speechTurns,
         absentee_manager_lead: signal.isAbsenteeManagerLead,
-        contribution_provenance: { pass, method: "deterministic", ref: "contribution", computedAt },
+        // The ref names the FORMULA that produced these numbers, and it is imported, never
+        // typed here. This script used to stamp the literal "contribution" — a ref frozen at
+        // pass 11 — so re-running it after the 2026-07-29 committee-dedupe correction would
+        // have DOWNGRADED every node's declared lineage below the formula that scored it.
+        contribution_provenance: { pass, method: "deterministic", ref: CONTRIBUTION_FORMULA_REF, computedAt },
       },
       firstSeenPass: existing.firstSeenPass,
       provenance: existing.provenance,

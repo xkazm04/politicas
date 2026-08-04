@@ -5,6 +5,7 @@ import LeaderboardPoster, {
   type LeaderboardPosterData,
 } from "@/features/shared/poster/demo/LeaderboardPoster";
 import DataUnavailable from "@/features/shared/components/DataUnavailable";
+import { formulaMismatchOrNull } from "@/features/civicscore/provenance";
 import { getLeaderboardListData } from "@/features/civicscore/getLeaderboardData";
 
 /*
@@ -60,6 +61,7 @@ export default async function PlakatPage({ params }: { params: Promise<{ view: s
     retrievedAt: new Date().toISOString().slice(0, 10),
     liveUrl: await liveLeaderboardUrl(),
     provenancePass: data.provenancePass,
+    formulaMismatch: formulaMismatchOrNull(data.provenance),
     summary: data.summary,
     histogram: data.histogram,
     top: data.entries.slice(0, 10).map((e) => ({

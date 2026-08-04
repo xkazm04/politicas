@@ -33,6 +33,7 @@ import {
   type LeaderboardEntry,
   type ProfileEntry,
 } from "@/features/civicscore/getLeaderboardData";
+import type { ContributionProvenance } from "@/features/civicscore/provenance";
 import { isCommitteeSeat, type CommitteeSeat as ContributionCommitteeSeat } from "@/lib/analysis/contribution";
 import { computeScoreLegibility, type ScoreLegibility } from "@/lib/analysis/score-legibility";
 import { classifyRole, ROLE_WEIGHT } from "@/lib/analysis/kg";
@@ -236,8 +237,12 @@ export interface ProfileData {
    * route's `revalidate`, which bounds how stale it can get.
    */
   seatsAsOf: string; // ISO yyyy-mm-dd
-  /** Contribution-index pass that authored this MP's score — cited on-page. */
+  /** Contribution-index pass that authored this MP's score — cited on-page. Null when
+   *  the chamber does NOT agree on one pass (a partial recompute); see `provenance`. */
   provenancePass: number | null;
+  /** Chamber-wide provenance aggregate + formula-ref comparison — the spis says on its
+   *  own face when the score it prints was authored by an older version of the formula. */
+  provenance: ContributionProvenance;
   // Tenure annotation (batch 003, Q-effort-5) — deterministic, from
   // membership.fromAt/toAt on organ 174. May be absent for the ~0/207 MPs
   // missing a chamber membership row (see tenure.ts's `missing` list).
@@ -810,6 +815,7 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
       committees,
       seatsAsOf,
       provenancePass: data.provenancePass,
+      provenance: data.provenance,
       effortTenureDays,
       effortTenureClass,
       effortTenureStart,

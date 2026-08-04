@@ -28,6 +28,7 @@ import {
   absenteeManagerSignal,
   computeContribution,
   COMMITTEE_SATURATION,
+  CONTRIBUTION_FORMULA_REF,
   CONTRIBUTION_WEIGHTS,
   isCommitteeSeat,
   isLeadership,
@@ -275,7 +276,7 @@ async function main() {
           components: { ...oldComps, committee: committeePoints(p9profile.committeeCount) },
           availablePoints: round1(num(p9.availablePoints) + deltaCommittee),
           score: typeof p9.score === "number" ? round1(p9.score + deltaCommittee) : p9.score,
-          committee_correction: { pass, ref: "contribution-committee-dedupe", computedAt },
+          committee_correction: { pass, ref: CONTRIBUTION_FORMULA_REF, computedAt },
         };
       }
     }
@@ -294,10 +295,13 @@ async function main() {
         absence_rate: profile.absenceRate,
         absentee_manager_lead: signal.isAbsenteeManagerLead,
         ...(psp9Corrected ? { contribution_psp9: psp9Corrected } : {}),
+        // The ref is NEVER a literal here — it comes from the formula that just scored
+        // this node (lib/analysis/contribution.ts CONTRIBUTION_FORMULA_REF), so the data
+        // cannot claim a lineage the code does not declare. See that constant's contract.
         contribution_provenance: {
           pass,
           method: "deterministic",
-          ref: "contribution-committee-dedupe",
+          ref: CONTRIBUTION_FORMULA_REF,
           computedAt,
           corrects: "committee_count counted psp.cz membership ROWS; it now counts distinct BODIES",
         },

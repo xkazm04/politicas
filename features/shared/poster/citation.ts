@@ -22,6 +22,13 @@ export interface PosterCitationInput {
   methodology: string;
   /** Výpočetní pas, který čísla autorizoval (contribution_provenance.pass). */
   provenancePass?: number | null;
+  /**
+   * Linie formule, kterou nesou DATA, když se liší od té, kterou dnes deklaruje kód
+   * (lib/analysis/contribution.ts CONTRIBUTION_FORMULA_REF). Vytištěný arch je archivní
+   * dokument — nesmí tvrdit metodiku, podle které jeho čísla nevznikla. `null`/vynecháno
+   * = data i kód se shodují a patička o tom mlčí.
+   */
+  formulaMismatch?: { storedRef: string; declaredRef: string } | null;
 }
 
 /** Hotové řádky patičky, v pořadí, v jakém se sázejí. */
@@ -49,10 +56,13 @@ export function buildPosterCitation(input: PosterCitationInput): PosterCitation 
     typeof input.provenancePass === "number" && Number.isFinite(input.provenancePass)
       ? ` · výpočetní pas ${czechInt(input.provenancePass)}`
       : "";
+  const mismatch = input.formulaMismatch
+    ? ` · POZOR: čísla spočítala starší linie metodiky „${input.formulaMismatch.storedRef}“, kód dnes deklaruje „${input.formulaMismatch.declaredRef}“`
+    : "";
   return {
     sourceLine: `zdroj: ${input.sourceLabel}`,
     retrievedLine: `stav dat ke dni ${czechDate(input.retrievedAt)} — plakát je datovaný otisk, čísla se v čase mění`,
-    methodologyLine: `metodika: ${input.methodology}${pass}`,
+    methodologyLine: `metodika: ${input.methodology}${pass}${mismatch}`,
     liveLine: `živá verze: ${displayUrl}`,
     displayUrl,
   };

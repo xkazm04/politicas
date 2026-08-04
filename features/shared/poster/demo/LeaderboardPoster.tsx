@@ -26,6 +26,8 @@ export interface LeaderboardPosterData {
   /** Živá URL žebříčku (odvozená z requestu — nikdy vymyšlená doména). */
   liveUrl: string;
   provenancePass: number | null;
+  /** Rozpor mezi linií formule v datech a v kódu; null = shoda (viz citation.ts). */
+  formulaMismatch: { storedRef: string; declaredRef: string } | null;
   summary: { avg: number; median: number; sigma: number; count: number };
   histogram: { from: number; label: string; count: number }[];
   top: {
@@ -49,6 +51,7 @@ export default function LeaderboardPoster({ data }: { data: LeaderboardPosterDat
     retrievedAt: data.retrievedAt,
     methodology: "index přispění 0–100, šest složek s publikovanou vahou 25/20/20/15/10/10",
     provenancePass: data.provenancePass,
+    formulaMismatch: data.formulaMismatch,
   });
 
   const maxBand = Math.max(1, ...data.histogram.map((h) => h.count));

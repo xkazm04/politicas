@@ -51,6 +51,7 @@ import { isPublicSafe, publicCopyOrNull } from "@/lib/analysis/public-copy";
 import { PARTIES } from "@/lib/civic/data";
 import { OCHRE, STEEL } from "@/features/landing/palette";
 import { computeTrend, type ContributionTrend } from "@/lib/analysis/contribution-trend";
+import { summarizeContributionProvenance, type ContributionProvenance } from "./provenance";
 import type { OrganRow } from "@/lib/db/types";
 
 const clamp01 = (x: number) => Math.max(0, Math.min(1, x));
@@ -361,7 +362,14 @@ export interface LeaderboardData {
   summary: { avg: number; median: number; sigma: number; count: number };
   histogram: { from: number; label: string; count: number }[];
   components: { key: ComponentKey; weight: number; label: string; source: string }[];
-  provenancePass: number | null; // contribution-index pass that authored the scores
+  /**
+   * The contribution-index pass that authored the scores — non-null ONLY when every
+   * person node agrees on it. A partially recomputed chamber has no single pass, and
+   * this field says so by being null; `provenance` carries the whole picture.
+   */
+  provenancePass: number | null;
+  /** Chamber-wide `{pass, ref}` aggregate + the formula-ref comparison (./provenance.ts). */
+  provenance: ContributionProvenance;
   dossierCoverage: { withDossier: number; total: number }; // effort-loop enrichment reach
 }
 
@@ -436,7 +444,6 @@ export const buildLeaderboard = cache(async function buildLeaderboard(): Promise
 
     const nameByPspId = new Map<number, string>();
     const personPropsByPspId = new Map<number, Record<string, unknown>>();
-    let provenancePass: number | null = null;
 
     const rows = persons.map((p) => {
       const pspId = Number(p.id.split(":").pop());
@@ -444,10 +451,6 @@ export const buildLeaderboard = cache(async function buildLeaderboard(): Promise
       personPropsByPspId.set(pspId, p.props);
       const club = clubByPersonPspId.get(pspId) ?? null;
       const meta = clubMeta(club);
-      if (provenancePass === null) {
-        const prov = p.props.contribution_provenance as { pass?: number } | undefined;
-        if (prov && typeof prov.pass === "number") provenancePass = prov.pass;
-      }
       const components = componentPoints(p.props);
       const score = num(p.props.contribution_score);
       const billsAuthored = num(p.props.bills_authored);
@@ -490,6 +493,10 @@ export const buildLeaderboard = cache(async function buildLeaderboard(): Promise
         },
       };
     });
+
+    // Provenance is read over the WHOLE chamber, never off the first node — see
+    // ./provenance.ts for the half-recomputed and stale-formula cases that hides.
+    const provenance = summarizeContributionProvenance(persons.map((p) => p.props));
 
     // Display order is score desc, then Czech collation of the name — deterministic, and
     // it carries NO meaning inside a tie (the surface says so).
@@ -562,7 +569,8 @@ export const buildLeaderboard = cache(async function buildLeaderboard(): Promise
         summary: { avg: round1(avg), median: round1(median), sigma: round1(sigma), count: n },
         histogram,
         components: COMPONENT_DEFS.map((c) => ({ key: c.key, weight: c.weight, label: c.label, source: c.source })),
-        provenancePass,
+        provenancePass: provenance.state === "uniform" ? provenance.pass : null,
+        provenance,
         dossierCoverage: { withDossier: entries.filter((e) => e.effortHasDossier).length, total: entries.length },
       },
     };

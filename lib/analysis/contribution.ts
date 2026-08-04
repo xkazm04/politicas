@@ -36,6 +36,29 @@ export const COMMITTEE_SATURATION = 3; // 3+ committees saturates the breadth te
 export const LEGISLATIVE_SATURATION = 4; // bills + interpellations that saturates output
 export const SPEECH_SATURATION = 40; // speaking turns that saturates floor presence
 
+/**
+ * THE FORMULA'S NAME. Every writer that stamps `contribution_provenance` on a person
+ * node stamps THIS string as its `ref`, and every read-side surface compares the ref the
+ * DATA carries against this constant to decide whether the published ranking was authored
+ * by the formula that lives here.
+ *
+ * **The contract, and it is not optional:**
+ *   1. any edit that changes what `computeContribution` returns MUST change this ref;
+ *   2. a changed ref is not "applied" until a recompute has re-stamped every person node
+ *      (`scripts/data-analysis/kg-contribution-recompute.ts --commit`);
+ *   3. until then the store carries the OLD ref, `formulaMatch` is false, and every
+ *      surface that prints a score says so — the ranking is stale, not wrong-in-silence.
+ *
+ * This exists because of the six-day divergence of 2026-07-29 → 2026-08-04: the
+ * committee-dedupe correction landed in this file while every person node still carried
+ * pass-11 scores, `/zebricek` served the pre-correction ranking, and NOTHING in a
+ * 1 346-test suite could see it — the formula arm is fixture-fed and the store arm was
+ * literal-seeded, with no edge between them. The ref is that edge.
+ *
+ * Current value = the ref the live store carries (pass 42, all 207 person nodes).
+ */
+export const CONTRIBUTION_FORMULA_REF = "contribution-committee-dedupe";
+
 const clamp01 = (x: number) => Math.max(0, Math.min(1, x));
 const round1 = (x: number) => Math.round(x * 10) / 10;
 // Stored rates are PUBLISHED inputs: the leaderboard re-derives the participation and

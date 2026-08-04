@@ -33,6 +33,7 @@ import { useFormat } from "@/lib/i18n/useFormat";
 import type { LeaderboardListData } from "./getLeaderboardData";
 import { krajSlate, listKraje, krajCitationInput, type KrajSlateRow } from "./kraj";
 import { encodeWeights, reweigh, LENS_COMPONENT_ORDER } from "./lens";
+import { formulaMismatchOrNull } from "./provenance";
 import { useLensWeights } from "./useLensWeights";
 import WorkhorseBadge from "./components/WorkhorseBadge";
 
@@ -116,6 +117,7 @@ export default function KrajPage({
       liveUrl,
       retrievedAt,
       provenancePass: data.provenancePass,
+      formulaMismatch: formulaMismatchOrNull(data.provenance),
       weights: lens.weights,
     }),
   );

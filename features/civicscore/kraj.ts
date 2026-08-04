@@ -138,6 +138,8 @@ export function krajCitationInput(args: {
   liveUrl: string;
   retrievedAt: string;
   provenancePass: number | null;
+  /** Rozpor mezi linií formule v datech a v kódu (formulaMismatchOrNull); null = shoda. */
+  formulaMismatch?: { storedRef: string; declaredRef: string } | null;
   weights: WeightVector;
 }): PosterCitationInput {
   const custom = !isPublishedWeights(args.weights);
@@ -149,5 +151,6 @@ export function krajCitationInput(args: {
       ? `VLASTNÍ ČOČKA ČTENÁŘE — váhy ${encodeWeights(args.weights)} (přepočet šesti zveřejněných složek; nejde o zveřejněnou metodiku)`
       : "index přispění 0–100, šest složek s publikovanou vahou 25/20/20/15/10/10",
     provenancePass: args.provenancePass,
+    formulaMismatch: args.formulaMismatch ?? null,
   };
 }

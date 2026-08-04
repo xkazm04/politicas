@@ -60,3 +60,31 @@ describe("buildPosterCitation — archivní patička je kanonická, ne ruční",
     expect(buildPosterCitation(input)).toEqual(buildPosterCitation(input));
   });
 });
+
+// Vytištěný arch je archivní dokument. Když skóre spočítala starší linie formule než
+// ta, kterou dnes deklaruje kód (šestidenní rozpor 29. 7. → 4. 8. 2026), musí to patička
+// říct — jinak papír tvrdí metodiku, podle které jeho čísla nevznikla.
+describe("buildPosterCitation — rozpor linie formule", () => {
+  const input = {
+    sourceLabel: "psp.cz",
+    sourceUrl: "https://politicas.cz/zebricek/",
+    retrievedAt: "2026-07-30",
+    methodology: "index přispění, šest vážených složek",
+    provenancePass: 11,
+  };
+
+  it("mlčí, když se data a kód shodují (null i vynecháno)", () => {
+    expect(buildPosterCitation(input).methodologyLine).not.toContain("POZOR");
+    expect(buildPosterCitation({ ...input, formulaMismatch: null }).methodologyLine).not.toContain("POZOR");
+  });
+
+  it("pojmenuje OBĚ linie, když se rozcházejí — uloženou i deklarovanou", () => {
+    const c = buildPosterCitation({
+      ...input,
+      formulaMismatch: { storedRef: "contribution", declaredRef: "contribution-committee-dedupe" },
+    });
+    expect(c.methodologyLine).toContain("výpočetní pas 11");
+    expect(c.methodologyLine).toContain("starší linie metodiky „contribution“");
+    expect(c.methodologyLine).toContain("kód dnes deklaruje „contribution-committee-dedupe“");
+  });
+});

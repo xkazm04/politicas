@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   absenteeManagerSignal,
   computeContribution,
+  CONTRIBUTION_FORMULA_REF,
   type ContributionInputs,
 } from "@/lib/analysis/contribution";
 
@@ -178,5 +179,20 @@ describe("absenteeManagerSignal — the Case ② × ① crossover", () => {
   it("does NOT flag an absentee with no money ties (that's just low effort, not the crossover)", () => {
     const s = absenteeManagerSignal(lowContribution, { linkedCompanies: 0, contractCzk: 0 });
     expect(s.isAbsenteeManagerLead).toBe(false);
+  });
+});
+
+// The ref is the only edge between the formula (fixture-fed tests) and the STORE
+// (literal-seeded tests). It is pinned here on purpose: changing this constant is a
+// deliberate act that must be paired with a recompute, so it must never drift as a
+// side effect of an unrelated edit — and the value must be the one the live graph
+// actually carries on all 207 person nodes (pass 42).
+describe("CONTRIBUTION_FORMULA_REF", () => {
+  it("is the ref the live store carries — changing it REQUIRES a recompute of every person node", () => {
+    expect(CONTRIBUTION_FORMULA_REF).toBe("contribution-committee-dedupe");
+  });
+
+  it("is a non-empty stable identifier (a writer stamps it verbatim into contribution_provenance.ref)", () => {
+    expect(CONTRIBUTION_FORMULA_REF).toMatch(/^[a-z0-9][a-z0-9-]*$/);
   });
 });

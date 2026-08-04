@@ -6,6 +6,7 @@
 // until 2026-08-04, one of them still claiming the chamber was in its 9th term.
 import { describe, expect, it } from "vitest";
 
+import { looksEnglish } from "@/lib/analysis/language-gate";
 import csCatalog from "@/messages/cs.json";
 import enCatalog from "@/messages/en.json";
 
@@ -46,5 +47,32 @@ describe("civicscore message catalog", () => {
         expect(v, `${k} cites a methodology version that does not exist`).not.toMatch(/v1\.\d/);
       }
     }
+  });
+});
+
+// Provenience skóre je čtenáři obrácená věta o tom, ČÍM byla čísla spočítána — a
+// přesně tahle třída kopie už třikrát dojela na plochu anglicky
+// (memory/reader-facing-loaders-need-the-language-gate.md). Proto je připnutá k bráně,
+// ne svěřená úsudku.
+describe("civicscore — provenience skóre je česky a nese obě linie", () => {
+  const KEYS = ["provenanceNote", "provenanceMismatch", "provenanceMixed", "provenanceAbsent"];
+
+  it("každý klíč existuje v obou katalozích", () => {
+    for (const k of KEYS) {
+      expect(csNs[k], `cs.${k}`).toBeTruthy();
+      expect(enNs[k], `en.${k}`).toBeTruthy();
+    }
+  });
+
+  it("česká věta neprojde jako anglická (jazyková brána)", () => {
+    for (const k of KEYS) expect(looksEnglish(csNs[k]), `cs.${k}`).toBe(false);
+  });
+
+  it("věta o rozporu pojmenuje uloženou I deklarovanou linii — nikdy jen jednu", () => {
+    expect(placeholders(csNs.provenanceMismatch)).toEqual(["codeRef", "dataRef"]);
+  });
+
+  it("věta o smíšeném grafu přiznává počet verzí i pokrytí, ne jedno číslo pasu", () => {
+    expect(placeholders(csNs.provenanceMixed)).toEqual(["count", "total", "withProv"]);
   });
 });

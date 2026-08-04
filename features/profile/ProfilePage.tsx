@@ -25,6 +25,7 @@ import AnimatedScore from "@/features/shared/components/AnimatedScore";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { COMPONENT_FILL } from "@/features/civicscore/components/LeaderboardTable";
+import { storedRefLabel } from "@/features/civicscore/provenance";
 import LowScoreReasonBadge from "@/features/profile/components/LowScoreReasonBadge";
 import TenureNote from "@/features/profile/components/TenureNote";
 import TenureTrendGate from "@/features/profile/components/TenureTrendGate";
@@ -165,9 +166,21 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
                   {tcom("of100")}
                 </span>
               </div>
+              {/* Pas sk\u00f3re + jeho LINIE. Spis tiskl \u010d\u00edslo pasu i tehdy, kdy\u017e ho data
+                  nesla jen na prvn\u00edm uzlu, a linii metodiky ne\u010detl v\u016fbec \u2014 proto \u0161est dn\u00ed
+                  ukazoval sk\u00f3re star\u00e9 formule bez jedin\u00e9ho slova o tom. */}
               <SourceNote className="mt-1 !text-[10px]">
                 {t("periodNote")}
                 {data.provenancePass != null ? ` \u00b7 ${t("indexPass", { pass: f.int(data.provenancePass) })}` : ""}
+                {data.provenance.state === "mixed"
+                  ? ` \u00b7 ${t("indexPassMixed", { count: f.int(data.provenance.distinctCount) })}`
+                  : ""}
+                {!data.provenance.formulaMatch && data.provenance.state !== "absent"
+                  ? ` \u00b7 ${t("indexRefMismatch", {
+                      dataRef: storedRefLabel(data.provenance),
+                      codeRef: data.provenance.declaredRef,
+                    })}`
+                  : ""}
               </SourceNote>
             </div>
           </div>

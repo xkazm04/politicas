@@ -37,6 +37,7 @@ import HeadToHead from "./components/HeadToHead";
 import LeaderboardTable from "./components/LeaderboardTable";
 import WeightPanel from "./components/WeightPanel";
 import { encodeWeights, reweigh } from "./lens";
+import { storedRefLabel } from "./provenance";
 import { useLensWeights } from "./useLensWeights";
 import { useFormat } from "@/lib/i18n/useFormat";
 
@@ -139,6 +140,29 @@ export default function CivicScorePage({ data }: { data: LeaderboardListData | n
               {data.provenancePass !== null && (
                 <SourceNote className="mt-3">
                   {t("provenanceNote", { pass: f.int(data.provenancePass) })}
+                </SourceNote>
+              )}
+              {/* Metodika žije v kódu, skóre v datech — a mezi 29. 7. a 4. 8. 2026 se ty
+                  dvě věci šest dní rozcházely, aniž by to kdokoli viděl. Tady se to
+                  přiznává: ne chybová stránka, ale věta u čísla. */}
+              {data.provenance.state === "mixed" && (
+                <SourceNote className="mt-1.5">
+                  {t("provenanceMixed", {
+                    count: f.int(data.provenance.distinctCount),
+                    withProv: f.int(data.provenance.covered),
+                    total: f.int(data.provenance.total),
+                  })}
+                </SourceNote>
+              )}
+              {data.provenance.state === "absent" && (
+                <SourceNote className="mt-1.5">{t("provenanceAbsent")}</SourceNote>
+              )}
+              {!data.provenance.formulaMatch && data.provenance.state !== "absent" && (
+                <SourceNote className="mt-1.5">
+                  {t("provenanceMismatch", {
+                    dataRef: storedRefLabel(data.provenance),
+                    codeRef: data.provenance.declaredRef,
+                  })}
                 </SourceNote>
               )}
               {/* Pokrytí se uzavřelo — věta to říká místo věčného „dosud probíhá". */}

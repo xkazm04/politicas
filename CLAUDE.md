@@ -265,6 +265,21 @@ Route map (politicas.md roadmap execution, sample data):
   **The lesson is the check, not the fix: a formula correction is not applied
   until the DATA carries its provenance ref, and nothing in the suite could see
   the difference.**
+  **The formula has a name (2026-08-04).** `CONTRIBUTION_FORMULA_REF` in
+  `lib/analysis/contribution.ts` is the ONE declaration of the formula's identity,
+  and its contract is: a formula-changing edit must change the ref, and the ref is
+  not applied until a recompute has re-stamped every person node. Both writers now
+  IMPORT it — `kg-contribution-ingest.ts` used to stamp the literal `"contribution"`
+  (a ref frozen at pass 11), so a re-run would have downgraded the declared lineage
+  below the formula that scored the nodes; zero ref literals remain in `scripts/`.
+  The loader aggregates `{pass, ref}` over ALL 207 person nodes
+  (`features/civicscore/provenance.ts`, pure + tested) rather than reading the first
+  node it iterates: a half-recomputed store is reported as `mixed` with no single
+  pass number instead of one confident figure, and the store's ref is compared to the
+  code's (`formulaMatch`). `/zebricek`, `/poslanec`, `/kraj` and the poster citation
+  each render the mismatch as an honest sentence — „žebříček spočítala starší verze
+  metodiky" plus both refs — not an error page. Measured on the live store today:
+  uniform, pass 42, `contribution-committee-dedupe`, 207/207, `formulaMatch: true`.
   **Ties are ties (2026-07-29)** — ranks are now COMPETITION ranks (1, 2, 2, 4):
   a rank is one more than the number of MPs who score higher, so it is shared on
   an identical score and the red top-3 can no longer be won by Czech name
