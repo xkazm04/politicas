@@ -103,6 +103,42 @@ Route map (politicas.md roadmap execution, sample data):
   `revalidate` is a declared ceiling, not today's behaviour. What really bounds
   staleness is the money-layer memo, which was process-lifetime and now **expires
   after the same window**; the page prints its build date and that bound.
+  **The front door caught up with the truth (2026-08-04).** The velín is the only
+  surface that had NO messages test, and four falsifiable sentences outlived their
+  correction elsewhere. It printed **„9. období"** in four keys over loaders that
+  read `PSP10` — the tenth — after /zebricek (b9731c5) and /penize (dd71582) had
+  both fixed AND pinned exactly that; `realStats.attendanceSub` additionally
+  hardcoded „207 poslanců" instead of counting. The money tile asserted **„všech
+  {pending} z {total} vazeb čeká na lidskou kontrolu"** as a literal, which the
+  review console can falsify with one click — it now renders the SAME four-phase
+  derivation /penize publishes (`features/money/reviewSummary.ts`, over
+  `verifiedTies`/`pendingTies`/`rejectedTies`, all three already computed and read
+  by nobody here), and it renders **„nejméně"** plus the cap explainer when
+  `contractCoverage.isFloor` — it used to print /penize's arithmetic bare, i.e.
+  with more confidence than the module it takes the number from (live: `isFloor`
+  is false). The lead promised „pohyby v žebříčku a nové hrany v grafu" — deltas
+  nothing renders, because the graph keeps no changelog; that is the whole reason
+  the feed is DATED FACTS, and the copy now says so.
+  **Provenance is the chamber's, not the first node's.** The loader ran its OWN
+  `listKgNodes({kind:"person", limit:1000})` and returned the first `computedAt` it
+  iterated — the exact mistake `features/civicscore/provenance.ts` exists to remove,
+  on a read whose small limit also forces PGlite past `kg_node_kind_idx` into a
+  ~154 k-row scan. That read is DELETED. The date now comes from
+  `getRecomputeFact()` (features/schranka — one indexed `KG_READ_CAP` read,
+  `react.cache()`d, and it answers only when the whole chamber agrees on one
+  `{pass, ref, computedAt}`), and the header renders the aggregate the leaderboard
+  payload ALREADY carried: four states with four sentences (`uniform` with a date ·
+  uniform without an agreed day · `mixed`, naming the variant count · `absent`),
+  plus the formula-mismatch line that made the 2026-07-29 → 08-04 divergence
+  invisible. Live: uniform, pass 42, `contribution-committee-dedupe`, 207/207,
+  `formulaMatch: true`, `computedAt: 2026-08-04`.
+  **Partial degradation is no longer silent.** `LiveDataNotice` rendered only when
+  the WHOLE loader returned null; money-null, law-null or slice-null left just a
+  tile tag, which reads as an editorial choice rather than an outage. A second
+  notice now NAMES the layers that are dark, assembled from what is actually null.
+  `features/dashboard/messages.test.ts` pins all of it (cs/en key parity, ICU
+  parity, no empty value, no „9. období", no bare `207`, a sentence per review phase
+  and per provenance state, floor language present).
 - `/poslanec/[id]` — **Spis** (features/profile): the Person profile —
   politicas.md §3's "real product". Wired to the real graph (no mock path):
   poster header + contribution score/rank, the six weighted components, the

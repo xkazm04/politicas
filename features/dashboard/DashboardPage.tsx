@@ -32,6 +32,7 @@ import SourceNote from "@/features/shared/components/SourceNote";
 import LiveDataNotice from "@/features/shared/components/LiveDataNotice";
 import StatTile from "@/features/shared/components/StatTile";
 import { compactCzk } from "@/features/money/moneyTypes";
+import type { ReviewSummary } from "@/features/money/reviewSummary";
 import { PILLAR_BG } from "@/features/landing/palette";
 import type { DashboardData } from "./getDashboardData";
 import ChamberChart from "./components/ChamberChart";
@@ -122,6 +123,64 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
     [data],
   );
 
+  /*
+   * Hlavička říká, CO O SOBĚ DATA TVRDÍ — ne jedno sebejisté číslo průchodu.
+   * Dřív se tiskl `provenancePass` a datum z prvního uzlu, na který loader narazil;
+   * `mixed` sněmovna (rozepsaný přepočet) i sněmovna zcela bez provenience se tak
+   * obě vydávaly za jeden hotový průchod. Každý ze čtyř stavů má vlastní větu.
+   */
+  const p = data?.provenance ?? null;
+  const provenanceNote = !data
+    ? t("headerNoteUnavailable")
+    : p === null || p.state === "absent"
+      ? t("headerNoteAbsent")
+      : p.state === "mixed"
+        ? t("headerNoteMixed", {
+            variants: f.int(p.distinctCount),
+            covered: f.int(p.covered),
+            total: f.int(p.total),
+          })
+        : p.computedAt
+          ? t("headerNoteReal", { date: f.date(p.computedAt), pass: p.pass ?? "—" })
+          : t("headerNoteNoDate", { pass: p.pass ?? "—" });
+
+  /*
+   * ČÁSTEČNÝ VÝPADEK SE ŘEKNE NAHLAS. Vrstvy degradují nezávisle (viz loader), ale
+   * `LiveDataNotice` se dřív vykreslil jen při úplném selhání — a když spadla jen
+   * peněžní vrstva, jediným signálem byl štítek u dlaždice, který se čte jako
+   * redakční volba, ne jako výpadek databáze. Seznam se skládá z toho, co je
+   * skutečně null; nic se nedopočítává.
+   */
+  const darkLayers = data
+    ? ([
+        data.money === null ? "money" : null,
+        data.laws === null ? "laws" : null,
+        data.slice === null ? "slice" : null,
+      ].filter(Boolean) as string[])
+    : [];
+
+  /*
+   * CO LIDSKÁ BRÁNA SKUTEČNĚ ROZHODLA. Věta pod peněžní dlaždicí byla LITERÁL
+   * („všech {pending} z {total} vazeb čeká na kontrolu") — pravdivý jen dokud
+   * konzole neuměla zapisovat. Fázi odvozuje TÁŽ čistá funkce, kterou publikuje
+   * /penize (`features/money/reviewSummary.ts`), takže se titulní strana nemůže
+   * s modulem rozejít. Populace záměrně není `totalTies`; viz hlavička toho modulu.
+   */
+  const REVIEW_KEY = {
+    "all-pending": "allPending",
+    mixed: "mixed",
+    "all-decided": "allDecided",
+    empty: "empty",
+  } as const;
+  const moneyReviewNote = (r: ReviewSummary) =>
+    t(`realStats.moneyReview.${REVIEW_KEY[r.phase]}`, {
+      total: f.int(r.total),
+      decided: f.int(r.decided),
+      verified: f.int(r.verified),
+      rejected: f.int(r.rejected),
+      pending: f.int(r.pending),
+    });
+
   return (
     <main className="min-h-screen bg-paper font-sans text-ink">
       <header className="border-b-4 border-ink">
@@ -133,16 +192,18 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
               ne literál v překladech. Když ho uzly nenesou, řekneme to —
               vymyšlené datum je vymyšlené číslo. */}
           <div className="hidden sm:block sm:text-right">
-            <SourceNote>
-              {!data
-                ? t("headerNoteUnavailable")
-                : data.provenance.computedAt
-                  ? t("headerNoteReal", {
-                      date: f.date(data.provenance.computedAt),
-                      pass: data.provenance.pass ?? "—",
-                    })
-                  : t("headerNoteNoDate")}
-            </SourceNote>
+            <SourceNote>{provenanceNote}</SourceNote>
+            {/* Data a kód se rozešly ve VZORCI — to není chyba stránky, ale fakt o
+                žebříčku, který se musí říct nahlas (přesně případ 2026-07-29 → 08-04).
+                Netiskne se, když provenience chybí: prázdno netvrdí nic. */}
+            {data && !data.provenance.formulaMatch && data.provenance.state !== "absent" && (
+              <SourceNote tone="signal" className="mt-0.5">
+                {t("headerNoteFormulaMismatch", {
+                  stored: data.provenance.storedRef,
+                  declared: data.provenance.declaredRef,
+                })}
+              </SourceNote>
+            )}
             {/* Kdy tenhle výtisk vznikl a jak zastaralý smí být. Bez toho je
                 staticky předgenerovaná stránka číslo bez data platnosti — a to
                 je stejný problém jako číslo bez citace. */}
@@ -187,6 +248,19 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
           </div>
         )}
 
+        {/* Živý graf JE, ale některá vrstva z něj ne — pojmenuje se která. */}
+        {data && darkLayers.length > 0 && (
+          <div className="mb-6">
+            <LiveDataNotice
+              title={t("partial.title")}
+              body={t("partial.body", {
+                layers: darkLayers.map((k) => t(`partial.layers.${k}`)).join(" · "),
+              })}
+              source={t("partial.source")}
+            />
+          </div>
+        )}
+
         {/* Odečty sněmovny — pás nad přístrojem, ne samostatná sekce.
             Všechna čtyři čísla mají reálný protějšek v grafu a berou se z
             loaderu, který je vlastní (kontribuční index, /penize, /zakony) —
@@ -210,21 +284,44 @@ export default function DashboardPage({ data }: { data: DashboardData | null }) 
               <StatTile
                 label={t("realStats.attendanceLabel")}
                 value={`${f.dec(data.attendanceAvgPct)} %`}
-                sub={t("realStats.attendanceSub")}
+                sub={t("realStats.attendanceSub", { count: f.int(data.summary.count) })}
                 source={`${tcom("sourcePrefix")} ${t("realStats.attendanceSource")}`}
               />
               {data.money ? (
                 <StatTile
                   label={t("realStats.moneyLabel")}
-                  value={compactCzk(data.money.attributableCzk, locale)}
-                  sub={t("realStats.moneySub", {
-                    steward: compactCzk(data.money.stewardCzk, locale),
-                  })}
-                  source={`${tcom("sourcePrefix")} ${t("realStats.moneySource", {
-                    pass: data.money.pass,
-                    pending: f.int(data.money.pendingTies),
-                    total: f.int(data.money.totalTies),
-                  })}`}
+                  // Strop v ingesci znamená DOLNÍ MEZ — /penize to říká „nejméně" a
+                  // velín tiskl totéž číslo holé, tedy s vyšší jistotou než modul,
+                  // ze kterého ho bere.
+                  value={
+                    data.money.isFloor
+                      ? t("realStats.moneyValueFloor", {
+                          czk: compactCzk(data.money.attributableCzk, locale),
+                        })
+                      : compactCzk(data.money.attributableCzk, locale)
+                  }
+                  sub={
+                    <>
+                      {t("realStats.moneySub", {
+                        steward: compactCzk(data.money.stewardCzk, locale),
+                      })}
+                      {data.money.isFloor && (
+                        <span className="mt-1 block">
+                          {t("realStats.moneyFloorNote", {
+                            cap: f.int(data.money.perCompanyCap ?? 0),
+                            companies: f.int(data.money.companiesAtCap),
+                          })}
+                        </span>
+                      )}
+                    </>
+                  }
+                  source={
+                    <>
+                      {tcom("sourcePrefix")}{" "}
+                      {t("realStats.moneySource", { pass: data.money.pass })} ·{" "}
+                      {moneyReviewNote(data.money.review)}
+                    </>
+                  }
                 />
               ) : (
                 <MockStatTile statKey="money" />

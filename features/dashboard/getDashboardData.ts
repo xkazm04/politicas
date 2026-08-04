@@ -36,14 +36,42 @@ import { MONEY_MEMO_TTL_MS } from "./freshness";
 import { getLawData, type LawData } from "@/features/lawwatch/getLawData";
 import { getMoneyData } from "@/features/money/getMoneyData";
 import type { MoneyData } from "@/features/money/moneyTypes";
+import { reviewSummary, type ReviewSummary } from "@/features/money/reviewSummary";
+import { storedRefLabel } from "@/features/civicscore/provenance";
+import { getRecomputeFact } from "@/features/schranka/getRecomputeFact";
 import { buildStateSlice, type StateSlice } from "./stateSlice";
 import { buildDatedFacts, type DatedFactLedger, type FactContract } from "./datedFacts";
 
-/** Which kg pass authored the contribution index, and when it ran. */
+/**
+ * What the DATA says about the formula that authored the ranking — the chamber-wide
+ * aggregate, never the first node the loader happened to iterate.
+ *
+ * The velín used to publish `lb.provenancePass` alone: one confident pass number. That
+ * field is already null on a `mixed` store, so the header printed „průchod —" and said
+ * nothing about WHY; and it could not say that the store's formula ref differs from the
+ * one the code declares (the 2026-07-29 → 08-04 divergence). `LeaderboardData.provenance`
+ * carries all of it (`features/civicscore/provenance.ts`) — the dashboard projects the
+ * fields it renders and re-derives nothing.
+ */
 export interface DashboardProvenance {
+  /** `uniform` — one `{pass, ref}` across the chamber · `mixed` — a partial recompute ·
+   *  `absent` — no person node carries provenance at all. */
+  state: "uniform" | "mixed" | "absent";
+  /** The pass, when `uniform`; null otherwise — a mixed store HAS no single pass. */
   pass: number | null;
-  /** `YYYY-MM-DD` of that pass's `computedAt`, or null when the node carries none. */
+  /** `YYYY-MM-DD` of that pass's `computedAt`, or null when the chamber does not agree
+   *  on one day (or carries none). Never invented, never back-dated to today. */
   computedAt: string | null;
+  /** How many distinct `{pass, ref}` combinations the chamber carries. */
+  distinctCount: number;
+  /** Persons carrying a provenance object / persons read. */
+  covered: number;
+  total: number;
+  /** False ⇒ the ranking was authored by a different formula than the code declares. */
+  formulaMatch: boolean;
+  /** The ref(s) the STORE carries, and the one `lib/analysis/contribution.ts` declares. */
+  storedRef: string;
+  declaredRef: string;
 }
 
 /** Money headline — the /penize attribution rule, not a dashboard-local one. */
@@ -55,9 +83,28 @@ export interface DashboardMoney {
   mpsWithTies: number;
   companiesLinked: number;
   totalTies: number;
-  /** Ties still awaiting the human gate — the whole population today. */
-  pendingTies: number;
+  /**
+   * WHAT THE HUMAN GATE HAS ACTUALLY DECIDED — the same four-phase derivation /penize
+   * publishes (`features/money/reviewSummary.ts`), not a dashboard-local re-count.
+   *
+   * The tile's citation used to read „všech {pending} z {total} vazeb čeká na lidskou
+   * kontrolu" as a LITERAL. That was true only while the review console could not write;
+   * since it can, the first confirmation makes the front door's sentence false, on a page
+   * whose whole promise is that a claim never outruns its data. `verifiedTies` /
+   * `rejectedTies` were computed by `getMoneyData` and read by nobody here.
+   */
+  review: ReviewSummary;
   pass: number;
+  /**
+   * True when the ingest hit a per-company contract ceiling, i.e. the CZK totals are
+   * LOWER BOUNDS. /penize renders „nejméně" on exactly this flag; the velín printed the
+   * same arithmetic bare, so the two surfaces stated the same number with different
+   * confidence. Live today: false — the corpus is not capped.
+   */
+  isFloor: boolean;
+  /** The ceiling and how many companies sit at it — the floor note's own evidence. */
+  perCompanyCap: number | null;
+  companiesAtCap: number;
 }
 
 /** Legislation headline — bill → law edges actually recorded in the graph. */
@@ -166,8 +213,16 @@ function moneyHeadline(money: MoneyData): DashboardMoney {
     mpsWithTies: s.mpsWithTies,
     companiesLinked: s.companiesLinked,
     totalTies: s.totalTies,
-    pendingTies: s.pendingTies,
+    // The population is deliberately NOT `totalTies` — see reviewSummary.ts's header.
+    review: reviewSummary({
+      verified: s.verifiedTies,
+      pending: s.pendingTies,
+      rejected: s.rejectedTies,
+    }),
     pass: money.pass,
+    isFloor: s.contractCoverage.isFloor,
+    perCompanyCap: s.contractCoverage.perCompanyCap,
+    companiesAtCap: s.contractCoverage.companiesAtCap,
   };
 }
 
@@ -257,30 +312,23 @@ async function partyNodeIds(): Promise<Record<string, string>> {
 }
 
 // ── provenance date ─────────────────────────────────────────────────────────
-
-/**
- * The date the contribution index was last computed, read from the person nodes'
- * own `contribution_provenance.computedAt`. The header used to print a hardcoded
- * literal; a recompute date that is not the recompute date is a fabricated number
- * like any other.
- */
-async function contributionComputedAt(): Promise<string | null> {
-  try {
-    const store = await getStore();
-    if (!store) return null;
-    const persons = await store.listKgNodes({ kind: "person", limit: 1000 });
-    for (const p of persons) {
-      const prov = p.props?.contribution_provenance as { computedAt?: unknown } | undefined;
-      const at = prov?.computedAt;
-      // ISO timestamp → date only; lib/format's date formatters take `YYYY-MM-DD`.
-      if (typeof at === "string" && /^\d{4}-\d{2}-\d{2}/.test(at)) return at.slice(0, 10);
-    }
-    return null;
-  } catch (err) {
-    reportLoaderFailure("getDashboardData.provenance", err);
-    return null;
-  }
-}
+//
+// The recompute date is NOT read here any more. This loader used to run its OWN
+// `listKgNodes({kind:"person", limit:1000})` and return the FIRST `computedAt` it
+// happened to iterate — two defects in one read:
+//
+//   1. a small limit makes PGlite walk the `kg_node` primary key and filter by kind
+//      instead of using `kg_node_kind_idx`, so it scans the whole ~154 k-row table
+//      (measured elsewhere in this repo at 419–723 ms for a handful of rows);
+//   2. „the first node's date" is the exact mistake `features/civicscore/provenance.ts`
+//      exists to remove — a half-recomputed chamber would be dated by whichever node
+//      the iteration reached first.
+//
+// `getRecomputeFact()` (features/schranka) already owns this fact: ONE indexed read at
+// `KG_READ_CAP`, `react.cache()`-wrapped, and it returns a date ONLY when the whole
+// chamber agrees on one `{pass, ref, computedAt}` — the same uniformity rule the
+// provenance aggregate applies. A non-uniform store yields null and the header says so
+// rather than dating the ranking by a pass that may not have recomputed every MP.
 
 export async function getDashboardData(): Promise<DashboardData | null> {
   const lb = await getLeaderboardData();
@@ -298,10 +346,10 @@ export async function getDashboardData(): Promise<DashboardData | null> {
       (lb.entries.reduce((s, e) => s + (1 - e.absenceRate), 0) / lb.entries.length) * 1000,
     ) / 10;
 
-  const [money, law, computedAt, partyIds] = await Promise.all([
+  const [money, law, recompute, partyIds] = await Promise.all([
     moneyLayer(),
     lawLayer(),
-    contributionComputedAt(),
+    getRecomputeFact(),
     partyNodeIds(),
   ]);
 
@@ -347,7 +395,18 @@ export async function getDashboardData(): Promise<DashboardData | null> {
     summary: lb.summary,
     histogram: lb.histogram,
     attendanceAvgPct,
-    provenance: { pass: lb.provenancePass, computedAt },
+    provenance: {
+      state: lb.provenance.state,
+      pass: lb.provenance.pass,
+      // Only a uniform chamber has ONE recompute date; `getRecomputeFact` enforces that.
+      computedAt: recompute?.computedAt ?? null,
+      distinctCount: lb.provenance.distinctCount,
+      covered: lb.provenance.covered,
+      total: lb.provenance.total,
+      formulaMatch: lb.provenance.formulaMatch,
+      storedRef: storedRefLabel(lb.provenance),
+      declaredRef: lb.provenance.declaredRef,
+    },
     money: money ? moneyHeadline(money) : null,
     laws: law ? lawHeadline(law) : null,
     slice,

@@ -466,11 +466,14 @@
   },
   "dashboard": {
     "headerTag": "velín",
-    "headerNoteReal": "9. období · kontribuční index přepočten {date} · průchod {pass}",
-    "headerNoteNoDate": "9. období · datum přepočtu není v provenienci grafu",
-    "headerNoteUnavailable": "9. období · živá data nedostupná — níže je ilustrativní ukázka",
+    "headerNoteReal": "10. období · kontribuční index přepočten {date} · průchod {pass}",
+    "headerNoteNoDate": "10. období · průchod {pass} · na kterém dni se sněmovna shodne, proveniencí grafu neprochází",
+    "headerNoteMixed": "10. období · index nese {variants} různých proveniencí u {covered} z {total} poslanců — jedno číslo průchodu pro celý žebříček neexistuje",
+    "headerNoteAbsent": "10. období · uzly poslanců nenesou provenienci indexu, takže o průchodu ani datu přepočtu nic netvrdíme",
+    "headerNoteUnavailable": "10. období · živá data nedostupná — níže je ilustrativní ukázka",
+    "headerNoteFormulaMismatch": "žebříček spočítala jiná verze metodiky, než jakou nese kód — v datech {stored}, v kódu {declared}",
     "title": "Velín republiky",
-    "lead": "Co se ve státě změnilo, když jste se nedívali — agregáty sněmovny, pohyby v žebříčku a nové hrany v grafu veřejných peněz. Každé číslo cituje svůj zdroj.",
+    "lead": "Co znalostní graf nese dnes — agregáty sněmovny, datovaná fakta o entitách vykresleného výřezu a pořadí podle kontribučního indexu. Graf nevede changelog, takže tu nenajdete „co se změnilo od minulé návštěvy“, ale fakta s datem. Každé číslo cituje svůj zdroj.",
     "rankingSectionTitle": "Žebříček",
     "allMpsLink": "všech {count} poslanců",
     "rankingFootnote": "ILUSTRATIVNÍ UKÁZKA — kompozit = Σ pilíř × váha na 5 smyšlených poslancích, řádek nevede na reálný profil",
@@ -559,11 +562,19 @@
       "avgSub": "medián {median} · rozptyl σ {sigma} · {count} poslanců",
       "avgSource": "kontribuční index — reálný graf",
       "attendanceLabel": "průměrná docházka",
-      "attendanceSub": "průměr přes reálný vzorek 207 poslanců",
-      "attendanceSource": "psp.cz — reálná jmenovitá hlasování, 9. období",
+      "attendanceSub": "průměr přes {count} reálných poslanců",
+      "attendanceSource": "psp.cz — reálná jmenovitá hlasování, 10. období",
       "moneyLabel": "veřejné peníze u firem poslanců",
+      "moneyValueFloor": "nejméně {czk}",
       "moneySub": "smlouvy firem, které poslanci vlastní nebo řídí · dalších {steward} připadá na instituce, kde poslanec jen zasedá v orgánu — to nejsou jeho peníze",
-      "moneySource": "registr smluv ⋈ ares ⋈ hlídač státu · průchod {pass} · všech {pending} z {total} vazeb čeká na lidskou kontrolu, do skóre se nepropisují",
+      "moneyFloorNote": "součet je DOLNÍ MEZ: ingesce narazila na strop {cap} smluv na firmu u {companies} firem, takže skutečná částka je vyšší — o kolik, korpus neříká",
+      "moneySource": "registr smluv ⋈ ares ⋈ hlídač státu · průchod {pass}",
+      "moneyReview": {
+        "allPending": "všech {total} vazeb poslanec ↔ firma čeká na lidskou kontrolu, do skóre se nepropisují",
+        "mixed": "lidskou branou prošlo {decided} z {total} vazeb — {verified} potvrzeno, {rejected} zamítnuto; {pending} stále čeká",
+        "allDecided": "lidskou branou prošly všechny vazby — {verified} potvrzeno, {rejected} zamítnuto",
+        "empty": "graf zatím nenese vazbu poslanec ↔ firma, kterou by brána mohla posoudit"
+      },
       "lawsLabel": "vazby tisk → zákon",
       "lawsSub": "{bills} sněmovních tisků · {laws} zákonů v grafu",
       "lawsSource": "psp.cz tisky ⋈ e-sbírka · průchod {pass} · dalších {undercount} novelizovaných zákonů hrany zatím nezachycují"
@@ -579,6 +590,16 @@
       "title": "živá data nedostupná",
       "body": "Nepodařilo se otevřít databázi znalostního grafu, takže velín teď neukazuje reálná čísla. Všechny odečty, graf i provoz níže jsou ilustrativní ukázka — smyšlené osoby, firmy a částky. Zkuste to prosím za chvíli znovu.",
       "source": "zdroj: vzorek lib/civic — ne reálný graf"
+    },
+    "partial": {
+      "title": "část živých dat chybí",
+      "body": "Tyhle vrstvy grafu se teď nepodařilo přečíst: {layers}. Na jejich místě je označená ilustrativní ukázka — smyšlené osoby, firmy a částky. Zbytek plochy je reálný a čte se ze znalostního grafu.",
+      "source": "zdroj: loader velína — vrstvy degradují nezávisle na sobě",
+      "layers": {
+        "money": "veřejné peníze",
+        "laws": "legislativa",
+        "slice": "výřez grafu a jeho provoz"
+      }
     },
     "freshness": "stránka sestavena {built} · peněžní vrstva se čte nejvýš jednou za {hours} h, o tolik může být na ploše nejstarší údaj starší — graf je dávkový artefakt, mění se přepočtem, ne za běhu"
   },

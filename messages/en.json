@@ -466,11 +466,14 @@
   },
   "dashboard": {
     "headerTag": "control room",
-    "headerNoteReal": "9th term · contribution index recalculated {date} · pass {pass}",
-    "headerNoteNoDate": "9th term · the graph carries no recompute date",
-    "headerNoteUnavailable": "9th term · live data unavailable — everything below is an illustrative sample",
+    "headerNoteReal": "10th term · contribution index recalculated {date} · pass {pass}",
+    "headerNoteNoDate": "10th term · pass {pass} · the graph's provenance carries no single day the whole Chamber agrees on",
+    "headerNoteMixed": "10th term · the index carries {variants} different provenances across {covered} of {total} MPs — there is no single pass number for this ranking",
+    "headerNoteAbsent": "10th term · MP nodes carry no index provenance, so we claim nothing about the pass or the recompute date",
+    "headerNoteUnavailable": "10th term · live data unavailable — everything below is an illustrative sample",
+    "headerNoteFormulaMismatch": "the ranking was computed by a different version of the methodology than the code declares — in the data {stored}, in the code {declared}",
     "title": "The republic's control room",
-    "lead": "What changed in the state while you weren't looking — Chamber aggregates, ranking moves, and new edges in the public-money graph. Every number cites its source.",
+    "lead": "What the knowledge graph carries today — Chamber aggregates, dated facts about the entities in the drawn slice, and the ranking by contribution index. The graph keeps no changelog, so you will not find “what changed since your last visit” here, only facts with a date. Every number cites its source.",
     "rankingSectionTitle": "Ranking",
     "allMpsLink": "all {count} MPs",
     "rankingFootnote": "ILLUSTRATIVE SAMPLE — composite = Σ pillar × weight over 5 invented MPs, row does not open a real profile",
@@ -559,11 +562,19 @@
       "avgSub": "median {median} · σ {sigma} · {count} MPs",
       "avgSource": "contribution index — real graph",
       "attendanceLabel": "average attendance",
-      "attendanceSub": "averaged over the real sample of 207 MPs",
-      "attendanceSource": "psp.cz — real roll-call votes, 9th term",
+      "attendanceSub": "averaged over {count} real MPs",
+      "attendanceSource": "psp.cz — real roll-call votes, 10th term",
       "moneyLabel": "public money at MPs’ firms",
+      "moneyValueFloor": "at least {czk}",
       "moneySub": "contracts of firms MPs own or run · a further {steward} belongs to institutions where an MP merely sits on a board — that is not their money",
-      "moneySource": "contracts register ⋈ ares ⋈ Hlídac státu · pass {pass} · all {pending} of {total} ties await human review and feed no score",
+      "moneyFloorNote": "the total is a LOWER BOUND: the ingest hit a ceiling of {cap} contracts per company at {companies} companies, so the real figure is higher — by how much, the corpus does not say",
+      "moneySource": "contracts register ⋈ ares ⋈ Hlídac státu · pass {pass}",
+      "moneyReview": {
+        "allPending": "all {total} MP ↔ company ties await human review and feed no score",
+        "mixed": "human review has ruled on {decided} of {total} ties — {verified} confirmed, {rejected} rejected; {pending} still waiting",
+        "allDecided": "human review has ruled on every tie — {verified} confirmed, {rejected} rejected",
+        "empty": "the graph carries no MP ↔ company tie for the gate to rule on yet"
+      },
       "lawsLabel": "print → law edges",
       "lawsSub": "{bills} chamber prints · {laws} laws in the graph",
       "lawsSource": "psp.cz prints ⋈ e-Sbírka · pass {pass} · a further {undercount} amended statutes the edges do not yet capture"
@@ -579,6 +590,16 @@
       "title": "live data unavailable",
       "body": "The knowledge-graph database could not be opened, so the control room is not showing real figures. Every stat, the graph and the traffic feed below are an illustrative sample — invented people, firms and amounts. Please try again shortly.",
       "source": "source: lib/civic sample — not the real graph"
+    },
+    "partial": {
+      "title": "part of the live data is missing",
+      "body": "These graph layers could not be read just now: {layers}. A labelled illustrative sample stands in their place — invented people, firms and amounts. The rest of this surface is real and comes from the knowledge graph.",
+      "source": "source: the velín loader — layers degrade independently of one another",
+      "layers": {
+        "money": "public money",
+        "laws": "legislation",
+        "slice": "the graph slice and its traffic"
+      }
     },
     "freshness": "page built {built} · the money layer is read at most once every {hours} h, which is how much older than that date a figure here can be — the graph is a batch artifact, it changes on recompute, not per request"
   },
