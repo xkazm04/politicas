@@ -332,8 +332,8 @@ export default function LeaderboardTable({
                   <span className="ml-1.5 inline-flex align-middle">
                     <LowScoreReasonChip
                       reason={r.effortLowScoreReason}
-                      recordedAt={r.effortLowScoreRecordedAt}
-                      dateLabel={r.effortLowScoreRecordedAt ? f.date(r.effortLowScoreRecordedAt) : null}
+                      recordedAt={r.effortRecordedAt}
+                      dateLabel={r.effortRecordedAt ? f.date(r.effortRecordedAt) : null}
                     />
                   </span>
                 )}
@@ -341,8 +341,17 @@ export default function LeaderboardTable({
                   <span className="flex flex-wrap items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-steel">
                     <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: r.clubColor }} />
                     {r.clubName.split(" ")[0]}{r.region ? ` · ${r.region}` : ""}
-                    {r.effortWorkhorse && <WorkhorseBadge flavour={r.effortWorkhorseFlavour} compact />}
-                    <RapporteurBadge load={r.effortRapporteurLoad} compact />
+                    {/* Verdikt je DATOVANÉ tvrzení s vlastním číslem — týž standard,
+                        jaký vedle drží LowScoreReasonChip. */}
+                    {r.effortWorkhorse && (
+                      <WorkhorseBadge
+                        flavour={r.effortWorkhorseFlavour}
+                        speechTurns={r.duelFacts.speechTurns}
+                        recordedAt={r.effortRecordedAt}
+                        compact
+                      />
+                    )}
+                    <RapporteurBadge load={r.effortRapporteurLoad} recordedAt={r.effortRecordedAt} compact />
                   </span>
                 )}
               </span>

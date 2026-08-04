@@ -76,6 +76,7 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
     absenceRate: data.absenceRate,
     workhorseFlavour: person.effortWorkhorse ? person.effortWorkhorseFlavour : null,
     rapporteurLoad: person.effortRapporteurLoad,
+    effortRecordedAt: person.effortRecordedAt,
   };
   // Section numbers are DERIVED from what actually renders. DossierSection is
   // omitted for an MP with no dossier content, and the fixed index={2} then left

@@ -262,7 +262,14 @@ export default function KrajPage({
                         />
                         {r.clubAbbrev}
                       </span>
-                      {r.effortWorkhorse && <WorkhorseBadge flavour={r.effortWorkhorseFlavour} compact />}
+                      {r.effortWorkhorse && (
+                        <WorkhorseBadge
+                          flavour={r.effortWorkhorseFlavour}
+                          speechTurns={r.duelFacts.speechTurns}
+                          recordedAt={r.effortRecordedAt}
+                          compact
+                        />
+                      )}
                     </span>
                     <span className="mt-0.5 block font-mono text-[10px] uppercase tracking-wider text-steel-aa">
                       celostátně č. {f.int(r.rank)} z {f.int(slate.totalMps)}

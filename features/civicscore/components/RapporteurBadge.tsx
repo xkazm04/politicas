@@ -10,34 +10,52 @@
  * neříká o viditelnosti v sále (nejvytíženější zpravodajka je zároveň jednou
  * z nejčastějších řečnic). Práh a copy v lib/analysis/rapporteur-load.ts;
  * pod prahem se nevykresluje vůbec (čestná degradace).
+ *
+ * DATUM A ČÍSLO V OBOU HUSTOTÁCH (2026-08-04) — počet se dřív tiskl jen ve
+ * spisu; na žebříčku (compact) stálo „zpravodajský tahoun" bez čísla, takže
+ * zpravodaj tří tisků a zpravodaj třinácti vypadali stejně. Teď platí týž
+ * standard jako u LowScoreReasonChip: číslo jde s verdiktem v obou hustotách,
+ * projde jedinou formátovací autoritou (lib/format.ts) a tvrzení je DATOVANÉ
+ * `effort_provenance.computedAt` — bez data se datum netiskne, nikdy se
+ * nedopočítává na dnešek.
  */
 
 import { FileSearch } from "lucide-react";
+import { useFormat } from "@/lib/i18n/useFormat";
 import { rapporteurLoadCopy } from "@/lib/analysis/rapporteur-load";
 
-export default function RapporteurBadge({ load, compact = false }: { load: number; compact?: boolean }) {
+export default function RapporteurBadge({
+  load,
+  recordedAt = null,
+  compact = false,
+}: {
+  load: number;
+  /** ISO datum záznamu verdiktu (`effort_provenance.computedAt`), nebo null. */
+  recordedAt?: string | null;
+  compact?: boolean;
+}) {
+  const f = useFormat();
   const copy = rapporteurLoadCopy(load);
   if (!copy) return null;
 
-  if (compact) {
-    return (
-      <span
-        title={copy.detail}
-        className="inline-flex items-center gap-1 border border-ochre bg-ochre/5 px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider text-ochre"
-      >
-        <FileSearch className="h-2.5 w-2.5" aria-hidden />
-        {copy.badge}
-      </span>
-    );
-  }
+  // Číslo verdiktu prochází jedinou formátovací autoritou (lib/format.ts přes useFormat).
+  // Citaci zdroje (psp.cz tisky.zip / pass 34) nese sekce, ve které štítek stojí —
+  // DossierSection má vlastní SourceNote, řádek žebříčku citaci celé tabulky.
+  const loadLabel = f.int(copy.load);
+  const claim = copy.detail + (recordedAt ? ` (zaznamenáno ${f.date(recordedAt)})` : "");
+  const size = compact
+    ? "gap-1 border px-1.5 py-0.5 text-[9px]"
+    : "gap-1.5 border-2 px-2.5 py-1 text-[11px]";
 
   return (
     <span
-      title={copy.detail}
-      className="inline-flex items-center gap-1.5 border-2 border-ochre bg-ochre/5 px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-ochre"
+      title={claim}
+      className={`inline-flex items-center border-ochre bg-ochre/5 font-mono font-bold uppercase tracking-wider text-ochre ${size}`}
     >
-      <FileSearch className="h-3.5 w-3.5" aria-hidden />
-      {copy.badge} · {copy.load}
+      <FileSearch className={compact ? "h-2.5 w-2.5" : "h-3.5 w-3.5"} aria-hidden />
+      {copy.badge}
+      <span className="tabular-nums">· {loadLabel}</span>
+      <span className="sr-only"> — {claim}</span>
     </span>
   );
 }

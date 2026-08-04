@@ -64,13 +64,20 @@ function Fighter({ row, align, custom }: { row: LeaderboardListEntry; align: "le
       />
       {/* Verdiktová copy VERBATIM z lib/analysis/* — žádný druhý copy engine. */}
       <div className={`mt-2 flex flex-wrap items-center gap-1.5 ${right ? "justify-end" : ""}`}>
-        {row.effortWorkhorse && <WorkhorseBadge flavour={row.effortWorkhorseFlavour} compact />}
-        <RapporteurBadge load={row.effortRapporteurLoad} compact />
+        {row.effortWorkhorse && (
+          <WorkhorseBadge
+            flavour={row.effortWorkhorseFlavour}
+            speechTurns={row.duelFacts.speechTurns}
+            recordedAt={row.effortRecordedAt}
+            compact
+          />
+        )}
+        <RapporteurBadge load={row.effortRapporteurLoad} recordedAt={row.effortRecordedAt} compact />
         {row.effortLowScoreReason && (
           <LowScoreReasonChip
             reason={row.effortLowScoreReason}
-            recordedAt={row.effortLowScoreRecordedAt}
-            dateLabel={row.effortLowScoreRecordedAt ? f.date(row.effortLowScoreRecordedAt) : null}
+            recordedAt={row.effortRecordedAt}
+            dateLabel={row.effortRecordedAt ? f.date(row.effortRecordedAt) : null}
           />
         )}
       </div>

@@ -88,6 +88,23 @@ describe("mandateNoteCopy", () => {
     expect(mandateNoteCopy("replacement", undefined)).toBeNull();
     expect(mandateNoteCopy("replacement", 12345)).toBeNull();
   });
+
+  // `tenureClassLabel` has been gate-pinned since the head-to-head shipped; this prose
+  // never was, though it renders verbatim in the /poslanec header and is the LONGER of
+  // the two copy sets. All THREE branches are checked — a note that only ever gets its
+  // happy path read is exactly how an English sentence survives a review.
+  it("is Czech in every branch it can produce (language gate)", () => {
+    const branches = [
+      mandateNoteCopy("replacement", "2025-11-12", null),
+      mandateNoteCopy("departed", "2025-10-04", "2026-02-01"),
+      mandateNoteCopy("departed", "2025-10-04", undefined),
+    ];
+    for (const c of branches) {
+      expect(c).not.toBeNull();
+      expect(c!.detail.length).toBeGreaterThan(0);
+      expect(looksEnglish(c!.detail), c!.detail).toBe(false);
+    }
+  });
 });
 
 describe("tenureClassLabel", () => {

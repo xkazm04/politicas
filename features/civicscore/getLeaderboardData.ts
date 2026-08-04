@@ -52,6 +52,7 @@ import { PARTIES } from "@/lib/civic/data";
 import { OCHRE, STEEL } from "@/features/landing/palette";
 import { computeTrend, type ContributionTrend } from "@/lib/analysis/contribution-trend";
 import { summarizeContributionProvenance, type ContributionProvenance } from "./provenance";
+import { componentDefs, type ComponentDef, type ComponentKey } from "./componentDefs";
 import type { OrganRow } from "@/lib/db/types";
 
 const clamp01 = (x: number) => Math.max(0, Math.min(1, x));
@@ -61,17 +62,13 @@ const num = (x: unknown): number => (typeof x === "number" && Number.isFinite(x)
  *  render as "0 vystoupení" — the same rule score-legibility.ts keeps for its own units. */
 const numOrNull = (x: unknown): number | null => (typeof x === "number" && Number.isFinite(x) ? x : null);
 
-/** The six contribution components, in published-weight order — the breakdown axis. */
-export const COMPONENT_DEFS = [
-  { key: "participation", weight: CONTRIBUTION_WEIGHTS.participation, label: "Účast při hlasování", source: "psp.cz — poziční hlasy" },
-  { key: "committee", weight: CONTRIBUTION_WEIGHTS.committee, label: "Práce ve výborech", source: "psp.cz — členství ve výborech" },
-  { key: "legislative", weight: CONTRIBUTION_WEIGHTS.legislative, label: "Legislativní výstup", source: "psp.cz — tisky + interpelace" },
-  { key: "speech", weight: CONTRIBUTION_WEIGHTS.speech, label: "Vystoupení v sále", source: "psp.cz — stenozáznamy" },
-  { key: "attendance", weight: CONTRIBUTION_WEIGHTS.attendance, label: "Docházka", source: "psp.cz — omluvy" },
-  { key: "leadership", weight: CONTRIBUTION_WEIGHTS.leadership, label: "Vedení orgánů", source: "psp.cz — funkce ve výborech" },
-] as const;
-
-export type ComponentKey = (typeof COMPONENT_DEFS)[number]["key"];
+/**
+ * The six components moved to `./componentDefs.ts` (2026-08-04) — reader-facing Czech
+ * labels and per-row citations cannot live behind `server-only`, because a client
+ * surface and a test fixture both need the REAL strings. Re-exported here so every
+ * existing import site keeps working.
+ */
+export { COMPONENT_DEFS, componentDefs, type ComponentDef, type ComponentKey } from "./componentDefs";
 
 // Real club abbrev → mock PARTIES code — reuses the sanctioned party data-colors
 // from lib/civic/data.ts (the rule's home for data-driven colors). Motoristé
@@ -214,12 +211,19 @@ export interface LeaderboardEntry {
   // fabricated) — 34 of the 207 carry one (measured on the live graph 2026-08-04).
   effortLowScoreReason: string | null;
   /**
-   * When the correction above was RECORDED (`effort_provenance.computedAt`, ISO date).
-   * A correction is a claim with a vintage — it was true of the term as the enrichment
-   * pass found it, not forever — so a surface that prints the reason must be able to
-   * date it. Null when the node carries no effort provenance; never invented.
+   * When the effort-loop enrichment RECORDED its claims about this MP
+   * (`effort_provenance.computedAt`, ISO date). Every enrichment verdict is a claim with
+   * a vintage — it was true of the term as the pass found it, not forever — so a surface
+   * that prints one must be able to date it. Null when the node carries no effort
+   * provenance; never invented, never back-dated to today.
+   *
+   * Renamed from `effortLowScoreRecordedAt` on 2026-08-04: it was ALWAYS the whole
+   * `effort_provenance` date, filled for every MP regardless of a low-score reason, and
+   * the low-score-specific name is why the workhorse and rapporteur badges — written by
+   * the same pass, on the same node — went undated for months while the chip beside them
+   * carried its vintage.
    */
-  effortLowScoreRecordedAt: string | null;
+  effortRecordedAt: string | null;
   // Quiet-workhorse surface (batch 003, O-effort-3): P31's two positive-symmetry
   // flavours — legislative-authorship vs oversight-institutional. Null/false for the
   // ~191/207 MPs not (yet) flagged by the deterministic triage lens; never fabricated.
@@ -323,7 +327,7 @@ export type LeaderboardListEntry = Pick<
   // of two null fields, which is exactly what compresses away. Paid deliberately: the
   // alternative is a leaderboard that keeps the reason out of the reader's sight.
   | "effortLowScoreReason"
-  | "effortLowScoreRecordedAt"
+  | "effortRecordedAt"
   // Added 2026-08-04 for the Souboj. The duel could compare only the composite and six
   // weighted point-values — the most abstract numbers the app owns — because nothing
   // else ever entered the /zebricek payload. MEASURED cost of `duelFacts` over 207 rows:
@@ -351,7 +355,7 @@ function toListEntry(e: LeaderboardEntry): LeaderboardListEntry {
     effortRapporteurLoad: e.effortRapporteurLoad,
     effortHasDossier: e.effortHasDossier,
     effortLowScoreReason: e.effortLowScoreReason,
-    effortLowScoreRecordedAt: e.effortLowScoreRecordedAt,
+    effortRecordedAt: e.effortRecordedAt,
     duelFacts: e.duelFacts,
   };
 }
@@ -361,7 +365,7 @@ export interface LeaderboardData {
   clubs: ClubFacet[];
   summary: { avg: number; median: number; sigma: number; count: number };
   histogram: { from: number; label: string; count: number }[];
-  components: { key: ComponentKey; weight: number; label: string; source: string }[];
+  components: ComponentDef[];
   /**
    * The contribution-index pass that authored the scores — non-null ONLY when every
    * person node agrees on it. A partially recomputed chamber has no single pass, and
@@ -476,7 +480,7 @@ export const buildLeaderboard = cache(async function buildLeaderboard(): Promise
         interpellations,
         speechTurns,
         effortLowScoreReason: typeof p.props.effort_low_score_reason === "string" ? p.props.effort_low_score_reason : null,
-        effortLowScoreRecordedAt: effortRecordedAt(p.props),
+        effortRecordedAt: effortRecordedAt(p.props),
         effortWorkhorse: p.props.effort_workhorse === true,
         effortWorkhorseFlavour: typeof p.props.effort_workhorse_flavour === "string" ? p.props.effort_workhorse_flavour : null,
         effortRapporteurLoad:
@@ -568,7 +572,7 @@ export const buildLeaderboard = cache(async function buildLeaderboard(): Promise
         clubs,
         summary: { avg: round1(avg), median: round1(median), sigma: round1(sigma), count: n },
         histogram,
-        components: COMPONENT_DEFS.map((c) => ({ key: c.key, weight: c.weight, label: c.label, source: c.source })),
+        components: componentDefs(),
         provenancePass: provenance.state === "uniform" ? provenance.pass : null,
         provenance,
         dossierCoverage: { withDossier: entries.filter((e) => e.effortHasDossier).length, total: entries.length },

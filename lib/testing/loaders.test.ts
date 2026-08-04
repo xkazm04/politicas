@@ -1563,11 +1563,11 @@ describe("getLeaderboardData against a seeded store", () => {
     const cimrman = list.entries.find((e) => e.name === "Cimrman Jára")!;
     expect(cimrman.effortLowScoreReason).toBe("declined_mandate");
     expect(lowScoreReasonCopy(cimrman.effortLowScoreReason)).not.toBeNull();
-    expect(cimrman.effortLowScoreRecordedAt).toBe("2026-07-24"); // a DATE, not the instant
+    expect(cimrman.effortRecordedAt).toBe("2026-07-24"); // a DATE, not the instant
     // An MP without one gets null, never a fabricated explanation or a stand-in date.
     const novakova = list.entries.find((e) => e.name === "Nováková Jana")!;
     expect(novakova.effortLowScoreReason).toBeNull();
-    expect(novakova.effortLowScoreRecordedAt).toBeNull();
+    expect(novakova.effortRecordedAt).toBeNull();
   });
 
   it("carries the duel FACTS in their own units, with missing kept missing", async () => {

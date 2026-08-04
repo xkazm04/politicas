@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { buildPosterCitation } from "@/features/shared/poster/citation";
+import { componentDefs } from "./componentDefs";
 import type { ComponentKey, LeaderboardData, LeaderboardListEntry } from "./getLeaderboardData";
 import {
   KRAJ_NEUVEDEN_LABEL,
@@ -15,14 +16,10 @@ import { PUBLISHED_WEIGHTS, reweigh, type WeightVector } from "./lens";
 
 // ── fixtures ────────────────────────────────────────────────────────────────
 
-const COMPONENTS: LeaderboardData["components"] = [
-  { key: "participation", weight: 25, label: "Účast při hlasování", source: "psp.cz" },
-  { key: "committee", weight: 20, label: "Práce ve výborech", source: "psp.cz" },
-  { key: "legislative", weight: 20, label: "Legislativní výstup", source: "psp.cz" },
-  { key: "speech", weight: 15, label: "Vystoupení v sále", source: "psp.cz" },
-  { key: "attendance", weight: 10, label: "Docházka", source: "psp.cz" },
-  { key: "leadership", weight: 10, label: "Vedení orgánů", source: "psp.cz" },
-];
+// Zveřejněné složkové definice — IMPORTOVANÉ, ne přepsané. Šest labelů a šest
+// citací tu dřív stálo jako literály ve třech fixtures; změna jednoho labelu je
+// tiše rozešla s produktem, protože fixture nikdy neporovnávala svůj text s jeho.
+const COMPONENTS: LeaderboardData["components"] = componentDefs();
 
 const FULL: Record<ComponentKey, number> = {
   participation: 25, committee: 20, legislative: 20, speech: 15, attendance: 10, leadership: 10,
@@ -58,7 +55,7 @@ function mk(
     effortRapporteurLoad: 0,
     effortHasDossier: false,
     effortLowScoreReason: null,
-    effortLowScoreRecordedAt: null,
+    effortRecordedAt: null,
     duelFacts: {
       speechTurns: null,
       amendmentsAuthored: null,

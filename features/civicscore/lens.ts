@@ -25,22 +25,17 @@
 // jakou přiznává oficiální rozpad (getLeaderboardData.ts).
 
 import { CONTRIBUTION_WEIGHTS } from "@/lib/analysis/contribution";
+import { COMPONENT_DEFS } from "./componentDefs";
 import type { ComponentKey, LeaderboardData, LeaderboardListEntry } from "./getLeaderboardData";
 
 /** Čtenářův vektor vah — 0–100 bodů (celé číslo) na každou ze šesti složek. */
 export type WeightVector = Record<ComponentKey, number>;
 
-/** Pořadí složek v URL kódování i v UI = pořadí zveřejněných vah
- *  (COMPONENT_DEFS v getLeaderboardData.ts — hodnotově sem nejde importovat
- *  přes `server-only`, proto je pořadí zopakováno a přibito testem). */
-export const LENS_COMPONENT_ORDER: readonly ComponentKey[] = [
-  "participation",
-  "committee",
-  "legislative",
-  "speech",
-  "attendance",
-  "leadership",
-];
+/** Pořadí složek v URL kódování i v UI = pořadí zveřejněných vah. Od 2026-08-04
+ *  se ODVOZUJE z COMPONENT_DEFS (features/civicscore/componentDefs.ts) — dřív tu
+ *  stálo šest zopakovaných klíčů s poznámkou, že přes `server-only` je nelze
+ *  importovat; definice mezitím z loaderu odešly, takže druhá kopie zanikla. */
+export const LENS_COMPONENT_ORDER: readonly ComponentKey[] = COMPONENT_DEFS.map((c) => c.key);
 
 /** Zveřejněná metodika (25-20-20-15-10-10) — jediný zdroj: lib/analysis/contribution.ts. */
 export const PUBLISHED_WEIGHTS: WeightVector = { ...CONTRIBUTION_WEIGHTS };

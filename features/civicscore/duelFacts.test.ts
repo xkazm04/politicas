@@ -30,7 +30,7 @@ function mk(name: string, pspId: number, facts: Partial<DuelFacts>): Leaderboard
     effortRapporteurLoad: 0,
     effortHasDossier: false,
     effortLowScoreReason: null,
-    effortLowScoreRecordedAt: null,
+    effortRecordedAt: null,
     duelFacts: {
       speechTurns: null,
       amendmentsAuthored: null,

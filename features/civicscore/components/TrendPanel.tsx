@@ -15,6 +15,13 @@
 
 import { TrendingDown, TrendingUp, Minus } from "lucide-react";
 import type { ComponentKey, ContributionTrend } from "@/lib/analysis/contribution-trend";
+import {
+  TREND_COUNT_LABELS,
+  TREND_PARTIAL_LABEL,
+  trendHeading,
+  trendPendingNote,
+  trendSourceNote,
+} from "../trendCopy";
 
 const dec = (x: number) => new Intl.NumberFormat("cs-CZ", { maximumFractionDigits: 1 }).format(x);
 const signed = (x: number) => `${x > 0 ? "+" : ""}${dec(x)}`;
@@ -43,11 +50,20 @@ export default function TrendPanel({
   componentLabels: Partial<Record<ComponentKey, string>>;
 }) {
   const rows = trend.components.filter((c) => c.prior !== null);
+  // Copy patří enginu (../trendCopy.ts), ne JSX — je to čtenářská česká věta a jako
+  // taková je přibitá k jazykové bráně. Výhrada navíc jmenuje složky, které OPRAVDU
+  // chybí, místo dvou natvrdo vepsaných.
+  const labelOf = (k: ComponentKey) => componentLabels[k] ?? k;
+  const pendingNote = trendPendingNote({
+    priorTerm: trend.priorTerm,
+    pendingLabels: trend.pendingComponents.map(labelOf),
+    comparableLabels: rows.map((c) => labelOf(c.key)),
+  });
   return (
     <section className="mt-10 border-2 border-ink bg-paper-strong p-6">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <h2 className="font-mono text-xs font-bold uppercase tracking-widest text-steel">
-          Vývoj proti období {trend.priorTerm}
+          {trendHeading(trend.priorTerm)}
         </h2>
         {trend.complete && trend.scoreDelta !== null ? (
           <div className="flex items-baseline gap-3">
@@ -58,7 +74,7 @@ export default function TrendPanel({
           </div>
         ) : (
           <span className="font-mono text-[11px] uppercase tracking-wider text-steel">
-            částečné srovnání
+            {TREND_PARTIAL_LABEL}
           </span>
         )}
       </div>
@@ -83,9 +99,9 @@ export default function TrendPanel({
       {/* Surové počty aktivity — poctivé srovnání objemu práce */}
       <div className="mt-6 grid grid-cols-3 gap-px border border-ink bg-ink text-center">
         {[
-          { label: "Tisky (spolu)autorské", v: trend.counts.billsAuthored },
-          { label: "Vystoupení v sále", v: trend.counts.speechTurns },
-          { label: "Výbory a komise", v: trend.counts.committeeCount },
+          { label: TREND_COUNT_LABELS.billsAuthored, v: trend.counts.billsAuthored },
+          { label: TREND_COUNT_LABELS.speechTurns, v: trend.counts.speechTurns },
+          { label: TREND_COUNT_LABELS.committeeCount, v: trend.counts.committeeCount },
         ].map((s) => (
           <div key={s.label} className="bg-paper p-3">
             <p className="font-mono text-[10px] uppercase tracking-widest text-steel">{s.label}</p>
@@ -96,17 +112,14 @@ export default function TrendPanel({
         ))}
       </div>
 
-      {trend.pendingComponents.length > 0 && (
+      {pendingNote && (
         <p className="mt-4 border-l-4 border-signal pl-3 text-xs italic leading-relaxed text-steel">
-          Účast při hlasování a docházka za období {trend.priorTerm} se zobrazí po doingestování
-          jmenných hlasování {trend.priorTerm} (dump hl-2021ps.zip) — teď je srovnatelná jen
-          výborová, legislativní a řečnická složka.
+          {pendingNote}
         </p>
       )}
 
       <p className="mt-3 font-mono text-[10px] uppercase tracking-widest text-steel">
-        Zdroj: psp.cz · členství ve výborech + tisky/interpelace/stenozáznamy {trend.priorTerm}
-        {trend.provenance?.pass ? ` · pass ${trend.provenance.pass}` : ""}
+        {trendSourceNote(trend.priorTerm, trend.provenance?.pass)}
       </p>
     </section>
   );

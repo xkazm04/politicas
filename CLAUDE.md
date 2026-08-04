@@ -466,6 +466,37 @@ Route map (politicas.md roadmap execution, sample data):
   language-gate pinned). Measured: list payload 95 653 → 120 264 B raw,
   7 909 → 9 137 B gzipped; warm `buildLeaderboard()` unchanged at 424–519 ms; no
   new store reads.
+  **Every verdict carries its date and its number (2026-08-04).** `WorkhorseBadge`
+  and `RapporteurBadge` asserted „tichý tvůrce zákonů" / „zpravodajský tahoun" with
+  no vintage and (on /zebricek) no count, while `LowScoreReasonChip` beside them held
+  the standard. Both are now DATED from `effort_provenance.computedAt` — the same
+  prop, written by the same pass, on the same node — and both carry the figure the
+  verdict rests on: the workhorse badge prints `speech_turns` (the low floor
+  visibility that is half its claim; ABSENT renders nothing, never a fabricated 0),
+  the rapporteur badge prints its distinct-bill count in BOTH densities, so a
+  zpravodaj of 3 and of 13 no longer look identical. Both surfaces (/zebricek row,
+  /kraj row, Souboj, /poslanec dossier). `LeaderboardEntry.effortLowScoreRecordedAt`
+  was renamed **`effortRecordedAt`** — it was always the whole effort-provenance date,
+  and the low-score-specific name is exactly why the two badges went undated for
+  months. MEASURED cost: **zero new payload fields** (the badges read
+  `duelFacts.speechTurns` and `effortRapporteurLoad`, already on the wire); the rename
+  alone shrank the list payload 118 748 → **117 092 B** raw, 9 624 → **9 590 B**
+  gzipped.
+  **The six components are ONE definition** — `features/civicscore/componentDefs.ts`.
+  Reader-facing Czech labels plus a per-row psp.cz citation cannot live behind
+  `server-only`: they were retyped as literals in FOUR test fixtures (kraj, lens,
+  referendum embed, referendum ogPayload) and their ORDER a fifth time in `lens.ts`
+  (`LENS_COMPONENT_ORDER`, with a comment saying the real list could not be imported).
+  Now every one imports it, and `componentDefs.test.ts` pins the weights to
+  `CONTRIBUTION_WEIGHTS` (never mirrored), the sum to 100, one distinct citation per
+  component, and every label + source to the Czech language gate.
+  **Two more reader-facing copy sets joined the gate**: `mandateNoteCopy` (all three
+  branches — only `tenureClassLabel` had been pinned) and the whole TrendPanel, whose
+  four Czech sentences were inline JSX literals owned by no engine. They moved to
+  `features/civicscore/trendCopy.ts` (pure + `trendCopy.test.ts`), and the „chybějící
+  složky" note now NAMES what `trend.pendingComponents` actually carries instead of
+  asserting „účast a docházka" regardless, and cites the `hl-2021ps.zip` dump only for
+  the term it belongs to.
 - `/rozpocty` — **BudgetMirror** (features/budget): town vs peer-group mirror —
   metric duos against the computed peer median, debt-per-capita trend lines
   (town vs median), sortable peer table. Stewardship feeds only executive

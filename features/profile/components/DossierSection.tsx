@@ -74,6 +74,9 @@ export interface DossierContent {
   workhorseFlavour: string | null;
   /** `effort_rapporteur_load` — badge copy + threshold in lib/analysis. */
   rapporteurLoad: number;
+  /** `effort_provenance.computedAt` — kdy enrichment ty verdikty zaznamenal. Null = nedatováno
+   *  (nikdy se nedopočítává na dnešek), stejné pravidlo jako u LowScoreReasonChip. */
+  effortRecordedAt: string | null;
 }
 
 /** Does this MP carry anything this section would actually render? The section
@@ -129,6 +132,7 @@ export default function DossierSection({ index, ...d }: DossierContent & { index
     absenceRate,
     workhorseFlavour,
     rapporteurLoad,
+    effortRecordedAt,
   } = d;
 
   const hasThemes = !!workThemes && workThemes.length > 0;
@@ -167,8 +171,12 @@ export default function DossierSection({ index, ...d }: DossierContent & { index
               {t("dossierVerdicts")}
             </p>
             <div className="mt-2.5 flex flex-wrap gap-2">
-              <WorkhorseBadge flavour={workhorseFlavour} />
-              <RapporteurBadge load={rapporteurLoad} />
+              <WorkhorseBadge
+                flavour={workhorseFlavour}
+                speechTurns={speechTurnsTotal}
+                recordedAt={effortRecordedAt}
+              />
+              <RapporteurBadge load={rapporteurLoad} recordedAt={effortRecordedAt} />
             </div>
             {workhorseFlavourCopy(workhorseFlavour) && (
               <p className="mt-2.5 max-w-3xl text-[14px] leading-relaxed text-steel">
