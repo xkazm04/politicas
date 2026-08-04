@@ -21,7 +21,12 @@ import { czech, czechInt } from "@/lib/format";
  * písmo bez sítě (týž vzor jako graf precedens).
  */
 
-export const size = { width: 1200, height: 630 };
+// NOT exported: `size` is a valid export only for an `opengraph-image` file convention.
+// In a Route Handler, Next 16's generated route types allow no extra exports, so
+// exporting it fails `next build` at the type-check phase with
+// "Property 'size' is incompatible with index signature" while webpack itself compiles
+// cleanly — which is why `tsc --noEmit` and the test suite never caught it.
+const size = { width: 1200, height: 630 };
 
 async function loadGoogleFont(family: string, weight: number, text: string): Promise<ArrayBuffer | null> {
   try {
