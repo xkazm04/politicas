@@ -12,16 +12,12 @@
 
 import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
-import { loadMoneyLayer, num, pspIdFromNodeId } from "./moneyLoader";
+import { loadMoneyLayer, mapLinkedToTie, pspIdFromNodeId } from "./moneyLoader";
 import { reachableMoney } from "./reachableMoney";
+import { hasStaleOngoingFlag } from "./tieFlags";
 import {
   buildRegistryLinks,
-  isDeMinimis,
-  nearThresholdCount,
   parsePeriod,
-  resolveReviewOrder,
-  resolveTieClass,
-  reviewSignal,
   type ReviewQueue,
   type ReviewState,
   type ReviewTie,
@@ -52,77 +48,30 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
       const person = personById.get(e.src);
       if (!comp || pspId == null) continue; // unresolved endpoint → drop, never guess
 
-      const cp = comp.props ?? {};
-      const a = contractsByCompany.get(comp.id) ?? { count: 0, czk: 0, amounts: [] };
-      const role = String(e.props?.role ?? "");
-      const source = String(e.props?.source ?? "");
-      const ico = String(cp.ico ?? comp.id.split(":").pop() ?? "");
-      const { from, to } = parsePeriod(source);
-      // Stored class wins over the heuristic — the console must never re-derive over a
-      // correction a reviewer already made (see resolveTieClass).
-      const cls = resolveTieClass(e.props?.tie_class, role, comp.label);
-      const tieClass = cls.tieClass;
-      const contractCzk = a.czk;
-      const subsidiesCzk = num(cp.subsidies_total_czk);
-      const donatedToPartyCzk = cp.donated_to_party_czk != null ? num(cp.donated_to_party_czk) : null;
-      const near = nearThresholdCount(a.amounts);
-      const absenteeManagerLead = Boolean(person?.props?.absentee_manager_lead);
-      const triangle = contractCzk > 0 && subsidiesCzk > 0 && (donatedToPartyCzk ?? 0) > 0;
-      const corroboration = (e.props?.corroboration as ReviewTie["corroboration"]) ?? null;
-      const order = resolveReviewOrder({
-        storedTier: e.props?.review_tier,
-        storedRank: e.props?.review_rank,
-        tieClass,
-        corroboration,
-        contractCzk,
-        subsidiesCzk,
+      // THE ONE MAPPER (moneyLoader.mapLinkedToTie), shared with the ledger and the case
+      // file. This loader used to lift its OWN narrower projection off the same edge, so
+      // the reviewer deciding a tie saw less evidence than a member of the public reading
+      // /penize/[pspId] — no flags, no analyst note, no owner stake, no prior decision.
+      const base = mapLinkedToTie({
+        edge: e,
+        company: comp,
+        contracts: contractsByCompany.get(comp.id) ?? { count: 0, czk: 0, amounts: [] },
+        person,
       });
+      const { from, to } = parsePeriod(base.source);
 
       ties.push({
-        id: `tie:${pspId}:${ico}`,
+        ...base,
+        id: `tie:${pspId}:${base.ico}`,
         src: e.src,
         dst: e.dst,
         pspId,
         mpName: person?.label ?? String(pspId),
         club: clubByPerson.get(pspId) ?? null,
-        absenteeManagerLead,
-        ico,
-        company: comp.label,
-        role,
-        source,
-        reviewState,
-        tieClass,
-        tieClassOrigin: cls.origin,
-        tieClassHeuristic: cls.heuristic,
+        absenteeManagerLead: Boolean(person?.props?.absentee_manager_lead),
         periodFrom: from,
         periodTo: to,
-        contractCount: a.count,
-        contractCzk,
-        subsidiesCount: num(cp.subsidies_count),
-        subsidiesCzk,
-        donatedToPartyCzk,
-        donationRecipientParty:
-          cp.donation_recipient_party != null ? String(cp.donation_recipient_party) : null,
-        triangle,
-        nearThresholdCount: near,
-        deMinimis: isDeMinimis(contractCzk, subsidiesCzk),
-        corroboration,
-        roleValidFrom: (e.props?.role_valid_from as string | null | undefined) ?? null,
-        roleValidTo: (e.props?.role_valid_to as string | null | undefined) ?? null,
-        temporalStatus: (e.props?.temporal_status as string | null | undefined) ?? null,
-        signalScore: reviewSignal({
-          contractCzk,
-          subsidiesCzk,
-          tieClass,
-          triangle,
-          nearThresholdCount: near,
-          donatedToPartyCzk,
-          absenteeManagerLead,
-        }),
-        reviewTier: order.reviewTier,
-        reviewRank: order.reviewRank,
-        reviewOrderOrigin: order.origin,
-        links: buildRegistryLinks(ico, source),
+        links: buildRegistryLinks(base.ico, base.source),
       });
     }
 
@@ -162,6 +111,13 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
         derived: ties.filter((t) => t.tieClassOrigin === "derived").length,
       },
       staleReviewOrder: ties.filter((t) => t.reviewOrderOrigin === "stale-recomputed").length,
+      // Measured on the live graph 2026-08-04: 82 of 211 pending ties carry at least one
+      // flag and 42 carry `stale-ongoing-in-graph`. The console's staleness prompt used to
+      // key off `periodTo === null && !corroboration`, which matches ZERO ties (all 211
+      // carry a corroboration verdict) — a dead condition standing in for a real 42.
+      flagged: ties.filter((t) => t.flags.length > 0).length,
+      staleOngoing: ties.filter((t) => hasStaleOngoingFlag(t.flags)).length,
+      withAnalystNote: ties.filter((t) => (t.reviewerNote ?? "").trim().length > 0).length,
       classDisagreements: ties.filter(
         (t) => t.tieClassOrigin === "stored" && t.tieClassHeuristic !== t.tieClass,
       ).length,

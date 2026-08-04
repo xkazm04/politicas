@@ -17,6 +17,9 @@ import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
 import { asUnion } from "@/lib/db/narrow";
 import { byListOrder } from "@/lib/db/kgOrder";
 import { CORROBORATIONS, type ContractLine, type MoneyTie, type ReviewState } from "./moneyTypes";
+// One reader of `provenance`-shaped props across the platform (features/shared/provenance):
+// the receipt page and the money tie must date an analyst note by the same rule.
+import { toProvenance } from "@/features/shared/provenance/receipt";
 import { isDeMinimis, nearThresholdCount, resolveReviewOrder, resolveTieClass, reviewSignal } from "./reviewTypes";
 import { KG_READ_CAP } from "@/lib/db/readCap";
 
@@ -119,6 +122,10 @@ export function mapLinkedToTie(args: {
     roleValidFrom: (e.props?.role_valid_from as string | null | undefined) ?? null,
     roleValidTo: (e.props?.role_valid_to as string | null | undefined) ?? null,
     temporalStatus: (e.props?.temporal_status as string | null | undefined) ?? null,
+    corroborationSource: (e.props?.corroboration_source as string | null | undefined) ?? null,
+    corroborationProvenance: toProvenance(
+      e.props?.corroboration_provenance as Record<string, unknown> | null | undefined,
+    ),
     tieClass,
     tieClassOrigin: cls.origin,
     tieClassHeuristic: cls.heuristic,
@@ -136,6 +143,7 @@ export function mapLinkedToTie(args: {
     }),
     reviewTier: order.reviewTier,
     reviewRank: order.reviewRank,
+    reviewOrderOrigin: order.origin,
     reviewNote: (e.props?.review_note as string | null | undefined) ?? null,
     reviewerNote: (e.props?.reviewer_note as string | null | undefined) ?? null,
     lastDecision: (e.props?.last_decision as string | null | undefined) ?? null,

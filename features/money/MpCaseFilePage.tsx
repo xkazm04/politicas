@@ -12,7 +12,10 @@ import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { useLocale } from "next-intl";
 import SourceNote from "@/features/shared/components/SourceNote";
+import FlagList from "@/features/shared/components/FlagList";
 import { buildRegistryLinks } from "./reviewTypes";
+import { tieFlagInfos } from "./tieFlags";
+import AnalystNote from "./components/AnalystNote";
 import type { ContractCoverage } from "./moneyTypes";
 import type { MoneyBucket } from "./reachableMoney";
 import {
@@ -315,28 +318,37 @@ function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en:
             {tie.falseEdgeSuspected && <Flag>{en ? "suspected false edge" : "podezření na chybnou vazbu"}</Flag>}
             {tie.ownerStakePct != null && <Flag>{tie.ownerStakePct}% {en ? "stake" : "podíl"}</Flag>}
             {tie.priorTerm && <Flag>{en ? "prior term" : "předchozí období"}: {tie.priorTerm}</Flag>}
-            {tie.flags.map((fl) => (
-              <Flag key={fl}>{fl}</Flag>
-            ))}
           </div>
 
-          {/* review provenance — reviewer notes, last decision */}
-          {(tie.reviewNote || tie.reviewerNote || tie.lastDecision) && (
-            <div className="mt-4 border-l-2 border-hairline pl-3">
+          {/* Příznaky z analytických průchodů. Do 2026-08-04 se tady sázel doslovný
+              strojový token (`stale-ongoing-in-graph`) — pro čtenáře nečitelný šum.
+              Slovník je jeden pro tuhle stránku i pro ověřovací konzoli (tieFlags.ts) a
+              nepřeložený token se ukáže doslova, označený, nikdy se neschová. */}
+          <FlagList
+            className="mt-4"
+            heading={en ? "flags from analysis passes" : "příznaky z analytických průchodů"}
+            items={tieFlagInfos(tie.flags).map((f) => ({
+              key: f.token,
+              label: en ? f.labelEn : f.labelCs,
+              note: en ? f.noteEn : f.noteCs,
+              tone: f.tone,
+            }))}
+          />
+
+          {/* Analytická próza není zjištěný fakt: kdo ji napsal, kdy a z jakého dokladu
+              patří K NÍ. Táž komponenta sází totéž v ověřovací konzoli. */}
+          <AnalystNote tie={tie} en={en} className="mt-4" />
+
+          {/* review provenance — poznámka a rozhodnutí LIDSKÉ kontroly (jiné pole než
+              poznámka analýzy výše: tohle píše jedině ReviewRepository) */}
+          {(tie.reviewNote || tie.lastDecision) && (
+            <div className="mt-4 border-l-2 border-cobalt pl-3">
               {tie.reviewNote && (
                 <p className="text-sm leading-relaxed text-steel">
                   <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-ink">
                     {en ? "review note" : "poznámka kontroly"}:{" "}
                   </span>
                   {tie.reviewNote}
-                </p>
-              )}
-              {tie.reviewerNote && (
-                <p className="mt-1 text-sm leading-relaxed text-steel">
-                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-ink">
-                    {en ? "registry reconciliation note" : "poznámka rekonciliace"}:{" "}
-                  </span>
-                  {tie.reviewerNote}
                 </p>
               )}
               {tie.lastDecision && (

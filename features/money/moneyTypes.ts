@@ -26,8 +26,12 @@ export type Corroboration = (typeof CORROBORATIONS)[number];
 // the main ledger and per-MP case file can render the SAME tie-class taxonomy without
 // duplicating the definition. Plain module, no server imports — safe to share.
 export type { TieClass, TieClassOrigin } from "./reviewTypes";
-import type { TieClass, TieClassOrigin } from "./reviewTypes";
+import type { ReviewOrderOrigin, TieClass, TieClassOrigin } from "./reviewTypes";
 import type { ReachableMoney } from "./reachableMoney";
+// The receipt's provenance shape (pass / method / ref / computedAt), reused rather than
+// re-declared: /zdroj already reads exactly these four fields off a graph row, and a tie's
+// analyst note must be datable by the same rule the provenance capsule uses.
+import type { ReceiptProvenance } from "@/features/shared/provenance/receipt";
 
 /** One MP↔company tie, enriched with the public money reachable through the firm. */
 export interface MoneyTie {
@@ -52,6 +56,15 @@ export interface MoneyTie {
   roleValidFrom?: string | null; // ISO date, ARES-VR confirmed
   roleValidTo?: string | null; // ISO date, ARES-VR confirmed; null = role has no recorded end
   temporalStatus?: string | null; // "current" | "historical" | "money-postdates-role" | "historical-no-money"
+  /** The registry document the corroboration pass actually read (props.corroboration_source
+   *  — an ARES-VR REST URL or a dataor.justice.cz export URL). 211/211 ties carry one; it is
+   *  what turns `reviewerNote` from an assertion into something a reader can re-check. */
+  corroborationSource: string | null;
+  /** WHEN and by WHICH pass the corroboration (and with it `reviewerNote`) was written.
+   *  Read verbatim off `props.corroboration_provenance` through the SAME `toProvenance`
+   *  the /zdroj receipt uses — analyst prose is only presentable as analyst prose when it
+   *  is dated and attributed. Fields are null when the edge does not carry them. */
+  corroborationProvenance: ReceiptProvenance;
   /** owner-operator / manager / steward — see `tieClassInfo` for the rendered P29 rule.
    *  Resolved by `resolveTieClass`: a class stored on the edge beats the heuristic. */
   tieClass: TieClass;
@@ -73,6 +86,10 @@ export interface MoneyTie {
   reviewTier: 0 | 1 | 2 | 3;
   /** stable per-tie sort key mirroring reviewTier (tier asc, reachable CZK desc). */
   reviewRank: number;
+  /** whether that tier/rank pair was read off the edge or recomputed — see
+   *  `resolveReviewOrder`. The console states the recomputed count; nothing may
+   *  silently mix two vintages of one sort key. */
+  reviewOrderOrigin: ReviewOrderOrigin;
   /** free-text note from a human review decision (ReviewRepository.setTieReviewState). */
   reviewNote: string | null;
   /** DIFFERENT field written by the ARES-VR reconciliation pass, not review UI. */

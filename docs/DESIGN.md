@@ -177,7 +177,7 @@ read as an editorial choice when it is actually an outage.
 ```
 features/shared/components/   domain-agnostic catalog (SourceNote, AnimatedScore,
                               SectionRule, RankDelta, SectionHeading, StatTile,
-                              DataUnavailable, LiveDataNotice, …) —
+                              DataUnavailable, LiveDataNotice, FlagList, …) —
                               @catalog JSDoc tag, NO imports from features/*
                               or lib/civic (lint-enforced)
 features/<feature>/           feature module: orchestrator + components/ + palette

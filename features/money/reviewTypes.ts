@@ -30,6 +30,10 @@ export type TieClassOrigin = "stored" | "derived";
 export type ReviewDecision = "confirm" | "reject" | "needs-more";
 
 import type { ReachableMoney } from "./reachableMoney";
+// Type-only, and deliberately circular with moneyTypes.ts (which imports TieClass from
+// here): both modules are erased at runtime, and ONE tie projection is worth more than a
+// tidy import graph — see the ReviewTie doc comment.
+import type { MoneyTie } from "./moneyTypes";
 
 export interface RegistryLinks {
   aresSubject: string; // ARES economic-subject (identity, legal form, active/dissolved)
@@ -40,58 +44,33 @@ export interface RegistryLinks {
   registrSmluv: string; // Registr smluv contracts where this IČO is a party (via Hlídač)
 }
 
-/** One pending tie, everything a reviewer needs on one card. */
-export interface ReviewTie {
+/**
+ * One pending tie, everything a reviewer needs on one card.
+ *
+ * IT IS A `MoneyTie` PLUS THE CONSOLE'S OWN FIELDS — deliberately, since 2026-08-04.
+ * This interface used to re-declare a narrower copy of the same projection, and
+ * `getVerificationData.ts` filled it from a second hand-written mapping of the SAME
+ * `linked_to` edge that `moneyLoader.mapLinkedToTie` already reads in full. The two
+ * drifted exactly the way two copies of one mapping drift: the person DECIDING saw
+ * strictly less evidence than a member of the public reading `/penize/[pspId]` — no
+ * flags, no analyst note, no owner stake, no prior-term note, no earlier decision.
+ * Extending the shared shape makes that class of divergence impossible: a prop the
+ * ledger's mapper learns to read reaches the console in the same commit.
+ */
+export interface ReviewTie extends MoneyTie {
   id: string; // "tie:<pspId>:<ico>"
-  /** kg_edge.src / kg_edge.dst for this linked_to tie — the key the write path needs. */
+  /** kg_edge.src / kg_edge.dst for this linked_to tie — the key the write path needs.
+   *  `dst` is the same value as MoneyTie.companyId; both are kept because the write
+   *  path speaks in edge endpoints and the money code speaks in company ids. */
   src: string;
   dst: string;
   pspId: number;
   mpName: string;
   club: string | null;
   absenteeManagerLead: boolean; // Case ② crossover flag
-  ico: string;
-  company: string;
-  role: string;
-  source: string; // verbatim provenance string (cited)
-  reviewState: ReviewState;
-  /** Resolved by `resolveTieClass` — a stored class beats the heuristic. */
-  tieClass: TieClass;
-  tieClassOrigin: TieClassOrigin;
-  /** What `classifyTie` would have said. Differs from `tieClass` only when a stored
-   *  class overrode it — the card shows the disagreement rather than hiding it. */
-  tieClassHeuristic: TieClass;
   periodFrom: string | null; // parsed from the source string
   periodTo: string | null; // null = source says "ongoing" (OFTEN STALE — reviewer must check ARES VR)
-  contractCount: number;
-  contractCzk: number;
-  subsidiesCount: number;
-  subsidiesCzk: number;
-  donatedToPartyCzk: number | null;
-  donationRecipientParty: string | null;
-  triangle: boolean; // contracts + subsidies + party donation all present
-  nearThresholdCount: number; // contracts within 10% below a 2M/6M zadávací limit
-  deMinimis: boolean; // reachable money below a materiality floor (likely noise)
-  signalScore: number; // deterministic triage rank key (money/triangle/near-threshold weighting)
-  /** Batch-005 review-ORDER axis — DIFFERENT from signalScore. 0 = registry-confirmed
-   *  owner-operator, 1 = registry-confirmed manager, 2 = registry-confirmed steward,
-   *  3 = everything else (unconfirmed/conflicting/registry-unconfirmed). See `reviewTier`. */
-  reviewTier: 0 | 1 | 2 | 3;
-  /** Stable per-tie sort key: tier ascending, then reachable CZK (contractCzk +
-   *  subsidiesCzk) descending WITHIN the tier. Lower = reviewed first. Recomputable from
-   *  the tie's own fields (no global sort needed) — see `reviewRank`. */
-  reviewRank: number;
-  /** Where the tier/rank pair came from — see `resolveReviewOrder`. */
-  reviewOrderOrigin: ReviewOrderOrigin;
   links: RegistryLinks;
-  /** ARES-VR reconciliation (case-money batch 001/002, Q-money-1) — absent when the
-   *  tie hasn't been through the registry corroboration pass yet. `periodFrom/To` above
-   *  stay the raw Hlídač-parsed period (often stale "ongoing"); these are the
-   *  REGISTRY-confirmed period + verdict a reviewer should trust instead. */
-  corroboration: "registry-confirmed" | "registry-unconfirmed" | "conflicting" | null;
-  roleValidFrom: string | null;
-  roleValidTo: string | null;
-  temporalStatus: string | null;
 }
 
 export interface ReviewStats {
@@ -120,6 +99,14 @@ export interface ReviewStats {
   staleReviewOrder: number;
   /** Pending ties with a stored class that contradicts the heuristic. */
   classDisagreements: number;
+  /** Pending ties carrying at least one `props.flags` token (82/211 live, 2026-08-04). */
+  flagged: number;
+  /** Pending ties whose flags say the graph's open-ended period is stale against the
+   *  registry (`stale-ongoing-in-graph`; 42/211 live) — the population the console's
+   *  staleness prompt is written for. */
+  staleOngoing: number;
+  /** Pending ties carrying analyst prose (`props.reviewer_note`; 211/211 live). */
+  withAnalystNote: number;
 }
 
 export interface ReviewQueue {

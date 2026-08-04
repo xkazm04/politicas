@@ -165,6 +165,27 @@ Route map (politicas.md roadmap execution, sample data):
   `resolveReviewOrder()` keeps a stored key only while it still matches the tie
   and recomputes otherwise, reporting the count on the console rather than
   mixing two vintages of one sort key in one queue.
+  **The console sees what the public sees, since 2026-08-04** — `ReviewTie` is now
+  `MoneyTie` plus the console's own fields (id/src/dst/pspId/mpName/club/period/links),
+  and `getVerificationData.ts` fills it through the SAME `mapLinkedToTie()` the ledger
+  and the case file use. It used to lift a narrower projection off the identical edge,
+  so the person DECIDING a tie saw strictly less evidence than a member of the public
+  reading `/penize/[pspId]`: no flags, no analyst note, no owner stake, no prior-term
+  note, no earlier decision. Measured on the live graph: **211/211 pending ties carry
+  `reviewer_note`**, 82 carry `flags`, 10 an `owner_stake_pct`, 1 a `prior_term`.
+  The console's staleness prompt keyed off `periodTo === null && !corroboration`, which
+  matches **0 of 211** ties (all 211 carry a corroboration verdict); it now fires on the
+  `stale-ongoing-in-graph` flag, which **42** ties carry. Machine tokens are never shown
+  raw to a reader on either surface: `features/money/tieFlags.ts` is the ONE dictionary
+  (22 tokens, Czech + English, pinned to the language gate by `tieFlags.test.ts`), and an
+  unmapped token renders VERBATIM and labelled as untranslated rather than hidden.
+  Analyst prose renders through `components/AnalystNote.tsx` on both surfaces — dated and
+  attributed from `corroboration_provenance`, linked to `corroboration_source`, and
+  stating that a pass wrote it and the tie still awaits the human gate. Reviewer prose is
+  NOT withheld by `lib/analysis/language-gate.ts`: measured, that stopword classifier
+  calls **14 of 211** genuinely Czech notes English (registry Czech is full of homographs
+  — "OR", "evidence", "ARES VR"), so the gate binds the copy WE write, not the evidence
+  we show. `/dukazy` still publishes no reviewer notes (`deriveFeed.ts`).
   **Reads are indexed since 2026-07-29.** `loadMoneyLayer()` (ledger + console,
   now the console's ONLY read — it no longer repeats the five scans) is
   `react.cache()`-wrapped, uses `KG_READ_CAP` everywhere and no longer reads

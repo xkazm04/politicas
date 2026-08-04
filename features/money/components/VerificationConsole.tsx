@@ -30,8 +30,11 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { useLocale } from "next-intl";
+import FlagList from "@/features/shared/components/FlagList";
 import { compactCzk, temporalBadge, tieClassOriginInfo } from "../moneyTypes";
+import { hasStaleOngoingFlag, tieFlagInfos } from "../tieFlags";
 import { submitReviewDecision } from "../reviewActions";
+import AnalystNote from "./AnalystNote";
 
 const BADGE_TONE_CLS: Record<string, string> = {
   current: "border-cobalt text-cobalt",
@@ -377,6 +380,23 @@ export default function VerificationConsole({
           zdroj: kg_edge linked_to · props.tie_class / review_tier / review_rank vs. přepočet
         </p>
 
+        {/* Kolik důkazu fronta vlastně nese. Do 2026-08-04 tenhle materiál konzole
+            nečetla vůbec — viděl ho jen čtenář veřejného spisu poslance. */}
+        <p className="mt-6 max-w-3xl text-sm leading-relaxed text-steel">
+          <span className="font-bold text-ink">Důkaz u karty:</span> poznámku analytického
+          průchodu nese <span className="font-bold text-ink">{int(data.stats.withAnalystNote)}</span> z{" "}
+          {int(data.stats.pending)} vazeb, alespoň jeden příznak{" "}
+          <span className="font-bold text-ink">{int(data.stats.flagged)}</span>, a u{" "}
+          <span className="font-bold text-ink">{int(data.stats.staleOngoing)}</span> z nich příznak
+          říká, že období „trvá“ je proti obchodnímu rejstříku zastaralé. Poznámky píšou
+          analytické průchody (ARES VR, dataor.justice.cz), ne lidská kontrola — jsou to
+          vodítka, ne zjištění, a stav vazby nemění. Karta zároveň říká, co graf u vazby
+          nevede, místo aby prázdné místo vydávala za čistý štít.
+        </p>
+        <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-steel">
+          zdroj: kg_edge linked_to · props.reviewer_note / flags / corroboration_source
+        </p>
+
         <p className="mt-6 max-w-3xl text-sm italic leading-relaxed text-steel">
           Fronta je řazená podle pořadí kontroly (batch 005): nejdřív vazby s vlastníkem/jednatelem
           potvrzené v obchodním rejstříku, pak představenstvo, pak dozorčí funkce, nakonec nepotvrzené.
@@ -447,6 +467,15 @@ function ReviewCard({
     { label: "Hlídač firma", href: tie.links.hlidacSubjekt },
     ...(tie.links.hlidacPerson ? [{ label: "Hlídač osoba", href: tie.links.hlidacPerson }] : []),
   ];
+  const flags = tieFlagInfos(tie.flags);
+  const stale = hasStaleOngoingFlag(tie.flags);
+  // Evidence the edge does NOT carry, named out loud (see the block below).
+  const missing = [
+    tie.reviewerNote?.trim() ? null : "poznámku analýzy",
+    tie.corroborationSource ? null : "rejstříkový doklad korroborace",
+    flags.length ? null : "žádné příznaky z průchodů",
+    tie.lastDecision ? null : "žádné dřívější rozhodnutí",
+  ].filter((x): x is string => x != null);
   // "Doplnit" (needs-more) exists specifically to record what additional
   // evidence is needed — without a note it persists no information beyond the
   // bare decision, making the whole workflow functionally a no-op beyond
@@ -526,8 +555,13 @@ function ReviewCard({
           <div className="mt-4 flex flex-wrap gap-2">
             {tie.triangle && <Flag>úplný trojúhelník</Flag>}
             {tie.nearThresholdCount > 0 && <Flag>{int(tie.nearThresholdCount)}× u limitu</Flag>}
+            {/* Zastaralé „trvá“ pozná hrana sama (příznak `stale-ongoing-in-graph`, 42 z
+                211 vazeb). Podmínka, která tady stála do 2026-08-04
+                (`periodTo === null && !corroboration`), neplatila ANI JEDNOU: korroboraci
+                nese všech 211 vazeb, takže výzva mlčela právě u vazeb, pro které vznikla. */}
+            {stale && <Flag>období „trvá“ je proti rejstříku zastaralé — řiďte se daty z ARES VR</Flag>}
             {tie.periodTo === null && !tie.corroboration && (
-              <Flag>období „trvá“ (dle Hlídače) — ověřit v ARES VR</Flag>
+              <Flag>období „trvá“ (dle Hlídače) — vazba ještě neprošla rekonciliací, ověřit v ARES VR</Flag>
             )}
             {tie.corroboration && tie.roleValidFrom && (
               <Flag>
@@ -536,7 +570,55 @@ function ReviewCard({
             )}
             {tie.deMinimis && <Flag>bagatelní objem</Flag>}
             {tie.absenteeManagerLead && <Flag>křížení s Case ② (manažer)</Flag>}
+            {tie.falseEdgeSuspected && <Flag>podezření na chybnou vazbu</Flag>}
+            {tie.ownerStakePct != null && <Flag>podíl {tie.ownerStakePct} %</Flag>}
+            {tie.priorTerm && <Flag>předchozí období: {tie.priorTerm}</Flag>}
           </div>
+
+          {/* Důkaz, který hrana nese — do 2026-08-04 ho viděl čtenář veřejného spisu, ale
+              NE člověk, který o vazbě rozhoduje. Slovník příznaků je sdílený
+              (features/money/tieFlags.ts), nepřeložený token se ukáže doslova. */}
+          <FlagList
+            className="mt-4"
+            heading="příznaky z analytických průchodů"
+            items={flags.map((f) => ({ key: f.token, label: f.labelCs, note: f.noteCs, tone: f.tone }))}
+          />
+
+          {/* Analytická próza jako analytická próza — datovaná, přiřazená k průchodu,
+              s dokladem, a s připomenutím, že vazba pořád čeká na lidskou bránu. */}
+          <AnalystNote tie={tie} en={false} className="mt-4" />
+
+          {/* Dřívější LIDSKÉ rozhodnutí o téhle vazbě (jiné pole než poznámka analýzy —
+              tohle píše jedině ReviewRepository). U „doplnit“ vazba zůstává ve frontě, a
+              recenzent musí vidět, co si o ní minule poznamenal. */}
+          {(tie.reviewNote || tie.lastDecision) && (
+            <div className="mt-4 border-l-2 border-cobalt pl-3">
+              {tie.reviewNote && (
+                <p className="text-sm leading-relaxed text-steel-aa">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-ink">
+                    poznámka z předchozí kontroly:{" "}
+                  </span>
+                  {tie.reviewNote}
+                </p>
+              )}
+              {tie.lastDecision && (
+                <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-steel-aa">
+                  poslední rozhodnutí: {tie.lastDecision}
+                  {tie.lastReviewer ? ` · ${tie.lastReviewer}` : ""}
+                  {tie.lastReviewedAt ? ` · ${tie.lastReviewedAt}` : ""}
+                </p>
+              )}
+            </div>
+          )}
+
+          {/* Co graf u téhle vazby NEVEDE. Prázdný blok by se četl jako „nic tu není
+              k vidění“; tohle říká, které důkazy chybí. */}
+          {missing.length > 0 && (
+            <p className="mt-4 font-mono text-[10px] leading-relaxed uppercase tracking-wider text-steel-aa">
+              graf u vazby nevede: {missing.join(" · ")}
+            </p>
+          )}
+
           <p className="mt-4 font-mono text-[10px] leading-relaxed uppercase tracking-wider text-steel">
             zdroj: {tie.source || "—"}
           </p>
