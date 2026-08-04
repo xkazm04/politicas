@@ -9,10 +9,11 @@
 //
 // PRAVIDLA (táž disciplína jako getVerdictData: brána sama nic neodvozuje)
 //  1. ZNOVUODVOZENÍ JDE PŘES VLASTNICKÝ LOADER. `getMoneyMpDetail`,
-//     `getCompanyDetail` — tytéž funkce, které plní plochu. Žádný vlastní
-//     dotaz, žádná vlastní aritmetika.
-//  2. CLAIM SE RAZÍ TÝMŽ MODULEM JAKO NA PLOŠE (features/money/moneyClaims.ts).
-//     Ověřovat by se jinak dalo jen to, co brána umí sama napsat.
+//     `getCompanyDetail`, `getLeaderboardData` — tytéž funkce, které plní
+//     plochu. Žádný vlastní dotaz, žádná vlastní aritmetika.
+//  2. CLAIM SE RAZÍ TÝMŽ MODULEM JAKO NA PLOŠE (features/money/moneyClaims.ts,
+//     features/civicscore/scoreClaim.ts). Ověřovat by se jinak dalo jen to, co
+//     brána umí sama napsat.
 //  3. DEGRADACE: nedostupný store → `unavailable` (nikdy „figuru neznáme" —
 //     to by byla nepravda), záznam, který dnešní odvození nenese → `gone`.
 //
@@ -34,6 +35,12 @@ import {
   MONEY_METRIC,
 } from "@/features/money/moneyClaims";
 import { isAttributable } from "@/features/money/reachableMoney";
+import { getLeaderboardData } from "@/features/civicscore/getLeaderboardData";
+import {
+  contributionScoreClaim,
+  SCORE_CLAIM_DATASET,
+  SCORE_METRIC,
+} from "@/features/civicscore/scoreClaim";
 
 export type LiveFigureResult =
   /** Metrika není z živé rodiny — o figuře rozhodne rejstřík (nebo „mimo rejstřík"). */
@@ -44,7 +51,7 @@ export type LiveFigureResult =
 
 /** Datasety, jejichž figury se odvozují ze store. Ref nese dataset i metriku,
  *  takže se rodina pozná bez hádání. */
-const LIVE_DATASETS: ReadonlySet<string> = new Set([MONEY_CLAIM_DATASET]);
+const LIVE_DATASETS: ReadonlySet<string> = new Set([MONEY_CLAIM_DATASET, SCORE_CLAIM_DATASET]);
 
 export const isLiveClaim = (parts: ClaimRefParts): boolean => LIVE_DATASETS.has(parts.dataset);
 
@@ -71,6 +78,8 @@ export async function resolveLiveFigure(parts: ClaimRefParts): Promise<LiveFigur
       return resolveMpBucket(subject, "steward");
     case MONEY_METRIC.companyReach:
       return resolveCompanyReach(subject);
+    case SCORE_METRIC.contribution:
+      return resolveContributionScore(subject);
     default:
       return { status: "not-live" };
   }
@@ -130,4 +139,23 @@ async function resolveCompanyReach(subject: string): Promise<LiveFigureResult> {
     status: "ok",
     figure: { claim, kind: "czkCompact", value, issuedAt: `/penize/firma/${detail.ico}` },
   };
+}
+
+// ── Příspěvkový index ───────────────────────────────────────────────────────
+
+/** Kompozit jednoho poslance z KOMOROVÉHO pohledu — týž `react.cache()`-ovaný
+ *  loader, který sází /zebricek, včetně agregované provenience. Číslo se tu
+ *  nepočítá: druhá implementace formule je přesně to, čemu se `CONTRIBUTION_
+ *  FORMULA_REF` brání. */
+async function resolveContributionScore(subject: string): Promise<LiveFigureResult> {
+  const pspId = pspIdFromEntityId(subject);
+  if (pspId === null) return { status: "gone" };
+
+  const data = await getLeaderboardData();
+  if (!data) return { status: "gone" };
+  const entry = data.entries.find((e) => e.pspId === pspId);
+  if (!entry) return { status: "gone" };
+
+  const { claim, value } = contributionScoreClaim(pspId, entry.score, data.provenance);
+  return { status: "ok", figure: { claim, kind: "dec", value, issuedAt: `/poslanec/${pspId}` } };
 }

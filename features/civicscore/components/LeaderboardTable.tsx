@@ -23,10 +23,14 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { ArrowUpRight, FileText, Gavel, Rows3, ShieldCheck, Swords } from "lucide-react";
 import type { ClubFacet, LeaderboardData, LeaderboardListEntry } from "../getLeaderboardData";
 import { useFormat } from "@/lib/i18n/useFormat";
+import CitableNumber from "@/lib/claims/CitableNumber";
+import type { Locale } from "@/lib/i18n/config";
+import { contributionScoreClaim } from "../scoreClaim";
+import type { ContributionProvenance } from "../provenance";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { COBALT, INK, OCHRE, SIGNAL, STEEL } from "@/features/landing/palette";
 import { workhorseFlavourCopy, type WorkhorseFlavour } from "@/lib/analysis/workhorse-flavour";
@@ -98,6 +102,7 @@ export default function LeaderboardTable({
   entries,
   clubs,
   components,
+  provenance,
   duel,
   onToggleDuel,
   custom = false,
@@ -105,6 +110,10 @@ export default function LeaderboardTable({
   entries: LeaderboardListEntry[];
   clubs: ClubFacet[];
   components: LeaderboardData["components"];
+  /** Komorová provenience indexu — jde do CITACE skóre (scoreClaim.ts), aby
+   *  citace nesla vlastní původ (pass + ref formule). Už je na drátě kvůli
+   *  poznámkám pod žebříčkem; nový payload to není. */
+  provenance: ContributionProvenance;
   duel: number[];
   onToggleDuel: (pspId: number) => void;
   /** True = řádky jsou seřazené čtenářovou čočkou (otevřený index, sekce /01),
@@ -116,6 +125,7 @@ export default function LeaderboardTable({
 }) {
   const t = useTranslations("civicscore");
   const tcom = useTranslations("common");
+  const locale = useLocale();
   const f = useFormat();
   const reduceMotion = useReducedMotion();
   // Živé přeřazení pod čočkou: layout animace jen v režimu čočky (oficiální
@@ -363,7 +373,20 @@ export default function LeaderboardTable({
                 </span>
               )}
               {/* Kobaltové skóre = vaše číslo, ne zveřejněné (konvence z landing LiveSpecimen). */}
-              <span className={`w-12 text-right text-lg font-black tabular-nums ${custom ? "text-cobalt" : ""}`}>{f.dec(r.score)}</span>
+              {/* A právě proto se ČTENÁŘOVO číslo NERAZÍ jako citace: pod čočkou
+                  je to jeho vlastní vážení, které v grafu nikde nestojí. Citovat
+                  se dá jen zveřejněný index — ten nese svůj pass i ref formule. */}
+              <span className={`w-12 text-right text-lg font-black tabular-nums ${custom ? "text-cobalt" : ""}`}>
+                {custom ? (
+                  f.dec(r.score)
+                ) : (
+                  <CitableNumber
+                    value={r.score}
+                    claim={contributionScoreClaim(r.pspId, r.score, provenance).claim}
+                    locale={locale as Locale}
+                  />
+                )}
+              </span>
               <span className="flex items-center gap-1.5">
               {/* Sledovat rovnou z řádku. V husté tabulce jen ikona — význam
                   nese přístupná jmenovka, která JMENUJE poslance (dvě stě

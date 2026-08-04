@@ -24,8 +24,13 @@
  *  minting claims: `review_state` is TERMINAL per edge and a rejected tie stays
  *  in the graph, so a figure resting on one had to be able to say so. Collapsing
  *  it into `pending` would have published a refused claim as merely unchecked.
+ *  `ungated` joined it for the contribution index: a deterministic re-derivation
+ *  passes through NO human gate, and printing „awaiting review" beside it would
+ *  promise a review nobody is preparing. It is the /zdroj vocabulary's own
+ *  `ungated`, made expressible for a figure.
+ *
  *  Only `verified` ever emits ClaimReview — the gate below is unchanged. */
-export type ClaimReviewStatus = "verified" | "pending" | "rejected";
+export type ClaimReviewStatus = "verified" | "pending" | "rejected" | "ungated";
 
 /** A machine-readable citation for one rendered figure. */
 export interface Claim {

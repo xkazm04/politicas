@@ -26,6 +26,7 @@ import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { COMPONENT_FILL } from "@/features/civicscore/components/LeaderboardTable";
 import { storedRefLabel } from "@/features/civicscore/provenance";
+import { contributionScoreClaim } from "@/features/civicscore/scoreClaim";
 import LowScoreReasonBadge from "@/features/profile/components/LowScoreReasonBadge";
 import TenureNote from "@/features/profile/components/TenureNote";
 import TenureTrendGate from "@/features/profile/components/TenureTrendGate";
@@ -176,8 +177,13 @@ export default function ProfilePage({ data }: { data: ProfileData }) {
               </div>
             </div>
             <div className="text-right">
+              {/* Vlajkové číslo platformy je CITACE: nese vlastní adresu, pass
+                  grafu i ref formule (features/civicscore/scoreClaim.ts), takže
+                  se dá ověřit na /overeni — a přepočet se pozná i tehdy, když
+                  hodnota náhodou vyjde stejně. */}
               <AnimatedScore
                 value={person.score}
+                claim={contributionScoreClaim(person.pspId, person.score, data.provenance).claim}
                 format={f.dec}
                 className="text-[7rem] font-black leading-[0.85] tracking-tighter sm:text-[8rem]"
               />

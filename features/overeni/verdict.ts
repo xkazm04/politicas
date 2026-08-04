@@ -223,7 +223,13 @@ export function verdictGate(v: GateVerdict): GateStanding | null {
   if (v.kind === "unknown") return null;
   if (v.family === "figura") {
     // Figura nese ClaimReviewStatus; chybějící stav je „pending" (claim.ts).
-    return { kind: "gated", info: gateStatusInfo(claimStatus(v.figure.claim)) };
+    // `ungated` je ale JINÁ otázka, ne jiná odpověď: deterministické odvození
+    // (příspěvkový index) lidskou branou neprochází a věta o čekání na kontrolu
+    // by slibovala kontrolu, kterou nikdo nechystá — táž distinkce, jakou už
+    // dělá účtenka u negated relací.
+    const status = claimStatus(v.figure.claim);
+    if (status === "ungated") return { kind: "ungated" };
+    return { kind: "gated", info: gateStatusInfo(status) };
   }
   if (v.family === "zdroj") {
     const gate = v.receipt.kind === "edge" ? v.receipt.gate : null;

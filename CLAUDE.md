@@ -461,6 +461,32 @@ Route map (politicas.md roadmap execution, sample data):
   Found while verifying the guard: `kg-contribution-ingest.ts` could not run at all on
   the live graph — `Math.max(0, ...nodes.map(…))` spread ~153 700 arguments and threw
   `Maximum call stack size exceeded` before reading a score. Now a `reduce`.
+  **The score is citable (2026-08-04).** `features/civicscore/**` held ZERO claim
+  refs — the platform's flagship number was the one number nobody could cite, while
+  being the best-provenanced thing in the store (207/207 nodes carry
+  `contribution_provenance`, the code declares `CONTRIBUTION_FORMULA_REF`, /metodika
+  prints the formula). `scoreClaim.ts` (pure) mints ONE claim on the COMPOSITE —
+  `claim:psp.cz — příspěvkový index:prispevkovy-index:psp:person:<pspId>` — rendered
+  on every /zebricek row and on the /poslanec header, and re-derived at /overeni
+  through `getLeaderboardData()`, the loader that owns it. Four decisions worth
+  keeping: (1) the six components are NOT minted — six more addresses would dilute
+  the one people actually quote; (2) the pass and formula ref ride INSIDE the claim
+  as `derivation` (`contribution-committee-dedupe@42`) taken from the CHAMBER-WIDE
+  aggregate, so a `mixed` or `absent` store mints NO basis rather than picking one —
+  and a pasted claim whose basis differs from today's answers **`moved`, naming both
+  passes**, even when the number is identical (this is the pass-42 case at the
+  citation layer); (3) the index is `ungated`, a new `ClaimReviewStatus` — it is a
+  deterministic recomputation and „čeká na kontrolu" would promise a review nobody
+  is preparing; (4) the LENS score is deliberately not minted: under a reader's own
+  weights the number stands nowhere in the graph. `AnimatedScore` grew an optional
+  `claim` (attributes carry the TARGET value, never an animation frame).
+  Verified on the live store: Karel Haas (6751) verifies at **96,8** from a bare ref
+  and a pasted element; −0,7 answers `moved/value`; the same 96,8 stamped
+  `contribution@11` answers `moved/basis`; an MP outside the chamber answers
+  `zaznam-nenalezen`. Measured cost: **zero new wire fields** (the claim is built
+  client-side from `pspId` + `score` + the provenance aggregate, all already on the
+  wire); the HTML attributes over all 207 rows are **81 710 B raw / 2 534 B
+  gzipped**, and warm `buildLeaderboard()` is unchanged (194 ms).
   **Ties are ties (2026-07-29)** — ranks are now COMPETITION ranks (1, 2, 2, 4):
   a rank is one more than the number of MPs who score higher, so it is shared on
   an identical score and the red top-3 can no longer be won by Czech name
@@ -803,6 +829,12 @@ Route map (politicas.md roadmap execution, sample data):
   a ref the finite registry does not know; a store that is down answers
   `unavailable`, never „the registry does not know this figure", and a live address
   today's graph no longer carries answers `zaznam-nenalezen`, not `mimo-rejstrik`.
+  **The contribution score joined the SAME mechanism** (`features/civicscore/
+  scoreClaim.ts`) — one value-claim family, not two: same ref grammar, same
+  `figuraVerdict`, same derivation comparison. Its claim is `ungated` rather than
+  `pending`, and the gate renders that with the receipt vocabulary's own
+  „deterministické odvození — lidskou branou neprochází" instead of promising a
+  human review of an arithmetic result.
   **The verdict now also compares the DERIVATION** (`data-claim-derivation`, new and
   optional on `Claim`): equal value + different basis is `moved`, not `verified` —
   a match between two different formulas is a coincidence, and this is exactly the

@@ -251,6 +251,7 @@ export default function CivicScorePage({ data }: { data: LeaderboardListData | n
                   entries={entries}
                   clubs={data.clubs}
                   components={components}
+                  provenance={data.provenance}
                   duel={duel}
                   onToggleDuel={toggleDuel}
                   custom={custom}

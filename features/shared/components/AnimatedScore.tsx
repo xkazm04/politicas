@@ -6,20 +6,29 @@
  * Animuje přechod mezi hodnotami (0,5 s ease-out); formát dodává volající
  * (výchozí je česká desetinná čárka). Respektuje reduced motion tím, že
  * animace je čistě číselná a krátká — žádný pohyb geometrie.
+ *
+ * S `claim` se z čísla stává CITACE: vysází se jako `<data>` s data-claim-*
+ * atributy z jediného emitoru (lib/claims/claim.ts), stejnými, jaké vydává
+ * <CitableNumber>. Atributy nesou CÍLOVOU hodnotu, ne mezikrok animace —
+ * strojová hodnota se nesmí měnit s průběhem přechodu.
  */
 
 import { useEffect, useRef, useState } from "react";
 import { animate } from "framer-motion";
 import { czech } from "@/lib/format";
+import { claimDataAttributes, type Claim } from "@/lib/claims/claim";
 
 export default function AnimatedScore({
   value,
   className = "",
   format = czech,
+  claim,
 }: {
   value: number;
   className?: string;
   format?: (n: number) => string;
+  /** Citace figury; bez ní se sází prostý <span> jako dřív. */
+  claim?: Claim;
 }) {
   const [display, setDisplay] = useState(Number.isFinite(value) ? value : 0);
   const prev = useRef(Number.isFinite(value) ? value : 0);
@@ -38,5 +47,18 @@ export default function AnimatedScore({
     prev.current = value;
     return () => controls.stop();
   }, [value]);
+  // Nefinální hodnota nesvědčí (týž zákaz jako v CitableNumber): pomlčka ani
+  // podržená poslední hodnota nesmí nést strojové tvrzení.
+  if (claim && Number.isFinite(value)) {
+    return (
+      <data
+        value={String(value)}
+        {...claimDataAttributes(claim, value)}
+        className={`tabular-nums ${className}`}
+      >
+        {format(display)}
+      </data>
+    );
+  }
   return <span className={`tabular-nums ${className}`}>{format(display)}</span>;
 }
