@@ -10,8 +10,9 @@
 //   co_votes_with   → nearest allies (top agreement)
 //   rebels_against  → rebellions against own club
 //   influential_in  → committee/commission seats
-//   linked_to       → money ties (all pending_review; contracts attached only
-//                     where the attribution rule allows — see ProfileMoneyTie)
+//   linked_to       → money ties — read for their EXISTENCE only; the money
+//                     itself comes from getMoneyMpDetail(), the loader /penize
+//                     already owns (see the Peníze block below)
 //   spoke_on        → floor debates, per bill
 //   proposes_amendment → written amendments, per bill
 // The six contribution components + authoritative score come from the person
@@ -37,10 +38,8 @@ import type { ContributionProvenance } from "@/features/civicscore/provenance";
 import { isCommitteeSeat, type CommitteeSeat as ContributionCommitteeSeat } from "@/lib/analysis/contribution";
 import { computeScoreLegibility, type ScoreLegibility } from "@/lib/analysis/score-legibility";
 import { classifyRole, ROLE_WEIGHT } from "@/lib/analysis/kg";
-import { plausibleIsoDateOrNull } from "@/lib/analysis/plausible-date";
-import { resolveTieClass } from "@/features/money/reviewTypes";
-import { CORROBORATIONS } from "@/features/money/moneyTypes";
-import type { Corroboration, ReviewState, TieClass } from "@/features/money/moneyTypes";
+import { getMoneyMpDetail } from "@/features/money/getMpDetail";
+import { emptyProfileMoney, toProfileMoney, type ProfileMoney } from "./profileMoney";
 import {
   deriveCareerSpine,
   type CareerSpine,
@@ -50,15 +49,6 @@ import {
 } from "./careerSpine";
 
 const num = (x: unknown): number => (typeof x === "number" && Number.isFinite(x) ? x : 0);
-
-/** Per-company `supplies` read cap for the Peníze section. Only attributable
- *  (owner-operator / manager) companies are read at all; the biggest of them
- *  holds 2 387 contracts, so this sits comfortably above the corpus while still
- *  bounding one page. Hitting it flips `contractsTruncated` and the section then
- *  renders the CZK figure as a floor rather than a total. */
-const PROFILE_SUPPLIES_CAP = 5_000;
-/** Contract lines shown per tie; the remainder is counted, never dropped. */
-const PROFILE_CONTRACT_LINES = 5;
 
 export interface CoVoter {
   pspId: number;
@@ -129,69 +119,10 @@ export interface RapporteurBill {
   scopes: string[];
 }
 
-/** One reachable contract line under an attributable tie. */
-export interface ProfileContractLine {
-  id: string;
-  title: string;
-  amountCzk: number | null;
-  /** `signedOn` ONLY when it is a date that could have happened — see
-   *  `lib/analysis/plausible-date.ts`. A garbage date is never repaired. */
-  signedOn: string | null;
-  /** The row carries a `signedOn` the corpus cannot support; the date is
-   *  withheld and the row says so rather than vanishing. */
-  dateUnusable: boolean;
-}
-
-/**
- * One `linked_to` tie as the SPIS renders it.
- *
- * Money is attached ONLY where /penize's attribution rule allows it to be read
- * as the politician's: `owner-operator` and `manager`. A `steward` tie is a
- * supervisory seat on a public body — that body's contracts are its own public
- * activity (457,3 mld Kč of the reachable total, ~91 %), and printing them on a
- * person's file is how a hospital's budget becomes an accusation. Steward rows
- * therefore carry the seat, the period and the registry links, and NO CZK.
- */
-export interface ProfileMoneyTie {
-  companyId: string;
-  ico: string;
-  company: string;
-  role: string;
-  tieClass: TieClass;
-  reviewState: ReviewState;
-  /** Verbatim provenance string from the edge — cited, never re-worded. */
-  source: string;
-  corroboration: Corroboration | null;
-  temporalStatus: string | null;
-  roleValidFrom: string | null;
-  roleValidTo: string | null;
-  /** null on a steward tie: the money is not this person's to report. */
-  contractCount: number | null;
-  contractCzk: number | null;
-  /** The tie's biggest contracts by amount (the rest are counted, not dropped). */
-  topContracts: ProfileContractLine[];
-  contractsMoreCount: number;
-  /** `supplies` came back exactly at the read cap → the CZK figure is a floor. */
-  contractsTruncated: boolean;
-}
-
-/** The Peníze section's whole payload. Empty `ties` is a real answer, not a gap. */
-export interface ProfileMoney {
-  ties: ProfileMoneyTie[];
-  /** Σ contracts of the firms this MP owns or runs — the only sum the file claims. */
-  attributableCzk: number;
-  attributableContracts: number;
-  /** How many of the ties are steward seats whose money is deliberately not summed. */
-  stewardTies: number;
-  pendingTies: number;
-  verifiedTies: number;
-  /** Contract rows whose signature date the corpus cannot support (kept, dated-suppressed). */
-  unusableDates: number;
-  /** True when any tie hit the per-company read cap → every CZK figure is a floor. */
-  anyTruncated: boolean;
-  /** kg pass that materialized the money layer — cited on-page. */
-  pass: number | null;
-}
+// The Peníze section's payload lives in ./profileMoney.ts — a PURE projection of
+// `MoneyMpDetail`, the object /penize/[pspId]'s own loader returns. It is re-exported
+// here because the page and its components import the profile's shapes from one module.
+export type { ProfileContractLine, ProfileMoney, ProfileMoneyTie } from "./profileMoney";
 
 /**
  * One bill this MP engaged with beyond signing it — a floor debate or a written
@@ -665,121 +596,40 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
     const amendmentBillCount = amendmentBills.reduce((s, b) => s + b.count, 0);
 
     // ── Peníze ────────────────────────────────────────────────────────────────
-    // The `linked_to` edges came back in the SAME neighbour read as everything
-    // else above (one indexed query, not a scan of the 211-row relation), and the
-    // company nodes are their far end — so the person side of the money section
-    // costs this loader nothing at all.
+    // ONE money on the platform. The spis used to read `supplies` itself and add
+    // the amounts up per TIE — a fourth implementation of "reachable public money"
+    // beside `reachableMoney.ts`, and a measurably different one: it took a
+    // contract's amount as `supplies.weight ?? contract.props.amount` where the
+    // money layer takes the weight ONLY, and it summed per tie rather than per
+    // company. Measured on the live store, the spis and /penize printed different
+    // numbers for the same MP (Hladík 6881: 23 790 791 881,98 vs 23 570 594 009,66 Kč).
     //
-    // Contracts are a second, per-company indexed read, and ONLY for the ties
-    // whose class the attribution rule lets us attribute (owner-operator /
-    // manager: 58 of 211 ties, 10 653 `supplies` rows in total). Steward seats are
-    // deliberately not read: their money is the institution's — the single biggest
-    // tied "company" is a regional hospital with 17 040 contracts — so reading it
-    // would cost the most and buy a number the page must not print anyway.
-    const moneyEdges = edgesByRel("linked_to").filter((e) => e.src === selfId);
+    // So the figure now comes from `getMoneyMpDetail()` — the loader /penize/[pspId]
+    // itself uses, indexed (`loadMpMoneySlice`), capped at `KG_READ_CAP` like every
+    // other read, and already carrying `reachableMoney()`'s result plus each tie's
+    // permanent `receiptRef`. `toProfileMoney()` is a pure projection of it; no CZK
+    // is added up anywhere in features/profile.
+    //
+    // Cost, measured on the live store (cold, 3 rounds): the shared read costs
+    // 556–896 ms for MPs carrying ties, against 0–296 ms for the old attributable-only
+    // read — because the shared slice also reads the STEWARD companies' contracts
+    // (which /penize prints as institutional money and the spis deliberately does
+    // not attribute to the person). It is called ONLY when this MP actually has
+    // `linked_to` edges — the 144 of 207 MPs without one pay nothing at all.
+    //
+    // The edge read also tells the two empty answers apart. `getMoneyMpDetail` returns
+    // null both when the money layer cannot be read AND when none of the MP's ties
+    // resolves to a company node; only the FIRST is a failure, and rendering it as
+    // „no ties" would manufacture a fact about a person out of an outage. So the
+    // profile counts the ties whose company the graph actually carries — the same
+    // drop-never-guess rule the money loader applies — and calls a null against a
+    // non-empty set what it is: unavailable.
     const companyById = new Map(incidentNodes.filter((n) => n.kind === "company").map((c) => [c.id, c]));
-    const ties: ProfileMoneyTie[] = [];
-    let attributableCzk = 0;
-    let attributableContracts = 0;
-    let unusableDates = 0;
-    let anyTruncated = false;
-    let moneyPass: number | null = null;
-    for (const e of moneyEdges) {
-      const comp = companyById.get(e.dst);
-      if (!comp) continue; // unresolved company → drop, never guess
-      const props = (e.props ?? {}) as Record<string, unknown>;
-      const role = typeof props.role === "string" ? props.role : "";
-      // A class a PERSON recorded on the edge outranks the substring heuristic — the same
-      // precedence /penize applies (resolveTieClass). Reading it here is what keeps the
-      // profile from contradicting the money surfaces: 5 of 211 ties disagree, and for one
-      // of them the heuristic calls a homeowners' association an MP's firm.
-      const tieClass = resolveTieClass(props.tie_class, role, comp.label).tieClass;
-      const rawState = props.review_state ?? props.state;
-      const reviewState: ReviewState =
-        rawState === "verified" ? "verified" : rawState === "rejected" ? "rejected" : "pending_review";
-      moneyPass ??= nullableNum((e.provenance as Record<string, unknown> | undefined)?.pass);
-
-      let contractCount: number | null = null;
-      let contractCzk: number | null = null;
-      let topContracts: ProfileContractLine[] = [];
-      let contractsMoreCount = 0;
-      let contractsTruncated = false;
-      if (tieClass !== "steward") {
-        const supplied = await store.kgNeighbours({
-          id: comp.id,
-          rels: ["supplies"],
-          limit: PROFILE_SUPPLIES_CAP,
-        });
-        contractsTruncated = supplied.edges.length >= PROFILE_SUPPLIES_CAP;
-        anyTruncated ||= contractsTruncated;
-        const nodeById = new Map(supplied.nodes.map((n) => [n.id, n]));
-        const lines: ProfileContractLine[] = [];
-        let czk = 0;
-        for (const se of supplied.edges) {
-          const node = nodeById.get(se.dst);
-          const amountRaw = typeof se.weight === "number" ? se.weight : node?.props?.amount;
-          const amountCzk =
-            typeof amountRaw === "number" && Number.isFinite(amountRaw) && amountRaw > 0 ? amountRaw : null;
-          czk += amountCzk ?? 0;
-          const rawSignedOn = node?.props?.signedOn;
-          const signedOn = plausibleIsoDateOrNull(typeof rawSignedOn === "string" ? rawSignedOn : null, seatsAsOf);
-          const dateUnusable = typeof rawSignedOn === "string" && rawSignedOn !== "" && signedOn === null;
-          if (dateUnusable) unusableDates += 1;
-          lines.push({ id: se.dst, title: node?.label ?? se.dst, amountCzk, signedOn, dateUnusable });
-        }
-        // Biggest first; the id breaks the (dense) amount ties so the page is
-        // reproducible build-to-build — `kgNeighbours` orders by weight, which is
-        // not a total order (see lib/db/kgOrder.ts).
-        lines.sort((a, b) => (b.amountCzk ?? 0) - (a.amountCzk ?? 0) || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
-        contractCount = supplied.edges.length;
-        contractCzk = czk;
-        topContracts = lines.slice(0, PROFILE_CONTRACT_LINES);
-        contractsMoreCount = Math.max(0, lines.length - topContracts.length);
-        attributableCzk += czk;
-        attributableContracts += supplied.edges.length;
-      }
-
-      ties.push({
-        companyId: comp.id,
-        ico: String((comp.props as Record<string, unknown> | undefined)?.ico ?? comp.id.split(":").pop() ?? ""),
-        company: comp.label,
-        role,
-        tieClass,
-        reviewState,
-        source: typeof props.source === "string" ? props.source : "",
-        corroboration: CORROBORATIONS.includes(props.corroboration as Corroboration)
-          ? (props.corroboration as Corroboration)
-          : null,
-        temporalStatus: typeof props.temporal_status === "string" ? props.temporal_status : null,
-        roleValidFrom: typeof props.role_valid_from === "string" ? props.role_valid_from : null,
-        roleValidTo: typeof props.role_valid_to === "string" ? props.role_valid_to : null,
-        contractCount,
-        contractCzk,
-        topContracts,
-        contractsMoreCount,
-        contractsTruncated,
-      });
-    }
-    // Attributable ties first (that is where the file's own claim lives), then by
-    // reachable money, then by company id so the order never depends on the db.
-    const CLASS_ORDER: Record<TieClass, number> = { "owner-operator": 0, manager: 1, steward: 2 };
-    ties.sort(
-      (a, b) =>
-        CLASS_ORDER[a.tieClass] - CLASS_ORDER[b.tieClass] ||
-        (b.contractCzk ?? 0) - (a.contractCzk ?? 0) ||
-        (a.companyId < b.companyId ? -1 : a.companyId > b.companyId ? 1 : 0),
-    );
-    const money: ProfileMoney = {
-      ties,
-      attributableCzk,
-      attributableContracts,
-      stewardTies: ties.filter((t) => t.tieClass === "steward").length,
-      pendingTies: ties.filter((t) => t.reviewState === "pending_review").length,
-      verifiedTies: ties.filter((t) => t.reviewState === "verified").length,
-      unusableDates,
-      anyTruncated,
-      pass: moneyPass,
-    };
+    const resolvableTies = edgesByRel("linked_to").filter((e) => e.src === selfId && companyById.has(e.dst));
+    const moneyDetail = resolvableTies.length > 0 ? await getMoneyMpDetail(pspId) : null;
+    const money: ProfileMoney = moneyDetail
+      ? toProfileMoney(moneyDetail, seatsAsOf)
+      : emptyProfileMoney(resolvableTies.length > 0);
 
     // Score legibility — derived entirely from rows already in memory: the ranked
     // chamber `entries` (which this page computes and then throws away except for

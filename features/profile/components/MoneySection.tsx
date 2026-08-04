@@ -9,18 +9,24 @@
  *
  * ── PRAVIDLA, KTERÁ SE NESMÍ PORUŠIT ────────────────────────────────────────
  *
- * 1. NIC TU NENÍ HOTOVÝ NÁLEZ. Všech 211 vazeb `linked_to` v grafu je
- *    `pending_review` — žádnou zatím neschválil člověk. Každý řádek to říká
- *    sám za sebe, ne jen poznámka pod sekcí.
+ * 1. NIC TU NENÍ HOTOVÝ NÁLEZ. Stav brány nese KAŽDÝ řádek sám za sebe, ne jen
+ *    poznámka pod sekcí — konzole /penize/kontrola umí zapsat „ověřeno" i
+ *    „zamítnuto", takže věta „všechny vazby čekají" už není konstanta (měřeno
+ *    2026-08-04: 211 z 211 hran `linked_to` je pořád `pending_review`, ale
+ *    stránka to čte z dat, ne z komentáře).
  * 2. PENÍZE JEN TAM, KAM SE SMÍ PŘISOUDIT (pravidlo P29, /penize). Dozorčí či
  *    správní funkce ve veřejné instituci (`steward`) není poslancův byznys:
  *    zakázky té nemocnice nebo univerzity jsou její vlastní veřejná činnost.
- *    Loader k takové vazbě žádnou částku ani nenačte a sekce ji nesečte —
- *    místo čísla stojí u řádku věta, proč tam číslo není.
+ *    Sdílený loader tu částku načte (a /penize ji tiskne jako peníze
+ *    instituce), spis ji ale poslanci NEPŘISUZUJE — místo čísla stojí u řádku
+ *    věta, proč tam číslo není, a odkaz na spis peněz, kde ta část je.
  * 3. DATUM, KTERÉ NEMOHLO NASTAT, SE NEUKÁŽE A NEOPRAVÍ. Korpus nese podpisy
  *    v letech 0002, 1970, 2027 i 3062. Řádek zůstane (smlouva a částka jsou
  *    skutečné), datum se potlačí a sekce ten počet přizná.
- * 4. KAŽDÉ ČÍSLO CITUJE ZDROJ a prochází `lib/format.ts`.
+ * 4. KAŽDÉ ČÍSLO CITUJE ZDROJ a prochází `lib/format.ts`. Součet navíc nese
+ *    vlastní ADRESU (`mpBucketClaim`) a každá vazba účtenku (`receiptRef`),
+ *    takže se dá ověřit na /overeni a otevřít na /zdroj — a hodnota přichází
+ *    ze `reachableMoney()`, jediné definice dosažitelných peněz.
  *
  * Sekce se vykresluje VŽDY, i bez jediné vazby — nepřítomnost nálezu je taky
  * nález a tiché vynechání by se od skrytého nálezu nedalo odlišit.
@@ -33,7 +39,10 @@ import { useFormat } from "@/lib/i18n/useFormat";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { temporalBadge, tieClassInfo } from "@/features/money/moneyTypes";
-import type { ProfileMoney, ProfileMoneyTie } from "../getProfileData";
+import { claimRefPath } from "@/features/shared/provenance/claimRef";
+import CitableNumber from "@/lib/claims/CitableNumber";
+import type { Locale } from "@/lib/i18n/config";
+import type { ProfileMoney, ProfileMoneyTie } from "../profileMoney";
 
 const CLASS_TONE_CLS: Record<string, string> = {
   signal: "border-signal text-signal",
@@ -61,7 +70,11 @@ export default function MoneySection({
   const locale = useLocale();
   const en = locale === "en";
 
-  const attributableTies = money.ties.filter((tie) => tie.tieClass !== "steward");
+  // Žádná aritmetika na ploše: hodnota i popisky jdou z `reachableMoney()`,
+  // které spočítal loader /penize, a figura z něj nese vlastní claim.
+  const figure = money.attributableFigure;
+  const bucket = money.reach?.attributable ?? null;
+  const floor = money.reach?.coverage.isFloor ?? false;
 
   return (
     <section id="penize" className="mt-16 border-t-4 border-ink pt-10">
@@ -71,7 +84,14 @@ export default function MoneySection({
         aside={<SourceNote>{t("moneyAside")}</SourceNote>}
       />
 
-      {money.ties.length === 0 ? (
+      {money.unavailable ? (
+        /* Vazby poslanec MÁ, ale peněžní vrstvu se nepodařilo přečíst. Vykreslit
+           tady „žádné vazby" by z našeho výpadku udělalo tvrzení o člověku. */
+        <div className="mt-8 border-2 border-dashed border-ochre p-8">
+          <p className="text-lg font-black uppercase tracking-tight">{t("moneyUnavailableTitle")}</p>
+          <p className="mt-2 max-w-3xl text-[15px] leading-relaxed text-steel">{t("moneyUnavailableBody")}</p>
+        </div>
+      ) : money.ties.length === 0 ? (
         <div className="mt-8 border-2 border-dashed border-hairline p-8">
           <p className="text-lg font-black uppercase tracking-tight">{t("moneyEmptyTitle")}</p>
           <p className="mt-2 max-w-3xl text-[15px] leading-relaxed text-steel">{t("moneyEmptyBody")}</p>
@@ -92,23 +112,41 @@ export default function MoneySection({
               <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
                 {t("moneyAttributableLabel")}
               </p>
-              {attributableTies.length === 0 ? (
+              {figure === null || bucket === null || bucket.companies === 0 ? (
                 <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-steel">
                   {t("moneyNoAttributable")}
                 </p>
               ) : (
                 <>
+                  {/* Číslo, které se opisuje do článku, nese vlastní adresu:
+                      `mpBucketClaim` razí týž claim, jaký nad TOUTÉŽ hodnotou
+                      vydává /penize/[pspId], takže ho /overeni znovu odvodí
+                      stejnou cestou. Předpona „nejméně" zůstává MIMO claim —
+                      dolní mez je vlastnost korpusu, ne strojové hodnoty. */}
                   <p className="mt-2 text-4xl font-black tabular-nums text-signal">
-                    {money.anyTruncated ? `${t("moneyAtLeast")} ` : ""}
-                    {f.czk(money.attributableCzk)}
+                    {floor ? `${t("moneyAtLeast")} ` : ""}
+                    <CitableNumber
+                      value={figure.value}
+                      claim={figure.claim}
+                      locale={locale as Locale}
+                      kind="czk"
+                    />
                   </p>
                   <p className="mt-1 font-mono text-[11px] uppercase tracking-wider text-steel">
                     {t("moneyContractsOf", {
-                      contracts: money.attributableContracts,
-                      contractsFmt: f.int(money.attributableContracts),
-                      firms: attributableTies.length,
-                      firmsFmt: f.int(attributableTies.length),
+                      contracts: bucket.contractCount,
+                      contractsFmt: f.int(bucket.contractCount),
+                      firms: bucket.companies,
+                      firmsFmt: f.int(bucket.companies),
                     })}
+                  </p>
+                  <p className="mt-2">
+                    <Link
+                      href={`/overeni?ref=${encodeURIComponent(figure.claim.ref)}`}
+                      className="font-mono text-[10px] font-bold uppercase tracking-wider text-cobalt hover:underline"
+                    >
+                      {t("moneyVerifyFigure")}
+                    </Link>
                   </p>
                 </>
               )}
@@ -143,9 +181,12 @@ export default function MoneySection({
               {t("moneyUnusableDates", { count: money.unusableDates, countFmt: f.int(money.unusableDates) })}
             </p>
           )}
-          {money.anyTruncated && (
+          {floor && (
             <p className="mt-4 max-w-3xl border-l-4 border-ochre pl-4 text-[13px] leading-relaxed text-steel">
-              {t("moneyTruncated")}
+              {t("moneyTruncated", {
+                cap: f.int(money.reach?.coverage.perCompanyCap ?? 0),
+                firms: f.int(money.reach?.coverage.companiesAtCap ?? 0),
+              })}
             </p>
           )}
 
@@ -178,7 +219,18 @@ function TieRow({ tie, en }: { tie: ProfileMoneyTie; en: boolean }) {
     <article className="border-2 border-ink">
       <div className="flex flex-wrap items-start justify-between gap-3 border-b-2 border-ink bg-paper-strong px-5 py-4">
         <div className="min-w-0">
-          <h3 className="text-lg font-black uppercase leading-tight tracking-tight">{tie.company}</h3>
+          {/* Firma je uzel s vlastní adresou (14 firem je navázaných na víc než
+              jednoho poslance — spis osoby to ukázat neumí, spis firmy ano).
+              Bez platného IČO se odkaz nedomýšlí a zůstane holý nadpis. */}
+          <h3 className="text-lg font-black uppercase leading-tight tracking-tight">
+            {tie.companyHref ? (
+              <Link href={tie.companyHref} className="hover:text-signal">
+                {tie.company}
+              </Link>
+            ) : (
+              tie.company
+            )}
+          </h3>
           <p className="mt-1 font-mono text-[11px] uppercase tracking-wider text-steel">
             {t("moneyIco", { ico: tie.ico })}
             {tie.role ? ` · ${tie.role}` : ""}
@@ -227,14 +279,7 @@ function TieRow({ tie, en }: { tie: ProfileMoneyTie; en: boolean }) {
                   {t("moneyContractsLabel")}
                 </p>
                 <p className="mt-0.5 text-2xl font-black tabular-nums">
-                  {tie.contractCzk != null && tie.contractCzk > 0 ? (
-                    <>
-                      {tie.contractsTruncated ? `${t("moneyAtLeast")} ` : ""}
-                      {f.czk(tie.contractCzk)}
-                    </>
-                  ) : (
-                    "—"
-                  )}
+                  {tie.contractCzk != null && tie.contractCzk > 0 ? f.czk(tie.contractCzk) : "—"}
                 </p>
                 <p className="font-mono text-[10px] uppercase tracking-wider text-steel">
                   {t("moneyContractCount", {
@@ -286,6 +331,27 @@ function TieRow({ tie, en }: { tie: ProfileMoneyTie; en: boolean }) {
             {t("moneyTieSource", { source: tie.source })}
           </p>
         )}
+
+        {/* Trvalá adresa TVRZENÍ: účtenka téže hrany, jakou vydává kniha vazeb
+            (`receiptRef` razí `mapLinkedToTie`, jediný stavitel refů v repu) —
+            plus spis firmy, kde je celý dosažitelný řetězec včetně peněz, které
+            spis osoby vědomě nepřisuzuje. */}
+        <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+          <Link
+            href={claimRefPath(tie.receiptRef)}
+            className="font-mono text-[10px] font-bold uppercase tracking-wider text-cobalt hover:underline"
+          >
+            {t("moneyReceiptLink")}
+          </Link>
+          {tie.companyHref && (
+            <Link
+              href={tie.companyHref}
+              className="font-mono text-[10px] font-bold uppercase tracking-wider text-cobalt hover:underline"
+            >
+              {t("moneyCompanyLink")}
+            </Link>
+          )}
+        </p>
       </div>
     </article>
   );

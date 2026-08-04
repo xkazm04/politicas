@@ -69,6 +69,8 @@ const { getLeaderboardData, getLeaderboardListData, buildLeaderboard } = await i
   "../../features/civicscore/getLeaderboardData"
 );
 const { lowScoreReasonCopy } = await import("../analysis/low-score-reason");
+const { mpBucketClaim, MONEY_METRIC } = await import("../../features/money/moneyClaims");
+const { isAttributable } = await import("../../features/money/reachableMoney");
 
 const ALFA = "kg:company:ico:111"; // private supplier of the state → owner-operator tie
 const NEMOCNICE = "kg:company:ico:222"; // public body → steward tie
@@ -1100,9 +1102,19 @@ describe("getProfileData against a seeded graph", () => {
     expect(tie.corroboration).toBe("registry-confirmed");
     expect(tie.contractCount).toBe(2);
     expect(tie.contractCzk).toBe(6_900_000);
-    expect(tie.contractsTruncated).toBe(false);
-    expect(p.money.attributableCzk).toBe(6_900_000);
-    expect(p.money.attributableContracts).toBe(2);
+    // The tie carries its PERMANENT address and its company's case file — the spis
+    // is not a dead end above evidence that has its own pages.
+    expect(decodeClaimRef(tie.receiptRef)).toEqual({
+      kind: "edge",
+      src: "psp:person:100",
+      rel: "linked_to",
+      dst: ALFA,
+    });
+    expect(tie.companyHref).toBe("/penize/firma/00000111");
+    expect(p.money.reach!.attributable.contractCzk).toBe(6_900_000);
+    expect(p.money.reach!.attributable.contractCount).toBe(2);
+    expect(p.money.attributableFigure!.value).toBe(6_900_000);
+    expect(p.money.unavailable).toBe(false);
     expect(p.money.pendingTies).toBe(1);
     expect(p.money.verifiedTies).toBe(0);
     expect(p.money.stewardTies).toBe(0);
@@ -1133,7 +1145,7 @@ describe("getProfileData against a seeded graph", () => {
     expect(steward.contractCount).toBeNull();
     expect(steward.topContracts).toEqual([]);
     expect(p.money.stewardTies).toBe(1);
-    expect(p.money.attributableCzk).toBe(0); // Gama supplies nothing
+    expect(p.money.reach!.attributable.contractCzk).toBe(0); // Gama supplies nothing
     // Review state is rendered as stored — "verified"/"rejected" are not flattened away.
     expect(steward.reviewState).toBe("verified");
     expect(p.money.ties.find((t) => t.company === "Gama s.r.o.")!.reviewState).toBe("rejected");
@@ -1144,7 +1156,39 @@ describe("getProfileData against a seeded graph", () => {
   it("drops a money tie whose company node does not exist rather than guessing", async () => {
     const p = (await withReadinessOff(() => getProfileData(300)))!;
     expect(p.money.ties).toEqual([]);
-    expect(p.money.attributableCzk).toBe(0);
+    expect(p.money.reach).toBeNull();
+    // …and an unresolvable tie is NOT an outage: the section says "no ties", which is
+    // what the graph supports, rather than "the money layer is down".
+    expect(p.money.unavailable).toBe(false);
+  });
+
+  it("prints the SAME attributable money as /penize, from the same claim", async () => {
+    // The spis used to run its own `supplies` read and its own per-TIE sum — a fourth
+    // implementation of reachable money, measurably divergent from /penize on the live
+    // store (Hladík 6881: 23 790 791 881,98 vs 23 570 594 009,66 Kč, because the spis
+    // fell back to `contract.amount` where the money layer takes `supplies.weight`
+    // only). Both surfaces now read ONE loader and mint ONE claim, so a future fork
+    // fails here instead of shipping two numbers about one person.
+    const p = (await withReadinessOff(() => getProfileData(100)))!;
+    const caseFile = (await withReadinessOff(() => getMoneyMpDetail(100)))!;
+    expect(p.money.reach).toEqual(caseFile.money);
+    const spisFigure = p.money.attributableFigure!;
+    const caseFigure = mpBucketClaim(
+      caseFile.pspId,
+      "owned",
+      caseFile.money.attributable,
+      caseFile.ties.filter((t) => isAttributable(t.tieClass)).map((t) => t.reviewState),
+      caseFile.pass,
+    );
+    // Same value AND same address: /overeni re-derives the citation through the very
+    // loader the case file uses, so a ref copied off the spis must resolve there.
+    expect(spisFigure.value).toBe(caseFigure.value);
+    expect(spisFigure.claim).toEqual(caseFigure.claim);
+    expect(spisFigure.claim.metric).toBe(MONEY_METRIC.mpOwned);
+    // Every tie the case file publishes is on the spis, with the same receipt.
+    expect(p.money.ties.map((t) => t.receiptRef).sort()).toEqual(
+      caseFile.ties.map((t) => t.receiptRef).sort(),
+    );
   });
 
   it("returns null for an MP absent from the ranking", async () => {

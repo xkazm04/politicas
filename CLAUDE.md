@@ -205,13 +205,35 @@ Route map (politicas.md roadmap execution, sample data):
   state (all 211 in the graph are), its verbatim provenance string, the ARES-VR
   temporal badge and a deep link to `/penize/<pspId>`. Money obeys /penize's
   **attribution rule and nothing else** — only owner-operator/manager firms are
-  read and summed; a `steward` seat's institutional contracts are never fetched,
-  never summed and the row says why. A contract whose `signedOn` could not have
+  summed; a `steward` seat's institutional contracts are never attributed to the
+  person and the row says why. A contract whose `signedOn` could not have
   happened (the corpus holds 0002 / 1970 / 2027 / 3062 — `lib/analysis/
   plausible-date.ts`) keeps its row and its amount, loses its date, and the
   count of such rows is disclosed; the date is never repaired. The
   absentee-manager lead in the header now carries the `pending_review`
   provenance of its money input instead of standing as a bare accusation.
+  **One money, since 2026-08-04.** The section used to run its OWN `supplies`
+  read (its own 5 000-row cap, its own `weight ?? contract.amount` fallback) and
+  its own per-TIE sum — a FOURTH implementation of reachable money beside
+  `features/money/reachableMoney.ts`, and a measurably divergent one: the spis and
+  /penize printed different numbers for the same MP (**Hladík 6881: 23 790 791 881,98
+  vs 23 570 594 009,66 Kč**; Babiš 6150: 16 511 233,47 vs 16 436 383,47). It now
+  calls **`getMoneyMpDetail()`**, the loader `/penize/[pspId]` itself uses (indexed,
+  `KG_READ_CAP`, `reachableMoney()` already applied), and
+  `features/profile/profileMoney.ts` is a PURE projection of its `MoneyMpDetail` —
+  zero CZK arithmetic anywhere in `features/profile`. The headline figure is minted
+  with the SAME `mpBucketClaim()` the case-file tile uses, so a ref copied off the
+  spis re-derives at /overeni (verified live: `smlouvy-firem-poslance` for 6881
+  answers `ok`, 23 570 594 009,66, `pending`, `kg-pass:10`); every tie row carries
+  its `receiptRef` → `/zdroj/<ref>` and a `/penize/firma/<ičo>` link built through
+  `canonicalIco`. Steward money is READ (it is the same slice) but never attributed:
+  the row keeps its no-CZK rule and points at the two files that do publish it.
+  Measured cost of the shared read: **556–896 ms cold for MPs carrying ties**
+  (against 0–296 ms for the old attributable-only read, because the shared slice
+  also reads steward companies); it is called ONLY when the MP has `linked_to`
+  edges, so **144 of 207 MPs pay nothing**. A null against a non-empty resolvable
+  tie set renders „peněžní vrstvu se nepodařilo přečíst", never „žádné vazby" — an
+  outage must not become a claim about a person.
   **Section numbers are derived from what renders** — the dossier is omitted for
   an MP carrying none, so nothing may hard-code an index. `getProfileData` is
   `react.cache()`-wrapped and reads per-MP edges through the INDEXED
