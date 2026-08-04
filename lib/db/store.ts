@@ -165,10 +165,22 @@ export interface ReviewRepository {
    * Record a human decision on the `linked_to` tie `src → dst` and update its
    * review state accordingly:
    *  - `confirm`     → `props.review_state = "verified"`.
-   *  - `reject` / `needs-more` → the decision + reviewer + note are recorded on
-   *    the edge (`props.last_decision`, `props.last_reviewer`,
-   *    `props.review_note`), but `review_state` is left at `"pending_review"` —
-   *    it is NEVER flipped to `"verified"` by these decisions.
+   *  - `reject`      → `props.review_state = "rejected"` (terminal, D7/batch 004:
+   *    a rejected tie must not be re-served in the pending queue forever).
+   *  - `needs-more`  → `review_state` stays/returns to `"pending_review"`. On an
+   *    already-decided tie this IS the reversal path: the tie goes back into the
+   *    queue and the reversal appends its own row to the audit chain. Neither
+   *    `reject` nor `needs-more` may ever flip `review_state` to `"verified"`.
+   * In every case the decision + reviewer + note are recorded on the edge
+   * (`props.last_decision`, `props.last_reviewer`, `props.last_reviewed_at`,
+   * `props.review_note`) and the pre-flip edge version is archived into
+   * `kg_edge_history`.
+   *
+   * REVERSING a decided tie (prior state `verified`/`rejected`) REQUIRES a note —
+   * it errors with `"reversal requires a note"` and writes nothing at all,
+   * because the reason a published judgement was overturned only survives in the
+   * audit row (`props.review_note` is overwritten by the next decision).
+   *
    * Errors (rather than throwing) when the tie doesn't exist, so callers can
    * render an honest message instead of a stack trace.
    */

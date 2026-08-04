@@ -17,13 +17,19 @@
  * Značka Politicas: důkaz na prvním místě (SourceNote u každého čísla), čeština
  * napřed, barvy jen z tokenů. Data čte server-only getVerificationQueue().
  *
- * D7 (batch 004): a "reject" decision now sets a terminal review_state "rejected"
- * (lib/db/pglite/repositories/review.ts). getVerificationQueue() already excludes
- * rejected ties from the pending queue it returns, same as it excludes verified ones
- * -- so this console, which only ever renders the queue it is given, never sees a
- * rejected tie and needs no rejected-state badge or detail view. Out-of-queue is the
- * whole UI contract here; a dedicated rejected-ties surface (audit history, an undo
- * path) is a real feature but out of this batch's scope.
+ * D7 (batch 004): a "reject" decision sets a terminal review_state "rejected"
+ * (lib/db/pglite/repositories/review.ts), and getVerificationQueue() excludes both
+ * rejected and verified ties from the PENDING queue.
+ *
+ * ROZHODNUTÍ JDE VRÁTIT (2026-08-04). Rozhodnutá vazba se dřív z produktu ztratila
+ * úplně — fronta filtruje na `pending_review`, takže potvrzenou ani zamítnutou vazbu
+ * nešlo znovu vidět, natož opravit. Brána, kterou člověk nemůže opravit, je jednosměrný
+ * zápis, ne brána. Loader teď vrací i `decided` (rozhodnuté vazby s celou historií,
+ * kterou sestavuje `gateFromEdge` — TENTÝŽ kód jako kapsle původu na /zdroj), konzole je
+ * sází do vlastní sekce a nabízí „vrátit ke kontrole": rozhodnutí `needs-more` vrátí
+ * vazbu do fronty a PŘIPÍŠE další záznam do hash-řetězce. Historie se nikdy nepřepisuje
+ * ani nemaže, takže `verifyAuditChain` platí i po vrácení; vrácení proto vyžaduje důvod,
+ * který v řetězci zůstane (poznámka na hraně se dalším rozhodnutím přepíše).
  */
 
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -73,8 +79,28 @@ const DECISION_LABEL: Record<ReviewDecision, string> = {
   reject: "navrženo zamítnout",
 };
 
+/** How a PAST decision reads in the audit history. `needs-more` on an already-decided
+ *  tie is the reversal path (it returns the tie to `pending_review`), so the history
+ *  names it for what it did rather than repeating the raw enum. */
+const DECISION_HISTORY_LABEL: Record<string, string> = {
+  confirm: "potvrzeno",
+  reject: "zamítnuto",
+  "needs-more": "vráceno ke kontrole / vyžádáno doplnění",
+};
+
 /** Per-tie write status — drives the optimistic-then-reconciled UI on each card. */
-type WritePhase = "idle" | "pending" | "done" | "not-configured" | "unauthorized" | "error";
+type WritePhase =
+  | "idle"
+  | "pending"
+  | "done"
+  | "not-configured"
+  | "unauthorized"
+  /** REVIEWER_TOKEN is set but REVIEWER_NAME is not — the server refuses to stamp an
+   *  anonymous row into the audit chain. A misconfiguration, not a failure of the write. */
+  | "misconfigured"
+  /** A reversal of an already-decided tie arrived without a stated reason. */
+  | "reason-required"
+  | "error";
 interface WriteStatus {
   phase: WritePhase;
   message?: string;
@@ -144,6 +170,12 @@ export default function VerificationConsole({
       setWriteStatus((prev) => ({ ...prev, [tie.id]: { phase: "unauthorized" } }));
     } else if (result.status === "not-found") {
       setWriteStatus((prev) => ({ ...prev, [tie.id]: { phase: "error", message: "vazba v grafu nenalezena" } }));
+    } else if (result.status === "misconfigured") {
+      // The write path is wired but the operator has no name — the server refused BEFORE
+      // touching the chain. Its own phase, so it never reads as a network hiccup.
+      setWriteStatus((prev) => ({ ...prev, [tie.id]: { phase: "misconfigured", message: result.message } }));
+    } else if (result.status === "reason-required") {
+      setWriteStatus((prev) => ({ ...prev, [tie.id]: { phase: "reason-required" } }));
     } else {
       setWriteStatus((prev) => ({ ...prev, [tie.id]: { phase: "error", message: result.message } }));
     }
@@ -237,6 +269,25 @@ export default function VerificationConsole({
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
       <Shell>
+        {/* MISCONFIGURATION, said out loud before a write is attempted. The token is set,
+            so the console offers the buttons — but the server will refuse every one of
+            them rather than stamp an anonymous row into the tamper-evident chain. The
+            banner used to be silent about this: the reviewer sentence was simply omitted. */}
+        {writeConfigured && !reviewerName ? (
+          <div className="mb-4 border-l-4 border-signal bg-signal/10 px-4 py-3">
+            <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-ink">
+              zápis zablokovaný — chybí jméno recenzenta
+            </p>
+            <p className="mt-1 max-w-3xl text-sm leading-relaxed text-steel">
+              <span className="font-mono">REVIEWER_TOKEN</span> je nastavený, ale{" "}
+              <span className="font-mono">REVIEWER_NAME</span> ne. Rozhodnutí by do auditní
+              stopy vstoupilo bez identifikovatelného člověka — a řetězec, který neumí říct,
+              KDO rozhodl, není audit, jen log. Server proto každý zápis odmítne dřív, než se
+              cokoli zapíše. Doplňte <span className="font-mono">REVIEWER_NAME</span> do prostředí.
+            </p>
+          </div>
+        ) : null}
+
         {writeConfigured ? (
           // live-write banner — the write path IS wired; reviewer identifies with a shared token.
           <div className="mb-8 flex flex-wrap items-center justify-between gap-4 border-l-4 border-cobalt bg-cobalt/10 px-4 py-3">
@@ -352,6 +403,47 @@ export default function VerificationConsole({
             );
           })}
         </div>
+
+        {/* ROZHODNUTÉ VAZBY. Do 2026-08-04 vazba po rozhodnutí z produktu zmizela: fronta
+            filtruje na `pending_review`, takže potvrzenou ani zamítnutou vazbu nešlo
+            znovu vidět, natož opravit. Brána, kterou člověk nemůže opravit, není brána,
+            ale jednosměrný zápis. Historii sestavuje `gateFromEdge` — tentýž kód, který
+            ji sází na /zdroj, ne druhá kopie. */}
+        <section className="mt-14 border-t-4 border-ink pt-8">
+          <h2 className="text-2xl font-black uppercase tracking-tight">
+            Rozhodnuté vazby<span className="text-signal">.</span>
+          </h2>
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-steel">
+            Vazby, o kterých už člověk rozhodl — potvrzené i zamítnuté. Rozhodnutí jde{" "}
+            <span className="font-bold text-ink">vrátit ke kontrole</span>: vazba se vrátí do
+            fronty a vrácení se PŘIPÍŠE do auditní stopy jako další záznam. Historie se
+            nikdy nepřepisuje ani nemaže — proto vrácení vyžaduje důvod, který v řetězci
+            zůstane (poznámka na hraně se dalším rozhodnutím přepíše, záznam v řetězci ne).
+            Řazeno od nejnovějšího rozhodnutí; v historii je nejnovější záznam nahoře.
+          </p>
+          <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-steel">
+            zdroj: kg_edge linked_to props.review_state · review_audit (hash-řetězec)
+          </p>
+          {data.decided.length === 0 ? (
+            <p className="mt-6 border-2 border-dashed border-hairline p-6 text-sm leading-relaxed text-steel">
+              Zatím žádná vazba není rozhodnutá — všech {int(data.stats.pending)} čeká na
+              lidskou kontrolu. Až první rozhodnutí padne, vazba se objeví tady i s celou
+              svojí historií.
+            </p>
+          ) : (
+            <div className="mt-6 space-y-6">
+              {data.decided.map((tie) => (
+                <DecidedCard
+                  key={tie.id}
+                  tie={tie}
+                  writeConfigured={writeConfigured}
+                  writeStatus={writeStatus[tie.id] ?? { phase: "idle" }}
+                  onRevert={(note) => handleDecide(tie, "needs-more", note)}
+                />
+              ))}
+            </div>
+          )}
+        </section>
 
         {/* Odkud se bere třída a odkud pořadí — obojí je zapsané v grafu a obojí se tady
             čte, ne přepočítává. Kde přepočet nutný byl, říkáme kolikrát a proč. */}
@@ -692,6 +784,121 @@ function ReviewCard({
   );
 }
 
+/**
+ * One ALREADY-DECIDED tie: its current gate state, its full decision history (newest
+ * first, straight from the audit chain via `gateFromEdge`) and the path back into the
+ * queue. Reversal is an APPEND — it writes a new audit row; nothing in the history is
+ * edited or removed, which is what keeps `verifyAuditChain` valid across it.
+ */
+function DecidedCard({
+  tie,
+  writeConfigured,
+  writeStatus,
+  onRevert,
+}: {
+  tie: ReviewTie;
+  writeConfigured: boolean;
+  writeStatus: WriteStatus;
+  onRevert: (note: string) => void;
+}) {
+  const [reason, setReason] = useState("");
+  const busy = writeStatus.phase === "pending" || writeStatus.phase === "done";
+  const history = tie.gate?.audit ?? [];
+  const state = tie.reviewState;
+
+  return (
+    <article className="border-2 border-hairline bg-paper">
+      <div className="flex flex-wrap items-start justify-between gap-3 border-b-2 border-hairline px-5 py-4">
+        <div>
+          <Link
+            href={`/poslanec/${tie.pspId}`}
+            className="text-lg font-black uppercase tracking-tight transition-colors hover:text-signal"
+          >
+            {tie.mpName}
+          </Link>
+          <span className="ml-2 font-mono text-xs text-steel">{tie.club ? `· ${tie.club}` : ""}</span>
+          <p className="mt-1 text-base font-black uppercase tracking-tight text-ink">{tie.company}</p>
+          <p className="mt-0.5 font-mono text-[11px] uppercase tracking-wider text-steel">
+            IČO {tie.ico}
+            {tie.role ? ` · ${tie.role}` : ""}
+          </p>
+        </div>
+        <div className="flex flex-col items-end gap-1.5">
+          <span
+            className={`border-2 px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider ${
+              state === "verified" ? "border-cobalt text-cobalt" : "border-steel text-steel"
+            }`}
+          >
+            {state === "verified" ? "ověřeno" : "zamítnuto"}
+          </span>
+          {tie.gate?.reviewer ? (
+            <span className="font-mono text-[10px] uppercase tracking-widest text-steel">
+              rozhodl {tie.gate.reviewer}
+              {tie.gate.reviewedAt ? ` · ${tie.gate.reviewedAt.slice(0, 10)}` : ""}
+            </span>
+          ) : (
+            <span className="font-mono text-[10px] uppercase tracking-widest text-steel">
+              hrana neuvádí, kdo rozhodl
+            </span>
+          )}
+        </div>
+      </div>
+
+      <div className="px-5 py-4">
+        <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-steel">
+          historie rozhodnutí (nejnovější první)
+        </p>
+        {history.length === 0 ? (
+          <p className="mt-2 text-sm leading-relaxed text-steel">
+            Auditní stopa k téhle vazbě žádný záznam nevede — stav na hraně vznikl mimo
+            konzoli (import nebo dřívější dávka). Nedopočítáváme ho.
+          </p>
+        ) : (
+          <ol className="mt-2 divide-y divide-hairline">
+            {history.map((h, i) => (
+              <li key={`${h.decidedAt}-${i}`} className="py-2">
+                <p className="font-mono text-[11px] uppercase tracking-wider text-ink">
+                  {DECISION_HISTORY_LABEL[h.decision] ?? h.decision} · {h.reviewer} ·{" "}
+                  {h.decidedAt.slice(0, 19).replace("T", " ")}
+                </p>
+                <p className="font-mono text-[10px] uppercase tracking-widest text-steel">
+                  předchozí stav: {h.priorState ?? "žádný (první rozhodnutí)"}
+                </p>
+                {h.note ? <p className="mt-1 text-sm leading-relaxed text-steel">{h.note}</p> : null}
+              </li>
+            ))}
+          </ol>
+        )}
+      </div>
+
+      <div className="flex flex-col gap-2 border-t-2 border-hairline px-5 py-3">
+        <textarea
+          value={reason}
+          onChange={(e) => setReason(e.target.value)}
+          disabled={busy}
+          placeholder="důvod vrácení ke kontrole — povinný, zůstane v auditní stopě"
+          rows={2}
+          className="w-full resize-y border-2 border-hairline bg-paper px-2 py-1.5 font-mono text-xs text-ink outline-none placeholder:text-steel focus:border-cobalt disabled:opacity-50"
+        />
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            disabled={busy || reason.trim().length === 0}
+            onClick={() => onRevert(reason.trim())}
+            className="border-2 border-ochre px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-ink transition-colors hover:bg-ochre disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Vrátit ke kontrole
+          </button>
+          <span className="font-mono text-[10px] uppercase tracking-widest text-steel">
+            vazba se vrátí do fronty · vrácení se připíše do auditní stopy
+          </span>
+          <WriteStatusNote decision="needs-more" writeConfigured={writeConfigured} status={writeStatus} />
+        </div>
+      </div>
+    </article>
+  );
+}
+
 /** Honest, clearly-visible reconciliation of the optimistic decision with the real
  *  write result — a not-configured state and a network/validation error must never
  *  look the same, and neither may look like a successful write. */
@@ -732,6 +939,18 @@ function WriteStatusNote({
       return (
         <span className="ml-1 font-mono text-[10px] font-bold uppercase tracking-widest text-signal">
           neplatný token recenzenta
+        </span>
+      );
+    case "misconfigured":
+      return (
+        <span className="ml-1 font-mono text-[10px] font-bold uppercase tracking-widest text-signal">
+          nezapsáno — chybí REVIEWER_NAME{status.message ? `: ${status.message}` : ""}
+        </span>
+      );
+    case "reason-required":
+      return (
+        <span className="ml-1 font-mono text-[10px] font-bold uppercase tracking-widest text-signal">
+          nezapsáno — vrácení rozhodnutí musí mít důvod v poznámce
         </span>
       );
     case "error":

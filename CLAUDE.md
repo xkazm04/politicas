@@ -186,6 +186,27 @@ Route map (politicas.md roadmap execution, sample data):
   calls **14 of 211** genuinely Czech notes English (registry Czech is full of homographs
   — "OR", "evidence", "ARES VR"), so the gate binds the copy WE write, not the evidence
   we show. `/dukazy` still publishes no reviewer notes (`deriveFeed.ts`).
+  **A review decision is reversible, since 2026-08-04** — a gate a human cannot
+  correct is a one-way write. `getVerificationQueue()` now returns `decided` beside
+  `ties`: verified/rejected ties used to vanish from the product entirely (the queue
+  filters to `pending_review`). Each carries its DECISION HISTORY assembled by
+  `gateFromEdge()` — the provenance capsule's own assembler, reused, not forked — from
+  ONE grouped `listReviewAudit` read per page (0 rows on the live store today).
+  Reversal is `needs-more` on a decided tie: the tie returns to the queue and the
+  reversal APPENDS an audit row, so nothing is rewritten and `verifyAuditChain` still
+  passes across it (pinned in `review.test.ts`). It REQUIRES a reason —
+  `setTieReviewState` returns `"reversal requires a note"` and writes nothing at all
+  (no audit row, no edge update), because the chain is the only place the reason
+  survives (`props.review_note` is overwritten by the next decision). Re-affirming the
+  same state is not a reversal and is unaffected. **`REVIEWER_NAME` is now required
+  with `REVIEWER_TOKEN`**: the action used to stamp the literal string `"reviewer"`
+  when it was unset, so every operator entered the hash chain under one
+  indistinguishable identity; it now fails closed with a distinct `misconfigured`
+  result before any write, and the console renders a blocking banner instead of
+  silently omitting a sentence. `submitReviewDecision` also revalidates `/penize`,
+  `/penize/<pspId>` and `/penize/<pspId>/paket` — `packet.ts` compiles only
+  `reviewState === "verified"` ties, so a confirmation or reversal that stopped at
+  `/penize/kontrola` left the evidence packet asserting a stale set.
   **Reads are indexed since 2026-07-29.** `loadMoneyLayer()` (ledger + console,
   now the console's ONLY read — it no longer repeats the five scans) is
   `react.cache()`-wrapped, uses `KG_READ_CAP` everywhere and no longer reads

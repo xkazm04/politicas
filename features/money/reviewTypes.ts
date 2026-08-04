@@ -34,6 +34,7 @@ import type { ReachableMoney } from "./reachableMoney";
 // here): both modules are erased at runtime, and ONE tie projection is worth more than a
 // tidy import graph — see the ReviewTie doc comment.
 import type { MoneyTie } from "./moneyTypes";
+import type { ReceiptGate } from "@/features/shared/provenance/receipt";
 
 export interface RegistryLinks {
   aresSubject: string; // ARES economic-subject (identity, legal form, active/dissolved)
@@ -71,6 +72,11 @@ export interface ReviewTie extends MoneyTie {
   periodFrom: string | null; // parsed from the source string
   periodTo: string | null; // null = source says "ongoing" (OFTEN STALE — reviewer must check ARES VR)
   links: RegistryLinks;
+  /** Human-gate state + the tie's DECISION HISTORY, newest first — assembled by the one
+   *  assembler the provenance capsule uses (`gateFromEdge`), never a second copy. null
+   *  only for a relation that does not pass through the gate, which `linked_to` always
+   *  does. */
+  gate: ReceiptGate | null;
 }
 
 export interface ReviewStats {
@@ -111,6 +117,10 @@ export interface ReviewStats {
 
 export interface ReviewQueue {
   ties: ReviewTie[]; // pending ties only, ranked by reviewRank ASC (batch-005 review order)
+  /** Ties a human has ALREADY decided (verified/rejected), newest decision first, each
+   *  with its own audit history. They used to disappear from the product entirely — a
+   *  review gate a person cannot inspect or correct is a one-way write, not a gate. */
+  decided: ReviewTie[];
   stats: ReviewStats;
   source: string;
   pass: number;

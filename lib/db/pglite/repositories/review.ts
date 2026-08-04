@@ -45,6 +45,27 @@ export function makeReviewRepo(pg: Pglite): ReviewRepository {
         const props = json(edgeRow.props);
         const priorState = strOrNull((props.review_state ?? props.state) as unknown);
 
+        // confirm → verified; reject → rejected (D7, batch 004: a terminal state so a
+        // rejected tie is not re-served in the pending queue forever); needs-more
+        // legitimately stays — or, on a decided tie, RETURNS to — pending_review ("come
+        // back to this"). Neither reject nor needs-more may ever flip to verified.
+        const nextReviewState =
+          decision === "confirm" ? "verified" : decision === "reject" ? "rejected" : "pending_review";
+
+        // REVERSAL RULE. Overturning an already-decided tie ("verified"/"rejected") into a
+        // DIFFERENT state is the one write on this platform that undoes a human's earlier
+        // published judgement. It must state why, and the reason belongs in the audit row:
+        // the chain is the only place it survives, since `props.review_note` is overwritten
+        // by the next decision. Checked BEFORE the audit insert, so a reasonless reversal
+        // writes NOTHING AT ALL — no audit row, no edge update — rather than leaving a bare
+        // row in the chain. Re-affirming the SAME state (confirm on an already-verified
+        // tie) is not a reversal and is unaffected.
+        const isReversal =
+          (priorState === "verified" || priorState === "rejected") && nextReviewState !== priorState;
+        if (isReversal && !note?.trim()) {
+          return { ok: false, error: "reversal requires a note" };
+        }
+
         // 1) audit row FIRST — the record of the decision must predate the state flip.
         // The row joins the tamper-evident hash chain (lib/db/pglite/ledger.ts): read
         // the current head INSIDE this transaction (PGlite serializes transactions, so
@@ -79,11 +100,8 @@ export function makeReviewRepo(pg: Pglite): ReviewRepository {
           [id, src, LINKED_TO, dst, decision, reviewer, note, decidedAt, priorState, chainPos, prevHash, rowHash],
         );
 
-        // 2) only THEN update the edge. confirm → verified; reject → rejected (D7, batch
-        // 004: a terminal state so a rejected tie is not re-served in the pending queue
-        // forever); needs-more legitimately stays pending_review ("come back to this").
-        // Neither reject nor needs-more may ever flip review_state to verified.
-        const nextReviewState = decision === "confirm" ? "verified" : decision === "reject" ? "rejected" : "pending_review";
+        // 2) only THEN update the edge (`nextReviewState` computed above, before the
+        // reversal gate that needs it).
         const nextProps: Record<string, unknown> = {
           ...props,
           review_state: nextReviewState,

@@ -17,6 +17,7 @@ process.env.KG_READINESS_OFF = "1";
 
 const { open } = await import("../internals");
 const { makeReviewRepo } = await import("./review");
+const { verifyAuditChain } = await import("../ledger");
 const { getVerificationQueue } = await import("../../../../features/money/getVerificationData");
 // D5 (batch 004): REVIEWER_TOKEN/NAME must be set BEFORE this import, same lazy-env-read
 // discipline as PGLITE_PATH above — submitReviewDecision reads process.env at call time,
@@ -279,6 +280,150 @@ describe("a stored tie_class survives the gate and wins at read time", () => {
     const tie = queue!.ties.find((t) => t.src === CLS_SRC && t.dst === CLS_DST)!;
     expect(tie.tieClass).toBe("steward");
     expect(tie.tieClassOrigin).toBe("stored");
+  });
+});
+
+// A review gate a human cannot correct is a one-way write, not a gate (2026-08-04).
+// A decided tie stays reachable (queue.decided) WITH its history, the decision can be
+// reversed through the product, the reversal is an APPEND to the tamper-evident chain,
+// and the chain still verifies afterwards.
+describe("a decision is reversible, and the reversal is itself audited", () => {
+  const REV_SRC = "psp:person:6794";
+  const REV_DST = "kg:company:ico:666";
+  let pg: Awaited<ReturnType<typeof open>>;
+  let repo: ReturnType<typeof makeReviewRepo>;
+
+  /** Every chained row in the store, ascending — the shape verifyAuditChain expects. */
+  async function chainedRows() {
+    const { rows } = await pg.query<Record<string, unknown>>(
+      `select * from review_audit where chain_pos is not null order by chain_pos asc`,
+    );
+    return rows.map((r) => ({
+      id: String(r.id),
+      src: String(r.src),
+      rel: String(r.rel),
+      dst: String(r.dst),
+      decision: String(r.decision),
+      reviewer: String(r.reviewer),
+      note: r.note == null ? null : String(r.note),
+      decidedAt: new Date(r.decided_at as string).toISOString(),
+      priorState: r.prior_state == null ? null : String(r.prior_state),
+      chainPos: Number(r.chain_pos),
+      prevHash: String(r.prev_hash),
+      rowHash: String(r.row_hash),
+    }));
+  }
+
+  beforeAll(async () => {
+    pg = await open();
+    repo = makeReviewRepo(pg);
+    await pg.query(
+      `insert into kg_node (id, kind, label, props, first_seen_pass, provenance)
+       values
+        ($1, 'person', 'Pátý Poslanec', '{}'::jsonb, 1, '{}'::jsonb),
+        ($2, 'company', 'Šestá s.r.o.', $3::jsonb, 1, '{}'::jsonb)`,
+      [REV_SRC, REV_DST, JSON.stringify({ ico: "666" })],
+    );
+    await pg.query(
+      `insert into kg_edge (src, rel, dst, weight, props, provenance)
+       values ($1, 'linked_to', $2, null, $3::jsonb, $4::jsonb)`,
+      [
+        REV_SRC,
+        REV_DST,
+        JSON.stringify({ role: "jednatel", source: "test · 2020-01-01–ongoing", review_state: "pending_review" }),
+        JSON.stringify({ pass: 1 }),
+      ],
+    );
+    // Decide it, so the rest of the block works on a DECIDED tie.
+    await repo.setTieReviewState(REV_SRC, REV_DST, "confirm", "tester", "doklad z ARES VR sedí");
+  });
+
+  it("keeps a decided tie reachable — with its history, newest first", async () => {
+    const queue = await getVerificationQueue();
+    expect(queue!.ties.some((t) => t.src === REV_SRC && t.dst === REV_DST)).toBe(false);
+    const tie = queue!.decided.find((t) => t.src === REV_SRC && t.dst === REV_DST);
+    expect(tie).toBeDefined();
+    expect(tie!.reviewState).toBe("verified");
+    // The history comes from the provenance capsule's own assembler (gateFromEdge).
+    expect(tie!.gate?.status).toBe("verified");
+    expect(tie!.gate?.reviewer).toBe("tester");
+    expect(tie!.gate!.audit.length).toBeGreaterThanOrEqual(1);
+    expect(tie!.gate!.audit[0].decision).toBe("confirm");
+    expect(tie!.gate!.audit[0].priorState).toBe("pending_review");
+    // newest first, and every entry belongs to THIS tie
+    const dates = tie!.gate!.audit.map((a) => a.decidedAt);
+    expect([...dates].sort((a, b) => b.localeCompare(a))).toEqual(dates);
+  });
+
+  it("refuses a reversal with no stated reason — nothing at all is written", async () => {
+    const beforeRows = await chainedRows();
+    const result = await submitReviewDecision({
+      src: REV_SRC,
+      dst: REV_DST,
+      decision: "needs-more",
+      note: "   ",
+      token: "test-token",
+    });
+    expect(result).toEqual({ status: "reason-required" });
+
+    const { rows } = await pg.query<{ props: Record<string, unknown> }>(
+      `select props from kg_edge where src=$1 and rel='linked_to' and dst=$2`,
+      [REV_SRC, REV_DST],
+    );
+    expect(rows[0].props.review_state).toBe("verified"); // untouched
+    expect(await chainedRows()).toHaveLength(beforeRows.length); // no bare row in the chain
+  });
+
+  it("reverses the decision, appends an audit row, and returns the tie to the queue", async () => {
+    const before = await chainedRows();
+    const result = await submitReviewDecision({
+      src: REV_SRC,
+      dst: REV_DST,
+      decision: "needs-more",
+      note: "rejstřík mezitím zapsal konec role — vracím ke kontrole",
+      token: "test-token",
+    });
+    expect(result).toMatchObject({ status: "ok", reviewState: "pending_review", reviewer: "tester" });
+
+    const audit = await repo.listReviewAudit({ src: REV_SRC, dst: REV_DST });
+    expect(audit[0].decision).toBe("needs-more");
+    // THE point of the reversal record: it says what it overturned.
+    expect(audit[0].priorState).toBe("verified");
+    expect(audit[0].note).toContain("vracím ke kontrole");
+
+    const after = await chainedRows();
+    expect(after).toHaveLength(before.length + 1); // append-only: nothing rewritten
+    expect(after.slice(0, before.length)).toEqual(before);
+
+    const queue = await getVerificationQueue();
+    expect(queue!.ties.some((t) => t.src === REV_SRC && t.dst === REV_DST)).toBe(true);
+    expect(queue!.decided.some((t) => t.src === REV_SRC && t.dst === REV_DST)).toBe(false);
+  });
+
+  it("leaves the tamper-evident chain valid across the reversal", async () => {
+    const verdict = verifyAuditChain(await chainedRows());
+    expect(verdict.ok).toBe(true);
+  });
+
+  it("refuses to stamp an anonymous row when REVIEWER_NAME is unset", async () => {
+    const before = await chainedRows();
+    const saved = process.env.REVIEWER_NAME;
+    delete process.env.REVIEWER_NAME;
+    try {
+      const result = await submitReviewDecision({
+        src: REV_SRC,
+        dst: REV_DST,
+        decision: "confirm",
+        note: null,
+        token: "test-token",
+      });
+      expect(result.status).toBe("misconfigured");
+    } finally {
+      process.env.REVIEWER_NAME = saved;
+    }
+    // The chain gained NOTHING — no row under the old literal "reviewer" identity.
+    expect(await chainedRows()).toHaveLength(before.length);
+    expect(verifyAuditChain(await chainedRows()).ok).toBe(true);
   });
 });
 

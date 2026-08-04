@@ -21,6 +21,7 @@
 import { revalidatePath } from "next/cache";
 import { getStore } from "@/lib/db/store";
 import { checkSharedToken } from "@/lib/security/token";
+import { pspIdFromNodeId } from "./moneyLoader";
 import type { ReviewDecision } from "./reviewTypes";
 
 const VALID_DECISIONS: readonly ReviewDecision[] = ["confirm", "reject", "needs-more"];
@@ -39,6 +40,12 @@ export type SubmitReviewResult =
   | { status: "not-configured" }
   | { status: "unauthorized" }
   | { status: "not-found" }
+  /** The write path is configured but the operator is not identifiable — a
+   *  MISCONFIGURATION, kept distinct from every other failure so the console can say
+   *  what to fix instead of showing a generic error. */
+  | { status: "misconfigured"; message: string }
+  /** A reversal of an already-decided tie arrived without a reason. */
+  | { status: "reason-required" }
   | { status: "error"; message: string };
 
 export async function submitReviewDecision(input: SubmitReviewInput): Promise<SubmitReviewResult> {
@@ -56,12 +63,23 @@ export async function submitReviewDecision(input: SubmitReviewInput): Promise<Su
   if (!VALID_DECISIONS.includes(input.decision)) {
     return { status: "error", message: "invalid decision" };
   }
+  // FAIL CLOSED ON ANONYMITY (2026-08-04). This used to fall back to the literal string
+  // "reviewer" when REVIEWER_NAME was unset, so every operator's decision entered the
+  // tamper-evident hash chain under one indistinguishable identity — a chain that cannot
+  // say WHO decided is a log, not an audit. The row is never written now; the console
+  // reports a misconfiguration instead, and the chain gains no anonymous row.
+  if (!reviewerName) {
+    return {
+      status: "misconfigured",
+      message: "REVIEWER_NAME není nastavené — rozhodnutí by do auditní stopy vstoupilo bez jména.",
+    };
+  }
 
   try {
     const store = await getStore();
     if (!store) return { status: "error", message: "store unavailable" };
 
-    const reviewer = reviewerName || "reviewer";
+    const reviewer = reviewerName;
     const result = await store.setTieReviewState(
       input.src,
       input.dst,
@@ -70,19 +88,35 @@ export async function submitReviewDecision(input: SubmitReviewInput): Promise<Su
       input.note,
     );
     if (!result.ok) {
-      return result.error === "tie not found"
-        ? { status: "not-found" }
-        : { status: "error", message: result.error };
+      if (result.error === "tie not found") return { status: "not-found" };
+      // The repository is the only place that knows the tie's PRIOR state, so the
+      // reversal-needs-a-reason rule lives there; map it to its own status rather than
+      // burying it in a generic error string.
+      if (result.error === "reversal requires a note") return { status: "reason-required" };
+      return { status: "error", message: result.error };
     }
     // D4 (batch 004): without this the confirmed/rejected tie stays visible in the
     // pending queue until a manual reload, inviting harmless-but-audit-polluting
     // double-decisions on the same tie. Best-effort: the write already succeeded, so a
     // revalidation failure (e.g. called outside a Next request scope, as in a unit
     // test) must not turn an honest success into a reported error.
-    try {
-      revalidatePath("/penize/kontrola");
-    } catch (err) {
-      console.warn("[submitReviewDecision] revalidatePath failed; write still succeeded", err);
+    //
+    // The MP's own surfaces are revalidated too (2026-08-04): `features/money/packet.ts`
+    // compiles ONLY `reviewState === "verified"` ties, so a confirmation or a reversal
+    // that stopped at /penize/kontrola left the evidence packet asserting a stale set of
+    // human-verified ties — the one artifact built to be quoted elsewhere.
+    const pspId = pspIdFromNodeId(input.src);
+    const paths = [
+      "/penize/kontrola",
+      "/penize",
+      ...(pspId != null ? [`/penize/${pspId}`, `/penize/${pspId}/paket`] : []),
+    ];
+    for (const p of paths) {
+      try {
+        revalidatePath(p);
+      } catch (err) {
+        console.warn(`[submitReviewDecision] revalidatePath(${p}) failed; write still succeeded`, err);
+      }
     }
     return { status: "ok", reviewState: result.reviewState, reviewer };
   } catch (err) {

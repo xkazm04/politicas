@@ -140,7 +140,7 @@ describe("mapLinkedToTie — the one tie projection", () => {
   it("is a SUPERSET as seen by the console — no public field hidden from the decider", () => {
     // Compile-time half of the invariant: a ReviewTie is assignable to MoneyTie, so the
     // console can never again project fewer evidence fields than /penize/[pspId].
-    const asReview = { ...tie, id: "tie:7031:06386237", src: PERSON.id, dst: COMPANY.id, pspId: 7031, mpName: "Testovací Poslanec", club: null, absenteeManagerLead: false, periodFrom: "2017-01-01", periodTo: null, links: { aresSubject: "", aresVr: "", justiceVr: "", hlidacSubjekt: "", hlidacPerson: null, registrSmluv: "" } } satisfies ReviewTie;
+    const asReview = { ...tie, id: "tie:7031:06386237", src: PERSON.id, dst: COMPANY.id, pspId: 7031, mpName: "Testovací Poslanec", club: null, absenteeManagerLead: false, periodFrom: "2017-01-01", periodTo: null, links: { aresSubject: "", aresVr: "", justiceVr: "", hlidacSubjekt: "", hlidacPerson: null, registrSmluv: "" }, gate: null } satisfies ReviewTie;
     const backToMoney: MoneyTie = asReview;
     // Runtime half: every key of the shared projection survives the console's spread.
     for (const key of Object.keys(tie)) {

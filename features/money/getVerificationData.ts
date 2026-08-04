@@ -2,16 +2,27 @@
 // for the 211 pending MP↔company ties. Reads the SAME shared money layer as the ledger
 // (moneyLoader.ts::loadMoneyLayer — one `cache()`-wrapped read per request, and the same
 // cardinality-floor gate every other money surface has), but
-// shapes ONE ROW PER PENDING TIE, enriched with the deterministic triage signals
-// (tie class, triangle, near-threshold, parsed role period) and the primary-registry
-// deep-links a reviewer needs. Read-only; it NEVER writes review_state — the write path
-// is a fleet-mode handoff item.
+// shapes ONE ROW PER TIE through the SAME `mapLinkedToTie` the ledger and the case file
+// use, enriched with the deterministic triage signals (tie class, triangle,
+// near-threshold, parsed role period), the primary-registry deep-links a reviewer needs,
+// and the tie's DECISION HISTORY from `review_audit`.
+//
+// It returns TWO lists: `ties` (the pending queue a review session works through) and
+// `decided` (verified/rejected ties, which used to vanish from the product with no way to
+// see or correct them). Read-only; it NEVER writes review_state — that is
+// `reviewActions.submitReviewDecision` → `ReviewRepository.setTieReviewState` alone.
 //
 // Called only from the /penize/kontrola server component; the `server-only`
 // import makes any client-component import a build-time error.
 
 import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
+import { getStore } from "@/lib/db/store";
+import type { ReviewAuditRow } from "@/lib/db/types";
+// The per-edge decision history is assembled ONCE on this platform, by the provenance
+// capsule's `gateFromEdge` (features/shared/provenance/receipt.ts) — the console reuses it
+// rather than growing a second assembler that could disagree with /zdroj.
+import { gateFromEdge } from "@/features/shared/provenance/receipt";
 import { loadMoneyLayer, mapLinkedToTie, pspIdFromNodeId } from "./moneyLoader";
 import { reachableMoney } from "./reachableMoney";
 import { hasStaleOngoingFlag } from "./tieFlags";
@@ -23,6 +34,37 @@ import {
   type ReviewTie,
 } from "./reviewTypes";
 
+// Grouping key for one edge. A space is safe: no kg node id contains one.
+const edgeKey = (src: string, dst: string) => src + " " + dst;
+
+/** Cap on the decision ledger read. Far above any realistic review history (the live
+ *  store holds 0 rows), and a bound rather than an unbounded `select *`. */
+const AUDIT_READ_CAP = 10_000;
+
+/**
+ * The whole decision ledger, grouped by the edge it belongs to, newest first (the order
+ * `listReviewAudit` itself returns). A ledger read failure must NOT take the queue down:
+ * the console then shows the ties with an empty history rather than nothing at all — but
+ * it is reported, never swallowed.
+ */
+async function loadAuditByEdge(): Promise<Map<string, ReviewAuditRow[]>> {
+  const byEdge = new Map<string, ReviewAuditRow[]>();
+  try {
+    const store = await getStore();
+    if (!store) return byEdge;
+    const rows = await store.listReviewAudit({ limit: AUDIT_READ_CAP });
+    for (const r of rows) {
+      const key = edgeKey(r.src, r.dst);
+      const list = byEdge.get(key);
+      if (list) list.push(r);
+      else byEdge.set(key, [r]);
+    }
+  } catch (err) {
+    console.warn("[getVerificationQueue] review audit read failed; histories render empty", err);
+  }
+  return byEdge;
+}
+
 export async function getVerificationQueue(): Promise<ReviewQueue | null> {
   try {
     // ONE shared read with the ledger (moneyLoader.ts), `cache()`-wrapped. This loader
@@ -33,15 +75,18 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
     if (!layer) return null;
     const { linked, companyById, personById, clubByPerson, contractsByCompany, pass } = layer;
 
+    // ONE read of the decision ledger for the whole page, grouped per edge — not a query
+    // per decided tie. `review_audit` holds 0 rows on the live store today (no decision
+    // has ever been made against it), so this costs nothing now and stays a single
+    // indexed read when it does not.
+    const auditByEdge = await loadAuditByEdge();
+
     const ties: ReviewTie[] = [];
+    const decided: ReviewTie[] = [];
     for (const e of linked) {
       const rawState = (e.props?.review_state ?? e.props?.state) as string | undefined;
       const reviewState: ReviewState =
         rawState === "verified" ? "verified" : rawState === "rejected" ? "rejected" : "pending_review";
-      // the console shows the PENDING queue only — verified ties are resolved, and
-      // rejected ties (D7, batch 004) are a terminal decision that must not be
-      // re-served forever, same as verified.
-      if (reviewState !== "pending_review") continue;
 
       const comp = companyById.get(e.dst);
       const pspId = pspIdFromNodeId(e.src);
@@ -60,7 +105,7 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
       });
       const { from, to } = parsePeriod(base.source);
 
-      ties.push({
+      const tie: ReviewTie = {
         ...base,
         id: `tie:${pspId}:${base.ico}`,
         src: e.src,
@@ -72,8 +117,28 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
         periodFrom: from,
         periodTo: to,
         links: buildRegistryLinks(base.ico, base.source),
-      });
+        // THE decision history, assembled by the ONE assembler the provenance capsule
+        // (/zdroj) already uses — `gateFromEdge` reads the same edge props and the same
+        // audit rows, so the two surfaces cannot tell a reviewer and a reader different
+        // stories about the same decision.
+        gate: gateFromEdge(e, auditByEdge.get(edgeKey(e.src, e.dst)) ?? []),
+      };
+
+      // The PENDING queue is what a review session works through. A decided tie is not
+      // discarded any more (it used to vanish from the product entirely, with no way to
+      // see it and no way to correct it) — it moves to the decided list, which carries
+      // its history and the reversal path.
+      if (reviewState === "pending_review") ties.push(tie);
+      else decided.push(tie);
     }
+
+    // Newest decision first — the same ordering `listReviewAudit` returns and the console
+    // states. Ties broken by tie id so the order is total and reproducible.
+    decided.sort((a, b) => {
+      const ta = a.gate?.reviewedAt ?? a.gate?.audit[0]?.decidedAt ?? "";
+      const tb = b.gate?.reviewedAt ?? b.gate?.audit[0]?.decidedAt ?? "";
+      return tb.localeCompare(ta) || a.id.localeCompare(b.id);
+    });
 
     // Batch-005: PRIMARY sort is the review-order axis (registry-confirmed
     // owner-operators → managers → confirmed stewards → unconfirmed, money desc within
@@ -123,7 +188,7 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
       ).length,
     };
 
-    return { ties, stats, source: "registr smluv ⋈ ares ⋈ hlídač státu", pass };
+    return { ties, decided, stats, source: "registr smluv ⋈ ares ⋈ hlídač státu", pass };
   } catch (err) {
     reportLoaderFailure("getVerificationQueue", err);
     return null;
