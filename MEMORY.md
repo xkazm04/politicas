@@ -22,6 +22,7 @@ from `docs/`.
 - [OR shareholder entries mean *sole* shareholder](memory/or-shareholder-entry-semantics.md) — an a.s. shareholder is registered only when there's one; and those dates are registration, never acquisition, dates.
 
 ## Conventions & traps
+- [Robocopy of a live PGlite store can corrupt](memory/robocopy-of-a-live-pglite-store-can-corrupt.md) — a copy taken mid-write aborts on every open; verify the copy opens before briefing a builder, and treat "store won't open" as data, not code.
 - [Vitest+PGlite needs tamed workers](memory/vitest-pglite-needs-tamed-workers.md) — full-suite runs flake with hook timeouts at default parallelism; `--hookTimeout=60000 --maxWorkers=3` is the reliable gate, and a failure that passes in isolation is contention, not code.
 - [Dirty-tree build failures need a clean probe](memory/dirty-tree-build-failures-need-a-clean-probe.md) — an opaque `next build` crash on the shared tree is diagnosed by building the same commit in a detached worktree; round 4's was a corrupted `.next` from racing sessions.
 - [A small LIMIT is ~200× slower than the cap](memory/small-limit-is-slower-than-the-cap.md) — a kind-filtered `kg_node` read at `limit:30` costs 500–720 ms and at `KG_READ_CAP` costs 2–3 ms; never size a kg read to what you expect back, and ask for a COUNT rather than a limited row list.
