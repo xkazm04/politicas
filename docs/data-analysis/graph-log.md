@@ -1174,3 +1174,28 @@ the gate working. Fresh backup .pglite-backup-20260805-pass48 taken. Residue: th
 of the original 27 verdicts carry pre-sweep evidence prose — the render gate withholds those 16
 strings (disclosed per block); sweeping the old 27's graph props is an open item, as is any
 non-law pass written after the backup was taken (flagged to the money/effort owners).
+
+## Pass 49 (track: law) — batch-015: the collision census closes, the dependency map renders, and the loop learns whole-artifact invariants (2026-08-05)
+Writes: 10 bill nodes with pending_review forensic_* props (tisky 104, 145, 161, 167, 171, 215,
+218, 232, 246, 74 — coverage 69 → 79/141; 3 mediums: 74 ČIŽP self-execution excludes the very
+statute the bill exists to enforce; 215 ministerial monopoly on challenging university
+regulations; 171 the cross-chamber collision — the senate bill edits the exact odstavec the
+government bill wholesale-rewrites, same effective date, no cross-reference) + 18 bill nodes
+swept clean of restore-resurrected jargon (28 strings — urns, batch ids in five declensions,
+filenames, prop names). Milestones: the COLLISION CENSUS reached FULL COVERAGE (176/176
+partitioned pairs read since batch-005; final wave: 67×234 wholesale-vs-narrow on the
+architects' own statute, 89×90 the omnibus deleting the pension-reserve odstavec bill 89
+rewrites, and the honest reclassification of 13×16 leaving §604 hub-and-spokes, not a
+triangle); the DEPENDENCY MAP renders on /zakony (18 companion edges, placeholder-centered
+excerpts 18/18, leads marked pending, weak edge unlinked, measured spot-check scope); render
+withholds dropped 16 → 0 — the first zero since the render gate existed. The audit cycle ran
+FOUR rounds (12 blocking in round 1: a municipally-owned company elevated as a private tie —
+the SOMPO class again, caught before publish; a sweep that falsified „15 000 Kč"; two
+fabricated quotations; a refuted rider accusation) and its durable yield is the INVARIANT SET,
+now code: a rewrite may never alter a digit sequence; never worsen parenthesis balance nor
+introduce a mid-sentence stop; sponsor arithmetic must close against the payload; any quotation
+must be locatable verbatim in the cached text. Every per-string gate was green in every round
+that carried the falsehoods — whole-artifact invariants are what closed the gap. tisk 161's
+corrected verdict carries the batch's sharpest found-by-accident effect: the operative text
+grants relief „o 10 %" while the DZ mostly argues „o 10 procentních bodů" (54 % vs 50 % against
+a ~60% target), uncommented anywhere. Backlog: 0 collision pairs, 62 pending bills.

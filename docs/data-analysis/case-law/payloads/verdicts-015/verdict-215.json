@@ -9,8 +9,8 @@
       "evidence": "úplný text tisku na psp.cz, řádky 3502–3529 strojového přepisu (zvláštní část, K čl. XI, zrušení § 124a daňového řádu)."
     },
     {
-      "effect": "Nový § 107a zákona o vysokých školách svěřuje výlučné oprávnění podat návrh na soudní přezkum protiprávního předpisu vysoké školy nebo profesní komory příslušnému ministrovi — žádná jiná osoba (např. student, akademický senát, člen profesní komory) podle tohoto konkrétního mechanismu návrhovou legitimaci nezískává. Zvláštní část to zdůvodňuje zachováním akademické samosprávy a tím, že ministr je „navrhovatelem, nikoli rozhodujícím orgánem“, ale nezmiňuje, že tím zároveň soustřeďuje bránu k soudnímu přezkumu těchto předpisů výhradně do rukou exekutivy.",
-      "whoBenefits": "Nelze jednoznačně určit — dotčeny jsou vysoké školy a profesní komory, jejichž předpisy budou moci být tímto konkrétním nástrojem napadeny jen na návrh příslušného ministra, nikoli přímo dotčenými osobami uvnitř instituce.",
+      "effect": "Nový § 107a zákona o vysokých školách svěřuje výlučné oprávnění podat návrh na soudní přezkum protiprávního předpisu vysoké školy příslušnému ministrovi — žádná jiná osoba (např. student, akademický senát) podle tohoto konkrétního mechanismu návrhovou legitimaci nezískává. Zvláštní část to zdůvodňuje zachováním akademické samosprávy a tím, že ministr je „navrhovatelem, nikoli rozhodujícím orgánem“, ale nezmiňuje, že tím zároveň soustřeďuje bránu k soudnímu přezkumu předpisů vysokých škol výhradně do rukou exekutivy. Nový § 101g soudního řádu správního, který § 107a provádí, je obecnou procesní normou pro přezkum předpisů zájmové a akademické samosprávy včetně profesních komor, ale jeho návrhová legitimace se u komor řídí zvláštním zákonem, který ji musí výslovně přiznat — text novely žádnému profesnímu předpisu takové oprávnění nezakládá, takže ministerská koncentrace návrhového práva je doložená jen u vysokých škol.",
+      "whoBenefits": "Nelze jednoznačně určit — dotčeny jsou vysoké školy, jejichž předpisy budou moci být tímto konkrétním nástrojem napadeny jen na návrh příslušného ministra, nikoli přímo dotčenými osobami uvnitř instituce.",
       "evidence": "úplný text tisku na psp.cz, řádky 3353–3382 strojového přepisu (zvláštní část, K čl. V, nový § 107a zákona o vysokých školách)."
     }
   ],
@@ -24,7 +24,7 @@
       "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=215&ct1=0"
     },
     {
-      "claim": "Nový § 107a zákona o vysokých školách zakládá výlučné oprávnění příslušného ministra podat návrh na zrušení protiprávního předpisu vysoké školy nebo profesní komory soudem.",
+      "claim": "Nový § 107a zákona o vysokých školách zakládá výlučné oprávnění příslušného ministra podat návrh na zrušení protiprávního předpisu vysoké školy soudem; u profesních komor § 101g soudního řádu správního návrhovou legitimaci ponechává na zvláštním zákoně, který ji musí výslovně přiznat.",
       "kind": "bill_text",
       "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=215&ct1=0"
     },

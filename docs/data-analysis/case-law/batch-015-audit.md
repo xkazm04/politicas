@@ -748,3 +748,994 @@ have caught seven of the twelve:
 4. **Commutativity replay** — for any `confirmed-collision`, mechanically apply both quoted
    instruction sets in both orders over the quoted substrings and require a demonstrated loss
    → B12.
+
+---
+---
+
+# Closure check (post-fix)
+
+**Re-audited:** 2026-08-05, against the files as they now stand. Independent
+re-derivation from the primary texts and payloads; nothing taken on the coordinator's
+word. No file edited, no git, no PGlite.
+
+## CLOSURE VERDICT: **REOPENED**
+
+**11 of 12 BLOCKING closed** — several of them exemplary. But the remediation
+**introduced one new BLOCKING defect of a worse kind than the one it replaced**, and it
+sits inside the very finding the fix elevated to headline status.
+
+`verdict-161` no longer merely *adopts* the memorandum's reading of the relief (the old
+M2, an unsupported inference). It now **manufactures two verbatim quotations that do not
+exist in the bill**, and builds an elevated `unstatedEffects[0]` on them. Fabricated
+evidence is a harder failure than an unsupported inference, and it entered through the fix.
+
+Everything else in the verdict layer is genuinely better. This is a narrow reopen: one
+finding in one file, plus two regressions of already-diagnosed patterns.
+
+---
+
+## New BLOCKING
+
+### N1 — `verdict-161.json` · `researchedContext` + `unstatedEffects[0]` + `citations[1]` · two fabricated quotations, and the claim they support is false
+
+The new headline finding asserts that the operative text says "o 10 %" while the
+memorandum **consistently** says percentage points. Measured over
+`.data/law-collision-cache/tisk-161/269099.txt` (NFC, whitespace-collapsed):
+
+- `o 10 %` occurs **3x** — line 26 (§ 59/3 sentence), line 38 (příloha č. 13), **and line 91**
+- `10procentních bodů` occurs **2x** — lines 137 and 151-152, **both in obecná část C only**
+
+Checking the three quotations the verdict presents in guillemets:
+
+| # | quoted as | attributed to | actual |
+|---|---|---|---|
+| Q1 | „Navržené snížení cíle odděleného soustřeďování o 10procentních bodů pro obce s velmi nízkou produkcí…" | obecná část | **PRESENT** (line 137) |
+| Q2 | „…umožňuje snížení cílů podle § 59 odst. 3 věty první o 10procentních bodů…" | „v obecné části" | **ABSENT.** The sentence exists at line 37-38 — in the **operative příloha č. 13**, not the memorandum — and reads **„o 10 %"**. The quotation inverts the unit and relocates the source. |
+| Q3 | „snižuje cíle pro oddělené soustřeďování… o 10procentních bodů" | „ve zvláštní části" | **ABSENT.** The zvláštní část sentence (line 213-215) reads „snižuje cíle pro oddělené soustřeďování recyklovatelných odpadů v případě obcí, které produkují velmi nízké množství…" — it carries **no figure at all**. The ellipsis conceals an insertion, not an omission. |
+
+Consequently the claim wrapping them is false three ways:
+
+> „Obecná i zvláštní část důvodové zprávy naproti tomu **důsledně** píší o procentních bodech"
+
+(a) **Obecná část A (line 91) says „o 10 %"** — „…cíle nastavené pro minimální podíl
+odděleně soustřeďovaných komunálních odpadů **o 10 %**." (b) The **zvláštní část quantifies
+nothing**. (c) Two of the three supporting quotations are not in the document.
+`citations[1]` — „Obecná i zvláštní část důvodové zprávy popisují tutéž úlevu jako snížení
+cíle „o 10procentních bodů", **nikoli „o 10 %"**" — is false on both limbs.
+
+**The underlying finding is real and the fix was right to elevate it** — the bill genuinely
+uses both units, and the 54 % vs 50 % arithmetic against the ~60 % target
+(`tisk-161/269099.txt:98-99`) is correct. What is needed is the true distribution: the
+**operative text says „o 10 %" twice, obecná část A says „o 10 %", obecná část C says
+„o 10procentních bodů" twice, and the zvláštní část gives no figure** — i.e. the memorandum
+contradicts *itself* as well as partly contradicting the enacting text. That is a stronger
+finding than the one asserted, and it needs no invented quotations.
+
+---
+
+## Regressions of already-diagnosed patterns
+
+### N2 (MAJOR) — `verdict-74.json` · `citations[11]` · the B5 mis-kinding pattern moved from 161 into 74
+
+```json
+{ "claim": "Bohuslav Niemiec je v grafu evidován s peněžní vazbou na CEVYKO a.s. …
+            jde o meziobecní firmu s licencí k nakládání s odpady, na jejíž dozorčí
+            radě Niemiec zasedá — …vazba institucionální (dozorčí seat), nikoli vlastnická.",
+  "kind": "graph_fact", "source": "company:ico:08599254" }
+```
+
+Municipal ownership, the trade licence and the supervisory-board seat are **web facts**,
+not graph facts — the graph's `moneyTies` carry only `{ico, name, urn, contractCzk}`. They
+are packed into a single `graph_fact` citation sourced to the company urn. This is the
+exact defect B5 named, and `verdict-161` now handles the identical facts **correctly**,
+with three separate `web` citations (`citations[7]`, `[8]`, `[9]`). The batch is internally
+inconsistent about how the same evidence is kinded. 74's ownership prose („mj. obec
+Havířov, spoluvlastník ASOMPO") also carries no citation at all, where 161 gives 35/35/30
+with a source.
+
+### N3 (MINOR) — `verdict-74.json` · English residue introduced by the fix
+
+„vazba je tedy institucionální (**dozorčí seat**), nikoli vlastnická" — in
+`conflictAssessment` **and** `citations[11]`. `seat` is English; a full re-sweep across all
+10 verdicts finds it in no other file (the only other regex hits, `text`, are the Czech
+word). `lawJargonIssues()` does not match it. Also in 74: „meziobecní **svazkovou** firmu"
+implies a dobrovolný svazek obcí, which CEVYKO (an a.s. with municipal shareholders) is
+not; and Havířov is a **statutární město**, not „obec".
+
+### N4 (MINOR) — `verdict-161.json` · 3 of 6 ownership assertions still uncited
+
+`ARENA BRNO`, `Teplárny Brno` and `CEVYKO` now carry `web` citations. **`Dopravní podnik
+města Brna`, `SAKO Brno` and `MERO ČR` do not** — they ride on „obdobně jsou komunálně,
+resp. státem vlastněné i zbylé tři", which is still an assertion. Materially better than
+B5 (nothing is now *mislabelled*), but the gap is under-citation in a product whose brand
+rule is that every claim cites its source. Separately, `citations[4]` sources an ownership
+fact to **Wikipedia** — weak for a public-accountability claim where `hlidacstatu.cz`
+(already used at `citations[5]`) covers the same ground.
+
+---
+
+## Findings still open from the first pass
+
+- **M19 (MAJOR) — STILL OPEN, both files.** `collision-close-reads-batch015-gA.json` was
+  **not modified** (mtime unchanged at 09:39) and gB's `67-75` record was not corrected on
+  this point. Both still misread the queue's `odstavecOverlap` (which holds **§ labels**)
+  as odstavec numbers, and credit themselves with overturning a claim the queue never made:
+  gA `65-103` — „Metadata fronty sice u této dvojice hlásí shodu na úrovni odstavce „3"…"
+  (queue truth: `paragraphs:["3"], genuineParagraphs:["3"], odstavecOverlap:["3"]` — „3" is
+  the §); gB `67-75` — „Fronta označila § 55c jako sdílený **se shodou na úrovni odstavce**"
+  (queue truth: `odstavecOverlap:["55c"]` — unmistakably a § label).
+- **M11 (now MINOR) — STILL OPEN.** `verdict-246` now correctly says the provision „zaniká
+  a jeho číslo je obsazeno jiným předmětem úpravy", but neither verdict states the concrete
+  consequence: applied after 246, tisk 171's instruction would hit the new odst. 4 písm. d)
+  („1 den činí 50 Kč") and leave „1 den" standing in the untouched odst. 3 and odst. 5.
+- **Minor 1** (`verdict-215` `citations[4]`, „původně vložil" inferred from an as-amended
+  citation), **minor 2** („Kateřina" vs „Katerina" Demetrashvili), **minor 3**, **minor 4/5**
+  (`verdict-145`'s „ústavně vyžadovaná spolupodpisová procedura" — *kontrasignace* is a
+  presidential-act institute — and the uncited role/figures), **minor 9** (`verdict-171`
+  `citations[2]`, „účinnost rovněž 1. ledna 2027" omits 246's čl. II split date of
+  30 Nov 2026), and gA **minors 14/15/16** are all unchanged. `verdict-145` and
+  `verdict-171` were not touched at all.
+- **New nit:** `verdict-232` `citations[5]` and `verdict-104` `citations[5]` quote the
+  amending instructions with straight `"` where the rest of the corpus uses „…".
+
+---
+
+## Per-finding closure ledger — verdict + collision layer
+
+| # | finding | status | evidence |
+|---|---|---|---|
+| B1 | CEVYKO asserted private | **CLOSED** | 161 now states Havířov 35 % / ASOMPO 35 % / Spolek 30 %, „nejde tedy o soukromou firmu, ale o meziobecní subjekt ve vlastnictví obcí", Niemiec „v dozorčí radě, bez evidovaného akcionářského podílu", disposed „podle téže metodiky, jakou tento posudek uplatňuje na Hladíkovy komunální vazby"; severity medium→**low**. Independently matches the public record. |
+| B2 | 161/74 contradict on sector | **CLOSED** | 74's „působí mimo obory dotčené novelou" is gone; now „skutečně v oboru, který novela v čl. V … mění", disposed like SAKO. Both files now agree on ownership, seat and sector. |
+| B3 | 161 count 3+7≠12 | **CLOSED** | „Z dvanácti… Petr Hladík, Helena Langšádlová a Bohuslav Niemiec… U zbývajících **devíti**" (nine names listed). Programmatic check vs payload: 12 / 3 / 9 |
+| B4 | 74 „pěti" vs six names | **CLOSED** | „U zbývajících **šesti** předkladatelů (Pláteník, Brzesková, Filipovičová, Kršková, Krutáková, Svárovská)". Payload: 9 / 3 / 6 |
+| B5 | contaminated + mis-kinded citation | **CLOSED in 161** (the „Vodovody a kanalizace" claim is gone; ownership split into properly-kinded `web` citations + a clean `graph_fact`) — but see **N2**, the pattern regressed into 74, and **N4**, 3/6 still uncited |
+| B6 | 218's refuted accusation | **CLOSED — exemplary** | `unstatedEffects: []`; researchedContext now states the disclosure and I verified all three limbs: **1.7** at line 359, **2.7** at line 500, and the SAFE competence discussed in the corruption-risk section (lines 933-948). confidence 3→4. An honest negative report. |
+| B12 | 13-16 mislabelled confirmed-collision | **CLOSED — exemplary** | Reclassified `coordination-risk`; the commutativity argument now matches my own derivation („KAŽDÁ čárka v jím vkládaném textu … je následována „§"…"); the odst. 4 non-transfer is stated; the cluster is restated as **hvězdicová struktura** around tisk 64 with the batch-014 record quoted accurately. gB counts recomputed to `{confirmed:1, coordination:4, incidental:1}` = 6. Both new excerpts re-verified against the cached texts: **3/3 fragments OK, 0 MISS**. |
+| M1 | 161 sector overclaim | **CLOSED** | Now states the direction of effect: „směr jejího účinku … by věcně spíše snižoval než zvyšoval množství odděleně sbíraných surovin", and that the bill changes „jen povinnost obcí…, nikoliv žádnou platbu, poplatek ani zadávací mechanismus". |
+| M2 | %-vs-p.b. | **REOPENED as N1** — corrected in direction and elevated, but supported by two fabricated quotations and a false consistency claim |
+| M3/M5 | money qualifiers | **CLOSED** | 161 `citations[6]`: „úhrn veřejných smluv **firmy** 301 393 871 Kč, vazba **čeká na lidskou kontrolu**"; 232 `citations[3]` and both 104 graph citations likewise. |
+| M4 | Babiš aggregate | **CLOSED** | „úhrn veřejných smluv **firem 1 991 751 917 Kč**; všechny vazby čekají na lidskou kontrolu" — matches my independent sum of the 14 `contractCzk` values exactly. |
+| M6 | 167 „second extension" | **CLOSED — exemplary** | The claim is explicitly abandoned in-text: „…nedokládá, že se tato pozdější novela týkala právě posouvaného data v odst. 1 — tvrzení o „druhém prodloužení téže výjimky" proto v dostupném textu oporu nemá **a je opuštěno**." `citations[2]` re-scoped to exactly what the as-amended citation proves. |
+| M7 | 215 → profesní komory | **CLOSED** | „profesní komory" removed from `researchedContext`, from `unstatedEffects[1]` and from `citations[1]`; § 107a now confined to „předpisu vysoké školy", with the § 101g distinction drawn separately. |
+| M8 | 171/246 disagree | **CLOSED** | 246 now: „nejde o souběžný zásah do totožného ustanovení, ale o **smazání a znovupoužití čísla odstavce**" — aligned with 171. `citations[2]` re-kinded `web`→**`bill_text`** with the `tiskt.sqw?…ct=171` URL. Both files now name odst. 2 **a 4 písm. c)**. |
+| M9 | 104×232 collision uncited | **CLOSED** | 232 `citations[5]` cites tisk 104's text, 104 `citations[5]` cites tisk 232's — both quoting the operative instructions verbatim. Verified against source: „V § 30 odstavec 3 zní:" (`tisk-104:33`) and „V § 30 se odstavec 3 zrušuje." (`tisk-232:73`) |
+| M10 | Richterová uncited | **CLOSED** | 218 `citations[4]`, `kind:"web"`, sourced to the tisk-168 document itself. |
+| M19 | queue metadata misreported | **STILL OPEN** | gA untouched; gB `67-75` uncorrected. See above. |
+| M20 | rubric inconsistency | **CLOSED** | resolved as a consequence of B12; `13-16` now sits with `64-260`, `111-207` and `189-248` at `coordination-risk`. |
+
+## Gate re-run
+
+`validateLawVerdict()` + `lawJargonIssues()` over all 10, with `knownLawRefs`/`knownIds`
+from the targets payload: **10/10 `ok: true`, zero errors, zero jargon hits** — including
+`verdict-218` with `unstatedEffects: []`, so the empty-effects shape is schema-legal.
+Sponsor arithmetic recomputed against the payload for all 10: **every "N of M" now closes.**
+
+Note what this still means: **N1's two fabricated quotations pass the gate.** The
+recommendation in §9 stands and should gain a fifth item — *any string presented in
+guillemets as a quotation from a bill must be located in that bill's cached text, NFC- and
+whitespace-normalised, before the verdict is accepted.* That single check would have caught
+the only blocking defect remaining in the verdict layer, and it is the cheapest of the five.
+
+---
+
+## The sweep is now the primary blocker — **do not run `--commit`**
+
+The jargon sweep was rebuilt from 16 rewrites to 29. The urn class is genuinely closed and
+the tautology defect is fixed. But the rebuilt rules **over-match**, and two of the 29
+rewrites now write **false facts** onto live bill nodes. Both are independently re-verified
+below from `batch-015-old27-sweep.json` itself.
+
+### N5 (BLOCKING — brand rule) — `patched[11]`, tisk 124, `forensic_stated_reasoning` · a sourced CZK figure was falsified
+
+```
+BEFORE: … zápočtu mezi novým „rodičovským příspěvkem před porodem" (novou paušální
+        dávkou 15 000 Kč měsíčně před porodem od 1. ledna 2027) a stávajícím rodičov…
+AFTER : … zápočtu mezi novým „rodičovským příspěvkem před porodem" (novou paušální
+        dřívějším zpracováním 000 Kč měsíčně před porodem od 1. ledna 2027) a stávajícím…
+```
+
+Corpus-wide: `15 000 Kč` appears **1× in BEFORE, 0× in AFTER**.
+
+Two independent faults compound here. First, `dávka` in this sentence is the **social-benefit**
+sense — a monthly parental allowance — not the pipeline sense the rule targets; the rewrite is
+a category error. Second, the quantifier `\bdávkou\s*0*\d{1,3}\b` consumed the `15`, so
+**15 000 Kč became 000 Kč**. The result is grammatically broken (`novou paušální` fem. +
+`zpracováním` neut.) and, far worse, **numerically false**.
+
+This is the brand rule — *every rendered number cites its source, and nothing renders a figure
+the data doesn't carry* — violated by the remediation itself, on a figure that would be stamped
+with pass-49 provenance. It is the most serious single defect found anywhere in this audit.
+
+### N6 (BLOCKING) — `patched[23]`, tisk 216, `forensic_researched_context` · an identifier was stripped from the § list it labels
+
+```
+BEFORE: …i vůči tiskům z této dávky 173 (§ 199 / § 302 / § 303) a 196 (pouze § 9, …)
+        se tisk 216 dotýká zcela nepřekrývající se množiny ustanovení…
+AFTER : …i vůči tiskům z této dřívějšího zpracování (§ 199 / § 302 / § 303) a 196 (pouze § 9, …)
+        se tisk 216 dotýká zcela nepřekrývající se množiny ustanovení…
+```
+
+Stated precisely (the count matters): `173` occurs **2× in BEFORE and 1× in AFTER** — it
+survives in an earlier enumeration („churn 6: tisky 111, 115, 173, 196, 207, 216") but is
+deleted from **the sentence that carries its section list**. The consequence is that
+`(§ 199 / § 302 / § 303)` is now **orphaned**: a reader cannot tell which print those
+sections belong to, while the neighbouring `196` keeps its own list. The sentence also leaves
+a dangling feminine genitive `této` in front of a neuter genitive.
+
+Cause is rule ordering — `\bdávky\s*0*\d{1,3}\b` fires before the `\btéto dávky\b` rule that
+was written for exactly this phrase, so the specific rule never sees the string.
+
+### N7 (MAJOR) — `patched[18]`, tisk 173 · `verdict-115` destroyed rather than made filename-safe
+
+```
+BEFORE: … v § 196 a § 55 odst. 2, verdict-115.json) je překryv ustanovení nulový
+AFTER : … v § 196 a § 55 odst. 2, archivní podklad tohoto projektu) je překryv ustanovení nulový
+```
+
+B7 is closed *mechanically* — `verdict-\d+` 1→0, `\.json` 1→0, no `verdict-115.strojově
+čitelný výstup` hybrid is produced. But the extension no longer survives **because the whole
+filename is gone**, replaced by the content-free „archivní podklad tohoto projektu". The
+checkable artefact id is destroyed. Same failure class as M13, relocated.
+
+### B8 — „dávka" grammar · **STILL OPEN** (4 of 29 broken)
+
+The post-fix is a single five-verb whitelist,
+`/\bzpracování (zjistil|potvrdil|našel|uvedl|popsal)a\b/g → "$1o"`, which fires correctly 3×
+and misses everything outside the list:
+
+| row | defect |
+|---|---|
+| `patched[22]` tisk 207 | „jaké **dřívější zpracování označila**" — neuter subject, feminine verb; `označil` is not in the whitelist |
+| `patched[23]` tisk 216 | „z **této dřívějšího zpracování**" — orphaned feminine demonstrative (see N6) |
+| `patched[28]` tisk 248 | „**Dávkový prověření**" — masculine adjective + neuter noun, **and `Dávkov-` is the very stem B9 claimed to close** |
+| `patched[11]` tisk 124 | „novou paušální **dřívějším zpracováním**" (see N5) |
+
+### B9 — detector widening and the throw-guard · **STILL OPEN, and the guard certified this payload**
+
+The widening did not land in `lib/analysis/public-copy.ts` (unchanged, nominative-only). It
+landed in `lib/analysis/law-verdict.ts:125`, whose comment claims it covers „v dávce 001 …
+the k→c locative". **It cannot**: the locative of *dávka* is `dávce` — the `k` is not there,
+so any pattern anchored on `dávk` is structurally incapable of matching it.
+
+A second, subtler bug: `\bdávkov\w+\b` and the sweep's `\bdávkov(ý|ého|ém|ým|á|é|ou)\b`
+**cannot match `Dávkový` or `dávková`**, because JS `\w`/`\b` are ASCII-only and `ý`/`á`/`é`
+are not word characters, so the trailing `\b` fails. That is precisely why `patched[28]`
+shipped „Dávkový prověření".
+
+Consequence: `lawJargonIssues(after)` returns **0 issues for 29/29 strings**, while a
+declension-aware scan finds **15 surviving hits** (54 in BEFORE). At least five are
+unambiguously the pipeline sense and should have been rewritten — `patched[16]` „v souladu
+s **předchozími dávkami**", `patched[18]` and `patched[20]` „pro **koordinátora dávky**",
+`patched[1]` and `patched[5]` „v této i předchozí **dávce**". The remaining hits are the
+legitimate benefit sense and are correctly untouched. **The throw-if-remaining guard is
+worthless for this class**, and it is what certifies the payload as clean.
+
+Other internal vocabulary still ships beside the rewritten prose, matched by no rule:
+`v grafu případu law` ×2, `uzel` ×1, `churn 6` ×3, `gatovanému tisku` ×1, `paralelně
+pracujícímu agentovi` ×2.
+
+### M13 — batch identifier · **STILL OPEN**
+
+The two bespoke meta-sentence rewrites address a different sentence (tisk 40's
+`sponsorContractCzk: 0, sponsors: []`), not the batch identifier. Every `dávka/dávky/dávce
+001` still becomes an identifier-free „dřívější zpracování": **22 three-digit `0XX`
+identifiers are destroyed across 18 of the 29 rewrites** (independently recounted). With
+`verdict-115` (N7) and the tisk-216 case (N6), the sweep removes **24 checkable identifiers**
+from a corpus whose brand rule is that every claim can be traced.
+
+### M12 — tautology/nesting · **CLOSED**
+
+0 name-echo parentheticals and 0 nested parentheses in the AFTER text. The person urn
+parenthetical is now dropped rather than substituted, and the company urn degrades to a bare
+`IČO N` after the name already present. Urn classes fully closed: `company:ico:` 36→0,
+`psp:person:` 5→0, `bill:tisk:` 1→0; `batch`, `scan`, `json`, `pass \d`, `pending_review`,
+`graph_fact`, `bill_text`, snake_case and camelCase all 0.
+
+### M14 — silent label fallback · **not triggered here; code path unchanged**
+
+No `společnost s IČO`, `poslanec s psp id` or `sněmovní tisk (interní id` reaches the AFTER
+text. But the company rule was fixed by dropping the label entirely rather than by adding a
+guard, and the person and bill fallbacks remain **silent** — no counter, no warning, no throw
+— and neither emitted string trips `lawJargonIssues`. The mechanism is intact for the next
+corpus.
+
+### Write path · intact, but still uncounted
+
+`--commit` remains **dry-run by default**, **expectation-guarded** (`if (arr[…][m[3]] !==
+f.before) throw` and `if (props[m[1]] !== f.before) throw`, both before any write) and
+**merge-preserving** (`structuredClone(bill.props)` → single-field assignment → `{ ...bill,
+props }`). The rebuild broke none of the three. Residual: **no assertion that the rewrite
+count is 29** — nothing pins `patched.length` or that `before !== after`, so a regex that
+silently stops matching yields a smaller, still-green payload; `--commit` recomputes from
+`IN` and rewrites `OUT` in the same run, so the reviewed artefact need not be the committed
+one; and `(props.forensic_provenance as …).jargon_sweep = …` throws if a bill carries no
+`forensic_provenance`.
+
+### Tests · green for the wrong reason
+
+`lib/analysis/public-copy.test.ts` 13/13 and `lib/analysis/law-verdict.test.ts` 11/11 both
+pass. Neither contains a `dávce`, `dávkov` or `scan` case; law-verdict's only batch test
+(„…už dávka batch-004…") passes on the `\bbatch\b` alternative, not on anything `dávk`-shaped.
+**Deleting the entire `dávk`/`dávkov`/`scan` widening would not fail either suite** — the same
+shape as the pass-42 lesson recorded in `CLAUDE.md`.
+
+---
+
+## Dependency surface — B10 and B11 verified by code-read and measurement
+
+### B10 — excerpt no longer truncates away the placeholder · **CLOSED**
+
+The loader now genuinely loads the census (`CENSUS_FILE =
+"docs/data-analysis/case-law/payloads/batch-014-dependency-census.json"`), `CONTEXT_MAX_CHARS
+= 220` is live rather than dead, and `centeredExcerpt()` windows on the placeholder instead
+of the string start.
+
+Independently measured over the census payload with a reimplementation of `centeredExcerpt`:
+**all 67 census contexts produce a centered excerpt that still contains the placeholder, and
+0 exceed the 220-char bound.** Since the 18 rendered hits are a subset of those 67, the
+18/18 claim holds.
+
+Two implementation details that make this robust, both worth keeping:
+
+- `PLACEHOLDER_RE = /(?:…|\.\.\.)\s*\/\s*\d{4}\s*Sb\b/` matches **both** the single-glyph
+  ellipsis and the literal three-dot run — the corpus uses both, and matching only `…` would
+  have silently returned tisk 206/58 to the old start-anchored cut.
+- **No `/g` flag**, so the shared module-level regex carries no `lastIndex` state between
+  calls. With `/g` and `.exec()` this would have mis-centered intermittently depending on
+  call order — a real trap that was avoided.
+
+Edge cases are handled: a placeholder near either end clamps via
+`start = Math.max(0, end - max)`, and a string shorter than the bound is returned whole.
+The gate runs on the full text *before* centering, so a context failing the Czech/jargon
+gate is withheld entirely rather than trimmed into something misleading.
+
+### B11 — inferred companions no longer over-linked · **CLOSED**
+
+The hedge rule is present and is documented against the analyst's own phrasing („MOŽNÁ …
+tisk 62 …, ALE BEZ EXPLICITNÍ TEXTOVÉ VAZBY"), applying the same suppression already used
+for a `likelyCompanionTisk` absent from the corpus, and the comments state the hedge wording
+stays visible rather than being replaced by a bold link. The per-row „odvozeno · čeká na
+kontrolu" labelling is in place.
+
+### Scope note
+
+This closure pass re-verified the two BLOCKING surface items by code-read and direct
+measurement, as instructed. The surface's **MINOR** residue from the first pass (cs/en key
+parity for the new keys, `navModel` anchor registration, `reportLoaderFailure()` on the
+silent `return null` paths, the „ručně auditovaná" wording of M16, the M18 duplicate-row
+count, and the absence of a colocated test for the new gate/guard) was **not** exhaustively
+re-checked here and should be confirmed before the surface ships. Note that
+`features/lawwatch/` still contains no colocated test covering the dependency loader — the
+four existing `*.test.ts` files predate it.
+
+---
+
+## Closure summary
+
+### Status of the original 12 BLOCKING
+
+| # | status |
+|---|---|
+| B1 CEVYKO private | **CLOSED** |
+| B2 161/74 contradiction | **CLOSED** |
+| B3 161 count | **CLOSED** |
+| B4 74 count | **CLOSED** |
+| B5 contaminated/mis-kinded citation | **CLOSED in 161; regressed into 74 (N2)** |
+| B6 218 refuted accusation | **CLOSED — exemplary** |
+| B7 json filename mangling | **CLOSED mechanically; citation destroyed instead (N7)** |
+| B8 „dávka" grammar | **STILL OPEN — 4 of 29 broken** |
+| B9 detector / throw-guard blindness | **STILL OPEN — 15 hits survive, 29/29 certified clean** |
+| B10 truncated excerpts | **CLOSED — 67/67 verified** |
+| B11 lead rendered as finding | **CLOSED** |
+| B12 13-16 confirmed-collision | **CLOSED — exemplary** |
+
+**9 closed, 1 closed-with-regression, 2 still open.**
+
+### New defects introduced by the remediation
+
+| # | severity | what |
+|---|---|---|
+| **N1** | **BLOCKING** | `verdict-161` — two fabricated quotations plus a false consistency claim, inside the newly elevated headline finding |
+| **N5** | **BLOCKING** | sweep `patched[11]` — **`15 000 Kč` rewritten to `000 Kč`**; a sourced money figure made false |
+| **N6** | **BLOCKING** | sweep `patched[23]` — tisk `173` stripped from the sentence carrying its § list, orphaning `(§ 199 / § 302 / § 303)` |
+| N2 | MAJOR | `verdict-74` `citations[11]` — web facts (ownership, licence, board seat) packed into a `graph_fact` citation; the B5 pattern relocated |
+| N7 | MAJOR | sweep `patched[18]` — `verdict-115` replaced by content-free prose |
+| N3 | MINOR | `verdict-74` — English residue „dozorčí **seat**"; „svazkovou" and „obec Havířov" imprecise |
+| N4 | MINOR | `verdict-161` — 3 of 6 ownership assertions uncited; one sourced to Wikipedia |
+
+Plus, still open from the first pass: **M19** (gA untouched; queue `odstavecOverlap` misread
+as odstavec numbers in both files), **M13** (24 checkable identifiers destroyed by the
+sweep), **M14** (label fallbacks still silent), **M11** and the minor list.
+
+### Why this is REOPENED and not "ready with caveats"
+
+Three blocking defects remain, and all three are **worse in kind than what they replaced**:
+
+1. The verdict layer moved from an *unsupported inference* to *fabricated quotations* (N1).
+2. The sweep moved from *mangling a filename* to *falsifying a CZK amount* (N5) and
+   *orphaning a section list* (N6).
+
+The pass-49 write would stamp `forensic_provenance.jargon_sweep = { pass: 49 }` onto bill
+nodes carrying a false money figure. In a product whose stated brand rule is that *every
+rendered number cites its source and nothing renders a figure the data doesn't carry*, that
+is the one outcome the gate exists to prevent.
+
+Note also that **every one of these passes every gate**: `validateLawVerdict()` is 10/10
+green, `lawJargonIssues()` is 0/29 on the sweep output, and both test suites are green — and
+would stay green if the entire `dávk`/`dávkov`/`scan` widening were deleted. The remediation
+did not weaken the gates; it demonstrated again that they cannot see this class of defect.
+
+### Minimum to close
+
+1. **N5** — restore `15 000 Kč` and exclude the social-benefit sense of *dávka* from the
+   rewrite rules. A quantifier that can consume a digit run adjacent to a currency amount
+   must never run unbounded.
+2. **N6** — fix rule ordering so `\btéto dávky\b` precedes `\bdávky\s*\d\b`, and restore the
+   `173` label on its § list.
+3. **N1** — replace the two fabricated quotations with the true distribution (operative 2×
+   „o 10 %", obecná část A „o 10 %", obecná část C 2× „o 10procentních bodů", zvláštní část
+   no figure). The finding survives, and is stronger, without them.
+4. **B8/B9** — either make the rules declension-complete (note `\w`/`\b` are ASCII-only, so
+   `dávkov\w+` cannot match `Dávkový`; and no `dávk`-anchored pattern can ever match the
+   locative `dávce`), or narrow the sweep to the cases it can handle correctly and stop
+   claiming the rest are clean. Correct the false comment at `law-verdict.ts:120-124`.
+5. **N2/N7, M19, M13** — re-kind 74's citation, restore the destroyed identifiers, and
+   correct the queue-metadata sentences in gA and gB.
+
+### Gate additions (now five)
+
+The four proposed in §9, plus:
+
+5. **Quotation existence** — any string presented in guillemets as a quotation from a bill
+   must be locatable in that bill's cached text, NFC- and whitespace-normalised (catches N1).
+
+And two for the sweep specifically: assert `patched.length` against an expected count so a
+regex that stops matching cannot yield a smaller green payload; and assert that **no rewrite
+changes any digit sequence** — a jargon sweep has no business altering a number, and that
+single invariant would have caught N5 and N6 outright.
+
+---
+
+## Dependency surface — full re-verification (supersedes the scope note above)
+
+The scope note in the preceding section reserved the surface MINORs for later. They have now
+been re-checked by running the loader and measuring the rendered output, not by code-read
+alone. Two corrections to the section above and one new BLOCKING defect follow.
+
+**Caveat on tree state:** a concurrent session is editing these files. `DependencyRadar.tsx`
+was converted from hardcoded Czech to `useTranslations` at **10:34**, *after* the batch-015
+remediation window (`getDependencyData.ts`, 10:07). N8 below is the current state of the
+tree and blocks the surface either way, but it is likely that session's half-landed work
+rather than the remediation's.
+
+### N8 (BLOCKING) — the whole section renders missing message keys, in both locales
+
+`DependencyRadar.tsx` calls ten keys plus one shared key:
+
+```
+dependency.title  dependency.aside  dependency.intro  dependency.hitBadge
+dependency.dependsOn  dependency.pendingTranscript  dependency.noteLabel
+dependency.withheldNote  dependency.coverageFootnote  dependency.sourceNote
+printNumbered
+```
+
+`messages/cs.json` and `messages/en.json` both carry exactly:
+
+```
+back eyebrow title intro section1Title realSection1Title section1Aside effectiveFrom
+sampleNote beforeLabel afterLabel passedBy openInChamber section2Title realSection2Title
+section2Aside rejectedAtStage voteLink pipelineFootnote
+```
+
+**No `dependency` subtree and no `printNumbered` in either catalog** (verified directly;
+`messages/cs.json` mtime 2026-08-04 22:47, untouched by this batch). So every string in the
+section — the heading, the honesty block, **the B11 `pending_review` badge**, and every
+`SourceNote` — renders as a key path or `MISSING_MESSAGE`.
+
+cs/en parity is technically intact (0 cs-only, 0 en-only) **only because neither locale has
+the keys**. The M-list item "no `lawwatch.dependency*` keys, so `en` renders Czech" has not
+been closed; it has become worse — the section now renders nothing readable in *either*
+locale. It also makes M16's copy unverifiable: the „ručně auditovaná" wording moved into
+`t("dependency.intro")`, a key that does not exist, so there is no evidence a qualifier was
+added.
+
+### N9 (MAJOR) — the badge reintroduces debt `DESIGN.md` records as paid off
+
+`DependencyRadar.tsx:92`:
+
+```tsx
+<SourceNote tone="steel" className="!text-[10px]">{t("dependency.hitBadge")}</SourceNote>
+```
+
+18 instances. `docs/DESIGN.md:73-81` states the opposite as settled: *"No pixel-valued
+arbitrary sizes … below the 11 px floor §5 sets. `SourceNote` now uses `text-xs` (12 px) in
+both its modes, and the landing's remaining `text-[10px]` (**including two `!text-[10px]`
+overrides that were defeating `SourceNote` from the call site**) are gone."*
+
+The label set at 10 px is precisely the one carrying the `pending_review` qualifier, against
+§3's rule that *"a citation that cannot be read has not been made."* The fix for B11 is
+undercut by the styling of the fix itself.
+
+### Corrections to the two BLOCKING closures
+
+**B10 — still CLOSED, and now verified end-to-end.** Running the loader under
+`--conditions=react-server` and testing every produced excerpt against the loader's own
+`PLACEHOLDER_RE`: **18 rendered hits, 18 with placeholder, 0 withheld**
+(`bills=10 companionCount=18 unclear=23 total=67`). Pairing is real rather than assumed —
+all 26 bills have equal triage/census hit counts and **67/67** triage contexts are substrings
+of their positionally-paired census context, which is what `getDependencyData.ts:215`
+asserts. Both placeholder forms match; tisk 58/206 use `.../2025 Sb.` and are among the 18.
+Synthetic edge cases (placeholder at start, at end, middle, sole content, absent,
+whitespace-heavy) never produce an empty or placeholder-less excerpt.
+
+Two new MINORs it introduced:
+- **The stated bound is not the enforced bound.** Elision markers are appended *after* the
+  220-char slice (`:150-151`), so live max is **221**, and a middle-anchored case measures
+  **222**.
+- **The elision glyph collides with the placeholder glyph.** 14 of 18 excerpts now open with
+  `…` immediately followed by a mid-word cut — tisk 53 renders `„…4 Sb., zákona č. 180/2024
+  Sb., …"`, so a reader scanning for „č. …/2026 Sb." meets `…4 Sb.` first; a whitespace-heavy
+  input renders `„……/2026 Sb.…"`. Not a fabrication, but it erodes the legibility the fix
+  existed to restore.
+
+**B11 — downgrade from CLOSED to PARTIALLY CLOSED.** The two mechanisms are real: the badge
+exists (`:92-94`), and the 250→62 link is genuinely gone — `getDependencyData.ts:236`
+`likelyCompanionTisk: companionSubject !== null && !weakEvidence ? tisk : null`, probed as
+`tisk 250 … weak=true … tisk#=null`, with the hedge rendering verbatim. But:
+
+- The section still calls hits **`nálezů`** (*findings*) everywhere the count is spoken —
+  intro, withheld note, closing SourceNote. Only the row badge says „lead … ne zjištění",
+  and that badge is currently a missing key (N8) and 10 px when it resolves (N9).
+- **`weakEvidence` is dead data on the surface** — `grep -rn "weakEvidence" features/` outside
+  the loader returns nothing. A hedged guess (250) and an unresolvable out-of-corpus companion
+  (206→777) render identically, so the reader cannot distinguish *"we doubt this"* from
+  *"we cannot resolve this."*
+- The unlinked, hedged subject is styled **`font-bold text-ink`** (`:108`) while an evidenced,
+  linked companion's prose is `text-steel` — **the weakest evidence gets the loudest type.**
+- `WEAK_EVIDENCE_RE = /bez\s+explicitn[ěí]\s+textov[ěé]\s+vazby/i` matches **1 of 18**, with
+  **no false positives**; the two other hedged subjects (tisk 58 „…neurčitelný", tisk 64
+  „…nedá určit") already carry `likelyCompanionTisk: null`, so there is no false negative in
+  effect. But it is a single verbatim phrase match, not a hedge detector — a future
+  „možná tisk N" without that exact clause links unhedged.
+
+### Remaining M-items — measured
+
+- **M16 — STILL OPEN.** 1 of 18 companion-hit `reasoning` strings mentions Spot-verified
+  (14 of 67 overall). Copy now unverifiable per N8.
+- **M17 — STILL OPEN, all three parts.** The subject link is still ungated —
+  `<Link href={`/zakony/${bill.cislo}`}>` at `:70-76`, with no membership test though
+  `billTitleByCislo.has(...)` is used two lines later for the companion — and
+  `app/zakony/[cislo]/page.tsx:37-38` hard-404s. Latent today only because the census scanned
+  the same 141 bills; `:77 {title && …}` already tolerates a missing bill, so the link ships
+  regardless. Tisk 777 remains unlinked with nothing saying it is unresolvable, and the
+  chamber problem is untouched — `graph-log.md:1161` records this edge as **`206→ST 777`, a
+  Senate print**, while the rendered subject says „označena přímo jako **sněmovní** tisk 777".
+- **M18 — PARTIALLY, incidentally.** 10 distinct pairs, 18 rows. Tisk 153 still renders six
+  rows; B10's centering made their excerpts distinct, but the claim line is identical six
+  times and no dedupe was added. Count copy unchanged in structure.
+- **CLOSED:** psp.cz attribution; mixed quote marks (`:120` uses „…“).
+- **STILL OPEN:** `generatedAt` never rendered; dead `!companionExists` branch (`:111-116`,
+  unreachable since `companionSubject === null` forces `likelyCompanionTisk === null`);
+  `f.int()` on print numbers (`:74`, `:104` — renders `1 234` for a 4-digit print); `id="zavislosti"`
+  absent from `navModel.ts:172-175`; three silent `return null` paths (`:187`, `:190`, `:242`)
+  with no `reportLoaderFailure()` — only the census sub-read (`:200`) and the outer catch
+  (`:256`) report; **no colocated test** — `centeredExcerpt` and `WEAK_EVIDENCE_RE`, the two
+  functions this remediation turns on, are untested.
+
+### Gates
+
+- `npx eslint features/lawwatch --no-warn-ignored` → **0 errors**, 2 pre-existing unrelated
+  warnings (`lawwatchLabels.ts:114,115`).
+- `npx vitest run features/lawwatch` → **4 files / 35 tests pass**; **none cover the
+  remediated code**.
+- `npx tsc --noEmit` → **9 errors**, none in `features/lawwatch` — all in
+  `features/civicscore/{CivicScorePage,KrajPage,components/WeightPanel}.tsx` and
+  `features/schranka/deriveDeltas.ts`. Unrelated to batch-015, but **`npm run check` is red
+  repo-wide**, so the definition of done cannot be met today by anyone.
+
+### Amendment to the closure summary
+
+The new-defect table above gains two rows, and one status changes:
+
+| # | severity | what |
+|---|---|---|
+| **N8** | **BLOCKING** | dependency section renders 11 missing message keys in both locales — including the B11 `pending_review` badge |
+| N9 | MAJOR | `!text-[10px]` on `SourceNote` ×18, against `DESIGN.md:73-81` |
+
+**B11: CLOSED → PARTIALLY CLOSED.** Blocking count for the closure check is therefore
+**four** — N1, N5, N6, N8 — with B8, B9, M19 and the surface M-list still open.
+
+---
+---
+
+# Final closure check (round 2)
+
+Verified against the tree at 11:01–11:08. Independent recomputation; nothing taken on
+report. No file edited, no git, no PGlite.
+
+## VERDICT: **REOPENED**
+
+The sweep is now genuinely safe — the digit invariant is real, correctly implemented and
+empirically sound, and both destructive rewrites are gone. The surface is fixed. M19 is
+fixed. But **N1 was not actually fixed**: only the word „důsledně" was removed. **Both
+fabricated quotations are still there, verbatim**, and the citation asserting the false
+claim is untouched — so the verdict now contradicts itself between its prose and its own
+citation.
+
+Worse, the corrections to `verdict-161` and to `gA 65-103` were **spliced into existing
+sentences without repairing the surrounding syntax**, leaving two passages of broken Czech
+with unbalanced parentheses. That is a new MAJOR, and it is the same failure mode in both
+files.
+
+---
+
+## The one BLOCKING that did not close
+
+### N1 — `verdict-161.json` · **REOPENED.** The fabricated quotations remain
+
+Re-measured against `.data/law-collision-cache/tisk-161/269099.txt` (NFC, whitespace-collapsed):
+
+| quote | in the bill? | still quoted in the verdict? |
+|---|---|---|
+| Q1 „Navržené snížení cíle odděleného soustřeďování o 10procentních bodů…" | **YES** | yes — legitimate |
+| Q2 „…umožňuje snížení cílů podle § 59 odst. 3 věty první o 10procentních bodů…" | **NO** | **YES** |
+| Q3 „snižuje cíle pro oddělené soustřeďování… o 10procentních bodů" | **NO** | **YES** |
+
+Q2's real sentence lives at line 37–38 in the **operative příloha č. 13** and reads
+**„o 10 %"**; the quotation inverts the unit and relocates the source. Q3's zvláštní část
+sentence carries **no figure at all**; its ellipsis conceals an insertion.
+
+What changed is only that „důsledně" is gone (confirmed: 0 occurrences) and a new sentence
+concedes the memorandum also writes „o 10 %". That concession is **true and valuable** — it
+is exactly the sharper finding recommended last round. But it does not repair the two
+invented quotations, and it creates a direct self-contradiction:
+
+- prose (new): „Sama důvodová zpráva přitom na jiném místě používá i formulaci **„o 10 %"**…"
+- `citations[1]` (unchanged): „Obecná i zvláštní část důvodové zprávy popisují tutéž úlevu
+  jako snížení cíle „o 10procentních bodů", **nikoli „o 10 %"**."
+
+The citation now denies what the body asserts.
+
+---
+
+## New MAJOR — the same splice defect in two files
+
+### N10 — `verdict-161.json` · `researchedContext` · the correction was inserted mid-quotation-list
+
+```
+…píše o procentních bodech („Navržené snížení … bodů…", „…umožňuje snížení cílů …
+o 10procentních bodů…" Sama důvodová zpráva přitom na jiném místě používá i formulaci
+„o 10 %", takže rozpor … běží … i uvnitř odůvodnění samotného. v obecné části i
+„snižuje cíle pro oddělené soustřeďování… o 10procentních bodů" ve zvláštní části).
+```
+
+The new sentence was dropped between the second quotation and the words that governed it,
+so the passage now runs `…bodů…" Sama … samotného. v obecné části i „…" ve zvláštní části).`
+— a sentence ending in a full stop followed by a lowercase fragment, inside a parenthesis
+that closes only after the debris. This is reader-facing forensic copy.
+
+### N11 — `collision-close-reads-batch015-gA.json` · `65-103` · orphaned debris from the M19 edit
+
+The M19 correction itself is right (see below), but it overwrote the first half of a
+parenthetical and left the second half stranded:
+
+```
+…záměrně nerozhodnutelná a rozhoduje až toto čtení). 3, 103 = odst. 1); jde tedy
+o koordinační riziko dvou nezávisle měněných odstavců téhož paragrafu…
+```
+
+`). 3, 103 = odst. 1);` is the tail of a former „(65 = odst. 3, 103 = odst. 1)". Parenthesis
+balance in this `reasoning` is **3 open vs 4 close**.
+
+---
+
+## Still open
+
+### B8 — „Dávkový prověření" survives · `patched[27]`, tisk 248, `forensic_citations[8].claim`
+
+```
+BEFORE: „Dávkový scan tohoto tisku v grafu případu law (dávka 001) eviduje u tisku 248…"
+AFTER : „Dávkový prověření tohoto tisku v grafu případu law (dřívější zpracování) eviduje…"
+```
+
+Masculine adjective + neuter noun — the same string flagged last round, unchanged.
+
+### B9 — the sweep now launders its own defect past the detector
+
+The detector *was* rebuilt unicode-safe (`lib/analysis/law-verdict.ts:125`,
+`\p{L}` + `/iu`), and the batch-007 ASCII lesson is correctly cited. But its adjectival rule
+is `(?<!\p{L})dávkov\p{L}*\s+scan\p{L}*` — it only fires **when „scan" is attached**. The
+sweep replaces `scan → prověření` *before* the guard runs, so by the time
+`lawJargonIssues(t)` inspects the string, the token the detector needs is gone. **The
+rewrite destroys the evidence of its own error**, and the throw-guard passes. That is why
+N-B8 above ships clean.
+
+Two batch-sense residues also survive (`\bdávce\b` with no digit): „v této i předchozí
+**dávce**" in `patched[1]` and `patched[5]`. This is the documented limit — but it means the
+sweep leaves the reader a batch self-reference in a document whose whole purpose was to
+remove them. Separately, `lib/analysis/public-copy.ts:39` is **unchanged** — still
+`/\b(batch|dávka)\s*\d/i`, ASCII and nominative-only — and `czechCopyOrNull` is the sweep's
+second gate.
+
+Other internal vocabulary still shipping in the rewritten output: „v grafu **případu law**"
+×2, „**churn** 6" ×3, „**gatovanému** tisku" ×1, „**uzel**" ×1.
+
+### N3 — „dozorčí seat" · `verdict-74.json` · `conflictAssessment`
+
+The citation was cleaned, the prose was not: „…vazba je tedy institucionální (**dozorčí
+seat**), nikoli vlastnická nebo osobně podnikatelská."
+
+### M17 (chamber) / M18 — unchanged
+
+Every row still hardcodes the chamber: `sn. tisk {bill.cislo}` at `DependencyRadar.tsx:114`
+and `sn. tisk {rawTisk} (mimo korpus — bez odkazu)` at `:192`. Tisk 777 — which
+`graph-log.md:1161` records as **`206→ST 777`, a Senate print** — therefore renders as
+„**sn.** tisk 777 (mimo korpus — bez odkazu)". The „(mimo korpus)" wording correctly stops
+asserting *resolvability*; it does not stop asserting the *chamber*. No dedupe was added, so
+M18's duplicate rows stand.
+
+---
+
+## Closed this round — verified, not trusted
+
+### N5 — the falsified money figure · **CLOSED**
+
+`15 000 Kč` appears in **0 rows** of the payload, before or after — the blanket digit rules
+are gone, so the field is no longer rewritten at all. **0 rows** contain an orphan „000 Kč".
+The benefit sense is now correctly untouched everywhere: „peněžité **dávky** vyplácené
+pojištěným osobám", „paušální **dávky** před porodem", „**dávkové** agendy", „rodinnými
+**dávkami**" all survive verbatim.
+
+### N6 — the stripped identifier · **CLOSED**
+
+```
+BEFORE: „…vůči tiskům z této dávky 173 (§ 199 / § 302 / § 303) a 196…"
+AFTER : „…vůči tiskům z tohoto zpracování 173 (§ 199 / § 302 / § 303) a 196…"
+```
+
+`173` preserved **2→2**; the § list keeps its label; „tohoto zpracování" is correct neuter
+genitive. The rule-ordering trap I expected (`\bdávky 001\b` pre-empting `\btéto dávky\b`)
+does not fire — no „této dávky 001" exists in the corpus, and **0 orphaned demonstratives**
+appear in any AFTER string.
+
+### The digit invariant · **implemented, fail-closed, and sound on this corpus**
+
+`sweep-old27-015.ts:77-107`. It throws **before** `patched.push`, so a violation aborts with
+zero writes. I recomputed the digit multiset independently for all 28 rows: **22 rows change
+digits, and every change falls in one of the four allowlisted classes.** Each class checked
+empirically rather than assumed:
+
+- **`001` ×19** — all 22 occurrences in BEFORE are genuine batch ids („dávka 001", „z dávky
+  001", „v dávce 001"); none is a section, year or amount.
+- **person ids `6433`, `6473`, `6545` ×3 rows** — each dropped parenthetical is preceded by
+  the person's own name, and **the name survives in AFTER**: „Olga Richterová
+  (psp:person:6473)" → „Olga Richterová", „Ivan Bartoš (…)" → „Ivan Bartoš", „Alenu
+  Schillerovou (…)" → „Alenu Schillerovou".
+- **`0` ×2** — both are the two bespoke prop-value rewrites, confirmed present in those exact
+  rows and nowhere else.
+- **`43370` → `248`** — the bill-urn→cislo transform, the only ADD in the payload.
+
+Note the invariant is deliberately fail-closed on the `001` rule: the guard tests
+`!t.includes("001")` as a substring, so an unrelated „1001" in the output makes it *refuse*
+the drop rather than permit it. One structural gap worth recording: the allowlist permits a
+person-id drop **because the urn sat in a parenthetical**, not because anything verified the
+name survives — true for all three cases here, unchecked in general.
+
+Also verified: **no real urn survives anywhere** in the 28 rewritten strings
+(`law:sb:`/`bill:tisk:`/`psp:person:`/`company:ico:` all 0).
+
+### N7 — **CLOSED.** „verdict-115.json" → „archivovaný posudek k tisku 115" — identity and digits both preserved.
+
+### N2 — **CLOSED.** `verdict-74` `citations[11]` is now a clean `graph_fact` (tie + aggregate + „vazba čeká na lidskou kontrolu" only); the ownership, dozorčí-rada and sector facts moved to `citations[12]`, `kind: "web"`, sourced to the hlídač státu Vazby URL.
+
+### M19 — **CLOSED in both files.** gB `67-75`: „…její pole překryvu nese označení paragrafů, nikoli odstavců; interakce byla z předběžné kontroly záměrně nerozhodnutelná…". gA `65-103`: the same correction, correctly stated — though it carries N11's debris.
+
+### N8 — **CLOSED.** 0 `t("dependency…")` calls remain; the component is inline Czech again, so nothing renders a missing key. Catalogs untouched, as reported.
+
+### N9 — **CLOSED.** No `text-[10px]` anywhere; the badge is `text-[11px]`, on the DESIGN.md floor, and `SourceNote` is used unmodified at `:73` and `:146`.
+
+### B11 — **CLOSED.** Hits are „podněty" with correct numeral congruence (`1 podnět / 2–4 podněty / 5+ podnětů`, `:41-47`). `weakEvidence` is now live on the surface, driving a dashed-ochre „**· vazba nejistá**" badge (`:174-178`); hedged text is `italic text-steel`, never bold (`:192`); a companion links only when `billTitleByCislo.has(rawTisk)`.
+
+### M16 — **CLOSED.** The audit claim is replaced by a measured figure rendered from the payload (`spotCheckedCompanionCount`, `:85-86`).
+
+### M17 (subject link) — **CLOSED.** `const billExists = billTitleByCislo.has(bill.cislo)` gates the subject link (`:100-116`); out-of-corpus renders as text, not a `notFound()` link.
+
+---
+
+## Ledger
+
+| item | status |
+|---|---|
+| N5 falsified money figure | **CLOSED** |
+| N6 stripped identifier | **CLOSED** |
+| digit invariant + allowlist | **CLOSED — sound on this corpus** |
+| N7 verdict filename | **CLOSED** |
+| N2 mixed citation | **CLOSED** |
+| M19 queue metadata | **CLOSED** (both files) |
+| N8 missing message keys | **CLOSED** |
+| N9 10 px badge | **CLOSED** |
+| B11 lead-not-finding | **CLOSED** |
+| M16 measured spot-check count | **CLOSED** |
+| M17 subject-bill link guard | **CLOSED** |
+| **N1 fabricated quotations** | **REOPENED — BLOCKING** |
+| **N10 spliced sentence (161)** | **NEW — MAJOR** |
+| **N11 spliced debris (gA 65-103)** | **NEW — MAJOR** |
+| B8 „Dávkový prověření" | **STILL OPEN** |
+| B9 detector blinded by the sweep | **STILL OPEN** |
+| N3 „dozorčí seat" | **STILL OPEN** |
+| M17 chamber / M18 dedupe | **STILL OPEN** |
+
+## Minimum to close
+
+1. **N1** — delete the two quotations that are not in the document, and fix `citations[1]`,
+   whose „nikoli „o 10 %"" is now contradicted by the verdict's own prose. State the true
+   distribution: operative text 2× „o 10 %", obecná část A „o 10 %", obecná část C 2×
+   „o 10procentních bodů", zvláštní část no figure.
+2. **N10 / N11** — repair both spliced passages and check parenthesis balance.
+3. **B8 / B9** — move the `scan` rewrite *after* the jargon guard, or make the adjectival
+   detector rule independent of „scan"; then fix „Dávkový prověření".
+4. **N3** — „dozorčí seat" → „místo v dozorčí radě".
+5. **M17 chamber** — derive the chamber instead of hardcoding „sn.", or drop the prefix.
+
+## The pattern worth recording
+
+Three of this round's four defects are one failure mode: **a correction applied to a string
+without re-reading the string it landed in.** N10 and N11 splice a true sentence into prose
+whose syntax then breaks; B9's rewrite deletes the token a downstream guard depends on. The
+digit invariant works precisely because it is the opposite — a *property of the whole
+string* checked after every rule has run. The same shape, applied to syntax, would catch
+N10 and N11: assert that a rewritten string has balanced parentheses and no full stop
+followed by a lowercase word.
+
+---
+---
+
+# Final closure note (round 3)
+
+Verified against the tree as it now stands. Independent recomputation; nothing taken on
+report. No file edited, no git, no PGlite.
+
+## VERDICT: **CLOSED** — pass 49 may proceed
+
+No BLOCKING and no MAJOR remain. Two MINOR residuals are recorded below; neither is a
+correctness defect and neither gates the write.
+
+---
+
+## The reopened items
+
+### N1 — fabricated quotations · **CLOSED**
+
+Both invented quotations are gone from `verdict-161.json`, and every quotation that remains
+is verbatim. Re-checked by locating each guillemet span in
+`.data/law-collision-cache/tisk-161/269099.txt` (NFC, whitespace-collapsed):
+
+| quote | source | status |
+|---|---|---|
+| „…je obec povinna zajistit splnění cíle … sníženého o 10 %" | § 59 odst. 3 sentence | **VERBATIM** |
+| „snížení cílů podle § 59 odst. 3 věty první o 10 %" | příloha č. 13 | **VERBATIM** |
+| „Navržené snížení cíle odděleného soustřeďování o 10procentních bodů pro obce s velmi nízkou…" | obecná část C | **VERBATIM** |
+| „Snížení cíle o 10procentních bodů proto představuje přiměřenou korekci…" | obecná část C | **VERBATIM** |
+| ~~„…umožňuje snížení cílů … o 10procentních bodů…"~~ | — | **removed** |
+| ~~„snižuje cíle pro oddělené soustřeďování… o 10procentních bodů"~~ | — | **removed** |
+
+The second surviving quote is the one split across lines 151–152 of the source; it matches
+exactly once whitespace is normalised, which is the right standard for a PDF transcript.
+
+`citations[1]` is rewritten and now **agrees with the body**:
+
+> „Odůvodnění důvodové zprávy popisuje úlevu na více místech jako snížení cíle
+> „o 10procentních bodů", na jiném místě však samo užívá i formulaci „o 10 %" — zatímco
+> zákonný text novely na obou operativních místech stanoví „o 10 %"."
+
+That is the true three-way distribution, and the „nikoli „o 10 %"" assertion that
+contradicted the prose is gone. The finding is now both accurate and sharper than the one
+this audit first challenged.
+
+### N10 — spliced sentence in `verdict-161` · **CLOSED**
+
+`researchedContext`: parentheses **3 open / 3 close**, guillemets **7 / 7**, and **zero**
+occurrences of a full stop followed by a lowercase continuation.
+
+### N11 — stranded fragment in `gA[2]` · **CLOSED**
+
+`65-103-300-2008` no longer contains `3, 103 = odst. 1);`. Parentheses **3 / 3**, no
+mid-sentence stop, and the closing sentence now opens correctly on „Jde tedy o koordinační
+riziko…". The M19 correction it carries remains accurate.
+
+### B8 — „Dávkový prověření" · **CLOSED**
+
+`Dávkový prověření` → **0 occurrences**; `Hromadné prověření` → **1**. Rewriting the
+adjective and noun together, ahead of the bare-noun rule, removes the masculine/neuter clash
+at its source rather than patching the output.
+
+### B9 — batch-sense residue · **CLOSED**
+
+**Zero batch-sense survivors.** Six `dávk`-forms remain in the payload and **all six are the
+social-benefit sense**, correctly untouched: „rodinnými **dávkami**", „peněžité **dávky**
+vyplácené pojištěným osobám", „**dávkové** agendy", „paušální **dávky** před porodem",
+„žadatelů o **dávky**", „**dávky** státní sociální podpory". The two „v této i předchozí
+dávce" occurrences are gone. `scan` and `json` are both at **0 rows**.
+
+### N3 — „dozorčí seat" · **CLOSED**
+
+No `seat` anywhere in `verdict-74.json`. The prose reads „…na jejíž dozorčí radě Niemiec
+zasedá…" and the web citation „…je od 10. října 2019 členem její dozorčí rady, bez
+evidovaného vlastnického podílu…".
+
+---
+
+## The syntax invariant — adopted, and correctly *relative*
+
+`sweep-old27-015.ts:114-120`:
+
+```ts
+const parenSkew = (s: string) => Math.abs((s.match(/\(/g) ?? []).length - (s.match(/\)/g) ?? []).length);
+if (parenSkew(t) > parenSkew(r.text)) throw new Error(`… SYNTAX INVARIANT — parenthesis balance worsened`);
+if (midStops(t) > midStops(r.text)) throw new Error(`… SYNTAX INVARIANT — introduced a full stop before a lowercase continuation`);
+```
+
+**Both checks are relative, and that is the right call** — a point worth recording, because
+the obvious absolute version would be wrong here. Czech legal prose is full of enumeration
+markers that are unmatched closers by construction: `písm. m)`, `písmeno n)`, ` b)`, `c)`,
+`d)`, `g)`, `i)`. Measured on the collision waves, two `reasoning` fields are "unbalanced"
+purely from this: `gA 189-248` (3 open / 7 close, 5 enumeration markers) and `gB 13-16`
+(7 / 22, 16 markers). **Neither is a defect.** An absolute balance assertion would have
+failed on legitimate legal citation and taught the loop to distrust the check. Comparing
+against the input tolerates the corpus's own style while still catching exactly the N10/N11
+damage class.
+
+### Three sweep rows re-checked under both invariants
+
+Chosen as the former N5, N6 and B8 rows:
+
+| row | field | digits removed / added | parenSkew | midStops |
+|---|---|---|---|---|
+| 11 · tisk 124 | `forensic_researched_context` | `["001"]` / `[]` | 0 → 0 | 1 → 1 |
+| 22 · tisk 216 | `forensic_researched_context` | `["001","001"]` / `[]` | 0 → 0 | 0 → 0 |
+| 27 · tisk 248 | `forensic_citations[8].claim` | `["001"]` / `[]` | 0 → 0 | 0 → 0 |
+
+All three pass both invariants: the only digits lost are allowlisted batch ids, and neither
+syntax measure worsens.
+
+---
+
+## Gate
+
+`validateLawVerdict()` + `lawJargonIssues()` re-run over all ten verdicts with the targets
+payload's `knownLawRefs`/`knownIds`: **10/10 clean**, zero schema errors, zero jargon hits.
+
+---
+
+## Residual MINORs — recorded, not blocking
+
+1. **The out-of-corpus *subject* still asserts a chamber.** The companion label was fixed —
+   `DependencyRadar.tsx:194` now renders „tisk {rawTisk} (mimo korpus — bez odkazu)" with no
+   `sn.` prefix, which is the case that mattered (tisk 777 is a Senate print per
+   `graph-log.md:1161`). But `:114` still renders „**sn.** tisk {bill.cislo} (mimo korpus)"
+   for an out-of-corpus subject — the same logic gap, one branch over. The in-corpus labels
+   at `:109` and `:187` are correct as written, since membership in the sněmovní corpus is
+   what `billTitleByCislo.has()` establishes.
+2. **Internal vocabulary still ships in the sweep output**, unchanged and never claimed
+   fixed: „v grafu **případu law**" ×2, „**churn** 6" ×3, „**gatovanému** tisku" ×1,
+   „**uzel**" ×1. These are outside the sweep's rule set; they belong to the next pass's
+   jargon scope. M18's duplicate rows (tisk 153 rendering six rows for one dependency) also
+   remain, as does the absence of a colocated test for `centeredExcerpt` and the hedge rule.
+
+---
+
+## Closing assessment
+
+Batch-015 took four rounds. What the record shows is that **every gate in the loop was green
+at every round**, including the rounds that carried a false ownership claim, two arithmetic
+errors, a refuted non-disclosure accusation, a falsified CZK figure and two fabricated
+quotations. Nothing in the suite could see any of them — the same lesson `CLAUDE.md` already
+records for pass 42, encountered again at a different layer.
+
+What closed the gap was not more review but **invariants over whole artefacts**: the digit
+invariant (no rewrite may alter a digit sequence), the syntax invariant (no rewrite may
+worsen parenthesis balance or introduce a mid-sentence stop), sponsor arithmetic that must
+close against the payload, and quotation existence checked against the cached text. Each is
+cheap, mechanical, and would have caught its defect on the first round. The five gate
+additions proposed across this audit are now the durable output of the batch — more valuable
+than any single verdict it produced.

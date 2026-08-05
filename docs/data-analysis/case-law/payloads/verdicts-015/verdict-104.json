@@ -9,7 +9,7 @@
       "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=104&ct1=0"
     }
   ],
-  "conflictAssessment": "Ze sedmi spolupředkladatelů nemá evidovanou peněžní vazbu na firmu pět (Václav Pláteník, Jiří Vojáček, Benjamin Činčila, Marie Kršková, Monika Brzesková). Jiří Horák má v grafu evidovanou vazbu na Vodovody a kanalizace Vyškov, a.s. s úhrnem veřejných smluv 124 508 316 Kč; jde o regionální vodárenskou společnost plně ovládanou obcemi vyškovského okresu, tedy o komunálně vlastněný subjekt, který se podle standardní metodiky nepovažuje za soukromý podnikatelský konflikt zájmů, a navíc jeho oborová činnost (vodovody a kanalizace) nemá žádnou věcnou souvislost s předmětem tohoto tisku (používání mobilních telefonů ve školách). Marian Jurečka má v grafu evidovanou vazbu na AGRO 2000 s.r.o. s úhrnem veřejných smluv 253 958 310 Kč; jde o soukromou zemědělskou firmu bez zjevné souvislosti se školstvím nebo elektronickými komunikačními zařízeními. U žádného ze spolupředkladatelů tedy evidované peněžní vazby věcně nesouvisí s regulací, kterou tento tisk zavádí, a v datech proto není zjištěný střet zájmů.",
+  "conflictAssessment": "Ze sedmi spolupředkladatelů nemá evidovanou peněžní vazbu na firmu pět (Václav Pláteník, Jiří Vojáček, Benjamin Činčila, Marie Kršková, Monika Brzesková). Jiří Horák má v grafu evidovanou vazbu na Vodovody a kanalizace Vyškov, a.s. s úhrnem veřejných smluv firmy 124 508 316 Kč, vazba čeká na lidskou kontrolu; jde o regionální vodárenskou společnost plně ovládanou obcemi vyškovského okresu, tedy o komunálně vlastněný subjekt, který se podle standardní metodiky nepovažuje za soukromý podnikatelský konflikt zájmů, a navíc jeho oborová činnost (vodovody a kanalizace) nemá žádnou věcnou souvislost s předmětem tohoto tisku (používání mobilních telefonů ve školách). Marian Jurečka má v grafu evidovanou vazbu na AGRO 2000 s.r.o. s úhrnem veřejných smluv firmy 253 958 310 Kč, vazba čeká na lidskou kontrolu; jde o soukromou zemědělskou firmu bez zjevné souvislosti se školstvím nebo elektronickými komunikačními zařízeními. U žádného ze spolupředkladatelů tedy evidované peněžní vazby věcně nesouvisí s regulací, kterou tento tisk zavádí, a v datech proto není zjištěný střet zájmů.",
   "severity": "low",
   "confidence": 4,
   "citations": [
@@ -24,7 +24,7 @@
       "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=104&ct1=0"
     },
     {
-      "claim": "Spolupředkladatel Jiří Horák (pspId 6803) má v grafu evidovanou peněžní vazbu na Vodovody a kanalizace Vyškov, a.s. (IČO 49454587) s úhrnem veřejných smluv 124 508 316 Kč.",
+      "claim": "Spolupředkladatel Jiří Horák (pspId 6803) má v grafu evidovanou peněžní vazbu na Vodovody a kanalizace Vyškov, a.s. (IČO 49454587), úhrn veřejných smluv firmy 124 508 316 Kč, vazba čeká na lidskou kontrolu.",
       "kind": "graph_fact",
       "source": "company:ico:49454587"
     },
@@ -34,9 +34,14 @@
       "source": "https://www.vakvyskov.cz/"
     },
     {
-      "claim": "Spolupředkladatel Marian Jurečka (pspId 6205) má v grafu evidovanou peněžní vazbu na AGRO 2000 s.r.o. (IČO 25586521) s úhrnem veřejných smluv 253 958 310 Kč.",
+      "claim": "Spolupředkladatel Marian Jurečka (pspId 6205) má v grafu evidovanou peněžní vazbu na AGRO 2000 s.r.o. (IČO 25586521), úhrn veřejných smluv firmy 253 958 310 Kč, vazba čeká na lidskou kontrolu.",
       "kind": "graph_fact",
       "source": "company:ico:25586521"
+    },
+    {
+      "claim": "Tisk 232 v čl. I bodu 2 ruší § 30 odstavec 3 zákona č. 561/2004 Sb. („V § 30 se odstavec 3 zrušuje.\"), na stejném místě, kde tisk 104 v čl. I bodu 1 tentýž odstavec nahrazuje novým zněním („V § 30 odstavec 3 zní:\") — jedna novela odstavec ruší, druhá jej novelizuje.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=232&ct1=0"
     },
     {
       "claim": "Zákon č. 561/2004 Sb., školský zákon, je statutem novelizovaným tiskem 104.",

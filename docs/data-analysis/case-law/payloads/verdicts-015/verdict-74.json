@@ -1,87 +1,92 @@
 {
-  "billTisk": 74,
-  "statedReasoning": "Skupina poslanců okolo Petra Hladíka mění čtyři předpisy: zákon č. 167/2008 Sb., o předcházení ekologické újmě a o její nápravě, zákon č. 282/1991 Sb., o České inspekci životního prostředí a její působnosti v ochraně lesa, vodní zákon č. 254/2001 Sb. a zákon č. 541/2020 Sb., o odpadech. Důvodová zpráva popisuje zákon o ekologické újmě jako řádně transponovaný, ale v praxi téměř nevyužívaný kvůli nejasné hranici vůči složkovým předpisům (vodní zákon, ochrana přírody, zemědělský půdní fond) — příslušný orgán (ČIŽP) často řízení zahájí a vzápětí zastaví. Novela proto zpřesňuje definici ekologické újmy, posiluje odbornou roli AOPK ČR při posuzování újmy na chráněných druzích a stanovištích, zavádí ohlašovací povinnost k hodnocení rizik do centrálního systému, ruší dosavadní výjimku z povinnosti finančního zajištění pro provozovatele s certifikací EMAS nebo ISO 14 000, zavádí nové skutkové podstaty přestupků a zvyšuje horní hranice pokut podle zákona o ČIŽP. Navazující změny vodního zákona a zákona o odpadech jsou podle zprávy převážně formální nebo doplňují procesní nástroje ČIŽP.",
-  "researchedContext": "Text potvrzuje, že novým § 1a zákona č. 282/1991 Sb. (čl. III bod 1) získává ČIŽP oprávnění provést na náklady povinné osoby samu nezbytná nápravná opatření, předchozí průzkumy nebo odborné podklady, hrozí-li nebezpečí z prodlení a povinná osoba je neplní; náklady jsou zálohovány ze Státního fondu životního prostředí a povinné osobě následně přeúčtovány. Odstavec 2 nového § 1a ovšem výslovně vylučuje jeho použití na opatření uložená podle zákona o předcházení ekologické újmě — tedy právě podle předpisu, jehož nedostatečnou vymahatelnost důvodová zpráva označuje za hlavní problém. Nový nástroj tak dopadá na nápravná opatření podle jiných složkových předpisů (vodní zákon, ochrana přírody a krajiny), nikoli na opatření uložená přímo podle zákona o ekologické újmě. Potvrzeno je také zrušení výjimky z finančního zajištění pro EMAS/ISO certifikované provozovatele (nové znění § 14 odst. 4 zákona č. 167/2008 Sb., čl. I bod 19) a zvýšení horních sazeb pokut podle zákona o ČIŽP z 5 na 10 mil. Kč a z 10 na 20 mil. Kč (čl. III body 2 a 3). Změna zákona o odpadech (čl. V) doplňuje pravidla pro přebírání odpadu do mobilních zařízení podle skutečného původce a novou skutkovou podstatu přestupku za jejich obcházení.",
-  "unstatedEffects": [
-    {
-      "effect": "Nový § 1a zákona o ČIŽP dává inspekci pravomoc vymáhat nesplněná nápravná opatření na náklady povinné osoby u opatření uložených podle vodního zákona nebo zákona o ochraně přírody a krajiny, ale výslovně (odst. 2) vylučuje tuto pravomoc pro opatření uložená přímo podle zákona o předcházení ekologické újmě — téhož zákona, jehož slabou vymahatelnost důvodová zpráva označuje za ústřední důvod novely. Zpráva tento nesoulad mezi deklarovaným cílem (posílit vymahatelnost ZEÚ) a rozsahem nového nástroje (který se na ZEÚ nevztahuje) nezmiňuje ani nezdůvodňuje.",
-      "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou provozovatelé, kteří neplní nápravná opatření uložená podle vodního zákona nebo zákona o ochraně přírody a krajiny (na ty nová vymáhací pravomoc ČIŽP dopadá), zatímco provozovatelé s opatřením uloženým přímo podle zákona o ekologické újmě novým nástrojem dotčeni nejsou.",
-      "evidence": "úplný text tisku na psp.cz, řádky 381–395 strojového přepisu (nový § 1a zákona č. 282/1991 Sb. včetně vylučující věty v odstavci 2)."
-    },
-    {
-      "effect": "Zrušení výjimky z povinnosti finančního zajištění pro provozovatele s certifikací EMAS nebo ISO 14 000 zvyšuje jejich administrativní a finanční zátěž (nutnost prokázat finanční zajištění, např. pojištěním, i bez ohledu na certifikaci). Důvodová zpráva změnu zdůvodňuje tím, že certifikace sama o sobě nezaručuje soulad s hodnocením rizik podle zákona o ekologické újmě, ale na rozdíl od jiných částí zprávy (např. odhadů nákladů ČIŽP, AOPK a správ národních parků na straně veřejných rozpočtů) neuvádí, kolik provozovatelů výjimku dosud využívalo ani odhad dodatečných nákladů na jejich straně.",
-      "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou provozovatelé s certifikací EMAS nebo ISO 14 000, kteří dosud výjimku z finančního zajištění využívali a nově budou muset finanční zajištění prokazovat stejně jako necertifikovaní provozovatelé.",
-      "evidence": "úplný text tisku na psp.cz, řádky 605–618 a 232–234 strojového přepisu (zrušení výjimky a nové znění § 14 odst. 4 zákona č. 167/2008 Sb.)."
-    }
-  ],
-  "conflictAssessment": "Graf eviduje peněžní vazby u tří z devíti předkladatelů. Petr Hladík je veden s vazbami na ARENA BRNO, a.s. (IČO 09133267, cca 19,39 mld. Kč), Dopravní podnik města Brna, a.s. (IČO 25508881, cca 88,99 mld. Kč), Teplárny Brno, a.s. (IČO 46347534, cca 23,57 mld. Kč), MERO ČR, a.s. (IČO 60193468, cca 2,98 mld. Kč) a SAKO Brno, a.s. (IČO 60713470, cca 24,67 mld. Kč) — ve všech případech jde o úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu. Všech pět subjektů jsou obecní nebo státní obchodní společnosti (SAKO Brno a Teplárny Brno městské, DPMB a ARENA BRNO městské, MERO ČR se státní majetkovou účastí) svázané s Hladíkovou funkcí statutárního zástupce města Brna, nikoli s jeho osobním podnikáním — jde o institucionální, nikoli soukromou vazbu, a taková obecní či státní účast se za střet zájmů nepovažuje. Přesto je namístě uvést jmenovitě, že SAKO Brno, a.s. provozuje komunální spalovnu odpadů a novela mění i zákon o odpadech (čl. V) — jde o věcnou blízkost tématu bez důkazu osobního prospěchu, kterou by měl budoucí lidský přezkum vzít v úvahu. Bohuslav Niemiec je veden s vazbou na CEVYKO a.s. (IČO 08599254, cca 301,39 mil. Kč, úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu) — společnost působí mimo obory dotčené novelou (ekologická újma, odpady, ČIŽP, vodní zákon). Helena Langšádlová je vedena s vazbou na Fórum Karla Schwarzenberga, o.p.s. (IČO 02086778) s nulovým úhrnem veřejných smluv v grafu. U zbývajících pěti předkladatelů (Pláteník, Brzesková, Filipovičová, Kršková, Krutáková, Svárovská) graf neeviduje žádnou peněžní vazbu.",
-  "severity": "medium",
-  "confidence": 3,
-  "citations": [
-    {
-      "claim": "Nový § 1a zákona č. 282/1991 Sb. zakládá pravomoc ČIŽP zajistit nesplněná nápravná opatření na náklady povinné osoby, s výjimkou opatření uložených podle zákona o předcházení ekologické újmě.",
-      "kind": "bill_text",
-      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=74&ct1=0"
-    },
-    {
-      "claim": "Nové znění § 14 odst. 4 zákona č. 167/2008 Sb. ruší výjimku z povinnosti finančního zajištění pro provozovatele certifikované podle EMAS nebo ISO 14 000.",
-      "kind": "bill_text",
-      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=74&ct1=0"
-    },
-    {
-      "claim": "Zákon č. 167/2008 Sb., o předcházení ekologické újmě a o její nápravě, je hlavním statutem, který tisk 74 novelizuje.",
-      "kind": "law",
-      "source": "167/2008"
-    },
-    {
-      "claim": "Zákon č. 282/1991 Sb., o České inspekci životního prostředí a její působnosti v ochraně lesa, je novelizován vložením nového § 1a a zvýšením horních sazeb pokut.",
-      "kind": "law",
-      "source": "282/1991"
-    },
-    {
-      "claim": "Vodní zákon č. 254/2001 Sb. je novelizován formální návazností v § 42 odst. 1 na nový § 1a zákona o ČIŽP.",
-      "kind": "law",
-      "source": "254/2001"
-    },
-    {
-      "claim": "Zákon č. 541/2020 Sb., o odpadech, je novelizován pravidly pro přebírání odpadu do mobilních zařízení podle skutečného původce a novou skutkovou podstatou přestupku.",
-      "kind": "law",
-      "source": "541/2020"
-    },
-    {
-      "claim": "Petr Hladík je v grafu evidován s peněžní vazbou na ARENA BRNO, a.s. v souhrnné výši cca 19,39 mld. Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu); jde o městskou obchodní společnost.",
-      "kind": "graph_fact",
-      "source": "company:ico:09133267"
-    },
-    {
-      "claim": "Petr Hladík je v grafu evidován s peněžní vazbou na Dopravní podnik města Brna, a.s. v souhrnné výši cca 88,99 mld. Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu); jde o městskou obchodní společnost.",
-      "kind": "graph_fact",
-      "source": "company:ico:25508881"
-    },
-    {
-      "claim": "Petr Hladík je v grafu evidován s peněžní vazbou na Teplárny Brno, a.s. v souhrnné výši cca 23,57 mld. Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu); jde o městskou obchodní společnost.",
-      "kind": "graph_fact",
-      "source": "company:ico:46347534"
-    },
-    {
-      "claim": "Petr Hladík je v grafu evidován s peněžní vazbou na MERO ČR, a.s. v souhrnné výši cca 2,98 mld. Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu); jde o společnost se státní majetkovou účastí.",
-      "kind": "graph_fact",
-      "source": "company:ico:60193468"
-    },
-    {
-      "claim": "Petr Hladík je v grafu evidován s peněžní vazbou na SAKO Brno, a.s. v souhrnné výši cca 24,67 mld. Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu); jde o městskou společnost provozující komunální spalovnu odpadů, tedy o obor věcně blízký novelizovanému zákonu o odpadech.",
-      "kind": "graph_fact",
-      "source": "company:ico:60713470"
-    },
-    {
-      "claim": "Bohuslav Niemiec je v grafu evidován s peněžní vazbou na CEVYKO a.s. v souhrnné výši cca 301,39 mil. Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu); obor společnosti se s předmětem novely věcně nekryje.",
-      "kind": "graph_fact",
-      "source": "company:ico:08599254"
-    },
-    {
-      "claim": "Helena Langšádlová je v grafu evidována s peněžní vazbou na Fórum Karla Schwarzenberga, o.p.s. s nulovým úhrnem veřejných smluv (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu).",
-      "kind": "graph_fact",
-      "source": "company:ico:02086778"
-    }
-  ]
+ "billTisk": 74,
+ "statedReasoning": "Skupina poslanců okolo Petra Hladíka mění čtyři předpisy: zákon č. 167/2008 Sb., o předcházení ekologické újmě a o její nápravě, zákon č. 282/1991 Sb., o České inspekci životního prostředí a její působnosti v ochraně lesa, vodní zákon č. 254/2001 Sb. a zákon č. 541/2020 Sb., o odpadech. Důvodová zpráva popisuje zákon o ekologické újmě jako řádně transponovaný, ale v praxi téměř nevyužívaný kvůli nejasné hranici vůči složkovým předpisům (vodní zákon, ochrana přírody, zemědělský půdní fond) — příslušný orgán (ČIŽP) často řízení zahájí a vzápětí zastaví. Novela proto zpřesňuje definici ekologické újmy, posiluje odbornou roli AOPK ČR při posuzování újmy na chráněných druzích a stanovištích, zavádí ohlašovací povinnost k hodnocení rizik do centrálního systému, ruší dosavadní výjimku z povinnosti finančního zajištění pro provozovatele s certifikací EMAS nebo ISO 14 000, zavádí nové skutkové podstaty přestupků a zvyšuje horní hranice pokut podle zákona o ČIŽP. Navazující změny vodního zákona a zákona o odpadech jsou podle zprávy převážně formální nebo doplňují procesní nástroje ČIŽP.",
+ "researchedContext": "Text potvrzuje, že novým § 1a zákona č. 282/1991 Sb. (čl. III bod 1) získává ČIŽP oprávnění provést na náklady povinné osoby samu nezbytná nápravná opatření, předchozí průzkumy nebo odborné podklady, hrozí-li nebezpečí z prodlení a povinná osoba je neplní; náklady jsou zálohovány ze Státního fondu životního prostředí a povinné osobě následně přeúčtovány. Odstavec 2 nového § 1a ovšem výslovně vylučuje jeho použití na opatření uložená podle zákona o předcházení ekologické újmě — tedy právě podle předpisu, jehož nedostatečnou vymahatelnost důvodová zpráva označuje za hlavní problém. Nový nástroj tak dopadá na nápravná opatření podle jiných složkových předpisů (vodní zákon, ochrana přírody a krajiny), nikoli na opatření uložená přímo podle zákona o ekologické újmě. Potvrzeno je také zrušení výjimky z finančního zajištění pro EMAS/ISO certifikované provozovatele (nové znění § 14 odst. 4 zákona č. 167/2008 Sb., čl. I bod 19) a zvýšení horních sazeb pokut podle zákona o ČIŽP z 5 na 10 mil. Kč a z 10 na 20 mil. Kč (čl. III body 2 a 3). Změna zákona o odpadech (čl. V) doplňuje pravidla pro přebírání odpadu do mobilních zařízení podle skutečného původce a novou skutkovou podstatu přestupku za jejich obcházení.",
+ "unstatedEffects": [
+  {
+   "effect": "Nový § 1a zákona o ČIŽP dává inspekci pravomoc vymáhat nesplněná nápravná opatření na náklady povinné osoby u opatření uložených podle vodního zákona nebo zákona o ochraně přírody a krajiny, ale výslovně (odst. 2) vylučuje tuto pravomoc pro opatření uložená přímo podle zákona o předcházení ekologické újmě — téhož zákona, jehož slabou vymahatelnost důvodová zpráva označuje za ústřední důvod novely. Zpráva tento nesoulad mezi deklarovaným cílem (posílit vymahatelnost ZEÚ) a rozsahem nového nástroje (který se na ZEÚ nevztahuje) nezmiňuje ani nezdůvodňuje.",
+   "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou provozovatelé, kteří neplní nápravná opatření uložená podle vodního zákona nebo zákona o ochraně přírody a krajiny (na ty nová vymáhací pravomoc ČIŽP dopadá), zatímco provozovatelé s opatřením uloženým přímo podle zákona o ekologické újmě novým nástrojem dotčeni nejsou.",
+   "evidence": "úplný text tisku na psp.cz, řádky 381–395 strojového přepisu (nový § 1a zákona č. 282/1991 Sb. včetně vylučující věty v odstavci 2)."
+  },
+  {
+   "effect": "Zrušení výjimky z povinnosti finančního zajištění pro provozovatele s certifikací EMAS nebo ISO 14 000 zvyšuje jejich administrativní a finanční zátěž (nutnost prokázat finanční zajištění, např. pojištěním, i bez ohledu na certifikaci). Důvodová zpráva změnu zdůvodňuje tím, že certifikace sama o sobě nezaručuje soulad s hodnocením rizik podle zákona o ekologické újmě, ale na rozdíl od jiných částí zprávy (např. odhadů nákladů ČIŽP, AOPK a správ národních parků na straně veřejných rozpočtů) neuvádí, kolik provozovatelů výjimku dosud využívalo ani odhad dodatečných nákladů na jejich straně.",
+   "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou provozovatelé s certifikací EMAS nebo ISO 14 000, kteří dosud výjimku z finančního zajištění využívali a nově budou muset finanční zajištění prokazovat stejně jako necertifikovaní provozovatelé.",
+   "evidence": "úplný text tisku na psp.cz, řádky 605–618 a 232–234 strojového přepisu (zrušení výjimky a nové znění § 14 odst. 4 zákona č. 167/2008 Sb.)."
+  }
+ ],
+ "conflictAssessment": "Graf eviduje peněžní vazby u tří z devíti předkladatelů. Petr Hladík je veden s vazbami na ARENA BRNO, a.s. (IČO 09133267, cca 19,39 mld. Kč), Dopravní podnik města Brna, a.s. (IČO 25508881, cca 88,99 mld. Kč), Teplárny Brno, a.s. (IČO 46347534, cca 23,57 mld. Kč), MERO ČR, a.s. (IČO 60193468, cca 2,98 mld. Kč) a SAKO Brno, a.s. (IČO 60713470, cca 24,67 mld. Kč) — ve všech případech jde o úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu. Všech pět subjektů jsou obecní nebo státní obchodní společnosti (SAKO Brno a Teplárny Brno městské, DPMB a ARENA BRNO městské, MERO ČR se státní majetkovou účastí) svázané s Hladíkovou funkcí statutárního zástupce města Brna, nikoli s jeho osobním podnikáním — jde o institucionální, nikoli soukromou vazbu, a taková obecní či státní účast se za střet zájmů nepovažuje. Přesto je namístě uvést jmenovitě, že SAKO Brno, a.s. provozuje komunální spalovnu odpadů a novela mění i zákon o odpadech (čl. V) — jde o věcnou blízkost tématu bez důkazu osobního prospěchu, kterou by měl budoucí lidský přezkum vzít v úvahu. Bohuslav Niemiec je veden s vazbou na CEVYKO a.s. (IČO 08599254, cca 301,39 mil. Kč, úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu) — jde o meziobecní svazkovou firmu nakládání s odpady (mj. obec Havířov, spoluvlastník ASOMPO), na jejíž dozorčí radě Niemiec zasedá; vazba je tedy institucionální (členství v dozorčí radě), nikoli vlastnická nebo osobně podnikatelská. Společnost drží živnostenské oprávnění k nakládání s odpady (vyjma nebezpečných) od 10. října 2019, tedy skutečně v oboru, který novela v čl. V (změna zákona o odpadech) mění — stejně jako u SAKO Brno jde o věcnou blízkost tématu bez důkazu osobního prospěchu, kterou by měl budoucí lidský přezkum vzít v úvahu; posuzováno stejným měřítkem jako pět obecních/státních vazeb Petra Hladíka výše se ani zde střet zájmů nekonstatuje. Helena Langšádlová je vedena s vazbou na Fórum Karla Schwarzenberga, o.p.s. (IČO 02086778) s nulovým úhrnem veřejných smluv v grafu. U zbývajících šesti předkladatelů (Pláteník, Brzesková, Filipovičová, Kršková, Krutáková, Svárovská) graf neeviduje žádnou peněžní vazbu.",
+ "severity": "medium",
+ "confidence": 3,
+ "citations": [
+  {
+   "claim": "Nový § 1a zákona č. 282/1991 Sb. zakládá pravomoc ČIŽP zajistit nesplněná nápravná opatření na náklady povinné osoby, s výjimkou opatření uložených podle zákona o předcházení ekologické újmě.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=74&ct1=0"
+  },
+  {
+   "claim": "Nové znění § 14 odst. 4 zákona č. 167/2008 Sb. ruší výjimku z povinnosti finančního zajištění pro provozovatele certifikované podle EMAS nebo ISO 14 000.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=74&ct1=0"
+  },
+  {
+   "claim": "Zákon č. 167/2008 Sb., o předcházení ekologické újmě a o její nápravě, je hlavním statutem, který tisk 74 novelizuje.",
+   "kind": "law",
+   "source": "167/2008"
+  },
+  {
+   "claim": "Zákon č. 282/1991 Sb., o České inspekci životního prostředí a její působnosti v ochraně lesa, je novelizován vložením nového § 1a a zvýšením horních sazeb pokut.",
+   "kind": "law",
+   "source": "282/1991"
+  },
+  {
+   "claim": "Vodní zákon č. 254/2001 Sb. je novelizován formální návazností v § 42 odst. 1 na nový § 1a zákona o ČIŽP.",
+   "kind": "law",
+   "source": "254/2001"
+  },
+  {
+   "claim": "Zákon č. 541/2020 Sb., o odpadech, je novelizován pravidly pro přebírání odpadu do mobilních zařízení podle skutečného původce a novou skutkovou podstatou přestupku.",
+   "kind": "law",
+   "source": "541/2020"
+  },
+  {
+   "claim": "Petr Hladík je v grafu evidován s peněžní vazbou na ARENA BRNO, a.s. v souhrnné výši cca 19,39 mld. Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu); jde o městskou obchodní společnost.",
+   "kind": "graph_fact",
+   "source": "company:ico:09133267"
+  },
+  {
+   "claim": "Petr Hladík je v grafu evidován s peněžní vazbou na Dopravní podnik města Brna, a.s. v souhrnné výši cca 88,99 mld. Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu); jde o městskou obchodní společnost.",
+   "kind": "graph_fact",
+   "source": "company:ico:25508881"
+  },
+  {
+   "claim": "Petr Hladík je v grafu evidován s peněžní vazbou na Teplárny Brno, a.s. v souhrnné výši cca 23,57 mld. Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu); jde o městskou obchodní společnost.",
+   "kind": "graph_fact",
+   "source": "company:ico:46347534"
+  },
+  {
+   "claim": "Petr Hladík je v grafu evidován s peněžní vazbou na MERO ČR, a.s. v souhrnné výši cca 2,98 mld. Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu); jde o společnost se státní majetkovou účastí.",
+   "kind": "graph_fact",
+   "source": "company:ico:60193468"
+  },
+  {
+   "claim": "Petr Hladík je v grafu evidován s peněžní vazbou na SAKO Brno, a.s. v souhrnné výši cca 24,67 mld. Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu); jde o městskou společnost provozující komunální spalovnu odpadů, tedy o obor věcně blízký novelizovanému zákonu o odpadech.",
+   "kind": "graph_fact",
+   "source": "company:ico:60713470"
+  },
+  {
+   "claim": "Bohuslav Niemiec je v grafu evidován s peněžní vazbou na CEVYKO a.s. v souhrnné výši cca 301,39 mil. Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu).",
+   "kind": "graph_fact",
+   "source": "company:ico:08599254"
+  },
+  {
+   "claim": "CEVYKO a.s. je meziobecní odpadová společnost (spoluzaložená statutárním městem Havířov) a Bohuslav Niemiec je od 10. října 2019 členem její dozorčí rady, bez evidovaného vlastnického podílu — obor věcně blízký novelizované úpravě, bez doloženého osobního prospěchu.",
+   "kind": "web",
+   "source": "https://www.hlidacstatu.cz/Osoba/Vazby/bohuslav-niemiec"
+  },
+  {
+   "claim": "Helena Langšádlová je v grafu evidována s peněžní vazbou na Fórum Karla Schwarzenberga, o.p.s. s nulovým úhrnem veřejných smluv (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu).",
+   "kind": "graph_fact",
+   "source": "company:ico:02086778"
+  }
+ ]
 }

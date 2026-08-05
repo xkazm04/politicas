@@ -117,7 +117,12 @@ const LAW_PIPELINE_JARGON: { re: RegExp; what: string }[] = [
   { re: /\bmp_group\b/, what: "origin enum token" },
   { re: /\.data[\\/]law-collision-cache|law-collision-cache[\\/]tisk-|\.txt\b/, what: "cache file path (cite the psp.cz document URL instead)" },
   { re: /\bpsp:person:\d+|\bbill:tisk:\d+|\bcompany:ico:\d+|\blaw:sb:\d+/, what: "graph urn in prose (urns belong in citation sources, not sentences)" },
-  { re: /\bbatch\b|\bpass[- ]?\d{1,3}\b/i, what: "internal batch/pass reference" },
+  // „dávka" is GENUINELY AMBIGUOUS in this corpus (batch-015 closure audit N5/N6: the same
+  // verdicts speak of „paušální dávkou 15 000 Kč" — a social benefit — and „dávka 001" — a
+  // pipeline batch id, sentences apart). Only the zero-padded id form is decidable by regex;
+  // \p{L}+/u because ASCII \w/\b cannot match Czech letters (the batch-007 lesson, re-learned
+  // here on „dávce"/„Dávkový"). The adjectival form is flagged only with „scan" attached.
+  { re: /\bbatch\b|\bpass[- ]?\d{1,3}\b|(?<!\p{L})dávk\p{L}*\s+0\d{2}(?!\d)|(?<!\p{L})dávkov\p{L}*\s+scan\p{L}*|\bscan\w*\b/iu, what: "internal batch/pass reference" },
   { re: /\bkg_(node|edge)s?\b|\bknownIds\b|\bknownLawRefs\b/, what: "pipeline identifier" },
 ];
 

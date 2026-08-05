@@ -1,0 +1,551 @@
+[
+ {
+  "billTisk": 104,
+  "statedReasoning": "Poslanecký návrh Václava Pláteníka a šesti dalších poslanců mění zákon č. 561/2004 Sb., školský zákon. Nahrazuje znění § 30 odst. 3 (dosud obecné zmocnění školního řádu omezit či zakázat mobilní telefony) podrobnějším výčtem toho, co má školní nebo vnitřní řád upravit — podmínky povolení používání pro vzdělávací účely, podrobnosti dočasného odebrání zařízení a podmínky používání při mimoškolních aktivitách. Zároveň vkládá nový § 184c, který na úrovni zákona zakazuje používání mobilních telefonů dětem mateřských škol, žákům 1. až 3. ročníku základní školy a žákům základní umělecké školy do 10 let (odstavec 1) a žákům 4. až 9. ročníku základní školy, nižšího stupně gymnázia, konzervatoře do 15 let a základní umělecké školy 10 až 15 let (odstavec 2), s výjimkou povolení školním řádem nebo učitelem pro vzdělávací účely a s výjimkou zdravotních a speciálních vzdělávacích potřeb. Účinnost se navrhuje k 1. červenci 2026.",
+  "researchedContext": "Text potvrzuje mechanismus: nové znění § 30 odst. 3 v čl. I bodu 1 ponechává školnímu/vnitřnímu řádu stejnou pravomoc jako dosud, jen ji rozepisuje podrobněji, zatímco nový § 184c v bodu 2 zavádí přímý zákonný zákaz pro dvě věkové skupiny s definovanými výjimkami. Důvodová zpráva sama v části o slučitelnosti s ústavním pořádkem uvádí, že jde o omezení práva vlastnit majetek (čl. 11 Listiny) ve prospěch práva na vzdělání (čl. 33 Listiny), a v části o hospodářském dopadu uvádí, že návrh nemá dopad na státní rozpočet ani na podnikatelské prostředí. Tento tisk je věcně blízký souběžně projednávanému tisku 232 (Babiš, Plaga) — oba mění tentýž § 30 odst. 3 zákona č. 561/2004 Sb. a míří ke stejnému cíli (omezení mobilních telefonů ve školách), ale zvoleným mechanismem se liší: tisk 104 ponechává rozhodnutí primárně na školním řádu a zákonný zákaz vkládá jako samostatný nový § 184c vedle něj, zatímco tisk 232 § 30 odst. 3 zcela ruší a nahrazuje jej odkazem do nového § 29a, který stanoví plošný zákonný zákaz jako hlavní pravidlo a školní řád jen pro zbytek žáků mimo jeho věkový rozsah. Oba návrhy zároveň mění stejné číslo paragrafu textově neslučitelným způsobem (jeden jej novelizuje, druhý ruší), takže při souběžném schvalování by nevyhnutelně došlo ke kolizi novelizačních bodů, kterou žádný z textů sám nezmiňuje ani neřeší.",
+  "unstatedEffects": [
+   {
+    "effect": "Návrh zavádí ostrý věkový předěl mezi žáky do 10 let (§ 184c odst. 1 — bez výjimky pro povolení školou nebo učitelem, jen zdravotní a speciální vzdělávací důvody) a žáky 10 až 15 let (§ 184c odst. 2 — navíc výjimka pro povolení k naplnění vzdělávacího programu nebo ad hoc povolení učitelem). Zvláštní část důvodové zprávy tento rozdíl zdůvodňuje vývojovými potřebami mladších dětí, ale nikde nekomentuje důsledek, že žák základní umělecké školy do 10 let podléhá přísnějšímu bezvýjimkovému režimu než žák běžné základní školy ve stejném věku, který spadá pod odstavec 1 také, avšak žák konzervatoře v odpovídajícím věku pod odstavec 2 s širšími výjimkami — text nevysvětluje, proč stejná věková skupina podléhá podle typu školy různě přísnému režimu výjimek.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou žáci základních uměleckých škol do 10 let, na které dopadá přísnější bezvýjimkový režim odstavce 1, na rozdíl od vrstevníků v jiných typech škol zahrnutých pod odstavec 2.",
+    "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=104&ct1=0"
+   }
+  ],
+  "conflictAssessment": "Ze sedmi spolupředkladatelů nemá evidovanou peněžní vazbu na firmu pět (Václav Pláteník, Jiří Vojáček, Benjamin Činčila, Marie Kršková, Monika Brzesková). Jiří Horák má v grafu evidovanou vazbu na Vodovody a kanalizace Vyškov, a.s. s úhrnem veřejných smluv firmy 124 508 316 Kč, vazba čeká na lidskou kontrolu; jde o regionální vodárenskou společnost plně ovládanou obcemi vyškovského okresu, tedy o komunálně vlastněný subjekt, který se podle standardní metodiky nepovažuje za soukromý podnikatelský konflikt zájmů, a navíc jeho oborová činnost (vodovody a kanalizace) nemá žádnou věcnou souvislost s předmětem tohoto tisku (používání mobilních telefonů ve školách). Marian Jurečka má v grafu evidovanou vazbu na AGRO 2000 s.r.o. s úhrnem veřejných smluv firmy 253 958 310 Kč, vazba čeká na lidskou kontrolu; jde o soukromou zemědělskou firmu bez zjevné souvislosti se školstvím nebo elektronickými komunikačními zařízeními. U žádného ze spolupředkladatelů tedy evidované peněžní vazby věcně nesouvisí s regulací, kterou tento tisk zavádí, a v datech proto není zjištěný střet zájmů.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+   {
+    "claim": "Nový § 184c zákona č. 561/2004 Sb. zavádí zákonný zákaz mobilních telefonů pro dvě věkové skupiny s odlišným rozsahem výjimek (odstavec 1 bez výjimky pro vzdělávací povolení, odstavec 2 s ní).",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=104&ct1=0"
+   },
+   {
+    "claim": "Důvodová zpráva v ústavněprávní části uvádí, že návrh poměřuje právo vlastnit majetek (čl. 11 Listiny) s právem na vzdělání (čl. 33 Listiny) a dává přednost právu na vzdělání.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=104&ct1=0"
+   },
+   {
+    "claim": "Spolupředkladatel Jiří Horák (pspId 6803) má v grafu evidovanou peněžní vazbu na Vodovody a kanalizace Vyškov, a.s. (IČO 49454587), úhrn veřejných smluv firmy 124 508 316 Kč, vazba čeká na lidskou kontrolu.",
+    "kind": "graph_fact",
+    "source": "company:ico:49454587"
+   },
+   {
+    "claim": "Vodovody a kanalizace Vyškov, a.s. je regionální vodárenská společnost plně ovládaná obcemi vyškovského okresu.",
+    "kind": "web",
+    "source": "https://www.vakvyskov.cz/"
+   },
+   {
+    "claim": "Spolupředkladatel Marian Jurečka (pspId 6205) má v grafu evidovanou peněžní vazbu na AGRO 2000 s.r.o. (IČO 25586521), úhrn veřejných smluv firmy 253 958 310 Kč, vazba čeká na lidskou kontrolu.",
+    "kind": "graph_fact",
+    "source": "company:ico:25586521"
+   },
+   {
+    "claim": "Tisk 232 v čl. I bodu 2 ruší § 30 odstavec 3 zákona č. 561/2004 Sb. („V § 30 se odstavec 3 zrušuje.\"), na stejném místě, kde tisk 104 v čl. I bodu 1 tentýž odstavec nahrazuje novým zněním („V § 30 odstavec 3 zní:\") — jedna novela odstavec ruší, druhá jej novelizuje.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=232&ct1=0"
+   },
+   {
+    "claim": "Zákon č. 561/2004 Sb., školský zákon, je statutem novelizovaným tiskem 104.",
+    "kind": "law",
+    "source": "561/2004"
+   }
+  ]
+ },
+ {
+  "billTisk": 145,
+  "statedReasoning": "Vládní návrh (předkladatelem je vláda, agendu za ni v grafu nese místopředsedkyně vlády a ministryně financí Alena Schillerová) transponuje směrnici Evropského parlamentu a Rady (EU) 2023/2225 o smlouvách o spotřebitelském úvěru (CCD2), která nahrazuje dosavadní směrnici 2008/48/ES. Důvodová zpráva uvádí, že bez transpozice hrozí České republice řízení pro porušení Smlouvy o fungování Evropské unie. Novela mění zákon č. 257/2016 Sb., o spotřebitelském úvěru, a v souvisejících částech i zákon č. 111/1998 Sb. o vysokých školách, zákon č. 277/2009 Sb. o pojišťovnictví, zákon č. 170/2018 Sb. o distribuci pojištění a zajištění, zákon č. 424/2023 Sb. o požadavcích na přístupnost a zákon č. 84/2024 Sb. o trhu s nevýkonnými úvěry. Věcně rozšiřuje působnost zákona i na bezúplatné spotřebitelské úvěry, zpřísňuje pravidla pro reklamu, posuzování úvěruschopnosti a jednání se spotřebitelem v prodlení, zavádí dluhové poradenství jako definovaný pojem a zpřísňuje sankce (pokuty do 5, 10 nebo 20 mil. Kč podle závažnosti přestupku). Účinnost se navrhuje na 20. listopadu 2026 v souladu s čl. 48 CCD2.",
+  "researchedContext": "Text potvrzuje uváděný rozsah: čl. I mění zákon č. 257/2016 Sb. (nové vymezení vázaného spotřebitelského úvěru v § 2, výluky v novém § 2a, rozšíření definic v § 3, výjimky z působnosti v § 4 a § 5, nová skutková podstata přestupků a pokuty v § 153 až 157). Čl. III mění zákon č. 111/1998 Sb. jen doplněním jedné věty v § 62a o výjimku pro výhodnější podmínky úvěru. Čl. IV vkládá do zákona č. 277/2009 Sb. nový § 59a, který zakazuje pojišťovně použít údaje o onkologickém onemocnění pojistníka po 15 letech od ukončení léčby — ale výslovně jen pro pojištění sjednávané v souvislosti se spotřebitelským úvěrem jiným než na bydlení, nikoliv obecně; navazující bod mění odkaz v § 120 odst. 3 zákona č. 277/2009 Sb. Čl. VI vkládá do zákona č. 170/2018 Sb. novou třídenní lhůtu na rozmyšlenou u pojištění vázaného na spotřebitelský úvěr (nový § 52a) a odpovídající skutkovou podstatu přestupku s pokutou do 10 mil. Kč (fyzická osoba) nebo 18,92 mil. Kč / 135,125 mil. Kč (rezervotvorné pojištění). Čl. VII a čl. VIII jsou označeny přímo v důvodové zprávě jako čistě legislativně technické odkazové úpravy zákona č. 424/2023 Sb. a § 11 odst. 2 zákona č. 84/2024 Sb. Důvodová zpráva sama v části o hospodářském dopadu uvádí, že nová úprava nově dopadne na osoby poskytující nebo zprostředkovávající bezúplatný spotřebitelský úvěr, konkrétně jmenuje retailové obchodníky nabízející nákup na splátky zdarma jako doplňkovou službu — ti se stanou poskytovateli nebo zprostředkovateli spotřebitelského úvěru se všemi povinnostmi zákona, pokud nevyužijí některou z výjimek.",
+  "unstatedEffects": [
+   {
+    "effect": "Rozšíření věcné působnosti zákona na bezúplatné spotřebitelské úvěry znamená, že retailoví obchodníci nabízející bezúročný nákup na splátky jako doplňkovou službu se stanou poskytovateli nebo zprostředkovateli spotřebitelského úvěru a budou muset splnit veškeré povinnosti zákona — získání oprávnění k činnosti, posuzování úvěruschopnosti, informační povinnosti. Důvodová zpráva tento dopad na dotčené obchodníky přiznává, ale dál nerozvádí možnost, že menší obchodníci, kteří náklady na regulatorní soulad neunesou, mohou bezúročné splátkové financování jako nabídku prostě zrušit, čímž by se pro spotřebitele zúžila nabídka bezúročných možností splácení.",
+    "whoBenefits": "Nelze jednoznačně určit — z rozšíření regulace mohou profitovat etablovaní poskytovatelé úvěru, kteří náklady na soulad s novými pravidly snáze unesou, zatímco menší obchodníci nabízející bezúročné splátky mohou tuto službu omezit, což by dopadlo na spotřebitele, kteří na bezúročné splátkové financování spoléhají.",
+    "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=145&ct1=0"
+   },
+   {
+    "effect": "Nová ochrana pojistníků před použitím údajů o prodělaném onkologickém onemocnění (nový § 59a zákona č. 277/2009 Sb.) je textem omezena výslovně jen na pojištění sjednávané v souvislosti se spotřebitelským úvěrem jiným než na bydlení. Obecná část důvodové zprávy tuto ochranu prezentuje jako naplnění tzv. práva být zapomenut podle CCD2, aniž by výslovně upozornila, že jde o úzce vymezenou výjimku z obecného pravidla — pojistník vyléčený z onkologického onemocnění zůstává mimo tento úzký segment (např. u samostatně sjednaného životního nebo úrazového pojištění nesouvisejícího s úvěrem) povinnostem sdělovat zdravotní údaje bez časového omezení nadále vystaven.",
+    "whoBenefits": "Nelze jednoznačně určit — přímo chránění jsou jen pojistníci v segmentu pojištění vázaného na spotřebitelský úvěr; pojistníci mimo tento úzký segment touto novelou chráněni nejsou, ačkoliv text obecné části tento rozdíl explicitně nezdůrazňuje.",
+    "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=145&ct1=0"
+   }
+  ],
+  "conflictAssessment": "Předkladatelem je vláda; osobou, kterou graf peněžních vazeb u tohoto tisku eviduje jako předkladatelku, je místopředsedkyně vlády a ministryně financí Alena Schillerová, u níž evidence peněžních vazeb v grafu neobsahuje žádnou vlastněnou ani řízenou firmu. Návrh zákona nesou spolupodpisem předseda vlády Andrej Babiš a ministryně financí Schillerová — jde o ústavně vyžadovanou spolupodpisovou proceduru vládního návrhu (obdoba předkládací praxe u všech vládních návrhů zákonů), nikoli o osobní podnikatelský zájem předsedy vlády na věcném obsahu této technické transpoziční novely. Věcný obsah novely (spotřebitelský úvěr, pojišťovnictví, distribuce pojištění, trh s nevýkonnými úvěry) nemá žádnou zjevnou souvislost s podnikatelským okruhem firem, které graf eviduje u jiných osob spojených s touto vládou, a text sám žádnou osobu podnikající v regulovaném sektoru jako předkladatele needentifikuje. Ve zjištěních tedy nejde o skrytý střet zájmů, ale o důsledek toho, že jde o technickou transpoziční normu vypracovanou napříč ministerstvem financí a Českou národní bankou.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+   {
+    "claim": "Návrh transponuje směrnici (EU) 2023/2225 o spotřebitelském úvěru (CCD2) a v souvislosti s ní novelizuje zákon č. 257/2016 Sb. a pět dalších zákonů (č. 111/1998 Sb., č. 170/2018 Sb., č. 277/2009 Sb., č. 424/2023 Sb. a č. 84/2024 Sb.); důvodová zpráva uvádí riziko infringementu při netransponování.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=145&ct1=0"
+   },
+   {
+    "claim": "Čl. IV bod 1 vkládá do zákona č. 277/2009 Sb. nový § 59a, který zakazuje pojišťovně použít údaje o onkologickém onemocnění pojistníka po 15 letech od ukončení léčby výhradně pro pojištění vázané na spotřebitelský úvěr jiný než na bydlení.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=145&ct1=0"
+   },
+   {
+    "claim": "Důvodová zpráva v části o hospodářském a finančním dopadu uvádí, že nová úprava nově dopadne na osoby poskytující nebo zprostředkovávající bezúplatný spotřebitelský úvěr, zejména na retailové obchodníky nabízející nákup na splátky zdarma.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=145&ct1=0"
+   },
+   {
+    "claim": "Zákon č. 257/2016 Sb., o spotřebitelském úvěru, je hlavním statutem novelizovaným tiskem 145.",
+    "kind": "law",
+    "source": "257/2016"
+   },
+   {
+    "claim": "Zákon č. 277/2009 Sb., o pojišťovnictví, je jedním z dalších statutů novelizovaných tiskem 145 (nový § 59a).",
+    "kind": "law",
+    "source": "277/2009"
+   },
+   {
+    "claim": "Zákon č. 84/2024 Sb., o trhu s nevýkonnými úvěry, je novelizován tiskem 145 čistě legislativně technickou úpravou § 11 odst. 2 písm. d) bodu 3.",
+    "kind": "law",
+    "source": "84/2024"
+   },
+   {
+    "claim": "Osobou, kterou graf eviduje jako sponzora tisku 145, je Alena Schillerová (pspId 6545), jejíž evidované peněžní vazby na firmy jsou v grafu prázdné.",
+    "kind": "graph_fact",
+    "source": "psp:person:6545"
+   }
+  ]
+ },
+ {
+  "billTisk": 161,
+  "statedReasoning": "Poslanecký návrh Petra Hladíka a jedenácti dalších poslanců (dvanáct předkladatelů celkem) mění zákon č. 541/2020 Sb., o odpadech. Doplňuje k § 59 odst. 3 (povinnost obcí dosahovat minimálního podílu odděleně soustřeďovaných recyklovatelných složek komunálního odpadu, rostoucí až na 70 % od roku 2035) novou úlevu pro obce s velmi nízkou produkcí směsného komunálního odpadu: podle nové přílohy č. 13 taková obec smí plnit cíl snížený o hodnotu, kterou zákonný text na obou místech, kde úlevu zavádí, označuje jako „o 10 %“, zatímco důvodová zpráva ve svém odůvodnění tutéž úlevu opakovaně popisuje jako snížení „o 10 procentních bodů“. Důvodová zpráva to zdůvodňuje tím, že obce, které aktivně předcházejí vzniku odpadu (typicky domácím kompostováním), tím statisticky snižují celkovou produkci komunálního odpadu, což ztěžuje splnění procentních cílů, ačkoliv jde o žádoucí chování z hlediska hierarchie odpadového hospodářství. Účinnost se navrhuje k 1. červenci 2026, dopad na státní rozpočet se neočekává.",
+  "researchedContext": "Text potvrzuje mechanismus, ale odhaluje rozpor mezi zákonným zněním a jeho vlastní důvodovou zprávou. Na obou místech, kde novela úlevu skutečně zavádí, stojí procentní, nikoli bodová formulace: věta doplněná do § 59 odst. 3 zní „…je obec povinna zajistit splnění cíle pro daný kalendářní rok stanoveného větou první sníženého o 10 %“ a nadpis přílohy č. 13 mluví o „snížení cílů podle § 59 odst. 3 věty první o 10 %“. Odůvodnění důvodové zprávy naproti tomu na více místech píše o procentních bodech („Navržené snížení cíle odděleného soustřeďování o 10procentních bodů pro obce s velmi nízkou produkcí…“; „Snížení cíle o 10procentních bodů proto představuje přiměřenou korekci…“), na jiném místě však samo užívá i formulaci „o 10 %“ — rozpor mezi procenty a procentními body tedy běží nejen mezi zákonným textem a odůvodněním, ale i uvnitř odůvodnění samotného. U cíle, který dnes činí přibližně 60 %, jde o věcně odlišné veličiny: „o 10 %“ znamená pokles o desetinu z 60 %, tedy na 54 %, zatímco „o 10 procentních bodů“ znamená pokles na 50 %. Text zákona a jeho vlastní důvodová zpráva si tedy neshodují na tom, o kolik se povinnost obce skutečně sníží, a novela tento rozpor nikde nekomentuje. Nezávisle na tom příloha č. 13 stanoví hraniční hodnoty produkce směsného odpadu na obyvatele, pod kterými úleva náleží, klesající z 0,16 t (2025) na 0,11 t (2030 a dále) — mechanismus, který obecná část důvodové zprávy prezentuje jako trvalé narovnání, aniž by uvedla, že jde o práh, který se každým rokem sám zpřísňuje.",
+  "unstatedEffects": [
+   {
+    "effect": "Zákonný text úlevy zavedené k § 59 odst. 3 a v příloze č. 13 na obou místech doslova říká „sníženého o 10 %“ / „snížení cílů … o 10 %“, zatímco odůvodnění důvodové zprávy na více místech píše o snížení „o 10procentních bodů“ (a na jiném místě samo užívá i „o 10 %“). Jde o věcně odlišné veličiny (u dnešního přibližně 60% cíle: 54 % podle procentního čtení textu vs. 50 % podle bodového čtení důvodové zprávy) a novela tento rozpor mezi vlastním normativním textem a vlastním odůvodněním nikde nezmiňuje ani nevysvětluje, které čtení má být závazné.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeny jsou obce čerpající úlevu, kterým podle toho, jaké čtení nakonec převáží při výkladu a aplikaci zákona, vznikne věcně odlišná míra úlevy na povinném cíli třídění.",
+    "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=161&ct1=0"
+   },
+   {
+    "effect": "Hraniční hodnota produkce směsného komunálního odpadu na obyvatele, pod kterou obec získá úlevu na cíli třídění, podle přílohy č. 13 klesá z 0,16 t (2025) na 0,11 t (2030 a dále). Obecná část důvodové zprávy popisuje úlevu jako narovnání statistického zkreslení u obcí s aktivní prevencí vzniku odpadu, ale nikde neuvádí, že jde o klesající, tedy v čase se zužující práh — obec, která úlevu v roce 2026 získá při produkci např. 0,145 t na obyvatele, ji od roku 2028 (strop 0,13 t) bez dalšího vlastního zlepšení ztratí.",
+    "whoBenefits": "Nelze jednoznačně určit — týká se obcí s velmi nízkou produkcí směsného odpadu, jejichž úleva se každým rokem automaticky zužuje podle tabulky v příloze č. 13, aniž by to text zákona nebo důvodová zpráva výslovně pojmenovaly jako postupné odstupňované vyřazování z úlevy.",
+    "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=161&ct1=0"
+   }
+  ],
+  "conflictAssessment": "Z dvanácti spolupředkladatelů má evidovanou peněžní vazbu na firmu jen část: Petr Hladík, Helena Langšádlová a Bohuslav Niemiec. U zbývajících devíti (Brzesková, Filipovičová, Kašparová, Kršková, Krutáková, Okamura, Philipp, Svárovská, Šmída) graf žádnou peněžní vazbu neeviduje. U Petra Hladíka graf eviduje vazby na ARENA BRNO, a.s., Dopravní podnik města Brna, a.s., Teplárny Brno, a.s., MERO ČR, a.s. a SAKO Brno, a.s. ARENA BRNO a Teplárny Brno jsou podle veřejných zdrojů výhradně vlastněné statutárním městem Brnem; obdobně jsou komunálně, resp. státem vlastněné i zbylé tři (Dopravní podnik města Brna a SAKO Brno jako součást skupiny statutárního města Brna, MERO ČR jako státní provozovatel ropovodů) — jde tedy o komunální, resp. státem vlastněné subjekty, které se podle standardní metodiky nepovažují za soukromý podnikatelský konflikt zájmů. U Heleny Langšádlové graf eviduje vazbu na Fórum Karla Schwarzenberga, o.p.s., s nulovým úhrnem veřejných smluv firmy — nejde o podnikatelský subjekt v odpadovém sektoru a částka je nulová. U Bohuslava Niemiece graf eviduje vazbu na CEVYKO a.s. (IČO 08599254) s úhrnem veřejných smluv firmy 301 393 871 Kč; vazba čeká na lidskou kontrolu. Podle veřejně dostupných zdrojů je CEVYKO a.s. meziobecní odpadová společnost založená 10. října 2019, jejímiž akcionáři jsou statutární město Havířov (35 %), ASOMPO, a.s. (sdružující 45 obcí novojičínského regionu, 35 %) a Spolek pro nakládání s komunálním odpadem, z. s. (30 %) — nejde tedy o soukromou firmu, ale o meziobecní subjekt ve vlastnictví obcí, tedy o stejnou kategorii jako Hladíkovy komunální vazby. Niemiec v ní od 10. října 2019 zasedá v dozorčí radě, bez evidovaného akcionářského podílu — jde o dozorčí, nikoliv řídící ani vlastnický post, obdoba stewardské vazby na institucionální subjekt. Podle téže metodiky, jakou tento posudek uplatňuje na Hladíkovy komunální vazby, tedy vazba na CEVYKO a.s. sama o sobě nezakládá osobní podnikatelský konflikt zájmů. CEVYKO a.s. přitom skutečně drží živnostenské oprávnění k nakládání s odpady (vyjma nebezpečných), takže jde o jedinou z evidovaných vazeb u tohoto tisku, kde odvětví společnosti a předmět novely věcně souhlasí — obdobně jako u Hladíkovy vazby na SAKO Brno jde o věcnou blízkost tématu bez důkazu osobního prospěchu, kterou by měl budoucí lidský přezkum vzít v úvahu, nikoliv o zjištěný střet zájmů. Text novely navíc mění jen povinnost obcí ohledně cíle třídění, nikoliv žádnou platbu, poplatek ani zadávací mechanismus veřejné zakázky na odpadové hospodářství, a směr jejího účinku (nižší cíl odděleného třídění pro málo produkující obce) by věcně spíše snižoval než zvyšoval množství odděleně sbíraných surovin, takže přímý peněžní kanál k CEVYKO a.s. z této konkrétní úlevy není v textu doložitelný.",
+  "severity": "low",
+  "confidence": 3,
+  "citations": [
+   {
+    "claim": "Věta doplněná do § 59 odst. 3 zákona č. 541/2020 Sb. i nadpis nové přílohy č. 13 zavádějí úlevu formulovanou jako snížení cíle „o 10 %“.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=161&ct1=0"
+   },
+   {
+    "claim": "Odůvodnění důvodové zprávy popisuje úlevu na více místech jako snížení cíle „o 10procentních bodů“, na jiném místě však samo užívá i formulaci „o 10 %“ — zatímco zákonný text novely na obou operativních místech stanoví „o 10 %“.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=161&ct1=0"
+   },
+   {
+    "claim": "Příloha č. 13 stanoví klesající hraniční hodnoty produkce směsného komunálního odpadu na obyvatele: 0,16 t (2025), 0,15 t (2026), 0,14 t (2027), 0,13 t (2028), 0,12 t (2029), 0,11 t (2030 a dále).",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=161&ct1=0"
+   },
+   {
+    "claim": "Sponzor Petr Hladík (pspId 6881) má v grafu evidované peněžní vazby na ARENA BRNO, a.s., Dopravní podnik města Brna, a.s., Teplárny Brno, a.s., MERO ČR, a.s. a SAKO Brno, a.s.",
+    "kind": "graph_fact",
+    "source": "psp:person:6881"
+   },
+   {
+    "claim": "ARENA BRNO, a.s. je výhradně vlastněná statutárním městem Brnem.",
+    "kind": "web",
+    "source": "https://cs.wikipedia.org/wiki/Arena_Brno"
+   },
+   {
+    "claim": "Teplárny Brno, a.s. je firma vlastněná státem či samosprávou (skupina statutárního města Brna).",
+    "kind": "web",
+    "source": "https://www.hlidacstatu.cz/subjekt/46347534"
+   },
+   {
+    "claim": "Sponzor Bohuslav Niemiec (pspId 7028) má v grafu evidovanou peněžní vazbu na CEVYKO a.s. (IČO 08599254), úhrn veřejných smluv firmy 301 393 871 Kč, vazba čeká na lidskou kontrolu.",
+    "kind": "graph_fact",
+    "source": "company:ico:08599254"
+   },
+   {
+    "claim": "CEVYKO a.s. (IČO 08599254), založená 10. října 2019, je meziobecní odpadová společnost, jejímiž akcionáři jsou statutární město Havířov (35 %), ASOMPO, a.s. (45 obcí novojičínského regionu, 35 %) a Spolek pro nakládání s komunálním odpadem, z. s. (30 %).",
+    "kind": "web",
+    "source": "https://karvinsky.denik.cz/zpravy-region/havirovsti-v-pondeli-zalozi-odpadovou-akciovku/"
+   },
+   {
+    "claim": "Bohuslav Niemiec je od 10. října 2019 členem dozorčí rady CEVYKO a.s., bez evidovaného akcionářského podílu.",
+    "kind": "web",
+    "source": "https://www.hlidacstatu.cz/Osoba/Vazby/bohuslav-niemiec"
+   },
+   {
+    "claim": "CEVYKO a.s., IČO 08599254, má podle veřejného rejstříku živnostenské oprávnění mimo jiné k nakládání s odpady (vyjma nebezpečných), s provozovnou od 10. října 2019.",
+    "kind": "web",
+    "source": "https://rejstrik-firem.kurzy.cz/08599254/cevyko-as/zivnosti/"
+   },
+   {
+    "claim": "Zákon č. 541/2020 Sb., o odpadech, je statutem novelizovaným tiskem 161.",
+    "kind": "law",
+    "source": "541/2020"
+   }
+  ]
+ },
+ {
+  "billTisk": 167,
+  "statedReasoning": "Návrh poslankyně Zuzany Mrázové mění jediné číslo v § 334b odst. 1 stavebního zákona (č. 283/2021 Sb.) — nahrazuje „2026“ číslem „2027“ a prodlužuje tak přechodné období pro tzv. bypass digitalizace stavebního řízení u Národního geoportálu územního plánování z 30. června 2026 na 30. června 2027. Důvodová zpráva odůvodňuje prodloužení přetrvávajícími problémy se spuštěním digitalizace a připravovanými změnami v jiném tisku, které se týkají požadavků na informační systémy stavební správy. Navrhovatelka žádá o schválení již v prvním čtení podle § 90 odst. 2 zákona č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny, a účinnost dnem následujícím po vyhlášení — obojí odůvodněno naléhavou potřebou právní jistoty. Zpráva uvádí, že návrh nebyl předmětem lobbování a že jeho celkový hospodářský dopad je pozitivní, neboť snižuje riziko pro dotčené subjekty.",
+  "researchedContext": "Srovnávací znění (platné znění s vyznačením změn) potvrzuje, že novela je skutečně jednoslovná/jednočíslicová — mění pouze datum v § 334b odst. 1, ostatní odstavce ustanovení zůstávají beze změny. Ustanovení § 334b bylo do stavebního zákona vloženo zákonem č. 437/2024 Sb. — to text sám výslovně uvádí. Zákonný text je nadále citován jako „ve znění zákona č. 437/2024 Sb. a zákona č. 223/2025 Sb.“, což dokládá, že stavební zákon byl zákonem č. 223/2025 Sb. od vložení § 334b dále novelizován, ale nedokládá, že se tato pozdější novela týkala právě posouvaného data v odst. 1 — tvrzení o „druhém prodloužení téže výjimky“ proto v dostupném textu oporu nemá a je opuštěno. Návrh zároveň volí zrychlený legislativní postup (schválení v prvním čtení) a neobvyklou účinnost dnem po vyhlášení namísto standardního 1. ledna/1. července, což je u jednoúčelové technické novely obhajitelné, ale zkracuje prostor pro věcnou rozpravu.",
+  "unstatedEffects": [
+   {
+    "effect": "Důvodová zpráva prodloužení odůvodňuje obecně přetrvávajícími problémy se spuštěním digitalizace, ale nekonkretizuje, že samotným efektem novely je dvanáctiměsíční prodloužení období, po které mohou pořizovatelé a stavební úřady namísto Národního geoportálu územního plánování nadále používat jiné informační systémy stavební správy.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou pořizovatelé, stavební úřady a orgány územního plánování, kteří mohou po dalších dvanáct měsíců používat jiné informační systémy namísto Národního geoportálu územního plánování.",
+    "evidence": "úplný text tisku na psp.cz, řádky 24–31 a 76–77 strojového přepisu (§ 334b, obecná i zvláštní část důvodové zprávy)"
+   }
+  ],
+  "conflictAssessment": "Zuzana Mrázová je jedinou předkladatelkou návrhu a graf u ní k tomuto tématu neeviduje žádnou peněžní vazbu (vlastnickou ani řídicí) na firmu dodávající státu v oblasti stavebního práva nebo informačních systémů stavební správy — jde o absenci záznamu, nikoli o prověřené vyloučení střetu zájmů. Věcný obsah novely (posun jednoho data o rok) navíc nemá zjevnou vazbu na komerční subjekty působící v informačních systémech stavební správy.",
+  "severity": "low",
+  "confidence": 3,
+  "citations": [
+   {
+    "claim": "Novela mění pouze datum „2026“ na „2027“ v § 334b odst. 1 stavebního zákona.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=167&ct1=0"
+   },
+   {
+    "claim": "Ustanovení § 334b bylo do stavebního zákona vloženo zákonem č. 437/2024 Sb.",
+    "kind": "law",
+    "source": "437/2024"
+   },
+   {
+    "claim": "Text je nadále citován jako „ve znění … a zákona č. 223/2025 Sb.“, bez dokladu, čeho konkrétně se tato pozdější novela stavebního zákona týkala.",
+    "kind": "law",
+    "source": "223/2025"
+   },
+   {
+    "claim": "Novelizovaným zákonem je stavební zákon č. 283/2021 Sb.",
+    "kind": "law",
+    "source": "283/2021"
+   },
+   {
+    "claim": "Legislativní historie a stav projednávání tisku 167.",
+    "kind": "web",
+    "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=167"
+   }
+  ]
+ },
+ {
+  "billTisk": 171,
+  "statedReasoning": "Senátní návrh (předkladatel Bednář M. a další) mění § 21 odst. 2 a 4 zákona č. 13/1997 Sb., o pozemních komunikacích — slovo „1 den“ se v obou ustanoveních nahrazuje slovy „24 hodin“. Podle důvodové zprávy se dosud jednodenní časový poplatek za užití zpoplatněné pozemní komunikace vykládá jako platný do 23:59 hodin kalendářního dne nákupu, takže řidič, který známku aktivuje těsně před půlnocí, musí při přejezdu do dalšího dne uhradit poplatek znovu, byť jel jen několik minut. Novela mění platnost jednodenního poplatku na pevných 24 hodin od aktivace. Zpráva uvádí dopad na Státní fond dopravní infrastruktury (příjemce výnosů z časových poplatků podle § 4 odst. 1 písm. b) zákona č. 104/2000 Sb.), ale výslovně konstatuje, že jej nelze vyčíslit, a neočekává jej jako významný. Navrhovaná úprava je podle zprávy slučitelná se směrnicí 1999/62/ES (euroviněta) i její novelou 2022/362/EU, nemá dopad na soukromí, rovnost mužů a žen ani korupční rizika. Účinnost je navržena k 1. lednu 2027.",
+  "researchedContext": "Graf pro tento tisk neeviduje u předkladatele/předkladatelů žádné peněžní vazby — jde o senátní návrh a graf peněžních vazeb sleduje vazby poslanců Poslanecké sněmovny, nikoli senátorů, takže jde o mezeru v rozsahu dat, nikoli o prověřenou absenci vazeb. Srovnání s platným zněním § 21 potvrzuje, že novela je textově přesně tak úzká, jak zpráva popisuje — mění pouze slovní spojení „1 den“ na „24 hodin“ v odst. 2 (definice délky poplatkových období) a v odst. 4 písm. c) (procentní sazba pro jednodenní období). Výzkum nad souběžně projednávaným vládním návrhem (tisk 246, rovněž novela zákona č. 13/1997 Sb., účinnost rovněž k 1. lednu 2027) ukázal věcný průsek: tisk 246 kompletně přepisuje § 21 odst. 3 až 5 (nová sazbová tabulka v pevných korunových částkách místo procent) a ruší odst. 6 až 8, přičemž nový odst. 4 podle tisku 246 upravuje sazby pro elektromobily/vodíková vozidla, nikoli obecnou percentuální sazbu, kterou dnes upravuje odst. 4 novelizovaný tiskem 171. Pokud by tisk 246 nabyl účinnosti dříve nebo současně, ustanovení odst. 4, které tisk 171 novelizuje, by v dosavadní podobě zaniklo — jde o technickou legislativní kolizi dvou souběžných novel stejného paragrafu se stejným datem účinnosti, kterou žádná z důvodových zpráv nezmiňuje (podrobné posouzení tisku 246 je předmětem samostatného posudku v této dávce).",
+  "unstatedEffects": [
+   {
+    "effect": "Důvodová zpráva tisku 171 nezmiňuje, že stejné ustanovení § 21 zákona č. 13/1997 Sb. je souběžně novelizováno vládním návrhem (tisk 246) se stejným datem účinnosti (1. leden 2027), který odstavce 3 až 5 kompletně nahrazuje novým textem — vzniká tak riziko legislativní kolize, kdy novelizační bod tisku 171 může cílit na text, jenž byl mezitím nahrazen jinou novelou.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou uživatelé zpoplatněných pozemních komunikací a Státní fond dopravní infrastruktury, jejichž právní jistota ohledně výše a platnosti časových poplatků závisí na tom, ve kterém pořadí a znění budou obě novely nakonec přijaty.",
+    "evidence": "úplný text tisku na psp.cz, řádky 8–17 strojového přepisu (Čl. I tisku 171, § 21 odst. 2 a 4) srovnaný s úplným textem tisku 246 (Čl. I, novelizace § 21 odst. 3 až 5 a zrušení odst. 6 až 8)"
+   }
+  ],
+  "conflictAssessment": "Předkladatelem je Senát (Bednář M. a další) — jde o typ návrhu, u něhož graf peněžních vazeb nesleduje jednotlivé senátory, takže žádné vazby k prověření nejsou k dispozici; jde o mez rozsahu dat, nikoli o zjištění, že střet zájmů neexistuje. Věcný obsah novely (změna délky platnosti jednodenního poplatku) navíc nemá zjevnou vazbu na konkrétní komerční subjekt.",
+  "severity": "medium",
+  "confidence": 3,
+  "citations": [
+   {
+    "claim": "§ 21 odst. 2 a 4 zákona č. 13/1997 Sb. se slova „1 den“ nahrazují slovy „24 hodin“, účinnost 1. ledna 2027.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=171&ct1=0"
+   },
+   {
+    "claim": "Novelizovaným zákonem je zákon o pozemních komunikacích č. 13/1997 Sb.",
+    "kind": "law",
+    "source": "13/1997"
+   },
+   {
+    "claim": "Souběžný vládní návrh (tisk 246) přepisuje § 21 odst. 3 až 5 zákona č. 13/1997 Sb. a ruší odst. 6 až 8, účinnost rovněž 1. ledna 2027.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=246&ct1=0"
+   },
+   {
+    "claim": "Legislativní historie a stav projednávání tisku 171.",
+    "kind": "web",
+    "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=171"
+   }
+  ]
+ },
+ {
+  "billTisk": 215,
+  "statedReasoning": "Skupina poslankyň a poslanců okolo Kateřiny Stojanové novelizuje soudní řád správní (zákon č. 150/2002 Sb.) a šest souvisejících předpisů — občanský soudní řád (99/1963 Sb.), zákon o vysokých školách (111/1998 Sb.), správní řád (500/2004 Sb.), zákon o vyšších soudních úřednících (121/2008 Sb.), zákon o ochraně utajovaných informací (412/2005 Sb.) a daňový řád (280/2009 Sb.). Důvodová zpráva popisuje návrh jako pokračování dosud nedořešené části vládního tisku 777, jehož část byla mezitím přijata zákonem č. 314/2025 Sb. Uvádí pět okruhů nedostatků platné úpravy správního soudnictví: nepřesnou terminologii zásahové ochrany, chybějící procesní vodítka pro reakci soudu na změnu skutkového stavu za řízení, chybějící pravidlo pro odmítnutí zjevně nezásahové žaloby, chybějící možnost deklaratorního výroku o nezákonnosti opatření obecné povahy, které již pozbylo účinnosti, a chybějící obecný procesní režim pro soudní přezkum předpisů profesních komor a vysokých škol. Novela dále sjednocuje pravidla o účincích zrušujícího rozsudku Nejvyššího správního soudu (tzv. obživlá rozhodnutí) napříč agendami novým § 110 odst. 7 a 8 soudního řádu správního a v této souvislosti ruší dosud samostatnou úpravu v § 124a daňového řádu jako duplicitní.",
+  "researchedContext": "Text potvrzuje zrušení § 124a zákona č. 280/2009 Sb., daňový řád (čl. XI) — ustanovení vloženého zákonem č. 458/2011 Sb., které dosud upravovalo účinky zrušujícího rozsudku Nejvyššího správního soudu ve věcech daňového řízení samostatně. Zvláštní část zdůvodňuje zrušení tím, že stejné pravidlo nově zavádí obecně § 110 odst. 7 a 8 soudního řádu správního, takže souběžná existence obou úprav by vedla k duplicitě a riziku odlišného výkladu. Text dále potvrzuje nový § 107a zákona o vysokých školách (čl. V), který zakládá výlučné oprávnění příslušného ministra (ministr školství u veřejných a soukromých vysokých škol, ministr obrany u vojenských a ministr vnitra u policejních) podat návrh na zrušení protiprávního předpisu vysoké školy soudem podle nového § 101g soudního řádu správního, a to až po marném uplynutí lhůty poskytnuté škole k nápravě. Potvrzen je i nový § 64 odst. 2 správního řádu (čl. VI), který dává správnímu orgánu fakultativní pravomoc přerušit řízení kvůli podané kasační stížnosti, a obdobná úprava u Národního bezpečnostního úřadu v zákoně o ochraně utajovaných informací (čl. VII, § 112 odst. 1).",
+  "unstatedEffects": [
+   {
+    "effect": "Zrušení § 124a daňového řádu odstraňuje daňově specifickou úpravu účinků zrušujícího rozsudku Nejvyššího správního soudu a nahrazuje ji obecným pravidlem podle soudního řádu správního. Zvláštní část důvodové zprávy k čl. XI uznává, že „specifika správy daní“ (návaznost na platební povinnosti, úrokové následky, vykonatelnost daňových rozhodnutí) existují, ale neobsahuje srovnávací rozbor, zda a jak se procesní důsledky pro daňové subjekty v praxi změní oproti dosavadní zvláštní úpravě — tedy zda obecné pravidlo skutečně poskytuje daňovým subjektům rovnocennou ochranu, nebo zda přináší jiné načasování úroků či vykonatelnosti.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou daňové subjekty ve sporech, kde krajský soud zruší rozhodnutí správce daně a toto rozhodnutí je následně dotčeno kasačním řízením u Nejvyššího správního soudu; zpráva neuvádí, zda se jejich procesní postavení oproti dosavadní zvláštní úpravě § 124a fakticky zlepší, zhorší nebo zůstane stejné.",
+    "evidence": "úplný text tisku na psp.cz, řádky 3502–3529 strojového přepisu (zvláštní část, K čl. XI, zrušení § 124a daňového řádu)."
+   },
+   {
+    "effect": "Nový § 107a zákona o vysokých školách svěřuje výlučné oprávnění podat návrh na soudní přezkum protiprávního předpisu vysoké školy příslušnému ministrovi — žádná jiná osoba (např. student, akademický senát) podle tohoto konkrétního mechanismu návrhovou legitimaci nezískává. Zvláštní část to zdůvodňuje zachováním akademické samosprávy a tím, že ministr je „navrhovatelem, nikoli rozhodujícím orgánem“, ale nezmiňuje, že tím zároveň soustřeďuje bránu k soudnímu přezkumu předpisů vysokých škol výhradně do rukou exekutivy. Nový § 101g soudního řádu správního, který § 107a provádí, je obecnou procesní normou pro přezkum předpisů zájmové a akademické samosprávy včetně profesních komor, ale jeho návrhová legitimace se u komor řídí zvláštním zákonem, který ji musí výslovně přiznat — text novely žádnému profesnímu předpisu takové oprávnění nezakládá, takže ministerská koncentrace návrhového práva je doložená jen u vysokých škol.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeny jsou vysoké školy, jejichž předpisy budou moci být tímto konkrétním nástrojem napadeny jen na návrh příslušného ministra, nikoli přímo dotčenými osobami uvnitř instituce.",
+    "evidence": "úplný text tisku na psp.cz, řádky 3353–3382 strojového přepisu (zvláštní část, K čl. V, nový § 107a zákona o vysokých školách)."
+   }
+  ],
+  "conflictAssessment": "Návrh podepsaly čtyři poslankyně a poslanci — Kateřina Stojanová, Samuel Volpe, Kateřina Demetrashvili a Veronika Kovářová. U žádné z těchto osob graf neeviduje peněžní vazbu na dodavatelskou firmu. Jde o rozsáhlou procesní novelu soudního řádu správního a souvisejících předpisů bez zjevné vazby na konkrétní komerční obor, takže i při existenci peněžní vazby by souvislost s předmětem novely bylo obtížné doložit. Střet zájmů proto nelze na základě dostupných dat konstatovat; jde o poctivou negativní zprávu.",
+  "severity": "medium",
+  "confidence": 3,
+  "citations": [
+   {
+    "claim": "Čl. XI ruší § 124a zákona č. 280/2009 Sb., daňový řád, s odůvodněním, že totéž pravidlo nově obecně zavádí § 110 odst. 7 a 8 soudního řádu správního.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=215&ct1=0"
+   },
+   {
+    "claim": "Nový § 107a zákona o vysokých školách zakládá výlučné oprávnění příslušného ministra podat návrh na zrušení protiprávního předpisu vysoké školy soudem; u profesních komor § 101g soudního řádu správního návrhovou legitimaci ponechává na zvláštním zákoně, který ji musí výslovně přiznat.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=215&ct1=0"
+   },
+   {
+    "claim": "Zákon č. 150/2002 Sb., soudní řád správní, je hlavním statutem, který tisk 215 novelizuje.",
+    "kind": "law",
+    "source": "150/2002"
+   },
+   {
+    "claim": "Zákon č. 280/2009 Sb., daňový řád, přichází novelou o § 124a, vložený zákonem č. 458/2011 Sb.",
+    "kind": "law",
+    "source": "280/2009"
+   },
+   {
+    "claim": "Zákon č. 458/2011 Sb. je předpisem, který § 124a daňového řádu do zákona č. 280/2009 Sb. původně vložil.",
+    "kind": "law",
+    "source": "458/2011"
+   },
+   {
+    "claim": "Zákon č. 111/1998 Sb., o vysokých školách, je novelizován novým § 107a upravujícím soudní přezkum předpisů vysoké školy.",
+    "kind": "law",
+    "source": "111/1998"
+   },
+   {
+    "claim": "Zákon č. 314/2025 Sb. již dříve přijal část změn původně navržených ve vládním tisku 777, na které tento návrh navazuje.",
+    "kind": "law",
+    "source": "314/2025"
+   }
+  ]
+ },
+ {
+  "billTisk": 218,
+  "statedReasoning": "Vládní návrh (předkladatel min. financí, formálně poslankyně Alena Schillerová) novelizuje zákon č. 235/2004 Sb., o dani z přidané hodnoty. Podle důvodové zprávy je hlavním cílem transponovat část směrnice Rady (EU) 2025/516 („směrnice DPH v digitálním věku“) — konkrétně rozšíření a vyjasnění pravidel zvláštního režimu jednoho správního místa (OSS), zatímco témata přemístění vlastního zboží, ekonomiky platforem a digitálního výkaznictví má řešit až příští novela zákona o DPH, protože jejich použitelnost nastává až od 1. července 2028, resp. 2030. Zpráva výslovně uvádí, že se nepředpokládá výrazný fiskální dopad na veřejné rozpočty, že návrh nebyl předmětem lobbování, nezakládá veřejnou podporu, nemá sociální ani environmentální dopady a obecně přináší zjednodušení pro podnikatelské prostředí (méně vícenásobných registrací k DPH v jiných členských státech). Zhodnocení korupčních rizik i souladu s Listinou a mezinárodními smlouvami vyznívá bez výhrad.",
+  "researchedContext": "Text potvrzuje, že návrh obsahuje sérii dílčích, OSS souvisejících úprav (§ 2a, § 8, § 10i a další ustanovení citující směrnici 2025/516 nebo směrnici 2006/112/ES v poznámkách CELEX). Vložení nového § 71m (Čl. I bod 12), který zmocňuje Ministerstvo obrany potvrzovat osvědčení o osvobození od DPH podle nařízení Rady (EU) 2025/1106 (nástroj SAFE), NENÍ nedoloženým rozšířením rámce návrhu — obecná část důvodové zprávy mu věnuje vlastní očíslovanou podkapitolu „1.7 Potvrzení o osvobození od DPH při dovozu a dodávkách obranných produktů pod nařízením SAFE“ a popis obsahu návrhu jej opakuje jako samostatnou podkapitolu „2.7“ téhož názvu; nařízení SAFE je uvedeno i v seznamu posuzovaných unijních předpisů a v části o korupčních rizicích. Ačkoli je hlavním, v úvodu bodu 2 zdůrazněným tématem transpozice čl. 2 směrnice DPH v digitálním věku, sama struktura obecné části (podkapitoly 1.1–1.8, resp. 2.1–2.7) ukazuje, že zpráva návrh od počátku prezentuje jako sbírku více samostatných dílčích úprav, nikoli jako ryze jednotematickou novelu — SAFE mechanismus je jednou z nich a je transparentně označen. K citaci „…/2026 Sb.“ v novelizačním výčtu (za zákonem č. 126/2025 Sb.): jde o odkaz na jinou, v době přípravy tisku 218 již schválenou, ale dosud nepublikovanou novelu zákona č. 235/2004 Sb. — logicky nemůže jít o vlastní budoucí číslo tisku 218, neboť ten sám teprve v Čl. I na text „ve znění ... a zákona č. …/2026 Sb.“ navazuje, tedy cituje jej jako již existující předchozí novelu, nikoli sám sebe. Graf eviduje jako další novelu téhož zákona (č. 235/2004 Sb.) souběžně projednávaný tisk 168 (skupina poslanců uvedená v původním textu tisku jako „Návrh poslanců Olgy Richterové, Ivana Bartoše, Zdeňka Hřiba a dalších“), který by mohl být tímto odkazovaným aktem, avšak graf u tisku 168 neobsahuje údaj o stavu projednávání, který by to potvrdil — jednoznačné určení proto není z dostupných dat možné a ambiguita zůstává neuzavřená.",
+  "unstatedEffects": [],
+  "conflictAssessment": "Formální předkladatelkou je poslankyně Alena Schillerová (jménem ministerstva financí); graf u ní k tomuto tisku neeviduje žádnou peněžní vazbu na firmu dodávající státu. Věcný obsah novely (OSS pravidla DPH a osvobození v rámci nástroje SAFE) se navíc netýká konkrétního komerčního dodavatele, u něhož by bylo možné takovou vazbu hledat.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+   {
+    "claim": "Cílem návrhu je podle obecné části důvodové zprávy přizpůsobit úpravu DPH směrnici DPH v digitálním věku.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=218&ct1=0"
+   },
+   {
+    "claim": "Podkapitoly 1.7 a 2.7 obecné části výslovně a samostatně popisují vložení § 71m a zmocnění Ministerstva obrany podle nařízení (EU) 2025/1106 (nástroj SAFE) — mechanismus zpráva výslovně zmiňuje, nezamlčuje jej.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=218&ct1=0"
+   },
+   {
+    "claim": "Novelizovaným zákonem je zákon o dani z přidané hodnoty č. 235/2004 Sb.",
+    "kind": "law",
+    "source": "235/2004"
+   },
+   {
+    "claim": "Novelizační výčet cituje jako předchozí novelu i zákon č. 126/2025 Sb.",
+    "kind": "law",
+    "source": "126/2025"
+   },
+   {
+    "claim": "Souběžně projednávaný tisk 168 (skupina poslanců, mj. Olga Richterová), rovněž novelizující zákon č. 235/2004 Sb.",
+    "kind": "web",
+    "source": "https://www.psp.cz/sqw/text/orig2.sqw?idd=269433"
+   },
+   {
+    "claim": "Legislativní historie a stav projednávání tisku 218.",
+    "kind": "web",
+    "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=218"
+   }
+  ]
+ },
+ {
+  "billTisk": 232,
+  "statedReasoning": "Poslanecký návrh Andreje Babiše a Roberta Plagy mění zákon č. 561/2004 Sb., školský zákon. Vkládá nový § 29a, který na úrovni zákona (nikoliv školního řádu) zakazuje dětem v mateřské škole, žákům základní školy, nižšího stupně víceletého gymnázia a odpovídající části osmiletého konzervatoře používat mobilní telefon nebo jiné elektronické komunikační zařízení při vzdělávání, souvisejících činnostech a školských službách (jídelna, družina, klub), s výjimkami pro zdravotní důvody, speciální vzdělávací potřeby, výslovné školní povolení pro vzdělávací účely a akce mimo místo vzdělávání. Zároveň se dosavadní § 30 odst. 3 (obecné zmocnění školního řádu regulovat mobilní telefony) zrušuje a obdobné, byť užší zmocnění se pro žáky mimo věkový rozsah § 29a odst. 1 vkládá jako nový § 29a odst. 3, s navazující technickou úpravou odkazu v § 136 odst. 2 písm. d). Účinnost se navrhuje k 1. září 2027, tedy o 14 měsíců později než u konkurenčního tisku 104 (účinnost k 1. červenci 2026), s odůvodněním, že termín navazuje na obvyklou dobu aktualizace školních řádů.",
+  "researchedContext": "Text potvrzuje mechanismus i časování. Nový § 29a odst. 1 skutečně stanoví plošný zákonný zákaz, odstavec 2 vyjmenovává čtyři výjimky (zdravotní důvody, speciální vzdělávací potřeby, povolení školou pro vzdělávací účely, akce mimo školu), odstavec 3 zachovává dosavadní fakultativní úpravu školním řádem pro děti a žáky mimo věkový rozsah odstavce 1 (tedy např. střední školy nad rámec nižšího gymnázia), odstavce 4 a 5 zavádějí možnost školního řádu upravit odkládání i sankční odevzdání zařízení. Důvodová zpráva cituje dotazníkové šetření MŠMT z května 2026 (5 441 z 5 461 oslovených škol), podle kterého už 93 % škol nějakou formu omezení mobilů má na základě dosavadního fakultativního § 30 odst. 3, a dokládá zahraniční zkušenosti (Francie, Nizozemsko) i doporučení Národního ústavu duševního zdraví pro plošný zákaz. Tento tisk je věcně jiný přístup ke stejnému problému jako souběžně projednávaný tisk 104 (viz jeho vlastní posouzení) — tisk 232 ruší školní diskrecionalitu a nahrazuje ji plošným zákonným zákazem s výjimkami, zatímco tisk 104 ponechává rozhodnutí školnímu řádu a jen doplňuje nový § 184c s podrobnějším rámcem pro tutéž školní diskrecionalitu. Oba návrhy mění stejný zákon a týkají se téhož tématu, ale nejsou textově kompatibilní: tisk 104 v čl. I bodu 1 § 30 odstavec 3 nahrazuje novým zněním („V § 30 odstavec 3 zní:\"), zatímco tisk 232 v čl. I bodu 2 tentýž odstavec ruší bez náhrady na tomto místě („V § 30 se odstavec 3 zrušuje.\") a přesouvá obdobnou úpravu jinam, do nového § 29a odst. 3 — jedna novela odstavec novelizuje, druhá jej ruší. Pokud by byly projednávány souběžně, jeden novelizační bod by ve výsledku musel ustoupit druhému nebo by hrozila kolize novelizačních bodů.",
+  "unstatedEffects": [
+   {
+    "effect": "Návrh ruší dosavadní § 30 odst. 3 (obecné zmocnění školního řádu regulovat mobily u všech dětí a žáků) a nahrazuje jej plošným zákonným zákazem jen pro věkově vymezenou skupinu v odstavci 1, přičemž pro zbytek žáků (typicky střední školy nad rámec nižšího gymnázia) přesouvá stejné oprávnění do § 29a odst. 3. Důvodová zpráva sama v dotazníkovém šetření uvádí, že 93 % škol už dnes nějakou formu omezení má na základě dobrovolné školní úpravy — návrh tedy pro naprostou většinu škol formalizuje již fungující praxi na úrovni zákona, ale text nikde nekvantifikuje, kolik ze zbývajících 7 % škol omezení nemělo záměrně (např. z pedagogických důvodů, jako je aktivní práce s digitálními technologiemi ve výuce) a bude nyní zákonem donuceno zákaz zavést bez ohledu na vlastní vzdělávací koncepci.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeny jsou školy, které se dosud vědomě rozhodly mobily ve výuce neregulovat nebo je zapojit do výuky jinak, než návrh v § 29a odst. 2 písm. b) a c) předpokládá.",
+    "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=232&ct1=0"
+   }
+  ],
+  "conflictAssessment": "Spolupředkladatel Robert Plaga nemá v grafu evidovanou žádnou peněžní vazbu na firmu. Spolupředkladatel Andrej Babiš má v grafu evidováno čtrnáct peněžních vazeb na firmy (mimo jiné AGROFERT, a.s., Nadace AGROFERT, Synthesia, a.s., Lovochemie, a.s., PRECHEZA a.s., Fatra, a.s., Kostelecké uzeniny a.s. a další), s celkovým úhrnem veřejných smluv firem 1 991 751 917 Kč; všechny vazby čekají na lidskou kontrolu. Věcný obsah tohoto tisku je ale úprava používání mobilních telefonů ve školách — segment vzdělávání a školských služeb. Žádná z evidovaných firem Andreje Babiše nepodniká v oblasti vzdělávání, provozu škol, výroby ani distribuce elektronických komunikačních zařízení, telekomunikačních služeb ani školního nábytku či úložných boxů na mobilní telefony, které by novela mohla nepřímo zasáhnout; jde o firmy z oborů zemědělství, potravinářství, chemie a plastů. Mezi předmětem novely a podnikatelským okruhem evidovaných vazeb tedy není žádná zjištěná věcná souvislost, a proto v datech nevzniká zjištěný střet zájmů — konflikt zájmů podle dostupných dat vyloučen není, protože evidence peněžních vazeb v grafu nemusí zahrnovat všechny podnikatelské zájmy, ale konkrétní, textem doložitelný kanál chybí.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+   {
+    "claim": "Nový § 29a odst. 1 zákona č. 561/2004 Sb. zavádí plošný zákonný zákaz používání mobilního telefonu při vzdělávání, souvisejících činnostech a školských službách pro vymezenou věkovou skupinu, odstavec 2 stanoví čtyři výjimky.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=232&ct1=0"
+   },
+   {
+    "claim": "Důvodová zpráva cituje dotazníkové šetření MŠMT z května 2026, podle kterého 93 % z 5 441 odpovídajících škol už má ve školním řádu upraveno nějaké omezení mobilních telefonů podle dosavadního § 30 odst. 3.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=232&ct1=0"
+   },
+   {
+    "claim": "Účinnost tisku 232 se navrhuje k 1. září 2027, s odůvodněním návaznosti na obvyklý termín aktualizace školních řádů.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=232&ct1=0"
+   },
+   {
+    "claim": "Spolupředkladatel Andrej Babiš (pspId 6150) má v grafu evidováno čtrnáct peněžních vazeb na firmy z oborů zemědělství, potravinářství, chemie a plastů, mimo jiné AGROFERT, a.s. a Nadaci AGROFERT, s úhrnem veřejných smluv firem 1 991 751 917 Kč; vazby čekají na lidskou kontrolu.",
+    "kind": "graph_fact",
+    "source": "psp:person:6150"
+   },
+   {
+    "claim": "AGROFERT, a.s. (IČO 26185610) je jednou z evidovaných peněžních vazeb Andreje Babiše.",
+    "kind": "graph_fact",
+    "source": "company:ico:26185610"
+   },
+   {
+    "claim": "Tisk 104 v čl. I bodu 1 nahrazuje § 30 odstavec 3 zákona č. 561/2004 Sb. novým zněním („V § 30 odstavec 3 zní:\"), zatímco tisk 232 v čl. I bodu 2 tentýž odstavec ruší („V § 30 se odstavec 3 zrušuje.\") — jedna novela odstavec novelizuje, druhá jej ruší.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=104&ct1=0"
+   },
+   {
+    "claim": "Zákon č. 561/2004 Sb., školský zákon, je statutem novelizovaným tiskem 232.",
+    "kind": "law",
+    "source": "561/2004"
+   }
+  ]
+ },
+ {
+  "billTisk": 246,
+  "statedReasoning": "Vládní návrh (předkladatel ministr dopravy Ivan Bednárik) mění zákon č. 13/1997 Sb., o pozemních komunikacích, tak, aby naplnil závazek programového prohlášení vlády „zmrazit cenu dálniční známky“. Novela pevně stanoví sazby časového poplatku na 1 rok, 30 dnů, 10 dnů a 1 den na úrovni platné pro rok 2026 (2 570 Kč, 480 Kč, 300 Kč a 230 Kč, se stejnými zvýhodněnými sazbami pro hybridní a CNG/biometanová vozidla) a zrušuje dosavadní automatický valorizační mechanismus, který sazby každoročně upravoval podle inflace a nárůstu délky dálniční sítě. Důvodová zpráva zdůvodňuje krok potřebou předvídatelnosti pro veřejnost, návratem rozhodování o sazbách výhradně do rukou zákonodárce a odstraněním každoročního administrativního vyhlašování. Zpráva sama přiznává, že zrušení valorizace bude mít negativní dopad na příjmy Státního fondu dopravní infrastruktury (SFDI), přičemž letošní příjmy z časového zpoplatnění se odhadují na cca 8,7 mld. Kč a i bez valorizace rostou objemem prodaných známek v průměru o 5 % ročně.",
+  "researchedContext": "Text novely potvrzuje rozsah zásahu: nové znění § 21 odst. 3 až 5 (čl. I bod 1) pevně stanoví sazby na úrovni roku 2026 a zrušuje odstavce 6 až 8 (čl. I bod 2), tedy valorizační vzorec i povinnost ministerstva dopravy každoročně vyhlašovat sdělení o sazbách a délce dálniční sítě ve Sbírce zákonů. Bod 3 je jen legislativně technická návaznost přečíslování v § 21a odst. 4 písm. d). Přechodné ustanovení (čl. II) výslovně ruší povinnost vyhlásit sdělení o sazbách na rok 2027, i kdyby již bylo zpracováno. Souběžně je u téhož garančního výboru (HV) projednáván senátní tisk 171, který mění tentýž § 21 zákona č. 13/1997 Sb., se stejným datem účinnosti (1. leden 2027) — v odstavcích 2 a 4 písm. c) nahrazuje slovní spojení „1 den“ spojením „24 hodin“, přičemž dosavadní odstavec 4 dnes obsahuje procentní sazbovou tabulku (30 dnů = 19 %, 10 dnů = 12 %, 1 den = 9 %). Tisk 246 ovšem odstavce 3 až 5 přepisuje celé: nový odstavec 4 už neupravuje tuto procentní sazbu, ale pevné korunové sazby pro elektromobily a vodíková vozidla (dříve odstavec 5). Ustanovení, které tisk 171 novelizuje, tak novelou tisku 246 zaniká a jeho číslo je obsazeno jiným předmětem úpravy — nejde o souběžný zásah do totožného ustanovení, ale o smazání a znovupoužití čísla odstavce; žádný z textů na druhý tisk neodkazuje.",
+  "unstatedEffects": [
+   {
+    "effect": "Zrušení valorizačního mechanismu trvale odstraňuje zdroj automatického růstu příjmů SFDI, který dosud kompenzoval inflaci a rozšiřování dálniční sítě. Důvodová zpráva negativní dopad na rozpočet SFDI výslovně přiznává a uvádí letošní základnu (cca 8,7 mld. Kč) i dosavadní průměrný meziroční růst objemu úhrad (cca 5 %), ale neuvádí kumulativní odhad ušlých příjmů SFDI na víceleté období ani to, z čeho by měl být případný výpadek financování výstavby a údržby dálnic nahrazen.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou uživatelé dálnic, kterým se sazba nebude automaticky zvyšovat, a Státní fond dopravní infrastruktury, jehož rozpočet přichází o rostoucí zdroj příjmů určený na výstavbu, modernizaci, opravy a údržbu dálnic a silnic.",
+    "evidence": "úplný text tisku na psp.cz, řádky 248–263 strojového přepisu (část G.1 důvodové zprávy, dopad na SFDI)."
+   },
+   {
+    "effect": "Souběžně projednávaný senátní tisk 171 novelizuje slovní spojení „1 den“ na „24 hodin“ v dosavadním § 21 odst. 2 a odst. 4 písm. c) zákona č. 13/1997 Sb., se stejným datem účinnosti (1. leden 2027) jako tento návrh. Tisk 246 ale odstavce 3 až 5 přepisuje celé a nový odstavec 4 upravuje jiný předmět (pevné sazby pro elektromobily a vodíková vozidla, dříve odstavec 5) — ustanovení, které tisk 171 novelizuje, tímto návrhem zaniká. Žádná z důvodových zpráv tuto kolizi nezmiňuje.",
+    "whoBenefits": "Nelze jednoznačně určit — jde o důsledek souběžného projednávání dvou nezávislých novel téhož paragrafu, nikoli o zvýhodnění konkrétní strany; dotčena je právní jistota ohledně toho, ve kterém znění § 21 nakonec platí, závislá na pořadí, v jakém obě novely nabudou účinnosti.",
+    "evidence": "úplný text tisku 171 na psp.cz, řádky 8–12 strojového přepisu (změna „1 den“ na „24 hodin“ v § 21 odst. 2 a 4) srovnaný s úplným textem tohoto tisku (čl. I, novelizace § 21 odst. 3 až 5 a zrušení odst. 6 až 8)."
+   }
+  ],
+  "conflictAssessment": "Předkladatelem je ministr dopravy Ivan Bednárik jako člen vlády, nikoli poslanec s vlastní podnikatelskou vazbou v grafu — u této osoby graf neeviduje žádnou peněžní vazbu na dodavatelskou firmu. Jde o vládní návrh naplňující výslovný závazek programového prohlášení vlády, nikoli o poslaneckou iniciativu vázanou na konkrétní obchodní zájem. Střet zájmů proto nelze na základě dostupných dat konstatovat; jde o poctivou negativní zprávu.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+   {
+    "claim": "Nové znění § 21 odst. 3 až 5 zákona č. 13/1997 Sb. pevně stanoví sazby časového poplatku na úrovni platné pro rok 2026 a čl. I bod 2 zrušuje odstavce 6 až 8, tedy valorizační mechanismus i povinnost každoročního vyhlašování sdělení o sazbách.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=246&ct1=0"
+   },
+   {
+    "claim": "Důvodová zpráva (část G.1) uvádí, že zrušení valorizace bude mít negativní dopad na příjmy SFDI, s letošní očekávanou základnou cca 8,7 mld. Kč z časového zpoplatnění a průměrným meziročním růstem objemu úhrad cca 5 % i bez valorizace sazeb.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=246&ct1=0"
+   },
+   {
+    "claim": "Senátní tisk 171 mění v § 21 odst. 2 a 4 písm. c) zákona č. 13/1997 Sb. slova „1 den“ na „24 hodin“, se stejnou účinností k 1. lednu 2027 — ustanovení, které novelizuje, ale tento návrh (čl. I bod 1) přepisuje v rámci odstavců 3 až 5 jiným obsahem.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=171&ct1=0"
+   },
+   {
+    "claim": "Zákon č. 13/1997 Sb., o pozemních komunikacích, je statutem, který tisk 246 novelizuje.",
+    "kind": "law",
+    "source": "13/1997"
+   }
+  ]
+ },
+ {
+  "billTisk": 74,
+  "statedReasoning": "Skupina poslanců okolo Petra Hladíka mění čtyři předpisy: zákon č. 167/2008 Sb., o předcházení ekologické újmě a o její nápravě, zákon č. 282/1991 Sb., o České inspekci životního prostředí a její působnosti v ochraně lesa, vodní zákon č. 254/2001 Sb. a zákon č. 541/2020 Sb., o odpadech. Důvodová zpráva popisuje zákon o ekologické újmě jako řádně transponovaný, ale v praxi téměř nevyužívaný kvůli nejasné hranici vůči složkovým předpisům (vodní zákon, ochrana přírody, zemědělský půdní fond) — příslušný orgán (ČIŽP) často řízení zahájí a vzápětí zastaví. Novela proto zpřesňuje definici ekologické újmy, posiluje odbornou roli AOPK ČR při posuzování újmy na chráněných druzích a stanovištích, zavádí ohlašovací povinnost k hodnocení rizik do centrálního systému, ruší dosavadní výjimku z povinnosti finančního zajištění pro provozovatele s certifikací EMAS nebo ISO 14 000, zavádí nové skutkové podstaty přestupků a zvyšuje horní hranice pokut podle zákona o ČIŽP. Navazující změny vodního zákona a zákona o odpadech jsou podle zprávy převážně formální nebo doplňují procesní nástroje ČIŽP.",
+  "researchedContext": "Text potvrzuje, že novým § 1a zákona č. 282/1991 Sb. (čl. III bod 1) získává ČIŽP oprávnění provést na náklady povinné osoby samu nezbytná nápravná opatření, předchozí průzkumy nebo odborné podklady, hrozí-li nebezpečí z prodlení a povinná osoba je neplní; náklady jsou zálohovány ze Státního fondu životního prostředí a povinné osobě následně přeúčtovány. Odstavec 2 nového § 1a ovšem výslovně vylučuje jeho použití na opatření uložená podle zákona o předcházení ekologické újmě — tedy právě podle předpisu, jehož nedostatečnou vymahatelnost důvodová zpráva označuje za hlavní problém. Nový nástroj tak dopadá na nápravná opatření podle jiných složkových předpisů (vodní zákon, ochrana přírody a krajiny), nikoli na opatření uložená přímo podle zákona o ekologické újmě. Potvrzeno je také zrušení výjimky z finančního zajištění pro EMAS/ISO certifikované provozovatele (nové znění § 14 odst. 4 zákona č. 167/2008 Sb., čl. I bod 19) a zvýšení horních sazeb pokut podle zákona o ČIŽP z 5 na 10 mil. Kč a z 10 na 20 mil. Kč (čl. III body 2 a 3). Změna zákona o odpadech (čl. V) doplňuje pravidla pro přebírání odpadu do mobilních zařízení podle skutečného původce a novou skutkovou podstatu přestupku za jejich obcházení.",
+  "unstatedEffects": [
+   {
+    "effect": "Nový § 1a zákona o ČIŽP dává inspekci pravomoc vymáhat nesplněná nápravná opatření na náklady povinné osoby u opatření uložených podle vodního zákona nebo zákona o ochraně přírody a krajiny, ale výslovně (odst. 2) vylučuje tuto pravomoc pro opatření uložená přímo podle zákona o předcházení ekologické újmě — téhož zákona, jehož slabou vymahatelnost důvodová zpráva označuje za ústřední důvod novely. Zpráva tento nesoulad mezi deklarovaným cílem (posílit vymahatelnost ZEÚ) a rozsahem nového nástroje (který se na ZEÚ nevztahuje) nezmiňuje ani nezdůvodňuje.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou provozovatelé, kteří neplní nápravná opatření uložená podle vodního zákona nebo zákona o ochraně přírody a krajiny (na ty nová vymáhací pravomoc ČIŽP dopadá), zatímco provozovatelé s opatřením uloženým přímo podle zákona o ekologické újmě novým nástrojem dotčeni nejsou.",
+    "evidence": "úplný text tisku na psp.cz, řádky 381–395 strojového přepisu (nový § 1a zákona č. 282/1991 Sb. včetně vylučující věty v odstavci 2)."
+   },
+   {
+    "effect": "Zrušení výjimky z povinnosti finančního zajištění pro provozovatele s certifikací EMAS nebo ISO 14 000 zvyšuje jejich administrativní a finanční zátěž (nutnost prokázat finanční zajištění, např. pojištěním, i bez ohledu na certifikaci). Důvodová zpráva změnu zdůvodňuje tím, že certifikace sama o sobě nezaručuje soulad s hodnocením rizik podle zákona o ekologické újmě, ale na rozdíl od jiných částí zprávy (např. odhadů nákladů ČIŽP, AOPK a správ národních parků na straně veřejných rozpočtů) neuvádí, kolik provozovatelů výjimku dosud využívalo ani odhad dodatečných nákladů na jejich straně.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou provozovatelé s certifikací EMAS nebo ISO 14 000, kteří dosud výjimku z finančního zajištění využívali a nově budou muset finanční zajištění prokazovat stejně jako necertifikovaní provozovatelé.",
+    "evidence": "úplný text tisku na psp.cz, řádky 605–618 a 232–234 strojového přepisu (zrušení výjimky a nové znění § 14 odst. 4 zákona č. 167/2008 Sb.)."
+   }
+  ],
+  "conflictAssessment": "Graf eviduje peněžní vazby u tří z devíti předkladatelů. Petr Hladík je veden s vazbami na ARENA BRNO, a.s. (IČO 09133267, cca 19,39 mld. Kč), Dopravní podnik města Brna, a.s. (IČO 25508881, cca 88,99 mld. Kč), Teplárny Brno, a.s. (IČO 46347534, cca 23,57 mld. Kč), MERO ČR, a.s. (IČO 60193468, cca 2,98 mld. Kč) a SAKO Brno, a.s. (IČO 60713470, cca 24,67 mld. Kč) — ve všech případech jde o úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu. Všech pět subjektů jsou obecní nebo státní obchodní společnosti (SAKO Brno a Teplárny Brno městské, DPMB a ARENA BRNO městské, MERO ČR se státní majetkovou účastí) svázané s Hladíkovou funkcí statutárního zástupce města Brna, nikoli s jeho osobním podnikáním — jde o institucionální, nikoli soukromou vazbu, a taková obecní či státní účast se za střet zájmů nepovažuje. Přesto je namístě uvést jmenovitě, že SAKO Brno, a.s. provozuje komunální spalovnu odpadů a novela mění i zákon o odpadech (čl. V) — jde o věcnou blízkost tématu bez důkazu osobního prospěchu, kterou by měl budoucí lidský přezkum vzít v úvahu. Bohuslav Niemiec je veden s vazbou na CEVYKO a.s. (IČO 08599254, cca 301,39 mil. Kč, úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu) — jde o meziobecní svazkovou firmu nakládání s odpady (mj. obec Havířov, spoluvlastník ASOMPO), na jejíž dozorčí radě Niemiec zasedá; vazba je tedy institucionální (členství v dozorčí radě), nikoli vlastnická nebo osobně podnikatelská. Společnost drží živnostenské oprávnění k nakládání s odpady (vyjma nebezpečných) od 10. října 2019, tedy skutečně v oboru, který novela v čl. V (změna zákona o odpadech) mění — stejně jako u SAKO Brno jde o věcnou blízkost tématu bez důkazu osobního prospěchu, kterou by měl budoucí lidský přezkum vzít v úvahu; posuzováno stejným měřítkem jako pět obecních/státních vazeb Petra Hladíka výše se ani zde střet zájmů nekonstatuje. Helena Langšádlová je vedena s vazbou na Fórum Karla Schwarzenberga, o.p.s. (IČO 02086778) s nulovým úhrnem veřejných smluv v grafu. U zbývajících šesti předkladatelů (Pláteník, Brzesková, Filipovičová, Kršková, Krutáková, Svárovská) graf neeviduje žádnou peněžní vazbu.",
+  "severity": "medium",
+  "confidence": 3,
+  "citations": [
+   {
+    "claim": "Nový § 1a zákona č. 282/1991 Sb. zakládá pravomoc ČIŽP zajistit nesplněná nápravná opatření na náklady povinné osoby, s výjimkou opatření uložených podle zákona o předcházení ekologické újmě.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=74&ct1=0"
+   },
+   {
+    "claim": "Nové znění § 14 odst. 4 zákona č. 167/2008 Sb. ruší výjimku z povinnosti finančního zajištění pro provozovatele certifikované podle EMAS nebo ISO 14 000.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=74&ct1=0"
+   },
+   {
+    "claim": "Zákon č. 167/2008 Sb., o předcházení ekologické újmě a o její nápravě, je hlavním statutem, který tisk 74 novelizuje.",
+    "kind": "law",
+    "source": "167/2008"
+   },
+   {
+    "claim": "Zákon č. 282/1991 Sb., o České inspekci životního prostředí a její působnosti v ochraně lesa, je novelizován vložením nového § 1a a zvýšením horních sazeb pokut.",
+    "kind": "law",
+    "source": "282/1991"
+   },
+   {
+    "claim": "Vodní zákon č. 254/2001 Sb. je novelizován formální návazností v § 42 odst. 1 na nový § 1a zákona o ČIŽP.",
+    "kind": "law",
+    "source": "254/2001"
+   },
+   {
+    "claim": "Zákon č. 541/2020 Sb., o odpadech, je novelizován pravidly pro přebírání odpadu do mobilních zařízení podle skutečného původce a novou skutkovou podstatou přestupku.",
+    "kind": "law",
+    "source": "541/2020"
+   },
+   {
+    "claim": "Petr Hladík je v grafu evidován s peněžní vazbou na ARENA BRNO, a.s. v souhrnné výši cca 19,39 mld. Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu); jde o městskou obchodní společnost.",
+    "kind": "graph_fact",
+    "source": "company:ico:09133267"
+   },
+   {
+    "claim": "Petr Hladík je v grafu evidován s peněžní vazbou na Dopravní podnik města Brna, a.s. v souhrnné výši cca 88,99 mld. Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu); jde o městskou obchodní společnost.",
+    "kind": "graph_fact",
+    "source": "company:ico:25508881"
+   },
+   {
+    "claim": "Petr Hladík je v grafu evidován s peněžní vazbou na Teplárny Brno, a.s. v souhrnné výši cca 23,57 mld. Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu); jde o městskou obchodní společnost.",
+    "kind": "graph_fact",
+    "source": "company:ico:46347534"
+   },
+   {
+    "claim": "Petr Hladík je v grafu evidován s peněžní vazbou na MERO ČR, a.s. v souhrnné výši cca 2,98 mld. Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu); jde o společnost se státní majetkovou účastí.",
+    "kind": "graph_fact",
+    "source": "company:ico:60193468"
+   },
+   {
+    "claim": "Petr Hladík je v grafu evidován s peněžní vazbou na SAKO Brno, a.s. v souhrnné výši cca 24,67 mld. Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu); jde o městskou společnost provozující komunální spalovnu odpadů, tedy o obor věcně blízký novelizovanému zákonu o odpadech.",
+    "kind": "graph_fact",
+    "source": "company:ico:60713470"
+   },
+   {
+    "claim": "Bohuslav Niemiec je v grafu evidován s peněžní vazbou na CEVYKO a.s. v souhrnné výši cca 301,39 mil. Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu).",
+    "kind": "graph_fact",
+    "source": "company:ico:08599254"
+   },
+   {
+    "claim": "CEVYKO a.s. je meziobecní odpadová společnost (spoluzaložená statutárním městem Havířov) a Bohuslav Niemiec je od 10. října 2019 členem její dozorčí rady, bez evidovaného vlastnického podílu — obor věcně blízký novelizované úpravě, bez doloženého osobního prospěchu.",
+    "kind": "web",
+    "source": "https://www.hlidacstatu.cz/Osoba/Vazby/bohuslav-niemiec"
+   },
+   {
+    "claim": "Helena Langšádlová je v grafu evidována s peněžní vazbou na Fórum Karla Schwarzenberga, o.p.s. s nulovým úhrnem veřejných smluv (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu).",
+    "kind": "graph_fact",
+    "source": "company:ico:02086778"
+   }
+  ]
+ }
+]
