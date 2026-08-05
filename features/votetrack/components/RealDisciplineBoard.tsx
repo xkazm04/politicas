@@ -8,10 +8,10 @@
  */
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { clubStyle } from "../record/clubStyle";
-import { COPY } from "../record/copy";
 import type { ClubAggregate, LedgerVote, VoteRecordData } from "../record/types";
 
 const MATRIX_WINDOW = 12;
@@ -24,6 +24,7 @@ export default function RealDisciplineBoard({
   /** Jump the matrix column's vote into the ledger detail. */
   onSelectVote: (votePspId: number) => void;
 }) {
+  const t = useTranslations("votetrack");
   const f = useFormat();
   const reduceMotion = useReducedMotion();
   const ranked: ClubAggregate[] = [...data.clubs].sort(
@@ -36,7 +37,7 @@ export default function RealDisciplineBoard({
       <div className="grid gap-12 lg:grid-cols-[5fr_7fr]">
         {/* ── žebříček disciplíny ───────────────────────────── */}
         <div className="min-w-0">
-          <SourceNote>{COPY.disciplineNote(data.coverage.valid)}</SourceNote>
+          <SourceNote>{t("record.disciplineNote", { valid: data.coverage.valid })}</SourceNote>
           <div className="mt-3 border-t-2 border-ink">
             {ranked.map((c, i) => {
               const style = clubStyle(c.club);
@@ -58,7 +59,7 @@ export default function RealDisciplineBoard({
                       <span className="font-mono text-[11px] font-normal text-steel-aa">{c.seats}</span>
                     </span>
                     <span className="mt-0.5 block font-mono text-[11px] uppercase tracking-wider text-steel-aa">
-                      {COPY.cohesionColumn}{" "}
+                      {t("record.cohesionColumn")}{" "}
                       <span className="font-bold tabular-nums">
                         {c.cohesion === null ? "—" : f.dec(Math.round(c.cohesion * 1000) / 10)}
                       </span>
@@ -84,13 +85,13 @@ export default function RealDisciplineBoard({
 
         {/* ── matice linií ──────────────────────────────────── */}
         <div className="min-w-0">
-          <SourceNote>{COPY.matrixNote}</SourceNote>
+          <SourceNote>{t("record.matrixNote")}</SourceNote>
           <div className="mt-3 overflow-x-auto">
             <table className="w-full min-w-[34rem] border-collapse text-center">
               <thead>
                 <tr>
                   <th className="border-b-2 border-ink py-2 pr-3 text-left font-mono text-[11px] uppercase tracking-widest text-steel-aa">
-                    {COPY.partyHeader}
+                    {t("record.partyHeader")}
                   </th>
                   {matrixVotes.map((v) => (
                     <th key={v.pspId} className="border-b-2 border-ink px-1.5 py-2">
@@ -155,22 +156,22 @@ export default function RealDisciplineBoard({
               </tbody>
             </table>
           </div>
-          <p className="mt-3 max-w-md text-sm italic leading-relaxed text-steel-aa">{COPY.matrixFootnote}</p>
+          <p className="mt-3 max-w-md text-sm italic leading-relaxed text-steel-aa">{t("record.matrixFootnote")}</p>
         </div>
       </div>
 
       {/* ── zveřejněné pravidlo (stateSlice disclosure pattern) ── */}
       <div className="mt-10 border-2 border-ink p-5">
-        <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-signal-deep">{COPY.methodTitle}</p>
-        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ink">{COPY.methodBody}</p>
+        <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-signal-deep">{t("record.methodTitle")}</p>
+        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ink">{t("record.methodBody")}</p>
         <SourceNote className="mt-3">
-          {COPY.methodSource(
-            data.coverage.valid,
-            data.coverage.voided,
-            f.int(data.coverage.ballots),
-            data.coverage.from ? f.date(data.coverage.from) : "—",
-            data.coverage.to ? f.date(data.coverage.to) : "—",
-          )}
+          {t("record.methodSource", {
+            valid: data.coverage.valid,
+            voided: data.coverage.voided,
+            ballots: f.int(data.coverage.ballots),
+            from: data.coverage.from ? f.date(data.coverage.from) : "—",
+            to: data.coverage.to ? f.date(data.coverage.to) : "—",
+          })}
         </SourceNote>
       </div>
     </div>

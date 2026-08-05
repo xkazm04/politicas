@@ -25,8 +25,6 @@ import DisciplineBoard from "./components/DisciplineBoard";
 import Rebellions from "./components/Rebellions";
 import RealVoteTrack from "./components/RealVoteTrack";
 import VoteThemeFilter from "./components/VoteThemeFilter";
-import { COPY } from "./record/copy";
-import { KOMPAS_COPY } from "./kompas/copy";
 import type { VoteRecordData } from "./record/types";
 import type { VoteThemeData } from "./themeTypes";
 
@@ -56,7 +54,7 @@ export default function VoteTrackPage({
         {/* ── Titulní pás ───────────────────────────────────── */}
         <div className="py-10">
           {real ? (
-            <SourceNote tone="signal">{COPY.heroNote}</SourceNote>
+            <SourceNote tone="signal">{t("record.heroNote")}</SourceNote>
           ) : (
             <SourceNote tone="signal">{t("heroSourceNote")}</SourceNote>
           )}
@@ -70,7 +68,7 @@ export default function VoteTrackPage({
           <div className="mt-4 max-w-xl">
             <SectionRule />
           </div>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">{real ? COPY.lead : t("lead")}</p>
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">{real ? t("record.lead") : t("lead")}</p>
 
           {/* Vstup do kompasu (moonshot 5B) — kobalt = váš pohled na záznam. */}
           <Link
@@ -78,9 +76,9 @@ export default function VoteTrackPage({
             className="group mt-6 inline-flex max-w-2xl flex-wrap items-center gap-x-3 gap-y-1 border-2 border-cobalt px-4 py-3 transition-colors hover:bg-cobalt motion-reduce:transition-none"
           >
             <span className="font-mono text-xs font-bold uppercase tracking-widest text-cobalt group-hover:text-paper">
-              {KOMPAS_COPY.entryTitle}
+              {t("kompas.entryTitle")}
             </span>
-            <span className="text-sm text-steel-aa group-hover:text-paper">{KOMPAS_COPY.entryBody}</span>
+            <span className="text-sm text-steel-aa group-hover:text-paper">{t("kompas.entryBody")}</span>
             <ArrowRight className="h-4 w-4 text-cobalt group-hover:text-paper" aria-hidden />
           </Link>
         </div>
@@ -92,7 +90,7 @@ export default function VoteTrackPage({
             {/* Store outage / not-yet-ingested: say it once, loudly, then the
                 labelled illustrative sample (never real-looking numbers). */}
             <div className="mb-10">
-              <LiveDataNotice title={COPY.fallbackTitle} body={COPY.fallbackBody} source={COPY.fallbackSource} />
+              <LiveDataNotice title={t("record.fallbackTitle")} body={t("record.fallbackBody")} source={t("record.fallbackSource")} />
             </div>
             <MockVoteTrack />
           </>

@@ -14,10 +14,10 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { votePspUrl } from "../record/anchor";
-import { COPY } from "../record/copy";
 import type { SeismoDay, VoteRecordData } from "../record/types";
 
 /** Deviation display gain: mean Rice on real days sits ~0.75–1.0, so a raw
@@ -39,6 +39,7 @@ export default function Seismograf({
   /** Select + scroll a ledger vote (only called with ids inside the window). */
   onJumpToVote: (votePspId: number) => void;
 }) {
+  const t = useTranslations("votetrack");
   const f = useFormat();
   const reduceMotion = useReducedMotion();
   const days = data.seismogram;
@@ -56,7 +57,7 @@ export default function Seismograf({
 
   return (
     <div className="min-w-0">
-      <p className="max-w-3xl text-[15px] leading-relaxed text-steel-aa">{COPY.seismoExplainer}</p>
+      <p className="max-w-3xl text-[15px] leading-relaxed text-steel-aa">{t("record.seismoExplainer")}</p>
 
       {/* ── strip ─────────────────────────────────────────────── */}
       <motion.div
@@ -66,7 +67,7 @@ export default function Seismograf({
         transition={{ duration: 0.5 }}
         className="mt-6"
         role="group"
-        aria-label={COPY.seismoAria}
+        aria-label={t("record.seismoAria")}
       >
         <div className="relative flex h-36 items-stretch border-x-2 border-ink">
           {/* baseline */}
@@ -79,7 +80,12 @@ export default function Seismograf({
                 type="button"
                 onClick={() => setSelectedDate(d.date)}
                 aria-pressed={active}
-                aria-label={COPY.seismoDayAria(f.date(d.date), d.votes, cohesionPct(d.meanCohesion), d.rebels)}
+                aria-label={t("record.seismoDayAria", {
+                  date: f.date(d.date),
+                  votes: d.votes,
+                  cohesion: cohesionPct(d.meanCohesion),
+                  rebels: d.rebels,
+                })}
                 className={`group relative min-w-0 flex-1 transition-colors motion-reduce:transition-none ${
                   active ? "bg-paper-strong" : "hover:bg-paper-strong"
                 }`}
@@ -130,14 +136,14 @@ export default function Seismograf({
           <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2 border-b border-hairline px-4 py-3">
             <span className="font-mono text-sm font-black uppercase tracking-wider">{f.date(selected.date)}</span>
             <span className="font-mono text-xs uppercase tracking-wider text-steel-aa">
-              {f.int(selected.votes)} {COPY.seismoVotes}
+              {f.int(selected.votes)} {t("record.seismoVotes")}
             </span>
             <span className="font-mono text-xs uppercase tracking-wider">
-              <span className="text-steel-aa">{COPY.seismoCohesion} </span>
+              <span className="text-steel-aa">{t("record.seismoCohesion")} </span>
               <span className="font-bold tabular-nums text-cobalt">{cohesionPct(selected.meanCohesion)}</span>
             </span>
             <span className="font-mono text-xs uppercase tracking-wider">
-              <span className="text-steel-aa">{COPY.seismoRebels} </span>
+              <span className="text-steel-aa">{t("record.seismoRebels")} </span>
               <span className={`font-bold tabular-nums ${selected.rebels > 0 ? "text-signal-deep" : "text-steel-aa"}`}>
                 {f.int(selected.rebels)}
               </span>
@@ -147,7 +153,7 @@ export default function Seismograf({
             {selected.worst ? (
               <>
                 <SourceNote>
-                  {COPY.seismoWorst} {cohesionPct(selected.worst.cohesion)}
+                  {t("record.seismoWorst")} {cohesionPct(selected.worst.cohesion)}
                 </SourceNote>
                 <p className="mt-1 text-[15px] font-bold leading-snug">{selected.worst.title}</p>
                 <div className="mt-2 flex flex-wrap gap-4">
@@ -157,7 +163,7 @@ export default function Seismograf({
                       onClick={() => onJumpToVote(selected.worst!.pspId)}
                       className="inline-flex items-center gap-1 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal motion-reduce:transition-none"
                     >
-                      {COPY.seismoJump} <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+                      {t("record.seismoJump")} <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
                     </button>
                   )}
                   <a
@@ -166,12 +172,12 @@ export default function Seismograf({
                     rel="noreferrer"
                     className="inline-flex items-center gap-1 font-mono text-xs font-bold uppercase tracking-wider text-steel-aa transition-colors hover:text-ink motion-reduce:transition-none"
                   >
-                    {COPY.seismoPspLink} <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+                    {t("record.seismoPspLink")} <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
                   </a>
                 </div>
               </>
             ) : (
-              <SourceNote>{COPY.seismoNoCohesion}</SourceNote>
+              <SourceNote>{t("record.seismoNoCohesion")}</SourceNote>
             )}
           </div>
         </div>

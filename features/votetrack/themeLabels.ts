@@ -1,22 +1,26 @@
-// Human labels for the sem_classify theme taxonomy (slug → Czech display name).
-// Mirrors the slugs written by scripts/hybrid-bench/materialize-tags.ts. Kept as a
-// plain module so the client filter can render labels without importing the
-// classifier. Czech-first (per CLAUDE.md); vote titles are Czech anyway.
+// The sem_classify theme taxonomy (slug set) → i18n keys under votetrack.themes.
+// Mirrors the slugs written by scripts/hybrid-bench/materialize-tags.ts. Display
+// labels live in messages/*.json (votetrack.themes.<slug>); render sites resolve
+// them via useTranslations("votetrack") and fall back to the raw slug for any
+// slug outside this set (never a missing-message error for unknown data).
 
-export const THEME_LABELS: Record<string, string> = {
-  procedura: "Procedura",
-  "rozpocet-finance": "Rozpočet a finance",
-  personalie: "Personálie",
-  "duvera-vlada": "Důvěra vládě",
-  zdravotnictvi: "Zdravotnictví",
-  "skolstvi-veda": "Školství a věda",
-  "bezpecnost-obrana": "Bezpečnost a obrana",
-  "justice-pravo": "Justice a právo",
-  "socialni-bydleni": "Sociální a bydlení",
-  "prostredi-zemedelstvi": "Prostředí a zemědělství",
-  "doprava-stavebnictvi": "Doprava a stavebnictví",
-  "zahranici-eu": "Zahraničí a EU",
-  jine: "Jiné",
-};
+export const THEME_SLUGS = new Set([
+  "procedura",
+  "rozpocet-finance",
+  "personalie",
+  "duvera-vlada",
+  "zdravotnictvi",
+  "skolstvi-veda",
+  "bezpecnost-obrana",
+  "justice-pravo",
+  "socialni-bydleni",
+  "prostredi-zemedelstvi",
+  "doprava-stavebnictvi",
+  "zahranici-eu",
+  "jine",
+]);
 
-export const themeLabel = (slug: string): string => THEME_LABELS[slug] ?? slug;
+/** i18n key (relative to the `votetrack` namespace) for a known theme slug,
+ * or null for an unknown slug — the caller renders the slug verbatim then. */
+export const themeLabelKey = (slug: string): string | null =>
+  THEME_SLUGS.has(slug) ? `themes.${slug}` : null;

@@ -14,24 +14,16 @@
 
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, ExternalLink, Link as LinkIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
 import type { ParagraphTrail, StatuteDossier, StatuteTrailEntry } from "./deriveStatuteDossier";
-import { DIFF_OP_CZ, ORIGIN_CZ, SPONSOR_ROLE_CZ, esbirkaUrl } from "./lawwatchLabels";
-
-/** České skloňování po číslovce. */
-const plural = (n: number, one: string, few: string, many: string): string =>
-  n === 1 ? one : n >= 2 && n <= 4 ? few : many;
-
-const PROVENANCE_CZ: Record<StatuteTrailEntry["provenance"], string> = {
-  title: "vazba z názvu tisku",
-  census: "jen census textu",
-  both: "název i census",
-};
+import { DIFF_OP_KEYS, SPONSOR_ROLE_KEYS, esbirkaUrl } from "./lawwatchLabels";
 
 export default function StatuteDossierPage({ dossier }: { dossier: StatuteDossier }) {
+  const t = useTranslations("lawwatch");
   const f = useFormat();
   const c = dossier.coverage;
   const esb = esbirkaUrl(dossier.ref);
@@ -40,12 +32,12 @@ export default function StatuteDossierPage({ dossier }: { dossier: StatuteDossie
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
       <header className="border-b-4 border-ink">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-4">
-          <span className="font-mono text-xs uppercase tracking-widest text-steel">/ zákony / předpis</span>
+          <span className="font-mono text-xs uppercase tracking-widest text-steel">{t("registry.crumb")}</span>
           <Link
             href="/zakony/predpis"
             className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
           >
-            <ArrowLeft className="h-3.5 w-3.5" /> rejstřík předpisů
+            <ArrowLeft className="h-3.5 w-3.5" /> {t("statute.backToRegistry")}
           </Link>
         </div>
       </header>
@@ -53,18 +45,16 @@ export default function StatuteDossierPage({ dossier }: { dossier: StatuteDossie
       <div className="mx-auto max-w-5xl px-6">
         {/* ── Hlava zákona ─────────────────────────────────── */}
         <div className="py-10">
-          <SourceNote tone="signal">paměť zákona · kritické vydání předpisu</SourceNote>
+          <SourceNote tone="signal">{t("statute.eyebrow")}</SourceNote>
           <h1 className="mt-3 text-4xl font-black uppercase leading-[0.95] tracking-tight sm:text-5xl">
-            Zákon č. {dossier.ref} Sb.<span className="text-signal">.</span>
+            {t("statute.title", { ref: dossier.ref })}<span className="text-signal">.</span>
           </h1>
           {dossier.title && <p className="mt-3 max-w-3xl text-lg font-bold leading-snug">{dossier.title}</p>}
           <div className="mt-4 max-w-xl">
             <SectionRule />
           </div>
           <p className="mt-4 max-w-3xl text-base leading-relaxed text-steel">
-            Předpis viděný ze strany zákona, ne tisku: kdo ho v tomto volebním období měnil, kdy byla
-            změna vyhlášena ve Sbírce a — tam, kde archiv nese reálný §-diff z e-Sbírky — doslovná
-            §-stopa „před / po“ s trvalými kotvami. Data z psp.cz a e-Sbírky, ne z modelu.
+            {t("statute.intro")}
           </p>
           {esb && (
             <a
@@ -73,7 +63,7 @@ export default function StatuteDossierPage({ dossier }: { dossier: StatuteDossie
               rel="noreferrer"
               className="mt-3 inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
             >
-              úplné znění v e-Sbírce <ExternalLink className="h-3.5 w-3.5" />
+              {t("statute.esbirkaFull")} <ExternalLink className="h-3.5 w-3.5" />
             </a>
           )}
         </div>
@@ -81,10 +71,10 @@ export default function StatuteDossierPage({ dossier }: { dossier: StatuteDossie
         {/* ── Statistický pás ──────────────────────────────── */}
         <div className="grid grid-cols-2 gap-px border-2 border-ink bg-ink sm:grid-cols-4">
           {[
-            { v: f.int(c.trailBills), l: `${plural(c.trailBills, "tisk", "tisky", "tisků")} ve stopě` },
-            { v: f.int(c.enactedBills), l: "vyhlášeno ve Sbírce" },
-            { v: f.int(c.paragraphs), l: "§ se §-stopou" },
-            { v: f.int(c.changes), l: "doložených změn fragmentů" },
+            { v: f.int(c.trailBills), l: t("statute.stats.inTrail", { count: c.trailBills }) },
+            { v: f.int(c.enactedBills), l: t("statute.stats.enacted") },
+            { v: f.int(c.paragraphs), l: t("statute.stats.paragraphs") },
+            { v: f.int(c.changes), l: t("statute.stats.changes") },
           ].map((s) => (
             <div key={s.l} className="bg-paper px-4 py-4">
               <div className="text-3xl font-black tabular-nums">{s.v}</div>
@@ -94,30 +84,31 @@ export default function StatuteDossierPage({ dossier }: { dossier: StatuteDossie
         </div>
         <div className="mt-2">
           <SourceNote>
-            psp.cz tisky (amends + census) · e-Sbírka SPARQL §-diffy · {f.int(c.windows)}{" "}
-            {plural(c.windows, "verzní okno", "verzní okna", "verzních oken")}
+            {t("statute.statsSource", { windows: c.windows, windowsFmt: f.int(c.windows) })}
           </SourceNote>
         </div>
 
         {/* ── Pokrytí autorství — přiznané, ne schované ────── */}
         <div className="mt-4 border-l-4 border-ochre bg-ochre/5 p-4">
           <SourceNote tone="steel" className="!text-ochre">
-            pokrytí autorství — co tato stránka dokládá a co ne
+            {t("statute.coverage.source")}
           </SourceNote>
           <p className="mt-2 max-w-3xl text-[13px] leading-relaxed">
-            Stopa tisků níže je úplná v rámci grafu ({f.int(c.trailBills)}{" "}
-            {plural(c.trailBills, "tisk", "tisky", "tisků")}, z toho {f.int(c.censusOnlyBills)} doloženo jen
-            censem textu). §-stopa je bodová: reálný e-Sbírka diff dnes nese{" "}
-            <span className="font-black">{f.int(c.paragraphs)}</span>{" "}
-            {plural(c.paragraphs, "paragraf", "paragrafy", "paragrafů")} tohoto předpisu (
-            {f.int(c.changes)} {plural(c.changes, "změna fragmentu", "změny fragmentů", "změn fragmentů")}
-            {c.changes > 0 && (
-              <>, u {f.int(c.changesWithCandidates)} z nich je v okně aspoň jeden tisk-kandidát</>
-            )}
-            ); u ostatních paragrafů §-stopa zatím není a nic se nedomýšlí. Autorství na úrovni § se
-            NEURČUJE — u každého okna se ukazují jen <span className="font-bold">kandidáti okna</span>:
-            tisky z této stopy vyhlášené ve Sbírce mezi oběma zněními (pravidlo je vytištěné u §-stopy).
-            Kandidát není doložený autor změny.
+            {t.rich("statute.coverage.text", {
+              trailBills: c.trailBills,
+              trailBillsFmt: f.int(c.trailBills),
+              censusOnlyFmt: f.int(c.censusOnlyBills),
+              paragraphs: c.paragraphs,
+              paragraphsFmt: f.int(c.paragraphs),
+              changes: c.changes,
+              changesFmt: f.int(c.changes),
+              candidatesClause:
+                c.changes > 0
+                  ? t("statute.coverage.candidates", { countFmt: f.int(c.changesWithCandidates) })
+                  : "",
+              b: (chunks) => <span className="font-black">{chunks}</span>,
+              bold: (chunks) => <span className="font-bold">{chunks}</span>,
+            })}
           </p>
         </div>
 
@@ -125,24 +116,20 @@ export default function StatuteDossierPage({ dossier }: { dossier: StatuteDossie
         <section id="kronika" className="mt-12">
           <SectionHeading
             index={1}
-            title="Kdo zákon měnil"
+            title={t("statute.chronicleTitle")}
             aside={
               <SourceNote>
-                {f.int(c.trailBills)} {plural(c.trailBills, "tisk", "tisky", "tisků")} · psp.cz · řazeno dnem
-                vyhlášení, pak číslem tisku
+                {t("statute.chronicleAside", { count: c.trailBills, countFmt: f.int(c.trailBills) })}
               </SourceNote>
             }
           />
           <div className="mt-8 border-t-2 border-ink">
-            {dossier.trail.map((t) => (
-              <TrailRow key={t.tiskId} entry={t} />
+            {dossier.trail.map((entry) => (
+              <TrailRow key={entry.tiskId} entry={entry} />
             ))}
           </div>
           <p className="mt-4 max-w-3xl text-sm italic leading-relaxed text-steel">
-            Řazení (vyhlášené pravidlo): nejdřív tisky vyhlášené ve Sbírce chronologicky podle dne
-            vyhlášení, pak projednávané tisky podle čísla tisku. Provenience vazby se přiznává u každého
-            řádku — „vazba z názvu tisku“ je citace č. N/RRRR Sb. v názvu, „census textu“ nezávislý
-            průchod plným textem tisku (u velkých novel název systematicky podhodnocuje).
+            {t("statute.chronicleFootnote")}
           </p>
         </section>
 
@@ -150,20 +137,24 @@ export default function StatuteDossierPage({ dossier }: { dossier: StatuteDossie
         <section id="paragrafy" className="mt-14 border-t-4 border-ink pt-10 pb-20">
           <SectionHeading
             index={2}
-            title="§-stopa — kritické vydání"
+            title={t("statute.trailTitle")}
             aside={
               <SourceNote>
                 {c.changes > 0
-                  ? `${f.int(c.paragraphs)} § · ${f.int(c.changes)} ${plural(c.changes, "změna", "změny", "změn")} · e-Sbírka SPARQL`
-                  : "e-Sbírka SPARQL · zatím bez záznamu"}
+                  ? t("statute.trailAside", {
+                      paragraphsFmt: f.int(c.paragraphs),
+                      changes: c.changes,
+                      changesFmt: f.int(c.changes),
+                    })
+                  : t("statute.trailAsideEmpty")}
               </SourceNote>
             }
           />
           {dossier.paragraphs.length > 0 ? (
             <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(8rem,2fr)_9fr]">
               {/* § rejstřík — sloupec kritického vydání */}
-              <nav aria-label="Rejstřík paragrafů" className="lg:sticky lg:top-8 lg:self-start">
-                <SourceNote className="!text-[10px]">rejstřík §</SourceNote>
+              <nav aria-label={t("statute.paragraphNavAria")} className="lg:sticky lg:top-8 lg:self-start">
+                <SourceNote className="!text-[10px]">{t("statute.paragraphNavLabel")}</SourceNote>
                 <ul className="mt-2 border-t-2 border-ink">
                   {dossier.paragraphs.map((p) => (
                     <li key={p.key} className="border-b border-hairline">
@@ -187,18 +178,13 @@ export default function StatuteDossierPage({ dossier }: { dossier: StatuteDossie
                   <ParagraphArticle key={p.key} trail={p} statuteRef={dossier.ref} slug={dossier.slug} />
                 ))}
                 <p className="border-t border-hairline pt-3 text-[13px] italic leading-relaxed text-steel">
-                  Vyhlášené pravidlo marginálie: „v okně vyhlášeno“ jsou tisky z kroniky výše, jejichž den
-                  vyhlášení ve Sbírce padá do intervalu mezi oběma zněními (starší znění výlučně, novější
-                  včetně). Používá se den vyhlášení, ne účinnosti; okno mezi dvěma konsolidovanými zněními
-                  může nést zásahy více novel najednou — proto kandidáti, nikdy „autor“.
+                  {t("statute.marginaliaRule")}
                 </p>
               </div>
             </div>
           ) : (
             <p className="mt-8 max-w-3xl text-sm italic leading-relaxed text-steel">
-              Pro tento předpis zatím žádný reálný §-diff v archivu není — e-Sbírka diffy se dopočítávají
-              bodově (SPARQL point-query, žádný hromadný výpis) a Politicas nezobrazuje smyšlená data.
-              Kronika tisků výše platí i bez §-stopy.
+              {t("statute.trailEmpty")}
             </p>
           )}
         </section>
@@ -209,57 +195,61 @@ export default function StatuteDossierPage({ dossier }: { dossier: StatuteDossie
 
 /* ── řádek kroniky ───────────────────────────────────────────────────── */
 
-function TrailRow({ entry: t }: { entry: StatuteTrailEntry }) {
+function TrailRow({ entry: entryRow }: { entry: StatuteTrailEntry }) {
+  const t = useTranslations("lawwatch");
   const f = useFormat();
+  const row = entryRow;
   return (
     <div className="grid grid-cols-[minmax(7rem,auto)_1fr] gap-x-6 gap-y-1 border-b border-hairline px-2 py-4 max-sm:grid-cols-1">
       {/* datum — margo kroniky */}
       <div className="pt-0.5">
-        {t.fatePublishedOn ? (
+        {row.fatePublishedOn ? (
           <>
             <span className="block font-mono text-xs font-black uppercase tracking-wider text-signal">
-              {f.date(t.fatePublishedOn)}
+              {f.date(row.fatePublishedOn)}
             </span>
-            {t.fateSb && (
+            {row.fateSb && (
               <span className="mt-0.5 block font-mono text-[11px] uppercase tracking-wider text-steel">
-                č. {t.fateSb} Sb.
+                č. {row.fateSb} Sb.
               </span>
             )}
           </>
         ) : (
           <span className="block font-mono text-[11px] uppercase tracking-wider text-steel">
-            {t.stav ?? "v projednávání"}
+            {row.stav ?? t("statute.inProgress")}
           </span>
         )}
       </div>
 
       <div className="min-w-0">
         <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          {t.cislo != null ? (
+          {row.cislo != null ? (
             <Link
-              href={`/zakony/${t.cislo}`}
+              href={`/zakony/${row.cislo}`}
               className="group inline-flex items-center gap-1 font-mono text-xs font-bold text-cobalt transition-colors hover:text-signal"
             >
-              Sn. tisk {t.cislo}
+              {t("printNumberedCap", { cislo: row.cislo })}
               <ArrowUpRight className="h-3 w-3 opacity-0 transition-opacity group-hover:opacity-100" />
             </Link>
           ) : (
-            <span className="font-mono text-xs font-bold text-steel">tisk {t.tiskId}</span>
+            <span className="font-mono text-xs font-bold text-steel">
+              {t("printInternal", { tiskId: row.tiskId })}
+            </span>
           )}
           <span className="font-mono text-[10px] uppercase tracking-wider text-steel">
-            {ORIGIN_CZ[t.origin]} · {PROVENANCE_CZ[t.provenance]}
+            {t(`origin.${row.origin}`)} · {t(`provenance.${row.provenance}`)}
           </span>
-          {t.flaggedConflict && (
+          {row.flaggedConflict && (
             <span className="font-mono text-[10px] font-black uppercase tracking-wider text-signal">
-              možný střet — signál, ne důkaz
+              {t("statute.conflictFlag")}
             </span>
           )}
         </div>
-        <p className="mt-1 text-[15px] font-bold leading-snug">{t.title}</p>
-        {t.summary && <p className="mt-1 text-sm leading-snug text-steel">{t.summary}</p>}
-        {t.sponsors.length > 0 && (
+        <p className="mt-1 text-[15px] font-bold leading-snug">{row.title}</p>
+        {row.summary && <p className="mt-1 text-sm leading-snug text-steel">{row.summary}</p>}
+        {row.sponsors.length > 0 && (
           <p className="mt-1.5 flex flex-wrap gap-x-3 gap-y-0.5 text-[13px] leading-snug">
-            {t.sponsors.slice(0, 6).map((s) => (
+            {row.sponsors.slice(0, 6).map((s) => (
               <Link
                 key={s.pspId}
                 href={`/poslanec/${s.pspId}`}
@@ -268,14 +258,14 @@ function TrailRow({ entry: t }: { entry: StatuteTrailEntry }) {
                 {s.name}
                 {s.role && (
                   <span className="ml-1 font-mono text-[10px] font-normal uppercase tracking-wider text-steel">
-                    {SPONSOR_ROLE_CZ[s.role]}
+                    {SPONSOR_ROLE_KEYS.has(s.role) ? t(`sponsorRole.${s.role}`) : s.role}
                   </span>
                 )}
               </Link>
             ))}
-            {t.sponsors.length > 6 && (
+            {row.sponsors.length > 6 && (
               <span className="font-mono text-[11px] uppercase tracking-wider text-steel">
-                + {t.sponsors.length - 6} dalších
+                {t("moreCount", { count: row.sponsors.length - 6 })}
               </span>
             )}
           </p>
@@ -296,6 +286,7 @@ function ParagraphArticle({
   statuteRef: string;
   slug: string;
 }) {
+  const t = useTranslations("lawwatch");
   const f = useFormat();
   return (
     <article id={p.anchor} className="scroll-mt-8">
@@ -308,7 +299,7 @@ function ParagraphArticle({
         </h3>
         <a
           href={`#${p.anchor}`}
-          aria-label={`Trvalá kotva ${p.label}`}
+          aria-label={t("statute.anchorAria", { label: p.label })}
           className="inline-flex items-center gap-1 font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
         >
           <LinkIcon className="h-3 w-3" /> #{p.anchor}
@@ -316,7 +307,7 @@ function ParagraphArticle({
       </div>
       {p.windows > 1 && (
         <p className="mt-2 font-mono text-[11px] uppercase tracking-wider text-ochre">
-          měněno opakovaně — {f.int(p.windows)} verzní okna
+          {t("statute.repeatedlyAmended", { count: p.windows, countFmt: f.int(p.windows) })}
         </p>
       )}
 
@@ -325,7 +316,8 @@ function ParagraphArticle({
           <li key={`${ch.fragment}|${ch.windowFrom}|${i}`} className="border-l-4 border-hairline pl-4">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-signal">
-                {ch.fragment} <span className="text-steel">— {DIFF_OP_CZ[ch.op] ?? ch.op}</span>
+                {ch.fragment}{" "}
+                <span className="text-steel">— {DIFF_OP_KEYS.has(ch.op) ? t(`diffOp.${ch.op}`) : ch.op}</span>
               </span>
               <span className="font-mono text-[11px] uppercase tracking-wider text-steel">
                 {f.date(ch.windowFrom)} → {f.date(ch.windowTo)}
@@ -334,13 +326,17 @@ function ParagraphArticle({
             <div className="mt-2 grid gap-2 sm:grid-cols-2">
               {ch.before && (
                 <div className="border-l-4 border-hairline bg-paper-strong p-3">
-                  <SourceNote className="!text-[10px]">znění {f.date(ch.windowFrom)}</SourceNote>
+                  <SourceNote className="!text-[10px]">
+                    {t("statute.wording", { date: f.date(ch.windowFrom) })}
+                  </SourceNote>
                   <p className="mt-1.5 text-[13px] leading-relaxed text-steel">{ch.before}</p>
                 </div>
               )}
               {ch.after && (
                 <div className="border-l-4 border-signal p-3">
-                  <SourceNote tone="signal" className="!text-[10px]">znění {f.date(ch.windowTo)}</SourceNote>
+                  <SourceNote tone="signal" className="!text-[10px]">
+                    {t("statute.wording", { date: f.date(ch.windowTo) })}
+                  </SourceNote>
                   <p className="mt-1.5 text-[13px] font-medium leading-relaxed">{ch.after}</p>
                 </div>
               )}
@@ -351,7 +347,7 @@ function ParagraphArticle({
               {ch.candidates.length > 0 ? (
                 <p className="text-[13px] leading-relaxed">
                   <span className="font-mono text-[10px] font-black uppercase tracking-wider text-ochre">
-                    v okně vyhlášeno (kandidáti, ne doložené autorství):{" "}
+                    {t("statute.candidatesLabel")}{" "}
                   </span>
                   {ch.candidates.map((cand, ci) => (
                     <span key={cand.tiskId}>
@@ -361,10 +357,10 @@ function ParagraphArticle({
                           href={`/zakony/${cand.cislo}`}
                           className="font-bold text-cobalt transition-colors hover:text-signal"
                         >
-                          Sn. tisk {cand.cislo}
+                          {t("printNumberedCap", { cislo: cand.cislo })}
                         </Link>
                       ) : (
-                        <span className="font-bold">tisk {cand.tiskId}</span>
+                        <span className="font-bold">{t("printInternal", { tiskId: cand.tiskId })}</span>
                       )}
                       {cand.fateSb && <span className="text-steel"> (č. {cand.fateSb} Sb.)</span>}
                     </span>
@@ -372,13 +368,13 @@ function ParagraphArticle({
                 </p>
               ) : (
                 <p className="font-mono text-[11px] uppercase tracking-wider text-steel">
-                  v okně nebyl vyhlášen žádný tisk z této stopy — kandidát autorství chybí
+                  {t("statute.candidatesNone")}
                 </p>
               )}
             </div>
 
             <p className="mt-2 font-mono text-[10px] uppercase tracking-wider text-steel">
-              doslovný text obou znění:{" "}
+              {t("statute.verbatimBoth")}{" "}
               <a href={ch.eliFrom} target="_blank" rel="noreferrer" className="text-cobalt hover:text-signal">
                 {ch.windowFrom}
               </a>{" "}
@@ -393,7 +389,7 @@ function ParagraphArticle({
       </ul>
       {/* slug se veze kvůli stabilnímu citování stránky v patičce článku */}
       <p className="mt-3 font-mono text-[10px] uppercase tracking-wider text-steel">
-        citace: /zakony/predpis/{slug}#{p.anchor}
+        {t("statute.citeLabel")} /zakony/predpis/{slug}#{p.anchor}
       </p>
     </article>
   );

@@ -11,24 +11,41 @@
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { votePspUrl } from "../record/anchor";
 import { clubStyle, wedgeSort } from "../record/clubStyle";
-import { COPY } from "../record/copy";
 import type { LedgerVote } from "../record/types";
 import RealHemicycle from "./RealHemicycle";
 
 const LEGEND = [
-  { key: "yes", label: COPY.legendYes, cls: "bg-cobalt" },
-  { key: "no", label: COPY.legendNo, cls: "bg-signal" },
-  { key: "k", label: COPY.legendK, cls: "bg-ochre" },
-  { key: "away", label: COPY.legendAway, cls: "bg-steel" },
+  { key: "yes", cls: "bg-cobalt" },
+  { key: "no", cls: "bg-signal" },
+  { key: "k", cls: "bg-ochre" },
+  { key: "away", cls: "bg-steel" },
 ] as const;
 
 export default function RealChamberDetail({ vote }: { vote: LedgerVote }) {
+  const t = useTranslations("votetrack");
+  const tcom = useTranslations("common");
   const f = useFormat();
   const reduceMotion = useReducedMotion();
+  const legendLabel = (key: (typeof LEGEND)[number]["key"]): string =>
+    key === "yes"
+      ? tcom("voteChoice.for")
+      : key === "no"
+        ? tcom("voteChoice.against")
+        : key === "k"
+          ? t("record.legendK")
+          : t("record.legendAway");
+  const sessionVote = (session: number | null, voteNo: number | null) =>
+    [
+      session !== null ? t("record.sessionLabel", { session }) : null,
+      voteNo !== null ? t("record.voteNumberLabel", { vote: voteNo }) : null,
+    ]
+      .filter(Boolean)
+      .join(" · ");
   const clubs = wedgeSort(Object.keys(vote.stat.byClub));
   const un = vote.stat.unaffiliated;
   const unSeats = un.yes + un.no + un.k + un.away;
@@ -45,14 +62,14 @@ export default function RealChamberDetail({ vote }: { vote: LedgerVote }) {
         <div className="flex flex-wrap items-baseline justify-between gap-3">
           <span className="font-mono text-xs uppercase tracking-wider text-steel-aa">
             {vote.votedOn ? f.date(vote.votedOn) : "—"}
-            {vote.time ? ` · ${vote.time}` : ""} · {COPY.sessionVote(vote.sessionNo, vote.voteNo)}
+            {vote.time ? ` · ${vote.time}` : ""} · {sessionVote(vote.sessionNo, vote.voteNo)}
           </span>
           <span
             className={`font-mono text-lg font-black uppercase tracking-wider ${
               vote.outcome === "accepted" ? "text-cobalt" : "text-signal"
             }`}
           >
-            {vote.outcome === "accepted" ? COPY.outcomeAccepted : COPY.outcomeRejected}
+            {vote.outcome === "accepted" ? tcom("voteResult.accepted") : tcom("voteResult.rejected")}
           </span>
         </div>
         <h3 className="mt-1 text-xl font-black uppercase leading-tight tracking-tight sm:text-2xl">{vote.title}</h3>
@@ -62,7 +79,7 @@ export default function RealChamberDetail({ vote }: { vote: LedgerVote }) {
           rel="noreferrer"
           className="mt-1.5 inline-flex items-center gap-1 font-mono text-xs font-bold uppercase tracking-wider text-steel-aa transition-colors hover:text-ink motion-reduce:transition-none"
         >
-          {COPY.pspSource} <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+          {t("record.pspSource")} <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
         </a>
       </div>
 
@@ -75,21 +92,21 @@ export default function RealChamberDetail({ vote }: { vote: LedgerVote }) {
           <span key={s.key} className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider">
             <span className={`inline-block h-3 w-3 ${s.cls}`} />
             <span className="font-bold tabular-nums">{f.int(vote.stat.total[s.key])}</span>
-            <span className="text-steel-aa">{s.label}</span>
+            <span className="text-steel-aa">{legendLabel(s.key)}</span>
           </span>
         ))}
       </div>
 
       {vote.stat.cohesion !== null && (
         <p className="mt-3 text-center font-mono text-xs uppercase tracking-wider text-steel-aa">
-          {COPY.chamberCohesionLabel}{" "}
+          {t("record.chamberCohesionLabel")}{" "}
           <span className="font-bold tabular-nums text-cobalt">{f.int(Math.round(vote.stat.cohesion * 100))} %</span>
         </p>
       )}
 
       {/* ── rozpad po klubech ─────────────────────────────────── */}
       <div className="mt-8 border-t-2 border-ink pt-4">
-        <SourceNote>{COPY.splitNote}</SourceNote>
+        <SourceNote>{t("record.splitNote")}</SourceNote>
         <div className="mt-4 space-y-3">
           {clubs.map((club) => {
             const s = vote.stat.byClub[club];
@@ -128,7 +145,7 @@ export default function RealChamberDetail({ vote }: { vote: LedgerVote }) {
           {unSeats > 0 && (
             <div className="grid grid-cols-[6.5rem_1fr_6.5rem] items-center gap-3">
               <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-steel-aa">
-                {COPY.unaffiliated}
+                {t("record.unaffiliated")}
               </span>
               <div className="flex h-4 w-full overflow-hidden bg-hairline">
                 {un.yes > 0 && <span className="h-full bg-cobalt" style={{ width: `${(un.yes / unSeats) * 100}%` }} />}
@@ -144,9 +161,9 @@ export default function RealChamberDetail({ vote }: { vote: LedgerVote }) {
 
       {/* ── rebelové tohoto hlasování ─────────────────────────── */}
       <div className="mt-8 border-t-2 border-ink pt-4">
-        <SourceNote>{COPY.voteRebelsNote}</SourceNote>
+        <SourceNote>{t("record.voteRebelsNote")}</SourceNote>
         {vote.rebels.length === 0 ? (
-          <p className="mt-3 text-sm leading-relaxed text-steel-aa">{COPY.noRebelsInVote}</p>
+          <p className="mt-3 text-sm leading-relaxed text-steel-aa">{t("record.noRebelsInVote")}</p>
         ) : (
           <div className="mt-3 flex flex-wrap gap-2">
             {vote.rebels.map((r) => (
@@ -164,7 +181,7 @@ export default function RealChamberDetail({ vote }: { vote: LedgerVote }) {
                     r.choice === "yes" ? "text-cobalt" : "text-signal-deep"
                   }`}
                 >
-                  {r.choice === "yes" ? COPY.legendYes : COPY.legendNo}
+                  {r.choice === "yes" ? tcom("voteChoice.for") : tcom("voteChoice.against")}
                 </span>
                 <ArrowUpRight
                   className="h-3.5 w-3.5 text-steel-aa transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transition-none"

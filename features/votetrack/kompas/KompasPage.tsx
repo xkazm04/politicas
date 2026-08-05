@@ -13,11 +13,11 @@
 
 import { useMemo } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { useFormat } from "@/lib/i18n/useFormat";
-import { KOMPAS_COPY as C } from "./copy";
 import QuestionCard from "./QuestionCard";
 import ResultsBoard from "./ResultsBoard";
 import { MIN_ANSWERS, scoreAlignment } from "./score";
@@ -26,6 +26,7 @@ import type { KompasData } from "./types";
 import { useKompasAnswers } from "./useKompasAnswers";
 
 export default function KompasPage({ data }: { data: KompasData }) {
+  const t = useTranslations("votetrack");
   const f = useFormat();
   const { answers, setAnswer, reset } = useKompasAnswers();
 
@@ -36,17 +37,21 @@ export default function KompasPage({ data }: { data: KompasData }) {
 
   const rules = useMemo(
     () => ({
-      selection: C.selectionRule(QUESTIONS_CAP, PER_THEME_CAP, MIN_POSITIONAL),
-      scoring: C.scoringRule,
-      source: C.rulesSource(
-        data.coverage.valid,
-        data.coverage.tagged,
-        data.coverage.candidates,
-        data.coverage.from ? f.date(data.coverage.from) : "—",
-        data.coverage.to ? f.date(data.coverage.to) : "—",
-      ),
+      selection: t("kompas.selectionRule", {
+        cap: QUESTIONS_CAP,
+        perTheme: PER_THEME_CAP,
+        minPositional: MIN_POSITIONAL,
+      }),
+      scoring: t("kompas.scoringRule"),
+      source: t("kompas.rulesSource", {
+        valid: data.coverage.valid,
+        tagged: data.coverage.tagged,
+        candidates: data.coverage.candidates,
+        from: data.coverage.from ? f.date(data.coverage.from) : "—",
+        to: data.coverage.to ? f.date(data.coverage.to) : "—",
+      }),
     }),
-    [data.coverage, f],
+    [data.coverage, f, t],
   );
 
   const total = data.questions.length;
@@ -62,7 +67,7 @@ export default function KompasPage({ data }: { data: KompasData }) {
             href="/hlasovani"
             className="font-mono text-xs uppercase tracking-widest text-steel-aa underline-offset-2 hover:text-ink hover:underline"
           >
-            {C.backToVotes} →
+            {t("kompas.backToVotes")} →
           </Link>
         </div>
       </header>
@@ -70,26 +75,26 @@ export default function KompasPage({ data }: { data: KompasData }) {
       <div className="mx-auto max-w-6xl px-6">
         {/* ── Titulní pás ───────────────────────────────────── */}
         <div className="py-10">
-          <SourceNote tone="signal">{C.heroNote}</SourceNote>
+          <SourceNote tone="signal">{t("kompas.heroNote")}</SourceNote>
           <h1 className="mt-3 text-5xl font-black uppercase leading-[0.95] tracking-tight sm:text-6xl">
-            {C.title}
+            {t("kompas.title")}
             <span className="text-signal">.</span>
           </h1>
           <div className="mt-4 max-w-xl">
             <SectionRule />
           </div>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">{C.lead}</p>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-steel-aa">{C.howTo}</p>
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">{t("kompas.lead")}</p>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-steel-aa">{t("kompas.howTo")}</p>
         </div>
 
         {/* ── 01 Otázky ─────────────────────────────────────── */}
         <section id="otazky">
-          <SectionHeading index={1} title={C.questionsTitle} aside={<SourceNote>{C.questionsNote(total)}</SourceNote>} />
+          <SectionHeading index={1} title={t("kompas.questionsTitle")} aside={<SourceNote>{t("kompas.questionsNote", { n: total })}</SourceNote>} />
 
           {/* postup — kobalt = váš stav */}
-          <div className="mt-6" role="status" aria-label={C.progressAria(answered, total)}>
+          <div className="mt-6" role="status" aria-label={t("kompas.progressAria", { answered, total })}>
             <p className="font-mono text-xs font-bold uppercase tracking-widest text-cobalt">
-              {C.progress(answered, total)}
+              {t("kompas.progress", { answered, total })}
             </p>
             <div className="mt-1.5 h-1.5 w-full max-w-md bg-hairline">
               <div
@@ -114,7 +119,7 @@ export default function KompasPage({ data }: { data: KompasData }) {
 
         {/* ── 02 Váš kompas ─────────────────────────────────── */}
         <section id="vysledek" className="mt-14 border-t-4 border-ink pt-10 pb-20">
-          <SectionHeading index={2} title={C.resultsTitle} aside={<SourceNote>{C.resultsNote}</SourceNote>} />
+          <SectionHeading index={2} title={t("kompas.resultsTitle")} aside={<SourceNote>{t("kompas.resultsNote")}</SourceNote>} />
           <div className="mt-8">
             {answered >= MIN_ANSWERS ? (
               <ResultsBoard
@@ -127,7 +132,7 @@ export default function KompasPage({ data }: { data: KompasData }) {
               />
             ) : (
               <div className="border-2 border-hairline p-6">
-                <p className="text-base leading-relaxed text-steel">{C.needMore(MIN_ANSWERS, answered)}</p>
+                <p className="text-base leading-relaxed text-steel">{t("kompas.needMore", { min: MIN_ANSWERS, answered })}</p>
                 <div className="mt-3 border-l-4 border-cobalt pl-4">
                   <SourceNote>{rules.selection}</SourceNote>
                   <div className="mt-2">

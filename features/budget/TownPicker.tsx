@@ -9,10 +9,11 @@
  * ARIA combobox. Chipy pod polem jsou rychlé volby největších měst — u 6 254
  * položek nemůže být výčet chipů primární navigací, tou je hledání.
  *
- * Česká copy inline — messages/*.json je mimo plochu (precedens lawwatchLabels).
+ * Copy přes next-intl (messages/*.json, sekce "budget" — dvojjazyčný start).
  */
 
 import { useId, useMemo, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Search } from "lucide-react";
 import { useFormat } from "@/lib/i18n/useFormat";
 import { searchMunicipalities, type Municipality } from "./mirrorData";
@@ -31,6 +32,7 @@ export default function TownPicker({
   selectedIc: string;
   onSelect: (ic: string) => void;
 }) {
+  const t = useTranslations("budget");
   const f = useFormat();
   const listboxId = useId();
   const [query, setQuery] = useState("");
@@ -109,9 +111,9 @@ export default function TownPicker({
           aria-controls={listboxId}
           aria-activedescendant={open && results[active] ? `${listboxId}-${results[active].ic}` : undefined}
           aria-autocomplete="list"
-          aria-label="Vyhledat obec podle názvu"
+          aria-label={t("searchLabel")}
           className="w-full bg-transparent font-mono text-sm text-ink outline-none placeholder:text-steel-aa"
-          placeholder="Najdi svou obec — kterákoli z 6 254…"
+          placeholder={t("searchPlaceholder")}
           value={query}
           onChange={(e) => {
             setQuery(e.target.value);
@@ -132,12 +134,12 @@ export default function TownPicker({
         <ul
           id={listboxId}
           role="listbox"
-          aria-label="Nalezené obce"
+          aria-label={t("resultsLabel")}
           className="absolute z-20 mt-1 max-h-96 w-full overflow-y-auto border-2 border-ink bg-paper shadow-[4px_4px_0_0_var(--color-ink)]"
         >
           {results.length === 0 && (
             <li className="px-4 py-3 font-mono text-xs text-steel-aa" role="presentation">
-              Žádná obec tohoto jména v rejstříku není — rejstřík nese všech 6 254 obcí ČR.
+              {t("noResults")}
             </li>
           )}
           {groups.map((g) => (
@@ -164,7 +166,7 @@ export default function TownPicker({
                     <span className="min-w-0">
                       <span className="text-sm font-black uppercase tracking-tight">{m.name}</span>
                       <span className={`ml-2 font-mono text-[10px] ${flatIndex === active ? "text-paper/70" : "text-steel-aa"}`}>
-                        okr. {m.county}
+                        {t("districtAbbr", { county: m.county })}
                       </span>
                     </span>
                     <span className="shrink-0 text-right">
@@ -175,7 +177,7 @@ export default function TownPicker({
                           flatIndex === active ? "text-paper/70" : covered.has(m.ic) ? "text-cobalt" : "text-steel-aa"
                         }`}
                       >
-                        {covered.has(m.ic) ? "v záznamu" : "bez čísel"}
+                        {covered.has(m.ic) ? t("inRecord") : t("noNumbers")}
                       </span>
                     </span>
                   </li>

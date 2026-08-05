@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import KauzyPage from "@/features/money/KauzyPage";
 import { getLeadDossiers } from "@/features/money/getLeadDossiers";
 import { getLeadPacketTargets } from "@/features/money/getLeadPacketTargets";
 
-export const metadata: Metadata = {
-  title: "Kauzy · FollowTheMoney",
-  description:
-    "Ruční investigativní spisy (kauzy) — datovaná, citovaná stopa rozdělená na to, co zdroje dokládají a co ne. Vždy čeká na kontrolu, nikdy potvrzené obvinění.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("meta");
+  return {
+    title: t("kauzyTitle"),
+    description: t("kauzyDescription"),
+  };
+}
 
 export default async function KauzyRoute() {
   const data = await getLeadDossiers();

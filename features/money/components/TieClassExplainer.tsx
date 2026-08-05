@@ -6,7 +6,7 @@
  * viděl stejnou definici na stejném místě.
  */
 
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { tieClassInfo, tieClassOriginInfo, type TieClass, type TieClassOrigin } from "../moneyTypes";
 
 const TONE_CLS: Record<string, string> = {
@@ -21,6 +21,7 @@ const ORIGINS: TieClassOrigin[] = ["stored", "derived"];
 export default function TieClassExplainer({ compact = false }: { compact?: boolean }) {
   const locale = useLocale();
   const en = locale === "en";
+  const t = useTranslations("money");
 
   return (
     <div>
@@ -44,7 +45,7 @@ export default function TieClassExplainer({ compact = false }: { compact?: boole
           údaj, který někdo skutečně zapsal po kontrole v rejstříku. */}
       <div className="mt-4 border-t-2 border-hairline pt-3">
         <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-steel">
-          {en ? "where a class comes from" : "odkud třída pochází"}
+          {t("tieExplainer.originHeading")}
         </p>
         <dl className="mt-2 grid gap-2 sm:grid-cols-2">
           {ORIGINS.map((o) => {

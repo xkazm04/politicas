@@ -10,7 +10,7 @@
 
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import SourceNote from "@/features/shared/components/SourceNote";
 import FlagList from "@/features/shared/components/FlagList";
 import { claimRefPath } from "@/features/shared/provenance/claimRef";
@@ -49,6 +49,7 @@ const CLASS_TONE_CLS: Record<string, string> = {
 export default function MpCaseFilePage({ data }: { data: MoneyMpDetail | null }) {
   const locale = useLocale();
   const en = locale === "en";
+  const t = useTranslations("money");
 
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
@@ -63,31 +64,27 @@ export default function MpCaseFilePage({ data }: { data: MoneyMpDetail | null })
       <div className="mx-auto max-w-5xl px-6 py-10">
         {!data ? (
           <div className="border-2 border-dashed border-hairline p-8">
-            <SourceNote>{en ? "source: knowledge graph" : "zdroj: znalostní graf"}</SourceNote>
-            <p className="mt-3 text-lg">
-              {en
-                ? "No materialized money ties found for this MP."
-                : "Pro tohoto poslance nemá znalostní graf žádnou materializovanou vazbu."}
-            </p>
+            <SourceNote>{t("shared.sourceKnowledgeGraph")}</SourceNote>
+            <p className="mt-3 text-lg">{t("caseFile.noTies")}</p>
           </div>
         ) : (
           <>
-            <SourceNote tone="signal">{en ? `case file · pass ${data.pass}` : `spis · pass ${data.pass}`}</SourceNote>
+            <SourceNote tone="signal">{t("caseFile.eyebrow", { pass: data.pass })}</SourceNote>
             <h1 className="mt-3 text-4xl font-black uppercase leading-[0.95] tracking-tight sm:text-5xl">
               {data.name}
               <span className="text-signal">.</span>
             </h1>
             <p className="mt-2 font-mono text-xs uppercase tracking-widest text-steel">
               {data.club ? `${data.club} · ` : ""}
-              {en ? `${data.ties.length} evidenced ties` : `${data.ties.length} evidovaných vazeb`}
-              {data.absenteeManagerLead ? ` · ${en ? "low chamber work (Case ②)" : "málo práce v sále (Case ②)"}` : ""}
+              {t("real.ledger.tiesCount", { count: data.ties.length })}
+              {data.absenteeManagerLead ? ` · ${t("caseFile.absenteeFlag")}` : ""}
             </p>
             <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-2">
               <Link
                 href={`/poslanec/${data.pspId}`}
                 className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
               >
-                {en ? "full MP profile" : "celý profil poslance"} →
+                {t("shared.fullProfile")} →
               </Link>
               {/* 4E: jedno kliknutí → citovatelný paket. Kompiluje se z tohoto
                   spisu, ale projde jen lidsky ověřený materiál — vyloučení
@@ -96,7 +93,7 @@ export default function MpCaseFilePage({ data }: { data: MoneyMpDetail | null })
                 href={`/penize/${data.pspId}/paket`}
                 className="inline-flex items-center gap-1.5 border-2 border-ink px-2 py-1 font-mono text-xs font-bold uppercase tracking-wider text-ink transition-colors hover:border-signal hover:text-signal"
               >
-                {en ? "compile evidence packet" : "sestavit důkazní paket"} →
+                {t("shared.compilePacket")} →
               </Link>
               {/* The packet compiles ONLY verified ties, so the reader needs one hop to
                   the log that says what the gate has actually ruled — otherwise an empty
@@ -105,7 +102,7 @@ export default function MpCaseFilePage({ data }: { data: MoneyMpDetail | null })
                 href="/dukazy"
                 className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
               >
-                {en ? "gate decision log" : "deník důkazů (brána)"} →
+                {t("caseFile.gateLog")} →
               </Link>
               {/* Spis je průřez STAVEM: všechny vazby poslance najednou. Deník je
                   týž materiál v čase — podpisy smluv, zápisy a výmazy rolí,
@@ -116,10 +113,10 @@ export default function MpCaseFilePage({ data }: { data: MoneyMpDetail | null })
                 href={entityDenikHref(mpEntityKey(data.pspId))}
                 className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
               >
-                {en ? "this MP's daily record" : "deník tohoto poslance"} →
+                {t("caseFile.dailyRecord")} →
               </Link>
               <span className="font-mono text-[10px] uppercase tracking-widest text-steel">
-                {en ? "verified material only, exclusions stated" : "jen ověřený materiál, vyloučení přiznána"}
+                {t("shared.verifiedOnly")}
               </span>
             </div>
 
@@ -130,48 +127,28 @@ export default function MpCaseFilePage({ data }: { data: MoneyMpDetail | null })
             <div className="mt-8 grid gap-px border border-ink bg-ink sm:grid-cols-2">
               <MoneyTile
                 tone="signal"
-                label={en ? "contracts of firms the MP owns or runs" : "zakázky firem, které poslanec vlastní nebo řídí"}
+                label={t("caseFile.ownedLabel")}
                 bucket={data.money.attributable}
                 coverage={data.money.coverage}
-                rule={
-                  en
-                    ? "The real FollowTheMoney tie: money the state paid to a company this MP owns or is a statutory officer of."
-                    : "Skutečná vazba FollowTheMoney: peníze, které stát zaplatil firmě, kterou poslanec vlastní nebo je jejím statutárem."
-                }
-                emptyNote={
-                  en
-                    ? "no company in the graph is owned or run by this MP"
-                    : "graf nevede žádnou firmu, kterou by poslanec vlastnil nebo řídil"
-                }
+                rule={t("caseFile.ownedRule")}
+                emptyNote={t("caseFile.ownedEmpty")}
                 locale={locale}
-                en={en}
                 pspId={data.pspId}
                 side="owned"
-                tieStates={data.ties.filter((t) => isAttributable(t.tieClass)).map((t) => t.reviewState)}
+                tieStates={data.ties.filter((x) => isAttributable(x.tieClass)).map((x) => x.reviewState)}
                 pass={data.pass}
               />
               <MoneyTile
                 tone="steel"
-                label={
-                  en
-                    ? "contracts of bodies where the MP only holds a seat"
-                    : "zakázky institucí, kde poslanec jen zasedá v orgánu"
-                }
+                label={t("caseFile.stewardLabel")}
                 bucket={data.money.steward}
                 coverage={data.money.coverage}
-                rule={
-                  en
-                    ? "NOT the MP's money: a supervisory or board seat in a public or nonprofit body — a hospital, a waterworks, a state fund. The figure is that body's OWN public activity and must never be read like the one on the left."
-                    : "Nejsou to peníze poslance: dozorčí nebo správní funkce ve veřejné či neziskové instituci — nemocnice, vodárna, státní fond. Číslo je vlastní veřejnou činností té instituce a NIKDY se nesmí číst jako to vlevo."
-                }
-                emptyNote={
-                  en ? "no such seat in the graph" : "graf nevede žádnou takovou funkci"
-                }
+                rule={t("caseFile.stewardRule")}
+                emptyNote={t("caseFile.stewardEmpty")}
                 locale={locale}
-                en={en}
                 pspId={data.pspId}
                 side="steward"
-                tieStates={data.ties.filter((t) => !isAttributable(t.tieClass)).map((t) => t.reviewState)}
+                tieStates={data.ties.filter((x) => !isAttributable(x.tieClass)).map((x) => x.reviewState)}
                 pass={data.pass}
               />
             </div>
@@ -184,16 +161,14 @@ export default function MpCaseFilePage({ data }: { data: MoneyMpDetail | null })
             </div>
 
             <div className="mt-14 border-t-4 border-ink pt-8">
-              <SourceNote>{en ? "how to read the tie class" : "jak číst třídu vazby"}</SourceNote>
+              <SourceNote>{t("shared.howToReadTieClass")}</SourceNote>
               <div className="mt-4">
                 <TieClassExplainer compact />
               </div>
             </div>
 
             <p className="mt-10 max-w-2xl text-sm italic leading-relaxed text-steel">
-              {en
-                ? "Every tie is published as a dated, sourced fact, never an accusation. Ties not yet human-confirmed carry a \"pending review\" label and do not feed the Integrity pillar."
-                : "Vazby zveřejňujeme jako datovaná, doložená fakta, nikdy jako obvinění. Vazby bez lidského schválení nesou štítek „čeká na kontrolu“ a do pilíře Integrita se nepropisují."}
+              {t("caseFile.disclaimer")}
             </p>
           </>
         )}
@@ -213,7 +188,6 @@ function MoneyTile({
   rule,
   emptyNote,
   locale,
-  en,
   pspId,
   side,
   tieStates,
@@ -226,7 +200,6 @@ function MoneyTile({
   rule: string;
   emptyNote: string;
   locale: string;
-  en: boolean;
   /** Subject of the claim minted on this tile's figure. */
   pspId: number;
   /** Which side of the attribution split — it is part of the claim's metric, because
@@ -237,6 +210,7 @@ function MoneyTile({
   /** kg pass that materialized the money layer — the claim's derivation. */
   pass: number;
 }) {
+  const t = useTranslations("money");
   const empty = bucket.companies === 0;
   // The tile's own figure is a citable claim: the number a journalist quotes carries the
   // `data-claim-*` payload /overeni re-derives through `getMoneyMpDetail` — the same
@@ -254,29 +228,30 @@ function MoneyTile({
     <div className="bg-paper p-6">
       <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">{label}</p>
       <p className={`mt-2 text-3xl font-black tabular-nums tracking-tight ${tone === "signal" ? "text-signal" : "text-ink"}`}>
-        {empty ? "—" : coverage.isFloor ? <>{en ? "at least " : "nejméně "}{amount}</> : amount}
+        {empty ? "—" : coverage.isFloor ? <>{t("shared.atLeast")} {amount}</> : amount}
       </p>
       {empty ? (
         <p className="mt-2 text-sm leading-relaxed text-steel">{emptyNote}</p>
       ) : (
         <>
           <p className="mt-2 font-mono text-[11px] uppercase tracking-wider text-steel">
-            {bucket.companies} {en ? "companies" : "firem"} · {bucket.contractCount}{" "}
-            {en ? "contracts" : "smluv"}
-            {bucket.subsidiesCzk > 0 ? ` · ${en ? "subsidies" : "dotace"} ${compactCzk(bucket.subsidiesCzk, locale)}` : ""}
+            {t("shared.companiesCount", { count: bucket.companies })} ·{" "}
+            {t("shared.contractsCount", { count: bucket.contractCount })}
+            {bucket.subsidiesCzk > 0 ? ` · ${t("shared.subsidies")} ${compactCzk(bucket.subsidiesCzk, locale)}` : ""}
             {bucket.donatedToPartyCzk > 0
-              ? ` · ${en ? "party donations" : "dary straně"} ${compactCzk(bucket.donatedToPartyCzk, locale)}`
+              ? ` · ${t("caseFile.partyDonations")} ${compactCzk(bucket.donatedToPartyCzk, locale)}`
               : ""}
           </p>
           <p className="mt-2 text-sm leading-relaxed text-steel">{rule}</p>
         </>
       )}
       <SourceNote className="mt-3 !text-[10px]">
-        {en ? "source" : "zdroj"}: registr smluv · kg_edge supplies.weight, {en ? "one row per company" : "jedna firma jednou"}
+        {t("caseFile.tileSource")}
         {coverage.isFloor
-          ? en
-            ? ` · lower bound: the ingest pulled at most ${coverage.perCompanyCap} contracts per company (${coverage.companiesAtCap} at that ceiling)`
-            : ` · dolní odhad: sběr stáhl u firmy nejvýše ${coverage.perCompanyCap} smluv (${coverage.companiesAtCap} firem na stropu)`
+          ? t("caseFile.tileSourceFloor", {
+              cap: coverage.perCompanyCap ?? 0,
+              companies: coverage.companiesAtCap,
+            })
           : ""}
       </SourceNote>
     </div>
@@ -284,6 +259,8 @@ function MoneyTile({
 }
 
 function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en: boolean }) {
+  const t = useTranslations("money");
+  const tcom = useTranslations("common");
   // Shared definition, not a fifth local sum (`reachableMoney.ts::tieReach`).
   const reach = tieReach(tie);
   const temporal = temporalBadge(tie);
@@ -325,15 +302,15 @@ function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en:
           </span>
           {tie.reviewState === "verified" ? (
             <span className="border-2 border-cobalt px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-cobalt">
-              {en ? "verified" : "ověřeno"}
+              {tcom("verified")}
             </span>
           ) : tie.reviewState === "rejected" ? (
             <span className="border-2 border-steel px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-steel">
-              {en ? "rejected" : "zamítnuto"}
+              {t("shared.rejected")}
             </span>
           ) : (
             <span className="border-2 border-ochre bg-ochre/15 px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-ink">
-              {en ? "pending review" : "čeká na kontrolu"}
+              {tcom("pendingReview")}
             </span>
           )}
           <span
@@ -348,10 +325,18 @@ function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en:
         <div>
           {/* reach */}
           <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
-            <Metric label={en ? "contracts" : "zakázky"} value={tie.contractCzk > 0 ? compactCzk(tie.contractCzk, locale) : "—"} sub={`${tie.contractCount} ${en ? "contracts" : "smluv"}`} />
-            <Metric label={en ? "subsidies" : "dotace"} value={tie.subsidiesCzk > 0 ? compactCzk(tie.subsidiesCzk, locale) : "—"} sub={tie.subsidiesCount ? `${tie.subsidiesCount} ${en ? "titles" : "titulů"}` : "—"} />
             <Metric
-              label={en ? "party donation" : "dar straně"}
+              label={t("caseFile.contractsLabel")}
+              value={tie.contractCzk > 0 ? compactCzk(tie.contractCzk, locale) : "—"}
+              sub={t("shared.contractsCount", { count: tie.contractCount })}
+            />
+            <Metric
+              label={t("shared.subsidies")}
+              value={tie.subsidiesCzk > 0 ? compactCzk(tie.subsidiesCzk, locale) : "—"}
+              sub={tie.subsidiesCount ? t("shared.titlesCount", { count: tie.subsidiesCount }) : "—"}
+            />
+            <Metric
+              label={t("real.ledger.donationLabel")}
               value={tie.donatedToPartyCzk != null ? compactCzk(tie.donatedToPartyCzk, locale) : "—"}
               sub={tie.donationRecipientParty ?? "—"}
             />
@@ -368,21 +353,21 @@ function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en:
             {en ? origin.noteEn : origin.noteCs}
             {overrides ? (
               <span className="mt-1 block">
-                {en
-                  ? `The heuristic alone would have said “${tieClassInfo(tie.tieClassHeuristic).labelEn}” — the recorded class wins.`
-                  : `Sama heuristika by uvedla „${tieClassInfo(tie.tieClassHeuristic).labelCs}“ — přednost má zapsaná třída.`}
+                {t("shared.heuristicOverride", {
+                  label: en ? tieClassInfo(tie.tieClassHeuristic).labelEn : tieClassInfo(tie.tieClassHeuristic).labelCs,
+                })}
               </span>
             ) : null}
           </p>
 
           {/* flags */}
           <div className="mt-4 flex flex-wrap gap-2">
-            {tie.triangle && <Flag>{en ? "full triangle" : "úplný trojúhelník"}</Flag>}
-            {tie.nearThresholdCount > 0 && <Flag>{tie.nearThresholdCount}× {en ? "near limit" : "u limitu"}</Flag>}
-            {tie.deMinimis && <Flag>{en ? "de minimis" : "bagatelní objem"}</Flag>}
-            {tie.falseEdgeSuspected && <Flag>{en ? "suspected false edge" : "podezření na chybnou vazbu"}</Flag>}
-            {tie.ownerStakePct != null && <Flag>{tie.ownerStakePct}% {en ? "stake" : "podíl"}</Flag>}
-            {tie.priorTerm && <Flag>{en ? "prior term" : "předchozí období"}: {tie.priorTerm}</Flag>}
+            {tie.triangle && <Flag>{t("caseFile.flagTriangle")}</Flag>}
+            {tie.nearThresholdCount > 0 && <Flag>{tie.nearThresholdCount}× {t("caseFile.flagNearLimit")}</Flag>}
+            {tie.deMinimis && <Flag>{t("caseFile.flagDeMinimis")}</Flag>}
+            {tie.falseEdgeSuspected && <Flag>{t("caseFile.flagFalseEdge")}</Flag>}
+            {tie.ownerStakePct != null && <Flag>{tie.ownerStakePct}% {t("caseFile.flagStake")}</Flag>}
+            {tie.priorTerm && <Flag>{t("caseFile.flagPriorTerm")}: {tie.priorTerm}</Flag>}
           </div>
 
           {/* Příznaky z analytických průchodů. Do 2026-08-04 se tady sázel doslovný
@@ -391,7 +376,7 @@ function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en:
               nepřeložený token se ukáže doslova, označený, nikdy se neschová. */}
           <FlagList
             className="mt-4"
-            heading={en ? "flags from analysis passes" : "příznaky z analytických průchodů"}
+            heading={t("shared.flagsHeading")}
             items={tieFlagInfos(tie.flags).map((f) => ({
               key: f.token,
               label: en ? f.labelEn : f.labelCs,
@@ -402,7 +387,7 @@ function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en:
 
           {/* Analytická próza není zjištěný fakt: kdo ji napsal, kdy a z jakého dokladu
               patří K NÍ. Táž komponenta sází totéž v ověřovací konzoli. */}
-          <AnalystNote tie={tie} en={en} className="mt-4" />
+          <AnalystNote tie={tie} className="mt-4" />
 
           {/* review provenance — poznámka a rozhodnutí LIDSKÉ kontroly (jiné pole než
               poznámka analýzy výše: tohle píše jedině ReviewRepository) */}
@@ -411,14 +396,14 @@ function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en:
               {tie.reviewNote && (
                 <p className="text-sm leading-relaxed text-steel">
                   <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-ink">
-                    {en ? "review note" : "poznámka kontroly"}:{" "}
+                    {t("shared.reviewNote")}:{" "}
                   </span>
                   {tie.reviewNote}
                 </p>
               )}
               {tie.lastDecision && (
                 <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-steel">
-                  {en ? "last decision" : "poslední rozhodnutí"}: {tie.lastDecision}
+                  {t("caseFile.lastDecision")}: {tie.lastDecision}
                   {tie.lastReviewer ? ` · ${tie.lastReviewer}` : ""}
                   {tie.lastReviewedAt ? ` · ${tie.lastReviewedAt}` : ""}
                 </p>
@@ -427,13 +412,13 @@ function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en:
           )}
 
           <p className="mt-4 font-mono text-[10px] leading-relaxed uppercase tracking-wider text-steel">
-            {en ? "source" : "zdroj"}: {tie.source || "—"}
+            {t("shared.sourceLabel")}: {tie.source || "—"}
           </p>
         </div>
 
         <div className="border-l-2 border-hairline pl-5">
           <p className="font-mono text-[10px] uppercase tracking-widest text-steel">
-            {en ? "reachable public money" : "dosažitelné veřejné peníze"}
+            {t("caseFile.reachableLabel")}
           </p>
           <p
             className={`mt-1 text-2xl font-black tabular-nums ${reach.attributable ? "text-signal" : "text-steel"}`}
@@ -446,42 +431,38 @@ function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en:
             {en ? info.descEn : info.descCs}
           </p>
           <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-steel">
-            {en ? "source" : "zdroj"}: registr smluv Σ supplies.weight + subsidies_total_czk
+            {t("caseFile.reachSource")}
           </p>
           {/* The tie's PERMANENT address. /overeni (the citation verifier) had nothing on
               /penize to resolve, because this feature contained no claim-ref at all —
               211 published money claims, none of them citable. A receipt is a citation of
               a CLAIM, so the link says which gate state the claim is in. */}
           <p className="mt-3 font-mono text-[10px] uppercase tracking-widest text-steel">
-            {en ? "cite this tie" : "citovat tuto vazbu"}
+            {t("caseFile.citeTie")}
           </p>
           <Link
             href={claimRefPath(tie.receiptRef)}
             className="mt-1 inline-flex items-center gap-1.5 border-2 border-cobalt px-2 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:border-signal hover:text-signal"
           >
-            {en ? "provenance receipt" : "účtenka původu"} →
+            {t("shared.provenanceReceipt")} →
           </Link>
           <p className="mt-1 text-xs leading-relaxed text-steel">
             {tie.reviewState === "pending_review"
-              ? en
-                ? "A permanent address for this claim. It cites the tie AND its gate state — this one is still awaiting human review, so the receipt records a claim, not a verdict."
-                : "Trvalá adresa tohoto tvrzení. Cituje vazbu I stav brány — tahle stále čeká na lidskou kontrolu, takže účtenka zaznamenává tvrzení, ne verdikt."
-              : en
-                ? "A permanent address for this claim, carrying the human gate's decision and its audit trail."
-                : "Trvalá adresa tohoto tvrzení; nese rozhodnutí lidské brány i jeho auditní stopu."}
+              ? t("caseFile.receiptPending")
+              : t("caseFile.receiptDecided")}
           </p>
 
           <p className="mt-3 font-mono text-[10px] uppercase tracking-widest text-steel">
-            {en ? "verify in registry" : "ověřit v rejstříku"}
+            {t("shared.verifyInRegistry")}
           </p>
           <div className="mt-2 flex flex-col gap-1.5">
             {[
-              { label: en ? "ARES subject" : "ARES subjekt", href: links.aresSubject },
+              { label: t("shared.registryAresSubject"), href: links.aresSubject },
               { label: "ARES VR", href: links.aresVr },
-              { label: en ? "commercial register" : "obchodní rejstřík", href: links.justiceVr },
-              { label: en ? "contracts register" : "registr smluv", href: links.registrSmluv },
-              { label: en ? "Hlídač company" : "Hlídač firma", href: links.hlidacSubjekt },
-              ...(links.hlidacPerson ? [{ label: en ? "Hlídač person" : "Hlídač osoba", href: links.hlidacPerson }] : []),
+              { label: t("shared.registryCommercial"), href: links.justiceVr },
+              { label: t("shared.registryContracts"), href: links.registrSmluv },
+              { label: t("shared.registryHlidacCompany"), href: links.hlidacSubjekt },
+              ...(links.hlidacPerson ? [{ label: t("shared.registryHlidacPerson"), href: links.hlidacPerson }] : []),
             ].map((l) => (
               <a
                 key={l.label}
@@ -501,7 +482,7 @@ function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en:
       {tie.contracts.length > 0 && (
         <div className="border-t-2 border-hairline px-5 py-4">
           <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-steel">
-            {en ? "contracts via" : "smlouvy přes"} {tie.company}
+            {t("caseFile.contractsVia", { company: tie.company })}
           </p>
           <ul className="mt-2 divide-y divide-hairline">
             {tie.contracts.map((c) => (
@@ -516,7 +497,7 @@ function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en:
           </ul>
           {tie.contractsMoreCount > 0 && (
             <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-steel">
-              + {tie.contractsMoreCount} {en ? "more contracts" : "dalších smluv"}
+              {t("caseFile.moreContracts", { count: tie.contractsMoreCount })}
             </p>
           )}
         </div>

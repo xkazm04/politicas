@@ -15,21 +15,21 @@
  * Rámování (batch-4 §17, absolutní): nálezy procesu a odvozené příznaky,
  * žádná závažnost, žádná obvinění. Příznaky nesou „vyžaduje lidské ověření“
  * přímo v řádku.
+ *
+ * POZN. bilingvální pas: entry.titleCs/detailCs/sourceCs jsou obsah záznamu
+ * z deriveRadar.ts (sdílený s RSS/JSON feedem, který zůstává český) — render
+ * je vypisuje jako data, ne jako UI chrome.
  */
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Check, Quote } from "lucide-react";
+import { useTranslations } from "next-intl";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { useFormat } from "@/lib/i18n/useFormat";
 import { radarCitationCs, type RadarDay, type RadarEntry } from "../deriveRadar";
 import type { RadarData } from "../getRadarData";
-
-const KIND_CZ: Record<RadarEntry["kind"], string> = {
-  kolize: "kolize tisků",
-  priznak: "příznak střetu",
-};
 
 /** kolize = signal (nález porovnání textů), příznak = ochre (odvozený,
  * čeká na ověření — stejný tón jako pending jinde v appce). Žádné nové barvy. */
@@ -39,37 +39,46 @@ const KIND_TONE: Record<RadarEntry["kind"], { dot: string; text: string; border:
 };
 
 export default function RadarLedger({ radar }: { radar: RadarData }) {
+  const t = useTranslations("lawwatch");
   const f = useFormat();
 
   return (
-    <section className="mt-12" aria-label="Kolizní radar — kniha nálezů">
+    <section className="mt-12" aria-label={t("radar.sectionAria")}>
       <SectionHeading
         index={1}
-        title="Kolizní radar"
+        title={t("radar.title")}
         aside={
           <SourceNote>
-            {radar.collisionCount} kolizí · {radar.flagCount} příznaků ·{" "}
-            {radar.newestDetectedAt ? `poslední zápis ${f.date(radar.newestDetectedAt)}` : "bez datovaných zápisů"}
+            {t("radar.aside", { collisions: radar.collisionCount, flags: radar.flagCount })} ·{" "}
+            {radar.newestDetectedAt
+              ? t("radar.lastEntry", { date: f.date(radar.newestDetectedAt) })
+              : t("radar.noDatedEntries")}
           </SourceNote>
         }
       />
       <p className="mt-3 max-w-2xl text-sm leading-relaxed text-steel-aa">
-        Kniha nálezů legislativního procesu v pořadí, v jakém vstoupily do záznamu — systém včasného varování pro
-        souběžně psané novely. Každý nález má trvalou kotvu a citační blok; strojové podoby:{" "}
-        <a href="/zakony/kolize/feed.xml" className="font-mono font-bold uppercase text-signal-deep hover:underline">
-          RSS
-        </a>{" "}
-        ·{" "}
-        <a href="/zakony/kolize/feed.json" className="font-mono font-bold uppercase text-signal-deep hover:underline">
-          JSON
-        </a>
-        .
+        {t.rich("radar.intro", {
+          rss: (chunks) => (
+            <a href="/zakony/kolize/feed.xml" className="font-mono font-bold uppercase text-signal-deep hover:underline">
+              {chunks}
+            </a>
+          ),
+          json: (chunks) => (
+            <a href="/zakony/kolize/feed.json" className="font-mono font-bold uppercase text-signal-deep hover:underline">
+              {chunks}
+            </a>
+          ),
+        })}
       </p>
 
       {/* Pás detekcí: jen datované zápisy — nedatovaný dílek by byl lež. */}
       {radar.days.length > 0 && (
         <div className="mt-6 overflow-x-auto">
-          <div className="flex min-w-max items-stretch gap-px border-2 border-ink bg-ink" role="list" aria-label="Dny zápisů do záznamu">
+          <div
+            className="flex min-w-max items-stretch gap-px border-2 border-ink bg-ink"
+            role="list"
+            aria-label={t("radar.stripAria")}
+          >
             {radar.days.map((d) => (
               <StripDay key={d.day} day={d} dateLabel={f.date(d.day)} />
             ))}
@@ -77,10 +86,7 @@ export default function RadarLedger({ radar }: { radar: RadarData }) {
         </div>
       )}
       <div className="mt-2">
-        <SourceNote>
-          datum = `generatedAt` zdrojového artefaktu v archivu analýzy · case-① příznaky datum detekce nenesou — v knize
-          níže stojí za datovanými zápisy, řazené podle čísla tisku
-        </SourceNote>
+        <SourceNote>{t("radar.stripSource")}</SourceNote>
       </div>
 
       {/* Kniha nálezů */}
@@ -94,6 +100,7 @@ export default function RadarLedger({ radar }: { radar: RadarData }) {
 }
 
 function StripDay({ day, dateLabel }: { day: RadarDay; dateLabel: string }) {
+  const t = useTranslations("lawwatch");
   return (
     <div role="listitem" className="flex min-w-[7.5rem] flex-col justify-between bg-paper px-3 py-2.5">
       <div className="flex items-baseline gap-2">
@@ -105,31 +112,32 @@ function StripDay({ day, dateLabel }: { day: RadarDay; dateLabel: string }) {
       </div>
       <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-steel-aa">{dateLabel}</div>
       <span className="sr-only">
-        {day.collisions} kolizí a {day.flags} příznaků zapsáno {dateLabel}
+        {t("radar.stripSr", { collisions: day.collisions, flags: day.flags, date: dateLabel })}
       </span>
     </div>
   );
 }
 
 function RadarRow({ entry, dateLabel }: { entry: RadarEntry; dateLabel: string | null }) {
+  const t = useTranslations("lawwatch");
   const tone = KIND_TONE[entry.kind];
   return (
     <article id={entry.anchor} className="scroll-mt-24 border-b border-hairline py-4 target:bg-paper-strong">
       <div className="grid grid-cols-[auto_1fr] items-baseline gap-x-3 gap-y-1 sm:grid-cols-[7rem_auto_1fr]">
         <span className="col-span-2 font-mono text-[11px] uppercase tracking-wider text-steel sm:col-span-1">
-          {dateLabel ?? "bez data"}
+          {dateLabel ?? t("radar.undated")}
         </span>
         <span className={`mt-1.5 hidden h-2.5 w-2.5 shrink-0 sm:inline-block ${tone.dot}`} aria-hidden />
         <div className="min-w-0">
           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
             <span className={`font-mono text-[10px] font-black uppercase tracking-wider ${tone.text}`}>
-              {KIND_CZ[entry.kind]}
+              {t(`radar.kind.${entry.kind}`)}
             </span>
             <span className="text-[15px] font-bold leading-snug">{entry.titleCs}</span>
             <a
               href={`#${entry.anchor}`}
               className="font-mono text-[10px] uppercase tracking-wider text-steel-aa hover:text-signal"
-              aria-label={`Trvalá kotva nálezu ${entry.titleCs}`}
+              aria-label={t("radar.anchorAria", { title: entry.titleCs })}
             >
               #{entry.anchor}
             </a>
@@ -138,12 +146,12 @@ function RadarRow({ entry, dateLabel }: { entry: RadarEntry; dateLabel: string |
           <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1">
             {entry.bills.map((b) => (
               <Link key={b} href={`/zakony/${b}`} className="font-mono text-[11px] font-bold text-signal-deep hover:text-cobalt">
-                sn. tisk {b}
+                {t("printNumbered", { cislo: b })}
               </Link>
             ))}
             {entry.clusterAnchor && (
               <a href={`#${entry.clusterAnchor}`} className="font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt hover:text-signal">
-                detail shluku ↓
+                {t("radar.clusterDetail")}
               </a>
             )}
           </div>
@@ -162,6 +170,7 @@ function RadarRow({ entry, dateLabel }: { entry: RadarEntry; dateLabel: string |
  * klientu (vzor CiteView), selhání schránky se pojmenuje a text zůstane
  * vypsaný k ručnímu výběru. */
 function CitationBlock({ entry, dateLabel }: { entry: RadarEntry; dateLabel: string | null }) {
+  const t = useTranslations("lawwatch");
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState<"idle" | "copied" | "failed">("idle");
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -198,15 +207,15 @@ function CitationBlock({ entry, dateLabel }: { entry: RadarEntry; dateLabel: str
           aria-expanded={open}
           className="inline-flex items-center gap-1 font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal focus-visible:outline focus-visible:outline-2 focus-visible:outline-cobalt"
         >
-          <Quote className="h-3 w-3" aria-hidden /> {open ? "skrýt citaci —" : "citovat +"}
+          <Quote className="h-3 w-3" aria-hidden /> {open ? t("radar.citeHide") : t("radar.citeShow")}
         </button>
         <span role="status" aria-live="polite" className="font-mono text-[10px] uppercase tracking-wider">
           {status === "copied" && (
             <span className="inline-flex items-center gap-1 font-bold text-cobalt">
-              <Check className="h-3 w-3" aria-hidden /> citace zkopírována
+              <Check className="h-3 w-3" aria-hidden /> {t("radar.citeCopied")}
             </span>
           )}
-          {status === "failed" && <span className="text-signal-deep">kopírování selhalo — vyberte text ručně</span>}
+          {status === "failed" && <span className="text-signal-deep">{t("radar.citeFailed")}</span>}
         </span>
       </span>
       {open && (
@@ -218,7 +227,7 @@ function CitationBlock({ entry, dateLabel }: { entry: RadarEntry; dateLabel: str
             onClick={copy}
             className="mt-2 inline-flex items-center gap-1.5 border border-ink px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-ink transition-colors hover:bg-paper hover:text-signal focus-visible:outline focus-visible:outline-2 focus-visible:outline-cobalt"
           >
-            zkopírovat citaci
+            {t("radar.citeCopy")}
           </button>
         </div>
       )}

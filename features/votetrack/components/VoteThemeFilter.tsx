@@ -9,7 +9,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { themeLabel } from "../themeLabels";
+import { themeLabelKey } from "../themeLabels";
 import type { VoteThemeData } from "../themeTypes";
 import SourceNote from "@/features/shared/components/SourceNote";
 
@@ -19,6 +19,11 @@ export default function VoteThemeFilter({ data }: { data: VoteThemeData }) {
   const t = useTranslations("votetrack");
   const tcom = useTranslations("common");
   const [selected, setSelected] = useState<string | null>(null);
+
+  const themeName = (slug: string): string => {
+    const key = themeLabelKey(slug);
+    return key ? t(key) : slug;
+  };
 
   const shown = selected ? data.votes.filter((v) => v.theme === selected) : data.votes;
 
@@ -44,7 +49,7 @@ export default function VoteThemeFilter({ data }: { data: VoteThemeData }) {
             className={chip(selected === th.slug)}
             aria-pressed={selected === th.slug}
           >
-            {themeLabel(th.slug)} · {th.count}
+            {themeName(th.slug)} · {th.count}
           </button>
         ))}
       </div>
@@ -55,7 +60,7 @@ export default function VoteThemeFilter({ data }: { data: VoteThemeData }) {
           <div key={v.votePspId} className="border-b border-hairline py-3">
             <div className="flex items-baseline justify-between gap-3">
               <span className="font-mono text-xs uppercase tracking-wider text-steel">
-                {v.votedOn ?? "—"} · {themeLabel(v.theme)}
+                {v.votedOn ?? "—"} · {themeName(v.theme)}
               </span>
               <span
                 className={`font-mono text-[11px] font-black uppercase tracking-wider ${

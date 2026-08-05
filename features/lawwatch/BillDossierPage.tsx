@@ -10,6 +10,7 @@
 
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import type { BillDossier } from "./getLawData";
 import BillDetail from "./components/BillDetail";
 import SectionRule from "@/features/shared/components/SectionRule";
@@ -18,6 +19,7 @@ import { billEntityKey } from "@/features/denik/deriveDenik";
 import { entityDenikHref } from "@/features/schranka/followCodec";
 
 export default function BillDossierPage({ dossier }: { dossier: BillDossier }) {
+  const t = useTranslations("lawwatch");
   const { bill, prevCislo, nextCislo } = dossier;
 
   return (
@@ -25,16 +27,18 @@ export default function BillDossierPage({ dossier }: { dossier: BillDossier }) {
       <header className="border-b-4 border-ink">
         <div className="mx-auto flex max-w-4xl items-center justify-between gap-4 px-6 py-4">
           <div className="flex items-center gap-3">
-            <span className="font-mono text-xs uppercase tracking-widest text-steel">/ zákony / tisk</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-steel">{t("dossierPage.crumb")}</span>
           </div>
         </div>
       </header>
 
       <div className="mx-auto max-w-4xl px-6">
         <div className="py-10">
-          <SourceNote tone="signal">sněmovní tisk · psp.cz</SourceNote>
+          <SourceNote tone="signal">{t("dossierPage.eyebrow")}</SourceNote>
           <h1 className="mt-3 text-4xl font-black uppercase leading-[0.95] tracking-tight sm:text-5xl">
-            {bill.cislo != null ? `Sn. tisk ${bill.cislo}` : `Tisk ${bill.tiskId}`}
+            {bill.cislo != null
+              ? `${t("detail.printHeading")} ${bill.cislo}`
+              : `${t("detail.printHeadingInternal")} ${bill.tiskId}`}
             <span className="text-signal">.</span>
           </h1>
           <div className="mt-4 max-w-xl">
@@ -52,9 +56,9 @@ export default function BillDossierPage({ dossier }: { dossier: BillDossier }) {
                 href={entityDenikHref(billEntityKey(bill.cislo))}
                 className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
               >
-                deník tohoto tisku <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+                {t("dossierPage.denikLink")} <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
               </Link>
-              <SourceNote>datované kroky tisku — deník republiky, filtr entity</SourceNote>
+              <SourceNote>{t("dossierPage.denikNote")}</SourceNote>
             </div>
           )}
         </div>
@@ -75,7 +79,7 @@ export default function BillDossierPage({ dossier }: { dossier: BillDossier }) {
               >
                 <span className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
                   {dir === "prev" && <Icon className="h-3.5 w-3.5" />}
-                  {dir === "prev" ? "předchozí tisk" : "další tisk"} · {cislo}
+                  {dir === "prev" ? t("dossierPage.prevPrint") : t("dossierPage.nextPrint")} · {cislo}
                   {dir === "next" && <Icon className="h-3.5 w-3.5" />}
                 </span>
               </Link>

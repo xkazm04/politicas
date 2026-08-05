@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import CompanyCaseFilePage from "@/features/money/CompanyCaseFilePage";
 import { getCompanyDetail } from "@/features/money/getCompanyDetail";
 import { canonicalIco } from "@/features/money/companyId";
@@ -16,10 +17,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { ico } = await params;
   const canonical = canonicalIco(ico);
+  const t = await getTranslations("meta");
   return {
-    title: `Spis firmy ${canonical ?? ico} · FollowTheMoney`,
-    description:
-      "Firma jako křižovatka grafu — všichni poslanci s vazbou na ni, jejich třída a stav kontroly, a smlouvy se státem.",
+    title: t("moneyCompanyTitle", { ico: canonical ?? ico }),
+    description: t("moneyCompanyDescription"),
   };
 }
 

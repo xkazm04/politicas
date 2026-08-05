@@ -11,7 +11,7 @@
  */
 
 import { motion, useReducedMotion } from "framer-motion";
-import { COPY } from "../record/copy";
+import { useTranslations } from "next-intl";
 import { wedgeSort } from "../record/clubStyle";
 import type { Bucket } from "../record/derive";
 import type { ClubTally, LedgerVote } from "../record/types";
@@ -67,6 +67,7 @@ const wedge = (t: ClubTally): Bucket[] => [
 ];
 
 export default function RealHemicycle({ vote }: { vote: LedgerVote }) {
+  const t = useTranslations("votetrack");
   const reduceMotion = useReducedMotion();
 
   const buckets: Bucket[] = [];
@@ -78,7 +79,7 @@ export default function RealHemicycle({ vote }: { vote: LedgerVote }) {
   const seats = buildSeats(buckets.length);
 
   return (
-    <svg viewBox="0 0 220 112" className="w-full" role="img" aria-label={COPY.hemicycleAria(vote.title)}>
+    <svg viewBox="0 0 220 112" className="w-full" role="img" aria-label={t("hemicycleAria", { title: vote.title })}>
       <motion.g
         key={vote.pspId}
         initial={reduceMotion ? false : { opacity: 0 }}

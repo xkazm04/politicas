@@ -1,58 +1,40 @@
-// Shared Czech labels + tiny formatters for the LawWatch surfaces (browser list,
+// Shared whitelists + tiny formatters for the LawWatch surfaces (browser list,
 // per-bill dossier). Split out of LawWatchPage.tsx so the dossier route
 // (features/lawwatch/BillDossierPage.tsx) doesn't need to import the whole
 // (large, mock-carrying) page component just for these constants.
 //
-// Inline Czech literals (not next-intl `t()`) — same precedent as
-// features/civicscore/components/LeaderboardTable.tsx's "Tiší pracanti" filter:
-// messages/*.json is off-boundary for this pass; proposed keys are listed in the
-// batch report for the orchestrator to fold in.
+// Bilingual pass: the former *_CZ label maps became key WHITELISTS — the label
+// itself lives in messages/*.json under `lawwatch.*` (origin, severity,
+// committeeRole, committeeStatus, diffOp, sponsorRole, rapporteurScope,
+// citationKind) and is resolved via next-intl `t()` at the render site. The
+// whitelist preserves the old `?? raw` fallback: an unknown raw token renders
+// verbatim instead of producing a missing-key path.
 
-import type { BillOrigin } from "./getLawData";
+/** assigned_to.props.role tokens with a `lawwatch.committeeRole.*` label (F15). */
+export const COMMITTEE_ROLE_KEYS: ReadonlySet<string> = new Set(["garancni", "dalsi"]);
 
-/** Původ tisku (bill.props.origin) → český štítek. */
-export const ORIGIN_CZ: Record<BillOrigin, string> = {
-  government: "vládní návrh",
-  mp: "poslanecký návrh",
-  mp_group: "skupina poslanců",
-  senate: "senátní návrh",
-  other: "jiný návrh",
-};
+/** assigned_to.props.status tokens with a `lawwatch.committeeStatus.*` label. */
+export const COMMITTEE_STATUS_KEYS: ReadonlySet<string> = new Set(["prikazano", "navrzeno", "iniciativne"]);
 
-export const SEVERITY_CZ: Record<string, string> = {
-  low: "nízká",
-  medium: "střední",
-  high: "vysoká",
-};
+/** Forensic severity tokens with a `lawwatch.severity.*` label. */
+export const SEVERITY_KEYS: ReadonlySet<string> = new Set(["low", "medium", "high"]);
 
-/** assigned_to.props.role → český štítek (F15 formální přikázání výborům). */
-export const ROLE_CZ: Record<string, string> = {
-  garancni: "garanční výbor",
-  dalsi: "další výbor",
-};
+/** §-diff op tokens with a `lawwatch.diffOp.*` label. */
+export const DIFF_OP_KEYS: ReadonlySet<string> = new Set(["modified", "added", "removed"]);
 
-/** assigned_to.props.status → český štítek (nejsilnější dosažený stav přikázání). */
-export const STATUS_CZ: Record<string, string> = {
-  prikazano: "přikázáno",
-  navrzeno: "navrženo",
-  iniciativne: "projednáno iniciativně",
-};
+/** Signature-role tokens (pass 34) with a `lawwatch.sponsorRole.*` label. */
+export const SPONSOR_ROLE_KEYS: ReadonlySet<string> = new Set(["predkladatel", "spolupodepsal"]);
 
-export const DIFF_OP_CZ: Record<string, string> = { modified: "změněno", added: "přidáno", removed: "zrušeno" };
+/** Zpravodaj scope tokens (pass 34) with a `lawwatch.rapporteurScope.*` label. */
+export const RAPPORTEUR_SCOPE_KEYS: ReadonlySet<string> = new Set([
+  "zpravodaj_ov",
+  "zpravodaj_ps",
+  "zpravodaj_vyboru",
+  "zpravodaj_dokumentu",
+]);
 
-/** Signature role on the predkladatel list (pass 34): rank 1 vs the rest. */
-export const SPONSOR_ROLE_CZ: Record<string, string> = {
-  predkladatel: "předložil",
-  spolupodepsal: "spolupodepsal",
-};
-
-/** Zpravodaj assignment scopes (pass 34, psp.cz tisky.zip hist/hist_vybory/tisky_za). */
-export const RAPPORTEUR_SCOPE_CZ: Record<string, string> = {
-  zpravodaj_ov: "zpravodaj pro 1. čtení",
-  zpravodaj_ps: "zpravodaj (určen předsedou PS)",
-  zpravodaj_vyboru: "zpravodaj výboru",
-  zpravodaj_dokumentu: "zpravodaj usnesení výboru",
-};
+/** Citation kind tokens with a `lawwatch.citationKind.*` label. */
+export const CITATION_KIND_KEYS: ReadonlySet<string> = new Set(["bill_text", "web", "law", "graph_fact"]);
 
 /** psp.cz historie tisku (PSP10 = o=10) — jediný stabilní veřejný odkaz na tisk. */
 export const pspBillUrl = (cislo: number | null): string | null =>
@@ -63,14 +45,6 @@ export function esbirkaUrl(ref: string): string | null {
   const m = ref.match(/(\d+)\s*\/\s*(\d{4})/);
   return m ? `https://e-sbirka.gov.cz/sb/${m[2]}/${m[1]}` : null;
 }
-
-/** Druh citace → český štítek pro seznam referencí. */
-export const CITATION_KIND_CZ: Record<string, string> = {
-  bill_text: "text tisku",
-  web: "web",
-  law: "zákon",
-  graph_fact: "záznam v grafu",
-};
 
 /** Formátovaná reference — nikdy serializovaný objekt.
  *

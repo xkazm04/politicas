@@ -9,11 +9,11 @@
  */
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useFormat } from "@/lib/i18n/useFormat";
-import { themeLabel } from "../themeLabels";
+import { themeLabelKey } from "../themeLabels";
 import { voteAnchorId, votePspUrl } from "../record/anchor";
 import type { ClubTally } from "../record/types";
-import { KOMPAS_COPY as C } from "./copy";
 import type { Answer } from "./score";
 import type { KompasQuestion } from "./types";
 
@@ -44,15 +44,20 @@ export default function QuestionCard({
   answer: Answer | null;
   onAnswer: (votePspId: number, answer: Answer | null) => void;
 }) {
+  const t = useTranslations("votetrack");
+  const tcom = useTranslations("common");
   const f = useFormat();
   const q = question;
   const answered = answer !== null;
+  const themeKey = themeLabelKey(q.theme);
   const session =
-    q.sessionNo !== null && q.voteNo !== null ? `${q.sessionNo}. schůze · hlasování č. ${q.voteNo}` : null;
+    q.sessionNo !== null && q.voteNo !== null
+      ? `${t("record.sessionLabel", { session: q.sessionNo })} · ${t("record.voteNumberLabel", { vote: q.voteNo })}`
+      : null;
 
   return (
     <article
-      aria-label={C.cardAria(q.title)}
+      aria-label={t("kompas.cardAria", { title: q.title })}
       className={`flex flex-col border-2 p-5 transition-colors motion-reduce:transition-none ${
         answered ? "border-cobalt" : "border-ink"
       }`}
@@ -62,7 +67,7 @@ export default function QuestionCard({
           /{String(index + 1).padStart(2, "0")}
         </span>
         <span className="font-mono text-xs uppercase tracking-wider text-steel-aa">
-          {themeLabel(q.theme)}
+          {themeKey ? t(themeKey) : q.theme}
           {q.votedOn ? ` · ${f.date(q.votedOn)}` : ""}
         </span>
       </div>
@@ -74,12 +79,12 @@ export default function QuestionCard({
         <p className="mt-1.5 flex flex-wrap items-baseline justify-between gap-x-3 font-mono text-xs tabular-nums text-steel-aa">
           <span>
             {/* citation-ok: sčítání sálu cituje odkaz psp.cz v patičce karty + zdrojový řádek pravidel na stránce (KompasPage rulesSource) */}
-            {C.chamberResult}: {f.int(q.total.yes)} pro · {f.int(q.total.no)} proti · {f.int(q.total.k)}{" "}
-            {C.kShort} ·{" "}
+            {t("kompas.chamberResult")}: {f.int(q.total.yes)} {tcom("voteChoice.for")} · {f.int(q.total.no)} {tcom("voteChoice.against")} · {f.int(q.total.k)}{" "}
+            {t("kompas.kShort")} ·{" "}
             <span
               className={`font-black uppercase ${q.outcome === "accepted" ? "text-cobalt" : "text-signal-deep"}`}
             >
-              {q.outcome === "accepted" ? C.outcomeAccepted : C.outcomeRejected}
+              {q.outcome === "accepted" ? tcom("voteResult.accepted") : tcom("voteResult.rejected")}
             </span>
           </span>
           {session && <span>{session}</span>}
@@ -97,7 +102,7 @@ export default function QuestionCard({
               : "border-ink text-ink hover:bg-paper-strong"
           }`}
         >
-          {C.answerPro}
+          {tcom("voteChoice.for")}
         </button>
         <button
           type="button"
@@ -109,14 +114,14 @@ export default function QuestionCard({
               : "border-ink text-ink hover:bg-paper-strong"
           }`}
         >
-          {C.answerProti}
+          {tcom("voteChoice.against")}
         </button>
         {answered ? (
           <span aria-live="polite" className="font-mono text-xs font-bold uppercase tracking-wider text-cobalt">
-            {answer === "pro" ? C.answeredPro : C.answeredProti}
+            {answer === "pro" ? t("kompas.answeredPro") : t("kompas.answeredProti")}
           </span>
         ) : (
-          <span className="font-mono text-xs uppercase tracking-wider text-steel-aa">{C.answerSkip}</span>
+          <span className="font-mono text-xs uppercase tracking-wider text-steel-aa">{t("kompas.answerSkip")}</span>
         )}
       </div>
 
@@ -125,7 +130,7 @@ export default function QuestionCard({
           href={`/hlasovani#${voteAnchorId(q.votePspId)}`}
           className="text-steel-aa underline-offset-2 hover:text-ink hover:underline"
         >
-          {C.recordLink} →
+          {t("kompas.recordLink")} →
         </Link>
         <a
           href={votePspUrl(q.votePspId)}
@@ -133,7 +138,7 @@ export default function QuestionCard({
           rel="noopener noreferrer"
           className="text-steel-aa underline-offset-2 hover:text-ink hover:underline"
         >
-          {C.pspLink} ↗
+          psp.cz ↗
         </a>
       </p>
     </article>

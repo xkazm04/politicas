@@ -10,12 +10,12 @@
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { MIN_ELIGIBLE_VOTES } from "@/lib/analysis/kg";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { votePspUrl } from "../record/anchor";
 import { clubStyle } from "../record/clubStyle";
-import { COPY } from "../record/copy";
 import type { VoteRecordData } from "../record/types";
 
 export default function RealRebellions({
@@ -25,6 +25,8 @@ export default function RealRebellions({
   data: VoteRecordData;
   onSelectVote: (votePspId: number) => void;
 }) {
+  const t = useTranslations("votetrack");
+  const tcom = useTranslations("common");
   const f = useFormat();
   const maxRate = data.topRebels.length ? data.topRebels[0].rate : 0;
 
@@ -32,7 +34,7 @@ export default function RealRebellions({
     <div className="grid gap-12 lg:grid-cols-2">
       {/* ── kronika ───────────────────────────────────────────── */}
       <div className="min-w-0">
-        <SourceNote>{COPY.chronicleNote(data.chronicle.length)}</SourceNote>
+        <SourceNote>{t("record.chronicleNote", { cap: data.chronicle.length })}</SourceNote>
         <div className="mt-3 border-t-2 border-ink">
           {data.chronicle.map((r) => (
             <div key={`${r.votePspId}-${r.personPspId}`} className="border-b border-hairline px-2 py-4">
@@ -46,7 +48,7 @@ export default function RealRebellions({
                     onClick={() => onSelectVote(r.votePspId)}
                     className="inline-flex items-center gap-1 font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal motion-reduce:transition-none"
                   >
-                    {COPY.seismoJump} <ArrowUpRight className="h-3 w-3" aria-hidden />
+                    {t("record.seismoJump")} <ArrowUpRight className="h-3 w-3" aria-hidden />
                   </button>
                 ) : (
                   <a
@@ -63,25 +65,25 @@ export default function RealRebellions({
                 <Link href={`/poslanec/${r.personPspId}`} className="font-black uppercase underline-offset-2 hover:underline">
                   {r.name}
                 </Link>{" "}
-                <span className="text-steel-aa">({clubStyle(r.club).short})</span> {COPY.votedVerb}{" "}
+                <span className="text-steel-aa">({clubStyle(r.club).short})</span> {t("votedVerb")}{" "}
                 <span
                   className={`font-mono text-sm font-bold uppercase ${r.choice === "yes" ? "text-cobalt" : "text-signal-deep"}`}
                 >
-                  {r.choice === "yes" ? COPY.legendYes : COPY.legendNo}
+                  {r.choice === "yes" ? tcom("voteChoice.for") : tcom("voteChoice.against")}
                 </span>{" "}
-                {COPY.againstLine} <span className="line-clamp-2">{r.title}</span>
+                {t("againstPartyLine")} <span className="line-clamp-2">{r.title}</span>
               </span>
             </div>
           ))}
           {data.chronicle.length === 0 && (
-            <div className="border-2 border-dashed border-hairline p-6 text-sm text-steel-aa">{COPY.noRebellions}</div>
+            <div className="border-2 border-dashed border-hairline p-6 text-sm text-steel-aa">{t("record.noRebellions")}</div>
           )}
         </div>
       </div>
 
       {/* ── míra rebelie ──────────────────────────────────────── */}
       <div className="min-w-0">
-        <SourceNote>{COPY.topRebelsNote(MIN_ELIGIBLE_VOTES)}</SourceNote>
+        <SourceNote>{t("record.topRebelsNote", { minEligible: MIN_ELIGIBLE_VOTES })}</SourceNote>
         <div className="mt-3 border-t-2 border-ink">
           {data.topRebels.map((r) => (
             <Link
@@ -96,7 +98,7 @@ export default function RealRebellions({
                     className="inline-block h-1.5 w-1.5 shrink-0 rounded-full"
                     style={{ background: clubStyle(r.club).color }}
                   />
-                  {clubStyle(r.club).short} · {COPY.eligibleShort(f.int(r.rebelVotes), f.int(r.eligibleVotes))}
+                  {clubStyle(r.club).short} · {t("record.eligibleShort", { rebel: f.int(r.rebelVotes), eligible: f.int(r.eligibleVotes) })}
                 </span>
               </span>
               <span className="h-4 w-full bg-hairline">
@@ -115,7 +117,7 @@ export default function RealRebellions({
             </Link>
           ))}
           {data.topRebels.length === 0 && (
-            <div className="border-2 border-dashed border-hairline p-6 text-sm text-steel-aa">{COPY.topRebelsEmpty}</div>
+            <div className="border-2 border-dashed border-hairline p-6 text-sm text-steel-aa">{t("record.topRebelsEmpty")}</div>
           )}
         </div>
       </div>

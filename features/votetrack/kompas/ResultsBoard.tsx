@@ -12,11 +12,11 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Check, ChevronDown, Link2, RotateCcw } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { clubStyle } from "../record/clubStyle";
 import { voteAnchorId } from "../record/anchor";
-import { KOMPAS_COPY as C } from "./copy";
 import type { AlignmentResult, Answer, MpAlignment } from "./score";
 import type { KompasBallots, KompasQuestion } from "./types";
 
@@ -25,6 +25,7 @@ const TOP_ROWS = 15;
 const pctText = (rate: number, f: { dec: (n: number) => string }) => `${f.dec(Math.round(rate * 1000) / 10)} %`;
 
 function ShareButton() {
+  const t = useTranslations("votetrack");
   const [state, setState] = useState<"idle" | "ok" | "fail">("idle");
   useEffect(() => {
     if (state === "idle") return;
@@ -43,7 +44,7 @@ function ShareButton() {
       className="inline-flex items-center gap-1.5 border-2 border-cobalt px-3 py-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:bg-cobalt hover:text-paper motion-reduce:transition-none"
     >
       {state === "ok" ? <Check className="h-3 w-3" aria-hidden /> : <Link2 className="h-3 w-3" aria-hidden />}
-      {state === "ok" ? C.shareOk : state === "fail" ? C.shareFail : C.shareCta}
+      {state === "ok" ? t("kompas.shareOk") : state === "fail" ? t("kompas.shareFail") : t("kompas.shareCta")}
     </button>
   );
 }
@@ -70,8 +71,11 @@ function Receipts({
   ballots: KompasBallots;
   answers: ReadonlyMap<number, Answer>;
 }) {
+  const t = useTranslations("votetrack");
+  const tcom = useTranslations("common");
+  const choiceWord = (a: Answer) => (a === "pro" ? tcom("voteChoice.for") : tcom("voteChoice.against"));
   return (
-    <ul aria-label={C.receiptsAria(mp.name)} className="mt-2 border-t border-hairline">
+    <ul aria-label={t("kompas.receiptsAria", { name: mp.name })} className="mt-2 border-t border-hairline">
       {questions
         .filter((q) => answers.has(q.votePspId))
         .map((q) => {
@@ -79,7 +83,13 @@ function Receipts({
           const bucket = ballots[q.votePspId]?.[mp.personPspId] ?? "away";
           const positional = bucket === "yes" || bucket === "no";
           const match = positional && (you === "pro") === (bucket === "yes");
-          const verdict = positional ? (match ? C.receiptMatch : C.receiptDiffer) : bucket === "k" ? C.receiptK : C.receiptAway;
+          const verdict = positional
+            ? match
+              ? t("kompas.receiptMatch")
+              : t("kompas.receiptDiffer")
+            : bucket === "k"
+              ? t("kompas.receiptK")
+              : t("kompas.receiptAway");
           return (
             <li
               key={q.votePspId}
@@ -94,8 +104,15 @@ function Receipts({
               </Link>
               <span className="font-mono text-xs uppercase tracking-wider tabular-nums">
                 <span className="text-steel-aa">
-                  {C.receiptYou} {you} · {C.receiptMp}{" "}
-                  {bucket === "yes" ? "pro" : bucket === "no" ? "proti" : bucket === "k" ? C.kShort : C.awayShort} ·{" "}
+                  {t("kompas.receiptYou")} {choiceWord(you)} · {t("kompas.receiptMp")}{" "}
+                  {bucket === "yes"
+                    ? tcom("voteChoice.for")
+                    : bucket === "no"
+                      ? tcom("voteChoice.against")
+                      : bucket === "k"
+                        ? t("kompas.kShort")
+                        : t("kompas.awayShort")}{" "}
+                  ·{" "}
                 </span>
                 <span
                   className={`font-black ${
@@ -126,6 +143,7 @@ function MpRow({
   ballots: KompasBallots;
   answers: ReadonlyMap<number, Answer>;
 }) {
+  const t = useTranslations("votetrack");
   const f = useFormat();
   const [open, setOpen] = useState(false);
   return (
@@ -143,13 +161,13 @@ function MpRow({
         {mp.club !== null ? (
           <ClubDot club={mp.club} />
         ) : (
-          <span className="font-mono text-xs uppercase tracking-wider text-steel-aa">{C.unaffiliated}</span>
+          <span className="font-mono text-xs uppercase tracking-wider text-steel-aa">{t("kompas.unaffiliated")}</span>
         )}
         <span className="ml-auto flex items-center gap-3">
           <span className="font-mono text-xs tabular-nums text-steel-aa">
-            {C.alignmentOf(mp.matches, mp.comparable)}
-            {mp.kCount > 0 ? ` · ${f.int(mp.kCount)}× ${C.kShort}` : ""}
-            {mp.awayCount > 0 ? ` · ${f.int(mp.awayCount)}× ${C.awayShort}` : ""}
+            {t("kompas.alignmentOf", { matches: mp.matches, comparable: mp.comparable })}
+            {mp.kCount > 0 ? ` · ${f.int(mp.kCount)}× ${t("kompas.kShort")}` : ""}
+            {mp.awayCount > 0 ? ` · ${f.int(mp.awayCount)}× ${t("kompas.awayShort")}` : ""}
           </span>
           <span className={`font-mono text-lg font-black tabular-nums ${rank !== null ? "text-cobalt" : "text-steel-aa"}`}>
             {mp.rate === null ? "—" : pctText(mp.rate, f)}
@@ -157,7 +175,7 @@ function MpRow({
           <button
             type="button"
             aria-expanded={open}
-            aria-label={C.receiptsAria(mp.name)}
+            aria-label={t("kompas.receiptsAria", { name: mp.name })}
             onClick={() => setOpen((o) => !o)}
             className="border border-hairline p-1 text-steel-aa transition-colors hover:border-ink hover:text-ink motion-reduce:transition-none"
           >
@@ -166,7 +184,7 @@ function MpRow({
         </span>
       </div>
       {rank === null && (
-        <p className="mt-0.5 pl-12 font-mono text-xs uppercase tracking-wider text-steel-aa">{C.notRankable}</p>
+        <p className="mt-0.5 pl-12 font-mono text-xs uppercase tracking-wider text-steel-aa">{t("kompas.notRankable")}</p>
       )}
       {open && <Receipts mp={mp} questions={questions} ballots={ballots} answers={answers} />}
     </li>
@@ -189,6 +207,7 @@ export default function ResultsBoard({
   /** The verbatim disclosed rules + coverage line, rendered inside the frame. */
   rules: { selection: string; scoring: string; source: string };
 }) {
+  const t = useTranslations("votetrack");
   const f = useFormat();
   const [showAll, setShowAll] = useState(false);
   const ranked = result.mps.filter((m) => m.rankable);
@@ -199,7 +218,7 @@ export default function ResultsBoard({
     <div className="border-2 border-cobalt p-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p aria-live="polite" className="font-mono text-xs font-bold uppercase tracking-widest text-cobalt">
-          {C.yourResultBadge(result.answered)}
+          {t("kompas.yourResultBadge", { answered: result.answered })}
         </p>
         <span className="flex flex-wrap items-center gap-2">
           <ShareButton />
@@ -209,7 +228,7 @@ export default function ResultsBoard({
             className="inline-flex items-center gap-1.5 border-2 border-ink bg-ink px-3 py-1.5 font-mono text-xs font-bold uppercase tracking-wider text-paper transition-colors hover:bg-paper hover:text-ink motion-reduce:transition-none"
           >
             <RotateCcw className="h-3 w-3" aria-hidden />
-            {C.resetCta}
+            {t("kompas.resetCta")}
           </button>
         </span>
       </div>
@@ -217,11 +236,11 @@ export default function ResultsBoard({
       {/* ── kluby ─────────────────────────────────────────────── */}
       <div className="mt-6">
         <h3 className="text-xl font-black uppercase tracking-tight">
-          {C.clubsBoard}
+          {t("kompas.clubsBoard")}
           <span className="text-cobalt">.</span>
         </h3>
         <div className="mt-1">
-          <SourceNote>{C.clubsBoardNote}</SourceNote>
+          <SourceNote>{t("kompas.clubsBoardNote")}</SourceNote>
         </div>
         <ul className="mt-3">
           {result.clubs.map((c) => {
@@ -238,7 +257,9 @@ export default function ResultsBoard({
                   />
                 </span>
                 <span className="w-24 shrink-0 text-right font-mono text-xs tabular-nums text-steel-aa">
-                  {c.comparable > 0 ? C.alignmentOf(c.matches, c.comparable) : C.noComparable}
+                  {c.comparable > 0
+                    ? t("kompas.alignmentOf", { matches: c.matches, comparable: c.comparable })
+                    : t("kompas.noComparable")}
                 </span>
                 <span
                   className={`w-16 shrink-0 text-right font-mono text-base font-black tabular-nums ${
@@ -256,11 +277,11 @@ export default function ResultsBoard({
       {/* ── poslanci ──────────────────────────────────────────── */}
       <div className="mt-8">
         <h3 className="text-xl font-black uppercase tracking-tight">
-          {C.mpsBoard}
+          {t("kompas.mpsBoard")}
           <span className="text-cobalt">.</span>
         </h3>
         <div className="mt-1">
-          <SourceNote>{C.mpsBoardNote}</SourceNote>
+          <SourceNote>{t("kompas.mpsBoardNote")}</SourceNote>
         </div>
         <ul className="mt-3">
           {visible.map((mp, i) => (
@@ -274,12 +295,12 @@ export default function ResultsBoard({
             onClick={() => setShowAll((s) => !s)}
             className="mt-3 border-2 border-ink px-3 py-1.5 font-mono text-xs font-bold uppercase tracking-wider transition-colors hover:bg-paper-strong motion-reduce:transition-none"
           >
-            {showAll ? C.showLess : C.showAll(ranked.length)}
+            {showAll ? t("kompas.showLess") : t("kompas.showAll", { n: ranked.length })}
           </button>
         )}
         {tail.length > 0 && showAll && (
           <div className="mt-6">
-            <SourceNote>{C.unrankedTail(tail.length)}</SourceNote>
+            <SourceNote>{t("kompas.unrankedTail", { n: tail.length })}</SourceNote>
             <ul className="mt-2">
               {tail.map((mp) => (
                 <MpRow key={mp.personPspId} mp={mp} rank={null} questions={questions} ballots={ballots} answers={answers} />
@@ -291,7 +312,7 @@ export default function ResultsBoard({
 
       {/* ── zveřejněná pravidla (stateSlice bordered-note pattern) ── */}
       <div className="mt-8 border-l-4 border-cobalt pl-4">
-        <p className="font-mono text-xs font-bold uppercase tracking-widest text-steel-aa">{C.rulesTitle}</p>
+        <p className="font-mono text-xs font-bold uppercase tracking-widest text-steel-aa">{t("kompas.rulesTitle")}</p>
         <div className="mt-2 space-y-2">
           <SourceNote>{rules.selection}</SourceNote>
           <SourceNote>{rules.scoring}</SourceNote>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import EvidencePacketPage from "@/features/money/EvidencePacketPage";
 import { getEvidencePacket } from "@/features/money/getEvidencePacket";
 
@@ -9,10 +10,10 @@ export async function generateMetadata({
   params: Promise<{ pspId: string }>;
 }): Promise<Metadata> {
   const { pspId } = await params;
+  const t = await getTranslations("meta");
   return {
-    title: `Důkazní paket poslance ${pspId} · FollowTheMoney`,
-    description:
-      "Spis poslance zkompilovaný do citovatelného paketu — výhradně lidsky ověřené vazby, časová osa, rejstříkové odkazy a hotové citační bloky. Vyloučený neověřený materiál je přiznán.",
+    title: t("moneyPacketTitle", { pspId }),
+    description: t("moneyPacketDescription"),
   };
 }
 

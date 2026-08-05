@@ -8,16 +8,15 @@
 
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
 import type { StatuteRegistryRow } from "./deriveStatuteDossier";
 
-const plural = (n: number, one: string, few: string, many: string): string =>
-  n === 1 ? one : n >= 2 && n <= 4 ? few : many;
-
 export default function StatuteRegistryPage({ rows }: { rows: StatuteRegistryRow[] }) {
+  const t = useTranslations("lawwatch");
   const f = useFormat();
   const withTrail = rows.filter((r) => r.changes > 0).length;
   const totalChanges = rows.reduce((s, r) => s + r.changes, 0);
@@ -26,37 +25,36 @@ export default function StatuteRegistryPage({ rows }: { rows: StatuteRegistryRow
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
       <header className="border-b-4 border-ink">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-4">
-          <span className="font-mono text-xs uppercase tracking-widest text-steel">/ zákony / předpis</span>
+          <span className="font-mono text-xs uppercase tracking-widest text-steel">{t("registry.crumb")}</span>
           <Link
             href="/zakony"
             className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
           >
-            <ArrowLeft className="h-3.5 w-3.5" /> monitor legislativy
+            <ArrowLeft className="h-3.5 w-3.5" /> {t("registry.backToMonitor")}
           </Link>
         </div>
       </header>
 
       <div className="mx-auto max-w-5xl px-6">
         <div className="py-10">
-          <SourceNote tone="signal">paměť zákona · rejstřík předpisů</SourceNote>
+          <SourceNote tone="signal">{t("registry.eyebrow")}</SourceNote>
           <h1 className="mt-3 text-5xl font-black uppercase leading-[0.95] tracking-tight sm:text-6xl">
-            Paměť zákona<span className="text-signal">.</span>
+            {t("registry.title")}<span className="text-signal">.</span>
           </h1>
           <div className="mt-4 max-w-xl">
             <SectionRule />
           </div>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">
-            Každý předpis, který stopa sněmovních tisků v grafu zná, má vlastní kritické vydání: kroniku
-            tisků, které ho měnily, a — kde archiv nese reálný e-Sbírka §-diff — doslovnou §-stopu
-            „před / po“ s trvalými kotvami <span className="font-mono">#p-&lt;§&gt;</span>.
+            {t("registry.introBefore")} <span className="font-mono">#p-&lt;§&gt;</span>
+            {t("registry.introAfter")}
           </p>
         </div>
 
         <div className="grid grid-cols-3 gap-px border-2 border-ink bg-ink max-sm:grid-cols-1">
           {[
-            { v: f.int(rows.length), l: "předpisů ve stopě" },
-            { v: f.int(withTrail), l: "předpisů se §-stopou" },
-            { v: f.int(totalChanges), l: "doložených změn fragmentů" },
+            { v: f.int(rows.length), l: t("registry.stats.inTrail") },
+            { v: f.int(withTrail), l: t("registry.stats.withTrail") },
+            { v: f.int(totalChanges), l: t("registry.stats.changes") },
           ].map((s) => (
             <div key={s.l} className="bg-paper px-4 py-4">
               <div className="text-3xl font-black tabular-nums">{s.v}</div>
@@ -65,17 +63,14 @@ export default function StatuteRegistryPage({ rows }: { rows: StatuteRegistryRow
           ))}
         </div>
         <div className="mt-2">
-          <SourceNote>
-            psp.cz tisky (amends + census textu) · e-Sbírka SPARQL §-diffy — §-stopa je bodová, pokrytí se
-            přiznává na každém řádku
-          </SourceNote>
+          <SourceNote>{t("registry.statsSource")}</SourceNote>
         </div>
 
         <section className="mt-12 pb-20">
           <SectionHeading
             index={1}
-            title="Rejstřík předpisů"
-            aside={<SourceNote>řazeno počtem tisků, pak číslem předpisu</SourceNote>}
+            title={t("registry.sectionTitle")}
+            aside={<SourceNote>{t("registry.sortAside")}</SourceNote>}
           />
           <div className="mt-8 border-t-2 border-ink">
             {rows.map((r) => (
@@ -89,7 +84,7 @@ export default function StatuteRegistryPage({ rows }: { rows: StatuteRegistryRow
                     <span className="font-mono text-xs font-bold text-signal">č. {r.ref} Sb.</span>
                     {r.changes > 0 && (
                       <span className="font-mono text-[10px] font-black uppercase tracking-wider text-ochre">
-                        §-stopa · {f.int(r.changes)} {plural(r.changes, "změna", "změny", "změn")}
+                        {t("registry.trailBadge", { count: r.changes, countFmt: f.int(r.changes) })}
                       </span>
                     )}
                   </span>
@@ -103,7 +98,7 @@ export default function StatuteRegistryPage({ rows }: { rows: StatuteRegistryRow
                   <span className="flex items-baseline gap-1.5">
                     <span className="text-2xl font-black tabular-nums">{f.int(r.trailBills)}</span>
                     <span className="font-mono text-[11px] uppercase tracking-wider text-steel">
-                      {plural(r.trailBills, "tisk", "tisky", "tisků")}
+                      {t("billCountWord", { count: r.trailBills })}
                     </span>
                   </span>
                   <ArrowUpRight className="h-4 w-4 text-signal opacity-0 transition-opacity group-hover:opacity-100" />
@@ -112,9 +107,7 @@ export default function StatuteRegistryPage({ rows }: { rows: StatuteRegistryRow
             ))}
           </div>
           <p className="mt-4 max-w-3xl text-sm italic leading-relaxed text-steel">
-            Stopa zahrnuje vazby z názvu tisku (citace „č. N/RRRR Sb.“) i nezávislý census plného textu
-            (průchod grafu 20) — obě provenience se na stránce předpisu rozlišují. Předpis bez §-stopy
-            není prázdná stránka: kronika tisků platí i bez e-Sbírka diffu.
+            {t("registry.footnote")}
           </p>
         </section>
       </div>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import BudgetMirrorPage from "@/features/budget/BudgetMirrorPage";
 import { getSupplierTies } from "@/features/budget/getSupplierTies";
@@ -22,11 +23,12 @@ export function generateStaticParams(): { ico: string }[] {
 
 export async function generateMetadata({ params }: { params: Promise<{ ico: string }> }): Promise<Metadata> {
   const { ico } = await params;
+  const t = await getTranslations("meta");
   const town = getMunicipality(ico);
-  if (!town) return { title: "Obec nenalezena — Politicas" };
+  if (!town) return { title: t("budgetIcoNotFound") };
   return {
-    title: `${town.name} — zrcadlo rozpočtu — Politicas`,
-    description: `Hospodaření obce ${town.name} (${town.krajName}) proti obcím podobné velikosti — dluh na obyvatele, podíl investic a saldo z výkazů FIN 2-12 M systému MONITOR.`,
+    title: t("budgetIcoTitle", { town: town.name }),
+    description: t("budgetIcoDescription", { town: town.name, kraj: town.krajName }),
   };
 }
 

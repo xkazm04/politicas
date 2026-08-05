@@ -21,6 +21,7 @@ import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
+import { useTranslations } from "next-intl";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
@@ -29,11 +30,6 @@ import RadarLedger from "./components/RadarLedger";
 import { clusterAnchorOf } from "./deriveRadar";
 import type { CollisionClassification, CollisionClusterView, CollisionData, CollisionPairView } from "./getCollisionData";
 import type { RadarData } from "./getRadarData";
-
-const CLASS_CZ: Record<CollisionClassification, string> = {
-  "confirmed-collision": "potvrzená kolize textu",
-  "coordination-risk": "koordinační riziko",
-};
 
 /** confirmed = signal (nejsilnější příznak, stejně jako „možný střet“ jinde v appce);
  * coordination-risk = ochre (měkčí příznak, stejně jako §-diff blok). Žádné nové barvy. */
@@ -46,12 +42,13 @@ const CLASS_TONE: Record<CollisionClassification, { border: string; bg: string; 
 const pspBillUrl = (cislo: number) => `https://www.psp.cz/sqw/historie.sqw?o=10&t=${cislo}`;
 
 export default function CollisionsPage({ data, radar }: { data: CollisionData | null; radar: RadarData | null }) {
+  const t = useTranslations("lawwatch");
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
       <header className="border-b-4 border-ink">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
           <div className="flex items-center gap-3">
-            <span className="font-mono text-xs uppercase tracking-widest text-steel">/ kolizní radar</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-steel">{t("collisions.crumb")}</span>
           </div>
           {/* Strojově čitelné podoby knihy nálezů — veřejné API radaru. */}
           <div className="flex items-center gap-4">
@@ -73,21 +70,19 @@ export default function CollisionsPage({ data, radar }: { data: CollisionData | 
 
       <div className="mx-auto max-w-6xl px-6">
         <div className="py-10">
-          <SourceNote tone="signal">case ③ · legislativní forenzika</SourceNote>
+          <SourceNote tone="signal">{t("collisions.eyebrow")}</SourceNote>
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             className="mt-3 text-5xl font-black uppercase leading-[0.95] tracking-tight sm:text-6xl"
           >
-            Kolize tisků<span className="text-signal">.</span>
+            {t("collisions.title")}<span className="text-signal">.</span>
           </motion.h1>
           <div className="mt-4 max-w-xl">
             <SectionRule />
           </div>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">
-            {data
-              ? "Dva nebo více souběžně projednávaných tisků někdy nezávisle novelizují stejný § téhož zákona neslučitelným nebo na pořadí citlivým způsobem. To je běžné riziko souběžně psaných zákonů, ne důkaz pochybení — jde o nález legislativního procesu, ne o etický nález."
-              : "Data pro tuto sekci zatím nejsou k dispozici — buď graf, nebo výstupy ručního porovnání textů nejsou dostupné."}
+            {data ? t("collisions.introReal") : t("collisions.introUnavailable")}
           </p>
         </div>
 
@@ -100,39 +95,36 @@ export default function CollisionsPage({ data, radar }: { data: CollisionData | 
 }
 
 function EmptyState() {
+  const t = useTranslations("lawwatch");
   return (
     <div className="mb-20 border-2 border-dashed border-hairline bg-paper-strong px-6 py-10 text-center">
-      <p className="text-sm text-steel">
-        Graf nebo výstupy ručního porovnání textů (uložené v archivu analýzy)
-        nejsou dostupné. Politicas nezobrazuje smyšlená data.
-      </p>
+      <p className="text-sm text-steel">{t("collisions.emptyData")}</p>
     </div>
   );
 }
 
 /** Radar bez nálezů nebo bez dat — poctivé prázdno, žádná fabrikace. */
 function RadarEmptyState() {
+  const t = useTranslations("lawwatch");
   return (
     <div className="mt-12 border-2 border-dashed border-hairline bg-paper-strong px-6 py-8 text-center">
-      <p className="font-mono text-xs uppercase tracking-widest text-steel">kolizní radar</p>
-      <p className="mt-2 text-sm text-steel">
-        Radar zatím neeviduje žádné nálezy — buď nejsou dostupné výstupy porovnání textů a graf,
-        nebo záznam žádný nález neobsahuje. Politicas nezobrazuje smyšlená data.
-      </p>
+      <p className="font-mono text-xs uppercase tracking-widest text-steel">{t("collisions.radarEmptyLabel")}</p>
+      <p className="mt-2 text-sm text-steel">{t("collisions.radarEmptyText")}</p>
     </div>
   );
 }
 
 function RealCollisions({ data }: { data: CollisionData }) {
+  const t = useTranslations("lawwatch");
   return (
     <>
       {/* Statistický pás */}
       <div className="grid grid-cols-2 gap-px border-2 border-ink bg-ink sm:grid-cols-4">
         {[
-          { v: data.confirmedPairCount, l: "potvrzených dvojic" },
-          { v: data.coordinationRiskPairCount, l: "koordinačních rizik" },
-          { v: data.clusterCount, l: "shluků podle § " },
-          { v: data.nWayClusterCount, l: "shluků 3+ tisků" },
+          { v: data.confirmedPairCount, l: t("collisions.stats.confirmed") },
+          { v: data.coordinationRiskPairCount, l: t("collisions.stats.risks") },
+          { v: data.clusterCount, l: t("collisions.stats.clusters") },
+          { v: data.nWayClusterCount, l: t("collisions.stats.nWay") },
         ].map((s) => (
           <div key={s.l} className="bg-paper px-4 py-4">
             <div className="text-3xl font-black tabular-nums">{s.v}</div>
@@ -141,17 +133,12 @@ function RealCollisions({ data }: { data: CollisionData }) {
         ))}
       </div>
       <div className="mt-2">
-        <SourceNote>
-          {data.batchesRun} dávky ručního porovnání textů · nejprve deterministická předfiltrace shodných paragrafů, teprve pak čtení obou textů,
-          potvrzené dvojice ověřeny vyhledáním v archivovaném textu z psp.cz · „nahodilé&rdquo; dvojice (stejné číslo §,
-          jiný zákon) vyřazeny — nejsou zde zobrazeny
-        </SourceNote>
+        <SourceNote>{t("collisions.statsSource", { batches: data.batchesRun })}</SourceNote>
       </div>
       {data.czechPendingCount > 0 && (
         <div className="mt-2 border-2 border-dashed border-ochre bg-ochre/5 px-4 py-3">
           <p className="font-mono text-[11px] uppercase tracking-wider text-ochre">
-            U {data.czechPendingCount}× dvojice zatím nezobrazujeme rozbor — existuje jen v angličtině a české znění
-            se připravuje. Zjištění samotné (které tisky, který §, jak je vyhodnocen) tím dotčeno není.
+            {t("collisions.czechPending", { count: data.czechPendingCount })}
           </p>
         </div>
       )}
@@ -159,10 +146,13 @@ function RealCollisions({ data }: { data: CollisionData }) {
       <section className="mt-12 pb-20">
         <SectionHeading
           index={2}
-          title="Shluky podle zákona a §"
+          title={t("collisions.clustersTitle")}
           aside={
             <SourceNote>
-              {data.clusterCount} shluků · {data.confirmedPairCount + data.coordinationRiskPairCount} dvojic tisků
+              {t("collisions.clustersAside", {
+                clusters: data.clusterCount,
+                pairs: data.confirmedPairCount + data.coordinationRiskPairCount,
+              })}
             </SourceNote>
           }
         />
@@ -172,10 +162,7 @@ function RealCollisions({ data }: { data: CollisionData }) {
           ))}
         </div>
         <p className="mt-10 max-w-3xl border-t-2 border-ink pt-4 text-sm italic leading-relaxed text-steel">
-          Shluk = jeden § jednoho zákona, ne dvojice tisků — několik nálezů je skutečně vícecestných (např. §35c
-          zákona 586/1992 nyní spojuje 4 tisky). Klasifikace je odvozený nález (kontrola proti fabrikaci, metoda:
-          deterministická předfiltrace shodných paragrafů a následné čtení obou textů s ověřením výskytu v textu), nikdy prokázané pochybení —
-          jde o riziko legislativní koordinace mezi souběžně podanými návrhy, ne o etický nález.
+          {t("collisions.clustersFootnote")}
         </p>
       </section>
     </>
@@ -183,6 +170,7 @@ function RealCollisions({ data }: { data: CollisionData }) {
 }
 
 function ClusterCard({ cluster }: { cluster: CollisionClusterView }) {
+  const t = useTranslations("lawwatch");
   const reduceMotion = useReducedMotion();
   const tone = CLASS_TONE[cluster.classification];
   const nWay = cluster.bills.length >= 3;
@@ -204,12 +192,12 @@ function ClusterCard({ cluster }: { cluster: CollisionClusterView }) {
           <span className="font-mono text-xs font-bold uppercase tracking-wider text-ink">§ {cluster.paragraph}</span>
           {nWay && (
             <span className="border border-ink bg-ink px-1.5 py-0.5 font-mono text-[10px] font-black uppercase tracking-wider text-paper">
-              {cluster.bills.length}× tisk
+              {t("collisions.nWayBadge", { count: cluster.bills.length })}
             </span>
           )}
         </div>
         <SourceNote tone="steel" className={`!${tone.text}`}>
-          {CLASS_CZ[cluster.classification]}
+          {t(`collisions.class.${cluster.classification}`)}
         </SourceNote>
       </div>
 
@@ -225,14 +213,14 @@ function ClusterCard({ cluster }: { cluster: CollisionClusterView }) {
               title={b.title ?? undefined}
             >
               <Link href={`/zakony/${b.cislo}`} className="whitespace-nowrap font-mono text-xs font-bold text-signal hover:text-cobalt">
-                sn. tisk {b.cislo}
+                {t("printNumbered", { cislo: b.cislo })}
               </Link>
               {b.title && <span className="truncate text-[13px] font-medium">{b.title}</span>}
               <a
                 href={pspBillUrl(b.cislo)}
                 target="_blank"
                 rel="noreferrer"
-                title="historie na psp.cz"
+                title={t("detail.pspHistory")}
                 className="shrink-0 text-steel opacity-0 transition-opacity group-hover:opacity-100 hover:text-signal"
               >
                 <ExternalLink className="h-3 w-3" />
@@ -252,11 +240,8 @@ function ClusterCard({ cluster }: { cluster: CollisionClusterView }) {
   );
 }
 
-function billLabel(id: number) {
-  return `tisk ${id}`;
-}
-
 function PairCard({ pair }: { pair: CollisionPairView }) {
+  const t = useTranslations("lawwatch");
   const [open, setOpen] = useState(false);
   const tone = CLASS_TONE[pair.classification];
   const hasEvidence = pair.evidence.billAExcerpt || pair.evidence.billBExcerpt;
@@ -265,7 +250,7 @@ function PairCard({ pair }: { pair: CollisionPairView }) {
     <div className={`border-l-4 ${tone.border} bg-paper-strong/60 pl-3`}>
       <div className="flex flex-wrap items-baseline justify-between gap-2 py-2">
         <span className="text-sm font-bold">
-          {billLabel(pair.billA)} × {billLabel(pair.billB)}
+          {t("printInternal", { tiskId: pair.billA })} × {t("printInternal", { tiskId: pair.billB })}
           <span className="ml-2 font-mono text-[11px] font-normal uppercase tracking-wider text-steel">
             § {pair.sharedParagraph}
           </span>
@@ -273,12 +258,12 @@ function PairCard({ pair }: { pair: CollisionPairView }) {
         <span className="flex items-center gap-2">
           <span
             className="border border-hairline px-1 py-0.5 font-mono text-[9px] font-black uppercase tracking-wider text-steel"
-            title="Ze které dávky ručního porovnání textů toto zjištění pochází"
+            title={t("collisions.batchTitle")}
           >
-            dávka {pair.sourceBatch}
+            {t("collisions.batchBadge", { batch: pair.sourceBatch })}
           </span>
           <span className={`font-mono text-[10px] font-black uppercase tracking-wider ${tone.text}`}>
-            {CLASS_CZ[pair.classification]}
+            {t(`collisions.class.${pair.classification}`)}
           </span>
         </span>
       </div>
@@ -293,13 +278,17 @@ function PairCard({ pair }: { pair: CollisionPairView }) {
         <div className="mb-3 grid gap-2 sm:grid-cols-2">
           {pair.evidence.billAExcerpt && (
             <div className="border-l-4 border-hairline bg-paper p-3">
-              <SourceNote className="!text-[10px]">tisk {pair.billA} — doslovná citace</SourceNote>
+              <SourceNote className="!text-[10px]">
+                {t("collisions.excerptLabel", { cislo: pair.billA })}
+              </SourceNote>
               <p className="mt-1.5 text-[12px] leading-relaxed text-steel">{pair.evidence.billAExcerpt}</p>
             </div>
           )}
           {pair.evidence.billBExcerpt && (
             <div className="border-l-4 border-hairline bg-paper p-3">
-              <SourceNote className="!text-[10px]">tisk {pair.billB} — doslovná citace</SourceNote>
+              <SourceNote className="!text-[10px]">
+                {t("collisions.excerptLabel", { cislo: pair.billB })}
+              </SourceNote>
               <p className="mt-1.5 text-[12px] leading-relaxed text-steel">{pair.evidence.billBExcerpt}</p>
             </div>
           )}
@@ -312,10 +301,14 @@ function PairCard({ pair }: { pair: CollisionPairView }) {
           onClick={() => setOpen((v) => !v)}
           className="font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
         >
-          {open ? "méně —" : hasEvidence ? "citace a plné odůvodnění +" : "plné odůvodnění +"}
+          {open
+            ? t("less")
+            : hasEvidence
+              ? t("collisions.fullReasoningWithQuotes")
+              : t("collisions.fullReasoning")}
         </button>
         <SourceNote className="!text-[10px]">
-          dávka {pair.sourceBatch} · {pair.sourceMethod}
+          {t("collisions.pairSource", { batch: pair.sourceBatch, method: pair.sourceMethod })}
         </SourceNote>
       </div>
     </div>

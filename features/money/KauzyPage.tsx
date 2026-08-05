@@ -11,7 +11,7 @@
 
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
-import { useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import SourceNote from "@/features/shared/components/SourceNote";
 import type { LeadDossiers } from "./getLeadDossiers";
 import type { PacketTarget } from "./getLeadPacketTargets";
@@ -27,8 +27,7 @@ export default function KauzyPage({
   packetTargets?: Record<string, PacketTarget[]>;
 }) {
   const { dossiers, directoryUnreadable, unreadableFiles } = data;
-  const locale = useLocale();
-  const en = locale === "en";
+  const t = useTranslations("money");
 
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
@@ -41,28 +40,22 @@ export default function KauzyPage({
       </header>
 
       <div className="mx-auto max-w-5xl px-6 py-10">
-        <SourceNote tone="signal">{en ? "hand-curated leads · pending review" : "ruční investigativní spisy · čeká na kontrolu"}</SourceNote>
+        <SourceNote tone="signal">{t("kauzy.eyebrow")}</SourceNote>
         <h1 className="mt-3 text-4xl font-black uppercase leading-[0.95] tracking-tight sm:text-5xl">
-          {en ? "Cases" : "Kauzy"}
+          {t("kauzy.title")}
           <span className="text-signal">.</span>
         </h1>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">
-          {en
-            ? "Every claim below carries its own citation. Nothing here is a confirmed violation or an automated tie score — it is a dated research trail a human reviewer produced, split honestly into what the sources actually establish and what they do not."
-            : "Každé tvrzení níž nese vlastní citaci. Nic z toho není potvrzené porušení zákona ani automatické skóre vazby — je to datovaná výzkumná stopa vytvořená člověkem, poctivě rozdělená na to, co zdroje skutečně dokládají, a co ne."}
-        </p>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">{t("kauzy.intro")}</p>
 
         {/* Blind and empty are different statements — a payload directory we could not
             read must never be published as "there are no kauzy". */}
         {unreadableFiles.length > 0 && (
           <div className="mt-8 border-l-4 border-ochre bg-ochre/10 px-4 py-3">
             <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-ink">
-              {en ? "payloads that could not be read" : "spisy, které se nepodařilo přečíst"}
+              {t("kauzy.unreadableHeading")}
             </p>
             <p className="mt-1 text-sm leading-relaxed text-steel">
-              {en
-                ? `${unreadableFiles.length} file(s) in the payload directory failed to read or parse and are missing from the list below: `
-                : `${unreadableFiles.length} soubor(ů) v adresáři se nepodařilo přečíst nebo rozparsovat a v seznamu níž chybí: `}
+              {t("kauzy.unreadableBody", { count: unreadableFiles.length })}{" "}
               <span className="font-mono text-xs">{unreadableFiles.join(", ")}</span>
             </p>
           </div>
@@ -71,13 +64,7 @@ export default function KauzyPage({
         {dossiers.length === 0 ? (
           <div className="mt-10 border-2 border-dashed border-hairline p-8">
             <p className="text-lg">
-              {directoryUnreadable
-                ? en
-                  ? "The payload directory could not be read in this environment — this page cannot say whether there are any cases."
-                  : "Adresář se spisy se v tomto prostředí nepodařilo přečíst — tahle stránka nemůže říct, jestli nějaké kauzy existují."
-                : en
-                  ? "No dossiers available in this environment."
-                  : "V tomto prostředí nejsou dostupné žádné spisy."}
+              {directoryUnreadable ? t("kauzy.directoryUnreadable") : t("kauzy.noDossiers")}
             </p>
           </div>
         ) : (
@@ -86,7 +73,6 @@ export default function KauzyPage({
               <DossierBlock
                 key={d.leadId}
                 d={d}
-                en={en}
                 targets={d.company ? (packetTargets[d.company.ico] ?? []) : []}
               />
             ))}
@@ -97,7 +83,9 @@ export default function KauzyPage({
   );
 }
 
-function DossierBlock({ d, en, targets }: { d: LeadDossier; en: boolean; targets: PacketTarget[] }) {
+function DossierBlock({ d, targets }: { d: LeadDossier; targets: PacketTarget[] }) {
+  const t = useTranslations("money");
+  const tcom = useTranslations("common");
   return (
     <article className="border-t-4 border-ink pt-8">
       <div className="flex flex-wrap items-start justify-between gap-3">
@@ -108,7 +96,7 @@ function DossierBlock({ d, en, targets }: { d: LeadDossier; en: boolean; targets
           <p className="mt-1 font-mono text-[11px] uppercase tracking-wider text-steel">{d.subject.party}</p>
           {d.company && (
             <p className="mt-2 font-mono text-[11px] uppercase tracking-wider text-steel">
-              {en ? "company" : "firma"}: {d.company.name} · IČO {d.company.ico}
+              {t("kauzy.companyLabel")}: {d.company.name} · IČO {d.company.ico}
             </p>
           )}
           {/* 4E: jedno kliknutí → důkazní paket. Odkaz existuje JEN když IČO
@@ -117,29 +105,27 @@ function DossierBlock({ d, en, targets }: { d: LeadDossier; en: boolean; targets
               sám pak pustí dál jen lidsky ověřený materiál. */}
           {targets.length > 0 && (
             <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5">
-              {targets.map((t) => (
+              {targets.map((target) => (
                 <Link
-                  key={t.pspId}
-                  href={`/penize/${t.pspId}/paket`}
+                  key={target.pspId}
+                  href={`/penize/${target.pspId}/paket`}
                   className="inline-flex items-center gap-1.5 border-2 border-ink px-2 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-ink transition-colors hover:border-signal hover:text-signal"
                 >
-                  {en ? "compile evidence packet" : "sestavit důkazní paket"} — {t.name} →
+                  {t("shared.compilePacket")} — {target.name} →
                 </Link>
               ))}
               <span className="font-mono text-[10px] uppercase tracking-widest text-steel">
-                {en
-                  ? "verified material only, exclusions stated"
-                  : "jen ověřený materiál, vyloučení přiznána"}
+                {t("shared.verifiedOnly")}
               </span>
             </div>
           )}
         </div>
         <div className="flex flex-col items-end gap-1.5">
           <span className="border-2 border-ochre bg-ochre/15 px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-ink">
-            {en ? "pending review" : "čeká na kontrolu"}
+            {tcom("pendingReview")}
           </span>
           <span className="font-mono text-[10px] uppercase tracking-widest text-steel">
-            {en ? "signal" : "signál"} {d.signalScore} · {en ? "confidence" : "spolehlivost"} {d.confidence}
+            {t("kauzy.signal")} {d.signalScore} · {t("kauzy.confidence")} {d.confidence}
           </span>
         </div>
       </div>
@@ -151,13 +137,13 @@ function DossierBlock({ d, en, targets }: { d: LeadDossier; en: boolean; targets
       <div className="mt-8 grid gap-px border border-ink bg-ink sm:grid-cols-2">
         <div className="bg-paper p-5">
           <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-cobalt">
-            {en ? "what sources sustain" : "co zdroje dokládají"}
+            {t("kauzy.sustain")}
           </p>
           <p className="mt-3 whitespace-pre-line text-sm leading-relaxed text-ink">{d.whatSourcesSustain}</p>
         </div>
         <div className="bg-paper p-5">
           <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-signal">
-            {en ? "what sources do NOT sustain" : "co zdroje nedokládají"}
+            {t("kauzy.notSustain")}
           </p>
           <p className="mt-3 whitespace-pre-line text-sm leading-relaxed text-ink">{d.whatSourcesDoNotSustain}</p>
         </div>
@@ -166,7 +152,7 @@ function DossierBlock({ d, en, targets }: { d: LeadDossier; en: boolean; targets
       {/* claims */}
       <div className="mt-8">
         <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
-          {en ? "claims, each cited" : "tvrzení, každé s citací"}
+          {t("kauzy.claimsCited")}
         </p>
         <ul className="mt-3 divide-y divide-hairline border-t border-hairline">
           {d.claims.map((c, i) => (
@@ -198,7 +184,7 @@ function DossierBlock({ d, en, targets }: { d: LeadDossier; en: boolean; targets
       {d.mediaContext.length > 0 && (
         <div className="mt-8">
           <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
-            {en ? "media context" : "mediální kontext"}
+            {t("kauzy.mediaContext")}
           </p>
           <ul className="mt-3 space-y-3">
             {d.mediaContext.map((m, i) => (
@@ -221,7 +207,7 @@ function DossierBlock({ d, en, targets }: { d: LeadDossier; en: boolean; targets
       {/* proposed annotation — labelled as a proposal, never applied automatically */}
       <div className="mt-8 border-l-4 border-ochre bg-ochre/10 px-4 py-3">
         <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-ink">
-          {en ? "proposed annotation (not applied)" : "navržená anotace (nezapsáno)"}
+          {t("kauzy.proposedAnnotation")}
         </p>
         <dl className="mt-2 space-y-1.5">
           {Object.entries(d.proposedAnnotation).map(([k, v]) => (

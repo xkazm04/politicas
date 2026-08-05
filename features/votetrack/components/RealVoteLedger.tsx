@@ -9,10 +9,10 @@
  * store-outage fallback only.
  */
 
+import { useTranslations } from "next-intl";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { voteAnchorId } from "../record/anchor";
-import { COPY } from "../record/copy";
 import type { ClubTally, LedgerVote } from "../record/types";
 
 function RatioBar({ total }: { total: ClubTally }) {
@@ -45,7 +45,16 @@ export default function RealVoteLedger({
   ledgerWindow: number;
   validTotal: number;
 }) {
+  const t = useTranslations("votetrack");
+  const tcom = useTranslations("common");
   const f = useFormat();
+  const sessionVote = (session: number | null, vote: number | null) =>
+    [
+      session !== null ? t("record.sessionLabel", { session }) : null,
+      vote !== null ? t("record.voteNumberLabel", { vote }) : null,
+    ]
+      .filter(Boolean)
+      .join(" · ");
   return (
     <div className="min-w-0">
       <div className="border-t-2 border-ink">
@@ -59,7 +68,7 @@ export default function RealVoteLedger({
               type="button"
               onClick={() => onSelect(v.pspId)}
               aria-pressed={selected}
-              title={COPY.permalinkTitle}
+              title={t("record.permalinkTitle")}
               className={`block w-full scroll-mt-24 border-b border-hairline py-4 pr-2 text-left transition-colors duration-500 hover:bg-paper-strong motion-reduce:transition-none ${
                 selected ? "border-l-4 border-l-signal bg-paper-strong pl-3" : "pl-0"
               } ${flashed ? "bg-paper-strong ring-2 ring-inset ring-signal" : ""}`}
@@ -67,14 +76,14 @@ export default function RealVoteLedger({
               <span className="flex items-baseline justify-between gap-3">
                 <span className="font-mono text-xs uppercase tracking-wider text-steel-aa">
                   {v.votedOn ? f.date(v.votedOn) : "—"}
-                  {v.time ? ` · ${v.time}` : ""} · {COPY.sessionVote(v.sessionNo, v.voteNo)}
+                  {v.time ? ` · ${v.time}` : ""} · {sessionVote(v.sessionNo, v.voteNo)}
                 </span>
                 <span
                   className={`font-mono text-[11px] font-black uppercase tracking-wider ${
                     v.outcome === "accepted" ? "text-cobalt" : "text-signal-deep"
                   }`}
                 >
-                  {v.outcome === "accepted" ? COPY.outcomeAccepted : COPY.outcomeRejected}
+                  {v.outcome === "accepted" ? tcom("voteResult.accepted") : tcom("voteResult.rejected")}
                 </span>
               </span>
               <span className="mt-1 line-clamp-2 block text-[15px] font-bold leading-snug">{v.title}</span>
@@ -86,7 +95,7 @@ export default function RealVoteLedger({
                   {f.int(v.stat.total.yes)}:{f.int(v.stat.total.no)}
                 </span>
                 {v.rebels.length > 0 && (
-                  <span className="font-bold text-signal-deep">{COPY.rebelsCount(v.rebels.length)}</span>
+                  <span className="font-bold text-signal-deep">{t("rebelsCount", { n: v.rebels.length })}</span>
                 )}
               </span>
             </button>
@@ -94,7 +103,7 @@ export default function RealVoteLedger({
         })}
       </div>
       <div className="mt-3">
-        <SourceNote>{COPY.ledgerFootnote(ledgerWindow, validTotal)}</SourceNote>
+        <SourceNote>{t("record.ledgerFootnote", { window: ledgerWindow, valid: validTotal })}</SourceNote>
       </div>
     </div>
   );

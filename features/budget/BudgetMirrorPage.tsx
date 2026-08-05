@@ -11,11 +11,12 @@
  * („132 z 6 254 obcí v záznamu"), obec bez čísel dostane poctivý stav, nikdy
  * dopočtený graf. Každá obec má trvalou adresu /rozpocty/[ico].
  *
- * Česká copy inline (messages/*.json mimo plochu — precedens lawwatchLabels).
+ * Copy přes next-intl (messages/*.json, sekce "budget" — dvojjazyčný start).
  * Čísla výhradně přes useFormat (lib/format chokepoint).
  */
 
 import { useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import { motion, useReducedMotion } from "framer-motion";
 import { Line, LineChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useFormat } from "@/lib/i18n/useFormat";
@@ -40,9 +41,6 @@ import type { SupplierTiesResult } from "./getSupplierTies";
 /** Výchozí obec bez zvolené adresy: hlavní město — zrcadlo, které zná každý. */
 const DEFAULT_IC = "00064581";
 
-const SOURCE_LINE =
-  "zdroj: MONITOR / Státní pokladna (monitor.statnipokladna.gov.cz) — FIN 2-12 M, konsolidované hodnoty · staženo 30. 7. 2026";
-
 const CHART_TICK = { fill: STEEL, fontSize: 12, fontFamily: "var(--font-plex)" } as const;
 
 /** Dvojice pruhů obec vs. medián vrstevníků — jedna metrika správcovství.
@@ -63,6 +61,7 @@ function MetricDuo({
   max: number;
   lowerIsBetter: boolean;
 }) {
+  const t = useTranslations("budget");
   const f = useFormat();
   const formatPlain = (n: number) => (kind === "czk" ? f.czk(n) : `${f.dec(n)} %`);
   const better = town !== null && peer !== null && (lowerIsBetter ? town <= peer : town >= peer);
@@ -88,24 +87,24 @@ function MetricDuo({
               barva: schodek (záporná hodnota) je signální, nikdy k nerozeznání
               od přebytku stejné velikosti. */}
           {town === null ? (
-            <span className="font-mono text-[10px] uppercase tracking-wider text-steel-aa">nevykázáno</span>
+            <span className="font-mono text-[10px] uppercase tracking-wider text-steel-aa">{t("notReported")}</span>
           ) : (
             <>
               <span className={`h-3 ${town < 0 ? "bg-signal" : "bg-ink"}`} style={{ width: width(town) }} />
-              <span className="font-mono text-[10px] uppercase tracking-wider text-steel-aa">obec</span>
+              <span className="font-mono text-[10px] uppercase tracking-wider text-steel-aa">{t("barTown")}</span>
             </>
           )}
         </div>
         <div className="flex items-center gap-2">
           {peer === null ? (
-            <span className="font-mono text-[10px] uppercase tracking-wider text-steel-aa">medián · bez vzorku</span>
+            <span className="font-mono text-[10px] uppercase tracking-wider text-steel-aa">{t("peerNoSample")}</span>
           ) : (
             <>
               <span className="h-3 bg-hairline" style={{ width: width(peer) }}>
                 <span className="block h-full w-full border border-steel/40" />
               </span>
               <span className="font-mono text-[10px] uppercase tracking-wider text-steel-aa">
-                medián · {formatPlain(peer)}
+                {t("peerMedianValue", { value: formatPlain(peer) })}
               </span>
             </>
           )}
@@ -123,6 +122,7 @@ export default function BudgetMirrorPage({
   /** Živá vrstva vazeb protistran na poslance (server ji předá; null = bez ní). */
   supplierTies?: SupplierTiesResult | null;
 }) {
+  const t = useTranslations("budget");
   const reduceMotion = useReducedMotion();
   const f = useFormat();
 
@@ -194,7 +194,10 @@ export default function BudgetMirrorPage({
     );
   }, [town, group, series]);
 
-  const scopeLabel = group.scope === "kraj" ? `kraj ${town.krajName}` : "celá ČR";
+  const scopeLabel =
+    group.scope === "kraj" ? t("scopeKraj", { kraj: town.krajName }) : t("scopeNationwide");
+  const bandLabel = t(`band${group.bandIndex}`);
+  const sourceLine = t("sourceLine");
 
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
@@ -203,7 +206,7 @@ export default function BudgetMirrorPage({
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
           <span className="font-mono text-xs uppercase tracking-widest text-steel-aa">/ budgetmirror</span>
           <span className="font-mono text-xs tabular-nums text-steel-aa">
-            {f.int(coverage.covered)} z {f.int(coverage.registryTotal)} obcí v záznamu
+            {t("coverageHeader", { covered: f.int(coverage.covered), total: f.int(coverage.registryTotal) })}
           </span>
         </div>
       </header>
@@ -211,34 +214,32 @@ export default function BudgetMirrorPage({
       <div className="mx-auto max-w-6xl px-6">
         {/* ── Titulní pás ───────────────────────────────────── */}
         <div className="py-10">
-          <SourceNote tone="signal">rozpočty obcí · MONITOR / Státní pokladna</SourceNote>
+          <SourceNote tone="signal">{t("eyebrowLine")}</SourceNote>
           <motion.h1
             initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             className="mt-3 text-5xl font-black uppercase leading-[0.95] tracking-tight sm:text-6xl"
           >
-            Zrcadlo rozpočtů
+            {t("title")}
             <span className="text-signal">.</span>
           </motion.h1>
           <div className="mt-4 max-w-xl">
             <SectionRule />
           </div>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel-aa">
-            Hospodaření kterékoli obce České republiky proti obcím podobné velikosti: dluh na
-            obyvatele, podíl investic a saldo rozpočtu z výkazů FIN 2-12 M Státní pokladny.
-            Vrstevnická skupina je počítaná, ne ručně vybraná — pravidlo je vytištěné níže.
-          </p>
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel-aa">{t("lead")}</p>
 
           {/* Pokrytí — prvek první třídy, ne poznámka pod čarou. */}
           <div className="mt-6 max-w-2xl border-2 border-ink bg-paper-strong px-5 py-4">
             <p className="font-mono text-sm font-bold tabular-nums">
-              {f.int(coverage.covered)} z {f.int(coverage.registryTotal)} obcí má napojenou rozpočtovou řadu
+              {t("coverageTitle", { covered: f.int(coverage.covered), total: f.int(coverage.registryTotal) })}
             </p>
             <p className="mt-1 text-sm leading-relaxed text-steel-aa">
-              Rejstřík a vyhledávání nesou všech {f.int(coverage.registryTotal)} obcí ČR. Čísla této
-              dávky pokrývají obce s {f.int(SNAPSHOT_FLOOR_POPULATION)} a více obyvateli, roky{" "}
-              {SNAPSHOT_YEARS[0]}–{SNAPSHOT_YEARS[SNAPSHOT_YEARS.length - 1]}; menší obce se doplňují
-              dalšími dávkami z téhož zdroje. Obec bez čísel to na ploše přizná — nikdy se nedopočítává.
+              {t("coverageBody", {
+                total: f.int(coverage.registryTotal),
+                floor: f.int(SNAPSHOT_FLOOR_POPULATION),
+                firstYear: String(SNAPSHOT_YEARS[0]),
+                lastYear: String(SNAPSHOT_YEARS[SNAPSHOT_YEARS.length - 1]),
+              })}
             </p>
           </div>
         </div>
@@ -247,8 +248,8 @@ export default function BudgetMirrorPage({
         <section id="zrcadlo">
           <SectionHeading
             index={1}
-            title="Obec vs. vrstevníci"
-            aside={<SourceNote>{SOURCE_LINE}</SourceNote>}
+            title={t("sectionMirrorTitle")}
+            aside={<SourceNote>{sourceLine}</SourceNote>}
           />
           <div className="mt-6">
             <TownPicker registry={registry} covered={covered} selectedIc={town.ic} onSelect={select} />
@@ -265,7 +266,12 @@ export default function BudgetMirrorPage({
               <h3 className="text-2xl font-black uppercase tracking-tight">
                 {town.name}
                 <span className="ml-3 font-mono text-xs font-normal normal-case tracking-normal text-steel-aa">
-                  okr. {town.county} · {town.krajName} · {f.int(town.population)} obyvatel · IČO {town.ic}
+                  {t("townMeta", {
+                    county: town.county,
+                    kraj: town.krajName,
+                    population: f.int(town.population),
+                    ico: town.ic,
+                  })}
                 </span>
               </h3>
             </div>
@@ -274,7 +280,7 @@ export default function BudgetMirrorPage({
               <>
                 <div className="mt-6 grid gap-px border border-ink bg-ink sm:grid-cols-3">
                   <MetricDuo
-                    label={`dluh na obyvatele (${latest.year})`}
+                    label={`${t("metricDebtLabel")} (${latest.year})`}
                     kind="czk"
                     town={latest.debtPerCapita}
                     peer={medians.debtPerCapita}
@@ -282,7 +288,7 @@ export default function BudgetMirrorPage({
                     lowerIsBetter
                   />
                   <MetricDuo
-                    label={`podíl investic na výdajích (${latest.year})`}
+                    label={`${t("metricCapexLabel")} (${latest.year})`}
                     kind="pct"
                     town={latest.capexRatio}
                     peer={medians.capexRatio}
@@ -290,7 +296,7 @@ export default function BudgetMirrorPage({
                     lowerIsBetter={false}
                   />
                   <MetricDuo
-                    label={`saldo na obyvatele (${latest.year})`}
+                    label={`${t("metricSaldoLabel")} (${latest.year})`}
                     kind="czk"
                     town={latest.saldoPerCapita}
                     peer={medians.saldoPerCapita}
@@ -300,24 +306,22 @@ export default function BudgetMirrorPage({
                 </div>
                 {/* Zveřejněné pravidlo vrstevnické skupiny — počítá se, netvrdí. */}
                 <p className="mt-3 font-mono text-xs leading-relaxed text-steel-aa">
-                  vrstevníci = obce pásma {group.bandLabel} · {scopeLabel} · medián z{" "}
-                  {f.int(medians.sampleSize)} obcí v záznamu
-                  {group.scope === "celostátní"
-                    ? ` (v kraji je jich v záznamu méně než ${MIN_PEERS}, skupina rozšířena celostátně)`
-                    : ""}
+                  {t("peerRule", { band: bandLabel, scope: scopeLabel, count: f.int(medians.sampleSize) })}
+                  {group.scope === "celostátní" ? ` ${t("peerRuleNationwide", { min: MIN_PEERS })}` : ""}
                 </p>
               </>
             ) : (
               <div className="mt-6 border-2 border-hairline bg-paper-strong px-5 py-6">
                 <p className="font-mono text-xs font-bold uppercase tracking-widest text-signal-deep">
-                  obec zatím bez napojených čísel
+                  {t("noDataTitle")}
                 </p>
                 <p className="mt-2 max-w-2xl text-sm leading-relaxed text-steel-aa">
-                  {town.name} je v rejstříku ({f.int(town.population)} obyvatel, pásmo{" "}
-                  {group.bandLabel}), ale rozpočtová řada této dávky ji nepokrývá — dávka nese obce s{" "}
-                  {f.int(SNAPSHOT_FLOOR_POPULATION)} a více obyvateli. Výkazy obce jsou v MONITORu
-                  Státní pokladny; do zrcadla přitečou další dávkou. Žádné číslo se tu nedopočítává
-                  ani neodhaduje.
+                  {t("noDataBody", {
+                    town: town.name,
+                    population: f.int(town.population),
+                    band: bandLabel,
+                    floor: f.int(SNAPSHOT_FLOOR_POPULATION),
+                  })}
                 </p>
               </div>
             )}
@@ -329,8 +333,8 @@ export default function BudgetMirrorPage({
           <section id="dluh" className="mt-14 border-t-4 border-ink pt-10">
             <SectionHeading
               index={2}
-              title="Vývoj dluhu"
-              aside={<SourceNote>{`Kč na obyvatele · plná čára = ${town.name} · čárkovaná = medián vrstevníků`}</SourceNote>}
+              title={t("section2Title")}
+              aside={<SourceNote>{t("section2Aside", { town: town.name })}</SourceNote>}
             />
             <div className="mt-8 w-full overflow-hidden" style={{ aspectRatio: "5 / 2", minHeight: 220 }}>
               <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
@@ -362,7 +366,7 @@ export default function BudgetMirrorPage({
                   <Line
                     type="linear"
                     dataKey="peer"
-                    name="medián vrstevníků"
+                    name={t("peerMedianLabel")}
                     stroke={STEEL}
                     strokeWidth={2}
                     strokeDasharray="6 4"
@@ -373,7 +377,7 @@ export default function BudgetMirrorPage({
               </ResponsiveContainer>
             </div>
             <div className="mt-2">
-              <SourceNote>{SOURCE_LINE}</SourceNote>
+              <SourceNote>{sourceLine}</SourceNote>
             </div>
           </section>
         )}
@@ -382,19 +386,19 @@ export default function BudgetMirrorPage({
         <section id="skupina" className="mt-14 border-t-4 border-ink pt-10">
           <SectionHeading
             index={3}
-            title="Vrstevnická skupina"
-            aside={<SourceNote>{`pásmo ${group.bandLabel} · ${scopeLabel} · řazeno podle dluhu na obyvatele`}</SourceNote>}
+            title={t("section3Title")}
+            aside={<SourceNote>{t("section3AsideLive", { band: bandLabel, scope: scopeLabel })}</SourceNote>}
           />
           {tableRows.length > 0 ? (
             <div className="mt-8 overflow-x-auto">
               <table className="w-full min-w-[40rem] text-left">
                 <thead>
                   <tr className="border-b-2 border-ink font-mono text-[11px] uppercase tracking-widest text-steel-aa">
-                    <th className="py-3 pr-4 font-bold">obec</th>
-                    <th className="py-3 pr-4 text-right font-bold">obyvatel</th>
-                    <th className="py-3 pr-4 font-bold">dluh / obyv.</th>
-                    <th className="py-3 pr-4 text-right font-bold">investice %</th>
-                    <th className="py-3 text-right font-bold">saldo / obyv.</th>
+                    <th className="py-3 pr-4 font-bold">{t("colTown")}</th>
+                    <th className="py-3 pr-4 text-right font-bold">{t("colPopulation")}</th>
+                    <th className="py-3 pr-4 font-bold">{t("colDebt")}</th>
+                    <th className="py-3 pr-4 text-right font-bold">{t("colCapex")}</th>
+                    <th className="py-3 text-right font-bold">{t("colSaldo")}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -463,15 +467,11 @@ export default function BudgetMirrorPage({
             </div>
           ) : (
             <p className="mt-8 max-w-2xl text-sm leading-relaxed text-steel-aa">
-              V pásmu {group.bandLabel} zatím není v záznamu žádná obec s rozpočtovou řadou — tabulka
-              se objeví s další dávkou dat.
+              {t("peersEmpty", { band: bandLabel })}
             </p>
           )}
           <p className="mt-4 max-w-3xl text-sm italic leading-relaxed text-steel-aa">
-            Správcovství se do CivicScore propisuje jen politikům v exekutivních rolích (starostové,
-            hejtmani) — poslanec neztrácí body za cizí obecní rozpočet. Hodnoty na této ploše jsou
-            konsolidované výkazy FIN 2-12 M ze systému MONITOR; obec, kterou dávka nepokrývá, žádná
-            čísla nedostane, dokud nepřitečou ze zdroje.
+            {t("stewardshipNoteLive")}
           </p>
         </section>
 

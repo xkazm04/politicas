@@ -13,7 +13,7 @@
 
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import SourceNote from "@/features/shared/components/SourceNote";
 import FlagList from "@/features/shared/components/FlagList";
 import { claimRefPath } from "@/features/shared/provenance/claimRef";
@@ -52,23 +52,21 @@ const CLASS_TONE_CLS: Record<string, string> = {
 export default function CompanyCaseFilePage({ data }: { data: MoneyCompanyDetail | null }) {
   const locale = useLocale();
   const en = locale === "en";
+  const t = useTranslations("money");
+  const tcom = useTranslations("common");
 
   if (!data) {
     return (
       <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
         <div className="mx-auto max-w-5xl px-6 py-20">
           <div className="border-2 border-dashed border-hairline p-8">
-            <SourceNote>{en ? "source: knowledge graph" : "zdroj: znalostní graf"}</SourceNote>
-            <p className="mt-3 text-lg">
-              {en
-                ? "The knowledge graph holds no MP tie for this company id."
-                : "Znalostní graf nevede pro tohle IČO žádnou vazbu na poslance."}
-            </p>
+            <SourceNote>{t("shared.sourceKnowledgeGraph")}</SourceNote>
+            <p className="mt-3 text-lg">{t("companyFile.noTie")}</p>
             <Link
               href="/penize"
               className="mt-4 inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
             >
-              ← {en ? "back to the ledger" : "zpět do knihy vazeb"}
+              ← {t("companyFile.backToLedger")}
             </Link>
           </div>
         </div>
@@ -83,9 +81,9 @@ export default function CompanyCaseFilePage({ data }: { data: MoneyCompanyDetail
   const reachCzk = bucketReachCzk(bucket);
   // Gate states of the ties the figure rests on — an aggregate is confirmed only when
   // all of them are (moneyClaims.ts rule 4), and all 211 in the graph are pending today.
-  const tieStates = data.ties.map((t) => t.reviewState);
+  const tieStates = data.ties.map((x) => x.reviewState);
   const links = buildRegistryLinks(data.ico, "");
-  const mpCount = new Set(data.ties.map((t) => t.pspId)).size;
+  const mpCount = new Set(data.ties.map((x) => x.pspId)).size;
 
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
@@ -96,24 +94,19 @@ export default function CompanyCaseFilePage({ data }: { data: MoneyCompanyDetail
             href="/penize"
             className="font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
           >
-            ← {en ? "ledger" : "kniha vazeb"}
+            ← {t("companyFile.ledgerShort")}
           </Link>
         </div>
       </header>
 
       <div className="mx-auto max-w-5xl px-6 py-10">
-        <SourceNote tone="signal">
-          {en ? `company file · pass ${data.pass}` : `spis firmy · pass ${data.pass}`}
-        </SourceNote>
+        <SourceNote tone="signal">{t("companyFile.eyebrow", { pass: data.pass })}</SourceNote>
         <h1 className="mt-3 text-4xl font-black uppercase leading-[0.95] tracking-tight sm:text-5xl">
           {data.name}
           <span className="text-signal">.</span>
         </h1>
         <p className="mt-2 font-mono text-xs uppercase tracking-widest text-steel">
-          IČO {data.ico} ·{" "}
-          {en
-            ? `${data.ties.length} ties · ${mpCount} MPs`
-            : `${data.ties.length} vazeb · ${mpCount} poslanců`}
+          IČO {data.ico} · {t("companyFile.tiesMps", { ties: data.ties.length, mps: mpCount })}
         </p>
         {/* Sledování se razí tam, kde entita je. Klíč je týž veřejný klíč, kterým
             deník adresuje `?entita=` — jedna adresa odběru pro celou aplikaci. */}
@@ -121,17 +114,17 @@ export default function CompanyCaseFilePage({ data }: { data: MoneyCompanyDetail
           <FollowButton
             entityKey={companyEntityKey(data.ico)}
             label={data.name}
-            subject={en ? `company ${data.name}` : `firma ${data.name}`}
+            subject={t("companyFile.followSubject", { name: data.name })}
             words={{
-              follow: en ? "follow" : "sledovat",
-              following: en ? "following" : "sledujete",
+              follow: tcom("followWord"),
+              following: tcom("followingWord"),
             }}
           />
           <Link
             href="/schranka"
             className="inline-flex items-center gap-1 font-mono text-[11px] font-bold uppercase tracking-widest text-signal-deep hover:underline"
           >
-            {en ? "overview in your inbox" : "přehled ve schránce"}
+            {tcom("followInbox")}
             <ExternalLink className="h-3 w-3" aria-hidden />
           </Link>
           {/* Sledovat entitu a PŘEČÍST SI, co se u ní dělo, jsou dvě věci —
@@ -141,7 +134,7 @@ export default function CompanyCaseFilePage({ data }: { data: MoneyCompanyDetail
             href={entityDenikHref(companyEntityKey(data.ico))}
             className="inline-flex items-center gap-1 font-mono text-[11px] font-bold uppercase tracking-widest text-signal-deep hover:underline"
           >
-            {en ? "this company's daily record" : "deník této firmy"}
+            {t("companyFile.dailyRecord")}
             <ExternalLink className="h-3 w-3" aria-hidden />
           </Link>
         </div>
@@ -150,9 +143,7 @@ export default function CompanyCaseFilePage({ data }: { data: MoneyCompanyDetail
             and why it is not a ranking. */}
         {mpCount > 1 && (
           <p className="mt-4 max-w-2xl border-l-4 border-cobalt bg-cobalt/10 px-4 py-3 text-sm leading-relaxed text-ink">
-            {en
-              ? `${mpCount} MPs are tied to this single company. That is a fact about the registry record, not a claim about any of them — each tie below carries its own class, its own review state and its own source.`
-              : `K téhle jediné firmě vede vazba ${mpCount} poslanců. Je to údaj z rejstříku, ne tvrzení o kterémkoli z nich — každá vazba níž nese vlastní třídu, vlastní stav kontroly a vlastní zdroj.`}
+            {t("companyFile.multiMpNote", { count: mpCount })}
           </p>
         )}
 
@@ -160,7 +151,7 @@ export default function CompanyCaseFilePage({ data }: { data: MoneyCompanyDetail
         <div className="mt-8 grid gap-px border border-ink bg-ink sm:grid-cols-3">
           <div className="bg-paper p-6">
             <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
-              {en ? "public money reachable through this company" : "veřejné peníze dosažitelné přes tuhle firmu"}
+              {t("companyFile.reachLabel")}
             </p>
             <p
               className={`mt-2 text-3xl font-black tabular-nums tracking-tight ${attributable ? "text-signal" : "text-ink"}`}
@@ -182,43 +173,33 @@ export default function CompanyCaseFilePage({ data }: { data: MoneyCompanyDetail
               )}
             </p>
             <p className="mt-2 font-mono text-[11px] uppercase tracking-wider text-steel">
-              {bucket.contractCount} {en ? "contracts" : "smluv"}
+              {t("shared.contractsCount", { count: bucket.contractCount })}
               {data.subsidiesCzk > 0
-                ? ` · ${en ? "subsidies" : "dotace"} ${compactCzk(data.subsidiesCzk, locale)}`
+                ? ` · ${t("shared.subsidies")} ${compactCzk(data.subsidiesCzk, locale)}`
                 : ""}
             </p>
             {/* The P29 rule AT the number: a steward institution's billions must never be
                 read like a firm an MP owns. */}
             <p className="mt-2 text-sm leading-relaxed text-steel">
-              {attributable
-                ? en
-                  ? "At least one MP owns or runs this company, so the attribution rule permits reading this money as reaching a politician's own firm."
-                  : "Aspoň jeden poslanec tuhle firmu vlastní nebo řídí — pravidlo přiřazení proto dovoluje číst tyhle peníze jako peníze, které tečou do firmy politika."
-                : en
-                  ? "NOT an MP's money: every tie here is a supervisory or board seat in a public or nonprofit body. The figure is that body's OWN public activity."
-                  : "Nejsou to peníze poslance: všechny zdejší vazby jsou dozorčí nebo správní funkce ve veřejné či neziskové instituci. Číslo je vlastní veřejnou činností té instituce."}
+              {attributable ? t("companyFile.attributableRule") : t("companyFile.stewardRule")}
             </p>
-            <SourceNote className="mt-3 !text-[10px]">
-              {en ? "source" : "zdroj"}: registr smluv · Σ kg_edge supplies.weight + subsidies_total_czk
-            </SourceNote>
+            <SourceNote className="mt-3 !text-[10px]">{t("companyFile.reachSource")}</SourceNote>
           </div>
           <div className="bg-paper p-6">
             <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
-              {en ? "subsidies drawn" : "čerpané dotace"}
+              {t("companyFile.subsidiesDrawn")}
             </p>
             <p className="mt-2 text-3xl font-black tabular-nums tracking-tight">
               {data.subsidiesCzk > 0 ? compactCzk(data.subsidiesCzk, locale) : "—"}
             </p>
             <p className="mt-2 font-mono text-[11px] uppercase tracking-wider text-steel">
-              {data.subsidiesCount} {en ? "titles" : "titulů"}
+              {t("shared.titlesCount", { count: data.subsidiesCount })}
             </p>
-            <SourceNote className="mt-3 !text-[10px]">
-              {en ? "source" : "zdroj"}: kg_node company.props.subsidies_total_czk (hlídač státu)
-            </SourceNote>
+            <SourceNote className="mt-3 !text-[10px]">{t("companyFile.subsidiesSource")}</SourceNote>
           </div>
           <div className="bg-paper p-6">
             <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
-              {en ? "donated to a party" : "dary politické straně"}
+              {t("companyFile.donatedLabel")}
             </p>
             <p className="mt-2 text-3xl font-black tabular-nums tracking-tight">
               {data.donatedToPartyCzk != null && data.donatedToPartyCzk > 0
@@ -226,26 +207,24 @@ export default function CompanyCaseFilePage({ data }: { data: MoneyCompanyDetail
                 : "—"}
             </p>
             <p className="mt-2 font-mono text-[11px] uppercase tracking-wider text-steel">
-              {data.donationRecipientParty ?? (en ? "no donation in the graph" : "graf nevede žádný dar")}
+              {data.donationRecipientParty ?? t("companyFile.noDonation")}
             </p>
-            <SourceNote className="mt-3 !text-[10px]">
-              {en ? "source" : "zdroj"}: kg_node company.props.donated_to_party_czk (hlídač státu)
-            </SourceNote>
+            <SourceNote className="mt-3 !text-[10px]">{t("companyFile.donationSource")}</SourceNote>
           </div>
         </div>
 
         {/* ── registry ────────────────────────────────────────── */}
         <div className="mt-8 border-2 border-hairline p-5">
           <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-steel">
-            {en ? "verify in the registries" : "ověřit v rejstřících"}
+            {t("companyFile.verifyInRegistries")}
           </p>
           <div className="mt-2 flex flex-wrap gap-x-5 gap-y-1.5">
             {[
-              { label: en ? "ARES subject" : "ARES subjekt", href: links.aresSubject },
+              { label: t("shared.registryAresSubject"), href: links.aresSubject },
               { label: "ARES VR", href: links.aresVr },
-              { label: en ? "commercial register" : "obchodní rejstřík", href: links.justiceVr },
-              { label: en ? "contracts register" : "registr smluv", href: links.registrSmluv },
-              { label: en ? "Hlídač company" : "Hlídač firma", href: links.hlidacSubjekt },
+              { label: t("shared.registryCommercial"), href: links.justiceVr },
+              { label: t("shared.registryContracts"), href: links.registrSmluv },
+              { label: t("shared.registryHlidacCompany"), href: links.hlidacSubjekt },
             ].map((l) => (
               <a
                 key={l.label}
@@ -258,23 +237,15 @@ export default function CompanyCaseFilePage({ data }: { data: MoneyCompanyDetail
               </a>
             ))}
           </div>
-          <SourceNote className="mt-3 !text-[10px]">
-            {en
-              ? "deep links built from the node's own IČO (company:ico:<8-digit>) — nothing here is a claim, they are the primary records"
-              : "odkazy sestavené z IČO samotného uzlu (company:ico:<8 číslic>) — nic z toho není tvrzení, jsou to primární záznamy"}
-          </SourceNote>
+          <SourceNote className="mt-3 !text-[10px]">{t("companyFile.deepLinksNote")}</SourceNote>
         </div>
 
         {/* ── ties ────────────────────────────────────────────── */}
         <section className="mt-12">
           <h2 className="text-2xl font-black uppercase tracking-tight">
-            {en ? "MPs tied to this company" : "poslanci s vazbou na tuhle firmu"}
+            {t("companyFile.tiesTitle")}
           </h2>
-          <SourceNote className="mt-2">
-            {en
-              ? "kg_edge linked_to · strongest evidence first (registry-confirmed owner-operator, then manager, then steward, unconfirmed last) — never by money"
-              : "kg_edge linked_to · nejsilnější důkaz první (rejstříkem potvrzený vlastník, pak představenstvo, pak dozorčí, nepotvrzené naposled) — nikdy podle peněz"}
-          </SourceNote>
+          <SourceNote className="mt-2">{t("companyFile.tiesOrderNote")}</SourceNote>
           <div className="mt-6 space-y-6">
             {data.ties.map((tie) => (
               <TieCard key={`${tie.pspId}-${tie.companyId}`} tie={tie} en={en} />
@@ -286,12 +257,13 @@ export default function CompanyCaseFilePage({ data }: { data: MoneyCompanyDetail
         {data.contracts.length > 0 && (
           <section className="mt-12 border-t-4 border-ink pt-8">
             <h2 className="text-2xl font-black uppercase tracking-tight">
-              {en ? "contracts with the state" : "smlouvy se státem"}
+              {t("companyFile.contractsTitle")}
             </h2>
             <SourceNote className="mt-2">
-              {en
-                ? `registr smluv · amount from kg_edge supplies.weight, ${data.contracts.length} of ${data.contracts.length + data.contractsMoreCount} rows, largest first`
-                : `registr smluv · částka z kg_edge supplies.weight, ${data.contracts.length} z ${data.contracts.length + data.contractsMoreCount} řádků, od největší`}
+              {t("companyFile.contractsSource", {
+                shown: data.contracts.length,
+                total: data.contracts.length + data.contractsMoreCount,
+              })}
             </SourceNote>
             <ul className="mt-4 divide-y divide-hairline border-t-2 border-ink">
               {data.contracts.map((c) => (
@@ -301,39 +273,38 @@ export default function CompanyCaseFilePage({ data }: { data: MoneyCompanyDetail
                     {c.amountCzk != null ? compactCzk(c.amountCzk, locale) : "—"}
                   </span>
                   <span className="w-24 shrink-0 text-right font-mono text-[10px] uppercase tracking-wider text-steel">
-                    {c.signedOn ?? (en ? "no usable date" : "datum nepoužitelné")}
+                    {c.signedOn ?? t("companyFile.noUsableDate")}
                   </span>
                 </li>
               ))}
             </ul>
             {data.contractsMoreCount > 0 && (
               <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-steel">
-                + {data.contractsMoreCount} {en ? "more contracts in the graph" : "dalších smluv v grafu"}
+                {t("companyFile.moreContractsInGraph", { count: data.contractsMoreCount })}
               </p>
             )}
             {/* An impossible signature is not a date. The row and its amount stay, the
                 date goes, and the count is disclosed — the date is never repaired. */}
             {data.implausibleDateCount > 0 && (
               <p className="mt-3 max-w-2xl border-l-2 border-ochre pl-3 text-sm leading-relaxed text-steel">
-                {en
-                  ? `${data.implausibleDateCount} of the rows above carry a signature date that could not have happened (before 1993-01-01 or after ${data.asOf}). The row and its amount stay, the date is withheld, and it is never corrected — a corrected date would be an invented one.`
-                  : `${data.implausibleDateCount} z řádků výše nese datum podpisu, které nemohlo nastat (před 1. 1. 1993 nebo po ${data.asOf}). Řádek i částka zůstávají, datum zamlčujeme a nikdy ho neopravujeme — opravou bychom si ho vymysleli.`}
+                {t("companyFile.implausibleDates", {
+                  count: data.implausibleDateCount,
+                  asOf: data.asOf,
+                })}
               </p>
             )}
           </section>
         )}
 
         <div className="mt-14 border-t-4 border-ink pt-8">
-          <SourceNote>{en ? "how to read the tie class" : "jak číst třídu vazby"}</SourceNote>
+          <SourceNote>{t("shared.howToReadTieClass")}</SourceNote>
           <div className="mt-4">
             <TieClassExplainer compact />
           </div>
         </div>
 
         <p className="mt-10 max-w-2xl text-sm italic leading-relaxed text-steel">
-          {en
-            ? "This page is a register record, not a case against anyone. Ties not yet human-confirmed carry a “pending review” label and do not feed the Integrity pillar; a company appearing here means the graph found an IČO join, nothing more."
-            : "Tahle stránka je výpis z rejstříku, ne spis proti komukoli. Vazby bez lidského schválení nesou štítek „čeká na kontrolu“ a do pilíře Integrita se nepropisují; že tu firma je, znamená jen to, že graf našel shodu přes IČO — nic víc."}
+          {t("companyFile.disclaimer")}
         </p>
       </div>
     </main>
@@ -341,6 +312,8 @@ export default function CompanyCaseFilePage({ data }: { data: MoneyCompanyDetail
 }
 
 function TieCard({ tie, en }: { tie: CompanyTie; en: boolean }) {
+  const t = useTranslations("money");
+  const tcom = useTranslations("common");
   const temporal = temporalBadge(tie);
   const info = tieClassInfo(tie.tieClass);
   const origin = tieClassOriginInfo(tie.tieClassOrigin);
@@ -358,7 +331,7 @@ function TieCard({ tie, en }: { tie: CompanyTie; en: boolean }) {
           </Link>
           <p className="mt-1 font-mono text-[11px] uppercase tracking-wider text-steel">
             {tie.club ? `${tie.club} · ` : ""}
-            {tie.role || (en ? "role not recorded" : "role nezaznamenána")}
+            {tie.role || t("companyFile.roleNotRecorded")}
           </p>
         </div>
         <div className="flex flex-wrap items-center justify-end gap-1.5">
@@ -376,15 +349,15 @@ function TieCard({ tie, en }: { tie: CompanyTie; en: boolean }) {
           </span>
           {tie.reviewState === "verified" ? (
             <span className="border-2 border-cobalt px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-cobalt">
-              {en ? "verified" : "ověřeno"}
+              {tcom("verified")}
             </span>
           ) : tie.reviewState === "rejected" ? (
             <span className="border-2 border-steel px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-steel">
-              {en ? "rejected" : "zamítnuto"}
+              {t("shared.rejected")}
             </span>
           ) : (
             <span className="border-2 border-ochre bg-ochre/15 px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-ink">
-              {en ? "pending review" : "čeká na kontrolu"}
+              {tcom("pendingReview")}
             </span>
           )}
           <span
@@ -406,16 +379,16 @@ function TieCard({ tie, en }: { tie: CompanyTie; en: boolean }) {
           {en ? origin.noteEn : origin.noteCs}
           {overrides ? (
             <span className="mt-1 block">
-              {en
-                ? `The heuristic alone would have said “${tieClassInfo(tie.tieClassHeuristic).labelEn}” — the recorded class wins.`
-                : `Sama heuristika by uvedla „${tieClassInfo(tie.tieClassHeuristic).labelCs}“ — přednost má zapsaná třída.`}
+              {t("shared.heuristicOverride", {
+                label: en ? tieClassInfo(tie.tieClassHeuristic).labelEn : tieClassInfo(tie.tieClassHeuristic).labelCs,
+              })}
             </span>
           ) : null}
         </p>
 
         <FlagList
           className="mt-4"
-          heading={en ? "flags from analysis passes" : "příznaky z analytických průchodů"}
+          heading={t("shared.flagsHeading")}
           items={tieFlagInfos(tie.flags).map((f) => ({
             key: f.token,
             label: en ? f.labelEn : f.labelCs,
@@ -424,19 +397,15 @@ function TieCard({ tie, en }: { tie: CompanyTie; en: boolean }) {
           }))}
         />
 
-        <AnalystNote tie={tie} en={en} className="mt-4" />
+        <AnalystNote tie={tie} className="mt-4" />
 
         <p className="mt-4 font-mono text-[10px] leading-relaxed uppercase tracking-wider text-steel">
-          {en ? "source" : "zdroj"}: {tie.source || "—"}
+          {t("shared.sourceLabel")}: {tie.source || "—"}
           {" · "}
-          {en ? "attribution" : "přiřazení"}:{" "}
+          {t("companyFile.attributionLabel")}:{" "}
           {isAttributable(tie.tieClass)
-            ? en
-              ? "money may be read as the MP's firm"
-              : "peníze lze číst jako firmu poslance"
-            : en
-              ? "institution's own money, never the MP's"
-              : "vlastní peníze instituce, nikdy poslancovy"}
+            ? t("companyFile.attributionOwned")
+            : t("companyFile.attributionSteward")}
         </p>
 
         <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
@@ -444,19 +413,19 @@ function TieCard({ tie, en }: { tie: CompanyTie; en: boolean }) {
             href={`/penize/${tie.pspId}`}
             className="font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
           >
-            {en ? "the MP's money file" : "peněžní spis poslance"} →
+            {t("shared.mpMoneyFile")} →
           </Link>
           <Link
             href={`/poslanec/${tie.pspId}`}
             className="font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
           >
-            {en ? "full MP profile" : "celý profil poslance"} →
+            {t("shared.fullProfile")} →
           </Link>
           <Link
             href={claimRefPath(tie.receiptRef)}
             className="inline-flex items-center gap-1.5 border-2 border-cobalt px-2 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:border-signal hover:text-signal"
           >
-            {en ? "provenance receipt" : "účtenka původu"} →
+            {t("shared.provenanceReceipt")} →
           </Link>
         </div>
       </div>

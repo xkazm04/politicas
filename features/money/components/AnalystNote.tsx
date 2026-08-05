@@ -21,49 +21,43 @@
  */
 
 import { ExternalLink } from "lucide-react";
+import { useTranslations } from "next-intl";
 import type { MoneyTie } from "../moneyTypes";
 
 export default function AnalystNote({
   tie,
-  en,
   className = "",
 }: {
   tie: Pick<MoneyTie, "reviewerNote" | "corroborationProvenance" | "corroborationSource" | "reviewState">;
-  en: boolean;
+  /** Přijímáno kvůli starším call sites (ověřovací konzole) — jazyk řeší next-intl. */
+  en?: boolean;
   className?: string;
 }) {
+  const t = useTranslations("money");
   const note = tie.reviewerNote?.trim();
-  if (!note) return null;
   const prov = tie.corroborationProvenance;
-  const stamp = [
-    prov.computedAt ? (en ? `written ${prov.computedAt.slice(0, 10)}` : `zapsáno ${prov.computedAt.slice(0, 10)}`) : null,
-    prov.pass != null ? (en ? `graph pass ${prov.pass}` : `průchod grafu ${prov.pass}`) : null,
-    prov.ref,
-  ].filter(Boolean) as string[];
+  const stamp = !note
+    ? []
+    : ([
+        prov.computedAt ? t("analystNote.written", { date: prov.computedAt.slice(0, 10) }) : null,
+        prov.pass != null ? t("analystNote.pass", { pass: prov.pass }) : null,
+        prov.ref,
+      ].filter(Boolean) as string[]);
+  if (!note) return null;
 
   return (
     <div className={className}>
       <p className="border-l-2 border-hairline pl-3 text-sm leading-relaxed text-steel-aa">
         <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-ink">
-          {en ? "analysis note" : "poznámka analýzy"}:{" "}
+          {t("analystNote.heading")}:{" "}
         </span>
         {note}
       </p>
       <p className="mt-1 pl-3 font-mono text-[10px] leading-relaxed uppercase tracking-wider text-steel-aa">
-        {stamp.length > 0
-          ? stamp.join(" · ")
-          : en
-            ? "the graph records no pass or date for this note"
-            : "průchod ani datum graf u téhle poznámky nevede"}
+        {stamp.length > 0 ? stamp.join(" · ") : t("analystNote.noStamp")}
         {" · "}
-        {en
-          ? "an analysis pass wrote this, not a human review"
-          : "napsal analytický průchod, ne lidská kontrola"}
-        {tie.reviewState === "pending_review"
-          ? en
-            ? " · the tie is still pending review"
-            : " · vazba stále čeká na kontrolu"
-          : ""}
+        {t("analystNote.notHuman")}
+        {tie.reviewState === "pending_review" ? ` · ${t("analystNote.stillPending")}` : ""}
       </p>
       {tie.corroborationSource ? (
         <a
@@ -73,11 +67,11 @@ export default function AnalystNote({
           className="mt-1 ml-3 inline-flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
         >
           <ExternalLink className="h-3 w-3" />
-          {en ? "the registry record the pass read" : "doklad, ze kterého průchod četl"}
+          {t("analystNote.sourceLink")}
         </a>
       ) : (
         <p className="mt-1 pl-3 font-mono text-[10px] uppercase tracking-wider text-steel-aa">
-          {en ? "no registry document cited for this note" : "k poznámce není uvedený rejstříkový doklad"}
+          {t("analystNote.noSource")}
         </p>
       )}
     </div>

@@ -24,7 +24,6 @@ import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
 import type { DependencyData } from "./getDependencyData";
 import type { BillOrigin, LawData } from "./getLawData";
-import { ORIGIN_CZ } from "./lawwatchLabels";
 import { statuteSlug } from "./statuteRef";
 import BillBrowser from "./components/BillBrowser";
 import DependencyRadar from "./components/DependencyRadar";
@@ -79,9 +78,7 @@ export default function LawWatchPage({
             <SectionRule />
           </div>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">
-            {lawData
-              ? "Které sněmovní tisky mění které zákony — u každého tisku jedna věta „co to mění“ odvozená z jeho vlastního textu, dále spojnice návrh → novelizovaný zákon, předkladatelé, jejich peněžní vazby a forenzní posudek tam, kde existuje. Data z psp.cz, ne z modelu."
-              : t("intro")}
+            {lawData ? t("realIntro") : t("intro")}
           </p>
         </div>
 
@@ -106,10 +103,10 @@ function RealLawWatch({ data, dependencyData }: { data: LawData; dependencyData:
       {/* Statistický pás */}
       <div className="grid grid-cols-2 gap-px border-2 border-ink bg-ink sm:grid-cols-4">
         {[
-          { v: f.int(data.totalBills), l: "sněmovních tisků" },
-          { v: f.int(data.totalLaws), l: "novelizovaných zákonů" },
-          { v: f.int(data.totalAmends), l: "vazeb tisk → zákon" },
-          { v: f.int(data.flaggedCount), l: "tisků s možným střetem" },
+          { v: f.int(data.totalBills), l: t("stats.bills") },
+          { v: f.int(data.totalLaws), l: t("stats.laws") },
+          { v: f.int(data.totalAmends), l: t("stats.links") },
+          { v: f.int(data.flaggedCount), l: t("stats.flagged") },
         ].map((s) => (
           <div key={s.l} className="bg-paper px-4 py-4">
             <div className="text-3xl font-black tabular-nums">{s.v}</div>
@@ -119,14 +116,14 @@ function RealLawWatch({ data, dependencyData }: { data: LawData; dependencyData:
       </div>
       <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
         <SourceNote>
-          psp.cz tisky · průchod grafu {data.pass ?? "?"} · vazby tisk → zákon a přikázání výborům · {f.int(data.committeeRoutedBills)} tisků přikázáno výborům
+          {t("statsSource", { pass: data.pass ?? "?", committeeRouted: f.int(data.committeeRoutedBills) })}
         </SourceNote>
         <span className="flex flex-wrap gap-x-3 font-mono text-[11px] uppercase tracking-wider text-steel">
           {originOrder
             .filter((o) => data.originCounts[o])
             .map((o) => (
               <span key={o}>
-                {ORIGIN_CZ[o]} <span className="font-bold text-ink">{f.int(data.originCounts[o] ?? 0)}</span>
+                {t(`origin.${o}`)} <span className="font-bold text-ink">{f.int(data.originCounts[o] ?? 0)}</span>
               </span>
             ))}
         </span>
@@ -134,30 +131,28 @@ function RealLawWatch({ data, dependencyData }: { data: LawData; dependencyData:
 
       <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-2 border-signal bg-signal/5 px-4 py-3">
         <p className="text-[13px] leading-snug">
-          <span className="font-black uppercase tracking-wide text-signal">Kolizní radar</span> — chronologická
-          kniha nálezů legislativního procesu: souběžně projednávané tisky novelizující stejný § téhož zákona a
-          odvozené příznaky střetu, s trvalými kotvami, citačními bloky a RSS/JSON odběrem.
+          <span className="font-black uppercase tracking-wide text-signal">{t("radarBanner.title")}</span> —{" "}
+          {t("radarBanner.text")}
         </p>
         <Link
           href="/zakony/kolize"
           className="inline-flex shrink-0 items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-signal transition-colors hover:text-cobalt"
         >
-          otevřít radar <ArrowUpRight className="h-3.5 w-3.5" />
+          {t("radarBanner.cta")} <ArrowUpRight className="h-3.5 w-3.5" />
         </Link>
       </div>
 
       <div className="mt-3 flex flex-wrap items-center justify-between gap-3 border-2 border-cobalt bg-cobalt/5 px-4 py-3">
         <p className="text-[13px] leading-snug">
-          <span className="font-black uppercase tracking-wide text-cobalt">Paměť zákona</span> — každý
-          novelizovaný předpis má kritické vydání: kronika tisků, které ho měnily, a doslovná §-stopa
-          „před / po“ z e-Sbírky s trvalými kotvami <span className="font-mono">#p-&lt;§&gt;</span> tam, kde
-          ji archiv reálně nese.
+          <span className="font-black uppercase tracking-wide text-cobalt">{t("memoryBanner.title")}</span> —{" "}
+          {t("memoryBanner.textBefore")} <span className="font-mono">#p-&lt;§&gt;</span>{" "}
+          {t("memoryBanner.textAfter")}
         </p>
         <Link
           href="/zakony/predpis"
           className="inline-flex shrink-0 items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
         >
-          otevřít rejstřík předpisů <ArrowUpRight className="h-3.5 w-3.5" />
+          {t("memoryBanner.cta")} <ArrowUpRight className="h-3.5 w-3.5" />
         </Link>
       </div>
 
@@ -168,8 +163,11 @@ function RealLawWatch({ data, dependencyData }: { data: LawData; dependencyData:
           title={t("realSection1Title")}
           aside={
             <SourceNote>
-              {f.int(data.totalBills)} tisků · {f.int(data.summaryCount)} se shrnutím · {f.int(data.totalAmends)}{" "}
-              novelizačních vazeb · psp.cz
+              {t("section1AsideReal", {
+                bills: f.int(data.totalBills),
+                summaries: f.int(data.summaryCount),
+                amends: f.int(data.totalAmends),
+              })}
             </SourceNote>
           }
         />
@@ -183,7 +181,7 @@ function RealLawWatch({ data, dependencyData }: { data: LawData; dependencyData:
         <SectionHeading
           index={2}
           title={t("realSection2Title")}
-          aside={<SourceNote>psp.cz tisky · počet tisků na zákon</SourceNote>}
+          aside={<SourceNote>{t("section2AsideReal")}</SourceNote>}
         />
         <div className="mt-8 border-t-2 border-ink">
           {data.topLaws.slice(0, 20).map((l) => {
@@ -198,7 +196,7 @@ function RealLawWatch({ data, dependencyData }: { data: LawData; dependencyData:
                   <span className="flex items-baseline gap-1.5">
                     <span className="text-2xl font-black tabular-nums">{f.int(l.billCount)}</span>
                     <span className="font-mono text-[11px] uppercase tracking-wider text-steel">
-                      {l.billCount === 1 ? "tisk" : l.billCount < 5 ? "tisky" : "tisků"}
+                      {t("billCountWord", { count: l.billCount })}
                     </span>
                   </span>
                   {slug && (
@@ -226,23 +224,22 @@ function RealLawWatch({ data, dependencyData }: { data: LawData; dependencyData:
           })}
         </div>
         <p className="mt-4 max-w-3xl text-sm italic leading-relaxed text-steel">
-          Vazba tisk → zákon je vyčtena z názvu tisku (citace „č. N/RRRR Sb.“), jediného strukturovaného
-          odkazu, který psp.cz o novelizovaném zákoně nese. Formální přikázání výborům (garanční / další, stav
-          a datum) se vykresluje z reálných dat psp.cz. Úplné znění paragrafů drží e-Sbírka
-          zvlášť — {data.paragraphDiffCount > 0 ? (
-            <>u {f.int(data.paragraphDiffCount)} {data.paragraphDiffCount === 1 ? "tisku" : "tisků"} u nejčastěji novelizovaného zákona nese skutečný §-diff mezi dvěma platnými zněními, dopočítaný přímo z veřejného SPARQL rozhraní e-Sbírky (žádný hromadný výpis, žádná smyšlená data); u ostatních tisků se diff zatím nevykresluje.</>
-          ) : (
-            <>diff „před/po“ na úrovni § se zatím nevykresluje — Politicas nezobrazuje smyšlená data.</>
-          )}
+          {t("titleLinkNote")}{" "}
+          {data.paragraphDiffCount > 0
+            ? t("titleLinkNoteDiff", {
+                count: data.paragraphDiffCount,
+                countFmt: f.int(data.paragraphDiffCount),
+              })
+            : t("titleLinkNoteNoDiff")}
         </p>
         {data.censusBillCount > 0 && (
           <p className="mt-3 max-w-3xl border-l-4 border-ochre bg-ochre/5 p-4 text-sm leading-relaxed">
-            <span className="font-black uppercase tracking-wide text-ochre">Poctivost čísel: </span>
-            vazba tisk → zákon výše je z citace v NÁZVU tisku — pro velké novely a doprovodné zákony to
-            systematicky podhodnocuje, kolik zákonů tisk skutečně mění. Nezávislý census plného textu (průchod grafu 20)
-            na {f.int(data.censusBillCount)} tiscích doplnil dohromady{" "}
-            <span className="font-black">{f.int(data.censusUndercountTotal)}</span> dalších novelizovaných
-            zákonů, které vazba z názvu minula. Vlastní census má každý tisk ve svém detailu, pokud pro něj existuje.
+            <span className="font-black uppercase tracking-wide text-ochre">{t("honesty.label")} </span>
+            {t.rich("honesty.text", {
+              census: f.int(data.censusBillCount),
+              undercount: f.int(data.censusUndercountTotal),
+              b: (chunks) => <span className="font-black">{chunks}</span>,
+            })}
           </p>
         )}
       </section>
@@ -271,7 +268,7 @@ function MockLawWatch() {
     <>
       <div className="mt-2 border-2 border-dashed border-ochre bg-ochre/5 px-4 py-3">
         <SourceNote tone="steel" className="!text-ochre">
-          graf nedostupný — níže ukázková data (mock), ne živý zdroj
+          {t("mockNotice")}
         </SourceNote>
       </div>
 

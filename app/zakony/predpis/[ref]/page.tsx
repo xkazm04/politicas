@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import StatuteDossierPage from "@/features/lawwatch/StatuteDossierPage";
 import DataUnavailable from "@/features/shared/components/DataUnavailable";
 import { deriveStatuteDossier } from "@/features/lawwatch/deriveStatuteDossier";
@@ -14,15 +15,14 @@ import { parseStatuteSlug } from "@/features/lawwatch/statuteRef";
 
 export async function generateMetadata({ params }: { params: Promise<{ ref: string }> }): Promise<Metadata> {
   const { ref } = await params;
+  const t = await getTranslations("meta");
   const canonical = parseStatuteSlug(ref);
   const lawData = canonical ? await getLawData() : null;
   const dossier = lawData && canonical ? deriveStatuteDossier(lawData, canonical) : null;
-  if (!dossier) return { title: "Paměť zákona — Politicas" };
+  if (!dossier) return { title: t("lawStatuteMemoryTitle") };
   return {
-    title: `Zákon č. ${dossier.ref} Sb. — paměť zákona — Politicas`,
-    description:
-      dossier.title ??
-      `Kritické vydání zákona č. ${dossier.ref} Sb.: kdo ho měnil a doslovná §-stopa z e-Sbírky.`,
+    title: t("lawStatuteTitle", { ref: dossier.ref }),
+    description: dossier.title ?? t("lawStatuteDescription", { ref: dossier.ref }),
   };
 }
 
@@ -32,7 +32,14 @@ export default async function PredpisPage({ params }: { params: Promise<{ ref: s
   if (!canonical) notFound();
   const lawData = await getLawData();
   if (!lawData) {
-    return <DataUnavailable what="Předpis" backHref="/zakony" backLabel="zpět na monitor legislativy" />;
+    const t = await getTranslations("lawwatch");
+    return (
+      <DataUnavailable
+        what={t("unavailable.statute")}
+        backHref="/zakony"
+        backLabel={t("unavailable.backToMonitor")}
+      />
+    );
   }
   const dossier = deriveStatuteDossier(lawData, canonical);
   if (!dossier) notFound();

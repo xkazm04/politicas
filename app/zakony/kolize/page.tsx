@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import CollisionsPage from "@/features/lawwatch/CollisionsPage";
 import { getCollisionData } from "@/features/lawwatch/getCollisionData";
 import { getRadarData } from "@/features/lawwatch/getRadarData";
 
-export const metadata: Metadata = {
-  title: "Kolizní radar — Politicas",
-  description:
-    "Systém včasného varování legislativního procesu: chronologická kniha nálezů (kolize souběžně projednávaných tisků nad týmž §, odvozené příznaky střetu u předkladatelů) s trvalými kotvami, citačními bloky a RSS/JSON feedem — plus shluky close-read nálezů case ③ podle zákona a paragrafu.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("meta");
+  return {
+    title: t("lawCollisionsTitle"),
+    description: t("lawCollisionsDescription"),
+  };
+}
 
 export default async function ZakonyKolizePage() {
   // Real Case-③ close-read output + the radar ledger derived over it and the

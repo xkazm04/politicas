@@ -12,23 +12,24 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import type { BillOrigin, LawBillView, LawData } from "../getLawData";
-import { ORIGIN_CZ } from "../lawwatchLabels";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { useFormat } from "@/lib/i18n/useFormat";
 
 type FacetKey = "diff" | "forensic" | "conflict" | "committee";
 
-const FACETS: { key: FacetKey; label: string; test: (b: LawBillView) => boolean }[] = [
-  { key: "diff", label: "§-diff", test: (b) => b.paragraphDiffs.length > 0 },
-  { key: "forensic", label: "posudek", test: (b) => b.forensic != null },
-  { key: "conflict", label: "možný střet", test: (b) => b.flaggedConflict },
-  { key: "committee", label: "přikázáno výboru", test: (b) => b.committees.length > 0 },
+const FACETS: { key: FacetKey; test: (b: LawBillView) => boolean }[] = [
+  { key: "diff", test: (b) => b.paragraphDiffs.length > 0 },
+  { key: "forensic", test: (b) => b.forensic != null },
+  { key: "conflict", test: (b) => b.flaggedConflict },
+  { key: "committee", test: (b) => b.committees.length > 0 },
 ];
 
 const ORIGIN_ORDER: BillOrigin[] = ["government", "mp_group", "mp", "senate", "other"];
 
 export default function BillBrowser({ data }: { data: LawData }) {
+  const t = useTranslations("lawwatch");
   const f = useFormat();
   const [origin, setOrigin] = useState<BillOrigin | null>(null);
   const [facet, setFacet] = useState<FacetKey | null>(null);
@@ -76,7 +77,7 @@ export default function BillBrowser({ data }: { data: LawData }) {
           }`}
           aria-pressed={origin === null}
         >
-          vše
+          {t("filterAll")}
         </button>
         {ORIGIN_ORDER.filter((o) => data.originCounts[o]).map((o) => {
           const count = facetFilteredBills.filter((b) => b.origin === o).length;
@@ -90,7 +91,7 @@ export default function BillBrowser({ data }: { data: LawData }) {
               }`}
               aria-pressed={origin === o}
             >
-              {ORIGIN_CZ[o]} · {f.int(count)}
+              {t(`origin.${o}`)} · {f.int(count)}
             </button>
           );
         })}
@@ -98,15 +99,15 @@ export default function BillBrowser({ data }: { data: LawData }) {
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="hledat tisk, shrnutí, zákon č. …"
-          aria-label="Hledat tisk podle shrnutí, názvu, čísla nebo novelizovaného zákona"
+          placeholder={t("searchPlaceholder")}
+          aria-label={t("searchAria")}
           className="ml-auto border-2 border-hairline bg-paper px-3 py-1.5 font-mono text-xs uppercase tracking-wider text-ink placeholder:text-steel focus:border-ink focus:outline-none"
         />
       </div>
 
       {/* filtry: stav zpracování */}
       <div className="mt-3 flex flex-wrap items-center gap-2">
-        <span className="font-mono text-[10px] uppercase tracking-wider text-steel">Stav:</span>
+        <span className="font-mono text-[10px] uppercase tracking-wider text-steel">{t("statusFilterLabel")}</span>
         {FACETS.map((x) => {
           const count = originFilteredBills.filter(x.test).length;
           const active = facet === x.key;
@@ -124,7 +125,7 @@ export default function BillBrowser({ data }: { data: LawData }) {
                 active ? "border-cobalt bg-cobalt text-paper" : "border-hairline text-steel hover:text-ink"
               }`}
             >
-              {x.label} · {f.int(count)}
+              {t(`facet.${x.key}`)} · {f.int(count)}
             </button>
           );
         })}
@@ -137,22 +138,24 @@ export default function BillBrowser({ data }: { data: LawData }) {
             <>
               <span className="flex items-baseline justify-between gap-3">
                 <span className="font-mono text-xs font-bold uppercase tracking-wider text-signal">
-                  {b.cislo != null ? `sn. tisk ${b.cislo}` : `tisk ${b.tiskId}`}
+                  {b.cislo != null
+                    ? t("printNumbered", { cislo: b.cislo })
+                    : t("printInternal", { tiskId: b.tiskId })}
                 </span>
                 <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-steel">
-                  {b.paragraphDiffs.length > 0 && <span className="font-black text-ochre">§-diff</span>}
-                  {b.forensic && <span className="font-black text-cobalt">posudek</span>}
-                  {b.flaggedConflict && <span className="font-black text-signal">možný střet</span>}
-                  <span>{b.amendedLaws.length}× zákon</span>
+                  {b.paragraphDiffs.length > 0 && <span className="font-black text-ochre">{t("facet.diff")}</span>}
+                  {b.forensic && <span className="font-black text-cobalt">{t("facet.forensic")}</span>}
+                  {b.flaggedConflict && <span className="font-black text-signal">{t("facet.conflict")}</span>}
+                  <span>{t("lawTimes", { count: b.amendedLaws.length })}</span>
                 </span>
               </span>
               {/* „co to mění" je to první, co čtenář uvidí — oficiální název tisku je až pod ním. */}
               <span className="mt-1 block text-[15px] font-bold leading-snug">
-                {b.summary ?? "Shrnutí zatím není"}
+                {b.summary ?? t("noSummaryYet")}
               </span>
               <span className="mt-0.5 block text-[13px] leading-snug text-steel">{b.title}</span>
               <span className="mt-0.5 block font-mono text-[11px] uppercase tracking-wider text-steel">
-                {ORIGIN_CZ[b.origin]}
+                {t(`origin.${b.origin}`)}
               </span>
             </>
           );
@@ -175,15 +178,19 @@ export default function BillBrowser({ data }: { data: LawData }) {
         })}
         {rows.length === 0 && (
           <div className="border-2 border-dashed border-hairline p-6 text-sm text-steel">
-            Žádný tisk neodpovídá filtru.
+            {t("emptyFilter")}
           </div>
         )}
       </div>
       <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
         <SourceNote>
-          zobrazeno {f.int(rows.length)} z {f.int(data.totalBills)} tisků · {f.int(data.summaryCount)} se shrnutím
+          {t("shownOf", {
+            shown: f.int(rows.length),
+            total: f.int(data.totalBills),
+            summaries: f.int(data.summaryCount),
+          })}
         </SourceNote>
-        <SourceNote className="!text-[10px]">psp.cz tisky · průchod grafu {data.pass ?? "?"}</SourceNote>
+        <SourceNote className="!text-[10px]">{t("graphPassSource", { pass: data.pass ?? "?" })}</SourceNote>
       </div>
     </div>
   );

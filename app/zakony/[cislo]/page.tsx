@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ cislo: st
   const dossier = lawData ? findBillByCislo(lawData, n) : null;
   if (!dossier) return { title: t("lawwatchTitle") };
   return {
-    title: `Sn. tisk ${dossier.bill.cislo} — ${dossier.bill.title} — Politicas`,
+    title: t("lawBillTitle", { cislo: dossier.bill.cislo ?? n, title: dossier.bill.title }),
     description: dossier.bill.title,
   };
 }
@@ -33,7 +33,10 @@ export default async function ZakonyTiskPage({ params }: { params: Promise<{ cis
   // elsewhere) from "tisk neexistuje" (graph loaded, no such print number). The
   // first must NOT render as 404; see DataUnavailable's rationale.
   if (!lawData) {
-    return <DataUnavailable what="Sněmovní tisk" backHref="/zakony" backLabel="zpět na přehled tisků" />;
+    const t = await getTranslations("lawwatch");
+    return (
+      <DataUnavailable what={t("unavailable.bill")} backHref="/zakony" backLabel={t("unavailable.backToBills")} />
+    );
   }
   const dossier = findBillByCislo(lawData, n);
   if (!dossier) notFound();
