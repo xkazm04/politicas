@@ -33,7 +33,9 @@ dataset says so, and disagree with the method without having to doubt the data.
 
 ## Positioning
 
-Two mechanisms a neighboring product could not truthfully copy:
+Three mechanisms a neighboring product could not truthfully copy. Each names
+the nearest existing Czech tool — what it does well, what it does not attempt —
+and the live route that proves the mechanism works today.
 
 1. **One graph, five tools.** Person ↔ party ↔ firm ↔ contract ↔ vote ↔ budget ↔
    law, joined on the universal 8-digit IČO. A money finding and a voting
@@ -41,11 +43,42 @@ Two mechanisms a neighboring product could not truthfully copy:
    share a name. Cross-module questions ("which MP sponsored a law amending the
    statute their own firm's contracts sit under") are queries here and
    impossible elsewhere.
+   *Gap:* **Hlídač státu** is the strongest Czech contract-and-procurement
+   watchdog — strong enough that its API is one of this product's own money
+   sources — but it does not attempt joining that money data to votes, bills
+   and budgets on one shared entity graph.
+   *Proof:* `/penize` (money trails per MP over the graph) and `/graf` (the
+   graph itself). Proof is partial by design: all 211 money ties are
+   `pending_review`, and every surface says so on the tie.
 2. **Complete chamber coverage.** All 207 sitting MPs are scored on the same six
    published components — not a curated shortlist of the famous ones.
    Non-selection is itself the non-partisanship guarantee: there is no editorial
    choice about *who* gets measured, so there is no editorial thumb on the
    scale.
+   *Gap:* **NašiPolitici** publishes researched politician profiles, but does
+   not attempt a published, comparable index across the whole chamber.
+   *Proof:* `/zebricek` (all 207 ranked on the same components) and
+   `/poslanec/[id]` (any MP's full record, not just the famous ones).
+3. **The method ships with the number.** Six components with published weights,
+   a deterministic recompute path, and a replay gate that refuses to publish a
+   correction it cannot first reproduce under the old formula. Every rendered
+   number cites its source; the visitor can verify a claim rather than trust a
+   verdict.
+   *Gap:* **Demagog.cz** fact-checks individual public statements — it verifies
+   what politicians *say*, and does not attempt systematic, recomputable
+   scoring of what the whole chamber *does* across the record.
+   *Proof:* `/overeni` (claim verification against the graph) and `/metodika`
+   (the published weights and method).
+
+## Monetization
+
+Free, non-commercial, public-interest publication. Data is published under
+**CC BY**, as the footer already commits („otevřená data · cc by · metodika
+v1.4"). No pricing, paywall or commercial tier exists at launch, and per
+Evidence on Hand none may be invented as placeholder copy. This decision is
+revisited only on a concrete trigger — the first funding or grant conversation,
+or sustained meaningful readership — and any change is a recorded decision
+here, not a silent one.
 
 ## Operating Context
 
