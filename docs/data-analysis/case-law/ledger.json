@@ -334,6 +334,13 @@
    "billsWithVerdictTotal": 109,
    "billsPendingTotal": 32,
    "note": "Batch-018 verdict wave on the pending triage head. Verdict files live under payloads/verdicts-018/ (Czech-native, requireCzech gate)."
+  },
+  "batch019Verdicts": {
+   "status": "APPLIED to live graph (pass 53) and mirrored here",
+   "verdicts": 10,
+   "billsWithVerdictTotal": 119,
+   "billsPendingTotal": 22,
+   "note": "Batch-019 verdict wave on the pending triage head. Verdict files live under payloads/verdicts-019/ (Czech-native, requireCzech gate)."
   }
  },
  "rows": [
@@ -4318,10 +4325,10 @@
    "amendsCount": 2,
    "maxTargetChurn": 2,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 19,
    "signal": null,
    "flags": [
     "mp_group"
@@ -4329,7 +4336,9 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 201000
+   "triageScoreV2": 201000,
+   "forensicConfidence": 3,
+   "verdictFile": "payloads/verdicts-019/verdict-5.json"
   },
   {
    "tiskId": 43274,
@@ -4395,10 +4404,10 @@
    "amendsCount": 1,
    "maxTargetChurn": 2,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 19,
    "signal": null,
    "flags": [
     "mp_group"
@@ -4406,7 +4415,9 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 200500
+   "triageScoreV2": 200500,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-019/verdict-15.json"
   },
   {
    "tiskId": 43156,
@@ -4420,10 +4431,10 @@
    "amendsCount": 1,
    "maxTargetChurn": 2,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 19,
    "signal": null,
    "flags": [
     "mp_group"
@@ -4431,7 +4442,9 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 200500
+   "triageScoreV2": 200500,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-019/verdict-49.json"
   },
   {
    "tiskId": 43164,
@@ -4445,16 +4458,18 @@
    "amendsCount": 1,
    "maxTargetChurn": 2,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 19,
    "signal": null,
    "flags": [],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 200500
+   "triageScoreV2": 200500,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-019/verdict-57.json"
   },
   {
    "tiskId": 43166,
@@ -4468,10 +4483,10 @@
    "amendsCount": 1,
    "maxTargetChurn": 2,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 19,
    "signal": null,
    "flags": [
     "mp_group"
@@ -4479,7 +4494,9 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 200500
+   "triageScoreV2": 200500,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-019/verdict-59.json"
   },
   {
    "tiskId": 43284,
@@ -4493,16 +4510,18 @@
    "amendsCount": 1,
    "maxTargetChurn": 2,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 19,
    "signal": null,
    "flags": [],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 200500
+   "triageScoreV2": 200500,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-019/verdict-163.json"
   },
   {
    "tiskId": 43341,
@@ -4516,16 +4535,18 @@
    "amendsCount": 1,
    "maxTargetChurn": 2,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 19,
    "signal": null,
    "flags": [],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 200500
+   "triageScoreV2": 200500,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-019/verdict-219.json"
   },
   {
    "tiskId": 43357,
@@ -4539,16 +4560,18 @@
    "amendsCount": 1,
    "maxTargetChurn": 2,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 19,
    "signal": null,
    "flags": [],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 200500
+   "triageScoreV2": 200500,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-019/verdict-235.json"
   },
   {
    "tiskId": 43360,
@@ -4562,16 +4585,18 @@
    "amendsCount": 1,
    "maxTargetChurn": 2,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 19,
    "signal": null,
    "flags": [],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 200500
+   "triageScoreV2": 200500,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-019/verdict-238.json"
   },
   {
    "tiskId": 43365,
@@ -4585,10 +4610,10 @@
    "amendsCount": 1,
    "maxTargetChurn": 1,
    "sponsorContractCzk": 5397460397.25,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 19,
    "signal": null,
    "flags": [
     "mp_group",
@@ -4602,7 +4627,9 @@
     "Teplárny Brno, a.s.",
     "MERO ČR, a.s."
    ],
-   "triageScoreV2": 102446
+   "triageScoreV2": 102446,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-019/verdict-243.json"
   },
   {
    "tiskId": 43142,

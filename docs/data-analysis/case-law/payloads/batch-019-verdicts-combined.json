@@ -1,0 +1,632 @@
+[
+  {
+    "billTisk": 5,
+    "statedReasoning": "Návrh (sněmovní tisk 5) mění zákon č. 143/2001 Sb., o ochraně hospodářské soutěže, a navazujícím způsobem i zákon č. 374/2015 Sb., o ozdravných postupech a řešení krize na finančním trhu. Podle obecné části důvodové zprávy (bod 1) má novela tři hlavní cíle: (1) zavést tzv. call-in model, kdy nový § 13a umožňuje Úřadu pro ochranu hospodářské soutěže (dále „Úřad“) vyzvat k notifikaci i spojení soutěžitelů, která nedosahují stávajících obratových prahů, pokud existuje podezření na podstatné narušení soutěže a jsou splněna zákonem stanovená kritéria (souhrnný obrat nad 1,5 mld. Kč, alespoň dva účastníci s obratem nad 100 mil. Kč); (2) zavést nový nástroj sektorových šetření a „opatření obecné povahy“ (nové §§ 20b až 20d), kterým Úřad může po sektorovém šetření dočasně stanovit zvláštní notifikační kritéria nebo ukládat nestrukturální nápravná opatření na trhu s trvajícím podstatným narušením soutěže, s výslovnou výjimkou pro trhy pod dohledem Českého telekomunikačního úřadu, Energetického regulačního úřadu a České národní banky; (3) zavést nové skutkové podstaty přestupků fyzických osob za uzavírání či pokus o uzavření kartelových dohod (pokuta do 10 000 000 Kč, zákaz činnosti až na 5 let) a rozšířit institut shovívavosti i na fyzické osoby. Zvláštní část dále upravuje řadu legislativně-technických návazností v přestupkových ustanoveních (§§ 22, 22a, 22b, 22ba). Podle bodu 5 obecné části nemá návrh přímý dopad na státní rozpočet; nový útvar Úřadu (Oddělení hlavního ekonoma, nejméně 9 systemizovaných míst) má být financován z rozpočtu Úřadu bez nároku na dodatečné státní prostředky. Jako garanční výbor byl dne 17. prosince 2025 navržen hospodářský výbor.",
+    "researchedContext": "Text novely a obě části důvodové zprávy byly ověřeny proti plnému znění tisku na stránkách Poslanecké sněmovny. Nový § 13a skutečně obsahuje trojici kumulativních kritérií a šestiměsíční lhůtu pro výzvu Úřadu k notifikaci, jak tvrdí zvláštní část u bodu 3. Zvláštní část u bodu 3 rovněž výslovně přiznává, že k zavedení call-in modelu vedly opakované stížnosti třetích stran za posledních deset let, které se týkaly spojení nedosahujících obratových prahů: „v průběhu posledních 10 let Úřad obdržel několik stížností, které požadovaly, aby Úřad zasahoval proti spojením soutěžitelů, která podle názoru stěžovatelů mohla mít za následek podstatné narušení hospodářské soutěže.“ Nový nástroj opatření obecné povahy (§§ 20b až 20d) je podle zvláštní části u bodu 8 výslovně vyloučen pro trhy pod dohledem tří jmenovaných sektorových regulátorů, aby nedocházelo ke konfliktu pravomocí; samotné ustanovení § 20d to potvrzuje: „Úřad nemůže vydat opatření obecné povahy podle § 20b odst. 1, jde-li o relevantní trh, nad nímž vykonává dohled Český telekomunikační úřad, Energetický regulační úřad nebo Česká národní banka.“ Žádný ze dvou předkladatelů (Ivan Bartoš, Olga Richterová) nemá v grafu politických a peněžních vazeb zaznamenánu vazbu na žádnou obchodní společnost, takže nelze doložit motiv spojený s konkrétním podnikatelským zájmem. Sektorová návaznost na jmenovanou firmu rovněž nebyla u tohoto tisku vyhodnocena jako přítomná.",
+    "unstatedEffects": [
+      {
+        "effect": "Nový call-in mechanismus rozšiřuje dohledovou pravomoc Úřadu i na spojení soutěžitelů, která nedosahují stávajících notifikačních obratových prahů, a to zpětně po dobu až šesti měsíců od uskutečnění transakce. Důvodová zpráva odůvodňuje nástroj konkrétními stížnostmi třetích stran za posledních deset let, ale nikde nekvantifikuje ani neodhaduje dodatečné transakční a právní náklady, které tato nová šestiměsíční nejistota vnese do trhu fúzí a akvizic jako celku — dopadová část v bodě 5 obecné části počítá pouze s náklady na straně Úřadu, nikoli s náklady na straně podnikatelů.",
+        "whoBenefits": "Přímo Úřad pro ochranu hospodářské soutěže, jehož pravomoc a personální kapacita (nové Oddělení hlavního ekonoma) rostou; nepřímo velcí etablovaní soutěžitelé, kteří mohou stížností iniciovat přezkum akvizice menšího konkurenta, jenž by jinak obratové prahy nesplnil a povolení by vůbec nepodléhal.",
+        "evidence": "Zvláštní část k bodu 3 (§ 13a) výslovně uvádí, že podnětem k zavedení nástroje byly stížnosti třetích stran na spojení pod obratovými prahy; dopadová část v bodě 5 obecné části popisuje pouze rozpočtové náklady Úřadu, nikoli náklady dotčených soutěžitelů."
+      },
+      {
+        "effect": "Nový nástroj opatření obecné povahy (§§ 20b až 20d) se plošně vztahuje na jakýkoli relevantní trh v české ekonomice s výjimkou tří jmenovitě vyloučených odvětví (telekomunikace, energetika, bankovnictví), která už mají vlastního odvětvového regulátora. Zbytek ekonomiky — včetně odvětví, která žádného obdobně silného odvětvového regulátora nemají a na která zvláštní část u bodu 8 sama odkazuje jako na příklad rychle se vyvíjejících trhů (mimo jiné digitální trhy) — je novým nástrojem plně zasažitelný, aniž by důvodová zpráva srovnávala míru zásahu do jednotlivých odvětví.",
+        "whoBenefits": "Soutěžitelé v odvětvích s vlastním sektorovým regulátorem (telekomunikace, energetika, bankovnictví), kteří jsou z nového nástroje Úřadu výslovně vyňati; naopak soutěžitelé v nechráněných odvětvích nesou riziko nového zásahu v plném rozsahu.",
+        "evidence": "Ustanovení § 20d vylučuje působnost nového nástroje pouze pro trhy pod dohledem Českého telekomunikačního úřadu, Energetického regulačního úřadu a České národní banky; zvláštní část k bodu 8 sama zmiňuje digitální trhy jako příklad odvětví, kde je aplikace nástroje obtížně předvídatelná."
+      }
+    ],
+    "conflictAssessment": "Žádný z předkladatelů — Ivan Bartoš (poslanecké číslo 6433) ani Olga Richterová (poslanecké číslo 6473) — nemá v grafu peněžních vazeb zaznamenánu žádnou vazbu typu vlastník nebo jednatel na obchodní společnost, natož na společnost působící v odvětví hospodářské soutěže či finančního trhu, kterých se novela týká. Nebyla zjištěna ani jiná sektorová návaznost mezi tímto tiskem a firmou z peněžního grafu. Z hlediska peněžního grafu tedy k tomuto návrhu nebyl identifikován žádný střet zájmu; zjištění tohoto verdiktu se týkají mezery v analýze regulatorních a hospodářských dopadů, nikoli osobního obohacení předkladatelů.",
+    "severity": "low",
+    "confidence": 3,
+    "citations": [
+      {
+        "claim": "Návrh mění zákon č. 143/2001 Sb., o ochraně hospodářské soutěže, mimo jiné zavedením nového § 13a (přezkum spojení soutěžitelů pod obratovými prahy) a nových §§ 20b až 20d (opatření obecné povahy pro trhy s trvajícím narušením hospodářské soutěže) a nových skutkových podstat přestupků fyzických osob.",
+        "kind": "law",
+        "source": "143/2001"
+      },
+      {
+        "claim": "Návrh navazujícím způsobem mění § 251a odst. 2 zákona č. 374/2015 Sb., o ozdravných postupech a řešení krize na finančním trhu, tak, aby se na výjimku ze standstill povinnosti vztahovalo i nové ustanovení § 13a odst. 3.",
+        "kind": "law",
+        "source": "374/2015"
+      },
+      {
+        "claim": "Zvláštní část k bodu 3 (§ 13a) odůvodňuje zavedení call-in modelu opakovanými stížnostmi třetích stran za posledních deset let na spojení soutěžitelů, která nesplňovala obratová notifikační kritéria.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=5&ct1=0"
+      },
+      {
+        "claim": "Ustanovení § 20d výslovně vylučuje působnost nového nástroje opatření obecné povahy pro trhy pod dohledem Českého telekomunikačního úřadu, Energetického regulačního úřadu a České národní banky.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=5&ct1=0"
+      },
+      {
+        "claim": "Jako garanční výbor byl dne 17. prosince 2025 navržen hospodářský výbor.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=5"
+      }
+    ]
+  },
+  {
+    "billTisk": 15,
+    "statedReasoning": "Návrh (sněmovní tisk 15) mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny. Podle obecné části důvodové zprávy (bod 1) reaguje novela na opakovanou zkušenost, že platná pravidla umožňují nad míru extenzivní využití obstrukčních nástrojů, což vede k časovým průtahům a nepředvídatelnosti jednání. Novela zavádí: pevnou rozhodovací uzávěrku do 13.00 hodin téhož jednacího dne a kvalifikované kvorum tří pětin přítomných poslanců pro rozhodnutí o hlasování po 19. hodině nebo pokračování jednání po 21. hodině (§ 53); koncentraci procesních návrhů do jednoho vystoupení s časovým limitem 5, resp. 30 minut u řečníka s přednostním právem (§ 54); časové limity pro zpravodaje (30 minut) a klubové řečníky (60 minut) (§ 58); obecný limit řečnické doby 20 minut a nejvýše dvě vystoupení k téže věci (§ 59); strop dvou faktických poznámek na jedno vystoupení (§ 60); časové limity 60, resp. 30 minut pro řečníky s přednostním právem a možnost usnesením upravit pořadí jejich přihlášek (§ 67); a pevné navázání vyčlenění dnů pro třetí čtení na okamžik schválení pořadu schůze (§ 95a). Obecná část v bodě 2 návrh obhajuje jako slučitelný s ústavním pořádkem, mimo jiné odkazem na nález Ústavního soudu sp. zn. Pl. ÚS 7/22 o vyvažování práv parlamentní menšiny a funkčnosti Sněmovny, a v bodě 5 uvádí, že novela nemá přímé fiskální dopady. Návrh byl podán k projednání a schválení již v prvním čtení. Jako garanční výbor byl dne 17. prosince 2025 navržen ústavně právní výbor.",
+    "researchedContext": "Ustanovení citovaná v obecné i zvláštní části byla ověřena proti plnému znění tisku. Nová věta § 53 odst. 2 v novelizačním bodě 2 skutečně stanoví: „O umožnění hlasování podle odstavce 1 po 19. hodině a o prodloužení jednací doby po 21. hodině se může Sněmovna usnést nejpozději do 13 hodin téhož jednacího dne; k přijetí takového usnesení je třeba třípětinové většiny přítomných poslanců.“ Obecná část v bodě 1.2.1 tuto úpravu odůvodňuje snahou zabránit praxi neplánovaných nočních maratonů. Návrh byl podepsán 10. listopadu 2025 — týden poté, co lídři hnutí ANO, SPD a Motoristé sobě podepsali koaliční smlouvu (3. listopadu 2025) po volbách do Poslanecké sněmovny konaných v říjnu 2025, které ANO vyhrálo se ziskem 34,51 procenta hlasů, zatímco Piráti (jeden z předkladatelů tohoto tisku je předsedou Pirátů) skončili s 8,97 procenta a jsou po těchto volbách opoziční stranou. Novela nabývá účinnosti 1. ledna 2026, tedy v době, kdy se nová vládní většina ANO, SPD a Motoristé sobě ujímala moci.",
+    "unstatedEffects": [
+      {
+        "effect": "Časové stropy pro vystoupení, omezení řetězení faktických poznámek a kvalifikované kvorum pro večerní hlasování jsou formálně obsahově neutrální, ale fakticky omezují především nástroje, které historicky využívá parlamentní menšina k prodloužení projednávání návrhu, jenž nemůže zablokovat hlasy. Návrh byl podán týden po podpisu koaliční smlouvy ANO, SPD a Motoristů sobě a nabývá účinnosti přesně v okamžiku nástupu této nové většiny k moci, přičemž předkladatelé — poslanci strany, která je po volbách v říjnu 2025 v opozici — tím sami omezují nástroj, který by mohli ve své menšinové roli potřebovat.",
+        "whoBenefits": "Nová vládní většina ANO, SPD a Motoristé sobě, jejíž legislativní návrhy budou proti zdržovacím taktikám menšiny lépe prosaditelné; naopak předkladatelé i ostatní opoziční strany přicházejí o část nástrojů, které opozice v předchozím volebním období (2021–2025) sama zažila na straně hnutí ANO coby tehdejší opozice.",
+        "evidence": "Volby do Poslanecké sněmovny v říjnu 2025 vyhrálo hnutí ANO (34,51 procenta), koalice SPOLU skončila druhá; koaliční smlouvu ANO, SPD a Motoristé sobě podepsali 3. listopadu 2025, týden před podáním tohoto návrhu 10. listopadu 2025."
+      }
+    ],
+    "conflictAssessment": "Žádný z předkladatelů — Olga Richterová (poslanecké číslo 6473), Kateřina Stojanová (poslanecké číslo 7048) ani Ivan Bartoš (poslanecké číslo 6433) — nemá v grafu peněžních vazeb zaznamenánu žádnou vazbu na obchodní společnost; z hlediska peněžního grafu tedy nebyl u tohoto tisku identifikován žádný finanční střet zájmu. Zjištění tohoto verdiktu se týkají výhradně institucionálně-politické roviny (opoziční pozice předkladatelské strany po volbách v říjnu 2025, bezprostředně před podáním návrhu), nikoli osobního obohacení.",
+    "severity": "low",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Návrh mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny, zejména pravidla pro prodlužování jednacího dne, řečnickou dobu, faktické poznámky, přednostní práva a stabilitu dnů vyčleněných pro třetí čtení.",
+        "kind": "law",
+        "source": "90/1995"
+      },
+      {
+        "claim": "Nový § 53 odst. 2 stanoví, že o hlasování po 19. hodině nebo pokračování jednání po 21. hodině se Sněmovna může usnést nejpozději do 13 hodin téhož jednacího dne, a to třípětinovou většinou přítomných poslanců.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=15&ct1=0"
+      },
+      {
+        "claim": "Obecná část důvodové zprávy v bodě 1.2.1 odůvodňuje pevnou rozhodovací uzávěrku snahou zabránit praxi neplánovaných nočních maratonů.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=15&ct1=0"
+      },
+      {
+        "claim": "Volby do Poslanecké sněmovny v říjnu 2025 vyhrálo hnutí ANO se ziskem 34,51 procenta hlasů, koalice SPOLU skončila druhá, dále STAN, Piráti (8,97 procenta) a SPD.",
+        "kind": "web",
+        "source": "https://www.ceskenoviny.cz/zpravy/2729466"
+      },
+      {
+        "claim": "Zástupci hnutí ANO, SPD a Motoristé sobě podepsali koaliční smlouvu dne 3. listopadu 2025.",
+        "kind": "web",
+        "source": "https://www.denik.cz/z_domova/ano-spd-a-motoriste-podepsali-koalicni-smlouvu.html"
+      },
+      {
+        "claim": "Jako garanční výbor byl dne 17. prosince 2025 navržen ústavně právní výbor.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=15"
+      }
+    ]
+  },
+  {
+    "billTisk": 49,
+    "statedReasoning": "Návrh (sněmovní tisk 49) doplňuje § 23 zákona č. 100/2001 Sb., o posuzování vlivů na životní prostředí, o nové odstavce 13 a 14. Podle obecné části důvodové zprávy (bod 1.2) je cílem zajistit speciální režim pro záměry místních komunikací I. třídy umístěné celé v metropolitní rozvojové oblasti (Praha, Brno, Ostrava), pro které bylo stanovisko nebo závazné stanovisko posouzení vlivů na životní prostředí vydáno přede dnem 1. ledna 2024 — u takových záměrů návrh výjimečně umožňuje opakované prodloužení platnosti stanoviska, nejvýše však třikrát, ačkoli novela provedená zákonem č. 465/2023 Sb. opakované prodlužování obecně vyloučila. Odstavec 14 výslovně vylučuje z výjimky stanoviska, jejichž platnost už zanikla přede dnem 1. ledna 2024, aby nedocházelo k pravé retroaktivitě. Podle bodu 5 obecné části nemá návrh přímý dopad na státní rozpočet a přináší naopak nepřímé pozitivní dopady stabilizací velkých infrastrukturních projektů. Účinnost je navržena mimořádně brzy — patnáctým dnem po vyhlášení, nikoli k obvyklému 1. lednu či 1. červenci — přičemž zvláštní část k čl. II tuto odchylku odůvodňuje výslovně tím, že platnost kladného stanoviska pro dostavbu městského okruhu v Praze definitivně skončí v říjnu 2027 a nová úprava musí nabýt účinnosti s dostatečným předstihem, aby stihla řízení o prodloužení tohoto konkrétního stanoviska. Jako garanční výbor byl dne 5. ledna 2026 navržen výbor pro životní prostředí.",
+    "researchedContext": "Text nových odstavců 13 a 14 byl ověřen proti plnému znění tisku; odstavec 13 skutečně stanoví, že vyloučení opakovaného prodloužení „se nepoužije ani pro záměr místní komunikace I. třídy, který je celý umístěn v rozvojové oblasti republikového významu označené v politice územního rozvoje České republiky jako metropolitní rozvojová oblast“, a odstavec 14, že se výjimka „nepoužije na stanoviska a závazná stanoviska, jejichž platnost zanikla přede dnem 1. ledna 2024“. Zvláštní část k čl. II cituje jako naléhavý důvod pro dřívější účinnost výslovně říjen 2027 jako termín zániku platnosti stanoviska pro dostavbu městského okruhu v Praze. Podle žurnalistického zpravodajství (Ekonomický deník, 29. listopadu 2025) předložilo hlavní město Praha obdobný návrh na prodloužení platnosti stanoviska už v předchozím volebním období, kdy jej dolní komora před volbami neprojednala, a Ministerstvo životního prostředí tehdy vládě doporučilo zaujmout k rozšíření výjimek negativní stanovisko. Na přelomu listopadu a prosince 2025 podalo hlavní město Praha souběžně s tímto tiskem vlastní, samostatný návrh novely jiného zákona (o urychlení výstavby dopravní infrastruktury), který měl sloužit témuž účelu — udržet v platnosti stanoviska pro dostavbu městského okruhu, Libeňskou spojku a Radlickou radiálu; ministr životního prostředí Petr Hladík podle zpravodajství (Ekonomický deník, 9. prosince 2025) tento souběžný pražský návrh kritizoval jako formulovaný příliš obecně — že by „prakticky dopadal na mnohonásobně širší okruh záměrů po celé České republice“ — aniž by se toto varování v důvodové zprávě posuzovaného tisku 49 jakkoli odráží. Podle zpravodajství (Pražský patriot, 23. prosince 2025) zaujala vláda k oběma souběžným návrhům (pražskému i tomuto, pirátskému) shodné, neutrální stanovisko dne 22. prosince 2025. Jeden z předkladatelů, Zdeněk Hřib, byl v letech 2018 až 2023 primátorem hlavního města Prahy, tedy v čele instituce, která je nositelem posuzovaného stanoviska a investorem dotčeného dopravního záměru.",
+    "unstatedEffects": [
+      {
+        "effect": "Návrh je formulován obecnými kritérii (druh komunikace, umístění v metropolitní rozvojové oblasti, datum vydání stanoviska), a nikoli jmenovitým odkazem na konkrétní záměr, ačkoli celé odůvodnění mimořádně brzké účinnosti ve zvláštní části stojí výhradně na jediném konkrétním projektu — dostavbě městského okruhu v Praze. Kritika souběžného pražského návrhu ministrem životního prostředí ukazuje, že právě tento typ obecné, nikoli projektově vázané formulace může zasáhnout podstatně širší okruh záměrů po celé republice, než kolik jich sama důvodová zpráva zmiňuje jako cílené.",
+        "whoBenefits": "Investoři a nositelé jakéhokoli záměru místní komunikace I. třídy v kterékoli metropolitní rozvojové oblasti se stanoviskem vydaným před 1. lednem 2024, nikoli pouze hlavní město Praha jako nositel jmenovaného projektu dostavby městského okruhu.",
+        "evidence": "Ministr životního prostředí Petr Hladík podle zpravodajství Ekonomického deníku z 9. prosince 2025 kritizoval formulaci obdobného, souběžně podaného pražského návrhu jako příliš obecnou s dopadem na širší okruh záměrů po celé České republice; zvláštní část tohoto tisku k čl. II odůvodňuje mimořádnou účinnost výhradně jediným jmenovaným projektem, dostavbou městského okruhu v Praze."
+      },
+      {
+        "effect": "Návrh je jedním ze dvou souběžných legislativních pokusů podaných na přelomu listopadu a prosince 2025 se stejným praktickým cílem — udržet v platnosti stanovisko pro dostavbu městského okruhu v Praze — přičemž druhý pokus podalo přímo hlavní město Praha jinou novelou. Důvodová zpráva tohoto tisku se o existenci souběžného pražského návrhu ani o dřívějším, v minulém volebním období neprojednaném pokusu a negativním stanovisku Ministerstva životního prostředí k obdobnému rozšíření výjimek nezmiňuje.",
+        "whoBenefits": "Hlavní město Praha jako investor a nositel stanoviska k dostavbě městského okruhu; jeden z předkladatelů, Zdeněk Hřib, byl v letech 2018 až 2023 primátorem hlavního města Prahy a stál tedy v čele instituce, jejíž investiční záměr je jediným jmenovaným důvodem mimořádné účinnosti návrhu.",
+        "evidence": "Podle Ekonomického deníku z 29. listopadu 2025 předložilo hlavní město Praha obdobný návrh na prodloužení platnosti stanoviska už v minulém volebním období, kdy jej dolní komora neprojednala, a Ministerstvo životního prostředí doporučilo vládě zaujmout k rozšíření výjimek negativní stanovisko; podle Pražského patriota z 23. prosince 2025 podalo hlavní město Praha souběžně s tímto tiskem vlastní samostatný návrh se stejným cílem."
+      }
+    ],
+    "conflictAssessment": "Žádný z předkladatelů — Zdeněk Hřib (poslanecké číslo 6552), Olga Richterová (poslanecké číslo 6473) ani Katerina Demetrashvili (poslanecké číslo 6999) — nemá v grafu peněžních vazeb zaznamenánu vazbu vlastníka ani jednatele na obchodní společnost, natož na společnost působící jako investor dopravní infrastruktury. Z hlediska peněžního grafu tedy nebyl u tohoto tisku identifikován žádný finanční střet zájmu. Zjištěná souvislost je institucionální, nikoli majetková: jeden z předkladatelů, Zdeněk Hřib, byl v letech 2018 až 2023 primátorem hlavního města Prahy, tedy statutárním zástupcem veřejné instituce, jejíž konkrétní investiční záměr je jediným jmenovaným důvodem naléhavosti návrhu; nejde o osobní obohacení, ale o přetrvávající institucionální vazbu předkladatele na instituci, jejíž zájem návrh prosazuje.",
+    "severity": "low",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Návrh doplňuje § 23 zákona č. 100/2001 Sb., o posuzování vlivů na životní prostředí, o nové odstavce 13 a 14 upravující výjimku z obecného zákazu opakovaného prodloužení platnosti stanoviska.",
+        "kind": "law",
+        "source": "100/2001"
+      },
+      {
+        "claim": "Nový odstavec 13 vylučuje pro vybrané záměry místních komunikací I. třídy zákaz opakovaného prodloužení platnosti stanoviska a odstavec 14 z výjimky vylučuje stanoviska, jejichž platnost už zanikla přede dnem 1. ledna 2024.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=49&ct1=0"
+      },
+      {
+        "claim": "Zvláštní část k čl. II odůvodňuje mimořádně brzkou účinnost tím, že platnost stanoviska pro dostavbu městského okruhu v Praze definitivně skončí v říjnu 2027.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=49&ct1=0"
+      },
+      {
+        "claim": "Hlavní město Praha předložilo obdobný návrh na prodloužení platnosti stanoviska pro dostavbu městského okruhu už v minulém volebním období; dolní komora jej před volbami neprojednala a Ministerstvo životního prostředí doporučilo vládě k rozšíření výjimek negativní stanovisko.",
+        "kind": "web",
+        "source": "https://ekonomickydenik.cz/praha-tlaci-na-snemovnu-zachrana-povoleni-pro-dostavbu-okruhu/"
+      },
+      {
+        "claim": "Ministr životního prostředí Petr Hladík kritizoval souběžný pražský návrh na prodloužení stanovisek pro městský okruh, Libeňskou spojku a Radlickou radiálu jako formulovaný příliš obecně, s dopadem na širší okruh záměrů po celé České republice.",
+        "kind": "web",
+        "source": "https://ekonomickydenik.cz/vyjimka-pro-mestsky-okruh/"
+      },
+      {
+        "claim": "Vláda zaujala dne 22. prosince 2025 shodné, neutrální stanovisko jak k pražskému návrhu, tak k tomuto pirátskému návrhu novely zákona o posuzování vlivů na životní prostředí.",
+        "kind": "web",
+        "source": "https://www.prazskypatriot.cz/k-novelam-o-platnosti-posudku-eia-pro-okruh-v-praze-se-vlada-postavila-neutralne/"
+      },
+      {
+        "claim": "Zdeněk Hřib byl podle encyklopedického zdroje primátorem hlavního města Prahy od listopadu 2018 do února 2023; jde o jediný pramen, o který se tato datace v tomto hodnocení opírá.",
+        "kind": "web",
+        "source": "https://en.wikipedia.org/wiki/Zden%C4%9Bk_H%C5%99ib"
+      },
+      {
+        "claim": "Jako garanční výbor byl dne 5. ledna 2026 navržen výbor pro životní prostředí.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=49"
+      }
+    ]
+  },
+  {
+    "billTisk": 57,
+    "statedReasoning": "Vládní návrh (předkladatel ministr zdravotnictví Vlastimil Válek) mění zákon č. 375/2022 Sb., o zdravotnických prostředcích a diagnostických zdravotnických prostředcích in vitro, za účelem adaptace nařízení (EU) 2024/1860, jehož implementační lhůta uplynula již 10. ledna 2025. Vkládá nové § 8a a § 8b (povinnost výrobce hlásit Ústavu pro kontrolu léčiv předpokládané přerušení nebo ukončení dodávek prostředku a poskytnout na výzvu doplňující údaje), § 27a (obdobná povinnost distributorů a dovozců na výzvu) a § 39a (obdobná povinnost poskytovatelů zdravotních služeb na výzvu), a nový § 53a, který zakládá pravomoc Ústavu navrhnout a Ministerstva zdravotnictví vydat opatření obecné povahy dočasně upravující podmínky uvádění na trh, distribuce, uvádění do provozu, předepisování, výdeje či používání prostředku, u něhož hrozí ohrožení dostupnosti zdravotní péče. Doplňuje odpovídající skutkové podstaty přestupků v § 55, 57, 58, 59, 60 a 61 se sankcemi do 30 000 000 Kč. Zpráva uvádí, že jde o znovupředložení návrhu, který byl v minulém volebním období evidován jako sněmovní tisk 927 a nebyl projednán; oproti této dřívější verzi provádí nezbytné legislativně-technické změny reagující na to, že zákon o prostředcích mezitím nebyl novelizován sněmovním tiskem 918 z minulého období (ten předpokládal vlastní nové ustanovení § 53a, na které mělo navázat původní ustanovení § 53b tohoto návrhu), a na novelu provedenou mezitím vyhlášeným zákonem č. 236/2025 Sb. Zpráva žádá o projednání v režimu prvního čtení podle § 90 odst. 2 zákona o jednacím řádu s odůvodněním prošlé implementační lhůty, uvádí, že RIA nebyla zpracována na základě udělené výjimky a že připomínkové řízení bylo provedeno již v minulém volebním období a v tomto období se podle rozhodnutí předsedkyně Legislativní rady vlády ze dne 16. října 2025 neopakuje. Korupční rizika zpráva hodnotí jako soustředěná výhradně do dozoru nad plněním ohlašovacích povinností a jako pokrytá stávajícími kontrolními mechanismy Ústavu.",
+    "researchedContext": "Text potvrzuje rozsah tvrzený v obecné části: vkládá § 8a, § 8b, § 27a, § 39a a nový § 53a do zákona č. 375/2022 Sb. a rozšiřuje skutkové podstaty přestupků v § 55, 57, 58, 59, 60 a 61 tak, jak zvláštní část zprávy popisuje - „Platné znění“ přiložené k tisku ukazuje stejné vkládané paragrafy se zvýrazněnými změnami. Obecná část zprávy sama výslovně a podrobně vysvětluje koordinaci číslování s jiným, souběžně projednávaným návrhem téhož zákona: podle ní bylo nové ustanovení tohoto tisku (v minulém volebním období evidovaného jako tisk 927) původně označeno jako § 53b, protože podle tehdejšího pořadí projednávání mělo navazovat na ustanovení § 53a zavedené jiným návrhem (tehdejším tiskem 918, který měnil zákon o prostředcích v souvislosti se změnou zákona o regulaci reklamy). Protože se v tomto volebním období pořadí projednávání obrátilo a předloha nynějšího tisku 57 předstihuje předlohu nynějšího tisku, který nese v úředním vyjádření obsah tehdejšího tisku 918, přeznačila zpráva vlastní nové ustanovení z § 53b na § 53a, aby označení § 53b zůstalo volné pro onen druhý návrh. Toto vysvětlení je vnitřně konzistentní s operativním textem zpracovaného souběžného tisku, který do téhož zákona č. 375/2022 Sb. skutečně vkládá nové ustanovení označené § 53b („Program pro pacienty“) a nový § 62b - tedy jiná ustanovení téhož zákona než § 53a a navazující ustanovení tohoto tisku, takže mezi oběma návrhy nedochází k textové kolizi na společném paragrafu, nýbrž k záměrně koordinovanému, vzájemně se vyhýbajícímu číslování. Zpráva tuto koordinaci ovšem popisuje výhradně odkazem na tisky minulého volebního období (927 a 918) a nikde v textu neuvádí, pod jakým číslem je druhý návrh evidován v nynějším volebním období - čtenář tisku 57 tak nemůže z jeho vlastního textu ověřit, se kterým konkrétním nynějším návrhem je koordinace vedena, aniž by si dohledal historii projednávání tisku 927 na stránkách Poslanecké sněmovny.",
+    "unstatedEffects": [
+      {
+        "effect": "Obecná část zprávy vysvětluje přeznačení vlastního nového ustanovení z § 53b na § 53a jako koordinaci s jiným návrhem novelizujícím tentýž zákon, ale identifikuje tento druhý návrh výhradně čísly sněmovních tisků z minulého, ukončeného volebního období (927 a 918). Zpráva tak čtenáři nesděluje, pod jakým číslem je druhý, koordinovaný návrh veden v nynějším volebním období, ačkoliv jde o návrh měnící stejný zákon a zavádějící sousední ustanovení stejné části téhož zákona - koordinace číslování je tedy z textu tisku 57 samotného nedohledatelná bez použití vnějšího zdroje.",
+        "whoBenefits": "Nejde o osobní prospěch žádné strany, ale o mezeru v transparentnosti legislativního procesu: čtenář sledující pouze tento tisk nemůže bez dalšího dohledávání zjistit, se kterým souběžně projednávaným návrhem je číslování koordinováno, a nemůže tedy ani sám ověřit, že k avizované kolizi číslování skutečně nedochází.",
+        "evidence": "Obecná část zprávy k tisku 57, konkrétně bod 1 („Zhodnocení platného právního stavu“), popisující přeznačení ustanovení § 53b na § 53a s odkazem výhradně na sněmovní tisky 927 a 918 z minulého volebního období, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=57&ct1=0"
+      },
+      {
+        "effect": "Zpráva (bod 15) uvádí, že meziresortní připomínkové řízení k návrhu proběhlo v minulém volebním období a že podle rozhodnutí předsedkyně Legislativní rady vlády ze dne 16. října 2025 se v tomto volebním období neopakuje - přestože sama zpráva (bod 1) uvádí, že oproti tehdejší verzi provedla nezbytné legislativně-technické změny včetně přeznačení paragrafu § 53b na § 53a a přepracování § 61 odst. 4 v návaznosti na mezitím vyhlášený zákon č. 236/2025 Sb. Zpráva sama tyto změny označuje za legislativně-technické, nikoli věcné, ale toto hodnocení je tvrzením předkladatele a text tisku neobsahuje srovnání s dřívější verzí, podle něhož by čtenář mohl tuto charakteristiku sám nezávisle ověřit.",
+        "whoBenefits": "Předkladatel, v jehož prospěch rozhodnutí předsedkyně Legislativní rady vlády vyznívá: upravená verze návrhu se k projednání dostává bez nového meziresortního připomínkového řízení, takže změny oproti verzi z minulého volebního období nepodléhají nové kontrole připomínkových míst.",
+        "evidence": "Body 1 a 15 obecné části zprávy k tisku 57 (rozhodnutí předsedkyně Legislativní rady vlády dopisem ze dne 16. října 2025, „že se v tomto volebním období připomínkové řízení k návrhu zákona neprovede“; popis legislativně-technických změn oproti sněmovnímu tisku 927), https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=57&ct1=0"
+      }
+    ],
+    "conflictAssessment": "Tisk 57 má jediného evidovaného předkladatele, ministra zdravotnictví Vlastimila Válka; v případovém spisu tohoto tisku ani v samostatně vedeném přehledu peněžních vazeb poslanců není u něj evidována žádná peněžní vazba na soukromou firmu. Garančním výborem byl navržen Výbor pro zdravotnictví, avšak podle případového spisu k datu zpracování tohoto nálezu ještě nebyl formálně přikázán (stav „navrženo“, 17. 12. 2025), takže nelze hodnotit ani případnou souběžnou institucionální roli jeho předsedy. Věcně jde o transpozici nařízení EU do oblasti dozoru nad dostupností zdravotnických prostředků, z níž neplyne přímý peněžní prospěch žádné konkrétní, v grafu jmenované soukromé firmě spojené s předkladatelem. Z dostupných dat proto neplyne důvod pro podezření na majetkový střet zájmů u tohoto tisku.",
+    "severity": "low",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Čl. I tisku vkládá do zákona č. 375/2022 Sb. nová ustanovení § 8a a § 8b (povinnosti výrobce při přerušení nebo ukončení dodávek prostředku), § 27a (povinnost distributora a dovozce) a § 39a (povinnost poskytovatele zdravotních služeb) a nový § 53a (opatření Ústavu a Ministerstva zdravotnictví při ohrožení dostupnosti prostředku), a rozšiřuje skutkové podstaty přestupků v § 55, 57, 58, 59, 60 a 61 se sankcemi do 30 000 000 Kč.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=57&ct1=0"
+      },
+      {
+        "claim": "Obecná část zprávy (bod 1) uvádí, že návrh byl v minulém volebním období evidován jako sněmovní tisk 927 a nebyl projednán, a že oproti této verzi provedl legislativně-technické změny reagující na to, že zákon o prostředcích nebyl mezitím novelizován sněmovním tiskem 918 - proto se ustanovení původně označené jako § 53b přeznačuje na § 53a.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=57&ct1=0"
+      },
+      {
+        "claim": "Bod 15 obecné části zprávy uvádí, že hodnocení dopadů regulace (RIA) nebylo zpracováno na základě udělené výjimky, že v minulém volebním období proběhlo meziresortní připomínkové řízení a že se podle rozhodnutí předsedkyně Legislativní rady vlády ze dne 16. října 2025 v tomto volebním období neprovádí.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=57&ct1=0"
+      },
+      {
+        "claim": "Souběžně projednávaný tisk, jehož operativní text vkládá do zákona č. 375/2022 Sb. nová ustanovení § 53b („Program pro pacienty“) a § 62b, novelizuje tentýž zákon jinými, sousedními ustanoveními než tisk 57.",
+        "kind": "graph_fact",
+        "source": "bill:tisk:43274"
+      },
+      {
+        "claim": "Tisk 57 má jediného evidovaného předkladatele - Vlastimila Válka - a v přehledu peněžních vazeb poslanců je u něj evidován nulový počet záznamů.",
+        "kind": "graph_fact",
+        "source": "psp:person:6482"
+      },
+      {
+        "claim": "Zákon č. 375/2022 Sb., o zdravotnických prostředcích a diagnostických zdravotnických prostředcích in vitro, je předpis novelizovaný tímto tiskem.",
+        "kind": "law",
+        "source": "375/2022"
+      },
+      {
+        "claim": "Zákon č. 236/2025 Sb. je předpis, jehož mezitímní vyhlášení podle zprávy vyžádalo přepracování § 61 odst. 4 návrhu.",
+        "kind": "law",
+        "source": "236/2025"
+      },
+      {
+        "claim": "Zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny, je předpis, podle jehož § 90 odst. 2 zpráva žádá o projednání návrhu v prvním čtení.",
+        "kind": "law",
+        "source": "90/1995"
+      }
+    ]
+  },
+  {
+    "billTisk": 59,
+    "statedReasoning": "Poslanecký návrh Pavly Pivoňky Vaňkové a Zdeňky Blišťanové mění zákon č. 468/2024 Sb., o integračním sociálním podniku, tak, že celou část čtvrtou zákona (dosavadní úpravu tzv. integračního fondu, §§ 17 až 20) nahrazuje novou úpravou nazvanou „Fond reinvestice zisku“. Podle obecné části zprávy dosavadní konstrukce integračního fondu v praxi ukázala administrativní a účetní zátěž, zejména pro menší podniky, protože vyžadovala trvalé navyšování fondu bez stanoveného stropu a omezovala využití prostředků jen na úzce vymezené investiční účely; to mělo podle zprávy působit jako bariéra pro nové zájemce o status integračního sociálního podniku. Návrh zachovává povinnost vyčlenit do fondu více než polovinu dosaženého zisku, ale ruší povinnost dalšího trvalého navyšování (dosud ukládanou bez stanoveného stropu) a rozšiřuje okruh činností, na které lze prostředky fondu použít, na všechny činnosti integračního charakteru podle § 2 odst. 2 až 4 zákona (nejen investiční pořízení, ale i vzdělávání, poradenství a rozvoj pracovních dovedností). Zpráva dále upravuje nakládání s prostředky fondu při zániku statusu integračního sociálního podniku a přechodná ustanovení pro již existující fondy. Podle zprávy nemá návrh přímý dopad na státní rozpočet ani ostatní veřejné rozpočty, nemění dotační mechanismy, má pozitivní dopad na podnikatelské prostředí sociální ekonomiky a nezvyšuje korupční rizika.",
+    "researchedContext": "Archivovaný text (Čl. I) potvrzuje, že celá část čtvrtá zákona č. 468/2024 Sb. je nahrazena novým zněním §§ 17 až 20 přesně podle popisu zvláštní části zprávy: § 17 zachovává povinnost přidělit do fondu více než 50 % zisku běžného účetního období a ruší dosavadní povinnost navyšování ukládanou bez stanoveného stropu, § 18 rozšiřuje účel čerpání na všechny činnosti podle § 2 odst. 2 až 4 zákona, § 19 upravuje nakládání s prostředky fondu při zániku statusu (převod jinému integračnímu sociálnímu podniku, který není spojenou osobou, jinak státu) a § 20 řeší určení zisku u subjektů mimo účetní jednotku. Zvláštní část zprávy k § 17 se ovšem věnuje jen výši přídělu, převzetí aktiv z fondu jiného podniku a postupu při zániku statusu — nový § 17 odst. 5 („Pro účely určení navýšení fondu se nepřihlíží k jednáním, jejichž účelem je snížit příděl do fondu.“) v obecném ani zvláštním výkladu vůbec zmíněn není, ačkoli jde o novou hmotněprávní protiobcházecí normu, která podle dostupného textu tisku nemá v dosavadní úpravě obdobu (platné znění není archivováno). Přechodné ustanovení Čl. II bodu 1 dále stanoví, že integrační fond vytvořený podle dosavadního § 17 odst. 1 se ke dni účinnosti zákona „rozpustí ve prospěch vlastního kapitálu“ — tedy že dosud zákonem vázané prostředky přejdou jednorázově do obecného vlastního kapitálu podniku (platné znění zákona č. 468/2024 Sb. není součástí archivovaného tisku, takže přesná dosavadní pravidla zrušení fondu z něj ověřit nelze). Zvláštní část zprávy k Čl. II tento krok popisuje jen jako technické odstranění povinnosti jeho dalšího vedení, aniž by se vyjádřila k tomu, že se tím dosud účelově vázaná část zisku integračního sociálního podniku uvolňuje do vlastního kapitálu, s nímž již lze nakládat mimo omezení §§ 17 až 20 zákona.",
+    "unstatedEffects": [
+      {
+        "effect": "Nový § 17 odst. 5 zavádí pravidlo, že se při určování výše přídělu do fondu nepřihlíží k jednáním, jejichž účelem je příděl snížit — tedy protiobcházecí normu s vlastním hodnotícím kritériem účelu jednání. Zvláštní část zprávy vykládá u § 17 jen odstavce 2 a 4 a odstavec 5 nezmiňuje ani slovem, ačkoli jde o zcela nové hmotněprávní ustanovení bez obdoby v dosavadním znění zákona č. 468/2024 Sb.",
+        "whoBenefits": "Nelze jednoznačně určit — pravidlo dopadá na integrační sociální podniky, které by chtěly transakcemi snížit vykazovaný zisk běžného účetního období a tím i povinný příděl do fondu; vzhledem k neurčitosti kritéria „účelu jednání“ zvyšuje právní nejistotu i pro podniky bez takového úmyslu.",
+        "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=59&ct1=0"
+      },
+      {
+        "effect": "Přechodné ustanovení Čl. II bodu 1 ruší dosavadní integrační fond vytvořený podle § 17 odst. 1 zákona č. 468/2024 Sb. a jeho prostředky jednorázově „rozpustí ve prospěch vlastního kapitálu“ integračního sociálního podniku. Podle obecné části zprávy byly přitom prostředky fondu dosud účelově vázány na úzce vymezené investiční účely; platné znění zákona č. 468/2024 Sb. není součástí archivovaného tisku, takže přesná dosavadní pravidla zrušení fondu z něj ověřit nelze. Zpráva v části k Čl. II ani v hodnocení hospodářského a finančního dopadu neuvádí, že tímto jednorázovým krokem dochází k uvolnění dosud účelově vázaného majetku integračních sociálních podniků do jejich obecného vlastního kapitálu.",
+        "whoBenefits": "Integrační sociální podniky, respektive jejich vlastníci či společníci, u nichž dosavadní integrační fond podle § 17 odst. 1 nabyl nenulové hodnoty ke dni účinnosti zákona — jejich prostředky přestávají být účelově vázány zákonem a stávají se součástí vlastního kapitálu podniku.",
+        "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=59&ct1=0"
+      }
+    ],
+    "conflictAssessment": "U obou předkladatelek — Pavly Pivoňky Vaňkové a Zdeňky Blišťanové — graf neeviduje žádnou peněžní vazbu na obchodní společnost, takže k tomuto tisku není v datech zjištěn ani vyloučitelný osobní finanční zájem na konkrétní firmě, včetně žádného integračního sociálního podniku podle zákona č. 468/2024 Sb. V datech proto není zjištěn střet zájmů předkladatelek.",
+    "severity": "medium",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "V zákoně č. 468/2024 Sb., o integračním sociálním podniku, část čtvrtá včetně nadpisu zní: ČÁST ČTVRTÁ (nadpis „FOND REINVESTICE ZISKU“), §§ 17 až 20.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=59&ct1=0"
+      },
+      {
+        "claim": "„Pro účely určení navýšení fondu se nepřihlíží k jednáním, jejichž účelem je snížit příděl do fondu.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=59&ct1=0"
+      },
+      {
+        "claim": "„Integrační fond vytvořený podle § 17 odst. 1 zákona č. 468/2024 Sb., ve znění účinném přede dnem nabytí účinnosti tohoto zákona, se dnem nabytí účinnosti tohoto zákona rozpustí ve prospěch vlastního kapitálu.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=59&ct1=0"
+      },
+      {
+        "claim": "Zvláštní část zprávy k § 17 vykládá pouze úpravu přídělu do fondu, převzetí aktiv od jiného podniku a postup při zániku statusu, aniž by se vyjadřovala k odstavci 5 (protiobcházecí pravidlo).",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=59&ct1=0"
+      },
+      {
+        "claim": "Navrhovaná právní úprava nemá přímý dopad na státní rozpočet ani na ostatní veřejné rozpočty a nemění dotační mechanismy ani výši podpory poskytované integračním sociálním podnikům.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=59&ct1=0"
+      },
+      {
+        "claim": "Jako garanční výbor tisku 59 byl 14. 1. 2026 navržen výbor pro sociální politiku (VSP).",
+        "kind": "graph_fact",
+        "source": "bill:tisk:43166"
+      },
+      {
+        "claim": "V grafu není u Pavly Pivoňky Vaňkové evidována žádná peněžní vazba na obchodní společnost.",
+        "kind": "graph_fact",
+        "source": "psp:person:6762"
+      },
+      {
+        "claim": "V grafu není u Zdeňky Blišťanové evidována žádná peněžní vazba na obchodní společnost.",
+        "kind": "graph_fact",
+        "source": "psp:person:6992"
+      },
+      {
+        "claim": "Zákon č. 468/2024 Sb., o integračním sociálním podniku, je jediný zákon novelizovaný tímto tiskem.",
+        "kind": "law",
+        "source": "468/2024"
+      }
+    ]
+  },
+  {
+    "billTisk": 163,
+    "statedReasoning": "Vládní návrh (předkladatelka místopředsedkyně vlády a ministryně financí Alena Schillerová, schváleno vládou a podepsáno předsedou vlády i předkladatelkou 13. dubna 2026) zavádí nový samostatný zákon o regulaci cen pohonných hmot vládou a mění zákon č. 526/1990 Sb., o cenách. Podle § 1 a § 2 návrhu je vláda příslušná regulovat ceny pohonných hmot cenovým výměrem ve formě nařízení vlády, nastane-li mimořádná tržní situace na trhu s pohonnými hmotami nebo vyžadují-li to důsledky takové situace, a to nejdéle na 12 měsíců s možností opakování, pokud důvody trvají; vláda nesmí stanovit minimální ani pevnou cenu. Část druhá mění zákon o cenách tak, aby cenový výměr vydaný vládou měl formu nařízení vlády (na rozdíl od opatření obecné povahy, kterým cenové výměry vydává standardně Ministerstvo financí), vyhlašoval se ve Sbírce zákonů a mezinárodních smluv a ve výjimečných případech, vyžaduje-li to veřejný zájem, mohl být připraven bez využití systému e-Legislativa. Zpráva odůvodňuje návrh mimořádnou tržní situací vyvolanou vojenským konfliktem v Íránu, uvádí nárůst ceny ropy Brent o více než 80 % s odkazem na přiložený graf a žádá o projednání ve zkráceném řízení v rámci stavu legislativní nouze podle § 99 odst. 1 a 2 zákona o jednacím řádu Poslanecké sněmovny. Přímý dopad na státní rozpočet návrh popírá; dopad bude mít až konkrétní budoucí cenový výměr, jehož důsledky podle zprávy nelze předem vyčíslit. Korupční rizika zpráva hodnotí jako nezaložená, s odůvodněním, že příprava cenového výměru ve formě nařízení vlády coby usnesení kolektivního orgánu poskytuje lepší veřejnou kontrolu než příprava opatření obecné povahy jediným správním orgánem.",
+    "researchedContext": "Operativní text potvrzuje popis: § 1 a § 2 zakládají působnost vlády regulovat ceny pohonných hmot cenovým výměrem ve formě nařízení vlády na dobu nejvýše 12 měsíců s možností opakovaného vydání, pokud důvody trvají, a Část druhá (§ 3 body 1 až 9) mění § 3 a § 10 zákona o cenách přesně tak, jak zvláštní část zprávy popisuje, včetně nového odstavce 5, který u tohoto nařízení vlády výslovně umožňuje přípravu bez využití systému e-Legislativa, „vyžaduje-li to veřejný zájem“, s odůvodněním, že standardní transparentní příprava „je v rozporu s principy vynucovanými zákonem o cenách“ (tj. že by trh mohl cenovou regulaci předem předvídat). Obecná část zprávy (bod 3, soulad s ústavním pořádkem) zároveň sama uvádí, že cenový výměr ve formě nařízení vlády nebude možné napadnout u správního soudu tak, jako je to možné u opatření obecné povahy, a že ochranu bude poskytovat jen abstraktní přezkum Ústavním soudem na návrh omezeného okruhu navrhovatelů (např. poslanci, senátoři, veřejný ochránce práv, zastupitelstvo kraje) nebo individuální námitka nepoužitelnosti nařízení podle čl. 95 odst. 1 Ústavy v konkrétním řízení o sankci. Návrh se výslovně hlásí k odvětvovému precedentu regulace cen elektřiny a plynu a k dřívější diskusi o cenové regulaci pohonných hmot z roku 2022 v souvislosti s napadením Ukrajiny. Zpráva rovněž zmiňuje, že obdobná cenová regulace formou maximální ceny je „účinná od 8. dubna 2026“, aniž by dále upřesnila její právní základ nebo rozsah - jde tedy o odkaz na již probíhající opatření podle stávající právní úpravy zákona o cenách, jehož podrobnosti nejsou v textu tisku dále rozvedeny. Sněmovní tisk 163 nikde v textu neodkazuje na jiný, souběžně projednávaný sněmovní tisk věnovaný stejné mimořádné tržní situaci - konkrétně na dříve zpracovaný poslanecký návrh snížení sazby spotřební daně z pohonných hmot, který svou naléhavost opíral o tentýž vojenský konflikt v Íránu a k němuž vláda dne 14. dubna 2026, tedy jediný den po podpisu tisku 163, zaujala nesouhlasné stanovisko.",
+    "unstatedEffects": [
+      {
+        "effect": "Zpráva k tisku 163 líčí mimořádnou tržní situaci vyvolanou vojenským konfliktem v Íránu jako důvod k zavedení nové, dosud neexistující regulační pravomoci vlády a žádá o nejnáročnější formu zrychleného projednání (stav legislativní nouze). Dříve zpracovaný sněmovní tisk, poslanecký návrh snížení spotřební daně z pohonných hmot, byl podán o měsíc dříve a svou naléhavost odůvodňoval touž mimořádnou tržní situací vyvolanou stejným konfliktem; vláda k němu zaujala nesouhlasné stanovisko 14. dubna 2026, tedy jediný den po datu, kdy předseda vlády a předkladatelka podepsali tisk 163. Ani jeden z obou textů druhý nezmiňuje, takže z žádného z nich samotného není patrné, že stát na tutéž mimořádnou tržní situaci reagoval dvěma souběžně projednávanými, věcně odlišnými legislativními nástroji (dočasné snížení spotřební daně oproti trvalé regulační pravomoci vlády), z nichž jeden vláda zamítla ve stejném období, kdy druhý sama předložila.",
+        "whoBenefits": "Nejde o osobní prospěch konkrétní strany; jde o mezeru v transparentnosti legislativního procesu - čtenář sledující jen tisk 163 se nedozví, že existuje souběžný, věcně jiný legislativní návrh reagující na tutéž krizovou situaci, ani že vláda jeden z nich ve stejném období odmítla podpořit (nesouhlasné stanovisko).",
+        "evidence": "Obecná část zprávy k tisku 163, body 2 a 17 (odkaz na konflikt v Íránu a žádost o stav legislativní nouze), https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=163&ct1=0, ve spojení s dříve zpracovaným nálezem k tisku 133 a údaji o vládním stanovisku ze dne 14. 4. 2026 dostupnými na https://www.psp.cz/sqw/historie.sqw?o=10&t=133"
+      },
+      {
+        "effect": "Bod 2 obecné části zprávy uvádí, že nárůst ceny ropy Brent činil „více než 80 %“, s odkazem výhradně na přiložený graf vývoje ceny bez uvedení konkrétního srovnávaného období nebo doprovodné tabulky v textu zprávy. Na rozdíl od dříve zpracovaného cenového tvrzení u jiného tisku, které uvádělo přesné srovnávané datum (týdenní srovnání), zpráva k tisku 163 datum ani délku srovnávaného období u čísla 80 % vůbec neuvádí - čtenář textu proto nemůže sám ověřit, zda jde o srovnání meziroční, mezitýdenní nebo jiné, ani k jakým dvěma dnům se týká.",
+        "whoBenefits": "Nejde o prospěch konkrétní strany, ale o mezeru v ověřitelnosti klíčového čísla, na němž návrh staví odůvodnění mimořádnosti tržní situace a žádost o stav legislativní nouze.",
+        "evidence": "Bod 2 obecné části zprávy k tisku 163 („Nárůst ceny ropy o více než 80 % se promítá do ceny pohonných hmot...“, s odkazem na „Obrázek 1: Vývoj ceny barelu ropy Brent“), https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=163&ct1=0"
+      },
+      {
+        "effect": "Zvláštní část zprávy k § 10 zákona o cenách (body 3 až 9) odůvodňuje výjimku z použití systému e-Legislativa u cenového výměru vlády tím, že standardní transparentní příprava by trhu umožnila se na regulaci předem připravit. Obecná část zprávy (bod 3, soulad s ústavním pořádkem) odůvodňuje ztrátu přímé přezkoumatelnosti tohoto cenového výměru u správního soudu tím, že postačí abstraktní přezkum Ústavním soudem na návrh omezeného okruhu navrhovatelů a individuální námitka nepoužitelnosti v konkrétním řízení. Obě omezení - nižší předběžná průhlednost přípravy i nižší přímá soudní přezkoumatelnost - se týkají téhož nástroje (cenového výměru vlády ve formě nařízení vlády) a zpráva je zdůvodňuje na dvou oddělených místech, aniž by na jednom místě uvedla, že se stejný nástroj zbavuje obou záruk současně; bod 11 (korupční rizika) přitom staví svůj závěr o nulovém korupčním riziku právě na tvrzení, že rozhodování kolektivního orgánu vlády poskytuje „lepší veřejnou kontrolu“, aniž by se vypořádal s odstavcem 5 nově vkládaným do § 10 zákona o cenách, který přípravu tohoto rozhodnutí ve výjimečných případech umožňuje vyjmout ze standardního transparentního procesu.",
+        "whoBenefits": "Vláda jako nositelka nové regulační pravomoci, jejíž rozhodnutí bude podle textu návrhu ve výjimečných případech možné připravit mimo standardní transparentní proces a jež bude podléhat jen omezené přímé soudní přezkoumatelnosti oproti stávající úpravě.",
+        "evidence": "Obecná část zprávy k tisku 163, bod 3 (soulad s ústavním pořádkem, omezená přezkoumatelnost nařízení vlády), bod K bodům 3 až 9 (§ 10, výjimka z e-Legislativy) a bod 11 obecné části (zhodnocení korupčních rizik), https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=163&ct1=0"
+      }
+    ],
+    "conflictAssessment": "Tisk 163 má jedinou evidovanou předkladatelku, místopředsedkyni vlády a ministryni financí Alenu Schillerovou; v případovém spisu tohoto tisku ani v samostatně vedeném přehledu peněžních vazeb poslanců není u ní evidována žádná peněžní vazba na soukromou firmu. Jako další výbor byl tisku přikázán Rozpočtový výbor (přikázáno 13. 4. 2026); spis neuvádí, který výbor je garanční, ani jméno jeho předsedy, takže případnou souběžnou institucionální roli u tohoto tisku nelze z dostupných dat hodnotit. Věcně jde o obecnou úpravu cenové regulační pravomoci vlády vůči trhu s pohonnými hmotami jako celku, z níž neplyne přímý peněžní prospěch žádné konkrétní, v grafu jmenované soukromé firmě spojené s předkladatelkou. Z dostupných dat proto neplyne důvod pro podezření na majetkový střet zájmů u tohoto tisku.",
+    "severity": "medium",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "§ 1 a § 2 návrhu zakládají příslušnost vlády regulovat ceny pohonných hmot cenovým výměrem ve formě nařízení vlády při mimořádné tržní situaci nebo jejích přetrvávajících důsledcích, na dobu nejvýše 12 měsíců s možností opakovaného vydání, bez možnosti stanovit minimální nebo pevnou cenu; § 3 body 1 až 9 mění § 3 a § 10 zákona č. 526/1990 Sb., o cenách, včetně nového odstavce 5 umožňujícího ve výjimečných případech přípravu bez využití systému e-Legislativa.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=163&ct1=0"
+      },
+      {
+        "claim": "Obecná část zprávy odůvodňuje návrh vojenským konfliktem v Íránu a nárůstem ceny ropy Brent o více než 80 % s odkazem na přiložený graf, a žádá o projednání ve zkráceném řízení v rámci stavu legislativní nouze podle § 99 odst. 1 a 2 zákona o jednacím řádu Poslanecké sněmovny.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=163&ct1=0"
+      },
+      {
+        "claim": "Obecná část zprávy (bod 3, zhodnocení souladu s ústavním pořádkem) uvádí, že cenový výměr vlády ve formě nařízení vlády nebude možné napadnout u správního soudu jako opatření obecné povahy a že ochranu poskytne jen abstraktní přezkum Ústavním soudem na návrh omezeného okruhu navrhovatelů nebo individuální námitka nepoužitelnosti podle čl. 95 odst. 1 Ústavy.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=163&ct1=0"
+      },
+      {
+        "claim": "Bod 11 obecné části zprávy hodnotí korupční rizika návrhu jako nezaložená s odůvodněním, že příprava cenového výměru vlády jako usnesení kolektivního orgánu poskytuje lepší veřejnou kontrolu než příprava opatření obecné povahy jediným správním orgánem.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=163&ct1=0"
+      },
+      {
+        "claim": "Dříve zpracovaný sněmovní tisk 133, poslanecký návrh snížení sazby spotřební daně z pohonných hmot, odůvodňoval svou naléhavost týmž vojenským konfliktem v Íránu a vláda k němu zaujala nesouhlasné stanovisko 14. 4. 2026.",
+        "kind": "graph_fact",
+        "source": "bill:tisk:43256"
+      },
+      {
+        "claim": "Tisk 163 má jedinou evidovanou předkladatelku - Alenu Schillerovou - a v přehledu peněžních vazeb poslanců je u ní evidován nulový počet záznamů.",
+        "kind": "graph_fact",
+        "source": "psp:person:6545"
+      },
+      {
+        "claim": "Zákon č. 526/1990 Sb., o cenách, je předpis novelizovaný tímto tiskem.",
+        "kind": "law",
+        "source": "526/1990"
+      },
+      {
+        "claim": "Zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny, je předpis, podle jehož § 99 odst. 1 a 2 zpráva žádá o projednání návrhu v režimu stavu legislativní nouze.",
+        "kind": "law",
+        "source": "90/1995"
+      },
+      {
+        "claim": "Zákon č. 1/1993 Sb., Ústava České republiky, je předpis, jehož čl. 95 odst. 1 zpráva uvádí jako záruku individuálního přezkumu nepoužitelnosti nařízení vlády v konkrétním řízení.",
+        "kind": "law",
+        "source": "1/1993"
+      }
+    ]
+  },
+  {
+    "billTisk": 219,
+    "statedReasoning": "Vládní návrh (předložilo Ministerstvo průmyslu a obchodu, za vládu předkládal místopředseda vlády a ministr průmyslu a obchodu Karel Havlíček) zavádí zcela nový zákon o mistrovské kvalifikaci a mistrovské zkoušce a současně mění zákon č. 301/1992 Sb., o Hospodářské komoře České republiky a Agrární komoře České republiky. Mistrovská zkouška má fyzickým osobám s alespoň tříletou praxí v řemeslném oboru umožnit institucionálně ověřit, že vykonávají dané povolání na nejvyšší úrovni; zkoušku pro povolání v oblasti průmyslu a obchodu připravuje, organizuje a provádí Hospodářská komora České republiky pod dohledem Ministerstva průmyslu a obchodu, pro zemědělská povolání Agrární komora České republiky pod dohledem Ministerstva zemědělství. Zpráva uvádí, že návrh iniciovali zástupci zaměstnavatelů — mimo jiné Hospodářská komora ČR, Agrární komora ČR, Svaz průmyslu a dopravy ČR, Asociace malých a středních podniků a živnostníků ČR, Konfederace zaměstnavatelských a podnikatelských svazů ČR a Svaz podnikatelů ve stavebnictví v ČR. Podle odborného odhadu Hospodářské komory ČR se v prvních pěti letech očekává ročně průměrně 2 000 vykonaných zkoušek a 1 600 vydaných mistrovských listů, s průměrnými výdaji uchazeče kolem 30 tisíc Kč; náklady na přípravu a provoz systému mají nést komory zcela bez nároku na státní rozpočet, zatímco dohledová agenda vyžádá dvě nová služební místa na Ministerstvu průmyslu a obchodu a jedno na Ministerstvu zemědělství. Zhodnocení korupčních rizik podle Metodiky CIA identifikuje jediné riziko — úspěšné složení zkoušky uchazečem bez skutečné mistrovské kvalifikace — a hodnotí je jako nízké pravděpodobností i závažností dopadů; zpráva uzavírá, že návrh korupční rizika nezvyšuje.",
+    "researchedContext": "Archivovaný text potvrzuje popsanou konstrukci: § 2 odst. 3 a 4 svěřuje přípravu, organizaci a provádění mistrovské zkoušky výhradně Hospodářské komoře ČR nebo Agrární komoře ČR (dále „komora“) podle oboru povolání, § 7 odst. 1 stanoví, že zkušební řád schvaluje příslušné ministerstvo na návrh komory, a § 18 upravuje poplatek za vykonání zkoušky: podle odstavce 1 nesmí jeho celková výše přesáhnout náklady nezbytné pro přípravu, organizaci a provedení zkoušky, podle odstavce 2 komora na svém webu zveřejní způsob výpočtu a maximální výši poplatku pro každou kvalifikaci zvlášť, a podle odstavce 3 je příjem z poplatku příjmem rozpočtu komory. Část druhá (§ 19) doplňuje do § 4 odst. 1 zákona č. 301/1992 Sb. nové písmeno n), které do zákonem vymezené působnosti obou komor výslovně zařazuje přípravu, organizaci a provádění mistrovských zkoušek a vydávání mistrovských listů. Obecná část zprávy v bodě 3 skutečně jmenuje Hospodářskou komoru ČR mezi iniciátory návrhu spolu s dalšími zaměstnavatelskými svazy a odkazuje na anketu z let 2019–2020 vedenou Národním ústavem pro vzdělávání ve spolupráci s Hospodářskou komorou ČR. Zhodnocení korupčních rizik v bodě 10 skutečně posuzuje jen riziko obcházení zkoušky nekvalifikovaným uchazečem a nezmiňuje se k tomu, že tatáž komora, která je zákonem pověřeným výhradním organizátorem zkoušky (§ 2 odst. 4), zároveň sama navrhuje zkušební řád a standardy (§ 7 odst. 1, § 12) a je zároveň příjemcem poplatku za zkoušku do vlastního rozpočtu (§ 18 odst. 3) — přezkum tohoto uspořádání je v bodě 10 omezen na kritérium „odpovědnost“ (že role obou komor a ministerstev jsou v jednotlivých ustanoveních jednoznačně přiřazeny) a na schvalovací roli ministerstva, aniž by byla zvlášť posouzena skutečnost, že regulovaný subjekt (žadatel o mistrovský list) skládá poplatek přímo tomu, kdo o obsahu a organizaci zkoušky rozhoduje. Finanční odhad v bodě 7 dále uvádí očekávaný dlouhodobý nárůst výnosu přímých a nepřímých daní „v řádu desítek milionů Kč ročně“, ale žádné odpovídající vyčíslení mzdových nákladů tří nových trvalých služebních míst v 13. platové třídě, jejichž potřeba podle zprávy přetrvá i po případném poklesu počtu zkoušek — čistý fiskální dopad tak nelze zjistit ze samotné zprávy; její bod 8 odkazuje na závěrečnou zprávu z hodnocení dopadů regulace, která není součástí archivovaného tisku a nebyla v rámci tohoto zpracování čtena.",
+    "unstatedEffects": [
+      {
+        "effect": "Zákon svěřuje Hospodářské komoře ČR a Agrární komoře ČR současně tři různé role u téhož systému: výhradního organizátora a provozovatele mistrovské zkoušky (§ 2 odst. 4), předkladatele zkušebního řádu a standardů, které ministerstvo pouze schvaluje (§ 7 odst. 1), a příjemce poplatku za zkoušku do vlastního rozpočtu komory (§ 18 odst. 3). Zhodnocení korupčních rizik v bodě 10 obecné části zprávy tuto kumulaci rolí u téhož subjektu jako zvláštní riziko nepojmenovává a omezuje se na riziko obcházení zkoušky nekvalifikovaným uchazečem.",
+        "whoBenefits": "Hospodářská komora České republiky a Agrární komora České republiky jako subjekty, kterým zákon svěřuje exkluzivní organizační roli i příjem z poplatku za zkoušku do vlastního rozpočtu; zpráva sama v obecné části uvádí Hospodářskou komoru ČR mezi iniciátory návrhu.",
+        "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=219&ct1=0"
+      },
+      {
+        "effect": "Finanční odhad v části 7 obecné části zprávy uvádí, že tři nová trvalá služební místa (dvě na Ministerstvu průmyslu a obchodu, jedno na Ministerstvu zemědělství, všechna v 13. platové třídě) budou zapotřebí i dlouhodobě bez ohledu na případný útlum počtu zkoušek, ale nikde tento mzdový náklad nevyčísluje v korunách, ani jej neporovnává s odhadovaným dlouhodobým nárůstem daňového výnosu „v řádu desítek milionů Kč ročně“ — čistý fiskální dopad tak nelze zjistit ze samotné zprávy (její bod 8 odkazuje na závěrečnou zprávu z hodnocení dopadů regulace, která není součástí archivovaného tisku a nebyla v rámci tohoto zpracování čtena).",
+        "whoBenefits": "Nelze jednoznačně určit — jde o mezeru v kvantifikaci rozpočtového dopadu na straně státu, nikoli o zjištěné zvýhodnění konkrétní strany.",
+        "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=219&ct1=0"
+      }
+    ],
+    "conflictAssessment": "Jediným předkladatelem uvedeným v datové sadě je Karel Havlíček (vládní návrh, předkládající ministr); v grafu u něj není evidována žádná peněžní vazba na firmu, takže k tomuto tisku není v datech zjištěn ani vyloučitelný osobní finanční zájem předkladatele na konkrétní obchodní společnosti. Věcný okruh tisku se navíc netýká jednotlivé firmy, nýbrž zákonem svěřené role dvou veřejnoprávních zájmových korporací — Hospodářské komory ČR a Agrární komory ČR — jako organizátorů a příjemců poplatků za mistrovskou zkoušku; ani jedna z nich nemá v datové sadě podobu obchodní společnosti s IČO, takže metodika peněžních vazeb tohoto projektu (vlastnické, řídicí a svěřenecké role poslanců v obchodních společnostech) na ně nedopadá a nelze jí prostřednictvím grafu ověřit ani vyloučit vazbu jiného poslance na tyto komory. Skutečnost, že návrh podle vlastní zprávy iniciovala mimo jiné Hospodářská komora ČR, je tedy zjištěním z textu tisku samotného, nikoli ze střetu zájmů dohledatelného v peněžním grafu.",
+    "severity": "medium",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Mistrovskou zkoušku připravuje, organizuje a provádí Hospodářská komora České republiky nebo Agrární komora České republiky (dále jen „komora“), a to podle toho, zda jde o povolání v působnosti Ministerstva průmyslu a obchodu, nebo Ministerstva zemědělství.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=219&ct1=0"
+      },
+      {
+        "claim": "Mistrovská zkouška se řídí zkušebním řádem, který na návrh Hospodářské komory schvaluje Ministerstvo průmyslu a obchodu, resp. na návrh Agrární komory Ministerstvo zemědělství.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=219&ct1=0"
+      },
+      {
+        "claim": "Celková výše poplatku za vykonání mistrovské zkoušky nesmí přesáhnout součet nákladů nezbytných pro zajištění přípravy, organizace a provedení zkoušky; komora na svých internetových stránkách uveřejní způsob výpočtu a maximální výši poplatku zvlášť pro každou mistrovskou kvalifikaci; příjem z poplatku za vykonání mistrovské zkoušky je příjmem rozpočtu komory.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=219&ct1=0"
+      },
+      {
+        "claim": "V § 4 zákona č. 301/1992 Sb. se na konci odstavce 1 doplňuje písmeno n): „připravují, organizují a provádějí mistrovské zkoušky a vydávají mistrovské listy podle zákona o mistrovské zkoušce.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=219&ct1=0"
+      },
+      {
+        "claim": "Zavedení institutu mistrovské zkoušky považují za žádoucí zástupci zaměstnavatelů, jako jsou Hospodářská komora České republiky, Agrární komora České republiky, Svaz průmyslu a dopravy České republiky, Asociace malých a středních podniků a živnostníků ČR, Konfederace zaměstnavatelských a podnikatelských svazů ČR a Svaz podnikatelů ve stavebnictví v ČR, kteří přípravu předmětné legislativní úpravy iniciovali.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=219&ct1=0"
+      },
+      {
+        "claim": "Podle odborného odhadu Hospodářské komory ČR lze v prvních pěti letech očekávat ročně průměrně 2 000 vykonaných zkoušek a 1 600 vydaných mistrovských listů; výkon agendy si vyžádá dvě nová služební místa na Ministerstvu průmyslu a obchodu a jedno na Ministerstvu zemědělství, všechna v 13. platové třídě, s trvalou potřebou i po pěti letech; v dlouhodobém horizontu se předpokládá zvýšení výnosu přímých i nepřímých daní v řádu desítek milionů Kč ročně.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=219&ct1=0"
+      },
+      {
+        "claim": "Zhodnocení korupčních rizik podle Metodiky CIA identifikovalo jediné riziko — úspěšné složení mistrovské zkoušky uchazečem, který nedisponuje mistrovskou kvalifikací — s nízkou pravděpodobností i závažností dopadů, a uzavírá, že navrhovaná úprava korupční rizika nezvyšuje.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=219&ct1=0"
+      },
+      {
+        "claim": "Jako garanční výbor tisku 219 byl 11. 6. 2026 navržen hospodářský výbor (HV).",
+        "kind": "graph_fact",
+        "source": "bill:tisk:43341"
+      },
+      {
+        "claim": "V grafu není u Karla Havlíčka evidována žádná peněžní vazba na obchodní společnost.",
+        "kind": "graph_fact",
+        "source": "psp:person:6621"
+      },
+      {
+        "claim": "Zákon č. 301/1992 Sb., o Hospodářské komoře České republiky a Agrární komoře České republiky, je zákonem novelizovaným částí druhou tohoto tisku.",
+        "kind": "law",
+        "source": "301/1992"
+      }
+    ]
+  },
+  {
+    "billTisk": 235,
+    "statedReasoning": "Vládní návrh (předkladatel ministr zdravotnictví Adam Vojtěch) mění § 3c zákona č. 592/1992 Sb., o pojistném na veřejné zdravotní pojištění: zvyšuje vyměřovací základ pro pojistné hrazené státem za tzv. státní pojištěnce z 14 074 Kč na 18 362 Kč měsíčně (měsíční platba tak stoupne z 2 188 Kč na 2 479 Kč) a zároveň pozastavuje mechanismus automatické valorizace tohoto základu tak, aby se poprvé znovu uplatnil až pro rok 2029 - v přechodném ustanovení Čl. II. Návrh dále ruší nařízení vlády č. 357/2025 Sb., které stanovilo dosavadní výši vyměřovacího základu pro rok 2026, a navrhuje účinnost k 1. lednu 2027. Obecná část zprávy odůvodňuje krok tíživou finanční situací zdravotních pojišťoven: klesajícím podílem platby státu na výdajích na hrazené zdravotní služby (z 30,8 % v roce 2021 na 28,4 % v roce 2026), poklesem zůstatků na účtech zdravotních pojišťoven z 69,9 mld. Kč (1/2021) na 43,2 mld. Kč (12/2025) a předpokládaným celkovým schodkem systému veřejného zdravotního pojištění pro rok 2026 ve výši 14,9 mld. Kč. Požadované navýšení příjmů systému o 21 mld. Kč pro rok 2027 je odvozeno z rozdílu mezi očekávanými náklady (603,1 mld. Kč) a očekávanými příjmy bez valorizace (582,1 mld. Kč). Zpráva žádá, aby s návrhem Sněmovna vyslovila souhlas již v prvním čtení, a uvádí, že bylo požádáno o neprovedení meziresortního připomínkového řízení i o nezpracování hodnocení dopadů regulace (RIA), neboť jde podle zprávy o parametrickou změnu bez vlivu na podnikatelské prostředí. Korupční rizika zpráva hodnotí jako nulová.",
+    "researchedContext": "Text zákona (Čl. I bod 1) potvrzuje navýšení částky v § 3c odst. 1 z 14 074 Kč na 18 362 Kč a bod 2 mění rok prvního uplatnění valorizačního mechanismu z 2024 na 2029; přechodné ustanovení Čl. II i zvláštní část k němu shodně uvádějí, že postup automatické valorizace (§ 3c odst. 2 až 5) se poprvé znovu použije až pro rok 2029, přičemž zvýšená hodnota vyměřovacího základu na toto období bude vládou stanovena nařízením do 30. září 2028 - mezi roky 2027 a 2029 tedy základ zůstává na politicky stanovené hodnotě 18 362 Kč beze změny. Obecná část zprávy sama výslovně zmiňuje a správně charakterizuje mimořádné jednorázové přerozdělení 7,9 mld. Kč od Všeobecné zdravotní pojišťovny České republiky (VZP ČR) ve prospěch zaměstnaneckých zdravotních pojišťoven, které bylo přijato zákonem č. 71/2026 Sb., a to na dvou místech: v obecné části (bod o zůstatcích pojišťoven) jako opatření, které „na hlavní problém, kterým je nedostatečný celkový objem disponibilních prostředků systému z pohledu jeho dlouhodobé udržitelnosti, toto jednorázové opatření nemá vliv“, a v bodě J (odůvodnění schválení již v prvním čtení) slovy, že „je pouhým nouzovým řešením pro letošní rok“, po němž má následovat právě tento návrh jako „další krok“ pro zajištění stability systému v roce 2027. Tento popis je vnitřně konzistentní s dřívějším zjištěním, že zákon č. 71/2026 Sb. byl v § 21b vázán výslovně na měsíc březen 2026 a nenesl žádné dlouhodobé přerozdělovací pravidlo. Návrh tisku 235 se ale netýká § 21b zákona č. 592/1992 Sb. (mechanismus měsíčního vyrovnání mezi pojišťovnami) ani prediktoru pro cizí pojištěnce, o jehož zakotvení v rámci „připravované širší změny parametrů přerozdělování pojistného“ hovořil dřívější tisk - mění výhradně § 3c, tedy výši platby státu za státní pojištěnce, což je jiný mechanismus (příjmová strana systému, nikoli přerozdělení mezi pojišťovnami). Tisk 235 tedy podle dostupného textu není oním dříve avizovaným krokem k reformě přerozdělovacích prediktorů; jde o samostatné, další opatření reagující na tentýž nedostatek zdrojů z jiné strany rozpočtu systému.",
+    "unstatedEffects": [
+      {
+        "effect": "Obecná část zprávy (bod A) popisuje účel valorizačního mechanismu zavedeného od roku 2023 jako zajištění „předvídatelného, na politickém rozhodnutí nezávislého“ každoročního navýšení platby za státní pojištěnce, a to výslovně v kontrastu k dřívější praxi, kdy byla výše vyměřovacího základu „arbitrárně stanovována“, i k jednorázovému snížení základu v roce 2022, které zpráva sama označuje za „arbitrární“. Tentýž návrh ale nahrazuje výpočet podle vzorce jednorázovou, politicky stanovenou částkou 18 362 Kč (vyšší než by odpovídalo pokračování valorizace) a zároveň pozastavuje samotný předvídatelný mechanismus na dva roky (2027 a 2028) až do prvního obnoveného uplatnění pro rok 2029. Zpráva tento krok v bodě H označuje pouze za „parametrickou změnu“ nevyžadující hodnocení dopadů regulace, aniž by se vrátila k vlastnímu odůvodnění z bodu A a vysvětlila, proč je nyní žádoucí totéž politické rozhodování o výši základu, které mechanismus z roku 2023 měl podle zprávy nahradit.",
+        "whoBenefits": "Přímým příjemcem vyššího vyměřovacího základu jsou zdravotní pojišťovny (vyšší platba státu za státní pojištěnce); avšak samotné nahrazení vzorce politickým rozhodnutím a pozastavení valorizace pro rok 2028 posiluje diskreci vlády při určování výše této platby na úkor předvídatelnosti, kterou měl mechanismus z roku 2023 podle zprávy zajišťovat pojišťovnám i státnímu rozpočtu.",
+        "evidence": "Bod A („zajištění předvídatelného, na politickém rozhodnutí nezávislého každoročního navýšení platby pojistného za státní pojištěnce“; „arbitrárně stanovována“; „arbitrárnímu snížení“) a bod H (charakteristika jako parametrická změna nevyžadující RIA) důvodové zprávy k tisku 235; Čl. I a Čl. II tisku 235, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=235&ct1=0"
+      },
+      {
+        "effect": "Zpráva v bodě H uvádí, že bylo požádáno o neprovedení meziresortního připomínkového řízení s odůvodněním, že „fakticky jediné relevantní potenciální připomínkové místo představuje Ministerstvo financí“, a zároveň o nezpracování hodnocení dopadů regulace (RIA) s odůvodněním, že návrh nezatěžuje podnikatelské subjekty. Bod E ale sám uvádí, že přijetím návrhu dojde k nárůstu výdajové strany státního rozpočtu (kapitola Všeobecná pokladní správa) o částku přibližně 21 mld. Kč. Zpráva tak žádá o vypuštění obou standardních kontrolních kroků (připomínkového řízení i RIA) u opatření se stanoveným rozpočtovým dopadem v řádu desítek miliard korun a zároveň žádá Sněmovnu o schválení již v prvním čtení podle § 90 odst. 2 zákona č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny - kombinace, která u fiskálně významné změny omezuje standardní příležitosti k vnějšímu připomínkování dříve, než se stane zákonem.",
+        "whoBenefits": "Předkladatel a vláda, kteří tímto postupem zkracují dobu a omezují okruh subjektů, jež mohou návrh dříve, než nabude platnosti, standardní cestou připomínkovat, u opatření s rozpočtovým dopadem přibližně 21 mld. Kč.",
+        "evidence": "Bod E („nárůst na výdajové straně státního rozpočtu... ve výši cca 21 mld. Kč“) a bod H (bylo požádáno o neprovedení meziresortního připomínkového řízení; „bylo požádáno o nezpracovávání hodnocení dopadů regulace (RIA)“) a bod J (žádost o souhlas již v prvním čtení podle § 90 odst. 2 zákona č. 90/1995 Sb.) důvodové zprávy k tisku 235, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=235&ct1=0"
+      }
+    ],
+    "conflictAssessment": "Tisk 235 má jediného evidovaného předkladatele, ministra zdravotnictví Adama Vojtěcha; v případovém spisu tohoto tisku není u něj evidována žádná peněžní vazba na soukromou firmu ani jiný subjekt, což potvrzuje i samostatně vedený přehled peněžních vazeb poslanců, kde má Adam Vojtěch nulový počet záznamů. Jde o vládní návrh s jediným předkladatelem, nikoli o skupinu spolupředkladatelů jako u dříve zpracovaného tisku 70, a případový spis u tohoto tisku neobsahuje ani údaj o obsazení předsednictví či dozorčích funkcí u zdravotních pojišťoven, kterých by se návrh mohl týkat - z dostupných dat tedy nelze u tisku 235 doložit ani vyloučit takovou institucionální roli, na rozdíl od tisku 70, kde byla korupčně relevantní souběžná role spolupředkladatele doložena. Návrh sám odkazuje na zákon č. 71/2026 Sb. (vzešlý z tisku 70) a popisuje jej shodně s dřívějším zjištěním jako jednorázové, ne systémové opatření - mezi oběma tisky proto není zjištěn rozpor v líčení skutkového stavu. Garančním výborem byl tisku 235 přikázán Výbor pro zdravotnictví (přikázáno 8. 7. 2026); spis neuvádí jméno jeho předsedy u tohoto tisku, a proto zde není hodnocena ani jeho případná souběžná role.",
+    "severity": "medium",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Čl. I bod 1 zvyšuje vyměřovací základ pro pojistné hrazené státem za státní pojištěnce v § 3c odst. 1 zákona č. 592/1992 Sb. z 14 074 Kč na 18 362 Kč a bod 2 mění rok prvního uplatnění valorizačního mechanismu z 2024 na 2029; Čl. II stanoví, že se postup podle § 3c odst. 2 až 5 poprvé znovu použije až pro rok 2029; Čl. III ruší nařízení vlády č. 357/2025 Sb.; Čl. IV stanoví účinnost k 1. lednu 2027.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=235&ct1=0"
+      },
+      {
+        "claim": "Obecná část zprávy popisuje pokles zůstatků na účtech zdravotních pojišťoven z 69,9 mld. Kč (leden 2021) na 43,2 mld. Kč (prosinec 2025), pokles podílu platby státu na výdajích na hrazené zdravotní služby z 30,8 % (2021) na 28,4 % (2026) a odhadované celkové saldo systému veřejného zdravotního pojištění pro rok 2026 ve výši -14,9 mld. Kč; požadované navýšení příjmů o 21 mld. Kč je rozdílem mezi očekávanými náklady 603,1 mld. Kč a očekávanými příjmy bez valorizace 582,1 mld. Kč.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=235&ct1=0"
+      },
+      {
+        "claim": "Bod E udává nárůst výdajové strany státního rozpočtu o cca 21 mld. Kč, bod H uvádí žádost o neprovedení meziresortního připomínkového řízení a o nezpracování hodnocení dopadů regulace, a bod J žádá o souhlas Sněmovny již v prvním čtení podle § 90 odst. 2 zákona o jednacím řádu Poslanecké sněmovny.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=235&ct1=0"
+      },
+      {
+        "claim": "Obecná část zprávy popisuje mimořádné přerozdělení 7,9 mld. Kč od VZP ČR ve prospěch zaměstnaneckých zdravotních pojišťoven, přijaté zákonem č. 71/2026 Sb., jako opatření bez vlivu na hlavní problém nedostatečného objemu prostředků systému a v bodě J uvádí, že „je pouhým nouzovým řešením pro letošní rok“, po němž má následovat tento návrh.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=235&ct1=0"
+      },
+      {
+        "claim": "Tisk 235 má jediného evidovaného předkladatele - Adama Vojtěcha - a případový spis u něj neeviduje žádnou peněžní vazbu.",
+        "kind": "graph_fact",
+        "source": "bill:tisk:43357"
+      },
+      {
+        "claim": "V přehledu peněžních vazeb poslanců je u Adama Vojtěcha evidován nulový počet záznamů.",
+        "kind": "graph_fact",
+        "source": "psp:person:6491"
+      },
+      {
+        "claim": "Zákon č. 592/1992 Sb., o pojistném na veřejné zdravotní pojištění, je předpis novelizovaný tímto tiskem.",
+        "kind": "law",
+        "source": "592/1992"
+      },
+      {
+        "claim": "Zákon č. 71/2026 Sb. je zákon, kterým bylo přijato dříve zpracované mimořádné přerozdělení 7,9 mld. Kč mezi zdravotními pojišťovnami a na který tisk 235 odkazuje.",
+        "kind": "law",
+        "source": "71/2026"
+      },
+      {
+        "claim": "Zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny, je předpis, podle jehož § 90 odst. 2 zpráva žádá o schválení návrhu již v prvním čtení.",
+        "kind": "law",
+        "source": "90/1995"
+      },
+      {
+        "claim": "Nařízení vlády č. 357/2025 Sb. je předpis, který tento tisk v Čl. III ruší.",
+        "kind": "law",
+        "source": "357/2025"
+      }
+    ]
+  },
+  {
+    "billTisk": 238,
+    "statedReasoning": "Senátní návrh zákona (předkladatel Jiří Klement a další senátoři, podepsáno předsedou Senátu Milošem Vystrčilem) mění jediným ustanovením § 4 odst. 1 zákona č. 245/2000 Sb., o státních svátcích, o ostatních svátcích, o významných dnech a o dnech pracovního klidu: za slova „21. srpen – Den památky obětí invaze a následné okupace vojsky Varšavské smlouvy,“ vkládá do výčtu významných dnů nová slova „28. srpen – Den Orla,“. Obecná část důvodové zprávy zdůvodňuje volbu data historickou vazbou na potlačení Hostýnské pouti 28. a 29. srpna 1948, kdy komunistický režim zakázal tělocvičnou organizaci Orel a zatýkal její funkcionáře a členy; navrhovaný významný den má podle zprávy sloužit k udržení historické paměti na tyto represe a k připomenutí hodnot fair play, demokracie a občanské odpovědnosti, které Orel zastává. Zpráva výslovně uvádí, že návrh nezavádí nový státní ani ostatní svátek, že navržený významný den zůstává pracovním dnem, a že nemá žádný hospodářský ani finanční dopad na státní rozpočet ani ostatní veřejné rozpočty, dopad na územní samosprávné celky, sociální ani environmentální dopady, korupční rizika ani dopady na bezpečnost státu. Účinnost se navrhuje k 1. lednu 2027, odůvodněná zejména tím, aby byl nový významný den zahrnut do kalendářů a vzdělávacích materiálů již pro celý rok 2027.",
+    "researchedContext": "Archivovaný text tisku (Čl. I) potvrzuje jediné navrhované ustanovení přesně tak, jak jej popisuje zvláštní část zprávy — vložení slov „28. srpen – Den Orla,“ za slova „21. srpen – Den památky obětí invaze a následné okupace vojsky Varšavské smlouvy,“ v § 4 odst. 1 zákona č. 245/2000 Sb. Přiložené platné znění dotčeného ustanovení s vyznačením navrhovaných změn ukazuje, že aktuální (před tímto tiskem platný) výčet významných dnů již obsahuje „30. březen – Den české vlajky“ mezi „28. březen – Den narození Jana Ámose Komenského“ a „7. duben – Den vzdělanosti“ — tedy den zavedený souběžně projednávaným tiskem 78, který byl vyhlášen jako zákon č. 59/2026 Sb. Novelizační věta Čl. I tisku 238 tuto skutečnost potvrzuje také výslovným výčtem novel, jejichž zněním je dotčené ustanovení postupně měněno: zákona č. 101/2004 Sb., zákona č. 129/2006 Sb., zákona č. 162/2013 Sb., zákona č. 226/2017 Sb., zákona č. 49/2019 Sb., zákona č. 356/2019 Sb., zákona č. 92/2022, zákona č. 170/2024 Sb., zákona č. 279/2024 Sb. a zákona č. 59/2026 Sb. Tisk 238 tak vkládá „28. srpen – Den Orla“ na zcela jiné místo výčtu (mezi „21. srpen“ a „8. říjen – Památný den sokolstva“), než kam tisk 78 vložil „30. březen – Den české vlajky“ (mezi „28. březen“ a „7. duben“), a jeho úplné znění § 4 odst. 1 s vyznačením změn řadí oba dny — již platný „30. březen – Den české vlajky“ i nově navrhovaný „28. srpen – Den Orla“ — vedle sebe v jednom nepřerušeném výčtu, aniž by mezi nimi vznikal jakýkoli textový rozpor. Nezávislé ověření archivovaného textu tisku 238 tedy z jeho vlastní strany potvrzuje obě zjištění, k nimž již dříve dospělo hodnocení souběžného tisku 78: že oba tisky vkládají svůj významný den na odlišná místa výčtu a že úplné znění tisku 238 mezi novelizacemi cituje i zákon č. 59/2026 Sb., jímž byl tisk 78 vyhlášen. Textová kolize mezi oběma tisky z archivovaných textů zjištěna nebyla.",
+    "unstatedEffects": [
+      {
+        "effect": "Zpráva volí datum 28. srpna s odkazem na potlačení Hostýnské pouti 28. a 29. srpna 1948, tedy na dvoudenní událost, jejíž druhý den (29. srpna) do navrhovaného výčtu významných dnů zařazen není; zpráva sama tuto nesouměrnost mezi popisovanou dvoudenní událostí a jednodenním významným dnem nekomentuje.",
+        "whoBenefits": "Nelze určit — jde o zjištění k vnitřní konzistenci odůvodnění zvoleného data, nikoli o finanční nebo osobní prospěch konkrétní strany.",
+        "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=238&ct1=0"
+      }
+    ],
+    "conflictAssessment": "Tisk 238 je senátním návrhem; datová sada u něj v řádku předkladatele nerozepisuje žádnou osobu s peněžními vazbami (jako předkladatel je uveden senátor Jiří Klement a další senátoři, podepsáno předsedou Senátu Milošem Vystrčilem) a v souboru tisků hodnocených v této i předchozí dávce není u jména Klement ani u jiného senátora uvedeného jako předkladatel tohoto tisku evidován žádný záznam peněžních vazeb. Nejde tedy o zjištěnou absenci vazeb, ale o mezeru v pokrytí dat: pro senátory jako předkladatele senátních tisků tato datová sada v dostupném rozsahu žádné záznamy peněžních vazeb neobsahuje, a proto nelze střet zájmů předkladatele pro tento tisk ani potvrdit, ani vyloučit. Věcně jde navíc o doplnění jednoho bezúčinkového významného dne bez dopadu na státní rozpočet — okruh subjektů, u nichž by peněžní vazba na kalendář významných dnů byla myslitelná (např. dodavatelé služeb spjatých se státními svátky), se z povahy návrhu prakticky nenabízí.",
+    "severity": "low",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "V § 4 odst. 1 zákona č. 245/2000 Sb. se za slova „21. srpen – Den památky obětí invaze a následné okupace vojsky Varšavské smlouvy,“ vkládají slova „28. srpen – Den Orla,“.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=238&ct1=0"
+      },
+      {
+        "claim": "Důvodová zpráva navrhuje 28. srpen jako Den Orla s odkazem na potlačení Hostýnské pouti, jíž se 28. a 29. srpna 1948 účastnilo přes 100 000 orelských poutníků, a na následné represe komunistického režimu vůči organizaci Orel.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=238&ct1=0"
+      },
+      {
+        "claim": "Důvodová zpráva (bod 6) uvádí, že novela nebude mít žádný hospodářský nebo finanční dopad na státní rozpočet ani ostatní veřejné rozpočty, mimo jiné proto, že navržený významný den zůstává pracovním dnem.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=238&ct1=0"
+      },
+      {
+        "claim": "Novelizační věta Čl. I tisku 238 uvádí, že § 4 odst. 1 zákona č. 245/2000 Sb. je ve znění zákona č. 101/2004 Sb., zákona č. 129/2006 Sb., zákona č. 162/2013 Sb., zákona č. 226/2017 Sb., zákona č. 49/2019 Sb., zákona č. 356/2019 Sb., zákona č. 92/2022, zákona č. 170/2024 Sb., zákona č. 279/2024 Sb. a zákona č. 59/2026 Sb.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=238&ct1=0"
+      },
+      {
+        "claim": "Platné znění § 4 odst. 1 zákona č. 245/2000 Sb. s vyznačením navrhovaných změn řadí „30. březen – Den české vlajky“ mezi „28. březen – Den narození Jana Ámose Komenského“ a „7. duben – Den vzdělanosti“, a nově navrhované „28. srpen – Den Orla“ mezi „21. srpen – Den památky obětí invaze a následné okupace vojsky Varšavské smlouvy“ a „8. říjen – Památný den sokolstva“.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=238&ct1=0"
+      },
+      {
+        "claim": "Tisk 78 (poslanecký návrh Andreje Babiše) vložil do § 4 odst. 1 zákona č. 245/2000 Sb. významný den „30. březen – Den české vlajky“ a byl vyhlášen jako zákon č. 59/2026 Sb.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=78&ct1=0"
+      },
+      {
+        "claim": "Zákon č. 245/2000 Sb., o státních svátcích, o ostatních svátcích, o významných dnech a o dnech pracovního klidu, je jediný zákon novelizovaný tímto tiskem.",
+        "kind": "law",
+        "source": "245/2000"
+      },
+      {
+        "claim": "Tisk 78 novelizoval totéž ustanovení § 4 zákona č. 245/2000 Sb. a byl vyhlášen jako zákon č. 59/2026 Sb.",
+        "kind": "law",
+        "source": "59/2026"
+      }
+    ]
+  },
+  {
+    "billTisk": 243,
+    "statedReasoning": "Poslanecký návrh Marka Výborného, Petra Hladíka a Františka Talíře mění zákon č. 223/2016 Sb., o prodejní době v maloobchodě, tak, že nahrazuje celé znění § 1. Podle zvláštní části zprávy je cílem sjednotit režim zákazu prodeje v maloobchodě o svátcích: nová úprava rozšiřuje zákaz prodeje na všechny státní svátky (nově i Velký pátek a 1. květen jako ostatní svátky, dosud otevřené dny 5. a 6. července a 17. listopadu jako státní svátky) při zachování dosavadního zvláštního režimu pro Štědrý den (zákaz od 12.00 do 24.00 hodin, § 1 odst. 2) a dosavadních výjimek (§ 1 odst. 3) pro prodejny do 200 m², čerpací stanice, lékárny, prodejny v dopravních uzlech, prodejny ve zdravotnických zařízeních a maloobchod v době krizových stavů. Obecná část zprávy odůvodňuje návrh tím, že současný dílčí výčet svátků, kdy je zakázán prodej jen u některých z nich (aktuálně 1. leden, Velikonoční pondělí, 8. květen, 28. září, 28. říjen, 25. a 26. prosinec), zatímco jiné dny pracovního klidu zůstávají z hlediska maloobchodu bez omezení, je pro veřejnost nesrozumitelný a každoročně vyvolává nejistotu spotřebitelů, zaměstnanců i podnikatelů; jednotné pravidlo — zavřeno o všech dnech pracovního klidu — má být přehlednější a má odpovídat modelům používaným v Rakousku, Německu, Polsku a Dánsku. Zpráva dále odkazuje na nález Ústavního soudu sp. zn. Pl. ÚS 37/16, který k zákonu č. 223/2016 Sb. uznal jako legitimní cíl posílení sociální a rodinné soudržnosti prostřednictvím pevně stanoveného společného volna, a uvádí, že návrh nemá dopad na státní rozpočet ani na korupční rizika a přináší pozitivní dopad na zaměstnance v maloobchodě formou lépe předvídatelného volna o svátcích.",
+    "researchedContext": "Archivovaný text (Čl. I bod 1, nové znění § 1) potvrzuje popsaný rozsah změny: nový odstavec 1 zakazuje prodej o 1. lednu, Velkém pátku, Velikonočním pondělí, 1. květnu, 25. a 26. prosinci a — prostřednictvím odkazu na zákon č. 245/2000 Sb. v poznámce pod čarou č. 2 — o všech dalších státních svátcích, tedy i o 5. a 6. červenci a o 17. listopadu — dny, které tabulka v obecné části zprávy výslovně uvádí jako dosud otevřené a nově zavírané dny. Odstavce 2 a 3 (zvláštní režim Štědrého dne a výjimky pro malé prodejny, čerpací stanice, lékárny, dopravní uzly, zdravotnická zařízení a krizové stavy) zůstávají beze změny, přesně jak uvádí zvláštní část zprávy. Návrh se přitom netýká § 4 zákona č. 245/2000 Sb. (kategorie tzv. významných dnů, kam patří i souběžně projednávané tisky 78 a 238) — poznámka pod čarou č. 2 u § 1 odkazuje na zákon č. 245/2000 Sb. jako celek, ale text novely rozšiřuje zákaz prodeje jen na státní a ostatní svátky ve smyslu §§ 1 a 2 tohoto zákona, nikoli na významné dny podle § 4, které podle § 4 odst. 2 téhož zákona zůstávají pracovními dny; věcná kolize s tisky 78 a 238 tedy z textu tisku 243 zjištěna nebyla. Hodnocení dopadu na podnikatelské prostředí v obecné části zprávy konstatuje jen obecně „rozšíření počtu dní, kdy se zákaz prodeje uplatní“, aniž by uvedlo počet nově zavíraných dnů v roce nebo odhad ušlých tržeb maloobchodu; § 1 odst. 3 přitom ponechává beze změny výjimku pro prodejny do 200 m² a čerpací stanice, takže rozšířený zákaz prodeje dopadá jen na větší prodejny, zatímco malé prodejny a čerpací stanice mohou být otevřené i o nově zavíraných dnech.",
+    "unstatedEffects": [
+      {
+        "effect": "Zvláštní i obecná část zprávy odůvodňují návrh sjednocením a zjednodušením srozumitelnosti pravidla, ale hodnocení dopadu na podnikatelské prostředí konstatuje jen obecně „rozšíření počtu dní, kdy se zákaz prodeje uplatní“ bez uvedení konkrétního počtu nově zavíraných dnů v roce (podle vlastní srovnávací tabulky zprávy jde o čtyři dny — Velký pátek, 1. květen, 5. červenec a 6. červenec — plus 17. listopad, celkem pět) nebo odhadu dopadu na tržby dotčených maloobchodních provozoven.",
+        "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou provozovatelé větších maloobchodních prodejen a jejich zaměstnanci na straně nákladů, spotřebitelé na straně srozumitelnosti pravidla; zpráva neuvádí číselné vyčíslení dopadu na tržby.",
+        "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=243&ct1=0"
+      },
+      {
+        "effect": "Rozšířený zákaz prodeje se podle nezměněného § 1 odst. 3 zákona č. 223/2016 Sb. nadále nevztahuje na prodejny s prodejní plochou nepřesahující 200 m² ani na čerpací stanice s palivy a mazivy — ty mohou zůstat otevřené i o nově zavíraných dnech (Velký pátek, 1. květen, 5. a 6. červenec, 17. listopad), zatímco větší maloobchodní provozovny musí být zavřené. Zpráva tento posun konkurenční výhody ve prospěch malých prodejen a čerpacích stanic vůči velkým řetězcům při hodnocení dopadu na podnikatelské prostředí nezmiňuje.",
+        "whoBenefits": "Provozovatelé malých prodejen do 200 m² a čerpacích stanic, kteří získávají o nově zavíraných dnech relativní konkurenční výhodu vůči větším maloobchodním provozovnám podléhajícím rozšířenému zákazu prodeje.",
+        "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=243&ct1=0"
+      }
+    ],
+    "conflictAssessment": "Ze tří předkladatelů má v grafu evidovanou peněžní vazbu na firmu Marek Výborný (Gymnázium, Pardubice, Mozartova 449, IČO 48161063, role ředitele) a Petr Hladík (čtyři brněnské městské a krajské podniky a státní podnik s celostátní působností (MERO ČR)); u Františka Talíře graf žádnou vazbu neeviduje. U Marka Výborného jde o vazbu svěřeneckého typu (funkce ředitele veřejné příspěvkové organizace) — úhrn veřejných smluv této školy (17 804 078 Kč) je podle metodiky tohoto projektu penězi instituce, nikoli poslance, a poslanci se nepřičítá; věcně jde navíc o školu, nikoli o maloobchodní subjekt dotčený tiskem. U Petra Hladíka je z pěti evidovaných vazeb pouze jedna vlastnická/řídicí a tedy přičitatelná poslanci jako dosažitelné peníze: předseda představenstva Teplárny Brno, a.s. (IČO 46347534, úhrn veřejných smluv 23 570 594 010 Kč). Zbylé čtyři vazby jsou svěřeneckého typu a jejich veřejné smlouvy jsou penězi instituce, nikoli poslance: předseda dozorčí rady ARENA BRNO, a.s. (IČO 09133267, 19 386 452 266 Kč), člen dozorčí rady SAKO Brno, a.s. (IČO 60713470, 24 673 935 464 Kč), místopředseda dozorčí rady Dopravní podnik města Brna, a.s. (IČO 25508881, 88 987 670 810 Kč) a člen dozorčí rady MERO ČR, a.s. (IČO 60193468, 2 981 571 045 Kč). Žádná z těchto šesti firem — teplárenská, zábavně-arénová, odpadová, dopravní, ropovodní společnost a střední škola — není maloobchodním prodejcem ani jinak věcně spojena s předmětem tisku (zákaz prodeje v maloobchodě o svátcích). Ani přičitatelná vazba Petra Hladíka na Teplárny Brno, a.s., ani žádná ze svěřeneckých vazeb obou poslanců proto k tomuto tisku nezakládá zjištěný střet zájmů; všechny vazby čekají na lidskou kontrolu.",
+    "severity": "low",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "§ 1 nově zní: „(1) V maloobchodě je zakázán prodej o státních svátcích a těchto ostatních svátcích a) 1. leden … b) Velký pátek, c) Velikonoční pondělí, d) 1. květen – Svátek práce, e) 25. prosinec … f) 26. prosinec …“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=243&ct1=0"
+      },
+      {
+        "claim": "Srovnávací tabulka obecné části zprávy uvádí, že podle návrhu bude nově zavřeno i o Velkém pátku, 1. květnu, 5. červenci, 6. červenci a 17. listopadu, ačkoli je podle současného stavu v tyto dny otevřeno.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=243&ct1=0"
+      },
+      {
+        "claim": "Omezení prodejní doby se nepoužije na provozování prodejen, jejichž prodejní plocha nepřesahuje 200 m², a čerpacích stanic s palivy a mazivy; toto ustanovení (§ 1 odst. 3) novela nemění.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=243&ct1=0"
+      },
+      {
+        "claim": "Navrhovaná změna nemá dopady na státní rozpočet a ostatní veřejné rozpočty; pro podnikatele znamená rozšíření počtu dní, kdy se zákaz prodeje uplatní, přičemž tento dopad je zmírněn tím, že jde o předem známé a každoročně se opakující dny.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=243&ct1=0"
+      },
+      {
+        "claim": "Petr Hladík je v grafu evidován jako předseda představenstva Teplárny Brno, a.s. (IČO 46347534) — vazba řídicího typu, přičitatelná poslanci; úhrn veřejných smluv této firmy je 23 570 594 010 Kč; vazba čeká na lidskou kontrolu.",
+        "kind": "graph_fact",
+        "source": "company:ico:46347534"
+      },
+      {
+        "claim": "Petr Hladík je v grafu evidován jako místopředseda dozorčí rady Dopravního podniku města Brna, a.s. (IČO 25508881), jako předseda dozorčí rady ARENA BRNO, a.s. (IČO 09133267), jako člen dozorčí rady SAKO Brno, a.s. (IČO 60713470) a jako člen dozorčí rady MERO ČR, a.s. (IČO 60193468) — vazby svěřeneckého typu, jejichž veřejné smlouvy jsou penězi instituce, nikoli poslance; všechny čekají na lidskou kontrolu.",
+        "kind": "graph_fact",
+        "source": "psp:person:6881"
+      },
+      {
+        "claim": "Marek Výborný je v grafu evidován jako ředitel Gymnázia, Pardubice, Mozartova 449 (IČO 48161063), veřejné příspěvkové organizace — vazba svěřeneckého typu; úhrn veřejných smluv této školy je 17 804 078 Kč a je penězi instituce, nikoli poslance; vazba čeká na lidskou kontrolu.",
+        "kind": "graph_fact",
+        "source": "company:ico:48161063"
+      },
+      {
+        "claim": "V grafu není u Františka Talíře evidována žádná peněžní vazba na obchodní společnost.",
+        "kind": "graph_fact",
+        "source": "psp:person:7052"
+      },
+      {
+        "claim": "Zákon č. 223/2016 Sb., o prodejní době v maloobchodě, je jediný zákon novelizovaný tímto tiskem.",
+        "kind": "law",
+        "source": "223/2016"
+      },
+      {
+        "claim": "§ 1 odst. 1 zákona č. 223/2016 Sb. odkazuje na zákon č. 245/2000 Sb. pro vymezení státních a ostatních svátků; kategorie významných dnů podle § 4 zákona č. 245/2000 Sb. zůstává podle § 4 odst. 2 téhož zákona pracovním dnem a tisk 243 ji nemění.",
+        "kind": "law",
+        "source": "245/2000"
+      }
+    ]
+  }
+]

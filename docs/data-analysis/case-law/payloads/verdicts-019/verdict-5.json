@@ -1,0 +1,47 @@
+{
+  "billTisk": 5,
+  "statedReasoning": "Návrh (sněmovní tisk 5) mění zákon č. 143/2001 Sb., o ochraně hospodářské soutěže, a navazujícím způsobem i zákon č. 374/2015 Sb., o ozdravných postupech a řešení krize na finančním trhu. Podle obecné části důvodové zprávy (bod 1) má novela tři hlavní cíle: (1) zavést tzv. call-in model, kdy nový § 13a umožňuje Úřadu pro ochranu hospodářské soutěže (dále „Úřad“) vyzvat k notifikaci i spojení soutěžitelů, která nedosahují stávajících obratových prahů, pokud existuje podezření na podstatné narušení soutěže a jsou splněna zákonem stanovená kritéria (souhrnný obrat nad 1,5 mld. Kč, alespoň dva účastníci s obratem nad 100 mil. Kč); (2) zavést nový nástroj sektorových šetření a „opatření obecné povahy“ (nové §§ 20b až 20d), kterým Úřad může po sektorovém šetření dočasně stanovit zvláštní notifikační kritéria nebo ukládat nestrukturální nápravná opatření na trhu s trvajícím podstatným narušením soutěže, s výslovnou výjimkou pro trhy pod dohledem Českého telekomunikačního úřadu, Energetického regulačního úřadu a České národní banky; (3) zavést nové skutkové podstaty přestupků fyzických osob za uzavírání či pokus o uzavření kartelových dohod (pokuta do 10 000 000 Kč, zákaz činnosti až na 5 let) a rozšířit institut shovívavosti i na fyzické osoby. Zvláštní část dále upravuje řadu legislativně-technických návazností v přestupkových ustanoveních (§§ 22, 22a, 22b, 22ba). Podle bodu 5 obecné části nemá návrh přímý dopad na státní rozpočet; nový útvar Úřadu (Oddělení hlavního ekonoma, nejméně 9 systemizovaných míst) má být financován z rozpočtu Úřadu bez nároku na dodatečné státní prostředky. Jako garanční výbor byl dne 17. prosince 2025 navržen hospodářský výbor.",
+  "researchedContext": "Text novely a obě části důvodové zprávy byly ověřeny proti plnému znění tisku na stránkách Poslanecké sněmovny. Nový § 13a skutečně obsahuje trojici kumulativních kritérií a šestiměsíční lhůtu pro výzvu Úřadu k notifikaci, jak tvrdí zvláštní část u bodu 3. Zvláštní část u bodu 3 rovněž výslovně přiznává, že k zavedení call-in modelu vedly opakované stížnosti třetích stran za posledních deset let, které se týkaly spojení nedosahujících obratových prahů: „v průběhu posledních 10 let Úřad obdržel několik stížností, které požadovaly, aby Úřad zasahoval proti spojením soutěžitelů, která podle názoru stěžovatelů mohla mít za následek podstatné narušení hospodářské soutěže.“ Nový nástroj opatření obecné povahy (§§ 20b až 20d) je podle zvláštní části u bodu 8 výslovně vyloučen pro trhy pod dohledem tří jmenovaných sektorových regulátorů, aby nedocházelo ke konfliktu pravomocí; samotné ustanovení § 20d to potvrzuje: „Úřad nemůže vydat opatření obecné povahy podle § 20b odst. 1, jde-li o relevantní trh, nad nímž vykonává dohled Český telekomunikační úřad, Energetický regulační úřad nebo Česká národní banka.“ Žádný ze dvou předkladatelů (Ivan Bartoš, Olga Richterová) nemá v grafu politických a peněžních vazeb zaznamenánu vazbu na žádnou obchodní společnost, takže nelze doložit motiv spojený s konkrétním podnikatelským zájmem. Sektorová návaznost na jmenovanou firmu rovněž nebyla u tohoto tisku vyhodnocena jako přítomná.",
+  "unstatedEffects": [
+    {
+      "effect": "Nový call-in mechanismus rozšiřuje dohledovou pravomoc Úřadu i na spojení soutěžitelů, která nedosahují stávajících notifikačních obratových prahů, a to zpětně po dobu až šesti měsíců od uskutečnění transakce. Důvodová zpráva odůvodňuje nástroj konkrétními stížnostmi třetích stran za posledních deset let, ale nikde nekvantifikuje ani neodhaduje dodatečné transakční a právní náklady, které tato nová šestiměsíční nejistota vnese do trhu fúzí a akvizic jako celku — dopadová část v bodě 5 obecné části počítá pouze s náklady na straně Úřadu, nikoli s náklady na straně podnikatelů.",
+      "whoBenefits": "Přímo Úřad pro ochranu hospodářské soutěže, jehož pravomoc a personální kapacita (nové Oddělení hlavního ekonoma) rostou; nepřímo velcí etablovaní soutěžitelé, kteří mohou stížností iniciovat přezkum akvizice menšího konkurenta, jenž by jinak obratové prahy nesplnil a povolení by vůbec nepodléhal.",
+      "evidence": "Zvláštní část k bodu 3 (§ 13a) výslovně uvádí, že podnětem k zavedení nástroje byly stížnosti třetích stran na spojení pod obratovými prahy; dopadová část v bodě 5 obecné části popisuje pouze rozpočtové náklady Úřadu, nikoli náklady dotčených soutěžitelů."
+    },
+    {
+      "effect": "Nový nástroj opatření obecné povahy (§§ 20b až 20d) se plošně vztahuje na jakýkoli relevantní trh v české ekonomice s výjimkou tří jmenovitě vyloučených odvětví (telekomunikace, energetika, bankovnictví), která už mají vlastního odvětvového regulátora. Zbytek ekonomiky — včetně odvětví, která žádného obdobně silného odvětvového regulátora nemají a na která zvláštní část u bodu 8 sama odkazuje jako na příklad rychle se vyvíjejících trhů (mimo jiné digitální trhy) — je novým nástrojem plně zasažitelný, aniž by důvodová zpráva srovnávala míru zásahu do jednotlivých odvětví.",
+      "whoBenefits": "Soutěžitelé v odvětvích s vlastním sektorovým regulátorem (telekomunikace, energetika, bankovnictví), kteří jsou z nového nástroje Úřadu výslovně vyňati; naopak soutěžitelé v nechráněných odvětvích nesou riziko nového zásahu v plném rozsahu.",
+      "evidence": "Ustanovení § 20d vylučuje působnost nového nástroje pouze pro trhy pod dohledem Českého telekomunikačního úřadu, Energetického regulačního úřadu a České národní banky; zvláštní část k bodu 8 sama zmiňuje digitální trhy jako příklad odvětví, kde je aplikace nástroje obtížně předvídatelná."
+    }
+  ],
+  "conflictAssessment": "Žádný z předkladatelů — Ivan Bartoš (poslanecké číslo 6433) ani Olga Richterová (poslanecké číslo 6473) — nemá v grafu peněžních vazeb zaznamenánu žádnou vazbu typu vlastník nebo jednatel na obchodní společnost, natož na společnost působící v odvětví hospodářské soutěže či finančního trhu, kterých se novela týká. Nebyla zjištěna ani jiná sektorová návaznost mezi tímto tiskem a firmou z peněžního grafu. Z hlediska peněžního grafu tedy k tomuto návrhu nebyl identifikován žádný střet zájmu; zjištění tohoto verdiktu se týkají mezery v analýze regulatorních a hospodářských dopadů, nikoli osobního obohacení předkladatelů.",
+  "severity": "low",
+  "confidence": 3,
+  "citations": [
+    {
+      "claim": "Návrh mění zákon č. 143/2001 Sb., o ochraně hospodářské soutěže, mimo jiné zavedením nového § 13a (přezkum spojení soutěžitelů pod obratovými prahy) a nových §§ 20b až 20d (opatření obecné povahy pro trhy s trvajícím narušením hospodářské soutěže) a nových skutkových podstat přestupků fyzických osob.",
+      "kind": "law",
+      "source": "143/2001"
+    },
+    {
+      "claim": "Návrh navazujícím způsobem mění § 251a odst. 2 zákona č. 374/2015 Sb., o ozdravných postupech a řešení krize na finančním trhu, tak, aby se na výjimku ze standstill povinnosti vztahovalo i nové ustanovení § 13a odst. 3.",
+      "kind": "law",
+      "source": "374/2015"
+    },
+    {
+      "claim": "Zvláštní část k bodu 3 (§ 13a) odůvodňuje zavedení call-in modelu opakovanými stížnostmi třetích stran za posledních deset let na spojení soutěžitelů, která nesplňovala obratová notifikační kritéria.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=5&ct1=0"
+    },
+    {
+      "claim": "Ustanovení § 20d výslovně vylučuje působnost nového nástroje opatření obecné povahy pro trhy pod dohledem Českého telekomunikačního úřadu, Energetického regulačního úřadu a České národní banky.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=5&ct1=0"
+    },
+    {
+      "claim": "Jako garanční výbor byl dne 17. prosince 2025 navržen hospodářský výbor.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=5"
+    }
+  ]
+}

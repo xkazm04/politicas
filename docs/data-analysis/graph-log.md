@@ -1200,6 +1200,30 @@ corrected verdict carries the batch's sharpest found-by-accident effect: the ope
 grants relief „o 10 %" while the DZ mostly argues „o 10 procentních bodů" (54 % vs 50 % against
 a ~60% target), uncommented anywhere. Backlog: 0 collision pairs, 62 pending bills.
 
+## Pass 53 (track: law) — batch-019: ten verdicts, the summary-source migration, and the field-parallelism rule (2026-08-05)
+
+Writes: 10 bill nodes with pending_review forensic_* props (tisky 5, 15, 49, 235, 57, 163,
+238, 219, 59, 243 — coverage 109 → 119/141; 4 mediums) + 140 bill nodes' `summary_source`
+re-anchored from local cache paths to psp.cz print URLs (batch-018 M20 closed; tisk 87
+carries no such prop, disclosed) + the verdict-106 one-field correction (published range
+9e–9m → measured 9e–9n, stamped `range_correction`; the archived payload deliberately keeps
+the original — archives are not rewritten). Headline findings: tisk 235 is NOT the predictor
+reform tisk 70's DZ promised — it freezes the valorization its own DZ praises while
+committing ~21 mld Kč without RIA; tisk 163 was signed one day before the government
+rejected the opposition's excise-cut answer to the same fuel shock, neither bill naming the
+other; tisk 219's mistrovská zkouška lets the chambers organize the exam, propose its rules
+and keep the fees, a self-regulation shape the DZ's corruption assessment never addresses;
+tisk 57 is the corpus's first documented COORDINATION success (its DZ renumbered its own §
+so tisk 153's insertion keeps its address — the deliberate inverse of the 106↔107
+collision). The audit ran three rounds: round 1 blocked on fabricated/spliced quotations
+(one imported from another bill's print) and a NEW corruption class — graph node ids
+printed as tisk numbers in verdict openings; round 2 caught the remediation's own gap
+(fixes applied to effects/citations but not to the parallel researchedContext prose left
+four verdicts self-contradicting, one claim stranded without its deleted source); round 3
+closed. The rule the batch adds: a remediation edit is not done until every FIELD carrying
+the same claim is edited. Verdict-15 was demoted medium → low (its second effect rested on
+a July-2026 vote never tied to a different print). Backlog: 22 pending bills.
+
 ## Pass 52 (track: law) — batch-018: ten verdicts and the evidence-coordinate migration (2026-08-05)
 
 Writes: 10 bill nodes with pending_review forensic_* props (tisky 70, 261, 190, 78, 133, 107,

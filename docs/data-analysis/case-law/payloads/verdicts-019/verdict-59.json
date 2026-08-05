@@ -1,0 +1,67 @@
+{
+  "billTisk": 59,
+  "statedReasoning": "Poslanecký návrh Pavly Pivoňky Vaňkové a Zdeňky Blišťanové mění zákon č. 468/2024 Sb., o integračním sociálním podniku, tak, že celou část čtvrtou zákona (dosavadní úpravu tzv. integračního fondu, §§ 17 až 20) nahrazuje novou úpravou nazvanou „Fond reinvestice zisku“. Podle obecné části zprávy dosavadní konstrukce integračního fondu v praxi ukázala administrativní a účetní zátěž, zejména pro menší podniky, protože vyžadovala trvalé navyšování fondu bez stanoveného stropu a omezovala využití prostředků jen na úzce vymezené investiční účely; to mělo podle zprávy působit jako bariéra pro nové zájemce o status integračního sociálního podniku. Návrh zachovává povinnost vyčlenit do fondu více než polovinu dosaženého zisku, ale ruší povinnost dalšího trvalého navyšování (dosud ukládanou bez stanoveného stropu) a rozšiřuje okruh činností, na které lze prostředky fondu použít, na všechny činnosti integračního charakteru podle § 2 odst. 2 až 4 zákona (nejen investiční pořízení, ale i vzdělávání, poradenství a rozvoj pracovních dovedností). Zpráva dále upravuje nakládání s prostředky fondu při zániku statusu integračního sociálního podniku a přechodná ustanovení pro již existující fondy. Podle zprávy nemá návrh přímý dopad na státní rozpočet ani ostatní veřejné rozpočty, nemění dotační mechanismy, má pozitivní dopad na podnikatelské prostředí sociální ekonomiky a nezvyšuje korupční rizika.",
+  "researchedContext": "Archivovaný text (Čl. I) potvrzuje, že celá část čtvrtá zákona č. 468/2024 Sb. je nahrazena novým zněním §§ 17 až 20 přesně podle popisu zvláštní části zprávy: § 17 zachovává povinnost přidělit do fondu více než 50 % zisku běžného účetního období a ruší dosavadní povinnost navyšování ukládanou bez stanoveného stropu, § 18 rozšiřuje účel čerpání na všechny činnosti podle § 2 odst. 2 až 4 zákona, § 19 upravuje nakládání s prostředky fondu při zániku statusu (převod jinému integračnímu sociálnímu podniku, který není spojenou osobou, jinak státu) a § 20 řeší určení zisku u subjektů mimo účetní jednotku. Zvláštní část zprávy k § 17 se ovšem věnuje jen výši přídělu, převzetí aktiv z fondu jiného podniku a postupu při zániku statusu — nový § 17 odst. 5 („Pro účely určení navýšení fondu se nepřihlíží k jednáním, jejichž účelem je snížit příděl do fondu.“) v obecném ani zvláštním výkladu vůbec zmíněn není, ačkoli jde o novou hmotněprávní protiobcházecí normu, která podle dostupného textu tisku nemá v dosavadní úpravě obdobu (platné znění není archivováno). Přechodné ustanovení Čl. II bodu 1 dále stanoví, že integrační fond vytvořený podle dosavadního § 17 odst. 1 se ke dni účinnosti zákona „rozpustí ve prospěch vlastního kapitálu“ — tedy že dosud zákonem vázané prostředky přejdou jednorázově do obecného vlastního kapitálu podniku (platné znění zákona č. 468/2024 Sb. není součástí archivovaného tisku, takže přesná dosavadní pravidla zrušení fondu z něj ověřit nelze). Zvláštní část zprávy k Čl. II tento krok popisuje jen jako technické odstranění povinnosti jeho dalšího vedení, aniž by se vyjádřila k tomu, že se tím dosud účelově vázaná část zisku integračního sociálního podniku uvolňuje do vlastního kapitálu, s nímž již lze nakládat mimo omezení §§ 17 až 20 zákona.",
+  "unstatedEffects": [
+    {
+      "effect": "Nový § 17 odst. 5 zavádí pravidlo, že se při určování výše přídělu do fondu nepřihlíží k jednáním, jejichž účelem je příděl snížit — tedy protiobcházecí normu s vlastním hodnotícím kritériem účelu jednání. Zvláštní část zprávy vykládá u § 17 jen odstavce 2 a 4 a odstavec 5 nezmiňuje ani slovem, ačkoli jde o zcela nové hmotněprávní ustanovení bez obdoby v dosavadním znění zákona č. 468/2024 Sb.",
+      "whoBenefits": "Nelze jednoznačně určit — pravidlo dopadá na integrační sociální podniky, které by chtěly transakcemi snížit vykazovaný zisk běžného účetního období a tím i povinný příděl do fondu; vzhledem k neurčitosti kritéria „účelu jednání“ zvyšuje právní nejistotu i pro podniky bez takového úmyslu.",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=59&ct1=0"
+    },
+    {
+      "effect": "Přechodné ustanovení Čl. II bodu 1 ruší dosavadní integrační fond vytvořený podle § 17 odst. 1 zákona č. 468/2024 Sb. a jeho prostředky jednorázově „rozpustí ve prospěch vlastního kapitálu“ integračního sociálního podniku. Podle obecné části zprávy byly přitom prostředky fondu dosud účelově vázány na úzce vymezené investiční účely; platné znění zákona č. 468/2024 Sb. není součástí archivovaného tisku, takže přesná dosavadní pravidla zrušení fondu z něj ověřit nelze. Zpráva v části k Čl. II ani v hodnocení hospodářského a finančního dopadu neuvádí, že tímto jednorázovým krokem dochází k uvolnění dosud účelově vázaného majetku integračních sociálních podniků do jejich obecného vlastního kapitálu.",
+      "whoBenefits": "Integrační sociální podniky, respektive jejich vlastníci či společníci, u nichž dosavadní integrační fond podle § 17 odst. 1 nabyl nenulové hodnoty ke dni účinnosti zákona — jejich prostředky přestávají být účelově vázány zákonem a stávají se součástí vlastního kapitálu podniku.",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=59&ct1=0"
+    }
+  ],
+  "conflictAssessment": "U obou předkladatelek — Pavly Pivoňky Vaňkové a Zdeňky Blišťanové — graf neeviduje žádnou peněžní vazbu na obchodní společnost, takže k tomuto tisku není v datech zjištěn ani vyloučitelný osobní finanční zájem na konkrétní firmě, včetně žádného integračního sociálního podniku podle zákona č. 468/2024 Sb. V datech proto není zjištěn střet zájmů předkladatelek.",
+  "severity": "medium",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "V zákoně č. 468/2024 Sb., o integračním sociálním podniku, část čtvrtá včetně nadpisu zní: ČÁST ČTVRTÁ (nadpis „FOND REINVESTICE ZISKU“), §§ 17 až 20.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=59&ct1=0"
+    },
+    {
+      "claim": "„Pro účely určení navýšení fondu se nepřihlíží k jednáním, jejichž účelem je snížit příděl do fondu.“",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=59&ct1=0"
+    },
+    {
+      "claim": "„Integrační fond vytvořený podle § 17 odst. 1 zákona č. 468/2024 Sb., ve znění účinném přede dnem nabytí účinnosti tohoto zákona, se dnem nabytí účinnosti tohoto zákona rozpustí ve prospěch vlastního kapitálu.“",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=59&ct1=0"
+    },
+    {
+      "claim": "Zvláštní část zprávy k § 17 vykládá pouze úpravu přídělu do fondu, převzetí aktiv od jiného podniku a postup při zániku statusu, aniž by se vyjadřovala k odstavci 5 (protiobcházecí pravidlo).",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=59&ct1=0"
+    },
+    {
+      "claim": "Navrhovaná právní úprava nemá přímý dopad na státní rozpočet ani na ostatní veřejné rozpočty a nemění dotační mechanismy ani výši podpory poskytované integračním sociálním podnikům.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=59&ct1=0"
+    },
+    {
+      "claim": "Jako garanční výbor tisku 59 byl 14. 1. 2026 navržen výbor pro sociální politiku (VSP).",
+      "kind": "graph_fact",
+      "source": "bill:tisk:43166"
+    },
+    {
+      "claim": "V grafu není u Pavly Pivoňky Vaňkové evidována žádná peněžní vazba na obchodní společnost.",
+      "kind": "graph_fact",
+      "source": "psp:person:6762"
+    },
+    {
+      "claim": "V grafu není u Zdeňky Blišťanové evidována žádná peněžní vazba na obchodní společnost.",
+      "kind": "graph_fact",
+      "source": "psp:person:6992"
+    },
+    {
+      "claim": "Zákon č. 468/2024 Sb., o integračním sociálním podniku, je jediný zákon novelizovaný tímto tiskem.",
+      "kind": "law",
+      "source": "468/2024"
+    }
+  ]
+}

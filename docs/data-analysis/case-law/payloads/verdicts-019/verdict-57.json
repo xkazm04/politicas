@@ -1,0 +1,62 @@
+{
+ "billTisk": 57,
+ "statedReasoning": "Vládní návrh (předkladatel ministr zdravotnictví Vlastimil Válek) mění zákon č. 375/2022 Sb., o zdravotnických prostředcích a diagnostických zdravotnických prostředcích in vitro, za účelem adaptace nařízení (EU) 2024/1860, jehož implementační lhůta uplynula již 10. ledna 2025. Vkládá nové § 8a a § 8b (povinnost výrobce hlásit Ústavu pro kontrolu léčiv předpokládané přerušení nebo ukončení dodávek prostředku a poskytnout na výzvu doplňující údaje), § 27a (obdobná povinnost distributorů a dovozců na výzvu) a § 39a (obdobná povinnost poskytovatelů zdravotních služeb na výzvu), a nový § 53a, který zakládá pravomoc Ústavu navrhnout a Ministerstva zdravotnictví vydat opatření obecné povahy dočasně upravující podmínky uvádění na trh, distribuce, uvádění do provozu, předepisování, výdeje či používání prostředku, u něhož hrozí ohrožení dostupnosti zdravotní péče. Doplňuje odpovídající skutkové podstaty přestupků v § 55, 57, 58, 59, 60 a 61 se sankcemi do 30 000 000 Kč. Zpráva uvádí, že jde o znovupředložení návrhu, který byl v minulém volebním období evidován jako sněmovní tisk 927 a nebyl projednán; oproti této dřívější verzi provádí nezbytné legislativně-technické změny reagující na to, že zákon o prostředcích mezitím nebyl novelizován sněmovním tiskem 918 z minulého období (ten předpokládal vlastní nové ustanovení § 53a, na které mělo navázat původní ustanovení § 53b tohoto návrhu), a na novelu provedenou mezitím vyhlášeným zákonem č. 236/2025 Sb. Zpráva žádá o projednání v režimu prvního čtení podle § 90 odst. 2 zákona o jednacím řádu s odůvodněním prošlé implementační lhůty, uvádí, že RIA nebyla zpracována na základě udělené výjimky a že připomínkové řízení bylo provedeno již v minulém volebním období a v tomto období se podle rozhodnutí předsedkyně Legislativní rady vlády ze dne 16. října 2025 neopakuje. Korupční rizika zpráva hodnotí jako soustředěná výhradně do dozoru nad plněním ohlašovacích povinností a jako pokrytá stávajícími kontrolními mechanismy Ústavu.",
+ "researchedContext": "Text potvrzuje rozsah tvrzený v obecné části: vkládá § 8a, § 8b, § 27a, § 39a a nový § 53a do zákona č. 375/2022 Sb. a rozšiřuje skutkové podstaty přestupků v § 55, 57, 58, 59, 60 a 61 tak, jak zvláštní část zprávy popisuje - „Platné znění“ přiložené k tisku ukazuje stejné vkládané paragrafy se zvýrazněnými změnami. Obecná část zprávy sama výslovně a podrobně vysvětluje koordinaci číslování s jiným, souběžně projednávaným návrhem téhož zákona: podle ní bylo nové ustanovení tohoto tisku (v minulém volebním období evidovaného jako tisk 927) původně označeno jako § 53b, protože podle tehdejšího pořadí projednávání mělo navazovat na ustanovení § 53a zavedené jiným návrhem (tehdejším tiskem 918, který měnil zákon o prostředcích v souvislosti se změnou zákona o regulaci reklamy). Protože se v tomto volebním období pořadí projednávání obrátilo a předloha nynějšího tisku 57 předstihuje předlohu nynějšího tisku, který nese v úředním vyjádření obsah tehdejšího tisku 918, přeznačila zpráva vlastní nové ustanovení z § 53b na § 53a, aby označení § 53b zůstalo volné pro onen druhý návrh. Toto vysvětlení je vnitřně konzistentní s operativním textem zpracovaného souběžného tisku, který do téhož zákona č. 375/2022 Sb. skutečně vkládá nové ustanovení označené § 53b („Program pro pacienty“) a nový § 62b - tedy jiná ustanovení téhož zákona než § 53a a navazující ustanovení tohoto tisku, takže mezi oběma návrhy nedochází k textové kolizi na společném paragrafu, nýbrž k záměrně koordinovanému, vzájemně se vyhýbajícímu číslování. Zpráva tuto koordinaci ovšem popisuje výhradně odkazem na tisky minulého volebního období (927 a 918) a nikde v textu neuvádí, pod jakým číslem je druhý návrh evidován v nynějším volebním období - čtenář tisku 57 tak nemůže z jeho vlastního textu ověřit, se kterým konkrétním nynějším návrhem je koordinace vedena, aniž by si dohledal historii projednávání tisku 927 na stránkách Poslanecké sněmovny.",
+ "unstatedEffects": [
+  {
+   "effect": "Obecná část zprávy vysvětluje přeznačení vlastního nového ustanovení z § 53b na § 53a jako koordinaci s jiným návrhem novelizujícím tentýž zákon, ale identifikuje tento druhý návrh výhradně čísly sněmovních tisků z minulého, ukončeného volebního období (927 a 918). Zpráva tak čtenáři nesděluje, pod jakým číslem je druhý, koordinovaný návrh veden v nynějším volebním období, ačkoliv jde o návrh měnící stejný zákon a zavádějící sousední ustanovení stejné části téhož zákona - koordinace číslování je tedy z textu tisku 57 samotného nedohledatelná bez použití vnějšího zdroje.",
+   "whoBenefits": "Nejde o osobní prospěch žádné strany, ale o mezeru v transparentnosti legislativního procesu: čtenář sledující pouze tento tisk nemůže bez dalšího dohledávání zjistit, se kterým souběžně projednávaným návrhem je číslování koordinováno, a nemůže tedy ani sám ověřit, že k avizované kolizi číslování skutečně nedochází.",
+   "evidence": "Obecná část zprávy k tisku 57, konkrétně bod 1 („Zhodnocení platného právního stavu“), popisující přeznačení ustanovení § 53b na § 53a s odkazem výhradně na sněmovní tisky 927 a 918 z minulého volebního období, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=57&ct1=0"
+  },
+  {
+   "effect": "Zpráva (bod 15) uvádí, že meziresortní připomínkové řízení k návrhu proběhlo v minulém volebním období a že podle rozhodnutí předsedkyně Legislativní rady vlády ze dne 16. října 2025 se v tomto volebním období neopakuje - přestože sama zpráva (bod 1) uvádí, že oproti tehdejší verzi provedla nezbytné legislativně-technické změny včetně přeznačení paragrafu § 53b na § 53a a přepracování § 61 odst. 4 v návaznosti na mezitím vyhlášený zákon č. 236/2025 Sb. Zpráva sama tyto změny označuje za legislativně-technické, nikoli věcné, ale toto hodnocení je tvrzením předkladatele a text tisku neobsahuje srovnání s dřívější verzí, podle něhož by čtenář mohl tuto charakteristiku sám nezávisle ověřit.",
+   "whoBenefits": "Předkladatel, v jehož prospěch rozhodnutí předsedkyně Legislativní rady vlády vyznívá: upravená verze návrhu se k projednání dostává bez nového meziresortního připomínkového řízení, takže změny oproti verzi z minulého volebního období nepodléhají nové kontrole připomínkových míst.",
+   "evidence": "Body 1 a 15 obecné části zprávy k tisku 57 (rozhodnutí předsedkyně Legislativní rady vlády dopisem ze dne 16. října 2025, „že se v tomto volebním období připomínkové řízení k návrhu zákona neprovede“; popis legislativně-technických změn oproti sněmovnímu tisku 927), https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=57&ct1=0"
+  }
+ ],
+ "conflictAssessment": "Tisk 57 má jediného evidovaného předkladatele, ministra zdravotnictví Vlastimila Válka; v případovém spisu tohoto tisku ani v samostatně vedeném přehledu peněžních vazeb poslanců není u něj evidována žádná peněžní vazba na soukromou firmu. Garančním výborem byl navržen Výbor pro zdravotnictví, avšak podle případového spisu k datu zpracování tohoto nálezu ještě nebyl formálně přikázán (stav „navrženo“, 17. 12. 2025), takže nelze hodnotit ani případnou souběžnou institucionální roli jeho předsedy. Věcně jde o transpozici nařízení EU do oblasti dozoru nad dostupností zdravotnických prostředků, z níž neplyne přímý peněžní prospěch žádné konkrétní, v grafu jmenované soukromé firmě spojené s předkladatelem. Z dostupných dat proto neplyne důvod pro podezření na majetkový střet zájmů u tohoto tisku.",
+ "severity": "low",
+ "confidence": 4,
+ "citations": [
+  {
+   "claim": "Čl. I tisku vkládá do zákona č. 375/2022 Sb. nová ustanovení § 8a a § 8b (povinnosti výrobce při přerušení nebo ukončení dodávek prostředku), § 27a (povinnost distributora a dovozce) a § 39a (povinnost poskytovatele zdravotních služeb) a nový § 53a (opatření Ústavu a Ministerstva zdravotnictví při ohrožení dostupnosti prostředku), a rozšiřuje skutkové podstaty přestupků v § 55, 57, 58, 59, 60 a 61 se sankcemi do 30 000 000 Kč.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=57&ct1=0"
+  },
+  {
+   "claim": "Obecná část zprávy (bod 1) uvádí, že návrh byl v minulém volebním období evidován jako sněmovní tisk 927 a nebyl projednán, a že oproti této verzi provedl legislativně-technické změny reagující na to, že zákon o prostředcích nebyl mezitím novelizován sněmovním tiskem 918 - proto se ustanovení původně označené jako § 53b přeznačuje na § 53a.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=57&ct1=0"
+  },
+  {
+   "claim": "Bod 15 obecné části zprávy uvádí, že hodnocení dopadů regulace (RIA) nebylo zpracováno na základě udělené výjimky, že v minulém volebním období proběhlo meziresortní připomínkové řízení a že se podle rozhodnutí předsedkyně Legislativní rady vlády ze dne 16. října 2025 v tomto volebním období neprovádí.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=57&ct1=0"
+  },
+  {
+   "claim": "Souběžně projednávaný tisk, jehož operativní text vkládá do zákona č. 375/2022 Sb. nová ustanovení § 53b („Program pro pacienty“) a § 62b, novelizuje tentýž zákon jinými, sousedními ustanoveními než tisk 57.",
+   "kind": "graph_fact",
+   "source": "bill:tisk:43274"
+  },
+  {
+   "claim": "Tisk 57 má jediného evidovaného předkladatele - Vlastimila Válka - a v přehledu peněžních vazeb poslanců je u něj evidován nulový počet záznamů.",
+   "kind": "graph_fact",
+   "source": "psp:person:6482"
+  },
+  {
+   "claim": "Zákon č. 375/2022 Sb., o zdravotnických prostředcích a diagnostických zdravotnických prostředcích in vitro, je předpis novelizovaný tímto tiskem.",
+   "kind": "law",
+   "source": "375/2022"
+  },
+  {
+   "claim": "Zákon č. 236/2025 Sb. je předpis, jehož mezitímní vyhlášení podle zprávy vyžádalo přepracování § 61 odst. 4 návrhu.",
+   "kind": "law",
+   "source": "236/2025"
+  },
+  {
+   "claim": "Zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny, je předpis, podle jehož § 90 odst. 2 zpráva žádá o projednání návrhu v prvním čtení.",
+   "kind": "law",
+   "source": "90/1995"
+  }
+ ]
+}

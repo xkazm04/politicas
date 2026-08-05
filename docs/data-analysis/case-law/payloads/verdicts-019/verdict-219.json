@@ -1,0 +1,72 @@
+{
+  "billTisk": 219,
+  "statedReasoning": "Vládní návrh (předložilo Ministerstvo průmyslu a obchodu, za vládu předkládal místopředseda vlády a ministr průmyslu a obchodu Karel Havlíček) zavádí zcela nový zákon o mistrovské kvalifikaci a mistrovské zkoušce a současně mění zákon č. 301/1992 Sb., o Hospodářské komoře České republiky a Agrární komoře České republiky. Mistrovská zkouška má fyzickým osobám s alespoň tříletou praxí v řemeslném oboru umožnit institucionálně ověřit, že vykonávají dané povolání na nejvyšší úrovni; zkoušku pro povolání v oblasti průmyslu a obchodu připravuje, organizuje a provádí Hospodářská komora České republiky pod dohledem Ministerstva průmyslu a obchodu, pro zemědělská povolání Agrární komora České republiky pod dohledem Ministerstva zemědělství. Zpráva uvádí, že návrh iniciovali zástupci zaměstnavatelů — mimo jiné Hospodářská komora ČR, Agrární komora ČR, Svaz průmyslu a dopravy ČR, Asociace malých a středních podniků a živnostníků ČR, Konfederace zaměstnavatelských a podnikatelských svazů ČR a Svaz podnikatelů ve stavebnictví v ČR. Podle odborného odhadu Hospodářské komory ČR se v prvních pěti letech očekává ročně průměrně 2 000 vykonaných zkoušek a 1 600 vydaných mistrovských listů, s průměrnými výdaji uchazeče kolem 30 tisíc Kč; náklady na přípravu a provoz systému mají nést komory zcela bez nároku na státní rozpočet, zatímco dohledová agenda vyžádá dvě nová služební místa na Ministerstvu průmyslu a obchodu a jedno na Ministerstvu zemědělství. Zhodnocení korupčních rizik podle Metodiky CIA identifikuje jediné riziko — úspěšné složení zkoušky uchazečem bez skutečné mistrovské kvalifikace — a hodnotí je jako nízké pravděpodobností i závažností dopadů; zpráva uzavírá, že návrh korupční rizika nezvyšuje.",
+  "researchedContext": "Archivovaný text potvrzuje popsanou konstrukci: § 2 odst. 3 a 4 svěřuje přípravu, organizaci a provádění mistrovské zkoušky výhradně Hospodářské komoře ČR nebo Agrární komoře ČR (dále „komora“) podle oboru povolání, § 7 odst. 1 stanoví, že zkušební řád schvaluje příslušné ministerstvo na návrh komory, a § 18 upravuje poplatek za vykonání zkoušky: podle odstavce 1 nesmí jeho celková výše přesáhnout náklady nezbytné pro přípravu, organizaci a provedení zkoušky, podle odstavce 2 komora na svém webu zveřejní způsob výpočtu a maximální výši poplatku pro každou kvalifikaci zvlášť, a podle odstavce 3 je příjem z poplatku příjmem rozpočtu komory. Část druhá (§ 19) doplňuje do § 4 odst. 1 zákona č. 301/1992 Sb. nové písmeno n), které do zákonem vymezené působnosti obou komor výslovně zařazuje přípravu, organizaci a provádění mistrovských zkoušek a vydávání mistrovských listů. Obecná část zprávy v bodě 3 skutečně jmenuje Hospodářskou komoru ČR mezi iniciátory návrhu spolu s dalšími zaměstnavatelskými svazy a odkazuje na anketu z let 2019–2020 vedenou Národním ústavem pro vzdělávání ve spolupráci s Hospodářskou komorou ČR. Zhodnocení korupčních rizik v bodě 10 skutečně posuzuje jen riziko obcházení zkoušky nekvalifikovaným uchazečem a nezmiňuje se k tomu, že tatáž komora, která je zákonem pověřeným výhradním organizátorem zkoušky (§ 2 odst. 4), zároveň sama navrhuje zkušební řád a standardy (§ 7 odst. 1, § 12) a je zároveň příjemcem poplatku za zkoušku do vlastního rozpočtu (§ 18 odst. 3) — přezkum tohoto uspořádání je v bodě 10 omezen na kritérium „odpovědnost“ (že role obou komor a ministerstev jsou v jednotlivých ustanoveních jednoznačně přiřazeny) a na schvalovací roli ministerstva, aniž by byla zvlášť posouzena skutečnost, že regulovaný subjekt (žadatel o mistrovský list) skládá poplatek přímo tomu, kdo o obsahu a organizaci zkoušky rozhoduje. Finanční odhad v bodě 7 dále uvádí očekávaný dlouhodobý nárůst výnosu přímých a nepřímých daní „v řádu desítek milionů Kč ročně“, ale žádné odpovídající vyčíslení mzdových nákladů tří nových trvalých služebních míst v 13. platové třídě, jejichž potřeba podle zprávy přetrvá i po případném poklesu počtu zkoušek — čistý fiskální dopad tak nelze zjistit ze samotné zprávy; její bod 8 odkazuje na závěrečnou zprávu z hodnocení dopadů regulace, která není součástí archivovaného tisku a nebyla v rámci tohoto zpracování čtena.",
+  "unstatedEffects": [
+    {
+      "effect": "Zákon svěřuje Hospodářské komoře ČR a Agrární komoře ČR současně tři různé role u téhož systému: výhradního organizátora a provozovatele mistrovské zkoušky (§ 2 odst. 4), předkladatele zkušebního řádu a standardů, které ministerstvo pouze schvaluje (§ 7 odst. 1), a příjemce poplatku za zkoušku do vlastního rozpočtu komory (§ 18 odst. 3). Zhodnocení korupčních rizik v bodě 10 obecné části zprávy tuto kumulaci rolí u téhož subjektu jako zvláštní riziko nepojmenovává a omezuje se na riziko obcházení zkoušky nekvalifikovaným uchazečem.",
+      "whoBenefits": "Hospodářská komora České republiky a Agrární komora České republiky jako subjekty, kterým zákon svěřuje exkluzivní organizační roli i příjem z poplatku za zkoušku do vlastního rozpočtu; zpráva sama v obecné části uvádí Hospodářskou komoru ČR mezi iniciátory návrhu.",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=219&ct1=0"
+    },
+    {
+      "effect": "Finanční odhad v části 7 obecné části zprávy uvádí, že tři nová trvalá služební místa (dvě na Ministerstvu průmyslu a obchodu, jedno na Ministerstvu zemědělství, všechna v 13. platové třídě) budou zapotřebí i dlouhodobě bez ohledu na případný útlum počtu zkoušek, ale nikde tento mzdový náklad nevyčísluje v korunách, ani jej neporovnává s odhadovaným dlouhodobým nárůstem daňového výnosu „v řádu desítek milionů Kč ročně“ — čistý fiskální dopad tak nelze zjistit ze samotné zprávy (její bod 8 odkazuje na závěrečnou zprávu z hodnocení dopadů regulace, která není součástí archivovaného tisku a nebyla v rámci tohoto zpracování čtena).",
+      "whoBenefits": "Nelze jednoznačně určit — jde o mezeru v kvantifikaci rozpočtového dopadu na straně státu, nikoli o zjištěné zvýhodnění konkrétní strany.",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=219&ct1=0"
+    }
+  ],
+  "conflictAssessment": "Jediným předkladatelem uvedeným v datové sadě je Karel Havlíček (vládní návrh, předkládající ministr); v grafu u něj není evidována žádná peněžní vazba na firmu, takže k tomuto tisku není v datech zjištěn ani vyloučitelný osobní finanční zájem předkladatele na konkrétní obchodní společnosti. Věcný okruh tisku se navíc netýká jednotlivé firmy, nýbrž zákonem svěřené role dvou veřejnoprávních zájmových korporací — Hospodářské komory ČR a Agrární komory ČR — jako organizátorů a příjemců poplatků za mistrovskou zkoušku; ani jedna z nich nemá v datové sadě podobu obchodní společnosti s IČO, takže metodika peněžních vazeb tohoto projektu (vlastnické, řídicí a svěřenecké role poslanců v obchodních společnostech) na ně nedopadá a nelze jí prostřednictvím grafu ověřit ani vyloučit vazbu jiného poslance na tyto komory. Skutečnost, že návrh podle vlastní zprávy iniciovala mimo jiné Hospodářská komora ČR, je tedy zjištěním z textu tisku samotného, nikoli ze střetu zájmů dohledatelného v peněžním grafu.",
+  "severity": "medium",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Mistrovskou zkoušku připravuje, organizuje a provádí Hospodářská komora České republiky nebo Agrární komora České republiky (dále jen „komora“), a to podle toho, zda jde o povolání v působnosti Ministerstva průmyslu a obchodu, nebo Ministerstva zemědělství.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=219&ct1=0"
+    },
+    {
+      "claim": "Mistrovská zkouška se řídí zkušebním řádem, který na návrh Hospodářské komory schvaluje Ministerstvo průmyslu a obchodu, resp. na návrh Agrární komory Ministerstvo zemědělství.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=219&ct1=0"
+    },
+    {
+      "claim": "Celková výše poplatku za vykonání mistrovské zkoušky nesmí přesáhnout součet nákladů nezbytných pro zajištění přípravy, organizace a provedení zkoušky; komora na svých internetových stránkách uveřejní způsob výpočtu a maximální výši poplatku zvlášť pro každou mistrovskou kvalifikaci; příjem z poplatku za vykonání mistrovské zkoušky je příjmem rozpočtu komory.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=219&ct1=0"
+    },
+    {
+      "claim": "V § 4 zákona č. 301/1992 Sb. se na konci odstavce 1 doplňuje písmeno n): „připravují, organizují a provádějí mistrovské zkoušky a vydávají mistrovské listy podle zákona o mistrovské zkoušce.“",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=219&ct1=0"
+    },
+    {
+      "claim": "Zavedení institutu mistrovské zkoušky považují za žádoucí zástupci zaměstnavatelů, jako jsou Hospodářská komora České republiky, Agrární komora České republiky, Svaz průmyslu a dopravy České republiky, Asociace malých a středních podniků a živnostníků ČR, Konfederace zaměstnavatelských a podnikatelských svazů ČR a Svaz podnikatelů ve stavebnictví v ČR, kteří přípravu předmětné legislativní úpravy iniciovali.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=219&ct1=0"
+    },
+    {
+      "claim": "Podle odborného odhadu Hospodářské komory ČR lze v prvních pěti letech očekávat ročně průměrně 2 000 vykonaných zkoušek a 1 600 vydaných mistrovských listů; výkon agendy si vyžádá dvě nová služební místa na Ministerstvu průmyslu a obchodu a jedno na Ministerstvu zemědělství, všechna v 13. platové třídě, s trvalou potřebou i po pěti letech; v dlouhodobém horizontu se předpokládá zvýšení výnosu přímých i nepřímých daní v řádu desítek milionů Kč ročně.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=219&ct1=0"
+    },
+    {
+      "claim": "Zhodnocení korupčních rizik podle Metodiky CIA identifikovalo jediné riziko — úspěšné složení mistrovské zkoušky uchazečem, který nedisponuje mistrovskou kvalifikací — s nízkou pravděpodobností i závažností dopadů, a uzavírá, že navrhovaná úprava korupční rizika nezvyšuje.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=219&ct1=0"
+    },
+    {
+      "claim": "Jako garanční výbor tisku 219 byl 11. 6. 2026 navržen hospodářský výbor (HV).",
+      "kind": "graph_fact",
+      "source": "bill:tisk:43341"
+    },
+    {
+      "claim": "V grafu není u Karla Havlíčka evidována žádná peněžní vazba na obchodní společnost.",
+      "kind": "graph_fact",
+      "source": "psp:person:6621"
+    },
+    {
+      "claim": "Zákon č. 301/1992 Sb., o Hospodářské komoře České republiky a Agrární komoře České republiky, je zákonem novelizovaným částí druhou tohoto tisku.",
+      "kind": "law",
+      "source": "301/1992"
+    }
+  ]
+}

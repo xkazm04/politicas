@@ -1,0 +1,72 @@
+{
+ "billTisk": 235,
+ "statedReasoning": "Vládní návrh (předkladatel ministr zdravotnictví Adam Vojtěch) mění § 3c zákona č. 592/1992 Sb., o pojistném na veřejné zdravotní pojištění: zvyšuje vyměřovací základ pro pojistné hrazené státem za tzv. státní pojištěnce z 14 074 Kč na 18 362 Kč měsíčně (měsíční platba tak stoupne z 2 188 Kč na 2 479 Kč) a zároveň pozastavuje mechanismus automatické valorizace tohoto základu tak, aby se poprvé znovu uplatnil až pro rok 2029 - v přechodném ustanovení Čl. II. Návrh dále ruší nařízení vlády č. 357/2025 Sb., které stanovilo dosavadní výši vyměřovacího základu pro rok 2026, a navrhuje účinnost k 1. lednu 2027. Obecná část zprávy odůvodňuje krok tíživou finanční situací zdravotních pojišťoven: klesajícím podílem platby státu na výdajích na hrazené zdravotní služby (z 30,8 % v roce 2021 na 28,4 % v roce 2026), poklesem zůstatků na účtech zdravotních pojišťoven z 69,9 mld. Kč (1/2021) na 43,2 mld. Kč (12/2025) a předpokládaným celkovým schodkem systému veřejného zdravotního pojištění pro rok 2026 ve výši 14,9 mld. Kč. Požadované navýšení příjmů systému o 21 mld. Kč pro rok 2027 je odvozeno z rozdílu mezi očekávanými náklady (603,1 mld. Kč) a očekávanými příjmy bez valorizace (582,1 mld. Kč). Zpráva žádá, aby s návrhem Sněmovna vyslovila souhlas již v prvním čtení, a uvádí, že bylo požádáno o neprovedení meziresortního připomínkového řízení i o nezpracování hodnocení dopadů regulace (RIA), neboť jde podle zprávy o parametrickou změnu bez vlivu na podnikatelské prostředí. Korupční rizika zpráva hodnotí jako nulová.",
+ "researchedContext": "Text zákona (Čl. I bod 1) potvrzuje navýšení částky v § 3c odst. 1 z 14 074 Kč na 18 362 Kč a bod 2 mění rok prvního uplatnění valorizačního mechanismu z 2024 na 2029; přechodné ustanovení Čl. II i zvláštní část k němu shodně uvádějí, že postup automatické valorizace (§ 3c odst. 2 až 5) se poprvé znovu použije až pro rok 2029, přičemž zvýšená hodnota vyměřovacího základu na toto období bude vládou stanovena nařízením do 30. září 2028 - mezi roky 2027 a 2029 tedy základ zůstává na politicky stanovené hodnotě 18 362 Kč beze změny. Obecná část zprávy sama výslovně zmiňuje a správně charakterizuje mimořádné jednorázové přerozdělení 7,9 mld. Kč od Všeobecné zdravotní pojišťovny České republiky (VZP ČR) ve prospěch zaměstnaneckých zdravotních pojišťoven, které bylo přijato zákonem č. 71/2026 Sb., a to na dvou místech: v obecné části (bod o zůstatcích pojišťoven) jako opatření, které „na hlavní problém, kterým je nedostatečný celkový objem disponibilních prostředků systému z pohledu jeho dlouhodobé udržitelnosti, toto jednorázové opatření nemá vliv“, a v bodě J (odůvodnění schválení již v prvním čtení) slovy, že „je pouhým nouzovým řešením pro letošní rok“, po němž má následovat právě tento návrh jako „další krok“ pro zajištění stability systému v roce 2027. Tento popis je vnitřně konzistentní s dřívějším zjištěním, že zákon č. 71/2026 Sb. byl v § 21b vázán výslovně na měsíc březen 2026 a nenesl žádné dlouhodobé přerozdělovací pravidlo. Návrh tisku 235 se ale netýká § 21b zákona č. 592/1992 Sb. (mechanismus měsíčního vyrovnání mezi pojišťovnami) ani prediktoru pro cizí pojištěnce, o jehož zakotvení v rámci „připravované širší změny parametrů přerozdělování pojistného“ hovořil dřívější tisk - mění výhradně § 3c, tedy výši platby státu za státní pojištěnce, což je jiný mechanismus (příjmová strana systému, nikoli přerozdělení mezi pojišťovnami). Tisk 235 tedy podle dostupného textu není oním dříve avizovaným krokem k reformě přerozdělovacích prediktorů; jde o samostatné, další opatření reagující na tentýž nedostatek zdrojů z jiné strany rozpočtu systému.",
+ "unstatedEffects": [
+  {
+   "effect": "Obecná část zprávy (bod A) popisuje účel valorizačního mechanismu zavedeného od roku 2023 jako zajištění „předvídatelného, na politickém rozhodnutí nezávislého“ každoročního navýšení platby za státní pojištěnce, a to výslovně v kontrastu k dřívější praxi, kdy byla výše vyměřovacího základu „arbitrárně stanovována“, i k jednorázovému snížení základu v roce 2022, které zpráva sama označuje za „arbitrární“. Tentýž návrh ale nahrazuje výpočet podle vzorce jednorázovou, politicky stanovenou částkou 18 362 Kč (vyšší než by odpovídalo pokračování valorizace) a zároveň pozastavuje samotný předvídatelný mechanismus na dva roky (2027 a 2028) až do prvního obnoveného uplatnění pro rok 2029. Zpráva tento krok v bodě H označuje pouze za „parametrickou změnu“ nevyžadující hodnocení dopadů regulace, aniž by se vrátila k vlastnímu odůvodnění z bodu A a vysvětlila, proč je nyní žádoucí totéž politické rozhodování o výši základu, které mechanismus z roku 2023 měl podle zprávy nahradit.",
+   "whoBenefits": "Přímým příjemcem vyššího vyměřovacího základu jsou zdravotní pojišťovny (vyšší platba státu za státní pojištěnce); avšak samotné nahrazení vzorce politickým rozhodnutím a pozastavení valorizace pro rok 2028 posiluje diskreci vlády při určování výše této platby na úkor předvídatelnosti, kterou měl mechanismus z roku 2023 podle zprávy zajišťovat pojišťovnám i státnímu rozpočtu.",
+   "evidence": "Bod A („zajištění předvídatelného, na politickém rozhodnutí nezávislého každoročního navýšení platby pojistného za státní pojištěnce“; „arbitrárně stanovována“; „arbitrárnímu snížení“) a bod H (charakteristika jako parametrická změna nevyžadující RIA) důvodové zprávy k tisku 235; Čl. I a Čl. II tisku 235, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=235&ct1=0"
+  },
+  {
+   "effect": "Zpráva v bodě H uvádí, že bylo požádáno o neprovedení meziresortního připomínkového řízení s odůvodněním, že „fakticky jediné relevantní potenciální připomínkové místo představuje Ministerstvo financí“, a zároveň o nezpracování hodnocení dopadů regulace (RIA) s odůvodněním, že návrh nezatěžuje podnikatelské subjekty. Bod E ale sám uvádí, že přijetím návrhu dojde k nárůstu výdajové strany státního rozpočtu (kapitola Všeobecná pokladní správa) o částku přibližně 21 mld. Kč. Zpráva tak žádá o vypuštění obou standardních kontrolních kroků (připomínkového řízení i RIA) u opatření se stanoveným rozpočtovým dopadem v řádu desítek miliard korun a zároveň žádá Sněmovnu o schválení již v prvním čtení podle § 90 odst. 2 zákona č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny - kombinace, která u fiskálně významné změny omezuje standardní příležitosti k vnějšímu připomínkování dříve, než se stane zákonem.",
+   "whoBenefits": "Předkladatel a vláda, kteří tímto postupem zkracují dobu a omezují okruh subjektů, jež mohou návrh dříve, než nabude platnosti, standardní cestou připomínkovat, u opatření s rozpočtovým dopadem přibližně 21 mld. Kč.",
+   "evidence": "Bod E („nárůst na výdajové straně státního rozpočtu... ve výši cca 21 mld. Kč“) a bod H (bylo požádáno o neprovedení meziresortního připomínkového řízení; „bylo požádáno o nezpracovávání hodnocení dopadů regulace (RIA)“) a bod J (žádost o souhlas již v prvním čtení podle § 90 odst. 2 zákona č. 90/1995 Sb.) důvodové zprávy k tisku 235, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=235&ct1=0"
+  }
+ ],
+ "conflictAssessment": "Tisk 235 má jediného evidovaného předkladatele, ministra zdravotnictví Adama Vojtěcha; v případovém spisu tohoto tisku není u něj evidována žádná peněžní vazba na soukromou firmu ani jiný subjekt, což potvrzuje i samostatně vedený přehled peněžních vazeb poslanců, kde má Adam Vojtěch nulový počet záznamů. Jde o vládní návrh s jediným předkladatelem, nikoli o skupinu spolupředkladatelů jako u dříve zpracovaného tisku 70, a případový spis u tohoto tisku neobsahuje ani údaj o obsazení předsednictví či dozorčích funkcí u zdravotních pojišťoven, kterých by se návrh mohl týkat - z dostupných dat tedy nelze u tisku 235 doložit ani vyloučit takovou institucionální roli, na rozdíl od tisku 70, kde byla korupčně relevantní souběžná role spolupředkladatele doložena. Návrh sám odkazuje na zákon č. 71/2026 Sb. (vzešlý z tisku 70) a popisuje jej shodně s dřívějším zjištěním jako jednorázové, ne systémové opatření - mezi oběma tisky proto není zjištěn rozpor v líčení skutkového stavu. Garančním výborem byl tisku 235 přikázán Výbor pro zdravotnictví (přikázáno 8. 7. 2026); spis neuvádí jméno jeho předsedy u tohoto tisku, a proto zde není hodnocena ani jeho případná souběžná role.",
+ "severity": "medium",
+ "confidence": 4,
+ "citations": [
+  {
+   "claim": "Čl. I bod 1 zvyšuje vyměřovací základ pro pojistné hrazené státem za státní pojištěnce v § 3c odst. 1 zákona č. 592/1992 Sb. z 14 074 Kč na 18 362 Kč a bod 2 mění rok prvního uplatnění valorizačního mechanismu z 2024 na 2029; Čl. II stanoví, že se postup podle § 3c odst. 2 až 5 poprvé znovu použije až pro rok 2029; Čl. III ruší nařízení vlády č. 357/2025 Sb.; Čl. IV stanoví účinnost k 1. lednu 2027.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=235&ct1=0"
+  },
+  {
+   "claim": "Obecná část zprávy popisuje pokles zůstatků na účtech zdravotních pojišťoven z 69,9 mld. Kč (leden 2021) na 43,2 mld. Kč (prosinec 2025), pokles podílu platby státu na výdajích na hrazené zdravotní služby z 30,8 % (2021) na 28,4 % (2026) a odhadované celkové saldo systému veřejného zdravotního pojištění pro rok 2026 ve výši -14,9 mld. Kč; požadované navýšení příjmů o 21 mld. Kč je rozdílem mezi očekávanými náklady 603,1 mld. Kč a očekávanými příjmy bez valorizace 582,1 mld. Kč.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=235&ct1=0"
+  },
+  {
+   "claim": "Bod E udává nárůst výdajové strany státního rozpočtu o cca 21 mld. Kč, bod H uvádí žádost o neprovedení meziresortního připomínkového řízení a o nezpracování hodnocení dopadů regulace, a bod J žádá o souhlas Sněmovny již v prvním čtení podle § 90 odst. 2 zákona o jednacím řádu Poslanecké sněmovny.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=235&ct1=0"
+  },
+  {
+   "claim": "Obecná část zprávy popisuje mimořádné přerozdělení 7,9 mld. Kč od VZP ČR ve prospěch zaměstnaneckých zdravotních pojišťoven, přijaté zákonem č. 71/2026 Sb., jako opatření bez vlivu na hlavní problém nedostatečného objemu prostředků systému a v bodě J uvádí, že „je pouhým nouzovým řešením pro letošní rok“, po němž má následovat tento návrh.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=235&ct1=0"
+  },
+  {
+   "claim": "Tisk 235 má jediného evidovaného předkladatele - Adama Vojtěcha - a případový spis u něj neeviduje žádnou peněžní vazbu.",
+   "kind": "graph_fact",
+   "source": "bill:tisk:43357"
+  },
+  {
+   "claim": "V přehledu peněžních vazeb poslanců je u Adama Vojtěcha evidován nulový počet záznamů.",
+   "kind": "graph_fact",
+   "source": "psp:person:6491"
+  },
+  {
+   "claim": "Zákon č. 592/1992 Sb., o pojistném na veřejné zdravotní pojištění, je předpis novelizovaný tímto tiskem.",
+   "kind": "law",
+   "source": "592/1992"
+  },
+  {
+   "claim": "Zákon č. 71/2026 Sb. je zákon, kterým bylo přijato dříve zpracované mimořádné přerozdělení 7,9 mld. Kč mezi zdravotními pojišťovnami a na který tisk 235 odkazuje.",
+   "kind": "law",
+   "source": "71/2026"
+  },
+  {
+   "claim": "Zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny, je předpis, podle jehož § 90 odst. 2 zpráva žádá o schválení návrhu již v prvním čtení.",
+   "kind": "law",
+   "source": "90/1995"
+  },
+  {
+   "claim": "Nařízení vlády č. 357/2025 Sb. je předpis, který tento tisk v Čl. III ruší.",
+   "kind": "law",
+   "source": "357/2025"
+  }
+ ]
+}

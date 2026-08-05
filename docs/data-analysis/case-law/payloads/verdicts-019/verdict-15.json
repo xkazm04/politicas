@@ -1,0 +1,47 @@
+{
+ "billTisk": 15,
+ "statedReasoning": "Návrh (sněmovní tisk 15) mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny. Podle obecné části důvodové zprávy (bod 1) reaguje novela na opakovanou zkušenost, že platná pravidla umožňují nad míru extenzivní využití obstrukčních nástrojů, což vede k časovým průtahům a nepředvídatelnosti jednání. Novela zavádí: pevnou rozhodovací uzávěrku do 13.00 hodin téhož jednacího dne a kvalifikované kvorum tří pětin přítomných poslanců pro rozhodnutí o hlasování po 19. hodině nebo pokračování jednání po 21. hodině (§ 53); koncentraci procesních návrhů do jednoho vystoupení s časovým limitem 5, resp. 30 minut u řečníka s přednostním právem (§ 54); časové limity pro zpravodaje (30 minut) a klubové řečníky (60 minut) (§ 58); obecný limit řečnické doby 20 minut a nejvýše dvě vystoupení k téže věci (§ 59); strop dvou faktických poznámek na jedno vystoupení (§ 60); časové limity 60, resp. 30 minut pro řečníky s přednostním právem a možnost usnesením upravit pořadí jejich přihlášek (§ 67); a pevné navázání vyčlenění dnů pro třetí čtení na okamžik schválení pořadu schůze (§ 95a). Obecná část v bodě 2 návrh obhajuje jako slučitelný s ústavním pořádkem, mimo jiné odkazem na nález Ústavního soudu sp. zn. Pl. ÚS 7/22 o vyvažování práv parlamentní menšiny a funkčnosti Sněmovny, a v bodě 5 uvádí, že novela nemá přímé fiskální dopady. Návrh byl podán k projednání a schválení již v prvním čtení. Jako garanční výbor byl dne 17. prosince 2025 navržen ústavně právní výbor.",
+ "researchedContext": "Ustanovení citovaná v obecné i zvláštní části byla ověřena proti plnému znění tisku. Nová věta § 53 odst. 2 v novelizačním bodě 2 skutečně stanoví: „O umožnění hlasování podle odstavce 1 po 19. hodině a o prodloužení jednací doby po 21. hodině se může Sněmovna usnést nejpozději do 13 hodin téhož jednacího dne; k přijetí takového usnesení je třeba třípětinové většiny přítomných poslanců.“ Obecná část v bodě 1.2.1 tuto úpravu odůvodňuje snahou zabránit praxi neplánovaných nočních maratonů. Návrh byl podepsán 10. listopadu 2025 — týden poté, co lídři hnutí ANO, SPD a Motoristé sobě podepsali koaliční smlouvu (3. listopadu 2025) po volbách do Poslanecké sněmovny konaných v říjnu 2025, které ANO vyhrálo se ziskem 34,51 procenta hlasů, zatímco Piráti (jeden z předkladatelů tohoto tisku je předsedou Pirátů) skončili s 8,97 procenta a jsou po těchto volbách opoziční stranou. Novela nabývá účinnosti 1. ledna 2026, tedy v době, kdy se nová vládní většina ANO, SPD a Motoristé sobě ujímala moci.",
+ "unstatedEffects": [
+  {
+   "effect": "Časové stropy pro vystoupení, omezení řetězení faktických poznámek a kvalifikované kvorum pro večerní hlasování jsou formálně obsahově neutrální, ale fakticky omezují především nástroje, které historicky využívá parlamentní menšina k prodloužení projednávání návrhu, jenž nemůže zablokovat hlasy. Návrh byl podán týden po podpisu koaliční smlouvy ANO, SPD a Motoristů sobě a nabývá účinnosti přesně v okamžiku nástupu této nové většiny k moci, přičemž předkladatelé — poslanci strany, která je po volbách v říjnu 2025 v opozici — tím sami omezují nástroj, který by mohli ve své menšinové roli potřebovat.",
+   "whoBenefits": "Nová vládní většina ANO, SPD a Motoristé sobě, jejíž legislativní návrhy budou proti zdržovacím taktikám menšiny lépe prosaditelné; naopak předkladatelé i ostatní opoziční strany přicházejí o část nástrojů, které opozice v předchozím volebním období (2021–2025) sama zažila na straně hnutí ANO coby tehdejší opozice.",
+   "evidence": "Volby do Poslanecké sněmovny v říjnu 2025 vyhrálo hnutí ANO (34,51 procenta), koalice SPOLU skončila druhá; koaliční smlouvu ANO, SPD a Motoristé sobě podepsali 3. listopadu 2025, týden před podáním tohoto návrhu 10. listopadu 2025."
+  }
+ ],
+ "conflictAssessment": "Žádný z předkladatelů — Olga Richterová (poslanecké číslo 6473), Kateřina Stojanová (poslanecké číslo 7048) ani Ivan Bartoš (poslanecké číslo 6433) — nemá v grafu peněžních vazeb zaznamenánu žádnou vazbu na obchodní společnost; z hlediska peněžního grafu tedy nebyl u tohoto tisku identifikován žádný finanční střet zájmu. Zjištění tohoto verdiktu se týkají výhradně institucionálně-politické roviny (opoziční pozice předkladatelské strany po volbách v říjnu 2025, bezprostředně před podáním návrhu), nikoli osobního obohacení.",
+ "severity": "low",
+ "confidence": 4,
+ "citations": [
+  {
+   "claim": "Návrh mění zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny, zejména pravidla pro prodlužování jednacího dne, řečnickou dobu, faktické poznámky, přednostní práva a stabilitu dnů vyčleněných pro třetí čtení.",
+   "kind": "law",
+   "source": "90/1995"
+  },
+  {
+   "claim": "Nový § 53 odst. 2 stanoví, že o hlasování po 19. hodině nebo pokračování jednání po 21. hodině se Sněmovna může usnést nejpozději do 13 hodin téhož jednacího dne, a to třípětinovou většinou přítomných poslanců.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=15&ct1=0"
+  },
+  {
+   "claim": "Obecná část důvodové zprávy v bodě 1.2.1 odůvodňuje pevnou rozhodovací uzávěrku snahou zabránit praxi neplánovaných nočních maratonů.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=15&ct1=0"
+  },
+  {
+   "claim": "Volby do Poslanecké sněmovny v říjnu 2025 vyhrálo hnutí ANO se ziskem 34,51 procenta hlasů, koalice SPOLU skončila druhá, dále STAN, Piráti (8,97 procenta) a SPD.",
+   "kind": "web",
+   "source": "https://www.ceskenoviny.cz/zpravy/2729466"
+  },
+  {
+   "claim": "Zástupci hnutí ANO, SPD a Motoristé sobě podepsali koaliční smlouvu dne 3. listopadu 2025.",
+   "kind": "web",
+   "source": "https://www.denik.cz/z_domova/ano-spd-a-motoriste-podepsali-koalicni-smlouvu.html"
+  },
+  {
+   "claim": "Jako garanční výbor byl dne 17. prosince 2025 navržen ústavně právní výbor.",
+   "kind": "web",
+   "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=15"
+  }
+ ]
+}

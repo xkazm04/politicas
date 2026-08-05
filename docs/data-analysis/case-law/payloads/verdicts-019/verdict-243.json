@@ -1,0 +1,72 @@
+{
+  "billTisk": 243,
+  "statedReasoning": "Poslanecký návrh Marka Výborného, Petra Hladíka a Františka Talíře mění zákon č. 223/2016 Sb., o prodejní době v maloobchodě, tak, že nahrazuje celé znění § 1. Podle zvláštní části zprávy je cílem sjednotit režim zákazu prodeje v maloobchodě o svátcích: nová úprava rozšiřuje zákaz prodeje na všechny státní svátky (nově i Velký pátek a 1. květen jako ostatní svátky, dosud otevřené dny 5. a 6. července a 17. listopadu jako státní svátky) při zachování dosavadního zvláštního režimu pro Štědrý den (zákaz od 12.00 do 24.00 hodin, § 1 odst. 2) a dosavadních výjimek (§ 1 odst. 3) pro prodejny do 200 m², čerpací stanice, lékárny, prodejny v dopravních uzlech, prodejny ve zdravotnických zařízeních a maloobchod v době krizových stavů. Obecná část zprávy odůvodňuje návrh tím, že současný dílčí výčet svátků, kdy je zakázán prodej jen u některých z nich (aktuálně 1. leden, Velikonoční pondělí, 8. květen, 28. září, 28. říjen, 25. a 26. prosinec), zatímco jiné dny pracovního klidu zůstávají z hlediska maloobchodu bez omezení, je pro veřejnost nesrozumitelný a každoročně vyvolává nejistotu spotřebitelů, zaměstnanců i podnikatelů; jednotné pravidlo — zavřeno o všech dnech pracovního klidu — má být přehlednější a má odpovídat modelům používaným v Rakousku, Německu, Polsku a Dánsku. Zpráva dále odkazuje na nález Ústavního soudu sp. zn. Pl. ÚS 37/16, který k zákonu č. 223/2016 Sb. uznal jako legitimní cíl posílení sociální a rodinné soudržnosti prostřednictvím pevně stanoveného společného volna, a uvádí, že návrh nemá dopad na státní rozpočet ani na korupční rizika a přináší pozitivní dopad na zaměstnance v maloobchodě formou lépe předvídatelného volna o svátcích.",
+  "researchedContext": "Archivovaný text (Čl. I bod 1, nové znění § 1) potvrzuje popsaný rozsah změny: nový odstavec 1 zakazuje prodej o 1. lednu, Velkém pátku, Velikonočním pondělí, 1. květnu, 25. a 26. prosinci a — prostřednictvím odkazu na zákon č. 245/2000 Sb. v poznámce pod čarou č. 2 — o všech dalších státních svátcích, tedy i o 5. a 6. červenci a o 17. listopadu — dny, které tabulka v obecné části zprávy výslovně uvádí jako dosud otevřené a nově zavírané dny. Odstavce 2 a 3 (zvláštní režim Štědrého dne a výjimky pro malé prodejny, čerpací stanice, lékárny, dopravní uzly, zdravotnická zařízení a krizové stavy) zůstávají beze změny, přesně jak uvádí zvláštní část zprávy. Návrh se přitom netýká § 4 zákona č. 245/2000 Sb. (kategorie tzv. významných dnů, kam patří i souběžně projednávané tisky 78 a 238) — poznámka pod čarou č. 2 u § 1 odkazuje na zákon č. 245/2000 Sb. jako celek, ale text novely rozšiřuje zákaz prodeje jen na státní a ostatní svátky ve smyslu §§ 1 a 2 tohoto zákona, nikoli na významné dny podle § 4, které podle § 4 odst. 2 téhož zákona zůstávají pracovními dny; věcná kolize s tisky 78 a 238 tedy z textu tisku 243 zjištěna nebyla. Hodnocení dopadu na podnikatelské prostředí v obecné části zprávy konstatuje jen obecně „rozšíření počtu dní, kdy se zákaz prodeje uplatní“, aniž by uvedlo počet nově zavíraných dnů v roce nebo odhad ušlých tržeb maloobchodu; § 1 odst. 3 přitom ponechává beze změny výjimku pro prodejny do 200 m² a čerpací stanice, takže rozšířený zákaz prodeje dopadá jen na větší prodejny, zatímco malé prodejny a čerpací stanice mohou být otevřené i o nově zavíraných dnech.",
+  "unstatedEffects": [
+    {
+      "effect": "Zvláštní i obecná část zprávy odůvodňují návrh sjednocením a zjednodušením srozumitelnosti pravidla, ale hodnocení dopadu na podnikatelské prostředí konstatuje jen obecně „rozšíření počtu dní, kdy se zákaz prodeje uplatní“ bez uvedení konkrétního počtu nově zavíraných dnů v roce (podle vlastní srovnávací tabulky zprávy jde o čtyři dny — Velký pátek, 1. květen, 5. červenec a 6. červenec — plus 17. listopad, celkem pět) nebo odhadu dopadu na tržby dotčených maloobchodních provozoven.",
+      "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou provozovatelé větších maloobchodních prodejen a jejich zaměstnanci na straně nákladů, spotřebitelé na straně srozumitelnosti pravidla; zpráva neuvádí číselné vyčíslení dopadu na tržby.",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=243&ct1=0"
+    },
+    {
+      "effect": "Rozšířený zákaz prodeje se podle nezměněného § 1 odst. 3 zákona č. 223/2016 Sb. nadále nevztahuje na prodejny s prodejní plochou nepřesahující 200 m² ani na čerpací stanice s palivy a mazivy — ty mohou zůstat otevřené i o nově zavíraných dnech (Velký pátek, 1. květen, 5. a 6. červenec, 17. listopad), zatímco větší maloobchodní provozovny musí být zavřené. Zpráva tento posun konkurenční výhody ve prospěch malých prodejen a čerpacích stanic vůči velkým řetězcům při hodnocení dopadu na podnikatelské prostředí nezmiňuje.",
+      "whoBenefits": "Provozovatelé malých prodejen do 200 m² a čerpacích stanic, kteří získávají o nově zavíraných dnech relativní konkurenční výhodu vůči větším maloobchodním provozovnám podléhajícím rozšířenému zákazu prodeje.",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=243&ct1=0"
+    }
+  ],
+  "conflictAssessment": "Ze tří předkladatelů má v grafu evidovanou peněžní vazbu na firmu Marek Výborný (Gymnázium, Pardubice, Mozartova 449, IČO 48161063, role ředitele) a Petr Hladík (čtyři brněnské městské a krajské podniky a státní podnik s celostátní působností (MERO ČR)); u Františka Talíře graf žádnou vazbu neeviduje. U Marka Výborného jde o vazbu svěřeneckého typu (funkce ředitele veřejné příspěvkové organizace) — úhrn veřejných smluv této školy (17 804 078 Kč) je podle metodiky tohoto projektu penězi instituce, nikoli poslance, a poslanci se nepřičítá; věcně jde navíc o školu, nikoli o maloobchodní subjekt dotčený tiskem. U Petra Hladíka je z pěti evidovaných vazeb pouze jedna vlastnická/řídicí a tedy přičitatelná poslanci jako dosažitelné peníze: předseda představenstva Teplárny Brno, a.s. (IČO 46347534, úhrn veřejných smluv 23 570 594 010 Kč). Zbylé čtyři vazby jsou svěřeneckého typu a jejich veřejné smlouvy jsou penězi instituce, nikoli poslance: předseda dozorčí rady ARENA BRNO, a.s. (IČO 09133267, 19 386 452 266 Kč), člen dozorčí rady SAKO Brno, a.s. (IČO 60713470, 24 673 935 464 Kč), místopředseda dozorčí rady Dopravní podnik města Brna, a.s. (IČO 25508881, 88 987 670 810 Kč) a člen dozorčí rady MERO ČR, a.s. (IČO 60193468, 2 981 571 045 Kč). Žádná z těchto šesti firem — teplárenská, zábavně-arénová, odpadová, dopravní, ropovodní společnost a střední škola — není maloobchodním prodejcem ani jinak věcně spojena s předmětem tisku (zákaz prodeje v maloobchodě o svátcích). Ani přičitatelná vazba Petra Hladíka na Teplárny Brno, a.s., ani žádná ze svěřeneckých vazeb obou poslanců proto k tomuto tisku nezakládá zjištěný střet zájmů; všechny vazby čekají na lidskou kontrolu.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "§ 1 nově zní: „(1) V maloobchodě je zakázán prodej o státních svátcích a těchto ostatních svátcích a) 1. leden … b) Velký pátek, c) Velikonoční pondělí, d) 1. květen – Svátek práce, e) 25. prosinec … f) 26. prosinec …“",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=243&ct1=0"
+    },
+    {
+      "claim": "Srovnávací tabulka obecné části zprávy uvádí, že podle návrhu bude nově zavřeno i o Velkém pátku, 1. květnu, 5. červenci, 6. červenci a 17. listopadu, ačkoli je podle současného stavu v tyto dny otevřeno.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=243&ct1=0"
+    },
+    {
+      "claim": "Omezení prodejní doby se nepoužije na provozování prodejen, jejichž prodejní plocha nepřesahuje 200 m², a čerpacích stanic s palivy a mazivy; toto ustanovení (§ 1 odst. 3) novela nemění.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=243&ct1=0"
+    },
+    {
+      "claim": "Navrhovaná změna nemá dopady na státní rozpočet a ostatní veřejné rozpočty; pro podnikatele znamená rozšíření počtu dní, kdy se zákaz prodeje uplatní, přičemž tento dopad je zmírněn tím, že jde o předem známé a každoročně se opakující dny.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=243&ct1=0"
+    },
+    {
+      "claim": "Petr Hladík je v grafu evidován jako předseda představenstva Teplárny Brno, a.s. (IČO 46347534) — vazba řídicího typu, přičitatelná poslanci; úhrn veřejných smluv této firmy je 23 570 594 010 Kč; vazba čeká na lidskou kontrolu.",
+      "kind": "graph_fact",
+      "source": "company:ico:46347534"
+    },
+    {
+      "claim": "Petr Hladík je v grafu evidován jako místopředseda dozorčí rady Dopravního podniku města Brna, a.s. (IČO 25508881), jako předseda dozorčí rady ARENA BRNO, a.s. (IČO 09133267), jako člen dozorčí rady SAKO Brno, a.s. (IČO 60713470) a jako člen dozorčí rady MERO ČR, a.s. (IČO 60193468) — vazby svěřeneckého typu, jejichž veřejné smlouvy jsou penězi instituce, nikoli poslance; všechny čekají na lidskou kontrolu.",
+      "kind": "graph_fact",
+      "source": "psp:person:6881"
+    },
+    {
+      "claim": "Marek Výborný je v grafu evidován jako ředitel Gymnázia, Pardubice, Mozartova 449 (IČO 48161063), veřejné příspěvkové organizace — vazba svěřeneckého typu; úhrn veřejných smluv této školy je 17 804 078 Kč a je penězi instituce, nikoli poslance; vazba čeká na lidskou kontrolu.",
+      "kind": "graph_fact",
+      "source": "company:ico:48161063"
+    },
+    {
+      "claim": "V grafu není u Františka Talíře evidována žádná peněžní vazba na obchodní společnost.",
+      "kind": "graph_fact",
+      "source": "psp:person:7052"
+    },
+    {
+      "claim": "Zákon č. 223/2016 Sb., o prodejní době v maloobchodě, je jediný zákon novelizovaný tímto tiskem.",
+      "kind": "law",
+      "source": "223/2016"
+    },
+    {
+      "claim": "§ 1 odst. 1 zákona č. 223/2016 Sb. odkazuje na zákon č. 245/2000 Sb. pro vymezení státních a ostatních svátků; kategorie významných dnů podle § 4 zákona č. 245/2000 Sb. zůstává podle § 4 odst. 2 téhož zákona pracovním dnem a tisk 243 ji nemění.",
+      "kind": "law",
+      "source": "245/2000"
+    }
+  ]
+}

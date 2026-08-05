@@ -46,7 +46,8 @@ export interface BillSummaryRow {
   summary: string | null;
   /** Which real text structure the summary came from. */
   method: "cast_captions" | "title_preamble" | "repeal" | "new_act" | null;
-  /** The cached artifact the text came from (the provenance line the surface cites). */
+  /** The public document the summary derives from (batch-018 audit M20: a local cache path
+   * is not a citation a reader can follow — the psp.cz print URL is; the cache mirrors it). */
   source: string | null;
   /** Why a summary is missing, when it is. */
   missingReason?: string;
@@ -240,12 +241,13 @@ async function main(): Promise<void> {
       rows.push({ cislo, billUrn: n.billUrn, summary: null, method: null, source: null, missingReason: "text tisku není v cache (.data/law-collision-cache) nebo je příliš krátký" });
       continue;
     }
+    const pspUrl = `https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=${cislo}&ct1=0`;
     const composed = composeSummary(cached.text);
     if (!composed) {
-      rows.push({ cislo, billUrn: n.billUrn, summary: null, method: null, source: cached.file, missingReason: "text tisku neobsahuje členění na ČÁSTi se změnovými nadpisy, čitelné návětí („kterým se mění …\") ani nadpis nového zákona" });
+      rows.push({ cislo, billUrn: n.billUrn, summary: null, method: null, source: pspUrl, missingReason: "text tisku neobsahuje členění na ČÁSTi se změnovými nadpisy, čitelné návětí („kterým se mění …\") ani nadpis nového zákona" });
       continue;
     }
-    rows.push({ cislo, billUrn: n.billUrn, summary: composed.summary, method: composed.method, source: cached.file });
+    rows.push({ cislo, billUrn: n.billUrn, summary: composed.summary, method: composed.method, source: pspUrl });
   }
 
   // The summaries are reader-facing Czech copy — run the same gate the verdicts run.
