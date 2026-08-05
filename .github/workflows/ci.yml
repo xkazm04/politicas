@@ -22,7 +22,7 @@ jobs:
       # Node 24 = npm 11, stejná major verze jako generuje package-lock.json
       # lokálně. Na Node 22 (npm 10) se strom volitelných peer závislostí
       # (@swc/helpers, @emnapi/runtime) rozpadá jinak a `npm ci` hlásí drift.
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: npm
