@@ -47,10 +47,16 @@ jobs:
       - name: Build
         run: npm run build
 
-      # Informativní: strom má dlouhodobě 12 high advisories jen v upstreamu
-      # (eslint→minimatch, next→postcss, next→sharp) a `npm audit fix` je řeší
-      # jedině downgradem next na 9.x. Krok proto NEBLOKUJE — je to signál pro
-      # Dependabota (.github/dependabot.yml), ne brána.
+      # Informativní: `npm audit --omit=dev` hlásí 5 high (stav 2026-08-05):
+      # next→postcss (4 advisories: 3× sourceMappingURL arbitrary file read +
+      # 1× XSS ve stringify výstupu) — akceptováno: postcss běží v buildu nad
+      # naším vlastním CSS, ne nad uživatelským vstupem; next→sharp (libvips
+      # CVE) — akceptováno: build-time obrazová pipeline nad našimi assety;
+      # samotný next je počítán, protože na zranitelných postcss/sharp závisí —
+      # oprava je až next@16.3.0, který před launchem záměrně nebumpujeme;
+      # brace-expansion (glob) + fast-uri jsou řešitelné prostým
+      # `npm audit fix` a spadnou při nejbližším bumpu. Krok proto NEBLOKUJE —
+      # je to signál pro Dependabota (.github/dependabot.yml), ne brána.
       - name: Dependency audit (non-blocking)
         run: npm audit --audit-level=high
         continue-on-error: true

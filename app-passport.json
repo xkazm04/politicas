@@ -85,7 +85,7 @@
       "level": "audited",
       "tool": "npm audit + Dependabot",
       "skippedByChoice": false,
-      "note": "Dependency audit added to CI (non-blocking) and weekly Dependabot enabled. 12 pre-existing high-severity advisories are open, all transitive through the framework and its image pipeline; the automated fix path is a catastrophic framework downgrade, so they are accepted and tracked rather than force-fixed. The unauthenticated operator console found during this run is closed. Input handling at ingest and query boundaries was reviewed and is sound."
+      "note": "Dependency audit in CI (non-blocking) and weekly Dependabot enabled. npm audit --omit=dev shows 5 high advisories (2026-08-05): postcss (4 CVEs, build-time over our own CSS — accepted) and sharp/libvips (build-time image pipeline over our own assets — accepted) are only fixed by next@16.3.0, deliberately not bumped pre-launch; brace-expansion and fast-uri are plain npm-audit-fix-able and will fall with the next dep bump. Security headers (HSTS, nosniff, referrer policy, frame-ancestors deny-by-default with /embed allow-all) shipped via next.config.ts. The unauthenticated operator console found during an earlier run is closed. Input handling at ingest and query boundaries was reviewed and is sound."
     },
     "appCost": {
       "level": "known",

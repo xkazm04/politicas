@@ -25,6 +25,48 @@ const nextConfig: NextConfig = {
   // 2026-07-25 in the manifestation pass; CLI scripts were unaffected because
   // they never go through the bundler).
   serverExternalPackages: ["@electric-sql/pglite"],
+  // Security headers. Framing policy uses CSP frame-ancestors (not
+  // X-Frame-Options, which cannot express a per-route allow-all): everything
+  // is deny-by-default, but /embed/* stays embeddable by third parties — that
+  // is the widget's entire purpose (app/embed/zebricek/route.ts sets its own
+  // matching `frame-ancestors *` on the response as well). Rule order matters:
+  // the /embed rule comes second so its CSP key overrides the catch-all.
+  //
+  // Follow-up (deliberately NOT in this pass): a full Content-Security-Policy
+  // with script-src. Next's inline bootstrap scripts require a nonce/hash
+  // pipeline (middleware-generated nonce threaded through the root layout) —
+  // that is a project, not a checkbox. Tracked for post-launch.
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=15552000; includeSubDomains",
+          },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          {
+            key: "Referrer-Policy",
+            value: "strict-origin-when-cross-origin",
+          },
+          {
+            key: "Content-Security-Policy",
+            value: "frame-ancestors 'none'",
+          },
+        ],
+      },
+      {
+        source: "/embed/:path*",
+        headers: [
+          {
+            key: "Content-Security-Policy",
+            value: "frame-ancestors *",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 // withSentryConfig wraps the Next config to enable Sentry's build-time
