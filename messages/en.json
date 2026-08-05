@@ -1140,7 +1140,8 @@
       "fit": "fit to view",
       "fullscreen": "fullscreen",
       "exitFullscreen": "exit fullscreen",
-      "legend": "legend"
+      "legend": "legend",
+      "unverified": "unverified"
     },
     "mapa": {
       "canvasLabel": "map of the mass",
@@ -1180,6 +1181,24 @@
           "source": "psp.cz bodies ⋈ Contract Register"
         }
       }
+    },
+    "forensic": {
+      "strip": "forensic mode",
+      "hidden": "default view: human-reviewed edges only · {n} pending hidden",
+      "none": "default view: human-reviewed edges only · nothing pending",
+      "showingPending": "{n} pending edges drawn in — dashed, unverified",
+      "showPending": "draw pending too",
+      "hidePending": "hide pending",
+      "lensNote": "requested paths and trails are never filtered — {n} pending steps in them stay dashed",
+      "hover": {
+        "verified": "{n} verified edges",
+        "pending": "{n} pending review",
+        "cols": "relation · verified / pending",
+        "empty": "no edges for this node in the current slice",
+        "more": "+ {n} more relations",
+        "open": "click opens the full record with sources"
+      },
+      "source": "source: knowledge-graph review_state — human review-gate status of every edge"
     }
   },
   "metodika": {
@@ -1361,5 +1380,10 @@
     "footer": {
       "rule": "instrument rule — the gate stores nothing and fact-checks nothing: it forwards every address family to the derivation that owns it (provenance receipt, graph citation, control-room exhibit, registry of issued figures) and only translates the answer into three verdicts. Vocabulary: features/overeni/verdict.ts."
     }
+  },
+  "forensic": {
+    "toggle": "Forensic mode",
+    "hintOff": "switch on the x-ray view: inverted paper, verified edges only, provenance inline on the canvas",
+    "hintOn": "switch off forensic mode and return to the poster view"
   }
 }

@@ -294,6 +294,10 @@ export async function getCollisionData(): Promise<CollisionData | null> {
       ...loadRawPairs("collision-close-reads-batch014-gA.json"),
       ...loadRawPairs("collision-close-reads-batch014-gB.json"),
     ];
+    const batch15Pairs = [
+      ...loadRawPairs("collision-close-reads-batch015-gA.json"),
+      ...loadRawPairs("collision-close-reads-batch015-gB.json"),
+    ];
     const rawAll = [
       ...PRIOR_PAIRS.map((p) => ({ ...p, detectedAt: precheckDate })),
       ...loadRawPairs("collision-close-reads.json"),
@@ -305,6 +309,7 @@ export async function getCollisionData(): Promise<CollisionData | null> {
       ...batch12Pairs,
       ...batch13Pairs,
       ...batch14Pairs,
+      ...batch15Pairs,
     ].filter((p) => p.classification === "confirmed-collision" || p.classification === "coordination-risk");
 
     if (rawAll.length === 0) return null;
@@ -321,8 +326,10 @@ export async function getCollisionData(): Promise<CollisionData | null> {
     const batch12Ids = new Set(batch12Pairs.map((p) => p.pairId));
     const batch13Ids = new Set(batch13Pairs.map((p) => p.pairId));
     const batch14Ids = new Set(batch14Pairs.map((p) => p.pairId));
+    const batch15Ids = new Set(batch15Pairs.map((p) => p.pairId));
     const sourceBatchOf = (pairId: string): number => {
       if (priorIds.has(pairId)) return 2;
+      if (batch15Ids.has(pairId)) return 15;
       if (batch14Ids.has(pairId)) return 14;
       if (batch13Ids.has(pairId)) return 13;
       if (batch12Ids.has(pairId)) return 12;

@@ -22,10 +22,12 @@ import { useFormat } from "@/lib/i18n/useFormat";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
+import type { DependencyData } from "./getDependencyData";
 import type { BillOrigin, LawData } from "./getLawData";
 import { ORIGIN_CZ } from "./lawwatchLabels";
 import { statuteSlug } from "./statuteRef";
 import BillBrowser from "./components/BillBrowser";
+import DependencyRadar from "./components/DependencyRadar";
 
 const VOTE_TEXT: Record<string, string> = {
   pro: "text-cobalt",
@@ -42,7 +44,13 @@ const VOTE_KEY: Record<string, string> = {
   omluven: "excused",
 };
 
-export default function LawWatchPage({ lawData }: { lawData: LawData | null }) {
+export default function LawWatchPage({
+  lawData,
+  dependencyData,
+}: {
+  lawData: LawData | null;
+  dependencyData: DependencyData | null;
+}) {
   const t = useTranslations("lawwatch");
 
   return (
@@ -77,7 +85,7 @@ export default function LawWatchPage({ lawData }: { lawData: LawData | null }) {
           </p>
         </div>
 
-        {lawData ? <RealLawWatch data={lawData} /> : <MockLawWatch />}
+        {lawData ? <RealLawWatch data={lawData} dependencyData={dependencyData} /> : <MockLawWatch />}
       </div>
     </main>
   );
@@ -87,7 +95,7 @@ export default function LawWatchPage({ lawData }: { lawData: LawData | null }) {
  * REÁLNÁ data — bill → law spine
  * ════════════════════════════════════════════════════════════════════════ */
 
-function RealLawWatch({ data }: { data: LawData }) {
+function RealLawWatch({ data, dependencyData }: { data: LawData; dependencyData: DependencyData | null }) {
   const t = useTranslations("lawwatch");
   const f = useFormat();
 
@@ -238,6 +246,9 @@ function RealLawWatch({ data }: { data: LawData }) {
           </p>
         )}
       </section>
+
+      {/* ── 03 Závislosti na doprovodných tiscích (batch-014 census) ──── */}
+      {dependencyData && <DependencyRadar data={data} dependencyData={dependencyData} index={3} />}
     </>
   );
 }

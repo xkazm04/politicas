@@ -1140,7 +1140,8 @@
       "fit": "srovnat do plochy",
       "fullscreen": "na celou obrazovku",
       "exitFullscreen": "opustit celou obrazovku",
-      "legend": "legenda"
+      "legend": "legenda",
+      "unverified": "neověřeno"
     },
     "mapa": {
       "canvasLabel": "mapa masy",
@@ -1180,6 +1181,24 @@
           "source": "psp.cz orgány ⋈ registr smluv"
         }
       }
+    },
+    "forensic": {
+      "strip": "forenzní režim",
+      "hidden": "výchozí pohled: jen hrany po lidské kontrole · {n} čekajících skryto",
+      "none": "výchozí pohled: jen hrany po lidské kontrole · žádná hrana nečeká",
+      "showingPending": "{n} čekajících hran přikresleno — čárkovaně, neověřeno",
+      "showPending": "přikreslit i čekající",
+      "hidePending": "skrýt čekající",
+      "lensNote": "vyžádané cesty a trasy se nefiltrují — {n} čekajících kroků v nich zůstává čárkovaných",
+      "hover": {
+        "verified": "{n} ověřených hran",
+        "pending": "{n} čeká na kontrolu",
+        "cols": "relace · ověřeno / čeká",
+        "empty": "uzel bez hran v aktuálním výřezu",
+        "more": "+ {n} dalších relací",
+        "open": "klik otevře úplný záznam s prameny"
+      },
+      "source": "zdroj: review_state znalostního grafu — stav lidské brány kontroly u každé hrany"
     }
   },
   "metodika": {
@@ -1361,5 +1380,10 @@
     "footer": {
       "rule": "pravidlo instrumentu — brána nic neukládá a nic nefactcheckuje: každou rodinu adres posílá do jejího vlastnického odvození (účtenka původu, citace grafu, exponát velína, rejstřík vydaných figur) a odpověď jen překládá do tří verdiktů. Slovník: features/overeni/verdict.ts."
     }
+  },
+  "forensic": {
+    "toggle": "Forenzní režim",
+    "hintOff": "zapnout rentgenový pohled: obrácený papír, jen ověřené hrany, provenience přímo na ploše",
+    "hintOn": "vypnout forenzní režim a vrátit plakátový pohled"
   }
 }
