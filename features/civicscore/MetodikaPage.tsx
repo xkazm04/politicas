@@ -24,6 +24,7 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
+import ReportClaimLink from "@/features/shared/components/ReportClaimLink";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
@@ -46,6 +47,7 @@ const WEIGHT_TOTAL = Object.values(CONTRIBUTION_WEIGHTS).reduce((a, b) => a + b,
 
 export default function MetodikaPage({ provenance }: { provenance: ContributionProvenance | null }) {
   const t = useTranslations("metodika");
+  const tfb = useTranslations("feedback");
   const f = useFormat();
 
   return (
@@ -235,6 +237,20 @@ export default function MetodikaPage({ provenance }: { provenance: ContributionP
             </div>
           )}
         </section>
+
+        {/* Jednořádkový korektiv: stránka, která tvrdí metodickou průhlednost,
+            musí unést i „našel jsem chybu" — env-gated (bez kontaktu se
+            nevykreslí nic), týž vzor jako ReportClaimLink u citací. */}
+        {process.env.NEXT_PUBLIC_CONTACT_EMAIL && (
+          <p className="mb-16 mt-10 border-t border-hairline pt-4 font-mono text-[11px] uppercase tracking-wider text-steel">
+            {tfb("correctionsPrefix")}{" "}
+            <ReportClaimLink
+              claimRef="/metodika"
+              label={tfb("correctionsLink")}
+              className="text-cobalt underline decoration-hairline underline-offset-2 transition-colors hover:text-signal"
+            />
+          </p>
+        )}
       </div>
     </main>
   );

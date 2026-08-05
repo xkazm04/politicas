@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "check": "npm run typecheck && npm run lint && npm run test",
+    "smoke": "tsx scripts/smoke.ts",
     "prepare": "lefthook install",
     "sentinel": "tsx scripts/sentinel/run.ts",
     "db:snapshot": "tsx scripts/gen-migration.ts",

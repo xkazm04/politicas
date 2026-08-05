@@ -14,6 +14,7 @@ import { useLocale, useTranslations } from "next-intl";
 import SourceNote from "@/features/shared/components/SourceNote";
 import FlagList from "@/features/shared/components/FlagList";
 import { claimRefPath } from "@/features/shared/provenance/claimRef";
+import ReportClaimLink from "@/features/shared/components/ReportClaimLink";
 import CitableNumber from "@/lib/claims/CitableNumber";
 import type { Locale } from "@/lib/i18n/config";
 import { mpEntityKey } from "@/features/denik/deriveDenik";
@@ -451,6 +452,12 @@ function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en:
               ? t("caseFile.receiptPending")
               : t("caseFile.receiptDecided")}
           </p>
+          {/* Vedle citace i lidská adresa: čtenář, který tvrzení považuje za
+              CHYBNÉ, nepotřebuje re-derivaci, ale redakci. Env-gated. */}
+          <ReportClaimLink
+            claimRef={tie.receiptRef}
+            className="mt-1.5 inline-block font-mono text-[10px] uppercase tracking-widest text-steel transition-colors hover:text-signal"
+          />
 
           <p className="mt-3 font-mono text-[10px] uppercase tracking-widest text-steel">
             {t("shared.verifyInRegistry")}

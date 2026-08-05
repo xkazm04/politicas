@@ -136,8 +136,9 @@ export default function FollowTheMoneyPage({ data }: { data?: MoneyLedgerData | 
             </Link>
             {/* One hop to the two surfaces that answer the questions this page raises:
                 where a tie meets a vote (/penize/strety) and what the human gate has
-                actually ruled (/dukazy). /penize used to link only kauzy + kontrola —
-                the console being the one link a reader could not use. */}
+                actually ruled (/dukazy). The review console (/penize/kontrola) is
+                DELIBERATELY not linked here — legal decision at launch: it is
+                token-gated, robots disallow it, and token holders navigate directly. */}
             <Link
               href="/penize/strety"
               className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
@@ -149,12 +150,6 @@ export default function FollowTheMoneyPage({ data }: { data?: MoneyLedgerData | 
               className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
             >
               {t("real.links.gateLog")}
-            </Link>
-            <Link
-              href="/penize/kontrola"
-              className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
-            >
-              kontrola vazeb
             </Link>
           </div>
         </div>

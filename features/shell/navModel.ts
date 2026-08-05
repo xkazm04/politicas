@@ -96,7 +96,10 @@ export const NAV: NavEntry[] = [
     href: "/penize",
     children: [
       { href: "/penize/kauzy", labelKey: "nav.children.kauzy" },
-      { href: "/penize/kontrola", labelKey: "nav.children.kontrola" },
+      // /penize/kontrola se z veřejné navigace VĚDOMĚ nevypisuje (právní
+      // rozhodnutí, launch 2026-08): konzole je token-gated, robots ji
+      // zakazuje a držitelé tokenu navigují přímo. Routa žije dál a test
+      // úplnosti ji kryje prefixem /penize/.
       { href: "/penize/strety", labelKey: "nav.children.strety" },
     ],
   },

@@ -25,6 +25,7 @@ import {
 } from "../moneyTypes";
 import { LEDGER_CHIP_CAP, type MoneyLedgerData, type PublicMoneyMp, type PublicMoneyTie } from "../publicWire";
 import { claimRefPath } from "@/features/shared/provenance/claimRef";
+import ReportClaimLink from "@/features/shared/components/ReportClaimLink";
 import CitableNumber from "@/lib/claims/CitableNumber";
 import type { Locale } from "@/lib/i18n/config";
 import { tieReachClaim } from "../moneyClaims";
@@ -300,6 +301,13 @@ function RealLedger({ data }: { data: MoneyLedgerData }) {
                       {t("real.ledger.receiptLink")}
                       {tie.reviewState === "pending_review" ? ` · ${tcom("pendingReview")}` : ""}
                     </Link>
+                    {/* A receipt says what the gate holds; a reader who thinks the CLAIM
+                        is wrong needs a human address, not a re-derivation. Env-gated —
+                        renders nothing without NEXT_PUBLIC_CONTACT_EMAIL. */}
+                    <ReportClaimLink
+                      claimRef={tie.receiptRef}
+                      className="mt-0.5 block font-mono text-[9px] uppercase tracking-widest text-steel transition-colors hover:text-signal"
+                    />
                   </td>
                   <td className="px-3 py-3">
                     <span

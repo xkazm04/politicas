@@ -29,6 +29,7 @@ import {
   type WeightVector,
 } from "../lens";
 import type { LensWeightsState } from "../useLensWeights";
+import { trackEvent } from "@/lib/analytics";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { COMPONENT_FILL } from "../componentFill";
@@ -163,6 +164,9 @@ export default function WeightPanel({
                     step={1}
                     value={weights[c.key]}
                     onChange={(e) => setWeight(c.key, Number(e.target.value))}
+                    // Aktivační trychtýř: jedna událost na KONEC tahu, ne na
+                    // každý krok posuvníku (onChange střílí desítkykrát).
+                    onPointerUp={() => trackEvent("weights-adjusted")}
                     aria-label={t("weightSliderAria", { label: c.label, weight: c.weight })}
                     aria-valuetext={t("weightSliderValue", { value: weights[c.key], effective: f.dec(eff[c.key]) })}
                     className="k-range"

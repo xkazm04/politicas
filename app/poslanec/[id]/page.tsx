@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
+import MpProfileBeacon from "@/components/MpProfileBeacon";
 import ProfilePage from "@/features/profile/ProfilePage";
 import RebellionSlot from "@/features/profile/RebellionSlot";
 import { RebellionInstancesPending } from "@/features/profile/components/RebellionInstances";
@@ -52,14 +53,19 @@ export default async function PoslanecPage({ params }: { params: Promise<{ id: s
     // 15,8–16,0 s měřeno; pak mezizádostní paměť). Streamují se, aby zbytek spisu
     // nečekal — a fallback říká, na co se čeká.
     return (
-      <ProfilePage
-        data={data}
-        rebellionSlot={
-          <Suspense fallback={<RebellionInstancesPending />}>
-            <RebellionSlot pspId={pspId} />
-          </Suspense>
-        }
-      />
+      <>
+        {/* Aktivační maják (mp-profile-view) — per-route, ne v layoutu;
+            bez NEXT_PUBLIC_PLAUSIBLE_DOMAIN tichý no-op. */}
+        <MpProfileBeacon mpId={id} />
+        <ProfilePage
+          data={data}
+          rebellionSlot={
+            <Suspense fallback={<RebellionInstancesPending />}>
+              <RebellionSlot pspId={pspId} />
+            </Suspense>
+          }
+        />
+      </>
     );
   }
   // Null means EITHER the graph is unreachable (single-connection PGlite held by

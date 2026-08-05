@@ -21,6 +21,7 @@ import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { useFormat } from "@/lib/i18n/useFormat";
 import CopyLinkButton from "@/features/shared/components/CopyLinkButton";
+import ReportClaimLink from "@/features/shared/components/ReportClaimLink";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { compactCzk } from "@/features/money/moneyTypes";
@@ -120,6 +121,13 @@ function CitationFooter({
         >
           {t("verifyCitation")} <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
         </Link>
+        {/* Druhá půlka smlouvy se čtenářem: brána umí říct „sedí / nesedí",
+            ale „je to špatně U ZDROJE" umí říct jen člověk — poznámkový
+            odkaz vedle ověření (env-gated, bez kontaktu se nevykreslí). */}
+        <ReportClaimLink
+          claimRef={path}
+          className="mt-2 block font-mono text-[10px] uppercase tracking-widest text-steel transition-colors hover:text-signal"
+        />
       </div>
     </footer>
   );
