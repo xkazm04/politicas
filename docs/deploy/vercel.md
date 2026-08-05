@@ -1,10 +1,82 @@
 # Deploying politicas to Vercel
 
-Quick-card for shipping this app to Vercel. **Production** is the deploy target;
-**Preview** deployments (one per PR / push) are where changes get tested.
+> **STATUS: NOT DEPLOYABLE TO VERCEL AS-IS.** The data layer is incompatible
+> with Vercel's runtime — see the blocker below. Everything after it (env vars,
+> Node pinning, `vercel.json`) is *correct but conditional*: it describes how the
+> build would be configured **once the data layer is resolved**, not a green
+> light to connect the repo today.
 
-> This repo does **not** deploy itself. A human connects the repo in the Vercel
-> dashboard and owns the Production promote. Nothing here runs `vercel deploy`.
+This repo does **not** deploy itself. A human connects the repo in the Vercel
+dashboard and owns the Production promote. Nothing here runs `vercel deploy`.
+
+## 0. BLOCKER — the data layer cannot live on Vercel
+
+**Hard prerequisite. Resolve this before any deploy, Preview included.**
+
+### What the code actually does
+
+- `lib/db/config.ts` exposes exactly one driver — `DbDriver = "pglite"` — and
+  `dbDriver()` returns `"pglite"` by default. There is no hosted-Postgres path.
+- `pglitePath()` returns `process.env.PGLITE_PATH || "./.pglite"` — a
+  **directory on the local filesystem**, relative to the process cwd.
+- `lib/db/pglite/internals.ts` `open()` does `new PGlite(pglitePath())` and then
+  `pg.exec(CORE_DDL)`. If the directory does not exist, PGlite **creates it and
+  the schema** — an *empty but perfectly healthy* store. There is no error.
+- The `.pglite` directory is produced offline by the `da:*` ingest/analysis
+  scripts (`npm run da:ingest`, `da:kg-*`, …). It is **not** a build artifact
+  and is not in the repository.
+
+### Why that breaks on Vercel
+
+Vercel serverless functions get an ephemeral, read-only filesystem (only `/tmp`
+is writable, and it is per-instance and discarded). So on every cold start:
+
+1. `./.pglite` does not exist → PGlite creates an **empty** database with valid
+   schema. No exception is thrown, so nothing looks wrong.
+2. `storeReady()` (`lib/db/readiness.ts`) checks the `CARDINALITY_FLOORS`
+   (person 150 / company 140 / bill 100 / law 70 / contract 1 500) and returns
+   `false` — correctly, and it does report through `reportLoaderFailure()`.
+3. Every loader in `features/**/get*Data.ts` therefore returns `null`.
+4. Each page falls back to the sample data in `lib/civic/` — **and renders**.
+
+**The result is a live site showing plausible, invented civic numbers about real
+named politicians.** That is a direct violation of this project's brand rule
+("every rendered number cites its source"), and it fails *silently* from the
+visitor's side. The readiness guard and the loader-failure reporter do their job
+— they make the degradation traceable in logs — but they do not stop the page
+from shipping fiction to the public.
+
+Secondary, independently disqualifying: **PGlite is single-connection per data
+directory** (documented in `lib/db/config.ts` and `internals.ts`). Serverless
+scales to N concurrent instances by design; even with a shared filesystem, N
+writers/readers against one data dir is exactly the configuration those comments
+warn corrupts or blocks.
+
+### The two viable routes (pick one — this doc does not choose)
+
+**(a) Containerize with a persistent volume.** Run the app as a long-lived
+Node process (`next start`) in a container on a host that offers attached disks
+— Fly.io, Railway, or equivalent — with `.pglite` on a persistent volume and
+`PGLITE_PATH` pointed at its mount. Keeps the current data layer and the whole
+`da:*` loop unchanged; the constraint that follows is that the serving tier must
+stay **one instance** (single-connection), so horizontal scaling and zero-downtime
+rolling deploys need designing before, not after. Vercel is off the table in this
+route.
+
+**(b) Move serving to hosted Postgres; keep PGlite as the analysis store.**
+`lib/db/config.ts` already anticipates this in its own header: the `Store`
+indirection exists so that "the move to a hosted Postgres is a new file, not a
+rewrite of every call site". Add a second `DbDriver`, implement `Store` against a
+managed Postgres, and have the offline `da:*` loops publish into it; PGlite then
+stays what it is good at — the local, zero-infra analysis substrate. This is the
+only route that makes Vercel (or any serverless host) viable, and it is the
+larger piece of work: a new repository implementation plus a publish step, both
+of which must clear the same `storeReady()` floors before a surface is allowed
+to claim real data.
+
+Whichever route is taken, the deploy is only safe once a served page either
+shows real, sourced data or shows an explicit unavailable state — never the
+`lib/civic/` sample presented as fact.
 
 ## 1. Connect the repo (one-time)
 
@@ -23,16 +95,22 @@ Quick-card for shipping this app to Vercel. **Production** is the deploy target;
 ## 2. Environment variables — by name, by environment
 
 Set these in **Project → Settings → Environment Variables**. Every variable is
-**optional**: with none set, the app runs normally and Sentry is a completely
-silent no-op. Names and semantics mirror [`.env.example`](../../.env.example).
+**optional for the app to run**: with none set, the public surfaces work
+normally and Sentry is a completely silent no-op. The two token vars gate
+capability, not startup — and they fail **closed**. Names and semantics mirror
+[`.env.example`](../../.env.example): the NAME is constant per environment, the
+VALUE belongs to the deployment target.
 
 | Variable | Production | Preview | Local (`.env.local`) | Secret? | Purpose |
 |---|---|---|---|---|---|
-| `NEXT_PUBLIC_SENTRY_DSN` | set (prod DSN) | set (same or a preview DSN) | optional | No (public, in client bundle) | The single gate for **all** Sentry activity. Unset → no init anywhere. |
+| `NEXT_PUBLIC_SENTRY_DSN` | set (prod DSN) | set (same or a preview DSN) | optional | No (public, in client bundle) | The single gate for **all** Sentry activity. Unset → no init anywhere, incl. the render-error boundaries. |
 | `NEXT_PUBLIC_APP_ENV` | `production` | `preview` | `development` | No | Environment tag on every Sentry event. |
 | `SENTRY_ORG` | optional | optional | — | No | Build-time source-map upload only. |
 | `SENTRY_PROJECT` | optional | optional | — | No | Build-time source-map upload only. |
 | `SENTRY_AUTH_TOKEN` | optional | optional | — | **Yes** — mark as a Vercel secret; never commit | Enables source-map upload. Absent → upload skipped silently, build still passes. |
+| `ADMIN_TOKEN` | set before the first deploy | set | optional | **Yes** | Unlocks `/admin`. Unset → the console is CLOSED and says so; no admin data is loaded. |
+| `REVIEWER_TOKEN` | optional | optional | optional | **Yes** | Unlocks the `/penize/kontrola` write path. Unset → console stays read-only ("not-configured"). |
+| `REVIEWER_NAME` | optional | optional | optional | No (display only) | Reviewer stamped on every `review_audit` row. |
 
 Notes:
 - `NEXT_PUBLIC_*` are **build-time inlined**. After changing one, you must
@@ -41,6 +119,12 @@ Notes:
 - Source-map upload (the three `SENTRY_*` vars) is the only reason to set
   anything beyond the two `NEXT_PUBLIC_*` vars. All three must be present for
   upload; any missing → the build skips upload without failing.
+- The DSN is **currently unset in every environment**, so nothing reports today.
+  React render errors are caught by `app/global-error.tsx` / `app/error.tsx` and
+  shown honestly, but no one is notified until a DSN exists per environment.
+- `ADMIN_TOKEN` / `REVIEWER_TOKEN` are server-only (never `NEXT_PUBLIC_`),
+  compared in constant time by the shared gate `lib/security/token.ts`. Use
+  different values for the two — they guard different privileges.
 
 ## 3. What can go wrong (top 3)
 

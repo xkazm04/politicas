@@ -21,7 +21,15 @@ the prototypes in `C:\Users\kazda\kiro\opendata\src\cases\`.
 noindex). Future surface exploration uses the `prototype` skill.
 
 Route map (politicas.md roadmap execution, sample data):
-- `/` — landing (features/landing)
+- `/` — landing (features/landing). Konstrukt, on the `lib/civic` sample. A
+  2026-07-29 `/impeccable` experiment built four alternative landing worlds
+  behind a switcher (bolder · distill · a ledger/registry world · typeset) and
+  **all four were rejected and deleted** — do not rebuild them; the comparison
+  and the reasoning are in `docs/design/impeccable-pass-02.md`. What survived is
+  the accessibility work, which is merged and staying: `SourceNote` sets a
+  citation by measured LENGTH rather than role, the `steel-aa` / `signal-deep`
+  tokens pass WCAG AA where `steel` / `signal` sat at ~4,1:1, and the landing is
+  contrast-clean (135 → 27 detector findings, 0 contrast failures).
 - `/dashboard` — **Velín** (features/dashboard): rebuilt 2026-07-26 as an
   instrument panel. **PARTIALLY REAL** — `getDashboardData.ts` is a `server-only`
   loader that re-uses the loaders which already own each figure rather than
@@ -1339,12 +1347,49 @@ error level — keep it that way while the codebase is young):
 - `custom/no-silent-catch` — empty catch blocks swallow errors
 - `custom/role-button-requires-keydown` — a11y for click-role elements
 - `custom/enforce-reduced-motion-fallback` — WCAG 2.3.3 for looping motion
+- `custom/no-server-import-in-client` — the server-only loader boundary
+- `custom/no-silent-null-catch` — scoped to `features/**/get*.ts` +
+  `features/**/*Loader.ts`: a `catch { return null }` must call
+  `reportLoaderFailure()` so a degradation to fallback leaves a trace
 
-CI: `.github/workflows/ci.yml` (typecheck → lint → test → build). NOTE: it
-activates once politicas becomes its own repo — inside the kiro monorepo,
-GitHub only reads workflows from the repo root; `npm run check` is the local
-equivalent. Same for `lefthook.yml` (pre-commit staged lint, pre-push
-typecheck+test) — install lefthook only after the repo split.
+CI: `.github/workflows/ci.yml` — live on `xkazm04/politicas` (the repo split
+happened). Runs typecheck → lint → test → schema-snapshot drift → build, plus a
+non-blocking `npm audit --audit-level=high`. `npm run check` is the local
+equivalent. `lefthook.yml` is installed via the `prepare` script: pre-commit
+lints staged files, pre-push runs typecheck + test.
+
+**CI pins `node-version: 24` deliberately.** The lockfile is written by npm 11
+(node 24); npm 10 (node 22) places optional peer deps differently, so a node-22
+runner fails `npm ci` with a permanent phantom "lock file out of sync" for
+`@emnapi/runtime` / `@swc/helpers`. Do not lower it.
+
+## Definition of done
+
+Work is done when every line below holds. No partial credit — "green except…"
+is not green.
+
+- [ ] `npm run check` passes (typecheck → lint → test). Run it, don't assume it.
+- [ ] **Every rendered number cites its source** (`SourceNote`). Derived or
+      ungated values are labelled as such (`pending_review`); nothing renders
+      a figure the data doesn't actually carry. This is the brand rule — a
+      violation is a failed task, not a nit.
+- [ ] Fallbacks stay honest: a loader that returns `null` calls
+      `reportLoaderFailure()` (`lib/db/loaderGuard.ts`), and the surface shows
+      a labelled mock or an honest empty state (`DataUnavailable`) — never
+      plausible fiction presented as real.
+- [ ] The six custom ESLint rules pass **unsuppressed**. They are error-level
+      by design — fix the code; do not disable a rule, add an
+      `eslint-disable`, or widen an exemption zone in `eslint.config.mjs`.
+- [ ] Colors come from `app/globals.css` tokens; Czech display numbers go
+      through `lib/format.ts`; new reusable widgets went into
+      `features/shared/components/` with a `@catalog` line.
+- [ ] Docs coupled to the touched source are updated in the same change —
+      `docs/feature-doc-map.json` maps source paths to the docs they own.
+- [ ] Staged **per file** (`git add <path>`, never `-A` / `.` / `-u`);
+      `git diff --cached --stat` reviewed against what you intended; message
+      in Conventional Commits form.
+- [ ] If the task earned a durable, non-obvious learning, it is written to
+      `memory/<slug>.md` and indexed in `MEMORY.md` (bar below).
 
 ## Agent memory
 
@@ -1381,7 +1426,7 @@ not derivable in ten seconds from `docs/` — no filler, no restating the docs.
 <!-- personas:context-map:start -->
 ## Project Context Map
 
-This project is organized into **24 contexts** across **8 groups**. The full machine-readable map lives in `context-map.json` at the project root — read it at task start to scope your edits to the relevant context's files.
+This project is organized into **25 contexts** across **9 groups**. The full machine-readable map lives in `context-map.json` at the project root — read it at task start to scope your edits to the relevant context's files.
 
 Taxonomy: each context has a `category` (ui · api · lib · data · test · config); each group has a `domain` (feature · infrastructure · shared · integration · data).
 
@@ -1391,6 +1436,7 @@ Taxonomy: each context has a `category` (ui · api · lib · data · test · con
 - **MP Profiles & Rankings** _(domain: feature · 3 contexts)_
 - **Voting & Legislation** _(domain: feature · 2 contexts)_
 - **Financial Transparency** _(domain: feature · 3 contexts)_
+- **Knowledge Graph Explorer** _(domain: feature · 1 context)_
 - **Data Ingestion** _(domain: integration · 3 contexts)_
 - **Data Layer** _(domain: data · 5 contexts)_
 - **Shared UI Primitives** _(domain: shared · 2 contexts)_

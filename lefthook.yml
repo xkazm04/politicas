@@ -1,9 +1,7 @@
 # Lefthook git hooks (vzor: personas/lefthook.yml).
 #
-# POZN.: politicas zatím žije uvnitř monorepa `kiro` — instalace hooků by
-# ovlivnila celé kiro repo, takže lefthook zatím NENÍ v devDependencies a
-# hooky se neinstalují. Aktivace až po osamostatnění repa:
-#   npm i -D lefthook && npx lefthook install
+# Hooky jsou AKTIVNÍ: lefthook je v devDependencies a `npm install` je nainstaluje
+# přes `prepare` script (`lefthook install`). Ruční přeinstalace: `npx lefthook install`.
 #
 # Zásady (převzato z personas):
 # - pre-commit musí zůstat rychlý (<5 s) — jen lint staged souborů

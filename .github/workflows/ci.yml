@@ -1,9 +1,5 @@
 # CI — kvalitativní brána (vzor: personas/.github/workflows/ci.yml, zeštíhleno).
-#
-# POZN.: politicas zatím žije uvnitř monorepa `kiro` — GitHub Actions čte
-# workflow jen z kořene repozitáře, takže tenhle soubor se aktivuje až ve
-# chvíli, kdy se politicas osamostatní do vlastního repa (plánováno).
-# Do té doby je lokálním ekvivalentem `npm run check` (viz lefthook.yml).
+# Lokální ekvivalent celé brány je `npm run check` (viz lefthook.yml).
 
 name: CI
 
@@ -23,9 +19,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Node 24 = npm 11, stejná major verze jako generuje package-lock.json
+      # lokálně. Na Node 22 (npm 10) se strom volitelných peer závislostí
+      # (@swc/helpers, @emnapi/runtime) rozpadá jinak a `npm ci` hlásí drift.
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: npm
 
       - name: Install dependencies
@@ -40,5 +39,18 @@ jobs:
       - name: Test
         run: npm run test
 
+      # lib/db/migrations/0001_civic_graph.sql je snapshot CORE_DDL
+      # (lib/db/pglite/ddl.ts) — nesmí se rozejít.
+      - name: Schema snapshot drift
+        run: npm run db:snapshot -- --check
+
       - name: Build
         run: npm run build
+
+      # Informativní: strom má dlouhodobě 12 high advisories jen v upstreamu
+      # (eslint→minimatch, next→postcss, next→sharp) a `npm audit fix` je řeší
+      # jedině downgradem next na 9.x. Krok proto NEBLOKUJE — je to signál pro
+      # Dependabota (.github/dependabot.yml), ne brána.
+      - name: Dependency audit (non-blocking)
+        run: npm audit --audit-level=high
+        continue-on-error: true

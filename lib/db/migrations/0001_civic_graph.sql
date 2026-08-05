@@ -1,10 +1,10 @@
 -- politicas civic entity graph — reference schema snapshot.
 --
 -- THIS FILE IS A SNAPSHOT, NOT APPLIED AT RUNTIME. The authoritative schema is
--- CORE_DDL in lib/db/pglite-store.ts, which PGlite executes at open(). This
+-- CORE_DDL in lib/db/pglite/ddl.ts, which PGlite executes at open(). This
 -- snapshot exists for reviewers and for the eventual move to a hosted Postgres
 -- (where it becomes migration 0001). Regenerate from CORE_DDL if the DDL changes:
--- npx tsx scripts/gen-migration.ts
+-- npm run db:snapshot
 --
 -- Provenance columns (source, source_url, fetched_at, ingest_run_id) + a raw
 -- jsonb payload travel on every entity table; ids are natural keys
@@ -242,4 +242,40 @@ create table if not exists kg_edge (
 create index if not exists kg_edge_src_idx on kg_edge(src);
 create index if not exists kg_edge_dst_idx on kg_edge(dst);
 create index if not exists kg_edge_rel_idx on kg_edge(rel);
+
+-- ── review audit trail (human-gate write path, Case ① verification console) ──
+-- Append-only: the ONLY writer is ReviewRepository.setTieReviewState. Records every
+-- human decision on a linked_to tie BEFORE kg_edge.props.review_state is touched, so
+-- the audit row for a given decision always predates (or is concurrent with, never
+-- after) the state flip it explains. `id` is a client-generated UUID (crypto.randomUUID
+-- in the writer), not a bigserial, so the writer can log the id before the insert lands.
+create table if not exists review_audit (
+  id           text primary key,
+  src          text not null,
+  rel          text not null,
+  dst          text not null,
+  decision     text not null check (decision in ('confirm', 'reject', 'needs-more')),
+  reviewer     text not null,
+  note         text,
+  decided_at   timestamptz not null default now(),
+  prior_state  text
+);
+create index if not exists review_audit_edge_idx on review_audit(src, rel, dst);
+create index if not exists review_audit_decided_idx on review_audit(decided_at desc);
+
+-- ── derived theme tags on roll calls (Silver-layer sem_classify enrichment) ──
+-- DERIVED metadata like slice_quality/kg_node: recomputable from vote titles,
+-- never source-of-truth. Stamped with model+method so a rendered tag cites how
+-- it was made (the brand rule). See docs/hybrid-benchmark-plan.md.
+create table if not exists vote_tag (
+  id           text primary key,
+  vote_psp_id  integer not null,
+  theme        text not null,
+  confidence   real,
+  model        text not null,
+  method       text not null,
+  tagged_at    timestamptz not null
+);
+create index if not exists vote_tag_theme_idx on vote_tag(theme);
+create index if not exists vote_tag_vote_idx on vote_tag(vote_psp_id);
 

@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-26",
+  "generatedBy": "personas passport-onboard",
+  "dimensions": {
+    "contextCoverage": {
+      "level": "full",
+      "tool": "Personas context map",
+      "skippedByChoice": false,
+      "note": "25 contexts across 9 groups in context-map.json; CLAUDE.md mirror corrected from a stale 24/8. `relationships` is still empty — a wall-triggered rescan owns that."
+    },
+    "agentInstructions": {
+      "level": "present",
+      "tool": "CLAUDE.md + AGENTS.md",
+      "skippedByChoice": false,
+      "note": "AGENTS.md promoted from a version-warning stub to real orientation; CLAUDE.md gained an explicit Definition of done. The custom ESLint rule list was corrected from 4 to the 6 actually registered."
+    },
+    "documentation": {
+      "level": "source-synced",
+      "tool": "docs/feature-doc-map.json",
+      "skippedByChoice": false,
+      "note": "Doc-map expanded 4 -> 15 entries; 24 of 25 contexts now have a context-precise doc coupling. Dated audit snapshots and immutable ADRs deliberately excluded from rot detection."
+    },
+    "agentMemory": {
+      "level": "curated",
+      "tool": "MEMORY.md + memory/",
+      "skippedByChoice": false,
+      "note": "Assessed above the incoming level: 12 indexed entries, all links resolve, actively maintained. No work needed."
+    },
+    "reusableSkills": {
+      "level": "present",
+      "tool": "Claude Code skills",
+      "skippedByChoice": false,
+      "note": "9 skills registered. Six repo-specific batch loops promoted from undiscoverable flat .md files into skill dirs; explorer and friend vendored and retargeted from the upstream desktop-app versions."
+    },
+    "hosting": {
+      "level": "none",
+      "tool": null,
+      "skippedByChoice": false,
+      "note": "Deliberately not connected. The embedded PGlite store writes to a local directory, so an ephemeral serverless filesystem would boot an empty database and silently degrade every page to labelled sample data. Blocker and the two viable routes are documented before any deploy config."
+    },
+    "database": {
+      "level": "versioned-snapshot",
+      "tool": "PGlite + gen-migration snapshot",
+      "skippedByChoice": false,
+      "note": "Snapshot generator was throwing (it read the DDL from a path lost in an earlier refactor), so the schema of record had drifted to 12 of 14 tables. Repaired, regenerated, exposed as db:snapshot with a --check mode now asserted in CI. A real migration framework remains the destination once a second environment exists."
+    },
+    "auth": {
+      "level": "present",
+      "tool": "shared-token gate",
+      "skippedByChoice": false,
+      "note": "The operator console was fully unauthenticated. Now gated by a single shared constant-time token helper reused by both privileged surfaces, fail-closed when unconfigured. Single-operator by design; not multi-user auth."
+    },
+    "ci": {
+      "level": "checks",
+      "tool": "GitHub Actions",
+      "skippedByChoice": false,
+      "note": "CI had failed on every run for days, dying at dependency install before any check executed — a Node/npm major skew against the lockfile, not lockfile staleness. Runner pinned to the matching major. Pipeline now also asserts schema-snapshot non-drift and runs a non-blocking dependency audit."
+    },
+    "tests": {
+      "level": "substantial",
+      "tool": "vitest",
+      "skippedByChoice": false,
+      "note": "38 files / 404 tests green (from 36 / 352). All 10 server loaders now covered for both happy path and traced degradation — previously 8 were untested and each silently falls back to sample data on failure. Component tests remain impossible without a jsdom environment."
+    },
+    "evals": {
+      "level": "not-applicable",
+      "tool": null,
+      "skippedByChoice": false,
+      "note": "The shipped application has zero LLM call sites. The only model invocation is an offline research benchmark under scripts/, which is already scored against a gold reference."
+    },
+    "observability": {
+      "level": "errors",
+      "tool": "Sentry",
+      "skippedByChoice": false,
+      "note": "SDK wired across all four runtimes with a lint-enforced loader-failure chokepoint, plus newly added root and route error boundaries that report render crashes. Still reporting from zero environments until a DSN is provisioned — the integration is real, the telemetry is not yet live."
+    },
+    "llmTracking": {
+      "level": "not-applicable",
+      "tool": null,
+      "skippedByChoice": false,
+      "note": "No production LLM calls to trace. Revisit only if a model enters a request path."
+    },
+    "security": {
+      "level": "audited",
+      "tool": "npm audit + Dependabot",
+      "skippedByChoice": false,
+      "note": "Dependency audit added to CI (non-blocking) and weekly Dependabot enabled. 12 pre-existing high-severity advisories are open, all transitive through the framework and its image pipeline; the automated fix path is a catastrophic framework downgrade, so they are accepted and tracked rather than force-fixed. The unauthenticated operator console found during this run is closed. Input handling at ingest and query boundaries was reviewed and is sound."
+    },
+    "appCost": {
+      "level": "known",
+      "tool": null,
+      "skippedByChoice": false,
+      "note": "Private ledger refreshed from this run's decisions; unknown plan costs left explicitly null rather than guessed."
+    }
+  }
+}
