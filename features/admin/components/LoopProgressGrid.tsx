@@ -1,6 +1,6 @@
 "use client";
 
-import { czechInt } from "@/lib/format";
+import { czech, czechInt } from "@/lib/format";
 import SourceNote from "@/features/shared/components/SourceNote";
 import type { LoopCaseProgress } from "../adminTypes";
 
@@ -40,7 +40,7 @@ function CaseTile({ p }: { p: LoopCaseProgress }) {
           label="Jednotky"
           value={p.unitsProcessed != null && p.unitsTotal != null ? `${czechInt(p.unitsProcessed)} / ${czechInt(p.unitsTotal)}` : "—"}
         />
-        <Stat label="Postup" value={p.progressPct != null ? `${czech1(p.progressPct)} %` : "—"} />
+        <Stat label="Postup" value={p.progressPct != null ? `${czech(p.progressPct)} %` : "—"} />
         <Stat label="Frontier" value={p.openFrontier != null ? czechInt(p.openFrontier) : "—"} />
       </div>
 
@@ -53,10 +53,6 @@ function CaseTile({ p }: { p: LoopCaseProgress }) {
       <SourceNote>zdroj: {p.source}</SourceNote>
     </div>
   );
-}
-
-function czech1(n: number): string {
-  return n.toFixed(1).replace(".", ",");
 }
 
 /** Three case-loop progress tiles in the Konstrukt tile-grid pattern. */
