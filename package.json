@@ -30,7 +30,7 @@
     "hybrid:materialize": "tsx scripts/hybrid-bench/materialize-tags.ts"
   },
   "dependencies": {
-    "@electric-sql/pglite": "^0.4.6",
+    "@electric-sql/pglite": "^0.5.4",
     "@sentry/nextjs": "^10.67.0",
     "framer-motion": "^12.42.2",
     "lucide-react": "^1.25.0",
