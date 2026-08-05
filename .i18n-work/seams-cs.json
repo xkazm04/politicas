@@ -1,9 +1,0 @@
-{
-  "feedback": {
-    "reportLabel": "nahlásit chybu",
-    "emailSubject": "politicas — hlášení chyby u tvrzení {ref}",
-    "emailBody": "Tvrzení: {ref}\nStránka: {url}\nDatum: {date}\n\nCo je podle vás špatně (a proti kterému zdroji):\n",
-    "correctionsPrefix": "Našli jste v metodice chybu?",
-    "correctionsLink": "napište nám — mail s sebou vezme adresu stránky i datum"
-  }
-}

@@ -1,9 +1,0 @@
-{
-  "feedback": {
-    "reportLabel": "report an error",
-    "emailSubject": "politicas — error report for claim {ref}",
-    "emailBody": "Claim: {ref}\nPage: {url}\nDate: {date}\n\nWhat you believe is wrong (and against which source):\n",
-    "correctionsPrefix": "Found an error in the methodology?",
-    "correctionsLink": "write to us — the mail carries the page address and date"
-  }
-}
