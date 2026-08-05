@@ -32,10 +32,12 @@ export default defineConfig({
     ],
     // Five test files boot a real PGlite (WASM Postgres) in parallel workers;
     // the boots contend and any first-in-file test can blow the 5s default.
-    testTimeout: 30_000,
+    // (Raised 30s -> 60s 2026-08-05: the sentinel fixture-store tests were
+    // observed at ~33s under full-suite parallel load in pre-push runs.)
+    testTimeout: 60_000,
     // Same contention hits the beforeAll hooks that `await open()` a PGlite —
     // the default 10s hookTimeout flakes under full-suite parallel load
     // (observed in pre-push runs: review/weights/kg-money-reingest suites).
-    hookTimeout: 30_000,
+    hookTimeout: 60_000,
   },
 });

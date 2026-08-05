@@ -163,5 +163,8 @@ describe("client/server boundary (static check, stands in for the aliased server
         .join("\n");
       throw new Error(`"use client" file(s) transitively VALUE-import a server-only-tagged module:\n${report}`);
     }
-  });
+    // Whole-repo transitive import scan: ~60s+ when the full suite runs in
+    // parallel workers (observed 64s in pre-push). Needs its own headroom
+    // beyond the global testTimeout.
+  }, 180_000);
 });
