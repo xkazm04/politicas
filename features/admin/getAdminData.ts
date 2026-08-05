@@ -25,6 +25,7 @@ import { join } from "node:path";
 
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 import { resolveTieClass, reviewTier } from "@/features/money/reviewTypes";
 import { getTripwireData } from "./getTripwireData";
 import { parsePassLog } from "./loops/loopState";
@@ -352,8 +353,8 @@ async function loadReviewHub(): Promise<ReviewHubData> {
     // so the tier split here matches the review queue's own order).
     let ties: TieReviewSummary | null = null;
     try {
-      const companies = await store.listKgNodes({ kind: "company", limit: 100_000 });
-      const linked = await store.listKgEdges({ rel: "linked_to", limit: 100_000 });
+      const companies = await store.listKgNodes({ kind: "company", limit: KG_READ_CAP });
+      const linked = await store.listKgEdges({ rel: "linked_to", limit: KG_READ_CAP });
       if (linked.length > 0) {
         const companyById = new Map(companies.map((c) => [c.id, c]));
         let verified = 0;
@@ -405,7 +406,7 @@ async function loadReviewHub(): Promise<ReviewHubData> {
     // forensic: bill nodes carrying a gated forensic_* verdict.
     let forensic: ForensicReviewSummary | null = null;
     try {
-      const bills = await store.listKgNodes({ kind: "bill", limit: 100_000 });
+      const bills = await store.listKgNodes({ kind: "bill", limit: KG_READ_CAP });
       const items: ForensicVerdictSummary[] = [];
       const bySeverity: Record<string, number> = {};
       for (const n of bills) {
@@ -483,7 +484,7 @@ async function loadSystemState(vaultHeads: VaultHeads): Promise<SystemState> {
     ]);
     let nodesByKind: Record<string, number> = {};
     try {
-      const allNodes = await store.listKgNodes({ limit: 100_000 });
+      const allNodes = await store.listKgNodes({ limit: KG_READ_CAP });
       const byKind: Record<string, number> = {};
       for (const n of allNodes) byKind[n.kind] = (byKind[n.kind] ?? 0) + 1;
       nodesByKind = byKind;
