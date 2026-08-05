@@ -1,0 +1,736 @@
+{
+ "generatedAt": "2026-08-05T14:01:40.893Z",
+ "method": "Live attributed sector flags (ledger, batch-012 wiring) joined to the batch-017 amended-§ census. EVERY row is a DERIVED, UN-GATED lead (attributionStatus) — a topological adjacency between a sponsor's company sector and an amended statute's domain, joined to a text census; no human gate has reviewed any of it, and the underlying money ties carry their own pending states on the money surfaces. Where the census isolated the statute, the flag names its operative §§; every other case states exactly why it could not (fallback collapse — which also suppresses the § lists entirely, annex-only/extractor limit, citation-only) rather than pretending §-precision it lacks. Rows carry the census's per-bill extractor diagnostics because the census's own trust rule is per-bill (clean diagnostics → trustworthy §§). Flags already adjudicated by a published forensic verdict say so in verdictDisposition — 29 of 29 flags carry one (every flagged bill has a published verdict), inculpatory and exculpatory alike: filtering dispositions by direction would un-adjudicate the record. A flag with no disposition would mean a bill no verdict has reached.",
+ "flags": 29,
+ "flagsWithOperativeParagraphs": 27,
+ "flagsWithVerdictDisposition": 29,
+ "rows": [
+  {
+   "cislo": 11,
+   "company": "IF Holding a.s.",
+   "sector": "economy",
+   "sponsor": "Radim Fiala",
+   "viaLawRef": "589/1992",
+   "viaLawTitle": "zákon č. 589/1992 Sb. — Zákon České národní rady o pojistném na sociální zabezpečení a příspěvku na státní politiku zaměstnanosti",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "14"
+   ],
+   "citedOnlyParagraphs": [
+    "5b"
+   ],
+   "partitionFallback": false,
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": true,
+   "verdictDisposition": "archivovaný posudek k tisku 11 shodu sektoru uzavřel jako shodu okolností bez mechanické vazby na předmět novely (vyměřovací základ pojistného jediné OSVČ, žádný kanál k povinnostem firem)",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 11,
+   "company": "IF FACILITY a.s.",
+   "sector": "economy",
+   "sponsor": "Radim Fiala",
+   "viaLawRef": "589/1992",
+   "viaLawTitle": "zákon č. 589/1992 Sb. — Zákon České národní rady o pojistném na sociální zabezpečení a příspěvku na státní politiku zaměstnanosti",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "14"
+   ],
+   "citedOnlyParagraphs": [
+    "5b"
+   ],
+   "partitionFallback": false,
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": true,
+   "verdictDisposition": "archivovaný posudek k tisku 11 shodu sektoru uzavřel jako shodu okolností bez mechanické vazby na předmět novely (vyměřovací základ pojistného jediné OSVČ, žádný kanál k povinnostem firem)",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 11,
+   "company": "Hartenberg Holding, s.r.o.",
+   "sector": "economy",
+   "sponsor": "Andrej Babiš",
+   "viaLawRef": "589/1992",
+   "viaLawTitle": "zákon č. 589/1992 Sb. — Zákon České národní rady o pojistném na sociální zabezpečení a příspěvku na státní politiku zaměstnanosti",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "14"
+   ],
+   "citedOnlyParagraphs": [
+    "5b"
+   ],
+   "partitionFallback": false,
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": true,
+   "verdictDisposition": "archivovaný posudek k tisku 11 shodu sektoru uzavřel jako shodu okolností bez mechanické vazby na předmět novely (vyměřovací základ pojistného jediné OSVČ, žádný kanál k povinnostem firem)",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 11,
+   "company": "IMOBA, a.s.",
+   "sector": "economy",
+   "sponsor": "Andrej Babiš",
+   "viaLawRef": "589/1992",
+   "viaLawTitle": "zákon č. 589/1992 Sb. — Zákon České národní rady o pojistném na sociální zabezpečení a příspěvku na státní politiku zaměstnanosti",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "14"
+   ],
+   "citedOnlyParagraphs": [
+    "5b"
+   ],
+   "partitionFallback": false,
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": true,
+   "verdictDisposition": "archivovaný posudek k tisku 11 shodu sektoru uzavřel jako shodu okolností bez mechanické vazby na předmět novely (vyměřovací základ pojistného jediné OSVČ, žádný kanál k povinnostem firem)",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 67,
+   "company": "Hartenberg Holding, s.r.o.",
+   "sector": "economy",
+   "sponsor": "Andrej Babiš",
+   "viaLawRef": "235/2004",
+   "viaLawTitle": "zákon č. 235/2004 Sb. — Zákon o dani z přidané hodnoty",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "55a"
+   ],
+   "citedOnlyParagraphs": [],
+   "partitionFallback": false,
+   "extractorMissedRefs": [
+    "148/2023",
+    "338/1992"
+   ],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": false,
+   "verdictDisposition": "archivovaný posudek k tisku 67 tuto vazbu ponechal otevřenou s neurčeným směrem dopadu (druhý, nekvantifikovaný kanál přes definici stavebního pozemku pro DPH)",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 67,
+   "company": "CS CABOT, spol. s r.o.",
+   "sector": "environment",
+   "sponsor": "Andrej Babiš",
+   "viaLawRef": "100/2001",
+   "viaLawTitle": "zákon č. 100/2001 Sb. — Zákon o posuzování vlivů na životní prostředí a o změně některých souvisejících zákonů (zákon o posuzování vlivů na živo",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "1",
+    "21",
+    "3",
+    "6",
+    "7",
+    "8",
+    "9a"
+   ],
+   "citedOnlyParagraphs": [
+    "12",
+    "27",
+    "4",
+    "94d",
+    "94f",
+    "94t",
+    "94v"
+   ],
+   "partitionFallback": false,
+   "extractorMissedRefs": [
+    "148/2023",
+    "338/1992"
+   ],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": false,
+   "verdictDisposition": "archivovaný posudek k tisku 67 tento kanál hodnotí jako věrohodný, byť plošný (jednotné povolovací řízení s věcným dopadem na provozovatele podléhající posuzování vlivů)",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 67,
+   "company": "SynBiol, a.s.",
+   "sector": "environment",
+   "sponsor": "Andrej Babiš",
+   "viaLawRef": "100/2001",
+   "viaLawTitle": "zákon č. 100/2001 Sb. — Zákon o posuzování vlivů na životní prostředí a o změně některých souvisejících zákonů (zákon o posuzování vlivů na živo",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "1",
+    "21",
+    "3",
+    "6",
+    "7",
+    "8",
+    "9a"
+   ],
+   "citedOnlyParagraphs": [
+    "12",
+    "27",
+    "4",
+    "94d",
+    "94f",
+    "94t",
+    "94v"
+   ],
+   "partitionFallback": false,
+   "extractorMissedRefs": [
+    "148/2023",
+    "338/1992"
+   ],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": false,
+   "verdictDisposition": "archivovaný posudek k tisku 67 tuto vazbu posoudil pod zákonem č. 258/2000 Sb. (jiný zákon, než pod kterým ji vede tato atribuce) jako týž plošný kanál jednotného řízení, nikoli samostatný nález",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 67,
+   "company": "IMOBA, a.s.",
+   "sector": "economy",
+   "sponsor": "Andrej Babiš",
+   "viaLawRef": "235/2004",
+   "viaLawTitle": "zákon č. 235/2004 Sb. — Zákon o dani z přidané hodnoty",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "55a"
+   ],
+   "citedOnlyParagraphs": [],
+   "partitionFallback": false,
+   "extractorMissedRefs": [
+    "148/2023",
+    "338/1992"
+   ],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": false,
+   "verdictDisposition": "archivovaný posudek k tisku 67 tuto vazbu ponechal otevřenou s neurčeným směrem dopadu (druhý, nekvantifikovaný kanál přes definici stavebního pozemku pro DPH)",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 67,
+   "company": "AGROFERT, a.s.",
+   "sector": "agriculture",
+   "sponsor": "Andrej Babiš",
+   "viaLawRef": "139/2002",
+   "viaLawTitle": "zákon č. 139/2002 Sb. — Zákon o pozemkových úpravách a pozemkových úřadech a o změně zákona č. 229/1991 Sb., o úpravě vlastnických vztahů k půdě",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "14",
+    "3",
+    "9"
+   ],
+   "citedOnlyParagraphs": [],
+   "partitionFallback": false,
+   "extractorMissedRefs": [
+    "148/2023",
+    "338/1992"
+   ],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": false,
+   "verdictDisposition": "archivovaný posudek k tisku 67 tuto skupinu uzavřel jako nevěrohodný konflikt (legislativně-technická záměna slov bez věcného dopadu)",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 67,
+   "company": "PRECHEZA a.s.",
+   "sector": "environment",
+   "sponsor": "Andrej Babiš",
+   "viaLawRef": "100/2001",
+   "viaLawTitle": "zákon č. 100/2001 Sb. — Zákon o posuzování vlivů na životní prostředí a o změně některých souvisejících zákonů (zákon o posuzování vlivů na živo",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "1",
+    "21",
+    "3",
+    "6",
+    "7",
+    "8",
+    "9a"
+   ],
+   "citedOnlyParagraphs": [
+    "12",
+    "27",
+    "4",
+    "94d",
+    "94f",
+    "94t",
+    "94v"
+   ],
+   "partitionFallback": false,
+   "extractorMissedRefs": [
+    "148/2023",
+    "338/1992"
+   ],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": false,
+   "verdictDisposition": "archivovaný posudek k tisku 67 tento kanál hodnotí jako věrohodný, byť plošný (jednotné povolovací řízení s věcným dopadem na provozovatele podléhající posuzování vlivů)",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 67,
+   "company": "Fatra, a.s.",
+   "sector": "environment",
+   "sponsor": "Andrej Babiš",
+   "viaLawRef": "100/2001",
+   "viaLawTitle": "zákon č. 100/2001 Sb. — Zákon o posuzování vlivů na životní prostředí a o změně některých souvisejících zákonů (zákon o posuzování vlivů na živo",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "1",
+    "21",
+    "3",
+    "6",
+    "7",
+    "8",
+    "9a"
+   ],
+   "citedOnlyParagraphs": [
+    "12",
+    "27",
+    "4",
+    "94d",
+    "94f",
+    "94t",
+    "94v"
+   ],
+   "partitionFallback": false,
+   "extractorMissedRefs": [
+    "148/2023",
+    "338/1992"
+   ],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": false,
+   "verdictDisposition": "archivovaný posudek k tisku 67 tento kanál hodnotí jako věrohodný, byť plošný (jednotné povolovací řízení s věcným dopadem na provozovatele podléhající posuzování vlivů)",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 67,
+   "company": "Kostelecké uzeniny a.s.",
+   "sector": "agriculture",
+   "sponsor": "Andrej Babiš",
+   "viaLawRef": "139/2002",
+   "viaLawTitle": "zákon č. 139/2002 Sb. — Zákon o pozemkových úpravách a pozemkových úřadech a o změně zákona č. 229/1991 Sb., o úpravě vlastnických vztahů k půdě",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "14",
+    "3",
+    "9"
+   ],
+   "citedOnlyParagraphs": [],
+   "partitionFallback": false,
+   "extractorMissedRefs": [
+    "148/2023",
+    "338/1992"
+   ],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": false,
+   "verdictDisposition": "archivovaný posudek k tisku 67 tuto skupinu uzavřel jako nevěrohodný konflikt (legislativně-technická záměna slov bez věcného dopadu)",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 67,
+   "company": "AGROPROFIT, spol. s r.o.",
+   "sector": "agriculture",
+   "sponsor": "Andrej Babiš",
+   "viaLawRef": "139/2002",
+   "viaLawTitle": "zákon č. 139/2002 Sb. — Zákon o pozemkových úpravách a pozemkových úřadech a o změně zákona č. 229/1991 Sb., o úpravě vlastnických vztahů k půdě",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "14",
+    "3",
+    "9"
+   ],
+   "citedOnlyParagraphs": [],
+   "partitionFallback": false,
+   "extractorMissedRefs": [
+    "148/2023",
+    "338/1992"
+   ],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": false,
+   "verdictDisposition": "archivovaný posudek k tisku 67 tuto skupinu uzavřel jako nevěrohodný konflikt (legislativně-technická záměna slov bez věcného dopadu)",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 67,
+   "company": "Lovochemie, a.s.",
+   "sector": "agriculture",
+   "sponsor": "Andrej Babiš",
+   "viaLawRef": "139/2002",
+   "viaLawTitle": "zákon č. 139/2002 Sb. — Zákon o pozemkových úpravách a pozemkových úřadech a o změně zákona č. 229/1991 Sb., o úpravě vlastnických vztahů k půdě",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "14",
+    "3",
+    "9"
+   ],
+   "citedOnlyParagraphs": [],
+   "partitionFallback": false,
+   "extractorMissedRefs": [
+    "148/2023",
+    "338/1992"
+   ],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": false,
+   "verdictDisposition": "archivovaný posudek k tisku 67 tuto skupinu uzavřel jako nevěrohodný konflikt (legislativně-technická záměna slov bez věcného dopadu)",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 67,
+   "company": "Synthesia, a.s.",
+   "sector": "environment",
+   "sponsor": "Andrej Babiš",
+   "viaLawRef": "100/2001",
+   "viaLawTitle": "zákon č. 100/2001 Sb. — Zákon o posuzování vlivů na životní prostředí a o změně některých souvisejících zákonů (zákon o posuzování vlivů na živo",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "1",
+    "21",
+    "3",
+    "6",
+    "7",
+    "8",
+    "9a"
+   ],
+   "citedOnlyParagraphs": [
+    "12",
+    "27",
+    "4",
+    "94d",
+    "94f",
+    "94t",
+    "94v"
+   ],
+   "partitionFallback": false,
+   "extractorMissedRefs": [
+    "148/2023",
+    "338/1992"
+   ],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": false,
+   "verdictDisposition": "archivovaný posudek k tisku 67 tento kanál hodnotí jako věrohodný, byť plošný (jednotné povolovací řízení s věcným dopadem na provozovatele podléhající posuzování vlivů)",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 67,
+   "company": "AGRONOVA CS s.r.o.",
+   "sector": "agriculture",
+   "sponsor": "Andrej Babiš",
+   "viaLawRef": "139/2002",
+   "viaLawTitle": "zákon č. 139/2002 Sb. — Zákon o pozemkových úpravách a pozemkových úřadech a o změně zákona č. 229/1991 Sb., o úpravě vlastnických vztahů k půdě",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "14",
+    "3",
+    "9"
+   ],
+   "citedOnlyParagraphs": [],
+   "partitionFallback": false,
+   "extractorMissedRefs": [
+    "148/2023",
+    "338/1992"
+   ],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": false,
+   "verdictDisposition": "archivovaný posudek k tisku 67 tuto skupinu uzavřel jako nevěrohodný konflikt (legislativně-technická záměna slov bez věcného dopadu)",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 67,
+   "company": "IF Holding a.s.",
+   "sector": "economy",
+   "sponsor": "Radim Fiala",
+   "viaLawRef": "235/2004",
+   "viaLawTitle": "zákon č. 235/2004 Sb. — Zákon o dani z přidané hodnoty",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "55a"
+   ],
+   "citedOnlyParagraphs": [],
+   "partitionFallback": false,
+   "extractorMissedRefs": [
+    "148/2023",
+    "338/1992"
+   ],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": false,
+   "verdictDisposition": "archivovaný posudek k tisku 67 tuto dvojici uzavřel jako nevěrohodnou (žádný věrohodný ekonomický kanál k obchodování s pozemky ani k výstavbě)",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 67,
+   "company": "IF FACILITY a.s.",
+   "sector": "economy",
+   "sponsor": "Radim Fiala",
+   "viaLawRef": "235/2004",
+   "viaLawTitle": "zákon č. 235/2004 Sb. — Zákon o dani z přidané hodnoty",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "55a"
+   ],
+   "citedOnlyParagraphs": [],
+   "partitionFallback": false,
+   "extractorMissedRefs": [
+    "148/2023",
+    "338/1992"
+   ],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": false,
+   "verdictDisposition": "archivovaný posudek k tisku 67 tuto dvojici uzavřel jako nevěrohodnou (žádný věrohodný ekonomický kanál k obchodování s pozemky ani k výstavbě)",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 77,
+   "company": "NEXNET, a.s.",
+   "sector": "digital",
+   "sponsor": "Radek Vondráček",
+   "viaLawRef": "12/2020",
+   "viaLawTitle": "zákon č. 12/2020 Sb. — Zákon o právu na digitální služby a o změně některých zákonů",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "2a"
+   ],
+   "citedOnlyParagraphs": [],
+   "partitionFallback": false,
+   "extractorMissedRefs": [
+    "150/2002"
+   ],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": false,
+   "verdictDisposition": "archivovaný posudek k tisku 77 vazbu uzavřel bez doložitelné spojitosti s obsahem novelizovaných ustanovení (terminologické přizpůsobení; sektorová shoda jako shoda náhod)",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 77,
+   "company": "MAE invest a.s.",
+   "sector": "economy",
+   "sponsor": "Radek Vondráček",
+   "viaLawRef": "187/2006",
+   "viaLawTitle": "zákon č. 187/2006 Sb. — Zákon o nemocenském pojištění",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "10",
+    "19",
+    "3",
+    "5",
+    "84b",
+    "92"
+   ],
+   "citedOnlyParagraphs": [],
+   "partitionFallback": false,
+   "extractorMissedRefs": [
+    "150/2002"
+   ],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": false,
+   "verdictDisposition": "archivovaný posudek k tisku 77 vazbu uzavřel bez doložitelné spojitosti s obsahem novelizovaných ustanovení (terminologické přizpůsobení; sektorová shoda jako shoda náhod)",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 103,
+   "company": "ZPS holding s.r.o.",
+   "sector": "economy",
+   "sponsor": "Jan Bureš",
+   "viaLawRef": "155/1995",
+   "viaLawTitle": "zákon č. 155/1995 Sb. — Zákon o důchodovém pojištění",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "57a"
+   ],
+   "citedOnlyParagraphs": [
+    "2",
+    "5",
+    "57"
+   ],
+   "partitionFallback": false,
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": true,
+   "verdictDisposition": "archivovaný posudek k tisku 103 lead uzavřel jako artefakt heuristiky sdíleného zákona bez věcného opodstatnění (jediný operativní obsah je nová informační povinnost § 57a)",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 103,
+   "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+   "sector": "economy",
+   "sponsor": "Karel Haas",
+   "viaLawRef": "155/1995",
+   "viaLawTitle": "zákon č. 155/1995 Sb. — Zákon o důchodovém pojištění",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "57a"
+   ],
+   "citedOnlyParagraphs": [
+    "2",
+    "5",
+    "57"
+   ],
+   "partitionFallback": false,
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": true,
+   "verdictDisposition": "archivovaný posudek k tisku 103 lead uzavřel jako artefakt heuristiky sdíleného zákona bez věcného opodstatnění (jediný operativní obsah je nová informační povinnost § 57a)",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 121,
+   "company": "Teleky Medicus s.r.o.",
+   "sector": "health",
+   "sponsor": "Róbert Teleky",
+   "viaLawRef": "187/2006",
+   "viaLawTitle": "zákon č. 187/2006 Sb. — Zákon o nemocenském pojištění",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "38a",
+    "38b",
+    "40"
+   ],
+   "citedOnlyParagraphs": [],
+   "partitionFallback": false,
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": true,
+   "verdictDisposition": "archivovaný posudek k tisku 121 nenašel žádný věrohodný kanál (plošná rodinná politika vyplácená zákonným třídám fyzických osob, nikoli firmám)",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 154,
+   "company": "Hartenberg Holding, s.r.o.",
+   "sector": "economy",
+   "sponsor": "Andrej Babiš",
+   "viaLawRef": "634/2004",
+   "viaLawTitle": "zákon č. 634/2004 Sb. — Zákon o správních poplatcích",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": null,
+   "citedOnlyParagraphs": null,
+   "partitionFallback": false,
+   "extractorMissedRefs": [
+    "634/2004"
+   ],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": false,
+   "verdictDisposition": "archivovaný posudek k tisku 154 sektorovou atribuci uzavřel jako neodpovídající žádnému věrohodnému ekonomickému kanálu",
+   "note": "the census carries no § bucket for this statute — either an annex-only amendment (no § token exists in the block, e.g. správní-poplatky položky) or a partitioner limit; the flag itself remains a bare topological adjacency, §-level unavailable"
+  },
+  {
+   "cislo": 154,
+   "company": "IMOBA, a.s.",
+   "sector": "economy",
+   "sponsor": "Andrej Babiš",
+   "viaLawRef": "634/2004",
+   "viaLawTitle": "zákon č. 634/2004 Sb. — Zákon o správních poplatcích",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": null,
+   "citedOnlyParagraphs": null,
+   "partitionFallback": false,
+   "extractorMissedRefs": [
+    "634/2004"
+   ],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": false,
+   "verdictDisposition": "archivovaný posudek k tisku 154 sektorovou atribuci uzavřel jako neodpovídající žádnému věrohodnému ekonomickému kanálu",
+   "note": "the census carries no § bucket for this statute — either an annex-only amendment (no § token exists in the block, e.g. správní-poplatky položky) or a partitioner limit; the flag itself remains a bare topological adjacency, §-level unavailable"
+  },
+  {
+   "cislo": 201,
+   "company": "IF Holding a.s.",
+   "sector": "economy",
+   "sponsor": "Radim Fiala",
+   "viaLawRef": "348/2005",
+   "viaLawTitle": "zákon č. 348/2005 Sb. — Zákon o rozhlasových a televizních poplatcích a o změně některých zákonů",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "3",
+    "4",
+    "5",
+    "8",
+    "9"
+   ],
+   "citedOnlyParagraphs": [
+    "11",
+    "2",
+    "34"
+   ],
+   "partitionFallback": false,
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": true,
+   "verdictDisposition": "archivovaný posudek k tisku 201 vazbu hodnotí jako neprokázanou (formální průnik; plošné opatření bez vztahu k oboru podnikání skupiny)",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 201,
+   "company": "IF FACILITY a.s.",
+   "sector": "economy",
+   "sponsor": "Radim Fiala",
+   "viaLawRef": "348/2005",
+   "viaLawTitle": "zákon č. 348/2005 Sb. — Zákon o rozhlasových a televizních poplatcích a o změně některých zákonů",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "3",
+    "4",
+    "5",
+    "8",
+    "9"
+   ],
+   "citedOnlyParagraphs": [
+    "11",
+    "2",
+    "34"
+   ],
+   "partitionFallback": false,
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": true,
+   "verdictDisposition": "archivovaný posudek k tisku 201 vazbu hodnotí jako neprokázanou (formální průnik; plošné opatření bez vztahu k oboru podnikání skupiny)",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 221,
+   "company": "MAE invest a.s.",
+   "sector": "economy",
+   "sponsor": "Radek Vondráček",
+   "viaLawRef": "218/2000",
+   "viaLawTitle": "zákon č. 218/2000 Sb. — Zákon o rozpočtových pravidlech a o změně některých souvisejících zákonů (rozpočtová pravidla)",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "14",
+    "14r",
+    "44a"
+   ],
+   "citedOnlyParagraphs": [
+    "12",
+    "14q",
+    "2"
+   ],
+   "partitionFallback": false,
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": true,
+   "verdictDisposition": "archivovaný posudek k tisku 221 (závažnost střední) potvrdil, že se oba vedoucí signály skutečně týkají novelizovaných ustanovení o střetu zájmů při poskytování dotací",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  },
+  {
+   "cislo": 221,
+   "company": "AGROCENTRUM JIZERAN a.s.",
+   "sector": "agriculture",
+   "sponsor": "David Pražák",
+   "viaLawRef": "252/1997",
+   "viaLawTitle": "zákon č. 252/1997 Sb. — Zákon o zemědělství",
+   "attributionStatus": "derived-ungated",
+   "operativeParagraphs": [
+    "2a",
+    "2d",
+    "2da",
+    "2db"
+   ],
+   "citedOnlyParagraphs": [
+    "2"
+   ],
+   "partitionFallback": false,
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": [],
+   "diagnosticsClean": true,
+   "verdictDisposition": "archivovaný posudek k tisku 221 (závažnost střední) potvrdil, že se oba vedoucí signály skutečně týkají novelizovaných ustanovení o střetu zájmů při poskytování dotací",
+   "note": "operative §§ of the attributed statute, from the amended-§ census (citedOnly §§ are a lead list — they may belong to text quoted about another act)"
+  }
+ ]
+}

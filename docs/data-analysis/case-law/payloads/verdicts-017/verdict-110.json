@@ -1,0 +1,52 @@
+{
+  "billTisk": 110,
+  "statedReasoning": "Poslanecký návrh téže čtrnáctičlenné skupiny (Jurečka, Brzesková, Philipp, Výborný a další — shodné pořadí předkladatelů jako u tisku 50) mění zákon č. 589/1992 Sb., o pojistném na sociální zabezpečení a příspěvku na státní politiku zaměstnanosti. Čl. I bod 1 rozšiřuje a přeformulovává § 7a odst. 1 písm. c) — okruh zaměstnanců pečujících o osobu blízkou závislou na pomoci jiné osoby se dělí na dva stupně (I–II lehká/středně těžká závislost, III–IV těžká/úplná závislost). Bod 2 mění § 7b odst. 1 tak, že dosavadní jednotná sazba slevy na pojistném zaměstnavatele ve výši 5 % z vyměřovacího základu se nahrazuje sazbou 10 % pro většinu zvýhodněných skupin (osoby nad 55 let, rodiče dětí do 10 let, studenti, osoby v rekvalifikaci, osoby se zdravotním postižením, osoby mladší 21 let) a sazbou 20 % pro zaměstnance pečující o osobu blízkou ve stupni III nebo IV závislosti. Podle důvodové zprávy je cílem prohloubení prorodinné politiky a podpora zaměstnávání zranitelných skupin, zejména pečujících osob, jejichž pracovní uplatnění je ohroženo časovou a organizační náročností péče. Podle části F má zvýšení slevy z 5 na 10 % vyvolat dodatečný výpadek příjmů pojistného cca 1,2 mld. Kč ročně a zvýšení slevy u pečujících osob ve stupni III/IV dalších cca 3,6 až 200 mil. Kč ročně podle míry přechodu na nový důvod slevy; úhrnný odhad zprávy činí 1,2 až 1,4 mld. Kč ročně s postupným růstem podle vývoje mezd.",
+  "researchedContext": "Přiložené platné znění dotčených ustanovení (§ 7a a § 7b zákona č. 589/1992 Sb.) potvrzuje výchozí stav popsaný ve zprávě: současná sazba slevy na pojistném činí podle dosavadního § 7b odst. 1 jednotných 5 % z vyměřovacího základu bez ohledu na důvod uplatnění, a čl. I bod 2 tisku 110 ji skutečně nahrazuje dvoustupňovou sazbou 10 % / 20 %, přesně jak zvláštní část zprávy popisuje. Číselný odhad v části F je vnitřně konzistentní — dílčí odhady 3,6 mil. Kč (beze změny chování), 50 mil. Kč (při částečném přechodu na nový důvod slevy) a 200 mil. Kč (při plném přechodu) tvoří rostoucí citlivostní pásmo, jehož horní hranice zprávou uváděný úhrn 1,2 až 1,4 mld. Kč ročně sám zahrnuje.\n\nOdhady chování zaměstnanců, na nichž je toto citlivostní pásmo postaveno — že přibližně 10 % pečujících osob dosud uvádí péči jako důvod slevy a že u více než třetiny osob splňujících podmínky péče ve stupni III/IV je sleva uplatňována bez ohledu na prokázaný důvod — zpráva označuje pouze obecně jako vycházející z „dostupných dat“, aniž by uvedla, o jaký zdroj nebo šetření jde. Tisk 110 sdílí se souběžně projednávaným tiskem 50 shodnou čtrnáctičlennou skupinu předkladatelů ve shodném pořadí i shodné směrování do garančního výboru pro sociální politiku, avšak novelizuje odlišný zákon (589/1992 namísto 155/1995) a odlišné paragrafy; v textu ani jednoho z obou tisků nebyl nalezen vzájemný odkaz ani překryv novelizovaných ustanovení — jde o souběžně předkládaný, věcně navazující balík dvou samostatných novel sociálního pojištění, nikoli o textovou kolizi.",
+  "unstatedEffects": [
+    {
+      "effect": "Odhad dodatečného výpadku příjmů z pojistného u zvýšené slevy pro pečující osoby ve stupni III/IV závislosti (pásmo 3,6 až 200 mil. Kč ročně, tvořící podstatnou část horního rozpětí úhrnného odhadu 1,2 až 1,4 mld. Kč) stojí na chování zaměstnanců při volbě důvodu slevy, které zpráva odhaduje jen s odkazem na obecně označená „dostupná data“ — aniž by uvedla pramen, rozsah nebo datum tohoto zjištění.",
+      "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou zaměstnavatelé zaměstnávající osoby pečující o závislou osobu ve stupni III nebo IV a státní rozpočet jako plátce výpadku příjmů z pojistného, jehož horní odhad na neuvedeném zdroji dat stojí.",
+      "evidence": "Část F obecné části zprávy k tisku 110 (odhady 3,6 až 200 mil. Kč ročně na základě „dostupných dat“), https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=110&ct1=0"
+    }
+  ],
+  "conflictAssessment": "Ze čtrnácti předkladatelů — shodných s tiskem 50 — má v grafu evidovanou peněžní vazbu na firmu pět: Marian Jurečka (AGRO 2000 s.r.o.), Marek Výborný (Gymnázium Pardubice, Mozartova 449), Róbert Teleky (šest zdravotnických a sportovních subjektů Zlínského kraje), Petr Hladík (pět brněnských městských podniků) a Bohuslav Niemiec (CEVYKO a.s.); zbylých devět (Brzesková, Philipp, Činčila, Pláteník, Filipovičová, Talíř, Kršková, Okamura, Vojáček) žádnou vazbu nemá. Tisk 110 mění slevu na pojistném zaměstnavatele za zaměstnance ze zranitelných skupin — žádná z evidovaných firem (zemědělská prvovýroba, veřejné školství, zdravotnická zařízení, komunální podniky) není zaměstnavatelem, jehož podnikání by se touto slevou specificky odlišovalo od jiných zaměstnavatelů, ani plátcem pojistného v postavení, které by norma zvýhodňovala nad rámec obecné úpravy dopadající na všechny zaměstnavatele v České republice. V datech není zjištěn střet zájmů.",
+  "severity": "low",
+  "confidence": 3,
+  "citations": [
+    {
+      "claim": "„Výše slevy na pojistném za zaměstnance za kalendářní měsíc činí a) 10 % … b) 20 % z úhrnu vyměřovacího základu zaměstnance, na kterého je sleva uplatňována podle § 7a odst. 1 písm. c) bodu 2…“",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=110&ct1=0"
+    },
+    {
+      "claim": "„Existující sleva na pojistném … představuje snížení příjmů na pojistném ve výši zhruba 100 mil. Kč měsíčně tj. cca 1,2 mld. Kč ročně. Zvýšení slevy z 5 na 10 % … přinese dodatečný výpadek na příjmové straně ve stejné výši…“",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=110&ct1=0"
+    },
+    {
+      "claim": "„Úhrnné negativní dopady navrhovaného zvýšení slevy na pojistném do příjmů z pojistného tak lze odhadnout na 1,2 až 1,4 mld. Kč ročně…“",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=110&ct1=0"
+    },
+    {
+      "claim": "Dosavadní § 7b odst. 1 zákona č. 589/1992 Sb. stanoví jednotnou sazbu slevy na pojistném ve výši 5 % z úhrnu vyměřovacích základů bez ohledu na důvod uplatnění.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=110&ct1=0"
+    },
+    {
+      "claim": "Zákon č. 589/1992 Sb., o pojistném na sociální zabezpečení a příspěvku na státní politiku zaměstnanosti, je jediným zákonem novelizovaným tiskem 110.",
+      "kind": "law",
+      "source": "589/1992"
+    },
+    {
+      "claim": "Tisk 50 a tisk 110 mají shodnou čtrnáctičlennou skupinu předkladatelů ve shodném pořadí.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=50"
+    },
+    {
+      "claim": "Petr Hladík má v grafu evidovanou peněžní vazbu na Teplárny Brno, a.s. (IČO 46347534), úhrn veřejných smluv 23 570 594 010 Kč, vazba čeká na lidskou kontrolu.",
+      "kind": "graph_fact",
+      "source": "company:ico:46347534"
+    }
+  ]
+}

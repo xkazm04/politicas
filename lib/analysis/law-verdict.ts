@@ -122,22 +122,67 @@ const LAW_PIPELINE_JARGON: { re: RegExp; what: string }[] = [
   // pipeline batch id, sentences apart). Only the zero-padded id form is decidable by regex;
   // \p{L}+/u because ASCII \w/\b cannot match Czech letters (the batch-007 lesson, re-learned
   // here on „dávce"/„Dávkový"). The adjectival form is flagged only with „scan" attached.
-  { re: /\bbatch\b|\bpass[- ]?\d{1,3}\b|(?<!\p{L})dávk\p{L}*\s+0\d{2}(?!\d)|(?<!\p{L})dávkov\p{L}*\s+scan\p{L}*|\bscan\w*\b/iu, what: "internal batch/pass reference" },
+  // „scan" is bounded by \p{L} lookarounds with optional Czech case endings so that proper
+  // names merely BEGINNING with it (Scania, Scanmed — batch-017 audit M8) stay legal prose.
+  { re: /\bbatch\b|\bpass[- ]?\d{1,3}\b|(?<!\p{L})dávk\p{L}*\s+0\d{2}(?!\d)|(?<!\p{L})dávkov\p{L}*\s+scan\p{L}*|(?<!\p{L})scan(?:y|u|ů|ům|em|ech)?(?!\p{L})/iu, what: "internal batch/pass reference" },
   { re: /\bkg_(node|edge)s?\b|\bknownIds\b|\bknownLawRefs\b/, what: "pipeline identifier" },
   // batch-016: the residuals the batch-015 closure audit inventoried outside the rule set
-  { re: /\bchurn\b|(?<!\p{L})gatovan\p{L}*|případu law\b|\bcase (law|money|effort)\b/iu, what: "pipeline identifier" },
+  // „case law" alone is a term of art English legal texts quote; only the loop names and the
+  // Czech-declined form are pipeline tokens (batch-017 M8).
+  { re: /\bchurn\b|(?<!\p{L})gatovan\p{L}*|případu law\b|\bcase (money|effort)\b|\bcase law loop\b/iu, what: "pipeline identifier" },
   // batch-016 audit B7: the classes the NEW verdicts reintroduced while the sweep removed them
   // one directory over — pspId, payload, steward, and digit-less batch-sense „dávka" phrases
   // that are unambiguous WITH these specific heads (přehled/pořadí are never the benefit sense).
-  { re: /\bpspId\b|\bpayloadu?\b|\bsteward\p{L}*|\bdávkov\p{L}*\s+přehled\p{L}*|\bpořadí v dávce\b|\bcache\b|(?<!\p{L})cachovan\p{L}*/iu, what: "pipeline identifier" },
+  // „steward" flags the bare tie-class token only — declined Czech forms (stewardka,
+  // stewardem: palubní průvodčí) are legitimate prose in transport bills (batch-017 M8).
+  // „amends" and bare „pending" joined after the batch-017 audit measured „amends" LIVE in a
+  // shipped sweep rewrite while only „pending_review" was gated.
+  { re: /\bpspId\b|\bpayloadu?\b|(?<!\p{L})steward(?!\p{L})|(?<!\p{L})amends(?!\p{L})|(?<!\p{L})pending(?!\p{L})|\bdávkov\p{L}*\s+přehled\p{L}*|\bpořadí v dávce\b|\bcache\b|(?<!\p{L})cachovan\p{L}*/iu, what: "pipeline identifier" },
+  // STRUCTURAL rules (batch-017 — three batches of token-class whack-a-mole ended here for the
+  // largest class): Czech prose never contains ASCII camelCase (pspId, sponsorContractCzk,
+  // likelyCompanionTisk…), snake_case, or a prop-value shape („sponsors: []", „flagged: false").
+  // Diacritics exclude ordinary Czech from the camelCase rule automatically; capitalized brand
+  // names (McKinsey) don't match the lowercase-start pattern.
+  // The camelCase tail is [\p{L}\p{N}_]* — ASCII \w stops at the first diacritic, which made
+  // eSbírka/eObčanka DEAD allowlist entries (the match was „eSb" against an anchored list) and
+  // therefore rejected any verdict naming the electronic collection of laws (batch-017 M8).
+  // The rule carries `g` because EVERY match must clear the allowlist — the first-match
+  // `continue` let one allowlisted name void the whole gate for the rest of the sentence.
+  { re: /(?<![\p{L}\p{N}])[a-z][a-z0-9]*[A-Z][\p{L}\p{N}_]*/gu, what: "camelCase identifier" },
+  { re: /(?<![\p{L}\p{N}])[\p{L}\p{N}]+_[\p{L}\p{N}]+/u, what: "snake_case identifier" },
+  { re: /\p{L}+:\s?(?:\[\]|true\b|false\b|null\b)/u, what: "prop-value shape" },
+  { re: /(?<!\p{L})(?:flagged|severity|confidence|origin|status|weight|kind|rel|src|dst):/u, what: "prop-value shape" },
 ];
+
+/** Real-world camelCase proper nouns AND physical-unit symbols the structural rule must NOT
+ * flag: the Czech e-government naming family, EU regulation short names, media brands, and SI
+ * unit symbols with internal capitals (kWh, mSv — energy, environmental and health bills
+ * cannot be described without them; batch-017 audit M8). Grown by allowlisting a VERIFIED
+ * name, never by loosening the rule. */
+const CAMEL_ALLOW =
+  /^(eKLEP|eTurista|iROZHLAS|eGovernment|eIDAS|eLegislativa|eSbírka|eObčanka|eRecept|eNeschopenka|eDoklady|kW|kWh|kWp|kV|kVA|mSv|mGy|mmHg|hPa|kPa|mAh|dB|eV|keV|pH)$/u;
 
 /** All pipeline-jargon issues in one reader-facing string (law list ∪ shared effort list). */
 export function lawJargonIssues(text: string): string[] {
   const out: string[] = [];
   for (const { re, what } of LAW_PIPELINE_JARGON) {
+    if (re.global) {
+      // batch-017 audit M8: `exec` + `continue` on the first ALLOWLISTED hit voided the whole
+      // rule for the rest of the text — the verdict depended on word order. Every match must
+      // clear the allowlist; the first that does not is the finding.
+      re.lastIndex = 0;
+      for (const m of text.matchAll(re)) {
+        if (what === "camelCase identifier" && CAMEL_ALLOW.test(m[0])) continue;
+        out.push(`pipeline jargon in reader-facing prose — ${what} ("${m[0]}")`);
+        break;
+      }
+      continue;
+    }
     const m = re.exec(text);
-    if (m) out.push(`pipeline jargon in reader-facing prose — ${what} ("${m[0]}")`);
+    if (m) {
+      if (what === "camelCase identifier" && CAMEL_ALLOW.test(m[0])) continue;
+      out.push(`pipeline jargon in reader-facing prose — ${what} ("${m[0]}")`);
+    }
   }
   for (const { what, match } of jargonViolationDetails(text)) {
     // Documented scope limit: the effort case's "sample-scoped self-reference" rule ("v této
@@ -145,6 +190,15 @@ export function lawJargonIssues(text: string): string[] {
     // words legitimately denote a statutory group of persons (verdict-257: „v této skupině
     // pojištěnců"). Composing it verbatim would withhold correct Czech.
     if (what.includes("sample-scoped")) continue;
+    // Second scope limit (batch-017 closure): the effort case's „dávka <digit>" batch-id rule
+    // also matches a radiation dose („dávka 12 mSv") or a benefit amount („dávka 15 000 Kč").
+    // Skip the finding only when EVERY nominative dávka-digit occurrence carries a unit or
+    // currency; a bare „dávka 12" (the pipeline batch-id shape) still flags.
+    if (what.includes("batch/sample") && /^dávka\s*\d/iu.test(match)) {
+      const UNIT = /^(?:mSv|µSv|Sv|mGy|Gy|kBq|MBq|Bq|mg|µg|g|ml|l|mmol|kWh|kW|kVA|Kč|EUR)$/u;
+      const occ = [...text.matchAll(/(?<!\p{L})dávka\s*\d+(?:[   ]\d{3})*(?:[,.]\d+)?\s*(\p{L}+|€)?/giu)];
+      if (occ.length > 0 && occ.every((o) => o[1] !== undefined && (UNIT.test(o[1]) || o[1] === "€"))) continue;
+    }
     out.push(`pipeline jargon in reader-facing prose — ${what} ("${match}")`);
   }
   return out;

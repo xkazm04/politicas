@@ -1,0 +1,67 @@
+{
+ "billTisk": 193,
+ "statedReasoning": "Poslanecký návrh zákona (Berenika Peštová, jediná předkladatelka) mění zákon č. 477/2001 Sb., o obalech a o změně některých zákonů (zákon o obalech), a upravuje postavení autorizované obalové společnosti (AOS), tj. subjektu, který na základě autorizace Ministerstva životního prostředí (MŽP) zajišťuje pro výrobce sdružené plnění povinností zpětného odběru a využití odpadů z obalů. Obecná část důvodové zprávy (bod A) deklaruje činnost AOS jako službu obecného hospodářského zájmu (SOHZ) podle práva EU; pravidlo, že za výkon SOHZ nenáleží AOS vyrovnávací platba z veřejných rozpočtů, stanoví přímo nově vkládaný § 17 odst. 2 (čl. I) a opakuje je zvláštní část zprávy. Bod B důvodové zprávy zdůvodňuje druhý pilíř novely — zpřísnění pravidel střetu zájmů — tím, že propojení akcionářů, členů orgánů nebo vedoucích zaměstnanců AOS s tzv. odpadovými podnikateli (osobami nakládajícími s odpady z obalů) by mohlo vést k nekontrolovatelným přesunům prostředků určených k zajištění sdruženého plnění a ke zvýhodňování konkrétních odpadových podnikatelů. Novela (čl. I body 4 a 5 — § 18 odst. 3 a nový odst. 4) snižuje nejvyšší přípustný podíl jednotlivého akcionáře na základním kapitálu nebo hlasovacích právech AOS ze stávajících 33 % na méně než 3 % (s alternativou až 33 % při splnění podmínky nejméně 34 samostatně hlasujících akcionářů), zavádí zákaz přímého i nepřímého propojení akcionářů, členů orgánů a vedoucích zaměstnanců AOS s odpadovými podnikateli (nové § 18 odst. 6, § 19 odst. 1, 3 a 4), fixuje základní kapitál AOS na 2 000 000 Kč a omezuje převod akcií na cenu nepřevyšující jejich jmenovitou hodnotu (nový § 20 odst. 4 a 5). Přechodná ustanovení čl. II dávají AOS a jejím akcionářům 12, respektive 18 měsíců na uvedení stavu do souladu. Podle bodu D obecné části zpráva nemá dopad na státní rozpočet ani ostatní veřejné rozpočty; účinnost se navrhuje k 1. červenci 2026.",
+ "researchedContext": "Text potvrzuje tvrzený rozsah — čl. I body 1, 4 až 9, 11 a 12 skutečně zavádějí definice odpadového podnikatele a vertikálně integrované skupiny (nová písm. z) a za) v § 2), snižují nejvyšší přípustný podíl akcionáře v § 18 odst. 3 na méně než 3 %, doplňují alternativu do 33 % v novém § 18 odst. 4, zavádějí zákaz propojení v novém § 18 odst. 6 a v § 19 a stanoví strop základního kapitálu a fixaci převodní ceny akcií v § 20 odst. 4 a 5. Zvláštní část zprávy sama uvádí klíčový kontextový fakt: „v situaci, kdy v České republice existuje pouze jediná autorizovaná obalová společnost“ — návrh se tedy prakticky týká jednoho konkrétního, v textu ale nikde jmenovitě neoznačeného subjektu a jeho současných akcionářů, členů orgánů a vedoucích zaměstnanců. Obecná část zprávy (bod B, střet zájmů) popisuje riziko propojení výhradně na modelové, hypotetické úrovni („Příkladem může být hypotetická situace, kdy…“), aniž by text uváděl, zda takové propojení u dnešního jediného držitele autorizace reálně existuje. Zpráva dále potvrzuje, že AOS má být financována výhradně z plateb povinných osob (výrobců); zákaz rozdělovat zisk nebo jiné vlastní zdroje stanoví operativní § 20 odst. 5 (čl. I bod 12), přičemž nová ustanovení AOS ukládají další úkoly (zajišťování sběrového komfortu podle hustoty sítě stanovené rozhodnutím o autorizaci — nové § 21 odst. 1 písm. q); administrativní podpora minoritním kolektivním systémům za úplatu odpovídající vlastním nákladům — nové § 21 odst. 1 písm. r) a § 17 odst. 7 písm. i) s odkazem na zákony č. 243/2022 Sb. a č. 542/2020 Sb.).",
+ "unstatedEffects": [
+  {
+   "effect": "Zvláštní část důvodové zprávy sama potvrzuje, že v České republice v době přípravy návrhu existuje pouze jediná autorizovaná obalová společnost — návrh na snížení nejvyššího přípustného podílu akcionáře z 33 % na méně než 3 % (nový § 18 odst. 3) a přechodné ustanovení čl. II bodu 3, které ukládá akcionářům překračujícím tento nový strop snížit svůj podíl do 18 měsíců, se tedy fakticky týká jednoho konkrétního, textem nikde nejmenovaného subjektu a jeho existujících akcionářů. Text neuvádí ani počet současných akcionářů, ani rozsah jejich dnešních podílů, ani odhad hodnoty podílů, které by museli být nuceně zcizeny.",
+   "whoBenefits": "Nelze jednoznačně určit — text neumožňuje určit, kteří konkrétní akcionáři jediné dnes existující autorizované obalové společnosti by museli svůj podíl snižovat, ani komu by uvolněné podíly v rozšířené akcionářské struktuře (nejméně 34 akcionářů) mohly připadnout; dotčeni jsou podle textu obecně „výrobci, dovozci a plniči obalů“ jako potenciální noví akcionáři.",
+   "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=193&ct1=0"
+  },
+  {
+   "effect": "Novela ukládá autorizované společnosti nové povinnosti — zajišťovat sběrový komfort prostřednictvím dostatečně husté sítě míst zpětného odběru podle kritérií, která teprve stanoví MŽP rozhodnutím o autorizaci (nové § 17 odst. 7 písm. h) a § 21 odst. 1 písm. q)), a poskytovat administrativní a organizační služby minoritním kolektivním systémům (nové § 21 odst. 1 písm. r)) — zároveň ale zákon o obalech nadále zakazuje autorizované společnosti rozdělovat zisk nebo jiné vlastní zdroje (§ 20 odst. 5) a nově fixuje její základní kapitál na 2 000 000 Kč (§ 20 odst. 4), zatímco nově vkládaný § 17 odst. 2 výslovně stanoví — a zvláštní část zprávy opakuje — že za výkon SOHZ nenáleží AOS vyrovnávací platba z veřejných rozpočtů. Text nikde neodhaduje náklad nových povinností ani neřeší, jak má neziskový subjekt s kapitálově omezenou strukturou tyto dodatečné úkoly financovat jinak než zvýšením poplatků hrazených výrobci.",
+   "whoBenefits": "Nelze jednoznačně určit — případné navýšení nákladů na plnění nových povinností by podle textu muselo dopadnout na výrobce, dovozce a plniče obalů jako plátce poplatků za sdružené plnění, text ale takový dopad na jejich náklady nekvantifikuje ani nezmiňuje.",
+   "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=193&ct1=0"
+  },
+  {
+   "effect": "Obecná část zprávy (bod B, střet zájmů) ilustruje riziko propojení akcionáře s odpadovým podnikatelem výhradně na modelovém příkladu koncernové struktury popsaném jako „hypotetická situace“ a zdůvodňuje potřebu úpravy obecně formulovanými riziky (nekontrolovatelné přesuny prostředků, zvýhodňování konkrétního odpadového podnikatele), zpráva ale nikde neuvádí, zda u jediné dnes existující autorizované společnosti k některé z popsaných situací propojení akcionáře, člena orgánu nebo vedoucího zaměstnance s odpadovým podnikatelem skutečně došlo nebo dochází.",
+   "whoBenefits": "Nelze jednoznačně určit — text sám nespecifikuje, zda jde o preventivní úpravu do budoucna, nebo o reakci na konkrétní, textem nepojmenovaný současný stav propojení u dnešního držitele autorizace.",
+   "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=193&ct1=0"
+  }
+ ],
+ "conflictAssessment": "Jedinou předkladatelkou je poslankyně Berenika Peštová. Uzel tohoto tisku v grafu nenese žádnou vazbu předkladatel–tisk, takže formální propojení na její osobu není v datech evidováno a graf tedy neposkytuje žádný podklad — ani kladný, ani záporný — pro posouzení jejích peněžních vazeb k odpadovému hospodářství nebo k obalovému sektoru. Tuto absenci je třeba přiznat jako mezeru v datovém pokrytí tisku, nikoli vykládat jako potvrzenou absenci střetu zájmů, a to tím spíše, že věcný obsah návrhu (vlastnická struktura, financování a nezávislost jediné autorizované obalové společnosti a jejího vztahu k odpadovým podnikatelům) je z hlediska majetkových vazeb sektorově citlivý — jde přesně o typ úpravy, u níž by vazba předkladatelky na odpadový nebo obalový sektor byla relevantní, kdyby byla v datech dostupná. Bez ní nelze žádný konkrétní střet zájmů u předkladatelky doložit ani vyloučit.",
+ "severity": "low",
+ "confidence": 3,
+ "citations": [
+  {
+   "claim": "Nový § 18 odst. 3 snižuje nejvyšší přípustný podíl jednotlivého akcionáře autorizované společnosti na základním kapitálu nebo hlasovacích právech z dosavadních 33 % na méně než 3 %, s alternativou až 33 % podle nového § 18 odst. 4 při splnění podmínky nejméně 34 samostatně hlasujících akcionářů.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=193&ct1=0"
+  },
+  {
+   "claim": "Nový § 18 odst. 6 zakazuje přímé i nepřímé propojení akcionáře autorizované společnosti s odpadovým podnikatelem nebo vertikálně integrovanou skupinou.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=193&ct1=0"
+  },
+  {
+   "claim": "Nový § 20 odst. 4 stanoví, že základní kapitál autorizované společnosti činí 2 000 000 Kč, a nový § 20 odst. 5 omezuje převod akcií na cenu nepřevyšující jejich jmenovitou hodnotu, přičemž autorizovaná společnost nadále nesmí rozdělovat zisk ani jiné vlastní zdroje.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=193&ct1=0"
+  },
+  {
+   "claim": "Zvláštní část důvodové zprávy uvádí, že v České republice existuje pouze jediná autorizovaná obalová společnost.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=193&ct1=0"
+  },
+  {
+   "claim": "Obecná část zprávy (bod B, střet zájmů) popisuje riziko propojení akcionáře s odpadovým podnikatelem výslovně jako hypotetickou modelovou situaci.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=193&ct1=0"
+  },
+  {
+   "claim": "Nově vkládaný § 17 odst. 2 stanoví — a zvláštní část zprávy potvrzuje — že autorizované společnosti za poskytování služby obecného hospodářského zájmu nenáleží vyrovnávací platba z prostředků veřejných rozpočtů.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=193&ct1=0"
+  },
+  {
+   "claim": "Nové § 21 odst. 1 písm. r) a § 17 odst. 7 písm. i) ukládají autorizované společnosti poskytovat administrativní a organizační služby kolektivním systémům provozovaným podle zákona č. 243/2022 Sb. a podle zákona č. 542/2020 Sb.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=193&ct1=0"
+  },
+  {
+   "claim": "Zákon č. 477/2001 Sb., o obalech a o změně některých zákonů, je předpisem novelizovaným tímto tiskem.",
+   "kind": "law",
+   "source": "477/2001"
+  }
+ ]
+}

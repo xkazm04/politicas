@@ -1,0 +1,42 @@
+{
+ "billTisk": 135,
+ "statedReasoning": "Poslanecký návrh ústavního zákona (Matěj Ondřej Havel, jediný předkladatel) doplňuje čl. 1 ústavního zákona č. 1/1993 Sb., Ústava České republiky, o nový odstavec 3, podle něhož je Česká republika členským státem Evropské unie a Organizace Severoatlantické smlouvy (NATO). Obecná část důvodové zprávy popisuje návrh jako výslovné, symbolické a hodnotové zakotvení dlouhodobě existujícího stavu (členství od roku 1999 v NATO, od roku 2004 v EU) do ústavního pořádku, odůvodněné rostoucí geopolitickou nejistotou v Evropě po ruské agresi proti Ukrajině. Zpráva výslovně uvádí, že návrh nemá dopad na státní rozpočet ani ostatní veřejné rozpočty, na podnikatelské prostředí, na zákaz diskriminace, na ochranu soukromí ani na rodiny, a že nebyl předmětem lobbování. Účinnost se navrhuje k 1. lednu 2027.",
+ "researchedContext": "Text potvrzuje, že jde skutečně jen o doplnění jediného odstavce k čl. 1 Ústavy bez jakékoli navazující změny pravomocí, institucí nebo postupů — přiložené srovnávací znění ukazuje, že odstavce 1 a 2 čl. 1 zůstávají beze změny. Zvláštní část důvodové zprávy k čl. I sama návrh charakterizuje jako „především symbolické a hodnotové potvrzení dlouhodobé zahraničně politické orientace ČR“. Zpráva na žádném místě nekonstatuje, že by výslovné ústavní zakotvení členství mělo jakýkoli dopad na postup případného vystoupení České republiky z EU nebo NATO, ani se touto otázkou vůbec nezabývá.",
+ "unstatedEffects": [
+  {
+   "effect": "Návrh přesouvá dosud výhradně smluvně a politicky ukotvenou skutečnost (členství v EU a NATO) do textu Ústavy jako ústavní normy nejvyšší právní síly. Zvláštní část důvodové zprávy k čl. I to sama označuje za „symbolické a hodnotové potvrzení“, ale nikde nehodnotí důsledek, že jakákoli budoucí změna nebo zrušení nově doplněného odstavce 3 čl. 1 by se sama stala změnou Ústavy, a musela by se tedy projednat a schválit stejným, kvalifikovaným postupem pro přijetí ústavního zákona jako tento návrh sám — na rozdíl od dosavadního stavu, kdy otázka členství žádnou ústavní normou upravena nebyla. Zpráva tento posun v procesní obtížnosti budoucí politické změny vůbec nezmiňuje ani nekvantifikuje, ani neuvádí konkrétní ustanovení Ústavy, které postup pro přijetí ústavního zákona upravuje.",
+   "whoBenefits": "Nelze jednoznačně určit — text nespecifikuje, kdo má z vyššího prahu pro budoucí ústavní změnu prospěch; dotčeny by byly všechny budoucí politické síly usilující o změnu zahraničněpolitické orientace ČR, kterým by ústavní zakotvení kladlo vyšší formální překážku než dosavadní stav.",
+   "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=135&ct1=0"
+  }
+ ],
+ "conflictAssessment": "Jediným předkladatelem je poslanec Matěj Ondřej Havel. Uzel tohoto tisku v grafu nenese žádnou vazbu předkladatel–tisk, takže formální propojení na jeho osobu není v datech evidováno, a graf tedy neposkytuje žádný podklad — ani kladný, ani záporný — pro posouzení jeho peněžních vazeb ve vztahu k tomuto návrhu. Tuto absenci je třeba přiznat jako mezeru v datovém pokrytí tisku, nikoli vykládat jako potvrzenou absenci střetu zájmů. Věcně jde navíc o obecnou symbolickou ústavní deklaraci beze změny konkrétních pravomocí, dotací nebo regulace jakéhokoli hospodářského odvětví, takže ani při doplnění chybějících dat by nebyl důvod očekávat majetkový střet zájmů vázaný na konkrétní firmu.",
+ "severity": "low",
+ "confidence": 3,
+ "citations": [
+  {
+   "claim": "Čl. I doplňuje čl. 1 Ústavy o nový odstavec 3, podle něhož je Česká republika členským státem Evropské unie a Organizace Severoatlantické smlouvy.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=135&ct1=0"
+  },
+  {
+   "claim": "Zvláštní část důvodové zprávy k čl. I označuje doplnění odstavce 3 čl. 1 Ústavy za především symbolické a hodnotové potvrzení dlouhodobé zahraničněpolitické orientace České republiky, aniž zmiňuje důsledky pro budoucí procesní obtížnost změny tohoto stavu.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=135&ct1=0"
+  },
+  {
+   "claim": "Obecná část důvodové zprávy v bodě 13 uvádí, že návrh ústavního zákona nebyl předmětem lobbování, a v bodě 5, že nemá dopad na státní rozpočet ani ostatní veřejné rozpočty.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=135&ct1=0"
+  },
+  {
+   "claim": "Čl. II stanoví účinnost ústavního zákona na 1. ledna 2027.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=135&ct1=0"
+  },
+  {
+   "claim": "Ústavní zákon č. 1/1993 Sb., Ústava České republiky, je jediným předpisem novelizovaným tímto tiskem.",
+   "kind": "law",
+   "source": "1/1993"
+  }
+ ]
+}

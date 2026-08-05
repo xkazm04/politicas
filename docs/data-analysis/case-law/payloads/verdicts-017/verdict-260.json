@@ -1,0 +1,62 @@
+{
+  "billTisk": 260,
+  "statedReasoning": "Vládní návrh (gesce Ministerstva spravedlnosti, v grafu evidován jediný předkladatel Jeroným Tejc) novelizuje zákon č. 37/2021 Sb., o evidenci skutečných majitelů, jako transpozici čl. 9 až 15 směrnice Evropského parlamentu a Rady (EU) 2024/1640 a navazujícího nařízení (EU) 2024/1620 o zřízení Orgánu pro boj proti praní peněz a financování terorismu. Podle důvodové zprávy se mění model přístupu veřejnosti k údajům evidence z modelu volně přístupného rejstříku na model vázaný na prokázaný oprávněný zájem nebo na zákonem vyjmenovaný okruh povinných osob a orgánů veřejné moci (§ 15 až § 18). Čl. I bod 15 vkládá do § 16 odst. 2 pět nových písmen h) až l), která rozšiřují okruh subjektů s dálkovým přístupem o Orgán pro boj proti praní peněz a financování terorismu, Úřad evropského veřejného žalobce a Evropský úřad pro boj proti podvodům, Europol a Eurojust, příslušné profesní komory a orgány uplatňující národní nebo mezinárodní sankce, a v důsledku vložení přeznačuje dosavadní písmena h) až u) na m) až z). Čl. I bod 30 mění § 53 odst. 1 — soukromoprávní zákaz vyplatit podíl na zisku, není-li skutečný majitel zapsán v evidenci — tak, že výjimku z tohoto zákazu nově váže na podíl nižší než 5 % v obchodní korporaci; dosavadní pravidlo pro osoby ve vrcholném vedení přitom zachovává a pouze je přesouvá jako samostatnou větu na konec odstavce (důvodová zpráva k bodům 30 až 34 výslovně uvádí, že se úprava v tomto směru věcně nemění). Obecná část zprávy (bod 7) uvádí, že s návrhem jsou spojeny „spíše negativní“ hospodářské dopady — omezení veřejné přístupnosti evidence a odhadované náklady na přepis informačního systému ve výši 45 milionů Kč, doplněné o novou agendu vyřizování žádostí o přístup zajišťovanou 3 až 5 místy. Hodnocení dopadů regulace (RIA) nebylo podle bodu 3.8 písm. e) Obecných zásad pro hodnocení dopadů regulace zpracováno, neboť tak v rámci Plánu legislativních prací rozhodla vláda.",
+  "researchedContext": "Přímým čtením textu tisku 260 (bod 15, § 16 odst. 2 zákona č. 37/2021 Sb.) se potvrzuje mechanismus, na který tento výzkum již dříve upozornil: tisk 260 vkládá do § 16 odst. 2 pět nových písmen h) až l) a novou poznámku pod čarou a v témže bodě přeznačuje dosavadní písmena h) až u) na m) až z) — posun o pět míst v abecedním pořadí. Zákon č. 37/2021 Sb. je souběžně předmětem samostatného sněmovního tisku 7 (Úřad pro prevenci korupce a střetu zájmů), který cílí na dosavadní § 16 odst. 2 písm. n) — adresu, kterou přeznačení navrhované tiskem 260 posouvá o pět písmen na novou písm. s). Ani jeden z obou tisků na ten druhý neodkazuje. V textu tisku 260 samotného není k dispozici platné (konsolidované) znění § 16 odst. 2 před novelou; věcný obsah dotčeného písmene ale nese text tisku 7: jeho čl. XIX nahrazuje v § 16 odst. 2 písm. n) zákona č. 37/2021 Sb. slova „dohled nad hospodařením politických stran a politických hnutí“ slovy „prevenci korupce a střetu zájmů“ a jeho důvodová zpráva to popisuje jako terminologickou změnu promítající transformaci dosavadního úřadu na Úřad pro prevenci korupce a střetu zájmů — dosavadní písmeno n) tedy zakotvuje dálkový přístup pro orgán dohledu nad hospodařením politických stran a přeznačení navrhované tiskem 260 by je posunulo na písmeno s). Byly-li by obě předlohy přijaty v aktuálním znění bez vzájemné legislativně-technické koordinace, dopadla by novelizační instrukce tisku 7 po nabytí účinnosti tisku 260 na jiné písmeno, než na jaké byla mířena, případně (podle pořadí nabytí účinnosti obou zákonů) na písmeno vůbec neexistující v okamžiku přijetí.\n\nDruhá, mírnější kolize se týká § 53 odst. 1 téhož zákona: tisk 260 (bod 30) i samostatně projednávaný tisk 64 upravují týž odstavec — soukromoprávní zákaz vyplatit podíl na zisku při nezapsaném skutečném majiteli — ale odlišné části jeho textu: tisk 260 přepisuje část věty s výjimkou ze zákazu, kterou nově váže na práh podílu nižšího než 5 % (pravidlo pro osoby ve vrcholném vedení zachovává jako samostatnou větu), zatímco tisk 64 pracuje s jinou částí odstavce upravující vlastní zdroje korporace. Přímý přepis téhož řetězce nebyl v textu tisku 260 nalezen, jde tedy o riziko vyžadující při případné souběžné účinnosti obou předloh legislativně-technické sloučení, nikoli o potvrzenou textovou kolizi ve stejném rozsahu jako u § 16 odst. 2.",
+  "unstatedEffects": [
+    {
+      "effect": "Čl. I bod 15 tisku 260 přeznačuje dosavadní písmena h) až u) v § 16 odst. 2 zákona č. 37/2021 Sb. na písmena m) až z), aniž by důvodová zpráva jakkoli zmiňovala, že se souběžně projednávaným tiskem 7 je na dosavadní písmeno n) téhož odstavce mířena samostatná novelizační instrukce. Zpráva zdůvodňuje bod 15 výhradně transpozicí směrnice (EU) 2024/1640 a nikde nekonstatuje, že jím zaváděné přeznačení posune adresu, kterou zároveň upravuje jiný projednávaný sněmovní tisk.",
+      "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou uživatelé a vykladatelé § 16 odst. 2 zákona o evidenci skutečných majitelů, bude-li tisk 260 přijat souběžně s tiskem 7 bez vzájemné legislativně-technické koordinace.",
+      "evidence": "Čl. I bod 15 (§ 16 odst. 2 zákona č. 37/2021 Sb.), https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=260&ct1=0; k souběžné úpravě téhož odstavce viz historie tisku 7, https://www.psp.cz/sqw/historie.sqw?o=10&t=7"
+    },
+    {
+      "effect": "Čl. I bod 30 tisku 260 mění § 53 odst. 1 zákona č. 37/2021 Sb. (výjimku ze soukromoprávního zákazu vyplatit podíl na zisku, nově vázanou na práh podílu nižšího než 5 %) v témže odstavci, který jinou částí textu (vlastní zdroje korporace) souběžně upravuje tisk 64; žádná z obou předloh na tu druhou neodkazuje ani její existenci nezmiňuje.",
+      "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou vykladatelé § 53 odst. 1 zákona o evidenci skutečných majitelů při případné souběžné účinnosti obou předloh.",
+      "evidence": "Čl. I bod 30 (§ 53 odst. 1 zákona č. 37/2021 Sb.), https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=260&ct1=0; k souběžné úpravě téhož odstavce viz historie tisku 64, https://www.psp.cz/sqw/historie.sqw?o=10&t=64"
+    }
+  ],
+  "conflictAssessment": "Jediným předkladatelem v grafu evidovaným u tisku 260 je Jeroným Tejc, který podle peněžních vazeb nemá evidovánu žádnou vazbu na soukromou firmu. Jde navíc věcně o vládní předlohu v gesci Ministerstva spravedlnosti transponující unijní směrnici o evidenci skutečných majitelů, nikoli o poslanecký návrh sledující soukromý zájem předkladatele. V datech není u tisku 260 zjištěn střet zájmů.",
+  "severity": "medium",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "„Dosavadní písmena h) až u) se označují jako písmena m) až z).“",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=260&ct1=0"
+    },
+    {
+      "claim": "Čl. I bod 15 vkládá do § 16 odst. 2 zákona č. 37/2021 Sb. nová písmena h) až l) rozšiřující okruh subjektů s dálkovým přístupem o Orgán pro boj proti praní peněz a financování terorismu, Úřad evropského veřejného žalobce a OLAF, Europol a Eurojust, profesní komory a orgány uplatňující sankce.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=260&ct1=0"
+    },
+    {
+      "claim": "Čl. I bod 30 váže v § 53 odst. 1 zákona č. 37/2021 Sb. výjimku ze zákazu výplaty podílu na zisku nově na práh podílu nižšího než 5 % v obchodní korporaci a dosavadní pravidlo pro osoby ve vrcholném vedení přesouvá jako samostatnou větu na konec odstavce; důvodová zpráva k bodům 30 až 34 uvádí, že se úprava v tomto směru věcně nemění.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=260&ct1=0"
+    },
+    {
+      "claim": "Čl. XIX tisku 7 nahrazuje v § 16 odst. 2 písm. n) zákona č. 37/2021 Sb. slova „dohled nad hospodařením politických stran a politických hnutí“ slovy „prevenci korupce a střetu zájmů“.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=7&ct1=0"
+    },
+    {
+      "claim": "Zpráva uvádí, že hodnocení dopadů regulace nebylo zpracováno podle bodu 3.8 písm. e) Obecných zásad pro hodnocení dopadů regulace, neboť tak rozhodla vláda v rámci Plánu legislativních prací, a že předběžný odhad nákladů na přepis informačního systému evidence skutečných majitelů činí 45 milionů Kč.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=260&ct1=0"
+    },
+    {
+      "claim": "Zákon č. 37/2021 Sb., o evidenci skutečných majitelů, je jediným zákonem novelizovaným tiskem 260.",
+      "kind": "law",
+      "source": "37/2021"
+    },
+    {
+      "claim": "Sněmovní tisk 7 (Úřad pro prevenci korupce a střetu zájmů) je samostatnou novelou téhož zákona č. 37/2021 Sb. cílící mimo jiné na dosavadní § 16 odst. 2 písm. n).",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=7"
+    },
+    {
+      "claim": "Sněmovní tisk 64 je samostatnou novelou zasahující mimo jiné do § 53 odst. 1 zákona č. 37/2021 Sb.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=64"
+    }
+  ]
+}

@@ -101,6 +101,37 @@ async function main() {
     t = t.replace(/Text novely v cache \(tisk (\d+)\)/g, "Archivovaný text novely (tisk $1)");
     t = t.replace(/stewardské/g, "svěřenecké");
     t = t.replace(/stewardskou/g, "svěřeneckou");
+    // batch-017 structural-rule catches: internal field names cross-referenced in prose become
+    // the UI's own Czech section names; the pending_review parenthetical drops (the Czech
+    // phrase always precedes it). POSITION-NEUTRAL wording (batch-017 audit M8): most of these
+    // references sit in conflictAssessment, which BillDetail renders ABOVE the sections they
+    // point at — „výše" was false on the shipped surface, so no rewrite may claim a direction.
+    t = t.replace(/\s*\(pending_review\)/g, "");
+    // bespoke inline-case fixes BEFORE the generic rules (locative government — the generic
+    // nominative phrase inside „popsaného v …" shipped ungrammatical Czech in the first cut)
+    t = t.replace(/popsaného v unstatedEffects\[1\]/g, "popsaného ve druhém z popsaných nedeklarovaných dopadů");
+    t = t.replace(/věcný přesah titulu popsaný výše v unstatedEffects/g, "věcný přesah titulu popsaný v části nedeklarovaných dopadů");
+    t = t.replace(/unstatedEffects\[0\]/g, "první z popsaných nedeklarovaných dopadů");
+    t = t.replace(/unstatedEffects\[1\]/g, "druhý z popsaných nedeklarovaných dopadů");
+    t = t.replace(/unstatedEffects\[2\]/g, "třetí z popsaných nedeklarovaných dopadů");
+    t = t.replace(/unstatedEffects/g, "oddíl nedeklarovaných dopadů");
+    // this one lives in an unstatedEffects field and points at conflictAssessment, which IS
+    // above it in the render order — the direction word is true here and stays.
+    t = t.replace(/viz conflictAssessment/g, "viz posouzení střetu zájmů výše");
+    t = t.replace(/viz researchedContext/g, "viz oddíl nezávislého kontextu");
+    // bare lowercase „amends" joined the gate after the batch-017 audit measured it LIVE in a
+    // shipped rewrite — the graph-edge relation name is not Czech prose.
+    t = t.replace(/topologie hran amends v grafu/g, "topologie novelizačních hran v grafu");
+    t = t.replace(/na hranách [„"]amends[“"] v grafu/gu, "na novelizačních hranách v grafu");
+    t = t.replace(/regenerovaná topologie amends hran v grafu/g, "regenerovaná topologie novelizačních hran v grafu");
+    t = t.replace(/regenerovaná topologie amends v grafu/g, "regenerovaná topologie novelizačních hran v grafu");
+    t = t.replace(/v grafové topologii amends hran tohoto tisku/g, "v grafové topologii novelizačních hran tohoto tisku");
+    t = t.replace(/pole amendedLaws u tohoto tisku/g, "grafový přehled novelizovaných zákonů u tohoto tisku");
+    t = t.replace(/v poli amendedLaws tohoto tisku/g, "v grafovém přehledu novelizovaných zákonů tohoto tisku");
+    t = t.replace(/na pole amendedLaws/g, "na grafový přehled novelizovaných zákonů");
+    t = t.replace(/pole `tie_class`/g, "údaj o třídě vazby");
+    t = t.replace(/\(sponsors: \[\], flaggedConflict: false, sponsorContractCzk: 0\)/g, "(bez evidovaných předkladatelských vazeb i příznaků střetu v datech)");
+    t = t.replace(/\("cast_captions": "/g, "(„");
     const remaining = lawJargonIssues(t);
     if (remaining.length > 0) throw new Error(`tisk ${r.cislo} ${r.field}: still failing after rewrite — ${remaining[0]}`);
     if (czechCopyOrNull(t) === null) throw new Error(`tisk ${r.cislo} ${r.field}: fails the Czech gate after rewrite`);
@@ -122,8 +153,10 @@ async function main() {
         if (c) addedCisla.push(String(c));
       }
     }
-    // the two bespoke meta-sentence rewrites deliberately drop prop VALUES ("…Czk: 0")
-    for (const bespoke of ["sponsorContractCzk: 0, sponsors: []", "flaggedConflict: false, sponsorContractCzk: 0"]) {
+    // effect-index drops (unstatedEffects[N] → Czech ordinal phrases) are allowlisted digits
+    droppedIds.push(...[...r.text.matchAll(/unstatedEffects\[(\d)\]/g)].map((m) => m[1]));
+    // the bespoke meta-sentence rewrites deliberately drop prop VALUES ("…Czk: 0")
+    for (const bespoke of ["sponsorContractCzk: 0, sponsors: []", "flaggedConflict: false, sponsorContractCzk: 0", "sponsors: [], flaggedConflict: false, sponsorContractCzk: 0"]) {
       if (r.text.includes(bespoke) && !t.includes(bespoke)) droppedIds.push(...(bespoke.match(/\d+/g) ?? []));
     }
     const expected = [...digitsOf(r.text).filter((d) => {

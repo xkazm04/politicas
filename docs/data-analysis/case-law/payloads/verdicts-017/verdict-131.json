@@ -1,0 +1,52 @@
+{
+  "billTisk": 131,
+  "statedReasoning": "Senátní návrh (předkladatel Miroslav Canov a další senátoři, podepsáno předsedou Senátu Milošem Vystrčilem, rozeslán poslancům 11. března 2026) mění zákon č. 491/2001 Sb., o volbách do zastupitelstev obcí, osmi body. Obecná část důvodové zprávy se soustřeďuje výhradně na zavedení nového institutu „doplňovacích voleb“ pro malé obce (do osmi členů zastupitelstva) jako alternativy k vyhlašování nových voleb pro celé zastupitelstvo v případě poklesu počtu členů pod pět bez náhradníků — beze zmínky o volebních obvodech nebo o hranici pro postup na kandidátní listině. Body 6 a 7 zavádějí nové znění § 58 a nové §§ 58a a 58b, body 3 až 5 upravují nástupnictví náhradníků (§ 56 odst. 1 a 3, § 57 odst. 1), body 1, 2 a 8 jsou navazující legislativně-technické úpravy (§ 3 odst. 2, nadpis hlavy VI, § 66). Návrh nemá mít podle důvodové zprávy negativní rozpočtové, sociální, environmentální ani korupční dopady, nebyl předmětem lobbování a navrhuje účinnost dnem následujícím po dni vyhlášení s odůvodněním, že nová pravidla mají platit už pro zastupitelstva zvolená v komunálních volbách v říjnu 2026 od počátku jejich funkčního období. Přechodné ustanovení (Čl. II) váže použití starého znění na důvody pro konání nových voleb vzniklé přede dnem účinnosti. Žádá schválení již v prvním čtení.",
+  "researchedContext": "Text potvrzuje všech osm bodů přesně podle popisu: bod 1 (§ 3 odst. 2), bod 2 (nadpis hlavy VI), body 3 a 4 (§ 56 odst. 1 a odst. 3), bod 5 (§ 57 odst. 1), bod 6 (nové znění § 58), bod 7 (nové §§ 58a a 58b) a bod 8 (§ 66). Čl. III stanoví účinnost dnem následujícím po dni vyhlášení; zvláštní část k Čl. II a III výslovně zdůvodňuje toto zrychlené nabytí účinnosti naléhavým obecným zájmem na tom, aby se nová pravidla uplatnila pro zastupitelstva vzešlá z voleb 9. a 10. října 2026 „již od počátku funkčního období“. Garančním výborem je podle rozpisu projednávání ÚPV (přiděleno 2. 4. 2026), bez dalšího výboru — na rozdíl od dříve podaného tisku 12 (přiděleno 17. 12. 2025 stejnému garančnímu výboru ÚPV a navíc výboru VSR), který zůstává rovněž ve stavu „navrženo“. Strojové porovnání znění potvrzuje, že body 1 až 8 tisku 131 jsou slovo od slova totožné se zněním bodů 1, 8, 9, 10, 11, 12, 13 a 14 tisku 12 (§ 3 odst. 2, nadpis hlavy VI, § 56 odst. 1, § 56 odst. 3, § 57 odst. 1, § 58, §§ 58a a 58b, § 66) — jedinou odchylkou je číslování bodů, které je nižší, protože tisk 131 zcela vynechává těch sedm bodů tisku 12, jež se týkají zrušení volebních obvodů (§ 22 odst. 2, § 25 odst. 1, § 27, § 45 odst. 6, § 46 odst. 2 písm. b), příloha) a snížení hranice pro postup na kandidátní listině z 10 % na 5 % (§ 45 odst. 4). Obecná část důvodové zprávy tisku 131 tyto dva okruhy oproti tisku 12 zcela vypouští, včetně úvodního odstavce o „třech atributech“ návrhu, který se v tisku 12 nachází. Ani jeden z obou textů na druhý neodkazuje.",
+  "unstatedEffects": [
+    {
+      "effect": "Body 3 až 7 tisku 131 zavádějí do §§ 56, 57, 58, 58a, 58b zákona č. 491/2001 Sb. instituci doplňovacích voleb v přesně stejném znění, v jakém ji do týchž ustanovení zavádí i dříve podaný tisk 12 od téhož předkladatele (viz výše popsané porovnání znění). Ani obecná, ani zvláštní část důvodové zprávy tisku 131 se o souběžně projednávaném tisku 12 nezmiňuje. Budou-li oba tisky přijaty, druhý přijatý tisk vydá novelizační instrukce na ustanovení, která již byla v témže znění změněna tiskem přijatým jako první — u části překrývajících se bodů by taková instrukce byla neproveditelná (náhrada slov, jejichž cíl už v textu není; přečíslování písmen, které již proběhlo; opětovné vložení již vložených §§ 58a a 58b), u bodů, které celé ustanovení nahrazují novým zněním (§ 56 odst. 1, § 58), by se provedla i podruhé a pouze by znovu uzákonila totožný text.",
+      "whoBenefits": "Nelze jednoznačně určit — jde o riziko legislativně-technické kolize v procesu přijímání zákona, nikoli o hmotněprávní zvýhodnění konkrétní skupiny osob; dotčena je právní jistota ohledně výsledného znění §§ 56 až 58b zákona č. 491/2001 Sb. před komunálními volbami v říjnu 2026.",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=131&ct1=0"
+    },
+    {
+      "effect": "Čl. III tisku 131 nahrazuje standardní legisvakanční termín (1. leden nebo 1. červenec) účinností dnem následujícím po dni vyhlášení, s odůvodněním naléhavosti vzhledem k volbám 9. a 10. října 2026. Zvláštní část k Čl. II a III tento časový tlak zdůvodňuje výhradně potřebou, aby nová pravidla platila „od počátku funkčního období“ nově zvolených zastupitelstev, ale neuvádí, kolik obecních a registračních úřadů bude muset nový institut doplňovacích voleb zvládnout prakticky bez přípravné lhůty, ani nezmiňuje, že dříve podaný tisk 12 téhož předkladatele míří na tytéž paragrafy shodným zněním s odlišnou (pozdější, k 1. lednu 2026 svázanou) účinností a přechodným ustanovením — což při souběžném projednávání obou tisků vytváří nejistotu, které znění a která účinnost budou registrační úřady muset aplikovat na volby v říjnu 2026.",
+      "whoBenefits": "Nelze jednoznačně určit — dotčeny jsou obecní a registrační úřady připravující volby do zastupitelstev obcí v říjnu 2026 a obce s pěti až osmi členy zastupitelstva, na které institut doplňovacích voleb cílí; text neuvádí jejich počet.",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=131&ct1=0"
+    }
+  ],
+  "conflictAssessment": "U tisku 131 není v datové sadě rozepsán žádný řádek předkladatele s peněžními vazbami (jako předkladatel je uveden senátor Miroslav Canov a další senátoři) a v celém souboru souběžně hodnocených tisků (85, 12, 47, 131, 135, 193, 260, 50, 110, 72) není u žádného jiného tisku evidován řádek předkladatele jménem Canov ani jiného senátora uvedeného jako předkladatel tisku 131 — na rozdíl od tisku 85, kde byla obdobná mezera u jiného předkladatele (Juchelka) doplněna z řádku evidovaného u tisku 125. Nejde tedy o zjištěnou absenci peněžních vazeb, ale o mezeru v pokrytí dat: pro senátory jako předkladatele senátních tisků tato datová sada v dostupném rozsahu žádné záznamy peněžních vazeb neobsahuje, a proto nelze střet zájmů předkladatele pro tento tisk ani potvrdit, ani vyloučit.",
+  "severity": "medium",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Body 3 až 7 tisku 131 zavádějí institut doplňovacích voleb novelizací §§ 56 a 57 a vložením nového § 58 a nových §§ 58a a 58b zákona č. 491/2001 Sb.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=131&ct1=0"
+    },
+    {
+      "claim": "Čl. III tisku 131 stanoví účinnost dnem následujícím po dni jeho vyhlášení; zvláštní část k Čl. II a III toto zdůvodňuje naléhavým zájmem na uplatnění nových pravidel od počátku funkčního období zastupitelstev vzešlých z voleb 9. a 10. října 2026.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=131&ct1=0"
+    },
+    {
+      "claim": "Obecná část důvodové zprávy tisku 131 se omezuje na institut doplňovacích voleb a nezmiňuje zrušení volebních obvodů ani změnu hranice pro postup na kandidátní listině, které obsahuje dříve podaný tisk 12.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=131&ct1=0"
+    },
+    {
+      "claim": "Body 1, 8, 9, 10, 11, 12, 13 a 14 tisku 12 (§ 3 odst. 2, nadpis hlavy VI, § 56 odst. 1, § 56 odst. 3, § 57 odst. 1, § 58, §§ 58a a 58b, § 66) mají znění slovo od slova totožné se zněním bodů 1 až 8 tisku 131.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=12&ct1=0"
+    },
+    {
+      "claim": "Tisk 12 byl rozeslán poslancům 7. listopadu 2025 se stanovenou účinností k 1. lednu 2026, na rozdíl od zrychlené účinnosti tisku 131.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=12&ct1=0"
+    },
+    {
+      "claim": "Zákon č. 491/2001 Sb., o volbách do zastupitelstev obcí a o změně některých zákonů, je jediným novelizovaným předpisem tisku 131.",
+      "kind": "law",
+      "source": "491/2001"
+    }
+  ]
+}

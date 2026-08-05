@@ -1,0 +1,57 @@
+{
+  "billTisk": 50,
+  "statedReasoning": "Poslanecký návrh čtrnáctičlenné skupiny vedené Marianem Jurečkou, Monikou Brzeskovou, Tomem Philippem a Markem Výborným mění ve dvou částech zákon č. 155/1995 Sb., o důchodovém pojištění (část první, čl. I), a zákon č. 417/2024 Sb., kterým se týž zákon mění (část druhá, čl. III). Jádrem části první je zkrácení potřebné doby důchodového pojištění pro vznik nároku na řádný starobní důchod z 35 na 25 let (§ 29 odst. 1) — návrat k úpravě platné před rokem 2010, odůvodněný doporučením OECD z roku 2020 a zjednodušením podmínek tzv. odloženého starobního důchodu (§ 29 odst. 2 a 3); zvláštní typ důchodu vázaný na 30 let čistě příspěvkové doby se bez náhrady ruší jako nadbytečný. Přechodná ustanovení (čl. II) stanoví, že osobám, které potřebnou dobu 25 let získaly již před 1. 1. 2027, vznikne nárok až k datu účinnosti, bez zpětného doplacení. Část druhá (čl. III) ruší v zákoně č. 417/2024 Sb. dosud neúčinná ustanovení (body 65 a 67), která měla od roku 2027 vyjmout tzv. výchovné z valorizace procentní výměry důchodu; zpráva důvod zrušení popisuje jako nadměrnou komplikovanost a nesrozumitelnost postupu pro pojištěnce. Podle části F zprávy zkrácení kvalifikační doby zvýší výdaje na důchody zpočátku o cca 200 mil. Kč ročně s dlouhodobým nárůstem až k 2 mld. Kč ročně; zachování valorizace výchovného zvýší výdaje o cca 300 mil. Kč v prvním roce, s vrcholem cca 2,3 mld. Kč ročně po 15 letech a ustálením na cca 1,3 mld. Kč ročně po 25 letech.",
+  "researchedContext": "Text novely (čl. I bod 1) skutečně přepisuje § 29 odst. 1 až 3 tak, jak popisuje zvláštní část zprávy — kvalifikační doba 25 let pro řádný starobní důchod, zjednodušené podmínky odloženého důchodu (20, resp. 15 let) a zrušení samostatné kategorie vázané na 30 let čistě příspěvkové doby; navazující body 2 až 5 důsledně opravují křížové odkazy na zrušené písmeno § 29 odst. 3 písm. a) v § 34 a § 67 odst. 9, takže v textu nezůstává osiřelý odkaz. Čl. III skutečně ruší přesně body 65 a 67 čl. I zákona č. 417/2024 Sb. a navazující výčet v čl. XVI písm. f) téhož zákona zkracuje shodně s tímto zrušením — textová konzistence obou dílčích novel je ověřena.\n\nZpráva ovšem oba fiskální dopady uvádí odděleně v části F a nikde je nesčítá do jednoho úhrnného čísla. Podle vlastních odhadů zprávy tak v prvním roce účinnosti obě opatření dohromady zvýší výdaje na důchody o přibližně 500 mil. Kč ročně (200 + 300 mil. Kč); dlouhodobé odhady zpráva uvádí jen odděleně — u zkrácené kvalifikační doby nárůst „až na 2 mld. Kč“ ročně dlouhodobě, u valorizace výchovného vrchol cca 2,3 mld. Kč ročně po 15 letech s postupným poklesem na cílových 1,3 mld. Kč ročně po 25 letech — a jejich kombinovaný dlouhodobý průběh z textu vyčíslit nelze, protože oba odhady mají odlišné časové profily. Zpráva žádný součet čtenáři nenabízí ani jej nekomentuje.",
+  "unstatedEffects": [
+    {
+      "effect": "Část F obecné části zprávy uvádí fiskální dopad zkrácení kvalifikační doby (cca 200 mil. Kč ročně, dlouhodobě až 2 mld. Kč) a fiskální dopad zachování valorizace výchovného (cca 300 mil. Kč v prvním roce, vrchol cca 2,3 mld. Kč po 15 letech, poté pokles na cca 1,3 mld. Kč po 25 letech) jako dva samostatné odstavce bez jediné věty, která by čtenáři sdělila jejich součet v prvním roce (cca 500 mil. Kč ročně) nebo popsala kombinovaný dlouhodobý dopad obou opatření dohromady.",
+      "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou pojištěnci důchodového pojištění jako příjemci vyšších dávek i státní rozpočet jako plátce dodatečných výdajů; zpráva neumožňuje z předložených údajů přímo vyčíst kombinovanou zátěž obou opatření.",
+      "evidence": "Část F obecné části zprávy k tisku 50 (odhady 200 mil. Kč a 300 až 2,3 mld. Kč ročně), https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=50&ct1=0"
+    }
+  ],
+  "conflictAssessment": "Ze čtrnácti předkladatelů má v grafu evidovanou peněžní vazbu na firmu pět: Marian Jurečka (AGRO 2000 s.r.o.), Marek Výborný (Gymnázium Pardubice, Mozartova 449 — veřejná příspěvková organizace), Róbert Teleky (šest zdravotnických a sportovních subjektů Zlínského kraje, mj. tři krajské nemocnice), Petr Hladík (pět brněnských městských podniků, mj. Dopravní podnik města Brna a Teplárny Brno) a Bohuslav Niemiec (CEVYKO a.s.). Zbylých devět předkladatelů (Brzesková, Philipp, Činčila, Pláteník, Filipovičová, Talíř, Kršková, Okamura, Vojáček) žádnou vazbu na firmu nemá. Všechny evidované vazby čekají na lidskou kontrolu; u Telekyho a Hladíka jde převážně o správcovské role ve veřejných institucích (členství v dozorčích radách krajských nemocnic a městských podniků), jejichž veřejné smlouvy jsou penězi institucí a poslancům se nepřičítají. Věcně se všechny vazby týkají zemědělství, školství, zdravotnictví nebo komunálních služeb — žádná z dotčených firem není nositelem důchodového pojištění ani jinak věcně spojena s parametry nároku na starobní důchod, které tisk 50 mění. V datech není zjištěn střet zájmů.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "„Pojištěnec má nárok na starobní důchod, jestliže získal dobu pojištění nejméně 25 let a dosáhl aspoň věku potřebného pro vznik nároku na starobní důchod…“",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=50&ct1=0"
+    },
+    {
+      "claim": "„Zkrácení potřebné doby pojištění pro nárok na starobní důchod zvýší výdaje na důchody v prvních letech o cca 200 mil. Kč ročně. … by mohly dosáhnout až na 2 mld. Kč (v současných hodnotách) ročně.“",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=50&ct1=0"
+    },
+    {
+      "claim": "„V prvním roce po zavedení by došlo k nárůstu výdajů o přibližně 300 mil. Kč. … až na úroveň 2,3 mld. Kč po 15 letech valorizace.“",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=50&ct1=0"
+    },
+    {
+      "claim": "V čl. III se ruší body 65 a 67 čl. I zákona č. 417/2024 Sb. a navazující výčet v čl. XVI písm. f) se zkracuje shodně.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=50&ct1=0"
+    },
+    {
+      "claim": "Zákon č. 155/1995 Sb., o důchodovém pojištění, je hlavním novelizovaným předpisem tisku 50.",
+      "kind": "law",
+      "source": "155/1995"
+    },
+    {
+      "claim": "Tisk 50 novelizuje rovněž zákon č. 417/2024 Sb., kterým se mění zákon č. 155/1995 Sb., o důchodovém pojištění, a další související zákony.",
+      "kind": "law",
+      "source": "417/2024"
+    },
+    {
+      "claim": "Róbert Teleky je v grafu evidován jako člen dozorčí rady Uherskohradišťské nemocnice a.s. (IČO 27660915) — vazba správcovského typu; úhrn veřejných smluv této krajské nemocnice je penězi instituce, nikoli poslance, a poslanci se nepřičítá; vazba čeká na lidskou kontrolu.",
+      "kind": "graph_fact",
+      "source": "company:ico:27660915"
+    },
+    {
+      "claim": "Petr Hladík je v grafu evidován jako místopředseda dozorčí rady Dopravního podniku města Brna, a.s. (IČO 25508881) — vazba správcovského typu; úhrn veřejných smluv tohoto městského podniku je penězi instituce, nikoli poslance, a poslanci se nepřičítá; vazba čeká na lidskou kontrolu.",
+      "kind": "graph_fact",
+      "source": "company:ico:25508881"
+    }
+  ]
+}

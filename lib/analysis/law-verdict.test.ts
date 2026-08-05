@@ -98,6 +98,91 @@ describe("validateLawVerdict", () => {
     expect(validateLawVerdict(leads, opts).ok).toBe(false);
     const bareBatch = { ...valid, researchedContext: "Zjištění pochází z interního batch zpracování textů." };
     expect(validateLawVerdict(bareBatch, opts).ok).toBe(false);
+
+    // Batch-017 structural rules: identifiers are caught by SHAPE, not by a token list.
+    const camel = { ...valid, conflictAssessment: "Hodnota likelyCompanionTisk u tohoto podnětu není v datech vyplněna." };
+    expect(validateLawVerdict(camel, opts).ok).toBe(false);
+    const snake = { ...valid, researchedContext: "Pole review_state zůstává u všech vazeb beze změny." };
+    expect(validateLawVerdict(snake, opts).ok).toBe(false);
+    const propShape = { ...valid, conflictAssessment: "U předkladatele je evidováno sponzorství: [] a příznak střetu: false, tedy žádná vazba." };
+    expect(validateLawVerdict(propShape, opts).ok).toBe(false);
+  });
+
+  it("the camelCase allowlist admits real e-government and media names", () => {
+    const real = {
+      ...valid,
+      researchedContext:
+        "Materiál prošel systémem eKLEP a registr eTurista podle nařízení eIDAS popsal server iROZHLAS; důvodová zpráva odkazuje na strategii eGovernment.",
+    };
+    expect(validateLawVerdict(real, opts).ok).toBe(true);
+  });
+
+  // Batch-017 audit M8: the first-match `continue` used to void the whole camelCase rule the
+  // moment an ALLOWLISTED name preceded the identifier — the verdict depended on word order.
+  it("an allowlisted name does NOT shield a later camelCase identifier in the same field", () => {
+    const shielded = {
+      ...valid,
+      researchedContext: "Systém eGovernment eviduje hodnotu sponsorContractCzk pro tento tisk podle důvodové zprávy.",
+    };
+    const r = validateLawVerdict(shielded, opts);
+    expect(r.ok).toBe(false);
+    expect(r.errors.join(" ")).toContain("sponsorContractCzk");
+  });
+
+  it("diacritic allowlist entries are live (eSbírka) and unit symbols pass (kWh, mSv)", () => {
+    const real = {
+      ...valid,
+      researchedContext:
+        "Znění vyhlašované v systému eSbírka stanoví limit 500 kWh ročně a nejvyšší přípustnou dávku 12 mSv; server iROZHLAS o změně informoval.",
+    };
+    expect(validateLawVerdict(real, opts).ok).toBe(true);
+  });
+
+  // Batch-017 closure: the accusative form above never hit the effort rule (it matches only
+  // the exact „dávka <digit>" shape) — the NOMINATIVE dose is the real case and must pass,
+  // while a bare „dávka 12" (the pipeline batch-id shape) must still flag.
+  it("a nominative dose or benefit amount passes; a bare dávka-digit still flags", () => {
+    const dose = { ...valid, researchedContext: "Efektivní dávka 12 mSv ročně je podle důvodové zprávy nejvyšší přípustná; absorbovaná dávka 5 mGy se nemění." };
+    expect(validateLawVerdict(dose, opts).ok).toBe(true);
+    const benefit = { ...valid, researchedContext: "Paušální dávka 15 000 Kč se podle přechodného ustanovení vyplácí jednorázově." };
+    expect(validateLawVerdict(benefit, opts).ok).toBe(true);
+    // sentence-initial capitalized form must behave like the lowercase one (closure follow-up)
+    const capitalized = { ...valid, researchedContext: "Dávka 12 mSv ročně je podle důvodové zprávy nejvyšší přípustná; roční limit odběru je 250 kWh." };
+    expect(validateLawVerdict(capitalized, opts).ok).toBe(true);
+    const batchId = { ...valid, researchedContext: "Souvislost potvrdila dávka 12 při ručním porovnání znění obou tisků." };
+    expect(validateLawVerdict(batchId, opts).ok).toBe(false);
+  });
+
+  it("proper names beginning with „scan“ and declined „stewardka“ are not pipeline tokens", () => {
+    const real = {
+      ...valid,
+      researchedContext:
+        "Dopravce provozující vozidla Scania zaměstnává stewardy a stewardky ve vlacích; novela jejich pracovní podmínky podle důvodové zprávy nemění.",
+    };
+    expect(validateLawVerdict(real, opts).ok).toBe(true);
+  });
+
+  it("bare lowercase pipeline tokens „amends“ and „pending“ are rejected", () => {
+    const amendsTok = { ...valid, researchedContext: "Regenerovaná topologie hran amends v grafu potvrzuje rozsah novely." };
+    expect(validateLawVerdict(amendsTok, opts).ok).toBe(false);
+    const pendingTok = { ...valid, conflictAssessment: "Vazba předkladatele je ve stavu pending a čeká na lidskou kontrolu." };
+    expect(validateLawVerdict(pendingTok, opts).ok).toBe(false);
+  });
+
+  it("prop-value shapes without a space and English prop heads are rejected", () => {
+    const noSpace = { ...valid, conflictAssessment: "U předkladatele je evidováno flagged:false, tedy žádná vazba ke kontrole." };
+    expect(validateLawVerdict(noSpace, opts).ok).toBe(false);
+    const enumHead = { ...valid, conflictAssessment: "Záznam nese severity: vysokou a nic dalšího z něj neplyne." };
+    expect(validateLawVerdict(enumHead, opts).ok).toBe(false);
+  });
+
+  it("structural rules do NOT fire on ordinary Czech legal prose", () => {
+    const ordinary = {
+      ...valid,
+      researchedContext:
+        "Novela v čl. II bodu 3 mění § 55a odst. 2 písm. a) zákona č. 542/2020 Sb.; podle důvodové zprávy jde o technickou opravu, kterou výbor projednal 12. března 2026 a doporučil ji schválit beze změn.",
+    };
+    expect(validateLawVerdict(ordinary, opts).ok).toBe(true);
   });
 
   // Batch 009 (presentation gate): 27/27 gated verdicts were English and rendered verbatim

@@ -1,0 +1,214 @@
+{
+ "generatedAt": "2026-08-05T13:37:26.791Z",
+ "count": 25,
+ "rows": [
+  {
+   "cislo": 24,
+   "field": "forensic_unstated_effects[0].effect",
+   "issues": [
+    "pipeline jargon in reader-facing prose — pipeline identifier (\"amends\")"
+   ],
+   "text": "Graf u tohoto tisku podstatně podhodnotil jeho legislativní stopu (1 evidovaný oproti 10 skutečně novelizovaným předpisům), což je nyní plně potvrzeno přímým čtením textu, nikoli odvozeno. Jakákoli navazující analýza (například kontrola kolizí s příbuznými tisky, které se dotýkají týchž předpisů, třeba 553/1991 nebo 500/2004) postavená pouze na hranách „amends\" v grafu by u tohoto tisku minula 9 z 10 skutečných dotyků."
+  },
+  {
+   "cislo": 54,
+   "field": "forensic_conflict_assessment",
+   "issues": [
+    "pipeline jargon in reader-facing prose — pipeline identifier (\"pending\")",
+    "pipeline jargon in reader-facing prose — snake_case identifier (\"pending_review\")"
+   ],
+   "text": "Předkladatel je vládním návrhem (ministerstvo práce a sociálních věcí), garančním sponzorem v grafu je ministr Marian Jurečka. Jeho jedinou v případovém souboru evidovanou peněžní vazbou je společnost AGRO 2000 s.r.o. (IČO 25586521) s agregovanou hodnotou veřejných zakázek 253 958 310 Kč – jde o souhrn veřejných zakázek této společnosti, nikoli o osobní majetek jmenovaného, a vazba je v grafu vedena jako čekající na kontrolu (pending_review), tedy dosud lidsky neověřená. Předmětem návrhu je správa dat veřejné správy a řízený přístup k anonymizovaným datům (rejstřík trestů, zdravotnictví, statistika, správní poplatky); AGRO 2000 s.r.o. je zemědělská společnost bez zjevné věcné souvislosti s předmětem úpravy. Graf neobsahuje žádný přiřazený sektorový konflikt (deterministický odvětvový signál tohoto projektu jej nenašel) a případový soubor pro tohoto sponzora neeviduje žádnou další peněžní vazbu."
+  },
+  {
+   "cislo": 54,
+   "field": "forensic_citations[5].claim",
+   "issues": [
+    "pipeline jargon in reader-facing prose — pipeline identifier (\"pending\")",
+    "pipeline jargon in reader-facing prose — snake_case identifier (\"pending_review\")"
+   ],
+   "text": "Sponzor návrhu Marian Jurečka je v grafu vázán na společnost AGRO 2000 s.r.o. s agregovanou hodnotou veřejných zakázek 253 958 310 Kč (zemědělská společnost bez věcné souvislosti s předmětem návrhu); vazba je v grafu vedena jako čekající na kontrolu (pending_review)."
+  },
+  {
+   "cislo": 67,
+   "field": "forensic_conflict_assessment",
+   "issues": [
+    "pipeline jargon in reader-facing prose — camelCase identifier (\"unstatedEffects\")"
+   ],
+   "text": "Cílený soubor z dřívější prověrky v rámci tohoto projektu atribuuje k tomuto tisku 14 sektorových vazeb (nikoli 12), rozpadajících se podle novelizovaného zákona do čtyř skupin. (1) Zákon č. 139/2002 Sb. — 5 vazeb (AGROFERT, Kostelecké uzeniny, AGROPROFIT, Lovochemie, AGRONOVA CS, vše Andrej Babiš): podle vlastní zvláštní části důvodové zprávy je jediným obsahem novely legislativně-technická záměna „zastavěné“ za „zastavitelné“ ve třech konkrétních ustanoveních bez věcného dopadu na pozemkové úpravy — tuto skupinu proto uzavíráme jako nevěrohodný konflikt. (2) Zákon č. 100/2001 Sb. — 4 vazby (CS CABOT, PRECHEZA, Fatra, Synthesia, vše Andrej Babiš): novela zde zavádí věcně významný EIA „one-stop-shop“ mechanismus se skutečným ekonomickým dopadem na provozovatele podléhající EIA (viz unstatedEffects[1]) — vazbu hodnotíme jako věrohodný, byť plošný, kanál. (3) Zákon č. 235/2004 Sb. — 4 vazby (Hartenberg Holding, IMOBA, IF Holding, IF FACILITY). Ověřením operativního textu (§ 55a „Dodání pozemku“) se ukázalo, že jde o změnu samotné definice stavebního pozemku pro účely DPH, nikoli o bezobsažnou terminologickou úpravu — dřívější tvrzení tohoto verdiktu, že jde o změnu „bez věcného dopadu“, bylo nesprávné a je zde opraveno (viz unstatedEffects[2]). U Hartenberg Holding a IMOBA, doložených jako aktivní realitní developeři a investoři, jde o druhý, dosud nekvantifikovaný kanál vedle plošného zrychlení povolování staveb — vazbu proto neuzavíráme jako vyvrácenou, ale jako otevřenou s neurčeným směrem dopadu. U IF Holding a IF FACILITY (bezpečnostní, úklidové a facility služby, provoz škol a zdravotnických zařízení — viz Hlídač státu) nebyl nalezen žádný věrohodný ekonomický kanál k obchodování s pozemky ani k výstavbě jako předmětu podnikání; tuto dvojici vazeb uzavíráme jako nevěrohodnou. (4) Zákon č. 258/2000 Sb. — 1 vazba (SynBiol, a.s., Andrej Babiš, sektor „health“): novelizovaný § 77 zapojuje orgán ochrany veřejného zdraví do téhož EIA/stavebního „one-stop-shop“ mechanismu popsaného v unstatedEffects[1] — jde tedy o stejný kanál (integrace posuzování do jednoho řízení), nikoli o samostatný, oddělený mechanismus specifický pro zdravotnický sektor SynBiolu; podle dostupných zdrojů (Wikipedia, HN.cz) je SynBiol diverzifikovaná investiční skupina zahrnující mimo jiné zdravotnictví, léčiva a nemovitosti, takže expozice vůči plošnému zrychlení povolování (unstatedEffects[0]) i EIA/one-stop-shop mechanismu (unstatedEffects[1]) je u ní stejná jako u ostatních vazeb Andreje Babiše — samostatně tuto vazbu neuzavíráme jako nový, nekrytý nález. Mimo tuto dřívější atribuci nese největší jednotlivou peněžní vazbu ze všech sponzorů tohoto tisku Boris Šťastný — Pražské služby, a.s. (IČO 60194120), 53 271 958 488 Kč (částka je úhrn smluv firmy z registru smluv, nikoli údaj o aktuální roli; podle dobového zpravodajství Šťastný z dozorčí rady Pražských služeb odešel už v lednu 2012, přehled funkcí na hlidacstatu.cz vede vztah od roku 2010 bez uvedení konce a případový soubor u vazby žádné časové období nenese) — a novela materiálně přepisuje povolování zařízení pro nakládání s odpady (ČÁST TŘICÁTÁ DEVÁTÁ, zákon č. 541/2020 Sb.: kompetence se přesouvá na stavební úřad, § 149 se zrušuje, § 151 odst. 2 se přepisuje tak, aby odpadové podmínky mohlo nahradit i závazné stanovisko EIA). Podle dostupných zdrojů (iROZHLAS, Pražský deník) je však Pražské služby, a.s. od roku 2018 ve 100% vlastnictví hlavního města Prahy — jde tedy o municipální/obecní podnik, u něhož je vazba na Šťastného institucionální/svěřeneckou rolí (bez ohledu na její trvání), nikoli soukromým vlastnickým podílem; podle ustálené doktríny (municipální a obecní role nejsou konfliktem zájmů) tuto vazbu neklasifikujeme jako střet zájmů, byť ji na rozdíl od předchozí verze tohoto verdiktu výslovně vypořádáváme, místo abychom ji mlčky vynechali. Ostatní sponzoři (Zuzana Mrázová, Vojtěch Krňanský, Karel Havlíček, Marie Pošarová, Petr Macinka, Alena Schillerová) nemají v cíleném souboru zaznamenánu žádnou peněžní vazbu; peněžní vazby Tomia Okamury (cestovní ruch, gastronomie) leží mimo sektory dotčené touto novelou. Andrej Babiš je hlavním předkladatelem novely a je doloženou money-tie vazbou spojen s IMOBA, a.s. (kontrakt 1 791 100 Kč) i s dalšími společnostmi svých podnikatelských skupin AGROFERT a SynBiol. Šlo by o plošnou legislativní úpravu dopadající na celý stavební, developerský a chemicko-průmyslový trh v ČR, nikoli o adresné zvýhodnění jmenovaného subjektu — proto zjištění i po opravě hodnotíme jako středně závažné riziko systémového konfliktu zájmů (hlavní předkladatel je zároveň doloženým beneficientem několika odvětví, která novela zvýhodňuje), nikoli jako doklad konkrétního korupčního zvýhodnění jednotlivé transakce."
+  },
+  {
+   "cislo": 67,
+   "field": "forensic_unstated_effects[1].whoBenefits",
+   "issues": [
+    "pipeline jargon in reader-facing prose — camelCase identifier (\"conflictAssessment\")"
+   ],
+   "text": "Provozovatelé průmyslových a chemických závodů podléhajících EIA obecně; v kontextu sponzorských vazeb i chemické společnosti CS CABOT, PRECHEZA, Fatra a Synthesia, u nichž byla v dřívější cílené prověrce v rámci tohoto projektu identifikována sektorová vazba na sponzora Andreje Babiše přes zákon č. 100/2001 Sb. (Lovochemie, AGROFERT, Kostelecké uzeniny, AGROPROFIT a AGRONOVA CS mají v téže prověrce přiřazenu odlišnou vazbu, přes zákon č. 139/2002 Sb. — viz conflictAssessment)."
+  },
+  {
+   "cislo": 69,
+   "field": "forensic_researched_context",
+   "issues": [
+    "pipeline jargon in reader-facing prose — pipeline identifier (\"amends\")",
+    "pipeline jargon in reader-facing prose — camelCase identifier (\"amendedLaws\")"
+   ],
+   "text": "Přímým součtem novelizačních částí (ČÁST DRUHÁ až ČÁST OSMÁ) bylo ověřeno, že text mění sedm navazujících předpisů: trestní řád (141/1961, § 68), zákon o ochraně spotřebitele (634/1992, § 69), autorský zákon (121/2000, § 70), zákon o správních poplatcích (634/2004, § 71), zákon o audiovizuálních mediálních službách na vyžádání (132/2010, § 72), občanský zákoník (89/2012, § 73) a zákon o zvláštních řízeních soudních (292/2013, ČÁST OSMÁ). Regenerovaná topologie hran amends v grafu (pole amendedLaws u tohoto tisku) eviduje jen 6 z těchto 7 zákonů — chybí zákon č. 132/2010 Sb., o audiovizuálních mediálních službách na vyžádání, měněný v ČÁST ŠESTÁ, § 72. Nezávisle na tom bylo ověřeno, že §§ 40–41 zavádí mechanismus soudem podloženého blokování internetových stránek prostřednictvím seznamu vedeného ČTÚ, s povinností poskytovatelů služby přístupu k internetu takový přístup technicky znemožnit."
+  },
+  {
+   "cislo": 69,
+   "field": "forensic_citations[2].claim",
+   "issues": [
+    "pipeline jargon in reader-facing prose — pipeline identifier (\"amends\")"
+   ],
+   "text": "ČÁST ŠESTÁ, § 72 tisku 69 mění zákon č. 132/2010 Sb., o audiovizuálních mediálních službách na vyžádání — sedmý měněný předpis, který regenerovaná topologie amends v grafu u tohoto tisku neeviduje."
+  },
+  {
+   "cislo": 77,
+   "field": "forensic_conflict_assessment",
+   "issues": [
+    "pipeline jargon in reader-facing prose — camelCase identifier (\"researchedContext\")"
+   ],
+   "text": "Dřívější prověrka v rámci tohoto projektu označila tisk 77 jako shodující se s 9 z 10 sektorových skupin podle plošné unijní shody klíčových slov, ale jako doložené (attributed) leady zůstaly jen dva: NEXNET, a.s. u Radka Vondráčka přes zákon č. 12/2020 Sb. a MAE invest a.s. rovněž u Radka Vondráčka přes zákon č. 187/2006 Sb. Podrobná kontrola operativního textu obou novelizovaných částí (viz researchedContext) ukazuje, že jde výlučně o terminologické přizpůsobení související s rušením služebního poměru státních zaměstnanců, nikoli o věcnou úpravu podnikání v digitálních službách nebo nemocenském pojištění. Peněžní vazba Radka Vondráčka na NEXNET, a.s. (2 763 049 Kč) ani na MAE invest a.s. (912 000 Kč) tedy nemá žádnou doložitelnou spojitost s konkrétním obsahem novelizovaných ustanovení – ani jedno z nich neupravuje podmínky, za kterých tyto společnosti získávají zakázky nebo dávky. Absence konfliktu je zde očekávaný a hodnotný závěr: sektorová shoda podle statutu je u tohoto tisku shodou náhod, nikoli signálem skutečného střetu zájmů, a proto se hodnotí jako nízká závažnost bez zvýšení stupně na základě peněžních vazeb."
+  },
+  {
+   "cislo": 103,
+   "field": "forensic_conflict_assessment",
+   "issues": [
+    "pipeline jargon in reader-facing prose — snake_case identifier (\"tie_class\")"
+   ],
+   "text": "Vstupní data batche přiřazují k tisku 103 dva sektorové leady vázané na zákon č. 155/1995 Sb.: ZPS holding s.r.o. (Jan Bureš) a ČSOB Pojišťovna, a. s. (Karel Haas). Operativní obsah novely zákona č. 155/1995 Sb. v tomto návrhu je ale výhradně nový § 57a – informační povinnost orgánu sociálního zabezpečení vůči Digitální a informační agentuře při vzniku nároku cizince na výplatu důchodu. Nejde o změnu důchodových dávek, sazeb, investičních produktů ani pojistných podmínek, tedy o nic, co by se věcně dotýkalo podnikání strojírenské společnosti ZPS holding s.r.o. nebo pojišťovny ČSOB Pojišťovna, a. s. Mezi soukromým ekonomickým zájmem žádného z předkladatelů a operativním účinkem návrhu (technická notifikační povinnost při zřizování datové schránky) nebyla nalezena žádná věrohodná souvislost; přiřazené leady se jeví jako artefakt heuristiky „sdílený zákon = sektorový lead“ bez věcného opodstatnění. Peněžní vazby ostatních předkladatelů podle případového souboru: Jan Bureš dále drží vazby na Údržbu silnic Karlovarského kraje, a.s. (8 004 685 063 Kč), Léčebné lázně Jáchymov a. s. (11 986 287 Kč), Vodárny a kanalizace Karlovy Vary, a.s. (221 321 239 Kč), Ostrovskou teplárenskou, a.s. (182 963 808 Kč) a Povodí Ohře, státní podnik (7 458 380 247 Kč); Petr Bendl na Vzdělávací centrum pro veřejnou správu ČR, o.p.s. (17 180 776 Kč), Energie - stavební a báňská a.s. (20 790 731 132 Kč – jeho jednotlivě nejvyšší peněžní vazba; částka je úhrn smluv firmy z registru smluv, nikoli údaj o aktuální držbě — podle obchodního rejstříku byl Bendl členem dozorčí rady pouze od 8. 11. 1996 do 23. 2. 2001 a žádný novější vztah rejstřík neeviduje; případový soubor u vazby časové období nenese), MERO ČR, a.s. (2 981 571 045 Kč), Svaz měst a obcí České republiky (57 751 425 Kč) a Povodí Vltavy, státní podnik (11 898 616 361 Kč); Jana Černochová na Nadační fond Českého rozhlasu (54 117 577 Kč), Obecní dům, a.s. (102 372 100 Kč) a Komwag, podnik čistoty a údržby města, a.s. (1 765 842 642 Kč). Mezi těmito vazbami jsou zjevné státní podniky (Povodí Ohře, Povodí Vltavy), ale minimálně jedna je zjevně soukromá akciová společnost bez veřejného vlastníka v základním výpisu z obchodního rejstříku – Energie - stavební a báňská a.s., IČO 45146802, sídlem Kladno, u Petra Bendla; nelze proto paušálně tvrdit, že žádná z vazeb předkladatelů není soukromým vlastnictvím. Případový soubor batche navíc u žádné z těchto vazeb nenese pole `tie_class`, takže jejich povahu (svěřenecká/institucionální vs. vlastnická/řídící) tento verdikt netvrdí a nechává neurčenou. Klíčové pro absenci konfliktu zde není tvrzení o povaze vlastnictví, ale věcný rozsah samotné novely: žádná z uvedených firem a podniků – včetně Energie - stavební a báňská a.s. jako stavební/báňské firmy – nepodniká v oblasti, kterou tento návrh upravuje (notifikace orgánu vůči Agentuře při vzniku nároku na dávku a zřizování datové schránky), takže operativní obsah novely se u žádné z těchto vazeb věcně neprojevuje bez ohledu na to, zda jde o soukromé, nebo státní vlastnictví."
+  },
+  {
+   "cislo": 112,
+   "field": "forensic_conflict_assessment",
+   "issues": [
+    "pipeline jargon in reader-facing prose — camelCase identifier (\"flaggedConflict\")",
+    "pipeline jargon in reader-facing prose — prop-value shape (\"sponsors: []\")"
+   ],
+   "text": "Zadání u tohoto tisku neuvádí žádného předkladatele s daty o peněžních vazbách (sponsors: [], flaggedConflict: false, sponsorContractCzk: 0). Není tedy k dispozici žádný signál střetu pocházející z grafu, který by šlo posoudit, a ani nezávisle jsem nenašel důkaz o finanční vazbě jediné předkladatelky. Vlastní hodnocení korupčních rizik v návrhu (část 10 důvodové zprávy) uvádí, že návrh nemá korupční dopad a že nebyla zjištěna žádná lobbistická aktivita. Poctivé zjištění: žádný indikátor střetu není přítomen."
+  },
+  {
+   "cislo": 132,
+   "field": "forensic_conflict_assessment",
+   "issues": [
+    "pipeline jargon in reader-facing prose — camelCase identifier (\"flaggedConflict\")",
+    "pipeline jargon in reader-facing prose — prop-value shape (\"sponsors: []\")"
+   ],
+   "text": "Zadání u tohoto tisku neuvádí žádného předkladatele s daty o peněžních vazbách (sponsors: [], flaggedConflict: false, sponsorContractCzk: 0). Není tedy k dispozici žádný signál střetu pocházející z grafu, který by šlo posoudit, a u uvedeného předkladatele nebyl nalezen ani nezávislý důkaz o finanční vazbě na odvětví kapitálového trhu (samotný text návrhu ukazuje, že jej formálně předložil předseda Senátu Miloš Vystrčil jménem Senátu, což odpovídá návrhu podanému komorou, nikoli osobní iniciativě jednotlivého senátora). Poctivé zjištění: žádný indikátor střetu není přítomen."
+  },
+  {
+   "cislo": 172,
+   "field": "forensic_researched_context",
+   "issues": [
+    "pipeline jargon in reader-facing prose — snake_case identifier (\"cast_captions\")"
+   ],
+   "text": "Návrh je v grafu i v platformovém krátkém popisu (\"cast_captions\": \"mění 6 předpisů — zákon o cestovních dokladech, zákona o občanských průkazech, zákona o správních poplatcích a 3 další předpis\") klasifikován jako technická novela evidenčních zákonů. Tento krátký popis, na rozdíl od plné důvodové zprávy, nezmiňuje, že součástí novely je zcela nový institut pozastavení platnosti cestovního pasu vázaný na evropský zatýkací rozkaz – tedy nástroj omezující svobodu pohybu držitele, jehož zápis do evidence provádí Policie ČR. Samotná důvodová zpráva tento institut zdůvodňuje a existenci tohoto rizika (že se držitel o pozastavení nemusí dozvědět) sama přiznává; nejde tedy o utajenou informaci vůči zákonodárci, ale o změnu, kterou stručná platformová charakteristika bilu jako \"technického\" nepřenáší. Dále novela v § 21a odst. 3 zákona o cestovních dokladech (a zrcadlové ustanovení v zákoně o občanských průkazech) zavádí opakované využití již pořízených biometrických údajů mezi žádostmi o cestovní pas a občanský průkaz podanými týž den. Důvodová zpráva toto zdůvodňuje výhradně snížením administrativní zátěže občana; otázku, že tím dochází k propojení biometrické stopy mezi dvěma samostatnými evidencemi (evidence cestovních dokladů a evidence občanských průkazů), návrh explicitně nerozebírá."
+  },
+  {
+   "cislo": 189,
+   "field": "forensic_conflict_assessment",
+   "issues": [
+    "pipeline jargon in reader-facing prose — camelCase identifier (\"unstatedEffects\")"
+   ],
+   "text": "Cílený soubor z dřívější prověrky v rámci tohoto projektu neobsahuje k tomuto tisku žádnou atribuovanou sektorovou vazbu (bez odvětvového signálu v datech) a jediná uvedená sponzorka, Alena Schillerová, nemá v cíleném souboru zaznamenánu žádnou peněžní vazbu. Návrh je vládní předlohou předloženou ministerstvem financí v rámci jeho běžné zákonodárné agendy (obnovení dříve existujícího a zrušeného systému evidence tržeb), nikoli poslaneckou iniciativou jednotlivého zákonodárce s vlastním podnikatelským zájmem. Absence doložitelné vazby mezi předkladatelem/sponzory a subjekty, které by mohly mít z návrhu konkrétní ekonomický prospěch nebo újmu, je zde očekávaným a věrohodným zjištěním u obecné daňově-administrativní legislativy tohoto typu — nelze ji uměle nahrazovat domněnkou o konfliktu zájmů. Zjištěný „quiet rider“ efekt (viz unstatedEffects) je z povahy věci procesní/legislativně-technickou otázkou legislativní transparentnosti, nikoli osobním konfliktem zájmů předkladatele — přesahuje-li ovšem rozsahem sedm věcně samostatných daňových opatření navázaných na politicky sledovanou EET, jde o výraznější formu tohoto jevu, než jak byl v původní verzi tohoto verdiktu popsán."
+  },
+  {
+   "cislo": 201,
+   "field": "forensic_conflict_assessment",
+   "issues": [
+    "pipeline jargon in reader-facing prose — camelCase identifier (\"unstatedEffects\")"
+   ],
+   "text": "Cílený soubor z dřívější prověrky v rámci tohoto projektu atribuuje k tomuto tisku sektorovou vazbu „economy“ mezi sponzorem Radimem Fialou a společnostmi IF Holding a.s. a IF FACILITY a.s. Podle dostupných zdrojů (Hlídač státu, Seznam Zprávy, Blesk.cz) je skupina IF Holding zaměřena na bezpečnostní a úklidové (facility) služby, provoz soukromých škol pod značkou Art Econ a zdravotnická zařízení — nikoli na provozování rozhlasového či televizního vysílání ani na výrobu či prodej rozhlasových a televizních přijímačů, které jsou předmětem poplatkové povinnosti podle zákona č. 348/2005 Sb. Jediný mechanismus, kterým by se novela mohla ekonomicky dotknout těchto firem, je obecné zvýšení prahu počtu zaměstnanců pro osvobození od poplatku (viz unstatedEffects) — to je však plošné opatření dopadající na tisíce zaměstnavatelů v ČR bez vztahu ke konkrétnímu oboru podnikání IF Holding/IF FACILITY, a nelze je bez dalších údajů o skutečném počtu zaměstnanců a počtu rozhlasových/televizních přijímačů těchto firem označit za adresné zvýhodnění. Atribuovanou vazbu proto hodnotíme jako neprokázanou — jde o formální průnik (sponzor vlastní firmy, novela mění zákon o poplatcích placených mimo jiné právnickými osobami), nikoli o doložený věcný konflikt zájmů. Ostatní sponzoři (Nacher, Okamura, Malá, Turek, Rázga, Kolovratník) v cíleném souboru nemají k tomuto tisku přiřazenu žádnou sektorovou vazbu; peněžní vazby Tomia Okamury a Martina Kolovratníka se týkají odvětví zcela mimo rozhlasové a televizní vysílání (cestovní ruch, gastronomie, doprava, veřejné instituce)."
+  },
+  {
+   "cislo": 206,
+   "field": "forensic_conflict_assessment",
+   "issues": [
+    "pipeline jargon in reader-facing prose — pipeline identifier (\"pending\")",
+    "pipeline jargon in reader-facing prose — snake_case identifier (\"pending_review\")"
+   ],
+   "text": "Předkladateli jsou Vít Rakušan, Karel Dvořák a Lukáš Vlček (poslanecký návrh). Rakušanovy peněžní vazby (Vodní cesty na Labi o.p.s., Změna pro Kolín z.s., SVJ Kolín — vše 0 Kč; Nadační fond Gymnázia Kutná Hora — 200 000 Kč, úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu) i Dvořákova absence vazeb nemají věcný vztah k přezkumu veřejných zakázek. Vlčkovy vazby zahrnují SOMPO, a.s. (9 174 258 Kč) a PEVAK Pelhřimov, družstvo (1 234 888 Kč) — obě částky jsou úhrnem veřejných smluv dané firmy evidovaným v grafu, nikoli příjmem poslance, a obě vazby čekají na lidskou kontrolu (pending_review). Obě firmy jsou svazkové/družstevní subjekty vlastněné obcemi Pelhřimovska (SOMPO je dle vlastní prezentace stoprocentně vlastněno svazkem 117 obcí), tedy municipální, nikoli soukromé firmy Vlčka. Jako municipální zadavatelé jsou SOMPO i PEVAK subjekty, které SAMY zadávají veřejné zakázky a mohly by ze zpřísněného přezkumu (vyšší bariéra pro dodavatele podávající námitky) profitovat jako zadavatel — jde ale o institucionální, nikoli osobní finanční vazbu Vlčka. Podle veřejného rejstříku (ARES VR, ověřeno 4. 8. 2026) byl Lukáš Vlček předsedou představenstva SOMPO, a.s. od 27. 2. 2020; členství i funkce zanikly 31. 10. 2024 a záznam byl z rejstříku vymazán 4. 2. 2025. Od 3. 12. 2024 je předsedou představenstva Tomáš Kocour, což potvrzuje i vlastní stránka společnosti — Vlček v aktuálním výčtu představenstva ani dozorčí rady uveden není. Vlčkova případná role v PEVAK Pelhřimov (uváděná staršími zdroji od roku 2007) nebyla pro účely tohoto verdiktu nezávisle ověřena jako aktuální. Za konflikt zájmů v obchodním smyslu nelze tyto vazby označit — jde o municipální/družstevní subjekty, nikoli o Vlčkovo soukromé podnikání, a Vlčkova funkce v SOMPO navíc skončila před podáním tohoto návrhu."
+  },
+  {
+   "cislo": 210,
+   "field": "forensic_conflict_assessment",
+   "issues": [
+    "pipeline jargon in reader-facing prose — camelCase identifier (\"flaggedConflict\")",
+    "pipeline jargon in reader-facing prose — prop-value shape (\"sponsors: []\")"
+   ],
+   "text": "Zadání u tohoto tisku neuvádí žádného předkladatele s daty o peněžních vazbách (sponsors: [], flaggedConflict: false, sponsorContractCzk: 0). Jde o vládní návrh předložený Ministerstvem spravedlnosti, nikoli o návrh jednotlivého poslance s osobním finančním zájmem, a není zde žádný signál střetu pocházející z grafu, který by šlo posoudit. Nebyl nalezen ani nezávislý důkaz o osobní finanční vazbě. Poctivé zjištění: žádný indikátor střetu není přítomen — v souladu s nestranným zjištěním předchozích dávek, že u většiny návrhů žádný skutečný střet není."
+  },
+  {
+   "cislo": 213,
+   "field": "forensic_conflict_assessment",
+   "issues": [
+    "pipeline jargon in reader-facing prose — camelCase identifier (\"unstatedEffects\")"
+   ],
+   "text": "Sponzorem návrhu v grafu je Lubomír Metnar, u kterého nejsou evidovány žádné peněžní vazby, a odvětvová analýza u tohoto tisku nepřiřadila žádný sektorový lead (bez odvětvového signálu v datech). Bez doložené soukromé ekonomické vazby předkladatele k dotčeným odvětvím (cizinecké právo, azylové řízení, trestní represe převaděčství) nelze na základě dostupných dat v grafu formulovat žádné doložitelné tvrzení o střetu zájmů. Jde o vládní bezpečnostní návrh podávaný ministrem vnitra, u něhož analýza peněžních vazeb nezjistila žádný signál k prošetření; jediným zjištěným rizikem je věcný přesah titulu popsaný výše v unstatedEffects, nikoli konflikt zájmů předkladatele."
+  },
+  {
+   "cislo": 250,
+   "field": "forensic_researched_context",
+   "issues": [
+    "pipeline jargon in reader-facing prose — pipeline identifier (\"amends\")",
+    "pipeline jargon in reader-facing prose — camelCase identifier (\"amendedLaws\")"
+   ],
+   "text": "Přímým součtem částí druhá až jedenáctá návrhu (deset samostatných novelizačních částí, každá s vlastním „Zákon č. …, se mění takto\") bylo ověřeno, že text novelizuje přesně deset zákonů: č. 2/1969 Sb., č. 64/1986 Sb., č. 505/1990 Sb. (metrologie), č. 539/1992 Sb. (puncovní zákon), č. 20/1993 Sb., č. 22/1997 Sb., č. 634/2004 Sb., č. 87/2023 Sb., č. 387/2024 Sb. (obecná bezpečnost výrobků) a č. 330/2025 Sb. (správa informací o stavbě a vystavěném prostředí) — což odpovídá vlastnímu shrnutí předlohy (\"mění 10 předpisů\"). Regenerovaná topologie hran amends v grafu (pole amendedLaws u tohoto tisku) však eviduje jen 6 z těchto 10 zákonů; zákony o metrologii (505/1990), puncovní zákon (539/1992), o obecné bezpečnosti výrobků (387/2024) a o správě informací o stavbě (330/2025) v grafové topologii chybí — jde o počet chybějících předpisů, nikoli o podíl věcného záběru tisku. Dále bylo ověřeno, že Agentura zůstává právnickou osobou veřejného práva (§ 7 odst. 1) a že komerční prodej norem je pokračováním dosavadní praxe, nikoli novým prvkem. Agentura má tři orgány (§ 9 odst. 1): generálního ředitele, Radu (§ 11) a Dozorčí radu (§ 12). Radu, orgán zajišťující nezávislost a nestrannost Agentury a schvalující koncepci, strategii a návrh rozpočtu, tvoří 5 členů, z nichž část jmenuje předseda Úřadu na návrh právnických osob, jejichž činnost souvisí s oblastí normalizace (§ 11 odst. 2). Dozorčí radu, orgán dohlížející na hospodaření Agentury a projednávající návrh rozpočtu a výroční zprávu o hospodaření, tvoří rovněž 5 členů, jejího předsedu jmenuje ministr a ostatní jmenuje předseda Úřadu především ze zástupců ústředních správních úřadů (§ 12 odst. 1 a 2) — nikoli na návrh oborových subjektů. Ceník za vedlejší činnost (placený přístup k normám a databázi) vydává Agentura teprve po předchozím projednání Dozorčí radou a se souhlasem Úřadu (§ 21 odst. 2); samostatný poplatek za sponzorovaný přístup je odlišný nástroj, jehož rozpočet zákon označuje za veřejný rozpočet (§ 20 odst. 4)."
+  },
+  {
+   "cislo": 250,
+   "field": "forensic_unstated_effects[0].effect",
+   "issues": [
+    "pipeline jargon in reader-facing prose — pipeline identifier (\"amends\")"
+   ],
+   "text": "Návrh věcně novelizuje deset zákonů (potvrzeno přímým výčtem částí druhá až jedenáctá), avšak regenerovaná topologie amends hran v grafu eviduje jen šest z nich — zákon o metrologii, puncovní zákon, zákon o obecné bezpečnosti výrobků a zákon o správě informací o stavbě chybí. Čtyři z deseti novelizovaných zákonů (počet předpisů, nikoli podíl věcného záběru) tak v datech platformy, na nichž staví zobrazení rozsahu novely, chybí."
+  },
+  {
+   "cislo": 250,
+   "field": "forensic_unstated_effects[0].whoBenefits",
+   "issues": [
+    "pipeline jargon in reader-facing prose — camelCase identifier (\"amendedLaws\")"
+   ],
+   "text": "Nelze jednoznačně určit — jde o mezeru v grafové topologii dat platformy, nikoli o zjištěný záměr předkladatelů; důsledkem je pouze to, že čtenář spoléhající na pole amendedLaws vidí užší záběr tisku, než jaký text skutečně má."
+  },
+  {
+   "cislo": 250,
+   "field": "forensic_unstated_effects[0].evidence",
+   "issues": [
+    "pipeline jargon in reader-facing prose — camelCase identifier (\"amendedLaws\")"
+   ],
+   "text": "Části druhá až jedenáctá textu návrhu (§ 49 až § 59) novelizují zákony č. 2/1969 Sb., č. 64/1986 Sb., č. 505/1990 Sb., č. 539/1992 Sb., č. 20/1993 Sb., č. 22/1997 Sb., č. 634/2004 Sb., č. 87/2023 Sb., č. 387/2024 Sb. a č. 330/2025 Sb. — deset zákonů oproti šesti uvedeným v poli amendedLaws tohoto tisku."
+  },
+  {
+   "cislo": 250,
+   "field": "forensic_citations[2].claim",
+   "issues": [
+    "pipeline jargon in reader-facing prose — pipeline identifier (\"amends\")"
+   ],
+   "text": "Návrh novelizuje zákon o metrologii, který v grafové topologii amends hran tohoto tisku chybí."
+  },
+  {
+   "cislo": 250,
+   "field": "forensic_citations[3].claim",
+   "issues": [
+    "pipeline jargon in reader-facing prose — pipeline identifier (\"amends\")"
+   ],
+   "text": "Návrh novelizuje puncovní zákon, který v grafové topologii amends hran tohoto tisku chybí."
+  },
+  {
+   "cislo": 250,
+   "field": "forensic_citations[4].claim",
+   "issues": [
+    "pipeline jargon in reader-facing prose — pipeline identifier (\"amends\")"
+   ],
+   "text": "Návrh novelizuje zákon o obecné bezpečnosti výrobků, který v grafové topologii amends hran tohoto tisku chybí."
+  },
+  {
+   "cislo": 250,
+   "field": "forensic_citations[5].claim",
+   "issues": [
+    "pipeline jargon in reader-facing prose — pipeline identifier (\"amends\")"
+   ],
+   "text": "Návrh novelizuje zákon o správě informací o stavbě a vystavěném prostředí, který v grafové topologii amends hran tohoto tisku chybí."
+  }
+ ]
+}

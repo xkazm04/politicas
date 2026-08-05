@@ -1200,6 +1200,34 @@ corrected verdict carries the batch's sharpest found-by-accident effect: the ope
 grants relief „o 10 %" while the DZ mostly argues „o 10 procentních bodů" (54 % vs 50 % against
 a ~60% target), uncommented anywhere. Backlog: 0 collision pairs, 62 pending bills.
 
+## Pass 51 (track: law) — batch-017: ten verdicts, the structural jargon gate, and the symmetric-disposition rule (2026-08-05)
+
+Writes: 10 bill nodes with pending_review forensic_* props (tisky 85, 12, 47, 131, 135, 193,
+260, 50, 110, 72 — coverage 89 → 99/141; 4 mediums after a THREE-round audit cycle) + 15 bill
+nodes swept (25 strings the amends/pending-widened detector exposed retroactively, under the
+digit + syntax invariants; store-wide manifestation after the pass: 0 withheld reader-facing
+fields on 99 verdicts). Headline verdict finding: tisk 131's Čl. I is a WORD-FOR-WORD subset
+of tisk 12's Čl. I (8 of 15 points byte-identical, same senate sponsor, four months apart,
+neither DZ mentions the other — the 68⊂90 shape's third occurrence), with different
+transitional regimes months before the October 2026 municipal elections; tisk 85↔88 carries
+five incompatible instruction pairs; tisk 47 is confirmed as tisk 217's constitutional
+companion and the two verdicts now tell one story. The audit's round-1 blockers included the
+STEWARD-MONEY class recurring in three verdicts (~119,7 mld Kč attributed across five
+citations before remediation — every citation now names class + role and states the money as
+the institution's) and a cross-verdict contradiction (47 asserting the sequencing gap 217
+exists to fill). Round 2 named the batch's lesson on the DERIVED artifact: the
+sector-attribution payload's first adjudication map disclosed only exculpatory verdict
+closures and withheld the two that cut against sponsors (verdict-67's credible 100/2001
+channel, verdict-221's medium) — accusation-by-omission inverted; the shipped payload carries
+dispositions on 29/29 flags, both directions, count derived never literal. Also corrected IN
+DATA, not disclosed around: insertion instructions („Za § N se vkládá nový § M", both word
+orders) — 333 census corrections, 3 166 → 3 317 operative bill→§ pairs, and the corrections
+resolved two extractor-vs-graph disagreements (48 → 46), corroborating the direction of
+trust. The census regeneration ships under its OWN batch-017 filename; the committed
+batch-016 artifact was restored untouched. law-verdict.ts hardened at closure: global
+camelCase rule (every match clears the allowlist), live diacritic allowlist entries, unit
+symbols, bare amends/pending gated, dose/benefit dávka filter. Backlog: 42 pending bills.
+
 ## Pass 50 (track: law) — batch-016: ten verdicts, the amended-§ census, and the accusation-by-omission class named (2026-08-05)
 Writes: 10 bill nodes with pending_review forensic_* props (tisky 162, 228, 46, 186, 125, 106,
 75, 88, 113, 214 — coverage 79 → 89/141; 2 mediums after a three-round audit cycle: tisk 228

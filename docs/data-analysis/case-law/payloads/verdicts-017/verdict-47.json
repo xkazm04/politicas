@@ -1,0 +1,57 @@
+{
+ "billTisk": 47,
+ "statedReasoning": "Senátní návrh ústavního zákona (senátorka Hana Kordová Marvanová a další senátoři, podepsáno předsedou Senátu Milošem Vystrčilem) mění čl. 97 odst. 1 ústavního zákona č. 1/1993 Sb., Ústava České republiky, tak, že za dosavadní text doplňuje větu rozšiřující kontrolní působnost Nejvyššího kontrolního úřadu (NKÚ) o hospodaření právnických osob zřízených zákonem, které poskytují veřejnou službu v oblasti televizního a rozhlasového vysílání — tedy o Českou televizi (zákon č. 483/1991 Sb.) a Český rozhlas (zákon č. 484/1991 Sb.). Obecná část důvodové zprávy zdůvodňuje návrh přes deset let trvající odbornou a politickou diskusí a tvrzením, že dosavadní vnitřní kontrola hospodaření obou médií (Rada České televize, Rada Českého rozhlasu) nemá dostatečné kapacity ani odborné zázemí, zatímco NKÚ je orgánem vnější, nezávislé kontroly bez pravomoci k nápravě — pouze upozorňuje na zjištěné nedostatky formou kontrolního závěru. Zpráva výslovně uvádí, že návrh nebude mít dopad na státní rozpočet ani ostatní veřejné rozpočty, neboť se v této fázi nenavrhuje navýšení prostředků NKÚ na výkon nové působnosti, a že nemá vliv na podnikatelské prostředí. Účinnost se navrhuje k 1. červenci 2026.",
+ "researchedContext": "Text potvrzuje tvrzený rozsah beze zbytku — jde o jedinou doplněnou větu v čl. 97 odst. 1 Ústavy, přiložené srovnávací znění žádnou další změnu neobsahuje. Zvláštní část důvodové zprávy (K čl. I) sama upozorňuje, že na tuto ústavní změnu „by měla navázat změna zákona, kterým se mění zákon č. 166/1993 Sb., o Nejvyšším kontrolním úřadu“ — ústavní text sám žádný kontrolní postup nestanoví, protože čl. 97 odst. 3 Ústavy svěřuje „podrobnosti“ zákonu. Tato navazující novela mezitím existuje: jako sněmovní tisk 217 (rozeslán poslancům 5. června 2026) byl podán samostatný návrh, který v čl. I vkládá do zákona č. 166/1993 Sb. nový § 3 odst. 4 rozšiřující kontrolní působnost NKÚ na hospodaření České televize a Českého rozhlasu a v čl. III stanoví účinnost rovněž na 1. července 2026; jeho důvodová zpráva na tisk 47 výslovně odkazuje („sněmovní tisk č. 47“, „senátní tisk č. 47, 10. volební období“) a shodné datum účinnosti zdůvodňuje právě tím, aby novela Ústavy i prováděcí zákon nabyly účinnosti současně. Zvláštní část zprávy tisku 47 dále výslovně připomíná, že výstupem kontroly NKÚ je podle § 4 zákona č. 166/1993 Sb. pouze písemný kontrolní závěr, který „neznamená žádný bezprostřední zásah do činnosti kontrolovaného subjektu“ — tedy ani do hospodaření České televize nebo Českého rozhlasu. Obecná část zprávy v bodě 5 zároveň potvrzuje, že se rozpočet NKÚ na výkon nové působnosti nezvyšuje.",
+ "unstatedEffects": [
+  {
+   "effect": "Ústavní změna sama o sobě nezakládá funkční kontrolní postup vůči České televizi a Českému rozhlasu — zvláštní část důvodové zprávy k čl. I doporučuje, aby na ni navázala novela zákona č. 166/1993 Sb., o Nejvyšším kontrolním úřadu, kterou ale sama nejmenuje. Prováděcí novela byla mezitím podána jako samostatný sněmovní tisk 217 (čl. I — nový § 3 odst. 4 zákona č. 166/1993 Sb.; čl. III — účinnost 1. července 2026), jehož důvodová zpráva na tisk 47 výslovně odkazuje a shodné datum účinnosti volí právě proto, aby ústavní mandát a prováděcí nástroj nabyly účinnosti současně. Věcný osud obou předloh tak zůstává procedurálně svázán, aniž by to text tisku 47 sám čtenáři sdělil: teprve pokud by prováděcí novela přijata nebyla nebo nabyla účinnosti později, vznikl by ústavní mandát NKÚ bez odpovídajícího prováděcího postupu.",
+   "whoBenefits": "Nelze jednoznačně určit — jde o koordinační závislost dvou souběžně projednávaných předloh, nikoli o zvýhodnění konkrétní skupiny; případné mezidobí bez prováděcí úpravy by nejvíce dopadlo na samotný Nejvyšší kontrolní úřad, kterému by ústavní text svěřil mandát bez konkrétního postupu k jeho výkonu.",
+   "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=217&ct1=0"
+  },
+  {
+   "effect": "Obecná část důvodové zprávy zdůvodňuje rozšíření kontrolní působnosti NKÚ mimo jiné tím, že Rada České televize a Rada Českého rozhlasu jako dosavadní vnitřní kontrolní orgány „nemají dostatečné možnosti ke kontrole hospodaření, ani dostatečné odborné zázemí“ pro kontrolu dvou rozsáhlých institucí veřejné služby (bod 1 obecné části). Bod 5 obecné části ale zároveň přiznává, že se nenavrhuje navýšení objemu prostředků na činnost NKÚ ve státním rozpočtu. Text nikde neřeší, jakými prostředky nebo kapacitami má NKÚ zvládnout kontrolu hospodaření dvou dalších rozsáhlých institucí bez odpovídajícího rozpočtového posílení, ani zda to znamená přesun části jeho stávající kontrolní kapacity od jiných kontrolovaných subjektů.",
+   "whoBenefits": "Nelze jednoznačně určit — bez posílení kapacit NKÚ může nová kontrolní působnost zůstat fakticky méně naplněná, než zpráva předpokládá, nebo vytlačit část kontrolní kapacity věnované dosavadním kontrolovaným subjektům; zpráva tento kompromis nekvantifikuje ani nezmiňuje.",
+   "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=47&ct1=0"
+  }
+ ],
+ "conflictAssessment": "Předkladatelem je Senát Parlamentu České republiky (návrh iniciovala senátorka Hana Kordová Marvanová a další senátoři, podepsal předseda Senátu Miloš Vystrčil) — jde tedy o senátní iniciativu, nikoli o poslanecký návrh. Uzel tohoto tisku v grafu nenese žádnou vazbu předkladatel–tisk, takže formální propojení na konkrétní osobu v datech evidováno není. I kdyby taková vazba evidována byla, grafový model peněžních vazeb v tomto korpusu pokrývá výhradně poslance Poslanecké sněmovny, nikoli senátory — u senátorů tedy graf o peněžních vazbách nevypovídá vůbec nic. Absenci jakéhokoli záznamu proto nelze číst jako potvrzenou absenci střetu zájmů, ale jako mezeru v rozsahu dat, kterou je třeba takto výslovně přiznat. Věcně jde navíc o obecnou institucionální úpravu kontrolní pravomoci NKÚ vůči veřejnoprávním médiím, z níž neplyne přímý peněžní prospěch žádné konkrétní soukromé firmě — ani při doplnění senátorských dat by tedy nebyl důvod očekávat majetkový střet zájmů tohoto typu u předkladatelů.",
+ "severity": "low",
+ "confidence": 3,
+ "citations": [
+  {
+   "claim": "Čl. I doplňuje do čl. 97 odst. 1 Ústavy větu, podle níž NKÚ dále vykonává kontrolu hospodaření právnických osob zřízených zákonem poskytujících veřejnou službu v oblasti televizního a rozhlasového vysílání.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=47&ct1=0"
+  },
+  {
+   "claim": "Zvláštní část důvodové zprávy k čl. I uvádí, že na navrhovanou změnu Ústavy by měla navázat změna zákona č. 166/1993 Sb., o Nejvyšším kontrolním úřadu, a že výstupem kontroly NKÚ je podle tohoto zákona pouze kontrolní závěr bez bezprostředního zásahu do činnosti kontrolovaného subjektu.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=47&ct1=0"
+  },
+  {
+   "claim": "Bod 5 obecné části důvodové zprávy potvrzuje, že se v souvislosti s rozšířením kontrolní působnosti NKÚ nenavrhuje navýšení objemu prostředků na jeho činnost ve státním rozpočtu.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=47&ct1=0"
+  },
+  {
+   "claim": "Čl. II stanoví účinnost ústavního zákona na 1. července 2026.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=47&ct1=0"
+  },
+  {
+   "claim": "Sněmovní tisk 217 vkládá v čl. I do zákona č. 166/1993 Sb. nový § 3 odst. 4 rozšiřující kontrolu NKÚ na Českou televizi a Český rozhlas, v čl. III stanoví účinnost na 1. července 2026 a jeho důvodová zpráva na tisk 47 výslovně odkazuje se zdůvodněním, že obě předlohy mají nabýt účinnosti současně.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=217&ct1=0"
+  },
+  {
+   "claim": "Ústavní zákon č. 1/1993 Sb., Ústava České republiky, je jediným předpisem novelizovaným tímto tiskem.",
+   "kind": "law",
+   "source": "1/1993"
+  },
+  {
+   "claim": "Novelizovaná kontrolní působnost by se týkala hospodaření České televize, zřízené zákonem č. 483/1991 Sb., a Českého rozhlasu, zřízeného zákonem č. 484/1991 Sb.",
+   "kind": "law",
+   "source": "483/1991"
+  }
+ ]
+}
