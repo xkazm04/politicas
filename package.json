@@ -44,6 +44,7 @@
     "unpdf": "^1.8.0"
   },
   "devDependencies": {
+    "@emnapi/runtime": "^1.11.3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
