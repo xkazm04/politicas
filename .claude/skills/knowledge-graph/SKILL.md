@@ -12,7 +12,7 @@ knowledge graph** that *accretes across passes*, plus two by-products — **data
 patterns** and **feature opportunities**. Each pass inherits everything prior
 passes learned (the graph + the vault), so discovery is meant to **compound**.
 
-Extends `.claude/skills/data-analysis.md` (read it first). The new parts are the
+Extends `.claude/skills/data-analysis/SKILL.md` (read it first). The new parts are the
 **frontier**, the **graph write-back**, and the **self-expansion**: discovering an
 edge or pattern *spawns its own next questions*. Read `docs/knowledge-graph-loop.md`
 (the full design) and, at the start of every pass, `[[coverage-ledger]]`

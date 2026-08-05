@@ -1,6 +1,6 @@
 ---
 name: data-analysis
-description: Systematically analyze the politicas civic entity graph with Sonnet subagents — audit data quality per slice, flag hollow stats, mine patterns for backlog items and product opportunities, and stamp coverage so the loop is resumable. Use when the user says "analyze/audit/mine the data", "what's in the corpus", "score the entity graph", or wants the analysis loop to run.
+description: Systematically analyze the politicas civic entity graph with Sonnet subagents — audit data quality per slice, flag hollow stats, mine patterns for backlog items and product opportunities, and stamp coverage so the loop is resumable. Two modes — vault (default, context hand-carried from docs/data-analysis/) and DataHub (references/datahub-mode.md, subagents query the catalog). Use when the user says "analyze/audit/mine the data", "what's in the corpus", "score the entity graph", "run the DataHub arm", or wants the analysis loop to run.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Agent
 ---
 
@@ -20,6 +20,16 @@ vote_event ↔ vote_ballot ↔ absence) · deterministic scorer `lib/analysis/qu
 before starting.
 
 ---
+
+## Two modes
+
+- **Vault mode (default)** — everything below. Subagent context (primer,
+  known-issues, deterministic stats) is hand-carried into the prompt; coverage
+  lives in `docs/data-analysis/coverage-ledger.md`.
+- **DataHub mode** — [`references/datahub-mode.md`](references/datahub-mode.md).
+  Same loop, same slices, same enforced verdict schema; subagents *query* their
+  context from the DataHub catalog and coverage is stamped back to it. Read this
+  file first either way — the mode file documents only the deltas.
 
 ## When to use / NOT use
 

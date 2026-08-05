@@ -1,13 +1,16 @@
----
-name: data-analysis-dh
-description: DataHub-backed variant of /data-analysis. Same civic-corpus intelligence loop, same slices, same enforced verdict schema — but subagents READ their context (source known-issues, deterministic stats, scoring rubric, prior coverage, provenance) from the DataHub catalog instead of having it hand-carried in the prompt, and coverage is stamped back to the catalog. Use when comparing catalog-backed context against the vault path, or once the catalog is the system of record for analysis context.
-allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Agent
----
+# Data Analysis — DataHub-backed mode
 
-# Data Analysis — DataHub-backed variant
+> **Mode file of the `data-analysis` skill** (formerly the standalone
+> `data-analysis-dh` skill). Load it when the user asks for the DataHub /
+> catalog-backed arm: subagents READ their context (source known-issues,
+> deterministic stats, scoring rubric, prior coverage, provenance) from the
+> DataHub catalog instead of having it hand-carried in the prompt, and coverage
+> is stamped back to the catalog. Use when comparing catalog-backed context
+> against the vault path, or once the catalog is the system of record for
+> analysis context.
 
 Identical in purpose, slices, capabilities, and guardrails to
-[`data-analysis.md`](data-analysis.md). **Read that skill first — everything it
+[`../SKILL.md`](../SKILL.md). **Read that skill first — everything it
 says still applies.** This file documents only what CHANGES when the context
 layer is DataHub.
 
