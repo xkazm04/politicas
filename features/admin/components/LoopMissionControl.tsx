@@ -127,11 +127,12 @@ export default function LoopMissionControl({ doc }: { doc: LoopsDoc }) {
   const orderDirty = draftOrder.join(",") !== serverOrderKey;
   const pendingBySeq = new Map(doc.drive.pending.map((p) => [p.seq, p]));
 
-  const run = (fn: () => Promise<LoopActionResult>) => {
+  const run = (fn: () => Promise<LoopActionResult>, onSuccess?: () => void) => {
     setLastError(null);
     startTransition(async () => {
       const res = await fn();
       if (!res.ok) setLastError(res.error);
+      else onSuccess?.();
     });
   };
 
@@ -256,7 +257,10 @@ export default function LoopMissionControl({ doc }: { doc: LoopsDoc }) {
                     armedLabel="Opravdu zařadit"
                     disabled={pendingAction || doc.drive.pending.some((p) => p.target === loop.id)}
                     onConfirm={() =>
-                      run(() => requeueLoopStep({ loopId: loop.id, note: requeueNote || undefined }))
+                      run(
+                        () => requeueLoopStep({ loopId: loop.id, note: requeueNote || undefined }),
+                        () => setRequeueNote(""),
+                      )
                     }
                   />
                 </td>
