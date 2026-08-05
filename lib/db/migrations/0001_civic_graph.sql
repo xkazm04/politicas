@@ -263,6 +263,121 @@ create table if not exists review_audit (
 create index if not exists review_audit_edge_idx on review_audit(src, rel, dst);
 create index if not exists review_audit_decided_idx on review_audit(decided_at desc);
 
+-- ── tamper-evident ledger (ADDITIVE — see lib/db/pglite/ledger.ts) ───────────
+-- review_audit becomes a hash chain: every new row stores the previous row's
+-- hash and its own hash over the pinned canonical serialization. Rows written
+-- before the chain existed keep NULL hashes and sit outside the chain — the
+-- chain (and its verification) covers rows from its genesis forward. The
+-- ALTERs below upgrade pre-existing data dirs; `create table if not exists`
+-- alone would leave them without the columns.
+alter table review_audit add column if not exists chain_pos bigint;
+alter table review_audit add column if not exists prev_hash text;
+alter table review_audit add column if not exists row_hash  text;
+create unique index if not exists review_audit_chain_pos_uidx
+  on review_audit(chain_pos) where chain_pos is not null;
+
+-- ingest runs can be SEALED: a Merkle root over the canonical hashes of every
+-- row the run wrote (see LedgerRepository.sealIngestRun). NULL = not sealed.
+alter table ingest_run add column if not exists merkle_root       text;
+alter table ingest_run add column if not exists merkle_leaf_count integer;
+alter table ingest_run add column if not exists merkle_sealed_at  timestamptz;
+
+-- ── bitemporal claims (ADDITIVE — see lib/db/pglite/repositories/kg.ts) ──────
+-- Every kg claim carries TWO timelines:
+--   • valid_from / valid_to  — WORLD time: when the claimed fact held in reality.
+--     Nullable; NULL = unknown/unbounded. Writers do not populate these yet
+--     (KgNodeRow/KgEdgeRow carry no world-time fields) — the columns exist so
+--     later batches can adopt them without another migration.
+--   • recorded_at / superseded_at — RECORD time: when the store learned the
+--     version / when a newer version replaced it. On the SERVING tables
+--     superseded_at is always NULL (a serving row IS the current version);
+--     superseded versions live in kg_node_history / kg_edge_history below.
+-- Backfill: `add column … default now()` fills pre-existing rows with the
+-- migration instant — the honest reading is "recorded since this migration".
+alter table kg_node add column if not exists valid_from    timestamptz;
+alter table kg_node add column if not exists valid_to      timestamptz;
+alter table kg_node add column if not exists recorded_at   timestamptz not null default now();
+alter table kg_node add column if not exists superseded_at timestamptz;
+alter table kg_edge add column if not exists valid_from    timestamptz;
+alter table kg_edge add column if not exists valid_to      timestamptz;
+alter table kg_edge add column if not exists recorded_at   timestamptz not null default now();
+alter table kg_edge add column if not exists superseded_at timestamptz;
+
+-- Superseded versions, append-only. A history row's record-time span is
+-- [recorded_at, superseded_at) — half-open, so at the exact supersede instant
+-- the NEW version is visible and the old one is not. No primary key: one claim
+-- key legitimately has many versions. The ONLY writers are the supersede paths
+-- in repositories/kg.ts and repositories/review.ts; nothing updates or deletes
+-- history rows.
+create table if not exists kg_node_history (
+  id               text not null,
+  kind             text not null,
+  label            text not null,
+  props            jsonb not null default '{}'::jsonb,
+  first_seen_pass  integer,
+  provenance       jsonb not null default '{}'::jsonb,
+  valid_from       timestamptz,
+  valid_to         timestamptz,
+  recorded_at      timestamptz not null,
+  superseded_at    timestamptz not null
+);
+create index if not exists kg_node_history_id_idx on kg_node_history(id, recorded_at desc);
+
+create table if not exists kg_edge_history (
+  src            text not null,
+  rel            text not null,
+  dst            text not null,
+  weight         real,
+  props          jsonb not null default '{}'::jsonb,
+  provenance     jsonb not null default '{}'::jsonb,
+  valid_from     timestamptz,
+  valid_to       timestamptz,
+  recorded_at    timestamptz not null,
+  superseded_at  timestamptz not null
+);
+create index if not exists kg_edge_history_key_idx on kg_edge_history(src, rel, dst, recorded_at desc);
+
+-- ── change events (ADDITIVE — moonshot 5C civic seismograph) ─────────────────
+-- Typed, dated, evidence-pointed change events derived from the record itself:
+-- the bitemporal kg history (tie/contract versions) + review_audit today, and
+-- adapter snapshot-diffs (lib/ingest/changeEvents.ts) from here on. DERIVED,
+-- recomputable, idempotent: `id` is a deterministic natural key
+-- (chev:<type>:<…>), so re-derivation upserts in place and never duplicates the
+-- stream. recorded_at is RECORD time — when the store learned the fact — never
+-- world time. entity_keys holds the public watch keys (poslanec:<pspId>,
+-- firma:<ico>, tisk:<n>) as a jsonb array; the GIN index backs the per-entity
+-- `?entita=` subscription filter. The ONLY writer is
+-- lib/db/pglite/repositories/changes.ts.
+create table if not exists change_event (
+  id           text primary key,
+  event_type   text not null,
+  recorded_at  timestamptz not null,
+  entity_keys  jsonb not null default '[]'::jsonb,
+  src          text,
+  dst          text,
+  evidence     jsonb not null default '{}'::jsonb,
+  source       text not null,
+  payload      jsonb not null default '{}'::jsonb
+);
+create index if not exists change_event_recorded_idx on change_event(recorded_at desc);
+create index if not exists change_event_type_idx on change_event(event_type);
+create index if not exists change_event_entity_idx on change_event using gin(entity_keys);
+
+-- ── anonymous lens submissions (ADDITIVE — moonshot 7B referendum) ───────────
+-- One row per submitted reader weight-vector from /referendum. NO identity of
+-- any kind (no IP, no fingerprint, no cookie id) — the k-anonymity floor is
+-- enforced at read time (the median renders only when n ≥ 20, disclosed on the
+-- surface). `vahy` holds the canonical dash vector in LENS_COMPONENT_ORDER
+-- (features/civicscore/lens.ts is the ONLY codec; the repository validates
+-- every write through decodeWeights and never repairs an invalid vector).
+-- The ONLY writer is lib/db/pglite/repositories/weights.ts.
+create table if not exists lens_submission (
+  id           text primary key,
+  vahy         text not null,
+  submitted_at timestamptz not null default now()
+);
+create index if not exists lens_submission_at_idx on lens_submission(submitted_at desc);
+
 -- ── derived theme tags on roll calls (Silver-layer sem_classify enrichment) ──
 -- DERIVED metadata like slice_quality/kg_node: recomputable from vote titles,
 -- never source-of-truth. Stamped with model+method so a rendered tag cites how
