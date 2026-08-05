@@ -11,9 +11,13 @@
 name: sentinel
 
 on:
-  schedule:
-    # Nightly at 03:17 UTC (off the full hour to dodge cron herds).
-    - cron: "17 3 * * *"
+  # Cron disabled 2026-08-05: hosted runners never have the local 1.6 GB
+  # `.pglite` store (see HONEST LIMITATION above), so the nightly run only
+  # accumulated red. Run manually via workflow_dispatch from the ingest
+  # machine's self-hosted runner (or after wiring the ADOPTION POINT below);
+  # restore the schedule block once the store is reachable from CI:
+  #   schedule:
+  #     - cron: "17 3 * * *"   # nightly 03:17 UTC, off the hour to dodge cron herds
   workflow_dispatch: {}
 
 jobs:
