@@ -1,0 +1,52 @@
+{
+  "billTisk": 130,
+  "statedReasoning": "Senátní návrh (předkladatelé Ivo Trešl a další senátoři, podepsáno předsedou Senátu Milošem Vystrčilem) mění zákon č. 95/2004 Sb., o podmínkách získávání a uznávání odborné způsobilosti a specializované způsobilosti k výkonu zdravotnického povolání lékaře, zubního lékaře a farmaceuta. Podle obecné části důvodové zprávy se v roce 2017 obor „Úrazová chirurgie (traumatologie)“ přesunul ze základních specializačních oborů mezi obory nástavbové, což podle předkladatelů vedlo ke skokovému propadu počtu atestujících (uváděn pokles o 90 % za rok) a ohrožuje personální stabilitu traumacenter i schopnosti vojenské zdravotní služby. Návrh proto vkládá do přílohy č. 1 části I. LÉKAŘI zákona nový základní obor „úrazová chirurgie“ s odborností chirurgický nebo ortopedický (tabulkový sloupec zdrojového dokumentu, přeložen z dvouřádkového zalomení buňky) a délkou vzdělávání 5 let (namísto dosavadních 90 měsíců v rámci nástavbového oboru). Předkladatelé uvádějí podporu odborných společností (Česká společnost pro ortopedii a traumatologii, Česká chirurgická společnost ČLS JEP, Společnost urgentní medicíny a medicíny katastrof ČLS JEP), Ministerstva zdravotnictví a Ministerstva obrany, a navrhují schválení již v prvním čtení s odkazem na naléhavost. Návrh podle důvodové zprávy nemá dopad na státní rozpočet.",
+  "researchedContext": "Přiložený text potvrzuje vložení nového řádku 40 do tabulky přílohy č. 1 části I. LÉKAŘI (tabulkový řádek, sloupce sjednoceny do lineárního pořadí: „40. úrazová chirurgie — chirurgický nebo ortopedický — úrazový chirurg — 5“) s přečíslováním dosavadních řádků 40 až 43 na 41 až 44, přesně podle obecné části. Přechodná ustanovení (čl. II) obsahují tři body: bod 1 umožňuje akreditovaným zařízením pokračovat ve vzdělávání v nástavbovém oboru úrazová chirurgie na základě dosavadní akreditace nejdéle 5 let od účinnosti zákona; bod 2 umožňuje totéž pro lékaře, kteří se do specializačního oboru zařadili až po účinnosti zákona, nejdéle 2 roky; bod 3 stanoví, že lékaři se specializovanou způsobilostí v oboru traumatologie získanou před účinností zákona se považují za lékaře se specializovanou způsobilostí v novém oboru úrazová chirurgie. Bod 3 přechodných ustanovení přitom tuto rovnocennost výslovně váže na zákon č. 95/2024 Sb., zatímco novelizovaným (a jediným dotčeným) předpisem je v celém zbytku textu důsledně zákon č. 95/2004 Sb. — jde o zjevnou písařskou chybu v roku vydání přímo v textu přechodného ustanovení, kterou obecná ani zvláštní část důvodové zprávy nezmiňuje a nevysvětluje. Přechodná ustanovení bodů 1 a 2 dále umožňují pokračovat ve vzdělávání a přijímat nové lékaře na pracovištích akreditovaných pro dosavadní nástavbový obor, aniž by musela projít novou akreditací odpovídající požadavkům na obor základní; text neuvádí, v čem se akreditační požadavky na základní a nástavbový obor liší. Podle rozpisu projednávání byl dne 2. 4. 2026 jako garanční výbor navržen výbor pro zdravotnictví (VZ); tisk je ke dni zpracování tohoto hodnocení ve stavu „navrženo“.",
+  "unstatedEffects": [
+    {
+      "effect": "Bod 3 přechodných ustanovení, který určuje, že dosavadní specialisté v oboru traumatologie se automaticky považují za specialisty v novém oboru úrazová chirurgie, odkazuje na zákon č. 95/2024 Sb. namísto novelizovaného zákona č. 95/2004 Sb. Jde o chybný odkaz přímo v normativním textu přechodného ustanovení, které má určovat právní postavení již atestovaných lékařů; návrh ani jeho zvláštní část tuto nesrovnalost nezmiňují.",
+      "whoBenefits": "Nelze jednoznačně určit — jde o legislativně-technickou vadu textu, nikoli o hmotněprávní zvýhodnění konkrétní skupiny osob; dotčena je právní jistota lékařů, jejichž uznání specializované způsobilosti v novém oboru se má touto chybně odkazovanou normou řídit.",
+      "evidence": "Čl. II bod 3 tisku 130: „Lékaři, kteří přede dnem nabytí účinnosti tohoto zákona získali specializovanou způsobilost v oboru traumatologie, se považují za lékaře se specializovanou způsobilostí ve specializačním oboru úrazová chirurgie podle zákona č. 95/2024 Sb., ve znění účinném ode dne nabytí účinnosti tohoto zákona.“"
+    },
+    {
+      "effect": "Přechodná ustanovení čl. II body 1 a 2 umožňují akreditovaným zařízením pokračovat ve vzdělávání v oboru úrazová chirurgie (nejdéle 5, resp. 2 roky) na základě akreditace udělené podle dosavadní právní úpravy pro nástavbový obor, aniž by pro pokračování vzdělávání v nově zavedeném základním oboru musela projít novým akreditačním řízením. Návrh přitom neuvádí, zda a v čem se požadavky na akreditaci pro základní obor liší od požadavků pro obor nástavbový.",
+      "whoBenefits": "Nelze jednoznačně určit — profitovat mohou stávající akreditovaná zdravotnická zařízení, která díky přechodným ustanovením mohou pokračovat ve vzdělávací činnosti bez nutnosti prokázat splnění případně odlišných akreditačních požadavků pro nově zavedený základní obor po dobu až 5 let od účinnosti zákona.",
+      "evidence": "Čl. II body 1 a 2 tisku 130 (přechodná ustanovení o pokračování vzdělávání akreditovaných zařízení na základě dosavadní akreditace nástavbového oboru)"
+    }
+  ],
+  "conflictAssessment": "U tisku 130 není v datové sadě rozepsán žádný řádek předkladatele s peněžními vazbami (jako předkladatel je uveden senátor Ivo Trešl a další senátoři) a v souboru tisků hodnocených v této a předchozích dávkách není u žádného jiného tisku evidován řádek předkladatele jménem Trešl ani jiného senátora uvedeného jako předkladatel tisku 130. Nejde tedy o zjištěnou absenci peněžních vazeb, ale o mezeru v pokrytí dat: pro senátory jako předkladatele senátních tisků datová sada v dostupném rozsahu žádné záznamy peněžních vazeb neobsahuje, a proto nelze střet zájmů předkladatele pro tento tisk ani potvrdit, ani vyloučit.",
+  "severity": "medium",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Návrh vkládá do přílohy č. 1 části I. LÉKAŘI zákona č. 95/2004 Sb. nový základní specializační obor „úrazová chirurgie“ s délkou vzdělávání 5 let a přečísluje dosavadní řádky 40 až 43 na 41 až 44.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=130&ct1=0"
+    },
+    {
+      "claim": "Čl. II bod 3 přechodných ustanovení tisku 130 určuje rovnocennost dosavadní specializace v oboru traumatologie s novým oborem úrazová chirurgie s odkazem na zákon č. 95/2024 Sb. namísto novelizovaného zákona č. 95/2004 Sb.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=130&ct1=0"
+    },
+    {
+      "claim": "Čl. II body 1 a 2 tisku 130 umožňují akreditovaným zařízením pokračovat ve vzdělávání v oboru úrazová chirurgie na základě dosavadní akreditace nástavbového oboru po dobu nejdéle 5, resp. 2 let od účinnosti zákona.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=130&ct1=0"
+    },
+    {
+      "claim": "Novela se týká zákona č. 95/2004 Sb., o podmínkách získávání a uznávání odborné způsobilosti a specializované způsobilosti k výkonu zdravotnického povolání lékaře, zubního lékaře a farmaceuta.",
+      "kind": "law",
+      "source": "č. 95/2004 Sb."
+    },
+    {
+      "claim": "Obecná část důvodové zprávy tisku 130 uvádí, že se obor „Úrazová chirurgie (traumatologie)“ v roce 2017 přesunul mezi obory nástavbové, což vedlo ke skokovému propadu počtu atestujících (uváděn pokles o 90 % za rok), a žádá o schválení návrhu již v prvém čtení s odkazem na naléhavost.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=130&ct1=0"
+    },
+    {
+      "claim": "Tisk 130 je senátní návrh zákona; podle historie projednávání na webu Poslanecké sněmovny je předkladatelem senátor Ivo Trešl a další senátoři.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=130"
+    }
+  ]
+}

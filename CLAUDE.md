@@ -926,6 +926,29 @@ Route map (politicas.md roadmap execution, sample data):
   (the `č. N/RRRR Sb.` title citation is the only structured bill→law link
   psp.cz publishes); fabricating them would violate the brand rule. Mock kept as
   fallback.
+  **§-level sector attribution reaches the reader (2026-08-05, law-loop batch-020
+  P2).** `docs/data-analysis/case-law/payloads/batch-017-sector-attribution-para.json`
+  — 29 DERIVED, UNGATED flags (bill × company × statute), each already carrying
+  the disposition of a PUBLISHED forensic verdict — sat on disk unrendered. It now
+  joins the bill's conflict block: `features/lawwatch/sectorAttribution.ts` (pure,
+  colocated test) projects each raw row and **drops** — never renders incomplete —
+  a row whose `verdictDisposition` fails the same Czech-language + pipeline-jargon
+  gate `readForensic()` already runs on forensic prose, because an adjudicated flag
+  may never read as a bare neutral lead. `getLawData.ts` reads the payload file the
+  same way it reads `bill-summaries-cz.json` (missing/malformed → an empty index,
+  never a page failure) and attaches `sectorAttributionFlags` per bill by `cislo`.
+  Each rendered flag names the company, its sector (`lawwatch.sector.*`, closed
+  vocabulary, unmapped renders verbatim), the statute, its operative §§ **when the
+  census isolated them** — a `null` §-list states in one Czech sentence why (census
+  carries no §-bucket vs. the census's own partitioner fell back), the verdict's
+  disposition verbatim, and a `deterministické odvození — lidskou branou neprochází`
+  label reusing the /overeni `ungated` vocabulary rather than inventing a second
+  phrase for the same fact. Live: 8 of 141 bills carry flags (cislo 11/67/77/103/
+  121/154/201/221), 27 of 29 flags carry operative §§, 2 carry none (both a census
+  gap, not a partition fallback — 0 rows in the payload set that flag).
+  `features/lawwatch/messages.test.ts` is the feature's first messages test: cs/en
+  key parity, ICU-variable parity, the Czech gate over every `sectorAttribution.*`
+  string, and no `dávka`/`batch`/`pass` token leaking into reader-facing copy.
 - `/denik` — **Deník republiky** (features/denik): the chronological daily
   record of the state — signed contracts of firms MPs own/run, committee
   assignments, Sbírka publication, registry role starts/ends, human-gate

@@ -36,6 +36,12 @@ export const RAPPORTEUR_SCOPE_KEYS: ReadonlySet<string> = new Set([
 /** Citation kind tokens with a `lawwatch.citationKind.*` label. */
 export const CITATION_KIND_KEYS: ReadonlySet<string> = new Set(["bill_text", "web", "law", "graph_fact"]);
 
+/** Sector tokens (batch-017 sector-attribution payload) with a `lawwatch.sector.*` label.
+ * scripts/case-loops/law/company-sectors.ts's `Sector` type carries more values than the
+ * payload actually uses — only the ones present get a label; an unmapped one renders
+ * verbatim and labelled untranslated at the render site (the tieFlags.ts precedent). */
+export const SECTOR_KEYS: ReadonlySet<string> = new Set(["economy", "environment", "agriculture", "digital", "health"]);
+
 /** psp.cz historie tisku (PSP10 = o=10) — jediný stabilní veřejný odkaz na tisk. */
 export const pspBillUrl = (cislo: number | null): string | null =>
   cislo != null ? `https://www.psp.cz/sqw/historie.sqw?o=10&t=${cislo}` : null;

@@ -54,6 +54,7 @@ const bill = (over: Partial<LawBillView>): LawBillView => ({
   paragraphDiffs: [],
   amendedLawsFull: [],
   amendsUndercount: 0,
+  sectorAttributionFlags: [],
   ...over,
 });
 
@@ -72,6 +73,8 @@ const data = (bills: LawBillView[]): LawData => ({
   committeeRoutedBills: 0,
   censusBillCount: 0,
   censusUndercountTotal: 0,
+  sectorAttributionBillCount: 0,
+  sectorAttributionFlagCount: 0,
   pass: null,
 });
 

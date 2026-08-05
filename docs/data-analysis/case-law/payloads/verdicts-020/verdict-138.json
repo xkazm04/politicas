@@ -1,0 +1,77 @@
+{
+  "billTisk": 138,
+  "statedReasoning": "Poslanecký návrh Víta Rakušana mění zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou účastí státu (nominační zákon). Podle obecné části důvodové zprávy platná úprava § 16 stanoví, že stanovisko Výboru pro nominaci není pro ministerstvo závazné — ministerstvo může jmenovat nebo navrhnout nominovanou osobu do funkce i přes nedoporučující stanovisko, jen s povinností odůvodnění a zveřejnění. Předkladatel tento stav označuje za jeden z hlavních argumentů uváděných pro úplné zrušení nominačního zákona (návrh na zrušení je podle vlastního textu předložen ve sněmovním tisku č. 116) a navrhuje jej řešit opačně — posílením závaznosti nedoporučujícího stanoviska namísto zrušení zákona. Nové znění § 16 rozlišuje účinky stanoviska: doporučující stanovisko zůstává nezávazné, nedoporučující stanovisko se nově stává pro ministerstvo závazným a brání jmenování či navržení osoby do funkce. Ministerstvo má nově povinnost zveřejnit a zaslat předsedovi Výboru informaci nejen o jmenování či navržení, ale i o tom, že k němu nedošlo z důvodu závazného nedoporučení. Navazně se mění § 15 odst. 6 tak, aby se záznam z pohovoru a profesní životopis uchazeče zveřejnily i v případě, že k jmenování nebo navržení nedojde. Návrh podle důvodové zprávy nemá rozpočtový, sociální, environmentální ani korupční dopad a navrhovaná účinnost je 1. ledna 2027.",
+  "researchedContext": "Přiložené platné znění potvrzuje popsaný stav: dosavadní § 16 zákona č. 353/2019 Sb. výslovně říká, že „stanovisko Výboru není pro ministerstvo závazné“, a to i v případě nedoporučení — ministerstvo v takovém případě jen musí v odůvodnění vysvětlit, proč dospělo k odlišnému závěru. Novelizovaný § 16 odst. 2 mění tento následek tak, že „Nedoporučí-li Výbor podle § 15 odst. 3 nominaci osoby, je toto stanovisko pro ministerstvo závazné; ministerstvo nominovanou osobu do funkce nejmenuje ani ji do funkce nenavrhne“. Odstavec 1 přitom u doporučujícího stanoviska zachovává nezávaznost beze změny — návrh tedy zavádí jednosměrnou (asymetrickou) závaznost jen pro záporné stanovisko, nikoli obecnou povinnost ministerstva řídit se Výborem. Nový odstavec 4 dále stanoví, že v případě závazného nedoporučení „předloží Výboru nový návrh nominace; to neplatí, pominula-li potřeba obsazení funkce“ — text nikde neurčuje, kdo a jakým postupem posuzuje, že potřeba obsazení funkce pominula, ani nestanoví pro toto posouzení žádnou lhůtu či součinnost Výboru. Informační povinnost ministerstva podle odstavce 3 je vázána jen na obecnou lhůtu „bez zbytečného odkladu“, zatímco pro samotné projednání nominace Výborem platí v § 15 odst. 1 pevná lhůta 10 pracovních dnů; návrh tuto asymetrii nijak neřeší a nezavádí obdobnou pevnou lhůtu pro ministerstvo. Podle rozpisu projednávání byl dne 15. 4. 2026 jako garanční výbor navržen hospodářský výbor (HV); tisk je ke dni zpracování tohoto hodnocení ve stavu „navrženo“.",
+  "unstatedEffects": [
+    {
+      "effect": "Nový § 16 odst. 4 ukládá ministerstvu po závazném nedoporučení Výboru předložit Výboru nový návrh nominace, ale z povinnosti vyjímá případ, kdy „pominula potřeba obsazení funkce“ — návrh neurčuje, kdo tuto skutečnost posuzuje ani jak se prokazuje. Ministerstvo tak může samo vyhodnotit, že funkce již není třeba obsadit, a tím se zprostit opakované nominace, aniž by toto posouzení podléhalo kontrole Výboru nebo jiné instituce.",
+      "whoBenefits": "Nelze jednoznačně určit — profitovat může ministerstvo (resp. člen vlády odpovědný za nominaci), které tímto ustanovením získává vlastní diskreci ponechat řídící či dozorčí funkci ve firmě s majetkovou účastí státu neobsazenou bez nutnosti nové nominace, aniž je tento krok vázán na součinnost či přezkum Výboru.",
+      "evidence": "§ 16 odst. 4 novelizovaného znění zákona č. 353/2019 Sb.: „V případě podle odstavce 2 předloží Výboru nový návrh nominace; to neplatí, pominula-li potřeba obsazení funkce.“ (tisk 138, čl. I bod 2)"
+    },
+    {
+      "effect": "Informační povinnost ministerstva podle nového § 16 odst. 3 (zaslat předsedovi Výboru a zveřejnit informaci o jmenování, navržení, nebo o tom, že k němu nedošlo) je vázána jen na obecnou lhůtu „bez zbytečného odkladu“, zatímco projednání nominace samotným Výborem má v § 15 odst. 1 pevnou lhůtu 10 pracovních dnů; tato lhůta zůstává novelou nedotčena. Návrh tak zpřísňuje závaznost stanoviska Výboru, aniž by ministerstvu uložil obdobně pevnou lhůtu pro splnění navazující informační a zveřejňovací povinnosti.",
+      "whoBenefits": "Nelze jednoznačně určit — dotčena je zejména veřejná kontrola procesu, protože bez pevné lhůty může zveřejnění informace o výsledku nominace (a navazující zveřejnění záznamu z pohovoru podle § 15 odst. 6) ze strany ministerstva probíhat s odstupem, který návrh sám nijak neomezuje.",
+      "evidence": "§ 15 odst. 1 (nezměněná lhůta 10 pracovních dnů pro Výbor) a § 16 odst. 3 novelizovaného znění (lhůta „bez zbytečného odkladu“ pro ministerstvo) zákona č. 353/2019 Sb. (tisk 138, platné znění s vyznačením změn)"
+    }
+  ],
+  "conflictAssessment": "Jediným předkladatelem je Vít Rakušan. V datové sadě jsou u něj evidovány čtyři peněžní vazby, všechny vedené jako institucionální (nikoli osobní příjem poslance) a všechny čekající na lidskou kontrolu: Společenství vlastníků jednotek domu čp. 904, 905, 906, Rimavské Soboty, Kolín II (funkce místopředsedy výboru, 0 Kč), Vodní cesty na Labi, o.p.s. (funkce předsedy dozorčí rady, 0 Kč), Změna pro Kolín z.s. (funkce člena výboru, 0 Kč) a Nadační fond Gymnázia Kutná Hora (funkce člena správní rady, úhrn veřejných smluv firmy 200 000 Kč). Žádný z těchto subjektů není právnickou osobou s majetkovou účastí státu ve smyslu zákona č. 353/2019 Sb. — SVJ, obecně prospěšná společnost, spolek a nadační fond nespadají do působnosti nominačního zákona, jehož nový § 16 upravuje obsazování řídících a dozorčích orgánů firem s majetkovou účastí státu. Peněžní vazby předkladatele proto nemají věcný vztah k předmětu novely.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Návrh mění zákon č. 353/2019 Sb. tak, že nedoporučující stanovisko Výboru se stává pro ministerstvo závazným (dosud bylo nezávazné), a rozšiřuje zveřejňovací povinnost § 15 odst. 6 i na případy, kdy k jmenování nebo navržení nedojde.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=138&ct1=0"
+    },
+    {
+      "claim": "Předkladatel v obecné části důvodové zprávy uvádí, že nezávaznost stanoviska Výboru je jedním z hlavních argumentů pro zrušení nominačního zákona navržené sněmovním tiskem č. 116, a navrhovanou novelu staví jako alternativu k tomuto zrušení.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=138&ct1=0"
+    },
+    {
+      "claim": "Nový § 16 odst. 4 váže povinnost ministerstva předložit Výboru nový návrh nominace po závazném nedoporučení na výjimku „pominula-li potřeba obsazení funkce“, aniž určuje, kdo tuto skutečnost posuzuje.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=138&ct1=0"
+    },
+    {
+      "claim": "§ 15 odst. 1 zákona č. 353/2019 Sb. stanoví Výboru pro projednání nominace pevnou lhůtu 10 pracovních dnů; nový § 16 odst. 3 ukládá ministerstvu jen obecnou lhůtu „bez zbytečného odkladu“.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=138&ct1=0"
+    },
+    {
+      "claim": "Novela se týká zákona č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou účastí státu (nominační zákon).",
+      "kind": "law",
+      "source": "č. 353/2019 Sb."
+    },
+    {
+      "claim": "Vít Rakušan má peněžní vazbu na Společenství vlastníků jednotek domu čp. 904,905,906, Rimavské Soboty, Kolín II (funkce místopředsedy výboru, 0 Kč, vazba čeká na lidskou kontrolu).",
+      "kind": "graph_fact",
+      "source": "company:ico:26745615"
+    },
+    {
+      "claim": "Vít Rakušan má peněžní vazbu na Vodní cesty na Labi, o.p.s. (funkce předsedy dozorčí rady, 0 Kč, vazba čeká na lidskou kontrolu).",
+      "kind": "graph_fact",
+      "source": "company:ico:02312701"
+    },
+    {
+      "claim": "Vít Rakušan má peněžní vazbu na Změna pro Kolín z.s. (funkce člena výboru, 0 Kč, vazba čeká na lidskou kontrolu).",
+      "kind": "graph_fact",
+      "source": "company:ico:22874381"
+    },
+    {
+      "claim": "Vít Rakušan má peněžní vazbu na Nadační fond Gymnázia Kutná Hora v souhrnné výši 200 000 Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu).",
+      "kind": "graph_fact",
+      "source": "company:ico:68404999"
+    },
+    {
+      "claim": "Tisku 138 byl dne 15. dubna 2026 jako garanční výbor navržen hospodářský výbor (HV); k dnešnímu dni je tisk ve stavu „navrženo“.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=138"
+    },
+    {
+      "claim": "Navrhovaná účinnost novely tisku 138 je stanovena na 1. ledna 2027.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=138&ct1=0"
+    }
+  ]
+}

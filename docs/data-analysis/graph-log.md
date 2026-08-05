@@ -1200,6 +1200,30 @@ corrected verdict carries the batch's sharpest found-by-accident effect: the ope
 grants relief „o 10 %" while the DZ mostly argues „o 10 procentních bodů" (54 % vs 50 % against
 a ~60% target), uncommented anywhere. Backlog: 0 collision pairs, 62 pending bills.
 
+## Pass 54 (track: law) — batch-020: ten verdicts, the chronology rule, and the sector surface shipping (2026-08-06)
+
+Writes: 10 bill nodes with pending_review forensic_* props (tisky 35, 208, 48, 138, 130, 99,
+199, 82, 42, 36 — coverage 119 → 129/141; 3 mediums). Headline: tisk 42 IS the parallel
+Prague-council bill published verdict-49 documented — the same EIA-extension goal via a
+different statute, now recorded from both sides with the chronology exact (42 predates 49 by
+a week, so the first cut's omission accusation was CHRONOLOGICALLY IMPOSSIBLE and the shared
+referral date is a session-batching artifact, both disclosed). Also: tisk 82 amends a
+2025 law eleven days after it took effect under a „čistě technická" framing its own budget
+table undercuts by a precise 185 mil Kč; tisk 130's transitional provisions cite the REAL
+statute 95/2024 where 95/2004 is meant — a scrivener's error no citation gate can catch;
+tisk 35's sponsors' pay freeze runs their self-interest backwards. The audit blocked round 1
+on 6 (re-inflected quotations for the fourth consecutive batch, two impossible-omission
+accusations, wrong dates, a false interval); a dedicated remediation agent's own
+98-quotation self-sweep caught hidden re-inflections beyond the audit's list; round 2 closed
+with an independent 99-span sweep corroborating zero quotation defects. THE RULE THIS BATCH
+ADDS: an omission claim needs a could-it-have-known check — the accused document must
+postdate what it allegedly ignores; grep alone is not sufficient. Build shipped with the
+batch: /zakony renders the batch-017 sector-attribution payload (8 bills, operative §§,
+verdict dispositions verbatim, /overeni's ungated vocabulary imported not copied; gate
+failure DISCLOSES rather than deletes — corrected at closure, where the repo's own jargon
+gate caught the disclosure copy's „pipeline" token). Backlog: 12 pending bills — one batch
+to full corpus coverage.
+
 ## Pass 53 (track: law) — batch-019: ten verdicts, the summary-source migration, and the field-parallelism rule (2026-08-05)
 
 Writes: 10 bill nodes with pending_review forensic_* props (tisky 5, 15, 49, 235, 57, 163,

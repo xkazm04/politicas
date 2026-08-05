@@ -1,0 +1,87 @@
+{
+ "billTisk": 48,
+ "statedReasoning": "Tisk 48 je vládní návrh (předkladatel ministr zemědělství Marek Výborný, dokument podepsán i předsedou vlády Petrem Fialou dne 12. 11. 2025), který mění zákon č. 326/2004 Sb., o rostlinolékařské péči, ve 35 bodech. Důvodová zpráva jako hlavní cíl uvádí soulad s evropskými nařízeními (EU) 2022/2379 o statistice zemědělských vstupů a výstupů a prováděcím nařízením Komise (EU) 2023/564 o elektronizaci záznamů o používání přípravků na ochranu rostlin, dále doplnění povinností při nakládání s ošetřeným osivem a sadbou, rozšíření možností získání odborné způsobilosti rostlinolékařů ve státní správě o specializovanou odbornou průpravu organizovanou Ústředním kontrolním a zkušebním ústavem zemědělským (dále „Ústav“), a zavedení systémového postupu při mimořádných událostech způsobených škodlivými organismy rostlin podle vzoru veterinárního zákona. Zpráva (bod 7) uvádí, že návrh nepředpokládá dopad na státní rozpočet ani ostatní veřejné rozpočty a že jediným hospodářským dopadem jsou nové povinnosti podnikatelů vést a předávat záznamy v elektronické podobě, u nezemědělských profesionálních uživatelů odhadované v řádu nižších desítek tisíc korun; u zemědělců hospodařících na výměře nad 200 ha zpráva popisuje naopak zmírnění dosavadní povinnosti měsíčního předávání záznamů, protože se nově bude týkat jen výměry ve vyjmenovaných kulturách (orná půda, vinice, chmelnice, ovocný sad). Zpráva (bod 10) uvádí, že návrh neobsahuje ustanovení, která by byla předmětem korupčního rizika. Účinnost je navržena k 1. lednu 2027 - zpráva to zdůvodňuje tím, že prováděcí nařízení Komise (EU) 2023/564 bylo na úrovni příslušného výboru Evropské komise změněno tak, aby členským státům umožnilo odložit elektronizaci záznamů právě do tohoto data.",
+ "researchedContext": "Podle historie projednávání na webu Poslanecké sněmovny prošel návrh prvním čtením 10. 3. 2026 (usnesení č. 106, přikázán výborům s třicetidenní lhůtou k projednání), zemědělský výbor jako garanční výbor k němu přijal usnesení 18. 3. a 2. 4. 2026 a stanovisko (bod G) 28. 4. 2026. Druhé čtení proběhlo 15. 4. 2026 s obecnou a podrobnou rozpravou; k návrhu bylo podle záznamu historie podáno 16 pozměňovacích návrhů (č. 822 až 1383) v období od 14. 4. do 12. 6. 2026. Třetí čtení, zahájené 27. 5. a pokračující 5. 6. 2026, skončilo usnesením č. 204, jímž byl návrh vrácen do obecné rozpravy druhého čtení. K dnešnímu dni (5. 8. 2026) se návrh podle téhož zdroje nachází zpět v obecné rozpravě druhého čtení a nebyl dosud schválen ve třetím čtení. Obsah jednotlivých pozměňovacích návrhů nebyl v rámci tohoto zpracování ověřen z primárních textů.",
+ "unstatedEffects": [
+  {
+   "effect": "Hospodářská a finanční část důvodové zprávy (bod 7) hodnotí dopad novely výhradně jako administrativní náklad pro podnikatele spojený s vedením a předáváním záznamů v elektronické podobě. Zvláštní část zprávy (K bodu 6) ale zdůvodňuje i jinou změnu § 49 - výslovné stanovení, že poskytnutí údajů o spotřebách účinných látek výrobcům, distributorům pitné vody a zpracovatelům posouzení rizik povodí se nepovažuje za porušení obchodního tajemství. Dopad tohoto opatření na ochranu obchodního tajemství výrobců a distributorů přípravků na ochranu rostlin - tedy jiný typ dopadu než administrativní náklad na vedení záznamů - není v hospodářské a finanční části zprávy (bod 7) ani jinde v posouzení dopadů samostatně zmíněn ani vyhodnocen.",
+   "whoBenefits": "Výrobci a distributoři pitné vody a zpracovatelé posouzení rizik povodí získávají zákonem garantovaný přístup k údajům o spotřebě účinných látek, aniž by se výrobci a distributoři přípravků na ochranu rostlin mohli vůči tomuto konkrétnímu poskytnutí dovolávat ochrany obchodního tajemství; dopad na posledně jmenované subjekty zpráva nekvantifikuje.",
+   "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=48&ct1=0"
+  },
+  {
+   "effect": "Zvláštní část zprávy (K bodu 5 a K bodu 6) popisuje rozšíření povinnosti Ústavu zveřejňovat a poskytovat údaje o spotřebě přípravků a účinných látek podle nařízení (EU) 2022/2379 a na žádost výrobců a distributorů pitné vody. Obecná hospodářská a finanční část zprávy (bod 7) přitom hodnotí dopad novely na veřejné rozpočty souhrnnou větou, že návrh nepředpokládá dopad na státní rozpočet ani ostatní veřejné rozpočty, aniž by se konkrétně vyjádřila k administrativní a personální zátěži, kterou tyto nové úkoly zveřejňování a poskytování dat kladou na samotný Ústav jako veřejnou instituci.",
+   "whoBenefits": "Nelze určit peněžní prospěch konkrétní strany - jde o zjištění, že se posouzení dopadu na veřejné rozpočty nevyjadřuje k nákladům veřejné instituce (Ústavu), která má podle novelizovaného textu nově zveřejňovat a poskytovat širší okruh údajů.",
+   "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=48&ct1=0"
+  }
+ ],
+ "conflictAssessment": "Jediným jmenovitým předkladatelem tisku 48 uvedeným v datech je Marek Výborný, ministr zemědělství, který vládní návrh formálně předkládá; graf u něj eviduje jedinou peněžní vazbu, a to v dohledové funkci u Gymnázia Pardubice, Mozartova 449 (IČO 48161063, veřejné smlouvy 17 804 078 Kč). Jde o veřejnou střední školu a vazba dohledového typu se podle metodiky projektu přičítá instituci, nikoli osobě, takže Marku Výbornému graf nepřičítá žádné dosažitelné peníze z této vazby. Střední škola nemá žádný věcný vztah k předmětu tisku, kterým je rostlinolékařská péče, přípravky na ochranu rostlin a jejich evidence. Vazba čeká na lidskou kontrolu jako zbytek grafu. V datech proto není u tisku 48 zjištěn střet zájmů mezi peněžní vazbou předkladatele a předmětem novely.",
+ "severity": "low",
+ "confidence": 4,
+ "citations": [
+  {
+   "claim": "Nové znění § 49 odst. 5 zákona č. 326/2004 Sb. zní: „(5) Poskytnutí informace o spotřebách účinných látek výrobcům, distributorům pitné vody nebo zpracovatelům posouzení rizik části povodí souvisejících s místy odběru surové vody určené k lidské spotřebě a přípravků držitelům povolení přípravku se nepovažuje za porušení obchodního tajemství.“",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=48&ct1=0"
+  },
+  {
+   "claim": "Důvodová zpráva (bod 7) uvádí: „Návrh zákona nepředpokládá dopad na státní rozpočet ani ostatní veřejné rozpočty.“",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=48&ct1=0"
+  },
+  {
+   "claim": "Důvodová zpráva (bod 10) uvádí: „Navrhovaná právní úprava neobsahuje ustanovení, která by byla předmětem korupčního rizika.“",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=48&ct1=0"
+  },
+  {
+   "claim": "Čl. II archivovaného textu stanoví: „Tento zákon nabývá účinnosti dnem 1. ledna 2027.“",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=48&ct1=0"
+  },
+  {
+   "claim": "Historie projednávání tisku 48 eviduje první čtení 10. 3. 2026 (usnesení č. 106), garanční zemědělský výbor, druhé čtení 15. 4. 2026, 16 pozměňovacích návrhů (č. 822-1383) a třetí čtení (27. 5. a 5. 6. 2026, usnesení č. 204), jímž byl návrh vrácen do obecné rozpravy druhého čtení; k 5. 8. 2026 nebyl návrh dosud schválen.",
+   "kind": "web",
+   "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=48"
+  },
+  {
+   "claim": "Zákon č. 326/2004 Sb., o rostlinolékařské péči a o změně některých souvisejících zákonů, je zákon novelizovaný tímto tiskem.",
+   "kind": "law",
+   "source": "326/2004"
+  },
+  {
+   "claim": "Graf eviduje u Marka Výborného jedinou peněžní vazbu, a to v dohledové funkci na Gymnáziu Pardubice, Mozartova 449.",
+   "kind": "graph_fact",
+   "source": "psp:person:6513"
+  },
+  {
+   "claim": "Graf eviduje u Gymnázia Pardubice, Mozartova 449 (IČO 48161063) veřejné smlouvy ve výši 17 804 078 Kč.",
+   "kind": "graph_fact",
+   "source": "company:ico:48161063"
+  },
+  {
+   "claim": "Návrh byl podepsán předsedou vlády Petrem Fialou a ministrem zemědělství Markem Výborným dne 12. listopadu 2025.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=48&ct1=0"
+  },
+  {
+   "claim": "Novela mění zákon č. 326/2004 Sb. v celkem 35 bodech čl. I.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=48&ct1=0"
+  },
+  {
+   "claim": "Zvláštní část důvodové zprávy odhaduje náklady na vedení a předávání záznamů v elektronické podobě „v řádech nižších desítek tisíc korun“.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=48&ct1=0"
+  },
+  {
+   "claim": "Nový § 60 odst. 8 zákona č. 326/2004 Sb. zmírňuje dosavadní povinnost měsíčního předávání záznamů pro zemědělské podnikatele hospodařící na výměře větší než 200 ha v součtu kultur orná půda, vinice, chmelnice a ovocný sad.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=48&ct1=0"
+  },
+  {
+   "claim": "Novela odkazuje na nařízení Evropského parlamentu a Rady (EU) 2022/2379 o statistice zemědělských vstupů a výstupů a na prováděcí nařízení Komise (EU) 2023/564 o elektronizaci záznamů o používání přípravků na ochranu rostlin.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=48&ct1=0"
+  }
+ ]
+}

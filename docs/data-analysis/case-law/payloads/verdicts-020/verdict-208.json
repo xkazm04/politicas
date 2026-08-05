@@ -1,0 +1,77 @@
+{
+ "billTisk": 208,
+ "statedReasoning": "Tisk 208 (skupinový poslanecký návrh Štěpána Slováka, Martina Kupky, Karla Haase, Renáty Zajíčkové, Zdenky Němečkové Crkvenjaš, Petra Sokola, Lucie Bartošové, Martina Baxy a Petra Bendla) novelizuje § 28 zákona č. 65/2017 Sb., o ochraně zdraví před škodlivými účinky návykových látek, ve třech bodech. Zaprvé nahrazuje v § 28 odst. 2 pojem „Národní strategie protidrogové politiky“ širším pojmem „Národní strategie prevence a snižování škod spojených se závislostním chováním“ a doplňuje výslovný důraz na prevenci; zpráva to zdůvodňuje tím, že současná strategie fakticky pokrývá i legální návykové látky, hazardní hraní a digitální závislosti, takže užší pojem protidrogová politika podle zprávy již věcně neodpovídá obsahu politiky. Zadruhé mění v § 28 odst. 3 dosavadní fakultativní možnost vlády zřídit poradní orgán pro protidrogovou politiku na povinnost jej zřídit a výslovně svěřuje odborné, organizační a technické zabezpečení jeho činnosti Úřadu vlády České republiky. Zatřetí doplňuje v § 28 odst. 4 Úřad vlády mezi orgány podílející se na zajištění opatření národní strategie. Zpráva tvrdí, že návrh nezakládá sama o sobě významné nové nároky na státní rozpočet, protože jde o institucionální ukotvení již fungujícího koordinačního mechanismu, že nemá dopad na kraje a obce, na podnikatelské prostředí ani na ochranu osobních údajů, že nezakládá nová korupční rizika, protože nezavádí nové dotační tituly ani rozhodovací pravomoci vůči jednotlivcům, a že předkladatelé v souvislosti s návrhem nekontaktovali žádné osoby vykonávající lobbistickou činnost podle zákona o regulaci lobbování.",
+ "researchedContext": "Podle historie projednávání na webu Poslanecké sněmovny byl návrh devíti poslanců doručen 27. 5. 2026 a 29. 5. 2026 rozeslán jako tisk 208/0; téhož dne byla vláda požádána o stanovisko. Vláda k návrhu zaujala nesouhlasné stanovisko, které bylo 23. 6. 2026 rozesláno jako tisk 208/1 (evidováno v systému eKLEP pod č. 458/26); obsah odůvodnění nesouhlasu nebyl v rámci tohoto zpracování ověřen - text tisku 208/1 je na webu Sněmovny dostupný pouze jako soubor PDF/DOCX, jehož obsah se v tomto zpracování nepodařilo načíst, a existence i datum nesouhlasného stanoviska jsou proto uváděny jako ověřený fakt, jeho konkrétní důvody nikoli. Organizační výbor doporučil 24. 6. 2026 (usnesení č. 79) přikázat návrh k projednání, garančním výborem určil výbor pro zdravotnictví a zpravodajem MVDr. Ing. Václava Trojana, Ph.D. K dnešnímu dni (5. 8. 2026) se návrh podle téhož zdroje nachází ve fázi projednávání ve výboru a neprošel prvním čtením. Text vlastního novelizačního ustanovení (bod 2) přitom sám potvrzuje, že existence poradního orgánu vlády pro protidrogovou politiku je podle dosud platné právní úpravy pouze fakultativní, nikoli obligatorní - přesně to má tento návrh změnit.",
+ "unstatedEffects": [
+  {
+   "effect": "Obecná část důvodové zprávy (bod F) tvrdí, že návrh nezakládá sama o sobě významné nové nároky na státní rozpočet, protože jde jen o institucionální zakotvení již existujícího a fungujícího koordinačního mechanismu. Novelizační text ale mění dosavadní fakultativní možnost vlády zřídit svůj poradní orgán na povinnost jej zřídit a nově zákonem svěřuje jeho odborné, organizační a technické zabezpečení Úřadu vlády České republiky - jde tedy o novou, trvalou zákonnou povinnost konkrétního úřadu, nikoli jen o popis existujícího stavu. Dopad této nové trvalé povinnosti na personální a rozpočtové zajištění Úřadu vlády není v hospodářské a finanční části zprávy (bod F) samostatně vyčíslen ani zmíněn.",
+   "whoBenefits": "Úřad vlády České republiky získává výslovný a trvalý zákonný mandát a s ním spojený nárok na personální a organizační zajištění, který dosud měl jen fakultativní povahu; nejde o peněžní prospěch žádné jmenovitě uvedené osoby ani firmy.",
+   "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=208&ct1=0"
+  },
+  {
+   "effect": "Vláda k návrhu zaujala nesouhlasné stanovisko (tisk 208/1), rozeslané 23. 6. 2026 - dvacet pět dní po rozeslání tisku 208 (29. 5. 2026) a po podání návrhu předkladateli (27. 5. 2026). Archivovaný text důvodové zprávy proto nesouhlas vlády nemohl zmínit, protože v době jejího podání ještě neexistoval; nesouhlas je pozdější skutečností, nikoli opomenutím zprávy.",
+   "whoBenefits": "Nejde o peněžní prospěch - jde o zjištění, že mezi předkladateli a vládou vznikl po podání a rozeslání tisku věcný nesouhlas o jeho obsahu; obsah důvodů nesouhlasu nebyl v tomto zpracování ověřen.",
+   "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=208&ct1=1"
+  }
+ ],
+ "conflictAssessment": "Z devíti předkladatelů tisku 208 nemá graf u pěti evidovánu žádnou peněžní vazbu (Štěpán Slovák, Renáta Zajíčková, Zdenka Němečková Crkvenjaš, Lucie Bartošová, Petr Sokol). Martin Kupka má evidovánu jednu vazbu v dohledové funkci (MAS Nad Prahou o.p.s., IČO 01398717, veřejné smlouvy 3 968 570 Kč) - jde o penězi instituce, nikoli poslance. Karel Haas má evidovánu jednu vazbu v řídicí funkci (ČSOB Pojišťovna, a. s., člen holdingu ČSOB, IČO 45534306, veřejné smlouvy 5 271 341 109 Kč) - vazba řídicího typu se podle metodiky projektu přičítá poslanci jako dosažitelné peníze. Martin Baxa má evidováno devět vazeb, všechny v dohledové funkci (SUTNAR - NADACE RADOSLAVA A ELAINE SUTNAROVÝCH, Plzeňské městské dopravní podniky, Plzeňská filharmonie, Galerie města Plzně, Regionální rozvojová agentura Plzeňského kraje, Techmania Science Center, Nadace Věry a Vladimíra Janouškových, Nadace 700 let města Plzně, Sdružení měst a obcí Plzeňského kraje) - jde o instituce spojené s městem Plzní a Plzeňským krajem, jejichž veřejné smlouvy jsou penězi těchto institucí, nikoli Martina Baxy osobně, takže mu graf nepřičítá žádné dosažitelné peníze. Petr Bendl má evidováno šest vazeb: pět v dohledové funkci (Vzdělávací centrum pro veřejnou správu ČR, Energie - stavební a báňská, MERO ČR, Svaz měst a obcí České republiky, Povodí Vltavy) a jednu na společnost PRAK. Revidovaný ledger peněžních vazeb tuto šestou vazbu eviduje pod IČO 49683144 (PRAK spol. s r.o.) v řídicí funkci (člen představenstva — vazba řídicího, tedy přičitatelného typu; rejstříkové ověření je vedeno jako rozporné) bez dosažitelných veřejných peněz a s nulovou hodnotou dosažitelných veřejných smluv; otevřená položka téhož ledgeru zároveň eviduje nepoužitého kandidáta IČO 61858111 (PRaK, a.s. v likvidaci) pro tutéž vazbu, s poznámkou o možné reklasifikaci na institucionální třídu vazby, pokud by byl tento IČO použit místo současného. Který IČO je pro tuto vazbu správný, nelze z dostupných dat rozhodnout - disclosure obou kandidátů se ponechává bez rozhodnutí. V obou případech je ale dosažitelná peněžní hodnota nulová, takže na výsledek posouzení to nemá vliv: u Bendla jde nanejvýš o 0 Kč dosažitelných peněz, bez ohledu na to, kterou třídu vazba nakonec ponese. Žádná z uvedených firem a institucí - pojišťovna, místní akční skupina, plzeňské kulturní a dopravní instituce, celostátní svaz obcí, státní podnik pro správu vodních toků - nemá věcný vztah k předmětu tisku, kterým je institucionální zajištění koordinace protidrogové politiky a politiky závislostí na úrovni vlády a Úřadu vlády České republiky. V datech proto není zjištěn střet zájmů mezi peněžními vazbami předkladatelů a předmětem tisku; všechny uvedené vazby čekají na lidskou kontrolu, stejně jako zbytek grafu.",
+ "severity": "low",
+ "confidence": 3,
+ "citations": [
+  {
+   "claim": "Bod 2 čl. I archivovaného textu zní: V § 28 odst. 3 se slova „může zřídit“ nahrazují slovem „zřizuje“ a na konci se doplňuje věta „Úkoly spojené s odborným, organizačním a technickým zabezpečením činnosti poradního orgánu vlády pro protidrogovou politiku plní Úřad vlády České republiky.“",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=208&ct1=0"
+  },
+  {
+   "claim": "Důvodová zpráva (bod A) uvádí: „Existence poradního orgánu vlády pro protidrogovou politiku je tedy podle platné právní úpravy pouze fakultativní, nikoli obligatorní.“",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=208&ct1=0"
+  },
+  {
+   "claim": "Důvodová zpráva (bod F) uvádí: „Navrhovaná právní úprava nezakládá sama o sobě významné nové nároky na státní rozpočet.“",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=208&ct1=0"
+  },
+  {
+   "claim": "Důvodová zpráva (bod H) uvádí: „Navrhovaná právní úprava nezakládá nová korupční rizika.“",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=208&ct1=0"
+  },
+  {
+   "claim": "Historie projednávání tisku 208 eviduje doručení 27. 5. 2026, rozeslání jako tisk 208/0 dne 29. 5. 2026, žádost o stanovisko vlády téhož dne, doporučení organizačního výboru přikázat návrh výboru pro zdravotnictví jako garančnímu (usnesení č. 79, 24. 6. 2026) a stav projednávání ve výboru k 5. 8. 2026 bez proběhlého prvního čtení.",
+   "kind": "web",
+   "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=208"
+  },
+  {
+   "claim": "Tisk 208/1, „Stanovisko vlády k tisku 208/0“, existuje jako samostatný dokument rozeslaný 23. 6. 2026 a vyjadřuje nesouhlas vlády s návrhem; jeho podrobný obsah nebyl v tomto zpracování z primárního textu ověřen.",
+   "kind": "web",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=208&ct1=1"
+  },
+  {
+   "claim": "Zákon č. 65/2017 Sb., o ochraně zdraví před škodlivými účinky návykových látek, je zákon novelizovaný tímto tiskem.",
+   "kind": "law",
+   "source": "65/2017"
+  },
+  {
+   "claim": "Graf eviduje u Martina Kupky vazbu v dohledové funkci na MAS Nad Prahou o.p.s. (IČO 01398717) s veřejnými smlouvami ve výši 3 968 570 Kč.",
+   "kind": "graph_fact",
+   "source": "company:ico:01398717"
+  },
+  {
+   "claim": "Graf eviduje u Karla Haase vazbu v řídicí funkci na ČSOB Pojišťovna, a. s. (IČO 45534306) s veřejnými smlouvami ve výši 5 271 341 109 Kč.",
+   "kind": "graph_fact",
+   "source": "company:ico:45534306"
+  },
+  {
+   "claim": "Graf eviduje u Martina Baxy devět peněžních vazeb, všechny v dohledové funkci u plzeňských a plzeňsko-krajských institucí.",
+   "kind": "graph_fact",
+   "source": "psp:person:6435"
+  },
+  {
+   "claim": "Graf eviduje u Petra Bendla šest peněžních vazeb, z nichž pět je v dohledové funkci.",
+   "kind": "graph_fact",
+   "source": "psp:person:346"
+  }
+ ]
+}

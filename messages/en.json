@@ -1698,6 +1698,13 @@
       "law": "act",
       "graph_fact": "graph record"
     },
+    "sector": {
+      "economy": "economy",
+      "environment": "environment",
+      "agriculture": "agriculture",
+      "digital": "digital",
+      "health": "health"
+    },
     "provenance": {
       "title": "link from the print’s title",
       "census": "full-text census only",
@@ -1767,7 +1774,17 @@
       "debateHeading": "floor debate — {countFmt} substantive speeches · psp.cz stenographic records",
       "amendmentDocsHeading": "written amendments — {countFmt} · psp.cz parliamentary documents",
       "conflictSource": "possible conflict of interest · derived from the sponsor’s money ties",
-      "conflictText": "The sponsor has ties to {count, plural, one {{countFmt} company} other {{countFmt} companies}} with a total public-contract flow of <b>{amount}</b>. A signal to examine, not a proven conflict — sector adjacency is an indication, not evidence."
+      "conflictText": "The sponsor has ties to {count, plural, one {{countFmt} company} other {{countFmt} companies}} with a total public-contract flow of <b>{amount}</b>. A signal to examine, not a proven conflict — sector adjacency is an indication, not evidence.",
+      "sectorAttribution": {
+        "heading": "sector attribution — {countFmt} {count, plural, one {match found} other {matches found}}",
+        "source": "sector attribution · amended-§ census ⋈ money-tie ledger (batch 017) — every match is a derived lead, never reviewed by a human",
+        "intro": "The sponsor's company operates in the same sector the amended statute regulates. A topological adjacency, not a proven influence — and each match already has a published forensic verdict (below).",
+        "viaLaw": "sector <b>{sector}</b> ↔ <b>act no. {ref} Sb.</b>",
+        "paragraphs": "operative §§:",
+        "noParagraphsCensus": "The print's text census found no § this change could be attributed to — either an annex amendment with no paragraph text, or a partitioner limit. The match stays at the whole-statute level; no paragraph number is guessed.",
+        "noParagraphsFallback": "Paragraph-level partitioning failed here and the census fell back to a whole-block allocation — an exact § cannot be stated.",
+        "dispositionWithheld": "The disposition text for this match was withheld by the language gate — the company/sector/statute match itself still stands, its wording just isn't shown."
+      }
     },
     "forensic": {
       "banner": "derived draft · awaiting human review · not a verdict of wrongdoing",

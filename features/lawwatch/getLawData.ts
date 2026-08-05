@@ -24,6 +24,12 @@ import { lawJargonIssues } from "@/lib/analysis/law-verdict";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { storeReady } from "@/lib/db/readiness";
 import { getStore } from "@/lib/db/store";
+import {
+  buildSectorAttributionIndex,
+  type SectorAttributionFlag,
+  type SectorAttributionRaw,
+} from "./sectorAttribution";
+export type { SectorAttributionFlag } from "./sectorAttribution";
 
 /** A real §-level fragment change between two ENACTED e-Sbírka versions of a statute.
  * `before`/`after` are the verbatim `text-fragmentu` values actually fetched from the
@@ -103,6 +109,32 @@ function loadBillSummaries(): Map<number, { summary: string; source: string | nu
     reportLoaderFailure("getLawData.billSummaries", err);
   }
   return out;
+}
+
+/** batch-017 §-level sector-attribution ledger (bill × company × statute), 29 DERIVED,
+ * UNGATED flags, joined to the amended-§ census — see features/lawwatch/sectorAttribution.ts
+ * for the projection rule. Same read-or-empty pattern as `loadBillSummaries` above: a missing
+ * or malformed file degrades to an empty index, never a page-level failure. */
+const SECTOR_ATTRIBUTION_FILE = "docs/data-analysis/case-law/payloads/batch-017-sector-attribution-para.json";
+interface SectorAttributionArtifact {
+  rows?: SectorAttributionRaw[];
+}
+function loadSectorAttributionIndex(): Map<number, SectorAttributionFlag[]> {
+  try {
+    if (!existsSync(SECTOR_ATTRIBUTION_FILE)) {
+      reportLoaderFailure("getLawData.sectorAttribution", new Error(`missing payload: ${SECTOR_ATTRIBUTION_FILE}`));
+      return new Map();
+    }
+    const raw = JSON.parse(readFileSync(SECTOR_ATTRIBUTION_FILE, "utf8")) as SectorAttributionArtifact;
+    if (!Array.isArray(raw.rows)) {
+      reportLoaderFailure("getLawData.sectorAttribution", new Error(`payload carries no rows array: ${SECTOR_ATTRIBUTION_FILE}`));
+      return new Map();
+    }
+    return buildSectorAttributionIndex(raw.rows);
+  } catch (err) {
+    reportLoaderFailure("getLawData.sectorAttribution", err);
+    return new Map();
+  }
 }
 
 export const BILL_ORIGINS = ["government", "mp", "mp_group", "senate", "other"] as const;
@@ -192,6 +224,10 @@ export interface LawBillView {
   /** amendedLawsFull.length − (refs also present in amendedLaws), i.e. how many body-amended
    * statutes the title-only `amends` edges missed for this bill. 0 when no census record. */
   amendsUndercount: number;
+  /** batch-017 §-level sector-attribution flags for this print (company ↔ sponsor ↔ statute),
+   * each a DERIVED, UNGATED lead already carrying a published verdict's disposition. Empty for
+   * the 133 prints the payload does not cover — see features/lawwatch/sectorAttribution.ts. */
+  sectorAttributionFlags: SectorAttributionFlag[];
 }
 
 export interface TopLawView {
@@ -219,6 +255,8 @@ export interface LawData {
   committeeRoutedBills: number; // bills carrying ≥1 formal committee assignment (F15)
   censusBillCount: number; // bills carrying a pass-20 census record (amended_laws_full)
   censusUndercountTotal: number; // sum of amendsUndercount over census-carrying bills
+  sectorAttributionBillCount: number; // bills carrying ≥1 batch-017 sector-attribution flag
+  sectorAttributionFlagCount: number; // total flags rendered across all bills (post-gate)
   pass: number | null;
 }
 
@@ -347,6 +385,7 @@ async function loadLawData(): Promise<LawData | null> {
 
     const paragraphDiffs = loadParagraphDiffs();
     const summaries = loadBillSummaries();
+    const sectorAttributionIndex = loadSectorAttributionIndex();
     const diffsByLawRef = new Map<string, ParagraphDiff[]>();
     for (const d of paragraphDiffs) diffsByLawRef.set(d.law, [...(diffsByLawRef.get(d.law) ?? []), d]);
 
@@ -471,6 +510,7 @@ async function loadLawData(): Promise<LawData | null> {
         paragraphDiffs: paragraphDiffsForBill,
         amendedLawsFull,
         amendsUndercount,
+        sectorAttributionFlags: cislo != null ? (sectorAttributionIndex.get(cislo) ?? []) : [],
       };
     });
 
@@ -514,6 +554,8 @@ async function loadLawData(): Promise<LawData | null> {
       committeeRoutedBills: new Set(assignedTo.map((e) => e.src)).size,
       censusBillCount: bills.filter((b) => b.amendedLawsFull.length > 0).length,
       censusUndercountTotal: bills.reduce((sum, b) => sum + b.amendsUndercount, 0),
+      sectorAttributionBillCount: bills.filter((b) => b.sectorAttributionFlags.length > 0).length,
+      sectorAttributionFlagCount: bills.reduce((sum, b) => sum + b.sectorAttributionFlags.length, 0),
       pass,
     };
   } catch (err) {

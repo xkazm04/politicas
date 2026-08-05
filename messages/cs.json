@@ -1698,6 +1698,13 @@
       "law": "zákon",
       "graph_fact": "záznam v grafu"
     },
+    "sector": {
+      "economy": "ekonomika",
+      "environment": "životní prostředí",
+      "agriculture": "zemědělství",
+      "digital": "digitalizace",
+      "health": "zdravotnictví"
+    },
     "provenance": {
       "title": "vazba z názvu tisku",
       "census": "jen census textu",
@@ -1767,7 +1774,17 @@
       "debateHeading": "rozprava — {countFmt} věcných vystoupení · stenozáznamy psp.cz",
       "amendmentDocsHeading": "písemné pozměňovací návrhy — {countFmt} · sněmovní dokumenty psp.cz",
       "conflictSource": "možný střet zájmů · odvozeno z peněžních vazeb předkladatele",
-      "conflictText": "Předkladatel má vazby na {count, plural, one {{countFmt} firmu} few {{countFmt} firmy} other {{countFmt} firem}} s celkovým tokem veřejných zakázek <b>{amount}</b>. Signál k prověření, ne prokázaný střet — sektorová blízkost je indicie, ne důkaz."
+      "conflictText": "Předkladatel má vazby na {count, plural, one {{countFmt} firmu} few {{countFmt} firmy} other {{countFmt} firem}} s celkovým tokem veřejných zakázek <b>{amount}</b>. Signál k prověření, ne prokázaný střet — sektorová blízkost je indicie, ne důkaz.",
+      "sectorAttribution": {
+        "heading": "sektorová atribuce — {countFmt} {count, plural, one {nalezená shoda} few {nalezené shody} other {nalezených shod}}",
+        "source": "sektorová atribuce · census amendovaných § ⋈ ledger peněžních vazeb (dávka 017) — každá shoda je odvozený, negatovaný údaj bez lidské kontroly",
+        "intro": "Firma předkladatele působí ve stejném sektoru, jaký novelizovaný zákon upravuje. Topologická blízkost, ne prokázaný vliv — a ke každé shodě už existuje publikovaný forenzní posudek (níže).",
+        "viaLaw": "sektor <b>{sector}</b> ↔ <b>č. {ref} Sb.</b>",
+        "paragraphs": "operativní §:",
+        "noParagraphsCensus": "Census textu tisku pro tento zákon nenašel žádný §, ke kterému by šlo změnu přiřadit — buď jde o novelu přílohy bez textu paragrafu, nebo o limit rozdělovače. Vazba zůstává jen na úrovni celého zákona, nikdy ne domyšlené číslo paragrafu.",
+        "noParagraphsFallback": "Rozdělení textu na paragrafy zde selhalo a census sáhl po náhradním přiřazení celého bloku — přesné číslo § proto nelze uvést.",
+        "dispositionWithheld": "Text posudku k této shodě zadržela jazyková brána — shoda firmy, sektoru a zákona zůstává, ale jeho znění se nezobrazuje."
+      }
     },
     "forensic": {
       "banner": "odvozený návrh · čeká na revizi člověkem · není to verdikt o pochybení",

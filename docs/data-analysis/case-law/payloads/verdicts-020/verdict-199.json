@@ -1,0 +1,62 @@
+{
+  "billTisk": 199,
+  "statedReasoning": "Vládní návrh (tisk č. 199), předložený ministrem životního prostředí Igorem Červeným (poslanecké číslo 6996), mění zákon č. 350/2011 Sb., o chemických látkách a chemických směsích (chemický zákon). Obecná část důvodové zprávy je členěna do devatenácti označených oddílů A až S. Podle oddílu A. je primárním cílem adaptace nařízení Evropského parlamentu a Rady (EU) 2024/1849 ze dne 13. června 2024, kterým se mění nařízení (EU) 2017/852 o rtuti, pokud jde o zubní amalgám. Novela zavádí novou oznamovací povinnost výrobců a dovozců zubního amalgámu vůči ministerstvu (nový § 22 odst. 8 chemického zákona), odpovídající kompetenci ministerstva (§ 24 odst. 1 písm. i)) a nový přestupek s pokutou do 500 tis. Kč v § 34. Podle oddílu H. se návrh týká „pouze velmi úzkého okruhu subjektů – výrobci a dovozci zubního amalgámu; v České republice jde o jednotky subjektů“. Oddíl P. neshledává u návrhu žádné korupční riziko. Účinnost se navrhuje prvním dnem kalendářního měsíce následujícího po vyhlášení. Zvláštní část komentuje deset bodů čl. I, přechodné ustanovení čl. II a účinnost čl. III. Jako garanční výbor byl dne 27. května 2026 navržen Výbor pro životní prostředí. Text nese elektronický podpis ministra ze dne 15. května 2026 a předsedy vlády ze dne 21. května 2026.",
+  "researchedContext": "Nařízení (EU) 2024/1849 je ověřitelný, skutečně existující unijní předpis: podle jeho úplného znění zveřejněného na EUR-Lex bylo přijato dne 13. června 2024 a mění nařízení (EU) 2017/852 o rtuti v návaznosti na Minamatskou úmluvu o rtuti tak, že vkládá do čl. 18 nový odstavec 1a, který výrobcům a dovozcům zubního amalgámu ukládá do 31. května každého roku ohlásit příslušnému orgánu množství amalgámu vyrobeného nebo dovezeného za předchozí kalendářní rok — tedy toliko souhrnný číselný údaj o množství, nikoli dokládání konkrétních obchodních vztahů. Text nového § 22 odst. 8 a § 34 odst. 9 chemického zákona byl ověřen proti plnému znění tisku 199: skutečně ukládá povinnost předložit ministerstvu doklady prokazující výhradní určení amalgámu pro specifické zdravotní potřeby, které musí být „způsobilé doložit obchodní vazby na zdravotnická zařízení“, a sankcionuje nepředložení těchto dokladů stejně jako neohlášení množství. Zvláštní část k bodu 2 čl. I sama výslovně přiznává, že „Evropská právní úprava sice stanoví oznamovací povinnost výrobcům a dovozcům, avšak neřeší, jakým způsobem mají vnitrostátní orgány ověřovat, že množství oznámeného amalgámu bylo skutečně určeno pro povolené účely“ — tedy sama označuje dokladovou povinnost za vnitrostátní doplněk nad rámec ověřeného unijního textu, aniž by to bylo takto pojmenováno v oddílech hodnotících dopad na podnikatelské prostředí (H.) nebo korupční rizika (P.).",
+  "unstatedEffects": [
+    {
+      "effect": "Návrh ukládá výrobcům a dovozcům zubního amalgámu národní povinnost dokládat ministerstvu obchodní vazby na zdravotnická zařízení jako důkaz výhradního určení dodávek pro specifické zdravotní potřeby a sankcionuje nepředložení těchto dokladů pokutou do 500 tis. Kč, ačkoli ověřené znění nařízení (EU) 2024/1849, které novela podle vlastní důvodové zprávy pouze adaptuje, ukládá v novém čl. 18 odst. 1a nařízení (EU) 2017/852 toliko každoroční ohlášení souhrnného množství vyrobeného nebo dovezeného amalgámu, nikoli předložení dokladů o konkrétních obchodních vztazích. Oddíly H. a P. tuto novou dokladovou povinnost hodnotí jako pouhou „minimální administrativní zátěž“ bez korupčního rizika, aniž by uvedly, že jde o požadavek jdoucí nad rámec přímo použitelného unijního předpisu.",
+      "whoBenefits": "Ministerstvo životního prostředí jako regulátor získává neunijně vyžadovanou evidenci obchodních vazeb malého, přesně vymezitelného okruhu subjektů — podle vlastní důvodové zprávy jde o „jednotky subjektů“ — aniž by novela stanovila, jak bude s takto získanými obchodně citlivými údaji dále nakládáno.",
+      "evidence": "Srov. bod K čl. I bodu 2 zvláštní části důvodové zprávy tisku 199, kde se doslovně uvádí, že evropská právní úprava „neřeší, jakým způsobem mají vnitrostátní orgány ověřovat“ určení amalgámu, s čl. 18 odst. 1a nařízení Evropského parlamentu a Rady (EU) 2017/852 ve znění nařízení (EU) 2024/1849, jak je zveřejněno v úplném znění na EUR-Lex."
+    }
+  ],
+  "conflictAssessment": "Jediným navrhovatelem evidovaným v grafu peněžních vazeb je ministr životního prostředí Igor Červený (poslanecké číslo 6996); v grafu nemá zaznamenánu žádnou vazbu vlastníka, jednatele ani jinou majetkovou vazbu na obchodní společnost. U tohoto tisku tedy nebyl v grafu peněžních vazeb identifikován žádný finanční střet zájmu mezi navrhovatelem a odvětvím výroby či dovozu zubního amalgámu, jehož se novela dotýká.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Nový § 22 odst. 8 chemického zákona ukládá výrobci nebo dovozci zubního amalgámu předložit ministerstvu doklady prokazující, že vyrobený nebo dovezený zubní amalgám byl určen výhradně pro účely specifických zdravotních potřeb, přičemž tyto doklady musí být „způsobilé doložit obchodní vazby na zdravotnická zařízení“.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=199&ct1=0"
+    },
+    {
+      "claim": "Zvláštní část k bodu 2 čl. I výslovně uvádí, že „Evropská právní úprava sice stanoví oznamovací povinnost výrobcům a dovozcům, avšak neřeší, jakým způsobem mají vnitrostátní orgány ověřovat, že množství oznámeného amalgámu bylo skutečně určeno pro povolené účely“.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=199&ct1=0"
+    },
+    {
+      "claim": "Nařízení Evropského parlamentu a Rady (EU) 2024/1849 ze dne 13. června 2024 vkládá do čl. 18 nařízení (EU) 2017/852 nový odstavec 1a, který ukládá výrobcům a dovozcům zubního amalgámu toliko každoroční ohlášení příslušnému orgánu, do 31. května každého roku, o množství vyrobeného nebo dovezeného amalgámu za předchozí kalendářní rok, nikoli předložení dokladů o obchodních vazbách na konkrétní zdravotnická zařízení.",
+      "kind": "web",
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1849/oj/eng"
+    },
+    {
+      "claim": "Oddíl H. důvodové zprávy uvádí, že se návrh týká „pouze velmi úzkého okruhu subjektů – výrobci a dovozci zubního amalgámu; v České republice jde o jednotky subjektů“.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=199&ct1=0"
+    },
+    {
+      "claim": "Novela mění zákon č. 350/2011 Sb., o chemických látkách a chemických směsích a o změně některých zákonů (chemický zákon).",
+      "kind": "law",
+      "source": "350/2011"
+    },
+    {
+      "claim": "Za neoznámení množství amalgámu nebo za nepředložení dokladů o jeho určení navrhuje novela v § 34 odst. 9 přestupek s pokutou do 500 tis. Kč.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=199&ct1=0"
+    },
+    {
+      "claim": "Tisku 199 byl dne 27. května 2026 jako garanční výbor navržen Výbor pro životní prostředí; text nese elektronický podpis ministra ze dne 15. května 2026 a předsedy vlády ze dne 21. května 2026.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=199"
+    },
+    {
+      "claim": "Ministrem životního prostředí a předkladatelem tisku 199 je Igor Červený.",
+      "kind": "graph_fact",
+      "source": "psp:person:6996"
+    },
+    {
+      "claim": "Obecná část důvodové zprávy tisku 199 je členěna do devatenácti označených oddílů A až S a nová kompetence ministerstva je zakotvena v § 24 odst. 1 písm. i) chemického zákona.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=199&ct1=0"
+    }
+  ]
+}

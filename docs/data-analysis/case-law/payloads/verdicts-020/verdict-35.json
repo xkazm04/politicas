@@ -1,0 +1,82 @@
+{
+ "billTisk": 35,
+ "statedReasoning": "Tisk 35 (poslanecký návrh Andreje Babiše, Tomia Okamury a Petra Macinky) mění jediné ustanovení zákona č. 236/1995 Sb., o platu a dalších náležitostech spojených s výkonem funkce představitelů státní moci a některých státních orgánů a soudců a poslanců Evropského parlamentu: nové znění § 4 zmrazuje platovou základnu představitelů státní moci na roky 2026 až 2030 na úrovni roku 2025, tedy na částce 101 364 Kč, zatímco platová základna soudců (a zprostředkovaně státních zástupců) se podle zprávy zmrazení netýká — u ní se nadále použije obecný výpočetní mechanismus podle § 3 odst. 3 zákona. Důvodová zpráva odůvodňuje návrh tím, že dosavadní mechanismus výpočtu vedl a povede k růstu platů představitelů, který zpráva označuje za nepřijatelný, a proto navrhuje pětileté zmrazení. Zpráva dále uvádí, že zmrazení povede k významným úsporám prostředků na platy ve státním rozpočtu, že nejde o snížení platu, že návrh nepředstavuje korupční riziko a nemá dopad na ostatní veřejné rozpočty, podnikatelské prostředí ani sociální oblast. Navrhovaná účinnost byla stanovena na 1. ledna 2026 a zpráva výslovně žádá o schválení již v prvním čtení podle § 90 odst. 2 jednacího řádu Poslanecké sněmovny s odůvodněním, že bez neprodleného přijetí dojde od 1. ledna 2026 k dalšímu navýšení platů v rozporu s ekonomickou situací České republiky.",
+ "researchedContext": "Podle historie projednávání na webu Poslanecké sněmovny byl návrh doručen 20. 11. 2025 (podpisová doložka na archivovaném textu nese datum 19. 11. 2025) a 24. 11. 2025 zaslán vládě k vyjádření; vláda zaujala souhlasné stanovisko, které bylo 16. 12. 2025 rozesláno jako tisk 35/1. Organizační výbor doporučil 17. 12. 2025 (usnesení č. 14) přikázat návrh k projednání s tím, že garančním výborem je rozpočtový výbor a zpravodajem byl určen Mgr. Patrik Pařil. K dnešnímu dni (5. 8. 2026) se návrh podle téhož zdroje nadále nachází v projednávání u garančního výboru a neprošel prvním čtením ani žádným hlasováním pléna; dne 15. 4. 2026 k němu byl podán pozměňovací návrh č. 852 (Vendula Svobodová), který se podle záznamu historie týká omezení nepřiměřeného růstu náhrady jízdních výdajů — tedy tématu příbuzného, ale odlišného od zmrazení platové základny, které bylo jediným obsahem archivovaného textu tisku. Obsah tohoto pozměňovacího návrhu nebyl v rámci tohoto zpracování ověřen z primárního textu. Klíčové zjištění: protože návrh k 5. 8. 2026 stále neprošel Sněmovnou, uplynulo bez přijetí zákona i datum navrhované účinnosti (1. 1. 2026), tedy přesně to datum, po němž měl podle bodu G důvodové zprávy hrozit další nárůst platů představitelů státní moci, pokud by nebyl návrh přijat bez prodlení. Historie projednávání pouze potvrzuje, že zákon k tomuto datu nenabyl platnosti; zda platová základna pro rok 2026 podle obecného mechanismu skutečně vzrostla, nebylo v tomto zpracování ověřeno a zůstává mimo dostupné zdroje.",
+ "unstatedEffects": [
+  {
+   "effect": "Jediným uváděným smyslem žádosti o schválení již v prvním čtení bylo stihnout účinnost zákona k 1. lednu 2026 a zabránit tak dalšímu nárůstu platové základny představitelů od tohoto data. Zpráva ale nikde nezmiňuje, co se stane, pokud se tento časový plán nenaplní — a přesně to nastalo: návrh se přes standardní projednávání zdržel v garančním výboru a k 5. 8. 2026 nebyl přijat, takže datum navrhované účinnosti (1. 1. 2026) uplynulo bez přijetí zákona; zda proto platová základna pro rok 2026 podle obecného výpočetního mechanismu skutečně vzrostla, nebylo v tomto zpracování ověřeno.",
+   "whoBenefits": "Nejde o peněžní prospěch žádné konkrétní strany — jde o zjištění, že se nenaplnila premisa, na níž byla postavena žádost o zrychlené projednání; oproti stavu, který zpráva popisuje jako důsledek zpoždění, zákon k datu navrhované účinnosti (1. 1. 2026) nenabyl platnosti; zda proto k dodatečnému zvýšení platové základny pro rok 2026 skutečně došlo, nebylo v tomto zpracování ověřeno.",
+   "evidence": "https://www.psp.cz/sqw/historie.sqw?o=10&t=35"
+  },
+  {
+   "effect": "Archivovaný text tisku obsahuje jedinou věcnou změnu — zmrazení platové základny na pět let. Zákonodárný proces k němu ale v mezidobí přiřadil pozměňovací návrh č. 852 (podaný 15. 4. 2026 poslankyní Vendulou Svobodovou), který se podle záznamu historie projednávání týká omezení nepřiměřeného růstu náhrady jízdních výdajů — tedy jiné složky odměňování představitelů, než kterou upravuje archivovaný text tisku. Obsah pozměňovacího návrhu nebyl v rámci tohoto zpracování ověřen z primárního textu, a nelze jej proto podrobněji popsat.",
+   "whoBenefits": "Nelze určit bez ověření primárního textu pozměňovacího návrhu; jde o zjištění, že se okruh upravovaných otázek v průběhu projednávání rozšiřuje nad rámec toho, co popisuje důvodová zpráva k původnímu textu.",
+   "evidence": "https://www.psp.cz/sqw/historie.sqw?o=10&t=35"
+  }
+ ],
+ "conflictAssessment": "Andrej Babiš má v grafu evidováno 14 peněžních vazeb na firmy: čtyři vazby, kde je jednatelem nebo přímým vlastníkem (CS CABOT, AGROPROFIT, Hartenberg Holding, AGRONOVA CS), čtyři vazby v řídicí funkci — předseda nebo člen představenstva (IMOBA, AGROFERT, PROFROST, SynBiol) — a šest vazeb v dohledové funkci — předseda nebo člen správní či dozorčí rady (Nadace AGROFERT, Synthesia, PRECHEZA, Kostelecké uzeniny, Fatra, Lovochemie). Vazby vlastnického a řídicího typu se podle metodiky tohoto projektu přičítají poslanci jako dosažitelné peníze; jejich souhrnná hodnota veřejných smluv evidovaná u přičitatelných firem (CS CABOT, AGROPROFIT, IMOBA, AGROFERT, PROFROST — u Hartenberg Holding, AGRONOVA CS a SynBiol graf žádnou dosažitelnou veřejnou smlouvu neeviduje) činí přibližně 16,4 milionu Kč; vazby v dohledové funkci se přičítají instituci, nikoli osobě, a jejich firmy (Nadace AGROFERT, Synthesia, PRECHEZA, Kostelecké uzeniny, Fatra, Lovochemie) evidují dohromady veřejné smlouvy v řádu téměř dvou miliard Kč, které ale nejsou penězi Andreje Babiše. Tomio Okamura má evidovány čtyři vazby, všechny vlastnického typu (MIKI TRAVEL PRAGUE, U Machtů, MEBIUS, Japa Foods); dosažitelnou veřejnou smlouvu v grafu eviduje pouze MIKI TRAVEL PRAGUE (5 000 000 Kč), u zbylých tří graf žádnou veřejnou smlouvu nenachází. Petr Macinka nemá v grafu evidovánu žádnou peněžní vazbu. Žádná z uvedených firem — zemědělský a chemický holding, cestovní kancelář, potraviny — nemá věcný vztah k předmětu tisku, kterým je výpočet a výše platové základny představitelů státní moci; jde o osobní, nikoli firemní otázku. Jediný myslitelný střet zájmů, který předmět tisku otevírá, je to, že všichni tři předkladatelé jsou sami představiteli státní moci, jejichž vlastní plat návrh upravuje — návrh ovšem směřuje ke zmrazení, tedy k omezení růstu vlastního příjmu předkladatelů oproti dosavadnímu mechanismu, nikoli k jeho navýšení, takže v datech není zjištěn střet zájmů ve smyslu osobního obohacení. Všech 14 vazeb Andreje Babiše i 4 vazby Tomia Okamury nadále čekají na lidskou kontrolu, stejně jako zbytek grafu.",
+ "severity": "low",
+ "confidence": 4,
+ "citations": [
+  {
+   "claim": "Nové znění § 4 zákona č. 236/1995 Sb. stanoví: „Do 31. prosince 2030 činí platová základna představitelů 101 364 Kč.“",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=35&ct1=0"
+  },
+  {
+   "claim": "Důvodová zpráva (bod B) uvádí: „Proto je navrženo zmrazení platové úrovně na 5 let, tj. do konce roku 2030, ve výši platové základny pro představitele stanovené pro rok 2025.“",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=35&ct1=0"
+  },
+  {
+   "claim": "Důvodová zpráva (bod E) uvádí: „Zmrazení platových základen pro představitele státní moci v letech 2026 až 2030 na úrovni roku 2025 povede k významným úsporám v oblasti prostředků na platy.“",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=35&ct1=0"
+  },
+  {
+   "claim": "Důvodová zpráva (bod G) uvádí: „Bez neprodleného přijetí návrhu dojde k dalšímu navýšení platů představitelů státní moci od 1. ledna 2026 v rozporu s ekonomickou situací, v níž se Česká republika nachází.“",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=35&ct1=0"
+  },
+  {
+   "claim": "Čl. II archivovaného textu stanoví: „Tento zákon nabývá účinnosti dnem 1. ledna 2026.“",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=35&ct1=0"
+  },
+  {
+   "claim": "Historie projednávání tisku 35 eviduje doručení 20. 11. 2025, souhlasné stanovisko vlády rozeslané 16. 12. 2025 jako tisk 35/1, doporučení organizačního výboru přikázat návrh rozpočtovému výboru jako garančnímu (usnesení č. 14, 17. 12. 2025), pozměňovací návrh č. 852 podaný 15. 4. 2026 a stav projednávání ve výboru k 5. 8. 2026 bez proběhlého prvního čtení.",
+   "kind": "web",
+   "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=35"
+  },
+  {
+   "claim": "Zákon č. 236/1995 Sb., o platu a dalších náležitostech spojených s výkonem funkce představitelů státní moci a některých státních orgánů a soudců a poslanců Evropského parlamentu, je zákon novelizovaný tímto tiskem.",
+   "kind": "law",
+   "source": "236/1995"
+  },
+  {
+   "claim": "Graf eviduje u Andreje Babiše čtyři vazby vlastnického/jednatelského typu (CS CABOT, AGROPROFIT, Hartenberg Holding, AGRONOVA CS) a čtyři vazby v řídicí funkci (IMOBA, AGROFERT, PROFROST, SynBiol).",
+   "kind": "graph_fact",
+   "source": "psp:person:6150"
+  },
+  {
+   "claim": "Graf eviduje u společnosti AGROFERT, a.s. (IČO 26185610) vazbu Andreje Babiše v řídicí funkci (předseda představenstva).",
+   "kind": "graph_fact",
+   "source": "company:ico:26185610"
+  },
+  {
+   "claim": "Graf eviduje u Tomia Okamury čtyři peněžní vazby, všechny vlastnického typu (MIKI TRAVEL PRAGUE, U Machtů, MEBIUS, Japa Foods), z nichž jen MIKI TRAVEL PRAGUE má evidovanou veřejnou smlouvu (5 000 000 Kč).",
+   "kind": "graph_fact",
+   "source": "psp:person:6105"
+  },
+  {
+   "claim": "Graf u Petra Macinky neeviduje žádnou peněžní vazbu na firmu.",
+   "kind": "graph_fact",
+   "source": "psp:person:7022"
+  },
+  {
+   "claim": "Graf eviduje u Andreje Babiše šest vazeb v dohledové funkci (Nadace AGROFERT, Synthesia, PRECHEZA, Kostelecké uzeniny, Fatra, Lovochemie) se souhrnnými veřejnými smlouvami přibližně 1 975 315 534 Kč, a součet dosažitelných veřejných smluv u vazeb vlastnického a řídicího typu ve výši přibližně 16 436 383 Kč.",
+   "kind": "graph_fact",
+   "source": "psp:person:6150"
+  }
+ ]
+}

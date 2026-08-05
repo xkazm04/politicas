@@ -1,0 +1,702 @@
+[
+  {
+    "billTisk": 35,
+    "statedReasoning": "Tisk 35 (poslanecký návrh Andreje Babiše, Tomia Okamury a Petra Macinky) mění jediné ustanovení zákona č. 236/1995 Sb., o platu a dalších náležitostech spojených s výkonem funkce představitelů státní moci a některých státních orgánů a soudců a poslanců Evropského parlamentu: nové znění § 4 zmrazuje platovou základnu představitelů státní moci na roky 2026 až 2030 na úrovni roku 2025, tedy na částce 101 364 Kč, zatímco platová základna soudců (a zprostředkovaně státních zástupců) se podle zprávy zmrazení netýká — u ní se nadále použije obecný výpočetní mechanismus podle § 3 odst. 3 zákona. Důvodová zpráva odůvodňuje návrh tím, že dosavadní mechanismus výpočtu vedl a povede k růstu platů představitelů, který zpráva označuje za nepřijatelný, a proto navrhuje pětileté zmrazení. Zpráva dále uvádí, že zmrazení povede k významným úsporám prostředků na platy ve státním rozpočtu, že nejde o snížení platu, že návrh nepředstavuje korupční riziko a nemá dopad na ostatní veřejné rozpočty, podnikatelské prostředí ani sociální oblast. Navrhovaná účinnost byla stanovena na 1. ledna 2026 a zpráva výslovně žádá o schválení již v prvním čtení podle § 90 odst. 2 jednacího řádu Poslanecké sněmovny s odůvodněním, že bez neprodleného přijetí dojde od 1. ledna 2026 k dalšímu navýšení platů v rozporu s ekonomickou situací České republiky.",
+    "researchedContext": "Podle historie projednávání na webu Poslanecké sněmovny byl návrh doručen 20. 11. 2025 (podpisová doložka na archivovaném textu nese datum 19. 11. 2025) a 24. 11. 2025 zaslán vládě k vyjádření; vláda zaujala souhlasné stanovisko, které bylo 16. 12. 2025 rozesláno jako tisk 35/1. Organizační výbor doporučil 17. 12. 2025 (usnesení č. 14) přikázat návrh k projednání s tím, že garančním výborem je rozpočtový výbor a zpravodajem byl určen Mgr. Patrik Pařil. K dnešnímu dni (5. 8. 2026) se návrh podle téhož zdroje nadále nachází v projednávání u garančního výboru a neprošel prvním čtením ani žádným hlasováním pléna; dne 15. 4. 2026 k němu byl podán pozměňovací návrh č. 852 (Vendula Svobodová), který se podle záznamu historie týká omezení nepřiměřeného růstu náhrady jízdních výdajů — tedy tématu příbuzného, ale odlišného od zmrazení platové základny, které bylo jediným obsahem archivovaného textu tisku. Obsah tohoto pozměňovacího návrhu nebyl v rámci tohoto zpracování ověřen z primárního textu. Klíčové zjištění: protože návrh k 5. 8. 2026 stále neprošel Sněmovnou, uplynulo bez přijetí zákona i datum navrhované účinnosti (1. 1. 2026), tedy přesně to datum, po němž měl podle bodu G důvodové zprávy hrozit další nárůst platů představitelů státní moci, pokud by nebyl návrh přijat bez prodlení. Historie projednávání pouze potvrzuje, že zákon k tomuto datu nenabyl platnosti; zda platová základna pro rok 2026 podle obecného mechanismu skutečně vzrostla, nebylo v tomto zpracování ověřeno a zůstává mimo dostupné zdroje.",
+    "unstatedEffects": [
+      {
+        "effect": "Jediným uváděným smyslem žádosti o schválení již v prvním čtení bylo stihnout účinnost zákona k 1. lednu 2026 a zabránit tak dalšímu nárůstu platové základny představitelů od tohoto data. Zpráva ale nikde nezmiňuje, co se stane, pokud se tento časový plán nenaplní — a přesně to nastalo: návrh se přes standardní projednávání zdržel v garančním výboru a k 5. 8. 2026 nebyl přijat, takže datum navrhované účinnosti (1. 1. 2026) uplynulo bez přijetí zákona; zda proto platová základna pro rok 2026 podle obecného výpočetního mechanismu skutečně vzrostla, nebylo v tomto zpracování ověřeno.",
+        "whoBenefits": "Nejde o peněžní prospěch žádné konkrétní strany — jde o zjištění, že se nenaplnila premisa, na níž byla postavena žádost o zrychlené projednání; oproti stavu, který zpráva popisuje jako důsledek zpoždění, zákon k datu navrhované účinnosti (1. 1. 2026) nenabyl platnosti; zda proto k dodatečnému zvýšení platové základny pro rok 2026 skutečně došlo, nebylo v tomto zpracování ověřeno.",
+        "evidence": "https://www.psp.cz/sqw/historie.sqw?o=10&t=35"
+      },
+      {
+        "effect": "Archivovaný text tisku obsahuje jedinou věcnou změnu — zmrazení platové základny na pět let. Zákonodárný proces k němu ale v mezidobí přiřadil pozměňovací návrh č. 852 (podaný 15. 4. 2026 poslankyní Vendulou Svobodovou), který se podle záznamu historie projednávání týká omezení nepřiměřeného růstu náhrady jízdních výdajů — tedy jiné složky odměňování představitelů, než kterou upravuje archivovaný text tisku. Obsah pozměňovacího návrhu nebyl v rámci tohoto zpracování ověřen z primárního textu, a nelze jej proto podrobněji popsat.",
+        "whoBenefits": "Nelze určit bez ověření primárního textu pozměňovacího návrhu; jde o zjištění, že se okruh upravovaných otázek v průběhu projednávání rozšiřuje nad rámec toho, co popisuje důvodová zpráva k původnímu textu.",
+        "evidence": "https://www.psp.cz/sqw/historie.sqw?o=10&t=35"
+      }
+    ],
+    "conflictAssessment": "Andrej Babiš má v grafu evidováno 14 peněžních vazeb na firmy: čtyři vazby, kde je jednatelem nebo přímým vlastníkem (CS CABOT, AGROPROFIT, Hartenberg Holding, AGRONOVA CS), čtyři vazby v řídicí funkci — předseda nebo člen představenstva (IMOBA, AGROFERT, PROFROST, SynBiol) — a šest vazeb v dohledové funkci — předseda nebo člen správní či dozorčí rady (Nadace AGROFERT, Synthesia, PRECHEZA, Kostelecké uzeniny, Fatra, Lovochemie). Vazby vlastnického a řídicího typu se podle metodiky tohoto projektu přičítají poslanci jako dosažitelné peníze; jejich souhrnná hodnota veřejných smluv evidovaná u přičitatelných firem (CS CABOT, AGROPROFIT, IMOBA, AGROFERT, PROFROST — u Hartenberg Holding, AGRONOVA CS a SynBiol graf žádnou dosažitelnou veřejnou smlouvu neeviduje) činí přibližně 16,4 milionu Kč; vazby v dohledové funkci se přičítají instituci, nikoli osobě, a jejich firmy (Nadace AGROFERT, Synthesia, PRECHEZA, Kostelecké uzeniny, Fatra, Lovochemie) evidují dohromady veřejné smlouvy v řádu téměř dvou miliard Kč, které ale nejsou penězi Andreje Babiše. Tomio Okamura má evidovány čtyři vazby, všechny vlastnického typu (MIKI TRAVEL PRAGUE, U Machtů, MEBIUS, Japa Foods); dosažitelnou veřejnou smlouvu v grafu eviduje pouze MIKI TRAVEL PRAGUE (5 000 000 Kč), u zbylých tří graf žádnou veřejnou smlouvu nenachází. Petr Macinka nemá v grafu evidovánu žádnou peněžní vazbu. Žádná z uvedených firem — zemědělský a chemický holding, cestovní kancelář, potraviny — nemá věcný vztah k předmětu tisku, kterým je výpočet a výše platové základny představitelů státní moci; jde o osobní, nikoli firemní otázku. Jediný myslitelný střet zájmů, který předmět tisku otevírá, je to, že všichni tři předkladatelé jsou sami představiteli státní moci, jejichž vlastní plat návrh upravuje — návrh ovšem směřuje ke zmrazení, tedy k omezení růstu vlastního příjmu předkladatelů oproti dosavadnímu mechanismu, nikoli k jeho navýšení, takže v datech není zjištěn střet zájmů ve smyslu osobního obohacení. Všech 14 vazeb Andreje Babiše i 4 vazby Tomia Okamury nadále čekají na lidskou kontrolu, stejně jako zbytek grafu.",
+    "severity": "low",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Nové znění § 4 zákona č. 236/1995 Sb. stanoví: „Do 31. prosince 2030 činí platová základna představitelů 101 364 Kč.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=35&ct1=0"
+      },
+      {
+        "claim": "Důvodová zpráva (bod B) uvádí: „Proto je navrženo zmrazení platové úrovně na 5 let, tj. do konce roku 2030, ve výši platové základny pro představitele stanovené pro rok 2025.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=35&ct1=0"
+      },
+      {
+        "claim": "Důvodová zpráva (bod E) uvádí: „Zmrazení platových základen pro představitele státní moci v letech 2026 až 2030 na úrovni roku 2025 povede k významným úsporám v oblasti prostředků na platy.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=35&ct1=0"
+      },
+      {
+        "claim": "Důvodová zpráva (bod G) uvádí: „Bez neprodleného přijetí návrhu dojde k dalšímu navýšení platů představitelů státní moci od 1. ledna 2026 v rozporu s ekonomickou situací, v níž se Česká republika nachází.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=35&ct1=0"
+      },
+      {
+        "claim": "Čl. II archivovaného textu stanoví: „Tento zákon nabývá účinnosti dnem 1. ledna 2026.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=35&ct1=0"
+      },
+      {
+        "claim": "Historie projednávání tisku 35 eviduje doručení 20. 11. 2025, souhlasné stanovisko vlády rozeslané 16. 12. 2025 jako tisk 35/1, doporučení organizačního výboru přikázat návrh rozpočtovému výboru jako garančnímu (usnesení č. 14, 17. 12. 2025), pozměňovací návrh č. 852 podaný 15. 4. 2026 a stav projednávání ve výboru k 5. 8. 2026 bez proběhlého prvního čtení.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=35"
+      },
+      {
+        "claim": "Zákon č. 236/1995 Sb., o platu a dalších náležitostech spojených s výkonem funkce představitelů státní moci a některých státních orgánů a soudců a poslanců Evropského parlamentu, je zákon novelizovaný tímto tiskem.",
+        "kind": "law",
+        "source": "236/1995"
+      },
+      {
+        "claim": "Graf eviduje u Andreje Babiše čtyři vazby vlastnického/jednatelského typu (CS CABOT, AGROPROFIT, Hartenberg Holding, AGRONOVA CS) a čtyři vazby v řídicí funkci (IMOBA, AGROFERT, PROFROST, SynBiol).",
+        "kind": "graph_fact",
+        "source": "psp:person:6150"
+      },
+      {
+        "claim": "Graf eviduje u společnosti AGROFERT, a.s. (IČO 26185610) vazbu Andreje Babiše v řídicí funkci (předseda představenstva).",
+        "kind": "graph_fact",
+        "source": "company:ico:26185610"
+      },
+      {
+        "claim": "Graf eviduje u Tomia Okamury čtyři peněžní vazby, všechny vlastnického typu (MIKI TRAVEL PRAGUE, U Machtů, MEBIUS, Japa Foods), z nichž jen MIKI TRAVEL PRAGUE má evidovanou veřejnou smlouvu (5 000 000 Kč).",
+        "kind": "graph_fact",
+        "source": "psp:person:6105"
+      },
+      {
+        "claim": "Graf u Petra Macinky neeviduje žádnou peněžní vazbu na firmu.",
+        "kind": "graph_fact",
+        "source": "psp:person:7022"
+      },
+      {
+        "claim": "Graf eviduje u Andreje Babiše šest vazeb v dohledové funkci (Nadace AGROFERT, Synthesia, PRECHEZA, Kostelecké uzeniny, Fatra, Lovochemie) se souhrnnými veřejnými smlouvami přibližně 1 975 315 534 Kč, a součet dosažitelných veřejných smluv u vazeb vlastnického a řídicího typu ve výši přibližně 16 436 383 Kč.",
+        "kind": "graph_fact",
+        "source": "psp:person:6150"
+      }
+    ]
+  },
+  {
+    "billTisk": 36,
+    "statedReasoning": "Poslanecký návrh (tisk č. 36) podaly Barbora Urbanová a Adriana Chochelová (obě STAN, poslanecká čísla 6788 a 6997) a mění zákon č. 268/2025 Sb., kterým se mění zákon č. 89/2012 Sb., občanský zákoník (tzv. rozvodová novela). Čl. I návrhu v části čtrnácté zákona č. 268/2025 Sb. nahrazuje datum účinnosti „1. ledna 2026“ datem „1. ledna 2027, s výjimkou části první čl. 1 bodů 9 a 16, které nabývají účinnosti dnem 1. ledna 2026“ — odklad se tedy netýká všech ustanovení rovnoměrně. Obecná část důvodové zprávy, členěná do třinácti označených oddílů A až M, uvádí jako účel „zajistit dostatečný časový prostor pro další řešení legislativy, která by měla pokrýt tzv. vysoce konfliktní spory“, přičemž oddíl A. sám dodává, že rozvodová novela takové spory neřeší a ani za tím účelem nebyla prosazována. Oddíl B. odůvodňuje odklad nedostatečnou přípravou soudů, orgánů sociálně-právní ochrany dětí a mediátorů. Oddíl M. žádá o vyslovení souhlasu již v prvním čtení podle § 90 odst. 2 zákona o jednacím řádu Poslanecké sněmovny, a to výslovně proto, „aby zákon mohl nabýt účinnosti 31. prosince 2024, tedy v čase, v němž by měla již nabýt některá ustanovení novelizovaných zákonů, jejichž účinnost je odkládána“ — ačkoli návrh byl podepsán 10. až 11. listopadu 2025 a zákon č. 268/2025 Sb., jehož účinnost má odložit, byl přijat teprve v roce 2025; datum „31. prosince 2024“ v tomto odůvodnění tak neodpovídá žádnému skutečnému datu v ději, který návrh popisuje. Čl. II tisku 36 stanoví jeho vlastní účinnost dnem 31. prosince 2025 — jeden den před původně plánovanou účinností odkládaného zákona.",
+    "researchedContext": "K veřejné rozpravě o připravenosti institucí na rozvodovou novelu existuje nezávislé zpravodajství: podle České justice z listopadu 2025 poslankyně Urbanová uvedla, že „problém spočívá v nefunkčnosti OSPOD… tam opravdu zájem dítěte bohužel málokdy hraje roli“, a navrhla odklad účinnosti o jeden rok právě proto, aby vznikl čas na zvláštní režim pro vysoce konfliktní rozvody spojené s domácím násilím; podle téhož zdroje počítala navrhovatelka s podporou hnutí ANO, ale upozornila, že schválení do konce roku 2025 závisí na časovém presu a na tom, zda Senát stihne zákon projednat. V grafu k tomuto tisku není evidováno žádné přikázání garančnímu výboru. To odpovídá zjištění z nezávislého zdroje (epravo.cz), podle něhož zákon č. 268/2025 Sb. nakonec nabyl účinnosti k původně plánovanému datu 1. ledna 2026, bez odkladu — návrh na odklad tedy zjevně nebyl v zákonodárném procesu dokončen včas a jím zamýšlený odklad se do výsledného stavu nepromítl.",
+    "unstatedEffects": [
+      {
+        "effect": "Oddíl M. žádá o mimořádný postup podle § 90 odst. 2 jednacího řádu (schválení již v prvním čtení, tedy bez standardního výborového projednání) a odůvodňuje tuto naléhavost tím, že zákon má nabýt účinnosti „31. prosince 2024“ — datum o celý rok starší než datum podpisu návrhu (10. až 11. listopadu 2025) i než přijetí odkládaného zákona č. 268/2025 Sb. Odůvodnění naléhavosti, na jehož základě se má obejít standardní výborové čtení, tak obsahuje datum, které neodpovídá žádné skutečné události popisované návrhem.",
+        "whoBenefits": "Nelze určit — návrh nenaznačuje, že by z chybného data v odůvodnění kdokoli profitoval; jde o zjištění legislativně-technické chyby v odůvodnění naléhavosti, nikoli o zjištěný prospěch konkrétní strany.",
+        "evidence": "Oddíl M. tisku 36 uvádí doslovně: „Navrhuje se, aby Poslanecká sněmovna podle § 90 odst. 2 zákona o jednacím řádu Poslanecké sněmovny s návrhem zákona vyslovila souhlas již v prvém čtení, a to z toho důvodu, aby zákon mohl nabýt účinnosti 31. prosince 2024, tedy v čase, v němž by měla již nabýt některá ustanovení novelizovaných zákonů, jejichž účinnost je odkládána.“"
+      },
+      {
+        "effect": "Odklad účinnosti se netýká všech ustanovení rozvodové novely rovnoměrně: čl. I tisku 36 výslovně ponechává v účinnosti k původnímu datu 1. ledna 2026 body 9 a 16 části první čl. 1 zákona č. 268/2025 Sb., zatímco zbytek novely — včetně změn, jejichž přípravu má odklad podle oddílu B. umožnit — se odsouvá o rok. Důvodová zpráva neuvádí, podle jakého kritéria byly právě tyto dva body z odkladu vyňaty, ani proč u nich na rozdíl od zbytku novely přípravu soudů, orgánů sociálně-právní ochrany dětí a mediátorů nepovažuje za nedostatečnou.",
+        "whoBenefits": "Ustanovení, jejichž vynětí z odkladu předkladatelky samy zvolily, si ponechávají plánovanou účinnost k 1. lednu 2026, zatímco veřejnost i dotčené instituce ztrácejí možnost seznámit se z důvodové zprávy s důvodem tohoto rozlišení mezi jednotlivými částmi jedné a téže novely.",
+        "evidence": "Čl. I tisku 36 uvádí doslovně: „…se slova „1. ledna 2026“ nahrazují slovy „1. ledna 2027, s výjimkou části první čl. 1 bodů 9 a 16, které nabývají účinnosti dnem 1. ledna 2026”.“, aniž zvláštní část k čl. I toto rozlišení dále odůvodňuje."
+      }
+    ],
+    "conflictAssessment": "Obě navrhovatelky, Barbora Urbanová (poslanecké číslo 6788) i Adriana Chochelová (poslanecké číslo 6997), mají v grafu peněžních vazeb založený záznam sponzora, ale žádná z nich v něm nemá evidovánu vazbu vlastníka ani jednatele na žádnou obchodní společnost. U tohoto tisku tedy nebyl v grafu peněžních vazeb identifikován žádný finanční střet zájmu žádné z obou navrhovatelek.",
+    "severity": "low",
+    "confidence": 3,
+    "citations": [
+      {
+        "claim": "Čl. I tisku 36 nahrazuje datum účinnosti zákona č. 268/2025 Sb. datem 1. ledna 2027, s výjimkou části první čl. 1 bodů 9 a 16, které mají nabýt účinnosti již 1. ledna 2026.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=36&ct1=0"
+      },
+      {
+        "claim": "Oddíl M. odůvodňuje žádost o schválení návrhu již v prvním čtení tím, že zákon má nabýt účinnosti 31. prosince 2024.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=36&ct1=0"
+      },
+      {
+        "claim": "Oddíl B. odůvodňuje odklad tím, že hladká implementace koncepčních změn rozvodové novely vyžaduje přípravu soudů, orgánů sociálně-právní ochrany dětí, mediátorů a dalších subjektů, k níž dosud nedošlo v dostatečném rozsahu.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=36&ct1=0"
+      },
+      {
+        "claim": "Poslankyně Barbora Urbanová uvedla, že problém spočívá v nefunkčnosti orgánů sociálně-právní ochrany dětí, a navrhla odklad účinnosti rozvodové novely o jeden rok, aby vznikl čas na zvláštní režim pro vysoce konfliktní rozvody spojené s domácím násilím.",
+        "kind": "web",
+        "source": "https://www.ceska-justice.cz/2025/11/ospod-nefunguje-varuje-poslankyne-urbanova/"
+      },
+      {
+        "claim": "Zákon č. 268/2025 Sb. nabyl účinnosti k původně plánovanému datu 1. ledna 2026, bez odkladu.",
+        "kind": "web",
+        "source": "https://www.epravo.cz/top/clanky/rozsahla-novela-rodinneho-prava-ucinna-od-112026-120539.html"
+      },
+      {
+        "claim": "Novela mění zákon č. 268/2025 Sb., kterým se mění zákon č. 89/2012 Sb., občanský zákoník.",
+        "kind": "law",
+        "source": "268/2025"
+      },
+      {
+        "claim": "Návrh podaly Barbora Urbanová (poslanecké číslo 6788) a Adriana Chochelová (poslanecké číslo 6997), obě zvolené za hnutí STAN.",
+        "kind": "graph_fact",
+        "source": "psp:person:6788"
+      },
+      {
+        "claim": "Čl. II tisku 36 stanoví vlastní účinnost zákona dnem 31. prosince 2025.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=36&ct1=0"
+      },
+      {
+        "claim": "Archivovaný text tisku 36 je podepsán 10. a 11. listopadu 2025.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=36&ct1=0"
+      },
+      {
+        "claim": "Obecná část důvodové zprávy tisku 36 je členěna do třinácti označených oddílů A až M.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=36&ct1=0"
+      }
+    ]
+  },
+  {
+    "billTisk": 42,
+    "statedReasoning": "Návrh (tisk č. 42) předložilo Zastupitelstvo hlavního města Prahy prostřednictvím radního pro oblast majetku, transparentnosti a legislativy Adama Zábranského; v souboru dat k tomuto tisku není evidován žádný navrhovatel s poslaneckým číslem. Návrh mění čl. VIII bod 1 (přechodná ustanovení) zákona č. 465/2023 Sb., kterým se mění zákon č. 416/2009 Sb., o urychlení výstavby dopravní, vodní a energetické infrastruktury (liniový zákon): za slovo „třídy,“ vkládá slova „místní komunikace I. třídy,“. Podle bodu 1 obecné části důvodové zprávy je cílem „zařazení místních komunikací I. třídy do výjimek pro opakované prodloužení platnosti stanoviska“ EIA, neboť zákon č. 465/2023 Sb. obecně vyloučil opakované prodlužování platnosti starších stanovisek EIA vydaných přede dnem 1. ledna 2024, s výjimkou vyjmenovaných staveb (nový jaderný zdroj, dálnice, silnice I. třídy, celostátní a regionální dráha, vzletová a přistávací dráha letiště) — mezi něž místní komunikace I. třídy nepatří. Zvláštní část k čl. I odůvodňuje návrh obecně formulovaným rizikem zmaření dosud vynaložených prostředků, zdražení staveb vlivem inflace a zablokování rozvoje brownfieldů „vlivem měnící se legislativy vůbec“ a varuje, že „Při nerealizaci plánovaných staveb místních komunikací I. třídy vzrostou celospolečenské ztráty“ a že „na záměry uvedených dopravních staveb územní samosprávné celky již nebudou mít dostatečné finanční prostředky“, obecně po celé republice, aniž by jmenovala jedinou konkrétní stavbu, investora nebo termín zániku platnosti konkrétního stanoviska. Text v závěrečné podpisové doložce nese datum „V Praze dne 1. dubna 2025“, elektronický podpis Adama Zábranského je však datován 24. listopadu 2025; podle webu psp.cz byl návrh Sněmovně skutečně doručen a rozeslán poslancům jako tisk 42/0 dne 25. listopadu 2025, což datum elektronického podpisu potvrzuje jako rozhodné. Dne 5. ledna 2026 byl jako garanční výbor navržen Hospodářský výbor; k dalšímu čtení podle dostupné historie ke dni zpracování tohoto hodnocení nedošlo.",
+    "researchedContext": "Toto zjištění je nutné porovnat s dříve zpracovaným hodnocením tisku 49 — poslaneckého návrhu novely zákona č. 100/2001 Sb., podaného skupinou poslanců (Zdeněk Hřib, Olga Richterová, Kateřina Demetrashvili) rovněž na přelomu listopadu a prosince 2025 — jenž sleduje týž praktický cíl, obnovení možnosti opakovaně prodlužovat platnost starších stanovisek EIA pro místní komunikace I. třídy, avšak prostřednictvím jiného zákona. Podle webu psp.cz byl tisk 49 doručen a rozeslán poslancům 2. prosince 2025 — osm dní po podpisu a sedm dní po rozeslání tisku 42 — a jako garanční výbor mu byl dne 5. ledna 2026, spolu s tiskem 42 a tiskem 40 v téže dávkové organizační schůzi, navržen výbor pro životní prostředí; vláda zaujala k oběma tiskům shodné, neutrální stanovisko dne 22. prosince 2025. Podle zpravodajství Ekonomického deníku („Výjimka pro městský okruh i Libeňskou spojku? Praha se změnou pravidel narazila“) podalo hlavní město Praha vlastní návrh na rozšíření výjimky pro opakované prodlužování stanovisek EIA pro tři konkrétní záměry — dostavbu městského okruhu, Libeňskou spojku a Radlickou radiálu; ministr životního prostředí Petr Hladík k tomuto pražskému návrhu zaujal nesouhlasné stanovisko, protože je podle něj naformulován obecně a dopadal by na podstatně širší okruh záměrů po celé České republice, a připomněl, že Praha dříve přislíbila stáhnout takto obecně formulovanou výjimku pro místní komunikace I. třídy a předložit místo ní verzi omezenou na konkrétní záměry. Text tisku 42, ověřený proti plnému znění, odpovídá právě tomuto pražskému návrhu: mění zákon č. 465/2023 Sb. (liniový zákon), vkládá do výjimky nekvalifikovaný pojem „místní komunikace I. třídy“ bez územního nebo projektového omezení a je podán jménem Zastupitelstva hlavního města Prahy prostřednictvím radního Adama Zábranského.",
+    "unstatedEffects": [
+      {
+        "effect": "Tisk 42 sleduje stejný praktický cíl jako později podaný tisk 49 — obnovení možnosti opakovaně prodlužovat platnost starších stanovisek EIA pro místní komunikace I. třídy — prostřednictvím jiného zákona (č. 465/2023 Sb. namísto § 23 zákona č. 100/2001 Sb.) a jiného výboru. Tisk 42 byl podepsán 24. 11. 2025 a rozeslán 25. 11. 2025; tisk 49 byl doručen a rozeslán teprve 2. 12. 2025 — o osm, resp. sedm dní později. Důvodová zpráva tisku 42 proto tisk 49 zmínit nemohla, protože v době jejího podání ještě neexistoval. Oběma tiskům byl dne 5. ledna 2026 jako garančnímu výboru navržen výbor (Hospodářský výbor u tisku 42, výbor pro životní prostředí u tisku 49); toto datum ale sdílí i tisk 40, projednávaný ve stejné dávce — jde o následek dávkového přidělování organizačním výborem jedné tranši tisků na jedné schůzi, nikoli o samostatný signál koordinace mezi tiskem 42 a tiskem 49.",
+        "whoBenefits": "Hlavní město Praha jako investor a nositel stanovisek EIA k dopravním stavbám, o jejichž zachování platnosti návrh podle vlastní zvláštní části usiluje; Adam Zábranský jako člen Rady hlavního města Prahy pro oblast majetku a legislativy, tedy představitel instituce, jejíž investiční zájem obecná i zvláštní část důvodové zprávy odůvodňuje, aniž jej institucionálně pojmenovává.",
+        "evidence": "V plném znění tisku 42 (obecná ani zvláštní část) není nikde zmíněn tisk 49, dostavba městského okruhu, Libeňská spojka, Radlická radiála ani Rada hlavního města Prahy — tisk 49 v době podpisu a rozeslání tisku 42 (24.–25. 11. 2025) ještě neexistoval, byl doručen a rozeslán až 2. prosince 2025; podle historie na webu psp.cz byl garanční výbor tisku 42 (Hospodářský výbor) i tisku 49 (výbor pro životní prostředí) navržen shodně 5. ledna 2026, spolu s tiskem 40 v téže dávkové organizační schůzi; podle Ekonomického deníku podalo hlavní město Praha na přelomu listopadu a prosince 2025 vlastní návrh novely zákona o urychlení výstavby dopravní infrastruktury se stejným cílem jako souběžný tisk 49."
+      },
+      {
+        "effect": "Návrh vkládá do výčtu výjimek pojem „místní komunikace I. třídy“ bez jakéhokoli územního, projektového nebo časového omezení — na rozdíl od tisku 49, jehož nově navržený § 23 odst. 13 zákona č. 100/2001 Sb. omezuje obdobnou výjimku na stanoviska pro záměry umístěné v metropolitní rozvojové oblasti a odstavec 14 z ní výslovně vylučuje stanoviska, jejichž platnost již zanikla přede dnem 1. ledna 2024. Zvláštní část tisku 42 přitom odůvodňuje naléhavost návrhu výhradně obecně popsanými, neadresnými riziky (zmaření vynaložených prostředků, zdražení staveb, zablokování rozvoje brownfieldů) u „plánovaných staveb místních komunikací I. třídy“ v celé republice, aniž by — na rozdíl od tisku 49 — jmenovala jediný konkrétní záměr nebo termín zániku platnosti konkrétního stanoviska.",
+        "whoBenefits": "Kterýkoli nositel stanoviska EIA pro místní komunikaci I. třídy vydaného přede dnem 1. ledna 2024 kdekoli v České republice, nikoli pouze hlavní město Praha — tedy okruh podstatně širší, než jaký zvláštní část důvodové zprávy fakticky popisuje; podle zpravodajství Ekonomického deníku je právě takto obecná formulace, kterou ministr životního prostředí kritizoval u obdobného souběžného pražského návrhu, důvodem jeho nesouhlasného stanoviska.",
+        "evidence": "Čl. I tisku 42 vkládá slova „místní komunikace I. třídy,“ bez jakéhokoli územního ani projektového omezení; k porovnání odstavce 13 a 14 § 23 zákona č. 100/2001 Sb., jak je navrhuje tisk 49, a nesouhlasné stanovisko ministra životního prostředí Petra Hladíka k obdobnému pražskému návrhu podle Ekonomického deníku."
+      }
+    ],
+    "conflictAssessment": "V datech k tomuto tisku není evidován žádný navrhovatel s poslaneckým číslem — pole navrhovatelů je prázdné, protože předkladatelem je Zastupitelstvo hlavního města Prahy, nikoli poslanec. Adam Zábranský, radní hlavního města Prahy pro oblast majetku, transparentnosti a legislativy, který návrh jménem zastupitelstva podepsal, je komunálním, nikoli parlamentním politikem, a graf peněžních vazeb, z něhož tento soubor dat vychází, eviduje pouze vazby osob s poslaneckým číslem; jeho absence v tomto grafu proto o případném majetkovém střetu zájmu nic nevypovídá a nelze ji vykládat jako nález o neexistenci vazby. Zjištěná souvislost je — stejně jako u dříve hodnoceného tisku 49 — institucionální, nikoli majetková: hlavní město Praha je investorem a nositelem stanovisek EIA k dopravním stavbám, jejichž zachování platnosti návrh usiluje umožnit, a Zábranský návrh podepsal jako představitel orgánu vedení tohoto investora, nikoli jako soukromá fyzická osoba s majetkovým podílem na dotčených stavbách.",
+    "severity": "medium",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Čl. I tisku 42 vkládá do čl. VIII bodu 1 zákona č. 465/2023 Sb. za slovo „třídy,“ slova „místní komunikace I. třídy,“.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=42&ct1=0"
+      },
+      {
+        "claim": "Zvláštní část k čl. I odůvodňuje naléhavost obecně formulovaným rizikem zmaření dosud vynaložených prostředků a zdražení staveb „vlivem měnící se legislativy vůbec“, aniž jmenuje konkrétní záměr.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=42&ct1=0"
+      },
+      {
+        "claim": "Tisk 42 byl Sněmovně rozeslán jako tisk 42/0 dne 25. listopadu 2025 a jako garanční výbor mu byl dne 5. ledna 2026 navržen Hospodářský výbor.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=42"
+      },
+      {
+        "claim": "Tisk 49 byl doručen a rozeslán poslancům 2. prosince 2025; jako garanční výbor mu byl dne 5. ledna 2026 — shodně s tiskem 42 a tiskem 40 — navržen výbor pro životní prostředí.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=49"
+      },
+      {
+        "claim": "Vláda zaujala dne 22. prosince 2025 shodné, neutrální stanovisko jak k souběžnému pražskému návrhu, tak k tisku 49.",
+        "kind": "web",
+        "source": "https://www.prazskypatriot.cz/k-novelam-o-platnosti-posudku-eia-pro-okruh-v-praze-se-vlada-postavila-neutralne/"
+      },
+      {
+        "claim": "Hlavní město Praha podalo vlastní návrh na rozšíření výjimky pro opakované prodlužování stanovisek EIA pro dostavbu městského okruhu, Libeňskou spojku a Radlickou radiálu; ministr životního prostředí Petr Hladík k němu zaujal nesouhlasné stanovisko pro jeho obecnou formulaci dopadající na širší okruh záměrů po celé republice a připomněl dřívější příslib Prahy stáhnout takto obecnou výjimku.",
+        "kind": "web",
+        "source": "https://ekonomickydenik.cz/vyjimka-pro-mestsky-okruh/"
+      },
+      {
+        "claim": "Tisk 49 omezuje obdobnou výjimku z opakovaného prodlužování stanovisek EIA na záměry umístěné v metropolitní rozvojové oblasti a vylučuje z ní stanoviska, jejichž platnost zanikla přede dnem 1. ledna 2024.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=49&ct1=0"
+      },
+      {
+        "claim": "Návrh mění zákon č. 465/2023 Sb., kterým se mění zákon č. 416/2009 Sb., o urychlení výstavby dopravní, vodní a energetické infrastruktury a infrastruktury elektronických komunikací (liniový zákon).",
+        "kind": "law",
+        "source": "465/2023"
+      }
+    ]
+  },
+  {
+    "billTisk": 48,
+    "statedReasoning": "Tisk 48 je vládní návrh (předkladatel ministr zemědělství Marek Výborný, dokument podepsán i předsedou vlády Petrem Fialou dne 12. 11. 2025), který mění zákon č. 326/2004 Sb., o rostlinolékařské péči, ve 35 bodech. Důvodová zpráva jako hlavní cíl uvádí soulad s evropskými nařízeními (EU) 2022/2379 o statistice zemědělských vstupů a výstupů a prováděcím nařízením Komise (EU) 2023/564 o elektronizaci záznamů o používání přípravků na ochranu rostlin, dále doplnění povinností při nakládání s ošetřeným osivem a sadbou, rozšíření možností získání odborné způsobilosti rostlinolékařů ve státní správě o specializovanou odbornou průpravu organizovanou Ústředním kontrolním a zkušebním ústavem zemědělským (dále „Ústav“), a zavedení systémového postupu při mimořádných událostech způsobených škodlivými organismy rostlin podle vzoru veterinárního zákona. Zpráva (bod 7) uvádí, že návrh nepředpokládá dopad na státní rozpočet ani ostatní veřejné rozpočty a že jediným hospodářským dopadem jsou nové povinnosti podnikatelů vést a předávat záznamy v elektronické podobě, u nezemědělských profesionálních uživatelů odhadované v řádu nižších desítek tisíc korun; u zemědělců hospodařících na výměře nad 200 ha zpráva popisuje naopak zmírnění dosavadní povinnosti měsíčního předávání záznamů, protože se nově bude týkat jen výměry ve vyjmenovaných kulturách (orná půda, vinice, chmelnice, ovocný sad). Zpráva (bod 10) uvádí, že návrh neobsahuje ustanovení, která by byla předmětem korupčního rizika. Účinnost je navržena k 1. lednu 2027 - zpráva to zdůvodňuje tím, že prováděcí nařízení Komise (EU) 2023/564 bylo na úrovni příslušného výboru Evropské komise změněno tak, aby členským státům umožnilo odložit elektronizaci záznamů právě do tohoto data.",
+    "researchedContext": "Podle historie projednávání na webu Poslanecké sněmovny prošel návrh prvním čtením 10. 3. 2026 (usnesení č. 106, přikázán výborům s třicetidenní lhůtou k projednání), zemědělský výbor jako garanční výbor k němu přijal usnesení 18. 3. a 2. 4. 2026 a stanovisko (bod G) 28. 4. 2026. Druhé čtení proběhlo 15. 4. 2026 s obecnou a podrobnou rozpravou; k návrhu bylo podle záznamu historie podáno 16 pozměňovacích návrhů (č. 822 až 1383) v období od 14. 4. do 12. 6. 2026. Třetí čtení, zahájené 27. 5. a pokračující 5. 6. 2026, skončilo usnesením č. 204, jímž byl návrh vrácen do obecné rozpravy druhého čtení. K dnešnímu dni (5. 8. 2026) se návrh podle téhož zdroje nachází zpět v obecné rozpravě druhého čtení a nebyl dosud schválen ve třetím čtení. Obsah jednotlivých pozměňovacích návrhů nebyl v rámci tohoto zpracování ověřen z primárních textů.",
+    "unstatedEffects": [
+      {
+        "effect": "Hospodářská a finanční část důvodové zprávy (bod 7) hodnotí dopad novely výhradně jako administrativní náklad pro podnikatele spojený s vedením a předáváním záznamů v elektronické podobě. Zvláštní část zprávy (K bodu 6) ale zdůvodňuje i jinou změnu § 49 - výslovné stanovení, že poskytnutí údajů o spotřebách účinných látek výrobcům, distributorům pitné vody a zpracovatelům posouzení rizik povodí se nepovažuje za porušení obchodního tajemství. Dopad tohoto opatření na ochranu obchodního tajemství výrobců a distributorů přípravků na ochranu rostlin - tedy jiný typ dopadu než administrativní náklad na vedení záznamů - není v hospodářské a finanční části zprávy (bod 7) ani jinde v posouzení dopadů samostatně zmíněn ani vyhodnocen.",
+        "whoBenefits": "Výrobci a distributoři pitné vody a zpracovatelé posouzení rizik povodí získávají zákonem garantovaný přístup k údajům o spotřebě účinných látek, aniž by se výrobci a distributoři přípravků na ochranu rostlin mohli vůči tomuto konkrétnímu poskytnutí dovolávat ochrany obchodního tajemství; dopad na posledně jmenované subjekty zpráva nekvantifikuje.",
+        "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=48&ct1=0"
+      },
+      {
+        "effect": "Zvláštní část zprávy (K bodu 5 a K bodu 6) popisuje rozšíření povinnosti Ústavu zveřejňovat a poskytovat údaje o spotřebě přípravků a účinných látek podle nařízení (EU) 2022/2379 a na žádost výrobců a distributorů pitné vody. Obecná hospodářská a finanční část zprávy (bod 7) přitom hodnotí dopad novely na veřejné rozpočty souhrnnou větou, že návrh nepředpokládá dopad na státní rozpočet ani ostatní veřejné rozpočty, aniž by se konkrétně vyjádřila k administrativní a personální zátěži, kterou tyto nové úkoly zveřejňování a poskytování dat kladou na samotný Ústav jako veřejnou instituci.",
+        "whoBenefits": "Nelze určit peněžní prospěch konkrétní strany - jde o zjištění, že se posouzení dopadu na veřejné rozpočty nevyjadřuje k nákladům veřejné instituce (Ústavu), která má podle novelizovaného textu nově zveřejňovat a poskytovat širší okruh údajů.",
+        "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=48&ct1=0"
+      }
+    ],
+    "conflictAssessment": "Jediným jmenovitým předkladatelem tisku 48 uvedeným v datech je Marek Výborný, ministr zemědělství, který vládní návrh formálně předkládá; graf u něj eviduje jedinou peněžní vazbu, a to v dohledové funkci u Gymnázia Pardubice, Mozartova 449 (IČO 48161063, veřejné smlouvy 17 804 078 Kč). Jde o veřejnou střední školu a vazba dohledového typu se podle metodiky projektu přičítá instituci, nikoli osobě, takže Marku Výbornému graf nepřičítá žádné dosažitelné peníze z této vazby. Střední škola nemá žádný věcný vztah k předmětu tisku, kterým je rostlinolékařská péče, přípravky na ochranu rostlin a jejich evidence. Vazba čeká na lidskou kontrolu jako zbytek grafu. V datech proto není u tisku 48 zjištěn střet zájmů mezi peněžní vazbou předkladatele a předmětem novely.",
+    "severity": "low",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Nové znění § 49 odst. 5 zákona č. 326/2004 Sb. zní: „(5) Poskytnutí informace o spotřebách účinných látek výrobcům, distributorům pitné vody nebo zpracovatelům posouzení rizik části povodí souvisejících s místy odběru surové vody určené k lidské spotřebě a přípravků držitelům povolení přípravku se nepovažuje za porušení obchodního tajemství.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=48&ct1=0"
+      },
+      {
+        "claim": "Důvodová zpráva (bod 7) uvádí: „Návrh zákona nepředpokládá dopad na státní rozpočet ani ostatní veřejné rozpočty.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=48&ct1=0"
+      },
+      {
+        "claim": "Důvodová zpráva (bod 10) uvádí: „Navrhovaná právní úprava neobsahuje ustanovení, která by byla předmětem korupčního rizika.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=48&ct1=0"
+      },
+      {
+        "claim": "Čl. II archivovaného textu stanoví: „Tento zákon nabývá účinnosti dnem 1. ledna 2027.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=48&ct1=0"
+      },
+      {
+        "claim": "Historie projednávání tisku 48 eviduje první čtení 10. 3. 2026 (usnesení č. 106), garanční zemědělský výbor, druhé čtení 15. 4. 2026, 16 pozměňovacích návrhů (č. 822-1383) a třetí čtení (27. 5. a 5. 6. 2026, usnesení č. 204), jímž byl návrh vrácen do obecné rozpravy druhého čtení; k 5. 8. 2026 nebyl návrh dosud schválen.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=48"
+      },
+      {
+        "claim": "Zákon č. 326/2004 Sb., o rostlinolékařské péči a o změně některých souvisejících zákonů, je zákon novelizovaný tímto tiskem.",
+        "kind": "law",
+        "source": "326/2004"
+      },
+      {
+        "claim": "Graf eviduje u Marka Výborného jedinou peněžní vazbu, a to v dohledové funkci na Gymnáziu Pardubice, Mozartova 449.",
+        "kind": "graph_fact",
+        "source": "psp:person:6513"
+      },
+      {
+        "claim": "Graf eviduje u Gymnázia Pardubice, Mozartova 449 (IČO 48161063) veřejné smlouvy ve výši 17 804 078 Kč.",
+        "kind": "graph_fact",
+        "source": "company:ico:48161063"
+      },
+      {
+        "claim": "Návrh byl podepsán předsedou vlády Petrem Fialou a ministrem zemědělství Markem Výborným dne 12. listopadu 2025.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=48&ct1=0"
+      },
+      {
+        "claim": "Novela mění zákon č. 326/2004 Sb. v celkem 35 bodech čl. I.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=48&ct1=0"
+      },
+      {
+        "claim": "Zvláštní část důvodové zprávy odhaduje náklady na vedení a předávání záznamů v elektronické podobě „v řádech nižších desítek tisíc korun“.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=48&ct1=0"
+      },
+      {
+        "claim": "Nový § 60 odst. 8 zákona č. 326/2004 Sb. zmírňuje dosavadní povinnost měsíčního předávání záznamů pro zemědělské podnikatele hospodařící na výměře větší než 200 ha v součtu kultur orná půda, vinice, chmelnice a ovocný sad.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=48&ct1=0"
+      },
+      {
+        "claim": "Novela odkazuje na nařízení Evropského parlamentu a Rady (EU) 2022/2379 o statistice zemědělských vstupů a výstupů a na prováděcí nařízení Komise (EU) 2023/564 o elektronizaci záznamů o používání přípravků na ochranu rostlin.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=48&ct1=0"
+      }
+    ]
+  },
+  {
+    "billTisk": 82,
+    "statedReasoning": "Vládní návrh (tisk č. 82), předložený ministryní pro místní rozvoj Zuzanou Mrázovou (poslanecké číslo 7040), mění zákon č. 175/2025 Sb., o poskytování některých opatření v podpoře bydlení. Obecná část důvodové zprávy je členěna do patnácti označených oddílů A až O. Podle oddílu A. vznikla kontaktní místa pro bydlení k 1. lednu 2026 a jejich činnost je v prvním pololetí kvůli odložené účinnosti třetí části zákona omezená. Oddíl B. k novele uvádí: „Novela je čistě technická, technologická a implementační, nikoli koncepční“; jejím cílem je „umožnit kontrolovaný náběh aplikace zákona, včetně možného snížení administrativní zátěže, nikoliv měnit jeho cíle“. Věcně návrh vkládá do § 12 nový odstavec 1, který podmiňuje poskytnutí poradenství v bydlení tím, že žadatel má ve správním obvodu kontaktního místa trvalý pobyt nebo tam podle druhu pobytu cizince bydlí, pracuje či studuje nejméně dva roky, a zároveň prohlásí, že je bez vyhovujícího bydlení, nebo mu taková situace hrozí v následujících třech měsících. Návrh dále ruší § 144 odst. 3 a s ním, podle zvláštní části, „S ohledem na nerelevanci“ ustanovení o specifické komunikaci kontaktního místa a Úřadu práce prostřednictvím informačních systémů. Oddíl G. uvádí, že provoz systému podpory bydlení si v roce 2026 vyžádá 605 mil. Kč ze státního rozpočtu, pokud dojde k navýšení příspěvku na výkon státní správy pro obce a kraje, zatímco „V prvním roce byly celkové náklady zákona v RIA analýze původně kalkulovány na 0,79 miliardy Kč“. Podle webu psp.cz byl návrh po prvním čtení 13. března 2026 přikázán jako garančnímu výboru Výboru pro veřejnou správu a regionální rozvoj; podle téhož zdroje tisk dále prošel celým legislativním procesem a byl publikován jako zákon č. 129/2026 Sb. (data k mezikrokům — doporučení výboru, hlasování Sněmovny, projednání Senátem a podpis prezidenta — nejsou v datech k tomuto tisku dostupná; graf peněžních vazeb k tomuto tisku eviduje jen snímek stavu „přikázáno“ z 13. 3. 2026).",
+    "researchedContext": "Nezávislé zpravodajství potvrzuje totožnou charakteristiku novely, jakou nese posuzovaný text: podle České justice („Z podpor bydlení zbyde jen torzo“, prosinec 2025) navrhuje Ministerstvo pro místní rozvoj kvůli rozpočtovému provizoriu na rok 2026 snížit náklady zákona o podpoře bydlení přibližně z 805 mil. Kč na 605 mil. Kč a omezit poradenství v kontaktních místech jen na osoby v akutní bytové nouzi nebo ohrožené výpovědí do tří měsíců namísto široké veřejnosti, přičemž ministryně Mrázová cituje rozpočtová omezení jako důvod. Podle Respektu („Vláda odložila start podpory bydlení“) odpovídá popsané kritérium — trvalý pobyt, případně dvouletá vazba bydlištěm, prací nebo studiem v obvodu, plus prohlášení o nedostatečném bydlení nebo hrozbě jeho ztráty do tří měsíců — doslovně obsahu § 12 odst. 1 posuzovaného tisku, a náběh registru ohrožených osob se odsouvá na září 2026. Číselný údaj 605 mil. Kč se shoduje s vlastní tabulkou tisku 82 v oddíle G. („Implementace zákona o podpoře bydlení vyžaduje v roce 2026 částku 605 mil. Kč ze státního rozpočtu, pokud dojde k navýšení příspěvku na výkon státní správy pro obce a kraje … V prvním roce byly celkové náklady zákona v RIA analýze původně kalkulovány na 0,79 miliardy Kč“, tj. 790 mil. Kč) — rozdíl činí 185 mil. Kč, nikoli řád stovek milionů. Baseline, od něhož Česká justice počítá pokles (805 mil. Kč), se ale od tiskem uváděné částky 790 mil. Kč liší o 15 mil. Kč; jde patrně o dvě různé částky, nikoli o shodu, a tento rozdíl nelze z dostupných zdrojů rozřešit. Podle webu psp.cz zákon skutečně prošel celým legislativním procesem a byl publikován jako zákon č. 129/2026 Sb. Toto hodnocení se drží znění a odůvodnění tisku 82, jak bylo předloženo vládou a jak bylo pro jeho zpracování k dispozici; případná pozdější rozšíření nad rámec původního vládního návrhu nebyla součástí posuzovaného textu, a hodnocení je proto omezeno na verzi předloženou vládou.",
+    "unstatedEffects": [
+      {
+        "effect": "Oddíl B. důvodové zprávy k zúžení okruhu osob, jimž kontaktní místo poskytne poradenství v bydlení, uvádí, že „Novela je čistě technická, technologická a implementační, nikoli koncepční“. Oddíl C. odůvodňuje totéž zúžení výhradně racionalizací zaměření poradenství na „skutečně potřebné osoby“. Ani jeden z těchto oddílů však toto zúžení nespojuje s vlastní tabulkou nákladů v oddíle G., podle níž se náklady na rok 2026 snižují na 605 mil. Kč — podmíněno navýšením příspěvku na výkon státní správy pro obce a kraje — oproti původně v RIA analýze kalkulovaným 0,79 miliardy Kč, tedy o 185 mil. Kč, které nezávislé zpravodajství (Česká justice, Respekt) přímo spojuje s rozpočtovým provizoriem a s cíleným omezením okruhu žadatelů z celé veřejnosti na osoby v akutní bytové nouzi s prokázanou místní vazbou.",
+        "whoBenefits": "Státní rozpočet, jemuž zúžení cílové skupiny přináší úsporu 185 mil. Kč oproti původní kalkulaci nákladů zákona (605 mil. Kč místo 0,79 miliardy Kč, podmíněno navýšením příspěvku na výkon státní správy pro obce a kraje); naopak osoby bez dvouleté trvalé, pracovní nebo studijní vazby na správní obvod kontaktního místa ztrácejí přístup k poradenství, které mohly čerpat podle zákona ve znění účinném od 1. ledna 2026 — návrh byl podepsán již o jedenáct až dvanáct dní později, 12.–13. ledna 2026.",
+        "evidence": "Oddíl G. tisku 82 uvádí, že „Implementace zákona o podpoře bydlení vyžaduje v roce 2026 částku 605 mil. Kč ze státního rozpočtu, pokud dojde k navýšení příspěvku na výkon státní správy pro obce a kraje.“, zatímco „V prvním roce byly celkové náklady zákona v RIA analýze původně kalkulovány na 0,79 miliardy Kč“ — rozdíl činí 185 mil. Kč; Česká justice („Z podpor bydlení zbyde jen torzo“) přímo popisuje totéž zúžení poradenství na akutní případy jako rozpočtově motivované rozhodnutí ministryně Mrázové."
+      },
+      {
+        "effect": "Zvláštní část k čl. I ruší, „S ohledem na nerelevanci“, ustanovení o specifické komunikaci kontaktního místa a Úřadu práce prostřednictvím informačních systémů (zrušený § 144 odst. 3), aniž by kdekoli jinde v obecné či zvláštní části uvedla, proč je tato koordinace mezi dvěma orgány, které mají sloužit téže ohrožené skupině osob, nadále nerelevantní, nebo jaký dopad její zrušení má na předávání informací o žadatelích mezi kontaktními místy a Úřadem práce.",
+        "whoBenefits": "Kontaktní místa a Úřad práce, jimž zrušené ustanovení ukládalo vzájemnou komunikaci prostřednictvím informačních systémů a jejichž administrativní zátěž se tím snižuje; žadatelé o pomoc naopak ztrácejí ustanovení, které mělo zajišťovat, že jejich situace bude mezi oběma orgány sdílena bez nutnosti opakovaného podávání týchž údajů.",
+        "evidence": "Zvláštní část k čl. I tisku 82 uvádí doslovně: „S ohledem na nerelevanci se v rámci technických oprav zákona se dále zrušují ustanovení o specifické komunikaci kontaktního místa a Úřadu práce prostřednictvím informačních systémů.“ — bez dalšího odůvodnění kdekoli jinde v textu."
+      }
+    ],
+    "conflictAssessment": "Jedinou navrhovatelkou evidovanou v grafu peněžních vazeb je ministryně pro místní rozvoj Zuzana Mrázová (poslanecké číslo 7040); v grafu nemá zaznamenánu žádnou vazbu vlastníka ani jednatele na obchodní společnost. U tohoto tisku tedy nebyl v grafu peněžních vazeb identifikován žádný finanční střet zájmu navrhovatelky; zjištěné zúžení cílové skupiny je podle nezávislých zdrojů motivováno rozpočtovým provizoriem, nikoli osobní majetkovou vazbou.",
+    "severity": "medium",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Nový § 12 odst. 1 zákona č. 175/2025 Sb. podmiňuje poskytnutí poradenství v bydlení trvalým pobytem nebo alespoň dvouletým pobytem, prací či studiem žadatele ve správním obvodu kontaktního místa a jeho prohlášením, že je bez vyhovujícího bydlení nebo mu taková situace hrozí v následujících třech měsících.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=82&ct1=0"
+      },
+      {
+        "claim": "Oddíl B. důvodové zprávy uvádí: „Novela je čistě technická, technologická a implementační, nikoli koncepční“; jejím cílem je „umožnit kontrolovaný náběh aplikace zákona, včetně možného snížení administrativní zátěže, nikoliv měnit jeho cíle“.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=82&ct1=0"
+      },
+      {
+        "claim": "Oddíl G. uvádí, že implementace zákona o podpoře bydlení vyžaduje v roce 2026 částku 605 mil. Kč ze státního rozpočtu, pokud dojde k navýšení příspěvku na výkon státní správy pro obce a kraje, zatímco v prvním roce byly celkové náklady zákona v RIA analýze původně kalkulovány na 0,79 miliardy Kč.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=82&ct1=0"
+      },
+      {
+        "claim": "Archivovaný text tisku 82 je podepsán předsedou vlády Andrejem Babišem a ministryní pro místní rozvoj Zuzanou Mrázovou 12.–13. ledna 2026.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=82&ct1=0"
+      },
+      {
+        "claim": "Tisk 82 byl po prvním čtení dne 13. března 2026 přikázán jako garančnímu výboru Výboru pro veřejnou správu a regionální rozvoj.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=82"
+      },
+      {
+        "claim": "Zvláštní část k čl. I ruší ustanovení o specifické komunikaci kontaktního místa a Úřadu práce prostřednictvím informačních systémů „S ohledem na nerelevanci“.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=82&ct1=0"
+      },
+      {
+        "claim": "Ministerstvo pro místní rozvoj navrhlo kvůli rozpočtovému provizoriu na rok 2026 snížit náklady zákona o podpoře bydlení a omezit poradenství v kontaktních místech na osoby v akutní bytové nouzi nebo ohrožené výpovědí do tří měsíců namísto široké veřejnosti.",
+        "kind": "web",
+        "source": "https://www.ceska-justice.cz/2025/12/z-podpor-bydleni-zbyde-jen-torzo/"
+      },
+      {
+        "claim": "Vláda odložila plný náběh podpory bydlení na září 2026 a zavedla kritérium trvalého pobytu nebo dvouleté vazby bydlištěm, prací či studiem v obvodu kontaktního místa spolu s prohlášením o nedostatečném bydlení nebo hrozbě jeho ztráty do tří měsíců.",
+        "kind": "web",
+        "source": "https://www.respekt.cz/informacni-servis/vlada-odlozila-start-podpory-bydleni-2026-01-12-14-56"
+      },
+      {
+        "claim": "Tisk 82 prošel celým legislativním procesem a byl publikován jako zákon č. 129/2026 Sb.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=82"
+      },
+      {
+        "claim": "Novela mění zákon č. 175/2025 Sb., o poskytování některých opatření v podpoře bydlení.",
+        "kind": "law",
+        "source": "175/2025"
+      }
+    ]
+  },
+  {
+    "billTisk": 99,
+    "statedReasoning": "Poslanecký návrh Karla Dvořáka mění zákon č. 340/2015 Sb., o zvláštních podmínkách účinnosti některých smluv, uveřejňování těchto smluv a o registru smluv (zákon o registru smluv). Podle obecné části důvodové zprávy platné znění § 3 odst. 2 písm. a) vylučuje z povinnosti uveřejnění v registru smluv veškeré smlouvy s fyzickou osobou jednající mimo rámec podnikatelské činnosti bez jakéhokoli hodnotového limitu, s jedinou výjimkou pro převod vlastnického práva k hmotné nemovité věci. Předkladatel to označuje za slabinu, kterou v praxi ilustrovala tzv. bitcoinová kauza Ministerstva spravedlnosti (přijetí daru v podobě kryptoměn vysoké hodnoty) a navazující audit společnosti Grant Thornton, který doporučil výjimku pro smlouvy s fyzickými osobami omezit na drobná plnění. Návrh proto do § 3 odst. 2 písm. a) zavádí hodnotový limit 500 000 Kč bez DPH — nad tuto částku se výjimka neuplatní a smlouva s fyzickou osobou-nepodnikatelem podléhá povinnému uveřejnění. Návrh je formulován obecně pro všechna právní jednání, nejen pro dary, a zachovává zvlášť výjimku pro převod nemovitostí, obecný bagatelní limit 50 000 Kč podle písmene h) i neretroaktivitu (nová pravidla platí jen pro smlouvy uzavřené od účinnosti 1. ledna 2027). Podle důvodové zprávy nemá návrh přímý dopad na státní rozpočet.",
+    "researchedContext": "Přiložený text potvrzuje jedinou věcnou změnu: do § 3 odst. 2 písm. a) se za slovo „činnosti“ vkládají slova „, jestliže výše hodnoty jejího předmětu je 500 000 Kč bez daně z přidané hodnoty nebo nižší“. Zvláštní část důvodové zprávy sama podrobně řeší dvě rizika obcházení limitu — štěpení jedné majetkové operace na více formálně samostatných smluv pod hranicí a stanovení hodnoty u dlouhodobých či opakujících se plnění (např. nájmů na dobu neurčitou), kde se má vycházet z „rozumně předvídatelného rozsahu plnění“ za celou sjednanou dobu trvání smlouvy. U smluv na dobu neurčitou ale text nestanoví žádnou závaznou metodu výpočtu předpokládané celkové hodnoty ani orgán, který by ji ověřoval — posouzení, zda konkrétní neurčitá smlouva hodnotu 500 000 Kč dosáhne, zůstává na povinném subjektu samotném. Přechodné ustanovení čl. II bodu 2 stanoví, že povinnost uveřejnit smlouvu a právní následky jejího neuveřejnění u smluv uzavřených přede dnem nabytí účinnosti novely se posuzují podle dosavadních právních předpisů — tedy podle stávající neomezené výjimky pro fyzické osoby-nepodnikatele. Účinnost je podle čl. III stanovena na 1. ledna 2027, zatímco tisk byl sněmovně rozeslán již v únoru 2026. Podle rozpisu projednávání byl dne 4. 3. 2026 jako garanční výbor navržen ústavně právní výbor (ÚPV) podle rozpisu projednávání v datové sadě tisku; tisk je ke dni zpracování tohoto hodnocení ve stavu „navrženo“.",
+    "unstatedEffects": [
+      {
+        "effect": "Pro smlouvy s neurčenou celkovou cenou (typicky nájmy na dobu neurčitou) ukládá zvláštní část důvodové zprávy vycházet z „rozumně předvídatelného rozsahu plnění“ za sjednanou dobu trvání smlouvy, aniž by k tomu návrh stanovil závaznou metodu výpočtu nebo orgán, který by odhad ověřoval. Posouzení, zda konkrétní smlouva dosáhne hranice 500 000 Kč bez DPH, a tedy zda podléhá uveřejnění, tak zůstává zcela na uvážení povinného subjektu, který smlouvu uzavírá.",
+        "whoBenefits": "Nelze jednoznačně určit — profitovat mohou povinné subjekty (typicky orgány veřejné moci a jejich příspěvkové organizace), které mají při odhadu předpokládané hodnoty dlouhodobého plnění diskreci ponechat odhad pod hranicí 500 000 Kč, a tím smlouvu s fyzickou osobou-nepodnikatelem vyjmout z povinnosti uveřejnění, aniž návrh stanoví nezávislý přezkum takového odhadu.",
+        "evidence": "Zvláštní část důvodové zprávy tisku 99, K čl. I (§ 3 odst. 2 písm. a)): „Je-li smlouva uzavřena na dobu neurčitou, je třeba vycházet z doby, kterou smlouva předvídá, popřípadě z jiného v ní výslovně stanoveného období, z něhož lze rozsah plnění odvodit.“"
+      },
+      {
+        "effect": "Přechodné ustanovení čl. II bodu 2 váže povinnost uveřejnění i právní následky jejího neuveřejnění výhradně na den uzavření smlouvy, nikoli na den, kdy byl návrh podán nebo projednán. Vzhledem k tomu, že tisk byl sněmovně rozeslán v únoru 2026, ale navrhovaná účinnost je stanovena až na 1. ledna 2027, mohou povinné subjekty i fyzické osoby-nepodnikatelé po celou dobu projednávání návrhu uzavírat smlouvy o hodnotě nad 500 000 Kč bez DPH, které i po nabytí účinnosti novely zůstanou trvale vyjmuty z povinnosti uveřejnění podle dosavadního (neomezeného) znění výjimky.",
+        "whoBenefits": "Nelze jednoznačně určit — profitovat mohou fyzické osoby-nepodnikatelé a povinné subjekty, které stihnou uzavřít vysoce hodnotnou smlouvu ještě před 1. lednem 2027 a vyhnout se tak trvale povinnosti uveřejnění, kterou by stejná smlouva podléhala, kdyby byla uzavřena až po účinnosti novely.",
+        "evidence": "Čl. II bod 2 tisku 99: „Povinnost uveřejnit smlouvu prostřednictvím registru smluv a právní následky jejího neuveřejnění u smluv uzavřených přede dnem nabytí účinnosti tohoto zákona se posuzují podle dosavadních právních předpisů.“; čl. III: účinnost 1. ledna 2027."
+      }
+    ],
+    "conflictAssessment": "Jediným předkladatelem je Karel Dvořák (poslanecké číslo 7002, dohledané podle jména v rejstříku poslanců — v datech k tisku 99 samotnému žádné poslanecké číslo evidováno není). V datové sadě u něj není evidována žádná peněžní vazba (žádný záznam v uzlu peněžních vazeb pro osobu Karel Dvořák) — jde o skutečně zjištěnou absenci vazeb, nikoli o mezeru v pokrytí dat jako u senátních tisků, protože Karel Dvořák je poslanec, na kterého se pokrytí datové sady vztahuje. Novela navíc mění obecné parametry registru smluv (hodnotový limit výjimky pro fyzické osoby-nepodnikatele) a netýká se žádného konkrétního subjektu, se kterým by předkladatel mohl mít osobní vazbu. Střet zájmů předkladatele proto nelze na základě dostupných dat prokázat.",
+    "severity": "low",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Návrh vkládá do § 3 odst. 2 písm. a) zákona č. 340/2015 Sb. hodnotový limit 500 000 Kč bez DPH pro výjimku z povinnosti uveřejnění smluv s fyzickými osobami jednajícími mimo rámec podnikatelské činnosti; nad tuto částku výjimka neplatí.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=99&ct1=0"
+      },
+      {
+        "claim": "Zvláštní část důvodové zprávy u smluv na dobu neurčitou ukládá vycházet z rozumně předvídatelného rozsahu plnění za sjednanou dobu trvání smlouvy, aniž stanoví závaznou metodu výpočtu nebo orgán ověřující odhad.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=99&ct1=0"
+      },
+      {
+        "claim": "Čl. II bod 2 přechodných ustanovení váže povinnost uveřejnění na den uzavření smlouvy podle dosavadních právních předpisů pro smlouvy uzavřené přede dnem nabytí účinnosti novely (1. ledna 2027 podle čl. III).",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=99&ct1=0"
+      },
+      {
+        "claim": "Obecná část důvodové zprávy odkazuje na tzv. bitcoinovou kauzu Ministerstva spravedlnosti a navazující audit společnosti Grant Thornton jako na praktickou ilustraci slabiny dosavadní neomezené výjimky.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=99&ct1=0"
+      },
+      {
+        "claim": "Novela se týká zákona č. 340/2015 Sb., o zvláštních podmínkách účinnosti některých smluv, uveřejňování těchto smluv a o registru smluv (zákon o registru smluv).",
+        "kind": "law",
+        "source": "340/2015"
+      },
+      {
+        "claim": "Karel Dvořák nemá v datové sadě evidovánu žádnou peněžní vazbu.",
+        "kind": "graph_fact",
+        "source": "psp:person:7002"
+      },
+      {
+        "claim": "§ 3 odst. 2 písm. h) zákona č. 340/2015 Sb. zachovává obecný bagatelní limit 50 000 Kč bez DPH, pod nímž se povinnost uveřejnění v registru smluv neuplatní; tento limit není tiskem 99 měněn.",
+        "kind": "law",
+        "source": "340/2015"
+      }
+    ]
+  },
+  {
+    "billTisk": 130,
+    "statedReasoning": "Senátní návrh (předkladatelé Ivo Trešl a další senátoři, podepsáno předsedou Senátu Milošem Vystrčilem) mění zákon č. 95/2004 Sb., o podmínkách získávání a uznávání odborné způsobilosti a specializované způsobilosti k výkonu zdravotnického povolání lékaře, zubního lékaře a farmaceuta. Podle obecné části důvodové zprávy se v roce 2017 obor „Úrazová chirurgie (traumatologie)“ přesunul ze základních specializačních oborů mezi obory nástavbové, což podle předkladatelů vedlo ke skokovému propadu počtu atestujících (uváděn pokles o 90 % za rok) a ohrožuje personální stabilitu traumacenter i schopnosti vojenské zdravotní služby. Návrh proto vkládá do přílohy č. 1 části I. LÉKAŘI zákona nový základní obor „úrazová chirurgie“ s odborností chirurgický nebo ortopedický (tabulkový sloupec zdrojového dokumentu, přeložen z dvouřádkového zalomení buňky) a délkou vzdělávání 5 let (namísto dosavadních 90 měsíců v rámci nástavbového oboru). Předkladatelé uvádějí podporu odborných společností (Česká společnost pro ortopedii a traumatologii, Česká chirurgická společnost ČLS JEP, Společnost urgentní medicíny a medicíny katastrof ČLS JEP), Ministerstva zdravotnictví a Ministerstva obrany, a navrhují schválení již v prvním čtení s odkazem na naléhavost. Návrh podle důvodové zprávy nemá dopad na státní rozpočet.",
+    "researchedContext": "Přiložený text potvrzuje vložení nového řádku 40 do tabulky přílohy č. 1 části I. LÉKAŘI (tabulkový řádek, sloupce sjednoceny do lineárního pořadí: „40. úrazová chirurgie — chirurgický nebo ortopedický — úrazový chirurg — 5“) s přečíslováním dosavadních řádků 40 až 43 na 41 až 44, přesně podle obecné části. Přechodná ustanovení (čl. II) obsahují tři body: bod 1 umožňuje akreditovaným zařízením pokračovat ve vzdělávání v nástavbovém oboru úrazová chirurgie na základě dosavadní akreditace nejdéle 5 let od účinnosti zákona; bod 2 umožňuje totéž pro lékaře, kteří se do specializačního oboru zařadili až po účinnosti zákona, nejdéle 2 roky; bod 3 stanoví, že lékaři se specializovanou způsobilostí v oboru traumatologie získanou před účinností zákona se považují za lékaře se specializovanou způsobilostí v novém oboru úrazová chirurgie. Bod 3 přechodných ustanovení přitom tuto rovnocennost výslovně váže na zákon č. 95/2024 Sb., zatímco novelizovaným (a jediným dotčeným) předpisem je v celém zbytku textu důsledně zákon č. 95/2004 Sb. — jde o zjevnou písařskou chybu v roku vydání přímo v textu přechodného ustanovení, kterou obecná ani zvláštní část důvodové zprávy nezmiňuje a nevysvětluje. Přechodná ustanovení bodů 1 a 2 dále umožňují pokračovat ve vzdělávání a přijímat nové lékaře na pracovištích akreditovaných pro dosavadní nástavbový obor, aniž by musela projít novou akreditací odpovídající požadavkům na obor základní; text neuvádí, v čem se akreditační požadavky na základní a nástavbový obor liší. Podle rozpisu projednávání byl dne 2. 4. 2026 jako garanční výbor navržen výbor pro zdravotnictví (VZ); tisk je ke dni zpracování tohoto hodnocení ve stavu „navrženo“.",
+    "unstatedEffects": [
+      {
+        "effect": "Bod 3 přechodných ustanovení, který určuje, že dosavadní specialisté v oboru traumatologie se automaticky považují za specialisty v novém oboru úrazová chirurgie, odkazuje na zákon č. 95/2024 Sb. namísto novelizovaného zákona č. 95/2004 Sb. Jde o chybný odkaz přímo v normativním textu přechodného ustanovení, které má určovat právní postavení již atestovaných lékařů; návrh ani jeho zvláštní část tuto nesrovnalost nezmiňují.",
+        "whoBenefits": "Nelze jednoznačně určit — jde o legislativně-technickou vadu textu, nikoli o hmotněprávní zvýhodnění konkrétní skupiny osob; dotčena je právní jistota lékařů, jejichž uznání specializované způsobilosti v novém oboru se má touto chybně odkazovanou normou řídit.",
+        "evidence": "Čl. II bod 3 tisku 130: „Lékaři, kteří přede dnem nabytí účinnosti tohoto zákona získali specializovanou způsobilost v oboru traumatologie, se považují za lékaře se specializovanou způsobilostí ve specializačním oboru úrazová chirurgie podle zákona č. 95/2024 Sb., ve znění účinném ode dne nabytí účinnosti tohoto zákona.“"
+      },
+      {
+        "effect": "Přechodná ustanovení čl. II body 1 a 2 umožňují akreditovaným zařízením pokračovat ve vzdělávání v oboru úrazová chirurgie (nejdéle 5, resp. 2 roky) na základě akreditace udělené podle dosavadní právní úpravy pro nástavbový obor, aniž by pro pokračování vzdělávání v nově zavedeném základním oboru musela projít novým akreditačním řízením. Návrh přitom neuvádí, zda a v čem se požadavky na akreditaci pro základní obor liší od požadavků pro obor nástavbový.",
+        "whoBenefits": "Nelze jednoznačně určit — profitovat mohou stávající akreditovaná zdravotnická zařízení, která díky přechodným ustanovením mohou pokračovat ve vzdělávací činnosti bez nutnosti prokázat splnění případně odlišných akreditačních požadavků pro nově zavedený základní obor po dobu až 5 let od účinnosti zákona.",
+        "evidence": "Čl. II body 1 a 2 tisku 130 (přechodná ustanovení o pokračování vzdělávání akreditovaných zařízení na základě dosavadní akreditace nástavbového oboru)"
+      }
+    ],
+    "conflictAssessment": "U tisku 130 není v datové sadě rozepsán žádný řádek předkladatele s peněžními vazbami (jako předkladatel je uveden senátor Ivo Trešl a další senátoři) a v souboru tisků hodnocených v této a předchozích dávkách není u žádného jiného tisku evidován řádek předkladatele jménem Trešl ani jiného senátora uvedeného jako předkladatel tisku 130. Nejde tedy o zjištěnou absenci peněžních vazeb, ale o mezeru v pokrytí dat: pro senátory jako předkladatele senátních tisků datová sada v dostupném rozsahu žádné záznamy peněžních vazeb neobsahuje, a proto nelze střet zájmů předkladatele pro tento tisk ani potvrdit, ani vyloučit.",
+    "severity": "medium",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Návrh vkládá do přílohy č. 1 části I. LÉKAŘI zákona č. 95/2004 Sb. nový základní specializační obor „úrazová chirurgie“ s délkou vzdělávání 5 let a přečísluje dosavadní řádky 40 až 43 na 41 až 44.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=130&ct1=0"
+      },
+      {
+        "claim": "Čl. II bod 3 přechodných ustanovení tisku 130 určuje rovnocennost dosavadní specializace v oboru traumatologie s novým oborem úrazová chirurgie s odkazem na zákon č. 95/2024 Sb. namísto novelizovaného zákona č. 95/2004 Sb.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=130&ct1=0"
+      },
+      {
+        "claim": "Čl. II body 1 a 2 tisku 130 umožňují akreditovaným zařízením pokračovat ve vzdělávání v oboru úrazová chirurgie na základě dosavadní akreditace nástavbového oboru po dobu nejdéle 5, resp. 2 let od účinnosti zákona.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=130&ct1=0"
+      },
+      {
+        "claim": "Novela se týká zákona č. 95/2004 Sb., o podmínkách získávání a uznávání odborné způsobilosti a specializované způsobilosti k výkonu zdravotnického povolání lékaře, zubního lékaře a farmaceuta.",
+        "kind": "law",
+        "source": "č. 95/2004 Sb."
+      },
+      {
+        "claim": "Obecná část důvodové zprávy tisku 130 uvádí, že se obor „Úrazová chirurgie (traumatologie)“ v roce 2017 přesunul mezi obory nástavbové, což vedlo ke skokovému propadu počtu atestujících (uváděn pokles o 90 % za rok), a žádá o schválení návrhu již v prvém čtení s odkazem na naléhavost.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=130&ct1=0"
+      },
+      {
+        "claim": "Tisk 130 je senátní návrh zákona; podle historie projednávání na webu Poslanecké sněmovny je předkladatelem senátor Ivo Trešl a další senátoři.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=130"
+      }
+    ]
+  },
+  {
+    "billTisk": 138,
+    "statedReasoning": "Poslanecký návrh Víta Rakušana mění zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou účastí státu (nominační zákon). Podle obecné části důvodové zprávy platná úprava § 16 stanoví, že stanovisko Výboru pro nominaci není pro ministerstvo závazné — ministerstvo může jmenovat nebo navrhnout nominovanou osobu do funkce i přes nedoporučující stanovisko, jen s povinností odůvodnění a zveřejnění. Předkladatel tento stav označuje za jeden z hlavních argumentů uváděných pro úplné zrušení nominačního zákona (návrh na zrušení je podle vlastního textu předložen ve sněmovním tisku č. 116) a navrhuje jej řešit opačně — posílením závaznosti nedoporučujícího stanoviska namísto zrušení zákona. Nové znění § 16 rozlišuje účinky stanoviska: doporučující stanovisko zůstává nezávazné, nedoporučující stanovisko se nově stává pro ministerstvo závazným a brání jmenování či navržení osoby do funkce. Ministerstvo má nově povinnost zveřejnit a zaslat předsedovi Výboru informaci nejen o jmenování či navržení, ale i o tom, že k němu nedošlo z důvodu závazného nedoporučení. Navazně se mění § 15 odst. 6 tak, aby se záznam z pohovoru a profesní životopis uchazeče zveřejnily i v případě, že k jmenování nebo navržení nedojde. Návrh podle důvodové zprávy nemá rozpočtový, sociální, environmentální ani korupční dopad a navrhovaná účinnost je 1. ledna 2027.",
+    "researchedContext": "Přiložené platné znění potvrzuje popsaný stav: dosavadní § 16 zákona č. 353/2019 Sb. výslovně říká, že „stanovisko Výboru není pro ministerstvo závazné“, a to i v případě nedoporučení — ministerstvo v takovém případě jen musí v odůvodnění vysvětlit, proč dospělo k odlišnému závěru. Novelizovaný § 16 odst. 2 mění tento následek tak, že „Nedoporučí-li Výbor podle § 15 odst. 3 nominaci osoby, je toto stanovisko pro ministerstvo závazné; ministerstvo nominovanou osobu do funkce nejmenuje ani ji do funkce nenavrhne“. Odstavec 1 přitom u doporučujícího stanoviska zachovává nezávaznost beze změny — návrh tedy zavádí jednosměrnou (asymetrickou) závaznost jen pro záporné stanovisko, nikoli obecnou povinnost ministerstva řídit se Výborem. Nový odstavec 4 dále stanoví, že v případě závazného nedoporučení „předloží Výboru nový návrh nominace; to neplatí, pominula-li potřeba obsazení funkce“ — text nikde neurčuje, kdo a jakým postupem posuzuje, že potřeba obsazení funkce pominula, ani nestanoví pro toto posouzení žádnou lhůtu či součinnost Výboru. Informační povinnost ministerstva podle odstavce 3 je vázána jen na obecnou lhůtu „bez zbytečného odkladu“, zatímco pro samotné projednání nominace Výborem platí v § 15 odst. 1 pevná lhůta 10 pracovních dnů; návrh tuto asymetrii nijak neřeší a nezavádí obdobnou pevnou lhůtu pro ministerstvo. Podle rozpisu projednávání byl dne 15. 4. 2026 jako garanční výbor navržen hospodářský výbor (HV); tisk je ke dni zpracování tohoto hodnocení ve stavu „navrženo“.",
+    "unstatedEffects": [
+      {
+        "effect": "Nový § 16 odst. 4 ukládá ministerstvu po závazném nedoporučení Výboru předložit Výboru nový návrh nominace, ale z povinnosti vyjímá případ, kdy „pominula potřeba obsazení funkce“ — návrh neurčuje, kdo tuto skutečnost posuzuje ani jak se prokazuje. Ministerstvo tak může samo vyhodnotit, že funkce již není třeba obsadit, a tím se zprostit opakované nominace, aniž by toto posouzení podléhalo kontrole Výboru nebo jiné instituce.",
+        "whoBenefits": "Nelze jednoznačně určit — profitovat může ministerstvo (resp. člen vlády odpovědný za nominaci), které tímto ustanovením získává vlastní diskreci ponechat řídící či dozorčí funkci ve firmě s majetkovou účastí státu neobsazenou bez nutnosti nové nominace, aniž je tento krok vázán na součinnost či přezkum Výboru.",
+        "evidence": "§ 16 odst. 4 novelizovaného znění zákona č. 353/2019 Sb.: „V případě podle odstavce 2 předloží Výboru nový návrh nominace; to neplatí, pominula-li potřeba obsazení funkce.“ (tisk 138, čl. I bod 2)"
+      },
+      {
+        "effect": "Informační povinnost ministerstva podle nového § 16 odst. 3 (zaslat předsedovi Výboru a zveřejnit informaci o jmenování, navržení, nebo o tom, že k němu nedošlo) je vázána jen na obecnou lhůtu „bez zbytečného odkladu“, zatímco projednání nominace samotným Výborem má v § 15 odst. 1 pevnou lhůtu 10 pracovních dnů; tato lhůta zůstává novelou nedotčena. Návrh tak zpřísňuje závaznost stanoviska Výboru, aniž by ministerstvu uložil obdobně pevnou lhůtu pro splnění navazující informační a zveřejňovací povinnosti.",
+        "whoBenefits": "Nelze jednoznačně určit — dotčena je zejména veřejná kontrola procesu, protože bez pevné lhůty může zveřejnění informace o výsledku nominace (a navazující zveřejnění záznamu z pohovoru podle § 15 odst. 6) ze strany ministerstva probíhat s odstupem, který návrh sám nijak neomezuje.",
+        "evidence": "§ 15 odst. 1 (nezměněná lhůta 10 pracovních dnů pro Výbor) a § 16 odst. 3 novelizovaného znění (lhůta „bez zbytečného odkladu“ pro ministerstvo) zákona č. 353/2019 Sb. (tisk 138, platné znění s vyznačením změn)"
+      }
+    ],
+    "conflictAssessment": "Jediným předkladatelem je Vít Rakušan. V datové sadě jsou u něj evidovány čtyři peněžní vazby, všechny vedené jako institucionální (nikoli osobní příjem poslance) a všechny čekající na lidskou kontrolu: Společenství vlastníků jednotek domu čp. 904, 905, 906, Rimavské Soboty, Kolín II (funkce místopředsedy výboru, 0 Kč), Vodní cesty na Labi, o.p.s. (funkce předsedy dozorčí rady, 0 Kč), Změna pro Kolín z.s. (funkce člena výboru, 0 Kč) a Nadační fond Gymnázia Kutná Hora (funkce člena správní rady, úhrn veřejných smluv firmy 200 000 Kč). Žádný z těchto subjektů není právnickou osobou s majetkovou účastí státu ve smyslu zákona č. 353/2019 Sb. — SVJ, obecně prospěšná společnost, spolek a nadační fond nespadají do působnosti nominačního zákona, jehož nový § 16 upravuje obsazování řídících a dozorčích orgánů firem s majetkovou účastí státu. Peněžní vazby předkladatele proto nemají věcný vztah k předmětu novely.",
+    "severity": "low",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Návrh mění zákon č. 353/2019 Sb. tak, že nedoporučující stanovisko Výboru se stává pro ministerstvo závazným (dosud bylo nezávazné), a rozšiřuje zveřejňovací povinnost § 15 odst. 6 i na případy, kdy k jmenování nebo navržení nedojde.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=138&ct1=0"
+      },
+      {
+        "claim": "Předkladatel v obecné části důvodové zprávy uvádí, že nezávaznost stanoviska Výboru je jedním z hlavních argumentů pro zrušení nominačního zákona navržené sněmovním tiskem č. 116, a navrhovanou novelu staví jako alternativu k tomuto zrušení.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=138&ct1=0"
+      },
+      {
+        "claim": "Nový § 16 odst. 4 váže povinnost ministerstva předložit Výboru nový návrh nominace po závazném nedoporučení na výjimku „pominula-li potřeba obsazení funkce“, aniž určuje, kdo tuto skutečnost posuzuje.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=138&ct1=0"
+      },
+      {
+        "claim": "§ 15 odst. 1 zákona č. 353/2019 Sb. stanoví Výboru pro projednání nominace pevnou lhůtu 10 pracovních dnů; nový § 16 odst. 3 ukládá ministerstvu jen obecnou lhůtu „bez zbytečného odkladu“.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=138&ct1=0"
+      },
+      {
+        "claim": "Novela se týká zákona č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou účastí státu (nominační zákon).",
+        "kind": "law",
+        "source": "č. 353/2019 Sb."
+      },
+      {
+        "claim": "Vít Rakušan má peněžní vazbu na Společenství vlastníků jednotek domu čp. 904,905,906, Rimavské Soboty, Kolín II (funkce místopředsedy výboru, 0 Kč, vazba čeká na lidskou kontrolu).",
+        "kind": "graph_fact",
+        "source": "company:ico:26745615"
+      },
+      {
+        "claim": "Vít Rakušan má peněžní vazbu na Vodní cesty na Labi, o.p.s. (funkce předsedy dozorčí rady, 0 Kč, vazba čeká na lidskou kontrolu).",
+        "kind": "graph_fact",
+        "source": "company:ico:02312701"
+      },
+      {
+        "claim": "Vít Rakušan má peněžní vazbu na Změna pro Kolín z.s. (funkce člena výboru, 0 Kč, vazba čeká na lidskou kontrolu).",
+        "kind": "graph_fact",
+        "source": "company:ico:22874381"
+      },
+      {
+        "claim": "Vít Rakušan má peněžní vazbu na Nadační fond Gymnázia Kutná Hora v souhrnné výši 200 000 Kč (úhrn veřejných smluv firmy, vazba čeká na lidskou kontrolu).",
+        "kind": "graph_fact",
+        "source": "company:ico:68404999"
+      },
+      {
+        "claim": "Tisku 138 byl dne 15. dubna 2026 jako garanční výbor navržen hospodářský výbor (HV); k dnešnímu dni je tisk ve stavu „navrženo“.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=138"
+      },
+      {
+        "claim": "Navrhovaná účinnost novely tisku 138 je stanovena na 1. ledna 2027.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=138&ct1=0"
+      }
+    ]
+  },
+  {
+    "billTisk": 199,
+    "statedReasoning": "Vládní návrh (tisk č. 199), předložený ministrem životního prostředí Igorem Červeným (poslanecké číslo 6996), mění zákon č. 350/2011 Sb., o chemických látkách a chemických směsích (chemický zákon). Obecná část důvodové zprávy je členěna do devatenácti označených oddílů A až S. Podle oddílu A. je primárním cílem adaptace nařízení Evropského parlamentu a Rady (EU) 2024/1849 ze dne 13. června 2024, kterým se mění nařízení (EU) 2017/852 o rtuti, pokud jde o zubní amalgám. Novela zavádí novou oznamovací povinnost výrobců a dovozců zubního amalgámu vůči ministerstvu (nový § 22 odst. 8 chemického zákona), odpovídající kompetenci ministerstva (§ 24 odst. 1 písm. i)) a nový přestupek s pokutou do 500 tis. Kč v § 34. Podle oddílu H. se návrh týká „pouze velmi úzkého okruhu subjektů – výrobci a dovozci zubního amalgámu; v České republice jde o jednotky subjektů“. Oddíl P. neshledává u návrhu žádné korupční riziko. Účinnost se navrhuje prvním dnem kalendářního měsíce následujícího po vyhlášení. Zvláštní část komentuje deset bodů čl. I, přechodné ustanovení čl. II a účinnost čl. III. Jako garanční výbor byl dne 27. května 2026 navržen Výbor pro životní prostředí. Text nese elektronický podpis ministra ze dne 15. května 2026 a předsedy vlády ze dne 21. května 2026.",
+    "researchedContext": "Nařízení (EU) 2024/1849 je ověřitelný, skutečně existující unijní předpis: podle jeho úplného znění zveřejněného na EUR-Lex bylo přijato dne 13. června 2024 a mění nařízení (EU) 2017/852 o rtuti v návaznosti na Minamatskou úmluvu o rtuti tak, že vkládá do čl. 18 nový odstavec 1a, který výrobcům a dovozcům zubního amalgámu ukládá do 31. května každého roku ohlásit příslušnému orgánu množství amalgámu vyrobeného nebo dovezeného za předchozí kalendářní rok — tedy toliko souhrnný číselný údaj o množství, nikoli dokládání konkrétních obchodních vztahů. Text nového § 22 odst. 8 a § 34 odst. 9 chemického zákona byl ověřen proti plnému znění tisku 199: skutečně ukládá povinnost předložit ministerstvu doklady prokazující výhradní určení amalgámu pro specifické zdravotní potřeby, které musí být „způsobilé doložit obchodní vazby na zdravotnická zařízení“, a sankcionuje nepředložení těchto dokladů stejně jako neohlášení množství. Zvláštní část k bodu 2 čl. I sama výslovně přiznává, že „Evropská právní úprava sice stanoví oznamovací povinnost výrobcům a dovozcům, avšak neřeší, jakým způsobem mají vnitrostátní orgány ověřovat, že množství oznámeného amalgámu bylo skutečně určeno pro povolené účely“ — tedy sama označuje dokladovou povinnost za vnitrostátní doplněk nad rámec ověřeného unijního textu, aniž by to bylo takto pojmenováno v oddílech hodnotících dopad na podnikatelské prostředí (H.) nebo korupční rizika (P.).",
+    "unstatedEffects": [
+      {
+        "effect": "Návrh ukládá výrobcům a dovozcům zubního amalgámu národní povinnost dokládat ministerstvu obchodní vazby na zdravotnická zařízení jako důkaz výhradního určení dodávek pro specifické zdravotní potřeby a sankcionuje nepředložení těchto dokladů pokutou do 500 tis. Kč, ačkoli ověřené znění nařízení (EU) 2024/1849, které novela podle vlastní důvodové zprávy pouze adaptuje, ukládá v novém čl. 18 odst. 1a nařízení (EU) 2017/852 toliko každoroční ohlášení souhrnného množství vyrobeného nebo dovezeného amalgámu, nikoli předložení dokladů o konkrétních obchodních vztazích. Oddíly H. a P. tuto novou dokladovou povinnost hodnotí jako pouhou „minimální administrativní zátěž“ bez korupčního rizika, aniž by uvedly, že jde o požadavek jdoucí nad rámec přímo použitelného unijního předpisu.",
+        "whoBenefits": "Ministerstvo životního prostředí jako regulátor získává neunijně vyžadovanou evidenci obchodních vazeb malého, přesně vymezitelného okruhu subjektů — podle vlastní důvodové zprávy jde o „jednotky subjektů“ — aniž by novela stanovila, jak bude s takto získanými obchodně citlivými údaji dále nakládáno.",
+        "evidence": "Srov. bod K čl. I bodu 2 zvláštní části důvodové zprávy tisku 199, kde se doslovně uvádí, že evropská právní úprava „neřeší, jakým způsobem mají vnitrostátní orgány ověřovat“ určení amalgámu, s čl. 18 odst. 1a nařízení Evropského parlamentu a Rady (EU) 2017/852 ve znění nařízení (EU) 2024/1849, jak je zveřejněno v úplném znění na EUR-Lex."
+      }
+    ],
+    "conflictAssessment": "Jediným navrhovatelem evidovaným v grafu peněžních vazeb je ministr životního prostředí Igor Červený (poslanecké číslo 6996); v grafu nemá zaznamenánu žádnou vazbu vlastníka, jednatele ani jinou majetkovou vazbu na obchodní společnost. U tohoto tisku tedy nebyl v grafu peněžních vazeb identifikován žádný finanční střet zájmu mezi navrhovatelem a odvětvím výroby či dovozu zubního amalgámu, jehož se novela dotýká.",
+    "severity": "low",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Nový § 22 odst. 8 chemického zákona ukládá výrobci nebo dovozci zubního amalgámu předložit ministerstvu doklady prokazující, že vyrobený nebo dovezený zubní amalgám byl určen výhradně pro účely specifických zdravotních potřeb, přičemž tyto doklady musí být „způsobilé doložit obchodní vazby na zdravotnická zařízení“.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=199&ct1=0"
+      },
+      {
+        "claim": "Zvláštní část k bodu 2 čl. I výslovně uvádí, že „Evropská právní úprava sice stanoví oznamovací povinnost výrobcům a dovozcům, avšak neřeší, jakým způsobem mají vnitrostátní orgány ověřovat, že množství oznámeného amalgámu bylo skutečně určeno pro povolené účely“.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=199&ct1=0"
+      },
+      {
+        "claim": "Nařízení Evropského parlamentu a Rady (EU) 2024/1849 ze dne 13. června 2024 vkládá do čl. 18 nařízení (EU) 2017/852 nový odstavec 1a, který ukládá výrobcům a dovozcům zubního amalgámu toliko každoroční ohlášení příslušnému orgánu, do 31. května každého roku, o množství vyrobeného nebo dovezeného amalgámu za předchozí kalendářní rok, nikoli předložení dokladů o obchodních vazbách na konkrétní zdravotnická zařízení.",
+        "kind": "web",
+        "source": "https://eur-lex.europa.eu/eli/reg/2024/1849/oj/eng"
+      },
+      {
+        "claim": "Oddíl H. důvodové zprávy uvádí, že se návrh týká „pouze velmi úzkého okruhu subjektů – výrobci a dovozci zubního amalgámu; v České republice jde o jednotky subjektů“.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=199&ct1=0"
+      },
+      {
+        "claim": "Novela mění zákon č. 350/2011 Sb., o chemických látkách a chemických směsích a o změně některých zákonů (chemický zákon).",
+        "kind": "law",
+        "source": "350/2011"
+      },
+      {
+        "claim": "Za neoznámení množství amalgámu nebo za nepředložení dokladů o jeho určení navrhuje novela v § 34 odst. 9 přestupek s pokutou do 500 tis. Kč.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=199&ct1=0"
+      },
+      {
+        "claim": "Tisku 199 byl dne 27. května 2026 jako garanční výbor navržen Výbor pro životní prostředí; text nese elektronický podpis ministra ze dne 15. května 2026 a předsedy vlády ze dne 21. května 2026.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=199"
+      },
+      {
+        "claim": "Ministrem životního prostředí a předkladatelem tisku 199 je Igor Červený.",
+        "kind": "graph_fact",
+        "source": "psp:person:6996"
+      },
+      {
+        "claim": "Obecná část důvodové zprávy tisku 199 je členěna do devatenácti označených oddílů A až S a nová kompetence ministerstva je zakotvena v § 24 odst. 1 písm. i) chemického zákona.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=199&ct1=0"
+      }
+    ]
+  },
+  {
+    "billTisk": 208,
+    "statedReasoning": "Tisk 208 (skupinový poslanecký návrh Štěpána Slováka, Martina Kupky, Karla Haase, Renáty Zajíčkové, Zdenky Němečkové Crkvenjaš, Petra Sokola, Lucie Bartošové, Martina Baxy a Petra Bendla) novelizuje § 28 zákona č. 65/2017 Sb., o ochraně zdraví před škodlivými účinky návykových látek, ve třech bodech. Zaprvé nahrazuje v § 28 odst. 2 pojem „Národní strategie protidrogové politiky“ širším pojmem „Národní strategie prevence a snižování škod spojených se závislostním chováním“ a doplňuje výslovný důraz na prevenci; zpráva to zdůvodňuje tím, že současná strategie fakticky pokrývá i legální návykové látky, hazardní hraní a digitální závislosti, takže užší pojem protidrogová politika podle zprávy již věcně neodpovídá obsahu politiky. Zadruhé mění v § 28 odst. 3 dosavadní fakultativní možnost vlády zřídit poradní orgán pro protidrogovou politiku na povinnost jej zřídit a výslovně svěřuje odborné, organizační a technické zabezpečení jeho činnosti Úřadu vlády České republiky. Zatřetí doplňuje v § 28 odst. 4 Úřad vlády mezi orgány podílející se na zajištění opatření národní strategie. Zpráva tvrdí, že návrh nezakládá sama o sobě významné nové nároky na státní rozpočet, protože jde o institucionální ukotvení již fungujícího koordinačního mechanismu, že nemá dopad na kraje a obce, na podnikatelské prostředí ani na ochranu osobních údajů, že nezakládá nová korupční rizika, protože nezavádí nové dotační tituly ani rozhodovací pravomoci vůči jednotlivcům, a že předkladatelé v souvislosti s návrhem nekontaktovali žádné osoby vykonávající lobbistickou činnost podle zákona o regulaci lobbování.",
+    "researchedContext": "Podle historie projednávání na webu Poslanecké sněmovny byl návrh devíti poslanců doručen 27. 5. 2026 a 29. 5. 2026 rozeslán jako tisk 208/0; téhož dne byla vláda požádána o stanovisko. Vláda k návrhu zaujala nesouhlasné stanovisko, které bylo 23. 6. 2026 rozesláno jako tisk 208/1 (evidováno v systému eKLEP pod č. 458/26); obsah odůvodnění nesouhlasu nebyl v rámci tohoto zpracování ověřen - text tisku 208/1 je na webu Sněmovny dostupný pouze jako soubor PDF/DOCX, jehož obsah se v tomto zpracování nepodařilo načíst, a existence i datum nesouhlasného stanoviska jsou proto uváděny jako ověřený fakt, jeho konkrétní důvody nikoli. Organizační výbor doporučil 24. 6. 2026 (usnesení č. 79) přikázat návrh k projednání, garančním výborem určil výbor pro zdravotnictví a zpravodajem MVDr. Ing. Václava Trojana, Ph.D. K dnešnímu dni (5. 8. 2026) se návrh podle téhož zdroje nachází ve fázi projednávání ve výboru a neprošel prvním čtením. Text vlastního novelizačního ustanovení (bod 2) přitom sám potvrzuje, že existence poradního orgánu vlády pro protidrogovou politiku je podle dosud platné právní úpravy pouze fakultativní, nikoli obligatorní - přesně to má tento návrh změnit.",
+    "unstatedEffects": [
+      {
+        "effect": "Obecná část důvodové zprávy (bod F) tvrdí, že návrh nezakládá sama o sobě významné nové nároky na státní rozpočet, protože jde jen o institucionální zakotvení již existujícího a fungujícího koordinačního mechanismu. Novelizační text ale mění dosavadní fakultativní možnost vlády zřídit svůj poradní orgán na povinnost jej zřídit a nově zákonem svěřuje jeho odborné, organizační a technické zabezpečení Úřadu vlády České republiky - jde tedy o novou, trvalou zákonnou povinnost konkrétního úřadu, nikoli jen o popis existujícího stavu. Dopad této nové trvalé povinnosti na personální a rozpočtové zajištění Úřadu vlády není v hospodářské a finanční části zprávy (bod F) samostatně vyčíslen ani zmíněn.",
+        "whoBenefits": "Úřad vlády České republiky získává výslovný a trvalý zákonný mandát a s ním spojený nárok na personální a organizační zajištění, který dosud měl jen fakultativní povahu; nejde o peněžní prospěch žádné jmenovitě uvedené osoby ani firmy.",
+        "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=208&ct1=0"
+      },
+      {
+        "effect": "Vláda k návrhu zaujala nesouhlasné stanovisko (tisk 208/1), rozeslané 23. 6. 2026 - dvacet pět dní po rozeslání tisku 208 (29. 5. 2026) a po podání návrhu předkladateli (27. 5. 2026). Archivovaný text důvodové zprávy proto nesouhlas vlády nemohl zmínit, protože v době jejího podání ještě neexistoval; nesouhlas je pozdější skutečností, nikoli opomenutím zprávy.",
+        "whoBenefits": "Nejde o peněžní prospěch - jde o zjištění, že mezi předkladateli a vládou vznikl po podání a rozeslání tisku věcný nesouhlas o jeho obsahu; obsah důvodů nesouhlasu nebyl v tomto zpracování ověřen.",
+        "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=208&ct1=1"
+      }
+    ],
+    "conflictAssessment": "Z devíti předkladatelů tisku 208 nemá graf u pěti evidovánu žádnou peněžní vazbu (Štěpán Slovák, Renáta Zajíčková, Zdenka Němečková Crkvenjaš, Lucie Bartošová, Petr Sokol). Martin Kupka má evidovánu jednu vazbu v dohledové funkci (MAS Nad Prahou o.p.s., IČO 01398717, veřejné smlouvy 3 968 570 Kč) - jde o penězi instituce, nikoli poslance. Karel Haas má evidovánu jednu vazbu v řídicí funkci (ČSOB Pojišťovna, a. s., člen holdingu ČSOB, IČO 45534306, veřejné smlouvy 5 271 341 109 Kč) - vazba řídicího typu se podle metodiky projektu přičítá poslanci jako dosažitelné peníze. Martin Baxa má evidováno devět vazeb, všechny v dohledové funkci (SUTNAR - NADACE RADOSLAVA A ELAINE SUTNAROVÝCH, Plzeňské městské dopravní podniky, Plzeňská filharmonie, Galerie města Plzně, Regionální rozvojová agentura Plzeňského kraje, Techmania Science Center, Nadace Věry a Vladimíra Janouškových, Nadace 700 let města Plzně, Sdružení měst a obcí Plzeňského kraje) - jde o instituce spojené s městem Plzní a Plzeňským krajem, jejichž veřejné smlouvy jsou penězi těchto institucí, nikoli Martina Baxy osobně, takže mu graf nepřičítá žádné dosažitelné peníze. Petr Bendl má evidováno šest vazeb: pět v dohledové funkci (Vzdělávací centrum pro veřejnou správu ČR, Energie - stavební a báňská, MERO ČR, Svaz měst a obcí České republiky, Povodí Vltavy) a jednu na společnost PRAK. Revidovaný ledger peněžních vazeb tuto šestou vazbu eviduje pod IČO 49683144 (PRAK spol. s r.o.) v řídicí funkci (člen představenstva — vazba řídicího, tedy přičitatelného typu; rejstříkové ověření je vedeno jako rozporné) bez dosažitelných veřejných peněz a s nulovou hodnotou dosažitelných veřejných smluv; otevřená položka téhož ledgeru zároveň eviduje nepoužitého kandidáta IČO 61858111 (PRaK, a.s. v likvidaci) pro tutéž vazbu, s poznámkou o možné reklasifikaci na institucionální třídu vazby, pokud by byl tento IČO použit místo současného. Který IČO je pro tuto vazbu správný, nelze z dostupných dat rozhodnout - disclosure obou kandidátů se ponechává bez rozhodnutí. V obou případech je ale dosažitelná peněžní hodnota nulová, takže na výsledek posouzení to nemá vliv: u Bendla jde nanejvýš o 0 Kč dosažitelných peněz, bez ohledu na to, kterou třídu vazba nakonec ponese. Žádná z uvedených firem a institucí - pojišťovna, místní akční skupina, plzeňské kulturní a dopravní instituce, celostátní svaz obcí, státní podnik pro správu vodních toků - nemá věcný vztah k předmětu tisku, kterým je institucionální zajištění koordinace protidrogové politiky a politiky závislostí na úrovni vlády a Úřadu vlády České republiky. V datech proto není zjištěn střet zájmů mezi peněžními vazbami předkladatelů a předmětem tisku; všechny uvedené vazby čekají na lidskou kontrolu, stejně jako zbytek grafu.",
+    "severity": "low",
+    "confidence": 3,
+    "citations": [
+      {
+        "claim": "Bod 2 čl. I archivovaného textu zní: V § 28 odst. 3 se slova „může zřídit“ nahrazují slovem „zřizuje“ a na konci se doplňuje věta „Úkoly spojené s odborným, organizačním a technickým zabezpečením činnosti poradního orgánu vlády pro protidrogovou politiku plní Úřad vlády České republiky.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=208&ct1=0"
+      },
+      {
+        "claim": "Důvodová zpráva (bod A) uvádí: „Existence poradního orgánu vlády pro protidrogovou politiku je tedy podle platné právní úpravy pouze fakultativní, nikoli obligatorní.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=208&ct1=0"
+      },
+      {
+        "claim": "Důvodová zpráva (bod F) uvádí: „Navrhovaná právní úprava nezakládá sama o sobě významné nové nároky na státní rozpočet.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=208&ct1=0"
+      },
+      {
+        "claim": "Důvodová zpráva (bod H) uvádí: „Navrhovaná právní úprava nezakládá nová korupční rizika.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=208&ct1=0"
+      },
+      {
+        "claim": "Historie projednávání tisku 208 eviduje doručení 27. 5. 2026, rozeslání jako tisk 208/0 dne 29. 5. 2026, žádost o stanovisko vlády téhož dne, doporučení organizačního výboru přikázat návrh výboru pro zdravotnictví jako garančnímu (usnesení č. 79, 24. 6. 2026) a stav projednávání ve výboru k 5. 8. 2026 bez proběhlého prvního čtení.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=208"
+      },
+      {
+        "claim": "Tisk 208/1, „Stanovisko vlády k tisku 208/0“, existuje jako samostatný dokument rozeslaný 23. 6. 2026 a vyjadřuje nesouhlas vlády s návrhem; jeho podrobný obsah nebyl v tomto zpracování z primárního textu ověřen.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=208&ct1=1"
+      },
+      {
+        "claim": "Zákon č. 65/2017 Sb., o ochraně zdraví před škodlivými účinky návykových látek, je zákon novelizovaný tímto tiskem.",
+        "kind": "law",
+        "source": "65/2017"
+      },
+      {
+        "claim": "Graf eviduje u Martina Kupky vazbu v dohledové funkci na MAS Nad Prahou o.p.s. (IČO 01398717) s veřejnými smlouvami ve výši 3 968 570 Kč.",
+        "kind": "graph_fact",
+        "source": "company:ico:01398717"
+      },
+      {
+        "claim": "Graf eviduje u Karla Haase vazbu v řídicí funkci na ČSOB Pojišťovna, a. s. (IČO 45534306) s veřejnými smlouvami ve výši 5 271 341 109 Kč.",
+        "kind": "graph_fact",
+        "source": "company:ico:45534306"
+      },
+      {
+        "claim": "Graf eviduje u Martina Baxy devět peněžních vazeb, všechny v dohledové funkci u plzeňských a plzeňsko-krajských institucí.",
+        "kind": "graph_fact",
+        "source": "psp:person:6435"
+      },
+      {
+        "claim": "Graf eviduje u Petra Bendla šest peněžních vazeb, z nichž pět je v dohledové funkci.",
+        "kind": "graph_fact",
+        "source": "psp:person:346"
+      }
+    ]
+  }
+]

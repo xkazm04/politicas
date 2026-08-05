@@ -25,6 +25,7 @@ import {
   CITATION_KIND_KEYS,
   SPONSOR_ROLE_KEYS,
   RAPPORTEUR_SCOPE_KEYS,
+  SECTOR_KEYS,
   pspBillUrl,
   czkCompact,
   citationRef,
@@ -32,6 +33,7 @@ import {
 import { statuteSlug } from "../statuteRef";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
+import { GATE_UNGATED_KEY } from "@/features/overeni/gateVocabulary";
 
 export default function BillDetail({ bill }: { bill: LawBillView }) {
   const t = useTranslations("lawwatch");
@@ -361,6 +363,13 @@ export default function BillDetail({ bill }: { bill: LawBillView }) {
         </div>
       )}
 
+      {/* sektorová atribuce na úrovni § (dávka 017) — firma ↔ sponzor ↔ novelizovaný zákon,
+          s operativními §, pokud je census dokázal izolovat, a s dispozicí publikovaného
+          forenzního posudku, který danou shodu už vyhodnotil. */}
+      {bill.sectorAttributionFlags.length > 0 && (
+        <SectorAttributionBlock flags={bill.sectorAttributionFlags} />
+      )}
+
       {/* reálný §-diff (e-Sbírka) */}
       {bill.paragraphDiffs.length > 0 && <ParagraphDiffBlock diffs={bill.paragraphDiffs} />}
 
@@ -612,6 +621,80 @@ function CitationList({ citations }: { citations: NonNullable<LawBillView["foren
         })}
       </ol>
     </section>
+  );
+}
+
+/** Sektorová atribuce na úrovni § (dávka 017) — census amendovaných § ⋈ ledger peněžních
+ * vazeb. Každá shoda je ODVOZENÝ, NEGATIVOVANÝ signál (attributionStatus: derived-ungated —
+ * žádná lidská brána ji neprošla) a NIKDY se nezobrazí bez dispozice publikovaného forenzního
+ * posudku, který ji už vyhodnotil — bez dispozice by shoda četla jako holé, nevyhodnocené
+ * podezření. Řádek bez operativních § řekne poctivě proč (census bez §-koše vs. selhání
+ * rozdělovače) místo aby paragraf jen vynechal beze slova. */
+function SectorAttributionBlock({ flags }: { flags: LawBillView["sectorAttributionFlags"] }) {
+  const t = useTranslations("lawwatch");
+  // The ungated-label sentence is byte-identical to overeni's own — imported from the ONE
+  // vocabulary (features/overeni/gateVocabulary.ts) rather than kept as a second copy under
+  // the lawwatch namespace (2026-08-06 fix).
+  const tOvereni = useTranslations("overeni");
+  const f = useFormat();
+  return (
+    <div className="mt-6 border-l-4 border-ochre bg-ochre/5 p-4">
+      <SourceNote tone="steel" className="!text-ochre">
+        {t("detail.sectorAttribution.source")}
+      </SourceNote>
+      <p className="mt-2 text-[15px] font-bold leading-snug">
+        {t("detail.sectorAttribution.heading", { count: flags.length, countFmt: f.int(flags.length) })}
+      </p>
+      <p className="mt-1.5 text-[13px] leading-relaxed text-steel">{t("detail.sectorAttribution.intro")}</p>
+      <ul className="mt-4 space-y-4">
+        {flags.map((flag, i) => (
+          <li key={i} className="border-l-2 border-ink/20 pl-3">
+            <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+              <span className="text-sm font-bold">{flag.company}</span>
+              <span className="font-mono text-[10px] font-black uppercase tracking-wider text-steel">
+                {SECTOR_KEYS.has(flag.sector) ? t(`sector.${flag.sector}`) : flag.sector}
+              </span>
+            </div>
+            <p className="mt-1 text-[13px] leading-relaxed text-steel">
+              {t.rich("detail.sectorAttribution.viaLaw", {
+                sector: SECTOR_KEYS.has(flag.sector) ? t(`sector.${flag.sector}`) : flag.sector,
+                ref: flag.viaLawRef,
+                b: (chunks) => <span className="font-bold text-ink">{chunks}</span>,
+              })}
+            </p>
+
+            {flag.operativeParagraphs ? (
+              <p className="mt-1.5 font-mono text-[11px] uppercase tracking-wider text-steel">
+                {t("detail.sectorAttribution.paragraphs")}{" "}
+                <span className="font-black text-ink">
+                  {flag.operativeParagraphs.map((p) => `§ ${p}`).join(", ")}
+                </span>
+              </p>
+            ) : (
+              <p className="mt-1.5 text-[12px] italic leading-relaxed text-steel">
+                {flag.partitionFallback
+                  ? t("detail.sectorAttribution.noParagraphsFallback")
+                  : t("detail.sectorAttribution.noParagraphsCensus")}
+              </p>
+            )}
+
+            {flag.dispositionWithheld ? (
+              <p className="mt-2 border-l-2 border-cobalt pl-2.5 text-[13px] italic leading-relaxed text-steel">
+                {t("detail.sectorAttribution.dispositionWithheld")}
+              </p>
+            ) : (
+              <p className="mt-2 border-l-2 border-cobalt pl-2.5 text-[13px] leading-relaxed">
+                {flag.verdictDisposition}
+              </p>
+            )}
+
+            <p className="mt-1.5 font-mono text-[10px] font-black uppercase tracking-wider text-ochre">
+              {tOvereni(GATE_UNGATED_KEY)}
+            </p>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 

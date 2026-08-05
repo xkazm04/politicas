@@ -1,0 +1,57 @@
+{
+ "billTisk": 99,
+ "statedReasoning": "Poslanecký návrh Karla Dvořáka mění zákon č. 340/2015 Sb., o zvláštních podmínkách účinnosti některých smluv, uveřejňování těchto smluv a o registru smluv (zákon o registru smluv). Podle obecné části důvodové zprávy platné znění § 3 odst. 2 písm. a) vylučuje z povinnosti uveřejnění v registru smluv veškeré smlouvy s fyzickou osobou jednající mimo rámec podnikatelské činnosti bez jakéhokoli hodnotového limitu, s jedinou výjimkou pro převod vlastnického práva k hmotné nemovité věci. Předkladatel to označuje za slabinu, kterou v praxi ilustrovala tzv. bitcoinová kauza Ministerstva spravedlnosti (přijetí daru v podobě kryptoměn vysoké hodnoty) a navazující audit společnosti Grant Thornton, který doporučil výjimku pro smlouvy s fyzickými osobami omezit na drobná plnění. Návrh proto do § 3 odst. 2 písm. a) zavádí hodnotový limit 500 000 Kč bez DPH — nad tuto částku se výjimka neuplatní a smlouva s fyzickou osobou-nepodnikatelem podléhá povinnému uveřejnění. Návrh je formulován obecně pro všechna právní jednání, nejen pro dary, a zachovává zvlášť výjimku pro převod nemovitostí, obecný bagatelní limit 50 000 Kč podle písmene h) i neretroaktivitu (nová pravidla platí jen pro smlouvy uzavřené od účinnosti 1. ledna 2027). Podle důvodové zprávy nemá návrh přímý dopad na státní rozpočet.",
+ "researchedContext": "Přiložený text potvrzuje jedinou věcnou změnu: do § 3 odst. 2 písm. a) se za slovo „činnosti“ vkládají slova „, jestliže výše hodnoty jejího předmětu je 500 000 Kč bez daně z přidané hodnoty nebo nižší“. Zvláštní část důvodové zprávy sama podrobně řeší dvě rizika obcházení limitu — štěpení jedné majetkové operace na více formálně samostatných smluv pod hranicí a stanovení hodnoty u dlouhodobých či opakujících se plnění (např. nájmů na dobu neurčitou), kde se má vycházet z „rozumně předvídatelného rozsahu plnění“ za celou sjednanou dobu trvání smlouvy. U smluv na dobu neurčitou ale text nestanoví žádnou závaznou metodu výpočtu předpokládané celkové hodnoty ani orgán, který by ji ověřoval — posouzení, zda konkrétní neurčitá smlouva hodnotu 500 000 Kč dosáhne, zůstává na povinném subjektu samotném. Přechodné ustanovení čl. II bodu 2 stanoví, že povinnost uveřejnit smlouvu a právní následky jejího neuveřejnění u smluv uzavřených přede dnem nabytí účinnosti novely se posuzují podle dosavadních právních předpisů — tedy podle stávající neomezené výjimky pro fyzické osoby-nepodnikatele. Účinnost je podle čl. III stanovena na 1. ledna 2027, zatímco tisk byl sněmovně rozeslán již v únoru 2026. Podle rozpisu projednávání byl dne 4. 3. 2026 jako garanční výbor navržen ústavně právní výbor (ÚPV) podle rozpisu projednávání v datové sadě tisku; tisk je ke dni zpracování tohoto hodnocení ve stavu „navrženo“.",
+ "unstatedEffects": [
+  {
+   "effect": "Pro smlouvy s neurčenou celkovou cenou (typicky nájmy na dobu neurčitou) ukládá zvláštní část důvodové zprávy vycházet z „rozumně předvídatelného rozsahu plnění“ za sjednanou dobu trvání smlouvy, aniž by k tomu návrh stanovil závaznou metodu výpočtu nebo orgán, který by odhad ověřoval. Posouzení, zda konkrétní smlouva dosáhne hranice 500 000 Kč bez DPH, a tedy zda podléhá uveřejnění, tak zůstává zcela na uvážení povinného subjektu, který smlouvu uzavírá.",
+   "whoBenefits": "Nelze jednoznačně určit — profitovat mohou povinné subjekty (typicky orgány veřejné moci a jejich příspěvkové organizace), které mají při odhadu předpokládané hodnoty dlouhodobého plnění diskreci ponechat odhad pod hranicí 500 000 Kč, a tím smlouvu s fyzickou osobou-nepodnikatelem vyjmout z povinnosti uveřejnění, aniž návrh stanoví nezávislý přezkum takového odhadu.",
+   "evidence": "Zvláštní část důvodové zprávy tisku 99, K čl. I (§ 3 odst. 2 písm. a)): „Je-li smlouva uzavřena na dobu neurčitou, je třeba vycházet z doby, kterou smlouva předvídá, popřípadě z jiného v ní výslovně stanoveného období, z něhož lze rozsah plnění odvodit.“"
+  },
+  {
+   "effect": "Přechodné ustanovení čl. II bodu 2 váže povinnost uveřejnění i právní následky jejího neuveřejnění výhradně na den uzavření smlouvy, nikoli na den, kdy byl návrh podán nebo projednán. Vzhledem k tomu, že tisk byl sněmovně rozeslán v únoru 2026, ale navrhovaná účinnost je stanovena až na 1. ledna 2027, mohou povinné subjekty i fyzické osoby-nepodnikatelé po celou dobu projednávání návrhu uzavírat smlouvy o hodnotě nad 500 000 Kč bez DPH, které i po nabytí účinnosti novely zůstanou trvale vyjmuty z povinnosti uveřejnění podle dosavadního (neomezeného) znění výjimky.",
+   "whoBenefits": "Nelze jednoznačně určit — profitovat mohou fyzické osoby-nepodnikatelé a povinné subjekty, které stihnou uzavřít vysoce hodnotnou smlouvu ještě před 1. lednem 2027 a vyhnout se tak trvale povinnosti uveřejnění, kterou by stejná smlouva podléhala, kdyby byla uzavřena až po účinnosti novely.",
+   "evidence": "Čl. II bod 2 tisku 99: „Povinnost uveřejnit smlouvu prostřednictvím registru smluv a právní následky jejího neuveřejnění u smluv uzavřených přede dnem nabytí účinnosti tohoto zákona se posuzují podle dosavadních právních předpisů.“; čl. III: účinnost 1. ledna 2027."
+  }
+ ],
+ "conflictAssessment": "Jediným předkladatelem je Karel Dvořák (poslanecké číslo 7002, dohledané podle jména v rejstříku poslanců — v datech k tisku 99 samotnému žádné poslanecké číslo evidováno není). V datové sadě u něj není evidována žádná peněžní vazba (žádný záznam v uzlu peněžních vazeb pro osobu Karel Dvořák) — jde o skutečně zjištěnou absenci vazeb, nikoli o mezeru v pokrytí dat jako u senátních tisků, protože Karel Dvořák je poslanec, na kterého se pokrytí datové sady vztahuje. Novela navíc mění obecné parametry registru smluv (hodnotový limit výjimky pro fyzické osoby-nepodnikatele) a netýká se žádného konkrétního subjektu, se kterým by předkladatel mohl mít osobní vazbu. Střet zájmů předkladatele proto nelze na základě dostupných dat prokázat.",
+ "severity": "low",
+ "confidence": 4,
+ "citations": [
+  {
+   "claim": "Návrh vkládá do § 3 odst. 2 písm. a) zákona č. 340/2015 Sb. hodnotový limit 500 000 Kč bez DPH pro výjimku z povinnosti uveřejnění smluv s fyzickými osobami jednajícími mimo rámec podnikatelské činnosti; nad tuto částku výjimka neplatí.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=99&ct1=0"
+  },
+  {
+   "claim": "Zvláštní část důvodové zprávy u smluv na dobu neurčitou ukládá vycházet z rozumně předvídatelného rozsahu plnění za sjednanou dobu trvání smlouvy, aniž stanoví závaznou metodu výpočtu nebo orgán ověřující odhad.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=99&ct1=0"
+  },
+  {
+   "claim": "Čl. II bod 2 přechodných ustanovení váže povinnost uveřejnění na den uzavření smlouvy podle dosavadních právních předpisů pro smlouvy uzavřené přede dnem nabytí účinnosti novely (1. ledna 2027 podle čl. III).",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=99&ct1=0"
+  },
+  {
+   "claim": "Obecná část důvodové zprávy odkazuje na tzv. bitcoinovou kauzu Ministerstva spravedlnosti a navazující audit společnosti Grant Thornton jako na praktickou ilustraci slabiny dosavadní neomezené výjimky.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=99&ct1=0"
+  },
+  {
+   "claim": "Novela se týká zákona č. 340/2015 Sb., o zvláštních podmínkách účinnosti některých smluv, uveřejňování těchto smluv a o registru smluv (zákon o registru smluv).",
+   "kind": "law",
+   "source": "340/2015"
+  },
+  {
+   "claim": "Karel Dvořák nemá v datové sadě evidovánu žádnou peněžní vazbu.",
+   "kind": "graph_fact",
+   "source": "psp:person:7002"
+  },
+  {
+   "claim": "§ 3 odst. 2 písm. h) zákona č. 340/2015 Sb. zachovává obecný bagatelní limit 50 000 Kč bez DPH, pod nímž se povinnost uveřejnění v registru smluv neuplatní; tento limit není tiskem 99 měněn.",
+   "kind": "law",
+   "source": "340/2015"
+  }
+ ]
+}
