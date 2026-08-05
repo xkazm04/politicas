@@ -1,0 +1,86 @@
+{
+  "billTisk": 53,
+  "billNodeId": "bill:tisk:43160",
+  "title": "Vládní návrh zákona, kterým se mění zákon č. 634/1992 Sb., o ochraně spotřebitele, ve znění pozdějších předpisů, a zákon č. 89/2012 Sb., občanský zákoník, ve znění pozdějších předpisů",
+  "origin": "government",
+  "submitter": "min. prům. a obchodu",
+  "summary": {
+    "summary": "Mění 2 předpisy — změna zákona o ochraně spotřebitele, občanského zákoníku.",
+    "method": "cast_captions"
+  },
+  "amendedLaws": [
+    {
+      "ref": "634/1992",
+      "urn": "law:sb:634-1992",
+      "label": "zákon č. 634/1992 Sb. — Zákon o ochraně spotřebitele"
+    },
+    {
+      "ref": "89/2012",
+      "urn": "law:sb:89-2012",
+      "label": "zákon č. 89/2012 Sb. — Zákon občanský zákoník"
+    }
+  ],
+  "amendsCount": 2,
+  "maxTargetChurn": 6,
+  "triageScoreV2": 602314,
+  "sectorAdjacency": false,
+  "attributedSectorLeads": [],
+  "sponsors": [
+    {
+      "pspId": 6789,
+      "name": "Lukáš Vlček",
+      "moneyTies": [
+        {
+          "ico": "25172263",
+          "name": "SOMPO, a.s.",
+          "urn": "company:ico:25172263",
+          "contractCzk": 9174258
+        },
+        {
+          "ico": "26039907",
+          "name": "PEVAK Pelhřimov, družstvo",
+          "urn": "company:ico:26039907",
+          "contractCzk": 1234888
+        },
+        {
+          "ico": "26109859",
+          "name": "W.H.V. Projekt spol. s r.o.",
+          "urn": "company:ico:26109859",
+          "contractCzk": 0
+        },
+        {
+          "ico": "26982170",
+          "name": "Via rustica z.s.",
+          "urn": "company:ico:26982170",
+          "contractCzk": 2008259
+        },
+        {
+          "ico": "27043843",
+          "name": "PRO VYSOČINU, občanské sdružení",
+          "urn": "company:ico:27043843",
+          "contractCzk": 0
+        },
+        {
+          "ico": "28095405",
+          "name": "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov",
+          "urn": "company:ico:28095405",
+          "contractCzk": 0
+        }
+      ]
+    }
+  ],
+  "committeeRouting": [
+    {
+      "organ": "HV",
+      "role": "garancni",
+      "status": "prikazano",
+      "assignedOn": "2026-03-25"
+    }
+  ],
+  "cachedTexts": [
+    ".data\\law-collision-cache\\tisk-53\\265983.txt",
+    ".data\\law-collision-cache\\tisk-53\\265985.txt"
+  ],
+  "duvodovaZpravaUrl": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=53&ct1=0",
+  "historyUrl": "https://www.psp.cz/sqw/historie.sqw?o=10&t=53"
+}

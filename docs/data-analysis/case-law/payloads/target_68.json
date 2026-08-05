@@ -1,0 +1,78 @@
+{
+  "billTisk": 68,
+  "billNodeId": "bill:tisk:43175",
+  "title": "Vládní návrh zákona, kterým se mění zákon č. 23/2017 Sb., o pravidlech rozpočtové odpovědnosti, ve znění pozdějších předpisů, a další související zákony",
+  "origin": "government",
+  "submitter": "min. financí",
+  "summary": {
+    "summary": "Mění 7 předpisů — změna zákona o pravidlech rozpočtové odpovědnosti, zákona o rozpočtových pravidlech, zákona o rozpočtovém určení daní a 4 další předpisy.",
+    "method": "cast_captions"
+  },
+  "amendedLaws": [
+    {
+      "ref": "159/2006",
+      "urn": "law:sb:159-2006",
+      "label": "zákon č. 159/2006 Sb. — Zákon o střetu zájmů"
+    },
+    {
+      "ref": "177/2023",
+      "urn": "law:sb:177-2023",
+      "label": "zákon č. 177/2023 Sb. — Zákon o financování obrany České republiky a o změně zákona č. 218/2000 Sb., o rozpočtových pravidlech a o změně některý"
+    },
+    {
+      "ref": "218/2000",
+      "urn": "law:sb:218-2000",
+      "label": "zákon č. 218/2000 Sb. — Zákon o rozpočtových pravidlech a o změně některých souvisejících zákonů (rozpočtová pravidla)"
+    },
+    {
+      "ref": "222/2016",
+      "urn": "law:sb:222-2016",
+      "label": "zákon č. 222/2016 Sb. — Zákon o Sbírce zákonů a mezinárodních smluv a o tvorbě právních předpisů vyhlašovaných ve Sbírce zákonů a mezinárodních "
+    },
+    {
+      "ref": "23/2017",
+      "urn": "law:sb:23-2017",
+      "label": "zákon č. 23/2017 Sb. — Zákon o pravidlech rozpočtové odpovědnosti"
+    },
+    {
+      "ref": "243/2000",
+      "urn": "law:sb:243-2000",
+      "label": "zákon č. 243/2000 Sb. — Zákon o rozpočtovém určení výnosů některých daní územním samosprávným celkům a některým státním fondům (zákon o rozpočto"
+    },
+    {
+      "ref": "250/2000",
+      "urn": "law:sb:250-2000",
+      "label": "zákon č. 250/2000 Sb. — Zákon o rozpočtových pravidlech územních rozpočtů"
+    },
+    {
+      "ref": "262/2006",
+      "urn": "law:sb:262-2006",
+      "label": "zákon č. 262/2006 Sb. — Zákon zákoník práce"
+    }
+  ],
+  "amendsCount": 8,
+  "maxTargetChurn": 6,
+  "triageScoreV2": 604000,
+  "sectorAdjacency": false,
+  "attributedSectorLeads": [],
+  "sponsors": [
+    {
+      "pspId": 5969,
+      "name": "Zbyněk Stanjura",
+      "moneyTies": []
+    }
+  ],
+  "committeeRouting": [
+    {
+      "organ": "RV",
+      "role": "garancni",
+      "status": "navrzeno",
+      "assignedOn": "2025-12-17"
+    }
+  ],
+  "cachedTexts": [
+    ".data\\law-collision-cache\\tisk-68\\266205.txt"
+  ],
+  "duvodovaZpravaUrl": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=68&ct1=0",
+  "historyUrl": "https://www.psp.cz/sqw/historie.sqw?o=10&t=68"
+}

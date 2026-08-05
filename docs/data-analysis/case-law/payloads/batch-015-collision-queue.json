@@ -1,0 +1,322 @@
+{
+ "generatedAt": "2026-08-05T07:31:58.124Z",
+ "batch": 15,
+ "backlogRemaining": 12,
+ "queued": 12,
+ "pairs": [
+  {
+   "lawRef": "388/1991",
+   "lawTitle": "zákon č. 388/1991 Sb. — Zákon České národní rady o Státním fondu životního prostředí České republiky",
+   "billA": 64,
+   "billB": 77,
+   "paragraphs": [
+    "1"
+   ],
+   "genuineParagraphs": [
+    "1"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 1",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-77\\266520.txt"
+   ]
+  },
+  {
+   "lawRef": "90/2012",
+   "lawTitle": "zákon č. 90/2012 Sb. — Zákon o obchodních společnostech a družstvech (zákon o obchodních korporacích)",
+   "billA": 64,
+   "billB": 143,
+   "paragraphs": [
+    "417"
+   ],
+   "genuineParagraphs": [
+    "417"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 417",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-143\\268781.txt",
+    ".data\\law-collision-cache\\tisk-143\\268785.txt"
+   ]
+  },
+  {
+   "lawRef": "300/2008",
+   "lawTitle": "zákon č. 300/2008 Sb. — Zákon o elektronických úkonech a autorizované konverzi dokumentů",
+   "billA": 65,
+   "billB": 103,
+   "paragraphs": [
+    "3"
+   ],
+   "genuineParagraphs": [
+    "3"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "3"
+   ],
+   "reason": "1 § with a real instruction on both sides: 3",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-65\\266164.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-103\\267494.txt"
+   ]
+  },
+  {
+   "lawRef": "360/1992",
+   "lawTitle": "zákon č. 360/1992 Sb. — Zákon České národní rady  o výkonu povolání autorizovaných architektů a o výkonu povolání autorizovaných inženýrů a tech",
+   "billA": 67,
+   "billB": 234,
+   "paragraphs": [
+    "22"
+   ],
+   "genuineParagraphs": [
+    "22"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "22"
+   ],
+   "reason": "1 § with a real instruction on both sides: 22",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-67\\266188.txt",
+    ".data\\law-collision-cache\\tisk-67\\266190.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-234\\277503.txt"
+   ]
+  },
+  {
+   "lawRef": "359/1999",
+   "lawTitle": "zákon č. 359/1999 Sb. — Zákon o sociálně-právní ochraně dětí",
+   "billA": 111,
+   "billB": 207,
+   "paragraphs": [
+    "23e"
+   ],
+   "genuineParagraphs": [
+    "23e"
+   ],
+   "citationOnlyParagraphs": [],
+   "odstavecOverlap": [
+    "23e"
+   ],
+   "reason": "1 § with a real instruction on both sides: 23e",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-111\\267623.txt",
+    ".data\\law-collision-cache\\tisk-111\\267625.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-207\\271152.txt",
+    ".data\\law-collision-cache\\tisk-207\\271154.txt"
+   ]
+  },
+  {
+   "lawRef": "586/1992",
+   "lawTitle": "zákon č. 586/1992 Sb. — Zákon České národní rady o daních z příjmů",
+   "billA": 189,
+   "billB": 248,
+   "paragraphs": [
+    "24",
+    "6"
+   ],
+   "genuineParagraphs": [
+    "6"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "24",
+     "citingBill": 189
+    }
+   ],
+   "odstavecOverlap": [
+    "6"
+   ],
+   "reason": "1 § with a real instruction on both sides: 6",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-189\\270143.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-248\\277937.txt",
+    ".data\\law-collision-cache\\tisk-248\\277939.txt"
+   ]
+  },
+  {
+   "lawRef": "218/2000",
+   "lawTitle": "zákon č. 218/2000 Sb. — Zákon o rozpočtových pravidlech a o změně některých souvisejících zákonů (rozpočtová pravidla)",
+   "billA": 64,
+   "billB": 221,
+   "paragraphs": [
+    "12",
+    "14"
+   ],
+   "genuineParagraphs": [
+    "14"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "12",
+     "citingBill": 221
+    }
+   ],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 14",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-221\\271529.txt"
+   ]
+  },
+  {
+   "lawRef": "218/2000",
+   "lawTitle": "zákon č. 218/2000 Sb. — Zákon o rozpočtových pravidlech a o změně některých souvisejících zákonů (rozpočtová pravidla)",
+   "billA": 89,
+   "billB": 90,
+   "paragraphs": [
+    "3",
+    "36"
+   ],
+   "genuineParagraphs": [
+    "36"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "3",
+     "citingBill": 90
+    }
+   ],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 36",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-89\\267100.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-90\\267105.txt"
+   ]
+  },
+  {
+   "lawRef": "37/2021",
+   "lawTitle": "zákon č. 37/2021 Sb. — Zákon o evidenci skutečných majitelů",
+   "billA": 64,
+   "billB": 260,
+   "paragraphs": [
+    "23",
+    "53"
+   ],
+   "genuineParagraphs": [
+    "53"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "23",
+     "citingBill": 64
+    }
+   ],
+   "odstavecOverlap": [
+    "53"
+   ],
+   "reason": "1 § with a real instruction on both sides: 53",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-260\\278413.txt"
+   ]
+  },
+  {
+   "lawRef": "240/2013",
+   "lawTitle": "zákon č. 240/2013 Sb. — Zákon o investičních společnostech a investičních fondech",
+   "billA": 13,
+   "billB": 16,
+   "paragraphs": [
+    "49",
+    "604"
+   ],
+   "genuineParagraphs": [
+    "604"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "49",
+     "citingBill": 13
+    }
+   ],
+   "odstavecOverlap": [
+    "604"
+   ],
+   "reason": "1 § with a real instruction on both sides: 604",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-13\\265099.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-16\\265180.txt"
+   ]
+  },
+  {
+   "lawRef": "219/2000",
+   "lawTitle": "zákon č. 219/2000 Sb. — Zákon o majetku České republiky a jejím vystupování v právních vztazích",
+   "billA": 64,
+   "billB": 102,
+   "paragraphs": [
+    "15",
+    "4"
+   ],
+   "genuineParagraphs": [
+    "15"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "4",
+     "citingBill": 102
+    }
+   ],
+   "odstavecOverlap": [],
+   "reason": "1 § with a real instruction on both sides: 15",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-64\\266153.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-102\\267472.txt"
+   ]
+  },
+  {
+   "lawRef": "254/2001",
+   "lawTitle": "zákon č. 254/2001 Sb. — Zákon o vodách a o změně některých zákonů (vodní zákon)",
+   "billA": 67,
+   "billB": 75,
+   "paragraphs": [
+    "125a",
+    "55c"
+   ],
+   "genuineParagraphs": [
+    "55c"
+   ],
+   "citationOnlyParagraphs": [
+    {
+     "paragraph": "125a",
+     "citingBill": 67
+    }
+   ],
+   "odstavecOverlap": [
+    "55c"
+   ],
+   "reason": "1 § with a real instruction on both sides: 55c",
+   "cachedTextsA": [
+    ".data\\law-collision-cache\\tisk-67\\266188.txt",
+    ".data\\law-collision-cache\\tisk-67\\266190.txt"
+   ],
+   "cachedTextsB": [
+    ".data\\law-collision-cache\\tisk-75\\266819.txt"
+   ]
+  }
+ ]
+}

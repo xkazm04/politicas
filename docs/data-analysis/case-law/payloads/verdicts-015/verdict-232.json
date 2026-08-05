@@ -1,0 +1,47 @@
+{
+  "billTisk": 232,
+  "statedReasoning": "Poslanecký návrh Andreje Babiše a Roberta Plagy mění zákon č. 561/2004 Sb., školský zákon. Vkládá nový § 29a, který na úrovni zákona (nikoliv školního řádu) zakazuje dětem v mateřské škole, žákům základní školy, nižšího stupně víceletého gymnázia a odpovídající části osmiletého konzervatoře používat mobilní telefon nebo jiné elektronické komunikační zařízení při vzdělávání, souvisejících činnostech a školských službách (jídelna, družina, klub), s výjimkami pro zdravotní důvody, speciální vzdělávací potřeby, výslovné školní povolení pro vzdělávací účely a akce mimo místo vzdělávání. Zároveň se z § 30 odst. 3 ruší dosavadní obecné zmocnění školního řádu regulovat mobilní telefony (přesouvá se do nového § 29a odst. 3 pro žáky, na které se zákonný zákaz nevztahuje) a navazuje technická úprava odkazu v § 136 odst. 2 písm. d). Účinnost se navrhuje k 1. září 2027, tedy o rok později než u konkurenčního tisku 104, s odůvodněním, že termín navazuje na obvyklou dobu aktualizace školních řádů.",
+  "researchedContext": "Text potvrzuje mechanismus i časování. Nový § 29a odst. 1 skutečně stanoví plošný zákonný zákaz, odstavec 2 vyjmenovává čtyři výjimky (zdravotní důvody, speciální vzdělávací potřeby, povolení školou pro vzdělávací účely, akce mimo školu), odstavec 3 zachovává dosavadní fakultativní úpravu školním řádem pro děti a žáky mimo věkový rozsah odstavce 1 (tedy např. střední školy nad rámec nižšího gymnázia), odstavce 4 a 5 zavádějí možnost školního řádu upravit odkládání i sankční odevzdání zařízení. Důvodová zpráva cituje dotazníkové šetření MŠMT z května 2026 (5 441 z 5 461 oslovených škol), podle kterého už 93 % škol nějakou formu omezení mobilů má na základě dosavadního fakultativního § 30 odst. 3, a dokládá zahraniční zkušenosti (Francie, Nizozemsko) i doporučení Národního ústavu duševního zdraví pro plošný zákaz. Tento tisk je věcně jiný přístup ke stejnému problému jako souběžně projednávaný tisk 104 (viz jeho vlastní posouzení) — tisk 232 ruší školní diskrecionalitu a nahrazuje ji plošným zákonným zákazem s výjimkami, zatímco tisk 104 ponechává rozhodnutí školnímu řádu a jen doplňuje nový § 184c s podrobnějším rámcem pro tutéž školní diskrecionalitu. Oba návrhy mění stejný zákon a týkají se téhož tématu, ale nejsou textově kompatibilní (tisk 232 celý dosavadní § 30 odst. 3 přesouvá a přečíslovává, tisk 104 jeho znění místo toho nahrazuje) — pokud by byly projednávány souběžně, jeden by ve výsledku musel ustoupit druhému nebo by hrozila kolize novelizačních bodů.",
+  "unstatedEffects": [
+    {
+      "effect": "Návrh ruší dosavadní § 30 odst. 3 (obecné zmocnění školního řádu regulovat mobily u všech dětí a žáků) a nahrazuje jej plošným zákonným zákazem jen pro věkově vymezenou skupinu v odstavci 1, přičemž pro zbytek žáků (typicky střední školy nad rámec nižšího gymnázia) přesouvá stejné oprávnění do § 29a odst. 3. Důvodová zpráva sama v dotazníkovém šetření uvádí, že 93 % škol už dnes nějakou formu omezení má na základě dobrovolné školní úpravy — návrh tedy pro naprostou většinu škol formalizuje již fungující praxi na úrovni zákona, ale text nikde nekvantifikuje, kolik ze zbývajících 7 % škol omezení nemělo záměrně (např. z pedagogických důvodů, jako je aktivní práce s digitálními technologiemi ve výuce) a bude nyní zákonem donuceno zákaz zavést bez ohledu na vlastní vzdělávací koncepci.",
+      "whoBenefits": "Nelze jednoznačně určit — dotčeny jsou školy, které se dosud vědomě rozhodly mobily ve výuce neregulovat nebo je zapojit do výuky jinak, než návrh v § 29a odst. 2 písm. b) a c) předpokládá.",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=232&ct1=0"
+    }
+  ],
+  "conflictAssessment": "Spolupředkladatel Robert Plaga nemá v grafu evidovanou žádnou peněžní vazbu na firmu. Spolupředkladatel Andrej Babiš má v grafu evidováno čtrnáct peněžních vazeb na firmy (mimo jiné AGROFERT, a.s., Nadace AGROFERT, Synthesia, a.s., Lovochemie, a.s., PRECHEZA a.s., Fatra, a.s., Kostelecké uzeniny a.s. a další), s celkovým úhrnem veřejných smluv v řádu stovek milionů korun. Věcný obsah tohoto tisku je ale úprava používání mobilních telefonů ve školách — segment vzdělávání a školských služeb. Žádná z evidovaných firem Andreje Babiše nepodniká v oblasti vzdělávání, provozu škol, výroby ani distribuce elektronických komunikačních zařízení, telekomunikačních služeb ani školního nábytku či úložných boxů na mobilní telefony, které by novela mohla nepřímo zasáhnout; jde o firmy z oborů zemědělství, potravinářství, chemie a plastů. Mezi předmětem novely a podnikatelským okruhem evidovaných vazeb tedy není žádná zjištěná věcná souvislost, a proto v datech nevzniká zjištěný střet zájmů — konflikt zájmů podle dostupných dat vyloučen není, protože evidence peněžních vazeb v grafu nemusí zahrnovat všechny podnikatelské zájmy, ale konkrétní, textem doložitelný kanál chybí.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Nový § 29a odst. 1 zákona č. 561/2004 Sb. zavádí plošný zákonný zákaz používání mobilního telefonu při vzdělávání, souvisejících činnostech a školských službách pro vymezenou věkovou skupinu, odstavec 2 stanoví čtyři výjimky.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=232&ct1=0"
+    },
+    {
+      "claim": "Důvodová zpráva cituje dotazníkové šetření MŠMT z května 2026, podle kterého 93 % z 5 441 odpovídajících škol už má ve školním řádu upraveno nějaké omezení mobilních telefonů podle dosavadního § 30 odst. 3.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=232&ct1=0"
+    },
+    {
+      "claim": "Účinnost tisku 232 se navrhuje k 1. září 2027, s odůvodněním návaznosti na obvyklý termín aktualizace školních řádů.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=232&ct1=0"
+    },
+    {
+      "claim": "Spolupředkladatel Andrej Babiš (pspId 6150) má v grafu evidováno čtrnáct peněžních vazeb na firmy z oborů zemědělství, potravinářství, chemie a plastů, mimo jiné AGROFERT, a.s. a Nadaci AGROFERT.",
+      "kind": "graph_fact",
+      "source": "psp:person:6150"
+    },
+    {
+      "claim": "AGROFERT, a.s. (IČO 26185610) je jednou z evidovaných peněžních vazeb Andreje Babiše.",
+      "kind": "graph_fact",
+      "source": "company:ico:26185610"
+    },
+    {
+      "claim": "Zákon č. 561/2004 Sb., školský zákon, je statutem novelizovaným tiskem 232.",
+      "kind": "law",
+      "source": "561/2004"
+    }
+  ]
+}

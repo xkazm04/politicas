@@ -1,0 +1,47 @@
+{
+  "billTisk": 104,
+  "statedReasoning": "Poslanecký návrh Václava Pláteníka a šesti dalších poslanců mění zákon č. 561/2004 Sb., školský zákon. Nahrazuje znění § 30 odst. 3 (dosud obecné zmocnění školního řádu omezit či zakázat mobilní telefony) podrobnějším výčtem toho, co má školní nebo vnitřní řád upravit — podmínky povolení používání pro vzdělávací účely, podrobnosti dočasného odebrání zařízení a podmínky používání při mimoškolních aktivitách. Zároveň vkládá nový § 184c, který na úrovni zákona zakazuje používání mobilních telefonů dětem mateřských škol, žákům 1. až 3. ročníku základní školy a žákům základní umělecké školy do 10 let (odstavec 1) a žákům 4. až 9. ročníku základní školy, nižšího stupně gymnázia, konzervatoře do 15 let a základní umělecké školy 10 až 15 let (odstavec 2), s výjimkou povolení školním řádem nebo učitelem pro vzdělávací účely a s výjimkou zdravotních a speciálních vzdělávacích potřeb. Účinnost se navrhuje k 1. červenci 2026.",
+  "researchedContext": "Text potvrzuje mechanismus: nové znění § 30 odst. 3 v čl. I bodu 1 ponechává školnímu/vnitřnímu řádu stejnou pravomoc jako dosud, jen ji rozepisuje podrobněji, zatímco nový § 184c v bodu 2 zavádí přímý zákonný zákaz pro dvě věkové skupiny s definovanými výjimkami. Důvodová zpráva sama v části o slučitelnosti s ústavním pořádkem uvádí, že jde o omezení práva vlastnit majetek (čl. 11 Listiny) ve prospěch práva na vzdělání (čl. 33 Listiny), a v části o hospodářském dopadu uvádí, že návrh nemá dopad na státní rozpočet ani na podnikatelské prostředí. Tento tisk je věcně blízký souběžně projednávanému tisku 232 (Babiš, Plaga) — oba mění tentýž § 30 odst. 3 zákona č. 561/2004 Sb. a míří ke stejnému cíli (omezení mobilních telefonů ve školách), ale zvoleným mechanismem se liší: tisk 104 ponechává rozhodnutí primárně na školním řádu a zákonný zákaz vkládá jako samostatný nový § 184c vedle něj, zatímco tisk 232 § 30 odst. 3 zcela ruší a nahrazuje jej odkazem do nového § 29a, který stanoví plošný zákonný zákaz jako hlavní pravidlo a školní řád jen pro zbytek žáků mimo jeho věkový rozsah. Oba návrhy zároveň mění stejné číslo paragrafu textově neslučitelným způsobem (jeden jej novelizuje, druhý ruší), takže při souběžném schvalování by nevyhnutelně došlo ke kolizi novelizačních bodů, kterou žádný z textů sám nezmiňuje ani neřeší.",
+  "unstatedEffects": [
+    {
+      "effect": "Návrh zavádí ostrý věkový předěl mezi žáky do 10 let (§ 184c odst. 1 — bez výjimky pro povolení školou nebo učitelem, jen zdravotní a speciální vzdělávací důvody) a žáky 10 až 15 let (§ 184c odst. 2 — navíc výjimka pro povolení k naplnění vzdělávacího programu nebo ad hoc povolení učitelem). Zvláštní část důvodové zprávy tento rozdíl zdůvodňuje vývojovými potřebami mladších dětí, ale nikde nekomentuje důsledek, že žák základní umělecké školy do 10 let podléhá přísnějšímu bezvýjimkovému režimu než žák běžné základní školy ve stejném věku, který spadá pod odstavec 1 také, avšak žák konzervatoře v odpovídajícím věku pod odstavec 2 s širšími výjimkami — text nevysvětluje, proč stejná věková skupina podléhá podle typu školy různě přísnému režimu výjimek.",
+      "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou žáci základních uměleckých škol do 10 let, na které dopadá přísnější bezvýjimkový režim odstavce 1, na rozdíl od vrstevníků v jiných typech škol zahrnutých pod odstavec 2.",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=104&ct1=0"
+    }
+  ],
+  "conflictAssessment": "Ze sedmi spolupředkladatelů nemá evidovanou peněžní vazbu na firmu pět (Václav Pláteník, Jiří Vojáček, Benjamin Činčila, Marie Kršková, Monika Brzesková). Jiří Horák má v grafu evidovanou vazbu na Vodovody a kanalizace Vyškov, a.s. s úhrnem veřejných smluv 124 508 316 Kč; jde o regionální vodárenskou společnost plně ovládanou obcemi vyškovského okresu, tedy o komunálně vlastněný subjekt, který se podle standardní metodiky nepovažuje za soukromý podnikatelský konflikt zájmů, a navíc jeho oborová činnost (vodovody a kanalizace) nemá žádnou věcnou souvislost s předmětem tohoto tisku (používání mobilních telefonů ve školách). Marian Jurečka má v grafu evidovanou vazbu na AGRO 2000 s.r.o. s úhrnem veřejných smluv 253 958 310 Kč; jde o soukromou zemědělskou firmu bez zjevné souvislosti se školstvím nebo elektronickými komunikačními zařízeními. U žádného ze spolupředkladatelů tedy evidované peněžní vazby věcně nesouvisí s regulací, kterou tento tisk zavádí, a v datech proto není zjištěný střet zájmů.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Nový § 184c zákona č. 561/2004 Sb. zavádí zákonný zákaz mobilních telefonů pro dvě věkové skupiny s odlišným rozsahem výjimek (odstavec 1 bez výjimky pro vzdělávací povolení, odstavec 2 s ní).",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=104&ct1=0"
+    },
+    {
+      "claim": "Důvodová zpráva v ústavněprávní části uvádí, že návrh poměřuje právo vlastnit majetek (čl. 11 Listiny) s právem na vzdělání (čl. 33 Listiny) a dává přednost právu na vzdělání.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=104&ct1=0"
+    },
+    {
+      "claim": "Spolupředkladatel Jiří Horák (pspId 6803) má v grafu evidovanou peněžní vazbu na Vodovody a kanalizace Vyškov, a.s. (IČO 49454587) s úhrnem veřejných smluv 124 508 316 Kč.",
+      "kind": "graph_fact",
+      "source": "company:ico:49454587"
+    },
+    {
+      "claim": "Vodovody a kanalizace Vyškov, a.s. je regionální vodárenská společnost plně ovládaná obcemi vyškovského okresu.",
+      "kind": "web",
+      "source": "https://www.vakvyskov.cz/"
+    },
+    {
+      "claim": "Spolupředkladatel Marian Jurečka (pspId 6205) má v grafu evidovanou peněžní vazbu na AGRO 2000 s.r.o. (IČO 25586521) s úhrnem veřejných smluv 253 958 310 Kč.",
+      "kind": "graph_fact",
+      "source": "company:ico:25586521"
+    },
+    {
+      "claim": "Zákon č. 561/2004 Sb., školský zákon, je statutem novelizovaným tiskem 104.",
+      "kind": "law",
+      "source": "561/2004"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "billTisk": 145,
+  "statedReasoning": "Vládní návrh (předkladatelem je vláda, agendu za ni v grafu nese místopředsedkyně vlády a ministryně financí Alena Schillerová) transponuje směrnici Evropského parlamentu a Rady (EU) 2023/2225 o smlouvách o spotřebitelském úvěru (CCD2), která nahrazuje dosavadní směrnici 2008/48/ES. Důvodová zpráva uvádí, že bez transpozice hrozí České republice řízení pro porušení Smlouvy o fungování Evropské unie. Novela mění zákon č. 257/2016 Sb., o spotřebitelském úvěru, a v souvisejících částech i zákon č. 111/1998 Sb. o vysokých školách, zákon č. 277/2009 Sb. o pojišťovnictví, zákon č. 170/2018 Sb. o distribuci pojištění a zajištění, zákon č. 424/2023 Sb. o požadavcích na přístupnost a zákon č. 84/2024 Sb. o trhu s nevýkonnými úvěry. Věcně rozšiřuje působnost zákona i na bezúplatné spotřebitelské úvěry, zpřísňuje pravidla pro reklamu, posuzování úvěruschopnosti a jednání se spotřebitelem v prodlení, zavádí dluhové poradenství jako definovaný pojem a zpřísňuje sankce (pokuty do 5, 10 nebo 20 mil. Kč podle závažnosti přestupku). Účinnost se navrhuje na 20. listopadu 2026 v souladu s čl. 48 CCD2.",
+  "researchedContext": "Text potvrzuje uváděný rozsah: čl. I mění zákon č. 257/2016 Sb. (nové vymezení vázaného spotřebitelského úvěru v § 2, výluky v novém § 2a, rozšíření definic v § 3, výjimky z působnosti v § 4 a § 5, nová skutková podstata přestupků a pokuty v § 153 až 157). Čl. III mění zákon č. 111/1998 Sb. jen doplněním jedné věty v § 62a o výjimku pro výhodnější podmínky úvěru. Čl. IV vkládá do zákona č. 277/2009 Sb. nový § 59a, který zakazuje pojišťovně použít údaje o onkologickém onemocnění pojistníka po 15 letech od ukončení léčby — ale výslovně jen pro pojištění sjednávané v souvislosti se spotřebitelským úvěrem jiným než na bydlení, nikoliv obecně; navazující bod mění odkaz v § 120 odst. 3 zákona č. 277/2009 Sb. Čl. VI vkládá do zákona č. 170/2018 Sb. novou třídenní lhůtu na rozmyšlenou u pojištění vázaného na spotřebitelský úvěr (nový § 52a) a odpovídající skutkovou podstatu přestupku s pokutou do 10 mil. Kč (fyzická osoba) nebo 18,92 mil. Kč / 135,125 mil. Kč (rezervotvorné pojištění). Čl. VII a čl. VIII jsou označeny přímo v důvodové zprávě jako čistě legislativně technické odkazové úpravy zákona č. 424/2023 Sb. a § 11 odst. 2 zákona č. 84/2024 Sb. Důvodová zpráva sama v části o hospodářském dopadu uvádí, že nová úprava nově dopadne na osoby poskytující nebo zprostředkovávající bezúplatný spotřebitelský úvěr, konkrétně jmenuje retailové obchodníky nabízející nákup na splátky zdarma jako doplňkovou službu — ti se stanou poskytovateli nebo zprostředkovateli spotřebitelského úvěru se všemi povinnostmi zákona, pokud nevyužijí některou z výjimek.",
+  "unstatedEffects": [
+    {
+      "effect": "Rozšíření věcné působnosti zákona na bezúplatné spotřebitelské úvěry znamená, že retailoví obchodníci nabízející bezúročný nákup na splátky jako doplňkovou službu se stanou poskytovateli nebo zprostředkovateli spotřebitelského úvěru a budou muset splnit veškeré povinnosti zákona — získání oprávnění k činnosti, posuzování úvěruschopnosti, informační povinnosti. Důvodová zpráva tento dopad na dotčené obchodníky přiznává, ale dál nerozvádí možnost, že menší obchodníci, kteří náklady na regulatorní soulad neunesou, mohou bezúročné splátkové financování jako nabídku prostě zrušit, čímž by se pro spotřebitele zúžila nabídka bezúročných možností splácení.",
+      "whoBenefits": "Nelze jednoznačně určit — z rozšíření regulace mohou profitovat etablovaní poskytovatelé úvěru, kteří náklady na soulad s novými pravidly snáze unesou, zatímco menší obchodníci nabízející bezúročné splátky mohou tuto službu omezit, což by dopadlo na spotřebitele, kteří na bezúročné splátkové financování spoléhají.",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=145&ct1=0"
+    },
+    {
+      "effect": "Nová ochrana pojistníků před použitím údajů o prodělaném onkologickém onemocnění (nový § 59a zákona č. 277/2009 Sb.) je textem omezena výslovně jen na pojištění sjednávané v souvislosti se spotřebitelským úvěrem jiným než na bydlení. Obecná část důvodové zprávy tuto ochranu prezentuje jako naplnění tzv. práva být zapomenut podle CCD2, aniž by výslovně upozornila, že jde o úzce vymezenou výjimku z obecného pravidla — pojistník vyléčený z onkologického onemocnění zůstává mimo tento úzký segment (např. u samostatně sjednaného životního nebo úrazového pojištění nesouvisejícího s úvěrem) povinnostem sdělovat zdravotní údaje bez časového omezení nadále vystaven.",
+      "whoBenefits": "Nelze jednoznačně určit — přímo chránění jsou jen pojistníci v segmentu pojištění vázaného na spotřebitelský úvěr; pojistníci mimo tento úzký segment touto novelou chráněni nejsou, ačkoliv text obecné části tento rozdíl explicitně nezdůrazňuje.",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=145&ct1=0"
+    }
+  ],
+  "conflictAssessment": "Předkladatelem je vláda; osobou, kterou graf peněžních vazeb u tohoto tisku eviduje jako předkladatelku, je místopředsedkyně vlády a ministryně financí Alena Schillerová, u níž evidence peněžních vazeb v grafu neobsahuje žádnou vlastněnou ani řízenou firmu. Návrh zákona nesou spolupodpisem předseda vlády Andrej Babiš a ministryně financí Schillerová — jde o ústavně vyžadovanou spolupodpisovou proceduru vládního návrhu (obdoba předkládací praxe u všech vládních návrhů zákonů), nikoli o osobní podnikatelský zájem předsedy vlády na věcném obsahu této technické transpoziční novely. Věcný obsah novely (spotřebitelský úvěr, pojišťovnictví, distribuce pojištění, trh s nevýkonnými úvěry) nemá žádnou zjevnou souvislost s podnikatelským okruhem firem, které graf eviduje u jiných osob spojených s touto vládou, a text sám žádnou osobu podnikající v regulovaném sektoru jako předkladatele needentifikuje. Ve zjištěních tedy nejde o skrytý střet zájmů, ale o důsledek toho, že jde o technickou transpoziční normu vypracovanou napříč ministerstvem financí a Českou národní bankou.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Návrh transponuje směrnici (EU) 2023/2225 o spotřebitelském úvěru (CCD2) a v souvislosti s ní novelizuje zákon č. 257/2016 Sb. a pět dalších zákonů (č. 111/1998 Sb., č. 170/2018 Sb., č. 277/2009 Sb., č. 424/2023 Sb. a č. 84/2024 Sb.); důvodová zpráva uvádí riziko infringementu při netransponování.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=145&ct1=0"
+    },
+    {
+      "claim": "Čl. IV bod 1 vkládá do zákona č. 277/2009 Sb. nový § 59a, který zakazuje pojišťovně použít údaje o onkologickém onemocnění pojistníka po 15 letech od ukončení léčby výhradně pro pojištění vázané na spotřebitelský úvěr jiný než na bydlení.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=145&ct1=0"
+    },
+    {
+      "claim": "Důvodová zpráva v části o hospodářském a finančním dopadu uvádí, že nová úprava nově dopadne na osoby poskytující nebo zprostředkovávající bezúplatný spotřebitelský úvěr, zejména na retailové obchodníky nabízející nákup na splátky zdarma.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=145&ct1=0"
+    },
+    {
+      "claim": "Zákon č. 257/2016 Sb., o spotřebitelském úvěru, je hlavním statutem novelizovaným tiskem 145.",
+      "kind": "law",
+      "source": "257/2016"
+    },
+    {
+      "claim": "Zákon č. 277/2009 Sb., o pojišťovnictví, je jedním z dalších statutů novelizovaných tiskem 145 (nový § 59a).",
+      "kind": "law",
+      "source": "277/2009"
+    },
+    {
+      "claim": "Zákon č. 84/2024 Sb., o trhu s nevýkonnými úvěry, je novelizován tiskem 145 čistě legislativně technickou úpravou § 11 odst. 2 písm. d) bodu 3.",
+      "kind": "law",
+      "source": "84/2024"
+    },
+    {
+      "claim": "Osobou, kterou graf eviduje jako sponzora tisku 145, je Alena Schillerová (pspId 6545), jejíž evidované peněžní vazby na firmy jsou v grafu prázdné.",
+      "kind": "graph_fact",
+      "source": "psp:person:6545"
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+ "generatedAt": "2026-08-05T00:00:00.000Z",
+ "batch": 15,
+ "group": "B",
+ "classificationVocabulary": [
+  "confirmed-collision",
+  "coordination-risk",
+  "incidental"
+ ],
+ "classificationCounts": {
+  "confirmed-collision": 2,
+  "coordination-risk": 3,
+  "incidental": 1
+ },
+ "coverage": {
+  "pairsRead": 6,
+  "pairsAssigned": 6
+ },
+ "pairs": [
+  {
+   "pairId": "64-221-218-2000-14",
+   "lawRef": "218/2000",
+   "billA": 64,
+   "billB": 221,
+   "sharedParagraph": "14",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 64, Čl. LVI bod 7: „7. V § 14 odst. 10 se slova „vést evidenci podle zvláštního právního předpisu16) o pohledávkách vznikajících“ nahrazují slovy „sledovat odděleně v účetním systému pohledávky vznikající“.“ -- tisk 64 (velký účetní/rozpočtový omnibus) mění pouze odstavec 10 (evidence pohledávek organizační složky státu).",
+    "billBExcerpt": "tisk 221, Čl. VII bod 1: „1. V § 14 odst. 1 se za slovo „předpis“ vkládají slova „nebo program podle § 12 odst. 1 písm. a)“.“ -- tisk 221 mění pouze odstavec 1 (rozšíření výjimky z účelovosti dotace i na program podle § 12 odst. 1 písm. a)); tisk 221 dále vkládá nový § 14r (za § 14q) o střetu zájmů u poskytovatelů dotací, což je jiné ustanovení než § 14 samo."
+   },
+   "reasoning": "Obě novely mají v § 14 zákona o rozpočtových pravidlech skutečnou operativní instrukci, tedy minimálně koordinační riziko. Tisk 64 zasahuje výhradně odstavec 10 (technická úprava evidence pohledávek v rámci účetní reformy), tisk 221 výhradně odstavec 1 (věcné rozšíření výjimky z účelovosti u dotačních programů). Jde o disjunktní odstavce, žádná strana odstavec 10 ani odstavec 1 druhé strany nepřepisuje a ani jedna strana § 14 nepřepisuje vcelku. Obě úpravy lze aplikovat v libovolném pořadí bez ztráty textu — koordinační riziko, nikoli potvrzená kolize."
+  },
+  {
+   "pairId": "89-90-218-2000-36",
+   "lawRef": "218/2000",
+   "billA": 89,
+   "billB": 90,
+   "sharedParagraph": "36",
+   "classification": "confirmed-collision",
+   "evidence": {
+    "billAExcerpt": "tisk 89, Čl. I bod 2: „2. V § 36 odst. 3 se slova „na výdaje na dávky důchodového pojištění a“ zrušují a za slova „záporného rozdílu těchto příjmů a výdajů“ se vkládají slova „a na dotační investiční akce pro rozvoj sociální infrastruktury“.“ -- tisk 89 (poslanecký návrh, rezerva důchodového pojištění) PŘEPISUJE ZNĚNÍ existujícího odstavce 3 § 36 rozpočtových pravidel (nově lze prostředky zvláštního účtu rezervy použít i na dotační investiční akce pro rozvoj sociální infrastruktury, nikoli však na výdaje na dávky důchodového pojištění).",
+    "billBExcerpt": "tisk 90, Čl. I bod 32: „32. V § 36 se odstavec 3 zrušuje. Dosavadní odstavce 4 až 10 se označují jako odstavce 3 až 9.“ -- tisk 90 (velký rozpočtový/finanční omnibus) ODSTAVEC 3 ZCELA RUŠÍ a přečísluje všechny následující odstavce (4–10 → 3–9); bod 34 dále ruší i (nově přečíslovaný) odstavec 9."
+   },
+   "reasoning": "Jde o přímou textovou kolizi na témže odstavci: tisk 89 mění SLOVA existujícího odstavce 3 (vypouští frázi o výdajích na dávky důchodového pojištění, vkládá frázi o dotačních investičních akcích), zatímco tisk 90 tentýž odstavec 3 ZCELA RUŠÍ a přečísluje vše za ním. Instrukce nelze aplikovat obě beze zbytku v žádném pořadí: provede-li se nejprve tisk 90, odstavec 3 ve smyslu tisku 89 už neexistuje (bude to nově přečíslovaný bývalý odstavec 4 s věcně jiným obsahem) a textová substituce tisku 89 buď selže (cílová fráze „na výdaje na dávky důchodového pojištění a“ se v novém odstavci 3 nenachází), nebo v horším případě poškodí nesouvisející ustanovení; provede-li se nejprve tisk 89, jeho pečlivě zformulovaná novela odstavce 3 je vzápětí bezezbytku smazána zrušovacím ustanovením tisku 90. Obě novely navíc směřují k témuž věcnému jádru (použití zvláštního účtu rezervy důchodového pojištění na dávky vs. na jiné účely) — jde o potvrzenou kolizi, ne pouhé koordinační riziko."
+  },
+  {
+   "pairId": "64-260-37-2021-53",
+   "lawRef": "37/2021",
+   "billA": 64,
+   "billB": 260,
+   "sharedParagraph": "53",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 64, Čl. CXLVII body 1–2: „1. V § 4 odst. 1 písm. b), § 23 odst. 3 písm. d) a v § 53 odst. 1 až 3 se slova „vlastních zdrojích“ nahrazují slovy „částech vlastního kapitálu“. 2. V § 53 odst. 3 se za slovo „konce“ vkládá slovo „individuálního“.“ -- tisk 64 (účetní reforma) provádí plošnou terminologickou náhradu „vlastní zdroje“ → „části vlastního kapitálu“ napříč odstavci 1 až 3 a doplňuje slovo „individuálního“ do odstavce 3.",
+    "billBExcerpt": "tisk 260, body 30–31: „30. V § 53 odst. 1 se slova „v případě skutečného majitele, který jím je podle § 5 odst. 1 a 3 na základě svého postavení osoby ve vrcholném vedení“ nahrazují slovy „, pokud takový skutečný majitel, právnická osoba nebo právní uspořádání, jejichž je rovněž skutečným majitelem, drží jednotlivě v předmětné obchodní korporaci podíl nižší než 5 %...“. 31. V § 53 se doplňuje odstavec 4, který zní: „(4) Za účelem ověření splnění podmínky výplaty podle odstavce 1 předloží společník... obchodní korporaci svůj výpis z evidence skutečných majitelů ne starší než 3 měsíce.“.“ -- tisk 260 (samostatná novela ESM) mění věcnou výjimku v odstavci 1 (prahová hodnota 5% podílu) a doplňuje zcela nový odstavec 4 (ověřovací povinnost)."
+   },
+   "reasoning": "Obě novely mají v § 53 zákona o evidenci skutečných majitelů skutečnou operativní instrukci, obě dokonce zasahují do odstavce 1 — koordinační riziko potvrzeno na úrovni odstavce. Cílové textové úseky se však nepřekrývají: tisk 64 nahrazuje frázi „vlastních zdrojích“ (terminologická čistka navazující na nový zákon o účetnictví), tisk 260 nahrazuje zcela jinou, věcnou frázi o postavení skutečného majitele ve vrcholném vedení a prahu 5% podílu. Nový odstavec 4 tisku 260 nekoliduje s ničím, co tisk 64 v § 53 zavádí (tisk 64 nový odstavec nepřidává, jen upravuje odstavce 1–3). Obě sady instrukcí lze aplikovat v libovolném pořadí beze ztráty textu, protože každá cílí na jinou podřetězec — koordinační riziko, nikoli potvrzená kolize."
+  },
+  {
+   "pairId": "13-16-240-2013-604",
+   "lawRef": "240/2013",
+   "billA": 13,
+   "billB": 16,
+   "sharedParagraph": "604",
+   "classification": "confirmed-collision",
+   "evidence": {
+    "billAExcerpt": "tisk 13, body 181–182: „181. V § 604 odst. 1 písm. m) se za číslo „456“ vkládají slova „odst. 2“, za slova „459 odst. 2“ a za slova „460 odst. 2“ se vkládají slova „nebo 3“ a slova „nebo § 475 odst. 2“ se nahrazují slovy „, § 475 odst. 2 nebo § 476 odst. 2 nebo 5“. 182. V § 604 odst. 4 se na konci písmene b) doplňuje slovo „nebo“ a písmeno c) se zrušuje. Dosavadní písmeno d) se označuje jako písmeno c).“ -- tisk 13 (rozsáhlá novela ZISIF) rozšiřuje odkazy uvnitř písmene m) odstavce 1 (mj. dopisuje odkaz na § 476) a zároveň mění odstavec 4 podle PŮVODNÍHO písmenného značení (b), c), d)).",
+    "billBExcerpt": "tisk 16, ČÁST ŠESTÁ (DMFS-transpoziční novela), body 3–5: „3. V § 604 odst. 1 se na konci písmene l) doplňuje slovo „nebo“. 4. V § 604 odst. 1 písm. m) se slovo „,nebo“ nahrazuje tečkou a písmeno n) se zrušuje. 5. V § 604 odst. 6 úvodní části ustanovení se slova „, m) nebo n)“ nahrazují slovy „ nebo m)“.“ -- tisk 16 RUŠÍ písmeno n) odstavce 1 a mění KONEC písmene m) (nahrazuje spojku „,nebo“ tečkou, protože jím dosud navazované písmeno n) mizí), plus navazující úpravu odstavce 6."
+   },
+   "reasoning": "Obě novely zasahují stejné písmeno m) odstavce 1 § 604 ZISIF, a to na jeho konci: tisk 13 do závěru písmene m) dopisuje další odkazy (\"nebo § 476 odst. 2 nebo 5\"), tisk 16 na konci písmene m) nahrazuje spojku „,nebo“ tečkou, protože ruší navazující písmeno n). Instrukce nelze aplikovat obě beze zbytku: provede-li se nejprve tisk 13, cílový řetězec tisku 16 („,nebo“ na konci m)) se posune/změní obsahem nově vloženým textem tisku 13, takže substituce tisku 16 buď text nenajde, nebo zasáhne do nově vloženého odkazu na § 476; provede-li se nejprve tisk 16, písmeno m) končí tečkou a písmeno n) zmizí, takže odkaz tisku 13 na strukturu „,nebo“ na konci m) i navazující číslování n) je zmatečný. Navíc tisk 13 v odstavci 4 pracuje s PŮVODNÍM písmenným značením b)/c)/d) — jde o STEJNÝ mechanismus přečíslování jako u potvrzené kolize 13×64. Tento nález (13×16 confirmed) uzavírá třídílný obraz na § 604: 13×64 potvrzená kolize (přečíslování písmen odstavce 4), 16×64 koordinační riziko (16 mění odst. 1/6, 64 mění odst. 3/4/6/7 — disjunktní části, ale 64 v bodu 68 rovněž zasahuje text uvnitř odstavce 6 písmene b), takže oba směřují ke stejnému odstavci 6 z různých stran), a nyní 13×16 potvrzená kolize (obě přímo na hranici písmene m)/n) odstavce 1). Jde o SKUTEČNÝ TŘÍDÍLNÝ SHLUK (real cluster), nikoli další V-tvar s jedním společným vrcholem: všechny tři dvojice mají mezi sebou vlastní, nezávisle doloženou textovou interakci na § 604, takže žádnou z novel nelze označit za neutrální stranu — koordinace by musela sladit všechny tři tisky současně, ne jen vybrat „vítěze“ mezi dvěma."
+  },
+  {
+   "pairId": "64-102-219-2000-15",
+   "lawRef": "219/2000",
+   "billA": 64,
+   "billB": 102,
+   "sharedParagraph": "15",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 64, Čl. LVIII bod 10: „10. V § 15 odst. 4 se slova „tím není dotčen postup podle ustanovení § 14 odst. 2, jde-li o nemovité věci a peněžité pohledávky“ nahrazují slovy „tento majetek s výjimkou nemovité věci a peněžité pohledávky se po dobu jeho vedení v operativní evidenci pro účely účetnictví nepovažuje za aktivum“ a slova „operativní evidenci ukončí a postupuje podle ustanovení § 14 odst. 2“ se nahrazují slovy „přestane postupovat podle věty první“.“ -- tisk 64 (účetní omnibus) mění výhradně odstavec 4 (vztah operativní evidence a účetnictví u nemovitostí a pohledávek).",
+    "billBExcerpt": "tisk 102, Čl. III bod 4: „4. V § 15 odst. 2 větách páté a poslední se slova „nebo zabraného“ nahrazují slovy „, zabraného nebo odčerpaného“.“ -- tisk 102 (zákon o odčerpání majetku nevysvětleného původu, doprovodná novela) mění výhradně odstavec 2 (doplnění nové kategorie „odčerpaný“ majetek vedle propadlého/zabraného)."
+   },
+   "reasoning": "Obě novely mají v § 15 zákona o majetku České republiky skutečnou operativní instrukci — koordinační riziko. Tisk 64 zasahuje výhradně odstavec 4 (účetní klasifikace majetku v operativní evidenci), tisk 102 výhradně odstavec 2 (terminologické doplnění o nový institut odčerpání majetku). Jde o disjunktní odstavce; instrukce tisku 64 neodkazuje na odstavec 2 a instrukce tisku 102 neodkazuje na odstavec 4 (odkaz tisku 64 na „§ 14 odst. 2“ míří do JINÉHO paragrafu, nikoli do § 15 odst. 2). Obě úpravy lze aplikovat v libovolném pořadí beze ztráty textu — koordinační riziko, nikoli potvrzená kolize."
+  },
+  {
+   "pairId": "67-75-254-2001-55c",
+   "lawRef": "254/2001",
+   "billA": 67,
+   "billB": 75,
+   "sharedParagraph": "55c",
+   "classification": "incidental",
+   "evidence": {
+    "billAExcerpt": "tisk 67 (soubor 266188.txt), bod 15: „15. V § 55c odst. 1 se slovo „zastavěné“ nahrazuje slovem „zastavitelné“ a slova „nebo zastavitelnou plochu“ se zrušují.“ -- tisk 67 (stavební omnibus) skutečně mění TEXT odstavce 1 § 55c (terminologické sladění „zastavěné“ → „zastavitelné“ území); ověřeno i v přiloženém srovnávacím znění (soubor 266190.txt, § 55c odst. 1: „...které se nachází na pozemku mimo zastavěné zastavitelné území nebo zastavitelnou plochu...“ — vyznačená změna).",
+    "billBExcerpt": "tisk 75, Čl. I bod 1: „1. Za § 55c se vkládají nové § 55d a § 55e, které včetně nadpisů znějí: „§ 55d Soustava domovních čistíren odpadních vod...“.“ -- tisk 75 (Hladíkův poslanecký návrh o domovních čistírnách odpadních vod) používá § 55c POUZE JAKO KOTVU pro vložení dvou zcela nových paragrafů (§ 55d, § 55e) ZA něj; nikde v textu tisku 75 se nenachází instrukce měnící slovo, větu nebo odstavec uvnitř § 55c samotného."
+   },
+   "reasoning": "Fronta označila § 55c jako sdílený se shodou na úrovni odstavce, ale ověření obou tisků ukazuje asymetrii: tisk 67 skutečně novelizuje OBSAH § 55c odst. 1 (věcná/terminologická náhrada slova), zatímco tisk 75 § 55c vůbec nemění — používá ho pouze jako umístění („za § 55c se vkládají“) pro vložení nových, věcně nesouvisejících § 55d a § 55e o soustavách domovních čistíren odpadních vod. Podle sjednocené rubriky je pro alespoň koordinační riziko potřeba, aby OBĚ strany měly na sdíleném § skutečnou operativní instrukci; zde ji má jen tisk 67, tisk 75 je čistě kotevní/vkládací artefakt bez zásahu do textu § 55c. Klasifikováno jako incidentální — vložení § 55d/55e za § 55c nijak neinteraguje se slovní náhradou uvnitř odstavce 1, a to bez ohledu na pořadí provedení obou novel."
+  }
+ ]
+}

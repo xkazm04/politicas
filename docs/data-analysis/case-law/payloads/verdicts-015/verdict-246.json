@@ -1,0 +1,42 @@
+{
+  "billTisk": 246,
+  "statedReasoning": "Vládní návrh (předkladatel ministr dopravy Ivan Bednárik) mění zákon č. 13/1997 Sb., o pozemních komunikacích, tak, aby naplnil závazek programového prohlášení vlády „zmrazit cenu dálniční známky“. Novela pevně stanoví sazby časového poplatku na 1 rok, 30 dnů, 10 dnů a 1 den na úrovni platné pro rok 2026 (2 570 Kč, 480 Kč, 300 Kč a 230 Kč, se stejnými zvýhodněnými sazbami pro hybridní a CNG/biometanová vozidla) a zrušuje dosavadní automatický valorizační mechanismus, který sazby každoročně upravoval podle inflace a nárůstu délky dálniční sítě. Důvodová zpráva zdůvodňuje krok potřebou předvídatelnosti pro veřejnost, návratem rozhodování o sazbách výhradně do rukou zákonodárce a odstraněním každoročního administrativního vyhlašování. Zpráva sama přiznává, že zrušení valorizace bude mít negativní dopad na příjmy Státního fondu dopravní infrastruktury (SFDI), přičemž letošní příjmy z časového zpoplatnění se odhadují na cca 8,7 mld. Kč a i bez valorizace rostou objemem prodaných známek v průměru o 5 % ročně.",
+  "researchedContext": "Text novely potvrzuje rozsah zásahu: nové znění § 21 odst. 3 až 5 (čl. I bod 1) pevně stanoví sazby na úrovni roku 2026 a zrušuje odstavce 6 až 8 (čl. I bod 2), tedy valorizační vzorec i povinnost ministerstva dopravy každoročně vyhlašovat sdělení o sazbách a délce dálniční sítě ve Sbírce zákonů. Bod 3 je jen legislativně technická návaznost přečíslování v § 21a odst. 4 písm. d). Přechodné ustanovení (čl. II) výslovně ruší povinnost vyhlásit sdělení o sazbách na rok 2027, i kdyby již bylo zpracováno. Souběžně je u téhož garančního výboru (HV) projednáván senátní tisk 171, který mění tentýž § 21 zákona č. 13/1997 Sb. — v odstavcích 2 a 4 nahrazuje slovní spojení „1 den“ spojením „24 hodin“. Tisk 246 přitom odstavec 4 přepisuje celý (nové sazby pro hybridní vozidla), takže obě novely zasahují do stejného odstavce 4 § 21 nezávisle na sobě; žádný z textů na druhý tisk neodkazuje.",
+  "unstatedEffects": [
+    {
+      "effect": "Zrušení valorizačního mechanismu trvale odstraňuje zdroj automatického růstu příjmů SFDI, který dosud kompenzoval inflaci a rozšiřování dálniční sítě. Důvodová zpráva negativní dopad na rozpočet SFDI výslovně přiznává a uvádí letošní základnu (cca 8,7 mld. Kč) i dosavadní průměrný meziroční růst objemu úhrad (cca 5 %), ale neuvádí kumulativní odhad ušlých příjmů SFDI na víceleté období ani to, z čeho by měl být případný výpadek financování výstavby a údržby dálnic nahrazen.",
+      "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou uživatelé dálnic, kterým se sazba nebude automaticky zvyšovat, a Státní fond dopravní infrastruktury, jehož rozpočet přichází o rostoucí zdroj příjmů určený na výstavbu, modernizaci, opravy a údržbu dálnic a silnic.",
+      "evidence": "úplný text tisku na psp.cz, řádky 248–263 strojového přepisu (část G.1 důvodové zprávy, dopad na SFDI)."
+    },
+    {
+      "effect": "Novela § 21 odst. 4 zákona č. 13/1997 Sb. tímto tiskem probíhá souběžně s novelizací téhož odstavce senátním tiskem 171 (změna „1 den“ na „24 hodin“), aniž by se texty na sebe odkazovaly. Přijetí obou novel v nezměněné podobě a v témže funkčním období by mohlo vést k tomu, že pozdější publikovaná novela přepíše znění té dřívější, aniž by tato kolize byla v projednávání výslovně řešena.",
+      "whoBenefits": "Nelze jednoznačně určit — jde o důsledek souběžného projednávání dvou nezávislých novel téhož ustanovení, nikoli o zvýhodnění konkrétní strany.",
+      "evidence": "úplný text senátního tisku 171 na psp.cz, řádky 8–12 strojového přepisu (změna „1 den“ na „24 hodin“ v § 21 odst. 2 a 4)."
+    }
+  ],
+  "conflictAssessment": "Předkladatelem je ministr dopravy Ivan Bednárik jako člen vlády, nikoli poslanec s vlastní podnikatelskou vazbou v grafu — u této osoby graf neeviduje žádnou peněžní vazbu na dodavatelskou firmu. Jde o vládní návrh naplňující výslovný závazek programového prohlášení vlády, nikoli o poslaneckou iniciativu vázanou na konkrétní obchodní zájem. Střet zájmů proto nelze na základě dostupných dat konstatovat; jde o poctivou negativní zprávu.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Nové znění § 21 odst. 3 až 5 zákona č. 13/1997 Sb. pevně stanoví sazby časového poplatku na úrovni platné pro rok 2026 a čl. I bod 2 zrušuje odstavce 6 až 8, tedy valorizační mechanismus i povinnost každoročního vyhlašování sdělení o sazbách.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=246&ct1=0"
+    },
+    {
+      "claim": "Důvodová zpráva (část G.1) uvádí, že zrušení valorizace bude mít negativní dopad na příjmy SFDI, s letošní očekávanou základnou cca 8,7 mld. Kč z časového zpoplatnění a průměrným meziročním růstem objemu úhrad cca 5 % i bez valorizace sazeb.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=246&ct1=0"
+    },
+    {
+      "claim": "Senátní tisk 171 mění v § 21 odst. 2 a 4 zákona č. 13/1997 Sb. slova „1 den“ na „24 hodin“ — zasahuje do téhož odstavce 4, který tisk 246 přepisuje celý.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=171"
+    },
+    {
+      "claim": "Zákon č. 13/1997 Sb., o pozemních komunikacích, je statutem, který tisk 246 novelizuje.",
+      "kind": "law",
+      "source": "13/1997"
+    }
+  ]
+}

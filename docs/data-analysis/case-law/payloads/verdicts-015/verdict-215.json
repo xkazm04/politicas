@@ -1,0 +1,57 @@
+{
+  "billTisk": 215,
+  "statedReasoning": "Skupina poslankyň a poslanců okolo Kateřiny Stojanové novelizuje soudní řád správní (zákon č. 150/2002 Sb.) a šest souvisejících předpisů — občanský soudní řád (99/1963 Sb.), zákon o vysokých školách (111/1998 Sb.), správní řád (500/2004 Sb.), zákon o vyšších soudních úřednících (121/2008 Sb.), zákon o ochraně utajovaných informací (412/2005 Sb.) a daňový řád (280/2009 Sb.). Důvodová zpráva popisuje návrh jako pokračování dosud nedořešené části vládního tisku 777, jehož část byla mezitím přijata zákonem č. 314/2025 Sb. Uvádí pět okruhů nedostatků platné úpravy správního soudnictví: nepřesnou terminologii zásahové ochrany, chybějící procesní vodítka pro reakci soudu na změnu skutkového stavu za řízení, chybějící pravidlo pro odmítnutí zjevně nezásahové žaloby, chybějící možnost deklaratorního výroku o nezákonnosti opatření obecné povahy, které již pozbylo účinnosti, a chybějící obecný procesní režim pro soudní přezkum předpisů profesních komor a vysokých škol. Novela dále sjednocuje pravidla o účincích zrušujícího rozsudku Nejvyššího správního soudu (tzv. obživlá rozhodnutí) napříč agendami novým § 110 odst. 7 a 8 soudního řádu správního a v této souvislosti ruší dosud samostatnou úpravu v § 124a daňového řádu jako duplicitní.",
+  "researchedContext": "Text potvrzuje zrušení § 124a zákona č. 280/2009 Sb., daňový řád (čl. XI) — ustanovení vloženého zákonem č. 458/2011 Sb., které dosud upravovalo účinky zrušujícího rozsudku Nejvyššího správního soudu ve věcech daňového řízení samostatně. Zvláštní část zdůvodňuje zrušení tím, že stejné pravidlo nově zavádí obecně § 110 odst. 7 a 8 soudního řádu správního, takže souběžná existence obou úprav by vedla k duplicitě a riziku odlišného výkladu. Text dále potvrzuje nový § 107a zákona o vysokých školách (čl. V), který zakládá výlučné oprávnění příslušného ministra (ministr školství u veřejných a soukromých vysokých škol, ministr obrany u vojenských a ministr vnitra u policejních) podat návrh na zrušení protiprávního předpisu vysoké školy soudem podle nového § 101g soudního řádu správního, a to až po marném uplynutí lhůty poskytnuté škole k nápravě. Potvrzen je i nový § 64 odst. 2 správního řádu (čl. VI), který dává správnímu orgánu fakultativní pravomoc přerušit řízení kvůli podané kasační stížnosti, a obdobná úprava u Národního bezpečnostního úřadu v zákoně o ochraně utajovaných informací (čl. VII, § 112 odst. 1).",
+  "unstatedEffects": [
+    {
+      "effect": "Zrušení § 124a daňového řádu odstraňuje daňově specifickou úpravu účinků zrušujícího rozsudku Nejvyššího správního soudu a nahrazuje ji obecným pravidlem podle soudního řádu správního. Zvláštní část důvodové zprávy k čl. XI uznává, že „specifika správy daní“ (návaznost na platební povinnosti, úrokové následky, vykonatelnost daňových rozhodnutí) existují, ale neobsahuje srovnávací rozbor, zda a jak se procesní důsledky pro daňové subjekty v praxi změní oproti dosavadní zvláštní úpravě — tedy zda obecné pravidlo skutečně poskytuje daňovým subjektům rovnocennou ochranu, nebo zda přináší jiné načasování úroků či vykonatelnosti.",
+      "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou daňové subjekty ve sporech, kde krajský soud zruší rozhodnutí správce daně a toto rozhodnutí je následně dotčeno kasačním řízením u Nejvyššího správního soudu; zpráva neuvádí, zda se jejich procesní postavení oproti dosavadní zvláštní úpravě § 124a fakticky zlepší, zhorší nebo zůstane stejné.",
+      "evidence": "úplný text tisku na psp.cz, řádky 3502–3529 strojového přepisu (zvláštní část, K čl. XI, zrušení § 124a daňového řádu)."
+    },
+    {
+      "effect": "Nový § 107a zákona o vysokých školách svěřuje výlučné oprávnění podat návrh na soudní přezkum protiprávního předpisu vysoké školy nebo profesní komory příslušnému ministrovi — žádná jiná osoba (např. student, akademický senát, člen profesní komory) podle tohoto konkrétního mechanismu návrhovou legitimaci nezískává. Zvláštní část to zdůvodňuje zachováním akademické samosprávy a tím, že ministr je „navrhovatelem, nikoli rozhodujícím orgánem“, ale nezmiňuje, že tím zároveň soustřeďuje bránu k soudnímu přezkumu těchto předpisů výhradně do rukou exekutivy.",
+      "whoBenefits": "Nelze jednoznačně určit — dotčeny jsou vysoké školy a profesní komory, jejichž předpisy budou moci být tímto konkrétním nástrojem napadeny jen na návrh příslušného ministra, nikoli přímo dotčenými osobami uvnitř instituce.",
+      "evidence": "úplný text tisku na psp.cz, řádky 3353–3382 strojového přepisu (zvláštní část, K čl. V, nový § 107a zákona o vysokých školách)."
+    }
+  ],
+  "conflictAssessment": "Návrh podepsaly čtyři poslankyně a poslanci — Kateřina Stojanová, Samuel Volpe, Kateřina Demetrashvili a Veronika Kovářová. U žádné z těchto osob graf neeviduje peněžní vazbu na dodavatelskou firmu. Jde o rozsáhlou procesní novelu soudního řádu správního a souvisejících předpisů bez zjevné vazby na konkrétní komerční obor, takže i při existenci peněžní vazby by souvislost s předmětem novely bylo obtížné doložit. Střet zájmů proto nelze na základě dostupných dat konstatovat; jde o poctivou negativní zprávu.",
+  "severity": "medium",
+  "confidence": 3,
+  "citations": [
+    {
+      "claim": "Čl. XI ruší § 124a zákona č. 280/2009 Sb., daňový řád, s odůvodněním, že totéž pravidlo nově obecně zavádí § 110 odst. 7 a 8 soudního řádu správního.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=215&ct1=0"
+    },
+    {
+      "claim": "Nový § 107a zákona o vysokých školách zakládá výlučné oprávnění příslušného ministra podat návrh na zrušení protiprávního předpisu vysoké školy nebo profesní komory soudem.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=215&ct1=0"
+    },
+    {
+      "claim": "Zákon č. 150/2002 Sb., soudní řád správní, je hlavním statutem, který tisk 215 novelizuje.",
+      "kind": "law",
+      "source": "150/2002"
+    },
+    {
+      "claim": "Zákon č. 280/2009 Sb., daňový řád, přichází novelou o § 124a, vložený zákonem č. 458/2011 Sb.",
+      "kind": "law",
+      "source": "280/2009"
+    },
+    {
+      "claim": "Zákon č. 458/2011 Sb. je předpisem, který § 124a daňového řádu do zákona č. 280/2009 Sb. původně vložil.",
+      "kind": "law",
+      "source": "458/2011"
+    },
+    {
+      "claim": "Zákon č. 111/1998 Sb., o vysokých školách, je novelizován novým § 107a upravujícím soudní přezkum předpisů vysoké školy.",
+      "kind": "law",
+      "source": "111/1998"
+    },
+    {
+      "claim": "Zákon č. 314/2025 Sb. již dříve přijal část změn původně navržených ve vládním tisku 777, na které tento návrh navazuje.",
+      "kind": "law",
+      "source": "314/2025"
+    }
+  ]
+}

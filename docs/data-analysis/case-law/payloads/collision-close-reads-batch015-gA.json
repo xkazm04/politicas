@@ -1,0 +1,98 @@
+{
+ "generatedAt": "2026-08-05T00:00:00.000Z",
+ "batch": 15,
+ "group": "A",
+ "classificationVocabulary": [
+  "confirmed-collision",
+  "coordination-risk",
+  "incidental"
+ ],
+ "classificationCounts": {
+  "confirmed-collision": 1,
+  "coordination-risk": 5
+ },
+ "coverage": {
+  "pairsRead": 6,
+  "pairsAssigned": 6
+ },
+ "pairs": [
+  {
+   "pairId": "64-77-388-1991",
+   "lawRef": "388/1991",
+   "billA": 64,
+   "billB": 77,
+   "sharedParagraph": "1",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 64, Čl. VII: „V § 1 odst. 10 zákona č. 388/1991 Sb., o Státním fondu životního prostředí České republiky, ve znění zákona č. 239/2012 Sb., se za slovo „schvaluje“ vkládají slova „řádnou individuální“ a slova „sestavenou k rozvahovému dni“ se zrušují.“ -- tisk 64 mění pouze odstavec 10 (účetní závěrka Fondu).",
+    "billBExcerpt": "tisk 77, Čl. II body 1–2: „1. V § 1 odst. 4 se za slovo „ředitel“ vkládají slova „ , kterého jmenuje a odvolává ministr životního prostředí (dále jen „ministr“)“, slova „státní službě“ se nahrazují slovy „státních zaměstnancích“ a slova „služebního úřadu v jiném správním úřadu“ se nahrazují slovy „správního úřadu“. 2. V § 1 odst. 5 se slova „životního prostředí (dále jen „ministr“)“ zrušují.“ -- tisk 77 mění pouze odstavce 4 a 5 (jmenování ředitele Fondu, definice pojmu „ministr“)."
+   },
+   "reasoning": "Obě novely mají v § 1 zákona o Státním fondu životního prostředí ČR skutečnou operativní instrukci, takže minimálně jde o koordinační riziko. Cíle se však mechanicky nekříží: tisk 64 přepisuje jen odstavec 10 (úprava účetní závěrky Fondu), tisk 77 jen odstavce 4 a 5 (jmenování ředitele a definici pojmu „ministr“) — jde o disjunktní odstavce, žádná strana nepoužívá vsuvku ani přečíslování a žádná strana § 1 nepřepisuje vcelku. Obě novely lze aplikovat v libovolném pořadí bez ztráty textu; jde tedy o koordinační riziko dvou souběžně novelizovaných odstavců téhož paragrafu, nikoli o potvrzenou kolizi."
+  },
+  {
+   "pairId": "64-143-90-2012",
+   "lawRef": "90/2012",
+   "billA": 64,
+   "billB": 143,
+   "sharedParagraph": "417",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 64, Čl. CXXXII bod 57: „57. V § 417 odst. 3 se slova „vlastních zdrojů“ nahrazují slovy „částí vlastního kapitálu“.“ -- tisk 64 mění pouze odstavec 3 (terminologická úprava „vlastní zdroje“ → „části vlastního kapitálu“, součást rozsáhlé účetní reformy zákona o obchodních korporacích).",
+    "billBExcerpt": "tisk 143, Čl. VIII bod 2: „2. V § 417 odst. 1 se slovo „a“ nahrazuje slovy „, k rozhodnutí“ a za slovo „kapitálu“ se vkládají slova „, k rozhodnutí o zrušení společnosti s likvidací a k rozhodnutí o rozdělení likvidačního zůstatku“.“ -- tisk 143 mění pouze odstavec 1 (rozšíření výčtu rozhodnutí valné hromady o zrušení společnosti s likvidací; implementace CELEX 32024L2810)."
+   },
+   "reasoning": "Oba tisky skutečně novelizují § 417 zákona o obchodních korporacích, tedy minimálně koordinační riziko. Tisk 64 se ale omezuje na odstavec 3 (terminologická náhrada v rámci účetní reformy), zatímco tisk 143 mění pouze odstavec 1 (rozšíření kompetence valné hromady, unijní transpozice). Jde o disjunktní odstavce bez vsuvky měnící číslování a bez wholesale přepisu paragrafu — obě úpravy lze aplikovat nezávisle na pořadí. Klasifikováno jako koordinační riziko, nikoli potvrzená kolize."
+  },
+  {
+   "pairId": "65-103-300-2008",
+   "lawRef": "300/2008",
+   "billA": 65,
+   "billB": 103,
+   "sharedParagraph": "3",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 65, Čl. VI bod 1: „1. V § 3 odstavec 3 zní: „(3) Náležitostmi žádosti o zřízení datové schránky fyzické osoby jsou obecné náležitosti žádosti podle správního řádu a u fyzické osoby, která není zapsána v základním registru obyvatel, dále“ -- tisk 65 přepisuje celý odstavec 3 (náležitosti žádosti o zřízení datové schránky fyzické osoby nezapsané v základním registru obyvatel).",
+    "billBExcerpt": "tisk 103, Čl. I bod 1: „1. V § 3 odst. 1 se za větu první vkládá věta, která včetně poznámky pod čarou zní: „Datovou schránku cizinci, který je příjemcem dávek podle jiného právního předpisu3), zřídí Agentura bezplatně a bezodkladně poté, co obdrží informaci o přiznání nároku na dávku cizinci.“ -- tisk 103 vkládá novou větu do odstavce 1 (zřízení datové schránky cizinci-příjemci dávek)."
+   },
+   "reasoning": "Oba tisky mají v § 3 zákona o elektronických úkonech a autorizované konverzi dokumentů skutečnou operativní instrukci — koordinační riziko potvrzeno. Tisk 65 ale wholesale přepisuje pouze odstavec 3 („odstavec 3 zní“), zatímco tisk 103 vkládá větu do odstavce 1 — jde o odlišné odstavce, wholesale přepis tisku 65 se s vsuvkou tisku 103 mechanicky nekříží (odstavec 1 v přepisu tisku 65 vůbec nefiguruje). Metadata fronty sice u této dvojice hlásí shodu na úrovni odstavce „3“, ale ověřením textu obou tisků shoda odstavců nenastává (65 = odst. 3, 103 = odst. 1); jde tedy o koordinační riziko dvou nezávisle měněných odstavců téhož paragrafu, nikoli o potvrzenou kolizi."
+  },
+  {
+   "pairId": "67-234-360-1992",
+   "lawRef": "360/1992",
+   "billA": 67,
+   "billB": 234,
+   "sharedParagraph": "22",
+   "classification": "confirmed-collision",
+   "evidence": {
+    "billAExcerpt": "tisk 67, Čl. XIX: „V § 22 zákona č. 360/1992 Sb., o výkonu povolání autorizovaných architektů a o výkonu povolání autorizovaných inženýrů a techniků činných ve výstavbě, ve znění zákona č. 224/2003 Sb. a zákona č. 284/2021 Sb., se doplňuje odstavec 4, který zní: „(4) Komora bezodkladně uvědomí Úřad rozvoje území České republiky o pravomocném rozhodnutí o uložení disciplinárního opatření spočívajícího v pozastavení nebo odnětí autorizace autorizované osobě.“.“ -- tisk 67 (stavební omnibus) DOPLŇUJE nový odstavec 4 na konec § 22 a předpokládá, že stávající text § 22 (odstavce 1–3) zůstává zachován.",
+    "billBExcerpt": "tisk 234, bod 63: „63. § 22 zní: „§ 22 (1) Proti rozhodnutí o uložení disciplinárního opatření podle § 21 může podat odvolání také dozorčí rada Komory. (2) O odvolání proti rozhodnutí o uložení disciplinárního opatření podle § 21 rozhoduje představenstvo Komory. (3) Představenstvo je nadřízeným správním orgánem Komory.“.“ -- tisk 234 nahrazuje CELÝ § 22 (odstavce 1–3) novým věcně odlišným zněním o odvolacím řízení proti disciplinárnímu opatření a vůbec neobsahuje odstavec 4."
+   },
+   "reasoning": "Jde o přesně ten mechanismus, na který upozorňuje zadání: tisk 234 je novelou vlastního (domovského) autorizačního zákona a § 22 přepisuje wholesale technikou „§ 22 zní“, zatímco tisk 67 (Babišův stavební omnibus) provádí úzký zásah – doplnění odstavce 4 k dosavadnímu textu. Instrukce nelze aplikovat obě beze zbytku: provede-li se nejprve tisk 234, § 22 bude mít jen tři odstavce s věcně jiným obsahem (odvolání k dozorčí radě/představenstvu) a doplněk tisku 67 se stane odstavcem 4 nesouvisejícího nového ustanovení; provede-li se nejprve tisk 67, wholesale přepis tisku 234 nově vloženou informační povinnost vůči Úřadu rozvoje území (odstavec 4) bez náhrady odstraní. V žádném pořadí se nezachová věcný obsah obou novel současně – potvrzená kolize typu wholesale-přepis versus úzké doplnění."
+  },
+  {
+   "pairId": "111-207-359-1999",
+   "lawRef": "359/1999",
+   "billA": 111,
+   "billB": 207,
+   "sharedParagraph": "23e",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 111, Čl. V bod 1: „1. V § 23e odst. 1 se za slova „obchodování s lidmi,“ vkládají slova „využití služby poskytované obětí trestného činu obchodování s lidmi,“ a slova „moci jiného“ se nahrazují slovy „péče jiného a jeho přijetí za odměnu“.“ -- tisk 111 upravuje výčet trestných činů zakládajících nezpůsobilost k zařazení do evidence žadatelů (obchodování s lidmi, svěření dítěte do péče za odměnu).",
+    "billBExcerpt": "tisk 207, Čl. III: „V § 23e odst. 1 zákona č. 359/1999 Sb., o sociálně-právní ochraně dětí, ve znění zákona č. 242/2024 Sb. a zákona č. 270/2025 Sb., se slova „nebo s jedy“ nahrazují slovy „, s jedy nebo se rtutí“.“ -- tisk 207 rozšiřuje ve stejném výčtu formulaci o nakládání s jedy o nakládání se rtutí."
+   },
+   "reasoning": "Oba tisky mají v § 23e odst. 1 zákona o sociálně-právní ochraně dětí skutečnou operativní instrukci – koordinační riziko. Tato dvojice je již publikována jako koordinační riziko na 40/2009 Sb. § 88 (jiný zákon); nynější souběžný zásah do 359/1999 Sb. § 23e je DRUHÝM společným dotykem téže dvojice tisků, a to opět v témže odstavci (odst. 1) jednoho společného výčtového ustanovení. Cílové textové úseky se však nepřekrývají – tisk 111 upravuje frázi „...obchodování s lidmi,...moci jiného“, tisk 207 frázi „nebo s jedy“ o několik desítek slov dále ve stejném výčtu; žádná strana neprovádí wholesale přepis odstavce ani vsuvku měnící číslování. Obě úpravy tedy lze aplikovat současně bez adresační kolize, ale opakovaný souběh téže dvojice tisků na dvou různých zákonech posiluje důvod k procedurální koordinaci (JeToLegislativní pozornost), nikoli k označení za potvrzenou kolizi."
+  },
+  {
+   "pairId": "189-248-586-1992",
+   "lawRef": "586/1992",
+   "billA": 189,
+   "billB": 248,
+   "sharedParagraph": "6",
+   "classification": "coordination-risk",
+   "evidence": {
+    "billAExcerpt": "tisk 189, § 29 (Část druhá) body 4–6: „4. V § 6 odst. 9 písm. d) bodě 2 se slova „poskytnutí rekreace nebo zájezdu,“ zrušují... 5. V § 6 odst. 9 písm. d) se doplňují body 3 a 4... 6. V § 6 odst. 9 písmeno g) zní: „g) spropitné ze stravovacích služeb přidělené zaměstnanci vykonávajícímu činnost...“ -- tisk 189 mění § 6 odst. 9 písmena d) a g) (osvobození nepeněžních benefitů a spropitného).",
+    "billBExcerpt": "tisk 248, Čl. I bod 1: „1. V § 6 odst. 9 písm. m) se za slova „příspěvek zaměstnavatele“ vkládají slova „včetně příspěvku zaměstnavatele podle zákoníku práce a povinného příspěvku podle zákona upravujícího povinný příspěvek na produkty spoření na stáří“.“ -- tisk 248 mění výhradně § 6 odst. 9 písmeno m) (osvobození příspěvku na produkty spoření na stáří)."
+   },
+   "reasoning": "Citační paragraf 24 (uvedený v původní frontě u tisku 189) je jen odkazový a mimo rozsah této dvojice; skutečně sdílený je § 6, konkrétně odstavec 9 zákona o daních z příjmů, kde má operativní instrukci obě strany — koordinační riziko. Tisk 189 zasahuje písmena d) a g) odstavce 9 (cestovní/rekreační a stravovací benefity), tisk 248 výhradně písmeno m) (příspěvek na produkty spoření na stáří) — jde o disjunktní písmena téhož odstavce, žádná strana písmeno m) nemění ani odstavec 9 nepřepisuje vcelku. Obě novely lze aplikovat v libovolném pořadí bez ztráty textu; jde o koordinační riziko, nikoli potvrzenou kolizi."
+  }
+ ]
+}

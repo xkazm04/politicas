@@ -1,0 +1,83 @@
+{
+  "billTisk": 90,
+  "billNodeId": "bill:tisk:43200",
+  "title": "Vládní návrh zákona, kterým se mění některé zákony v oblasti veřejných rozpočtů",
+  "origin": "government",
+  "submitter": "min. financí",
+  "summary": {
+    "summary": "Mění 9 předpisů — změna zákona o Nejvyšším kontrolním úřadu, rozpočtových pravidel, zákona o rozpočtovém určení daní a 6 dalších předpisů.",
+    "method": "cast_captions"
+  },
+  "amendedLaws": [
+    {
+      "ref": "159/2006",
+      "urn": "law:sb:159-2006",
+      "label": "zákon č. 159/2006 Sb. — Zákon o střetu zájmů"
+    },
+    {
+      "ref": "166/1993",
+      "urn": "law:sb:166-1993",
+      "label": "zákon č. 166/1993 Sb. — Zákon o Nejvyšším kontrolním úřadu"
+    },
+    {
+      "ref": "177/2023",
+      "urn": "law:sb:177-2023",
+      "label": "zákon č. 177/2023 Sb. — Zákon o financování obrany České republiky a o změně zákona č. 218/2000 Sb., o rozpočtových pravidlech a o změně některý"
+    },
+    {
+      "ref": "218/2000",
+      "urn": "law:sb:218-2000",
+      "label": "zákon č. 218/2000 Sb. — Zákon o rozpočtových pravidlech a o změně některých souvisejících zákonů (rozpočtová pravidla)"
+    },
+    {
+      "ref": "222/2016",
+      "urn": "law:sb:222-2016",
+      "label": "zákon č. 222/2016 Sb. — Zákon o Sbírce zákonů a mezinárodních smluv a o tvorbě právních předpisů vyhlašovaných ve Sbírce zákonů a mezinárodních "
+    },
+    {
+      "ref": "23/2017",
+      "urn": "law:sb:23-2017",
+      "label": "zákon č. 23/2017 Sb. — Zákon o pravidlech rozpočtové odpovědnosti"
+    },
+    {
+      "ref": "243/2000",
+      "urn": "law:sb:243-2000",
+      "label": "zákon č. 243/2000 Sb. — Zákon o rozpočtovém určení výnosů některých daní územním samosprávným celkům a některým státním fondům (zákon o rozpočto"
+    },
+    {
+      "ref": "250/2000",
+      "urn": "law:sb:250-2000",
+      "label": "zákon č. 250/2000 Sb. — Zákon o rozpočtových pravidlech územních rozpočtů"
+    },
+    {
+      "ref": "262/2006",
+      "urn": "law:sb:262-2006",
+      "label": "zákon č. 262/2006 Sb. — Zákon zákoník práce"
+    }
+  ],
+  "amendsCount": 9,
+  "maxTargetChurn": 6,
+  "triageScoreV2": 604500,
+  "sectorAdjacency": false,
+  "attributedSectorLeads": [],
+  "sponsors": [
+    {
+      "pspId": 6545,
+      "name": "Alena Schillerová",
+      "moneyTies": []
+    }
+  ],
+  "committeeRouting": [
+    {
+      "organ": "RV",
+      "role": "garancni",
+      "status": "prikazano",
+      "assignedOn": "2026-03-03"
+    }
+  ],
+  "cachedTexts": [
+    ".data\\law-collision-cache\\tisk-90\\267105.txt"
+  ],
+  "duvodovaZpravaUrl": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=90&ct1=0",
+  "historyUrl": "https://www.psp.cz/sqw/historie.sqw?o=10&t=90"
+}
