@@ -1,0 +1,632 @@
+[
+ {
+  "billTisk": 106,
+  "statedReasoning": "Poslanecký návrh Elišky Olšákové a šesti dalších poslanců (Karel Dvořák, Lucie Sedmihradská, Julie Smejkalová, Michal Zuna, Jiří Horák, Zdeňka Blišťanová) mění pět zákonů: č. 159/1999 Sb. (podnikání v cestovním ruchu), č. 565/1990 Sb. (místní poplatky), č. 455/1991 Sb. (živnostenský zákon), č. 89/1995 Sb. (státní statistická služba) a č. 326/1999 Sb. (pobyt cizinců). Jádrem je adaptace zákona č. 159/1999 Sb. na přímo použitelné nařízení EU 2024/1028 o shromažďování a sdílení údajů o krátkodobých pronájmech ubytování — zavádí se centrální registr ubytovacích zařízení, jednotek pro poskytování ubytování a ubytovaných osob (nový § 9e až § 9m, správcem je Ministerstvo pro místní rozvoj), s dopadem do dalších čtyř zákonů, kde se zápis do tohoto registru uznává za splnění souběžných ohlašovacích a evidenčních povinností (živnostenský zákon, zákon o pobytu cizinců, zákon o státní statistické službě, zákon o místních poplatcích). Souběžně v čl. III bodě 1 novela zdvojnásobuje horní hranici sazby místního poplatku z pobytu podle § 3d zákona č. 565/1990 Sb. z 50 Kč na 100 Kč za osobu a den. Podle důvodové zprávy si vybudování a pětiletý provoz registru vyžádá 92,3 mil. Kč, z čehož 30 mil. Kč je alokováno z Národního plánu obnovy (projekt „eTurista“); technické propojení s registrem živnostenského podnikání zajistí MMR. Návrh je odůvodňován zprůhledněním trhu krátkodobých pronájmů, omezením šedé ekonomiky a lepším výběrem místního poplatku z pobytu obcemi; podle RIA (tabulka č. 6) se odhaduje dodatečný výnos státního rozpočtu z omezení šedé ekonomiky v rozmezí 216 až 792 mil. Kč, bez upřesnění horizontu.",
+  "researchedContext": "Text potvrzuje, že novela poplatku z pobytu (§ 3d zákona č. 565/1990 Sb.) je formulována obecně jako zvýšení celostátního stropu sazby z 50 Kč na 100 Kč, nikoli jako opatření vázané jen na turisticky exponované obce, ačkoli důvodová zpráva argumentuje především potřebami turisticky zatížených lokalit. Podle vlastních údajů důvodové zprávy vybíralo v době přípravy návrhu už 56 obcí poplatek v pásmu 38 až 50 Kč, tedy blízko dosavadního stropu, a celkový celostátní výnos poplatku z pobytu v roce 2021 činil téměř 397 mil. Kč. Odhad ušlého výnosu ze stínové ekonomiky krátkodobých pronájmů (na modelu roku 2019) činí cca 54,9 mil. Kč ročně. K velikosti trhu IUZ text uvádí dva nesourodé údaje, které nejde sečíst ani spojit do jednoho rozpětí: šetření z let 2012–2013 odhadlo 4 121 IUZ (počet ubytovacích zařízení), zatímco o dotaci v titulu COVID-Ubytování II požádalo v roce 2021 celkem 2 831 provozovatelů IUZ (počet osob), a to výslovně bez poskytovatelů sdíleného ubytování, kteří mezi oprávněné žadatele o tuto dotaci nebyli zahrnuti. Zpráva sama poznamenává, že přesný přehled poskytovatelů ubytování v IUZ neexistuje.",
+  "unstatedEffects": [
+   {
+    "effect": "Zdvojnásobení horní hranice sazby poplatku z pobytu v § 3d zákona č. 565/1990 Sb. z 50 Kč na 100 Kč platí celostátně pro všechny obce, nikoli jen pro turisticky exponované lokality, na které se odvolává obecná část důvodové zprávy. Zpráva kvantifikuje pouze fiskální přínos plynoucí ze zprůhlednění trhu (registrace) a z omezení šedé ekonomiky (odhad 216 až 792 mil. Kč), ale nikde neodhaduje dodatečný výnos, který mohou získat obce už dnes vybírající poplatek při horní hranici — podle vlastních čísel zprávy jde nejméně o 56 obcí z celkového ročního výnosu blížícího se 397 mil. Kč (rok 2021) — pouhým využitím nového dvojnásobného stropu bez jakékoli změny v míře výběru.",
+    "whoBenefits": "Rozpočty obcí, zejména cca 56 obcí, které již v době přípravy návrhu vybíraly poplatek z pobytu při horní hranici 38 až 50 Kč a mohou nově až zdvojnásobit jeho výnos bez dalšího legislativního kroku.",
+    "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=106&ct1=0"
+   },
+   {
+    "effect": "Zákon nově ukládá evidenční a ohlašovací povinnost i osobám v postavení „hostitele“ podle nařízení EU 2024/1028, tedy fyzickým osobám poskytujícím ubytování v rámci sdílené ekonomiky. Populaci takto nově dotčených osob však důvodová zpráva nikde nekvantifikuje: jediný konkrétní počet provozovatelů, který uvádí — 2 831 žadatelů o dotaci COVID-Ubytování II v roce 2021 — poskytovatele sdíleného ubytování výslovně vylučuje, a druhý uváděný údaj (4 121 IUZ ze šetření 2012–2013) je odhadem počtu ubytovacích zařízení, nikoli osob, navíc z doby předcházející výraznému rozšíření sdílené ekonomiky. Náklady na straně nově registrovaných hostitelů zpráva odbývá tvrzením, že „Naprosto drtivá většina ubytovatelů“ již potřebné technické vybavení má, aniž by pro tuto skupinu uvedla jakékoli číslo k administrativní zátěži nebo k sankčnímu riziku při neplnění nové registrační povinnosti.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou fyzické osoby v postavení hostitele podle nařízení EU 2024/1028 (poskytovatelé sdíleného ubytování), jejichž počet zpráva nikde neuvádí, protože jediný konkrétní počet provozovatelů v textu tuto skupinu výslovně vylučuje.",
+    "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=106&ct1=0"
+   }
+  ],
+  "conflictAssessment": "Ze sedmi předkladatelů nemá evidovanou peněžní vazbu na firmu šest — Eliška Olšáková, Michal Zuna, Zdeňka Blišťanová, Karel Dvořák, Lucie Sedmihradská a Julie Smejkalová. Jiří Horák má v grafu evidovanou vazbu na Vodovody a kanalizace Vyškov, a.s. (IČO 49454587), úhrn veřejných smluv firmy 124 508 316 Kč, vazba čeká na lidskou kontrolu. Jde o regionální vodárenskou společnost ovládanou obcemi vyškovského okresu, tedy o komunálně vlastněný subjekt, který se podle standardní metodiky nepovažuje za soukromý podnikatelský konflikt zájmů; navíc jeho oborová činnost (vodovody a kanalizace) nemá věcnou souvislost s předmětem tisku 106 (cestovní ruch, krátkodobé pronájmy ubytování, místní poplatky). U žádného ze sedmi předkladatelů tedy evidované peněžní vazby věcně nesouvisejí s regulovanou oblastí tohoto tisku a v datech není zjištěn střet zájmů.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+   {
+    "claim": "Čl. III bod 1 nahrazuje v § 3d zákona č. 565/1990 Sb. částku „50 Kč“ částkou „100 Kč“ jako horní hranici sazby poplatku z pobytu.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=106&ct1=0"
+   },
+   {
+    "claim": "V roce 2021 činil celkový výnos poplatku z pobytu téměř 397 mil. Kč; poplatek ve výši 38 až 50 Kč vybíralo 56 obcí.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=106&ct1=0"
+   },
+   {
+    "claim": "Náklady na vybudování a pětiletý provoz a rozvoj registru ubytovacích zařízení jsou odhadovány na 92,3 mil. Kč, z čehož 30 mil. Kč je alokováno z Národního plánu obnovy.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=106&ct1=0"
+   },
+   {
+    "claim": "Odhad dodatečného výnosu státního rozpočtu z omezení šedé ekonomiky v segmentu krátkodobých pronájmů se pohybuje mezi 216 a 792 mil. Kč (odkaz na tabulku č. 6 zprávy RIA).",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=106&ct1=0"
+   },
+   {
+    "claim": "Zpráva odhaduje počet IUZ (ubytovacích zařízení) na 4 121 podle šetření z let 2012–2013 a nezávisle uvádí, že o dotaci v titulu COVID-Ubytování II požádalo v roce 2021 celkem 2 831 provozovatelů IUZ, výslovně bez poskytovatelů sdíleného ubytování, kteří mezi oprávněné žadatele nebyli zahrnuti.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=106&ct1=0"
+   },
+   {
+    "claim": "Jiří Horák má v grafu evidovanou peněžní vazbu na Vodovody a kanalizace Vyškov, a.s. (IČO 49454587), úhrn veřejných smluv 124 508 316 Kč, vazba čeká na lidskou kontrolu.",
+    "kind": "graph_fact",
+    "source": "company:ico:49454587"
+   },
+   {
+    "claim": "Vodovody a kanalizace Vyškov, a.s. je regionální vodárenská společnost ovládaná obcemi vyškovského okresu.",
+    "kind": "web",
+    "source": "https://www.vakvyskov.cz/"
+   },
+   {
+    "claim": "Zákon č. 159/1999 Sb., o některých podmínkách podnikání a o výkonu některých činností v oblasti cestovního ruchu, je hlavním novelizovaným předpisem tisku 106.",
+    "kind": "law",
+    "source": "159/1999"
+   },
+   {
+    "claim": "Zákon č. 565/1990 Sb., o místních poplatcích, je novelizován v části druhé (čl. III) tisku 106, kde se mění horní hranice sazby poplatku z pobytu.",
+    "kind": "law",
+    "source": "565/1990"
+   },
+   {
+    "claim": "Tisk 106 novelizuje rovněž živnostenský zákon č. 455/1991 Sb., zákon č. 89/1995 Sb., o státní statistické službě, a zákon č. 326/1999 Sb., o pobytu cizinců na území České republiky.",
+    "kind": "law",
+    "source": "455/1991"
+   }
+  ]
+ },
+ {
+  "billTisk": 113,
+  "statedReasoning": "Vládní návrh (min. průmyslu a obchodu, v grafu evidován jako sponzor Karel Havlíček) zavádí zákon o ekodesignu výrobků, který adaptuje český právní řád na přímo použitelné nařízení Evropského parlamentu a Rady (EU) 2024/1781 o ekodesignu udržitelných výrobků. Návrh svěřuje výkon státní správy ministerstvu, Úřadu pro technickou normalizaci, metrologii a státní zkušebnictví, jedenácti stávajícím orgánům dozoru (Česká obchodní inspekce, Český báňský úřad, Ministerstvo dopravy, Drážní úřad a další) a orgánům Celní správy, a zavádí skutkové podstaty přestupků s pokutami do 20 000 000 Kč. Vedle hlavní části mění čtyři navazující zákony (o hornické činnosti, o hospodaření energií, o Ústředním kontrolním a zkušebním ústavu zemědělském, o dozoru nad trhem s výrobky) čistě odkazovými a terminologickými úpravami. Důvodová zpráva tvrdí, že návrh jde nad rámec povinností nařízení jen v jediném bodě — v povinnosti zajistit český jazyk u některých průvodních dokumentů a informací k výrobku — a že jinak plní výhradně to, co nařízení a budoucí akty Komise v přenesené pravomoci vyžadují. Na tomto základě bylo podle čl. 5 bodu 5.5 Obecných zásad RIA uděleno zproštění povinnosti zpracovat hodnocení dopadů regulace (RIA) s odůvodněním, že ustanovení neposkytují prostor pro diskreci. Zpráva dále tvrdí, že návrh nemá dopad na veřejné rozpočty, sociální dopady ani zvýšená korupční rizika.",
+  "researchedContext": "Text potvrzuje rozsah tvrzený důvodovou zprávou — jedenáct orgánů dozoru vyjmenovaných v § 5 odst. 1, písmena a) až k), sankční ustanovení § 9 až § 17 s pokutami rozvrstvenými od 500 000 Kč do 20 000 000 Kč podle typu subjektu a povahy porušení, a čtyři vedlejší novely v § 19, § 20, § 22 a § 23 skutečně provádějí jen odkazové a poznámkové úpravy. Zpráva v části o hospodářském a finančním dopadu (bod G) sama uvádí, že návrh jde „nad rámec povinností stanovených nařízením o ekodesignu udržitelných výrobků“ výslovně v jazykové povinnosti (§ 8) — překlad průvodních dokumentů a digitálních pokynů do češtiny — s odhadovanými náklady „v řádu max. tisíců Kč za výrobek“ podle kategorie. Zpráva zároveň v odůvodnění výjimky z RIA (bod G, konec) tvrdí, že celý návrh „neobsahuje ustanovení jdoucí nad rámec povinného rozsahu adaptace“ nařízení — tato věta je v přímém napětí s bezprostředně předcházejícím tvrzením téže zprávy, že jazyková povinnost jde „nad rámec“ nařízení. Samotné nařízení (EU) 2024/1781 přitom výslovně svěřuje volbu jazyka členskému státu jako diskreční pravomoc (čl. 7 odst. 8, čl. 27 odst. 7, čl. 29 odst. 4, čl. 30 odst. 2, čl. 44 odst. 2 nařízení, jak je citují § 8 odst. 1 až 5 návrhu) — jde tedy o ustanovení, kde český zákonodárce skutečně vykonává vlastní diskreci, a nikoli jen mechanicky přejímá bezvýjimečný požadavek nařízení.",
+  "unstatedEffects": [
+   {
+    "effect": "Odůvodnění výjimky z RIA staví na tvrzení, že návrh neobsahuje ustanovení jdoucí nad rámec povinného rozsahu adaptace nařízení a že dotčená ustanovení neposkytují prostor pro diskreci. Ve stejné části zprávy je však jazyková povinnost podle § 8 (překlad dokumentace do češtiny) výslovně označena jako jdoucí nad rámec povinností nařízení a odvozuje se od diskrečního oprávnění, které nařízení výslovně svěřuje členskému státu (čl. 7 odst. 8 a další). Zpráva tak žádá a dostává celkovou výjimku z RIA na základě argumentu (žádná diskrece), který na jazykovou povinnost — jediné ustanovení jdoucí nad rámec nařízení — sama sebe vyvrací, aniž by pro toto konkrétní diskreční ustanovení provedla samostatné odůvodnění nebo posouzení dopadu.",
+    "whoBenefits": "Nelze jednoznačně určit — zproštěním od RIA pro celý návrh, včetně jediného ustanovení skutečně založeného na vlastní diskreci státu, se šetří administrativní kapacita předkladatele; dotčeni jsou dovozci a distributoři výrobků, kterým jazyková povinnost ukládá náklady na překlad bez samostatného zhodnocení dopadu touto povinnou metodikou.",
+    "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=113&ct1=0"
+   }
+  ],
+  "conflictAssessment": "Sponzorem tisku eviduje graf Karla Havlíčka (ministra průmyslu a obchodu jako předkladatele agendy), u něhož graf peněžních vazeb v této datové sadě neeviduje žádnou vlastněnou ani řízenou firmu. Věcný obsah normy (výkon dozoru nad ekodesignem výrobků, přenesení sankčních pravomocí na stávající jedenáctku dozorových orgánů) nemá s žádnou v grafu evidovanou podnikatelskou vazbou žádnou zjevnou souvislost. Nejde o skrytý střet zájmů — jde o transpoziční/adaptační normu s jedním identifikovaným sponzorem bez evidovaných peněžních vazeb.",
+  "severity": "low",
+  "confidence": 3,
+  "citations": [
+   {
+    "claim": "Zákon zavádí sankce podle § 9 až § 17 s pokutami od 500 000 Kč do 20 000 000 Kč a svěřuje dozor jedenácti orgánům vyjmenovaným v § 5 odst. 1 písm. a) až k).",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=113&ct1=0"
+   },
+   {
+    "claim": "Důvodová zpráva v bodu G uvádí, že návrh jde nad rámec povinností nařízení (EU) 2024/1781 v povinnosti zajistit český jazyk u průvodních dokumentů podle § 8, s náklady v řádu tisíců Kč za výrobek.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=113&ct1=0"
+   },
+   {
+    "claim": "Důvodová zpráva zároveň v odůvodnění výjimky z RIA tvrdí, že návrh neobsahuje ustanovení jdoucí nad rámec povinného rozsahu adaptace nařízení a že dotčená ustanovení neposkytují prostor pro diskreci.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=113&ct1=0"
+   },
+   {
+    "claim": "§ 19 mění zákon č. 61/1988 Sb., o hornické činnosti, § 20 mění zákon č. 406/2000 Sb., o hospodaření energií, § 22 mění zákon č. 147/2002 Sb. a § 23 mění zákon č. 87/2023 Sb., o dozoru nad trhem s výrobky — vše odkazovými úpravami.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=113&ct1=0"
+   },
+   {
+    "claim": "Zákon č. 406/2000 Sb., o hospodaření energií, je jedním z předpisů novelizovaných tiskem 113.",
+    "kind": "law",
+    "source": "406/2000"
+   },
+   {
+    "claim": "Zákon č. 61/1988 Sb., o hornické činnosti, výbušninách a o státní báňské správě, je novelizován § 19 tisku 113.",
+    "kind": "law",
+    "source": "61/1988"
+   },
+   {
+    "claim": "Zákon č. 87/2023 Sb., o dozoru nad trhem s výrobky, je novelizován § 23 tisku 113.",
+    "kind": "law",
+    "source": "87/2023"
+   },
+   {
+    "claim": "Zákon č. 147/2002 Sb., o Ústředním kontrolním a zkušebním ústavu zemědělském, je novelizován § 22 tisku 113.",
+    "kind": "law",
+    "source": "147/2002"
+   },
+   {
+    "claim": "Karel Havlíček je předkladatelem/sponzorem tisku 113 v grafu, bez evidovaných peněžních vazeb na firmy.",
+    "kind": "graph_fact",
+    "source": "psp:person:6621"
+   }
+  ]
+ },
+ {
+  "billTisk": 125,
+  "statedReasoning": "Poslanci Aleš Juchelka a Jana Pastuchová (spolu s Igorem Hendrychem coby dalším předkladatelem) navrhují novelu pěti předpisů: zákona č. 108/2006 Sb., o sociálních službách, zákona č. 329/2011 Sb., o poskytování dávek osobám se zdravotním postižením, zákona č. 582/1991 Sb., o organizaci a provádění sociálního zabezpečení, a dále přímo zákona č. 300/2025 Sb. a zákona č. 358/2022 Sb., které dosud neúčinné části obou předchozích zákonů mění. Jádrem je odklad přesunu kompetencí ve výkonu státní správy v oblasti příspěvku na péči, dávek pro osoby se zdravotním postižením a průkazu OZP z Úřadu práce ČR na územní správy sociálního zabezpečení z 1. července 2026 na 1. června 2028 (čl. IV) — termín zdůvodněný přípravou informačních systémů resortu práce a sociálních věcí a sladěním s účinností unijní směrnice o evropských průkazech osob se zdravotním postižením k 5. červnu 2028. Souběžně se o jeden rok, do 31. prosince 2027, prodlužuje platnost § 8 zákona č. 329/2011 Sb., který stanoví zvýšený příspěvek na mobilitu 2 900 Kč měsíčně osobám používajícím po celý kalendářní měsíc přístroj pro domácí oxygenoterapii nebo plicní ventilaci (čl. V). Čl. I bod 7 zcela nahrazuje znění § 21 odst. 1 zákona o sociálních službách (povinnosti žadatele o příspěvek na péči), čemuž odpovídají navazující novelizační body 3 až 6 přeznačující odkazy na písmena v §§ 13, 14a, 16, 25, 26 a 29 stejného zákona. Čl. III mění § 8 odst. 4 zákona č. 582/1991 Sb. tak, že rozšiřuje oprávnění odborných nelékařských zdravotnických pracovníků (ONZP) podepisovat posudek bez schválení lékaře Institutu posuzování zdravotního stavu i pro agendu příspěvku na zvláštní pomůcku a průkazů OZP, dosud omezené jen na příspěvek na péči. Návrh má nabýt účinnosti dnem následujícím po vyhlášení, s výjimkami k 1. 7. 2026 a 1. 6. 2028 podle jednotlivých ustanovení; navrhováno je schválení již v prvním čtení podle § 90 odst. 2 zákona č. 90/1995 Sb. pro legislativně-technický charakter věci.",
+  "researchedContext": "Text potvrzuje, že čl. I bod 7 nahrazuje celý § 21 odst. 1 zákona č. 108/2006 Sb. novým jedenáctipoložkovým výčtem povinností žadatele (písmena a) až k)) — jde o úplnou náhradu odstavce, nikoli o dílčí novelizační zásah do jednoho písmene. Body 3 až 6 v důsledku toho přeznačují odkazy na písmena v šesti dalších ustanoveních (§ 13 odst. 2, § 25 odst. 1, § 26 odst. 1 písm. b), § 14a odst. 1, § 16 odst. 1 a 2, § 29 odst. 1 písm. c) a odst. 7) — a to dvoufázově (např. „písm. d)“ se nejprve mění na „písm. e)“ a v následujícím bodě znovu na „písm. i)“), což ukazuje na řetězec navazujících posunů písmen vyvolaný vložením nových položek doprostřed výčtu. Pokud by jiný souběžně projednávaný tisk cílil na totéž ustanovení § 21 zákona č. 108/2006 Sb., ale jen na odstavec 2 písm. e) (jak podle dřívějších zjištění platí pro tisky 85 a 88), nešlo by o přímý střet stejné novelizační instrukce (dvě novely téhož bodu), nýbrž o odlišný typ kolize — jedna novela nahrazuje celý odstavec 1, druhá cílí na sousední odstavec 2 stejného paragrafu; při souběžném schválení obou by hrozilo nesladění číslování písmen napříč odstavci, které žádný z textů výslovně neřeší. Toto tvrzení je třeba brát jako hypotézu odvozenou ze struktury tisku 125 samotného — znění tisků 85 a 88 nebylo součástí tohoto rozboru a nebylo zde přímo ověřeno.",
+  "unstatedEffects": [
+   {
+    "effect": "Úplná náhrada § 21 odst. 1 zákona o sociálních službách vyvolává řetězec navazujících přeznačení písmen nejméně v šesti dalších ustanoveních téhož zákona (§ 13 odst. 2, § 14a odst. 1, § 16 odst. 1 a 2, § 25 odst. 1, § 26 odst. 1 písm. b), § 29 odst. 1 písm. c) a odst. 7), přičemž některé odkazy se posouvají dvoufázově v rámci téhož návrhu (např. „písm. d)“ na „písm. e)“ a vzápětí na „písm. i)“). Zvláštní část důvodové zprávy tento rozsah shrnuje jedinou větou „Pouze z důvodu potřeby úpravy legislativních odkazů na související ustanovení zákona se do tohoto návrhu přebírají a upravují již schválené věcné úpravy“, aniž by uvedla, kolika ustanovení se změna reálně dotýká.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou žadatelé o příspěvek na péči a pracovníci úřadů práce či územních správ sociálního zabezpečení, kteří musí při výkladu §§ 13, 14a, 16, 25, 26 a 29 zákona č. 108/2006 Sb. sledovat správné, nově přeznačené odkazy na písmena § 21.",
+    "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=125&ct1=0"
+   },
+   {
+    "effect": "Návrh podruhé posouvá účinnost téhož organizačního opatření — přesunu agendy příspěvku na péči a dávek pro OZP z Úřadu práce ČR na územní správy sociálního zabezpečení, který byl zákonem č. 300/2025 Sb. stanoven na 1. července 2026 a nyní se navrhuje odložit na 1. června 2028, tedy o téměř dva roky. Důvodová zpráva odklad zdůvodňuje přípravou informačních systémů a termínem unijní směrnice, ale nekvantifikuje dopad dvouletého prodloužení souběžného fungování dvou paralelních výkladových režimů (dosavadní na ÚP ČR, cílový na ÚSSZ) na žadatele o dávky ani na provozní náklady ÚP ČR v mezidobí.",
+    "whoBenefits": "Nelze jednoznačně určit — přímý dopad nese Úřad práce ČR, který agendu spravuje o dva roky déle, a žadatelé o dávky, jejichž řízení zůstávají u dosavadního orgánu; žádná konkrétní soukromá strana není v textu jako příjemce prospěchu identifikována.",
+    "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=125&ct1=0"
+   }
+  ],
+  "conflictAssessment": "Ze tří předkladatelů nemá Igor Hendrych v grafu evidovanou žádnou peněžní vazbu. Aleš Juchelka má evidované vazby na ČESKOU TELEVIZI (IČO 00027383, úhrn veřejných smluv 19 557 459 056 Kč), ČESKÝ ROZHLAS (IČO 45245053, úhrn 3 995 330 864 Kč), YOU STORY UP! s.r.o. (IČO 02751232, úhrn 4 641 238 Kč) a OCCAM PR s.r.o. (IČO 27840531, úhrn 177 870 Kč) — všechny čekají na lidskou kontrolu. Obor těchto subjektů (veřejnoprávní vysílání, PR a mediální služby) nemá věcnou souvislost s předmětem tisku 125 (sociální služby, dávky pro osoby se zdravotním postižením, organizace sociálního zabezpečení), takže v datech není zjištěn střet zájmů plynoucí z těchto vazeb. Jana Pastuchová má evidované vazby na Nemocnici Jablonec nad Nisou, p. o. (IČO 00829838, úhrn 410 185 778 Kč) — příspěvkovou organizaci zřízenou statutárním městem Jablonec nad Nisou —, na Horskou službu ČR, o. p. s. (IČO 27467759, úhrn 33 699 468 Kč), obecně prospěšnou společnost provozující horskou záchrannou službu, a na Zdravotnickou záchrannou službu Libereckého kraje, p. o. (IČO 46744991, úhrn 297 677 493 Kč), příspěvkovou organizaci zřízenou krajem — rovněž čekají na lidskou kontrolu. Jde tedy o veřejné instituce, nikoli o soukromé podnikatelské subjekty, a předmětem tisku 125 není financování zdravotnických zařízení ani záchranné služby, nýbrž kompetenční přesun a lhůty v agendě sociálních dávek — podle standardní metodiky se tedy nejedná o soukromý střet zájmů ani o věcně související oblast.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+   {
+    "claim": "Čl. IV bod 3 posouvá účinnost převodu kompetencí ÚP ČR na ÚSSZ z 1. července 2026 na 1. června 2028.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=125&ct1=0"
+   },
+   {
+    "claim": "Čl. V prodlužuje platnost § 8 zákona č. 329/2011 Sb. (příspěvek na mobilitu 2 900 Kč pro osoby využívající domácí oxygenoterapii nebo plicní ventilaci) do 31. prosince 2027.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=125&ct1=0"
+   },
+   {
+    "claim": "Čl. I bod 7 nahrazuje celé znění § 21 odstavce 1 zákona č. 108/2006 Sb. novým výčtem povinností žadatele o příspěvek na péči, písmena a) až k).",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=125&ct1=0"
+   },
+   {
+    "claim": "Čl. I body 3 až 6 přeznačují odkazy na písmena § 21 v § 13 odst. 2, § 14a odst. 1, § 16 odst. 1 a 2, § 25 odst. 1, § 26 odst. 1 písm. b) a § 29 odst. 1 písm. c) a odst. 7 zákona č. 108/2006 Sb.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=125&ct1=0"
+   },
+   {
+    "claim": "Roční náklady na prodloužený příspěvek na mobilitu podle § 8 zákona č. 329/2011 Sb. se odhadují na cca 53 677 500 Kč v roce 2026 a cca 60 485 100 Kč v roce 2027.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=125&ct1=0"
+   },
+   {
+    "claim": "Aleš Juchelka má v grafu evidovanou peněžní vazbu na ČESKOU TELEVIZI (IČO 00027383), úhrn veřejných smluv 19 557 459 056 Kč, vazba čeká na lidskou kontrolu.",
+    "kind": "graph_fact",
+    "source": "company:ico:00027383"
+   },
+   {
+    "claim": "Aleš Juchelka má v grafu evidovanou peněžní vazbu na ČESKÝ ROZHLAS (IČO 45245053), úhrn veřejných smluv 3 995 330 864 Kč, vazba čeká na lidskou kontrolu.",
+    "kind": "graph_fact",
+    "source": "company:ico:45245053"
+   },
+   {
+    "claim": "Jana Pastuchová má v grafu evidovanou peněžní vazbu na Nemocnici Jablonec nad Nisou, p. o. (IČO 00829838), úhrn veřejných smluv 410 185 778 Kč, vazba čeká na lidskou kontrolu.",
+    "kind": "graph_fact",
+    "source": "company:ico:00829838"
+   },
+   {
+    "claim": "Jana Pastuchová má v grafu evidovanou peněžní vazbu na Zdravotnickou záchrannou službu Libereckého kraje, p. o. (IČO 46744991), úhrn veřejných smluv 297 677 493 Kč, vazba čeká na lidskou kontrolu.",
+    "kind": "graph_fact",
+    "source": "company:ico:46744991"
+   },
+   {
+    "claim": "Zákon č. 108/2006 Sb., o sociálních službách, je hlavním novelizovaným předpisem tisku 125.",
+    "kind": "law",
+    "source": "108/2006"
+   },
+   {
+    "claim": "Zákon č. 329/2011 Sb., o poskytování dávek osobám se zdravotním postižením, je novelizován v čl. II a čl. V tisku 125.",
+    "kind": "law",
+    "source": "329/2011"
+   },
+   {
+    "claim": "Zákon č. 300/2025 Sb. je přímo novelizován v čl. IV tisku 125.",
+    "kind": "law",
+    "source": "300/2025"
+   }
+  ]
+ },
+ {
+  "billTisk": 162,
+  "statedReasoning": "Vládní návrh ministra spravedlnosti mění tři předpisy — občanský soudní řád (č. 99/1963 Sb.), zákon o soudních poplatcích (č. 549/1991 Sb.) a odškodňovací zákon (č. 82/1998 Sb.). Obecná část důvodové zprávy popisuje tři samostatné důvody: (a) transpozici směrnice (EU) 2024/1069 o ochraně osob před zneužívajícími řízeními (tzv. SLAPP žalobami) — nový institut žaloby proti svobodě projevu (§ 197–198 o. s. ř.), právo žalovaného na zastoupení právnickou osobou a možnost soudu uložit žalobci jistotu na náklady řízení; (b) reakci na dva rozsudky Soudního dvora EU (C-196/21 a C-7/21) k nařízení (EU) 2020/1784 o doručování písemností do ciziny — zavedení zálohy na náklady překladu a doručení (nový § 141 odst. 2 o. s. ř.) a úpravu běhu lhůt; (c) reakci na rozsudek ESLP Machalický proti České republice — doplnění § 12 odškodňovacího zákona o výjimku pro zastavení trestního stíhání z důvodu promlčení. K čl. III zpráva výslovně zdůvodňuje nový soudní poplatek za odvolání odkazem na judikaturu Ústavního soudu k čl. 36 odst. 1 Listiny (nálezy I. ÚS 1415/18, II. ÚS 510/19, I. ÚS 868/21) a stanovuje jeho výši (2 000 Kč) tak, aby nepředstavovala nepřiměřenou bariéru v přístupu k soudu; zvláštní část k novému § 141 odst. 2 o. s. ř. obdobně podrobně zdůvodňuje následek nesložení zálohy (zastavení řízení u žalobce, nepřihlédnutí k úkonu u ostatních účastníků) a výslovně vylučuje jeho dopad na účastníky osvobozené od soudních poplatků, u nichž zálohu hradí stát.",
+  "researchedContext": "Čtení úplného textu tisku potvrzuje strukturu popsanou ve zprávě: Čl. I mění o. s. ř. (nový § 197–198, nový § 141 odst. 2 se zálohou na náklady překladu/doručení a přeznačením dosavadního odstavce 2 na odstavec 3, nový § 354b, nový § 371), Čl. III vkládá do přílohy položky 22 zákona o soudních poplatcích nový bod 14 (poplatek za odvolání ve věcech náhrady škody podle položky 8a) a přeznačuje dosavadní body 14 a 15 na 15 a 16, Čl. V mění § 12 odst. 1 písm. b) odškodňovacího zákona. Nezávislý srovnávací průzkum novelizačních dvojic v datovém souboru případu potvrzuje u páru tisků 64 a 162 na zákoně č. 99/1963 Sb. § 141 klasifikaci potvrzené kolize: tisk 162 vkládá do § 141 nový odstavec 2 a dosavadní odstavec 2 přeznačuje na odstavec 3, zatímco druhý návrh v § 141 pouze doplňuje ustanovení s předpokladem volného pořadového místa. Tentýž datový soubor eviduje u páru tisků 111 a 162 na § 12 zákona č. 82/1998 Sb. klasifikaci koordinačního rizika (nikoli potvrzené kolize): tisk 111 mění vnitřní odkaz v § 12 odst. 2 písm. d), tisk 162 mění text v § 12 odst. 1 písm. b) — jde o odlišné části téhož paragrafu.",
+  "unstatedEffects": [
+   {
+    "effect": "Čl. II bod 2 (přechodné ustanovení) váže možnost uložit povinnost složit jistotu na § 198 odst. 2 zákona č. 99/1963 Sb. Institut jistoty na náklady řízení ale zavádí § 198 odst. 3, nikoli odstavec 2 — ten upravuje odlišnou věc (zastoupení žalovaného právnickou osobou). Tentýž návrh cituje institut jistoty na správném místě jinde: Čl. I bod 11, který mění § 202 odst. 1 písm. l) o. s. ř., odkazuje korektně na jistotu podle § 198 odst. 3. Přechodné ustanovení vlastního návrhu tak vnitřně nesouhlasí samo se sebou v odkazu na ustanovení, jehož časovou působnost upravuje.",
+    "whoBenefits": "Nelze jednoznačně určit — jde o legislativně-technickou vadu vlastního textu návrhu, nikoli o přínos pro určitou skupinu; nejasnost dopadá na předvídatelnost přechodného režimu pro účastníky řízení, v nichž by měla být jistota ukládána po nabytí účinnosti zákona.",
+    "evidence": "„Povinnost složit jistotu podle § 198 odst. 2 zákona č. 99/1963 Sb.“ — úplný text tisku na psp.cz, řádek 224 strojového přepisu; institut jistoty upravuje § 198 odst. 3, jak správně cituje Čl. I bod 11 („byla uložena povinnost složit jistotu podle § 198 odst. 3“ — úplný text tisku na psp.cz, řádek 176 strojového přepisu)."
+   }
+  ],
+  "conflictAssessment": "Vstupní data případu přiřazují k tisku 162 jediného sponzora, poslance Jeronýma Tejce, bez jediné peněžní vazby a bez sektorového leadu. Jde o vládní návrh podaný jménem ministra spravedlnosti, nikoli o poslanecký návrh vázaný na soukromý ekonomický zájem konkrétního zákonodárce; předpoklad pro střet zájmů typu peněžní vazby sponzora na dotčený sektor zde tedy chybí. Na základě dostupných dat nebyl u tohoto tisku identifikován konflikt zájmů.",
+  "severity": "medium",
+  "confidence": 3,
+  "citations": [
+   {
+    "claim": "Návrh mění občanský soudní řád, zákon o soudních poplatcích a odškodňovací zákon a transponuje směrnici (EU) 2024/1069 o ochraně osob před zneužívajícími řízeními, reaguje na rozsudky Soudního dvora EU C-196/21 a C-7/21 k nařízení (EU) 2020/1784 a na rozsudek ESLP Machalický proti České republice.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=162&ct1=0"
+   },
+   {
+    "claim": "Čl. III vkládá do přílohy položky 22 zákona o soudních poplatcích nový bod 14 zavádějící poplatek za odvolání ve věcech náhrady škody způsobené výkonem veřejné moci a přeznačuje dosavadní body 14 a 15 na 15 a 16.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=162&ct1=0"
+   },
+   {
+    "claim": "Zvláštní část důvodové zprávy k novému § 141 odst. 2 o. s. ř. vysvětluje následek nesložení zálohy na náklady překladu nebo doručení (zastavení řízení u žalobce) a výslovně vylučuje jeho dopad na účastníky osvobozené od soudních poplatků, u nichž zálohu hradí stát.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=162&ct1=0"
+   },
+   {
+    "claim": "Čl. II bod 2 přechodných ustanovení odkazuje na jistotu podle § 198 odst. 2, ačkoli institut jistoty na náklady řízení upravuje § 198 odst. 3; Čl. I bod 11 stejný institut cituje správně.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=162&ct1=0"
+   },
+   {
+    "claim": "Legislativní historie tisku 162 je vedena u Ústavně právního výboru jako garančního výboru.",
+    "kind": "web",
+    "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=162"
+   },
+   {
+    "claim": "Zákon č. 99/1963 Sb., občanský soudní řád, je reálný předpis novelizovaný tímto návrhem, včetně § 198 a nového § 141 odst. 2.",
+    "kind": "law",
+    "source": "99/1963"
+   },
+   {
+    "claim": "Zákon č. 82/1998 Sb., o odpovědnosti za škodu způsobenou při výkonu veřejné moci, je reálný předpis, jehož § 12 odst. 1 písm. b) tento návrh mění.",
+    "kind": "law",
+    "source": "82/1998"
+   },
+   {
+    "claim": "Zákon č. 549/1991 Sb., o soudních poplatcích, je reálný předpis, jehož přílohu (položku 22) tento návrh mění vložením nového bodu 14.",
+    "kind": "law",
+    "source": "549/1991"
+   },
+   {
+    "claim": "Nezávislý přehled novelizačních dvojic v datovém souboru případu klasifikuje pár tisků 64 a 162 na § 141 zákona č. 99/1963 Sb. jako potvrzenou kolizi (vkládání nového odstavce 2 s přeznačením vs. doplnění s předpokladem volného pořadí) a pár tisků 111 a 162 na § 12 zákona č. 82/1998 Sb. jako koordinační riziko.",
+    "kind": "graph_fact",
+    "source": "bill:tisk:43283"
+   }
+  ]
+ },
+ {
+  "billTisk": 186,
+  "statedReasoning": "Návrh Zastupitelstva hlavního města Prahy (ZHMP) mění zákon č. 458/2000 Sb., energetický zákon, konkrétně § 27f o institutu aktivního zákazníka. Bod 1 doplňuje na konec § 27f odst. 3 slova „, pokud není stanoveno jinak“, aby se otevřel prostor pro výjimku. Bod 2 vkládá nový odstavec 4, který pro skupinu sdílení tvořenou územním samosprávným celkem, jím zřízenou příspěvkovou organizací nebo jím založenou či zřízenou jinou právnickou osobou (za podmínky převažujícího financování a rozhodujícího vlivu územního celku) zvyšuje limit sdílení elektřiny z dosavadních 11 na 60 registračních čísel předávacích míst. Důvodová zpráva zdůvodňuje návrh praktickou zkušeností Pražského společenství obnovitelné energie (PCOE), které ke konci roku 2025 sdílelo elektřinu mezi 73 odběrnými místy na majetku HMP a u 20 jím zřízených či založených právnických osob (školy, divadla, domovy pro seniory, Lesy HMP, Pražské služby a. s., Trade Centre Praha a. s.), a dosavadní limit 11 míst označuje za nedostatečný pro velké územní samosprávné celky. Návrh zákona podle důvodové zprávy nezakládá nové nároky na státní rozpočet ani veřejné rozpočty, dopad hodnotí jako neutrální až pozitivní (úspora nákladů na energie), plnou RIA nezpracovala kvůli úzkému a technickému rozsahu změny. Účinnost se navrhuje k 1. lednu 2027, podepsán primátorem hl. m. Prahy doc. MUDr. Bohuslavem Svobodou, CSc.",
+  "researchedContext": "Text tisku 186 nemá žádnou věcnou souvislost s rozpočtovým určením daní (RUD) ani se zákonem č. 243/2000 Sb., o rozpočtovém určení výnosu některých daní — nenovelizuje § 3 tohoto zákona ani žádné ustanovení o sdílení daňového výnosu mezi kraji, obcemi a hlavním městem Prahou. Novelizuje výhradně § 27f energetického zákona č. 458/2000 Sb., upravující sdílení elektřiny v režimu aktivního zákazníka. Přestože jde o další zastupitelský návrh zákona, jehož předkladatelem je krajská či hlavoměstská samospráva — po dvou dřívějších návrzích Pardubického kraje mířících na rozpočtové určení daní — tisk 186 s touto rodinou RUD novel nekoliduje a nijak ji nedoplňuje ani nevylučuje — jde o zcela samostatnou legislativní iniciativu v jiné právní oblasti (energetika, nikoli rozpočtové určení daní). Toto je třeba konstatovat výslovně, aby nevznikl mylný dojem tematické návaznosti jen proto, že jde o stejnou třídu předkladatele — zastupitelstvo územního samosprávného celku — nikoli o týž konkrétní subjekt: tisk 186 předkládá Zastupitelstvo hlavního města Prahy, zatímco oba dřívější návrhy k rozpočtovému určení daní podal Pardubický kraj. Návrh dále sám uvádí, že bez jeho přijetí HMP dočasně odkládá založení energetického společenství v právní formě družstva (usnesení ZHMP č. 25/4 z 19. 6. 2025), a to „minimálně do doby projednání návrhu zákona“ Poslaneckou sněmovnou — projednání tohoto tisku je tedy podmínkou, na niž je navázáno jiné, samostatně schvalované usnesení ZHMP.",
+  "unstatedEffects": [
+   {
+    "effect": "Důvodová zpráva rámuje návrh jako reakci na konkrétní provozní zkušenost hlavního města Prahy a PCOE, avšak novelizované ustanovení § 27f odst. 4 energetického zákona je formulováno obecně pro „územní samosprávný celek“ bez omezení na Prahu — nový limit 60 registračních čísel předávacích míst se tak po nabytí účinnosti otevře všem obcím a krajům v České republice, nikoli jen hlavnímu městu. Důvodová zpráva tento celostátní dosah nijak nekvantifikuje ani nekomentuje mimo obecnou zmínku, že „bude zjednodušen budoucí proces sdílení elektrické energie všem územně samosprávným celkům na území České republiky“.",
+    "whoBenefits": "Všechny územní samosprávné celky v České republice a jimi zřízené či založené právnické osoby splňující podmínku převažujícího financování a rozhodujícího vlivu, nikoli jen hlavní město Praha, jehož konkrétní zkušenost je v důvodové zprávě uváděna jako důvod předložení.",
+    "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=186&ct1=0"
+   }
+  ],
+  "conflictAssessment": "Tisk pochází od zastupitelstva územního samosprávného celku (zákonodárná iniciativa podle čl. 41 odst. 2 Ústavy), nikoli od jednotlivých poslanců — v datech grafu proto u tohoto tisku není evidován žádný poslanecký předkladatel ani peněžní vazba, kterou by bylo možné posoudit; sponzorské pole je prázdné konstrukčně, nikoli chybějícím zjištěním. Jménem ZHMP jedná primátor hl. m. Prahy v rámci výkonu své úřední, nikoli soukromé podnikatelské funkce. Nelze jednoznačně určit privátní finanční prospěch žádné konkrétní osoby — dotčeny jsou instituce a majetek ve vlastnictví či správě hlavního města Prahy a obdobných územních samosprávných celků, tedy veřejnoprávní subjekty, u kterých se podle standardní metodiky nejedná o soukromý střet zájmů.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+   {
+    "claim": "Novela doplňuje na konec § 27f odst. 3 slova „, pokud není stanoveno jinak“ a vkládá nový odstavec 4, který zvyšuje limit sdílení elektřiny v režimu aktivního zákazníka pro územní samosprávné celky na 60 registračních čísel předávacích míst.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=186&ct1=0"
+   },
+   {
+    "claim": "Dosavadní limit sdílení elektřiny v režimu aktivního zákazníka činí nejvýše 11 odběrných míst; návrh jej pro vymezený okruh veřejnoprávních subjektů zvyšuje na 60.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=186&ct1=0"
+   },
+   {
+    "claim": "Ke konci roku 2025 bylo v rámci sdílení elektřiny PCOE zapojeno 73 odběrných míst na majetku HMP a u 20 právnických osob HMP zřízených či založených.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=186&ct1=0"
+   },
+   {
+    "claim": "Tisk 186 je zařazen v historii Poslanecké sněmovny s garančním výborem HV a projednáván se stavem navrženo od 3. 6. 2026.",
+    "kind": "web",
+    "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=186"
+   },
+   {
+    "claim": "Tisk 186 novelizuje výhradně energetický zákon č. 458/2000 Sb., nikoli zákon o rozpočtovém určení daní.",
+    "kind": "law",
+    "source": "458/2000"
+   },
+   {
+    "claim": "Tisk 186 nemá evidovaného poslaneckého sponzora v grafu — jde o zastupitelskou zákonodárnou iniciativu.",
+    "kind": "graph_fact",
+    "source": "bill:tisk:43307"
+   }
+  ]
+ },
+ {
+  "billTisk": 214,
+  "statedReasoning": "Poslanecký návrh ústavního zákona (Vít Rakušan a další) mění čl. 27 Ústavy České republiky (ústavní zákon č. 1/1993 Sb.) tak, že nahrazuje dosavadní odstavce 3 až 5 novými odstavci 3 a 4. Důvodová zpráva návrh prezentuje jako modernizaci pojetí parlamentní imunity, která opouští koncept automatické procesní imunity — jenž podle zprávy v očích veřejnosti často působí jako neoprávněné privilegium — a zavádí model, který zpráva sama popisuje jako model, jejž by bylo možné nazvat obráceným modelem ochrany mandátu: primárním pravidlem se stává plná trestní odpovědnost poslance nebo senátora za běžnou trestnou činnost bez nutnosti předchozího souhlasu komory s trestním stíháním; komora však může na odůvodněnou žádost stíhaného poslance nebo senátora rozhodnout, že jeho trestní stíhání je po dobu trvání mandátu vyloučeno, vyžaduje-li to ochrana nezávislého výkonu mandátu. Zcela se ruší imunita vůči přestupkům. Zachovává se dosavadní režim zadržení (jen při dopadení při činu nebo bezprostředně poté, se souhlasem předsedy komory do 24 hodin) a vzetí do vazby (jen se souhlasem komory). Zpráva tvrdí, že návrh nemá dopad na veřejné rozpočty, podnikatelské prostředí, sociální oblast ani korupční rizika, a účinnost navrhuje na 1. ledna 2027.",
+  "researchedContext": "Text potvrzuje tvrzený rozsah beze zbytku — přiložené srovnávací znění čl. 27 Ústavy ukazuje, že odstavce 1 (indemnita za hlasování) a 2 (indemnita za projev) zůstávají nedotčeny, zatímco dosavadní odstavce 3 až 5 (mezi nimi zejména požadavek předchozího souhlasu komory k trestnímu stíhání a samostatná imunita vůči přestupkům) se nahrazují dvěma novými odstavci. Nový odstavec 3 skutečně obrací výchozí pravidlo: namísto povinného souhlasu komory před zahájením trestního stíhání zavádí právo stíhaného poslance nebo senátora požádat svou vlastní komoru o vyloučení již zahájeného stíhání po dobu mandátu, podmíněné ústavním kritériem „vyžaduje-li to ochrana nezávislého výkonu mandátu“. Zvláštní část důvodové zprávy k tomuto ustanovení potvrzuje, že jde o žádost podávanou stíhaným zákonodárcem jeho vlastní komoře — obecná část zprávy toto kritérium dále konkretizuje větou, že „podmínkou pro takové rozhodnutí je striktní ústavní kritérium – stíhání musí reálně ohrožovat nezávislý výkon mandátu“. Zdůvodnění nutnosti tohoto ochranného mechanismu formuluje obecná část zprávy takto: „Aby byla zachována nezbytná autonomie zákonodárné moci a zabránilo se teoretickému riziku politicky motivovaných či šikanózních stíhání, zavádí se možnost komory stíhání po dobu mandátu vyloučit.“ Zpráva k tomu necituje konkrétní historický případ ani empirický podklad pro toto riziko v českém kontextu. Zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny, ani žádný jiný citovaný předpis přitom v archivovaném textu tisku nestanoví proces, jakým má komora hrozbu ohrožení nezávislého výkonu mandátu ověřovat.",
+  "unstatedEffects": [
+   {
+    "effect": "Čl. II návrhu upravuje pouze účinnost ústavního zákona k 1. lednu 2027 a v archivovaném textu tisku neobsahuje žádné přechodné ustanovení. Podle popisu dosavadní úpravy v důvodové zprávě (čl. 27 odst. 4 ve znění účinném do 31. prosince 2026; samotné dosavadní znění Ústavy archiv tisku nenese) odepření souhlasu komory se stíháním brání zahájení trestního stíhání poslance nebo senátora po dobu mandátu. Nová úprava tento dosavadní blokující účinek nepřevádí automaticky do nového režimu — ochrana podle nového odstavce 3 vzniká teprve na základě nové, samostatné odůvodněné žádosti dotčeného zákonodárce, kterou musí sám podat a komora o ní musí sama rozhodnout. Ani obecná, ani zvláštní část důvodové zprávy se otázkou návaznosti dosavadních rozhodnutí o odepření souhlasu na nový režim nezabývá.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeni by mohli být poslanci nebo senátoři, jimž komora podle dosavadní úpravy odepřela souhlas se stíháním před nabytím účinnosti tohoto zákona; text neuvádí, kolik takových případů aktuálně eviduje, ani jak by na ně nová úprava dopadla.",
+    "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=214&ct1=0"
+   },
+   {
+    "effect": "Obecná část důvodové zprávy kritérium pro vyloučení stíhání sama zpřesňuje na požadavek, že stíhání musí „reálně ohrožovat nezávislý výkon mandátu“ — jde tedy o víc než jen holý ústavní text. Ani takto zpřesněné kritérium ale žádná část zprávy ani text návrhu nedoplňuje o postup, jakým má komora toto ohrožení ověřovat (dokazování, slyšení, lhůta), ani o to, zda je rozhodnutí komory o žádosti — ať kladné, nebo zamítavé — jakkoli přezkoumatelné mimo komoru samotnou.",
+    "whoBenefits": "Nelze jednoznačně určit — text nespecifikuje procesní pravidla nad rámec ústavní formulace ani způsob přezkumu rozhodnutí komory; dotčeni jsou stíhaní poslanci a senátoři, jejichž žádost komora podle takto obecně vymezeného kritéria posuzuje.",
+    "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=214&ct1=0"
+   }
+  ],
+  "conflictAssessment": "Prvním předkladatelem je Vít Rakušan; graf u něj eviduje čtyři peněžní vazby (Vodní cesty na Labi, o.p.s. — 0 Kč, Změna pro Kolín z.s. — 0 Kč, Společenství vlastníků jednotek Kolín — 0 Kč, Nadační fond Gymnázia Kutná Hora — 200 000 Kč), všechny čekají na lidskou kontrolu — jde o neziskové a spolkové subjekty bez zjevné souvislosti s předmětem návrhu (trestní stíhání a imunita zákonodárců). Spolupředkladatel Lukáš Vlček eviduje šest peněžních vazeb (SOMPO a.s. — 9 174 258 Kč, PEVAK Pelhřimov, družstvo — 1 234 888 Kč, W.H.V. Projekt spol. s r.o. — 0 Kč, Via rustica z.s. — 2 008 259 Kč, PRO VYSOČINU — 0 Kč, SVJ Nádražní Pacov — 0 Kč), rovněž všechny čekají na lidskou kontrolu. Podle dosavadních zjištění této analýzy jsou SOMPO, a.s. a PEVAK Pelhřimov, družstvo municipálně ovládané vodárenské/technické subjekty pelhřimovského regionu, nikoli soukromé podnikatelské subjekty v obvyklém smyslu — zbylé čtyři vazby (W.H.V. Projekt, Via rustica, PRO VYSOČINU, SVJ Nádražní Pacov) jsou buď s nulovou hodnotou smluv, nebo spolkové/družstevní subjekty bez takového ověření. Zbylí spolupředkladatelé (Dvořák, Pivoňka Vaňková, Weimerová) nemají v grafu žádné evidované peněžní vazby. Předmět úpravy — procesní podmínky trestního stíhání a imunity zákonodárců — je svou povahou obecná ústavní norma dopadající stejně na všechny poslance a senátory bez ohledu na jejich podnikatelské nebo institucionální vazby; žádná z evidovaných vazeb předkladatelů (peněžní ani municipálně-institucionální) nezakládá specifický, na tuto konkrétní firmu vázaný prospěch z navrhované změny. Nejde tedy o peněžní střet zájmů v obvyklém smyslu — jde o obecnou procesní ochranu, z níž by potenciálně profitovali všichni členové obou komor jako skupina, včetně předkladatelů samotných, což zpráva ani text nijak nezastírá ani nezdůrazňuje.",
+  "severity": "low",
+  "confidence": 3,
+  "citations": [
+   {
+    "claim": "Návrh nahrazuje odstavce 3 až 5 čl. 27 Ústavy dvěma novými odstavci: ruší požadavek předchozího souhlasu komory k zahájení trestního stíhání a zavádí právo stíhaného poslance nebo senátora požádat svou komoru o vyloučení stíhání po dobu mandátu, vyžaduje-li to ochrana nezávislého výkonu mandátu.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=214&ct1=0"
+   },
+   {
+    "claim": "Obecná část důvodové zprávy k novému odstavci 3 upřesňuje, že podmínkou vyloučení stíhání je, aby stíhání reálně ohrožovalo nezávislý výkon mandátu, a zdůvodňuje mechanismus odkazem na teoretické riziko politicky motivovaných či šikanózních stíhání bez citace konkrétního případu.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=214&ct1=0"
+   },
+   {
+    "claim": "Zvláštní část důvodové zprávy k novému odstavci 3 potvrzuje, že jde o žádost podávanou stíhaným zákonodárcem jeho vlastní komoře na základě požadavku na odůvodnění.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=214&ct1=0"
+   },
+   {
+    "claim": "Čl. II stanoví účinnost ústavního zákona na 1. ledna 2027 a neobsahuje žádné přechodné ustanovení pro dosavadní rozhodnutí komor o odepření souhlasu se stíháním.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=214&ct1=0"
+   },
+   {
+    "claim": "Nový odstavec 4 zachovává dosavadní režim zadržení a vazby poslance nebo senátora beze změny věcného obsahu oproti dosavadnímu odstavci 5.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=214&ct1=0"
+   },
+   {
+    "claim": "Ústavní zákon č. 1/1993 Sb., Ústava České republiky, je jediným předpisem novelizovaným tímto tiskem.",
+    "kind": "law",
+    "source": "1/1993"
+   },
+   {
+    "claim": "Vít Rakušan je prvním předkladatelem tisku 214; graf u něj eviduje čtyři peněžní vazby na neziskové a spolkové subjekty, všechny ve stavu čekajícím na lidskou kontrolu.",
+    "kind": "graph_fact",
+    "source": "psp:person:6524"
+   }
+  ]
+ },
+ {
+  "billTisk": 228,
+  "statedReasoning": "Vládní návrh ministra školství zavádí nový samostatný zákon o registrech ve vzdělávání, který sdružuje dva centrální registry — registr dětí, žáků a studentů a registr pedagogických a akademických pracovníků — dosud vedené roztříštěně podle školského zákona, zákona o vysokých školách a prováděcích vyhlášek. Obecná část důvodové zprávy i posouzení dopadů na ochranu osobních údajů (DPIA) zdůvodňují potřebu centrálního zpracování řízením systému školství, plněním unijní statistické reportovací povinnosti a zavedením jednotného bezvýznamového identifikátoru, který má omezit používání rodného čísla. Doprovodné části mění zákon o vysokých školách (č. 111/1998 Sb. — ruší registr docentů, profesorů a mimořádných profesorů podle § 87b a nahrazují jej novým registrem pedagogických a akademických pracovníků), školský zákon (č. 561/2004 Sb. — úpravy § 28, § 49, § 66 a § 108) a zákon o Policii České republiky (č. 273/2008 Sb. — § 66 odst. 2). Finanční dopad je vyčíslen na 372,68 mil. Kč, z toho 200 mil. Kč na vývoj registrů v kapitole MŠMT.",
+  "researchedContext": "Čtení úplného textu potvrzuje, že odkazy na „§ 15“ a „§ 18“ v textu tisku jsou články samotného nově zaváděného zákona (§ 15 = Čl. 3 — Změna školského zákona, § 18 = Účinnost), nikoli novelizovaná ustanovení jiného předpisu — je nutné je odlišovat od skutečných novelizačních bodů v ČÁST DRUHÁ (§ 13, mění zákon č. 111/1998 Sb.), ČÁST TŘETÍ (§ 15, mění zákon č. 561/2004 Sb.) a ČÁST ČTVRTÁ (§ 16, mění zákon č. 273/2008 Sb.). Registr žáků má vést i citlivé kategorie údajů — znevýhodnění a nadání, závěry vyšetření školského poradenského zařízení, podpůrná opatření — o dětech a žácích se speciálními vzdělávacími potřebami, registr pedagogických a akademických pracovníků pak i údaje o platu, mzdě nebo odměně. Finanční část zprávy explicitně rozlišuje, že z celkových 372,68 mil. Kč připadá 170,6 mil. Kč na 8 530 ředitelství škol a školských zařízení zřizovaných kraji a obcemi a tyto náklady nelze přenést na státní rozpočet.",
+  "unstatedEffects": [
+   {
+    "effect": "Novela zákona o Policii České republiky (§ 66 odst. 2) doplňuje registry ve vzdělávání do téhož výčtu evidencí, ze kterých může policie žádat poskytnutí informací, v němž již dnes figurují krajské pobočky Úřadu práce České republiky. Vlastní zvláštní část důvodové zprávy k tomuto ustanovení tuto změnu popisuje jediným větou jako prosté doplnění výčtu evidencí a nijak ji nepropojuje s posouzením dopadů na ochranu osobních údajů (DPIA) v obecné části, které se od začátku do konce věnuje výhradně účelu zpracování pro řízení školství a digitální služby — ani jednou nezmiňuje policii ani orgány činné v trestním řízení. Registr žáků přitom obsahuje právě ty citlivé kategorie údajů (znevýhodnění, podpůrná opatření, závěry poradenského vyšetření) o dětech, jejichž zpřístupnění donucovacímu orgánu DPIA vůbec nezvažuje. Text novely neurčuje, zda je poskytnutí informací automatizované nebo probíhá k jednotlivé žádosti — archivovaný text tisku tuto podrobnost neuvádí.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeny jsou děti, žáci a studenti, jejichž citlivé údaje se stávají dostupnými Policii České republiky ve stejném výčtu evidencí jako údaje u Úřadu práce; orgány činné v trestním řízení získávají širší okruh evidencí, u kterých mohou o informace žádat.",
+    "evidence": "„se za slova „krajskými pobočkami Úřadu práce České republiky50)“ vkládají slova „, registrů ve vzdělávání“.“ — úplný text tisku na psp.cz, řádky 429–431 strojového přepisu; zvláštní část k tomuto bodu zní v celém rozsahu „Do výčtu evidencí, u kterých může policie žádat o poskytnutí informací, se doplňují registry ve vzdělávání.“ — úplný text tisku na psp.cz, řádek 3307 strojového přepisu."
+   },
+   {
+    "effect": "Zpráva popisuje dopad na státní rozpočet a veřejné rozpočty souhrnně (372,68 mil. Kč) a v kapitole o dopadu na podnikatelské prostředí uvádí, že bezprostřední dopady na podnikatele se nepředpokládají — aniž by v obecném shrnutí zdůraznila, že 170,6 mil. Kč z celkové částky nese bez možnosti úhrady ze státního rozpočtu právě 8 530 ředitelství škol a školských zařízení zřizovaných kraji, obcemi a dobrovolnými svazky obcí. Zpráva tento údaj sama uvádí ve vlastní podkapitole o dopadu na územní samosprávné celky, takže jde o hedgeovaný, nikoli o skrytý nález — je to jen mimo souhrnné shrnutí, kde čtenář dopad na podnikatele hledá.",
+    "whoBenefits": "Ministerstvo školství získává centralizovaný registr, jehož vývoj hradí ze své kapitoly (200 mil. Kč), zatímco náklady na implementaci na straně zřizovatelů škol (170,6 mil. Kč) nesou kraje, obce a dobrovolné svazky obcí.",
+    "evidence": "„Tyto náklady budou hrazeny z rozpočtu krajů a obcí. Tyto náklady nelze přenést na státní rozpočet.“ — úplný text tisku na psp.cz, řádky 1431–1432 strojového přepisu."
+   }
+  ],
+  "conflictAssessment": "Vstupní data případu přiřazují k tisku 228 jediného sponzora, poslance Roberta Plagu, bez jediné peněžní vazby a bez sektorového leadu. Jde o vládní návrh podaný jménem ministra školství, nikoli o poslanecký návrh vázaný na soukromý ekonomický zájem konkrétního zákonodárce; předpoklad pro střet zájmů typu peněžní vazby sponzora na dotčený sektor (školství, informační technologie) zde tedy chybí. Na základě dostupných dat nebyl u tohoto tisku identifikován konflikt zájmů.",
+  "severity": "medium",
+  "confidence": 4,
+  "citations": [
+   {
+    "claim": "Návrh zřizuje registr dětí, žáků a studentů a registr pedagogických a akademických pracovníků jako součást Informačního systému vzdělávání a mění zákon o vysokých školách, školský zákon a zákon o Policii České republiky.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=228&ct1=0"
+   },
+   {
+    "claim": "Registr žáků vede u vymezených subjektů údajů také informace o znevýhodnění a nadání, závěrech vyšetření školského poradenského zařízení a podpůrných opatřeních; registr pedagogických a akademických pracovníků vede též údaje o platu, mzdě nebo odměně.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=228&ct1=0"
+   },
+   {
+    "claim": "Novela § 66 odst. 2 zákona o Policii České republiky doplňuje registry ve vzdělávání do výčtu evidencí, ze kterých může policie žádat poskytnutí informací.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=228&ct1=0"
+   },
+   {
+    "claim": "Celkový finanční dopad návrhu na státní rozpočet a veřejné rozpočty činí 372,68 mil. Kč, z toho 170,6 mil. Kč připadá na implementaci u 8 530 ředitelství škol a školských zařízení zřizovaných kraji a obcemi a tyto náklady nelze přenést na státní rozpočet.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=228&ct1=0"
+   },
+   {
+    "claim": "Legislativní historie tisku 228 je vedena u Výboru pro vědu, vzdělání, kulturu, mládež a tělovýchovu jako garančního výboru.",
+    "kind": "web",
+    "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=228"
+   },
+   {
+    "claim": "Zákon č. 111/1998 Sb., o vysokých školách, je reálný předpis, jehož § 87 a § 87b tento návrh mění.",
+    "kind": "law",
+    "source": "111/1998"
+   },
+   {
+    "claim": "Zákon č. 561/2004 Sb., školský zákon, je reálný předpis, jehož § 28, § 49, § 66 a § 108 tento návrh mění.",
+    "kind": "law",
+    "source": "561/2004"
+   },
+   {
+    "claim": "Zákon č. 273/2008 Sb., o Policii České republiky, je reálný předpis, jehož § 66 odst. 2 tento návrh mění.",
+    "kind": "law",
+    "source": "273/2008"
+   },
+   {
+    "claim": "Případový soubor přiřazuje k tisku 228 jediného sponzora (Robert Plaga) bez peněžní vazby a bez sektorového leadu.",
+    "kind": "graph_fact",
+    "source": "bill:tisk:43350"
+   }
+  ]
+ },
+ {
+  "billTisk": 46,
+  "statedReasoning": "Vládní návrh ministra spravedlnosti novelizuje zákon č. 104/2013 Sb., o mezinárodní justiční spolupráci ve věcech trestních. Návrh je prezentován jako technická transpozice a adaptace na přímo použitelné unijní předpisy o digitalizaci justiční spolupráce — směrnici (EU) 2023/2843 a navazující nařízení (EU) 2023/2844 o digitalizaci justiční spolupráce a přístupu ke spravedlnosti, které pro styk justičních a ústředních orgánů členských států předepisují komunikaci prostřednictvím decentralizovaného IT systému podle čl. 3 nařízení 2023/2844. Vedle desítek dílčích úprav odkazujících na tento kanál zavádí nová Hlava XII (§ 395a až § 395g) vnitrostátní rámec pro výkon evropského vydávacího příkazu a evropského uchovávacího příkazu podle nařízení (EU) 2023/1543 o elektronických důkazech v trestním řízení, včetně příslušnosti orgánů, přezkumu příkazu a řešení námitek adresáta. Zpráva k § 65a odst. 1 v samostatném odstavci zvláštní části vysvětluje i důvod přesunu určení kontaktního místa z fixního odkazu na mezinárodní smlouvu na určení policejním prezidentem — reakci na opakující se reorganizace Policie České republiky, u nichž je aktuálním kontaktním útvarem Národní centrála proti terorismu, extremismu a kybernetické kriminalitě SKPV.",
+  "researchedContext": "Čtení úplného textu potvrzuje, že nová Hlava XII nese vlastní sankční mechanismus: § 395f zavádí pořádkovou pokutu ukládanou adresátovi příkazu (poskytovateli služeb) při nesplnění povinností podle čl. 10 nebo 11 nařízení (EU) 2023/1543 nebo při porušení důvěrnosti, tajnosti či integrity příkazu nebo dotčených dat, a to až do výše 2 % celosvětového ročního obratu poskytovatele, případně až 10 000 000 Kč, nelze-li obrat zjistit. Zvláštní část důvodové zprávy k § 395f tento mechanismus vysvětluje obšírně (důvod sankce, vazba na čl. 15 nařízení, příklady postupu při zjišťování obratu). Pro účely zjištění podkladů k uložení pokuty může příslušný orgán požadovat i údaje kryté bankovním tajemstvím a údaje z evidence investičních nástrojů a zaknihovaných cenných papírů, s výslovným omezením účelu použití na řízení o pokutě; je-li příslušným orgánem útvar Policie, o tyto údaje podle § 395f odst. 3 žádá justiční orgán uvedený v § 395b odst. 2, a to na návrh útvaru Policie — přímý přístup útvaru Policie k údajům krytým bankovním tajemstvím text nezakládá. Uznání a zajištění výkonu evropského uchovávacího příkazu jako takového rovněž vyžaduje podle § 395b odst. 2 předchozí souhlas justičního orgánu.",
+  "unstatedEffects": [
+   {
+    "effect": "Dedikovaná pasáž obecné části důvodové zprávy „Zhodnocení dopadů navrhovaného řešení ve vztahu k ochraně soukromí a osobních údajů“ uzavírá, že „zvýšené dopady na problematiku ochrany soukromí a osobních údajů se nepředpokládají“, a svůj rozbor omezuje výhradně na primární oprávnění vyžádat si data podle nařízení (EU) 2023/1543 — nikde nezmiňuje ani nehodnotí sekundární vyšetřovací nástroj podle § 395f odst. 3, kterým lze pro účely zjištění obratu poskytovatele služeb (a tedy stanovení výše pořádkové pokuty) požadovat údaje kryté bankovním tajemstvím a údaje z evidence investičních nástrojů a zaknihovaných cenných papírů. Formální posouzení dopadů na soukromí tak nepokrývá právě ten nástroj, který sahá nejhlouběji do soukromí subjektu, jehož se šetření týká.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou poskytovatelé služeb v Evropské unii vystavení šetření zasahujícímu do bankovního tajemství v rámci řízení o pořádkové pokutě; formální posouzení dopadů na soukromí o tomto nástroji mlčí.",
+    "evidence": "„Zvýšené dopady na problematiku ochrany soukromí a osobních údajů se nepředpokládají.“ — úplný text tisku na psp.cz, řádek 1222 strojového přepisu (v rámci kapitoly „Zhodnocení dopadů navrhovaného řešení ve vztahu k ochraně soukromí a osobních údajů“, řádek 1197); nástroj přístupu k údajům krytým bankovním tajemstvím je popsán samostatně v § 395f odst. 3 a jeho zvláštní části, nikoli v této kapitole — „může požadovat údaje, které jsou předmětem bankovního tajemství, a údaje z evidence investičních nástrojů“ — úplný text tisku na psp.cz, řádky 357–358 strojového přepisu."
+   }
+  ],
+  "conflictAssessment": "Podle datového grafu má sponzorka tisku, poslankyně Eva Decroix, evidovány tři majetkové vazby na firmy ELEMENTA Agency s.r.o., Delices de papa s.r.o. a Park Volmanec s.r.o.; úhrn veřejných smluv u těchto firem činí 0 Kč, 594 Kč a 0 Kč a všechny vazby čekají na lidskou kontrolu. Žádná z uvedených firem podle dostupných údajů nepůsobí v sektoru justiční spolupráce, elektronických důkazů, telekomunikací ani poskytování digitálních služeb, který je předmětem tohoto návrhu, a evidovaný objem veřejných zakázek je zanedbatelný až nulový. Na základě dostupných dat proto nebyl u tohoto tisku identifikován konflikt zájmů.",
+  "severity": "low",
+  "confidence": 3,
+  "citations": [
+   {
+    "claim": "Návrh novelizuje zákon č. 104/2013 Sb., o mezinárodní justiční spolupráci ve věcech trestních, a zavádí novou Hlavu XII implementující evropský vydávací příkaz a evropský uchovávací příkaz podle nařízení (EU) 2023/1543.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=46&ct1=0"
+   },
+   {
+    "claim": "Nový § 395f zavádí pořádkovou pokutu adresátovi příkazu až do výše 2 % celosvětového ročního obratu, případně 10 000 000 Kč, a umožňuje k jejímu uložení šetřit i údaje kryté bankovním tajemstvím a údaje z evidence investičních nástrojů a zaknihovaných cenných papírů; je-li příslušným orgánem útvar Policie, o tyto údaje podle § 395f odst. 3 žádá justiční orgán na návrh útvaru Policie.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=46&ct1=0"
+   },
+   {
+    "claim": "Obecná část důvodové zprávy v kapitole o dopadech na ochranu soukromí a osobních údajů uzavírá, že zvýšené dopady se nepředpokládají, a rozbor omezuje na primární oprávnění vyžádat si data podle nařízení (EU) 2023/1543, bez zmínky o vyšetřovacím nástroji podle § 395f odst. 3.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=46&ct1=0"
+   },
+   {
+    "claim": "Novela § 65a odst. 1 mění určení kontaktního místa z funkce podle mezinárodní smlouvy na určení policejním prezidentem; zvláštní část důvodové zprávy k tomuto bodu vysvětluje důvod (opakující se reorganizace Policie České republiky) a jmenuje aktuální kontaktní útvar.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=46&ct1=0"
+   },
+   {
+    "claim": "Uznání a zajištění výkonu evropského uchovávacího příkazu je podle § 395b odst. 2 svěřeno útvaru Policie s podmínkou předchozího souhlasu justičního orgánu.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=46&ct1=0"
+   },
+   {
+    "claim": "Legislativní historie tisku 46 je vedena u Ústavně právního výboru jako garančního výboru, přikázáno dne 24. 3. 2026.",
+    "kind": "web",
+    "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=46"
+   },
+   {
+    "claim": "Zákon č. 104/2013 Sb., o mezinárodní justiční spolupráci ve věcech trestních, je reálný předpis novelizovaný tímto návrhem.",
+    "kind": "law",
+    "source": "104/2013"
+   },
+   {
+    "claim": "Případový soubor přiřazuje sponzorce tisku Evě Decroix tři peněžní vazby (ELEMENTA Agency s.r.o., Delices de papa s.r.o., Park Volmanec s.r.o.) s úhrnem veřejných smluv 0 Kč, 594 Kč a 0 Kč, bez sektorového leadu.",
+    "kind": "graph_fact",
+    "source": "bill:tisk:43153"
+   }
+  ]
+ },
+ {
+  "billTisk": 75,
+  "statedReasoning": "Poslanecký návrh (Petr Hladík a další) mění zákon č. 254/2001 Sb., o vodách (vodní zákon), vložením nových § 55d a § 55e za dosavadní § 55c. Důvodová zpráva tvrdí, že dosavadní právní úprava tzv. domovních čistíren odpadních vod (DČOV) je nedostatečná a že soustavy DČOV se v posledních letech staly systémovým řešením likvidace odpadních vod zejména v menších obcích. Cílem je proto zavést jednotná pravidla pro provozování soustav DČOV (do 50 ekvivalentních obyvatel) — stanovit jednoho vlastníka soustavy (obec nebo právnická osoba ovládaná z více než 50 % územním samosprávným celkem nebo svazkem obcí), zavést povinnost provozování prostřednictvím odborně způsobilé osoby a doplnit odpovídající skutkové podstaty přestupků (pokuty do 500 000 Kč za provoz bez odborně způsobilé osoby, do 100 000 Kč za neoznámení vstupu na cizí pozemek). Zpráva výslovně uvádí, že se neočekávají přímé dopady na investiční náklady vlastníků, že návrh nemá korupční rizika a nemá dopad na rozpočty územních samosprávných celků.",
+  "researchedContext": "Text potvrzuje rozsah tvrzený důvodovou zprávou. Bod 1 vkládá nové § 55d a § 55e ZA § 55c — jde o vsuvku (insertion anchor), § 55c samotný se nemění a novela jej nijak nenovelizuje; nový obsah je zcela v § 55d a § 55e. Nový § 55d odst. 1 stanoví, že vlastníkem soustavy DČOV musí být obec, nebo jiná právnická osoba ovládaná z více než 50 % územním samosprávným celkem nebo dobrovolným svazkem obcí — tedy výhradně subjekt s municipální kontrolou. § 55d odst. 2 zároveň umožňuje, aby vlastník nebo provozovatel soustavy provozoval i jednotlivou DČOV, která součástí soustavy není, na základě smlouvy s jejím vlastníkem. § 55e odst. 3 a 5 zavádí institut „provozovatele“ soustavy jako osoby zajišťující provoz podle požadavků zákona, přičemž odborná způsobilost (odst. 5 písm. a) a b)) je vázána na vzdělání a praxi fyzické osoby, nikoli na typ nebo vlastnickou strukturu subjektu, který ji zaměstnává nebo si ji smluvně najímá — provozovatelem tedy může být i soukromá společnost disponující odborně způsobilou osobou. Sankční část (body 3 až 8) mění navazující výčty přestupků v § 125a v souladu s tvrzeným rozsahem. Novela je dle vlastního textu důvodové zprávy netranspoziční a odkazuje pouze na obecně relevantní směrnice EU v oblasti vodní politiky, aniž by z nich odvozovala konkrétní ustanovení.",
+  "unstatedEffects": [
+   {
+    "effect": "Nový § 55d odst. 1 váže postavení „soustavy domovních čistíren odpadních vod“ výhradně na vlastnictví obce nebo právnické osoby ovládané z více než 50 % územním samosprávným celkem či svazkem obcí. Důvodová zpráva tento krok prezentuje jako jeden ze svých hlavních principů — v jejích vlastních slovech „profesionalizace provozu prostřednictvím stanovení vlastníka soustavy“ a posílení odpovědnosti — aniž by zmínila, že tím fakticky vylučuje z kategorie regulované „soustavy“ jakékoli dosavadní sdružené či soukromé vlastnictví shluku domovních ČOV (např. developerská výstavba s vlastní společnou čistírnou nebo sdružení vlastníků nemovitostí) — takový shluk nadále nemůže být „soustavou“ ve smyslu zákona, ledaže vlastnictví převede na municipálně kontrolovaný subjekt; zůstává mu pouze provoz jednotlivé DČOV mimo soustavu podle § 55d odst. 2.",
+    "whoBenefits": "Nelze jednoznačně určit — z vymezení profitují obce a jimi ovládané právnické osoby, které se stávají jedinými možnými vlastníky regulovaných soustav DČOV; dosavadní neobecní (soukromá, sdružená) vlastnická uspořádání shluků domovních čistíren mimo tuto kategorii zůstávají a text jejich okruh ani dopad na ně nekvantifikuje.",
+    "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=75&ct1=0"
+   },
+   {
+    "effect": "Text zákona zavádí povinné provozování soustavy DČOV prostřednictvím odborně způsobilé osoby (§ 55e odst. 5) a umožňuje smluvní provozování soustavy i jednotlivých DČOV mimo ni (§ 55d odst. 2, § 55e odst. 2) — vzniká tak nová, zákonem vynucená poptávka po odborných provozovatelských službách vodohospodářské infrastruktury, kterou mohou smluvně naplňovat i soukromé specializované firmy. Důvodová zpráva tento tržní efekt vůbec nezmiňuje a v části o hospodářském dopadu jej označuje pouze za „spíše marginální“ navýšení provozních nákladů, aniž by hodnotila, komu ze subjektů schopných tuto odbornou způsobilost nabídnout (typicky vodárenským a odpadovým společnostem, včetně municipálně ovládaných) tato nová smluvní poptávka může plynout.",
+    "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou vlastníci a provozovatelé soustav DČOV; z nové zákonné poptávky po odborně způsobilých osobách mohou profitovat subjekty s odbornou kapacitou v oboru vodovodů a kanalizací, mezi něž mohou patřit i municipálně ovládané společnosti podobného typu, jaké graf u předkladatelů eviduje jako jejich institucionální vazby, aniž by text nebo graf u konkrétní takové společnosti prokazoval přímou účast na této novele.",
+    "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=75&ct1=0"
+   }
+  ],
+  "conflictAssessment": "Prvním předkladatelem je Petr Hladík; graf peněžních vazeb u něj eviduje pět vazeb (ARENA BRNO, Dopravní podnik města Brna, Teplárny Brno, MERO ČR, SAKO Brno) v řádu miliard korun a u spolupředkladatele Bohuslava Niemiece jednu vazbu (CEVYKO a.s., cca 301 mil. Kč). Podle již dříve v tomto případu ustálené doktríny (třída SAKO/CEVYKO) jde u obou o vazby institucionální/municipální povahy — svěřeneckou/institucionální roli plynoucí z jejich postavení jako komunálních/krajských funkcionářů u obecně nebo krajsky ovládaných subjektů, nikoli o osobní podnikatelské vlastnictví; tato datová sada navíc u jednotlivých vazeb nenese žádný příznak vlastnické třídy (vlastník / řídící osoba / svěřenecká role), takže bez dalšího ověření nelze klasifikaci zpřesnit nad rámec této ustálené doktríny. Žádná z pěti společností u Hladíka ani CEVYKO u Niemiece není v této datové sadě vedena jako provozovatel domovních čistíren odpadních vod nebo jiný přímý příjemce této novely — přímá věcná souvislost mezi konkrétní firmou a předmětem návrhu tak z evidovaných dat neplyne. Zbylí spolupředkladatelé (Pláteník, Brzesková, Filipovičová, Kršková, Krutáková, Svárovská) nemají v grafu žádné peněžní vazby a Langšádlová eviduje pouze vazbu na neziskovou Fórum Karla Schwarzenberga, o.p.s. s nulovou hodnotou smluv, což s předmětem novely nesouvisí. Nález tedy nejde o skrytý střet zájmů — jde o strukturní přiblížení mezi typem subjektů, které zákon činí jedinými možnými vlastníky regulovaných soustav DČOV (obec nebo jí ovládaná právnická osoba), a typem institucí, s nimiž jsou předkladatelé jako komunální funkcionáři spojeni, aniž by šlo o konkrétní, v grafu doloženou vazbu na věcný předmět úpravy.",
+  "severity": "low",
+  "confidence": 3,
+  "citations": [
+   {
+    "claim": "Bod 1 vkládá nové § 55d a § 55e ZA dosavadní § 55c vodního zákona (č. 254/2001 Sb.) — jde o vkládací kotvu, nikoli o novelizaci § 55c samotného.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=75&ct1=0"
+   },
+   {
+    "claim": "Nový § 55d odst. 1 stanoví, že vlastníkem soustavy domovních čistíren odpadních vod je obec nebo jiná právnická osoba ovládaná z více než 50 % územním samosprávným celkem nebo dobrovolným svazkem obcí.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=75&ct1=0"
+   },
+   {
+    "claim": "Nový § 55e odst. 2 a 5 zavádí povinné provozování soustavy prostřednictvím odborně způsobilé osoby a umožňuje smluvní provozování — odborná způsobilost je vázána na vzdělání a praxi fyzické osoby, nikoli na typ subjektu.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=75&ct1=0"
+   },
+   {
+    "claim": "Zákon č. 254/2001 Sb., o vodách (vodní zákon), je jediným zákonem novelizovaným tímto tiskem.",
+    "kind": "law",
+    "source": "254/2001"
+   },
+   {
+    "claim": "Petr Hladík je prvním předkladatelem tisku 75; graf u něj eviduje pět peněžních vazeb na municipálně ovládané brněnské subjekty.",
+    "kind": "graph_fact",
+    "source": "psp:person:6881"
+   },
+   {
+    "claim": "Bohuslav Niemiec je spolupředkladatelem tisku 75; graf u něj eviduje jednu peněžní vazbu na CEVYKO a.s.",
+    "kind": "graph_fact",
+    "source": "psp:person:7028"
+   }
+  ]
+ },
+ {
+  "billTisk": 88,
+  "statedReasoning": "Poslanecký návrh (jediný předkladatel Aleš Juchelka) mění čtyři předpisy: zákon č. 151/2025 Sb., o dávce státní sociální pomoci, zákon č. 110/2006 Sb., o životním a existenčním minimu, zákon č. 108/2006 Sb., o sociálních službách, a zákon č. 152/2025 Sb. (doprovodný změnový zákon k zákonu o dávce státní sociální pomoci). Důvodová zpráva tvrdí, že jde o čistě legislativně-technickou úpravu reagující na to, že Úřad práce ČR se s náběhem zcela nové agendy dávky státní sociální pomoci potýká výrazněji, než se původně předpokládalo. Navrhuje se posunout okamžik vzniku nároku na novou dávku pro příjemce tzv. rušených dávek z dubna na červenec 2026, prodloužit lhůtu pro vyhotovení podpůrného plánu ze září na prosinec 2026, sladit s tím i účinnost navýšení částek životního minima podle zákona č. 152/2025 Sb. (posun z 1. května na 1. října 2026) a odsunout účinnost úpravy okruhu započitatelných příjmů (§ 6 až 8 zákona o životním a existenčním minimu) až na 1. června 2028. Zpráva tvrdí, že návrh nemá negativní sociální dopady, žádné dopady na podnikatelské prostředí ani korupční rizika, a žádá schválení již v prvním čtení podle § 90 odst. 2 jednacího řádu s odůvodněním naléhavého obecného zájmu.",
+  "researchedContext": "Text potvrzuje tvrzený rozsah. Čl. I mění § 91 zákona č. 151/2025 Sb. přesně podle popisu (posun dubna na červenec, prodloužení lhůty na podpůrný plán ze září na 31. prosince 2026, nový odst. 8 stanovící lhůtu Úřadu práce do 31. července 2026 pro rozhodnutí o žádostech podaných v období říjen až prosinec 2025 u dosavadních příjemců rušených dávek). Čl. III vkládá do § 7 odst. 2 písm. h) zákona č. 110/2006 Sb. nový bod 12, který zní „12. dávky státní sociální pomoci,“, vylučující dávku státní sociální pomoci ze započitatelných příjmů pro účely životního a existenčního minima. Čl. IV mění § 21 odst. 2 písm. e) zákona č. 108/2006 Sb., o sociálních službách, tak, že ruší část věty za středníkem (podmínku, že splnění ohlašovací povinnosti lze nahradit průkazem rozhodných příjmů pro účely přídavku na dítě) — jde o legislativně-technickou úpravu v návaznosti na zrušení přídavku na dítě. Dřívější textové srovnání této analýzy k oběma těmto ustanovením eviduje u tisku 88 dvě potvrzené kolize se souběžně podaným tiskem 85, obě klasifikované jako potvrzená kolize, nikoli jako pouhá shoda legislativního rodokmenu: (1) na § 21 odst. 2 písm. e) zákona č. 108/2006 Sb. je pokyn tisku 88 („se část věty za středníkem včetně středníku zrušuje“, znak po znaku shodný i ve výčtu předchozích novel) doslovně totožný s pokynem tisku 85 na totéž ustanovení — přijme-li se kterýkoli z obou tisků jako druhý, jeho pokyn míří na část věty, kterou ten první už odstranil, a je tedy při nabytí účinnosti neproveditelný; (2) na § 7 odst. 2 písm. h) zákona č. 110/2006 Sb. oba tisky vkládají nový bod 12 do téhož místa výčtu, ale s odlišným zněním — tisk 85 „12. příjmu plynoucího z dávky státní sociální pomoci,“, tisk 88 „12. dávky státní sociální pomoci,“ — jde o dvě odlišné novelizace nárokující tutéž nově vznikající pozici bodu 12, což je při souběžném přijetí obou tisků neslučitelné. Tato analýza tento dřívější nález přebírá, nikoli jej zpochybňuje. Samostatně bylo dříve zdokumentováno, že třetí souběžný tisk (125) k § 21 zákona č. 108/2006 Sb. míří na jiný odstavec (odst. 1), takže mezi tiskem 88 a tiskem 125 nejde o totožnou instrukci, nýbrž o koordinační riziko plynoucí z paralelní novelizace téhož paragrafu ve třech samostatných návrzích. Čl. V mění přechodná a účinnostní ustanovení zákona č. 152/2025 Sb. tak, že posouvá účinnost úpravy částek životního minima z 1. května na 1. října 2026 a účinnost úpravy okruhu započitatelných příjmů (§ 6 až 8 zákona o životním a existenčním minimu) z původního data na 1. června 2028 — tedy o více než dva roky.",
+  "unstatedEffects": [
+   {
+    "effect": "Posun nároku na dávku státní sociální pomoci pro příjemce rušených dávek z dubna na červenec 2026 (čl. I bod 1) a odpovídající posun rozhodných období (body 2 a 3) znamená, že tato skupina domácností zůstává po dalších tři měsíce v provizorním režimu vyplácení podle starých pravidel a vyhodnocení nároku na novou dávku se o stejnou dobu odsouvá. Důvodová zpráva tento posun prezentuje výhradně jako zmírnění administrativní zátěže Úřadu práce ČR a tvrdí, že nemá negativní sociální dopady, aniž by zohlednila, že pro dotčené domácnosti jde o tři měsíce prodlouženého vyčkávání na definitivní vyhodnocení nároku na nový systém dávek, byť podle textu zůstává kontinuita výplaty rušených dávek zachována.",
+    "whoBenefits": "Nelze jednoznačně určit — administrativně profituje Úřad práce ČR, kterému se prodlužuje lhůta na náběh nové agendy; dotčené domácnosti pobírající rušené dávky nesou po tři měsíce navíc nejistotu ohledně definitivního vyhodnocení nároku na dávku státní sociální pomoci, aniž by text kvantifikoval, kolika domácností se to týká.",
+    "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=88&ct1=0"
+   },
+   {
+    "effect": "Čl. V bod 4 odsouvá účinnost úpravy okruhu započitatelných příjmů podle § 6 až 8 zákona č. 110/2006 Sb. (provedené již dříve schváleným zákonem č. 152/2025 Sb.) o více než dva roky — na 1. června 2028. Důvodová zpráva tento odsun zdůvodňuje výhradně potřebou vyhnout se dvojí úpravě informačních systémů a snížením rizika chybovosti, aniž by uvedla, zda a jak se dosavadní (dosud platný) okruh započitatelných příjmů liší od nově schváleného — tedy zda po dobu odsunu zůstávají žadatelé posuzováni podle pravidel, která byla zákonodárcem již dříve shledána jako vyžadující změnu, aniž by text specifikoval směr ani rozsah tohoto rozdílu pro konkrétní skupiny žadatelů.",
+    "whoBenefits": "Nelze jednoznačně určit — text neuvádí, zda odsun ponechání dosavadního okruhu započitatelných příjmů v platnosti do června 2028 dopadá na žadatele příznivě nebo nepříznivě oproti již schválené, ale odložené úpravě; dotčeny jsou osoby posuzované podle okruhu započitatelných příjmů pro účely životního a existenčního minima a navazujících dávek.",
+    "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=88&ct1=0"
+   }
+  ],
+  "conflictAssessment": "Pole předkladatelů u tisku 88 je v této datové sadě prázdné, ačkoli textový podpis a údaj o předkladateli uvádí jako jediného předkladatele Aleše Juchelku. Nejde o to, že by graf jeho peněžní vazby neevidoval vůbec — táž datová sada eviduje čtyři jeho vazby (ČESKÁ TELEVIZE, IČO 00027383, úhrn veřejných smluv 19 557 459 056 Kč; ČESKÝ ROZHLAS, IČO 45245053, úhrn 3 995 330 864 Kč; YOU STORY UP! s.r.o., IČO 02751232, úhrn 4 641 238 Kč; OCCAM PR s.r.o., IČO 27840531, úhrn 177 870 Kč — všechny částky jsou úhrny veřejných smluv firem a všechny vazby čekají na lidskou kontrolu), avšak zapsané u řádku sponzora jiného tisku (125), nikoli u tisku 88. Mezera tedy není v datech o Juchelkovi jako osobě, ale v tom, že seznam předkladatelů tohoto konkrétního tisku (88) tyto jinde evidované vazby nepřebírá — hodnocení střetu zájmů pro tento tisk proto nelze z jeho vlastního záznamu provést a je třeba je číst v kontextu tisku 125. Věcně jde u všech čtyř vazeb o veřejnoprávní vysílání a mediální/PR služby, které s předmětem tisku 88 (posuny účinnosti a rozhodných dat dávky státní sociální pomoci, životního a existenčního minima a sociálních služeb) nemají zjevnou souvislost — týž závěr, k jakému u stejných vazeb dospívá i verdikt k tisku 125. Zjištěná shoda instrukcí k § 21 odst. 2 písm. e) zákona č. 108/2006 Sb. a k § 7 odst. 2 písm. h) zákona č. 110/2006 Sb. s jiným souběžně podaným tiskem (85) je legislativně-technickou kolizí dvou návrhů se stejným cílovým ustanovením, nikoli indikací peněžního střetu zájmů.",
+  "severity": "low",
+  "confidence": 3,
+  "citations": [
+   {
+    "claim": "Čl. I mění § 91 zákona č. 151/2025 Sb. — posouvá vznik nároku na dávku státní sociální pomoci z dubna na červenec 2026 a prodlužuje lhůtu pro vyhotovení podpůrného plánu ze září na 31. prosince 2026.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=88&ct1=0"
+   },
+   {
+    "claim": "Čl. IV mění § 21 odst. 2 písm. e) zákona č. 108/2006 Sb., o sociálních službách, zrušením části věty za středníkem.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=88&ct1=0"
+   },
+   {
+    "claim": "Čl. V bod 4 odsouvá účinnost úpravy okruhu započitatelných příjmů (§ 6 až 8 zákona č. 110/2006 Sb.) na 1. června 2028.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=88&ct1=0"
+   },
+   {
+    "claim": "Zákon č. 151/2025 Sb., o dávce státní sociální pomoci, je hlavním novelizovaným předpisem tisku 88.",
+    "kind": "law",
+    "source": "151/2025"
+   },
+   {
+    "claim": "Zákon č. 110/2006 Sb., o životním a existenčním minimu, je novelizován čl. III tisku 88.",
+    "kind": "law",
+    "source": "110/2006"
+   },
+   {
+    "claim": "Zákon č. 108/2006 Sb., o sociálních službách, je novelizován čl. IV tisku 88 v § 21 odst. 2 písm. e).",
+    "kind": "law",
+    "source": "108/2006"
+   },
+   {
+    "claim": "Zákon č. 152/2025 Sb. je novelizován čl. V tisku 88, který posouvá jeho přechodná a účinnostní ustanovení.",
+    "kind": "law",
+    "source": "152/2025"
+   },
+   {
+    "claim": "Pokyn tisku 88 v čl. IV k § 21 odst. 2 písm. e) zákona č. 108/2006 Sb. je znak po znaku shodný s pokynem souběžně podaného tisku 85 na totéž ustanovení — dřívější srovnání textů této analýzy klasifikuje tuto dvojici jako potvrzenou kolizi.",
+    "kind": "bill_text",
+    "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=88&ct1=0"
+   },
+   {
+    "claim": "Aleš Juchelka má v grafu evidovanou peněžní vazbu na ČESKOU TELEVIZI (IČO 00027383), zapsanou u tisku 125, nikoli u tisku 88.",
+    "kind": "graph_fact",
+    "source": "company:ico:00027383"
+   },
+   {
+    "claim": "Aleš Juchelka má v grafu evidovanou peněžní vazbu na ČESKÝ ROZHLAS (IČO 45245053), zapsanou u tisku 125, nikoli u tisku 88.",
+    "kind": "graph_fact",
+    "source": "company:ico:45245053"
+   }
+  ]
+ }
+]

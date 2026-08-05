@@ -1199,3 +1199,27 @@ that carried the falsehoods — whole-artifact invariants are what closed the ga
 corrected verdict carries the batch's sharpest found-by-accident effect: the operative text
 grants relief „o 10 %" while the DZ mostly argues „o 10 procentních bodů" (54 % vs 50 % against
 a ~60% target), uncommented anywhere. Backlog: 0 collision pairs, 62 pending bills.
+
+## Pass 50 (track: law) — batch-016: ten verdicts, the amended-§ census, and the accusation-by-omission class named (2026-08-05)
+Writes: 10 bill nodes with pending_review forensic_* props (tisky 162, 228, 46, 186, 125, 106,
+75, 88, 113, 214 — coverage 79 → 89/141; 2 mediums after a three-round audit cycle: tisk 228
+extends the Police Act §66 odst. 2 evidence list to the new pupil/staff registries beside a
+170,6 mil unfunded municipal mandate in a budget-neutral frame; tisk 162 re-earned medium on
+the audit''s own find — the bill''s čl. II bod 2 cites §198 odst. 2 for the jistota while the
+institute lives in odst. 3) + 4 + 17 bill nodes swept (the residual old-27 strings AND the 21
+strings the newly widened detector retroactively exposed on batches 011–015 — render back to
+89 blocks / 0 withheld). The audit''s round-1 headline classes: ACCUSATION BY OMISSION (three
+„DZ nezmiňuje X" effects where the DZ discusses X at length — all dropped and rebuilt on
+genuinely unstated findings, two verdicts honestly demoted), the evidence-render gap (BillDetail
+showed only URL-form evidence, silently publishing six unsourced effects — now renders textual
+citation sentences under a new label in both locales), and the census cross-check pointing the
+wrong way (9/9 hand-verified disagreements favoured the GRAPH; the payload now labels them
+EXTRACTOR DIAGNOSTICS with the direction of trust stated). The amended-§ census itself is the
+batch''s durable artifact: 141/141 bills, 3 166 operative bill→§ pairs — the §-level basis the
+sector-adjacency rework has needed since batch-004, trustworthy exactly where a bill''s
+diagnostics are clean. Dependency view: raw-identity dedupe, drop-guard implemented+disclosed,
+57/57 tests. The ASCII-\b-before-Czech-letters bug recurred a third time inside the sweep''s own
+new rules and was caught by the sweep''s own re-gate throw. Carried: a STRUCTURAL jargon rule
+(three batches, three new token classes — the literal list wants a closed-form rule), evidence
+anchored to the bill''s structural coordinates over transcript lines, partitionFallback per
+census row. Backlog: 52 pending bills; §-level sector attribution now unblocked.

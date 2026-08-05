@@ -124,6 +124,12 @@ const LAW_PIPELINE_JARGON: { re: RegExp; what: string }[] = [
   // here on „dávce"/„Dávkový"). The adjectival form is flagged only with „scan" attached.
   { re: /\bbatch\b|\bpass[- ]?\d{1,3}\b|(?<!\p{L})dávk\p{L}*\s+0\d{2}(?!\d)|(?<!\p{L})dávkov\p{L}*\s+scan\p{L}*|\bscan\w*\b/iu, what: "internal batch/pass reference" },
   { re: /\bkg_(node|edge)s?\b|\bknownIds\b|\bknownLawRefs\b/, what: "pipeline identifier" },
+  // batch-016: the residuals the batch-015 closure audit inventoried outside the rule set
+  { re: /\bchurn\b|(?<!\p{L})gatovan\p{L}*|případu law\b|\bcase (law|money|effort)\b/iu, what: "pipeline identifier" },
+  // batch-016 audit B7: the classes the NEW verdicts reintroduced while the sweep removed them
+  // one directory over — pspId, payload, steward, and digit-less batch-sense „dávka" phrases
+  // that are unambiguous WITH these specific heads (přehled/pořadí are never the benefit sense).
+  { re: /\bpspId\b|\bpayloadu?\b|\bsteward\p{L}*|\bdávkov\p{L}*\s+přehled\p{L}*|\bpořadí v dávce\b|\bcache\b|(?<!\p{L})cachovan\p{L}*/iu, what: "pipeline identifier" },
 ];
 
 /** All pipeline-jargon issues in one reader-facing string (law list ∪ shared effort list). */

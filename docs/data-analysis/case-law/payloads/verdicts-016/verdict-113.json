@@ -1,0 +1,62 @@
+{
+  "billTisk": 113,
+  "statedReasoning": "Vládní návrh (min. průmyslu a obchodu, v grafu evidován jako sponzor Karel Havlíček) zavádí zákon o ekodesignu výrobků, který adaptuje český právní řád na přímo použitelné nařízení Evropského parlamentu a Rady (EU) 2024/1781 o ekodesignu udržitelných výrobků. Návrh svěřuje výkon státní správy ministerstvu, Úřadu pro technickou normalizaci, metrologii a státní zkušebnictví, jedenácti stávajícím orgánům dozoru (Česká obchodní inspekce, Český báňský úřad, Ministerstvo dopravy, Drážní úřad a další) a orgánům Celní správy, a zavádí skutkové podstaty přestupků s pokutami do 20 000 000 Kč. Vedle hlavní části mění čtyři navazující zákony (o hornické činnosti, o hospodaření energií, o Ústředním kontrolním a zkušebním ústavu zemědělském, o dozoru nad trhem s výrobky) čistě odkazovými a terminologickými úpravami. Důvodová zpráva tvrdí, že návrh jde nad rámec povinností nařízení jen v jediném bodě — v povinnosti zajistit český jazyk u některých průvodních dokumentů a informací k výrobku — a že jinak plní výhradně to, co nařízení a budoucí akty Komise v přenesené pravomoci vyžadují. Na tomto základě bylo podle čl. 5 bodu 5.5 Obecných zásad RIA uděleno zproštění povinnosti zpracovat hodnocení dopadů regulace (RIA) s odůvodněním, že ustanovení neposkytují prostor pro diskreci. Zpráva dále tvrdí, že návrh nemá dopad na veřejné rozpočty, sociální dopady ani zvýšená korupční rizika.",
+  "researchedContext": "Text potvrzuje rozsah tvrzený důvodovou zprávou — jedenáct orgánů dozoru vyjmenovaných v § 5 odst. 1, písmena a) až k), sankční ustanovení § 9 až § 17 s pokutami rozvrstvenými od 500 000 Kč do 20 000 000 Kč podle typu subjektu a povahy porušení, a čtyři vedlejší novely v § 19, § 20, § 22 a § 23 skutečně provádějí jen odkazové a poznámkové úpravy. Zpráva v části o hospodářském a finančním dopadu (bod G) sama uvádí, že návrh jde „nad rámec povinností stanovených nařízením o ekodesignu udržitelných výrobků“ výslovně v jazykové povinnosti (§ 8) — překlad průvodních dokumentů a digitálních pokynů do češtiny — s odhadovanými náklady „v řádu max. tisíců Kč za výrobek“ podle kategorie. Zpráva zároveň v odůvodnění výjimky z RIA (bod G, konec) tvrdí, že celý návrh „neobsahuje ustanovení jdoucí nad rámec povinného rozsahu adaptace“ nařízení — tato věta je v přímém napětí s bezprostředně předcházejícím tvrzením téže zprávy, že jazyková povinnost jde „nad rámec“ nařízení. Samotné nařízení (EU) 2024/1781 přitom výslovně svěřuje volbu jazyka členskému státu jako diskreční pravomoc (čl. 7 odst. 8, čl. 27 odst. 7, čl. 29 odst. 4, čl. 30 odst. 2, čl. 44 odst. 2 nařízení, jak je citují § 8 odst. 1 až 5 návrhu) — jde tedy o ustanovení, kde český zákonodárce skutečně vykonává vlastní diskreci, a nikoli jen mechanicky přejímá bezvýjimečný požadavek nařízení.",
+  "unstatedEffects": [
+    {
+      "effect": "Odůvodnění výjimky z RIA staví na tvrzení, že návrh neobsahuje ustanovení jdoucí nad rámec povinného rozsahu adaptace nařízení a že dotčená ustanovení neposkytují prostor pro diskreci. Ve stejné části zprávy je však jazyková povinnost podle § 8 (překlad dokumentace do češtiny) výslovně označena jako jdoucí nad rámec povinností nařízení a odvozuje se od diskrečního oprávnění, které nařízení výslovně svěřuje členskému státu (čl. 7 odst. 8 a další). Zpráva tak žádá a dostává celkovou výjimku z RIA na základě argumentu (žádná diskrece), který na jazykovou povinnost — jediné ustanovení jdoucí nad rámec nařízení — sama sebe vyvrací, aniž by pro toto konkrétní diskreční ustanovení provedla samostatné odůvodnění nebo posouzení dopadu.",
+      "whoBenefits": "Nelze jednoznačně určit — zproštěním od RIA pro celý návrh, včetně jediného ustanovení skutečně založeného na vlastní diskreci státu, se šetří administrativní kapacita předkladatele; dotčeni jsou dovozci a distributoři výrobků, kterým jazyková povinnost ukládá náklady na překlad bez samostatného zhodnocení dopadu touto povinnou metodikou.",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=113&ct1=0"
+    }
+  ],
+  "conflictAssessment": "Sponzorem tisku eviduje graf Karla Havlíčka (ministra průmyslu a obchodu jako předkladatele agendy), u něhož graf peněžních vazeb v této datové sadě neeviduje žádnou vlastněnou ani řízenou firmu. Věcný obsah normy (výkon dozoru nad ekodesignem výrobků, přenesení sankčních pravomocí na stávající jedenáctku dozorových orgánů) nemá s žádnou v grafu evidovanou podnikatelskou vazbou žádnou zjevnou souvislost. Nejde o skrytý střet zájmů — jde o transpoziční/adaptační normu s jedním identifikovaným sponzorem bez evidovaných peněžních vazeb.",
+  "severity": "low",
+  "confidence": 3,
+  "citations": [
+    {
+      "claim": "Zákon zavádí sankce podle § 9 až § 17 s pokutami od 500 000 Kč do 20 000 000 Kč a svěřuje dozor jedenácti orgánům vyjmenovaným v § 5 odst. 1 písm. a) až k).",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=113&ct1=0"
+    },
+    {
+      "claim": "Důvodová zpráva v bodu G uvádí, že návrh jde nad rámec povinností nařízení (EU) 2024/1781 v povinnosti zajistit český jazyk u průvodních dokumentů podle § 8, s náklady v řádu tisíců Kč za výrobek.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=113&ct1=0"
+    },
+    {
+      "claim": "Důvodová zpráva zároveň v odůvodnění výjimky z RIA tvrdí, že návrh neobsahuje ustanovení jdoucí nad rámec povinného rozsahu adaptace nařízení a že dotčená ustanovení neposkytují prostor pro diskreci.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=113&ct1=0"
+    },
+    {
+      "claim": "§ 19 mění zákon č. 61/1988 Sb., o hornické činnosti, § 20 mění zákon č. 406/2000 Sb., o hospodaření energií, § 22 mění zákon č. 147/2002 Sb. a § 23 mění zákon č. 87/2023 Sb., o dozoru nad trhem s výrobky — vše odkazovými úpravami.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=113&ct1=0"
+    },
+    {
+      "claim": "Zákon č. 406/2000 Sb., o hospodaření energií, je jedním z předpisů novelizovaných tiskem 113.",
+      "kind": "law",
+      "source": "406/2000"
+    },
+    {
+      "claim": "Zákon č. 61/1988 Sb., o hornické činnosti, výbušninách a o státní báňské správě, je novelizován § 19 tisku 113.",
+      "kind": "law",
+      "source": "61/1988"
+    },
+    {
+      "claim": "Zákon č. 87/2023 Sb., o dozoru nad trhem s výrobky, je novelizován § 23 tisku 113.",
+      "kind": "law",
+      "source": "87/2023"
+    },
+    {
+      "claim": "Zákon č. 147/2002 Sb., o Ústředním kontrolním a zkušebním ústavu zemědělském, je novelizován § 22 tisku 113.",
+      "kind": "law",
+      "source": "147/2002"
+    },
+    {
+      "claim": "Karel Havlíček je předkladatelem/sponzorem tisku 113 v grafu, bez evidovaných peněžních vazeb na firmy.",
+      "kind": "graph_fact",
+      "source": "psp:person:6621"
+    }
+  ]
+}

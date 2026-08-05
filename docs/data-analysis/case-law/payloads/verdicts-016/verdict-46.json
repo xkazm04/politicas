@@ -1,0 +1,57 @@
+{
+ "billTisk": 46,
+ "statedReasoning": "Vládní návrh ministra spravedlnosti novelizuje zákon č. 104/2013 Sb., o mezinárodní justiční spolupráci ve věcech trestních. Návrh je prezentován jako technická transpozice a adaptace na přímo použitelné unijní předpisy o digitalizaci justiční spolupráce — směrnici (EU) 2023/2843 a navazující nařízení (EU) 2023/2844 o digitalizaci justiční spolupráce a přístupu ke spravedlnosti, které pro styk justičních a ústředních orgánů členských států předepisují komunikaci prostřednictvím decentralizovaného IT systému podle čl. 3 nařízení 2023/2844. Vedle desítek dílčích úprav odkazujících na tento kanál zavádí nová Hlava XII (§ 395a až § 395g) vnitrostátní rámec pro výkon evropského vydávacího příkazu a evropského uchovávacího příkazu podle nařízení (EU) 2023/1543 o elektronických důkazech v trestním řízení, včetně příslušnosti orgánů, přezkumu příkazu a řešení námitek adresáta. Zpráva k § 65a odst. 1 v samostatném odstavci zvláštní části vysvětluje i důvod přesunu určení kontaktního místa z fixního odkazu na mezinárodní smlouvu na určení policejním prezidentem — reakci na opakující se reorganizace Policie České republiky, u nichž je aktuálním kontaktním útvarem Národní centrála proti terorismu, extremismu a kybernetické kriminalitě SKPV.",
+ "researchedContext": "Čtení úplného textu potvrzuje, že nová Hlava XII nese vlastní sankční mechanismus: § 395f zavádí pořádkovou pokutu ukládanou adresátovi příkazu (poskytovateli služeb) při nesplnění povinností podle čl. 10 nebo 11 nařízení (EU) 2023/1543 nebo při porušení důvěrnosti, tajnosti či integrity příkazu nebo dotčených dat, a to až do výše 2 % celosvětového ročního obratu poskytovatele, případně až 10 000 000 Kč, nelze-li obrat zjistit. Zvláštní část důvodové zprávy k § 395f tento mechanismus vysvětluje obšírně (důvod sankce, vazba na čl. 15 nařízení, příklady postupu při zjišťování obratu). Pro účely zjištění podkladů k uložení pokuty může příslušný orgán požadovat i údaje kryté bankovním tajemstvím a údaje z evidence investičních nástrojů a zaknihovaných cenných papírů, s výslovným omezením účelu použití na řízení o pokutě; je-li příslušným orgánem útvar Policie, o tyto údaje podle § 395f odst. 3 žádá justiční orgán uvedený v § 395b odst. 2, a to na návrh útvaru Policie — přímý přístup útvaru Policie k údajům krytým bankovním tajemstvím text nezakládá. Uznání a zajištění výkonu evropského uchovávacího příkazu jako takového rovněž vyžaduje podle § 395b odst. 2 předchozí souhlas justičního orgánu.",
+ "unstatedEffects": [
+  {
+   "effect": "Dedikovaná pasáž obecné části důvodové zprávy „Zhodnocení dopadů navrhovaného řešení ve vztahu k ochraně soukromí a osobních údajů“ uzavírá, že „zvýšené dopady na problematiku ochrany soukromí a osobních údajů se nepředpokládají“, a svůj rozbor omezuje výhradně na primární oprávnění vyžádat si data podle nařízení (EU) 2023/1543 — nikde nezmiňuje ani nehodnotí sekundární vyšetřovací nástroj podle § 395f odst. 3, kterým lze pro účely zjištění obratu poskytovatele služeb (a tedy stanovení výše pořádkové pokuty) požadovat údaje kryté bankovním tajemstvím a údaje z evidence investičních nástrojů a zaknihovaných cenných papírů. Formální posouzení dopadů na soukromí tak nepokrývá právě ten nástroj, který sahá nejhlouběji do soukromí subjektu, jehož se šetření týká.",
+   "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou poskytovatelé služeb v Evropské unii vystavení šetření zasahujícímu do bankovního tajemství v rámci řízení o pořádkové pokutě; formální posouzení dopadů na soukromí o tomto nástroji mlčí.",
+   "evidence": "„Zvýšené dopady na problematiku ochrany soukromí a osobních údajů se nepředpokládají.“ — úplný text tisku na psp.cz, řádek 1222 strojového přepisu (v rámci kapitoly „Zhodnocení dopadů navrhovaného řešení ve vztahu k ochraně soukromí a osobních údajů“, řádek 1197); nástroj přístupu k údajům krytým bankovním tajemstvím je popsán samostatně v § 395f odst. 3 a jeho zvláštní části, nikoli v této kapitole — „může požadovat údaje, které jsou předmětem bankovního tajemství, a údaje z evidence investičních nástrojů“ — úplný text tisku na psp.cz, řádky 357–358 strojového přepisu."
+  }
+ ],
+ "conflictAssessment": "Podle datového grafu má sponzorka tisku, poslankyně Eva Decroix, evidovány tři majetkové vazby na firmy ELEMENTA Agency s.r.o., Delices de papa s.r.o. a Park Volmanec s.r.o.; úhrn veřejných smluv u těchto firem činí 0 Kč, 594 Kč a 0 Kč a všechny vazby čekají na lidskou kontrolu. Žádná z uvedených firem podle dostupných údajů nepůsobí v sektoru justiční spolupráce, elektronických důkazů, telekomunikací ani poskytování digitálních služeb, který je předmětem tohoto návrhu, a evidovaný objem veřejných zakázek je zanedbatelný až nulový. Na základě dostupných dat proto nebyl u tohoto tisku identifikován konflikt zájmů.",
+ "severity": "low",
+ "confidence": 3,
+ "citations": [
+  {
+   "claim": "Návrh novelizuje zákon č. 104/2013 Sb., o mezinárodní justiční spolupráci ve věcech trestních, a zavádí novou Hlavu XII implementující evropský vydávací příkaz a evropský uchovávací příkaz podle nařízení (EU) 2023/1543.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=46&ct1=0"
+  },
+  {
+   "claim": "Nový § 395f zavádí pořádkovou pokutu adresátovi příkazu až do výše 2 % celosvětového ročního obratu, případně 10 000 000 Kč, a umožňuje k jejímu uložení šetřit i údaje kryté bankovním tajemstvím a údaje z evidence investičních nástrojů a zaknihovaných cenných papírů; je-li příslušným orgánem útvar Policie, o tyto údaje podle § 395f odst. 3 žádá justiční orgán na návrh útvaru Policie.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=46&ct1=0"
+  },
+  {
+   "claim": "Obecná část důvodové zprávy v kapitole o dopadech na ochranu soukromí a osobních údajů uzavírá, že zvýšené dopady se nepředpokládají, a rozbor omezuje na primární oprávnění vyžádat si data podle nařízení (EU) 2023/1543, bez zmínky o vyšetřovacím nástroji podle § 395f odst. 3.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=46&ct1=0"
+  },
+  {
+   "claim": "Novela § 65a odst. 1 mění určení kontaktního místa z funkce podle mezinárodní smlouvy na určení policejním prezidentem; zvláštní část důvodové zprávy k tomuto bodu vysvětluje důvod (opakující se reorganizace Policie České republiky) a jmenuje aktuální kontaktní útvar.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=46&ct1=0"
+  },
+  {
+   "claim": "Uznání a zajištění výkonu evropského uchovávacího příkazu je podle § 395b odst. 2 svěřeno útvaru Policie s podmínkou předchozího souhlasu justičního orgánu.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=46&ct1=0"
+  },
+  {
+   "claim": "Legislativní historie tisku 46 je vedena u Ústavně právního výboru jako garančního výboru, přikázáno dne 24. 3. 2026.",
+   "kind": "web",
+   "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=46"
+  },
+  {
+   "claim": "Zákon č. 104/2013 Sb., o mezinárodní justiční spolupráci ve věcech trestních, je reálný předpis novelizovaný tímto návrhem.",
+   "kind": "law",
+   "source": "104/2013"
+  },
+  {
+   "claim": "Případový soubor přiřazuje sponzorce tisku Evě Decroix tři peněžní vazby (ELEMENTA Agency s.r.o., Delices de papa s.r.o., Park Volmanec s.r.o.) s úhrnem veřejných smluv 0 Kč, 594 Kč a 0 Kč, bez sektorového leadu.",
+   "kind": "graph_fact",
+   "source": "bill:tisk:43153"
+  }
+ ]
+}

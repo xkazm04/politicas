@@ -36,6 +36,7 @@ import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { useFormat } from "@/lib/i18n/useFormat";
 import type { DependencyData, DependencyHit } from "../getDependencyData";
+import { resolveCompanionLink } from "../buildDependencyView";
 import type { LawData } from "../getLawData";
 
 /** „ten podnět" — masculine inanimate, so numeral congruence bends the verb
@@ -127,12 +128,33 @@ export default function DependencyRadar({
         })}
       </div>
 
+      {dependencyData.dedupedRowCount <
+        dependencyData.companionCount - dependencyData.withheldHitCount - dependencyData.misalignedDroppedCount && (
+        <p className="mt-4 max-w-3xl text-sm leading-relaxed text-steel">
+          <span className="font-black uppercase tracking-wide text-steel">Poznámka: </span>
+          Detektor hlásí {f.int(dependencyData.companionCount)} {podnetNoun(dependencyData.companionCount)} k
+          prověření celkem, ale několik z nich pojmenovává stejnou závislost vícekrát v jednom tisku (stejný
+          doprovodný tisk, stejný popis). Níže je zobrazeno {f.int(dependencyData.dedupedRowCount)} řádků — každá
+          opakovaná shoda je sloučena do jednoho řádku se značkou „×N“.
+        </p>
+      )}
+
       {dependencyData.withheldHitCount > 0 && (
         <p className="mt-4 max-w-3xl text-sm leading-relaxed text-steel">
           <span className="font-black uppercase tracking-wide text-steel">Poznámka: </span>
           {f.int(dependencyData.withheldHitCount)} další {podnetNoun(dependencyData.withheldHitCount)} k prověření
           závislosti {podnetVerbProsel(dependencyData.withheldHitCount)} klasifikací, ale jeho popis neprošel
           jazykovou bránou (čeká na český přepis), takže se zde nezobrazuje.
+        </p>
+      )}
+
+      {dependencyData.misalignedDroppedCount > 0 && (
+        <p className="mt-4 max-w-3xl text-sm leading-relaxed text-steel">
+          <span className="font-black uppercase tracking-wide text-steel">Poznámka: </span>
+          {f.int(dependencyData.misalignedDroppedCount)} další {podnetNoun(dependencyData.misalignedDroppedCount)} k
+          prověření závislosti {podnetVerbProsel(dependencyData.misalignedDroppedCount)} klasifikací, ale u
+          příslušného tisku se počet nálezů v obou zdrojových souborech neshoduje — aby se citace neomylem
+          nepřiřadila ke špatnému nálezu, tisk se zde vůbec nezobrazuje.
         </p>
       )}
 
@@ -164,9 +186,10 @@ function DependencyHitRow({
   hit: DependencyHit;
   billTitleByCislo: Map<number, string>;
 }) {
-  const rawTisk = hit.likelyCompanionTisk;
-  const companionExists = rawTisk != null && billTitleByCislo.has(rawTisk);
-  const outOfCorpusNumber = rawTisk != null && !companionExists;
+  const link = resolveCompanionLink(hit.likelyCompanionTisk, (t) => billTitleByCislo.has(t));
+  const companionExists = link.kind === "linked";
+  const outOfCorpusNumber = link.kind === "out-of-corpus";
+  const rawTisk = link.kind !== "none" ? link.tisk : null;
 
   return (
     <li className="border-l-4 border-ochre pl-4">
@@ -176,6 +199,7 @@ function DependencyHitRow({
         }`}
       >
         odvozeno · čeká na kontrolu{hit.weakEvidence ? " · vazba nejistá" : ""}
+        {hit.dupeCount > 1 ? ` · ×${hit.dupeCount}` : ""}
       </span>
       <div className="mt-1.5 text-[13px] leading-snug">
         <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-ochre">závisí na: </span>

@@ -1,0 +1,82 @@
+{
+  "billTisk": 125,
+  "statedReasoning": "Poslanci Aleš Juchelka a Jana Pastuchová (spolu s Igorem Hendrychem coby dalším předkladatelem) navrhují novelu pěti předpisů: zákona č. 108/2006 Sb., o sociálních službách, zákona č. 329/2011 Sb., o poskytování dávek osobám se zdravotním postižením, zákona č. 582/1991 Sb., o organizaci a provádění sociálního zabezpečení, a dále přímo zákona č. 300/2025 Sb. a zákona č. 358/2022 Sb., které dosud neúčinné části obou předchozích zákonů mění. Jádrem je odklad přesunu kompetencí ve výkonu státní správy v oblasti příspěvku na péči, dávek pro osoby se zdravotním postižením a průkazu OZP z Úřadu práce ČR na územní správy sociálního zabezpečení z 1. července 2026 na 1. června 2028 (čl. IV) — termín zdůvodněný přípravou informačních systémů resortu práce a sociálních věcí a sladěním s účinností unijní směrnice o evropských průkazech osob se zdravotním postižením k 5. červnu 2028. Souběžně se o jeden rok, do 31. prosince 2027, prodlužuje platnost § 8 zákona č. 329/2011 Sb., který stanoví zvýšený příspěvek na mobilitu 2 900 Kč měsíčně osobám používajícím po celý kalendářní měsíc přístroj pro domácí oxygenoterapii nebo plicní ventilaci (čl. V). Čl. I bod 7 zcela nahrazuje znění § 21 odst. 1 zákona o sociálních službách (povinnosti žadatele o příspěvek na péči), čemuž odpovídají navazující novelizační body 3 až 6 přeznačující odkazy na písmena v §§ 13, 14a, 16, 25, 26 a 29 stejného zákona. Čl. III mění § 8 odst. 4 zákona č. 582/1991 Sb. tak, že rozšiřuje oprávnění odborných nelékařských zdravotnických pracovníků (ONZP) podepisovat posudek bez schválení lékaře Institutu posuzování zdravotního stavu i pro agendu příspěvku na zvláštní pomůcku a průkazů OZP, dosud omezené jen na příspěvek na péči. Návrh má nabýt účinnosti dnem následujícím po vyhlášení, s výjimkami k 1. 7. 2026 a 1. 6. 2028 podle jednotlivých ustanovení; navrhováno je schválení již v prvním čtení podle § 90 odst. 2 zákona č. 90/1995 Sb. pro legislativně-technický charakter věci.",
+  "researchedContext": "Text potvrzuje, že čl. I bod 7 nahrazuje celý § 21 odst. 1 zákona č. 108/2006 Sb. novým jedenáctipoložkovým výčtem povinností žadatele (písmena a) až k)) — jde o úplnou náhradu odstavce, nikoli o dílčí novelizační zásah do jednoho písmene. Body 3 až 6 v důsledku toho přeznačují odkazy na písmena v šesti dalších ustanoveních (§ 13 odst. 2, § 25 odst. 1, § 26 odst. 1 písm. b), § 14a odst. 1, § 16 odst. 1 a 2, § 29 odst. 1 písm. c) a odst. 7) — a to dvoufázově (např. „písm. d)“ se nejprve mění na „písm. e)“ a v následujícím bodě znovu na „písm. i)“), což ukazuje na řetězec navazujících posunů písmen vyvolaný vložením nových položek doprostřed výčtu. Pokud by jiný souběžně projednávaný tisk cílil na totéž ustanovení § 21 zákona č. 108/2006 Sb., ale jen na odstavec 2 písm. e) (jak podle dřívějších zjištění platí pro tisky 85 a 88), nešlo by o přímý střet stejné novelizační instrukce (dvě novely téhož bodu), nýbrž o odlišný typ kolize — jedna novela nahrazuje celý odstavec 1, druhá cílí na sousední odstavec 2 stejného paragrafu; při souběžném schválení obou by hrozilo nesladění číslování písmen napříč odstavci, které žádný z textů výslovně neřeší. Toto tvrzení je třeba brát jako hypotézu odvozenou ze struktury tisku 125 samotného — znění tisků 85 a 88 nebylo součástí tohoto rozboru a nebylo zde přímo ověřeno.",
+  "unstatedEffects": [
+    {
+      "effect": "Úplná náhrada § 21 odst. 1 zákona o sociálních službách vyvolává řetězec navazujících přeznačení písmen nejméně v šesti dalších ustanoveních téhož zákona (§ 13 odst. 2, § 14a odst. 1, § 16 odst. 1 a 2, § 25 odst. 1, § 26 odst. 1 písm. b), § 29 odst. 1 písm. c) a odst. 7), přičemž některé odkazy se posouvají dvoufázově v rámci téhož návrhu (např. „písm. d)“ na „písm. e)“ a vzápětí na „písm. i)“). Zvláštní část důvodové zprávy tento rozsah shrnuje jedinou větou „Pouze z důvodu potřeby úpravy legislativních odkazů na související ustanovení zákona se do tohoto návrhu přebírají a upravují již schválené věcné úpravy“, aniž by uvedla, kolika ustanovení se změna reálně dotýká.",
+      "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou žadatelé o příspěvek na péči a pracovníci úřadů práce či územních správ sociálního zabezpečení, kteří musí při výkladu §§ 13, 14a, 16, 25, 26 a 29 zákona č. 108/2006 Sb. sledovat správné, nově přeznačené odkazy na písmena § 21.",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=125&ct1=0"
+    },
+    {
+      "effect": "Návrh podruhé posouvá účinnost téhož organizačního opatření — přesunu agendy příspěvku na péči a dávek pro OZP z Úřadu práce ČR na územní správy sociálního zabezpečení, který byl zákonem č. 300/2025 Sb. stanoven na 1. července 2026 a nyní se navrhuje odložit na 1. června 2028, tedy o téměř dva roky. Důvodová zpráva odklad zdůvodňuje přípravou informačních systémů a termínem unijní směrnice, ale nekvantifikuje dopad dvouletého prodloužení souběžného fungování dvou paralelních výkladových režimů (dosavadní na ÚP ČR, cílový na ÚSSZ) na žadatele o dávky ani na provozní náklady ÚP ČR v mezidobí.",
+      "whoBenefits": "Nelze jednoznačně určit — přímý dopad nese Úřad práce ČR, který agendu spravuje o dva roky déle, a žadatelé o dávky, jejichž řízení zůstávají u dosavadního orgánu; žádná konkrétní soukromá strana není v textu jako příjemce prospěchu identifikována.",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=125&ct1=0"
+    }
+  ],
+  "conflictAssessment": "Ze tří předkladatelů nemá Igor Hendrych v grafu evidovanou žádnou peněžní vazbu. Aleš Juchelka má evidované vazby na ČESKOU TELEVIZI (IČO 00027383, úhrn veřejných smluv 19 557 459 056 Kč), ČESKÝ ROZHLAS (IČO 45245053, úhrn 3 995 330 864 Kč), YOU STORY UP! s.r.o. (IČO 02751232, úhrn 4 641 238 Kč) a OCCAM PR s.r.o. (IČO 27840531, úhrn 177 870 Kč) — všechny čekají na lidskou kontrolu. Obor těchto subjektů (veřejnoprávní vysílání, PR a mediální služby) nemá věcnou souvislost s předmětem tisku 125 (sociální služby, dávky pro osoby se zdravotním postižením, organizace sociálního zabezpečení), takže v datech není zjištěn střet zájmů plynoucí z těchto vazeb. Jana Pastuchová má evidované vazby na Nemocnici Jablonec nad Nisou, p. o. (IČO 00829838, úhrn 410 185 778 Kč) — příspěvkovou organizaci zřízenou statutárním městem Jablonec nad Nisou —, na Horskou službu ČR, o. p. s. (IČO 27467759, úhrn 33 699 468 Kč), obecně prospěšnou společnost provozující horskou záchrannou službu, a na Zdravotnickou záchrannou službu Libereckého kraje, p. o. (IČO 46744991, úhrn 297 677 493 Kč), příspěvkovou organizaci zřízenou krajem — rovněž čekají na lidskou kontrolu. Jde tedy o veřejné instituce, nikoli o soukromé podnikatelské subjekty, a předmětem tisku 125 není financování zdravotnických zařízení ani záchranné služby, nýbrž kompetenční přesun a lhůty v agendě sociálních dávek — podle standardní metodiky se tedy nejedná o soukromý střet zájmů ani o věcně související oblast.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Čl. IV bod 3 posouvá účinnost převodu kompetencí ÚP ČR na ÚSSZ z 1. července 2026 na 1. června 2028.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=125&ct1=0"
+    },
+    {
+      "claim": "Čl. V prodlužuje platnost § 8 zákona č. 329/2011 Sb. (příspěvek na mobilitu 2 900 Kč pro osoby využívající domácí oxygenoterapii nebo plicní ventilaci) do 31. prosince 2027.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=125&ct1=0"
+    },
+    {
+      "claim": "Čl. I bod 7 nahrazuje celé znění § 21 odstavce 1 zákona č. 108/2006 Sb. novým výčtem povinností žadatele o příspěvek na péči, písmena a) až k).",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=125&ct1=0"
+    },
+    {
+      "claim": "Čl. I body 3 až 6 přeznačují odkazy na písmena § 21 v § 13 odst. 2, § 14a odst. 1, § 16 odst. 1 a 2, § 25 odst. 1, § 26 odst. 1 písm. b) a § 29 odst. 1 písm. c) a odst. 7 zákona č. 108/2006 Sb.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=125&ct1=0"
+    },
+    {
+      "claim": "Roční náklady na prodloužený příspěvek na mobilitu podle § 8 zákona č. 329/2011 Sb. se odhadují na cca 53 677 500 Kč v roce 2026 a cca 60 485 100 Kč v roce 2027.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=125&ct1=0"
+    },
+    {
+      "claim": "Aleš Juchelka má v grafu evidovanou peněžní vazbu na ČESKOU TELEVIZI (IČO 00027383), úhrn veřejných smluv 19 557 459 056 Kč, vazba čeká na lidskou kontrolu.",
+      "kind": "graph_fact",
+      "source": "company:ico:00027383"
+    },
+    {
+      "claim": "Aleš Juchelka má v grafu evidovanou peněžní vazbu na ČESKÝ ROZHLAS (IČO 45245053), úhrn veřejných smluv 3 995 330 864 Kč, vazba čeká na lidskou kontrolu.",
+      "kind": "graph_fact",
+      "source": "company:ico:45245053"
+    },
+    {
+      "claim": "Jana Pastuchová má v grafu evidovanou peněžní vazbu na Nemocnici Jablonec nad Nisou, p. o. (IČO 00829838), úhrn veřejných smluv 410 185 778 Kč, vazba čeká na lidskou kontrolu.",
+      "kind": "graph_fact",
+      "source": "company:ico:00829838"
+    },
+    {
+      "claim": "Jana Pastuchová má v grafu evidovanou peněžní vazbu na Zdravotnickou záchrannou službu Libereckého kraje, p. o. (IČO 46744991), úhrn veřejných smluv 297 677 493 Kč, vazba čeká na lidskou kontrolu.",
+      "kind": "graph_fact",
+      "source": "company:ico:46744991"
+    },
+    {
+      "claim": "Zákon č. 108/2006 Sb., o sociálních službách, je hlavním novelizovaným předpisem tisku 125.",
+      "kind": "law",
+      "source": "108/2006"
+    },
+    {
+      "claim": "Zákon č. 329/2011 Sb., o poskytování dávek osobám se zdravotním postižením, je novelizován v čl. II a čl. V tisku 125.",
+      "kind": "law",
+      "source": "329/2011"
+    },
+    {
+      "claim": "Zákon č. 300/2025 Sb. je přímo novelizován v čl. IV tisku 125.",
+      "kind": "law",
+      "source": "300/2025"
+    }
+  ]
+}

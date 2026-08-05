@@ -1,0 +1,10556 @@
+{
+ "generatedAt": "2026-08-05T12:25:33.333Z",
+ "method": "Per bill: collision-core's statute partitioner over the operative slice of the cached print, then the measured instruction-vs-citation discriminator per §. Cross-checked against the graph's statute-level amends topology, whose edges are PRESUMED RIGHT (the batch-016 audit hand-verified 9/9 disagreements in the graph's favour on that batch's bills): a disagreement is an EXTRACTOR DIAGNOSTIC — extractorMissedRefs marks statutes the audited graph carries that this extractor could not see (the LARGEST cause: an article-structured bill without statute headers collapses into a single partition bucket; also annex-only amendments and the substitution form beginning with the word „částka“), extractorExtraRefs marks partition labels the graph does not corroborate (typically cross-reference wins). Per-§ rows are trustworthy exactly where a bill's diagnostics are clean.",
+ "billsCensused": 141,
+ "billsSkippedNoText": 0,
+ "totalOperativeBillParagraphPairs": 3166,
+ "billsWithExtractorMissedRefs": 48,
+ "billsWithExtractorExtraRefs": 5,
+ "rows": [
+  {
+   "cislo": 4,
+   "statutes": [
+    {
+     "lawRef": "117/1995",
+     "operativeParagraphs": [
+      "30",
+      "31"
+     ],
+     "citedOnlyParagraphs": [
+      "31a"
+     ]
+    },
+    {
+     "lawRef": "151/2025",
+     "operativeParagraphs": [
+      "38",
+      "39"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "353/2003",
+     "operativeParagraphs": [
+      "96"
+     ],
+     "citedOnlyParagraphs": [
+      "93"
+     ]
+    },
+    {
+     "lawRef": "586/1992",
+     "operativeParagraphs": [
+      "35ba",
+      "35c"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 5,
+   "statutes": [
+    {
+     "lawRef": "143/2001",
+     "operativeParagraphs": [
+      "13",
+      "18",
+      "20",
+      "20a",
+      "22",
+      "22a",
+      "22b",
+      "22ba",
+      "26"
+     ],
+     "citedOnlyParagraphs": [
+      "11",
+      "13a",
+      "16a",
+      "17",
+      "20b",
+      "20c",
+      "20d",
+      "21e",
+      "21f",
+      "21g",
+      "29",
+      "3",
+      "42",
+      "68",
+      "7",
+      "70",
+      "76",
+      "80",
+      "87",
+      "89",
+      "93",
+      "94",
+      "95",
+      "96",
+      "98",
+      "99"
+     ]
+    },
+    {
+     "lawRef": "374/2015",
+     "operativeParagraphs": [
+      "251a"
+     ],
+     "citedOnlyParagraphs": [
+      "13a"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 6,
+   "statutes": [
+    {
+     "lawRef": "424/1991",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 7,
+   "statutes": [
+    {
+     "lawRef": "134/2016",
+     "operativeParagraphs": [
+      "31",
+      "48",
+      "67"
+     ],
+     "citedOnlyParagraphs": [
+      "151",
+      "4"
+     ]
+    },
+    {
+     "lawRef": "141/1961",
+     "operativeParagraphs": [
+      "12",
+      "161"
+     ],
+     "citedOnlyParagraphs": [
+      "209",
+      "216",
+      "256",
+      "257",
+      "258",
+      "260",
+      "329",
+      "331",
+      "332",
+      "333"
+     ]
+    },
+    {
+     "lawRef": "159/2006",
+     "operativeParagraphs": [
+      "10",
+      "11",
+      "12",
+      "13",
+      "14a",
+      "14b",
+      "2",
+      "23",
+      "24",
+      "25",
+      "4a",
+      "4b",
+      "4c",
+      "5",
+      "6",
+      "9"
+     ],
+     "citedOnlyParagraphs": [
+      "10a",
+      "21",
+      "45",
+      "4d",
+      "4e",
+      "95"
+     ]
+    },
+    {
+     "lawRef": "166/1993",
+     "operativeParagraphs": [
+      "8"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "168/2025",
+     "operativeParagraphs": [
+      "4",
+      "5",
+      "6",
+      "7"
+     ],
+     "citedOnlyParagraphs": [
+      "10",
+      "13",
+      "14",
+      "15",
+      "8",
+      "9"
+     ]
+    },
+    {
+     "lawRef": "171/2023",
+     "operativeParagraphs": [
+      "1",
+      "13",
+      "15",
+      "2",
+      "21",
+      "26",
+      "4",
+      "7",
+      "9"
+     ],
+     "citedOnlyParagraphs": [
+      "14",
+      "16",
+      "22",
+      "27",
+      "28"
+     ]
+    },
+    {
+     "lawRef": "2/1969",
+     "operativeParagraphs": [
+      "11",
+      "2"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "21/1992",
+     "operativeParagraphs": [
+      "38"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "222/2016",
+     "operativeParagraphs": [
+      "20"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "231/2001",
+     "operativeParagraphs": [
+      "13"
+     ],
+     "citedOnlyParagraphs": [
+      "63"
+     ]
+    },
+    {
+     "lawRef": "234/2014",
+     "operativeParagraphs": [
+      "2"
+     ],
+     "citedOnlyParagraphs": [
+      "19"
+     ]
+    },
+    {
+     "lawRef": "234/2025",
+     "operativeParagraphs": [
+      "1"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "256/2000",
+     "operativeParagraphs": [
+      "1",
+      "11m",
+      "12d"
+     ],
+     "citedOnlyParagraphs": [
+      "11n",
+      "11o",
+      "11p",
+      "11q"
+     ]
+    },
+    {
+     "lawRef": "280/2009",
+     "operativeParagraphs": [
+      "52",
+      "53"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "300/2013",
+     "operativeParagraphs": [
+      "3",
+      "4"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "37/2021",
+     "operativeParagraphs": [
+      "16"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "372/2011",
+     "operativeParagraphs": [
+      "111"
+     ],
+     "citedOnlyParagraphs": [
+      "111a",
+      "111b"
+     ]
+    },
+    {
+     "lawRef": "40/2009",
+     "operativeParagraphs": [
+      "209",
+      "216",
+      "227",
+      "332",
+      "67",
+      "88"
+     ],
+     "citedOnlyParagraphs": [
+      "187",
+      "198",
+      "199",
+      "212",
+      "256",
+      "257",
+      "258",
+      "260",
+      "320",
+      "331",
+      "333"
+     ]
+    },
+    {
+     "lawRef": "424/1991",
+     "operativeParagraphs": [
+      "17a",
+      "18",
+      "19",
+      "19g",
+      "19j",
+      "6"
+     ],
+     "citedOnlyParagraphs": [
+      "18a",
+      "19h"
+     ]
+    },
+    {
+     "lawRef": "563/1991",
+     "operativeParagraphs": [
+      "21"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "87/1995",
+     "operativeParagraphs": [
+      "25b"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "88/2024",
+     "operativeParagraphs": [
+      "25"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 10,
+   "statutes": [
+    {
+     "lawRef": "250/2017",
+     "operativeParagraphs": [
+      "2",
+      "5",
+      "67"
+     ],
+     "citedOnlyParagraphs": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "12a",
+      "13",
+      "14",
+      "15",
+      "158d",
+      "16",
+      "3",
+      "4",
+      "41",
+      "45",
+      "6",
+      "7",
+      "8",
+      "8b",
+      "9"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "104/2013",
+    "141/1961",
+    "231/2001",
+    "46/2000"
+   ],
+   "extractorExtraRefs": [
+    "250/2017"
+   ]
+  },
+  {
+   "cislo": 11,
+   "statutes": [
+    {
+     "lawRef": "589/1992",
+     "operativeParagraphs": [
+      "14"
+     ],
+     "citedOnlyParagraphs": [
+      "5b"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 12,
+   "statutes": [
+    {
+     "lawRef": "491/2001",
+     "operativeParagraphs": [
+      "22",
+      "25",
+      "27",
+      "3",
+      "45",
+      "46",
+      "56",
+      "57",
+      "58",
+      "66"
+     ],
+     "citedOnlyParagraphs": [
+      "55",
+      "58a",
+      "58b"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 13,
+   "statutes": [
+    {
+     "lawRef": "15/1998",
+     "operativeParagraphs": [
+      "26"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "240/2013",
+     "operativeParagraphs": [
+      "11",
+      "13",
+      "15a",
+      "162",
+      "190",
+      "193",
+      "20",
+      "20a",
+      "21",
+      "211",
+      "22",
+      "220",
+      "231",
+      "238",
+      "241",
+      "26",
+      "28",
+      "280",
+      "29",
+      "30",
+      "302",
+      "303",
+      "310",
+      "316",
+      "318",
+      "319",
+      "320",
+      "321",
+      "322",
+      "324",
+      "325",
+      "326",
+      "327",
+      "33",
+      "350",
+      "356",
+      "373",
+      "38",
+      "381",
+      "387",
+      "43",
+      "431",
+      "456",
+      "457",
+      "459",
+      "460",
+      "463",
+      "465",
+      "469",
+      "476",
+      "477",
+      "479",
+      "47a",
+      "48",
+      "480",
+      "481",
+      "482",
+      "484",
+      "485",
+      "488",
+      "5",
+      "50",
+      "500",
+      "506",
+      "510",
+      "511",
+      "519",
+      "53",
+      "532",
+      "539",
+      "550",
+      "552",
+      "56",
+      "574",
+      "579",
+      "581",
+      "585",
+      "590",
+      "591",
+      "599",
+      "601",
+      "603",
+      "604",
+      "609",
+      "611",
+      "612",
+      "614",
+      "615",
+      "616",
+      "619",
+      "66a",
+      "69",
+      "73",
+      "77",
+      "8",
+      "83",
+      "9"
+     ],
+     "citedOnlyParagraphs": [
+      "131",
+      "14",
+      "15",
+      "208",
+      "20b",
+      "20c",
+      "215",
+      "21a",
+      "21b",
+      "23",
+      "234",
+      "253",
+      "255",
+      "26a",
+      "37a",
+      "37b",
+      "37c",
+      "37d",
+      "37e",
+      "37f",
+      "37g",
+      "37h",
+      "37i",
+      "37j",
+      "37k",
+      "398",
+      "401",
+      "403",
+      "404",
+      "413a",
+      "413b",
+      "413c",
+      "413d",
+      "413e",
+      "413f",
+      "413g",
+      "413h",
+      "461",
+      "462",
+      "47",
+      "475",
+      "476a",
+      "47b",
+      "48a",
+      "48b",
+      "49",
+      "506a",
+      "507",
+      "50f",
+      "516",
+      "53a",
+      "541",
+      "548",
+      "556",
+      "556a",
+      "574a",
+      "585a",
+      "585b",
+      "59",
+      "590a",
+      "590b",
+      "591a",
+      "591b",
+      "603a",
+      "618",
+      "66b",
+      "71",
+      "78"
+     ]
+    },
+    {
+     "lawRef": "256/2004",
+     "operativeParagraphs": [
+      "25"
+     ],
+     "citedOnlyParagraphs": [
+      "2a"
+     ]
+    },
+    {
+     "lawRef": "84/2024",
+     "operativeParagraphs": [
+      "11",
+      "15",
+      "2",
+      "20",
+      "3",
+      "32",
+      "38",
+      "39",
+      "4",
+      "41"
+     ],
+     "citedOnlyParagraphs": [
+      "14",
+      "35",
+      "44"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "634/2004"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 14,
+   "statutes": [
+    {
+     "lawRef": "372/2011",
+     "operativeParagraphs": [
+      "117",
+      "47"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "40/2009",
+     "operativeParagraphs": [
+      "298a"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "73/2012",
+     "operativeParagraphs": [
+      "1",
+      "10",
+      "10a",
+      "11",
+      "13",
+      "14",
+      "15",
+      "2",
+      "21",
+      "22",
+      "23",
+      "24",
+      "25",
+      "4",
+      "5",
+      "7",
+      "8",
+      "8a",
+      "9"
+     ],
+     "citedOnlyParagraphs": [
+      "10b",
+      "13a",
+      "16",
+      "17",
+      "18",
+      "19",
+      "19a",
+      "19b",
+      "19c",
+      "19d",
+      "19e",
+      "19f",
+      "19g",
+      "19h",
+      "19i",
+      "19j",
+      "19k",
+      "19l",
+      "20",
+      "25a",
+      "25b",
+      "3",
+      "4a",
+      "6",
+      "7a",
+      "9a",
+      "9b",
+      "9c"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 15,
+   "statutes": [
+    {
+     "lawRef": "90/1995",
+     "operativeParagraphs": [
+      "53",
+      "54",
+      "58",
+      "59",
+      "60",
+      "67",
+      "95a"
+     ],
+     "citedOnlyParagraphs": [
+      "1",
+      "95"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 16,
+   "statutes": [
+    {
+     "lawRef": "170/2018",
+     "operativeParagraphs": [
+      "3",
+      "93"
+     ],
+     "citedOnlyParagraphs": [
+      "1843",
+      "92",
+      "93a"
+     ]
+    },
+    {
+     "lawRef": "240/2013",
+     "operativeParagraphs": [
+      "232",
+      "49",
+      "604"
+     ],
+     "citedOnlyParagraphs": [
+      "1843",
+      "232a"
+     ]
+    },
+    {
+     "lawRef": "256/2004",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "15f",
+      "1843"
+     ]
+    },
+    {
+     "lawRef": "257/2016",
+     "operativeParagraphs": [
+      "94"
+     ],
+     "citedOnlyParagraphs": [
+      "1843"
+     ]
+    },
+    {
+     "lawRef": "31/2025",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "1843",
+      "8",
+      "8a"
+     ]
+    },
+    {
+     "lawRef": "340/2006",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "1843",
+      "7d",
+      "7e"
+     ]
+    },
+    {
+     "lawRef": "370/2017",
+     "operativeParagraphs": [
+      "131",
+      "216"
+     ],
+     "citedOnlyParagraphs": [
+      "131a",
+      "1843",
+      "1845"
+     ]
+    },
+    {
+     "lawRef": "6/1993",
+     "operativeParagraphs": [
+      "46"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "634/1992",
+     "operativeParagraphs": [
+      "23",
+      "23a",
+      "23b",
+      "24",
+      "24b",
+      "5d"
+     ],
+     "citedOnlyParagraphs": [
+      "1811",
+      "1817",
+      "1830",
+      "1830a",
+      "1843",
+      "1843a",
+      "1844a",
+      "1845",
+      "23d",
+      "5e"
+     ]
+    },
+    {
+     "lawRef": "89/2012",
+     "operativeParagraphs": [
+      "1820",
+      "1830",
+      "1840",
+      "1841",
+      "1843",
+      "1844a",
+      "1845",
+      "1846",
+      "1847",
+      "1848",
+      "1849",
+      "1850",
+      "2774",
+      "2808"
+     ],
+     "citedOnlyParagraphs": [
+      "1830a",
+      "1843a",
+      "1844b",
+      "1845a",
+      "2760"
+     ]
+    },
+    {
+     "lawRef": "91/2022",
+     "operativeParagraphs": [
+      "1"
+     ],
+     "citedOnlyParagraphs": [
+      "1843"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "256/2004",
+    "31/2025",
+    "340/2006"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 24,
+   "statutes": [
+    {
+     "lawRef": "12/2020",
+     "operativeParagraphs": [
+      "6"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "128/2000",
+     "operativeParagraphs": [
+      "53a",
+      "53d",
+      "53e",
+      "53g"
+     ],
+     "citedOnlyParagraphs": [
+      "53h",
+      "61"
+     ]
+    },
+    {
+     "lawRef": "194/2010",
+     "operativeParagraphs": [
+      "5",
+      "8"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "262/2006",
+     "operativeParagraphs": [
+      "109",
+      "303"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "35/2021",
+     "operativeParagraphs": [
+      "2",
+      "5",
+      "6",
+      "8"
+     ],
+     "citedOnlyParagraphs": [
+      "1a",
+      "9"
+     ]
+    },
+    {
+     "lawRef": "365/2000",
+     "operativeParagraphs": [
+      "12",
+      "4",
+      "8a",
+      "8b"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "500/2004",
+     "operativeParagraphs": [
+      "15",
+      "49"
+     ],
+     "citedOnlyParagraphs": [
+      "15a",
+      "49a"
+     ]
+    },
+    {
+     "lawRef": "553/1991",
+     "operativeParagraphs": [
+      "1",
+      "1a",
+      "21",
+      "23",
+      "26",
+      "27a",
+      "28b",
+      "3",
+      "3a",
+      "4"
+     ],
+     "citedOnlyParagraphs": [
+      "17g",
+      "1b",
+      "53a",
+      "7",
+      "9"
+     ]
+    },
+    {
+     "lawRef": "553/2020",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "4"
+     ]
+    },
+    {
+     "lawRef": "82/1998",
+     "operativeParagraphs": [
+      "1",
+      "3"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 25,
+   "statutes": [
+    {
+     "lawRef": "222/2016",
+     "operativeParagraphs": [
+      "12",
+      "18",
+      "22",
+      "26"
+     ],
+     "citedOnlyParagraphs": [
+      "16",
+      "22a",
+      "4"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "277/2019"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 28,
+   "statutes": [
+    {
+     "lawRef": "243/2000",
+     "operativeParagraphs": [
+      "3",
+      "4",
+      "6"
+     ],
+     "citedOnlyParagraphs": [
+      "3a"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "349/2023"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 35,
+   "statutes": [
+    {
+     "lawRef": "236/1995",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "4"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "236/1995"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 36,
+   "statutes": [],
+   "extractorMissedRefs": [
+    "268/2025"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 40,
+   "statutes": [
+    {
+     "lawRef": "586/1992",
+     "operativeParagraphs": [
+      "25"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 42,
+   "statutes": [],
+   "extractorMissedRefs": [
+    "465/2023"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 46,
+   "statutes": [
+    {
+     "lawRef": "104/2013",
+     "operativeParagraphs": [
+      "189",
+      "226",
+      "256",
+      "260",
+      "261",
+      "273",
+      "278",
+      "292",
+      "298",
+      "299",
+      "314",
+      "323",
+      "336",
+      "340",
+      "357",
+      "374",
+      "395b",
+      "65a"
+     ],
+     "citedOnlyParagraphs": [
+      "113",
+      "146a",
+      "182",
+      "193a",
+      "193b",
+      "201",
+      "202",
+      "209",
+      "230",
+      "231",
+      "234",
+      "236",
+      "242",
+      "244",
+      "245",
+      "247",
+      "264",
+      "267",
+      "269",
+      "270",
+      "281",
+      "284",
+      "285",
+      "288",
+      "302",
+      "304",
+      "305",
+      "308",
+      "314l",
+      "315",
+      "326",
+      "327",
+      "328",
+      "331",
+      "345",
+      "349",
+      "359",
+      "362",
+      "364",
+      "365",
+      "366",
+      "37",
+      "377",
+      "395a",
+      "395c",
+      "395d",
+      "395e",
+      "395f",
+      "395g",
+      "395h",
+      "395i",
+      "395j",
+      "395k",
+      "395l",
+      "395m",
+      "48",
+      "48a",
+      "78",
+      "79",
+      "7a",
+      "8",
+      "88a"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 47,
+   "statutes": [],
+   "extractorMissedRefs": [
+    "1/1993"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 48,
+   "statutes": [
+    {
+     "lawRef": "326/2004",
+     "operativeParagraphs": [
+      "43",
+      "46b",
+      "49",
+      "59",
+      "60",
+      "60a",
+      "63",
+      "71",
+      "72",
+      "76",
+      "79c",
+      "79g",
+      "82",
+      "83",
+      "88"
+     ],
+     "citedOnlyParagraphs": [
+      "13a",
+      "13b",
+      "13d",
+      "2",
+      "51",
+      "77",
+      "79"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 49,
+   "statutes": [
+    {
+     "lawRef": "100/2001",
+     "operativeParagraphs": [
+      "23"
+     ],
+     "citedOnlyParagraphs": [
+      "10",
+      "9a"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 50,
+   "statutes": [
+    {
+     "lawRef": "155/1995",
+     "operativeParagraphs": [
+      "29",
+      "34",
+      "67"
+     ],
+     "citedOnlyParagraphs": [
+      "11",
+      "13",
+      "32"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "417/2024"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 52,
+   "statutes": [
+    {
+     "lawRef": "141/1961",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "1",
+      "10",
+      "11",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 53,
+   "statutes": [
+    {
+     "lawRef": "634/1992",
+     "operativeParagraphs": [
+      "13",
+      "15",
+      "19",
+      "2",
+      "20l",
+      "23",
+      "23b",
+      "24",
+      "3",
+      "5",
+      "5a"
+     ],
+     "citedOnlyParagraphs": [
+      "2159",
+      "2165",
+      "2168",
+      "2174a",
+      "23d"
+     ]
+    },
+    {
+     "lawRef": "89/2012",
+     "operativeParagraphs": [
+      "1811",
+      "1820",
+      "1826a",
+      "1840",
+      "2114",
+      "2161",
+      "2165",
+      "2168",
+      "2169",
+      "2171"
+     ],
+     "citedOnlyParagraphs": [
+      "2170"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 54,
+   "statutes": [
+    {
+     "lawRef": "499/2004",
+     "operativeParagraphs": [
+      "70",
+      "72",
+      "73"
+     ],
+     "citedOnlyParagraphs": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "16m",
+      "17",
+      "18",
+      "19",
+      "2",
+      "20",
+      "21",
+      "22",
+      "23",
+      "24",
+      "25",
+      "26",
+      "27",
+      "28",
+      "29",
+      "3",
+      "30",
+      "31",
+      "32",
+      "33",
+      "34",
+      "35",
+      "36",
+      "37",
+      "38",
+      "39",
+      "4",
+      "40",
+      "41",
+      "5",
+      "6",
+      "69b",
+      "7",
+      "8",
+      "9"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "269/1994",
+    "372/2011",
+    "634/2004",
+    "89/1995"
+   ],
+   "extractorExtraRefs": [
+    "499/2004"
+   ]
+  },
+  {
+   "cislo": 55,
+   "statutes": [
+    {
+     "lawRef": "200/1994",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "1",
+      "10",
+      "104a",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "184",
+      "19",
+      "2",
+      "20",
+      "21",
+      "2a",
+      "2i",
+      "3",
+      "4",
+      "4a",
+      "4b",
+      "4d",
+      "5",
+      "6",
+      "7",
+      "8",
+      "83",
+      "9",
+      "96"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 56,
+   "statutes": [
+    {
+     "lawRef": "127/2005",
+     "operativeParagraphs": [
+      "104",
+      "150",
+      "7"
+     ],
+     "citedOnlyParagraphs": [
+      "115b"
+     ]
+    },
+    {
+     "lawRef": "200/1994",
+     "operativeParagraphs": [
+      "17a",
+      "17b",
+      "17c",
+      "2",
+      "4a",
+      "4b",
+      "4d"
+     ],
+     "citedOnlyParagraphs": [
+      "17d",
+      "2a",
+      "63"
+     ]
+    },
+    {
+     "lawRef": "283/2021",
+     "operativeParagraphs": [
+      "156"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "416/2009",
+     "operativeParagraphs": [
+      "2i"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "634/2004",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "14"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "634/2004"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 57,
+   "statutes": [
+    {
+     "lawRef": "375/2022",
+     "operativeParagraphs": [
+      "27",
+      "39",
+      "4",
+      "5",
+      "53",
+      "55",
+      "57",
+      "58",
+      "59",
+      "60",
+      "61",
+      "68",
+      "8",
+      "8a"
+     ],
+     "citedOnlyParagraphs": [
+      "27a",
+      "28a",
+      "29",
+      "39a",
+      "53a",
+      "8b"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 58,
+   "statutes": [
+    {
+     "lawRef": "542/2020",
+     "operativeParagraphs": [
+      "1",
+      "101",
+      "104",
+      "105",
+      "107",
+      "109",
+      "11",
+      "115",
+      "12",
+      "121",
+      "122",
+      "123",
+      "124",
+      "125",
+      "126",
+      "128",
+      "13",
+      "130",
+      "131",
+      "132",
+      "17",
+      "19",
+      "2",
+      "20",
+      "21",
+      "22",
+      "23",
+      "25",
+      "3",
+      "31",
+      "32",
+      "33",
+      "35",
+      "36",
+      "44",
+      "45",
+      "46",
+      "47",
+      "48",
+      "51",
+      "53",
+      "55",
+      "57",
+      "58",
+      "59",
+      "69",
+      "7",
+      "72",
+      "73",
+      "9",
+      "94",
+      "99"
+     ],
+     "citedOnlyParagraphs": [
+      "108",
+      "122a",
+      "129",
+      "131a",
+      "131b",
+      "19b",
+      "19c",
+      "19d",
+      "26",
+      "50",
+      "56",
+      "6",
+      "75",
+      "76",
+      "77",
+      "78",
+      "79",
+      "8",
+      "80",
+      "81",
+      "82",
+      "83",
+      "84",
+      "85",
+      "88",
+      "89",
+      "90",
+      "97",
+      "98"
+     ]
+    },
+    {
+     "lawRef": "90/2016",
+     "operativeParagraphs": [
+      "54"
+     ],
+     "citedOnlyParagraphs": [
+      "27h"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "87/2023"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 59,
+   "statutes": [
+    {
+     "lawRef": "468/2024",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "17",
+      "18",
+      "19",
+      "2",
+      "20"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "468/2024"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 61,
+   "statutes": [
+    {
+     "lawRef": "218/2003",
+     "operativeParagraphs": [
+      "3",
+      "47",
+      "48",
+      "49",
+      "89j"
+     ],
+     "citedOnlyParagraphs": [
+      "16",
+      "72",
+      "72a"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 62,
+   "statutes": [
+    {
+     "lawRef": "634/1992",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "1811",
+      "1820",
+      "2",
+      "2158",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "634/1992"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 63,
+   "statutes": [
+    {
+     "lawRef": "21/1992",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "1",
+      "10",
+      "100",
+      "101",
+      "102",
+      "103",
+      "104",
+      "105",
+      "106",
+      "107",
+      "108",
+      "109",
+      "11",
+      "110",
+      "111",
+      "112",
+      "113",
+      "114",
+      "115",
+      "116",
+      "117",
+      "118",
+      "119",
+      "11c",
+      "12",
+      "120",
+      "121",
+      "122",
+      "123",
+      "124",
+      "125",
+      "126",
+      "127",
+      "128",
+      "129",
+      "13",
+      "130",
+      "131",
+      "132",
+      "133",
+      "134",
+      "135",
+      "136",
+      "137",
+      "138",
+      "139",
+      "14",
+      "140",
+      "141",
+      "142",
+      "143",
+      "144",
+      "145",
+      "146",
+      "147",
+      "148",
+      "149",
+      "15",
+      "150",
+      "151",
+      "152",
+      "153",
+      "154",
+      "155",
+      "156",
+      "157",
+      "158",
+      "159",
+      "16",
+      "160",
+      "161",
+      "162",
+      "163",
+      "164",
+      "165",
+      "166",
+      "167",
+      "168",
+      "169",
+      "17",
+      "170",
+      "171",
+      "172",
+      "173",
+      "174",
+      "175",
+      "176",
+      "177",
+      "178",
+      "179",
+      "18",
+      "180",
+      "181",
+      "182",
+      "183",
+      "184",
+      "185",
+      "186",
+      "187",
+      "188",
+      "189",
+      "19",
+      "190",
+      "191",
+      "192",
+      "193",
+      "194",
+      "195",
+      "196",
+      "197",
+      "198",
+      "199",
+      "2",
+      "20",
+      "200",
+      "201",
+      "202",
+      "203",
+      "204",
+      "205",
+      "206",
+      "207",
+      "208",
+      "209",
+      "21",
+      "210",
+      "211",
+      "212",
+      "213",
+      "214",
+      "215",
+      "216",
+      "217",
+      "218",
+      "219",
+      "22",
+      "220",
+      "221",
+      "222",
+      "223",
+      "224",
+      "225",
+      "226",
+      "227",
+      "228",
+      "229",
+      "23",
+      "230",
+      "231",
+      "232",
+      "233",
+      "234",
+      "235",
+      "236",
+      "237",
+      "238",
+      "239",
+      "24",
+      "240",
+      "241",
+      "242",
+      "243",
+      "244",
+      "245",
+      "246",
+      "247",
+      "248",
+      "249",
+      "25",
+      "250",
+      "251",
+      "252",
+      "253",
+      "254",
+      "255",
+      "256",
+      "257",
+      "258",
+      "259",
+      "26",
+      "260",
+      "261",
+      "262",
+      "263",
+      "264",
+      "265",
+      "266",
+      "267",
+      "268",
+      "269",
+      "27",
+      "270",
+      "271",
+      "272",
+      "273",
+      "274",
+      "275",
+      "276",
+      "277",
+      "278",
+      "279",
+      "28",
+      "280",
+      "281",
+      "282",
+      "283",
+      "284",
+      "285",
+      "286",
+      "29",
+      "3",
+      "30",
+      "31",
+      "32",
+      "33",
+      "34",
+      "35",
+      "36",
+      "37",
+      "37ab",
+      "38",
+      "39",
+      "4",
+      "40",
+      "41",
+      "42",
+      "43",
+      "44",
+      "45",
+      "46",
+      "47",
+      "48",
+      "49",
+      "5",
+      "50",
+      "51",
+      "52",
+      "53",
+      "54",
+      "55",
+      "56",
+      "57",
+      "58",
+      "59",
+      "6",
+      "60",
+      "61",
+      "62",
+      "63",
+      "64",
+      "65",
+      "66",
+      "67",
+      "68",
+      "69",
+      "7",
+      "70",
+      "71",
+      "72",
+      "73",
+      "74",
+      "75",
+      "76",
+      "77",
+      "78",
+      "79",
+      "8",
+      "80",
+      "81",
+      "82",
+      "83",
+      "84",
+      "85",
+      "86",
+      "87",
+      "88",
+      "89",
+      "9",
+      "90",
+      "91",
+      "92",
+      "93",
+      "94",
+      "95",
+      "96",
+      "97",
+      "98",
+      "99"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 64,
+   "statutes": [
+    {
+     "lawRef": "104/2000",
+     "operativeParagraphs": [
+      "5",
+      "5b",
+      "8",
+      "9"
+     ],
+     "citedOnlyParagraphs": [
+      "2"
+     ]
+    },
+    {
+     "lawRef": "111/1994",
+     "operativeParagraphs": [
+      "8"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "111/1998",
+     "operativeParagraphs": [
+      "15",
+      "18",
+      "18a",
+      "20",
+      "21",
+      "83h",
+      "91"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "111/2006",
+     "operativeParagraphs": [
+      "15"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "114/1995",
+     "operativeParagraphs": [
+      "25"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "115/2001",
+     "operativeParagraphs": [
+      "3",
+      "3g",
+      "6b"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "12/2002",
+     "operativeParagraphs": [
+      "2"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "120/2001",
+     "operativeParagraphs": [
+      "34",
+      "66",
+      "70"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "121/2000",
+     "operativeParagraphs": [
+      "103",
+      "105ba",
+      "96f",
+      "99g"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "125/2008",
+     "operativeParagraphs": [
+      "10",
+      "106",
+      "109",
+      "11",
+      "110",
+      "11a",
+      "11b",
+      "12",
+      "121",
+      "125",
+      "13",
+      "130",
+      "131",
+      "166",
+      "250",
+      "254",
+      "3",
+      "300",
+      "304",
+      "305",
+      "339",
+      "344",
+      "359i",
+      "363",
+      "365",
+      "366",
+      "368",
+      "369a",
+      "379",
+      "59e",
+      "59q",
+      "70",
+      "73",
+      "75",
+      "77",
+      "78",
+      "8",
+      "90",
+      "93",
+      "95a",
+      "95b"
+     ],
+     "citedOnlyParagraphs": [
+      "105",
+      "109a",
+      "119",
+      "122",
+      "123",
+      "124",
+      "128",
+      "169",
+      "171",
+      "172",
+      "173",
+      "174",
+      "265",
+      "266a",
+      "269",
+      "282",
+      "285",
+      "286",
+      "287",
+      "287a",
+      "287b",
+      "299",
+      "301",
+      "302",
+      "303",
+      "306a",
+      "310",
+      "323",
+      "325",
+      "326",
+      "327",
+      "328",
+      "343",
+      "94",
+      "95"
+     ]
+    },
+    {
+     "lawRef": "127/2005",
+     "operativeParagraphs": [
+      "104",
+      "104a",
+      "110",
+      "2",
+      "3",
+      "86"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "128/2000",
+     "operativeParagraphs": [
+      "102",
+      "38",
+      "39",
+      "39c",
+      "49",
+      "50",
+      "53d"
+     ],
+     "citedOnlyParagraphs": [
+      "84"
+     ]
+    },
+    {
+     "lawRef": "129/2000",
+     "operativeParagraphs": [
+      "17",
+      "18",
+      "18c",
+      "35",
+      "59"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "13/1997",
+     "operativeParagraphs": [
+      "17",
+      "18f",
+      "22c",
+      "22d",
+      "9a"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "131/2000",
+     "operativeParagraphs": [
+      "35",
+      "36",
+      "36c",
+      "37",
+      "59",
+      "68"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "134/2016",
+     "operativeParagraphs": [
+      "104",
+      "13",
+      "155",
+      "19",
+      "78"
+     ],
+     "citedOnlyParagraphs": [
+      "21a"
+     ]
+    },
+    {
+     "lawRef": "139/2002",
+     "operativeParagraphs": [
+      "10",
+      "14",
+      "5",
+      "8",
+      "9"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "143/2001",
+     "operativeParagraphs": [
+      "13",
+      "22a",
+      "22c",
+      "22d"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "146/2002",
+     "operativeParagraphs": [
+      "1"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "147/2002",
+     "operativeParagraphs": [
+      "1"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "15/1998",
+     "operativeParagraphs": [
+      "26"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "151/1997",
+     "operativeParagraphs": [
+      "10",
+      "11",
+      "12",
+      "13",
+      "15",
+      "16",
+      "16a",
+      "16b",
+      "16c",
+      "17",
+      "19",
+      "20",
+      "21",
+      "22",
+      "23",
+      "3",
+      "33",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ],
+     "citedOnlyParagraphs": [
+      "1",
+      "13a",
+      "15a",
+      "1a",
+      "1b",
+      "1c",
+      "2",
+      "24",
+      "2a",
+      "2b",
+      "2c",
+      "2d"
+     ]
+    },
+    {
+     "lawRef": "151/2010",
+     "operativeParagraphs": [
+      "8"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "153/1994",
+     "operativeParagraphs": [
+      "3"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "166/1993",
+     "operativeParagraphs": [
+      "13",
+      "21",
+      "33"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "166/1999",
+     "operativeParagraphs": [
+      "47"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "168/2025",
+     "operativeParagraphs": [
+      "14"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "17/2012",
+     "operativeParagraphs": [
+      "1"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "181/2007",
+     "operativeParagraphs": [
+      "12",
+      "3"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "182/2006",
+     "operativeParagraphs": [
+      "105",
+      "127a",
+      "219",
+      "228",
+      "240",
+      "246",
+      "256",
+      "277",
+      "3",
+      "302",
+      "313",
+      "314",
+      "316",
+      "330",
+      "398b",
+      "58"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "184/2006",
+     "operativeParagraphs": [
+      "10",
+      "11",
+      "12",
+      "18",
+      "24",
+      "28"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "186/2016",
+     "operativeParagraphs": [
+      "10",
+      "4",
+      "6",
+      "87",
+      "89"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "187/2006",
+     "operativeParagraphs": [
+      "84"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "187/2016",
+     "operativeParagraphs": [
+      "3"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "190/2004",
+     "operativeParagraphs": [
+      "27",
+      "29",
+      "38",
+      "40b",
+      "9a"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "198/2002",
+     "operativeParagraphs": [
+      "8"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "20/1993",
+     "operativeParagraphs": [
+      "1"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "201/2002",
+     "operativeParagraphs": [
+      "1",
+      "3"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "21/1992",
+     "operativeParagraphs": [
+      "11b",
+      "11c",
+      "21",
+      "22a",
+      "22b",
+      "23",
+      "25a",
+      "26",
+      "26ac",
+      "26g",
+      "26h",
+      "36",
+      "36c",
+      "36e",
+      "36g",
+      "36h",
+      "36i",
+      "38d",
+      "38hc",
+      "39",
+      "5a"
+     ],
+     "citedOnlyParagraphs": [
+      "12af",
+      "12ag",
+      "23a"
+     ]
+    },
+    {
+     "lawRef": "211/2000",
+     "operativeParagraphs": [
+      "5",
+      "6"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "218/2000",
+     "operativeParagraphs": [
+      "12",
+      "14",
+      "20",
+      "2a",
+      "3",
+      "45",
+      "48",
+      "50",
+      "53",
+      "54",
+      "55",
+      "56",
+      "57",
+      "58",
+      "61",
+      "63",
+      "68",
+      "69"
+     ],
+     "citedOnlyParagraphs": [
+      "4",
+      "47",
+      "59",
+      "60",
+      "8"
+     ]
+    },
+    {
+     "lawRef": "219/2000",
+     "operativeParagraphs": [
+      "12",
+      "14",
+      "15",
+      "21b",
+      "21c",
+      "3",
+      "37",
+      "4",
+      "51",
+      "55a",
+      "5a",
+      "7"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "222/1999",
+     "operativeParagraphs": [
+      "49",
+      "58"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "229/1992",
+     "operativeParagraphs": [
+      "1",
+      "5",
+      "5a",
+      "8a"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "229/2002",
+     "operativeParagraphs": [
+      "1a"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "23/2017",
+     "operativeParagraphs": [
+      "1",
+      "17",
+      "32",
+      "33",
+      "5",
+      "7"
+     ],
+     "citedOnlyParagraphs": [
+      "3",
+      "33a",
+      "33b",
+      "33c",
+      "33d"
+     ]
+    },
+    {
+     "lawRef": "234/2025",
+     "operativeParagraphs": [
+      "11",
+      "26",
+      "30",
+      "8"
+     ],
+     "citedOnlyParagraphs": [
+      "27",
+      "28",
+      "29"
+     ]
+    },
+    {
+     "lawRef": "235/2004",
+     "operativeParagraphs": [
+      "10",
+      "13",
+      "21",
+      "36",
+      "4",
+      "5",
+      "6",
+      "72",
+      "75",
+      "76",
+      "78",
+      "78a",
+      "78b",
+      "78da",
+      "79",
+      "89"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "239/1992",
+     "operativeParagraphs": [
+      "5",
+      "6"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "240/2013",
+     "operativeParagraphs": [
+      "134",
+      "165",
+      "187",
+      "190",
+      "2",
+      "209",
+      "213",
+      "214",
+      "233",
+      "234",
+      "235",
+      "236",
+      "238",
+      "270",
+      "29",
+      "290",
+      "291",
+      "316",
+      "337",
+      "34",
+      "36",
+      "37",
+      "376",
+      "38",
+      "434",
+      "455",
+      "461",
+      "47",
+      "478",
+      "539",
+      "544",
+      "599",
+      "604",
+      "606",
+      "633",
+      "638"
+     ],
+     "citedOnlyParagraphs": [
+      "114",
+      "196",
+      "21",
+      "292",
+      "475",
+      "545",
+      "600",
+      "601",
+      "602",
+      "603",
+      "603a",
+      "605",
+      "607",
+      "608",
+      "609",
+      "610",
+      "612",
+      "613",
+      "614",
+      "615",
+      "616",
+      "617"
+     ]
+    },
+    {
+     "lawRef": "243/2000",
+     "operativeParagraphs": [
+      "3",
+      "4",
+      "6d"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "243/2022",
+     "operativeParagraphs": [
+      "22",
+      "26"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "248/2000",
+     "operativeParagraphs": [
+      "18f",
+      "18g"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "250/2000",
+     "operativeParagraphs": [
+      "10",
+      "10a",
+      "13",
+      "16",
+      "17",
+      "19",
+      "2",
+      "20",
+      "21",
+      "22",
+      "24",
+      "25",
+      "26",
+      "28",
+      "28a",
+      "29",
+      "3",
+      "30",
+      "31",
+      "32",
+      "33",
+      "33b",
+      "34",
+      "4",
+      "6",
+      "9"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "251/2005",
+     "operativeParagraphs": [
+      "2"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "253/2008",
+     "operativeParagraphs": [
+      "29c",
+      "44",
+      "45",
+      "46",
+      "47",
+      "48",
+      "48a",
+      "49"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "256/2000",
+     "operativeParagraphs": [
+      "10",
+      "4"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "256/2004",
+     "operativeParagraphs": [
+      "118",
+      "119",
+      "119a",
+      "121k",
+      "121o",
+      "121q",
+      "121s",
+      "12e",
+      "130",
+      "132a",
+      "134a",
+      "136",
+      "158",
+      "16",
+      "162",
+      "164",
+      "165",
+      "16b",
+      "172",
+      "173b",
+      "28b",
+      "2a",
+      "2b",
+      "50",
+      "65",
+      "73b",
+      "90k"
+     ],
+     "citedOnlyParagraphs": [
+      "121p",
+      "129",
+      "143",
+      "163",
+      "163a",
+      "166",
+      "168",
+      "173",
+      "175",
+      "176",
+      "177",
+      "178",
+      "179",
+      "180",
+      "181",
+      "182",
+      "183",
+      "184",
+      "185",
+      "1b",
+      "21",
+      "28"
+     ]
+    },
+    {
+     "lawRef": "257/2000",
+     "operativeParagraphs": [
+      "1"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "257/2016",
+     "operativeParagraphs": [
+      "113",
+      "3"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "258/2000",
+     "operativeParagraphs": [
+      "82"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "263/2024",
+     "operativeParagraphs": [
+      "13",
+      "23",
+      "28",
+      "29",
+      "30",
+      "41"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "266/1994",
+     "operativeParagraphs": [
+      "14a",
+      "23f",
+      "28",
+      "42b",
+      "51",
+      "52",
+      "62"
+     ],
+     "citedOnlyParagraphs": [
+      "42c"
+     ]
+    },
+    {
+     "lawRef": "273/2008",
+     "operativeParagraphs": [
+      "7",
+      "8"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "277/2009",
+     "operativeParagraphs": [
+      "100",
+      "113",
+      "116",
+      "120",
+      "124",
+      "128",
+      "136",
+      "80",
+      "82",
+      "82a",
+      "85",
+      "95",
+      "97"
+     ],
+     "citedOnlyParagraphs": [
+      "21",
+      "52",
+      "82b",
+      "89c"
+     ]
+    },
+    {
+     "lawRef": "279/2003",
+     "operativeParagraphs": [
+      "10",
+      "8a"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "280/1992",
+     "operativeParagraphs": [
+      "10",
+      "15",
+      "16",
+      "22e",
+      "4b",
+      "6",
+      "6a"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "280/2009",
+     "operativeParagraphs": [
+      "145",
+      "155a",
+      "163",
+      "215",
+      "221",
+      "239a",
+      "239b",
+      "244",
+      "252",
+      "72"
+     ],
+     "citedOnlyParagraphs": [
+      "136",
+      "239c",
+      "240c",
+      "240e",
+      "245a",
+      "245b",
+      "245c",
+      "245d",
+      "245e",
+      "245f",
+      "245g",
+      "56"
+     ]
+    },
+    {
+     "lawRef": "282/1991",
+     "operativeParagraphs": [
+      "1"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "283/1993",
+     "operativeParagraphs": [
+      "6"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "283/2021",
+     "operativeParagraphs": [
+      "29"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "284/2023",
+     "operativeParagraphs": [
+      "19",
+      "5",
+      "9"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "29/2000",
+     "operativeParagraphs": [
+      "33a"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "3/2002",
+     "operativeParagraphs": [
+      "11",
+      "18",
+      "19"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "30/2024",
+     "operativeParagraphs": [
+      "51",
+      "54",
+      "57",
+      "81",
+      "82"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "301/1992",
+     "operativeParagraphs": [
+      "13"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "304/2013",
+     "operativeParagraphs": [
+      "105a",
+      "111",
+      "66",
+      "69",
+      "70"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "306/1999",
+     "operativeParagraphs": [
+      "6"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "307/2006",
+     "operativeParagraphs": [
+      "99"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "31/2025",
+     "operativeParagraphs": [
+      "11",
+      "22",
+      "23",
+      "6"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "312/2006",
+     "operativeParagraphs": [
+      "29",
+      "3"
+     ],
+     "citedOnlyParagraphs": [
+      "31"
+     ]
+    },
+    {
+     "lawRef": "317/2025",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "12g"
+     ]
+    },
+    {
+     "lawRef": "321/2004",
+     "operativeParagraphs": [
+      "31",
+      "32",
+      "34"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "326/1999",
+     "operativeParagraphs": [
+      "42o"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "328/2025",
+     "operativeParagraphs": [
+      "34",
+      "45",
+      "50"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "335/2020",
+     "operativeParagraphs": [
+      "25"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "338/1992",
+     "operativeParagraphs": [
+      "10a",
+      "1a",
+      "5a"
+     ],
+     "citedOnlyParagraphs": [
+      "1b"
+     ]
+    },
+    {
+     "lawRef": "341/2005",
+     "operativeParagraphs": [
+      "17",
+      "19",
+      "21",
+      "24",
+      "25",
+      "26",
+      "27",
+      "29",
+      "30",
+      "8"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "341/2011",
+     "operativeParagraphs": [
+      "1"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "359/1992",
+     "operativeParagraphs": [
+      "1",
+      "2"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "360/2004",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "9"
+     ]
+    },
+    {
+     "lawRef": "365/2000",
+     "operativeParagraphs": [
+      "2"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "37/2021",
+     "operativeParagraphs": [
+      "4",
+      "53"
+     ],
+     "citedOnlyParagraphs": [
+      "23"
+     ]
+    },
+    {
+     "lawRef": "370/2017",
+     "operativeParagraphs": [
+      "213",
+      "235a",
+      "242"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "372/2011",
+     "operativeParagraphs": [
+      "113f"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "374/2015",
+     "operativeParagraphs": [
+      "112",
+      "198",
+      "201",
+      "205",
+      "4",
+      "54"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "377/2005",
+     "operativeParagraphs": [
+      "26",
+      "7"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "378/2005",
+     "operativeParagraphs": [
+      "11"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "388/1991",
+     "operativeParagraphs": [
+      "1"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "395/2009",
+     "operativeParagraphs": [
+      "3a",
+      "4"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "40/2009",
+     "operativeParagraphs": [
+      "254"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "406/2000",
+     "operativeParagraphs": [
+      "13b"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "412/2005",
+     "operativeParagraphs": [
+      "17",
+      "97"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "416/2009",
+     "operativeParagraphs": [
+      "2f",
+      "2h",
+      "3b"
+     ],
+     "citedOnlyParagraphs": [
+      "3a"
+     ]
+    },
+    {
+     "lawRef": "417/2004",
+     "operativeParagraphs": [
+      "43",
+      "58"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "42/1992",
+     "operativeParagraphs": [
+      "6",
+      "9"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "420/2004",
+     "operativeParagraphs": [
+      "12"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "424/1991",
+     "operativeParagraphs": [
+      "17",
+      "18",
+      "19",
+      "19h",
+      "19j",
+      "6"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "427/2011",
+     "operativeParagraphs": [
+      "110",
+      "115",
+      "134",
+      "142",
+      "143",
+      "160",
+      "170",
+      "188",
+      "192",
+      "3",
+      "32",
+      "56",
+      "57",
+      "59",
+      "65"
+     ],
+     "citedOnlyParagraphs": [
+      "143a",
+      "21",
+      "57a",
+      "84"
+     ]
+    },
+    {
+     "lawRef": "435/2004",
+     "operativeParagraphs": [
+      "120",
+      "120e"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "44/1988",
+     "operativeParagraphs": [
+      "37a"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "449/2001",
+     "operativeParagraphs": [
+      "27"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "455/1991",
+     "operativeParagraphs": [
+      "3"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "456/2011",
+     "operativeParagraphs": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "13a"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "458/2000",
+     "operativeParagraphs": [
+      "14",
+      "19f",
+      "20",
+      "20a",
+      "20b",
+      "23",
+      "24",
+      "25",
+      "30",
+      "57",
+      "58",
+      "58h",
+      "59",
+      "61",
+      "67",
+      "73g",
+      "76",
+      "91a",
+      "95j",
+      "96",
+      "97b"
+     ],
+     "citedOnlyParagraphs": [
+      "60"
+     ]
+    },
+    {
+     "lawRef": "468/2024",
+     "operativeParagraphs": [
+      "17",
+      "20"
+     ],
+     "citedOnlyParagraphs": [
+      "19"
+     ]
+    },
+    {
+     "lawRef": "477/2001",
+     "operativeParagraphs": [
+      "17",
+      "20",
+      "21a",
+      "23a",
+      "44"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "483/1991",
+     "operativeParagraphs": [
+      "11a",
+      "8"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "484/1991",
+     "operativeParagraphs": [
+      "11a",
+      "8"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "49/1997",
+     "operativeParagraphs": [
+      "3",
+      "42h",
+      "49o",
+      "98a"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "496/2012",
+     "operativeParagraphs": [
+      "17",
+      "24a",
+      "24c",
+      "31",
+      "52f",
+      "8"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "503/2012",
+     "operativeParagraphs": [
+      "1",
+      "10a",
+      "12",
+      "13",
+      "14",
+      "20",
+      "3",
+      "8"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "526/1990",
+     "operativeParagraphs": [
+      "1"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "542/2020",
+     "operativeParagraphs": [
+      "112",
+      "122",
+      "124",
+      "36",
+      "41",
+      "46",
+      "48",
+      "53",
+      "55",
+      "97"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "551/1991",
+     "operativeParagraphs": [
+      "20",
+      "21",
+      "22",
+      "23b",
+      "6",
+      "9"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "555/1992",
+     "operativeParagraphs": [
+      "1",
+      "23c"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "561/2004",
+     "operativeParagraphs": [
+      "129",
+      "131",
+      "132",
+      "133",
+      "134",
+      "135",
+      "136",
+      "137",
+      "138",
+      "142",
+      "160",
+      "161",
+      "161a",
+      "161c",
+      "162",
+      "163",
+      "165",
+      "170",
+      "173",
+      "174",
+      "28",
+      "3",
+      "32a"
+     ],
+     "citedOnlyParagraphs": [
+      "113a",
+      "139",
+      "151",
+      "161b",
+      "162a",
+      "180",
+      "182",
+      "19",
+      "6"
+     ]
+    },
+    {
+     "lawRef": "58/1995",
+     "operativeParagraphs": [
+      "6"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "582/1991",
+     "operativeParagraphs": [
+      "3a",
+      "6"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "586/1992",
+     "operativeParagraphs": [
+      "10",
+      "17b",
+      "17c",
+      "18",
+      "18a",
+      "19",
+      "19b",
+      "20",
+      "20b",
+      "20c",
+      "21",
+      "21a",
+      "21f",
+      "21h",
+      "22",
+      "23",
+      "23a",
+      "23b",
+      "23c",
+      "23d",
+      "23e",
+      "23f",
+      "23g",
+      "23h",
+      "23i",
+      "23j",
+      "23zl",
+      "24",
+      "24a",
+      "24b",
+      "25",
+      "26",
+      "2a",
+      "3",
+      "33a",
+      "33h",
+      "34",
+      "34a",
+      "34aa",
+      "34b",
+      "34c",
+      "34e",
+      "34f",
+      "34g",
+      "34h",
+      "35",
+      "35a",
+      "35c",
+      "35d",
+      "36",
+      "38",
+      "38a",
+      "38ba",
+      "38bb",
+      "38bc",
+      "38d",
+      "38e",
+      "38f",
+      "38fa",
+      "38ga",
+      "38gb",
+      "38m",
+      "38mb",
+      "38mc",
+      "38na",
+      "38r",
+      "38zh",
+      "4",
+      "5",
+      "6",
+      "6a",
+      "7",
+      "7a",
+      "7b",
+      "8",
+      "9"
+     ],
+     "citedOnlyParagraphs": [
+      "17",
+      "17d",
+      "2",
+      "20d",
+      "20e",
+      "20f",
+      "21d",
+      "23k",
+      "23l",
+      "23m",
+      "23n",
+      "23o",
+      "23p",
+      "23q",
+      "23r",
+      "23s",
+      "23t",
+      "23u",
+      "23v",
+      "23w",
+      "23x",
+      "23y",
+      "23z",
+      "23za",
+      "23zb",
+      "23zc",
+      "23zd",
+      "23ze",
+      "23zf",
+      "23zg",
+      "23zh",
+      "23zi",
+      "23zj",
+      "23zk",
+      "27",
+      "28",
+      "29",
+      "30",
+      "30a",
+      "31",
+      "32",
+      "33",
+      "33b",
+      "33c",
+      "33d",
+      "33e",
+      "33f",
+      "33g",
+      "38bd",
+      "38be",
+      "38bf",
+      "38ma",
+      "38md"
+     ]
+    },
+    {
+     "lawRef": "593/1992",
+     "operativeParagraphs": [
+      "10",
+      "10a",
+      "11a",
+      "11b",
+      "2",
+      "3",
+      "4",
+      "5",
+      "5a",
+      "7",
+      "8",
+      "8a",
+      "8b",
+      "8c",
+      "9"
+     ],
+     "citedOnlyParagraphs": [
+      "30b",
+      "6"
+     ]
+    },
+    {
+     "lawRef": "6/1993",
+     "operativeParagraphs": [
+      "48",
+      "5"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "6/2002",
+     "operativeParagraphs": [
+      "129",
+      "8"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "627/2004",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "66"
+     ]
+    },
+    {
+     "lawRef": "634/1992",
+     "operativeParagraphs": [
+      "24j"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "64/1986",
+     "operativeParagraphs": [
+      "1",
+      "7b"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "69/2006",
+     "operativeParagraphs": [
+      "17b",
+      "19",
+      "9a"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "72/2000",
+     "operativeParagraphs": [
+      "11a",
+      "1a",
+      "2",
+      "3",
+      "6a",
+      "7"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "73/2011",
+     "operativeParagraphs": [
+      "1"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "77/1997",
+     "operativeParagraphs": [
+      "13",
+      "15",
+      "17a",
+      "17b",
+      "17c",
+      "17d",
+      "4",
+      "5"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "77/2002",
+     "operativeParagraphs": [
+      "30"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "87/1995",
+     "operativeParagraphs": [
+      "1",
+      "10",
+      "13",
+      "22",
+      "22a",
+      "25a",
+      "25c",
+      "27a",
+      "27b",
+      "27c",
+      "27e",
+      "28",
+      "4c",
+      "5a",
+      "6",
+      "7",
+      "7b",
+      "8b",
+      "9"
+     ],
+     "citedOnlyParagraphs": [
+      "21",
+      "8c",
+      "8d"
+     ]
+    },
+    {
+     "lawRef": "89/2012",
+     "operativeParagraphs": [
+      "1179",
+      "1180",
+      "119",
+      "1208",
+      "1437",
+      "176",
+      "177",
+      "183",
+      "199",
+      "205",
+      "2752",
+      "329",
+      "341",
+      "342",
+      "355",
+      "357",
+      "370",
+      "384",
+      "385",
+      "386",
+      "391",
+      "411",
+      "415"
+     ],
+     "citedOnlyParagraphs": [
+      "330",
+      "358",
+      "416"
+     ]
+    },
+    {
+     "lawRef": "90/2012",
+     "operativeParagraphs": [
+      "112",
+      "149",
+      "161",
+      "181",
+      "190",
+      "196",
+      "201",
+      "216",
+      "227",
+      "229",
+      "231",
+      "232",
+      "246",
+      "247",
+      "251",
+      "257",
+      "258",
+      "280",
+      "301",
+      "307",
+      "309",
+      "34",
+      "348",
+      "35",
+      "351",
+      "352",
+      "36",
+      "40",
+      "403",
+      "417",
+      "421",
+      "435",
+      "436",
+      "447",
+      "456",
+      "469",
+      "495",
+      "497",
+      "498",
+      "511",
+      "515",
+      "524",
+      "567",
+      "586",
+      "593",
+      "623",
+      "638",
+      "656",
+      "707",
+      "716",
+      "82",
+      "83",
+      "84",
+      "94"
+     ],
+     "citedOnlyParagraphs": [
+      "468",
+      "750"
+     ]
+    },
+    {
+     "lawRef": "92/1991",
+     "operativeParagraphs": [
+      "1"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "93/2009",
+     "operativeParagraphs": [
+      "14",
+      "14b",
+      "14h",
+      "17",
+      "17a",
+      "19",
+      "2",
+      "20",
+      "20a",
+      "20ab",
+      "20b",
+      "20c",
+      "24",
+      "24b",
+      "2a",
+      "2b",
+      "36",
+      "38",
+      "38a",
+      "39c",
+      "43",
+      "43a",
+      "43b",
+      "43ba",
+      "43d",
+      "44a",
+      "44aa",
+      "44b",
+      "44c",
+      "45",
+      "47",
+      "49",
+      "49a",
+      "49b",
+      "49g",
+      "49i",
+      "50",
+      "7c",
+      "8",
+      "8b"
+     ],
+     "citedOnlyParagraphs": [
+      "14a",
+      "14ha",
+      "20ba",
+      "24f",
+      "26",
+      "2c",
+      "2d",
+      "2e",
+      "35",
+      "38b",
+      "39b",
+      "40b",
+      "43c",
+      "44",
+      "49d",
+      "49m"
+     ]
+    },
+    {
+     "lawRef": "99/1963",
+     "operativeParagraphs": [
+      "141",
+      "337d"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [
+    "317/2025",
+    "360/2004",
+    "627/2004"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 65,
+   "statutes": [
+    {
+     "lawRef": "106/1999",
+     "operativeParagraphs": [
+      "18a"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "12/2020",
+     "operativeParagraphs": [
+      "11",
+      "5",
+      "6",
+      "9g",
+      "9k"
+     ],
+     "citedOnlyParagraphs": [
+      "4"
+     ]
+    },
+    {
+     "lawRef": "2/1969",
+     "operativeParagraphs": [
+      "12"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "21/1992",
+     "operativeParagraphs": [
+      "38",
+      "38ab",
+      "38ad",
+      "38ae",
+      "38af"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "250/2017",
+     "operativeParagraphs": [
+      "10",
+      "16",
+      "19",
+      "23",
+      "25",
+      "5",
+      "7"
+     ],
+     "citedOnlyParagraphs": [
+      "24"
+     ]
+    },
+    {
+     "lawRef": "277/2009",
+     "operativeParagraphs": [
+      "129"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "29/2000",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "33a",
+      "33b"
+     ]
+    },
+    {
+     "lawRef": "297/2016",
+     "operativeParagraphs": [
+      "13",
+      "14",
+      "4a",
+      "5"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "300/2008",
+     "operativeParagraphs": [
+      "11",
+      "14",
+      "14a",
+      "15",
+      "16",
+      "17",
+      "18a",
+      "20",
+      "23",
+      "24",
+      "3",
+      "4",
+      "5",
+      "6",
+      "8"
+     ],
+     "citedOnlyParagraphs": [
+      "14b"
+     ]
+    },
+    {
+     "lawRef": "365/2000",
+     "operativeParagraphs": [
+      "1",
+      "12",
+      "2",
+      "4",
+      "5e",
+      "6h",
+      "6i",
+      "6l",
+      "6n",
+      "6o",
+      "6p",
+      "6q",
+      "6t",
+      "6v",
+      "6x",
+      "6y",
+      "8",
+      "9a"
+     ],
+     "citedOnlyParagraphs": [
+      "5",
+      "5f"
+     ]
+    },
+    {
+     "lawRef": "427/2011",
+     "operativeParagraphs": [
+      "18b"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [
+    "29/2000"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 67,
+   "statutes": [
+    {
+     "lawRef": "100/2001",
+     "operativeParagraphs": [
+      "1",
+      "21",
+      "3",
+      "6",
+      "7",
+      "8",
+      "9a"
+     ],
+     "citedOnlyParagraphs": [
+      "12",
+      "27",
+      "4",
+      "94d",
+      "94f",
+      "94t",
+      "94v"
+     ]
+    },
+    {
+     "lawRef": "114/1992",
+     "operativeParagraphs": [
+      "12",
+      "13g",
+      "13h",
+      "13j",
+      "16",
+      "16a",
+      "16b",
+      "16c",
+      "16d",
+      "18",
+      "26",
+      "37",
+      "39",
+      "4",
+      "43",
+      "44",
+      "45f",
+      "46",
+      "47",
+      "48",
+      "49",
+      "5",
+      "52",
+      "54",
+      "55",
+      "56",
+      "57",
+      "5a",
+      "5b",
+      "61",
+      "63",
+      "69",
+      "70",
+      "72",
+      "72d",
+      "75",
+      "76",
+      "77",
+      "77a",
+      "78",
+      "78a",
+      "79",
+      "80",
+      "81",
+      "83",
+      "83a",
+      "85",
+      "87",
+      "88",
+      "88a",
+      "89",
+      "90"
+     ],
+     "citedOnlyParagraphs": [
+      "10",
+      "13a",
+      "13c",
+      "13d",
+      "17",
+      "172",
+      "2",
+      "3",
+      "45a",
+      "45e",
+      "48a",
+      "49a",
+      "49b",
+      "49c",
+      "50",
+      "51",
+      "52a",
+      "52b",
+      "55a",
+      "57a",
+      "57b",
+      "5c",
+      "6",
+      "66",
+      "68",
+      "71",
+      "77b",
+      "8",
+      "86",
+      "89a",
+      "9",
+      "9a"
+     ]
+    },
+    {
+     "lawRef": "114/1995",
+     "operativeParagraphs": [
+      "22a"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "13/1997",
+     "operativeParagraphs": [
+      "11",
+      "18g",
+      "25",
+      "26",
+      "30",
+      "35",
+      "36",
+      "37",
+      "40",
+      "8"
+     ],
+     "citedOnlyParagraphs": [
+      "24"
+     ]
+    },
+    {
+     "lawRef": "133/1985",
+     "operativeParagraphs": [
+      "102",
+      "24",
+      "26",
+      "31",
+      "95",
+      "99"
+     ],
+     "citedOnlyParagraphs": [
+      "26a"
+     ]
+    },
+    {
+     "lawRef": "134/2016",
+     "operativeParagraphs": [
+      "29",
+      "30"
+     ],
+     "citedOnlyParagraphs": [
+      "130",
+      "166",
+      "296"
+     ]
+    },
+    {
+     "lawRef": "139/2002",
+     "operativeParagraphs": [
+      "14",
+      "3",
+      "9"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "150/2002",
+     "operativeParagraphs": [
+      "101a",
+      "101d",
+      "68",
+      "7"
+     ],
+     "citedOnlyParagraphs": [
+      "101b"
+     ]
+    },
+    {
+     "lawRef": "166/1999",
+     "operativeParagraphs": [
+      "48",
+      "49",
+      "56"
+     ],
+     "citedOnlyParagraphs": [
+      "9a"
+     ]
+    },
+    {
+     "lawRef": "184/2006",
+     "operativeParagraphs": [
+      "15",
+      "16",
+      "28"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "197/2022",
+     "operativeParagraphs": [
+      "4"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "2/1969",
+     "operativeParagraphs": [
+      "14",
+      "2"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "20/1987",
+     "operativeParagraphs": [
+      "1",
+      "11",
+      "14",
+      "17",
+      "2",
+      "22",
+      "25",
+      "26",
+      "28",
+      "29",
+      "3",
+      "30",
+      "35",
+      "36",
+      "39",
+      "40",
+      "42",
+      "45",
+      "6a",
+      "7",
+      "9"
+     ],
+     "citedOnlyParagraphs": [
+      "14a",
+      "14b",
+      "21",
+      "21a",
+      "23",
+      "23a",
+      "30a",
+      "9a"
+     ]
+    },
+    {
+     "lawRef": "201/2012",
+     "operativeParagraphs": [
+      "11",
+      "12",
+      "16",
+      "27",
+      "3",
+      "30",
+      "40"
+     ],
+     "citedOnlyParagraphs": [
+      "9a"
+     ]
+    },
+    {
+     "lawRef": "219/2000",
+     "operativeParagraphs": [
+      "21b"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "224/2015",
+     "operativeParagraphs": [
+      "31",
+      "32",
+      "43",
+      "49",
+      "51",
+      "53"
+     ],
+     "citedOnlyParagraphs": [
+      "49a",
+      "9a"
+     ]
+    },
+    {
+     "lawRef": "234/2014",
+     "operativeParagraphs": [
+      "2",
+      "33"
+     ],
+     "citedOnlyParagraphs": [
+      "104a"
+     ]
+    },
+    {
+     "lawRef": "235/2004",
+     "operativeParagraphs": [
+      "55a"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "239/2000",
+     "operativeParagraphs": [
+      "33",
+      "35"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "249/2025",
+     "operativeParagraphs": [
+      "13",
+      "14",
+      "16",
+      "18",
+      "23",
+      "26",
+      "27",
+      "28",
+      "29",
+      "30",
+      "32",
+      "36",
+      "37"
+     ],
+     "citedOnlyParagraphs": [
+      "20",
+      "54",
+      "6"
+     ]
+    },
+    {
+     "lawRef": "254/2001",
+     "operativeParagraphs": [
+      "104",
+      "107",
+      "107a",
+      "115",
+      "115b",
+      "125l",
+      "126",
+      "16",
+      "17",
+      "23a",
+      "30",
+      "39",
+      "47",
+      "50",
+      "51",
+      "55c",
+      "59",
+      "5a",
+      "66",
+      "8",
+      "87b",
+      "87j",
+      "9"
+     ],
+     "citedOnlyParagraphs": [
+      "110",
+      "116",
+      "118",
+      "119",
+      "122",
+      "125a",
+      "125c",
+      "125d",
+      "125g",
+      "55a",
+      "56",
+      "58",
+      "59a",
+      "61",
+      "9a"
+     ]
+    },
+    {
+     "lawRef": "256/2001",
+     "operativeParagraphs": [
+      "12",
+      "17",
+      "3"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "258/2000",
+     "operativeParagraphs": [
+      "108",
+      "77",
+      "78",
+      "80",
+      "82b"
+     ],
+     "citedOnlyParagraphs": [
+      "13",
+      "6c",
+      "6f",
+      "7",
+      "9a"
+     ]
+    },
+    {
+     "lawRef": "263/2016",
+     "operativeParagraphs": [
+      "236",
+      "237"
+     ],
+     "citedOnlyParagraphs": [
+      "101",
+      "237a",
+      "98",
+      "99"
+     ]
+    },
+    {
+     "lawRef": "266/1994",
+     "operativeParagraphs": [
+      "7"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "283/2021",
+     "operativeParagraphs": [
+      "1",
+      "10",
+      "100",
+      "101",
+      "102",
+      "103",
+      "104",
+      "105",
+      "108",
+      "109",
+      "110",
+      "111",
+      "112",
+      "113",
+      "114",
+      "115",
+      "116",
+      "117",
+      "118",
+      "119",
+      "12",
+      "120",
+      "122",
+      "128",
+      "13",
+      "130",
+      "131",
+      "132",
+      "133",
+      "135",
+      "136",
+      "137",
+      "138",
+      "139",
+      "140",
+      "141",
+      "142",
+      "143",
+      "144",
+      "144a",
+      "149",
+      "15",
+      "150",
+      "152",
+      "156",
+      "157",
+      "158",
+      "16",
+      "160",
+      "161",
+      "162",
+      "163",
+      "164",
+      "165",
+      "166",
+      "167",
+      "17",
+      "170",
+      "171",
+      "172",
+      "173",
+      "174",
+      "175",
+      "176",
+      "177",
+      "178",
+      "179",
+      "179a",
+      "18",
+      "180",
+      "181",
+      "183",
+      "184",
+      "185",
+      "186",
+      "187",
+      "188",
+      "189",
+      "19",
+      "190",
+      "193",
+      "194",
+      "196",
+      "197",
+      "198",
+      "2",
+      "200",
+      "21",
+      "211",
+      "212",
+      "215",
+      "216",
+      "217",
+      "219",
+      "220",
+      "221",
+      "224",
+      "225",
+      "226",
+      "23",
+      "230",
+      "232",
+      "233",
+      "234",
+      "235",
+      "236",
+      "238",
+      "239",
+      "24",
+      "240",
+      "241",
+      "242",
+      "245",
+      "246",
+      "248",
+      "252",
+      "254",
+      "255",
+      "258",
+      "259",
+      "26",
+      "261",
+      "264",
+      "267",
+      "268",
+      "269",
+      "27",
+      "270",
+      "271",
+      "272",
+      "274",
+      "275",
+      "276",
+      "277",
+      "279",
+      "28",
+      "282",
+      "287",
+      "288",
+      "289",
+      "290",
+      "298",
+      "299",
+      "3",
+      "30",
+      "301",
+      "302",
+      "304",
+      "306",
+      "307",
+      "308",
+      "309",
+      "31",
+      "310",
+      "311",
+      "316",
+      "32",
+      "322",
+      "323",
+      "324",
+      "325",
+      "326",
+      "33",
+      "333",
+      "334a",
+      "334b",
+      "34",
+      "35",
+      "37",
+      "38",
+      "39",
+      "41",
+      "42",
+      "43",
+      "46",
+      "47",
+      "49",
+      "5",
+      "50",
+      "51",
+      "52",
+      "53",
+      "54",
+      "55",
+      "56",
+      "57",
+      "59",
+      "6",
+      "61",
+      "62",
+      "63",
+      "64",
+      "65",
+      "66",
+      "68",
+      "69",
+      "70",
+      "71",
+      "71a",
+      "71d",
+      "72",
+      "73",
+      "74",
+      "76",
+      "77",
+      "79",
+      "80",
+      "81",
+      "82",
+      "83",
+      "85",
+      "86",
+      "87",
+      "88",
+      "90",
+      "92",
+      "93",
+      "96",
+      "97",
+      "98"
+     ],
+     "citedOnlyParagraphs": [
+      "111a",
+      "115a",
+      "121",
+      "129",
+      "136a",
+      "144b",
+      "144c",
+      "145",
+      "152a",
+      "154",
+      "169",
+      "17a",
+      "17b",
+      "190a",
+      "191",
+      "193a",
+      "1a",
+      "223",
+      "227",
+      "243",
+      "244",
+      "25",
+      "260",
+      "273",
+      "278",
+      "280",
+      "281",
+      "285",
+      "286",
+      "29",
+      "292",
+      "300",
+      "303",
+      "30a",
+      "32a",
+      "32b",
+      "34a",
+      "39a",
+      "40",
+      "44",
+      "45",
+      "48",
+      "71b",
+      "71c",
+      "71e",
+      "89",
+      "91",
+      "94",
+      "95",
+      "99",
+      "9a"
+     ]
+    },
+    {
+     "lawRef": "289/1995",
+     "operativeParagraphs": [
+      "12",
+      "14",
+      "15",
+      "16",
+      "17",
+      "47",
+      "48",
+      "48a"
+     ],
+     "citedOnlyParagraphs": [
+      "48b",
+      "9a"
+     ]
+    },
+    {
+     "lawRef": "309/2006",
+     "operativeParagraphs": [
+      "21"
+     ],
+     "citedOnlyParagraphs": [
+      "2"
+     ]
+    },
+    {
+     "lawRef": "334/1992",
+     "operativeParagraphs": [
+      "11",
+      "13",
+      "15",
+      "17",
+      "17a",
+      "17c",
+      "18",
+      "20",
+      "20a",
+      "21",
+      "4",
+      "5",
+      "7",
+      "8a",
+      "8b",
+      "9"
+     ],
+     "citedOnlyParagraphs": [
+      "1",
+      "11b",
+      "17d",
+      "3b",
+      "9a"
+     ]
+    },
+    {
+     "lawRef": "338/1992",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "4"
+     ]
+    },
+    {
+     "lawRef": "360/1992",
+     "operativeParagraphs": [
+      "22"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "40/2009",
+     "operativeParagraphs": [
+      "296",
+      "299",
+      "300"
+     ],
+     "citedOnlyParagraphs": [
+      "293",
+      "294"
+     ]
+    },
+    {
+     "lawRef": "416/2009",
+     "operativeParagraphs": [
+      "2b",
+      "2d",
+      "2e",
+      "2l",
+      "2m",
+      "2n",
+      "4a",
+      "4b",
+      "4c",
+      "4d",
+      "5a",
+      "5f",
+      "5g",
+      "5h"
+     ],
+     "citedOnlyParagraphs": [
+      "10"
+     ]
+    },
+    {
+     "lawRef": "44/1988",
+     "operativeParagraphs": [
+      "28a",
+      "28b",
+      "33"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "449/2001",
+     "operativeParagraphs": [
+      "7"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "458/2000",
+     "operativeParagraphs": [
+      "45",
+      "47",
+      "68"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "49/1997",
+     "operativeParagraphs": [
+      "36",
+      "87"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "503/2012",
+     "operativeParagraphs": [
+      "10",
+      "21",
+      "3",
+      "6",
+      "7",
+      "8"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "541/2020",
+     "operativeParagraphs": [
+      "126",
+      "146",
+      "148",
+      "151",
+      "21",
+      "93a"
+     ],
+     "citedOnlyParagraphs": [
+      "146a",
+      "149",
+      "9a"
+     ]
+    },
+    {
+     "lawRef": "61/1988",
+     "operativeParagraphs": [
+      "18b"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "62/1988",
+     "operativeParagraphs": [
+      "13",
+      "22a"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [
+    "148/2023",
+    "338/1992"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 68,
+   "statutes": [
+    {
+     "lawRef": "159/2006",
+     "operativeParagraphs": [
+      "14a",
+      "14b",
+      "2",
+      "4",
+      "5",
+      "6"
+     ],
+     "citedOnlyParagraphs": [
+      "12"
+     ]
+    },
+    {
+     "lawRef": "177/2023",
+     "operativeParagraphs": [
+      "1"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "218/2000",
+     "operativeParagraphs": [
+      "8"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "222/2016",
+     "operativeParagraphs": [
+      "20"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "23/2017",
+     "operativeParagraphs": [
+      "10",
+      "10a",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "22",
+      "23",
+      "24",
+      "25",
+      "28",
+      "3",
+      "30",
+      "31",
+      "33",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ],
+     "citedOnlyParagraphs": [
+      "1",
+      "20a",
+      "28a",
+      "39",
+      "9a"
+     ]
+    },
+    {
+     "lawRef": "243/2000",
+     "operativeParagraphs": [
+      "6a",
+      "6c"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "250/2000",
+     "operativeParagraphs": [
+      "11",
+      "13",
+      "28a",
+      "39",
+      "4"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "262/2006",
+     "operativeParagraphs": [
+      "303"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 69,
+   "statutes": [
+    {
+     "lawRef": "220/1991",
+     "operativeParagraphs": [
+      "1784",
+      "1826",
+      "2",
+      "23",
+      "23a",
+      "24",
+      "24i",
+      "3",
+      "323",
+      "324",
+      "325",
+      "326"
+     ],
+     "citedOnlyParagraphs": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "1784a",
+      "1784b",
+      "1784c",
+      "1784d",
+      "18",
+      "1827",
+      "19",
+      "20",
+      "21",
+      "22",
+      "23b",
+      "23d",
+      "25",
+      "26",
+      "27",
+      "28",
+      "29",
+      "30",
+      "31",
+      "32",
+      "33",
+      "34",
+      "35",
+      "36",
+      "366a",
+      "366b",
+      "366c",
+      "366d",
+      "366e",
+      "366f",
+      "366g",
+      "366h",
+      "366i",
+      "366j",
+      "37",
+      "38",
+      "39",
+      "4",
+      "40",
+      "41",
+      "42",
+      "43",
+      "44",
+      "45",
+      "46",
+      "47",
+      "48",
+      "49",
+      "5",
+      "50",
+      "51",
+      "52",
+      "53",
+      "54",
+      "55",
+      "56",
+      "57",
+      "58",
+      "59",
+      "6",
+      "60",
+      "61",
+      "62",
+      "63",
+      "64",
+      "65",
+      "66",
+      "67",
+      "68",
+      "69",
+      "7",
+      "70",
+      "71",
+      "72",
+      "73",
+      "74",
+      "75",
+      "8",
+      "8d",
+      "8e",
+      "9",
+      "99"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "121/2000",
+    "132/2010",
+    "141/1961",
+    "292/2013",
+    "634/1992",
+    "634/2004",
+    "89/2012"
+   ],
+   "extractorExtraRefs": [
+    "220/1991"
+   ]
+  },
+  {
+   "cislo": 70,
+   "statutes": [
+    {
+     "lawRef": "592/1992",
+     "operativeParagraphs": [
+      "21b"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 71,
+   "statutes": [
+    {
+     "lawRef": "427/2011",
+     "operativeParagraphs": [
+      "192",
+      "60"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 72,
+   "statutes": [
+    {
+     "lawRef": "90/1995",
+     "operativeParagraphs": [
+      "111",
+      "114a",
+      "120b",
+      "32",
+      "46a",
+      "54",
+      "59",
+      "60",
+      "66",
+      "67",
+      "95a",
+      "99"
+     ],
+     "citedOnlyParagraphs": [
+      "95"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 73,
+   "statutes": [
+    {
+     "lawRef": "477/2001",
+     "operativeParagraphs": [
+      "10",
+      "12a",
+      "13",
+      "13a",
+      "14",
+      "15",
+      "15b",
+      "16",
+      "17",
+      "2",
+      "20",
+      "20a",
+      "21",
+      "23",
+      "23a",
+      "29j",
+      "30",
+      "32",
+      "36",
+      "37",
+      "4",
+      "40",
+      "44",
+      "45",
+      "45a",
+      "46",
+      "48",
+      "5",
+      "50",
+      "9",
+      "9a"
+     ],
+     "citedOnlyParagraphs": [
+      "10a",
+      "11",
+      "12",
+      "15c",
+      "18",
+      "19",
+      "21a",
+      "21b",
+      "21c",
+      "25",
+      "28a",
+      "29a",
+      "29b",
+      "29c",
+      "29d",
+      "29e",
+      "29f",
+      "29g",
+      "29h",
+      "29i",
+      "3",
+      "33",
+      "35",
+      "45b",
+      "7",
+      "8"
+     ]
+    },
+    {
+     "lawRef": "541/2020",
+     "operativeParagraphs": [
+      "59"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "634/1992",
+     "operativeParagraphs": [
+      "18"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 74,
+   "statutes": [
+    {
+     "lawRef": "167/2008",
+     "operativeParagraphs": [
+      "10",
+      "13",
+      "14",
+      "16",
+      "17",
+      "19",
+      "2",
+      "20",
+      "21",
+      "6",
+      "7",
+      "8",
+      "9"
+     ],
+     "citedOnlyParagraphs": [
+      "23a",
+      "3",
+      "34",
+      "45c",
+      "45e",
+      "5b",
+      "78"
+     ]
+    },
+    {
+     "lawRef": "254/2001",
+     "operativeParagraphs": [
+      "42"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "282/1991",
+     "operativeParagraphs": [
+      "1",
+      "4",
+      "5"
+     ],
+     "citedOnlyParagraphs": [
+      "1a"
+     ]
+    },
+    {
+     "lawRef": "541/2020",
+     "operativeParagraphs": [
+      "116",
+      "121",
+      "123",
+      "32"
+     ],
+     "citedOnlyParagraphs": [
+      "5"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 75,
+   "statutes": [
+    {
+     "lawRef": "254/2001",
+     "operativeParagraphs": [
+      "108",
+      "125a",
+      "55c"
+     ],
+     "citedOnlyParagraphs": [
+      "55d",
+      "55e"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 76,
+   "statutes": [
+    {
+     "lawRef": "234/2014",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "168",
+      "17",
+      "18",
+      "18a",
+      "19",
+      "2",
+      "20",
+      "200",
+      "201",
+      "21",
+      "22",
+      "23",
+      "24",
+      "25",
+      "25a",
+      "26",
+      "27",
+      "28",
+      "29",
+      "3",
+      "30",
+      "31",
+      "32",
+      "33",
+      "34",
+      "35",
+      "36",
+      "37",
+      "38",
+      "39",
+      "4",
+      "40",
+      "41",
+      "42",
+      "43",
+      "44",
+      "45",
+      "46",
+      "47",
+      "48",
+      "49",
+      "5",
+      "50",
+      "51",
+      "52",
+      "53",
+      "54",
+      "55",
+      "56",
+      "57",
+      "58",
+      "59",
+      "6",
+      "60",
+      "61",
+      "62",
+      "63",
+      "64",
+      "65",
+      "66",
+      "67",
+      "68",
+      "69",
+      "7",
+      "70",
+      "71",
+      "72",
+      "73",
+      "74",
+      "75",
+      "76",
+      "77",
+      "78",
+      "79",
+      "8",
+      "80",
+      "81",
+      "82",
+      "83",
+      "84",
+      "85",
+      "86",
+      "87",
+      "88",
+      "89",
+      "9"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 77,
+   "statutes": [
+    {
+     "lawRef": "104/2000",
+     "operativeParagraphs": [
+      "12",
+      "6"
+     ],
+     "citedOnlyParagraphs": [
+      "7"
+     ]
+    },
+    {
+     "lawRef": "110/2019",
+     "operativeParagraphs": [
+      "52"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "115/2001",
+     "operativeParagraphs": [
+      "3b"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "12/2020",
+     "operativeParagraphs": [
+      "2a"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "127/2005",
+     "operativeParagraphs": [
+      "107",
+      "149"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "150/2017",
+     "operativeParagraphs": [
+      "1",
+      "15",
+      "2",
+      "32",
+      "33",
+      "34",
+      "35",
+      "36",
+      "37",
+      "38",
+      "39",
+      "4",
+      "41",
+      "42",
+      "43",
+      "44",
+      "46",
+      "47",
+      "47a",
+      "48",
+      "49",
+      "50",
+      "53",
+      "55",
+      "58"
+     ],
+     "citedOnlyParagraphs": [
+      "17",
+      "18",
+      "24",
+      "40",
+      "5",
+      "52",
+      "7",
+      "70"
+     ]
+    },
+    {
+     "lawRef": "181/2007",
+     "operativeParagraphs": [
+      "12"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "187/2006",
+     "operativeParagraphs": [
+      "10",
+      "19",
+      "3",
+      "5",
+      "84b",
+      "92"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "2/1969",
+     "operativeParagraphs": [
+      "28"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "231/2001",
+     "operativeParagraphs": [
+      "11"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "248/2000",
+     "operativeParagraphs": [
+      "14a",
+      "14b"
+     ],
+     "citedOnlyParagraphs": [
+      "7"
+     ]
+    },
+    {
+     "lawRef": "256/2000",
+     "operativeParagraphs": [
+      "13d",
+      "9"
+     ],
+     "citedOnlyParagraphs": [
+      "7"
+     ]
+    },
+    {
+     "lawRef": "258/2000",
+     "operativeParagraphs": [
+      "80"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "273/1996",
+     "operativeParagraphs": [
+      "1",
+      "1a"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "328/2025",
+     "operativeParagraphs": [
+      "18",
+      "25",
+      "98",
+      "99"
+     ],
+     "citedOnlyParagraphs": [
+      "17"
+     ]
+    },
+    {
+     "lawRef": "365/2000",
+     "operativeParagraphs": [
+      "3a"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "388/1991",
+     "operativeParagraphs": [
+      "1",
+      "5a"
+     ],
+     "citedOnlyParagraphs": [
+      "7"
+     ]
+    },
+    {
+     "lawRef": "424/1991",
+     "operativeParagraphs": [
+      "19b",
+      "19e",
+      "19f"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "458/2000",
+     "operativeParagraphs": [
+      "17b"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "49/1997",
+     "operativeParagraphs": [
+      "55"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "582/1991",
+     "operativeParagraphs": [
+      "8"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "6/2002",
+     "operativeParagraphs": [
+      "111"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "89/1995",
+     "operativeParagraphs": [
+      "3"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [
+    "150/2002"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 78,
+   "statutes": [
+    {
+     "lawRef": "245/2000",
+     "operativeParagraphs": [
+      "4"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 82,
+   "statutes": [
+    {
+     "lawRef": "175/2025",
+     "operativeParagraphs": [
+      "12",
+      "144"
+     ],
+     "citedOnlyParagraphs": [
+      "13"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 83,
+   "statutes": [
+    {
+     "lawRef": "111/1994",
+     "operativeParagraphs": [
+      "20",
+      "35",
+      "41"
+     ],
+     "citedOnlyParagraphs": [
+      "18b"
+     ]
+    },
+    {
+     "lawRef": "114/1995",
+     "operativeParagraphs": [
+      "43",
+      "44",
+      "52",
+      "7",
+      "8a"
+     ],
+     "citedOnlyParagraphs": [
+      "8"
+     ]
+    },
+    {
+     "lawRef": "13/1997",
+     "operativeParagraphs": [
+      "39a"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "266/1994",
+     "operativeParagraphs": [
+      "22",
+      "51",
+      "52a"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "361/2000",
+     "operativeParagraphs": [
+      "124",
+      "125d",
+      "2"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "49/1997",
+     "operativeParagraphs": [
+      "102",
+      "31",
+      "93",
+      "94"
+     ],
+     "citedOnlyParagraphs": [
+      "25"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 85,
+   "statutes": [
+    {
+     "lawRef": "108/2006",
+     "operativeParagraphs": [
+      "21"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "110/2006",
+     "operativeParagraphs": [
+      "7"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [
+    "152/2025"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 86,
+   "statutes": [
+    {
+     "lawRef": "427/2011",
+     "operativeParagraphs": [
+      "100",
+      "3",
+      "98"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 87,
+   "statutes": [],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 88,
+   "statutes": [
+    {
+     "lawRef": "108/2006",
+     "operativeParagraphs": [
+      "21"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "110/2006",
+     "operativeParagraphs": [
+      "7"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "151/2025",
+     "operativeParagraphs": [
+      "91"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [
+    "152/2025"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 89,
+   "statutes": [
+    {
+     "lawRef": "218/2000",
+     "operativeParagraphs": [
+      "3",
+      "36"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 90,
+   "statutes": [
+    {
+     "lawRef": "159/2006",
+     "operativeParagraphs": [
+      "14a",
+      "14b",
+      "2",
+      "4",
+      "5",
+      "6"
+     ],
+     "citedOnlyParagraphs": [
+      "12"
+     ]
+    },
+    {
+     "lawRef": "166/1993",
+     "operativeParagraphs": [
+      "5"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "177/2023",
+     "operativeParagraphs": [
+      "1"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "218/2000",
+     "operativeParagraphs": [
+      "10",
+      "11a",
+      "12",
+      "13",
+      "14e",
+      "14n",
+      "15",
+      "20",
+      "24",
+      "29",
+      "30",
+      "34",
+      "35",
+      "35b",
+      "36",
+      "4",
+      "44a",
+      "49",
+      "50",
+      "70",
+      "8"
+     ],
+     "citedOnlyParagraphs": [
+      "14",
+      "25",
+      "3",
+      "31",
+      "32",
+      "44",
+      "8b"
+     ]
+    },
+    {
+     "lawRef": "222/2016",
+     "operativeParagraphs": [
+      "20"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "23/2017",
+     "operativeParagraphs": [
+      "10",
+      "10a",
+      "11",
+      "12",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "22",
+      "23",
+      "24",
+      "25",
+      "28",
+      "3",
+      "30",
+      "31",
+      "33",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ],
+     "citedOnlyParagraphs": [
+      "1",
+      "13",
+      "20a",
+      "28a",
+      "39",
+      "9a"
+     ]
+    },
+    {
+     "lawRef": "243/2000",
+     "operativeParagraphs": [
+      "6a",
+      "6c"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "250/2000",
+     "operativeParagraphs": [
+      "11",
+      "13",
+      "28a",
+      "39",
+      "4"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "262/2006",
+     "operativeParagraphs": [
+      "303"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 98,
+   "statutes": [
+    {
+     "lawRef": "164/2013",
+     "operativeParagraphs": [
+      "12b",
+      "12c",
+      "13e",
+      "13g",
+      "13h",
+      "13k",
+      "13n",
+      "13u",
+      "13v",
+      "13x",
+      "13zi",
+      "14b",
+      "14m",
+      "14zo",
+      "14zt",
+      "14zv",
+      "14zx",
+      "14zzg",
+      "14zzi",
+      "14zzn",
+      "14zzu",
+      "22",
+      "23"
+     ],
+     "citedOnlyParagraphs": [
+      "12h",
+      "12i",
+      "12j",
+      "14zp",
+      "14zpa",
+      "15",
+      "15a",
+      "15b",
+      "15c",
+      "15d",
+      "15e",
+      "15f",
+      "15g",
+      "15h",
+      "15i",
+      "15j",
+      "15k",
+      "15l",
+      "15m",
+      "15n",
+      "15o",
+      "15p",
+      "15q",
+      "15r",
+      "15s",
+      "15t",
+      "15u",
+      "15v",
+      "15w",
+      "15x",
+      "15y",
+      "15z",
+      "15za",
+      "15zb",
+      "15zc",
+      "15zd",
+      "15ze",
+      "15zf",
+      "15zg",
+      "15zh",
+      "15zi",
+      "15zj",
+      "15zk",
+      "15zl",
+      "15zm",
+      "15zn",
+      "15zo",
+      "15zp",
+      "15zq",
+      "15zr",
+      "15zs",
+      "15zt",
+      "15zu",
+      "15zv",
+      "15zw",
+      "15zx",
+      "15zy",
+      "15zz"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 99,
+   "statutes": [
+    {
+     "lawRef": "340/2015",
+     "operativeParagraphs": [
+      "3"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 100,
+   "statutes": [
+    {
+     "lawRef": "128/2000",
+     "operativeParagraphs": [
+      "149",
+      "149b"
+     ],
+     "citedOnlyParagraphs": [
+      "149a",
+      "65"
+     ]
+    },
+    {
+     "lawRef": "131/2000",
+     "operativeParagraphs": [
+      "119a",
+      "119c"
+     ],
+     "citedOnlyParagraphs": [
+      "119b"
+     ]
+    },
+    {
+     "lawRef": "2/1969",
+     "operativeParagraphs": [
+      "9"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "292/2013",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "47a",
+      "47b"
+     ]
+    },
+    {
+     "lawRef": "89/2012",
+     "operativeParagraphs": [
+      "3033",
+      "468",
+      "471"
+     ],
+     "citedOnlyParagraphs": [
+      "80"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "292/2013"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 101,
+   "statutes": [],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 102,
+   "statutes": [
+    {
+     "lawRef": "104/2013",
+     "operativeParagraphs": [
+      "118",
+      "120",
+      "123",
+      "124",
+      "134a",
+      "134b",
+      "135",
+      "297h",
+      "297j"
+     ],
+     "citedOnlyParagraphs": [
+      "125",
+      "139",
+      "140",
+      "238c",
+      "25",
+      "297d",
+      "297g",
+      "297l"
+     ]
+    },
+    {
+     "lawRef": "141/1961",
+     "operativeParagraphs": [
+      "12",
+      "146a",
+      "183",
+      "211",
+      "28",
+      "42",
+      "47",
+      "77b",
+      "79h",
+      "7a",
+      "80",
+      "81",
+      "88",
+      "9a"
+     ],
+     "citedOnlyParagraphs": [
+      "62",
+      "79a",
+      "79e",
+      "79g",
+      "79i"
+     ]
+    },
+    {
+     "lawRef": "182/2006",
+     "operativeParagraphs": [
+      "170",
+      "359",
+      "416",
+      "418c"
+     ],
+     "citedOnlyParagraphs": [
+      "418b"
+     ]
+    },
+    {
+     "lawRef": "219/2000",
+     "operativeParagraphs": [
+      "11",
+      "15",
+      "16"
+     ],
+     "citedOnlyParagraphs": [
+      "4"
+     ]
+    },
+    {
+     "lawRef": "279/2003",
+     "operativeParagraphs": [
+      "1",
+      "9"
+     ],
+     "citedOnlyParagraphs": [
+      "3",
+      "4",
+      "79i"
+     ]
+    },
+    {
+     "lawRef": "283/1993",
+     "operativeParagraphs": [
+      "12i"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "284/2023",
+     "operativeParagraphs": [
+      "22"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "312/2006",
+     "operativeParagraphs": [
+      "36a",
+      "4",
+      "6",
+      "7",
+      "8"
+     ],
+     "citedOnlyParagraphs": [
+      "13",
+      "9b"
+     ]
+    },
+    {
+     "lawRef": "40/2009",
+     "operativeParagraphs": [
+      "101",
+      "102a",
+      "104",
+      "135a",
+      "135b",
+      "66",
+      "96"
+     ],
+     "citedOnlyParagraphs": [
+      "107",
+      "192",
+      "230",
+      "231",
+      "257",
+      "258",
+      "283a",
+      "285",
+      "332",
+      "333",
+      "361",
+      "70",
+      "71"
+     ]
+    },
+    {
+     "lawRef": "56/2001",
+     "operativeParagraphs": [
+      "8"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "90/2024",
+     "operativeParagraphs": [
+      "123",
+      "127"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "91/2024",
+     "operativeParagraphs": [
+      "53"
+     ],
+     "citedOnlyParagraphs": [
+      "57"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 103,
+   "statutes": [
+    {
+     "lawRef": "111/2006",
+     "operativeParagraphs": [
+      "40"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "117/1995",
+     "operativeParagraphs": [
+      "59"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "155/1995",
+     "operativeParagraphs": [
+      "57"
+     ],
+     "citedOnlyParagraphs": [
+      "2",
+      "5",
+      "57a"
+     ]
+    },
+    {
+     "lawRef": "187/2006",
+     "operativeParagraphs": [
+      "84"
+     ],
+     "citedOnlyParagraphs": [
+      "2"
+     ]
+    },
+    {
+     "lawRef": "300/2008",
+     "operativeParagraphs": [
+      "3"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "329/2011",
+     "operativeParagraphs": [
+      "20"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 104,
+   "statutes": [
+    {
+     "lawRef": "561/2004",
+     "operativeParagraphs": [
+      "184b",
+      "30"
+     ],
+     "citedOnlyParagraphs": [
+      "184c"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 106,
+   "statutes": [
+    {
+     "lawRef": "159/1999",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "1",
+      "10",
+      "10a",
+      "10b",
+      "10c",
+      "10d",
+      "10f",
+      "11a",
+      "11d",
+      "2",
+      "2549",
+      "3",
+      "5",
+      "5a",
+      "6",
+      "8a",
+      "9",
+      "9b",
+      "9d",
+      "9e",
+      "9f",
+      "9g",
+      "9h",
+      "9i",
+      "9j",
+      "9k",
+      "9l",
+      "9m",
+      "9n"
+     ]
+    },
+    {
+     "lawRef": "326/1999",
+     "operativeParagraphs": [
+      "158"
+     ],
+     "citedOnlyParagraphs": [
+      "100",
+      "102",
+      "97"
+     ]
+    },
+    {
+     "lawRef": "455/1991",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "17",
+      "31",
+      "45b",
+      "45c",
+      "62",
+      "9g",
+      "9h"
+     ]
+    },
+    {
+     "lawRef": "565/1990",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "14a",
+      "3d",
+      "3g"
+     ]
+    },
+    {
+     "lawRef": "89/1995",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "10"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "159/1999",
+    "455/1991",
+    "565/1990",
+    "89/1995"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 107,
+   "statutes": [],
+   "extractorMissedRefs": [
+    "159/1999"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 109,
+   "statutes": [
+    {
+     "lawRef": "187/2006",
+     "operativeParagraphs": [
+      "155",
+      "41e",
+      "72c",
+      "72d",
+      "72g",
+      "73a",
+      "84b"
+     ],
+     "citedOnlyParagraphs": [
+      "57"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 110,
+   "statutes": [
+    {
+     "lawRef": "589/1992",
+     "operativeParagraphs": [
+      "7a",
+      "7b"
+     ],
+     "citedOnlyParagraphs": [
+      "24"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 111,
+   "statutes": [
+    {
+     "lawRef": "141/1961",
+     "operativeParagraphs": [
+      "101b",
+      "159a",
+      "163",
+      "172",
+      "179c",
+      "227",
+      "334c",
+      "334g",
+      "337",
+      "338",
+      "359a",
+      "88",
+      "88a",
+      "8b"
+     ],
+     "citedOnlyParagraphs": [
+      "168",
+      "168a",
+      "17",
+      "18",
+      "188",
+      "191a",
+      "223",
+      "314c",
+      "314p",
+      "314r",
+      "336",
+      "337a",
+      "340b",
+      "350k",
+      "350l",
+      "359b",
+      "81"
+     ]
+    },
+    {
+     "lawRef": "218/2003",
+     "operativeParagraphs": [
+      "17",
+      "25",
+      "27",
+      "33",
+      "78",
+      "80",
+      "80a",
+      "81"
+     ],
+     "citedOnlyParagraphs": [
+      "18",
+      "337a",
+      "82"
+     ]
+    },
+    {
+     "lawRef": "269/1994",
+     "operativeParagraphs": [
+      "9d"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "359/1999",
+     "operativeParagraphs": [
+      "23e",
+      "49",
+      "50s",
+      "59"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "40/2009",
+     "operativeParagraphs": [
+      "102a",
+      "168",
+      "169",
+      "191a",
+      "192",
+      "33",
+      "88",
+      "92"
+     ],
+     "citedOnlyParagraphs": [
+      "168a",
+      "168b"
+     ]
+    },
+    {
+     "lawRef": "45/2013",
+     "operativeParagraphs": [
+      "2"
+     ],
+     "citedOnlyParagraphs": [
+      "168",
+      "168a"
+     ]
+    },
+    {
+     "lawRef": "82/1998",
+     "operativeParagraphs": [
+      "12"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 112,
+   "statutes": [
+    {
+     "lawRef": "117/1995",
+     "operativeParagraphs": [
+      "30",
+      "31"
+     ],
+     "citedOnlyParagraphs": [
+      "12",
+      "31a"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 113,
+   "statutes": [
+    {
+     "lawRef": "20/1993",
+     "operativeParagraphs": [
+      "1",
+      "12a",
+      "13a",
+      "2",
+      "6",
+      "7",
+      "8a"
+     ],
+     "citedOnlyParagraphs": [
+      "10",
+      "11",
+      "12",
+      "13",
+      "13c",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "22",
+      "23",
+      "24",
+      "3",
+      "4",
+      "40",
+      "5",
+      "8",
+      "9"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "147/2002",
+    "406/2000",
+    "61/1988",
+    "87/2023"
+   ],
+   "extractorExtraRefs": [
+    "20/1993"
+   ]
+  },
+  {
+   "cislo": 114,
+   "statutes": [],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 115,
+   "statutes": [
+    {
+     "lawRef": "40/2009",
+     "operativeParagraphs": [
+      "196",
+      "55"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "45/2013",
+     "operativeParagraphs": [
+      "5"
+     ],
+     "citedOnlyParagraphs": [
+      "196"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 116,
+   "statutes": [
+    {
+     "lawRef": "353/2019",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "1",
+      "2"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 119,
+   "statutes": [
+    {
+     "lawRef": "427/2011",
+     "operativeParagraphs": [
+      "191"
+     ],
+     "citedOnlyParagraphs": [
+      "13",
+      "191a",
+      "24",
+      "27",
+      "28",
+      "28a",
+      "8"
+     ]
+    },
+    {
+     "lawRef": "586/1992",
+     "operativeParagraphs": [
+      "15b"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 120,
+   "statutes": [
+    {
+     "lawRef": "586/1992",
+     "operativeParagraphs": [
+      "35ba",
+      "35c",
+      "35d",
+      "38g",
+      "38gb",
+      "38h",
+      "38k",
+      "38l"
+     ],
+     "citedOnlyParagraphs": [
+      "16",
+      "2",
+      "35",
+      "35a",
+      "35b",
+      "6",
+      "7"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 121,
+   "statutes": [
+    {
+     "lawRef": "117/1995",
+     "operativeParagraphs": [
+      "30",
+      "31"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "187/2006",
+     "operativeParagraphs": [
+      "38a",
+      "38b",
+      "40"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "586/1992",
+     "operativeParagraphs": [
+      "35c"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 124,
+   "statutes": [
+    {
+     "lawRef": "117/1995",
+     "operativeParagraphs": [
+      "30d",
+      "33",
+      "62",
+      "67",
+      "68",
+      "68b",
+      "68d",
+      "69",
+      "69a",
+      "70",
+      "71"
+     ],
+     "citedOnlyParagraphs": [
+      "2b",
+      "3",
+      "30",
+      "30a",
+      "30b",
+      "59",
+      "61",
+      "68e",
+      "71a"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "152/2025"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 125,
+   "statutes": [
+    {
+     "lawRef": "108/2006",
+     "operativeParagraphs": [
+      "13",
+      "14a",
+      "21",
+      "4"
+     ],
+     "citedOnlyParagraphs": [
+      "12",
+      "16",
+      "25",
+      "26",
+      "29",
+      "8a"
+     ]
+    },
+    {
+     "lawRef": "329/2011",
+     "operativeParagraphs": [
+      "12"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "582/1991",
+     "operativeParagraphs": [
+      "8"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [
+    "300/2025",
+    "358/2022"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 129,
+   "statutes": [],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 130,
+   "statutes": [
+    {
+     "lawRef": "95/2004",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "17"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "95/2004"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 131,
+   "statutes": [
+    {
+     "lawRef": "491/2001",
+     "operativeParagraphs": [
+      "3",
+      "56",
+      "57",
+      "58",
+      "66"
+     ],
+     "citedOnlyParagraphs": [
+      "45",
+      "55",
+      "58a",
+      "58b"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 132,
+   "statutes": [
+    {
+     "lawRef": "256/2004",
+     "operativeParagraphs": [
+      "32"
+     ],
+     "citedOnlyParagraphs": [
+      "11a",
+      "15",
+      "15b",
+      "15ca",
+      "15d",
+      "15e",
+      "15f",
+      "15l"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 133,
+   "statutes": [
+    {
+     "lawRef": "353/2003",
+     "operativeParagraphs": [
+      "48"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 135,
+   "statutes": [],
+   "extractorMissedRefs": [
+    "1/1993"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 138,
+   "statutes": [
+    {
+     "lawRef": "353/2019",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "15",
+      "16"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "353/2019"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 140,
+   "statutes": [
+    {
+     "lawRef": "243/2000",
+     "operativeParagraphs": [
+      "3",
+      "4",
+      "6"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 141,
+   "statutes": [
+    {
+     "lawRef": "243/2000",
+     "operativeParagraphs": [
+      "3",
+      "4",
+      "6"
+     ],
+     "citedOnlyParagraphs": [
+      "3a"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 143,
+   "statutes": [
+    {
+     "lawRef": "15/1998",
+     "operativeParagraphs": [
+      "4"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "190/2004",
+     "operativeParagraphs": [
+      "40b",
+      "41",
+      "7",
+      "9a"
+     ],
+     "citedOnlyParagraphs": [
+      "40c",
+      "7a"
+     ]
+    },
+    {
+     "lawRef": "21/1992",
+     "operativeParagraphs": [
+      "12ah",
+      "25c",
+      "25d",
+      "26",
+      "26ac",
+      "31",
+      "36c",
+      "36e",
+      "36f",
+      "36h",
+      "36i",
+      "38hc",
+      "3b",
+      "8b"
+     ],
+     "citedOnlyParagraphs": [
+      "21",
+      "25e",
+      "36a",
+      "36d",
+      "36da",
+      "38d"
+     ]
+    },
+    {
+     "lawRef": "256/2004",
+     "operativeParagraphs": [
+      "100",
+      "121g",
+      "121k",
+      "127",
+      "127j",
+      "127k",
+      "12aa",
+      "12ab",
+      "12ad",
+      "135a",
+      "135c",
+      "136",
+      "137a",
+      "145",
+      "14c",
+      "15",
+      "150",
+      "153",
+      "15ca",
+      "15e",
+      "16",
+      "160",
+      "161b",
+      "16a",
+      "170",
+      "172",
+      "177",
+      "18",
+      "181",
+      "184",
+      "192a",
+      "198a",
+      "198b",
+      "199",
+      "30",
+      "35",
+      "38",
+      "40",
+      "42",
+      "44",
+      "5",
+      "50",
+      "54",
+      "57",
+      "6",
+      "7",
+      "73a",
+      "73b",
+      "73c",
+      "83",
+      "87",
+      "90g"
+     ],
+     "citedOnlyParagraphs": [
+      "11a",
+      "127n",
+      "12g",
+      "12j",
+      "135b",
+      "135e",
+      "137c",
+      "15cb",
+      "15cc",
+      "16b",
+      "172a",
+      "183",
+      "198",
+      "28a",
+      "36",
+      "36a",
+      "39",
+      "56",
+      "6a",
+      "73aa"
+     ]
+    },
+    {
+     "lawRef": "87/1995",
+     "operativeParagraphs": [
+      "1a",
+      "21a",
+      "21b",
+      "27b",
+      "27c",
+      "27e",
+      "28",
+      "7a"
+     ],
+     "citedOnlyParagraphs": [
+      "21c"
+     ]
+    },
+    {
+     "lawRef": "90/2012",
+     "operativeParagraphs": [
+      "416",
+      "417"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 144,
+   "statutes": [
+    {
+     "lawRef": "326/1999",
+     "operativeParagraphs": [
+      "228",
+      "283",
+      "529",
+      "569",
+      "77",
+      "84"
+     ],
+     "citedOnlyParagraphs": [
+      "1",
+      "10",
+      "100",
+      "101",
+      "102",
+      "103",
+      "104",
+      "105",
+      "106",
+      "107",
+      "108",
+      "109",
+      "11",
+      "110",
+      "111",
+      "112",
+      "113",
+      "114",
+      "115",
+      "116",
+      "117",
+      "118",
+      "119",
+      "12",
+      "120",
+      "121",
+      "122",
+      "123",
+      "124",
+      "125",
+      "126",
+      "127",
+      "128",
+      "129",
+      "13",
+      "130",
+      "131",
+      "132",
+      "133",
+      "134",
+      "135",
+      "136",
+      "137",
+      "138",
+      "139",
+      "14",
+      "140",
+      "141",
+      "142",
+      "143",
+      "144",
+      "145",
+      "146",
+      "147",
+      "148",
+      "149",
+      "15",
+      "150",
+      "151",
+      "152",
+      "153",
+      "154",
+      "155",
+      "155b",
+      "156",
+      "157",
+      "158",
+      "159",
+      "16",
+      "160",
+      "161",
+      "162",
+      "163",
+      "164",
+      "165",
+      "166",
+      "167",
+      "168",
+      "169",
+      "17",
+      "170",
+      "170a",
+      "171",
+      "172",
+      "173",
+      "174",
+      "175",
+      "176",
+      "177",
+      "178",
+      "179",
+      "18",
+      "180",
+      "180g",
+      "181",
+      "182",
+      "183",
+      "184",
+      "185",
+      "186",
+      "187",
+      "188",
+      "189",
+      "19",
+      "190",
+      "191",
+      "192",
+      "193",
+      "194",
+      "195",
+      "196",
+      "197",
+      "198",
+      "199",
+      "2",
+      "20",
+      "200",
+      "201",
+      "202",
+      "203",
+      "204",
+      "205",
+      "206",
+      "207",
+      "208",
+      "209",
+      "21",
+      "210",
+      "211",
+      "212",
+      "213",
+      "214",
+      "215",
+      "216",
+      "217",
+      "218",
+      "219",
+      "22",
+      "220",
+      "221",
+      "222",
+      "223",
+      "224",
+      "225",
+      "226",
+      "227",
+      "229",
+      "23",
+      "230",
+      "231",
+      "232",
+      "233",
+      "234",
+      "235",
+      "236",
+      "237",
+      "238",
+      "239",
+      "24",
+      "240",
+      "241",
+      "242",
+      "243",
+      "244",
+      "245",
+      "246",
+      "247",
+      "248",
+      "249",
+      "25",
+      "250",
+      "251",
+      "252",
+      "253",
+      "254",
+      "255",
+      "256",
+      "257",
+      "258",
+      "259",
+      "26",
+      "260",
+      "261",
+      "262",
+      "263",
+      "264",
+      "265",
+      "266",
+      "267",
+      "268",
+      "269",
+      "27",
+      "270",
+      "271",
+      "272",
+      "273",
+      "274",
+      "275",
+      "276",
+      "277",
+      "278",
+      "279",
+      "28",
+      "280",
+      "281",
+      "282",
+      "284",
+      "285",
+      "286",
+      "287",
+      "288",
+      "289",
+      "29",
+      "290",
+      "291",
+      "292",
+      "293",
+      "294",
+      "295",
+      "296",
+      "297",
+      "298",
+      "299",
+      "3",
+      "30",
+      "300",
+      "301",
+      "302",
+      "303",
+      "304",
+      "305",
+      "306",
+      "307",
+      "308",
+      "309",
+      "31",
+      "310",
+      "311",
+      "312",
+      "313",
+      "314",
+      "315",
+      "316",
+      "317",
+      "318",
+      "319",
+      "32",
+      "320",
+      "321",
+      "322",
+      "323",
+      "324",
+      "325",
+      "326",
+      "327",
+      "328",
+      "329",
+      "33",
+      "330",
+      "331",
+      "332",
+      "333",
+      "334",
+      "335",
+      "336",
+      "337",
+      "338",
+      "339",
+      "34",
+      "340",
+      "341",
+      "342",
+      "343",
+      "344",
+      "345",
+      "346",
+      "347",
+      "348",
+      "349",
+      "35",
+      "350",
+      "351",
+      "352",
+      "353",
+      "354",
+      "355",
+      "356",
+      "357",
+      "358",
+      "359",
+      "36",
+      "360",
+      "361",
+      "362",
+      "363",
+      "364",
+      "365",
+      "366",
+      "367",
+      "368",
+      "369",
+      "37",
+      "370",
+      "371",
+      "372",
+      "373",
+      "374",
+      "375",
+      "376",
+      "377",
+      "378",
+      "379",
+      "38",
+      "380",
+      "381",
+      "382",
+      "383",
+      "384",
+      "385",
+      "386",
+      "387",
+      "388",
+      "389",
+      "39",
+      "390",
+      "391",
+      "392",
+      "393",
+      "394",
+      "395",
+      "396",
+      "397",
+      "398",
+      "399",
+      "4",
+      "40",
+      "400",
+      "401",
+      "402",
+      "403",
+      "404",
+      "405",
+      "406",
+      "407",
+      "408",
+      "409",
+      "41",
+      "410",
+      "411",
+      "412",
+      "413",
+      "414",
+      "415",
+      "416",
+      "417",
+      "418",
+      "419",
+      "42",
+      "420",
+      "421",
+      "422",
+      "423",
+      "424",
+      "425",
+      "426",
+      "427",
+      "428",
+      "429",
+      "42g",
+      "43",
+      "430",
+      "431",
+      "432",
+      "433",
+      "434",
+      "435",
+      "436",
+      "437",
+      "438",
+      "439",
+      "44",
+      "440",
+      "441",
+      "442",
+      "443",
+      "444",
+      "445",
+      "446",
+      "447",
+      "448",
+      "449",
+      "45",
+      "450",
+      "451",
+      "452",
+      "453",
+      "454",
+      "455",
+      "456",
+      "457",
+      "458",
+      "459",
+      "46",
+      "460",
+      "461",
+      "462",
+      "463",
+      "464",
+      "465",
+      "466",
+      "467",
+      "468",
+      "469",
+      "46a",
+      "47",
+      "470",
+      "471",
+      "472",
+      "473",
+      "474",
+      "475",
+      "476",
+      "477",
+      "478",
+      "479",
+      "48",
+      "480",
+      "481",
+      "482",
+      "483",
+      "484",
+      "485",
+      "486",
+      "487",
+      "488",
+      "489",
+      "49",
+      "490",
+      "491",
+      "492",
+      "493",
+      "494",
+      "495",
+      "496",
+      "497",
+      "498",
+      "499",
+      "5",
+      "50",
+      "500",
+      "501",
+      "502",
+      "503",
+      "504",
+      "505",
+      "506",
+      "507",
+      "508",
+      "509",
+      "51",
+      "510",
+      "511",
+      "512",
+      "513",
+      "514",
+      "515",
+      "516",
+      "517",
+      "518",
+      "519",
+      "52",
+      "520",
+      "521",
+      "522",
+      "523",
+      "524",
+      "525",
+      "526",
+      "527",
+      "528",
+      "53",
+      "530",
+      "531",
+      "532",
+      "533",
+      "534",
+      "535",
+      "536",
+      "537",
+      "538",
+      "539",
+      "54",
+      "540",
+      "541",
+      "542",
+      "543",
+      "544",
+      "545",
+      "546",
+      "547",
+      "548",
+      "549",
+      "55",
+      "550",
+      "551",
+      "552",
+      "553",
+      "554",
+      "555",
+      "556",
+      "557",
+      "558",
+      "559",
+      "56",
+      "560",
+      "561",
+      "562",
+      "563",
+      "564",
+      "565",
+      "566",
+      "567",
+      "568",
+      "57",
+      "570",
+      "571",
+      "572",
+      "573",
+      "574",
+      "575",
+      "576",
+      "577",
+      "578",
+      "579",
+      "58",
+      "580",
+      "581",
+      "582",
+      "583",
+      "584",
+      "585",
+      "586",
+      "587",
+      "588",
+      "589",
+      "59",
+      "590",
+      "591",
+      "592",
+      "593",
+      "594",
+      "595",
+      "596",
+      "597",
+      "598",
+      "599",
+      "6",
+      "60",
+      "600",
+      "601",
+      "602",
+      "603",
+      "604",
+      "605",
+      "606",
+      "607",
+      "608",
+      "609",
+      "61",
+      "610",
+      "611",
+      "612",
+      "613",
+      "614",
+      "615",
+      "616",
+      "617",
+      "618",
+      "619",
+      "62",
+      "620",
+      "621",
+      "622",
+      "623",
+      "624",
+      "625",
+      "626",
+      "627",
+      "628",
+      "629",
+      "63",
+      "630",
+      "631",
+      "632",
+      "633",
+      "634",
+      "635",
+      "636",
+      "637",
+      "638",
+      "639",
+      "64",
+      "640",
+      "641",
+      "642",
+      "643",
+      "644",
+      "645",
+      "646",
+      "647",
+      "648",
+      "649",
+      "65",
+      "650",
+      "651",
+      "652",
+      "653",
+      "654",
+      "655",
+      "656",
+      "657",
+      "658",
+      "659",
+      "66",
+      "660",
+      "661",
+      "662",
+      "663",
+      "664",
+      "665",
+      "666",
+      "667",
+      "668",
+      "669",
+      "67",
+      "670",
+      "671",
+      "672",
+      "673",
+      "674",
+      "675",
+      "676",
+      "677",
+      "678",
+      "679",
+      "68",
+      "680",
+      "681",
+      "682",
+      "683",
+      "684",
+      "685",
+      "686",
+      "687",
+      "688",
+      "689",
+      "69",
+      "690",
+      "691",
+      "692",
+      "693",
+      "694",
+      "695",
+      "696",
+      "697",
+      "698",
+      "699",
+      "7",
+      "70",
+      "700",
+      "701",
+      "702",
+      "703",
+      "704",
+      "705",
+      "706",
+      "707",
+      "708",
+      "709",
+      "71",
+      "710",
+      "711",
+      "712",
+      "72",
+      "73",
+      "74",
+      "75",
+      "76",
+      "78",
+      "79",
+      "8",
+      "80",
+      "81",
+      "82",
+      "83",
+      "85",
+      "86",
+      "87",
+      "87b",
+      "87j",
+      "88",
+      "89",
+      "9",
+      "90",
+      "91",
+      "92",
+      "93",
+      "94",
+      "95",
+      "96",
+      "97",
+      "98",
+      "99"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": [
+    "326/1999"
+   ]
+  },
+  {
+   "cislo": 145,
+   "statutes": [
+    {
+     "lawRef": "111/1998",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "62a"
+     ]
+    },
+    {
+     "lawRef": "170/2018",
+     "operativeParagraphs": [
+      "114",
+      "52"
+     ],
+     "citedOnlyParagraphs": [
+      "4",
+      "5",
+      "52a",
+      "77"
+     ]
+    },
+    {
+     "lawRef": "257/2016",
+     "operativeParagraphs": [
+      "100",
+      "101",
+      "101a",
+      "102",
+      "104",
+      "106",
+      "108",
+      "113",
+      "115",
+      "116",
+      "117",
+      "117a",
+      "118",
+      "119",
+      "120",
+      "121",
+      "124",
+      "127",
+      "14",
+      "15",
+      "153",
+      "154",
+      "155",
+      "157",
+      "160",
+      "2",
+      "21",
+      "23",
+      "3",
+      "4",
+      "48",
+      "5",
+      "51",
+      "55",
+      "57",
+      "6",
+      "60",
+      "72",
+      "76",
+      "77",
+      "8",
+      "85",
+      "86",
+      "87",
+      "88",
+      "89",
+      "90",
+      "91",
+      "92",
+      "93",
+      "97"
+     ],
+     "citedOnlyParagraphs": [
+      "1",
+      "100a",
+      "104a",
+      "105",
+      "107",
+      "109",
+      "110",
+      "111",
+      "111a",
+      "112",
+      "116a",
+      "121a",
+      "122",
+      "124a",
+      "124b",
+      "168",
+      "2a",
+      "7",
+      "77a",
+      "77b",
+      "81",
+      "94",
+      "95",
+      "96",
+      "98",
+      "99"
+     ]
+    },
+    {
+     "lawRef": "277/2009",
+     "operativeParagraphs": [
+      "120",
+      "59"
+     ],
+     "citedOnlyParagraphs": [
+      "4",
+      "5",
+      "59a"
+     ]
+    },
+    {
+     "lawRef": "424/2023",
+     "operativeParagraphs": [
+      "3"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "84/2024",
+     "operativeParagraphs": [
+      "11"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [
+    "111/1998"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 146,
+   "statutes": [
+    {
+     "lawRef": "128/2000",
+     "operativeParagraphs": [
+      "72"
+     ],
+     "citedOnlyParagraphs": [
+      "72a",
+      "72b",
+      "73"
+     ]
+    },
+    {
+     "lawRef": "129/2000",
+     "operativeParagraphs": [
+      "47"
+     ],
+     "citedOnlyParagraphs": [
+      "47a",
+      "47b",
+      "48"
+     ]
+    },
+    {
+     "lawRef": "131/2000",
+     "operativeParagraphs": [
+      "53"
+     ],
+     "citedOnlyParagraphs": [
+      "53a",
+      "53b",
+      "54",
+      "87"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 153,
+   "statutes": [
+    {
+     "lawRef": "375/2022",
+     "operativeParagraphs": [
+      "53a",
+      "62a"
+     ],
+     "citedOnlyParagraphs": [
+      "2",
+      "53b",
+      "5k",
+      "62b"
+     ]
+    },
+    {
+     "lawRef": "40/1995",
+     "operativeParagraphs": [
+      "1",
+      "5",
+      "5a",
+      "5b",
+      "5d",
+      "5k",
+      "7",
+      "7c"
+     ],
+     "citedOnlyParagraphs": [
+      "2",
+      "25",
+      "28",
+      "2a",
+      "2c",
+      "3",
+      "3a",
+      "3b",
+      "4",
+      "41",
+      "44",
+      "5c",
+      "5e",
+      "5g",
+      "5h",
+      "5i",
+      "5j",
+      "5l",
+      "5m",
+      "5n",
+      "6",
+      "6a",
+      "6b",
+      "7a",
+      "8",
+      "8a"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 154,
+   "statutes": [
+    {
+     "lawRef": "250/2017",
+     "operativeParagraphs": [
+      "11",
+      "12",
+      "13",
+      "14",
+      "16",
+      "18",
+      "19",
+      "2",
+      "20",
+      "21",
+      "22",
+      "24",
+      "25",
+      "3",
+      "5",
+      "6"
+     ],
+     "citedOnlyParagraphs": [
+      "12a",
+      "18a",
+      "18b",
+      "24a",
+      "24b"
+     ]
+    },
+    {
+     "lawRef": "297/2016",
+     "operativeParagraphs": [
+      "12",
+      "13",
+      "14",
+      "17",
+      "2",
+      "3"
+     ],
+     "citedOnlyParagraphs": [
+      "12a",
+      "12b",
+      "12c",
+      "13a",
+      "420",
+      "5",
+      "6"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "634/2004"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 161,
+   "statutes": [
+    {
+     "lawRef": "541/2020",
+     "operativeParagraphs": [
+      "59"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 162,
+   "statutes": [
+    {
+     "lawRef": "82/1998",
+     "operativeParagraphs": [
+      "12"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "99/1963",
+     "operativeParagraphs": [
+      "109",
+      "141",
+      "196",
+      "202",
+      "24",
+      "26",
+      "261",
+      "274",
+      "354a",
+      "370a",
+      "50j",
+      "53"
+     ],
+     "citedOnlyParagraphs": [
+      "197",
+      "198",
+      "21",
+      "26a",
+      "354b",
+      "371"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "549/1991"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 163,
+   "statutes": [
+    {
+     "lawRef": "526/1990",
+     "operativeParagraphs": [
+      "10",
+      "3"
+     ],
+     "citedOnlyParagraphs": [
+      "1",
+      "2",
+      "4"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 167,
+   "statutes": [
+    {
+     "lawRef": "283/2021",
+     "operativeParagraphs": [
+      "334b"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 168,
+   "statutes": [
+    {
+     "lawRef": "235/2004",
+     "operativeParagraphs": [
+      "37",
+      "47",
+      "47a",
+      "49"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 171,
+   "statutes": [
+    {
+     "lawRef": "13/1997",
+     "operativeParagraphs": [
+      "21"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 172,
+   "statutes": [
+    {
+     "lawRef": "111/2009",
+     "operativeParagraphs": [
+      "18",
+      "19",
+      "51",
+      "69"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "12/2020",
+     "operativeParagraphs": [
+      "12",
+      "13a"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "251/2016",
+     "operativeParagraphs": [
+      "2"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "269/2021",
+     "operativeParagraphs": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "13",
+      "16",
+      "17",
+      "18",
+      "19",
+      "22",
+      "23",
+      "24",
+      "26",
+      "27",
+      "29",
+      "34",
+      "35",
+      "36",
+      "37",
+      "38",
+      "41",
+      "5",
+      "55",
+      "56",
+      "57",
+      "58",
+      "60",
+      "61",
+      "62",
+      "65",
+      "66",
+      "7",
+      "71",
+      "8",
+      "9"
+     ],
+     "citedOnlyParagraphs": [
+      "27a",
+      "40",
+      "67",
+      "68"
+     ]
+    },
+    {
+     "lawRef": "329/1999",
+     "operativeParagraphs": [
+      "10",
+      "12",
+      "13",
+      "14",
+      "15",
+      "17",
+      "18",
+      "19",
+      "2",
+      "20",
+      "21",
+      "21a",
+      "21b",
+      "21c",
+      "22",
+      "23",
+      "26",
+      "27",
+      "28",
+      "29",
+      "29a",
+      "3",
+      "30",
+      "30a",
+      "32",
+      "32a",
+      "33",
+      "34",
+      "34a",
+      "34b",
+      "35",
+      "36",
+      "37",
+      "5",
+      "6"
+     ],
+     "citedOnlyParagraphs": [
+      "31"
+     ]
+    },
+    {
+     "lawRef": "634/2004",
+     "operativeParagraphs": [
+      "8"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 173,
+   "statutes": [
+    {
+     "lawRef": "40/2009",
+     "operativeParagraphs": [
+      "199",
+      "302",
+      "303"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 174,
+   "statutes": [
+    {
+     "lawRef": "246/1992",
+     "operativeParagraphs": [
+      "13b",
+      "20",
+      "27",
+      "27a",
+      "27c",
+      "27d",
+      "28a",
+      "28c",
+      "28e",
+      "8b"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "273/2008",
+     "operativeParagraphs": [
+      "40"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "89/2012",
+     "operativeParagraphs": [
+      "1048"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 181,
+   "statutes": [
+    {
+     "lawRef": "491/2001",
+     "operativeParagraphs": [
+      "4",
+      "5"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 186,
+   "statutes": [
+    {
+     "lawRef": "458/2000",
+     "operativeParagraphs": [
+      "27f"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 187,
+   "statutes": [
+    {
+     "lawRef": "197/2024",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "63"
+     ]
+    },
+    {
+     "lawRef": "222/2016",
+     "operativeParagraphs": [
+      "26"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "29/2000",
+     "operativeParagraphs": [
+      "23",
+      "34b",
+      "34c",
+      "34d",
+      "34e",
+      "41"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "499/2004",
+     "operativeParagraphs": [
+      "63",
+      "69e"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [
+    "123/2024",
+    "197/2024",
+    "261/2021",
+    "332/2025",
+    "414/2023"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 189,
+   "statutes": [
+    {
+     "lawRef": "586/1992",
+     "operativeParagraphs": [
+      "11e",
+      "12a",
+      "13d",
+      "16ab",
+      "18a",
+      "19c",
+      "25",
+      "2a",
+      "35ba",
+      "35bb",
+      "35c",
+      "35d",
+      "38",
+      "38g",
+      "38h",
+      "38k",
+      "38l",
+      "38lda",
+      "38ldb",
+      "38lf",
+      "38lg",
+      "38lk",
+      "38t",
+      "46",
+      "6",
+      "62",
+      "72",
+      "74b",
+      "7a",
+      "82"
+     ],
+     "citedOnlyParagraphs": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "12b",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "2",
+      "20",
+      "21",
+      "22",
+      "23",
+      "24",
+      "26",
+      "27",
+      "28",
+      "29",
+      "2b",
+      "3",
+      "30",
+      "31",
+      "32",
+      "33",
+      "34",
+      "35",
+      "35bc",
+      "35bd",
+      "35be",
+      "38ldaa",
+      "38ldc",
+      "4",
+      "5",
+      "7",
+      "73",
+      "77a",
+      "8",
+      "9"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "17/2012",
+    "235/2004",
+    "456/2011"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 190,
+   "statutes": [
+    {
+     "lawRef": "247/1995",
+     "operativeParagraphs": [
+      "67",
+      "68",
+      "70",
+      "76"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "275/2012",
+     "operativeParagraphs": [
+      "28",
+      "42",
+      "49"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "88/2024",
+     "operativeParagraphs": [
+      "35",
+      "84"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [
+    "89/2024"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 192,
+   "statutes": [
+    {
+     "lawRef": "257/2001",
+     "operativeParagraphs": [
+      "9"
+     ],
+     "citedOnlyParagraphs": [
+      "1",
+      "3",
+      "30a",
+      "37",
+      "39a",
+      "4b",
+      "5",
+      "9a"
+     ]
+    },
+    {
+     "lawRef": "37/1995",
+     "operativeParagraphs": [
+      "1",
+      "2",
+      "3",
+      "5"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "46/2000",
+     "operativeParagraphs": [
+      "17",
+      "2",
+      "3",
+      "8",
+      "9"
+     ],
+     "citedOnlyParagraphs": [
+      "1",
+      "4",
+      "9a"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 193,
+   "statutes": [
+    {
+     "lawRef": "477/2001",
+     "operativeParagraphs": [
+      "16",
+      "17",
+      "18",
+      "19",
+      "2",
+      "20",
+      "21"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 196,
+   "statutes": [
+    {
+     "lawRef": "104/2013",
+     "operativeParagraphs": [
+      "106",
+      "113",
+      "193",
+      "203",
+      "205",
+      "211"
+     ],
+     "citedOnlyParagraphs": [
+      "108",
+      "11",
+      "146a",
+      "193a",
+      "205a",
+      "208",
+      "210",
+      "395n",
+      "395o",
+      "395p",
+      "395q",
+      "395r",
+      "58"
+     ]
+    },
+    {
+     "lawRef": "141/1961",
+     "operativeParagraphs": [
+      "122"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "40/2009",
+     "operativeParagraphs": [
+      "9"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 198,
+   "statutes": [
+    {
+     "lawRef": "117/1995",
+     "operativeParagraphs": [
+      "30"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 199,
+   "statutes": [
+    {
+     "lawRef": "350/2011",
+     "operativeParagraphs": [
+      "22",
+      "24",
+      "33",
+      "34"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 201,
+   "statutes": [
+    {
+     "lawRef": "348/2005",
+     "operativeParagraphs": [
+      "3",
+      "4",
+      "5",
+      "8",
+      "9"
+     ],
+     "citedOnlyParagraphs": [
+      "11",
+      "2",
+      "34"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 205,
+   "statutes": [
+    {
+     "lawRef": "2/1969",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "28"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "2/1969"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 206,
+   "statutes": [
+    {
+     "lawRef": "134/2016",
+     "operativeParagraphs": [
+      "246",
+      "250",
+      "251",
+      "254",
+      "255",
+      "256",
+      "257",
+      "261",
+      "263",
+      "264",
+      "272",
+      "272b",
+      "272c"
+     ],
+     "citedOnlyParagraphs": [
+      "141",
+      "153",
+      "1a",
+      "248",
+      "256a",
+      "256b",
+      "256c",
+      "257a",
+      "2a"
+     ]
+    },
+    {
+     "lawRef": "166/1993",
+     "operativeParagraphs": [
+      "8"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "194/2010",
+     "operativeParagraphs": [
+      "27",
+      "34"
+     ],
+     "citedOnlyParagraphs": [
+      "272a",
+      "27a"
+     ]
+    },
+    {
+     "lawRef": "273/1996",
+     "operativeParagraphs": [
+      "1",
+      "1a",
+      "2"
+     ],
+     "citedOnlyParagraphs": [
+      "134",
+      "1b",
+      "1c",
+      "2a"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "549/1991"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 207,
+   "statutes": [
+    {
+     "lawRef": "141/1961",
+     "operativeParagraphs": [
+      "73a",
+      "81b",
+      "87a"
+     ],
+     "citedOnlyParagraphs": [
+      "283"
+     ]
+    },
+    {
+     "lawRef": "17/2012",
+     "operativeParagraphs": [
+      "4"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "273/2008",
+     "operativeParagraphs": [
+      "38",
+      "42"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "300/2013",
+     "operativeParagraphs": [
+      "1a"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "341/2011",
+     "operativeParagraphs": [
+      "14",
+      "16"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "359/1999",
+     "operativeParagraphs": [
+      "23e"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "40/2009",
+     "operativeParagraphs": [
+      "119a",
+      "281",
+      "282",
+      "283",
+      "283a",
+      "286",
+      "293",
+      "294",
+      "294a",
+      "295",
+      "296",
+      "297",
+      "298",
+      "298a",
+      "299",
+      "301",
+      "33",
+      "367",
+      "368",
+      "88"
+     ],
+     "citedOnlyParagraphs": [
+      "119b",
+      "283b",
+      "292a",
+      "292b",
+      "297a",
+      "298b",
+      "298c",
+      "298d",
+      "298e",
+      "298f",
+      "298g",
+      "298h",
+      "298i",
+      "298j",
+      "300",
+      "301a",
+      "318"
+     ]
+    },
+    {
+     "lawRef": "59/2017",
+     "operativeParagraphs": [
+      "6"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 208,
+   "statutes": [
+    {
+     "lawRef": "65/2017",
+     "operativeParagraphs": [
+      "28"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 210,
+   "statutes": [
+    {
+     "lawRef": "198/2009",
+     "operativeParagraphs": [
+      "1",
+      "10",
+      "7"
+     ],
+     "citedOnlyParagraphs": [
+      "134o"
+     ]
+    },
+    {
+     "lawRef": "256/2004",
+     "operativeParagraphs": [
+      "10",
+      "118",
+      "172",
+      "198a",
+      "2"
+     ],
+     "citedOnlyParagraphs": [
+      "134l",
+      "134m",
+      "134n",
+      "134o",
+      "134p"
+     ]
+    },
+    {
+     "lawRef": "99/1963",
+     "operativeParagraphs": [
+      "133a"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 213,
+   "statutes": [
+    {
+     "lawRef": "150/2002",
+     "operativeParagraphs": [
+      "104a"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "325/1999",
+     "operativeParagraphs": [
+      "10",
+      "11",
+      "14",
+      "17",
+      "23b",
+      "24",
+      "24a",
+      "27",
+      "30",
+      "32",
+      "32c",
+      "32d",
+      "32e",
+      "33f",
+      "33g",
+      "33h",
+      "33i",
+      "33j",
+      "33k",
+      "33n",
+      "33o",
+      "41",
+      "42",
+      "42a",
+      "45",
+      "46a",
+      "46d",
+      "46e",
+      "46f",
+      "47a",
+      "50a",
+      "53",
+      "53b",
+      "53d",
+      "53e",
+      "56d",
+      "57",
+      "61",
+      "61b",
+      "65",
+      "77",
+      "79",
+      "81a",
+      "82",
+      "83",
+      "86",
+      "87",
+      "92c",
+      "93"
+     ],
+     "citedOnlyParagraphs": [
+      "2",
+      "32a",
+      "33",
+      "53a",
+      "70"
+     ]
+    },
+    {
+     "lawRef": "326/1999",
+     "operativeParagraphs": [
+      "103",
+      "105",
+      "106",
+      "107",
+      "117",
+      "118a",
+      "119a",
+      "12",
+      "120a",
+      "123b",
+      "132a",
+      "136",
+      "137",
+      "140",
+      "144",
+      "145",
+      "146",
+      "147",
+      "150",
+      "154",
+      "163",
+      "168",
+      "169c",
+      "169r",
+      "170a",
+      "170g",
+      "171",
+      "172",
+      "172a",
+      "177",
+      "179",
+      "18",
+      "180e",
+      "181b",
+      "31",
+      "42",
+      "42d",
+      "42g",
+      "44a",
+      "47",
+      "50",
+      "50a",
+      "62",
+      "64",
+      "68",
+      "70",
+      "71",
+      "76",
+      "87h",
+      "87i",
+      "88",
+      "98",
+      "98a"
+     ],
+     "citedOnlyParagraphs": [
+      "117a",
+      "119",
+      "120",
+      "124b",
+      "147a",
+      "164",
+      "165a",
+      "167",
+      "171a",
+      "171b",
+      "171c",
+      "171d",
+      "172b",
+      "174",
+      "177a",
+      "20",
+      "42b",
+      "42c",
+      "42f",
+      "42i",
+      "46f",
+      "87b",
+      "87d",
+      "96"
+     ]
+    },
+    {
+     "lawRef": "40/2009",
+     "operativeParagraphs": [
+      "339",
+      "340",
+      "341",
+      "367",
+      "88"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "65/2022",
+     "operativeParagraphs": [
+      "1",
+      "3",
+      "4",
+      "5",
+      "6",
+      "6a",
+      "7",
+      "7b",
+      "7d",
+      "7h",
+      "7m",
+      "7n",
+      "7o",
+      "7p",
+      "7q",
+      "7r",
+      "7s",
+      "7t",
+      "7u",
+      "7w"
+     ],
+     "citedOnlyParagraphs": [
+      "113",
+      "123a",
+      "154",
+      "2",
+      "7i",
+      "7j",
+      "7k",
+      "7l",
+      "80"
+     ]
+    },
+    {
+     "lawRef": "66/2022",
+     "operativeParagraphs": [
+      "6",
+      "6b",
+      "6c"
+     ],
+     "citedOnlyParagraphs": [
+      "2",
+      "52",
+      "7d"
+     ]
+    },
+    {
+     "lawRef": "67/2022",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "9"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "67/2022"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 214,
+   "statutes": [],
+   "extractorMissedRefs": [
+    "1/1993"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 215,
+   "statutes": [
+    {
+     "lawRef": "111/1998",
+     "operativeParagraphs": [
+      "107a"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "121/2008",
+     "operativeParagraphs": [
+      "11",
+      "3",
+      "9"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "150/2002",
+     "operativeParagraphs": [
+      "101a",
+      "101b",
+      "101c",
+      "101d",
+      "103",
+      "105",
+      "106",
+      "109",
+      "110",
+      "114",
+      "122",
+      "15",
+      "16",
+      "18",
+      "19",
+      "31",
+      "33",
+      "34",
+      "35",
+      "36",
+      "37",
+      "38",
+      "39",
+      "4",
+      "40",
+      "42",
+      "43",
+      "47",
+      "55",
+      "55a",
+      "56",
+      "57",
+      "66",
+      "68",
+      "7",
+      "72",
+      "75",
+      "77",
+      "8",
+      "80",
+      "82",
+      "84",
+      "85",
+      "86",
+      "88",
+      "89",
+      "90",
+      "91",
+      "91a",
+      "91b",
+      "93"
+     ],
+     "citedOnlyParagraphs": [
+      "101g",
+      "101h",
+      "101i",
+      "101j",
+      "27",
+      "27a",
+      "37a",
+      "76",
+      "80a"
+     ]
+    },
+    {
+     "lawRef": "280/2009",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "124a"
+     ]
+    },
+    {
+     "lawRef": "412/2005",
+     "operativeParagraphs": [
+      "112"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "500/2004",
+     "operativeParagraphs": [
+      "141",
+      "64",
+      "65"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "99/1963",
+     "operativeParagraphs": [
+      "244",
+      "82"
+     ],
+     "citedOnlyParagraphs": [
+      "57"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "280/2009"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 216,
+   "statutes": [
+    {
+     "lawRef": "40/2009",
+     "operativeParagraphs": [
+      "175",
+      "283"
+     ],
+     "citedOnlyParagraphs": [
+      "175a",
+      "283a",
+      "286a"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 217,
+   "statutes": [
+    {
+     "lawRef": "166/1993",
+     "operativeParagraphs": [
+      "3"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 218,
+   "statutes": [
+    {
+     "lawRef": "235/2004",
+     "operativeParagraphs": [
+      "100a",
+      "102",
+      "10i",
+      "110b",
+      "13a",
+      "21",
+      "22",
+      "25",
+      "2a",
+      "71l",
+      "8"
+     ],
+     "citedOnlyParagraphs": [
+      "18",
+      "68",
+      "71m",
+      "7a"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 219,
+   "statutes": [
+    {
+     "lawRef": "354/2019",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "2",
+      "20",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "301/1992"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 221,
+   "statutes": [
+    {
+     "lawRef": "134/2016",
+     "operativeParagraphs": [
+      "123",
+      "48",
+      "67"
+     ],
+     "citedOnlyParagraphs": [
+      "2",
+      "4",
+      "44"
+     ]
+    },
+    {
+     "lawRef": "159/2006",
+     "operativeParagraphs": [
+      "11",
+      "12",
+      "23",
+      "4a",
+      "4b",
+      "4c",
+      "9"
+     ],
+     "citedOnlyParagraphs": [
+      "11a",
+      "13",
+      "14",
+      "14a",
+      "14b",
+      "2"
+     ]
+    },
+    {
+     "lawRef": "218/2000",
+     "operativeParagraphs": [
+      "14",
+      "14q",
+      "44a"
+     ],
+     "citedOnlyParagraphs": [
+      "12",
+      "14r",
+      "2"
+     ]
+    },
+    {
+     "lawRef": "252/1997",
+     "operativeParagraphs": [
+      "2a",
+      "2d",
+      "2da"
+     ],
+     "citedOnlyParagraphs": [
+      "2",
+      "2db"
+     ]
+    },
+    {
+     "lawRef": "256/2000",
+     "operativeParagraphs": [
+      "11a"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "72/2000",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "2",
+      "2a"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "72/2000"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 222,
+   "statutes": [
+    {
+     "lawRef": "9/2002",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "9a"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "134/2016"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 228,
+   "statutes": [
+    {
+     "lawRef": "111/1998",
+     "operativeParagraphs": [
+      "108",
+      "28",
+      "49",
+      "66",
+      "87",
+      "90b",
+      "93h"
+     ],
+     "citedOnlyParagraphs": [
+      "1",
+      "10",
+      "11",
+      "113c",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "2",
+      "3",
+      "34a",
+      "38",
+      "4",
+      "42",
+      "5",
+      "6",
+      "7",
+      "8",
+      "87b",
+      "89",
+      "9",
+      "93if"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "273/2008",
+    "561/2004"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 231,
+   "statutes": [
+    {
+     "lawRef": "483/1991",
+     "operativeParagraphs": [
+      "10"
+     ],
+     "citedOnlyParagraphs": [
+      "10a"
+     ]
+    },
+    {
+     "lawRef": "484/1991",
+     "operativeParagraphs": [
+      "10"
+     ],
+     "citedOnlyParagraphs": [
+      "10a"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 232,
+   "statutes": [
+    {
+     "lawRef": "561/2004",
+     "operativeParagraphs": [
+      "136",
+      "29",
+      "30"
+     ],
+     "citedOnlyParagraphs": [
+      "29a"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 234,
+   "statutes": [
+    {
+     "lawRef": "200/1994",
+     "operativeParagraphs": [
+      "16",
+      "16b",
+      "16c",
+      "16e",
+      "16f",
+      "16g",
+      "16h",
+      "16i",
+      "16j",
+      "16l",
+      "16m",
+      "16o",
+      "16q",
+      "17a",
+      "17b",
+      "17c"
+     ],
+     "citedOnlyParagraphs": [
+      "16ha",
+      "17d"
+     ]
+    },
+    {
+     "lawRef": "283/2021",
+     "operativeParagraphs": [
+      "285"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "360/1992",
+     "operativeParagraphs": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "22",
+      "22a",
+      "23",
+      "25",
+      "26",
+      "27",
+      "28",
+      "29",
+      "3",
+      "30",
+      "30a",
+      "30c",
+      "30d",
+      "30e",
+      "30g",
+      "30h",
+      "30l",
+      "32",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ],
+     "citedOnlyParagraphs": [
+      "15a",
+      "19a",
+      "30r"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 235,
+   "statutes": [
+    {
+     "lawRef": "592/1992",
+     "operativeParagraphs": [
+      "3c"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 238,
+   "statutes": [
+    {
+     "lawRef": "245/2000",
+     "operativeParagraphs": [
+      "4"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 243,
+   "statutes": [
+    {
+     "lawRef": "240/2000",
+     "operativeParagraphs": [],
+     "citedOnlyParagraphs": [
+      "3"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "223/2016"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 244,
+   "statutes": [
+    {
+     "lawRef": "586/1992",
+     "operativeParagraphs": [
+      "13",
+      "35ba",
+      "35bb",
+      "35c",
+      "35d",
+      "38g",
+      "38h",
+      "38k",
+      "38l"
+     ],
+     "citedOnlyParagraphs": [
+      "35"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 246,
+   "statutes": [
+    {
+     "lawRef": "13/1997",
+     "operativeParagraphs": [
+      "21",
+      "21a"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 248,
+   "statutes": [
+    {
+     "lawRef": "256/2004",
+     "operativeParagraphs": [
+      "134h",
+      "134k"
+     ],
+     "citedOnlyParagraphs": [
+      "125",
+      "134ha",
+      "134l",
+      "224a"
+     ]
+    },
+    {
+     "lawRef": "262/2006",
+     "operativeParagraphs": [
+      "224",
+      "363",
+      "37"
+     ],
+     "citedOnlyParagraphs": [
+      "224a"
+     ]
+    },
+    {
+     "lawRef": "324/2025",
+     "operativeParagraphs": [
+      "1",
+      "2",
+      "3"
+     ],
+     "citedOnlyParagraphs": []
+    },
+    {
+     "lawRef": "427/2011",
+     "operativeParagraphs": [
+      "113",
+      "114",
+      "125",
+      "14",
+      "25",
+      "60"
+     ],
+     "citedOnlyParagraphs": [
+      "113a",
+      "25a"
+     ]
+    },
+    {
+     "lawRef": "586/1992",
+     "operativeParagraphs": [
+      "15b",
+      "24",
+      "6"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 250,
+   "statutes": [
+    {
+     "lawRef": "330/2025",
+     "operativeParagraphs": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "13",
+      "15",
+      "16",
+      "19",
+      "19a",
+      "19b",
+      "19c",
+      "2",
+      "22",
+      "23",
+      "25",
+      "27",
+      "28",
+      "3",
+      "30",
+      "31",
+      "34",
+      "35",
+      "36",
+      "37",
+      "39",
+      "4",
+      "40",
+      "40a",
+      "41",
+      "45",
+      "46",
+      "49",
+      "5",
+      "51",
+      "52",
+      "6",
+      "7",
+      "9"
+     ],
+     "citedOnlyParagraphs": [
+      "14",
+      "17",
+      "18",
+      "20",
+      "21",
+      "21a",
+      "24",
+      "26",
+      "29",
+      "32",
+      "33",
+      "338",
+      "38",
+      "42",
+      "43",
+      "44",
+      "46a",
+      "47",
+      "48",
+      "50",
+      "53",
+      "54",
+      "55",
+      "56",
+      "57",
+      "58",
+      "59",
+      "60",
+      "61",
+      "8",
+      "9a"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [
+    "2/1969",
+    "20/1993",
+    "22/1997",
+    "387/2024",
+    "505/1990",
+    "539/1992",
+    "634/2004",
+    "64/1986",
+    "87/2023"
+   ],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 257,
+   "statutes": [
+    {
+     "lawRef": "187/2006",
+     "operativeParagraphs": [
+      "103",
+      "124",
+      "18",
+      "28"
+     ],
+     "citedOnlyParagraphs": [
+      "26"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 260,
+   "statutes": [
+    {
+     "lawRef": "37/2021",
+     "operativeParagraphs": [
+      "12",
+      "14",
+      "15",
+      "16",
+      "17",
+      "2",
+      "23",
+      "32",
+      "53",
+      "54"
+     ],
+     "citedOnlyParagraphs": [
+      "13",
+      "15a",
+      "15b",
+      "15c",
+      "15d",
+      "15e",
+      "15f",
+      "15g",
+      "15h",
+      "17a",
+      "17b",
+      "18",
+      "32a",
+      "32b",
+      "33",
+      "37",
+      "5"
+     ]
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  },
+  {
+   "cislo": 261,
+   "statutes": [
+    {
+     "lawRef": "114/1992",
+     "operativeParagraphs": [
+      "20"
+     ],
+     "citedOnlyParagraphs": []
+    }
+   ],
+   "extractorMissedRefs": [],
+   "extractorExtraRefs": []
+  }
+ ]
+}

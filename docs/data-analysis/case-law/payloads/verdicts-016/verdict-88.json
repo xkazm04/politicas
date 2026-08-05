@@ -1,0 +1,72 @@
+{
+ "billTisk": 88,
+ "statedReasoning": "Poslanecký návrh (jediný předkladatel Aleš Juchelka) mění čtyři předpisy: zákon č. 151/2025 Sb., o dávce státní sociální pomoci, zákon č. 110/2006 Sb., o životním a existenčním minimu, zákon č. 108/2006 Sb., o sociálních službách, a zákon č. 152/2025 Sb. (doprovodný změnový zákon k zákonu o dávce státní sociální pomoci). Důvodová zpráva tvrdí, že jde o čistě legislativně-technickou úpravu reagující na to, že Úřad práce ČR se s náběhem zcela nové agendy dávky státní sociální pomoci potýká výrazněji, než se původně předpokládalo. Navrhuje se posunout okamžik vzniku nároku na novou dávku pro příjemce tzv. rušených dávek z dubna na červenec 2026, prodloužit lhůtu pro vyhotovení podpůrného plánu ze září na prosinec 2026, sladit s tím i účinnost navýšení částek životního minima podle zákona č. 152/2025 Sb. (posun z 1. května na 1. října 2026) a odsunout účinnost úpravy okruhu započitatelných příjmů (§ 6 až 8 zákona o životním a existenčním minimu) až na 1. června 2028. Zpráva tvrdí, že návrh nemá negativní sociální dopady, žádné dopady na podnikatelské prostředí ani korupční rizika, a žádá schválení již v prvním čtení podle § 90 odst. 2 jednacího řádu s odůvodněním naléhavého obecného zájmu.",
+ "researchedContext": "Text potvrzuje tvrzený rozsah. Čl. I mění § 91 zákona č. 151/2025 Sb. přesně podle popisu (posun dubna na červenec, prodloužení lhůty na podpůrný plán ze září na 31. prosince 2026, nový odst. 8 stanovící lhůtu Úřadu práce do 31. července 2026 pro rozhodnutí o žádostech podaných v období říjen až prosinec 2025 u dosavadních příjemců rušených dávek). Čl. III vkládá do § 7 odst. 2 písm. h) zákona č. 110/2006 Sb. nový bod 12, který zní „12. dávky státní sociální pomoci,“, vylučující dávku státní sociální pomoci ze započitatelných příjmů pro účely životního a existenčního minima. Čl. IV mění § 21 odst. 2 písm. e) zákona č. 108/2006 Sb., o sociálních službách, tak, že ruší část věty za středníkem (podmínku, že splnění ohlašovací povinnosti lze nahradit průkazem rozhodných příjmů pro účely přídavku na dítě) — jde o legislativně-technickou úpravu v návaznosti na zrušení přídavku na dítě. Dřívější textové srovnání této analýzy k oběma těmto ustanovením eviduje u tisku 88 dvě potvrzené kolize se souběžně podaným tiskem 85, obě klasifikované jako potvrzená kolize, nikoli jako pouhá shoda legislativního rodokmenu: (1) na § 21 odst. 2 písm. e) zákona č. 108/2006 Sb. je pokyn tisku 88 („se část věty za středníkem včetně středníku zrušuje“, znak po znaku shodný i ve výčtu předchozích novel) doslovně totožný s pokynem tisku 85 na totéž ustanovení — přijme-li se kterýkoli z obou tisků jako druhý, jeho pokyn míří na část věty, kterou ten první už odstranil, a je tedy při nabytí účinnosti neproveditelný; (2) na § 7 odst. 2 písm. h) zákona č. 110/2006 Sb. oba tisky vkládají nový bod 12 do téhož místa výčtu, ale s odlišným zněním — tisk 85 „12. příjmu plynoucího z dávky státní sociální pomoci,“, tisk 88 „12. dávky státní sociální pomoci,“ — jde o dvě odlišné novelizace nárokující tutéž nově vznikající pozici bodu 12, což je při souběžném přijetí obou tisků neslučitelné. Tato analýza tento dřívější nález přebírá, nikoli jej zpochybňuje. Samostatně bylo dříve zdokumentováno, že třetí souběžný tisk (125) k § 21 zákona č. 108/2006 Sb. míří na jiný odstavec (odst. 1), takže mezi tiskem 88 a tiskem 125 nejde o totožnou instrukci, nýbrž o koordinační riziko plynoucí z paralelní novelizace téhož paragrafu ve třech samostatných návrzích. Čl. V mění přechodná a účinnostní ustanovení zákona č. 152/2025 Sb. tak, že posouvá účinnost úpravy částek životního minima z 1. května na 1. října 2026 a účinnost úpravy okruhu započitatelných příjmů (§ 6 až 8 zákona o životním a existenčním minimu) z původního data na 1. června 2028 — tedy o více než dva roky.",
+ "unstatedEffects": [
+  {
+   "effect": "Posun nároku na dávku státní sociální pomoci pro příjemce rušených dávek z dubna na červenec 2026 (čl. I bod 1) a odpovídající posun rozhodných období (body 2 a 3) znamená, že tato skupina domácností zůstává po dalších tři měsíce v provizorním režimu vyplácení podle starých pravidel a vyhodnocení nároku na novou dávku se o stejnou dobu odsouvá. Důvodová zpráva tento posun prezentuje výhradně jako zmírnění administrativní zátěže Úřadu práce ČR a tvrdí, že nemá negativní sociální dopady, aniž by zohlednila, že pro dotčené domácnosti jde o tři měsíce prodlouženého vyčkávání na definitivní vyhodnocení nároku na nový systém dávek, byť podle textu zůstává kontinuita výplaty rušených dávek zachována.",
+   "whoBenefits": "Nelze jednoznačně určit — administrativně profituje Úřad práce ČR, kterému se prodlužuje lhůta na náběh nové agendy; dotčené domácnosti pobírající rušené dávky nesou po tři měsíce navíc nejistotu ohledně definitivního vyhodnocení nároku na dávku státní sociální pomoci, aniž by text kvantifikoval, kolika domácností se to týká.",
+   "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=88&ct1=0"
+  },
+  {
+   "effect": "Čl. V bod 4 odsouvá účinnost úpravy okruhu započitatelných příjmů podle § 6 až 8 zákona č. 110/2006 Sb. (provedené již dříve schváleným zákonem č. 152/2025 Sb.) o více než dva roky — na 1. června 2028. Důvodová zpráva tento odsun zdůvodňuje výhradně potřebou vyhnout se dvojí úpravě informačních systémů a snížením rizika chybovosti, aniž by uvedla, zda a jak se dosavadní (dosud platný) okruh započitatelných příjmů liší od nově schváleného — tedy zda po dobu odsunu zůstávají žadatelé posuzováni podle pravidel, která byla zákonodárcem již dříve shledána jako vyžadující změnu, aniž by text specifikoval směr ani rozsah tohoto rozdílu pro konkrétní skupiny žadatelů.",
+   "whoBenefits": "Nelze jednoznačně určit — text neuvádí, zda odsun ponechání dosavadního okruhu započitatelných příjmů v platnosti do června 2028 dopadá na žadatele příznivě nebo nepříznivě oproti již schválené, ale odložené úpravě; dotčeny jsou osoby posuzované podle okruhu započitatelných příjmů pro účely životního a existenčního minima a navazujících dávek.",
+   "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=88&ct1=0"
+  }
+ ],
+ "conflictAssessment": "Pole předkladatelů u tisku 88 je v této datové sadě prázdné, ačkoli textový podpis a údaj o předkladateli uvádí jako jediného předkladatele Aleše Juchelku. Nejde o to, že by graf jeho peněžní vazby neevidoval vůbec — táž datová sada eviduje čtyři jeho vazby (ČESKÁ TELEVIZE, IČO 00027383, úhrn veřejných smluv 19 557 459 056 Kč; ČESKÝ ROZHLAS, IČO 45245053, úhrn 3 995 330 864 Kč; YOU STORY UP! s.r.o., IČO 02751232, úhrn 4 641 238 Kč; OCCAM PR s.r.o., IČO 27840531, úhrn 177 870 Kč — všechny částky jsou úhrny veřejných smluv firem a všechny vazby čekají na lidskou kontrolu), avšak zapsané u řádku sponzora jiného tisku (125), nikoli u tisku 88. Mezera tedy není v datech o Juchelkovi jako osobě, ale v tom, že seznam předkladatelů tohoto konkrétního tisku (88) tyto jinde evidované vazby nepřebírá — hodnocení střetu zájmů pro tento tisk proto nelze z jeho vlastního záznamu provést a je třeba je číst v kontextu tisku 125. Věcně jde u všech čtyř vazeb o veřejnoprávní vysílání a mediální/PR služby, které s předmětem tisku 88 (posuny účinnosti a rozhodných dat dávky státní sociální pomoci, životního a existenčního minima a sociálních služeb) nemají zjevnou souvislost — týž závěr, k jakému u stejných vazeb dospívá i verdikt k tisku 125. Zjištěná shoda instrukcí k § 21 odst. 2 písm. e) zákona č. 108/2006 Sb. a k § 7 odst. 2 písm. h) zákona č. 110/2006 Sb. s jiným souběžně podaným tiskem (85) je legislativně-technickou kolizí dvou návrhů se stejným cílovým ustanovením, nikoli indikací peněžního střetu zájmů.",
+ "severity": "low",
+ "confidence": 3,
+ "citations": [
+  {
+   "claim": "Čl. I mění § 91 zákona č. 151/2025 Sb. — posouvá vznik nároku na dávku státní sociální pomoci z dubna na červenec 2026 a prodlužuje lhůtu pro vyhotovení podpůrného plánu ze září na 31. prosince 2026.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=88&ct1=0"
+  },
+  {
+   "claim": "Čl. IV mění § 21 odst. 2 písm. e) zákona č. 108/2006 Sb., o sociálních službách, zrušením části věty za středníkem.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=88&ct1=0"
+  },
+  {
+   "claim": "Čl. V bod 4 odsouvá účinnost úpravy okruhu započitatelných příjmů (§ 6 až 8 zákona č. 110/2006 Sb.) na 1. června 2028.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=88&ct1=0"
+  },
+  {
+   "claim": "Zákon č. 151/2025 Sb., o dávce státní sociální pomoci, je hlavním novelizovaným předpisem tisku 88.",
+   "kind": "law",
+   "source": "151/2025"
+  },
+  {
+   "claim": "Zákon č. 110/2006 Sb., o životním a existenčním minimu, je novelizován čl. III tisku 88.",
+   "kind": "law",
+   "source": "110/2006"
+  },
+  {
+   "claim": "Zákon č. 108/2006 Sb., o sociálních službách, je novelizován čl. IV tisku 88 v § 21 odst. 2 písm. e).",
+   "kind": "law",
+   "source": "108/2006"
+  },
+  {
+   "claim": "Zákon č. 152/2025 Sb. je novelizován čl. V tisku 88, který posouvá jeho přechodná a účinnostní ustanovení.",
+   "kind": "law",
+   "source": "152/2025"
+  },
+  {
+   "claim": "Pokyn tisku 88 v čl. IV k § 21 odst. 2 písm. e) zákona č. 108/2006 Sb. je znak po znaku shodný s pokynem souběžně podaného tisku 85 na totéž ustanovení — dřívější srovnání textů této analýzy klasifikuje tuto dvojici jako potvrzenou kolizi.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=88&ct1=0"
+  },
+  {
+   "claim": "Aleš Juchelka má v grafu evidovanou peněžní vazbu na ČESKOU TELEVIZI (IČO 00027383), zapsanou u tisku 125, nikoli u tisku 88.",
+   "kind": "graph_fact",
+   "source": "company:ico:00027383"
+  },
+  {
+   "claim": "Aleš Juchelka má v grafu evidovanou peněžní vazbu na ČESKÝ ROZHLAS (IČO 45245053), zapsanou u tisku 125, nikoli u tisku 88.",
+   "kind": "graph_fact",
+   "source": "company:ico:45245053"
+  }
+ ]
+}

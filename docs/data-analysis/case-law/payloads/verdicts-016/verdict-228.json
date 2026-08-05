@@ -1,0 +1,67 @@
+{
+ "billTisk": 228,
+ "statedReasoning": "Vládní návrh ministra školství zavádí nový samostatný zákon o registrech ve vzdělávání, který sdružuje dva centrální registry — registr dětí, žáků a studentů a registr pedagogických a akademických pracovníků — dosud vedené roztříštěně podle školského zákona, zákona o vysokých školách a prováděcích vyhlášek. Obecná část důvodové zprávy i posouzení dopadů na ochranu osobních údajů (DPIA) zdůvodňují potřebu centrálního zpracování řízením systému školství, plněním unijní statistické reportovací povinnosti a zavedením jednotného bezvýznamového identifikátoru, který má omezit používání rodného čísla. Doprovodné části mění zákon o vysokých školách (č. 111/1998 Sb. — ruší registr docentů, profesorů a mimořádných profesorů podle § 87b a nahrazují jej novým registrem pedagogických a akademických pracovníků), školský zákon (č. 561/2004 Sb. — úpravy § 28, § 49, § 66 a § 108) a zákon o Policii České republiky (č. 273/2008 Sb. — § 66 odst. 2). Finanční dopad je vyčíslen na 372,68 mil. Kč, z toho 200 mil. Kč na vývoj registrů v kapitole MŠMT.",
+ "researchedContext": "Čtení úplného textu potvrzuje, že odkazy na „§ 15“ a „§ 18“ v textu tisku jsou články samotného nově zaváděného zákona (§ 15 = Čl. 3 — Změna školského zákona, § 18 = Účinnost), nikoli novelizovaná ustanovení jiného předpisu — je nutné je odlišovat od skutečných novelizačních bodů v ČÁST DRUHÁ (§ 13, mění zákon č. 111/1998 Sb.), ČÁST TŘETÍ (§ 15, mění zákon č. 561/2004 Sb.) a ČÁST ČTVRTÁ (§ 16, mění zákon č. 273/2008 Sb.). Registr žáků má vést i citlivé kategorie údajů — znevýhodnění a nadání, závěry vyšetření školského poradenského zařízení, podpůrná opatření — o dětech a žácích se speciálními vzdělávacími potřebami, registr pedagogických a akademických pracovníků pak i údaje o platu, mzdě nebo odměně. Finanční část zprávy explicitně rozlišuje, že z celkových 372,68 mil. Kč připadá 170,6 mil. Kč na 8 530 ředitelství škol a školských zařízení zřizovaných kraji a obcemi a tyto náklady nelze přenést na státní rozpočet.",
+ "unstatedEffects": [
+  {
+   "effect": "Novela zákona o Policii České republiky (§ 66 odst. 2) doplňuje registry ve vzdělávání do téhož výčtu evidencí, ze kterých může policie žádat poskytnutí informací, v němž již dnes figurují krajské pobočky Úřadu práce České republiky. Vlastní zvláštní část důvodové zprávy k tomuto ustanovení tuto změnu popisuje jediným větou jako prosté doplnění výčtu evidencí a nijak ji nepropojuje s posouzením dopadů na ochranu osobních údajů (DPIA) v obecné části, které se od začátku do konce věnuje výhradně účelu zpracování pro řízení školství a digitální služby — ani jednou nezmiňuje policii ani orgány činné v trestním řízení. Registr žáků přitom obsahuje právě ty citlivé kategorie údajů (znevýhodnění, podpůrná opatření, závěry poradenského vyšetření) o dětech, jejichž zpřístupnění donucovacímu orgánu DPIA vůbec nezvažuje. Text novely neurčuje, zda je poskytnutí informací automatizované nebo probíhá k jednotlivé žádosti — archivovaný text tisku tuto podrobnost neuvádí.",
+   "whoBenefits": "Nelze jednoznačně určit — dotčeny jsou děti, žáci a studenti, jejichž citlivé údaje se stávají dostupnými Policii České republiky ve stejném výčtu evidencí jako údaje u Úřadu práce; orgány činné v trestním řízení získávají širší okruh evidencí, u kterých mohou o informace žádat.",
+   "evidence": "„se za slova „krajskými pobočkami Úřadu práce České republiky50)“ vkládají slova „, registrů ve vzdělávání“.“ — úplný text tisku na psp.cz, řádky 429–431 strojového přepisu; zvláštní část k tomuto bodu zní v celém rozsahu „Do výčtu evidencí, u kterých může policie žádat o poskytnutí informací, se doplňují registry ve vzdělávání.“ — úplný text tisku na psp.cz, řádek 3307 strojového přepisu."
+  },
+  {
+   "effect": "Zpráva popisuje dopad na státní rozpočet a veřejné rozpočty souhrnně (372,68 mil. Kč) a v kapitole o dopadu na podnikatelské prostředí uvádí, že bezprostřední dopady na podnikatele se nepředpokládají — aniž by v obecném shrnutí zdůraznila, že 170,6 mil. Kč z celkové částky nese bez možnosti úhrady ze státního rozpočtu právě 8 530 ředitelství škol a školských zařízení zřizovaných kraji, obcemi a dobrovolnými svazky obcí. Zpráva tento údaj sama uvádí ve vlastní podkapitole o dopadu na územní samosprávné celky, takže jde o hedgeovaný, nikoli o skrytý nález — je to jen mimo souhrnné shrnutí, kde čtenář dopad na podnikatele hledá.",
+   "whoBenefits": "Ministerstvo školství získává centralizovaný registr, jehož vývoj hradí ze své kapitoly (200 mil. Kč), zatímco náklady na implementaci na straně zřizovatelů škol (170,6 mil. Kč) nesou kraje, obce a dobrovolné svazky obcí.",
+   "evidence": "„Tyto náklady budou hrazeny z rozpočtu krajů a obcí. Tyto náklady nelze přenést na státní rozpočet.“ — úplný text tisku na psp.cz, řádky 1431–1432 strojového přepisu."
+  }
+ ],
+ "conflictAssessment": "Vstupní data případu přiřazují k tisku 228 jediného sponzora, poslance Roberta Plagu, bez jediné peněžní vazby a bez sektorového leadu. Jde o vládní návrh podaný jménem ministra školství, nikoli o poslanecký návrh vázaný na soukromý ekonomický zájem konkrétního zákonodárce; předpoklad pro střet zájmů typu peněžní vazby sponzora na dotčený sektor (školství, informační technologie) zde tedy chybí. Na základě dostupných dat nebyl u tohoto tisku identifikován konflikt zájmů.",
+ "severity": "medium",
+ "confidence": 4,
+ "citations": [
+  {
+   "claim": "Návrh zřizuje registr dětí, žáků a studentů a registr pedagogických a akademických pracovníků jako součást Informačního systému vzdělávání a mění zákon o vysokých školách, školský zákon a zákon o Policii České republiky.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=228&ct1=0"
+  },
+  {
+   "claim": "Registr žáků vede u vymezených subjektů údajů také informace o znevýhodnění a nadání, závěrech vyšetření školského poradenského zařízení a podpůrných opatřeních; registr pedagogických a akademických pracovníků vede též údaje o platu, mzdě nebo odměně.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=228&ct1=0"
+  },
+  {
+   "claim": "Novela § 66 odst. 2 zákona o Policii České republiky doplňuje registry ve vzdělávání do výčtu evidencí, ze kterých může policie žádat poskytnutí informací.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=228&ct1=0"
+  },
+  {
+   "claim": "Celkový finanční dopad návrhu na státní rozpočet a veřejné rozpočty činí 372,68 mil. Kč, z toho 170,6 mil. Kč připadá na implementaci u 8 530 ředitelství škol a školských zařízení zřizovaných kraji a obcemi a tyto náklady nelze přenést na státní rozpočet.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=228&ct1=0"
+  },
+  {
+   "claim": "Legislativní historie tisku 228 je vedena u Výboru pro vědu, vzdělání, kulturu, mládež a tělovýchovu jako garančního výboru.",
+   "kind": "web",
+   "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=228"
+  },
+  {
+   "claim": "Zákon č. 111/1998 Sb., o vysokých školách, je reálný předpis, jehož § 87 a § 87b tento návrh mění.",
+   "kind": "law",
+   "source": "111/1998"
+  },
+  {
+   "claim": "Zákon č. 561/2004 Sb., školský zákon, je reálný předpis, jehož § 28, § 49, § 66 a § 108 tento návrh mění.",
+   "kind": "law",
+   "source": "561/2004"
+  },
+  {
+   "claim": "Zákon č. 273/2008 Sb., o Policii České republiky, je reálný předpis, jehož § 66 odst. 2 tento návrh mění.",
+   "kind": "law",
+   "source": "273/2008"
+  },
+  {
+   "claim": "Případový soubor přiřazuje k tisku 228 jediného sponzora (Robert Plaga) bez peněžní vazby a bez sektorového leadu.",
+   "kind": "graph_fact",
+   "source": "bill:tisk:43350"
+  }
+ ]
+}

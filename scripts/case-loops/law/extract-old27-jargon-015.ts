@@ -14,7 +14,10 @@ async function main() {
   for (const b of bills) {
     const p = b.props as Record<string, unknown>;
     const prov = (p.forensic_provenance ?? {}) as Record<string, unknown>;
-    if (!p.forensic_severity || (typeof prov.pass === "number" && prov.pass >= 45)) continue;
+    if (!p.forensic_severity) continue;
+    // --all sweeps every verdict regardless of pass (batch-016: newly widened detector rules
+    // retroactively catch pass-45+ content too); default keeps the original old-27 scope.
+    if (!process.argv.includes("--all") && typeof prov.pass === "number" && prov.pass >= 45) continue;
     const cislo = Number(p.cislo);
     const fields: [string, unknown][] = [
       ["forensic_stated_reasoning", p.forensic_stated_reasoning],
@@ -34,7 +37,8 @@ async function main() {
       if (issues.length > 0) rows.push({ cislo, field: label, issues, text: v });
     }
   }
-  writeFileSync("docs/data-analysis/case-law/payloads/batch-015-old27-jargon.json", JSON.stringify({ generatedAt: new Date().toISOString(), count: rows.length, rows }, null, 1));
+  const out = process.argv.find((a) => a.startsWith("--out="))?.slice(6) ?? "docs/data-analysis/case-law/payloads/batch-015-old27-jargon.json";
+  writeFileSync(out, JSON.stringify({ generatedAt: new Date().toISOString(), count: rows.length, rows }, null, 1));
   console.log(`${rows.length} withheld strings across ${new Set(rows.map((r) => r.cislo)).size} bills`);
   for (const r of rows) console.log(`  tisk ${r.cislo} · ${r.field} · ${r.issues[0]}`);
   await store.close();

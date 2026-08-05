@@ -1792,7 +1792,8 @@
       "notClaimNoEffects": "U tohoto tisku analýza neuvádí žádný nedeklarovaný dopad — absence nálezu je také nález.",
       "withheldParts": "{count, plural, one {{countFmt} část textu} few {{countFmt} části textu} other {{countFmt} částí textu}} tohoto posudku zatím není v češtině, a proto se nezobrazuje. Blok je tím neúplný.",
       "referencesHeading": "reference ({count})",
-      "gateFootnote": "Odvozený nález gatovaný proti fabrikaci: každá citovaná č. N/RRRR Sb. musí být reálný zákon. Uložen jako <b>pending_review</b> — podnět pro člověka, ne publikovaný verdikt."
+      "gateFootnote": "Odvozený nález gatovaný proti fabrikaci: každá citovaná č. N/RRRR Sb. musí být reálný zákon. Uložen jako <b>pending_review</b> — podnět pro člověka, ne publikovaný verdikt.",
+      "evidenceLabel": "zdroj:"
     },
     "diffBlock": {
       "source": "reálný §-diff · č. {law} Sb. · e-Sbírka (SPARQL, ne hromadný výpis)",

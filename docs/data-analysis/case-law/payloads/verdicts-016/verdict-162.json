@@ -1,0 +1,62 @@
+{
+ "billTisk": 162,
+ "statedReasoning": "Vládní návrh ministra spravedlnosti mění tři předpisy — občanský soudní řád (č. 99/1963 Sb.), zákon o soudních poplatcích (č. 549/1991 Sb.) a odškodňovací zákon (č. 82/1998 Sb.). Obecná část důvodové zprávy popisuje tři samostatné důvody: (a) transpozici směrnice (EU) 2024/1069 o ochraně osob před zneužívajícími řízeními (tzv. SLAPP žalobami) — nový institut žaloby proti svobodě projevu (§ 197–198 o. s. ř.), právo žalovaného na zastoupení právnickou osobou a možnost soudu uložit žalobci jistotu na náklady řízení; (b) reakci na dva rozsudky Soudního dvora EU (C-196/21 a C-7/21) k nařízení (EU) 2020/1784 o doručování písemností do ciziny — zavedení zálohy na náklady překladu a doručení (nový § 141 odst. 2 o. s. ř.) a úpravu běhu lhůt; (c) reakci na rozsudek ESLP Machalický proti České republice — doplnění § 12 odškodňovacího zákona o výjimku pro zastavení trestního stíhání z důvodu promlčení. K čl. III zpráva výslovně zdůvodňuje nový soudní poplatek za odvolání odkazem na judikaturu Ústavního soudu k čl. 36 odst. 1 Listiny (nálezy I. ÚS 1415/18, II. ÚS 510/19, I. ÚS 868/21) a stanovuje jeho výši (2 000 Kč) tak, aby nepředstavovala nepřiměřenou bariéru v přístupu k soudu; zvláštní část k novému § 141 odst. 2 o. s. ř. obdobně podrobně zdůvodňuje následek nesložení zálohy (zastavení řízení u žalobce, nepřihlédnutí k úkonu u ostatních účastníků) a výslovně vylučuje jeho dopad na účastníky osvobozené od soudních poplatků, u nichž zálohu hradí stát.",
+ "researchedContext": "Čtení úplného textu tisku potvrzuje strukturu popsanou ve zprávě: Čl. I mění o. s. ř. (nový § 197–198, nový § 141 odst. 2 se zálohou na náklady překladu/doručení a přeznačením dosavadního odstavce 2 na odstavec 3, nový § 354b, nový § 371), Čl. III vkládá do přílohy položky 22 zákona o soudních poplatcích nový bod 14 (poplatek za odvolání ve věcech náhrady škody podle položky 8a) a přeznačuje dosavadní body 14 a 15 na 15 a 16, Čl. V mění § 12 odst. 1 písm. b) odškodňovacího zákona. Nezávislý srovnávací průzkum novelizačních dvojic v datovém souboru případu potvrzuje u páru tisků 64 a 162 na zákoně č. 99/1963 Sb. § 141 klasifikaci potvrzené kolize: tisk 162 vkládá do § 141 nový odstavec 2 a dosavadní odstavec 2 přeznačuje na odstavec 3, zatímco druhý návrh v § 141 pouze doplňuje ustanovení s předpokladem volného pořadového místa. Tentýž datový soubor eviduje u páru tisků 111 a 162 na § 12 zákona č. 82/1998 Sb. klasifikaci koordinačního rizika (nikoli potvrzené kolize): tisk 111 mění vnitřní odkaz v § 12 odst. 2 písm. d), tisk 162 mění text v § 12 odst. 1 písm. b) — jde o odlišné části téhož paragrafu.",
+ "unstatedEffects": [
+  {
+   "effect": "Čl. II bod 2 (přechodné ustanovení) váže možnost uložit povinnost složit jistotu na § 198 odst. 2 zákona č. 99/1963 Sb. Institut jistoty na náklady řízení ale zavádí § 198 odst. 3, nikoli odstavec 2 — ten upravuje odlišnou věc (zastoupení žalovaného právnickou osobou). Tentýž návrh cituje institut jistoty na správném místě jinde: Čl. I bod 11, který mění § 202 odst. 1 písm. l) o. s. ř., odkazuje korektně na jistotu podle § 198 odst. 3. Přechodné ustanovení vlastního návrhu tak vnitřně nesouhlasí samo se sebou v odkazu na ustanovení, jehož časovou působnost upravuje.",
+   "whoBenefits": "Nelze jednoznačně určit — jde o legislativně-technickou vadu vlastního textu návrhu, nikoli o přínos pro určitou skupinu; nejasnost dopadá na předvídatelnost přechodného režimu pro účastníky řízení, v nichž by měla být jistota ukládána po nabytí účinnosti zákona.",
+   "evidence": "„Povinnost složit jistotu podle § 198 odst. 2 zákona č. 99/1963 Sb.“ — úplný text tisku na psp.cz, řádek 224 strojového přepisu; institut jistoty upravuje § 198 odst. 3, jak správně cituje Čl. I bod 11 („byla uložena povinnost složit jistotu podle § 198 odst. 3“ — úplný text tisku na psp.cz, řádek 176 strojového přepisu)."
+  }
+ ],
+ "conflictAssessment": "Vstupní data případu přiřazují k tisku 162 jediného sponzora, poslance Jeronýma Tejce, bez jediné peněžní vazby a bez sektorového leadu. Jde o vládní návrh podaný jménem ministra spravedlnosti, nikoli o poslanecký návrh vázaný na soukromý ekonomický zájem konkrétního zákonodárce; předpoklad pro střet zájmů typu peněžní vazby sponzora na dotčený sektor zde tedy chybí. Na základě dostupných dat nebyl u tohoto tisku identifikován konflikt zájmů.",
+ "severity": "medium",
+ "confidence": 3,
+ "citations": [
+  {
+   "claim": "Návrh mění občanský soudní řád, zákon o soudních poplatcích a odškodňovací zákon a transponuje směrnici (EU) 2024/1069 o ochraně osob před zneužívajícími řízeními, reaguje na rozsudky Soudního dvora EU C-196/21 a C-7/21 k nařízení (EU) 2020/1784 a na rozsudek ESLP Machalický proti České republice.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=162&ct1=0"
+  },
+  {
+   "claim": "Čl. III vkládá do přílohy položky 22 zákona o soudních poplatcích nový bod 14 zavádějící poplatek za odvolání ve věcech náhrady škody způsobené výkonem veřejné moci a přeznačuje dosavadní body 14 a 15 na 15 a 16.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=162&ct1=0"
+  },
+  {
+   "claim": "Zvláštní část důvodové zprávy k novému § 141 odst. 2 o. s. ř. vysvětluje následek nesložení zálohy na náklady překladu nebo doručení (zastavení řízení u žalobce) a výslovně vylučuje jeho dopad na účastníky osvobozené od soudních poplatků, u nichž zálohu hradí stát.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=162&ct1=0"
+  },
+  {
+   "claim": "Čl. II bod 2 přechodných ustanovení odkazuje na jistotu podle § 198 odst. 2, ačkoli institut jistoty na náklady řízení upravuje § 198 odst. 3; Čl. I bod 11 stejný institut cituje správně.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=162&ct1=0"
+  },
+  {
+   "claim": "Legislativní historie tisku 162 je vedena u Ústavně právního výboru jako garančního výboru.",
+   "kind": "web",
+   "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=162"
+  },
+  {
+   "claim": "Zákon č. 99/1963 Sb., občanský soudní řád, je reálný předpis novelizovaný tímto návrhem, včetně § 198 a nového § 141 odst. 2.",
+   "kind": "law",
+   "source": "99/1963"
+  },
+  {
+   "claim": "Zákon č. 82/1998 Sb., o odpovědnosti za škodu způsobenou při výkonu veřejné moci, je reálný předpis, jehož § 12 odst. 1 písm. b) tento návrh mění.",
+   "kind": "law",
+   "source": "82/1998"
+  },
+  {
+   "claim": "Zákon č. 549/1991 Sb., o soudních poplatcích, je reálný předpis, jehož přílohu (položku 22) tento návrh mění vložením nového bodu 14.",
+   "kind": "law",
+   "source": "549/1991"
+  },
+  {
+   "claim": "Nezávislý přehled novelizačních dvojic v datovém souboru případu klasifikuje pár tisků 64 a 162 na § 141 zákona č. 99/1963 Sb. jako potvrzenou kolizi (vkládání nového odstavce 2 s přeznačením vs. doplnění s předpokladem volného pořadí) a pár tisků 111 a 162 na § 12 zákona č. 82/1998 Sb. jako koordinační riziko.",
+   "kind": "graph_fact",
+   "source": "bill:tisk:43283"
+  }
+ ]
+}

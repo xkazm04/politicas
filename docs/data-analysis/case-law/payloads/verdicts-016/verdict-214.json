@@ -1,0 +1,57 @@
+{
+ "billTisk": 214,
+ "statedReasoning": "Poslanecký návrh ústavního zákona (Vít Rakušan a další) mění čl. 27 Ústavy České republiky (ústavní zákon č. 1/1993 Sb.) tak, že nahrazuje dosavadní odstavce 3 až 5 novými odstavci 3 a 4. Důvodová zpráva návrh prezentuje jako modernizaci pojetí parlamentní imunity, která opouští koncept automatické procesní imunity — jenž podle zprávy v očích veřejnosti často působí jako neoprávněné privilegium — a zavádí model, který zpráva sama popisuje jako model, jejž by bylo možné nazvat obráceným modelem ochrany mandátu: primárním pravidlem se stává plná trestní odpovědnost poslance nebo senátora za běžnou trestnou činnost bez nutnosti předchozího souhlasu komory s trestním stíháním; komora však může na odůvodněnou žádost stíhaného poslance nebo senátora rozhodnout, že jeho trestní stíhání je po dobu trvání mandátu vyloučeno, vyžaduje-li to ochrana nezávislého výkonu mandátu. Zcela se ruší imunita vůči přestupkům. Zachovává se dosavadní režim zadržení (jen při dopadení při činu nebo bezprostředně poté, se souhlasem předsedy komory do 24 hodin) a vzetí do vazby (jen se souhlasem komory). Zpráva tvrdí, že návrh nemá dopad na veřejné rozpočty, podnikatelské prostředí, sociální oblast ani korupční rizika, a účinnost navrhuje na 1. ledna 2027.",
+ "researchedContext": "Text potvrzuje tvrzený rozsah beze zbytku — přiložené srovnávací znění čl. 27 Ústavy ukazuje, že odstavce 1 (indemnita za hlasování) a 2 (indemnita za projev) zůstávají nedotčeny, zatímco dosavadní odstavce 3 až 5 (mezi nimi zejména požadavek předchozího souhlasu komory k trestnímu stíhání a samostatná imunita vůči přestupkům) se nahrazují dvěma novými odstavci. Nový odstavec 3 skutečně obrací výchozí pravidlo: namísto povinného souhlasu komory před zahájením trestního stíhání zavádí právo stíhaného poslance nebo senátora požádat svou vlastní komoru o vyloučení již zahájeného stíhání po dobu mandátu, podmíněné ústavním kritériem „vyžaduje-li to ochrana nezávislého výkonu mandátu“. Zvláštní část důvodové zprávy k tomuto ustanovení potvrzuje, že jde o žádost podávanou stíhaným zákonodárcem jeho vlastní komoře — obecná část zprávy toto kritérium dále konkretizuje větou, že „podmínkou pro takové rozhodnutí je striktní ústavní kritérium – stíhání musí reálně ohrožovat nezávislý výkon mandátu“. Zdůvodnění nutnosti tohoto ochranného mechanismu formuluje obecná část zprávy takto: „Aby byla zachována nezbytná autonomie zákonodárné moci a zabránilo se teoretickému riziku politicky motivovaných či šikanózních stíhání, zavádí se možnost komory stíhání po dobu mandátu vyloučit.“ Zpráva k tomu necituje konkrétní historický případ ani empirický podklad pro toto riziko v českém kontextu. Zákon č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny, ani žádný jiný citovaný předpis přitom v archivovaném textu tisku nestanoví proces, jakým má komora hrozbu ohrožení nezávislého výkonu mandátu ověřovat.",
+ "unstatedEffects": [
+  {
+   "effect": "Čl. II návrhu upravuje pouze účinnost ústavního zákona k 1. lednu 2027 a v archivovaném textu tisku neobsahuje žádné přechodné ustanovení. Podle popisu dosavadní úpravy v důvodové zprávě (čl. 27 odst. 4 ve znění účinném do 31. prosince 2026; samotné dosavadní znění Ústavy archiv tisku nenese) odepření souhlasu komory se stíháním brání zahájení trestního stíhání poslance nebo senátora po dobu mandátu. Nová úprava tento dosavadní blokující účinek nepřevádí automaticky do nového režimu — ochrana podle nového odstavce 3 vzniká teprve na základě nové, samostatné odůvodněné žádosti dotčeného zákonodárce, kterou musí sám podat a komora o ní musí sama rozhodnout. Ani obecná, ani zvláštní část důvodové zprávy se otázkou návaznosti dosavadních rozhodnutí o odepření souhlasu na nový režim nezabývá.",
+   "whoBenefits": "Nelze jednoznačně určit — dotčeni by mohli být poslanci nebo senátoři, jimž komora podle dosavadní úpravy odepřela souhlas se stíháním před nabytím účinnosti tohoto zákona; text neuvádí, kolik takových případů aktuálně eviduje, ani jak by na ně nová úprava dopadla.",
+   "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=214&ct1=0"
+  },
+  {
+   "effect": "Obecná část důvodové zprávy kritérium pro vyloučení stíhání sama zpřesňuje na požadavek, že stíhání musí „reálně ohrožovat nezávislý výkon mandátu“ — jde tedy o víc než jen holý ústavní text. Ani takto zpřesněné kritérium ale žádná část zprávy ani text návrhu nedoplňuje o postup, jakým má komora toto ohrožení ověřovat (dokazování, slyšení, lhůta), ani o to, zda je rozhodnutí komory o žádosti — ať kladné, nebo zamítavé — jakkoli přezkoumatelné mimo komoru samotnou.",
+   "whoBenefits": "Nelze jednoznačně určit — text nespecifikuje procesní pravidla nad rámec ústavní formulace ani způsob přezkumu rozhodnutí komory; dotčeni jsou stíhaní poslanci a senátoři, jejichž žádost komora podle takto obecně vymezeného kritéria posuzuje.",
+   "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=214&ct1=0"
+  }
+ ],
+ "conflictAssessment": "Prvním předkladatelem je Vít Rakušan; graf u něj eviduje čtyři peněžní vazby (Vodní cesty na Labi, o.p.s. — 0 Kč, Změna pro Kolín z.s. — 0 Kč, Společenství vlastníků jednotek Kolín — 0 Kč, Nadační fond Gymnázia Kutná Hora — 200 000 Kč), všechny čekají na lidskou kontrolu — jde o neziskové a spolkové subjekty bez zjevné souvislosti s předmětem návrhu (trestní stíhání a imunita zákonodárců). Spolupředkladatel Lukáš Vlček eviduje šest peněžních vazeb (SOMPO a.s. — 9 174 258 Kč, PEVAK Pelhřimov, družstvo — 1 234 888 Kč, W.H.V. Projekt spol. s r.o. — 0 Kč, Via rustica z.s. — 2 008 259 Kč, PRO VYSOČINU — 0 Kč, SVJ Nádražní Pacov — 0 Kč), rovněž všechny čekají na lidskou kontrolu. Podle dosavadních zjištění této analýzy jsou SOMPO, a.s. a PEVAK Pelhřimov, družstvo municipálně ovládané vodárenské/technické subjekty pelhřimovského regionu, nikoli soukromé podnikatelské subjekty v obvyklém smyslu — zbylé čtyři vazby (W.H.V. Projekt, Via rustica, PRO VYSOČINU, SVJ Nádražní Pacov) jsou buď s nulovou hodnotou smluv, nebo spolkové/družstevní subjekty bez takového ověření. Zbylí spolupředkladatelé (Dvořák, Pivoňka Vaňková, Weimerová) nemají v grafu žádné evidované peněžní vazby. Předmět úpravy — procesní podmínky trestního stíhání a imunity zákonodárců — je svou povahou obecná ústavní norma dopadající stejně na všechny poslance a senátory bez ohledu na jejich podnikatelské nebo institucionální vazby; žádná z evidovaných vazeb předkladatelů (peněžní ani municipálně-institucionální) nezakládá specifický, na tuto konkrétní firmu vázaný prospěch z navrhované změny. Nejde tedy o peněžní střet zájmů v obvyklém smyslu — jde o obecnou procesní ochranu, z níž by potenciálně profitovali všichni členové obou komor jako skupina, včetně předkladatelů samotných, což zpráva ani text nijak nezastírá ani nezdůrazňuje.",
+ "severity": "low",
+ "confidence": 3,
+ "citations": [
+  {
+   "claim": "Návrh nahrazuje odstavce 3 až 5 čl. 27 Ústavy dvěma novými odstavci: ruší požadavek předchozího souhlasu komory k zahájení trestního stíhání a zavádí právo stíhaného poslance nebo senátora požádat svou komoru o vyloučení stíhání po dobu mandátu, vyžaduje-li to ochrana nezávislého výkonu mandátu.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=214&ct1=0"
+  },
+  {
+   "claim": "Obecná část důvodové zprávy k novému odstavci 3 upřesňuje, že podmínkou vyloučení stíhání je, aby stíhání reálně ohrožovalo nezávislý výkon mandátu, a zdůvodňuje mechanismus odkazem na teoretické riziko politicky motivovaných či šikanózních stíhání bez citace konkrétního případu.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=214&ct1=0"
+  },
+  {
+   "claim": "Zvláštní část důvodové zprávy k novému odstavci 3 potvrzuje, že jde o žádost podávanou stíhaným zákonodárcem jeho vlastní komoře na základě požadavku na odůvodnění.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=214&ct1=0"
+  },
+  {
+   "claim": "Čl. II stanoví účinnost ústavního zákona na 1. ledna 2027 a neobsahuje žádné přechodné ustanovení pro dosavadní rozhodnutí komor o odepření souhlasu se stíháním.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=214&ct1=0"
+  },
+  {
+   "claim": "Nový odstavec 4 zachovává dosavadní režim zadržení a vazby poslance nebo senátora beze změny věcného obsahu oproti dosavadnímu odstavci 5.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=214&ct1=0"
+  },
+  {
+   "claim": "Ústavní zákon č. 1/1993 Sb., Ústava České republiky, je jediným předpisem novelizovaným tímto tiskem.",
+   "kind": "law",
+   "source": "1/1993"
+  },
+  {
+   "claim": "Vít Rakušan je prvním předkladatelem tisku 214; graf u něj eviduje čtyři peněžní vazby na neziskové a spolkové subjekty, všechny ve stavu čekajícím na lidskou kontrolu.",
+   "kind": "graph_fact",
+   "source": "psp:person:6524"
+  }
+ ]
+}

@@ -7,7 +7,10 @@
  * PREPARE by default (writes the patch payload + verifies every rewritten string passes BOTH
  * render gates); --commit merge-writes the patched fields onto the live bill nodes (pass 49).
  *
- *   npx tsx scripts/case-loops/law/sweep-old27-015.ts [--commit] [--pass=49]
+ *   npx tsx scripts/case-loops/law/sweep-old27-015.ts [--commit] [--pass=N] [--ref=<provenance ref>]
+ *     [--in=<jargon extract payload>] [--out=<sweep payload>]
+ *   (defaults are the batch-015 paths/ref; later batches MUST pass their own --pass/--ref —
+ *    the batch-016 audit caught a pass-50 run that would have stamped the 015 ref.)
  */
 import { readFileSync, writeFileSync } from "node:fs";
 
@@ -15,8 +18,8 @@ import { lawJargonIssues } from "@/lib/analysis/law-verdict";
 import { czechCopyOrNull } from "@/lib/analysis/language-gate";
 import { getStore } from "@/lib/db/store";
 
-const IN = "docs/data-analysis/case-law/payloads/batch-015-old27-jargon.json";
-const OUT = "docs/data-analysis/case-law/payloads/batch-015-old27-sweep.json";
+const IN = process.argv.find((a) => a.startsWith("--in="))?.slice(5) ?? "docs/data-analysis/case-law/payloads/batch-015-old27-jargon.json";
+const OUT = process.argv.find((a) => a.startsWith("--out="))?.slice(6) ?? "docs/data-analysis/case-law/payloads/batch-015-old27-sweep.json";
 const COMMIT = process.argv.includes("--commit");
 const PASS = Number(process.argv.find((a) => a.startsWith("--pass="))?.slice(7) ?? 49);
 
@@ -77,6 +80,27 @@ async function main() {
       "(v datech není evidován žádný předkladatel ani peněžní vazba), takže neexistuje osoba ani firma, vůči které by šlo osobní obohacení testovat, a žádná by se vyrábět neměla",
     );
     t = t.replace("(tiedCompanies: [], flaggedConflict: false, sponsorContractCzk: 0)", "(bez evidovaných vazeb i příznaků střetu v datech)");
+    // batch-016 residuals (the batch-015 closure audit's inventory) — digit-preserving forms
+    t = t.replace(/\(churn 6: tisky/g, "(6 souběžných novel téhož zákona: tisky");
+    // „již dříve zpracovanému", not „prověřenému" — the batch-016 audit's language note: on a
+    // pending_review corpus, „prověřený" connotes the human verification that has NOT happened.
+    t = t.replace(/\bjiž gatovanému\b/g, "již dříve zpracovanému");
+    t = t.replace(/v grafu případu law/g, "v datovém grafu tohoto projektu");
+    t = t.replace(/\(uzel sněmovní tisk (\d+)\)/g, "(záznam sněmovního tisku $1)");
+    // batch-016 --all sweep: the widened detector's retroactive catches (pspId/cache/steward)
+    t = t.replace(/\s*\(pspId \d+\)/g, "");
+    t = t.replace(/\bpspId \d+ (?=\p{Lu})/gu, ""); // inline form: „je pspId 5513 Jeroným Tejc"
+    t = t.replace(/\(cache tisk-(\d+)\)/g, "(archivovaný text tisku $1)");
+    t = t.replace(/, cache tisk-(\d+)\)/g, ", archivovaný text tisku $1)");
+    // no \b next to Czech letters — ASCII \b cannot see them (the batch-007 lesson, third
+    // recurrence, this time in this very script's own rules); the phrases are specific enough.
+    t = t.replace(/součástí zkoumaného cache/g, "součástí zkoumaného archivu textů");
+    t = t.replace(/z primárního textu v cache/g, "z primárního archivovaného textu");
+    t = t.replace(/řádků cache/g, "řádků strojového přepisu");
+    t = t.replace(/dvě cache verze tisku/g, "dvě archivované verze tisku");
+    t = t.replace(/Text novely v cache \(tisk (\d+)\)/g, "Archivovaný text novely (tisk $1)");
+    t = t.replace(/stewardské/g, "svěřenecké");
+    t = t.replace(/stewardskou/g, "svěřeneckou");
     const remaining = lawJargonIssues(t);
     if (remaining.length > 0) throw new Error(`tisk ${r.cislo} ${r.field}: still failing after rewrite — ${remaining[0]}`);
     if (czechCopyOrNull(t) === null) throw new Error(`tisk ${r.cislo} ${r.field}: fails the Czech gate after rewrite`);
@@ -86,6 +110,9 @@ async function main() {
     // whose person is named by the surrounding sentence.
     const digitsOf = (s: string) => (s.match(/\d+/g) ?? []).sort();
     const droppedIds = [...r.text.matchAll(/\(psp:person:(\d+)\)/g)].map((m) => m[1]);
+    // pspId drops (parenthetical after a name, or inline before the name) — same class
+    droppedIds.push(...[...r.text.matchAll(/\(pspId (\d+)\)/g)].map((m) => m[1]));
+    droppedIds.push(...[...r.text.matchAll(/\bpspId (\d+) (?=\p{Lu})/gu)].map((m) => m[1]));
     const addedCisla: string[] = [];
     // a bill urn's internal id is legitimately TRANSFORMED into the public cislo
     for (const m of r.text.matchAll(/bill:tisk:(\d+)/g)) {
@@ -144,7 +171,11 @@ async function main() {
           props[m[1]] = f.after;
         }
       }
-      (props.forensic_provenance as Record<string, unknown>).jargon_sweep = { pass: PASS, ref: "old27-jargon-sweep-015", computedAt: new Date().toISOString() };
+      (props.forensic_provenance as Record<string, unknown>).jargon_sweep = {
+        pass: PASS,
+        ref: process.argv.find((a) => a.startsWith("--ref="))?.slice(6) ?? "old27-jargon-sweep-015",
+        computedAt: new Date().toISOString(),
+      };
       toWrite.push({ ...bill, props });
     }
     const n = await store.upsertKgNodes(toWrite);

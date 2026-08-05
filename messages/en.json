@@ -1792,7 +1792,8 @@
       "notClaimNoEffects": "For this print the analysis lists no undeclared effect — the absence of a finding is a finding too.",
       "withheldParts": "{count, plural, one {{countFmt} part of this review’s text is} other {{countFmt} parts of this review’s text are}} not yet available in Czech and therefore not displayed. The block is incomplete as a result.",
       "referencesHeading": "references ({count})",
-      "gateFootnote": "A derived finding gated against fabrication: every cited č. N/RRRR Sb. must be a real act. Stored as <b>pending_review</b> — a lead for a human, not a published verdict."
+      "gateFootnote": "A derived finding gated against fabrication: every cited č. N/RRRR Sb. must be a real act. Stored as <b>pending_review</b> — a lead for a human, not a published verdict.",
+      "evidenceLabel": "source:"
     },
     "diffBlock": {
       "source": "real section diff · č. {law} Sb. · e-Sbírka (SPARQL, not a bulk export)",

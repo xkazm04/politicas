@@ -1,0 +1,52 @@
+{
+  "billTisk": 75,
+  "statedReasoning": "Poslanecký návrh (Petr Hladík a další) mění zákon č. 254/2001 Sb., o vodách (vodní zákon), vložením nových § 55d a § 55e za dosavadní § 55c. Důvodová zpráva tvrdí, že dosavadní právní úprava tzv. domovních čistíren odpadních vod (DČOV) je nedostatečná a že soustavy DČOV se v posledních letech staly systémovým řešením likvidace odpadních vod zejména v menších obcích. Cílem je proto zavést jednotná pravidla pro provozování soustav DČOV (do 50 ekvivalentních obyvatel) — stanovit jednoho vlastníka soustavy (obec nebo právnická osoba ovládaná z více než 50 % územním samosprávným celkem nebo svazkem obcí), zavést povinnost provozování prostřednictvím odborně způsobilé osoby a doplnit odpovídající skutkové podstaty přestupků (pokuty do 500 000 Kč za provoz bez odborně způsobilé osoby, do 100 000 Kč za neoznámení vstupu na cizí pozemek). Zpráva výslovně uvádí, že se neočekávají přímé dopady na investiční náklady vlastníků, že návrh nemá korupční rizika a nemá dopad na rozpočty územních samosprávných celků.",
+  "researchedContext": "Text potvrzuje rozsah tvrzený důvodovou zprávou. Bod 1 vkládá nové § 55d a § 55e ZA § 55c — jde o vsuvku (insertion anchor), § 55c samotný se nemění a novela jej nijak nenovelizuje; nový obsah je zcela v § 55d a § 55e. Nový § 55d odst. 1 stanoví, že vlastníkem soustavy DČOV musí být obec, nebo jiná právnická osoba ovládaná z více než 50 % územním samosprávným celkem nebo dobrovolným svazkem obcí — tedy výhradně subjekt s municipální kontrolou. § 55d odst. 2 zároveň umožňuje, aby vlastník nebo provozovatel soustavy provozoval i jednotlivou DČOV, která součástí soustavy není, na základě smlouvy s jejím vlastníkem. § 55e odst. 3 a 5 zavádí institut „provozovatele“ soustavy jako osoby zajišťující provoz podle požadavků zákona, přičemž odborná způsobilost (odst. 5 písm. a) a b)) je vázána na vzdělání a praxi fyzické osoby, nikoli na typ nebo vlastnickou strukturu subjektu, který ji zaměstnává nebo si ji smluvně najímá — provozovatelem tedy může být i soukromá společnost disponující odborně způsobilou osobou. Sankční část (body 3 až 8) mění navazující výčty přestupků v § 125a v souladu s tvrzeným rozsahem. Novela je dle vlastního textu důvodové zprávy netranspoziční a odkazuje pouze na obecně relevantní směrnice EU v oblasti vodní politiky, aniž by z nich odvozovala konkrétní ustanovení.",
+  "unstatedEffects": [
+    {
+      "effect": "Nový § 55d odst. 1 váže postavení „soustavy domovních čistíren odpadních vod“ výhradně na vlastnictví obce nebo právnické osoby ovládané z více než 50 % územním samosprávným celkem či svazkem obcí. Důvodová zpráva tento krok prezentuje jako jeden ze svých hlavních principů — v jejích vlastních slovech „profesionalizace provozu prostřednictvím stanovení vlastníka soustavy“ a posílení odpovědnosti — aniž by zmínila, že tím fakticky vylučuje z kategorie regulované „soustavy“ jakékoli dosavadní sdružené či soukromé vlastnictví shluku domovních ČOV (např. developerská výstavba s vlastní společnou čistírnou nebo sdružení vlastníků nemovitostí) — takový shluk nadále nemůže být „soustavou“ ve smyslu zákona, ledaže vlastnictví převede na municipálně kontrolovaný subjekt; zůstává mu pouze provoz jednotlivé DČOV mimo soustavu podle § 55d odst. 2.",
+      "whoBenefits": "Nelze jednoznačně určit — z vymezení profitují obce a jimi ovládané právnické osoby, které se stávají jedinými možnými vlastníky regulovaných soustav DČOV; dosavadní neobecní (soukromá, sdružená) vlastnická uspořádání shluků domovních čistíren mimo tuto kategorii zůstávají a text jejich okruh ani dopad na ně nekvantifikuje.",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=75&ct1=0"
+    },
+    {
+      "effect": "Text zákona zavádí povinné provozování soustavy DČOV prostřednictvím odborně způsobilé osoby (§ 55e odst. 5) a umožňuje smluvní provozování soustavy i jednotlivých DČOV mimo ni (§ 55d odst. 2, § 55e odst. 2) — vzniká tak nová, zákonem vynucená poptávka po odborných provozovatelských službách vodohospodářské infrastruktury, kterou mohou smluvně naplňovat i soukromé specializované firmy. Důvodová zpráva tento tržní efekt vůbec nezmiňuje a v části o hospodářském dopadu jej označuje pouze za „spíše marginální“ navýšení provozních nákladů, aniž by hodnotila, komu ze subjektů schopných tuto odbornou způsobilost nabídnout (typicky vodárenským a odpadovým společnostem, včetně municipálně ovládaných) tato nová smluvní poptávka může plynout.",
+      "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou vlastníci a provozovatelé soustav DČOV; z nové zákonné poptávky po odborně způsobilých osobách mohou profitovat subjekty s odbornou kapacitou v oboru vodovodů a kanalizací, mezi něž mohou patřit i municipálně ovládané společnosti podobného typu, jaké graf u předkladatelů eviduje jako jejich institucionální vazby, aniž by text nebo graf u konkrétní takové společnosti prokazoval přímou účast na této novele.",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=75&ct1=0"
+    }
+  ],
+  "conflictAssessment": "Prvním předkladatelem je Petr Hladík; graf peněžních vazeb u něj eviduje pět vazeb (ARENA BRNO, Dopravní podnik města Brna, Teplárny Brno, MERO ČR, SAKO Brno) v řádu miliard korun a u spolupředkladatele Bohuslava Niemiece jednu vazbu (CEVYKO a.s., cca 301 mil. Kč). Podle již dříve v tomto případu ustálené doktríny (třída SAKO/CEVYKO) jde u obou o vazby institucionální/municipální povahy — svěřeneckou/institucionální roli plynoucí z jejich postavení jako komunálních/krajských funkcionářů u obecně nebo krajsky ovládaných subjektů, nikoli o osobní podnikatelské vlastnictví; tato datová sada navíc u jednotlivých vazeb nenese žádný příznak vlastnické třídy (vlastník / řídící osoba / svěřenecká role), takže bez dalšího ověření nelze klasifikaci zpřesnit nad rámec této ustálené doktríny. Žádná z pěti společností u Hladíka ani CEVYKO u Niemiece není v této datové sadě vedena jako provozovatel domovních čistíren odpadních vod nebo jiný přímý příjemce této novely — přímá věcná souvislost mezi konkrétní firmou a předmětem návrhu tak z evidovaných dat neplyne. Zbylí spolupředkladatelé (Pláteník, Brzesková, Filipovičová, Kršková, Krutáková, Svárovská) nemají v grafu žádné peněžní vazby a Langšádlová eviduje pouze vazbu na neziskovou Fórum Karla Schwarzenberga, o.p.s. s nulovou hodnotou smluv, což s předmětem novely nesouvisí. Nález tedy nejde o skrytý střet zájmů — jde o strukturní přiblížení mezi typem subjektů, které zákon činí jedinými možnými vlastníky regulovaných soustav DČOV (obec nebo jí ovládaná právnická osoba), a typem institucí, s nimiž jsou předkladatelé jako komunální funkcionáři spojeni, aniž by šlo o konkrétní, v grafu doloženou vazbu na věcný předmět úpravy.",
+  "severity": "low",
+  "confidence": 3,
+  "citations": [
+    {
+      "claim": "Bod 1 vkládá nové § 55d a § 55e ZA dosavadní § 55c vodního zákona (č. 254/2001 Sb.) — jde o vkládací kotvu, nikoli o novelizaci § 55c samotného.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=75&ct1=0"
+    },
+    {
+      "claim": "Nový § 55d odst. 1 stanoví, že vlastníkem soustavy domovních čistíren odpadních vod je obec nebo jiná právnická osoba ovládaná z více než 50 % územním samosprávným celkem nebo dobrovolným svazkem obcí.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=75&ct1=0"
+    },
+    {
+      "claim": "Nový § 55e odst. 2 a 5 zavádí povinné provozování soustavy prostřednictvím odborně způsobilé osoby a umožňuje smluvní provozování — odborná způsobilost je vázána na vzdělání a praxi fyzické osoby, nikoli na typ subjektu.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=75&ct1=0"
+    },
+    {
+      "claim": "Zákon č. 254/2001 Sb., o vodách (vodní zákon), je jediným zákonem novelizovaným tímto tiskem.",
+      "kind": "law",
+      "source": "254/2001"
+    },
+    {
+      "claim": "Petr Hladík je prvním předkladatelem tisku 75; graf u něj eviduje pět peněžních vazeb na municipálně ovládané brněnské subjekty.",
+      "kind": "graph_fact",
+      "source": "psp:person:6881"
+    },
+    {
+      "claim": "Bohuslav Niemiec je spolupředkladatelem tisku 75; graf u něj eviduje jednu peněžní vazbu na CEVYKO a.s.",
+      "kind": "graph_fact",
+      "source": "psp:person:7028"
+    }
+  ]
+}

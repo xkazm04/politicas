@@ -1,0 +1,72 @@
+{
+  "billTisk": 106,
+  "statedReasoning": "Poslanecký návrh Elišky Olšákové a šesti dalších poslanců (Karel Dvořák, Lucie Sedmihradská, Julie Smejkalová, Michal Zuna, Jiří Horák, Zdeňka Blišťanová) mění pět zákonů: č. 159/1999 Sb. (podnikání v cestovním ruchu), č. 565/1990 Sb. (místní poplatky), č. 455/1991 Sb. (živnostenský zákon), č. 89/1995 Sb. (státní statistická služba) a č. 326/1999 Sb. (pobyt cizinců). Jádrem je adaptace zákona č. 159/1999 Sb. na přímo použitelné nařízení EU 2024/1028 o shromažďování a sdílení údajů o krátkodobých pronájmech ubytování — zavádí se centrální registr ubytovacích zařízení, jednotek pro poskytování ubytování a ubytovaných osob (nový § 9e až § 9m, správcem je Ministerstvo pro místní rozvoj), s dopadem do dalších čtyř zákonů, kde se zápis do tohoto registru uznává za splnění souběžných ohlašovacích a evidenčních povinností (živnostenský zákon, zákon o pobytu cizinců, zákon o státní statistické službě, zákon o místních poplatcích). Souběžně v čl. III bodě 1 novela zdvojnásobuje horní hranici sazby místního poplatku z pobytu podle § 3d zákona č. 565/1990 Sb. z 50 Kč na 100 Kč za osobu a den. Podle důvodové zprávy si vybudování a pětiletý provoz registru vyžádá 92,3 mil. Kč, z čehož 30 mil. Kč je alokováno z Národního plánu obnovy (projekt „eTurista“); technické propojení s registrem živnostenského podnikání zajistí MMR. Návrh je odůvodňován zprůhledněním trhu krátkodobých pronájmů, omezením šedé ekonomiky a lepším výběrem místního poplatku z pobytu obcemi; podle RIA (tabulka č. 6) se odhaduje dodatečný výnos státního rozpočtu z omezení šedé ekonomiky v rozmezí 216 až 792 mil. Kč, bez upřesnění horizontu.",
+  "researchedContext": "Text potvrzuje, že novela poplatku z pobytu (§ 3d zákona č. 565/1990 Sb.) je formulována obecně jako zvýšení celostátního stropu sazby z 50 Kč na 100 Kč, nikoli jako opatření vázané jen na turisticky exponované obce, ačkoli důvodová zpráva argumentuje především potřebami turisticky zatížených lokalit. Podle vlastních údajů důvodové zprávy vybíralo v době přípravy návrhu už 56 obcí poplatek v pásmu 38 až 50 Kč, tedy blízko dosavadního stropu, a celkový celostátní výnos poplatku z pobytu v roce 2021 činil téměř 397 mil. Kč. Odhad ušlého výnosu ze stínové ekonomiky krátkodobých pronájmů (na modelu roku 2019) činí cca 54,9 mil. Kč ročně. K velikosti trhu IUZ text uvádí dva nesourodé údaje, které nejde sečíst ani spojit do jednoho rozpětí: šetření z let 2012–2013 odhadlo 4 121 IUZ (počet ubytovacích zařízení), zatímco o dotaci v titulu COVID-Ubytování II požádalo v roce 2021 celkem 2 831 provozovatelů IUZ (počet osob), a to výslovně bez poskytovatelů sdíleného ubytování, kteří mezi oprávněné žadatele o tuto dotaci nebyli zahrnuti. Zpráva sama poznamenává, že přesný přehled poskytovatelů ubytování v IUZ neexistuje.",
+  "unstatedEffects": [
+    {
+      "effect": "Zdvojnásobení horní hranice sazby poplatku z pobytu v § 3d zákona č. 565/1990 Sb. z 50 Kč na 100 Kč platí celostátně pro všechny obce, nikoli jen pro turisticky exponované lokality, na které se odvolává obecná část důvodové zprávy. Zpráva kvantifikuje pouze fiskální přínos plynoucí ze zprůhlednění trhu (registrace) a z omezení šedé ekonomiky (odhad 216 až 792 mil. Kč), ale nikde neodhaduje dodatečný výnos, který mohou získat obce už dnes vybírající poplatek při horní hranici — podle vlastních čísel zprávy jde nejméně o 56 obcí z celkového ročního výnosu blížícího se 397 mil. Kč (rok 2021) — pouhým využitím nového dvojnásobného stropu bez jakékoli změny v míře výběru.",
+      "whoBenefits": "Rozpočty obcí, zejména cca 56 obcí, které již v době přípravy návrhu vybíraly poplatek z pobytu při horní hranici 38 až 50 Kč a mohou nově až zdvojnásobit jeho výnos bez dalšího legislativního kroku.",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=106&ct1=0"
+    },
+    {
+      "effect": "Zákon nově ukládá evidenční a ohlašovací povinnost i osobám v postavení „hostitele“ podle nařízení EU 2024/1028, tedy fyzickým osobám poskytujícím ubytování v rámci sdílené ekonomiky. Populaci takto nově dotčených osob však důvodová zpráva nikde nekvantifikuje: jediný konkrétní počet provozovatelů, který uvádí — 2 831 žadatelů o dotaci COVID-Ubytování II v roce 2021 — poskytovatele sdíleného ubytování výslovně vylučuje, a druhý uváděný údaj (4 121 IUZ ze šetření 2012–2013) je odhadem počtu ubytovacích zařízení, nikoli osob, navíc z doby předcházející výraznému rozšíření sdílené ekonomiky. Náklady na straně nově registrovaných hostitelů zpráva odbývá tvrzením, že „Naprosto drtivá většina ubytovatelů“ již potřebné technické vybavení má, aniž by pro tuto skupinu uvedla jakékoli číslo k administrativní zátěži nebo k sankčnímu riziku při neplnění nové registrační povinnosti.",
+      "whoBenefits": "Nelze jednoznačně určit — dotčeni jsou fyzické osoby v postavení hostitele podle nařízení EU 2024/1028 (poskytovatelé sdíleného ubytování), jejichž počet zpráva nikde neuvádí, protože jediný konkrétní počet provozovatelů v textu tuto skupinu výslovně vylučuje.",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=106&ct1=0"
+    }
+  ],
+  "conflictAssessment": "Ze sedmi předkladatelů nemá evidovanou peněžní vazbu na firmu šest — Eliška Olšáková, Michal Zuna, Zdeňka Blišťanová, Karel Dvořák, Lucie Sedmihradská a Julie Smejkalová. Jiří Horák má v grafu evidovanou vazbu na Vodovody a kanalizace Vyškov, a.s. (IČO 49454587), úhrn veřejných smluv firmy 124 508 316 Kč, vazba čeká na lidskou kontrolu. Jde o regionální vodárenskou společnost ovládanou obcemi vyškovského okresu, tedy o komunálně vlastněný subjekt, který se podle standardní metodiky nepovažuje za soukromý podnikatelský konflikt zájmů; navíc jeho oborová činnost (vodovody a kanalizace) nemá věcnou souvislost s předmětem tisku 106 (cestovní ruch, krátkodobé pronájmy ubytování, místní poplatky). U žádného ze sedmi předkladatelů tedy evidované peněžní vazby věcně nesouvisejí s regulovanou oblastí tohoto tisku a v datech není zjištěn střet zájmů.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Čl. III bod 1 nahrazuje v § 3d zákona č. 565/1990 Sb. částku „50 Kč“ částkou „100 Kč“ jako horní hranici sazby poplatku z pobytu.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=106&ct1=0"
+    },
+    {
+      "claim": "V roce 2021 činil celkový výnos poplatku z pobytu téměř 397 mil. Kč; poplatek ve výši 38 až 50 Kč vybíralo 56 obcí.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=106&ct1=0"
+    },
+    {
+      "claim": "Náklady na vybudování a pětiletý provoz a rozvoj registru ubytovacích zařízení jsou odhadovány na 92,3 mil. Kč, z čehož 30 mil. Kč je alokováno z Národního plánu obnovy.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=106&ct1=0"
+    },
+    {
+      "claim": "Odhad dodatečného výnosu státního rozpočtu z omezení šedé ekonomiky v segmentu krátkodobých pronájmů se pohybuje mezi 216 a 792 mil. Kč (odkaz na tabulku č. 6 zprávy RIA).",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=106&ct1=0"
+    },
+    {
+      "claim": "Zpráva odhaduje počet IUZ (ubytovacích zařízení) na 4 121 podle šetření z let 2012–2013 a nezávisle uvádí, že o dotaci v titulu COVID-Ubytování II požádalo v roce 2021 celkem 2 831 provozovatelů IUZ, výslovně bez poskytovatelů sdíleného ubytování, kteří mezi oprávněné žadatele nebyli zahrnuti.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=106&ct1=0"
+    },
+    {
+      "claim": "Jiří Horák má v grafu evidovanou peněžní vazbu na Vodovody a kanalizace Vyškov, a.s. (IČO 49454587), úhrn veřejných smluv 124 508 316 Kč, vazba čeká na lidskou kontrolu.",
+      "kind": "graph_fact",
+      "source": "company:ico:49454587"
+    },
+    {
+      "claim": "Vodovody a kanalizace Vyškov, a.s. je regionální vodárenská společnost ovládaná obcemi vyškovského okresu.",
+      "kind": "web",
+      "source": "https://www.vakvyskov.cz/"
+    },
+    {
+      "claim": "Zákon č. 159/1999 Sb., o některých podmínkách podnikání a o výkonu některých činností v oblasti cestovního ruchu, je hlavním novelizovaným předpisem tisku 106.",
+      "kind": "law",
+      "source": "159/1999"
+    },
+    {
+      "claim": "Zákon č. 565/1990 Sb., o místních poplatcích, je novelizován v části druhé (čl. III) tisku 106, kde se mění horní hranice sazby poplatku z pobytu.",
+      "kind": "law",
+      "source": "565/1990"
+    },
+    {
+      "claim": "Tisk 106 novelizuje rovněž živnostenský zákon č. 455/1991 Sb., zákon č. 89/1995 Sb., o státní statistické službě, a zákon č. 326/1999 Sb., o pobytu cizinců na území České republiky.",
+      "kind": "law",
+      "source": "455/1991"
+    }
+  ]
+}

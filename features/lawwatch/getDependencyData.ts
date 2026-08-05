@@ -37,6 +37,8 @@ import { existsSync, readFileSync } from "node:fs";
 import { czechCopyOrNull } from "@/lib/analysis/language-gate";
 import { lawJargonIssues } from "@/lib/analysis/law-verdict";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
+import { buildDependencyView, type RawTriagePayload } from "./buildDependencyView";
+export type { DependencyHit, DependencyBillView, DependencyData } from "./buildDependencyView";
 
 const TRIAGE_FILE = "docs/data-analysis/case-law/payloads/batch-014-dependency-triage.json";
 const CENSUS_FILE = "docs/data-analysis/case-law/payloads/batch-014-dependency-census.json";
@@ -53,76 +55,6 @@ const CONTEXT_MAX_CHARS = 220;
  * unanchored, start-of-string cut this fix exists to remove. */
 const PLACEHOLDER_RE = /(?:…|\.\.\.)\s*\/\s*\d{4}\s*Sb\b/;
 
-/** The triage analyst's own hedge phrasing for a companion call it does not
- * consider evidenced ("MOŽNÁ … tisk 62 …, ALE BEZ EXPLICITNÍ TEXTOVÉ VAZBY" on
- * tisk 250→62 — batch-015-audit.md B11). A hit carrying this phrase is a guess
- * about which print, not a read of one; suppressing the link is the same
- * discipline already applied to a likelyCompanionTisk absent from the corpus,
- * just triggered by the evidence text instead of by corpus membership. */
-const WEAK_EVIDENCE_RE = /bez\s+explicitn[ěí]\s+textov[ěé]\s+vazby/i;
-
-export interface DependencyHit {
-  /** The quoted placeholder excerpt from the print's own text, centered on the
-   * placeholder match and shortened, or null when withheld by the Czech/jargon
-   * gate, or when no census counterpart could be matched for this hit. */
-  context: string | null;
-  /** What this print's text depends on, in prose ("zákon o digitální ekonomice
-   * (tisk 69)"), or null when withheld. */
-  companionSubject: string | null;
-  /** The companion print number the detector inferred, when the evidence names
-   * one AND the evidence is not itself hedged as unresolved (see
-   * WEAK_EVIDENCE_RE). The render layer must still confirm this tisk exists in
-   * the loaded corpus before linking it — the census and the bill corpus are
-   * read from different artifacts and can disagree. */
-  likelyCompanionTisk: number | null;
-  /** True when the triage evidence itself says the companion call is a guess
-   * ("možná …, ale bez explicitní textové vazby") — the render layer must not
-   * link `likelyCompanionTisk` even if it resolves in the corpus, and must
-   * keep the hedge visible rather than let a bold link outrun the evidence. */
-  weakEvidence: boolean;
-}
-
-export interface DependencyBillView {
-  cislo: number;
-  hits: DependencyHit[];
-}
-
-export interface DependencyData {
-  bills: DependencyBillView[]; // bills carrying ≥1 companion_dependency hit
-  companionCount: number; // total companion_dependency hits across the corpus (payload counts.companion_dependency)
-  selfReferenceCount: number; // payload counts.self_reference — rendered only in the method note
-  unclearCount: number; // payload counts.unclear — hits with no evidence either way
-  totalTriaged: number; // companionCount + selfReferenceCount + unclearCount
-  /** Hits whose every reader-facing field failed the Czech/jargon gate and were
-   * dropped from `bills` entirely (not just a blanked field). */
-  withheldHitCount: number;
-  /** How many of `companionCount`'s hits carry the triage analyst's own
-   * "Spot-verified" mark in the internal `reasoning` field (never rendered
-   * itself — only this count is; batch-014-audit.md §"Spot-verified" is the
-   * source). The section used to say classification "was manually audited"
-   * without qualification; measured, only 1 of 18 companion-dependency hits
-   * (14 of all 67 triaged hits) actually carry that mark, so the honesty
-   * block cites the real scope instead of the blanket claim. */
-  spotCheckedCompanionCount: number;
-  generatedAt: string | null;
-}
-
-interface RawHit {
-  context?: unknown;
-  class?: unknown;
-  companionSubject?: unknown;
-  likelyCompanionTisk?: unknown;
-  reasoning?: unknown;
-}
-interface RawBill {
-  cislo?: unknown;
-  hits?: unknown;
-}
-interface RawTriagePayload {
-  generatedAt?: unknown;
-  counts?: { self_reference?: unknown; companion_dependency?: unknown; unclear?: unknown };
-  bills?: unknown;
-}
 interface RawCensusHit {
   context?: unknown;
 }
@@ -132,10 +64,6 @@ interface RawCensusRow {
 }
 interface RawCensusPayload {
   rows?: unknown;
-}
-
-function asNum(v: unknown): number {
-  return typeof v === "number" && Number.isFinite(v) ? v : 0;
 }
 
 /** Cut a window of at most CONTEXT_MAX_CHARS around the placeholder match so
@@ -164,8 +92,13 @@ function centeredExcerpt(s: string): string {
 /** The Czech gate + law-case jargon gate, same contract as getLawData.ts's
  * `readForensic.cz()` — a string that fails either one is withheld, not shown.
  * `shape` decides how the survivor is trimmed: the quoted excerpt is centered
- * on the placeholder, prose fields are just length-capped. */
-function gate(v: unknown, shape: "excerpt" | "prose"): string | null {
+ * on the placeholder, prose fields are just length-capped. Exported (in
+ * addition to being passed into `buildDependencyView`) so a test can exercise
+ * the REAL gate/truncation pipeline directly — batch-016-audit.md M13 found
+ * the dedup representative-row test previously only passed via a bypassing
+ * `passthroughGate` stub, which could not have caught the truncation-tie bug
+ * it was meant to guard. */
+export function gate(v: unknown, shape: "excerpt" | "prose"): string | null {
   if (typeof v !== "string" || v.length === 0) return null;
   const safe = czechCopyOrNull(v);
   if (safe === null || lawJargonIssues(safe).length > 0) return null;
@@ -191,12 +124,10 @@ function loadCensusContexts(): Map<number, (string | undefined)[]> {
   return out;
 }
 
-function loadDependencyData(): DependencyData | null {
+function loadDependencyData(): ReturnType<typeof buildDependencyView> {
   try {
     if (!existsSync(TRIAGE_FILE)) return null;
     const raw = JSON.parse(readFileSync(TRIAGE_FILE, "utf8")) as RawTriagePayload;
-    const rawBills = Array.isArray(raw.bills) ? (raw.bills as RawBill[]) : [];
-    if (rawBills.length === 0) return null;
 
     let censusByCislo: Map<number, (string | undefined)[]>;
     try {
@@ -210,62 +141,7 @@ function loadDependencyData(): DependencyData | null {
       censusByCislo = new Map();
     }
 
-    let withheldHitCount = 0;
-    let spotCheckedCompanionCount = 0;
-    const bills: DependencyBillView[] = [];
-    for (const b of rawBills) {
-      if (typeof b.cislo !== "number") continue;
-      const rawHits = Array.isArray(b.hits) ? (b.hits as RawHit[]) : [];
-      const censusHits = censusByCislo.get(b.cislo);
-      // Positional alignment must hold hit-for-hit (not just in aggregate) — a
-      // count mismatch means this bill's triage/census rows cannot be paired
-      // by index without risking a WRONG excerpt attached to a hit's claim, so
-      // this bill falls back to the triage payload's own (shorter, prefix-cut)
-      // context rather than mispair.
-      const aligned = censusHits != null && censusHits.length === rawHits.length;
-
-      const hits: DependencyHit[] = [];
-      rawHits.forEach((h, i) => {
-        if (h.class !== "companion_dependency") return;
-        const censusContext = aligned ? censusHits[i] : undefined;
-        const context = gate(censusContext ?? h.context, "excerpt");
-        const companionSubject = gate(h.companionSubject, "prose");
-        if (context === null && companionSubject === null) {
-          withheldHitCount++;
-          return;
-        }
-        const weakEvidence = companionSubject !== null && WEAK_EVIDENCE_RE.test(companionSubject);
-        // `reasoning` is an internal analyst field — never rendered — read only to
-        // count how many hits it marks as independently spot-checked (M16).
-        if (typeof h.reasoning === "string" && /spot-verified/i.test(h.reasoning)) spotCheckedCompanionCount++;
-        const tisk = typeof h.likelyCompanionTisk === "number" ? h.likelyCompanionTisk : null;
-        hits.push({
-          context,
-          companionSubject,
-          // Only carry a companion tisk number alongside prose that names one AND
-          // is not itself hedged as unresolved — a number with no surviving
-          // subject, or one the analyst's own text calls a guess, must not render
-          // as a link (batch-015-audit.md B11).
-          likelyCompanionTisk: companionSubject !== null && !weakEvidence ? tisk : null,
-          weakEvidence,
-        });
-      });
-      if (hits.length > 0) bills.push({ cislo: b.cislo, hits });
-    }
-    if (bills.length === 0) return null;
-    bills.sort((a, b) => a.cislo - b.cislo);
-
-    const counts = raw.counts ?? {};
-    return {
-      bills,
-      companionCount: asNum(counts.companion_dependency),
-      selfReferenceCount: asNum(counts.self_reference),
-      unclearCount: asNum(counts.unclear),
-      totalTriaged: asNum(counts.companion_dependency) + asNum(counts.self_reference) + asNum(counts.unclear),
-      withheldHitCount,
-      spotCheckedCompanionCount,
-      generatedAt: typeof raw.generatedAt === "string" ? raw.generatedAt : null,
-    };
+    return buildDependencyView(raw, censusByCislo, gate);
   } catch (err) {
     reportLoaderFailure("getDependencyData", err);
     return null;

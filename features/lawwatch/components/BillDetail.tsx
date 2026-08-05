@@ -486,7 +486,7 @@ function ForensicBlock({
                             {u.whoBenefits}
                           </p>
                         )}
-                        {/^https?:\/\//.test(u.evidence) && (
+                        {/^https?:\/\//.test(u.evidence) ? (
                           <a
                             href={u.evidence}
                             target="_blank"
@@ -495,6 +495,16 @@ function ForensicBlock({
                           >
                             {citationRef("web", u.evidence).registry} <ExternalLink className="h-3 w-3" />
                           </a>
+                        ) : (
+                          // A textual citation sentence is evidence too (batch-016 audit B5 —
+                          // the URL-only branch silently published six effects with no visible
+                          // source). The loader has already gated the string; render it.
+                          u.evidence.length > 0 && (
+                            <p className="mt-1 text-[12px] leading-snug text-steel">
+                              <span className="font-bold uppercase tracking-wide">{t("forensic.evidenceLabel")}</span>{" "}
+                              {u.evidence}
+                            </p>
+                          )
                         )}
                       </li>
                     ))}

@@ -1,0 +1,47 @@
+{
+  "billTisk": 186,
+  "statedReasoning": "Návrh Zastupitelstva hlavního města Prahy (ZHMP) mění zákon č. 458/2000 Sb., energetický zákon, konkrétně § 27f o institutu aktivního zákazníka. Bod 1 doplňuje na konec § 27f odst. 3 slova „, pokud není stanoveno jinak“, aby se otevřel prostor pro výjimku. Bod 2 vkládá nový odstavec 4, který pro skupinu sdílení tvořenou územním samosprávným celkem, jím zřízenou příspěvkovou organizací nebo jím založenou či zřízenou jinou právnickou osobou (za podmínky převažujícího financování a rozhodujícího vlivu územního celku) zvyšuje limit sdílení elektřiny z dosavadních 11 na 60 registračních čísel předávacích míst. Důvodová zpráva zdůvodňuje návrh praktickou zkušeností Pražského společenství obnovitelné energie (PCOE), které ke konci roku 2025 sdílelo elektřinu mezi 73 odběrnými místy na majetku HMP a u 20 jím zřízených či založených právnických osob (školy, divadla, domovy pro seniory, Lesy HMP, Pražské služby a. s., Trade Centre Praha a. s.), a dosavadní limit 11 míst označuje za nedostatečný pro velké územní samosprávné celky. Návrh zákona podle důvodové zprávy nezakládá nové nároky na státní rozpočet ani veřejné rozpočty, dopad hodnotí jako neutrální až pozitivní (úspora nákladů na energie), plnou RIA nezpracovala kvůli úzkému a technickému rozsahu změny. Účinnost se navrhuje k 1. lednu 2027, podepsán primátorem hl. m. Prahy doc. MUDr. Bohuslavem Svobodou, CSc.",
+  "researchedContext": "Text tisku 186 nemá žádnou věcnou souvislost s rozpočtovým určením daní (RUD) ani se zákonem č. 243/2000 Sb., o rozpočtovém určení výnosu některých daní — nenovelizuje § 3 tohoto zákona ani žádné ustanovení o sdílení daňového výnosu mezi kraji, obcemi a hlavním městem Prahou. Novelizuje výhradně § 27f energetického zákona č. 458/2000 Sb., upravující sdílení elektřiny v režimu aktivního zákazníka. Přestože jde o další zastupitelský návrh zákona, jehož předkladatelem je krajská či hlavoměstská samospráva — po dvou dřívějších návrzích Pardubického kraje mířících na rozpočtové určení daní — tisk 186 s touto rodinou RUD novel nekoliduje a nijak ji nedoplňuje ani nevylučuje — jde o zcela samostatnou legislativní iniciativu v jiné právní oblasti (energetika, nikoli rozpočtové určení daní). Toto je třeba konstatovat výslovně, aby nevznikl mylný dojem tematické návaznosti jen proto, že jde o stejnou třídu předkladatele — zastupitelstvo územního samosprávného celku — nikoli o týž konkrétní subjekt: tisk 186 předkládá Zastupitelstvo hlavního města Prahy, zatímco oba dřívější návrhy k rozpočtovému určení daní podal Pardubický kraj. Návrh dále sám uvádí, že bez jeho přijetí HMP dočasně odkládá založení energetického společenství v právní formě družstva (usnesení ZHMP č. 25/4 z 19. 6. 2025), a to „minimálně do doby projednání návrhu zákona“ Poslaneckou sněmovnou — projednání tohoto tisku je tedy podmínkou, na niž je navázáno jiné, samostatně schvalované usnesení ZHMP.",
+  "unstatedEffects": [
+    {
+      "effect": "Důvodová zpráva rámuje návrh jako reakci na konkrétní provozní zkušenost hlavního města Prahy a PCOE, avšak novelizované ustanovení § 27f odst. 4 energetického zákona je formulováno obecně pro „územní samosprávný celek“ bez omezení na Prahu — nový limit 60 registračních čísel předávacích míst se tak po nabytí účinnosti otevře všem obcím a krajům v České republice, nikoli jen hlavnímu městu. Důvodová zpráva tento celostátní dosah nijak nekvantifikuje ani nekomentuje mimo obecnou zmínku, že „bude zjednodušen budoucí proces sdílení elektrické energie všem územně samosprávným celkům na území České republiky“.",
+      "whoBenefits": "Všechny územní samosprávné celky v České republice a jimi zřízené či založené právnické osoby splňující podmínku převažujícího financování a rozhodujícího vlivu, nikoli jen hlavní město Praha, jehož konkrétní zkušenost je v důvodové zprávě uváděna jako důvod předložení.",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=186&ct1=0"
+    }
+  ],
+  "conflictAssessment": "Tisk pochází od zastupitelstva územního samosprávného celku (zákonodárná iniciativa podle čl. 41 odst. 2 Ústavy), nikoli od jednotlivých poslanců — v datech grafu proto u tohoto tisku není evidován žádný poslanecký předkladatel ani peněžní vazba, kterou by bylo možné posoudit; sponzorské pole je prázdné konstrukčně, nikoli chybějícím zjištěním. Jménem ZHMP jedná primátor hl. m. Prahy v rámci výkonu své úřední, nikoli soukromé podnikatelské funkce. Nelze jednoznačně určit privátní finanční prospěch žádné konkrétní osoby — dotčeny jsou instituce a majetek ve vlastnictví či správě hlavního města Prahy a obdobných územních samosprávných celků, tedy veřejnoprávní subjekty, u kterých se podle standardní metodiky nejedná o soukromý střet zájmů.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Novela doplňuje na konec § 27f odst. 3 slova „, pokud není stanoveno jinak“ a vkládá nový odstavec 4, který zvyšuje limit sdílení elektřiny v režimu aktivního zákazníka pro územní samosprávné celky na 60 registračních čísel předávacích míst.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=186&ct1=0"
+    },
+    {
+      "claim": "Dosavadní limit sdílení elektřiny v režimu aktivního zákazníka činí nejvýše 11 odběrných míst; návrh jej pro vymezený okruh veřejnoprávních subjektů zvyšuje na 60.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=186&ct1=0"
+    },
+    {
+      "claim": "Ke konci roku 2025 bylo v rámci sdílení elektřiny PCOE zapojeno 73 odběrných míst na majetku HMP a u 20 právnických osob HMP zřízených či založených.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=186&ct1=0"
+    },
+    {
+      "claim": "Tisk 186 je zařazen v historii Poslanecké sněmovny s garančním výborem HV a projednáván se stavem navrženo od 3. 6. 2026.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=186"
+    },
+    {
+      "claim": "Tisk 186 novelizuje výhradně energetický zákon č. 458/2000 Sb., nikoli zákon o rozpočtovém určení daní.",
+      "kind": "law",
+      "source": "458/2000"
+    },
+    {
+      "claim": "Tisk 186 nemá evidovaného poslaneckého sponzora v grafu — jde o zastupitelskou zákonodárnou iniciativu.",
+      "kind": "graph_fact",
+      "source": "bill:tisk:43307"
+    }
+  ]
+}
