@@ -11,10 +11,13 @@
  * region, který se objeví až se změnou, odečítač obrazovky neohlásí.
  */
 
-import { czechInt } from "@/lib/format";
+import { useTranslations } from "next-intl";
+import { useFormat } from "@/lib/i18n/useFormat";
 import { useNewsCount } from "./useNews";
 
 export default function SchrankaBadge() {
+  const t = useTranslations("schranka");
+  const f = useFormat();
   const count = useNewsCount();
   const empty = count === null || count === 0;
   return (
@@ -22,10 +25,10 @@ export default function SchrankaBadge() {
       {!empty && (
         <span
           className="border border-signal-deep px-1.5 font-mono text-[11px] font-bold tabular-nums text-signal-deep"
-          aria-label={`nové záznamy u sledovaných entit: ${czechInt(count)}`}
+          aria-label={t("badge.ariaLabel", { count: f.int(count) })}
         >
           {/* citation-ok: odznak je počet položek UI; citaci zdrojů nese plocha /schranka, kam řádek lišty vede */}
-          {czechInt(count)}
+          {f.int(count)}
         </span>
       )}
     </span>

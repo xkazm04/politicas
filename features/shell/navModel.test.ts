@@ -84,6 +84,24 @@ describe("úplnost navigace — každá routa je rozhodnutá", () => {
   });
 });
 
+describe("popisky railu jdou z katalogu (launch bilingual — žádné české literály)", () => {
+  it("každý potomek nese labelKey z jmenného prostoru nav.*", () => {
+    for (const entry of NAV) {
+      for (const child of entry.children) {
+        expect(child.labelKey, child.href).toMatch(/^nav\./);
+      }
+    }
+  });
+
+  it("řádky mimo moduly (schranka, zaznam) mají labelKey i tagKey", () => {
+    for (const key of ["schranka", "zaznam"]) {
+      const entry = NAV.find((e) => e.key === key);
+      expect(entry?.labelKey, key).toMatch(/^nav\.entries\./);
+      expect(entry?.tagKey, key).toMatch(/^nav\.entries\./);
+    }
+  });
+});
+
 describe("entryFor — podstránky patří pod svůj vypsaný řádek", () => {
   it("children s cizím prefixem se hlásí ke svému rodiči", () => {
     expect(entryFor("/kompas")?.key).toBe("vote-track");

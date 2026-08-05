@@ -6,21 +6,35 @@
  * (`?entita=<klíč>`) — URL je odběr, žádné účty.
  *
  * Serverová komponenta — žádná interaktivita kromě odkazů; zvýraznění cílové
- * kotvy řeší CSS `:target`. Copy je záměrně česky přímo zde (messages/*.json
- * je sdílený soubor mimo plochu 3A — precedens /dukazy, batch 2C).
+ * kotvy řeší CSS `:target`.
+ *
+ * COPY JE V KATALOGU (2026-08-05): čtenářská věta žije v messages/{cs,en}.json
+ * pod `denik.*` a plocha ji sází přes next-intl — čisté moduly (deriveDenik.ts,
+ * kindLabels.ts) vracejí KLÍČE, ne text (vzor features/overeni). Strojové
+ * podoby (RSS/JSON) zůstávají jednojazyčné a mluví brankovanou češtinou
+ * (`titleCs`, `source`) — feed je artefakt, ne plocha.
  */
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { ArrowUpRight, Eye } from "lucide-react";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
-import { czechDate, czechInt } from "@/lib/format";
-import { compactCzk } from "@/features/money/moneyTypes";
-import { czechWeekday, DAYS_SHOWN, type DenikDay, type DenikEntry, type DenikLedger } from "./deriveDenik";
-import { denikKindLabel, TIME_BASIS_TITLE } from "./kindLabels";
+import { formatCompactCzk, formatDate, formatInt } from "@/lib/format";
+import type { Locale } from "@/lib/i18n/config";
+import { weekdayKey, DAYS_SHOWN, type DenikDay, type DenikEntry, type DenikLedger } from "./deriveDenik";
+import {
+  denikKindInfo,
+  DENIK_KIND_UNMAPPED_NOTE_KEY,
+  TIME_BASIS_LABEL_KEYS,
+  TIME_BASIS_TITLE_KEYS,
+} from "./kindLabels";
 import type { DenikCoverage, DenikLimits } from "./getDenikData";
 import FollowButton from "@/features/schranka/FollowButton";
+
+/** Překladač namespace `denik` — jediný typ, který si komponenty předávají. */
+type T = ReturnType<typeof useTranslations<"denik">>;
 
 const TONE_DOT: Record<DenikEntry["tone"], string> = {
   signal: "bg-signal",
@@ -39,32 +53,49 @@ const TONE_DOT: Record<DenikEntry["tone"], string> = {
  * („položka 3 z 12“). `<time dateTime>` nese den strojově i pro řádek, který
  * někdo přečte mimo jeho hlavičku.
  */
-function EntryRow({ e, followedKey, dayCs }: { e: DenikEntry; followedKey: string | null; dayCs: string }) {
-  const kind = denikKindLabel(e.kind);
+function EntryRow({
+  e,
+  followedKey,
+  dayLabel,
+  locale,
+  t,
+}: {
+  e: DenikEntry;
+  followedKey: string | null;
+  dayLabel: string;
+  locale: Locale;
+  t: T;
+}) {
+  const kind = denikKindInfo(e.kind);
+  const timeBasisTitle = t(TIME_BASIS_TITLE_KEYS[e.timeBasis]);
   return (
     <li className="grid grid-cols-[auto_1fr] items-baseline gap-x-3 gap-y-1 border-b border-hairline px-3 py-3.5">
       <span className={`mt-1.5 inline-block h-2.5 w-2.5 shrink-0 ${TONE_DOT[e.tone]}`} aria-hidden />
       <span className="min-w-0 text-[15px] leading-relaxed">
         <time dateTime={e.date} className="sr-only">
-          {dayCs}
+          {dayLabel}
         </time>
         {/* Druh SLOVEM — tečka vlevo je jeho barevná dekorace. */}
         <span className="mr-2 whitespace-nowrap font-mono text-[11px] font-bold uppercase tracking-wider text-steel-aa">
-          {kind.text}
-          {!kind.translated && (
-            <span className="ml-1 font-normal normal-case tracking-normal">(nepřeložený druh)</span>
+          {kind.known ? t(kind.labelKey) : t(kind.labelKey, { token: kind.token })}
+          {!kind.known && (
+            <span className="ml-1 font-normal normal-case tracking-normal">
+              {t(DENIK_KIND_UNMAPPED_NOTE_KEY)}
+            </span>
           )}
         </span>
         {e.internalHref ? (
           <Link href={e.internalHref} className="hover:text-signal-deep hover:underline">
-            {e.titleCs}
+            {e.title ? t(e.title.key, e.title.params) : e.titleCs}
           </Link>
+        ) : e.title ? (
+          t(e.title.key, e.title.params)
         ) : (
           e.titleCs
         )}
         {e.czk !== undefined && (
           <span className="ml-2 whitespace-nowrap font-mono text-[13px] font-bold tabular-nums">
-            {compactCzk(e.czk, "cs")}
+            {formatCompactCzk(e.czk, locale)}
           </span>
         )}
         <span className="ml-2 whitespace-nowrap font-mono text-[11px] uppercase tracking-wider text-steel">
@@ -76,23 +107,23 @@ function EntryRow({ e, followedKey, dayCs }: { e: DenikEntry; followedKey: strin
         {e.timeBasis === "zaznamenano" ? (
           <span
             className="ml-2 cursor-help whitespace-nowrap border border-cobalt px-1 font-mono text-[10px] font-bold uppercase tracking-wider text-cobalt"
-            title={TIME_BASIS_TITLE.zaznamenano}
-            aria-label={TIME_BASIS_TITLE.zaznamenano}
+            title={timeBasisTitle}
+            aria-label={timeBasisTitle}
           >
-            zaznamenáno
+            {t(TIME_BASIS_LABEL_KEYS.zaznamenano)}
           </span>
         ) : (
           <span
             className="ml-2 cursor-help whitespace-nowrap border-b border-dotted border-steel font-mono text-[10px] uppercase tracking-wider text-steel-aa"
-            title={TIME_BASIS_TITLE.ucinne}
-            aria-label={TIME_BASIS_TITLE.ucinne}
+            title={timeBasisTitle}
+            aria-label={timeBasisTitle}
           >
-            účinné
+            {t(TIME_BASIS_LABEL_KEYS.ucinne)}
           </span>
         )}
         {e.pending && (
           <span className="mt-1 block font-mono text-[11px] uppercase tracking-wider text-ochre">
-            stojí na vazbě čekající na lidskou kontrolu
+            {t("entryRow.pending")}
           </span>
         )}
         {/* Doklad: co si čtenář může sám otevřít. Do 2026-08-04 tu stálo jen
@@ -137,7 +168,7 @@ function EntryRow({ e, followedKey, dayCs }: { e: DenikEntry; followedKey: strin
                 key={en.key}
                 href={`/denik?entita=${encodeURIComponent(en.key)}`}
                 className="inline-flex items-center gap-1 font-mono text-[11px] uppercase tracking-wider text-steel-aa hover:text-cobalt hover:underline"
-                aria-label={`Deník entity ${en.label}`}
+                aria-label={t("entryRow.entityAria", { label: en.label })}
               >
                 <Eye className="h-3 w-3" aria-hidden /> {en.label}
               </Link>
@@ -150,27 +181,28 @@ function EntryRow({ e, followedKey, dayCs }: { e: DenikEntry; followedKey: strin
 }
 
 /** Datovaná hlavička dne — „vydání" novin záznamu, s trvalou kotvou. */
-function DayMasthead({ day }: { day: DenikDay }) {
-  const weekday = czechWeekday(day.date);
+function DayMasthead({ day, locale, t }: { day: DenikDay; locale: Locale; t: T }) {
+  const wk = weekdayKey(day.date);
+  const dayLabel = formatDate(day.date, locale);
   return (
     <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b-2 border-ink pb-2">
       <h3 id={`h-${day.anchor}`} className="text-2xl font-black uppercase tracking-tight sm:text-3xl">
         {/* Den vydání strojově čitelně — kotva `#d-<datum>` je jeho adresa,
             `<time dateTime>` jeho datum. */}
         <time dateTime={day.date}>
-          {weekday ? `${weekday} ` : ""}
-          {czechDate(day.date)}
+          {wk ? `${t(wk)} ` : ""}
+          {dayLabel}
         </time>
         <span className="text-signal">.</span>
       </h3>
       <span className="flex items-baseline gap-4">
         <span className="font-mono text-xs uppercase tracking-widest text-steel-aa">
-          zápisů: {czechInt(day.entries.length)}
+          {t("masthead.entries", { n: formatInt(day.entries.length, locale) })}
         </span>
         <a
           href={`#${day.anchor}`}
           className="font-mono text-xs uppercase tracking-widest text-steel-aa hover:text-signal-deep hover:underline"
-          aria-label={`Trvalý odkaz na den ${czechDate(day.date)}`}
+          aria-label={t("masthead.permalinkAria", { date: dayLabel })}
         >
           #{day.anchor}
         </a>
@@ -179,62 +211,56 @@ function DayMasthead({ day }: { day: DenikDay }) {
   );
 }
 
-const COVERAGE_NOTES: { key: keyof DenikCoverage; note: string }[] = [
-  { key: "money", note: "peněžní vrstva je teď nečitelná — smlouvy a rejstříkové role v deníku chybí" },
-  { key: "law", note: "legislativní vrstva je teď nečitelná — přikázání výborům a vyhlášení ve Sbírce chybí" },
-  { key: "reviews", note: "lidská brána je teď nečitelná — rozhodnutí revizorů v deníku chybí" },
-  { key: "changes", note: "tabulka change_event je teď nečitelná — proud „zaznamenáno“ v deníku chybí" },
+const COVERAGE_NOTE_KEYS: { key: keyof DenikCoverage; noteKey: string }[] = [
+  { key: "money", noteKey: "coverage.money" },
+  { key: "law", noteKey: "coverage.law" },
+  { key: "reviews", noteKey: "coverage.reviews" },
+  { key: "changes", noteKey: "coverage.changes" },
 ];
 
 /**
  * MEZE ČTENÍ, VYPSANÉ VĚTOU (2026-08-04). Každý strop, který smí ztratit řádek,
  * má svou větu a svůj počet — precedens `droppedImplausible`: vyhozeno,
  * spočítáno, počet vypsán. Věta se ukáže jen tehdy, když se mez SKUTEČNĚ
- * dotkla dat; nulová mez je pojistka, ne sdělení.
+ * dotkla dat; nulová mez je pojistka, ne sdělení. Věty jdou katalogem — tady
+ * se skládají jen klíče a spočítané hodnoty.
  */
-function limitNotes(limits: DenikLimits, ledger: DenikLedger | null): string[] {
-  const notes: string[] = [];
+function limitNotes(
+  limits: DenikLimits,
+  ledger: DenikLedger | null,
+  locale: Locale,
+): { key: string; values: Record<string, string> }[] {
+  const int = (n: number) => formatInt(n, locale);
+  const notes: { key: string; values: Record<string, string> }[] = [];
   if (limits.companiesOverCap > 0) {
-    notes.push(
-      `firem s přisouditelnou vazbou je víc než strop ${czechInt(limits.companyCap)}; ` +
-        `smlouvy ${czechInt(limits.companiesOverCap)} z nich se nečetly vůbec`,
-    );
+    notes.push({
+      key: "limits.companiesOverCap",
+      values: { cap: int(limits.companyCap), n: int(limits.companiesOverCap) },
+    });
   }
   if (limits.companiesEdgeTruncated > 0) {
-    notes.push(
-      `u ${czechInt(limits.companiesEdgeTruncated)} firem se dosáhlo stropu ` +
-        `${czechInt(limits.edgeCap)} smluv na firmu — jejich starší smlouvy deník nenese`,
-    );
+    notes.push({
+      key: "limits.companiesEdgeTruncated",
+      values: { n: int(limits.companiesEdgeTruncated), cap: int(limits.edgeCap) },
+    });
   }
   if (limits.malformedIco > 0) {
-    notes.push(
-      `${czechInt(limits.malformedIco)} vazeb nese IČO, které nelze převést na kanonický tvar; ` +
-        `řádek se zobrazuje, ale firmu v něm nelze sledovat ani otevřít`,
-    );
+    notes.push({ key: "limits.malformedIco", values: { n: int(limits.malformedIco) } });
   }
   if (limits.changesUndisplayable > 0) {
-    notes.push(
-      `${czechInt(limits.changesUndisplayable)} záznamů grafu nese druh, který tahle verze deníku neumí vyslovit — ` +
-        `nezobrazují se, ale ani nemizí bez počtu`,
-    );
+    notes.push({ key: "limits.changesUndisplayable", values: { n: int(limits.changesUndisplayable) } });
   }
   if (limits.changesFromGate > 0) {
-    notes.push(
-      `${czechInt(limits.changesFromGate)} záznamů grafu popisuje rozhodnutí lidské brány; ` +
-        `ta deník uvádí ze samotného review_audit, aby se událost nepočítala dvakrát`,
-    );
+    notes.push({ key: "limits.changesFromGate", values: { n: int(limits.changesFromGate) } });
   }
   if (ledger && ledger.mergedContractRows > 0) {
-    notes.push(
-      `${czechInt(ledger.mergedContractRows)} řádků o smlouvách se slilo do jiného — ` +
-        `jedna smlouva je jeden řádek, i když ji v grafu dodává víc firem`,
-    );
+    notes.push({ key: "limits.mergedContractRows", values: { n: int(ledger.mergedContractRows) } });
   }
   if (ledger && ledger.contractAmountConflicts > 0) {
-    notes.push(
-      `${czechInt(ledger.contractAmountConflicts)} slitých smluv neslo rozporné částky, ` +
-        `a proto neuvádějí žádnou (vybrat jednu by znamenalo vymyslet peníze)`,
-    );
+    notes.push({
+      key: "limits.contractAmountConflicts",
+      values: { n: int(ledger.contractAmountConflicts) },
+    });
   }
   return notes;
 }
@@ -251,6 +277,7 @@ export interface DenikPageProps {
   entityKey: string | null;
   /** Popisek sledované entity; null = klíč se v záznamech nenašel. */
   entityLabelCs: string | null;
+  locale: Locale;
 }
 
 export default function DenikPage({
@@ -261,10 +288,12 @@ export default function DenikPage({
   builtOn,
   entityKey,
   entityLabelCs,
+  locale,
 }: DenikPageProps) {
+  const t = useTranslations("denik");
   const feedQuery = entityKey ? `?entita=${encodeURIComponent(entityKey)}` : "";
-  const missing = coverage ? COVERAGE_NOTES.filter((c) => !coverage[c.key]) : [];
-  const limitsCs = limits ? limitNotes(limits, ledger) : [];
+  const missing = coverage ? COVERAGE_NOTE_KEYS.filter((c) => !coverage[c.key]) : [];
+  const limitRows = limits ? limitNotes(limits, ledger, locale) : [];
 
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
@@ -290,57 +319,57 @@ export default function DenikPage({
       </header>
 
       <div className="mx-auto max-w-5xl px-6 py-10">
-        <SourceNote tone="signal">denní záznam republiky</SourceNote>
+        <SourceNote tone="signal">{t("kicker")}</SourceNote>
         <h1 className="mt-3 text-4xl font-black uppercase leading-[0.95] tracking-tight sm:text-5xl">
-          Deník republiky
+          {t("title")}
           <span className="text-signal">.</span>
         </h1>
         <div className="mt-4 max-w-md">
           <SectionRule />
         </div>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel-aa">
-          Co den, to zápis: podepsané smlouvy firem s vazbou na poslance, přikázání sněmovních tisků
-          výborům, vyhlášení ve Sbírce, zápisy a výmazy rejstříkových rolí a rozhodnutí lidské brány.
-          Každý řádek má datum, zdroj a den má trvalou adresu.
-        </p>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel-aa">{t("lead")}</p>
 
         {/* Pravidlo deníku — co dny znamenají a proč (výsledek průzkumu úložiště). */}
         <div className="mt-8 max-w-2xl border-l-4 border-ink bg-paper-strong px-4 py-3">
-          <p className="font-mono text-[11px] font-bold uppercase tracking-widest">pravidlo deníku</p>
+          <p className="font-mono text-[11px] font-bold uppercase tracking-widest">{t("rule.kicker")}</p>
           <p className="mt-1 text-sm leading-relaxed text-steel-aa">
-            Deník vede dva proudy a každý řádek přiznává, kterým časem je datován. Řádky{" "}
-            <span className="font-mono text-[11px] uppercase tracking-wider">účinné</span> nesou den,
-            kdy se událost <em>stala</em> podle svého registru (podpis smlouvy, zápis role, krok tisku)
-            — ne den, kdy ji ingest našel. Řádky{" "}
-            <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt">zaznamenáno</span>{" "}
-            nesou den, kdy fakt <em>vstoupil do záznamu</em>: rozhodnutí lidské brány (review_audit je
-            append-only log) a od zavedení bitemporálního grafu i změny grafu samotného (change_event —
-            nová vazba, změna vazby, smlouva v grafu). Co graf zaznamenal před epochou bitemporální
-            migrace, proud „zaznamenáno&ldquo; poctivě nenese — zpětně se nic neorazítkovává. Smlouvy se
-            uvádějí jen u firem s vazbou typu vlastník/jednatel — smlouvy institucí, kde poslanec pouze
-            zasedá v orgánu, jsou penězi té instituce.
+            {t.rich("rule.body", {
+              em: (chunks) => <em>{chunks}</em>,
+              ucinne: (chunks) => (
+                <span className="font-mono text-[11px] uppercase tracking-wider">{chunks}</span>
+              ),
+              zaznamenano: (chunks) => (
+                <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt">
+                  {chunks}
+                </span>
+              ),
+            })}
           </p>
         </div>
 
         {/* Degradace po vrstvách — deník bez některé skupiny to říká nahlas. */}
         {missing.length > 0 && (
           <div className="mt-4 max-w-2xl border-l-4 border-ochre bg-paper-strong px-4 py-3">
-            <p className="font-mono text-[11px] font-bold uppercase tracking-widest">neúplné pokrytí</p>
+            <p className="font-mono text-[11px] font-bold uppercase tracking-widest">
+              {t("coverage.kicker")}
+            </p>
             <ul className="mt-1 list-none text-sm leading-relaxed text-steel-aa">
               {missing.map((m) => (
-                <li key={m.key}>{m.note}</li>
+                <li key={m.key}>{t(m.noteKey)}</li>
               ))}
             </ul>
           </div>
         )}
 
         {/* Meze čtení — každý strop, který smí ztratit řádek, se přizná i s počtem. */}
-        {limitsCs.length > 0 && (
+        {limitRows.length > 0 && (
           <div className="mt-4 max-w-2xl border-l-4 border-steel bg-paper-strong px-4 py-3">
-            <p className="font-mono text-[11px] font-bold uppercase tracking-widest">meze čtení</p>
+            <p className="font-mono text-[11px] font-bold uppercase tracking-widest">
+              {t("limits.kicker")}
+            </p>
             <ul className="mt-1 list-none space-y-1 text-sm leading-relaxed text-steel-aa">
-              {limitsCs.map((n) => (
-                <li key={n}>{n}</li>
+              {limitRows.map((n) => (
+                <li key={n.key}>{t(n.key, n.values)}</li>
               ))}
             </ul>
           </div>
@@ -352,13 +381,14 @@ export default function DenikPage({
           <div className="mt-4 max-w-2xl border-l-4 border-cobalt bg-paper-strong px-4 py-3">
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
               <span className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-widest text-cobalt">
-                <Eye className="h-3.5 w-3.5" aria-hidden /> filtr entity: {entityLabelCs ?? entityKey}
+                <Eye className="h-3.5 w-3.5" aria-hidden />{" "}
+                {t("filter.label", { entity: entityLabelCs ?? entityKey })}
               </span>
               <Link
                 href="/denik"
                 className="font-mono text-xs uppercase tracking-widest text-steel-aa hover:text-signal-deep hover:underline"
               >
-                zrušit filtr
+                {t("filter.clear")}
               </Link>
             </div>
             <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2">
@@ -369,15 +399,16 @@ export default function DenikPage({
                 compact
               />
               <span className="text-sm leading-relaxed text-steel-aa">
-                Sledovaná entita se ukládá jen ve vašem prohlížeči; co jí přibylo od minulé
-                návštěvy, pak sečte{" "}
-                <Link
-                  href="/schranka"
-                  className="font-mono text-xs font-bold uppercase tracking-widest text-signal-deep hover:underline"
-                >
-                  občanská schránka
-                </Link>
-                .
+                {t.rich("filter.inboxNote", {
+                  schranka: (chunks) => (
+                    <Link
+                      href="/schranka"
+                      className="font-mono text-xs font-bold uppercase tracking-widest text-signal-deep hover:underline"
+                    >
+                      {chunks}
+                    </Link>
+                  ),
+                })}
               </span>
             </div>
           </div>
@@ -386,12 +417,12 @@ export default function DenikPage({
         <section className="mt-14 border-t-4 border-ink pt-10">
           <SectionHeading
             index={1}
-            title="Zápisy"
+            title={t("section.title")}
             aside={
               ledger && (
                 <SourceNote>
-                  zdroj: registr smluv + ares + psp.cz + review_audit ({czechInt(auditRows)} řádků brány) + change_event
-                  {builtOn ? ` · sestaveno ${czechDate(builtOn)}` : ""}
+                  {t("section.source", { rows: formatInt(auditRows, locale) })}
+                  {builtOn ? ` · ${t("section.builtOn", { date: formatDate(builtOn, locale) })}` : ""}
                 </SourceNote>
               )
             }
@@ -399,30 +430,31 @@ export default function DenikPage({
 
           {ledger == null ? (
             <div className="mt-8 border-2 border-dashed border-hairline p-8">
-              <p className="text-lg">
-                Zápisy teď nelze načíst — úložiště je v tomto prostředí nedostupné. Tahle stránka
-                nemůže říct, jestli nějaké zápisy existují; deník není prázdný, jen nečitelný.
-              </p>
+              <p className="text-lg">{t("unreadable")}</p>
             </div>
           ) : ledger.days.length === 0 ? (
             <div className="mt-8 border-2 border-dashed border-hairline p-8">
               {entityKey ? (
                 <p className="text-lg">
-                  Pro sledovanou entitu deník žádný zápis nenese<span className="text-signal">.</span>{" "}
-                  Buď o ní registry nedrží žádnou datovanou událost, nebo klíč „{entityKey}&ldquo;
-                  neodpovídá žádné entitě záznamu.{" "}
-                  <Link href="/denik" className="font-mono text-sm uppercase tracking-widest text-cobalt hover:underline">
-                    celý deník
+                  {t("emptyEntity.lead")}
+                  <span className="text-signal">.</span> {t("emptyEntity.body", { key: entityKey })}{" "}
+                  <Link
+                    href="/denik"
+                    className="font-mono text-sm uppercase tracking-widest text-cobalt hover:underline"
+                  >
+                    {t("emptyEntity.link")}
                   </Link>
                 </p>
               ) : (
                 <p className="text-lg">
-                  Deník je zatím prázdný<span className="text-signal">.</span> Čitelné vrstvy nenesou
-                  žádnou datovanou událost — první zápis se objeví, jakmile registry nějakou ponesou.
+                  {t("empty.lead")}
+                  <span className="text-signal">.</span> {t("empty.body")}
                 </p>
               )}
               <div className="mt-3">
-                <SourceNote>žádný záznam není zamlčen; vyhozená nemožná data: {czechInt(ledger.droppedImplausible)}</SourceNote>
+                <SourceNote>
+                  {t("empty.note", { n: formatInt(ledger.droppedImplausible, locale) })}
+                </SourceNote>
               </div>
             </div>
           ) : (
@@ -438,10 +470,20 @@ export default function DenikPage({
                     aria-labelledby={`h-${day.anchor}`}
                     className="scroll-mt-24 target:bg-paper-strong"
                   >
-                    <DayMasthead day={day} />
-                    <ul className="list-none" aria-label={`Zápisy dne ${czechDate(day.date)}`}>
+                    <DayMasthead day={day} locale={locale} t={t} />
+                    <ul
+                      className="list-none"
+                      aria-label={t("dayList.aria", { date: formatDate(day.date, locale) })}
+                    >
                       {day.entries.map((e) => (
-                        <EntryRow key={e.id} e={e} followedKey={entityKey} dayCs={czechDate(day.date)} />
+                        <EntryRow
+                          key={e.id}
+                          e={e}
+                          followedKey={entityKey}
+                          dayLabel={formatDate(day.date, locale)}
+                          locale={locale}
+                          t={t}
+                        />
                       ))}
                     </ul>
                   </article>
@@ -452,10 +494,14 @@ export default function DenikPage({
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <SourceNote>
                   {ledger.daysTotal > ledger.days.length
-                    ? `zapsaných dnů celkem ${czechInt(ledger.daysTotal)}; stránka ukazuje posledních ${czechInt(ledger.days.length)} (strop ${czechInt(DAYS_SHOWN)}) — starší dny nese filtr entity a strojové podoby`
-                    : `zapsaných dnů celkem ${czechInt(ledger.daysTotal)}`}
+                    ? t("daysNote.truncated", {
+                        total: formatInt(ledger.daysTotal, locale),
+                        shown: formatInt(ledger.days.length, locale),
+                        cap: formatInt(DAYS_SHOWN, locale),
+                      })
+                    : t("daysNote.total", { total: formatInt(ledger.daysTotal, locale) })}
                   {ledger.droppedImplausible > 0
-                    ? ` · záznamů s nemožným datem vyhozeno ${czechInt(ledger.droppedImplausible)} (datum se nikdy neopravuje)`
+                    ? ` · ${t("daysNote.dropped", { n: formatInt(ledger.droppedImplausible, locale) })}`
                     : ""}
                 </SourceNote>
               </div>
@@ -464,13 +510,13 @@ export default function DenikPage({
                   href="/dukazy"
                   className="group inline-flex items-center gap-1 font-mono text-xs font-bold uppercase tracking-widest text-signal-deep hover:underline"
                 >
-                  deník důkazů{" "}
+                  {t("evidenceLink")}{" "}
                   <ArrowUpRight
                     className="h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                     aria-hidden
                   />
                 </Link>
-                <SourceNote>kotvy dnů: #d-&lt;datum&gt; · guid záznamu: politicas:denik:&lt;id&gt;</SourceNote>
+                <SourceNote>{t("anchorsNote")}</SourceNote>
               </div>
             </>
           )}

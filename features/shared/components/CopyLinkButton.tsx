@@ -14,24 +14,28 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { Check, Link2 } from "lucide-react";
 
 export default function CopyLinkButton({
   path,
-  label = "kopírovat odkaz",
-  copiedLabel = "odkaz zkopírován",
-  failedLabel = "kopírování se nezdařilo — vyberte adresu níže ručně",
+  label,
+  copiedLabel,
+  failedLabel,
   errorContext = "kopírování odkazu selhalo",
 }: {
   /** Cesta nebo celý text ke zkopírování. Cesta začínající „/" se doplní na
    *  absolutní URL; cokoli jiného se kopíruje doslova (tvar citace). */
   path: string;
+  /** Výchozí popisky jdou z katalogu (`shared.copyLink.*`); props je přebíjejí. */
   label?: string;
   copiedLabel?: string;
   failedLabel?: string;
-  /** Kontext do console.error — ať je v logu poznat, která plocha selhala. */
+  /** Kontext do console.error — ať je v logu poznat, která plocha selhala.
+   *  Log, ne UI — nepřekládá se. */
   errorContext?: string;
 }) {
+  const t = useTranslations("shared");
   const [state, setState] = useState<"idle" | "copied" | "failed">("idle");
   const reduceMotion = useReducedMotion();
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -63,7 +67,7 @@ export default function CopyLinkButton({
         onClick={copy}
         className="inline-flex items-center gap-1.5 border border-ink px-3 py-1.5 font-mono text-xs font-bold uppercase tracking-wider text-ink transition-colors hover:bg-paper-strong hover:text-signal focus-visible:outline focus-visible:outline-2 focus-visible:outline-cobalt"
       >
-        <Link2 className="h-3.5 w-3.5" aria-hidden /> {label}
+        <Link2 className="h-3.5 w-3.5" aria-hidden /> {label ?? t("copyLink.label")}
       </button>
       <span role="status" aria-live="polite" className="min-h-[1rem]">
         {state === "copied" && (
@@ -72,11 +76,13 @@ export default function CopyLinkButton({
             animate={{ opacity: 1, y: 0 }}
             className="inline-flex items-center gap-1 font-mono text-xs font-bold uppercase tracking-wider text-cobalt"
           >
-            <Check className="h-3.5 w-3.5" aria-hidden /> {copiedLabel}
+            <Check className="h-3.5 w-3.5" aria-hidden /> {copiedLabel ?? t("copyLink.copied")}
           </motion.span>
         )}
         {state === "failed" && (
-          <span className="font-mono text-xs uppercase tracking-wider text-signal-deep">{failedLabel}</span>
+          <span className="font-mono text-xs uppercase tracking-wider text-signal-deep">
+            {failedLabel ?? t("copyLink.failed")}
+          </span>
         )}
       </span>
     </div>

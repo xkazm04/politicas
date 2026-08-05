@@ -90,14 +90,31 @@ export interface DenikEvidence {
   value: string;
 }
 
+/**
+ * Věta záznamu jako KLÍČ + parametry (2026-08-05): plocha ji sází přes
+ * next-intl (`t(\`entry.${key}\`, params)`), takže deník mluví jazykem čtenáře.
+ * `titleCs` vedle toho ZŮSTÁVÁ — strojové podoby (RSS/JSON) jsou jednojazyčný
+ * artefakt a publikují brankovanou češtinu doslova (feedCodecs.ts).
+ * Parametry jsou DATA (jména, částky, čísla tisků) — nikdy kus věty.
+ */
+export interface DenikTitle {
+  /** Klíč do katalogu `denik.entry.*` (suffix za namespace `denik`). */
+  key: string;
+  params: Record<string, string>;
+}
+
 export interface DenikEntry {
   /** Deterministické id — veřejná adresa záznamu ve feedu (guid). */
   id: string;
   /** `YYYY-MM-DD` — den zápisu (viz hlavička: světový čas / čas záznamu brány). */
   date: string;
   kind: DenikKind;
-  /** Brankovaná česká věta záznamu — jediný hlas, kterým deník mluví. */
+  /** Brankovaná česká věta záznamu — hlas strojových podob (feed content). */
   titleCs: string;
+  /** Táž věta jako klíč + parametry — hlas dvojjazyčné plochy. Volitelné jen
+   *  kvůli strukturální kompatibilitě cizích fixtures (schránka); každý řádek,
+   *  který tenhle modul vydá, klíč NESE a plocha bez něj padá na `titleCs`. */
+  title?: DenikTitle;
   /** Částka v Kč, jen u smluv, které ji nesou. Formátuje klientská plocha. */
   czk?: number;
   /** Záznam stojí na vazbě, která čeká na lidskou kontrolu. */
@@ -158,12 +175,36 @@ export const dayAnchor = (date: string): string => `d-${date}`;
  *  vstupem je DATUM, ne okamžik, a den v týdnu data se počítá kalendářně. Zóna
  *  rozhoduje jen o tom, KTERÝ den je „dnes" — a to řeší loader na serveru. */
 const WEEKDAYS_CS = ["neděle", "pondělí", "úterý", "středa", "čtvrtek", "pátek", "sobota"] as const;
-export function czechWeekday(isoDate: string): string | null {
+
+/** 0 = neděle … 6 = sobota, kalendářní aritmetikou (bez Intl, viz výš). */
+function weekdayIndex(isoDate: string): number | null {
   const m = isoDate.match(/^(\d{4})-(\d{2})-(\d{2})$/);
   if (!m) return null;
   const t = Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
   if (!Number.isFinite(t)) return null;
-  return WEEKDAYS_CS[new Date(t).getUTCDay()];
+  return new Date(t).getUTCDay();
+}
+
+export function czechWeekday(isoDate: string): string | null {
+  const i = weekdayIndex(isoDate);
+  return i === null ? null : WEEKDAYS_CS[i];
+}
+
+/** Klíč dne v týdnu do katalogu `denik.weekday.*` — plocha překládá; feed
+ *  (jednojazyčný artefakt) den v týdnu nesází vůbec. */
+const WEEKDAY_KEYS = [
+  "weekday.sunday",
+  "weekday.monday",
+  "weekday.tuesday",
+  "weekday.wednesday",
+  "weekday.thursday",
+  "weekday.friday",
+  "weekday.saturday",
+] as const;
+
+export function weekdayKey(isoDate: string): string | null {
+  const i = weekdayIndex(isoDate);
+  return i === null ? null : WEEKDAY_KEYS[i];
 }
 
 // ── Veřejné klíče entit (adresa filtru = adresa odběru) ─────────────────────
@@ -304,6 +345,14 @@ const KIND_ORDER: Record<DenikKind, number> = {
   change: 6,
   mandate: 7,
   organRole: 8,
+};
+
+/** Rozhodnutí brány jako klíč věty deníku — týž slovník jako DECISION_CS
+ *  (Deník důkazů), jen v podobě klíčů pro dvojjazyčnou plochu. */
+const REVIEW_TITLE_KEYS: Record<DenikReview["decision"], string> = {
+  confirm: "entry.reviewConfirm",
+  reject: "entry.reviewReject",
+  "needs-more": "entry.reviewNeedsMore",
 };
 
 const mpEntity = (pspId: number, name: string): DenikEntity => ({
@@ -469,11 +518,13 @@ function mergeContracts(contracts: readonly DenikContract[]): MergedContracts {
     }
     for (const m of mpList) entities.push(mpEntity(m.pspId, m.name));
 
+    const companiesCs = suppliers.map((s) => s.company).join(" + ");
     entries.push({
       id: `contract:${id}`,
       date: datePart(first.signedOn),
       kind: "contract",
-      titleCs: `podepsána smlouva — ${suppliers.map((s) => s.company).join(" + ")}: ${first.title}`,
+      titleCs: `podepsána smlouva — ${companiesCs}: ${first.title}`,
+      title: { key: "entry.contractSigned", params: { companies: companiesCs, title: first.title } },
       czk: agreed ? amounts[0] : undefined,
       pending: mpList.some((m) => m.pending),
       timeBasis: "ucinne",
@@ -519,43 +570,66 @@ function changeEntry(ch: DenikChange): RawEntry {
       ? "organRole"
       : "change";
 
+  // Volitelný parametr (období / funkce / popisek smlouvy) přepíná mezi dvěma
+  // klíči téže věty — ICU select napříč jazyky by skládal kus věty z kusu věty.
+  const mandateTitle = (base: string): DenikTitle =>
+    ch.termCode
+      ? { key: `${base}Term`, params: { mp: mpCs, term: ch.termCode } }
+      : { key: base, params: { mp: mpCs } };
+  const organTitle = (base: string): DenikTitle =>
+    ch.functionNameCz
+      ? { key: `${base}Fn`, params: { mp: mpCs, fn: ch.functionNameCz } }
+      : { key: base, params: { mp: mpCs } };
+
   let titleCs: string;
+  let title: DenikTitle;
   let tone: DenikEntry["tone"];
   switch (ch.eventType) {
     case "tie-new":
       titleCs = `zaznamenána nová vazba — ${mpCs} ↔ ${companyCs}`;
+      title = { key: "entry.tieNew", params: { mp: mpCs, company: companyCs } };
       tone = "cobalt";
       break;
     case "tie-changed":
       titleCs = `zaznamenána změna vazby — ${mpCs} ↔ ${companyCs}`;
+      title = { key: "entry.tieChanged", params: { mp: mpCs, company: companyCs } };
       tone = "cobalt";
       break;
     case "contract-new":
       titleCs = `zaznamenána smlouva v grafu — ${companyCs}${ch.contractLabel ? `: ${ch.contractLabel}` : ""}`;
+      title = ch.contractLabel
+        ? { key: "entry.contractNewTitled", params: { company: companyCs, contract: ch.contractLabel } }
+        : { key: "entry.contractNew", params: { company: companyCs } };
       tone = "signal";
       break;
     case "mandate-new":
       titleCs = `zaznamenán vznik mandátu v evidenci — ${mpCs}${term}`;
+      title = mandateTitle("entry.mandateNew");
       tone = "cobalt";
       break;
     case "mandate-changed":
       titleCs = `zaznamenána změna mandátu v evidenci — ${mpCs}${term}`;
+      title = mandateTitle("entry.mandateChanged");
       tone = "cobalt";
       break;
     case "mandate-removed":
       titleCs = `zaznamenán zánik mandátu v evidenci — ${mpCs}${term}`;
+      title = mandateTitle("entry.mandateRemoved");
       tone = "ochre";
       break;
     case "role-new":
       titleCs = `zaznamenán vznik funkce ve sněmovním orgánu — ${mpCs}${fn}`;
+      title = organTitle("entry.organRoleNew");
       tone = "cobalt";
       break;
     case "role-changed":
       titleCs = `zaznamenána změna funkce ve sněmovním orgánu — ${mpCs}${fn}`;
+      title = organTitle("entry.organRoleChanged");
       tone = "cobalt";
       break;
     case "role-removed":
       titleCs = `zaznamenán zánik funkce ve sněmovním orgánu — ${mpCs}${fn}`;
+      title = organTitle("entry.organRoleRemoved");
       tone = "ochre";
       break;
   }
@@ -565,6 +639,7 @@ function changeEntry(ch: DenikChange): RawEntry {
     date: datePart(ch.recordedAt),
     kind,
     titleCs,
+    title,
     pending: ch.pending,
     timeBasis: "zaznamenano",
     // Zdroj je DOSLOVNÝ řetězec eventu (kg_edge_history / diff snímků psp.cz),
@@ -612,6 +687,7 @@ function collectRaw(input: DenikInput): RawCollection {
       date: datePart(r.validFrom),
       kind: "roleStart",
       titleCs: `zápis role v rejstříku — ${r.mpName}: ${r.role} — ${r.company}`,
+      title: { key: "entry.roleStart", params: { mp: r.mpName, role: r.role, company: r.company } },
       ...base,
     });
     raw.push({
@@ -619,6 +695,7 @@ function collectRaw(input: DenikInput): RawCollection {
       date: datePart(r.validTo),
       kind: "roleEnd",
       titleCs: `výmaz role v rejstříku — ${r.mpName}: ${r.role} — ${r.company}`,
+      title: { key: "entry.roleEnd", params: { mp: r.mpName, role: r.role, company: r.company } },
       ...base,
     });
   }
@@ -641,6 +718,7 @@ function collectRaw(input: DenikInput): RawCollection {
         date: datePart(c.assignedOn),
         kind: "billAssigned",
         titleCs: `sn. tisk ${b.cislo} přikázán výboru — ${c.organLabel}`,
+        title: { key: "entry.billAssigned", params: { cislo: String(b.cislo), organ: c.organLabel } },
         ...base,
       });
     }
@@ -650,6 +728,7 @@ function collectRaw(input: DenikInput): RawCollection {
         date: datePart(b.fatePublishedOn),
         kind: "billPublished",
         titleCs: `sn. tisk ${b.cislo} vyhlášen ve Sbírce — ${b.fateSb}`,
+        title: { key: "entry.billPublished", params: { cislo: String(b.cislo), sb: b.fateSb } },
         ...base,
       });
     }
@@ -665,6 +744,7 @@ function collectRaw(input: DenikInput): RawCollection {
       date: datePart(rv.decidedAt),
       kind: "review",
       titleCs: `${DECISION_CS[rv.decision]} — ${rv.mpName} ↔ ${rv.company}`,
+      title: { key: REVIEW_TITLE_KEYS[rv.decision], params: { mp: rv.mpName, company: rv.company } },
       // Rozhodnutí brány JE rozhodnutí — nevisí na ničem nezkontrolovaném.
       pending: false,
       // Datum rozhodnutí je datem zápisu — brána byla záznamovým časem vždy.

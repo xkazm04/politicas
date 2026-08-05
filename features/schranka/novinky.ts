@@ -58,6 +58,26 @@ const DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
 const isStr = (v: unknown): v is string => typeof v === "string";
 const isStrOrNull = (v: unknown): v is string | null => v === null || typeof v === "string";
 
+/**
+ * Volitelný pár (klíč katalogu, parametry) na řádku — titulek/zdroj, který
+ * skládá schránka sama (přepočet indexu). Vadný tvar NEZAHAZUJE řádek: klíč
+ * je jen dvojjazyčná nadstavba a řádek má vždy doslovný `titleCs`/`source`,
+ * na který plocha spadne zpět. Vrací se undefined = pár se nenese.
+ */
+function parseCatalogRef(
+  key: unknown,
+  params: unknown,
+): { key: string; params?: Record<string, string | number> } | undefined {
+  if (!isStr(key) || key === "") return undefined;
+  if (params === undefined) return { key };
+  if (typeof params !== "object" || params === null || Array.isArray(params)) return { key };
+  const out: Record<string, string | number> = {};
+  for (const [k, v] of Object.entries(params)) {
+    if (typeof v === "string" || (typeof v === "number" && Number.isFinite(v))) out[k] = v;
+  }
+  return { key, params: out };
+}
+
 /** Jeden řádek delty; cokoli mimo držený tvar → null (řádek se zahodí a spočítá). */
 function parseDeltaEntry(v: unknown): DeltaEntry | null {
   if (typeof v !== "object" || v === null) return null;
@@ -70,15 +90,23 @@ function parseDeltaEntry(v: unknown): DeltaEntry | null {
   if (!isStr(o.tone) || !TONES.has(o.tone)) return null;
   if (!isStrOrNull(o.internalHref)) return null;
   if (o.czk !== undefined && (typeof o.czk !== "number" || !Number.isFinite(o.czk))) return null;
+  const title = parseCatalogRef(o.titleKey, o.titleParams);
+  const source = parseCatalogRef(o.sourceKey, o.sourceParams);
   return {
     id: o.id,
     date: o.date,
     kind: o.kind as DeltaEntry["kind"],
     titleCs: o.titleCs,
+    ...(title !== undefined
+      ? { titleKey: title.key, ...(title.params !== undefined ? { titleParams: title.params } : {}) }
+      : {}),
     ...(typeof o.czk === "number" ? { czk: o.czk } : {}),
     pending: o.pending,
     timeBasis: o.timeBasis as DeltaEntry["timeBasis"],
     source: o.source,
+    ...(source !== undefined
+      ? { sourceKey: source.key, ...(source.params !== undefined ? { sourceParams: source.params } : {}) }
+      : {}),
     tone: o.tone as DeltaEntry["tone"],
     internalHref: o.internalHref,
   };

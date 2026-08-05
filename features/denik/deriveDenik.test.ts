@@ -340,6 +340,54 @@ describe("proud „zaznamenáno“ — change eventy v deníku (5C)", () => {
   });
 });
 
+describe("věta záznamu jako klíč — dvojjazyčná plocha (2026-08-05)", () => {
+  it("každý vydaný záznam nese titulní klíč `entry.*` s parametry; titleCs zůstává pro feedy", () => {
+    const { entries } = deriveDenikEntries(
+      input({
+        contracts: [contract("a", "2026-07-20")],
+        roles: [role(6543, "00000100", "2026-07-19", "2026-07-21")],
+        bills: [
+          {
+            cislo: 90,
+            title: "Novela",
+            sponsors: [{ pspId: 6543, name: "Jan Novák" }],
+            committees: [{ organLabel: "výbor", assignedOn: "2026-07-18" }],
+            fateSb: "583/2025",
+            fatePublishedOn: "2026-07-22",
+          },
+        ],
+        reviews: [review("r1", "2026-07-21T09:00:00.000Z")],
+        changes: DENIK_CHANGE_TYPES.map((t, i) => ({
+          id: `c${i}`,
+          eventType: t,
+          recordedAt: "2026-07-22T08:00:00.000Z",
+          mpName: "Jan Novák",
+          pspId: 6543,
+          company: "Firma s.r.o.",
+          ico: "00000100",
+          contractLabel: null,
+          termCode: "PSP10",
+          functionNameCz: "místopředseda výboru",
+          source: "diff snímků ingestů — psp.cz",
+          pending: false,
+        })),
+      }),
+    );
+    expect(entries.length).toBeGreaterThan(0);
+    for (const e of entries) {
+      expect(e.title, e.id).toBeDefined();
+      expect(e.title!.key).toMatch(/^entry\.[a-zA-Z]+$/);
+      // Parametry jsou DATA — nikdy kus věty, nikdy strojový token typu eventu.
+      for (const v of Object.values(e.title!.params)) expect(typeof v).toBe("string");
+      expect(e.titleCs.length).toBeGreaterThan(0);
+    }
+    // Volitelný parametr přepíná klíč, nesází kus věty do parametru.
+    const mandate = entries.find((e) => e.kind === "mandate")!;
+    expect(mandate.title!.key).toMatch(/Term$/);
+    expect(mandate.title!.params.term).toBe("PSP10");
+  });
+});
+
 describe("czechWeekday — deterministický den v týdnu, bez Intl", () => {
   it("spočítá den v týdnu a nevalidní vstup odmítne", () => {
     expect(czechWeekday("2026-07-28")).toBe("úterý"); // ověřeno kalendářem

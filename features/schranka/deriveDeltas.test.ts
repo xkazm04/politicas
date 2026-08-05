@@ -19,6 +19,7 @@ function entry(over: Partial<DenikEntry> & { id: string; date: string; keys: str
   return {
     kind: "contract",
     titleCs: `zápis ${over.id}`,
+    title: { key: "entry.contractSigned", params: { companies: "Firma", title: over.id } },
     pending: false,
     timeBasis: "ucinne",
     source: "registr smluv — smlouvy.gov.cz",
@@ -44,6 +45,7 @@ const FORENSIC: EvidenceEntry = {
   kind: "forensic",
   decision: "forensic-verified",
   decisionCs: "forenzní posudek potvrzen",
+  decisionKey: "decision.forensicVerified",
   decidedAt: "2026-07-29T08:00:00Z",
   subjectCs: "novela zákona X",
   reviewer: "posudek podepsán",
@@ -51,6 +53,8 @@ const FORENSIC: EvidenceEntry = {
   links: [],
   internalHref: "/zakony/141",
   sourceCs: "zdroj: kg_node bill.forensic_* · závažnost high",
+  sourceKey: "entry.sourceForensic",
+  sourceDetail: "high",
 };
 
 describe("kalendářní pomocníci", () => {
@@ -113,6 +117,21 @@ describe("forenzní posudky (deník důkazů) → delta tisku", () => {
     expect(mapped!.delta.date).toBe("2026-07-29");
     expect(mapped!.delta.timeBasis).toBe("zaznamenano");
     expect(mapped!.delta.source).toContain("kg_node bill.forensic_*");
+    // Dvojjazyčný hlas: titulek i provenance jdou klíčem schránky (výrok je
+    // konstantní — do delty vstupují jen podepsané posudky), předmět a token
+    // závažnosti jsou data v parametrech.
+    expect(mapped!.delta.titleKey).toBe("schranka.delta.forensicTitle");
+    expect(mapped!.delta.titleParams).toEqual({ subject: "novela zákona X" });
+    expect(mapped!.delta.sourceKey).toBe("schranka.delta.forensicSource");
+    expect(mapped!.delta.sourceParams).toEqual({ detail: "high" });
+  });
+
+  it("záznam deníku nese větu jako PLNÝ klíč deníku (denik.entry.*) + parametry", () => {
+    const d = deriveEntityDelta({ entries: ENTRIES, key: "firma:04544152", since: "2026-07-30" });
+    expect(d.entries[0].titleKey).toBe("denik.entry.contractSigned");
+    expect(d.entries[0].titleParams).toEqual({ companies: "Firma", title: "contract:a" });
+    // Doslovné jméno registru je data, ne copy — klíč nenese.
+    expect(d.entries[0].sourceKey).toBeUndefined();
   });
 
   it("ne-forenzní záznam a posudek bez adresy tisku se nemapují", () => {
@@ -203,6 +222,12 @@ describe("přepočet indexu jako delta", () => {
     expect(row!.source).toBe("výpočet politicas — contribution-committee-dedupe");
     expect(row!.titleCs).toContain("průchod 42");
     expect(row!.timeBasis).toBe("zaznamenano");
+    // Dvojjazyčná plocha sází klíče katalogu (plná cesta); doslovná čeština
+    // zůstává pro jednojazyčné feedy (titleCs/source se nemění).
+    expect(row!.titleKey).toBe("schranka.delta.recomputeTitle");
+    expect(row!.titleParams).toEqual({ pass: 42 });
+    expect(row!.sourceKey).toBe("schranka.delta.recomputeSource");
+    expect(row!.sourceParams).toEqual({ ref: "contribution-committee-dedupe" });
   });
 
   it("NIKDY netvrdí velikost změny skóre — graf předchozí hodnoty nedrží", () => {

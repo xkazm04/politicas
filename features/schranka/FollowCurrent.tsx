@@ -16,6 +16,7 @@
 
 import { Suspense, useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { followableFromRoute } from "./followCodec";
 import FollowButton from "./FollowButton";
 
@@ -24,6 +25,7 @@ function cleanTitle(title: string): string {
 }
 
 function FollowCurrentInner() {
+  const t = useTranslations("schranka");
   const pathname = usePathname();
   const params = useSearchParams();
   const entityKey = followableFromRoute(pathname, params.get("entita"));
@@ -43,7 +45,7 @@ function FollowCurrentInner() {
   return (
     <div className="flex items-center justify-between gap-2 border-b border-hairline px-5 py-2.5">
       <span className="min-w-0 truncate font-mono text-[11px] uppercase tracking-wider text-steel-aa">
-        tahle stránka
+        {t("followCurrent.thisPage")}
       </span>
       <FollowButton entityKey={entityKey} label={label || entityKey} compact />
     </div>

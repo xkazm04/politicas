@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import DataUnavailable from "@/features/shared/components/DataUnavailable";
 import { getReceiptData } from "@/features/shared/provenance/getReceiptData";
 import ReceiptPage, { ReceiptGonePage } from "@/features/shared/provenance/ReceiptPage";
@@ -24,16 +25,12 @@ export async function generateMetadata({
   params: Promise<{ ref: string }>;
 }): Promise<Metadata> {
   const { ref } = await params;
-  const result = await getReceiptData(ref);
+  const [result, t] = await Promise.all([getReceiptData(ref), getTranslations("shared")]);
   const title =
     result.status === "ok"
-      ? `Účtenka původu — ${result.receipt.subject.label} · politicas`
-      : "Účtenka původu · politicas";
-  return {
-    title,
-    description:
-      "Doklad k tvrzení znalostního grafu: záznam, jeho provenience, stav lidské kontroly a odkazy do veřejných registrů.",
-  };
+      ? t("receipt.meta.titleWithSubject", { subject: result.receipt.subject.label })
+      : t("receipt.meta.title");
+  return { title, description: t("receipt.meta.description") };
 }
 
 export default async function ZdrojPage({ params }: { params: Promise<{ ref: string }> }) {
@@ -42,7 +39,14 @@ export default async function ZdrojPage({ params }: { params: Promise<{ ref: str
 
   if (result.status === "invalid") notFound();
   if (result.status === "unavailable") {
-    return <DataUnavailable what="Účtenka původu" backHref="/dashboard" backLabel="zpět do velína" />;
+    const t = await getTranslations("shared");
+    return (
+      <DataUnavailable
+        what={t("receipt.unavailable.what")}
+        backHref="/dashboard"
+        backLabel={t("receipt.unavailable.back")}
+      />
+    );
   }
   if (result.status === "gone") {
     return <ReceiptGonePage encodedRef={result.ref} />;

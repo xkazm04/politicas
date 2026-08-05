@@ -13,6 +13,7 @@
  */
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { useFormat } from "@/lib/i18n/useFormat";
 import { buildPosterCitation } from "../citation";
 import PosterFrame, { type PosterFormat } from "../PosterFrame";
@@ -41,15 +42,16 @@ export interface LeaderboardPosterData {
 }
 
 export default function LeaderboardPoster({ data }: { data: LeaderboardPosterData }) {
+  const t = useTranslations("shared");
   const f = useFormat();
   const { printPoster } = usePosterMode();
   const [format, setFormat] = useState<PosterFormat>("a4");
 
   const citation = buildPosterCitation({
-    sourceLabel: "psp.cz — hlasování, tisky, stenozáznamy, členství (deterministický znalostní graf)",
+    sourceLabel: t("poster.demo.sourceLabel"),
     sourceUrl: data.liveUrl,
     retrievedAt: data.retrievedAt,
-    methodology: "index přispění 0–100, šest složek s publikovanou vahou 25/20/20/15/10/10",
+    methodology: t("poster.demo.methodology"),
     provenancePass: data.provenancePass,
     formulaMismatch: data.formulaMismatch,
   });
@@ -62,20 +64,20 @@ export default function LeaderboardPoster({ data }: { data: LeaderboardPosterDat
 
       <div className="mt-8">
         <PosterFrame
-          eyebrow="Politicas — otevřený index přispění · sněmovna PSP10"
-          figureLabel="obr. 1 — tiskový arch"
-          title="Žebříček republiky"
-          lead={`Všech ${f.int(data.summary.count)} poslanců seřazených podle indexu přispění — složeného skóre 0–100 z veřejných dat Poslanecké sněmovny. Žádné číslo na tomto archu nevzniklo jinde než v publikované metodice.`}
+          eyebrow={t("poster.demo.eyebrow")}
+          figureLabel={t("poster.demo.figureLabel")}
+          title={t("poster.demo.title")}
+          lead={t("poster.demo.lead", { count: f.int(data.summary.count) })}
           citation={citation}
           format={format}
         >
           {/* ── souhrn sněmovny — kachlová mřížka ─────────────────────── */}
           <div className="grid grid-cols-4 gap-px border border-ink bg-ink">
             {[
-              { label: "průměr", value: f.dec(data.summary.avg) },
-              { label: "medián", value: f.dec(data.summary.median) },
-              { label: "směrod. odchylka", value: f.dec(data.summary.sigma) },
-              { label: "poslanců", value: f.int(data.summary.count) },
+              { label: t("poster.demo.statAvg"), value: f.dec(data.summary.avg) },
+              { label: t("poster.demo.statMedian"), value: f.dec(data.summary.median) },
+              { label: t("poster.demo.statSigma"), value: f.dec(data.summary.sigma) },
+              { label: t("poster.demo.statCount"), value: f.int(data.summary.count) },
             ].map((s) => (
               <div key={s.label} className="bg-paper px-4 py-3">
                 <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel-aa">
@@ -90,7 +92,7 @@ export default function LeaderboardPoster({ data }: { data: LeaderboardPosterDat
             {/* ── čelo sněmovny ──────────────────────────────────────── */}
             <div>
               <p className="font-mono text-[11px] font-bold uppercase tracking-[0.25em] text-signal-deep">
-                /01 čelo sněmovny
+                {t("poster.demo.topKicker")}
               </p>
               <ol className="mt-2 border-t-2 border-ink">
                 {data.top.map((e) => (
@@ -127,15 +129,14 @@ export default function LeaderboardPoster({ data }: { data: LeaderboardPosterDat
                 ))}
               </ol>
               <p className="mt-2 font-mono text-xs leading-relaxed text-steel-aa">
-                pořadí: competition ranking (1, 2, 2, 4) — shodné skóre sdílí příčku, „=&ldquo;
-                značí sdílenou; uvnitř shody rozhoduje o pořadí jen abeceda a nenese žádný význam
+                {t("poster.demo.rankingNote")}
               </p>
             </div>
 
             {/* ── rozložení skóre ────────────────────────────────────── */}
             <div>
               <p className="font-mono text-[11px] font-bold uppercase tracking-[0.25em] text-signal-deep">
-                /02 rozložení indexu
+                {t("poster.demo.histKicker")}
               </p>
               <div className="mt-2 border-t-2 border-ink pt-4">
                 <div className="flex h-44 items-end gap-1">
@@ -162,8 +163,7 @@ export default function LeaderboardPoster({ data }: { data: LeaderboardPosterDat
                 </div>
               </div>
               <p className="mt-2 font-mono text-xs leading-relaxed text-steel-aa">
-                obr. 2 — počty poslanců v pásmech po 5 bodech; pásmo je interval
-                [od, od+5), horní mez patří dalšímu pásmu
+                {t("poster.demo.histNote")}
               </p>
             </div>
           </div>

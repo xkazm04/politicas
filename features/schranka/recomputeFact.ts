@@ -96,11 +96,19 @@ export function recomputeDelta(
     date: fact.computedAt,
     kind: "recompute",
     // Věta netvrdí NIC o velikosti změny — graf předchozí hodnoty nedrží.
+    // `titleCs`/`source` zůstávají doslovná čeština (feedy jsou jednojazyčné
+    // artefakty a čtou je dál); dvojjazyčná plocha sází `titleKey`/`sourceKey`
+    // z katalogu `schranka.*` (precedens features/overeni/verdict.ts — čistý
+    // modul vrací klíče, plocha překládá).
     titleCs: `Index přispění přepočten pro celou sněmovnu — průchod ${fact.pass}; o kolik se skóre pohnulo, záznam neříká`,
+    titleKey: "schranka.delta.recomputeTitle",
+    titleParams: { pass: fact.pass },
     pending: false,
     // Přepočet je čas ZÁZNAMU (kdy jsme počítali), ne čas světa.
     timeBasis: "zaznamenano",
     source: `výpočet politicas — ${fact.ref}`,
+    sourceKey: "schranka.delta.recomputeSource",
+    sourceParams: { ref: fact.ref },
     tone: "cobalt",
     // Metodika je jediná stránka, která ten vzorec vysvětluje.
     internalHref: "/metodika",

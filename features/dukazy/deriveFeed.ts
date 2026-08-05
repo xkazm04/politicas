@@ -64,6 +64,12 @@ export interface EvidenceEntry {
   decision: EvidenceDecision;
   /** Gated Czech decision copy — the only voice the public feed speaks in. */
   decisionCs: string;
+  /** Same decision as a `dukazy.*` catalog key — the bilingual page's voice
+   *  (2026-08-05). The FEEDS keep publishing `decisionCs` verbatim: they are a
+   *  single-locale artifact, not a surface. Optional only for structural
+   *  compatibility of foreign fixtures (schránka); this module always sets it
+   *  and the page falls back to `decisionCs` without it. */
+  decisionKey?: string;
   /** ISO timestamp of the human decision. */
   decidedAt: string;
   /** What was gated, in gated copy: "Jméno ↔ Firma" / bill title. */
@@ -75,8 +81,14 @@ export interface EvidenceEntry {
   links: EvidenceLink[];
   /** Internal evidence route (/poslanec/<id>, /zakony/<cislo>), if resolvable. */
   internalHref: string | null;
-  /** Verbatim provenance line for the entry's SourceNote. */
+  /** Verbatim provenance line for the entry's SourceNote (feed content). */
   sourceCs: string;
+  /** Provenance line as a `dukazy.*` catalog key + verbatim detail — the
+   *  bilingual page resolves it; `sourceCs` stays for the feeds. `detail` is
+   *  the verbatim edge source (ties) or the severity token (forensic).
+   *  Optional for the same fixture-compatibility reason as `decisionKey`. */
+  sourceKey?: string;
+  sourceDetail?: string | null;
 }
 
 export const DECISION_CS: Record<EvidenceDecision, string> = {
@@ -84,6 +96,16 @@ export const DECISION_CS: Record<EvidenceDecision, string> = {
   reject: "vazba zamítnuta",
   "needs-more": "vyžádáno doplnění podkladů",
   "forensic-verified": "forenzní posudek potvrzen",
+};
+
+/** The same gated vocabulary as `DECISION_CS`, as catalog keys (namespace
+ *  `dukazy`). Pure module returns KEYS, the page translates — the pattern of
+ *  features/overeni/gateVocabulary.ts. */
+export const DECISION_KEYS: Record<EvidenceDecision, string> = {
+  confirm: "decision.confirm",
+  reject: "decision.reject",
+  "needs-more": "decision.needsMore",
+  "forensic-verified": "decision.forensicVerified",
 };
 
 /** "psp:person:123" → 123; anything else → null. */
@@ -130,6 +152,7 @@ function tieEntry(row: AuditRowLike, input: EvidenceFeedInput): EvidenceEntry {
     kind: "tie",
     decision: row.decision,
     decisionCs: DECISION_CS[row.decision],
+    decisionKey: DECISION_KEYS[row.decision],
     decidedAt: row.decidedAt,
     subjectCs: `${mp} ↔ ${company}`,
     reviewer: row.reviewer,
@@ -139,6 +162,8 @@ function tieEntry(row: AuditRowLike, input: EvidenceFeedInput): EvidenceEntry {
     // Verbatim edge provenance when the edge still exists; the audit table is
     // always cited — it IS the record being published.
     sourceCs: source ? `zdroj: review_audit · kg_edge linked_to · ${source}` : "zdroj: review_audit · kg_edge linked_to",
+    sourceKey: source ? "entry.sourceTieDetail" : "entry.sourceTie",
+    sourceDetail: source || null,
   };
 }
 
@@ -150,6 +175,7 @@ function forensicEntry(f: ForensicSignoffLike): EvidenceEntry {
     kind: "forensic",
     decision: "forensic-verified",
     decisionCs: DECISION_CS["forensic-verified"],
+    decisionKey: DECISION_KEYS["forensic-verified"],
     decidedAt: f.signedAt ?? "",
     subjectCs: f.title,
     reviewer: "posudek podepsán",
@@ -157,6 +183,8 @@ function forensicEntry(f: ForensicSignoffLike): EvidenceEntry {
     links: [],
     internalHref: f.cislo != null ? `/zakony/${f.cislo}` : null,
     sourceCs: `zdroj: kg_node bill.forensic_* · závažnost ${f.severity}`,
+    sourceKey: "entry.sourceForensic",
+    sourceDetail: f.severity,
   };
 }
 

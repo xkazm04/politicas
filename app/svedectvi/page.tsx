@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import CitableNumber from "@/lib/claims/CitableNumber";
 import { makeClaimRef, serializeClaim, type Claim } from "@/lib/claims/claim";
 import { defaultLocale, isLocale } from "@/lib/i18n/config";
@@ -14,15 +14,16 @@ import SourceNote from "@/features/shared/components/SourceNote";
  * navíc vyzáří schema.org ClaimReview JSON-LD. Široká adopce (žebříček, spisy)
  * je práce pozdějších dávek — tady je ukázka a dokumentace slovníku.
  *
- * Copy je záměrně česky přímo zde (batch-1D precedent): katalog messages/*.json
- * je mimo plochu 2E.
+ * Copy bývalo záměrně česky přímo zde (batch-1D precedent); rozhodnutí
+ * „launch bilingual" ten precedens ruší — čtenářská próza jde z katalogu
+ * (`svedectvi.*`). Data claimů (dataset, metriky, refs, JSON-LD) zůstávají
+ * strojová a nepřekládají se.
  */
 
-export const metadata: Metadata = {
-  title: "Svědectví čísel — Politicas",
-  description:
-    "Každé číslo na Politicas může svědčit: nese strojově čitelný záznam o datasetu, datu a stavu ověření. Referenční ukázka citovatelného formátování.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("svedectvi");
+  return { title: t("meta.title"), description: t("meta.description") };
+}
 
 /** Ústavní velikost sněmovny — jediný ručně OVĚŘENÝ claim ukázky (čl. 16
  *  odst. 1 Ústavy ČR); u něj se proto smí vydat ClaimReview JSON-LD. */
@@ -61,64 +62,64 @@ const ATTENDANCE_SOURCE =
 export default async function SvedectviPage() {
   const raw = await getLocale();
   const locale = isLocale(raw) ? raw : defaultLocale;
+  const t = await getTranslations("svedectvi");
 
   const exhibits = [
     {
       no: 1,
-      label: "ústavní velikost sněmovny",
+      label: t("ex1.label"),
       value: 200,
       kind: "int" as const,
       claim: SEATS_CLAIM,
       withJsonLd: true,
-      unit: "poslanců",
-      cite: "Ústava ČR, čl. 16 odst. 1 — ověřeno",
-      note: "Ověřený claim: figura vyzařuje i schema.org ClaimReview JSON-LD (viz zdrojový kód stránky).",
+      unit: t("ex1.unit"),
+      cite: t("ex1.cite"),
+      note: t("ex1.note"),
     },
     {
       no: 2,
-      label: "průměrný kompozit sněmovny",
+      label: t("ex2.label"),
       value: CHAMBER_SUMMARY.avg,
       kind: "dec" as const,
       claim: AVG_CLAIM,
       withJsonLd: true,
       unit: "",
-      cite: "civicscore v1.4 — ilustrativní vzorek",
-      note: "Čeká na ověření: svědčí jen datovými atributy; ClaimReview se nevydá, i když o něj šablona požádá.",
+      cite: t("ex2.cite"),
+      note: t("ex2.note"),
     },
     {
       no: 3,
-      label: "průměrná docházka",
+      label: t("ex3.label"),
       value: 78.3,
       kind: "dec" as const,
       claim: ATTENDANCE_CLAIM,
       withJsonLd: false,
       unit: "%",
-      cite: `${ATTENDANCE_SOURCE} — ilustrativní vzorek`,
-      note: "Čeká na ověření: svědčí jen datovými atributy.",
+      cite: t("ex3.cite", { source: ATTENDANCE_SOURCE }),
+      note: t("ex3.note"),
     },
   ];
 
   return (
     <main className="mx-auto max-w-4xl px-6 py-16">
       <p className="font-mono text-xs font-bold uppercase tracking-[0.25em] text-signal-deep">
-        /svědectví
+        {t("kicker")}
       </p>
       <h1 className="mt-2 text-4xl font-black uppercase tracking-tight text-ink sm:text-5xl">
-        Svědectví čísel<span className="text-signal">.</span>
+        {t("title")}
+        <span className="text-signal">.</span>
       </h1>
       <p className="mt-4 max-w-2xl text-sm leading-relaxed text-ink">
-        Každé číslo na Politicas může svědčit: kromě viditelné hodnoty nese strojově čitelný
-        záznam o svém původu — dataset, datum a stav lidského ověření (atributy{" "}
-        <span className="font-mono">data-claim-*</span>). Ověřené figury navíc vydávají
-        schema.org ClaimReview, takže citace cestuje s číslem i mimo tento web. Viditelná podoba
-        se přitom nemění ani o bajt.
+        {t.rich("intro", {
+          mono: (chunks) => <span className="font-mono">{chunks}</span>,
+        })}
       </p>
 
       <div className="mt-10 space-y-10">
         {exhibits.map((ex) => (
           <section key={ex.no} aria-label={ex.label} className="border-t-2 border-ink pt-4">
             <p className="font-mono text-xs font-bold uppercase tracking-[0.25em] text-steel-aa">
-              obr. {ex.no} — {ex.label}
+              {t("exhibitCaption", { no: ex.no, label: ex.label })}
             </p>
             <p className="mt-3 text-6xl font-black tracking-tight text-ink tabular-nums">
               <CitableNumber
@@ -144,11 +145,7 @@ export default async function SvedectviPage() {
       </div>
 
       <div className="mt-12 border border-hairline p-4">
-        <SourceNote as="sentence">
-          pravidlo instrumentu — ClaimReview se vydává výhradně pro claimy se stavem „verified“
-          (prošly lidskou bránou); vzorková data vrstvy lib/civic proto svědčí jen datovými
-          atributy se stavem „pending“. Slovník claimů: lib/claims/claim.ts.
-        </SourceNote>
+        <SourceNote as="sentence">{t("instrumentRule")}</SourceNote>
       </div>
     </main>
   );

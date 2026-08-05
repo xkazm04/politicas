@@ -14,11 +14,12 @@
  * Novák". Dvojtečka je záměr: čeština by u „sledovat poslance <jméno>"
  * vyžadovala skloňování jména, které aplikace nemá odkud vzít.
  *
- * SLOVA: viditelný text je česky, jako celá schránka (precedens /denik). Plocha
- * s vlastním katalogem (spis firmy je dvojjazyčný) může slova podat v `words`;
- * schránka si nepřekládá sama sebe.
+ * SLOVA: od 2026-08-05 jdou výchozí slova z katalogu (`common.followWord` /
+ * `common.followingWord`, next-intl) — tlačítko mluví jazykem plochy. Plocha
+ * s vlastní dikcí může slova dál podat v `words` (přepis katalogu).
  */
 
+import { useTranslations } from "next-intl";
 import { Eye, EyeOff } from "lucide-react";
 import { isEntityKey } from "./followCodec";
 import { useSchranka } from "./useSchranka";
@@ -28,15 +29,13 @@ export interface FollowWords {
   following: string;
 }
 
-const CS_WORDS: FollowWords = { follow: "sledovat", following: "sledujete" };
-
 export default function FollowButton({
   entityKey,
   label,
   compact = false,
   iconOnly = false,
   subject,
-  words = CS_WORDS,
+  words,
 }: {
   /** Veřejný klíč entity (`poslanec:<id>` | `firma:<ičo>` | `tisk:<č>` | `obec:<ičo>`). */
   entityKey: string;
@@ -48,14 +47,15 @@ export default function FollowButton({
   iconOnly?: boolean;
   /** Koho tlačítko sleduje — jde do přístupné jmenovky („sledovat: Jan Novák"). */
   subject?: string;
-  /** Viditelná slova pro jinojazyčnou plochu; výchozí je čeština schránky. */
+  /** Viditelná slova pro plochu s vlastní dikcí; výchozí je katalog (common.*). */
   words?: FollowWords;
 }) {
+  const t = useTranslations("common");
   const { isFollowed, follow, unfollow } = useSchranka();
   if (!isEntityKey(entityKey)) return null;
 
   const on = isFollowed(entityKey);
-  const word = on ? words.following : words.follow;
+  const word = on ? (words?.following ?? t("followingWord")) : (words?.follow ?? t("followWord"));
   const ariaLabel = subject ? `${word}: ${subject}` : iconOnly ? word : undefined;
   return (
     <button

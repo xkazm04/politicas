@@ -15,6 +15,9 @@
  * protože vytištěný arch žije mimo aplikaci i její lištu.
  */
 
+import { useLocale, useTranslations } from "next-intl";
+import { formattersFor } from "@/lib/format";
+import { defaultLocale, isLocale } from "@/lib/i18n/config";
 import type { PosterCitation } from "./citation";
 
 export type PosterFormat = "a4" | "a3";
@@ -41,11 +44,29 @@ export default function PosterFrame({
   format?: PosterFormat;
   children: React.ReactNode;
 }) {
+  const t = useTranslations("shared");
+  const rawLocale = useLocale();
+  const f = formattersFor(isLocale(rawLocale) ? rawLocale : defaultLocale);
+
+  // Citační řádky se skládají z katalogu nad strukturovanými poli citace —
+  // datum sází aktivní locale, volitelné části (pas, rozpor formule) se
+  // připojují středníkovou tečkou jen když je záznam nese.
+  const methodologyParts = [t("poster.methodologyLine", { methodology: citation.methodology })];
+  if (citation.pass !== null) methodologyParts.push(t("poster.pass", { pass: f.int(citation.pass) }));
+  if (citation.mismatch) {
+    methodologyParts.push(
+      t("poster.formulaMismatch", {
+        storedRef: citation.mismatch.storedRef,
+        declaredRef: citation.mismatch.declaredRef,
+      }),
+    );
+  }
+
   return (
     <section
       className="poster-sheet border-2 border-ink font-sans"
       data-poster-format={format}
-      aria-label={`Tiskový plakát: ${title}`}
+      aria-label={t("poster.frameAria", { title })}
     >
       {/* ── horní metařádek ────────────────────────────────────────────── */}
       <header className="flex items-baseline justify-between gap-4 border-b-4 border-ink px-10 pb-3 pt-8">
@@ -73,16 +94,16 @@ export default function PosterFrame({
       <footer className="mt-6 border-t-4 border-ink px-10 pb-8 pt-4">
         <div className="flex items-end justify-between gap-8">
           <div className="min-w-0 font-mono text-xs leading-relaxed text-steel-aa">
-            <p>{citation.sourceLine}</p>
-            <p>{citation.methodologyLine}</p>
-            <p>{citation.retrievedLine}</p>
+            <p>{t("poster.sourceLine", { source: citation.source })}</p>
+            <p>{methodologyParts.join(" · ")}</p>
+            <p>{t("poster.retrievedLine", { date: f.date(citation.retrievedAt) })}</p>
           </div>
           <div className="shrink-0 text-right">
             <p className="text-xl font-black uppercase tracking-tight">
               politicas<span className="text-signal">.</span>
             </p>
             <p className="mt-1 font-mono text-xs uppercase tracking-widest text-steel-aa">
-              {citation.liveLine}
+              {t("poster.liveLine", { url: citation.displayUrl })}
             </p>
           </div>
         </div>

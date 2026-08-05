@@ -31,7 +31,13 @@ export interface PosterCitationInput {
   formulaMismatch?: { storedRef: string; declaredRef: string } | null;
 }
 
-/** Hotové řádky patičky, v pořadí, v jakém se sázejí. */
+/** Hotové řádky patičky, v pořadí, v jakém se sázejí.
+ *
+ *  DVOJJAZYČNOST (2026-08-05): sazbu řádků dnes vlastní PosterFrame, který je
+ *  skládá z katalogu `shared.poster.*` nad STRUKTUROVANÝMI poli níže — tenhle
+ *  modul zůstává čistý (žádné i18n importy). České `*Line` řádky se dál
+ *  odvozují beze změny kvůli zpětné kompatibilitě (a jako pinned tvar
+ *  v citation.test.ts), ale nová sazba je nečte. */
 export interface PosterCitation {
   sourceLine: string;
   retrievedLine: string;
@@ -39,6 +45,14 @@ export interface PosterCitation {
   liveLine: string;
   /** URL bez protokolu a koncového lomítka — pro sazbu i aria popisky. */
   displayUrl: string;
+  /** Strukturovaná pole — komponenta z nich sází přes katalog `shared.poster.*`. */
+  source: string;
+  /** ISO datum (YYYY-MM-DD) — formátuje až sazba podle aktivního locale. */
+  retrievedAt: string;
+  methodology: string;
+  /** Výpočetní pas jako číslo; null = záznam ho nenese a nic se nedomýšlí. */
+  pass: number | null;
+  mismatch: { storedRef: string; declaredRef: string } | null;
 }
 
 /** „https://politicas.cz/zebricek/" → „politicas.cz/zebricek".
@@ -52,10 +66,11 @@ export function posterDisplayUrl(url: string): string {
 
 export function buildPosterCitation(input: PosterCitationInput): PosterCitation {
   const displayUrl = posterDisplayUrl(input.sourceUrl);
-  const pass =
+  const passValue =
     typeof input.provenancePass === "number" && Number.isFinite(input.provenancePass)
-      ? ` · výpočetní pas ${czechInt(input.provenancePass)}`
-      : "";
+      ? input.provenancePass
+      : null;
+  const pass = passValue !== null ? ` · výpočetní pas ${czechInt(passValue)}` : "";
   const mismatch = input.formulaMismatch
     ? ` · POZOR: čísla spočítala starší linie metodiky „${input.formulaMismatch.storedRef}“, kód dnes deklaruje „${input.formulaMismatch.declaredRef}“`
     : "";
@@ -65,5 +80,10 @@ export function buildPosterCitation(input: PosterCitationInput): PosterCitation 
     methodologyLine: `metodika: ${input.methodology}${pass}${mismatch}`,
     liveLine: `živá verze: ${displayUrl}`,
     displayUrl,
+    source: input.sourceLabel,
+    retrievedAt: input.retrievedAt,
+    methodology: input.methodology,
+    pass: passValue,
+    mismatch: input.formulaMismatch ?? null,
   };
 }

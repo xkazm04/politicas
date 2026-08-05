@@ -1,0 +1,655 @@
+{
+  "denik": {
+    "meta": {
+      "title": "Journal of the Republic — Politicas",
+      "description": "A chronological daily record of the state: signed contracts, prints referred to committees, promulgations in the Collection of Laws, register roles and human-gate decisions — dated, cited, permanently linkable."
+    },
+    "kicker": "the daily record of the republic",
+    "title": "Journal of the Republic",
+    "lead": "One day, one entry: contracts signed by companies tied to MPs, parliamentary prints referred to committees, promulgations in the Collection of Laws, register-role entries and removals, and human-gate decisions. Every row has a date and a source, and every day has a permanent address.",
+    "rule": {
+      "kicker": "the journal's rule",
+      "body": "The journal runs two streams, and every row states which clock dates it. <ucinne>effective</ucinne> rows carry the day the event <em>happened</em> according to its register (a contract signature, a role entry, a print step) — not the day ingest found it. <zaznamenano>recorded</zaznamenano> rows carry the day the fact <em>entered the record</em>: human-gate decisions (review_audit is an append-only log) and, since the bitemporal graph arrived, changes of the graph itself (change_event — a new tie, a tie change, a contract in the graph). What the graph recorded before the bitemporal-migration epoch, the “recorded” stream honestly does not carry — nothing is stamped retroactively. Contracts are listed only for companies with an owner/operator-class tie — contracts of institutions where an MP merely sits on a body are that institution's money."
+    },
+    "coverage": {
+      "kicker": "incomplete coverage",
+      "money": "the money layer is unreadable right now — contracts and register roles are missing from the journal",
+      "law": "the legislative layer is unreadable right now — committee referrals and Collection promulgations are missing",
+      "reviews": "the human gate is unreadable right now — reviewers' decisions are missing from the journal",
+      "changes": "the change_event table is unreadable right now — the “recorded” stream is missing from the journal"
+    },
+    "limits": {
+      "kicker": "limits of this read",
+      "companiesOverCap": "there are more companies with an attributable tie than the cap of {cap}; contracts of {n} of them were not read at all",
+      "companiesEdgeTruncated": "{n} companies hit the cap of {cap} contracts per company — the journal does not carry their older contracts",
+      "malformedIco": "{n} ties carry a company ID that cannot be canonicalised; the row is shown, but the company in it cannot be followed or opened",
+      "changesUndisplayable": "{n} graph records carry a kind this version of the journal cannot voice — they are not shown, but they never vanish uncounted",
+      "changesFromGate": "{n} graph records describe human-gate decisions; the journal takes those from review_audit itself, so no event is counted twice",
+      "mergedContractRows": "{n} contract rows were merged into another — one contract is one row, even when several companies supply it in the graph",
+      "contractAmountConflicts": "{n} merged contracts carried conflicting amounts and therefore state none (picking one would mean inventing money)"
+    },
+    "filter": {
+      "label": "entity filter: {entity}",
+      "clear": "clear filter",
+      "inboxNote": "A followed entity is stored only in your browser; what it gained since your last visit is then tallied by the <schranka>civic inbox</schranka>."
+    },
+    "section": {
+      "title": "Entries",
+      "source": "source: contract register + ares + psp.cz + review_audit ({rows} gate rows) + change_event",
+      "builtOn": "built {date}"
+    },
+    "unreadable": "The entries cannot be loaded right now — the store is unavailable in this environment. This page cannot say whether any entries exist; the journal is not empty, just unreadable.",
+    "emptyEntity": {
+      "lead": "The journal carries no entry for the followed entity",
+      "body": "Either the registers hold no dated event about it, or the key “{key}” matches no entity of the record.",
+      "link": "full journal"
+    },
+    "empty": {
+      "lead": "The journal is empty so far",
+      "body": "The readable layers carry no dated event — the first entry will appear as soon as the registers carry one.",
+      "note": "no record is suppressed; implausible data dropped: {n}"
+    },
+    "daysNote": {
+      "truncated": "{total} days on record in total; the page shows the last {shown} (cap {cap}) — older days are carried by the entity filter and the machine formats",
+      "total": "{total} days on record in total",
+      "dropped": "{n} records with an implausible date dropped (a date is never corrected)"
+    },
+    "evidenceLink": "evidence journal",
+    "anchorsNote": "day anchors: #d-<date> · entry guid: politicas:denik:<id>",
+    "masthead": {
+      "entries": "entries: {n}",
+      "permalinkAria": "Permanent link to {date}"
+    },
+    "dayList": {
+      "aria": "Entries of {date}"
+    },
+    "entryRow": {
+      "pending": "rests on a tie awaiting human review",
+      "entityAria": "Journal of entity {label}"
+    },
+    "kind": {
+      "contract": "contract",
+      "billAssigned": "committee referral",
+      "billPublished": "promulgation in the Collection",
+      "roleStart": "role entry",
+      "roleEnd": "role removal",
+      "review": "gate decision",
+      "change": "graph entry",
+      "mandate": "mandate",
+      "organRole": "organ post",
+      "unmapped": "{token}",
+      "unmappedNote": "(untranslated kind)"
+    },
+    "timeBasis": {
+      "ucinne": "effective",
+      "zaznamenano": "recorded",
+      "ucinneTitle": "effective — the row carries the day the event happened according to its register (a contract signature, a role entry, a print step), not the day ingest found it",
+      "zaznamenanoTitle": "recorded — the row carries the day the fact entered the record: a human-gate decision, or a change in the graph itself"
+    },
+    "weekday": {
+      "sunday": "Sunday",
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday"
+    },
+    "entry": {
+      "contractSigned": "contract signed — {companies}: {title}",
+      "roleStart": "role entered in the register — {mp}: {role} — {company}",
+      "roleEnd": "role struck from the register — {mp}: {role} — {company}",
+      "billAssigned": "parliamentary print {cislo} referred to committee — {organ}",
+      "billPublished": "parliamentary print {cislo} promulgated in the Collection of Laws — {sb}",
+      "reviewConfirm": "tie verified — {mp} ↔ {company}",
+      "reviewReject": "tie rejected — {mp} ↔ {company}",
+      "reviewNeedsMore": "additional evidence requested — {mp} ↔ {company}",
+      "tieNew": "new tie recorded — {mp} ↔ {company}",
+      "tieChanged": "tie change recorded — {mp} ↔ {company}",
+      "contractNew": "contract recorded in the graph — {company}",
+      "contractNewTitled": "contract recorded in the graph — {company}: {contract}",
+      "mandateNew": "mandate creation recorded in the records — {mp}",
+      "mandateNewTerm": "mandate creation recorded in the records — {mp} (term {term})",
+      "mandateChanged": "mandate change recorded in the records — {mp}",
+      "mandateChangedTerm": "mandate change recorded in the records — {mp} (term {term})",
+      "mandateRemoved": "mandate removal recorded in the records — {mp}",
+      "mandateRemovedTerm": "mandate removal recorded in the records — {mp} (term {term})",
+      "organRoleNew": "new post in a Chamber organ recorded — {mp}",
+      "organRoleNewFn": "new post in a Chamber organ recorded — {mp}: {fn}",
+      "organRoleChanged": "change of post in a Chamber organ recorded — {mp}",
+      "organRoleChangedFn": "change of post in a Chamber organ recorded — {mp}: {fn}",
+      "organRoleRemoved": "end of post in a Chamber organ recorded — {mp}",
+      "organRoleRemovedFn": "end of post in a Chamber organ recorded — {mp}: {fn}"
+    }
+  },
+  "dukazy": {
+    "meta": {
+      "title": "Evidence Journal — Politicas",
+      "description": "The human gate's public gazette: every verification, rejection or request for more evidence on an MP ↔ company tie as a dated, citable record with links to the primary registers."
+    },
+    "kicker": "the human gate's public gazette",
+    "title": "Evidence Journal",
+    "lead": "Every decision that passes human review — verifying or rejecting an MP ↔ company tie, requesting additional evidence, a signed forensic report — becomes a public, dated, permanently linkable record here. The gate itself is a publication event.",
+    "method": {
+      "kicker": "publication method",
+      "body": "What is published: the ruling, the subject, the date, the reviewer's role and links to the primary registers — never the reviewer's working notes. “Additional evidence requested” is not a verdict: the tie keeps waiting for review. The record's verifiability (audit trail and vault heads) is held by the <admin>operations console /admin</admin>."
+    },
+    "section": {
+      "title": "Decisions",
+      "source": "source: review_audit ({rows} rows) + kg_node bill.forensic_*"
+    },
+    "unreadable": "The records cannot be loaded right now — the store is unavailable in this environment. This page cannot say whether any decisions exist; the journal is not empty, just unreadable.",
+    "empty": {
+      "lead": "The journal is empty so far",
+      "body": "No decision has passed the human gate yet — the first verified or rejected tie will appear here the moment a reviewer decides it in the <kontrola>/penize/kontrola</kontrola> console.",
+      "note": "source: review_audit — 0 rows; no record is suppressed"
+    },
+    "entry": {
+      "permalinkAria": "Permanent link to record {id}",
+      "decidedBy": "decided by: {reviewer}",
+      "signedOff": "report signed",
+      "priorState": "prior state: {state}",
+      "sourceTie": "source: review_audit · kg_edge linked_to",
+      "sourceTieDetail": "source: review_audit · kg_edge linked_to · {detail}",
+      "sourceForensic": "source: kg_node bill.forensic_* · severity {detail}"
+    },
+    "decision": {
+      "confirm": "tie verified",
+      "reject": "tie rejected",
+      "needsMore": "additional evidence requested",
+      "forensicVerified": "forensic report confirmed"
+    },
+    "console": "review console",
+    "anchorsNote": "record anchors: #z-<id> · id = review_audit row / parliamentary print"
+  },
+  "schranka": {
+    "meta": {
+      "title": "Civic Inbox — Politicas",
+      "description": "Follow MPs, parliamentary bills, companies and municipalities — no account, follows live only in your browser. On every visit the inbox shows what changed in the record since the last one: dated, cited entries from the republic journal and the evidence journal."
+    },
+    "header": {
+      "denikLink": "republic journal"
+    },
+    "hero": {
+      "kicker": "a personal inbox of the record",
+      "title": "Civic Inbox",
+      "lead": "Follow MPs, bills, companies or municipalities — and on every visit the inbox shows you what changed in the record since the previous one. Every row is a dated journal entry with its source; the inbox adds nothing, it only filters."
+    },
+    "rule": {
+      "kicker": "inbox rule",
+      "body1": "Following works without an account: the list lives in your browser (localStorage). When news is requested, though, that whole list travels in the request ADDRESS (<code>?e=poslanec:…</code>) — that is by design, because the address is also your subscription: it can be saved or passed on, and whoever has it sees the same selection. No cookies, no sign-in, nothing stored on the server; the keys are struck from server telemetry and only their count remains. What the server sees, as with any other page, is the request IP address — the inbox does not remove that and does not claim otherwise. Journal entries are dated by day, so the “since your last visit” threshold is daily: the day of the last visit is counted whole again — better to show an entry twice than to withhold one.",
+      "firstVisit": "A first visit has no stamp — the last {days} days of the record are shown.",
+      "body2": "The badge in the sidebar follows a stricter rule: after a visit the inbox notes how many of that day's entries you had in front of you, and the badge then leaves them out — which is why it goes dark after a visit even though the visit day still counts whole above the threshold. Only the count from that same day is subtracted; nothing else. The page stays lenient — the two rules differ on purpose.",
+      "body3": "What the inbox CANNOT see: for the contribution index recompute it reports only THAT it ran — the graph holds only current values and no previous ones, so how far a score moved cannot be derived from it and the inbox does not claim it. The row therefore carries the pass number, the formula ref and a link to the <metodika>methodology</metodika>. It is reported only when the whole chamber holds one pass; half a recompute is not a fact. The kind summary in an entity header counts the whole delta, even when only the first {cap} rows fit below it."
+    },
+    "followed": {
+      "title": "Followed",
+      "aside": "source: republic journal + evidence journal",
+      "asideLoaded": "source: republic journal + evidence journal · threshold {since} · built {builtOn}"
+    },
+    "empty": {
+      "body": "You are not following anything yet<dot>.</dot> The <btn>follow</btn> button sits on an MP case file, a company case file, a parliamentary bill and the filtered journal — in the left sidebar and right on the page — or start with the <denik>republic journal</denik> and the <zebricek>leaderboard</zebricek>."
+    },
+    "loading": "Loading news…",
+    "error": {
+      "body": "News cannot be loaded right now — the record is unreadable in this environment. The inbox cannot say whether anything changed; the follows in your browser remain."
+    },
+    "coverage": {
+      "kicker": "incomplete coverage",
+      "intro": "Some layer of the record is unreadable right now — the deltas may be incomplete:",
+      "money": "contracts and registry roles;",
+      "law": "bill steps;",
+      "reviews": "human-gate decisions;",
+      "changes": "the “recorded” stream;",
+      "dukazy": "forensic reports;",
+      "recompute": "the index recompute (the graph does not hold one uniform record of it);",
+      "outro": "a missing group is never filled in."
+    },
+    "dropped": {
+      "kicker": "unreadable response rows",
+      "body": "{count, plural, one {{countFmt} response row had a shape the inbox does not understand — it was discarded and is not filled in by guesswork. The rest of the delta stands; the full record lives in the entity journal.} other {{countFmt} response rows had a shape the inbox does not understand — they were discarded and are not filled in by guesswork. The rest of the delta stands; the full record lives in the entity journal.}}"
+    },
+    "entity": {
+      "denikLink": "entity journal",
+      "noChange": "No change — since the view threshold the record carries no new entry for this entity.",
+      "obecEmpty": "The journal keeps no municipal facts — contracts, registry roles, bill steps and gate decisions are not keyed by municipality, and the budget mirrors are a yearly batch of statements, not a dated stream. This follow therefore cannot deliver anything and the inbox no longer offers it anywhere; it stays here only because a saved follow is never deleted without you. The municipality's numbers are on its budget mirror.",
+      "more": "+ {count} more entries in the entity journal"
+    },
+    "delta": {
+      "recordedBadge": "recorded",
+      "effectiveBadge": "effective",
+      "pendingNote": "rests on a tie awaiting human review",
+      "recomputeTitle": "Contribution index recomputed for the whole chamber — pass {pass}; how far the score moved, the record does not say",
+      "recomputeSource": "politicas computation — {ref}",
+      "forensicTitle": "forensic report confirmed — {subject}",
+      "forensicSource": "kg_node bill.forensic_* · severity {detail}"
+    },
+    "kinds": {
+      "contract": "{count, plural, one {contract} other {contracts}}",
+      "billAssigned": "{count, plural, one {bill committee referral} other {bill committee referrals}}",
+      "billPublished": "{count, plural, one {promulgation in the Collection of Laws} other {promulgations in the Collection of Laws}}",
+      "roleStart": "{count, plural, one {role registration} other {role registrations}}",
+      "roleEnd": "{count, plural, one {role removal} other {role removals}}",
+      "review": "{count, plural, one {gate decision} other {gate decisions}}",
+      "change": "{count, plural, one {graph entry} other {graph entries}}",
+      "mandate": "{count, plural, one {mandate entry} other {mandate entries}}",
+      "organRole": "{count, plural, one {chamber-body office entry} other {chamber-body office entries}}",
+      "forensic": "{count, plural, one {forensic report} other {forensic reports}}",
+      "recompute": "{count, plural, one {index recompute} other {index recomputes}}",
+      "untranslated": "(untranslated kind)"
+    },
+    "footer": {
+      "allDenik": "full republic journal",
+      "followedNote": "entities followed: {count} · deltas are derived per request, nothing is stored"
+    },
+    "subscribe": {
+      "title": "Subscribe",
+      "aside": "the same deltas, another format · RSS 2.0 and JSON Feed 1.1",
+      "body": "Without accounts a subscription cannot be a row in a database — it is an ADDRESS. These two carry your current selection ({count}) directly inside them, and your reader gets the same rows from them as this page. Whoever has the address sees the same selection; treat it as a private link. The inbox remembers your follows only here in this browser, so after changing the selection you need to take the address again.",
+      "addressNote": "the address carries the public keys of the followed entities and the day threshold · nothing is stored on the server · the keys are struck from server telemetry"
+    },
+    "badge": {
+      "ariaLabel": "new entries for followed entities: {count}"
+    },
+    "followCurrent": {
+      "thisPage": "this page"
+    }
+  },
+  "atlas": {
+    "meta": {
+      "title": "Open Data Quality Atlas — Politicas",
+      "description": "Public quality grades for the sources politicas ingests: provenance coverage, freshness against cadence, Merkle seal integrity, completeness measured by admitted gaps. Every score ships with its rule printed next to it; a dimension without evidence is “unrated”, never zero."
+    },
+    "hero": {
+      "kicker": "the public quality atlas of the data layer’s sources",
+      "title": "Open Data Quality Atlas",
+      "lead": "Every source politicas ingests gets a public grade here: provenance coverage, freshness against its declared cadence, the integrity of Merkle seals, and completeness measured by upstream’s admitted gaps. Every score carries its rule printed verbatim next to the number — and a dimension without evidence is honestly “unrated”, never zero. The traps you will run into here (sentinel birth dates, merged K votes, placeholder years 2925) are the same institutional memory that politicas’ analytical runs read."
+    },
+    "methodology": {
+      "kicker": "atlas methodology",
+      "body": "Scores 0–100 are computed deterministically from the current state of the store (entity tables with the provenance quartet, the ingest_run table, source contexts). Cadence vocabulary: age of the last refresh ≤ cadence is “fresh”, up to {stale}× cadence “aging”, beyond {stale}× cadence “stale”; the freshness score falls to zero at {zero}× cadence. Cadence is politicas’ declared expectation, not the publisher’s SLA. Low completeness is a statement about the publisher’s data, not about the processing — gaps are admitted, not hidden. A dimension without evidence is “unrated” with a reason and does not enter the composite."
+    },
+    "storeDown": {
+      "body": "The atlas cannot be built right now — the store is unavailable in this environment. This page cannot say how the sources are doing; the scores are not zero, they are unreadable.",
+      "source": "source: store unavailable — no score is concealed or invented"
+    },
+    "sources": {
+      "title": "Sources",
+      "aside": "source: entity tables + ingest_run + source contexts (context-model)",
+      "lead": "{count} sources on record. A union of three views: sources with a processed context, sources with rows in the store, and sources with ingest runs — a source known from only one side is shown too, with an honest “unrated” wherever evidence is missing."
+    },
+    "related": {
+      "title": "Related",
+      "aside": "the atlas is one face of the same data layer as /data",
+      "data": "data releases",
+      "dukazy": "evidence journal",
+      "note": "release versions and integrity live on /data; human-gate decisions on /dukazy"
+    },
+    "cards": {
+      "sortGroup": "Sorting of source cards",
+      "sortBy": "sort by:",
+      "sortRule": "sorting rule: descending by the chosen score; “unrated” always sorts after rated — unrated is not zero even when sorting; ties are decided by the source key"
+    },
+    "sort": {
+      "composite": "composite",
+      "coverage": "coverage",
+      "freshness": "freshness",
+      "integrity": "integrity",
+      "completeness": "completeness",
+      "source": "name"
+    },
+    "dimension": {
+      "coverage": {
+        "label": "provenance coverage",
+        "rule": "100 × (source rows linked to an ingest run / all source rows in the store), rounded. A row without ingest_run_id carries only partial provenance (source + url + fetched_at); a row with it is traceable back to the run that wrote it. A source with no rows = unrated."
+      },
+      "freshness": {
+        "label": "freshness",
+        "rule": "Age = today minus the finish of the source’s last successful ingest run. Score 100 at age ≤ cadence, then linear to 0 at age = 3× cadence. In words: ≤ cadence is “fresh”, ≤ 2× cadence “aging”, beyond 2× cadence “stale”. Cadence is politicas’ declared expectation, not the publisher’s SLA. Without a declared cadence or a successful run = unrated."
+      },
+      "integrity": {
+        "label": "integrity",
+        "rule": "100 × (the source’s finished successful runs sealed with a Merkle root / all of the source’s finished successful runs), rounded. The seal is applied by LedgerRepository.sealIngestRun over every row the run wrote. A source with no finished successful run = unrated."
+      },
+      "completeness": {
+        "label": "completeness",
+        "rule": "100 minus 10 points for every admitted upstream gap (KNOWN ISSUES in the source context, lib/analysis/context-model.ts), floored at 0. A low score is a statement about the publisher’s data, not about politicas’ processing — gaps are admitted, not hidden. A source without a processed context = unrated (undocumented ≠ complete)."
+      }
+    },
+    "staleness": {
+      "fresh": "fresh",
+      "aging": "aging",
+      "stale": "stale"
+    },
+    "compositeStatus": {
+      "rated": "rated",
+      "partial": "partial",
+      "unrated": "unrated"
+    },
+    "score": {
+      "unrated": "unrated"
+    },
+    "card": {
+      "compositeUnrated": "composite unrated",
+      "compositeLine": "composite: {status} · {evaluated} of {of} dimensions",
+      "basis": "evidence: {basis}",
+      "reason": "reason: {reason}",
+      "rule": "rule: {rule}",
+      "rows": "rows",
+      "withRun": "with a run",
+      "cadence": "cadence",
+      "cadenceNone": "not declared",
+      "cadenceDays": "{days} d",
+      "lastRefresh": "last refresh",
+      "lastRefreshNone": "none",
+      "knownIssues": "{count} admitted upstream gaps",
+      "contextProvenance": "context provenance: {provenance}",
+      "source": "source: entity tables (provenance quartet) + ingest_run (runs, Merkle roots from LedgerRepository.sealIngestRun) + source context (lib/analysis/context-model.ts)"
+    }
+  },
+  "dataReleases": {
+    "meta": {
+      "title": "Data Releases — Politicas",
+      "description": "The graph of the republic released like software: YYYY.MM.DD versions, cardinality floors as the release gate, Merkle roots and a review hash-chain as proof of integrity, a downloadable snapshot with its size admitted."
+    },
+    "hero": {
+      "kicker": "the public release train of the data layer",
+      "title": "Data Releases",
+      "lead": "The graph of the republic is released like software: every successful data ingest cuts a <mono>YYYY.MM.DD</mono> version, cardinality floors are the release gate, and the integrity of every release is provable by Merkle roots and the review hash-chain. What you download today you can cite — and anyone can verify it."
+    },
+    "methodology": {
+      "kicker": "release methodology",
+      "body": "Version = the day of the last finished successful ingest run (the ingest_run table). A version that misses the cardinality floors (CARDINALITY_FLOORS) is marked “degraded” and is never “latest”. Floor verdicts are computed from the current state of the store — about historical versions this page claims nothing it could not prove. The snapshot is a cut of the derived graph (kg_node / kg_edge) capped at {nodeCap} nodes and {edgeCap} edges; any truncation is admitted in the limits field."
+    },
+    "storeDown": {
+      "body": "The manifest cannot be built right now — the store is unavailable in this environment. This page cannot say which versions exist or how integrity is doing; the release train is not empty, just unreadable.",
+      "source": "source: store unavailable — no version is concealed"
+    },
+    "current": {
+      "title": "Current version",
+      "aside": "source: ingest_run + kg_node (cardinalities) · psp.cz, Registr smluv",
+      "unreleasedLead": "Nothing released yet",
+      "unreleasedBody": "The store is readable, but no finished successful ingest run exists — the first version will appear here the moment the first run finishes with status “ok”.",
+      "unreleasedSource": "source: ingest_run — 0 successful runs; nothing is concealed",
+      "badgeDegraded": "degraded — not latest",
+      "badgeLatest": "latest",
+      "cut": "cut: {date}"
+    },
+    "table": {
+      "kind": "node kind",
+      "count": "count",
+      "floor": "floor",
+      "verdict": "verdict",
+      "met": "met",
+      "below": "below floor",
+      "source": "source: kg_node (full counts per kind) against CARDINALITY_FLOORS — {count} gates; see lib/db/readiness.ts"
+    },
+    "counts": {
+      "nodes": "graph nodes",
+      "edges": "graph edges",
+      "ballots": "vote ballots",
+      "source": "source: kg_node, kg_edge, vote_ballot — full counts at the moment the manifest was built"
+    },
+    "integrity": {
+      "title": "Integrity",
+      "aside": "source: review_audit (hash-chain) + ingest_run (Merkle roots)",
+      "lead": "Every human decision is a link of the hash-chain; every sealed ingest run carries a Merkle root over all the rows it wrote. Fingerprint of this release’s manifest:",
+      "leadSuffix": "(a content checksum, not a cryptographic signature)."
+    },
+    "chain": {
+      "title": "review chain head",
+      "empty": "The chain is empty so far — the first reviewer decision will found it. An empty chain is a provable state too.",
+      "length": "length",
+      "links": "{count} links",
+      "head": "head",
+      "lastDecision": "last decision",
+      "source": "source: review_audit.row_hash — the head is also held by /admin (the vault)"
+    },
+    "sealed": {
+      "title": "sealed ingest runs",
+      "empty": "No run is sealed with a Merkle root yet — the seal is applied after a run finishes, not during it.",
+      "run": "run #{id}",
+      "leaves": "{count} leaves",
+      "root": "root {hash}",
+      "source": "source: ingest_run.merkle_root — sealed by LedgerRepository.sealIngestRun"
+    },
+    "download": {
+      "title": "Download",
+      "aside": "source: kg_node + kg_edge — a cut of the derived graph, read-only",
+      "size": "{mb} MB ({bytes} B)",
+      "sizeNote": "size: the exact UTF-8 payload length at the moment this page was built — the downloaded file is rebuilt from the current store and may differ between ingests; the exact download size is carried by Content-Length",
+      "body": "The snapshot carries the version, the manifest fingerprint and a limits field with the cut’s admitted caps. Raw source data (raw registry payloads) are not included — the snapshot is the derived layer the application itself reads."
+    },
+    "changelog": {
+      "title": "Changelog",
+      "aside": "source: ingest_run — every day with a run = a row of the train",
+      "emptyLead": "The train has not left yet",
+      "emptyBody": "No ingest run is on record — the changelog will be founded by the first data ingest.",
+      "badgeOk": "all green",
+      "badgeFailures": "contains failures",
+      "runsLine": "{runs} runs · {rows} rows written",
+      "runRow": "{rows} rows",
+      "dukazyLink": "evidence journal",
+      "dukazyNote": "human-gate decisions have their own gazette — /dukazy"
+    },
+    "feeds": {
+      "title": "Feeds",
+      "aside": "source: the application’s route handlers — {count} public addresses",
+      "lead": "{families} feed families, each in two formats: {formats}. The JSON shape is the same wire for all of them — you can validate it with a single validator (<mono>parseEvidenceFeedJson</mono>). A feed never returns emptiness in place of a failure: if the store is unreadable it answers <mono>503</mono>, because an empty list is the claim “nothing happened”.",
+      "joinAnd": " and ",
+      "machineTitle": "machine shapes that are not feeds",
+      "sitemap": "The page map for robots is published by <mono>/sitemap.xml</mono>, crawling rules by <mono>/robots.txt</mono>. The sitemap carries static surfaces; the addresses of individual MPs, prints and companies are deliberately not in it — enumerating them means reading the whole graph at request time, and the hub pages that lead to them are in the sitemap.",
+      "family": {
+        "denik": {
+          "title": "Journal of the Republic",
+          "carries": "dated records of the state — signed contracts of companies that MPs own or manage, prints referred to committees, promulgations in the Collection of Laws, registry role entries and removals, human-gate decisions and records of changes in the graph.",
+          "note": "the last {count} records; the ?entita='<klíč>' parameter (poslanec:'<id>' · firma:'<ičo>' · tisk:'<číslo>') narrows the feed to a single entity — the address IS the subscription."
+        },
+        "dukazy": {
+          "title": "Evidence Journal",
+          "carries": "human-gate decisions over MP↔company ties — what was confirmed, rejected and returned for more evidence, each a link of the hash-chain.",
+          "note": "reviewers’ notes are not published; the feed carries the decision, not its reasoning."
+        },
+        "kolize": {
+          "title": "Collision Radar",
+          "carries": "candidates for a conflict of interest between a sponsored print and a money tie of its sponsor.",
+          "note": "a radar hit is a signal to investigate, not a proven conflict — every row carries that with it."
+        },
+        "schranka": {
+          "title": "News for followed entities",
+          "carries": "the same records, but only about the entities you follow — plus recalculations of your MP’s contribution index.",
+          "note": "the feed is parametrized and follows nothing without parameters: the entity list is passed as ?e='<klíč>' (repeatable) and the day threshold as ?od=YYYY-MM-DD. Nothing is stored on the server and no identity is sent — the /schranka page builds the address itself and the keys are scrubbed from telemetry. The server still sees the request’s IP, though."
+        }
+      },
+      "endpoint": {
+        "novinky": {
+          "title": "News — badge response",
+          "carries": "the same deltas as the inbox feed, but in the shape the app’s bar reads; it is not a JSON Feed."
+        },
+        "manifest": {
+          "title": "Release manifest",
+          "carries": "version, cut, cardinalities against floors and integrity fingerprints — the machine shape of this page."
+        },
+        "snapshot": {
+          "title": "Graph snapshot",
+          "carries": "a cut of the derived graph (kg_node / kg_edge) with caps admitted in the limits field."
+        }
+      }
+    }
+  },
+  "shared": {
+    "copyLink": {
+      "label": "copy link",
+      "copied": "link copied",
+      "failed": "copying failed — select the address below manually"
+    },
+    "dataUnavailable": {
+      "badge": "data temporarily unavailable",
+      "title": "{what} can't be loaded right now",
+      "body": "The record most likely exists — we just can't reach it right now: the graph database is single-connection and another process is holding it (an analysis script or a second instance of the app). Try again in a moment.",
+      "note": "This is <strong>not</strong> a statement that the record doesn't exist — a record that doesn't exist returns a 404."
+    },
+    "poster": {
+      "frameAria": "Print poster: {title}",
+      "sourceLine": "source: {source}",
+      "retrievedLine": "data as of {date} — a poster is a dated snapshot, the numbers change over time",
+      "methodologyLine": "methodology: {methodology}",
+      "pass": "computation pass {pass}",
+      "formulaMismatch": "CAUTION: these numbers were computed by the older methodology line “{storedRef}”; the code today declares “{declaredRef}”",
+      "liveLine": "live version: {url}",
+      "toolbar": {
+        "hint": "The preview below matches print 1 : 1 — the Print button (or Ctrl+P) prints only the sheet, without the app chrome. The A3 format scales the same sheet to 141 %.",
+        "formatGroup": "Paper format",
+        "print": "Print / poster"
+      },
+      "demo": {
+        "eyebrow": "Politicas — open contribution index · chamber PSP10",
+        "figureLabel": "fig. 1 — print sheet",
+        "title": "The national leaderboard",
+        "lead": "All {count} MPs ranked by the contribution index — a composite 0–100 score built from public data of the Chamber of Deputies. No number on this sheet was produced outside the published methodology.",
+        "statAvg": "average",
+        "statMedian": "median",
+        "statSigma": "std. deviation",
+        "statCount": "MPs",
+        "topKicker": "/01 top of the chamber",
+        "rankingNote": "ranking: competition ranking (1, 2, 2, 4) — tied scores share a rank, “=” marks a shared one; within a tie the order is purely alphabetical and carries no meaning",
+        "histKicker": "/02 index distribution",
+        "histNote": "fig. 2 — counts of MPs in 5-point bands; a band is the interval [from, from+5), the upper bound belongs to the next band",
+        "sourceLabel": "psp.cz — votes, prints, stenographic records, memberships (deterministic knowledge graph)",
+        "methodology": "contribution index 0–100, six components with published weights 25/20/20/15/10/10"
+      }
+    },
+    "provenance": {
+      "open": "— open the provenance receipt",
+      "kicker": "provenance receipt",
+      "close": "close the receipt",
+      "permalink": "permanent receipt → /zdroj"
+    },
+    "receipt": {
+      "meta": {
+        "title": "Provenance receipt · politicas",
+        "titleWithSubject": "Provenance receipt — {subject} · politicas",
+        "description": "Evidence for a knowledge-graph claim: the record, its provenance, the state of human review, and links to public registers."
+      },
+      "unavailable": {
+        "what": "Provenance receipt",
+        "back": "back to the control room"
+      },
+      "page": {
+        "brand": "politicas / zdroj",
+        "headerNote": "re-derived from the knowledge graph on every view",
+        "kicker": "provenance receipt",
+        "title": "Evidence for a claim",
+        "lead": "Every number on politicas is a door, not a claim: this address carries the full identifier of a knowledge-graph record, and the server deterministically re-derives the receipt from it on every view — the record, its origin, the state of human review, and the registers where you can verify it yourself.",
+        "goneTitle": "Today's graph does not carry this claim",
+        "goneBody": "The address decodes, but the record is not in today's build of the knowledge graph — it may have been recomputed, rejected in review, or the underlying data changed. Nothing similar is substituted: the receipt either documents the exact record cited, or says so.",
+        "goneRef": "claim address: {ref}",
+        "citationKicker": "citation",
+        "verify": "verify this citation",
+        "footerSource": "politicas knowledge graph — psp.cz · ares · contracts register; human-gate state per audited review (review_audit)"
+      },
+      "gate": {
+        "verified": "verified by a human",
+        "pending": "pending review",
+        "rejected": "rejected in review",
+        "ungated": "deterministic derivation — no human gate",
+        "note": "review note: {note}"
+      },
+      "rel": {
+        "co_votes_with": "votes in line with",
+        "rebels_against": "rebels against",
+        "belongs_to": "belongs to",
+        "about": "concerns",
+        "influential_in": "influential in",
+        "linked_to": "linked to",
+        "supplies": "supplies to"
+      },
+      "row": {
+        "relation": "relation",
+        "weight": "record weight",
+        "method": "method",
+        "pass": "graph pass",
+        "passValue": "no. {n}",
+        "computedAt": "derived",
+        "ref": "source material"
+      },
+      "caseFile": {
+        "poslanec": "MP case file",
+        "firma": "company case file"
+      },
+      "tier": {
+        "detail": "detail",
+        "search": "search"
+      },
+      "noCitable": "no source identifier on record",
+      "sourcesKicker": "public registers and our case files",
+      "auditKicker": "audit trail",
+      "audit": {
+        "confirm": "confirmed",
+        "reject": "rejected",
+        "return": "returned for more evidence"
+      }
+    }
+  },
+  "nav": {
+    "entries": {
+      "schranka": {
+        "label": "Inbox",
+        "tag": "watched · what changed"
+      },
+      "zaznam": {
+        "label": "The Record",
+        "tag": "journal · evidence · data"
+      }
+    },
+    "children": {
+      "dukazy": "evidence journal",
+      "data": "data versions",
+      "atlas": "data quality atlas",
+      "overeni": "citation verification",
+      "referendum": "methodology referendum",
+      "kraj": "my region — election card",
+      "metodika": "index methodology",
+      "kompas": "the voting compass, inside out",
+      "strety": "conflicts — collision candidates",
+      "predpis": "statute case files"
+    }
+  },
+  "errors": {
+    "route": {
+      "kicker": "rendering error",
+      "title": "This page failed to render",
+      "body": "This was not a missing record or empty data — the page code itself crashed. A report has been sent. The other modules in the left rail keep working.",
+      "digestLabel": "error id:",
+      "retry": "Try again",
+      "backToDashboard": "Back to the control room"
+    }
+  },
+  "svedectvi": {
+    "meta": {
+      "title": "Testimony of the Numbers — Politicas",
+      "description": "Every number on Politicas can testify: it carries a machine-readable record of its dataset, date, and verification status. Reference showcase of citable formatting."
+    },
+    "kicker": "/testimony",
+    "title": "Testimony of the Numbers",
+    "intro": "Every number on Politicas can testify: alongside its visible value it carries a machine-readable record of its origin — dataset, date, and human verification status (the <mono>data-claim-*</mono> attributes). Verified figures additionally emit schema.org ClaimReview, so the citation travels with the number even beyond this site. The visible form does not change by a single byte.",
+    "exhibitCaption": "fig. {no} — {label}",
+    "ex1": {
+      "label": "constitutional size of the Chamber",
+      "unit": "MPs",
+      "cite": "Constitution of the Czech Republic, Art. 16(1) — verified",
+      "note": "Verified claim: the figure also emits schema.org ClaimReview JSON-LD (see the page source)."
+    },
+    "ex2": {
+      "label": "chamber-wide average composite",
+      "cite": "civicscore v1.4 — illustrative sample",
+      "note": "Pending verification: it testifies through data attributes only; ClaimReview is never issued, even if the template asks for it."
+    },
+    "ex3": {
+      "label": "average attendance",
+      "cite": "{source} — illustrative sample",
+      "note": "Pending verification: it testifies through data attributes only."
+    },
+    "instrumentRule": "rule of the instrument — ClaimReview is issued exclusively for claims with status “verified” (they passed the human gate); the sample data of the lib/civic layer therefore testifies through data attributes only, with status “pending”. Claim vocabulary: lib/claims/claim.ts."
+  }
+}

@@ -18,9 +18,10 @@
 // test úplnosti (navModel.test.ts) hlídá, že žádná veřejná routa nevypadne
 // z obou seznamů zároveň.
 //
-// Popisky nových řádků jsou česky PŘÍMO TADY (`labelCs`/`tagCs`): katalog
-// messages/*.json je sdílený soubor mimo plochu 7A (precedens /denik, 3A) —
-// aplikace je Czech-first a celé tyhle plochy jsou jednojazyčné tak jako tak.
+// Popisky nových řádků byly původně česky přímo tady (`labelCs`/`tagCs`) —
+// precedens /denik (3A). Rozhodnutí „launch bilingual“ ten precedens ruší:
+// všechny popisky railu jdou z katalogu messages/*.json (`nav.entries.*`,
+// `nav.children.*`), aby se levá lišta vykreslila celá v cs I en.
 
 /** Kotva uvnitř stránky — `id` na <section> + i18n klíč od kořene katalogu. */
 export interface NavSection {
@@ -28,25 +29,21 @@ export interface NavSection {
   labelKey: string;
 }
 
-/** Reálná podstránka modulu (ne kotva — vlastní route). Popisek je buď klíč
- *  do katalogu (starší řádky), nebo česká literála přímo tady (novější plochy
- *  s copy mimo katalog — viz hlavička). */
+/** Reálná podstránka modulu (ne kotva — vlastní route). Popisek je vždy klíč
+ *  do katalogu (od bilingvního launche žádné české literály v modelu). */
 export interface NavChild {
   href: string;
-  labelKey?: string;
-  labelCs?: string;
+  labelKey: string;
 }
 
 export interface NavEntry {
-  /** `overview`, klíč modulu z MODULES, nebo klíč nového řádku (viz labelCs). */
+  /** `overview`, klíč modulu z MODULES, nebo klíč řádku mimo moduly (schranka, zaznam). */
   key: string;
   href: string;
-  /** Jen pro velín; moduly nesou jméno značky z MODULES. */
+  /** Pro velín a řádky mimo katalog modulů; moduly nesou jméno značky z MODULES. */
   labelKey?: string;
-  /** Česká literála řádku mimo katalog modulů (schranka, zaznam). */
-  labelCs?: string;
-  /** Podtitulek řádku pro řádky s labelCs (moduly ho berou z katalogu). */
-  tagCs?: string;
+  /** Podtitulek řádku pro řádky s labelKey mimo moduly (moduly ho berou z katalogu obsahu). */
+  tagKey?: string;
   children: NavChild[];
 }
 
@@ -61,38 +58,38 @@ export const NAV: NavEntry[] = [
   {
     key: "schranka",
     href: "/schranka",
-    labelCs: "Schránka",
-    tagCs: "sledované · co se změnilo",
+    labelKey: "nav.entries.schranka.label",
+    tagKey: "nav.entries.schranka.tag",
     children: [],
   },
   {
     key: "zaznam",
     href: "/denik",
-    labelCs: "Záznam",
-    tagCs: "deník · důkazy · data",
+    labelKey: "nav.entries.zaznam.label",
+    tagKey: "nav.entries.zaznam.tag",
     children: [
-      { href: "/dukazy", labelCs: "deník důkazů" },
-      { href: "/data", labelCs: "datové verze" },
-      { href: "/atlas", labelCs: "atlas kvality dat" },
-      { href: "/overeni", labelCs: "ověření citace" },
+      { href: "/dukazy", labelKey: "nav.children.dukazy" },
+      { href: "/data", labelKey: "nav.children.data" },
+      { href: "/atlas", labelKey: "nav.children.atlas" },
+      { href: "/overeni", labelKey: "nav.children.overeni" },
       // Koordinace dávky 7: referendum o metodice (7B) patří do shluku Záznam.
-      { href: "/referendum", labelCs: "referendum o metodice" },
+      { href: "/referendum", labelKey: "nav.children.referendum" },
     ],
   },
   {
     key: "civic-score",
     href: "/zebricek",
     children: [
-      { href: "/kraj", labelCs: "můj kraj — volební karta" },
+      { href: "/kraj", labelKey: "nav.children.kraj" },
       // Metodika indexu (2026-08-04) — vzorec vykreslený z lib/analysis/contribution.ts.
       // Patří pod žebříček: je to jeho vlastní pravidlo, ne samostatný modul.
-      { href: "/metodika", labelCs: "metodika indexu" },
+      { href: "/metodika", labelKey: "nav.children.metodika" },
     ],
   },
   {
     key: "vote-track",
     href: "/hlasovani",
-    children: [{ href: "/kompas", labelCs: "volební kompas naruby" }],
+    children: [{ href: "/kompas", labelKey: "nav.children.kompas" }],
   },
   {
     key: "follow-the-money",
@@ -100,7 +97,7 @@ export const NAV: NavEntry[] = [
     children: [
       { href: "/penize/kauzy", labelKey: "nav.children.kauzy" },
       { href: "/penize/kontrola", labelKey: "nav.children.kontrola" },
-      { href: "/penize/strety", labelCs: "střety — kandidáti kolizí" },
+      { href: "/penize/strety", labelKey: "nav.children.strety" },
     ],
   },
   { key: "budget-mirror", href: "/rozpocty", children: [] },
@@ -109,7 +106,7 @@ export const NAV: NavEntry[] = [
     href: "/zakony",
     children: [
       { href: "/zakony/kolize", labelKey: "nav.children.kolize" },
-      { href: "/zakony/predpis", labelCs: "spisy předpisů" },
+      { href: "/zakony/predpis", labelKey: "nav.children.predpis" },
     ],
   },
 ];
@@ -133,6 +130,11 @@ export const UNLISTED_ROUTES: { route: string; reason: string }[] = [
     reason: "referenční ukázka citovatelného formátování — deep-link z dokumentace čísel, ne cíl navigace",
   },
   { route: "/zdroj/[ref]", reason: "trvalá adresa účtenky původu — deep-link z citací, bez indexové stránky" },
+  {
+    route: "/ochrana-osobnich-udaju",
+    reason: "právní dokument (GDPR) — odkaz z patičky, ne cíl navigace railu",
+  },
+  { route: "/podminky", reason: "právní dokument (podmínky užití) — odkaz z patičky, ne cíl navigace railu" },
   { route: "/plakat/[view]", reason: "tiskové plakátové pohledy — deep-link z ploch (PosterToolbar), ne cíl navigace" },
   {
     route: "/poslanec/[id]",

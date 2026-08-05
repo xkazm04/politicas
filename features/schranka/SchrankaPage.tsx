@@ -10,16 +10,21 @@
  * a stáhne /schranka/novinky.json — delty odvozené na serveru read-only nad
  * deníkem a důkazy, každý řádek s provenancí a příznakem pending.
  *
- * Copy česky přímo zde (messages/*.json mimo plochu — precedens /denik).
+ * COPY JE V KATALOGU (2026-08-05): čtenářské věty žijí v messages/{cs,en}.json
+ * pod `schranka.*` a plocha je sází přes next-intl (precedens /overeni) —
+ * čisté moduly (kindVocabulary.ts, recomputeFact.ts) vracejí KLÍČE, ne text.
+ * Doslovné titulky záznamů (titleCs, source) jsou DATA deníku, ne copy —
+ * nepřekládají se.
  */
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 import { ArrowUpRight, Eye, Inbox } from "lucide-react";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
-import { czechDate, czechInt } from "@/lib/format";
+import { useFormat } from "@/lib/i18n/useFormat";
 import { compactCzk } from "@/features/money/moneyTypes";
 import {
   DELTA_ENTRIES_CAP,
@@ -44,42 +49,52 @@ const TONE_DOT: Record<DeltaEntry["tone"], string> = {
   ochre: "bg-ochre",
 };
 
-/** Řádek delty — týž hlas jako řádek deníku (žádná nová věta, jen záznam). */
+/** Řádek delty — týž hlas jako řádek deníku (žádná nová věta, jen záznam).
+ *  Titulek/zdroj s klíčem katalogu (`titleKey`/`sourceKey` — PLNÁ cesta:
+ *  `denik.entry.*` u záznamů deníku, `schranka.delta.*` u vět skládaných
+ *  schránkou) se sází kořenovým překladačem; řádek bez klíče zůstává doslova
+ *  (`titleCs`/`source` — starší odpověď serveru, doslovná jména registrů). */
 function DeltaRow({ e }: { e: DeltaEntry }) {
+  const t = useTranslations("schranka");
+  const tAll = useTranslations();
+  const locale = useLocale();
+  const f = useFormat();
   return (
     <div className="grid grid-cols-[auto_1fr] items-baseline gap-x-3 gap-y-1 border-b border-hairline px-3 py-3">
       <span className={`mt-1.5 inline-block h-2.5 w-2.5 shrink-0 ${TONE_DOT[e.tone]}`} aria-hidden />
       <span className="min-w-0 text-[15px] leading-relaxed">
         <span className="mr-2 font-mono text-[12px] font-bold tabular-nums text-steel-aa">
-          {czechDate(e.date)}
+          {f.date(e.date)}
         </span>
         {e.internalHref ? (
           <Link href={e.internalHref} className="hover:text-signal-deep hover:underline">
-            {e.titleCs}
+            {e.titleKey ? tAll(e.titleKey, e.titleParams) : e.titleCs}
           </Link>
+        ) : e.titleKey ? (
+          tAll(e.titleKey, e.titleParams)
         ) : (
           e.titleCs
         )}
         {e.czk !== undefined && (
           <span className="ml-2 whitespace-nowrap font-mono text-[13px] font-bold tabular-nums">
-            {compactCzk(e.czk, "cs")}
+            {compactCzk(e.czk, locale)}
           </span>
         )}
         <span className="ml-2 whitespace-nowrap font-mono text-[11px] uppercase tracking-wider text-steel">
-          [{e.source}]
+          [{e.sourceKey ? tAll(e.sourceKey, e.sourceParams) : e.source}]
         </span>
         {e.timeBasis === "zaznamenano" ? (
           <span className="ml-2 whitespace-nowrap border border-cobalt px-1 font-mono text-[10px] font-bold uppercase tracking-wider text-cobalt">
-            zaznamenáno
+            {t("delta.recordedBadge")}
           </span>
         ) : (
           <span className="ml-2 whitespace-nowrap font-mono text-[10px] uppercase tracking-wider text-steel-aa">
-            účinné
+            {t("delta.effectiveBadge")}
           </span>
         )}
         {e.pending && (
           <span className="mt-1 block font-mono text-[11px] uppercase tracking-wider text-ochre">
-            stojí na vazbě čekající na lidskou kontrolu
+            {t("delta.pendingNote")}
           </span>
         )}
       </span>
@@ -91,15 +106,18 @@ function DeltaRow({ e }: { e: DeltaEntry }) {
  *  Počty jdou ze serveru a jsou spočítané PŘED seříznutím, takže mluví o celé
  *  deltě; strojový token bez slovníku se vypíše doslova a označí. */
 function KindSummary({ kinds }: { kinds: EntityDelta["kinds"] }) {
+  const t = useTranslations("schranka");
+  const f = useFormat();
   const tallies = kindTallies(kinds);
   if (tallies.length === 0) return null;
   return (
     <p className="mt-1 flex flex-wrap items-baseline gap-x-3 gap-y-1 font-mono text-[11px] uppercase tracking-wider text-steel-aa">
-      {tallies.map((t, i) => (
-        <span key={t.kind}>
+      {tallies.map((tally, i) => (
+        <span key={tally.kind}>
           {i > 0 && <span className="mr-3 text-hairline">·</span>}
-          <span className="font-bold tabular-nums text-ink">{czechInt(t.count)}</span> {t.nounCs}
-          {!t.translated && <span className="ml-1 text-ochre">(nepřeložený druh)</span>}
+          <span className="font-bold tabular-nums text-ink">{f.int(tally.count)}</span>{" "}
+          {tally.nounKey !== null ? t(tally.nounKey, { count: tally.count }) : tally.kind}
+          {!tally.translated && <span className="ml-1 text-ochre">{t("kinds.untranslated")}</span>}
         </span>
       ))}
     </p>
@@ -107,6 +125,8 @@ function KindSummary({ kinds }: { kinds: EntityDelta["kinds"] }) {
 }
 
 function EntityBlock({ delta, storedLabel }: { delta: EntityDelta; storedLabel: string | null }) {
+  const t = useTranslations("schranka");
+  const f = useFormat();
   const label = delta.label !== delta.key ? delta.label : (storedLabel ?? delta.key);
   const isObec = delta.key.startsWith("obec:");
   return (
@@ -133,7 +153,7 @@ function EntityBlock({ delta, storedLabel }: { delta: EntityDelta; storedLabel: 
             href={delta.denikHref}
             className="inline-flex items-center gap-1 font-mono text-[11px] font-bold uppercase tracking-widest text-signal-deep hover:underline"
           >
-            <Eye className="h-3 w-3" aria-hidden /> deník entity
+            <Eye className="h-3 w-3" aria-hidden /> {t("entity.denikLink")}
           </Link>
           <FollowButton entityKey={delta.key} label={label} compact />
         </span>
@@ -141,9 +161,7 @@ function EntityBlock({ delta, storedLabel }: { delta: EntityDelta; storedLabel: 
 
       {delta.total === 0 ? (
         <p className="px-4 py-4 text-sm leading-relaxed text-steel-aa">
-          {isObec
-            ? "Deník obecní fakta nevede — smlouvy, rejstříkové role, kroky tisků ani rozhodnutí brány se obcí neklíčují, a rozpočtová zrcadla jsou roční dávka výkazů, ne datovaný proud. Tohle sledování proto nemůže nic doručit a schránka ho už nikde nenabízí; zůstává tu jen proto, že uložené sledování nikdo bez vás nemaže. Čísla obce jsou na jejím zrcadle rozpočtu."
-            : "Beze změny — od prahu pohledu záznam pro tuhle entitu žádný nový zápis nenese."}
+          {isObec ? t("entity.obecEmpty") : t("entity.noChange")}
         </p>
       ) : (
         <>
@@ -158,7 +176,7 @@ function EntityBlock({ delta, storedLabel }: { delta: EntityDelta; storedLabel: 
                 href={delta.denikHref}
                 className="font-mono text-xs font-bold uppercase tracking-widest text-signal-deep hover:underline"
               >
-                + {czechInt(delta.total - delta.entries.length)} dalších zápisů v deníku entity
+                {t("entity.more", { count: f.int(delta.total - delta.entries.length) })}
               </Link>
             </p>
           )}
@@ -169,6 +187,8 @@ function EntityBlock({ delta, storedLabel }: { delta: EntityDelta; storedLabel: 
 }
 
 export default function SchrankaPage() {
+  const t = useTranslations("schranka");
+  const f = useFormat();
   const { state, stampVisit, markSeen } = useSchranka();
   const today = useToday();
 
@@ -191,7 +211,7 @@ export default function SchrankaPage() {
   }, [stampVisit]);
 
   const keysSig = state.follows
-    .map((f) => f.key)
+    .map((f2) => f2.key)
     .sort()
     .join("|");
   const since = visit !== null ? sinceDay(visit.prev, today) : null;
@@ -234,13 +254,23 @@ export default function SchrankaPage() {
     return () => cancelAnimationFrame(frame);
   }, []);
   const feedQuery = schrankaFeedQuery(
-    state.follows.map((f) => f.key),
+    state.follows.map((f2) => f2.key),
     since,
   );
 
-  const storedLabels = new Map(state.follows.map((f) => [f.key, f.label]));
+  const storedLabels = new Map(state.follows.map((f2) => [f2.key, f2.label]));
   const firstVisit = visit !== null && visit.prev === null;
   const dropped = (data?.droppedEntries ?? 0) + (data?.droppedDeltas ?? 0);
+
+  // Nečitelné vrstvy záznamu — fragmenty se skládají v pořadí vrstev (klíče
+  // katalogu; fragment nese vlastní středník, viz messages/*.json).
+  const coverageMissing: string[] = [];
+  if (data && !data.coverage.money) coverageMissing.push(t("coverage.money"));
+  if (data && !data.coverage.law) coverageMissing.push(t("coverage.law"));
+  if (data && !data.coverage.reviews) coverageMissing.push(t("coverage.reviews"));
+  if (data && !data.coverage.changes) coverageMissing.push(t("coverage.changes"));
+  if (data && !data.coverage.dukazy) coverageMissing.push(t("coverage.dukazy"));
+  if (data && !data.coverage.recompute) coverageMissing.push(t("coverage.recompute"));
 
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
@@ -251,76 +281,60 @@ export default function SchrankaPage() {
             href="/denik"
             className="font-mono text-xs font-bold uppercase tracking-widest text-signal-deep hover:underline"
           >
-            deník republiky
+            {t("header.denikLink")}
           </Link>
         </div>
       </header>
 
       <div className="mx-auto max-w-5xl px-6 py-10">
-        <SourceNote tone="signal">osobní schránka záznamu</SourceNote>
+        <SourceNote tone="signal">{t("hero.kicker")}</SourceNote>
         <h1 className="mt-3 text-4xl font-black uppercase leading-[0.95] tracking-tight sm:text-5xl">
-          Občanská schránka
+          {t("hero.title")}
           <span className="text-signal">.</span>
         </h1>
         <div className="mt-4 max-w-md">
           <SectionRule />
         </div>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel-aa">
-          Sledujte poslance, tisky, firmy nebo obce — a schránka vám při každé návštěvě ukáže, co se
-          v záznamu změnilo od té minulé. Každý řádek je datovaný zápis deníku se svým zdrojem;
-          schránka nic nedopisuje, jen filtruje.
-        </p>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel-aa">{t("hero.lead")}</p>
 
         <div className="mt-8 max-w-2xl border-l-4 border-ink bg-paper-strong px-4 py-3">
-          <p className="font-mono text-[11px] font-bold uppercase tracking-widest">pravidlo schránky</p>
+          <p className="font-mono text-[11px] font-bold uppercase tracking-widest">{t("rule.kicker")}</p>
           <p className="mt-1 text-sm leading-relaxed text-steel-aa">
-            Sledování je bez účtu: seznam žije ve vašem prohlížeči (localStorage). Při dotazu na
-            novinky ale celý ten seznam jede v ADRESE requestu (<code>?e=poslanec:…</code>) — to je
-            záměr, protože adresa je zároveň váš odběr: dá se uložit i poslat dál a kdo ji má, vidí
-            týž výběr. Žádné cookies, žádné přihlášení, na serveru se neukládá nic; ze serverové
-            telemetrie se klíče škrtají a zůstává jen jejich počet. Co server vidí jako u každé jiné
-            stránky, je IP adresa requestu — to schránka neruší a netvrdí opak. Zápisy deníku jsou
-            datované dnem, práh „od minulé návštěvy&ldquo; je proto denní: den poslední návštěvy se
-            počítá celý znovu — raději zápis ukázat podruhé než zamlčet.
-            {firstVisit
-              ? ` První návštěva razítko nemá — ukazuje se posledních ${czechInt(FIRST_VISIT_DAYS)} dnů záznamu.`
-              : ""}
+            {t.rich("rule.body1", {
+              code: (chunks) => <code>{chunks}</code>,
+            })}
+            {firstVisit ? ` ${t("rule.firstVisit", { days: f.int(FIRST_VISIT_DAYS) })}` : ""}
           </p>
+          <p className="mt-2 text-sm leading-relaxed text-steel-aa">{t("rule.body2")}</p>
           <p className="mt-2 text-sm leading-relaxed text-steel-aa">
-            Odznak v liště se řídí přísnějším pravidlem: po návštěvě si schránka poznamená, kolik
-            zápisů dnešního dne jste tady měli před sebou, a odznak je pak nepočítá — proto po
-            návštěvě zhasne, i když je den návštěvy nad prahem pořád celý. Odečítá se jen počet
-            z téhož dne; jinak nic. Stránka zůstává shovívavá — pravidla jsou dvě záměrně.
-          </p>
-          <p className="mt-2 text-sm leading-relaxed text-steel-aa">
-            Co schránka vidět NEUMÍ: u přepočtu indexu přispění hlásí jen to, ŽE proběhl —
-            graf drží jen aktuální hodnoty a žádné předchozí, takže o kolik se skóre pohnulo,
-            se z něj nedá zjistit a schránka to netvrdí. Řádek proto nese číslo průchodu, ref
-            vzorce a odkaz na{" "}
-            <Link
-              href="/metodika"
-              className="font-mono text-xs font-bold uppercase tracking-widest text-signal-deep hover:underline"
-            >
-              metodiku
-            </Link>
-            . Hlásí se jen tehdy, drží-li celá sněmovna jeden průchod; půl přepočtu není fakt.
-            Souhrn druhů v hlavičce entity počítá celou deltu, i když se pod ni vejde jen
-            prvních {czechInt(DELTA_ENTRIES_CAP)} řádků.
+            {t.rich("rule.body3", {
+              metodika: (chunks) => (
+                <Link
+                  href="/metodika"
+                  className="font-mono text-xs font-bold uppercase tracking-widest text-signal-deep hover:underline"
+                >
+                  {chunks}
+                </Link>
+              ),
+              cap: f.int(DELTA_ENTRIES_CAP),
+            })}
           </p>
         </div>
 
         <section className="mt-14 border-t-4 border-ink pt-10">
           <SectionHeading
             index={1}
-            title="Sledované"
+            title={t("followed.title")}
             aside={
               data ? (
                 <SourceNote>
-                  zdroj: deník republiky + deník důkazů · práh {czechDate(data.since)} · sestaveno{" "}
-                  {czechDate(data.builtOn)}
+                  {t("followed.asideLoaded", {
+                    since: f.date(data.since),
+                    builtOn: f.date(data.builtOn),
+                  })}
                 </SourceNote>
               ) : (
-                <SourceNote>zdroj: deník republiky + deník důkazů</SourceNote>
+                <SourceNote>{t("followed.aside")}</SourceNote>
               )
             }
           />
@@ -330,54 +344,50 @@ export default function SchrankaPage() {
               <p className="flex items-start gap-3 text-lg">
                 <Inbox className="mt-1 h-5 w-5 shrink-0 text-steel" aria-hidden />
                 <span>
-                  Zatím nesledujete nic<span className="text-signal">.</span> Tlačítko{" "}
-                  <span className="font-mono text-sm font-bold uppercase tracking-wider">sledovat</span>{" "}
-                  najdete na spisu poslance, ve spisu firmy, na sněmovním tisku a na filtrovaném
-                  deníku — v levé liště i přímo na ploše — nebo začněte u{" "}
-                  <Link
-                    href="/denik"
-                    className="font-mono text-sm font-bold uppercase tracking-widest text-signal-deep hover:underline"
-                  >
-                    deníku republiky
-                  </Link>{" "}
-                  a{" "}
-                  <Link
-                    href="/zebricek"
-                    className="font-mono text-sm font-bold uppercase tracking-widest text-signal-deep hover:underline"
-                  >
-                    žebříčku
-                  </Link>
-                  .
+                  {t.rich("empty.body", {
+                    dot: (chunks) => <span className="text-signal">{chunks}</span>,
+                    btn: (chunks) => (
+                      <span className="font-mono text-sm font-bold uppercase tracking-wider">
+                        {chunks}
+                      </span>
+                    ),
+                    denik: (chunks) => (
+                      <Link
+                        href="/denik"
+                        className="font-mono text-sm font-bold uppercase tracking-widest text-signal-deep hover:underline"
+                      >
+                        {chunks}
+                      </Link>
+                    ),
+                    zebricek: (chunks) => (
+                      <Link
+                        href="/zebricek"
+                        className="font-mono text-sm font-bold uppercase tracking-widest text-signal-deep hover:underline"
+                      >
+                        {chunks}
+                      </Link>
+                    ),
+                  })}
                 </span>
               </p>
             </div>
           ) : data === undefined ? (
             <p className="mt-8 border-2 border-dashed border-hairline p-8 text-lg" aria-live="polite">
-              Novinky se načítají…
+              {t("loading")}
             </p>
           ) : data === null ? (
             <div className="mt-8 border-2 border-dashed border-hairline p-8">
-              <p className="text-lg">
-                Novinky teď nelze načíst — záznam je v tomto prostředí nečitelný. Schránka nemůže
-                říct, jestli se něco změnilo; sledování ve vašem prohlížeči zůstává.
-              </p>
+              <p className="text-lg">{t("error.body")}</p>
             </div>
           ) : (
             <>
-              {(!data.coverage.money || !data.coverage.law || !data.coverage.reviews || !data.coverage.changes || !data.coverage.dukazy || !data.coverage.recompute) && (
+              {coverageMissing.length > 0 && (
                 <div className="mt-6 max-w-2xl border-l-4 border-ochre bg-paper-strong px-4 py-3">
-                  <p className="font-mono text-[11px] font-bold uppercase tracking-widest">neúplné pokrytí</p>
+                  <p className="font-mono text-[11px] font-bold uppercase tracking-widest">
+                    {t("coverage.kicker")}
+                  </p>
                   <p className="mt-1 text-sm leading-relaxed text-steel-aa">
-                    Některá vrstva záznamu je teď nečitelná — delty mohou být neúplné:
-                    {!data.coverage.money ? " smlouvy a rejstříkové role;" : ""}
-                    {!data.coverage.law ? " kroky tisků;" : ""}
-                    {!data.coverage.reviews ? " rozhodnutí lidské brány;" : ""}
-                    {!data.coverage.changes ? " proud „zaznamenáno“;" : ""}
-                    {!data.coverage.dukazy ? " forenzní posudky;" : ""}
-                    {!data.coverage.recompute
-                      ? " přepočet indexu (graf o něm nedrží jeden jednotný údaj);"
-                      : ""}{" "}
-                    chybějící skupina se nedopisuje.
+                    {[t("coverage.intro"), ...coverageMissing, t("coverage.outro")].join(" ")}
                   </p>
                 </div>
               )}
@@ -385,13 +395,10 @@ export default function SchrankaPage() {
               {dropped > 0 && (
                 <div className="mt-6 max-w-2xl border-l-4 border-ochre bg-paper-strong px-4 py-3">
                   <p className="font-mono text-[11px] font-bold uppercase tracking-widest">
-                    nečitelné řádky odpovědi
+                    {t("dropped.kicker")}
                   </p>
                   <p className="mt-1 text-sm leading-relaxed text-steel-aa">
-                    {czechInt(dropped)}{" "}
-                    {dropped === 1 ? "řádek odpovědi měl" : "řádků odpovědi mělo"} tvar, kterému
-                    schránka nerozumí — {dropped === 1 ? "byl zahozen" : "byly zahozeny"} a
-                    nedokreslují se odhadem. Zbytek delty platí; úplný záznam nese deník entity.
+                    {t("dropped.body", { count: dropped, countFmt: f.int(dropped) })}
                   </p>
                 </div>
               )}
@@ -407,15 +414,14 @@ export default function SchrankaPage() {
                   href="/denik"
                   className="group inline-flex items-center gap-1 font-mono text-xs font-bold uppercase tracking-widest text-signal-deep hover:underline"
                 >
-                  celý deník republiky{" "}
+                  {t("footer.allDenik")}{" "}
                   <ArrowUpRight
                     className="h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                     aria-hidden
                   />
                 </Link>
                 <SourceNote>
-                  sledovaných entit: {czechInt(state.follows.length)} · delty se odvozují za requestu,
-                  nic se neukládá
+                  {t("footer.followedNote", { count: f.int(state.follows.length) })}
                 </SourceNote>
               </div>
             </>
@@ -426,15 +432,11 @@ export default function SchrankaPage() {
           <section className="mt-14 border-t-4 border-ink pt-10">
             <SectionHeading
               index={2}
-              title="Odběr"
-              aside={<SourceNote>tytéž delty, jiný formát · RSS 2.0 a JSON Feed 1.1</SourceNote>}
+              title={t("subscribe.title")}
+              aside={<SourceNote>{t("subscribe.aside")}</SourceNote>}
             />
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel-aa">
-              Bez účtu nemůže být odběr řádkem v databázi — je to ADRESA. Tyhle dvě nesou váš
-              současný výběr ({czechInt(state.follows.length)}) přímo v sobě a vaše čtečka z nich
-              dostane tytéž řádky jako tahle stránka. Kdo adresu má, vidí týž výběr; zacházejte s ní
-              jako se soukromým odkazem. Sledované si schránka pamatuje jen tady v prohlížeči, takže
-              adresu je po změně výběru potřeba vzít znovu.
+              {t("subscribe.body", { count: f.int(state.follows.length) })}
             </p>
             <div className="mt-6 space-y-3">
               {(["xml", "json"] as const).map((format) => {
@@ -456,10 +458,7 @@ export default function SchrankaPage() {
               })}
             </div>
             <div className="mt-4">
-              <SourceNote>
-                adresa nese veřejné klíče sledovaných entit a práh dne · nic se na serveru neukládá ·
-                klíče se škrtají ze serverové telemetrie
-              </SourceNote>
+              <SourceNote>{t("subscribe.addressNote")}</SourceNote>
             </div>
           </section>
         )}

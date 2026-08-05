@@ -27,7 +27,7 @@ import CitableNumber from "@/lib/claims/CitableNumber";
 import { claimStatus } from "@/lib/claims/claim";
 import { formatByKind, formattersFor, type CitableKind } from "@/lib/format";
 import type { Locale } from "@/lib/i18n/config";
-import { formatWeightCs } from "@/features/shared/provenance/receipt";
+import { formatWeight, relLabelKey } from "@/features/shared/provenance/receipt";
 import type { GateData } from "./getVerdictData";
 import { GUIDE_EXAMPLES, GUIDE_STEPS, type GuideExample } from "./guide";
 import VerdictFocus from "./VerdictFocus";
@@ -111,6 +111,7 @@ function subjectCaseFile(id: string) {
 
 function VerdictBody({ verdict, locale, t }: { verdict: GateVerdict; locale: Locale; t: T }) {
   const f = formattersFor(locale);
+  const tShared = useTranslations("shared");
   // Citovaná hodnota se sází TÝMŽ formátovačem jako dnešní (formatCitable), aby
   // se dvě čísla nad sebou nedala porovnat jen proto, že mají jinou hustotu.
   const num = (v: number, kind: CitableKind) => formatByKind(v, locale, kind);
@@ -187,10 +188,12 @@ function VerdictBody({ verdict, locale, t }: { verdict: GateVerdict; locale: Loc
           <>
             <Row label={t("row.record")}>
               <EndpointLink label={r.subject.label} id={r.subject.id} kind={r.subject.kind} />{" "}
-              <span className="text-steel-aa">{r.relLabel}</span>{" "}
+              <span className="text-steel-aa">
+                {relLabelKey(r.rel) !== null ? tShared(relLabelKey(r.rel) ?? "") : r.rel}
+              </span>{" "}
               <EndpointLink label={r.object.label} id={r.object.id} kind={r.object.kind} />
             </Row>
-            {r.weight !== null && <Row label={t("row.weight")}>{formatWeightCs(r.weight)}</Row>}
+            {r.weight !== null && <Row label={t("row.weight")}>{formatWeight(r.weight, locale)}</Row>}
             <Row label={t("row.gateState")}>
               {r.gate === null ? t(GATE_UNGATED_KEY) : gateLabel(t, r.gate.status)}
             </Row>

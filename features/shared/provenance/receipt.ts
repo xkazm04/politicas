@@ -24,7 +24,13 @@ import { KG_NODE_KINDS, type KgNodeKind } from "@/lib/analysis/kg-verdict";
 import { citableId, sourceLinksFor, type SourceLink } from "@/lib/kg/sourceLinks";
 import { encodeClaimRef, type ClaimRef } from "./claimRef";
 
-// ── Slovník relací (kolokovaná česká copy — messages/*.json je mimo hřiště) ──
+// ── Slovník relací ──────────────────────────────────────────────────────────
+//
+// DVOJJAZYČNOST (2026-08-05): kanonická cesta je katalogová — komponenty sázejí
+// relaci přes `relLabelKey()` + next-intl (`shared.receipt.rel.*`). Česká mapa
+// níže zůstává kvůli zpětné kompatibilitě: `relLabel` na účtence ji dál nese
+// (konzumuje ho mj. features/overeni/OvereniPage.tsx) a JSON-LD je datový
+// artefakt, ne UI sazba.
 
 /** Česká čitelná podoba relace hrany; neznámá relace se vypíše doslova. */
 export const REL_LABELS_CS: Record<string, string> = {
@@ -38,6 +44,11 @@ export const REL_LABELS_CS: Record<string, string> = {
 };
 
 export const relLabelCs = (rel: string): string => REL_LABELS_CS[rel] ?? rel;
+
+/** Klíč do katalogu `shared.receipt.rel.*` pro známou relaci; null = neznámá
+ *  relace a sazba vypíše strojový token doslova (nikdy nevymýšlí větu). */
+export const relLabelKey = (rel: string): string | null =>
+  rel in REL_LABELS_CS ? `receipt.rel.${rel}` : null;
 
 /** Relace procházející lidskou bránou (ReviewRepository je jediný zapisovatel
  *  jejich `review_state`). Drží se v syncu s lib/db/pglite/repositories/review.ts. */
@@ -220,6 +231,11 @@ export function deriveNodeReceipt(node: KgNodeRow): ProvenanceReceipt {
  */
 export const formatWeightCs = (n: number): string =>
   Number.isFinite(n) ? String(n).replace(".", ",") : "—";
+
+/** Locale-aware varianta téhož dokladového pravidla: přesná uložená hodnota,
+ *  jen s desetinným oddělovačem aktivního jazyka (cs čárka, en tečka). */
+export const formatWeight = (n: number, locale: string): string =>
+  locale === "cs" ? formatWeightCs(n) : Number.isFinite(n) ? String(n) : "—";
 
 // ── Strojově čitelný tvar (schema.org/ClaimReview — viz koordinace s 2E) ────
 

@@ -18,6 +18,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import * as Sentry from "@sentry/nextjs";
 import SectionRule from "@/features/shared/components/SectionRule";
 
@@ -28,6 +29,8 @@ export default function RouteError({
   error: Error & { digest?: string };
   unstable_retry: () => void;
 }) {
+  const t = useTranslations("errors");
+
   useEffect(() => {
     console.error("[route-error] vykreslení plochy selhalo", error);
     Sentry.captureException(error, { tags: { boundary: "route-error" } });
@@ -37,21 +40,19 @@ export default function RouteError({
     <main className="min-h-screen bg-paper font-sans text-ink">
       <div className="mx-auto max-w-3xl px-6 py-20">
         <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-signal">
-          chyba vykreslení
+          {t("route.kicker")}
         </p>
         <h1 className="mt-3 text-4xl font-black uppercase leading-[0.95] tracking-tight sm:text-5xl">
-          Tuhle plochu se nepodařilo vykreslit<span className="text-signal">.</span>
+          {t("route.title")}
+          <span className="text-signal">.</span>
         </h1>
         <div className="mt-4 max-w-md">
           <SectionRule />
         </div>
-        <p className="mt-6 text-base leading-relaxed text-steel">
-          Nešlo o chybějící záznam ani o prázdná data — kód stránky sám skončil chybou. Hlášení
-          jsme odeslali. Ostatní moduly v levé liště fungují dál.
-        </p>
+        <p className="mt-6 text-base leading-relaxed text-steel">{t("route.body")}</p>
         {error.digest ? (
           <p className="mt-4 font-mono text-[11px] uppercase tracking-widest text-steel">
-            identifikátor chyby: <span className="text-ink">{error.digest}</span>
+            {t("route.digestLabel")} <span className="text-ink">{error.digest}</span>
           </p>
         ) : null}
         <div className="mt-8 flex flex-wrap gap-3">
@@ -60,13 +61,13 @@ export default function RouteError({
             onClick={() => unstable_retry()}
             className="border-2 border-ink bg-ink px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-wider text-paper transition-colors hover:border-signal hover:bg-signal"
           >
-            Zkusit znovu
+            {t("route.retry")}
           </button>
           <Link
             href="/dashboard"
             className="border-2 border-ink px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-wider text-ink transition-colors hover:bg-paper-strong"
           >
-            Zpět do velína
+            {t("route.backToDashboard")}
           </Link>
         </div>
       </div>

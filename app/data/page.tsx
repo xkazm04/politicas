@@ -1,25 +1,29 @@
 import type { Metadata } from "next";
+import { getLocale, getTranslations } from "next-intl/server";
+import { defaultLocale, isLocale } from "@/lib/i18n/config";
 import DataReleasesPage from "@/features/data-releases/DataReleasesPage";
 import { getDataReleasesData } from "@/features/data-releases/getDataReleasesData";
 
 /*
  * /data — Datové verze (batch 3D): vydávací stránka datové vrstvy. Tenká
  * routa: sestaví manifest + changelog + velikost snapshotu a předá je
- * presentační komponentě. Metadata česky přímo zde (messages/*.json je mimo
- * plochu 3D — precedens /dukazy) a ohlašují strojové podoby vydání.
+ * presentační komponentě. Copy včetně metadat žije od 2026-08-05
+ * v messages/{cs,en}.json pod `dataReleases.*` (vzor /overeni) a ohlašuje
+ * strojové podoby vydání.
  */
 
-export const metadata: Metadata = {
-  title: "Datové verze — Politicas",
-  description:
-    "Graf republiky vydávaný jako software: verze RRRR.MM.DD, kardinalitní prahy jako vydávací brána, Merkle kořeny a hash-řetěz revizí jako doklad integrity, snapshot ke stažení s přiznanou velikostí.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("dataReleases");
+  return { title: t("meta.title"), description: t("meta.description") };
+}
 
 // Manifest se mění každým ingest během — čte se za requestu; null → čestný
 // stav „nečitelné, ne prázdné" (viz getDataReleasesData).
 export const dynamic = "force-dynamic";
 
 export default async function DataRoute() {
+  const rawLocale = await getLocale();
+  const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
   const data = await getDataReleasesData();
-  return <DataReleasesPage data={data} />;
+  return <DataReleasesPage data={data} locale={locale} />;
 }

@@ -1,11 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { isCzechSafe } from "@/lib/analysis/language-gate";
 import { countKinds, type DeltaEntry } from "./deriveDeltas";
-import { KIND_NOUNS, kindNoun, kindTallies } from "./kindVocabulary";
+import { KIND_NOUN_KEYS, kindNounKey, kindTallies } from "./kindVocabulary";
 
-const KINDS = Object.keys(KIND_NOUNS) as DeltaEntry["kind"][];
+const KINDS = Object.keys(KIND_NOUN_KEYS) as DeltaEntry["kind"][];
 
-describe("slovník druhů zápisu", () => {
+describe("slovník druhů zápisu (klíče katalogu)", () => {
   it("pokrývá KAŽDÝ druh, který delta umí vydat (žádný token na čtenáře)", () => {
     // countKinds vydává druhy v KIND_ORDER; slovník musí znát všechny.
     const emitted = countKinds(
@@ -22,20 +21,26 @@ describe("slovník druhů zápisu", () => {
       })),
     );
     expect(emitted.map((e) => e.kind).sort()).toEqual([...KINDS].sort());
-    for (const e of emitted) expect(kindNoun(e.kind, e.count).translated).toBe(true);
+    for (const e of emitted) expect(kindNounKey(e.kind).translated).toBe(true);
   });
 
-  it("české tvary podle počtu: 1 · 2–4 · 5+ (a nula jako 5+)", () => {
-    expect(kindNoun("contract", 1).text).toBe("smlouva");
-    expect(kindNoun("contract", 3).text).toBe("smlouvy");
-    expect(kindNoun("contract", 5).text).toBe("smluv");
-    expect(kindNoun("contract", 0).text).toBe("smluv");
+  it("známý druh vrací klíč do `schranka.kinds.*` — copy vlastní katalog", () => {
+    expect(kindNounKey("contract")).toEqual({ key: "kinds.contract", token: "contract", translated: true });
+    expect(kindNounKey("recompute")).toEqual({ key: "kinds.recompute", token: "recompute", translated: true });
+    // Každý klíč míří do jmenného prostoru kinds.* a nese jméno druhu.
+    for (const [kind, key] of Object.entries(KIND_NOUN_KEYS)) {
+      expect(key).toBe(`kinds.${kind}`);
+    }
   });
 
   it("neznámý druh se vypíše DOSLOVA a označí jako nepřeložený (nikdy se nezamlčí)", () => {
-    expect(kindNoun("nejakyNovyDruh", 2)).toEqual({ text: "nejakyNovyDruh", translated: false });
+    expect(kindNounKey("nejakyNovyDruh")).toEqual({
+      key: null,
+      token: "nejakyNovyDruh",
+      translated: false,
+    });
     const t = kindTallies([{ kind: "nejakyNovyDruh", count: 2 }]);
-    expect(t).toEqual([{ kind: "nejakyNovyDruh", count: 2, nounCs: "nejakyNovyDruh", translated: false }]);
+    expect(t).toEqual([{ kind: "nejakyNovyDruh", count: 2, nounKey: null, translated: false }]);
   });
 
   it("nulové a záporné počty se nevydávají; pořadí vstupu se drží", () => {
@@ -48,11 +53,9 @@ describe("slovník druhů zápisu", () => {
     ).toEqual(["review", "change"]);
   });
 
-  it("všechny tvary projdou českou jazykovou branou (copy, kterou píšeme MY)", () => {
-    for (const noun of Object.values(KIND_NOUNS)) {
-      for (const form of [noun.one, noun.few, noun.many]) {
-        expect(isCzechSafe(form), form).toBe(true);
-      }
-    }
+  it("kindTallies nese klíč katalogu i počet — plocha sází t(nounKey, {count})", () => {
+    expect(kindTallies([{ kind: "contract", count: 3 }])).toEqual([
+      { kind: "contract", count: 3, nounKey: "kinds.contract", translated: true },
+    ]);
   });
 });

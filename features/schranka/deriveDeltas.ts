@@ -45,6 +45,20 @@ export interface DeltaEntry {
   date: string;
   kind: DenikEntry["kind"] | "forensic" | "recompute";
   titleCs: string;
+  /**
+   * PLNÝ klíč do katalogu messages/*.json (včetně namespace — plocha ho sází
+   * kořenovým překladačem): věta záznamu deníku jde pod `denik.entry.*` (týž
+   * klíč, kterým mluví /denik), forenzní posudek a přepočet indexu skládá
+   * schránka pod `schranka.delta.*`. Parametry jsou DATA (jména, čísla), nikdy
+   * kus věty. `titleCs` vedle toho ZŮSTÁVÁ — feedy (jednojazyčné artefakty)
+   * publikují brankovanou češtinu doslova a klíč nečtou.
+   */
+  titleKey?: string;
+  titleParams?: Record<string, string | number>;
+  /** Totéž pro `source` SKLÁDANÝ schránkou (přepočet, forenzní posudek);
+   *  doslovná jména registrů („registr smluv — smlouvy.gov.cz") klíč nenesou. */
+  sourceKey?: string;
+  sourceParams?: Record<string, string | number>;
   czk?: number;
   pending: boolean;
   timeBasis: DenikEntry["timeBasis"];
@@ -111,6 +125,13 @@ const toDelta = (e: DenikEntry): DeltaEntry => ({
   date: e.date,
   kind: e.kind,
   titleCs: e.titleCs,
+  // Táž věta jako klíč + parametry (hlas dvojjazyčné plochy) — deník ji nese
+  // jako suffix za namespace `denik` (deriveDenik.DenikTitle), delta ji vydává
+  // v plné cestě, aby řádek nebyl závislý na tom, kdo ho sází. Záznam bez
+  // klíče (starší fixtura) padá na `titleCs` — táž pojistka jako na /denik.
+  ...(e.title !== undefined
+    ? { titleKey: `denik.${e.title.key}`, titleParams: e.title.params }
+    : {}),
   ...(e.czk !== undefined ? { czk: e.czk } : {}),
   pending: e.pending,
   timeBasis: e.timeBasis,
@@ -134,9 +155,22 @@ export function forensicToDelta(entry: EvidenceEntry): { key: string; delta: Del
       date,
       kind: "forensic",
       titleCs: `${entry.decisionCs} — ${entry.subjectCs}`,
+      // Do delty vstupují JEN podepsané posudky (forensic-verified — viz
+      // disciplína výše), takže výrok je konstantní a titulek smí být jeden
+      // klíč schránky; předmět (název tisku) je datum-data, jde parametrem.
+      titleKey: "schranka.delta.forensicTitle",
+      titleParams: { subject: entry.subjectCs },
       pending: false,
       timeBasis: "zaznamenano",
       source: entry.sourceCs.replace(/^zdroj: /, ""),
+      // Provenance skládá schránka (bez prefixu „zdroj:" — hranaté závorky
+      // řádku jsou vlastní rámeček); detail je token závažnosti z posudku.
+      ...(entry.sourceDetail !== null && entry.sourceDetail !== undefined
+        ? {
+            sourceKey: "schranka.delta.forensicSource",
+            sourceParams: { detail: entry.sourceDetail },
+          }
+        : {}),
       tone: "ochre",
       internalHref: entry.internalHref,
     },

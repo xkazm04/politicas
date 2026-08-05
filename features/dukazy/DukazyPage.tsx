@@ -7,18 +7,25 @@
  * Serverová komponenta — žádná interaktivita kromě odkazů; zvýraznění cílové
  * kotvy (`#z-<id>`) řeší CSS `:target` varianta, ne JavaScript.
  *
- * Copy je záměrně česky přímo zde (ne přes messages/*.json): katalog překladů
- * je mimo plochu batch-2C — precedens /plakat (batch 1D).
+ * COPY JE V KATALOGU (2026-08-05): čtenářská věta žije v messages/{cs,en}.json
+ * pod `dukazy.*` a sází se přes next-intl; čistý modul (deriveFeed.ts) vrací
+ * KLÍČE (decisionKey, sourceKey), ne text — vzor features/overeni. Strojové
+ * podoby (RSS/JSON) zůstávají jednojazyčné (`decisionCs`, `sourceCs`).
  */
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
-import { czechDate, czechInt } from "@/lib/format";
+import { formatDate, formatInt } from "@/lib/format";
+import type { Locale } from "@/lib/i18n/config";
 import type { EvidenceEntry } from "./deriveFeed";
 import type { DukazyData } from "./getDukazyData";
+
+/** Překladač namespace `dukazy` — jediný typ, který si komponenty předávají. */
+type T = ReturnType<typeof useTranslations<"dukazy">>;
 
 /** Výrok nese barvu stavu: ověřeno = inkoust (pravomocné), zamítnuto =
  *  signal-deep (AA na textu i ploše), doplnění = obrys (neuzavřené),
@@ -30,7 +37,7 @@ const DECISION_TONE: Record<EvidenceEntry["decision"], string> = {
   "forensic-verified": "bg-ochre text-ink",
 };
 
-function EntryRow({ e }: { e: EvidenceEntry }) {
+function EntryRow({ e, locale, t }: { e: EvidenceEntry; locale: Locale; t: T }) {
   return (
     <article
       id={e.anchor}
@@ -38,13 +45,13 @@ function EntryRow({ e }: { e: EvidenceEntry }) {
     >
       <div className="flex flex-col gap-1">
         <time dateTime={e.decidedAt} className="font-mono text-sm font-bold tabular-nums">
-          {czechDate(e.decidedAt)}
+          {formatDate(e.decidedAt, locale)}
         </time>
         {/* Kotva záznamu — stabilní veřejná adresa rozhodnutí. */}
         <a
           href={`#${e.anchor}`}
           className="font-mono text-xs uppercase tracking-widest text-steel-aa hover:text-signal-deep hover:underline"
-          aria-label={`Trvalý odkaz na záznam ${e.id}`}
+          aria-label={t("entry.permalinkAria", { id: e.id })}
         >
           #{e.anchor.length > 14 ? `${e.anchor.slice(0, 13)}…` : e.anchor}
         </a>
@@ -52,12 +59,16 @@ function EntryRow({ e }: { e: EvidenceEntry }) {
       <div className="flex min-w-0 flex-col gap-2">
         <div className="flex flex-wrap items-baseline gap-2">
           <span className={`px-2 py-0.5 font-mono text-xs font-bold uppercase tracking-widest ${DECISION_TONE[e.decision]}`}>
-            {e.decisionCs}
+            {e.decisionKey ? t(e.decisionKey) : e.decisionCs}
           </span>
-          <span className="font-mono text-xs uppercase tracking-widest text-steel-aa">rozhodl: {e.reviewer}</span>
+          <span className="font-mono text-xs uppercase tracking-widest text-steel-aa">
+            {/* U forenzního posudku není revizor, jen podpis — a ten jde
+                katalogem, ne polem `reviewer` (to nese feed doslova). */}
+            {e.kind === "forensic" ? t("entry.signedOff") : t("entry.decidedBy", { reviewer: e.reviewer })}
+          </span>
           {e.priorState && (
             <span className="font-mono text-xs uppercase tracking-widest text-steel-aa">
-              předchozí stav: {e.priorState}
+              {t("entry.priorState", { state: e.priorState })}
             </span>
           )}
         </div>
@@ -86,13 +97,20 @@ function EntryRow({ e }: { e: EvidenceEntry }) {
             ))}
           </ul>
         )}
-        <SourceNote>{e.sourceCs}</SourceNote>
+        <SourceNote>
+          {e.sourceKey === undefined
+            ? e.sourceCs
+            : e.sourceDetail == null
+              ? t(e.sourceKey)
+              : t(e.sourceKey, { detail: e.sourceDetail })}
+        </SourceNote>
       </div>
     </article>
   );
 }
 
-export default function DukazyPage({ data }: { data: DukazyData | null }) {
+export default function DukazyPage({ data, locale }: { data: DukazyData | null; locale: Locale }) {
+  const t = useTranslations("dukazy");
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
       <header className="border-b-4 border-ink">
@@ -117,73 +135,72 @@ export default function DukazyPage({ data }: { data: DukazyData | null }) {
       </header>
 
       <div className="mx-auto max-w-5xl px-6 py-10">
-        <SourceNote tone="signal">veřejný věstník lidské brány</SourceNote>
+        <SourceNote tone="signal">{t("kicker")}</SourceNote>
         <h1 className="mt-3 text-4xl font-black uppercase leading-[0.95] tracking-tight sm:text-5xl">
-          Deník důkazů
+          {t("title")}
           <span className="text-signal">.</span>
         </h1>
         <div className="mt-4 max-w-md">
           <SectionRule />
         </div>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel-aa">
-          Každé rozhodnutí, které projde lidskou kontrolou — ověření či zamítnutí vazby poslanec ↔ firma,
-          žádost o doplnění podkladů, podepsaný forenzní posudek — se tady stává veřejným, datovaným
-          a trvale odkazovatelným záznamem. Brána sama je publikační událost.
-        </p>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel-aa">{t("lead")}</p>
 
         {/* Metodika zveřejnění — co deník říká a co záměrně neříká. */}
         <div className="mt-8 max-w-2xl border-l-4 border-ink bg-paper-strong px-4 py-3">
-          <p className="font-mono text-[11px] font-bold uppercase tracking-widest">metodika zveřejnění</p>
+          <p className="font-mono text-[11px] font-bold uppercase tracking-widest">{t("method.kicker")}</p>
           <p className="mt-1 text-sm leading-relaxed text-steel-aa">
-            Zveřejňuje se výrok, subjekt, datum, role revizora a odkazy na primární registry — nikdy
-            pracovní poznámky revizora. „Vyžádáno doplnění podkladů&ldquo; není verdikt: vazba dál čeká na
-            kontrolu. Ověřitelnost záznamu (audit trail a hlavy trezoru) drží{" "}
-            <Link href="/admin" className="font-mono text-xs uppercase tracking-widest text-cobalt hover:underline">
-              provozní konzole /admin
-            </Link>
-            .
+            {t.rich("method.body", {
+              admin: (chunks) => (
+                <Link
+                  href="/admin"
+                  className="font-mono text-xs uppercase tracking-widest text-cobalt hover:underline"
+                >
+                  {chunks}
+                </Link>
+              ),
+            })}
           </p>
         </div>
 
         <section className="mt-14 border-t-4 border-ink pt-10">
           <SectionHeading
             index={1}
-            title="Rozhodnutí"
+            title={t("section.title")}
             aside={
               data && (
-                <SourceNote>
-                  zdroj: review_audit ({czechInt(data.auditRows)} řádků) + kg_node bill.forensic_*
-                </SourceNote>
+                <SourceNote>{t("section.source", { rows: formatInt(data.auditRows, locale) })}</SourceNote>
               )
             }
           />
 
           {data == null ? (
             <div className="mt-8 border-2 border-dashed border-hairline p-8">
-              <p className="text-lg">
-                Záznamy teď nelze načíst — úložiště je v tomto prostředí nedostupné. Tahle stránka
-                nemůže říct, jestli nějaká rozhodnutí existují; deník není prázdný, jen nečitelný.
-              </p>
+              <p className="text-lg">{t("unreadable")}</p>
             </div>
           ) : data.entries.length === 0 ? (
             <div className="mt-8 border-2 border-dashed border-hairline p-8">
               <p className="text-lg">
-                Deník je zatím prázdný<span className="text-signal">.</span> Lidskou branou dosud
-                neprošlo žádné rozhodnutí — první ověřená či zamítnutá vazba se tu objeví ve chvíli,
-                kdy ji revizor rozhodne v konzoli{" "}
-                <Link href="/penize/kontrola" className="font-mono text-sm uppercase tracking-widest text-cobalt hover:underline">
-                  /penize/kontrola
-                </Link>
-                .
+                {t("empty.lead")}
+                <span className="text-signal">.</span>{" "}
+                {t.rich("empty.body", {
+                  kontrola: (chunks) => (
+                    <Link
+                      href="/penize/kontrola"
+                      className="font-mono text-sm uppercase tracking-widest text-cobalt hover:underline"
+                    >
+                      {chunks}
+                    </Link>
+                  ),
+                })}
               </p>
               <div className="mt-3">
-                <SourceNote>zdroj: review_audit — 0 řádků; žádný záznam není zamlčen</SourceNote>
+                <SourceNote>{t("empty.note")}</SourceNote>
               </div>
             </div>
           ) : (
             <div className="mt-8 border-t-2 border-ink">
               {data.entries.map((e) => (
-                <EntryRow key={e.id} e={e} />
+                <EntryRow key={e.id} e={e} locale={locale} t={t} />
               ))}
             </div>
           )}
@@ -193,10 +210,10 @@ export default function DukazyPage({ data }: { data: DukazyData | null }) {
               href="/penize/kontrola"
               className="group inline-flex items-center gap-1 font-mono text-xs font-bold uppercase tracking-widest text-signal-deep hover:underline"
             >
-              revizní konzole{" "}
+              {t("console")}{" "}
               <ArrowUpRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
             </Link>
-            <SourceNote>kotvy záznamů: #z-&lt;id&gt; · id = řádek review_audit / sněmovní tisk</SourceNote>
+            <SourceNote>{t("anchorsNote")}</SourceNote>
           </div>
         </section>
       </div>

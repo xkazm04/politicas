@@ -20,6 +20,7 @@
 
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { Stamp, X } from "lucide-react";
 import Link from "next/link";
 import { claimRefPath } from "./claimRef";
@@ -37,6 +38,7 @@ export default function ProvenanceCapsule({
   /** Text citace — sází se beze změny, jen získá afordanci dokladu. */
   children: React.ReactNode;
 }) {
+  const t = useTranslations("shared");
   const [open, setOpen] = useState(false);
   const reduceMotion = useReducedMotion();
   const triggerRef = useRef<HTMLButtonElement | null>(null);
@@ -104,7 +106,7 @@ export default function ProvenanceCapsule({
       >
         <Stamp className="h-3 w-3 shrink-0 self-center" aria-hidden />
         <span>{children}</span>
-        <span className="sr-only">— otevřít účtenku původu</span>
+        <span className="sr-only">{t("provenance.open")}</span>
       </button>
 
       {open && (
@@ -125,12 +127,12 @@ export default function ProvenanceCapsule({
               id={titleId}
               className="flex items-center gap-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.25em] text-signal"
             >
-              <Stamp className="h-3.5 w-3.5" aria-hidden /> účtenka původu
+              <Stamp className="h-3.5 w-3.5" aria-hidden /> {t("provenance.kicker")}
             </p>
             <button
               type="button"
               onClick={() => close(true)}
-              aria-label="zavřít účtenku"
+              aria-label={t("provenance.close")}
               className="-m-1 p-1 text-steel-aa transition-colors hover:text-signal focus-visible:outline focus-visible:outline-2 focus-visible:outline-cobalt"
             >
               <X className="h-4 w-4" aria-hidden />
@@ -146,7 +148,7 @@ export default function ProvenanceCapsule({
               href={claimRefPath(receipt.ref)}
               className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal focus-visible:outline focus-visible:outline-2 focus-visible:outline-cobalt"
             >
-              trvalá účtenka → /zdroj
+              {t("provenance.permalink")}
             </Link>
           </div>
         </motion.div>

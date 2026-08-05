@@ -16,36 +16,72 @@
  * který ve slovníku není, se vypíše DOSLOVA a označí jako nepřeložený
  * (precedens features/money/tieFlags.ts) — nikdy se nezamlčí.
  *
+ * COPY JE V KATALOGU (2026-08-05, vzor features/overeni/gateVocabulary.ts):
+ * modul vrací KLÍČE do messages/{cs,en}.json pod `denik.*`, ne českou větu —
+ * plocha je sází přes next-intl. Slovník vlastní klasifikaci, katalog copy.
+ *
  * Čistý modul bez I/O: testuje se jako data.
  */
 
-import type { DenikKind } from "./deriveDenik";
+import type { DenikKind, DenikTimeBasis } from "./deriveDenik";
 
-export const DENIK_KIND_LABELS: Record<DenikKind, string> = {
-  contract: "smlouva",
-  billAssigned: "přikázání tisku",
-  billPublished: "vyhlášení ve Sbírce",
-  roleStart: "zápis role",
-  roleEnd: "výmaz role",
-  review: "rozhodnutí brány",
-  change: "zápis do grafu",
-  mandate: "mandát",
-  organRole: "funkce v orgánu",
+/** Klíč krátkého označení druhu (namespace `denik`). */
+export const DENIK_KIND_LABEL_KEYS: Record<DenikKind, string> = {
+  contract: "kind.contract",
+  billAssigned: "kind.billAssigned",
+  billPublished: "kind.billPublished",
+  roleStart: "kind.roleStart",
+  roleEnd: "kind.roleEnd",
+  review: "kind.review",
+  change: "kind.change",
+  mandate: "kind.mandate",
+  organRole: "kind.organRole",
 };
 
-/** Označení druhu pro jeden řádek. `translated: false` = slovník ho nezná a
- *  `text` je strojový token, který plocha označí jako nepřeložený. */
-export function denikKindLabel(kind: string): { text: string; translated: boolean } {
-  const label = (DENIK_KIND_LABELS as Record<string, string | undefined>)[kind];
-  return label ? { text: label, translated: true } : { text: kind, translated: false };
+/** Klíč pro druh, který slovník nezná — bere `{token}` a plocha ho označí
+ *  jako nepřeložený (`DENIK_KIND_UNMAPPED_NOTE_KEY`). Nikdy se nezamlčí. */
+export const DENIK_KIND_UNMAPPED_KEY = "kind.unmapped";
+
+/** Klíč poznámky „(nepřeložený druh)" vedle doslovného tokenu. */
+export const DENIK_KIND_UNMAPPED_NOTE_KEY = "kind.unmappedNote";
+
+export interface DenikKindInfo {
+  /** Doslovný strojový token — vždy k dispozici, i u přeloženého druhu. */
+  token: string;
+  /** false ⇒ slovník druh nezná; plocha vypíše token DOSLOVA a označí ho. */
+  known: boolean;
+  /** Klíč do katalogu `denik.*`; u neznámého druhu bere `{token}`. */
+  labelKey: string;
 }
 
-/** Vysvětlení obou časových os U ŘÁDKU — do téhle opravy stály štítky
- *  „účinné"/„zaznamenáno" bez výkladu a ten byl o 200 px výš, mimo pohled
- *  čtenáře, který zrovna čte řádek. */
-export const TIME_BASIS_TITLE = {
-  ucinne:
-    "účinné — řádek nese den, kdy se událost stala podle svého registru (podpis smlouvy, zápis role, krok tisku), ne den, kdy ji ingest našel",
-  zaznamenano:
-    "zaznamenáno — řádek nese den, kdy fakt vstoupil do záznamu: rozhodnutí lidské brány, nebo změna v grafu samotném",
-} as const;
+/** Označení druhu pro jeden řádek — KLASIFIKACE + klíč copy. Neznámý druh si
+ *  nese sám sebe (doslova) a plocha ho označí jako nepřeložený. */
+export function denikKindInfo(kind: string): DenikKindInfo {
+  const labelKey = (DENIK_KIND_LABEL_KEYS as Record<string, string | undefined>)[kind];
+  return labelKey
+    ? { token: kind, known: true, labelKey }
+    : { token: kind, known: false, labelKey: DENIK_KIND_UNMAPPED_KEY };
+}
+
+/** Štítek časové osy u řádku („účinné" / „zaznamenáno"). */
+export const TIME_BASIS_LABEL_KEYS: Record<DenikTimeBasis, string> = {
+  ucinne: "timeBasis.ucinne",
+  zaznamenano: "timeBasis.zaznamenano",
+};
+
+/** Vysvětlení obou časových os U ŘÁDKU (title + aria-label štítku) — do
+ *  opravy 2026-08-04 stály štítky bez výkladu a ten byl o 200 px výš, mimo
+ *  pohled čtenáře, který zrovna čte řádek. */
+export const TIME_BASIS_TITLE_KEYS: Record<DenikTimeBasis, string> = {
+  ucinne: "timeBasis.ucinneTitle",
+  zaznamenano: "timeBasis.zaznamenanoTitle",
+};
+
+/** Všechny klíče, které tenhle modul umí vrátit — pro test úplnosti katalogu. */
+export const DENIK_KIND_COPY_KEYS: readonly string[] = [
+  ...Object.values(DENIK_KIND_LABEL_KEYS),
+  DENIK_KIND_UNMAPPED_KEY,
+  DENIK_KIND_UNMAPPED_NOTE_KEY,
+  ...Object.values(TIME_BASIS_LABEL_KEYS),
+  ...Object.values(TIME_BASIS_TITLE_KEYS),
+];

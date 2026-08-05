@@ -22,25 +22,22 @@ export interface SidebarProps {
 }
 
 /** Jméno modulu je značka (data), doprovodné popisky jdou z katalogu.
- *  Řádky mimo katalog modulů (schranka, zaznam — moonshot 7A) nesou českou
- *  literálu přímo v navModel (`labelCs`/`tagCs`): katalog messages/*.json je
- *  sdílený soubor mimo plochu a tyhle plochy jsou Czech-first jednojazyčné. */
+ *  Řádky mimo katalog modulů (schranka, zaznam — moonshot 7A) nesou od
+ *  bilingvního launche vlastní klíče v `nav.entries.*` (labelKey/tagKey);
+ *  metriku mají jen skutečné moduly — řádky s labelKey ji nenesou. */
 export function useNavLabels() {
   const t = useTranslations();
   const tc = useTranslations("content");
 
   return {
     name: (entry: NavEntry) =>
-      entry.labelCs ??
-      (entry.labelKey ? t(entry.labelKey) : (MODULES.find((m) => m.key === entry.key)?.name ?? entry.key)),
+      entry.labelKey ? t(entry.labelKey) : (MODULES.find((m) => m.key === entry.key)?.name ?? entry.key),
     tag: (entry: NavEntry) =>
-      entry.tagCs ?? (entry.key === "overview" ? t("nav.overviewHint") : tc(`modules.${entry.key}.tag`)),
-    metric: (entry: NavEntry) =>
-      entry.key === "overview" || entry.labelCs ? null : tc(`modules.${entry.key}.metricValue`),
-    metricLabel: (entry: NavEntry) =>
-      entry.key === "overview" || entry.labelCs ? null : tc(`modules.${entry.key}.metricLabel`),
+      entry.tagKey ? t(entry.tagKey) : entry.key === "overview" ? t("nav.overviewHint") : tc(`modules.${entry.key}.tag`),
+    metric: (entry: NavEntry) => (entry.labelKey ? null : tc(`modules.${entry.key}.metricValue`)),
+    metricLabel: (entry: NavEntry) => (entry.labelKey ? null : tc(`modules.${entry.key}.metricLabel`)),
     label: (key: string) => t(key),
-    childLabel: (c: NavChild) => c.labelCs ?? (c.labelKey ? t(c.labelKey) : c.href),
+    childLabel: (c: NavChild) => t(c.labelKey),
   };
 }
 

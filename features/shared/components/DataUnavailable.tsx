@@ -13,6 +13,7 @@
  */
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { ArrowLeft } from "lucide-react";
 import SectionRule from "./SectionRule";
 import SourceNote from "./SourceNote";
@@ -27,24 +28,23 @@ export default function DataUnavailable({
   backHref: string;
   backLabel: string;
 }) {
+  const t = useTranslations("shared");
   return (
     <main className="min-h-screen bg-paper font-sans text-ink">
       <div className="mx-auto max-w-3xl px-6 py-20">
-        <SourceNote tone="signal">data dočasně nedostupná</SourceNote>
+        <SourceNote tone="signal">{t("dataUnavailable.badge")}</SourceNote>
         <h1 className="mt-3 text-4xl font-black uppercase leading-[0.95] tracking-tight">
-          {what} teď nelze načíst<span className="text-signal">.</span>
+          {t("dataUnavailable.title", { what })}
+          <span className="text-signal">.</span>
         </h1>
         <div className="mt-4 max-w-md">
           <SectionRule />
         </div>
-        <p className="mt-4 text-base leading-relaxed text-steel">
-          Záznam nejspíš existuje — jen k němu teď nemáme přístup: databáze grafu je
-          jednopřipojení&shy;ová a právě ji drží jiný proces (analytický skript nebo druhá
-          instance aplikace). Zkuste to znovu za chvíli.
-        </p>
+        <p className="mt-4 text-base leading-relaxed text-steel">{t("dataUnavailable.body")}</p>
         <p className="mt-2 text-sm leading-relaxed text-steel">
-          Tohle <strong className="text-ink">není</strong> sdělení, že hledaný záznam
-          neexistuje — neexistující záznam vrací 404.
+          {t.rich("dataUnavailable.note", {
+            strong: (chunks) => <strong className="text-ink">{chunks}</strong>,
+          })}
         </p>
         <Link
           href={backHref}

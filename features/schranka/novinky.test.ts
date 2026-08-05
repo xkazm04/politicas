@@ -129,6 +129,45 @@ describe("souhrn druhů na drátě", () => {
     expect(parseNovinkyResponse(response([d]))?.deltas[0].kinds).toEqual([]);
   });
 
+  it("klíč katalogu (titleKey/sourceKey) projde; vadný tvar shodí jen klíč, ne řádek", () => {
+    const parsed = parseNovinkyResponse(
+      response([
+        delta([
+          entry({
+            id: "recompute:42:poslanec:1",
+            kind: "recompute",
+            tone: "cobalt",
+            timeBasis: "zaznamenano",
+            internalHref: "/metodika",
+            titleKey: "schranka.delta.recomputeTitle",
+            titleParams: { pass: 42 },
+            sourceKey: "schranka.delta.recomputeSource",
+            sourceParams: { ref: "contribution-committee-dedupe" },
+          }),
+        ]),
+      ]),
+    );
+    const row = parsed?.deltas[0].entries[0];
+    expect(row?.titleKey).toBe("schranka.delta.recomputeTitle");
+    expect(row?.titleParams).toEqual({ pass: 42 });
+    expect(row?.sourceKey).toBe("schranka.delta.recomputeSource");
+    expect(row?.sourceParams).toEqual({ ref: "contribution-committee-dedupe" });
+
+    // Vadný klíč/parametry: řádek zůstává (má doslovný titleCs), klíč se nenese.
+    const broken = parseNovinkyResponse(
+      response([delta([entry({ titleKey: 42, titleParams: "ne", sourceKey: "", sourceParams: null })])]),
+    );
+    const b = broken?.deltas[0].entries[0];
+    expect(broken?.droppedEntries).toBe(0);
+    expect(b?.titleKey).toBeUndefined();
+    expect(b?.sourceKey).toBeUndefined();
+    // Nečíselné/nesmyslné hodnoty v parametrech se škrtají, klíč zůstává.
+    const partial = parseNovinkyResponse(
+      response([delta([entry({ titleKey: "schranka.delta.recomputeTitle", titleParams: { pass: 42, junk: {} } })])]),
+    );
+    expect(partial?.deltas[0].entries[0].titleParams).toEqual({ pass: 42 });
+  });
+
   it("řádek o přepočtu indexu je platný druh a projde", () => {
     const parsed = parseNovinkyResponse(
       response([
